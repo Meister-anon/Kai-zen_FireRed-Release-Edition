@@ -2223,7 +2223,7 @@ u8 DoFieldEndTurnEffects(void)
             {
                 if (!(gBattleWeather & WEATHER_SANDSTORM_PERMANENT))  //only the abilities that actually call weather directly
                 {
-                    if (IsAbilityOnField(ABILITY_SAND_STREAM))// || --gWishFutureKnock.weatherDuration != 0)
+                    if (IsAbilityOnField(ABILITY_SAND_STREAM) || IsAbilityOnField(ABILITY_DUST_DEVIL))// || --gWishFutureKnock.weatherDuration != 0)
                         gBattlescriptCurrInstr = BattleScript_DamagingWeatherContinues;
 
                     else if (gWishFutureKnock.weatherDuration == 0 || --gWishFutureKnock.weatherDuration == 0) //weathr decrement
@@ -5387,6 +5387,7 @@ bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility) 
         || battlerAbility ==  ABILITY_SQUALL 
         || battlerAbility ==  ABILITY_SNOW_WARNING 
         || battlerAbility ==  ABILITY_SAND_STREAM
+        || battlerAbility == ABILITY_DUST_DEVIL
         || battlerAbility == ABILITY_ORICHALCUM_PULSE))
         {
             gBattleWeather = (sWeatherFlagsInfo[weatherEnumId][0]); //should set temp weather w timer 0
@@ -5846,6 +5847,40 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     ++effect;
                 }
                 break;
+                //realized dust devil needed its own script
+                //since would need do atk up if sandstorm goes up
+            case ABILITY_DUST_DEVIL:
+                if (gBattleWeather & WEATHER_PRIMAL_ANY && WeatherHasEffect())
+                {
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_BlockedByPrimalWeatherRet;
+                    ++effect;
+                }
+                else if (TryChangeBattleWeather(battler, ENUM_WEATHER_SANDSTORM, TRUE))
+                {
+                    //think script should be combo sandstream and abilitraise stat
+                    //BattleScript_BattlerAbilityStatRaiseOnSwitchIn
+                    //should filter for things that cancel weather affects etc.                    
+                    if (IsBattlerWeatherAffected(battler, WEATHER_SANDSTORM_ANY))
+                        BattleScriptPushCursorAndCallback(BattleScript_DustDevilActivates);
+                    else
+                        BattleScriptPushCursorAndCallback(BattleScript_SandstreamActivates);
+                    gBattleScripting.battler = battler;
+                    ++effect;
+                }
+                else if (!gSpecialStatuses[battler].switchInAbilityDone
+                && CompareStat(battler, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN)
+                && (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_TAILWIND
+                || IsBattlerWeatherAffected(battler, WEATHER_SANDSTORM_ANY)))
+                {
+                    gBattlerAttacker = battler;
+                    gBattleScripting.savedBattler = gBattlerAttacker;
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
+                    effect++;
+                }
+                break; //hopefully works out, effect doesn't stack just has 2 options for activation
+
             case ABILITY_DROUGHT:
                 if (gBattleWeather & WEATHER_PRIMAL_ANY && WeatherHasEffect())
                 {
@@ -7745,6 +7780,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     if (gBattleMoves[moveArg].flags & FLAG_WIND_MOVE)
                         effect = 2, statId = STAT_SPATK;
                     break;
+                case ABILITY_DUST_DEVIL:
                 case ABILITY_WIND_RIDER:
                 if (gBattleMoves[gCurrentMove].flags & FLAG_WIND_MOVE && !(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove) & MOVE_TARGET_USER))
                     effect = 2, statId = STAT_ATK;

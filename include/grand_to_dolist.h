@@ -4261,6 +4261,18 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     -note still missin most gen 9 abilities
     forgot hadn't setup sharpness
+
+    decide fraeyjta will be post game fight at top of lavender town pokemon tower
+    wild double battle talking with it will summon dusknoir (since it is a mon focused on support)
+    idealy setup emerald tv style event to let player know something is happening at lavender tower
+    put deep fog back and have all mon be permanently higher level,
+    and can trigger to evolve them if they can evolve
+    ah found idea for legendary fights, make toughter, w custom moves etc.
+    and can catch them, but if you just want to fight them instead
+    they will join your team if you defeat them
+    hmm should give all legendary mon a 1 stage boost for all battle stats?
+    6/20/2025  vsonic important
+
     go ahead and setup end turn spike absorb
     poison abrosb toxic spikes
     spikes is a grond move can buff groud types to let them absorb spikes?

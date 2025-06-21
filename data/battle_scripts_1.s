@@ -2688,6 +2688,7 @@ BattleScript_TryTailwindAbilitiesLoop:
 	setbyte gBattlerTarget, 0
 BattleScript_TryTailwindAbilitiesLoop_Iter:
 	trywindriderpower BS_TARGET, BattleScript_TryTailwindAbilitiesLoop_Increment
+	jumpifability BS_TARGET, ABILITY_DUST_DEVIL, BattleScript_TryTailwindAbilitiesLoop_WindRider
 	jumpifability BS_TARGET, ABILITY_WIND_RIDER, BattleScript_TryTailwindAbilitiesLoop_WindRider
 	jumpifability BS_TARGET, ABILITY_WIND_POWER, BattleScript_TryTailwindAbilitiesLoop_WindPower
 BattleScript_TryTailwindAbilitiesLoop_Increment:
@@ -5344,6 +5345,7 @@ BattleScript_TrySandstormwindAbilitiesLoop_Iter:
 	jumpifnotweatheraffected BS_TARGET, WEATHER_SANDSTORM_ANY, BattleScript_TrySandstormwindAbilitiesLoop_Increment
 	endturnskipwindrider BS_TARGET, BattleScript_SandstormTryWindPower
 	trywindriderpower BS_TARGET, BattleScript_TrySandstormwindAbilitiesLoop_Increment
+	jumpifability BS_TARGET, ABILITY_DUST_DEVIL, BattleScript_TrySandstormwindAbilitiesLoop_WindRider
 	jumpifability BS_TARGET, ABILITY_WIND_RIDER, BattleScript_TrySandstormwindAbilitiesLoop_WindRider
 BattleScript_SandstormTryWindPower:
 	jumpifability BS_TARGET, ABILITY_WIND_POWER, BattleScript_TrySandstormwindAbilitiesLoop_WindPower
@@ -9132,6 +9134,18 @@ BattleScript_SandstreamActivates::
 	waitstate
 	playanimation BS_BATTLER_0, B_ANIM_SANDSTORM_CONTINUES, NULL
 	call BattleScript_HandleWeatherFormChanges
+	end3
+
+BattleScript_DustDevilActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNSXWHIPPEDUPSANDSTORM
+	waitstate
+	playanimation BS_BATTLER_0, B_ANIM_SANDSTORM_CONTINUES, NULL
+	call BattleScript_HandleWeatherFormChanges
+	@because of handle weather logic 
+	@need set this back for script to work
+	setbyte sBATTLER, 0
+	jumpifability BS_ATTACKER, ABILITY_DUST_DEVIL, BattleScript_BattlerAbilityStatRaiseOnSwitchIn
 	end3
 
 @NEED test

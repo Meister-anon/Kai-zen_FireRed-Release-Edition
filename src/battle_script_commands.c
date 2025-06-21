@@ -10107,6 +10107,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //hold effect already set but think will just setup like umbrella
         //done wrapped it into weather affected
         //added sixth sense as an ability not meant to relyon eyes
+        //sand stream is not here beacuse it explicitly does not give weather immunity
         if (IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM_ANY) 
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_ROCK)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_STEEL)
@@ -10115,6 +10116,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
         && atkAbility != ABILITY_APOTHEOSCENT
+        && atkAbility != ABILITY_DUST_DEVIL
         && atkAbility != ABILITY_WIND_RIDER    //addition since is wind move
         && !DoesSideHaveAbility(battlerAtk, ABILITY_CLOUD_NINE) //need test hope works
         && GetBaseFormSpecies(gBattleMons[battlerAtk].species) != SPECIES_CASTFORM)
@@ -15962,6 +15964,7 @@ static void atk96_weatherdamage(void)
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_RUSH
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_VEIL
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_FORCE
+             && GetBattlerAbility(gBattlerAttacker) != ABILITY_DUST_DEVIL
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_WIND_RIDER  //buff for wind rider, as sandstorm is wind move
              && GetBaseFormSpecies(gBattleMons[gBattlerAttacker].species) != SPECIES_CASTFORM)
             {
@@ -19077,7 +19080,9 @@ void BS_GetStatChangeIdFromAbility(void)
     u16 ability = GetBattlerAbility(gBattlerAttacker);
 
     switch (ability)
-    {
+    {   
+        //unsure if can use dust devil in this but will add
+        case ABILITY_DUST_DEVIL:
         case ABILITY_WIND_RIDER:
         case ABILITY_INTREPID_SWORD:
         case ABILITY_INTIMIDATE:
@@ -20394,7 +20399,7 @@ void BS_TryWindRiderPower(void)
     u32 battler = GetBattlerForBattleScript(cmd->battler);
     u16 ability = GetBattlerAbility(battler);
     if (GetBattlerSide(battler) == GetBattlerSide(gBattlerAttacker)
-        && (ability == ABILITY_WIND_RIDER || ability == ABILITY_WIND_POWER))
+        && (ability == ABILITY_WIND_RIDER || ability == ABILITY_WIND_POWER || ability == ABILITY_DUST_DEVIL))
     {
         gLastUsedAbility = ability;
         RecordAbilityBattle(battler, gLastUsedAbility);
@@ -20661,7 +20666,7 @@ void BS_endturnSkipWindRiderActivation(void)
     
     if (gCurrentTurnActionNumber >= gBattlersCount) // everyone did their actions, turn finished
     {
-        if (ability == ABILITY_WIND_RIDER)
+        if (ability == ABILITY_WIND_RIDER || ability == ABILITY_DUST_DEVIL)
             gBattlescriptCurrInstr = cmd->jumpInstr;
     }
 

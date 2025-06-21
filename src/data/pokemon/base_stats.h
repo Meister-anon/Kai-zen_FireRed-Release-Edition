@@ -10550,7 +10550,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Barboach"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(50, 48, 73, 60, 46, 71),
+         STATS(80, 48, 73, 60, 46, 71),
         MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 190,
         .expYield = 58,
@@ -10578,7 +10578,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Whiscash"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(110, 98, 73, 60, 76, 71),
+         STATS(130, 88, 73, 60, 76, 71),
         MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 75,
         .expYield = 164,
@@ -10600,6 +10600,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sWhiscashTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //guess give this dragon dance from pokerogue?
+    //yeah seems fine, w anticipation can get free dragon dance
 
     [SPECIES_CORPHISH] =
     {
@@ -51209,7 +51211,7 @@ const struct BaseStats gBaseStats[] =
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE,
-        .safariZoneFleeRate = 50,
+        .safariZoneFleeRate = 75,
         .abilityLearnset = sFaedentinAbilityLearnset,
         .levelUpLearnset = sMarowakLevelUpLearnset,
         .tmhmLearnset = sMarowakTMHMLearnset,
@@ -51247,7 +51249,7 @@ const struct BaseStats gBaseStats[] =
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE,
-        .safariZoneFleeRate = 50,
+        .safariZoneFleeRate = 100,
         .abilityLearnset = sBeinfaeAbilityLearnset,
         .levelUpLearnset = sDiancieLevelUpLearnset,
         .tmhmLearnset = sDiancieTMHMLearnset,
@@ -51283,7 +51285,7 @@ const struct BaseStats gBaseStats[] =
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE, //think will leave as a now right now, its more earthbound since its a guardian of the graveyard
-        .safariZoneFleeRate = 50,
+        .safariZoneFleeRate = 125,
         .abilityLearnset = sFraeyjtaAbilityLearnset,
         .levelUpLearnset = sCefireonLevelUpLearnset,    //need make something later
         .tmhmLearnset = sFraeyjtaTMHMLearnset,
@@ -51291,6 +51293,93 @@ const struct BaseStats gBaseStats[] =
     }, //give move powersplit,   //name is a mix of word for fairy,  freya norse goddess of protection/that watches over the dead, body based on priscilla from dark souls
     //ok ability plan is heal moves don't work on self, if partner alive (and passes normal recurring ability conditions) increase priority by 3, same as triage
     //heal them instead
+    //decide fraeyjta will be post game fight at top of lavender town pokemon tower
+    //wild double battle talking with it will summon dusknoir (since it is a mon focused on support)
+    //idealy setup emerald tv style event to let player know something is happening at lavender tower
+    // put deep fog back and have all mon be permanently higher level,
+    //and can trigger to evolve them if they can evolve
+    //ah found idea for legendary fights, make toughter, w custom moves etc.
+    //and can catch them, but if you just want to fight them instead
+    //they will join your team if you defeat them
+    //hmm should give all legendary mon a 1 stage boost for all battle stats?
+    //vsonic important
+
+    [SPECIES_LARVALKING] =
+    {
+        .speciesName = _("Larvalking"),
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(
+        84,
+        113,
+        198,
+        25,
+        55,
+        96
+        ),
+        MON_TYPES(TYPE_BUG, TYPE_GROUND),
+        .catchRate = 35,
+        .expYield = 248,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_SLOW, //gets medium slow instead of slow because bug, and larvae grows fast
+        .eggGroup1 = EGG_GROUP_BUG,
+        .eggGroup2 = EGG_GROUP_MONSTER,
+        .abilities = {ABILITY_TOUGH_SPINES, ABILITY_TOUGH_SPINES},
+        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BROWN,
+        .noFlip = FALSE,
+        .floating = FALSE,
+        .safariZoneFleeRate = 75,
+        .abilityLearnset = sBeinfaeAbilityLearnset,
+        .levelUpLearnset = sDiancieLevelUpLearnset,
+        .tmhmLearnset = sDiancieTMHMLearnset,
+        .evolutions = NULL, //Should hopefully blank these for now without issue
+    },
+    //psudoe legend plan, bst about 500
+    //horned devil caterpillar w platings made of earth 
+
+    [SPECIES_DEVIOPTERA] =
+    {
+        .speciesName = _("Devioptera"),
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(
+        101,
+        92,
+        87,
+        91,
+        89,
+        146
+        ),
+        MON_TYPES(TYPE_BUG, TYPE_GROUND),
+        .catchRate = 15,
+        .expYield = 281,
+        .genderRatio = PERCENT_FEMALE(50),//unsure if would change this
+        .eggCycles = 20,
+        .friendship = 15,
+        .growthRate = GROWTH_SLOW,
+        .eggGroup1 = EGG_GROUP_BUG,
+        .eggGroup2 = EGG_GROUP_MONSTER,
+        .abilities = {ABILITY_DUST_DEVIL, ABILITY_DUST_DEVIL},//yeah drop tough spines for dust devil o.0 this is gonna be crazy
+        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BROWN, //consider unique abilty dust devil mix of sandstream and wind rider
+        .noFlip = FALSE,
+        .floating = TRUE,
+        .safariZoneFleeRate = 100,
+        .abilityLearnset = sBeinfaeAbilityLearnset,
+        .levelUpLearnset = sDiancieLevelUpLearnset,
+        .tmhmLearnset = sDiancieTMHMLearnset,
+        .evolutions = NULL, //Should hopefully blank these for now without issue
+    },
+    //will still have spikes in design, even more actually
+    //but is completely different in usage to pre-evo
+    //as has gone through chrysalis
+    //honestly this is what bugs should have been
+    //rather than just being "weak" they should have represented change
+    //least those that go through chrysalis
+    //nincada line is only one that does this concept well ironically
 
 }; //can remove gender ratio mon from base stats now, moved logic to function
 //OK removed 6 entrie and that seemed to save me about 300bytes

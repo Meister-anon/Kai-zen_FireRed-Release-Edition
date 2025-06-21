@@ -353,7 +353,7 @@
 #define ABILITY_PURIFYING_AURA 327 //Suicune ability  mix of healer & shedskin but gauranteed
 #define ABILITY_SQUALL 328	//temp versions of drizzle/drought
 #define ABILITY_SUN_DISK 329
-#define ABILITY_TOUGH_SPINES 330	//rough skin for grass types
+#define ABILITY_TOUGH_SPINES 330	//rough skin for grass types spines can also be bone/spikes
 #define ABILITY_EROSION 331	//regirock ability, rock absorb also absorbs stealth rocks on switchin
 #define ABILITY_LIQUID_METAL 332	//Registeel exclusive 
 #define ABILITY_MUSCLE_MAGIC 333
@@ -420,7 +420,8 @@
 #define ABILITY_FAIRY_MIST 388 //for iron valiant combine misty surge w pixilate
 #define ABILITY_COMPASS 389 //no guard clone for onix nosepass binacle as designed around compasses
 #define ABILITY_HANDS_OF_FATE 390 //purifying salt clone for binacle as designed around hamsa protective ward against the evil eye, think also give specific immunity to shadow tag mean look and decidueye move
+#define ABILITY_DUST_DEVIL 391 //combine sandstream & wind rider for new bug psuedo
 
-#define ABILITIES_COUNT ABILITY_HANDS_OF_FATE + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITIES_COUNT ABILITY_DUST_DEVIL + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

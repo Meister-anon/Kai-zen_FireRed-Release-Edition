@@ -1680,6 +1680,7 @@ bool32 ShouldSetSandstorm(u8 battler, u16 ability, u16 holdEffect)
       //|| ability == ABILITY_FORECAST
       || ability == ABILITY_OVERCOAT
       || ability == ABILITY_MAGIC_GUARD
+      || ability == ABILITY_DUST_DEVIL
       || ability == ABILITY_WIND_RIDER
       || holdEffect == HOLD_EFFECT_SAFETY_GOGGLES
       || GetBaseFormSpecies(gBattleMons[battler].species) == SPECIES_CASTFORM

@@ -1063,6 +1063,8 @@
 #define SPECIES_FRAEYJTA COSMETIC_FORMS_END + 2  //put here test dex values contingeously
 #define SPECIES_FAEDENTIN COSMETIC_FORMS_END + 3
 #define SPECIES_BEINFAE COSMETIC_FORMS_END + 4 //Faedentin evo, mostly literal translation mix w old english name of fairy
+#define SPECIES_LARVALKING  COSMETIC_FORMS_END + 5
+#define SPECIES_DEVIOPTERA  COSMETIC_FORMS_END + 6//on research realized name doesn't work as lepidoptera specifically refers to 4 winged in form can work for evo but not caterpillar form
 //move back to end of base spescies when done w fixes
 
 

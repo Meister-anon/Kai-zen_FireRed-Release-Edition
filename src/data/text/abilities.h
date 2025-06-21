@@ -275,7 +275,7 @@ static const u8 sUnknownPowerDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("A 
 static const u8 sPurifyingAuraDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Status heal.The POKéMON flares its aura\npurifying itself and allies in reach.");
 static const u8 sSquallDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Summons a rain shower,\nthat temporarily drenches the field.");
 static const u8 sSundiskDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("The POKéMON gives thanks to the sun.\nTemporarily boosting sunlight in battle.");
-static const u8 sToughSpinesDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Stabs the foe with cactus like spines\non contact.");
+static const u8 sToughSpinesDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Stabs the foe with thorn like spines\non contact.");
 static const u8 sErosionDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Breaks down incoming Rock-type attacks,\nand uses the minerals to heal itself.");
 static const u8 sLiquidmetalDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("A strange light-weight body, immune to\nstat reduction that resists physical dmg");
 static const u8 sMusclemagicDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Special moves become Physical contact.\nControl the elements with pure Muscle!");
@@ -594,7 +594,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_ANGER_SHELL] = COMPOUND_ABILITY_STRING("Spreads with contact."),
     [ABILITY_PURIFYING_SALT] = COMPOUND_ABILITY_STRING("The Pokémon's pure salt protects it.\nReduces Ghost damage and blocks status."),
     [ABILITY_WELL_BAKED_BODY] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_WIND_RIDER] = COMPOUND_ABILITY_STRING("Spreads with contact."),
+    [ABILITY_WIND_RIDER] = COMPOUND_ABILITY_STRING("Takes no damage from Wind Effects instead\nps Atk if the target of a wind effect."),
     [ABILITY_GUARD_DOG] = COMPOUND_ABILITY_STRING("Spreads with contact."),
     [ABILITY_ROCKY_PAYLOAD] = COMPOUND_ABILITY_STRING("Spreads with contact."),
     [ABILITY_WIND_POWER] = COMPOUND_ABILITY_STRING("Spreads with contact."),
@@ -713,7 +713,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_FAIRY_MIST] = COMPOUND_ABILITY_STRING("Normal and Sound moves become Fairy.\nSets Misty Terrain upon entering battle."),
     [ABILITY_COMPASS] = COMPOUND_ABILITY_STRING("Locks-on and moves unerringly to foe.\nAll moves used by and aginst will land."),
     [ABILITY_HANDS_OF_FATE] = COMPOUND_ABILITY_STRING("Protected from shadowy forces and traps.\nReduces Ghost damage and blocks status."), //done and set purifying stalt to almost forgot trap effect but immune to mean look shadow tag, and siwtch binding i.e spirit shackle
-
+    [ABILITY_DUST_DEVIL] = COMPOUND_ABILITY_STRING("Immune to wind damage. Sets Sandstorm.\nUps Attack if the target of a wind effect"),
 
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
@@ -1130,6 +1130,7 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_FAIRY_MIST] = _("Fairy Mist"),
     [ABILITY_COMPASS] = _("Compass"),
     [ABILITY_HANDS_OF_FATE] = _("Hands of Fate"),
+    [ABILITY_DUST_DEVIL] = _("Dust Devil"),
 
 
 };//can have comma

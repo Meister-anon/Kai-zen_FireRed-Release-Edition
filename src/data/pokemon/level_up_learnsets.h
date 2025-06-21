@@ -5453,6 +5453,7 @@ static const struct LevelUpMove sBarboachLevelUpLearnset[] = {
     LEVEL_UP_MOVE(26, MOVE_REST),
     LEVEL_UP_MOVE(26, MOVE_SNORE),
     LEVEL_UP_MOVE(31, MOVE_EARTHQUAKE),
+    LEVEL_UP_MOVE(34, MOVE_DRAGON_DANCE),
     LEVEL_UP_MOVE(36, MOVE_FUTURE_SIGHT),
     LEVEL_UP_MOVE(41, MOVE_FISSURE),
     LEVEL_UP_END
@@ -5471,6 +5472,7 @@ static const struct LevelUpMove sWhiscashLevelUpLearnset[] = {
     LEVEL_UP_MOVE(26, MOVE_REST),
     LEVEL_UP_MOVE(26, MOVE_SNORE),
     LEVEL_UP_MOVE(36, MOVE_EARTHQUAKE),
+    LEVEL_UP_MOVE(39, MOVE_DRAGON_DANCE),
     LEVEL_UP_MOVE(46, MOVE_FUTURE_SIGHT),
     LEVEL_UP_MOVE(56, MOVE_FISSURE),
     LEVEL_UP_END
@@ -10016,6 +10018,7 @@ static const struct LevelUpMove sGigalithLevelUpLearnset[] = {
     LEVEL_UP_MOVE(40, MOVE_MUDSLIDE),
     LEVEL_UP_MOVE(50, MOVE_EARTH_POWER),
     LEVEL_UP_MOVE(55, MOVE_METEOR_BEAM),
+    LEVEL_UP_MOVE(65, MOVE_STEEL_BEAM),
     LEVEL_UP_END
 };
 //reworked into special attacker
