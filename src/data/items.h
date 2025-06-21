@@ -9794,6 +9794,24 @@ const struct Item gItems[] =
       .secondaryId =  MOVE_FLATTER,
       //"moveId" "FocusPunch"
     },
+    [ITEM_TM_AEROBLAST] =
+    {
+      .name = _("TM Aeroblast"),
+      .itemId = ITEM_TM_AEROBLAST,
+      .price =  3000,
+      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffectParam =  0,
+     .description = gMoveDescription_Aeroblast,
+//      "description":  "Strikes the foe with a rock-hard\\nfist, etc. It shatters barriers such\\nas REFLECT and LIGHT SCREEN.,
+      .importance = 0,
+      .exitsBagOnUse = 0,
+      .pocket = POCKET_TM_CASE,
+      .type = ITEM_USE_PARTY_MENU,
+      .fieldUseFunc = NULL,
+      .battleUseFunc = NULL,
+      .secondaryId =  MOVE_AEROBLAST,
+      //"moveId" "BrickBreak"
+    },
     [ITEM_N_A] =
     {
       .name = _("????????"),

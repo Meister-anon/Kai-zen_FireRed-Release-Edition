@@ -2478,12 +2478,14 @@ static const struct LevelUpMove sSnorlaxLevelUpLearnset[] = {
 static const struct LevelUpMove sArticunoLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_GUST),
     LEVEL_UP_MOVE(1, MOVE_POWDER_SNOW),
+    LEVEL_UP_MOVE(1, MOVE_RAZOR_WIND),
     LEVEL_UP_MOVE(1, MOVE_AGILITY),
     LEVEL_UP_MOVE(13, MOVE_MIST),
     LEVEL_UP_MOVE(25, MOVE_ICY_WIND),
     LEVEL_UP_MOVE(37, MOVE_MIND_READER),
     LEVEL_UP_MOVE(49, MOVE_ICE_BEAM),
     LEVEL_UP_MOVE(61, MOVE_REFLECT),
+    LEVEL_UP_MOVE(65, MOVE_FINAL_FLIGHT),
     LEVEL_UP_MOVE(73, MOVE_BLIZZARD),
     LEVEL_UP_MOVE(85, MOVE_SHEER_COLD),
     LEVEL_UP_END
@@ -2492,12 +2494,14 @@ static const struct LevelUpMove sArticunoLevelUpLearnset[] = {
 static const struct LevelUpMove sZapdosLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_PECK),
     LEVEL_UP_MOVE(1, MOVE_AGILITY),
+    LEVEL_UP_MOVE(1, MOVE_RAZOR_WIND),
     LEVEL_UP_MOVE(1, MOVE_THUNDER_SHOCK),
     LEVEL_UP_MOVE(13, MOVE_THUNDER_WAVE),
     LEVEL_UP_MOVE(25, MOVE_ZAP_CANNON),
     LEVEL_UP_MOVE(37, MOVE_DETECT),
     LEVEL_UP_MOVE(49, MOVE_DRILL_PECK),
     LEVEL_UP_MOVE(61, MOVE_CHARGE),
+    LEVEL_UP_MOVE(65, MOVE_FINAL_FLIGHT),
     LEVEL_UP_MOVE(73, MOVE_LIGHT_SCREEN),
     LEVEL_UP_MOVE(85, MOVE_THUNDER),
     LEVEL_UP_END
@@ -2506,6 +2510,7 @@ static const struct LevelUpMove sZapdosLevelUpLearnset[] = {
 static const struct LevelUpMove sMoltresLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_WING_ATTACK),
     LEVEL_UP_MOVE(1, MOVE_EMBER),
+    LEVEL_UP_MOVE(1, MOVE_RAZOR_WIND),
     LEVEL_UP_MOVE(13, MOVE_FIRE_SPIN),
     LEVEL_UP_MOVE(25, MOVE_AGILITY),
     LEVEL_UP_MOVE(37, MOVE_ENDURE),
@@ -14654,8 +14659,17 @@ static const struct LevelUpMove sOricorioLevelUpLearnset[] = {
     LEVEL_UP_MOVE(43, MOVE_MIRROR_MOVE),
     LEVEL_UP_MOVE(46, MOVE_AGILITY),
     LEVEL_UP_MOVE(50, MOVE_HURRICANE),
+    LEVEL_UP_MOVE(58, MOVE_AEROBLAST),
     LEVEL_UP_END
 };
+//will split learnset but keep flying moves most of
+//and dance moves unless can add different dance moves
+//based on type
+//ex quiver dance dragon dance, fiery dance
+//give lunar dance to ghost version think quiver dance for electric?
+//hmm nah or ghost anyway quiver/victory dance is flip between ghost/electric
+//based on perceived intensity/style of dance style
+//vsonic
 
 static const struct LevelUpMove sCutieflyLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_ABSORB),
@@ -16627,7 +16641,8 @@ static const struct LevelUpMove sCramorantLevelUpLearnset[] = {
     LEVEL_UP_MOVE(28, MOVE_DIVE),
     LEVEL_UP_MOVE(35, MOVE_DRILL_PECK),
     LEVEL_UP_MOVE(42, MOVE_AMNESIA),
-    LEVEL_UP_MOVE(49, MOVE_THRASH),
+    LEVEL_UP_MOVE(44, MOVE_THRASH),
+    LEVEL_UP_MOVE(50, MOVE_HURRICANE),
     LEVEL_UP_MOVE(56, MOVE_HYDRO_PUMP),
     LEVEL_UP_END
 };

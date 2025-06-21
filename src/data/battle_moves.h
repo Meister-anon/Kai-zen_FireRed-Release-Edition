@@ -1410,6 +1410,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_IN_AIR,
         .split = SPLIT_SPECIAL,
     },
+    //since has conditional perfect acc makes sense to drop power some
 
     [MOVE_ROCK_THROW] =
     {
@@ -2858,9 +2859,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .secondaryEffectChance = 50,
     .target = MOVE_TARGET_SELECTED,
     .priority = 0,
-    .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_WIND_MOVE,
+    .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_WIND_MOVE,
     .split = SPLIT_SPECIAL,
 },
+//w sp def drop consider may remove high crit?
+//would make it more balanced and allow me to spread its distribution
+//giving more flying mon a good special option other than hurricane
+//think just make this a tm
+//think put in same place get lugia
+//after lugia fight, lugia drops tm in its place
+//vsonic
 
 [MOVE_COTTON_SPORE] =
 {

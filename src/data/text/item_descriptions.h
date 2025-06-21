@@ -476,6 +476,7 @@ extern const u8 gMoveDescription_VoltSwitch[];
 extern const u8 gFLIP_TURN_Description[];
 extern const u8 gMoveDescription_UpRoot[];
 extern const u8 gMoveDescription_DiveBomb[];
+extern const u8 gMoveDescription_Aeroblast[];
 extern const u8 gMoveDescription_Substitute[];
 extern const u8 gFLASH_CANNON_Description[];
 extern const u8 gMoveDescription_Agility[];

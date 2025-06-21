@@ -4651,6 +4651,13 @@ const struct BaseStats gBaseStats[] =
     },//based on JPRPokeTrainer98 youtube vid replace pressure for most legendaries, keep for mewtwo 
     //static would actually be really good w new change
     //Dropped motor drive for static
+    //according to wolfey biggest issue was lacking good strong special flying moves
+    //even w my flying move rework still lacking many strong special flying moves
+    //think just give final flight
+    //better than other moves of category as technically don't lose the main
+    //benefit of type, its still gonna be floating now so doesn't lose grouund immunity
+    //so is a good move to have actually, loses rock and ice weaknesss
+    //could/ also give razor wind idk if it gets stab, need consider
 
     [SPECIES_MOLTRES] =
     {
@@ -24238,7 +24245,7 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
-        70,
+        90,
         70,
         93,
         98,
@@ -24268,6 +24275,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sOricorioTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //w form change plans this mon will become much better
+    //can actually get stab moves in its learnset -_-
+    //also gave more attack as dancers are physical adept
 
     [SPECIES_CUTIEFLY] =
     {
@@ -48651,7 +48661,7 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
-        70,
+        90,
         70,
         93,
         98,
@@ -48689,7 +48699,7 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
-        70,
+        90,
         70,
         93,
         98,
@@ -48727,7 +48737,7 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
-        70,
+        90,
         70,
         93,
         98,
