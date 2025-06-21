@@ -62,8 +62,6 @@ void SetUpBattleVars(void)
     //BattleAI_SetupItems();//NEED TO SEtu;p to use these two, instead of bottom one
     //BattleAI_SetupFlags();//currently ai process/infrastrucutre not ready to use these order of things is wrong
     BattleAI_HandleItemUseBeforeAISetup();//remove this when get process correct
-    gUnknown_2022B54 = 0;
-    gUnknown_2023DDC = 0;
 }
 
 void InitBtlControllers(void)

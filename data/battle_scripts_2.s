@@ -77,6 +77,9 @@ BattleScript_CaughtPokemonSkipNewDex::
 	printstring STRINGID_GIVENICKNAMECAPTURED
 	waitstate
 	setbyte gBattleCommunication, 0
+	@needed to properly track num mon before caught mon added to team
+	@vsonic will prob add new ewram value eon cleanup
+	copybyte gSavedPartyCount, gPlayerPartyCount
 	trygivecaughtmonnick BattleScript_CaughtPokemonSkipNickname
 	givecaughtmon
 	printfromtable gCaughtMonStringIds
@@ -92,7 +95,9 @@ BattleScript_CaughtPokemonDone::
 	
 	@seems ok, need avoid setting outcome caught as that progresses things
 	@so setup everything I need then go to setcaughtoutcome
-	jumpifbyte CMP_EQUAL, gPlayerPartyCount, PARTY_SIZE, BattleScript_PostCaughtPcAccess
+	@need adjust this, what need is party is full befoer caught
+	@rn is trigging just when full so when catch mon and party becomes full
+	jumpifbyte CMP_EQUAL, gSavedPartyCount, PARTY_SIZE, BattleScript_PostCaughtPcAccess
 BattleScript_SetCaughtBattleOutcome::
 	setbyte gBattleOutcome, B_OUTCOME_CAUGHT
 	finishturn
@@ -280,6 +285,9 @@ BattleScript_CaughtPokemonSkipNewDex2::
 	printstring STRINGID_GIVENICKNAMECAPTURED
 	waitstate
 	setbyte gBattleCommunication, 0
+	@needed to properly track num mon before caught mon added to team
+	@vsonic will prob add new ewram value eon cleanup
+	copybyte gSavedPartyCount, gPlayerPartyCount
 	trygivecaughtmonnick BattleScript_CaughtPokemonSkipNickname
 	givecaughtmon
 	printfromtable gCaughtMonStringIds

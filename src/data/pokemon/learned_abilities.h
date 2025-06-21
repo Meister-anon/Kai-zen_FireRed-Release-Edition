@@ -3129,8 +3129,10 @@ static const struct AbilityLearnset sCrabominableAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sOricorioAbilityLearnset[] = {
+    ABILITY_SHEER_FORCE,
     ABILITY_SET_END
 };
+//joke from graceful dancer into pure brute
 
 static const struct AbilityLearnset sCutieflyAbilityLearnset[] = {
     ABILITY_SET_END

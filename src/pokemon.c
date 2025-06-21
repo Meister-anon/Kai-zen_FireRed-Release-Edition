@@ -5107,6 +5107,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
         case EFFECT_PAYBACK: //moves after target and target not just switched in does that mean it doesn't work on first turn of battle? yeah think it does will add on to just in case
         if (GetBattlerTurnOrderNum(battlerIdAtk) > GetBattlerTurnOrderNum(battlerIdDef)
+            //&& gLastMoves[battlerIdDef] != MOVE_NONE
+            //&& !IS_MOVE_STATUS(gLastMoves[battlerIdDef])
             &&  gDisableStructs[battlerIdDef].isFirstTurn != 2) //this is fine becuase turnvaluescleanup decrements it before first turn of battle, so its only 2 at switch in
             gBattleMovePower *= 2;
         break;
@@ -5142,7 +5144,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (gBattleMons[battlerIdAtk].item == ITEM_NONE
             // Edge case, because removal of items happens after damage calculation.
             || (gSpecialStatuses[battlerIdAtk].gemBoost && GetBattlerHoldEffect(battlerIdAtk, FALSE) == HOLD_EFFECT_GEMS)
-            || GetPocketByItemId(gBattleMons[battlerIdAtk].item) == POCKET_KEY_ITEMS) //held items just for transformation/balance ex. megastones primal orbs
+            || GetPocketByItemId(gBattleMons[battlerIdAtk].item) == POCKET_KEY_ITEMS) //held items just for transformation/balance ex. megastones primal orbs //vsonic w form change plan this wont be a thing so will rmeove this later
             gBattleMovePower *= 2;
         break;
         case EFFECT_KNOCK_OFF:
