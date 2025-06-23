@@ -4362,6 +4362,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     it auto shows it as learnable by tm
     -done taken from EE for some reason they only implemented that
     for universal moves?
+
+    -Note did I set up so daycare eggs go to box
+    if you don't have space in your party?
+    ...I did not, ok check how mon catch works
+    and set that up
+    -was simle fix thankfully just finished
+    6/2025/23
+
     testing new lake elf move works but uxie inthrall ability
     isn't working right, displays when not taking damage?
     rattata used aurora veil move failed triggered

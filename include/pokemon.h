@@ -441,20 +441,21 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_BALLISTIC              (1 << 17)
 #define FLAG_PROTECTION_MOVE        (1 << 18)
 #define FLAG_POWDER_MOVE            (1 << 19)
-#define FLAG_TARGET_ABILITY_IGNORED (1 << 20)
+#define FLAG_TARGET_ABILITY_IGNORED (1 << 20) //just sunsteeel strike and moongeist beam but still unsure what does?, ok is mold breaker effect but as a move, ex can ignore wonder guard
 #define FLAG_DANCE                  (1 << 21)
 #define FLAG_DMG_IN_AIR             (1 << 22) // If target is in the air, can hit.
 #define FLAG_DMG_2X_IN_AIR          (1 << 23) // If target is in the air, can hit and deal double damage.
 //#define FLAG_DMG_UNGROUNDED_IGNORE_TYPE_IF_FLYING (1 << 24) // Makes a Ground type move do 1x damage to flying and levitating targets /realied already changed type so this doesn't do anything 
 //#define FLAG_THAW_USER                            (1 << 25) //since changed thaw to conditional effect can remove this
 //#define FLAG_TWO_STRIKES                          (1 << 27) // A move with this flag will strike twice, and may apply its effect on each hit //whgy is this necessary multihit already works that way?
-#define FLAG_HIT_IN_SUBSTITUTE                    (1 << 24) // Hyperspace Fury  //3 byte
+#define FLAG_HIT_IN_SUBSTITUTE                    (1 << 24) // Hyperspace Fury  //3 byte  //could prob remove this and just put in substitute function? vsonic
 #define FLAG_ROCK_HEAD_BOOST        (1 << 25)   //EQUIvalent iron fist will boost moves that used head
 #define FLAG_WIND_MOVE              (1 << 26)   //added for rotom ability
 #define FLAG_LETHAL_LEGS_BOOST      (1 << 27)  //hitmon lee ability kick move boost
 #define FLAG_ALWAYS_CRIT            (1 << 28)   //replace effect always crit do with flag check, simpler
 #define FLAG_SHARPNESS_AFFECTED     (1 << 29)
-#define FLAG_GROUND_DMG_FLOATING    (1 << 30)
+#define FLAG_GROUND_DMG_FLOATING    (1 << 30)   //unsure if keeping this vaery sparse not as useful as knock down unsure if category is worthwhile
+#define FLAG_GRAVITY_CANCEL         (1 << 31)   //unsure if will use for this idk maybe find something else, but don't think have need for other effect
 
 #define FLAG_DAMAGE_AIRBORNE          (FLAG_DMG_IN_AIR | FLAG_DMG_2X_IN_AIR)
 #define FLAG_GROUND_HITS_FLOATING   (FLAG_DMG_IN_AIR | FLAG_DMG_2X_IN_AIR | FLAG_GROUND_DMG_FLOATING)
@@ -958,7 +959,7 @@ bool8 IsBoxMonNuzlockeDead(struct BoxPokemon *mon);
 const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny);
 
 void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst);
-
+bool8 IsPokemonStorageFull(void); //for set egg to pc by default
 
 //ported things for debug
 u8 GetNatureFromPersonality(u32 personality);

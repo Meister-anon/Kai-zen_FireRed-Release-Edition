@@ -133,7 +133,7 @@ gSpecials:: @ 815FD60
 	def_special BufferMonNickname
 	def_special IsMonOTIDNotPlayers
 	def_special IsMonNicknamed  @new special for name rater change
-	def_special NullFieldSpecial
+	def_special IsPokemonStorageFull	@replace playerpartycount for egg give
 	def_special BufferRandomHobbyOrLifestyleString
 	def_special CheckBlockExpGainInDaycare @gets block exp gain state
 	def_special RegisteredItemHandleBikeSwap

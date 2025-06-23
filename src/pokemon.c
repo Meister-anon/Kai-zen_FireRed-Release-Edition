@@ -85,7 +85,6 @@ static u16 GetDeoxysStat(struct Pokemon *mon, s32 statId);
 //static bool8 IsShinyOtIdPersonality(u32 otId, u32 personality);
 static bool8 PartyMonHasStatus(struct Pokemon *mon, u32 unused, u32 healMask, u8 battleId);
 static bool8 HealStatusConditions(struct Pokemon *mon, u32 unused, u32 healMask, u8 battleId);
-static bool8 IsPokemonStorageFull(void);
 static void EncryptBoxMon(struct BoxPokemon *boxMon);
 static void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move);
 //static void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon);
@@ -8226,7 +8225,7 @@ bool8 IsPlayerPartyAndPokemonStorageFull(void)
     return IsPokemonStorageFull();
 }
 
-static bool8 IsPokemonStorageFull(void)
+bool8 IsPokemonStorageFull(void)
 {
     s32 i, j;
 
@@ -12099,6 +12098,10 @@ u8 GetLevelUpMovesBySpecies(u16 species, u16 *moves)
      return numMoves;
 } //checked adn emeeald has thee 20 listed as "max level up moves" so itis a limit
 
+//what is difference between this and 
+//GetMoveRelearnerMoves?
+//ah think that actually does something with the moves
+//it has a pointer for moves that this doesn't
 u8 GetNumberOfRelearnableMoves(struct Pokemon *mon)
 {
     u16 learnedMoves[MAX_MON_MOVES];
@@ -12109,16 +12112,20 @@ u8 GetNumberOfRelearnableMoves(struct Pokemon *mon)
     const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
     int i, j, k;
 
+    //Eggs can't learn moves
     if (species == SPECIES_EGG)
         return 0;
 
+    //Assign known moves to array
     for (i = 0; i < MAX_MON_MOVES; i++)
         learnedMoves[i] = GetMonData(mon, MON_DATA_MOVE1 + i, 0);
 
+    //Limiter for unknown reason
     for (i = 0; i < MAX_LEVEL_UP_MOVES; i++)
     {
         u16 moveLevel;
 
+        //end loop at end of learnset
         if (learnset[i].move == LEVEL_UP_END)
             break;
 

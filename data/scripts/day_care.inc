@@ -161,9 +161,11 @@ Route5_PokemonDayCare_EventScript_RetrieveMon:: @ 81BF4EA
 	release
 	end
 
+@needed release at end to close msgbox
 Route5_PokemonDayCare_EventScript_NoRoomInParty:: @ 81BF533
 	special ClearVarPlayerAtRoute5Daycare
 	msgbox Route5_PokemonDayCare_Text_YouveGotNoRoomForIt
+	release
 	end
 
 Route5_PokemonDayCare_EventScript_CloseMoneyBox:: @ 81BF541
@@ -195,8 +197,8 @@ Route5_EventScript_DaycareEggWaiting:: @ 8167D9B
 	end
 
 Route5_EventScript_DaycareAcceptEgg:: @ 8167DD1
-	specialvar VAR_RESULT, CalculatePlayerPartyCount
-	compare VAR_RESULT, PARTY_SIZE
+	specialvar VAR_RESULT, IsPokemonStorageFull
+	compare VAR_RESULT, TRUE
 	goto_if_ne Route5_EventScript_DaycareReceivedEgg
 	msgbox DayCare_Text_YouHaveNoRoomForIt
 	special ClearVarPlayerAtRoute5Daycare

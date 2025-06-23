@@ -107,7 +107,7 @@
 #define ABILITY_TECHNICIAN 102
 #define ABILITY_LEAF_GUARD 103
 #define ABILITY_KLUTZ 104
-#define ABILITY_MOLD_BREAKER 105
+#define ABILITY_MOLD_BREAKER 105 //this is actually much better than I thought, hits wonderguard ignores things that affect move dmg or absorb abilities etc.
 #define ABILITY_SUPER_LUCK 106
 #define ABILITY_AFTERMATH 107 //do something more with this, maybe give a switch out effect and then strengthen faint effect? 2/5 2/6 or like a weaker counter, takes portion of movedmg??
 #define ABILITY_ANTICIPATION 108 //oh aftermath already does 2/5 enemy max health

@@ -2115,12 +2115,14 @@ static const struct AbilityLearnset sSerperiorAbilityLearnset[] = {
 
 static const struct AbilityLearnset sTepigAbilityLearnset[] = {
     ABILITY_FLASH_FIRE,
+    ABILITY_MOLD_BREAKER,
     ABILITY_SET_END
-};//need add groud moves
+};
 
 static const struct AbilityLearnset sPigniteAbilityLearnset[] = {
     ABILITY_FLASH_FIRE,
     ABILITY_RECKLESS,
+    ABILITY_MOLD_BREAKER,
     ABILITY_SET_END
 };
 
@@ -2129,6 +2131,7 @@ static const struct AbilityLearnset sEmboarAbilityLearnset[] = {
     ABILITY_FLASH_FIRE,
     ABILITY_FLAME_BODY,
     ABILITY_SHEER_FORCE,
+    ABILITY_MOLD_BREAKER,
     ABILITY_SET_END
 };
 

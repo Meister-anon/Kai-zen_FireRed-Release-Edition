@@ -1552,9 +1552,17 @@ static void _GiveEggFromDaycare(struct DayCare *daycare)
 
     isEgg = TRUE;
     SetMonData(&egg, MON_DATA_IS_EGG, &isEgg);
-    gPlayerParty[PARTY_SIZE - 1] = egg; //add egg to end of party
-    CompactPartySlots(); //adjust slot I think
-    CalculatePlayerPartyCount(); //can use this set differing logic if count is party size send to box otherwise do normaal script...hm prob need do that in script?
+    GiveMonToPlayer(&egg);
+    //should allow send egg to pc,
+    //will go to party if has space otherwise go to pc
+
+    //ok so for transitioning this to allow putting egg in box
+    //all need do is toss GiveMonToPlayer here in place of below section?
+
+    //gPlayerParty[PARTY_SIZE - 1] = egg; //add egg to end of party
+    CompactPartySlots(); //adjust slot I think  -worked without but addding back tobe safe
+    //CalculatePlayerPartyCount(); //can use this set differing logic if count is party size send to box otherwise do normaal script...hm prob need do that in script?
+    
     RemoveEggFromDayCare(daycare);
 }
 
@@ -1562,6 +1570,7 @@ static void _GiveEggFromDaycare(struct DayCare *daycare)
 //also used for give egg not received from daycare
 //can't remove hotsprings stuff no idea what it is
 //done put in function that calls this
+//is used for general giveegg scrcmd
 void CreateEgg(struct Pokemon *mon, u16 species, bool8 setHotSpringsLocation) 
 {
     u8 metLevel,hatched;
