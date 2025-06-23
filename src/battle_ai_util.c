@@ -3002,7 +3002,6 @@ bool32 CanKnockOffItem(u8 battler, u16 item)
 
     if (!(gBattleTypeFlags & (BATTLE_TYPE_EREADER_TRAINER
       | BATTLE_TYPE_LINK
-      | BATTLE_TYPE_SECRET_BASE
       | BATTLE_TYPE_TRAINER
       )) && GetBattlerSide(battler) == B_SIDE_PLAYER) //means enemy trainers can knock off items
         return FALSE;

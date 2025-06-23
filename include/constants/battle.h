@@ -57,40 +57,40 @@
 #define BIT_FLANK       2
 
 // Battle Type Flags
-#define BATTLE_TYPE_WILD             0x0000 //think can use like this  yup use gbattletypeflags == BATTLE_TYPE_WILD  specifically for wild battle for all else can use !(gBattleTypeFlags & BATTLE_TYPE_TRAINER)
-#define BATTLE_TYPE_DOUBLE           0x0001 //relized this was used as 1 for double value in trainers.h because it lined up with this for gbattletypeflags, its the actual value, 0 is no flags so just default single I guess
-#define BATTLE_TYPE_LINK             0x0002
-#define BATTLE_TYPE_IS_MASTER        0x0004 // In not-link battles, it's always set.
-#define BATTLE_TYPE_TRAINER          0x0008
-#define BATTLE_TYPE_FIRST_BATTLE     0x0010
-#define BATTLE_TYPE_ROTATION         0x0020     
-#define BATTLE_TYPE_TRIPLE           0x0040     
-#define BATTLE_TWO_VS_ONE_PLAYER     0x0080 //planned but yet to do
-#define BATTLE_TYPE_BATTLE_TOWER     0x0100 //last value for u8 size, so if want use this for trainer set in trainers, would need all relevant battle types below this...
-#define BATTLE_TYPE_OLD_MAN_TUTORIAL 0x0200 //checked and can move all others, without issue, trainer battle type is only one that uses u8 value all else is u32
-#define BATTLE_TYPE_ROAMER           0x0400
-#define BATTLE_TYPE_EREADER_TRAINER  0x0800	//remove this, so I can replace it.
-#define BATTLE_TYPE_KYOGRE_GROUDON   0x1000
-#define BATTLE_TYPE_LEGENDARY        0x2000
-#define BATTLE_TYPE_GHOST_UNVEILED   0x2000 // Re-use of BATTLE_TYPE_LEGENDARY, when combined with BATTLE_TYPE_GHOST
-#define BATTLE_TYPE_SAFARI           0x4000 //no using regi can replace this //replaced w safari
-#define BATTLE_TYPE_GHOST            0x8000 //check want to setup for if target mon is ghost type and doesnt have silf scope, to put ghosts in underpass at nighttime
-#define BATTLE_TYPE_POKEDUDE         0x10000
-#define BATTLE_TYPE_WILD_SCRIPTED    0x20000
-#define BATTLE_TYPE_LEGENDARY_FRLG   0x40000
-#define BATTLE_TYPE_TRAINER_TOWER    0x80000
-#define BATTLE_TYPE_20               0x100000   //this appears to be for link battle?   /renmae to link at some point will eventually remove these 2
-#define BATTLE_TYPE_MULTI            0x200000   //multi link battle?  swapped these 2 placement, so could use incldues for trainers.h battle type setting
-#define BATTLE_TYPE_INGAME_PARTNER   0x400000
-#define BATTLE_TYPE_TWO_OPPONENTS    0x800000	//carry over from emerald, not fully set here yet but is reason for gTrainerBattleOpponent_B  when 2 trainers approach player
-#define BATTLE_TYPE_RECORDED         0x1000000  //also not used, or wont be
-#define BATTLE_TYPE_RECORDED_LINK    0x2000000  //added for now, to deal w record battle link additions w test system, can prob remove later vsonic
-#define BATTLE_TYPE_x4000000         0x4000000
-#define BATTLE_TYPE_SECRET_BASE      0x8000000
-#define BATTLE_TYPE_GROUDON          0x10000000
-#define BATTLE_TYPE_KYOGRE           0x20000000
-#define BATTLE_TYPE_RAYQUAZA         0x40000000
-#define BATTLE_TYPE_x80000000        0x80000000
+#define BATTLE_TYPE_WILD             (0 << 0) //think can use like this  yup use gbattletypeflags == BATTLE_TYPE_WILD  specifically for wild battle for all else can use !(gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+#define BATTLE_TYPE_DOUBLE           (1 << 0) //relized this was used as 1 for double value in trainers.h because it lined up with this for gbattletypeflags, its the actual value, 0 is no flags so just default single I guess
+#define BATTLE_TYPE_LINK             (1 << 1)
+#define BATTLE_TYPE_IS_MASTER        (1 << 2) // In not-link battles, it's always set.
+#define BATTLE_TYPE_TRAINER          (1 << 3)
+#define BATTLE_TYPE_FIRST_BATTLE     (1 << 4)
+#define BATTLE_TYPE_ROTATION         (1 << 5)     
+#define BATTLE_TYPE_TRIPLE           (1 << 6)     
+#define BATTLE_TWO_VS_ONE_PLAYER     (1 << 7) //planned but yet to do
+#define BATTLE_TYPE_BATTLE_TOWER     (1 << 8) //last value for u8 size, so if want use this for trainer set in trainers, would need all relevant battle types below this...
+#define BATTLE_TYPE_OLD_MAN_TUTORIAL (1 << 9) //checked and can move all others, without issue, trainer battle type is only one that uses u8 value all else is u32
+#define BATTLE_TYPE_ROAMER           (1 << 10)
+#define BATTLE_TYPE_EREADER_TRAINER  (1 << 11)	//remove this, so I can replace it.
+#define BATTLE_TYPE_KYOGRE_GROUDON   (1 << 12)
+#define BATTLE_TYPE_LEGENDARY        (1 << 13) //with planned legendary fight change can't resuse value, hmm actually I can as it works by combining flgas, i.e  //BATTLE_TYPE_GHOST | BATTLE_TYPE_GHOST_UNVEILED  essentially what I plan do w master so its fine
+#define BATTLE_TYPE_GHOST_UNVEILED   (1 << 13) // Re-use of BATTLE_TYPE_LEGENDARY, when combined with BATTLE_TYPE_GHOST
+#define BATTLE_TYPE_SAFARI           (1 << 14) //no using regi can replace this //replaced w safari
+#define BATTLE_TYPE_GHOST            (1 << 15) //check want to setup for if target mon is ghost type and doesnt have silf scope, to put ghosts in underpass at nighttime
+#define BATTLE_TYPE_POKEDUDE         (1 << 16)
+#define BATTLE_TYPE_WILD_SCRIPTED    (1 << 17)
+#define BATTLE_TYPE_LEGENDARY_FRLG   (1 << 18)  //not sure why this is here? its used in conjunction w flag legendary almost never used by itself?
+#define BATTLE_TYPE_TRAINER_TOWER    (1 << 19)
+#define BATTLE_TYPE_20               (1 << 20)   //this appears to be for link battle?   /renmae to link at some point will eventually remove these 2?
+#define BATTLE_TYPE_MULTI            (1 << 21)   //multi link battle?  swapped these 2 placement, so could use incldues for trainers.h battle type setting
+#define BATTLE_TYPE_INGAME_PARTNER   (1 << 22)
+#define BATTLE_TYPE_TWO_OPPONENTS    (1 << 23)	//carry over from emerald, not fully set here yet but is reason for gTrainerBattleOpponent_B  when 2 trainers approach player
+#define BATTLE_TYPE_RECORDED         (1 << 24)  //also not used, or wont be
+#define BATTLE_TYPE_RECORDED_LINK    (1 << 25)  //added for now, to deal w record battle link additions w test system, can prob remove later vsonic
+#define BATTLE_TYPE_x4000000         (1 << 26)
+#define BATTLE_TYPE_MASTER_BALL      (1 << 27) //ok can remove this and use for master ball
+#define BATTLE_TYPE_GROUDON          (1 << 28)
+#define BATTLE_TYPE_KYOGRE           (1 << 29)
+#define BATTLE_TYPE_RAYQUAZA         (1 << 30)
+#define BATTLE_TYPE_x80000000        (1 << 31)
 
 #define IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(flags) ((flags) & BATTLE_TYPE_GHOST && !((flags) & BATTLE_TYPE_GHOST_UNVEILED))
 #define IS_BATTLE_TYPE_GHOST_WITH_SCOPE(flags) ((flags) & BATTLE_TYPE_GHOST && (flags) & BATTLE_TYPE_GHOST_UNVEILED)

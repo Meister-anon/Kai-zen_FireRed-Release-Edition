@@ -127,6 +127,7 @@ static const u8 sUnref_83E27B4[] = {
 };
 
 //means only type values of value 1 and 2 have any real meaning?
+//well certain functions have diff option when its null
 static void (*const sExitCallbackByItemType[])(void) = {
     [ITEM_TYPE_PARTY_MENU   - 1] = CB2_ShowPartyMenuForItemUse,
     [ITEM_TYPE_FIELD        - 1] = CB2_ReturnToField,
@@ -424,12 +425,10 @@ static void DoSetUpItemUseCallback(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
-//works still todo onboard feature,
+//new logic for pokeball swap
+//for feature onboard
 //think change start menu girl to  intead
 //ask player if they know they can swap pokeballs from bag
-//think setup like options,
-//should be a flag check, set on new game without save
-//so it wouldn't trigger every single new game
 void FieldUseFunc_PokeBallEtc(u8 taskId)
 {
 
@@ -807,17 +806,34 @@ void Task_ItemUse_CloseMessageBoxAndReturnToField_VsSeeker(u8 taskId)
     Task_ItemUse_CloseMessageBoxAndReturnToField(taskId);
 }
 
+//logic for using/throwing ball
+//default block from use if don't have space for mon
+//start rework here for new masterball legendary catch mechanic
+//change silph explanation can catch any mon
+//even legendary pokemon long as you subdue them first
 void BattleUseFunc_PokeBallEtc(u8 taskId)
-{
-    if (!IsPlayerPartyAndPokemonStorageFull())
+{   
+    if (IsPlayerPartyAndPokemonStorageFull())
     {
-        RemoveBagItem(gSpecialVar_ItemId, 1);
-        Bag_BeginCloseWin0Animation();
-        ItemMenu_StartFadeToExitCallback(taskId);
+        DisplayItemMessageInBag(taskId, 2, gUnknown_8416631, Task_ReturnToBagFromContextMenu);
     }
     else
     {
-        DisplayItemMessageInBag(taskId, 2, gUnknown_8416631, Task_ReturnToBagFromContextMenu);
+        if (itemid_get_Id(gSpecialVar_ItemId) == ITEM_MASTER_BALL
+        && (gBattleTypeFlags & BATTLE_TYPE_LEGENDARY))
+        {
+            gBattleTypeFlags |= BATTLE_TYPE_MASTER_BALL;
+            Bag_BeginCloseWin0Animation();
+            ItemMenu_StartFadeToExitCallback(taskId);
+        }
+        else
+        {
+            RemoveBagItem(gSpecialVar_ItemId, 1);
+            Bag_BeginCloseWin0Animation();
+            ItemMenu_StartFadeToExitCallback(taskId);
+        }
+        
+        
     }
 }
 
