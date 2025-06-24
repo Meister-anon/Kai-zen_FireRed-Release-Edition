@@ -910,13 +910,14 @@
 #define MOVE_DIRT_NAP 875
 #define MOVE_WATERY_GRAVE 876 //if too edgey alt name MOVE_SEAFLOOR_RESPITE /make watery grave water variant skydrop give to that anchor psuedo legend/
 #define MOVE_SEAFLOOR_RESPITE 877 //new idea make its own thing
+#define MOVE_BRUTE_FORCE 878    //my version of super power, takes litreal translation of move name
 //#define MOVES_COUNT MOVES_COUNT_GEN8
 
 //for completion new moves have to be defined in:  move_descriptions.inc,  move_names.h, & battle_anim_scripts.s
 // also need actual move data in battle_moves.h
 //* consolidated move name & move description files into move_info.h
 
-#define LAST_MOVE_INDEX     MOVE_SEAFLOOR_RESPITE
+#define LAST_MOVE_INDEX     MOVE_BRUTE_FORCE
 
 #define MOVES_COUNT_GEN8 (LAST_MOVE_INDEX + 1) //changed so define auto updates
 

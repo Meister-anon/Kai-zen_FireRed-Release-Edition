@@ -6169,10 +6169,9 @@ BattleScript_EffectIngrain::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
-@decide think will use recoil
-BattleScript_EffectSuperpower::	@needtest
+BattleScript_EffectSuperpower::
 	setmoveeffect MOVE_EFFECT_ATK_DEF_DOWN | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
-	goto BattleScript_EffectHit	@REMOVED REcoil
+	goto BattleScript_EffectHit
 
 @removed sp def drop, was going to make recoil but decided against it
 @think adding back, sp def drop doesn't make sense,

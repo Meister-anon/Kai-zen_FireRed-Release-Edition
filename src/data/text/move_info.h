@@ -275,7 +275,7 @@ const u8 gMoveDescription_RolePlay[MOVE_DESCRIPTION_LENGTH + 5] = _("The user mi
 const u8 gMoveDescription_Wish[MOVE_DESCRIPTION_LENGTH + 5] = _("A self-healing move\nthat restores half\nthe full HP on the\nnext turn.");
 const u8 gMoveDescription_Assist[MOVE_DESCRIPTION_LENGTH + 5] = _("The user randomly\npicks and uses a\nmove of an allied\nPOKéMON.");
 const u8 gMoveDescription_Ingrain[MOVE_DESCRIPTION_LENGTH + 5] = _("The user lays roots\nthat restore HP on\nevery turn.\nIt can't switch out.");
-const u8 gMoveDescription_Superpower[MOVE_DESCRIPTION_LENGTH + 5] = _("A powerful attack,\nmade with no\nregard for Defense.\nAlso hurts the user\na little bit."); //\nBut it also lowers\nthe user's\nDEFENSE stats.");
+const u8 gMoveDescription_BruteForce[MOVE_DESCRIPTION_LENGTH + 5] = _("A powerful attack,\nmade with no\nregard for Defense.\nAlso hurts the user\na little bit."); //\nBut it also lowers\nthe user's\nDEFENSE stats.");
 const u8 gMoveDescription_MagicCoat[MOVE_DESCRIPTION_LENGTH + 5] = _("Reflects back the\nfoe's LEECH SEED\nand any status-\naffecting move.");
 const u8 gMoveDescription_Recycle[MOVE_DESCRIPTION_LENGTH + 5] = _("A move that\nrecycles a used\nitem for use once\nmore.");
 const u8 gMoveDescription_Revenge[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack move that\ngains intensity if\nthe target has hurt\nthe user.");
@@ -1755,7 +1755,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_WISH         ] = gMoveDescription_Wish,
     [MOVE_ASSIST       ] = gMoveDescription_Assist,
     [MOVE_INGRAIN      ] = gMoveDescription_Ingrain,
-    [MOVE_SUPERPOWER   ] = gMoveDescription_Superpower,
+    [MOVE_SUPERPOWER   ] = COMPOUND_MOVE_STRING("A powerful attack,\nmade with no\nregard for Defense.\nLower's users ATTACK\nand DEFENSE stats."),
     [MOVE_MAGIC_COAT   ] = gMoveDescription_MagicCoat,
     [MOVE_RECYCLE      ] = gMoveDescription_Recycle,
     [MOVE_REVENGE      ] = gMoveDescription_Revenge,
@@ -2369,6 +2369,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_DIRT_NAP] = COMPOUND_MOVE_STRING("Todo"),
     [MOVE_WATERY_GRAVE] = COMPOUND_MOVE_STRING("Todo"),
     [MOVE_SEAFLOOR_RESPITE] = COMPOUND_MOVE_STRING("Todo"),
+    [MOVE_BRUTE_FORCE] = gMoveDescription_BruteForce,
 };//last value can have comma
 //with using compound string realized can paste descriptions directly
 //from bulbapedia, then just a matter of adjusting for spacing
@@ -3266,6 +3267,7 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_DIRT_NAP] = _("Dirt Nap"),
     [MOVE_WATERY_GRAVE] = _("Watery Grave"),
     [MOVE_SEAFLOOR_RESPITE] = _("Seafloor Respite"),
+    [MOVE_BRUTE_FORCE] = _("Brute Force"),
 };//don't need remove comma from last value for this file, port of emerald
 
 //remember to remove comma from last entry //longest name is 17 chars

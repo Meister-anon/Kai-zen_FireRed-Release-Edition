@@ -936,6 +936,10 @@ gBattleAnims_Moves::
 	.4byte Move_SPICE_TRADE
 	.4byte Move_PEPPER_POPPER
 	.4byte Move_STEEL_SURGE
+	.4byte Move_DIRT_NAP
+	.4byte Move_WATERY_GRAVE	@effect based on skydrop maybe put w skydrop anim
+	.4byte Move_SEAFLOOR_RESPITE	
+	.4byte Move_BRUTE_FORCE
 	.4byte Move_COUNT @ cannot be reached, because last move is Eerie Spell  important check move order moves.h
 
 gBattleAnims_StatusConditions::
@@ -3279,6 +3283,7 @@ FissureDirtPlumeClose:: @ 81CA7F0
 	playsewithpan SE_M_DIG, SOUND_PAN_TARGET
 	return
 
+Move_DIRT_NAP::
 Move_DIG:: @ 81CA841
 	choosetwoturnanim DigSetUp, DigUnleash
 DigEnd:: @ 81CA84A
@@ -4379,6 +4384,7 @@ Move_ASSIST:: @ 81CBAD2
 	playsewithpan SE_M_SCRATCH, 0
 	end
 
+Move_BRUTE_FORCE::
 Move_SOLAR_FLARE::
 Move_SUPERPOWER:: @ 81CBB43
 	loadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT
@@ -10033,6 +10039,7 @@ Move_SNATCH:: @ 81D414F
 	createvisualtask AnimTask_WindUpLunge, 5, 0, -12, 4, 10, 10, 12, 6
 	end
 
+Move_SEAFLOOR_RESPITE::
 Move_DIVE:: @ 81D4169
 	loadspritegfx ANIM_TAG_SPLASH
 	loadspritegfx ANIM_TAG_SWEAT_BEAD
@@ -15417,6 +15424,7 @@ Move_HEX:
 	waitforvisualfinish
 	end
 
+Move_WATERY_GRAVE:
 Move_SKY_DROP:
 	loadspritegfx ANIM_TAG_ROUND_SHADOW
 	loadspritegfx ANIM_TAG_IMPACT

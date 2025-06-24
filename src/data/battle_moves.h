@@ -4463,8 +4463,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SUPERPOWER] =
     {
-        .effect = EFFECT_RECOIL,//EFFECT_SUPERPOWER,
-        .power = 130,
+        .effect = EFFECT_SUPERPOWER,
+        .power = 120,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
         .pp = 5,
@@ -14171,6 +14171,21 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },
+
+    [MOVE_BRUTE_FORCE] =
+    {
+        .effect = EFFECT_RECOIL,
+        .power = 130,
+        .type = TYPE_FIGHTING,
+        .accuracy = 100,
+        .pp = 5,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
+        .split = SPLIT_PHYSICAL,
+    },
+    //super power clone
     
 
 };

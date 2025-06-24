@@ -2058,7 +2058,7 @@ static const struct TrainerTowerFloor sTrainerTowerFloor_Knockout_2 = {
 				{
 					.species = SPECIES_NIDOQUEEN,
 					.heldItem = ITEM_SILK_SCARF,
-					.moves = {MOVE_SUPERPOWER, MOVE_AERIAL_ACE, MOVE_BRICK_BREAK, MOVE_COUNTER},
+					.moves = {MOVE_BRUTE_FORCE, MOVE_AERIAL_ACE, MOVE_BRICK_BREAK, MOVE_COUNTER},
 					.hpEV = 110,
 					.attackEV = 100,
 					.defenseEV = 100,
@@ -4171,7 +4171,7 @@ static const struct TrainerTowerFloor sTrainerTowerFloor_Knockout_3 = {
 				{
 					.species = SPECIES_NIDOQUEEN,
 					.heldItem = ITEM_HARD_STONE,
-					.moves = {MOVE_EARTHQUAKE, MOVE_SUPERPOWER, MOVE_SLUDGE_BOMB, MOVE_ROCK_SLIDE},
+					.moves = {MOVE_EARTHQUAKE, MOVE_BRUTE_FORCE, MOVE_SLUDGE_BOMB, MOVE_ROCK_SLIDE},
 					.hpEV = 84,
 					.attackEV = 84,
 					.defenseEV = 84,
@@ -5328,7 +5328,7 @@ static const struct TrainerTowerFloor sTrainerTowerFloor_Double_8 = {
 				{
 					.species = SPECIES_NIDOQUEEN,
 					.heldItem = ITEM_FOCUS_BAND,
-					.moves = {MOVE_SURF, MOVE_EARTHQUAKE, MOVE_SUPERPOWER, MOVE_ROCK_SLIDE},
+					.moves = {MOVE_SURF, MOVE_EARTHQUAKE, MOVE_BRUTE_FORCE, MOVE_ROCK_SLIDE},
 					.hpEV = 110,
 					.attackEV = 100,
 					.defenseEV = 100,
@@ -8859,7 +8859,7 @@ static const struct TrainerTowerFloor sTrainerTowerFloor_Knockout_5 = {
 				{
 					.species = SPECIES_NIDOQUEEN,
 					.heldItem = ITEM_CHOICE_BAND,
-					.moves = {MOVE_THUNDERBOLT, MOVE_CRUNCH, MOVE_SUPERPOWER, MOVE_SURF},
+					.moves = {MOVE_THUNDERBOLT, MOVE_CRUNCH, MOVE_BRUTE_FORCE, MOVE_SURF},
 					.hpEV = 0,
 					.attackEV = 200,
 					.defenseEV = 110,

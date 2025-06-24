@@ -7681,7 +7681,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_CoolCoupleRayTyra[]
         .iv = 12,
         .lvl = 45,
         .species = SPECIES_NIDOQUEEN,
-        .moves = {MOVE_SUPERPOWER, MOVE_BODY_SLAM, MOVE_DOUBLE_KICK, MOVE_POISON_STING},
+        .moves = {MOVE_BRUTE_FORCE, MOVE_BODY_SLAM, MOVE_DOUBLE_KICK, MOVE_POISON_STING},
     },
     {
         .iv = 12,

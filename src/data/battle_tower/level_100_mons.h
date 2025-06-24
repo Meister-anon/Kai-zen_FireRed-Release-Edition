@@ -3686,7 +3686,7 @@ const struct BattleTowerPokemonTemplate gBattleTowerLevel100Mons[] =
 		.moves = {
 			MOVE_EARTHQUAKE,
 			MOVE_THUNDERBOLT,
-			MOVE_SUPERPOWER,
+			MOVE_BRUTE_FORCE,
 			MOVE_EXPLOSION
 		},
 		.evSpread = F_EV_SPREAD_SP_DEFENSE | F_EV_SPREAD_ATTACK,
