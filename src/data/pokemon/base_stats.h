@@ -30200,8 +30200,8 @@ const struct BaseStats gBaseStats[] =
         135,
         80
         ),
-        MON_TYPES(TYPE_FAIRY, TYPE_FLYING),
-        .catchRate = 3,
+        MON_TYPES(TYPE_FAIRY, TYPE_FLYING), //doesn't work well w conrar only super power but not bulky
+        .catchRate = 3,     //perhaps assault vest super power would get you there?
         .expYield = 261,
         //.evYield_SpAttack = 3,
         .genderRatio = MON_FEMALE,
@@ -50789,8 +50789,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_HI_PRESSURE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_PURPLE,
+        .abilityHidden = {ABILITY_POISONED_LEGACY, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_PURPLE, //still trying to figure unique ability
         .noFlip = FALSE,
         .floating = TRUE,
         .safariZoneFleeRate = 50,

@@ -2605,10 +2605,13 @@ static const struct AbilityLearnset sHaxorusAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sCubchooAbilityLearnset[] = {
+    ABILITY_HONEY_GATHER,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sBearticAbilityLearnset[] = {
+    ABILITY_HONEY_GATHER,
+    ABILITY_SHEER_FORCE,
     ABILITY_SET_END
 };
 
@@ -3166,10 +3169,12 @@ static const struct AbilityLearnset sToxapexAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMudbrayAbilityLearnset[] = {
+    ABILITY_SHEER_FORCE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sMudsdaleAbilityLearnset[] = {
+    ABILITY_SHEER_FORCE,
     ABILITY_SET_END
 };
 
