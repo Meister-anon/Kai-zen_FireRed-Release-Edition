@@ -97,7 +97,7 @@ BattleScript_CaughtPokemonDone::
 	@so setup everything I need then go to setcaughtoutcome
 	@need adjust this, what need is party is full befoer caught
 	@rn is trigging just when full so when catch mon and party becomes full
-	jumpifbyte CMP_EQUAL, gSavedPartyCount, PARTY_SIZE, BattleScript_PostCaughtPcAccess
+	jumpifcanAccessPCpostcatch BattleScript_PostCaughtPcAccess
 BattleScript_SetCaughtBattleOutcome::
 	setbyte gBattleOutcome, B_OUTCOME_CAUGHT
 	finishturn

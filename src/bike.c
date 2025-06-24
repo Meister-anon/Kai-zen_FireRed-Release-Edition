@@ -319,6 +319,14 @@ bool32 IsAccessingMobilePCDisallowed(void)
     return FALSE;
 }
 
+bool32 HasPlayerUnlockedMobilePcAccess(void)
+{
+    if (FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS))
+        return TRUE;
+
+    return FALSE;
+}
+
 static bool8 MetatileBehaviorForbidsBiking(u8 r4)
 {
     if (MetatileBehavior_IsMB0A(r4))

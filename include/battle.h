@@ -235,7 +235,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     /*0x14*/ u8 battlerPreventingEscape;
     /*0x15*/ u8 battlerWithSureHit;
     /*0x16*/ u8 isFirstTurn:2; //group
-             u8 unk18_a_2 : 1; //group
+             u8 caughtMon : 1; //group  //idk what for using now for pc caught setup, since clears on switch shouldn't cause issues?
              u8 EmergencyExitTimer:1;
              u8 FrozenTurns:2; //group  //made w sleep timer and stockpile together in mind
              u8 stockpileCounter:2; //group

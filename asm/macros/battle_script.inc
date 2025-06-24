@@ -1590,6 +1590,11 @@
 	.4byte \ptr
 	.endm
 
+	.macro jumpifcanAccessPCpostcatch jumpInstr:req
+	callnative BS_JumpifShouldPostCatchAccessPC
+	.4byte \jumpInstr
+	.endm
+
 	.macro setchargeturnattackstring
 	callnative BS_SetChargeturnMoveStringforTwoTurnMoves
 	.endm

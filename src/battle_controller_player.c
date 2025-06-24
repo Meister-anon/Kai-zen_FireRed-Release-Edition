@@ -1837,9 +1837,15 @@ void SetCB2ToReshowScreenAfterMenu(void)
     SetMainCallback2(ReshowBattleScreenAfterMenu);
 }
 
+//have no idea why duplicate function for now leaving
 void SetCB2ToReshowScreenAfterMenu2(void)
 {
     SetMainCallback2(ReshowBattleScreenAfterMenu);
+}
+
+void SetCB2ToReshowScreenAfterCatch(void)
+{
+    SetMainCallback2(ReshowBattleScreenAfterCatch);
 }
 
 static void CompleteOnFinishedStatusAnimation(void)

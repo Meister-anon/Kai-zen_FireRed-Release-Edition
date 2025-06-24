@@ -10,10 +10,13 @@
 #include "battle_controllers.h"
 
 static void CB2_ReshowBattleScreenAfterMenu(void);
+static void CB2_ReshowBattleScreenAfterCatch(void); //custom for pc access post catch just need not reupdate hidden mon i.e faint/caught
 static void ReshowBattleScreen_TurnOnDisplay(void);
 static bool8 LoadBattlerSpriteGfx(u8 battlerId);
 static void CreateBattlerSprite(u8 battlerId);
 static void CreateHealthboxSprite(u8 battlerId);
+static bool8 ShouldHideBattlerSprite(u8 battlerId);
+static bool8 ShouldHideHealthboxSprite(u8 battlerId);
 
 void ReshowBattleScreenDummy(void)
 {
@@ -45,6 +48,34 @@ void ReshowBattleScreenAfterMenu(void)
         }
     }
     SetMainCallback2(CB2_ReshowBattleScreenAfterMenu);
+}
+
+void ReshowBattleScreenAfterCatch(void)
+{
+    gPaletteFade.bufferTransferDisabled = TRUE;
+    SetHBlankCallback(NULL);
+    SetGpuReg(REG_OFFSET_MOSAIC, 0);
+    gBattleScripting.reshowMainState = 0;
+    gBattleScripting.reshowHelperState = 0;
+    if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
+    {
+        if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+        {
+            if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+                SetHelpContext(HELPCONTEXT_TRAINER_BATTLE_DOUBLE);
+            else
+                SetHelpContext(HELPCONTEXT_TRAINER_BATTLE_SINGLE);
+        }
+        else if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
+        {
+            SetHelpContext(HELPCONTEXT_SAFARI_BATTLE);
+        }
+        else
+        {
+            SetHelpContext(HELPCONTEXT_WILD_BATTLE);
+        }
+    }
+    SetMainCallback2(CB2_ReshowBattleScreenAfterCatch);
 }
 
 static void CB2_ReshowBattleScreenAfterMenu(void)
@@ -102,11 +133,11 @@ static void CB2_ReshowBattleScreenAfterMenu(void)
         }
         break;
     case 7:
-        if (!LoadBattlerSpriteGfx(0))
+        if (!LoadBattlerSpriteGfx(B_POSITION_PLAYER_LEFT))
             --gBattleScripting.reshowMainState;
         break;
     case 8:
-        if (!LoadBattlerSpriteGfx(1))
+        if (!LoadBattlerSpriteGfx(B_POSITION_OPPONENT_LEFT))
             --gBattleScripting.reshowMainState;
         break;
     case 9:
@@ -118,10 +149,10 @@ static void CB2_ReshowBattleScreenAfterMenu(void)
             --gBattleScripting.reshowMainState;
         break;
     case 11:
-        CreateBattlerSprite(0);
+        CreateBattlerSprite(B_POSITION_PLAYER_LEFT);
         break;
     case 12:
-        CreateBattlerSprite(1);
+        CreateBattlerSprite(B_POSITION_OPPONENT_LEFT);
         break;
     case 13:
         CreateBattlerSprite(2);
@@ -130,16 +161,142 @@ static void CB2_ReshowBattleScreenAfterMenu(void)
         CreateBattlerSprite(3);
         break;
     case 15:
-        CreateHealthboxSprite(0);
+        CreateHealthboxSprite(B_POSITION_PLAYER_LEFT);
         break;
     case 16:
-        CreateHealthboxSprite(1);
+        CreateHealthboxSprite(B_POSITION_OPPONENT_LEFT);
         break;
     case 17:
         CreateHealthboxSprite(2);
         break;
     case 18:
         CreateHealthboxSprite(3);
+        break;
+    case 19:
+        LoadAndCreateEnemyShadowSprites();
+        opponentBattler = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
+        species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[opponentBattler]], MON_DATA_SPECIES);
+        SetBattlerShadowSpriteCallback(opponentBattler, species);
+        if (IsDoubleBattle())
+        {
+            opponentBattler = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
+            species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[opponentBattler]], MON_DATA_SPECIES);
+            SetBattlerShadowSpriteCallback(opponentBattler, species);
+        }
+        ActionSelectionCreateCursorAt(gActionSelectionCursor[gBattlerInMenuId], 0);
+        if (gWirelessCommType && gReceivedRemoteLinkPlayers)
+        {
+            LoadWirelessStatusIndicatorSpriteGfx();
+            CreateWirelessStatusIndicatorSprite(0, 0);
+        }
+        break;
+    case 20:
+        SetVBlankCallback(VBlankCB_Battle);
+        ReshowBattleScreen_TurnOnDisplay();
+        BeginHardwarePaletteFade(0xFF, 0, 0x10, 0, 1);
+        gPaletteFade.bufferTransferDisabled = 0;
+        SetMainCallback2(BattleMainCB2);
+        BattleInterfaceSetWindowPals();
+        break;
+    default:
+        break;
+    }
+    ++gBattleScripting.reshowMainState;
+}
+
+static void CB2_ReshowBattleScreenAfterCatch(void)
+{
+    u8 opponentBattler;
+    u16 species;
+
+    switch (gBattleScripting.reshowMainState)
+    {
+    case 0:
+        ResetSpriteData();
+        break;
+    case 1:
+        SetVBlankCallback(NULL);
+        ScanlineEffect_Clear();
+        BattleInitBgsAndWindows();
+        SetBgAttribute(1, BG_ATTR_CHARBASEINDEX, 0);
+        SetBgAttribute(2, BG_ATTR_CHARBASEINDEX, 0);
+        ShowBg(0);
+        ShowBg(1);
+        ShowBg(2);
+        ShowBg(3);
+        ResetPaletteFade();
+        gBattle_BG0_X = 0;
+        gBattle_BG0_Y = 0;
+        gBattle_BG1_X = 0;
+        gBattle_BG1_Y = 0;
+        gBattle_BG2_X = 0;
+        gBattle_BG2_Y = 0;
+        gBattle_BG3_X = 0;
+        gBattle_BG3_Y = 0;
+        break;
+    case 2:
+        CpuFastFill(0, (void *)VRAM, VRAM_SIZE);
+        break;
+    case 3:
+        LoadBattleTextboxAndBackground();
+        break;
+    case 4:
+        FreeAllSpritePalettes();
+        gReservedSpritePaletteCount = 4;
+        break;
+    case 5:
+        ClearSpritesHealthboxAnimData();
+        break;
+    case 6:
+        if (BattleLoadAllHealthBoxesGfx(gBattleScripting.reshowHelperState))
+        {
+            gBattleScripting.reshowHelperState = 0;
+        }
+        else
+        {
+            ++gBattleScripting.reshowHelperState;
+            --gBattleScripting.reshowMainState;
+        }
+        break;
+    case 7:
+        if (!LoadBattlerSpriteGfx(B_POSITION_PLAYER_LEFT))
+            --gBattleScripting.reshowMainState;
+        break;
+    case 8:
+        if (!LoadBattlerSpriteGfx(B_POSITION_OPPONENT_LEFT))
+            --gBattleScripting.reshowMainState;
+        break;
+    case 9:
+        if (!LoadBattlerSpriteGfx(B_POSITION_PLAYER_RIGHT))
+            --gBattleScripting.reshowMainState;
+        break;
+    case 10:
+        if (!LoadBattlerSpriteGfx(B_POSITION_OPPONENT_RIGHT))
+            --gBattleScripting.reshowMainState;
+        break;
+    case 11:
+        CreateBattlerSprite(B_POSITION_PLAYER_LEFT);
+        break;
+    case 12:
+        CreateBattlerSprite(B_POSITION_OPPONENT_LEFT);
+        break;
+    case 13:
+        CreateBattlerSprite(B_POSITION_PLAYER_RIGHT);
+        break;
+    case 14:
+        CreateBattlerSprite(B_POSITION_OPPONENT_RIGHT);
+        break;
+    case 15:
+        CreateHealthboxSprite(B_POSITION_PLAYER_LEFT);
+        break;
+    case 16:
+        CreateHealthboxSprite(B_POSITION_OPPONENT_LEFT);
+        break;
+    case 17:
+        CreateHealthboxSprite(B_POSITION_PLAYER_RIGHT);
+        break;
+    case 18:
+        CreateHealthboxSprite(B_POSITION_OPPONENT_RIGHT);
         break;
     case 19:
         LoadAndCreateEnemyShadowSprites();
@@ -214,11 +371,29 @@ static bool8 LoadBattlerSpriteGfx(u8 battler)
     return TRUE;
 }
 
+static bool8 ShouldHideBattlerSprite(u8 battlerId)
+{
+    if (gDisableStructs[battlerId].caughtMon)
+        return TRUE;
+    return FALSE;
+}
+
+static bool8 ShouldHideHealthboxSprite(u8 battlerId)
+{
+    if (gDisableStructs[battlerId].caughtMon
+    && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
+        return TRUE;
+    return FALSE;
+}
+
 static void CreateBattlerSprite(u8 battler)
 {
     if (battler < gBattlersCount)
     {
         u8 posY;
+
+        if (ShouldHideBattlerSprite(battler))
+            return;
 
         if (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))
             posY = GetGhostSpriteDefault_Y(battler);
@@ -281,6 +456,9 @@ static void CreateHealthboxSprite(u8 battler)
     if (battler < gBattlersCount)
     {
         u8 healthboxSpriteId;
+
+        if (ShouldHideHealthboxSprite(battler))
+            return;
 
         if (gBattleTypeFlags & BATTLE_TYPE_SAFARI && battler == B_POSITION_PLAYER_LEFT)
             healthboxSpriteId = CreateSafariPlayerHealthboxSprites();

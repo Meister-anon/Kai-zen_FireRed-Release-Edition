@@ -5,5 +5,6 @@
 
 void ReshowBattleScreenDummy(void);
 void ReshowBattleScreenAfterMenu(void);
+void ReshowBattleScreenAfterCatch(void); //custom makeup for post catch pc
 
 #endif // GUARD_RESHOW_BATTLE_SCREEN_H

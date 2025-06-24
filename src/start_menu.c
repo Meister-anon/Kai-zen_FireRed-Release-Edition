@@ -234,7 +234,7 @@ static void BuildDebugStartMenu(void)
     AppendToStartMenuItems(STARTMENU_PLAYER);
     AppendToStartMenuItems(STARTMENU_SAVE);
     AppendToStartMenuItems(STARTMENU_OPTION);
-    if ((FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS)) && !IsAccessingMobilePCDisallowed())
+    if (HasPlayerUnlockedMobilePcAccess() && !IsAccessingMobilePCDisallowed())
         AppendToStartMenuItems(STARTMENU_ACCESS_PC);
     AppendToStartMenuItems(STARTMENU_DEBUG);
     
@@ -251,7 +251,7 @@ static void SetUpStartMenu_NormalField(void)
     AppendToStartMenuItems(STARTMENU_PLAYER);
     AppendToStartMenuItems(STARTMENU_SAVE);
     AppendToStartMenuItems(STARTMENU_OPTION);
-    if ((FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS)) && !IsAccessingMobilePCDisallowed())
+    if (HasPlayerUnlockedMobilePcAccess() && !IsAccessingMobilePCDisallowed())
         AppendToStartMenuItems(STARTMENU_ACCESS_PC);
     AppendToStartMenuItems(STARTMENU_EXIT); //prob need to use a switch case, to replace startmenu_exit with iv/ev
     /*if (gSaveBlock2Ptr->optionsButtonMode != OPTIONS_BUTTON_MODE_HELP
@@ -275,7 +275,7 @@ static void SetUpStartMenu_SafariZone(void)
     AppendToStartMenuItems(STARTMENU_BAG);
     AppendToStartMenuItems(STARTMENU_PLAYER);
     AppendToStartMenuItems(STARTMENU_OPTION);
-    if ((FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS)) && !IsAccessingMobilePCDisallowed())
+    if (HasPlayerUnlockedMobilePcAccess() && !IsAccessingMobilePCDisallowed())
         AppendToStartMenuItems(STARTMENU_ACCESS_PC);
     AppendToStartMenuItems(STARTMENU_EXIT);
 }
