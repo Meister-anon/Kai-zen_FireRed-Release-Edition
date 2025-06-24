@@ -11915,7 +11915,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Groudon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(100, 150, 140, 90, 100, 90),
+         STATS(100, 150, 140, 87, 100, 93),
         MON_TYPES(TYPE_GROUND, TYPE_GROUND),
         .catchRate = 3,
         .expYield = 302,
@@ -41221,9 +41221,9 @@ const struct BaseStats gBaseStats[] =
         100,
         175,
         150,
-        90,
+        87,
         120,
-        90
+        93
         ),
         MON_TYPES(TYPE_GROUND, TYPE_FIRE),
         .catchRate = 3,

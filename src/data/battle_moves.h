@@ -2652,9 +2652,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 100,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     #endif
-    .effect = EFFECT_RECOIL,
+    .effect = EFECT_MED_RECOIL, //w my change struggle is far less punishing, potentially swap effect for EFECT_MED_RECOIL
     .power = 50,
-    .type = TYPE_NORMAL,
+    .type = TYPE_NORMAL,//tested seems fine at boosted recoil
     .pp = 1,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
@@ -6525,7 +6525,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE,
         #endif
         .effect = EFFECT_FLINCH_HIT,
-        .power = 75,
+        .power = 65,
         .type = TYPE_FLYING,
         .accuracy = 95,
         .secondaryEffectChance = 25,
@@ -6533,6 +6533,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
     },
+    //think will drop power on this by 10
 
     [MOVE_X_SCISSOR] =
     {
