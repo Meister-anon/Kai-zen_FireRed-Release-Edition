@@ -771,6 +771,9 @@ static void AnimTask_ThrowBall_WaitAnimObjComplete(u8 taskId)
         DestroyAnimVisualTask(taskId);
 }
 
+//is this capture or intro? vsonic
+//believe is for catch if so can swap in gCatchTargetId
+//still unsure why it uses 2 different battlerIds here
 void AnimTask_ThrowBallSpecial(u8 taskId)
 {
     int x, y;
@@ -791,8 +794,8 @@ void AnimTask_ThrowBallSpecial(u8 taskId)
             y = 13;
     }
 
-    ballId = ItemIdToBallId(gLastUsedItem);
-    subpriority = GetBattlerSpriteSubpriority(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)) + 1;
+    ballId = ItemIdToBallId(gLastUsedItem);//why can't belowuse gbatleAnimaTarget as well?
+    subpriority = GetBattlerSpriteSubpriority(gCatchTargetId) + 1;
     spriteId = CreateSprite(&gBallSpriteTemplates[ballId], x | 32, y | 80, subpriority);
     gSprites[spriteId].data[0] = 34;
     gSprites[spriteId].data[1] = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_X);

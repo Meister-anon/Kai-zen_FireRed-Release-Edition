@@ -19771,6 +19771,7 @@ static void atkEF_handleballthrow(void) //important changed
             if (((odds > 254) || (gLastUsedItem == ITEM_MASTER_BALL))
                 && gBattleResults.playerMonWasDamaged == TRUE) // mon caught  //successful capture
             {
+                //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
                 gDisableStructs[gBattlerTarget].caughtMon = TRUE;
                 BtlController_EmitBallThrowAnim(0, BALL_3_SHAKES_SUCCESS);
                 //think may need remove this when setup double catch
@@ -19785,6 +19786,7 @@ static void atkEF_handleballthrow(void) //important changed
             }
             else if ((odds > 254) || (gLastUsedItem == ITEM_MASTER_BALL)) // mon caught  //successful capture
             {
+                //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
                 gDisableStructs[gBattlerTarget].caughtMon = TRUE;
                 BtlController_EmitBallThrowAnim(0, BALL_3_SHAKES_SUCCESS);
                 TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
@@ -19810,6 +19812,7 @@ static void atkEF_handleballthrow(void) //important changed
                 //MarkBattlerForControllerExec(gActiveBattler);
                 if (shakes == BALL_3_SHAKES_SUCCESS && gBattleResults.playerMonWasDamaged == TRUE) // mon caught, copy of the code above
                 {
+                    //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
                     gDisableStructs[gBattlerTarget].caughtMon = TRUE;
                     BtlController_EmitBallThrowAnim(0, BALL_3_SHAKES_SUCCESS);
                     TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
@@ -19823,6 +19826,7 @@ static void atkEF_handleballthrow(void) //important changed
                 }
                 else if (shakes == BALL_3_SHAKES_SUCCESS) // mon caught, copy of the code above
                 {
+                    //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
                     gDisableStructs[gBattlerTarget].caughtMon = TRUE;
                     BtlController_EmitBallThrowAnim(0, BALL_3_SHAKES_SUCCESS);
                     TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);  //form change fix for mon caught i.e disguise etc.
@@ -19972,7 +19976,7 @@ static void atkF2_displaydexinfo(void)
         {
             CreateMonPicSprite_HandleDeoxys(species,
                                             FALSE,
-                                            gBattleMons[B_POSITION_OPPONENT_LEFT].personality,
+                                            gBattleMons[gCatchTargetId].personality,
                                             TRUE,
                                             120,
                                             64,

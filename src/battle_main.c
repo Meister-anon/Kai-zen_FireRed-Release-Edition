@@ -227,6 +227,7 @@ EWRAM_DATA u8 gBattleMonForms[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u32 gFieldStatuses = 0;
 EWRAM_DATA struct FieldTimer gFieldTimers = { 0 };
 //EWRAM_DATA struct TotemBoost gTotemBoosts[MAX_BATTLERS_COUNT] = { 0 };  //not gonna use for my stuff so can comment out
+EWRAM_DATA u8 gCatchTargetId = 0xFF; //set to FF so not accidentally trigger on wrong id, skip if not set, may reset and use for target of capture to throw ball,
 EWRAM_DATA u16 gLastUsedBall = 0;    //need to implement add in these 2 somewhere //removed glastthrownball make htis u16
 //EWRAM_DATA u16 gLastThrownBall = 0; //don't need both of these removing, search this to setup throw ball callback in battle
 EWRAM_DATA bool8 gSwapDamageCategory = FALSE; // Photon Geyser, Shell Side Arm, Light That Burns the Sky
@@ -4250,7 +4251,9 @@ static void BattleStartClearSetData(void)
     //if I can use inputs to change ball, maybe can
     //use up down arrow to swap to pokedex
     gLastUsedBall = 0; 
-
+    //default target position, eventually set target dialogue to reset
+    //for now shuold maintain default behavior
+    gCatchTargetId = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT); 
 
     gBattlerAttacker = 0;
     gBattlerTarget = 0;
