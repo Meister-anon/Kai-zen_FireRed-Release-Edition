@@ -19677,8 +19677,11 @@ static void atkEF_handleballthrow(void) //important changed
                     else
                         ballMultiplier = 10;
                     break;
-                case ITEM_DIVE_BALL:
-                    if (GetCurrentMapType() == MAP_TYPE_UNDERWATER)
+                case ITEM_DIVE_BALL: //later gens also workedfor fishing surfing mon, for that filter based on battle bg
+                    if (GetCurrentMapType() == MAP_TYPE_UNDERWATER
+                    || gBattleTerrain == BATTLE_TERRAIN_UNDERWATER
+                    || gBattleTerrain == BATTLE_TERRAIN_WATER
+                    || gBattleTerrain == BATTLE_TERRAIN_POND) //ok think this should work, idk way EE used ewram to set this
                         ballMultiplier = 35;
                     else
                         ballMultiplier = 10;
@@ -19710,6 +19713,12 @@ static void atkEF_handleballthrow(void) //important changed
                     if (ballMultiplier > 40)
                         ballMultiplier = 40;
                     break;
+                /*case ITEM_BEAST_BALL:
+                    if (IsBattlerUltraBeast(gBattlerTarget))
+                        ballMultiplier = 50;
+                    else
+                        ballMultiplier = 10;
+                    break;*/
                 default:
                     ballMultiplier = sBallCatchBonuses[ItemIdToBallId(gLastUsedItem)];
                     break;
@@ -19832,8 +19841,10 @@ static void atkEF_handleballthrow(void) //important changed
                 { //based on brackets this should be if odds are  "less than 254"  and shake is guaranteed to fail,  meaning all fail.
                     u16 catchstate;
                     catchstate = Random() % 5; // while I prefer the idea that the only time its in the ball it stays in the ball. it may be more interesting game wise
-                   // if (!gHasFetchedBall)
-                     //   gLastUsedBall = gLastUsedItem;
+                    //just realized u8 last used ball only works when
+                    //all ball item ids are at start of list which I've undone
+                    //will just make u16 I guess and remove glastthrown ball saves 1 byte
+                    gLastUsedBall = gLastUsedItem;
 
                     if (catchstate == 0 || catchstate == 1)  { // to add a 3rd option where it can shake and fail normally.
                         BtlController_EmitBallThrowAnim(0, BALL_TRAINER_BLOCK);
@@ -19903,12 +19914,13 @@ static void atkF0_givecaughtmon(void) //useful if I set up alt storage,
 
 static void atkF1_trysetcaughtmondexflags(void)
 {
+    CMD_ARGS(const u8 *jumpInstr);
     u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL);
     u32 personality = GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY, NULL);
 
     if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT)) //if mon caught skip, 
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->jumpInstr;
     }
     else    //otherwise trigger set caught
     {
@@ -19916,12 +19928,13 @@ static void atkF1_trysetcaughtmondexflags(void)
         gBattleResults.caughtMonSpecies = gBattleMons[gBattlerAttacker ^ BIT_SIDE].species; //moved here to attempt use for speed up
 
 
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
 static void atkF2_displaydexinfo(void)
 {
+    CMD_ARGS();
     u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL);
 
     switch (gBattleCommunication[0])
@@ -19974,7 +19987,7 @@ static void atkF2_displaydexinfo(void)
         break;
     case 5:
         if (!gPaletteFade.active)
-            ++gBattlescriptCurrInstr;
+            gBattlescriptCurrInstr = cmd->nextInstr;
         break;
     }
 }

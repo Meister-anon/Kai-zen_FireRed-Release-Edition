@@ -7523,12 +7523,14 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 //since added secondary item slot can get more use from this
                 //double check if this works later  vsonic
                 
+                //since possible other item actiavtes before thsi think wll just use lastusedball instead
+                //still to test
                 case ABILITY_BALL_FETCH:
-                    if ((gBattleMons[battler].item == ITEM_NONE
-                        || gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] == ITEM_NONE)
-                        && gBattleResults.catchAttempts[ItemIdToBallId(gLastUsedItem)] >= 1
-                        && GetPocketByItemId(gLastUsedItem) == POCKET_POKE_BALLS
-                        && !gHasFetchedBall)
+                    if (gBattleResults.catchAttempts[ItemIdToBallId(gLastUsedBall)] >= 1
+                        && GetPocketByItemId(gLastUsedBall) == POCKET_POKE_BALLS
+                        && gLastUsedBall != ITEM_MASTER_BALL //extra precaution
+                        && Random() % 5 == 0
+                        ) //think remove gHasFetchedBall and just set low odds so can be more useful
                     {
                         gBattleScripting.battler = battler;
                         //hmm actually rather than doin all this,
@@ -7536,13 +7538,18 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         //to auto set to secondaryitemslot if full?
                         //checked think can't actually do that?
                         //potentially what I was thinking of was battle ctrl action functions
-                        if (gBattleMons[battler].item == ITEM_NONE)
+                        
+                        //removed as realized effect was old pickup logic
+                        //of going to battler where makes much more sense to just go to bag,
+                        //by defalt logic even if it activated it was completely worthless
+                        /*if (gBattleMons[battler].item == ITEM_NONE)
                             BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, 2, &gLastUsedBall);
                         else
                             gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = gLastUsedBall;
+                        */
                         MarkBattlerForControllerExec(battler);
-                        gHasFetchedBall = TRUE;
                         gLastUsedItem = gLastUsedBall;
+                        AddBagItem(gLastUsedBall, 1);
                         BattleScriptPushCursorAndCallback(BattleScript_BallFetch);
                         ++effect;
                     }

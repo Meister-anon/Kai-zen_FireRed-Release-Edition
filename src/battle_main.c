@@ -227,9 +227,8 @@ EWRAM_DATA u8 gBattleMonForms[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u32 gFieldStatuses = 0;
 EWRAM_DATA struct FieldTimer gFieldTimers = { 0 };
 //EWRAM_DATA struct TotemBoost gTotemBoosts[MAX_BATTLERS_COUNT] = { 0 };  //not gonna use for my stuff so can comment out
-EWRAM_DATA bool8 gHasFetchedBall = FALSE;
-EWRAM_DATA u8 gLastUsedBall = 0;    //need to implement add in these 2 somewhere
-EWRAM_DATA u16 gLastThrownBall = 0;
+EWRAM_DATA u16 gLastUsedBall = 0;    //need to implement add in these 2 somewhere //removed glastthrownball make htis u16
+//EWRAM_DATA u16 gLastThrownBall = 0; //don't need both of these removing, search this to setup throw ball callback in battle
 EWRAM_DATA bool8 gSwapDamageCategory = FALSE; // Photon Geyser, Shell Side Arm, Light That Burns the Sky
 EWRAM_DATA struct FormDataStorage gFormSwapMoveBuffer[PARTY_SIZE][MAX_FORM_DATA_STORED] = {0};
 
@@ -4242,8 +4241,16 @@ static void BattleStartClearSetData(void)
     gLastUsedMove = 0;
     gFieldStatuses = 0;
 
-    gHasFetchedBall = FALSE;
-    gLastUsedBall = 0;
+    //for fetch alone rn potentially use L button throw ball alongside R button toggle
+    //between ball & pokedex go to targetting first if double battle
+    //that way have an actual use for R button  vsonic
+    //rework that forgot I have L button on move info callback
+    //so will need to use R for ball etc
+    //look at emerald setup figure out how it worrks
+    //if I can use inputs to change ball, maybe can
+    //use up down arrow to swap to pokedex
+    gLastUsedBall = 0; 
+
 
     gBattlerAttacker = 0;
     gBattlerTarget = 0;
