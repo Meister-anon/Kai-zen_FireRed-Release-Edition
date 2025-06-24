@@ -43,7 +43,6 @@ enum {
     ITEM_TYPE_BAG_MENU, // No exit callback, stays in bag menu
 };
 
-
 extern const struct Item gItems[];
 extern struct BagPocket gBagPockets[];
 

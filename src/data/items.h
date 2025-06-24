@@ -9812,6 +9812,24 @@ const struct Item gItems[] =
       .secondaryId =  MOVE_AEROBLAST,
       //"moveId" "BrickBreak"
     },
+    [ITEM_TM_SUPERPOWER] =
+    {
+      .name = _("TM Superpower"),
+      .itemId = ITEM_TM_SUPERPOWER,
+      .price =  3000,
+      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffectParam =  0,
+     .description = gMoveDescription_Superpower,
+//      "description":  "Strikes the foe with a rock-hard\\nfist, etc. It shatters barriers such\\nas REFLECT and LIGHT SCREEN.,
+      .importance = 0,
+      .exitsBagOnUse = 0,
+      .pocket = POCKET_TM_CASE,
+      .type = ITEM_USE_PARTY_MENU,
+      .fieldUseFunc = NULL,
+      .battleUseFunc = NULL,
+      .secondaryId =  MOVE_SUPERPOWER,
+      //"moveId" "BrickBreak"
+    },
     [ITEM_N_A] =
     {
       .name = _("????????"),

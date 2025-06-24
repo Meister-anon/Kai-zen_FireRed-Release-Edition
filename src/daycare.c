@@ -1232,7 +1232,7 @@ static void BuildEggMoveset(struct Pokemon *egg, struct BoxPokemon *father, stru
         {
             for (j = 0; j < NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES; j++)
             {
-                if (sHatchedEggFatherMoves[i] == ItemIdToBattleMoveId(gTMHM_List[j]) && CanMonLearnTMHM(egg, gTMHM_List[j]))
+                if (sHatchedEggFatherMoves[i] == ItemIdToBattleMoveId(gTMHM_List[j].itemId) && CanMonLearnTMHM(egg, gTMHM_List[j].itemId))
                 {
                     if (GiveMoveToMon(egg, sHatchedEggFatherMoves[i]) == MON_HAS_MAX_MOVES)
                         DeleteFirstMoveAndGiveMoveToMon(egg, sHatchedEggFatherMoves[i]);

@@ -97,9 +97,13 @@ while FoundTms != TotalTMs:
 #for TMs in tm_Array:
     for line in lines:
         if re.compile(r'\[' + 'ITEM_').search(line):
-            line = line.replace("    [", "    ")
-            line = line.replace("] =", ",")
             itemId = line
+            line = line.replace(" =", " = ")
+            itemId = itemId.replace("    [", "")
+            itemId = itemId.replace("] =", ",")
+            itemId = itemId.replace("\n", " ")
+            itemId = line.replace("= ", "= TMHM(" + itemId + str(FoundTms) + "),")
+            #itemId = line
             #print(itemId)
         if re.compile(r'.secondaryId').search(line):
             #print(FoundTms)
@@ -178,7 +182,7 @@ for line in lines:
 
     if state == 1:
         generated_lines += ('\n\n' + r'//''\n' + r'// DO NOT MODIFY BELOW THE LINE! It is auto-generated from scripts_py/tm_list.py' +'\n' + r'//' + '\n\n')
-        generated_lines += ('\n' + r'static const u16 gTMHM_List[]' + r' = {' + '\n')
+        generated_lines += ('\n' + r'static const struct TmHmOrder gTMHM_List[]' + r' = {' + '\n')
         state = 2
     if state == 2:
         #for Items in Item_Array:

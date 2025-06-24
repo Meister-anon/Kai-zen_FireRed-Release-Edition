@@ -521,6 +521,9 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
     //to lessen work of this function which also does sort?
     SortAndCompactTmCase(pocket);
 
+    //with new hardcoded id that sets HMs first
+    //may not need entire loop below
+    //don't understand it but is necessary?
     for (i = 0; i < pocket->capacity; i++)
     {
         if (pocket->itemSlots[i].itemId == ITEM_NONE && GetBagItemQuantity(&pocket->itemSlots[i].quantity) == 0)
@@ -626,7 +629,8 @@ void SortAndCompactTmCase(struct BagPocket * pocket)
         {
 
             if (GetBagItemQuantity(&pocket->itemSlots[i].quantity) == 0 ||
-            (GetBagItemQuantity(&pocket->itemSlots[j].quantity) != 0 && pocket->itemSlots[j].itemId == gTMHM_List[i]))
+            (GetBagItemQuantity(&pocket->itemSlots[j].quantity) != 0 
+            && gTMHM_List[pocket->itemSlots[j].itemId].tmhmId > gTMHM_List[pocket->itemSlots[i].itemId].tmhmId))
             {
                 SwapItemSlots(&pocket->itemSlots[i], &pocket->itemSlots[j]);
 

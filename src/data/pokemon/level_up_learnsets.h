@@ -5167,7 +5167,6 @@ static const struct LevelUpMove sBreloomLevelUpLearnset[] = {
 
 static const struct LevelUpMove sSpindaLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
-    LEVEL_UP_MOVE(1, MOVE_SUPERPOWER),
     LEVEL_UP_MOVE(5, MOVE_UPROAR),
     LEVEL_UP_MOVE(12, MOVE_FEINT_ATTACK),
     LEVEL_UP_MOVE(16, MOVE_PSYBEAM),
