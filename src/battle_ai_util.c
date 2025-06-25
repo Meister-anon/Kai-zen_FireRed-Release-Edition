@@ -875,7 +875,7 @@ static u32 WhichMoveBetter(u32 move1, u32 move2)
         && atkAbility != ABILITY_MUSCLE_MAGIC)
         && (BATTLE_HISTORY->itemEffects[gBattlerTarget] == HOLD_EFFECT_ROCKY_HELMET
         || defAbility == ABILITY_IRON_BARBS || defAbility == ABILITY_ROUGH_SKIN
-        || defAbility == ABILITY_TOUGH_SPINES))
+        || defAbility == ABILITY_TOUGH_SPINES || defAbility == ABILITY_DARK_CORONA))
     {
         if (IS_MOVE_PHYSICAL(move1) && !IS_MOVE_PHYSICAL(move2))
             return 1;

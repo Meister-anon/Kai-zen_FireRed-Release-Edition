@@ -10203,6 +10203,20 @@ BattleScript_RoughSkinActivates::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	tryfaintmon BS_ATTACKER, 0, NULL
 	return
+
+@is dark corono larval king effect
+@but can set for other effects later
+@still to test
+BattleScript_RoughSkinWithSecondaryEffect::
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	printstring STRINGID_PKMNHURTSWITHABILITY
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	tryfaintmon BS_ATTACKER, 0, NULL
+	waitstate
+	seteffectsecondary
+	return
 	
 BattleScript_EmpathicCurseActivates::
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE

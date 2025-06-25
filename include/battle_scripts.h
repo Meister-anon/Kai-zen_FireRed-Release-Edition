@@ -291,6 +291,7 @@ extern const u8 BattleScript_StickyHoldActivates[];
 extern const u8 BattleScript_StickyHoldKnockoff[];
 extern const u8 BattleScript_ColorChangeActivates[];
 extern const u8 BattleScript_RoughSkinActivates[];
+extern const u8 BattleScript_RoughSkinWithSecondaryEffect[];
 extern const u8 BattleScript_HurtAttacker[];
 extern const u8 BattleScript_AttackerRemoveType[];
 extern const u8 BattleScript_CuteCharmActivates[];

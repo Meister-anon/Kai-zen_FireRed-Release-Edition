@@ -423,8 +423,8 @@
 #define ABILITY_DUST_DEVIL 391 //combine sandstream & wind rider for new bug psuedo
 #define ABILITY_PLASMA_OVERDRIVE 392 //custom moldbreaker lightningrod flash fire for zekrom/reshiram fusion
 #define ABILITY_WHEEL_OF_CREATION 393 //custom ability for original dragon //power over fire electricity and ice
+#define ABILITY_DARK_CORONA 394 //initial intended ability for larvalking tough spines + poison point
 
-
-#define ABILITIES_COUNT ABILITY_WHEEL_OF_CREATION + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITIES_COUNT ABILITY_DARK_CORONA + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

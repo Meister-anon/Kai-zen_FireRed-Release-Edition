@@ -12874,6 +12874,21 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
     //is this unique enough vsonic
+    //change sprite make more unique
+    //take inspirations from mothra shiny already has blue eyes like mothra
+    //considering making this into regal moth
+    //in research discovered caterpilar form wich is hickory horned devil
+    //would like make psuedo legend bug evo
+    //high atk high defense damg on contact ability think combine
+    //tough spines w poison point  bug/groud type as rarest bug comnbo
+    //not a small species, either make base 500
+    //and evo is just 600 and significantly different playwise for differentiation
+    //or I can keep below 465 so can use eviolite?
+    //think want name tobe based around "Creature"?
+    // Lepidoptera, name for caterpilar butterfly/moths in creature order
+    //based on horned devil so take Devi as prefix and make
+    //Devioptera //japanese name would be akuma something
+    //idk devil horns caterpillar?
 
     [SPECIES_COMBEE] =
     {
@@ -51338,7 +51353,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW, //gets medium slow instead of slow because bug, and larvae grows fast
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_MONSTER,
-        .abilities = {ABILITY_TOUGH_SPINES, ABILITY_TOUGH_SPINES},
+        .abilities = {ABILITY_DARK_CORONA, ABILITY_DARK_CORONA},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -51351,6 +51366,13 @@ const struct BaseStats gBaseStats[] =
     },
     //psudoe legend plan, bst about 500
     //horned devil caterpillar w platings made of earth 
+    //give both this and evo spiky shield
+    //looked at mothim notes think plan was
+    //give original ability for this which was
+    //tough spines WITH poison point
+    //do I still want to do that or is it too much?
+    //think dark corona  (corona meaning crown)
+    //tainted crown of spikes
 
     [SPECIES_DEVIOPTERA] =
     {
@@ -51392,6 +51414,7 @@ const struct BaseStats gBaseStats[] =
     //rather than just being "weak" they should have represented change
     //least those that go through chrysalis
     //nincada line is only one that does this concept well ironically
+    //ok glad I didn't make this TOO offensive with sandstorm evasion stuff
 
     [SPECIES_MAZRAOM] =
     {

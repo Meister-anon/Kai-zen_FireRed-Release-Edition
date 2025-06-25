@@ -8119,6 +8119,29 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     ++effect; //suddenly just started working?? issue was my contact function, I redid it a lil while back now it works
                 }
                 break;
+            case ABILITY_DARK_CORONA:
+                if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                    && gBattleMons[gBattlerAttacker].hp != 0
+                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                    && TARGET_TURN_DAMAGED
+                    && (IsMoveMakingContact(moveArg, gBattlerAttacker)))
+                    {
+                        BattleScriptPushCursor();
+                        gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 8,1);
+                        
+                        if (CanBePoisoned(gBattlerTarget, gBattlerAttacker) //need remember 2nd value is spot for one to be poisoned
+                        && (Random() % 3) == 0)
+                        {
+                            gBattleScripting.moveEffect = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_POISON;
+                            gBattlescriptCurrInstr = BattleScript_RoughSkinWithSecondaryEffect;
+                        }
+                        else
+                        {
+                            gBattlescriptCurrInstr = BattleScript_RoughSkinActivates;
+                        }                        
+                        ++effect;
+                }
+            break;
             case ABILITY_COLD_EMBRACE:
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && gBattleMons[gBattlerAttacker].hp != 0
