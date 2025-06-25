@@ -940,6 +940,7 @@ gBattleAnims_Moves::
 	.4byte Move_WATERY_GRAVE	@effect based on skydrop maybe put w skydrop anim
 	.4byte Move_SEAFLOOR_RESPITE	
 	.4byte Move_BRUTE_FORCE
+	.4byte Move_SHOCKING_MALICE
 	.4byte Move_COUNT @ cannot be reached, because last move is Eerie Spell  important check move order moves.h
 
 gBattleAnims_StatusConditions::
