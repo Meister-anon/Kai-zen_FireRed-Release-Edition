@@ -2729,9 +2729,9 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
             //ok SHOULD be stab on fairy moves for toadstool nymph
             //with else ifs, should have alraedy excluded type matching move type
 
-            else if ((moveType == TYPE_FIRE || moveType == TYPE_ELECTRIC || moveType == TYPE_ICE)
+            else if (((moveType == TYPE_FIRE || moveType == TYPE_ELECTRIC || moveType == TYPE_ICE)
             || (gBattleMoves[gCurrentMove].effect == EFFECT_TWO_TYPED_MOVE
-            && argument == TYPE_FIRE || argument == TYPE_ELECTRIC || argument == TYPE_ICE)
+            && (argument == TYPE_FIRE || argument == TYPE_ELECTRIC || argument == TYPE_ICE)))
             && GetBattlerAbility(gBattlerAttacker) == ABILITY_WHEEL_OF_CREATION)
             {
                 gBattleMoveDamage = gBattleMoveDamage * 135;
@@ -3090,9 +3090,9 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
             //ok SHOULD be stab on fairy moves for toadstool nymph
             //with else ifs, should have alraedy excluded type matching move type
 
-            else if ((moveType == TYPE_FIRE || moveType == TYPE_ELECTRIC || moveType == TYPE_ICE)
+            else if (((moveType == TYPE_FIRE || moveType == TYPE_ELECTRIC || moveType == TYPE_ICE)
             || (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE
-            && argument == TYPE_FIRE || argument == TYPE_ELECTRIC || argument == TYPE_ICE)
+            && (argument == TYPE_FIRE || argument == TYPE_ELECTRIC || argument == TYPE_ICE)))
             && GetBattlerAbility(attacker) == ABILITY_WHEEL_OF_CREATION)
             {
                 gBattleMoveDamage = gBattleMoveDamage * 135;
