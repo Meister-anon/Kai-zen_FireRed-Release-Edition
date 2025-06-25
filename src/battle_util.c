@@ -456,6 +456,7 @@ const u16 gAbilitiesAffectedByMoldBreaker[] =
     ABILITY_FOREWARN,
     //ABILITY_LEVITATE,
     ABILITY_LIGHTNING_ROD,
+    ABILITY_PLASMA_OVERDRIVE, //a bit weird since is itself a moldbreaker abiltity but makes sense/good balance
     ABILITY_LIMBER,
     ABILITY_MAGMA_ARMOR,
     ABILITY_MARVEL_SCALE,
@@ -6427,6 +6428,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     ++effect;
                 }
                 break;
+            case ABILITY_PLASMA_OVERDRIVE:
             case ABILITY_TURBOBLAZE:
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -7819,6 +7821,37 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         }
                     }
                     break;
+                case ABILITY_PLASMA_OVERDRIVE:
+                {
+                    if (moveType == TYPE_ELECTRIC)
+                        effect = 2, statId = STAT_SPATK;
+                    
+                    else if ((moveType == TYPE_FIRE) && !((gBattleMons[battler].status1 & STATUS1_FREEZE)))// && B_FLASH_FIRE_FROZEN <= GEN_4))
+                    {
+                        if (!(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE))
+                        {
+                            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_BOOST;
+                            if (gProtectStructs[gBattlerAttacker].notFirstStrike)
+                                gBattlescriptCurrInstr = BattleScript_FlashFireBoost;   // think cna put atk canceler text here, or below in effect1 effect2 stuff
+                            else
+                                gBattlescriptCurrInstr = BattleScript_FlashFireBoost_PPLoss;
+
+                            gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_FLASH_FIRE;
+                            effect = 3; 
+                        }
+                        else if ((gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE) || IS_MOVE_STATUS(moveArg))
+                        {
+                            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_NO_BOOST;
+                            if (gProtectStructs[gBattlerAttacker].notFirstStrike)
+                                gBattlescriptCurrInstr = BattleScript_FlashFireBoost;
+                            else
+                                gBattlescriptCurrInstr = BattleScript_FlashFireBoost_PPLoss;
+
+                            effect = 3;
+                        }
+                    }
+                }
+                break;
 
                 } //end of abilities,  start of effect logic
 
@@ -8413,6 +8446,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     case ABILITY_DISGUISE:
                     case ABILITY_ZEN_MODE:
                     case ABILITY_MULTITYPE:
+                    case ABILITY_WHEEL_OF_CREATION:
                     case ABILITY_POWER_CONSTRUCT:
                     case ABILITY_RKS_SYSTEM:
                     case ABILITY_SCHOOLING:
@@ -11433,11 +11467,18 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
     }
 }
 
+//I THINK I want original dragon's ability 
+//to be able to be supressed
+//but rks system and multi type can't so...
+//but they technically don't do anything in my game
+//all they did was change type
+//will leave if I decide to change that
 bool32 IsNeutralizingGasBannedAbility(u32 ability)
 {
     switch (ability)
     {
     case ABILITY_MULTITYPE:
+    //case ABILITY_WHEEL_OF_CREATION:
     case ABILITY_ZEN_MODE:
     case ABILITY_STANCE_CHANGE:
     case ABILITY_POWER_CONSTRUCT:
@@ -11523,7 +11564,7 @@ bool32 IsMoldBreakerTypeAbilityActive(u32 battler, u32 ability)
     if (gStatuses3[battler] & STATUS3_GASTRO_ACID)
         return FALSE;
 
-    return (ability == ABILITY_MOLD_BREAKER || ability == ABILITY_TERAVOLT || ability == ABILITY_TURBOBLAZE
+    return (ability == ABILITY_MOLD_BREAKER || ability == ABILITY_TERAVOLT || ability == ABILITY_TURBOBLAZE || ability == ABILITY_PLASMA_OVERDRIVE
         || (ability == ABILITY_MYCELIUM_MIGHT && IS_MOVE_STATUS(gCurrentMove)));
 }
 
@@ -12484,6 +12525,12 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     //makes dragon resist ice
     //needs that level of specificity to avoid compounding issues w typeing and type 3
 
+    else if (GetBattlerAbility(battlerDef) == ABILITY_WHEEL_OF_CREATION
+    && (moveType == TYPE_FIRE || moveType == TYPE_ELECTRIC || moveType == TYPE_ICE))
+    {
+        mod = UQ_4_12(0.0); //Original Dragon Zenkanryurem
+    }
+
     //still unsure how would handle that for tooth fairy, think would just have to be a power cut
     //but can't remember how power cut by 2 compares to type resist multiplier cut by 2
     else if ((moveType == TYPE_ICE) && GetBattlerAbility(battlerDef) == ABILITY_SPACE_CONTROL)
@@ -13255,6 +13302,7 @@ bool32 DoesBattlerAbilityAbsorbMoveType(u8 moveTarget, u8 MoveType)
                 case ABILITY_VOLT_ABSORB:
                 case ABILITY_MOTOR_DRIVE:
                 case ABILITY_LIGHTNING_ROD:
+                case ABILITY_PLASMA_OVERDRIVE:
                     return TRUE;
                 break;
                 default:
@@ -13279,6 +13327,7 @@ bool32 DoesBattlerAbilityAbsorbMoveType(u8 moveTarget, u8 MoveType)
                 case ABILITY_FLASH_FIRE:
                 case ABILITY_LAVA_FISSURE:
                 case ABILITY_RISING_PHOENIX:
+                case ABILITY_PLASMA_OVERDRIVE:
                     return TRUE;
                 break;
                 default:
@@ -13369,6 +13418,7 @@ bool32 CanAbilityAbsorb(u8 MoveUser, u8 AbilityUser, u8 MoveType)
                     case ABILITY_VOLT_DASH:
                     case ABILITY_VOLT_ABSORB:
                     case ABILITY_LIGHTNING_ROD:
+                    case ABILITY_PLASMA_OVERDRIVE:
                         if (can_absorb)
                             FoundAbsorbAbility = TRUE;
                         break;
@@ -13395,6 +13445,7 @@ bool32 CanAbilityAbsorb(u8 MoveUser, u8 AbilityUser, u8 MoveType)
                     case ABILITY_FLASH_FIRE:
                     case ABILITY_LAVA_FISSURE:
                     case ABILITY_RISING_PHOENIX:
+                    case ABILITY_PLASMA_OVERDRIVE:
                         if (can_absorb)
                             FoundAbsorbAbility = TRUE;
                         break;

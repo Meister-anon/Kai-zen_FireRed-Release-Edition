@@ -1380,7 +1380,7 @@ const u8 gSKITTER_SMACK_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("User skitters behind\nthe foe to attack.\nLowers foe's Sp. Atk\nAlso strikes first.");
 
 const u8 gBURNING_JEALOUSY_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Foes that have\nstats upped during\nthe turn get burned.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Foes that have\nstats raised during\nthe turn get burned.");
 
 const u8 gLASH_OUT_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("If stats lowered\nduring turn,\npower is doubled.");
@@ -2371,6 +2371,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_WATERY_GRAVE] = COMPOUND_MOVE_STRING("Todo"),
     [MOVE_SEAFLOOR_RESPITE] = COMPOUND_MOVE_STRING("Todo"),
     [MOVE_BRUTE_FORCE] = gMoveDescription_BruteForce,
+    [MOVE_SHOCKING_MALICE] = COMPOUND_MOVE_STRING("Foes that have stats\nraised during the\nturn get paralyzed."),
 };//last value can have comma
 //with using compound string realized can paste descriptions directly
 //from bulbapedia, then just a matter of adjusting for spacing
@@ -3269,6 +3270,7 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_WATERY_GRAVE] = _("Watery Grave"),
     [MOVE_SEAFLOOR_RESPITE] = _("Seafloor Respite"),
     [MOVE_BRUTE_FORCE] = _("Brute Force"),
+    [MOVE_SHOCKING_MALICE] = _("Shocking Malice"),
 };//don't need remove comma from last value for this file, port of emerald
 
 //remember to remove comma from last entry //longest name is 17 chars

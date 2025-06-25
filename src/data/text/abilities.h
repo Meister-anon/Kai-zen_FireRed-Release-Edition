@@ -714,6 +714,8 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_COMPASS] = COMPOUND_ABILITY_STRING("Locks-on and moves unerringly to foe.\nAll moves used by and aginst will land."),
     [ABILITY_HANDS_OF_FATE] = COMPOUND_ABILITY_STRING("Protected from shadowy forces and traps.\nReduces Ghost damage and blocks status."), //done and set purifying stalt to almost forgot trap effect but immune to mean look shadow tag, and siwtch binding i.e spirit shackle
     [ABILITY_DUST_DEVIL] = COMPOUND_ABILITY_STRING("Immune to wind damage. Sets Sandstorm.\nUps Attack if the target of a wind effect"),
+    [ABILITY_PLASMA_OVERDRIVE] = COMPOUND_ABILITY_STRING("Moves ignore ability affects, and draws\nin FIRE/ELEC to up fire moves or Sp. Atk"),
+    [ABILITY_WHEEL_OF_CREATION] = COMPOUND_ABILITY_STRING("Gain STAB and Immunity to Ice Fire & Elec\nWater moves targetting user become Ice.")
 
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
@@ -1131,6 +1133,8 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_COMPASS] = _("Compass"),
     [ABILITY_HANDS_OF_FATE] = _("Hands of Fate"),
     [ABILITY_DUST_DEVIL] = _("Dust Devil"),
+    [ABILITY_PLASMA_OVERDRIVE] = _("Plasma Overdrive"),
+    [ABILITY_WHEEL_OF_CREATION] = _("Wheel of Creation"),
 
 
 };//can have comma

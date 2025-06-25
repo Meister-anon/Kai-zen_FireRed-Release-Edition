@@ -10965,6 +10965,95 @@ I could set it up like that, either a bag pouch or a key item that opens in to a
 * then need to filter use items that can be used in multi use
 * i.e only healing and stat boosting items and pp ups.  not status cure items
 
+//New zekrom reshiram kyurem lore ideas
+idea for ability for final dragon
+its meant to have control over fire/electricy and ice
+think will make dragon/mystery?
+then give immunity to ice fire and electricity
+stab on all 3
+and turn incoming water moves to ice
+incoming being just what targets itself?
+sounds broken but its not that bad as its all things 
+it already resists
+fire and electricity are energy movement life
+ice is nothingness death
+think can consider it creation abilities?
+think of as opposite creation to giratina?
+giratina is destruction this can be opposite, i.e creation
+and the psuedo stab I'm giving this mimics arceus ability effect now
+also reshiram and zekrom are known to carry out judgement
+where they go so makes sense that original dragon was meant to hold
+arceus powers of creation/life and judgement
+while giratina is anti-life/destruction, but it betrayed arceus
+and was pushed back as its not arceus's counterpart
+but that of the original dragon
+instead of red and black use gold accents
+and think give it elements of rings like arceus has?
+ok ultimate dragon is zekrom and reshirom fused back to gether
+what I'm considering here is kyurem absorbing the final dragon
+
+for final dragon (fake) itself give mold breaker ignore
+along with flash fire/lightning rod
+and think stays dragon/mystery
+or it stays dragon/fire to block ice and fairy
+vsonic hmm plasma (fusion of fire and electricity) 
+is still hot so yeah think will go dragon fire
+
+ok researched kyurem is according to drayden
+the leftover/remainder of the original dragon's body
+once it split into reshirom and zekrom
+those to being truth and ideals respectively
+kyrem is broken and unstable requiring it to freeze itself
+to keep its body together, its supposed to be stronger
+than both reshiram and zeckrom individually
+but can't make use of its power as it needs to freeze itself
+
+they are meant to be a trio so in my mind kyurem represents
+strength or POWER itself.
+its violent only because it is power alone without truth or ideals
+i.e power absent a mind and heart
+
+ok idea zekrom reshiram can fuse together 
+creating anew dragon dragon/fire  people would mistakenly believe
+that is the original dragon
+kyrem angered by seeing them refuse its existence
+stops using its power to prevent its decay
+melting, but also powering up to defeat the fusion
+turning them back into a single tao stone
+same size by balanced of yin and yang
+reshiram becomes light stone
+zekrom becomes dark stone
+fused become tao stone
+
+ok kyrem and reshiram have name lore in jewish and iranian religious history
+is believed zekrom is somehwat linked to idea of angra manyu
+used in fate but is iranian god of corruption destruction
+while its opposition Ahura Mazda
+is a creator and god of wisdom,
+I like using that name or fusion of zekrom and reshiram
+as mind and heart together is wisdom
+name I came up with is Mazraom
+mazda means wisdom
+and end is just mix of zekrom reshiram end suffix
+
+alright now original dragon
+kyurem is absence of ying yang/emptiness
+its original form should represent being whole and in balance
+meaning it most likely split because of the disconnect between
+the two brothers yin/yang their truth/mind and ideals/heart
+so it makes sense the original dragon should represent balance and completeness
+whole in japanese is zen, which works well
+searched and perfection/complete often has kan as prefix
+so I think I'll use zen kan ryuu
+to mean complete/whole perfect dragon
+kanryuzen
+zenkanryu
+zekanryurem -thnk this is name I want for original dragon
+japan name
+全体    whole containing symbol for zen
+完璧    perfection  containing symbol for complete
+りゅう   dragon  exactly as said
+
 for licquid oozwe need special logic for ghost change to absorb nmoves\
 
 didn't work how I thought

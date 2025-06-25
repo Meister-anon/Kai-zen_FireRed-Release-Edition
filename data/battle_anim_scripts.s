@@ -13109,6 +13109,7 @@ Move_DRACO_METEOR:
 	waitforvisualfinish
 	end
 
+MOVE_SHOCKING_MALICE:
 Move_DISCHARGE:
 	loadspritegfx ANIM_TAG_IMPACT
 	loadspritegfx ANIM_TAG_SPARK_2

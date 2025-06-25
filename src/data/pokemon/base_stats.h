@@ -16739,7 +16739,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_GUTS, ABILITY_SHEER_FORCE},
-        .abilityHidden = {ABILITY_IRON_FIST, ABILITY_WEIGHTED_GI},
+        .abilityHidden = {ABILITY_IRON_FIST, ABILITY_SAND_RUSH},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -20721,6 +20721,8 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },
+    //zekrom needs better moves,
+    //think give drain punch?
 
     [SPECIES_LANDORUS_INCARNATE] =
     {
@@ -51390,6 +51392,82 @@ const struct BaseStats gBaseStats[] =
     //rather than just being "weak" they should have represented change
     //least those that go through chrysalis
     //nincada line is only one that does this concept well ironically
+
+    [SPECIES_MAZRAOM] =
+    {
+        .speciesName = _("Mazraom"),
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(
+        100,
+        140,
+        120,
+        90,
+        140,
+        120
+        ),
+        MON_TYPES(TYPE_DRAGON, TYPE_FIRE), //keeps fire type cuz plasma is molten hot and avoids fairy/ice weakness
+        .catchRate = 3,
+        .expYield = 306,
+        //.evYield_SpAttack = 3,
+        .genderRatio = MON_GENDERLESS,
+        .eggCycles = 120,
+        .friendship = FRIENDSHIP_LEGENDARY,
+        .growthRate = GROWTH_SLOW,
+        .eggGroup1 = EGG_GROUP_UNDISCOVERED,
+        .eggGroup2 = EGG_GROUP_UNDISCOVERED,
+        .abilities = {ABILITY_PLASMA_OVERDRIVE, ABILITY_NONE},//custom ability moldbreaker but also flashfire lightning rod
+        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_WHITE,
+        .noFlip = FALSE,
+        .floating = FALSE,
+        .safariZoneFleeRate = 50,
+        .abilityLearnset = sMazraomAbilityLearnset,
+        .levelUpLearnset = sReshiramLevelUpLearnset,
+        .tmhmLearnset = sReshiramTMHMLearnset,
+        .evolutions = NULL, //Should hopefully blank these for now without issue
+        .flags = FLAG_LEGENDARY_POKEMON,
+    },
+    //false original dragon, fusion of reshram and zekrom
+
+    [SPECIES_ZEKANRYUREM] =
+    {
+        .speciesName = _("Zekanryurem"),
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(
+        125,
+        165,
+        95,
+        100,
+        165,
+        95
+        ),
+        MON_TYPES(TYPE_DRAGON, TYPE_MYSTERY),
+        .catchRate = 3,
+        .expYield = 297,
+        //.evYield_HP = 1,
+        //.evYield_Attack = 1,
+        //.evYield_SpAttack = 1,
+        .genderRatio = MON_GENDERLESS,
+        .eggCycles = 120,
+        .friendship = FRIENDSHIP_LEGENDARY,
+        .growthRate = GROWTH_SLOW,
+        .eggGroup1 = EGG_GROUP_UNDISCOVERED,
+        .eggGroup2 = EGG_GROUP_UNDISCOVERED,
+        .abilities = {ABILITY_WHEEL_OF_CREATION, ABILITY_NONE}, //gave similar effects to arceus but is tied to ability
+        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},//and can be canceled as is not on same level as arceus but does ignore moldbreaker effects
+        .bodyColor = BODY_COLOR_GRAY,//ability is mix of arceus logic and absolute zero kyurem ability
+        .noFlip = FALSE, //is weaker but more controled version of kyurem ability
+        .floating = FALSE, //idea is with loss of mind and balance could only rely on overcharging
+        .safariZoneFleeRate = 50, //its control over ice to keep it going
+        .abilityLearnset = sZekanryuremAbilityLearnset,
+        .levelUpLearnset = sKyuremLevelUpLearnset,
+        .tmhmLearnset = sKyuremTMHMLearnset,
+        .evolutions = NULL, //Should hopefully blank these for now without issue
+        .flags = FLAG_LEGENDARY_POKEMON,
+    },
+    //true form of original dragon
 
 }; //can remove gender ratio mon from base stats now, moved logic to function
 //OK removed 6 entrie and that seemed to save me about 300bytes

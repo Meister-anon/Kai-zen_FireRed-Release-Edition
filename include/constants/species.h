@@ -1065,6 +1065,8 @@
 #define SPECIES_BEINFAE COSMETIC_FORMS_END + 4 //Faedentin evo, mostly literal translation mix w old english name of fairy
 #define SPECIES_LARVALKING  COSMETIC_FORMS_END + 5
 #define SPECIES_DEVIOPTERA  COSMETIC_FORMS_END + 6//on research realized name doesn't work as lepidoptera specifically refers to 4 winged in form can work for evo but not caterpillar form
+#define SPECIES_MAZRAOM     COSMETIC_FORMS_END + 7
+#define SPECIES_ZEKANRYUREM COSMETIC_FORMS_END + 8
 //move back to end of base spescies when done w fixes
 
 

@@ -169,7 +169,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectPsychUp
 	.4byte BattleScript_EffectMirrorCoat
 	.4byte BattleScript_EffectSkullBash
-	.4byte BattleScript_EffectHit						@EFFECT_TWISTER
+	.4byte BattleScript_EffectHit						@EFFECT_STATUS_IF_STAT_BOOST
 	.4byte BattleScript_EffectHit							@EFFECT_EARTHQUAKE
 	.4byte BattleScript_EffectFutureSight
 	.4byte BattleScript_EffectGust

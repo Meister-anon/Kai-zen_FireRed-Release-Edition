@@ -8830,6 +8830,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
     },
+    //zekrom special move
 
     [MOVE_BLUE_FLARE] =
     {
@@ -11628,7 +11629,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BURNING_JEALOUSY] =
     {
-        .effect = EFFECT_BURN_HIT,   //TODO
+        .effect = EFFECT_STATUS_IF_STAT_BOOST,
         .power = 70,
         .type = TYPE_FIRE,
         .accuracy = 100,
@@ -11638,7 +11639,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .argument = MOVE_EFFECT_BURN,
     },//think make - priorty move if on a fast mon not usefl
+    //potentially give to reshiram
+    //unsure if should make electric variant for zekrom?
+    //shocking malice vsonic
+    //balanced by needing to boost target stat
+    //and status having random elemnet to it,
+    //requires doubles to work
+    //but gives 100% paralysis which was lost with thunder wave
+    //plus damage
 
     [MOVE_LASH_OUT] =
     {
@@ -14186,6 +14196,31 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_PHYSICAL,
     },
     //super power clone
+
+    [MOVE_SHOCKING_MALICE] =
+    {
+        .effect = EFFECT_STATUS_IF_STAT_BOOST,
+        .power = 70,
+        .type = TYPE_ELECTRIC,
+        .accuracy = 100,
+        .pp = 5,
+        .secondaryEffectChance = 0, //check battlescript for //TODO values
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
+        .split = SPLIT_SPECIAL,
+        .argument = MOVE_EFFECT_PARALYSIS,
+    },
+    //burning jealousy clone
+    //may not be that big of a deal but think never give to thunderous
+    //just need check emerald for how they track status boost
+    //gave effect to reshiram too but this move means more for zekrom
+    //as it has a reliable acc stab special move
+    //to get around intimidate lock
+    //w sheerforce life orb 
+    //and if you're able to setup the paralysis doesn't even matter
+    //if you don't finish in one hit they'll be too slow
+    //on following turn
     
 
 };

@@ -1363,6 +1363,10 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
     {
         gBattleStruct->dynamicMoveType = TYPE_ICE;
     }
+    else if (GetBattlerAbility(gBattlerTarget) == ABILITY_WHEEL_OF_CREATION && moveType == TYPE_WATER)
+    {
+        gBattleStruct->dynamicMoveType = TYPE_ICE;
+    }
     else if (gBattleMoves[move].type == TYPE_NORMAL
              && move != MOVE_HIDDEN_POWER    //can remove effects for hidden ower and weather ball can just use hit, and do everything w move name 
              && move != MOVE_WEATHER_BALL    //as effects are never reused, i.e only for those specific moves
@@ -1553,6 +1557,15 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
     {
         moveType = TYPE_ICE;
     }
+    //since this is meant to return type and this ability is meant to just change type received by enemy
+    //think I should exclude below? least for now
+    //not exactly sure if gbattlertarget would work w this function
+    //may need to add battlerDef argument to store intended target?
+    /*else if (GetBattlerAbility(gBattlerTarget) == ABILITY_WHEEL_OF_CREATION && moveType == TYPE_WATER)
+    {
+        moveType = TYPE_ICE;
+    }
+    */
     else if (gBattleMoves[move].type == TYPE_NORMAL
              && move != MOVE_HIDDEN_POWER
              && move != MOVE_WEATHER_BALL
@@ -4604,6 +4617,8 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
     gProtectStructs[gActiveBattler].usesBouncedMove = FALSE;
     gProtectStructs[gActiveBattler].usedGravityPreventedMove = FALSE;
     gProtectStructs[gActiveBattler].usedThroatChopPreventedMove = FALSE; 
+    gProtectStructs[gActiveBattler].statRaised = FALSE;
+    gProtectStructs[gActiveBattler].statFell = FALSE;
     gDisableStructs[gActiveBattler].isFirstTurn = 2;
     gLastMoves[gActiveBattler] = MOVE_NONE;
     gLastLandedMoves[gActiveBattler] = MOVE_NONE;

@@ -147,8 +147,8 @@
 #define EFFECT_PSYCH_UP 143
 #define EFFECT_MIRROR_COAT 144
 #define EFFECT_SKULL_BASH 145
-#define EFFECT_TWISTER 146      //...also no longer used really need get along w bs refactor
-#define EFFECT_EARTHQUAKE 147   //no longer used vsonic nvm needuse for ai
+#define EFFECT_STATUS_IF_STAT_BOOST 146      //replaced effect_twister use for burning jealousy and shocking malice read statis to set from argument argument to move effect ro something
+#define EFFECT_EARTHQUAKE 147   //needuse for ai
 #define EFFECT_FUTURE_SIGHT 148
 #define EFFECT_GUST 149
 #define EFFECT_FLINCH_MINIMIZE_HIT 150  // STOMP ASTONISH EXTRASENSORY NEEDLE_ARM

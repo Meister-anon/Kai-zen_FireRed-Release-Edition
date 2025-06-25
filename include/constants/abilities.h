@@ -421,7 +421,10 @@
 #define ABILITY_COMPASS 389 //no guard clone for onix nosepass binacle as designed around compasses
 #define ABILITY_HANDS_OF_FATE 390 //purifying salt clone for binacle as designed around hamsa protective ward against the evil eye, think also give specific immunity to shadow tag mean look and decidueye move
 #define ABILITY_DUST_DEVIL 391 //combine sandstream & wind rider for new bug psuedo
+#define ABILITY_PLASMA_OVERDRIVE 392 //custom moldbreaker lightningrod flash fire for zekrom/reshiram fusion
+#define ABILITY_WHEEL_OF_CREATION 393 //custom ability for original dragon //power over fire electricity and ice
 
-#define ABILITIES_COUNT ABILITY_DUST_DEVIL + 1 //   ability count is last ability number + 1 since we have to count ability 0
+
+#define ABILITIES_COUNT ABILITY_WHEEL_OF_CREATION + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

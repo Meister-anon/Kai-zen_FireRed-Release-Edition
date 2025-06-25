@@ -129,6 +129,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     //[ABILITY_LEVITATE] = 7,
     [ABILITY_LIGHT_METAL] = 2,
     [ABILITY_LIGHTNING_ROD] = 7,
+    [ABILITY_PLASMA_OVERDRIVE] = 10,
     [ABILITY_LIMBER] = 3,
     [ABILITY_LIQUID_OOZE] = 3,
     [ABILITY_LIQUID_VOICE] = 5,
@@ -2594,6 +2595,7 @@ static bool32 BattlerAffectedByHail(u8 battlerId, u16 ability)
       && ability != ABILITY_OVERCOAT
       && ability != ABILITY_GLACIAL_ICE
       && ability != ABILITY_ABSOLUTE_ZERO
+      && ability != ABILITY_WHEEL_OF_CREATION
       && ability != ABILITY_ICE_BODY
       && GetBaseFormSpecies(gBattleMons[battlerId].species) != SPECIES_CASTFORM)
         return TRUE;

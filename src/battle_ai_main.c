@@ -780,6 +780,10 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 if (moveType == TYPE_FIRE)
                     RETURN_SCORE_MINUS(20);
                 break;
+            case ABILITY_PLASMA_OVERDRIVE:
+                if (moveType == TYPE_FIRE || moveType == TYPE_ELECTRIC)
+                    RETURN_SCORE_MINUS(20);
+                break;
             case ABILITY_WONDER_GUARD:
                 if (effectiveness < AI_EFFECTIVENESS_x1_55)
                     return 0;
@@ -885,6 +889,10 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     break;
                 case ABILITY_STORM_DRAIN:
                     if (moveType == TYPE_WATER && !IsMoveRedirectionPrevented(move, AI_DATA->abilities[battlerAtk]))
+                        RETURN_SCORE_MINUS(20);
+                    break;
+                case ABILITY_PLASMA_OVERDRIVE:
+                    if ((moveType == TYPE_ELECTRIC || moveType == TYPE_FIRE) && !IsMoveRedirectionPrevented(move, AI_DATA->abilities[battlerAtk]))
                         RETURN_SCORE_MINUS(20);
                     break;
                 case ABILITY_MAGIC_BOUNCE:
@@ -4650,7 +4658,8 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     case EFFECT_ION_DELUGE:
         if ((AI_DATA->abilities[battlerAtk] == ABILITY_VOLT_ABSORB
           || AI_DATA->abilities[battlerAtk] == ABILITY_MOTOR_DRIVE
-          || AI_DATA->abilities[battlerAtk] == ABILITY_LIGHTNING_ROD)
+          || AI_DATA->abilities[battlerAtk] == ABILITY_LIGHTNING_ROD
+          || AI_DATA->abilities[battlerAtk] == ABILITY_PLASMA_OVERDRIVE)
           && gBattleMoves[predictedMove].type == TYPE_NORMAL)
             score += 2;
         break;
@@ -4731,7 +4740,8 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         if (predictedMove != MOVE_NONE
          && (AI_DATA->abilities[battlerAtk] == ABILITY_VOLT_ABSORB
           || AI_DATA->abilities[battlerAtk] == ABILITY_MOTOR_DRIVE
-          || AI_DATA->abilities[battlerAtk] == ABILITY_LIGHTNING_ROD))
+          || AI_DATA->abilities[battlerAtk] == ABILITY_LIGHTNING_ROD
+          || AI_DATA->abilities[battlerAtk] == ABILITY_PLASMA_OVERDRIVE))
         {
             score += 3;
         }

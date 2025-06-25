@@ -2729,6 +2729,15 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
             //ok SHOULD be stab on fairy moves for toadstool nymph
             //with else ifs, should have alraedy excluded type matching move type
 
+            else if ((moveType == TYPE_FIRE || moveType == TYPE_ELECTRIC || moveType == TYPE_ICE)
+            || (gBattleMoves[gCurrentMove].effect == EFFECT_TWO_TYPED_MOVE
+            && argument == TYPE_FIRE || argument == TYPE_ELECTRIC || argument == TYPE_ICE)
+            && GetBattlerAbility(gBattlerAttacker) == ABILITY_WHEEL_OF_CREATION)
+            {
+                gBattleMoveDamage = gBattleMoveDamage * 135;
+                gBattleMoveDamage = gBattleMoveDamage / 100;
+            }
+
             else if (IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_NORMAL)) //added mystery line to prevent triggering joat, on normalize
             {
                 if ((moveType != TYPE_NORMAL && moveType != TYPE_MYSTERY)
@@ -3080,6 +3089,15 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
             }
             //ok SHOULD be stab on fairy moves for toadstool nymph
             //with else ifs, should have alraedy excluded type matching move type
+
+            else if ((moveType == TYPE_FIRE || moveType == TYPE_ELECTRIC || moveType == TYPE_ICE)
+            || (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE
+            && argument == TYPE_FIRE || argument == TYPE_ELECTRIC || argument == TYPE_ICE)
+            && GetBattlerAbility(attacker) == ABILITY_WHEEL_OF_CREATION)
+            {
+                gBattleMoveDamage = gBattleMoveDamage * 135;
+                gBattleMoveDamage = gBattleMoveDamage / 100;
+            }
 
             else if (IS_BATTLER_OF_TYPE(attacker, TYPE_NORMAL)) //added mystery line to prevent triggering joat, on normalize
             {
@@ -12622,6 +12640,7 @@ static void atk76_various(void) //will need to add all these emerald various com
             case ABILITY_RECEIVER:
             case ABILITY_FORECAST:
             case ABILITY_MULTITYPE:
+            case ABILITY_WHEEL_OF_CREATION:
             case ABILITY_FLOWER_GIFT:
             case ABILITY_ILLUSION:
             case ABILITY_RKS_SYSTEM:
@@ -15397,7 +15416,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
             else
             {
                 //vsonic for eject pack
-                //gProtectStructs[gActiveBattler].statFell = TRUE;   // Eject pack, lash out
+                gProtectStructs[gActiveBattler].statFell = TRUE;   // Eject pack, lash out
                 gBattleCommunication[MULTISTRING_CHOOSER] = (gBattlerTarget == gActiveBattler); // B_MSG_ATTACKER_STAT_FELL or B_MSG_DEFENDER_STAT_FELL
             }
            //expression not assignment so return either 0 or 1
@@ -15443,7 +15462,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
                 statIncrease = statValue;
             
             gBattleCommunication[MULTISTRING_CHOOSER] = (gBattlerTarget == gActiveBattler);
-            //gProtectStructs[gActiveBattler].statRaised = TRUE;
+            gProtectStructs[gActiveBattler].statRaised = TRUE;
 
             // Check Mirror Herb / Opportunist
             /*for (index = 0; index < gBattlersCount; index++)
@@ -15993,6 +16012,7 @@ static void atk96_weatherdamage(void)
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_SNOW_CLOAK
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_ICE_BODY
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_ABSOLUTE_ZERO
+             && GetBattlerAbility(gBattlerAttacker) != ABILITY_WHEEL_OF_CREATION
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_GLACIAL_ICE
              && GetBaseFormSpecies(gBattleMons[gBattlerAttacker].species) != SPECIES_CASTFORM)
             {
@@ -20832,7 +20852,12 @@ void BS_setargumenteffectwithchance(void) //different effect for in hit, where a
             argumentChance = (argumentChance * (atkHoldEffectParam + 100)) / 100; //ex (20 * 110) = 2200  / 100 = 22  w this serene grace applies once not twice for kings rock
 
             
-
+        //doesn't set status but don't return
+        //as it still gets sheer force boost
+        //should make zekrom better give reliable special move
+        if (gBattleMoves[gCurrentMove].effect == EFFECT_STATUS_IF_STAT_BOOST
+        && !gProtectStructs[gBattlerTarget].statRaised)
+            gBattleScripting.moveEffect = MOVE_EFFECT_NOTHING_0;
 
         if (argumentChance == 0) //seems to have issue when using certain on no effect moves so preventing that here
             gBattleScripting.moveEffect |= MOVE_EFFECT_CERTAIN;  //ok I don't know difference but this works without issue 
@@ -21060,6 +21085,7 @@ void BS_tryworryseed(void) {
     {
     case ABILITY_INSOMNIA:
     case ABILITY_MULTITYPE:
+    case ABILITY_WHEEL_OF_CREATION:
     case ABILITY_TRUANT:
     case ABILITY_STANCE_CHANGE:
     case ABILITY_DISGUISE:

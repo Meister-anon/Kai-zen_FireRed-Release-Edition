@@ -2278,6 +2278,7 @@ static const struct AbilityLearnset sConkeldurrAbilityLearnset[] = {
     ABILITY_DRY_SKIN,
     ABILITY_RIVALRY,
     ABILITY_STEADFAST,
+    ABILITY_WEIGHTED_GI,
     ABILITY_OWN_TEMPO,
     ABILITY_SET_END
 };
@@ -2729,10 +2730,12 @@ static const struct AbilityLearnset sThundurusAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sReshiramAbilityLearnset[] = {
+    ABILITY_MARVEL_SCALE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sZekromAbilityLearnset[] = {
+    ABILITY_SHEER_FORCE,
     ABILITY_SET_END
 };
 
@@ -4082,10 +4085,12 @@ static const struct AbilityLearnset sShayminSkyAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sKyuremWhiteAbilityLearnset[] = {
+    ABILITY_MARVEL_SCALE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sKyuremBlackAbilityLearnset[] = {
+    ABILITY_SHEER_FORCE,
     ABILITY_SET_END
 };
 
@@ -4662,6 +4667,16 @@ static const struct AbilityLearnset sBeinfaeAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sFraeyjtaAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sMazraomAbilityLearnset[] = {
+    ABILITY_MARVEL_SCALE,
+    ABILITY_SHEER_FORCE,
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sZekanryuremAbilityLearnset[] = {
     ABILITY_SET_END
 };
 
