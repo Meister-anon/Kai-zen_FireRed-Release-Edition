@@ -497,6 +497,8 @@ const u16 gAbilitiesAffectedByMoldBreaker[] =
     ABILITY_WONDER_SKIN,
     ABILITY_AROMA_VEIL,
     ABILITY_BULLETPROOF,
+    ABILITY_LUNAR_POWER,
+    ABILITY_NEW_MOON,
     ABILITY_FLOWER_VEIL,
     ABILITY_FUR_COAT,
     ABILITY_OVERCOAT,
@@ -741,7 +743,7 @@ bool32 IsBattlerWeatherAffected(u8 battlerId, u32 weatherFlags) //need to add ut
             return TRUE; //because orichalcum pulse & protosynth is meant to work through umbrella
 
         // given weather is active -> check if its sun, rain against utility umbrella ( since only 1 weather can be active at once)
-        else if (gBattleWeather & (WEATHER_SUN_ANY | WEATHER_RAIN_ANY) && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA)
+        else if (gBattleWeather & (WEATHER_SUN_ANY | WEATHER_RAIN_ANY | WEATHER_MOON_ANY) && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA)
             return FALSE; // utility umbrella blocks sun, rain effects
         else if (gBattleWeather & (WEATHER_HAIL_ANY | WEATHER_SANDSTORM_ANY) && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_SAFETY_GOGGLES)
             return FALSE; //major upgrade to safety goggles, blocks hail and sandstorm effects, useful dealing sandstorm acc drop
@@ -890,6 +892,27 @@ bool32 DoesPranksterBlockMove(u16 move, u8 battlerwithPrankster, u8 battlerDef, 
         return FALSE;
 
     return TRUE;
+}
+
+//rn no  non user targetted
+//status moves was considering exclude status effects
+//from enemy or partner but will leave as is
+//potential downside lose support from partner for effect
+bool32 IsMoonbasedMove(u16 move)
+{
+    switch (move)
+    {
+        case MOVE_MOONLIGHT:
+        case MOVE_MOONDANCE:
+        case MOVE_MOONBLAST:
+        case MOVE_MOONGEIST_BEAM:
+        case MOVE_BLOOD_MOON:
+        case MOVE_MALICIOUS_MOONSAULT:
+        case MOVE_MENACING_MOONRAZE_MAELSTROM:
+            return TRUE;
+        default:
+            return FALSE;
+    }
 }
 
 #define REFERENCE_ENDTURN_ABILITIES
@@ -1849,6 +1872,7 @@ enum
     ENDTURN_RAIN,
     ENDTURN_SANDSTORM,
     ENDTURN_SUN,
+    ENDTURN_MOONLIGHT,
     ENDTURN_HAIL,
     ENDTURN_FORECAST,
     ENDTURN_HAZE,
@@ -2274,6 +2298,35 @@ u8 DoFieldEndTurnEffects(void)
                 else
                 {
                     gBattlescriptCurrInstr = BattleScript_SunlightContinues;
+                }
+                BattleScriptExecute(gBattlescriptCurrInstr);
+                ++effect;
+            }
+            ++gBattleStruct->turnCountersTracker;
+            break;
+        case ENDTURN_MOONLIGHT:
+            if (gBattleWeather & WEATHER_MOON_ANY)
+            {
+                if (!(gBattleWeather & WEATHER_MOON_PERMANENT)) //overworld permanent)
+                {
+                    if (IsAbilityOnField(ABILITY_LUNAR_SOLSTICE))// || --gWishFutureKnock.weatherDuration != 0)
+                        gBattlescriptCurrInstr = BattleScript_MoonlightShiningBrightly;
+
+                    else if (gWishFutureKnock.weatherDuration == 0 || --gWishFutureKnock.weatherDuration == 0) //weathr decrement
+                    {
+                        gBattleWeather &= ~WEATHR_MOON_TEMPORARY;
+                        gBattlescriptCurrInstr = BattleScript_MoonlightFaded; //redid these to fix sun persisting effect, but think this string isn't playing?
+                    }
+                    else
+                    {
+                        gBattlescriptCurrInstr = BattleScript_MoonlightShiningBrightly;
+                    }
+                    
+
+                }
+                else
+                {
+                    gBattlescriptCurrInstr = BattleScript_MoonlightShiningBrightly;
                 }
                 BattleScriptExecute(gBattlescriptCurrInstr);
                 ++effect;
@@ -5307,6 +5360,7 @@ static const u16 sWeatherFlagsInfo[][3] =
     [ENUM_WEATHER_SANDSTORM] =    {WEATHER_SANDSTORM_TEMPORARY, WEATHER_SANDSTORM_PERMANENT, HOLD_EFFECT_SMOOTH_ROCK},
     [ENUM_WEATHER_HAIL] =         {WEATHER_HAIL,                WEATHER_HAIL_PERMANENT,      HOLD_EFFECT_ICY_ROCK},
     [ENUM_WEATHER_STRONG_WINDS] = {WEATHER_STRONG_WINDS,        WEATHER_STRONG_WINDS,        HOLD_EFFECT_NONE},
+    [ENUM_WEATHER_MOON] =          {WEATHR_MOON_TEMPORARY,      WEATHER_MOON_PERMANENT,     HOLD_EFFECT_NONE}, //MAKE Moon rock unless I just se moonstone?
 };
 
 //abilities that don't use timer
@@ -5389,6 +5443,7 @@ bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility) 
         || battlerAbility ==  ABILITY_SNOW_WARNING 
         || battlerAbility ==  ABILITY_SAND_STREAM
         || battlerAbility == ABILITY_DUST_DEVIL
+        || battlerAbility == ABILITY_LUNAR_SOLSTICE
         || battlerAbility == ABILITY_ORICHALCUM_PULSE))
         {
             gBattleWeather = (sWeatherFlagsInfo[weatherEnumId][0]); //should set temp weather w timer 0
@@ -5907,6 +5962,20 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 else if (TryChangeBattleWeather(battler, ENUM_WEATHER_SUN, TRUE))
                 {
                     BattleScriptPushCursorAndCallback(BattleScript_DroughtActivates);
+                    gBattleScripting.battler = battler;
+                    ++effect;
+                }
+                break;
+            case ABILITY_LUNAR_SOLSTICE:
+                if (gBattleWeather & WEATHER_PRIMAL_ANY && WeatherHasEffect())
+                {
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_BlockedByPrimalWeatherRet;
+                    ++effect;
+                }
+                else if (TryChangeBattleWeather(battler, ENUM_WEATHER_MOON, TRUE))
+                {
+                    BattleScriptPushCursorAndCallback(BattleScript_LunarSolsticeActivates);
                     gBattleScripting.battler = battler;
                     ++effect;
                 }
@@ -7090,8 +7159,18 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         && gBattleMons[battler].maxHP > gBattleMons[battler].hp
                         && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
                     {
-                        //gLastUsedAbility = ABILITY_RAIN_DISH; // why -_-  ?chcked emerald, and was correct this is unnecessary
-                        BattleScriptPushCursorAndCallback(BattleScript_RainDishActivates);
+                        BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);
+                        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 12,1);    //could buff?  did buff wass 16
+                        gBattleMoveDamage *= -1;
+                        ++effect;
+                    }
+                    break;
+                case ABILITY_NEW_MOON:
+                    if (IsBattlerWeatherAffected(battler, WEATHER_MOON_ANY)
+                        && gBattleMons[battler].maxHP > gBattleMons[battler].hp
+                        && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
+                    {
+                        BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);
                         gBattleMoveDamage = max(gBattleMons[battler].maxHP / 12,1);    //could buff?  did buff wass 16
                         gBattleMoveDamage *= -1;
                         ++effect;
@@ -7697,7 +7776,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             if (moveArg != MOVE_NONE)
             {            
             if ((gLastUsedAbility == ABILITY_SOUNDPROOF && (gBattleMoves[moveArg].type == TYPE_SOUND || gBattleMoves[moveArg].flags & FLAG_SOUND) && !(moveTarget & MOVE_TARGET_USER))
-                || (gLastUsedAbility == ABILITY_BULLETPROOF && gBattleMoves[moveArg].flags & FLAG_BALLISTIC))
+                || (gLastUsedAbility == ABILITY_BULLETPROOF && gBattleMoves[moveArg].flags & FLAG_BALLISTIC)
+                || (gLastUsedAbility == ABILITY_LUNAR_POWER && IsMoonbasedMove(moveArg) && !(moveTarget & MOVE_TARGET_USER)))
             {
                 if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS)
                     gHitMarker |= HITMARKER_NO_PPDEDUCT;
@@ -7821,39 +7901,43 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         }
                     }
                     break;
-                case ABILITY_PLASMA_OVERDRIVE:
-                {
-                    if (moveType == TYPE_ELECTRIC)
-                        effect = 2, statId = STAT_SPATK;
-                    
-                    else if ((moveType == TYPE_FIRE) && !((gBattleMons[battler].status1 & STATUS1_FREEZE)))// && B_FLASH_FIRE_FROZEN <= GEN_4))
+                    case ABILITY_PLASMA_OVERDRIVE:
                     {
-                        if (!(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE))
+                        if (moveType == TYPE_ELECTRIC)
+                            effect = 2, statId = STAT_SPATK;
+                        
+                        else if ((moveType == TYPE_FIRE) && !((gBattleMons[battler].status1 & STATUS1_FREEZE)))// && B_FLASH_FIRE_FROZEN <= GEN_4))
                         {
-                            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_BOOST;
-                            if (gProtectStructs[gBattlerAttacker].notFirstStrike)
-                                gBattlescriptCurrInstr = BattleScript_FlashFireBoost;   // think cna put atk canceler text here, or below in effect1 effect2 stuff
-                            else
-                                gBattlescriptCurrInstr = BattleScript_FlashFireBoost_PPLoss;
+                            if (!(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE))
+                            {
+                                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_BOOST;
+                                if (gProtectStructs[gBattlerAttacker].notFirstStrike)
+                                    gBattlescriptCurrInstr = BattleScript_FlashFireBoost;   // think cna put atk canceler text here, or below in effect1 effect2 stuff
+                                else
+                                    gBattlescriptCurrInstr = BattleScript_FlashFireBoost_PPLoss;
 
-                            gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_FLASH_FIRE;
-                            effect = 3; 
-                        }
-                        else if ((gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE) || IS_MOVE_STATUS(moveArg))
-                        {
-                            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_NO_BOOST;
-                            if (gProtectStructs[gBattlerAttacker].notFirstStrike)
-                                gBattlescriptCurrInstr = BattleScript_FlashFireBoost;
-                            else
-                                gBattlescriptCurrInstr = BattleScript_FlashFireBoost_PPLoss;
+                                gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_FLASH_FIRE;
+                                effect = 3; 
+                            }
+                            else if ((gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE) || IS_MOVE_STATUS(moveArg))
+                            {
+                                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_NO_BOOST;
+                                if (gProtectStructs[gBattlerAttacker].notFirstStrike)
+                                    gBattlescriptCurrInstr = BattleScript_FlashFireBoost;
+                                else
+                                    gBattlescriptCurrInstr = BattleScript_FlashFireBoost_PPLoss;
 
-                            effect = 3;
+                                effect = 3;
+                            }
                         }
                     }
-                }
                 break;
 
                 } //end of abilities,  start of effect logic
+
+                if (GetBattlerAbility(battler) == ABILITY_NEW_MOON//argument sets battler as battlertarget
+                    && IsMoonbasedMove(moveArg) && battler != gBattlerAttacker) //not self target
+                        effect = 1;
 
                 if (effect == 1) // Drain Hp ability.
                 {
@@ -7864,7 +7948,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         else
                             gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless_PPLoss;
                     }
-                    else if (IS_MOVE_STATUS(moveArg))//(gBattleMoves[moveArg].power == 0)
+                    else if (IS_MOVE_STATUS(moveArg))
                     {
                         if ((gProtectStructs[gBattlerAttacker].notFirstStrike))
                             gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless;

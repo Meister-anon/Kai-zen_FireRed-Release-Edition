@@ -177,6 +177,7 @@ bool32 CanBeConfused(u8 battlerId);
 bool32 CanTeleport(u8 battlerId); //new teleport logic
 bool32 HasEnoughHpToEatBerry(u8 battlerId, u32 hpFraction, u16 itemId);
 bool32 DoesPranksterBlockMove(u16 move, u8 battlerwithPrankster, u8 battlerDef, bool32 checkTarget);
+bool32 IsMoonbasedMove(u16 move); //in prep for lunar power etc.
 bool32 CompareStat(u8 battlerId, u8 statId, u8 cmpTo, u8 cmpKind);
 bool32 IsBattlerWeatherAffected(u8 battlerId, u32 weatherFlags);
 u16 GetUsedHeldItem(u8 battler);

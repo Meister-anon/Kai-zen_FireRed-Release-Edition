@@ -424,7 +424,10 @@
 #define ABILITY_PLASMA_OVERDRIVE 392 //custom moldbreaker lightningrod flash fire for zekrom/reshiram fusion
 #define ABILITY_WHEEL_OF_CREATION 393 //custom ability for original dragon //power over fire electricity and ice
 #define ABILITY_DARK_CORONA 394 //initial intended ability for larvalking tough spines + poison point
+#define ABILITY_LUNAR_SOLSTICE 395 //moon version of sundisk
+#define ABILITY_LUNAR_POWER 396 //moon version of solar power //think may add on can't be damaged by moon based attacks? like balistic
+#define ABILITY_NEW_MOON 397 //heal by moonlight think also heal from taking moon based attacks?
 
-#define ABILITIES_COUNT ABILITY_DARK_CORONA + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITIES_COUNT ABILITY_NEW_MOON + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

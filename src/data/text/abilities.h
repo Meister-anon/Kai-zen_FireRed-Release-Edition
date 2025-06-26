@@ -717,6 +717,9 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_PLASMA_OVERDRIVE] = COMPOUND_ABILITY_STRING("Moves ignore ability affects, and draws\nin FIRE/ELEC to up fire moves or Sp. Atk"),
     [ABILITY_WHEEL_OF_CREATION] = COMPOUND_ABILITY_STRING("Gain STAB and Immunity to Ice Fire & Elec\nWater moves targetting user become Ice."),
     [ABILITY_DARK_CORONA] = COMPOUND_ABILITY_STRING("A Tainted Crown of spikes that hurts\nand may poison when foes make contact."),
+    [ABILITY_LUNAR_SOLSTICE] = COMPOUND_ABILITY_STRING("The POKéMON celebrates the moon.\nTemporarily boosts moonlight in battle."),
+    [ABILITY_LUNAR_POWER] = COMPOUND_ABILITY_STRING("Powers up in strong moonlight.\nBoosts Sp. Def avoids Moon based attacks."),
+    [ABILITY_NEW_MOON] = COMPOUND_ABILITY_STRING("Moderate HP recovery in moonlight.\nAlso absorbs Moon based attacks."), //doesn't change target just takes it in
 
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
@@ -1137,6 +1140,9 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_PLASMA_OVERDRIVE] = _("Plasma Overdrive"),
     [ABILITY_WHEEL_OF_CREATION] = _("Wheel of Creation"),
     [ABILITY_DARK_CORONA] = _("Dark Corona"),
+    [ABILITY_LUNAR_SOLSTICE] = _("Lunar Solstice"),
+    [ABILITY_LUNAR_POWER] = _("Lunar Power"),
+    [ABILITY_NEW_MOON] = _("New Moon"), //finally decided name as new moon represents rebirth and healing
 
 
 };//can have comma

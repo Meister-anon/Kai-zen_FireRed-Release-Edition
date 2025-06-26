@@ -18997,6 +18997,7 @@ static const struct LevelUpMove sLycanrocMidnightLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_ACCELEROCK),
     LEVEL_UP_MOVE( 1, MOVE_OBSTRUCT),
     LEVEL_UP_MOVE( 1, MOVE_REVERSAL),
+    LEVEL_UP_MOVE( 1, MOVE_MOONLIGHT),
     LEVEL_UP_MOVE( 1, MOVE_POWER_TRIP), //mostly useless but can baton pass into howl
     LEVEL_UP_MOVE( 1, MOVE_TAUNT),
     LEVEL_UP_MOVE( 1, MOVE_GLARE),

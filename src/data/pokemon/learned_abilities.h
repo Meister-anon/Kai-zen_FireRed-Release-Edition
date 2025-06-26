@@ -1379,6 +1379,7 @@ static const struct AbilityLearnset sGlalieAbilityLearnset[] = {
 
 static const struct AbilityLearnset sLunatoneAbilityLearnset[] = {
     ABILITY_MISTY_SURGE,
+    ABILITY_LUNAR_SOLSTICE,
     ABILITY_SET_END
 };//need give fairy moves fae worship moon, also moonblast is so obvious
 //fae is linked w moon so setting mist terrain is best I could come up with?
@@ -3156,6 +3157,7 @@ static const struct AbilityLearnset sRockruffAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sLycanrocAbilityLearnset[] = {
+    ABILITY_LUNAR_POWER,
     ABILITY_SET_END
 };
 
@@ -3346,6 +3348,8 @@ static const struct AbilityLearnset sSolgaleoAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sLunalaAbilityLearnset[] = {
+    ABILITY_LUNAR_POWER,
+    ABILITY_NEW_MOON,
     ABILITY_SET_END
 };
 
@@ -4107,10 +4111,12 @@ static const struct AbilityLearnset sHoopaUnboundAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sLycanrocMidnightAbilityLearnset[] = {
+    ABILITY_NEW_MOON,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sLycanrocDuskAbilityLearnset[] = {
+    ABILITY_LUNAR_POWER,
     ABILITY_SET_END
 };
 

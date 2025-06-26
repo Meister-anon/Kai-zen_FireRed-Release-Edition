@@ -316,6 +316,7 @@ static const u8 sText_PkmnsXRestoredHPALittle2[] = _("{B_ATK_NAME_WITH_PREFIX}'s
 static const u8 sText_PkmnsXWhippedUpSandstorm[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nwhipped up a sandstorm!");
 static const u8 sText_TargetsXWhippedUpSandstorm[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\nwhipped up a sandstorm!");
 static const u8 sText_PkmnsXIntensifiedSun[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nintensified the sun's rays!");
+static const u8 sText_PkmnsXIntensifiedMoon[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nintensified the moon's rays!");
 static const u8 sText_PkmnsXPreventsYLoss[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nprevents {B_BUFF1} loss!");
 static const u8 sText_PkmnsXInfatuatedY[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\ninfatuated {B_ATK_NAME_WITH_PREFIX}!");
 static const u8 sText_AttakersXInfatuatedY[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_ATK_ABILITY}\ninfatuated {B_DEF_NAME_WITH_PREFIX}!");
@@ -1574,6 +1575,11 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_PKMNINSNAPTRAP]                       = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} got trapped by\na snap trap!"),
     [STRINGID_THUNDERCAGETRAPPED]                   = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} was caught in\na shocking trap!"),
     [STRINGID_TAKECAUGHTMONFROMPC]              = COMPOUND_STRING("Take Caught Mon From PC?"),
+    [STRINGID_MOONLIGHT_SHINING_BRIGHT]              = COMPOUND_STRING("The Moon's light shown brightly!"),
+    [STRINGID_MOONLIGHT_SHINES]              = COMPOUND_STRING("Moonlight shines down."),
+    [STRINGID_MOONLIGHTFADED]              = COMPOUND_STRING("The Moon's rays faded from view."),
+    [STRINGID_STARTEDSNOW]              = COMPOUND_STRING("It started to snow!"),
+    [STRINGID_PKMNSXINTENSIFIEDMOONLIGHT] = sText_PkmnsXIntensifiedMoon,
 
     [STRINGID_TRAINER2CLASS]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME]                  = sText_Trainer2Name,
@@ -1659,7 +1665,8 @@ const u16 gMoveWeatherChangeStringIds[] = {
     [B_MSG_STARTED_SANDSTORM] = STRINGID_SANDSTORMBREWED,
     [B_MSG_STARTED_SUNLIGHT]  = STRINGID_SUNLIGHTGOTBRIGHT,
     [B_MSG_STARTED_HAIL]      = STRINGID_STARTEDHAIL,
-    //[B_MSG_STARTED_SNOW]      = STRINGID_STARTEDSNOW,
+    [B_MSG_STARTED_SNOW]      = STRINGID_STARTEDSNOW,
+    [B_MSG_STARTED_MOONLIGHT] = STRINGID_MOONLIGHT_SHINING_BRIGHT,
 };
 
 

@@ -7791,7 +7791,8 @@ static void atk45_playanimation(void)
     else if (gBattlescriptCurrInstr[2] == B_ANIM_RAIN_CONTINUES
           || gBattlescriptCurrInstr[2] == B_ANIM_SUN_CONTINUES
           || gBattlescriptCurrInstr[2] == B_ANIM_SANDSTORM_CONTINUES
-          || gBattlescriptCurrInstr[2] == B_ANIM_HAIL_CONTINUES)
+          || gBattlescriptCurrInstr[2] == B_ANIM_HAIL_CONTINUES
+          || gBattlescriptCurrInstr[2] == B_ANIM_MOONLIGHT_SHINES)
     {
         BtlController_EmitBattleAnimation(0, gBattlescriptCurrInstr[2], *argumentPtr);
         MarkBattlerForControllerExec(gActiveBattler);
@@ -7832,7 +7833,8 @@ static void atk46_playanimation2(void) // animation Id is stored in the first po
     else if (*animationIdPtr == B_ANIM_RAIN_CONTINUES
           || *animationIdPtr == B_ANIM_SUN_CONTINUES
           || *animationIdPtr == B_ANIM_SANDSTORM_CONTINUES
-          || *animationIdPtr == B_ANIM_HAIL_CONTINUES)
+          || *animationIdPtr == B_ANIM_HAIL_CONTINUES
+          || *animationIdPtr == B_ANIM_MOONLIGHT_SHINES)
     {
         BtlController_EmitBattleAnimation(0, *animationIdPtr, *argumentPtr);
         MarkBattlerForControllerExec(gActiveBattler);
@@ -17940,6 +17942,23 @@ static void atkBB_setsunny(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+void BS_setmoonlight(void)
+{
+    NATIVE_ARGS();
+
+    if (!TryChangeBattleWeather(gBattlerAttacker, ENUM_WEATHER_MOON, FALSE))
+    {
+        gMoveResultFlags |= MOVE_RESULT_MISSED;
+        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEATHER_FAILED;
+    }
+    else
+    {
+        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STARTED_MOONLIGHT;
+    }
+
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
 static void atk7D_setrain(void)
 {
     CMD_ARGS();
@@ -18106,6 +18125,16 @@ static void atkC0_recoverbasedonsunlight(void) //since requires setting sun, wil
         if (gCurrentMove == MOVE_SHORE_UP)
         {
             if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY))
+                //gBattleMoveDamage = 20 * GetNonDynamaxMaxHP(gBattlerAttacker) / 30;
+                gBattleMoveDamage = max(20 * gBattleMons[gBattlerAttacker].maxHP / 30,1);
+            else
+                //gBattleMoveDamage = GetNonDynamaxMaxHP(gBattlerAttacker) / 3;
+                gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 3,1);
+        }
+        else if (gCurrentMove == MOVE_MOONLIGHT) //trigger with both as moon is reflection of sun
+        {
+            if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY)
+            || IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_MOON_ANY))
                 //gBattleMoveDamage = 20 * GetNonDynamaxMaxHP(gBattlerAttacker) / 30;
                 gBattleMoveDamage = max(20 * gBattleMons[gBattlerAttacker].maxHP / 30,1);
             else

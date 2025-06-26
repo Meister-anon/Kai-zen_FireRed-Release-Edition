@@ -50,6 +50,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_BIG_PECKS] = 1,
     [ABILITY_BLAZE] = 5,
     [ABILITY_BULLETPROOF] = 7,
+    [ABILITY_LUNAR_POWER] = 8, //bulletproof for moon moves + solar power no helath drop
     [ABILITY_CHEEK_POUCH] = 4,
     [ABILITY_CHLOROPHYLL] = 6,
     [ABILITY_CLEAR_BODY] = 4,

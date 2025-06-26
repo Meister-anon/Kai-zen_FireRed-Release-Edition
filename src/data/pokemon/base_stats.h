@@ -10501,7 +10501,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
-        .abilities = {ABILITY_SOLAR_POWER, ABILITY_NONE},
+        .abilities = {ABILITY_SOLAR_POWER, ABILITY_LUNAR_POWER}, //gets both becuase moon is reflection of sun
         .abilityHidden = {ABILITY_SOLID_ROCK, ABILITY_PHOTOSYNTHESIZE},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -10521,6 +10521,22 @@ const struct BaseStats gBaseStats[] =
     //for opposite using sunny day from their would shift, from night, to twilight, to day.
     //maybe not, lunar dance is already a move, mmm could call it solstice?
     //may just do a clock to change time in game
+    //-Moondance  fav song van morrison
+
+    //consolidate idea, ability lunar power, use moonlight animation to setup
+    //"weather" that is an enhancement of moon power
+    //both fae and water are linked with the moon so consider give both of them
+    //smaller degree of boost then rain
+    //and lunar power ability will boost solrock in some way
+    //and as moon is considered healing and less in intensity,
+    //don't include health drop as part of it
+    //think lunar weather boost fairy water dmg by 25%
+    //and lunar power boost sp def by same amount solar power boosts sp atk
+    //w new weather will also have to check sun based healing command
+    // boost moonlight, and also affect weather ball? guess make it fairy type lol
+    //and guess set that as option for castforms ability forecast?
+    //hmm think I may exclude that keep just on a move or unique ability
+    //vsonic IMPORTANT
 
     [SPECIES_SOLROCK] =
     {
@@ -26167,7 +26183,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_SHADOW_SHIELD, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_LUNAR_SOLSTICE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -38567,6 +38583,9 @@ const struct BaseStats gBaseStats[] =
     //best I can come up with is dropping power of MOVE_SPIRIT_BREAK
     //just so it can trigger technician can't imagine many others use that move
     //hmm ok I'd have to add them but it gets some physical poison moves vai tm in gen9
+    //if in doubles I pair this w a dark deal mon I can use technician but idk 
+    //how useful that'll be, and since dark deal boosts effect chance
+    //you'd still kinda prefer to run toxic chain
 //#endif //P_FAMILY_FEZANDIPITI
 
 //#if p_fAMILY_OGERPON
@@ -48809,7 +48828,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_KEEN_EYE, ABILITY_ROCK_HEAD},//known for headbuts, doesn't learn headbut...
-        .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_NONE}, //change evo move to headbutt   eventually learn move head smash
+        .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_LUNAR_POWER}, //change evo move to headbutt   eventually learn move head smash
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -48823,6 +48842,7 @@ const struct BaseStats gBaseStats[] =
     //need review tm access mdinight specifically loses moves other forms get
     //and is given special dark moves -_-
     //give obstruct
+    //only this is actually werewolf so only gave this one new moon
 
     [SPECIES_LYCANROC_DUSK] =
     {

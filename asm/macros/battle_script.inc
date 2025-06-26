@@ -1599,6 +1599,10 @@
 	callnative BS_SetChargeturnMoveStringforTwoTurnMoves
 	.endm
 
+	.macro setmoonlight
+	callnative BS_setmoonlight
+	.endm
+
 	.macro getstatchangeIdfromability
 	callnative BS_GetStatChangeIdFromAbility
 	.endm

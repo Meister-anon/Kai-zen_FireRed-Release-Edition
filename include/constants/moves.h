@@ -912,13 +912,14 @@
 #define MOVE_SEAFLOOR_RESPITE 877 //new idea make its own thing
 #define MOVE_BRUTE_FORCE 878    //my version of super power, takes litreal translation of move name
 #define MOVE_SHOCKING_MALICE 879    //burning jealousy clone
+#define MOVE_MOONDANCE 880  //moon version of sunny day
 //#define MOVES_COUNT MOVES_COUNT_GEN8
 
 //for completion new moves have to be defined in:  move_descriptions.inc,  move_names.h, & battle_anim_scripts.s
 // also need actual move data in battle_moves.h
 //* consolidated move name & move description files into move_info.h
 
-#define LAST_MOVE_INDEX     MOVE_SHOCKING_MALICE
+#define LAST_MOVE_INDEX     MOVE_MOONDANCE
 
 #define MOVES_COUNT_GEN8 (LAST_MOVE_INDEX + 1) //changed so define auto updates
 

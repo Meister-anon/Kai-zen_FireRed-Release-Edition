@@ -77,6 +77,10 @@ extern const u8 BattleScript_DamagingWeatherContinues[];
 extern const u8 BattleScript_SandStormHailEnds[];
 extern const u8 BattleScript_SunlightContinues[];
 extern const u8 BattleScript_SunlightFaded[];
+extern const u8 BattleScript_LunarSolsticeActivates[]; //ability set weather
+extern const u8 BattleScript_EffectMoondance[];     //weather start
+extern const u8 BattleScript_MoonlightShiningBrightly[]; //end turn
+extern const u8 BattleScript_MoonlightFaded[]; //end
 extern const u8 BattleScript_OverworldWeatherStarts[];
 extern const u8 BattleScript_OverworldTerrain[];
 extern const u8 BattleScript_SideStatusWoreOff[];
@@ -226,8 +230,6 @@ extern const u8 BattleScript_SpeedBoostActivates[];
 extern const u8 BattleScript_DefenderAbilityStatBoost[];
 extern const u8 BattleScript_DefeatistActivates[];
 extern const u8 BattleScript_TraceActivates[];
-extern const u8 BattleScript_RainDishActivates[];
-extern const u8 BattleScript_HealWithoutMessage[];
 extern const u8 BattleScript_SandstreamActivates[];
 extern const u8 BattleScript_DustDevilActivates[];
 extern const u8 BattleScript_ShedSkinActivates[];
@@ -386,6 +388,7 @@ extern const u8 BattleScript_WimpoutWildNoPopUp[];
 extern const u8 BattleScript_ReceiverActivates[];
 extern const u8 BattleScript_AbilityHpHeal[];
 extern const u8 BattleScript_EndTurnAbilityHpHeal[];
+extern const u8 BattleScript_HealWithoutMessage[];
 extern const u8 BattleScript_CheekPouchActivates[];
 extern const u8 BattleScript_HarvestActivates[];
 extern const u8 BattleScript_SolarPowerActivates[];

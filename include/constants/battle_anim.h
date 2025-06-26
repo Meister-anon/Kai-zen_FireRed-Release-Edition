@@ -549,6 +549,7 @@
 #define B_ANIM_ZMOVE_ACTIVATE           0x2A // Using Z Moves
 #define B_ANIM_TARGET_SCARED            0x2B //scared animation for pressure/hi-pressure attempt
 #define B_ANIM_INFESTATION              0x2C
+#define B_ANIM_MOONLIGHT_SHINES         0x2D    //should be setup now?
 
 // special animations table
 #define B_ANIM_LVL_UP                   0x0

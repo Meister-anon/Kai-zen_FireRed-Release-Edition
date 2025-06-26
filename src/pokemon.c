@@ -4996,7 +4996,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //rather htan move bp?
 
 
-    
+    //no idea why I have all these up here,
+    //should be down in DAMAGE_BASED_ABILITY_LOGIC will do later
     //stat change abilities/same effect as gbattlemovedamage change but just more complient
     if (GetBattlerAbility(battlerIdAtk) == ABILITY_HUSTLE)
         attack = (150 * attack) / 100;
@@ -5398,6 +5399,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     //put abilities ported here
     // attacker's abilities  
+    #define DAMAGE_BASED_ABILITY_LOGIC
     switch (GetBattlerAbility(battlerIdAtk)) //checked emerald doeesn't appear to need to order by ability value, emerald doesn't do so.
     {
 
@@ -5884,6 +5886,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
     case ABILITY_DREAD_WING:
         attack = (67 * attack) / 100; //equivalent one stat stage drop
+        break;
+    case ABILITY_LUNAR_POWER:
+        if (IsBattlerWeatherAffected(battlerIdDef, WEATHER_MOON_ANY)
+        && GetBattlerAbility(battlerIdAtk) != ABILITY_CLOUD_NINE)
+            spDefense = (150 * spDefense) / 100;
+        break;
+
     }//essentially intimidate with also an damage boost
 
     // target's ally's abilities
@@ -6008,7 +6017,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         //moved these here, because they don't have to do with physical or special damage alone anymore.  since I removed the type link
         // any weather except sun weakens solar beam
-        else if ((gBattleWeather & (WEATHER_RAIN_ANY | WEATHER_SANDSTORM_ANY | WEATHER_HAIL)) && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
+        else if ((gBattleWeather & (WEATHER_RAIN_ANY | WEATHER_SANDSTORM_ANY | WEATHER_HAIL)) 
+        && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
             OffensiveModifer(50);
 
         
@@ -6036,6 +6046,25 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 break;//reverted sunflora to grass normal but still good
             }
         }
+
+        //moonlight
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_MOON_ANY))
+        {
+            switch (moveType)
+            {
+            case TYPE_FAIRY:
+            if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
+                OffensiveModifer(125);
+                break;
+            case TYPE_WATER:
+            if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
+                OffensiveModifer(125);
+                break;
+            }
+        }//didn't intend it but this would be a very interesting weather
+        //it boosts water so has rain team synergy
+        //but doesn't weaken fire moves
+        //so you could run a mix of fire and water on the same team
 
         // hail
         if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_HAIL_ANY))

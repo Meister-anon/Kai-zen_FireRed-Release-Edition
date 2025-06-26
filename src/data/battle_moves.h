@@ -14221,6 +14221,21 @@ use wonder gaurd logic to determine its super effective
     //and if you're able to setup the paralysis doesn't even matter
     //if you don't finish in one hit they'll be too slow
     //on following turn
+
+    [MOVE_MOONDANCE] =
+    {
+        .effect = EFFECT_MOONDANCE,
+        .power = 0,
+        .type = TYPE_FAIRY,
+        .accuracy = 0,
+        .pp = 5,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_USER,
+        .priority = 1,
+        .flags = 0,
+        .split = SPLIT_STATUS,
+    },
+    //EFFECT_MOONDANCE
     
 
 };

@@ -13117,6 +13117,7 @@ goto STAT_CHANGE_ABILITIES
 goto ACCURACY_BASED_ABILITIES   //other ability logic exists outside battle_util.c  make sure to go over all ability effects
 goto NEW_ABILITY_CATEGORY //affinity abilities that give a mon the benefits of said type without needing tobe that type
 goto ABILITYBATTLE_FUNCTION	//	battle_util.c function other more complex ability activation logic.  STILL need to update   vsonic
+goto DAMAGE_BASED_ABILITY_LOGIC  //stuff in pokemon.c
 /*
 * Setting up new effeets for absorb abilities
 * make all work like lightnight rod and change targetting to draw in moves  -effect Done, working on messags and status effect

@@ -941,6 +941,7 @@ gBattleAnims_Moves::
 	.4byte Move_SEAFLOOR_RESPITE	
 	.4byte Move_BRUTE_FORCE
 	.4byte Move_SHOCKING_MALICE
+	.4byte Move_MOONDANCE
 	.4byte Move_COUNT @ cannot be reached, because last move is Eerie Spell  important check move order moves.h
 
 gBattleAnims_StatusConditions::
@@ -1005,6 +1006,7 @@ gBattleAnims_General::		@aligns with constants/battle_anim.h
 	.4byte General_ZMoveActivate            @ B_ANIM_ZMOVE_ACTIVATE
 	.4byte General_TargetMonScared			@ B_ANIM_TARGET_SCARED    /for pressure etc.	
 	.4byte Status_Infestation				@ B_ANIM_INFESTATION
+	.4byte General_Moonlight				@ B_ANIM_MOONLIGHT_SHINES
 
 gBattleAnims_Special::
 	.4byte Special_LevelUp					@ B_ANIM_LVL_UP
@@ -4114,6 +4116,32 @@ Move_MOONLIGHT:: @ 81CB54E
 	createvisualtask AnimTask_MoonlightEndFade, 2, 
 	waitforvisualfinish
 	call HealingEffect
+	waitforvisualfinish
+	end
+
+@moonlight without heal effect
+Move_MOONDANCE::
+	loadspritegfx ANIM_TAG_MOON
+	loadspritegfx ANIM_TAG_GREEN_SPARKLE
+	loadspritegfx ANIM_TAG_BLUE_STAR
+	setalpha 0, 16
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 1, 1, 0, 16, 0
+	waitforvisualfinish
+	createsprite gMoonSpriteTemplate, ANIM_ATTACKER, 2, 120, 56
+	createvisualtask AnimTask_AlphaFadeIn, 3, 0, 16, 16, 0, 1
+	playsewithpan SE_M_MOONLIGHT, 0
+	delay 30
+	createsprite gMoonlightSparkleSpriteTemplate, ANIM_ATTACKER, 40, -12, 0
+	delay 30
+	createsprite gMoonlightSparkleSpriteTemplate, ANIM_ATTACKER, 40, -24, 0
+	delay 30
+	createsprite gMoonlightSparkleSpriteTemplate, ANIM_ATTACKER, 40, 21, 0
+	delay 30
+	createsprite gMoonlightSparkleSpriteTemplate, ANIM_ATTACKER, 40, 0, 0
+	delay 30
+	createsprite gMoonlightSparkleSpriteTemplate, ANIM_ATTACKER, 40, 10, 0
+	delay 20
+	createvisualtask AnimTask_MoonlightEndFade, 2, 
 	waitforvisualfinish
 	end
 
@@ -13110,7 +13138,7 @@ Move_DRACO_METEOR:
 	waitforvisualfinish
 	end
 
-MOVE_SHOCKING_MALICE:
+Move_SHOCKING_MALICE:
 Move_DISCHARGE:
 	loadspritegfx ANIM_TAG_IMPACT
 	loadspritegfx ANIM_TAG_SPARK_2
@@ -25074,6 +25102,9 @@ General_Sandstorm:: @ 81D5FDD
 
 General_Hail:: @ 81D5FE2
 	goto Move_HAIL
+
+General_Moonlight::
+	goto Move_MOONDANCE
 
 General_LeechSeedDrain:: @ 81D5FE7
 	createvisualtask AnimTask_GetBattlersFromArg, 5, 

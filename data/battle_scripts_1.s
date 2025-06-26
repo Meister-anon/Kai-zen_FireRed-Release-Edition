@@ -450,7 +450,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectSteelSurge			  @EFFECT_STEEL_SURGE
 	.4byte BattleScript_EffectRagingBull			  @ EFFECT_RAGING_BULL
 	.4byte BattleScript_EffectSubmission			  @EFFECT_SUBMISSION
-
+	.4byte BattleScript_EffectMoondance				  @EFFECT_MOONDANCE
 
 BattleScript_EffectAlwaysCrit:
 BattleScript_EffectFellStinger:
@@ -7265,6 +7265,28 @@ BattleScript_SunlightFaded::
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
+@moon weather condition
+BattleScript_EffectMoondance::
+	attackcanceler
+	attackstring
+	ppreduce
+	jumpifhalfword CMP_COMMON_BITS, gBattleWeather, WEATHER_SUN_PRIMAL, BattleScript_ExtremelyHarshSunlightWasNotLessened
+	jumpifhalfword CMP_COMMON_BITS, gBattleWeather, WEATHER_RAIN_PRIMAL, BattleScript_NoReliefFromHeavyRain
+	jumpifhalfword CMP_COMMON_BITS, gBattleWeather, WEATHER_STRONG_WINDS, BattleScript_MysteriousAirCurrentBlowsOn
+	setmoonlight
+	goto BattleScript_MoveWeatherChange
+
+BattleScript_MoonlightShiningBrightly::
+	printstring STRINGID_MOONLIGHT_SHINES
+	waitmessage B_WAIT_TIME_LONG
+	playanimation BS_ATTACKER, B_ANIM_MOONLIGHT_SHINES, NULL
+	end2
+
+BattleScript_MoonlightFaded::
+	printstring STRINGID_MOONLIGHTFADED
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
 BattleScript_OverworldWeatherStarts::
 	printfromtable gWeatherContinuesStringIds
 	waitmessage B_WAIT_TIME_LONG
@@ -9074,9 +9096,6 @@ BattleScript_EndTurnAbilityHpHeal::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_HealWithoutMessage
 
-BattleScript_RainDishActivates::
-	printstring STRINGID_PKMNSXRESTOREDHPALITTLE2
-	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 BattleScript_HealWithoutMessage::
 	call BattleScript_HealAnimation
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
@@ -9621,6 +9640,14 @@ BattleScript_DroughtActivates::
 	printstring STRINGID_PKMNSXINTENSIFIEDSUN
 	waitstate
 	playanimation BS_BATTLER_0, B_ANIM_SUN_CONTINUES, NULL
+	call BattleScript_HandleWeatherFormChanges
+	end3
+
+BattleScript_LunarSolsticeActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNSXINTENSIFIEDMOONLIGHT
+	waitstate
+	playanimation BS_BATTLER_0, B_ANIM_MOONLIGHT_SHINES, NULL
 	call BattleScript_HandleWeatherFormChanges
 	end3
 
