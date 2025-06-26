@@ -19678,7 +19678,7 @@ static void atkEF_handleballthrow(void) //important changed
     if (!gBattleControllerExecFlags)
     {
         gActiveBattler = gBattlerAttacker;
-        gBattlerTarget = gBattlerAttacker ^ BIT_SIDE;
+        gBattlerTarget = gCatchTargetId;
         if (gBattleTypeFlags & BATTLE_TYPE_GHOST)
         {
             BtlController_EmitBallThrowAnim(0, BALL_GHOST_DODGE);
@@ -19927,23 +19927,25 @@ static void atkEF_handleballthrow(void) //important changed
 }
 
 //oh I can do the take held item stuff here nice
+//should have replaced these targets w catchId early but missed
+//either way it seems to work without problem?
 static void atkF0_givecaughtmon(void) //useful if I set up alt storage,
 {
-    u16 heldItem = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_HELD_ITEM);
+    u16 heldItem = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_HELD_ITEM);
     u16 clearItem = ITEM_NONE;
-    if (GiveMonToPlayer(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]]) != MON_GIVEN_TO_PARTY) //if mon going to pc, is this codeblok
+    if (GiveMonToPlayer(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]]) != MON_GIVEN_TO_PARTY) //if mon going to pc, is this codeblok
     {
         
         if (!ShouldShowBoxWasFullMessage())
         {
             gBattleCommunication[MULTISTRING_CHOOSER] = 0;
             StringCopy(gStringVar1, GetBoxNamePtr(VarGet(VAR_PC_BOX_TO_SEND_MON)));
-            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gStringVar2);
+            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_NICKNAME, gStringVar2);
         }
         else
         {
             StringCopy(gStringVar1, GetBoxNamePtr(VarGet(VAR_PC_BOX_TO_SEND_MON))); // box the mon was sent to
-            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gStringVar2);
+            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_NICKNAME, gStringVar2);
             StringCopy(gStringVar3, GetBoxNamePtr(GetPCBoxToSendMon())); //box the mon was going to be sent to
             gBattleCommunication[MULTISTRING_CHOOSER] = 2;
         }
@@ -19960,8 +19962,8 @@ static void atkF0_givecaughtmon(void) //useful if I set up alt storage,
            // gBattlescriptCurrInstr = BattleScript_TakeItemfromCaughtMon; change think use buff3 and end with return 
         }
     }
-    //gBattleResults.caughtMonSpecies = gBattleMons[gBattlerAttacker ^ BIT_SIDE].species; //thinkm this is why can't catch both mon? it uses side? is that why?
-    GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleResults.caughtMonNick);
+    //gBattleResults.caughtMonSpecies = gBattleMons[gCatchTargetId].species; //thinkm this is why can't catch both mon? it uses side? is that why?
+    GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_NICKNAME, gBattleResults.caughtMonNick);
     ++gBattlescriptCurrInstr;
 }
 
@@ -19978,7 +19980,7 @@ static void atkF1_trysetcaughtmondexflags(void)
     else    //otherwise trigger set caught
     {
         HandleSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT, personality);
-        gBattleResults.caughtMonSpecies = gBattleMons[gBattlerAttacker ^ BIT_SIDE].species; //moved here to attempt use for speed up
+        gBattleResults.caughtMonSpecies = gBattleMons[gCatchTargetId].species; //moved here to attempt use for speed up
 
 
         gBattlescriptCurrInstr = cmd->nextInstr;
@@ -20169,7 +20171,7 @@ static void atkF3_trygivecaughtmonnick(void)
     case 2:
         if (!gPaletteFade.active) //can't tell what causes fade here
         {
-            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
+            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
             FreeAllWindowBuffers();
             //ok even without naming screen fade
             //it fades to black, is it instead the 
@@ -20178,9 +20180,9 @@ static void atkF3_trygivecaughtmonnick(void)
             if (gSavedPartyCount == PARTY_SIZE)
             {
                 DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
-                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_SPECIES),
-                           GetMonGender(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]]),
-                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_PERSONALITY, NULL),
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_SPECIES),
+                           GetMonGender(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]]),
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_PERSONALITY, NULL),
                            SetCB2ToReshowScreenAfterCatch); //almost works just need not reshow mon caught, and figure what to do for double wilds
             } //for now seems work next step will make ewram to store battle position or some other function for should display sprite/create sprite
             //which would rely on battlehp being fainted or mon being caught? which are I guess fields I would add to batlemons?
@@ -20189,9 +20191,9 @@ static void atkF3_trygivecaughtmonnick(void)
             else
             {
                 DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
-                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_SPECIES),
-                           GetMonGender(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]]),
-                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_PERSONALITY, NULL),
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_SPECIES),
+                           GetMonGender(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]]),
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_PERSONALITY, NULL),
                            BattleMainCB2);
             }
             ++gBattleCommunication[MULTIUSE_STATE]; //next case //for double wilds I'd want to not reshow healthbox
@@ -20201,7 +20203,7 @@ static void atkF3_trygivecaughtmonnick(void)
     case 3:
         if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
         {
-            SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
+            SetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
             gBattlescriptCurrInstr = cmd->jumpInstr; //goes to caughtpokemonskipnickname
         }//ok no issues here I gess the problem is in DoNamingScreen then?
         break;
