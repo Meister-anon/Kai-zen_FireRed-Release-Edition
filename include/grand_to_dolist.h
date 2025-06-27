@@ -4465,6 +4465,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     to species name function
     ok that fixed it
 
+    
+
+    almost got acidrain weather setup
+    graphic looks nice but endturn going to wrong effect?
+    is triggering normal rain first w message tehn triggering all other weather categories?
+    figure out when not asleep
+    oh I forgot to set the actual weather condition in the enum table for ENUM_WEATHER_ACID_RAIN
+*/
+goto WEATHER_ENUM_TABLE  //table that actually sets weather by the enum need define weather here
+/*
+
 
 
 

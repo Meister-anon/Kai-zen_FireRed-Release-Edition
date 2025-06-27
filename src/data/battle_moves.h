@@ -14236,6 +14236,20 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_STATUS,
     },
     //EFFECT_MOONDANCE
+
+    [MOVE_ACID_RAIN] =
+    {
+        .effect = EFFECT_ACIDRAIN,
+        .power = 0,
+        .type = TYPE_POISON,
+        .accuracy = 0,
+        .pp = 5,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_USER,
+        .priority = 1,
+        .flags = 0,
+        .split = SPLIT_STATUS,
+    },
     
 
 };

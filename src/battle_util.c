@@ -5389,6 +5389,7 @@ bool8 HasNoMonsToSwitch(u8 battler, u8 partyIdBattlerOn1, u8 partyIdBattlerOn2)
     }
 }
 
+#define WEATHER_ENUM_TABLE
 static const u16 sWeatherFlagsInfo[][3] =
 {
     [ENUM_WEATHER_RAIN_PRIMAL] =  {WEATHER_RAIN_PRIMAL,         WEATHER_RAIN_PRIMAL,         HOLD_EFFECT_DAMP_ROCK},
@@ -5399,6 +5400,7 @@ static const u16 sWeatherFlagsInfo[][3] =
     [ENUM_WEATHER_HAIL] =         {WEATHER_HAIL,                WEATHER_HAIL_PERMANENT,      HOLD_EFFECT_ICY_ROCK},
     [ENUM_WEATHER_STRONG_WINDS] = {WEATHER_STRONG_WINDS,        WEATHER_STRONG_WINDS,        HOLD_EFFECT_NONE},
     [ENUM_WEATHER_MOON] =          {WEATHR_MOON_TEMPORARY,      WEATHER_MOON_PERMANENT,     HOLD_EFFECT_NONE}, //MAKE Moon rock unless I just se moonstone?
+    [ENUM_WEATHER_ACID_RAIN] =    {WEATHER_ACID_RAIN_TEMPORARY, WEATHER_ACID_RAIN_PERMANENT, HOLD_EFFECT_NONE}, //slimy rock maybe?
 };
 
 //abilities that don't use timer
