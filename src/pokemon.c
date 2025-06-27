@@ -5425,7 +5425,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //MulModifier(&modifier, UQ_4_12(1.5));
         break;
     case ABILITY_TOXIC_BOOST:
-        if (gBattleMons[battlerIdAtk].status1 & STATUS1_PSN_ANY && usesDefStat //IS_MOVE_PHYSICAL(move))
+        if ((gBattleMons[battlerIdAtk].status1 & STATUS1_PSN_ANY || IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN_ANY)) 
+            && usesDefStat
             && IsBlackFogNotOnField())
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         //MulModifier(&modifier, UQ_4_12(1.5));
@@ -5979,12 +5980,27 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     // are effects of weather negated with cloud nine or air lock
     if (WeatherHasEffect() && IsBlackFogNotOnField()) //weather dmg changes weren't working at all, think was becuz I had  below dmg calc
     {
-        if (gBattleWeather & WEATHER_RAIN_ANY)
+
+        //black fog check has already been added to weatheraffected funcion directly
+        if ((GetBattlerAbility(battlerIdAtk) == ABILITY_FLUORESCENCE   
+        || DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))     
+        && !IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY)// && IsBlackFogNotOnField()
+        && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
         {
-            if (defenderHoldEffect == HOLD_EFFECT_UTILITY_UMBRELLA)
-            {}
-            else
-            {
+            OffensiveModifer(100);
+        } //simpler balancing for fluorescence do dmg cut/ nvm removed dmg cut, low bst and forgot lowered super bonus etc., so will mean just avoids dmg cut from other weather
+
+        //moved these here, because they don't have to do with physical or special damage alone anymore.  since I removed the type link
+        // any weather except sun weakens solar beam
+        else if ((gBattleWeather & (WEATHER_RAIN_ANY | WEATHER_SANDSTORM_ANY | WEATHER_HAIL)) 
+        && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
+            OffensiveModifer(50);
+
+
+        //rain
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_RAIN_ANY))
+        {
+
                 switch (moveType)
                 {
                 case TYPE_FIRE:
@@ -6003,23 +6019,25 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 {
                     OffensiveModifer(150);
                 }
-            }
         }
 
-        //black fog check has already been added to weatheraffected funcion directly
-        if ((GetBattlerAbility(battlerIdAtk) == ABILITY_FLUORESCENCE   
-        || DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))     
-        && !IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY)// && IsBlackFogNotOnField()
-        && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
+        //acid rain
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN_ANY))
         {
-            OffensiveModifer(100);
-        } //simpler balancing for fluorescence do dmg cut/ nvm removed dmg cut, low bst and forgot lowered super bonus etc., so will mean just avoids dmg cut from other weather
+            switch (moveType)
+            {
+            case TYPE_FIRE:
+            if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
+                OffensiveModifer(130);
+                break;
+            case TYPE_WATER:
+            if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
+                OffensiveModifer(130);
+                break;
+            }//doesn't have to be half since can't double dip could boost to 30
+        }
 
-        //moved these here, because they don't have to do with physical or special damage alone anymore.  since I removed the type link
-        // any weather except sun weakens solar beam
-        else if ((gBattleWeather & (WEATHER_RAIN_ANY | WEATHER_SANDSTORM_ANY | WEATHER_HAIL)) 
-        && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
-            OffensiveModifer(50);
+        
 
         
 
@@ -6054,13 +6072,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             {
             case TYPE_FAIRY:
             if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
-                OffensiveModifer(125);
+                OffensiveModifer(130);
                 break;
             case TYPE_WATER:
             if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
-                OffensiveModifer(125);
+                OffensiveModifer(130);
                 break;
-            }
+            }//doesn't have to be half since can't double dip could boost to 30
         }//didn't intend it but this would be a very interesting weather
         //it boosts water so has rain team synergy
         //but doesn't weaken fire moves

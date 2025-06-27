@@ -74,7 +74,7 @@ extern const u8 BattleScript_Pausex40[];
 extern const u8 BattleScript_LevelUp[];
 extern const u8 BattleScript_RainContinuesOrEnds[];
 extern const u8 BattleScript_DamagingWeatherContinues[];
-extern const u8 BattleScript_SandStormHailEnds[];
+extern const u8 BattleScript_DamagingWeatherEnds[];
 extern const u8 BattleScript_SunlightContinues[];
 extern const u8 BattleScript_SunlightFaded[];
 extern const u8 BattleScript_LunarSolsticeActivates[]; //ability set weather
@@ -226,6 +226,7 @@ extern const u8 BattleScript_EffectHeavyRecoil[];
 extern const u8 BattleScript_ItemSteal[];
 extern const u8 BattleScript_InBattlePickup[];	//new in battle effect for ability pickup, 1 in 3 chance pickup held item and end of turn
 extern const u8 BattleScript_DrizzleActivates[];
+extern const u8 BattleScript_ToxicDelugeActivates[];
 extern const u8 BattleScript_SpeedBoostActivates[];
 extern const u8 BattleScript_DefenderAbilityStatBoost[];
 extern const u8 BattleScript_DefeatistActivates[];

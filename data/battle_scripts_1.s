@@ -451,6 +451,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectRagingBull			  @ EFFECT_RAGING_BULL
 	.4byte BattleScript_EffectSubmission			  @EFFECT_SUBMISSION
 	.4byte BattleScript_EffectMoondance				  @EFFECT_MOONDANCE
+	.4byte BattleScript_EffectAcidRain				  @EFFECT_ACIDRAIN
 
 BattleScript_EffectAlwaysCrit:
 BattleScript_EffectFellStinger:
@@ -7223,7 +7224,7 @@ BattleScript_RainContinuesOrEndsEnd::
 	end2
 
 BattleScript_DamagingWeatherContinues::
-	printfromtable gSandstormHailContinuesStringIds
+	printfromtable gDamagingWeatherContinuesStringIds
 	waitmessage B_WAIT_TIME_LONG
 	playanimation2 BS_ATTACKER, sB_ANIM_ARG1, NULL
 	setbyte gBattleCommunication, 0
@@ -7231,7 +7232,7 @@ BattleScript_DamagingWeatherLoop::
 	copyarraywithindex gBattlerAttacker, gBattlerByTurnOrder, gBattleCommunication, 1
 	weatherdamage
 	jumpifword CMP_EQUAL, gBattleMoveDamage, NULL, BattleScript_DamagingWeatherContinuesEnd
-	printfromtable gSandstormHailDmgStringIds
+	printfromtable gDamagingWeatherDmgStringIds
 	waitmessage B_WAIT_TIME_LONG
 	orword gHitMarker, HITMARKER_SKIP_DMG_TRACK | HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE | HITMARKER_GRUDGE
 	effectivenesssound
@@ -7249,8 +7250,8 @@ BattleScript_WeatherDamageEndedBattle::
 	bicword gHitMarker, HITMARKER_SKIP_DMG_TRACK | HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE | HITMARKER_GRUDGE
 	end2
 
-BattleScript_SandStormHailEnds::
-	printfromtable gSandstormHailEndStringIds
+BattleScript_DamagingWeatherEnds::
+	printfromtable gDamagingWeatherEndStringIds
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
@@ -7286,6 +7287,20 @@ BattleScript_MoonlightFaded::
 	printstring STRINGID_MOONLIGHTFADED
 	waitmessage B_WAIT_TIME_LONG
 	end2
+
+@acid rain weather condition
+@think can just use most of same 
+@rain weather strings?
+@couldnt really come up with a better name
+BattleScript_EffectAcidRain::
+	attackcanceler
+	attackstring
+	ppreduce
+	jumpifhalfword CMP_COMMON_BITS, gBattleWeather, WEATHER_SUN_PRIMAL, BattleScript_ExtremelyHarshSunlightWasNotLessened
+	jumpifhalfword CMP_COMMON_BITS, gBattleWeather, WEATHER_RAIN_PRIMAL, BattleScript_NoReliefFromHeavyRain
+	jumpifhalfword CMP_COMMON_BITS, gBattleWeather, WEATHER_STRONG_WINDS, BattleScript_MysteriousAirCurrentBlowsOn
+	setacidrain
+	goto BattleScript_MoveWeatherChange
 
 BattleScript_OverworldWeatherStarts::
 	printfromtable gWeatherContinuesStringIds
@@ -9632,6 +9647,14 @@ BattleScript_DrizzleActivates::
 	printstring STRINGID_PKMNMADEITRAIN
 	waitstate
 	playanimation BS_BATTLER_0, B_ANIM_RAIN_CONTINUES, NULL
+	call BattleScript_HandleWeatherFormChanges
+	end3
+
+BattleScript_ToxicDelugeActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNMADEITRAIN
+	waitstate
+	playanimation BS_BATTLER_0, B_ANIM_ACID_RAIN_CONTINUES, NULL
 	call BattleScript_HandleWeatherFormChanges
 	end3
 

@@ -1604,6 +1604,10 @@
 	callnative BS_setmoonlight
 	.endm
 
+	.macro setacidrain
+	callnative BS_setacidrain
+	.endm
+
 	.macro getstatchangeIdfromability
 	callnative BS_GetStatChangeIdFromAbility
 	.endm

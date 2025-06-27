@@ -743,7 +743,8 @@ bool32 IsBattlerWeatherAffected(u8 battlerId, u32 weatherFlags) //need to add ut
             return TRUE; //because orichalcum pulse & protosynth is meant to work through umbrella
 
         // given weather is active -> check if its sun, rain against utility umbrella ( since only 1 weather can be active at once)
-        else if (gBattleWeather & (WEATHER_SUN_ANY | WEATHER_RAIN_ANY | WEATHER_MOON_ANY) && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA)
+        //umbrella covers moonlight cuz parasoul
+        else if (gBattleWeather & (WEATHER_SUN_ANY | WEATHER_RAIN_ANY | WEATHER_MOON_ANY | WEATHER_ACID_RAIN_ANY) && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA)
             return FALSE; // utility umbrella blocks sun, rain effects
         else if (gBattleWeather & (WEATHER_HAIL_ANY | WEATHER_SANDSTORM_ANY) && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_SAFETY_GOGGLES)
             return FALSE; //major upgrade to safety goggles, blocks hail and sandstorm effects, useful dealing sandstorm acc drop
@@ -1874,6 +1875,7 @@ enum
     ENDTURN_SUN,
     ENDTURN_MOONLIGHT,
     ENDTURN_HAIL,
+    ENDTURN_ACID_RAIN,
     ENDTURN_FORECAST,
     ENDTURN_HAZE,
     ENDTURN_GRAVITY,
@@ -2254,7 +2256,7 @@ u8 DoFieldEndTurnEffects(void)
                     else if (gWishFutureKnock.weatherDuration == 0 || --gWishFutureKnock.weatherDuration == 0) //weathr decrement
                     {
                         gBattleWeather &= ~WEATHER_SANDSTORM_TEMPORARY;
-                        gBattlescriptCurrInstr = BattleScript_SandStormHailEnds;
+                        gBattlescriptCurrInstr = BattleScript_DamagingWeatherEnds;
                     }
                     else
                     {
@@ -2267,7 +2269,7 @@ u8 DoFieldEndTurnEffects(void)
                     gBattlescriptCurrInstr = BattleScript_DamagingWeatherContinues;
                 }
                 gBattleScripting.animArg1 = B_ANIM_SANDSTORM_CONTINUES;
-                gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SANDSTORM_ID;
                 BattleScriptExecute(gBattlescriptCurrInstr);
                 ++effect;
             }
@@ -2350,7 +2352,7 @@ u8 DoFieldEndTurnEffects(void)
                     else if (gWishFutureKnock.weatherDuration == 0 || --gWishFutureKnock.weatherDuration == 0) //weathr decrement
                     {
                         gBattleWeather &= ~WEATHER_HAIL;
-                        gBattlescriptCurrInstr = BattleScript_SandStormHailEnds;
+                        gBattlescriptCurrInstr = BattleScript_DamagingWeatherEnds;
                     }
                     else
                     {
@@ -2363,7 +2365,43 @@ u8 DoFieldEndTurnEffects(void)
                     gBattlescriptCurrInstr = BattleScript_DamagingWeatherContinues;
                 }
                 gBattleScripting.animArg1 = B_ANIM_HAIL_CONTINUES;
-                gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_HAIL_ID;
+                BattleScriptExecute(gBattlescriptCurrInstr);
+                ++effect;
+            }
+            ++gBattleStruct->turnCountersTracker;
+            break;
+        case ENDTURN_ACID_RAIN:
+            if (gBattleWeather & WEATHER_ACID_RAIN_ANY)
+            {
+                if (!(gBattleWeather & WEATHER_ACID_RAIN_PERMANENT)) //new idea make weather abilities last long as mon is on field,
+                {   //they don't use weatherduartion timer, so weather would end soon as mon is fainted or forced out (easier counter play)
+                    //drought drizzle would be different in that they would still have a counter of 5, so weather would persist for a time even when off field
+                    //that way  weather extenders would still be useful, mon with non perm weather would  hold the extender to get more mileage out of weather
+                    //if they are forced to switch or taken out
+
+                    //decided to keep this setup  are below drought/drizzle but still gives reason to use weather crystals its a good middle ground
+                    //had to fix, logic hierarchy wasn't right, think wouldn't have properly gone to weather continue
+                    if (IsAbilityOnField(ABILITY_TOXIC_DELUGE))// || --gWishFutureKnock.weatherDuration != 0)
+                        gBattlescriptCurrInstr = BattleScript_DamagingWeatherContinues;
+
+                    else if (gWishFutureKnock.weatherDuration == 0 || --gWishFutureKnock.weatherDuration == 0) //weathr decrement
+                    {
+                        gBattleWeather &= ~WEATHER_ACID_RAIN_TEMPORARY;
+                        gBattlescriptCurrInstr = BattleScript_DamagingWeatherEnds;
+                    }
+                    else
+                    {
+                        gBattlescriptCurrInstr = BattleScript_DamagingWeatherContinues;
+                    }
+                    
+                }
+                else
+                {
+                    gBattlescriptCurrInstr = BattleScript_DamagingWeatherContinues;
+                }
+                gBattleScripting.animArg1 = B_ANIM_ACID_RAIN_CONTINUES;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_ACID_RAIN_ID;
                 BattleScriptExecute(gBattlescriptCurrInstr);
                 ++effect;
             }
@@ -5439,7 +5477,8 @@ bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility) 
 
         else if ((viaAbility && !(gBattleWeather & (sWeatherFlagsInfo[weatherEnumId][0] | sWeatherFlagsInfo[weatherEnumId][1])))
         && (battlerAbility == ABILITY_SUN_DISK 
-        || battlerAbility ==  ABILITY_SQUALL 
+        || battlerAbility ==  ABILITY_SQUALL
+        || battlerAbility == ABILITY_TOXIC_DELUGE 
         || battlerAbility ==  ABILITY_SNOW_WARNING 
         || battlerAbility ==  ABILITY_SAND_STREAM
         || battlerAbility == ABILITY_DUST_DEVIL
@@ -5784,7 +5823,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 gBattleScripting.battler = battler; //swapped for emerald line
             switch (gLastUsedAbility) //guessing but I think...that each abiltiy switch case is based off the ability getting logged in glastusedability 
             {
-            case ABILITYEFFECT_SWITCH_IN_WEATHER:
+            case ABILITYEFFECT_SWITCH_IN_WEATHER: //think is overworld weather? like battle start weather
                 switch (GetCurrentWeather())
                 {
                 case WEATHER_RAIN:
@@ -5976,6 +6015,20 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 else if (TryChangeBattleWeather(battler, ENUM_WEATHER_MOON, TRUE))
                 {
                     BattleScriptPushCursorAndCallback(BattleScript_LunarSolsticeActivates);
+                    gBattleScripting.battler = battler;
+                    ++effect;
+                }
+                break;
+            case ABILITY_TOXIC_DELUGE:
+                if (gBattleWeather & WEATHER_PRIMAL_ANY && WeatherHasEffect())
+                {
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_BlockedByPrimalWeatherRet;
+                    ++effect;
+                }
+                else if (TryChangeBattleWeather(battler, ENUM_WEATHER_ACID_RAIN, TRUE))
+                {
+                    BattleScriptPushCursorAndCallback(BattleScript_ToxicDelugeActivates);
                     gBattleScripting.battler = battler;
                     ++effect;
                 }
@@ -13957,16 +14010,21 @@ bool8 IscurrentMonOnFieldAtPos(struct Pokemon *mon, u8 position)
 bool32 TryActivateBattlePoisonHeal(u32 battler)  //change mind better to do 2 functions, rather than do 2 different effects with one.
 {
 
-    if (!gProtectStructs[battler].activatedPoisonHealing)
+    if (!gProtectStructs[battler].activatedPoisonHealing
+    && (GetBattlerAbility(battler) == ABILITY_POISON_HEAL && gBattleMons[battler].hp != 0))
     {
-        if ((GetBattlerAbility(battler) == ABILITY_POISON_HEAL) && gBattleMons[battler].hp != 0
-            && (gBattleMons[battler].status1 & STATUS1_POISON || gBattleMons[battler].status1 & STATUS1_TOXIC_POISON))
+
+        if (gBattleMons[battler].status1 & STATUS1_POISON
+            || gBattleMons[battler].status1 & STATUS1_TOXIC_POISON
+            || IsBattlerWeatherAffected(battler, WEATHER_ACID_RAIN_ANY))
         {
             return TRUE;
         }
-        else if ((GetBattlerAbility(battler) == ABILITY_POISON_HEAL) && gBattleMons[battler].hp != 0
-            && DoesBattlerGetTypeBasedAffinity(battler, TYPE_POISON) 
-            && ((GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_BLACK_SLUDGE) || (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_TOXIC_ORB)))
+
+        else if (DoesBattlerGetTypeBasedAffinity(battler, TYPE_POISON) 
+            && ((GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_BLACK_SLUDGE)
+            || (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_TOXIC_ORB)
+            || IsBattlerWeatherAffected(battler, WEATHER_ACID_RAIN_ANY)))
         {
             return TRUE;
         }

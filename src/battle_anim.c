@@ -1238,7 +1238,7 @@ const struct CompressedSpriteSheet gBattleAnimPicTable[] =
     {gBattleAnimSpriteGfx_WaterColumn, 0x0400, ANIM_TAG_WATER_COLUMN},
     {gBattleAnimSpriteGfx_MudUnk, 0x0200, ANIM_TAG_MUD_UNK},
     {gBattleAnimSpriteGfx_RainDrops, 0x0700, ANIM_TAG_RAIN_DROPS},
-    {gBattleAnimSpriteGfx_FurySwipes, 0x0800, ANIM_TAG_FURY_SWIPES},
+    {gBattleAnimSpriteGfx_RainDrops, 0x0700, ANIM_TAG_ACID_RAIN_DROPS},
     {gBattleAnimSpriteGfx_Vine2, 0x0a00, ANIM_TAG_VINE_2},
     {gBattleAnimSpriteGfx_Teeth, 0x0600, ANIM_TAG_TEETH},
     {gBattleAnimSpriteGfx_Bone2, 0x0800, ANIM_TAG_BONE_2},
@@ -1641,7 +1641,7 @@ const struct CompressedSpritePalette gBattleAnimPaletteTable[] =
     {gBattleAnimSpritePal_WaterColumn, ANIM_TAG_WATER_COLUMN},
     {gBattleAnimSpritePal_MudUnk, ANIM_TAG_MUD_UNK},
     {gBattleAnimSpritePal_RainDrops, ANIM_TAG_RAIN_DROPS},
-    {gBattleAnimSpritePal_FurySwipes, ANIM_TAG_FURY_SWIPES},
+    {gBattleAnimSpritePal_AcidRainDrops, ANIM_TAG_ACID_RAIN_DROPS}, //change make own palette soon /purple
     {gBattleAnimSpritePal_Vine2, ANIM_TAG_VINE_2},
     {gBattleAnimSpritePal_Teeth, ANIM_TAG_TEETH},
     {gBattleAnimSpritePal_Bone2, ANIM_TAG_BONE_2},

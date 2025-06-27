@@ -7789,6 +7789,7 @@ static void atk45_playanimation(void)
         gBattlescriptCurrInstr = BattleScript_Pausex20;
     }
     else if (gBattlescriptCurrInstr[2] == B_ANIM_RAIN_CONTINUES
+          || gBattlescriptCurrInstr[2] == B_ANIM_ACID_RAIN_CONTINUES
           || gBattlescriptCurrInstr[2] == B_ANIM_SUN_CONTINUES
           || gBattlescriptCurrInstr[2] == B_ANIM_SANDSTORM_CONTINUES
           || gBattlescriptCurrInstr[2] == B_ANIM_HAIL_CONTINUES
@@ -7831,6 +7832,7 @@ static void atk46_playanimation2(void) // animation Id is stored in the first po
         gBattlescriptCurrInstr += 10;
     }
     else if (*animationIdPtr == B_ANIM_RAIN_CONTINUES
+          || *animationIdPtr == B_ANIM_ACID_RAIN_CONTINUES
           || *animationIdPtr == B_ANIM_SUN_CONTINUES
           || *animationIdPtr == B_ANIM_SANDSTORM_CONTINUES
           || *animationIdPtr == B_ANIM_HAIL_CONTINUES
@@ -16017,6 +16019,7 @@ static void atk96_weatherdamage(void)
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_OVERCOAT
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_SNOW_CLOAK
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_ICE_BODY
+             && GetBattlerAbility(gBattlerAttacker) != ABILITY_COLD_EMBRACE
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_ABSOLUTE_ZERO
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_WHEEL_OF_CREATION
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_GLACIAL_ICE
@@ -16029,6 +16032,31 @@ static void atk96_weatherdamage(void)
                 gBattleMoveDamage = 0;
             }
         }
+        if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ACID_RAIN_ANY))
+        {
+            //attempting pair down abilities into some form of pattern
+            //of similar length to oher weather
+            if (!DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_POISON) //add ice weather abilities
+             && GetBattlerAbility(gBattlerAttacker) != ABILITY_OVERCOAT
+             //&& GetBattlerAbility(gBattlerAttacker) != ABILITY_TOXIC_WING
+             && GetBattlerAbility(gBattlerAttacker) != ABILITY_TOXIC_CHAIN
+             && GetBattlerAbility(gBattlerAttacker) != ABILITY_TOXIC_DEBRIS
+             && GetBattlerAbility(gBattlerAttacker) != ABILITY_POISON_HEAL
+             //&& GetBattlerAbility(gBattlerAttacker) != ABILITY_POISON_TOUCH
+             //&& GetBattlerAbility(gBattlerAttacker) != ABILITY_POISON_POINT
+             && GetBattlerAbility(gBattlerAttacker) != ABILITY_POISONED_LEGACY
+             && GetBattlerAbility(gBattlerAttacker) != ABILITY_POISON_PUPPETEER
+             && GetBaseFormSpecies(gBattleMons[gBattlerAttacker].species) != SPECIES_CASTFORM)
+            {
+                gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 16,1);
+            }
+            else
+            {
+                gBattleMoveDamage = 0;
+            }
+        }//Hmm rock and steel can't be poisoned but acid rain does effect both those things
+        //source:
+        //Acid deposits damage physical structures such as limestone buildings and cars.
     }
     else
     {
@@ -17958,6 +17986,23 @@ void BS_setmoonlight(void)
     else
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STARTED_MOONLIGHT;
+    }
+
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_setacidrain(void)
+{
+    NATIVE_ARGS();
+
+    if (!TryChangeBattleWeather(gBattlerAttacker, ENUM_WEATHER_ACID_RAIN, FALSE))
+    {
+        gMoveResultFlags |= MOVE_RESULT_MISSED;
+        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEATHER_FAILED;
+    }
+    else
+    {
+        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STARTED_ACID_RAIN;
     }
 
     gBattlescriptCurrInstr = cmd->nextInstr;

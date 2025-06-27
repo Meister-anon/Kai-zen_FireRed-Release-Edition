@@ -10,6 +10,12 @@
 #define STRINGID_USEDMOVE   4
 #define STRINGID_BATTLEEND  5
 
+//Damaging weather ids 
+//for gBattleCommunication
+#define B_MSG_SANDSTORM_ID  0
+#define B_MSG_HAIL_ID       1
+#define B_MSG_ACID_RAIN_ID  2
+
 // gInobedientStringIds
 #define B_MSG_LOAFING            0
 #define B_MSG_WONT_OBEY          1
@@ -115,6 +121,7 @@
 #define B_MSG_STARTED_HAIL      5
 #define B_MSG_STARTED_SNOW      6   //unused by me
 #define B_MSG_STARTED_MOONLIGHT 7
+#define B_MSG_STARTED_ACID_RAIN 8
 
 // gRainContinuesStringIds
 #define B_MSG_RAIN_CONTINUES     0
@@ -847,8 +854,10 @@
 #define STRINGID_MOONLIGHTFADED 715 //weather ends
 #define STRINGID_STARTEDSNOW 716 //forgot never added this
 #define STRINGID_PKMNSXINTENSIFIEDMOONLIGHT 717
+#define STRINGID_ACIDRAIN_FALLS 718
+#define STRINGID_HURTBYRAIN 719
 
-#define BATTLESTRINGS_COUNT     STRINGID_PKMNSXINTENSIFIEDMOONLIGHT
+#define BATTLESTRINGS_COUNT     STRINGID_HURTBYRAIN
 
 
 #define STRINGID_TRAINER2CLASS BATTLESTRINGS_COUNT + 1 // cutoff point. was able to confirm this does properly define

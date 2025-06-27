@@ -92,6 +92,17 @@ const struct SpriteTemplate gRainDropSpriteTemplate  =
     .callback = AnimRainDrop,
 };
 
+const struct SpriteTemplate gAcidRainDropSpriteTemplate  =
+{
+    .tileTag = ANIM_TAG_ACID_RAIN_DROPS,
+    .paletteTag = ANIM_TAG_ACID_RAIN_DROPS,
+    .oam = &gOamData_AffineOff_ObjNormal_16x32,
+    .anims = sAnims_RainDrop,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimRainDrop,
+};
+
 static const union AffineAnimCmd sAffineAnim_WaterBubbleProjectile[] =
 {
     AFFINEANIMCMD_FRAME(-0x5, -0x5, 0, 10),
@@ -663,6 +674,28 @@ void AnimTask_CreateRaindrops(u8 taskId)
         x = Random() % 240;
         y = Random() % 80;
         CreateSprite(&gRainDropSpriteTemplate, x, y, 4);
+    }
+    if (gTasks[taskId].data[0] == gTasks[taskId].data[3])
+        DestroyAnimVisualTask(taskId);
+}
+
+//needed to set diff pal
+void AnimTask_CreateAcidRaindrops(u8 taskId) 
+{
+     u8 x, y;
+
+    if (gTasks[taskId].data[0] == 0)
+    {
+        gTasks[taskId].data[1] = gBattleAnimArgs[0];
+        gTasks[taskId].data[2] = gBattleAnimArgs[1];
+        gTasks[taskId].data[3] = gBattleAnimArgs[2];
+    }
+    gTasks[taskId].data[0]++;
+    if (gTasks[taskId].data[0] % gTasks[taskId].data[2] == 1)
+    {
+        x = Random() % 240;
+        y = Random() % 80;
+        CreateSprite(&gAcidRainDropSpriteTemplate, x, y, 4);
     }
     if (gTasks[taskId].data[0] == gTasks[taskId].data[3])
         DestroyAnimVisualTask(taskId);

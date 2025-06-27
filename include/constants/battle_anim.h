@@ -123,7 +123,7 @@
 #define ANIM_TAG_WATER_COLUMN               (ANIM_SPRITES_START + 113) // unused
 #define ANIM_TAG_MUD_UNK                    (ANIM_SPRITES_START + 114) // unused
 #define ANIM_TAG_RAIN_DROPS                 (ANIM_SPRITES_START + 115)
-#define ANIM_TAG_FURY_SWIPES                (ANIM_SPRITES_START + 116) // unused
+#define ANIM_TAG_ACID_RAIN_DROPS            (ANIM_SPRITES_START + 116) // unused    //I tell ifthese are used by them being loaded in battle_anim_scripts
 #define ANIM_TAG_VINE_2                     (ANIM_SPRITES_START + 117) // unused
 #define ANIM_TAG_TEETH                      (ANIM_SPRITES_START + 118) // unused
 #define ANIM_TAG_BONE_2                     (ANIM_SPRITES_START + 119) // unused
@@ -550,6 +550,7 @@
 #define B_ANIM_TARGET_SCARED            0x2B //scared animation for pressure/hi-pressure attempt
 #define B_ANIM_INFESTATION              0x2C
 #define B_ANIM_MOONLIGHT_SHINES         0x2D    //should be setup now?
+#define B_ANIM_ACID_RAIN_CONTINUES      0x2E
 
 // special animations table
 #define B_ANIM_LVL_UP                   0x0

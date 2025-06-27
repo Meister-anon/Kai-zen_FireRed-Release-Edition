@@ -2373,6 +2373,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_BRUTE_FORCE] = gMoveDescription_BruteForce,
     [MOVE_SHOCKING_MALICE] = COMPOUND_MOVE_STRING("Foes that have stats\nraised during the\nturn get paralyzed."),
     [MOVE_MOONDANCE] = COMPOUND_MOVE_STRING("The Moon's power\nis intensified for\nfive turns, giving\na slight boost\nfor both WATER and\nFAIRY type moves."),
+    [MOVE_ACID_RAIN] = COMPOUND_MOVE_STRING("Acid rain falls\nfrom the sky for\nfive turns. Slightly\nboosts FIRE and\nWATER type moves.\nAlso treated as PSN."),
 
 };//last value can have comma
 //with using compound string realized can paste descriptions directly
@@ -3274,6 +3275,7 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_BRUTE_FORCE] = _("Brute Force"),
     [MOVE_SHOCKING_MALICE] = _("Shocking Malice"),
     [MOVE_MOONDANCE] = _("Moondance"),
+    [MOVE_ACID_RAIN] = _("Acid Rain"),
 };//don't need remove comma from last value for this file, port of emerald
 
 //remember to remove comma from last entry //longest name is 17 chars

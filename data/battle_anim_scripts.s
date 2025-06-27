@@ -942,6 +942,7 @@ gBattleAnims_Moves::
 	.4byte Move_BRUTE_FORCE
 	.4byte Move_SHOCKING_MALICE
 	.4byte Move_MOONDANCE
+	.4byte Move_ACID_RAIN
 	.4byte Move_COUNT @ cannot be reached, because last move is Eerie Spell  important check move order moves.h
 
 gBattleAnims_StatusConditions::
@@ -1007,6 +1008,7 @@ gBattleAnims_General::		@aligns with constants/battle_anim.h
 	.4byte General_TargetMonScared			@ B_ANIM_TARGET_SCARED    /for pressure etc.	
 	.4byte Status_Infestation				@ B_ANIM_INFESTATION
 	.4byte General_Moonlight				@ B_ANIM_MOONLIGHT_SHINES
+	.4byte General_AcidRain					@ B_ANIM_ACID_RAIN_CONTINUES
 
 gBattleAnims_Special::
 	.4byte Special_LevelUp					@ B_ANIM_LVL_UP
@@ -6071,6 +6073,25 @@ Move_RAIN_DANCE:: @ 81CE145
 	waitforvisualfinish
 	createvisualtask AnimTask_CreateRaindrops, 2, 0, 3, 120
 	createvisualtask AnimTask_CreateRaindrops, 2, 0, 3, 120
+	delay 120
+	delay 30
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendSelected, 10, 1 | (0xF << 7), 2, 4, 0, RGB_BLACK
+	waitforvisualfinish
+	end
+
+@will make own graphic for acid rain
+@more than just changing normal rain to purple?
+@also since palette blend uses RGB_BLACK
+@i'm assuming its just to darken screen?
+@ok seems anim_task createraindrops is where palette stuff is
+Move_ACID_RAIN::
+	loadspritegfx ANIM_TAG_ACID_RAIN_DROPS
+	playsewithpan SE_M_RAIN_DANCE, 192
+	createvisualtask AnimTask_BlendSelected, 10, 1 | (0xF << 7), 2, 0, 4, RGB_BLACK
+	waitforvisualfinish
+	createvisualtask AnimTask_CreateAcidRaindrops, 2, 0, 3, 120
+	createvisualtask AnimTask_CreateAcidRaindrops, 2, 0, 3, 120
 	delay 120
 	delay 30
 	waitforvisualfinish
@@ -25093,6 +25114,9 @@ General_Rain:: @ 81D5F8F
 	createvisualtask AnimTask_BlendSelected, 10, 1 | (0xF << 7), 2, 4, 0, RGB_BLACK
 	waitforvisualfinish
 	end
+
+General_AcidRain:: @ 81D5F8F
+	goto Move_ACID_RAIN
 
 General_Sun:: @ 81D5FD8
 	goto Move_SUNNY_DAY

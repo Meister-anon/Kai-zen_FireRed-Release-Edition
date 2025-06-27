@@ -388,7 +388,7 @@ static const u8 sText_MirrorMoveFailed[] = _("The MIRROR MOVE failed!");
 static const u8 sText_StartedToRain[] = _("It started to rain!");
 static const u8 sText_DownpourStarted[] = _("A downpour started!"); // corresponds to DownpourText in pokegold and pokecrystal and is used by Rain Dance in GSC
 static const u8 sText_RainContinues[] = _("Rain continues to fall.");
-static const u8 sText_DownpourContinues[] = _("The downpour continues."); // unused
+static const u8 sText_DownpourContinues[] = _("The downpour continues."); // unused //NOW USED for acid rain
 static const u8 sText_RainStopped[] = _("The rain stopped.");
 static const u8 sText_SandstormBrewed[] = _("A sandstorm brewed!");
 static const u8 sText_SandstormRages[] = _("The sandstorm rages.");
@@ -1580,6 +1580,8 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_MOONLIGHTFADED]              = COMPOUND_STRING("The Moon's rays faded from view.{PAUSE 36}"),
     [STRINGID_STARTEDSNOW]              = COMPOUND_STRING("It started to snow!"),
     [STRINGID_PKMNSXINTENSIFIEDMOONLIGHT] = sText_PkmnsXIntensifiedMoon,
+    [STRINGID_ACIDRAIN_FALLS]           = COMPOUND_STRING("A toxic rain began to fall!"),
+    [STRINGID_HURTBYRAIN]             = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} is seared\nby ACID RAIN!"),
 
     [STRINGID_TRAINER2CLASS]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME]                  = sText_Trainer2Name,
@@ -1667,22 +1669,26 @@ const u16 gMoveWeatherChangeStringIds[] = {
     [B_MSG_STARTED_HAIL]      = STRINGID_STARTEDHAIL,
     [B_MSG_STARTED_SNOW]      = STRINGID_STARTEDSNOW,
     [B_MSG_STARTED_MOONLIGHT] = STRINGID_MOONLIGHT_SHINING_BRIGHT,
+    [B_MSG_STARTED_ACID_RAIN] = STRINGID_ACIDRAIN_FALLS,
 };
 
 
-const u16 gSandstormHailContinuesStringIds[] = {
+const u16 gDamagingWeatherContinuesStringIds[] = {
     STRINGID_SANDSTORMRAGES,
-    STRINGID_HAILCONTINUES
+    STRINGID_HAILCONTINUES,
+    STRINGID_DOWNPOURCONTINUES, //for acid rain differentiate
 };
 
-const u16 gSandstormHailDmgStringIds[] = {
+const u16 gDamagingWeatherDmgStringIds[] = {
     STRINGID_PKMNBUFFETEDBYSANDSTORM,
-    STRINGID_PKMNPELTEDBYHAIL
+    STRINGID_PKMNPELTEDBYHAIL,
+    STRINGID_HURTBYRAIN,
 };
 
-const u16 gSandstormHailEndStringIds[] = {
+const u16 gDamagingWeatherEndStringIds[] = {
     STRINGID_SANDSTORMSUBSIDED,
-    STRINGID_HAILSTOPPED
+    STRINGID_HAILSTOPPED,
+    STRINGID_RAINSTOPPED
 };
 
 const u16 gRainContinuesStringIds[] = {
