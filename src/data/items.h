@@ -9830,6 +9830,23 @@ const struct Item gItems[] =
       .secondaryId =  MOVE_SUPERPOWER,
       //"moveId" "BrickBreak"
     },
+    [ITEM_SAFARI_BALL_2] =
+    {
+      .name = _("Safari Ball"),
+      .itemId = ITEM_SAFARI_BALL_2,
+      .price =  0,
+      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffectParam =  0,
+     .description = gItemDescription_ITEM_SAFARI_BALL,
+//      "description":  "A special BALL that is used only in\\nthe SAFARI ZONE. It is finished in\\na camouflage pattern.,
+      .importance = 0,
+      .exitsBagOnUse = 0,
+      .pocket = POCKET_POKE_BALLS,
+      .type = ITEM_TYPE_BAG_OR_PARTY,
+      .fieldUseFunc = FieldUseFunc_PokeBallEtc,
+      .battleUseFunc = BattleUseFunc_PokeBallEtc,
+      .secondaryId =  BALL_SAFARI
+    },
     [ITEM_N_A] =
     {
       .name = _("????????"),

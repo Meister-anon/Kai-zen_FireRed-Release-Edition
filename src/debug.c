@@ -3460,6 +3460,9 @@ static void DebugAction_Fill_PocketItems(u8 taskId)
     }
 }
 
+//think can leave this?
+//believe first ball last ball only used for this now
+//yup only used here
 static void DebugAction_Fill_PocketPokeBalls(u8 taskId)
 {
     u16 itemId;

@@ -19811,6 +19811,9 @@ static void atkEF_handleballthrow(void) //important changed
                     if (ballMultiplier > 40)
                         ballMultiplier = 40;
                     break;
+                case ITEM_SAFARI_BALL_2:
+                    ballMultiplier = 15;
+                    break;
                 /*case ITEM_BEAST_BALL:
                     if (IsBattlerUltraBeast(gBattlerTarget))
                         ballMultiplier = 50;

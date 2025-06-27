@@ -225,6 +225,7 @@ static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_POKE_BALL] = {gItemIcon_PokeBall, gItemIconPalette_PokeBall},
     [ITEM_GREAT_BALL] = {gItemIcon_GreatBall, gItemIconPalette_GreatBall},
     [ITEM_SAFARI_BALL] = {gItemIcon_SafariBall, gItemIconPalette_SafariBall},
+    [ITEM_SAFARI_BALL_2] = {gItemIcon_SafariBall, gItemIconPalette_SafariBall},
     [ITEM_ULTRA_BALL] = {gItemIcon_UltraBall, gItemIconPalette_UltraBall},
     [ITEM_MASTER_BALL] = {gItemIcon_MasterBall, gItemIconPalette_MasterBall}, 
     [ITEM_NET_BALL] = {gItemIcon_NetBall, gItemIconPalette_NetBall},
