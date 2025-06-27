@@ -9601,7 +9601,7 @@ static void atk4F_jumpifcantswitch(void)
 
 static void ChooseMonToSendOut(u8 slotId)
 {
-    *(gBattleStruct->battlerPartyIndexes + gActiveBattler) = gBattlerPartyIndexes[gActiveBattler];
+    gBattleStruct->battlerPartyIndexes[gActiveBattler] = gBattlerPartyIndexes[gActiveBattler];
     BtlController_EmitChoosePokemon(0, PARTY_ACTION_SEND_OUT, slotId, 0, gBattleStruct->battlerPartyOrders[gActiveBattler]);
     MarkBattlerForControllerExec(gActiveBattler);
 }
@@ -9855,7 +9855,7 @@ static void atk50_openpartyscreen(void)
         else
         {
             gActiveBattler = battlerId;
-            *(gBattleStruct->battlerPartyIndexes + gActiveBattler) = gBattlerPartyIndexes[gActiveBattler];
+            gBattleStruct->battlerPartyIndexes[gActiveBattler] = gBattlerPartyIndexes[gActiveBattler];
             BtlController_EmitChoosePokemon(0, hitmarkerFaintBits, *(gBattleStruct->monToSwitchIntoId + (gActiveBattler ^ 2)), 0, gBattleStruct->battlerPartyOrders[gActiveBattler]);
             MarkBattlerForControllerExec(gActiveBattler);
             gBattlescriptCurrInstr += 6;
@@ -11508,8 +11508,12 @@ void BS_TrySymbiosis(void)
 
 static void atk6B_atknameinbuff1(void)
 {
-    PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, gBattlerAttacker, gBattlerPartyIndexes[gBattlerAttacker])
-    ++gBattlescriptCurrInstr;
+    CMD_ARGS();
+
+    PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, gBattlerAttacker, gBattlerPartyIndexes[gBattlerAttacker]);
+
+    gBattlescriptCurrInstr = cmd->nextInstr;
+
 }
 
 static void atk6C_drawlvlupbox(void)
@@ -15614,7 +15618,7 @@ static bool8 TryDoForceSwitchOut(void)
 {
     if (gBattleMons[gBattlerAttacker].level >= gBattleMons[gBattlerTarget].level)
     {
-        *(gBattleStruct->battlerPartyIndexes + gBattlerTarget) = gBattlerPartyIndexes[gBattlerTarget];
+        gBattleStruct->battlerPartyIndexes[gBattlerTarget] = gBattlerPartyIndexes[gBattlerTarget];
     }
     else
     {
@@ -15625,7 +15629,7 @@ static bool8 TryDoForceSwitchOut(void)
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
             return FALSE;
         }
-        *(gBattleStruct->battlerPartyIndexes + gBattlerTarget) = gBattlerPartyIndexes[gBattlerTarget];
+        gBattleStruct->battlerPartyIndexes[gBattlerTarget] = gBattlerPartyIndexes[gBattlerTarget];
     }
     gBattlescriptCurrInstr = BattleScript_SuccessForceOut;
     return TRUE;
@@ -19296,7 +19300,7 @@ static void atkE2_switchoutabilities(void) //emerald has logic for switchin that
         case ABILITY_SHAMAN_CURE:
         case ABILITY_NATURAL_CURE:
             gBattleMons[gActiveBattler].status1 = 0;
-            BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, gBitTable[*(gBattleStruct->battlerPartyIndexes + gActiveBattler)], 4, &gBattleMons[gActiveBattler].status1);
+            BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, gBitTable[gBattleStruct->battlerPartyIndexes[gActiveBattler]], 4, &gBattleMons[gActiveBattler].status1);
             MarkBattlerForControllerExec(gActiveBattler); //think 4 bytes because dealing with status with is u32
             break;
         case ABILITY_WETIKO:
@@ -19305,7 +19309,7 @@ static void atkE2_switchoutabilities(void) //emerald has logic for switchin that
             gBattleMoveDamage += gBattleMons[gActiveBattler].hp;
             if (gBattleMoveDamage > gBattleMons[gActiveBattler].maxHP)
                 gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP;
-            BtlController_EmitSetMonData(0, REQUEST_HP_BATTLE, gBitTable[*(gBattleStruct->battlerPartyIndexes + gActiveBattler)], 2, &gBattleMoveDamage);
+            BtlController_EmitSetMonData(0, REQUEST_HP_BATTLE, gBitTable[gBattleStruct->battlerPartyIndexes[gActiveBattler]], 2, &gBattleMoveDamage);
             MarkBattlerForControllerExec(gActiveBattler); //think 2 bytes because dealing with hp wish is u16
             break;
         case ABILITY_CUPIDS_ARROW:
@@ -20690,7 +20694,7 @@ void BS_setsteelsurge(void) {
 //mon should
 bool32 IsStallActive(u8 battler)
 {
-    u16 move = gBattleMons[battler].moves[*(gBattleStruct->chosenMovePositions + battler)];
+    u16 move = gBattleMons[battler].moves[gBattleStruct->chosenMovePositions[battler]];
 
     //changed from not power 0, to not status better condition
     if (GetBattlerAbility(battler) == ABILITY_STALL

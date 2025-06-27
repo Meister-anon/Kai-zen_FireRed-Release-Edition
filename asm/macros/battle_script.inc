@@ -830,7 +830,8 @@
 	.macro confuseifrepeatingattackends
 	.byte 0x8c
 	.endm
-			@depricated no longer used
+	
+	@depricated no longer used
 	.macro setmultihitcounter param0:req
 	.byte 0x8d
 	.byte \param0

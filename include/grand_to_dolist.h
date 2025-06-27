@@ -4446,6 +4446,27 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     round down and set that as num premier balls to give
     -done
 
+    also realized major issue smh
+    nick names aren't playing on switch/faint
+    it uses species name when its supposed to use nickname
+    idk how I broke that, base setup is mostly same
+
+    odd but seemed issue was only wiith 
+    PREPARE_MON_NICK_BUFFER
+
+    and not
+    PREPARE_MON_NICK_WITH_PREFIX_BUFFER
+
+    former goes to B_BUFF_MON_NICK
+    and it seems I never properly updated the logic for that?
+    but B_BUFF_MON_NICK_WITH_PREFIX seems fine?
+
+    ah I was lacking the nickname species name comparison and still defaulting
+    to species name function
+    ok that fixed it
+
+
+
 
     NOTE**(
     save space remove unique mega cries intead use base cry with alteration

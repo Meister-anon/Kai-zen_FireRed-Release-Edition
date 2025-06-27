@@ -1577,7 +1577,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_TAKECAUGHTMONFROMPC]              = COMPOUND_STRING("Take Caught Mon From PC?"),
     [STRINGID_MOONLIGHT_SHINING_BRIGHT]              = COMPOUND_STRING("The Moon's light shown brightly!"),
     [STRINGID_MOONLIGHT_SHINES]              = COMPOUND_STRING("Moonlight shines down."),
-    [STRINGID_MOONLIGHTFADED]              = COMPOUND_STRING("The Moon's rays faded from view."),
+    [STRINGID_MOONLIGHTFADED]              = COMPOUND_STRING("The Moon's rays faded from view.{PAUSE 36}"),
     [STRINGID_STARTEDSNOW]              = COMPOUND_STRING("It started to snow!"),
     [STRINGID_PKMNSXINTENSIFIEDMOONLIGHT] = sText_PkmnsXIntensifiedMoon,
 
@@ -2958,20 +2958,22 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst) //logic for buffers t
                 break;
             case B_ACTIVE_NAME2: //B_ACTIVE_NAME2   active battlerId name with prefix, no illusion check
             {
-                u8 side = GetBattlerSide(gActiveBattler);
+                //apparenlty this case is never used?
+                
+                /*u8 side = GetBattlerSide(gActiveBattler);
                 struct Pokemon *party = (side == B_SIDE_PLAYER) ? gPlayerParty : gEnemyParty;
                 u16 species = GetMonData(&party[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_SPECIES);
 
-                /*if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
-                    GetMonData(&party[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_NICKNAME, text);
-                else*/
+
                     GetMonData(&party[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_NICKNAME, text);
                 
-                if (StringCompare(gBaseStats[species].speciesName, text) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
+                //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+                if (StringCompare(gBaseStats[species].speciesName, text) == IDENTICAL) 
                     GetSpeciesName(text, species);
                 else
-                    StringGet_Nickname(text);
+                    StringGet_Nickname(text);*/
                 //StringGet_Nickname(text);
+                GetBattlerNick(gActiveBattler, text);
                 toCpy = text;
             }
                 break;
@@ -3450,18 +3452,8 @@ static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst)
             srcId += 3;
             break;
         case B_BUFF_MON_NICK: // poke nick without prefix   //used in buffers PREPARE_MON_NICK_BUFFER
-        {    
-            struct Pokemon *mon = (GetBattlerSide(src[srcId + 1]) == B_SIDE_PLAYER) ? &gPlayerParty[src[srcId + 2]] : &gEnemyParty[src[srcId + 2]];
-            u16 species = GetMonData(mon, MON_DATA_SPECIES);
-
-            if (GetBattlerSide(src[srcId + 1]) == B_SIDE_PLAYER)
-                GetMonData(&gPlayerParty[src[srcId + 2]], MON_DATA_NICKNAME, dst);
-            else
-                GetMonData(&gEnemyParty[src[srcId + 2]], MON_DATA_NICKNAME, dst);
-            //StringGet_Nickname(dst);
-            GetSpeciesName(dst, species); //should be last thing that needs fixingfor species cap?
+            GetBattlerNick(src[srcId + 1], dst);
             srcId += 3;
-        }
             break;
         case B_BUFF_NEGATIVE_FLAVOR: // flavor table
             StringAppend(dst, gPokeblockWasTooXStringTable[src[srcId + 1]]);
