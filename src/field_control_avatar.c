@@ -737,24 +737,29 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
         return FALSE;
 
     UpdateHappinessStepCounter();
+    UpdateBoxEXPStepCounter();   //put out here so still works with movement scripts
 
-    for (i = 0; i < PARTY_SIZE; ++i)
+    //don't need all this I can put in counter update itself
+    //it already has loop anyway
+    /*for (i = 0; i < PARTY_SIZE; ++i)
     {
 
         if ((GetMonAbility(&gPlayerParty[i]) == ABILITY_PICKUP)
-        && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG)) //works, also learned daycare eggs aren't treated as species egg, cuz don't sue species2
+        && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG)  //works, also learned daycare eggs aren't treated as species egg, cuz don't sue species2
+        && !IsMonNuzlockeDead(&gPlayerParty[i])) //ensure mon not counted if dead by nuzlocke clause
         {
             found = TRUE;
+            break;
 
-        }//forgot exclude egg from check, its triggering for eggs
+        }//needed exclude egg from check, as it was triggering for eggs
 
-        if (IsMonNuzlockeDead(&gPlayerParty[i]))
-            found = FALSE; //ensure mon not counted if dead by nuzlocke clause
     }
+    */
 
-    UpdateBoxEXPStepCounter(); //hope works    //put out here so still works with movement scripts
+    
     
 
+    //if not in forced movement event
     if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_FORCED) && !MetatileBehavior_IsForcedMovementTile(metatileBehavior))
     {
         /*if (UpdateVsSeekerStepCounter() == TRUE)
@@ -763,13 +768,17 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
             return TRUE;
         }
         else */
-        if (found == TRUE)
-            UpdatePickupCounter();
 
-        else if (found == FALSE)    //if doesn't find pickup mon in party, reset counter to 0
-        {
-            VarSet(VAR_PICKUP_COUNTER, 0);
-        }    
+        //optimized pickup search and added break con
+        //hope issue isn't lack of return on this logic
+        //no should be fine ones that have return 
+        //involve activating a script
+        //...it does trigger a script when it prints
+        //nvm realized setting return TRUE just makes
+        //player freeze I don't need that for this
+        UpdatePickupCounter();
+                 
+
         
         
         if (UpdatePoisonStepCounter() == TRUE)
@@ -820,19 +829,43 @@ static void UpdatePickupCounter(void)
     s32 i;
     u32 j,k;
     s32 randomTM = Random() % NUM_TECHNICAL_MACHINES;   //using will make function automatically scale
-    u16 arrayItem = sPickupItems[j].itemId;
+    u16 arrayItem;// = sPickupItems[j].itemId;  //guessing this was issue inserts random value causing overflow
     
 
-    (*ptr)++;       //increment counter
-    (*ptr) %= 325;   //wrap around at 325
+    
 
         for (i = 0; i < PARTY_SIZE; ++i)
         {
-            if (GetMonAbility(&gPlayerParty[i]) == ABILITY_PICKUP)
+            if ((GetMonAbility(&gPlayerParty[i]) == ABILITY_PICKUP)
+            && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG)  //works, also learned daycare eggs aren't treated as species egg, cuz don't sue species2
+            && !IsMonNuzlockeDead(&gPlayerParty[i])) //ensure mon not counted if dead by nuzlocke clause
                 break;
         } //looks in party for mon with pickup, functionally stops at first party slot that encounters ability
 
+        
+        //ok so this partis the problem??
+        //maybe not think its just this is increment
+        //so nothing else can trigger without it
+        if (i == PARTY_SIZE)
+        {
+            VarSet(VAR_PICKUP_COUNTER, 0);
+            return;
+        }//if didn't find valid mon, reset couter and stop function
+        else
+        {
+            (*ptr)++;       //increment counter
+            (*ptr) %= 325;   //wrap around at 325
+        }
+        
 
+        //filted items,
+        //identified glitch has nothing to do with
+        //ptr counter the array
+        //or the loops below
+        //only thing haven't checked is bottom if condition
+        //but that doesn't make sense tobe the issue?
+        //honesty idk anymore I made clean and somehow my tye chart broke...
+        
         if (*ptr == 0)  //can use pointer without ability check, as ability check is already in call for this function
         {
             s32 random = Random() % 101;
@@ -841,31 +874,41 @@ static void UpdatePickupCounter(void)
                 if (sPickupItems[j].chance >= random)
                     break;
             }
-
-            if ((sPickupItems[j].itemId == ITEM_TM10_HIDDEN_POWER) && (BagGetQuantityByItemId(ITEM_TM10_HIDDEN_POWER) != 0))
-            {    //makes it only do swap 1/3rd of the time
-                if ((Random() % 3) == 0)
-                {
-                    for (k = ITEM_NONE; k != ITEMS_COUNT; k++)
-                    {
-                        if (gItems[k].pocket != POCKET_TM_CASE)
-                            continue;
-                        if (ItemIdToBattleMoveId(k) == gTM_Moves[randomTM])
-                            break;
-                    }
-                    arrayItem = (k);// give random tm, if already have tm10, will put add random%3  so not super easy to get everything
-                }                    
-                else
+            //think add logic for item ITEM_POKE_BALL
+            //shift which ball you get based on level
+            if (sPickupItems[j].itemId == ITEM_POKE_BALL)
+            {
+                if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 20)
                     arrayItem = sPickupItems[j].itemId;
+                else if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 35)
+                    arrayItem = ITEM_GREAT_BALL;
+                else
+                    arrayItem = ITEM_ULTRA_BALL;
+            }
+            
+            if ((sPickupItems[j].itemId == ITEM_TM10_HIDDEN_POWER) && (BagGetQuantityByItemId(ITEM_TM10_HIDDEN_POWER) != 0))
+            {
+
+                for (k = ITEM_NONE; k != ITEMS_COUNT; k++)
+                {
+                    if (gItems[k].pocket != POCKET_TM_CASE)
+                        continue;
+                    if (ItemIdToBattleMoveId(k) == gTM_Moves[randomTM])
+                        break;
+                }
+                arrayItem = (k);// give random tm, if already have tm10, will put add random%3  so not super easy to get everything
+
             }
             else
                 arrayItem = sPickupItems[j].itemId;
-
-            if (AddBagItem(sPickupItems[j].itemId, 1) == TRUE)  //attempting remove from loop. think placing within made it add for each value of  the array. yup that's why *facepalm
+            
+            //add if has space to add
+            //and trigger scripts
+            if (AddBagItem(arrayItem, 1) == TRUE)  //attempting remove from loop. think placing within made it add for each value of  the array. yup that's why *facepalm
             {
 
                 GetMonNickname(&gPlayerParty[i], gStringVar2);  //for battle effect
-                CopyItemName(sPickupItems[j].itemId, gStringVar1);
+                CopyItemName(arrayItem, gStringVar1);
                 LockForFieldEffect();
 
                 ShowFieldMessage(gText_MonPickedUpItem);
