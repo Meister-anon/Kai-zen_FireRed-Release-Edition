@@ -478,6 +478,8 @@ extern const u8 gMoveDescription_UpRoot[];
 extern const u8 gMoveDescription_DiveBomb[];
 extern const u8 gMoveDescription_Aeroblast[];
 extern const u8 gMoveDescription_Superpower[];
+extern const u8 gMoveDescription_Moondance[];
+extern const u8 gMoveDescription_AcidRain[];
 extern const u8 gMoveDescription_Substitute[];
 extern const u8 gFLASH_CANNON_Description[];
 extern const u8 gMoveDescription_Agility[];

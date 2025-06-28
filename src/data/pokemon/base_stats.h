@@ -703,6 +703,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sBeedrillTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//decide put merciless on hidden slot keeping all poison related moves in hidden slots
+    //bees locust swarms etc are capable of generating electricity on par with a thunder cloud
+    //so give bedrill and vespiqen some electric moves
 
     [SPECIES_PIDGEY] =
     {

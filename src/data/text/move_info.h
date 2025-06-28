@@ -241,6 +241,8 @@ const u8 gMoveDescription_CrossChop[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is
 const u8 gMoveDescription_Twister[MOVE_DESCRIPTION_LENGTH + 5] = _("A vicious twister\nattacks the foe.\nIt may make the\nfoe flinch.");
 const u8 gMoveDescription_RainDance[MOVE_DESCRIPTION_LENGTH + 5] = _("A heavy rain falls\nfor five turns,\npowering up WATER-\ntype moves.");
 const u8 gMoveDescription_SunnyDay[MOVE_DESCRIPTION_LENGTH + 5] = _("The sun blazes for\nfive turns, powering\nup FIRE-type\nmoves.");
+const u8 gMoveDescription_Moondance[MOVE_DESCRIPTION_LENGTH + 5] = _("The Moon's power\nis intensified for\nfive turns, giving\na slight boost\nfor both WATER and\nFAIRY type moves.");
+const u8 gMoveDescription_AcidRain[MOVE_DESCRIPTION_LENGTH + 5] = _("Acid rain falls\nfrom the sky for\nfive turns. Slightly\nboosts FIRE and\nWATER type moves.\nAlso treated as PSN.");
 const u8 gMoveDescription_Crunch[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is crunched\nwith sharp fangs.\nIt may lower the\nfoe's SP. DEF.");
 const u8 gMoveDescription_MirrorCoat[MOVE_DESCRIPTION_LENGTH + 5] = _("A retaliation move\nthat pays back the\nfoe's special attack\ndouble.");
 const u8 gMoveDescription_PsychUp[MOVE_DESCRIPTION_LENGTH + 5] = _("The user hypnotizes\nitself into copying\nany stat change\nmade by the foe.");
@@ -2372,8 +2374,8 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_SEAFLOOR_RESPITE] = COMPOUND_MOVE_STRING("Todo"),
     [MOVE_BRUTE_FORCE] = gMoveDescription_BruteForce,
     [MOVE_SHOCKING_MALICE] = COMPOUND_MOVE_STRING("Foes that have stats\nraised during the\nturn get paralyzed."),
-    [MOVE_MOONDANCE] = COMPOUND_MOVE_STRING("The Moon's power\nis intensified for\nfive turns, giving\na slight boost\nfor both WATER and\nFAIRY type moves."),
-    [MOVE_ACID_RAIN] = COMPOUND_MOVE_STRING("Acid rain falls\nfrom the sky for\nfive turns. Slightly\nboosts FIRE and\nWATER type moves.\nAlso treated as PSN."),
+    [MOVE_MOONDANCE] = gMoveDescription_Moondance,
+    [MOVE_ACID_RAIN] = gMoveDescription_AcidRain,
 
 };//last value can have comma
 //with using compound string realized can paste descriptions directly

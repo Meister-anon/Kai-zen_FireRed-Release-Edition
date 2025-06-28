@@ -343,9 +343,9 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_FLYING] =     {______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  ______,   ______,   X(1.55),   X(0.5),   X(0.5),   X(0.5),   ______,   ______,   ______,   ______}, // flying
 
-    [TYPE_POISON] =     {______,   X(1.55),   ______,   X(0.0),   X(0.5),   X(0.0),   ______,   X(0.5),   X(0.0),   ______,    ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   ______,  X(0.5),   X(1.55),   ______}, // poison
+    [TYPE_POISON] =     {______,   X(1.55),   ______,   X(0.0),   X(0.5),   X(0.0),   ______,   X(0.5),   X(0.0),   ______,    ______,   ______,   X(1.55),   ______,  ______,    X(0.5),   ______,  X(0.5),   X(1.55),   ______}, // poison
 
-    [TYPE_GROUND] =     {______,   ______,   ______,   X(1.55),   ______,   X(1.55),  X(0.5),   ______,   ______,   ______,   X(1.55),   ______,   X(0.5),   X(1.55),   ______,   X(0.5),   ______,   ______,   ______,   ______}, // ground
+    [TYPE_GROUND] =     {______,   ______,   ______,   X(1.55),   ______,   X(1.55),  X(0.5),   ______,   ______,   ______,   X(1.55),   ______,   X(0.5),   X(1.55),   ______,   ______,   ______,   ______,   ______,   ______}, // ground
 
     [TYPE_ROCK] =       {______,   X(0.5),   X(1.55),   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  X(1.55),   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   ______}, // rock
 
@@ -353,11 +353,11 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_GHOST] =      {X(0.0),   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,   ______,  ______,    ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),    ______}, // ghost
 
-    [TYPE_STEEL] =      {______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   ______,   X(0.5),    X(0.5),   ______,   X(0.5),  X(0.5),   X(1.55),   ______,   ______,   X(1.55),   ______}, // steel
+    [TYPE_STEEL] =      {______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   ______,   X(0.5),    X(0.5),   ______,   X(0.5),  X(0.5),    X(1.55),   ______,   ______,   X(1.55),   ______}, // steel
 
     [TYPE_MYSTERY] =    {______,   ______,   ______,   ______,   ______,   ______,   ______,     ______,  ______,   ______,   ______,   ______,   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______}, // mystery
 
-    [TYPE_FIRE] =       {______,   ______,   ______,   ______,   X(0.5),   X(0.5),   ______,    X(0.5),  X(1.55),   ______,  X(0.5),   X(0.5),   X(1.55),   ______,   ______,   X(1.55),  X(0.5),   ______,   ______,   ______}, // fire
+    [TYPE_FIRE] =       {______,   ______,   ______,   ______,   X(0.5),   X(0.5),   ______,    X(0.5),  X(1.55),   ______,  X(0.5),   X(0.5),   X(1.55),   ______,   ______,    X(1.55),  X(0.5),   ______,   ______,   ______}, // fire
 
     [TYPE_WATER] =      {______,   ______,   ______,   ______,   X(1.55),   X(1.55),   ______,   ______,   ______,   ______,  X(1.55),   X(0.5),   X(0.5),   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______}, // water
 
@@ -369,7 +369,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_ICE] =        {______,   ______,   X(1.55),   ______,   X(1.55),  ______,   X(1.55),   X(0.5),  X(0.5),  ______,    X(0.5),  ______,   X(1.55),   ______,   ______,   X(0.5),   X(1.55),   ______,   ______,   ______}, // ice
 
-    [TYPE_DRAGON] =     {______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   X(1.55),   ______,    X(0.0),   ______}, // dragon
+    [TYPE_DRAGON] =     {______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,    X(0.5),   X(1.55),   ______,    X(0.0),   ______}, // dragon
 
     [TYPE_DARK] =       {______,   X(0.5),   ______,   ______,   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(1.55),   X(1.55),   ______}, // dark
 
@@ -379,6 +379,41 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 };//                     normal    fight      flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water    grass    electric   psychic    ice      dragon     dark     fairy      sound
 
 #undef X
+
+//may remove ice resistance for ground type?
+//yeah did more research earthquakes can occur in winter climates 
+//and also break up ice
+//also quick freezing of grounds with water can cause increased seismic activity even earthquakes
+//so I belive its fine to leave ground doin neutral damage to ice
+
+//I made the change as I was worried I over compensated ice types defensive qualities
+//but there isn't anything more I can remove that would make sense remove dragon would be
+//simplest change logically but that makes them good and if they are super to it
+//it makes sense to resist
+//sigh screw it would be cool but ice is a strictly elemental type
+//which dragon is not
+//the argument can be made ice hurts dragon anyway beacuse lizard i.e cold blooded
+//but you can't say dragon has any specific affect on elements outside of being able to control them
+//so stay neutral
+//plus dragon is good cuz stats not their typing,
+//they're practically normal type offensively, especially after fairy addition
+//giving an immunity to it
+
+//...decidedd add back dragon resist forget main reason I did that was to incentivize
+//actually using an ice type over just a water mon with an ice move
+
+//going back and forth on bug resistance to electricity
+//they can chew through electric cables and apparently
+//crawl thrhough electric sockets, but also their bodies
+//are more succeptible to electricity than humans
+//because they lack the natural resistance we have?
+//and its found bug swarms generate electricity enough to affect electro magnetic fields
+//some insects can use/generate electric fields as well?
+//"Pollinators, such as insects and hummingbirds, are known to be electrically charged"
+//"According to the study, winged insects naturally accumulate a charge as they fly"
+//for electric type pokemon the entire point/idea is being able to generate electricity
+//so by that note bugs are similar enough to the type to cause a "same type" resistance in my mind
+
 
 //with new strength of dark types consider putting
 //fairy resist back to parallel psychic better
@@ -549,7 +584,7 @@ static const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e numbe
     TYPE_POISON, TYPE_POISON, TYPE_MUL_NO_EFFECT,       //furthering of late gen poison can't be poisoned logic, also makes better as a pivot/defensive typing
     TYPE_POISON, TYPE_STEEL, TYPE_MUL_NO_EFFECT,
     TYPE_POISON, TYPE_ROCK, TYPE_MUL_NO_EFFECT,     //same as steel, not alive so not affecting by poison
-    TYPE_GROUND, TYPE_ICE, TYPE_MUL_NOT_EFFECTIVE,  //logic water in the ground gets frozen earth cant shift/move
+    //TYPE_GROUND, TYPE_ICE, TYPE_MUL_NOT_EFFECTIVE,  //logic water in the ground gets frozen earth cant shift/move, ok misconception freezing ground does make it more stable but it has no bearing on seismic activity itself
     TYPE_GROUND, TYPE_FIRE, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_GROUND, TYPE_ELECTRIC, TYPE_MUL_SUPER_EFFECTIVE, //bug groud resist makes sense apparently bugs can sense tectonic shifts before they happen
     TYPE_GROUND, TYPE_GRASS, TYPE_MUL_NOT_EFFECTIVE,
