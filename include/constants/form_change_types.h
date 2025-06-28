@@ -11,6 +11,15 @@
 #define DAY    1
 #define NIGHT  2
 
+//a bit premature as w new status rework incoming
+//will have to change all these...
+// FORM_CHANGE_BATTLE_STATUS param2 Arguments
+#define STATUS1 1
+#define STATUS2 2
+#define STATUS_SIDE 3
+#define STATUS4 4
+#define STAUS_FIELD 5
+
 #define FORM_CHANGE_TERMINATOR                  0
 
 // Form change that activates when the specified item is given to or taken from the selected Pokémon.
@@ -100,5 +109,12 @@
 // If it's on the player's side, it also requires for the player to trigger it by pressing START before selecting a move.
 // param1: item to hold.
 #define FORM_CHANGE_BATTLE_ULTRA_BURST          16
+
+// Form change that activates when the mon has the defined status.
+// param1: Ability to check.
+// param2: status category to check (i.e status1 status2)
+// param3: specific stauts value  (i.e STATUS1_ANY)
+//made category for lokix
+#define FORM_CHANGE_BATTLE_STATUS               17
 
 #endif // GUARD_CONSTANTS_FORM_CHANGE_TYPES_H

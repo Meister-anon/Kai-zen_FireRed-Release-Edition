@@ -564,6 +564,8 @@ const u16 *const gFormSpeciesIdTables[] =
     [SPECIES_INDEEDEE_FEMALE] = sIndeedeeFormSpeciesIdTable,
     // Morpeko
     [SPECIES_MORPEKO_HANGRY] = sMorpekoFormSpeciesIdTable,
+    // Lokix
+    [SPECIES_LOKIX_SHOWDOWN_MODE] = sLokixFormSpeciesIdTable,
     // Zacian
     [SPECIES_ZACIAN_CROWNED_SWORD] = sZacianFormSpeciesIdTable,
     // Zamazenta

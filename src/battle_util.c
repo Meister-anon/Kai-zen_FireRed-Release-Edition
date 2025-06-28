@@ -12479,9 +12479,10 @@ void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut)
     static const u16 species[][3] =
     {
         // Changed Form ID                      Default Form ID               Should change on switch
-        {SPECIES_EISCUE_NOICE_FACE,             SPECIES_EISCUE_ICE_FACE,               TRUE},
+        {SPECIES_EISCUE_NOICE_FACE,             SPECIES_EISCUE_ICE_FACE,      TRUE},
         {SPECIES_MIMIKYU_BUSTED,                SPECIES_MIMIKYU,              FALSE},
         {SPECIES_GRENINJA_ASH,                  SPECIES_GRENINJA,             FALSE},
+        {SPECIES_LOKIX_SHOWDOWN_MODE,           SPECIES_LOKIX,                FALSE},
         {SPECIES_MELOETTA_PIROUETTE,            SPECIES_MELOETTA,             FALSE},
         {SPECIES_AEGISLASH_BLADE,               SPECIES_AEGISLASH,            TRUE},
         {SPECIES_DARMANITAN_ZEN_MODE,           SPECIES_DARMANITAN,           TRUE},
@@ -12492,10 +12493,10 @@ void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut)
         {SPECIES_MINIOR_METEOR_ORANGE,          SPECIES_MINIOR_CORE_ORANGE,   TRUE},
         {SPECIES_MINIOR_METEOR_VIOLET,          SPECIES_MINIOR_CORE_VIOLET,   TRUE},
         {SPECIES_MINIOR_METEOR_YELLOW,          SPECIES_MINIOR_CORE_YELLOW,   TRUE},
-        {SPECIES_WISHIWASHI_SCHOOL,             SPECIES_WISHIWASHI_SOLO,           TRUE},
+        {SPECIES_WISHIWASHI_SCHOOL,             SPECIES_WISHIWASHI_SOLO,      TRUE},
         {SPECIES_CRAMORANT_GORGING,             SPECIES_CRAMORANT,            TRUE},
         {SPECIES_CRAMORANT_GULPING,             SPECIES_CRAMORANT,            TRUE},
-        {SPECIES_MORPEKO_HANGRY,                SPECIES_MORPEKO_FULL_BELLY,              TRUE},
+        {SPECIES_MORPEKO_HANGRY,                SPECIES_MORPEKO_FULL_BELLY,   TRUE},
         {SPECIES_DARMANITAN_ZEN_MODE_GALARIAN,  SPECIES_DARMANITAN_GALARIAN,  TRUE},
         };
 

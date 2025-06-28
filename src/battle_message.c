@@ -1582,6 +1582,8 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_PKMNSXINTENSIFIEDMOONLIGHT] = sText_PkmnsXIntensifiedMoon,
     [STRINGID_ACIDRAIN_FALLS]           = COMPOUND_STRING("A toxic rain began to fall!"),
     [STRINGID_HURTBYRAIN]             = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} is seared\nby ACID RAIN!"),
+    [STRINGID_TARGETISGETTINGSERIOUS]             = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} is getting serious now!"),
+    [STRINGID_TARGETCHANGEDMODE]             = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} entered Showdown Mode!\p"),
 
     [STRINGID_TRAINER2CLASS]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME]                  = sText_Trainer2Name,

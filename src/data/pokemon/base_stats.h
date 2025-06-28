@@ -31279,7 +31279,99 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_BUG),
         .abilities = { ABILITY_SWARM, ABILITY_NONE },
-        .abilityHidden = {ABILITY_TINTED_LENS, ABILITY_NONE},
+        .abilityHidden = {ABILITY_TINTED_LENS, ABILITY_RESOLUTE},
+        .bodyColor = BODY_COLOR_GRAY,
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Lokix"),
+        .cryId = CRY_LOKIX,
+        .natDexNum = NATIONAL_DEX_LOKIX,
+        .categoryName = _("Grasshopper"),
+        .height = 10,
+        .weight = 175,
+        .description = COMPOUND_STRING(
+            "When it decides to fight all out, it\n"
+            "stands on its previously folded\n"
+            "legs to enter Showdown Mode. It\n"
+            "neutralizes its enemies in short order."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_Lokix,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 3,
+        .frontAnimFrames = sAnims_Lokix,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_Lokix,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 7,
+        //.backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_Lokix,
+        .shinyPalette = gMonShinyPalette_Lokix,
+        .iconSprite = gMonIcon_Lokix,
+        .iconPalIndex = 0,
+        //FOOTPRINT(Lokix)
+        */
+        .safariZoneFleeRate = 50,
+        .abilityLearnset = sLokixAbilityLearnset,
+        .levelUpLearnset = sLokixLevelUpLearnset,
+        .tmhmLearnset = sLokixTMHMLearnset,
+    },
+    //is meant to have showdown form but was never made
+    //into real battle form?
+    //form is supposed to be faster and stronger I believe
+    //think best I can do is make form
+    //and have it triggered by status or hp threshold?
+    //vsonic IMPORTANT is a weird thing but believe there's several
+    //"forms" that are like that they "exist" 
+    //but don't exist as they aren't made for battle
+    //ex this, mashadow form,
+    //reshiram zekrom overdrive forms
+    //solgaleo and lunala forms as well etc.
+    //if I make this could treat like castform 
+    //where its a species based characteristic/form?
+    //think will make mix of guts and in a pinch
+    //will trigger on status or on hp cresting 50%
+    //would boost speed and attack
+    //hmm well fuck it I COULD just make it an ability
+    //and work like battle bond gren?
+    //two options either make well..no I need another existing species
+    //to set a different graphic
+    //so might as well do transformation I guess
+    //checked ash greninja gets 10 points in speed
+    //and 50 points in attack o.0
+    //based on anime it became super agile 
+    //so I think I'll make this a counter part to that
+    //40 points in speed 20 in attack
+    //with that much speed should also 
+    //still outpace even when paralyzed hmm
+    //vsonic
+
+    [SPECIES_LOKIX_SHOWDOWN_MODE] =
+    {
+        .speciesName = _("Lokix"),
+
+            //hp, atk, def, spd, spatk, spdef
+        STATS(
+              71,
+              122,
+              78,
+              132,
+              52,
+              55
+       ),
+        MON_TYPES(TYPE_BUG, TYPE_DARK),
+        .catchRate = 30,
+        .expYield = 158,
+       // .evYield_Attack = 2,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_LEGENDARY,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
+        .abilities = { ABILITY_RESOLUTE, ABILITY_NONE },
+        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,

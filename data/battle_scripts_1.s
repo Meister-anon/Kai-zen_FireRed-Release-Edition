@@ -10785,6 +10785,19 @@ BattleScript_BattleBondActivatesOnMoveEndAttacker::
 	printstring STRINGID_ATTACKERBECAMEASHSPECIES
 	return
 
+BattleScript_ResoluteActivatesOnMoveEndTarget::
+	pause B_WAIT_TIME_CLEAR_BUFF
+	copybyte gBattlerAbility, gBattlerTarget
+	@@ call BattleScript_AbilityPopUp
+	printstring STRINGID_TARGETISGETTINGSERIOUS
+	handleformchange BS_TARGET, 0
+	handleformchange BS_TARGET, 1
+	playanimation BS_TARGET, B_ANIM_FORM_CHANGE, NULL @guessing don''t know what value should be
+	waitanimation
+	handleformchange BS_TARGET, 2
+	printstring STRINGID_TARGETCHANGEDMODE
+	return
+
 BattleScript_EffectRelicSong:
 	setmoveeffect MOVE_EFFECT_RELIC_SONG | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	call BattleScript_EffectHit_Ret

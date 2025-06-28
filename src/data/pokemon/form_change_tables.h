@@ -568,6 +568,18 @@ static const struct FormChange sMorpekoFormChangeTable[] = {
     {FORM_CHANGE_TERMINATOR},
 };
 
+//ok think looks right, could be more specific?
+//but should be ok, I set status1 any
+//but in practice shouldn't transform if asleep,
+//or fully frozen
+static const struct FormChange sLokixFormChangeTable[] = {
+    {FORM_CHANGE_BATTLE_HP_PERCENT, SPECIES_LOKIX_SHOWDOWN_MODE,   ABILITY_RESOLUTE, HP_LOWER_EQ_THAN, 50},
+    {FORM_CHANGE_BATTLE_STATUS,     SPECIES_LOKIX_SHOWDOWN_MODE,   ABILITY_RESOLUTE, STATUS1, STATUS1_ANY},
+    {FORM_CHANGE_FAINT,         SPECIES_LOKIX},
+    {FORM_CHANGE_END_BATTLE,    SPECIES_LOKIX},
+    {FORM_CHANGE_TERMINATOR},
+};
+
 static const struct FormChange sZacianFormChangeTable[] = {
     //{FORM_CHANGE_BEGIN_BATTLE, SPECIES_ZACIAN_CROWNED_SWORD, ITEM_RUSTED_SWORD, MOVE_IRON_HEAD,      MOVE_BEHEMOTH_BLADE},
     //{FORM_CHANGE_END_BATTLE,   SPECIES_ZACIAN,               ITEM_RUSTED_SWORD, MOVE_BEHEMOTH_BLADE, MOVE_IRON_HEAD},

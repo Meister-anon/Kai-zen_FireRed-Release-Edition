@@ -1533,6 +1533,10 @@
 	callnative BS_trygetcaughtmonfromPc
 	.endm
 
+	.macro tryactivateshowdownmodeMoveEnd
+	callnative BS_TryActivateResoluteMoveEnd
+	.endm
+
 	@^put future commands above this^
 	.macro typebaseddmgboost
 	callnative BS_typebaseddmgboost

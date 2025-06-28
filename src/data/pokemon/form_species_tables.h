@@ -1123,6 +1123,12 @@ static const u16 sMorpekoFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 
+static const u16 sLokixFormSpeciesIdTable[] = {
+    SPECIES_LOKIX,
+    SPECIES_LOKIX_SHOWDOWN_MODE,
+    FORM_SPECIES_END,
+};
+
 static const u16 sZacianFormSpeciesIdTable[] = {
     SPECIES_ZACIAN,
     SPECIES_ZACIAN_CROWNED_SWORD,

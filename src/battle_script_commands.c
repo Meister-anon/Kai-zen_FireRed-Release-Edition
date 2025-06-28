@@ -14458,6 +14458,30 @@ void BS_TryActivateTimeControl(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+void BS_TryActivateResoluteMoveEnd(void)
+{
+
+    if (gBattleMons[gBattlerTarget].species == SPECIES_LOKIX
+        && GetBattlerAbility(gBattlerTarget) == ABILITY_RESOLUTE
+        && (gBattleMons[gBattlerTarget].hp <= (gBattleMons[gBattlerTarget].maxHP / 2)
+        || gBattleMons[gBattlerTarget].status1 & STATUS1_ANY))
+    {
+        //if incapacitated skip formchange
+        if ((gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP)
+        || (gDisableStructs[gBattlerTarget].FrozenTurns != 0))
+            return;
+        else
+        {
+            PREPARE_SPECIES_BUFFER(gBattleTextBuff1, gBattleMons[gBattlerTarget].species);
+            gBattleStruct->changedSpecies[GET_BATTLER_SIDE2(gBattlerTarget)][gBattlerPartyIndexes[gBattlerTarget]] = gBattleMons[gBattlerTarget].species;
+            gBattleMons[gBattlerTarget].species = SPECIES_LOKIX_SHOWDOWN_MODE;
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_ResoluteActivatesOnMoveEndTarget;
+            return; 
+        }
+    }
+}
+
 void BS_CheckParentalBondCounter(void)
 {
     NATIVE_ARGS(u8 counter, const u8 *jumpInstr);

@@ -28,6 +28,7 @@ extern const u8 BattleScript_MicleBerryActivateEnd2[];
 extern const u8 BattleScript_MicleBerryActivateRet[];
 extern const u8 BattleScript_JabocaRowapBerryActivates[];
 extern const u8 BattleScript_BattleBondActivatesOnMoveEndAttacker[];
+extern const u8 BattleScript_ResoluteActivatesOnMoveEndTarget[];
 extern const u8 BattleScript_BrickBreakWithScreens[];
 extern const u8 BattleScript_BrickBreakNoScreens[];
 extern const u8 BattleScript_RagingBullBreaksThrough[];

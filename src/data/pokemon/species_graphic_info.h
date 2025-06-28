@@ -8788,6 +8788,16 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lokix),
 },
 
+[SPECIES_LOKIX_SHOWDOWN_MODE] =
+    {
+      FRONT_COORD(0x88, 3),
+      BACK_COORD(0x88, 7),
+      PIC_DATA_ICON_INDEX(Lokix, 0),
+      .enemyMonElevation = 0,
+      .cryData = CRY_INFO(Cry_Lokix),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lokix),
+},
+
 [SPECIES_PAWMI] =
     {
       FRONT_COORD(0x88, 10),

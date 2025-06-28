@@ -720,6 +720,8 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_LUNAR_SOLSTICE] = COMPOUND_ABILITY_STRING("The POKéMON celebrates the moon.\nTemporarily boosts moonlight in battle."),
     [ABILITY_LUNAR_POWER] = COMPOUND_ABILITY_STRING("Powers up in strong moonlight.\nBoosts Sp. Def avoids Moon based attacks."),
     [ABILITY_NEW_MOON] = COMPOUND_ABILITY_STRING("Moderate HP recovery in moonlight.\nAlso absorbs Moon based attacks."), //doesn't change target just takes it in
+    [ABILITY_TOXIC_DELUGE] = COMPOUND_ABILITY_STRING("Summons Acid Rain to Battle."), //expandon later
+    [ABILITY_RESOLUTE] = COMPOUND_ABILITY_STRING("Changes form if suffering from status\nor if HP falls to or below half Max HP."),
 
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
@@ -1143,6 +1145,7 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_LUNAR_SOLSTICE] = _("Lunar Solstice"),
     [ABILITY_LUNAR_POWER] = _("Lunar Power"),
     [ABILITY_NEW_MOON] = _("New Moon"), //finally decided name as new moon represents rebirth and healing
-
+    [ABILITY_TOXIC_DELUGE] = _("Toxic Deluge"),
+    [ABILITY_RESOLUTE] = _("Resolute"),
 
 };//can have comma
