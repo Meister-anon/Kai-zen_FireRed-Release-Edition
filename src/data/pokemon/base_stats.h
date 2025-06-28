@@ -7213,8 +7213,8 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Donphan"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(90, 120, 120, 85, 40, 65),
-        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
+         STATS(90, 120, 120, 77, 40, 65),
+        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),//decide make slightly slower so great tusk is more unique/makes sense as an enhanced version
         .catchRate = 60,
         .expYield = 175,
         //.evYield_Attack = 1,
@@ -7247,6 +7247,9 @@ const struct BaseStats gBaseStats[] =
     //for same reason perhaps vacuum wave?
     //blow air through trunk,
     //normal type variety coverage
+    //hmm it was base 50 speed and that was same as ursaluna which is a trick room mon
+    //so yeah guess it was for trick room
+    //but I don't really like that?
 
     [SPECIES_PORYGON2] =
     {
@@ -35694,7 +35697,7 @@ const struct BaseStats gBaseStats[] =
               110,
               70
         ),
-        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC), //speed is low for trick room
         .catchRate = 45,
         .expYield = 260,
       //  .evYield_HP = 3,

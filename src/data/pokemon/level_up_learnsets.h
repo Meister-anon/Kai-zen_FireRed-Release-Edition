@@ -3392,6 +3392,7 @@ static const struct LevelUpMove sSunkernLevelUpLearnset[] = {
     LEVEL_UP_MOVE(24, MOVE_MEGA_DRAIN),
     LEVEL_UP_MOVE(27, MOVE_WORRY_SEED),    
     LEVEL_UP_MOVE(30, MOVE_ENDEAVOR),
+    LEVEL_UP_MOVE(31, MOVE_BATON_PASS),
     LEVEL_UP_MOVE(34, MOVE_SEED_BOMB),
     LEVEL_UP_MOVE(36, MOVE_SYNTHESIS),
     LEVEL_UP_MOVE(40, MOVE_SOLAR_BEAM),
@@ -3402,9 +3403,11 @@ static const struct LevelUpMove sSunkernLevelUpLearnset[] = {
 
 static const struct LevelUpMove sSunfloraLevelUpLearnset[] = {
     LEVEL_UP_MOVE(0, MOVE_FLOWER_SHIELD),
-    LEVEL_UP_MOVE(0, MOVE_SEED_FLARE), //put here for sunflower seeds
     LEVEL_UP_MOVE( 1, MOVE_ENDEAVOR),
     LEVEL_UP_MOVE( 1, MOVE_SYNTHESIS),
+    LEVEL_UP_MOVE( 1, MOVE_LOW_KICK),
+    LEVEL_UP_MOVE( 1, MOVE_GRASS_KNOT),
+    LEVEL_UP_MOVE( 1, MOVE_ROTOTILLER),
     LEVEL_UP_MOVE( 1, MOVE_SEED_BOMB),
     LEVEL_UP_MOVE(1, MOVE_FLAME_CHARGE),
     LEVEL_UP_MOVE(1, MOVE_FIRE_SPIN),
@@ -3427,8 +3430,10 @@ static const struct LevelUpMove sSunfloraLevelUpLearnset[] = {
     LEVEL_UP_MOVE(47, MOVE_GIGA_DRAIN),
     LEVEL_UP_MOVE(50, MOVE_PETAL_BLIZZARD),
     LEVEL_UP_MOVE(55, MOVE_HEAT_WAVE),
+    LEVEL_UP_MOVE(60, MOVE_SEED_FLARE), //put here for sunflower seeds
     LEVEL_UP_END
 };
+//can be a support mon or a dmg mon
 
 static const struct LevelUpMove sYanmaLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
@@ -4119,7 +4124,7 @@ static const struct LevelUpMove sKingdraLevelUpLearnset[] = {
 
 static const struct LevelUpMove sPhanpyLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_PUNISHMENT), //anti-fairy utility
-    LEVEL_UP_MOVE(1, MOVE_MILK_DRINK), //decided cool utility for normal
+    LEVEL_UP_MOVE(1, MOVE_SHORE_UP), 
     LEVEL_UP_MOVE(1, MOVE_ODOR_SLEUTH),
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
     LEVEL_UP_MOVE(1, MOVE_GROWL),
@@ -4145,7 +4150,7 @@ static const struct LevelUpMove sDonphanLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 0, MOVE_FURY_ATTACK),
     LEVEL_UP_MOVE(1, MOVE_ODOR_SLEUTH),
     LEVEL_UP_MOVE(1, MOVE_PUNISHMENT), //anti-fairy utility
-    LEVEL_UP_MOVE(1, MOVE_MILK_DRINK), //decided cool utility for normal
+    LEVEL_UP_MOVE(1, MOVE_SHORE_UP), 
     LEVEL_UP_MOVE( 1, MOVE_FURY_ATTACK),
     LEVEL_UP_MOVE( 1, MOVE_FIRE_FANG),
     LEVEL_UP_MOVE( 1, MOVE_THUNDER_FANG),
@@ -7430,9 +7435,11 @@ static const struct LevelUpMove sShinxLevelUpLearnset[] = {
     LEVEL_UP_MOVE(45, MOVE_WILD_CHARGE),
     LEVEL_UP_END
 };
+//give evolutions volt tackle
 
 static const struct LevelUpMove sLuxioLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 0, MOVE_POUNCE),
+    LEVEL_UP_MOVE( 1, MOVE_ELECTRIC_TERRAIN),
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 5, MOVE_LEER),
@@ -7446,6 +7453,7 @@ static const struct LevelUpMove sLuxioLevelUpLearnset[] = {
     LEVEL_UP_MOVE(43, MOVE_SCARY_FACE),
     LEVEL_UP_MOVE(48, MOVE_DISCHARGE),
     LEVEL_UP_MOVE(53, MOVE_WILD_CHARGE),
+    LEVEL_UP_MOVE(60, MOVE_VOLT_TACKLE),
     LEVEL_UP_END
 };
 
@@ -7466,7 +7474,7 @@ static const struct LevelUpMove sLuxrayLevelUpLearnset[] = {
     LEVEL_UP_MOVE(49, MOVE_SCARY_FACE),
     LEVEL_UP_MOVE(56, MOVE_DISCHARGE),
     LEVEL_UP_MOVE(63, MOVE_WILD_CHARGE),
-    LEVEL_UP_MOVE(67, MOVE_ELECTRIC_TERRAIN),
+    LEVEL_UP_MOVE(67, MOVE_VOLT_TACKLE),
     LEVEL_UP_END
 };
 
@@ -9923,19 +9931,25 @@ static const struct LevelUpMove sUnfezantLevelUpLearnset[] = {
 static const struct LevelUpMove sBlitzleLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
     LEVEL_UP_MOVE( 4, MOVE_TAIL_WHIP),
-    LEVEL_UP_MOVE( 8, MOVE_CHARGE),
+    LEVEL_UP_MOVE( 7, MOVE_CHARGE),
+    LEVEL_UP_MOVE(10, MOVE_DOUBLE_KICK),
     LEVEL_UP_MOVE(11, MOVE_SHOCK_WAVE),
     LEVEL_UP_MOVE(15, MOVE_THUNDER_WAVE),
     LEVEL_UP_MOVE(18, MOVE_FLAME_CHARGE),
     LEVEL_UP_MOVE(22, MOVE_PURSUIT),
     LEVEL_UP_MOVE(25, MOVE_SPARK),
-    LEVEL_UP_MOVE(29, MOVE_STOMP),
-    LEVEL_UP_MOVE(32, MOVE_DISCHARGE),
+    LEVEL_UP_MOVE(28, MOVE_STOMP),
+    LEVEL_UP_MOVE(30, MOVE_BLAZE_KICK),
+    LEVEL_UP_MOVE(32, MOVE_MILK_DRINK), //zeebras produce milk
+    LEVEL_UP_MOVE(34, MOVE_DISCHARGE),
     LEVEL_UP_MOVE(36, MOVE_AGILITY),
     LEVEL_UP_MOVE(39, MOVE_WILD_CHARGE),
     LEVEL_UP_MOVE(43, MOVE_THRASH),
+    LEVEL_UP_MOVE(50, MOVE_THUNDEROUS_KICK),
     LEVEL_UP_END
 };
+//give more coverage as now part normal
+//bulldoze  double kick
 
 static const struct LevelUpMove sZebstrikaLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_ION_DELUGE),
@@ -9944,18 +9958,23 @@ static const struct LevelUpMove sZebstrikaLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_CHARGE),
     LEVEL_UP_MOVE( 1, MOVE_THUNDER_WAVE),
     LEVEL_UP_MOVE( 4, MOVE_TAIL_WHIP),
-    LEVEL_UP_MOVE( 8, MOVE_CHARGE),
+    LEVEL_UP_MOVE( 7, MOVE_CHARGE),
+    LEVEL_UP_MOVE(10, MOVE_DOUBLE_KICK),
     LEVEL_UP_MOVE(11, MOVE_SHOCK_WAVE),
     LEVEL_UP_MOVE(15, MOVE_THUNDER_WAVE),
     LEVEL_UP_MOVE(18, MOVE_FLAME_CHARGE),
     LEVEL_UP_MOVE(22, MOVE_PURSUIT),
     LEVEL_UP_MOVE(25, MOVE_SPARK),
     LEVEL_UP_MOVE(31, MOVE_STOMP),
-    LEVEL_UP_MOVE(36, MOVE_DISCHARGE),
+    LEVEL_UP_MOVE(34, MOVE_BLAZE_KICK), //since gets flame charge already
+    LEVEL_UP_MOVE(36, MOVE_MILK_DRINK),
+    LEVEL_UP_MOVE(38, MOVE_DISCHARGE),
     LEVEL_UP_MOVE(42, MOVE_AGILITY),
+    LEVEL_UP_MOVE(44, MOVE_MEGA_KICK),
     LEVEL_UP_MOVE(47, MOVE_WILD_CHARGE),
     LEVEL_UP_MOVE(53, MOVE_THRASH),
     LEVEL_UP_MOVE(58, MOVE_ION_DELUGE),
+    LEVEL_UP_MOVE(60, MOVE_THUNDEROUS_KICK),
     LEVEL_UP_END
 };
 
@@ -21558,6 +21577,8 @@ static const struct LevelUpMove sMunkidoriLevelUpLearnset[] = {
 //#if P_FAMILY_FEZANDIPITI
 static const struct LevelUpMove sFezandipitiLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_DOUBLE_KICK),
+    LEVEL_UP_MOVE( 1, MOVE_JUMP_KICK),
+    LEVEL_UP_MOVE( 1, MOVE_HI_JUMP_KICK),
     LEVEL_UP_MOVE( 1, MOVE_PECK),
     LEVEL_UP_MOVE( 1, MOVE_POISON_GAS),
     LEVEL_UP_MOVE( 1, MOVE_DISARMING_VOICE),
@@ -21574,6 +21595,8 @@ static const struct LevelUpMove sFezandipitiLevelUpLearnset[] = {
     LEVEL_UP_MOVE(72, MOVE_MOONBLAST),
     LEVEL_UP_END
 };
+//since can learn double kick 
+//decided give jump kick and hi jump kick
 //give zen headbutt to handle steel types vsonic
 //#endif //P_FAMILY_FEZANDIPITI
 

@@ -823,6 +823,7 @@ static void UpdateHappinessStepCounter(void)
     }
 }
 
+#define PICKUP_LOGIC
 static void UpdatePickupCounter(void)
 {
     u16 *ptr = GetVarPointer(VAR_PICKUP_COUNTER);

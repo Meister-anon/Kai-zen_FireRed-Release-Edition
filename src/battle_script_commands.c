@@ -10115,14 +10115,36 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //but it makes all accuracy drops more effective, cna treat like other games,
         //marginal gains being the main focus not strength of individual effects
         //add accuracy exclusion for moves that hit flying mon
+        //-
+        //believe was initially planning for ground?
+        //idk if it makes sense to ignore the acc drop
+        //just because of the move? part of me feels that's a bridge too far
+        //just because it CAN hit something flying doesn't mean its not 
+        //difficult for a grounded mon to hit something flying
+        //its just actually physically possible and so should knock them down
+        //think this is just an issue cuz most moves mthat get can damage airborne
+        //are some of most common moves
+        //so its less a problem of logic and more so practical effect I guess
+        //so want ot be aware of trying to shape my fix to fit what I want
+        //rather than something actually being a problem
+        //so consider both sides
+        //ok thought of more and while I like idea of
+        //not ignoring accuracy drop just because a move is "able" to hit
+        //flying mon while on the ground, but for practical sake
+        //is better this way most likely
+        //alternately it'd just create priority list to use floating mon
+        //over regular mon especially with them having built in ground immunity
+        //
+        #define FLYING_TYPE_BONUS
         if (IsBattlerGrounded(battlerAtk)
-        && !IsBattlerGrounded(gBattlerTarget) //make function for below
-        && DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_FLYING)
+        && !IsBattlerGrounded(battlerDef) //make function for below
+        && DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_FLYING)
         && atkAbility != ABILITY_KEEN_EYE
         && atkAbility != ABILITY_APOTHEOSCENT
-        && !(gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE))
+        && !(gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE)
+        )
             calc = (calc * 88) / 100;  //was 93, dropped to 88 - think i sfine where is at most drop to 87 want keep above sand veil likes
-        //think may lower this a bit more?
+        //think may lower this a bit more?  
         //if I drop to .8 (won't actually) it'd effectively be enough to lower a stat stage drop to the next stage down
 
         if (atkAbility == ABILITY_COMPOUND_EYES
@@ -19431,7 +19453,7 @@ static void atkE4_getsecretpowereffect(void)
 
 
 
-#define PICKUP_LOGIC
+
 static void atkE5_pickup(void) //effect will go in battle_util.c end turn ability clause, this will be kept here to prevent need to reordder bs macros
 //why is this a bs command when the ability has no in battle effect?
 {//ok all this was almost a waste pick up doesn't work how I thought it did. -_- it doesn't have an effect on battle
