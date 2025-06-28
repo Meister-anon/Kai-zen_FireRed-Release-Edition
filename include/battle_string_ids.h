@@ -106,6 +106,30 @@
 #define B_MSG_SPIKESSCATTERED 4
 #define B_MSG_STEEL_SPEARS 5
 
+// gTerrainStringIds
+#define B_MSG_TERRAIN_SET_MISTY     0
+#define B_MSG_TERRAIN_SET_ELECTRIC  1
+#define B_MSG_TERRAIN_SET_PSYCHIC   2
+#define B_MSG_TERRAIN_SET_GRASSY    3
+#define B_MSG_TERRAIN_END_MISTY     4
+#define B_MSG_TERRAIN_END_ELECTRIC  5
+#define B_MSG_TERRAIN_END_PSYCHIC   6
+#define B_MSG_TERRAIN_END_GRASSY    7
+#define B_MSG_TERRAIN_COUNT         8
+
+// gStartingStatusStringIds
+#define B_MSG_TERRAIN_SET_MISTY     0
+#define B_MSG_TERRAIN_SET_ELECTRIC  1
+#define B_MSG_TERRAIN_SET_PSYCHIC   2
+#define B_MSG_TERRAIN_SET_GRASSY    3
+#define B_MSG_SET_TRICK_ROOM        4
+#define B_MSG_SET_MAGIC_ROOM        5
+#define B_MSG_SET_WONDER_ROOM       6
+#define B_MSG_SET_TAILWIND          7
+#define B_MSG_SET_RAINBOW           8
+#define B_MSG_SET_SEA_OF_FIRE       9
+#define B_MSG_SET_SWAMP             10
+#define B_MSG_STARTING_STATUS_COUNT 11
 
 // gTerrainPreventsStringIds
 #define B_MSG_TERRAINPREVENTS_MISTY     0

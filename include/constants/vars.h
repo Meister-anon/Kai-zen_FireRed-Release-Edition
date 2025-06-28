@@ -317,8 +317,9 @@
 #define VAR_WEEKS				   0x4105
 #define VAR_MONTHS				   0x4106
 #define VAR_SEASONS				   0x4107
-#define VAR_TERRAIN				   0x4108	
-// If this var has a value, assigning a STATUS_FIELD_xx_TERRAIN to it before battle causes the battle to start with that terrain active
+#define VAR_TERRAIN				   0x4108 //ee changed this var isn't used? // If this var has a value, assigning a STATUS_FIELD_xx_TERRAIN to it before battle causes the battle to start with that terrain active
+
+
 
 // Counts up every step. Wraps around at 325.
 // When wraparound occurs, and the player

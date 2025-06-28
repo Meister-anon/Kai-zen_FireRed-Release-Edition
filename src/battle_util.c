@@ -2529,52 +2529,79 @@ u8 DoFieldEndTurnEffects(void)
             ++gBattleStruct->turnCountersTracker;
             break;
         case ENDTURN_ELECTRIC_TERRAIN:
-            if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN
-                && (!(gFieldStatuses & STATUS_FIELD_TERRAIN_PERMANENT) && --gFieldTimers.terrainTimer == 0))
+        {
+            if (gFieldTimers.terrainTimer != PERMANENT_TERRAIN)
             {
-                gFieldStatuses &= ~(STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_TERRAIN_PERMANENT);
-                TryToRevertMimicry();
-                BattleScriptExecute(BattleScript_ElectricTerrainEnds);
-                ++effect;
+                if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN && --gFieldTimers.terrainTimer == 0)
+                {
+                    gFieldStatuses &= ~(STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_TERRAIN_PERMANENT);
+                    TryToRevertMimicry();
+                    BattleScriptExecute(BattleScript_ElectricTerrainEnds);
+                    ++effect;
+                }
+                ++gBattleStruct->turnCountersTracker;
+                break;
             }
-            ++gBattleStruct->turnCountersTracker;
-            break;
+            
+        }
         case ENDTURN_MISTY_TERRAIN:
-            if (gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN
-                && (!(gFieldStatuses & STATUS_FIELD_TERRAIN_PERMANENT) && --gFieldTimers.terrainTimer == 0))
+        {
+            if (gFieldTimers.terrainTimer != PERMANENT_TERRAIN)
             {
-                gFieldStatuses &= ~STATUS_FIELD_MISTY_TERRAIN;
-                TryToRevertMimicry();
-                BattleScriptExecute(BattleScript_MistyTerrainEnds);
-                ++effect;
+                if (gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN && --gFieldTimers.terrainTimer == 0)
+                {
+                    gFieldStatuses &= ~STATUS_FIELD_MISTY_TERRAIN;
+                    TryToRevertMimicry();
+                    BattleScriptExecute(BattleScript_MistyTerrainEnds);
+                    ++effect;
+                }
+                ++gBattleStruct->turnCountersTracker;
+                break;
             }
-            ++gBattleStruct->turnCountersTracker;
-            break;
+            
+        }
         case ENDTURN_GRASSY_TERRAIN:
-            if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN)
+        {
+            if (gFieldTimers.terrainTimer != PERMANENT_TERRAIN)
             {
-                if (!(gFieldStatuses & STATUS_FIELD_TERRAIN_PERMANENT)
-                    && (gFieldTimers.terrainTimer == 0 || --gFieldTimers.terrainTimer == 0))
+                if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN && --gFieldTimers.terrainTimer == 0)
                 {
                     gFieldStatuses &= ~STATUS_FIELD_GRASSY_TERRAIN;
                     TryToRevertMimicry();
+                    BattleScriptExecute(BattleScript_GrassyTerrainHeals);
+                    ++effect;
                 }
-                BattleScriptExecute(BattleScript_GrassyTerrainHeals);
-                ++effect;
+
             }
-            ++gBattleStruct->turnCountersTracker;
-            break;
-        case ENDTURN_PSYCHIC_TERRAIN:
-            if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN
-                && (!(gFieldStatuses & STATUS_FIELD_TERRAIN_PERMANENT) && --gFieldTimers.terrainTimer == 0))
+            else
             {
-                gFieldStatuses &= ~STATUS_FIELD_PSYCHIC_TERRAIN;
-                TryToRevertMimicry();
-                BattleScriptExecute(BattleScript_PsychicTerrainEnds);
-                ++effect;
+                if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN)
+                {
+                    BattleScriptExecute(BattleScript_GrassyTerrainHeals);
+                    ++effect;
+                    
+                }
             }
             ++gBattleStruct->turnCountersTracker;
-            break;
+            break; //need extra condition cuz does same effect weather perm or not
+            
+        }
+        case ENDTURN_PSYCHIC_TERRAIN:
+        {
+            if (gFieldTimers.terrainTimer != PERMANENT_TERRAIN)
+            {
+                if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN && --gFieldTimers.terrainTimer == 0)
+                {
+                    gFieldStatuses &= ~STATUS_FIELD_PSYCHIC_TERRAIN;
+                    TryToRevertMimicry();
+                    BattleScriptExecute(BattleScript_PsychicTerrainEnds);
+                    ++effect;
+                }
+                ++gBattleStruct->turnCountersTracker;
+                break; 
+            }
+            
+        }
         case ENDTURN_WATER_SPORT:
             while (gBattleStruct->turnSideTracker < 2)
             {
@@ -5854,42 +5881,32 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;//found logic that says order does matter it starst w FF to wrap around to 0 and thene count up. so put teerrain here
             case ABILITYEFFECT_SWITCH_IN_TERRAIN:   //set battle terrain from map conditions/before battle
-                if (VarGet(VAR_TERRAIN) & STATUS_FIELD_TERRAIN_ANY)
+            {
+                //this case was a bloody mess,
+                //setup was horrible and didn't have a condition to actually 
+                //set anything to begin with smh
+                if (!(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
+                && GetCurrentWeather() == WEATHER_RAIN_THUNDERSTORM)
                 {
-                    u16 terrainFlags = VarGet(VAR_TERRAIN) & STATUS_FIELD_TERRAIN_ANY;    // only works for status flag (1 << 15)
-                    gFieldStatuses = terrainFlags | STATUS_FIELD_TERRAIN_PERMANENT; // terrain is permanent
-                    switch (VarGet(VAR_TERRAIN) & STATUS_FIELD_TERRAIN_ANY)
-                    {
-                    case STATUS_FIELD_ELECTRIC_TERRAIN: //set terrain for power plants
-                        gBattleCommunication[MULTISTRING_CHOOSER] = 2;
-                        break;
-                    case STATUS_FIELD_MISTY_TERRAIN:    //could set with fog, need to add fog weather, plan set certain time of day, near water
-                        gBattleCommunication[MULTISTRING_CHOOSER] = 0;
-                        break;
-                    case STATUS_FIELD_GRASSY_TERRAIN:
-                        gBattleCommunication[MULTISTRING_CHOOSER] = 1;
-                        break;
-                    case STATUS_FIELD_PSYCHIC_TERRAIN:
-                        gBattleCommunication[MULTISTRING_CHOOSER] = 3;
-                        break;
-                    }//for terrain auto set from world I think I don't want to have a text string letting ppl know
-                    //instead it'll be something for the player to keep in mind, I'll have it explained at a
-                    //trainer school or something
-
-                    BattleScriptPushCursorAndCallback(BattleScript_OverworldTerrain);
-                    ++effect;
-                }
-#if B_THUNDERSTORM_TERRAIN == TRUE
-                else if (GetCurrentWeather() == WEATHER_RAIN_THUNDERSTORM && !(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN))
-                {//my note- plan to add in unused weather and emerald weather for realism
-                    //integrate emeraald tv effect to track weather
                     // overworld weather started rain, so just do electric terrain anim
-                    gFieldStatuses = (STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_TERRAIN_PERMANENT);
-                    gBattleCommunication[MULTISTRING_CHOOSER] = 2;
+                    gFieldStatuses = STATUS_FIELD_ELECTRIC_TERRAIN;
+                    gFieldTimers.terrainTimer = PERMANENT_TERRAIN; //plan use timer 0 for permanent terrain, consider
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_ELECTRIC;
                     BattleScriptPushCursorAndCallback(BattleScript_OverworldTerrain);
                     ++effect;
                 }
-#endif
+                else if ((GetCurrentWeather() == WEATHER_FOG_HORIZONTAL || GetCurrentWeather() == WEATHER_FOG_DIAGONAL)
+                    && !(gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN))
+                {
+                    gFieldStatuses = STATUS_FIELD_MISTY_TERRAIN;
+                    gFieldTimers.terrainTimer = PERMANENT_TERRAIN;
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_MISTY;
+                    BattleScriptPushCursorAndCallback(BattleScript_OverworldTerrain);
+                    ++effect;
+                }
+                //with similarity of fairy and ghost historically if misty terrain boosts fairy dmg make also boost ghost
+                //ah nvm misty terrain is mostly defensive weaken dragon boost misty explosion
+            }
                 break;//hopefully can put terrain here without problems, start of weather abilities
             case ABILITY_DRIZZLE:
                 if (gBattleWeather & WEATHER_PRIMAL_ANY && WeatherHasEffect())
@@ -5963,7 +5980,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     gBattleScripting.savedBattler = gBattlerAttacker;
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                     BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
-                    effect++;
+                    ++effect;
                 }
                 break; //hopefully works out, effect doesn't stack just has 2 options for activation
 
@@ -7034,7 +7051,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                 //SET_STATCHANGER(STAT_ATK, 1, FALSE);
                 BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
-                effect++;
+                ++effect;
             }
             break;
             case ABILITY_MIMICRY:
@@ -7229,7 +7246,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 {
                     gLastUsedItem = GetUsedHeldItem(battler);
                     BattleScriptPushCursorAndCallback(BattleScript_HarvestActivates);
-                    effect++;
+                    ++effect;
                 }
                 break;
                 case ABILITY_PHOTOSYNTHESIZE:
@@ -8852,7 +8869,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             {
                 BattleScriptPushCursor();
                 gBattlescriptCurrInstr = BattleScript_WindPowerActivates;
-                effect++;
+                ++effect;
             }
             break;
             } //end of effet

@@ -12846,6 +12846,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         VARIOUS_ARGS(const u8 *failInstr); //see if new setup of function works
         //removed use as not used in EE
         //HandleTerrainMove(gBattleMoves[gCurrentMove].effect); 
+        //this is handled in setmoveeffec in EE rather than with a bs command
         u32 statusFlag = 0;
         u8 timer = 0;
 
@@ -12854,29 +12855,29 @@ static void atk76_various(void) //will need to add all these emerald various com
 
             case EFFECT_MISTY_TERRAIN:
                 statusFlag = STATUS_FIELD_MISTY_TERRAIN;
-                gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_MISTY;
                 break;
             case EFFECT_GRASSY_TERRAIN:
                 statusFlag = STATUS_FIELD_GRASSY_TERRAIN;
-                gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_GRASSY;
                 break;
             case EFFECT_ELECTRIC_TERRAIN:
                 statusFlag = STATUS_FIELD_ELECTRIC_TERRAIN;
-                gBattleCommunication[MULTISTRING_CHOOSER] = 2;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_ELECTRIC;
                 break;
             case EFFECT_PSYCHIC_TERRAIN:
                 statusFlag = STATUS_FIELD_PSYCHIC_TERRAIN;
-                gBattleCommunication[MULTISTRING_CHOOSER] = 3;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_PSYCHIC;
                 break;
         }
 
-        if (gFieldStatuses & statusFlag || statusFlag == 0)
+        if (gFieldStatuses & statusFlag || statusFlag == 0) //if terrain already set or no terrain
         {
             gBattlescriptCurrInstr = cmd->failInstr;
         }
         else
         {
-            gFieldStatuses &= ~STATUS_FIELD_TERRAIN_ANY;
+            gFieldStatuses &= ~STATUS_FIELD_TERRAIN_ANY; //believe is just extra protection?
             gFieldStatuses |= statusFlag;
             if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_TERRAIN_EXTENDER)
                 timer = 8;
@@ -13864,19 +13865,19 @@ static void atk76_various(void) //will need to add all these emerald various com
         switch (gFieldStatuses & STATUS_FIELD_TERRAIN_ANY)
         {
         case STATUS_FIELD_MISTY_TERRAIN:
-            gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_END_MISTY;
             break;
         case STATUS_FIELD_GRASSY_TERRAIN:
-            gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_END_GRASSY;
             break;
         case STATUS_FIELD_ELECTRIC_TERRAIN:
-            gBattleCommunication[MULTISTRING_CHOOSER] = 2;
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_END_ELECTRIC;
             break;
         case STATUS_FIELD_PSYCHIC_TERRAIN:
-            gBattleCommunication[MULTISTRING_CHOOSER] = 3;
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_END_PSYCHIC;
             break;
         default:
-            gBattleCommunication[MULTISTRING_CHOOSER] = 4;  // failsafe
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_COUNT;  // failsafe //the fuck is this? ther was nevera 4th option??
             break;
         }
         gFieldStatuses &= ~STATUS_FIELD_TERRAIN_ANY;    // remove the terrain

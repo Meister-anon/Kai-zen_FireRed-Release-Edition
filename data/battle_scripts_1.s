@@ -2134,7 +2134,7 @@ BattleScript_EffectPsychicTerrain:
 	printfromtable gTerrainStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	playanimation BS_SCRIPTING, B_ANIM_RESTORE_BG, NULL
-	call BattleScript_TerrainSeedLoop
+	call BattleScript_ActivateTerrainEffects
 	jumpifabilitypresent ABILITY_MIMICRY, BattleScript_ApplyMimicry
 	goto BattleScript_MoveEnd
 
@@ -8945,7 +8945,7 @@ BattleScript_ItemSteal::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 	
-
+@what is this
 BattleScript_HailActivates::
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNSXCALLEDDOWNHAIL
@@ -9743,16 +9743,17 @@ BattleScript_ActivateTerrainAbilities_Increment:
 	copybyte gBattlerAttacker, sBATTLER
 	return
 
-BattleScript_TerrainSeedLoop:
+BattleScript_ActivateTerrainEffects:
 	savetarget
 	setbyte gBattlerTarget, 0
-BattleScript_TerrainSeedLoopIter:
+BattleScript_ActivateTerrainSeed:
 	copybyte sBATTLER, gBattlerTarget
-	doterrainseed BS_TARGET, BattleScript_TerrainSeedLoop_NextBattler
+	doterrainseed BS_TARGET, BattleScript_ActivateTerrainAbility
 	removeitem BS_TARGET
-BattleScript_TerrainSeedLoop_NextBattler:
+BattleScript_ActivateTerrainAbility:
+	activateterrainchangeabilities BS_TARGET
 	addbyte gBattlerTarget, 0x1
-	jumpifbytenotequal gBattlerTarget, gBattlersCount, BattleScript_TerrainSeedLoopIter
+	jumpifbytenotequal gBattlerTarget, gBattlersCount, BattleScript_ActivateTerrainSeed
 	restoretarget
 	return
 
@@ -9762,7 +9763,7 @@ BattleScript_ElectricSurgeActivates::
 	waitstate
 	playanimation BS_SCRIPTING, B_ANIM_RESTORE_BG, NULL
 	@call BattleScript_ActivateTerrainAbilities
-	call BattleScript_TerrainSeedLoop
+	call BattleScript_ActivateTerrainEffects
 	end3
 
 BattleScript_MistySurgeActivates::
@@ -9771,7 +9772,7 @@ BattleScript_MistySurgeActivates::
 	waitstate
 	playanimation BS_SCRIPTING, B_ANIM_RESTORE_BG, NULL
 	@call BattleScript_ActivateTerrainAbilities
-	call BattleScript_TerrainSeedLoop
+	call BattleScript_ActivateTerrainEffects
 	end3
 
 BattleScript_GrassySurgeActivates::
@@ -9780,7 +9781,7 @@ BattleScript_GrassySurgeActivates::
 	waitstate
 	playanimation BS_SCRIPTING, B_ANIM_RESTORE_BG, NULL
 	@call BattleScript_ActivateTerrainAbilities
-	call BattleScript_TerrainSeedLoop
+	call BattleScript_ActivateTerrainEffects
 	end3
 
 BattleScript_PsychicSurgeActivates::
@@ -9789,7 +9790,7 @@ BattleScript_PsychicSurgeActivates::
 	waitstate
 	playanimation BS_SCRIPTING, B_ANIM_RESTORE_BG, NULL
 	@call BattleScript_ActivateTerrainAbilities
-	call BattleScript_TerrainSeedLoop
+	call BattleScript_ActivateTerrainEffects
 	end3
 
 BattleScript_LavaDistortionActivates::
@@ -9798,7 +9799,7 @@ BattleScript_LavaDistortionActivates::
 	waitstate
 	@playanimation BS_SCRIPTING, B_ANIM_RESTORE_BG, NULL
 	@@call BattleScript_ActivateTerrainAbilities
-	@call BattleScript_TerrainSeedLoop	@no seed for fire/water terrains as they also get weather would need to make
+	@call BattleScript_ActivateTerrainEffects	@no seed for fire/water terrains as they also get weather would need to make
 	end3
 
 BattleScript_BadDreamsActivates::
@@ -10668,7 +10669,7 @@ BattleScript_EffectRemoveTerrain:
 	waitmessage B_WAIT_TIME_LONG
 	removeterrain
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 4, BattleScript_MoveEnd
-	printfromtable gTerrainEndingStringIds
+	printfromtable gTerrainStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	playanimation BS_ATTACKER, B_ANIM_RESTORE_BG, NULL	@guessing don''t know what last value should be
 	tryfaintmon BS_TARGET, FALSE, NULL

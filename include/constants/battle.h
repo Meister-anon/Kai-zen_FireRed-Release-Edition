@@ -401,7 +401,7 @@
 #define STATUS_FIELD_ELECTRIC_TERRAIN   (1 << 9)	//sparks tag
 #define STATUS_FIELD_PSYCHIC_TERRAIN    (1 << 10)	//could surround field w hidden power orbs?
 #define STATUS_FIELD_SNOWY_TERRAIN		(1 << 11)	//for snow area
-#define STATUS_FIELD_TERRAIN_PERMANENT  (1 << 12)		//last terrain effect so putting here //(1 << 12)   
+#define STATUS_FIELD_BLANK  (1 << 12)	//realize don't need STATUS_FIELD_TERRAIN_PERMANENT could make conditional to make it permanent using the timer?
 #define STATUS_FIELD_ION_DELUGE         (1 << 13)
 #define STATUS_FIELD_FAIRY_LOCK         (1 << 14)
 #define STATUS_FIELD_BLACK_FOG          (1 << 15)	//HAZE -3 full turns so timer is 4
@@ -409,9 +409,11 @@
 //#define STATUS_FIELD_WATERSPORT         (1 << 16)
 //need pledge stuff
 
+
 #define TERRAIN_DEFINES
 
 #define STATUS_FIELD_TERRAIN_ANY              (STATUS_FIELD_SCORCHED_TERRAIN | STATUS_FIELD_FLOODED_TERRAIN | STATUS_FIELD_OCEAN_TERRAIN | STATUS_FIELD_GRASSY_TERRAIN | STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_PSYCHIC_TERRAIN)
+#define PERMANENT_TERRAIN   0     //use timer value 0 so never decrements
 
 // Flags describing move's result
 #define MOVE_RESULT_MISSED             (1 << 0)
