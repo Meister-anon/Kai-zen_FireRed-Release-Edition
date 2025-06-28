@@ -6366,7 +6366,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_MAGNET_RISE] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_5
-            .flags = FLAG_SNATCH_AFFECTED,
+            .flags = FLAG_SNATCH_AFFECTED | FLAG_GRAVITY_CANCELED,
         #else
             .flags = 0,
         #endif
@@ -6379,7 +6379,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = 1,
         .split = SPLIT_STATUS,
-        .flags = FLAG_GRAVITY_CANCELED,
     },
     //makes float
 
