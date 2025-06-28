@@ -103,7 +103,6 @@ static bool8 sub_8026648(void);
 static void PutMonIconOnLvlUpBox(void);
 static void PutLevelAndGenderOnLvlUpBox(void);
 static bool32 HasAttackerFaintedTarget(void);
-static void HandleTerrainMove(u32 moveEffect);
 //static void RecalcBattlerStats(u32 battler, struct Pokemon *mon);  old setup can use emerald version non static now
 static void TransformRecalcBattlerStats(u32 battler, struct Pokemon *mon, u16 TargetAbility, u16 TransformSpecies);
 static void SetDmgHazardsBattlescript(u8 battlerId, u8 multistringId);
