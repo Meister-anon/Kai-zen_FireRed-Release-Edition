@@ -9751,7 +9751,7 @@ BattleScript_ActivateTerrainSeed:
 	doterrainseed BS_TARGET, BattleScript_ActivateTerrainAbility
 	removeitem BS_TARGET
 BattleScript_ActivateTerrainAbility:
-	activateterrainchangeabilities BS_TARGET
+	@activateterrainchangeabilities BS_TARGET
 	addbyte gBattlerTarget, 0x1
 	jumpifbytenotequal gBattlerTarget, gBattlersCount, BattleScript_ActivateTerrainSeed
 	restoretarget
