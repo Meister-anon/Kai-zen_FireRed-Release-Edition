@@ -2534,7 +2534,7 @@ u8 DoFieldEndTurnEffects(void)
             {
                 if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN && --gFieldTimers.terrainTimer == 0)
                 {
-                    gFieldStatuses &= ~(STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_TERRAIN_PERMANENT);
+                    gFieldStatuses &= ~STATUS_FIELD_ELECTRIC_TERRAIN;
                     TryToRevertMimicry();
                     BattleScriptExecute(BattleScript_ElectricTerrainEnds);
                     ++effect;
