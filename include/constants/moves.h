@@ -879,91 +879,92 @@
 #define MOVE_MALIGNANT_CHAIN 847
 
 // New Custom Additions
-#define MOVE_COCOON 848	//ONLY one that has animation, but is just a copy of cosmic power
-#define MOVE_MONOTYPE 849
-#define MOVE_FLASH_FREEZE 850
-#define MOVE_DRYADS_CURSE 851
-#define MOVE_SHIELD_BASH 852
-#define MOVE_UP_ROOT 853
-#define MOVE_DIVE_BOMB 854
-#define MOVE_NETTLE_WHIP 855	//Will be grass move that can apply burn	//MOVE_NETTLE_WHIP	MOVE_BURNING_VINE    MOVE_NETTLE_WHIP
-#define MOVE_SONIC_BOOM 856	//new move  -animations for these are set below aren't
-#define MOVE_OVER_MAX_POWER 857	//PSYCHIC BURN OUT	
-#define MOVE_SHIMON 858	//FIGHTING BURN OUT	
-#define MOVE_FINAL_FLIGHT 859	//FLYING BURN OUT	
-#define MOVE_PLASMA_RAILGUN 860	//ELECTRIC BURN OUT	
-#define MOVE_BOLTBEAM 861	//joke idea taken from CammyMeeleTea video on icetypes
-#define MOVE_BACK_STAB 862	//new dark exclusive, give every dark type sucker punch and backstab  potentially make a tm, but keep sucker punch as learn move?
-#define MOVE_POUNCE 863
-#define MOVE_CHEAP_SHOT 864 //low prio fighting uturn
-#define MOVE_SNOWBALL 865
-#define MOVE_TRENCH_RUN 866    //flying status move, 71 stagae evasion boost, flies low to ground/grounds flyer removing electric weakness
-#define MOVE_SPIN_DASH 867 //groud move tuck into ball and spin at the foe, give flag dmg in air can bounce into the air
-#define MOVE_ARCTIC_RAKE 868    //move for base sneasel line
-#define MOVE_CONVERSION_Z 869 //don't forget adjust battle_anim_scritpts
-#define MOVE_SOLAR_FLARE 870 //idea solrock magmar, fire based electro web
-//#define MOVES_COUNT_GEN8 757
-#define MOVE_MUDSLIDE 871 //new special groud move for gigalith line
-#define MOVE_SPICE_TRADE 872 //scovillain new signature move change target ability to ABILITY_HEAT_TRANCE
-#define MOVE_PEPPER_POPPER 873 //scovillain signature boost speed 1 or 2 stages
-#define MOVE_STEEL_SURGE 874
-#define MOVE_DIRT_NAP 875
-#define MOVE_WATERY_GRAVE 876 //if too edgey alt name MOVE_SEAFLOOR_RESPITE /make watery grave water variant skydrop give to that anchor psuedo legend/
-#define MOVE_SEAFLOOR_RESPITE 877 //new idea make its own thing
-#define MOVE_BRUTE_FORCE 878    //my version of super power, takes litreal translation of move name
-#define MOVE_SHOCKING_MALICE 879    //burning jealousy clone
-#define MOVE_MOONDANCE 880  //moon version of sunny day
-#define MOVE_ACID_RAIN 881   //poison move to make acid rain
-//#define MOVES_COUNT MOVES_COUNT_GEN8
+#define MOVE_COCOON             848	//ONLY one that has animation, but is just a copy of cosmic power
+#define MOVE_MONOTYPE           849
+#define MOVE_FLASH_FREEZE       850
+#define MOVE_DRYADS_CURSE       851
+#define MOVE_SHIELD_BASH        852
+#define MOVE_UP_ROOT            853
+#define MOVE_DIVE_BOMB          854
+#define MOVE_NETTLE_WHIP        855	//Will be grass move that can apply burn	//MOVE_NETTLE_WHIP	MOVE_BURNING_VINE    MOVE_NETTLE_WHIP
+#define MOVE_SONIC_BOOM         856	//new move  -animations for these are set below aren't
+#define MOVE_OVER_MAX_POWER     857	//PSYCHIC BURN OUT	
+#define MOVE_SHIMON             858	//FIGHTING BURN OUT	
+#define MOVE_FINAL_FLIGHT       859	//FLYING BURN OUT	
+#define MOVE_PLASMA_RAILGUN     860	//ELECTRIC BURN OUT	
+#define MOVE_BOLTBEAM           861	//joke idea taken from CammyMeeleTea video on icetypes
+#define MOVE_BACK_STAB          862	//new dark exclusive, give every dark type sucker punch and backstab  potentially make a tm, but keep sucker punch as learn move?
+#define MOVE_POUNCE             863
+#define MOVE_CHEAP_SHOT         864 //low prio fighting uturn
+#define MOVE_SNOWBALL           865
+#define MOVE_TRENCH_RUN         866    //flying status move, 71 stagae evasion boost, flies low to ground/grounds flyer removing electric weakness
+#define MOVE_SPIN_DASH          867 //groud move tuck into ball and spin at the foe, give flag dmg in air can bounce into the air
+#define MOVE_ARCTIC_RAKE        868    //move for base sneasel line
+#define MOVE_CONVERSION_Z       869 //don't forget adjust battle_anim_scritpts
+#define MOVE_SOLAR_FLARE        870 //idea solrock magmar, fire based electro web
+#define MOVE_MUDSLIDE           871 //new special groud move for gigalith line
+#define MOVE_SPICE_TRADE        872 //scovillain new signature move change target ability to ABILITY_HEAT_TRANCE
+#define MOVE_PEPPER_POPPER      873 //scovillain signature boost speed 1 or 2 stages
+#define MOVE_STEEL_SURGE        874
+#define MOVE_DIRT_NAP           875
+#define MOVE_WATERY_GRAVE       876 //if too edgey alt name MOVE_SEAFLOOR_RESPITE /make watery grave water variant skydrop give to that anchor psuedo legend/
+#define MOVE_SEAFLOOR_RESPITE   877 //new idea make its own thing
+#define MOVE_BRUTE_FORCE        878    //my version of super power, takes litreal translation of move name
+#define MOVE_SHOCKING_MALICE    879    //burning jealousy clone
+#define MOVE_MOONDANCE          880  //moon version of sunny day
+#define MOVE_ACID_RAIN          881   //poison move to make acid rain
+#define MOVE_NA                 882 //avoid extra copy paste
 
 //for completion new moves have to be defined in:  move_descriptions.inc,  move_names.h, & battle_anim_scripts.s
 // also need actual move data in battle_moves.h
 //* consolidated move name & move description files into move_info.h
 
-#define LAST_MOVE_INDEX     MOVE_ACID_RAIN
+#define LAST_MOVE_INDEX     MOVE_NA - 1
 
 #define MOVES_COUNT_GEN8 (LAST_MOVE_INDEX + 1) //changed so define auto updates
 
 #define MOVES_COUNT MOVES_COUNT_GEN8
 
+#define Z_MOVES_START   (MOVE_NA + 1) //NEEDED so z move don't start on NA
+
 
 // Z Moves - not implemented just constants
-#define MOVE_BREAKNECK_BLITZ (MOVES_COUNT + 0)
-#define MOVE_ALL_OUT_PUMMELING (MOVES_COUNT + 1)
-#define MOVE_SUPERSONIC_SKYSTRIKE (MOVES_COUNT + 2)
-#define MOVE_ACID_DOWNPOUR (MOVES_COUNT + 3)
-#define MOVE_TECTONIC_RAGE (MOVES_COUNT + 4)
-#define MOVE_CONTINENTAL_CRUSH (MOVES_COUNT + 5)
-#define MOVE_SAVAGE_SPIN_OUT (MOVES_COUNT + 6)
-#define MOVE_NEVER_ENDING_NIGHTMARE (MOVES_COUNT + 7)
-#define MOVE_CORKSCREW_CRASH (MOVES_COUNT + 8)
-#define MOVE_INFERNO_OVERDRIVE (MOVES_COUNT + 9)
-#define MOVE_HYDRO_VORTEX (MOVES_COUNT + 10)
-#define MOVE_BLOOM_DOOM (MOVES_COUNT + 11)
-#define MOVE_GIGAVOLT_HAVOC (MOVES_COUNT + 12)
-#define MOVE_SHATTERED_PSYCHE (MOVES_COUNT + 13)
-#define MOVE_SUBZERO_SLAMMER (MOVES_COUNT + 14)
-#define MOVE_DEVASTATING_DRAKE (MOVES_COUNT + 15)
-#define MOVE_BLACK_HOLE_ECLIPSE (MOVES_COUNT + 16)
-#define MOVE_TWINKLE_TACKLE (MOVES_COUNT + 17)
+#define MOVE_BREAKNECK_BLITZ (Z_MOVES_START + 0)
+#define MOVE_ALL_OUT_PUMMELING (Z_MOVES_START + 1)
+#define MOVE_SUPERSONIC_SKYSTRIKE (Z_MOVES_START + 2)
+#define MOVE_ACID_DOWNPOUR (Z_MOVES_START + 3)
+#define MOVE_TECTONIC_RAGE (Z_MOVES_START + 4)
+#define MOVE_CONTINENTAL_CRUSH (Z_MOVES_START + 5)
+#define MOVE_SAVAGE_SPIN_OUT (Z_MOVES_START + 6)
+#define MOVE_NEVER_ENDING_NIGHTMARE (Z_MOVES_START + 7)
+#define MOVE_CORKSCREW_CRASH (Z_MOVES_START + 8)
+#define MOVE_INFERNO_OVERDRIVE (Z_MOVES_START + 9)
+#define MOVE_HYDRO_VORTEX (Z_MOVES_START + 10)
+#define MOVE_BLOOM_DOOM (Z_MOVES_START + 11)
+#define MOVE_GIGAVOLT_HAVOC (Z_MOVES_START + 12)
+#define MOVE_SHATTERED_PSYCHE (Z_MOVES_START + 13)
+#define MOVE_SUBZERO_SLAMMER (Z_MOVES_START + 14)
+#define MOVE_DEVASTATING_DRAKE (Z_MOVES_START + 15)
+#define MOVE_BLACK_HOLE_ECLIPSE (Z_MOVES_START + 16)
+#define MOVE_TWINKLE_TACKLE (Z_MOVES_START + 17)
 // Signature Z Moves
-#define MOVE_CATASTROPIKA (MOVES_COUNT + 18)
-#define MOVE_10000000_VOLT_THUNDERBOLT (MOVES_COUNT + 19)
-#define MOVE_STOKED_SPARKSURFER (MOVES_COUNT + 20)
-#define MOVE_EXTREME_EVOBOOST (MOVES_COUNT + 21)
-#define MOVE_PULVERIZING_PANCAKE (MOVES_COUNT + 22)
-#define MOVE_GENESIS_SUPERNOVA (MOVES_COUNT + 23)
-#define MOVE_SINISTER_ARROW_RAID (MOVES_COUNT + 24)
-#define MOVE_MALICIOUS_MOONSAULT (MOVES_COUNT + 25)
-#define MOVE_OCEANIC_OPERETTA (MOVES_COUNT + 26)
-#define MOVE_SPLINTERED_STORMSHARDS (MOVES_COUNT + 27)
-#define MOVE_LETS_SNUGGLE_FOREVER (MOVES_COUNT + 28)
-#define MOVE_CLANGOROUS_SOULBLAZE (MOVES_COUNT + 29)
-#define MOVE_GUARDIAN_OF_ALOLA (MOVES_COUNT + 30)
-#define MOVE_SEARING_SUNRAZE_SMASH (MOVES_COUNT + 31)
-#define MOVE_MENACING_MOONRAZE_MAELSTROM (MOVES_COUNT + 32)
-#define MOVE_LIGHT_THAT_BURNS_THE_SKY (MOVES_COUNT + 33)
-#define MOVE_SOUL_STEALING_7_STAR_STRIKE (MOVES_COUNT + 34)
+#define MOVE_CATASTROPIKA (Z_MOVES_START + 18)
+#define MOVE_10000000_VOLT_THUNDERBOLT (Z_MOVES_START + 19)
+#define MOVE_STOKED_SPARKSURFER (Z_MOVES_START + 20)
+#define MOVE_EXTREME_EVOBOOST (Z_MOVES_START + 21)
+#define MOVE_PULVERIZING_PANCAKE (Z_MOVES_START + 22)
+#define MOVE_GENESIS_SUPERNOVA (Z_MOVES_START + 23)
+#define MOVE_SINISTER_ARROW_RAID (Z_MOVES_START + 24)
+#define MOVE_MALICIOUS_MOONSAULT (Z_MOVES_START + 25)
+#define MOVE_OCEANIC_OPERETTA (Z_MOVES_START + 26)
+#define MOVE_SPLINTERED_STORMSHARDS (Z_MOVES_START + 27)
+#define MOVE_LETS_SNUGGLE_FOREVER (Z_MOVES_START + 28)
+#define MOVE_CLANGOROUS_SOULBLAZE (Z_MOVES_START + 29)
+#define MOVE_GUARDIAN_OF_ALOLA (Z_MOVES_START + 30)
+#define MOVE_SEARING_SUNRAZE_SMASH (Z_MOVES_START + 31)
+#define MOVE_MENACING_MOONRAZE_MAELSTROM (Z_MOVES_START + 32)
+#define MOVE_LIGHT_THAT_BURNS_THE_SKY (Z_MOVES_START + 33)
+#define MOVE_SOUL_STEALING_7_STAR_STRIKE (Z_MOVES_START + 34)
 
 #define FIRST_Z_MOVE        MOVE_BREAKNECK_BLITZ
 #define LAST_Z_MOVE         MOVE_SOUL_STEALING_7_STAR_STRIKE

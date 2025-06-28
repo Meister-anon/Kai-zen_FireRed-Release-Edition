@@ -915,8 +915,8 @@
 #define SPECIES_ENAMORUS_INCARNATE 905	//Pokemon Opal has some original mon so can add after this as gen 10, like Cefireon and unknown legendar with the s/v mon I actually want
 
 
-#define FORMS_START SPECIES_PECHARUNT  //because gen 9 stuff need change value
-#define BASE_SPECIES_COUNT SPECIES_PECHARUNT //made so has constant for dex page
+#define FORMS_START SPECIES_NA  //because gen 9 stuff need change value
+#define BASE_SPECIES_COUNT SPECIES_NA - 1 //made so has constant for dex page
 //tested upgrading this doesn't take more ewram luckily
 //this isn't what's breaking new game  screen, so assume its nat dex stuff
 
@@ -1056,6 +1056,7 @@
 #define SPECIES_TERAPAGOS                               SPECIES_TERAPAGOS_NORMAL
 
 #define SPECIES_PECHARUNT                               1025
+#define SPECIES_NA                                      1026 //to avoid extra copy paste
 
 //#define SPECIES_CEFIREON 1029
 //#define SPECIES_FRAEYJTA 1030    //fray-eat-ah fray-tah  fray-itta original mon fairy ghost mysthic from another world (fairy world) protector healer and watches over the dead, so found graveyard comforts living and dead
@@ -1550,38 +1551,38 @@
 #define SPECIES_SQUAWKABILLY_YELLOW_PLUMAGE             FORMS_START + 331
 #define SPECIES_SQUAWKABILLY_WHITE_PLUMAGE              FORMS_START + 332
 #define SPECIES_PALAFIN_HERO                            FORMS_START + 333
-#define SPECIES_TATSUGIRI_DROOPY                        FORMS_START + 334
-#define SPECIES_TATSUGIRI_STRETCHY                      FORMS_START + 335
-#define SPECIES_DUDUNSPARCE_THREE_SEGMENT               FORMS_START + 336
-#define SPECIES_GIMMIGHOUL_ROAMING                      FORMS_START + 337
+#define SPECIES_LOKIX_SHOWDOWN_MODE                     FORMS_START + 334
+#define SPECIES_TATSUGIRI_DROOPY                        FORMS_START + 335
+#define SPECIES_TATSUGIRI_STRETCHY                      FORMS_START + 336
+#define SPECIES_DUDUNSPARCE_THREE_SEGMENT               FORMS_START + 337
+#define SPECIES_GIMMIGHOUL_ROAMING                      FORMS_START + 338
 // Paldean Forms
-#define SPECIES_TAUROS_PALDEAN_COMBAT_BREED             FORMS_START + 338
-#define SPECIES_TAUROS_PALDEAN_BLAZE_BREED              FORMS_START + 339
-#define SPECIES_TAUROS_PALDEAN_AQUA_BREED               FORMS_START + 340
-#define SPECIES_WOOPER_PALDEAN                          FORMS_START + 341
+#define SPECIES_TAUROS_PALDEAN_COMBAT_BREED             FORMS_START + 339
+#define SPECIES_TAUROS_PALDEAN_BLAZE_BREED              FORMS_START + 340
+#define SPECIES_TAUROS_PALDEAN_AQUA_BREED               FORMS_START + 341
+#define SPECIES_WOOPER_PALDEAN                          FORMS_START + 342
 
-#define SPECIES_POLTCHAGEIST_ARTISAN                    FORMS_START + 342
-#define SPECIES_SINISTCHA_MASTERPIECE                   FORMS_START + 343
-#define SPECIES_OGERPON_WELLSPRING_MASK                 FORMS_START + 344
-#define SPECIES_OGERPON_HEARTHFLAME_MASK                FORMS_START + 345
-#define SPECIES_OGERPON_CORNERSTONE_MASK                FORMS_START + 346
-#define SPECIES_OGERPON_TEAL_MASK_TERA                  FORMS_START + 347
-#define SPECIES_OGERPON_WELLSPRING_MASK_TERA            FORMS_START + 348
-#define SPECIES_OGERPON_HEARTHFLAME_MASK_TERA           FORMS_START + 349
-#define SPECIES_OGERPON_CORNERSTONE_MASK_TERA           FORMS_START + 350
-#define SPECIES_TERAPAGOS_TERASTAL                      FORMS_START + 351
-#define SPECIES_TERAPAGOS_STELLAR                       FORMS_START + 352
-#define SPECIES_URSALUNA_BLOODMOON                      FORMS_START + 353
+#define SPECIES_POLTCHAGEIST_ARTISAN                    FORMS_START + 343
+#define SPECIES_SINISTCHA_MASTERPIECE                   FORMS_START + 344
+#define SPECIES_OGERPON_WELLSPRING_MASK                 FORMS_START + 345
+#define SPECIES_OGERPON_HEARTHFLAME_MASK                FORMS_START + 346
+#define SPECIES_OGERPON_CORNERSTONE_MASK                FORMS_START + 347
+#define SPECIES_OGERPON_TEAL_MASK_TERA                  FORMS_START + 348
+#define SPECIES_OGERPON_WELLSPRING_MASK_TERA            FORMS_START + 349
+#define SPECIES_OGERPON_HEARTHFLAME_MASK_TERA           FORMS_START + 350
+#define SPECIES_OGERPON_CORNERSTONE_MASK_TERA           FORMS_START + 351
+#define SPECIES_TERAPAGOS_TERASTAL                      FORMS_START + 352
+#define SPECIES_TERAPAGOS_STELLAR                       FORMS_START + 353
+#define SPECIES_URSALUNA_BLOODMOON                      FORMS_START + 354
 
 //think put gen 7 forms here
 
 //New Mega Forms will put meags
-#define SPECIES_TORTERRA_MEGA				        FORMS_START + 354
-#define SPECIES_MAROWAK_MEGA                FORMS_START + 355
-#define SPECIES_SNORLAX_MEGA                FORMS_START + 356          
+#define SPECIES_TORTERRA_MEGA				        FORMS_START + 355
+#define SPECIES_MAROWAK_MEGA                FORMS_START + 356
+#define SPECIES_SNORLAX_MEGA                FORMS_START + 357    
+#define SPECIES_EGG                         FORMS_START + 358   //add avoid extra copy paste
 
-
-#define SPECIES_EGG SPECIES_SNORLAX_MEGA + 1
 #define NUM_SPECIES SPECIES_EGG	//Num species determins number dex entries now instead of pokemon slots
 //for base stats space saving, put all cosmetic forms at end of list
 //so they're after all values that actually get a base stat block
