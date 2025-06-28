@@ -321,7 +321,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
     },
     //if take time to aim decide to add high crit
@@ -443,7 +443,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST | FLAG_LETHAL_LEGS_BOOST,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_RECKLESS_BOOST | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
     },
 
@@ -2171,7 +2171,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
     .priority = 0,
-    .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST | FLAG_DMG_2X_IN_AIR | FLAG_LETHAL_LEGS_BOOST,
+    .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_RECKLESS_BOOST | FLAG_DMG_2X_IN_AIR | FLAG_LETHAL_LEGS_BOOST,
     .split = SPLIT_PHYSICAL,
 },
 //since is jumping kick game hit in air, and since is resisted by flying and risks recoil
@@ -2290,7 +2290,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 [MOVE_SKY_ATTACK] =
 {
 
-    .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
+    .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
     .effect = EFFECT_SEMI_INVULNERABLE, //wait rather than a charge move why don't I make it a literal flying attack?
     .power = 140,   //could make this the upgrade to fly and be an actually good semi-invulnerable move
     .type = TYPE_FLYING,
@@ -2430,7 +2430,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
     .priority = 3,
-    .flags = 0,
+    .flags = FLAG_GRAVITY_CANCELED,
     .split = SPLIT_PHYSICAL,//SPLIT_STATUS, //think change to physical
 },//vsonic important check make sure no issue
 
@@ -5486,7 +5486,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         .argument = MOVE_EFFECT_PARALYSIS,
     },
@@ -6379,6 +6379,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = 1,
         .split = SPLIT_STATUS,
+        .flags = FLAG_GRAVITY_CANCELED,
     },
     //makes float
 
@@ -7688,7 +7689,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED,
         .split = SPLIT_STATUS,
     },
 
@@ -8153,9 +8154,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED,
         .split = SPLIT_PHYSICAL,
-    },
+    },//vsonic never tested if works
 
     [MOVE_SHIFT_GEAR] =
     {
@@ -8984,7 +8985,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_MINIMIZE,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_DMG_MINIMIZE,
         .split = SPLIT_PHYSICAL,
         .argument = TYPE_FLYING,
     },
@@ -10748,7 +10749,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_FLOATY_FALL] =
     {
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_SHEER_FORCE_BOOST,
         .effect = EFFECT_FLINCH_HIT,
         .power = 90,
         .type = TYPE_FLYING,

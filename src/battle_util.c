@@ -1524,28 +1524,17 @@ void TryToRevertMimicry(void)
     }
 }
 
+//Think put on move itself gravity affected etc.? 
+//unsure depends on if have any reason to need my remaining battle move flags
+//hmm just realized would still need function as it has conditional toggle
 static bool32 IsGravityPreventingMove(u32 move)
 {
     if (!(gFieldStatuses & STATUS_FIELD_GRAVITY))
         return FALSE;
 
-    switch (move)
-    {
-    case MOVE_BOUNCE:
-    case MOVE_FLY:
-    case MOVE_SKY_ATTACK:
-    case MOVE_FLYING_PRESS:
-    case MOVE_HI_JUMP_KICK:
-    case MOVE_JUMP_KICK:
-    case MOVE_MAGNET_RISE:
-    case MOVE_SKY_DROP:
-    case MOVE_SPLASH:
-    case MOVE_TELEKINESIS:
-    case MOVE_FLOATY_FALL:
+    else if (gBattleMoves[move].flags & FLAG_GRAVITY_CANCELED)
         return TRUE;
-    default:
-        return FALSE;
-    }
+
 }
 
 bool32 IsHealBlockPreventingMove(u32 battler, u32 move)

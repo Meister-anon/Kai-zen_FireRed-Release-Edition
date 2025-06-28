@@ -8762,13 +8762,13 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 {
                     u8 battler = battlers[i];
                     if (IsBattlerAlive(battler)
-                     //&& gProtectStructs[battler].statFell     Vsonic  potentially replace w gSpecialStatuses[battler].statLowered
+                     && gProtectStructs[battler].statFell    // Vsonic  potentially replace w gSpecialStatuses[battler].statLowered
                      && gProtectStructs[battler].disableEjectPack == 0
                      && GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_EJECT_PACK
                      && !(gCurrentMove == MOVE_PARTING_SHOT && CanBattlerSwitch(gBattlerAttacker)))  // Does not activate if attacker used Parting Shot and can switch out
                      //&& CountUsablePartyMons(battler) > 0)  // Has mon to switch into / also part of ai updatee can prob replace w somethin else? chck if has alive mon in party not in first slot i.e 0 party index vsonic
                     {
-                        //gProtectStructs[battler].statFell = FALSE;
+                        gProtectStructs[battler].statFell = FALSE;
                         gActiveBattler = gBattleScripting.battler = battler;
                         gLastUsedItem = gBattleMons[battler].item;
                         BattleScriptPushCursor();
@@ -8776,7 +8776,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                         effect = TRUE;
                         break;  // Only fastest eject pack activates
                     }
-                }
+                }//check vsonic
             }
             ++gBattleScripting.atk49_state;
             break;
