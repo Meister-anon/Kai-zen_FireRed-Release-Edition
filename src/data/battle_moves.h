@@ -3866,7 +3866,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
-    },
+    },//has dance in name but not categorized as dance move
+    //as there is no point in it working with Dancer ability
+    //as if used after move was already used it would just fail
 
     [MOVE_SUNNY_DAY] =
     {
@@ -11562,13 +11564,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_FOES_AND_ALLY,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,// | FLAG_BALLISTIC,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_SPECIAL,
-    }, //buffed was given explosion effect defense stat drop (will drop sp def)
+    }, 
+    //need also remember that this gets boosted further by terrain
+    //buffed was given explosion effect defense stat drop (will drop sp def)
     //think reason for lower power as only non normal explosion so can get type multiplier,
     //seems my change is appropriate buff without breaking its balance
     //think remove misty explosion from balistic i.e bulletproof immunity, not physical,
     //and is mystical in nature
+    //dumb idea point is its an explosion
 
     [MOVE_GRASSY_GLIDE] =
     {

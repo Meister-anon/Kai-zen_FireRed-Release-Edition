@@ -1437,6 +1437,7 @@ SPECIES_TO_NATIONAL(TAROUNTULA),  //920
 SPECIES_TO_NATIONAL(SPIDOPS),  // 921
 SPECIES_TO_NATIONAL(NYMBLE),  //922
 SPECIES_TO_NATIONAL(LOKIX),  // 923
+[SPECIES_LOKIX_SHOWDOWN_MODE - 1] = NATIONAL_DEX_LOKIX,
 SPECIES_TO_NATIONAL(PAWMI),  // 924
 SPECIES_TO_NATIONAL(PAWMO),  // 925
 SPECIES_TO_NATIONAL(PAWMOT),  //926
@@ -4592,12 +4593,19 @@ void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCate
     //thinkm will remove the confusion exclusion, as idea is screen is put
     //between attacker and target its not something on the mon itself
     //so it wouldn't block me punching myself in the face
+    //facepalm removing confusion check from here makes it do less dmg which is the oposite ofwhat I wanted
     if (IS_CRIT || GetBattlerAbility(battlerAtk) == ABILITY_INFILTRATOR || (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
+    || gProtectStructs[battlerAtk].confusionSelfDmg
     || !IsBlackFogNotOnField())
         return; //think should be fine would just mean do nothing to damage
 
     if (reflect || lightScreen || auroraVeil)
-        damage /= 2;
+    {
+        if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) >= 2)
+            damage = (2 * damage) / 3;
+        else
+            damage /= 2;
+    }
 
     
 }
@@ -6340,8 +6348,19 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         */
 
         //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2) // this is spread move cut
-        //    damage /= 1; //target 0x8 is target both    
+        //    damage /= 2; //target 0x8 is target both    
         //this removes the split damage from double target moves ...just remove the line you idiot
+        if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE))
+        {
+            
+            if (GetMoveEffect(move) == EFFECT_EXPLOSION) //better way to balance this than they did
+                damage = (3 * damage) / 4; //25% cut so still get benefit of defense stat strip
+
+            //modern game changed to a 25% drop average damage 
+            //is lower in my game so guess safe to make this a little stronger
+            else if (gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) >= 2)
+                damage = (2 * damage) / 3;
+        }
 
     
 
@@ -6511,12 +6530,18 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 damage /= 2;
         }*/
 
-        //if ((attacker->status1 & STATUS1_SPIRIT_LOCK) && IsBlackFogNotOnField()) //function that gives spirit_lock special atk cut
-        //    damage /= 2;
 
-        //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
-        //    damage /= 1; //special verision double battle damage change
+        if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE))
+        {
+            
+            if (GetMoveEffect(move) == EFFECT_EXPLOSION) //better way to balance this than they did
+                damage = (3 * damage) / 4; //25% cut so still get benefit of defense stat strip
 
+            //modern game changed to a 25% drop average damage 
+            //is lower in my game so guess safe to make this a little stronger
+            else if (gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) >= 2)
+                damage = (2 * damage) / 3;
+        }
     
 
         

@@ -4445,6 +4445,27 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     do num balls divide by 10
     round down and set that as num premier balls to give
     -done
+    identified another bug, something todo with pickup?
+    I believe its the pickup overworld counter for some reason
+    it triggers the in battle weird terrain effect glitch.
+
+    as its cleared when I release any pokemon in my party that has pickup
+    process caught pickup mon never triggered item out of battle
+    before catch mon rolled an item
+    kept in party  triggered glitch in battle
+    opened pc released from party then walked to next town and back
+    and glitch no longer appeared in battle,
+    next test see if just puttin mon in pc fixes issue
+    -tested yeah just removing from party fixes it,
+    so there's some overflow happening here
+
+    glitch doesn't happen immediately when in party takes multiple battles
+    to trigger
+    still working on
+    it triggers terrain scripts so I went through and redid terrain stuff
+    some of the old setup was a complete mess so hopefully that does something?
+
+    yup that fixed it, issue was the bad overworld terrain script
 
     also realized major issue smh
     nick names aren't playing on switch/faint
@@ -13150,7 +13171,10 @@ goto ACCURACY_BASED_ABILITIES   //other ability logic exists outside battle_util
 goto NEW_ABILITY_CATEGORY //affinity abilities that give a mon the benefits of said type without needing tobe that type
 goto ABILITYBATTLE_FUNCTION	//	battle_util.c function other more complex ability activation logic.  STILL need to update   vsonic
 goto DAMAGE_BASED_ABILITY_LOGIC  //stuff in pokemon.c
-goto FLYING_TYPE_BONUS
+goto FLYING_TYPE_BONUS //of note according to bulbapedia flying type DOES have specific effect its just completely unnoticeable in normal game
+//because triple battles were removed, but apparently all single target flying type moves fall under category
+//of a "long-range" move meaning they can target any battler on enemy side regardless of where they are
+//which yeah makes sense
 /*
 * Setting up new effeets for absorb abilities
 * make all work like lightnight rod and change targetting to draw in moves  -effect Done, working on messags and status effect
