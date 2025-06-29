@@ -5431,14 +5431,17 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break; //ok hopefully this works
     }
     case ABILITY_FLARE_BOOST:
-        if (gBattleMons[battlerIdAtk].status1 & STATUS1_BURN && !usesDefStat //IS_MOVE_SPECIAL(move))
+        if ((gBattleMons[battlerIdAtk].status1 & STATUS1_BURN
+        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, TYPE_FIRE) && attackerHoldEffect == HOLD_EFFECT_FLAME_ORB))
+            && (MoveDamageCategory == SPLIT_SPECIAL) //!usesDefStat //IS_MOVE_SPECIAL(move))
             && IsBlackFogNotOnField())
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         //MulModifier(&modifier, UQ_4_12(1.5));
         break;
     case ABILITY_TOXIC_BOOST:
-        if ((gBattleMons[battlerIdAtk].status1 & STATUS1_PSN_ANY || IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN_ANY)) 
-            && usesDefStat
+        if ((gBattleMons[battlerIdAtk].status1 & STATUS1_PSN_ANY || IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN_ANY)
+        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, TYPE_POISON) && attackerHoldEffect == HOLD_EFFECT_TOXIC_ORB)) 
+            && (MoveDamageCategory == SPLIT_PHYSICAL)
             && IsBlackFogNotOnField())
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         //MulModifier(&modifier, UQ_4_12(1.5));

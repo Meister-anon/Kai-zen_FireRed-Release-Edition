@@ -16045,6 +16045,7 @@ static void atk96_weatherdamage(void)
             if (!DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_POISON) //add ice weather abilities
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_OVERCOAT
              //&& GetBattlerAbility(gBattlerAttacker) != ABILITY_TOXIC_WING
+             && GetBattlerAbility(gBattlerAttacker) != ABILITY_TOXIC_BOOST
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_TOXIC_CHAIN
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_TOXIC_DEBRIS
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_POISON_HEAL
