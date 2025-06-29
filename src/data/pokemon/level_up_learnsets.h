@@ -8217,16 +8217,21 @@ static const struct LevelUpMove sGabiteLevelUpLearnset[] = {
     LEVEL_UP_MOVE(13, MOVE_SANDSTORM),
     LEVEL_UP_MOVE(15, MOVE_TAKE_DOWN),
     LEVEL_UP_MOVE(19, MOVE_SAND_TOMB),
+    LEVEL_UP_MOVE(24, MOVE_WING_ATTACK),
     LEVEL_UP_MOVE(28, MOVE_SLASH),
     LEVEL_UP_MOVE(33, MOVE_DRAGON_CLAW),
     LEVEL_UP_MOVE(40, MOVE_DIG),
     LEVEL_UP_MOVE(49, MOVE_DRAGON_RUSH),
     LEVEL_UP_END
 };
+//arms countas wings give wing attack
 
 static const struct LevelUpMove sGarchompLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 0, MOVE_CRUNCH),
     LEVEL_UP_MOVE( 1, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(1, MOVE_WING_ATTACK),
+    LEVEL_UP_MOVE(1, MOVE_BOUNCE),
+    LEVEL_UP_MOVE(1, MOVE_SKY_DROP),    //this outta be interesting
     LEVEL_UP_MOVE( 1, MOVE_DUAL_STRIKE),
     LEVEL_UP_MOVE( 1, MOVE_FIRE_FANG),
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
@@ -8241,9 +8246,14 @@ static const struct LevelUpMove sGarchompLevelUpLearnset[] = {
     LEVEL_UP_MOVE(28, MOVE_SLASH),
     LEVEL_UP_MOVE(33, MOVE_DRAGON_CLAW),
     LEVEL_UP_MOVE(40, MOVE_DIG),
+    LEVEL_UP_MOVE(49, MOVE_BRAVE_BIRD),
     LEVEL_UP_MOVE(55, MOVE_DRAGON_RUSH),
+    LEVEL_UP_MOVE(65, MOVE_SKY_ATTACK),
     LEVEL_UP_END
 };
+//today I learned garchomp can fly
+//decide give flying moves
+//consisdered giving dive bomb but may be too much?
 
 static const struct LevelUpMove sMunchlaxLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_LAST_RESORT),

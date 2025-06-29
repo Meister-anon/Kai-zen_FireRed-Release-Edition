@@ -13976,7 +13976,7 @@ use wonder gaurd logic to determine its super effective
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 1, //weight this as flying mon are fast, may make 0 priority so its an option more for faster birds not just all
+        .priority = 0, //weight this as flying mon are fast, may make 0 priority so its an option more for faster birds not just all
        .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS, //unsure if shold be physical? ok yeah its, a boobytrap bomb, if explosion is physical this should be too
     },
