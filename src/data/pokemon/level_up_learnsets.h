@@ -1145,6 +1145,7 @@ static const struct LevelUpMove sBellsproutLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sWeepinbellLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(0, MOVE_GASTRO_ACID),
     LEVEL_UP_MOVE(1, MOVE_VINE_WHIP),
     LEVEL_UP_MOVE(1, MOVE_GROWTH),
     LEVEL_UP_MOVE(1, MOVE_WRAP),
@@ -7267,11 +7268,12 @@ static const struct LevelUpMove sPrinplupLevelUpLearnset[] = {
     LEVEL_UP_MOVE(40, MOVE_DRILL_PECK),
     LEVEL_UP_MOVE(47, MOVE_HYDRO_PUMP),
     LEVEL_UP_END
-};//not steel type until final evo...for some reason??, changing that
+};
 
 static const struct LevelUpMove sEmpoleonLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 0, MOVE_AQUA_JET),
+    LEVEL_UP_MOVE( 0, MOVE_IRON_HEAD),
     LEVEL_UP_MOVE( 1, MOVE_AQUA_JET),
+    LEVEL_UP_MOVE( 1, MOVE_WHIRLPOOL),
     LEVEL_UP_MOVE( 1, MOVE_METAL_CLAW),
     LEVEL_UP_MOVE( 1, MOVE_AUTOTOMIZE),
     LEVEL_UP_MOVE( 1, MOVE_IRON_DEFENSE),
@@ -7287,12 +7289,13 @@ static const struct LevelUpMove sEmpoleonLevelUpLearnset[] = {
     LEVEL_UP_MOVE(24, MOVE_SWAGGER),
     LEVEL_UP_MOVE(29, MOVE_BIDE),
     LEVEL_UP_MOVE(34, MOVE_FURY_ATTACK),
+    LEVEL_UP_MOVE(36, MOVE_AQUA_JET),
     LEVEL_UP_MOVE(38, MOVE_BRINE),
-    LEVEL_UP_MOVE(40, MOVE_WHIRLPOOL),
-    LEVEL_UP_MOVE(43, MOVE_STEEL_BEAM),
-    LEVEL_UP_MOVE(46, MOVE_MIST),
-    LEVEL_UP_MOVE(49, MOVE_DRILL_PECK),
-    LEVEL_UP_MOVE(55, MOVE_HYDRO_PUMP),
+    LEVEL_UP_MOVE(40, MOVE_FLASH_CANNON),    
+    LEVEL_UP_MOVE(43, MOVE_MIST),
+    LEVEL_UP_MOVE(46, MOVE_DRILL_PECK),
+    LEVEL_UP_MOVE(49, MOVE_HYDRO_PUMP),
+    LEVEL_UP_MOVE(55, MOVE_STEEL_BEAM),
     LEVEL_UP_END
 };
 //give automize iron_defnse as well, prob toss on 
@@ -8419,6 +8422,7 @@ static const struct LevelUpMove sDrapionLevelUpLearnset[] = {
 
 static const struct LevelUpMove sCroagunkLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SPOOK),
+    LEVEL_UP_MOVE( 1, MOVE_STUFF_CHEEKS),
     LEVEL_UP_MOVE( 3, MOVE_MUD_SLAP),
     LEVEL_UP_MOVE( 8, MOVE_POISON_STING),
     LEVEL_UP_MOVE(10, MOVE_TAUNT),
@@ -8439,6 +8443,7 @@ static const struct LevelUpMove sCroagunkLevelUpLearnset[] = {
 
 static const struct LevelUpMove sToxicroakLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SPOOK),
+    LEVEL_UP_MOVE( 1, MOVE_STUFF_CHEEKS),
     LEVEL_UP_MOVE( 1, MOVE_MUD_SLAP),
     LEVEL_UP_MOVE( 1, MOVE_POISON_STING),
     LEVEL_UP_MOVE( 3, MOVE_MUD_SLAP),

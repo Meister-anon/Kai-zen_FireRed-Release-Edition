@@ -159,14 +159,17 @@ static const struct AbilityLearnset sNidoqueenAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sNidoranMAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sNidorinoAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sNidokingAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
@@ -311,14 +314,21 @@ static const struct AbilityLearnset sMachampAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sBellsproutAbilityLearnset[] = {
+    ABILITY_LEAF_GUARD,
+    ABILITY_PHOTOSYNTHESIZE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sWeepinbellAbilityLearnset[] = {
+    ABILITY_LEAF_GUARD,
+    ABILITY_PHOTOSYNTHESIZE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sVictreebelAbilityLearnset[] = {
+    ABILITY_LEAF_GUARD,
+    ABILITY_PHOTOSYNTHESIZE,
+    ABILITY_POISONED_LEGACY,
     ABILITY_SET_END
 };
 
@@ -388,10 +398,12 @@ static const struct AbilityLearnset sDewgongAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sGrimerAbilityLearnset[] = {
+    ABILITY_TOXIC_BOOST,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sMukAbilityLearnset[] = {
+    ABILITY_TOXIC_BOOST,
     ABILITY_SET_END
 };
 
@@ -476,12 +488,15 @@ static const struct AbilityLearnset sLickitungAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sKoffingAbilityLearnset[] = {
+    ABILITY_FLARE_BOOST,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sWeezingAbilityLearnset[] = {
+    ABILITY_FLARE_BOOST,
     ABILITY_SET_END
 };
+//heat makes it expand and is balloon like so gave this
 
 static const struct AbilityLearnset sRhyhornAbilityLearnset[] = {
     ABILITY_SET_END
@@ -553,10 +568,12 @@ static const struct AbilityLearnset sMagmarAbilityLearnset[] = {
 static const struct AbilityLearnset sPinsirAbilityLearnset[] = {
     ABILITY_SHARPNESS,
     ABILITY_GUTS,
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sTaurosAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
@@ -589,6 +606,8 @@ static const struct AbilityLearnset sJolteonAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sFlareonAbilityLearnset[] = {
+    ABILITY_FLARE_BOOST,
+    ABILITY_HEAT_TRANCE,
     ABILITY_SET_END
 };
 
@@ -918,6 +937,7 @@ static const struct AbilityLearnset sGranbullAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sQwilfishAbilityLearnset[] = {
+    ABILITY_TOXIC_BOOST,
     ABILITY_SET_END
 };
 
@@ -995,6 +1015,7 @@ static const struct AbilityLearnset sHoundourAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sHoundoomAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
@@ -1007,6 +1028,7 @@ static const struct AbilityLearnset sPhanpyAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sDonphanAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
@@ -1015,6 +1037,7 @@ static const struct AbilityLearnset sPorygon2AbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sStantlerAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
@@ -1495,6 +1518,7 @@ static const struct AbilityLearnset sGorebyssAbilityLearnset[] = {
 
 static const struct AbilityLearnset sAbsolAbilityLearnset[] = {
     ABILITY_ANTICIPATION,   //as can sense incomming disaster
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
@@ -1672,10 +1696,12 @@ static const struct AbilityLearnset sPiplupAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sPrinplupAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
-};//not steel type until final evo...for some reason??, changing that
+};
 
 static const struct AbilityLearnset sEmpoleonAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
@@ -1745,11 +1771,13 @@ static const struct AbilityLearnset sRampardosAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sShieldonAbilityLearnset[] = {
+    ABILITY_ROCK_HEAD,
     ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sBastiodonAbilityLearnset[] = {
+    ABILITY_ROCK_HEAD,
     ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
@@ -1930,10 +1958,17 @@ static const struct AbilityLearnset sDrapionAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sCroagunkAbilityLearnset[] = {
+    ABILITY_CHEEK_POUCH,
+    ABILITY_EMERGENCY_EXIT, //cuz doesn't fight fair
+    ABILITY_TOXIC_BOOST,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sToxicroakAbilityLearnset[] = {
+    ABILITY_CHEEK_POUCH,
+    ABILITY_TOUGH_CLAWS,
+    ABILITY_TANGLED_FEET, //apparetnly makes dizzying movesment to attack
+    ABILITY_TOXIC_BOOST,
     ABILITY_SET_END
 };
 
@@ -2145,6 +2180,7 @@ static const struct AbilityLearnset sDewottAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSamurottAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
@@ -2317,14 +2353,23 @@ static const struct AbilityLearnset sLeavannyAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sVenipedeAbilityLearnset[] = {
+    ABILITY_GUTS,
+    ABILITY_RECKLESS, //aggressive nature
+    ABILITY_LIGHTNING_ROD, //because horns
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sWhirlipedeAbilityLearnset[] = {
+    ABILITY_STAMINA, //its storing energy for evolution
+    ABILITY_RECKLESS, //slams body into enemy to attack
+    ABILITY_LIGHTNING_ROD, //because horns
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sScolipedeAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
+    ABILITY_TOUGH_CLAWS,
+    ABILITY_LIGHTNING_ROD, //because horns
     ABILITY_SET_END
 };
 
@@ -2427,10 +2472,12 @@ static const struct AbilityLearnset sArcheopsAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sTrubbishAbilityLearnset[] = {
+    ABILITY_STICKY_HOLD,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sGarbodorAbilityLearnset[] = {
+    ABILITY_STICKY_HOLD,
     ABILITY_SET_END
 };
 
@@ -2583,14 +2630,17 @@ static const struct AbilityLearnset sBeheeyemAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sLitwickAbilityLearnset[] = {
+    ABILITY_FLARE_BOOST,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sLampentAbilityLearnset[] = {
+    ABILITY_FLARE_BOOST,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sChandelureAbilityLearnset[] = {
+    ABILITY_FLARE_BOOST,
     ABILITY_SET_END
 };
 
@@ -2662,6 +2712,7 @@ static const struct AbilityLearnset sBisharpAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sBouffalantAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
@@ -2683,6 +2734,7 @@ static const struct AbilityLearnset sMandibuzzAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sHeatmorAbilityLearnset[] = {
+    ABILITY_FLARE_BOOST,
     ABILITY_SET_END
 };
 
@@ -3059,6 +3111,7 @@ static const struct AbilityLearnset sHoopaAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sVolcanionAbilityLearnset[] = {
+    ABILITY_FLARE_BOOST,
     ABILITY_SET_END
 };
 
@@ -3786,6 +3839,7 @@ static const struct AbilityLearnset sCalyrexAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sWyrdeerAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
@@ -3868,10 +3922,12 @@ static const struct AbilityLearnset sGolemAlolanAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sGrimerAlolanAbilityLearnset[] = {
+    ABILITY_TOXIC_BOOST,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sMukAlolanAbilityLearnset[] = {
+    ABILITY_TOXIC_BOOST,
     ABILITY_SET_END
 };
 
@@ -3908,8 +3964,12 @@ static const struct AbilityLearnset sFarfetchdGalarianAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sWeezingGalarianAbilityLearnset[] = {
+    ABILITY_TOXIC_BOOST,
+    ABILITY_FLARE_BOOST,
     ABILITY_SET_END
 };
+//as it gets stronger by absorbing toxins gave toxic boost
+//decided also give flare boost for more options
 
 static const struct AbilityLearnset sMrMimeGalarianAbilityLearnset[] = {
     ABILITY_SET_END
@@ -3984,10 +4044,14 @@ static const struct AbilityLearnset sQwilfishHisuianAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSneaselHisuianAbilityLearnset[] = {
+    ABILITY_TOXIC_BOOST,
     ABILITY_SET_END
 };
+//want this to just be pre evo
+//so has separate use than sneasler since gender locked
 
 static const struct AbilityLearnset sSamurottHisuianAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
@@ -4304,10 +4368,16 @@ static const struct AbilityLearnset sMabosstiffAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sShroodleAbilityLearnset[] = {
+    ABILITY_CORROSION,
+    ABILITY_POISONED_LEGACY,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sGrafaiaiAbilityLearnset[] = {
+    ABILITY_FRISK,
+    ABILITY_PICKPOCKET,
+    ABILITY_CORROSION,
+    ABILITY_POISONED_LEGACY,
     ABILITY_SET_END
 };
 
@@ -4456,10 +4526,14 @@ static const struct AbilityLearnset sAnnihilapeAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sWooperPaldeanAbilityLearnset[] = {
+    ABILITY_POISON_TOUCH,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sClodsireAbilityLearnset[] = {
+    ABILITY_POISON_TOUCH,
+    ABILITY_BATTLE_MATRON,
+    ABILITY_TOUGH_SPINES,
     ABILITY_SET_END
 };
 
@@ -4557,6 +4631,7 @@ static const struct AbilityLearnset sTingLuAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sChiYuAbilityLearnset[] = {
+    ABILITY_FLASH_FIRE,
     ABILITY_SET_END
 };
 
@@ -4577,14 +4652,17 @@ static const struct AbilityLearnset sMiraidonAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sTaurosPaldeanCombatBreedAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sTaurosPaldeanBlazeBreedAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sTaurosPaldeanAquaBreedAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 

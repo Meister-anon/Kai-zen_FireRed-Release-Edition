@@ -429,7 +429,8 @@
 #define ABILITY_NEW_MOON 397 //heal by moonlight think also heal from taking moon based attacks?
 #define ABILITY_TOXIC_DELUGE 398  //acid rain ability
 #define ABILITY_RESOLUTE 399  //planned ability for lokix to enter showdown mode same idea as ash greninja
-#define ABILITY_NA 400
+#define ABILITY_PIERCING_HORN 400
+#define ABILITY_NA 401
 #define ABILITIES_COUNT ABILITY_NA //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

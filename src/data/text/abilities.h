@@ -172,7 +172,7 @@ static const u8 sSweetVeilDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prote
 static const u8 sStanceChangeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Transforms as it battles.");
 static const u8 sGaleWingsDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Flying moves get a priority boost\nwhen at above 50% HP.");
 static const u8 sMegaLauncherDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts pulse moves.");
-static const u8 sGrassPeltDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Defense in grassy terrain.");
+static const u8 sGrassPeltDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Defense in grassy terrain.\nAlso blocks critical hits.");
 static const u8 sSymbiosisDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Passes its item to an ally.");
 static const u8 sToughClawsDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts contact moves.");
 static const u8 sPixilateDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Normal and Sound moves become Fairy.");
@@ -291,7 +291,7 @@ static const u8 sSonarDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Emits inf
 static const u8 sEcosystemDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Makes Grass resist Ice damage.\nSets third type to water.");
 static const u8 sAbsolutezeroDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Makes Dragon resist Ice damage.\nFreezes all Water-type moves.");
 static const u8 sFeatherJacketDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Protected from the cold by\na jacket of downy feathers.");
-static const u8 sPoisonedLegacyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Can ignore Imm/Rst. In a pinch ups PSN\n& guarantees toxic if move can poison."); //ugly as hell but only way could fit all effets...
+static const u8 sPoisonedLegacyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Can ignore PSN Imm/Rst. In a pinch ups\nPSN & ensures toxic if move can poison."); //ugly as hell but only way could fit all effets...
 static const u8 sJewelMetabolismDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Consumes Rock-type moves.\nAlso raises Defense one stage.");
 static const u8 sInversionDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Transforms into a copy that resists\nthe type of the foe.");
 static const u8 sWetikoDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("The Wendigo curse, all moves become Ice.\nHeals upon switching out.");
@@ -722,6 +722,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_NEW_MOON] = COMPOUND_ABILITY_STRING("Moderate HP recovery in moonlight.\nAlso absorbs Moon based attacks."), //doesn't change target just takes it in
     [ABILITY_TOXIC_DELUGE] = COMPOUND_ABILITY_STRING("Summons Acid Rain to Battle."), //expandon later
     [ABILITY_RESOLUTE] = COMPOUND_ABILITY_STRING("Changes form if suffering from status\nor if HP falls to or below half Max HP."),
+    [ABILITY_PIERCING_HORN] = COMPOUND_ABILITY_STRING("Boosts headbutt moves.\nAttacks foes with its sharp horns."),
 
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
@@ -1147,5 +1148,6 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_NEW_MOON] = _("New Moon"), //finally decided name as new moon represents rebirth and healing
     [ABILITY_TOXIC_DELUGE] = _("Toxic Deluge"),
     [ABILITY_RESOLUTE] = _("Resolute"),
+    [ABILITY_PIERCING_HORN] = _("Piercing Horn"),
 
 };//can have comma

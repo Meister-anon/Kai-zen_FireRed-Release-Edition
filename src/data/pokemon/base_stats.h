@@ -2295,8 +2295,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_GRASS,
         .eggGroup2 = EGG_GROUP_GRASS,
-        .abilities = {ABILITY_CHLOROPHYLL, ABILITY_NONE},
-        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_CORROSION}, //replace gluttony with something else
+        .abilities = {ABILITY_CHLOROPHYLL, ABILITY_CORROSION},
+        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_SHARPNESS}, //replace gluttony with something else
         // #endif                                                   //nvm just added corrossion based on dex entry
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -2309,6 +2309,7 @@ const struct BaseStats gBaseStats[] =
     },//pokemon like this w big evo change have signinficant stat dif so previous evo may be better in some ways do 4 others i find like this
     //remember make 2nd pass at stats to leave room for high ev cap, but still be buffed, leave legends & psuedo where they are 
     //can lower others as needed.
+    //gave sharpness as dex entry constantly remarked it and evo has razorsharp leaves
 
     [SPECIES_WEEPINBELL] =
     {
@@ -2326,8 +2327,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_GRASS,
         .eggGroup2 = EGG_GROUP_GRASS,
-        .abilities = {ABILITY_CHLOROPHYLL, ABILITY_NONE},
-        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_CORROSION},
+        .abilities = {ABILITY_CHLOROPHYLL, ABILITY_CORROSION},
+        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_SHARPNESS},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -2354,8 +2355,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_GRASS,
         .eggGroup2 = EGG_GROUP_GRASS,
-        .abilities = {ABILITY_CHLOROPHYLL, ABILITY_NONE},
-        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_CORROSION},
+        .abilities = {ABILITY_CHLOROPHYLL, ABILITY_CORROSION},
+        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_SHARPNESS},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -2958,7 +2959,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_3,
         .eggGroup2 = EGG_GROUP_WATER_3,
         .abilities = {ABILITY_SHELL_ARMOR, ABILITY_SKILL_LINK},
-        .abilityHidden = {ABILITY_OVERCOAT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_OVERCOAT, ABILITY_PIERCING_HORN},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -2968,6 +2969,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sCloysterTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//need add rock moves
+    //give megahorn
 
     [SPECIES_GASTLY] =
     {
@@ -4027,7 +4029,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_FLAME_BODY, ABILITY_NONE},
-        .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_FLARE_BOOST,}, //revitalizes itself by jumping into volcanoes
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -4952,7 +4954,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_BLAZE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_FLASH_FIRE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_FLASH_FIRE, ABILITY_FLARE_BOOST,},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -4982,7 +4984,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_BLAZE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_FLASH_FIRE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_FLASH_FIRE, ABILITY_FLARE_BOOST,},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -5011,7 +5013,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_BLAZE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_FLASH_FIRE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_FLASH_FIRE, ABILITY_FLARE_BOOST,},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6867,7 +6869,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_OBLIVIOUS, ABILITY_SNOW_CLOAK},
-        .abilityHidden = {ABILITY_THICK_FAT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_THICK_FAT, ABILITY_PIERCING_HORN},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6896,7 +6898,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_OBLIVIOUS, ABILITY_SNOW_CLOAK},
-        .abilityHidden = {ABILITY_THICK_FAT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_THICK_FAT, ABILITY_PIERCING_HORN},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -7253,6 +7255,13 @@ const struct BaseStats gBaseStats[] =
     //so yeah guess it was for trick room
     //but I don't really like that?
 
+    //but yeah more flying moves that revolve around "air"
+    //think patamon's signature move air shot
+    //-did more research yeah makes sense that didn't sound familiar to me
+    //english version was Boom Bubble
+    //guess I could find something with a single transparent bubble effect?
+
+
     [SPECIES_PORYGON2] =
     {
         .speciesName = _("Porygon2"),
@@ -7446,7 +7455,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_STATIC, ABILITY_NONE},
-        .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_OVERCHARGE},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -7477,7 +7486,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_FLAME_BODY, ABILITY_NONE},
-        .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_FLARE_BOOST,},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -14067,6 +14076,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sToxicroakTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //give more slash moves for its claws
 
     [SPECIES_CARNIVINE] =
     {
@@ -14156,6 +14166,8 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
     //give water sport should pair well with sunflora
+    //may need change ability name to phosphorescence
+    //think its more accurate? as it stores the absorbed energy
 
     [SPECIES_MANTYKE] =
     {
@@ -14442,7 +14454,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_FLAME_BODY, ABILITY_NONE},
-        .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_FLARE_BOOST,},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -17180,6 +17192,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sScolipedeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //CREATE horn based ability that does rock head boost 
+    //and put on learned ability
 
     [SPECIES_COTTONEE] =
     {
@@ -18006,7 +18020,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_STENCH, ABILITY_AFTERMATH},
-        .abilityHidden = {ABILITY_STICKY_HOLD, ABILITY_POISON_TOUCH},
+        .abilityHidden = {ABILITY_TOXIC_BOOST, ABILITY_POISON_TOUCH},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -18016,6 +18030,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sTrubbishTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(36, AVERAGE_EFFORT), 0, SPECIES_GARBODOR}), //Should hopefully blank these for now without issue
     }, //ADD steel moves to garbodor
+    //with changes decide toss sticky hold to the learnsset and repalce w toxic boost
+    //since its pretty mid by itself
 
     [SPECIES_GARBODOR] =
     {
@@ -18045,7 +18061,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_STENCH, ABILITY_AFTERMATH},
-        .abilityHidden = {ABILITY_STICKY_HOLD, ABILITY_CORROSION},
+        .abilityHidden = {ABILITY_TOXIC_BOOST, ABILITY_CORROSION},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -18644,7 +18660,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_CHLOROPHYLL, ABILITY_SAP_SIPPER},
-        .abilityHidden = {ABILITY_SERENE_GRACE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SERENE_GRACE, ABILITY_PIERCING_HORN},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -20023,7 +20039,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_DEFIANT, ABILITY_INNER_FOCUS},
-        .abilityHidden = {ABILITY_PRESSURE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_PRESSURE, ABILITY_PIERCING_HORN},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -20058,7 +20074,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_DEFIANT, ABILITY_INNER_FOCUS},
-        .abilityHidden = {ABILITY_PRESSURE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_PRESSURE, ABILITY_PIERCING_HORN},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -21757,7 +21773,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SAP_SIPPER, ABILITY_NONE},
+        .abilities = {ABILITY_SAP_SIPPER, ABILITY_PIERCING_HORN},
         .abilityHidden = {ABILITY_GRASS_PELT, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -21768,6 +21784,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSkiddoTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(32, AVERAGE_EFFORT), 0, SPECIES_GOGOAT}), //Should hopefully blank these for now without issue
     },
+    //find a way to buff grass pelt so it has constant effect..
+    //ok I'l treat it as softening blows and just make it block crit
+    //ok that should make it worth benig an hidden ability
 
     [SPECIES_GOGOAT] =
     {
@@ -21792,7 +21811,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SAP_SIPPER, ABILITY_NONE},
+        .abilities = {ABILITY_SAP_SIPPER, ABILITY_PIERCING_HORN},
         .abilityHidden = {ABILITY_GRASS_PELT, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -23066,7 +23085,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_GRASS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_NATURAL_CURE, ABILITY_FRISK},
-        .abilityHidden = {ABILITY_HARVEST, ABILITY_NONE},
+        .abilityHidden = {ABILITY_HARVEST, ABILITY_PIERCING_HORN},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -23101,7 +23120,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_GRASS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_NATURAL_CURE, ABILITY_FRISK},
-        .abilityHidden = {ABILITY_HARVEST, ABILITY_NONE},
+        .abilityHidden = {ABILITY_HARVEST, ABILITY_PIERCING_HORN},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -24316,6 +24335,9 @@ const struct BaseStats gBaseStats[] =
     //w form change plans this mon will become much better
     //can actually get stab moves in its learnset -_-
     //also gave more attack as dancers are physical adept
+    //have oricorio be different do form change without
+    //swapping/storing move data
+    //allow more variance
 
     [SPECIES_CUTIEFLY] =
     {
@@ -26163,6 +26185,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },
+    //idk what to add to this ability wise
 
     [SPECIES_LUNALA] =
     {
@@ -27676,7 +27699,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_STRONG_JAW, ABILITY_SHELL_ARMOR},
-        .abilityHidden = {ABILITY_SWIFT_SWIM, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SWIFT_SWIM, ABILITY_ROCK_HEAD},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -27711,7 +27734,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_STRONG_JAW, ABILITY_SHELL_ARMOR},
-        .abilityHidden = {ABILITY_SWIFT_SWIM, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SWIFT_SWIM, ABILITY_ROCK_HEAD},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -30071,7 +30094,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SWARM, ABILITY_SHEER_FORCE},
-        .abilityHidden = {ABILITY_STEADFAST, ABILITY_NONE},
+        .abilityHidden = {ABILITY_STEADFAST, ABILITY_ROCK_HEAD},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -30214,7 +30237,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_2,
         .eggGroup2 = EGG_GROUP_WATER_2,
         .abilities = {ABILITY_POISON_POINT, ABILITY_SWIFT_SWIM},
-        .abilityHidden = {ABILITY_INTIMIDATE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_INTIMIDATE, ABILITY_TOXIC_BOOST},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -33176,8 +33199,8 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_UNBURDEN, ABILITY_PICKPOCKET  },
-        .abilityHidden = {ABILITY_PRANKSTER, ABILITY_NONE},
+        .abilities = { ABILITY_PICKPOCKET, ABILITY_TOXUNGUE },
+        .abilityHidden = {ABILITY_PRANKSTER, ABILITY_UNBURDEN},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -33240,8 +33263,8 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_UNBURDEN, ABILITY_POISON_TOUCH },
-        .abilityHidden = {ABILITY_PRANKSTER, ABILITY_NONE},
+        .abilities = { ABILITY_POISON_TOUCH, ABILITY_TOXUNGUE },
+        .abilityHidden = {ABILITY_PRANKSTER, ABILITY_UNBURDEN},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -35740,7 +35763,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FIELD),
         .abilities = { ABILITY_POISON_POINT, ABILITY_WATER_ABSORB  },
-        .abilityHidden = {ABILITY_UNAWARE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_UNAWARE, ABILITY_FRIEND_GUARD},
         .bodyColor = BODY_COLOR_BROWN,
       /*   .speciesName = _("Clodsire"),
         .cryId = CRY_CLODSIRE,
@@ -35986,7 +36009,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
         .abilities = { ABILITY_DEFIANT, ABILITY_SUPREME_OVERLORD  },
-        .abilityHidden = {ABILITY_PRESSURE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_PRESSURE, ABILITY_PIERCING_HORN},
         .bodyColor = BODY_COLOR_BLACK,
       /*   .speciesName = _("Kingambit"),
         .cryId = CRY_KINGAMBIT,
@@ -37439,7 +37462,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_BEADS_OF_RUIN, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_TORCHSOUL, ABILITY_NONE},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -37971,7 +37994,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FIELD),
         .abilities = { ABILITY_POISON_POINT, ABILITY_WATER_ABSORB  },
-        .abilityHidden = {ABILITY_UNAWARE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_UNAWARE, ABILITY_FRIEND_GUARD},
         .bodyColor = BODY_COLOR_BROWN,
       /*   .speciesName = _("Wooper"),
         .cryId = CRY_WOOPER,
@@ -42101,7 +42124,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_RUN_AWAY, ABILITY_PASTEL_VEIL},
-        .abilityHidden = {ABILITY_ANTICIPATION, ABILITY_NONE},
+        .abilityHidden = {ABILITY_ANTICIPATION, ABILITY_PIERCING_HORN},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -42137,7 +42160,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_RUN_AWAY, ABILITY_PASTEL_VEIL},
-        .abilityHidden = {ABILITY_ANTICIPATION, ABILITY_NONE},
+        .abilityHidden = {ABILITY_ANTICIPATION, ABILITY_PIERCING_HORN},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -42215,7 +42238,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_QUICK_DRAW, ABILITY_OWN_TEMPO},
-        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_NONE},
+        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_TOXIC_BOOST},
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -42472,7 +42495,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_CURIOUS_MEDICINE, ABILITY_OWN_TEMPO},
-        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_NONE},
+        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_POISONED_LEGACY},
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -42942,7 +42965,7 @@ const struct BaseStats gBaseStats[] =
             .eggGroup1 = EGG_GROUP_WATER_2,
             .eggGroup2 = EGG_GROUP_WATER_2,
             .abilities = {ABILITY_POISON_POINT, ABILITY_SWIFT_SWIM},
-            .abilityHidden = {ABILITY_INTIMIDATE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_INTIMIDATE, ABILITY_TOXIC_BOOST},
             .bodyColor = BODY_COLOR_GRAY,
             .noFlip = FALSE,
         .floating = FALSE,

@@ -5465,8 +5465,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
+    case ABILITY_PIERCING_HORN:
     case ABILITY_ROCK_HEAD:
-        if (gBattleMoves[move].flags & FLAG_ROCK_HEAD_BOOST)
+        if (gBattleMoves[move].flags & FLAG_HEADBUTT_MOVE)
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;

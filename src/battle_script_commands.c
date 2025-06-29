@@ -2311,7 +2311,8 @@ bool8 DoesTargetAbilityBlockCrit(u8 Targetbattler)
         || ability == ABILITY_SHELL_ARMOR
         || (ability == ABILITY_MAGMA_ARMOR && IsPhysicalMove(gBattlerAttacker, gCurrentMove)) //removed physical move macro for function consolidating effects
         || ability == ABILITY_INNER_FOCUS
-        || (ability == ABILITY_TANGLED_FEET && gBattleMons[Targetbattler].status2 & STATUS2_CONFUSION))
+        || (ability == ABILITY_TANGLED_FEET && gBattleMons[Targetbattler].status2 & STATUS2_CONFUSION)
+        || ability == ABILITY_GRASS_PELT)
         block = TRUE;
 
     return block;

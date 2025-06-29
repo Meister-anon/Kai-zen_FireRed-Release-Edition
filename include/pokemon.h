@@ -448,7 +448,7 @@ extern const struct BattleMove gBattleMoves[];
 //#define FLAG_THAW_USER                            (1 << 25) //since changed thaw to conditional effect can remove this
 //#define FLAG_TWO_STRIKES                          (1 << 27) // A move with this flag will strike twice, and may apply its effect on each hit //whgy is this necessary multihit already works that way?
 #define FLAG_HIT_IN_SUBSTITUTE      (1 << 23) // Hyperspace Fury  //3 byte  //could prob remove this and just put in substitute function? vsonic
-#define FLAG_ROCK_HEAD_BOOST        (1 << 24)   //EQUIvalent iron fist will boost moves that used head
+#define FLAG_HEADBUTT_MOVE        (1 << 24)   //EQUIvalent iron fist will boost moves that used head
 #define FLAG_WIND_MOVE              (1 << 25)   //added for rotom ability
 #define FLAG_LETHAL_LEGS_BOOST      (1 << 26)  //hitmon lee ability kick move boost
 #define FLAG_ALWAYS_CRIT            (1 << 27)   //replace effect always crit do with flag check, simpler
