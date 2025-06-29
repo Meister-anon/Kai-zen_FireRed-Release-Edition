@@ -5364,12 +5364,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (IsBattlerTerrainAffected(battlerIdDef, STATUS_FIELD_MISTY_TERRAIN) && moveType == TYPE_DRAGON)
         gBattleMovePower /= 2;
 
+    //can't remember why I added special move boost to this need list of effects for all terrain
+    //ok removed 15% special move dmg buff with effect no idea why I thought that was a good idea...
     if (IsBattlerTerrainAffected(battlerIdAtk, STATUS_FIELD_MISTY_TERRAIN)) //also setup effect_absorb boost 25% or 50%
     {   
         if (move == MOVE_MISTY_EXPLOSION)    
             gBattleMovePower = (150 * gBattleMovePower) / 100;
-        if (MoveDamageCategory == SPLIT_SPECIAL)
-            gBattleMovePower = (115 * gBattleMovePower) / 100;//15% move power increase for special moves
     }
         //modifier = uq4_12_multiply(modifier, UQ_4_12(0.5));
     if (IsBattlerTerrainAffected(battlerIdAtk, STATUS_FIELD_ELECTRIC_TERRAIN) && moveType == TYPE_ELECTRIC)
