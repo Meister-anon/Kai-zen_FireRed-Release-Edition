@@ -236,37 +236,37 @@
 //#define STATUS3_SKY_DROPPED             0x1 // Target of Sky Drop
 #define STATUS3_FREESPACE               (1 << 0)//REPLACED The battler to receive HP from Leech Seed
 #define STATUS3_PLACEHOLD               (1 << 1)
-#define STATUS3_LEECHSEED                (1 << 2) //is leech seeded status, doesn't store battler with status
-#define STATUS3_ALWAYS_HITS             (1 << 3 | 1 << 4)    // two bits
-#define STATUS3_ALWAYS_HITS_TURN(num)   (((num) << 3) & STATUS3_ALWAYS_HITS) // "Always Hits" is set as a 2 turn timer, i.e. next turn is the last turn when it's active
-#define STATUS3_PERISH_SONG             (1 << 5)
-#define STATUS3_ON_AIR                  (1 << 6)
-#define STATUS3_UNDERGROUND             (1 << 7)
-#define STATUS3_MINIMIZED               (1 << 8)
-#define STATUS3_CHARGED_UP              (1 << 9)
-#define STATUS3_ROOTED                  (1 << 10) //if I understand correctly, change gives extra statur 3 space 12 would be unused
-#define STATUS3_YAWN                    (1 << 11) // Number of turns to sleep
+#define STATUS3_CLEARED                 (1 << 2)   //redone use specila staatus as turn count 
+#define STATUS3_FREE_SPACE              (1 << 3)
+#define STATUS3_LEECHSEED                (1 << 4) //is leech seeded status, doesn't store battler with status
+#define STATUS3_ALWAYS_HITS             (1 << 5 | 1 << 6)    // two bits
+#define STATUS3_ALWAYS_HITS_TURN(num)   (((num) << 5) & STATUS3_ALWAYS_HITS) // "Always Hits" is set as a 2 turn timer, i.e. next turn is the last turn when it's active
+#define STATUS3_PERISH_SONG             (1 << 7)
+#define STATUS3_ON_AIR                  (1 << 8)
+#define STATUS3_UNDERGROUND             (1 << 9)
+#define STATUS3_MINIMIZED               (1 << 10)
+#define STATUS3_CHARGED_UP              (1 << 11)
+#define STATUS3_ROOTED                  (1 << 12) //if I understand correctly, change gives extra statur 3 space 12 would be unused
+#define STATUS3_YAWN                    (1 << 13) // Number of turns to sleep
 //#define STATUS3_YAWN_TURN(num)          (((num) << 11) & STATUS3_YAWN)//  changing set status yawn, then at end turn check for it, if there remove and put to sleep
-#define STATUS3_ME_FIRST               (1 << 12) //use for commander gen9, then roll into semi invul
-#define STATUS3_IMPRISONED_OTHERS       (1 << 13)
-#define STATUS3_GRUDGE                  (1 << 14)
-#define STATUS3_CANT_SCORE_A_CRIT       (1 << 15)
+#define STATUS3_ME_FIRST                (1 << 14) //use for commander gen9, then roll into semi invul
+#define STATUS3_IMPRISONED_OTHERS       (1 << 15)
+#define STATUS3_GRUDGE                  (1 << 16)
+#define STATUS3_CANT_SCORE_A_CRIT       (1 << 17)
+#define STATUS3_GASTRO_ACID             (1 << 18)	//is there any reaso this needs to be status3 rather than a status 2?
+//#define STATUS3_EMBARGO                 (1 << 17)	//move to side status to make room
+#define STATUS3_SMACKED_DOWN            (1 << 19)
 //#define STATUS3_MUDSPORT                (1 << 16)	//can move these 2 to side status?
 //#define STATUS3_WATERSPORT              0x20000	//(1 << 17) //remove sports later
-#define STATUS3_UNDERWATER              (1 << 18)
-#define STATUS3_INTIMIDATE_POKES        (1 << 19)
-#define STATUS3_TRACE                   (1 << 20)
-#define STATUS3_ROOTED_SHIFT (21)   //redone use specila staatus as turn count 
-#define STATUS3_ROOTED_TURN(num) ((num) << STATUS3_ROOTED_SHIFT) //15 there was for max turns new max turns is 8, max turns for aqua ring is 6
-#define STATUS3_AQUARING_SHIFT (22)
-#define STATUS3_AQUARING_TURN(num) ((num) << STATUS3_AQUARING_SHIFT) //way used these aren't really statuses, they don't get set they are more just macros for turn tracking
+#define STATUS3_UNDERWATER              (1 << 20)
+#define STATUS3_INTIMIDATE_POKES        (1 << 21)
+#define STATUS3_TRACE                   (1 << 22)
 
-//has room for 1 more status3 at 12 now
-//can replace always hits timer, to make room for commander
+//I put in disablestruct so idk why I still have therse statuses here?
+//moved ingrain and aqua ring logic to disable structs freed up space
+//also moved all freed values to front for clarity
 
-#define STATUS3_GASTRO_ACID             (1 << 16)	//is there any reaso this needs to be status3 rather than a status 2?
-//#define STATUS3_EMBARGO                 (1 << 17)	//move to side status to make room
-#define STATUS3_SMACKED_DOWN            (1 << 17)
+
 #define STATUS3_TELEKINESIS             (1 << 23)
 #define STATUS3_PHANTOM_FORCE           (1 << 24)
 #define STATUS3_MIRACLE_EYED            (1 << 25)
@@ -414,6 +414,7 @@
 
 #define STATUS_FIELD_TERRAIN_ANY              (STATUS_FIELD_SCORCHED_TERRAIN | STATUS_FIELD_FLOODED_TERRAIN | STATUS_FIELD_OCEAN_TERRAIN | STATUS_FIELD_GRASSY_TERRAIN | STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_PSYCHIC_TERRAIN)
 #define PERMANENT_TERRAIN   0     //use timer value 0 so never decrements
+#define MAX_INGRAIN_AQUA_RING_TURNS    6 //turns healing effect stacks
 
 // Flags describing move's result
 #define MOVE_RESULT_MISSED             (1 << 0)

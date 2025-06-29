@@ -2777,71 +2777,50 @@ u8 DoBattlerEndTurnEffects(void)
             switch (gBattleStruct->turnEffectsTracker) //adjusting to 8 instead of 15 to limit amount of healing //issue is I forgot to change the counter too
             {
             case ENDTURN_INGRAIN:  // ingrain
-                if ((gStatuses3[gActiveBattler] & STATUS3_ROOTED) //IT FUCKING WORKS!!!   prob need lower limit from 15 to llike 7 //oh this is rooter counter,
-                    && !BATTLER_MAX_HP(gActiveBattler)                                  //yeah think shoud be 7, since previous 16 turns used limit 15
+                if (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
+                {
+                    if (gDisableStructs[gActiveBattler].ingrainTurn != MAX_INGRAIN_AQUA_RING_TURNS)
+                        ++gDisableStructs[gActiveBattler].ingrainTurn;
+                    
+                    if (!BATTLER_MAX_HP(gActiveBattler)                                  //yeah think shoud be 7, since previous 16 turns used limit 15
                     && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
                     && gBattleMons[gActiveBattler].hp != 0 //function changes & new rooted defines courtesy of phoenix_bound
                     && IsBlackFogNotOnField())
-                {
-                    u8 turn = gDisableStructs[gActiveBattler].ingrainTurn; //yup that fixed it
-                    
-                     //ok looked into and think issue is using a special status, it sseems to get reset each turn
-                    //meaning it never goes above 1
-
-                    //this caps at 16 turns because the orginal & bit calculation == 0, then it adds 0x100 if it doesn't equal 0xF00 which is 1500
-                    // so it caps the turns by essentially counting from 0 to 15. so controlling/balancing the effect is as simple as lowering 0xF00!!!
-                    gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);//16; change to better visualize effet
-                    if (STATUS3_ROOTED_TURN(turn) != STATUS3_ROOTED_TURN(6)) { // not 16 turns/ facepalm just realized how this works!1!
-                        ++gDisableStructs[gActiveBattler].ingrainTurn;
-                        //turn += 1; //seriously spitballin' here, nothing's broken atleast all the colors below are still right
-                        //counter = turn;
-                    }
-                    
-                    gBattleMoveDamage *= gDisableStructs[gActiveBattler].ingrainTurn; 
-
-                    if (GetBattlerHoldEffect(gActiveBattler, TRUE) == HOLD_EFFECT_BIG_ROOT) //prob need to balance this for ingrain,
                     {
-                        
-                        if (gStatuses3[gActiveBattler] & STATUS3_ROOTED || gStatuses3[gActiveBattler] & STATUS3_AQUA_RING) //hopefully that works. //should be a weakened effect
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);
+                        gBattleMoveDamage *= gDisableStructs[gActiveBattler].ingrainTurn; 
+                        if (GetBattlerHoldEffect(gActiveBattler, TRUE) == HOLD_EFFECT_BIG_ROOT) //prob need to balance this for ingrain,
                             gBattleMoveDamage = (gBattleMoveDamage * 110) / 100; //can't do more than this as would get far too close to 50%
+
+                        gBattleMoveDamage *= -1;
+                        BattleScriptExecute(BattleScript_IngrainTurnHeal);
                     }
 
-                    gBattleMoveDamage *= -1;
-                    //gBattleMoveDamage = GetDrainedBigRootHp(gActiveBattler, gBattleMoveDamage);
-                     //moved this to the bottom previously, because it doesn't need to be up top, and so its read last, 
-                    BattleScriptExecute(BattleScript_IngrainTurnHeal);
-                    ++effect; //next step augment battlescript to be similar to poisonturndamage../no changes needed everything handled by gbattlemovedamage in these funtions
-                    //and the  updatehp commands in the battle script.  purpose of these changes was to ingrain work like but opposite to toxic, increase heal by same amount each turn
-                } //I'm completely guessing but if done right, should heal an additional 1/16th per turn
-                ++gBattleStruct->turnEffectsTracker; //not sure if healing right, seems low?
+                    ++effect;
+                }
+                ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_AQUA_RING:  // aqua ring
-                if ((gStatuses3[gActiveBattler] & STATUS3_AQUA_RING) //hopefully allows to just reuse counter here for aqua ring to duplicate effect
-                    && !BATTLER_MAX_HP(gActiveBattler)
+                if (gStatuses3[gActiveBattler] & STATUS3_AQUA_RING) //hopefully allows to just reuse counter here for aqua ring to duplicate effect
+                {
+
+                    if (gDisableStructs[gActiveBattler].aquaringTurn != MAX_INGRAIN_AQUA_RING_TURNS)
+                        ++gDisableStructs[gActiveBattler].aquaringTurn;
+                    
+                    if (!BATTLER_MAX_HP(gActiveBattler)                                  //yeah think shoud be 7, since previous 16 turns used limit 15
                     && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
                     && gBattleMons[gActiveBattler].hp != 0 //function changes & new rooted defines courtesy of phoenix_bound
                     && IsBlackFogNotOnField())
-                {
-                    u8 turn = gDisableStructs[gActiveBattler].aquaringTurn;
-                    gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);
-                    
-                    if (STATUS3_AQUARING_TURN(turn) != STATUS3_AQUARING_TURN(6)) //forgot how this works but lowered value since not rooted
                     {
-                        ++gDisableStructs[gActiveBattler].aquaringTurn;
-
-                    }
-                    gBattleMoveDamage *= gDisableStructs[gActiveBattler].aquaringTurn;
-                    if (GetBattlerHoldEffect(gActiveBattler, TRUE) == HOLD_EFFECT_BIG_ROOT) //prob need to balance this for ingrain,
-                    {
-                        
-                        if (gStatuses3[gActiveBattler] & STATUS3_ROOTED || gStatuses3[gActiveBattler] & STATUS3_AQUA_RING) //hopefully that works. //should be a weakened effect
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);
+                        gBattleMoveDamage *= gDisableStructs[gActiveBattler].aquaringTurn; 
+                        if (GetBattlerHoldEffect(gActiveBattler, TRUE) == HOLD_EFFECT_BIG_ROOT) //prob need to balance this for ingrain,
                             gBattleMoveDamage = (gBattleMoveDamage * 110) / 100; //can't do more than this as would get far too close to 50%
+
+                        gBattleMoveDamage *= -1;
+                        BattleScriptExecute(BattleScript_AquaRingHeal);
                     }
 
-                    gBattleMoveDamage *= -1;
-                    
-                    //gBattleMoveDamage = GetDrainedBigRootHp(gActiveBattler, gBattleMoveDamage);
-                    BattleScriptExecute(BattleScript_AquaRingHeal);
                     ++effect;
                 }
                 ++gBattleStruct->turnEffectsTracker;

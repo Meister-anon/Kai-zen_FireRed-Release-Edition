@@ -4601,14 +4601,18 @@ void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCate
 
     if (reflect || lightScreen || auroraVeil)
     {
-        if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) >= 2)
+        if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) >= 2)
             damage = (2 * damage) / 3;
         else
             damage /= 2;
     }
 
     
-}
+}//counter balance for disadvantagous situation
+//and logical as screen can be more focused
+//simply when screen has to cover more it protects less
+//partially to speed up battles as you're taking damage from 2
+//and also in conjunction with the double battle dmg cut for multi target moves
 
 
 #define APPLY_STAT_MOD(var, mon, stat, statIndex)                                   \
@@ -6350,7 +6354,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2) // this is spread move cut
         //    damage /= 2; //target 0x8 is target both    
         //this removes the split damage from double target moves ...just remove the line you idiot
-        if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE))
+        if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE))
         {
             
             if (GetMoveEffect(move) == EFFECT_EXPLOSION) //better way to balance this than they did
@@ -6531,7 +6535,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }*/
 
 
-        if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE))
+        if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE))
         {
             
             if (GetMoveEffect(move) == EFFECT_EXPLOSION) //better way to balance this than they did

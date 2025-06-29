@@ -1164,9 +1164,9 @@
 	.4byte \param1
 	.endm
 
-	.macro trysetroots param0:req
+	.macro trysetroots failInstr:req
 	.byte 0xd5
-	.4byte \param0
+	.4byte \failInstr
 	.endm
 
 	.macro doubledamagedealtifdamaged
@@ -1524,9 +1524,9 @@
 	callnative BS_rageboostcalc
 	.endm
 
-	.macro trysetaquaring ptr:req
+	.macro trysetaquaring failInstr:req
 	callnative BS_trysetaquaring
-	.4byte \ptr
+	.4byte \failInstr
 	.endm
 
 	.macro tryreturncaughtmonfromPc

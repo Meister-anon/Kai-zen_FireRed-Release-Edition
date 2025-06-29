@@ -18872,27 +18872,29 @@ static void atkD4_trywish(void)
 
 static void atkD5_trysetroots(void) // ingrain
 {
+    CMD_ARGS(const u8 * failInstr);
     if (gStatuses3[gBattlerAttacker] & STATUS3_ROOTED)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gStatuses3[gBattlerAttacker] |= STATUS3_ROOTED;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
 void BS_trysetaquaring(void)    //aqua ring
 {
+    NATIVE_ARGS(const u8 *failInstr);
     if (gStatuses3[gBattlerAttacker] & STATUS3_AQUA_RING)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gStatuses3[gBattlerAttacker] |= STATUS3_AQUA_RING;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
