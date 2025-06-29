@@ -369,7 +369,7 @@ struct ProtectStruct
 
              u32 shellTrap:1; //hopefully doens't add space
              u32 LongReachElevated:1;//double check but don't think having protect struct is necessary for priority boost but just makes it easier to track?
-             u32 activatedPoisonHealing:1;  //since separated from status need this to filter so doesn't retrigger
+             u32 activatedAbilityStatusHealing:1;  //since separated from status need this to filter so doesn't retrigger. //using for both poison heal and heat trance, 
              u32 statRaised:1;
              u32 statFell:1;
              u32 padding:3;  

@@ -2188,7 +2188,7 @@ u8 DoFieldEndTurnEffects(void)
                 gActiveBattler = gBattlerByTurnOrder[gBattleStruct->turnSideTracker];
                 if (gWishFutureKnock.wishCounter[gActiveBattler] != 0
                     && --gWishFutureKnock.wishCounter[gActiveBattler] == 0
-                    && gBattleMons[gActiveBattler].hp != 0)
+                    && IsBattlerAlive(gActiveBattler))
                 {
                     gBattlerTarget = gActiveBattler;
                     BattleScriptExecute(BattleScript_WishComesTrue);
@@ -2782,9 +2782,7 @@ u8 DoBattlerEndTurnEffects(void)
                     if (gDisableStructs[gActiveBattler].ingrainTurn != MAX_INGRAIN_AQUA_RING_TURNS)
                         ++gDisableStructs[gActiveBattler].ingrainTurn;
                     
-                    if (!BATTLER_MAX_HP(gActiveBattler)                                  //yeah think shoud be 7, since previous 16 turns used limit 15
-                    && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
-                    && gBattleMons[gActiveBattler].hp != 0 //function changes & new rooted defines courtesy of phoenix_bound
+                    if (CanBattlerHeal(gActiveBattler) //function changes & new rooted defines courtesy of phoenix_bound
                     && IsBlackFogNotOnField())
                     {
                         gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);
@@ -2807,9 +2805,7 @@ u8 DoBattlerEndTurnEffects(void)
                     if (gDisableStructs[gActiveBattler].aquaringTurn != MAX_INGRAIN_AQUA_RING_TURNS)
                         ++gDisableStructs[gActiveBattler].aquaringTurn;
                     
-                    if (!BATTLER_MAX_HP(gActiveBattler)                                  //yeah think shoud be 7, since previous 16 turns used limit 15
-                    && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
-                    && gBattleMons[gActiveBattler].hp != 0 //function changes & new rooted defines courtesy of phoenix_bound
+                    if (CanBattlerHeal(gActiveBattler) //function changes & new rooted defines courtesy of phoenix_bound
                     && IsBlackFogNotOnField())
                     {
                         gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);
@@ -2853,7 +2849,7 @@ u8 DoBattlerEndTurnEffects(void)
             case ENDTURN_LEECH_SEED:  // leech seed  /gActiveBattler is seeded mon, gbattlertarget is mon receiving hp
                 if ((gStatuses3[gActiveBattler] & STATUS3_LEECHSEED) //idea increased healing if in rain or hit with water gBattleMoveDamage *= 2 
                     && gBattleMons[gBattleStruct->seedSetterBattleId[gActiveBattler]].hp != 0
-                    && gBattleMons[gActiveBattler].hp != 0
+                    && IsBattlerAlive(gActiveBattler)
                     && IsBlackFogNotOnField())
                 {
                     MAGIC_GUARD_CHECK;
@@ -2885,7 +2881,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;//ghost drain works need to find proper graphic though/plus do same for if draining poison top
                 break;//pretty sure it uses the water bubble graphic
             case ENDTURN_POISON:  // poison
-                if (gBattleMons[gActiveBattler].hp != 0
+                if (IsBattlerAlive(gActiveBattler) //perhaps should replace w  isbattleralive check instead?
                     && GetBattlerAbility(gActiveBattler) != ABILITY_TOXIC_BOOST
                     && IsBlackFogNotOnField()) //realize poison heal would never trigger w orb as wouldn't be poisoned
                 {
@@ -2894,11 +2890,11 @@ u8 DoBattlerEndTurnEffects(void)
 
                     if (TryActivateBattlePoisonHeal(gActiveBattler))
                     {
-                        if (!BATTLER_MAX_HP(gActiveBattler) && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))
+                        if (CanBattlerHeal(gActiveBattler))
                         {
                             gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                             gBattleMoveDamage *= -1;
-                            gProtectStructs[gActiveBattler].activatedPoisonHealing = TRUE;
+                            gProtectStructs[gActiveBattler].activatedAbilityStatusHealing = TRUE;
                             RecordAbilityBattle(gBattlerAttacker, ABILITY_POISON_HEAL);
                             BattleScriptExecute(BattleScript_PoisonHealActivates);
                             ++effect;
@@ -2914,7 +2910,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_BAD_POISON:  // toxic poison
-                if (gBattleMons[gActiveBattler].hp != 0
+                if (IsBattlerAlive(gActiveBattler)
                     && GetBattlerAbility(gActiveBattler) != ABILITY_TOXIC_BOOST
                     && IsBlackFogNotOnField()) //works as I want, black fog here should also prevent toxic increment so it effectively pauses the dmg boost as well
                 {
@@ -2925,11 +2921,11 @@ u8 DoBattlerEndTurnEffects(void)
 
                     if (TryActivateBattlePoisonHeal(gActiveBattler))
                     {
-                        if (!BATTLER_MAX_HP(gActiveBattler) && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))
+                        if (CanBattlerHeal(gActiveBattler))
                         {
                             gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 6,1);
                             gBattleMoveDamage *= -1;
-                            gProtectStructs[gActiveBattler].activatedPoisonHealing = TRUE;
+                            gProtectStructs[gActiveBattler].activatedAbilityStatusHealing = TRUE;
                             RecordAbilityBattle(gBattlerAttacker, ABILITY_POISON_HEAL);
                             BattleScriptExecute(BattleScript_PoisonHealActivates);
                             ++effect;
@@ -2939,7 +2935,7 @@ u8 DoBattlerEndTurnEffects(void)
                     {
                         gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);
 
-                        if (turn != 16) // not 16 turns - should this be 16 not 15?
+                        if (turn != MAX_TOXIC_TURNS) // not 16 turns - should this be 16 not 15?
                             ++gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)]; //isn't this an issue like toxic counter gets reset if switch out?-- ...yup and same for sleep and freeze..
                             //gBattleMons[gActiveBattler].status1 += STATUS1_TOXIC_TURN(1);   //increments by 100 up to F00 , assume starting from 000, which is why 16 turns
 
@@ -2954,7 +2950,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_BURN:  // burn
-                if (gBattleMons[gActiveBattler].hp != 0
+                if (IsBattlerAlive(gActiveBattler)
                     && GetBattlerAbility(gActiveBattler) != ABILITY_FLARE_BOOST
                     && IsBlackFogNotOnField()) //realize poison heal would never trigger w orb as wouldn't be poisoned
                 {
@@ -2963,10 +2959,11 @@ u8 DoBattlerEndTurnEffects(void)
 
                     if (TryActivateHeatTrance(gActiveBattler))
                     {
-                        if (!BATTLER_MAX_HP(gActiveBattler) && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))
+                        if (CanBattlerHeal(gActiveBattler))
                         {
                             gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                             gBattleMoveDamage *= -1;
+                            gProtectStructs[gActiveBattler].activatedAbilityStatusHealing = TRUE;
                             RecordAbilityBattle(gBattlerAttacker, ABILITY_HEAT_TRANCE);
                             BattleScriptExecute(BattleScript_HeatTranceHealActivates); //make its own strings
                             ++effect;
@@ -2988,7 +2985,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_FREEZE:  //FROZEN
-                if ((gBattleMons[gActiveBattler].status1 & STATUS1_FREEZE) && gBattleMons[gActiveBattler].hp != 0)
+                if ((gBattleMons[gActiveBattler].status1 & STATUS1_FREEZE) && IsBattlerAlive(gActiveBattler))
                 {
                     /*if (gDisableStructs[gActiveBattler].FrozenTurns) //extra protection to prevent retrigger
                     {
@@ -3022,7 +3019,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_NIGHTMARES:  // spooky nightmares      //dont need black fog check as it being on field removes nightmare status
-                if ((gBattleMons[gActiveBattler].status2 & STATUS2_NIGHTMARE) && gBattleMons[gActiveBattler].hp != 0)
+                if ((gBattleMons[gActiveBattler].status2 & STATUS2_NIGHTMARE) && IsBattlerAlive(gActiveBattler))
                 {
                     MAGIC_GUARD_CHECK;
                     WONDER_GUARD_CHECK;
@@ -3042,7 +3039,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_CURSE:  // curse //I prob need add magic guard check here and in nightmare
-                if ((gBattleMons[gActiveBattler].status2 & STATUS2_CURSED) && gBattleMons[gActiveBattler].hp != 0
+                if ((gBattleMons[gActiveBattler].status2 & STATUS2_CURSED) && IsBattlerAlive(gActiveBattler)
                     && IsBlackFogNotOnField())
                 {
                     MAGIC_GUARD_CHECK;
@@ -3056,7 +3053,7 @@ u8 DoBattlerEndTurnEffects(void)
                 break;
             case ENDTURN_BIND:  // bind
                 if ((gBattleMons[gActiveBattler].status4 & STATUS4_BIND)
-                    && gBattleMons[gActiveBattler].hp != 0)
+                    && IsBattlerAlive(gActiveBattler))
                 {
                     if (--gDisableStructs[gActiveBattler].bindTurns != 0
                         && IsBlackFogNotOnField())  // damaged by wrap
@@ -3099,7 +3096,7 @@ u8 DoBattlerEndTurnEffects(void)
                 break;
             case ENDTURN_WRAP:  // wrap     //make environemnt trap end turn & then separate ones for each physical trap
                 if ((gBattleMons[gActiveBattler].status2 & STATUS2_WRAPPED)
-                    && gBattleMons[gActiveBattler].hp != 0)
+                    && IsBattlerAlive(gActiveBattler))
                 {
                     //if black fog is meant to pause effects than this is wrong
                     //black fog should go before the decrement... vsonic IMPORTANT
@@ -3136,7 +3133,7 @@ u8 DoBattlerEndTurnEffects(void)
                 break;
             case ENDTURN_CLAMP:  // may need add fallthrough?     //make environemnt trap end turn & then separate ones for each physical trap
                 if ((gBattleMons[gActiveBattler].status4 & STATUS4_CLAMP)
-                    && gBattleMons[gActiveBattler].hp != 0)
+                    && IsBattlerAlive(gActiveBattler))
                 {
                     if (--gDisableStructs[gActiveBattler].clampTurns != 0
                         && IsBlackFogNotOnField())  // damaged by wrap
@@ -3171,7 +3168,7 @@ u8 DoBattlerEndTurnEffects(void)
                 break;
             case ENDTURN_SWARM:  // may need add fallthrough?     //make environemnt trap end turn & then separate ones for each physical trap
                 if ((gBattleMons[gActiveBattler].status4 & STATUS4_SWARM)
-                    && gBattleMons[gActiveBattler].hp != 0)
+                    && IsBattlerAlive(gActiveBattler))
                 {   //THIS was the problem, why didn't i put a status check on this like I did the others?
                     if (--gDisableStructs[gActiveBattler].swarmTurns != 0
                     && IsBlackFogNotOnField())  // damaged by wrap
@@ -3208,7 +3205,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_SNAPTRAP:  // may need add fallthrough?     //make environemnt trap end turn & then separate ones for each physical trap
-                if ((gBattleMons[gActiveBattler].status4 & STATUS4_SNAP_TRAP) && gBattleMons[gActiveBattler].hp != 0)
+                if ((gBattleMons[gActiveBattler].status4 & STATUS4_SNAP_TRAP) && IsBattlerAlive(gActiveBattler))
                 {
                     if (--gDisableStructs[gActiveBattler].snaptrapTurns != 0
                         && IsBlackFogNotOnField())  // damaged by wrap
@@ -3242,7 +3239,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
                 break;  //added all extra effects hope it works well
             case ENDTURN_THUNDER_CAGE:
-                if ((gBattleMons[gActiveBattler].status4 & STATUS4_THUNDER_CAGE) && gBattleMons[gActiveBattler].hp != 0)
+                if ((gBattleMons[gActiveBattler].status4 & STATUS4_THUNDER_CAGE) && IsBattlerAlive(gActiveBattler))
                 {
                     if (--gDisableStructs[gActiveBattler].thundercageTurns != 0
                         && IsBlackFogNotOnField())  // damaged by wrap
@@ -3289,7 +3286,7 @@ u8 DoBattlerEndTurnEffects(void)
                 break;
             case ENDTURN_ENVIRONMENT_TRAP:  // may need add fallthrough?     //make environemnt trap end turn & then separate ones for each physical trap
                 if ((gDisableStructs[gActiveBattler].environmentTrapTurns) //keeping environment traps, put physical traps before this
-                    && gBattleMons[gActiveBattler].hp != 0)
+                    && IsBattlerAlive(gActiveBattler))
                 { //made separate because environment traps should be mutually exclusive as they would counter each other
                     //can't have a whirlpool in the same place you'd have a sand tomb or fire hazard etc.
                     if (--gDisableStructs[gActiveBattler].environmentTrapTurns != 0  // damaged by wrap
@@ -3605,7 +3602,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_INFESTATION:  // infested
-                if ((gBattleMons[gActiveBattler].status2 & STATUS2_INFESTATION) && gBattleMons[gActiveBattler].hp != 0
+                if ((gBattleMons[gActiveBattler].status2 & STATUS2_INFESTATION) && IsBattlerAlive(gActiveBattler)
                     && IsBlackFogNotOnField())
                 {
 
@@ -3925,7 +3922,7 @@ bool8 HandleWishPerishSongOnTurnEnd(void)
 
                 if ((gSpecialStatuses[gActiveBattler].firstFuturesightHits //change this to status check for futuresight 1 or 2 hits is true
                 || gSpecialStatuses[gActiveBattler].secondFuturesightHits)
-                && gBattleMons[gActiveBattler].hp != 0)  //and then clear it within the brackets below
+                && IsBattlerAlive(gActiveBattler))  //and then clear it within the brackets below
                 {
                     if (gSpecialStatuses[gActiveBattler].firstFuturesightHits)
                         gSpecialStatuses[gActiveBattler].firstFuturesightHits = FALSE;
@@ -7981,7 +7978,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
 
                 if (effect == 1) // Drain Hp ability.
                 {
-                    if (BATTLER_MAX_HP(battler) || gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK)
+                    if (!CanBattlerHeal(battler))
                     {
                         if ((gProtectStructs[gBattlerAttacker].notFirstStrike))
                             gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless;
@@ -8042,7 +8039,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
 
                 
 
-                    if (BATTLER_MAX_HP(battler) || gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK)
+                    if (!CanBattlerHeal(battler))
                     {
                         if ((gProtectStructs[gBattlerAttacker].notFirstStrike))
                             gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless;
@@ -13739,6 +13736,21 @@ bool32 CanBeConfused(u8 battlerId)
     return TRUE;
 }
 
+//since plan make heal block ability affect/antiheal
+//and there are moves that do single target healblock
+//think best idea to make function for healblockaffected
+//to consolidate said effects
+// vsonic
+bool32 CanBattlerHeal(u8 battlerId)
+{
+    if ((BATTLER_MAX_HP(battlerId) 
+    || (gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_HEAL_BLOCK))
+    && IsBattlerAlive(battlerId))
+        return FALSE;
+    
+    return TRUE;
+}
+
 bool32 CanTeleport(u8 battlerId)
 {
     struct Pokemon* party = NULL;
@@ -13998,7 +14010,7 @@ bool8 IscurrentMonOnFieldAtPos(struct Pokemon *mon, u8 position)
 bool32 TryActivateBattlePoisonHeal(u32 battler)  //change mind better to do 2 functions, rather than do 2 different effects with one.
 {
 
-    if (!gProtectStructs[battler].activatedPoisonHealing
+    if (!gProtectStructs[battler].activatedAbilityStatusHealing
     && (GetBattlerAbility(battler) == ABILITY_POISON_HEAL && gBattleMons[battler].hp != 0))
     {
 
@@ -14026,19 +14038,32 @@ bool32 TryActivateBattlePoisonHeal(u32 battler)  //change mind better to do 2 fu
 }
 
 //fire type poison healing mostly for capsakid/scovillain
+//ok yeah think I'm fine with this activating in sun too
+//is on fire type to begin with so I'd never get burned in a normal playthrough
 bool32 TryActivateHeatTrance(u32 battler)  //change mind better to do 2 functions, rather than do 2 different effects with one.
 {
 
-    if ((GetBattlerAbility(battler) == ABILITY_HEAT_TRANCE) && gBattleMons[battler].hp != 0
-        && (gBattleMons[battler].status1 & STATUS1_BURN))
+    if (!gProtectStructs[battler].activatedAbilityStatusHealing
+    && (GetBattlerAbility(battler) == ABILITY_HEAT_TRANCE && gBattleMons[battler].hp != 0))
     {
-        return TRUE;
-    }
-    else if ((GetBattlerAbility(battler) == ABILITY_HEAT_TRANCE) && gBattleMons[battler].hp != 0
-        && DoesBattlerGetTypeBasedAffinity(battler, TYPE_FIRE) 
-        && (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_FLAME_ORB))
-    {
-        return TRUE;
+
+        if (gBattleMons[battler].status1 & STATUS1_BURN
+            || IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY) //may keep?
+            )
+        {
+            return TRUE;
+        }
+
+        //since I already stipulated ability is heat trance this is fine
+        //it just means is fire type
+        else if (DoesBattlerGetTypeBasedAffinity(battler, TYPE_FIRE) 
+            && ((GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_FLAME_ORB)
+            || IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY)))
+        {
+            return TRUE;
+        }
+        else
+            return FALSE;
     }
     else
         return FALSE;
