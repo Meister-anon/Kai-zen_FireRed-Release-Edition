@@ -15191,8 +15191,8 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 100, 100, 100, 100),
-        MON_TYPES(TYPE_WATER, TYPE_FAIRY),
-        .catchRate = 3,
+        MON_TYPES(TYPE_WATER), //my keep mono water for lack of weakness
+        .catchRate = 3, //and provide extra reason to use phione
         .expYield = 270,
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
