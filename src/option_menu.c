@@ -388,7 +388,7 @@ void CB2_OptionsMenuFromStartMenu(void)
     //these should stay here, this is populating the base value/cursor position for each menu option
     //not printing them
     sOptionMenuPtr->GameOptions[GAME_MENUITEM_TEXTSPEED] = gSaveBlock2Ptr->optionsTextSpeed;
-    sOptionMenuPtr->GameOptions[GAME_MENUITEM_BATTLESCENE] = gSaveBlock2Ptr->optionsBattleSceneOff;
+    sOptionMenuPtr->GameOptions[GAME_MENUITEM_BATTLESCENE] = gSaveBlock2Ptr->optionsTurnBattleSceneOff;
     sOptionMenuPtr->GameOptions[GAME_MENUITEM_BATTLESTYLE] = gSaveBlock2Ptr->optionsBattleStyle;
     sOptionMenuPtr->GameOptions[GAME_MENUITEM_SOUND] = gSaveBlock2Ptr->optionsSound;
     sOptionMenuPtr->GameOptions[GAME_MENUITEM_BUTTONMODE] = gSaveBlock2Ptr->optionsButtonMode;
@@ -1012,7 +1012,7 @@ static void CloseAndSaveOptionMenu(u8 taskId) //vsonic this is where values are 
         break;
         case GAME_OPTIONS:
             gSaveBlock2Ptr->optionsTextSpeed = sOptionMenuPtr->GameOptions[GAME_MENUITEM_TEXTSPEED];
-            gSaveBlock2Ptr->optionsBattleSceneOff = sOptionMenuPtr->GameOptions[GAME_MENUITEM_BATTLESCENE];
+            gSaveBlock2Ptr->optionsTurnBattleSceneOff = sOptionMenuPtr->GameOptions[GAME_MENUITEM_BATTLESCENE];
             gSaveBlock2Ptr->optionsBattleStyle = sOptionMenuPtr->GameOptions[GAME_MENUITEM_BATTLESTYLE];
             gSaveBlock2Ptr->optionsSound = sOptionMenuPtr->GameOptions[GAME_MENUITEM_SOUND];
             gSaveBlock2Ptr->optionsButtonMode = sOptionMenuPtr->GameOptions[GAME_MENUITEM_BUTTONMODE];

@@ -388,7 +388,7 @@ u8 Rogue_GetBattleSpeedScale(void) //since not taking healthbar setup make void
         //that's fine lol
         // When battle anims are turned off, it's a bit too hard to read text, so force running at normal speed
         //turned off for now to test my own text options to see if can work for that
-        //if (gSaveBlock2Ptr->optionsBattleSceneOff == TRUE && InBattleRunningActions())
+        //if (gSaveBlock2Ptr->optionsTurnBattleSceneOff == TRUE && InBattleRunningActions())
         //    return 2;
 
         //if(!forHealthbar && battleSceneOption == OPTIONS_BATTLE_SCENE_DISABLED && InBattleRunningActions())

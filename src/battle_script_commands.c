@@ -4090,7 +4090,7 @@ static void atk12_waitmessage(void)
             
             if (BattleSpeed > OPTIONS_BATTLE_SPEED_1X)
             {
-                if (gSaveBlock2Ptr->optionsBattleSceneOff == TRUE)
+                if (gSaveBlock2Ptr->optionsTurnBattleSceneOff == TRUE)
                     BattleSpeed = OPTIONS_BATTLE_SPEED_2X;
                 
                 if (toWait == B_WAIT_TIME_UNIQUE || toWait == B_WAIT_TIME_LONG_LONG || toWait == B_WAIT_TIME_IMPORTANT_STRINGS) //this outta do it
@@ -7572,7 +7572,7 @@ static void atk39_pause(void)
         //when using +2, I need to start one level back
         if (BattleSpeed > OPTIONS_BATTLE_SPEED_1X)
         {
-            if (gSaveBlock2Ptr->optionsBattleSceneOff == TRUE)
+            if (gSaveBlock2Ptr->optionsTurnBattleSceneOff == TRUE)
                 BattleSpeed = OPTIONS_BATTLE_SPEED_2X;
 
             value += SetPauseTimeModifier(BattleSpeed, value); //use switch case
@@ -20032,8 +20032,8 @@ static void atkF0_givecaughtmon(void) //useful if I set up alt storage,
 static void atkF1_trysetcaughtmondexflags(void)
 {
     CMD_ARGS(const u8 *jumpInstr);
-    u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL);
-    u32 personality = GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY, NULL);
+    u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_SPECIES, NULL);
+    u32 personality = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_PERSONALITY, NULL);
 
     if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT)) //if mon caught skip, 
     {
@@ -20049,10 +20049,12 @@ static void atkF1_trysetcaughtmondexflags(void)
     }
 }
 
+//think should prob change these too 
+//if plan to catch in doubles
 static void atkF2_displaydexinfo(void)
 {
     CMD_ARGS();
-    u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL);
+    u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_SPECIES, NULL);
 
     switch (gBattleCommunication[0])
     {

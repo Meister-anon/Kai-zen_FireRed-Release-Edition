@@ -88,7 +88,7 @@ static void SetDefaultOptions(void) //changed setup, now when start new game, wi
     gSaveBlock2Ptr->optionsWindowFrameType = 0;
     gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_MONO;
     gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SHIFT;
-    gSaveBlock2Ptr->optionsBattleSceneOff = FALSE; //?  uses a double negative for some reason
+    gSaveBlock2Ptr->optionsTurnBattleSceneOff = FALSE; //?  uses a double negative for some reason //renamed for ease of use
     gSaveBlock2Ptr->regionMapZoom = FALSE;
     gSaveBlock2Ptr->optionsButtonMode = OPTIONS_BUTTON_MODE_LR;
     gSaveBlock2Ptr->optionsBattleSpeed = OPTIONS_BATTLE_SPEED_2X;
