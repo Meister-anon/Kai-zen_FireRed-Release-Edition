@@ -1162,7 +1162,7 @@ const struct Item gItems[] =
     {
       .name = _("Rare Candy"),
       .itemId = ITEM_RARE_CANDY,
-      .price =  4800,
+      .price =  2800,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
      .description = gItemDescription_ITEM_RARE_CANDY,

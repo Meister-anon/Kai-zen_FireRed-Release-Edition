@@ -3590,8 +3590,7 @@ u8 DoBattlerEndTurnEffects(void)
                 if (gBattleMons[gActiveBattler].status1 & STATUS1_SLEEP && gDisableStructs[gActiveBattler].sleepCounter)    //if works right should heal every 2 turns
                 {
 
-                    if (gBattleMons[gBattlerAttacker].maxHP > gBattleMons[gBattlerAttacker].hp
-                        && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))
+                    if (CanBattlerHeal(gActiveBattler)) //believe gbattlerattacker also works here
                     {
                         gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 5,1);
                         gBattleMoveDamage *= -1;
@@ -3759,8 +3758,7 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleScripting.battler = gActiveBattler;
                         
                         //if can heal
-                        if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
-                        && gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP)    //health block check
+                        if (CanBattlerHeal(gActiveBattler))    //health block check
                         {
                             gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                             gBattleMoveDamage *= -1;
@@ -3800,8 +3798,7 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleScripting.battler = gActiveBattler;
                         
                         //if can heal
-                        if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
-                        && gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP)    //health block check
+                        if (CanBattlerHeal(gActiveBattler))    //health block check
                         {
                             gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                             gBattleMoveDamage *= -1;
@@ -3849,8 +3846,7 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleScripting.battler = gActiveBattler;
                         
                         //if can heal
-                        if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
-                        && gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP)    //health block check
+                        if (CanBattlerHeal(gActiveBattler))    //health block check
                         {
                             gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                             gBattleMoveDamage *= -1;
@@ -4531,8 +4527,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                 CancelMultiTurnMoves(gBattlerAttacker);
                 gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_LOAFING;
-                if (gBattleMons[gBattlerAttacker].maxHP > gBattleMons[gBattlerAttacker].hp
-                    && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))
+                if (CanBattlerHeal(gBattlerAttacker))
                 {
                     gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 5,1);
                     gBattleMoveDamage *= -1;
@@ -7202,8 +7197,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 {
                 case ABILITY_RAIN_DISH:
                     if (IsBattlerWeatherAffected(battler, WEATHER_RAIN_ANY)
-                        && gBattleMons[battler].maxHP > gBattleMons[battler].hp
-                        && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
+                        && CanBattlerHeal(battler))
                     {
                         BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);
                         gBattleMoveDamage = max(gBattleMons[battler].maxHP / 12,1);    //could buff?  did buff wass 16
@@ -7213,8 +7207,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     break;
                 case ABILITY_NEW_MOON:
                     if (IsBattlerWeatherAffected(battler, WEATHER_MOON_ANY)
-                        && gBattleMons[battler].maxHP > gBattleMons[battler].hp
-                        && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
+                        && CanBattlerHeal(battler))
                     {
                         BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);
                         gBattleMoveDamage = max(gBattleMons[battler].maxHP / 12,1);    //could buff?  did buff wass 16
@@ -7236,8 +7229,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 break;
                 case ABILITY_PHOTOSYNTHESIZE:
                     if (IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY)
-                        && gBattleMons[battler].maxHP > gBattleMons[battler].hp
-                        && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
+                        && CanBattlerHeal(battler))
                     {
                         //gLastUsedAbility = ABILITY_PHOTOSYNTHESIZE; 
                         BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);  //can use same script //but have another from updates
@@ -7249,8 +7241,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 case ABILITY_GLACIAL_ICE:
                 case ABILITY_ICE_BODY:
                     if (IsBattlerWeatherAffected(battler, WEATHER_HAIL_ANY) 
-                        && gBattleMons[battler].maxHP > gBattleMons[battler].hp
-                        && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
+                        && CanBattlerHeal(battler))
                     {
                         //gLastUsedAbility = ABILITY_ICE_BODY; //without this line can use same block for multiple abilities
                         BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);  //can use same script //but have another from updates
@@ -7261,8 +7252,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     break;
                 case ABILITY_DRY_SKIN:
                     if (IsBattlerWeatherAffected(battler, WEATHER_RAIN_ANY)
-                        && gBattleMons[battler].maxHP > gBattleMons[battler].hp
-                        && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
+                        && CanBattlerHeal(battler))
                     {
                         BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);
                         gBattleMoveDamage = max(gBattleMons[battler].maxHP / 8,1);
@@ -7272,8 +7262,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     break;
                 case ABILITY_WATER_ABSORB:
                     if (IsBattlerWeatherAffected(battler, WEATHER_RAIN_ANY)
-                        && gBattleMons[battler].maxHP > gBattleMons[battler].hp
-                        && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
+                        && CanBattlerHeal(battler))
                     {
                         BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);
                         gBattleMoveDamage = max(gBattleMons[battler].maxHP / 16,1);
@@ -7282,9 +7271,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     }
                     break;
                 case ABILITY_COMATOSE:
-                    if (gBattleMons[battler].maxHP > gBattleMons[battler].hp
-                        && gDisableStructs[battler].sleepCounter
-                        && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
+                    if (gDisableStructs[battler].sleepCounter 
+                        && CanBattlerHeal(battler))
                     {
                         BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);  //can use same script //but have another from updates
                         gBattleMoveDamage = max(gBattleMons[battler].maxHP / 6,1); //substitute for not being able to use rest, but that in mind woudl be broken with substitute hmm
@@ -10429,8 +10417,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                 break;
             case HOLD_EFFECT_LEFTOVERS:
             LEFTOVERS:
-                if (gBattleMons[battlerId].hp < gBattleMons[battlerId].maxHP && !moveTurn
-                    && !(gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_HEAL_BLOCK))
+                if (CanBattlerHeal(battlerId) && !moveTurn)
                 {
                     gBattleMoveDamage = max(gBattleMons[battlerId].maxHP / 16,1);
                     gBattleMoveDamage *= -1;
@@ -10713,9 +10700,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
         case HOLD_EFFECT_SHELL_BELL:
             if (gSpecialStatuses[gBattlerAttacker].damagedMons  // Need to have done damage
                 && gBattlerAttacker != gBattlerTarget
-                && gBattleMons[gBattlerAttacker].hp != gBattleMons[gBattlerAttacker].maxHP
-                && gBattleMons[gBattlerAttacker].hp != 0
-                && !(gSideStatuses[GET_BATTLER_SIDE(gBattlerAttacker)] & SIDE_STATUS_HEAL_BLOCK))
+                && CanBattlerHeal(gBattlerAttacker))
             {
                 gLastUsedItem = atkItem;
                 gPotentialItemEffectBattler = gBattlerAttacker;
@@ -13752,12 +13737,17 @@ bool32 CanBeConfused(u8 battlerId)
 // vsonic
 bool32 CanBattlerHeal(u8 battlerId)
 {
-    if ((BATTLER_MAX_HP(battlerId) 
-    || (gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_HEAL_BLOCK))
-    && IsBattlerAlive(battlerId))
-        return FALSE;
+    if (IsBattlerAlive(battlerId))
+    {
+
+        if ((BATTLER_MAX_HP(battlerId) 
+        || (gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_HEAL_BLOCK)))
+            return FALSE;
+        
+        return TRUE;
+    }
     
-    return TRUE;
+    return FALSE;
 }
 
 bool32 CanTeleport(u8 battlerId)

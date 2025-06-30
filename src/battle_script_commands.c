@@ -1453,6 +1453,7 @@ static void atk00_attackcanceler(void) //vsonic
             gBattleCommunication[MULTISTRING_CHOOSER] = Random() % 4;
             
             //lower healing than truant
+            //full hp check handled in script this is fine
             if (!(gSideStatuses[GET_BATTLER_SIDE(gBattlerAttacker)] & SIDE_STATUS_HEAL_BLOCK))
             {
                 gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 8,1);
@@ -6155,9 +6156,8 @@ static bool32 TryCheekPouch(u32 battlerId, u32 itemId)
 {
     if (ItemId_GetPocket(itemId) == POCKET_BERRY_POUCH //changed name for easier port to firered
         && GetBattlerAbility(battlerId) == ABILITY_CHEEK_POUCH
-        && !(gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_HEAL_BLOCK)
-        && gBattleStruct->ateBerry[GetBattlerSide(battlerId)] & gBitTable[gBattlerPartyIndexes[battlerId]]
-        && !BATTLER_MAX_HP(battlerId))
+        && CanBattlerHeal(battlerId)
+        && gBattleStruct->ateBerry[GetBattlerSide(battlerId)] & gBitTable[gBattlerPartyIndexes[battlerId]])
     {
         gBattleMoveDamage = max(gBattleMons[battlerId].maxHP / 3,1);
         gBattleMoveDamage *= -1;
@@ -10474,8 +10474,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
             gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEALTH_ROCK;
             gBattleScripting.battler = gActiveBattler;
 
-            if (!(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
-            && gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP)    //health block check
+            if (CanBattlerHeal(gActiveBattler))    //health block check
             {
                 gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                 gBattleMoveDamage *= -1;
@@ -10533,8 +10532,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
             gBattleScripting.battler = gActiveBattler;
             
             //if can heal
-            if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
-                && gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP)    //health block check
+            if (CanBattlerHeal(gActiveBattler))    //health block check
             {
                 gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                 gBattleMoveDamage *= -1;
@@ -10600,8 +10598,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
             gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEEL_SURGE;
             gBattleScripting.battler = gActiveBattler;
 
-            if (!(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
-            && gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP)    //health block check
+            if (CanBattlerHeal(gActiveBattler))    //health block check
             {
                 gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                 gBattleMoveDamage *= -1;
@@ -18176,8 +18173,10 @@ static void atkBF_setdefensecurlbit(void)
 
 static void atkC0_recoverbasedonsunlight(void) //since requires setting sun, will keep the boost at its current levels
 {
+    CMD_ARGS(const u8 *failInstr);
     gBattlerTarget = gBattlerAttacker;
-    if (gBattleMons[gBattlerAttacker].hp != gBattleMons[gBattlerAttacker].maxHP)
+    
+    if (CanBattlerHeal(gBattlerAttacker))
     {
         if (gCurrentMove == MOVE_SHORE_UP)
         {
@@ -18194,9 +18193,10 @@ static void atkC0_recoverbasedonsunlight(void) //since requires setting sun, wil
             || IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_MOON_ANY))
                 //gBattleMoveDamage = 20 * GetNonDynamaxMaxHP(gBattlerAttacker) / 30;
                 gBattleMoveDamage = max(20 * gBattleMons[gBattlerAttacker].maxHP / 30,1);
-            else
-                //gBattleMoveDamage = GetNonDynamaxMaxHP(gBattlerAttacker) / 3;
+            else if (gBattleWeather == 0 || !IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ANY)) //pretty sure need replace weatherhaseffect w function that has umbrella logic in it
                 gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 3,1);
+            else // not clear weather
+                gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1);
         }
         else if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY))
             gBattleMoveDamage = max(20 * gBattleMons[gBattlerAttacker].maxHP / 30,1);
@@ -18209,11 +18209,11 @@ static void atkC0_recoverbasedonsunlight(void) //since requires setting sun, wil
 
         gBattleMoveDamage *= -1;
 
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
 }
 
