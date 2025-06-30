@@ -19,5 +19,6 @@
 #define WEATHER_UNDERWATER_BUBBLES 15  // unused //this and below is for sWeatherFuncs
 #define WEATHER_ROUTE119_CYCLE     20  // unused
 #define WEATHER_ROUTE123_CYCLE     21  // unused
+#define WEATHER_ACID_RAIN          22
 
 #endif  // GUARD_CONSTANTS_WEATHER_H

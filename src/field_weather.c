@@ -69,6 +69,7 @@ struct Weather *const gWeatherPtr = &sWeather;
 //need add on to this, when add new weather in weather.h
 //this follows values there, will add weather constants to better track this
 //ok this should make it much easier to identify 
+#define WEATHER_CONFIG_STUFFF
 static const struct WeatherCallbacks sWeatherFuncs[] = {
    [WEATHER_NONE] = {None_Init, None_Main, None_Init, None_Finish},
    [WEATHER_SUNNY_CLOUDS] = {Clouds_InitVars, Clouds_Main, Clouds_InitAll, Clouds_Finish},
@@ -86,7 +87,8 @@ static const struct WeatherCallbacks sWeatherFuncs[] = {
    [WEATHER_DROUGHT] = {Drought_InitVars, Drought_Main, Drought_InitAll, Drought_Finish},
    [WEATHER_DOWNPOUR] = {Downpour_InitVars, Thunderstorm_Main, Downpour_InitAll, Thunderstorm_Finish},
    [WEATHER_UNDERWATER_BUBBLES] = {Bubbles_InitVars, Bubbles_Main, Bubbles_InitAll, Bubbles_Finish},
-};
+   [WEATHER_ACID_RAIN] = {Downpour_InitVars, Rain_Main, Rain_InitAll, Rain_Finish},
+};//vsonic IMPORTANT
 
 static void (*const sWeatherPalStateFuncs[])(void) = {
     UpdateWeatherGammaShift,
@@ -1159,7 +1161,7 @@ void SetRainStrengthFromSoundEffect(u16 soundEffect)
             gWeatherPtr->rainStrength = 0;
             break;
         case SE_DOWNPOUR:
-            gWeatherPtr->rainStrength = 1;
+            gWeatherPtr->rainStrength = 1;//use this for acid rain
             break;
         case SE_THUNDERSTORM:
             gWeatherPtr->rainStrength = 2;

@@ -5831,6 +5831,15 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         ++effect;
                     }
                     break;
+                case WEATHER_ACID_RAIN:
+                    if (!(gBattleWeather & WEATHER_ACID_RAIN_ANY))
+                    {
+                        gBattleWeather = (WEATHER_ACID_RAIN_TEMPORARY | WEATHER_ACID_RAIN_PERMANENT);
+                        gBattleScripting.animArg1 = B_ANIM_ACID_RAIN_CONTINUES;
+                        gBattleScripting.battler = battler;
+                        ++effect;
+                    }
+                    break;
                 case WEATHER_SANDSTORM:
                     if (!(gBattleWeather & WEATHER_SANDSTORM_ANY))
                     {

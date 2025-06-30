@@ -883,16 +883,25 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             } // def ability checks
 
             // target partner ability checks & not attacking partner
-            if (isDoubleBattle)
+            if (isDoubleBattle) //need add flash fire other updated effects to this //vsonic IMPORTANT 
             {
                 switch (AI_DATA->abilities[BATTLE_PARTNER(battlerDef)])
                 {
+                case ABILITY_VOLT_ABSORB:
+                case ABILITY_VOLT_DASH:
+                case ABILITY_MOTOR_DRIVE:
                 case ABILITY_LIGHTNING_ROD:
                     if (moveType == TYPE_ELECTRIC && !IsMoveRedirectionPrevented(move, AI_DATA->abilities[battlerAtk]))
                         RETURN_SCORE_MINUS(20);
                     break;
+                case ABILITY_WATER_ABSORB:
+                case ABILITY_DRY_SKIN:
                 case ABILITY_STORM_DRAIN:
                     if (moveType == TYPE_WATER && !IsMoveRedirectionPrevented(move, AI_DATA->abilities[battlerAtk]))
+                        RETURN_SCORE_MINUS(20);
+                    break;
+                case ABILITY_SAP_SIPPER:
+                    if (moveType == TYPE_GRASS && !IsMoveRedirectionPrevented(move, AI_DATA->abilities[battlerAtk]))
                         RETURN_SCORE_MINUS(20);
                     break;
                 case ABILITY_PLASMA_OVERDRIVE:
@@ -914,6 +923,15 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 case ABILITY_AROMA_VEIL:
                     if (IsAromaVeilProtectedMove(move))
                         RETURN_SCORE_MINUS(10);
+                    break;
+                case ABILITY_GALEFORCE:
+                    if (gBattleMoves[move].flags & FLAG_WIND_MOVE)
+                        RETURN_SCORE_MINUS(20);
+                    break;
+                case ABILITY_DUST_DEVIL:
+                case ABILITY_WIND_RIDER:
+                if (gBattleMoves[move].flags & FLAG_WIND_MOVE && !(GetBattlerMoveTargetType(battlerAtk, move) & MOVE_TARGET_USER))
+                    RETURN_SCORE_MINUS(20);
                     break;
                 case ABILITY_DAZZLING:
                 case ABILITY_QUEENLY_MAJESTY:
@@ -2870,7 +2888,11 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     {
                         RETURN_SCORE_PLUS(1);
                     }
-                    break;
+                    break;//VSONIC IMPORTANT may need remove these as changed to not auto draw in parner moves, things that hit all would still work
+                    //hmm if I change to flag foes and ally maybe that's a fix? but maybe not
+                    //since its negative score/disincentavizing use and its not a bad move if
+                    //its also damaging the enemy
+                    //idk may just remove it all vsonic
                 case ABILITY_LIGHTNING_ROD:
                     if (moveType == TYPE_ELECTRIC
                       && HasMoveWithSplit(battlerAtkPartner, SPLIT_SPECIAL)

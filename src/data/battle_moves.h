@@ -4486,6 +4486,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //nd I want more recoil moves to show off the effect rebalance
     //think may increase to medium recoil effect? think this is low recoil?
     //ah yeah spinda doesn't even get this move naturally its a hidden event thing only in platinum
+    //gave to spinda, and reset back to normal effects
+    //removed from most mon distribution as worse close combat
+    //replaced w recoil version, but will add back
+    //just to have an option
+    //actually no I'll just turn it into a tm
 
     [MOVE_MAGIC_COAT] =
     {

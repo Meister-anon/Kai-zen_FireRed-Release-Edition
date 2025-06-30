@@ -4500,6 +4500,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     oh I forgot to set the actual weather condition in the enum table for ENUM_WEATHER_ACID_RAIN
 */
 goto WEATHER_ENUM_TABLE  //table that actually sets weather by the enum need define weather here
+goto WEATHER_CONFIG_STUFFF //weather logic
 /*
 
 
