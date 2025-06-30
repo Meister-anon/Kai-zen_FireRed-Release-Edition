@@ -6027,6 +6027,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //as effect changed w gens
     //research deside how will setup
     //vsonic
+    //w status change think too easy to get boost
+    //think will change to specifically an attack
+    //has to have been used beforehand
+    //i.e add check for lastusedmove by target is not status
+    //not many mon get it, could instead just move higher in
+    //learnsets and replace w insurance at low level if really 
+    //want a dark move
 
     [MOVE_ASSURANCE] =
     {
@@ -14060,6 +14067,7 @@ use wonder gaurd logic to determine its super effective
     //w heatwave animation
     //maybe charge glow with fire spin going around it 
     //then heatwave and do enemy knock back?
+    //Note superpower anim broken by speed up
     //vsonic
 
     [MOVE_MUDSLIDE] =

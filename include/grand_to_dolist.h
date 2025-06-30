@@ -4261,6 +4261,8 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     -note still missin most gen 9 abilities
     forgot hadn't setup sharpness
+    -need work out fix for battle animations superpower etc.
+    broken by battle speed up
 
     decide fraeyjta will be post game fight at top of lavender town pokemon tower
     wild double battle talking with it will summon dusknoir (since it is a mon focused on support)
