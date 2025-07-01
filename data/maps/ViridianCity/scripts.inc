@@ -238,6 +238,7 @@ ViridianCity_EventScript_TutorialTriggerRight:: @ 8165B2E
 	release
 	end
 
+@small updates to speed up early game progression
 ViridianCity_EventScript_DoTutorialBattle:: @ 8165B4C
 	msgbox ViridianCity_Text_ShowYouHowToCatchMons, MSGBOX_YESNO
 	compare VAR_RESULT, YES
@@ -255,6 +256,7 @@ ViridianCity_EventScript_DoTutorialBattle:: @ 8165B4C
 	giveitem ITEM_TEACHY_TV
 	msgbox ViridianCity_Text_WatchThatToLearnBasics
 	msgbox ViridianCity_Text_TakeOmniBox
+	giveitem ITEM_RARE_CANDY, 15
 	giveitem ITEM_OMNI_BOX
 	setflag FLAG_GOT_OMNI_BOX
 	msgbox ViridianCity_Text_MoreOptions
@@ -268,6 +270,7 @@ ViridianCity_EventScript_SkipTutorialBattle::
 	giveitem ITEM_TEACHY_TV
 	msgbox ViridianCity_Text_WatchThatToLearnBasics
 	msgbox ViridianCity_Text_TakeOmniBox
+	giveitem ITEM_RARE_CANDY, 15
 	giveitem ITEM_OMNI_BOX
 	setflag FLAG_GOT_OMNI_BOX
 	msgbox ViridianCity_Text_MoreOptions
