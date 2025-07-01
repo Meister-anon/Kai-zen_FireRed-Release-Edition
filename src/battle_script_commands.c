@@ -16736,27 +16736,25 @@ static u8 WeightBoostedDamageFormula(void)
 static void atk9F_dmgtolevel(void) 
 {
     u8 level_Limiter;// = gBattleMons[gBattlerAttacker].level;
-    u32 weightscaling = WeightBoostedDamageFormula();
-    u8 lvl_scaling = 85;  //means % dmg is from lvl
+    u32 weightscaling;
+    u8 lvl_scaling = 70;  //means % dmg is from lvl
+    u8 UserLevel = gBattleMons[gBattlerAttacker].level;
 
+    //min dmg at lvl 5 is 7hp, think should be fine now
     if (gCurrentMove == MOVE_SEISMIC_TOSS)
     {
-        //need to remove this, was bad idea,
-        //logically makes sense, but if I do dmg based on weight
-        //doesn't really work
-        //if (GetBattlerWeight(gBattlerTarget) > (GetBattlerWeight(gBattlerAttacker) * 4))
-        //    gMoveResultFlags |= MOVE_RESULT_FAILED;
+        
+        weightscaling = (WeightBoostedDamageFormula() / 10);
+        weightscaling = UserLevel <= 15 ? weightscaling : (WeightBoostedDamageFormula() / 5);
+        weightscaling = UserLevel < 30  ? weightscaling : (WeightBoostedDamageFormula() / 3);
+        weightscaling = UserLevel < 45  ? weightscaling : (WeightBoostedDamageFormula() / 2);
 
-        //think need adjust early part of function to avoid 0 value?
-        //if (level_Limiter < max_skill_lvl)
-        level_Limiter = ((gBattleMons[gBattlerAttacker].level * lvl_scaling) / 100);
 
-        if (level_Limiter == 0)
-            level_Limiter = 1;
+        level_Limiter = max((gBattleMons[gBattlerAttacker].level * lvl_scaling) / 100, 1);
 
-        gBattleMoveDamage = level_Limiter + (weightscaling / 2);// * (level_Limiter / max_skill_lvl)); //max 145 or +45% lvl
-        //else
-          //  gBattleMoveDamage = ((gBattleMons[gBattlerAttacker].level * lvl_scaling) / 100) + weightscaling;    //max dmg 205;
+
+        gBattleMoveDamage = level_Limiter + weightscaling;// * (level_Limiter / max_skill_lvl)); //max 145 or +45% lvl
+
     }
     else
         gBattleMoveDamage = gBattleMons[gBattlerAttacker].level;
