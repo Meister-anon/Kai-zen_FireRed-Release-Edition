@@ -17168,13 +17168,32 @@ static bool8 IsInvalidForSleepTalk(u16 move)
         return FALSE;
 }
 
+//think this should work,
+//should disallow moves the user already knows
+//unless said move is out of pp
 static bool8 IsInvalidForAssist(u16 move)
 {
     if (move == MOVE_NONE || move == MOVE_ASSIST
      || move == MOVE_MIRROR_MOVE || move == MOVE_METRONOME)
         return TRUE;
+
     else
-        return FALSE;
+    {
+        u32 i;
+        for (i = 0; i < MAX_MON_MOVES; ++i)
+        {    if (move == gBattleMons[gBattlerAttacker].moves[i]
+                && gBattleMons[gBattlerAttacker].pp[i] != 0) 
+                {
+                    return TRUE;
+                    break;
+                }    
+        }
+
+        if (i == MAX_MON_MOVES)
+            return FALSE;
+
+    }
+
 }
 
 
@@ -19088,6 +19107,11 @@ static void atkDD_weightdamagecalculation(void)
     ++gBattlescriptCurrInstr;
 }
 
+//think plan adjust this to exclude move
+//that user alraedy has unless said move
+//is out of PP.
+//Should make it a bit more predictable slightly...
+//done
 static void atkDE_assistattackselect(void)
 {
     s32 chooseableMovesNo = 0;
@@ -19110,7 +19134,7 @@ static void atkDE_assistattackselect(void)
             s32 i = 0;
             u16 move = GetMonData(&party[monId], MON_DATA_MOVE1 + moveId);
 
-            if (IsInvalidForAssist(move))
+            if (IsInvalidForAssist(move))//check if move can be applied if not check next move for party member
                 continue;
             for (; sMovesForbiddenToCopy[i] != ASSIST_FORBIDDEN_END && move != sMovesForbiddenToCopy[i]; ++i);
             if (sMovesForbiddenToCopy[i] != ASSIST_FORBIDDEN_END || move == MOVE_NONE)

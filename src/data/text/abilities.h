@@ -685,7 +685,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_SPECTRE] = COMPOUND_ABILITY_STRING("A speeding Blur!\nBoosts Evasion on Switch-in."),
     [ABILITY_AURA_OF_LIGHT] = COMPOUND_ABILITY_STRING("Wakes allies on switch-in and prevents\nsleep. Also cuts damage from dark moves."),
     [ABILITY_DESPAIR] = sNoneDescription,
-    [ABILITY_RISING_PHOENIX] = COMPOUND_ABILITY_STRING("Cures status and heals if hit by fire.\nMay also burn on contact."), //fire absorption plus stat cleans + egg hatch + trap removal
+    [ABILITY_RISING_PHOENIX] = COMPOUND_ABILITY_STRING("Cures status heals and cleanses field if\nhit by fire. May also burn on contact."), //fire absorption plus stat cleans + egg hatch + trap removal
     [ABILITY_DREAD_WING] = COMPOUND_ABILITY_STRING("Spreads despair. Foes take more damage.\nWeakens foes Physical Attacks."),
     [ABILITY_PLAGUE_WINGS] = sPlagueWingsDescription,
     [ABILITY_TOXIC_WING] = COMPOUND_ABILITY_STRING("Spreads poison powder on attack.\nMay poison the foe."),
@@ -722,7 +722,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_NEW_MOON] = COMPOUND_ABILITY_STRING("Moderate HP recovery in moonlight.\nAlso absorbs Moon based attacks."), //doesn't change target just takes it in
     [ABILITY_TOXIC_DELUGE] = COMPOUND_ABILITY_STRING("Summons Acid Rain to Battle."), //expandon later
     [ABILITY_RESOLUTE] = COMPOUND_ABILITY_STRING("Changes form if suffering from status\nor if HP falls to or below half Max HP."),
-    [ABILITY_PIERCING_HORN] = COMPOUND_ABILITY_STRING("Boosts headbutt moves.\nAttacks foes with its sharp horns."),
+    [ABILITY_PIERCING_HORN] = COMPOUND_ABILITY_STRING("Boosts headbutt moves.\nAttacks foes with sharpened horns."),
 
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
