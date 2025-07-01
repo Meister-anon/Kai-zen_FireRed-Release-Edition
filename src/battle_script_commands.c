@@ -20015,6 +20015,7 @@ static void atkEF_handleballthrow(void) //important changed
 //either way it seems to work without problem?
 static void atkF0_givecaughtmon(void) //useful if I set up alt storage,
 {
+    CMD_ARGS();
     u16 heldItem = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_HELD_ITEM);
     u16 clearItem = ITEM_NONE;
     if (GiveMonToPlayer(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]]) != MON_GIVEN_TO_PARTY) //if mon going to pc, is this codeblok
@@ -20048,7 +20049,7 @@ static void atkF0_givecaughtmon(void) //useful if I set up alt storage,
     }
     //gBattleResults.caughtMonSpecies = gBattleMons[gCatchTargetId].species; //thinkm this is why can't catch both mon? it uses side? is that why?
     GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_NICKNAME, gBattleResults.caughtMonNick);
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkF1_trysetcaughtmondexflags(void)
