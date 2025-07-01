@@ -20336,18 +20336,19 @@ void BS_trygetcaughtmonfromPc(void)
             FreeAllWindowBuffers();
             Cb2_EnterPSSFromCatch(BOX_OPTION_POST_CATCH_ACCESS);
             ++gBattleCommunication[MULTIUSE_STATE];
-        }
+        }//mostly works but still broken when I have to come through the pokedex...
         break;
     case 3:
-        if (gMain.callback2 == CB2_ReturnToField)
+        if (gMain.callback2 == CB2_ReturnToField) //could probably use Cb2_ExitPSS no idea if it matters
         {
             gBattlescriptCurrInstr = cmd->nextInstr;
-        }
-        break;
-    case 4:
+        }//use cb2 return to ps to hope avoid progress when viewing summary screen etc.
+        break; //having battlemani cb makes box stuff work but freezes on return to overworld
+    case 4://without it I get to overworld but pressing summary on mon leaves to overworld..ah because it fades to go to summary screen duh
         gBattlescriptCurrInstr = cmd->nextInstr;
         break;
-    }
+    }//ok function executes but is glitching oddly for party mon when I return to field
+    //hopefully just starting a new game will clear that up?
 }
 
 static void atkF4_subattackerhpbydmg(void)
