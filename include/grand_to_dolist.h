@@ -4933,6 +4933,13 @@ goto WEATHER_CONFIG_STUFFF //weather logic
       can toggle entire box from pressign start on box title
       set code need test -done works
 
+      need uprade pc logic more to match emerald
+      in pokemon_storage_system_data.c
+      ToggleCursorMultiMoveMode
+      doesn't  grab multiple mon it can only do 1
+      7/1/2025   need fix
+
+
       -curr finish font fitting for bad items etc.
       then can set to display 3 digits
       would save me some space in bag i.e no extra wrapping should I hit 99

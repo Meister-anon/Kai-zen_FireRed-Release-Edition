@@ -48,6 +48,7 @@ static bool8 SetSelectionMenuTexts(void);
 static bool8 SetMenuTexts_Mon(void);
 static bool8 SetMenuTextsForItem(void);
 static void CreateCursorSprites(void);
+static void ToggleCursorMultiMoveMode(void); //doesn't appear to be setup for firered
 static void ToggleBoxExpState(s8 cursorPos); //consolidate effect for inbox, mostly so can loop for entire box
 
 static const u16 sHandCursorPalette[] = INCBIN_U16("graphics/interface/pss_unk_83D2BCC.gbapal");
@@ -1380,6 +1381,9 @@ static u8 InBoxInput_Normal(void)
     return input;
 }
 
+//this doesn't appear to work?
+//it just grabs whatever mon is selected
+//so need to update to emerald logic smh
 static u8 InBoxInput_GrabbingMultiple(void)
 {
     if (JOY_HELD(A_BUTTON))
