@@ -103,13 +103,15 @@ BattleScript_SetCaughtBattleOutcome::
 	finishturn
 
 
+@extra watstate command seems to be what caused
+@the species change glitch on return from pc
 BattleScript_PostCaughtPcAccess::
 	printstring STRINGID_TAKECAUGHTMONFROMPC
 	@waitmessage B_WAIT_TIME_SHORT
 	waitstate
 	setbyte gBattleCommunication, 0
 	tryreturncaughtmonfromPc
-	waitstate
+	@waitstate
 	goto BattleScript_SetCaughtBattleOutcome
 
 BattleScript_OldMan_Pokedude_CaughtMessage::
