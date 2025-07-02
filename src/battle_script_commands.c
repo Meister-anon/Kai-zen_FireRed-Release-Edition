@@ -20079,25 +20079,19 @@ static void atkF3_trygivecaughtmonnick(void)
         break;
         //Setup Name screen task after fade ends
     case 2:
-        if (!gPaletteFade.active) //can't tell what causes fade here
+        if (!gPaletteFade.active) 
         {
             GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
             FreeAllWindowBuffers();
-            //ok even without naming screen fade
-            //it fades to black, is it instead the 
-            //window buffer clear?
-            //SetMainCallback2(SetCB2ToReshowScreenAfterMenu2);
+
             if (gSavedPartyCount == PARTY_SIZE)
             {
                 DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
                            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_SPECIES),
                            GetMonGender(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]]),
                            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_PERSONALITY, NULL),
-                           SetCB2ToReshowScreenAfterCatch); //almost works just need not reshow mon caught, and figure what to do for double wilds
-            } //for now seems work next step will make ewram to store battle position or some other function for should display sprite/create sprite
-            //which would rely on battlehp being fainted or mon being caught? which are I guess fields I would add to batlemons?
-            //think only need put in CreateBattlerSprite and CreateHealthboxSprite
-            //logic for healthbox would be explicitly don't show healthbox only for doubles
+                           SetCB2ToReshowScreenAfterCatch);
+            }
             else
             {
                 DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
@@ -20114,11 +20108,11 @@ static void atkF3_trygivecaughtmonnick(void)
         if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
         {
             SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
-            gBattlescriptCurrInstr = cmd->jumpInstr; //goes to caughtpokemonskipnickname
-        }//ok no issues here I gess the problem is in DoNamingScreen then?
+            gBattlescriptCurrInstr = cmd->jumpInstr;
+        }
         break;
     case 4:
-        if (gSavedPartyCount == PARTY_SIZE) //don't know why this is, but it works?
+        if (gSavedPartyCount == PARTY_SIZE)
             gBattlescriptCurrInstr = cmd->nextInstr;
         else
             gBattlescriptCurrInstr = cmd->jumpInstr;
