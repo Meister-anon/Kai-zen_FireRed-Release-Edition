@@ -411,6 +411,34 @@ void Cb2_EnterPSS(u8 boxOption)
     }
 }
 
+void Cb2_EnterPSSFromCatch(u8 boxOption, MainCallback returnCallback)
+{
+    //ResetTasks();
+    boxOption = RealignBoxOptionWithPSS_State(boxOption);
+    sCurrentBoxOption = boxOption;
+    gPSSData = Alloc(sizeof(struct PokemonStorageSystemData));
+    if (gPSSData == NULL) //first open? nothing assigned yet maybe
+    {
+        if (boxOption == BOX_OPTION_POST_CATCH_ACCESS)
+            SetMainCallback2(CB2_ReturnToFieldContinueScript);
+        //else if (boxOption == BOX_OPTION_POST_CATCH_ACCESS)
+        //    SetMainCallback2(returnCallback);
+        //else
+        //    SetMainCallback2(Cb2_ExitPSS);
+    }
+    else
+    {
+        gPSSData->boxOption = boxOption;
+        gPSSData->isReshowingPSS = FALSE;
+        sMovingItemId = 0;
+        gPSSData->state = 0;
+        gPSSData->taskId = CreateTask(Cb_InitPSS, 3); //I think this is issue? need custom init as it also handles close
+       // SetHelpContext(HELPCONTEXT_BILLS_PC);
+        sLastUsedBox = StorageGetCurrentBox();
+        SetMainCallback2(Cb2_PSS);
+    }
+}
+
 void Cb2_ReturnToPSS(void)
 {
     ResetTasks();
@@ -657,7 +685,7 @@ static void Cb_MainPSS(u8 taskId)
             gPSSData->state = MSTATE_MOVE_CURSOR;
             break;
         case INPUT_SHOW_PARTY: //pretty sure this was just for deposit and withdrawal? weird condition
-            if (gPSSData->boxOption != BOX_OPTION_MOVE_MONS && gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS  && gPSSData->boxOption != BOX_OPTION_SELECT_MON  && gPSSData->boxOption != BOX_OPTION_DELETE_MOVE  && gPSSData->boxOption != BOX_OPTION_RELEARN_MOVE)
+            if (gPSSData->boxOption != BOX_OPTION_MOVE_MONS && gPSSData->boxOption != BOX_OPTION_POST_CATCH_ACCESS && gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS  && gPSSData->boxOption != BOX_OPTION_SELECT_MON  && gPSSData->boxOption != BOX_OPTION_DELETE_MOVE  && gPSSData->boxOption != BOX_OPTION_RELEARN_MOVE)
             {
                 PrintStorageActionText(PC_TEXT_WHICH_ONE_WILL_TAKE);
                 gPSSData->state = MSTATE_WAIT_MSG;
@@ -669,7 +697,7 @@ static void Cb_MainPSS(u8 taskId)
             }
             break;
         case INPUT_HIDE_PARTY:
-            if (gPSSData->boxOption == BOX_OPTION_MOVE_MONS || gPSSData->boxOption == BOX_OPTION_SELECT_MON)
+            if (gPSSData->boxOption == BOX_OPTION_MOVE_MONS || gPSSData->boxOption == BOX_OPTION_POST_CATCH_ACCESS || gPSSData->boxOption == BOX_OPTION_SELECT_MON)
             {
                 if (IsMonBeingMoved() && ItemIsMail(gPSSData->cursorMonItem))
                     gPSSData->state = MSTATE_ERROR_HAS_MAIL;

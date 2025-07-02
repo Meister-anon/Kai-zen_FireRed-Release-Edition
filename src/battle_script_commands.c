@@ -10,7 +10,7 @@
 #include "event_data.h"
 #include "strings.h"
 #include "pokemon_special_anim.h"
-#include "pokemon_storage_system.h"
+#include "pokemon_storage_system_internal.h"
 #include "pokemon_summary_screen.h"
 #include "task.h"
 #include "naming_screen.h"
@@ -20027,11 +20027,97 @@ static void atkF3_trygivecaughtmonnick(void)
 {
     CMD_ARGS(const u8 *jumpInstr);
 
+    //start of task gbattlecommunication set to 0 in script
+    switch (gBattleCommunication[MULTIUSE_STATE])
+    {
+        //string already printed
+        //create yesno box and text along w cursor
+    case 0:
+        HandleBattleWindow(0x17, 8, 0x1D, 0xD, 0);
+        BattlePutTextOnWindow(gText_BattleYesNoChoice, B_WIN_YESNO);
+        ++gBattleCommunication[MULTIUSE_STATE];
+        gBattleCommunication[CURSOR_POSITION] = 0;
+        BattleCreateYesNoCursorAt();
+        break;
+        //handle input logic
+    case 1:
+        if (JOY_NEW(DPAD_UP) && gBattleCommunication[CURSOR_POSITION] != 0)
+        {
+            PlaySE(SE_SELECT);
+            BattleDestroyYesNoCursorAt();
+            gBattleCommunication[CURSOR_POSITION] = 0;  //cursor position Yes
+            BattleCreateYesNoCursorAt();
+        }
+        if (JOY_NEW(DPAD_DOWN) && gBattleCommunication[CURSOR_POSITION] == 0)
+        {
+            PlaySE(SE_SELECT);
+            BattleDestroyYesNoCursorAt();
+            gBattleCommunication[CURSOR_POSITION] = 1;//set cursor to NO
+            BattleCreateYesNoCursorAt();
+        }
+        if (JOY_NEW(A_BUTTON))
+        {
+            PlaySE(SE_SELECT);
+            if (gBattleCommunication[CURSOR_POSITION] == 0) //Select Yes
+            {
+                ++gBattleCommunication[MULTIUSE_STATE]; //next case
+                BeginFastPaletteFade(3);
+            }
+            else //Select No
+            {
+                HandleBattleWindow(0x17, 0x8, 0x1D, 0xD, WINDOW_CLEAR); //added believe should be remove yes/no window?
+                gBattleCommunication[MULTIUSE_STATE] = 4; //skip name
+            }
+        }
+        else if (JOY_NEW(B_BUTTON))
+        {
+            PlaySE(SE_SELECT);
+            HandleBattleWindow(0x17, 0x8, 0x1D, 0xD, WINDOW_CLEAR);
+            gBattleCommunication[MULTIUSE_STATE] = 4; //skip name
+        }
+        break;
+        //Setup Name screen task after fade ends
+    case 2:
+        if (!gPaletteFade.active)
+        {
+            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
+            FreeAllWindowBuffers();
+            DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_SPECIES),
+                           GetMonGender(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]]),
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_PERSONALITY, NULL),
+                           BattleMainCB2);
+            ++gBattleCommunication[MULTIUSE_STATE]; //next case
+        }
+        break;
+        //end of naming screen return and actually set Nickname
+    case 3:
+        if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
+        {
+            SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
+            gBattlescriptCurrInstr = cmd->jumpInstr; //goes to caughtpokemonskipnickname
+        }//ok no issues here I gess the problem is in DoNamingScreen then?
+        break;
+    case 4:
+        if (CalculatePlayerPartyCount() == PARTY_SIZE) //don't know why this is, but it works?
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        else
+            gBattlescriptCurrInstr = cmd->jumpInstr;
+        break;
+    }
+}
+
+void BS_trygetcaughtmonfromPc(void)
+{
+    NATIVE_ARGS();
+    //does party size check in script can remove to cleaniup
+
+
     switch (gBattleCommunication[MULTIUSE_STATE])
     {
     case 0:
         HandleBattleWindow(0x17, 8, 0x1D, 0xD, 0);
-        BattlePutTextOnWindow(gText_BattleYesNoChoice, 0xE);
+        BattlePutTextOnWindow(gText_BattleYesNoChoice, B_WIN_YESNO);
         ++gBattleCommunication[MULTIUSE_STATE];
         gBattleCommunication[CURSOR_POSITION] = 0;
         BattleCreateYesNoCursorAt();
@@ -20061,43 +20147,33 @@ static void atkF3_trygivecaughtmonnick(void)
             }
             else
             {
+                HandleBattleWindow(0x17, 0x8, 0x1D, 0xD, WINDOW_CLEAR);
                 gBattleCommunication[MULTIUSE_STATE] = 4;
             }
         }
         else if (JOY_NEW(B_BUTTON))
         {
             PlaySE(SE_SELECT);
+            HandleBattleWindow(0x17, 0x8, 0x1D, 0xD, WINDOW_CLEAR);
             gBattleCommunication[MULTIUSE_STATE] = 4;
         }
         break;
     case 2:
         if (!gPaletteFade.active)
         {
-            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
             FreeAllWindowBuffers();
-            DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
-                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_SPECIES),
-                           GetMonGender(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]]),
-                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_PERSONALITY, NULL),
-                           BattleMainCB2);
+            Cb2_EnterPSSFromCatch(BOX_OPTION_POST_CATCH_ACCESS, BattleMainCB2);
             ++gBattleCommunication[MULTIUSE_STATE];
         }
         break;
     case 3:
         if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
         {
-            SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
-            gBattlescriptCurrInstr = cmd->jumpInstr;
+            gBattlescriptCurrInstr = cmd->nextInstr;
         }
         break;
     case 4:
-        if (CalculatePlayerPartyCount() == PARTY_SIZE)
-            gBattlescriptCurrInstr = cmd->nextInstr;
-        else
-            gBattlescriptCurrInstr = cmd->jumpInstr;
-        break;
-    }
-}
+        gBattlescriptCurrInstr = cmd->nextInstr;
         break;
     }
 }
