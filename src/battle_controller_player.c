@@ -1843,7 +1843,12 @@ void SetCB2ToReshowScreenAfterMenu2(void)
     SetMainCallback2(ReshowBattleScreenAfterMenu);
 }
 
-void SetCB2ToReshowScreenAfterCatch(void)
+//tweaked is now only specifically for returning to battle
+//after have access pc post catch
+//just using default reshowscreenaftermenu function
+//for name screen now
+//as was already previously identiacal to this
+void SetCB2ToReshowScreenAfterCatchPcAccess(void)
 {
     SetMainCallback2(ReshowBattleScreenAfterCatch);
 }

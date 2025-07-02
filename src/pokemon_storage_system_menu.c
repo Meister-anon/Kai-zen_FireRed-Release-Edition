@@ -12,6 +12,7 @@
 #include "strings.h"
 #include "task.h"
 #include "trainer_card.h"
+#include "battle_controllers.h"
 #include "constants/songs.h"
 #include "constants/field_weather.h"
 #include "constants/help_system.h"
@@ -601,6 +602,9 @@ static void PSS_CreatePCMenu(u8 whichMenu, s16 *windowIdPtr)
     //    UpdatePokemonStorageSystemMonExp(); //forgot to set here to update when open pc
 }
 
+//identified issue with post catch was I needed to go back
+//to battle may have been skipping things by setting callback
+//to overworld
 void Cb2_ExitPSS(void)  //exit box to return to pss menu
 {
     sPreviousBoxOption = GetCurrentBoxOption();
@@ -613,7 +617,10 @@ void Cb2_ExitPSS(void)  //exit box to return to pss menu
     }
     else if (!(FlagGet(FLAG_START_OAK_RANCH_COUNTER)))
         FlagSet(FLAG_START_OAK_RANCH_COUNTER); //forgot need here to set counter, when depositing mon physically
-    SetMainCallback2(CB2_ReturnToField);
+    if (sPreviousBoxOption == BOX_OPTION_POST_CATCH_ACCESS)
+        SetMainCallback2(SetCB2ToReshowScreenAfterCatchPcAccess);
+    else
+        SetMainCallback2(CB2_ReturnToField);
 }
 
 void ResetPokemonStorageSystem(void)

@@ -20270,7 +20270,7 @@ static void atkF3_trygivecaughtmonnick(void)
                            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_SPECIES),
                            GetMonGender(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]]),
                            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_PERSONALITY, NULL),
-                           SetCB2ToReshowScreenAfterCatch); //almost works just need not reshow mon caught, and figure what to do for double wilds
+                           SetCB2ToReshowScreenAfterMenu); //almost works just need not reshow mon caught, and figure what to do for double wilds
             } //for now seems work next step will make ewram to store battle position or some other function for should display sprite/create sprite
             //which would rely on battlehp being fainted or mon being caught? which are I guess fields I would add to batlemons?
             //think only need put in CreateBattlerSprite and CreateHealthboxSprite
@@ -20362,7 +20362,8 @@ void BS_trygetcaughtmonfromPc(void)
         }//mostly works but still broken when I have to come through the pokedex...
         break;
     case 3:
-        if (gMain.callback2 == CB2_ReturnToField) //could probably use Cb2_ExitPSS no idea if it matters
+        if (gMain.callback2 == Cb2_ExitPSS && !gPaletteFade.active)
+        //if (gMain.callback2 == CB2_ReturnToField) //could probably use Cb2_ExitPSS no idea if it matters
         {
             gBattlescriptCurrInstr = cmd->nextInstr;
         }//use cb2 return to ps to hope avoid progress when viewing summary screen etc.

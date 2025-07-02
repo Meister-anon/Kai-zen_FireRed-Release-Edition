@@ -411,6 +411,10 @@ void Cb2_EnterPSS(u8 boxOption)
     }
 }
 
+//no idea what is happening when I go to this from pokedex
+//it just skips its not even executing the null logic
+//it just is skipping straighht to overworld?
+//maybe its battle controller stuff???
 void Cb2_EnterPSSFromCatch(u8 boxOption)
 {
     ResetTasks(); //idk why I removed this it doesn't appear to have any effect on process?
@@ -447,8 +451,7 @@ void Cb2_ReturnToPSS(void)
     ResetTasks();
     gPSSData = Alloc(sizeof(struct PokemonStorageSystemData));
     if (gPSSData == NULL)
-        if (sCurrentBoxOption == BOX_OPTION_SELECT_MON
-        || sCurrentBoxOption == BOX_OPTION_POST_CATCH_ACCESS)
+        if (sCurrentBoxOption == BOX_OPTION_SELECT_MON)
             SetMainCallback2(CB2_ReturnToFieldContinueScript);//unsure may remove this so goes to exitpss //nvm this is correct breaks without it, it'll still goto exit when I'm done
         else
             SetMainCallback2(Cb2_ExitPSS);
