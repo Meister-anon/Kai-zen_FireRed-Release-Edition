@@ -1528,7 +1528,11 @@
 	.4byte \ptr
 	.endm
 
-	@put future commands above this
+	.macro tryreturncaughtmonfromPc
+	callnative BS_trygetcaughtmonfromPc
+	.endm
+
+	@^put future commands above this^
 	.macro typebaseddmgboost
 	callnative BS_typebaseddmgboost
 	.endm
