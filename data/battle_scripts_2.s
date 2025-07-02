@@ -86,28 +86,25 @@ BattleScript_CaughtPokemonSkipNewDex::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_CaughtPokemonDone
 
+@when setup doubles catch will need adjust script so loop
+@maybe move set outcome caught to battlemain instead
+@or add a jump if double wild battle after safari check
+@and can just skip the battle outcome setting since battle isn't done
+@need figure that out, what exactly outcome caught does for post battle logic
 BattleScript_CaughtPokemonSkipNickname::
 	givecaughtmon
 BattleScript_CaughtPokemonDone::
-	@setbyte gBattleCommunication, 0
-	@for here setup task ask if mon in pc should be swapped for partymon
 	jumpifbattletype BATTLE_TYPE_SAFARI, BattleScript_SetCaughtBattleOutcome
-	
-	@seems ok, need avoid setting outcome caught as that progresses things
-	@so setup everything I need then go to setcaughtoutcome
-	@need adjust this, what need is party is full befoer caught
-	@rn is trigging just when full so when catch mon and party becomes full
 	jumpifcanAccessPCpostcatch BattleScript_PostCaughtPcAccess
 BattleScript_SetCaughtBattleOutcome::
 	setbyte gBattleOutcome, B_OUTCOME_CAUGHT
 	finishturn
 
-
+@from here setup task ask if mon in pc should be swapped for partymon
 @extra watstate command seems to be what caused
 @the species change glitch on return from pc
 BattleScript_PostCaughtPcAccess::
 	printstring STRINGID_TAKECAUGHTMONFROMPC
-	@waitmessage B_WAIT_TIME_SHORT
 	waitstate
 	setbyte gBattleCommunication, 0
 	tryreturncaughtmonfromPc
@@ -287,9 +284,7 @@ BattleScript_CaughtPokemonSkipNewDex2::
 	printstring STRINGID_GIVENICKNAMECAPTURED
 	waitstate
 	setbyte gBattleCommunication, 0
-	@needed to properly track num mon before caught mon added to team
-	@vsonic will prob add new ewram value eon cleanup
-	copybyte gSavedPartyCount, gPlayerPartyCount
+	copybyte gSavedPartyCount, gPlayerPartyCount @created savedpartycount to properly track num mon before catch
 	trygivecaughtmonnick BattleScript_CaughtPokemonSkipNickname
 	givecaughtmon
 	printfromtable gCaughtMonStringIds
