@@ -20180,12 +20180,12 @@ void BS_trygetcaughtmonfromPc(void)
         if (!gPaletteFade.active)
         {
             FreeAllWindowBuffers();
-            Cb2_EnterPSSFromCatch(BOX_OPTION_POST_CATCH_ACCESS, BattleMainCB2);
+            Cb2_EnterPSSFromCatch(BOX_OPTION_POST_CATCH_ACCESS);
             ++gBattleCommunication[MULTIUSE_STATE];
         }
         break;
     case 3:
-        if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
+        if (gMain.callback2 == CB2_ReturnToField)
         {
             gBattlescriptCurrInstr = cmd->nextInstr;
         }

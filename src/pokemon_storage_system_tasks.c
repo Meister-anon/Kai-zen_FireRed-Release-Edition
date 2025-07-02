@@ -411,20 +411,22 @@ void Cb2_EnterPSS(u8 boxOption)
     }
 }
 
-void Cb2_EnterPSSFromCatch(u8 boxOption, MainCallback returnCallback)
+void Cb2_EnterPSSFromCatch(u8 boxOption)
 {
     //ResetTasks();
     boxOption = RealignBoxOptionWithPSS_State(boxOption);
     sCurrentBoxOption = boxOption;
     gPSSData = Alloc(sizeof(struct PokemonStorageSystemData));
-    if (gPSSData == NULL) //first open? nothing assigned yet maybe
+    
+    //got answer form Hedera not actually exit logic so stuff here doesn't
+    // It's a safety thing, it exits if it fails to allocate heap
+    // Alloc returns NULL if it fails to allocate heap space 
+    if (gPSSData == NULL) //first open? nothing assigned yet maybe or maybe its extit?
     {
         if (boxOption == BOX_OPTION_POST_CATCH_ACCESS)
-            SetMainCallback2(CB2_ReturnToFieldContinueScript);
-        //else if (boxOption == BOX_OPTION_POST_CATCH_ACCESS)
-        //    SetMainCallback2(returnCallback);
-        //else
-        //    SetMainCallback2(Cb2_ExitPSS);
+        {
+            SetMainCallback2(Cb2_ExitPSS);//no longer need batlemaincb2
+        } //as script command no longer uses it
     }
     else
     {

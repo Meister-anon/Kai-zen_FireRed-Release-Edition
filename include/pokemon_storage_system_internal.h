@@ -552,7 +552,7 @@ struct Pokemon *AssignMonForChooseBoxMon(u8 monId, u8 boxId);
 struct BoxPokemon *AssignBoxMonForChooseBoxMon(u8 monId, u8 boxId);
 
 void Cb2_EnterPSS(u8 a0);
-void Cb2_EnterPSSFromCatch(u8 boxOption, MainCallback returnCallback);
+void Cb2_EnterPSSFromCatch(u8 boxOption);
 u8 RealignBoxOptionWithPSS_State(u8 input); //made to adjust for new menu states
 u8 GetCurrentBoxOption(void);
 struct Sprite *sub_809223C(u16 x, u16 y, u8 animId, u8 priority, u8 subpriority);
