@@ -19,6 +19,7 @@
 #include "trainer_pokemon_sprites.h"
 #include "field_specials.h"
 #include "pokemon.h"
+#include "bike.h"
 #include "new_menu_helpers.h"
 #include "battle.h"
 #include "battle_message.h"
@@ -20078,16 +20079,34 @@ static void atkF3_trygivecaughtmonnick(void)
         break;
         //Setup Name screen task after fade ends
     case 2:
-        if (!gPaletteFade.active)
+        if (!gPaletteFade.active) //can't tell what causes fade here
         {
             GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
             FreeAllWindowBuffers();
-            DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
+            //ok even without naming screen fade
+            //it fades to black, is it instead the 
+            //window buffer clear?
+            //SetMainCallback2(SetCB2ToReshowScreenAfterMenu2);
+            if (gSavedPartyCount == PARTY_SIZE)
+            {
+                DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_SPECIES),
+                           GetMonGender(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]]),
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_PERSONALITY, NULL),
+                           SetCB2ToReshowScreenAfterCatch); //almost works just need not reshow mon caught, and figure what to do for double wilds
+            } //for now seems work next step will make ewram to store battle position or some other function for should display sprite/create sprite
+            //which would rely on battlehp being fainted or mon being caught? which are I guess fields I would add to batlemons?
+            //think only need put in CreateBattlerSprite and CreateHealthboxSprite
+            //logic for healthbox would be explicitly don't show healthbox only for doubles
+            else
+            {
+                DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
                            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_SPECIES),
                            GetMonGender(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]]),
                            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_PERSONALITY, NULL),
                            BattleMainCB2);
-            ++gBattleCommunication[MULTIUSE_STATE]; //next case
+            }
+            ++gBattleCommunication[MULTIUSE_STATE]; //next case //for double wilds I'd want to not reshow healthbox
         }
         break;
         //end of naming screen return and actually set Nickname
@@ -20099,7 +20118,7 @@ static void atkF3_trygivecaughtmonnick(void)
         }//ok no issues here I gess the problem is in DoNamingScreen then?
         break;
     case 4:
-        if (CalculatePlayerPartyCount() == PARTY_SIZE) //don't know why this is, but it works?
+        if (gSavedPartyCount == PARTY_SIZE) //don't know why this is, but it works?
             gBattlescriptCurrInstr = cmd->nextInstr;
         else
             gBattlescriptCurrInstr = cmd->jumpInstr;
@@ -20110,7 +20129,6 @@ static void atkF3_trygivecaughtmonnick(void)
 void BS_trygetcaughtmonfromPc(void)
 {
     NATIVE_ARGS();
-    //does party size check in script can remove to cleaniup
 
 
     switch (gBattleCommunication[MULTIUSE_STATE])

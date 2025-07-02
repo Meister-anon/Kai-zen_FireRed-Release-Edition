@@ -1842,6 +1842,11 @@ void SetCB2ToReshowScreenAfterMenu2(void)
     SetMainCallback2(ReshowBattleScreenAfterMenu);
 }
 
+void SetCB2ToReshowScreenAfterCatch(void)
+{
+    SetMainCallback2(ReshowBattleScreenAfterCatch);
+}
+
 static void CompleteOnFinishedStatusAnimation(void)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].statusAnimActive)
