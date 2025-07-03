@@ -5227,26 +5227,19 @@ static void HandleEndTurn_ContinueBattle(void)
             if ((gBattleMons[i].status1 & STATUS1_SLEEP)) //pretty sure no reason not to just make it auto run on sleep
                 CancelMultiTurnMoves(i);
 
-            //...ok so think what this actually does is make it so no mon on the side can use this ability at all? or is it anymon?    
-            //edge case pretty sure this doesn't work if someone sent both abilities
-            //out turn 1? unless I put in attack canceler but doesn't really make sense
-            //so think best I can do is just not do that and in a multi play settting
-            //institute ability bans i.e only 1 of this on a team
-            //ah and found issue with clear usesignleuseability is only set in attackcanceler
-            //so if they don't attack ex. use item or switch it doesn't set or a self target
-            //or taret ally
-            //and you still have to attack them again
-            //ironically the issue is the filter here for usedSingleUseAbility
-            //pretty sure without it, it works exactly how I need?
+            //end turn forewarn anticipation comppletion
             for (j = 0; j < gBattlersCount; ++j) //w battle party index i just need battler not party id and it'll track properly for everyting else
             {
                 //coment below makes effect end on turn end rather than when attack is successfully used
                 if (/*gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[j]][GetBattlerSide(i)] == TRUE 
-                && */(gBattleMons[i].ability == ABILITY_FOREWARN || gBattleMons[i].ability == ABILITY_ANTICIPATION))
+                && */(gBattleMons[i].ability == ABILITY_FOREWARN || gBattleMons[i].ability == ABILITY_ANTICIPATION)
+                && !gDisableStructs[i].AnticipationForewornIsDone)
                 {
-                    gDisableStructs[i].forewarnedMove = MOVE_UNAVAILABLE; //-_- yup ability fails to work for ANYONE after turn 1 because of this
-                    gDisableStructs[i].anticipatedMove = MOVE_UNAVAILABLE;  //to clear out effects at endturn properly
-                    gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[j]][GetBattlerSide(i)] = TRUE;
+                    gDisableStructs[i].AnticipationForewornIsDone = TRUE;  //to clear out effects at endturn properly
+                    //...I forgot how battlepartyindex works AGAIN
+                    //will this work correctly for my needs or will it not properly
+                    //track only for said party/side
+                    gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[j]][GetBattlerSide(i)] = gBattleMons[i].ability;
                 }
             }//attempted fix, hopefully doesn't lag to hell. - no lag, fix not quite there yet, or if rihgt, not fully explored
             //actyally this might do it, long as this in right place, this would set the side as haing used ability,

@@ -5645,7 +5645,6 @@ static u8 ForewarnChooseMove(u32 battler) //important add to list of switch in m
     PREPARE_MOVE_BUFFER(gBattleTextBuff1, data[bestId].moveId)
         //RecordKnownMove(gBattlerTarget, data[bestId].moveId);   //I think this may just be for ai?
 
-    gDisableStructs[battler].forewarnedMove = data[bestId].moveId; //this way can transfer the move perfectly without worrying about random shift from recalling function
     //sets status to forwarnuser to store the move they'll evade
     free(data);
 }
@@ -6770,7 +6769,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 return effect; // Note: It returns effect as to not record the ability if Frisk does not activate.
             case ABILITY_FOREWARN:
                 if (!gSpecialStatuses[battler].switchInAbilityDone
-                && gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] == FALSE)//need understand logical process as want to add && for a negative but seems wrong?
+                && CanActivateForewarnAnticipation(battler))//need understand logical process as want to add && for a negative but seems wrong?
                 {      //only other option is put nested if, arodun code, then continue only if it isn't set
                         //and directly below that set it //instead make macro put after effect, taht checks if effect and is from one use ability and sets used there                                             
                     ForewarnChooseMove(battler);    //for switchin battler is gBattlerAttacker  !(true&&false), that should be !(false) and then true. << THIS
@@ -6801,7 +6800,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 u8 stored_type; //for storing type of comparison move from moveId
 
                 if (!gSpecialStatuses[battler].switchInAbilityDone
-                && gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] == FALSE) //can prob remove switchindone part?
+                && CanActivateForewarnAnticipation(battler)) //can prob remove switchindone part?
                 {
                     side = GetBattlerSide(battler);
                     
@@ -6909,7 +6908,6 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
 
                     if (effect)//if ability activates  i.e effect not 0
                     {
-                        gDisableStructs[battler].anticipatedMove = move;
                         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_ANTICIPATION;
                         gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                         //gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = TRUE; 
@@ -14108,6 +14106,23 @@ u8 GetMoveType(u8 moveType, u8 btlAttacker)
     }
 
 
+}
+
+bool8 CanActivateForewarnAnticipation(u8 battler)
+{
+    u32 i;
+    u8 side = GetBattlerSide(battler);
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (gBattleStruct->usedSingleUseAbility[i][side] == ABILITY_ANTICIPATION
+        || gBattleStruct->usedSingleUseAbility[i][side] == ABILITY_FOREWARN)
+            return FALSE;
+            break;
+    }
+
+    if (i == PARTY_SIZE)
+        return TRUE;
 }
 
 //syntax gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPEED;

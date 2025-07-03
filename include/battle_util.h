@@ -270,6 +270,7 @@ s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fi
 u16 GetMoveEffect(u16 move);
 u16 SanitizeMoveId(u16 move);
 bool32 WeatherHasEffect(void); //meant to replace macro for Weather_has_effect
+bool8 CanActivateForewarnAnticipation(u8 battler);
 
 enum {
     OBEYS,

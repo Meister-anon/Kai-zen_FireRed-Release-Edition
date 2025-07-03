@@ -277,11 +277,9 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 inthralled;
     u8 inthrallTimer;
     u16 inthralledMove;
-    u16 forewarnedMove; //for storing move from forewarn ability
     u8 forewarnedBattler;
-    u16 anticipatedMove;    //for storing move from anticipation ability
+    u8 AnticipationForewornIsDone;    //for storing move from anticipation ability, may remove to make room for fixation logic
     u8 ActivatedWeightedGi:1; //should make 1 bit, bitfied
-    //u8 SwitchBinding:4; //timer rn just for spirit shackle escape prevent effect timer set tmier to 4 so 3 full turns of bind ...this is 2^bit not bit is max value *facepalm
     u8 SwitchBinding:2;
     u8 ConfusionTurns:3; //if correct above should be 3 turns
     u8 sturdyhungon:1; //to surivive full hp ko effect one time /destiny bond, explosion, perish song, final gambit etc.

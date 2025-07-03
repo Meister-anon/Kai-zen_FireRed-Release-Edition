@@ -1532,13 +1532,15 @@ static void atk00_attackcanceler(void) //vsonic
         return;
     }
 
+    //ok remember what I did with this,
+    //forewarn was just to give more information than anticipation
+    //it reveals the strongest move of target
     else if ((GetBattlerAbility(gBattlerTarget) == ABILITY_FOREWARN)
     //&& gBattlerAttacker == gForewarnedBattler  //spefiic condition just for forewarn, extra leway given to anticipation
     && gBattlerAttacker == gDisableStructs[gBattlerTarget].forewarnedBattler //redid effect realized as weas would be reset if two forewarn mon on enemy side
-    && gDisableStructs[gBattlerTarget].forewarnedMove != MOVE_UNAVAILABLE // ^ works //edit had wrong battler listed, forgot to properly adjust
-    && gDisableStructs[gBattlerTarget].forewarnedMove != MOVE_NONE) //works perfectly
+    && !gDisableStructs[gBattlerTarget].AnticipationForewornIsDone //works perfectly
+    && CanActivateForewarnAnticipation(gBattlerTarget))
     {
-        //if (gCurrentMove == gDisableStructs[gBattlerTarget].forewarnedMove)
         if (!IS_MOVE_STATUS(gCurrentMove))
         {
             
@@ -1547,14 +1549,13 @@ static void atk00_attackcanceler(void) //vsonic
             gLastHitByType[gBattlerTarget] = 0;//not sur ethat will work but need figure out how to do ,. can make new struct thats' only cleared on battle start and end
             gBattleCommunication[MISS_TYPE] = B_MSG_AVOIDED_DMG; //check target matches forewarn user
         }
-        //gDisableStructs[gBattlerTarget].forewarnedMove = MOVE_UNAVAILABLE; //ensures, only works for first turn - set in battle_main        
-        gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[gBattlerTarget]][GetBattlerSide(gBattlerTarget)] = TRUE;
+        gDisableStructs[gBattlerTarget].AnticipationForewornIsDone = TRUE; //ensures, only works for first turn - extra edge case set in battle_main        
+        gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[gBattlerTarget]][GetBattlerSide(gBattlerTarget)] = GetBattlerAbility(gBattlerTarget);
     }
     else if ((GetBattlerAbility(gBattlerTarget) == ABILITY_ANTICIPATION)
-    && gDisableStructs[gBattlerTarget].anticipatedMove != MOVE_UNAVAILABLE
-    && gDisableStructs[gBattlerTarget].anticipatedMove != MOVE_NONE)
+    && !gDisableStructs[gBattlerTarget].AnticipationForewornIsDone
+    && CanActivateForewarnAnticipation(gBattlerTarget))
     {
-        //if (gCurrentMove == gDisableStructs[gBattlerTarget].anticipatedMove)
         if (!IS_MOVE_STATUS(gCurrentMove))
         {
 
@@ -1563,8 +1564,8 @@ static void atk00_attackcanceler(void) //vsonic
             gLastHitByType[gBattlerTarget] = 0;
             gBattleCommunication[MISS_TYPE] = B_MSG_AVOIDED_DMG;
         }
-        //gDisableStructs[gBattlerTarget].anticipatedMove = MOVE_UNAVAILABLE; //issue if move used doesn't go through attak canceler this doesn't remove status
-        gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[gBattlerTarget]][GetBattlerSide(gBattlerTarget)] = TRUE;
+        gDisableStructs[gBattlerTarget].AnticipationForewornIsDone = TRUE;
+        gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[gBattlerTarget]][GetBattlerSide(gBattlerTarget)] = GetBattlerAbility(gBattlerTarget);
         //put here since ability completion is based on attack being done, not actually using the move stored by ability
         //appears to work now
     }
