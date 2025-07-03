@@ -2596,7 +2596,7 @@ static bool32 BattlerAffectedByHail(u8 battlerId, u16 ability)
       && ability != ABILITY_OVERCOAT
       && ability != ABILITY_GLACIAL_ICE
       && ability != ABILITY_ABSOLUTE_ZERO
-      && ability != ABILITY_WHEEL_OF_CREATION
+      && ability != ABILITY_CREATION_ENGINE
       && ability != ABILITY_ICE_BODY
       && GetBaseFormSpecies(gBattleMons[battlerId].species) != SPECIES_CASTFORM)
         return TRUE;

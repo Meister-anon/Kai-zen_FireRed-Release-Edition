@@ -1398,7 +1398,7 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
     {
         gBattleStruct->dynamicMoveType = TYPE_ICE;
     }
-    else if (GetBattlerAbility(gBattlerTarget) == ABILITY_WHEEL_OF_CREATION && moveType == TYPE_WATER)
+    else if (GetBattlerAbility(gBattlerTarget) == ABILITY_CREATION_ENGINE && moveType == TYPE_WATER)
     {
         gBattleStruct->dynamicMoveType = TYPE_ICE;
     }
@@ -1596,7 +1596,7 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
     //think I should exclude below? least for now
     //not exactly sure if gbattlertarget would work w this function
     //may need to add battlerDef argument to store intended target?
-    /*else if (GetBattlerAbility(gBattlerTarget) == ABILITY_WHEEL_OF_CREATION && moveType == TYPE_WATER)
+    /*else if (GetBattlerAbility(gBattlerTarget) == ABILITY_CREATION_ENGINE && moveType == TYPE_WATER)
     {
         moveType = TYPE_ICE;
     }

@@ -15133,7 +15133,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Cresselia"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(120, 70, 120, 85, 75, 130),
+         STATS(120, 70, 110, 85, 75, 120),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 270,
@@ -15157,6 +15157,7 @@ const struct BaseStats gBaseStats[] =
     },//lunar spirit/aura/veil  prevents allies/self from falling asleep,  counter to darkai also reduces dark type damage by 50%
     //removes that 4x dark weakness I gave it, sheesh
     //like suicine ability heal should also work on switch in for anyone already asleep
+    //while makes sense to give lumar power or new moon think would be too strong
 
     [SPECIES_PHIONE] =
     {
@@ -51618,7 +51619,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_WHEEL_OF_CREATION, ABILITY_NONE}, //gave similar effects to arceus but is tied to ability
+        .abilities = {ABILITY_CREATION_ENGINE, ABILITY_NONE}, //gave similar effects to arceus but is tied to ability
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},//and can be canceled as is not on same level as arceus but does ignore moldbreaker effects
         .bodyColor = BODY_COLOR_GRAY,//ability is mix of arceus logic and absolute zero kyurem ability
         .noFlip = FALSE, //is weaker but more controled version of kyurem ability

@@ -2353,23 +2353,52 @@ static const struct LevelUpMove sJolteonLevelUpLearnset[] = {
     LEVEL_UP_MOVE(42, MOVE_THUNDER_WAVE),
     LEVEL_UP_MOVE(47, MOVE_AGILITY),
     LEVEL_UP_MOVE(52, MOVE_THUNDER),
+    LEVEL_UP_MOVE(80, MOVE_DOUBLE_SHOCK),
     LEVEL_UP_END
 };
 
 static const struct LevelUpMove sFlareonLevelUpLearnset[] = {
-    LEVEL_UP_MOVE(1, MOVE_TACKLE),
-    LEVEL_UP_MOVE(1, MOVE_TAIL_WHIP),
-    LEVEL_UP_MOVE(1, MOVE_HELPING_HAND),
-    LEVEL_UP_MOVE(8, MOVE_SAND_ATTACK),
-    LEVEL_UP_MOVE(16, MOVE_EMBER),
-    LEVEL_UP_MOVE(23, MOVE_QUICK_ATTACK),
-    LEVEL_UP_MOVE(30, MOVE_BITE),
-    LEVEL_UP_MOVE(36, MOVE_FIRE_SPIN),
-    LEVEL_UP_MOVE(42, MOVE_SMOG),
-    LEVEL_UP_MOVE(47, MOVE_LEER),
-    LEVEL_UP_MOVE(52, MOVE_FLAMETHROWER),
+    LEVEL_UP_MOVE( 0, MOVE_FIRE_SPIN),
+    LEVEL_UP_MOVE( 1, MOVE_EMBER),
+    LEVEL_UP_MOVE( 1, MOVE_COVET),
+    LEVEL_UP_MOVE( 1, MOVE_SWIFT),
+    LEVEL_UP_MOVE( 1, MOVE_COPYCAT),
+    LEVEL_UP_MOVE( 1, MOVE_BATON_PASS),
+    LEVEL_UP_MOVE( 1, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE( 1, MOVE_CHARM),
+    LEVEL_UP_MOVE( 1, MOVE_LAVA_PLUME),
+    LEVEL_UP_MOVE( 1, MOVE_HEAT_WAVE),
+    LEVEL_UP_MOVE( 1, MOVE_DOUBLE_EDGE),
+    LEVEL_UP_MOVE( 1, MOVE_HELPING_HAND),
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
+    LEVEL_UP_MOVE( 5, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE(10, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE(15, MOVE_BABY_DOLL_EYES),
+    LEVEL_UP_MOVE(20, MOVE_SMOG),
+    LEVEL_UP_MOVE(22, MOVE_BITE),
+    LEVEL_UP_MOVE(25, MOVE_FIRE_FANG),
+    LEVEL_UP_MOVE(28, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(30, MOVE_ERUPTION), //strong but slow speed so unlikely to ever get full power
+    LEVEL_UP_MOVE(32, MOVE_SOLAR_FLARE),    
+    LEVEL_UP_MOVE(36, MOVE_FLAME_CHARGE),
+    LEVEL_UP_MOVE(40, MOVE_SACRED_FIRE),
+    LEVEL_UP_MOVE(45, MOVE_BLAZE_KICK),
+    LEVEL_UP_MOVE(50, MOVE_FLARE_BLITZ),
+    LEVEL_UP_MOVE(55, MOVE_LAST_RESORT),
+    LEVEL_UP_MOVE(80, MOVE_BURN_OUT),
     LEVEL_UP_END
 };
+//wow even new gen its move SUCK
+//give sacredfire 
+//give flame wheel
+//ok decide not do flamewheel since its
+//shape isnt really geared towards rolling into a ball
+//instead give blaze kick as alternate to not being able to use
+//fire punch
+//kind of hate back loading the moves idk may extend the set
+//so it goes above 55 that wayy things wouldn't feel so compressed?
 
 static const struct LevelUpMove sPorygonLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_CONVERSION_2),

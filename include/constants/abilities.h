@@ -422,7 +422,7 @@
 #define ABILITY_HANDS_OF_FATE 390 //purifying salt clone for binacle as designed around hamsa protective ward against the evil eye, think also give specific immunity to shadow tag mean look and decidueye move
 #define ABILITY_DUST_DEVIL 391 //combine sandstream & wind rider for new bug psuedo
 #define ABILITY_PLASMA_OVERDRIVE 392 //custom moldbreaker lightningrod flash fire for zekrom/reshiram fusion
-#define ABILITY_WHEEL_OF_CREATION 393 //custom ability for original dragon //power over fire electricity and ice
+#define ABILITY_CREATION_ENGINE 393 //custom ability for original dragon //power over fire electricity and ice  //consider rename to creation engine as zek resh based aruond turbine
 #define ABILITY_DARK_CORONA 394 //initial intended ability for larvalking tough spines + poison point
 #define ABILITY_LUNAR_SOLSTICE 395 //moon version of sundisk
 #define ABILITY_LUNAR_POWER 396 //moon version of solar power //think may add on can't be damaged by moon based attacks? like balistic

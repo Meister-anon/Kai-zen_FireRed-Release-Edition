@@ -2733,7 +2733,7 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
             else if (((moveType == TYPE_FIRE || moveType == TYPE_ELECTRIC || moveType == TYPE_ICE)
             || (gBattleMoves[gCurrentMove].effect == EFFECT_TWO_TYPED_MOVE
             && (argument == TYPE_FIRE || argument == TYPE_ELECTRIC || argument == TYPE_ICE)))
-            && GetBattlerAbility(gBattlerAttacker) == ABILITY_WHEEL_OF_CREATION)
+            && GetBattlerAbility(gBattlerAttacker) == ABILITY_CREATION_ENGINE)
             {
                 gBattleMoveDamage = gBattleMoveDamage * 135;
                 gBattleMoveDamage = gBattleMoveDamage / 100;
@@ -3094,7 +3094,7 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
             else if (((moveType == TYPE_FIRE || moveType == TYPE_ELECTRIC || moveType == TYPE_ICE)
             || (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE
             && (argument == TYPE_FIRE || argument == TYPE_ELECTRIC || argument == TYPE_ICE)))
-            && GetBattlerAbility(attacker) == ABILITY_WHEEL_OF_CREATION)
+            && GetBattlerAbility(attacker) == ABILITY_CREATION_ENGINE)
             {
                 gBattleMoveDamage = gBattleMoveDamage * 135;
                 gBattleMoveDamage = gBattleMoveDamage / 100;
@@ -12627,7 +12627,7 @@ static void atk76_various(void) //will need to add all these emerald various com
             case ABILITY_RECEIVER:
             case ABILITY_FORECAST:
             case ABILITY_MULTITYPE:
-            case ABILITY_WHEEL_OF_CREATION:
+            case ABILITY_CREATION_ENGINE:
             case ABILITY_FLOWER_GIFT:
             case ABILITY_ILLUSION:
             case ABILITY_RKS_SYSTEM:
@@ -16025,7 +16025,7 @@ static void atk96_weatherdamage(void)
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_ICE_BODY
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_COLD_EMBRACE
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_ABSOLUTE_ZERO
-             && GetBattlerAbility(gBattlerAttacker) != ABILITY_WHEEL_OF_CREATION
+             && GetBattlerAbility(gBattlerAttacker) != ABILITY_CREATION_ENGINE
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_GLACIAL_ICE
              && GetBaseFormSpecies(gBattleMons[gBattlerAttacker].species) != SPECIES_CASTFORM)
             {
@@ -21205,7 +21205,7 @@ void BS_tryworryseed(void) {
     {
     case ABILITY_INSOMNIA:
     case ABILITY_MULTITYPE:
-    case ABILITY_WHEEL_OF_CREATION:
+    case ABILITY_CREATION_ENGINE:
     case ABILITY_TRUANT:
     case ABILITY_STANCE_CHANGE:
     case ABILITY_DISGUISE:

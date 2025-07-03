@@ -8587,7 +8587,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     case ABILITY_DISGUISE:
                     case ABILITY_ZEN_MODE:
                     case ABILITY_MULTITYPE:
-                    case ABILITY_WHEEL_OF_CREATION:
+                    case ABILITY_CREATION_ENGINE:
                     case ABILITY_POWER_CONSTRUCT:
                     case ABILITY_RKS_SYSTEM:
                     case ABILITY_SCHOOLING:
@@ -11616,7 +11616,7 @@ bool32 IsNeutralizingGasBannedAbility(u32 ability)
     switch (ability)
     {
     case ABILITY_MULTITYPE:
-    //case ABILITY_WHEEL_OF_CREATION:
+    //case ABILITY_CREATION_ENGINE:
     case ABILITY_ZEN_MODE:
     case ABILITY_STANCE_CHANGE:
     case ABILITY_POWER_CONSTRUCT:
@@ -12664,7 +12664,7 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     //makes dragon resist ice
     //needs that level of specificity to avoid compounding issues w typeing and type 3
 
-    else if (GetBattlerAbility(battlerDef) == ABILITY_WHEEL_OF_CREATION
+    else if (GetBattlerAbility(battlerDef) == ABILITY_CREATION_ENGINE
     && (moveType == TYPE_FIRE || moveType == TYPE_ELECTRIC || moveType == TYPE_ICE))
     {
         mod = UQ_4_12(0.0); //Original Dragon Zenkanryurem

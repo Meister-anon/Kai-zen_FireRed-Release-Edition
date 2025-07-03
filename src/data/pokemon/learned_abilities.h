@@ -2110,6 +2110,7 @@ static const struct AbilityLearnset sGiratinaAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sCresseliaAbilityLearnset[] = {
+    ABILITY_LUNAR_SOLSTICE,
     ABILITY_SET_END
 };
 
