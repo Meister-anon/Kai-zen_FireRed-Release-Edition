@@ -5990,10 +5990,7 @@ u8 DexScreen_RegisterMonToPokedex(u16 species) //now has nat dex, need workaroun
     && !(GetSetPokedexFlag((GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
     && (gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM
     || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION
-    || gBaseStats[SanitizeSpeciesId(species)].flags == F_ALOLAN_FORM
-    || gBaseStats[SanitizeSpeciesId(species)].flags == F_GALARIAN_FORM
-    || gBaseStats[SanitizeSpeciesId(species)].flags == F_HISUIAN_FORM
-    || gBaseStats[SanitizeSpeciesId(species)].flags == F_PALDEAN_FORM))
+    || IsRegionalVariant(species)))
     {
         DexScreen_GetSetPokedexFlag(GetFormSpeciesId(species, 0), FLAG_SET_SEEN, TRUE); //if catch form should set base form is seen so can navigate to dex page
     }//if a form, but not seen base form, set base seen so can acces form dex of caught mon

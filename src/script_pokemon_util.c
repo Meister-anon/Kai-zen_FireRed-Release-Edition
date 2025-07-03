@@ -137,10 +137,7 @@ u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 u
         && !(GetSetPokedexFlag((GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
         && (gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM
         || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION
-        || gBaseStats[SanitizeSpeciesId(species)].flags == F_ALOLAN_FORM
-        || gBaseStats[SanitizeSpeciesId(species)].flags == F_GALARIAN_FORM
-        || gBaseStats[SanitizeSpeciesId(species)].flags == F_HISUIAN_FORM
-        || gBaseStats[SanitizeSpeciesId(species)].flags == F_PALDEAN_FORM))
+        || IsRegionalVariant(species)))
         {
             GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(species, 0)), FLAG_SET_SEEN);
             //if catch form should set base form is seen so can navigate to dex page
@@ -194,10 +191,7 @@ u8 ScriptGiveMon2(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 
         && !(GetSetPokedexFlag((GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
         && (gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM
         || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION
-        || gBaseStats[SanitizeSpeciesId(species)].flags == F_ALOLAN_FORM
-        || gBaseStats[SanitizeSpeciesId(species)].flags == F_GALARIAN_FORM
-        || gBaseStats[SanitizeSpeciesId(species)].flags == F_HISUIAN_FORM
-        || gBaseStats[SanitizeSpeciesId(species)].flags == F_PALDEAN_FORM))
+        || IsRegionalVariant(species)))
         {
             GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(species, 0)), FLAG_SET_SEEN);
             //if catch form should set base form is seen so can navigate to dex page

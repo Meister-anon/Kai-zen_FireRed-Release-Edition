@@ -811,10 +811,7 @@ static void Task_EvolutionScene(u8 taskId)
             && !(GetSetPokedexFlag((GetFormSpeciesId(gTasks[taskId].tPostEvoSpecies, 0)), FLAG_GET_SEEN))
             && (gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == SPECIES_FLAG_MEGA_FORM
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == SPECIES_FLAG_PRIMAL_REVERSION
-            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_ALOLAN_FORM
-            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_GALARIAN_FORM
-            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_HISUIAN_FORM
-            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_PALDEAN_FORM))
+            || IsRegionalVariant(gTasks[taskId].tPostEvoSpecies)))
             {
                 GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(gTasks[taskId].tPostEvoSpecies, 0)), FLAG_SET_SEEN);
                 //if catch form should set base form is seen so can navigate to dex page
@@ -1217,10 +1214,7 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
             && !(GetSetPokedexFlag((GetFormSpeciesId(gTasks[taskId].tPostEvoSpecies, 0)), FLAG_GET_SEEN))   
             && (gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == SPECIES_FLAG_MEGA_FORM
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == SPECIES_FLAG_PRIMAL_REVERSION
-            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_ALOLAN_FORM
-            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_GALARIAN_FORM
-            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_HISUIAN_FORM
-            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_PALDEAN_FORM))
+            || IsRegionalVariant(gTasks[taskId].tPostEvoSpecies)))
             {
                 GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(gTasks[taskId].tPostEvoSpecies, 0)), FLAG_SET_SEEN);
                 //if catch form should set base form is seen so can navigate to dex page
