@@ -4366,7 +4366,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_FLASH_FIRE, ABILITY_FLASH_FIRE},
+        .abilities = {ABILITY_FLASH_FIRE, ABILITY_FLUFFY},
         .abilityHidden = {ABILITY_GUTS, ABILITY_ILLUMINATE},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -14540,15 +14540,15 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Leafeon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(86, 110, 130, 95, 60, 65),
-        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
+         STATS(85, 110, 130, 95, 40, 65),
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),//watched false swipe gaming giving this more hp seems like a bad idea
         .catchRate = 45,
         .expYield = 184,
         //.evYield_Defense = 2,
-        .genderRatio = PERCENT_FEMALE(12.5),
+        .genderRatio = PERCENT_FEMALE(12.5), //but on the other hand it was in PU? hard to say
         .eggCycles = 35,
         .friendship = 10,
-        .growthRate = GROWTH_MEDIUM_FAST,
+        .growthRate = GROWTH_MEDIUM_FAST,//yeah need buff that checked vid and in PU it was fighting pawniards -_-
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_LEAF_GUARD, ABILITY_LEAF_GUARD},
@@ -14562,18 +14562,19 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sLeafeonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //apparently biggest issue for most eeveelutions is lackign move pool?
 
     [SPECIES_GLACEON] =
     {
         .speciesName = _("Glaceon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 60, 110, 69, 130, 95),
-        MON_TYPES(TYPE_ICE, TYPE_ICE),
+         STATS(65, 60, 110, 65, 130, 95),
+        MON_TYPES(TYPE_ICE, TYPE_ICE), //should be relatively bulky w type changes
         .catchRate = 45,
         .expYield = 184,
         //.evYield_SpAttack = 2,
-        .genderRatio = PERCENT_FEMALE(12.5),
+        .genderRatio = PERCENT_FEMALE(12.5),//w type changes this may go from worst eeveelution to best/tankiest
         .eggCycles = 35,
         .friendship = 10,
         .growthRate = GROWTH_MEDIUM_FAST,
