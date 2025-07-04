@@ -10112,6 +10112,8 @@ that way you don't need to keep flying aruond to different places looking for th
  goto FIX_WARP_RESPAWN_LOGIC //for heal warp location, on whiteout, and think relevant to teleport
 
  goto END_TURN_RESET
+ goto FIXATION_EFFECTS //main function for setting fixation moves
+ goto FIXATION_STRING_TABLE  //table of string for effects
 
  goto TMHM_LIST //moved to tm_case place for listing of tmhms add on as needed as well as update technical_machine and hm count
  /*#define NUM_TECHNICAL_MACHINES 50 //change to 120 later  in item constants file

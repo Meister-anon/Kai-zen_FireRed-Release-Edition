@@ -1584,6 +1584,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_HURTBYRAIN]             = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} is seared\nby ACID RAIN!"),
     [STRINGID_TARGETISGETTINGSERIOUS]             = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} is getting serious now!"),
     [STRINGID_TARGETCHANGEDMODE]             = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} entered Showdown Mode!\p"),
+    [STRINGID_BATTLER_ON_A_ROLL]            = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} is on a roll!"), //for flame wheel simple but works well enough
 
     [STRINGID_TRAINER2CLASS]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME]                  = sText_Trainer2Name,
@@ -1608,6 +1609,13 @@ const u16 gMissStringIds[] = {
     STRINGID_AVOIDEDDAMAGE,
     STRINGID_PKMNMAKESGROUNDMISS
 };*/
+
+//print effect based on current fixated moves
+//for end turn
+#define FIXATION_STRING_TABLE
+const u16 gFixationMoveStringIds[] = {
+    [MOVE_FLAME_WHEEL]      = STRINGID_BATTLER_ON_A_ROLL,
+};
 
 //will keep this, and setup just a few special abilities to announce themselves
 //some of these are necessary as they announce activation not switchin

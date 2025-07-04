@@ -237,7 +237,7 @@
 #define STATUS3_FREESPACE               (1 << 0)//REPLACED The battler to receive HP from Leech Seed
 #define STATUS3_PLACEHOLD               (1 << 1)
 #define STATUS3_CLEARED                 (1 << 2)   //redone use specila staatus as turn count 
-#define STATUS3_FREE_SPACE              (1 << 3)
+#define STATUS3_FIXATED                 (1 << 3)  //idea from legens arceus use a move becomes fixated on it, doing some other affect on reuse,
 #define STATUS3_LEECHSEED                (1 << 4) //is leech seeded status, doesn't store battler with status
 #define STATUS3_ALWAYS_HITS             (1 << 5 | 1 << 6)    // two bits
 #define STATUS3_ALWAYS_HITS_TURN(num)   (((num) << 5) & STATUS3_ALWAYS_HITS) // "Always Hits" is set as a 2 turn timer, i.e. next turn is the last turn when it's active

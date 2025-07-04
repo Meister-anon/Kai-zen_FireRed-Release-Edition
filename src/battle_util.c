@@ -940,6 +940,7 @@ enum   //battler end turn
     ENDTURN_THUNDER_CAGE,
     ENDTURN_ENVIRONMENT_TRAP,
     ENDTURN_OCTOLOCK,
+    ENDTURN_FIXATED,
     ENDTURN_UPROAR,
     ENDTURN_THRASH,
     ENDTURN_RESET, //flinch etc. for values that need end turn reset
@@ -3370,6 +3371,18 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
             }
             break;
+            case ENDTURN_FIXATED:
+            {
+                if (gStatuses3[gActiveBattler] & STATUS3_FIXATED)
+                {
+
+                    BattleScriptPushCursorAndCallback(BattleScript_PrintFixationMoveString);
+                    ++effect;
+                }
+                ++gBattleStruct->turnEffectsTracker;
+                
+            }
+            break;
             case ENDTURN_UPROAR:  // uproar
                 if (gBattleMons[gActiveBattler].status2 & STATUS2_UPROAR)
                 {
@@ -4293,6 +4306,7 @@ enum
     CANCELLER_POWDER_STATUS,
     CANCELLER_THROAT_CHOP,
     CANCELLER_MULTI_HIT_MOVES,
+    CANCELLER_FIXATED_ON_MOVE,
     CANCELLER_END,
     CANCELLER_PSYCHIC_TERRAIN,
     CANCELLER_END2,
@@ -5122,6 +5136,36 @@ u8 AtkCanceller_UnableToUseMove(void)
             }    
             ++gBattleStruct->atkCancellerTracker;
                 break; 
+        case CANCELLER_FIXATED_ON_MOVE:
+        {
+            if (IsFixationMoveEffect(gCurrentMove))
+            {
+                u8 Max_Turns = 2;
+
+                if (!(gStatuses3[gBattlerAttacker] & STATUS3_FIXATED))
+                {
+                    gStatuses3[gBattlerAttacker] |= STATUS3_FIXATED;
+                    gDisableStructs[gBattlerAttacker].fixatedMove = gCurrentMove;
+                }
+
+                else if (gDisableStructs[gBattlerAttacker].fixatedMove == gCurrentMove)
+                {
+                    if (gDisableStructs[gBattlerAttacker].fixationTurns < Max_Turns)
+                        gDisableStructs[gBattlerAttacker].fixationTurns++;
+
+                }
+                    
+                else
+                {
+                    gDisableStructs[gBattlerAttacker].fixatedMove = gCurrentMove;
+                    gDisableStructs[gBattlerAttacker].fixationTurns = 0;
+                }                 
+
+                    
+            }
+        }
+        ++gBattleStruct->atkCancellerTracker;
+            break; 
         case CANCELLER_END:
             break;
         } //end of main switch
@@ -14106,6 +14150,19 @@ u8 GetMoveType(u8 moveType, u8 btlAttacker)
     }
 
 
+}
+
+#define FIXATION_EFFECTS
+bool8 IsFixationMoveEffect(u16 move)
+{
+    switch (GetMoveEffect(move))
+    {
+        case EFFECT_DMG_FIXATION:
+            return TRUE;
+            break;
+        default:
+            return FALSE;
+    }
 }
 
 bool8 CanActivateForewarnAnticipation(u8 battler)

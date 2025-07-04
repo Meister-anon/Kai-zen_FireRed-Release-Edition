@@ -4128,11 +4128,21 @@ static void atk13_printfromtable(void)
     if (gBattleControllerExecFlags == 0)
     {
         const u16 *table = cmd->table;
-        table += gBattleCommunication[MULTISTRING_CHOOSER];
+        if (table == gFixationMoveStringIds)
+        {
+            gBattlescriptCurrInstr = cmd->nextInstr;
+            PrepareStringBattle(gFixationMoveStringIds[gDisableStructs[gBattlerAttacker].fixatedMove], gBattlerAttacker);
+            gBattleCommunication[MSG_DISPLAY] = 1;
+        }
+        else
+        {
+            table += gBattleCommunication[MULTISTRING_CHOOSER];
 
-        gBattlescriptCurrInstr = cmd->nextInstr;
-        PrepareStringBattle(*table, gBattlerAttacker);
-        gBattleCommunication[MSG_DISPLAY] = 1;
+            gBattlescriptCurrInstr = cmd->nextInstr;
+            PrepareStringBattle(*table, gBattlerAttacker);
+            gBattleCommunication[MSG_DISPLAY] = 1;
+        }
+        
     }
 }
 

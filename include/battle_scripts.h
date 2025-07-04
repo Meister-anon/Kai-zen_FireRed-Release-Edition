@@ -371,6 +371,7 @@ extern const u8 BattleScript_BanefulBunkerEffect[];
 extern const u8 BattleScript_ForceRandomSwitch[];
 extern const u8 BattleScript_PoisonHealActivates[];
 extern const u8 BattleScript_HeatTranceHealActivates[];
+extern const u8 BattleScript_PrintFixationMoveString[];
 extern const u8 BattleScript_SwitchInAbilityMsg[];
 extern const u8 BattleScript_SwitchInAbilityMsgRet[];
 extern const u8 BattleScript_ToxicSpikesPoisoned[];

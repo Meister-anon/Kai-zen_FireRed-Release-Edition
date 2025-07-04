@@ -434,6 +434,7 @@
 #define EFFECT_SUBMISSION 421 //same as raging bull separated for new submission effect
 #define EFFECT_MOONDANCE 422    
 #define EFFECT_ACIDRAIN 423
+#define EFFECT_DMG_FIXATION 424 //fixation moves have differing effects when used multiple times/ decided make categorical effect diffect effects for diff things. idea of effect is continued use makes user better at move so gains additional effect / dmg fixation will have move incrase dmg with use for example
 
 /*MOVE_FIRE_SPIN, //increases burn chance //serenge grace is effect *2 by requires no setup, I think I can get away w * 3 here actually do more to near guarantee 50-60%
 MOVE_CLAMP,     //no extra wrap effect,  but give flich chance on hit //changed mind you're staying clamped on them, so for duration statused target has chance to flinch when attacking

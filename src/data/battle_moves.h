@@ -2770,17 +2770,28 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_FLAME_WHEEL] =
 {
-    .effect = EFFECT_BURN_HIT,
-    .power = 80,
-    .type = TYPE_FIRE,
+    .effect = EFFECT_DMG_FIXATION,//think for this set fixation turns based on number times used it, increment in attack canceler
+    .power = 60,
+    .type = TYPE_FIRE,//change back to 60 base power 2 turn fixation
     .accuracy = 100,
     .pp = 25,
-    .secondaryEffectChance = 10,
-    .target = MOVE_TARGET_SELECTED,
+    .secondaryEffectChance = 15, //will use effect chance as amount dmg should change by
+    .target = MOVE_TARGET_SELECTED,//note since effect is in atk canceler completely ignores acc/need for move to actually land
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
     .split = SPLIT_PHYSICAL,
+    .argument = MOVE_EFFECT_BURN,
+    .argumentEffectChance = 10,
 },
+//rebalanced effect for this max is 2
+//effect inspired by legends arceus fixated status
+//incrases move power with repeated use
+//plan have this as category of effect no idea about more moves
+//core principle user fixates on move gets better with repeated use
+//in some way.
+//not always dmg, just it becomes improved in some way over time
+//dmg, acc, or some other additional benefit
+//vsonic Important
 
 [MOVE_SNORE] =
 {

@@ -5104,6 +5104,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             }
         }
         break;
+        case EFFECT_DMG_FIXATION:
+        {
+            gBattleMovePower = gBattleMovePower + (gBattleMoves[move].secondaryEffectChance * gDisableStructs[gBattlerAttacker].fixationTurns);
+        }
+        break;
         case EFFECT_PLEDGE: //need set this up
             if (gBattleStruct->pledgeMove)
                 gBattleMovePower = 150;

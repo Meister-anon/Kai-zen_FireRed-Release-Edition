@@ -882,7 +882,8 @@
 #define STRINGID_HURTBYRAIN                         719
 #define STRINGID_TARGETISGETTINGSERIOUS             720
 #define STRINGID_TARGETCHANGEDMODE                  721
-#define STRINGID_NA                                 722 //entreed to avoid extra copy paste
+#define STRINGID_BATTLER_ON_A_ROLL                  722 //fixation string for flame wheel
+#define STRINGID_NA                                 723 //entreed to avoid extra copy paste
 
 #define BATTLESTRINGS_COUNT     STRINGID_NA - 1
 

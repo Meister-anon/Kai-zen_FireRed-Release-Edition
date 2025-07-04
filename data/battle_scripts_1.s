@@ -452,6 +452,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectSubmission			  @EFFECT_SUBMISSION
 	.4byte BattleScript_EffectMoondance				  @EFFECT_MOONDANCE
 	.4byte BattleScript_EffectAcidRain				  @EFFECT_ACIDRAIN
+	.4byte BattleScript_EffectHit					  @EFFECT_DMG_FIXATION
 
 BattleScript_EffectAlwaysCrit:
 BattleScript_EffectFellStinger:
@@ -7831,6 +7832,12 @@ BattleScript_SteelSurgeFree::
 	printstring STRINGID_PKMNBLEWAWAYSTEELSURGE
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
+
+BattleScript_PrintFixationMoveString::
+	@@ call BattleScript_AbilityPopUp
+	printfromtable gFixationMoveStringIds
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end3
 
 @tested works, just need adjust intimidate script as I want
 BattleScript_SwitchInAbilityMsg::

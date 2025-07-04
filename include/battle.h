@@ -288,7 +288,8 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 uproarTurns:2;   //2-5 turns //updated effect is 3 turns
     u8 rampageMoveTurns:2; //for replace lock confuse turns, is how long rampge move last, should be 2-3 turns?
     u8 tauntEnds:1; //set taunt to atk cancel decrement, made this for end turm message
-    u8 padding:2;
+    u8 fixationTurns:2;   //to track that fixation move is being repeated max value 3?
+    u16 fixatedMove; //was forewarnmove replaced for Fixation status
     u8 hasSwitchinActivated; //use for switch in end turn check //rn just for zacian zamazenta effetcts, triggered on switch in activate/end in endturn
     u8 timecontrolAbilityTimer:2; //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
     u8 padspace:6;
@@ -845,6 +846,9 @@ struct BattleStruct //fill in unused fields when porting
     u16 SecondaryItemSlot[PARTY_SIZE][NUM_BATTLE_SIDES];//for pickpocket and magician store taken item if already holding item
     //u16 usedHeldItems[MAX_BATTLERS_COUNT]; //original value below is emerald expansion changed version,  
     u16 usedHeldItems[PARTY_SIZE][NUM_BATTLE_SIDES]; //check may need adjust harvest recycle w setup for 2nd held slot // For each party member and side. For harvest, recycle  //think I"m setup to use this? adjusted all values now
+    //can save some space here, this is different from above it doesn't store id of what was used it just does true/false
+    //then again as I'm just checking for a positive value if I stored the ability used
+    //then I can use this to ensure anticipation/forewarn can't reactivate for a different mon
     u16 usedSingleUseAbility[PARTY_SIZE][NUM_BATTLE_SIDES]; ///for abilities that activate once per battle - my addition
     u8 SingleUseAbilityTimers[PARTY_SIZE][NUM_BATTLE_SIDES]; //rn just for slow start / wonder guard
     u8 ToxicTurnCounter[PARTY_SIZE][NUM_BATTLE_SIDES]; //change make toxic dmg tracked not reset on switch
