@@ -13706,9 +13706,9 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Spiritomb"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(57, 92, 108, 35, 92, 128),
+         STATS(65, 92, 108, 35, 92, 128),
         MON_TYPES(TYPE_GHOST, TYPE_DARK),
-        .catchRate = 100,
+        .catchRate = 100, //slightly buff stats are no longer has no weaknesses
         .expYield = 170,
         //.evYield_Defense = 1,
         //.evYield_SpDefense = 1,
