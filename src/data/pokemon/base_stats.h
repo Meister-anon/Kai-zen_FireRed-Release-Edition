@@ -1156,7 +1156,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Nidoqueen"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(97, 92, 87, 76, 90, 105),
+         STATS(97, 92, 87, 76, 85, 105),
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 227,
@@ -1179,6 +1179,11 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//think atk stats are too high, w normal boost its just better
     //nope nvm there is adequate diference
+    //w changes may want ground type back?
+    //normal makes it more offensive  but poison ground together
+    //has amazing resistences
+    //normal is ghost immunity and fairy fighting weakess for more dmg on coverage
+    //while ground is elec immunity fire flying fighting poison rock resistence for water grass ice weakness
 
     [SPECIES_NIDORAN_M] =
     {
