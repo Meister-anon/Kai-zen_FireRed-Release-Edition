@@ -68,6 +68,7 @@ static bool8 TryStartMiscWalkingScripts(u16 metatileBehavior);
 static bool8 TryStartStepCountScript(u16 metatileBehavior);
 static void UpdateHappinessStepCounter(void);
 static void UpdatePickupCounter(void);
+static void UpdateHoneyGatherCounter(void);
 static void UpdateBoxEXPStepCounter(void);
 static bool8 UpdatePoisonStepCounter(void);
 static bool8 CheckStandardWildEncounter(u32 encounter);
@@ -777,6 +778,7 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
         //nvm realized setting return TRUE just makes
         //player freeze I don't need that for this
         UpdatePickupCounter();
+        UpdateHoneyGatherCounter();
                  
 
         
@@ -835,89 +837,150 @@ static void UpdatePickupCounter(void)
 
     
 
-        for (i = 0; i < PARTY_SIZE; ++i)
-        {
-            if ((GetMonAbility(&gPlayerParty[i]) == ABILITY_PICKUP)
-            && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG)  //works, also learned daycare eggs aren't treated as species egg, cuz don't sue species2
-            && !IsMonNuzlockeDead(&gPlayerParty[i])) //ensure mon not counted if dead by nuzlocke clause
-                break;
-        } //looks in party for mon with pickup, functionally stops at first party slot that encounters ability
+    for (i = 0; i < PARTY_SIZE; ++i)
+    {
+        if ((GetMonAbility(&gPlayerParty[i]) == ABILITY_PICKUP)
+        && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG)  //works, also learned daycare eggs aren't treated as species egg, cuz don't sue species2
+        && !IsMonNuzlockeDead(&gPlayerParty[i])) //ensure mon not counted if dead by nuzlocke clause
+            break;
+    } //looks in party for mon with pickup, functionally stops at first party slot that encounters ability
 
-        
-        //ok so this partis the problem??
-        //maybe not think its just this is increment
-        //so nothing else can trigger without it
-        if (i == PARTY_SIZE)
+    
+    //ok so this partis the problem??
+    //maybe not think its just this is increment
+    //so nothing else can trigger without it
+    if (i == PARTY_SIZE)
+    {
+        VarSet(VAR_PICKUP_COUNTER, 0);
+        return;
+    }//if didn't find valid mon, reset couter and stop function
+    else
+    {
+        (*ptr)++;       //increment counter
+        (*ptr) %= 325;   //wrap around at 325
+    }
+    
+
+    //filted items,
+    //identified glitch has nothing to do with
+    //ptr counter the array
+    //or the loops below
+    //only thing haven't checked is bottom if condition
+    //but that doesn't make sense tobe the issue?
+    //honesty idk anymore I made clean and somehow my tye chart broke...
+    
+    if (*ptr == 0)  //can use pointer without ability check, as ability check is already in call for this function
+    {
+        s32 random = Random() % 101;
+        for (j = 0; j < ARRAY_COUNT(sPickupItems); ++j) //minus 1 was specific for this array, as it wasn't made to go to last value, I changed it.
         {
-            VarSet(VAR_PICKUP_COUNTER, 0);
-            return;
-        }//if didn't find valid mon, reset couter and stop function
-        else
+            if (sPickupItems[j].chance >= random)
+                break;
+        }
+        //think add logic for item ITEM_POKE_BALL
+        //shift which ball you get based on level
+        if (sPickupItems[j].itemId == ITEM_POKE_BALL)
         {
-            (*ptr)++;       //increment counter
-            (*ptr) %= 325;   //wrap around at 325
+            if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 20)
+                arrayItem = sPickupItems[j].itemId;
+            else if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 35)
+                arrayItem = ITEM_GREAT_BALL;
+            else
+                arrayItem = ITEM_ULTRA_BALL;
         }
         
-
-        //filted items,
-        //identified glitch has nothing to do with
-        //ptr counter the array
-        //or the loops below
-        //only thing haven't checked is bottom if condition
-        //but that doesn't make sense tobe the issue?
-        //honesty idk anymore I made clean and somehow my tye chart broke...
-        
-        if (*ptr == 0)  //can use pointer without ability check, as ability check is already in call for this function
+        if ((sPickupItems[j].itemId == ITEM_TM10_HIDDEN_POWER) && (BagGetQuantityByItemId(ITEM_TM10_HIDDEN_POWER) != 0))
         {
-            s32 random = Random() % 101;
-            for (j = 0; j < ARRAY_COUNT(sPickupItems); ++j) //minus 1 was specific for this array, as it wasn't made to go to last value, I changed it.
+
+            for (k = ITEM_NONE; k != ITEMS_COUNT; k++)
             {
-                if (sPickupItems[j].chance >= random)
+                if (gItems[k].pocket != POCKET_TM_CASE)
+                    continue;
+                if (ItemIdToBattleMoveId(k) == gTM_Moves[randomTM])
                     break;
             }
-            //think add logic for item ITEM_POKE_BALL
-            //shift which ball you get based on level
-            if (sPickupItems[j].itemId == ITEM_POKE_BALL)
-            {
-                if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 20)
-                    arrayItem = sPickupItems[j].itemId;
-                else if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 35)
-                    arrayItem = ITEM_GREAT_BALL;
-                else
-                    arrayItem = ITEM_ULTRA_BALL;
-            }
-            
-            if ((sPickupItems[j].itemId == ITEM_TM10_HIDDEN_POWER) && (BagGetQuantityByItemId(ITEM_TM10_HIDDEN_POWER) != 0))
-            {
-
-                for (k = ITEM_NONE; k != ITEMS_COUNT; k++)
-                {
-                    if (gItems[k].pocket != POCKET_TM_CASE)
-                        continue;
-                    if (ItemIdToBattleMoveId(k) == gTM_Moves[randomTM])
-                        break;
-                }
-                arrayItem = (k);// give random tm, if already have tm10, will put add random%3  so not super easy to get everything
-
-            }
-            else
-                arrayItem = sPickupItems[j].itemId;
-            
-            //add if has space to add
-            //and trigger scripts
-            if (AddBagItem(arrayItem, 1) == TRUE)  //attempting remove from loop. think placing within made it add for each value of  the array. yup that's why *facepalm
-            {
-
-                GetMonNickname(&gPlayerParty[i], gStringVar2);  //for battle effect
-                CopyItemName(arrayItem, gStringVar1);
-                LockForFieldEffect();
-
-                ShowFieldMessage(gText_MonPickedUpItem);
-                ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
-
-            }
+            arrayItem = (k);// give random tm, if already have tm10, will put add random%3  so not super easy to get everything
 
         }
+        else
+            arrayItem = sPickupItems[j].itemId;
+        
+        //add if has space to add
+        //and trigger scripts
+        if (AddBagItem(arrayItem, 1) == TRUE)  //attempting remove from loop. think placing within made it add for each value of  the array. yup that's why *facepalm
+        {
+
+            GetMonNickname(&gPlayerParty[i], gStringVar2);  //for battle effect
+            CopyItemName(arrayItem, gStringVar1);
+            LockForFieldEffect();
+
+            ShowFieldMessage(gText_MonPickedUpItem);
+            ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
+
+        }
+
+    }
+    
+}
+
+static void UpdateHoneyGatherCounter(void)
+{
+    u16 *ptr = GetVarPointer(VAR_HONEY_GATHER_COUNTER);
+    s32 i;
+    u16 heldItem;
+    
+
+    for (i = 0; i < PARTY_SIZE; ++i)
+    {
+        if ((GetMonAbility(&gPlayerParty[i]) == ABILITY_HONEY_GATHER)
+        && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG)  //works, also learned daycare eggs aren't treated as species egg, cuz don't sue species2
+        && !IsMonNuzlockeDead(&gPlayerParty[i])) //ensure mon not counted if dead by nuzlocke clause
+            break;
+    } //looks in party for mon with pickup, functionally stops at first party slot that encounters ability
+
+
+    if (i == PARTY_SIZE)
+    {
+        VarSet(VAR_HONEY_GATHER_COUNTER, 0);
+        return;
+    }//if didn't find valid mon, reset couter and stop function
+    else
+    {
+        (*ptr)++;       //increment counter
+        (*ptr) %= 265;   //wrap around at 265
+    }
+
+
+    heldItem = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
+    
+    
+    if (*ptr == 0)  //can use pointer without ability check, as ability check is already in call for this function
+    {
+
+        if (heldItem == ITEM_NONE)
+        {
+            GetMonNickname(&gPlayerParty[i], gStringVar2);
+            heldItem = ITEM_HONEY;
+            CopyItemName(ITEM_HONEY, gStringVar1);            
+            SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+            LockForFieldEffect();
+
+            ShowFieldMessage(gText_MonGatheredHoney);
+            ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
+        }
+        else if (AddBagItem(ITEM_HONEY, 1) == TRUE)
+        {
+            GetMonNickname(&gPlayerParty[i], gStringVar2);
+            CopyItemName(ITEM_HONEY, gStringVar1);
+            LockForFieldEffect();
+
+            ShowFieldMessage(gText_MonGatheredHoney);
+            ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
+
+        }
+        
+
+    }
     
 }
 

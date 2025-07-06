@@ -398,6 +398,7 @@ const u8 gText_NoMoreRoomInBag[] = _("There is no more\nroom in the BAG.");
 const u8 gText_WithdrawHowMany[] = _("Withdraw how many\n{STR_VAR_1}(s)?");
 const u8 gText_WithdrewQuantItem[] = _("Withdrew {STR_VAR_2}\n{STR_VAR_1}(s).");
 const u8 gText_MonPickedUpItem[] = _("{STR_VAR_2} picked up\na {STR_VAR_1}.{PAUSE 0x50}");
+const u8 gText_MonGatheredHoney[] = _("{STR_VAR_2} picked up\nsome {STR_VAR_1}.{PAUSE 0x50}");
 const u8 gText_RockSmashFoundItem[] = _("After the dust cleared,\na {STR_VAR_1} was found!{PAUSE_UNTIL_PRESS}");
 const u8 gOtherText_Read[] = _("READ");
 const u8 gOtherText_MoveToBag[] = _("MOVE TO BAG");

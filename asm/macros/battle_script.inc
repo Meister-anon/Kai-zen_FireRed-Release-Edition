@@ -1240,7 +1240,9 @@
 	.byte 0xe4
 	.endm
 
-	.macro pickup	@no longer used, free space to replace
+	@was pickup made general category
+	@added back rn just for shuckle berry juice
+	.macro generateendbattleitem
 	.byte 0xe5
 	.endm
 

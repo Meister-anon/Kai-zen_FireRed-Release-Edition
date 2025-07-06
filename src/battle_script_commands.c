@@ -345,7 +345,7 @@ static void atkE1_trygetintimidatetarget(void);
 static void atkE2_switchoutabilities(void);
 static void atkE3_jumpifhasnohp(void);
 static void atkE4_getsecretpowereffect(void);
-static void atkE5_pickup(void);             //unused can replace
+static void atkE5_GenerateItem_BattleEnd(void);             //was pickup brought back for shuckly berry juice
 static void atkE6_docastformchangeanimation(void);
 static void atkE7_trycastformdatachange(void);
 static void atkE8_settypebasedhalvers(void);
@@ -605,7 +605,7 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     atkE2_switchoutabilities,
     atkE3_jumpifhasnohp,
     atkE4_getsecretpowereffect,
-    atkE5_pickup,   //unused
+    atkE5_GenerateItem_BattleEnd,   
     atkE6_docastformchangeanimation,
     atkE7_trycastformdatachange,
     atkE8_settypebasedhalvers,
@@ -19475,7 +19475,7 @@ static void atkE4_getsecretpowereffect(void)
 
 
 
-static void atkE5_pickup(void) //effect will go in battle_util.c end turn ability clause, this will be kept here to prevent need to reordder bs macros
+static void atkE5_GenerateItem_BattleEnd(void) //effect will go in battle_util.c end turn ability clause, this will be kept here to prevent need to reordder bs macros
 //why is this a bs command when the ability has no in battle effect?
 {//ok all this was almost a waste pick up doesn't work how I thought it did. -_- it doesn't have an effect on battle
     //but its effect is trigger by battle. I'm removing this and changing to a overworld/field effect function.
@@ -19485,53 +19485,50 @@ static void atkE5_pickup(void) //effect will go in battle_util.c end turn abilit
     //will add end turn effect to battle_util.c to pick up random use item if not holding anything.
     //and if succeeds anounce the picked up item and set to held item slot, like default function
     //SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sPickupItems[j]); 
+    CMD_ARGS();
 
-    /*s32 i;
-    u32 j;
+    s32 i;
     u16 species, heldItem;
     u32 ability;
+    u8 lvlDivBy10;
 
     for (i = 0; i < PARTY_SIZE; ++i)
     {
+
         species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
+        ability = GetMonAbility(&gPlayerParty[i]);
         heldItem = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
-        /*if (GetMonData(&gPlayerParty[i], MON_DATA_ABILITY_NUM) != ABILITY_NONE) //important need change this
-            ability = gBaseStats[species].abilities[1]; //well no mon have pipckup as hidden ability so this prob fine
-        else
-            ability = gBaseStats[species].abilities[0];
-        if (GetMonData(&gPlayerParty[i], MON_DATA_ABILITY_NUM) == ABILITY_NONE)
-            ability = gBaseStats[species].abilities[0];
-        else if (GetMonData(&gPlayerParty[i], MON_DATA_ABILITY_NUM) == 1)
-            ability = gBaseStats[species].abilities[1];
-        else if (GetMonData(&gPlayerParty[i], MON_DATA_ABILITY_NUM) == 2)
-            ability = gBaseStats[species].abilityHidden[0];
-        else
-            ability = gBaseStats[species].abilityHidden[1];
-
-        if (ability == ABILITY_PICKUP //&& /*species != SPECIES_NONE && species != SPECIES_EGG && //heldItem == ITEM_NONE //remove this later
-            && !(Random() % 6))    //random %10 is odds, its saying will trigger on a 10% chance when random returns 0
-        {
-            s32 random = Random() % 100; //then anothr set of rng, return a value betwen 0-99 and loops through pickup array until reach 
-            //and odds value greater than your percent chance
-
-            for (j = 0; j < ARRAY_COUNT(sPickupItems); ++j) //may add on to this, add better items
-                if (sPickupItems[j].chance > random)    //effect isn't really random, so want to change?, may make pick a value between 15 rathre than loop it
-                    break;//and exclusively for the tm return, I want to make it reset the itemid, so it returns a random tm/hm to get more use out of it
-            //SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sPickupItems[j]); 
-            if (AddBagItem(&sPickupItems[j], 1) == TRUE) 
-            {
-                //AddBagItem(&sPickupItems[j], 1);  think don't need this, believe its doing the add, and then filtering for success condition
-                GetMonNickname(&gPlayerParty[i], gStringVar2);
-                CopyItemName(&sPickupItems[j]), gStringVar1);
-                StringExpandPlaceholders(gStringVar4, gText_MonPickedUpItem);//most parts done, just need overworld textbox notification
-                ShowFieldAutoScrollMessage(gStringVar4);
-                
-            }
+        lvlDivBy10 = (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL)-1) / 10; //Moving this here makes it easier to add in abilities like Honey Gather. 
             
+        if (lvlDivBy10 > 9)
+            lvlDivBy10 = 9;
+
+        if (IsMonNuzlockeDead(&gPlayerParty[i])
+        || species == SPECIES_NONE
+        || species == SPECIES_EGG
+        || GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+            continue;
+                
+        if (species == SPECIES_SHUCKLE
+        && GetPocketByItemId(heldItem) == POCKET_BERRY_POUCH
+        && (Random() % 16) == 0)
+        {
+            heldItem = ITEM_BERRY_JUICE;
+            SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
         }//change this line to a script that will stop player, bufer found item to auto close window, and use AddBagItem, so it goes to bag.
         //this will allow actually running a held item on pickup mon, getting more use out of them
-    }*/
-    ++gBattlescriptCurrInstr;
+
+        else if (ability == ABILITY_HONEY_GATHER
+        && heldItem == ITEM_NONE)
+        {
+            if ((lvlDivBy10 + 1 ) * 5 > Random() % 100)
+            {
+                heldItem = ITEM_HONEY;
+                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+            }
+        }
+    }
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 

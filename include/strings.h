@@ -171,6 +171,7 @@ extern const u8 gText_NoMoreRoomInBag[];
 extern const u8 gText_WithdrawHowMany[];
 extern const u8 gText_WithdrewQuantItem[];
 extern const u8 gText_MonPickedUpItem[];
+extern const u8 gText_MonGatheredHoney[];
 extern const u8 gText_RockSmashFoundItem[];
 extern const u8 gText_WithdrawItem[];
 extern const u8 gText_Withdraw[];

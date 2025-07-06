@@ -6960,7 +6960,7 @@ BattleScript_LocalTrainerBattleWon::
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_PayDayMoneyPostBattle::
 	givepaydaymoney
-	@pickup
+	generateendbattleitem
 	end2
 
 BattleScript_LocalBattleLost::
@@ -7038,7 +7038,7 @@ BattleScript_BattleTowerTrainerBattleWon::
 	jumpifnotbattletype BATTLE_TYPE_DOUBLE, BattleScript_BattleTowerEtcTrainerBattleWonSkipText
 	printstring STRINGID_TRAINER2CLASS
 BattleScript_BattleTowerEtcTrainerBattleWonSkipText::
-	@pickup
+	generateendbattleitem
 	end2
 
 BattleScript_SmokeBallEscape::
