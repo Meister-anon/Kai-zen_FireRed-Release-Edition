@@ -1157,7 +1157,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(97, 92, 87, 76, 85, 105),
-        MON_TYPES(TYPE_POISON, TYPE_NORMAL),
+        MON_TYPES(TYPE_POISON, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 227,
         //.evYield_HP = 3,
@@ -1184,6 +1184,7 @@ const struct BaseStats gBaseStats[] =
     //has amazing resistences
     //normal is ghost immunity and fairy fighting weakess for more dmg on coverage
     //while ground is elec immunity fire flying fighting poison rock resistence for water grass ice weakness
+    //is also only ground poison so think will just buff stats and leave ground?
 
     [SPECIES_NIDORAN_M] =
     {
