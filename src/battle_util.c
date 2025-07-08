@@ -8515,8 +8515,6 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && gBattleMons[battler].hp <= gBattleMons[battler].maxHP / 2
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                     && !(gBattleMons[battler].status1 & STATUS1_SLEEP) 
-                    && (gDisableStructs[battler].FrozenTurns == 0) //frozen solid
-
                     && (gDisableStructs[battler].FrozenTurns == 0) //not frozen solid
                     // Not currently held by Sky Drop
                     && !(gStatuses3[battler] & STATUS3_SKY_DROPPED))
@@ -8524,7 +8522,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_EMERGENCY_EXIT;
                     ++effect;
                 }//removed multihit check for both as just made not activate if hit by multihit
-                break;
+                break;//did I do end turn or just after it attacks? hm ok I have both end turn and move end logic?
             case ABILITY_EMERGENCY_EXIT: //change to switch after next turn move end w priority ahnd dmg boost
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)//will attempt setup after can build/compile
                     && TARGET_TURN_DAMAGED
