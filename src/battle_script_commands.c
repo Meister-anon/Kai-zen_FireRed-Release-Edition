@@ -19791,7 +19791,8 @@ static void atkEF_handleballthrow(void) //important changed
             u32 odds;
             u8 catchRate;
             u16 targetSpecies = GetFormChangeTargetSpecies(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], FORM_CHANGE_END_BATTLE, 0);
-
+            gSavedPartyCount = CalculatePlayerPartyCount();
+            
             //safari catch rate is constantly shfiting so can't(?)
             //use fixed value for it
             if (gLastUsedItem == ITEM_SAFARI_BALL)
@@ -19920,7 +19921,7 @@ static void atkEF_handleballthrow(void) //important changed
                 MarkBattlerForControllerExec(gActiveBattler);
                 gBattlescriptCurrInstr = BattleScript_ExpOnCatch;
                 SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_POKEBALL, &gLastUsedItem);
-                if (CalculatePlayerPartyCount() == 6)
+                if (CalculatePlayerPartyCount() == PARTY_SIZE)
                     gBattleCommunication[MULTISTRING_CHOOSER] = 0; // party full
                 else
                     gBattleCommunication[MULTISTRING_CHOOSER] = 1; //add to party
@@ -19934,7 +19935,7 @@ static void atkEF_handleballthrow(void) //important changed
                 MarkBattlerForControllerExec(gActiveBattler);
                 gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
                 SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_POKEBALL, &gLastUsedItem);
-                if (CalculatePlayerPartyCount() == 6)
+                if (CalculatePlayerPartyCount() == PARTY_SIZE)
                     gBattleCommunication[MULTISTRING_CHOOSER] = 0; // party full
                 else
                     gBattleCommunication[MULTISTRING_CHOOSER] = 1; //add to party
@@ -20082,11 +20083,12 @@ static void atkF1_trysetcaughtmondexflags(void)
 
 //think should prob change these too 
 //if plan to catch in doubles
+//unsure why this interupts battle pc callback
 static void atkF2_displaydexinfo(void)
 {
     CMD_ARGS();
     u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_SPECIES, NULL);
-
+    
     switch (gBattleCommunication[0])
     {
     case 0:
@@ -20120,14 +20122,21 @@ static void atkF2_displaydexinfo(void)
     case 4:
         if (!IsDma3ManagerBusyWithBgCopy())
         {
-            CreateMonPicSprite_HandleDeoxys(species,
-                                            FALSE,
-                                            gBattleMons[gCatchTargetId].personality,
-                                            TRUE,
-                                            120,
-                                            64,
-                                            0,
-                                            0xFFFF);
+            //surprising but this is the issue w the callback?
+            //couldn't find fix so just turn off if should activate callback
+            //best I could find is it was something directly tied to alloc 
+            //in createmonpic
+            if (!(HasPlayerUnlockedMobilePcAccess() && gSavedPartyCount == PARTY_SIZE))
+            {
+                CreateMonPicSprite_HandleDeoxys(species,
+                                                FALSE,
+                                                gBattleMons[gCatchTargetId].personality,
+                                                TRUE,
+                                                120,
+                                                64,
+                                                0,
+                                                0xFFFF);
+            }                
             CpuFill32(0, gPlttBufferFaded, BG_PLTT_SIZE);
             BeginNormalPaletteFade(0x1FFFF, 0, 0x10, 0, RGB_BLACK);
             ShowBg(0);

@@ -65,20 +65,11 @@ static bool16 DecompressPic(u16 species, u32 personality, bool8 isFrontPic, u8 *
 {
     if (!isTrainer)
     {
-        if (isFrontPic)
-        {
-            if (!ignoreDeoxys)
-                LoadSpecialPokePic( dest, species, personality, isFrontPic);
-            else
-                LoadSpecialPokePic_DontHandleDeoxys( dest, species, personality, isFrontPic);
-        }
+        if (!ignoreDeoxys)
+            LoadSpecialPokePic(dest, species, personality, isFrontPic);
         else
-        {
-            if (!ignoreDeoxys)
-                LoadSpecialPokePic( dest, species, personality, isFrontPic);
-            else
-                LoadSpecialPokePic_DontHandleDeoxys( dest, species, personality, isFrontPic);
-        }
+            LoadSpecialPokePic_DontHandleDeoxys(dest, species, personality, isFrontPic);
+
     }
     else
     {
@@ -162,28 +153,46 @@ u16 CreatePicSprite(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPi
     {
         return 0xFFFF;
     }
+
+    //ok something in this block is the problem
+    //is the problem with alloc? idk why this is doing this
     framePics = Alloc(4 * PIC_SPRITE_SIZE);
     if (!framePics)
     {
         return 0xFFFF;
-    }
+    }   
+
     images = Alloc(4 * sizeof(struct SpriteFrameImage));
     if (!images)
     {
         Free(framePics);//never frees images is that an issue?
         return 0xFFFF;
     }
+    //hmm seems both of these cause break in callback?
+    // framePics and/or images seems to break it?
+
+
+
     if (DecompressPic(species, personality, isFrontPic, framePics, isTrainer, ignoreDeoxys))
     {
         // debug trap?
         return 0xFFFF;
     }
+
+    //default value is 4
+    //but according to emerald the value represents max_pic_frames
+    //and I believe that's mostly an emerald thing
+    //as fireed doesn't have pokemon animations?
+    //EE each pokemon has 2 frames
+    //idk what this means for trainers
+    //without the 4 * and loop it still loads pics? 
+    //so idk if this is at all necessary
     for (j = 0; j < 4; j ++)
     {
         images[j].data = framePics + PIC_SPRITE_SIZE * j;
         images[j].size = PIC_SPRITE_SIZE;
     }
-    sCreatingSpriteTemplate.tileTag = 0xFFFF;
+    sCreatingSpriteTemplate.tileTag = TAG_NONE;
     sCreatingSpriteTemplate.oam = &sOamData_Normal;
     AssignSpriteAnimsTable(isTrainer);
     sCreatingSpriteTemplate.images = images;
@@ -191,7 +200,7 @@ u16 CreatePicSprite(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPi
     sCreatingSpriteTemplate.callback = DummyPicSpriteCallback;
     LoadPicPaletteByTagOrSlot(species, isShiny, personality, paletteSlot, paletteTag, isTrainer);
     spriteId = CreateSprite(&sCreatingSpriteTemplate, x, y, 0);
-    if (paletteTag == 0xFFFF)
+    if (paletteTag == TAG_NONE)
     {
         gSprites[spriteId].oam.paletteNum = paletteSlot;
     }

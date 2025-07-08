@@ -1294,9 +1294,9 @@
 	.byte 0xf0
 	.endm
 
-	.macro trysetcaughtmondexflags jumpnstr:req
+	.macro trysetcaughtmondexflags jumpInstr:req
 	.byte 0xf1
-	.4byte \jumpnstr
+	.4byte \jumpInstr
 	.endm
 
 	.macro displaydexinfo

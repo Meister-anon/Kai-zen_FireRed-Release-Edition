@@ -77,9 +77,6 @@ BattleScript_CaughtPokemonSkipNewDex::
 	printstring STRINGID_GIVENICKNAMECAPTURED
 	waitstate
 	setbyte gBattleCommunication, 0
-	@needed to properly track num mon before caught mon added to team
-	@vsonic will prob add new ewram value eon cleanup
-	copybyte gSavedPartyCount, gPlayerPartyCount
 	trygivecaughtmonnick BattleScript_CaughtPokemonSkipNickname
 	givecaughtmon
 	printfromtable gCaughtMonStringIds
@@ -284,7 +281,6 @@ BattleScript_CaughtPokemonSkipNewDex2::
 	printstring STRINGID_GIVENICKNAMECAPTURED
 	waitstate
 	setbyte gBattleCommunication, 0
-	copybyte gSavedPartyCount, gPlayerPartyCount @created savedpartycount to properly track num mon before catch
 	trygivecaughtmonnick BattleScript_CaughtPokemonSkipNickname
 	givecaughtmon
 	printfromtable gCaughtMonStringIds
