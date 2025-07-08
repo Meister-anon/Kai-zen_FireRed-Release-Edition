@@ -1,7 +1,6 @@
 #ifndef GUARD_MALLOC_H
 #define GUARD_MALLOC_H
 
-#include "global.h"
 
 #define HEAP_SIZE 0x1C000
 #define malloc Alloc
@@ -14,11 +13,14 @@
     ptr = NULL;                         \
 }
 
+#define TRY_FREE_AND_SET_NULL(ptr) if (ptr != NULL) FREE_AND_SET_NULL(ptr)
+
 #define MALLOC_SYSTEM_ID 0xA3A3
 
-struct MemBlock {
+struct MemBlock
+{
     // Whether this block is currently allocated.
-    bool16 flag:1;
+    u16 allocated:1;
 
     u16 unused_00:4;
 
@@ -44,22 +46,23 @@ struct MemBlock {
     u8 data[0];
 };
 
+
 #if TESTING || !defined(NDEBUG)
 
 #define Alloc(size) Alloc_(size, __FILE__ ":" STR(__LINE__))
 #define AllocZeroed(size) AllocZeroed_(size, __FILE__ ":" STR(__LINE__))
 
-/*#else
+#else
 
 #define Alloc(size) Alloc_(size, NULL)
 #define AllocZeroed(size) AllocZeroed_(size, NULL)
-*/
+
 #endif
 
 
-extern u8 gHeap[];
-void *Alloc(u32 size);
-void *AllocZeroed(u32 size);
+extern u8 gHeap[HEAP_SIZE];
+void *Alloc_(u32 size, const char *location);
+void *AllocZeroed_(u32 size, const char *location);
 void Free(void *pointer);
 void InitHeap(void *pointer, u32 size);
 
