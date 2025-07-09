@@ -493,8 +493,8 @@ static void TeachyTvMainCallback(void)
         ScheduleBgCopyTilemapToVram(2);
         ScheduleBgCopyTilemapToVram(3);
         SetHelpContextDontCheckBattle(HELPCONTEXT_BAG);
-        BlendPalettes(0xFFFFFFFF, 0x10, 0);
-        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0x10, 0, 0);
+        BlendPalettes(PALETTES_ALL, 0x10, 0);
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, 0);
         SetVBlankCallback(TeachyTvVblankHandler);
         SetMainCallback2(TeachyTvCallback);
         break;
@@ -686,7 +686,7 @@ static void TeachyTvFree(void)
 
 static void TeachyTvQuitBeginFade(u8 taskId)
 {
-    BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 0x10, 0);
+    BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, 0);
     gTasks[taskId].func = TeachyTvQuitFadeControlAndTaskDel;
 }
 

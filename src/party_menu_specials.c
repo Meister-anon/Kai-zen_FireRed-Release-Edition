@@ -9,16 +9,16 @@
 #include "event_data.h"
 #include "constants/moves.h"
 
-static void sub_80BF97C(u8 taskId);
+static void Task_ChoosePartyMon(u8 taskId);
 
 void ChoosePartyMon(void)
 {
     u8 taskId;
 
     LockPlayerFieldControls();
-    taskId = CreateTask(sub_80BF97C, 10);
+    taskId = CreateTask(Task_ChoosePartyMon, 10);
     gTasks[taskId].data[0] = PARTY_MENU_TYPE_CHOOSE_MON;
-    BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 0x10, RGB_BLACK);
+    BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
 }
 
 void SelectMoveTutorMon(void)
@@ -26,12 +26,12 @@ void SelectMoveTutorMon(void)
     u8 taskId;
 
     LockPlayerFieldControls();
-    taskId = CreateTask(sub_80BF97C, 10);
+    taskId = CreateTask(Task_ChoosePartyMon, 10);
     gTasks[taskId].data[0] = PARTY_MENU_TYPE_MOVE_RELEARNER;
-    BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 0x10, RGB_BLACK);
+    BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
 }
 
-static void sub_80BF97C(u8 taskId)
+static void Task_ChoosePartyMon(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
@@ -44,7 +44,7 @@ static void sub_80BF97C(u8 taskId)
 void SelectMoveDeleterMove(void)
 {
     ShowSelectMovePokemonSummaryScreen(gPlayerParty, gSpecialVar_0x8004, gPlayerPartyCount - 1, CB2_ReturnToField, 0);
-    SetPokemonSummaryScreenMode(3);
+    SetPokemonSummaryScreenMode(PSS_MODE_FORGET_MOVE);
     gFieldCallback = FieldCB_ContinueScriptHandleMusic;
 }
 

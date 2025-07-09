@@ -2499,7 +2499,7 @@ static void Task_DexScreen_CategorySubmenu(u8 taskId)
             else*/
             {
                 
-                //BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
+                //BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
                 //PlaySE(SE_PC_OFF);
                 //Task_SwitchScreensFromEvolutionScreen();
                 DestroySprite(&gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId]); //clear the arrow
@@ -3390,7 +3390,7 @@ static void Task_DexScreen_ShowMonPage(u8 taskId)//think task show dex entry fro
             else*/
             {
                 
-                //BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
+                //BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
                 //PlaySE(SE_PC_OFF);
                 //Task_SwitchScreensFromEvolutionScreen();
                 DestroySprite(&gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId]); //clear the arrow
@@ -7800,7 +7800,7 @@ static void Task_HandleEvolutionScreenInput(u8 taskId)
         else
         {
             VarSet(VAR_0x408C, 0);
-            BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
             gTasks[taskId].func = Task_ExitEvolutionScreen;
             PlaySE(SE_PC_OFF);
             return;

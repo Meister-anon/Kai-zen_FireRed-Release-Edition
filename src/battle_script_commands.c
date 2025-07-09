@@ -20092,7 +20092,7 @@ static void atkF2_displaydexinfo(void)
     switch (gBattleCommunication[0])
     {
     case 0:
-        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 0x10, RGB_WHITE);
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_WHITE);
         ++gBattleCommunication[0];
         break;
     case 1:

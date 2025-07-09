@@ -438,8 +438,8 @@ static void sub_8147DA0(u8 taskId)
     case 3:
         if (IsLinkTaskFinished())
         {
-            BlendPalettes(0xFFFFFFFF, 16, RGB_BLACK);
-            BeginNormalPaletteFade(0xFFFFFFFF, -1, 16, 0, RGB_BLACK);
+            BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
+            BeginNormalPaletteFade(PALETTES_ALL, -1, 16, 0, RGB_BLACK);
             SetVBlankCallback(sub_8147D58);
             gUnknown_203F3D4->unk8++;
         }
@@ -1311,7 +1311,7 @@ static bool32 sub_8148D5C(void)
     case 3:
         if (++gUnknown_203F3D4->unk3C > 120)
         {
-            BeginNormalPaletteFade(0xFFFFFFFF, -1, 0, 16, RGB_BLACK);
+            BeginNormalPaletteFade(PALETTES_ALL, -1, 0, 16, RGB_BLACK);
             gUnknown_203F3D4->unkA++;
         }
         break;

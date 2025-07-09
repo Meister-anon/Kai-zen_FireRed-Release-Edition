@@ -186,7 +186,7 @@ s32 FadeToWonderCardMenu(void)
     switch(sMEventScreenData->state)
     {
         case 0:
-            BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
             break;
         case 1:
             if (UpdatePaletteFade())
@@ -230,7 +230,7 @@ s32 FadeToWonderCardMenu(void)
             ShowBg(2);
             gPaletteFade.bufferTransferDisabled = FALSE;
             sub_8146060();
-            BeginNormalPaletteFade(0xFFFFFFFF, 0, 16, 0, RGB_BLACK);
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
             UpdatePaletteFade();
             break;
         default:
@@ -250,7 +250,7 @@ s32 FadeOutFromWonderCard(bool32 flag)
     switch (sMEventScreenData->state)
     {
         case 0:
-            BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
             break;
         case 1:
             if (UpdatePaletteFade())
@@ -280,7 +280,7 @@ s32 FadeOutFromWonderCard(bool32 flag)
             break;
         case 6:
             CopyBgTilemapBufferToVram(0);
-            BeginNormalPaletteFade(0xFFFFFFFF, 0, 16, 0, RGB_BLACK);
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
             break;
         default:
             if (UpdatePaletteFade())

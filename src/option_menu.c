@@ -597,7 +597,7 @@ static void Task_OptionMenu(u8 taskId)
     switch (sOptionMenuPtr->loadState)
     {
     case 0:
-        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0x10, 0, RGB_BLACK);
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, RGB_BLACK);
         OptionMenu_SetVBlankCallback();
         sOptionMenuPtr->loadState++;
         break;
@@ -636,7 +636,7 @@ static void Task_OptionMenu(u8 taskId)
 
         break; //break for case 2 of main switch
     case 3:
-        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 0x10, RGB_BLACK);
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
         sOptionMenuPtr->loadState++;
         break;
     case 4:

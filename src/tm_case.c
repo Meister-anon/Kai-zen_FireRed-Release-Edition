@@ -657,11 +657,11 @@ static bool8 DoSetUpTMCaseUI(void)
         gMain.state++;
         break;
     case 17:
-        BlendPalettes(0xFFFFFFFF, 16, 0);
+        BlendPalettes(PALETTES_ALL, 16, 0);
         gMain.state++;
         break;
     case 18:
-        BeginNormalPaletteFade(0xFFFFFFFF, 0, 16, 0, RGB_BLACK);
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
         gMain.state++;
         break;
     default:
@@ -1149,7 +1149,7 @@ static void DestroyTMCaseBuffers(void)
 
 static void Task_BeginFadeOutFromTMCase(u8 taskId)
 {
-    BeginNormalPaletteFade(0xFFFFFFFF, -2, 0, 16, RGB_BLACK);
+    BeginNormalPaletteFade(PALETTES_ALL, -2, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_FadeOutAndCloseTMCase;
 }
 
@@ -1714,7 +1714,7 @@ static void Task_TMCaseDude_Playback(u8 taskId)
             Free(sPokedudePackBackup);
             CpuFastCopy(gPlttBufferFaded, gPlttBufferUnfaded, 0x400);
             CB2_SetUpReshowBattleScreenAfterMenu();
-            BeginNormalPaletteFade(0xFFFFFFFF, -2, 0, 16, 0);
+            BeginNormalPaletteFade(PALETTES_ALL, -2, 0, 16, 0);
             data[8]++;
         }
         break;

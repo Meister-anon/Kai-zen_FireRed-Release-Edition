@@ -535,7 +535,7 @@ int BerryCrush_InitBgs(void)
         break;
     case 9:
         gPaletteFade.bufferTransferDisabled = FALSE;
-        BlendPalettes(0xFFFFFFFF, 16, RGB_BLACK);
+        BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
         ShowBg(0);
         ShowBg(1);
         ShowBg(2);
@@ -567,7 +567,7 @@ int BerryCrush_TeardownBgs(void)
         // fall through. The original author forgot to use "break" here
         // because this will call BeginNormalPaletteFade() twice.
     case 2:
-        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
         UpdatePaletteFade();
         break;
     case 3:

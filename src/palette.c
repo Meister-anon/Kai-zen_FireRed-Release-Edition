@@ -680,7 +680,7 @@ static u8 UpdateFastPaletteFade(void)
             CpuCopy32(gPlttBufferUnfaded, gPlttBufferFaded, PLTT_SIZE);
             break;
         case FAST_FADE_OUT_TO_WHITE:
-            CpuFill32(0xFFFFFFFF, gPlttBufferFaded, PLTT_SIZE);
+            CpuFill32(PALETTES_ALL, gPlttBufferFaded, PLTT_SIZE);
             break;
         case FAST_FADE_OUT_TO_BLACK:
             CpuFill32(0x00000000, gPlttBufferFaded, PLTT_SIZE);

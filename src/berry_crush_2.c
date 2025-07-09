@@ -834,13 +834,13 @@ static u32 BerryCrushCommand_FinishGame(struct BerryCrushGame * game, UNUSED u8 
     case 0:
         game->gameState = 8;
         PlaySE(SE_M_STRENGTH);
-        BlendPalettes(0xFFFFFFFF, 8, RGB(31, 31, 0));
+        BlendPalettes(PALETTES_ALL, 8, RGB(31, 31, 0));
         game->spritesManager.animBerryIdx = 2;
         break;
     case 1:
         if (--game->spritesManager.animBerryIdx != 255)
             return 0;
-        BlendPalettes(0xFFFFFFFF, 0, RGB(31, 31, 0));
+        BlendPalettes(PALETTES_ALL, 0, RGB(31, 31, 0));
         game->spritesManager.unk1 = 4;
         game->spritesManager.animBerryIdx = 0;
         game->spritesManager.unk2 = gUnknown_846E2F0[game->spritesManager.unk1][0];
@@ -891,13 +891,13 @@ static u32 BerryCrushCommand_HandleTimeUp(struct BerryCrushGame * game, u8 *para
     case 0:
         game->gameState = 9;
         PlaySE(SE_FAILURE);
-        BlendPalettes(0xFFFFFFFF, 8, RGB(31, 0, 0));
+        BlendPalettes(PALETTES_ALL, 8, RGB(31, 0, 0));
         game->spritesManager.animBerryIdx = 4;
         break;
     case 1:
         if (--game->spritesManager.animBerryIdx != 255)
             return 0;
-        BlendPalettes(0xFFFFFFFF, 0, RGB(31, 0, 0));
+        BlendPalettes(PALETTES_ALL, 0, RGB(31, 0, 0));
         game->spritesManager.animBerryIdx = 0;
         break;
     case 2:
@@ -1291,7 +1291,7 @@ static u32 BerryCrushCommand_FadeOutToPlayAgain(struct BerryCrushGame * game, UN
     switch (game->cmdState)
     {
     case 0:
-        BeginNormalPaletteFade(0xFFFFFFFF, 1, 0, 0x10, RGB_BLACK);
+        BeginNormalPaletteFade(PALETTES_ALL, 1, 0, 0x10, RGB_BLACK);
         UpdatePaletteFade();
         break;
     case 1:
@@ -1301,7 +1301,7 @@ static u32 BerryCrushCommand_FadeOutToPlayAgain(struct BerryCrushGame * game, UN
     case 2:
         ClearDialogWindowAndFrame(0, TRUE);
         sub_814DA04(game);
-        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0x10, 0, RGB_BLACK);
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, RGB_BLACK);
         UpdatePaletteFade();
         break;
     case 3:

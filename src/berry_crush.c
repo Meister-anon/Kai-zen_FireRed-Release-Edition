@@ -89,7 +89,7 @@ void StartBerryCrush(MainCallback callback)
     sBerryCrushGamePtr->gameState = 1;
     sBerryCrushGamePtr->nextCmd = BCCMD_BeginNormalPaletteFade;
     sBerryCrushGamePtr->afterPalFadeCmd = BCCMD_SignalReadyToBegin;
-    BerryCrush_SetPaletteFadeParams(sBerryCrushGamePtr->commandParams, TRUE, 0xFFFFFFFF, 0, 16, 0, RGB_BLACK);
+    BerryCrush_SetPaletteFadeParams(sBerryCrushGamePtr->commandParams, TRUE, PALETTES_ALL, 0, 16, 0, RGB_BLACK);
     BerryCrush_RunOrScheduleCommand(BCCMD_InitGfx, 1, sBerryCrushGamePtr->commandParams);
     SetMainCallback2(CB2_BerryCrush);
     sBerryCrushGamePtr->taskId = CreateTask(Task_RunBerryCrushGame, 8);
@@ -105,7 +105,7 @@ static void CB2_ReturnToBerryCrushGameFromBerryPouch(void)
     sBerryCrushGamePtr->unk68.as_four_players.others[sBerryCrushGamePtr->localId].berryId = gSpecialVar_ItemId - FIRST_BERRY_INDEX;
     sBerryCrushGamePtr->nextCmd = BCCMD_BeginNormalPaletteFade;
     sBerryCrushGamePtr->afterPalFadeCmd = BCCMD_WaitForOthersToPickBerries;
-    BerryCrush_SetPaletteFadeParams(sBerryCrushGamePtr->commandParams, FALSE, 0xFFFFFFFF, 0, 16, 0, RGB_BLACK);
+    BerryCrush_SetPaletteFadeParams(sBerryCrushGamePtr->commandParams, FALSE, PALETTES_ALL, 0, 16, 0, RGB_BLACK);
     BerryCrush_RunOrScheduleCommand(BCCMD_InitGfx, 1, sBerryCrushGamePtr->commandParams);
     sBerryCrushGamePtr->taskId = CreateTask(Task_RunBerryCrushGame, 8);
     SetMainCallback2(CB2_BerryCrush);
