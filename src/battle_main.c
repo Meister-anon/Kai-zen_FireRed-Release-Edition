@@ -232,6 +232,9 @@ EWRAM_DATA u16 gLastUsedBall = 0;    //need to implement add in these 2 somewher
 //EWRAM_DATA u16 gLastThrownBall = 0; //don't need both of these removing, search this to setup throw ball callback in battle
 EWRAM_DATA bool8 gSwapDamageCategory = FALSE; // Photon Geyser, Shell Side Arm, Light That Burns the Sky
 EWRAM_DATA struct FormDataStorage gFormSwapMoveBuffer[PARTY_SIZE][MAX_FORM_DATA_STORED] = {0};
+//store data for mon long as its in party
+//if put in pc free the space/reset to 0 for said slot
+//only attempt store data for mon if it has a form
 
 void (*gPreBattleCallback1)(void);
 void (*gBattleMainFunc)(void);
