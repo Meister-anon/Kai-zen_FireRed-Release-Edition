@@ -232,7 +232,7 @@
 #define ABILITY_QUEENLY_MAJESTY 215
 #define ABILITY_INNARDS_OUT 216
 #define ABILITY_DANCER 217
-#define ABILITY_BATTERY 218
+#define ABILITY_BATTERY 218 //dex entry charjabug it power up vikavolt so does version of commander of tatsugiri want do just for charjabug
 #define ABILITY_FLUFFY 219
 #define ABILITY_DAZZLING 220
 #define ABILITY_SOUL_HEART 221

@@ -5270,7 +5270,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Ledian"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(55, 85, 65, 95, 35, 135),
+         STATS(55, 75, 65, 95, 35, 135),
         MON_TYPES(TYPE_BUG, TYPE_NORMAL),
         .catchRate = 90,
         .expYield = 137,
@@ -5295,6 +5295,8 @@ const struct BaseStats gBaseStats[] =
     //think want to give victory star?
     //iron punch is cool but doesn't really suit image,
     //this way could be the hero and niche support mon
+    //think I may want this at 75 attack actually, leavs room to ev train as well
+    //its not meant to have strong atk and its pretty close to base 90
 
     [SPECIES_SPINARAK] =
     {
@@ -24187,7 +24189,7 @@ const struct BaseStats gBaseStats[] =
         77,
         70,
         90,
-        100,
+        73,
         135,
         75
         ),
@@ -24224,6 +24226,8 @@ const struct BaseStats gBaseStats[] =
     //also look at why thunder wave didnt work on ground
     //pretty sure not suppsoed to have type based immunity for status moves
     //and if I only have it on ground it doesn't make much sense?
+    //ignroing above for battery change think will have double speed
+    //then raise every other stat 1 stage,
 
     [SPECIES_CRABRAWLER] =
     {

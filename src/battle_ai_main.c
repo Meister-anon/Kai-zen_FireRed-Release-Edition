@@ -764,6 +764,8 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     break;
                 }
                 break;
+            case ABILITY_TERAVOLT:
+            case ABILITY_VOLT_DASH:
             case ABILITY_VOLT_ABSORB:
             case ABILITY_MOTOR_DRIVE:
             case ABILITY_LIGHTNING_ROD:
@@ -776,6 +778,8 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 if (moveType == TYPE_WATER)
                     RETURN_SCORE_MINUS(20);
                 break;
+            case ABILITY_TURBOBLAZE:
+            case ABILITY_LAVA_FISSURE:
             case ABILITY_FLASH_FIRE:
                 if (moveType == TYPE_FIRE)
                     RETURN_SCORE_MINUS(20);
@@ -890,6 +894,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 case ABILITY_VOLT_ABSORB:
                 case ABILITY_VOLT_DASH:
                 case ABILITY_MOTOR_DRIVE:
+                case ABILITY_TERAVOLT:
                 case ABILITY_LIGHTNING_ROD:
                     if (moveType == TYPE_ELECTRIC && !IsMoveRedirectionPrevented(move, AI_DATA->abilities[battlerAtk]))
                         RETURN_SCORE_MINUS(20);
@@ -2877,6 +2882,7 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             {
                 switch (atkPartnerAbility)
                 {
+                case ABILITY_VOLT_DASH:
                 case ABILITY_VOLT_ABSORB:
                     if (!(AI_THINKING_STRUCT->aiFlags & AI_FLAG_HP_AWARE))
                     {
@@ -2893,6 +2899,7 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     //since its negative score/disincentavizing use and its not a bad move if
                     //its also damaging the enemy
                     //idk may just remove it all vsonic
+                case ABILITY_TERAVOLT:
                 case ABILITY_LIGHTNING_ROD:
                     if (moveType == TYPE_ELECTRIC
                       && HasMoveWithSplit(battlerAtkPartner, SPLIT_SPECIAL)
@@ -2923,6 +2930,8 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     }
                     RETURN_SCORE_MINUS(10);
                     break;
+                case ABILITY_TURBOBLAZE:
+                case ABILITY_LAVA_FISSURE:
                 case ABILITY_FLASH_FIRE:
                     if (moveType == TYPE_FIRE
                       && HasMoveWithType(battlerAtkPartner, TYPE_FIRE)
@@ -4683,6 +4692,8 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         break;
     case EFFECT_ION_DELUGE:
         if ((AI_DATA->abilities[battlerAtk] == ABILITY_VOLT_ABSORB
+          || AI_DATA->abilities[battlerAtk] == ABILITY_VOLT_DASH
+          || AI_DATA->abilities[battlerAtk] == ABILITY_TERAVOLT
           || AI_DATA->abilities[battlerAtk] == ABILITY_MOTOR_DRIVE
           || AI_DATA->abilities[battlerAtk] == ABILITY_LIGHTNING_ROD
           || AI_DATA->abilities[battlerAtk] == ABILITY_PLASMA_OVERDRIVE)
@@ -4765,6 +4776,8 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     case EFFECT_ELECTRIFY:
         if (predictedMove != MOVE_NONE
          && (AI_DATA->abilities[battlerAtk] == ABILITY_VOLT_ABSORB
+          || AI_DATA->abilities[battlerAtk] == ABILITY_VOLT_DASH
+          || AI_DATA->abilities[battlerAtk] == ABILITY_TERAVOLT
           || AI_DATA->abilities[battlerAtk] == ABILITY_MOTOR_DRIVE
           || AI_DATA->abilities[battlerAtk] == ABILITY_LIGHTNING_ROD
           || AI_DATA->abilities[battlerAtk] == ABILITY_PLASMA_OVERDRIVE))

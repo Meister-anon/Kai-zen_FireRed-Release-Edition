@@ -456,6 +456,8 @@ const u16 gAbilitiesAffectedByMoldBreaker[] =
     ABILITY_FOREWARN,
     //ABILITY_LEVITATE,
     ABILITY_LIGHTNING_ROD,
+    ABILITY_TERAVOLT,
+    ABILITY_TURBOBLAZE,
     ABILITY_PLASMA_OVERDRIVE, //a bit weird since is itself a moldbreaker abiltity but makes sense/good balance
     ABILITY_LIMBER,
     ABILITY_MAGMA_ARMOR,
@@ -7929,6 +7931,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     if (moveType == TYPE_ELECTRIC)
                         effect = 2, statId = STAT_SPEED;
                     break;
+                case ABILITY_TERAVOLT:
                 case ABILITY_LIGHTNING_ROD:
                     if (moveType == TYPE_ELECTRIC)
                         effect = 2, statId = STAT_SPATK;
@@ -7950,6 +7953,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 if (gBattleMoves[gCurrentMove].flags & FLAG_WIND_MOVE && !(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove) & MOVE_TARGET_USER))
                     effect = 2, statId = STAT_ATK;
                 break;
+                case ABILITY_TURBOBLAZE:
                 case ABILITY_LAVA_FISSURE:
                 case ABILITY_FLASH_FIRE:
                     if ((moveType == TYPE_FIRE) && !((gBattleMons[battler].status1 & STATUS1_FREEZE)))// && B_FLASH_FIRE_FROZEN <= GEN_4))
@@ -13480,6 +13484,7 @@ bool32 DoesBattlerAbilityAbsorbMoveType(u8 moveTarget, u8 MoveType)
                 case ABILITY_VOLT_DASH:
                 case ABILITY_VOLT_ABSORB:
                 case ABILITY_MOTOR_DRIVE:
+                case ABILITY_TERAVOLT:
                 case ABILITY_LIGHTNING_ROD:
                 case ABILITY_PLASMA_OVERDRIVE:
                     return TRUE;
@@ -13504,6 +13509,7 @@ bool32 DoesBattlerAbilityAbsorbMoveType(u8 moveTarget, u8 MoveType)
             switch (TargetAbility)
             {
                 case ABILITY_FLASH_FIRE:
+                case ABILITY_TURBOBLAZE:
                 case ABILITY_LAVA_FISSURE:
                 case ABILITY_RISING_PHOENIX:
                 case ABILITY_PLASMA_OVERDRIVE:
@@ -13594,6 +13600,7 @@ bool32 CanAbilityAbsorb(u8 MoveUser, u8 AbilityUser, u8 MoveType)
                 switch (TargetAbility)
                 {
                     case ABILITY_MOTOR_DRIVE:
+                    case ABILITY_TERAVOLT:
                     case ABILITY_VOLT_DASH:
                     case ABILITY_VOLT_ABSORB:
                     case ABILITY_LIGHTNING_ROD:
@@ -13622,6 +13629,7 @@ bool32 CanAbilityAbsorb(u8 MoveUser, u8 AbilityUser, u8 MoveType)
                 switch (TargetAbility)
                 {
                     case ABILITY_FLASH_FIRE:
+                    case ABILITY_TURBOBLAZE:
                     case ABILITY_LAVA_FISSURE:
                     case ABILITY_RISING_PHOENIX:
                     case ABILITY_PLASMA_OVERDRIVE:
