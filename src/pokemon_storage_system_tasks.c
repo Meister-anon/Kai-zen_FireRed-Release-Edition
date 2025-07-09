@@ -532,10 +532,10 @@ static void Cb_InitPSS(u8 taskId)
             switch (sWhichToReshow)
             {
             case 1:
-                sub_8093660();
+                LoadSavedMovingMon();
                 break;
             case 0:
-                sub_80937B4();
+                SetSelectionAfterSummaryScreen();
                 break;
             case 2:
                 GiveChosenBagItem();
@@ -821,10 +821,6 @@ static void Cb_MainPSS(u8 taskId)
             PlaySE(SE_SELECT);
             SetPSSCallback(Cb_SwitchSelectedItem);
             break;
-        case INPUT_DELETE_MOVE:
-        case INPUT_RELEARN_MOVE:
-            SetPSSCallback(Cb_OnBPressed); //maybe lacking input logic is what caused itto break?
-            break;
         case INPUT_MULTIMOVE_START:
             PlaySE(SE_SELECT);
             MultiMove_SetFunction(MULTIMOVE_START);
@@ -1017,11 +1013,11 @@ static void Cb_OnSelectedMon(u8 taskId)
         }
         break;
     case 1: // debug?
-        if (!sub_8094F90())
+        if (!IsMenuLoading())
             gPSSData->state = 2;
         break;
     case 2:
-        switch (sub_8094F94())
+        switch (HandleMenuInput())
         {
         case MENU_B_PRESSED:
         case  PC_TEXT_CANCEL:
@@ -1124,9 +1120,9 @@ static void Cb_OnSelectedMon(u8 taskId)
         case PC_TEXT_DELETE_MOVE:
         case PC_TEXT_RELEARN_MOVE:
             PlaySE(SE_SELECT);
-            //SetPSSCallback(Cb_ShowMarkMenu);
-            break;
-        case PC_TEXT_SELECT:
+            SetPSSCallback(Cb_ShowMonSummary); 
+            break;//make specific ones to load correct mode of summ screen //actually don't need separate can put together w summ
+        case PC_TEXT_SELECT://decide make new task to properly track stuff for move delete task etc.
             PlaySE(SE_SELECT);
             if (sInPartyMenu)
             {
@@ -1826,28 +1822,28 @@ static void Cb_HandleBoxOptions(u8 taskId)
         gPSSData->state++;
         break;
     case 1:
-        if (sub_8094F90())
+        if (IsMenuLoading())
             return;
         gPSSData->state++;
     case 2:
-        switch (sub_8094F94())
+        switch (HandleMenuInput())
         {
-        case -1:
-        case  0:
+        case MENU_B_PRESSED:
+        case  PC_TEXT_CANCEL:
             sub_80920FC(TRUE);
             ClearBottomWindow();
             SetPSSCallback(Cb_MainPSS);
             break;
-        case 11:
+        case PC_TEXT_NAME:
             PlaySE(SE_SELECT);
             SetPSSCallback(Cb_NameBox);
             break;
-        case 10:
+        case PC_TEXT_WALLPAPER:
             PlaySE(SE_SELECT);
             ClearBottomWindow();
             SetPSSCallback(Cb_HandleWallpapers);
             break;
-        case 9:
+        case PC_TEXT_JUMP:
             PlaySE(SE_SELECT);
             ClearBottomWindow();
             SetPSSCallback(Cb_JumpBox);
@@ -1867,11 +1863,11 @@ static void Cb_HandleWallpapers(u8 taskId)
         gPSSData->state++;
         break;
     case 1:
-        if (!sub_8094F90())
+        if (!IsMenuLoading())
             gPSSData->state++;
         break;
     case 2:
-        gPSSData->wallpaperSetId = sub_8094F94();
+        gPSSData->wallpaperSetId = HandleMenuInput();
         switch (gPSSData->wallpaperSetId)
         {
         case -1:
@@ -1896,7 +1892,7 @@ static void Cb_HandleWallpapers(u8 taskId)
         }
         break;
     case 4:
-        gPSSData->wallpaperId = sub_8094F94();
+        gPSSData->wallpaperId = HandleMenuInput();
         switch (gPSSData->wallpaperId)
         {
         case MENU_NOTHING_CHOSEN:
@@ -1975,7 +1971,7 @@ static void Cb_NameBox(u8 taskId)
     switch (gPSSData->state)
     {
     case 0:
-        sub_8093630();
+        SaveMovingMon();
         BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
         gPSSData->state++;
         break;
@@ -1995,6 +1991,7 @@ static void Cb_ShowMonSummary(u8 taskId)
     switch (gPSSData->state)
     {
     case 0:
+        InitSummaryScreenData();
         BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
         gPSSData->state++;
         break;

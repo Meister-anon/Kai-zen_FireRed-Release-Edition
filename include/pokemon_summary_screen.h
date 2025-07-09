@@ -49,6 +49,8 @@ enum PokemonSummaryScreenMode
     PSS_MODE_UNK4,
     PSS_MODE_BOX,
     PSS_MODE_BATTLE_INFO,
+    PSS_MODE_RELEARN_MOVE,
+
 };
 
 enum PokemonSummaryScreenPage

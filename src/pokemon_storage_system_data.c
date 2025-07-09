@@ -862,13 +862,13 @@ s8 RunCanReleaseMon(void)
     return -1;
 }
 
-void sub_8093630(void)
+void SaveMovingMon(void)
 {
     if (sIsMonBeingMoved)
         gUnknown_20397BC = gPSSData->movingMon;
 }
 
-void sub_8093660(void)
+void LoadSavedMovingMon(void)
 {
     if (sIsMonBeingMoved)
     {
@@ -879,36 +879,36 @@ void sub_8093660(void)
     }
 }
 
-void sub_80936B8(void)
+void InitSummaryScreenData(void)
 {
     if (sIsMonBeingMoved)
     {
-        sub_8093630();
+        SaveMovingMon();
         gPSSData->summaryMonPtr.mon = &gUnknown_20397BC;
         gPSSData->summaryCursorPos = 0;
         gPSSData->summaryLastIndex = 0;
-        gPSSData->summaryScreenMode = 0;
+        gPSSData->summaryScreenMode = PSS_MODE_NORMAL;
     }
     else if (sBoxCursorArea == CURSOR_AREA_IN_PARTY)
     {
         gPSSData->summaryMonPtr.mon = gPlayerParty;
         gPSSData->summaryCursorPos = sCursorPosition;
         gPSSData->summaryLastIndex = CountPartyMons() - 1;
-        gPSSData->summaryScreenMode = 0;
+        gPSSData->summaryScreenMode = PSS_MODE_NORMAL;
     }
     else
     {
         gPSSData->summaryMonPtr.box = GetBoxedMonPtr(StorageGetCurrentBox(), 0);
         gPSSData->summaryCursorPos = sCursorPosition;
         gPSSData->summaryLastIndex = IN_BOX_COUNT - 1;
-        gPSSData->summaryScreenMode = 5;
+        gPSSData->summaryScreenMode = PSS_MODE_BOX;
     }
 }
 
-void sub_80937B4(void)
+void SetSelectionAfterSummaryScreen(void)
 {
     if (sIsMonBeingMoved)
-        sub_8093660();
+        LoadSavedMovingMon();
     else
         sCursorPosition = GetLastViewedMonIndex();
 }
@@ -1341,10 +1341,6 @@ static u8 InBoxInput_Normal(void)
                     return INPUT_SWITCH_ITEMS;
                 case PC_TEXT_SELECT:
                     return INPUT_SELECT_MON;
-                case PC_TEXT_DELETE_MOVE:
-                    return INPUT_DELETE_MOVE;
-                case PC_TEXT_RELEARN_MOVE:
-                    return INPUT_RELEARN_MOVE;
                 }
             }
             else
@@ -1644,10 +1640,6 @@ static u8 HandleInput_InParty(void)
                     return INPUT_SWITCH_ITEMS;
                 case PC_TEXT_SELECT:
                     return INPUT_SELECT_MON;
-                case PC_TEXT_DELETE_MOVE:
-                    return INPUT_DELETE_MOVE;
-                case PC_TEXT_RELEARN_MOVE:
-                    return INPUT_RELEARN_MOVE;
                 }
             }
         }
@@ -2270,15 +2262,15 @@ void AddMenu(void)
     ScheduleBgCopyTilemapToVram(0);
 }
 
-bool8 sub_8094F90(void)
+bool8 IsMenuLoading(void)
 {
-    // Some debug flag?
+     // Possibly stubbed out debug code?
     return FALSE;
 }
 
-s16 sub_8094F94(void)
+s16 HandleMenuInput(void)
 {
-    s32 textId = -2;
+    s32 textId = MENU_NOTHING_CHOSEN;
 
     do
     {
@@ -2290,7 +2282,7 @@ s16 sub_8094F94(void)
         else if (JOY_NEW(B_BUTTON))
         {
             PlaySE(SE_SELECT);
-            textId = -1;
+            textId = MENU_B_PRESSED;
         }
 
         if (JOY_NEW(DPAD_UP))

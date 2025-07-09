@@ -112,7 +112,7 @@ enum {
     INPUT_SHOW_PARTY,
     INPUT_HIDE_PARTY,
     INPUT_BOX_OPTIONS,
-    INPUT_IN_MENU,
+    INPUT_IN_MENU,  //selected mon menu options includes summary etc.
     INPUT_SCROLL_RIGHT,
     INPUT_SCROLL_LEFT,
     INPUT_DEPOSIT,
@@ -132,8 +132,6 @@ enum {
     INPUT_MULTIMOVE_MOVE_MONS,
     INPUT_MULTIMOVE_PLACE_MONS,
     INPUT_SELECT_MON,
-    INPUT_DELETE_MOVE,
-    INPUT_RELEARN_MOVE,
 };
 
 enum
@@ -584,16 +582,16 @@ void sub_8093174(void);
 void sub_8093194(void);
 bool8 sub_80931EC(void);
 void sub_8093264(void);
-void sub_8093630(void);
-void sub_8093660(void);
-void sub_80936B8(void);
-void sub_80937B4(void);
+void SaveMovingMon(void);
+void LoadSavedMovingMon(void);
+void InitSummaryScreenData(void);
+void SetSelectionAfterSummaryScreen(void);
 void StartCursorAnim(u8 a0);
 u8 sub_8094D34(void);
 void TryHideItemAtCursor(void);
 void TryShowItemAtCursor(void);
-bool8 sub_8094F90(void);
-s16 sub_8094F94(void);
+bool8 IsMenuLoading(void);
+s16 HandleMenuInput(void);
 void sub_8095024(void);
 bool8 sub_8095050(void);
 void sub_80950A4(void);
