@@ -909,6 +909,12 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     if (moveType == TYPE_GRASS && !IsMoveRedirectionPrevented(move, AI_DATA->abilities[battlerAtk]))
                         RETURN_SCORE_MINUS(20);
                     break;
+                case ABILITY_TURBOBLAZE:
+                case ABILITY_LAVA_FISSURE:
+                case ABILITY_FLASH_FIRE:
+                    if (moveType == TYPE_FIRE  && !IsMoveRedirectionPrevented(move, AI_DATA->abilities[battlerAtk]))
+                        RETURN_SCORE_MINUS(20);
+                    break;
                 case ABILITY_PLASMA_OVERDRIVE:
                     if ((moveType == TYPE_ELECTRIC || moveType == TYPE_FIRE) && !IsMoveRedirectionPrevented(move, AI_DATA->abilities[battlerAtk]))
                         RETURN_SCORE_MINUS(20);

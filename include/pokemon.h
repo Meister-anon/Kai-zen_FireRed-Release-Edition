@@ -658,15 +658,24 @@ struct FormChange {
 }; //may change based on how I use forms
 
 struct FormDataStorage {
-    u16 move1;
-    u16 move2;
-    u16 move3;
-    u16 move4;
+    u16 move1:10;
+    u16 pp1:6;
+    u16 move2:10;
+    u16 pp2:6;
+    u16 move3:10;
+    u16 pp3:6;
+    u16 move4:10;
+    u16 pp4:6;
 
     u8 ppBonuses;    
     u8 abilityNum; //if give megas hidden ability then I need to store abilityNum so that reverts correctly too
 
-};//wondering if i need pp fields as well here? unsure how pp decrement/storage works rn
+};
+//guess should be 10 bytes total
+//then storage is that times 2
+//for entire party
+//so 120? (actual is 144)
+//wondering if i need pp fields as well here? unsure how pp decrement/storage works rn
 //base game uses ppbonus in single u8 so 
 //guess I don't need a field for each move?
 
