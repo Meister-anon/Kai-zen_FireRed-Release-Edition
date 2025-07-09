@@ -36802,15 +36802,15 @@ const struct BaseStats gBaseStats[] =
 
             //hp, atk, def, spd, spatk, spdef
         STATS(
-              100,
+              84,
               134,
+              100,
               110,
-              72,
               70,
-              84
+              72
        ),
-        MON_TYPES(TYPE_ROCK, TYPE_ELECTRIC),
-        .catchRate = 30,
+        MON_TYPES(TYPE_ROCK, TYPE_ELECTRIC), //think will rework this make super fast idea it fixes problems of tyranitar rather than worse copy
+        .catchRate = 30,    //attempt do by just rearrnaging stats, huh this should actually be pretty great lol
         .expYield = 285,
        // .evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,

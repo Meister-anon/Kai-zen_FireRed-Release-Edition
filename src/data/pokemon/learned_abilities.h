@@ -650,6 +650,7 @@ static const struct AbilityLearnset sArticunoAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sZapdosAbilityLearnset[] = {
+    ABILITY_ELECTRIC_SURGE,
     ABILITY_SET_END
 };
 
@@ -3047,10 +3048,12 @@ static const struct AbilityLearnset sGoomyAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSliggooAbilityLearnset[] = {
+    ABILITY_GRUNGE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sGoodraAbilityLearnset[] = {
+    ABILITY_GRUNGE,
     ABILITY_SET_END
 };
 
@@ -4074,10 +4077,12 @@ static const struct AbilityLearnset sBraviaryHisuianAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSliggooHisuianAbilityLearnset[] = {
+    ABILITY_GRUNGE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sGoodraHisuianAbilityLearnset[] = {
+    ABILITY_GRUNGE,
     ABILITY_SET_END
 };
 

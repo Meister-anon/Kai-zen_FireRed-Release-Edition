@@ -374,7 +374,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_DRAGON] =     {______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,    X(0.5),   X(1.55),   ______,    X(0.0),   ______}, // dragon
 
-    [TYPE_DARK] =       {______,   X(0.5),   ______,   ______,   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(1.55),   X(1.55),   ______}, // dark
+    [TYPE_DARK] =       {______,   X(0.5),   ______,   X(0.5),   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(1.55),   X(1.55),   ______}, // dark
 
     [TYPE_FAIRY] =      {X(1.55),  ______,   ______,   X(0.5),   ______,   ______,   X(0.5),   ______,   X(0.5),   ______,   X(0.5),   ______,   X(0.0),   ______,   X(0.5),   ______,   X(1.55),   X(1.55),   ______,   ______}, // fairy
 
@@ -388,6 +388,15 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 //and also break up ice
 //also quick freezing of grounds with water can cause increased seismic activity even earthquakes
 //so I belive its fine to leave ground doin neutral damage to ice
+
+//consider make poison resist dark I keep coming back to it and feels like it makes sense
+//dark resists poison and apparently dark is very strong offensively
+//ah was becuase didn't have resistances outsidd of itself, fighting and fairy,
+//I've removed both the dark and fighitng resist,
+//but replaced w ghost and bug resist
+
+//I THINK I'm safe to give poison the dark resist with psychic being better
+//it should still be checked
 
 //I made the change as I was worried I over compensated ice types defensive qualities
 //but there isn't anything more I can remove that would make sense remove dragon would be
@@ -582,7 +591,7 @@ static const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e numbe
     TYPE_POISON, TYPE_FAIRY, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_POISON, TYPE_GROUND, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_POISON, TYPE_ICE, TYPE_MUL_NOT_EFFECTIVE,  //cold slows spread of poison
-    TYPE_POISON, TYPE_DARK, TYPE_MUL_NOT_EFFECTIVE, //doing this way works even better than I thought as makes triangle relation w bug, psn resist bug, bug beats dark, dark resist psn
+    TYPE_POISON, TYPE_DARK, TYPE_MUL_NOT_EFFECTIVE, //doing this way works even better than I thought as makes triangle relation w bug, psn resist bug, bug beats dark, dark resist psn , not actually a triangle
     TYPE_POISON, TYPE_GHOST, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_POISON, TYPE_POISON, TYPE_MUL_NO_EFFECT,       //furthering of late gen poison can't be poisoned logic, also makes better as a pivot/defensive typing
     TYPE_POISON, TYPE_STEEL, TYPE_MUL_NO_EFFECT,
@@ -638,6 +647,7 @@ static const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e numbe
     TYPE_DARK, TYPE_BUG, TYPE_MUL_NOT_EFFECTIVE,    //type change from wolveyvgc to buff bugs, its weak to bugs, so resists it, and dark is evil & bugs are associated with heroes through kamen rider so makes sense
     TYPE_DARK, TYPE_PSYCHIC, TYPE_MUL_SUPER_EFFECTIVE,  //-keeping psychic weakness to dark post ghost change as dark is living and able to do physical attacks while psychic is usually phsycially weak
     TYPE_DARK, TYPE_GHOST, TYPE_MUL_NOT_EFFECTIVE,  //changed there's nothing significant bout dark, its more or less same as ghost but alive, and ghosts thrive in darkness
+    TYPE_DARK, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE,
     //TYPE_DARK, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,   //change essentially makes ghost inverse of normal type effect wise, where most things are neutral and it has 1 weakness
     //TYPE_DARK, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE, //-similar to ghost logic, poison hides in darkness, is linked w dark intentions, actually think will reverse this make dark resist poison, will go more to make counter to fairy who is weak to poison
     TYPE_DARK, TYPE_DARK, TYPE_MUL_SUPER_EFFECTIVE,//removing gen 3 steel resist to dark, with dark changes realized ruins it offensively
