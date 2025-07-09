@@ -6365,15 +6365,29 @@ static void atk19_tryfaintmon(void)
              && IsBattlerAlive(gBattlerAttacker)
              && gCurrentMove != MOVE_STRUGGLE)
             {
-                u8 moveIndex = *(gBattleStruct->chosenMovePositions + gBattlerAttacker);
+                u32 i;
+                u8 SubValue;
+                u8 ppdata[5]; //copy logic from various_restore_pp
 
-                gBattleMons[gBattlerAttacker].pp[moveIndex] = 0;
+                gActiveBattler = gBattlerAttacker;
+
+
+                for (i = 0; i < MAX_MON_MOVES; i++)
+                {
+                    
+                    if (gBattleMons[gBattlerAttacker].moves[i] == MOVE_NONE)
+                        break;
+                    
+                    SubValue = (CalculatePPWithBonus(gBattleMons[gBattlerAttacker].moves[i], gBattleMons[gBattlerAttacker].ppBonuses, i) / 2);
+
+                    gBattleMons[gBattlerAttacker].pp[i] = max(gBattleMons[gBattlerAttacker].pp[i] - SubValue, 0);
+                    ppdata[i] = gBattleMons[gBattlerAttacker].pp[i];
+                }
                 BattleScriptPush(gBattlescriptCurrInstr);
                 gBattlescriptCurrInstr = BattleScript_GrudgeTakesPp; //is only a string, has no funcitonality 
-                gActiveBattler = gBattlerAttacker;
-                BtlController_EmitSetMonData(0, moveIndex + REQUEST_PPMOVE1_BATTLE, 0, 1, &gBattleMons[gActiveBattler].pp[moveIndex]);
-                MarkBattlerForControllerExec(gActiveBattler);
-                PREPARE_MOVE_BUFFER(gBattleTextBuff1, gBattleMons[gBattlerAttacker].moves[moveIndex])
+                ppdata[i] = gBattleMons[gActiveBattler].ppBonuses;
+                BtlController_EmitSetMonData(0, REQUEST_PP_DATA_BATTLE, 0, 5, ppdata);
+                MarkBattlerForControllerExec(gActiveBattler);                
             }
         }
         else

@@ -783,6 +783,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     },//accuracy buff based on anime logic, and raririty
+    //part of me things this should be side target i.e both 
+    //since sing in lore puts everyone to sleep, but with that 
+    //all sleep effects outside of hypnosis 
+    //and even all powder effects should work the same way
+    //which would just be overpowering
 
     [MOVE_SUPERSONIC] =
     {
@@ -2716,12 +2721,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_SPIDER_WEB] =
 {
-    #if B_UPDATED_MOVE_DATA >= GEN_6
-        .flags = FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-    #else
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-    #endif
-    .effect = EFFECT_MEAN_LOOK,
+
+    .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+    .effect = EFFECT_PARALYZE,
     .power = 0,
     .type = TYPE_BUG,
     .accuracy = 0,
@@ -2731,6 +2733,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .split = SPLIT_STATUS,
 },
+//taken over by swarm/infestation and sticky web
+//spider webs to my knowledge have effect of paralyzing those stuck in it?
+//yup found some spiders lace web in neurotoxin that can paralyze those stuck in it
+//for them to eat later
+//so rework this into bug move that paralyzes
+//even better as would work on electric types
+//since no good mon get this think am safe to leave it sure hit
+//thunder wave was nerfed becuause of high access and 
+//it being on legendary mon
 
 [MOVE_MIND_READER] =
 {
@@ -4685,6 +4696,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
+    //change effect instead of reduce last move to 0
+    //cut all pp in half
 
     [MOVE_SNATCH] =
     {
@@ -5198,6 +5211,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     }, //equal acc to sleep powder
+    //lower acc than spore and sleep powder already exists
+    //only reason to use thisi is to have a sleep move that can also hit grass types?
+    //well its also a sound move so coincidentally has the niche of pairing with
+    //cacophony for more consistent/useful sleep
+    //would always be 5 turns of sleep
 
     [MOVE_TICKLE] =
     {
