@@ -521,18 +521,29 @@ static const struct AbilityLearnset sKangaskhanAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sHorseaAbilityLearnset[] = {
+    ABILITY_COLOR_CHANGE,
+    ABILITY_STURDY,
+    ABILITY_DANCER,
+    ABILITY_INFILTRATOR,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sSeadraAbilityLearnset[] = {
+    ABILITY_GRUNGE,
+    ABILITY_COLOR_CHANGE,
+    ABILITY_STURDY,
+    ABILITY_DANCER,
+    ABILITY_INFILTRATOR,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sGoldeenAbilityLearnset[] = {
+    ABILITY_UNAWARE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sSeakingAbilityLearnset[] = {
+    ABILITY_UNAWARE,
     ABILITY_SET_END
 };
 
@@ -1022,6 +1033,11 @@ static const struct AbilityLearnset sHoundoomAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sKingdraAbilityLearnset[] = {
+    ABILITY_GLUTTONY,
+    ABILITY_COLOR_CHANGE,
+    ABILITY_STURDY,
+    ABILITY_DANCER,
+    ABILITY_INFILTRATOR,
     ABILITY_SET_END
 };
 

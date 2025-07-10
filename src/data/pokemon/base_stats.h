@@ -3710,7 +3710,7 @@ const struct BaseStats gBaseStats[] =
     //hmm not as many attack up hits as I thought,
     //only need to exclude power up punch, is only guaranteed boost one.
     //subtitute moves would be metal claw, meteor mash, or going to ancient power
-    //think meteor mash too strong
+    //think meteor mash too strong vsonic
 
     [SPECIES_HORSEA] =
     {
@@ -3730,7 +3730,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_SWIFT_SWIM, ABILITY_SNIPER},
-        .abilityHidden = {ABILITY_DAMP, ABILITY_NONE},
+        .abilityHidden = {ABILITY_DAMP, ABILITY_GLUTTONY},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -3760,7 +3760,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_POISON_POINT, ABILITY_SNIPER},
-        .abilityHidden = {ABILITY_DAMP, ABILITY_NONE},
+        .abilityHidden = {ABILITY_DAMP, ABILITY_GLUTTONY},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -7166,7 +7166,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Kingdra"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(75, 95, 95, 85, 95, 95),
+         STATS(75, 95, 95, 85, 95, 115),
         MON_TYPES(TYPE_WATER, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 243,
@@ -7181,7 +7181,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_SWIFT_SWIM, ABILITY_SNIPER},
-        .abilityHidden = {ABILITY_DAMP, ABILITY_NONE},
+        .abilityHidden = {ABILITY_DAMP, ABILITY_MARVEL_SCALE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -7191,6 +7191,31 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sKingdraTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //think need buff since loses ice resist
+    //feels like I'm missing something unique for abilities
+    /*
+    these fish also thrive in a strong suit of sturdy armor-like plates. 
+
+    Every morning, seahorse couples engage in ritualistic dances to greet each other,
+
+    The shape of their heads also helps them move through the water almost silently; when you combine that with their ability to camouflage into their surroundings thanks to helpful chromatophores within their skin cells
+    //ideas sturdy, dancer, infiltrator
+
+    Seahorses follow a strict diet, and the goal is to eat—constantly
+
+    //gluttony
+
+     Seahorses can change colors
+     color change I guess not very useful tho
+
+     ok think will use gluttony as inate characteristic and put infiltraor on learned
+    
+    dex entry says has beautiful scales and is rival of dragonite
+    consider give multiscale to compete w dragonite
+
+    Decided give marvel scale instead
+    flame orb/toxic orb/freeze orb with aqua ring would balance out
+    */
 
     [SPECIES_PHANPY] =
     {

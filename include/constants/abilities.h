@@ -7,7 +7,7 @@
 #define ABILITY_SPEED_BOOST 3
 #define ABILITY_BATTLE_ARMOR 4
 #define ABILITY_STURDY 5
-#define ABILITY_DAMP 6
+#define ABILITY_DAMP 6      //reduce fire damage, also blocks aftermath
 #define ABILITY_LIMBER 7
 #define ABILITY_SAND_VEIL 8
 #define ABILITY_STATIC 9
