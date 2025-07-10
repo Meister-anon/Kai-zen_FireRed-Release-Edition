@@ -4438,6 +4438,39 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     Redid semi invulnerable effects fixed some missed things
     setup move cancel effect from hitting in semi invulnerable
     reworked sky attack into semi invulnerable move
+
+    New idea add attack styles similar legends arceus
+    but just one idea Guard style  attack while having your guard up
+    50% reduction in incoming damage, but also 50% reduction in dmg done
+    potentially not full 50% offense drop, will require testing,
+    idea press R during move selection i.e select fight Press R button
+    well toggle Guard mode on off.
+    would need way to clearly identify mode mon is in,
+    pressing B back through selection should revert it as well,
+    idea transparent green overlay over mon similar to how people have
+    red overlay for gigantimax,  this way would always be clear for both sides
+    who has effect on
+    would be an effect similar to targetting,
+    mon can't be seen to be blinking when selected in battlecontroller
+    so I would need to set the graphic effect for all to see,
+    when the battle actions begin playing out
+    but during selection only visible to user
+    *also considering do 30% instead of full 50%
+    *30 off may be too little, yeah do 50, considering for stat effects
+    main benefit I like is statusing doing stat debuffs are actually viable 
+    now since you can do them without a drawback
+    SO remove idea of not being able to spam guard
+    since you're still taking damage throughout
+
+    instead belive only exceptions I need are, can't guard while doing
+    heal effect i.e direct heal lke recover, and I THINK I should set it
+    so you can't guard the turn after you use a protect effect
+    mm no that doesn't make sense, allow that, instead make guard
+    increment protect attmempts/uses that way if you try to protect
+    right after guarding
+    i.e protect guard into protect, the protect would fail
+    or have a high chance to fail,
+    it'd be as if you were attempting a double protect
     separted back out primal and mega form
     since seemed needed for new form change effect
     replaced ultra beast
