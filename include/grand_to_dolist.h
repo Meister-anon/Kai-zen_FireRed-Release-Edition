@@ -4471,6 +4471,22 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     i.e protect guard into protect, the protect would fail
     or have a high chance to fail,
     it'd be as if you were attempting a double protect
+
+    when set gaurd mode at move selection
+    if move is blocked from guard i.e heal moves
+    have them be Greyed out
+    Put Guard mode in Protect structs as that's cleared at end turn
+
+    So workflow is select fight press R to turn on guard mode
+    applies green overlay to mon only visible in selection/user
+    moves that can't be selected get greyed out
+    and should be locked from selection playing failure sound effect
+    make string "effect can't be activated in Guard mode."
+
+    Following move select complete apply green filter to battler
+    for duration of turn. want to clear at start of end turn
+    before all battler effects go off as guard mode is irrelevant for those
+    
     separted back out primal and mega form
     since seemed needed for new form change effect
     replaced ultra beast
