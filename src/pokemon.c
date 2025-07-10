@@ -5055,10 +5055,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     //in a pinch abilities
     //since I lowered stab and super, think I may buff these  / realized these aren't even working???, didn't work because type overide change, nowworks
-    if (attacker->hp <= (attacker->maxHP / 2)) //changed to less or equal to be exact to yellow, more for super fang and effects that exactly do half hp
+    //cut down to 1.5 boost over 2x as was too strong
+    if (CheckBattlerHpThreshold(battlerIdAtk, LESS_THAN_OR_EQUAL, 50))
     {
         if (moveType == TYPE_GRASS && GetBattlerAbility(battlerIdAtk) == ABILITY_OVERGROW)// && attacker->hp < (attacker->maxHP / 3))
-            //gBattleMovePower *= 2;  //this is actually too strong, stronger than base
             gBattleMovePower = (150 * gBattleMovePower) / 100;
         if (moveType == TYPE_FIRE && GetBattlerAbility(battlerIdAtk) == ABILITY_BLAZE)// && attacker->hp < (attacker->maxHP / 3))
             gBattleMovePower = (150 * gBattleMovePower) / 100;

@@ -1749,6 +1749,7 @@ static const struct AbilityLearnset sLuxioAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sLuxrayAbilityLearnset[] = {
+    ABILITY_STRONG_JAW,
     ABILITY_SET_END
 };
 

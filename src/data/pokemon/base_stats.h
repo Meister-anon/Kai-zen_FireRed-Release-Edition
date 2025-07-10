@@ -12615,7 +12615,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_INTIMIDATE, ABILITY_SHADOW_TAG},
-        .abilityHidden = {ABILITY_STRONG_JAW, ABILITY_GUTS},
+        .abilityHidden = {ABILITY_X_SIGHT, ABILITY_GUTS},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -12642,6 +12642,11 @@ const struct BaseStats gBaseStats[] =
     //and leave dark as a terra option for strategizing
     //give thunderclap
     //may  give parabolic charge
+    //shadow tag is based on ability to always track opponents
+    //could make custom thing when above half hp all moves bypass acc checks
+    //and held items are revealed
+    //X-ray view  super vision,  X-Sight
+    //ok decided will toss that on hidden slot and put strong jaw in the learned set
 
     [SPECIES_BUDEW] =
     {

@@ -1826,6 +1826,16 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
     }
     gHitMarker &= ~HITMARKER_IGNORE_UNDERWATER;*/
 
+    //bypass acc checks if above half hp
+    else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_X_SIGHT
+    && CheckBattlerHpThreshold(gBattlerAttacker, GREATER_THAN, 50)
+    && (move != MOVE_SKY_DROP || gBattleStruct->skyDropTargets[gBattlerTarget] == 0xFF))
+    {
+        if (!JumpIfMoveFailed(7, move))
+            RecordAbilityBattle(gBattlerAttacker, atkAbility);
+        return TRUE;
+    }
+
     // If the attacker has the ability No Guard and they aren't targeting a Pokemon involved in a Sky Drop with the move Sky Drop, move hits.
     else if (DoesBattlerHaveSureHitAbility(gBattlerAttacker) && (move != MOVE_SKY_DROP || gBattleStruct->skyDropTargets[gBattlerTarget] == 0xFF))
     {
@@ -13456,7 +13466,7 @@ static void atk76_various(void) //will need to add all these emerald various com
                 else
                 {
                     gBattleStruct->friskedAbility = TRUE;
-                    //gBattlescriptCurrInstr = BattleScript_FriskMsgWithPopup;
+                    gBattlescriptCurrInstr = BattleScript_FriskMsg;
                 }
                 return;
             }

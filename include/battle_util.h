@@ -247,6 +247,7 @@ u8 GetMoveType(u8 moveType, u8 btlAttacker);
 void GetBattlerTypes(u32 battler, bool32 ignoreTera, u32 types[/*static*/ 3]); //according to mcgriffin static check should work w my compiler version but doesn't.. advised remove static for now
 u32 GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera);
 u32 CountBattlerStatIncreases(u32 battler, bool32 countEvasionAcc);
+bool32 CheckBattlerHpThreshold(u32 battler, u8 Comparison, u8 percentHp);
 bool32 IsMoldBreakerTypeAbilityActive(u32 battler, u32 ability);
 bool32 IsNeutralizingGasTypeAbilityActive(u32 battler, u32 ability); //attempt simplify getbattlerability logic
 

@@ -473,6 +473,18 @@ enum Ball_Ids
     POKEBALL_COUNT
 };
 
+enum Comparison_Operators_Constants
+{
+    LESS_THAN,
+    GREATER_THAN,
+    EQUAL_TO,
+    NOT_EQUAL,
+    LESS_THAN_OR_EQUAL,
+    GREATER_THAN_OR_EQUAL,
+};
+//make function and use these to simplify hp checks
+//
+
 //in case I need to hardcode tm/hm for speed in tm case disc loop
 //used for GetTMHMNumberandCategory
 typedef enum

@@ -6805,6 +6805,17 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     ++effect;
                 }
                 break;
+            case ABILITY_X_SIGHT:
+                if (CheckBattlerHpThreshold(battler, GREATER_THAN, 50))
+                {
+                    if (!gSpecialStatuses[battler].switchInAbilityDone)
+                    {
+                        gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                        BattleScriptPushCursorAndCallback(BattleScript_FriskActivates); // Try activate
+                        ++effect;
+                    }
+                return effect; // Note: It returns effect as to not record the ability if Frisk does not activate.
+                }
             case ABILITY_FRISK:
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -11813,6 +11824,8 @@ u32 IsAbilityOnOpposingSide(u32 battlerId, u32 ability) // use for intimidate on
     return IsAbilityOnSide(BATTLE_OPPOSITE(battlerId), ability);
 }
 
+//Abilities that make all move used by and against
+//said pokemon never miss
 bool8 DoesBattlerHaveSureHitAbility(u8 battlerId)
 {
     if (GetBattlerAbility(battlerId) == ABILITY_NO_GUARD
@@ -14201,4 +14214,41 @@ bool32 WeatherHasEffect(void)
     if (IsAbilityOnField(ABILITY_STORM_BREAK) || IsAbilityOnField(ABILITY_AIR_LOCK))
         return FALSE;
     return TRUE;
+}
+
+//think should be ok, maybe using uq12 is more accurate and may
+//use later but for the most part is same as how hp checks are already run
+//ex. simplifies checks for in a pinch i.e half hp etc.
+bool32 CheckBattlerHpThreshold(u32 battler, u8 Comparison, u8 percentHp)
+{
+    u32 hpThreshold = (gBattleMons[battler].maxHP * percentHp / 100);
+    switch (Comparison)
+    {
+        case LESS_THAN:
+            if (gBattleMons[battler].hp < hpThreshold)
+                return TRUE;
+        break;
+        case GREATER_THAN:
+            if (gBattleMons[battler].hp > hpThreshold)
+                return TRUE;
+        break;
+        case EQUAL_TO:
+            if (gBattleMons[battler].hp == hpThreshold)
+                return TRUE;
+        break;
+        case NOT_EQUAL:
+            if (gBattleMons[battler].hp != hpThreshold)
+                return TRUE;
+        break;
+        case LESS_THAN_OR_EQUAL:
+            if (gBattleMons[battler].hp <= hpThreshold)
+                return TRUE;
+        break;
+        case GREATER_THAN_OR_EQUAL:
+            if (gBattleMons[battler].hp >= hpThreshold)
+                return TRUE;
+        break;
+    }
+
+    return FALSE;
 }

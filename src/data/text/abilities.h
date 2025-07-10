@@ -50,7 +50,7 @@ static const u8 sThickFatDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Reduce
 static const u8 sEarlyBirdDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Awakens quickly from sleep, refreshed.\nCleanses stat drops on awaken."); //buffed gave chance to immediately wake
 static const u8 sFlameBodyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("May cause Burn on contact.\nCan't be frozen and hatches eggs faster.");
 static const u8 sRunAwayDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Makes escaping easier.\nPrevents loss of speed except from traps.");
-static const u8 sKeenEyeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents loss of accuracy. Slightly\nboosts ACC and ignores evasion changes.");
+static const u8 sKeenEyeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents loss of accuracy. Slightly\nboosts Acc and ignores evasion changes.");
 static const u8 sHyperCutterDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents ATTACK reduction.");
 static const u8 sPickupDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("May pick up items.");
 static const u8 sTruantDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Only moves every other turn.\nBut heals while at rest.");
@@ -723,6 +723,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_TOXIC_DELUGE] = COMPOUND_ABILITY_STRING("Summons Acid Rain to Battle."), //expandon later
     [ABILITY_RESOLUTE] = COMPOUND_ABILITY_STRING("Changes form if suffering from status\nor if HP falls to or below half Max HP."),
     [ABILITY_PIERCING_HORN] = COMPOUND_ABILITY_STRING("Boosts headbutt moves.\nAttacks foes with sharpened horns."),
+    [ABILITY_X_SIGHT] = COMPOUND_ABILITY_STRING("X-ray Vision reveals battlers held items\nand bypasses Acc check when above 50% hp."),
 
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
@@ -1149,5 +1150,6 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_TOXIC_DELUGE] = _("Toxic Deluge"),
     [ABILITY_RESOLUTE] = _("Resolute"),
     [ABILITY_PIERCING_HORN] = _("Piercing Horn"),
+    [ABILITY_X_SIGHT] = _("X Sight"),
 
 };//can have comma
