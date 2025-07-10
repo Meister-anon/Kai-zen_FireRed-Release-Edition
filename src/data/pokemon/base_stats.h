@@ -41563,15 +41563,15 @@ const struct BaseStats gBaseStats[] =
          STATS(
         50,
         75,
-        90,
+        95,
         40,
-        10,
-        35
+        25,
+        40
         ),
         MON_TYPES(TYPE_ICE, TYPE_STEEL),
-        .catchRate = 255,
-        .expYield = 60,
-        //.evYield_Defense = 1,
+        .catchRate = 255,//w type changes this is better no ground weakness
+        .expYield = 60,//still 4x to fire and fighting tho... w multiplier drop  and most fight moves being physical can prob rock now
+        //.evYield_Defense = 1, //hmm but I made hail cut fire dmg so not so bad
        // #ifdef ITEM_EXPANSION
           //  //.itemRare = ITEM_GRIP_CLAW,  vsonic
         // #endif
@@ -41582,7 +41582,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_SNOW_CLOAK, ABILITY_NONE},
-        .abilityHidden = {ABILITY_SLUSH_RUSH, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SLUSH_RUSH, ABILITY_LIGHT_METAL},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -41602,10 +41602,10 @@ const struct BaseStats gBaseStats[] =
          STATS(
         75,
         100,
-        120,
+        125,
         65,
         25,
-        65
+        70
         ),
         MON_TYPES(TYPE_ICE, TYPE_STEEL),
         .catchRate = 90,
@@ -41618,7 +41618,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_SNOW_CLOAK, ABILITY_NONE},
-        .abilityHidden = {ABILITY_SLUSH_RUSH, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SLUSH_RUSH, ABILITY_LIGHT_METAL},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,

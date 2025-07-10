@@ -3899,10 +3899,12 @@ static const struct AbilityLearnset sRaichuAlolanAbilityLearnset[] = {
 };//give electrify //vsonic
 
 static const struct AbilityLearnset sSandshrewAlolanAbilityLearnset[] = {
+    ABILITY_FILTER,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sSandslashAlolanAbilityLearnset[] = {
+    ABILITY_FILTER,
     ABILITY_SET_END
 };
 

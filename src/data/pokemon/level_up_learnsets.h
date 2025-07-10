@@ -3059,12 +3059,14 @@ static const struct LevelUpMove sLanturnLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sPichuLevelUpLearnset[] = {
-    LEVEL_UP_MOVE(1, MOVE_THUNDER_SHOCK),
-    LEVEL_UP_MOVE(1, MOVE_CHARM),
-    LEVEL_UP_MOVE(1, MOVE_TAIL_WHIP),
-    LEVEL_UP_MOVE(6, MOVE_SWEET_KISS),
-    LEVEL_UP_MOVE(6, MOVE_CONFUSE_RAY),
-    LEVEL_UP_MOVE(8, MOVE_THUNDER_WAVE),
+    LEVEL_UP_MOVE( 1, MOVE_THUNDER_SHOCK),
+    LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
+    LEVEL_UP_MOVE( 4, MOVE_PLAY_NICE),
+    LEVEL_UP_MOVE( 8, MOVE_SWEET_KISS),
+    LEVEL_UP_MOVE(10, MOVE_HEADBUTT),
+    LEVEL_UP_MOVE(12, MOVE_NUZZLE),    
+    LEVEL_UP_MOVE(16, MOVE_NASTY_PLOT),
+    LEVEL_UP_MOVE(20, MOVE_CHARM),
     LEVEL_UP_END
 };
 
@@ -7026,6 +7028,7 @@ static const struct LevelUpMove sLatiasLevelUpLearnset[] = {
     LEVEL_UP_MOVE(10, MOVE_HELPING_HAND),
     LEVEL_UP_MOVE(15, MOVE_SAFEGUARD),
     LEVEL_UP_MOVE(20, MOVE_DRAGON_BREATH),
+    LEVEL_UP_MOVE(22, MOVE_SWEET_KISS),
     LEVEL_UP_MOVE(25, MOVE_WATER_SPORT),
     LEVEL_UP_MOVE(30, MOVE_REFRESH),
     LEVEL_UP_MOVE(35, MOVE_MIST_BALL),
@@ -7034,6 +7037,7 @@ static const struct LevelUpMove sLatiasLevelUpLearnset[] = {
     LEVEL_UP_MOVE(50, MOVE_CHARM),
     LEVEL_UP_END
 };
+//sweet kiss is joke from movie
 
 static const struct LevelUpMove sLatiosLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_PSYWAVE),

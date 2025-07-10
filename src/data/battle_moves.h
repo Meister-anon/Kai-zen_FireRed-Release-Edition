@@ -3038,7 +3038,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     #endif
     .effect = EFFECT_CONFUSE,
     .power = 0,
-    .accuracy = 75,
+    .accuracy = 85,
     .pp = 10,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
@@ -3046,6 +3046,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
 },
+//don't understand why this has 75 acc when confuse ray is 100
+//I guess only reason is its paired with lovely kiss which is 
+//a sleep move
+//already shares naming convention and animation
+//I can buff its acc and it can still function as paired move
 
 [MOVE_BELLY_DRUM] =
 {
