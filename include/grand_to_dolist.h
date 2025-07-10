@@ -4486,7 +4486,26 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     Following move select complete apply green filter to battler
     for duration of turn. want to clear at start of end turn
     before all battler effects go off as guard mode is irrelevant for those
-    
+
+    Decide shift move page over to the right more,
+    has usable empty space after pp and will never have more than 2 digits
+    gives more room for move descriptions
+    looked will have to adjust all summary pages to the right as
+    they are meant to be even when scrolling would be all right panel for each window
+    luckily I do have room, I also wanted to shift up to give more space
+    to even out move panels
+
+    issue is need adjust tile map/set to make fit
+    the grey bars are the issue 
+    from alex decide attempt blit  grey bars onto mennu
+    and then print text onto them directly
+    white text dark grey outline no shadow
+
+    BlitBitmapRectToWindow
+
+    changed just blit the entire icon, no need to use normal fonts to print text
+    almost works but rn having palette/color issues I need to figure out
+
     separted back out primal and mega form
     since seemed needed for new form change effect
     replaced ultra beast

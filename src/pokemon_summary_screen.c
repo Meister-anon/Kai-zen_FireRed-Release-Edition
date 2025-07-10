@@ -362,6 +362,13 @@ static const u32 sMoveSelectionCursorTiles_Left[] = INCBIN_U32("graphics/interfa
 static const u32 sMoveSelectionCursorTiles_Right[] = INCBIN_U32("graphics/interface/pokesummary_unk_846386C.4bpp.lz");
 
 
+//setup to hopefully be able to blitmap to summaryscreen 
+//make blit of all bars like type chart works smh
+//idk why didn't just thnk of that in the first place
+static const u16 gTrainerMemo_GreyBar_Pal[] = INCBIN_U16("graphics/interface/Trainer_Memo_Text_bars.gbapal");
+static const u8 gTrainerMemo_GreyBar_Gfx[] = INCBIN_U8("graphics/interface/Trainer_Memo_Text_bars.4bpp");
+
+
 #define ADD_MOVE_CAT_ICONS
 /*#define TAG_CATEGORY_ICONS 30004
 
@@ -4477,6 +4484,10 @@ static void PokeSum_PrintMonTypeIcons(void)
 
             if (sMonSummaryScreen->monTypes[0] != sMonSummaryScreen->monTypes[1])
                 BlitMoveInfoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], sMonSummaryScreen->monTypes[1] + 1, 83, 35);
+            //feel like this should be 41 9, but using 9 adds some weird dot to it
+            //messed with it seems some weird thing with how it prints,
+            //think I need a graphic look up like gFireRedMenuElements_Gfx uses
+            BlitBitmapRectToWindow(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], &gTrainerMemo_GreyBar_Gfx[0], 0, 0, 41, 9, 6, 10, 41, 9);
         }//think this is type 1 & 2
         break;
     case PSS_PAGE_SKILLS:
