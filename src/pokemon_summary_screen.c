@@ -828,6 +828,13 @@ static const struct BgTemplate sBgTempaltes[] =
 //this is important because I could potentially use those functionns
 //to create new window templates to more easily split up the existing ui.
 
+//may have said some of that wrong it loops 3 times
+//to add the permanent bg window templates
+//pagename controls and lvl nick
+
+//then it loops again after that to add the 
+//specific page's window stuff
+
 //PokeSum_AddWindows is used via PokeSum_CreateWindows so look into that as well
 
 #define POKESUM_WIN_INFO_3           3  //right panel trainer data
@@ -849,6 +856,8 @@ static const struct BgTemplate sBgTempaltes[] =
 #define POKESUM_WIN_MOVES_5_3        9  //Type Icon Move 4
 #define POKESUM_WIN_MOVES_5_4        10  //Type Icon Move 5 potentially for new move learning?
 
+//permanent as in the windows/ that are on each all the pages
+//mon box, controlsand page name
 static const struct WindowTemplate sWindowTemplates_Permanent_Bg1[] =
 {
     [POKESUM_WIN_PAGE_NAME] = {
