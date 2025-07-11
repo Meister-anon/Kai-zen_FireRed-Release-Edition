@@ -398,12 +398,12 @@ static const struct MoveMenuInfoIcon sTrainerMemo_GfxIcons[] =
     [ICON_IDNo] =  { 41,   9,    0x80 },
     [ICON_ITEM] =  { 41,   9,    0xA0 },
     [ICON_STATE] = { 41,  9,    0xC0 },
-    [ICON_HP] =    { 41,   9,    0x08 },
-    [ICON_ATK] =   { 41,   9,    0x28 },
-    [ICON_DEF] =   { 41,   9,    0x48 },
-    [ICON_SP_ATK] = { 41, 9,    0x68 },
-    [ICON_SP_DEF] = { 41, 9,    0x88 },
-    [ICON_SPEED] = { 41,  9,    0xA8 },
+    [ICON_HP] =    { 43,   9,    0x08 },
+    [ICON_ATK] =   { 43,   9,    0x28 },
+    [ICON_DEF] =   { 43,   9,    0x48 },
+    [ICON_SP_ATK] = { 43, 9,    0x68 },
+    [ICON_SP_DEF] = { 43, 9,    0x88 },
+    [ICON_SPEED] = { 43,  9,    0xA8 },
 };
 
 #define ADD_MOVE_CAT_ICONS
@@ -1711,10 +1711,10 @@ static void Task_PokeSum_FlipPages(u8 taskId)
 
         break;
     case 7:
-        PokeSum_PrintRightPaneText();
         if (sMonSummaryScreen->curPageIndex != PSS_PAGE_MOVES_INFO)
             PokeSum_PrintBottomPaneText();
 
+        PokeSum_PrintRightPaneText();
         PokeSum_PrintAbilityDataOrMoveTypes();
         PokeSum_PrintMonTypeIcons();
         break;
@@ -1888,8 +1888,8 @@ static void Task_BackOutOfSelectMove(u8 taskId)
         PokeSum_CopyNewBgTilemapBeforePageFlip_2();
         break;
     case 3:
-        PokeSum_PrintRightPaneText();
         PokeSum_PrintBottomPaneText();
+        PokeSum_PrintRightPaneText();
         PokeSum_PrintAbilityDataOrMoveTypes();
         CopyWindowToVram(sMonSummaryScreen->windowIds[3], 2);
         CopyWindowToVram(sMonSummaryScreen->windowIds[4], 2);
@@ -2340,10 +2340,10 @@ static void CB2_SetUpPSS(void)
             return;
         break;
     case 7:
-        PokeSum_PrintRightPaneText();
+        PokeSum_PrintBottomPaneText();
         break;
     case 8:
-        PokeSum_PrintBottomPaneText();
+        PokeSum_PrintRightPaneText();        
         break;
     case 9:
         PokeSum_PrintAbilityDataOrMoveTypes();
@@ -3431,6 +3431,9 @@ static const u8* GetNatureStatColor(u16 *string)
 //put logic here for nature color 6 for boost   7 for negative
 //think can replace sLevelNickTextColors with  function that checks nature 
 //and returns color 0 6 or 7 based on how stat should be affected by nature
+//with change to using blit had to move
+//PokeSum_PrintRightPaneText to UNDER printbottomtext
+//to prevent window overlap so bilt icons could all print properly
 static void PrintSkillsPage(void)//vsonic 
 {
     AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_SKILLS_3], FONT_NORMAL, 29 + sMonSkillsPrinterXpos->curHpStr, 4, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.curHpStrBuf);
@@ -5043,8 +5046,8 @@ static void Task_HandleInput_SelectMove(u8 id)
         sMonSummaryScreen->selectMoveInputHandlerState = 0;
         break;
     case 2:
-        PokeSum_PrintRightPaneText();
         PokeSum_PrintBottomPaneText();
+        PokeSum_PrintRightPaneText();
         PokeSum_PrintAbilityDataOrMoveTypes();
         sMonSummaryScreen->selectMoveInputHandlerState = 3;
         break;
@@ -5261,8 +5264,8 @@ static void Task_InputHandler_SelectOrForgetMove(u8 taskId)
         }
         break;
     case 3:
-        PokeSum_PrintRightPaneText();
         PokeSum_PrintBottomPaneText();
+        PokeSum_PrintRightPaneText();
         PokeSum_PrintAbilityDataOrMoveTypes();
         sMonSummaryScreen->selectMoveInputHandlerState = 4;
         break;
@@ -5399,8 +5402,8 @@ static void Task_InputHandler_BattleMoveInfo(u8 taskId)
         }
         break;
     case 3:
-        PokeSum_PrintRightPaneText();
         PokeSum_PrintBottomPaneText();
+        PokeSum_PrintRightPaneText();
         PokeSum_PrintAbilityDataOrMoveTypes();
         sMonSummaryScreen->selectMoveInputHandlerState = 4;
         break;
@@ -6702,8 +6705,8 @@ static void Task_PokeSum_SwitchDisplayedPokemon(u8 id)
         sMonSummaryScreen->switchMonTaskState++;
         break;
     case 8:
-        PokeSum_PrintRightPaneText();
         PokeSum_PrintBottomPaneText();
+        PokeSum_PrintRightPaneText();
         PokeSum_PrintAbilityDataOrMoveTypes();
         sMonSummaryScreen->switchMonTaskState++;
         break;
