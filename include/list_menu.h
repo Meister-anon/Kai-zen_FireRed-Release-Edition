@@ -26,6 +26,13 @@ struct ListMenuItem
     u32 index;
 };
 
+struct MoveMenuInfoIcon
+{
+    u8 width;
+    u8 height;
+    u16 offset;
+};
+
 struct ListMenu;
 
 struct ListMenuTemplate //eventually cange itemId back to u32

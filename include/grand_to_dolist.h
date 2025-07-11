@@ -4411,6 +4411,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     as there'd be no way to indicate to the player that they have access
     when they didn't before
 
+    mobile pc access is working without issue
+    next thing is setup access pc from catch task
+    when party is full, then set when to give
+    item/flag that allows mobile pc access in the first place.
+    Finally set which places will block pc access
+    typically caves, undergound areas 
+    places w boss rushes/gauntlets like pokemon tower and silph co
+    but think also set for S.S Anne
+
     also as found gen9 s/v has item printer w infinite masterballs
     don't need to change my pokeball swap setup
 

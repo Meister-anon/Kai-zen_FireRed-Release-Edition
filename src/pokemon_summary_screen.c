@@ -14,6 +14,7 @@
 #include "constants/items.h"
 #include "data.h"
 #include "item.h"
+#include "list_menu.h"
 #include "constants/party_menu.h"
 #include "trade.h"
 #include "battle_main.h"
@@ -120,6 +121,7 @@ static void PokeSum_PrintExpPoints_NextLv(void);
 static void PokeSum_PrintSelectedMoveStats(void);
 static void PokeSum_PrintTrainerMemo_Mon(void);
 static void PokeSum_PrintTrainerMemo_Egg(void);
+static void BlitTrainerMemoIcon(u8 windowId, u8 iconId, s16 x, s16 y);
 static bool32 MapSecIsInKantoOrSevii(u8 metLocation);
 static bool32 IsMultiBattlePartner(void);
 static bool32 PokeSum_IsMonBoldOrGentle(u8 nature);
@@ -368,6 +370,41 @@ static const u32 sMoveSelectionCursorTiles_Right[] = INCBIN_U32("graphics/interf
 static const u16 gTrainerMemo_GreyBar_Pal[] = INCBIN_U16("graphics/interface/Trainer_Memo_Text_bars.gbapal");
 static const u8 gTrainerMemo_GreyBar_Gfx[] = INCBIN_U8("graphics/interface/Trainer_Memo_Text_bars.4bpp");
 
+//will be listed in order of page they appear on
+//info page  than skills page
+enum TrainerMemo_GrayBars
+{
+    ICON_NO,
+    ICON_NAME,
+    ICON_TYPE,
+    ICON_OT,
+    ICON_IDNo,
+    ICON_ITEM,
+    ICON_STATE,
+    ICON_HP,
+    ICON_ATK,
+    ICON_DEF,
+    ICON_SP_ATK,
+    ICON_SP_DEF,
+    ICON_SPEED
+};
+
+static const struct MoveMenuInfoIcon sTrainerMemo_GfxIcons[] =
+{              // { width, height, offset }
+    [ICON_NO] =    { 41,   9,    0x00 },
+    [ICON_NAME] =  { 41,   9,    0x20 },
+    [ICON_TYPE] =  { 41,   9,    0x40 },
+    [ICON_OT] =    { 41,   9,    0x60 },
+    [ICON_IDNo] =  { 41,   9,    0x80 },
+    [ICON_ITEM] =  { 41,   9,    0xA0 },
+    [ICON_STATE] = { 41,  9,    0xC0 },
+    [ICON_HP] =    { 41,   9,    0x08 },
+    [ICON_ATK] =   { 41,   9,    0x28 },
+    [ICON_DEF] =   { 41,   9,    0x48 },
+    [ICON_SP_ATK] = { 41, 9,    0x68 },
+    [ICON_SP_DEF] = { 41, 9,    0x88 },
+    [ICON_SPEED] = { 41,  9,    0xA8 },
+};
 
 #define ADD_MOVE_CAT_ICONS
 /*#define TAG_CATEGORY_ICONS 30004
@@ -1095,6 +1132,7 @@ static const u8 sLevelNickTextColors[][3] =
    [PURPLE_COLOR] =         {0,      PURPLE,              PURPLE        },
    [LIGHT_GREY_COLOR] =     {0,   GREY_LAVENDER,         WHITE          }, //colors cap at 14 it seems, changed grey shadow to white to make more readable was grey
 };
+//forgot white isn't a color its transparent here
 
 static const u8 ALIGNED(4) sMultiBattlePartyOrder[] =
 {
@@ -4487,10 +4525,29 @@ static void PokeSum_PrintMonTypeIcons(void)
             //feel like this should be 41 9, but using 9 adds some weird dot to it
             //messed with it seems some weird thing with how it prints,
             //think I need a graphic look up like gFireRedMenuElements_Gfx uses
-            BlitBitmapRectToWindow(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], &gTrainerMemo_GreyBar_Gfx[0], 0, 0, 41, 9, 6, 10, 41, 9);
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_NO, 4, 6);
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_NAME, 4, 21);
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_TYPE, 4, 36);
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_OT, 4, 51);
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_IDNo, 4, 66);
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_ITEM, 4, 81);
         }//think this is type 1 & 2
+        else
+        {
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_NAME, 4, 21);
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_STATE, 4, 35); //has odd graphic glitch
+        }
         break;
     case PSS_PAGE_SKILLS:
+    if (!(sMonSummaryScreen->isEgg))
+        {
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_HP, 4, 5);
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_ATK, 4, 23);
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_DEF, 4, 36);
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_SP_ATK, 4, 49);
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_SP_DEF, 4, 62);
+            BlitTrainerMemoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], ICON_SPEED, 4, 75);
+        }
         break;
     case PSS_PAGE_MOVES:
         break;
@@ -6744,4 +6801,9 @@ static bool32 MapSecIsInKantoOrSevii(u8 place)
 static void ShowPokemonSummaryScreen_NullParty(void)
 {
     ShowPokemonSummaryScreen(0, 0, 0, CB2_ReturnToField, PSS_MODE_NORMAL);
+}
+
+static void BlitTrainerMemoIcon(u8 windowId, u8 iconId, s16 x, s16 y)
+{
+    BlitBitmapRectToWindow(windowId, &gTrainerMemo_GreyBar_Gfx[sTrainerMemo_GfxIcons[iconId].offset * TILE_SIZE_4BPP], 0, 0, 128, 128, x, y, sTrainerMemo_GfxIcons[iconId].width, sTrainerMemo_GfxIcons[iconId].height);
 }
