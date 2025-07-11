@@ -956,10 +956,10 @@ static const struct WindowTemplate sWindowTemplates_Skills[] =
 {
     [POKESUM_WIN_SKILLS_3 - 3] = {
         .bg = 0,
-        .tilemapLeft = 20,
+        .tilemapLeft = 15,
         .tilemapTop = 2,
-        .width = 10,
-        .height = 13,
+        .width = 15,
+        .height = 17,
         .paletteNum = 6,
         .baseBlock = 0x0001
     },//think this is stats down to nxt level data. attempt decrease height for removal of total exp field
@@ -970,7 +970,7 @@ static const struct WindowTemplate sWindowTemplates_Skills[] =
         .width = 14,
         .height = 4,
         .paletteNum = 6,
-        .baseBlock = 0x008d
+        .baseBlock = 0x00cd
     },//assuming is mon pic
     [POKESUM_WIN_SKILLS_5 - 3] = {
         .bg = 0,
@@ -979,7 +979,7 @@ static const struct WindowTemplate sWindowTemplates_Skills[] =
         .width = 29,
         .height = 6,
         .paletteNum = 6,
-        .baseBlock = 0x00c5
+        .baseBlock = 0x0105
     },//believe is ability data. //attempt increasing height and moving tilemapTop higher up, from removal of total exp field, and expansion of ability desc
     [POKESUM_WIN_SKILLS_6 - 3] = {
         .bg = 0,
@@ -2618,8 +2618,8 @@ static void BufferMonInfo(void) // seems to be PSS_PAGE_INFO or data for it
         CopyItemName(heldItem, sMonSummaryScreen->summary.itemNameStrBuf);
 }
 
-#define MACRO_8136350_0(x) (63 - StringLength((x)) * 6)
-#define MACRO_8136350_1(x) (27 - StringLength((x)) * 6)
+#define MACRO_8136350_0(x) (83 - StringLength((x)) * 5)
+#define MACRO_8136350_1(x) (47 - StringLength((x)) * 5)
 
 //BufferMonSkills
 //do different one for in battle
@@ -3433,14 +3433,14 @@ static const u8* GetNatureStatColor(u16 *string)
 //and returns color 0 6 or 7 based on how stat should be affected by nature
 static void PrintSkillsPage(void)//vsonic 
 {
-    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[3], FONT_NORMAL, 14 + sMonSkillsPrinterXpos->curHpStr, 4, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.curHpStrBuf);
-    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 49 + sMonSkillsPrinterXpos->atkStr, 22,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->atkStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK]);
-    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 49 + sMonSkillsPrinterXpos->defStr, 35,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->defStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF]);
-    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 49 + sMonSkillsPrinterXpos->spAStr, 48,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->spAStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA]);
-    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 49 + sMonSkillsPrinterXpos->spDStr, 61,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->spDStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD]);
-    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 49 + sMonSkillsPrinterXpos->speStr, 74,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->speStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE]);
-    //AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 15 + sMonSkillsPrinterXpos->expStr, 87, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.expPointsStrBuf);
-    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 15 + sMonSkillsPrinterXpos->toNextLevel, 87, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.expToNextLevelStrBuf);
+    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_SKILLS_3], FONT_NORMAL, 29 + sMonSkillsPrinterXpos->curHpStr, 4, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.curHpStrBuf);
+    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_SKILLS_3], FONT_NORMAL, 68 + sMonSkillsPrinterXpos->atkStr, 22,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->atkStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK]);
+    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_SKILLS_3], FONT_NORMAL, 68 + sMonSkillsPrinterXpos->defStr, 35,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->defStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF]);
+    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_SKILLS_3], FONT_NORMAL, 68 + sMonSkillsPrinterXpos->spAStr, 48,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->spAStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA]);
+    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_SKILLS_3], FONT_NORMAL, 68 + sMonSkillsPrinterXpos->spDStr, 61,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->spDStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD]);
+    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_SKILLS_3], FONT_NORMAL, 68 + sMonSkillsPrinterXpos->speStr, 74,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->speStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE]);
+    //AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_SKILLS_3], FONT_NORMAL, 15 + sMonSkillsPrinterXpos->expStr, 87, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.expPointsStrBuf);
+    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_SKILLS_3], FONT_NORMAL, 30 + sMonSkillsPrinterXpos->toNextLevel, 87, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.expToNextLevelStrBuf);
 }   //ok since this is going on window 3, and I need to move up abilities which are on window 5 think need decrease height of 3 for skills menu
 
 #define GetOtherMoveNamePrinterYpos(x) ((x) * 28 + 2)    //used for pp of move box 0 & 2, subtracted 3 to match hopefuly
