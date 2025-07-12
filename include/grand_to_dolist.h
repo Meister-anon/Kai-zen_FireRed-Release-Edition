@@ -4486,6 +4486,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     have them be Greyed out
     Put Guard mode in Protect structs as that's cleared at end turn
 
+    not usable by wild mon as don't want to just slow down wild battles
+    catching etc.
+    allow for specific wild mon that should be harder i.e use smart wild mon
+    like cerulean cave
+    will be an effect just done by trainers
+    will need rework ai to accomodate this ugh
+
     So workflow is select fight press R to turn on guard mode
     applies green overlay to mon only visible in selection/user
     moves that can't be selected get greyed out
