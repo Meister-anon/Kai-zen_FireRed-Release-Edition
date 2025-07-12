@@ -27670,7 +27670,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_FLUFFY, ABILITY_RUN_AWAY},
-        .abilityHidden = {ABILITY_BULLETPROOF, ABILITY_SAP_SIPPER},
+        .abilityHidden = {ABILITY_STATIC, ABILITY_SAP_SIPPER},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -27705,7 +27705,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_FLUFFY, ABILITY_STEADFAST},
-        .abilityHidden = {ABILITY_BULLETPROOF, ABILITY_SAP_SIPPER},
+        .abilityHidden = {ABILITY_STATIC, ABILITY_SAP_SIPPER},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -27715,6 +27715,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sDubwoolTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //changed hidden ability to give niche over greedent its direct competitor
+    //decide since wool give static
 
     [SPECIES_CHEWTLE] =
     {
@@ -32051,7 +32053,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sSmolivAbilityLearnset,
         .levelUpLearnset = sSmolivLevelUpLearnset,
         .tmhmLearnset = sSmolivTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(25, AVERAGE_EFFORT), 0,  SPECIES_DOLLIV}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(18, AVERAGE_EFFORT), 0,  SPECIES_DOLLIV}),
     },
 
     [SPECIES_DOLLIV] =
@@ -34298,8 +34300,8 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_WATER_3),
-        .abilities = { ABILITY_SAND_VEIL, ABILITY_OWN_TEMPO},
-        .abilityHidden = {ABILITY_STICKY_HOLD, ABILITY_HYDRATION},
+        .abilities = { ABILITY_SAND_VEIL, ABILITY_STICKY_HOLD},
+        .abilityHidden = {ABILITY_OWN_TEMPO, ABILITY_HYDRATION},
         .bodyColor = BODY_COLOR_WHITE, 
         .noFlip = FALSE,
         .floating = FALSE,
@@ -34382,8 +34384,8 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_WATER_3),
-        .abilities = { ABILITY_SAND_VEIL, ABILITY_OWN_TEMPO},
-        .abilityHidden = {ABILITY_STICKY_HOLD, ABILITY_HYDRATION},
+        .abilities = { ABILITY_SAND_VEIL, ABILITY_STICKY_HOLD},
+        .abilityHidden = {ABILITY_OWN_TEMPO, ABILITY_HYDRATION},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,

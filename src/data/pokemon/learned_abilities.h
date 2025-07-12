@@ -3582,10 +3582,12 @@ static const struct AbilityLearnset sEldegossAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sWoolooAbilityLearnset[] = {
+    ABILITY_BULLETPROOF,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sDubwoolAbilityLearnset[] = {
+    ABILITY_BULLETPROOF,
     ABILITY_SET_END
 };
 
