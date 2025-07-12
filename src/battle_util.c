@@ -4292,16 +4292,16 @@ enum
     CANCELLER_FLINCH,
     CANCELLER_TWO_TURNS_INTERRUPT,
     CANCELLER_DISABLED,
-    CANCELLER_INTHRALLED,
+    CANCELLER_INTHRALLED,    
+    CANCELLER_IN_LOVE,
+    CANCELLER_HEAL_BLOCKED, //no full action block effects below this
     CANCELLER_GRAVITY,
-    CANCELLER_HEAL_BLOCKED,
     CANCELLER_TAUNTED,
     CANCELLER_IMPRISONED,
     CANCELLER_CONFUSED,
     CANCELLER_PARALYZED,
     CANCELLER_IRON_WILL,
-    CANCELLER_GHOST,
-    CANCELLER_IN_LOVE,
+    CANCELLER_GHOST,    
     CANCELLER_BIDE,
     CANCELLER_THAW,
     CANCELLER_POWDER_MOVE,
@@ -4314,6 +4314,18 @@ enum
     CANCELLER_END2,
 };
 
+//understand now attack cancler for called move
+//is meant to only go through the effects
+//that don't outright prevent any action whatsoever
+//since you would already need to break through those to ac in the first place
+//meaning I need to adjust my main canceler list
+//ok protect like effects can't be called so don't need to worry about 
+//moving canceler placement, just need ensure  I include my new effects
+//and post gen protect likes in forbidden lists
+//could also potentially just add check to call functions for
+//|| gBattleMoves[gCurrentMove].flags & FLAG_PROTECTION_MOVE
+//search sForbiddenMoves can add to filter
+//vsonic IMPORTANT
 void SetAtkCancellerForCalledMove(void)
 {
     gBattleStruct->atkCancellerTracker = CANCELLER_HEAL_BLOCKED;

@@ -7650,6 +7650,7 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
         case EFFECT_SWALLOW:
         case EFFECT_WISH:
         case EFFECT_SOFTBOILED:
+        case EFFECT_SHORE_UP:
         case EFFECT_ABSORB:
         {
             gProtectStructs[battlerId].triageElevated = TRUE;
@@ -7678,6 +7679,7 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
         case EFFECT_SWALLOW:
         case EFFECT_WISH:
         case EFFECT_SOFTBOILED:
+        case EFFECT_SHORE_UP:
         case EFFECT_ABSORB:
         {
             gProtectStructs[battlerId].OmniAideElevated = TRUE;
