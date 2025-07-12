@@ -4472,6 +4472,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     or have a high chance to fail,
     it'd be as if you were attempting a double protect
 
+    thought of another case where I should add exception
+    thinks like dragon dance, I THINK I may want to block that
+    so  offensive self buff effects
+    some may be ok? maybe just block effects that boost an offense stat
+    more than 1 stage ex. swords dance?
+    eh idk, even allowing it for one stage allows you to buff 
+    more than you would otherwise safely
+    ok keep an eye on it for now idea will be block offensive self buffs
+    meaning only speed evasion acc def and sp def can be activated in guard modee
+    ...yeah go ahead and turn off evasion boosting in guard mode right now -_-
+
     when set gaurd mode at move selection
     if move is blocked from guard i.e heal moves
     have them be Greyed out
@@ -4484,7 +4495,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     will be an effect just done by trainers
     will need rework ai to accomodate this ugh
 
-    So workflow is select fight press R to turn on guard mode
+    So workflow is select fight press L to turn on guard mode while on move selection
     applies green overlay to mon only visible in selection/user
     moves that can't be selected get greyed out
     and should be locked from selection playing failure sound effect
