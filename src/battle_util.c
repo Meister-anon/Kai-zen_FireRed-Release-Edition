@@ -11671,7 +11671,16 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
 
 //for balance mechanic
 //ban direct healing effects (healing not relying on damage)
-//offensive stat buff effects
+//offensive stat buff effects and evasion boosts
+//swords dance is simple but should I exclude things w drawbacks?
+//i.e shell smash  belly drum etc.
+//shell smash is odd case since literally giving up defense
+//for offense but can think of guard mode as 
+//telling pokemon to prioritize their defenses while acting
+//tho it doens't really need the guard boost as I already rebalanced the effect
+//onsidered blocking defense stat boosting effects as well with stall toxic etc. in mind
+//but defense boosts are less impactful overall and can be reset by simply
+//forcing said mon out, would require playing around it, but is manageable
 bool32 IsGuardModeBannedEffect(u16 moveEffect)
 {
     switch (moveEffect)
@@ -11686,10 +11695,23 @@ bool32 IsGuardModeBannedEffect(u16 moveEffect)
         case EFFECT_SOFTBOILED:
         case EFFECT_SHORE_UP:
         case EFFECT_STRENGTH_SAP:
+        case EFFECT_ATTACK_UP:
+        case EFFECT_ATTACK_UP_2:
+        case EFFECT_SPECIAL_ATTACK_UP:
+        case EFFECT_SPECIAL_ATTACK_UP_2:
+        case EFFECT_SPECIAL_ATTACK_UP_3:
+        case EFFECT_EVASION_UP:
+        case EFFECT_EVASION_UP_2:
+        case EFFECT_ATTACK_UP_USER_ALLY:
+        case EFFECT_ATTRACT: //maybe, idea strong effect plus can't love with your guard up
+        case EFFECT_SKETCH: //same strong effect plus artist focused solely on craft no space for guarding
+        case EFFECT_ACCURACY_DOWN:
+        case EFFECT_ACCURACY_DOWN_2:
             return TRUE;
         default:
             return FALSE;
     }
+    //no retreat isn't included becuase it isn't spammable
 }
 
 //I THINK I want original dragon's ability 
