@@ -6560,6 +6560,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         
     } //end of special effects
 
+    //ok I THINK this may be all I need
+    if (gProtectStructs[battlerIdAtk].GuardModeOn
+    || gProtectStructs[battlerIdDef].GuardModeOn)
+        damage /= 2;
+
 
     // moves always do at least 1 damage.
     //simplified check put ouside phsys/spec 

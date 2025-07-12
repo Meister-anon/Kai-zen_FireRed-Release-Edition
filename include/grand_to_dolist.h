@@ -4483,6 +4483,23 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     meaning only speed evasion acc def and sp def can be activated in guard modee
     ...yeah go ahead and turn off evasion boosting in guard mode right now -_-
 
+    realize this would also pretty much "fix" two turn moves
+    could guard for the charge turn, to help get the move 
+    off on next turn
+
+    very cool,
+    but  I think I'm going to have to explicitly curate a list
+    of excluded effects for when I do this
+
+    IMPORTANT this is meant to be a core mechanic
+    so there should never be a thing/effect that just turns
+    it off.
+
+    i.e you can't just ignore terra, or turn off opponents Mega etc.
+    so I just need to get the balance right
+
+
+
     when set gaurd mode at move selection
     if move is blocked from guard i.e heal moves
     have them be Greyed out

@@ -371,7 +371,8 @@ struct ProtectStruct
              u32 activatedAbilityStatusHealing:1;  //since separated from status need this to filter so doesn't retrigger. //using for both poison heal and heat trance, 
              u32 statRaised:1;
              u32 statFell:1;
-             u32 padding:3;  
+             u32 GuardModeOn:1; //defensive battle style legens arceus style 50% dmg cut for 50% dmg reduction /may do 30% need test
+             u32 padding:2;  
              u16 fieldE;
 };
 

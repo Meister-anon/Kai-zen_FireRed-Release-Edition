@@ -4336,6 +4336,15 @@ u8 AtkCanceller_UnableToUseMove(void)
             gStatuses3[gBattlerAttacker] &= ~(STATUS3_GRUDGE);
             if (GetBattlerAbility(gBattlerAttacker) == ABILITY_COMATOSE) //in case I decide to nerf comatose healing to sleep levels every other turn
                 gDisableStructs[gBattlerAttacker].sleepCounter ^= 1;
+            
+            if (gDisableStructs[gBattlerAttacker].protectUses
+            && !gProtectStructs[gBattlerAttacker].GuardModeOn
+            && !(gBattleMoves[gCurrentMove].flags & FLAG_PROTECTION_MOVE))
+                gDisableStructs[gBattlerAttacker].protectUses = 0;
+
+            if (gProtectStructs[gBattlerAttacker].GuardModeOn)
+                ++gDisableStructs[gBattlerAttacker].protectUses;
+
             ++gBattleStruct->atkCancellerTracker;//need add the special stuff from emerald to prevent read this twice
             break;
         case CANCELLER_YAWN:
@@ -11657,6 +11666,29 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
         else
             return DISOBEYS_LOAFS;
 
+    }
+}
+
+//for balance mechanic
+//ban direct healing effects (healing not relying on damage)
+//offensive stat buff effects
+bool32 IsGuardModeBannedEffect(u16 moveEffect)
+{
+    switch (moveEffect)
+    {
+        case EFFECT_RESTORE_HP:
+        case EFFECT_REST:
+        case EFFECT_MORNING_SUN:
+        case EFFECT_MOONLIGHT:
+        case EFFECT_SYNTHESIS:
+        case EFFECT_ROOST:
+        case EFFECT_SWALLOW:
+        case EFFECT_SOFTBOILED:
+        case EFFECT_SHORE_UP:
+        case EFFECT_STRENGTH_SAP:
+            return TRUE;
+        default:
+            return FALSE;
     }
 }
 

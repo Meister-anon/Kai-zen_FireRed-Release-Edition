@@ -236,6 +236,7 @@ bool8 CanActivateExpNull(void);
 //condition for using Exp items
 
 bool8 IsBattlerUnderProtectEffect(u8 battler);
+bool32 IsGuardModeBannedEffect(u16 moveEffect);
 
 //cacophony based functions - also affects perish song, bypasses walls and protection
 //and sets sleep and confusion effects to max duration on status set

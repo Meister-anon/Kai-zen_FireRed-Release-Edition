@@ -14542,8 +14542,13 @@ static void atk77_setprotectlike(void)
     bool32 fail = TRUE;
     bool32 notLastTurn = TRUE;
 
-    if (!(gBattleMoves[gLastResultingMoves[gBattlerAttacker]].flags & FLAG_PROTECTION_MOVE))
-        gDisableStructs[gBattlerAttacker].protectUses = 0;
+    //need figure new condition for this to account for use guard mode previous turn
+    //hmm actually think I'll just remove this can simply move to end turn effects
+    //hmm or could put in attack canceler, since this is a bs command
+    //and would trigger after attack cancel there's nothing wrong with putting it there
+    //done attempted setup in attack canceler
+    //if (!(gBattleMoves[gLastResultingMoves[gBattlerAttacker]].flags & FLAG_PROTECTION_MOVE))
+    //    gDisableStructs[gBattlerAttacker].protectUses = 0;
 
     if (gCurrentTurnActionNumber == (gBattlersCount - 1))
         notLastTurn = FALSE;
