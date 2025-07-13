@@ -11406,6 +11406,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
     },
+    //think also give to bombirdier as entire thing is dropping 
+    //things on people
 
     [MOVE_SPIRIT_BREAK] =
     {
