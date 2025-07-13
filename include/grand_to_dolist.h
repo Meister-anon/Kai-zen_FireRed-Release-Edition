@@ -4521,6 +4521,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     Following move select complete apply green filter to battler
     for duration of turn. want to clear at start of end turn
     before all battler effects go off as guard mode is irrelevant for those
+    */
+   goto GUARD_MODE_BANLIST //list of move effects banned from guard mode
+   /*
     
     separted back out primal and mega form
     since seemed needed for new form change effect
