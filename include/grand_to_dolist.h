@@ -4503,6 +4503,23 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     for duration of turn. want to clear at start of end turn
     before all battler effects go off as guard mode is irrelevant for those
 
+
+    New idea put level up on mon info page, where display evos
+    Noticed I stil have left right symbols printed on page
+    when it doesn't do anything, form change only works
+    for the base dex page
+
+    Idea was take logic from Emerald Expnasion HGSS Dex
+    press left right on stats page to switch mon info to learnset and back
+    from there can load one at a time with simple ui to
+    identify if is egg move or learned move, how many moves
+    and use up down to navigate between them
+    think will also take stat display so have place to see
+    exact stats,
+    think best idea is pattern page after area page, 
+    so don't have to worrry about the dividor 
+    mostly to give more space for displaying move description
+
     Decide shift move page over to the right more,
     has usable empty space after pp and will never have more than 2 digits
     gives more room for move descriptions
