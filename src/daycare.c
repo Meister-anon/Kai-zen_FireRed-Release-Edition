@@ -1400,6 +1400,10 @@ static void GiveVoltTackleIfLightBall(struct Pokemon *mon, struct DayCare *dayca
     }
 }
 
+//watchin sacred plan add shinyness breeding
+//from pokeMMO to this
+//basically breeding 2 shiny parents
+//gaurantees a shiny egg
 static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parentSlots)
 {
     u16 i,j;
@@ -1533,9 +1537,12 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
 static void _GiveEggFromDaycare(struct DayCare *daycare)
 {
     struct Pokemon egg;
+    struct BoxPokemon FatherMon, MotherMon;
     u16 species;
     u8 parentSlots[DAYCARE_MON_COUNT];
     bool8 isEgg;
+    bool8 setShiny = TRUE;
+    u8 NumShinyParents = 0;
 
     species = DetermineEggSpeciesAndParentSlots(daycare, parentSlots);
     AlterEggSpeciesWithIncenseItem(&species, daycare);
@@ -1543,13 +1550,39 @@ static void _GiveEggFromDaycare(struct DayCare *daycare)
     InheritIVs(&egg, daycare);
 
     if (VarGet(VAR_PLAYER_AT_ROUTE5_DAYCARE) == TRUE)
-        BuildEggMoveset(&egg, &daycare->route5_daycareMon[parentSlots[Father]].mon, &daycare->route5_daycareMon[parentSlots[Mother]].mon);
+    {
+        FatherMon = daycare->route5_daycareMon[parentSlots[Father]].mon;
+        MotherMon = daycare->route5_daycareMon[parentSlots[Mother]].mon;
+        BuildEggMoveset(&egg, &FatherMon, &MotherMon);
+        if (IsBoxMonShiny(&FatherMon))
+            ++NumShinyParents;
+
+        if (IsBoxMonShiny(&MotherMon))
+            ++NumShinyParents;
+    }        
     else
-        BuildEggMoveset(&egg, &daycare->mons[parentSlots[Father]].mon, &daycare->mons[parentSlots[Mother]].mon);
+    {
+        FatherMon = daycare->mons[parentSlots[Father]].mon;
+        MotherMon = daycare->mons[parentSlots[Mother]].mon;
+        BuildEggMoveset(&egg, &FatherMon, &MotherMon);
+        if (IsBoxMonShiny(&FatherMon))
+            ++NumShinyParents;
+
+        if (IsBoxMonShiny(&MotherMon))
+            ++NumShinyParents;
+    }
+        
 
     if (species == SPECIES_PICHU)
         GiveVoltTackleIfLightBall(&egg, daycare);
 
+    //shold work, works individally think triggerd memory issue somewhere again smh
+    //works not idk what was wrong but using conditional of 
+    //are both parents shiny broke memory? game
+    if (NumShinyParents == 2)
+    {
+        SetMonData(&egg, MON_DATA_SHINY_CHECK, &setShiny);
+    }
     isEgg = TRUE;
     SetMonData(&egg, MON_DATA_IS_EGG, &isEgg);
     GiveMonToPlayer(&egg);
