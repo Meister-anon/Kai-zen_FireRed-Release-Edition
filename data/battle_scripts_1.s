@@ -421,7 +421,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 
 	@ custom effects  @@@@@@@@@@
 	.4byte BattleScript_EffectMonotype
-	.4byte BattleScript_EffectSketchStatUp
+	.4byte BattleScript_EffectHit
 	.4byte BattleScript_EffectFlash
 	.4byte BattleScript_EffectCocoon
 	.4byte BattleScript_EffectFlashFreeze	@ice will o wisp
@@ -7699,30 +7699,15 @@ BattleScript_AllStatsUp::
 BattleScript_AllStatsUpAtk::
 	setbyte sSTAT_ANIM_PLAYED, 0
 	playstatchangeanimation BS_ATTACKER, BIT_ATK | BIT_DEF | BIT_SPEED | BIT_SPATK | BIT_SPDEF, 0
-	setstatchanger STAT_ATK, 1, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_AllStatsUpDef
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_ATK, INCREASE, 1, BattleScript_AllStatsUpDef, TRUE, ANIM_OFF
 BattleScript_AllStatsUpDef::
-	setstatchanger STAT_DEF, 1, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_AllStatsUpSpeed
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_DEF, INCREASE, 1, BattleScript_AllStatsUpSpeed, TRUE, ANIM_OFF
 BattleScript_AllStatsUpSpeed::
-	setstatchanger STAT_SPEED, 1, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_AllStatsUpSpAtk
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_SPEED, INCREASE, 1, BattleScript_AllStatsUpSpAtk, TRUE, ANIM_OFF
 BattleScript_AllStatsUpSpAtk::
-	setstatchanger STAT_SPATK, 1, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_AllStatsUpSpDef
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_SPATK, INCREASE, 1, BattleScript_AllStatsUpSpDef, TRUE, ANIM_OFF
 BattleScript_AllStatsUpSpDef::
-	setstatchanger STAT_SPDEF, 1, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_AllStatsUpRet
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_SPDEF, INCREASE, 1, BattleScript_AllStatsUpRet, TRUE, ANIM_OFF
 BattleScript_AllStatsUpRet::
 	return
 
@@ -7735,33 +7720,20 @@ BattleScript_AllStatsUp2::
 BattleScript_AllStatsUpAtk2::
 	setbyte sSTAT_ANIM_PLAYED, 0
 	playstatchangeanimation BS_ATTACKER, BIT_ATK | BIT_DEF | BIT_SPEED | BIT_SPATK | BIT_SPDEF, 0
-	setstatchanger STAT_ATK, 2, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_AllStatsUpDef2
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_ATK, INCREASE, 2, BattleScript_AllStatsUpDef2, TRUE, ANIM_OFF
 BattleScript_AllStatsUpDef2::
-	setstatchanger STAT_DEF, 2, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_AllStatsUpSpeed2
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_DEF, INCREASE, 2, BattleScript_AllStatsUpSpeed2, TRUE, ANIM_OFF
 BattleScript_AllStatsUpSpeed2::
-	setstatchanger STAT_SPEED, 2, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_AllStatsUpSpAtk2
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_SPEED, INCREASE, 2, BattleScript_AllStatsUpSpAtk2, TRUE, ANIM_OFF
 BattleScript_AllStatsUpSpAtk2::
-	setstatchanger STAT_SPATK, 2, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_AllStatsUpSpDef2
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_SPATK, INCREASE, 2, BattleScript_AllStatsUpSpDef2, TRUE, ANIM_OFF
 BattleScript_AllStatsUpSpDef2::
-	setstatchanger STAT_SPDEF, 2, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_AllStatsUpRet2
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_SPDEF, INCREASE, 2, BattleScript_AllStatsUpRet2, TRUE, ANIM_OFF
 BattleScript_AllStatsUpRet2::
 	return
 
+@can prob simplify some w modifybattlerstatstage command
+@just turn off animation
 @believe cpm equal tell it to not raise stats if spdef is maxed since its raising everything
 BattleScript_EffectSketchStatUp::
 	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_ATK, 12, BattleScript_SketchStatsUpAtk2
@@ -7771,25 +7743,13 @@ BattleScript_EffectSketchStatUp::
 BattleScript_SketchStatsUpAtk2::
 	setbyte sSTAT_ANIM_PLAYED, 0
 	playstatchangeanimation BS_ATTACKER, BIT_ATK | BIT_DEF | BIT_SPATK | BIT_SPDEF, 0
-	setstatchanger STAT_ATK, 2, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_SketchStatsUpDef2
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_ATK, INCREASE, 2, NULL, TRUE, ANIM_OFF
 BattleScript_SketchStatsUpDef2::
-	setstatchanger STAT_DEF, 2, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_SketchStatsUpSpAtk2
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_DEF, INCREASE, 2, BattleScript_SketchStatsUpSpAtk2, TRUE, ANIM_OFF
 BattleScript_SketchStatsUpSpAtk2::
-	setstatchanger STAT_SPATK, 2, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_SketchStatsUpSpDef2
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_SPATK, INCREASE, 2, BattleScript_SketchStatsUpSpDef2, TRUE, ANIM_OFF
 BattleScript_SketchStatsUpSpDef2::
-	setstatchanger STAT_SPDEF, 2, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_SketchStatsUpRet2
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_ATTACKER, STAT_SPDEF, INCREASE, 2, BattleScript_SketchStatsUpRet2, TRUE, ANIM_OFF
 BattleScript_SketchStatsUpRet2::
 	return
 

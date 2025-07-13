@@ -402,8 +402,8 @@
 
 #define EFFECT_ATTACKER_DEFENSE_DOWN_HIT 391
 #define EFFECT_MONOTYPE 392 //new sketch
-#define EFFECT_SKETCH_STAT_UP 393 //stat increase for sketch should jump to script but not use effect alone
-#define EFFECT_FLASH 394
+#define EFFECT_BLANKED 393 //stat increase for sketch should jump to script but not use effect alone
+#define EFFECT_FLASH 394//idk why I did this? ^ I just changed sketch script didn' tneed specific stat up version
 #define EFFECT_COCOON 395
 #define EFFECT_FLASH_FREEZE 396
 //#define EFFECT_FIRE_SPIN 398 //needed these separate because otherwise, game doesn't allow multiple traps to be applied //changed rather than multile effects just use multi status 
