@@ -348,7 +348,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectAcupressure             @ EFFECT_ACUPRESSURE
 	.4byte BattleScript_EffectAromaticMist            @ EFFECT_AROMATIC_MIST
 	.4byte BattleScript_EffectPowder                  @ EFFECT_POWDER
-	.4byte BattleScript_EffectSpAtkUpHit              @ EFFECT_SP_ATTACK_UP_HIT
+	.4byte BattleScript_EffectHit              		  @ EFFECT_UNUSED_144
 	.4byte BattleScript_EffectBelch                   @ EFFECT_BELCH
 	.4byte BattleScript_EffectPartingShot             @ EFFECT_PARTING_SHOT
 	.4byte BattleScript_EffectSpectralThief           @ EFFECT_SPECTRAL_THIEF
@@ -421,7 +421,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 
 	@ custom effects  @@@@@@@@@@
 	.4byte BattleScript_EffectMonotype
-	.4byte BattleScript_EffectHit
+	.4byte BattleScript_EffectHit					@EFFECT_BLANK
 	.4byte BattleScript_EffectFlash
 	.4byte BattleScript_EffectCocoon
 	.4byte BattleScript_EffectFlashFreeze	@ice will o wisp
@@ -953,10 +953,6 @@ BattleScript_CacophonyPartingShotAtk::
 BattleScript_CacophonyPartingShotSpAtk::
 	setstatchanger STAT_SPATK, 2, TRUE
 	goto BattleScript_CacophonyBoostedPartingshotSpAtkChange
-
-BattleScript_EffectSpAtkUpHit:
-	setmoveeffect MOVE_EFFECT_SP_ATK_PLUS_1 | MOVE_EFFECT_AFFECTS_USER
-	goto BattleScript_EffectHit
 
 BattleScript_EffectPowder:
 	attackcanceler

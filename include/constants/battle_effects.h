@@ -332,7 +332,7 @@
 #define EFFECT_ACUPRESSURE 321
 #define EFFECT_AROMATIC_MIST 322
 #define EFFECT_POWDER 323
-#define EFFECT_SP_ATTACK_UP_HIT 324
+#define EFFECT_UNUSED_144 324 //unused had double effect for sp atk up hit
 #define EFFECT_BELCH 325
 #define EFFECT_PARTING_SHOT 326
 #define EFFECT_SPECTRAL_THIEF 327
@@ -402,8 +402,8 @@
 
 #define EFFECT_ATTACKER_DEFENSE_DOWN_HIT 391
 #define EFFECT_MONOTYPE 392 //new sketch
-#define EFFECT_BLANKED 393 //stat increase for sketch should jump to script but not use effect alone
-#define EFFECT_FLASH 394//idk why I did this? ^ I just changed sketch script didn' tneed specific stat up version
+#define EFFECT_BLANK 393 //stat increase for sketch should jump to script but not use effect alone
+#define EFFECT_FLASH 394
 #define EFFECT_COCOON 395
 #define EFFECT_FLASH_FREEZE 396
 //#define EFFECT_FIRE_SPIN 398 //needed these separate because otherwise, game doesn't allow multiple traps to be applied //changed rather than multile effects just use multi status 
