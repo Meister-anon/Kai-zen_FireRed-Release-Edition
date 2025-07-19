@@ -26928,7 +26928,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        86,
+        80,
         85,
         70,
         80,
@@ -26963,7 +26963,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        130,
+        100,
         125,
         90,
         85,
@@ -41755,7 +41755,7 @@ const struct BaseStats gBaseStats[] =
         90,    
         100,
         110,
-        20, 
+        25, 
         70
         ),
         MON_TYPES(TYPE_GROUND, TYPE_STEEL),
@@ -42802,6 +42802,14 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_GALARIAN_FORM,
     },
+    //of note only this mon has mimicry as an ability 
+    //and it seems to  be a detriment it has no purpose
+    //unless terrain is set and if it is all it does it make it a 
+    //worse typing as it doesn't have coverage to offensively take advantage of it
+    //ok my idea just treat it like a tera, rather than fully replacing its existin type
+    //can just make mimicry set the 3rd type based on terrain
+    //it doesn't have crazy stats, so this would just be a unique thing
+    //that'd make it annoying to get rid of
 
     [SPECIES_GROWLITHE_HISUIAN] =
     {

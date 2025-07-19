@@ -556,6 +556,7 @@ static const struct AbilityLearnset sStarmieAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMrMimeAbilityLearnset[] = {
+    ABILITY_MIMICRY,
     ABILITY_SET_END
 };
 
@@ -1011,6 +1012,7 @@ static const struct AbilityLearnset sOctilleryAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sDelibirdAbilityLearnset[] = {
+    ABILITY_INSOMNIA,
     ABILITY_SET_END
 };
 
@@ -1921,6 +1923,7 @@ static const struct AbilityLearnset sBonslyAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMimeJrAbilityLearnset[] = {
+    ABILITY_MIMICRY,
     ABILITY_SET_END
 };
 

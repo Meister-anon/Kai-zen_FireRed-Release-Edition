@@ -1484,9 +1484,8 @@ void RestoreBattlerOriginalTypes(u8 battlerId)
 
 void TryToApplyMimicry(u8 battlerId, bool8 various)
 {
-    u32 moveType, move;
+    u32 moveType;
 
-    GET_MOVE_TYPE(move, moveType);
     switch (gFieldStatuses)
     {
     case STATUS_FIELD_ELECTRIC_TERRAIN:
@@ -1508,13 +1507,13 @@ void TryToApplyMimicry(u8 battlerId, bool8 various)
 
     if (moveType != 0 && !IS_BATTLER_OF_TYPE(battlerId, moveType))
     {
-        SET_BATTLER_TYPE(battlerId, moveType);
+        SET_BATTLER_TYPE3(battlerId, moveType);
         PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, battlerId, gBattlerPartyIndexes[battlerId])
             PREPARE_TYPE_BUFFER(gBattleTextBuff2, moveType);
         if (!various)
             BattleScriptPushCursorAndCallback(BattleScript_MimicryActivatesEnd3);
     }//don't know much about effect but it appears to be like color change, so directly related to type so leaving out
-}
+}//made similar to color change rework, will only set type3
 
 void TryToRevertMimicry(void)
 {
@@ -1523,7 +1522,7 @@ void TryToRevertMimicry(void)
     for (i = 0; i < MAX_BATTLERS_COUNT; i++)
     {
         if (GetBattlerAbility(i) == ABILITY_MIMICRY)
-            RestoreBattlerOriginalTypes(i);
+            SET_BATTLER_TYPE3(i, TYPE_MYSTERY);
     }
 }
 

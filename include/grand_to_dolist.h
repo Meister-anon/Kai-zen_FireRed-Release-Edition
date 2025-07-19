@@ -9714,6 +9714,14 @@ goto MAY_BE_CATCH_LOGIC //look into see if forced left side is wide double catch
     //i.e if I'm standing on land tile look for land data if I'm surfing look for water data
     //and set illusion mon to random mon from table, long as species does not equal actual species of battler
 
+    for in trainer battle, rather than just last mon in party set priority logic,
+    look for mon with mon of a type that illusion mon would be immune to, then look for resistance
+    quad resist then check regular resist, if find none of those,
+    then look for mon of lowest bst long as it isn't a type whose
+    weakness would be super effective to zorua/illusion mon
+
+    vsonic IMPORTANT
+
   fixed egg breeding, setup abilities that should speed up egg hatch, (think, should work)
   also fixed in game bug, where egg hatching took an extra cycle
 
