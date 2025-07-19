@@ -20,7 +20,7 @@ CeruleanCity_House1_Text_AttackStatFlash:: @ 81919BE    @Brock badge
     .string "CUT outside of battle.$"
 
 CeruleanCity_House1_Text_ObeyLv30Cut:: @ 8191A31    @Misty badge
-    .string "POKéMON up to Lv. 30 will obey\n"
+    .string "POKéMON up to Lv. 25 will obey\n"
     .string "you.\p"
     .string "That includes even outsiders you\n"
     .string "obtain in trades.\p"
@@ -36,7 +36,7 @@ CeruleanCity_House1_Text_SpeedStatFly:: @ 8191AF9   @Lt. Surge badge
     .string "FLASH outside of battle.$"
 
 CeruleanCity_House1_Text_ObeyLv50Strength:: @ 8191B69   @Erika badge
-    .string "POKéMON up to Lv. 50 will obey\n"
+    .string "POKéMON up to Lv. 40 will obey\n"
     .string "you.\p"
     .string "That includes even outsiders you\n"
     .string "obtain in trades.\p"
@@ -52,7 +52,7 @@ CeruleanCity_House1_Text_DefenseStatSurf:: @ 8191C36    @Koga Badge
     .string "FLY outside of battle.$"
 
 CeruleanCity_House1_Text_ObeyLv70RockSmash:: @ 8191CA9  @Sabrina Badge
-    .string "POKéMON up to Lv. 70 will obey\n"
+    .string "POKéMON up to Lv. 50 will obey\n"
     .string "you.\p"
     .string "That includes even outsiders you\n"
     .string "obtain in trades.\p"
@@ -61,12 +61,12 @@ CeruleanCity_House1_Text_ObeyLv70RockSmash:: @ 8191CA9  @Sabrina Badge
     .string "It also lets you use the move\n"
     .string "ROCK SMASH outside of battle.$"
 
-CeruleanCity_House1_Text_SpStatsWaterfall:: @ 8191D78   @Giovanni Badge
+CeruleanCity_House1_Text_SpStatsWaterfall:: @ 8191D78   
     .string "The SP. ATK and SP. DEF stats of\n"
     .string "all your POKéMON rise a little bit.\p"
     .string "It also lets you use the move\n"
     .string "WATERFALL outside of battle.$"
 
-CeruleanCity_House1_Text_AllMonsWillObeyYou:: @ 8191DF8
+CeruleanCity_House1_Text_AllMonsWillObeyYou:: @ 8191DF8 @Giovanni Badge
     .string "All POKéMON will obey you!$"
 

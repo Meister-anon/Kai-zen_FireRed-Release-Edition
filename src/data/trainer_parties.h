@@ -4943,7 +4943,7 @@ static const struct TrainerMonNoItemDefaultMoves sTrainerMons_BossGiovanni2[] = 
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderGiovanni[] = {
+static const struct TrainerMonItemCustomMoves sTrainerMons_LeaderGiovanni[] = {
     {
         .iv = 31,
         .lvl = 45,
@@ -4985,6 +4985,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderGiovanni[] = 
         //.moves = {MOVE_TAKE_DOWN, MOVE_ROCK_BLAST, MOVE_SCARY_FACE, MOVE_EARTHQUAKE},
     }, //make sure to use abilitynum to give super luck
 };
+//give item scope lens?
 
 static const struct TrainerMonNoItemDefaultMoves sTrainerMons_TeamRocketGrunt[] = {
     {
@@ -6436,6 +6437,10 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderBrock[] = {
     },//considering buffs to onix had bring down lvl to 13 instead of 14, beatable but worried would make player overleveled for section after brock
 };
 
+//raise her party count up
+//we just fought gary before her and he had 4 mon
+//think raise leaders following brock to min 4
+//so can have option to do double battles
 static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderMisty[] = {
     {
         .iv = MIN_FIXED_IVS,
@@ -6451,10 +6456,11 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderMisty[] = {
     },
 };
 
+
 static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderLtSurge[] = {
     {
         .iv = 23,
-        .lvl = 21,
+        .lvl = 23,
         .species = SPECIES_VOLTORB,
         .moves = {MOVE_SONIC_SCREECH, MOVE_TACKLE, MOVE_SCREECH, MOVE_SHOCK_WAVE},
     },
@@ -6465,35 +6471,79 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderLtSurge[] = {
         .moves = {MOVE_QUICK_ATTACK, MOVE_THUNDER_WAVE, MOVE_DOUBLE_TEAM, MOVE_SHOCK_WAVE},
     },
     {
+        .iv = 21,
+        .lvl = 20,
+        .species = SPECIES_PAWMO,
+        //.moves = {MOVE_QUICK_ATTACK, MOVE_THUNDER_WAVE, MOVE_DOUBLE_TEAM, MOVE_SHOCK_WAVE},
+    },
+    {
         .iv = 25,
-        .lvl = 24,
+        .lvl = 27,
         .species = SPECIES_RAICHU,
         .moves = {MOVE_QUICK_ATTACK, MOVE_THUNDER_WAVE, MOVE_DOUBLE_TEAM, MOVE_SHOCK_WAVE},
     },
 };
 
+//why is erika so low?
 static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderErika[] = {
     {
         .iv = 25,
-        .lvl = 29,
+        .lvl = 36,
         .species = SPECIES_VICTREEBEL,
         .moves = {MOVE_STUN_SPORE, MOVE_UP_ROOT, MOVE_POISON_POWDER, MOVE_GIGA_DRAIN},
     },
     {
         .iv = 25,
-        .lvl = 24,
+        .lvl = 39,
+        .species = SPECIES_BELLSPROUT,
+        .moves = {MOVE_STUN_SPORE, MOVE_UP_ROOT, MOVE_POISON_POWDER, MOVE_GIGA_DRAIN},
+    },
+    {
+        .iv = 25,
+        .lvl = 33,
         .species = SPECIES_TANGELA,
         .moves = {MOVE_POISON_POWDER, MOVE_CONSTRICT, MOVE_INGRAIN, MOVE_GIGA_DRAIN},
     },
     {
         .iv = 25,
-        .lvl = 29,
+        .lvl = 37,
         .species = SPECIES_VILEPLUME,
         .moves = {MOVE_SLEEP_POWDER, MOVE_SLUDGE, MOVE_STUN_SPORE, MOVE_GIGA_DRAIN},
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderKoga[] = {
+//think give esperr
+//last difficulty spike give last 4 gym leaders
+//held items
+static const struct TrainerMonItemCustomMoves sTrainerMons_LeaderSabrina[] = {
+    {
+        .iv = 27,
+        .lvl = 38,
+        .species = SPECIES_KADABRA,
+        .moves = {MOVE_PSYBEAM, MOVE_REFLECT, MOVE_FUTURE_SIGHT, MOVE_CALM_MIND},
+    },
+    {
+        .iv = 27,
+        .lvl = 41,
+        .species = SPECIES_MR_MIME,
+        .moves = {MOVE_BARRIER, MOVE_PSYWAVE, MOVE_BATON_PASS, MOVE_CALM_MIND},
+    },
+    {
+        .iv = 27,
+        .lvl = 38,
+        .species = SPECIES_VENOMOTH,
+        .moves = {MOVE_PSYBEAM, MOVE_GUST, MOVE_LEECH_LIFE, MOVE_SUPERSONIC},
+    },
+    {
+        .iv = 31,
+        .lvl = 43,
+        .heldItem = ITEM_WIDE_LENS,
+        .species = SPECIES_ALAKAZAM,
+        .moves = {MOVE_FOCUS_BLAST, MOVE_RECOVER, MOVE_FUTURE_SIGHT, MOVE_CALM_MIND},
+    },
+};
+
+static const struct TrainerMonItemCustomMoves sTrainerMons_LeaderKoga[] = {
     {
         .iv = 25,
         .lvl = 37,
@@ -6508,9 +6558,9 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderKoga[] = {
     },
     {
         .iv = 25,
-        .lvl = 37,
-        .species = SPECIES_KOFFING,
-        .moves = {MOVE_SELF_DESTRUCT, MOVE_SLUDGE, MOVE_SMOKESCREEN, MOVE_TOXIC},
+        .lvl = 39,
+        .species = SPECIES_MUK_ALOLAN,
+        //.moves = {MOVE_SELF_DESTRUCT, MOVE_SLUDGE, MOVE_SMOKESCREEN, MOVE_TOXIC},
     },
     {
         .iv = 27,
@@ -6520,7 +6570,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderKoga[] = {
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderBlaine[] = {
+static const struct TrainerMonItemCustomMoves sTrainerMons_LeaderBlaine[] = {
     {
         .iv = 27,
         .lvl = 42,
@@ -6551,34 +6601,6 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderBlaine[] = {
         .lvl = 47,
         .species = SPECIES_ARCANINE,
         .moves = {MOVE_BITE, MOVE_FLAME_CHARGE, MOVE_TAKE_DOWN, MOVE_FIRE_BLAST},
-    },
-};
-
-static const struct TrainerMonItemCustomMoves sTrainerMons_LeaderSabrina[] = {
-    {
-        .iv = 27,
-        .lvl = 38,
-        .species = SPECIES_KADABRA,
-        .moves = {MOVE_PSYBEAM, MOVE_REFLECT, MOVE_FUTURE_SIGHT, MOVE_CALM_MIND},
-    },
-    {
-        .iv = 27,
-        .lvl = 37,
-        .species = SPECIES_MR_MIME,
-        .moves = {MOVE_BARRIER, MOVE_PSYWAVE, MOVE_BATON_PASS, MOVE_CALM_MIND},
-    },
-    {
-        .iv = 27,
-        .lvl = 38,
-        .species = SPECIES_VENOMOTH,
-        .moves = {MOVE_PSYBEAM, MOVE_GUST, MOVE_LEECH_LIFE, MOVE_SUPERSONIC},
-    },
-    {
-        .iv = 31,
-        .lvl = 43,
-        .heldItem = ITEM_WIDE_LENS,
-        .species = SPECIES_ALAKAZAM,
-        .moves = {MOVE_FOCUS_BLAST, MOVE_RECOVER, MOVE_FUTURE_SIGHT, MOVE_CALM_MIND},
     },
 };
 

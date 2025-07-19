@@ -11599,16 +11599,18 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
     //to prevent just rolling everything with level 80s in the box on NG+
     u32 MonLevel = FlagGet(FLAG_NEW_GAME_PLUS) ? gBattleMons[gBattlerAttacker].level : GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_MET_LEVEL);
     obedienceLevel = 10;
+        if (FlagGet(FLAG_BADGE01_GET))
+            obedienceLevel = 20;
         if (FlagGet(FLAG_BADGE02_GET))
             obedienceLevel = 25;
         if (FlagGet(FLAG_BADGE03_GET))
-            obedienceLevel = 30;
-        if (FlagGet(FLAG_BADGE04_GET))
             obedienceLevel = 35;
-        if (FlagGet(FLAG_BADGE05_GET))
+        if (FlagGet(FLAG_BADGE04_GET))
             obedienceLevel = 40;
-        if (FlagGet(FLAG_BADGE06_GET))
+        if (FlagGet(FLAG_BADGE05_GET))
             obedienceLevel = 45;
+        if (FlagGet(FLAG_BADGE06_GET))
+            obedienceLevel = 50;
         if (FlagGet(FLAG_BADGE07_GET))
             obedienceLevel = 60;
 
