@@ -13855,6 +13855,9 @@ use wonder gaurd logic to determine its super effective
         .argument = MOVE_EFFECT_CONFUSION,
         //.argumentEffectChance = 10, can use sec effect for this
     },//since effect is affects user its already certain
+    //think give this uproar effect as well, good idea
+    //to have more sleep control in game even with rebalance
+    //only give to expert flyers garchomp too
 
     [MOVE_OVER_MAX_POWER] =
     {

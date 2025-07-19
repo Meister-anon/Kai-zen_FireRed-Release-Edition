@@ -14991,7 +14991,37 @@ static void atk83_nop(void)
     ++gBattlescriptCurrInstr;
 }
 
+//need test vsonic,
+//but attempt add sonic boom to wake up check
 bool8 UproarWakeUpCheck(u8 battlerId)
+{
+    s32 i;
+
+    for (i = 0; i < gBattlersCount; ++i)
+    {
+        if (!(gBattleMons[i].status2 & STATUS2_UPROAR)
+         || !(gLastLandedMoves[i] == MOVE_SONIC_BOOM)
+         || gBattleMons[battlerId].ability == ABILITY_SOUNDPROOF)
+            continue;
+        gBattleScripting.battler = i;
+
+        if (gBattlerTarget == 0xFF)
+            gBattlerTarget = i;
+        else if (gBattlerTarget == i)
+            gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+        else
+            gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+        break;
+    }
+    if (i == gBattlersCount)
+        return FALSE;
+    else
+        return TRUE;
+}
+
+//made to separate out effect so can have sonic boom
+//just for wake up in battle not end turn 
+static bool8 UproarSleepBlockCheck(u8 battlerId)
 {
     s32 i;
 
@@ -15021,7 +15051,7 @@ static void atk84_jumpifcantmakeasleep(void) //vsonic keep an eye on/check EE
     const u8 *jumpPtr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
     u16 ability = GetBattlerAbility(gBattlerTarget);
 
-    if (UproarWakeUpCheck(gBattlerTarget))
+    if (UproarSleepBlockCheck(gBattlerTarget))
     {
         gBattlescriptCurrInstr = jumpPtr;
     }
