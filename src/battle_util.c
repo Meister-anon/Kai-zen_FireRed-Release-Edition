@@ -11584,6 +11584,14 @@ static bool32 IsNotEventLegalMewOrDeoxys(u8 battlerId) //fix to remove GF mew de
         return TRUE;
 }
 
+//realize since I made it so ot mon can be disobedient realized 
+//need to adjust disobedience levels so players can overlevel
+//to a degree
+//remember I have the exp null so I don't need
+//enforced level caps players can cap themselves wherever
+//forgot already handled that, base game disobedience is met level
+//so its just preventing from using higher level caught mon
+//battle level disobedience is only for new game plus
 u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan was make work on player but only for new gmae plus mode to encourage using new mon
 {
     s32 rnd;

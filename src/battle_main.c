@@ -344,7 +344,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_FIGHTING] =   {X(1.55),  ______,   X(0.5),   X(0.5),   X(0.5),   X(1.55),   X(0.5),   X(0.0),   X(1.55),  ______,    ______,   ______,   ______,   ______,   X(0.5),   X(1.55),   ______,  X(1.55),   X(0.5),   ______}, // fight
 
-    [TYPE_FLYING] =     {______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  ______,   ______,   X(1.55),   X(0.5),   X(0.5),   X(0.5),   ______,   ______,   ______,   ______}, // flying
+    [TYPE_FLYING] =     {______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  ______,   ______,   X(1.55),   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,   ______}, // flying
 
     [TYPE_POISON] =     {______,   X(1.55),   ______,   X(0.0),   X(0.5),   X(0.0),   ______,   X(0.5),   X(0.0),   ______,    ______,   ______,   X(1.55),   ______,  ______,    X(0.5),   ______,  X(0.5),   X(1.55),   ______}, // poison
 
@@ -388,6 +388,12 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 //and also break up ice
 //also quick freezing of grounds with water can cause increased seismic activity even earthquakes
 //so I belive its fine to leave ground doin neutral damage to ice
+
+//removed flying resist on ice type, think was too much,
+//was linking flying too much to birds and thinking of ice as a hard surface like rock
+//but wind can be cold or hot, sharp or blunt, a hot wind could melt ice
+//so think varied enough advantage/disadvantage to just leave neutral
+//and better balances ice defenses
 
 //consider make poison resist dark I keep coming back to it and feels like it makes sense
 //dark resists poison and apparently dark is very strong offensively
@@ -611,8 +617,7 @@ static const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e numbe
     TYPE_FLYING, TYPE_GROUND, TYPE_MUL_NOT_EFFECTIVE,   //wind doesn't really affect ground itself, after torandoes/hurricanes ground itself is undamage just everying on top (and mon can just go underground to avoid attacks)
     TYPE_FLYING, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_FLYING, TYPE_PSYCHIC, TYPE_MUL_NOT_EFFECTIVE,  //screw it!! it makes sense so I'm doing it, psychic abilities already catch things in the air and throw them around, even control wind
-    TYPE_FLYING, TYPE_ICE, TYPE_MUL_NOT_EFFECTIVE,      //Removed psychic super to flying, too strong, psychic strong offensively can already beat flying at neutral
-    TYPE_PSYCHIC, TYPE_FIGHTING, TYPE_MUL_SUPER_EFFECTIVE,
+    TYPE_PSYCHIC, TYPE_FIGHTING, TYPE_MUL_SUPER_EFFECTIVE, //Removed psychic super to flying, too strong, psychic strong offensively can already beat flying at neutral
     TYPE_PSYCHIC, TYPE_POISON, TYPE_MUL_SUPER_EFFECTIVE,    //think logic is psychic powers would keep you from being poisoned/subtle attacks you could read their mind, so its "very effective"
     TYPE_PSYCHIC, TYPE_PSYCHIC, TYPE_MUL_NOT_EFFECTIVE,     //psychic power can stop a target cold, can keep them from flying, or confuse them which would make it impossible to fly, so makes sense,
     TYPE_PSYCHIC, TYPE_DARK, TYPE_MUL_NO_EFFECT,        //mostly done to counter fairy resistance
