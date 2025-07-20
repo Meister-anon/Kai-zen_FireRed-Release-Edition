@@ -4055,6 +4055,10 @@ const struct BaseStats gBaseStats[] =
     //ok can't buff, they are faaster at least than their
     //evo counterparts perhaps can just make up the gap
     //with the increased ev limit?
+    //I added bst cap to eviolite because I boosted the ev limit,
+    //and I boosted eviolite boost cuz I felt it wasn't useful enough
+    //to help low bst mon...
+    //think remove eviolite boost ev limit increase handles that well enough
 
     [SPECIES_PINSIR] =
     {

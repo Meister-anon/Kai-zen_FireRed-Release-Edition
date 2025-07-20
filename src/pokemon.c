@@ -4928,7 +4928,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         case HOLD_EFFECT_EVIOLITE:  //wasn't set correclty before should work now
             if (CanEvioliteActivate(battlerIdDef))    //
             {
-                DefenseModifer(170);
+                DefenseModifer(150);
             }
         case HOLD_EFFECT_DRAGON_SCALE:
             if (defender->species == SPECIES_SEADRA    //alt eviolite would give seadra gen 1 sp def stat (close to)
