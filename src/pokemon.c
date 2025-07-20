@@ -4518,7 +4518,7 @@ u16 GetIndividualBaseStatValue(u16 species, u8 statIndex)
     }
 }
 
-//limit 465 bst
+//limit 510 bst
 bool8 CanEvioliteActivate(u8 target)
 {
     u16 species = gBattleMons[target].species;
@@ -4529,12 +4529,20 @@ bool8 CanEvioliteActivate(u8 target)
     else
         mon = &gEnemyParty[gBattlerPartyIndexes[target]];
 
-    if (CanEvolve(species) && (GetBaseStatTotal(species) <= 465
-    && GetGlobalStatTotal(mon) <= 565)) //with boosted stats thing may raiase limit to 465? using new tangela as example, is still below chansey 
+    if (CanEvolve(species) && (GetBaseStatTotal(species) <= 510
+    && GetGlobalStatTotal(mon) <= 600)) //with boosted stats thing may raiase limit to 465? using new tangela as example, is still below chansey 
         return TRUE;
     else
         return FALSE;//chansey is 475
 }
+//previous ev limit total stat gain is 126 stat points
+//252 *2  / 4  504 /4
+//removed base stat limiter,
+//but think with increased ev cap still need a limit for eviolite?
+//ok nvm think just raise the limit?
+//alright this seems better, higher bst cap to keep most mon in,
+//put bst limit just slightly below what previous max ev limit 
+//would be for upper side of bst cap
 
 bool8 IsMegaSpecies(u16 species)
 {

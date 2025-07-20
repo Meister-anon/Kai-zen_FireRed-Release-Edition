@@ -4055,10 +4055,20 @@ const struct BaseStats gBaseStats[] =
     //ok can't buff, they are faaster at least than their
     //evo counterparts perhaps can just make up the gap
     //with the increased ev limit?
+    //still unsure how to do ev increase
+    //but think maybe won't need worry about eviolite
+    //with strategizing possible guard mode may be enough
+    //to keep this usable?
     //I added bst cap to eviolite because I boosted the ev limit,
     //and I boosted eviolite boost cuz I felt it wasn't useful enough
     //to help low bst mon...
     //think remove eviolite boost ev limit increase handles that well enough
+    //back to square 1, how to make new evos worth using on their own
+    //i.e magmortar electivire blissey dusknoir
+    //for dusknoir changed type
+    //buffed blissey's defense to be above eviolite and stat change
+    //should give slightly diff use
+    //done adjusted evolite logic should do what I need
 
     [SPECIES_PINSIR] =
     {
@@ -7569,7 +7579,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Blissey"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(255, 30, 20, 55, 75, 135),
+         STATS(255, 30, 25, 55, 75, 135),
         MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),//unsure if keep this as normal, or keep normal fairy,
         .catchRate = 30,    //point was to give more weaknessesto cover incraesed survivability,
         .expYield = 608,    //but normal already has fairy as an added weaknesss
