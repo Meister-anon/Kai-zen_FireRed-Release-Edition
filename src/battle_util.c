@@ -11709,7 +11709,6 @@ bool32 IsGuardModeBannedEffect(u16 moveEffect)
         case EFFECT_SKETCH: //same strong effect plus artist focused solely on craft no space for guarding
         case EFFECT_ACCURACY_DOWN:
         case EFFECT_ACCURACY_DOWN_2:
-        //case EFFECT_ACCURACY_DOWN_HIT:
         case EFFECT_SUBSTITUTE:
         //unsure if should add since snatch can effectively steal and become any banned effect
         //case EFFECT_SNATCH: 
