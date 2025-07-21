@@ -849,12 +849,8 @@ static const struct BgTemplate sBgTempaltes[] =
 
 #define POKESUM_WIN_MOVES_3          3  //mon move names & pp window
 #define POKESUM_WIN_MOVES_4          4  //move selct descriptions & info
-#define POKESUM_WIN_MOVES_5          5  //Type Icons
+#define POKESUM_WIN_MOVES_5          5  //move Type Icons
 #define POKESUM_WIN_MOVES_6          6  //Mon Type Icons
-#define POKESUM_WIN_MOVES_5_1        7  //Type Icon Move 2
-#define POKESUM_WIN_MOVES_5_2        8  //Type Icon Move 3
-#define POKESUM_WIN_MOVES_5_3        9  //Type Icon Move 4
-#define POKESUM_WIN_MOVES_5_4        10  //Type Icon Move 5 potentially for new move learning?
 
 //permanent as in the windows/ that are on each all the pages
 //mon box, controlsand page name
@@ -1053,46 +1049,7 @@ static const struct WindowTemplate sWindowTemplates_Moves[] =
         .paletteNum = 6,
         .baseBlock = 0x0212
     },//based on what jaizu said I'm guessing baseblock is actually memory/vram allocation/address? so need to increase all these below expanded window
-    //I tweaked it and it appears to be working?
-    /*[POKESUM_WIN_MOVES_5_1 - 3] = {
-        .bg = 0,
-        .tilemapLeft = 15,
-        .tilemapTop = 6,
-        .width = 5,
-        .height = 2,
-        .paletteNum = 6,
-        .baseBlock = 0x0242
-    },
-    [POKESUM_WIN_MOVES_5_2 - 3] = {
-        .bg = 0,
-        .tilemapLeft = 15,
-        .tilemapTop = 9,
-        .width = 5,
-        .height = 3,
-        .paletteNum = 6,
-        .baseBlock = 0x0252
-    },//changed tilemaptop to same as 5, proves the window isn't getting written/added at all
-    //compared in tilemap studio and values for tilemap seem to match, and surprsingly my y position matches perfectly
-    //the 3rd move window, isn't really even, its a bit high, so I set the height higher so I can have more room to lower it later
-    //just need to find how to get these to display
-    [POKESUM_WIN_MOVES_5_3 - 3] = {
-        .bg = 0,
-        .tilemapLeft = 15,
-        .tilemapTop = 13,
-        .width = 5,
-        .height = 2,
-        .paletteNum = 6,
-        .baseBlock = 0x0262
-    },
-    [POKESUM_WIN_MOVES_5_4 - 3] = {
-        .bg = 0,
-        .tilemapLeft = 15,
-        .tilemapTop = 18,
-        .width = 5,
-        .height = 2,
-        .paletteNum = 6,
-        .baseBlock = 0x0272
-    },*/
+    
 };
 
 static const struct WindowTemplate sWindowTemplates_Dummy[] = 
