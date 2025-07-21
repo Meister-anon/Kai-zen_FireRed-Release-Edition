@@ -104,7 +104,7 @@ bool8 MetatileBehavior_IsIsolatedHorizontalRail(u8 metatileBehavior);
 bool8 MetatileBehavior_IsVerticalRail(u8 metatileBehavior);
 bool8 MetatileBehavior_IsHorizontalRail(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSeaweed(u8 metatileBehavior);
-bool8 MetatileBehavior_IsMB0A(u8 metatileBehavior);
+bool8 MetatileBehavior_IsRunningDisallowed(u8 metatileBehavior);
 bool8 MetatileBehavior_UnusedReturnFalse_9(u8 metatileBehavior);
 bool8 MetatileBehavior_IsBookshelf(u8 metatileBehavior);
 bool8 MetatileBehavior_IsPokeMartShelf(u8 metatileBehavior);

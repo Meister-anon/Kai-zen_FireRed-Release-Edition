@@ -329,7 +329,8 @@ bool32 HasPlayerUnlockedMobilePcAccess(void)
 
 static bool8 MetatileBehaviorForbidsBiking(u8 r4)
 {
-    if (MetatileBehavior_IsMB0A(r4))
+    //MB01 was
+    if (MetatileBehavior_IsRunningDisallowed(r4))
         return TRUE;
     if (!MetatileBehavior_ReturnFalse_9(r4))
         return FALSE;
