@@ -4948,7 +4948,7 @@ static void Task_HandleInput_SelectMove(u8 id)
                 sMoveSelectionCursorPos = 0;
                 sMoveSwapCursorPos = 0;
                 sMonSummaryScreen->isSwappingMoves = FALSE;
-                ShoworHideMoveSelectionCursor(1);
+                ShoworHideMoveSelectionCursor(TRUE);
                 sMonSummaryScreen->pageFlipDirection = 0;
                 PokeSum_RemoveWindows(sMonSummaryScreen->curPageIndex);
                 sMonSummaryScreen->curPageIndex--;
@@ -5710,8 +5710,8 @@ static void CreateMoveSelectionCursorObjs(u16 tileTag, u16 palTag)
     u8 i;
     u8 spriteId;
     void * gfxBufferPtrs[2];
-    gfxBufferPtrs[0] = AllocZeroed(0x20 * 64);
-    gfxBufferPtrs[1] = AllocZeroed(0x20 * 64);
+    gfxBufferPtrs[0] = AllocZeroed(0x20 * 64); //should be left sprite
+    gfxBufferPtrs[1] = AllocZeroed(0x20 * 64); //right sprite
 
     sMoveSelectionCursorObjs[0] = AllocZeroed(sizeof(struct MoveSelectionCursor));
     sMoveSelectionCursorObjs[1] = AllocZeroed(sizeof(struct MoveSelectionCursor));
@@ -5743,7 +5743,9 @@ static void CreateMoveSelectionCursorObjs(u16 tileTag, u16 palTag)
         LoadSpriteSheet(&sheet);
         LoadSpritePalette(&palette);
 
-        spriteId = CreateSprite(&template, 64 * (i % 2) + 152, sMoveSelectionCursorPos * 28 + 34, i % 2);
+
+
+        spriteId = CreateSprite(&template, 64 * (i % 2) + 152, sMoveSelectionCursorPos * 28 + 32, i % 2);
         sMoveSelectionCursorObjs[i]->sprite = &gSprites[spriteId];
         sMoveSelectionCursorObjs[i]->whichSprite = i;
         sMoveSelectionCursorObjs[i]->tileTag = tileTag + i;
@@ -5776,7 +5778,17 @@ static void SpriteCB_MoveSelectionCursor(struct Sprite * sprite)
         if (sMonSummaryScreen->isSwappingMoves == TRUE && i > 1)
             continue;
 
-        sMoveSelectionCursorObjs[i]->sprite->pos1.y = sMoveSelectionCursorPos * 28 + 34;
+        //this seems the main logic for cursor position,
+        //but for some reason seems gamefreak set it so both selection curosrs are always on/visible
+        //but just layered atop one another.
+        //blue swap position on the bottom red main selection on the top
+        //so when I try to set the positions for cursor by slot their out of position?
+        //making both of them visible??
+        //hmmm unless perhaps the sMoveSelectionCursorObjs
+        //doesn't refer to the move id its on? idk smh
+        //got lucky this value fit every box
+        sMoveSelectionCursorObjs[i]->sprite->pos1.y = sMoveSelectionCursorPos * 28 + 32;
+        
     }
 
     if (sMonSummaryScreen->isSwappingMoves != TRUE)
