@@ -26066,7 +26066,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        83,
+        70,
         130,
         115,
         75,
@@ -26098,6 +26098,9 @@ const struct BaseStats gBaseStats[] =
     //give MOVE_MAGICAL_TORQUE,  MOVE_PLAY_ROUGH, maybe MOVE_FAIRY_LOCK
     //and MOVE_SPIKE_SHIELD potentially also MOVE_SPIRIT_BREAK
     //vsonic Important
+    //grassy glide?
+    //reverted stats, just give better moves
+    //to separate from rillaboom
 
     [SPECIES_TAPU_FINI] =
     {
