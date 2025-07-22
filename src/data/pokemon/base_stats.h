@@ -14935,6 +14935,11 @@ const struct BaseStats gBaseStats[] =
    //works as switch in I guess //think of using psychic powers to read their most effective tactic and seal it away
    //will need exit message - check bind setup
    //vsonic IMPORTANT
+   //psychic fair is pretty strong
+   //it covers most of fairy's weaknesses other 
+   //resists steel, beats poison and steel
+   //its just double weak to dark
+
     [SPECIES_MESPRIT] =
     {
         .speciesName = _("Mesprit"),
@@ -15210,6 +15215,9 @@ const struct BaseStats gBaseStats[] =
     //removes that 4x dark weakness I gave it, sheesh
     //like suicine ability heal should also work on switch in for anyone already asleep
     //while makes sense to give lumar power or new moon think would be too strong
+    //part of me wants to go back to pure psychic to differentiate from uxie
+    //but would prob be even less reason to use uxie 
+    //the new ability works well to cover that but eh
 
     [SPECIES_PHIONE] =
     {
