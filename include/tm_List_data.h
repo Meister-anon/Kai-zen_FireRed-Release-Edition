@@ -272,6 +272,7 @@ static const u16 gTM_Moves[] =
 //long as keep above tm hm stuff should have no effect
 //on generated data below, can get benefit of dynamic berry list
 //as well
+//add heavy slam
 
 
 

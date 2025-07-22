@@ -11983,11 +11983,14 @@ static const struct LevelUpMove sBearticLevelUpLearnset[] = {
     LEVEL_UP_MOVE(36, MOVE_FLAIL),
     LEVEL_UP_MOVE(41, MOVE_REST),
     LEVEL_UP_MOVE(45, MOVE_BLIZZARD),
+    LEVEL_UP_MOVE(50, MOVE_METEOR_MASH),
     LEVEL_UP_MOVE(53, MOVE_HAIL),
     LEVEL_UP_MOVE(59, MOVE_THRASH),
     LEVEL_UP_MOVE(66, MOVE_SHEER_COLD),
     LEVEL_UP_END
 };
+//give freeze dry
+//also heavy slam, add heavy slam as tm
 
 static const struct LevelUpMove sCryogonalLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SHEER_COLD),
