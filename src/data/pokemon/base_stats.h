@@ -26518,12 +26518,12 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        223,
+        213,
         101,
-        58,
+        68,
         23,
         97,
-        58
+        68
         ),
         MON_TYPES(TYPE_DARK, TYPE_DRAGON),
         .catchRate = 45,
