@@ -4933,7 +4933,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Meganium"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(110, 82, 100, 80, 83, 123),
+         STATS(100, 82, 100, 80, 83, 100),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 236,
@@ -5021,7 +5021,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Typhlosion"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(78, 84, 78, 100, 109, 95),
+         STATS(78, 84, 78, 100, 109, 85),
         MON_TYPES(TYPE_FIRE, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 240,
@@ -5107,7 +5107,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Feraligator"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(105, 115, 100, 82, 79, 83),
+         STATS(95, 105, 100, 82, 79, 83),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 239,
@@ -7994,7 +7994,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Sceptile"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(97, 85, 65, 120, 105, 85),
+         STATS(90, 85, 65, 120, 105, 85),
         MON_TYPES(TYPE_GRASS, TYPE_DRAGON), //vintage white change, works for me as I made grass imune to fairy
         .catchRate = 45,
         .expYield = 239,
@@ -12354,7 +12354,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Empoleon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(104, 86, 88, 60, 111, 101),
+         STATS(104, 86, 88, 50, 111, 101),
         MON_TYPES(TYPE_WATER, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 239,
@@ -15697,9 +15697,9 @@ const struct BaseStats gBaseStats[] =
         95,
         100,
         85,
-        70,
+        85,
         108,
-        70
+        77
         ),
         MON_TYPES(TYPE_WATER, TYPE_NORMAL),
         .catchRate = 45,
@@ -23691,7 +23691,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        88,
+        78,
         107,
         75,
         80,
@@ -43003,7 +43003,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sTyphlosionHisuianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_HISUIAN_FORM,
-        },
+    },
 
     [SPECIES_QWILFISH_HISUIAN] =
     {
@@ -43040,7 +43040,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sQwilfishHisuianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_MOVE, MOVE_BARB_BARRAGE, 0, SPECIES_OVERQWIL}), //Should hopefully blank these for now without issue
         .flags = F_HISUIAN_FORM,
-        },//barb barrage and several other LEgends moves aren't complete far as animation/effect, but are defined
+    },//barb barrage and several other LEgends moves aren't complete far as animation/effect, but are defined
 
     [SPECIES_SNEASEL_HISUIAN] =
     {
@@ -43087,10 +43087,10 @@ const struct BaseStats gBaseStats[] =
 
            //hp, atk, def, spd, spatk, spdef
          STATS(
-            90,
+            80,
             118,
             80,
-            93,
+            97,
             100,
             75
             ),
@@ -43386,7 +43386,7 @@ const struct BaseStats gBaseStats[] =
             98,
             112,
             90,
-            60,
+            50,
             95,
             95
             ),

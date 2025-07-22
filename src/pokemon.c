@@ -4519,6 +4519,9 @@ u16 GetIndividualBaseStatValue(u16 species, u8 statIndex)
 }
 
 //limit 510 bst
+//new description an odd stone that boosts defenses
+//of pokemon yet to unlock their full potential
+//bst limit 510 gst limit 600
 bool8 CanEvioliteActivate(u8 target)
 {
     u16 species = gBattleMons[target].species;
