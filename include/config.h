@@ -42,6 +42,7 @@
 #define BUGFIX
 #define UBFIX
 #define SPECIES_NAME_EXPANSION
+#define NEW_MEGA_FORMS //add data for new megas using gigantimax sprites/forms etc.
 
 // Crashes may occur due to section reordering in the modern build,
 // so we force BUGFIX here.

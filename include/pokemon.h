@@ -699,7 +699,7 @@ struct FormDataStorage {
 //if mon has a mega loop party check if mega/primal species is in party
 //note mon revert on enter pc
 //after that works can have unique learnsets for forms
-extern struct FormDataStorage gFormSwapMoveBuffer[PARTY_SIZE][MAX_FORM_DATA_STORED];
+extern struct FormDataStorage gFormSwapBuffer[PARTY_SIZE][MAX_FORM_DATA_STORED];
 
 //replaces front_pic_table back_pic_table front_pic_coordinates back_pic_coordinates pokemon_icon.c arrays palette_table  & shiny_palette_table
 struct SpeciesGraphicInfo 
