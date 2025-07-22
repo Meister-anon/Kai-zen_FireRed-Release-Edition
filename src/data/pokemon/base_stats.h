@@ -22760,7 +22760,7 @@ const struct BaseStats gBaseStats[] =
         67,
         63
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_ICE),
+        MON_TYPES(TYPE_GROUND, TYPE_ICE),
         .catchRate = 45,
         .expYield = 72,
         //.evYield_HP = 1,
@@ -22795,7 +22795,7 @@ const struct BaseStats gBaseStats[] =
         99,
         92
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_ICE),
+        MON_TYPES(TYPE_GROUND, TYPE_ICE),
         .catchRate = 45,
         .expYield = 104,
         //.evYield_HP = 2,
@@ -22816,6 +22816,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sAurorusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //think will change to ground instead of rock?
+    //not much point in being rock than just fossil thing
+    //yeah no benefit to being rock other than psn immunity
+    //w rock its 4x to fighting and steel
 
     [SPECIES_SYLVEON] =
     {
