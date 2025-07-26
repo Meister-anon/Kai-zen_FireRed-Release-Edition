@@ -4520,6 +4520,56 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     so don't have to worrry about the dividor 
     mostly to give more space for displaying move description
 
+    Scrap below idea tired of grahpics work,
+    new idea like i have move descriptions printed
+    print page of move info on button prompt
+    i.e press Start on move selection,
+    and will repopulate description with
+    move category info for the move
+    i.e is physicla move, headbutt move statchable etc.
+    can't do with switch statement as multiple conditions in affect at once.
+
+    What will require is organizing  what effects I'll need and the standard order I want them in
+    I know for sure I want phys special status first
+    then I think any abilit related category next ex. punching moving kicking move headbutt move
+
+    I will need to make a specific string for each variation of posible effects
+    then using if conditionals can call a pointer to print
+    turn that part into function will be getMoveCategoryString
+
+    to further simplify will need organize move effects
+    like EE does where they are in their own array
+    move category effects or something
+    set true false  etc. move split phys/spec/status
+    isheadbuttmove True/False
+    isSnatchableEffect True/False etc.
+
+    Do that so I can  have the main function point to that array
+    so I can have more simplified references for the conditional
+    i.e
+    Move Category Effects * CatInfo;
+    if CatInfo->moveSplit == Physical
+    && CatInfo->isHeadbuttMove == True
+
+    print string physical headbuttmove string
+
+    may be able to simplify further
+
+    movecategoryeffcts * moveSplit = CatInfo->moveSplit;
+    will be ugly at the start but much easier to write out the 
+    conditionals
+
+    hmm may be able to use switch case for outside effect
+    i.e move split only to better organize things
+    since hmm no there are effects that swap that
+    so don't want to get locked into that.
+
+    hmm need to understand/decide what I'm calling phys/spec
+    is it the stat being used or the defense stat it affects?
+    Change to DamageCategory?
+
+    Anyway thats the plan.
+
     Decide shift move page over to the right more,
     has usable empty space after pp and will never have more than 2 digits
     gives more room for move descriptions
