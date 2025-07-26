@@ -4568,6 +4568,11 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     is it the stat being used or the defense stat it affects?
     Change to DamageCategory?
 
+    Planned action press Start on move select page
+    to swap, press start again or B to go back
+    prob need task or some other check for that I'm on the cat page 
+    and not the description page
+
     Anyway thats the plan.
 
     Decide shift move page over to the right more,
