@@ -21883,6 +21883,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGogoatTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //give rock tomb rams are known to headbutt rocsk causing them to fall
 
     [SPECIES_PANCHAM] =
     {
