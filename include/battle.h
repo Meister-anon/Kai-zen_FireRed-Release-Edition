@@ -169,12 +169,52 @@ struct TrainerMonItemCustomMoves
     u16 moves[4];
 };
 
+//realized for planned form change need
+//make new struct for forms
+//would need separate set of moves for each mon
+struct TrainerMonFormChangeNoItemCustomMoves
+{
+    u8 iv;
+    u16 evs[6];
+    u8 lvl;
+    u8 abilityNum;
+    u16 species;
+    u16 moves[4];
+    u16 FormChangeMoveset[4];
+};
+
+struct TrainerMonFormChangeFullCustom
+{
+    u8 iv;
+    u16 evs[6];
+    u8 lvl;
+    u8 abilityNum;
+    u16 species;
+    u16 heldItem;
+    u16 moves[4];
+    u16 FormChangeMoveset[4];
+};
+//FormChangeMoveSet won't be triggered at battle start
+//it'll just be a place I refer to for the moves when it form changes
+//mid battle.
+//thing I'm unsure of is if I can properly trace the mon placement
+//from this?
+//idea is if I have identical species etc.
+//but mon switch, if I can correctly track
+//what moves it would have for form given switching
+//check form change logic in EE to see how it knows 
+//which to transform but prob only one has mega stone etc.
+//and I've removed the need for mega stones...
+
+
 union TrainerMonPtr
 {
     const struct TrainerMonNoItemDefaultMoves *NoItemDefaultMoves;
     const struct TrainerMonNoItemCustomMoves *NoItemCustomMoves;
     const struct TrainerMonItemDefaultMoves *ItemDefaultMoves;
     const struct TrainerMonItemCustomMoves *ItemCustomMoves;
+    const struct TrainerMonFormChangeNoItemCustomMoves *FormNoItemCustomMoves;
+    const struct TrainerMonFormChangeFullCustom *FormItemCustomMoves;
 };
 
 struct Trainer
