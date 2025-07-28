@@ -22002,5 +22002,5 @@ const u32 gMonShinyPalette_DoubleQuestionMark[] = INCBIN_U32("graphics/pokemon/q
 //#endif //P_FAMILY_PECHARUNT
 
 //New Megas
-#if NEW_MEGA_FORMS
-#endif
+#ifdef NEW_MEGA_FORMS
+#endif//NEW_MEGA_FORMS
