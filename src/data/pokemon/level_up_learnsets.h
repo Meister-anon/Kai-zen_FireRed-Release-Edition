@@ -15944,6 +15944,7 @@ static const struct LevelUpMove sKartanaLevelUpLearnset[] = {
 
 static const struct LevelUpMove sGuzzlordLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_BELCH),
+    LEVEL_UP_MOVE( 1, MOVE_BACK_STAB),
     LEVEL_UP_MOVE( 1, MOVE_WIDE_GUARD),
     LEVEL_UP_MOVE( 1, MOVE_SWALLOW),
     LEVEL_UP_MOVE( 1, MOVE_STOCKPILE),
@@ -15962,6 +15963,7 @@ static const struct LevelUpMove sGuzzlordLevelUpLearnset[] = {
     LEVEL_UP_MOVE(53, MOVE_GASTRO_ACID),
     LEVEL_UP_MOVE(59, MOVE_HEAVY_SLAM),
     LEVEL_UP_MOVE(67, MOVE_WRING_OUT),
+    LEVEL_UP_MOVE(70, MOVE_BACK_STAB),
     LEVEL_UP_MOVE(73, MOVE_DRAGON_RUSH),
     LEVEL_UP_END
 };
