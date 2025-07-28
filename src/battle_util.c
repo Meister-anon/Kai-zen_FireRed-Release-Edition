@@ -11705,6 +11705,8 @@ bool32 IsGuardModeBannedEffect(u16 moveEffect)
         case EFFECT_EVASION_UP:
         case EFFECT_EVASION_UP_2:
         case EFFECT_ATTACK_UP_USER_ALLY:
+        case EFFECT_DIRE_CLAW: //already strong enough don't need to make even easier to spam
+        case EFFECT_SLEEP: //think also too strong since completely incopacitates
         case EFFECT_ATTRACT: //maybe, idea strong effect plus can't love with your guard up
         case EFFECT_SKETCH: //same strong effect plus artist focused solely on craft no space for guarding
         case EFFECT_ACCURACY_DOWN:
