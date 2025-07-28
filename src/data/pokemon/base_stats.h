@@ -28817,11 +28817,11 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
-        110,
-        100,
+        113,
+        130,
+        40,
         50,
-        50,
-        60
+        65
         ),
         MON_TYPES(TYPE_DARK, TYPE_STEEL),
         .catchRate = 90,
@@ -28833,8 +28833,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_BATTLE_ARMOR, ABILITY_TOUGH_CLAWS},
-        .abilityHidden = {ABILITY_STEELY_SPIRIT, ABILITY_MAGNET_PULL},
+        .abilities = {ABILITY_LIGHT_METAL, ABILITY_TOUGH_CLAWS},
+        .abilityHidden = {ABILITY_STEELY_SPIRIT, ABILITY_OPPORTUNIST},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -28843,7 +28843,25 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sPerrserkerLevelUpLearnset,
         .tmhmLearnset = sPerrserkerTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//bst meant to be same as other persians, forgot boosted them to 468 from 440
+    //think would like to give this opportunist,
+    //since idea is its a raider and they take advantage of opportunities
+    //its not really bulky so idk doesn't feel like battle armor really does anything here?
+    //steely spirit is weird, the ability works for user and ally and is able to stack
+    //if multiple mon have it, but  no other pokemon has it as an ability?
+    //infiltrator also works thematically, but its slow...
+    //oh infiltrator doesn't bypass protect nvm, just walls
+    //dark steel gives it immunity protection and light metal can now let it
+    //get some attacks off
+    //oh realized dark change also gives it psychic immunity so the weakness is covered
+    //it also needs some better steel moves, has good defense so guess toss on body press
+    //gyro ball? it gets gyro ball as a tm,
+    //so low speed plus priority steel moves equals busted gyro balls lmao
+    // baton passing this into a setup mon seems like it'd be pretty nice
+    // for opportunist
+    //hmm actualy want the battle armor now, hmm
+    //vsonic
+
 
     [SPECIES_CURSOLA] =
     {
@@ -41849,6 +41867,7 @@ const struct BaseStats gBaseStats[] =
         .flags = F_ALOLAN_FORM,
     },//why did I give this stall?
     //replaced stall, is now more akin to alt of base line w super luck
+    //made friendship evo cuz is pampered
 
     [SPECIES_PERSIAN_ALOLAN] =
     {
@@ -42145,10 +42164,10 @@ const struct BaseStats gBaseStats[] =
          STATS(
         55,
         67,
-        60,
+        65,
         40,
         40,
-        50
+        45
         ),
         MON_TYPES(TYPE_DARK, TYPE_STEEL),
         .catchRate = 255,
@@ -42161,7 +42180,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_PICKUP, ABILITY_TOUGH_CLAWS},
-        .abilityHidden = {ABILITY_UNNERVE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_UNNERVE, ABILITY_OPPORTUNIST},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,

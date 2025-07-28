@@ -3715,6 +3715,10 @@ static const struct AbilityLearnset sObstagoonAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sPerrserkerAbilityLearnset[] = {
+    ABILITY_BATTLE_ARMOR,
+    ABILITY_CONTRARY,
+    ABILITY_FUR_COAT,
+    ABILITY_MAGNET_PULL,
     ABILITY_SET_END
 };
 
@@ -3969,6 +3973,9 @@ static const struct AbilityLearnset sMarowakAlolanAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMeowthGalarianAbilityLearnset[] = {
+    ABILITY_CONTRARY,
+    ABILITY_FUR_COAT,
+    ABILITY_MAGNET_PULL,
     ABILITY_SET_END
 };
 
