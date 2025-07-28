@@ -7972,6 +7972,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },
+    //meant to be a tm - plan have gen 9 stuff
 
     [MOVE_SIMPLE_BEAM] =
     {
