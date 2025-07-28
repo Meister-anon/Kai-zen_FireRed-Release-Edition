@@ -207,6 +207,8 @@ struct TrainerMonFormChangeFullCustom
 //and I've removed the need for mega stones...
 
 
+//don't need more structs or default moves
+//already setup to use default moves if no moves are set
 union TrainerMonPtr
 {
     const struct TrainerMonNoItemDefaultMoves *NoItemDefaultMoves;
