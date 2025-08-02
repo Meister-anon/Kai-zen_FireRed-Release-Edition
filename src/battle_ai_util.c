@@ -372,6 +372,7 @@ static const u16 sIgnoredPowerfulMoveEffects[] =
     EFFECT_RECHARGE,
     EFFECT_SKULL_BASH,
     EFFECT_SOLARBEAM,
+    EFFECT_COLD_FLARE,
     EFFECT_SPIT_UP,
  //   EFFECT_FOCUS_PUNCH,
     EFFECT_SUPERPOWER,
@@ -1716,6 +1717,7 @@ bool32 ShouldSetHail(u8 battler, u16 ability, u16 holdEffect)
       || DoesBattlerGetTypeBasedAffinity(battler, TYPE_ICE)
       || HasMove(battler, MOVE_BLIZZARD)
       || HasMoveEffect(battler, EFFECT_AURORA_VEIL)
+      || HasMoveEffect(battler, EFFECT_COLD_FLARE)
       || HasMoveEffect(battler, EFFECT_WEATHER_BALL))
     {
         return TRUE;

@@ -14315,5 +14315,21 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_STATUS,
     },
     
+    [MOVE_COLD_FRONT] =
+    {
+        .effect = EFFECT_COLD_FLARE,
+        .power = 120,
+        .type = TYPE_ICE,
+        .accuracy = 95,
+        .pp = 10,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .split = SPLIT_SPECIAL,
+    },
+    //will be ice move that fires in one turn
+    //if in hail
+    
 
 };

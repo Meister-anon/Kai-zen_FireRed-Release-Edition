@@ -1585,6 +1585,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_TARGETISGETTINGSERIOUS]             = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} is getting serious now!"),
     [STRINGID_TARGETCHANGEDMODE]             = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} entered Showdown Mode!\p"),
     [STRINGID_BATTLER_ON_A_ROLL]            = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} is on a roll!"), //for flame wheel simple but works well enough
+    [STRINGID_PKMNDROPPEDTEMP]              = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} dropped the temperature!")
 
     [STRINGID_TRAINER2CLASS]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME]                  = sText_Trainer2Name,
@@ -1779,6 +1780,7 @@ const u16 gStatDownStringIds[] = {
     [B_MSG_STAT_FELL_EMPTY] = STRINGID_EMPTYSTRING3
 };
 
+//do I still use this?
 const u16 gFirstTurnOfTwoStringIds[] = {
 
     [B_MSG_TURN1_RAZOR_WIND]    = STRINGID_PKMNWHIPPEDWHIRLWIND,     // MOVE_RAZOR_WIND
@@ -1793,6 +1795,7 @@ const u16 gFirstTurnOfTwoStringIds[] = {
     [B_MSG_TURN1_FREEZE_SHOCK]  = STRINGID_CLOAKEDINAFREEZINGLIGHT,  // MOVE_FREEZE_SHOCK
     [B_MSG_TURN1_SKY_DROP]      = STRINGID_PKMNTOOKTARGETHIGH,       // MOVE_SKY_DROP
     [B_MSG_TURN1_METEOR_BEAM]   = STRINGID_METEORBEAMCHARGING,       // MOVE_METEOR_BEAM
+    [B_MSG_TURN1_COLD_FRONT]   = STRINGID_PKMNDROPPEDTEMP,       // MOVE_COLD_FRONT
 };
 
 //used in wrap battlescript which is from move effect wrap which makes status wrap

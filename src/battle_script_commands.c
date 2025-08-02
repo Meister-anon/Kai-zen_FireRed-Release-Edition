@@ -1122,6 +1122,7 @@ static const u16 sMoveEffectsForbiddenToInstruct[] =
     EFFECT_SKULL_BASH,
     EFFECT_SLEEP_TALK,
     EFFECT_SOLARBEAM,
+    EFFECT_COLD_FLARE,
     EFFECT_TRANSFORM,
     EFFECT_TWO_TURNS_ATTACK,
     EFFECT_UPROAR,
@@ -1164,6 +1165,7 @@ static const u16 sMultiTaskExcludedEffects[] =
     EFFECT_ROLLOUT,
     EFFECT_SKY_ATTACK,
     EFFECT_SOLARBEAM,
+    EFFECT_COLD_FLARE,
     EFFECT_SKULL_BASH,
     EFFECT_SEMI_INVULNERABLE,
     //EFFECT_RAZOR_WIND,  //canremove from exclusions since changed to two_typed effect well, razorwind as an effect isn't used at all now
@@ -17209,6 +17211,7 @@ static bool8 IsTwoTurnsMove(u16 move) //prob need to add on to this
     if (gBattleMoves[move].effect == EFFECT_SKULL_BASH
      || gBattleMoves[move].effect == EFFECT_GEOMANCY
      || gBattleMoves[move].effect == EFFECT_SOLARBEAM
+     || gBattleMoves[move].effect == EFFECT_COLD_FLARE
      || gBattleMoves[move].effect == EFFECT_TWO_TURNS_ATTACK)
         return TRUE;
     else
@@ -18664,6 +18667,8 @@ u32 GetMoveTwoTurnAttackStringId(u16 move)
             return STRINGID_PKMNTOOKTARGETHIGH;
         case MOVE_METEOR_BEAM:
             return STRINGID_METEORBEAMCHARGING;
+        case MOVE_COLD_FRONT:
+            return STRINGID_PKMNDROPPEDTEMP;
     }
 }
 /*
@@ -21442,6 +21447,7 @@ static bool8 CanTwoTurnMoveAttackThisTurn(u16 move)
      || gBattleMoves[move].effect == EFFECT_GEOMANCY
      || gBattleMoves[move].effect == EFFECT_SKY_ATTACK
      || gBattleMoves[move].effect == EFFECT_SOLARBEAM
+     || gBattleMoves[move].effect == EFFECT_COLD_FLARE
      || gBattleMoves[move].effect == EFFECT_SKY_DROP
      || gBattleMoves[move].effect == EFFECT_TWO_TURNS_ATTACK)
      && CanActivateTimeControl(gBattlerAttacker))
@@ -21451,6 +21457,9 @@ static bool8 CanTwoTurnMoveAttackThisTurn(u16 move)
     && (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY)
     || (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE && IsBlackFogNotOnField())))
         return TRUE;
+    else if (gBattleMoves[move].effect == EFFECT_COLD_FLARE
+    && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY))
+        return TRUE;   
     else
         return FALSE;
 }

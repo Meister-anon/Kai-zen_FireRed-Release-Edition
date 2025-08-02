@@ -913,7 +913,8 @@
 #define MOVE_SHOCKING_MALICE    879    //burning jealousy clone
 #define MOVE_MOONDANCE          880  //moon version of sunny day
 #define MOVE_ACID_RAIN          881   //poison move to make acid rain
-#define MOVE_NA                 882 //avoid extra copy paste
+#define MOVE_COLD_FRONT         882     //ice solar beam, 
+#define MOVE_NA                 883 //avoid extra copy paste
 
 //for completion new moves have to be defined in:  move_descriptions.inc,  move_names.h, & battle_anim_scripts.s
 // also need actual move data in battle_moves.h

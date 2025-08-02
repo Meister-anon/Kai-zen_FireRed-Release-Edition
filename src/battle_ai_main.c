@@ -2171,6 +2171,13 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             if (CanTargetFaintAi(battlerDef, battlerAtk)) //Attacker can be knocked out
                 score -= 4;
             break;
+        case EFFECT_COLD_FLARE:
+            if (AI_DATA->holdEffects[battlerAtk] == HOLD_EFFECT_POWER_HERB
+              || (AI_WeatherHasEffect() && gBattleWeather & WEATHER_HAIL_ANY && AI_DATA->holdEffects[battlerAtk] != HOLD_EFFECT_SAFETY_GOGGLES))
+                break;
+            if (CanTargetFaintAi(battlerDef, battlerAtk)) //Attacker can be knocked out
+                score -= 4;
+            break;
         case EFFECT_SEMI_INVULNERABLE:
             if (predictedMove != MOVE_NONE
               && AI_WhoStrikesFirst(battlerAtk, battlerDef, move) == AI_IS_SLOWER
@@ -4862,6 +4869,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     case EFFECT_TWO_TURNS_ATTACK:
     case EFFECT_SKULL_BASH:
     case EFFECT_SOLARBEAM:
+    case EFFECT_COLD_FLARE:
         if (AI_DATA->holdEffects[battlerAtk] == HOLD_EFFECT_POWER_HERB)
             score += 2;
         break;
@@ -5264,6 +5272,7 @@ static s16 AI_HPAware(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             case EFFECT_PSYCH_UP:
             case EFFECT_MIRROR_COAT:
             case EFFECT_SOLARBEAM:
+            case EFFECT_COLD_FLARE:
             case EFFECT_TWO_TURNS_ATTACK:
             case EFFECT_ERUPTION:
             case EFFECT_TICKLE:

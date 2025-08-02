@@ -943,6 +943,7 @@ gBattleAnims_Moves::
 	.4byte Move_SHOCKING_MALICE
 	.4byte Move_MOONDANCE
 	.4byte Move_ACID_RAIN
+	.4byte Move_COLD_FRONT
 	.4byte Move_COUNT @ cannot be reached, because last move is Eerie Spell  important check move order moves.h
 
 gBattleAnims_StatusConditions::
@@ -6161,6 +6162,7 @@ Move_CLAMP:: @ 81CE29E
 	waitforvisualfinish
 	end
 
+Move_COLD_FRONT::
 Move_ICE_BEAM:: @ 81CE2FB
 	monbg 1
 	monbgprio_28 1
