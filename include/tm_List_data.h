@@ -229,6 +229,58 @@ static const u16 gTM_Moves[] =
     LIST_END
 };
 
+/*
+gunk shot
+smack down
+venoshock
+sludge wave
+venom drench
+scorching sands
+ancient power
+rock blast
+dazzling gleam
+body press
+imprison
+eerie impulse ?
+dragon dance ?  unsure
+iron head by iron tail
+hyper voice
+heat wave
+play rough ?
+ice spinner
+terrain moves
+hydro pump - good idea never thought of making this a tm
+baton pass
+pledge moves
+pain split
+expanding force
+psychic noise
+meteor beam
+dragon cheer - to evolve dipplin
+hard press - steel type wring out
+alluring voice
+upper hand - counter fake out
+skitter smack
+coaching
+triple axel
+muddy water
+endeavor
+supercell slam - electric hi jump kick - needed electric physical move
+electro web - by electro ball
+petal blizzard
+scale shot
+grassy glide
+burning jealousy
+poltergeist
+earth power
+heavy slam -good because most steel types are heavy
+heat crash - ? maybe not very situational
+leaf tornado
+head charge
+icicle crash
+MOVE_SNARL
+*/
+
 
 //ok seems pretty dumb
 //but defining static globally seems to have worked...
