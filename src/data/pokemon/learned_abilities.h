@@ -975,11 +975,13 @@ static const struct AbilityLearnset sSneaselAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sTeddiursaAbilityLearnset[] = {
+    ABILITY_SAP_SIPPER,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sUrsaringAbilityLearnset[] = {
     ABILITY_HONEY_GATHER,
+    ABILITY_SAP_SIPPER,
     ABILITY_SET_END
 };
 
@@ -3880,6 +3882,7 @@ static const struct AbilityLearnset sKleavorAbilityLearnset[] = {
 
 static const struct AbilityLearnset sUrsalunaAbilityLearnset[] = {
     ABILITY_HONEY_GATHER,
+    ABILITY_SAP_SIPPER,
     ABILITY_SET_END
 };
 
