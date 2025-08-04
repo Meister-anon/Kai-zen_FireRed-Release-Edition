@@ -8237,6 +8237,11 @@ u32 ShouldUseTaughtAbility(struct Pokemon *mon)
 //for the most part list abilities should be the same between evo
 //but just in case - put in evo functions
 //ah just realized need to turn off ability state for mega evolutions as well
+//put on mon creation when zeromondata
+//need to put on mega evolution
+//abilitytutor will be where set
+//when use ability capsule items
+//will also need to turn off
 void ResetLearnedAbilityValues(struct Pokemon *mon)
 {
     u16 abilityId = ABILITY_NONE;
