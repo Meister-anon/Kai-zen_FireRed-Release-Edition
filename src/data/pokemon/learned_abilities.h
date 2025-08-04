@@ -3877,6 +3877,9 @@ static const struct AbilityLearnset sWyrdeerAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sKleavorAbilityLearnset[] = {
+    ABILITY_ARENA_TRAP,
+    ABILITY_SHARPNESS,
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
