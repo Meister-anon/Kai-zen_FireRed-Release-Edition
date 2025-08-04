@@ -2795,6 +2795,7 @@ void ZeroMonData(struct Pokemon *mon)
     SetMonData(mon, MON_DATA_SPATK, &arg);
     SetMonData(mon, MON_DATA_SPDEF, &arg);
     SetMonData(mon, MON_DATA_EXP_SHARE_STATE, &arg);
+    ResetLearnedAbilityValues(mon);
     //SetMonData(mon, MON_DATA_STATUS_SET_STATE, &arg);
     //arg = 255;
     //SetMonData(mon, MON_DATA_MAIL, &arg); //haven't removed mail yet redo later
