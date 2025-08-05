@@ -12977,7 +12977,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Combee"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(30, 30, 42, 70, 30, 42),
+         STATS(30, 50, 72, 70, 50, 72),
         MON_TYPES(TYPE_BUG, TYPE_NORMAL),
         .catchRate = 120,
         .expYield = 49,
@@ -24974,7 +24974,7 @@ const struct BaseStats gBaseStats[] =
         44,
         40,
         77,
-        71,
+        78,
         57
         ),
         MON_TYPES(TYPE_POISON, TYPE_FIRE),

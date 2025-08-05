@@ -1273,6 +1273,7 @@ static const struct LevelUpMove sPonytaLevelUpLearnset[] = {
 
 static const struct LevelUpMove sRapidashLevelUpLearnset[] = {
     LEVEL_UP_MOVE(0, MOVE_HI_JUMP_KICK),
+    LEVEL_UP_MOVE(1, MOVE_ROTOTILLER),
     LEVEL_UP_MOVE(1, MOVE_SMART_STRIKE),
     LEVEL_UP_MOVE(1, MOVE_MEGAHORN),
     LEVEL_UP_MOVE(1, MOVE_POISON_JAB),
@@ -2207,6 +2208,7 @@ static const struct LevelUpMove sPinsirLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sTaurosLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(1, MOVE_ROTOTILLER),
     LEVEL_UP_MOVE( 1, MOVE_BODY_SLAM),
     LEVEL_UP_MOVE( 1, MOVE_TAKE_DOWN),
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
@@ -2698,7 +2700,8 @@ static const struct LevelUpMove sBayleefLevelUpLearnset[] = {
     LEVEL_UP_MOVE(20, MOVE_MEGA_DRAIN),
     LEVEL_UP_MOVE(23, MOVE_NATURE_POWER),
     LEVEL_UP_MOVE(26, MOVE_ANCIENT_POWER),    
-    LEVEL_UP_MOVE(30, MOVE_RAZOR_LEAF),  
+    LEVEL_UP_MOVE(28, MOVE_ROTOTILLER),
+    LEVEL_UP_MOVE(32, MOVE_RAZOR_LEAF),  
     LEVEL_UP_MOVE(34, MOVE_CALM_MIND),
     LEVEL_UP_MOVE(37, MOVE_SYNTHESIS),
     LEVEL_UP_MOVE(40, MOVE_BODY_SLAM),
@@ -2727,8 +2730,9 @@ static const struct LevelUpMove sMeganiumLevelUpLearnset[] = {
     LEVEL_UP_MOVE(23, MOVE_MEGA_DRAIN),
     LEVEL_UP_MOVE(26, MOVE_NATURE_POWER),
     LEVEL_UP_MOVE(29, MOVE_ANCIENT_POWER),    
-    LEVEL_UP_MOVE(32, MOVE_RAZOR_LEAF),
-    LEVEL_UP_MOVE(34, MOVE_CALM_MIND),
+    LEVEL_UP_MOVE(31, MOVE_ROTOTILLER),
+    LEVEL_UP_MOVE(34, MOVE_RAZOR_LEAF),
+    LEVEL_UP_MOVE(36, MOVE_CALM_MIND),
     LEVEL_UP_MOVE(43, MOVE_PETAL_DANCE),
     LEVEL_UP_MOVE(46, MOVE_SYNTHESIS),
     LEVEL_UP_MOVE(50, MOVE_BODY_SLAM),
@@ -4163,6 +4167,7 @@ static const struct LevelUpMove sKingdraLevelUpLearnset[] = {
 static const struct LevelUpMove sPhanpyLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_PUNISHMENT), //anti-fairy utility
     LEVEL_UP_MOVE(1, MOVE_SHORE_UP), 
+    LEVEL_UP_MOVE(1, MOVE_ROTOTILLER),
     LEVEL_UP_MOVE(1, MOVE_ODOR_SLEUTH),
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
     LEVEL_UP_MOVE(1, MOVE_GROWL),
@@ -4190,6 +4195,7 @@ static const struct LevelUpMove sDonphanLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_PUNISHMENT), //anti-fairy utility
     LEVEL_UP_MOVE(1, MOVE_SHORE_UP), 
     LEVEL_UP_MOVE( 1, MOVE_FURY_ATTACK),
+    LEVEL_UP_MOVE(1, MOVE_ROTOTILLER),
     LEVEL_UP_MOVE( 1, MOVE_FIRE_FANG),
     LEVEL_UP_MOVE( 1, MOVE_THUNDER_FANG),
     LEVEL_UP_MOVE( 1, MOVE_HORN_ATTACK),
@@ -4353,6 +4359,7 @@ static const struct LevelUpMove sMagbyLevelUpLearnset[] = {
 
 static const struct LevelUpMove sMiltankLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
+    LEVEL_UP_MOVE(1, MOVE_ROTOTILLER),
     LEVEL_UP_MOVE(4, MOVE_GROWL),
     LEVEL_UP_MOVE(8, MOVE_DEFENSE_CURL),
     LEVEL_UP_MOVE(13, MOVE_STOMP),
@@ -21476,6 +21483,7 @@ static const struct LevelUpMove sMiraidonLevelUpLearnset[] = {
 //#endif //P_FAMILY_MIRAIDON
 
 static const struct LevelUpMove sTaurosPaldeanCombatBreedLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(1, MOVE_ROTOTILLER),
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
     LEVEL_UP_MOVE( 5, MOVE_WORK_UP),
@@ -21494,6 +21502,7 @@ static const struct LevelUpMove sTaurosPaldeanCombatBreedLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sTaurosPaldeanBlazeBreedLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(1, MOVE_ROTOTILLER),
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
     LEVEL_UP_MOVE( 5, MOVE_WORK_UP),
@@ -21512,6 +21521,7 @@ static const struct LevelUpMove sTaurosPaldeanBlazeBreedLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sTaurosPaldeanAquaBreedLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(1, MOVE_ROTOTILLER),
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
     LEVEL_UP_MOVE( 5, MOVE_WORK_UP),

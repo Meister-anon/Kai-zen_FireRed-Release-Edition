@@ -9084,6 +9084,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_STATUS,
     },//confusing name but pretty much just means plow/till the land to enrich it
     //boost offense stats for all grass mon on field
+    //plan give to some horse/cow mon as they were used to plow the soil
+    //i.e milk tank the tauros forms rapidash etc.
 
     [MOVE_STICKY_WEB] =
     {
