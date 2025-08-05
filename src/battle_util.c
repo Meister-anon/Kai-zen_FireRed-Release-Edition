@@ -11401,6 +11401,9 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
     return targetBattler;
 }
 
+//forgot mega rayquaza was different by default its allowed to use an item
+//when it transforms can't remember if I want to keep that ability or not
+//as good deal of balance was for making that thing less broken
 u32 GetBattlerHoldEffect(u8 battlerId, bool32 checkNegating)
 {
     if (checkNegating) //bandit king needs be added here nvm bandit king sets embargo
@@ -11412,7 +11415,8 @@ u32 GetBattlerHoldEffect(u8 battlerId, bool32 checkNegating)
             return HOLD_EFFECT_NONE;
         if (gBattleMons[battlerId].ability == ABILITY_KLUTZ && !(gStatuses3[battlerId] & STATUS3_GASTRO_ACID))
             return HOLD_EFFECT_NONE;
-        if (IsBattlerMegaEvolved(battlerId) || IsBattlerPrimalReverted(battlerId))
+        if ((IsBattlerMegaEvolved(battlerId) || IsBattlerPrimalReverted(battlerId))
+        && gBattleMons[battlerId].species != SPECIES_RAYQUAZA_MEGA)
             return HOLD_EFFECT_NONE;
     }
 
