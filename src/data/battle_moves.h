@@ -10733,6 +10733,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_SPECIAL,
     },
+    //move custs half the user's hp rather than doing recoil
+    //so there's never a reason to use this move,
+    //with bs rework make this heavy recoil effect instead
+    //that is just canceled by damp
+    //would need make new bs command fail if damp etc.
 
     [MOVE_PLASMA_FIST] =
     {
