@@ -14660,17 +14660,26 @@ static void atk78_faintifabilitynotdamp(void) //explosion
         {
             gActiveBattler = gBattlerAttacker;
 
-            if (CanSurviveInstantKOWithSturdy(gActiveBattler)) //ok remember this was added to not make it spamable
+            if (gCurrentMove == MOVE_MIND_BLOWN)
             {
-                gBattleMoveDamage = (gBattleMons[gActiveBattler].hp - 1);//hopefully limits explosion to once per battle for mon whenever special status are cleared in main
-                RecordAbilityBattle(gActiveBattler, ABILITY_STURDY);
-                gLastUsedAbility = ABILITY_STURDY;
+                ++gBattlescriptCurrInstr;
             }
-            else
-                gBattleMoveDamage = gBattleMons[gActiveBattler].hp;
-            BtlController_EmitHealthBarUpdate(0, INSTANT_HP_BAR_DROP);   //moves hp bar, not actually doing damage, that's in setatkhptozero
-            MarkBattlerForControllerExec(gActiveBattler);
-            ++gBattlescriptCurrInstr;
+            else 
+            {
+                if (CanSurviveInstantKOWithSturdy(gActiveBattler)) //ok remember this was added to not make it spamable
+                {
+                    gBattleMoveDamage = (gBattleMons[gActiveBattler].hp - 1);//hopefully limits explosion to once per battle for mon whenever special status are cleared in main
+                    RecordAbilityBattle(gActiveBattler, ABILITY_STURDY);
+                    gLastUsedAbility = ABILITY_STURDY;
+                }
+                else
+                    gBattleMoveDamage = gBattleMons[gActiveBattler].hp;
+                BtlController_EmitHealthBarUpdate(0, INSTANT_HP_BAR_DROP);   //moves hp bar, not actually doing damage, that's in setatkhptozero
+                MarkBattlerForControllerExec(gActiveBattler);
+                ++gBattlescriptCurrInstr;
+            }
+
+            
 
             //what does this do? - seems shifts gbattlerarget until is something
             //that doesn't match gbattlerattacker
