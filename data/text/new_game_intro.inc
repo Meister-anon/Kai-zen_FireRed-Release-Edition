@@ -132,10 +132,9 @@ gNewGame_HelpDocs1:: @ 81C582D
     .string "To expand saves the backup save was\n"
     .string "removed.\n"
     .string "\n"
-    .string "Saving will be slower as well. My rec. is\n"
+    .string "While chance of issue is low. My rec. is\n"
     .string "to make a quick save shortcut in mgba\n"
-    .string "make a savestate before saving and to\n"
-    .string "use mgba speed up while saving.$"
+    .string "and make a savestate before saving.$"
 
 gNewGame_HelpDocs2:: @ 81C5875
     .string "Moves the main character.\n"
@@ -169,7 +168,8 @@ gNewGame_HelpDocs8:: @ 81C582D
     .string "{SELECT_BUTTON}  Ctrl\n"
     .string "{A_BUTTON}   SPACE\n"
     .string "{B_BUTTON}   C\n"
-    .string "{L_BUTTON}  SHIFT$"
+    .string "{L_BUTTON}  SHIFT\n"
+    .string "{R_BUTTON}  V$"
 
 
 gOakText_AskPlayerGender:: @ 81C59D5
