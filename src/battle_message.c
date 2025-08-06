@@ -1585,7 +1585,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_TARGETISGETTINGSERIOUS]             = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} is getting serious now!"),
     [STRINGID_TARGETCHANGEDMODE]             = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} entered Showdown Mode!\p"),
     [STRINGID_BATTLER_ON_A_ROLL]            = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} is on a roll!"), //for flame wheel simple but works well enough
-    [STRINGID_PKMNDROPPEDTEMP]              = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} dropped the temperature!")
+    [STRINGID_PKMNDROPPEDTEMP]              = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} dropped the temperature!"),
 
     [STRINGID_TRAINER2CLASS]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME]                  = sText_Trainer2Name,
