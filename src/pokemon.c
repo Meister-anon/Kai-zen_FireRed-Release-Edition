@@ -5156,6 +5156,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             }
         }
         break;
+        case EFFECT_MIND_BLOWN: //decided give mini buff since blacephalon is supposedly so bad
+            DefenseModifer(75);
+        break;
         case EFFECT_EXPLOSION: //keeps special explosion variants consistent
             DefenseModifer(50);
         break;
