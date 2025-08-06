@@ -4499,6 +4499,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     so I just need to get the balance right
 
 
+    For feature introduction thing I want Lt Surge to be the 
+    one that introduces this feature to the player.
+    Since he was a military commander makes sense for him to teach
+    know about tactics.
+    Think change his battle text a bit to allude to something about tactics
+    "Heh I'm gonna teach you a lesson on real battle tactics!"
+    and he can talk more about guard mode after battle when he gives badge and tm etc.
 
     when set gaurd mode at move selection
     if move is blocked from guard i.e heal moves
