@@ -13407,7 +13407,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Honchkrow"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(100, 125, 52, 71, 105, 52),
+         STATS(111, 125, 52, 77, 105, 52),
         MON_TYPES(TYPE_DARK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 205,
