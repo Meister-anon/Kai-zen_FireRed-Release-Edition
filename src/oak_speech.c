@@ -40,7 +40,7 @@ struct OakSpeechResources
     u16 windowIds[NUM_INTRO_WINDOWS]; //don't understand this, thought was amount of windows
     u8 textColor[3]; //but seems increasing or reducing has no affect on it
     u8 textSpeed;
-    u8 unused2[0x2600]; //increasing this buffer fixed memory issue on start w new intro texts...
+    u8 unused2[0x1800]; //increasing this buffer fixed memory issue on start w new intro texts...
     u8 bg2TilemapBuffer[0x400];
     u8 bg1TilemapBuffer[0x800];
 }; //size=0x2420
