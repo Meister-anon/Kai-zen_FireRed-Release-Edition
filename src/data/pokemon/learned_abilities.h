@@ -451,11 +451,13 @@ static const struct AbilityLearnset sKinglerAbilityLearnset[] = {
 
 static const struct AbilityLearnset sVoltorbAbilityLearnset[] = {
     ABILITY_VOLT_ABSORB,
+    ABILITY_ELECTRIC_SURGE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sElectrodeAbilityLearnset[] = {
     ABILITY_VOLT_ABSORB,
+    ABILITY_ELECTRIC_SURGE,
     ABILITY_SET_END
 };
 
@@ -2631,6 +2633,7 @@ static const struct AbilityLearnset sKlangAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sKlinklangAbilityLearnset[] = {
+    ABILITY_ELECTRIC_SURGE,
     ABILITY_SET_END
 };
 

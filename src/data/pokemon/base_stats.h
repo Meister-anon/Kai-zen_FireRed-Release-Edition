@@ -3981,7 +3981,7 @@ const struct BaseStats gBaseStats[] =
     //I think name mix of milf and waifu  myllfu
     //more brown in the purple skin town, like using less makeup,
     //brown hair instead of blonde died,
-    //still a  gall esque so gold glitter lip stick,
+    //still a  gal esque so gold glitter lip stick,
     //base idea black/thicker SPECIES_PHEROMOSA
 
     [SPECIES_ELECTABUZZ] =
@@ -4003,7 +4003,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_STATIC, ABILITY_NONE},
+        .abilities = {ABILITY_STATIC, ABILITY_ELECTRIC_SURGE},
         .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_OVERCHARGE},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -14474,7 +14474,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_MOTOR_DRIVE, ABILITY_NONE},
+        .abilities = {ABILITY_MOTOR_DRIVE, ABILITY_ELECTRIC_SURGE},
         .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_OVERCHARGE},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -26427,7 +26427,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_BEAST_BOOST, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_ELECTRIC_SURGE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = FALSE,
