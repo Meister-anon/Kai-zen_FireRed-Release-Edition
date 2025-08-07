@@ -7180,7 +7180,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Kingdra"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(75, 95, 95, 85, 95, 115),
+         STATS(75, 95, 105, 85, 95, 115),
         MON_TYPES(TYPE_WATER, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 243,
