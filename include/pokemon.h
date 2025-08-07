@@ -681,6 +681,7 @@ struct FormDataStorage {
 
     u8 ppBonuses;    
     u8 abilityNum; //if give megas hidden ability then I need to store abilityNum so that reverts correctly too
+    u16 species;
 
 };
 //guess should be 10 bytes total
@@ -695,11 +696,15 @@ struct FormDataStorage {
 //memory but I'm bad with that
 //plan is to get it working as is,
 //then attempt make dynamic
-#define MAX_FORM_DATA_STORED 3
+#define MAX_FORM_DATA_STORED 2
 
 #define BASE_FORM 0
-#define MEGA_FORM_1 1
-#define MEGA_FORM_2 2
+#define CHANGED_FORM 1
+//realied don't need make extra slot 
+//I just need to store species in form data
+//in task I can chose which species I want to form change to
+//of those available simple.
+
 //its only charizard and mewtwo that have 2 mega forms
 //and thankfully they are both X / Y forms
 

@@ -103,6 +103,18 @@
 #define B_FLAG_NO_BAG_USE           0     // If this flag is set, the ability to use the bag in battle is disabled.
 #define B_FLAG_NO_CATCHING          0     // If this flag is set, the ability to catch wild Pok�mon is disabled.
 
+struct Formdata
+{
+    u16 species;
+    u16 FormChangeMoveset[4];
+};
+//attempt simplify call for form info in trainer party
+//unsure how to write this
+//think may need to rework trainer party
+//will need acount for both form change data
+//AND learned abilities
+//idea check list if given ability is not within learned
+//ability list default to random inate ability
 
 struct TrainerMonNoItemDefaultMoves //pull from 4-12 later
 {
@@ -180,7 +192,7 @@ struct TrainerMonFormChangeNoItemCustomMoves
     u8 abilityNum;
     u16 species;
     u16 moves[4];
-    u16 FormChangeMoveset[4];
+    struct Formdata FormInfo;
 };
 
 struct TrainerMonFormChangeFullCustom
@@ -192,8 +204,10 @@ struct TrainerMonFormChangeFullCustom
     u16 species;
     u16 heldItem;
     u16 moves[4];
-    u16 FormChangeMoveset[4];
+    struct Formdata FormInfo;
 };
+//need store both form species and form moveset
+//think do with an array instead?
 //FormChangeMoveSet won't be triggered at battle start
 //it'll just be a place I refer to for the moves when it form changes
 //mid battle.
