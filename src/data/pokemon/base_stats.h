@@ -5206,7 +5206,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_INSOMNIA, ABILITY_TINTED_LENS},
-        .abilityHidden = {ABILITY_COMPOUND_EYES, ABILITY_COMATOSE},
+        .abilityHidden = {ABILITY_COMPOUND_EYES, ABILITY_EARLY_BIRD},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE, //learns fly
@@ -13455,8 +13455,13 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sGlameowAbilityLearnset,
         .levelUpLearnset = sGlameowLevelUpLearnset,
         .tmhmLearnset = sGlameowTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, AVERAGE_EFFORT), 0, SPECIES_PURUGLY}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, MEDIUM_EFFORT), 0, SPECIES_PURUGLY}), //Should hopefully blank these for now without issue
     },
+    //give more moves, tail related but not tail glow
+    //bounce because spring tail just on this version
+    //bounce, tail slap poison tail aqua tail
+    //thought iron tail but its more flowing and elegant so aqua
+    //makes more sense
 
     [SPECIES_PURUGLY] =
     {
@@ -13475,7 +13480,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_THICK_FAT, ABILITY_OWN_TEMPO},
-        .abilityHidden = {ABILITY_DEFIANT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_DEFIANT, ABILITY_FUR_COAT},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
