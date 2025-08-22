@@ -2280,7 +2280,8 @@ static void atk04_critcalc(void)    //working/works
      && !(gSideStatuses[gBattlerTarget] & SIDE_STATUS_LUCKY_CHANT))
     {
         gCritMultiplier = 2;
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SNIPER)  //could possibly be if instead of else if
+        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SNIPER
+        || GetBattlerAbility(gBattlerAttacker) == ABILITY_PRECISE_STRIKE)  //could possibly be if instead of else if
         {
             gCritMultiplier = 3;
         }
@@ -2299,7 +2300,8 @@ static void atk04_critcalc(void)    //working/works
          && !(gSideStatuses[gBattlerTarget] & SIDE_STATUS_LUCKY_CHANT)) //may run as regular if, but should set crit effect without regarding chance
         {
             gCritMultiplier = 2;
-            if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SNIPER)  //could possibly be if instead of else if, but should be fine
+            if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SNIPER
+            || GetBattlerAbility(gBattlerAttacker) == ABILITY_PRECISE_STRIKE)  //could possibly be if instead of else if, but should be fine
             {
                 gCritMultiplier = 3;
             }

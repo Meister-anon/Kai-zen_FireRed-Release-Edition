@@ -482,6 +482,7 @@ static const struct AbilityLearnset sHitmonleeAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sHitmonchanAbilityLearnset[] = {
+    ABILITY_PRECISE_STRIKE,
     ABILITY_SET_END
 };
 
@@ -1258,6 +1259,9 @@ static const struct AbilityLearnset sShroomishAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sBreloomAbilityLearnset[] = {
+    ABILITY_IRON_FIST,
+    ABILITY_INNER_FOCUS,
+    ABILITY_PRECISE_STRIKE,
     ABILITY_SET_END
 };
 
@@ -1461,10 +1465,12 @@ static const struct AbilityLearnset sMawileAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMedititeAbilityLearnset[] = {
+    ABILITY_PRECISE_STRIKE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sMedichamAbilityLearnset[] = {
+    ABILITY_PRECISE_STRIKE,
     ABILITY_SET_END
 };
 
@@ -1993,6 +1999,7 @@ static const struct AbilityLearnset sCroagunkAbilityLearnset[] = {
 static const struct AbilityLearnset sToxicroakAbilityLearnset[] = {
     ABILITY_CHEEK_POUCH,
     ABILITY_TOUGH_CLAWS,
+    ABILITY_PRECISE_STRIKE,
     ABILITY_TANGLED_FEET, //apparetnly makes dizzying movesment to attack
     ABILITY_TOXIC_BOOST,
     ABILITY_SET_END
@@ -2712,10 +2719,12 @@ static const struct AbilityLearnset sStunfiskAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMienfooAbilityLearnset[] = {
+    ABILITY_RECKLESS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sMienshaoAbilityLearnset[] = {
+    ABILITY_RECKLESS,
     ABILITY_SET_END
 };
 

@@ -4346,7 +4346,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Jolteon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 90, 40, 130, 110, 90),
+         STATS(60, 90, 50, 130, 110, 85),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 184,
@@ -4375,7 +4375,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Flareon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 130, 60, 65, 95, 110),
+         STATS(70, 130, 60, 65, 90, 110), //slightly tweaked stats to make more couterpart to jolteon
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 184,
@@ -14749,7 +14749,7 @@ const struct BaseStats gBaseStats[] =
         //#if P_UPDATED_EGG_GROUPS >= GEN_8
             .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
-        .abilities = {ABILITY_STEADFAST, ABILITY_NONE},
+        .abilities = {ABILITY_STEADFAST, ABILITY_PRECISE_STRIKE},
         .abilityHidden = {ABILITY_JUSTIFIED, ABILITY_RATTLED},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
@@ -16996,7 +16996,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_GUTS, ABILITY_MOLD_BREAKER},
-        .abilityHidden = {ABILITY_WEIGHTED_GI, ABILITY_NONE},
+        .abilityHidden = {ABILITY_WEIGHTED_GI, ABILITY_PRECISE_STRIKE},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -17032,7 +17032,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_STURDY, ABILITY_MOLD_BREAKER},
-        .abilityHidden = {ABILITY_WEIGHTED_GI, ABILITY_NONE},
+        .abilityHidden = {ABILITY_WEIGHTED_GI, ABILITY_PRECISE_STRIKE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -19902,7 +19902,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_INNER_FOCUS, ABILITY_REGENERATOR},
-        .abilityHidden = {ABILITY_WEIGHTED_GI, ABILITY_RECKLESS},
+        .abilityHidden = {ABILITY_WEIGHTED_GI, ABILITY_PRECISE_STRIKE},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -19950,7 +19950,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_INNER_FOCUS, ABILITY_REGENERATOR},
-        .abilityHidden = {ABILITY_WEIGHTED_GI, ABILITY_RECKLESS},
+        .abilityHidden = {ABILITY_WEIGHTED_GI, ABILITY_PRECISE_STRIKE},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -19960,6 +19960,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMienshaoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//ABILITY_INFILTRATOR
+    //think swap reckless for precise strike and give storm throw?
 
     [SPECIES_DRUDDIGON] =
     {
@@ -28928,7 +28929,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_STEADFAST, ABILITY_NONE},
-        .abilityHidden = {ABILITY_SCRAPPY, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SCRAPPY, ABILITY_PRECISE_STRIKE},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -28938,6 +28939,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSirfetchdTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //previously evolved by landing critical hits so makes sense to have this
 
     [SPECIES_MR_RIME] =
     {
@@ -42381,7 +42383,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sFarfetchdGalarianAbilityLearnset,
         .levelUpLearnset = sFarfetchdGalarianLevelUpLearnset,
         .tmhmLearnset = sFarfetchdGalarianTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, AVERAGE_EFFORT), 0, SPECIES_SIRFETCHD}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, ABOVE_AVERAGE_EFFORT), 0, SPECIES_SIRFETCHD}), //Should hopefully blank these for now without issue
         .flags = F_GALARIAN_FORM,
     },
 

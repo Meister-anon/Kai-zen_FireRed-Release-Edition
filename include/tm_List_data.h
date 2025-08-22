@@ -281,6 +281,7 @@ icicle crash
 MOVE_SNARL
 */
 
+//should add stomping tantrum? see its a tm in gen 9
 
 //ok seems pretty dumb
 //but defining static globally seems to have worked...

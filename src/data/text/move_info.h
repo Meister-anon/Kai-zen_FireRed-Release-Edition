@@ -655,10 +655,10 @@ const u8 gHEAVY_SLAM_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The user slams its\nbody into the foe.\nThe heavier the user\nis than the target,\nthe greater the\nmove's power.");
 
 const u8 gSYNCHRONOISE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("An odd shock wave\nthat only damages\nsame-type foes.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("An odd shock wave\nthat only damages\nsame-type foes.\nIgnores weakness\nand resistances.");
 
 const u8 gELECTRO_BALL_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Hurls an orb\nof electricity at\nthe foe that does\nmore damage the\nslower the foe is\nthan the user.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Hurls an orb\nof electricity at\nthe foe that does\nmore damage the\nslower the foe is.\nMay paralyze.");
 
 const u8 gSOAK_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Sprays an odd stream\nof water at the foe\nchanging it into\na Water-Type.");
@@ -859,7 +859,7 @@ const u8 gFUSION_BOLT_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("User summons a giant\nlightning bolt.\nThis move's power\nis boosted if paired\nwith Fusion Flare.");
 
 const u8 gFLYING_PRESS_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user dives down\nonto the target from\nthe sky.\nAlso deals flying\ndamage.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user dives down\nonto the target from\nthe sky.\nGrounding floating\ntargets, and may\nmake them flinch.");
 
 const u8 gMAT_BLOCK_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Using a pulled-up\nmat as a shield,\nthe user protects\nits side from damage");
@@ -1189,7 +1189,7 @@ const u8 gMULTI_ATTACK_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\nchanges type with\nthe held Memories.");
 
 const u8 gMIND_BLOWN_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user turns its\nhead into a bomb to\ndestroy everything.\nCosts half health.\nIgnores a small\nportion of defenses.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user turns its head\ninto a bomb to\ndestroy everything.\nCosts half health.\nIgnores a small\nportion of defenses.");
 
 const u8 gPLASMA_FISTS_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("A wicked strike from\nelectrified fists.\nDuring the turn\nNormal moves become\nElectric-Type.\nIt never misses.");

@@ -955,7 +955,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_FREEZE_HIT,
         .type = TYPE_ICE,
         .accuracy = 100,
-        .pp = 10,
+        .pp = 15,
         .secondaryEffectChance = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
@@ -1893,7 +1893,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_DEPENDS, //MOVE_TARGET_SELECTED
-        .priority = 0,
+        .priority = 3, //think will give priority so can get accurate move easier?
         .flags = 0,
         .split = SPLIT_STATUS,
     }, //idea birds ability to parrot/copy, move kinda sucks , but is a bit better with my normal type change, as would always get psudo stab if mon is normal
@@ -5544,7 +5544,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_GROUND_DMG_FLOATING,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
     }, //ranged attack so potentially FLAG_DMG_IN_AIR
     
@@ -5896,7 +5896,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_BRINE] =
     {
         .effect = EFFECT_BRINE,
-        .power = 65,
+        .power = 75,
         .type = TYPE_WATER,
         .accuracy = 100,
         .pp = 10,
@@ -5906,6 +5906,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
     },
+    //slight buff to make more competitively viable
 
     [MOVE_NATURAL_GIFT] =
     {
@@ -5920,6 +5921,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },
+    //also effect wasn't setup...
+    //changed to no longer remove item on use
+    //alowing move to be reused similar to hidden power
+    //but requiring item slot
+    //stops working when berry gets consumed/used
+    //makes physical counterpart to hidden power
+    //names work well together too.
+
 
     [MOVE_FEINT] =
     {
@@ -6174,7 +6183,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_WRING_OUT] =
     {
-        .effect = EFFECT_WRING_OUT,
+        .effect = EFFECT_VARY_POWER_BASED_ON_HP,
         .power = 0,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -6184,6 +6193,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .argumentEffectChance = 120,
     },
     //doublne check this think w power 0 it'll do typeless damage?
     //unsure if should be but seems fine?
@@ -6940,7 +6950,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_BALLISTIC | FLAG_GROUND_DMG_FLOATING,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_BALLISTIC | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
     },
     
@@ -7504,7 +7514,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_CRUSH_GRIP] =
     {
-        .effect = EFFECT_WRING_OUT,
+        .effect = EFFECT_VARY_POWER_BASED_ON_HP, //effect isn't setup...
         .power = 0,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -7514,6 +7524,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .argumentEffectChance = 150, //will be power
     },
     //may make this power 0 so it ignores type calc
 
@@ -7790,6 +7801,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_ALWAYS_CRIT,
         .split = SPLIT_PHYSICAL,
     },
+    //would be better if there were any fighting mon that
+    //got sniper but its almost exclusively water types hmm
+    //medicham maybe idea hit pressure points
+    //or actually better to just make fighting version
+    //so it makes sense?
+    //precise strike
 
     [MOVE_FLAME_BURST] =
     {
@@ -7869,6 +7886,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
     },
+    //set effect to ignore resist
+    //and give stab
 
     [MOVE_ELECTRO_BALL] =
     {
@@ -7882,7 +7901,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_SPECIAL,
+        .argument = MOVE_EFFECT_PARALYSIS,
+        .argumentEffectChance = 30,
     },
+    //saw damage function this move is practicaly useless.
+    //on average would only ever be base 50 power
+    //change to be a more dynamic formulal like gyro ball 
+    //also give a paralyze chance
 
     [MOVE_SOAK] =
     {
@@ -8485,7 +8510,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_FROST_BREATH] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .power = 52,
+            .power = 55,
         #else
             .power = 40,
         #endif
@@ -8499,6 +8524,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_ALWAYS_CRIT,
         .split = SPLIT_SPECIAL,
     },//add to more learnsets
+    //almost better than blizzard, difference is no acc boost in hail
 
     [MOVE_DRAGON_TAIL] =
     {
@@ -9025,17 +9051,22 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 80,
         #endif
-        .effect = EFFECT_TWO_TYPED_MOVE,
+        .effect = EFFECT_FLINCH_HIT,
         .type = TYPE_FIGHTING,
         .accuracy = 95,
         .pp = 10,
-        .secondaryEffectChance = 0,
+        .secondaryEffectChance = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_DMG_MINIMIZE,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_DMG_MINIMIZE | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
-        .argument = TYPE_FLYING,
     },
+    //this move is actually just horrendous, the types don't compliment each other at all
+    //best I could do is intead turn this into a two turn semi invul
+    // fighting move?
+    //or I could make it a fighting move that can and nock down floating mon
+    // and mon flying in air?  since it grounds flying mon
+    //would remove the flying resist on follow up
 
     [MOVE_MAT_BLOCK] =
     {
@@ -11546,8 +11577,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_STEEL_ROLLER] =
     {
-        .effect = EFFECT_REMOVE_TERRAIN,   //TODO
-        .power = 130,
+        .effect = EFFECT_REMOVE_TERRAIN,   //Think done
+        .power = 1,
         .type = TYPE_STEEL,
         .accuracy = 100,
         .pp = 5,
@@ -11557,6 +11588,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },
+    //change to base power 90, 
+    //becomes 130 only if terrain is up
 
     [MOVE_SCALE_SHOT] =
     {
@@ -13565,7 +13598,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = SPLIT_PHYSICAL,
-        .argument = 100,
+        .argumentEffectChance = 120,
         .makesContact = TRUE,
     },
 

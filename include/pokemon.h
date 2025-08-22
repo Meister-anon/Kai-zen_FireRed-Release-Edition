@@ -453,7 +453,7 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_LETHAL_LEGS_BOOST      (1 << 26)  //hitmon lee ability kick move boost
 #define FLAG_ALWAYS_CRIT            (1 << 27)   //replace effect always crit do with flag check, simpler
 #define FLAG_SHARPNESS_AFFECTED     (1 << 28)
-#define FLAG_GROUND_DMG_FLOATING    (1 << 29)   //unsure if keeping this vaery sparse not as useful as knock down unsure if category is worthwhile
+#define FLAG_UNUSUED_MOVE_CAT       (1 << 29)   //unsure if keeping this vaery sparse not as useful as knock down unsure if category is worthwhile
 #define FLAG_FREE_SPACE             (1 << 30)   //unsure if will use for this idk maybe find something else, but don't think have need for other effect
 #define FLAG_BLANKSPACE             (1 << 31)   //removed flag was FLAG_STAT_STAGES_IGNORED noww move effect instead
 
