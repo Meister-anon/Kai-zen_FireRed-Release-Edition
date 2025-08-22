@@ -256,7 +256,7 @@ ViridianCity_EventScript_DoTutorialBattle:: @ 8165B4C
 	giveitem ITEM_TEACHY_TV
 	msgbox ViridianCity_Text_WatchThatToLearnBasics
 	msgbox ViridianCity_Text_TakeOmniBox
-	giveitem ITEM_RARE_CANDY, 15
+	giveitem ITEM_RARE_CANDY, 7
 	giveitem ITEM_OMNI_BOX
 	setflag FLAG_GOT_OMNI_BOX
 	msgbox ViridianCity_Text_MoreOptions
@@ -270,7 +270,7 @@ ViridianCity_EventScript_SkipTutorialBattle::
 	giveitem ITEM_TEACHY_TV
 	msgbox ViridianCity_Text_WatchThatToLearnBasics
 	msgbox ViridianCity_Text_TakeOmniBox
-	giveitem ITEM_RARE_CANDY, 15
+	giveitem ITEM_RARE_CANDY, 7
 	giveitem ITEM_OMNI_BOX
 	setflag FLAG_GOT_OMNI_BOX
 	msgbox ViridianCity_Text_MoreOptions
