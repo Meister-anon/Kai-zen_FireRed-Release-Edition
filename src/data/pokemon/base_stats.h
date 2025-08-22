@@ -4369,6 +4369,16 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//ok what I'll do is drop its defense and have that be accounted for
     //with new ev limits, would require 80 investment to get it back to old base
+    //with atk buffs can have new niche and natural gift change
+    //I can have physical coverage to hit psychic types
+    //which are typically weak on physical side
+    //best option would be dark type natural gift
+    //I can hit psychic, dark and fairy
+    //doesn't get many coverage moves so hidden power and natural gift
+    //would pretty much fix that,
+    //its fast enough not to need much else,
+    //so best set should be, hidden power, natural gift,
+    //thunderbolt or some other electric move, and a status move
 
     [SPECIES_FLAREON] =
     {
@@ -4397,6 +4407,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sFlareonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //need refine learnset further
 
     [SPECIES_PORYGON] =
     {
