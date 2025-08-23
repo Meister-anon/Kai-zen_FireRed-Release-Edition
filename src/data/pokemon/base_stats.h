@@ -5176,7 +5176,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 86, 64, 100, 45, 55),
-        MON_TYPES(TYPE_NORMAL),
+        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 90,
         .expYield = 145,
         //.evYield_Speed = 2,
@@ -5199,6 +5199,9 @@ const struct BaseStats gBaseStats[] =
     },
     //believe making ground was drayano change but with joat no need to 
     //and its better defensively as just normal, especially w new strength of ice types
+    //w type change groud would actually cover fight weakness so think will do
+    //give more ground moves, mudsport think more support type moves over offense?
+    //give rototiller
 
     [SPECIES_HOOTHOOT] =
     {
@@ -9664,7 +9667,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sMedititeAbilityLearnset,
         .levelUpLearnset = sMedititeLevelUpLearnset,
         .tmhmLearnset = sMedititeTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(37, AVERAGE_EFFORT), 0, SPECIES_MEDICHAM}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(37, MEDIUM_EFFORT), 0, SPECIES_MEDICHAM}), //Should hopefully blank these for now without issue
     },//note add explosion and self destruct to list of immune moves
 
     [SPECIES_MEDICHAM] =

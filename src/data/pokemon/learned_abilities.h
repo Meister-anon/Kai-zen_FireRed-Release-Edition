@@ -483,6 +483,7 @@ static const struct AbilityLearnset sHitmonleeAbilityLearnset[] = {
 
 static const struct AbilityLearnset sHitmonchanAbilityLearnset[] = {
     ABILITY_PRECISE_STRIKE,
+    ABILITY_SHADOW_TAG, //taken from clockwork shadow boxing
     ABILITY_SET_END
 };
 
