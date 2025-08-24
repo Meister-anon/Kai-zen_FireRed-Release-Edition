@@ -3378,7 +3378,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Marowak"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(60, 88, 118, 65, 50, 80),
+         STATS(70, 88, 134, 65, 50, 80),
         MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 75,
         .expYield = 149,
@@ -3401,6 +3401,12 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMarowakTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //cant give muslce magic as that was meant to be main of the mega
+    //problem with this mon, was low speed amd required to hold thick club
+    //I boosted speed had second thoughts about it, 
+    //but realized there's no reason to run it as a trick room mon 
+    //as it didn't do anything to be worth the setup i.e no massive atk
+    //with thick club I think its fine, and still slow enough to be worth running in tr
+    //but not as required
 
     [SPECIES_HITMONLEE] =
     {
@@ -42160,7 +42166,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Marowak"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(60, 88, 80, 65, 66, 118),
+         STATS(70, 88, 80, 65, 66, 118),
         MON_TYPES(TYPE_FIRE, TYPE_GHOST),
         .catchRate = 75,
         .expYield = 149,
@@ -42183,6 +42189,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_ALOLAN_FORM,
     }, //can keep phantom touch to just normal marowak, makes more sense since this version turned the ghost into a flame that's always with them
+    //for this one boosted sp akt
 
     [SPECIES_MEOWTH_GALARIAN] =
     {

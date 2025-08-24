@@ -2813,7 +2813,7 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
     //think can just remove that flag entirely freeing up more options for later
     //groudn is neutral to flying but just can't hit them if htey aren't grounded
     //so replace this check with just flag dmg_in_air which thousand arrows ALSO has
-    if (!(IsBattlerGrounded(gBattlerTarget)) && moveType == TYPE_GROUND && !(gBattleMoves[gCurrentMove].flags & FLAG_GROUND_HITS_FLOATING)) 
+    if (IsFloatingTargetImmunetoGroundMoves(gBattlerAttacker, gBattlerTarget, gCurrentMove)) 
     {
         gMoveResultFlags |= (MOVE_RESULT_MISSED);
         gLastLandedMoves[gBattlerTarget] = 0;
@@ -3140,9 +3140,7 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
 
     }
 
-    if (!(IsBattlerGrounded(defender)) //set without ! it means if function is TRUE aka non-zero
-        && moveType == TYPE_GROUND //just realized grounded already has conditions for levitate so I just need that.
-        && !(gBattleMoves[move].flags & FLAG_GROUND_HITS_FLOATING))
+    if (IsFloatingTargetImmunetoGroundMoves(attacker, defender, move))
     {
         flags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
     }
@@ -3226,10 +3224,9 @@ u8 AI_TypeCalc(u16 move, u16 targetSpecies, u16 targetAbility) //facepalm was us
     argument = gBattleMoves[move].argument; //think should replace with getmovetype macro?
     //moveType = gBattleMoves[move].type; //think don't need to change this since battle_main has function for type change
     GET_MOVE_TYPE(move, moveType);
-    multiplier = CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, gBattlerAttacker, gBattlerTarget, FALSE); //cehck this if need change 
+    multiplier = CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE); //cehck this if need change 
 
-    if (!(IsBattlerGrounded(gBattlerTarget)) //set without ! it means if function is TRUE aka non-zero
-        && moveType == TYPE_GROUND && !(gBattleMoves[move].flags & FLAG_GROUND_HITS_FLOATING))
+    if (IsFloatingTargetImmunetoGroundMoves(gBattlerAttacker, gBattlerTarget, move))
     {
         flags = MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE;
     }
@@ -9160,8 +9157,7 @@ static void atk4A_typecalc2(void)   //aight this is only for counter, mirror coa
        gBattleCommunication[6] = moveType;
        RecordAbilityBattle(gBattlerTarget, gLastUsedAbility);
    }*/
-    if (!(IsBattlerGrounded(gBattlerTarget)) && moveType == TYPE_GROUND
-        && !(gBattleMoves[gCurrentMove].flags & FLAG_GROUND_HITS_FLOATING))
+    if (IsFloatingTargetImmunetoGroundMoves(gBattlerAttacker, gBattlerTarget, gCurrentMove))
     {
         gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
         gLastLandedMoves[gBattlerTarget] = 0;

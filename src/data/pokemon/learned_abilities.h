@@ -3726,6 +3726,7 @@ static const struct AbilityLearnset sGrimmsnarlAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sObstagoonAbilityLearnset[] = {
+    ABILITY_MOLD_BREAKER,
     ABILITY_SET_END
 };
 
@@ -4051,10 +4052,12 @@ static const struct AbilityLearnset sCorsolaGalarianAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sZigzagoonGalarianAbilityLearnset[] = {
+    ABILITY_MOLD_BREAKER,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sLinooneGalarianAbilityLearnset[] = {
+    ABILITY_MOLD_BREAKER,
     ABILITY_SET_END
 };
 

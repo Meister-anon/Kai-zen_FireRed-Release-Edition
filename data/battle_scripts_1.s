@@ -1533,6 +1533,8 @@ BattleScript_SynchronoiseLoop:
 	accuracycheck BattleScript_SynchronoiseMissed, ACC_CURR_MOVE
 	critcalc
 	damagecalc
+	typecalc	@see if this works attempt to give stab
+	bicbyte gMoveResultFlags, MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE	@remove resist just do neutral or no damage
 	adjustnormaldamage
 	pause B_WAIT_TIME_CLEAR_BUFF
 	attackanimation

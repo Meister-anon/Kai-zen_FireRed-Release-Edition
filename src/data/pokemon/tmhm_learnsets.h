@@ -22446,6 +22446,7 @@ static const u16 sObstagoonTMHMLearnset[] = {
     MOVE_BULK_UP,
     MOVE_COUNTER,
     MOVE_DIG,
+    MOVE_DRAIN_PUNCH,
     MOVE_DOUBLE_EDGE,
     MOVE_ENDURE,
     MOVE_FACADE,

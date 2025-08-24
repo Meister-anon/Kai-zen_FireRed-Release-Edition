@@ -458,7 +458,6 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_BLANKSPACE             (1 << 31)   //removed flag was FLAG_STAT_STAGES_IGNORED noww move effect instead
 
 #define FLAG_DAMAGE_AIRBORNE          (FLAG_DMG_IN_AIR | FLAG_DMG_2X_IN_AIR)
-#define FLAG_GROUND_HITS_FLOATING   (FLAG_DMG_IN_AIR | FLAG_DMG_2X_IN_AIR | FLAG_GROUND_DMG_FLOATING)
 
 //thaw user and two strikes can be removed, FLAG_DMG_UNGROUNDED_IGNORE_TYPE_IF_FLYING  can also be removed 
 //also flags are u32, so I beleive I can go up to 32 with this

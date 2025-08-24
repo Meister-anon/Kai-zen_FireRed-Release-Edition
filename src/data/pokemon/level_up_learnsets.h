@@ -17073,6 +17073,7 @@ static const struct LevelUpMove sGrimmsnarlLevelUpLearnset[] = {
 static const struct LevelUpMove sObstagoonLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 0, MOVE_OBSTRUCT),
     LEVEL_UP_MOVE( 1, MOVE_OBSTRUCT),
+    LEVEL_UP_MOVE( 1, MOVE_LUNGE),
     LEVEL_UP_MOVE( 1, MOVE_CROSS_CHOP),
     LEVEL_UP_MOVE( 1, MOVE_SUBMISSION),
     LEVEL_UP_MOVE( 1, MOVE_NIGHT_SLASH),
@@ -17090,11 +17091,15 @@ static const struct LevelUpMove sObstagoonLevelUpLearnset[] = {
     LEVEL_UP_MOVE(23, MOVE_REST),
     LEVEL_UP_MOVE(28, MOVE_TAKE_DOWN),
     LEVEL_UP_MOVE(35, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(38, MOVE_BULLDOZE),
     LEVEL_UP_MOVE(42, MOVE_COUNTER),
+    LEVEL_UP_MOVE(45, MOVE_FIRE_LASH),
     LEVEL_UP_MOVE(49, MOVE_TAUNT),
     LEVEL_UP_MOVE(56, MOVE_DOUBLE_EDGE),
     LEVEL_UP_END
 };
+//give more coverage moves
+//body slam via tm
 
 static const struct LevelUpMove sPerrserkerLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 0, MOVE_IRON_HEAD),
