@@ -39285,6 +39285,13 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sIronBoulderTMHMLearnset,
     },
 //#endif //P_FAMILY_IRON_BOULDER
+//apparently not very good, not many phsyical psychic moves
+//but psychic buffs would help it
+//potentially give move hard press
+//ah see probllem, physcial psy moves are rare but it also just
+//doesn't even get any all it has is psycho cut and zen headbutt via tm
+//give psyshield bash
+//and potentially toss in some more support moves
 
 //#if p_fAMILY_IRON_CROWN
     [SPECIES_IRON_CROWN] =

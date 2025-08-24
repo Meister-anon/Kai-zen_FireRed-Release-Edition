@@ -2622,6 +2622,9 @@ static const struct LevelUpMove sDragoniteLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
+//keep psyshield bash toss rest when setup
+//form learnsets
+//vsonic
 static const struct LevelUpMove sMewtwoLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_PSYSHIELD_BASH),
     LEVEL_UP_MOVE( 1, MOVE_NASTY_PLOT),
@@ -21863,8 +21866,9 @@ static const struct LevelUpMove sIronBoulderLevelUpLearnset[] = {
     LEVEL_UP_MOVE(42, MOVE_ROCK_TOMB),
     LEVEL_UP_MOVE(49, MOVE_SACRED_SWORD),
     LEVEL_UP_MOVE(56, MOVE_MIGHTY_CLEAVE),
-    LEVEL_UP_MOVE(63, MOVE_SWORDS_DANCE),
+    LEVEL_UP_MOVE(63, MOVE_PSYSHIELD_BASH),
     LEVEL_UP_MOVE(70, MOVE_MEGAHORN),
+    LEVEL_UP_MOVE(72, MOVE_SWORDS_DANCE),
     LEVEL_UP_MOVE(77, MOVE_QUICK_GUARD),
     LEVEL_UP_MOVE(84, MOVE_STONE_EDGE),
     LEVEL_UP_MOVE(91, MOVE_GIGA_IMPACT),

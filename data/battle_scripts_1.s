@@ -242,7 +242,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectFling                   @ EFFECT_FLING
 	.4byte BattleScript_EffectNaturalGift             @ EFFECT_NATURAL_GIFT
 	.4byte BattleScript_EffectWakeUpSlap              @ EFFECT_WAKE_UP_SLAP
-	.4byte BattleScript_EffectHit                     @ EFFECT_WRING_OUT
+	.4byte BattleScript_EffectHit                     @ EFFECT_VARY_POWER_BASED_ON_HP
 	.4byte BattleScript_EffectHit                     @ EFFECT_HEX
 	.4byte BattleScript_EffectHit                     @ EFFECT_ASSURANCE
 	.4byte BattleScript_EffectHit                     @ EFFECT_TRUMP_CARD
@@ -2957,6 +2957,7 @@ BattleScript_HitFromHpUpdate::
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
+BattleScript_TrySetMoveEffect::
 	setmoveeffectwithchance		@seems to be fine
 BattleScript_TrySetArgumentEffect::
 	setargumentwithchance	@seems to be fine   @this dosent work need make into separate ommand arguentefectwcance  @ok think should work now?
@@ -3044,7 +3045,7 @@ BattleScript_EffectNaturalGift:
 	setmoveeffectwithchance
 	jumpifmovehadnoeffect BattleScript_EffectNaturalGiftEnd
 	checkparentalbondcounter 2, BattleScript_EffectNaturalGiftEnd
-	removeitem BS_ATTACKER
+	@removeitem BS_ATTACKER
 BattleScript_EffectNaturalGiftEnd:
 	tryfaintmon BS_TARGET, 0, NULL
 	goto BattleScript_MoveEnd
@@ -10614,7 +10615,9 @@ BattleScript_EffectRemoveTerrain:
 	attackcanceler
 	attackstring
 	ppreduce
+	jumpifmove MOVE_STEEL_ROLLER, BattleScript_EffectRemoveTerrain_Continues
 	jumpifword CMP_NO_COMMON_BITS, gFieldStatuses, STATUS_FIELD_TERRAIN_ANY, BattleScript_ButItFailed
+BattleScript_EffectRemoveTerrain_Continues:
 	critcalc
 	damagecalc
 	typecalc
@@ -10632,7 +10635,7 @@ BattleScript_EffectRemoveTerrain:
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
 	removeterrain
-	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 4, BattleScript_MoveEnd
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 8, BattleScript_MoveEnd
 	printfromtable gTerrainStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	playanimation BS_ATTACKER, B_ANIM_RESTORE_BG, NULL	@guessing don''t know what last value should be
