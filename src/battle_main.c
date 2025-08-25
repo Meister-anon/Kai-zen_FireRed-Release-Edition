@@ -432,6 +432,13 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 //for electric type pokemon the entire point/idea is being able to generate electricity
 //so by that note bugs are similar enough to the type to cause a "same type" resistance in my mind
 
+//think rather than ghost resisting dark (since there is an argument for it doing either)
+//its better to make it neutral, better dark type offense, and ghost already has no other weakness
+//idk unsure may leave as is
+//point was make ghost analagous to normal
+//it has 2 immunities and 3 resists (4 if keep dark resist) but doesn't hit anything for super other than psychic and itself
+//for now will leave as is
+
 
 //with new strength of dark types consider putting
 //fairy resist back to parallel psychic better
