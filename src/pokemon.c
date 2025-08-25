@@ -4863,6 +4863,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //does this work w getbattlerability checks
     //or is it simply passing battle loaded ability?
     //I guess it works, but need check
+    //keep like this unupdated as want to also affect
+    //confusion self hit
     if (GetBattlerAbility(battlerIdAtk) == ABILITY_HUGE_POWER || GetBattlerAbility(battlerIdAtk) == ABILITY_PURE_POWER)
         attack *= 2;
 

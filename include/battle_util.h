@@ -172,6 +172,7 @@ bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget);
 bool32 CanBePoisoned(u8 PoisonUser, u8 PoisonTarget); //actually needs to be different from type
 bool32 CanBeBurned(u8 battlerId);
 bool32 CanBeParalyzed(u8 battlerId);
+bool32 CanBeParalyzedViaAbility(u8 battlerId);
 bool32 CanBeFrozen(u8 battlerId);
 bool32 CanThaw(u32 move); //always use gcurrentmove hope work
 bool32 CanBeConfused(u8 battlerId);

@@ -8348,7 +8348,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && gBattleMons[gBattlerAttacker].hp != 0
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                     && TARGET_TURN_DAMAGED
-                    && CanBeParalyzed(gBattlerAttacker)
+                    && CanBeParalyzedViaAbility(gBattlerAttacker)
                     && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_ELECTRIC)
                     && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND) //leaving as involves type chart logic
                     && (IsMoveMakingContact(moveArg, gBattlerAttacker)) //ok only thing I can gather from this is its not setting affect certaain, that's why odds are so low
@@ -8937,7 +8937,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && gBattleMons[gBattlerTarget].hp != 0
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-                    && CanBeParalyzed(gBattlerTarget)
+                    && CanBeParalyzedViaAbility(gBattlerTarget)
                     && IsMoveMakingContact(moveArg, gBattlerAttacker)
                     && TARGET_TURN_DAMAGED // Need to actually hit the target
                     && (Random() % 3) == 0)
@@ -9012,7 +9012,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && gBattleMons[gBattlerTarget].hp != 0
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-                    && CanBeParalyzed(gBattlerTarget)
+                    && CanBeParalyzedViaAbility(gBattlerTarget)
                     && !DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_ELECTRIC) //only addition want make, static shouldn't work on electric types
                     && !IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GROUND) //think this needs to stay as is, as point is groud type is immune to electric by type chart
                     && IsMoveMakingContact(moveArg, gBattlerAttacker) //not using other paralyze statemetn cuz think I already have my own logic,\ thats for moves not abilities                    
@@ -13766,6 +13766,25 @@ bool32 CanBeBurned(u8 battlerId)
     return TRUE;
 }
 
+//remove electric affinity check, needed for things like static/toxungue
+//only this needed extra filter as had move component
+bool32 CanBeParalyzedViaAbility(u8 battlerId)
+{
+    u16 ability = GetBattlerAbility(battlerId);
+    u8 movetype;
+    GET_MOVE_TYPE(gCurrentMove,movetype)
+
+    if ((gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD)
+        || ability == ABILITY_LIMBER
+        || ability == ABILITY_COMATOSE
+        || gBattleMons[battlerId].status1 & STATUS1_ANY
+        || IsAbilityStatusProtected(battlerId)
+        || IsBattlerTerrainAffected(battlerId, STATUS_FIELD_MISTY_TERRAIN))
+        return FALSE;
+    return TRUE;
+}
+
+
 bool32 CanBeParalyzed(u8 battlerId)
 {
     u16 ability = GetBattlerAbility(battlerId);
@@ -13778,7 +13797,7 @@ bool32 CanBeParalyzed(u8 battlerId)
         || gBattleMons[battlerId].status1 & STATUS1_ANY
         || IsAbilityStatusProtected(battlerId)
         || IsBattlerTerrainAffected(battlerId, STATUS_FIELD_MISTY_TERRAIN)
-        || (DoesBattlerGetTypeBasedAffinity(gEffectBattler, TYPE_ELECTRIC) && movetype == TYPE_ELECTRIC))
+        || (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_ELECTRIC) && movetype == TYPE_ELECTRIC))
         return FALSE;
     return TRUE;
 }
