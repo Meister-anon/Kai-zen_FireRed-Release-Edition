@@ -11748,6 +11748,12 @@ bool32 IsGuardModeBannedEffect(u16 moveEffect)
 //no reason wouldn't spam it with this at the cost of 50% damage
 //that's still better than the status move itself as some damage is being done anyway
 
+//vsonic IMPORTANT further balance considerations don't want to overly slow down combat
+//just to the point I want, so for double battles consider may need to block
+//so only a SINGLE pokemon per side can activate guard mode?
+//would force more thinking rather than just simply, guard with both
+//mon first turn for easy setup
+
 //I THINK I want original dragon's ability 
 //to be able to be supressed
 //but rks system and multi type can't so...
