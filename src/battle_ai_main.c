@@ -759,7 +759,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     score -= 5;
                     break;
                 case EFFECT_CURSE:
-                    if (DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_GHOST)) // Don't use Curse if you're a ghost type vs a Magic Guard user, they'll take no damage.
+                    if (DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], TYPE_GHOST)) // Don't use Curse if you're a ghost type vs a Magic Guard user, they'll take no damage.
                         score -= 5;
                     break;
                 }
@@ -835,7 +835,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     RETURN_SCORE_MINUS(10);
                 break;
             case ABILITY_FLOWER_VEIL:
-                if (DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_GRASS) && (IsNonVolatileStatusMoveEffect(moveEffect) || IsStatLoweringMoveEffect(moveEffect)))
+                if (DoesBattlerGetTypeBasedAffinity(battlerDef, AI_DATA->abilities[battlerDef], TYPE_GRASS) && (IsNonVolatileStatusMoveEffect(moveEffect) || IsStatLoweringMoveEffect(moveEffect)))
                     RETURN_SCORE_MINUS(10);
                 break;
             case ABILITY_MAGIC_BOUNCE:
@@ -928,7 +928,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                         RETURN_SCORE_MINUS(20);
                     break;
                 case ABILITY_FLOWER_VEIL:
-                    if ((DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_GRASS)) && (IsNonVolatileStatusMoveEffect(moveEffect) || IsStatLoweringMoveEffect(moveEffect)))
+                    if ((DoesBattlerGetTypeBasedAffinity(battlerDef, AI_DATA->abilities[battlerDef], TYPE_GRASS)) && (IsNonVolatileStatusMoveEffect(moveEffect) || IsStatLoweringMoveEffect(moveEffect)))
                         RETURN_SCORE_MINUS(10);
                     break;
                 case ABILITY_AROMA_VEIL:
@@ -955,7 +955,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
 
         // gen7+ dark type mons immune to priority->elevated moves from prankster
      //   #if B_PRANKSTER_DARK_TYPES >= GEN_7   //MAKE logic for dark type intimidate changes along with tigermom
-        if (AI_DATA->abilities[battlerAtk] == ABILITY_PRANKSTER && DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_DARK) && IS_MOVE_STATUS(move)
+        if (AI_DATA->abilities[battlerAtk] == ABILITY_PRANKSTER && DoesBattlerGetTypeBasedAffinity(battlerDef, AI_DATA->abilities[battlerDef], TYPE_DARK) && IS_MOVE_STATUS(move)
           && !(moveTarget & (MOVE_TARGET_OPPONENTS_FIELD | MOVE_TARGET_USER)))
             RETURN_SCORE_MINUS(10);
       //  #endif
@@ -1205,10 +1205,10 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         case EFFECT_ROTOTILLER:
             if (isDoubleBattle)
             {
-                if (!(DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_GRASS)
+                if (!(DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], TYPE_GRASS)
                   && AI_IsBattlerGrounded(battlerAtk)
                   && (BattlerStatCanRise(battlerAtk, AI_DATA->abilities[battlerAtk], STAT_ATK) || BattlerStatCanRise(battlerAtk, AI_DATA->abilities[battlerAtk], STAT_SPATK)))
-                  && !(DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerAtk), TYPE_GRASS)
+                  && !(DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerAtk), AI_DATA->abilities[BATTLE_PARTNER(battlerAtk)], TYPE_GRASS)
                   && AI_IsBattlerGrounded(BATTLE_PARTNER(battlerAtk))
                   && AI_DATA->abilities[BATTLE_PARTNER(battlerAtk)] != ABILITY_CONTRARY
                   && (BattlerStatCanRise(BATTLE_PARTNER(battlerAtk), AI_DATA->abilities[BATTLE_PARTNER(battlerAtk)], STAT_ATK)
@@ -1217,7 +1217,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     score -= 10;
                 }
             }
-            else if (!(DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_GRASS)
+            else if (!(DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], TYPE_GRASS)
               && AI_IsBattlerGrounded(battlerAtk)
               && (BattlerStatCanRise(battlerAtk, AI_DATA->abilities[battlerAtk], STAT_ATK) || BattlerStatCanRise(battlerAtk, AI_DATA->abilities[battlerAtk], STAT_SPATK))))
             {
@@ -1446,7 +1446,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             break;
         case EFFECT_OHKO: //upgrade w new effect
         #if B_SHEER_COLD_IMMUNITY >= GEN_7
-            if (move == MOVE_SHEER_COLD && DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_ICE))
+            if (move == MOVE_SHEER_COLD && DoesBattlerGetTypeBasedAffinity(battlerDef, AI_DATA->abilities[battlerDef], TYPE_ICE))
                 return 0;
         #endif
             if (!ShouldTryOHKO(battlerAtk, battlerDef, AI_DATA->abilities[battlerAtk], AI_DATA->abilities[battlerDef], move))
@@ -1547,7 +1547,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 score -= 10;
             break;
         case EFFECT_CURSE:
-            if (DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_GHOST))
+            if (DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], TYPE_GHOST))
             {
                 if (gBattleMons[battlerDef].status2 & STATUS2_CURSED
                   || DoesPartnerHaveSameMoveEffect(BATTLE_PARTNER(battlerAtk), battlerDef, move, AI_DATA->partnerMove))
@@ -1826,8 +1826,8 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         case EFFECT_MIRROR_MOVE:
             return AI_CheckBadMove(battlerAtk, battlerDef, predictedMove, score);
         case EFFECT_FLOWER_SHIELD:
-            if (!DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_GRASS)
-              && !(isDoubleBattle && DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerAtk), TYPE_GRASS)))
+            if (!DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], TYPE_GRASS)
+              && !(isDoubleBattle && DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerAtk), AI_DATA->abilities[BATTLE_PARTNER(battlerAtk)], TYPE_GRASS)))
                 score -= 10;
             break;
         case EFFECT_AROMATIC_MIST:
@@ -2693,7 +2693,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         //case EFFECT_BEAK_BLAST:
             //break;
         case EFFECT_SKY_DROP:
-            if (DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_FLYING))  //is more about having flight ability to escape not so much type link
+            if (DoesBattlerGetTypeBasedAffinity(battlerDef, AI_DATA->abilities[battlerDef], TYPE_FLYING))  //is more about having flight ability to escape not so much type link
                 score -= 10;
             if (BattlerWillFaintFromWeather(battlerAtk, AI_DATA->abilities[battlerAtk])
             ||  DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
@@ -3880,7 +3880,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                         score += 2;
                     break;
                 case HOLD_EFFECT_BLACK_SLUDGE:
-                    if (DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_POISON))
+                    if (DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], TYPE_POISON))
                         score += 2;
                     break;
                 case HOLD_EFFECT_IRON_BALL:
@@ -3909,7 +3909,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         }
         break;
     case EFFECT_CURSE:
-        if (DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_GHOST))
+        if (DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], TYPE_GHOST))
         {
             if (IsBattlerTrapped(battlerDef, TRUE))
                 score += 3;
@@ -4330,7 +4330,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 score += 2;
             break;
         case HOLD_EFFECT_BLACK_SLUDGE:
-            if (!DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_POISON) && AI_DATA->abilities[battlerDef] != ABILITY_MAGIC_GUARD)
+            if (!DoesBattlerGetTypeBasedAffinity(battlerDef, AI_DATA->abilities[battlerDef], TYPE_POISON) && AI_DATA->abilities[battlerDef] != ABILITY_MAGIC_GUARD)
                 score += 3;
             break;
         case HOLD_EFFECT_IRON_BALL:
@@ -4380,7 +4380,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                         score += 2;
                     break;
                 case HOLD_EFFECT_BLACK_SLUDGE:
-                    if (DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_POISON) || AI_DATA->abilities[battlerAtk] == ABILITY_MAGIC_GUARD)
+                    if (DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], TYPE_POISON) || AI_DATA->abilities[battlerAtk] == ABILITY_MAGIC_GUARD)
                         score += 3;
                     break;
                 case HOLD_EFFECT_IRON_BALL:
@@ -4775,7 +4775,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         if (AI_WhoStrikesFirst(battlerAtk, battlerDef, move) == AI_IS_FASTER && predictedMove != MOVE_NONE && IsHealingMoveEffect(gBattleMoves[predictedMove].effect))
             score += 3; // Try to cancel healing move
         else if (HasHealingEffect(battlerDef) || AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_LEFTOVERS
-          || (AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_BLACK_SLUDGE && DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_POISON)))
+          || (AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_BLACK_SLUDGE && DoesBattlerGetTypeBasedAffinity(battlerDef, AI_DATA->abilities[battlerDef], TYPE_POISON)))
             score += 2; //curious if shuold add comatose/sleep/poison heal to this? vsonic
         break;
     case EFFECT_SOAK:

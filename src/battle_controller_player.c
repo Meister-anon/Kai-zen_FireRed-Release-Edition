@@ -608,7 +608,7 @@ void HandleInputChooseMove(void)    //test new targetting setup
         if (moveInfo->moves[gMoveSelectionCursor[gActiveBattler]] == MOVE_CURSE)
         {
             if (moveInfo->monType1 != TYPE_GHOST && moveInfo->monType2 != TYPE_GHOST && moveInfo->monType3 != TYPE_GHOST
-            && !DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_GHOST)) //VSONIC hopefully works need check
+            && !DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_GHOST)) //VSONIC hopefully works need check
                 moveTarget = MOVE_TARGET_USER;
             else
                 moveTarget = MOVE_TARGET_SELECTED;
@@ -3307,7 +3307,7 @@ static void PreviewDeterminativeMoveTargets(void) //determine who targetting
         if (move == MOVE_CURSE)
         {
             if (moveInfo->monType1 != TYPE_GHOST && moveInfo->monType2 != TYPE_GHOST && moveInfo->monType3 != TYPE_GHOST
-            && !DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_GHOST))  //vsonic need test but hope works
+            && !DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_GHOST))  //vsonic need test but hope works
                 moveTarget = MOVE_TARGET_USER;
             else
                 moveTarget = MOVE_TARGET_SELECTED;

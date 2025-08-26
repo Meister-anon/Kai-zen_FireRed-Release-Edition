@@ -5373,7 +5373,7 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
      || (GetBattlerAbility(gActiveBattler) == ABILITY_DEFEATIST //
          && gDisableStructs[gActiveBattler].defeatistActivated) //
      || holdEffect == HOLD_EFFECT_SHED_SHELL
-     || (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_GHOST) && gBattleMons[gActiveBattler].species != SPECIES_SPIRITOMB)
+     || (DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_GHOST) && gBattleMons[gActiveBattler].species != SPECIES_SPIRITOMB)
      //|| (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[gActiveBattler].species))
      || (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))) //added cuz issue created with adding shadow tag to gastly
         return BATTLE_RUN_SUCCESS;
@@ -5901,7 +5901,7 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         speed /= 2;
     //note with affinity change need to pay close attention to interaction could be broken on wrong mon
     //...float stone onix is probably the fastest mon in the game?
-    else if (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_ROCK) && holdEffect == HOLD_EFFECT_FLOAT_STONE)
+    else if (DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_ROCK) && holdEffect == HOLD_EFFECT_FLOAT_STONE)
         speed = (speed * 150) / 100;
     else if (holdEffect == HOLD_EFFECT_CHOICE_SCARF)
         speed = (speed * 150) / 100;
@@ -5913,7 +5913,7 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         speed *= 2;
     if (gBattleResources->flags->flags[battlerId] & RESOURCE_FLAG_UNBURDEN)
         speed *= 2;
-    if (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_GRASS) && (gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_WATERSPORT)) //give to more grass types
+    if (DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_GRASS) && (gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_WATERSPORT)) //give to more grass types
         speed = (speed * 150) / 100; //should prob make grass specific text string, i.e x became revitalized  //vsonic important
         //put in moveendI guess moveend sport, just to display string vsonic
 
@@ -5941,8 +5941,8 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         //flyig tuype can still just get up and fly away
         //and strengthens type a bit, but need function for flyingmonthatcantfly or something
         //make simpler permanently grounded species could combine nah can't fit in category well
-        if ((DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB)
-        || (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)))
+        if ((DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB)
+        || (DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)))
         {}
         else
             speed /= 2; //cut speed by half, which is the same as 2 stat stage drops & guess it makes more sense to cut 
