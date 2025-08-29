@@ -1622,6 +1622,12 @@
 	callnative BS_GetCustomAbilityString
 	.endm
 
+	.macro escapePreventionChecks battler:req, failInstr:req
+	callnative	BS_HandleEscapePrevention
+	.byte \battler
+	.4byte \failInstr
+	.endm
+
 	@^put added bs commands above this^
 	@ returns B_SIDE_x to gBattleCommunication[0]
 	.macro getbattlerside battler:req

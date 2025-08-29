@@ -4773,11 +4773,9 @@ BattleScript_EffectMeanLook::
 	attackstring
 	ppreduce
 	accuracycheck BattleScript_ButItFailed, NO_ACC_CALC
-	jumpifstatus2 BS_TARGET, STATUS2_ESCAPE_PREVENTION, BattleScript_ButItFailed
+BattleScript_EscapePreventionChecks::
 	jumpifsubstituteblocks BattleScript_ButItFailed
-	jumpifspecies BS_TARGET, SPECIES_SPIRITOMB, BattleScript_MeanLook_Succeeds
-	jumpiftype BS_TARGET, TYPE_GHOST, BattleScript_ButItFailed
-	jumpifability BS_TARGET, ABILITY_HANDS_OF_FATE, BattleScript_ButItFailed
+	escapePreventionChecks BS_TARGET, BattleScript_ButItFailed
 BattleScript_MeanLook_Succeeds::
 	attackanimation
 	waitanimation

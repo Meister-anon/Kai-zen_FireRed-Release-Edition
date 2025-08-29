@@ -1632,11 +1632,24 @@ u32 GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera)
 //so those would be immune to each other, as the only issue of effect was for contact
 bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget)  //somehow works...
 {
+    bool8 canpoison = TRUE;
+
+    if ((GetBattlerAbility(battlerAttacker) == ABILITY_CORROSION)
+    || (GetBattlerAbility(battlerAttacker) == ABILITY_POISONED_LEGACY))
+        canpoison = TRUE;
+
+    else if ((DoesBattlerGetTypeBasedAffinity(battlerTarget, GetBattlerAbility(battlerTarget), TYPE_POISON)  && !DoesMoldBreakerNegateEffect(battlerAttacker, GetBattlerAbility(battlerAttacker)))
+    || (IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_ROCK)))
+        canpoison = FALSE;
+
+    return canpoison;
 
 
-    return ((GetBattlerAbility(battlerAttacker) == ABILITY_CORROSION)
+    /*return ((GetBattlerAbility(battlerAttacker) == ABILITY_CORROSION)
         || (GetBattlerAbility(battlerAttacker) == ABILITY_POISONED_LEGACY)
-        || !(DoesBattlerGetTypeBasedAffinity(battlerTarget, GetBattlerAbility(battlerTarget), TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL) ||  CalcTypeEffectivenessMultiplier(gCurrentMove, TYPE_POISON, battlerAttacker,battlerTarget, FALSE) == UQ_4_12(0.0)));
+        || !(DoesBattlerGetTypeBasedAffinity(battlerTarget, GetBattlerAbility(battlerTarget), TYPE_POISON)  && !DoesMoldBreakerNegateEffect(battlerAttacker, GetBattlerAbility(battlerAttacker))) 
+        || !(IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_ROCK)));
+        */
 }
 //again unsure on this as poison immunity for steel is entirely due to type chart?
 //think will just allow it, not doing so, would break pattern for other type based status immunities
@@ -1644,6 +1657,8 @@ bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget)  //somehow works...
 //its only immunity to the status effect that represents their own type
 //DoesBattlerGetTypeBasedAffinity  ok decided keep affinity for poison, use battler type for others
 //as they have more to do with type chart immunity
+//ok remember what I was thinking now,  
+//I was going for future proofing rather than just having to list the type explicitly
 
 bool32 CanThaw(u32 move)
 {
@@ -3085,6 +3100,8 @@ u8 DoBattlerEndTurnEffects(void)
                     }
                     else  // broke free
                     {
+                        if (gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker)
+                            gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker = FALSE;
                         gBattleMons[gActiveBattler].status4 &= ~STATUS4_BIND;
                         gDisableStructs[gActiveBattler].bindedMove = 0;
                         gDisableStructs[gActiveBattler].bindMovepos = 0;  //not using now replace with gcurrmovepos
@@ -3124,6 +3141,8 @@ u8 DoBattlerEndTurnEffects(void)
                     }
                     else  // broke free
                     {
+                        if (gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker)
+                            gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker = FALSE;
                         gBattleMons[gActiveBattler].status2 &= ~STATUS2_WRAPPED;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_WRAP); //vsonic need change for multi status
                         gBattlescriptCurrInstr = BattleScript_WrapEnds;
@@ -3159,6 +3178,8 @@ u8 DoBattlerEndTurnEffects(void)
                     }
                     else  // broke free
                     {
+                        if (gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker)
+                            gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker = FALSE;
                         gBattleMons[gActiveBattler].status4 &= ~STATUS4_CLAMP;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_CLAMP);
                         gBattlescriptCurrInstr = BattleScript_WrapEnds;
@@ -3196,6 +3217,8 @@ u8 DoBattlerEndTurnEffects(void)
                     }   //make sure new trap effects all have switch prevention still
                     else  // broke free
                     {   //how did I not notice I didn't have the removal status here?
+                        if (gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker)
+                            gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker = FALSE;
                         gBattleMons[gActiveBattler].status4 &= ~STATUS4_SWARM;
                         gBattleMons[gActiveBattler].status2 &= ~STATUS2_INFESTATION;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SWARM);
@@ -3231,6 +3254,8 @@ u8 DoBattlerEndTurnEffects(void)
                     }
                     else  // broke free
                     {
+                        if (gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker)
+                            gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker = FALSE;
                         gBattleMons[gActiveBattler].status4 &= ~STATUS4_SNAP_TRAP;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SNAP_TRAP);
                         gBattlescriptCurrInstr = BattleScript_WrapEnds;
@@ -3277,6 +3302,8 @@ u8 DoBattlerEndTurnEffects(void)
                     }
                     else  // broke free
                     {
+                        if (gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker)
+                            gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker = FALSE;
                         gBattleMons[gActiveBattler].status4 &= ~STATUS4_THUNDER_CAGE;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_THUNDER_CAGE);
                         gBattlescriptCurrInstr = BattleScript_WrapEnds;
@@ -3346,6 +3373,9 @@ u8 DoBattlerEndTurnEffects(void)
                                 gBattleMons[gActiveBattler].status4 &= ~STATUS4_MAGMA_STORM;
                             break;
                         }
+                        if (gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker)
+                            gDisableStructs[gActiveBattler].TrapSetViaMoldBreaker = FALSE;
+                        
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, moveId);
                         gBattlescriptCurrInstr = BattleScript_WrapEnds;
                     }
@@ -4746,7 +4776,9 @@ u8 AtkCanceller_UnableToUseMove(void)
 
                     if (gBattleMons[gBattlerAttacker].status2 & STATUS2_CONFUSION && gDisableStructs[gBattlerAttacker].ConfusionTurns) //&& !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_BUG))
                     {// idea cammymealtee trying setup so tangled feet like bug gets confused but never hits themselves
-                        if (!DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), TYPE_BUG) && GetBattlerAbility(gBattlerAttacker) != ABILITY_TANGLED_FEET
+                        if (!(DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), TYPE_BUG) && !gDisableStructs[gBattlerAttacker].StatusSetViaMoldBreaker)
+                         || GetBattlerAbility(gBattlerAttacker) != ABILITY_TANGLED_FEET
+                        
                         ) //moved bug exclusion to here, so goes through animations //keep an eye on this make sure double not still works for AND here
                         {
                             if ((Random() % 2) == 0) //chance confused but used move anyway   think 50% may equal random % 2 not 0
@@ -4810,6 +4842,8 @@ u8 AtkCanceller_UnableToUseMove(void)
                     {
                         BattleScriptPushCursor();
                         gBattleMons[gBattlerAttacker].status2 &= ~STATUS2_CONFUSION; //remove confusion as need manually do that now that using timer
+                        if (gDisableStructs[gBattlerAttacker].StatusSetViaMoldBreaker)
+                            gDisableStructs[gBattlerAttacker].StatusSetViaMoldBreaker = FALSE;
                         gBattlescriptCurrInstr = BattleScript_MoveUsedIsConfusedNoMore;
                     }
                     effect = 1;
@@ -5027,7 +5061,7 @@ u8 AtkCanceller_UnableToUseMove(void)
         case CANCELLER_POWDER_MOVE:
             if ((gBattleMoves[gCurrentMove].flags & FLAG_POWDER_MOVE) && (gBattlerAttacker != gBattlerTarget))
             {
-                if ((DoesBattlerGetTypeBasedAffinity(gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GRASS))
+                if ((DoesBattlerGetTypeBasedAffinity(gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GRASS) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
                     || GetBattlerAbility(gBattlerTarget) == ABILITY_OVERCOAT)
                 {
                     gBattlerAbility = gBattlerTarget;
@@ -9416,6 +9450,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         gBattleMons[battler].status4 &= ~(STATUS4_SNAP_TRAP);
                         gBattleMons[battler].status4 &= ~(STATUS4_THUNDER_CAGE);*/
                         
+                        ClearMoldBreakerSetStatus(battler);
                         //include reset stats if below 6
                         for (j = 0; j < NUM_BATTLE_STATS; ++j)
                         {
@@ -11986,6 +12021,16 @@ bool8 DoesBattlerGetTypeBasedAffinity(u32 battler, u16 ability, u8 typeFactor)
 
     return FALSE;
 }
+
+//think this is best I can come up with?
+//somewhat odd as this isn't checking if should negate but
+//it will negate or not negate based on where I use it...
+//unsure how will work with ai...
+bool32 DoesMoldBreakerNegateEffect(u32 battler, u16 ability)
+{
+    if (IsBattlerAlive(battler) && ability == ABILITY_MOLD_BREAKER)
+        return TRUE;
+    
     return FALSE;
 }
 
@@ -12037,6 +12082,14 @@ bool32 CanBattlerEscape(u32 battler) // no oppoising side ability check
 {
     if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_SHED_SHELL)
         return TRUE;
+
+    //for mold breaker overriding affinity escape prevention immunity
+    else if ((gBattleMons[battler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))
+    && gDisableStructs[battler].TrapSetViaMoldBreaker)
+        return FALSE;
+
+    else if (gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4 && gDisableStructs[battler].TrapSetViaMoldBreaker)
+        return FALSE;
 
     else if ((GetBattlerAbility(battler) == ABILITY_DEFEATIST
         && gDisableStructs[battler].defeatistActivated) //overwrite usual switch preveention from status & traps
@@ -12495,6 +12548,7 @@ u16 GetBattleFormChangeTargetSpecies(u8 battlerId, u16 method)
 
 }*/
 
+//is end turn makes no sense for mold breaker to check this
 bool32 IsBattlerAffectedByHazards(u8 battlerId, bool32 toxicSpikes)
 {
     bool32 ret = TRUE;
@@ -12921,11 +12975,12 @@ static uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u
 
     if (move == MOVE_GLARE 
     && (DoesBattlerGetTypeBasedAffinity(battlerDef, defAbility, TYPE_GHOST)
-    || DoesBattlerGetTypeBasedAffinity(battlerDef, defAbility, TYPE_DARK))) //can keep this line
+    || DoesBattlerGetTypeBasedAffinity(battlerDef, defAbility, TYPE_DARK))
+    && !DoesMoldBreakerNegateEffect(battlerAtk, GetBattlerAbility(battlerAtk))) //can keep this line
     {
         modifier = UQ_4_12(0.0);
     }
-    else if (IsFloatingTargetImmunetoGroundMoves(battlerAtk, battlerDef, move))
+    else if (IsFloatingTargetImmunetoGroundMoves(battlerAtk, battlerDef, move, moveType))
     {
         modifier = UQ_4_12(0.0);
         if (recordAbilities)
@@ -12937,11 +12992,12 @@ static uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u
         return modifier;
     }
 
-    else if ((move == MOVE_SHEER_COLD) && DoesBattlerGetTypeBasedAffinity(battlerDef, defAbility, TYPE_ICE)) //no longer need with other ohko changes
+    else if ((move == MOVE_SHEER_COLD) && DoesBattlerGetTypeBasedAffinity(battlerDef, defAbility, TYPE_ICE)
+    && !DoesMoldBreakerNegateEffect(battlerAtk, GetBattlerAbility(battlerAtk))) //no longer need with other ohko changes
     {
         modifier = UQ_4_12(0.0);
     } //potentially replace with effet ohko and not very effective change mod to 0, since it will never land, better for ai
-
+    //vsonic important
 
     // Thousand Arrows ignores type modifiers for flying mons
    /* if (!IsBattlerGrounded(battlerDef) && (gBattleMoves[move].flags & FLAG_DMG_UNGROUNDED_IGNORE_TYPE_IF_FLYING)
@@ -13753,7 +13809,7 @@ bool32 CanBePoisoned(u8 PoisonUser, u8 PoisonTarget)
 bool32 CanBeBurned(u8 battlerId)
 {
     u16 ability = GetBattlerAbility(battlerId);
-    if (DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_FIRE)
+    if ((DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_FIRE) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
         || gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD
         || gBattleMons[battlerId].status1 & STATUS1_ANY
         || ability == ABILITY_WATER_VEIL
@@ -13798,7 +13854,7 @@ bool32 CanBeParalyzed(u8 battlerId)
         || gBattleMons[battlerId].status1 & STATUS1_ANY
         || IsAbilityStatusProtected(battlerId)
         || IsBattlerTerrainAffected(battlerId, STATUS_FIELD_MISTY_TERRAIN)
-        || (DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_ELECTRIC) && movetype == TYPE_ELECTRIC))
+        || ((DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_ELECTRIC)  && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker))) && movetype == TYPE_ELECTRIC))
         return FALSE;
     return TRUE;
 }
@@ -13807,7 +13863,7 @@ bool32 CanBeFrozen(u8 battlerId)
 {
     u16 ability = GetBattlerAbility(battlerId);
     
-    if (DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_ICE)
+    if ((DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_ICE) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
         || IsBattlerWeatherAffected(battlerId, WEATHER_SUN_ANY)
         || gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD
         || ability == ABILITY_LAVA_FISSURE
@@ -13913,13 +13969,14 @@ bool8 CanSurviveInstantKOWithSturdy(u8 battler)
     return FALSE;
 }
 
-bool8 IsFloatingTargetImmunetoGroundMoves(u8 battler_atk, u8 battler_def, u16 move)
+//for some reason wasn't tracking propery
+//for type effect display w mold breaker
+//but making movetype an argument fixed issue
+bool8 IsFloatingTargetImmunetoGroundMoves(u8 battler_atk, u8 battler_def, u16 move, u8 moveType)
 {
-    u8 MoveType;
 
-    GET_MOVE_TYPE(move, MoveType);
 
-    if (MoveType == TYPE_GROUND && !IsBattlerGrounded(battler_def))
+    if (moveType == TYPE_GROUND && !IsBattlerGrounded(battler_def))
     {
         if (GetBattlerHoldEffect(battler_def, TRUE) == HOLD_EFFECT_AIR_BALLOON)
             return TRUE;
@@ -14278,6 +14335,15 @@ bool32 WeatherHasEffect(void)
     if (IsAbilityOnField(ABILITY_STORM_BREAK) || IsAbilityOnField(ABILITY_AIR_LOCK))
         return FALSE;
     return TRUE;
+}
+
+void ClearMoldBreakerSetStatus(u8 battler)
+{
+    if (gDisableStructs[battler].StatusSetViaMoldBreaker)
+        gDisableStructs[battler].StatusSetViaMoldBreaker = FALSE;
+
+    if (gDisableStructs[battler].TrapSetViaMoldBreaker)
+        gDisableStructs[battler].TrapSetViaMoldBreaker = FALSE;
 }
 
 //think should be ok, maybe using uq12 is more accurate and may

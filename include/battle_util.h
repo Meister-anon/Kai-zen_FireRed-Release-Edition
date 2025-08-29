@@ -110,7 +110,7 @@ u8 AtkCanceller_UnableToUseMove2(void);
 bool8 IsFloatingSpecies(u16 species);
 bool8 IsFlyingTypeSpeciesUnableToFly(u16 battler); //used just for trap effect debuff logic
 bool8 IsBattlerGrounded(u8 battlerId);
-bool8 IsFloatingTargetImmunetoGroundMoves(u8 battler_atk, u8 battler_def, u16 move);
+bool8 IsFloatingTargetImmunetoGroundMoves(u8 battler_atk, u8 battler_def, u16 move, u8 moveType);
 bool8 HasNoMonsToSwitch(u8 battler, u8 partyIdBattlerOn1, u8 partyIdBattlerOn2);
 bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility);
 u8 CastformDataTypeChange(u8 battler);
@@ -214,6 +214,7 @@ s32 CalculateMoveDamageAndEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef, 
 //keeps from being reset on switch/faint
 u8 GetAbilityTimer(u16 ability);
 bool8 DoesBattlerGetTypeBasedAffinity(u32 battler, u16 ability, u8 typeFactor); //for new category of abiility, replace sipmle checks for isbattler type
+bool32 DoesMoldBreakerNegateEffect(u32 battler, u16 ability);
 u8 ShouldActivateBindingBand(void); //function made for attempt setup pre healthbar drop activation
 
 u8 ShouldAbilityAbsorb(u16 move); //ATTEMPT workaroud for absorb abilty/lightning rod targetting
@@ -238,6 +239,7 @@ bool8 CanActivateExpNull(void);
 //condition for using Exp items
 
 bool8 IsBattlerUnderProtectEffect(u8 battler);
+void ClearMoldBreakerSetStatus(u8 battler);
 
 //cacophony based functions - also affects perish song, bypasses walls and protection
 //and sets sleep and confusion effects to max duration on status set

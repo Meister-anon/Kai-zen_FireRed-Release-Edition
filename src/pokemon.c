@@ -5436,11 +5436,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     // sandstorm sp.def boost for rock types  // decided to add this for ground types as well,
     if ((DoesBattlerGetTypeBasedAffinity(battlerIdDef, abilityDef, TYPE_ROCK) || (DoesBattlerGetTypeBasedAffinity(battlerIdDef, abilityDef, TYPE_GROUND)))
+        && (!DoesMoldBreakerNegateEffect(battlerIdAtk, abilityAtk))
         && IsBattlerWeatherAffected(battlerIdDef, WEATHER_SANDSTORM_ANY) && abilityAtk != ABILITY_CLOUD_NINE)     
         spDefense = (150 * spDefense) / 100;
 
     // hail sp.def & def boost for ice types  // still deciding if I want a 50% defense boost or a 25% boost to def & sp def
-    if (DoesBattlerGetTypeBasedAffinity(battlerIdDef, abilityDef, TYPE_ICE)
+    if ((DoesBattlerGetTypeBasedAffinity(battlerIdDef, abilityDef, TYPE_ICE)  && !DoesMoldBreakerNegateEffect(battlerIdAtk, abilityAtk))
         && IsBattlerWeatherAffected(battlerIdDef, WEATHER_HAIL_ANY) && abilityAtk != ABILITY_CLOUD_NINE)    
     {
         spDefense = (115 * spDefense) / 100;

@@ -292,7 +292,9 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u16 fixatedMove; //was forewarnmove replaced for Fixation status
     u8 hasSwitchinActivated; //use for switch in end turn check //rn just for zacian zamazenta effetcts, triggered on switch in activate/end in endturn
     u8 timecontrolAbilityTimer:2; //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
-    u8 padspace:6;
+    u8 StatusSetViaMoldBreaker:1;
+    u8 TrapSetViaMoldBreaker:1;
+    u8 padspace:4;
     //u8 RoostTimerStartValue;  //remove for now until I get 
     /*0x1A*/ u8 unk1A[2]; //don't think this is used
 }; //think I may not actually need roost start value, long as I have timer

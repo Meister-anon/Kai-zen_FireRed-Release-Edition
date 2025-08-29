@@ -5367,13 +5367,17 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
     //removed flying check here as it should be overwritten by
     //condition in abilityprevention, if it passes that filter
     //it'll still get to escape successfily
+    //removed other exclusions as added exceptions
+    //which are handled in canbattlerescape
+    //if it passes those, it'll still escape
+    //so SHOULD be fine
     if (holdEffect == HOLD_EFFECT_CAN_ALWAYS_RUN
      || (gBattleTypeFlags & BATTLE_TYPE_LINK)
-     || (GetBattlerAbility(gActiveBattler) == ABILITY_RUN_AWAY) //
-     || (GetBattlerAbility(gActiveBattler) == ABILITY_DEFEATIST //
-         && gDisableStructs[gActiveBattler].defeatistActivated) //
+     //|| (GetBattlerAbility(gActiveBattler) == ABILITY_RUN_AWAY) //
+     //|| (GetBattlerAbility(gActiveBattler) == ABILITY_DEFEATIST //
+     //    && gDisableStructs[gActiveBattler].defeatistActivated) //
      || holdEffect == HOLD_EFFECT_SHED_SHELL
-     || (DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_GHOST) && gBattleMons[gActiveBattler].species != SPECIES_SPIRITOMB)
+     //|| (DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_GHOST) && gBattleMons[gActiveBattler].species != SPECIES_SPIRITOMB)
      //|| (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[gActiveBattler].species))
      || (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))) //added cuz issue created with adding shadow tag to gastly
         return BATTLE_RUN_SUCCESS;
@@ -5941,8 +5945,9 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         //flyig tuype can still just get up and fly away
         //and strengthens type a bit, but need function for flyingmonthatcantfly or something
         //make simpler permanently grounded species could combine nah can't fit in category well
-        if ((DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB)
+        if (((DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB)
         || (DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)))
+        && !gDisableStructs[battlerId].TrapSetViaMoldBreaker)
         {}
         else
             speed /= 2; //cut speed by half, which is the same as 2 stat stage drops & guess it makes more sense to cut 
@@ -7256,11 +7261,30 @@ bool8 TryRunFromBattle(u8 battler)
         gProtectStructs[battler].fleeFlag = FLEE_ITEM;
         ++effect;
     }
-    else if (IS_BATTLER_OF_TYPE(battler, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
+    //needs to always be able to trigger or game breaks
+    else if (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))
+    {
+        if (GetBattlerSide(battler) == B_SIDE_PLAYER)
+            ++effect;
+    }
+
+    else if (((gBattleMons[battler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED)))
+    && gDisableStructs[battler].TrapSetViaMoldBreaker)
+        return FALSE;
+
+    else if (gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4 && gDisableStructs[battler].TrapSetViaMoldBreaker)
+        return FALSE;
+
+    else if (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
     {
         ++effect;
     }//vsonic if add ability that gives ghost type affinity keep isbattlertype and add below same as aviator
-    else if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species))
+    
+    else if (gDisableStructs[battler].trappedinStickyweb)
+        return FALSE;
+
+    else if (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)
+        && !IsBattlerGrounded(battler))
     {
         ++effect;
     }
@@ -7284,11 +7308,7 @@ bool8 TryRunFromBattle(u8 battler)
         gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
         ++effect;
     }
-    else if (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))
-    {
-        if (GetBattlerSide(battler) == B_SIDE_PLAYER)
-            ++effect;
-    }
+    
     else
     {
         if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
