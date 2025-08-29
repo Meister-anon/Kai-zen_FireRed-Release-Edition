@@ -7244,7 +7244,7 @@ static void HandleAction_UseItem(void)
 
 
 
-#define RUN_LOGIC_PT2
+#define RUN_LOGIC_PT2 //feels like run logic is all over the place potentially clean up later
 bool8 TryRunFromBattle(u8 battler)
 {
     bool8 effect = FALSE;

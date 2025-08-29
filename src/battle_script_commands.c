@@ -19488,6 +19488,7 @@ static void atkE2_switchoutabilities(void) //emerald has logic for switchin that
             MarkBattlerForControllerExec(gActiveBattler); //think 4 bytes because dealing with status with is u32
             break;
         case ABILITY_WETIKO:
+        case ABILITY_SCHOOLING: //make wishiwashi more playable
         case ABILITY_REGENERATOR: //just added
             gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 3;
             gBattleMoveDamage += gBattleMons[gActiveBattler].hp;

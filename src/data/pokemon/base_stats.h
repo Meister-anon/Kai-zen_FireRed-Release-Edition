@@ -10069,6 +10069,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sWailmerTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, AVERAGE_EFFORT), 0, SPECIES_WAILORD}), //Should hopefully blank these for now without issue
     },
+    //vsonic gave sonar need revamp learnset
+    //add sound based moves 
 
     [SPECIES_WAILORD] =
     {
@@ -10098,6 +10100,9 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//replaced pressure w sonar, would like to add pressure back given changes made to pressure
     // -decided keep as is
+    //dont think want to change stats rn its sitting at 500bst
+    //its a somewhat more offensive, but balanced version of snorlax
+    //twice as fast but lacks the defenses
 
     [SPECIES_NUMEL] =
     {
@@ -21681,7 +21686,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_RIVALRY, ABILITY_TIGER_CUB},//ABILITY_TIGER_CUB
-            .abilityHidden = {ABILITY_MOXIE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_BLAZE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -21689,8 +21694,8 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sLitleoAbilityLearnset,
         .levelUpLearnset = sLitleoLevelUpLearnset,
         .tmhmLearnset = sLitleoTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_PYROAR_MALE},
-                                       {EVO_LEVEL_FEMALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_PYROAR_FEMALE}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(35, MEDIUM_EFFORT), 0, SPECIES_PYROAR_MALE},
+                                       {EVO_LEVEL_FEMALE, RELATIVE_EVO(35, MEDIUM_EFFORT), 0, SPECIES_PYROAR_FEMALE}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_PYROAR_MALE] =
@@ -21700,11 +21705,11 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         106,
-        78,
+        58,
         87,
         106,
         109,
-        66
+        86
         ),
         MON_TYPES(TYPE_FIRE, TYPE_NORMAL),
         .catchRate = 65,
@@ -21717,7 +21722,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_RIVALRY, ABILITY_FLAME_BODY},
-        .abilityHidden = {ABILITY_MOXIE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -21729,6 +21734,7 @@ const struct BaseStats gBaseStats[] =
         
     },//add sunny day crunch extremespeed to learnet and have thunderbolt as tm move    vsonic
     //ability learned should prob actually be different vsonic
+    //Based on dex dropped moxie for friend guard see if can make it a solid support mon
 
     [SPECIES_FLABEBE] =
     {
@@ -22233,8 +22239,8 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sSpritzeeAbilityLearnset,
         .levelUpLearnset = sSpritzeeLevelUpLearnset,
         .tmhmLearnset = sSpritzeeTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_ITEM, ITEM_SACHET, 0, SPECIES_AROMATISSE}), //Should hopefully blank these for now without issue
-    },
+        .evolutions = EVOLUTION({EVO_ITEM, ITEM_SHINY_STONE, 0, SPECIES_AROMATISSE}), //Should hopefully blank these for now without issue
+    },//replaed sachet didn't realize was trade evo
 
     [SPECIES_AROMATISSE] =
     {
@@ -22421,7 +22427,7 @@ const struct BaseStats gBaseStats[] =
          STATS(
         42,
         52,
-        67,
+        77,
         50,
         39,
         56
@@ -22445,7 +22451,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sBinacleAbilityLearnset,
         .levelUpLearnset = sBinacleLevelUpLearnset,
         .tmhmLearnset = sBinacleTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(39, AVERAGE_EFFORT), 0, SPECIES_BARBARACLE}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, MEDIUM_EFFORT), 0, SPECIES_BARBARACLE}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_BARBARACLE] =
@@ -25531,6 +25537,11 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sPyukumukuTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //can't do damage but in doubles guess can do some weird stuff
+    //with trick or treat to get ghost curse, do trick room
+    //to become fastest thing imaginable to heal stall
+    //give it rocky helm and it may be able to do something 
+    //with the new ability changes as well
 
     [SPECIES_TYPE_NULL] =
     {
@@ -41574,10 +41585,10 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
-        71,
+        78,
         70,
         77,
-        40,
+        33,
         80
         ),
         MON_TYPES(TYPE_DARK, TYPE_NORMAL),
@@ -49141,7 +49152,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        45,
+        65,
         140,
         130,
         30,
@@ -49169,6 +49180,15 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sWishiwashiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //with systems changes should be able to raise form hp without issue
+    //have to be careful with my ability buff in mind tho,
+    //since pretty sure it'll use the boosted form if I switch out early
+    //and since it would have more hp than base, 1/3rd will be more 
+    //than 1/3rd of base form potentially healing to full,
+    //if I set max hp too high.
+    //while I could just greatly boost hp without the switch healing
+    //it'd just be an slow averagely bulky water type
+    //it needs something unique to give it its own niche
 
     [SPECIES_SILVALLY_FIGHTING] =
     {
