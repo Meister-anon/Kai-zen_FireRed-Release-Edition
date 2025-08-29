@@ -1444,7 +1444,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
               || !(gBattleWeather & WEATHER_HAIL))
                 score -= 10;
             break;
-        case EFFECT_OHKO: //upgrade w new effect
+        case EFFECT_OHKO: //need upgrade w new effect
         #if B_SHEER_COLD_IMMUNITY >= GEN_7
             if (move == MOVE_SHEER_COLD && (DoesBattlerGetTypeBasedAffinity(battlerDef, AI_DATA->abilities[battlerDef], TYPE_ICE) && !DoesMoldBreakerNegateEffect(battlerAtk, AI_DATA->abilities[battlerAtk])))
                 return 0;

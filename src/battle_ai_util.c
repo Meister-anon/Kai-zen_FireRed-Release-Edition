@@ -616,6 +616,10 @@ bool32 AtMaxHp(u8 battlerId)
 }
 
 //need add other/new trap statuses
+//vsonic may need change abilitypreventingescape to ai function?
+//think its fine?
+//canbattlerescape uses gronded logic this doesn't
+//its exactly as EE has it so should be correct
 bool32 IsBattlerTrapped(u8 battler, bool8 checkSwitch)
 {
     u8 holdEffect = AI_DATA->holdEffects[battler];

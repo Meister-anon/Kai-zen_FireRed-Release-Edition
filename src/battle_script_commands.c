@@ -2240,7 +2240,8 @@ static void atk03_ppreduce(void)
     }
 }
 
-
+//want to figure it out to make first battle not be able to crit
+//against player to make more fair/simple - done
 static void atk04_critcalc(void)    //working/works
 {
     u8 holdEffect;
@@ -2315,6 +2316,13 @@ static void atk04_critcalc(void)    //working/works
     || gCurrentMove == MOVE_SURGING_STRIKES
     || gCurrentMove == MOVE_WICKED_BLOW) //black fog on field no one can crit, and urshifu signature rebalance
         gCritMultiplier = 1;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE
+    && (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT))
+    {
+        gCritMultiplier = 1;
+    }
+    
     
     ++gBattlescriptCurrInstr;
 }
@@ -4786,6 +4794,8 @@ void SetMoveEffect(bool32 primary, u32 certain)
             //put no effect check here, below ability checks above status1 check
             //needs else if here only to make sure it takes into account corrosion check from above
             //vsonic will need change move type checks to use getmovetype or check settypebeforeusingmove function to get actual move type
+            //poison doesn't work with mold breaker but that's because pioson does no result
+            //if i had a poison efect that didn't come from poison type it would work
             if ((gMoveResultFlags & MOVE_RESULT_NO_EFFECT && gBattleMoves[gCurrentMove].split == SPLIT_STATUS)
             && (AttackerAbility != ABILITY_CORROSION 
             && AttackerAbility != ABILITY_POISONED_LEGACY)

@@ -1189,7 +1189,7 @@ const u8 gMULTI_ATTACK_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\nchanges type with\nthe held Memories.");
 
 const u8 gMIND_BLOWN_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user turns its head\ninto a bomb to\ndestroy everything.\nCosts half health.\nIgnores a small\nportion of defenses.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user turns its\nhead into a bomb to\ndestroy everything.\nCosts half health.\nIgnores a small\nportion of defenses.");
 
 const u8 gPLASMA_FISTS_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("A wicked strike from\nelectrified fists.\nDuring the turn\nNormal moves become\nElectric-Type.\nIt never misses.");

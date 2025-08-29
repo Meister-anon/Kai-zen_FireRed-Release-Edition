@@ -5393,13 +5393,14 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
     
      //undid grouding logic potentally too destabalizing for balance
      //but primarily if they are in the trap then they should be trapped
-     //also having easy/early access to free escape would cause pathing issues
+     //also having easy/early access to free escpae would cause pathing issues
      //and trivialize early difficult
     if (!CanBattlerEscape(gActiveBattler))
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = 0;
         return BATTLE_RUN_FORBIDDEN;
-    }//more research switch lock shouldn't have to do w grounding
+    }
+    //more research switch lock shouldn't have to do w grounding
     //unless ghosts if closs to groud they should have a shadow floating or not
     //double check floating list, think may have made prerequisite
     //they could actually leave the groud and float to a greater height?

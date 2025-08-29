@@ -9642,6 +9642,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sAggronTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //needs more steel moves meteor mash
 
     //wow idk how never realized this was so shit
     //since inspired by yoga whcih is about improvinng bodies defenses
@@ -13427,7 +13428,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Honchkrow"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(111, 125, 52, 77, 105, 52),
+         STATS(111, 125, 52, 80, 105, 52),
         MON_TYPES(TYPE_DARK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 205,
