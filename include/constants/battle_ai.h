@@ -18,10 +18,11 @@
 
 
 // type effectiveness - new setup
-#define AI_EFFECTIVENESS_x3_72  7
-#define AI_EFFECTIVENESS_x2_40  6
-#define AI_EFFECTIVENESS_x1_55  5
-#define AI_EFFECTIVENESS_x1     4
+#define AI_EFFECTIVENESS_x3_72  8
+#define AI_EFFECTIVENESS_x2_40  7
+#define AI_EFFECTIVENESS_x1_55  6
+#define AI_EFFECTIVENESS_x1     5
+#define AI_EFFECTIVENESS_x0_775 4
 #define AI_EFFECTIVENESS_x0_5   3
 #define AI_EFFECTIVENESS_x0_25  2
 #define AI_EFFECTIVENESS_x0_125 1

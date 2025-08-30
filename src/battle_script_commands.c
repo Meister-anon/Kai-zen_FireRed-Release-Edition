@@ -15967,6 +15967,11 @@ static void atk93_tryKO(void) //EFFECT_OHKO   ohko moves
     u8 holdEffect, param;
     u16 attackerAbility = GetBattlerAbility(gBattlerAttacker);
     u16 targetAbility = GetBattlerAbility(gBattlerTarget);
+    u8 movetype;
+    uq4_12_t effectiveness_mult; 
+
+    GET_MOVE_TYPE(gCurrentMove, movetype);
+    effectiveness_mult = CalcTypeEffectivenessMultiplier(gCurrentMove, movetype, gBattlerAttacker, gBattlerTarget, FALSE);
 
     if (gBattleMons[gBattlerTarget].item == ITEM_ENIGMA_BERRY)
     {
@@ -16017,13 +16022,14 @@ static void atk93_tryKO(void) //EFFECT_OHKO   ohko moves
         }
         else //check default setup cant tell what this is
         {   //acc falls lower if below level, now that its possible for move to hit from lower level
+            //changed to use calceffectivess for more specific tweaks
             chance = gBattleMoves[gCurrentMove].accuracy + (gBattleMons[gBattlerAttacker].level - gBattleMons[gBattlerTarget].level);
 
-           if (gMoveResultFlags & MOVE_RESULT_SUPER_EFFECTIVE && gBattleMons[gBattlerAttacker].level > gBattleMons[gBattlerTarget].level)
+           if (effectiveness_mult >= UQ_4_12(1.55) && gBattleMons[gBattlerAttacker].level > gBattleMons[gBattlerTarget].level)
                 chance *=  2;
-            else if (gMoveResultFlags & MOVE_RESULT_SUPER_EFFECTIVE && gBattleMons[gBattlerAttacker].level <= gBattleMons[gBattlerTarget].level)
+            else if (effectiveness_mult >= UQ_4_12(1.55) && gBattleMons[gBattlerAttacker].level <= gBattleMons[gBattlerTarget].level)
                 chance = chance;
-           else if (gMoveResultFlags & MOVE_RESULT_NOT_VERY_EFFECTIVE)
+           else if (effectiveness_mult <= UQ_4_12(0.5))
                 chance = 0;
            else
                 chance /= 2;

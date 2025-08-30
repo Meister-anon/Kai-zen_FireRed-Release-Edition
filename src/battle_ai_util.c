@@ -1123,6 +1123,11 @@ static u32 AI_GetEffectiveness(u16 multiplier)
     //not sure how its treated right now/calcualted, uq only goes to 2 zeroes,
     //but multipler 1.55^2 = 2.4025
     //multiplier 1.55^3 = 3.723875
+
+    if (multiplier > UQ_4_12(0.5)  
+    && multiplier < UQ_4_12(1.0))
+        return AI_EFFECTIVENESS_x0_775;
+
     if (multiplier > UQ_4_12(1.55)  
     && multiplier < UQ_4_12(3.0))
         return AI_EFFECTIVENESS_x2_40;
@@ -1657,10 +1662,13 @@ bool32 IsMoveEncouragedToHit(u8 battlerAtk, u8 battlerDef, u16 move)
     return FALSE;
 }
 
+//vsonic important check this is correct
+//as pretty sure changed logic again to be based on type?
 bool32 ShouldTryOHKO(u8 battlerAtk, u8 battlerDef, u16 atkAbility, u16 defAbility, u16 move)
 {
     u32 holdEffect = AI_DATA->holdEffects[battlerDef];
     u32 accuracy = AI_GetMoveAccuracy(battlerAtk, battlerDef, move);
+    u32 Effectiveness = AI_GetMoveEffectiveness(move, battlerAtk, battlerDef);
 
     gPotentialItemEffectBattler = battlerDef;
     if (holdEffect == HOLD_EFFECT_FOCUS_BAND && (Random() % 100) < AI_DATA->holdEffectParams[battlerDef])
@@ -1677,15 +1685,27 @@ bool32 ShouldTryOHKO(u8 battlerAtk, u8 battlerDef, u16 atkAbility, u16 defAbilit
 
     if ((((gStatuses3[battlerDef] & STATUS3_ALWAYS_HITS)
         && gDisableStructs[battlerDef].battlerWithSureHit == battlerAtk)
-        || DoesBattlerHaveSureHitAbility(battlerAtk) || DoesBattlerHaveSureHitAbility(battlerDef))
-        && gBattleMons[battlerAtk].level >= (gBattleMons[battlerDef].level - 7))
+        || DoesBattlerHaveSureHitAbility(battlerAtk) || DoesBattlerHaveSureHitAbility(battlerDef)
+        && Effectiveness >= AI_EFFECTIVENESS_x1)
+        && gBattleMons[battlerAtk].level >= (gBattleMons[battlerDef].level - 3))
     {
         return TRUE;
     }
     else  // test the odds - not my note, but added my ohko change, logic matches function, odds are perfect, its a gamble not an exact translation of the in game calculation
     {
+        
         u16 odds = accuracy + (gBattleMons[battlerAtk].level - gBattleMons[battlerDef].level);
-        if (Random() % 100 + 1 < odds && gBattleMons[battlerAtk].level >= (gBattleMons[battlerDef].level - 7))
+
+        if (Effectiveness >= AI_EFFECTIVENESS_x1_55 && gBattleMons[gBattlerAttacker].level > gBattleMons[gBattlerTarget].level)
+            odds *=  2;
+        else if (Effectiveness >= AI_EFFECTIVENESS_x1_55 && gBattleMons[gBattlerAttacker].level <= gBattleMons[gBattlerTarget].level)
+            odds = odds;
+        else if (Effectiveness <= AI_EFFECTIVENESS_x0_5)
+            odds = 0;
+        else
+            odds /= 2;
+
+        if (Random() % 100 + 1 < odds && gBattleMons[battlerAtk].level >= (gBattleMons[battlerDef].level - 3))
             return TRUE;
     }
     return FALSE;
