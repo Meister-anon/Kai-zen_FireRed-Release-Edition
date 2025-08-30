@@ -18,6 +18,14 @@ PalletTown_GarysHouse_Text_ReceivedTownMapFromDaisy:: @ 818D661
     .string "{PLAYER} received a TOWN MAP\n"
     .string "from DAISY.$"
 
+PalletTown_GarysHouse_Text_ReceivedExpShareFromDaisy:: @ 818D661
+    .string "{PLAYER} received a EXP. SHARE\n"
+    .string "from DAISY.$"
+
+PalletTown_GarysHouse_Text_TakeThisToo:: @ 818D701
+    .string "DAISY: There now you should be\n"
+    .string "all set.$"
+
 PalletTown_GarysHouse_Text_DontHaveSpaceForThis:: @ 818D684
     .string "You don't have space for this in\n"
     .string "your BAG.$"

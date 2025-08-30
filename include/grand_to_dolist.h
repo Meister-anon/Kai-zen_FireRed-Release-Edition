@@ -2492,6 +2492,26 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     it should clear the exp share state
     ex. setmon expnull to true also sets expshare to false
     1/17/2025 vsonic important
+    change game flow decide put exp share on path next to 
+    viridian forest
+
+    that way those that want it can get it early or get
+    it on exploration after getting to vermillion 
+    maybe not?, that's where you get flash,
+    which you'd want for rock tunnel,
+    can instead swap flash to the pokemon center next of
+    rock tunnel which is right where you'd need it
+    yeah just put ever stone in pewter city
+    special shop 
+
+    changed mind put exp share in pallet given by
+    gary's sister Daisy.
+
+    That way still a bit of time to get used to changes via exp null
+    before getting exp share and also is missable if player rushes off
+
+    but can get earlier enough without having to backtarck
+    unnaturally
 
     Notes on Shadow battler escape w flying/floating mon
     

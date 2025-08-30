@@ -160,6 +160,14 @@ PalletTown_GarysHouse_EventScript_GiveTownMap:: @ 8168EF6
 	waitmovement 0
 	delay 12
 	giveitem_msg PalletTown_GarysHouse_Text_ReceivedTownMapFromDaisy, ITEM_TOWN_MAP, 1, MUS_OBTAIN_KEY_ITEM
+	checkitemspace ITEM_EXP_SHARE, 1
+	compare VAR_RESULT, FALSE
+	goto_if_eq PalletTown_GarysHouse_EventScript_NoRoomForTownMap
+	giveitem_msg PalletTown_GarysHouse_Text_ReceivedExpShareFromDaisy, ITEM_EXP_SHARE, 1, MUS_OBTAIN_KEY_ITEM
+	setflag FLAG_GOT_EXP_SHARE_FROM_OAKS_AIDE
+	goto_if_questlog EventScript_ReleaseEnd
+	special QuestLog_CutRecording	
+	msgbox PalletTown_GarysHouse_Text_TakeThisToo
 	release
 	end
 
