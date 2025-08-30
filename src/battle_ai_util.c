@@ -1685,8 +1685,8 @@ bool32 ShouldTryOHKO(u8 battlerAtk, u8 battlerDef, u16 atkAbility, u16 defAbilit
 
     if ((((gStatuses3[battlerDef] & STATUS3_ALWAYS_HITS)
         && gDisableStructs[battlerDef].battlerWithSureHit == battlerAtk)
-        || DoesBattlerHaveSureHitAbility(battlerAtk) || DoesBattlerHaveSureHitAbility(battlerDef)
-        && Effectiveness >= AI_EFFECTIVENESS_x1)
+        || DoesBattlerHaveSureHitAbility(battlerAtk) || DoesBattlerHaveSureHitAbility(battlerDef))
+        && Effectiveness >= AI_EFFECTIVENESS_x1
         && gBattleMons[battlerAtk].level >= (gBattleMons[battlerDef].level - 3))
     {
         return TRUE;
