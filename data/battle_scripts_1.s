@@ -8858,7 +8858,9 @@ BattleScript_MoveEffectInfestation::
 BattleScript_StatusInfested::
 	printstring STRINGID_PKMNINFESTED
 	waitmessage B_WAIT_TIME_LONG
-	playanimation BS_ATTACKER, B_ANIM_INFESTATION, NULL
+	@playanimation BS_ATTACKER, B_ANIM_INFESTATION, NULL
+	status2animation BS_ATTACKER, STATUS2_INFESTATION
+	@chosenstatusanimation BS_ATTACKER, STATUS2, STATUS2_INFESTATION
 	@chosenstatusanimation BS_ATTACKER, STATUS4, STATUS4_INFESTATION
 	end2
 
