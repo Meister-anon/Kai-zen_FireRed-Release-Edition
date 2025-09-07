@@ -11983,43 +11983,42 @@ bool8 DoesBattlerGetTypeBasedAffinity(u32 battler, u16 ability, u8 typeFactor)
     {
         case TYPE_FLYING:
         {
-            if (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_AVIATOR)
-                return TRUE;
+            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_AVIATOR);
+                
         }
         break;
         case TYPE_FIRE:
         {
-            if (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_TORCHSOUL)
-                return TRUE;
+            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_TORCHSOUL);
+                
         }
         break;
         case TYPE_BUG:
         {
-            if (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_APOTHEOSCENT)
-                return TRUE;   
+            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_APOTHEOSCENT);
+                   
         }
         break;
         case TYPE_POISON:
         {
-            if (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_GRUNGE)
-                return TRUE;   
+            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_GRUNGE);
+                   
         }
         break;
         case TYPE_FAIRY:
         {
-            if (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_TOADSTOOL_NYMPH)
-                return TRUE;
+            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_TOADSTOOL_NYMPH);
+                
         }//toadstool nymph is just to give stab on fairy moves
         break;
         default:
         {
-            if (IS_BATTLER_OF_TYPE(battler, typeFactor))
-                return TRUE;
+            return (IS_BATTLER_OF_TYPE(battler, typeFactor));
+                
         }
 
     }
 
-    return FALSE;
 }
 
 //think this is best I can come up with?

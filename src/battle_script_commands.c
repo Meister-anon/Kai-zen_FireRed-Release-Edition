@@ -11794,7 +11794,9 @@ static bool32 IsRototillerAffected(u32 battlerId)
         return FALSE;
     if (!(IsBattlerGrounded(battlerId)))
         return FALSE;   // Only grounded battlers affected
-    if (!(DoesBattlerGetTypeBasedAffinity(battlerId, GetBattlerAbility(battlerId), TYPE_GRASS)  && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker))))
+    if (!DoesBattlerGetTypeBasedAffinity(battlerId, GetBattlerAbility(battlerId), TYPE_GRASS))
+        return FALSE;   // Only grass types affected
+    if (DoesBattlerGetTypeBasedAffinity(battlerId, GetBattlerAbility(battlerId), TYPE_GRASS)  && DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
         return FALSE;   // Only grass types affected
     if (gStatuses3[battlerId] & STATUS3_SEMI_INVULNERABLE)
         return FALSE;   // Rototiller doesn't affected semi-invulnerable battlers
@@ -12116,11 +12118,11 @@ bool32 IsShieldsDownProtected(u32 battler)
 
 u32 IsAbilityStatusProtected(u32 battler)
 {
-    return IsFlowerVeilProtected(battler)
+    return (IsFlowerVeilProtected(battler)
         || IsLeafGuardProtected(battler)
         || IsShieldsDownProtected(battler)
         || GetBattlerAbility(battler) == ABILITY_PURIFYING_SALT
-        || GetBattlerAbility(battler) == ABILITY_HANDS_OF_FATE;
+        || GetBattlerAbility(battler) == ABILITY_HANDS_OF_FATE);
 }
 
 //exclusive to ability protecting just self
