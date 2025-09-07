@@ -4321,7 +4321,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SMELLING_SALTS] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .power = 70,
+            .power = 80,
         #else
             .power = 60,
         #endif
@@ -4334,8 +4334,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        .argument = STATUS1_PARALYSIS,  //usually argument used with effectchance but here its only used to tell script what status to remove
+        //.argument = STATUS1_PARALYSIS,  //usually argument used with effectchance but here its only used to tell script what status to remove
     },
+    //very low distribution, removes desirable effect
+    //requires setup that nearly no mon with move can provide alone
+    //i.e only given to fighting mon to level and few normal mon via breeding,
+    //none that can paralyze
+    //woot mentioned to make fighing type but not many normal moves
+    //so think just keep normal but remove effect of curing paralysis
+    //changed boosted base power since normal, lowered boosted power
+    //and removed status removal
+
 
     [MOVE_FOLLOW_ME] =
     {
@@ -5844,6 +5853,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .argument = STATUS1_SLEEP,
     },
+    //this is balanced better by my given status changes
 
     [MOVE_HAMMER_ARM] =
     {

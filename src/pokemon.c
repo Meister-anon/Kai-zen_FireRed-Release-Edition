@@ -5200,7 +5200,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
         case EFFECT_SMELLINGSALTS:
         if (gBattleMons[battlerIdDef].status1 & STATUS1_PARALYSIS && IsBlackFogNotOnField())
-            gBattleMovePower *= 2;
+            gBattleMovePower = (150 * gBattleMovePower) / 100;
         break;
         case EFFECT_BRINE:
         if (defender->hp <= defender->maxHP / 2)
