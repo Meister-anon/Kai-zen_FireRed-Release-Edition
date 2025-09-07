@@ -726,7 +726,7 @@ s32 AICalcCritChance(u8 battlerAtk, u8 battlerDef, u32 move, bool32 recordAbilit
         critChance = 2 * ((gBattleMons[gBattlerAttacker].status2 & STATUS2_FOCUS_ENERGY) != 0)
             + (gBattleMoves[gCurrentMove].flags & FLAG_HIGH_CRIT)
             + (holdEffectAtk == HOLD_EFFECT_SCOPE_LENS)
-            + 2 * (holdEffectAtk == HOLD_EFFECT_LUCKY_PUNCH && gBattleMons[gBattlerAttacker].species == SPECIES_CHANSEY)
+            + 2 * (holdEffectAtk == HOLD_EFFECT_LUCKY_PUNCH && (gBattleMons[gBattlerAttacker].species == SPECIES_HAPPINY || gBattleMons[gBattlerAttacker].species == SPECIES_CHANSEY || gBattleMons[gBattlerAttacker].species == SPECIES_BLISSEY))
             + 2 * BENEFITS_FROM_LEEK(battlerAtk, holdEffectAtk)
             + 2 * ((GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_DARK_DEAL) && abilityAtk != ABILITY_DARK_DEAL)
             + (abilityAtk == ABILITY_SUPER_LUCK)

@@ -224,7 +224,7 @@ const u8 gItemDescription_ITEM_SILK_SCARF[] = _("An item to be held by a POKéMO
 const u8 gItemDescription_ITEM_SHELL_BELL[] = _("An item to be held by a POKéMON.\nThe holding POKéMON regains some\nHP upon striking the foe.");
 
 
-const u8 gItemDescription_ITEM_LUCKY_PUNCH[] = _("A glove to be held by a CHANSEY.\nIt raises CHANSEY's critical-hit\nratio.");
+const u8 gItemDescription_ITEM_LUCKY_PUNCH[] = _("A glove to be held by the CHANSEY-line.\nIt raises their critical-hit\nratio.");
 const u8 gItemDescription_ITEM_METAL_POWDER[] = _("A fine, hard powder to be held by\na DITTO.\nIt raises DITTO's DEFENSE stat.");
 const u8 gItemDescription_ITEM_THICK_CLUB[] = _("A hard bone of some sort to be\nheld by a CUBONE or MAROWAK.\nIt raises the ATTACK stat.");
 const u8 gItemDescription_ITEM_LEEK[] = _("A stick of leek to be held by a\nFARFETCH'D. It raises FARFETCH'D's\ncritical-hit ratio.");
