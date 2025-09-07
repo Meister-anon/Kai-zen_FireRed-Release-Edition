@@ -2546,6 +2546,16 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     and then just do a jump
     )
 
+    note**(
+    rework gym matcher  guy in all gyms
+    to give purpose have him state the level of the leader's ace pokemon
+    at first gym create trigger script to inform new players of 
+    changed functionality
+    -excepting than first event is small job that
+    can probably wait till last in case level balance is further tweaked
+    )
+    9/2025
+
     //for exp share state stuff takes a lot of ewram to do in boxmon
     if I just do in mon and popluate when it moves from pc
     I could prob save large amount of space?
