@@ -412,6 +412,7 @@ static const struct AbilityLearnset sShellderAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sCloysterAbilityLearnset[] = {
+    ABILITY_TOUGH_SPINES,
     ABILITY_SET_END
 };
 
