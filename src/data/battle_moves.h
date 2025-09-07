@@ -335,7 +335,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .accuracy = 75,
         #endif
         .effect = EFFECT_TRAP,
-        .power = 25,
+        .power = 30,
         .type = TYPE_NORMAL,
         .pp = 20,
         .secondaryEffectChance = 0,
@@ -584,7 +584,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .accuracy = 85,
         #endif
         .effect = EFFECT_TRAP,
-        .power = 25,
+        .power = 30,
         .type = TYPE_NORMAL,
         .pp = 20,
         .secondaryEffectChance = 0,
@@ -1342,7 +1342,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_FIRE_SPIN] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_5
-            .power = 25,
+            .power = 30,
             .accuracy = 90,
         #else
             .power = 15,
@@ -2037,7 +2037,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .pp = 10,
         #endif
         .effect = EFFECT_TRAP,
-        .power = 25,
+        .power = 30,
         .type = TYPE_WATER,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -4066,7 +4066,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_WHIRLPOOL] =
     {
-        .power = 25,
+        .power = 30,
         .accuracy = 90,
         .effect = EFFECT_TRAP,
         .type = TYPE_WATER,
@@ -5334,7 +5334,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SAND_TOMB] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_5
-            .power = 25,
+            .power = 30,
             .accuracy = 90,
         #else
             .power = 15,
@@ -9843,7 +9843,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SWARM] =
     {
         .effect = EFFECT_TRAP,
-        .power = 25,
+        .power = 30,
         .type = TYPE_BUG,
         .accuracy = 100,
         .pp = 20,
