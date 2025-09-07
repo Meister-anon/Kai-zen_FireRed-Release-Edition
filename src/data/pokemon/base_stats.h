@@ -7363,7 +7363,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(73, 100, 62, 85, 85, 65),
-        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 163,
         //.evYield_Attack = 1,
