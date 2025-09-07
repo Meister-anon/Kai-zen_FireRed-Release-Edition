@@ -2330,17 +2330,14 @@ static void atk04_critcalc(void)    //working/works
 bool8 DoesTargetAbilityBlockCrit(u8 Targetbattler)
 {
     u16 ability = GetBattlerAbility(Targetbattler);
-    bool8 block = FALSE;
 
-     if (ability == ABILITY_BATTLE_ARMOR
+     return (ability == ABILITY_BATTLE_ARMOR
         || ability == ABILITY_SHELL_ARMOR
         || (ability == ABILITY_MAGMA_ARMOR && IsPhysicalMove(gBattlerAttacker, gCurrentMove)) //removed physical move macro for function consolidating effects
         || ability == ABILITY_INNER_FOCUS
         || (ability == ABILITY_TANGLED_FEET && gBattleMons[Targetbattler].status2 & STATUS2_CONFUSION)
-        || ability == ABILITY_GRASS_PELT)
-        block = TRUE;
+        || ability == ABILITY_GRASS_PELT);
 
-    return block;
 }//replace steadfast with inner focus, makes more thematic sense
 //considering whether should add exclusion for canbeconfused to tangledfeet,
 //since bug mon can be confused but are immune to confuse effects because of other sense,
