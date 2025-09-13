@@ -40160,8 +40160,8 @@ const struct BaseStats gBaseStats[] =
         86,
         160,
         85,
-        135,
-        144,
+        145,
+        134,
         100
         ),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FIGHTING),
@@ -40951,7 +40951,7 @@ const struct BaseStats gBaseStats[] =
         65,
         150,
         60,
-        115,
+        120,
         115,
         60
         ),
@@ -41210,8 +41210,8 @@ const struct BaseStats gBaseStats[] =
          STATS(
         108,
         155,
-        135,
-        107, 
+        145,
+        97, 
         40,
         115
         ),
@@ -41225,11 +41225,11 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_DRAGON,
-        .abilities = {ABILITY_SAND_RUSH, ABILITY_SAND_RUSH},
+        .abilities = {ABILITY_NO_GUARD, ABILITY_NO_GUARD},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},//other option is sharpness boosted dragon claw
         .bodyColor = BODY_COLOR_BLUE,//changed to sand rush from sand force
        .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = FALSE, //idea give no guard instead of sand rush, speed boost is nice but this makes so much more sense
         .safariZoneFleeRate = 50,
         .abilityLearnset = NULL,
         .levelUpLearnset = sGarchompLevelUpLearnset,
@@ -41639,7 +41639,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FAIRY,
         .abilities = {ABILITY_SURGE_SURFER, ABILITY_NONE},
-        .abilityHidden = {ABILITY_TELEPATHY, ABILITY_NONE},
+        .abilityHidden = {ABILITY_TELEPATHY, ABILITY_SWIFT_SWIM},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -51086,10 +51086,10 @@ const struct BaseStats gBaseStats[] =
          STATS(
         255,
         115,
-        250,
         130,
+        35,
         125,
-        250
+        130
         ),
         MON_TYPES(TYPE_POISON, TYPE_DRAGON),
         .catchRate = 255,
@@ -51111,8 +51111,16 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sEternatusLevelUpLearnset,
         .tmhmLearnset = sEternatusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .flags = SPECIES_FLAG_PRIMAL_REVERSION,
     },
+    //think turn this into a mega-like
+    //or a type of reversion
+    //did SOMETHING to try to balance this thing enough to be usable
+    //not actually slow but massive and doesn't really move,
+    //so make it a trick room exclusive but bulky enough to still take hits easily
+    //ok stats are still kinda op but idea is its glutted on power
+    //so guess should be ok? decided not to make slower
+    //for stats as would make fastest trick room mon
 
     [SPECIES_URSHIFU_RAPID_STRIKE_STYLE] =
     {

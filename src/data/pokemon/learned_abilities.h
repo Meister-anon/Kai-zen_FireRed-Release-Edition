@@ -1636,7 +1636,9 @@ static const struct AbilityLearnset sGardevoirAbilityLearnset[] = {
     ABILITY_SET_END
 };
 
+// gave as little joke based on dex of trying to fly
 static const struct AbilityLearnset sBagonAbilityLearnset[] = {
+    ABILITY_AVIATOR,
     ABILITY_SET_END
 };
 
@@ -2099,6 +2101,7 @@ static const struct AbilityLearnset sPorygonZAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sGalladeAbilityLearnset[] = {
+    ABILITY_SHARPNESS,
     ABILITY_SET_END
 };
 
@@ -2155,7 +2158,10 @@ static const struct AbilityLearnset sCresseliaAbilityLearnset[] = {
     ABILITY_SET_END
 };
 
+//MOLD Breaker would be great here with both
+//species and ability specific ange
 static const struct AbilityLearnset sPhioneAbilityLearnset[] = {
+    ABILITY_MOLD_BREAKER,
     ABILITY_SET_END
 };
 
