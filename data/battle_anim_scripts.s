@@ -19601,24 +19601,9 @@ Move_HOLD_BACK::
 @that way swarm animation and infestation satus animation are distinct
 @changed back forgot move already had distinct animation from end status
 Move_SWARM::
-	loadspritegfx ANIM_TAG_HANDS_AND_FEET @black color
-	loadspritegfx ANIM_TAG_SMALL_BUBBLES @circle particles
-	monbg ANIM_DEF_PARTNER
-	monbgprio_28 ANIM_TARGET
-	createvisualtask AnimTask_BlendSelected, 10, ANIM_PAL_DEF, 0x2, 0x0, 0x9, 0x7320
-	launchtask AnimTask_ShakeMon 0x2 0x5 ANIM_TARGET 0x3 0x0 0x4f 0x1
-	loopsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER, 0x0, 0x4F
-	call InfestationVortex
-	call InfestationVortex
-	call InfestationVortex
-	call InfestationVortex
-	call InfestationVortex
-	waitforvisualfinish
-	launchtask AnimTask_BlendSelected 0xA 0x5 ANIM_PAL_DEF 0x2 0x9 0x0 0x7320
-	waitforvisualfinish
-	clearmonbg ANIM_DEF_PARTNER
-	end
-InfestationVortex:
+	goto Move_ATTACK_ORDER
+
+InfestationVortex::
 	launchtemplate gInfestationBubbleTemplate 0x82 0x7 0x0 0x1c 0x210 0x1e 0xd 0x32 0x1
 	delay 0x1
 	launchtemplate gInfestationBubbleTemplate 0x82 0x7 0x0 0x20 0x1e0 0x14 0x10 0xffd2 0x1

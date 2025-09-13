@@ -3090,10 +3090,10 @@ u8 DoBattlerEndTurnEffects(void)
                         //can't just replace these with move as animArgs are u8, instead set somehow w pointer?
                         //builds but need test 
                         moveId =  MOVE_BIND;
-                        gBattleScripting.animArg1 = moveId;
-                        gBattleScripting.animArg2 = moveId >> 8;
-                        PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_BIND);
-                        gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
+                        gBattleScripting.animArg1 = moveId; //vsonic important talked w jamie on rhh
+                        gBattleScripting.animArg2 = moveId >> 8; //storing u16 in a u8 holds right part of bit
+                        PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_BIND); //the battle controler logic takes the left side, so it can be restored later
+                        gBattlescriptCurrInstr = BattleScript_WrapTurnDmg; //no idea why my trap effets are breaking tho
                         
                         gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 12,1); ///8  keep 16 for now since buffing effects
 

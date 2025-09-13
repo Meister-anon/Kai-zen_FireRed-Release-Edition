@@ -7867,12 +7867,12 @@ static void PlayAnimation(u32 battler, u8 animId, const u16 *argPtr, const u8 *n
         BattleScriptPush(nextInstr);
         gBattlescriptCurrInstr = BattleScript_Pausex20;
     }
-    else if (gBattlescriptCurrInstr[2] == B_ANIM_RAIN_CONTINUES
-          || gBattlescriptCurrInstr[2] == B_ANIM_ACID_RAIN_CONTINUES
-          || gBattlescriptCurrInstr[2] == B_ANIM_SUN_CONTINUES
-          || gBattlescriptCurrInstr[2] == B_ANIM_SANDSTORM_CONTINUES
-          || gBattlescriptCurrInstr[2] == B_ANIM_HAIL_CONTINUES
-          || gBattlescriptCurrInstr[2] == B_ANIM_MOONLIGHT_SHINES)
+    else if (animId == B_ANIM_RAIN_CONTINUES
+          || animId == B_ANIM_ACID_RAIN_CONTINUES
+          || animId == B_ANIM_SUN_CONTINUES
+          || animId == B_ANIM_SANDSTORM_CONTINUES
+          || animId == B_ANIM_HAIL_CONTINUES
+          || animId == B_ANIM_MOONLIGHT_SHINES)
     {
         BtlController_EmitBattleAnimation(/*battler,*/ BUFFER_A, animId, /*&gDisableStructs[battler],*/ *argPtr);
         MarkBattlerForControllerExec(battler);

@@ -1030,7 +1030,8 @@ struct BattleScripting  //remember expanding this costs ewram = rearranging in  
     u8 animArg1;
     u8 animArg2;    //gBattleScripting +12 & +19 only used in multihit scripts in battle_scripts_1.s so somewhat confident of conclusions
     u8 battlerWithAbility;
-    u16 tripleKickPower; //important gBattleScripting +19   //since changed move effect, can now remove this,   would need to update following values again
+    //u16 tripleKickPower; //important gBattleScripting +19   //since changed move effect, can now remove this,   would need to update following values again
+    u16 filler;
     u8 battler;
     u8 atk49_state; //move end
     //u8 multihitMoveEffect; //important, why do these need to go here   [they make up the table, if not properly orded bs effets won't work correctly

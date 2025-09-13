@@ -2307,6 +2307,12 @@ void AnimTask_SafariGetReaction(u8 taskId)
     DestroyAnimVisualTask(taskId);
 }
 
+//as gBattleAnimArgs only goes to 8
+//startign from 0 pretty sure thunderage won't fit
+//no it work is same values from EE
+//its properly tracking value and appears identical to EE
+//but for some reason only able to read u8
+//breaks when move ids get above 255
 void AnimTask_GetTrappedMoveAnimId(u8 taskId)
 {
     switch (gBattleSpritesDataPtr->animationData->animArg)

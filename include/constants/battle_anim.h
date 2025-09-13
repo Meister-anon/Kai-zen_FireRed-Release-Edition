@@ -150,7 +150,7 @@
 #define ANIM_TAG_RAINBOW_RINGS              (ANIM_SPRITES_START + 140)
 #define ANIM_TAG_ICE_CRYSTALS               (ANIM_SPRITES_START + 141)
 #define ANIM_TAG_ICE_SPIKES                 (ANIM_SPRITES_START + 142)
-#define ANIM_TAG_HANDS_AND_FEET             (ANIM_SPRITES_START + 143)
+#define ANIM_TAG_HANDS_AND_FEET             (ANIM_SPRITES_START + 143) //sometimes just used for color black?
 #define ANIM_TAG_MIST_CLOUD                 (ANIM_SPRITES_START + 144)
 #define ANIM_TAG_CLAMP                      (ANIM_SPRITES_START + 145)
 #define ANIM_TAG_BUBBLE                     (ANIM_SPRITES_START + 146)

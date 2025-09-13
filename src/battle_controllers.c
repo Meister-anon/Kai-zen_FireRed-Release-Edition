@@ -344,11 +344,11 @@ static void PrepareBufferDataTransfer(u8 bufferId, u8 *data, u16 size)
     {
         switch (bufferId)
         {
-        case 0:
+        case BUFFER_A:
             for (i = 0; i < size; ++data, ++i)
                 gBattleBufferA[gActiveBattler][i] = *data;
             break;
-        case 1:
+        case BUFFER_B:
             for (i = 0; i < size; ++data, ++i)
                 gBattleBufferB[gActiveBattler][i] = *data;
             break;

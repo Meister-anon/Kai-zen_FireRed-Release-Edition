@@ -22,7 +22,7 @@
 #define sB_ANIM_ARG2 gBattleScripting + 0x16			//u8 animArg2; 1 byte 0x11
 #define sBATTLER_WITH_ABILITY gBattleScripting + 0x17	//u8 battlerWithAbility; 1 byte 0x15
 //I also moved triple kick power to functions so could remove?
-#define sTRIPLE_KICK_POWER gBattleScripting + 0x18		//tripleKickPower; 2 byte 0x12 0x13
+#define sFILLER_VALUE gBattleScripting + 0x18		//tripleKickPower; 2 byte 0x12 0x13
 #define sBATTLER gBattleScripting + 0x1A				//u8 battler; 1 byte 0x1c
 #define sMOVEEND_STATE gBattleScripting + 0x1B			//u8 atk49_state; 1 byte 0x14
 #define sMULTIHIT_EFFECT gBattleScripting + 0x1C		//u16 multihitMoveEffect; 2 byte 0x16 0x17	 //stores move effect for multihit moves, like twineedle uses it to store poison
