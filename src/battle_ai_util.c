@@ -719,8 +719,9 @@ bool32 MovesWithSplitUnusable(u32 attacker, u32 target, u32 split)
             && GetBattleMoveSplit(moves[i]) == split
             && !(unusable & gBitTable[i]))
         {
-            SetTypeBeforeUsingMove(moves[i], attacker);
-            GET_MOVE_TYPE(moves[i], moveType);
+            //SetTypeBeforeUsingMove(moves[i], attacker);
+            //GET_MOVE_TYPE(moves[i], moveType);
+            moveType = ReturnMoveType(moves[i], attacker);    
             if (CalcTypeEffectivenessMultiplier(moves[i], moveType, attacker, target, FALSE) != 0)
                 usable |= gBitTable[i];
         }
@@ -798,8 +799,9 @@ s32 AI_CalcDamage(u16 move, u8 battlerAtk, u8 battlerDef, u8 *typeEffectiveness,
     if (move == MOVE_NATURE_POWER)
         move = GetNaturePowerMove();
 
-    SetTypeBeforeUsingMove(move, battlerAtk);
-    GET_MOVE_TYPE(move, moveType);
+    //SetTypeBeforeUsingMove(move, battlerAtk);
+    //GET_MOVE_TYPE(move, moveType);
+    moveType = ReturnMoveType(move, battlerAtk);  
 
     //stores multiplier
     typeMod = CalcTypeEffectivenessMultiplier(move, moveType, battlerAtk, battlerDef, FALSE); 
@@ -1055,6 +1057,9 @@ u16 AI_GetTypeEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
 
     gBattleStruct->dynamicMoveType = 0;
 
+    //can't calculate this as rng can't guarantee
+    //to be identical to other calc, wil need change update
+    //using EE logic where calc'd only once I think
     if (gBattleMons[battlerAtk].species == SPECIES_ARCEUS && 
     move == MOVE_JUDGMENT)
     {
@@ -1079,8 +1084,9 @@ u16 AI_GetTypeEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
             gBattleStruct->dynamicMoveType = TYPE_MYSTERY;
     }
 
-    SetTypeBeforeUsingMove(move, battlerAtk);
-    GET_MOVE_TYPE(move, moveType);
+    //SetTypeBeforeUsingMove(move, battlerAtk);
+    //GET_MOVE_TYPE(move, moveType);
+    moveType = ReturnMoveType(move, battlerAtk);
     typeEffectiveness = CalcTypeEffectivenessMultiplier(move, moveType, battlerAtk, battlerDef, FALSE);
 
     RestoreBattlerData(battlerAtk);
@@ -3110,15 +3116,14 @@ bool32 AI_CanPutToSleep(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, 
 //vsonic need test but hopefully works
 static bool32 AI_CanPoisonType(u8 battlerAttacker, u8 battlerTarget)
 {
-    u8 moveType;
-    ReturnMoveType(AI_THINKING_STRUCT->moveConsidered, battlerAttacker);
-    GET_MOVE_TYPE(AI_THINKING_STRUCT->moveConsidered, moveType);
-    
+    u8 moveType = ReturnMoveType(AI_THINKING_STRUCT->moveConsidered, battlerAttacker);    
 
     return ((AI_DATA->abilities[battlerAttacker] == ABILITY_CORROSION)
             || (AI_DATA->abilities[battlerAttacker] == ABILITY_POISONED_LEGACY)
-            || (!(DoesBattlerGetTypeBasedAffinity(battlerTarget, AI_DATA->abilities[battlerTarget], TYPE_POISON) && !DoesMoldBreakerNegateEffect(battlerAttacker, AI_DATA->abilities[battlerAttacker])) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL)
-            || (moveType == TYPE_POISON && AI_GetMoveEffectiveness(AI_THINKING_STRUCT->moveConsidered, battlerAttacker, battlerTarget) != AI_EFFECTIVENESS_x0)));
+            || !IS_BATTLER_ANY_TYPE(battlerTarget, TYPE_STEEL, TYPE_ROCK)
+            || !(DoesBattlerGetTypeBasedAffinity(battlerTarget, AI_DATA->abilities[battlerTarget], TYPE_POISON) && !DoesMoldBreakerNegateEffect(battlerAttacker, AI_DATA->abilities[battlerAttacker]))
+            //|| (moveType == TYPE_POISON && AI_GetMoveEffectiveness(AI_THINKING_STRUCT->moveConsidered, battlerAttacker, battlerTarget) != AI_EFFECTIVENESS_x0)
+            );
 }
 
 static bool32 AI_CanBePoisoned(u8 battlerAtk, u8 battlerDef) //vsonic tweak with setmoveeffect logic
@@ -3195,11 +3200,10 @@ static bool32 AI_CanBeParalyzed(u8 battler, u16 ability) //vsonic updated for cu
     return TRUE;
 }
 
+//removed use of getmove_type believe this is more correct?
 bool32 AI_CanParalyze(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u16 partnerMove)
 {
-    u8 moveType;
-    ReturnMoveType(AI_THINKING_STRUCT->moveConsidered, battlerAtk);
-    GET_MOVE_TYPE(AI_THINKING_STRUCT->moveConsidered, moveType);
+    u8 moveType = ReturnMoveType(AI_THINKING_STRUCT->moveConsidered, battlerAtk);    
 
     if (!AI_CanBeParalyzed(battlerDef, defAbility)
       || ((DoesBattlerGetTypeBasedAffinity(battlerDef,  defAbility, TYPE_ELECTRIC) && !DoesMoldBreakerNegateEffect(battlerAtk, AI_DATA->abilities[battlerAtk])) && moveType == TYPE_ELECTRIC)

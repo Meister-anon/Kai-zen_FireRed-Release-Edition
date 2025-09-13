@@ -1127,7 +1127,7 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
         }
         break;
     case LIST_ITEM_ABILITY:
-        PadString(gAbilityNames[gBattleMons[data->battlerId].ability], text);
+        PadString(gAbilitiesInfo[gBattleMons[data->battlerId].ability].name, text);
         printer.currentY = printer.y = sSecondaryListTemplate.upText_Y;
         AddTextPrinter(&printer, 0, NULL);
         break;

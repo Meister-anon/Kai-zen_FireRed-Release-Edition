@@ -280,29 +280,15 @@ enum
     CONTROLS_GUIDE_PAGE_1,
     CONTROLS_GUIDE_PAGE_2,
     CONTROLS_GUIDE_PAGE_3,
-    CONTROLS_GUIDE_PAGE_4,
     NUM_CONTROLS_GUIDE_PAGES,
-};//go over my setup unsure if should have a page 4 or should just add to 3
-
-//need find what this is,
-//hmm  I think I may have made this myself?
-static const struct WindowTemplate sHelpDocsWindowTemplates4[] = {
-    {
-        .bg = 0x00,
-        .tilemapLeft = 0x00,
-        .tilemapTop = 0x03,
-        .width = 0x1e,
-        .height = 0xf,
-        .paletteNum = 0x0f,
-        .baseBlock = 0x0001
-    }, DUMMY_WIN_TEMPLATE
 };
 
-static const struct WindowTemplate *const sHelpDocsWindowTemplatePtrs[4] = {
+
+
+static const struct WindowTemplate *const sHelpDocsWindowTemplatePtrs[3] = {
     [CONTROLS_GUIDE_PAGE_1] = sHelpDocsWindowTemplates1,
     [CONTROLS_GUIDE_PAGE_2] = sHelpDocsWindowTemplates2,
     [CONTROLS_GUIDE_PAGE_3] = sHelpDocsWindowTemplates3,
-    [CONTROLS_GUIDE_PAGE_4] = sHelpDocsWindowTemplates4
 };
 
 static const struct WindowTemplate sNewGameAdventureIntroWindowTemplates[NUM_INTRO_WINDOWS + 1] = {
@@ -558,8 +544,7 @@ static const struct SpriteTemplate sOakSpeech_PikaSpriteTemplates[3] = {
 
 static const u8 *const sHelpDocsPtrs[] = {
     gNewGame_HelpDocs2, gNewGame_HelpDocs3, gNewGame_HelpDocs4,
-    gNewGame_HelpDocs5, gNewGame_HelpDocs6, gNewGame_HelpDocs7,
-    gNewGame_HelpDocs8
+    gNewGame_HelpDocs5, gNewGame_HelpDocs6, gNewGame_HelpDocs7
 };
 
 static const u8 *const sMaleNameChoices[] = {
@@ -795,7 +780,7 @@ static void Task_ControlsGuide_LoadPage(u8 taskId)
     else
     {
         TopBarWindowPrintString(gText_ABUTTONNext_BBUTTONBack, 0, TRUE);
-        for (currWindow = CONTROLS_GUIDE_PAGES_2_3_WINDOW_TOP; currWindow < 4; currWindow++)
+        for (currWindow = CONTROLS_GUIDE_PAGES_2_3_WINDOW_TOP; currWindow < 3; currWindow++)
         {
             //looks weird but belive is right, as both are array of arrays first is pick page then window within page?
             sOakSpeechResources->windowIds[currWindow] = AddWindow(&sHelpDocsWindowTemplatePtrs[sOakSpeechResources->currentPage][currWindow]);
@@ -809,13 +794,9 @@ static void Task_ControlsGuide_LoadPage(u8 taskId)
         {
             CopyToBgTilemapBufferRect(1, sHelpDocsPage2Tilemap, 1, 3, 5, 16);
         }
-        else if (sOakSpeechResources->currentPage == CONTROLS_GUIDE_PAGE_3)
+        else // CONTROLS_GUIDE_PAGE_3
         {
             CopyToBgTilemapBufferRect(1, sHelpDocsPage3Tilemap, 1, 3, 5, 16);
-        }
-        else
-        {
-            FillBgTilemapBufferRect_Palette0(1, 0x3000, 1, 3, 5, 16);
         }
         CopyBgTilemapBufferToVram(1);
     }
@@ -830,7 +811,7 @@ static void Task_ControlsGuide_HandleInput(u8 taskId)
         if (JOY_NEW(A_BUTTON))
         {
             gTasks[taskId].data[15] = 1;
-            if (sOakSpeechResources->currentPage < 3)
+            if (sOakSpeechResources->currentPage < 2)
             {
                 BeginNormalPaletteFade(0xFFFFDFFF, -1, 0, 16, GetTextWindowPalette(2)[15]);
             }
@@ -867,12 +848,11 @@ static void Task_ControlsGuide_ChangePage(u8 taskId) //this seems most importnat
             break;
         case 1:
         case 2:
-        case 3:
-            r8 = 4;
+            r8 = 3;
             break;
         }
         sOakSpeechResources->currentPage += gTasks[taskId].data[15];
-        if (sOakSpeechResources->currentPage < 4)
+        if (sOakSpeechResources->currentPage < NUM_CONTROLS_GUIDE_PAGES)
         {
             for (i = 0; i < r8; i++)
             {

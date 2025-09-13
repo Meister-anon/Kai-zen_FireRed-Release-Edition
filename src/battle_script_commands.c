@@ -1319,7 +1319,7 @@ static void atk00_attackcanceler(void) //vsonic
         gCurrentActionFuncId = B_ACTION_FINISHED;
         return;
     }
-    if (gBattleMons[gBattlerAttacker].hp == 0 && !(gHitMarker & HITMARKER_NO_ATTACKSTRING))
+    if (!IsBattlerAlive(gBattlerAttacker) && !(gHitMarker & HITMARKER_NO_ATTACKSTRING))
     {
         gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
         gBattlescriptCurrInstr = BattleScript_MoveEnd;
@@ -2311,6 +2311,13 @@ static void atk04_critcalc(void)    //working/works
     
     else
         gCritMultiplier = 1;
+
+    //adding this line is what made the memory issues known
+    //without this nothing appears to break
+    if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE
+    && GetBattlerSide(gBattlerAttacker) != B_SIDE_PLAYER)
+        gCritMultiplier = 1;
+    
 
     if (!IsBlackFogNotOnField()
     || gCurrentMove == MOVE_SURGING_STRIKES
@@ -4631,7 +4638,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
     if (TestSheerForceFlag(gBattlerAttacker, gCurrentMove) && affectsUser != MOVE_EFFECT_AFFECTS_USER)
         INCREMENT_RESET_RETURN
 
-    if (gBattleMons[gEffectBattler].hp == 0 && !activateAfterFaint)
+    if (!IsBattlerAlive(gEffectBattler) && !activateAfterFaint)
         INCREMENT_RESET_RETURN
 
     if (DoesSubstituteBlockMove(gBattlerAttacker, gEffectBattler, gCurrentMove) && affectsUser != MOVE_EFFECT_AFFECTS_USER)
@@ -6353,7 +6360,7 @@ static void atk19_tryfaintmon(void)
             BS_ptr = BattleScript_FaintTarget;
         }
         if (!(gAbsentBattlerFlags & gBitTable[gActiveBattler])
-         && gBattleMons[gActiveBattler].hp == 0)    //if mon is fainted i.e 0 hp
+         && !IsBattlerAlive(gActiveBattler))    //if mon is fainted i.e 0 hp
         {
             gHitMarker |= HITMARKER_FAINTED(gActiveBattler);
             BattleScriptPush(cmd->nextInstr);
@@ -6824,11 +6831,11 @@ void BS_typebasedjump2(void)  //may need to adjust currinstr values
     // jumpifnottype
     else       //FALSE
     {
-        if (!(DoesBattlerGetTypeBasedAffinity(battlerId, GetBattlerAbility(battlerId), type)
-          && !DoesMoldBreakerNegateEffect(gBattleScripting.battler, GetBattlerAbility(gBattleScripting.battler))))
-            gBattlescriptCurrInstr = jumpPtr;
-        else
+        if (DoesBattlerGetTypeBasedAffinity(battlerId, GetBattlerAbility(battlerId), type)
+          && !DoesMoldBreakerNegateEffect(gBattleScripting.battler, GetBattlerAbility(gBattleScripting.battler)))
             gBattlescriptCurrInstr = cmd->nextInstr;
+        else
+            gBattlescriptCurrInstr = jumpPtr;
     }
 }
 
@@ -7828,24 +7835,36 @@ static void atk44_endselectionscript(void)
     *(gBattlerAttacker + gBattleStruct->selectionScriptFinished) = TRUE;
 }
 
-static void atk45_playanimation(void)
+static void PlayAnimation(u32 battler, u8 animId, const u16 *argPtr, const u8 *nextInstr)
 {
-    const u16 *argumentPtr;
+    gActiveBattler = battler;
+    /*if (B_TERRAIN_BG_CHANGE == FALSE && animId == B_ANIM_RESTORE_BG)
+    {
+        // workaround for .if not working
+        gBattlescriptCurrInstr = nextInstr;
+        return;
+    }*/
 
-    gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-    argumentPtr = T2_READ_PTR(gBattlescriptCurrInstr + 3);
-    if (gBattlescriptCurrInstr[2] == B_ANIM_STATS_CHANGE
-     || gBattlescriptCurrInstr[2] == B_ANIM_SNATCH_MOVE
-     || gBattlescriptCurrInstr[2] == B_ANIM_SUBSTITUTE_FADE
-     || gBattlescriptCurrInstr[2] == B_ANIM_SILPH_SCOPED)
+    if (animId == B_ANIM_STATS_CHANGE
+     || animId == B_ANIM_SNATCH_MOVE
+     || animId == B_ANIM_MEGA_EVOLUTION
+     || animId == B_ANIM_ILLUSION_OFF
+     || animId == B_ANIM_FORM_CHANGE
+     || animId == B_ANIM_SUBSTITUTE_FADE
+     || animId == B_ANIM_PRIMAL_REVERSION
+     || animId == B_ANIM_SILPH_SCOPED
+     /*|| animId == B_ANIM_ULTRA_BURST
+     || animId == B_ANIM_TERA_CHARGE
+     || animId == B_ANIM_TERA_ACTIVATE*/
+    )
     {
-        BtlController_EmitBattleAnimation(0, gBattlescriptCurrInstr[2], *argumentPtr);
-        MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 7;
+        BtlController_EmitBattleAnimation(/*battler,*/ BUFFER_A, animId, /*&gDisableStructs[battler],*/ *argPtr);
+        MarkBattlerForControllerExec(battler);
+        gBattlescriptCurrInstr = nextInstr;
     }
-    else if (gHitMarker & HITMARKER_NO_ANIMATIONS)
+    else if (gHitMarker & (HITMARKER_NO_ANIMATIONS/* | HITMARKER_DISABLE_ANIMATION*/) && animId != B_ANIM_RESTORE_BG)
     {
-        BattleScriptPush(gBattlescriptCurrInstr + 7);
+        BattleScriptPush(nextInstr);
         gBattlescriptCurrInstr = BattleScript_Pausex20;
     }
     else if (gBattlescriptCurrInstr[2] == B_ANIM_RAIN_CONTINUES
@@ -7855,63 +7874,37 @@ static void atk45_playanimation(void)
           || gBattlescriptCurrInstr[2] == B_ANIM_HAIL_CONTINUES
           || gBattlescriptCurrInstr[2] == B_ANIM_MOONLIGHT_SHINES)
     {
-        BtlController_EmitBattleAnimation(0, gBattlescriptCurrInstr[2], *argumentPtr);
-        MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 7;
+        BtlController_EmitBattleAnimation(/*battler,*/ BUFFER_A, animId, /*&gDisableStructs[battler],*/ *argPtr);
+        MarkBattlerForControllerExec(battler);
+        gBattlescriptCurrInstr = nextInstr;
     }
-    else if (gStatuses3[gActiveBattler] & STATUS3_SEMI_INVULNERABLE)
+    else if (gStatuses3[battler] & STATUS3_SEMI_INVULNERABLE)
     {
-        gBattlescriptCurrInstr += 7;
+        gBattlescriptCurrInstr = nextInstr;
     }
     else
     {
-        BtlController_EmitBattleAnimation(0, gBattlescriptCurrInstr[2], *argumentPtr);
-        MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 7;
+        BtlController_EmitBattleAnimation(/*battler,*/ BUFFER_A, animId, /*&gDisableStructs[battler],*/ *argPtr);
+        MarkBattlerForControllerExec(battler);
+        gBattlescriptCurrInstr = nextInstr;
     }
 }
 
+static void atk45_playanimation(void)
+{
+    CMD_ARGS(u8 battler, u8 animId, const u16 *argPtr);
+
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    PlayAnimation(battler, cmd->animId, cmd->argPtr, cmd->nextInstr);
+}
+
+// Same as playanimation, except it takes a pointer to some animation id, instead of taking the value directly
 static void atk46_playanimation2(void) // animation Id is stored in the first pointer
 {
-    const u16 *argumentPtr;
-    const u8 *animationIdPtr;
+    CMD_ARGS(u8 battler, const u8 *animIdPtr, const u16 *argPtr);
 
-    gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-    animationIdPtr = T2_READ_PTR(gBattlescriptCurrInstr + 2);
-    argumentPtr = T2_READ_PTR(gBattlescriptCurrInstr + 6);
-    if (*animationIdPtr == B_ANIM_STATS_CHANGE
-     || *animationIdPtr == B_ANIM_SNATCH_MOVE
-     || *animationIdPtr == B_ANIM_SUBSTITUTE_FADE)
-    {
-        BtlController_EmitBattleAnimation(0, *animationIdPtr, *argumentPtr);
-        MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 10;
-    }
-    else if (gHitMarker & HITMARKER_NO_ANIMATIONS)
-    {
-        gBattlescriptCurrInstr += 10;
-    }
-    else if (*animationIdPtr == B_ANIM_RAIN_CONTINUES
-          || *animationIdPtr == B_ANIM_ACID_RAIN_CONTINUES
-          || *animationIdPtr == B_ANIM_SUN_CONTINUES
-          || *animationIdPtr == B_ANIM_SANDSTORM_CONTINUES
-          || *animationIdPtr == B_ANIM_HAIL_CONTINUES
-          || *animationIdPtr == B_ANIM_MOONLIGHT_SHINES)
-    {
-        BtlController_EmitBattleAnimation(0, *animationIdPtr, *argumentPtr);
-        MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 10;
-    }
-    else if (gStatuses3[gActiveBattler] & STATUS3_SEMI_INVULNERABLE)
-    {
-        gBattlescriptCurrInstr += 10;
-    }
-    else
-    {
-        BtlController_EmitBattleAnimation(0, *animationIdPtr, *argumentPtr);
-        MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 10;
-    }
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    PlayAnimation(battler, *(cmd->animIdPtr), cmd->argPtr, cmd->nextInstr);
 }
 
 static void atk47_setgraphicalstatchangevalues(void)    //may need change this too since stat buffs go up to +-3 in later gen
@@ -14846,6 +14839,8 @@ static void atk7E_setreflect(void)
     ++gBattlescriptCurrInstr;
 }
 
+//ok annoyinglly ANOTHER issue somewhere
+//causes things to break with putting affinity in place of grass check
 static void atk7F_setseeded(void)  //removed grass immunity - revisit
 {
     if (gMoveResultFlags & MOVE_RESULT_NO_EFFECT || gStatuses3[gBattlerTarget] & STATUS3_LEECHSEED)
@@ -14853,12 +14848,15 @@ static void atk7F_setseeded(void)  //removed grass immunity - revisit
         gMoveResultFlags |= MOVE_RESULT_MISSED;
         gBattleCommunication[MULTISTRING_CHOOSER] = 1;
     }
-    /*else if (IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GRASS))  //grass being immune to leechseed makes no sense to me, they have energy too.
+    else if (DoesBattlerGetTypeBasedAffinity(gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GRASS) 
+    && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
+  //grass being immune to leechseed makes no sense to me, they have energy too.
     {
         gMoveResultFlags |= MOVE_RESULT_MISSED;
         gBattleCommunication[MULTISTRING_CHOOSER] = 2; //matter of fact, since they're actually plants I'd expect it to be MORE effective against them.
-    }*/ // or at least heal for more i.e be more nutrient rich, same if used against ground, or water type, well maybe more water types, 
+    } // or at least heal for more i.e be more nutrient rich, same if used against ground, or water type, well maybe more water types, 
     //since grounded isn't necessarily made of earth, just more suited for the dry environment.  also plants can steal nutrients from other plants, typically throughts roots so more or less same
+    //decided keep it, is good balance effect to have an immunity to effect
     else
     {
         gBattleStruct->seedSetterBattleId[gBattlerTarget] = gBattlerAttacker;
@@ -18533,7 +18531,7 @@ static void atkC4_trydobeatup(void) //beatup is still typeless in gen3 so no sta
         party = gPlayerParty;
     else
         party = gEnemyParty;
-    if (gBattleMons[gBattlerTarget].hp == 0) //why isn't this ending the move?
+    if (!IsBattlerAlive(gBattlerTarget)) //why isn't this ending the move?
     {
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
     }
@@ -19533,7 +19531,7 @@ static void atkE3_jumpifhasnohp(void)
 {
     gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
 
-    if (gBattleMons[gActiveBattler].hp == 0)
+    if (!IsBattlerAlive(gActiveBattler))
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 2);
     else
         gBattlescriptCurrInstr += 6;

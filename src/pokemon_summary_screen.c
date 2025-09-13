@@ -2785,23 +2785,23 @@ static void BufferMonSkills(void) // seems to be PSS_PAGE_SKILLS or data for it.
     if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_LEFT))
     {
         GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf, gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].ability);
-        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].ability]);
+        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilitiesInfo[gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].ability].description);
     }
     else if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_RIGHT))
     {
         GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf, gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].ability);
-        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].ability]);
+        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilitiesInfo[gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].ability].description);
     }
     else
     {
         GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf,GetMonAbility(&sMonSummaryScreen->currentMon));
-        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[GetMonAbility(&sMonSummaryScreen->currentMon)]);
+        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilitiesInfo[GetMonAbility(&sMonSummaryScreen->currentMon)].description);
     }
     }
     else
     {
         GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf, GetMonAbility(&sMonSummaryScreen->currentMon));
-        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[GetMonAbility(&sMonSummaryScreen->currentMon)]);
+        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilitiesInfo[GetMonAbility(&sMonSummaryScreen->currentMon)].description);
     }
     
     

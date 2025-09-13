@@ -785,7 +785,8 @@ struct BattleStruct //fill in unused fields when porting
     u8 moneyMultiplierMove : 1;
     u8 overworldWeatherDone:1;
     u8 terrainDone:1; //realistically run attempts almost never get into double digits
-    u8 runTries:5;//used for boosting run success odds based on number attempts//could shrink and link with moneymultipliermove
+    u8 runTries:4;//used for boosting run success odds based on number attempts//could shrink and link with moneymultipliermove
+    u8 bypassMoldBreakerChecks:1; // for ABILITYEFFECT_IMMUNITY
     u8 savedTurnActionNumber;
     u8 switchInAbilitiesCounter;
     u8 faintedActionsState;

@@ -5373,9 +5373,9 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
     //so SHOULD be fine
     if (holdEffect == HOLD_EFFECT_CAN_ALWAYS_RUN
      || (gBattleTypeFlags & BATTLE_TYPE_LINK)
-     //|| (GetBattlerAbility(gActiveBattler) == ABILITY_RUN_AWAY) //
-     //|| (GetBattlerAbility(gActiveBattler) == ABILITY_DEFEATIST //
-     //    && gDisableStructs[gActiveBattler].defeatistActivated) //
+     || (GetBattlerAbility(gActiveBattler) == ABILITY_RUN_AWAY) //
+     || (GetBattlerAbility(gActiveBattler) == ABILITY_DEFEATIST //
+         && gDisableStructs[gActiveBattler].defeatistActivated) //
      || holdEffect == HOLD_EFFECT_SHED_SHELL
      //|| (DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_GHOST) && gBattleMons[gActiveBattler].species != SPECIES_SPIRITOMB)
      //|| (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[gActiveBattler].species))
@@ -5946,10 +5946,12 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         //flyig tuype can still just get up and fly away
         //and strengthens type a bit, but need function for flyingmonthatcantfly or something
         //make simpler permanently grounded species could combine nah can't fit in category well
-        if (((DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB)
+        if ((DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB)
         || (DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)))
-        && !gDisableStructs[battlerId].TrapSetViaMoldBreaker)
-        {}
+        {
+            if (gDisableStructs[battlerId].TrapSetViaMoldBreaker)
+                speed /= 2;
+        }//unsure why but inclusion of above struct value seems to also trigger bug...
         else
             speed /= 2; //cut speed by half, which is the same as 2 stat stage drops & guess it makes more sense to cut 
 
@@ -7284,8 +7286,9 @@ bool8 TryRunFromBattle(u8 battler)
     else if (gDisableStructs[battler].trappedinStickyweb)
         return FALSE;
 
-    else if (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)
-        && !IsBattlerGrounded(battler))
+    else if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)
+    && gBattleMons[battler].ability != ABILITY_AVIATOR
+    && !IsBattlerGrounded(battler))
     {
         ++effect;
     }
@@ -7302,8 +7305,10 @@ bool8 TryRunFromBattle(u8 battler)
         gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
         ++effect;
     }
+    //want to remove species check instead making grounded
+    //but grounded check includes species, oh wait I removed that lol
     else if (gBattleMons[battler].ability == ABILITY_AVIATOR
-    && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species))
+    && !IsBattlerGrounded(battler))
     {
         gLastUsedAbility = ABILITY_AVIATOR;
         gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
@@ -7326,8 +7331,8 @@ bool8 TryRunFromBattle(u8 battler)
             }
         }
 
-        if (gBattleStruct->runTries <= 30)
-        ++gBattleStruct->runTries; //believe new max val is 31
+        if (gBattleStruct->runTries <= 14)
+        ++gBattleStruct->runTries; //believe new max val is 31 / had shrink for new addition now max is 15
     }
     if (effect)
     {

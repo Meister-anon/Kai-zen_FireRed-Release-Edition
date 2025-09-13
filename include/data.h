@@ -30,8 +30,9 @@ struct MonCoords
 extern const u8 gMoveNames[][MOVE_NAME_LENGTH + 1];   //had data file issues think can't use a define for this have to write out number for some reason
 //extern const u8 gLowerMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1]; //if I use lowercase moves replace instances of above name w this one
 extern const u8 *const gMoveDescriptionPointers[MOVES_COUNT];
-extern const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT];
-extern const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1]; //longest ability is 16, 17 w string terminator
+//extern const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT];
+//extern const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1]; //longest ability is 16, 17 w string terminator
+extern const struct Ability gAbilitiesInfo[ABILITIES_COUNT];
 extern const u16 gUnknown_8251CB8[];    //lowercase move file is arranged differently so it can prob use array becuase of that
 extern const u16 gUnknown_8251FEE[];
 extern const u16 gUnknown_8252324[];

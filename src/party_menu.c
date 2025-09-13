@@ -5568,7 +5568,7 @@ void Task_AbilityCapsule(u8 taskId) //important seemed easy enough so ported now
         if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[tMonId],MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(gStringVar1, GetMonData(&gPlayerParty[tMonId],MON_DATA_SPECIES));
 
-        StringCopy(gStringVar2, gAbilityNames[GetAbilityBySpecies(tSpecies, tAbilityNum, &gPlayerParty[tMonId])]); //sme as top can get from above
+        StringCopy(gStringVar2, gAbilitiesInfo[GetAbilityBySpecies(tSpecies, tAbilityNum, &gPlayerParty[tMonId])].name); //sme as top can get from above
         StringExpandPlaceholders(gStringVar4, askText);
         PlaySE(SE_SELECT);
         DisplayPartyMenuMessage(gStringVar4, 1);

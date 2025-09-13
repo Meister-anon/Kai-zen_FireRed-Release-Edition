@@ -731,13 +731,12 @@ u16 GetUsedHeldItem(u8 battler) //vsonic  //looks weird but matches emerald logi
 
 bool32 IsBattlerWeatherAffected(u8 battlerId, u32 weatherFlags) //need to add utility umbrella clause to weather effects
 {
-    if (!WeatherHasEffect())
-        return FALSE;
+
 
     if (!IsBlackFogNotOnField())
         return FALSE;
 
-    if (gBattleWeather & weatherFlags)
+    if (gBattleWeather & weatherFlags && WeatherHasEffect())
     {
         if (gBattleWeather & WEATHER_SUN_ANY &&
            (GetBattlerAbility(battlerId) == ABILITY_ORICHALCUM_PULSE
@@ -1632,7 +1631,7 @@ u32 GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera)
 //so those would be immune to each other, as the only issue of effect was for contact
 bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget)  //somehow works...
 {
-    bool8 canpoison = TRUE;
+    /*bool8 canpoison = TRUE;
 
     if ((GetBattlerAbility(battlerAttacker) == ABILITY_CORROSION)
     || (GetBattlerAbility(battlerAttacker) == ABILITY_POISONED_LEGACY))
@@ -1642,14 +1641,15 @@ bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget)  //somehow works...
     || (IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_ROCK)))
         canpoison = FALSE;
 
-    return canpoison;
+    return canpoison;*/
 
 
-    /*return ((GetBattlerAbility(battlerAttacker) == ABILITY_CORROSION)
+    return ((GetBattlerAbility(battlerAttacker) == ABILITY_CORROSION)
         || (GetBattlerAbility(battlerAttacker) == ABILITY_POISONED_LEGACY)
+        || !IS_BATTLER_ANY_TYPE(battlerTarget, TYPE_STEEL, TYPE_ROCK)
         || !(DoesBattlerGetTypeBasedAffinity(battlerTarget, GetBattlerAbility(battlerTarget), TYPE_POISON)  && !DoesMoldBreakerNegateEffect(battlerAttacker, GetBattlerAbility(battlerAttacker))) 
-        || !(IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_ROCK)));
-        */
+        );
+        
 }
 //again unsure on this as poison immunity for steel is entirely due to type chart?
 //think will just allow it, not doing so, would break pattern for other type based status immunities
@@ -5285,7 +5285,7 @@ bool8 IsFloatingSpecies(u16 species)
 //is more fleible with species rather than battler argument
 bool8 IsFlyingTypeSpeciesUnableToFly(u16 species) 
 {
-    if (species == SPECIES_DODUO
+    return (species == SPECIES_DODUO
     || species == SPECIES_DODRIO
     || species == SPECIES_ARCHEN
     || species == SPECIES_ARCHEOPS
@@ -5295,10 +5295,8 @@ bool8 IsFlyingTypeSpeciesUnableToFly(u16 species)
     || species == SPECIES_SIRFETCHD
     || species == SPECIES_FARFETCHD_GALARIAN
     || species == SPECIES_ZAPDOS_GALARIAN
-    || species == SPECIES_SILVALLY_FLYING)
-        return TRUE;
+    || species == SPECIES_SILVALLY_FLYING);
     
-    return FALSE;
 }
 
 
@@ -5323,7 +5321,9 @@ bool8 IsBattlerGrounded(u8 battlerId)
     if (IsFloatingSpecies(species))//used if as breakline, as else if only reads if everything above it is false
         grounded = FALSE; //nice new version of floating setup greatly cleanns up this function
 
-    
+    else if (DoesBattlerGetTypeBasedAffinity(battlerId, GetBattlerAbility(battlerId), TYPE_FLYING)
+     && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_FLOAT_STONE)
+        grounded = FALSE;
     //for setting the sript to play think can do it in atk49 moveend
     //check battlescript.moveeffect if sleep or paralysis
     //can do a before and after thing like how emergency exit does before after hp checks
@@ -9325,6 +9325,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             }
             break; //vsonic important for things immune to status need put here, for clearing status in case set while ability suppressed
         case ABILITYEFFECT_IMMUNITY: // 5
+            gBattleStruct->bypassMoldBreakerChecks = TRUE;
             for (battler = 0; battler < gBattlersCount; ++battler)
             {
                 //think need add freeze immunity stuff here - nah freeze is juat ice type, so leaving as is
@@ -9477,6 +9478,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     return effect;
                 }
             }
+            gBattleStruct->bypassMoldBreakerChecks = FALSE;
             break;
         case ABILITYEFFECT_FORECAST: // 6
             for (battler = 0; battler < gBattlersCount; ++battler) //change to hopefully trigger cherrim form change
@@ -11436,30 +11438,36 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
     return targetBattler;
 }
 
-u32 GetBattlerHoldEffect(u8 battlerId, bool32 checkNegating)
+u32 GetBattlerHoldEffect(u32 battler, bool32 checkNegating)
 {
-    if (checkNegating) //bandit king needs be added here nvm bandit king sets embargo
-    {
+    return GetBattlerHoldEffectInternal(battler, checkNegating, TRUE);
+}
 
-        if (gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_EMBARGO)
+u32 GetBattlerHoldEffectIgnoreAbility(u32 battler, bool32 checkNegating)
+{
+    return GetBattlerHoldEffectInternal(battler, checkNegating, FALSE);
+}
+
+u32 GetBattlerHoldEffectInternal(u32 battler, bool32 checkNegating, bool32 checkAbility)
+{
+    if (checkNegating)
+    {
+        if (gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_EMBARGO)
             return HOLD_EFFECT_NONE;
         if (gFieldStatuses & STATUS_FIELD_MAGIC_ROOM)
             return HOLD_EFFECT_NONE;
-        if (gBattleMons[battlerId].ability == ABILITY_KLUTZ && !(gStatuses3[battlerId] & STATUS3_GASTRO_ACID))
-            return HOLD_EFFECT_NONE;
-        if (IsBattlerMegaEvolved(battlerId) || IsBattlerPrimalReverted(battlerId))
+        if (checkAbility && GetBattlerAbility(battler) == ABILITY_KLUTZ && !(gStatuses3[battler] & STATUS3_GASTRO_ACID))
             return HOLD_EFFECT_NONE;
     }
 
-    gPotentialItemEffectBattler = battlerId;
+    gPotentialItemEffectBattler = battler;
 
-    /*if (B_ENABLE_DEBUG && gBattleStruct->debugHoldEffects[battlerId] != 0 && gBattleMons[battlerId].item)
-        return gBattleStruct->debugHoldEffects[battlerId];
-    else */if (gBattleMons[battlerId].item == ITEM_ENIGMA_BERRY)
-        return gEnigmaBerries[battlerId].holdEffect;
+    if (gBattleMons[battler].item == ITEM_ENIGMA_BERRY)
+        return gEnigmaBerries[battler].holdEffect;
     else
-        return ItemId_GetHoldEffect(gBattleMons[battlerId].item);
+        return ItemId_GetHoldEffect(gBattleMons[battler].item);
 }
+
 
 u32 GetBattlerHoldEffectParam(u8 battlerId, u32 itemId)
 {
@@ -11803,8 +11811,7 @@ bool32 IsNeutralizingGasTypeAbilityActive(u32 battler, u32 ability)
     //this is hella wrong just didn't understand it at first,
     //way this works is to return the return value of the conditional
     //that doesn't work when I do or,as one can be true and one can be false
-    return ((DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(ability))
-        || (DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(ability)));
+    return ((DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(ability)));
 
 }
 
@@ -11817,37 +11824,75 @@ bool32 IsMoldBreakerTypeAbilityActive(u32 battler, u32 ability)
         || (ability == ABILITY_MYCELIUM_MIGHT && IS_MOVE_STATUS(gCurrentMove)));
 }
 
-u32 GetBattlerAbility(u8 battlerId)  //Deokishishu in pret mentioned there is a practice of making things that could
- // be type u8 either s32 or u32, because it has an positive effect on speed, ussually done for things 
- //constantly refernced or looped.
+static inline bool32 CanBreakThroughAbility(u32 battlerAtk, u32 battlerDef, u32 ability, u32 hasAbilityShield)
 {
-    if (gStatuses3[battlerId] & STATUS3_GASTRO_ACID) //only added this, because focusing abilities should work
-        return ABILITY_NONE;
-    //else if (IsNeutralizingGasOnField() && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
-    //    return ABILITY_NONE;
-    /*else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battlerId), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
-        return ABILITY_NONE;//I don't need to subtract 1 from Id because my function isn't doing anything with the id returned by the function
-    else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battlerId), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
-        return ABILITY_NONE;*/
-    else if (IsNeutralizingGasTypeAbilityActive(battlerId, gBattleMons[battlerId].ability))
-        return ABILITY_NONE;
-    else if (((IsMoldBreakerTypeAbilityActive(gBattlerAttacker, gBattleMons[gBattlerAttacker].ability) && IsMoldBreakerAffectedAbility(gBattleMons[battlerId].ability))
-        || gBattleMoves[gCurrentMove].flags & FLAG_TARGET_ABILITY_IGNORED)        
-        && gBattlerByTurnOrder[gCurrentTurnActionNumber] == gBattlerAttacker
-        && gActionsByTurnOrder[gBattlerByTurnOrder[gBattlerAttacker]] == B_ACTION_USE_MOVE
-        && gCurrentTurnActionNumber < gBattlersCount)
-        return ABILITY_NONE;
+    if (hasAbilityShield || gBattleStruct->bypassMoldBreakerChecks)
+        return FALSE;
 
-    return gBattleMons[battlerId].ability;
+    return ((IsMoldBreakerTypeAbilityActive(battlerAtk, ability) /*|| MoveIgnoresTargetAbility(gCurrentMove)*/) //add category later
+         && battlerDef != battlerAtk
+         && gAbilitiesInfo[gBattleMons[battlerDef].ability].breakable //don't need ability array for moldbreaker this covers that, 
+         && gBattlerByTurnOrder[gCurrentTurnActionNumber] == battlerAtk //just need update above for any new abiilities I added
+         && gActionsByTurnOrder[gCurrentTurnActionNumber] == B_ACTION_USE_MOVE
+         && gCurrentTurnActionNumber < gBattlersCount);
 }
 
+//Deokishishu in pret mentioned there is a practice of making things that could
+ // be type u8 either s32 or u32, because it has an positive effect on speed, ussually done for things 
+ //constantly refernced or looped.
+u32 GetBattlerAbility(u32 battler)
+{
+    bool32 hasAbilityShield = FALSE;//GetBattlerHoldEffectIgnoreAbility(battler, TRUE) == HOLD_EFFECT_ABILITY_SHIELD;
+    bool32 abilityCantBeSuppressed = gAbilitiesInfo[gBattleMons[battler].ability].cantBeSuppressed;
+
+    if (abilityCantBeSuppressed)
+    {
+        // Edge case: pokemon under the effect of gastro acid transforms into a pokemon with Comatose (Todo: verify how other unsuppressable abilities behave)
+        if (gBattleMons[battler].status2 & STATUS2_TRANSFORMED
+            && gStatuses3[battler] & STATUS3_GASTRO_ACID
+            && gBattleMons[battler].ability == ABILITY_COMATOSE)
+                return ABILITY_NONE;
+
+        if (CanBreakThroughAbility(gBattlerAttacker, battler, gBattleMons[gBattlerAttacker].ability, hasAbilityShield))
+            return ABILITY_NONE;
+
+        return gBattleMons[battler].ability;
+    }
+
+    if (gStatuses3[battler] & STATUS3_GASTRO_ACID)
+        return ABILITY_NONE;
+
+    if (!hasAbilityShield)
+    {
+        if (IsNeutralizingGasOnField()
+        && gBattleMons[battler].ability != ABILITY_NEUTRALIZING_GAS)
+            return ABILITY_NONE;
+
+        //consider giving more mon neutralizing gas skunktank?
+        //hopefully more than just poison types as well, makes sense for fairy potentially psychic
+        //give to musharna?
+        else if (IsNeutralizingGasTypeAbilityActive(battler, gBattleMons[battler].ability))
+            return ABILITY_NONE;
+    }
+        
+
+    
+
+    if (CanBreakThroughAbility(gBattlerAttacker, battler, gBattleMons[gBattlerAttacker].ability, hasAbilityShield))
+        return ABILITY_NONE;
+
+    return gBattleMons[battler].ability;
+}
+
+//taked with alex the issue with bitfields wasnt
+//some form of error it was just a matter of speed
 bool8 IsBattlerAlive(u8 battlerId)
 {
     if (gBattleMons[battlerId].hp == 0)
         return FALSE;
     else if (battlerId >= gBattlersCount)
         return FALSE;
-    else if (gAbsentBattlerFlags & gBitTable[battlerId])
+    else if (gAbsentBattlerFlags & (1u << battlerId))
         return FALSE;
     else
         return TRUE;
@@ -12027,10 +12072,8 @@ bool8 DoesBattlerGetTypeBasedAffinity(u32 battler, u16 ability, u8 typeFactor)
 //unsure how will work with ai...
 bool32 DoesMoldBreakerNegateEffect(u32 battler, u16 ability)
 {
-    if (IsBattlerAlive(battler) && ability == ABILITY_MOLD_BREAKER)
-        return TRUE;
-    
-    return FALSE;
+    return (IsBattlerAlive(battler) && ability == ABILITY_MOLD_BREAKER);
+
 }
 
 //make note flying birds dn't hvae shadow
@@ -12872,12 +12915,18 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     //would in theory  be able to adapt better than those used to flying
     //smack down only set on floating mon that hit by by moves w flag dmg flying or 2x flying
     //sleep or paralysis set on floating species
+    //curious if this is right wondering if it wouldn't read twice
+    //since I only want this to measure on flying type
+    //do I need extra logic to say hey if reading flying type now
+    //only execute otherwise skip?
+    //yup I should have been reading def type not batler type
     if (moveType == TYPE_GROUND
+    && defType == TYPE_FLYING
     && (gStatuses3[battlerDef] & STATUS3_SMACKED_DOWN
     || (gFieldStatuses & STATUS_FIELD_GRAVITY))
     && mod != UQ_4_12(1.55))
     {
-        if (IS_BATTLER_OF_TYPE(battlerDef, TYPE_FLYING) && IsFloatingSpecies(gBattleMons[battlerDef].species))
+        if (IsFloatingSpecies(gBattleMons[battlerDef].species))
             mod = UQ_4_12(1.55);
     }
     //vsonic important make sure this is evaluated by ai
@@ -13959,8 +14008,8 @@ bool32 CanTeleport(u8 battlerId)
 bool8 CanSurviveInstantKOWithSturdy(u8 battler)
 {
     if (GetBattlerAbility(battler) == ABILITY_STURDY
-    && gBattleMons[battler].hp >= (gBattleMons[battler].maxHP / 4)
-    && gBattleMoves[gCurrentMove].effect != EFFECT_HEALING_WISH
+    && gBattleMons[battler].hp >= (gBattleMons[battler].maxHP / 4)//think need to change this, without an indicator Im' just recreating the in a pinch problem
+    && gBattleMoves[gCurrentMove].effect != EFFECT_HEALING_WISH //better to change it to when hp becomes red?
     && !gDisableStructs[battler].sturdyhungon)
     {
         return TRUE;
@@ -13977,10 +14026,11 @@ bool8 IsFloatingTargetImmunetoGroundMoves(u8 battler_atk, u8 battler_def, u16 mo
 
     if (moveType == TYPE_GROUND && !IsBattlerGrounded(battler_def))
     {
-        if (GetBattlerHoldEffect(battler_def, TRUE) == HOLD_EFFECT_AIR_BALLOON)
-            return TRUE;
-        else if (gBattleMoves[move].flags & FLAG_DAMAGE_AIRBORNE)
+        if (gBattleMoves[move].flags & FLAG_DAMAGE_AIRBORNE)
             return FALSE;
+
+        else if (GetBattlerHoldEffect(battler_def, TRUE) == HOLD_EFFECT_AIR_BALLOON)
+            return TRUE;
         else if (GetBattlerAbility(battler_atk) == ABILITY_MOLD_BREAKER)
             return FALSE;
         else
@@ -14331,9 +14381,8 @@ void SetAbilityStatGraphic(u8 StatVal1, u8 StatChange1, u8 StatVal2, u8 StatChan
 
 bool32 WeatherHasEffect(void)
 {
-    if (IsAbilityOnField(ABILITY_STORM_BREAK) || IsAbilityOnField(ABILITY_AIR_LOCK))
-        return FALSE;
-    return TRUE;
+    return (IsAbilityOnField(ABILITY_STORM_BREAK) || IsAbilityOnField(ABILITY_AIR_LOCK));
+
 }
 
 void ClearMoldBreakerSetStatus(u8 battler)

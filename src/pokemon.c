@@ -8376,9 +8376,9 @@ void GetAbilityName(u8 *namebuffer, u16 ability)
     for (i = 0; i < ABILITY_NAME_LENGTH; i++)
     {
         if (ability > ABILITIES_COUNT)
-            namebuffer[i] = gAbilityNames[0][i];
+            namebuffer[i] = gAbilitiesInfo[ABILITY_NONE].name[i];
         else
-            namebuffer[i] = gAbilityNames[ability][i];
+            namebuffer[i] = gAbilitiesInfo[ability].name[i];
 
         //if (&gAbilityNames[ability][i] == NULL)
         //    break;

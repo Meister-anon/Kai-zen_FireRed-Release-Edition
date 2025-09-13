@@ -100,8 +100,8 @@ CartIdent:
 	.4byte     0x30A7
 	.4byte          0
 	.4byte  gBaseStats
-	.4byte  gAbilityNames
-	.4byte  gAbilityDescriptionPointers
+	@.4byte  gAbilityNames
+	@.4byte  gAbilityDescriptionPointers
 	.4byte  gItems
 	.4byte  gBattleMoves
 	.4byte  gBallSpriteSheets

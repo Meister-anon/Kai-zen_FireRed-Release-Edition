@@ -23,6 +23,7 @@ static EWRAM_DATA u8 sMovingMonOrigBoxPos = 0;
 static EWRAM_DATA bool8 sCanOnlyMove = FALSE;
 static EWRAM_DATA u8 gUnknown_2039826 = 0;
 
+static void ToggleCursorMultiMoveMode(void);
 static void sub_80929B0(void);
 static bool8 MonPlaceChange_Move(void);
 static bool8 MonPlaceChange_Place(void);

@@ -1479,6 +1479,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             break;
         case EFFECT_LEECH_SEED:
             if (gStatuses3[battlerDef] & STATUS3_LEECHSEED
+            || IS_BATTLER_OF_TYPE(battlerDef, TYPE_GRASS) //vsonic important need replace these with affinity checks
             || DoesPartnerHaveSameMoveEffect(BATTLE_PARTNER(battlerAtk), battlerDef, move, AI_DATA->partnerMove))
                 score -= 10;
             else if (AI_DATA->abilities[battlerDef] == ABILITY_LIQUID_OOZE
@@ -3475,7 +3476,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             score -= 2;
         break;
     case EFFECT_ACCURACY_DOWN:
-    case EFFECT_ACCURACY_DOWN_2:
+    case EFFECT_ACCURACY_DOWN_2://vsonic important beleive need add ground type groud move immunity
         if (ShouldLowerAccuracy(battlerAtk, battlerDef, AI_DATA->abilities[battlerDef]))
             score -= 2;
         if ((AI_DATA->hpPercents[battlerAtk] < 70 || AI_DATA->hpPercents[battlerDef] < 70) && AI_RandLessThan(100))
@@ -3726,7 +3727,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         }
         break;
     case EFFECT_LEECH_SEED://May remove effect is very much tied to ghost, affinity implies appears ghost-like but not actually a ghost  - did
-        if (IS_BATTLER_OF_TYPE(battlerDef, TYPE_GHOST) //removed grass immunity
+        if (IS_BATTLER_ANY_TYPE(battlerDef, TYPE_GHOST, TYPE_GRASS) //removed grass immunity
           || gStatuses3[battlerDef] & STATUS3_LEECHSEED
           || HasMoveEffect(battlerDef, EFFECT_RAPID_SPIN)
           || AI_DATA->abilities[battlerDef] == ABILITY_LIQUID_OOZE
