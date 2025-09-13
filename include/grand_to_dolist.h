@@ -2546,6 +2546,16 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     and then just do a jump
     )
 
+    Note**(
+    Major changes to abilities file,
+    still in process of updating with my descriptions etc.
+    will need to readjust ability ai for new stuff
+    but think have ability ai can refer to in the battle_ai files
+
+    also still to do is fix the animations for the end turn wrap effects
+    for some reason it only uses wrap/bind animation
+    )
+
     note**(
     rework gym matcher  guy in all gyms
     to give purpose have him state the level of the leader's ace pokemon
