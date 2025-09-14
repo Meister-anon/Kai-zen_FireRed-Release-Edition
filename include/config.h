@@ -43,6 +43,11 @@
 #define UBFIX
 #define SPECIES_NAME_EXPANSION
 
+#define GEN_9 9
+
+
+#define B_SNOW_WARNING 0
+
 // Crashes may occur due to section reordering in the modern build,
 // so we force BUGFIX here.
 #if MODERN
