@@ -519,7 +519,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_FEMME_FATALE] =
     {
         .name = _("Femme Fatale"),
-        .description = sFemmeFataleDescription
+        .description = sFemmeFataleDescription,
         .aiRating = 4,
         .breakable = FALSE,
     },//based off oblivious but double check effect, for flags and ratings
@@ -3522,7 +3522,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_PRECISE_STRIKE] =
     {
         .name = _("Precise Strike"),
-        .description = COMPOUND_ABILITY_STRING("Powers up Critical Hits.\nDelivers attacks direct to weak points.")
+        .description = COMPOUND_ABILITY_STRING("Powers up Critical Hits.\nDelivers attacks direct to weak points."),
         .aiRating = 3,
     },
 };
