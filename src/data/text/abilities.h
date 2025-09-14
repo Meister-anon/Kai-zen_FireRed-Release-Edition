@@ -521,7 +521,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Femme Fatale"),
         .description = sFemmeFataleDescription,
         .aiRating = 4,
-        .breakable = FALSE,
+        .breakable = TRUE,
     },//based off oblivious but double check effect, for flags and ratings
 
     [ABILITY_EFFECT_SPORE] =
@@ -2961,6 +2961,11 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
     },//vsonic maybe just need add breakable ot do thing rather than needing moldbreaker check function?
+    //yeah think all I need for moldbreaker negate is set every affinity ability as breakable
+    //well no its meant to ignore affinity itself not just the ability
+    //so its supposed to work through the type would still need negation function
+    //or put logic directly into affinity function by adding, atk battler
+    //and atk ability arguments to it?
     
     [ABILITY_USURPER] =
     {
