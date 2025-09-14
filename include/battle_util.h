@@ -94,7 +94,6 @@ void UpdateSentPokesToOpponentValue(u8 battler);
 void BattleScriptPush(const u8 *bsPtr);
 void BattleScriptPushCursor(void);
 void BattleScriptPop(void);
-bool32 DoesMoldBreakerNegateEffect(u32 battler, u16 ability);
 u8 TrySetCantSelectMoveBattleScript(void);
 u8 CheckMoveLimitations(u8 battlerId, u8 unusableMoves, u8 check);
 bool8 AreAllMovesUnusable(void);
@@ -215,8 +214,8 @@ s32 CalculateMoveDamageAndEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef, 
 //instead of in disable struct so lasts all battle
 //keeps from being reset on switch/faint
 u8 GetAbilityTimer(u16 ability);
-bool8 DoesBattlerGetTypeBasedAffinity(u32 battler, u16 ability, u8 typeFactor); //for new category of abiility, replace sipmle checks for isbattler type
-bool32 DoesMoldBreakerNegateEffect(u32 battler, u16 ability);
+//reworked function to include moldbreaker negate for cleaner use
+bool8 DoesBattlerGetTypeBasedAffinity(u32 attacker, u16 atkability, u32 battler, u16 battlerAbility, u8 typeFactor); //for new category of abiility, replace sipmle checks for isbattler type
 u8 ShouldActivateBindingBand(void); //function made for attempt setup pre healthbar drop activation
 
 u8 ShouldAbilityAbsorb(u16 move); //ATTEMPT workaroud for absorb abilty/lightning rod targetting

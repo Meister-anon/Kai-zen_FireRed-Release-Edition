@@ -5429,20 +5429,20 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //works now //suddenly not working again -_- oh it is working just effect is so low not very noticeable?
     //sideStatus wasn't working had to use gstatus and realied I hadn't updated the function argument while I made gsidestatus u32
     //the function was still u16, updated and that fixed it
-    if (DoesBattlerGetTypeBasedAffinity(battlerIdDef, abilityDef, TYPE_GROUND) && (sideStatus & SIDE_STATUS_MUDSPORT)
-     && (!DoesMoldBreakerNegateEffect(battlerIdAtk, abilityAtk))) //if done right these should stack
+    if (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_GROUND) 
+    && (sideStatus & SIDE_STATUS_MUDSPORT)) //if done right these should stack
         spDefense = (170 * spDefense) / 100;    //gets to work as its on the ground not in the air
                     //changed mind,not as realistic but gives more options, keep just ground affecting, rock/ground are only rocks that really need 
                     //unsure if should buff further
 
     // sandstorm sp.def boost for rock types  // decided to add this for ground types as well,
-    if ((DoesBattlerGetTypeBasedAffinity(battlerIdDef, abilityDef, TYPE_ROCK) || (DoesBattlerGetTypeBasedAffinity(battlerIdDef, abilityDef, TYPE_GROUND)))
-        && (!DoesMoldBreakerNegateEffect(battlerIdAtk, abilityAtk))
+    if ((DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_ROCK) 
+    || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_GROUND)))
         && IsBattlerWeatherAffected(battlerIdDef, WEATHER_SANDSTORM_ANY) && abilityAtk != ABILITY_CLOUD_NINE)     
         spDefense = (150 * spDefense) / 100;
 
     // hail sp.def & def boost for ice types  // still deciding if I want a 50% defense boost or a 25% boost to def & sp def
-    if ((DoesBattlerGetTypeBasedAffinity(battlerIdDef, abilityDef, TYPE_ICE)  && !DoesMoldBreakerNegateEffect(battlerIdAtk, abilityAtk))
+    if ((DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_ICE))
         && IsBattlerWeatherAffected(battlerIdDef, WEATHER_HAIL_ANY) && abilityAtk != ABILITY_CLOUD_NINE)    
     {
         spDefense = (115 * spDefense) / 100;

@@ -697,7 +697,7 @@ bool32 IsTruantMonVulnerable(u32 battlerAI, u32 opposingBattler)
 bool32 IsAffectedByPowder(u8 atkbattler, u8 targetbattler, u16 atkability, u16 targetability, u16 holdEffect)
 {
     if (targetability == ABILITY_OVERCOAT
-        || (DoesBattlerGetTypeBasedAffinity(targetbattler, targetability, TYPE_GRASS) && !DoesMoldBreakerNegateEffect(atkbattler, atkability))
+        || (DoesBattlerGetTypeBasedAffinity(atkbattler, atkability, targetbattler, targetability, TYPE_GRASS))
         || holdEffect == HOLD_EFFECT_SAFETY_GOGGLES)
         return FALSE;
     return TRUE;
@@ -1045,6 +1045,7 @@ u32 GetCurrDamageHpPercent(u8 battlerAtk, u8 battlerDef)
     return (bestDmg * 100) / gBattleMons[battlerDef].maxHP;
 }
 
+//vsonic IMPORTANT
 u16 AI_GetTypeEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
 {
     u16 typeEffectiveness, moveType;
@@ -1685,8 +1686,8 @@ bool32 ShouldTryOHKO(u8 battlerAtk, u8 battlerDef, u16 atkAbility, u16 defAbilit
     if (!DoesBattlerIgnoreAbilityChecks(atkAbility, move) && defAbility == ABILITY_STURDY)
         return FALSE;
 
-    if (move == MOVE_SHEER_COLD && DoesBattlerGetTypeBasedAffinity(battlerDef, defAbility, TYPE_ICE)
-    && !DoesMoldBreakerNegateEffect(battlerAtk, GetBattlerAbility(battlerAtk)))//adjust this later so well, its a high level move so low level trainers shouhldn't have it 
+    if (move == MOVE_SHEER_COLD 
+    && DoesBattlerGetTypeBasedAffinity(battlerAtk, GetBattlerAbility(battlerAtk), battlerDef, defAbility, TYPE_ICE))//adjust this later so well, its a high level move so low level trainers shouhldn't have it 
         return FALSE;   //was gonna add random factor for low level trainers but guess not necessary
 
     if ((((gStatuses3[battlerDef] & STATUS3_ALWAYS_HITS)
@@ -3121,7 +3122,7 @@ static bool32 AI_CanPoisonType(u8 battlerAttacker, u8 battlerTarget)
     return ((AI_DATA->abilities[battlerAttacker] == ABILITY_CORROSION)
             || (AI_DATA->abilities[battlerAttacker] == ABILITY_POISONED_LEGACY)
             || !IS_BATTLER_ANY_TYPE(battlerTarget, TYPE_STEEL, TYPE_ROCK)
-            || !(DoesBattlerGetTypeBasedAffinity(battlerTarget, AI_DATA->abilities[battlerTarget], TYPE_POISON) && !DoesMoldBreakerNegateEffect(battlerAttacker, AI_DATA->abilities[battlerAttacker]))
+            || !(DoesBattlerGetTypeBasedAffinity(battlerAttacker, AI_DATA->abilities[battlerAttacker], battlerTarget, AI_DATA->abilities[battlerTarget], TYPE_POISON))
             //|| (moveType == TYPE_POISON && AI_GetMoveEffectiveness(AI_THINKING_STRUCT->moveConsidered, battlerAttacker, battlerTarget) != AI_EFFECTIVENESS_x0)
             );
 }
@@ -3172,7 +3173,9 @@ bool32 AI_CanPoison(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u16 
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || PartnerMoveEffectIsStatusSameTarget(BATTLE_PARTNER(battlerAtk), battlerDef, partnerMove))
         return FALSE;
-    else if (defAbility != ABILITY_CORROSION && defAbility != ABILITY_POISONED_LEGACY && ((DoesBattlerGetTypeBasedAffinity(battlerDef, defAbility, TYPE_POISON) && !DoesMoldBreakerNegateEffect(battlerAtk, AI_DATA->abilities[battlerAtk])) || IS_BATTLER_OF_TYPE(battlerDef, TYPE_ROCK) || IS_BATTLER_OF_TYPE(battlerDef, TYPE_STEEL)))
+    else if (defAbility != ABILITY_CORROSION && defAbility != ABILITY_POISONED_LEGACY 
+    && ((DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], battlerDef, defAbility, TYPE_POISON)) 
+    || IS_BATTLER_ANY_TYPE(battlerDef, TYPE_ROCK, TYPE_STEEL)))
         return FALSE;
     else if (IsValidDoubleBattle(battlerAtk) && AI_DATA->abilities[BATTLE_PARTNER(battlerDef)] == ABILITY_PASTEL_VEIL)
         return FALSE;
@@ -3206,7 +3209,7 @@ bool32 AI_CanParalyze(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u1
     u8 moveType = ReturnMoveType(AI_THINKING_STRUCT->moveConsidered, battlerAtk);    
 
     if (!AI_CanBeParalyzed(battlerDef, defAbility)
-      || ((DoesBattlerGetTypeBasedAffinity(battlerDef,  defAbility, TYPE_ELECTRIC) && !DoesMoldBreakerNegateEffect(battlerAtk, AI_DATA->abilities[battlerAtk])) && moveType == TYPE_ELECTRIC)
+      || ((DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], battlerDef,  defAbility, TYPE_ELECTRIC)) && moveType == TYPE_ELECTRIC)
       || AI_GetMoveEffectiveness(move, battlerAtk, battlerDef) == AI_EFFECTIVENESS_x0
       || gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_SAFEGUARD
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
@@ -3270,7 +3273,7 @@ bool32 ShouldBurnSelf(u8 battler, u16 ability)
 bool32 AI_CanBurn(u8 battlerAtk, u8 battlerDef, u16 defAbility, u8 battlerAtkPartner, u16 move, u16 partnerMove)
 {
     if (!AI_CanBeBurned(battlerDef, defAbility)
-      || (DoesBattlerGetTypeBasedAffinity(battlerDef,  defAbility, TYPE_FIRE) && !DoesMoldBreakerNegateEffect(battlerAtk, AI_DATA->abilities[battlerAtk]))
+      || (DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], battlerDef,  defAbility, TYPE_FIRE))
       || AI_GetMoveEffectiveness(move, battlerAtk, battlerDef) == AI_EFFECTIVENESS_x0
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || PartnerMoveEffectIsStatusSameTarget(battlerAtkPartner, battlerDef, partnerMove))

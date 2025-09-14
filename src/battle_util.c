@@ -1631,23 +1631,12 @@ u32 GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera)
 //so those would be immune to each other, as the only issue of effect was for contact
 bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget)  //somehow works...
 {
-    /*bool8 canpoison = TRUE;
-
-    if ((GetBattlerAbility(battlerAttacker) == ABILITY_CORROSION)
-    || (GetBattlerAbility(battlerAttacker) == ABILITY_POISONED_LEGACY))
-        canpoison = TRUE;
-
-    else if ((DoesBattlerGetTypeBasedAffinity(battlerTarget, GetBattlerAbility(battlerTarget), TYPE_POISON)  && !DoesMoldBreakerNegateEffect(battlerAttacker, GetBattlerAbility(battlerAttacker)))
-    || (IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_ROCK)))
-        canpoison = FALSE;
-
-    return canpoison;*/
 
 
     return ((GetBattlerAbility(battlerAttacker) == ABILITY_CORROSION)
         || (GetBattlerAbility(battlerAttacker) == ABILITY_POISONED_LEGACY)
         || !IS_BATTLER_ANY_TYPE(battlerTarget, TYPE_STEEL, TYPE_ROCK)
-        || !(DoesBattlerGetTypeBasedAffinity(battlerTarget, GetBattlerAbility(battlerTarget), TYPE_POISON)  && !DoesMoldBreakerNegateEffect(battlerAttacker, GetBattlerAbility(battlerAttacker))) 
+        || !(DoesBattlerGetTypeBasedAffinity(battlerAttacker, GetBattlerAbility(battlerAttacker), battlerTarget, GetBattlerAbility(battlerTarget), TYPE_POISON)) 
         );
         
 }
@@ -5061,7 +5050,7 @@ u8 AtkCanceller_UnableToUseMove(void)
         case CANCELLER_POWDER_MOVE:
             if ((gBattleMoves[gCurrentMove].flags & FLAG_POWDER_MOVE) && (gBattlerAttacker != gBattlerTarget))
             {
-                if ((DoesBattlerGetTypeBasedAffinity(gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GRASS) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
+                if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GRASS))
                     || GetBattlerAbility(gBattlerTarget) == ABILITY_OVERCOAT)
                 {
                     gBattlerAbility = gBattlerTarget;
@@ -12020,39 +12009,44 @@ u32 IsAbilityOnFieldExcept(u32 battlerId, u32 ability)
 //could make separate function for most of repo for specificying the ability that shuold get effect
 //than just keep this for bs, with the abilities that get the full set of affinities
 //TypeAffinityCheck - will be for type and specific ability
+//changed but realized target doesnt work as some case are offense affinity user i.e curse and sure hit poison
 #define NEW_ABILITY_CATEGORY //-use only for things that don't affect type chart relations
-bool8 DoesBattlerGetTypeBasedAffinity(u32 battler, u16 ability, u8 typeFactor)
+bool8 DoesBattlerGetTypeBasedAffinity(u32 attacker, u16 atkability, u32 battler, u16 battlerAbility, u8 typeFactor)
 {
+    //extra protection for effects that check partner 
+    if (IsBattlerAlive(attacker) && atkability == ABILITY_MOLD_BREAKER
+    && GetBattlerSide(attacker) != GetBattlerSide(battler))
+        return FALSE;
 
     switch(typeFactor)
     {
         case TYPE_FLYING:
         {
-            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_AVIATOR);
+            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || battlerAbility == ABILITY_AVIATOR);
                 
         }
         break;
         case TYPE_FIRE:
         {
-            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_TORCHSOUL);
+            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || battlerAbility == ABILITY_TORCHSOUL);
                 
         }
         break;
         case TYPE_BUG:
         {
-            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_APOTHEOSCENT);
+            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || battlerAbility == ABILITY_APOTHEOSCENT);
                    
         }
         break;
         case TYPE_POISON:
         {
-            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_GRUNGE);
+            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || battlerAbility == ABILITY_GRUNGE);
                    
         }
         break;
         case TYPE_FAIRY:
         {
-            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_TOADSTOOL_NYMPH);
+            return (IS_BATTLER_OF_TYPE(battler, typeFactor) || battlerAbility == ABILITY_TOADSTOOL_NYMPH);
                 
         }//toadstool nymph is just to give stab on fairy moves
         break;
@@ -12066,15 +12060,6 @@ bool8 DoesBattlerGetTypeBasedAffinity(u32 battler, u16 ability, u8 typeFactor)
 
 }
 
-//think this is best I can come up with?
-//somewhat odd as this isn't checking if should negate but
-//it will negate or not negate based on where I use it...
-//unsure how will work with ai...
-bool32 DoesMoldBreakerNegateEffect(u32 battler, u16 ability)
-{
-    return (IsBattlerAlive(battler) && ability == ABILITY_MOLD_BREAKER);
-
-}
 
 //make note flying birds dn't hvae shadow
 //would also be excluded from shadow tag so put them 
@@ -13022,9 +13007,9 @@ static uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u
     
 
     if (move == MOVE_GLARE 
-    && (DoesBattlerGetTypeBasedAffinity(battlerDef, defAbility, TYPE_GHOST)
-    || DoesBattlerGetTypeBasedAffinity(battlerDef, defAbility, TYPE_DARK))
-    && !DoesMoldBreakerNegateEffect(battlerAtk, GetBattlerAbility(battlerAtk))) //can keep this line
+    && (DoesBattlerGetTypeBasedAffinity(battlerAtk, GetBattlerAbility(battlerAtk), battlerDef, defAbility, TYPE_GHOST)
+    || DoesBattlerGetTypeBasedAffinity(battlerAtk, GetBattlerAbility(battlerAtk), battlerDef, defAbility, TYPE_DARK))
+    ) //can keep this line
     {
         modifier = UQ_4_12(0.0);
     }
@@ -13040,8 +13025,8 @@ static uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u
         return modifier;
     }
 
-    else if ((move == MOVE_SHEER_COLD) && DoesBattlerGetTypeBasedAffinity(battlerDef, defAbility, TYPE_ICE)
-    && !DoesMoldBreakerNegateEffect(battlerAtk, GetBattlerAbility(battlerAtk))) //no longer need with other ohko changes
+    else if ((move == MOVE_SHEER_COLD) 
+    && DoesBattlerGetTypeBasedAffinity(battlerAtk, GetBattlerAbility(battlerAtk), battlerDef, defAbility, TYPE_ICE)) //no longer need with other ohko changes
     {
         modifier = UQ_4_12(0.0);
     } //potentially replace with effet ohko and not very effective change mod to 0, since it will never land, better for ai
@@ -13857,7 +13842,7 @@ bool32 CanBePoisoned(u8 PoisonUser, u8 PoisonTarget)
 bool32 CanBeBurned(u8 battlerId)
 {
     u16 ability = GetBattlerAbility(battlerId);
-    if ((DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_FIRE) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
+    if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), battlerId, ability, TYPE_FIRE))
         || gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD
         || gBattleMons[battlerId].status1 & STATUS1_ANY
         || ability == ABILITY_WATER_VEIL
@@ -13902,7 +13887,8 @@ bool32 CanBeParalyzed(u8 battlerId)
         || gBattleMons[battlerId].status1 & STATUS1_ANY
         || IsAbilityStatusProtected(battlerId)
         || IsBattlerTerrainAffected(battlerId, STATUS_FIELD_MISTY_TERRAIN)
-        || ((DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_ELECTRIC)  && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker))) && movetype == TYPE_ELECTRIC))
+        || ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), battlerId, ability, TYPE_ELECTRIC))
+        && movetype == TYPE_ELECTRIC))
         return FALSE;
     return TRUE;
 }
@@ -13911,7 +13897,7 @@ bool32 CanBeFrozen(u8 battlerId)
 {
     u16 ability = GetBattlerAbility(battlerId);
     
-    if ((DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_ICE) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
+    if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), battlerId, ability, TYPE_ICE))
         || IsBattlerWeatherAffected(battlerId, WEATHER_SUN_ANY)
         || gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD
         || ability == ABILITY_LAVA_FISSURE

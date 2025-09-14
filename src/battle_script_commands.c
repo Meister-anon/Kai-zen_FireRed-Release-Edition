@@ -1889,7 +1889,7 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
     }
 
     if (move == MOVE_SHEER_COLD 
-    && (DoesBattlerGetTypeBasedAffinity(gBattlerTarget, defAbility, TYPE_ICE) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker))))
+    && (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, defAbility, TYPE_ICE)))
     {
         gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
         JumpIfMoveFailed(7, move);
@@ -4687,8 +4687,8 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 return;
             }
     
-            if ((DoesBattlerGetTypeBasedAffinity(gEffectBattler, battlerAbility, TYPE_FIRE) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
-             && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))
+            if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gEffectBattler, battlerAbility, TYPE_FIRE))
+            && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))
             {
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_BRNPrevention;
@@ -5514,7 +5514,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     flags |= STAT_CHANGE_UPDATE_MOVE_EFFECT;
 
                if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_1)
-                && (DoesBattlerGetTypeBasedAffinity(gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GROUND) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
+                && (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GROUND))
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].type == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].argument == TYPE_GROUND)
@@ -5581,7 +5581,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     flags |= STAT_CHANGE_ALLOW_PTR;
 
                 if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_2) 
-                && (DoesBattlerGetTypeBasedAffinity(gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GROUND) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
+                && (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GROUND))
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].type == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].argument == TYPE_GROUND)
@@ -6822,8 +6822,7 @@ void BS_typebasedjump2(void)  //may need to adjust currinstr values
         //need check consider replacing w DoesBattlerGetTypeBasedAffinity
         //but only want that to apply to specific type based system effects not type chart related things
         //so think will reinstate jumpiftype2 script to use specifically for that as an alternative
-        if (DoesBattlerGetTypeBasedAffinity(battlerId, GetBattlerAbility(battlerId), type)
-          && !DoesMoldBreakerNegateEffect(gBattleScripting.battler, GetBattlerAbility(gBattleScripting.battler)))
+        if (DoesBattlerGetTypeBasedAffinity(gBattleScripting.battler, GetBattlerAbility(gBattleScripting.battler), battlerId, GetBattlerAbility(battlerId), type))
             gBattlescriptCurrInstr = jumpPtr;
         else
             gBattlescriptCurrInstr = cmd->nextInstr;
@@ -6831,8 +6830,7 @@ void BS_typebasedjump2(void)  //may need to adjust currinstr values
     // jumpifnottype
     else       //FALSE
     {
-        if (DoesBattlerGetTypeBasedAffinity(battlerId, GetBattlerAbility(battlerId), type)
-          && !DoesMoldBreakerNegateEffect(gBattleScripting.battler, GetBattlerAbility(gBattleScripting.battler)))
+        if (DoesBattlerGetTypeBasedAffinity(gBattleScripting.battler, GetBattlerAbility(gBattleScripting.battler), battlerId, GetBattlerAbility(battlerId), type))
             gBattlescriptCurrInstr = cmd->nextInstr;
         else
             gBattlescriptCurrInstr = jumpPtr;
@@ -10190,7 +10188,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         #define FLYING_TYPE_BONUS
         if (IsBattlerGrounded(battlerAtk)
         && !IsBattlerGrounded(battlerDef) //make function for below
-        && (DoesBattlerGetTypeBasedAffinity(battlerDef, defAbility, TYPE_FLYING) && !DoesMoldBreakerNegateEffect(battlerAtk, GetBattlerAbility(battlerAtk)))
+        && (DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerDef, defAbility, TYPE_FLYING))
         && atkAbility != ABILITY_KEEN_EYE
         && atkAbility != ABILITY_APOTHEOSCENT
         && !(gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE)
@@ -11784,9 +11782,7 @@ static bool32 IsRototillerAffected(u32 battlerId)
         return FALSE;
     if (!(IsBattlerGrounded(battlerId)))
         return FALSE;   // Only grounded battlers affected
-    if (!DoesBattlerGetTypeBasedAffinity(battlerId, GetBattlerAbility(battlerId), TYPE_GRASS))
-        return FALSE;   // Only grass types affected
-    if (DoesBattlerGetTypeBasedAffinity(battlerId, GetBattlerAbility(battlerId), TYPE_GRASS)  && DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
+    if (!(DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), battlerId, GetBattlerAbility(battlerId), TYPE_GRASS)))
         return FALSE;   // Only grass types affected
     if (gStatuses3[battlerId] & STATUS3_SEMI_INVULNERABLE)
         return FALSE;   // Rototiller doesn't affected semi-invulnerable battlers
@@ -12084,7 +12080,8 @@ void HazardClearNoMessage(u32 battler)
 
 u32 IsFlowerVeilProtected(u32 battler) //prvent stat drop & status change for user & ally
 {
-    if ((DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), TYPE_GRASS) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker))) || GetBattlerAbility(battler) == ABILITY_FLOWER_VEIL)
+    if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), battler, GetBattlerAbility(battler), TYPE_GRASS))
+    || GetBattlerAbility(battler) == ABILITY_FLOWER_VEIL)
         return IsAbilityOnSide(battler, ABILITY_FLOWER_VEIL); //will return true or false, based on if ability present
     else
         return 0;
@@ -14848,8 +14845,8 @@ static void atk7F_setseeded(void)  //removed grass immunity - revisit
         gMoveResultFlags |= MOVE_RESULT_MISSED;
         gBattleCommunication[MULTISTRING_CHOOSER] = 1;
     }
-    else if (DoesBattlerGetTypeBasedAffinity(gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GRASS) 
-    && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
+    else if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GRASS) 
+    )
   //grass being immune to leechseed makes no sense to me, they have energy too.
     {
         gMoveResultFlags |= MOVE_RESULT_MISSED;
@@ -20704,8 +20701,10 @@ void BS_HandleEscapePrevention(void)
 
     if (gBattleMons[battler].status2 & STATUS2_ESCAPE_PREVENTION
     || GetBattlerAbility(battler) == ABILITY_HANDS_OF_FATE
-    || (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), TYPE_GHOST) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
-    || ((DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)) && !IsBattlerGrounded(battler))
+    || (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), battler, GetBattlerAbility(battler), TYPE_GHOST)
+    && gBattleMons[battler].species != SPECIES_SPIRITOMB)
+    || ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), battler, GetBattlerAbility(battler), TYPE_FLYING)
+    && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)) && !IsBattlerGrounded(battler))
     )
     {
         gBattlescriptCurrInstr = cmd->failInstr;
@@ -21671,7 +21670,7 @@ void BS_call_if(void) //comparing to jumpifholdeffect
             break;//removes screens from start, still need to setup script with screens, need understand how wall animation worked in default script
 
             case EFFECT_ACCURACY_DOWN:            
-                if (((DoesBattlerGetTypeBasedAffinity(gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GROUND) && !DoesMoldBreakerNegateEffect(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
+                if (((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GROUND))
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].type == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].argument == TYPE_GROUND))
