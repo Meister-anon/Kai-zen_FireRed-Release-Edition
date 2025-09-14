@@ -513,8 +513,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Wonder Guard"),
         .description = sWonderGuardDescription,
         .aiRating = 10,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
         .breakable = TRUE,
     },
 
@@ -2737,58 +2735,48 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     //Begin of Custom abilities
     [ABILITY_DISPIRIT_GUARD] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
+        .name = _("Dispirit Guard"),
+        .description = sDispiritGuardDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_NUISANCE] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .name = _("Nuisance"),
+        .description = sNuisanceDescription,
+        .aiRating = 5,
     },
     
     [ABILITY_MULTI_TASK] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
-        .aiRating = 0,
+        .name = _("Multi-Task"),
+        .description = sMultiTaskDescription,
+        .aiRating = 4,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .cantBeSuppressed = TRUE,
     },
     
     [ABILITY_SIROCCO] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .name = _("Sirocco"),
+        .description = sSiroccoDescription,
+        .aiRating = 4,
     },
     
     [ABILITY_HI_PRESSURE] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .name = _("Hi-Pressure"),
+        .description = sHipressureDescription,
+        .aiRating = 7,
     },
     
     [ABILITY_CUPIDS_ARROW] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
+        .name = _("Cupid's Arrow"),
+        .description = sCupidsArrowDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
@@ -2797,89 +2785,77 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_BATTLE_MATRON] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
+        .name = _("Battle Matron"),
+        .description = sBattleMatronDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_LIQUID_SOUL] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
+        .name = _("Liquid Soul"),
+        .description = sLiquidSoulDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_OCEAN_MEMORY] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
+        .name = _("Ocean Memory"),
+        .description = sOceanMemoryDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_OVERCHARGE] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .name = _("Overcharge"),
+        .description = sOverchargeDescription,
+        .aiRating = 5,
+        
     },
     
     [ABILITY_PHOTOSYNTHESIZE] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .name = _("Photosynthesize"),
+        .description = sPhotosynthesizeDescription,
+        .aiRating = 3,
     },
     
     [ABILITY_GLACIAL_ICE] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
+        .name = _("Glacial Ice"),
+        .description = sGlacialIceDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_LAVA_FISSURE] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
+        .name = _("Lava Fissure"),
+        .description = sLavaFissureDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_TOADSTOOL_NYMPH] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .name = _("Toadstool Nymph"),
+        .description = sToadstoolNymphDescription,
+        .aiRating = 3,
     },
     
     [ABILTY_UNKNOWN_POWER] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
-        .aiRating = 0,
+        .name = _("Unknown Power"),
+        .description = sUnknownPowerDescription,
+        .aiRating = 2,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
@@ -2887,8 +2863,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_PURIFYING_AURA] =
     {
-        .name = _("Teraform Zero"),
-        .description = COMPOUND_STRING("Zeroes weather and terrain."),
+        .name = _("Purifying Aura"),
+        .description = sPurifyingAuraDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
@@ -2897,129 +2873,100 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_SQUALL] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Squall"),
         .description = sSquallDescription,
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 7,
     },
     
     [ABILITY_SUN_DISK] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Sun Disk"),
         .description = sSundiskDescription,
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 7,
     },
     
     [ABILITY_TOUGH_SPINES] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Tough Spines"),
         .description = sToughSpinesDescription,
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 6,
     },
     
     [ABILITY_EROSION] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Erosion"),
         .description = sErosionDescription,
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 7,
+        .breakable = TRUE,
     },
     
     [ABILITY_LIQUID_METAL] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Liquid Metal"),
         .description = sLiquidmetalDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_MUSCLE_MAGIC] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Muscle Magic"),
         .description = sMusclemagicDescription,
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 5,
     },
     
     [ABILITY_TIGER_CUB] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Tiger Cub"),
         .description = sTigercubDescription,
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 7,
     },
     
     [ABILITY_TIGER_MOM] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Tiger Mom"),
         .description = sTigerMomDescription,
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 7,
     },
     
     [ABILITY_DARK_DEAL] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Dark Deal"),
         .description = sDarkDealDescription,
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 6,
     },
     
     [ABILITY_CORRUPTION] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Corruption"),
         .description = sCorruptionDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_BANDIT_KING] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Bandit King"),
         .description = sBanditKingDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_AVIATOR] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Aviator"),
         .description = sAviatorDescription, 
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
-    },
+    },//vsonic maybe just need add breakable ot do thing rather than needing moldbreaker check function?
     
     [ABILITY_USURPER] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Usurper"),
         .description = sUsurperDescription,
-        .aiRating = 0,
+        .aiRating = 10,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
@@ -3027,57 +2974,55 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_INVERSE_WORLD] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Inverse World"),
         .description = sInverseWorldDescription,
-        .aiRating = 0,
+        .aiRating = 9,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_SONAR] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Sonar"),
         .description = sSonarDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_ECOSYSTEM] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Ecosystem"),
         .description = sEcosystemDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_ABSOLUTE_ZERO] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Absolute Zero"),
         .description = sAbsolutezeroDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_FEATHER_JACKET] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Feather Jacket"),
         .description = sFeatherJacketDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_POISONED_LEGACY] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Poisoned Legacy"),
         .description = sPoisonedLegacyDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
@@ -3087,57 +3032,49 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_JEWEL_METABOLISM] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Jewel Metabolism"),
         .description = sJewelMetabolismDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_INVERSION] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Inversion"),
         .description = sInversionDescription,
-        .aiRating = 0,
+        .aiRating = 10,
         .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
     },
     
     [ABILITY_WETIKO] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Wetiko"),
         .description = sWetikoDescription,
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 8,
     },
     
     [ABILITY_EMPATH] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Empath"),
         .description = sEmpathDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
     },
     
     [ABILITY_EMPATHIC_CURSE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Empathic Curse"),
         .description = sEmpathicCurseDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
     },
     
     [ABILITY_INTHRALL] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Inthrall"),
         .description = sInthrallDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
@@ -3147,7 +3084,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_IRON_WILL] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Iron Will"),
         .description = sIronWillDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
@@ -3157,47 +3094,38 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_LIVEWIRE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Livewire"),
         .description = sLivewireDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
     },
     
     [ABILITY_GALEFORCE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("GaleForce"),
         .description = sGaleforceDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_LETHAL_LEGS] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Lethal Legs"),
         .description = sLethalLegsDescription,
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 6,
     },
     
     [ABILITY_TOXUNGUE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Toxunge"),
         .description = sToxungueDescription,
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 4,
     },
     
     [ABILITY_OMNIPOTENT_AIDE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Omnipotent Aide"),
         .description = sOmnipotentAideDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
@@ -3207,17 +3135,14 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_FLUORESCENCE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Fluorescence"),
         .description = sFluorescenceDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_SPECTRE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Spectre"),
         .description = COMPOUND_ABILITY_STRING("A speeding Blur!\nBoosts Evasion on Switch-in."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
@@ -3227,17 +3152,18 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_AURA_OF_LIGHT] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Aura of Light"),
         .description = COMPOUND_ABILITY_STRING("Wakes allies on switch-in and prevents\nsleep. Also cuts damage from dark moves."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
-    },
+        .breakable = TRUE,
+    },//vsonic
     
     [ABILITY_DESPAIR] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Despair"),
         .description = sNoneDescription,
         .aiRating = 0,
         .cantBeCopied = TRUE,
@@ -3247,97 +3173,84 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_RISING_PHOENIX] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Rising Phoenix"),
         .description = COMPOUND_ABILITY_STRING("Cures status heals and cleanses field if\nhit by fire. May also burn on contact."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_DREAD_WING] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Dread Wings"),
         .description = COMPOUND_ABILITY_STRING("Spreads despair. Foes take more damage.\nWeakens foes Physical Attacks."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_PLAGUE_WINGS] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Plague Wings"),
         .description = sPlagueWingsDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_TOXIC_WING] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Toxic Wing"),
         .description = COMPOUND_ABILITY_STRING("Spreads poison powder on attack.\nMay poison the foe."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_PHANTOM_TOUCH] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Phantom Touch"),
         .description = sPhantomTouchDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_APOTHEOSCENT] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Apotheoscent"),
         .description = COMPOUND_ABILITY_STRING("Ignores accuracy and evasion changes.\nImmune to effects of being confused."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_WEIGHTED_GI] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Weighted Gi"),
         .description = COMPOUND_ABILITY_STRING("Casts off weighted clothes or fur\nwhen in a pinch boosting SPEED."),
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 5,
     },
     
     [ABILITY_VOLT_DASH] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Volt Dash"),
         .description = COMPOUND_ABILITY_STRING("Turns electricity into HP\nand gradually boosts SPEED."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_IMMUTABLE_WIND] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Immutable Wind"),
         .description = COMPOUND_ABILITY_STRING("Summons winds that nullify foes abilities\nand blow status moves off course."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .failsOnImposter = TRUE,
     },
     
     [ABILITY_EVERGREEN] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Evergreen"),
         .description = COMPOUND_ABILITY_STRING("Summons Grassy Terrain on switch-in.\nMay also Harvest a Berry."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
@@ -3347,77 +3260,65 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_SHAMAN_CURE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Shaman Cure"),
         .description = COMPOUND_ABILITY_STRING("Protects party from poison.\nCures own status upon switching out."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
-    },
+    },//vsonic
     
     [ABILITY_UNCHAINED_MELODY] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Unchained Melody"),
         .description = COMPOUND_ABILITY_STRING("Boosts damage of Normal moves\nand converts them to Sound type."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_ENAMEL] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Enamel"),
         .description = COMPOUND_ABILITY_STRING("Increased heat protection. Immune to burn."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_BONE_ARMOR] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Bone Armor"),
         .description = COMPOUND_ABILITY_STRING("Increased heat protection. Blocks burn.\nPrevents recoil and force switch."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_STORM_BREAK] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Storm Break"),
         .description = COMPOUND_ABILITY_STRING("User creates a gust of wind dissipating\nweather effects on entry."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_SPACE_CONTROL] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Space Control"),
         .description = COMPOUND_ABILITY_STRING("Attacks via portal, attacks are 100% Acc\nAdapted to space is immune to Ice Dmg."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_COLD_EMBRACE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Cold Embrace"),
         .description = COMPOUND_ABILITY_STRING("Releases sub-zero breath when close.\nMay Freeze foe when they make contact."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_TIME_CONTROL] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Time Control"),
         .description = COMPOUND_ABILITY_STRING("Every two turns can distort time\nnegating charging and recharge turns."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
@@ -3427,27 +3328,25 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_TORCHSOUL] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Torch Soul"),
         .description = COMPOUND_ABILITY_STRING("Possesses a burning inner-flame.\nGain FIRE Affinity and boosts Fire moves."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_GRUNGE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Grunge"),
         .description = COMPOUND_ABILITY_STRING("Gain POISON Affinity and boosts damage\ndone by Poison-type moves."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_SWIFT_JUSTICE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Swift Justice"),
         .description = COMPOUND_ABILITY_STRING("Stikes swiftly and decisively.\nBoosts damage if attacks before target."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
@@ -3457,7 +3356,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_TOOLS_OF_THE_TRADE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Tools of the Trade"),
         .description = COMPOUND_ABILITY_STRING("{UP_ARROW}dmg to foes switching faster or trapped\nUps DEF if statused or stat drops"),
         .aiRating = 0,
         .cantBeCopied = TRUE,
@@ -3467,7 +3366,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_TROJAN_SWORD] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Trojan Sword"),
         .description = COMPOUND_ABILITY_STRING("Blocks Intimdiate and\nboosts sharp attacks."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
@@ -3477,117 +3376,106 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_HEAT_TRANCE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Heat Trance"),
         .description = COMPOUND_ABILITY_STRING("Elated by all things spicy and hot.\nHeals by burn or sun, cuts Fire Dmg taken"),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_DESERT_DWELLER] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Desert Dweller"),
         .description = COMPOUND_ABILITY_STRING("Adapted to the extremes of the desert.\nLessens effect of Heat Cold and burn."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_FAIRY_MIST] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Fairy Mist"),
         .description = COMPOUND_ABILITY_STRING("Normal and Sound moves become Fairy.\nSets Misty Terrain upon entering battle."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
-    },
+    },//vsonic
     
     [ABILITY_COMPASS] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Compass"),
         .description = COMPOUND_ABILITY_STRING("Locks-on and moves unerringly to foe.\nAll moves used by and aginst will land."),
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 8,
     },
     
     [ABILITY_HANDS_OF_FATE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Hands of Fate"),
         .description = COMPOUND_ABILITY_STRING("Protected from shadowy forces and traps.\nReduces Ghost/Dark dmg and blocks status"),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_DUST_DEVIL] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Dust Devil"),
         .description = COMPOUND_ABILITY_STRING("Immune to wind damage. Sets Sandstorm.\nUps Attack if the target of a wind effect"),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_PLASMA_OVERDRIVE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Plasma Overdrive"),
         .description = COMPOUND_ABILITY_STRING("Moves ignore ability affects, and draws\nin FIRE/ELEC to up Fire moves or Sp. Atk"),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_CREATION_ENGINE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Creation Engine"),
         .description = COMPOUND_ABILITY_STRING("Gain STAB and Immunity to Ice Fire & Elec\nWater moves targetting user become Ice."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
-    },
+        .breakable = TRUE,
+    },//vsonic
     
     [ABILITY_DARK_CORONA] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Dark Corona"),
         .description = COMPOUND_ABILITY_STRING("A Tainted Crown of spikes that hurts\nand may poison when foes make contact."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_LUNAR_SOLSTICE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Lunar Solstice"),
         .description = COMPOUND_ABILITY_STRING("The POKéMON celebrates the moon.\nTemporarily boosts moonlight in battle."),
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 7,
     },
     
     [ABILITY_LUNAR_POWER] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Lunar Power"),
         .description = COMPOUND_ABILITY_STRING("Powers up in strong moonlight.\nBoosts Sp. Def avoids Moon based attacks."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .breakable = TRUE,
     },
     
     [ABILITY_NEW_MOON] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("New Moon"),
         .description = COMPOUND_ABILITY_STRING("Moderate HP recovery in moonlight.\nAlso absorbs Moon based attacks."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
@@ -3597,52 +3485,45 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     
     [ABILITY_TOXIC_DELUGE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Toxic Deluge"),
         .description = COMPOUND_ABILITY_STRING("Summons Acid Rain to Battle."),
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 8,
     },
     
     [ABILITY_RESOLUTE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Resolute"),
         .description = COMPOUND_ABILITY_STRING("Changes form if suffering from status\nor if HP falls to or below half Max HP."),
-        .aiRating = 0,
+        .aiRating = 6,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
+        .cantBeSuppressed = TRUE,
+        .cantBeOverwritten = TRUE,
     },
     
     [ABILITY_PIERCING_HORN] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Piercing Horn"),
         .description = COMPOUND_ABILITY_STRING("Boosts headbutt moves.\nAttacks foes with sharpened horns."),
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 5,
     },
     
     [ABILITY_X_SIGHT] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("X Sight"),
         .description = COMPOUND_ABILITY_STRING("X-ray Vision reveals battlers held items\nand bypasses Acc check when above 50% hp."),
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
-    },
+    },//vsonic luxaray specific, may remove trace block?
     
     [ABILITY_PRECISE_STRIKE] =
     {
-        .name = _("Teraform Zero"),
+        .name = _("Precise Strike"),
         .description = COMPOUND_ABILITY_STRING("Powers up Critical Hits.\nDelivers attacks direct to weak points.")
-        .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
+        .aiRating = 3,
     },
 };
 
