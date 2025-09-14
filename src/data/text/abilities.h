@@ -1245,7 +1245,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .cantBeCopied = TRUE,
         .cantBeTraced = TRUE,
         .breakable = TRUE,
-    },
+    },//cherrim ability needed to transform
 
     [ABILITY_BAD_DREAMS] =
     {
@@ -2753,10 +2753,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Multi-Task"),
         .description = sMultiTaskDescription,
         .aiRating = 4,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
-        .cantBeSuppressed = TRUE,
     },
     
     [ABILITY_SIROCCO] =
@@ -2778,9 +2774,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Cupid's Arrow"),
         .description = sCupidsArrowDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_BATTLE_MATRON] =
@@ -2802,8 +2795,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Ocean Memory"),
         .description = sOceanMemoryDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
         .breakable = TRUE,
     },
     
@@ -2827,9 +2818,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Glacial Ice"),
         .description = sGlacialIceDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
         .breakable = TRUE,
     },
     
@@ -2838,9 +2826,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Lava Fissure"),
         .description = sLavaFissureDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
         .breakable = TRUE,
     },
     
@@ -2856,9 +2841,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Unknown Power"),
         .description = sUnknownPowerDescription,
         .aiRating = 2,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_PURIFYING_AURA] =
@@ -2866,9 +2848,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Purifying Aura"),
         .description = sPurifyingAuraDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_SQUALL] =
@@ -2905,9 +2884,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Liquid Metal"),
         .description = sLiquidmetalDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
         .breakable = TRUE,
     },
     
@@ -2958,8 +2934,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Aviator"),
         .description = sAviatorDescription, 
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
     },//vsonic maybe just need add breakable ot do thing rather than needing moldbreaker check function?
     //yeah think all I need for moldbreaker negate is set every affinity ability as breakable
     //well no its meant to ignore affinity itself not just the ability
@@ -2972,9 +2946,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Usurper"),
         .description = sUsurperDescription,
         .aiRating = 10,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_INVERSE_WORLD] =
@@ -2986,7 +2957,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
         .breakable = TRUE,
-    },
+    },//vsonic IMPORTANT //is field wide effect similar to neutralizing gas unsure what to do with?
     
     [ABILITY_SONAR] =
     {
@@ -3000,9 +2971,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Ecosystem"),
         .description = sEcosystemDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
         .breakable = TRUE,
     },
     
@@ -3011,9 +2979,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Absolute Zero"),
         .description = sAbsolutezeroDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
         .breakable = TRUE,
     },
     
@@ -3030,9 +2995,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Poisoned Legacy"),
         .description = sPoisonedLegacyDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_JEWEL_METABOLISM] =
@@ -3050,7 +3012,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 10,
         .cantBeCopied = TRUE,
         .cantBeTraced = TRUE,
-    },
+    },//upgraded imposter
     
     [ABILITY_WETIKO] =
     {
@@ -3066,15 +3028,13 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeTraced = TRUE,
-    },
+    },//upgraded Trace same conditions
     
     [ABILITY_EMPATHIC_CURSE] =
     {
         .name = _("Empathic Curse"),
         .description = sEmpathicCurseDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_INTHRALL] =
@@ -3082,9 +3042,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Inthrall"),
         .description = sInthrallDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_IRON_WILL] =
@@ -3092,9 +3049,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Iron Will"),
         .description = sIronWillDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_LIVEWIRE] =
@@ -3102,8 +3056,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Livewire"),
         .description = sLivewireDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_GALEFORCE] =
@@ -3133,9 +3085,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Omnipotent Aide"),
         .description = sOmnipotentAideDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_FLUORESCENCE] =
@@ -3150,9 +3099,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Spectre"),
         .description = COMPOUND_ABILITY_STRING("A speeding Blur!\nBoosts Evasion on Switch-in."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_AURA_OF_LIGHT] =
@@ -3160,9 +3106,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Aura of Light"),
         .description = COMPOUND_ABILITY_STRING("Wakes allies on switch-in and prevents\nsleep. Also cuts damage from dark moves."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
         .breakable = TRUE,
     },//vsonic
     
@@ -3171,9 +3114,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Despair"),
         .description = sNoneDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_RISING_PHOENIX] =
@@ -3181,9 +3121,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Rising Phoenix"),
         .description = COMPOUND_ABILITY_STRING("Cures status heals and cleanses field if\nhit by fire. May also burn on contact."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
         .breakable = TRUE,
     },
     
@@ -3192,11 +3129,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Dread Wings"),
         .description = COMPOUND_ABILITY_STRING("Spreads despair. Foes take more damage.\nWeakens foes Physical Attacks."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
         .breakable = TRUE,
-    },
+    },//potentially make these two un suppressable?
     
     [ABILITY_PLAGUE_WINGS] =
     {
@@ -3258,9 +3192,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Evergreen"),
         .description = COMPOUND_ABILITY_STRING("Summons Grassy Terrain on switch-in.\nMay also Harvest a Berry."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_SHAMAN_CURE] =
@@ -3268,9 +3199,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Shaman Cure"),
         .description = COMPOUND_ABILITY_STRING("Protects party from poison.\nCures own status upon switching out."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },//vsonic
     
     [ABILITY_UNCHAINED_MELODY] =
@@ -3308,9 +3236,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Space Control"),
         .description = COMPOUND_ABILITY_STRING("Attacks via portal, attacks are 100% Acc\nAdapted to space is immune to Ice Dmg."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
         .breakable = TRUE,
     },
     
@@ -3326,9 +3251,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Time Control"),
         .description = COMPOUND_ABILITY_STRING("Every two turns can distort time\nnegating charging and recharge turns."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_TORCHSOUL] =
@@ -3336,8 +3258,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Torch Soul"),
         .description = COMPOUND_ABILITY_STRING("Possesses a burning inner-flame.\nGain FIRE Affinity and boosts Fire moves."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
     },
     
     [ABILITY_GRUNGE] =
@@ -3345,8 +3265,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Grunge"),
         .description = COMPOUND_ABILITY_STRING("Gain POISON Affinity and boosts damage\ndone by Poison-type moves."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
     },
     
     [ABILITY_SWIFT_JUSTICE] =
@@ -3354,9 +3272,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Swift Justice"),
         .description = COMPOUND_ABILITY_STRING("Stikes swiftly and decisively.\nBoosts damage if attacks before target."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_TOOLS_OF_THE_TRADE] =
@@ -3364,9 +3279,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Tools of the Trade"),
         .description = COMPOUND_ABILITY_STRING("{UP_ARROW}dmg to foes switching faster or trapped\nUps DEF if statused or stat drops"),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_TROJAN_SWORD] =
@@ -3374,9 +3286,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Trojan Sword"),
         .description = COMPOUND_ABILITY_STRING("Blocks Intimdiate and\nboosts sharp attacks."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_HEAT_TRANCE] =
@@ -3392,9 +3301,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Desert Dweller"),
         .description = COMPOUND_ABILITY_STRING("Adapted to the extremes of the desert.\nLessens effect of Heat Cold and burn."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
         .breakable = TRUE,
     },
     
@@ -3403,9 +3309,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Fairy Mist"),
         .description = COMPOUND_ABILITY_STRING("Normal and Sound moves become Fairy.\nSets Misty Terrain upon entering battle."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },//vsonic
     
     [ABILITY_COMPASS] =
@@ -3428,9 +3331,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Dust Devil"),
         .description = COMPOUND_ABILITY_STRING("Immune to wind damage. Sets Sandstorm.\nUps Attack if the target of a wind effect"),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
         .breakable = TRUE,
     },
     
@@ -3439,9 +3339,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Plasma Overdrive"),
         .description = COMPOUND_ABILITY_STRING("Moves ignore ability affects, and draws\nin FIRE/ELEC to up Fire moves or Sp. Atk"),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
         .breakable = TRUE,
     },
     
@@ -3450,9 +3347,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Creation Engine"),
         .description = COMPOUND_ABILITY_STRING("Gain STAB and Immunity to Ice Fire & Elec\nWater moves targetting user become Ice."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
         .breakable = TRUE,
     },//vsonic
     
@@ -3483,9 +3377,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("New Moon"),
         .description = COMPOUND_ABILITY_STRING("Moderate HP recovery in moonlight.\nAlso absorbs Moon based attacks."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },
     
     [ABILITY_TOXIC_DELUGE] =
@@ -3519,9 +3410,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("X Sight"),
         .description = COMPOUND_ABILITY_STRING("X-ray Vision reveals battlers held items\nand bypasses Acc check when above 50% hp."),
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeSwapped = TRUE,
-        .cantBeTraced = TRUE,
     },//vsonic luxaray specific, may remove trace block?
     
     [ABILITY_PRECISE_STRIKE] =
