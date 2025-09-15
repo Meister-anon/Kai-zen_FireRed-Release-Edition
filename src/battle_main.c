@@ -5914,7 +5914,7 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         speed /= 2;
     //note with affinity change need to pay close attention to interaction could be broken on wrong mon
     //...float stone onix is probably the fastest mon in the game?
-    else if (DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_ROCK) && holdEffect == HOLD_EFFECT_FLOAT_STONE)
+    else if (DoesBattlerGetTypeBasedAffinity(battlerId, ability, battlerId, ability, TYPE_ROCK) && holdEffect == HOLD_EFFECT_FLOAT_STONE)
         speed = (speed * 150) / 100;
     else if (holdEffect == HOLD_EFFECT_CHOICE_SCARF)
         speed = (speed * 150) / 100;
@@ -5926,7 +5926,7 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         speed *= 2;
     if (gBattleResources->flags->flags[battlerId] & RESOURCE_FLAG_UNBURDEN)
         speed *= 2;
-    if (DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_GRASS) && (gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_WATERSPORT)) //give to more grass types
+    if (DoesBattlerGetTypeBasedAffinity(battlerId, ability, battlerId, ability, TYPE_GRASS) && (gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_WATERSPORT)) //give to more grass types
         speed = (speed * 150) / 100; //should prob make grass specific text string, i.e x became revitalized  //vsonic important
         //put in moveendI guess moveend sport, just to display string vsonic
 
@@ -5954,8 +5954,8 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         //flyig tuype can still just get up and fly away
         //and strengthens type a bit, but need function for flyingmonthatcantfly or something
         //make simpler permanently grounded species could combine nah can't fit in category well
-        if ((DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB)
-        || (DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)))
+        if ((DoesBattlerGetTypeBasedAffinity(battlerId, ability, battlerId, ability, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB)
+        || (DoesBattlerGetTypeBasedAffinity(battlerId, ability, battlerId, ability, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)))
         {
             if (gDisableStructs[battlerId].TrapSetViaMoldBreaker)
                 speed /= 2;
@@ -7286,7 +7286,7 @@ bool8 TryRunFromBattle(u8 battler)
     else if (gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4 && gDisableStructs[battler].TrapSetViaMoldBreaker)
         return FALSE;
 
-    else if (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
+    else if (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), battler, GetBattlerAbility(battler), TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
     {
         ++effect;
     }//vsonic if add ability that gives ghost type affinity keep isbattlertype and add below same as aviator

@@ -624,7 +624,7 @@ bool32 IsBattlerTrapped(u8 battler, bool8 checkSwitch)
 {
     u8 holdEffect = AI_DATA->holdEffects[battler];
 
-    if ((DoesBattlerGetTypeBasedAffinity(battler, AI_DATA->abilities[battler], TYPE_GHOST))
+    if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, AI_DATA->abilities[gBattlerAttacker], battler, AI_DATA->abilities[battler], TYPE_GHOST))
     && gBattleMons[battler].species != SPECIES_SPIRITOMB
     )
     {
@@ -637,7 +637,7 @@ bool32 IsBattlerTrapped(u8 battler, bool8 checkSwitch)
     else if (gDisableStructs[battler].trappedinStickyweb)
         return FALSE;
 
-    if ((DoesBattlerGetTypeBasedAffinity(battler, AI_DATA->abilities[battler], TYPE_FLYING))
+    if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, AI_DATA->abilities[gBattlerAttacker], battler, AI_DATA->abilities[battler], TYPE_FLYING))
     && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)
     )
     {
@@ -1645,8 +1645,8 @@ bool32 IsMoveEncouragedToHit(u8 battlerAtk, u8 battlerDef, u16 move)
     if (AI_DATA->abilities[battlerDef] == ABILITY_COMPASS || AI_DATA->abilities[battlerAtk] == ABILITY_COMPASS)
         return TRUE;
 
-
-    if (gBattleMoves[move].effect == EFFECT_TOXIC && DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], TYPE_POISON))
+    //checks if attacker poison affinity
+    if (gBattleMoves[move].effect == EFFECT_TOXIC && DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], battlerAtk, AI_DATA->abilities[battlerAtk], TYPE_POISON))
         return TRUE;
 
 
@@ -1741,9 +1741,9 @@ bool32 ShouldSetSandstorm(u8 battler, u16 ability, u16 holdEffect)
       || ability == ABILITY_WIND_RIDER
       || holdEffect == HOLD_EFFECT_SAFETY_GOGGLES
       || GetBaseFormSpecies(gBattleMons[battler].species) == SPECIES_CASTFORM
-      || DoesBattlerGetTypeBasedAffinity(battler, ability, TYPE_ROCK)
-      || DoesBattlerGetTypeBasedAffinity(battler, ability, TYPE_STEEL)
-      || DoesBattlerGetTypeBasedAffinity(battler, ability, TYPE_GROUND)
+      || DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_ROCK)
+      || DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_STEEL)
+      || DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_GROUND)
       || HasMoveEffect(battler, EFFECT_SHORE_UP)
       || HasMoveEffect(battler, EFFECT_WEATHER_BALL))
     {
@@ -1767,7 +1767,7 @@ bool32 ShouldSetHail(u8 battler, u16 ability, u16 holdEffect)
       || ability == ABILITY_OVERCOAT
       || holdEffect == HOLD_EFFECT_SAFETY_GOGGLES
       || GetBaseFormSpecies(gBattleMons[battler].species) == SPECIES_CASTFORM
-      || DoesBattlerGetTypeBasedAffinity(battler, ability, TYPE_ICE)
+      || DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_ICE)
       || HasMove(battler, MOVE_BLIZZARD)
       || HasMoveEffect(battler, EFFECT_AURORA_VEIL)
       || HasMoveEffect(battler, EFFECT_COLD_FLARE)
@@ -1826,7 +1826,7 @@ bool32 ShouldSetAcidRain(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
              || atkAbility == ABILITY_POISON_PUPPETEER
              || holdEffect == HOLD_EFFECT_UTILITY_UMBRELLA
       || GetBaseFormSpecies(gBattleMons[battlerAtk].species) == SPECIES_CASTFORM
-      || DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, TYPE_POISON)
+      || DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_POISON)
       || HasMoveEffect(battlerAtk, EFFECT_THUNDER)
       || HasMoveEffect(battlerAtk, EFFECT_HURRICANE)
       || HasMoveEffect(battlerAtk, EFFECT_WEATHER_BALL)
@@ -2626,6 +2626,7 @@ static u32 GetCurseDamage(u8 battlerId)
 }
 
 //updated this for new trap sets
+//vsonic important
 static u32 GetTrapDamage(u8 battlerId) 
 {
     // ai has no knowledge about turns remaining
@@ -2690,9 +2691,9 @@ static u32 GetPoisonDamage(u8 battlerId)
 
 static bool32 BattlerAffectedBySandstorm(u8 battlerId, u16 ability)
 {
-    if (!DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_ROCK)
-      && !DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_GROUND)
-      && !DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_STEEL)
+    if (!DoesBattlerGetTypeBasedAffinity(battlerId, ability, battlerId, ability, TYPE_ROCK)
+      && !DoesBattlerGetTypeBasedAffinity(battlerId, ability, battlerId, ability, TYPE_GROUND)
+      && !DoesBattlerGetTypeBasedAffinity(battlerId, ability, battlerId, ability, TYPE_STEEL)
       && ability != ABILITY_SAND_VEIL
       && ability != ABILITY_SAND_FORCE
       && ability != ABILITY_SAND_RUSH
@@ -2705,7 +2706,7 @@ static bool32 BattlerAffectedBySandstorm(u8 battlerId, u16 ability)
 
 static bool32 BattlerAffectedByHail(u8 battlerId, u16 ability)
 {
-    if (!DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_ICE)
+    if (!DoesBattlerGetTypeBasedAffinity(battlerId, ability, battlerId, ability, TYPE_ICE)
       && ability != ABILITY_SNOW_CLOAK
       && ability != ABILITY_OVERCOAT
       && ability != ABILITY_GLACIAL_ICE
@@ -2719,7 +2720,7 @@ static bool32 BattlerAffectedByHail(u8 battlerId, u16 ability)
 
 static bool32 BattlerAffetedByAcidRain(u8 battlerId, u16 ability)
 {
-    if (!DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_POISON)
+    if (!DoesBattlerGetTypeBasedAffinity(battlerId, ability, battlerId, ability, TYPE_POISON)
              && ability != ABILITY_OVERCOAT
              && ability != ABILITY_TOXIC_WING
              && ability != ABILITY_TOXIC_BOOST

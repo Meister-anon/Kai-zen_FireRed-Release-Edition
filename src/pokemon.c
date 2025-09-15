@@ -5093,10 +5093,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //decideed to change to just electric not counterpart ability to make it better/more accessible
     if (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].hp <= (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].maxHP / 2))
     {
-        if (abilityAtk == ABILITY_PLUS && DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), TYPE_ELECTRIC))
+        if (abilityAtk == ABILITY_PLUS && DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), TYPE_ELECTRIC))
             gBattleMovePower = (150 * gBattleMovePower) / 100;
 
-        else if (abilityAtk == ABILITY_MINUS && DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), TYPE_ELECTRIC))
+        else if (abilityAtk == ABILITY_MINUS && DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), TYPE_ELECTRIC))
             gBattleMovePower = (150 * gBattleMovePower) / 100;   //used gbattlemovedamage, to stack with on field plus/minus effects , it already stacks without that
     }
 
@@ -5474,7 +5474,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
     case ABILITY_FLARE_BOOST:
         if ((gBattleMons[battlerIdAtk].status1 & STATUS1_BURN
-        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, TYPE_FIRE) && attackerHoldEffect == HOLD_EFFECT_FLAME_ORB))
+        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdAtk, abilityAtk, TYPE_FIRE) && attackerHoldEffect == HOLD_EFFECT_FLAME_ORB))
             && (MoveDamageCategory == SPLIT_SPECIAL) //!usesDefStat //IS_MOVE_SPECIAL(move))
             && IsBlackFogNotOnField())
             gBattleMovePower = (gBattleMovePower * 150 / 100);
@@ -5482,7 +5482,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
     case ABILITY_TOXIC_BOOST:
         if ((gBattleMons[battlerIdAtk].status1 & STATUS1_PSN_ANY || IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN_ANY)
-        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, TYPE_POISON) && attackerHoldEffect == HOLD_EFFECT_TOXIC_ORB)) 
+        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdAtk, abilityAtk, TYPE_POISON) && attackerHoldEffect == HOLD_EFFECT_TOXIC_ORB)) 
             && (MoveDamageCategory == SPLIT_PHYSICAL)
             && IsBlackFogNotOnField())
             gBattleMovePower = (gBattleMovePower * 150 / 100);

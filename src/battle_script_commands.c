@@ -1622,7 +1622,7 @@ static void atk00_attackcanceler(void) //vsonic
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else if (IsBattlerProtectedFromAttack(gBattlerAttacker, gBattlerTarget, gCurrentMove) //believe below means not curse but gives an exception for ghost for ghost curse
-        && (gCurrentMove != MOVE_CURSE || DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), TYPE_GHOST)) //is this correct? ok emerald has same logic so I guess its cool
+        && (gCurrentMove != MOVE_CURSE || DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), TYPE_GHOST)) //is this correct? ok emerald has same logic so I guess its cool
         && (CanTwoTurnMoveAttackThisTurn(gCurrentMove) || (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS) || !IsTwoTurnsMove(gCurrentMove))
         && gBattleMoves[gCurrentMove].effect != EFFECT_SUCKER_PUNCH
         && gBattleMoves[gCurrentMove].effect != EFFECT_UPPER_HAND)
@@ -1787,7 +1787,7 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
     }
 
     else if (gBattleMoves[move].effect == EFFECT_TOXIC
-        && DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, atkAbility, TYPE_POISON))   //ironically with type chart change I don't need this
+        && DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerAttacker, atkAbility, TYPE_POISON))   //ironically with type chart change I don't need this
     {
         JumpIfMoveFailed(7, move);
         return TRUE;
@@ -10215,9 +10215,9 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //added sixth sense as an ability not meant to relyon eyes
         //sand stream is not here beacuse it explicitly does not give weather immunity
         if (IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM_ANY) 
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, TYPE_ROCK)
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, TYPE_STEEL)
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, TYPE_GROUND)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_ROCK)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_STEEL)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_GROUND)
         && atkAbility != ABILITY_SAND_RUSH
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
@@ -10231,9 +10231,9 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //trap effect,
         if (((gBattleMons[battlerAtk].status4 & STATUS4_SAND_TOMB)
         && IsBlackFogNotOnField())
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, TYPE_ROCK)
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, TYPE_STEEL)
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, TYPE_GROUND)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_ROCK)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_STEEL)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_GROUND)
         && atkAbility != ABILITY_SAND_RUSH
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
@@ -10285,7 +10285,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
             //so they stack
 
         if (gBattleMons[battlerDef].status1 & STATUS1_SLEEP) { //.target = MOVE_TARGET_SELECTED, 
-            if (DoesBattlerGetTypeBasedAffinity(battlerDef, defAbility, TYPE_PSYCHIC)) //important chek this think have function for type checking
+            if (DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerDef, defAbility, TYPE_PSYCHIC)) //important chek this think have function for type checking
                 calc = (calc * 105) / 100; // to take advantage of these buffs I want to have a button to display real move accuracy in battle. maybe L
             else
                 //     calc = (calc * 260) / 100; // gBattleMoves[gCurrentMove].target that's the comamnd I need, then just set the target I want
@@ -10495,7 +10495,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         u8 spikesDmg = (5 - gSideTimers[GetBattlerSide(gActiveBattler)].spikesAmount) * 2;
         gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_SPIKES_TRIGGERED;
 
-        if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_GROUND)) // Absorb the spikes.
+        if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_GROUND)) // Absorb the spikes.
         {
             gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_SPIKES;
             gSideTimers[GetBattlerSide(gActiveBattler)].spikesAmount = 0;
@@ -10555,7 +10555,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
             gBattlescriptCurrInstr = BattleScript_HazardAbsorbAbilityStatBoost;
         }//need do stat change too //think need specfic one for heal no heal and also stat boost smh
         
-        else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_ROCK)) // Absorb the stealth rock.
+        else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_ROCK)) // Absorb the stealth rock.
         {
             gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEALTH_ROCK;
             gBattleScripting.battler = gActiveBattler;
@@ -10600,7 +10600,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
             }
             
         }     
-        else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_POISON)) // Absorb the toxic spikes.
+        else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_POISON)) // Absorb the toxic spikes.
         {
             gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_TOXIC_SPIKES;
             gSideTimers[GetBattlerSide(gActiveBattler)].toxicSpikesAmount = 0;
@@ -10668,7 +10668,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
             
         }
         
-        else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_STEEL)) // Absorb the stealth rock.
+        else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, GetBattlerAbility(gActiveBattler), gActiveBattler, GetBattlerAbility(gActiveBattler), TYPE_STEEL)) // Absorb the stealth rock.
         {
             gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEEL_SURGE;
             gBattleScripting.battler = gActiveBattler;
@@ -16101,9 +16101,9 @@ static void atk96_weatherdamage(void)
     {
         if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY))
         {
-            if (!DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, ability, TYPE_ROCK)
-             && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, ability, TYPE_STEEL)
-             && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, ability, TYPE_GROUND)
+            if (!DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, ability, gBattlerAttacker, ability, TYPE_ROCK)
+             && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, ability, gBattlerAttacker, ability, TYPE_STEEL)
+             && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, ability, gBattlerAttacker, ability, TYPE_GROUND)
              && ability != ABILITY_OVERCOAT
              && ability != ABILITY_SAND_RUSH
              && ability != ABILITY_SAND_VEIL
@@ -16121,7 +16121,7 @@ static void atk96_weatherdamage(void)
         }
         if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL))
         {
-            if (!DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, ability, TYPE_ICE) //add ice weather abilities
+            if (!DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, ability, gBattlerAttacker, ability, TYPE_ICE) //add ice weather abilities
              && ability != ABILITY_OVERCOAT
              && ability != ABILITY_SNOW_CLOAK
              && ability != ABILITY_ICE_BODY
@@ -16142,7 +16142,7 @@ static void atk96_weatherdamage(void)
         {
             //attempting pair down abilities into some form of pattern
             //of similar length to oher weather
-            if (!DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, ability, TYPE_POISON) //add ice weather abilities
+            if (!DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, ability, gBattlerAttacker, ability, TYPE_POISON) //add ice weather abilities
              && ability != ABILITY_OVERCOAT
              && ability != ABILITY_TOXIC_WING
              && ability != ABILITY_TOXIC_BOOST
@@ -20694,6 +20694,9 @@ void BS_HandleUltraBurst(void)
 }
 
 //jump to fail condition or go to next script
+//feels like trap set by moldbreaker should be here?
+//this a check for if battler is able to be trapped
+//on field.  vsonic IMPORTANT
 void BS_HandleEscapePrevention(void)
 {
     NATIVE_ARGS(u8 targetbattler, const u8 *failInstr);
