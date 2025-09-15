@@ -1658,6 +1658,7 @@ bool32 IsMoveEncouragedToHit(u8 battlerAtk, u8 battlerDef, u16 move)
     // increased accuracy but don't always hit
     if ((AI_WeatherHasEffect() &&
             (((gBattleWeather & WEATHER_RAIN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
+            || ((gBattleWeather & WEATHER_ACID_RAIN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
             || (((gBattleWeather & WEATHER_HAIL) && move == MOVE_BLIZZARD))))
         || (gBattleMoves[move].effect == EFFECT_VITAL_THROW)
         || ((gStatuses3[battlerDef] & STATUS3_MINIMIZED) && (gBattleMoves[move].flags & FLAG_DMG_MINIMIZE))
@@ -1801,6 +1802,41 @@ bool32 ShouldSetRain(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
         return TRUE;
     }
     return FALSE;
+}//vsonic IMPORTANT need add condition for acid rain and moonlight
+
+bool32 ShouldSetAcidRain(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
+{
+    if (!AI_WeatherHasEffect())
+        return FALSE;
+    else if (gBattleWeather & WEATHER_ACID_RAIN_ANY)
+        return FALSE;
+
+    //need to figure that out to do with umbrella
+    //should it be no umbrella or with umbrella?
+    //this seems right
+    if (atkAbility == ABILITY_OVERCOAT
+             || atkAbility == ABILITY_TOXIC_WING
+             || atkAbility == ABILITY_TOXIC_BOOST
+             || atkAbility == ABILITY_TOXIC_CHAIN
+             || atkAbility == ABILITY_TOXIC_DEBRIS
+             || atkAbility == ABILITY_POISON_HEAL
+             || atkAbility == ABILITY_POISON_TOUCH
+             || atkAbility == ABILITY_POISON_POINT
+             || atkAbility == ABILITY_POISONED_LEGACY
+             || atkAbility == ABILITY_POISON_PUPPETEER
+             || holdEffect == HOLD_EFFECT_UTILITY_UMBRELLA
+      || GetBaseFormSpecies(gBattleMons[battlerAtk].species) == SPECIES_CASTFORM
+      || DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, TYPE_POISON)
+      || HasMoveEffect(battlerAtk, EFFECT_THUNDER)
+      || HasMoveEffect(battlerAtk, EFFECT_HURRICANE)
+      || HasMoveEffect(battlerAtk, EFFECT_WEATHER_BALL)
+      || HasMoveWithType(battlerAtk, TYPE_WATER)
+      || HasMoveWithType(battlerAtk, TYPE_FIRE))
+    {
+        return TRUE;
+    }
+    return FALSE;
+
 }
 
 bool32 ShouldSetSun(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
@@ -1832,6 +1868,29 @@ bool32 ShouldSetSun(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
     return FALSE;
 }
 //vsonic
+
+bool32 ShouldSetMoon(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
+{
+    if (!AI_WeatherHasEffect())
+        return FALSE;
+    else if (gBattleWeather & WEATHER_MOON_ANY)
+        return FALSE;
+
+    if (holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA
+     && (atkAbility == ABILITY_LUNAR_SOLSTICE
+      || atkAbility == ABILITY_LUNAR_POWER
+      || atkAbility == ABILITY_NEW_MOON
+      //|| GetBaseFormSpecies(gBattleMons[battlerAtk].species) == SPECIES_CASTFORM
+      || HasMoveEffect(battlerAtk, EFFECT_MOONLIGHT)
+      || HasMoveEffect(battlerAtk, EFFECT_WEATHER_BALL)
+      || HasMoveWithType(battlerAtk, TYPE_FAIRY)
+      || HasMoveWithType(battlerAtk, TYPE_WATER)))
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+//castform doesn't benefit from this at all
 
 void ProtectChecks(u8 battlerAtk, u8 battlerDef, u16 move, u16 predictedMove, s16 *score)
 {
@@ -2658,6 +2717,25 @@ static bool32 BattlerAffectedByHail(u8 battlerId, u16 ability)
     return FALSE;
 }
 
+static bool32 BattlerAffetedByAcidRain(u8 battlerId, u16 ability)
+{
+    if (!DoesBattlerGetTypeBasedAffinity(battlerId, ability, TYPE_POISON)
+             && ability != ABILITY_OVERCOAT
+             && ability != ABILITY_TOXIC_WING
+             && ability != ABILITY_TOXIC_BOOST
+             && ability != ABILITY_TOXIC_CHAIN
+             && ability != ABILITY_TOXIC_DEBRIS
+             && ability != ABILITY_POISON_HEAL
+             && ability != ABILITY_POISON_TOUCH
+             && ability != ABILITY_POISON_POINT
+             && ability != ABILITY_POISONED_LEGACY
+             && ability != ABILITY_POISON_PUPPETEER
+             && GetBaseFormSpecies(gBattleMons[battlerId].species) != SPECIES_CASTFORM)
+             return TRUE;
+    return FALSE;
+}
+
+//vsonic add acid rain here
 static u32 GetWeatherDamage(u8 battlerId)
 {
     u32 ability = AI_DATA->abilities[battlerId];
@@ -2677,11 +2755,22 @@ static u32 GetWeatherDamage(u8 battlerId)
                 damage = 1;
         }
     }
-    if ((gBattleWeather & WEATHER_HAIL) && ability != ABILITY_ICE_BODY)
+    if ((gBattleWeather & WEATHER_HAIL_ANY) && ability != ABILITY_ICE_BODY)
     {
         if (BattlerAffectedByHail(battlerId, ability)
           && !(gStatuses3[battlerId] & (STATUS3_UNDERGROUND | STATUS3_UNDERWATER))
           && holdEffect != HOLD_EFFECT_SAFETY_GOGGLES)
+        {
+            damage = gBattleMons[battlerId].maxHP / 16;
+            if (damage == 0)
+                damage = 1;
+        }
+    }
+    if (gBattleWeather & WEATHER_ACID_RAIN_ANY)
+    {
+        if (BattlerAffetedByAcidRain(battlerId, ability)
+          && !(gStatuses3[battlerId] & (STATUS3_UNDERGROUND | STATUS3_UNDERWATER))
+          && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
         {
             damage = gBattleMons[battlerId].maxHP / 16;
             if (damage == 0)
@@ -2710,7 +2799,7 @@ u32 GetBattlerSecondaryDamage(u8 battlerId)
 
 bool32 BattlerWillFaintFromWeather(u8 battler, u16 ability)
 {
-    if ((BattlerAffectedBySandstorm(battler, ability) || BattlerAffectedByHail(battler, ability))
+    if ((BattlerAffectedBySandstorm(battler, ability) || BattlerAffectedByHail(battler, ability) || BattlerAffetedByAcidRain(battler, ability))
       && gBattleMons[battler].hp <= gBattleMons[battler].maxHP / 16)
         return TRUE;
 

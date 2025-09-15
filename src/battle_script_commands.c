@@ -1897,6 +1897,7 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
     }
 
     if ((IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_RAIN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
+        || ((IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ACID_RAIN_ANY)) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
         || ((IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY)) && move == MOVE_BLIZZARD)
         || (gBattleMoves[move].effect == EFFECT_ALWAYS_HIT || gBattleMoves[move].effect == EFFECT_VITAL_THROW)
         || ((gStatuses3[gBattlerTarget] & STATUS3_MINIMIZED) && (gBattleMoves[move].flags & FLAG_DMG_MINIMIZE)))
@@ -16143,13 +16144,13 @@ static void atk96_weatherdamage(void)
             //of similar length to oher weather
             if (!DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, ability, TYPE_POISON) //add ice weather abilities
              && ability != ABILITY_OVERCOAT
-             //&& ability != ABILITY_TOXIC_WING
+             && ability != ABILITY_TOXIC_WING
              && ability != ABILITY_TOXIC_BOOST
              && ability != ABILITY_TOXIC_CHAIN
              && ability != ABILITY_TOXIC_DEBRIS
              && ability != ABILITY_POISON_HEAL
-             //&& ability != ABILITY_POISON_TOUCH
-             //&& ability != ABILITY_POISON_POINT
+             && ability != ABILITY_POISON_TOUCH
+             && ability != ABILITY_POISON_POINT
              && ability != ABILITY_POISONED_LEGACY
              && ability != ABILITY_POISON_PUPPETEER
              && GetBaseFormSpecies(gBattleMons[gBattlerAttacker].species) != SPECIES_CASTFORM)

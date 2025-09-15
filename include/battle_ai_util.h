@@ -115,7 +115,9 @@ void ProtectChecks(u8 battlerAtk, u8 battlerDef, u16 move, u16 predictedMove, s1
 bool32 ShouldSetSandstorm(u8 battler, u16 ability, u16 holdEffect);
 bool32 ShouldSetHail(u8 battler, u16 ability, u16 holdEffect);
 bool32 ShouldSetRain(u8 battlerAtk, u16 ability, u16 holdEffect);
+bool32 ShouldSetAcidRain(u8 battlerAtk, u16 atkAbility, u16 holdEffect);
 bool32 ShouldSetSun(u8 battlerAtk, u16 atkAbility, u16 holdEffect);
+bool32 ShouldSetMoon(u8 battlerAtk, u16 atkAbility, u16 holdEffect);
 bool32 HasSleepMoveWithLowAccuracy(u8 battlerAtk, u8 battlerDef);
 bool32 IsHealingMoveEffect(u16 effect);
 bool32 HasHealingEffect(u32 battler);

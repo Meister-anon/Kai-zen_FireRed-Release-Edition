@@ -2873,8 +2873,20 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             RETURN_SCORE_PLUS(1);   // our partner benefits from rain
         }
         break;
+    case EFFECT_ACID_RAIN:
+        if (ShouldSetAcidRain(battlerAtkPartner, atkPartnerAbility, atkPartnerHoldEffect))
+        {
+            RETURN_SCORE_PLUS(1);   // our partner benefits from rain
+        }
+        break;
     case EFFECT_SUNNY_DAY:
         if (ShouldSetSun(battlerAtkPartner, atkPartnerAbility, atkPartnerHoldEffect))
+        {
+            RETURN_SCORE_PLUS(1);   // our partner benefits from sun
+        }
+        break;
+    case EFFECT_MOONDANCE:
+        if (ShouldSetMoon(battlerAtkPartner, atkPartnerAbility, atkPartnerHoldEffect))
         {
             RETURN_SCORE_PLUS(1);   // our partner benefits from sun
         }

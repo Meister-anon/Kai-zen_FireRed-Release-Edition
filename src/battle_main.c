@@ -1380,8 +1380,12 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
             gBattleStruct->dynamicMoveType = TYPE_ROCK;
         else if (gBattleWeather & WEATHER_SUN_ANY)
             gBattleStruct->dynamicMoveType = TYPE_FIRE;
+        else if (gBattleWeather & WEATHER_MOON_ANY)
+            gBattleStruct->dynamicMoveType = TYPE_FAIRY;
         else if (gBattleWeather & WEATHER_HAIL_ANY)
             gBattleStruct->dynamicMoveType = TYPE_ICE;
+        else if (gBattleWeather & WEATHER_ACID_RAIN_ANY)
+            gBattleStruct->dynamicMoveType = TYPE_POISON;
         else if (gBattleWeather & WEATHER_STRONG_WINDS)
             gBattleStruct->dynamicMoveType = TYPE_FLYING;
         else
@@ -1577,8 +1581,12 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
             moveType = TYPE_ROCK;
         else if (gBattleWeather & WEATHER_SUN_ANY)
             moveType = TYPE_FIRE;
+        else if (gBattleWeather & WEATHER_MOON_ANY)
+            moveType = TYPE_FAIRY;
         else if (gBattleWeather & WEATHER_HAIL_ANY)
             moveType = TYPE_ICE;
+        else if (gBattleWeather & WEATHER_ACID_RAIN_ANY)
+            moveType = TYPE_POISON;
         else if (gBattleWeather & WEATHER_STRONG_WINDS)
             moveType = TYPE_FLYING;
         else

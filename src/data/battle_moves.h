@@ -14349,11 +14349,11 @@ use wonder gaurd logic to determine its super effective
         .flags = 0,
         .split = SPLIT_STATUS,
     },
-    //EFFECT_MOONDANCE
+    //EFFECT_MOONDANCE //intentional spelling don't add space
 
     [MOVE_ACID_RAIN] =
     {
-        .effect = EFFECT_ACIDRAIN,
+        .effect = EFFECT_ACID_RAIN,
         .power = 0,
         .type = TYPE_POISON,
         .accuracy = 0,
