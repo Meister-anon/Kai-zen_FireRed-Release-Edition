@@ -28942,11 +28942,11 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        62,
+        70,
         135,
         95,
         65,
-        68,
+        60,
         82
         ),
         MON_TYPES(TYPE_FIGHTING, TYPE_FLYING),
@@ -28960,7 +28960,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_STEADFAST, ABILITY_NONE},
+        .abilities = {ABILITY_STEADFAST, ABILITY_SHARPNESS},
         .abilityHidden = {ABILITY_SCRAPPY, ABILITY_PRECISE_STRIKE},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
@@ -28972,6 +28972,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
     //previously evolved by landing critical hits so makes sense to have this
+    //give sacred sword potentially sharpness
 
     [SPECIES_MR_RIME] =
     {
@@ -42414,7 +42415,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_STEADFAST, ABILITY_NONE},
+        .abilities = {ABILITY_STEADFAST, ABILITY_SHARPNESS},
         .abilityHidden = {ABILITY_SCRAPPY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
