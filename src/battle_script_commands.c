@@ -19804,7 +19804,7 @@ static UNUSED void atkEC_pursuitrelated(void)
         gCurrentMove = gChosenMoveByBattler[gActiveBattler];
         gBattlescriptCurrInstr += 5;
         gBattleScripting.animTurn = 1;
-        gBattleScripting.field_25_pursuitDoublesAttacker = gBattlerAttacker;
+        //gBattleScripting.field_25_pursuitDoublesAttacker = gBattlerAttacker;
         gBattlerAttacker = gActiveBattler;
     }
     else
