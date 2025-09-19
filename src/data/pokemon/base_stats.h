@@ -4853,6 +4853,10 @@ const struct BaseStats gBaseStats[] =
     },//ok so mewtwo is apparently worst legendary thanks to power creep
     //so I guess making float is fine?
     //wouldn't protect from precipice blades but every little bit helps I guess
+    //give this and audino heal pulse back
+    //maybe assault vest on this would work?
+    //ok this isn't so bad now, I forgot how I buffed abilities,
+    //pressure is actually a legimite niche intsead of just unnerve
 
     [SPECIES_MEW] =
     {
@@ -40158,22 +40162,21 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        86,
-        160,
+        91,
+        154,
         85,
         145,
-        134,
+        145,
         100
         ),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FIGHTING),
         .catchRate = 3,
-        .expYield = 351,
-        //.evYield_SpAttack = 3,
-        .genderRatio = MON_GENDERLESS,
-        .eggCycles = 120,
-        .friendship = FRIENDSHIP_LEGENDARY,
+        .expYield = 351,//feels like even w speed boost cutting hp ruins this
+        .genderRatio = MON_GENDERLESS,//compared to y, specially if it gets psychic surge
+        .eggCycles = 120, //maybe give it apothescent so it can get swagger boosted?
+        .friendship = FRIENDSHIP_LEGENDARY,//very cool but then the strat would just be to flinch and oduble target it...
         .growthRate = GROWTH_SLOW,
-        .eggGroup1 = EGG_GROUP_UNDISCOVERED,
+        .eggGroup1 = EGG_GROUP_UNDISCOVERED, //ok readjusted to give back some bulk
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_INNER_FOCUS, ABILITY_INNER_FOCUS},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
@@ -40210,7 +40213,7 @@ const struct BaseStats gBaseStats[] =
         70,
         140,
         174,
-        120
+        130
         ),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 3,
@@ -40222,9 +40225,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_EARLY_BIRD, ABILITY_EARLY_BIRD},
+        .abilities = {ABILITY_PSYCHIC_SURGE, ABILITY_PSYCHIC_SURGE},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_PURPLE,
+        .bodyColor = BODY_COLOR_PURPLE, //as early bird but think too strong
         .noFlip = FALSE,
         .floating = TRUE,
         .safariZoneFleeRate = 50,
@@ -40237,6 +40240,7 @@ const struct BaseStats gBaseStats[] =
     //Maybe instead of insomnia give early bird and with the buff have it be another 
     //case of ironically beign better than full blocking status
     //give rest and use that to heal rather than recover to also get stat buff on wake?
+    //early bird is niche but psychic surge really suits so much better
 
     [SPECIES_AMPHAROS_MEGA] =
     {
