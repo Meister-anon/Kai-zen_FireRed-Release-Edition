@@ -2556,6 +2556,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     for some reason it only uses wrap/bind animation
     )
 
+    9/19/25
+    IMPORTANT
+    idea add mechanic to megas give 15% health restore 
+    on mega evolve.
+    for reference leftovers heals 12.5% per turn
+
     note**(
     rework gym matcher  guy in all gyms
     to give purpose have him state the level of the leader's ace pokemon
