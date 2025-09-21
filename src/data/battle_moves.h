@@ -3296,7 +3296,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 [MOVE_GIGA_DRAIN] =
 {
     #if B_UPDATED_MOVE_DATA >= GEN_5
-        .power = 95,
+        .power = 85,
         .pp = 15,
     #elif B_UPDATED_MOVE_DATA == GEN_4
         .power = 60,
@@ -3313,7 +3313,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_SPECIAL,
-},
+},//actually think 95 is too much power for a healing move
+//did need better grass moves but going to 95 power was too much
 
 [MOVE_ENDURE] =
 {   //prefer keeping at priority 3 hmm point of making +4 is to survive fake out.. ok i'll do it
@@ -14381,5 +14382,18 @@ use wonder gaurd logic to determine its super effective
     //will be ice move that fires in one turn
     //if in hail
     
+    [MOVE_LIFE_DRAIN] =
+    {
+        .effect = EFFECT_ABSORB,
+        .power = 80,
+        .type = TYPE_GHOST,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .split = SPLIT_PHYSICAL,
+    },//decide make phsyical counter of shadow ball, but healings
+    //undecided if should make tm
 
 };

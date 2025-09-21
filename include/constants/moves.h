@@ -914,7 +914,8 @@
 #define MOVE_MOONDANCE          880  //moon version of sunny day
 #define MOVE_ACID_RAIN          881   //poison move to make acid rain
 #define MOVE_COLD_FRONT         882     //ice solar beam, 
-#define MOVE_NA                 883 //avoid extra copy paste
+#define MOVE_LIFE_DRAIN         883     //mostly for giratina but ghost healing attack
+#define MOVE_NA                 884 //avoid extra copy paste
 
 //for completion new moves have to be defined in:  move_descriptions.inc,  move_names.h, & battle_anim_scripts.s
 // also need actual move data in battle_moves.h
