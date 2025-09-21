@@ -15219,6 +15219,9 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },
+    //making healing move for viability
+    //as meant to be a defensive mon
+    //ghost type heal move
 
     [SPECIES_CRESSELIA] =
     {
@@ -45569,6 +45572,15 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGiratinaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //not super fast, what if I made it a trick room mon?
+    //could make inverse world and nature of existing in a distorted space
+    //the attribute of ignoring trick room.
+    //meaning its turn order would be calculated as it normally would
+    //i.e faster mon would become slower, slower mon would still be slower
+    //since its turn order is still dictated by highest speed?
+    //idea being trick room twists/distorts dimmensions
+    //and this pokemon is home to the most distorted world
+    //so it should excel the most vsonic
 
     [SPECIES_SHAYMIN_SKY] =
     {
