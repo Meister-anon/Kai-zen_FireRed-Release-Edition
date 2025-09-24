@@ -129,7 +129,7 @@ static EWRAM_DATA u16 * sTMSpritePaletteBuffer = NULL;
 static EWRAM_DATA u8    spriteIdData[PARTY_SIZE] = {};
 static EWRAM_DATA u16   spriteIdPalette[PARTY_SIZE] = {};
 
-extern const struct SpritePalette gMonIconPaletteTable[6];
+//extern const struct SpritePalette gMonIconPaletteTable[6];
 
 static void CB2_SetUpTMCaseUI_Blocking(void);
 static bool8 DoSetUpTMCaseUI(void);
@@ -2054,7 +2054,7 @@ static void SpriteCb_MonIcon(struct Sprite *sprite)
 void LoadMonIconPalettesTinted(void)
 {
     u8 i;
-    for (i = 0; i < ARRAY_COUNT(gMonIconPaletteTable); i++)
+    for (i = 0; i < MAX_ICON_PALETTES; i++)
     {
         LoadSpritePalette(&gMonIconPaletteTable[i]);
         TintPalette_GrayScale2(&gPlttBufferUnfaded[0x170 + i*16], 16);

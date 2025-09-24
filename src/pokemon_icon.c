@@ -2513,7 +2513,7 @@ const u8 gMonIconPaletteIndicesFemale[] =
     [SPECIES_EEVEE] = 2,
 };*/
 
-const struct SpritePalette gMonIconPaletteTable[] = {
+const struct SpritePalette gMonIconPaletteTable[MAX_ICON_PALETTES] = {
     { gMonIconPalettes[0], POKE_ICON_BASE_PAL_TAG + 0 },
     { gMonIconPalettes[1], POKE_ICON_BASE_PAL_TAG + 1 },
     { gMonIconPalettes[2], POKE_ICON_BASE_PAL_TAG + 2 },

@@ -6,6 +6,8 @@
 
 
 
+extern const struct CompressedSpriteSheet gBallSpriteSheets[POKEBALL_COUNT];
+extern const struct CompressedSpritePalette gBallSpritePalettes[POKEBALL_COUNT];
 extern const struct SpriteTemplate gBallSpriteTemplates[];
 
 #define POKEBALL_PLAYER_SENDOUT     0xFF

@@ -3,8 +3,9 @@
 
 #include "global.h"
 
+#define MAX_ICON_PALETTES 6 //for num palettes in gMonIconPaletteTable
+extern const struct SpritePalette gMonIconPaletteTable[]; //just a define for tm case mostly
 extern const u16 gMonIconPalettes[][16];
-extern const u8 gMonIconPaletteIndices[];
 
 const u8 *GetMonIconPtr(u16 speciesId, u32 personality, u32 frameNo);
 const u8 *GetMonIconTiles(u16 iconSpecies, bool32 extra);

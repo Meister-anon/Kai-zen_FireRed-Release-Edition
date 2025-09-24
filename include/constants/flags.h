@@ -1379,7 +1379,7 @@
 #define FLAG_MET_MOVE_DELETER                                       (SYS_FLAGS + 0x35)
 #define FLAG_MET_MOVE_REMINDER                                      (SYS_FLAGS + 0x36)//these 2 flags are for filtering messages in new script
 #define FLAG_RTC_TOGGLE                                              (SYS_FLAGS + 0x37)
-#define FLAG_NATIONAL_DEX_TOGGLE                                    (SYS_FLAGS + 0x38)
+#define FLAG_NATIONAL_DEX_TOGGLE                                    (SYS_FLAGS + 0x38)  //set never read
 #define FLAG_SYS_MYSTERY_GIFT_ENABLED                               (SYS_FLAGS + 0x39)
 #define FLAG_0x83A                                                  (SYS_FLAGS + 0x3A)
 #define FLAG_SYS_RIBBON_GET                                         (SYS_FLAGS + 0x3B)
