@@ -64,41 +64,43 @@ static u16 sRecvNonzeroCheck;
 static u8 sChecksumAvailable;
 static u8 sHandshakePlayerCount;
 
-u16 gLinkPartnersHeldKeys[6];
-u32 gLinkDebugSeed;
-struct LinkPlayerBlock gLocalLinkPlayerBlock;
-bool8 gLinkErrorOccurred;
-u32 gLinkDebugFlags;
-u32 gFiller_3003EB4;
-bool8 gRemoteLinkPlayersNotReceived[MAX_LINK_PLAYERS];
-u8 gBlockReceivedStatus[MAX_LINK_PLAYERS];
-u32 gFiller_3003EC0;
-u16 gLinkHeldKeys;
-u16 ALIGNED(4) gRecvCmds[MAX_RFU_PLAYERS][CMD_LENGTH];
-u32 gLinkStatus;
-bool8 gLinkAllAcked5FFF;
-bool8 gUnknown_3003F28;
-bool8 gLinkCommand2FFEAck[MAX_LINK_PLAYERS];
-bool8 gLinkCommand5FFFAck[MAX_LINK_PLAYERS];
-u16 gLinkCmd5FFFparam;
-u8 gSuppressLinkErrorMessage;
-u8 gWirelessCommType;
-u8 gSavedLinkPlayerCount;
-u16 gSendCmd[CMD_LENGTH];
-u8 gSavedMultiplayerId;
-bool8 gReceivedRemoteLinkPlayers;
-struct LinkTestBGInfo gLinkTestBGInfo;
-void (*gLinkCallback)(void);
-u8 gShouldAdvanceLinkState;
-u16 gLinkTestBlockChecksums[MAX_LINK_PLAYERS];
-u8 gBlockRequestType;
-u32 gFiller_3003F94; // file
-u32 gFiller_3003F98; // boundary
-u32 gFiller_3003F9C; // here?
-u8 gLastSendQueueCount;
-struct Link gLink;
-u8 gLastRecvQueueCount;
-u16 gLinkSavedIme;
+
+COMMON_DATA u16 gLinkPartnersHeldKeys[6] = {0};
+COMMON_DATA u32 gLinkDebugSeed = 0;
+COMMON_DATA struct LinkPlayerBlock gLocalLinkPlayerBlock = {0};
+COMMON_DATA bool8 gLinkErrorOccurred = 0;
+COMMON_DATA u32 gLinkDebugFlags = 0;
+COMMON_DATA u32 gLinkFiller1 = 0;
+COMMON_DATA bool8 gRemoteLinkPlayersNotReceived[MAX_LINK_PLAYERS] = {0};
+COMMON_DATA u8 gBlockReceivedStatus[MAX_LINK_PLAYERS] = {0};
+COMMON_DATA u32 gLinkFiller2 = 0;
+COMMON_DATA u16 gLinkHeldKeys = 0;
+COMMON_DATA u16 ALIGNED(4) gRecvCmds[MAX_RFU_PLAYERS][CMD_LENGTH] = {0};
+COMMON_DATA u32 gLinkStatus = 0;
+COMMON_DATA bool8 gLinkDummy1 = 0; // Never read
+COMMON_DATA bool8 gLinkDummy2 = 0; // Never read
+COMMON_DATA bool8 gReadyToExitStandby[MAX_LINK_PLAYERS] = {0};
+COMMON_DATA bool8 gReadyToCloseLink[MAX_LINK_PLAYERS] = {0};
+COMMON_DATA u16 gReadyCloseLinkType = 0;
+COMMON_DATA u8 gSuppressLinkErrorMessage = 0;
+COMMON_DATA u8 gWirelessCommType = 0;
+COMMON_DATA u8 gSavedLinkPlayerCount = 0;
+COMMON_DATA u16 gSendCmd[CMD_LENGTH] = {0};
+COMMON_DATA u8 gSavedMultiplayerId = 0;
+COMMON_DATA bool8 gReceivedRemoteLinkPlayers = 0;
+COMMON_DATA struct LinkTestBGInfo gLinkTestBGInfo = {0};
+COMMON_DATA void (*gLinkCallback)(void) = NULL;
+COMMON_DATA u8 gShouldAdvanceLinkState = 0;
+COMMON_DATA u16 gLinkTestBlockChecksums[MAX_LINK_PLAYERS] = {0};
+COMMON_DATA u8 gBlockRequestType = 0;
+COMMON_DATA u32 gLinkFiller3 = 0; // file
+COMMON_DATA u32 gLinkFiller4 = 0; // boundary
+COMMON_DATA u32 gLinkFiller5 = 0; // here?
+COMMON_DATA u8 gLastSendQueueCount = 0;
+COMMON_DATA struct Link gLink = {0};
+COMMON_DATA u8 gLastRecvQueueCount = 0;
+COMMON_DATA u16 gLinkSavedIme = 0;
+
 
 EWRAM_DATA bool8 gLinkTestDebugValuesEnabled = FALSE;
 EWRAM_DATA bool8 gUnknown_2022111 = FALSE;
@@ -373,9 +375,9 @@ void OpenLink(void)
         ResetBlockReceivedFlags();
         ResetBlockSend();
         gUnknown_3000E4C = 0;
-        gUnknown_3003F28 = FALSE;
-        gLinkAllAcked5FFF = FALSE;
-        gLinkCmd5FFFparam = 0;
+        gLinkDummy2 = FALSE;
+        gLinkDummy1 = FALSE;
+        gReadyCloseLinkType = 0;
         CreateTask(Task_TriggerHandshake, 2);
     }
     else
@@ -386,8 +388,8 @@ void OpenLink(void)
     for (i = 0; i < MAX_LINK_PLAYERS; i++)
     {
         gRemoteLinkPlayersNotReceived[i] = TRUE;
-        gLinkCommand5FFFAck[i] = FALSE;
-        gLinkCommand2FFEAck[i] = FALSE;
+        gReadyToCloseLink[i] = FALSE;
+        gReadyToExitStandby[i] = FALSE;
     }
 }
 
@@ -552,10 +554,10 @@ void ProcessRecvCmds(u8 unused)
             gLinkPartnersHeldKeys[i] = gRecvCmds[i][1];
             break;
         case LINKCMD_0x5555:
-            gUnknown_3003F28 = TRUE;
+            gLinkDummy2 = TRUE;
             break;
         case LINKCMD_0x5566:
-            gUnknown_3003F28 = TRUE;
+            gLinkDummy2 = TRUE;
             break;
         case LINKCMD_INIT_BLOCK:
         {
@@ -628,10 +630,10 @@ void ProcessRecvCmds(u8 unused)
         }
             break;
         case LINKCMD_0x5FFF:
-            gLinkCommand5FFFAck[i] = TRUE;
+            gReadyToCloseLink[i] = TRUE;
             break;
         case LINKCMD_0x2FFE:
-            gLinkCommand2FFEAck[i] = TRUE;
+            gReadyToExitStandby[i] = TRUE;
             break;
         case LINKCMD_0xAAAA:
             sub_800A3CC();
@@ -697,7 +699,7 @@ void BuildSendCmd(u16 command)
         break;
     case LINKCMD_0x5FFF:
         gSendCmd[0] = LINKCMD_0x5FFF;
-        gSendCmd[1] = gLinkCmd5FFFparam;
+        gSendCmd[1] = gReadyCloseLinkType;
         break;
     case LINKCMD_0x5566:
         gSendCmd[0] = LINKCMD_0x5566;
@@ -1319,8 +1321,8 @@ void Link_StartSend5FFFwithParam(u16 a0)
         if (gLinkCallback == NULL)
         {
             gLinkCallback = LinkCB_BuildCommand5FFF;
-            gLinkAllAcked5FFF = FALSE;
-            gLinkCmd5FFFparam = a0;
+            gLinkDummy1 = FALSE;
+            gReadyCloseLinkType = a0;
         }
     }
 }
@@ -1340,8 +1342,8 @@ void SetCloseLinkCallback(void)
         else
         {
             gLinkCallback = LinkCB_BuildCommand5FFF;
-            gLinkAllAcked5FFF = FALSE;
-            gLinkCmd5FFFparam = 0;
+            gLinkDummy1 = FALSE;
+            gReadyCloseLinkType = 0;
         }
     }
 }
@@ -1365,7 +1367,7 @@ static void LinkCB_WaitAckCommand5FFF(void)
     count = 0;
     for (i = 0; i < linkPlayerCount; i++)
     {
-        if (gLinkCommand5FFFAck[i])
+        if (gReadyToCloseLink[i])
         {
             count++;
         }
@@ -1376,7 +1378,7 @@ static void LinkCB_WaitAckCommand5FFF(void)
         gLinkVSyncDisabled = TRUE;
         CloseLink();
         gLinkCallback = NULL;
-        gLinkAllAcked5FFF = TRUE;
+        gLinkDummy1 = TRUE;
     }
 }
 
@@ -1392,7 +1394,7 @@ void SetLinkStandbyCallback(void)
         {
             gLinkCallback = LinkFunc_Send2FFE_1;
         }
-        gLinkAllAcked5FFF = FALSE;
+        gLinkDummy1 = FALSE;
     }
 }
 
@@ -1413,7 +1415,7 @@ static void LinkFunc_Send2FFE_2(void)
     linkPlayerCount = GetLinkPlayerCount();
     for (i = 0; i < linkPlayerCount; i++)
     {
-        if (!gLinkCommand2FFEAck[i])
+        if (!gReadyToExitStandby[i])
         {
             break;
         }
@@ -1422,7 +1424,7 @@ static void LinkFunc_Send2FFE_2(void)
     {
         for (i = 0; i < MAX_LINK_PLAYERS; i++)
         {
-            gLinkCommand2FFEAck[i] = FALSE;
+            gReadyToExitStandby[i] = FALSE;
         }
         gLinkCallback = NULL;
     }

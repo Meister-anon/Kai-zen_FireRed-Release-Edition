@@ -55,8 +55,8 @@ struct ListMenuOverride
 
 static EWRAM_DATA struct MysteryGiftLinkMenuStruct sMysteryGiftLinkMenu = {0};
 
-struct ListMenuOverride gListMenuOverride;
-struct ListMenuTemplate gMultiuseListMenuTemplate;
+COMMON_DATA struct ListMenuOverride gListMenuOverride = {0};
+COMMON_DATA struct ListMenuTemplate gMultiuseListMenuTemplate = {0};
 
 static u8 ListMenuInitInternal(const struct ListMenuTemplate *listMenuTemplate, u16 cursorPos, u16 itemsAbove, u8 listMode);
 static void ListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOffset, u16 count, u8 listMode);

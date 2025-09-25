@@ -26,7 +26,7 @@
 #include "constants/cable_club.h"
 #include "constants/field_weather.h"
 
-u32 UnusedVarNeededToMatch[8];
+COMMON_DATA u32 UnusedVarNeededToMatch[8] = {0};
 
 static void Task_Linkup0(u8 taskId);
 static void Task_Linkup1(u8 taskId);

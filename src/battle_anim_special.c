@@ -35,13 +35,14 @@
 #define TAG_HEALTHBOX_PALS_1      55049
 #define TAG_HEALTHBOX_PALS_2      55050
 
+
 #define HIHALF(n) (((n) & 0xFFFF0000) >> 16)
 #define LOHALF(n) ((n) & 0xFFFF)
 
-// RAM
-UNUSED u32 gMonShrinkDuration;
-UNUSED u16 gMonShrinkDelta;
-UNUSED u16 gMonShrinkDistance;
+
+COMMON_DATA u32 gMonShrinkDuration = 0;
+COMMON_DATA u16 gMonShrinkDelta = 0;
+COMMON_DATA u16 gMonShrinkDistance = 0;
 
 // Function Declarations
 static void AnimTask_UnusedLevelUpHealthBox_Step(u8);

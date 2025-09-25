@@ -26,7 +26,7 @@ static const struct MapConnection*GetIncomingConnection(u8 direction, s32 x, s32
 static bool8 IsPosInIncomingConnectingMap(u8 direction, s32 x, s32 y, const struct MapConnection *connection);
 static bool8 IsCoordInIncomingConnectingMap(s32 x, s32 src_width, s32 dest_width, s32 offset);
 
-struct BackupMapLayout VMap;
+COMMON_DATA struct BackupMapLayout VMap = {0};
 EWRAM_DATA u16 gBackupMapData[VIRTUAL_MAP_SIZE] = {};
 EWRAM_DATA struct MapHeader gMapHeader = {};
 EWRAM_DATA struct Camera gCamera = {};

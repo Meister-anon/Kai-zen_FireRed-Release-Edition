@@ -9,23 +9,33 @@
 #include "help_system.h"
 #include "m4a.h"
 
-// Static type declarations
+enum {
+    SCENE_ENSURE_CONNECT,
+    SCENE_TURN_OFF_POWER,
+    SCENE_TRANSMITTING,
+    SCENE_FOLLOW_INSTRUCT,
+    SCENE_TRANSMIT_FAILED,
+    SCENE_BEGIN,
+};
 
-typedef struct {
-    u8 state;
-    u8 unk1;
-    u16 unk2;
-    struct MultiBootParam mb;
-} berryfix_t;
+enum {
+    STATE_BEGIN,
+    STATE_CONNECT,
+    STATE_TURN_OFF_POWER,
+    STATE_UNUSED,
+    STATE_INIT_MULTIBOOT,
+    STATE_MULTIBOOT,
+    STATE_TRANSMIT,
+    STATE_SUCCEEDED,
+    STATE_EXIT,
+    STATE_FAILED,
+    STATE_RETRY,
+};
 
-// Static RAM declarations
-
-const void * gUnknown_3005EF0;
-int gUnknown_3005EF4;
-size_t gUnknown_3005EF8;
-struct MultiBootParam gUnknown_3005F00;
-
-// Static ROM declarations
+COMMON_DATA const void *gMultibootStart = NULL;
+COMMON_DATA int gMultibootStatus = 0;
+COMMON_DATA size_t gMultibootSize = 0;
+COMMON_DATA struct MultiBootParam gMultibootParam = {0};
 
 static void mb_berry_fix_maincb(void);
 static void mb_berry_fix_task(u8 taskId);
@@ -64,6 +74,9 @@ extern const u8 gMultiBootProgram_BerryGlitchFix_Start[0x3BF4];
 extern const u8 gMultiBootProgram_BerryGlitchFix_End[];
 
 // .text
+
+#define tState data[0]
+#define tTimer data[1]
 
 static void mb_berry_fix_print(int scene)
 {
@@ -125,44 +138,48 @@ static void mb_berry_fix_task(u8 taskId)
             data[0] = 4;
         }
         break;
-    case 4:
-        gUnknown_3005EF0 = gMultiBootProgram_BerryGlitchFix_Start;
-        gUnknown_3005EF8 = gMultiBootProgram_BerryGlitchFix_End - gMultiBootProgram_BerryGlitchFix_Start;
-        gUnknown_3005F00.masterp = (void *)gMultiBootProgram_BerryGlitchFix_Start;
-        gUnknown_3005F00.server_type = MULTIBOOT_SERVER_TYPE_NORMAL;
-        MultiBootInit(&gUnknown_3005F00);
-        data[1] = 0;
-        data[0] = 5;
+    case STATE_INIT_MULTIBOOT:
+        gMultibootStart = gMultiBootProgram_BerryGlitchFix_Start;
+        gMultibootSize = gMultiBootProgram_BerryGlitchFix_End - gMultiBootProgram_BerryGlitchFix_Start;
+        gMultibootParam.masterp = (void *)gMultiBootProgram_BerryGlitchFix_Start;
+        gMultibootParam.server_type = MULTIBOOT_SERVER_TYPE_NORMAL;
+        MultiBootInit(&gMultibootParam);
+        tTimer = 0;
+        tState = STATE_MULTIBOOT;
         break;
-    case 5:
-        if (gUnknown_3005F00.probe_count == 0 && gUnknown_3005F00.response_bit & 0x2 && gUnknown_3005F00.client_bit & 0x2)
+    case STATE_MULTIBOOT:
+        if (gMultibootParam.probe_count == 0 && gMultibootParam.response_bit & 0x2 && gMultibootParam.client_bit & 0x2)
         {
             data[1]++;
             if (data[1] > 180)
             {
-                mb_berry_fix_print(2);
-                MultiBootStartMaster(&gUnknown_3005F00, gUnknown_3005EF0 + MULTIBOOT_HEADER_SIZE, gUnknown_3005EF8 - MULTIBOOT_HEADER_SIZE, 4, 1);
-                data[1] = 0;
-                data[0] = 6;
+                mb_berry_fix_print(SCENE_TRANSMITTING);
+                MultiBootStartMaster(&gMultibootParam, gMultibootStart + MULTIBOOT_HEADER_SIZE, gMultibootSize - MULTIBOOT_HEADER_SIZE, 4, 1);
+                tTimer = 0;
+                tState = STATE_TRANSMIT;
             }
             else
-                gUnknown_3005EF4 = MultiBootMain(&gUnknown_3005F00);
+            {
+                gMultibootStatus = MultiBootMain(&gMultibootParam);
+            }
         }
         else
         {
-            data[1] = 0;
-            gUnknown_3005EF4 = MultiBootMain(&gUnknown_3005F00);
+            tTimer = 0;
+            gMultibootStatus = MultiBootMain(&gMultibootParam);
         }
         break;
-    case 6:
-        gUnknown_3005EF4 = MultiBootMain(&gUnknown_3005F00);
-        if (MultiBootCheckComplete(&gUnknown_3005F00))
+    case STATE_TRANSMIT:
+        gMultibootStatus = MultiBootMain(&gMultibootParam);
+        if (MultiBootCheckComplete(&gMultibootParam))
         {
             mb_berry_fix_print(3);
             data[0] = 7;
         }
-        else if (!(gUnknown_3005F00.client_bit & 2))
-            data[0] = 9;
+        else if (!(gMultibootParam.client_bit & 2))
+        {
+            tState = STATE_FAILED;
+        }
         break;
     case 7:
         data[0] = 8;

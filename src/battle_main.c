@@ -236,15 +236,15 @@ EWRAM_DATA struct FormDataStorage gFormSwapMoveBuffer[PARTY_SIZE][MAX_FORM_DATA_
 //if put in pc free the space/reset to 0 for said slot
 //only attempt store data for mon if it has a form
 
-void (*gPreBattleCallback1)(void);
-void (*gBattleMainFunc)(void);
-struct BattleResults gBattleResults;
-u8 gLeveledUpInBattle;
-void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(void);
-u8 gHealthboxSpriteIds[MAX_BATTLERS_COUNT];
-u8 gMultiUsePlayerCursor;
-u8 gNumberOfMovesToChoose;
-u8 gBattleControllerData[MAX_BATTLERS_COUNT];
+COMMON_DATA void (*gPreBattleCallback1)(void) = NULL;
+COMMON_DATA void (*gBattleMainFunc)(void) = NULL;
+COMMON_DATA struct BattleResults gBattleResults = {0};
+COMMON_DATA u8 gLeveledUpInBattle = 0;
+COMMON_DATA void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(void) = {0};
+COMMON_DATA u8 gHealthboxSpriteIds[MAX_BATTLERS_COUNT] = {0};
+COMMON_DATA u8 gMultiUsePlayerCursor = 0;
+COMMON_DATA u8 gNumberOfMovesToChoose = 0;
+COMMON_DATA u8 gBattleControllerData[MAX_BATTLERS_COUNT] = {0};
 
 static const struct ScanlineEffectParams sIntroScanlineParams16Bit =
 {

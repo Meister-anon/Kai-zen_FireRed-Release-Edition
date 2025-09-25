@@ -61,10 +61,10 @@ struct FlagOrVarRecord
     u16 value;
 };
 
-u8 gQuestLogPlaybackState;
-u16 sNumEventsInLogEntry;
-struct FieldInput gQuestLogFieldInput;
-struct QuestLogEntry * sCurQuestLogEntry;
+COMMON_DATA u8 gQuestLogPlaybackState = 0;
+COMMON_DATA u16 sMaxActionsInScene = 0;
+COMMON_DATA struct FieldInput gQuestLogFieldInput = {0};
+COMMON_DATA struct QuestLogEntry * sCurQuestLogEntry = NULL;
 
 static struct FlagOrVarRecord * sFlagOrVarRecords;
 static u16 sNumFlagsOrVars;
@@ -1413,7 +1413,7 @@ void QuestLogRecordPlayerAvatarGfxTransitionWithDuration(u8 movementActionId, u8
 
 void sub_81127F8(struct FieldInput * a0)
 {
-    if (sQuestLogCursor < sNumEventsInLogEntry)
+    if (sQuestLogCursor < sMaxActionsInScene)
     {
         u32 r2 = *(u32 *)a0 & 0x00FF00F3;
         sCurQuestLogEntry[sQuestLogCursor].duration = sNextStepDelay;
@@ -1483,7 +1483,7 @@ static void SetUpQuestLogEntry(u8 kind, struct QuestLogEntry *entry, u16 size)
         break;
     case 1:
         sCurQuestLogEntry = entry;
-        sNumEventsInLogEntry = size / sizeof(*sCurQuestLogEntry);
+        sMaxActionsInScene = size / sizeof(*sCurQuestLogEntry);
         for (i = 0; i < (s32)NELEMS(sMovementScripts); i++)
         {
             sMovementScripts[i][0] |= 0xFF;
@@ -1499,8 +1499,8 @@ static void SetUpQuestLogEntry(u8 kind, struct QuestLogEntry *entry, u16 size)
         break;
     case 2:
         sCurQuestLogEntry = entry;
-        sNumEventsInLogEntry = size / sizeof(*sCurQuestLogEntry);
-        for (i = 0; i < sNumEventsInLogEntry; i++)
+        sMaxActionsInScene = size / sizeof(*sCurQuestLogEntry);
+        for (i = 0; i < sMaxActionsInScene; i++)
         {
             sCurQuestLogEntry[i] = (struct QuestLogEntry){ 0, 0, 0, 0, 0xFFFF, 0xFF };
         }
@@ -1577,7 +1577,7 @@ void sub_8112B3C(void)
                     }
                     if (gQuestLogPlaybackState == 0)
                         break;
-                    if (++sQuestLogCursor >= sNumEventsInLogEntry)
+                    if (++sQuestLogCursor >= sMaxActionsInScene)
                     {
                         gQuestLogPlaybackState = 0;
                         break;
@@ -1587,7 +1587,7 @@ void sub_8112B3C(void)
                       && (sNextStepDelay == 0 || sNextStepDelay == 0xFFFF));
             }
         }
-        else if (sQuestLogCursor >= sNumEventsInLogEntry)
+        else if (sQuestLogCursor >= sMaxActionsInScene)
         {
             gQuestLogPlaybackState = 0;
         }
@@ -1596,7 +1596,7 @@ void sub_8112B3C(void)
         if (ArePlayerFieldControlsLocked() != TRUE)
         {
             sNextStepDelay++;
-            if (sQuestLogCursor >= sNumEventsInLogEntry)
+            if (sQuestLogCursor >= sMaxActionsInScene)
                 gQuestLogPlaybackState = 0;
         }
         break;
@@ -1630,14 +1630,14 @@ u8 sub_8112CAC(void)
 
 static bool8 RecordHeadAtEndOfEntryOrScriptContext2Enabled(void)
 {
-    if (sQuestLogCursor >= sNumEventsInLogEntry || ArePlayerFieldControlsLocked() == TRUE)
+    if (sQuestLogCursor >= sMaxActionsInScene || ArePlayerFieldControlsLocked() == TRUE)
         return TRUE;
     return FALSE;
 }
 
 static bool8 RecordHeadAtEndOfEntry(void)
 {
-    if (sQuestLogCursor >= sNumEventsInLogEntry)
+    if (sQuestLogCursor >= sMaxActionsInScene)
         return TRUE;
     return FALSE;
 }
@@ -1653,7 +1653,7 @@ void * QuestLogGetFlagOrVarPtr(bool8 isFlag, u16 idx)
     void * response;
     if (sQuestLogCursor == 0)
         return NULL;
-    if (sQuestLogCursor >= sNumEventsInLogEntry)
+    if (sQuestLogCursor >= sMaxActionsInScene)
         return NULL;
     if (sFlagOrVarPlayhead >= sNumFlagsOrVars)
         return NULL;
@@ -1671,7 +1671,7 @@ void QuestLogSetFlagOrVar(bool8 isFlag, u16 idx, u16 value)
 {
     if (sQuestLogCursor == 0)
         return;
-    if (sQuestLogCursor >= sNumEventsInLogEntry)
+    if (sQuestLogCursor >= sMaxActionsInScene)
         return;
     if (sFlagOrVarPlayhead >= sNumFlagsOrVars)
         return;
@@ -1694,7 +1694,7 @@ void sub_8112E3C(u8 state, struct FlagOrVarRecord * records, u16 size)
         sFlagOrVarPlayhead = 0;
         if (state == QL_STATE_PLAYBACK)
         {
-            for (i = 0; i < sNumEventsInLogEntry; i++)
+            for (i = 0; i < sMaxActionsInScene; i++)
             {
                 sFlagOrVarRecords[i] = sDummyFlagOrVarRecord;
             }

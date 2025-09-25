@@ -17,7 +17,7 @@
 
 
 
-bool8 gHelpSystemEnabled;
+COMMON_DATA bool8 gHelpSystemEnabled = 0;
 
 struct HelpSystemVideoState
 {

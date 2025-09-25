@@ -28,7 +28,7 @@ static u32 GetGlyphWidth_SmallNarrower(u16, bool32);
 static u32 GetGlyphWidth_FrLgNarrow(u16, bool32);
 static u32 GetGlyphWidth_FrLgNarrower(u16, bool32);
 
-TextFlags gTextFlags;
+COMMON_DATA TextFlags gTextFlags = {0};
 
 static const u8 sDownArrowTiles[]         = INCBIN_U8("graphics/fonts/down_arrow.4bpp");
 static const u8 sDarkDownArrowTiles[]     = INCBIN_U8("graphics/fonts/down_arrow_RS.4bpp");

@@ -86,7 +86,7 @@ static bool32 UnionRoom_HandleContactFromOtherPlayer(struct WirelessLink_URoom *
 static void Task_InitUnionRoom(u8 taskId);
 static u8 HandlePlayerListUpdate(void);
 static u8 CreateTask_SearchForChildOrParent(struct UnkStruct_Main4 * main4, struct UnkStruct_Main4 * arg1, u32 arg2);
-static bool32 GetGnameWonderFlagByLinkGroup(struct GFtgtGname * gname, s16 linkGroup);
+static bool32 GetGnameWonderFlagByLinkGroup(struct RfuGameData * gname, s16 linkGroup);
 static u8 CreateTask_ListenForPartnersWithCompatibleSerialNos(struct UnkStruct_Main4 * main4, u32 linkGroup);
 static u8 CreateTask_ListenForPartnersWithSerial7F7D(struct UnkStruct_Main4 * main4, u32 linkGroup);
 static bool32 UR_PrintFieldMessage(const u8 * str);
@@ -3732,7 +3732,7 @@ static void Task_ListenForPartnersWithCompatibleSerialNos(u8 taskId)
     }
 }
 
-static bool32 GetGnameWonderFlagByLinkGroup(struct GFtgtGname * gname, s16 linkGroup)
+static bool32 GetGnameWonderFlagByLinkGroup(struct RfuGameData * gname, s16 linkGroup)
 {
     if (linkGroup == LINK_GROUP_WONDER_CARD)
     {
@@ -4331,7 +4331,7 @@ static void nullsub_92(u8 windowId, s32 itemId, u8 y)
 
 }
 
-static void TradeBoardPrintItemInfo(u8 windowId, u8 y, struct GFtgtGname * gname, const u8 * uname, u8 colorIdx)
+static void TradeBoardPrintItemInfo(u8 windowId, u8 y, struct RfuGameData * gname, const u8 * uname, u8 colorIdx)
 {
     u8 level_t[4];
     u16 species = gname->tradeSpecies;
@@ -4355,7 +4355,7 @@ static void TradeBoardPrintItemInfo(u8 windowId, u8 y, struct GFtgtGname * gname
 static void TradeBoardListMenuItemPrintFunc(u8 windowId, s32 itemId, u8 y)
 {
     struct UnkStruct_Leader * leader = sUnionRoomMain.leader;
-    struct GFtgtGname * rfu;
+    struct RfuGameData * rfu;
     s32 i, j;
     u8 uname[RFU_USER_NAME_LENGTH];
 

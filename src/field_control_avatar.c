@@ -86,6 +86,7 @@ static bool8 TryDoorWarp(struct MapPosition * position, u16 metatileBehavior, u8
 static s8 GetWarpEventAtPosition(struct MapHeader * mapHeader, u16 x, u16 y, u8 z);
 static const u8 *GetCoordEventScriptAtPosition(struct MapHeader * mapHeader, u16 x, u16 y, u8 z);
 
+COMMON_DATA struct FieldInput gFieldInputRecord = {0};
 
 struct PickupItem
 {
@@ -117,7 +118,6 @@ static const struct PickupItem sPickupItems[] =
     { ITEM_LUXURY_BALL, 100 },
 };
 
-struct FieldInput gInputToStoreInQuestLogMaybe;
 
 void FieldClearPlayerInput(struct FieldInput *input)
 {
@@ -257,8 +257,8 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     r8 = MapGridGetMetatileAttributeAt(position.x, position.y, 0xFF);
     metatileBehavior = MapGridGetMetatileBehaviorAt(position.x, position.y);
 
-    FieldClearPlayerInput(&gInputToStoreInQuestLogMaybe);
-    gInputToStoreInQuestLogMaybe.dpadDirection = input->dpadDirection;
+    FieldClearPlayerInput(&gFieldInputRecord);
+    gFieldInputRecord.dpadDirection = input->dpadDirection;
 
     if (CheckForTrainersWantingBattle() == TRUE)
         return TRUE;
@@ -276,7 +276,7 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
         IncrementBirthIslandRockStepCount();
         if (TryStartStepBasedScript(&position, metatileBehavior, playerDirection) == TRUE)
         {
-            gInputToStoreInQuestLogMaybe.tookStep = TRUE;
+            gFieldInputRecord.tookStep = TRUE;
             return TRUE;
         }
     }
@@ -288,7 +288,7 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
             metatileBehavior = MapGridGetMetatileBehaviorAt(position.x, position.y);
             if (TrySetUpWalkIntoSignpostScript(&position, metatileBehavior, playerDirection) == TRUE)
             {
-                gInputToStoreInQuestLogMaybe.checkStandardWildEncounter = TRUE;
+                gFieldInputRecord.checkStandardWildEncounter = TRUE;
                 return TRUE;
             }
             GetPlayerPosition(&position);
@@ -297,14 +297,14 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     }
     if (input->checkStandardWildEncounter && CheckStandardWildEncounter(r8) == TRUE)
     {
-        gInputToStoreInQuestLogMaybe.checkStandardWildEncounter = TRUE;
+        gFieldInputRecord.checkStandardWildEncounter = TRUE;
         return TRUE;
     }
     if (input->heldDirection && input->dpadDirection == playerDirection)
     {
         if (TryArrowWarp(&position, metatileBehavior, playerDirection) == TRUE)
         {
-            gInputToStoreInQuestLogMaybe.heldDirection = TRUE;
+            gFieldInputRecord.heldDirection = TRUE;
             return TRUE;
         }
     }
@@ -315,14 +315,14 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     {
         if (TrySetUpWalkIntoSignpostScript(&position, metatileBehavior, playerDirection) == TRUE)
         {
-            gInputToStoreInQuestLogMaybe.heldDirection = TRUE;
+            gFieldInputRecord.heldDirection = TRUE;
             return TRUE;
         }
     }
 
     if (input->pressedAButton && TryStartInteractionScript(&position, metatileBehavior, playerDirection) == TRUE)
     {
-        gInputToStoreInQuestLogMaybe.pressedAButton = TRUE;
+        gFieldInputRecord.pressedAButton = TRUE;
         return TRUE;
     }
 
@@ -330,21 +330,21 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     {
         if (TryDoorWarp(&position, metatileBehavior, playerDirection) == TRUE)
         {
-            gInputToStoreInQuestLogMaybe.heldDirection2 = TRUE;
+            gFieldInputRecord.heldDirection2 = TRUE;
             return TRUE;
         }
     }
 
     if (input->pressedStartButton)
     {
-        gInputToStoreInQuestLogMaybe.pressedStartButton = TRUE;
+        gFieldInputRecord.pressedStartButton = TRUE;
         PlaySE(SE_WIN_OPEN);
         ShowStartMenu();
         return TRUE;
     }
     if (input->pressedSelectButton && UseRegisteredKeyItemOnField() == TRUE)
     {
-        gInputToStoreInQuestLogMaybe.pressedSelectButton = TRUE;
+        gFieldInputRecord.pressedSelectButton = TRUE;
         return TRUE;
     }
 

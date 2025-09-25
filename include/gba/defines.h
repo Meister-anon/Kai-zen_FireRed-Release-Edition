@@ -15,6 +15,7 @@
 #define COMMON_DATA __attribute__((section("common_data")))
 #define UNUSED __attribute__((unused))
 #endif
+#define COMMON_DATA __attribute__((section("common_data")))
 
 
 #if MODERN

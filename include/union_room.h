@@ -14,7 +14,7 @@
 
 struct UnionGnameUnamePair
 {
-    struct GFtgtGname gname;
+    struct RfuGameData gname;
     u8 ALIGNED(4) uname[PLAYER_NAME_LENGTH + 1];
 };
 
