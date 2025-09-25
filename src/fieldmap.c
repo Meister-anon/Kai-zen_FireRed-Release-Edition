@@ -27,13 +27,13 @@ static bool8 IsPosInIncomingConnectingMap(u8 direction, s32 x, s32 y, const stru
 static bool8 IsCoordInIncomingConnectingMap(s32 x, s32 src_width, s32 dest_width, s32 offset);
 
 COMMON_DATA struct BackupMapLayout VMap = {0};
-EWRAM_DATA u16 gBackupMapData[VIRTUAL_MAP_SIZE] = {};
-EWRAM_DATA struct MapHeader gMapHeader = {};
-EWRAM_DATA struct Camera gCamera = {};
-static EWRAM_DATA struct ConnectionFlags gMapConnectionFlags = {};
+EWRAM_DATA u16 ALIGNED(4) gBackupMapData[VIRTUAL_MAP_SIZE] = {0};
+EWRAM_DATA struct MapHeader gMapHeader = {0};
+EWRAM_DATA struct Camera gCamera = {0};
+static EWRAM_DATA struct ConnectionFlags gMapConnectionFlags = {0};
 EWRAM_DATA u8 gUnknown_2036E28 = 0;
 
-static const struct ConnectionFlags sDummyConnectionFlags = {};
+static const struct ConnectionFlags sDummyConnectionFlags = {0};
 
 static const u32 sMetatileAttrMasks[METATILE_ATTRIBUTE_COUNT] = {
     [METATILE_ATTRIBUTE_BEHAVIOR]       = 0x000001ff,
