@@ -492,7 +492,7 @@ struct SideTimer    //effects below persist regardless of mon
     /*0x0B*/ u8 fieldB;
 };
 
-extern struct SideTimer gSideTimers[];
+extern struct SideTimer gSideTimers[NUM_BATTLE_SIDES];
 
 struct FieldTimer
 {

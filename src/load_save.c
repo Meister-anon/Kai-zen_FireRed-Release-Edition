@@ -10,7 +10,6 @@
 #include "overworld.h"
 #include "quest_log.h"
 
-#define SAVEBLOCK_MOVE_RANGE    128
 
 struct LoadedSaveData
 {
@@ -23,14 +22,11 @@ struct LoadedSaveData
 };
 
 // EWRAM DATA
-EWRAM_DATA struct SaveBlock2 gSaveBlock2 = {0};
-EWRAM_DATA u8 gSaveBlock2_DMA[SAVEBLOCK_MOVE_RANGE] = {0};
 
-EWRAM_DATA struct SaveBlock1 gSaveBlock1 = {0};
-EWRAM_DATA u8 gSaveBlock1_DMA[SAVEBLOCK_MOVE_RANGE] = {0};
 
-EWRAM_DATA struct PokemonStorage gPokemonStorage = {0};
-EWRAM_DATA u8 gSaveBlock3_DMA[SAVEBLOCK_MOVE_RANGE] = {0};
+EWRAM_DATA struct SaveBlock2ASLR gSaveBlock2 = {0};
+EWRAM_DATA struct SaveBlock1ASLR gSaveBlock1 = {0};
+EWRAM_DATA struct PokemonStorageASLR gPokemonStorage = {0};
 
 EWRAM_DATA struct LoadedSaveData gLoadedSaveData = {0};
 EWRAM_DATA u32 gLastEncryptionKey = 0;
@@ -56,12 +52,12 @@ void CheckForFlashMemory(void)
 
 void ClearSav2(void)
 {
-    CpuFill16(0, &gSaveBlock2, sizeof(struct SaveBlock2) + sizeof(gSaveBlock2_DMA));
+    CpuFill16(0, &gSaveBlock2, sizeof(struct SaveBlock2ASLR));
 }
 
 void ClearSav1(void)
 {
-    CpuFill16(0, &gSaveBlock1, sizeof(struct SaveBlock1) + sizeof(gSaveBlock1_DMA));
+    CpuFill16(0, &gSaveBlock1, sizeof(struct SaveBlock1ASLR));
 }
 
 void SetSaveBlocksPointers(void)

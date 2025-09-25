@@ -7,6 +7,7 @@
 #include "berry.h"
 #include "random.h"
 #include "pokemon.h"
+#include "strings.h"
 #include "string_util.h"
 #include "field_weather.h"
 #include "event_data.h"
@@ -3797,7 +3798,7 @@ u8 DoBattlerEndTurnEffects(void)
                             gBattleMoveDamage *= -1;
 
                             
-                            StringCopy(gStringVar2, COMPOUND_STRING("Toxic Spikes"));
+                            StringCopy(gStringVar2, gText_ToxicSpikes);
                             BattleScriptExecute(BattleScript_HazardAbsorbAbilityHeal_Endturn);
                             ++effect;
                         }
@@ -3836,20 +3837,20 @@ u8 DoBattlerEndTurnEffects(void)
                             gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                             gBattleMoveDamage *= -1;
 
-                            StringCopy(gStringVar2, COMPOUND_STRING("Stealth Rock"));
+                            StringCopy(gStringVar2, gText_StealthRock);
                             BattleScriptExecute(BattleScript_HazardAbsorbAbilityHeal_Endturn);
                             ++effect;
                         }
                         else //can't heal use normal absorb script
                         {
-                            StringCopy(gStringVar2, COMPOUND_STRING("Stealth Rock"));
+                            StringCopy(gStringVar2, gText_StealthRock);
                             BattleScriptExecute(BattleScript_HazardAbsorbAbility_Endturn);
                             ++effect;
                         }
                     }
                     else if  (GetBattlerAbility(gActiveBattler) == ABILITY_JEWEL_METABOLISM)
                     {
-                        StringCopy(gStringVar2, COMPOUND_STRING("Stealth Rock"));
+                        StringCopy(gStringVar2, gText_StealthRock);
                         SET_STATCHANGER(STAT_DEF, 1, FALSE);
                         gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEALTH_ROCK;
                         gBattleScripting.battler = gActiveBattler;
@@ -3884,7 +3885,7 @@ u8 DoBattlerEndTurnEffects(void)
                             gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                             gBattleMoveDamage *= -1;
 
-                            StringCopy(gStringVar2, COMPOUND_STRING("Steel Surge"));
+                            StringCopy(gStringVar2, gText_SteelSurge);
                             BattleScriptExecute(BattleScript_HazardAbsorbAbilityHeal_Endturn);
                             ++effect;
                         }

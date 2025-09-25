@@ -2825,7 +2825,7 @@ static const u8* ReturnCursorIdText(u8 i)
         case MENU_CANCEL1:
             return gFameCheckerText_Cancel;
         case MENU_HATCH:
-            return COMPOUND_STRING("HATCH");
+            return gText_EggHatch;
         case MENU_ITEM:
             return gText_Item;
         case MENU_GIVE:
@@ -2857,7 +2857,7 @@ static const u8* ReturnCursorIdText(u8 i)
         case MENU_TRADE2:
             return gText_Trade4;
         case MENU_YES_HATCH:
-            return COMPOUND_STRING("YES");
+            return gText_Yes;
         case (MENU_FIELD_MOVES + FIELD_MOVE_CUT):
             GetMoveName(gStringVar4, MOVE_CUT);
                 return gStringVar4;
@@ -5371,7 +5371,7 @@ void ItemUseCB_PokeBall(u8 taskId, TaskFunc func)
         GetMonNickname(mon, gStringVar1);
         if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/
             GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
-        StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{STR_VAR_1} is already\nin that POKé BALL.{PAUSE_UNTIL_PRESS}"));
+        StringExpandPlaceholders(gStringVar4, gText_MonAlreadyInBall);
         DisplayPartyMenuMessage(gStringVar4, TRUE);
         ScheduleBgCopyTilemapToVram(2);
         gTasks[taskId].func = func;
@@ -5391,7 +5391,7 @@ static void ItemUseCB_PokeBallStep(u8 taskId, UNUSED TaskFunc func)
     GetMonNickname(mon, gStringVar1);
     if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/
         GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
-    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{STR_VAR_1} swapped\nPOKé BALLS.{PAUSE_UNTIL_PRESS}"));
+    StringExpandPlaceholders(gStringVar4, gText_PokemonSwappedPokeBall);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
     ScheduleBgCopyTilemapToVram(2);
     gTasks[taskId].func = Task_ClosePartyMenuAfterText;

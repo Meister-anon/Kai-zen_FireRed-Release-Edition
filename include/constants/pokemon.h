@@ -324,6 +324,8 @@
 #define MON_PIC_HEIGHT 64
 #define MON_PIC_SIZE (MON_PIC_WIDTH * MON_PIC_HEIGHT / 2)
 
+
+
 //use with CountAliveMonsInBattle
 #define BATTLE_ALIVE_EXCEPT_ACTIVE   0
 #define BATTLE_ALIVE_ATK_SIDE        1

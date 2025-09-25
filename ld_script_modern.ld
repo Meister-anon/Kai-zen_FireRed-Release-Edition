@@ -9,8 +9,6 @@ MEMORY
 }
 
 SECTIONS {
-    . = 0x2000000;
-
     ewram 0x2000000 (NOLOAD) :
     ALIGN(4)
     {
@@ -18,7 +16,7 @@ SECTIONS {
 
         . = 0x1C000;
 
-         *(.ewram_data);
+        *(ewram_data);
     } > EWRAM
 
     iwram 0x3000000 (NOLOAD) :
@@ -33,30 +31,32 @@ SECTIONS {
         *(COMMON);
         *(common_data);
         end = .;
-        } > IWRAM
+        __end__ = .;
+    } > IWRAM
 
     . = 0x8000000;
 
     .text :
     ALIGN(4)
     {
-        /*asm/crt0.o(.text);*/
+        src/rom_header.o(.text*);
+        src/rom_header_gf.o(.text.*);
         src/crt0.o(.text);
         src/main.o(.text);
         *(.text*);
-    }  > ROM =0
+    } > ROM =0
 
     script_data :
     ALIGN(4)
     {
     	*(script_data);
-    }  > ROM =0
+    } > ROM =0
 
     .data :
     ALIGN(4)
     {
     	*(.data*);
-    }  > ROM =0
+    } > ROM =0
 
     .rodata :
     ALIGN(4)

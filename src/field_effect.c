@@ -426,7 +426,7 @@ static void FieldEffectScript_LoadTiles(const u8 **script)
 
 void ApplyGlobalFieldPaletteTint(u8 paletteIdx)
 {
-    switch (gUnknown_2036E28)
+    switch (gGlobalFieldTintMode)
     {
     case 0:
         return;

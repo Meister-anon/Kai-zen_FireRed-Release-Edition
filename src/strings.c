@@ -15,6 +15,7 @@ const u8 gExpandedPlaceholder_Groudon[] = _("GROUDON");
 const u8 gExpandedPlaceholder_Red[] = _("RED");
 const u8 gExpandedPlaceholder_Green[] = _("BLUE");
 const u8 gText_EggNickname[] = _("EGG");
+ALIGNED(4) const u8 gText_EggHatch[] = _("HATCH");
 const u8 gStartMenuText_Pokemon[] = _("POKéMON");
 const u8 gText_NewGame[] = _("NEW GAME");
 const u8 gText_Continue[] = _("CONTINUE");
@@ -355,6 +356,8 @@ const u8 gText_NotAble[] = _("NOT ABLE");
 const u8 gText_Able3[] = _("ABLE!");
 const u8 gText_NotAble2[] = _("NOT ABLE!");
 const u8 gText_Learned[] = _("LEARNED");
+ALIGNED(4) const u8 gText_MonAlreadyInBall[] = _("{STR_VAR_1} is already\nin that POKé BALL.{PAUSE_UNTIL_PRESS}");
+ALIGNED(4) const u8 gText_PokemonSwappedPokeBall[] = _("{STR_VAR_1} swapped\nPOKé BALLS.{PAUSE_UNTIL_PRESS}");
 const u8 gText_OakImportantToGetToKnowPokemonThroughly[] = _("OAK: It's important to get to know\nyour POKéMON thoroughly.\p");
 const u8 gText_OakThisIsListOfPokemon[] = _("This is a list of your POKéMON,\n{PLAYER}.\pOpen this to check the skills\nand moves of your POKéMON.\pYou also choose POKéMON here if\nyou want to use an item on one.{PAUSE_UNTIL_PRESS}");
 const u8 gText_CutATreeOrGrass[] = _("Cut a tree or grass.");
@@ -424,6 +427,11 @@ const u8 gText_Par[] = _("PAR");
 const u8 gText_Slp[] = _("SLP");
 const u8 gText_Brn[] = _("BRN");
 const u8 gText_Frz[] = _("FRZ");
+//hazards
+const u8 gText_StealthRock[] = _("Stealth Rock");
+const u8 gText_ToxicSpikes[] = _("Toxic Spikes");
+const u8 gText_SteelSurge[] = _("Steel Surge");
+
 const u8 gUnknown_8417920[] = _("TOXIC");
 const u8 gUnknown_8417926[] = _("OK");
 const u8 gOtherText_Quit[] = _("QUIT");
@@ -910,6 +918,16 @@ const u8 gText_BattleTextSpeed[] =_("BATTLE TEXT SPEED");
 const u8 gText_DisplayTypeEffect[] = _("SHOW TYPE EFFECT.");
 const u8 gText_NuzlockeMode[] = _("NUZLOCKE MODE");
 
+//battle speed options
+const u8 gText_BattleSpeed1x[] = _("1x");
+const u8 gText_BattleSpeed2x[] = _("2x");
+const u8 gText_BattleSpeed3x[] = _("3x");
+const u8 gText_BattleSpeed4x[] = _("4x");
+const u8 gText_BattleSpeed5x[] = _("5x");
+const u8 gText_BattleSpeed6x[] = _("6x");
+const u8 gText_BattleSpeed7x[] = _("7x");
+const u8 gText_BattleSpeed8x[] = _("8x");
+
 const u8 gText_OptionMenuCancel[] = _("CANCEL");
 const u8 gText_TextSpeedSlow[] = _("SLOW");
 const u8 gText_TextSpeedMid[] = _("MID");
@@ -1295,6 +1313,7 @@ const u8 gUnknown_841E2EC[] = _("{B_BUTTON}CANCEL");
 const u8 gUnknown_841E2F5[] = _("{COLOR BLUE}{SHADOW YELLOW}   たいせんの くみあわせ\n{COLOR RED}{SHADOW GREEN}じぶんの ばしょをきめて ください");
 const u8 gUnknown_841E322[] = _("{ID}");
 const u8 gText_CommunicationStandby5[] = _("Communication standby…");
+const u8 gDaycareText_PracticallyInseparable[] = _("The two seem to be\npractically inseparable!");
 const u8 gDaycareText_GetAlongVeryWell[] = _("The two seem to get along\nvery well.");
 const u8 gDaycareText_GetAlong[] = _("The two seem to get along.");
 const u8 gDaycareText_DontLikeOther[] = _("The two don't seem to like\neach other much.");

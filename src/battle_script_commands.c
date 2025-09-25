@@ -10533,13 +10533,13 @@ static void atk52_switchineffects(void) //important, think can put ability reset
                 //this should be separate script
                 //that does hp update
                 BattleScriptPushCursor();
-                StringCopy(gStringVar2, COMPOUND_STRING("Stealth Rock"));
+                StringCopy(gStringVar2, gText_StealthRock);
                 gBattlescriptCurrInstr = BattleScript_HazardAbsorbAbilityHeal;
             }
             else
             {
                 BattleScriptPushCursor();
-                StringCopy(gStringVar2, COMPOUND_STRING("Stealth Rock"));
+                StringCopy(gStringVar2, gText_StealthRock);
                 gBattlescriptCurrInstr = BattleScript_HazardAbsorbAbility;
             }            
             
@@ -10547,7 +10547,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         
         else if  (GetBattlerAbility(gActiveBattler) == ABILITY_JEWEL_METABOLISM)
         {
-            StringCopy(gStringVar2, COMPOUND_STRING("Stealth Rock"));
+            StringCopy(gStringVar2, gText_StealthRock);
             SET_STATCHANGER(STAT_DEF, 1, FALSE); //stat chnger break it?
             gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEALTH_ROCK;
             gBattleScripting.battler = gActiveBattler;
@@ -10590,7 +10590,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
 
                 
                 BattleScriptPushCursor();
-                StringCopy(gStringVar2, COMPOUND_STRING("Toxic Spikes"));
+                StringCopy(gStringVar2, gText_ToxicSpikes);
                 gBattlescriptCurrInstr = BattleScript_HazardAbsorbAbilityHeal;
             }
             else //can't heal use normal absorb script
@@ -10657,7 +10657,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
                 //this should be separate script
                 //that does hp update
                 BattleScriptPushCursor();
-                StringCopy(gStringVar2, COMPOUND_STRING("Steel Surge"));
+                StringCopy(gStringVar2, gText_SteelSurge);
                 gBattlescriptCurrInstr = BattleScript_HazardAbsorbAbilityHeal;
             }
             else

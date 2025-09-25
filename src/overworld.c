@@ -2207,7 +2207,7 @@ static void CreateLinkPlayerSprites(void)
 void CB2_SetUpOverworldForQLPlaybackWithWarpExit(void)
 {
     FieldClearVBlankHBlankCallbacks();
-    gUnknown_2036E28 = 1;
+    gGlobalFieldTintMode = 1;
     ScriptContext1_Init();
     UnlockPlayerFieldControls();
     SetMainCallback1(NULL);
@@ -2218,7 +2218,7 @@ void CB2_SetUpOverworldForQLPlaybackWithWarpExit(void)
 void CB2_SetUpOverworldForQLPlayback(void)
 {
     FieldClearVBlankHBlankCallbacks();
-    gUnknown_2036E28 = 1;
+    gGlobalFieldTintMode = 1;
     LoadSaveblockMapHeader();
     ScriptContext1_Init();
     UnlockPlayerFieldControls();
@@ -2320,7 +2320,7 @@ void CB2_EnterFieldFromQuestLog(void)
 {
     FieldClearVBlankHBlankCallbacks();
     StopMapMusic();
-    gUnknown_2036E28 = 3;
+    gGlobalFieldTintMode = 3;
     ResetSafariZoneFlag_();
     LoadSaveblockMapHeader();
     LoadSaveblockObjEventScripts();
@@ -2374,7 +2374,7 @@ static bool8 FieldCB2_Credits_WaitFade(void)
 bool32 Overworld_DoScrollSceneForCredits(u8 *state_p, const struct CreditsOverworldCmd * script, u8 a2)
 {
     sCreditsOverworld_Script = script;
-    gUnknown_2036E28 = a2;
+    gGlobalFieldTintMode = a2;
     return SetUpScrollSceneForCredits(state_p, 0);
 }
 

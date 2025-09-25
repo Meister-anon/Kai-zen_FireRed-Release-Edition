@@ -31,7 +31,7 @@ EWRAM_DATA u16 ALIGNED(4) gBackupMapData[VIRTUAL_MAP_SIZE] = {0};
 EWRAM_DATA struct MapHeader gMapHeader = {0};
 EWRAM_DATA struct Camera gCamera = {0};
 static EWRAM_DATA struct ConnectionFlags gMapConnectionFlags = {0};
-EWRAM_DATA u8 gUnknown_2036E28 = 0;
+EWRAM_DATA u8 gGlobalFieldTintMode = 0;
 
 static const struct ConnectionFlags sDummyConnectionFlags = {0};
 
@@ -78,7 +78,7 @@ void InitMapFromSavedGame(void)
 static void InitMapLayoutData(struct MapHeader * mapHeader)
 {
     const struct MapLayout * mapLayout = mapHeader->mapLayout;
-    CpuFastFill(0x03FF03FF, gBackupMapData, sizeof(gBackupMapData));
+    CpuFastFill16(MAPGRID_UNDEFINED, gBackupMapData, sizeof(gBackupMapData));
     VMap.map = gBackupMapData;
     VMap.Xsize = mapLayout->width + MAP_OFFSET_W;
     VMap.Ysize = mapLayout->height + MAP_OFFSET_H;
@@ -904,7 +904,7 @@ static void copy_tileset_patterns_to_vram2(struct Tileset const *tileset, u16 nu
 
 static void ApplyGlobalTintToPaletteEntries(u16 a0, u16 a1)
 {
-    switch (gUnknown_2036E28)
+    switch (gGlobalFieldTintMode)
     {
         case 0:
             return;
@@ -926,7 +926,7 @@ static void ApplyGlobalTintToPaletteEntries(u16 a0, u16 a1)
 
 void sub_8059948(u8 a0, u8 a1)
 {
-    switch (gUnknown_2036E28)
+    switch (gGlobalFieldTintMode)
     {
         case 0:
             return;

@@ -89,6 +89,9 @@ extern const u8 gText_IsThisTheCorrectTime[];
 extern const u8 gText_PkmnFainted3[];
 extern const u8 gText_Coins[];
 extern const u8 gText_EggNickname[];
+extern const u8 gText_EggHatch[];
+extern const u8 gText_MonAlreadyInBall[];
+extern const u8 gText_PokemonSwappedPokeBall[];
 extern const u8 gStartMenuText_Pokemon[];
 
 extern const u8 gOtherText_Use[];
@@ -739,6 +742,9 @@ extern const u8 gText_Par[];
 extern const u8 gText_Slp[];
 extern const u8 gText_Brn[];
 extern const u8 gText_Frz[];
+extern const u8 gText_StealthRock[];
+extern const u8 gText_ToxicSpikes[];
+extern const u8 gText_SteelSurge[];
 extern const u8 gText_Yes[];
 extern const u8 gText_No[];
 extern const u8 gText_SingleBattle[];
@@ -956,6 +962,15 @@ extern const u8 gText_BattleTextSpeed[];
 extern const u8 gText_DisplayTypeEffect[];
 extern const u8 gText_NuzlockeMode[];
 
+extern const u8 gText_BattleSpeed1x[];
+extern const u8 gText_BattleSpeed2x[];
+extern const u8 gText_BattleSpeed3x[];
+extern const u8 gText_BattleSpeed4x[];
+extern const u8 gText_BattleSpeed5x[];
+extern const u8 gText_BattleSpeed6x[];
+extern const u8 gText_BattleSpeed7x[];
+extern const u8 gText_BattleSpeed8x[];
+
 extern const u8 gText_OptionMenuCancel[];
 extern const u8 gText_TextSpeedSlow[];
 extern const u8 gText_TextSpeedMid[];
@@ -1053,6 +1068,7 @@ extern const u8 gText_AreaUnknown[];
 
 // daycare
 extern const u8 gText_Lv[];
+extern const u8 gDaycareText_PracticallyInseparable[];
 extern const u8 gDaycareText_GetAlongVeryWell[];
 extern const u8 gDaycareText_GetAlong[];
 extern const u8 gDaycareText_DontLikeOther[];

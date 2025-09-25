@@ -301,14 +301,14 @@ static const u8 *const sTextSpeedOptions[] =
 //speed value store as bit 3, 8x is max speed  can save
 static const u8 *const sBattleSpeedOptions[] =
 {
-    COMPOUND_STRING("1x"),
-    COMPOUND_STRING("2x"),
-    COMPOUND_STRING("3x"),
-    COMPOUND_STRING("4x"),
-    COMPOUND_STRING("5x"),
-    COMPOUND_STRING("6x"),
-    COMPOUND_STRING("7x"),
-    COMPOUND_STRING("8x"),
+    gText_BattleSpeed1x,
+    gText_BattleSpeed2x,
+    gText_BattleSpeed3x,
+    gText_BattleSpeed4x,
+    gText_BattleSpeed5x,
+    gText_BattleSpeed6x,
+    gText_BattleSpeed7x,
+    gText_BattleSpeed8x
 };
 
 static const u8 *const sBattleSceneOptions[] =

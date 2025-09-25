@@ -17,8 +17,7 @@ SECTIONS {
 
         . = 0x1C000;
 
-/*<EWRAM>*/
-       INCLUDE "sym_ewram.ld"
+        INCLUDE "sym_ewram.ld"
         src/*.o(ewram_data);
 
         *libc.a:impure.o(.data);
@@ -30,7 +29,6 @@ SECTIONS {
     ALIGN(4)
     {
         /* .bss starts at 0x3000000 */
-/*<BSS>*/
         INCLUDE "sym_bss.ld"
         src/*.o(.bss);
         data/*.o(.bss);
@@ -39,23 +37,22 @@ SECTIONS {
         src/m4a.o(.bss.code);
 
         /* COMMON starts at 0x30030E0 */
-/*<COMMON>*/
         INCLUDE "sym_common.ld"
         src/*.o(COMMON);
 
         *libc.a:sbrkr.o(COMMON);
         end = .;
-         } > IWRAM
+    } > IWRAM
 
-        /* BEGIN ROM DATA */
-        . = 0x8000000;
+    /* BEGIN ROM DATA */
+    . = 0x8000000;
 
     .text :
     ALIGN(4)
     {
         src/rom_header.o(.text);
-	src/rom_header_gf.o(.text*);
-	src/crt0.o(.text);
+        src/rom_header_gf.o(.text*);
+        src/crt0.o(.text);
         src/main.o(.text);
         src/gpu_regs.o(.text);
         src/dma3_manager.o(.text);
@@ -118,7 +115,6 @@ SECTIONS {
         src/palette.o(.text);
         src/sound.o(.text);
         src/battle_anim.o(.text);
-        src/battle_anim_new.o(.text);
         src/battle_anim_mons.o(.text);
         src/task.o(.text);
         src/reshow_battle_screen.o(.text);
@@ -139,12 +135,12 @@ SECTIONS {
         src/option_menu.o(.text);
         src/pokedex.o(.text);
         src/trainer_card.o(.text);
-        src/pokemon_storage_system.o(.text);        
+        src/pokemon_storage_system.o(.text);
         src/pokemon_storage_system_menu.o(.text);
         src/pokemon_storage_system_tasks.o(.text);
         src/pokemon_storage_system_graphics.o(.text);
         src/pokemon_storage_system_data.o(.text);
-        src/pokemon_storage_system_misc.o(.text);        
+        src/pokemon_storage_system_misc.o(.text);
         src/pokemon_icon.o(.text);
         src/script_movement.o(.text);
         src/fldeff_cut.o(.text);
@@ -268,7 +264,6 @@ SECTIONS {
         src/union_room_chat.o(.text);
         src/union_room_chat_display.o(.text);
         src/union_room_chat_objects.o(.text);
-        src/help_system_812B1E0.o(.text);
         src/quest_log_battle.o(.text);
         src/fame_checker.o(.text);
         src/menu2.o(.text);
@@ -294,24 +289,12 @@ SECTIONS {
         src/mevent_show_news.o(.text);
         src/menews_jisan.o(.text);
         src/seagallop.o(.text);
-        src/pokemon_jump.o(.text);
-        src/pokemon_jump_2.o(.text);
-        src/pokemon_jump_3.o(.text);
-        src/pokemon_jump_4.o(.text);
-        src/pokemon_jump_5.o(.text);
-        src/pokemon_jump_6.o(.text);
-        src/berry_crush.o(.text);
-        src/berry_crush_2.o(.text);
-        src/berry_crush_3.o(.text);
         src/wireless_communication_status_screen.o(.text);
         src/braille_text.o(.text);
         src/text_window.o(.text);
         src/quest_log_player.o(.text);
-        src/dodrio_berry_picking.o(.text);
-        src/dodrio_berry_picking_2.o(.text);
         src/battle_controller_pokedude.o(.text);
         src/quest_log_objects.o(.text);
-        src/dodrio_berry_picking_3.o(.text);
         src/teachy_tv.o(.text);
         src/ereader_helpers.o(.text);
         src/digit_obj_util.o(.text);
@@ -336,7 +319,7 @@ SECTIONS {
         data/field_effect_scripts.o(script_data);
         data/battle_scripts_2.o(script_data);
         data/mystery_event_script_cmd_table.o(script_data);
-    }  > ROM =0
+    } > ROM =0
 
     lib_text :
     ALIGN(4)
@@ -406,7 +389,7 @@ SECTIONS {
         *libc.a:libcfunc.o(.text);
         *libc.a:lseekr.o(.text);
         *libc.a:readr.o(.text);
-    }  > ROM =0
+    } > ROM =0
 
     .rodata :
     SUBALIGN(4)
@@ -458,7 +441,6 @@ SECTIONS {
         src/palette.o(.rodata);
         src/sound.o(.rodata);
         src/battle_anim.o(.rodata);
-        src/battle_anim_new.o(.rodata);
         src/battle_anim_mons.o(.rodata);
         data/map_events.o(.rodata);
         src/battle_anim_status_effects.o(.rodata);
@@ -603,19 +585,10 @@ SECTIONS {
         src/menews_jisan.o(.rodata);
         src/menews_jisan.o(.rodata.str1.4);
         src/seagallop.o(.rodata);
-        src/pokemon_jump.o(.rodata);
-        src/pokemon_jump_2.o(.rodata);
-        src/pokemon_jump_4.o(.rodata);
-        src/pokemon_jump_5.o(.rodata);
-        src/pokemon_jump_6.o(.rodata);
-        src/berry_crush_2.o(.rodata);
-        src/berry_crush_3.o(.rodata);
         src/wireless_communication_status_screen.o(.rodata);
         src/braille_text.o(.rodata);
         src/text_window_graphics.o(.rodata);
         src/quest_log_player.o(.rodata);
-        src/dodrio_berry_picking.o(.rodata);
-        src/dodrio_berry_picking_2.o(.rodata);
         src/battle_controller_pokedude.o(.rodata);
         src/teachy_tv.o(.rodata);
         src/digit_obj_util.o(.rodata);
@@ -623,7 +596,6 @@ SECTIONS {
         src/cereader_tool.o(.rodata);
         src/renewable_hidden_items.o(.rodata);
         src/trainer_tower.o(.rodata);
-        src/trainer_tower_sets.o(.rodata);
         src/minigame_countdown.o(.rodata);
         src/berry_fix_program.o(.rodata);
         src/keyboard_text.o(.rodata);
@@ -635,7 +607,7 @@ SECTIONS {
         data/mystery_event_msg.o(.rodata);
         src/m4a_tables.o(.rodata);
         data/sound_data.o(.rodata);
-    }  > ROM =0
+    } > ROM =0
 
     song_data :
     ALIGN(4)
@@ -1041,7 +1013,7 @@ SECTIONS {
         *libc.a:readr.o(.rodata);
 
         . = ALIGN(4);
-    }  > ROM =0
+    } > ROM =0
 
     multiboot_data :
     ALIGN(4)
@@ -1049,14 +1021,13 @@ SECTIONS {
         data/multiboot_ereader.o(.rodata);
         data/multiboot_berry_glitch_fix.o(.rodata);
         data/multiboot_pokemon_colosseum.o(.rodata);
-    }  > ROM =0
+    } > ROM =0
 
-    
     gfx_data :
     ALIGN(4)
     {
         src/graphics.o(.rodata);
-    }  > ROM =0
+    } > ROM =0
 
     extra :
     ALIGN(4)

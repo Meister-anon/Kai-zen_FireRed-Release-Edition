@@ -149,7 +149,7 @@ static const struct ListMenuTemplate sDaycareListMenuLevelTemplate =
 
 static const u8 *const sCompatibilityMessages[] =
 {
-    COMPOUND_STRING("The two seem to be\npractically inseparable!"),
+    gDaycareText_PracticallyInseparable,
     gDaycareText_GetAlongVeryWell,
     gDaycareText_GetAlong,
     gDaycareText_DontLikeOther,

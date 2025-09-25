@@ -27,7 +27,8 @@ struct PicData
 
 // Needs to be large enough to store either a decompressed Pokémon pic or trainer pic
 #define PIC_SPRITE_SIZE max(MON_PIC_SIZE, TRAINER_PIC_SIZE)
-#define MAX_PIC_FRAMES  max(MAX_MON_PIC_FRAMES, MAX_TRAINER_PIC_FRAMES)
+//think may be an Emerald only thing I may not need since I don't want the sendout animations
+//#define MAX_PIC_FRAMES  max(MAX_MON_PIC_FRAMES, MAX_TRAINER_PIC_FRAMES)
 
 static EWRAM_DATA struct SpriteTemplate sCreatingSpriteTemplate = {};
 static EWRAM_DATA struct PicData sSpritePics[PICS_COUNT] = {};

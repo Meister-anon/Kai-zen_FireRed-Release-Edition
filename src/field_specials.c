@@ -2984,7 +2984,7 @@ static void Task_RunPokemonLeagueLightingEffect(u8 taskId)
     if (!gPaletteFade.active
      && FlagGet(FLAG_TEMP_2) != FALSE
      && FlagGet(FLAG_TEMP_5) != TRUE
-     && gUnknown_2036E28 != 3
+     && gGlobalFieldTintMode != 3
      && --data[0] == 0
     )
     {

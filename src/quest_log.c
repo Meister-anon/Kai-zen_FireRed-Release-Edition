@@ -1193,7 +1193,7 @@ static void Task_EndQuestLog(u8 taskId)
         ClearPlayerHeldMovementAndUnfreezeObjectEvents();
         UnlockPlayerFieldControls();
         gTextFlags.autoScroll = FALSE;
-        gUnknown_2036E28 = 0;
+        gGlobalFieldTintMode = 0;
         DisableWildEncounters(FALSE);
         gHelpSystemEnabled = TRUE;
         DestroyTask(taskId);

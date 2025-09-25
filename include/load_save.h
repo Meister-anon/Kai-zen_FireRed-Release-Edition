@@ -3,10 +3,33 @@
 
 #include "global.h"
 
+
+#define SAVEBLOCK_MOVE_RANGE    128
+
+/**
+ * These structs are to prevent them from being reordered on newer or modern
+ * toolchains. If this is not done, the ClearSav functions will end up erasing
+ * the wrong memory leading to various glitches.
+ */
+struct SaveBlock2ASLR {
+    struct SaveBlock2 block;
+    u8 aslr[SAVEBLOCK_MOVE_RANGE];
+};
+
+struct SaveBlock1ASLR {
+    struct SaveBlock1 block;
+    u8 aslr[SAVEBLOCK_MOVE_RANGE];
+};
+
+struct PokemonStorageASLR {
+    struct PokemonStorage block;
+    u8 aslr[SAVEBLOCK_MOVE_RANGE];
+};
+
+extern struct SaveBlock1ASLR gSaveBlock1;
+extern struct SaveBlock2ASLR gSaveBlock2;
+extern struct PokemonStorageASLR gPokemonStorage;
 extern bool32 gFlashMemoryPresent;
-extern struct SaveBlock1 gSaveBlock1;
-extern struct SaveBlock2 gSaveBlock2;
-extern struct PokemonStorage gPokemonStorage;
 
 void ClearSav2(void);
 void ClearSav1(void);

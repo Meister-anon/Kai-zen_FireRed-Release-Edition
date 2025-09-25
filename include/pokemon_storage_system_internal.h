@@ -525,9 +525,9 @@ struct PokemonStorageSystemData
     /* 2234 */ u16 *field_223C;
     /* 2238 */ struct Sprite *cursorMonSprite;
     /* 223c */ u16 field_2244[0x40]; //in pret this is 0x20
-    /* 22bc */ u8 PSS_tileBuffer[0x800];
+    /* 22bc */ u8 ALIGNED(4) PSS_tileBuffer[MON_PIC_SIZE];
     /* 2abc */ //u8 unusedBuffer2[0x1800];
-    /* 42bc */ u8 itemIconBuffer[0x200]; //believe pret splits this off, between icon buffer & unused buffer? 0x200 according to pret, 
+    /* 42bc */ u8 ALIGNED(4) itemIconBuffer[0x200]; //believe pret splits this off, between icon buffer & unused buffer? 0x200 according to pret, 
     /* 42bc */ //u8 field_42C4[0x800]; //believe pret splits this off, between icon buffer & unused buffer? 0x200 according to pret, 
     /* 4abc */ u8 wallpaperBgTilemapBuffer[0x1000];
     /* 5abc */ u8 menuTilemapBuffer[0x800];
