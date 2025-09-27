@@ -3127,7 +3127,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 20,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_OPPONENTS_FIELD,
-    .priority = 1,
+    .priority = 0,
     .split = SPLIT_STATUS,
 },
 
@@ -6396,7 +6396,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_OPPONENTS_FIELD,
-        .priority = 1,
+        .priority = 0,
         .split = SPLIT_STATUS,
     },
 
@@ -7271,9 +7271,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_OPPONENTS_FIELD,
-        .priority = 1,
+        .priority = 0,
         .split = SPLIT_STATUS,
     },//check for how I adjusted stealth rock think I rebalanced it?
+    //think if I don't want traps to auto be set in every match
+    //I shouldn't give them priority, with ttk changes
+    //and with planned guard mode, I think its safe enough to be
+    //worth investement as is
 
     [MOVE_GRASS_KNOT] =
     {
@@ -9142,6 +9146,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAGIC_COAT_AFFECTED,
         .split = SPLIT_STATUS,
     },
+    //stiky web doesn't cause dmg,
+    //and is on thought to be "weakest" type
+    //long as keep to only bugs
+    //think fine to give this only priority
+    //keep an eye on this
 
     [MOVE_FELL_STINGER] =
     {
@@ -14237,7 +14246,7 @@ use wonder gaurd logic to determine its super effective
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_OPPONENTS_FIELD,
-        .priority = 1,
+        .priority = 0,
         .split = SPLIT_STATUS,
     },
     //turned g max move into regualr move
