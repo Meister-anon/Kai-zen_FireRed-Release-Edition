@@ -1434,7 +1434,6 @@ u8 CheckMoveLimitations(u8 battlerId, u8 unusableMoves, u8 check)
     return unusableMoves;
 }
 
-#define ALL_MOVES_MASK ((1 << MAX_MON_MOVES) - 1)
 bool8 AreAllMovesUnusable(void)
 {
     u8 unusable = CheckMoveLimitations(gActiveBattler, 0, MOVE_LIMITATIONS_ALL);

@@ -153,6 +153,8 @@
 #define PARTY_SIZE 6
 #define MULTI_PARTY_SIZE (PARTY_SIZE / 2)
 
+#define ALL_MOVES_MASK ((1 << MAX_MON_MOVES) - 1)
+
 #define DIR_NONE        0
 #define DIR_SOUTH       1
 #define DIR_NORTH       2
