@@ -37389,7 +37389,7 @@ const struct BaseStats gBaseStats[] =
               100,
               70,
               95,
-              135
+              125
        ),
         MON_TYPES(TYPE_DARK, TYPE_GRASS),
         .catchRate = 6,
@@ -37453,7 +37453,7 @@ const struct BaseStats gBaseStats[] =
               120,
               80,
               135,
-              90,
+              100,
               65
        ),
         MON_TYPES(TYPE_DARK, TYPE_ICE),
@@ -37520,7 +37520,7 @@ const struct BaseStats gBaseStats[] =
               110,
               125,
               45,
-              55,
+              65,
               80
        ),
         MON_TYPES(TYPE_DARK, TYPE_GROUND),
@@ -37584,7 +37584,7 @@ const struct BaseStats gBaseStats[] =
             //hp, atk, def, spd, spatk, spdef
         STATS(
               55,
-              80,
+              90,
               80,
               100,
               135,

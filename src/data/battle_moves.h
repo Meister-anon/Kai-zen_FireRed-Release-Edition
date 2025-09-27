@@ -3697,9 +3697,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_PURSUIT] =
     {
         .effect = EFFECT_PURSUIT,
-        .power = 60,
+        .power = 50,
         .type = TYPE_DARK,
-        .accuracy = 100,
+        .accuracy = 100, 
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -3707,6 +3707,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
     }, //boosted to 60 compare to assurance, make sense as assurance previously was also base 50
+    //decide do middle ground make bp 50 change boost to 1.5 rather than 2
+    // so a 5bp drop at max but good deal stronger overall
 
     [MOVE_RAPID_SPIN] =
     {

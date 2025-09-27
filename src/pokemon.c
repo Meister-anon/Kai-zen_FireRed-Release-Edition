@@ -4831,7 +4831,16 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     //should work for whatever move I use
     if (gBattleStruct->pursuitTarget & (1u << battlerIdDef))
-        gBattleMovePower *= 2;
+    {
+        if (move == MOVE_PURSUIT)
+        {
+            //dark types blocking damage boost
+            if (!(DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_DARK)))
+                gBattleMovePower = (150 * gBattleMovePower) / 100;
+        }
+        else
+            gBattleMovePower = (150 * gBattleMovePower) / 100;
+    }
     
     if (gSpecialStatuses[battlerIdAtk].Lostresolve)
         gBattleMovePower = (gBattleMovePower * 75) / 100; //fix for iron will, pressure, hi pressure affect
