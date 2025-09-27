@@ -42588,7 +42588,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        90,
+        105,
         85,
         75,
         90,
