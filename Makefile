@@ -1,7 +1,7 @@
 include config.mk
 
 # Default make rule
-all: UpdateTmList rom StringTester
+all: UpdateTmList rom syms StringTester
 
 # Toolchain selection
 TOOLCHAIN := $(DEVKITARM)
