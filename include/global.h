@@ -764,7 +764,7 @@ struct Roamer
 
 struct RivalParty
 {
-    /*0x00*/ u32 ivs;
+    /*0x00*/ u32 ivs; //why is this 32? because I copied roamer
     /*0x04*/ u32 personality;
     /*0x08*/ u8 RivalStarterAbilityNum;
 };//value I added to eventually store rival party data so is consistant all game
@@ -951,8 +951,8 @@ struct DayCare
     u16 route5_offspringPersonality;
     u8 eggTimer; //times egg generation, i.e used w compat to set how long till generate an egg
     u8 route5_eggTimer;
-    u8 eggCount;
-    u8 boost; //created value to increase compatibility and speed egg production
+    u8 eggCount:7; //seems maxes at 3 and below is binary 
+    u8 boost:1; //created value to increase compatibility and speed egg production
     u8 stepCounter; //if I add more mon would require a separate step counter for each pairing...or not since it alraedy works based on individual mon?
 }; //this isn't exp gain its for egg hatching/eggs //actually think thats based on daycaremon steps value, not this stepcounter
 //I'm going to keep the daycare mon count the same,
@@ -1200,7 +1200,7 @@ struct ExternalEventFlags
 
 #define UNION_ROOM_KB_ROW_COUNT 10 //find out what this is?
 
-struct SaveBlock1
+struct SaveBlock1 //still extra padding somewhere here most likely around new addition
 {
     /*0x0000*/ struct Coords16 pos;
     /*0x0004*/ struct WarpData location;
