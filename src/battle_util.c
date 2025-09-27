@@ -7430,7 +7430,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;
                 case ABILITY_SHED_SKIN: //don't need to make switch in effect, it activates before status dmg
-                    if ((gBattleMons[battler].status1 & STATUS1_ANY) && (Random() % 2) == 0) //buffed odds to 50%,may need lower?  ok so I buffed because 30% odds felt like it never triggered?
+                    if ((gBattleMons[battler].status1 & STATUS1_ANY) 
+                    //&& (Random() % 2) == 0) //buffed odds to 50%,may need lower?  ok so I buffed because 30% odds felt like it never triggered?
+                    && (Random() % 10) < 4) //test should hopefully be 40%
                     {
                         if (gBattleMons[battler].status1 & (STATUS1_PSN_ANY))
                             StringCopy(gBattleTextBuff1, gStatusConditionString_PoisonJpn); //no idea why this is here? but its in emerald too
