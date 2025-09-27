@@ -1043,7 +1043,7 @@ struct QuestLog
 
     // These arrays hold the game state for
     // playing back the quest log
-    /*0x0148*/ u8 ALIGNED(2) flags[NUM_FLAG_BYTES];
+    /*0x0148*/ u8 ALIGNED(2) flags[NUM_FLAG_BYTES]; //2304 bytes 0x900
     /*0x02c8*/ u16 vars[VARS_COUNT];
     /*0x0468*/ struct QuestLogNPCData npcData[OBJECT_EVENT_TEMPLATES_COUNT];
     /*0x0568*/ u16 script[128];//rename ^ struct QuestLogObjectEventTemplate objectEventTemplates

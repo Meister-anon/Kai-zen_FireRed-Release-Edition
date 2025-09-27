@@ -154,16 +154,18 @@ struct BoxPokemon
     u32 personality;
     u32 otId;
     u8 nickname[POKEMON_NAME_LENGTH];
-    u8 language:3; // 7 languages
-    u8 nature:5;  // 1-0xF is the timer. 0x10 is set when timer runs out  //single byte think odd, think will reset back to EE way so doesn't potentially affect nature set odds/distribution
+    
     
     u8 otName[OT_NAME_LENGTH]; //odd name length so believe makes even again
+    u8 padding;
+    
+    u8 language:3; // 7 languages
+    u8 nature:5;  // 1-0xF is the timer. 0x10 is set when timer runs out  //single byte think odd, think will reset back to EE way so doesn't potentially affect nature set odds/distribution
     u8 isMonShiny:1; //potentially replace w removal of checksum? //yeah can get rid of this its all determined by checksum replace w shiny set
     u8 isEgg:1;
     u8 freespace:1; //made more space for padding
     u8 storedviaMobilePc:1; //for tracking if mon came from mobile pc for hp reconsiliation
     u8 metGame:4;    //byte 29?
-    
     //byte 30? so even again - ok perfect so should be able to add u16 below this to not add extra padding
     u8 NoBoxExp:1; //true false is all I need for this
     u8 UseTaughtAbility:1; //true false
@@ -188,6 +190,13 @@ struct BoxPokemon
     u8 formflag;
     u8 hatched:1;  //new thing to replace met level 0 in daycare - need test to make sure doesn't mess w evoLevel
     u8 evoLevel:7;
+
+        //think I can make space by turning this into bit field
+    //has sub 400 abilties rn with everything if I make bit 9 can hold 512 max
+    //then move some ribbons in to fill space
+    u16 LearnedAbilityId:9; //after all done may add byte back to this to give more space for cap at 10 would be +1k
+    u16 beautyRibbon:3;
+    u16 freeblank:4;
 
     u32 hpIV:5;
     u32 attackIV:5;
@@ -228,12 +237,6 @@ struct BoxPokemon
     u8 smart;
     u8 tough;
 
-    //think I can make space by turning this into bit field
-    //has sub 400 abilties rn with everything if I make bit 9 can hold 512 max
-    //then move some ribbons in to fill space
-    u16 LearnedAbilityId:9; //after all done may add byte back to this to give more space for cap at 10 would be +1k
-    u16 beautyRibbon:3;
-    u16 freeblank:4;
 
 };
 //wil use bit fields to cut down on substruct stuff on rec
@@ -269,7 +272,10 @@ struct Pokemon
     u16 spDefense;
     u8 StatusSetState;
     u8 Exp_state;
-};
+    u16 padding;// - from 4 allignment
+};//ok with the stuff I added
+//I now have 2 bytes of extra space
+//I plan to remove mail 
 
 u8 GetLevelFromMonExp(struct Pokemon *mon);
 u16 ModifyStatByNature(u8 nature, u16 stat, u8 statIndex);//made global for bs command level up calc
