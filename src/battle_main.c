@@ -374,14 +374,19 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_DRAGON] =     {______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,    X(0.5),   X(1.55),   ______,    X(0.0),   ______}, // dragon
 
-    [TYPE_DARK] =       {______,   X(0.5),   ______,   X(0.5),   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(1.55),   X(1.55),   ______}, // dark
+    [TYPE_DARK] =       {______,   X(0.5),   ______,   X(0.5),   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(1.55),   X(0.5),   ______}, // dark
 
-    [TYPE_FAIRY] =      {X(1.55),  ______,   ______,   X(0.5),   ______,   ______,   X(0.5),   ______,   X(0.5),   ______,   X(0.5),   ______,   X(0.0),   ______,   X(0.5),   ______,   X(1.55),   X(1.55),   ______,   ______}, // fairy
+    [TYPE_FAIRY] =      {X(1.55),  ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   X(0.5),   ______,   X(0.5),   ______,   X(0.0),   ______,   X(0.5),   ______,   X(1.55),   X(1.55),   ______,   ______}, // fairy
 
        /*sound*/        {______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,    ______,   ______,    ______}, // sound
 };//                     normal    fight      flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water    grass    electric   psychic    ice      dragon     dark     fairy      sound
 
 #undef X
+
+//removed bug resist from fairy made typpe too weak 
+//main benefit of fairy was hitting many for neutral
+//also apparent in fairy lore fae and bugs are similar
+//some even treat them the same 
 
 //may remove ice resistance for ground type?
 //yeah did more research earthquakes can occur in winter climates 
