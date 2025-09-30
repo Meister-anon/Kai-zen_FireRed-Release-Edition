@@ -217,6 +217,7 @@ static const struct AbilityLearnset sGloomAbilityLearnset[] = {
 
 static const struct AbilityLearnset sVileplumeAbilityLearnset[] = {
     ABILITY_PHOTOSYNTHESIZE,
+    ABILITY_TOXIC_DELUGE,
     ABILITY_TOXIC_CHAIN, //think this may be fine?
     ABILITY_SET_END
 };
@@ -499,6 +500,7 @@ static const struct AbilityLearnset sKoffingAbilityLearnset[] = {
 
 static const struct AbilityLearnset sWeezingAbilityLearnset[] = {
     ABILITY_FLARE_BOOST,
+    ABILITY_TOXIC_DELUGE,
     ABILITY_SET_END
 };
 //heat makes it expand and is balloon like so gave this
@@ -1439,6 +1441,7 @@ static const struct AbilityLearnset sGlalieAbilityLearnset[] = {
 static const struct AbilityLearnset sLunatoneAbilityLearnset[] = {
     ABILITY_MISTY_SURGE,
     ABILITY_LUNAR_SOLSTICE,
+    ABILITY_NEW_MOON,
     ABILITY_SET_END
 };//need give fairy moves fae worship moon, also moonblast is so obvious
 //fae is linked w moon so setting mist terrain is best I could come up with?
@@ -4543,6 +4546,7 @@ static const struct AbilityLearnset sVaroomAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sRevavroomAbilityLearnset[] = {
+    ABILITY_NEUTRALIZING_GAS,  //exhaust fumes
     ABILITY_SET_END
 };
 

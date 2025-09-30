@@ -15229,7 +15229,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(120, 70, 110, 85, 75, 120),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
+        MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_SpDefense = 3,
@@ -15256,6 +15256,7 @@ const struct BaseStats gBaseStats[] =
     //part of me wants to go back to pure psychic to differentiate from uxie
     //but would prob be even less reason to use uxie 
     //the new ability works well to cover that but eh
+    //decidd leave this pure psychic to make uxie finally different
 
     [SPECIES_PHIONE] =
     {
@@ -34870,7 +34871,7 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_MINERAL),
-        .abilities = { ABILITY_OVERCOAT, ABILITY_NONE },
+        .abilities = { ABILITY_OVERCOAT, ABILITY_TOXIC_DELUGE }, //cuz creates poison gas exhaust
         .abilityHidden = {ABILITY_FILTER, ABILITY_SPEED_BOOST},
         .floating = TRUE,
         .bodyColor = BODY_COLOR_GRAY,
