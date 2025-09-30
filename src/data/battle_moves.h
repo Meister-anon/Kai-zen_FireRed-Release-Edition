@@ -3134,7 +3134,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 [MOVE_ZAP_CANNON] =
 {
     #if B_UPDATED_MOVE_DATA >= GEN_4
-        .power = 85,
+        .power = 80,
     #else
         .power = 100,
     #endif

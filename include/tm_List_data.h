@@ -280,6 +280,7 @@ head charge
 icicle crash
 MOVE_SNARL
 leech seed - think want this to -  mostly just for phione
+steel surge
 */
 
 //should add stomping tantrum? see its a tm in gen 9
