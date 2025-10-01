@@ -1,5 +1,14 @@
 include config.mk
 
+# Executes the Test Runner System that checks that all mechanics work as expected
+TEST         ?= 0
+# Enables -fanalyzer C flag to analyze in depth potential UBs
+ANALYZE      ?= 0
+
+ifeq (check,$(MAKECMDGOALS))
+  TEST := 1
+endif
+
 # Default make rule
 all: UpdateTmList rom syms StringTester
 
@@ -48,8 +57,37 @@ else
   CPP := $(PREFIX)cpp
 endif
 
-ROM := Kai-zen_$(BUILD_NAME).gba
-OBJ_DIR := $(BUILD_DIR)/$(BUILD_NAME)
+ROM_NAME := Kai-zen_$(BUILD_NAME).gba
+OBJ_DIR_NAME := $(BUILD_DIR)/$(BUILD_NAME)
+OBJ_DIR_NAME_TEST := $(BUILD_DIR)/test
+MODERN_OBJ_DIR_NAME_TEST := $(BUILD_DIR)/modern-test
+
+ELF_NAME := $(ROM_NAME:.gba=.elf)
+MAP_NAME := $(ROM_NAME:.gba=.map)
+MODERN_ELF_NAME := $(MODERN_ROM_NAME:.gba=.elf)
+MODERN_MAP_NAME := $(MODERN_ROM_NAME:.gba=.map)
+TESTELF = $(ROM_NAME:.gba=-test.elf)
+HEADLESSELF = $(ROM_NAME:.gba=-test-headless.elf)
+
+# Pick our active variables
+ifeq ($(MODERN),0)
+  ROM := $(ROM_NAME)
+  ifeq ($(TEST), 0)
+    OBJ_DIR := $(OBJ_DIR_NAME)
+  else
+    OBJ_DIR := $(OBJ_DIR_NAME_TEST)
+  endif
+else
+  ROM := $(ROM_NAME)
+  ifeq ($(TEST), 0)
+    OBJ_DIR := $(OBJ_DIR_NAME)
+  else
+    OBJ_DIR := $(MODERN_OBJ_DIR_NAME_TEST)
+  endif
+endif
+ifeq ($(TESTELF),$(MAKECMDGOALS))
+  TEST := 1
+endif
 
 ELF := $(ROM:.gba=.elf)
 MAP := $(ROM:.gba=.map)
@@ -62,12 +100,14 @@ DATA_SRC_SUBDIR = src/data
 DATA_ASM_SUBDIR = data
 SONG_SUBDIR = sound/songs
 MID_SUBDIR = sound/songs/midi
+TEST_SUBDIR = test
 
 C_BUILDDIR = $(OBJ_DIR)/$(C_SUBDIR)
 ASM_BUILDDIR = $(OBJ_DIR)/$(ASM_SUBDIR)
 DATA_ASM_BUILDDIR = $(OBJ_DIR)/$(DATA_ASM_SUBDIR)
 SONG_BUILDDIR = $(OBJ_DIR)/$(SONG_SUBDIR)
 MID_BUILDDIR = $(OBJ_DIR)/$(MID_SUBDIR)
+TEST_BUILDDIR = $(OBJ_DIR)/$(TEST_SUBDIR)
 
 SHELL := bash -o pipefail
 
@@ -119,6 +159,10 @@ RAMSCRGEN := $(TOOLS_DIR)/ramscrgen/ramscrgen$(EXE)
 FIX       := $(TOOLS_DIR)/gbafix/gbafix$(EXE)
 MAPJSON   := $(TOOLS_DIR)/mapjson/mapjson$(EXE)
 JSONPROC  := $(TOOLS_DIR)/jsonproc/jsonproc$(EXE)
+#TRAINERPROC  := $(TOOLS_DIR)/trainerproc/trainerproc$(EXE)
+PATCHELF     := $(TOOLS_DIR)/patchelf/patchelf$(EXE)
+ROMTEST      ?= $(shell { command -v mgba-rom-test || command -v $(TOOLS_DIR)/mgba/mgba-rom-test$(EXE); } 2>/dev/null)
+ROMTESTHYDRA := $(TOOLS_DIR)/mgba-rom-test-hydra/mgba-rom-test-hydra$(EXE)
 
 PERL := perl
 SHA1 := $(shell { command -v sha1sum || command -v shasum; } 2>/dev/null) -c
@@ -131,13 +175,15 @@ MAKEFLAGS += --no-print-directory
 .SECONDARY:
 # Delete files that weren't built properly
 .DELETE_ON_ERROR:
+# Secondary expansion is required for dependency variables in object rules.
+.SECONDEXPANSION:
 
 ALL_BUILDS := firered firered_rev1 leafgreen leafgreen_rev1
 #ALL_BUILDS += $(ALL_BUILDS:%=%_modern)
 #leaving off assign _modern so can do separate cleans
 
-RULES_NO_SCAN += clean clean-assets tidy generated clean-generated
-.PHONY: all rom UpdateTmList StringTester modern compare $(ALL_BUILDS) $(ALL_BUILDS:%=compare_%)
+RULES_NO_SCAN += clean clean-assets tidy tidyclassic tidymodern tidycheck generated clean-generated
+.PHONY: all rom UpdateTmList StringTester modern compare check $(ALL_BUILDS) $(ALL_BUILDS:%=compare_%)
 .PHONY: $(RULES_NO_SCAN)
 
 infoshell = $(foreach line, $(shell $1 | sed "s/ /__SPACE__/g"), $(info $(subst __SPACE__, ,$(line))))
@@ -175,6 +221,11 @@ C_SRCS_IN := $(wildcard $(C_SUBDIR)/*.c $(C_SUBDIR)/*/*.c $(C_SUBDIR)/*/*/*.c)
 C_SRCS := $(foreach src,$(C_SRCS_IN),$(if $(findstring .inc.c,$(src)),,$(src)))
 C_OBJS := $(patsubst $(C_SUBDIR)/%.c,$(C_BUILDDIR)/%.o,$(C_SRCS))
 
+TEST_SRCS_IN := $(wildcard $(TEST_SUBDIR)/*.c $(TEST_SUBDIR)/*/*.c $(TEST_SUBDIR)/*/*/*.c)
+TEST_SRCS := $(foreach src,$(TEST_SRCS_IN),$(if $(findstring .inc.c,$(src)),,$(src)))
+TEST_OBJS := $(patsubst $(TEST_SUBDIR)/%.c,$(TEST_BUILDDIR)/%.o,$(TEST_SRCS))
+TEST_OBJS_REL := $(patsubst $(OBJ_DIR)/%,%,$(TEST_OBJS))
+
 C_ASM_SRCS := $(wildcard $(C_SUBDIR)/*.s $(C_SUBDIR)/*/*.s $(C_SUBDIR)/*/*/*.s)
 C_ASM_OBJS := $(patsubst $(C_SUBDIR)/%.s,$(C_BUILDDIR)/%.o,$(C_ASM_SRCS))
 
@@ -196,12 +247,35 @@ MID_OBJS := $(patsubst $(MID_SUBDIR)/%.mid,$(MID_BUILDDIR)/%.o,$(MID_SRCS))
 OBJS     := $(C_OBJS) $(C_ASM_OBJS) $(ASM_OBJS) $(DATA_ASM_OBJS) $(SONG_OBJS) $(MID_OBJS)
 OBJS_REL := $(patsubst $(OBJ_DIR)/%,%,$(OBJS))
 
-SUBDIRS  := $(sort $(dir $(OBJS)))
+SUBDIRS  := $(sort $(dir $(OBJS) $(dir $(TEST_OBJS))))
 $(shell mkdir -p $(SUBDIRS))
 
 # Pretend rules that are actually flags defer to `make all`
 modern: all
 compare: all
+
+LD_SCRIPT_TEST := ld_script_test.ld
+
+$(OBJ_DIR)/ld_script_test.ld: $(LD_SCRIPT_TEST) $(LD_SCRIPT_DEPS)
+	cd $(OBJ_DIR) && sed "s#tools/#../../tools/#g" ../../$(LD_SCRIPT_TEST) > ld_script_test.ld
+
+$(TESTELF): $(OBJ_DIR)/ld_script_test.ld $(OBJS) $(TEST_OBJS) libagbsyscall tools check-tools
+	@echo "cd $(OBJ_DIR) && $(LD) -T ld_script_test.ld -o ../../$@ <objects> <test-objects> <lib>"
+	@cd $(OBJ_DIR) && $(LD) $(TESTLDFLAGS) -T ld_script_test.ld -o ../../$@ $(OBJS_REL) $(TEST_OBJS_REL) $(LIB)
+	$(FIX) $@ -t"$(TITLE)" -c$(GAME_CODE) -m$(MAKER_CODE) -r$(REVISION) -d0 --silent
+	$(PATCHELF) $(TESTELF) gTestRunnerArgv "$(TESTS)\0"
+
+ifeq ($(GITHUB_REPOSITORY_OWNER),rh-hideout)
+TEST_SKIP_IS_FAIL := \x01
+else
+TEST_SKIP_IS_FAIL := \x00
+endif
+
+check: $(TESTELF)
+	@cp $< $(HEADLESSELF)
+	$(PATCHELF) $(HEADLESSELF) gTestRunnerHeadless '\x01' gTestRunnerSkipIsFail "$(TEST_SKIP_IS_FAIL)"
+	$(ROMTESTHYDRA) $(ROMTEST) $(OBJCOPY) $(HEADLESSELF)
+
 
 # Other rules
 rom: $(ROM)
@@ -225,7 +299,7 @@ UpdateTmList:
 StringTester:
 	python3	scripts_py/stringBounds_test.py
 
-clean: tidy clean-tools clean-generated clean-assets
+clean: tidy clean-tools clean-check-tools clean-generated clean-assets
 
 #believe this is comparative version of
 #mostlyclean
@@ -238,13 +312,21 @@ clean-assets:
 	find $(DATA_ASM_SUBDIR)/maps \( -iname 'connections.inc' -o -iname 'events.inc' -o -iname 'header.inc' \) -exec rm {} +
 
 
-tidy:
-	$(RM) $(ALL_BUILDS:%=poke%{.gba,.elf,.map})  $(ALL_BUILDS:%=Kai-zen_%{.gba,.elf,.map}) $(ALL_BUILDS:%=poke%_modern{.gba,.elf,.map})  $(ALL_BUILDS:%=Kai-zen_%_modern{.gba,.elf,.map})
+tidy: tidyclassic tidymodern tidycheck
+
+tidyclassic:
+	$(RM) $(ALL_BUILDS:%=poke%{.gba,.elf,.map})  $(ALL_BUILDS:%=Kai-zen_%{.gba,.elf,.map})
 	$(RM) -r $(BUILD_DIR)
 
 tidymodern:
 	$(RM) $(ALL_BUILDS:%=poke%_modern{.gba,.elf,.map})  $(ALL_BUILDS:%=Kai-zen_%_modern{.gba,.elf,.map})
 	$(RM) -r $(BUILD_DIR)
+
+tidycheck:
+	rm -f $(TESTELF) $(HEADLESSELF)
+	rm -rf $(MODERN_OBJ_DIR_NAME_TEST)
+	rm -rf $(OBJ_DIR_NAME_TEST)
+
 
 tidysym:
 	$(RM) $(ALL_BUILDS:%=poke%.sym)  $(ALL_BUILDS:%=Kai-zen_%.sym) $(ALL_BUILDS:%=poke%_modern.sym)  $(ALL_BUILDS:%=Kai-zen_%_modern.sym)
@@ -282,8 +364,7 @@ include audio_rules.mk
 
 # NOTE: Tools must have been built prior (FIXME)
 # so you can't really call this rule directly
-generated: $(AUTO_GEN_TARGETS)
-	@: # Silence the "Nothing to be done for `generated'" message, which some people were confusing for an error.
+generated: tools $(AUTO_GEN_TARGETS)
 
 %.s:   ;
 %.png: ;
@@ -347,6 +428,19 @@ $(C_BUILDDIR)/%.d: $(C_SUBDIR)/%.c
 
 ifneq ($(NODEP),1)
 -include $(addprefix $(OBJ_DIR)/,$(C_SRCS:.c=.d))
+endif
+
+ifeq ($(TEST),1)
+$(TEST_BUILDDIR)/%.o: $(TEST_SUBDIR)/%.c
+	@echo "$(CC1) <flags> -o $@ $<"
+	@$(CPP) $(CPPFLAGS) $< | $(PREPROC) -i $< charmap.txt | $(CC1) $(CFLAGS) -o - - | cat - <(echo -e ".text\n\t.align\t2, 0") | $(AS) $(ASFLAGS) -o $@ -
+
+$(TEST_BUILDDIR)/%.d: $(TEST_SUBDIR)/%.c
+	$(SCANINC) -M $@ $(INCLUDE_SCANINC_ARGS) -I tools/agbcc/include $<
+
+ifneq ($(NODEP),1)
+-include $(addprefix $(OBJ_DIR)/,$(TEST_SRCS:.c=.d))
+endif
 endif
 
 $(ASM_BUILDDIR)/%.o: $(ASM_SUBDIR)/%.s
