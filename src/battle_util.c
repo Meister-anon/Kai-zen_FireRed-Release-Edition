@@ -7966,6 +7966,10 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     if (moveType == TYPE_ROCK)
                         effect = 1;
                     break;
+                case ABILITY_NEW_MOON:
+                 if (IsMoonbasedMove(moveArg) && battler != gBattlerAttacker) //not self target
+                        effect = 1;
+                    break;
                 case ABILITY_RISING_PHOENIX:
                 if (moveType == TYPE_FIRE)
                         effect = 4;
@@ -8062,9 +8066,6 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
 
                 } //end of abilities,  start of effect logic
 
-                if (GetBattlerAbility(battler) == ABILITY_NEW_MOON//argument sets battler as battlertarget
-                    && IsMoonbasedMove(moveArg) && battler != gBattlerAttacker) //not self target
-                        effect = 1;
 
                 if (effect == 1) // Drain Hp ability.
                 {
