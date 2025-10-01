@@ -1,7 +1,7 @@
 include config.mk
 
 # Default make rule
-all: UpdateTmList rom syms StringTester
+all: UpdateTmList rom syms stringtester
 
 # Toolchain selection
 TOOLCHAIN := $(DEVKITARM)
@@ -137,7 +137,7 @@ ALL_BUILDS := firered firered_rev1 leafgreen leafgreen_rev1
 #leaving off assign _modern so can do separate cleans
 
 RULES_NO_SCAN += clean clean-assets tidy generated clean-generated
-.PHONY: all rom UpdateTmList StringTester modern compare $(ALL_BUILDS) $(ALL_BUILDS:%=compare_%)
+.PHONY: all rom UpdateTmList stringtester modern compare $(ALL_BUILDS) $(ALL_BUILDS:%=compare_%)
 .PHONY: $(RULES_NO_SCAN)
 
 infoshell = $(foreach line, $(shell $1 | sed "s/ /__SPACE__/g"), $(info $(subst __SPACE__, ,$(line))))
@@ -222,7 +222,8 @@ syms: $(SYM)
 UpdateTmList:
 	python3	scripts_py/tm_list.py
 
-StringTester:
+#removed case for ease of running
+stringtester:
 	python3	scripts_py/stringBounds_test.py
 
 clean: tidy clean-tools clean-generated clean-assets
