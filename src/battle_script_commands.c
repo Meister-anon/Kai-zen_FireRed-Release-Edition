@@ -20954,6 +20954,7 @@ bool32 DoesDisguiseBlockMove(u8 battlerAtk, u8 battlerDef, u32 move) //plan add 
         //|| gBattleMoves[move].power == 0      /need/want it to track with the mon as it moves so if I switch it, the status still applies,
         || IS_MOVE_STATUS(move)                 //hmm I guess simple as look into status then since status1 stays with mon, no matter where switch
         || gHitMarker & HITMARKER_IGNORE_DISGUISE
+        || GetBattlerAbility(battlerAtk) == ABILITY_INFILTRATOR
         || gProtectStructs[battlerAtk].confusionSelfDmg) //should allow conufusion dmg through without breaking form -works, just makes more sense, 
         return FALSE; //its not the same as substitute where its a different object, disguise is part of the mon
     else
