@@ -3629,7 +3629,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Chansey"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(250, 15, 10, 50, 45, 105),
+         STATS(250, 15, 5, 50, 45, 105),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 30,
         .expYield = 395,
@@ -13459,6 +13459,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sHonchkrowTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //Honchkrow also summons Murkrow to fight on its behalf,
+    //letting them do most of the fighting before it deals the finishing blow.
+    //give attack order defense order maybe heal order too
+    //consider set merciless as learned ability
 
     [SPECIES_GLAMEOW] =
     {
@@ -41390,8 +41394,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_FAIRY,
-        .abilities = {ABILITY_AURA_OF_LIGHT, ABILITY_AURA_OF_LIGHT}, //maybe give ABILITY_AURA_OF_LIGHT
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE}, //empathic curse would also be cool if I could swing it
+        .abilities = {ABILITY_REGENERATOR, ABILITY_NONE}, //maybe give ABILITY_AURA_OF_LIGHT
+        .abilityHidden = {ABILITY_AURA_OF_LIGHT, ABILITY_NONE}, //empathic curse would also be cool if I could swing it
         .bodyColor = BODY_COLOR_WHITE, //intent being a benefit of it staying on the field and hanging aroud
        .noFlip = FALSE,
         .floating = FALSE,

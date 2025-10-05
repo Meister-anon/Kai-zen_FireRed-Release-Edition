@@ -1909,6 +1909,7 @@ static const struct AbilityLearnset sMismagiusAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sHonchkrowAbilityLearnset[] = {
+    ABILITY_MERCILESS,
     ABILITY_SET_END
 };
 
