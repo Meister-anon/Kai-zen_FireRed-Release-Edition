@@ -2556,6 +2556,10 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     for some reason it only uses wrap/bind animation
     )
 
+    10/5/25
+    found issue with modern build 
+    breaks flags, debug menu flag set restarts game
+
     9/19/25
     IMPORTANT
     idea add mechanic to megas give 15% health restore 
