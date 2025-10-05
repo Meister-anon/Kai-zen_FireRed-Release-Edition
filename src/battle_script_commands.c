@@ -5382,7 +5382,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     else
                     {
                         //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
-
+                        SetTrap = TRUE;
                         gDisableStructs[gEffectBattler].environmentTrapTurns = TrapDuration;
                         gBattleMons[gEffectBattler].status4 |= STATUS4_SAND_TOMB;
                     }
@@ -5465,6 +5465,8 @@ void SetMoveEffect(bool32 primary, u32 certain)
                                 break;                  //what I mean by that is, I could keep all traps in effect wrap, and use wrap turns, but then set a different status for each move at the bottom after checking which move was used to trap
                         }//believe this is only for reading from the trapstring table can prob remove for other trap effects
                     }
+                    else
+                        BattleScriptPush(gBattlescriptCurrInstr + 1);//below set based on move effect so will need to change move effect within switch case
                 }//multistring > 4 would be a problem if I didn't split off the moves from the wrap effect
                 break;
             /*case MOVE_EFFECT_LIGHT_RECOIL: // 25% recoil   also struggle
