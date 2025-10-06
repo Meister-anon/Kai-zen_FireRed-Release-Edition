@@ -938,9 +938,34 @@ static void DebugAction_DestroyExtraWindow(u8 taskId)
     UnfreezeObjectEvents();
 }
 
+static const u16 sLocationFlags[] =
+{
+    FLAG_WORLD_MAP_PALLET_TOWN,
+    FLAG_WORLD_MAP_VIRIDIAN_CITY,
+    FLAG_WORLD_MAP_PEWTER_CITY,
+    FLAG_WORLD_MAP_CERULEAN_CITY,
+    FLAG_WORLD_MAP_LAVENDER_TOWN,
+    FLAG_WORLD_MAP_VERMILION_CITY,
+    FLAG_WORLD_MAP_CELADON_CITY,
+    FLAG_WORLD_MAP_FUCHSIA_CITY,
+    FLAG_WORLD_MAP_CINNABAR_ISLAND,
+    FLAG_WORLD_MAP_INDIGO_PLATEAU_EXTERIOR,
+    FLAG_WORLD_MAP_SAFFRON_CITY,
+    FLAG_WORLD_MAP_ONE_ISLAND,
+    FLAG_WORLD_MAP_TWO_ISLAND,
+    FLAG_WORLD_MAP_THREE_ISLAND,
+    FLAG_WORLD_MAP_FOUR_ISLAND,
+    FLAG_WORLD_MAP_FIVE_ISLAND,
+    FLAG_WORLD_MAP_SEVEN_ISLAND,
+    FLAG_WORLD_MAP_SIX_ISLAND,
+    FLAG_WORLD_MAP_ROUTE4_POKEMON_CENTER_1F,
+    FLAG_WORLD_MAP_ROUTE10_POKEMON_CENTER_1F,
+};
+
 static u8 Debug_CheckToggleFlags(u8 id)
 {
     u8 result = FALSE;
+    u32 i;
 
     switch (id)
     {
@@ -954,36 +979,26 @@ static u8 Debug_CheckToggleFlags(u8 id)
             result = FlagGet(FLAG_SYS_B_DASH);
             break;
         case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_LOCATIONS:
-            result = FlagGet(FLAG_WORLD_MAP_PALLET_TOWN) &&
-                FlagGet(FLAG_WORLD_MAP_VIRIDIAN_CITY) &&
-                FlagGet(FLAG_WORLD_MAP_PEWTER_CITY) &&
-                FlagGet(FLAG_WORLD_MAP_CERULEAN_CITY) &&
-                FlagGet(FLAG_WORLD_MAP_LAVENDER_TOWN) &&
-                FlagGet(FLAG_WORLD_MAP_VERMILION_CITY) &&
-                FlagGet(FLAG_WORLD_MAP_CELADON_CITY) &&
-                FlagGet(FLAG_WORLD_MAP_FUCHSIA_CITY) &&
-                FlagGet(FLAG_WORLD_MAP_CINNABAR_ISLAND) &&
-                FlagGet(FLAG_WORLD_MAP_INDIGO_PLATEAU_EXTERIOR) &&
-                FlagGet(FLAG_WORLD_MAP_SAFFRON_CITY) &&
-                FlagGet(FLAG_WORLD_MAP_ONE_ISLAND) &&
-                FlagGet(FLAG_WORLD_MAP_TWO_ISLAND) &&
-                FlagGet(FLAG_WORLD_MAP_THREE_ISLAND) &&
-                FlagGet(FLAG_WORLD_MAP_FOUR_ISLAND) &&
-                FlagGet(FLAG_WORLD_MAP_FIVE_ISLAND) &&
-                FlagGet(FLAG_WORLD_MAP_SEVEN_ISLAND) &&
-                FlagGet(FLAG_WORLD_MAP_SIX_ISLAND) &&
-                FlagGet(FLAG_WORLD_MAP_ROUTE4_POKEMON_CENTER_1F) &&
-                FlagGet(FLAG_WORLD_MAP_ROUTE10_POKEMON_CENTER_1F);
-            break;
+            result = TRUE;
+            for (i = 0; i < ARRAY_COUNT(sLocationFlags); i++)
+            {
+                if (!FlagGet(sLocationFlags[i]))
+                {
+                    result = FALSE;
+                    break;
+                }
+            }
+            break; //removed entire block still broke, so problem further up
         case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_BADGES_ALL:
-            result = FlagGet(FLAG_BADGE01_GET) &&
-                FlagGet(FLAG_BADGE02_GET) &&
-                FlagGet(FLAG_BADGE03_GET) &&
-                FlagGet(FLAG_BADGE04_GET) &&
-                FlagGet(FLAG_BADGE05_GET) &&
-                FlagGet(FLAG_BADGE06_GET) &&
-                FlagGet(FLAG_BADGE07_GET) &&
-                FlagGet(FLAG_BADGE08_GET);
+            result = TRUE;
+            for (i = 0; i < ARRAY_COUNT(gBadgeFlags); i++)
+            {
+                if (!FlagGet(gBadgeFlags[i]))
+                {
+                    result = FALSE;
+                    break;
+                }
+            }
             break;
     #if OW_FLAG_NO_COLLISION != 0
         case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_COLISSION:
@@ -1013,26 +1028,16 @@ static u8 Debug_CheckToggleFlags(u8 id)
     return result;
 }
 
-static void Debug_RefreshListMenu(u8 taskId)
+static void Debug_GenerateListMenuNames(u32 totalItems)
 {
-    u16 i;
     const u8 sColor_Red[] = _("{COLOR RED}");
     const u8 sColor_Green[] = _("{COLOR GREEN}");
-    u8 totalItems = 0, flagResult = 0;
+    u32 i, flagResult = 0;
     u8 const *name = NULL;
 
-    if (sDebugMenuListData->listId == 0)
-    {
-        gMultiuseListMenuTemplate = sDebugMenu_ListTemplate_FlagsVars;
-        totalItems = gMultiuseListMenuTemplate.totalItems;
-    }
-
-    // Failsafe to prevent memory corruption
-    totalItems = min(totalItems, DEBUG_MAX_MENU_ITEMS);
     // Copy item names for all entries but the last (which is Cancel)
-    for(i = 0; i < totalItems; i++)
+    for (i = 0; i < totalItems; i++)
     {
-
         if (sDebugMenuListData->listId == 1)
         {
             u16 species;
@@ -1083,6 +1088,22 @@ static void Debug_RefreshListMenu(u8 taskId)
         sDebugMenuListData->listItems[i].label = &sDebugMenuListData->itemNames[i][0];
         sDebugMenuListData->listItems[i].index = i;
     }
+}
+
+static void Debug_RefreshListMenu(u8 taskId)
+{
+    u8 totalItems = 0;
+
+    if (sDebugMenuListData->listId == 0)
+    {
+        gMultiuseListMenuTemplate = sDebugMenu_ListTemplate_FlagsVars;
+        totalItems = gMultiuseListMenuTemplate.totalItems;
+    }
+
+    // Failsafe to prevent memory corruption
+    totalItems = min(totalItems, DEBUG_MAX_MENU_ITEMS);
+    Debug_GenerateListMenuNames(totalItems);
+
 
     // Set list menu data
     gMultiuseListMenuTemplate.items = sDebugMenuListData->listItems;
@@ -1211,8 +1232,9 @@ static void DebugTask_HandleMenuInput_FlagsVars(u8 taskId)
             else
             {
                 func(taskId);
-                Debug_RedrawListMenu(taskId);
-            }
+                Debug_GenerateListMenuNames(gMultiuseListMenuTemplate.totalItems);
+                RedrawListMenu(gTasks[taskId].tMenuTaskId);
+            }//ok this change seemed to have fixed it
 
             // Remove TRUE/FALSE window for functions that haven't been assigned flags
             if (gTasks[taskId].tInput == 0xFF)

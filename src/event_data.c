@@ -31,6 +31,25 @@ COMMON_DATA u16 gLastQuestLogStoredFlagOrVarIdx = 0;
 
 extern u16 *const gSpecialVars[];
 
+const u16 gBadgeFlags[NUM_BADGES] =
+{
+    FLAG_BADGE01_GET,
+    FLAG_BADGE02_GET,
+    FLAG_BADGE03_GET,
+    FLAG_BADGE04_GET,
+    FLAG_BADGE05_GET,
+    FLAG_BADGE06_GET,
+    FLAG_BADGE07_GET,
+    FLAG_BADGE08_GET,
+};
+
+#if TESTING
+#define TEST_FLAGS_SIZE     1
+#define TEST_VARS_SIZE      8
+EWRAM_DATA static u8 sTestFlags[TEST_FLAGS_SIZE] = {0};
+EWRAM_DATA static u16 sTestVars[TEST_VARS_SIZE] = {0};
+#endif // TESTING
+
 void InitEventData(void)
 {
     memset(gSaveBlock1Ptr->flags, 0, NUM_FLAG_BYTES);
@@ -249,6 +268,23 @@ u8 VarGetObjectEventGraphicsId(u8 idx)
     return VarGet(VAR_OBJ_GFX_ID_0 + idx);
 }
 
+u8 *GetFlagPointer(u16 id)
+{
+    if (id == 0)
+        return NULL;
+    else if (id < SPECIAL_FLAGS_START)
+        return &gSaveBlock1Ptr->flags[id / 8];
+#if TESTING
+    else if (id >= TESTING_FLAGS_START)
+        return &sTestFlags[(id - TESTING_FLAGS_START) / 8];
+#endif // TESTING
+    else
+        return &sSpecialFlags[(id - SPECIAL_FLAGS_START) / 8];
+}
+
+//ok idk wwhy but this isn't in emerald expansion at all
+//understand now, used specifically for firered
+//because accounts for quest log
 u8 *GetFlagAddr(u16 idx)
 {
     u8 *ptr;
@@ -258,15 +294,15 @@ u8 *GetFlagAddr(u16 idx)
     {
         switch (gQuestLogPlaybackState)
         {
-        case 0:
+        case QL_PLAYBACK_STATE_STOPPED:
         default:
             break;
-        case 1:
+        case QL_PLAYBACK_STATE_RUNNING:
             ptr = QuestLogGetFlagOrVarPtr(TRUE, idx);
-            if (ptr)
-                gSaveBlock1Ptr->flags[idx >> 3] = *ptr;
+            if (ptr != NULL)
+                gSaveBlock1Ptr->flags[idx / 8] = *ptr;
             break;
-        case 2:
+        case QL_PLAYBACK_STATE_RECORDING:
             if (IsFlagOrVarStoredInQuestLog(idx, FALSE) == TRUE)
             {
                 gLastQuestLogStoredFlagOrVarIdx = idx;
@@ -276,13 +312,17 @@ u8 *GetFlagAddr(u16 idx)
         }
         return &gSaveBlock1Ptr->flags[idx / 8];
     }
+#if TESTING
+    else if (idx >= TESTING_FLAGS_START)
+        return &sTestFlags[(idx - TESTING_FLAGS_START) / 8];
+#endif // TESTING
     return &sSpecialFlags[(idx - SPECIAL_FLAGS_START) / 8];
 }
 
 bool8 FlagSet(u16 idx)
 {
     u8 *ptr = GetFlagAddr(idx);
-    if (ptr)
+    if (ptr != NULL)
         *ptr |= 1 << (idx & 7);
     return FALSE;
 }
@@ -290,15 +330,15 @@ bool8 FlagSet(u16 idx)
 bool8 FlagClear(u16 idx)
 {
     u8 *ptr = GetFlagAddr(idx);
-    if (ptr)
+    if (ptr != NULL)
         *ptr &= ~(1 << (idx & 7));
     return FALSE;
 }
 
 u8 FlagToggle(u16 id)
 {
-    u8 *ptr = GetFlagPointer(id);
-    if (ptr)
+    u8 *ptr = GetFlagAddr(id);
+    if (ptr != NULL)
         *ptr ^= 1 << (id & 7);
     return FALSE;
 }
@@ -306,13 +346,10 @@ u8 FlagToggle(u16 id)
 bool8 FlagGet(u16 idx)
 {
     u8 *ptr = GetFlagAddr(idx);
-
-    if (!ptr)
+    if (ptr == NULL)
         return FALSE;
-
     if (!(((*ptr) >> (idx & 7)) & 1))
         return FALSE;
-
     return TRUE;
 }
 
@@ -349,12 +386,3 @@ u16 VarGetIfExist(u16 id)
     return *ptr;
 }
 
-u8 *GetFlagPointer(u16 id)
-{
-    if (id == 0)
-        return NULL;
-    else if (id < SPECIAL_FLAGS_START)
-        return &gSaveBlock1Ptr->flags[id / 8];
-    else
-        return &sSpecialFlags[(id - SPECIAL_FLAGS_START) / 8];
-}

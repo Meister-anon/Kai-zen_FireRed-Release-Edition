@@ -25,6 +25,8 @@ extern u16 gSpecialVar_PrevTextColor;
 
 extern EWRAM_DATA bool8 gIsMobilePC;
 
+extern const u16 gBadgeFlags[NUM_BADGES];
+
 void InitEventData(void);
 void ClearTempFieldEventData(void);
 void ClearUpperFlags(void);
