@@ -2559,6 +2559,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     10/5/25
     found issue with modern build 
     breaks flags, debug menu flag set restarts game
+    -fixed
 
     9/19/25
     IMPORTANT
