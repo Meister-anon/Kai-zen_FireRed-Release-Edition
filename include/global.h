@@ -888,7 +888,7 @@ struct QuestLog
 
     // These arrays hold the game state for
     // playing back the quest log
-    /*0x0148*/ u8 ALIGNED(4) flags[NUM_FLAG_BYTES]; //2304 bytes 0x900
+    /*0x0148*/ u8 ALIGNED(2) flags[NUM_FLAG_BYTES]; //2304 bytes 0x900
     /*0x02c8*/ u16 vars[VARS_COUNT];
     /*0x0468*/ struct QuestLogNPCData npcData[OBJECT_EVENT_TEMPLATES_COUNT];
     /*0x0568*/ u16 script[128];//rename ^ struct QuestLogObjectEventTemplate objectEventTemplates
@@ -1077,7 +1077,7 @@ struct SaveBlock1 //still extra padding somewhere here most likely around new ad
                u32 oakRanchStepCounter; //using for pc exp gain, set to 0 on new game, need have functino check for if mon in pc if yes increment w steps if no reset counter
     /*0x06A0*/ struct ObjectEvent objectEvents[OBJECT_EVENTS_COUNT];
     /*0x08E0*/ struct ObjectEventTemplate objectEventTemplates[OBJECT_EVENT_TEMPLATES_COUNT];
-    /*0x0EE0*/ u8 ALIGNED(4) flags[NUM_FLAG_BYTES];
+    /*0x0EE0*/ u8 ALIGNED(2) flags[NUM_FLAG_BYTES];
     /*0x1000*/ u16 vars[VARS_COUNT];
     /*0x1200*/ u32 gameStats[NUM_GAME_STATS];//don't know how much but can prob save some by removing some of these
     /*0x1300*/ struct QuestLog questLog[QUEST_LOG_SCENE_COUNT]; //w change to 2 instad of 4 scenes cut in half from 0x19A0 to 0xCD0
