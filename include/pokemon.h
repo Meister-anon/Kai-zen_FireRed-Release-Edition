@@ -136,6 +136,11 @@ struct Ability
     u8 breakable:1; // can be bypassed by Mold Breaker and clones
     u8 failsOnImposter:1; // doesn't work on an Imposter mon; when can we actually use this?
 };
+//talked with Alex logic is mostly if involves a form or something that would cause bug if transferred
+//can't be copied swapped or traced, 
+//for skill swap wonder guard idea make move end effect if curr move effect skill swap etc.
+//and hp doesn't equal 1 set hp to 1 and go to update hp bar script
+//check existing logic if I didn't already do something
 
 //for modern have to specifically consider struct order for proper padding/space saving
 //starts w u32 so is 4byte aligned, struct is organized in groups of 4byte sections

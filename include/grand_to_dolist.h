@@ -2555,6 +2555,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     also still to do is fix the animations for the end turn wrap effects
     for some reason it only uses wrap/bind animation
     )
+    9/14/25
+
+    Saw this from Alex,
+    but Reference Cozy Coding YT
+    for pokemon ui
+    decide add type icons to mon displayin pc
+    move up held item placement
+    to fit type icons at bottom of screen
 
     10/5/25
     found issue with modern build 
