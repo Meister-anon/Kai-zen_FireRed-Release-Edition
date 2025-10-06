@@ -289,7 +289,7 @@
 #define EFFECT_QUIVER_DANCE 278
 #define EFFECT_COIL 279
 #define EFFECT_ELECTRIFY 280
-#define EFFECT_SCALD 281
+#define EFFECT_FILL 281    //blanked was scald  vsonic
 #define EFFECT_REFLECT_TYPE 282
 #define EFFECT_SOAK 283
 #define EFFECT_GROWTH 284

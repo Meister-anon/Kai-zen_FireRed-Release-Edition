@@ -1337,6 +1337,8 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
     if (move == MOVE_STRUGGLE || move == MOVE_BIDE)
         return;
 
+    //actually pretty sure don't need change this
+    //can just use returntype where I need to
     gBattleStruct->dynamicMoveType = 0xFF; //change for new setup
     gBattleStruct->ateBoost[battlerAtk] = 0;
     gSpecialStatuses[battlerAtk].gemBoost = FALSE;

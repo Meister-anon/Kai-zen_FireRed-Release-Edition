@@ -8267,7 +8267,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
              && TARGET_TURN_DAMAGED
              && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
              && !(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE) //logic from canceler fix thaw bug
-             && (CanThaw(gCurrentMove))) //test vsonic
+             && (moveType == TYPE_FIRE || gBattleMoves[gCurrentMove].effect == EFFECT_BURN_HIT)) //test vsonic
             {
                 gBattleMons[gBattlerTarget].status1 &= ~(STATUS1_FREEZE);
                 gActiveBattler = gBattlerTarget;
