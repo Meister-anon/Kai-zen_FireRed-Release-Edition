@@ -2335,7 +2335,7 @@ bool32 HasThawingMove(u8 battlerId)
 
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
-        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && THAW_CONDITION(moves[i]))
+        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && THAW_CONDITION(moves[i], battlerId))
             return TRUE;
     }
 

@@ -8170,7 +8170,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SCALD] =
     {
-        .effect = EFFECT_SCALD,
+        .effect = EFFECT_BURN_HIT,
         .power = 80,
         .type = TYPE_WATER,
         .accuracy = 90,
@@ -9570,7 +9570,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_STEAM_ERUPTION] =
     {
-        .effect = EFFECT_SCALD,
+        .effect = EFFECT_BURN_HIT,
         .power = 110,
         .type = TYPE_WATER,
         .accuracy = 95,
@@ -11871,7 +11871,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SCORCHING_SANDS] =
     {
-        .effect = EFFECT_SCALD,
+        .effect = EFFECT_BURN_HIT,
         .power = 70,
         .type = TYPE_GROUND,
         .accuracy = 100,

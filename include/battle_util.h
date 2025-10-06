@@ -175,7 +175,7 @@ bool32 CanBeBurned(u8 battlerId);
 bool32 CanBeParalyzed(u8 battlerId);
 bool32 CanBeParalyzedViaAbility(u8 battlerId);
 bool32 CanBeFrozen(u8 battlerId);
-bool32 CanThaw(u32 move); //always use gcurrentmove hope work
+bool32 CanThaw(u32 move, u32 battler); //always use gcurrentmove hope work, need rewrite for modern update
 bool32 CanBeConfused(u8 battlerId);
 bool32 CanBattlerHeal(u8 battlerId); //simplify heal check
 bool32 CanTeleport(u8 battlerId); //new teleport logic
@@ -288,7 +288,19 @@ enum {
     DISOBEYS_RANDOM_MOVE,
 };
 
-#define THAW_CONDITION(move) ((move == MOVE_SCALD) || (((gBattleMoves[move].type == TYPE_FIRE) || (gBattleMoves[move].argument == TYPE_FIRE)) && (gBattleMoves[move].power >= 60 || gDynamicBasePower >= 60)))
+//rewokr make easier,
+//all fire type or fire argument if two turned effect
+//or has effect burn hit
+//remove power condition
+//use dynamic type so hidden power etc. can also work
+//compare against emerald/research
+//according to EE it has some special logic for fire type removal moves
+//i.e burn up etc.
+//understand now, burn up should fail if user is not type fire
+//under that condition it shouldn't thaw
+#define THAW_CONDITION(move, battler) ((gBattleMoves[move].effect == EFFECT_BURN_HIT) || (gBattleStruct->dynamicMoveType == TYPE_FIRE || gBattleMoves[move].type == TYPE_FIRE) || (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE && gBattleMoves[move].argument == TYPE_FIRE) || (gBattleMoves[move].effect == EFFECT_LOSETYPE_HIT && gBattleMoves[move].argument == TYPE_FIRE && IS_BATTLER_OF_TYPE(battler, TYPE_FIRE)))
+
+//#define THAW_CONDITION(move) ((move == MOVE_SCALD) || (((gBattleMoves[move].type == TYPE_FIRE) || (gBattleMoves[move].argument == TYPE_FIRE)) && (gBattleMoves[move].power >= 60 || gDynamicBasePower >= 60)))
 
 #define HEALING_EFFECT ((EFFECT_RESTORE_HP || EFFECT_REST || EFFECT_MORNING_SUN || EFFECT_MOONLIGHT || EFFECT_SYNTHESIS || EFFECT_HEAL_PULSE || EFFECT_HEALING_WISH || EFFECT_ROOST || EFFECT_SWALLOW || EFFECT_WISH || EFFECT_SOFTBOILED || EFFECT_ABSORB))
 

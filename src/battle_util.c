@@ -1649,9 +1649,9 @@ bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget)  //somehow works...
 //ok remember what I was thinking now,  
 //I was going for future proofing rather than just having to list the type explicitly
 
-bool32 CanThaw(u32 move)
+bool32 CanThaw(u32 move, u32 battler)
 {
-    if (THAW_CONDITION(move))
+    if (THAW_CONDITION(move, battler))
         return TRUE;
     else
         return FALSE;
@@ -4544,7 +4544,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                 if (gDisableStructs[gBattlerAttacker].FrozenTurns != 0)
                 {
                     //if (Random() % 5)//ok found freeze chance, so 1 in 5 chance of thawing out, on freeze.  pretty much  random % 5 if not 0 stays frozen.
-                    if (!(CanThaw(gCurrentMove))) //attempt at frozn timr   actuallg best to put timer decrement at endturn, that way can have consistent freze duration
+                    if (!(CanThaw(gCurrentMove, gBattlerAttacker))) //attempt at frozn timr   actuallg best to put timer decrement at endturn, that way can have consistent freze duration
                     {
                         //--gDisableStructs[gActiveBattler].FrozenTurns != 0
                         gBattlescriptCurrInstr = BattleScript_MoveUsedIsFrozen;
@@ -5026,7 +5026,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             if (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE
                 && gDisableStructs[gBattlerAttacker].FrozenTurns != 0) //should be thaw if scald, or a fire type move above base 60
             {
-                if (CanThaw(gCurrentMove))
+                if (CanThaw(gCurrentMove, gBattlerAttacker))
                 {
                     gBattleMons[gBattlerAttacker].status1 &= ~(STATUS1_FREEZE);
                     BattleScriptPushCursor();
@@ -5037,7 +5037,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             else if (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE) //should be thaw if scald, or a fire type move above base 60
             {
-                if (CanThaw(gCurrentMove))
+                if (CanThaw(gCurrentMove, gBattlerAttacker))
                 {
                     gBattleMons[gBattlerAttacker].status1 &= ~(STATUS1_FREEZE);
                     BattleScriptPushCursor();

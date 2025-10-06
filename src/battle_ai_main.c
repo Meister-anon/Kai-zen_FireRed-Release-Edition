@@ -3260,7 +3260,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
 
     // check thawing moves
     if ((gBattleMons[battlerAtk].status1 & STATUS1_FREEZE) && (gDisableStructs[battlerAtk].FrozenTurns)//freeze turn timer not 0, still frozen solid
-        && THAW_CONDITION(move))
+        && THAW_CONDITION(move, battlerAtk))
         score += (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) ? 20 : 10;
     
     // check burn
