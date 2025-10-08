@@ -5797,7 +5797,9 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sBellossomLevelUpLearnset,
         .tmhmLearnset = sBellossomTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//considered making grass/fire but this wokrs better imo
+    //new type fits same use/niche as previous type grass/poison
+    //similar resists
 
     [SPECIES_MARILL] =
     {
