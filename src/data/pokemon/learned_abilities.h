@@ -1816,12 +1816,14 @@ static const struct AbilityLearnset sRampardosAbilityLearnset[] = {
 
 static const struct AbilityLearnset sShieldonAbilityLearnset[] = {
     ABILITY_ROCK_HEAD,
+    ABILITY_LIGHT_METAL,
     ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sBastiodonAbilityLearnset[] = {
     ABILITY_ROCK_HEAD,
+    ABILITY_HEAVY_METAL,
     ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };

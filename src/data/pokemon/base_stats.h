@@ -12782,7 +12782,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Cranidos"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(67, 125, 40, 58, 30, 30),
+         STATS(77, 125, 40, 58, 30, 30),
         MON_TYPES(TYPE_NORMAL, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 70,
@@ -12810,8 +12810,8 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Rampardos"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(97, 165, 60, 58, 65, 50),
-        MON_TYPES(TYPE_NORMAL, TYPE_DRAGON),
+         STATS(117, 165, 60, 58, 65, 50),
+        MON_TYPES(TYPE_NORMAL, TYPE_DRAGON), //buffed hp as sturdy high stamina from ramming heads
         .catchRate = 45,
         .expYield = 173,
         //.evYield_Attack = 2,
@@ -12860,8 +12860,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_ERRATIC,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_MONSTER,
-        .abilities = {ABILITY_STURDY, ABILITY_LIGHT_METAL},
-        .abilityHidden = {ABILITY_SOUNDPROOF, ABILITY_BULLETPROOF},
+        .abilities = {ABILITY_STURDY, ABILITY_BULLETPROOF},
+        .abilityHidden = {ABILITY_SOUNDPROOF, ABILITY_HEAVY_METAL},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -12871,13 +12871,20 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sShieldonTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, AVERAGE_EFFORT), 0, SPECIES_BASTIODON}), //Should hopefully blank these for now without issue
     }, //gave light metal here heavy metal on evo, so this form can suit different niche
+    //light meltal doesn't really do anything here
+    //deide reverse logic toss on heavy metal give light metal on evo
+    //and make them hidden abilities
+    //with heavy metal can get more damage, and toss an eviolite on this
+    //think change eviolite to work with body press
+    //fur coat and its clones make sense to be excluded
+    //as they are damage dampeners not a buff
 
     [SPECIES_BASTIODON] =
     {
         .speciesName = _("Bastiodon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(70, 52, 168, 30, 47, 138),
+         STATS(80, 52, 168, 30, 47, 138),
         MON_TYPES(TYPE_ROCK, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 173,
@@ -12888,8 +12895,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_ERRATIC,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_MONSTER,
-        .abilities = {ABILITY_STURDY, ABILITY_HEAVY_METAL},
-        .abilityHidden = {ABILITY_SOUNDPROOF, ABILITY_BULLETPROOF},
+        .abilities = {ABILITY_STURDY, ABILITY_BULLETPROOF},
+        .abilityHidden = {ABILITY_SOUNDPROOF, ABILITY_LIGHT_METAL},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
