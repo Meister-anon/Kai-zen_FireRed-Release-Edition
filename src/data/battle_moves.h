@@ -3699,7 +3699,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_PURSUIT,
         .power = 60,
         .type = TYPE_DARK,
-        .accuracy = 100,
+        .accuracy = 95, 
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -3707,6 +3707,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
     }, //boosted to 60 compare to assurance, make sense as assurance previously was also base 50
+    //decide do middle ground make bp 50 change boost to 1.5 rather than 2
+    // so a 5bp drop at max but good deal stronger overall
+    //decide do same as knock off, remove bonus damage drop acc
+    //making all 60 would give move comparity between
+    //pursuit knock off and feint attack, each with their own niche
+    //need double check script so accuracy change would work correctly here
 
     [MOVE_RAPID_SPIN] =
     {
@@ -4606,20 +4612,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_KNOCK_OFF] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .power = 65,
+            .power = 60,
         #else
             .power = 20,
         #endif
         .effect = EFFECT_KNOCK_OFF,
         .type = TYPE_DARK,
-        .accuracy = 100,
+        .accuracy = 95,
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-    },
+    },//took riggamarolled idea reve dmg boost
+
 
     [MOVE_ENDEAVOR] =
     {

@@ -1792,6 +1792,12 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
         JumpIfMoveFailed(7, move);
         return TRUE;
     }
+    //removing this lets pursuit fail if acc misses
+    //part of effect rebalance
+    //change mind entire point of effect is to hit switching targets
+    //making it possible to miss is stupid
+    //instead balance is just on cost of keeping move
+    //when base effect isn't 100% accurate
     else if (gBattleStruct->pursuitTarget & (1u << gBattlerTarget)) //hopefully gbattleratrget is right here? vsonic
     {
         JumpIfMoveFailed(7, move);

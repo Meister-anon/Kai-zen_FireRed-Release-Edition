@@ -4830,8 +4830,22 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
 
     //should work for whatever move I use
-    if (gBattleStruct->pursuitTarget & (1u << battlerIdDef))
-        gBattleMovePower *= 2;
+    //need double check if this effect spirit shackle
+    //don't think want to boost its damage?
+    //yeah curr setup would make spirit shackle also  do bonus damage
+    /*if (gBattleStruct->pursuitTarget & (1u << battlerIdDef))
+    {
+        if (move == MOVE_PURSUIT)
+        {
+            //dark types blocking damage boost
+            //potentially remove this?
+            //as it already worked on psychic types without destorying them?
+            if (!(DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_DARK)))
+                gBattleMovePower = (150 * gBattleMovePower) / 100;
+        }
+        else
+            gBattleMovePower = (150 * gBattleMovePower) / 100;
+    }*/
     
     if (gSpecialStatuses[battlerIdAtk].Lostresolve)
         gBattleMovePower = (gBattleMovePower * 75) / 100; //fix for iron will, pressure, hi pressure affect
@@ -5181,10 +5195,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             || (gSpecialStatuses[battlerIdAtk].gemBoost && GetBattlerHoldEffect(battlerIdAtk, FALSE) == HOLD_EFFECT_GEMS)
             || GetPocketByItemId(gBattleMons[battlerIdAtk].item) == POCKET_KEY_ITEMS) //held items just for transformation/balance ex. megastones primal orbs //vsonic w form change plan this wont be a thing so will rmeove this later
             gBattleMovePower *= 2;
-        break;
-        case EFFECT_KNOCK_OFF:
-        if (gBattleMons[battlerIdDef].item != ITEM_NONE)
-            gBattleMovePower = (150 * gBattleMovePower) / 100;
         break;
         case EFFECT_WAKE_UP_SLAP:
         if (gBattleMons[battlerIdDef].status1 & STATUS1_SLEEP || GetBattlerAbility(battlerIdDef) == ABILITY_COMATOSE)
