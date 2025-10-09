@@ -10232,7 +10232,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Grumpig"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(80, 45, 65, 80, 90, 110),
+         STATS(100, 45, 65, 80, 90, 110),
         MON_TYPES(TYPE_PSYCHIC, TYPE_DARK),
         .catchRate = 60,
         .expYield = 165,
@@ -10257,6 +10257,8 @@ const struct BaseStats gBaseStats[] =
     //bro imagine grumpig o.0 Indiang god vishnu or something  but like a darker versions
     //would just be 100 in everything, maybe w dancer or own tempo
     //think give teleport
+    //think need readjust stats, plan was for before changed dark resist
+    //with old dark it'd have many resists and only a quad weakness to bug
 
     [SPECIES_SPINDA] =
     {
