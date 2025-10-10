@@ -140,13 +140,18 @@ struct BoxPokemon
     u32 personality;
     u32 otId;
     u8 nickname[POKEMON_NAME_LENGTH];
-    u8 language:3; // 7 languages
-    u8 nature:5;  // 1-0xF is the timer. 0x10 is set when timer runs out  //single byte think odd, think will reset back to EE way so doesn't potentially affect nature set odds/distribution
+    
     
     u8 otName[OT_NAME_LENGTH]; //odd name length so believe makes even again
+    u8 cuteRibbon:3;
+    u8 toughRibbon:3;
+    u8 padding:2;
+    
+    u8 language:3; // 7 languages
+    u8 nature:5;  // 1-0xF is the timer. 0x10 is set when timer runs out  //single byte think odd, think will reset back to EE way so doesn't potentially affect nature set odds/distribution
     u8 isMonShiny:1; //potentially replace w removal of checksum? //yeah can get rid of this its all determined by checksum replace w shiny set
     u8 isEgg:1;
-    u8 freespace:1; //made more space for padding
+    u8 winningRibbon:1; //made more space for padding
     u8 storedviaMobilePc:1; //for tracking if mon came from mobile pc for hp reconsiliation
     u8 metGame:4;    //byte 29?
     
@@ -159,11 +164,13 @@ struct BoxPokemon
 
     u32 species:11;
     u32 heldItem:10; //looks like both of these will be bit 10
-    u32 winningRibbon:1; //these two for emerald battle tower
-    u32 victoryRibbon:1;
-    u32 cuteRibbon:3;
-    u32 smartRibbon:3;
-    u32 toughRibbon:3;
+    u32 totalUnallocatedEvs:11;
+
+    //u32 winningRibbon:1; //these two for emerald battle tower
+    //u32 victoryRibbon:1;
+    //u32 cuteRibbon:3;
+    //u32 smartRibbon:3;
+    //u32 toughRibbon:3; //ok think I can move this block and put total evs
  
     u8 ppBonuses;
     u8 otGender:1;
@@ -174,6 +181,15 @@ struct BoxPokemon
     u8 formflag;
     u8 hatched:1;  //new thing to replace met level 0 in daycare - need test to make sure doesn't mess w evoLevel
     u8 evoLevel:7;
+
+        //think I can make space by turning this into bit field
+    //has sub 400 abilties rn with everything if I make bit 9 can hold 512 max
+    //then move some ribbons in to fill space
+    u16 LearnedAbilityId:9; //after all done may add byte back to this to give more space for cap at 10 would be +1k
+    u16 beautyRibbon:3;
+    u16 victoryRibbon:1;
+    u16 smartRibbon:3;
+    //u16 freeblank:4;
 
     u32 hpIV:5;
     u32 attackIV:5;
@@ -213,13 +229,6 @@ struct BoxPokemon
     u8 cute;
     u8 smart;
     u8 tough;
-
-    //think I can make space by turning this into bit field
-    //has sub 400 abilties rn with everything if I make bit 9 can hold 512 max
-    //then move some ribbons in to fill space
-    u16 LearnedAbilityId:9; //after all done may add byte back to this to give more space for cap at 10 would be +1k
-    u16 beautyRibbon:3;
-    u16 freeblank:4;
 
 };
 //wil use bit fields to cut down on substruct stuff on rec
@@ -678,6 +687,42 @@ struct FormDataStorage {
     u16 pp3:6;
     u16 move4:10;
     u16 pp4:6;
+
+    //idea ev duplicate for forms
+    //so its not lost when boxed
+    //is much more a pain to reset evs than moves
+    //after you change forms
+    u32 Form_hpEV:9; //FACEPALM I never adjusted these for the new cap!!! //max per stat 360
+    u32 Form_attackEV:9; //wich is bit 9
+    u32 Form_defenseEV:9;    
+    u32 blank:5;
+
+    u32 Form_speedEV:9; //FACEPALM I never adjusted these for the new cap!!! //max per stat 360
+    u32 Form_spAttackEV:9; //wich is bit 9
+    u32 Form_spDefenseEV:9;    
+    u32 formspace:5;
+    
+   //goes over ewram cap
+   //belive applying compression update can save
+   //me enough ewram to add this for form update
+   //found way to fix do fangame style ev respec
+   //can allocate from the pool of available unallocated evs
+   //just need a single u16 field to keep track of unallocated evs
+   //works against idea of evs only given via macho bracer
+   //as if a mon is used in mega form it couldn't gain evs
+   //so will combine, make ev items proper way to train
+   //but think fighting any mon will give a single ev
+   //to unallocated evs?
+   //Setting evs through respec/allocation will cost money
+   //but a flat amount per respec rather than based on
+   //how many evs you're moving think 10-15k
+   //but using an ev item will directly allocate evs
+   //to the desired stat
+   //by default copy mon's exact ev distriution when change forms
+   //then allow to respec and save specific distribution for said form
+   //seems odd to have so many differences i.e full ev change and moves
+   //but think about like full transformation it makes sense
+   //its all the same things that change with use of transform
 
     u8 ppBonuses;    
     u8 abilityNum; //if give megas hidden ability then I need to store abilityNum so that reverts correctly too
