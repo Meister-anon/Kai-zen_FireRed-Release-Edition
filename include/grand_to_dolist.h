@@ -2569,6 +2569,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     breaks flags, debug menu flag set restarts game
     -fixed
 
+    //10/9/25
+    latios/latias note
+    changed types need to fix mega
+    make head keep base color and then bleed color into
+    purple other places
+    makes no sense to just be purple when its not a fusion 
+    at all. and each still has unique differences
+
     9/19/25
     IMPORTANT
     idea add mechanic to megas give 15% health restore 
