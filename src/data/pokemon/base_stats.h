@@ -10339,7 +10339,7 @@ const struct BaseStats gBaseStats[] =
         //#if P_UPDATED_EGG_GROUPS >= GEN_8
             .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_SAND_FORCE, ABILITY_SAND_RUSH},
-        .abilityHidden = {ABILITY_SIROCCO, ABILITY_DRY_SKIN},
+        .abilityHidden = {ABILITY_SIROCCO, ABILITY_CACOPHONY},
         //.bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -10369,7 +10369,7 @@ const struct BaseStats gBaseStats[] =
         //#if P_UPDATED_EGG_GROUPS >= GEN_8
             .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_HYPER_CUTTER, ABILITY_SAND_RUSH},
-        .abilityHidden = {ABILITY_SIROCCO, ABILITY_DRY_SKIN},
+        .abilityHidden = {ABILITY_SIROCCO, ABILITY_CACOPHONY},
         //.bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -10379,6 +10379,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sFlygonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //give ABILITY_CACOPHONY
+    //while cool decided drop dry skin, as it doesn't make sense
+    //w cacophony psychic noise becomes base 90 and has great utility
 
     [SPECIES_CACNEA] =
     {

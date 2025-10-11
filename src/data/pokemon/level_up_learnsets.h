@@ -10323,6 +10323,7 @@ static const struct LevelUpMove sGurdurrLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sConkeldurrLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_ACCELEROCK),
     LEVEL_UP_MOVE( 1, MOVE_POUND),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 1, MOVE_FOCUS_ENERGY),
@@ -10337,12 +10338,16 @@ static const struct LevelUpMove sConkeldurrLevelUpLearnset[] = {
     LEVEL_UP_MOVE(33, MOVE_ROCK_SLIDE),
     LEVEL_UP_MOVE(37, MOVE_DYNAMIC_PUNCH),
     LEVEL_UP_MOVE(41, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(42, MOVE_ACCELEROCK),
     LEVEL_UP_MOVE(45, MOVE_HAMMER_ARM),
     LEVEL_UP_MOVE(49, MOVE_STONE_EDGE),
     LEVEL_UP_MOVE(53, MOVE_FOCUS_PUNCH),
     LEVEL_UP_MOVE(57, MOVE_BRUTE_FORCE),
     LEVEL_UP_END
 };
+//mach punch is breeding move and with my planned change
+//can get that easier on curr mon
+//will put acell rock normally in learnset
 
 static const struct LevelUpMove sTympoleLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_BUBBLE),

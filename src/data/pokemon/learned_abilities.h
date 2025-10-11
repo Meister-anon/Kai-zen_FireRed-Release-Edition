@@ -1377,10 +1377,12 @@ static const struct AbilityLearnset sTrapinchAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sVibravaAbilityLearnset[] = {
+    ABILITY_GRUNGE, //bcuz dex entry spit acid to consume prey
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sFlygonAbilityLearnset[] = {
+    ABILITY_SAND_STREAM,
     ABILITY_SET_END
 };
 
