@@ -2577,6 +2577,32 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     makes no sense to just be purple when its not a fusion 
     at all. and each still has unique differences
 
+    //10/11/25
+    vsonic IMPORTANT
+    EV note decide
+    keep increase ev cap but limit to base cap
+    for mon with certain stats
+    i.e make mon max total bst i.e
+    stat with ev gain can only go up to 600 + previous limit
+    so weak mon get the most benefit you can use whoever you want
+    make separate cap for legendaries as they start above 600
+    for them just keep the old ev limits
+    actually make cutoff 570, seems several legandaries are there
+    //may make it so weak mon max at 500 + previous bst limit?
+    ok makeit so legendaries mythicals and any mon with bst at or above
+    570 have to use old bst likt
+    and make total stat cap be 570 + previous ev limit
+    creates a higher floor for more expression,
+    but also keeps relative power level about the same
+    and with diminishing retuns things shouldn't get too too crazy
+
+    Both per stat ev gain and max ev cap should be portioned
+    based on bst.
+    WIll have to remove use of ev cap macro do with function instead
+    and make method of setting ev gain think like debug menu
+
+    do like move info set Press A on ev view page to adjust stats
+
     9/19/25
     IMPORTANT
     idea add mechanic to megas give 15% health restore 
