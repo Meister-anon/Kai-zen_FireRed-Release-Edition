@@ -383,6 +383,7 @@ struct BaseStats  // had to adjust struct order to match paste value from base_s
  /* 0x06 */ u8 type1;
  /* 0x07 */ u8 type2;
             u8 speciesName[POKEMON_NAME_LENGTH + 1];
+ /* 0x1E */ u8 flags;   //will be replaced w padding but keeping here for now
  /* 0x08 */ u16 expYield;
  /* 0x09 */ 
  /* 0x0A */ //u16 evYield_HP:2; //not using these so might as well remove from struct to save room
@@ -403,11 +404,24 @@ struct BaseStats  // had to adjust struct order to match paste value from base_s
             u8 safariZoneFleeRate;
  /* 0x16 */ u16 abilities[2]; //[partysize] is 6 values, so this is ability 1 and ability 2, doesn't include hidden //this means 2 states, 0 & 1
  /* 0x1B */ u16 abilityHidden[2]; //need to make sure ability num can be 2, then set that as hidden ability
- /* 0x1D */ u8 bodyColor : 7; //what are bodyColor and noFLip fields are they necesary?
-            u8 noFlip : 1;  //represents if sprite is flipped in summary screen and trade screen, normal is the pc sprite
-            u8 floating : 1; //put here cuz easier to quick replace in file. replacement for use of gFloatingSpecies array, logic flynig and non flyign mon that can fly/float or who's natural state is floating, (replace levitate) mon has to display ability to do more than just hover slightly over ground
-            u8 buffer:7; //since has space could potentially put byte here for cosmetic form or somehting, space is already being used anyway
- /* 0x1E */ u8 flags;   //use for gender diff & form change, when creating mon plan check for flag and divert to what should be based on form species, //also used for making beast ball work, etc.
+ /* 0x1D */ //u16 bodyColor : 7; //ok bodyColor is leftover of emerald is literally just an pokedex filter option that doesn't exist in fr, but is here for sake of trading to those games
+            // Flags
+            u16 noFlip : 1;  //represents if sprite is flipped in summary screen and trade screen, normal is the pc sprite
+            u16 floating : 1; //put here cuz easier to quick replace in file. replacement for use of gFloatingSpecies array, logic flynig and non flyign mon that can fly/float or who's natural state is floating, (replace levitate) mon has to display ability to do more than just hover slightly over ground
+            u16 isLegendaryOrMythical:1;
+            //u16 isMythical:1; //will combine these two as practically no real distinction
+            u16 isUltraBeast:1; //handling elsewhere curr can blank for more space
+            u16 isParadox:1; //can do same logic for ultra beast as is only for Booster Energy
+            u16 isPrimalReversion:1;
+            u16 isUltraBurst:1; //is only necrozma so idk why need this? just for sake of identifying mechanic i.e can code that it should work like mega but isn't mega, but think coudl consolidate w primal reversion?
+            u16 isMegaEvolution:1; //nvm primal reversion is stronger than mega, huh, doesn't get removed on faint, better to not consolidate as would need to filter for battle mechanic allowed to use, as they don't block each other can use both in battle
+            u16 isTeraForm:1;
+            u16 isAlolanForm:1;
+            u16 isGalarianForm:1;
+            u16 isHisuianForm:1;
+            u16 isPaldeanForm:1;
+            u16 hasCosmeticForms:1;
+            u16 buffer:2; //can get more space if remove ultrabeast and paradox, as those are niche use and can be handled with simple species filter
             const struct AbilityLearnset *abilityLearnset;
             const struct LevelUpMove *levelUpLearnset; //replace leveluplearnset pointers file, below replace tmhmlearnset pointers file
             const u16 *tmhmLearnset; //these are just names, in struct will be .name
