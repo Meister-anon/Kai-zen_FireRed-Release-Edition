@@ -2181,6 +2181,20 @@ bool32 HasMoveWithType(u32 battler, u8 type)
     return FALSE;
 }
 
+bool32 HasContactMove(u32 battler)
+{
+    s32 i;
+    u16 *moves = GetMovesArray(battler);
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && gBattleMoves[moves[i]].flags == FLAG_MAKES_CONTACT)
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
 bool32 HasMoveEffect(u32 battlerId, u16 moveEffect)
 {
     s32 i;

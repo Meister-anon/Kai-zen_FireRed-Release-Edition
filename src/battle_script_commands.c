@@ -8008,6 +8008,7 @@ static void atk48_playstatchangeanimation(void)
                         && ability != ABILITY_WHITE_SMOKE
                         && ability != ABILITY_LIQUID_METAL
                         && !(ability == ABILITY_KEEN_EYE && currStat == STAT_ACC)
+                        && !(ability == ABILITY_MINDS_EYE && currStat == STAT_ACC)
                         && !(ability == ABILITY_APOTHEOSCENT && currStat == STAT_ACC)
                         && !(ability == ABILITY_TANGLED_FEET && currStat == STAT_SPEED)
                         && !(ability == ABILITY_QUICK_FEET && currStat == STAT_SPEED)
@@ -10052,7 +10053,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         gPotentialItemEffectBattler = battlerDef;
         evasionStage = gBattleMons[battlerDef].statStages[STAT_EVASION];
 
-        if (atkAbility == ABILITY_UNAWARE || atkAbility == ABILITY_KEEN_EYE || atkAbility == ABILITY_APOTHEOSCENT)
+        if (atkAbility == ABILITY_UNAWARE || atkAbility == ABILITY_KEEN_EYE || atkAbility == ABILITY_MINDS_EYE || atkAbility == ABILITY_APOTHEOSCENT)
             evasionStage = DEFAULT_STAT_STAGE;
         if (GetMoveEffect(move) == EFFECT_IGNORE_STAT_CHANGES_HIT || GetMoveEffect(move) == EFFECT_IGNORE_DEFENSE_EVASION_STAGE)
             evasionStage = DEFAULT_STAT_STAGE;
@@ -10199,6 +10200,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && !IsBattlerGrounded(battlerDef) //make function for below
         && (DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerDef, defAbility, TYPE_FLYING))
         && atkAbility != ABILITY_KEEN_EYE
+        && atkAbility != ABILITY_MINDS_EYE
         && atkAbility != ABILITY_APOTHEOSCENT
         && !(gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE)
         )
@@ -15427,6 +15429,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
         
         else if (!certain
         && ((activeBattlerAbility == ABILITY_KEEN_EYE && statId == STAT_ACC)
+        || (activeBattlerAbility == ABILITY_MINDS_EYE && statId == STAT_ACC)
         || (activeBattlerAbility == ABILITY_APOTHEOSCENT && statId == STAT_ACC)
         || (activeBattlerAbility == ABILITY_HYPER_CUTTER && statId == STAT_ATK)
         || (activeBattlerAbility == ABILITY_BIG_PECKS && statId == STAT_ATK)

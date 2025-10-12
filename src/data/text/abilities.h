@@ -2625,7 +2625,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_MINDS_EYE] =
     {
         .name = _("Mind's Eye"),
-        .description = COMPOUND_STRING("Keen Eye and Scrappy."),
+        .description = COMPOUND_STRING("Normal and Fighting Moves hit Ghost Type.\nIgnore Evasion checks and Acc can't fall."),
         .aiRating = 8,
         .breakable = TRUE,
     },

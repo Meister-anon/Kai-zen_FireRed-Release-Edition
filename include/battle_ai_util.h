@@ -98,6 +98,7 @@ bool32 HasOnlyMovesWithSplit(u32 battlerId, u32 split, bool32 onlyOffensive);
 bool32 HasMoveWithSplit(u32 battler, u32 split);
 bool32 HasMoveWithType(u32 battler, u8 type);
 bool32 HasMoveWithTypeAndSplit(u32 battler, u8 type, u8 split);
+bool32 HasContactMove(u32 battler);
 bool32 HasMoveEffect(u32 battlerId, u16 moveEffect);
 bool32 HasMoveWithLowAccuracy(u8, u8, u8, bool32, u16, u16, u16, u16);
 bool32 TestMoveFlagsInMoveset(u8 battler, u32 flags);
