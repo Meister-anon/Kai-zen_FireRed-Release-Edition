@@ -808,14 +808,17 @@ static const struct AbilityLearnset sXatuAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMareepAbilityLearnset[] = {
+    ABILITY_PLUS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sFlaaffyAbilityLearnset[] = {
+    ABILITY_PLUS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sAmpharosAbilityLearnset[] = {
+    ABILITY_PLUS,
     ABILITY_SET_END
 };
 
