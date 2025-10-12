@@ -3168,6 +3168,7 @@ const struct BaseStats gBaseStats[] =
     //ok drop magician for shadow tag keep prankster as teach only ability
     //eh guess can toss magician into that as well, so prankster and magician on
     //teachable set
+    //give psychic noise
 
     [SPECIES_KRABBY] =
     {
