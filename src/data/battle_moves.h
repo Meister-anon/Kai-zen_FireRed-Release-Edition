@@ -9875,16 +9875,23 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_POWER_UP_PUNCH] =
     {
         .effect = EFFECT_ATTACK_UP_HIT,
-        .power = 55,
+        .power = 40,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
-        .pp = 20,
+        .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
     },
+    //...why did I boost this moves power???
+    //lowered pp to balance
+    //over used in gen 6 be more sparing with distribution
+    //give to charmeleon not charizard
+    //and keep to typhlosion
+    //keep to hypno, imagine put to sleep and dream eater pow punch
+    //vsonic
 
     [MOVE_OBLIVION_WING] =
     {

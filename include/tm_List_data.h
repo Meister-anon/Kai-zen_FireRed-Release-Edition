@@ -236,6 +236,7 @@ venoshock
 sludge wave
 venom drench
 scorching sands
+heatwave
 ancient power
 rock blast
 dazzling gleam
@@ -258,6 +259,7 @@ psychic noise
 meteor beam
 dragon cheer - to evolve dipplin
 hard press - steel type wring out
+body slam
 alluring voice
 upper hand - counter fake out
 skitter smack
@@ -279,6 +281,9 @@ leaf tornado
 head charge
 icicle crash
 MOVE_SNARL
+vacuum wave
+power up punch
+MOVE_BREAKING_SWIPE
 leech seed - think want this to -  mostly just for phione
 steel surge
 */
@@ -319,6 +324,7 @@ steel surge
 //also toss in psycho boost, but be sparing with destribution
 //release deoxys signature move as Psychic type Close Combat
 //power excused because not 100 acc
+//maybe not that may destroy steel types?
 
 //add earth power , body slam
 // add MOVE_BREAKING_SWIPE

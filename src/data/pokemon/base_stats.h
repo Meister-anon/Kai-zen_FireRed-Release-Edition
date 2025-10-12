@@ -40712,12 +40712,12 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        110,
+        90,
         130,
-        185,
+        215,
         40,
         5,
-        140
+        110
         ),
         MON_TYPES(TYPE_STEEL, TYPE_STEEL),
         .catchRate = 45,
@@ -40743,6 +40743,8 @@ const struct BaseStats gBaseStats[] =
        .flags = SPECIES_FLAG_MEGA_FORM,
     },//potentially drop hp to 100 if too strong
     //give support moves
+    //gets body press so can do damage plus w new mechanic change
+    //should be solid
 
     //w pure power worry bout bringingbase changes so just incrase hp instead
     //new idea mega is focused on offense to bring out attack over defense so drop def
