@@ -374,9 +374,9 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_DRAGON] =     {______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,    X(0.0),   ______}, // dragon
 
-    [TYPE_DARK] =       {______,   X(0.5),   ______,   X(0.5),   ______,   ______,   X(0.5),   X(1.55),   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(1.55),   X(0.5),   ______}, // dark
+    [TYPE_DARK] =       {______,   X(0.5),   ______,   X(0.5),   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(1.55),   X(1.55),   ______}, // dark
 
-    [TYPE_FAIRY] =      {X(1.55),  ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   X(0.5),   ______,   X(0.5),   ______,   X(0.0),   ______,   X(0.5),   ______,   X(1.55),   X(1.55),   ______,   ______}, // fairy
+    [TYPE_FAIRY] =      {X(1.55),  ______,   ______,   X(0.5),   ______,   ______,   ______,   X(1.55),   X(0.5),   ______,   X(0.5),   ______,   X(0.0),   ______,   X(0.5),   ______,   X(1.55),   X(1.55),   ______,   ______}, // fairy
 
        /*sound*/        {______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,    ______,   ______,    ______}, // sound
 };//                     normal    fight      flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water    grass    electric   psychic    ice      dragon     dark     fairy      sound
@@ -663,12 +663,12 @@ static const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e numbe
     TYPE_DARK, TYPE_FIGHTING, TYPE_MUL_NOT_EFFECTIVE,   //I thought it was a king arthur thing, but he never actually fought a dragon, though he did have protection of fae magic
     TYPE_DARK, TYPE_BUG, TYPE_MUL_NOT_EFFECTIVE,    //type change from wolveyvgc to buff bugs, its weak to bugs, so resists it, and dark is evil & bugs are associated with heroes through kamen rider so makes sense
     TYPE_DARK, TYPE_PSYCHIC, TYPE_MUL_SUPER_EFFECTIVE,  //-keeping psychic weakness to dark post ghost change as dark is living and able to do physical attacks while psychic is usually phsycially weak
-    TYPE_DARK, TYPE_GHOST, TYPE_MUL_SUPER_EFFECTIVE,  //changed there's nothing significant bout dark, its more or less same as ghost but alive, and ghosts thrive in darkness
+    TYPE_DARK, TYPE_GHOST, TYPE_MUL_NOT_EFFECTIVE,  //changed there's nothing significant bout dark, its more or less same as ghost but alive, and ghosts thrive in darkness
     TYPE_DARK, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE, //for balane sake decided revert dark/ghost relation ghost was too free, especially when consider steel/ghost combo...  logic darkness is corosion of the spirit for ghost
     //TYPE_DARK, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,   //change essentially makes ghost inverse of normal type effect wise, where most things are neutral and it has 1 weakness
     //TYPE_DARK, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE, //-similar to ghost logic, poison hides in darkness, is linked w dark intentions, actually think will reverse this make dark resist poison, will go more to make counter to fairy who is weak to poison
     TYPE_DARK, TYPE_DARK, TYPE_MUL_SUPER_EFFECTIVE,//removing gen 3 steel resist to dark, with dark changes realized ruins it offensively
-    TYPE_DARK, TYPE_FAIRY, TYPE_MUL_NOT_EFFECTIVE, //plus dosen't really make sense when you have cursed blades, and haunted blades exist, i.e dark and ghost affecting steel
+    TYPE_DARK, TYPE_FAIRY, TYPE_MUL_SUPER_EFFECTIVE, //plus dosen't really make sense when you have cursed blades, and haunted blades exist, i.e dark and ghost affecting steel
     TYPE_STEEL, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,//NEW type relation for dark types, showed positively for offense capability and makes sense sneaky backstabbers bad guys take each other out often.
     TYPE_STEEL, TYPE_WATER, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_STEEL, TYPE_ELECTRIC, TYPE_MUL_NOT_EFFECTIVE,
@@ -681,6 +681,7 @@ static const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e numbe
     TYPE_FAIRY, TYPE_NORMAL, TYPE_MUL_SUPER_EFFECTIVE, //fairy can control beasts, mostly just for balance to counter fairy nerfs replace fighting advantage
     TYPE_FAIRY, TYPE_DRAGON, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_FAIRY, TYPE_DARK, TYPE_MUL_SUPER_EFFECTIVE,
+    TYPE_FAIRY, TYPE_GHOST, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_FAIRY, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_FAIRY, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_FAIRY, TYPE_PSYCHIC, TYPE_MUL_NOT_EFFECTIVE,
