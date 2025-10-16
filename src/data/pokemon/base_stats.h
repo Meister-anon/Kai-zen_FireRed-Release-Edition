@@ -11121,7 +11121,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Banette"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(64, 115, 65, 65, 83, 63),
+         STATS(84, 115, 65, 65, 83, 63),
         MON_TYPES(TYPE_GHOST, TYPE_DARK),
         .catchRate = 45,
         .expYield = 159,
@@ -11273,8 +11273,8 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Absol"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 130, 60, 75, 75, 60),
-        MON_TYPES(TYPE_DARK, TYPE_DARK), //since it senses disaster potentially make part psychic? gives fairy resist
+         STATS(65, 130, 60, 80, 75, 60),
+        MON_TYPES(TYPE_DARK, TYPE_NORMAL), //since it senses disaster potentially make part psychic? gives fairy resist
         .catchRate = 30,
         .expYield = 163,
         //.evYield_Attack = 2,
@@ -40922,7 +40922,7 @@ const struct BaseStats gBaseStats[] =
          STATS(
         84,
         145,
-        75,
+        85,
         86,
         123,
         83
@@ -40964,7 +40964,7 @@ const struct BaseStats gBaseStats[] =
         115,
         60
         ),
-        MON_TYPES(TYPE_DARK, TYPE_NORMAL),
+        MON_TYPES(TYPE_DARK, TYPE_NORMAL), //w type change makes more sense to set this back to fairy?
         .catchRate = 30,
         .expYield = 198,
         //.evYield_Attack = 2,
