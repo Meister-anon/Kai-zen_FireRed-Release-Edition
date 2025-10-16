@@ -40969,7 +40969,11 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sBanetteTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM,
-    },
+    },//give memento, w prankster and have +1 memento
+    //ah forget made -1 so its just neutral but with slow speed
+    //think may make memento neutral?
+    //just to have tiers of memento mon
+    //vsonic
 
     [SPECIES_ABSOL_MEGA] =
     {
@@ -40985,8 +40989,8 @@ const struct BaseStats gBaseStats[] =
         60
         ),
         MON_TYPES(TYPE_DARK, TYPE_NORMAL), //w type change makes more sense to set this back to fairy?
-        .catchRate = 30,
-        .expYield = 198,
+        .catchRate = 30, //4x to dark but may be fine, if I use suker punch no one else can hit me with it
+        .expYield = 198,//hard to decide between normal and fairy, fairy offers useful immunity, but normal is more damage
         //.evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 25,
