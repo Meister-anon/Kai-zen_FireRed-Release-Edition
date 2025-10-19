@@ -678,6 +678,9 @@ struct FormChange {
 //it should read slot 1 and 2 for said pokemon
 //and transform based on whichever one is NOT empty/NULL?
 //or just move1 isn't 0? since I can just check first byte value?
+//will need to make sure to 0 out the data at the party slot
+//for a mon removed from the party either via trade, daycare or pc
+//vsonic
 struct FormDataStorage {
     u16 move1:10;
     u16 pp1:6;
