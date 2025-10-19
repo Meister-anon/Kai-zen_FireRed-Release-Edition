@@ -5511,7 +5511,14 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_SP_DEF_MINUS_1:
             case MOVE_EFFECT_ACC_MINUS_1:
             case MOVE_EFFECT_EVS_MINUS_1:
-               
+            {
+                //unless masking, this appears to fix problem
+                //too much memory consumed at read time
+                //by funtion calls in conditional
+                u16 targetAbility,battlerAbility;
+                targetAbility = GetBattlerAbility(gBattlerTarget);
+                battlerAbility = GetBattlerAbility(gBattlerAttacker);
+
                if (affectsUser == MOVE_EFFECT_AFFECTS_USER)
                     flags = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN;
                 else
@@ -5523,7 +5530,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     flags |= STAT_CHANGE_UPDATE_MOVE_EFFECT;
 
                if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_1)
-                && (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GROUND))
+                && (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerAbility, gBattlerTarget, targetAbility, TYPE_GROUND))
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].type == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].argument == TYPE_GROUND)
@@ -5551,6 +5558,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
                     gBattlescriptCurrInstr = BattleScript_StatDown;
                 }
+            }
                 break;
             case MOVE_EFFECT_ATK_PLUS_2:
             case MOVE_EFFECT_DEF_PLUS_2:
@@ -5581,6 +5589,11 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_SP_DEF_MINUS_2:
             case MOVE_EFFECT_ACC_MINUS_2:
             case MOVE_EFFECT_EVS_MINUS_2:
+            {
+                u16 targetAbility,battlerAbility;
+                targetAbility = GetBattlerAbility(gBattlerTarget);
+                battlerAbility = GetBattlerAbility(gBattlerAttacker);
+            
 
                 if (affectsUser == MOVE_EFFECT_AFFECTS_USER)
                     flags = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN;
@@ -5590,7 +5603,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     flags |= STAT_CHANGE_ALLOW_PTR;
 
                 if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_2) 
-                && (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GROUND))
+                && (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerAbility, gBattlerTarget, targetAbility, TYPE_GROUND))
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].type == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].argument == TYPE_GROUND)
@@ -5618,6 +5631,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
                     gBattlescriptCurrInstr = BattleScript_StatDown;
                 }
+            }
                 break;
             case MOVE_EFFECT_RECHARGE:
                 if (CanActivateTimeControl(gEffectBattler))
