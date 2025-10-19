@@ -4288,7 +4288,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED, //vsonic important
-        .priority = -1, //giving plus 1 lets it go off, but removes option of slow momento to keep switchin mon from taking dmg
+        .priority = 0, //giving plus 1 lets it go off, but removes option of slow momento to keep switchin mon from taking dmg
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },//should bypass acc hit semi invul double check it still does that
