@@ -1750,6 +1750,7 @@ static const struct AbilityLearnset sPrinplupAbilityLearnset[] = {
 
 static const struct AbilityLearnset sEmpoleonAbilityLearnset[] = {
     ABILITY_PIERCING_HORN,
+    ABILITY_FILTER,
     ABILITY_SET_END
 };
 
