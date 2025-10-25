@@ -2538,7 +2538,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_RUN_AWAY, ABILITY_FLASH_FIRE},
-        .abilityHidden = {ABILITY_FLAME_BODY, ABILITY_NONE},
+        .abilityHidden = {ABILITY_FLAME_BODY, ABILITY_LETHAL_LEGS},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -2554,7 +2554,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Rapidash"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 100, 70, 105, 80, 80),
+         STATS(75, 100, 70, 105, 80, 80),
         MON_TYPES(TYPE_NORMAL, TYPE_FIRE),
         .catchRate = 60,
         .expYield = 175,
@@ -2566,7 +2566,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_RUN_AWAY, ABILITY_FLASH_FIRE},
-        .abilityHidden = {ABILITY_FLAME_BODY, ABILITY_NONE},
+        .abilityHidden = {ABILITY_FLAME_BODY, ABILITY_RIVALRY},//speedy but also very competitive
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -7185,9 +7185,9 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_GRUNGE, ABILITY_FLASH_FIRE},
-        .abilityHidden = {ABILITY_UNNERVE, ABILITY_EARLY_BIRD},
+        .abilityHidden = {ABILITY_UNNERVE, ABILITY_APOTHEOSCENT},//think drop early bird for apotheoscent devil dog good sense of smell
         //.bodyColor = BODY_COLOR_BLACK,
-        .noFlip = FALSE,
+        .noFlip = FALSE, //watched wolfey vid early bird not good for frail mon
         .floating = FALSE,
         .safariZoneFleeRate = 50,
         .abilityLearnset = sHoundoomAbilityLearnset,
@@ -14559,7 +14559,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_FLAME_BODY, ABILITY_NONE},
+        .abilities = {ABILITY_FLAME_BODY, ABILITY_HEAT_TRANCE},
         .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_FLARE_BOOST,},
         //.bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -14569,7 +14569,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMagmortarLevelUpLearnset,
         .tmhmLearnset = sMagmortarTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//to differentiate think best I can do is ability changes?
 
     [SPECIES_TOGEKISS] =
     {
@@ -42285,7 +42285,7 @@ const struct BaseStats gBaseStats[] =
         65,
         65
         ),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY), //why not make this fairy too?
+        MON_TYPES(TYPE_PSYCHIC), //why not make this fairy too? with type change decide leave off for less weaknesses
         .catchRate = 190,
         .expYield = 82,
         //.evYield_Speed = 1,
@@ -42314,7 +42314,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        65,
+        75,
         100,
         70,
         105,
