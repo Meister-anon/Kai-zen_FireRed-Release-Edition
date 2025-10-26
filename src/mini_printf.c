@@ -76,7 +76,7 @@ static inline char mini_pchar_decode(char encoded)
         ret = '#'; // pound, hashtag, octothorpe, whatever
     else if (encoded == CHAR_SLASH)
         ret = '/'; // slash
-    else if (encoded == CHAR_LESS_THAN)
+    /*else if (encoded == CHAR_LESS_THAN)
         ret = '<'; // less than sign
     else if (encoded == CHAR_GREATER_THAN)
         ret = '>'; // greater than sign
@@ -86,6 +86,7 @@ static inline char mini_pchar_decode(char encoded)
         ret = '('; // opening parentheses
     else if (encoded == CHAR_RIGHT_PAREN)
         ret = ')'; // closing parentheses
+    */ //had to remove as don't have emerald synced charmap/text
     return ret;
 }
 
