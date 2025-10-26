@@ -1210,53 +1210,52 @@ u8 CreatePartyStatusSummarySprites(u8 battlerId, struct HpAndStatus *partyInfo, 
     }
 
     if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
-    {
-        
-            if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
+    {        
+        if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
+        {
+            for (i = 0; i < PARTY_SIZE; i++)
             {
-                for (i = 0; i < PARTY_SIZE; i++)
+                if (partyInfo[i].hp == HP_EMPTY_SLOT) // empty slot or an egg
                 {
-                    if (partyInfo[i].hp == HP_EMPTY_SLOT) // empty slot or an egg
-                    {
-                        gSprites[ballIconSpritesIds[i]].oam.tileNum += 1;
-                        gSprites[ballIconSpritesIds[i]].data[7] = 1;
-                    }
-                    else if (partyInfo[i].hp == 0) // fainted mon
-                    {
-                        gSprites[ballIconSpritesIds[i]].oam.tileNum += 3;
-                    }
-                    else if (partyInfo[i].status != STATUS1_NONE) // mon with major status
-                    {
-                        gSprites[ballIconSpritesIds[i]].oam.tileNum += 2;
-                    }
+                    gSprites[ballIconSpritesIds[i]].oam.tileNum += 1;
+                    gSprites[ballIconSpritesIds[i]].data[7] = 1;
+                }
+                else if (partyInfo[i].hp == 0) // fainted mon
+                {
+                    gSprites[ballIconSpritesIds[i]].oam.tileNum += 3;
+                }
+                else if (partyInfo[i].status != STATUS1_NONE) // mon with major status
+                {
+                    gSprites[ballIconSpritesIds[i]].oam.tileNum += 2;
                 }
             }
-            else
+        }
+        else
+        {
+            
+            for (i = 0, var = PARTY_SIZE - 1, j = 0; j < PARTY_SIZE; j++)
             {
-                
-                for (i = 0, var = PARTY_SIZE - 1, j = 0; j < PARTY_SIZE; j++)
+                if (partyInfo[j].hp == HP_EMPTY_SLOT)
                 {
-                    if (partyInfo[j].hp == HP_EMPTY_SLOT)
-                    {
-                        // empty slot or an egg
-                        gSprites[ballIconSpritesIds[var]].oam.tileNum += 1;
-                        gSprites[ballIconSpritesIds[var]].data[7] = 1;
-                        var--;
-                        continue;
-                    }
-                    else if (partyInfo[j].hp == 0)
-                    {
-                        // fainted mon
-                        gSprites[ballIconSpritesIds[i]].oam.tileNum += 3;
-                    }
-                    else if (partyInfo[j].status != STATUS1_NONE)
-                    {
-                        // mon with primary status
-                        gSprites[ballIconSpritesIds[i]].oam.tileNum += 2;
-                    }
-                    i++;
+                    // empty slot or an egg
+                    gSprites[ballIconSpritesIds[var]].oam.tileNum += 1;
+                    gSprites[ballIconSpritesIds[var]].data[7] = 1;
+                    var--;
+                    continue;
                 }
+                else if (partyInfo[j].hp == 0)
+                {
+                    // fainted mon
+                    gSprites[ballIconSpritesIds[i]].oam.tileNum += 3;
+                }
+                else if (partyInfo[j].status != STATUS1_NONE)
+                {
+                    // mon with primary status
+                    gSprites[ballIconSpritesIds[i]].oam.tileNum += 2;
+                }
+                i++;
             }
+        }
     }
     else
     {
