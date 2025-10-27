@@ -9495,7 +9495,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Sableye"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(68, 80, 75, 47, 65, 65),
+         STATS(68, 75, 75, 47, 65, 65),
         MON_TYPES(TYPE_DARK, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 133,
@@ -9525,6 +9525,7 @@ const struct BaseStats gBaseStats[] =
     //only reason its attack is mentioned is more because of its bad moves (lost payback in late gen) and relative frailty with low speed
     //gabite has similar similar def/spdef but 20 more hp, 20 more atk and double speed...
     //think will boost hp, keep atk where it is, there's no reason for to be so low hp, its not a pre evo
+    
     [SPECIES_MAWILE] =
     {
         .speciesName = _("Mawile"),

@@ -1339,6 +1339,8 @@ static const struct AbilityLearnset sTorkoalAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSableyeAbilityLearnset[] = {
+    ABILITY_COMPOUND_EYES, //ideas from zenmode yt
+    ABILITY_PICKUP,
     ABILITY_SET_END
 };
 

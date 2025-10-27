@@ -1542,7 +1542,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0, //since this keeps opponent from attacking will keep base priority//since acc is lower will try give priority,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//unsure if acc is too high
+    //with lack of type immunity and compound eyes
+    //acc boost items in mind
+    //vsonic
 
     [MOVE_MEDITATE] =
     {
