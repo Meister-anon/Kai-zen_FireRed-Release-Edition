@@ -5552,7 +5552,7 @@ static const struct LevelUpMove sSableyeLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 //vsonic take zenmodeyt learnset changes
-/
+
 
 static const struct LevelUpMove sBarboachLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_MUD_SLAP),

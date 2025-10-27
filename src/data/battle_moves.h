@@ -1535,7 +1535,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_SLEEP,
         .power = 0,
         .type = TYPE_PSYCHIC,
-        .accuracy = 80,
+        .accuracy = 75,
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -1545,7 +1545,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     },//unsure if acc is too high
     //with lack of type immunity and compound eyes
     //acc boost items in mind
-    //vsonic
+    //vsonic - dropped to sleep powder range
 
     [MOVE_MEDITATE] =
     {
