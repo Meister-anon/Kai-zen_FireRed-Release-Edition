@@ -1199,13 +1199,16 @@ void CB2_PokedexScreen(void)
     if (!gPaletteFade.active || IsDma3ManagerBusyWithBgCopy())
     {
         RunTasks(); //believe tasks are from DexScreen_loadResources
+        //DebugPrintf("Pokedex Run Tasks complete%d", NULL );
         RunTextPrinters();
         AnimateSprites();
         BuildOamBuffer();
+        //DebugPrintf("Pokedex Build Oam Buffer complete%d", NULL );
     }
     else
     {
         UpdatePaletteFade();
+        //DebugPrintf("Pokedex Palette Fade complete: Point End%d", NULL );
     }
 }
 
@@ -1285,11 +1288,14 @@ void DexScreen_LoadResources(void) //look into equiv emerald function, may be wh
 void CB2_OpenPokedexFromStartMenu(void)
 {
     DexScreen_LoadResources();
+    DebugPrintf("Pokedex Load Resources complete%d", NULL );
     ClearGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON | DISPCNT_WIN1_ON);
     SetGpuReg(REG_OFFSET_BLDCNT, 0);
     SetGpuReg(REG_OFFSET_BLDALPHA, 0);
     SetGpuReg(REG_OFFSET_BLDY, 0);
+    DebugPrintf("Gpu Clear complete%d", NULL );
     SetMainCallback2(CB2_PokedexScreen);
+    DebugPrintf("CB2_PokedexScreen complete%d", NULL );
     //SetHelpContext(HELPCONTEXT_POKEDEX);
 }
 
@@ -1371,6 +1377,7 @@ static void Task_PokedexScreen(u8 taskId) //appears be top menu
         sPokedexScreenData->unlockedCategories = 0;
         for (i = 0; i < 9; i++)
             sPokedexScreenData->unlockedCategories |= (DexScreen_IsCategoryUnlocked(i) << i);
+        DebugPrintf("Task_PokedexScreen case:%d", sPokedexScreenData->state );
         sPokedexScreenData->state = 2;
         break;
     case 1:
@@ -1383,13 +1390,16 @@ static void Task_PokedexScreen(u8 taskId) //appears be top menu
         break;
     case 2:
         DexScreen_InitGfxForTopMenu();
+        DebugPrintf("Task_PokedexScreen case:%d", sPokedexScreenData->state );
         sPokedexScreenData->state = 3;
         break;
     case 3:
+        DebugPrintf("Task_PokedexScreen Top of case:%d", sPokedexScreenData->state );
         CopyBgTilemapBufferToVram(3);
         CopyBgTilemapBufferToVram(2);
         CopyBgTilemapBufferToVram(1);
         CopyBgTilemapBufferToVram(0);
+        DebugPrintf("Task_PokedexScreen case:%d", sPokedexScreenData->state );
         sPokedexScreenData->state = 4;
         break;
     case 4:
@@ -1404,6 +1414,7 @@ static void Task_PokedexScreen(u8 taskId) //appears be top menu
         }
         else
             BeginNormalPaletteFade(~0x8000, 0, 16, 0, RGB_WHITEALPHA);  //was 0xFFFF7FFF
+        DebugPrintf("Task_PokedexScreen case:%d", sPokedexScreenData->state );
         sPokedexScreenData->state = 5;
         break;
     case 5: //can't tell where modeSelectCursorPosBak is getting a value from where it seems to only be set in places I'm not navigating too (now) or yet
@@ -1412,6 +1423,7 @@ static void Task_PokedexScreen(u8 taskId) //appears be top menu
             sPokedexScreenData->scrollArrowsTaskId = AddScrollIndicatorArrowPair(&sScrollArrowsTemplate_NatDex, &sPokedexScreenData->modeSelectCursorPosBak);
         else
             sPokedexScreenData->scrollArrowsTaskId = AddScrollIndicatorArrowPair(&sScrollArrowsTemplate_KantoDex, &sPokedexScreenData->modeSelectCursorPosBak);
+        DebugPrintf("Task_PokedexScreen case:%d", sPokedexScreenData->state );
         sPokedexScreenData->state = 6;//think this is end of just displaying the main dex page, after this it takes inpputs for navigation
         break;
     case 6:
@@ -1509,11 +1521,18 @@ static void DexScreen_InitGfxForTopMenu(void)
     sPokedexScreenData->modeSelectWindowId = AddWindow(&sWindowTemplate_ModeSelect);
     sPokedexScreenData->selectionIconWindowId = AddWindow(&sWindowTemplate_SelectionIcon);
     sPokedexScreenData->dexCountsWindowId = AddWindow(&sWindowTemplate_DexCounts);
+    DebugPrintf("Window setup in DexScreen_InitGfxForTopMenu%d", NULL );
     if (IsNationalPokedexEnabled())
     {
+        DebugPrintf("isnationalDex Enabled in DexScreen_InitGfxForTopMenu%d", NULL );
         listMenuTemplate = sListMenuTemplate_NatDexModeSelect;
         listMenuTemplate.windowId = sPokedexScreenData->modeSelectWindowId; //assigns cursor pos and items above from this below in ListMenuInitInternal via ListMenuInit
+        DebugPrintf("listMenuTemplate done in DexScreen_InitGfxForTopMenu%d", NULL );
+        //problem is this function...
+        //my changes to make it print how I wanted...
+        //something in listmenu init breaks
         sPokedexScreenData->modeSelectListMenuId = ListMenuInit(&listMenuTemplate, sPokedexScreenData->modeSelectCursorPos, sPokedexScreenData->modeSelectItemsAbove, DEFAULT_MODE);
+        DebugPrintf("ListMenuInit in DexScreen_InitGfxForTopMenu%d", NULL );
         FillWindowPixelBuffer(sPokedexScreenData->dexCountsWindowId, PIXEL_FILL(0)); //ok this sets cursor pos, which is passed in the other function,
         DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_Seen, 0, 2, 0); //is where menu starts i.e what value it opens on
         DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_Kanto, 4, 13, 0); //i.e the row, I think itemsabove, shows 
@@ -1530,6 +1549,8 @@ static void DexScreen_InitGfxForTopMenu(void)
         DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_National, 4, 59, 0);
 
         DexScreen_PrintNum3RightAlign(sPokedexScreenData->dexCountsWindowId, 0, sPokedexScreenData->numOwnedNational, 46, 59, 2);
+        
+        DebugPrintf("Main logic executed in DexScreen_InitGfxForTopMenu%d", NULL );
     }
     else
     {
@@ -1552,6 +1573,7 @@ static void DexScreen_InitGfxForTopMenu(void)
     CopyWindowToVram(1, COPYWIN_GFX);
     PutWindowTilemap(sPokedexScreenData->dexCountsWindowId);
     CopyWindowToVram(sPokedexScreenData->dexCountsWindowId, COPYWIN_GFX);
+    DebugPrintf("End of DexScreen_InitGfxForTopMenu%d", NULL );
 }
 
 static void MoveCursorFunc_DexModeSelect(s32 itemIndex, bool8 onInit, struct ListMenu *list)
@@ -2582,6 +2604,8 @@ static int DexScreen_InputHandler_GetShoulderInput(void)
     }
 }
 
+//appears dex upgrades are broken 
+//will use this branch to work it out
 void CB2_OpenDexPageFromSummScreen(void)
 {
 
@@ -2590,9 +2614,10 @@ void CB2_OpenDexPageFromSummScreen(void)
     DmaClear32(3, OAM, OAM_SIZE);
     DmaClear16(3, PLTT, PLTT_SIZE);
     DexScreen_LoadResources();
-
+    DebugPrintf("Load Resoures Summ Screen Dex Access%d", NULL );
     sPokedexScreenData->dexSpecies = GetMonData(&gPlayerParty[GetLastViewedMonIndex()],MON_DATA_SPECIES);
     DexScreen_LookUpCategoryBySpecies(sPokedexScreenData->dexSpecies);
+    DebugPrintf("Species Cat Lookup Summ Screen Dex Access%d", NULL );
     gTasks[sPokedexScreenData->taskId].func = Task_DexScreen_DexPageFromSummaryScreen; //again putting here below lookup just in case order matered
     
     SetMainCallback2(CB2_PokedexScreen);
@@ -2628,6 +2653,7 @@ static void Task_DexScreen_DexPageFromSummaryScreen(u8 taskId) //called from abo
         CopyBgTilemapBufferToVram(2);
         CopyBgTilemapBufferToVram(1);
         CopyBgTilemapBufferToVram(0);
+        DebugPrintf("Task_DexScreen_DexPageFromSummaryScreen case:%d", sPokedexScreenData->state );
         sPokedexScreenData->state = 3;
         break;
     case 1:
@@ -2650,21 +2676,31 @@ static void Task_DexScreen_DexPageFromSummaryScreen(u8 taskId) //called from abo
         ShowBg(2);
         ShowBg(1);
         ShowBg(0);
+        DebugPrintf("Task_DexScreen_DexPageFromSummaryScreen case:%d", sPokedexScreenData->state );
         sPokedexScreenData->state = 4;        
         break;
     case 4:
+    DebugPrintf("Task_DexScreen_DexPageFromSummaryScreen case:%d", sPokedexScreenData->state );
     sPokedexScreenData->state = 5; 
         break;
     case 5:
+        DebugPrintf("Task_DexScreen_DexPageFromSummaryScreen Top of case:%d", sPokedexScreenData->state );
+        //last thing that prints^
+        //supposedly the below function is hella broken
+        //potentially with memory stuff or malloc
         DexScreen_DestroyAreaScreenResources(); //for some reason need this up here for 
+        DebugPrintf("DexScreen_DestroyAreaScreenResources done within case:%d", sPokedexScreenData->state );
         DexScreen_CreateCategoryListGfx(TRUE);//full window to load without cutt off stat bars
+        DebugPrintf("DexScreen_CreateCategoryListGfx done within case:%d", sPokedexScreenData->state );
         DexScreen_DrawMonDexPage(FALSE); 
+        DebugPrintf("DexScreen_DrawMonDexPage done within case:%d", sPokedexScreenData->state );
         sPokedexScreenData->currentPage = DEX_REGISTER_PAGE;
         sPokedexScreenData->state = 6;
        break;
     case 6:
          sPokedexScreenData->data[0] = 0;
         sPokedexScreenData->data[1] = 0;
+        DebugPrintf("Task_DexScreen_DexPageFromSummaryScreen case:%d", sPokedexScreenData->state );
         sPokedexScreenData->state++;
     case 7:
         if (sPokedexScreenData->data[1] < 6)
@@ -2686,8 +2722,10 @@ static void Task_DexScreen_DexPageFromSummaryScreen(u8 taskId) //called from abo
             CopyBgTilemapBufferToVram(2);
             CopyBgTilemapBufferToVram(1);
             CopyBgTilemapBufferToVram(0);
+            DebugPrintf("Task_DexScreen_DexPageFromSummaryScreen case:%d", sPokedexScreenData->state );
         sPokedexScreenData->state++;
         }
+        
         break;
     case 8://replace w full input
         sPokedexScreenData->state++;
