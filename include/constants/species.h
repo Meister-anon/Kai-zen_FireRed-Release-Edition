@@ -915,13 +915,6 @@
 #define SPECIES_ENAMORUS_INCARNATE 905	//Pokemon Opal has some original mon so can add after this as gen 10, like Cefireon and unknown legendar with the s/v mon I actually want
 
 
-#define FORMS_START SPECIES_NA  //because gen 9 stuff need change value
-#define BASE_SPECIES_COUNT SPECIES_NA - 1 //made so has constant for dex page
-//tested upgrading this doesn't take more ewram luckily
-//this isn't what's breaking new game  screen, so assume its nat dex stuff
-
-//Gen 9 - values orgnized differently but still need to split 
-//between forms for dex changes
 
 //still need adjust list for forms
 #define SPECIES_SPRIGATITO                              906
@@ -1057,6 +1050,15 @@
 
 #define SPECIES_PECHARUNT                               1025
 #define SPECIES_NA                                      1026 //to avoid extra copy paste
+
+#define FORMS_START SPECIES_NA  //because gen 9 stuff need change value
+#define BASE_SPECIES_COUNT SPECIES_NA - 1 //made so has constant for dex page
+//tested upgrading this doesn't take more ewram luckily
+//this isn't what's breaking new game  screen, so assume its nat dex stuff
+
+//Gen 9 - values orgnized differently but still need to split 
+//between forms for dex changes
+
 
 //#define SPECIES_CEFIREON 1029
 //#define SPECIES_FRAEYJTA 1030    //fray-eat-ah fray-tah  fray-itta original mon fairy ghost mysthic from another world (fairy world) protector healer and watches over the dead, so found graveyard comforts living and dead

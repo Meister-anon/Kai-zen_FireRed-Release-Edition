@@ -10357,7 +10357,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Flygon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(80, 100, 80, 100, 80, 80),
+         STATS(80, 100, 80, 100, 80, 100),
         MON_TYPES(TYPE_GROUND, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 234,
