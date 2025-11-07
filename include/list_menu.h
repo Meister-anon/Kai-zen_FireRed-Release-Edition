@@ -40,9 +40,9 @@ struct ListMenuTemplate //eventually cange itemId back to u32
     /*0x00*/ const struct ListMenuItem *items;
     /*0x04*/ void (* moveCursorFunc)(s32 itemIndex, bool8 onInit, struct ListMenu *list);
     /*0x08*/ void (* itemPrintFunc)(u8 windowId, s32 itemId, u8 y); //dont remember why I changed from s to u32? , guess becuase nothing is less than 0, doesnt make sense ot be s
-    /*0x0C*/ u16 totalItems:12;            //idk I'm kust keeping it as it was to avoid potential issues
-    /*0x0E*/ u16 maxShowed:12;
-             u16 textNarrowWidth:8; //looks weird but guess splits remaining 4 of both u16 into this?
+    /*0x0C*/ u32 totalItems:12;            //idk I'm kust keeping it as it was to avoid potential issues
+    /*0x0E*/ u32 maxShowed:12;
+             u32 textNarrowWidth:8; //looks weird but guess splits remaining 4 of both u16 into this?
     /*0x10*/ u8 windowId;
     /*0x11*/ u8 header_X;
     /*0x12*/ u8 item_X;
