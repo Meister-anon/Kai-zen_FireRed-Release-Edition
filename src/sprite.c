@@ -1688,7 +1688,7 @@ u32 AllocSpritePalette(u16 tag)
 
 u32 IndexOfSpritePaletteTag(u16 tag)
 {
-    u8 i;
+    u32 i;
     for (i = gReservedSpritePaletteCount; i < 16; i++)
         if (sSpritePaletteTags[i] == tag)
             return i;
