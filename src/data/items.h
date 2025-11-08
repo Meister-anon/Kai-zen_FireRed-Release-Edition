@@ -3154,7 +3154,7 @@ const struct Item gItems[] =
       .name = _("Mental Herb"),
       .itemId = ITEM_MENTAL_HERB,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_CURE_ATTRACT,
+      .holdEffect = HOLD_EFFECT_MENTAL_HERB,
       .holdEffectParam =  0,
      .description = gItemDescription_ITEM_MENTAL_HERB,
 //      "description":  "An item to be held by a POKéMON.\\nIt snaps the holder out of\\ninfatuation. It can be used once.,
@@ -3997,7 +3997,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  STAT_HP,
     },
     [ITEM_POWER_BRACER] =
     {
@@ -4014,7 +4014,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  1
+      .secondaryId =  STAT_ATK,
     },
     [ITEM_POWER_BELT] =
     {
@@ -4031,7 +4031,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  2
+      .secondaryId =  STAT_DEF,
     },
     [ITEM_POWER_LENS] =
     {
@@ -4048,7 +4048,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  4
+      .secondaryId =  STAT_SPATK,
     },
     [ITEM_POWER_BAND] =
     {
@@ -4065,7 +4065,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  5
+      .secondaryId =  STAT_SPDEF,
     },
     [ITEM_POWER_ANKLET] =
     {
@@ -4082,7 +4082,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  3
+      .secondaryId =  STAT_SPEED,
     },
     [ITEM_SAIL_FOSSIL] =
     {

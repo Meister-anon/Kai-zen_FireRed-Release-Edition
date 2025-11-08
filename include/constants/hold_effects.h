@@ -153,19 +153,19 @@
 #define HOLD_EFFECT_BLUNDER_POLICY      172
 #define HOLD_EFFECT_HEAVY_DUTY_BOOTS    173
 #define HOLD_EFFECT_THROAT_SPRAY        174
-#define HOLD_EFFECT_ULTIMA_BRACE		175 // block exp multiply ev gain *exp=0		I guess could just be stronger version of my new macho brace effect?
-#define HOLD_EFFECT_POWER_WEIGHT		176
-#define HOLD_EFFECT_POWER_BRACER		177
-#define HOLD_EFFECT_POWER_BELT			178
-#define HOLD_EFFECT_POWER_ANKLET		179
-#define HOLD_EFFECT_POWER_LENS			180
-#define HOLD_EFFECT_POWER_BAND			181
-//vsonic
-#define HOLD_EFFECT_BLANK 182   // since stat reaise is based on secondary id, pretty sure can just use this and remoe all other power item hold effects
 
-#define HOLD_EFFECT_CURE_ATTRACT		183
+//gen9 hold effects
+#define HOLD_EFFECT_ABILITY_SHIELD      175
+#define HOLD_EFFECT_CLEAR_AMULET		176
+#define HOLD_EFFECT_MIRROR_HERB		    177
+#define HOLD_EFFECT_PUNCHING_GLOVE			178 //call punch glove, and make leg equivalent
+#define HOLD_EFFECT_COVERT_CLOAK		179
+#define HOLD_EFFECT_LOADED_DICE			180
+#define HOLD_EFECT_BOOSTER_ENERGY			181
+#define HOLD_EFFECT_OGERPON_MASK 182   // since stat reaise is based on secondary id, pretty sure can just use this and remoe all other power item hold effects
 
 //custom hold effects
+#define HOLD_EFFECT_ULTIMA_BRACE	183 // block exp multiply ev gain *exp=0		I guess could just be stronger version of my new macho brace effect?
 #define HOLD_EFFECT_SOUND_POWER     184   //call deci bell (I think)
 #define HOLD_EFFECT_SNOW_GLOBE      185   //ice orb,
 //new idea split off of snow globe, item that works differently based on type if ice type, boosts some defense stat a good deal,
@@ -174,6 +174,7 @@
 //also small counter effect so cant just fast trick and make target unable to attack
 #define HOLD_EFFECT_ICE_BOX      186   
 #define HOLD_EFFECT_HONEY    187
+#define HOLD_EFFECT_LEG_WEIGHTS 188  //leg equialent of punching gloves
 
 
 // Terrain seed params
