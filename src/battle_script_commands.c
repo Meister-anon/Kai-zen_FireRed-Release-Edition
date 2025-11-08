@@ -5599,8 +5599,10 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     flags = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN;
                 else
                     flags = 0;
-                if (mirrorArmorReflected && !affectsUser)
-                    flags |= STAT_CHANGE_ALLOW_PTR;
+                if (mirrorArmorReflected)
+                    flags |= (STAT_CHANGE_ALLOW_PTR * !affectsUser);
+                else
+                    flags |= STAT_CHANGE_UPDATE_MOVE_EFFECT;
 
                 if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_2) 
                 && (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerAbility, gBattlerTarget, targetAbility, TYPE_GROUND))
@@ -5640,8 +5642,8 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 else
                 {                
-                    gDisableStructs[gEffectBattler].rechargeTimer = 1;
-                    gLockedMoves[gEffectBattler] = gCurrentMove;
+                    gDisableStructs[gEffectBattler].rechargeTimer = 1; //need check in emerald this is 2
+                    gLockedMoves[gEffectBattler] = gCurrentMove; //may be due to turn order rework stuff I need to add vsonic important
                 }
                 ++gBattlescriptCurrInstr;
                 break;
@@ -15305,7 +15307,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
     bool32 certain = FALSE;
     bool32 notProtectAffected = FALSE;
     u32 index;
-    u16 activeBattlerAbility;
+    u16 activeBattlerAbility, battlerHoldEffect;
     bool32 affectsUser = (flags & MOVE_EFFECT_AFFECTS_USER);
     bool32 mirrorArmored = (flags & STAT_CHANGE_MIRROR_ARMOR);
     
@@ -15316,6 +15318,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
         gActiveBattler = gBattlerTarget;
 
     activeBattlerAbility = GetBattlerAbility(gActiveBattler);
+    battlerHoldEffect = GetBattlerHoldEffect(gActiveBattler, TRUE);
 
     gSpecialStatuses[gActiveBattler].changedStatsBattlerId = gBattlerAttacker;
 
