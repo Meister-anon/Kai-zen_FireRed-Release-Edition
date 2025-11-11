@@ -1353,6 +1353,7 @@ static const struct AbilityLearnset sWhiscashAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sLuvdiscAbilityLearnset[] = {
+    ABILITY_SWIFT_SWIM,
     ABILITY_SET_END
 };
 
@@ -1590,6 +1591,7 @@ static const struct AbilityLearnset sZangooseAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sRelicanthAbilityLearnset[] = {
+    ABILITY_SWIFT_SWIM,
     ABILITY_SET_END
 };
 
@@ -2592,6 +2594,7 @@ static const struct AbilityLearnset sDucklettAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSwannaAbilityLearnset[] = {
+    ABILITY_STORM_BREAK,
     ABILITY_SET_END
 };
 
@@ -4537,12 +4540,16 @@ static const struct AbilityLearnset sTinkatonAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sWiglettAbilityLearnset[] = {
+    ABILITY_GOOEY,
+    ABILITY_RATTLED,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sWugtrioAbilityLearnset[] = {
+    ABILITY_GOOEY,
+    ABILITY_RATTLED,
     ABILITY_SET_END
-};
+};//rattled isn't  good on this but just adding for consistency
 
 static const struct AbilityLearnset sBombirdierAbilityLearnset[] = {
     ABILITY_SET_END

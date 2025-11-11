@@ -1587,6 +1587,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_BATTLER_ON_A_ROLL]            = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} is on a roll!"), //for flame wheel simple but works well enough
     [STRINGID_PKMNDROPPEDTEMP]              = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} dropped the temperature!"),
     [STRINGID_PKMNSWARMED]              = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} was trapped\nin a swirling Swarm!"),
+    [STRINGID_PKMNCAMETOITSSENSES]       = COMPOUND_STRING("{B_SCR_NAME_WITH_PREFIX} came to its senses!"),
 
     [STRINGID_TRAINER2CLASS]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME]                  = sText_Trainer2Name,

@@ -10085,12 +10085,12 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Wailord"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(170, 90, 45, 60, 90, 45),
+         STATS(210, 90, 45, 60, 90, 45),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 60,
         .expYield = 175,
         //.evYield_HP = 2,
-        .genderRatio = PERCENT_FEMALE(50),
+        .genderRatio = PERCENT_FEMALE(50),//far less def than snorlax so boosted some
         .eggCycles = 40,
         .friendship = 15,
         .growthRate = GROWTH_FLUCTUATING,
@@ -14230,7 +14230,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_2,
         .eggGroup2 = EGG_GROUP_WATER_2,
         .abilities = {ABILITY_FLUORESCENCE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SWIFT_SWIM, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -14262,7 +14262,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_2,
         .eggGroup2 = EGG_GROUP_WATER_2,
         .abilities = {ABILITY_FLUORESCENCE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SWIFT_SWIM, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -17818,7 +17818,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_SHED_SKIN, ABILITY_MOXIE},
-        .abilityHidden = {ABILITY_INTIMIDATE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_INTIMIDATE, ABILITY_SCRAPPY},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -17857,7 +17857,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_SHED_SKIN, ABILITY_MOXIE},
-        .abilityHidden = {ABILITY_INTIMIDATE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_INTIMIDATE, ABILITY_SCRAPPY},
         //.bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -28275,7 +28275,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sCramorantTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_HAS_COSMETIC_FORMS,
-    },
+    },//rework ability condition think just use water move above 80 base power?
 
     [SPECIES_ARROKUDA] =
     {
@@ -34490,8 +34490,8 @@ const struct BaseStats gBaseStats[] =
               50, 
               70
        ),
-        MON_TYPES(TYPE_WATER),
-        .catchRate = 50,
+        MON_TYPES(TYPE_WATER), //idk if this is fixed but its solid in trick room,
+        .catchRate = 50, //guess toss a quick claw on it?
         .expYield = 149,
        // .evYield_Speed = 2,
         .genderRatio = PERCENT_FEMALE(50),
