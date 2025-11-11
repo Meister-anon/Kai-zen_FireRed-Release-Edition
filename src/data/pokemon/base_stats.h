@@ -22890,6 +22890,28 @@ const struct BaseStats gBaseStats[] =
     //not much point in being rock than just fossil thing
     //yeah no benefit to being rock other than psn immunity
     //w rock its 4x to fighting and steel
+    
+    //ok consider mega evolution make rock ice again
+    //but rock as in crystals think give max defense
+    //since sturdy ice isn't britle nor are crystals
+
+    //vsonic important idea with mega aerodactyl we know
+    //fossil restoration process isn't fully accurate
+    //so that leaves room open for all or some fossil pokemon
+    //to get mega evolutions, for them it'd be more akin to primal reversion of course
+    
+    //other idea is just give to some and say fossil restoration technology
+    //improved over time since aerodactyl was from first gen
+    //tyrantrum seems perfect as is
+    //archeops would only want a mega to get rid of defeatist but is fine now
+
+    //would love mega for bastiodon and rampardos
+    //and also something crazy for the british split fossil evos
+    //really exxagerate the differences between the parts
+
+    //maybe each can be different due to degredation from
+    //attempting to merge characteristics of different dna
+    //would be very cool
 
     [SPECIES_SYLVEON] =
     {
