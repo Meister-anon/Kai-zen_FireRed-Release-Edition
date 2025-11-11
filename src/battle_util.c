@@ -11079,7 +11079,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
     return effect;
 }
 
-void ClearFuryCutterDestinyBondGrudge(u8 battlerId)
+void ClearDestinyBondGrudge(u8 battlerId)
 {
     gBattleMons[battlerId].status2 &= ~(STATUS2_DESTINY_BOND);
     gStatuses3[battlerId] &= ~(STATUS3_GRUDGE);
