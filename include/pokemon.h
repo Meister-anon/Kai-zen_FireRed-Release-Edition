@@ -433,6 +433,11 @@ struct BaseStats  // had to adjust struct order to match paste value from base_s
             const struct Evolution *evolutions;
 };
 
+//reworking struct start w flags 
+//hmm well when I bring the flag in it'll be everything 
+//at once...
+//I'll work on this over time, first can do flags
+//then can figure out the rest as I go
 struct BattleMove
 {
     u16 effect;
@@ -444,6 +449,54 @@ struct BattleMove
     u16 target;
     s8 priority;
     u32 flags;
+    // Flags
+    bool32 makesContact:1;
+    bool32 ignoresProtect:1;
+    bool32 magicCoatAffected:1;
+    bool32 snatchAffected:1;
+    bool32 kickingMove:1; //think don't need kingrock logic setup my own for it
+    bool32 punchingMove:1; //iron fist boost
+    bool32 bitingMove:1; //strong jaw
+    bool32 pulseMove:1; //mega launcher
+    bool32 soundMove:1;
+    bool32 ballisticMove:1;
+    bool32 powderMove:1;
+    bool32 danceMove:1;
+    bool32 windMove:1;
+    bool32 slicingMove:1; //sharpness
+    bool32 healingMove:1;
+    bool32 minimizeDoubleDamage:1;
+    bool32 ignoresTargetAbility:1;
+    bool32 ignoresTargetDefenseEvasionStages:1;
+    bool32 damagesUnderground:1;   //auto doubles dmg 
+    bool32 damagesUnderwater:1;
+    bool32 damagesAirborne:1;
+    bool32 damagesAirborneDoubleDamage:1;
+    bool32 cantdamageFloating:1; //no longer needs was just thousand arrows
+    bool32 thawsUser:1; //^ replaced above for new ground affecting mechanic
+    bool32 ignoresSubstitute:1;//oh thawsUser is a different thing nvm
+    bool32 forcePressure:1; //(for self-targeted moves that are affected by Pressure) //idk how this makes sense yet
+    bool32 cantUseTwice:1;
+    // Ban flags
+    bool32 gravityBanned:1; //used to tell what move gets canceled by gravity etc.
+    bool32 mirrorMoveBanned:1;
+    bool32 meFirstBanned:1;
+    bool32 mimicBanned:1;
+    bool32 metronomeBanned:1;
+    // end of word
+
+    bool32 copycatBanned:1;
+    bool32 assistBanned:1; // Matches same moves as copycatBanned + semi-invulnerable moves and Mirror Coat.
+    bool32 sleepTalkBanned:1;
+    bool32 instructBanned:1;
+    bool32 encoreBanned:1;
+    bool32 parentalBondBanned:1;
+    bool32 recoilMove:1; //removed  skybattle stuff just use for reckless 
+    bool32 sketchBanned:1;
+    bool32 headbuttMove:1;
+    //Other
+    u32 padding:23;
+    // end of word
     u8 split;
     u16 argument;// for transferring move effects
     u8 argumentEffectChance; // setup status commands and seteffectwithchance function to read this as a value explicitly for argument
@@ -464,7 +517,7 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_PROTECT_AFFECTED       (1 << 1)
 #define FLAG_MAGIC_COAT_AFFECTED    (1 << 2)
 #define FLAG_SNATCH_AFFECTED        (1 << 3)
-#define FLAG_MIRROR_MOVE_AFFECTED   (1 << 4)
+#define FLAG_MIRROR_MOVE_AFFECTED   (1 << 4)    //check if move allowable with mirror move to copy
 #define FLAG_GRAVITY_CANCELED       (1 << 5)    //for moves that get canceled by gravity field status
 #define FLAG_HIGH_CRIT              (1 << 6)
 #define FLAG_RECKLESS_BOOST         (1 << 7)
