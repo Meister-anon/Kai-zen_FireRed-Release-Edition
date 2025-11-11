@@ -22,6 +22,27 @@
 //so replace line },  w .battleAnimScriptId = MOVE_ID  \n},
 //pretty much
 
+/*plan rework move flag files and struct
+to match EE and setup new flag 
+to synergize with floating effect
+where rather than ground type
+its based on move flag
+of not being able to hit floating targets
+
+believe can simplify transition
+by making git diff with EE move_info file
+and then using that "patch" in a git apply
+to this file.
+
+should allow to run like merge conflicts
+making much easier to add effects.
+Still mostly tedious but much better
+following that think may merge with move info file
+so can have descriptions etc. all in one place
+or move them to move description file
+and then just include it here? hmmm
+*/
+
 const struct BattleMove gBattleMoves[MOVES_COUNT] =
 {
     [MOVE_NONE] =
