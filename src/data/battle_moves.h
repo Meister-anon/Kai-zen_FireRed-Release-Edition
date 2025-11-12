@@ -41,6 +41,29 @@ following that think may merge with move info file
 so can have descriptions etc. all in one place
 or move them to move description file
 and then just include it here? hmmm
+
+uhh can't merge make diff like I wanted 
+will need to use python instead make moves list from names here,
+take what I need from moves_info and apply changes here
+do like did tm list data file
+
+use   const struct BattleMove gBattleMoves[MOVES_COUNT] =
+as the start point
+
+when name matches start adding data
+for everything below .category from other file
+that will add contest stuff
+
+        .contestEffect = CONTEST_EFFECT_EXCITE_AUDIENCE_IN_ANY_CONTEST,
+        .contestCategory = CONTEST_CATEGORY_CUTE,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_Frustration,
+        .validApprenticeMove = TRUE,
+
+think can use regex for final pass to clear those lines out after the fact
+think may keep battleanim stuff just comment it out for later update
+
 */
 
 const struct BattleMove gBattleMoves[MOVES_COUNT] =
