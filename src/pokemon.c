@@ -6189,9 +6189,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
          //how does this work, do I need to move it, or does it auto boost all damage?
                                         //it boosts all because its not in physical or special formula 
 
-
-    if (gBattleMoves[move].flags & FLAG_DMG_MINIMIZE && gStatuses3[battlerIdDef] & STATUS3_MINIMIZED)
-        OffensiveModifer(200);
     if (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERGROUND && gStatuses3[battlerIdDef] & STATUS3_UNDERGROUND)
         OffensiveModifer(200);
     if (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERWATER && gStatuses3[battlerIdDef] & STATUS3_UNDERWATER)

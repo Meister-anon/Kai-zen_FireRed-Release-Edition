@@ -1655,13 +1655,13 @@ bool32 IsMoveEncouragedToHit(u8 battlerAtk, u8 battlerDef, u16 move)
       && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
         return FALSE;
 
-    // increased accuracy but don't always hit
+    // increased accuracy but don't always hit -vsonic aren't these always hit effects?
     if ((AI_WeatherHasEffect() &&
             (((gBattleWeather & WEATHER_RAIN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
             || ((gBattleWeather & WEATHER_ACID_RAIN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
             || (((gBattleWeather & WEATHER_HAIL) && move == MOVE_BLIZZARD))))
         || (gBattleMoves[move].effect == EFFECT_VITAL_THROW)
-        || ((gStatuses3[battlerDef] & STATUS3_MINIMIZED) && (gBattleMoves[move].flags & FLAG_DMG_MINIMIZE))
+        || ((gBattleMons[battlerDef].statStages[STAT_EVASION] > DEFAULT_STAT_STAGE) && (gBattleMoves[move].flags & FLAG_EVASIVE_BREAK))
         || (gBattleMoves[move].accuracy == 0))
     {
         return TRUE;

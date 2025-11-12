@@ -1906,7 +1906,7 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
         || ((IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ACID_RAIN_ANY)) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
         || ((IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY)) && move == MOVE_BLIZZARD)
         || (gBattleMoves[move].effect == EFFECT_ALWAYS_HIT || gBattleMoves[move].effect == EFFECT_VITAL_THROW)
-        || ((gStatuses3[gBattlerTarget] & STATUS3_MINIMIZED) && (gBattleMoves[move].flags & FLAG_DMG_MINIMIZE)))
+        || ((gBattleMons[gBattlerTarget].statStages[STAT_EVASION] > DEFAULT_STAT_STAGE) && (gBattleMoves[move].flags & FLAG_EVASIVE_BREAK)))
     {
         JumpIfMoveFailed(7, move);
         return TRUE;
