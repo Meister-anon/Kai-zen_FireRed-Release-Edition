@@ -951,6 +951,37 @@ const u8 gStartMenuDesc_Retire[] = _("Retire from the SAFARI GAME and return to\
 const u8 gStartMenuDesc_Debug[] = _("Debugging functions for developers.");
 const u8 gStartMenuDesc_PC[] = _("Access stored items and POKéMON.");
 
+//new summ screen move data desc strings
+//for printing categorical move data
+const u8 gPhysicalPrio[] = _("physical/Prio: ");
+const u8 gSpecialPrio[] = _("special/Prio: ");
+const u8 gStatusPrio[] = _("status/Prio: ");
+//move categories - dont need list healing move as that will always be in description, hmm same for high crit actually
+const u8 gContactMove[] =_("Makes contact\n");
+const u8 gHighCritMove[] =_("Heightened Crit\n"); //for now will keep in case
+const u8 gBitingMove[] =_("Biting Move\n");
+const u8 gPunchingMove[] =_("Punching Move\n");
+const u8 gKickingMove[] =_("Kicking Move\n");
+const u8 gPulseMove[] =_("Pulse Move\n");
+const u8 gSoundMove[] =_("Sound Move\n");
+const u8 gBallisticMove[] =_("Ballistic Move\n");
+const u8 gPowderMove[] =_("Powder Move\n");
+const u8 gDancingMove[] =_("Dancing Move\n");
+const u8 gWindMove[] =_("Wind Move\n");
+const u8 gSlicingMove[] =_("Slicing Move\n"); //these 2 will gruop a lot hope not an issue
+
+//unique characteristics
+const u8 gUnderwaterDmg[] =_("2x underwater foe\n");
+const u8 gUnderwaterDmg[] =_("2x underground foe\n"); //hopefully is fine
+const u8 gAirborneDmg[] =_("2x in-air foe\n");
+const u8 gFloatingDmg[] =_("Can't Dmg Floating\n");
+const u8 gFlyingDmg[] =_("Hits in-air foe\n");
+const u8 gBypassProtect[] =_("Bypasses protect\n");
+const u8 gIgnoresSubstitute[] =_("Ignores substitute\n"); //do need to set, didn't realize how many effects sub blocked
+const u8 gSnatchableEffect[] =_("Can be Snatched\n");
+const u8 gEvassiveBreak[] =_("Sure hit if +Eva\n"); //hopefully clear enough? reworked minimize boost
+const u8 gIgnoresAbility[] =_("Ignores foe ability\n"); //thankfully only small amount do this, seems just the gen 7 legendaries signature moves soolgaleo lunala necrozma
+
 #include "data/text/quest_log.h"
 
 const u8 gUnknown_841B285[] = _(" was used on\n");

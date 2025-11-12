@@ -4595,12 +4595,48 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     priority if non 0
     makes contact
     move category - punching kick draining wind move etc. typically max 2 combined
-    special characteristics - hits underground hits flying 2x flying unable to hit floating
+    special characteristics - hits underground hits flying foe 2x flying foe can't hit floating
+    
+    
+    don't need high crit effect or healing effect or kingsrockaffected
+    as those affects are always listed in the move itself
+    kingsrock now explicitly has effect on item itself as well
+    same logic for ignoresTargetDefenseEvasionStages
+    and always crit
     -typically 1 but max 2 w unable hit float logic
 
     to save space attempt put split and priority on same line
     physical/Prio: 1
     special/Prio: -3
+    status/Prio:
+
+    if priority is 0 just use dash believe is this CHAR_HYPHEN
+    use getmovepriority store it to value don't use directly
+    read that value if 0 use hyphen else use print to text or something
+    main block will include a space so I should be able to just directly append
+
+    curious if I want to add to a buffer can i use buffer += text string?
+    nvm that append should cover everything
+
+    putting linebreaks within string only need to add linebreaks
+    for first line after assine priority
+
+    use DexScreen_PrintMonHeight function as template
+    uses text buffer it fills as it goes, just need instert
+    CHAR_NEWLINE for line break - fits within 1 char thankfully
+
+    MOVE_DESCRIPTION_LENGTH + 5  = size of buffer + 5 is for line break chars
+    can fit approx 19 per line
+
+    effect new window just like move info
+    well within move info think remove the press A to switch
+    as everone is aware of that?
+
+    no think maybe better to put start button on blank space
+    of effect window  Start button INFO or something
+    anyway will be a task so you can press button once, 
+    and scroll through moves to load that data press b
+    to go back to detail page and maintain scroll curor postion
 
 
     Anyway thats the plan.
