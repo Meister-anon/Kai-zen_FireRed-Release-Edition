@@ -4572,6 +4572,23 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     to swap, press start again or B to go back
     prob need task or some other check for that I'm on the cat page 
     and not the description page
+    
+    unsure of this idea, text is written to the tilemap
+    based on line breaks of pre set text
+    so no way to really set this text block at run time
+
+    if I treat it like placeholders its possible
+    I can make text for each thing and then just
+    have it create a text link one per line?
+
+    I can  create a text block that's blank
+    check conditions in specific order i.e category first
+    so shows phsyical move status move first then other categories
+    can't print everything but think I can create a string that way
+    just need insert line break after each thing?
+
+    think just do append text and line break each time
+    and should be fine?
 
     Anyway thats the plan.
 
