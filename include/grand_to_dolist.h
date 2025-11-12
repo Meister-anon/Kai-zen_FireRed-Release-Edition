@@ -4639,6 +4639,10 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     and ignore effects that would make target more evasive otherwise
     such as sand veil etc. 
     
+    NOTE  for code stuff -vsonic Important
+    believe I may be able to do
+    gBitTable replacement using regex search
+    it follows explicit pattern so should work
 
     Decide shift move page over to the right more,
     has usable empty space after pp and will never have more than 2 digits
