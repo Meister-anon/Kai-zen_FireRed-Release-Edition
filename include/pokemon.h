@@ -465,7 +465,7 @@ struct BattleMove
     bool32 windMove:1;
     bool32 slicingMove:1; //sharpness
     bool32 healingMove:1;
-    bool32 minimizeDoubleDamage:1;  //changing to surehitagainstBoostedEvasion
+    bool32 minimizeDoubleDamage:1;  //changing to surehitagainstBoostedEvasion reworked further do think just call evasive break
     bool32 ignoresTargetAbility:1;
     bool32 ignoresTargetDefenseEvasionStages:1;
     bool32 damagesUnderground:1;   //auto doubles dmg 
