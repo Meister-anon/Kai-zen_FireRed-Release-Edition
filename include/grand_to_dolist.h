@@ -4590,6 +4590,19 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     think just do append text and line break each time
     and should be fine?
 
+    6 lines max
+    split
+    priority if non 0
+    makes contact
+    move category - punching kick draining wind move etc. typically max 2 combined
+    special characteristics - hits underground hits flying 2x flying unable to hit floating
+    -typically 1 but max 2 w unable hit float logic
+
+    to save space attempt put split and priority on same line
+    physical/Prio: 1
+    special/Prio: -3
+
+
     Anyway thats the plan.
 
     Decide shift move page over to the right more,
