@@ -1048,7 +1048,7 @@ const u8 gSPIRIT_SHACKLE_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The user attacks\nwhile simultaneously\nstitching the foe's\nshadow to the ground\nFoe can't escape.");
 
 const u8 gDARKEST_LARIAT_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user swings\nboth arms to hit\nthe target.\nIgnores stat changes");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user swings\nboth arms to hit\nthe target.\nIgnores changes to\ntarget's Eva or Def");
 
 const u8 gSPARKLING_ARIA_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The user bursts\ninto song,\nemitting bubbles.\nCures burns on hit.");

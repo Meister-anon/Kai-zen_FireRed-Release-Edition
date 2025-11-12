@@ -1,5 +1,6 @@
 //copy of json generated item descriptions for json conversion back to c
-//longer line limits than other file, more than 20, seems approx 35?
+//longer line limits than other file, more than 20, seems approx 35? w 3 lines so 2 line breaks
+//tm case has been expanded so that can use normal move description limit
 const u8 gItemDescription_ITEM_MASTER_BALL[] = _("The best BALL with the ultimate\nperformance. It will catch any wild\nPOKéMON without fail.");
 const u8 gItemDescription_ITEM_ULTRA_BALL[] = _("A very high-grade BALL that offers\na higher POKéMON catch rate than\na GREAT BALL.");
 const u8 gItemDescription_ITEM_GREAT_BALL[] = _("A good, quality BALL that offers\na higher POKéMON catch rate than\na standard POKé BALL.");

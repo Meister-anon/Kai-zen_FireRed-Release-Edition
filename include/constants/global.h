@@ -52,6 +52,8 @@
 #define ABILITY_DESCRIPTION_LENGTH 82   //two lines 41 chars per line
 #define MOVE_DESCRIPTION_LENGTH 114  //approx 19 per line, over 6 lines so 114 max ( + 5 for line break escape chars)
 #define TRAINER_NAME_LENGTH 10 //to match rom header gfc dont remember if I changed this
+#define ITEM_DESCRIPTION_LENGTH 105 //35 per line, 3 lines + 2 for line breaks /excluding tms which would use move description limit
+
 #define DEX_ENTRY_MAX_LENGTH 168 //4 lines so 3 line breaks
 
 #define EASY_CHAT_BATTLE_WORDS_COUNT 6 //added w recorded battle for test system unsure if need
