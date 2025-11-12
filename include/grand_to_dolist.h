@@ -4630,6 +4630,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     will give back to all moves that ever had it including astonish
     would be approx 10 in total
     attempt work out schema for increased adoption if deemed necessary
+
+    talked with people in rhh got feedback effect is still not that useful
+    adding further niches
+
+    ok i think what I'll do with the minimize 2x effect after this convo 
+    is make it sure hit targets that boosted evasion,
+    and ignore effects that would make target more evasive otherwise
+    such as sand veil etc. 
     
 
     Decide shift move page over to the right more,
