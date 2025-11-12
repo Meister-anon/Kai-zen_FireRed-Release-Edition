@@ -4612,6 +4612,25 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     think best idea is pattern page after area page, 
     so don't have to worrry about the dividor 
     mostly to give more space for displaying move description
+    
+    minimizeDoubleDamage counts as a characteristic but don't think I like effect
+
+    is too specific worked in gen1/2 when it was the only move of said type
+    and was meta. now its so niche its not worth considering,
+    but is an effect still given to moves.
+
+    think instead will rework to category that will become sure hit
+    if target has attempted to boost evasiveness.
+
+    based on minimize cat buff in gen6 
+    "doubles dmg against targets that have used Minimize at least once.
+    Additionally, from Generation VI onward, these moves also bypass accuracy
+    and evasion checks"
+
+    will give back to all moves that ever had it including astonish
+    would be approx 10 in total
+    attempt work out schema for increased adoption if deemed necessary
+    
 
     Decide shift move page over to the right more,
     has usable empty space after pp and will never have more than 2 digits
