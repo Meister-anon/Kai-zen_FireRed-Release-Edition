@@ -10219,6 +10219,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && atkAbility != ABILITY_MINDS_EYE
         && atkAbility != ABILITY_APOTHEOSCENT
         && !(gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE)
+        && !(gBattleMoves[gCurrentMove].flags & FLAG_EVASIVE_BREAK)
         )
             calc = (calc * 88) / 100;  //was 93, dropped to 88 - think i sfine where is at most drop to 87 want keep above sand veil likes
         //think may lower this a bit more?  
@@ -10241,6 +10242,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //added sixth sense as an ability not meant to relyon eyes
         //sand stream is not here beacuse it explicitly does not give weather immunity
         if (IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM_ANY) 
+        && !(gBattleMoves[gCurrentMove].flags & FLAG_EVASIVE_BREAK)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_ROCK)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_STEEL)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_GROUND)
@@ -10257,6 +10259,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //trap effect,
         if (((gBattleMons[battlerAtk].status4 & STATUS4_SAND_TOMB)
         && IsBlackFogNotOnField())
+        && !(gBattleMoves[gCurrentMove].flags & FLAG_EVASIVE_BREAK)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_ROCK)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_STEEL)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_GROUND)
@@ -10275,11 +10278,16 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //at those levels its just slightly more than a full stat drop
         //but again only for the duration of both effects
 
+        //keeping in mind most acc drop/evasion boosts don't do anything until 2 or 3
+        //boosts where you hit a 60% and 50% drop, what I have SHOULD be manageable.
+
         //to make not too oppressive think will lower effect
         //since it stacks with weather drop (requires weather)
-        if (defAbility == ABILITY_SAND_VEIL && IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM_ANY))
+        if (defAbility == ABILITY_SAND_VEIL && IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM_ANY)
+        && !(gBattleMoves[gCurrentMove].flags & FLAG_EVASIVE_BREAK))
             calc = (calc * 89) / 100; // 1.2 sand veil loss
-        if (defAbility == ABILITY_SNOW_CLOAK && IsBattlerWeatherAffected(battlerAtk, WEATHER_HAIL_ANY))
+        if (defAbility == ABILITY_SNOW_CLOAK && IsBattlerWeatherAffected(battlerAtk, WEATHER_HAIL_ANY)
+        && !(gBattleMoves[gCurrentMove].flags & FLAG_EVASIVE_BREAK))
             calc = (calc * 80) / 100; //
         if (atkAbility == ABILITY_HUSTLE && GetBattleMoveDamageCategory(battlerAtk,move) == SPLIT_PHYSICAL) //can put status based evasion/accuracy effects here
             calc = (calc * 95) / 100; // 20% hustle loss   removed low accuracy effcts,  so changed to 5% accuracy drop
