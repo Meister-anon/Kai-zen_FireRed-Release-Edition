@@ -136,6 +136,7 @@ static void DrawTrainerCardWindow(u8 windowId);
 static bool8 SetTrainerCardBgsAndPals(void);
 static void DrawCardScreenBackground(const u16 *ptr);
 static void DrawCardFrontOrBack(const u16 *ptr);
+static void DrawLvlNumbersOnCardFront(void);
 static void DrawStarsAndBadgesOnCard(void);
 static void DrawCardBackStats(void);
 static void BlinkTimeColon(void);
@@ -1573,6 +1574,13 @@ static void DrawCardFrontOrBack(const u16 *ptr)
 
     CopyBgTilemapBufferToVram(0);
 }
+
+ //realized num on trainer card were built into bg
+ // need new write function to set rec. level
+ //need draw text set color as white and make text bold if possible?
+ //unsure but believe may need to make new window for text
+static void DrawLvlNumbersOnCardFront(void)
+{}
 
 static void DrawStarsAndBadgesOnCard(void)
 {

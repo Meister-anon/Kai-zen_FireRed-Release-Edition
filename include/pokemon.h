@@ -1008,6 +1008,8 @@ const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny);
 void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst);
 bool8 IsPokemonStorageFull(void); //for set egg to pc by default
 
+u8 GetEnemyPartyAverageLevel(u16 trainerId);
+
 //ported things for debug
 u8 GetNatureFromPersonality(u32 personality);
 u8 SendMonToPC(struct Pokemon* mon);

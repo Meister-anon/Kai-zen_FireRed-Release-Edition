@@ -12746,6 +12746,23 @@ void CreateEventLegalEnemyMon(void)
     }
 }
 
+//use for setting recommended level from gym leader teams
+u8 GetEnemyPartyAverageLevel(u16 trainerId)
+{
+
+    u32 i = 0;
+    u32 sum = 0;    
+   const struct TrainerMonPartyData *party = gTrainers[trainerId].party;
+
+    for (i = 0; i < gTrainers[trainerId].partySize; ++i)
+        sum += party[i].lvl;
+
+    sum /= gTrainers[trainerId].partySize;    
+
+    return sum;
+
+}
+
 //this is used for catching seeing mon,
 //use this for forms plan change filter for seen not caught
 //thre are some forms I can say if I saw it I should treat it as also seing the base form (I think)
