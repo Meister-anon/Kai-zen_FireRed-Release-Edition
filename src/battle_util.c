@@ -5049,13 +5049,18 @@ u8 AtkCanceller_UnableToUseMove(void)
             ++gBattleStruct->atkCancellerTracker;
             break;
         case CANCELLER_ASCENSION:
-            if (--gDisableStructs[gBattlerAttacker].AscensionTimer == 0)
+            if (gStatuses3[gBattlerAttacker] & STATUS3_SMACKED_DOWN)
+            {
+                if (--gDisableStructs[gBattlerAttacker].AscensionTimer == 0)
                 {
                     gStatuses3[gBattlerAttacker] &= ~(STATUS3_SMACKED_DOWN);
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_ReturnedToTheAir;//do returned to the air
                 }//vsonic need custom string, this will preced saying its name for attack
-                 ++gBattleStruct->atkCancellerTracker; //so don't use prefix
+            }
+            else if (gDisableStructs[gBattlerAttacker].AscensionTimer)
+                gDisableStructs[gBattlerAttacker].AscensionTimer = 0;
+            ++gBattleStruct->atkCancellerTracker; //so don't use prefix
             break;
         case CANCELLER_POWDER_MOVE:
             if ((gBattleMoves[gCurrentMove].flags & FLAG_POWDER_MOVE) && (gBattlerAttacker != gBattlerTarget))
