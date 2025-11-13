@@ -21771,6 +21771,55 @@ void BS_call_if(void) //comparing to jumpifholdeffect
 }
 */
 
+//vsonic important compare w emer and test
+void BS_TryGulpMissile(void) //didn't have adding and reworked hope use dynamic power so rain helps
+{
+    NATIVE_ARGS();
+
+    if ((gBattleMons[gBattlerAttacker].species == SPECIES_CRAMORANT)
+     && (gBattleMoves[gCurrentMove].type == TYPE_WATER && gDynamicBasePower >= 80)
+     && (GetBattlerAbility(gBattlerAttacker) == ABILITY_GULP_MISSILE)
+     && TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_HP_PERCENT))
+        gBattlescriptCurrInstr = BattleScript_GulpMissileFormChange;
+    else
+        gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_TryActivateGulpMissile(void)
+{
+    NATIVE_ARGS();
+
+    /*if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
+        && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+        && IsBattlerTurnDamaged(gBattlerTarget)
+        && gBattleMons[gBattlerTarget].species != SPECIES_CRAMORANT
+        && GetBattlerAbility(gBattlerTarget) == ABILITY_GULP_MISSILE)
+    {
+        //not setup battlestruct to do yet vsonic important
+        if (GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD)
+        {
+            gBattleStruct->moveDamage[gBattlerTarget] = GetNonDynamaxMaxHP(gBattlerAttacker) / 4;
+            if (gBattleStruct->moveDamage[gBattlerTarget] == 0)
+                gBattleStruct->moveDamage[gBattlerTarget] = 1;
+        }
+
+        switch(gBattleMons[gBattlerTarget].species)
+        {
+            case SPECIES_CRAMORANT_GORGING:
+                BattleScriptPushCursor();
+                TryBattleFormChange(gBattlerTarget, FORM_CHANGE_HIT_BY_MOVE);
+                gBattlescriptCurrInstr = BattleScript_GulpMissileGorging;
+                return;
+            case SPECIES_CRAMORANT_GULPING:
+                BattleScriptPushCursor();
+                TryBattleFormChange(gBattlerTarget, FORM_CHANGE_HIT_BY_MOVE);
+                gBattlescriptCurrInstr = BattleScript_GulpMissileGulping;
+                return;
+        }
+    }*/
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
 void BS_getmoveeffect(void)//transfer move effects mostly for multihit but also used for multitask so each hit can apply aeffect
 {
     NATIVE_ARGS(); //change logic for this, best way to do it would be with effect to moveeffect table/array

@@ -192,6 +192,8 @@ extern const u8 BattleScript_WrapEnds[];
 extern const u8 BattleScript_ThunderCageTurnDmg[];
 extern const u8 BattleScript_MoveUsedIsInLove[];
 extern const u8 BattleScript_MoveUsedIsInLoveCantAttack[];
+extern const u8 BattleScript_BattlerGotOverItsInfatuation[];
+extern const u8 BattleScript_BattlerCameToItsSenses[]; //custom oblivious remove infatuation taunt torment
 extern const u8 BattleScript_MoveUsedIsParalyzedCantAttack[];
 extern const u8 BattleScript_NightmareTurnDmg[];
 extern const u8 BattleScript_CurseTurnDmg[];
@@ -238,6 +240,7 @@ extern const u8 BattleScript_ShedSkinActivates[];
 extern const u8 BattleScript_PurifyingAuraActivates[];
 extern const u8 BattleScript_PurifyingAuraActivatesForPartner[];
 extern const u8 BattleScript_AuraofLightActivatesForPartner[];
+extern const u8 BattleScript_GulpMissileFormChange[];
 extern const u8 BattleScript_WeatherFormChanges[];
 extern const u8 BattleScript_WeatherFormChangesLoop[];
 extern const u8 BattleScript_CastformChange[];

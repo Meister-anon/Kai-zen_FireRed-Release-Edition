@@ -1539,6 +1539,14 @@
 	callnative BS_TryActivateResoluteMoveEnd
 	.endm
 
+	.macro trygulpmissle
+	callnative BS_TryGulpMissile
+	.endm
+
+	.macro tryactivategulpmissile
+	callnative BS_TryActivateGulpMissile
+	.endm
+
 	@^put future commands above this^
 	.macro typebaseddmgboost
 	callnative BS_typebaseddmgboost

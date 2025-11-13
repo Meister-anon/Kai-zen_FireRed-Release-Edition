@@ -3172,6 +3172,19 @@ BattleScript_AbilityProtectsDoesntAffect:
 	orhalfword gMoveResultFlags, MOVE_RESULT_FAILED
 	goto BattleScript_MoveEnd
 
+BattleScript_BattlerGotOverItsInfatuation::
+	@call BattleScript_AbilityPopUp
+	printstring STRINGID_PKMNGOTOVERITSINFATUATION
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+@for modern oblivious remove infatuation, taunt & torment
+BattleScript_BattlerCameToItsSenses::
+	@call BattleScript_AbilityPopUp
+	printstring STRINGID_PKMNCAMETOITSSENSES
+	waitmessage B_WAIT_TIME_LONG
+	return
+
 BattleScript_AlreadyAsleep::
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNALREADYASLEEP
@@ -6781,6 +6794,7 @@ BattleScript_EffectCamouflage::
 
 BattleScript_FaintAttacker::
 	tryillusionoff BS_ATTACKER
+	tryactivategulpmissile
 	playfaintcry BS_ATTACKER
 	pause B_WAIT_TIME_LONG
 	dofaintanimation BS_ATTACKER
@@ -6793,6 +6807,7 @@ BattleScript_FaintAttacker::
 
 BattleScript_FaintTarget::
 	tryillusionoff BS_TARGET		@same as issue as before this script naviagting wrong broke rest of script
+	tryactivategulpmissile
 	playfaintcry BS_TARGET
 	pause B_WAIT_TIME_LONG
 	dofaintanimation BS_TARGET
@@ -7870,6 +7885,12 @@ BattleScript_PrimalReversionRet::
 	printstring STRINGID_PKMNREVERTEDTOPRIMAL
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
+
+@temp standin till can look over scripts
+BattleScript_GulpMissileFormChange::
+	call BattleScript_AttackerFormChange
+	return
+	@goto BattleScript_FromTwoTurnMovesSecondTurnRet
 
 BattleScript_AttackerFormChange::
 	pause B_WAIT_TIME_CLEAR_BUFF
