@@ -4638,6 +4638,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     is make it sure hit targets that boosted evasion,
     and ignore effects that would make target more evasive otherwise
     such as sand veil etc. 
+
+
+    plan rebalance stone evo rather than learning mostly no moves
+    and getting entire previous evos learnset as lvl 1 relearn moves
+    keep same level evo learnset as pre evo
+    just add on special evo move at end.
+    That way not so gamebreaking to have stone evo early on.
+    still get benefit compared to other evo methods but fairer
+    11/25
     
     NOTE  for code stuff -vsonic Important
     believe I may be able to do
