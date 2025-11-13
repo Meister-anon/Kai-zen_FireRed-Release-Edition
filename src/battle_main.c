@@ -2479,6 +2479,9 @@ bool8 IsRivalBattle(u16 trainerNum)
 #define TRAINER_PARTY_DATA  //specifically for trainer mon, wild mon data is set in GenerateWildMon
 //plan claenup function by setting rival data separate make function for doing rival data
 //do all data not just species set, since plan make rival data consistant across playthrough
+//can cut this down a lot if I just unify trainer data into one struct
+//with all the options rather than separate ones, physical space saved
+//believe should be negligable
 static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
 {
     u32 nameHash = 0; //check other function that sets abilitysot for wilds may not need that randomability value vsonic
@@ -2502,6 +2505,8 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
         for (i = 0; i < gTrainers[trainerNum].partySize; ++i)   //uses i, to loop through trainers entir party 
         {//vsonic
 
+            const struct TrainerMonPartyData *partyData = gTrainers[trainerNum].party;
+
             if (gTrainers[trainerNum].battleType == BATTLE_TYPE_DOUBLE) //may need change to just not singles, since adding more?
                 personalityValue = 0x80;
             else if (gTrainers[trainerNum].encounterMusic_gender & 0x80) //specific value for male/female trainers to set party mon gender
@@ -2510,1220 +2515,322 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                 personalityValue = 0x88;
             for (j = 0; gTrainers[trainerNum].trainerName[j] != EOS; ++j)
                 nameHash += gTrainers[trainerNum].trainerName[j];
-            switch (gTrainers[trainerNum].partyFlags)
+            
+            /*switch (gTrainers[trainerNum].partyFlags)
             {
                 //evolution works, only issue is if you give the rival multiple instances of the same starter line, with the evolved form first
                 //because their both using the same var, it just eliminated the unevolved version of the pokemon if it comes after the evolved form.
-            case F_TRAINER_PARTY_NO_ITEM_DEFAULT_MOVESET: 
+            
+            case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
             {
-                const struct TrainerMonNoItemDefaultMoves *partyData = gTrainers[trainerNum].party.NoItemDefaultMoves;
-                if (IsRivalBattle(trainerNum)) // && i == gTrainers[trainerNum].partySize - 1) //probably go back & make a nested function based on the species
-                    //of the starter in trainer_parties, it may need to be constant so instead of a variable I'll use a define like weather_hail but for starter 
-                    //to set teh species checks it'll be partyData[i].species == StarterEvo_0  up to StarterEvo_2 for last evolution
-                    //if species can't evolve target species will be species
-                {
-                    if (partyData[i].species == SPECIES_BULBASAUR
-                        || partyData[i].species == SPECIES_SQUIRTLE
-                        || partyData[i].species == SPECIES_CHARMANDER)
-                    {
-                        species = VarGet(VAR_RIVAL_STARTER);  //Set dynamic starter, to species
-                        VarSet(VAR_RIVAL_EVO, 0);   //gaurantees values are different, as species will never be none\ to prime evolution condition
-                    }
-                   else if (partyData[i].species == SPECIES_IVYSAUR
-                        || partyData[i].species == SPECIES_WARTORTLE
-                        || partyData[i].species == SPECIES_CHARMELEON)
-                    {
-                        if (VarGet(VAR_RIVAL_STARTER) != VarGet(VAR_RIVAL_EVO))
-                        {
-                            const struct Evolution *evolutions = GetSpeciesEvolutions(VarGet(VAR_RIVAL_STARTER));
+                
+            break;
+            }   //end of switch case
+            }*/
 
-                            if (VarGet(VAR_RIVAL_STARTER) == SPECIES_EEVEE) //prevent multi trigger as rival starter is updated after function/evolution 
-                                targetSpecies = RivalEeveelutionForPlayerStarter(); //as eevee is a one stage evolution, only needs this addition default logic will ensure it persists
-                            else
-                                targetSpecies = evolutions[l].targetSpecies; //replace target species value if eevee starter here with "RivalEeveelutionForPlayerStarter"
-                            
-                            if (targetSpecies != SPECIES_NONE) {
-                                VarSet(VAR_RIVAL_STARTER, targetSpecies);
-                                VarSet(VAR_RIVAL_EVO, targetSpecies);
-                                species = VarGet(VAR_RIVAL_EVO);  //Set dynamic starter, to species
-                            }
-                                                        
+
+            
+            if (IsRivalBattle(trainerNum))
+            {
+                if (partyData[i].species == SPECIES_BULBASAUR
+                    || partyData[i].species == SPECIES_SQUIRTLE
+                    || partyData[i].species == SPECIES_CHARMANDER)
+                {
+                    species = VarGet(VAR_RIVAL_STARTER);  //Set dynamic starter, to species
+                    VarSet(VAR_RIVAL_EVO, 0);   //gaurantees values are different, as species will never be none\ to prime evolution condition
+                }
+                else if (partyData[i].species == SPECIES_IVYSAUR
+                    || partyData[i].species == SPECIES_WARTORTLE
+                    || partyData[i].species == SPECIES_CHARMELEON)
+                {
+                    if (VarGet(VAR_RIVAL_STARTER) != VarGet(VAR_RIVAL_EVO))
+                    {
+                        const struct Evolution *evolutions = GetSpeciesEvolutions(VarGet(VAR_RIVAL_STARTER));
+
+                        if (VarGet(VAR_RIVAL_STARTER) == SPECIES_EEVEE) //prevent multi trigger as rival starter is updated after function/evolution 
+                            targetSpecies = RivalEeveelutionForPlayerStarter(); //as eevee is a one stage evolution, only needs this addition default logic will ensure it persists
+                        else
+                            targetSpecies = evolutions[l].targetSpecies; //replace target species value if eevee starter here with "RivalEeveelutionForPlayerStarter"
+                        
+                        if (targetSpecies != SPECIES_NONE) {
+                            VarSet(VAR_RIVAL_STARTER, targetSpecies);
+                            VarSet(VAR_RIVAL_EVO, targetSpecies);
+                            species = VarGet(VAR_RIVAL_EVO);  //Set dynamic starter, to species
                         }
                         else
                             species = VarGet(VAR_RIVAL_STARTER); //if can evolve do first evolution, otherwise stay the same
-                        //check first evo 
-                        //if evolution branches preferrably pick the one with type advantage to player starter,
-                        //to do this realize I need another var to hold player starter, and use basestates type (playervar) to check its type
-                        //to help ai pick evolution     actually only eevee has branch evo
-
-                        //in that case make it based on partydatea.species if its charizard be flareon, if venusaur lefeon or jolteon
-                        //and vaporeon if blastoise check what mon I put in lists again I may make the eeveelutions have 2 options per starter group
+                        
                     }
-                   else if (partyData[i].species == SPECIES_VENUSAUR
-                        || partyData[i].species == SPECIES_BLASTOISE
-                        || partyData[i].species == SPECIES_CHARIZARD)
-                    {
-                        if (VarGet(VAR_RIVAL_STARTER) == VarGet(VAR_RIVAL_EVO))
-                        {
-                            const struct Evolution *evolutions = GetSpeciesEvolutions(VarGet(VAR_RIVAL_STARTER));
+                    //check first evo 
+                    //if evolution branches preferrably pick the one with type advantage to player starter,
+                    //to do this realize I need another var to hold player starter, and use basestates type (playervar) to check its type
+                    //to help ai pick evolution     actually only eevee has branch evo
 
-                            targetSpecies = evolutions[l].targetSpecies;
-                            if (targetSpecies != SPECIES_NONE) {
-                                VarSet(VAR_RIVAL_STARTER, targetSpecies);
-                                VarSet(VAR_RIVAL_EVO, targetSpecies);
-                                species = VarGet(VAR_RIVAL_EVO);  //Set dynamic starter, to species
-                                VarSet(VAR_RIVAL_EVO, 0);
-                                
-                            }
+                    //in that case make it based on partydatea.species if its charizard be flareon, if venusaur lefeon or jolteon
+                    //and vaporeon if blastoise check what mon I put in lists again I may make the eeveelutions have 2 options per starter group
+                }
+                else if (partyData[i].species == SPECIES_VENUSAUR
+                    || partyData[i].species == SPECIES_BLASTOISE
+                    || partyData[i].species == SPECIES_CHARIZARD)
+                {
+                    if (VarGet(VAR_RIVAL_STARTER) == VarGet(VAR_RIVAL_EVO))
+                    {
+                        const struct Evolution *evolutions = GetSpeciesEvolutions(VarGet(VAR_RIVAL_STARTER));
+
+                        targetSpecies = evolutions[l].targetSpecies;
+                        if (targetSpecies != SPECIES_NONE) {
+                            VarSet(VAR_RIVAL_STARTER, targetSpecies);
+                            VarSet(VAR_RIVAL_EVO, targetSpecies);
+                            species = VarGet(VAR_RIVAL_EVO);  //Set dynamic starter, to species
+                            VarSet(VAR_RIVAL_EVO, 0);
                             
-                        }  //check 2nd/final evo
+                        }
                         else
                             species = VarGet(VAR_RIVAL_STARTER); //if can evolve do second evolution otherwise stay the same
-                    }
-                   else// for mon in party other than starter
-                        species = partyData[i].species;
-                }// for non rival battles
-                else
+                    }  //check 2nd/final evo   //think evo can be set up using the evo loop in the daycare file
+                }
+                else// for mon in party other than starter
                     species = partyData[i].species;
-
-                for (j = 0; gBaseStats[species].speciesName[j] != EOS; ++j) //starting from 0, loops through all the species names until it matches for each slot in party
-                    nameHash += gBaseStats[species].speciesName[j];
-                personalityValue += nameHash << 8;
-                fixedIV = partyData[i].iv;   //I think actually is Ivs, uses weird logic to make fixed iv, think will set to random
-                //but if I set it to random, but refight trainers, does it keep the iv distribution or generate a new one..?
-                //I'm gonna guess it regenerates, based on how the roamers are handled, where it specifically saves all their data
-                //ok setting random but attempt to treat rival starter like roamer so it keeps iv distribution
-                if (fixedIV > MAX_PER_STAT_IVS)
-                    fixedIV = MAX_PER_STAT_IVS;
-                if (fixedIV < MIN_FIXED_IVS)
-                    fixedIV = USE_RANDOM_IVS; //for early game balance may lower brocks party ivs to use random value
-                
-                //as ability and ev are not part of CreateMon arguments may need to put these two below createmon function to have them take effect. hm,
-                //checked against custom move set  and move assignment logic is BELOW createmon so that confirms I need to move createmon up to here.
-                //double checked again, and Ivs and Evs need to go BEFORE cretemon as function uses those to do calcstats
-                //so for now will leave these where they are I "think" it will work. or just move ability data to below function...
-                /*//Set ability slot
-                abilityNum = partyData[i].abilityNum;
-                if (abilityNum == 0)
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &(Random() % 4));
-                else
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &(abilityNum - 1));*/
-
-                //Set Evs               
-                //ok so evs aren't random set they are user set, good.
-                for (j = 0; j < NUM_EV_STATS; ++j)
-                {
-                    evs[j] = GetMonData(&party[i], partyData[i].evs[j], NULL);
-                    Global_Stat_Total_Limit = GetBaseStatTotal(partyData[i].species) < 600 ? 600 : 650; //sets limit based on bst
-                    //make identical conditional for each possible value for evs 0-5,
-
-                    switch (j)  //limit conditional
-                    {
-                    case 0: //hpEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 1: //attackEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 2: //defenseEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 3: //speedEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 4: //spAttackEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 5: //spDefenseEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    }
-
-                }
-                CreateMon(&party[i], species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
-                RandomAbility = Random() % NUM_ABILITY_SLOTS;
-                //Set ability slot
-                abilityNum = partyData[i].abilityNum;
-                if (abilityNum == 0)
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &RandomAbility); //for some reason only worked with u8??
-                else                                                              
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &abilityNum - 1);
-                break; //&party[i] checks mon slot.   next one checks species for that slot
             }
-            case F_TRAINER_PARTY_CUSTOM_MOVESET: //could probably get custom moves working with same trick as above but going to a different array
-            { //but that can probably better be solved by getting my smart learnsets up and running
-                const struct TrainerMonNoItemCustomMoves *partyData = gTrainers[trainerNum].party.NoItemCustomMoves;
-                if (IsRivalBattle(trainerNum))
-                {
-                    if (partyData[i].species == SPECIES_BULBASAUR
-                        || partyData[i].species == SPECIES_SQUIRTLE
-                        || partyData[i].species == SPECIES_CHARMANDER)
-                    {
-                        species = VarGet(VAR_RIVAL_STARTER);  //Set dynamic starter, to species
-                        VarSet(VAR_RIVAL_EVO, 0);   //gaurantees values are different, as species will never be none\ to prime evolution condition
-                    }
-                   else if (partyData[i].species == SPECIES_IVYSAUR
-                        || partyData[i].species == SPECIES_WARTORTLE
-                        || partyData[i].species == SPECIES_CHARMELEON)
-                    {
-                        if (VarGet(VAR_RIVAL_STARTER) != VarGet(VAR_RIVAL_EVO))
-                        {
-                            const struct Evolution *evolutions = GetSpeciesEvolutions(VarGet(VAR_RIVAL_STARTER));
-
-                            if (VarGet(VAR_RIVAL_STARTER) == SPECIES_EEVEE) //prevent multi trigger as rival starter is updated after function/evolution 
-                                targetSpecies = RivalEeveelutionForPlayerStarter(); //as eevee is a one stage evolution, only needs this addition default logic will ensure it persists
-                            else
-                                targetSpecies = evolutions[l].targetSpecies; //replace target species value if eevee starter here with "RivalEeveelutionForPlayerStarter"
-                            
-                            if (targetSpecies != SPECIES_NONE) {
-                                VarSet(VAR_RIVAL_STARTER, targetSpecies);
-                                VarSet(VAR_RIVAL_EVO, targetSpecies);
-                                species = VarGet(VAR_RIVAL_EVO);  //Set dynamic starter, to species
-                            }
-                            else
-                                species = VarGet(VAR_RIVAL_STARTER); //if can evolve do first evolution, otherwise stay the same
-                            
-                        }
-                        //check first evo 
-                        //if evolution branches preferrably pick the one with type advantage to player starter,
-                        //to do this realize I need another var to hold player starter, and use basestates type (playervar) to check its type
-                        //to help ai pick evolution     actually only eevee has branch evo
-
-                        //in that case make it based on partydatea.species if its charizard be flareon, if venusaur lefeon or jolteon
-                        //and vaporeon if blastoise check what mon I put in lists again I may make the eeveelutions have 2 options per starter group
-                    }
-                   else if (partyData[i].species == SPECIES_VENUSAUR
-                        || partyData[i].species == SPECIES_BLASTOISE
-                        || partyData[i].species == SPECIES_CHARIZARD)
-                    {
-                        if (VarGet(VAR_RIVAL_STARTER) == VarGet(VAR_RIVAL_EVO))
-                        {
-                            const struct Evolution *evolutions = GetSpeciesEvolutions(VarGet(VAR_RIVAL_STARTER));
-
-                            targetSpecies = evolutions[l].targetSpecies;
-                            if (targetSpecies != SPECIES_NONE) {
-                                VarSet(VAR_RIVAL_STARTER, targetSpecies);
-                                VarSet(VAR_RIVAL_EVO, targetSpecies);
-                                species = VarGet(VAR_RIVAL_EVO);  //Set dynamic starter, to species
-                                VarSet(VAR_RIVAL_EVO, 0);
-                                
-                            }
-                            else
-                                species = VarGet(VAR_RIVAL_STARTER); //if can evolve do second evolution otherwise stay the same
-                        }  //check 2nd/final evo   //think evo can be set up using the evo loop in the daycare file
-                    }
-                   else// for mon in party other than starter
-                        species = partyData[i].species;
-                }
-                else// for non rival battles
-                    species = partyData[i].species;
-
-                for (j = 0; gBaseStats[species].speciesName[j] != EOS; ++j)
-                    nameHash += gBaseStats[species].speciesName[j];
-                personalityValue += nameHash << 8;
-                fixedIV = partyData[i].iv;
-                if (fixedIV > MAX_PER_STAT_IVS)
-                    fixedIV = MAX_PER_STAT_IVS;
-                if (fixedIV < MIN_FIXED_IVS)
-                    fixedIV = USE_RANDOM_IVS;
-                
-               /* //Set ability slot
-                abilityNum = partyData[i].abilityNum;
-                if (abilityNum == 0)
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &(Random() % 4));
-                else
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &(abilityNum - 1));*/
-
-                //Set Evs
-                for (j = 0; j < NUM_EV_STATS; ++j)
-                {
-                    evs[j] = GetMonData(&party[i], partyData[i].evs[j], NULL);
-                    Global_Stat_Total_Limit = GetBaseStatTotal(partyData[i].species) < 600 ? 600 : 650; //sets limit based on bst
-
-                    //make identical conditional for each possible value for evs 0-5,
-
-                    switch (j)  //limit conditional
-                    {
-                    case 0: //hpEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 1: //attackEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 2: //defenseEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 3: //speedEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 4: //spAttackEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 5: //spDefenseEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    }
-
-                }
-                CreateMon(&party[i], species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
-                RandomAbility = Random() % NUM_ABILITY_SLOTS; //why doI have this? ability is already set within createboxmon??
-                //Set ability slot - no this is correct as its specifically for trainer mon, not wild mon, this way more variety in battles
-                abilityNum = partyData[i].abilityNum;//its meant to overwrite the default odds
-                if (abilityNum == 0)
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &RandomAbility);
-                else
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &abilityNum - 1);//I just need this for ability override
-
-                for (j = 0; j < MAX_MON_MOVES; ++j) //max moves is 4, .moves field is size 4, so loop is to loop through all possible moves
-                {
-                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]); //actually I need custom moves, otherwise its not a good base
-                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp); //so I need a way to change how this works
-
-                    if (partyData[i].moves[0] == MOVE_NONE) //hopefully this'll do what I want. set to default moves, if mon has none set
-                        GiveMonInitialMoveset(&party[i]);
-                }
-                break; //like custom moves for some, but if its blank just give them default moves.  I think it defaults to 0, if nothing is there.
-                //so making it break if move is move_none should let it default to normal learnset.?
-
-                //note, to change battle type, i.e custom moves no item, etc. need to change trainer.h & trainer_parties.h files
-            }
-            case F_TRAINER_PARTY_HELD_ITEM: //make choose ai flags for individual pokemon, instead of party/trainer
-            { //also add pp bonus setting to custom moves,for more strategy/control //important
-                const struct TrainerMonItemDefaultMoves *partyData = gTrainers[trainerNum].party.ItemDefaultMoves;
-                if (IsRivalBattle(trainerNum))
-                {
-                    if (partyData[i].species == SPECIES_BULBASAUR
-                        || partyData[i].species == SPECIES_SQUIRTLE
-                        || partyData[i].species == SPECIES_CHARMANDER)
-                    {
-                        species = VarGet(VAR_RIVAL_STARTER);  //Set dynamic starter, to species
-                        VarSet(VAR_RIVAL_EVO, 0);   //gaurantees values are different, as species will never be none\ to prime evolution condition
-                    }
-                   else if (partyData[i].species == SPECIES_IVYSAUR
-                        || partyData[i].species == SPECIES_WARTORTLE
-                        || partyData[i].species == SPECIES_CHARMELEON)
-                    {
-                        if (VarGet(VAR_RIVAL_STARTER) != VarGet(VAR_RIVAL_EVO))
-                        {
-                            const struct Evolution *evolutions = GetSpeciesEvolutions(VarGet(VAR_RIVAL_STARTER));
-
-                            if (VarGet(VAR_RIVAL_STARTER) == SPECIES_EEVEE) //prevent multi trigger as rival starter is updated after function/evolution 
-                                targetSpecies = RivalEeveelutionForPlayerStarter(); //as eevee is a one stage evolution, only needs this addition default logic will ensure it persists
-                            else
-                                targetSpecies = evolutions[l].targetSpecies; //replace target species value if eevee starter here with "RivalEeveelutionForPlayerStarter"
-                            
-                            if (targetSpecies != SPECIES_NONE) {
-                                VarSet(VAR_RIVAL_STARTER, targetSpecies);
-                                VarSet(VAR_RIVAL_EVO, targetSpecies);
-                                species = VarGet(VAR_RIVAL_EVO);  //Set dynamic starter, to species
-                            }
-                            else
-                                species = VarGet(VAR_RIVAL_STARTER); //if can evolve do first evolution, otherwise stay the same
-                            
-                        }
-                        //check first evo 
-                        //if evolution branches preferrably pick the one with type advantage to player starter,
-                        //to do this realize I need another var to hold player starter, and use basestates type (playervar) to check its type
-                        //to help ai pick evolution     actually only eevee has branch evo
-
-                        //in that case make it based on partydatea.species if its charizard be flareon, if venusaur lefeon or jolteon
-                        //and vaporeon if blastoise check what mon I put in lists again I may make the eeveelutions have 2 options per starter group
-                    }
-                   else if (partyData[i].species == SPECIES_VENUSAUR
-                        || partyData[i].species == SPECIES_BLASTOISE
-                        || partyData[i].species == SPECIES_CHARIZARD)
-                    {
-                        if (VarGet(VAR_RIVAL_STARTER) == VarGet(VAR_RIVAL_EVO))
-                        {
-                            const struct Evolution *evolutions = GetSpeciesEvolutions(VarGet(VAR_RIVAL_STARTER));
-
-                            targetSpecies = evolutions[l].targetSpecies;
-                            if (targetSpecies != SPECIES_NONE) {
-                                VarSet(VAR_RIVAL_STARTER, targetSpecies);
-                                VarSet(VAR_RIVAL_EVO, targetSpecies);
-                                species = VarGet(VAR_RIVAL_EVO);  //Set dynamic starter, to species
-                                VarSet(VAR_RIVAL_EVO, 0);
-                                
-                            }
-                            else
-                                species = VarGet(VAR_RIVAL_STARTER); //if can evolve do second evolution otherwise stay the same
-                        }  //check 2nd/final evo   //think evo can be set up using the evo loop in the daycare file
-                    }
-                   else// for mon in party other than starter
-                        species = partyData[i].species;
-                }
-                else// for non rival battles
-                    species = partyData[i].species;
-
-                for (j = 0; gBaseStats[species].speciesName[j] != EOS; ++j)
-                    nameHash += gBaseStats[species].speciesName[j];
-                personalityValue += nameHash << 8;
-                fixedIV = partyData[i].iv;
-                if (fixedIV > MAX_PER_STAT_IVS)
-                    fixedIV = MAX_PER_STAT_IVS;
-                if (fixedIV < MIN_FIXED_IVS)
-                    fixedIV = USE_RANDOM_IVS;
-                
-                /*//Set ability slot
-                abilityNum = partyData[i].abilityNum;
-                if (abilityNum == 0)
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &(Random() % 4));
-                else
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &(abilityNum - 1));*/
-
-                //Set Evs
-                for (j = 0; j < NUM_EV_STATS; ++j)
-                {
-                    evs[j] = GetMonData(&party[i], partyData[i].evs[j], NULL);
-                    Global_Stat_Total_Limit = GetBaseStatTotal(partyData[i].species) < 600 ? 600 : 650; //sets limit based on bst
-
-                    //make identical conditional for each possible value for evs 0-5,
-
-                    switch (j)  //limit conditional
-                    {
-                    case 0: //hpEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 1: //attackEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 2: //defenseEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 3: //speedEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 4: //spAttackEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 5: //spDefenseEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    }
-
-                }
-                CreateMon(&party[i], species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
-                RandomAbility = Random() % NUM_ABILITY_SLOTS;
-                //Set ability slot
-                abilityNum = partyData[i].abilityNum;
-                if (abilityNum == 0)
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &RandomAbility);
-                else
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &abilityNum - 1);
-
-                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
-                break;
-            }
-            case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
+            else// for non rival mon
+                species = partyData[i].species;
+
+            for (j = 0; gBaseStats[species].speciesName[j] != EOS; ++j)
+                nameHash += gBaseStats[species].speciesName[j];
+            personalityValue += nameHash << 8;
+            fixedIV = partyData[i].iv;
+            if (fixedIV > MAX_PER_STAT_IVS)
+                fixedIV = MAX_PER_STAT_IVS;
+            if (fixedIV < MIN_FIXED_IVS)    //for new game plus do flag check and set fixed ivs to max per stat, would require you ev train 
+                fixedIV = USE_RANDOM_IVS;   //mon instead of needing perfect ivs, and ideally you should alraedy have trained mon, and easy access to fast training items.
+
+            /*//Set ability slot
+            abilityNum = partyData[i].abilityNum;
+            if (abilityNum != 0)
+                SetMonData(&party[i], MON_DATA_ABILITY_NUM, &(abilityNum - 1)); //random ability setting odds already handled in other function
+                            //so all I need here is, if num mot 0  set
+                */
+
+            //Set Evs
+            for (j = 0; j < NUM_EV_STATS; ++j)
             {
-                const struct TrainerMonItemCustomMoves *partyData = gTrainers[trainerNum].party.ItemCustomMoves;
-                if (IsRivalBattle(trainerNum))
+                evs[j] = GetMonData(&party[i], partyData[i].evs[j], NULL);
+                Global_Stat_Total_Limit = GetBaseStatTotal(partyData[i].species) < 600 ? 600 : 650; //sets limit based on bst
+                
+                //make identical conditional for each possible value for evs 0-5,
+
+                switch (j)  //limit conditional
                 {
-                    if (partyData[i].species == SPECIES_BULBASAUR
-                        || partyData[i].species == SPECIES_SQUIRTLE
-                        || partyData[i].species == SPECIES_CHARMANDER)
-                    {
-                        species = VarGet(VAR_RIVAL_STARTER);  //Set dynamic starter, to species
-                        VarSet(VAR_RIVAL_EVO, 0);   //gaurantees values are different, as species will never be none\ to prime evolution condition
-                    }
-                   else if (partyData[i].species == SPECIES_IVYSAUR
-                        || partyData[i].species == SPECIES_WARTORTLE
-                        || partyData[i].species == SPECIES_CHARMELEON)
-                    {
-                        if (VarGet(VAR_RIVAL_STARTER) != VarGet(VAR_RIVAL_EVO))
-                        {
-                            const struct Evolution *evolutions = GetSpeciesEvolutions(VarGet(VAR_RIVAL_STARTER));
+                case 0: //hpEV
+                    if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
+                        break;
 
-                            if (VarGet(VAR_RIVAL_STARTER) == SPECIES_EEVEE) //prevent multi trigger as rival starter is updated after function/evolution 
-                                targetSpecies = RivalEeveelutionForPlayerStarter(); //as eevee is a one stage evolution, only needs this addition default logic will ensure it persists
-                            else
-                                targetSpecies = evolutions[l].targetSpecies; //replace target species value if eevee starter here with "RivalEeveelutionForPlayerStarter"
-                            
-                            if (targetSpecies != SPECIES_NONE) {
-                                VarSet(VAR_RIVAL_STARTER, targetSpecies);
-                                VarSet(VAR_RIVAL_EVO, targetSpecies);
-                                species = VarGet(VAR_RIVAL_EVO);  //Set dynamic starter, to species
-                            }
-                            else
-                                species = VarGet(VAR_RIVAL_STARTER); //if can evolve do first evolution, otherwise stay the same
-                            
-                        }
-                        //check first evo 
-                        //if evolution branches preferrably pick the one with type advantage to player starter,
-                        //to do this realize I need another var to hold player starter, and use basestates type (playervar) to check its type
-                        //to help ai pick evolution     actually only eevee has branch evo
+                    if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
+                        break;
 
-                        //in that case make it based on partydatea.species if its charizard be flareon, if venusaur lefeon or jolteon
-                        //and vaporeon if blastoise check what mon I put in lists again I may make the eeveelutions have 2 options per starter group
-                    }
-                   else if (partyData[i].species == SPECIES_VENUSAUR
-                        || partyData[i].species == SPECIES_BLASTOISE
-                        || partyData[i].species == SPECIES_CHARIZARD)
-                    {
-                        if (VarGet(VAR_RIVAL_STARTER) == VarGet(VAR_RIVAL_EVO))
-                        {
-                            const struct Evolution *evolutions = GetSpeciesEvolutions(VarGet(VAR_RIVAL_STARTER));
-
-                            targetSpecies = evolutions[l].targetSpecies;
-                            if (targetSpecies != SPECIES_NONE) {
-                                VarSet(VAR_RIVAL_STARTER, targetSpecies);
-                                VarSet(VAR_RIVAL_EVO, targetSpecies);
-                                species = VarGet(VAR_RIVAL_EVO);  //Set dynamic starter, to species
-                                VarSet(VAR_RIVAL_EVO, 0);
-                                
-                            }
-                            else
-                                species = VarGet(VAR_RIVAL_STARTER); //if can evolve do second evolution otherwise stay the same
-                        }  //check 2nd/final evo   //think evo can be set up using the evo loop in the daycare file
-                    }
-                   else// for mon in party other than starter
-                        species = partyData[i].species;
-                }
-                else// for non rival mon
-                    species = partyData[i].species;
-
-                for (j = 0; gBaseStats[species].speciesName[j] != EOS; ++j)
-                    nameHash += gBaseStats[species].speciesName[j];
-                personalityValue += nameHash << 8;
-                fixedIV = partyData[i].iv;
-                if (fixedIV > MAX_PER_STAT_IVS)
-                    fixedIV = MAX_PER_STAT_IVS;
-                if (fixedIV < MIN_FIXED_IVS)    //for new game plus do flag check and set fixed ivs to max per stat, would require you ev train 
-                    fixedIV = USE_RANDOM_IVS;   //mon instead of needing perfect ivs, and ideally you should alraedy have trained mon, and easy access to fast training items.
-
-                /*//Set ability slot
-                abilityNum = partyData[i].abilityNum;
-                if (abilityNum != 0)
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &(abilityNum - 1)); //random ability setting odds already handled in other function
-                               //so all I need here is, if num mot 0  set
-                    */
-
-                //Set Evs
-                for (j = 0; j < NUM_EV_STATS; ++j)
-                {
-                    evs[j] = GetMonData(&party[i], partyData[i].evs[j], NULL);
-                    Global_Stat_Total_Limit = GetBaseStatTotal(partyData[i].species) < 600 ? 600 : 650; //sets limit based on bst
+                    if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
+                        break;
                     
-                    //make identical conditional for each possible value for evs 0-5,
 
-                    switch (j)  //limit conditional
+                    if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
                     {
-                    case 0: //hpEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
+                        evs[j] = MAX_PER_STAT_EVS;
                         
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 1: //attackEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 2: //defenseEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 3: //speedEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 4: //spAttackEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
-                    case 5: //spDefenseEV
-                        if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
-                            break;
-
-                        if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
-                            break;
-
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
-                            break;
-                        
-
-                        if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
-                        {
-                            evs[j] = MAX_PER_STAT_EVS;
-                            
-                        }
-
-
-                        else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
-                        {
-                            evs[j] = (MAX_TOTAL_EVS - totalEVs);
-                        }
-                        //actually do need a break
-                        //but put this line below the else if to adjust stat gain
-                        if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
-                        {
-                            evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
-                        } //wrote out formuola works, should assign to fit limit
-                        SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
-                        totalEVs += evs[j]; //increment totalEvs
-                        break;
                     }
 
-                }//had to readjust order, as ev set had to go before CreateMon, for Evs to be applied, now matches order of struct as well
-                //iv ev lvl species Helditem moves
-                CreateMon(&party[i], species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
-                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
-                RandomAbility = Random() % NUM_ABILITY_SLOTS;
-                //Set ability slot
-                abilityNum = partyData[i].abilityNum;
-                if (abilityNum == 0)
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &RandomAbility);
-                else
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &abilityNum - 1);
 
-                for (j = 0; j < MAX_MON_MOVES; ++j)
-                {
-                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
-                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+                    else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
+                    {
+                        evs[j] = (MAX_TOTAL_EVS - totalEVs);
+                    }
+                    //actually do need a break
+                    //but put this line below the else if to adjust stat gain
+                    if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
+                    {
+                        evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
+                    } //wrote out formuola works, should assign to fit limit
 
-                    if (partyData[i].moves[0] == MOVE_NONE) //hopefully this'll do what I want. set to default moves, if mon has none set
-                        GiveMonInitialMoveset(&party[i]);   //it works!!
-                }//works but had to change, to only if moveslot 1 is no move, otherwise it replaced custom setting that has slots set to move_none
-            }
-            break;
-            }   //end of switch case
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
+                    totalEVs += evs[j]; //increment totalEvs
+                    break;
+                case 1: //attackEV
+                    if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
+                        break;
+
+                    if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
+                        break;
+
+                    if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
+                        break;
+                    
+
+                    if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
+                    {
+                        evs[j] = MAX_PER_STAT_EVS;
+                        
+                    }
+
+
+                    else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
+                    {
+                        evs[j] = (MAX_TOTAL_EVS - totalEVs);
+                    }
+                    //actually do need a break
+                    //but put this line below the else if to adjust stat gain
+                    if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
+                    {
+                        evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
+                    } //wrote out formuola works, should assign to fit limit
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
+                    totalEVs += evs[j]; //increment totalEvs
+                    break;
+                case 2: //defenseEV
+                    if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
+                        break;
+
+                    if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
+                        break;
+
+                    if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
+                        break;
+                    
+
+                    if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
+                    {
+                        evs[j] = MAX_PER_STAT_EVS;
+                        
+                    }
+
+
+                    else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
+                    {
+                        evs[j] = (MAX_TOTAL_EVS - totalEVs);
+                    }
+                    //actually do need a break
+                    //but put this line below the else if to adjust stat gain
+                    if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
+                    {
+                        evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
+                    } //wrote out formuola works, should assign to fit limit
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
+                    totalEVs += evs[j]; //increment totalEvs
+                    break;
+                case 3: //speedEV
+                    if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
+                        break;
+
+                    if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
+                        break;
+
+                    if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
+                        break;
+                    
+
+                    if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
+                    {
+                        evs[j] = MAX_PER_STAT_EVS;
+                        
+                    }
+
+
+                    else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
+                    {
+                        evs[j] = (MAX_TOTAL_EVS - totalEVs);
+                    }
+                    //actually do need a break
+                    //but put this line below the else if to adjust stat gain
+                    if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
+                    {
+                        evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
+                    } //wrote out formuola works, should assign to fit limit
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
+                    totalEVs += evs[j]; //increment totalEvs
+                    break;
+                case 4: //spAttackEV
+                    if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
+                        break;
+
+                    if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
+                        break;
+
+                    if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
+                        break;
+                    
+
+                    if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
+                    {
+                        evs[j] = MAX_PER_STAT_EVS;
+                        
+                    }
+
+
+                    else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
+                    {
+                        evs[j] = (MAX_TOTAL_EVS - totalEVs);
+                    }
+                    //actually do need a break
+                    //but put this line below the else if to adjust stat gain
+                    if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
+                    {
+                        evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
+                    } //wrote out formuola works, should assign to fit limit
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
+                    totalEVs += evs[j]; //increment totalEvs
+                    break;
+                case 5: //spDefenseEV
+                    if (totalEVs >= MAX_TOTAL_EVS)  //prevent addition of more evs
+                        break;
+
+                    if ((GetBaseStatTotal(partyData[i].species) + (totalEVs / 4)) >= Global_Stat_Total_Limit)
+                        break;
+
+                    if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) >= GLOBAL_PER_STAT_LIMIT)
+                        break;
+                    
+
+                    if (evs[j] > MAX_PER_STAT_EVS) //reduce applied evs to per stat cap
+                    {
+                        evs[j] = MAX_PER_STAT_EVS;
+                        
+                    }
+
+
+                    else if ((totalEVs + evs[j]) > MAX_TOTAL_EVS)//reduce applied evs to dif of applied & total cap, if exceeds max & if below per stat cap 
+                    {
+                        evs[j] = (MAX_TOTAL_EVS - totalEVs);
+                    }
+                    //actually do need a break
+                    //but put this line below the else if to adjust stat gain
+                    if ((GetIndividualBaseStatValue(partyData[i].species, j) + (evs[j] / 4)) > GLOBAL_PER_STAT_LIMIT)
+                    {
+                        evs[j] = max((GLOBAL_PER_STAT_LIMIT - (GetIndividualBaseStatValue(partyData[i].species, j))), 0) * 4;
+                    } //wrote out formuola works, should assign to fit limit
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &evs[j]);
+                    totalEVs += evs[j]; //increment totalEvs
+                    break;
+                }
+
+            }//had to readjust order, as ev set had to go before CreateMon, for Evs to be applied, now matches order of struct as well
+            //iv ev lvl species Helditem moves
+            CreateMon(&party[i], species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+            SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+            RandomAbility = Random() % NUM_ABILITY_SLOTS;
+            //Set ability slot
+            abilityNum = partyData[i].abilityNum;
+            if (abilityNum == 0)
+                SetMonData(&party[i], MON_DATA_ABILITY_NUM, &RandomAbility);
+            else
+                SetMonData(&party[i], MON_DATA_ABILITY_NUM, &abilityNum - 1);
+
+            for (j = 0; j < MAX_MON_MOVES; ++j)
+            {
+                SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
+                SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+
+                if (partyData[i].moves[0] == MOVE_NONE) //hopefully this'll do what I want. set to default moves, if mon has none set
+                    GiveMonInitialMoveset(&party[i]);   //it works!!
+            }//works but had to change, to only if moveslot 1 is no move, otherwise it replaced custom setting that has slots set to move_none
+            
         }//end of i
        gBattleTypeFlags |= gTrainers[trainerNum].battleType;
     }

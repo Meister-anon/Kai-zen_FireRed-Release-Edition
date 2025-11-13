@@ -104,34 +104,6 @@
 #define B_FLAG_NO_CATCHING          0     // If this flag is set, the ability to catch wild Pok�mon is disabled.
 
 
-struct TrainerMonNoItemDefaultMoves //pull from 4-12 later
-{
-    u8 iv;
-    u16 evs[6];
-    u8 lvl;
-    u8 abilityNum;
-    u16 species;
-};
-
-struct TrainerMonItemDefaultMoves
-{
-    u8 iv;
-    u16 evs[6];
-    u8 lvl;
-    u8 abilityNum;
-    u16 species;
-    u16 heldItem;
-};
-
-struct TrainerMonNoItemCustomMoves
-{
-    u8 iv;
-    u16 evs[6];
-    u8 lvl;
-    u8 abilityNum;
-    u16 species;
-    u16 moves[4];
-};
 
 /*there isn't really much reason to have more structs than just TrainerMonItemCustomMoves, since I've fixed the move error
 only values needed in selction are lvl and species, everything else can be left empty and can safely default to zero.
@@ -158,7 +130,7 @@ the only used values: 20 30 40 50 60 80 90
 so simple as running a ctrl h for  .iv = existing value,
 then just multiply by 31 and divide by 255, to find the replace value
 */
-struct TrainerMonItemCustomMoves
+struct TrainerMonPartyData
 {
     u8 iv;
     u16 evs[6];
@@ -169,28 +141,22 @@ struct TrainerMonItemCustomMoves
     u16 moves[4];
 };
 
-union TrainerMonPtr
-{
-    const struct TrainerMonNoItemDefaultMoves *NoItemDefaultMoves;
-    const struct TrainerMonNoItemCustomMoves *NoItemCustomMoves;
-    const struct TrainerMonItemDefaultMoves *ItemDefaultMoves;
-    const struct TrainerMonItemCustomMoves *ItemCustomMoves;
-};
 
 struct Trainer
 {
-    /*0x00*/ u8 partyFlags;
+    /*0x00*/ //u8 partyFlags; //since unifying trainer party struct don't need flags
+    /*0x00*/ u8 battleType; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
     /*0x01*/ u8 trainerClass;
     /*0x02*/ u8 encounterMusic_gender; // last bit is gender
     /*0x03*/ u8 trainerPic;
     /*0x04*/ u8 trainerName[12];
              //const u8 *trainerName;  not implemented but idea for space saving from Josh, use to take place of text strings that get reused i.e rematches or same name ex rocket GRUNT
     /*0x10*/ u16 items[4];  //don't use 12 for above, I think?  can make limiter in compount string define
-    /*0x18*/ u8 battleType; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
+    /*0x18*/ u8 padding; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
     /*0x1C*/ u32 aiFlags;
     /*0x20*/ u8 partySize;
-    /*0x24*/ const union TrainerMonPtr party;
-};
+    /*0x24*/ const struct TrainerMonPartyData *party;
+};//unsure what this should be exactly pointer or no?
 
 extern const struct Trainer gTrainers[];
 
