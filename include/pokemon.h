@@ -492,10 +492,12 @@ struct BattleMove
     bool32 encoreBanned:1;
     bool32 parentalBondBanned:1;
     bool32 recoilMove:1; //removed  skybattle stuff just use for reckless 
-    bool32 sketchBanned:1;
+    bool32 sketchBanned:1; //would use for monotype as well
     bool32 headbuttMove:1;
     //Other
-    u32 padding:23;
+    bool32 alwaysCriticalHit:1;
+    bool32 criticalHitStage:1; //will rename to enhanced crit rate
+    u32 padding:21;
     // end of word
     u8 split;
     u16 argument;// for transferring move effects
