@@ -8479,6 +8479,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     //gStatuses3[gActiveBattler] &= ~(STATUS3_ON_AIR); // doesn't need this part handled in cancelmultiturn
                     gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
                     gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR); //think need these, were part of smack down
+                    if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_FLYING))
+                        gDisableStructs[gBattlerAttacker].AscensionTimer = 3;
                     effect = TRUE;
                     BattleScriptPush(gBattlescriptCurrInstr);
                     gBattlescriptCurrInstr = BattleScript_GroundFlyingEnemywithoutGravity;
@@ -8499,6 +8501,9 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 {
                     gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
                     gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR);
+                    //Nox fixed other bug think want put ability back within function just use two battlers and type as arguments
+                    if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_FLYING))
+                        gDisableStructs[gBattlerAttacker].AscensionTimer = 3;
                     effect = TRUE;
                     BattleScriptPush(gBattlescriptCurrInstr);
                     gBattlescriptCurrInstr = BattleScript_GroundFloatingTarget; //just a battle message

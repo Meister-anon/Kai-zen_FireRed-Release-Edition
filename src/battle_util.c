@@ -4321,8 +4321,9 @@ enum
     CANCELLER_IRON_WILL,
     CANCELLER_GHOST,    
     CANCELLER_BIDE,
-    CANCELLER_THAW,
-    CANCELLER_POWDER_MOVE,
+    CANCELLER_THAW, //think put smack down for flying here that way can do 3 turn and makes sense as incapacitating effects should prevent ascending
+    CANCELLER_ASCENSION, //For flying type in smackdown, make disable struct timer set on hit
+    CANCELLER_POWDER_MOVE, //since becomes super think best to use timer of 3 over 4, don't want to be impossible to survive
     CANCELLER_POWDER_STATUS,
     CANCELLER_THROAT_CHOP,
     CANCELLER_MULTI_HIT_MOVES,
@@ -5046,6 +5047,15 @@ u8 AtkCanceller_UnableToUseMove(void)
                 }
             }//thaw for if defrosted by timer, doesnt prevent attack, only triggers if timer is 0
             ++gBattleStruct->atkCancellerTracker;
+            break;
+        case CANCELLER_ASCENSION:
+            if (--gDisableStructs[gBattlerAttacker].AscensionTimer == 0)
+                {
+                    gStatuses3[gBattlerAttacker] &= ~(STATUS3_SMACKED_DOWN);
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_MoveUsedUnfroze;//do returned to the air
+                }//vsonic need custom string, this will preced saying its name for attack
+                 ++gBattleStruct->atkCancellerTracker; //so don't use prefix
             break;
         case CANCELLER_POWDER_MOVE:
             if ((gBattleMoves[gCurrentMove].flags & FLAG_POWDER_MOVE) && (gBattlerAttacker != gBattlerTarget))

@@ -294,7 +294,8 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 timecontrolAbilityTimer:2; //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
     u8 StatusSetViaMoldBreaker:1;
     u8 TrapSetViaMoldBreaker:1;
-    u8 padspace:4;
+    u8 AscensionTimer:2; //time for flying types to recover from smack down 3 turns
+    u8 padspace:2;
     //u8 RoostTimerStartValue;  //remove for now until I get 
     /*0x1A*/ u8 unk1A[2]; //don't think this is used
 }; //think I may not actually need roost start value, long as I have timer
