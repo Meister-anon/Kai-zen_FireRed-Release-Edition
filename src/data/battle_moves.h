@@ -11105,7 +11105,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SNIPE_SHOT] =
     {
-        .effect = EFFECT_SNIPE_SHOT,   //TODO
+        .effect = EFFECT_SNIPE_SHOT,
         .power = 80,
         .type = TYPE_WATER,
         .accuracy = 100,
@@ -11113,7 +11113,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_SPECIAL,
     },
 
