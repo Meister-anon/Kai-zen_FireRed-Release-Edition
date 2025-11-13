@@ -265,6 +265,7 @@ extern const u8 BattleScript_DesolateLandActivates[];
 extern const u8 BattleScript_PrimordialSeaActivates[];
 extern const u8 BattleScript_DeltaStreamActivates[];
 extern const u8 BattleScript_TookAttack[];
+extern const u8 BattleScript_ReturnedToTheAir[];
 extern const u8 BattleScript_SturdyPreventsOHKO[];
 extern const u8 BattleScript_DampStopsExplosion[];
 extern const u8 BattleScript_DampPreventsAftermath[];

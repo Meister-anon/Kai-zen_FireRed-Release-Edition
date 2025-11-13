@@ -1588,6 +1588,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_PKMNDROPPEDTEMP]              = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} dropped the temperature!"),
     [STRINGID_PKMNSWARMED]              = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} was trapped\nin a swirling Swarm!"),
     [STRINGID_PKMNCAMETOITSSENSES]       = COMPOUND_STRING("{B_SCR_ACTIVE_NAME_WITH_PREFIX} came to its senses!"),
+    [STRINGID_PKMNRETURNEDTOAIR]        = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} returned to the air!"),
 
     [STRINGID_TRAINER2CLASS]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME]                  = sText_Trainer2Name,

@@ -887,7 +887,8 @@
 #define STRINGID_PKMNDROPPEDTEMP                    723
 #define STRINGID_PKMNSWARMED                        724
 #define STRINGID_PKMNCAMETOITSSENSES                725
-#define STRINGID_NA                                 726 //entreed to avoid extra copy paste
+#define STRINGID_PKMNRETURNEDTOAIR                  726
+#define STRINGID_NA                                 727 //entreed to avoid extra copy paste
 
 #define BATTLESTRINGS_COUNT     STRINGID_NA - 1
 

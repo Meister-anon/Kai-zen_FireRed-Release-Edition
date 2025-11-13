@@ -5053,7 +5053,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                 {
                     gStatuses3[gBattlerAttacker] &= ~(STATUS3_SMACKED_DOWN);
                     BattleScriptPushCursor();
-                    gBattlescriptCurrInstr = BattleScript_MoveUsedUnfroze;//do returned to the air
+                    gBattlescriptCurrInstr = BattleScript_ReturnedToTheAir;//do returned to the air
                 }//vsonic need custom string, this will preced saying its name for attack
                  ++gBattleStruct->atkCancellerTracker; //so don't use prefix
             break;

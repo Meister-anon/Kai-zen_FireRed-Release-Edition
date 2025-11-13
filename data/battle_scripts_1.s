@@ -9836,6 +9836,11 @@ BattleScript_TookAttackFromString:
 	orword gHitMarker, HITMARKER_ATTACKSTRING_PRINTED
 	return
 
+BattleScript_ReturnedToTheAir::
+	printstring STRINGID_PKMNRETURNEDTOAIR
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return
+
 BattleScript_SturdyPreventsOHKO::
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNPROTECTEDBY
