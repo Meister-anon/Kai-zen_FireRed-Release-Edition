@@ -13106,6 +13106,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //but idea is weather setting but also trap
     //sets 5 turn hail for the duration the enemy can't switch
     //unsure if should include user or user side in hazard set for balance
+    //vsonic
 
     [MOVE_GRASSHOPPER] =
     {
