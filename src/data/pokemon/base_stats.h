@@ -1083,7 +1083,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SAND_VEIL, ABILITY_NONE},
+        .abilities = {ABILITY_SAND_VEIL, ABILITY_TOUGH_SPINES},
         .abilityHidden = {ABILITY_SAND_RUSH, ABILITY_DRY_SKIN},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -1094,6 +1094,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSandslashTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //gave tough spines idea from TheChiptide YT
 
     [SPECIES_NIDORAN_F] =
     {

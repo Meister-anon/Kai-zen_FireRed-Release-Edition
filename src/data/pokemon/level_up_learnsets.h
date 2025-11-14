@@ -516,6 +516,7 @@ static const struct LevelUpMove sSandshrewLevelUpLearnset[] = {
 
 static const struct LevelUpMove sSandslashLevelUpLearnset[] = {
     LEVEL_UP_MOVE(0, MOVE_SPIN_DASH), //a good utility move for this line, still no animation
+    LEVEL_UP_MOVE(1, MOVE_ACCELEROCK),
     LEVEL_UP_MOVE(1, MOVE_DIG),
     LEVEL_UP_MOVE(1, MOVE_AGILITY),
     LEVEL_UP_MOVE(1, MOVE_ROLLOUT),

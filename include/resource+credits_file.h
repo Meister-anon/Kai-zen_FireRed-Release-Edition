@@ -10,7 +10,7 @@
 
 youtube mentions:
 Pchal, WolfeyVGC  ZenmodeYT JPR Woop aka PokemonWoop Rigamarole SacredAlmighty
-x_bell
+x_bell TheChiptide
 
 //Show Type Effectiveness In Battle w Option Menu Toggle
 // by devolov  & PokemonCrazy
