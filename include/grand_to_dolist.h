@@ -4638,6 +4638,45 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     is make it sure hit targets that boosted evasion,
     and ignore effects that would make target more evasive otherwise
     such as sand veil etc. 
+
+    NOTE**(
+    Actually speaking of features I have an idea that I can't really make use of,
+    I'm not making a difficulty hack but I really  hope someone takes this.
+
+    so people make these super difficult games expecting people to lose and refight but that isn't fun.
+    the reason that isn't fun is because the win conditions are so slim 
+    and the run back is so annoying .
+
+    so my solution,
+    setup a retry button in the fight.  -_-
+    plenty of modern rpgs have this I'm shocked 
+    this hasn't been done yet;
+    and once you're in retry mode be able to freely 
+    switch your lead (first turn only) without taking up a battle turn.
+    (basically like how a rotation battle swap works)
+
+    Don't make people go through the entire battle
+    when they know they've already lost like 10 turns ago.
+
+    Skip the whole lose text, heal animation, 
+    run back to the fight, and long ass pre-fight dialogue etc. 
+    Matter of fact screw it, let us run from a trainer battle,
+    in a trainer fight change the run option to a "Give Up"
+    and make it auto trigger the loss code.
+    Just tack on an extra "are you sure"  so you don't trigger it accidentally.
+
+    Greatly speeds up gameplay loop for those super difficult games
+    and makes game overs explicitly for when you acknowledge you really
+    can't win and just have to go back and build a new team from the pc,
+    instead of just a waste of time. 
+
+    expansion has battle give up option
+    but its too long, if I make this reset feature
+    I'll pull and tweak the battle give up to streamline it
+    then release the combo as a package feature for difficulty hacks
+
+    )
+    11/25
     
     NOTE  for code stuff -vsonic Important
     believe I may be able to do
