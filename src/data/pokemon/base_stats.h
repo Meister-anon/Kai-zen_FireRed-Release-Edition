@@ -21909,6 +21909,8 @@ const struct BaseStats gBaseStats[] =
     //find a way to buff grass pelt so it has constant effect..
     //ok I'l treat it as softening blows and just make it block crit
     //ok that should make it worth benig an hidden ability
+    //vsonic unsure normal type gives it more offense but fighting weakness
+    //eh may balance out
 
     [SPECIES_GOGOAT] =
     {

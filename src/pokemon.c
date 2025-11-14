@@ -5906,12 +5906,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             OffensiveModifer(67); //so that's an extra bonus of having damage reduction via ability     may do 4 turn timer with 75% damage reduction instead of 50% @ 2 turns
         break;//yeah like that idea a lot more , that's most likley way to powerful... doing 3 turn timer at 50%, regi has high hp and def changed to 1/3rd cut
     case ABILITY_GRASS_PELT:
-        if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN
-            && !gProtectStructs[battlerIdAtk].confusionSelfDmg)
+        if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN)
+            //&& !gProtectStructs[battlerIdAtk].confusionSelfDmg)
         {
-            defense = (150 * defense) / 100;
-        }
-        break;
+            defense *= 2;
+        }//decided buff a bit more since hard to use, and include confusion in reduction
+        break;//idea mon coverd in grass terrain makes it grow fuller so a vest of protection
     case ABILITY_FLOWER_GIFT:
         if (IsBattlerWeatherAffected(battlerIdDef, WEATHER_SUN_ANY) && abilityAtk != ABILITY_CLOUD_NINE)
             spDefense = (150 * spDefense) / 100;
