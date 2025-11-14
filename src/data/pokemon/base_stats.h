@@ -11034,13 +11034,13 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
-        MON_TYPES(TYPE_NORMAL, TYPE_GHOST),    //with planned changes makes it a better switch mon, also kinda works think of like casper a friendly ghost
+        MON_TYPES(TYPE_GHOST, TYPE_NORMAL),    //with planned changes makes it a better switch mon, also kinda works think of like casper a friendly ghost
         .catchRate = 45,
         .expYield = 147,
         //.evYield_HP = 1,
         //.itemCommon = ITEM_MYSTIC_WATER,
         //.itemRare = ITEM_MYSTIC_WATER,
-        .genderRatio = PERCENT_FEMALE(50),
+        .genderRatio = PERCENT_FEMALE(50),//decide get rid of normal its not an attack mon
         .eggCycles = 25,
         .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
@@ -21885,7 +21885,7 @@ const struct BaseStats gBaseStats[] =
         62,
         57
         ),
-        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
+        MON_TYPES(TYPE_GRASS, TYPE_NORMAL),
         .catchRate = 200,
         .expYield = 70,
         //.evYield_HP = 1,
@@ -21923,7 +21923,7 @@ const struct BaseStats gBaseStats[] =
         97,
         81
         ),
-        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
+        MON_TYPES(TYPE_GRASS, TYPE_NORMAL),//thought I made this grass normal?
         .catchRate = 45,
         .expYield = 186,
         //.evYield_HP = 2,
@@ -45076,7 +45076,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
-        MON_TYPES(TYPE_NORMAL, TYPE_FIRE),
+        MON_TYPES(TYPE_GHOST, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_HP = 1,
@@ -45105,7 +45105,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
-        MON_TYPES(TYPE_NORMAL, TYPE_WATER),
+        MON_TYPES(TYPE_GHOST, TYPE_WATER),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_HP = 1,
@@ -45134,7 +45134,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
-        MON_TYPES(TYPE_NORMAL, TYPE_ICE),
+        MON_TYPES(TYPE_GHOST, TYPE_ICE),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_HP = 1,
