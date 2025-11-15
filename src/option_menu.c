@@ -1184,6 +1184,12 @@ static void UpdateSettingLevelCap(u8 selection)
         gSaveBlock2Ptr->DynamicLevelCap = GetRecommendedLevel(GetNumberofBadges());
     }
 }//turn off level cap reset to rec level
+//next set option menu toggle
+//add function to new game logic
+//and setup start menu listvalue 
+//and the hard part the toggleitself
+//which should use the debug menu logic but also display rec level
+//in window
 
 u8 IsEventSpeedupOn(void)
 {
