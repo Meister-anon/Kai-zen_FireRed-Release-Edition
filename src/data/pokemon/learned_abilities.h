@@ -3375,12 +3375,16 @@ static const struct AbilityLearnset sPassimianAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sWimpodAbilityLearnset[] = {
+    ABILITY_SHELL_ARMOR,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sGolisopodAbilityLearnset[] = {
+    ABILITY_SHELL_ARMOR,
+    ABILITY_BULLETPROOF,
+    ABILITY_INNER_FOCUS,
     ABILITY_SET_END
-};
+};//inner focus to block intimidate and cuz dex entry says it meditates
 
 static const struct AbilityLearnset sSandygastAbilityLearnset[] = {
     ABILITY_SET_END
