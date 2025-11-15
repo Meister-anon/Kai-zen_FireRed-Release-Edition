@@ -14293,6 +14293,18 @@ use wonder gaurd logic to determine its super effective
     //point is to have more ways of taking advantage of
     //2x dmg underground/underwater with only 1 move apeice
     //theres no real reason/means of taking advantage of it
+    //thought about putting healign on effect but must be tired
+    //as that's way too good/strong/defining
+    //point of effect is just to be protect
+    //writing for later wi clear head
+    //if I did add healing what I would do is
+    //debuff clear and small heal if by end of turn
+    //it wasn't attacked.
+    //so hide at start of turn attack if was attacked,
+    //while dodging attack,
+    //but if no one attacked it would act last
+    //return to field refreshed and do maybe 25% 
+    //or 15% heal
 
     [MOVE_WATERY_GRAVE] =
     {
