@@ -9851,8 +9851,9 @@ static const struct LevelUpMove sPurrloinLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sLiepardLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 0, MOVE_PARTING_SHOT),
     LEVEL_UP_MOVE( 1, MOVE_POWER_TRIP),
-    LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
+    LEVEL_UP_MOVE( 1, MOVE_SLASH),
     LEVEL_UP_MOVE( 1, MOVE_GROWL),
     LEVEL_UP_MOVE( 1, MOVE_ASSIST),
     LEVEL_UP_MOVE( 1, MOVE_SAND_ATTACK),
@@ -9865,15 +9866,21 @@ static const struct LevelUpMove sLiepardLevelUpLearnset[] = {
     LEVEL_UP_MOVE(22, MOVE_FAKE_OUT),
     LEVEL_UP_MOVE(26, MOVE_HONE_CLAWS),
     LEVEL_UP_MOVE(31, MOVE_ASSURANCE),
-    LEVEL_UP_MOVE(34, MOVE_SLASH),
+    LEVEL_UP_MOVE(34, MOVE_PLAY_ROUGH),
     LEVEL_UP_MOVE(38, MOVE_TAUNT),
     LEVEL_UP_MOVE(43, MOVE_NIGHT_SLASH),
     LEVEL_UP_MOVE(47, MOVE_SNATCH),
     LEVEL_UP_MOVE(50, MOVE_NASTY_PLOT),
-    LEVEL_UP_MOVE(55, MOVE_SUCKER_PUNCH),
-    LEVEL_UP_MOVE(58, MOVE_PLAY_ROUGH),
+    LEVEL_UP_MOVE(55, MOVE_SUCKER_PUNCH),//these 2 feel too high up 
+    LEVEL_UP_MOVE(58, MOVE_EXTREME_SPEED),//but don't want to invalidate early moves
     LEVEL_UP_END
 };
+//make liepard hit and run mon gets utility 
+//and damage wants to avoid getting hit
+//moved playrough further down instead of sucker punch
+//but worry about strength of dark moves offensively
+//if correct that a non dark non stab move would be better
+//for a dark type to have?
 
 static const struct LevelUpMove sPansageLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
