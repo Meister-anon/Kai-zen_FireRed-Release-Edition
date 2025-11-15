@@ -12751,15 +12751,15 @@ u8 GetEnemyPartyAverageLevel(u16 trainerId)
 {
 
     u32 i = 0;
-    u32 sum = 0;    
+    u32 average = 0;    
    const struct TrainerMonPartyData *party = gTrainers[trainerId].party;
 
     for (i = 0; i < gTrainers[trainerId].partySize; ++i)
-        sum += party[i].lvl;
+        average += party[i].lvl;
 
-    sum /= gTrainers[trainerId].partySize;    
+    average /= gTrainers[trainerId].partySize;    
 
-    return sum;
+    return average;
 
 }
 
