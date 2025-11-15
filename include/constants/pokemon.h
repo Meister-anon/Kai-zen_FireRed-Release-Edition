@@ -320,6 +320,9 @@
 #define SPLIT_SPECIAL   0x1
 #define SPLIT_STATUS    0x2
 
+#define AVE_EVO_STAGES 2 //buffer so players can evolve after removing from box
+
+
 #define MON_PIC_WIDTH 64
 #define MON_PIC_HEIGHT 64
 #define MON_PIC_SIZE (MON_PIC_WIDTH * MON_PIC_HEIGHT / 2)
