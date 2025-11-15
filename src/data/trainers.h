@@ -5029,18 +5029,6 @@ const struct Trainer gTrainers[] = {
         .partySize = NELEMS(sTrainerMons_LeaderKoga),
         .party = {.ItemCustomMoves = sTrainerMons_LeaderKoga}
     },
-    [TRAINER_LEADER_BLAINE] = {
-        .partyFlags = F_TRAINER_PARTY_CUSTOM_MOVESET,
-        .trainerClass = CLASS_LEADER_2,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
-        .trainerPic = TRAINER_PIC_LEADER_BLAINE,
-        .trainerName = _("BLAINE"),
-        .items = {ITEM_HYPER_POTION, ITEM_HYPER_POTION, ITEM_FULL_HEAL},
-        .battleType = SINGLES,
-        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
-        .partySize = NELEMS(sTrainerMons_LeaderBlaine),
-        .party = {.ItemCustomMoves = sTrainerMons_LeaderBlaine}
-    },
     [TRAINER_LEADER_SABRINA] = {
         .partyFlags = F_TRAINER_PARTY_CUSTOM_MOVESET,
         .trainerClass = CLASS_LEADER_2,
@@ -5053,6 +5041,18 @@ const struct Trainer gTrainers[] = {
         .partySize = NELEMS(sTrainerMons_LeaderSabrina),
         .party = {.ItemCustomMoves = sTrainerMons_LeaderSabrina}
     },
+    [TRAINER_LEADER_BLAINE] = {
+        .partyFlags = F_TRAINER_PARTY_CUSTOM_MOVESET,
+        .trainerClass = CLASS_LEADER_2,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
+        .trainerPic = TRAINER_PIC_LEADER_BLAINE,
+        .trainerName = _("BLAINE"),
+        .items = {ITEM_HYPER_POTION, ITEM_HYPER_POTION, ITEM_FULL_HEAL},
+        .battleType = SINGLES,
+        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
+        .partySize = NELEMS(sTrainerMons_LeaderBlaine),
+        .party = {.ItemCustomMoves = sTrainerMons_LeaderBlaine}
+    },   
     [TRAINER_GENTLEMAN_THOMAS] = {
         .partyFlags = 0,
         .trainerClass = CLASS_GENTLEMAN_2,
