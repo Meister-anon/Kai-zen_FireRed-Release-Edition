@@ -220,6 +220,26 @@ static void CreateBattleStartTask(u8 transition, u16 song) // song == 0 means de
     PlayMapChosenOrBattleBGM(song);
 }
 
+static void Task_BattleRestart(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+
+    gBattleRetryModeOn = TRUE;
+    //may remove this too //instead needs clear battle windows etc.
+    //want some form of transition fade after hit retry
+    CleanupOverworldWindowsAndTilemaps();
+    SetMainCallback2(CB2_InitBattle);
+    DestroyTask(taskId);
+}
+
+static void CreateBattleRestartTask(u8 transition, u16 song) // song == 0 means default music for current map
+{
+    u8 taskId = CreateTask(Task_BattleRestart, 1);
+
+    gTasks[taskId].tTransition = transition;
+    PlayMapChosenOrBattleBGM(song);
+}
+
 static bool8 CheckSilphScopeInPokemonTower(u16 mapGroup, u16 mapNum)
 {
     if (mapGroup == MAP_GROUP(POKEMON_TOWER_1F)
@@ -292,6 +312,11 @@ static void DoTrainerBattle(void)
     CreateBattleStartTask(GetTrainerBattleTransition(), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_TRAINER_BATTLES);
+}
+
+static void RetryTrainerBattle(void)
+{
+    CreateBattleRestartTask(GetTrainerBattleTransition(), 0);
 }
 
 void StartOldManTutorialBattle(void) // teech tv battle interesting wonder if, I can change his actions 
@@ -930,8 +955,19 @@ void StartTrainerBattle(void)
     ScriptContext1_Stop();
 }
 
+void RestartTrainerBattle(void)
+{
+    gBattleTypeFlags = BATTLE_TYPE_TRAINER;
+    if (GetTrainerBattleMode() == TRAINER_BATTLE_EARLY_RIVAL && GetRivalBattleFlags() & RIVAL_BATTLE_TUTORIAL)
+        gBattleTypeFlags |= BATTLE_TYPE_FIRST_BATTLE; //vsonic IMPORTANT this where set first battle flag in firered
+    gMain.savedCallback = CB2_EndTrainerBattle;
+    RetryTrainerBattle();
+    ScriptContext1_Stop();
+}
+
 static void CB2_EndTrainerBattle(void)
 {
+    gBattleRetryModeOn = FALSE;
     if (sTrainerBattleMode == TRAINER_BATTLE_EARLY_RIVAL)
     {
         if (IsPlayerDefeated(gBattleOutcome) == TRUE)

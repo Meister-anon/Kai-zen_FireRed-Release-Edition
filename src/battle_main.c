@@ -240,6 +240,7 @@ COMMON_DATA void (*gPreBattleCallback1)(void) = NULL;
 COMMON_DATA void (*gBattleMainFunc)(void) = NULL;
 COMMON_DATA struct BattleResults gBattleResults = {0};
 COMMON_DATA u8 gLeveledUpInBattle = 0;
+COMMON_DATA u8 gBattleRetryModeOn = FALSE;
 COMMON_DATA void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(void) = {0};
 COMMON_DATA u8 gHealthboxSpriteIds[MAX_BATTLERS_COUNT] = {0};
 COMMON_DATA u8 gMultiUsePlayerCursor = 0;
@@ -1024,8 +1025,11 @@ static void CB2_InitBattleInternal(void)
         SetWildMonHeldItem();
     }
     gMain.inBattle = TRUE;
-    for (i = 0; i < PARTY_SIZE; ++i)
-        AdjustFriendship(&gPlayerParty[i], FRIENDSHIP_EVENT_LEAGUE_BATTLE);
+    if (!gBattleRetryModeOn)
+    {
+        for (i = 0; i < PARTY_SIZE; ++i)
+            AdjustFriendship(&gPlayerParty[i], FRIENDSHIP_EVENT_LEAGUE_BATTLE);
+    }
     gBattleCommunication[MULTIUSE_STATE] = 0;
 }
 //believe this is summary screen during battle 

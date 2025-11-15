@@ -13,6 +13,7 @@
 #include "util.h"
 #include "battle.h"
 #include "battle_anim.h"
+#include "battle_setup.h"
 #include "battle_controllers.h"
 #include "battle_debug.h"
 #include "battle_interface.h"
@@ -334,8 +335,9 @@ static void HandleInputChooseAction(void)
     else if (JOY_NEW(L_BUTTON))
     {
         PlaySE(SE_SELECT);
-        BtlController_EmitTwoReturnValues(1, B_ACTION_MOVE_INFO, 0);
-        PlayerBufferExecCompleted();
+        RestartTrainerBattle();
+        //BtlController_EmitTwoReturnValues(1, B_ACTION_MOVE_INFO, 0);
+        //PlayerBufferExecCompleted();
     }
 }
 
