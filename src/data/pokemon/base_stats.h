@@ -2083,7 +2083,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Poliwrath"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(90, 105, 105, 70, 70, 90),
+         STATS(100, 105, 105, 70, 70, 90),
         MON_TYPES(TYPE_WATER, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 230,
@@ -2106,6 +2106,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sPoliwrathTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //since dex entries talked so much of its vitality 
+    //gave extra hp
 
     [SPECIES_ABRA] =
     {
