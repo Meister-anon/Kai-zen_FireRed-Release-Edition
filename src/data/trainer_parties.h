@@ -6449,6 +6449,12 @@ static const struct TrainerMonPartyData sTrainerMons_LeaderMisty[] = {
         .moves = {MOVE_CAMOUFLAGE, MOVE_RAIN_DANCE, MOVE_RECOVER, MOVE_WATER_PULSE},
     },
     {
+        .iv = MIN_FIXED_IVS,
+        .lvl = 15,
+        .species = SPECIES_PSYDUCK,
+        //.moves = {MOVE_CAMOUFLAGE, MOVE_RAIN_DANCE, MOVE_RECOVER, MOVE_WATER_PULSE},
+    },
+    {
         .iv = 21,
         .lvl = 21,
         .species = SPECIES_STARMIE,
