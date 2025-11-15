@@ -5,6 +5,7 @@
 #include "menu.h"
 #include "task.h"
 #include "event_data.h" //for flag get/set
+#include "trainer_card.h" //for num badges rec level
 #include "overworld.h"
 #include "help_system.h"
 #include "text_window.h"
@@ -133,6 +134,7 @@ static void UpdateSettingDecapAbility(u8 selection);
 static void UpdateSettingDecapMoves(u8 selection);
 static void UpdateSettingDecapItem(u8 selection);
 static void UpdateSettingDecapMisc(u8 selection);
+static void UpdateSettingLevelCap(u8 selection);
 
 
 // Data Definitions
@@ -1168,6 +1170,20 @@ static void UpdateSettingDecapMisc(u8 selection)
     else if (selection == _OFF)
         FlagClear(FLAG_CAPITALIZE_MISC_PLACEHOLDER);
 }
+
+//If flag set turn on level caps
+//and add option to start menu for dynamic lvl cap setting
+static void UpdateSettingLevelCap(u8 selection)
+{
+    if (selection == _ON)
+        FlagSet(FLAG_SET_LEVEL_CAP);
+
+    else if (selection == _OFF)
+    {
+        FlagClear(FLAG_SET_LEVEL_CAP);
+        gSaveBlock2Ptr->DynamicLevelCap = GetRecommendedLevel(GetNumberofBadges());
+    }
+}//turn off level cap reset to rec level
 
 u8 IsEventSpeedupOn(void)
 {

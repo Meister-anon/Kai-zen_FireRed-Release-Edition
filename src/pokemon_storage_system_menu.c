@@ -763,7 +763,7 @@ void UpdatePokemonStorageSystemMonExp(void)
 
 //mcgriphin sylph is in,
 //mentioned multiple things using boxmon for I didn't need to,
-//and could calk level from experience and growth rate so think chage this to take species
+//and could calc level from experience and growth rate so think chage this to take species
 
 //could turn this into a u32 and make it return exp and pass to BoxMonAtGainExp
 //to reduce need to call getboxmon again
@@ -774,18 +774,29 @@ u32 CanBoxMonGainExp(struct BoxPokemon *mon, u16 species) //lvl cap works - didn
     //BoxMonToMon(mon, &dst); //num badge function is countering wrong after getting brock badge its returning 0
     bool8 Blocked = FALSE;
     u32 experience = GetBoxMonData(mon, MON_DATA_EXP);
+    u8 levelLimit = gSaveBlock2Ptr->DynamicLevelCap - AVE_EVO_STAGES;
     //u32 level;
     //can use getmondata experience loop level
     //compare actual experience if experience is equal break return level
     //if experience is less, break return level - 1
     //gExperienceTables[gBaseStats[species].growthRate][level]
 
-    //if (experience <= gExperienceTables[gBaseStats[species].growthRate][12])
-
+    //unlock at cape where Bill is
     if (GetBoxMonData(mon, MON_DATA_BLOCK_BOX_EXP_GAIN))   
         return FALSE;
 
-    if (GetNumberofBadges() < 1 && (experience < gExperienceTables[gBaseStats[species].growthRate][12])) //mostly just for pidgey, shuold be before first badge
+
+    //rather than more general will make level cap
+    //consider have level cap set from start just to store recommended level
+    //for this. but not enforce as hard restriction elsewhere unless
+    //level cap flag is set. considering whether put rec. level update
+    //in script when receiving gym badge
+    //or putting it in main function to auto update in overworld
+    //would be simple and not require updating scripts
+    //but would run every step/constantly? should be light
+    //I'm hoping to not see impact but I also have to setup rtc
+    //to do that as well so worried about stacking detriment.
+    /*if (GetNumberofBadges() < 1 && (experience < gExperienceTables[gBaseStats[species].growthRate][12])) //mostly just for pidgey, shuold be before first badge
         return experience; //to ensure non  0
      //if num badges <= 6 and mon level <= 41  yes else no
     else if (GetNumberofBadges() <= 6
@@ -793,6 +804,10 @@ u32 CanBoxMonGainExp(struct BoxPokemon *mon, u16 species) //lvl cap works - didn
         return experience;
     else if (GetNumberofBadges() > 6) //think thsi should be fine, game opens up adn you can go to either koga sabrina or blaine
         return experience;  //but can't do erika until after sabrina and rocket stuff
+    */
+   
+    if (experience < gExperienceTables[gBaseStats[species].growthRate][levelLimit])
+        return experience;
     else
         return FALSE;
 }
@@ -800,6 +815,68 @@ u32 CanBoxMonGainExp(struct BoxPokemon *mon, u16 species) //lvl cap works - didn
 //I isntead have the exp gain at a rate that as tested,
 //should keep pace with normal progression
 //the rates are shifted based on level
+
+//want to set box gain to rec level - 2 post first gym or 2 so not evo locked
+//nah caterpie/weedel can evolve at 10 so still  good to leave room even at first gym
+//function is designed for kanto and playing in specific order
+//if you do gyms out of order function would not fit
+//ex doing surge before misty 
+//it would simply count badges not what badge you have
+u8 GetRecommendedLevel(u8 badgeCount)
+{
+    u32 trainerId = 0;
+    u32 rec_level = 0;
+    switch (badgeCount)
+    {
+        case 0:
+            trainerId = TRAINER_LEADER_BROCK;
+           rec_level = GetEnemyPartyAverageLevel(trainerId);
+        break;
+        case 1:
+            trainerId = TRAINER_LEADER_MISTY;
+           rec_level = GetEnemyPartyAverageLevel(trainerId);
+        break;
+        case 2:
+            trainerId = TRAINER_LEADER_LT_SURGE;
+           rec_level = GetEnemyPartyAverageLevel(trainerId);
+        break;
+        case 3:
+            trainerId = TRAINER_LEADER_ERIKA;
+           rec_level = GetEnemyPartyAverageLevel(trainerId);
+        break;
+        case 4:
+            trainerId = TRAINER_LEADER_KOGA;
+           rec_level = GetEnemyPartyAverageLevel(trainerId);
+        break;
+        case 5:
+            trainerId = TRAINER_LEADER_SABRINA;
+           rec_level = GetEnemyPartyAverageLevel(trainerId);
+        break;
+        case 6:
+            trainerId = TRAINER_LEADER_BLAINE;
+           rec_level = GetEnemyPartyAverageLevel(trainerId);
+        break;
+        case 7:
+            trainerId = TRAINER_LEADER_GIOVANNI;
+           rec_level = GetEnemyPartyAverageLevel(trainerId);
+        break;
+        default:
+        if (FlagGet(FLAG_BECAME_LEAGUE_CHAMPION))
+            return MAX_LEVEL;
+        else 
+        {
+            trainerId = TRAINER_ELITE_FOUR_AGATHA;
+            rec_level = GetEnemyPartyAverageLevel(trainerId); 
+        }            
+        break;
+    }
+
+    //weighted adjustment for enemy party size
+    //as simple level average wouldn't be appropriate
+    //i.e if enemy team has same mon as player would be harder
+    return gTrainers[trainerId].partySize < (PARTY_SIZE - 1) ? rec_level : (rec_level * 104) / 100;
+
+}
 
 void LoadBoxSelectionPopupSpriteGfx(struct ChooseBoxMenu *a0, u16 tileTag, u16 palTag, u8 a3, bool32 loadPal)
 {

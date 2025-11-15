@@ -652,8 +652,10 @@ static void ApplyDaycareExperience(struct Pokemon *mon)
 static u16 TakeSelectedPokemonFromDaycare(struct DaycareMon *daycareMon)
 {
     u16 species,newSpecies;
-    u32 experience;
     struct Pokemon pokemon;
+    u32 experience = GetMonData(&pokemon, MON_DATA_EXP);
+    u32 ExpToGive;
+    u8 level_Limit = gSaveBlock2Ptr->DynamicLevelCap - AVE_EVO_STAGES;
 
     DayCare_GetBoxMonNickname(&daycareMon->mon, gStringVar1);
     species = GetBoxMonData(&daycareMon->mon, MON_DATA_SPECIES);
@@ -667,13 +669,21 @@ static u16 TakeSelectedPokemonFromDaycare(struct DaycareMon *daycareMon)
         species = newSpecies;
     } //dont know when this would be used but adding
 
-    if (GetMonData(&pokemon, MON_DATA_LEVEL) != MAX_LEVEL)
+    if (GetMonData(&pokemon, MON_DATA_LEVEL) < level_Limit)
     {
         if (GetBoxMonData(&daycareMon->mon, MON_DATA_BLOCK_BOX_EXP_GAIN))   
-            experience = GetMonData(&pokemon, MON_DATA_EXP);
+            experience = experience;
         else
-            experience = GetMonData(&pokemon, MON_DATA_EXP) + daycareMon->steps;
-        SetMonData(&pokemon, MON_DATA_EXP, &experience);
+        {
+            experience += daycareMon->steps;
+            if (experience > gExperienceTables[gBaseStats[species].growthRate][level_Limit])
+            {
+                experience -= (experience - gExperienceTables[gBaseStats[species].growthRate][level_Limit]);
+            }
+            
+        }
+        ExpToGive = experience;
+        SetMonData(&pokemon, MON_DATA_EXP, &ExpToGive);
         ApplyDaycareExperience(&pokemon);
     }
 
