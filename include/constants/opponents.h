@@ -420,8 +420,8 @@
 #define TRAINER_LEADER_LT_SURGE                  416
 #define TRAINER_LEADER_ERIKA                     417
 #define TRAINER_LEADER_KOGA                      418
-#define TRAINER_LEADER_BLAINE                    419
-#define TRAINER_LEADER_SABRINA                   420
+#define TRAINER_LEADER_SABRINA                   419
+#define TRAINER_LEADER_BLAINE                    420
 #define TRAINER_GENTLEMAN_THOMAS                 421
 #define TRAINER_GENTLEMAN_ARTHUR                 422
 #define TRAINER_GENTLEMAN_TUCKER                 423

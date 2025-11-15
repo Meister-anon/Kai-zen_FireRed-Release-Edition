@@ -5030,18 +5030,6 @@ const struct Trainer gTrainers[] = {
         .partySize = NELEMS(sTrainerMons_LeaderKoga),
         .party = sTrainerMons_LeaderKoga
     },
-    [TRAINER_LEADER_BLAINE] = {
-        
-        .trainerClass = CLASS_LEADER_2,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
-        .trainerPic = TRAINER_PIC_LEADER_BLAINE,
-        .trainerName = _("BLAINE"),
-        .items = {ITEM_HYPER_POTION, ITEM_HYPER_POTION, ITEM_FULL_HEAL},
-        .battleType = SINGLES,
-        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
-        .partySize = NELEMS(sTrainerMons_LeaderBlaine),
-        .party = sTrainerMons_LeaderBlaine
-    },
     [TRAINER_LEADER_SABRINA] = {
         
         .trainerClass = CLASS_LEADER_2,
@@ -5054,6 +5042,18 @@ const struct Trainer gTrainers[] = {
         .partySize = NELEMS(sTrainerMons_LeaderSabrina),
         .party = sTrainerMons_LeaderSabrina
     },
+    [TRAINER_LEADER_BLAINE] = {
+        
+        .trainerClass = CLASS_LEADER_2,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
+        .trainerPic = TRAINER_PIC_LEADER_BLAINE,
+        .trainerName = _("BLAINE"),
+        .items = {ITEM_HYPER_POTION, ITEM_HYPER_POTION, ITEM_FULL_HEAL},
+        .battleType = SINGLES,
+        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
+        .partySize = NELEMS(sTrainerMons_LeaderBlaine),
+        .party = sTrainerMons_LeaderBlaine
+    },    
     [TRAINER_GENTLEMAN_THOMAS] = {
         
         .trainerClass = CLASS_GENTLEMAN_2,
