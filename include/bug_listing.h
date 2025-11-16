@@ -19,4 +19,8 @@ also of note Anercomp seemed to have activated
 this effect (constrict on caterpie @1hp) and it caused a game freeze
 -potential fix finish battle controller rework and battle script refactor
 see if that fixes issue.
+
+tracked issue...its part of the agbcc vs modern issue *facepalm
+idk why it is but it is, so need go over sym file and fix rest of 
+different size values
 */
