@@ -4677,7 +4677,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     for player only foe?
     modern noticed anticipation not procing
     could be anything.
-    11/25
+    11/25 
+    //vsonic important also may be good idea
+    to make separate file for unaddressed bugs...
 
     also something wrong w aqua ring its somehow triggering leech seed?
     same issue as wtih pickup bad code that didn't make sense
