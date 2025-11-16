@@ -11,6 +11,9 @@ dmging moves that lower stats get reflected
 to setting battler, believe is a result of somehow
 activating mirror armor refelction but unsure.
 
+-double check that stat raising effects don't do same
+believe it doesn't
+
 also of note Anercomp seemed to have activated 
 this effect (constrict on caterpie) and it caused a game freeze
 -potential fix finish battle controller rework and battle script refactor
