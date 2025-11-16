@@ -2701,16 +2701,22 @@ static const struct AbilityLearnset sBeheeyemAbilityLearnset[] = {
 
 static const struct AbilityLearnset sLitwickAbilityLearnset[] = {
     ABILITY_FLARE_BOOST,
+    ABILITY_FLAME_BODY,
+    ABILITY_SHADOW_TAG,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sLampentAbilityLearnset[] = {
     ABILITY_FLARE_BOOST,
+    ABILITY_FLAME_BODY,
+    ABILITY_SHADOW_TAG,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sChandelureAbilityLearnset[] = {
     ABILITY_FLARE_BOOST,
+    ABILITY_FLAME_BODY,
+    ABILITY_SHADOW_TAG,
     ABILITY_SET_END
 };
 

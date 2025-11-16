@@ -19531,7 +19531,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_INFILTRATOR, ABILITY_FLASH_FIRE},
-                .abilityHidden = {ABILITY_SHADOW_TAG, ABILITY_CURSED_BODY},
+                .abilityHidden = {ABILITY_WHITE_SMOKE, ABILITY_CURSED_BODY},
             //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -19566,7 +19566,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_INFILTRATOR, ABILITY_FLASH_FIRE},
-                .abilityHidden = {ABILITY_SHADOW_TAG, ABILITY_CURSED_BODY},
+                .abilityHidden = {ABILITY_WHITE_SMOKE, ABILITY_CURSED_BODY},
             //.bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -19601,7 +19601,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_INFILTRATOR, ABILITY_FLASH_FIRE},
-                .abilityHidden = {ABILITY_SHADOW_TAG, ABILITY_CURSED_BODY},
+                .abilityHidden = {ABILITY_WHITE_SMOKE, ABILITY_CURSED_BODY},
             //.bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -19611,6 +19611,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sChandelureTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //think misread bulbapedia it never actually got shadow tag
+    //and would kill everything think give white smoke instead
 
     [SPECIES_AXEW] =
     {
