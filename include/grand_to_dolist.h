@@ -4673,6 +4673,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     round down and set that as num premier balls to give
     -done
 
+    potential major issues seems certain abilities not triggering
+    for player only foe?
+    modern noticed anticipation not procing
+    could be anything.
+    11/25
+
     also something wrong w aqua ring its somehow triggering leech seed?
     same issue as wtih pickup bad code that didn't make sense
     to help also set commands to use cmd args and native args
