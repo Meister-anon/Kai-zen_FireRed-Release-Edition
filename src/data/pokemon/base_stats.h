@@ -43773,6 +43773,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sPikachuLibreTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //not taking cap forms
+    //give flying press level up when form learnsets done, vsonic
 
     [SPECIES_PIKACHU_ORIGINAL_CAP] =
     {
