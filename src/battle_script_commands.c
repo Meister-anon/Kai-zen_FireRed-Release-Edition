@@ -4272,7 +4272,20 @@ void StealTargetItem(u8 battlerStealer, u8 battlerItem)
         gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battlerItem]][GetBattlerSide(battlerItem)] = ITEM_NONE;
     }//if mon stolen frmo has secondary item their held item is replaced w secondary item slot
 
-    RecordItemEffectBattle(battlerItem, 0);    //just for ai
+    //unsure if this is correct if has secondary item
+    //think should update to that
+    //also unsure if should remove all this 
+    //and just make item slot swap an end turn effect
+    //as is think both effects can activate same turn?
+    //need test system to better identify how works smh
+    //vsonic important
+    //checked thing assumption is correct
+    //this is for updating what ai sees
+    //changed to use battlemons item
+    //if no item will read as such
+    //if swapped item will be new secondary swap item
+    //still need check/test, just updating cuz likely will be forgotten
+    RecordItemEffectBattle(battlerItem, gBattleMons[battlerItem].item);    //just for ai
 
     if (gBattleMons[battlerItem].item == ITEM_NONE)
     {
