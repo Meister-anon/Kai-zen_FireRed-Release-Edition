@@ -1799,11 +1799,13 @@ static const struct AbilityLearnset sShinxAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sLuxioAbilityLearnset[] = {
+    ABILITY_GUTS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sLuxrayAbilityLearnset[] = {
     ABILITY_STRONG_JAW,
+    ABILITY_GUTS,
     ABILITY_SET_END
 };
 
