@@ -961,6 +961,7 @@ extern const u8 gText_BattleSpeed[];
 extern const u8 gText_BattleTextSpeed[];
 extern const u8 gText_DisplayTypeEffect[];
 extern const u8 gText_NuzlockeMode[];
+extern const u8 gText_LevelCap[];
 
 extern const u8 gText_BattleSpeed1x[];
 extern const u8 gText_BattleSpeed2x[];

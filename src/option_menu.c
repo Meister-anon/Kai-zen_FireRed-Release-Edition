@@ -58,6 +58,7 @@ enum MiscOptions
     MISC_MENUITEM_BATTLE_TEXT_SPEED,
     MISC_MENUITEM_DISPLAY_EFFECTIVENESS,
     MISC_MENUITEM_NUZLOCKE_MODE,
+    MISC_MENUITEM_LEVEL_CAP_MODE,
 
     MISC_MENUITEM_CANCEL,
     MISC_MENUITEM_COUNT
@@ -249,6 +250,7 @@ static const u16 sMiscOptionsMenuItemCounts[MISC_MENUITEM_COUNT] =
     [MISC_MENUITEM_BATTLE_TEXT_SPEED]  = 5,
     [MISC_MENUITEM_DISPLAY_EFFECTIVENESS] = 2, //_OFF - ON
     [MISC_MENUITEM_NUZLOCKE_MODE]   = 2, //_OFF - ON
+    [MISC_MENUITEM_LEVEL_CAP_MODE] = 2, //_OFF - ON
 
     [MISC_MENUITEM_CANCEL]          = 0,
 };
@@ -286,6 +288,7 @@ static const u8 *const sMiscOptionMenuItemsNames[MISC_MENUITEM_COUNT] =
     [MISC_MENUITEM_BATTLE_TEXT_SPEED] = gText_BattleTextSpeed,
     [MISC_MENUITEM_DISPLAY_EFFECTIVENESS] = gText_DisplayTypeEffect,
     [MISC_MENUITEM_NUZLOCKE_MODE]     = gText_NuzlockeMode,
+    [MISC_MENUITEM_LEVEL_CAP_MODE]    = gText_LevelCap,
     [MISC_MENUITEM_CANCEL]            = gText_OptionMenuCancel,
 };
 
@@ -407,6 +410,7 @@ void CB2_OptionsMenuFromStartMenu(void)
     sOptionMenuPtr->MiscOptions[MISC_MENUITEM_BATTLE_TEXT_SPEED] = gSaveBlock2Ptr->optionsBattleTextSpeed;
     sOptionMenuPtr->MiscOptions[MISC_MENUITEM_DISPLAY_EFFECTIVENESS] = gSaveBlock2Ptr->optionsDisplayTypeEffect;
     sOptionMenuPtr->MiscOptions[MISC_MENUITEM_NUZLOCKE_MODE] = gSaveBlock2Ptr->optionsNuzlockeMode;
+    sOptionMenuPtr->MiscOptions[MISC_MENUITEM_LEVEL_CAP_MODE] = FlagGet(FLAG_LEVEL_CAP_STATE);
     
     //wtf does this do??
     switch (sOptionMenuPtr->MenuCategory)
@@ -984,6 +988,7 @@ static void BufferOptionMenuString(u8 selection)
             {
                 case MISC_MENUITEM_EVENT_SPEEDUP:
                 case MISC_MENUITEM_NUZLOCKE_MODE:
+                case MISC_MENUITEM_LEVEL_CAP_MODE:
                 case MISC_MENUITEM_DISPLAY_EFFECTIVENESS:
                     AddTextPrinterParameterized3(1, 2, x, y, dst, -1, sTextCapOptions[sOptionMenuPtr->MiscOptions[selection]]); 
                 break;
@@ -1028,7 +1033,7 @@ static void CloseAndSaveOptionMenu(u8 taskId) //vsonic this is where values are 
         UpdateSettingDecapAbility(sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_ABILITY]);
         UpdateSettingDecapMoves(sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_MOVES]);
         UpdateSettingDecapItem(sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_ITEMS]);
-        UpdateSettingDecapMisc(sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_PLACEHOLDERS]);;
+        UpdateSettingDecapMisc(sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_PLACEHOLDERS]);
         SetMainCallback2(CB2_OptionsMenuFromStartMenu);
         FreeAllWindowBuffers();
         break;
@@ -1038,6 +1043,7 @@ static void CloseAndSaveOptionMenu(u8 taskId) //vsonic this is where values are 
         gSaveBlock2Ptr->optionsBattleTextSpeed = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_BATTLE_TEXT_SPEED];
         gSaveBlock2Ptr->optionsDisplayTypeEffect = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_DISPLAY_EFFECTIVENESS];
         gSaveBlock2Ptr->optionsNuzlockeMode = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_NUZLOCKE_MODE];
+        UpdateSettingLevelCap(sOptionMenuPtr->MiscOptions[MISC_MENUITEM_LEVEL_CAP_MODE]);
         SetMainCallback2(CB2_OptionsMenuFromStartMenu);
         FreeAllWindowBuffers();
         break;
@@ -1176,11 +1182,11 @@ static void UpdateSettingDecapMisc(u8 selection)
 static void UpdateSettingLevelCap(u8 selection)
 {
     if (selection == _ON)
-        FlagSet(FLAG_SET_LEVEL_CAP);
+        FlagSet(FLAG_LEVEL_CAP_STATE);
 
     else if (selection == _OFF)
     {
-        FlagClear(FLAG_SET_LEVEL_CAP);
+        FlagClear(FLAG_LEVEL_CAP_STATE);
         gSaveBlock2Ptr->DynamicLevelCap = GetRecommendedLevel(GetNumberofBadges());
     }
 }//turn off level cap reset to rec level
@@ -1202,6 +1208,14 @@ u8 IsEventSpeedupOn(void)
 u8 IsNuzlockeModeOn(void)
 {
     if (gSaveBlock2Ptr->optionsNuzlockeMode)
+        return TRUE;
+
+    return FALSE;
+}
+
+u8 IsLevelCapModeOn(void)
+{
+    if (FlagGet(FLAG_LEVEL_CAP_STATE))
         return TRUE;
 
     return FALSE;

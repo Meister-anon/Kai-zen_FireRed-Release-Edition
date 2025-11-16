@@ -791,7 +791,7 @@
 #define FLAG_CAPITALIZE_MOVE_TEXT               0x302
 #define FLAG_CAPITALIZE_ITEM_TEXT               0x303
 #define FLAG_CAPITALIZE_MISC_PLACEHOLDER               0x304
-#define FLAG_SET_LEVEL_CAP       0x305
+#define FLAG_LEVEL_CAP_STATE       0x305
 #define FLAG_0x306               0x306
 #define FLAG_0x307               0x307
 #define FLAG_0x308               0x308

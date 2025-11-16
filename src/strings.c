@@ -917,6 +917,7 @@ const u8 gText_BattleSpeed[] = _("BATTLE SPEED");
 const u8 gText_BattleTextSpeed[] =_("BATTLE TEXT SPEED");
 const u8 gText_DisplayTypeEffect[] = _("SHOW TYPE EFFECT.");
 const u8 gText_NuzlockeMode[] = _("NUZLOCKE MODE");
+const u8 gText_LevelCap[] = _("LEVEL CAP");
 
 //battle speed options
 const u8 gText_BattleSpeed1x[] = _("1x");
