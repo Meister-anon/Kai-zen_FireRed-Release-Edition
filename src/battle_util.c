@@ -10860,14 +10860,15 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
             switch (battlerHoldEffect)
             {
             case HOLD_EFFECT_AIR_BALLOON:
-                if (TARGET_TURN_DAMAGED)
+                if (TARGET_TURN_DAMAGED 
+                && !DoesSubstituteBlockMove(gBattlerAttacker, gBattlerTarget, gCurrentMove))
                 {
-                    effect = ITEM_EFFECT_OTHER;
+                    effect = ITEM_EFFECT_OTHER;//vsonic Important
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_AirBaloonMsgPop;
-                }
-                break;
-            case HOLD_EFFECT_ROCKY_HELMET:
+                }//check after wake up decide if this makes sense for raikou or anyone else 
+                break; //only really useful as a lead or given a slow pivot, I think not broken at least?
+            case HOLD_EFFECT_ROCKY_HELMET://still not awake but can't find any major way to abuse/break game so keeping would be a chnage I need to put in a doc
                 if (TARGET_TURN_DAMAGED
                     && IsMoveMakingContact(gCurrentMove, gBattlerAttacker)
                     && IsBattlerAlive(gBattlerAttacker)
