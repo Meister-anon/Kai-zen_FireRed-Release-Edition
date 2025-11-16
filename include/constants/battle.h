@@ -287,7 +287,7 @@
 #define STATUS4_ELECTRIFIED             (1 << 0)	//need to check how status4 is setup to make sure it runs on same conditions as status2
 //if it works I can move wrap status and wrap counter up here so it all uses status4
 //start of new trap effects, each will have its own status and timer in disable structs
-#define STATUS4_PLACE_HOLDER            (1 << 1)
+#define STATUS4_SYRUP_BOMB              (1 << 1)
 #define STATUS4_BIND                    (1 << 2)
 #define STATUS4_FIRE_SPIN				(1 << 3)
 #define STATUS4_CLAMP					(1 << 4)
