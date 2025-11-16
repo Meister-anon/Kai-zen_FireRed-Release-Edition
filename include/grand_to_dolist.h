@@ -1,6 +1,8 @@
 #ifndef GUARD_GRAND_TO_DOLIST_H
 #define GUARD_GRAND_TO_DOLIST_H
 
+goto BUG_TRACKING
+
 /*this file is to be an itemized list of things I plan to do/my progress.
 with the intention of cleaning up my files, so I dont have comments everywhere
 and to help ensure I don't lose track of things
