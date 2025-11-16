@@ -16,7 +16,7 @@ activating mirror armor refelction but unsure.
 believe it doesn't
 
 also of note Anercomp seemed to have activated 
-this effect (constrict on caterpie) and it caused a game freeze
+this effect (constrict on caterpie @1hp) and it caused a game freeze
 -potential fix finish battle controller rework and battle script refactor
 see if that fixes issue.
 */
