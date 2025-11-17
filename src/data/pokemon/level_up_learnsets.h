@@ -5210,12 +5210,17 @@ static const struct LevelUpMove sTaillowLevelUpLearnset[] = {
     LEVEL_UP_MOVE(19, MOVE_DOUBLE_TEAM),
     LEVEL_UP_MOVE(26, MOVE_ENDEAVOR),
     LEVEL_UP_MOVE(34, MOVE_AERIAL_ACE),
+    LEVEL_UP_MOVE(36, MOVE_NO_RETREAT),
     LEVEL_UP_MOVE(43, MOVE_AGILITY),
     LEVEL_UP_END
 };
+//Based on dex entry gave no retreat as well
 
 static const struct LevelUpMove sSwellowLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(0, MOVE_AERIAL_ACE),
     LEVEL_UP_MOVE(1, MOVE_PECK),
+    LEVEL_UP_MOVE(1, MOVE_FEINT),
+    LEVEL_UP_MOVE(1, MOVE_PSYCHO_CUT),
     LEVEL_UP_MOVE(1, MOVE_GROWL),
     LEVEL_UP_MOVE(1, MOVE_FOCUS_ENERGY),
     LEVEL_UP_MOVE(1, MOVE_QUICK_ATTACK),
@@ -5225,10 +5230,17 @@ static const struct LevelUpMove sSwellowLevelUpLearnset[] = {
     LEVEL_UP_MOVE(19, MOVE_DOUBLE_TEAM),
     LEVEL_UP_MOVE(25, MOVE_SONIC_BOOM),
     LEVEL_UP_MOVE(28, MOVE_ENDEAVOR),
-    LEVEL_UP_MOVE(38, MOVE_AERIAL_ACE),
+    LEVEL_UP_MOVE(32, MOVE_CALM_MIND),
+    LEVEL_UP_MOVE(38, MOVE_SKY_DROP),
+    LEVEL_UP_MOVE(44, MOVE_FLYING_PRESS),
     LEVEL_UP_MOVE(49, MOVE_AGILITY),
     LEVEL_UP_END
 };
+//would need more coverage moves a normal type
+//don't want to just give close combat tho
+//since other similar mon already have that?
+//gave few other changes to attempt make feel more unique
+//among normal flying birds
 
 static const struct LevelUpMove sShroomishLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_ABSORB),
@@ -7449,6 +7461,7 @@ static const struct LevelUpMove sStaraptorLevelUpLearnset[] = {
     LEVEL_UP_MOVE(23, MOVE_WHIRLWIND),
     LEVEL_UP_MOVE(28, MOVE_AERIAL_ACE),
     LEVEL_UP_MOVE(33, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(38, MOVE_NO_RETREAT),
     LEVEL_UP_MOVE(41, MOVE_AGILITY),
     LEVEL_UP_MOVE(49, MOVE_BRAVE_BIRD),
     LEVEL_UP_MOVE(57, MOVE_FINAL_GAMBIT),
@@ -7464,6 +7477,7 @@ static const struct LevelUpMove sBidoofLevelUpLearnset[] = {
     LEVEL_UP_MOVE(17, MOVE_HYPER_FANG),
     LEVEL_UP_MOVE(21, MOVE_YAWN),
     LEVEL_UP_MOVE(25, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(25, MOVE_FOLLOW_ME),
     LEVEL_UP_MOVE(29, MOVE_TAKE_DOWN),
     LEVEL_UP_MOVE(33, MOVE_SUPER_FANG),
     LEVEL_UP_MOVE(37, MOVE_SWORDS_DANCE),
@@ -7475,6 +7489,7 @@ static const struct LevelUpMove sBidoofLevelUpLearnset[] = {
 
 static const struct LevelUpMove sBibarelLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 0, MOVE_WATER_GUN),
+    LEVEL_UP_MOVE( 1, MOVE_FOLLOW_ME),
     LEVEL_UP_MOVE( 1, MOVE_WATER_GUN),
     LEVEL_UP_MOVE( 1, MOVE_AQUA_JET),
     LEVEL_UP_MOVE( 1, MOVE_ROTOTILLER),
@@ -7711,16 +7726,18 @@ static const struct LevelUpMove sWormadamLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sMothimLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 0, MOVE_QUIVER_DANCE),
+    LEVEL_UP_MOVE( 0, MOVE_SCALE_SHOT),
     LEVEL_UP_MOVE( 1, MOVE_QUIVER_DANCE),
+    LEVEL_UP_MOVE( 1, MOVE_PLUCK),
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_PROTECT),
     LEVEL_UP_MOVE( 1, MOVE_BUG_BITE),
     LEVEL_UP_MOVE(10, MOVE_PROTECT),
     LEVEL_UP_MOVE(15, MOVE_BUG_BITE),
     LEVEL_UP_MOVE(20, MOVE_HIDDEN_POWER),
-    LEVEL_UP_MOVE(23, MOVE_CONFUSION),
-    LEVEL_UP_MOVE(26, MOVE_GUST),
+    LEVEL_UP_MOVE(22, MOVE_CONFUSION),
+    LEVEL_UP_MOVE(25, MOVE_GUST),
+    LEVEL_UP_MOVE(27, MOVE_THIEF),
     LEVEL_UP_MOVE(29, MOVE_POISON_POWDER),
     LEVEL_UP_MOVE(32, MOVE_PSYBEAM),
     LEVEL_UP_MOVE(35, MOVE_CAMOUFLAGE),
@@ -7731,6 +7748,8 @@ static const struct LevelUpMove sMothimLevelUpLearnset[] = {
     LEVEL_UP_MOVE(50, MOVE_BUG_BUZZ),
     LEVEL_UP_END
 };
+//gave scale shot legends arceus dex entry says 
+//spreads steel colored scales as it flaps its wings
 
 static const struct LevelUpMove sCombeeLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SWEET_SCENT),
@@ -13416,6 +13435,7 @@ static const struct LevelUpMove sPangoroLevelUpLearnset[] = {
 static const struct LevelUpMove sFurfrouLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 1, MOVE_BODY_PRESS),
     LEVEL_UP_MOVE( 5, MOVE_SAND_ATTACK),
     LEVEL_UP_MOVE( 9, MOVE_BABY_DOLL_EYES),
     LEVEL_UP_MOVE(12, MOVE_HEADBUTT),
@@ -13427,6 +13447,7 @@ static const struct LevelUpMove sFurfrouLevelUpLearnset[] = {
     LEVEL_UP_MOVE(38, MOVE_CHARM),
     LEVEL_UP_MOVE(42, MOVE_SUCKER_PUNCH),
     LEVEL_UP_MOVE(48, MOVE_COTTON_GUARD),
+    LEVEL_UP_MOVE(51, MOVE_EXTREME_SPEED),
     LEVEL_UP_END
 };
 
@@ -16036,6 +16057,8 @@ static const struct LevelUpMove sGuzzlordLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_WIDE_GUARD),
     LEVEL_UP_MOVE( 1, MOVE_SWALLOW),
     LEVEL_UP_MOVE( 1, MOVE_STOCKPILE),
+    LEVEL_UP_MOVE( 1, MOVE_SLACK_OFF),
+    LEVEL_UP_MOVE( 1, MOVE_HYPER_VOICE),
     LEVEL_UP_MOVE( 1, MOVE_DRAGON_RAGE),
     LEVEL_UP_MOVE( 1, MOVE_BITE),
     LEVEL_UP_MOVE( 7, MOVE_STOMP),
@@ -16045,14 +16068,17 @@ static const struct LevelUpMove sGuzzlordLevelUpLearnset[] = {
     LEVEL_UP_MOVE(23, MOVE_DRAGON_TAIL),
     LEVEL_UP_MOVE(29, MOVE_IRON_TAIL),
     LEVEL_UP_MOVE(31, MOVE_STOMPING_TANTRUM),
+    LEVEL_UP_MOVE(34, MOVE_SLUDGE_WAVE),
     LEVEL_UP_MOVE(37, MOVE_CRUNCH),
     LEVEL_UP_MOVE(43, MOVE_HAMMER_ARM),
     LEVEL_UP_MOVE(47, MOVE_THRASH),
+    LEVEL_UP_MOVE(50, MOVE_POWER_GEM),
     LEVEL_UP_MOVE(53, MOVE_GASTRO_ACID),
     LEVEL_UP_MOVE(59, MOVE_HEAVY_SLAM),
     LEVEL_UP_MOVE(67, MOVE_WRING_OUT),
     LEVEL_UP_MOVE(70, MOVE_BACK_STAB),
     LEVEL_UP_MOVE(73, MOVE_DRAGON_RUSH),
+    LEVEL_UP_MOVE(77, MOVE_BOOMBURST),
     LEVEL_UP_END
 };
 //GAVE MORE option to deal w fairy
