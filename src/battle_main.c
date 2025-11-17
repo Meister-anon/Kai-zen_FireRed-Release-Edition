@@ -356,7 +356,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_GHOST] =      {X(0.0),   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,   ______,  ______,    ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),    ______}, // ghost
 
-    [TYPE_STEEL] =      {______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   X(1.55),   X(0.5),   ______,   X(0.5),    X(0.5),   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   ______,   X(1.55),   ______}, // steel
+    [TYPE_STEEL] =      {______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   ______,   X(0.5),    X(0.5),   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   ______,   X(1.55),   ______}, // steel
 
     [TYPE_MYSTERY] =    {______,   ______,   ______,   ______,   ______,   ______,   ______,     ______,  ______,   ______,   ______,   ______,   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______}, // mystery
 
@@ -390,6 +390,20 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 //made steel beat ghost lore is same reason steel beats fairy
 //Cold iron"[definition needed] is historically believed to repel, contain, or harm ghosts, fairies, witches, and other malevolent supernatural creatures
 //is most likely original reason behind steel resisting dark and ghost originally
+
+//...ok decided remove steel beating ghost keep neutral
+//its a specific metal ghost is weak too specifically iron
+//...oh steel is made from iron
+//I want to be true to logic/lore
+//but I don't think making steel beat ghost is a good type decision
+//I already gave it a fairy weakness and I won't it to be the defensive type
+// and realistically stell is TOO strong
+//initially it resisted dark and ghost and that was removed
+//so I'm already not strictly adhearing to the most logical chart
+
+//steel was prevoiusly best type in game and even now
+//thought of as one of the best but if it got everythig
+//it 'should' get it'd be undeniably the best
 
 //by git chart dark is very low, but dragon is also very low
 //and still a strong type...I think
@@ -704,7 +718,6 @@ static const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e numbe
     TYPE_STEEL, TYPE_ICE, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_STEEL, TYPE_ROCK, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_STEEL, TYPE_FAIRY, TYPE_MUL_SUPER_EFFECTIVE,
-    TYPE_STEEL, TYPE_GHOST, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_STEEL, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_FAIRY, TYPE_NORMAL, TYPE_MUL_SUPER_EFFECTIVE, //fairy can control beasts, mostly just for balance to counter fairy nerfs replace fighting advantage
     TYPE_FAIRY, TYPE_DRAGON, TYPE_MUL_SUPER_EFFECTIVE,
