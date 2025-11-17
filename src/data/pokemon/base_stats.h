@@ -50422,9 +50422,9 @@ const struct BaseStats gBaseStats[] =
         97,
         113,
         109,
-        77,
-        157,
-        127
+        57,
+        147,
+        157
         ),
         MON_TYPES(TYPE_PSYCHIC, TYPE_GHOST),
         .catchRate = 255,
@@ -50447,6 +50447,24 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sNecrozmaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //stat distribution doesn't work
+    //its pretty much completely outshined by just base lunala
+    //honestly don't know what to do with this
+    //dusk mane is the bulky one ultra is the offensive one
+    //so I can't make its offense higher than that
+    //maybe I could shift its hp but since other forms keep constant hp
+    //I can't  even move that too much
+    //ok hp is the same cuz that's necrozma's hp
+    //and its slow cuz necrozma is slow, until that doesnt change
+    //until its in its ultimate form, Ultra
+    //can't tweak ability either since its tied to duskmane and necrozma
+    //think best I can do is swap highest stat to defense
+    //is thankfully no longer quad to dark, but still quad to ghost
+    //checked phsycial ghost moves are near non existent
+    //so guess will just boost its sp def
+    //ok hopefully that does something good,
+    //speed is already below anything it competes against so 
+    //screw it dropped it even more, so actually useful in trick room
 
     [SPECIES_NECROZMA_ULTRA] =
     {
