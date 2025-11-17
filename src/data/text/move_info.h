@@ -74,7 +74,7 @@ const u8 gMoveDescription_MegaDrain[MOVE_DESCRIPTION_LENGTH + 5] = _("A tough at
 const u8 gMoveDescription_LeechSeed[MOVE_DESCRIPTION_LENGTH + 5] = _("A seed is planted\non the foe to steal\nsome HP for the \nuser on every turn.");
 const u8 gMoveDescription_Growth[MOVE_DESCRIPTION_LENGTH + 5] = _("The user's body is\nforced to grow,\nraising its ATK\nand SP. ATK stat.");
 const u8 gMoveDescription_RazorLeaf[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is hit with\na cutting leaf.\nIt has a high\ncritical-hit ratio.");
-const u8 gMoveDescription_SolarBeam[MOVE_DESCRIPTION_LENGTH + 5] = _("A 2-turn move that\nblasts the foe with\nabsorbed energy in\nthe 2nd turn.");
+const u8 gMoveDescription_SolarBeam[MOVE_DESCRIPTION_LENGTH + 5] = _("Charges first, then\nblasts the foe with\nabsorbed energy.\nSkips charge in Sun\nbut loses power\nin other weather.");
 const u8 gMoveDescription_PoisonPowder[MOVE_DESCRIPTION_LENGTH + 5] = _("A cloud of toxic\ndust is scattered.\nIt may poison the\nfoe.");
 const u8 gMoveDescription_StunSpore[MOVE_DESCRIPTION_LENGTH + 5] = _("Paralyzing dust is\nscattered wildly.\nIt may paralyze\nthe foe.");
 const u8 gMoveDescription_SleepPowder[MOVE_DESCRIPTION_LENGTH + 5] = _("A sleep-inducing\ndust is scattered\nin high volume\naround a foe.");
@@ -85,7 +85,7 @@ const u8 gMoveDescription_FireSpin[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is 
 const u8 gMoveDescription_ThunderShock[MOVE_DESCRIPTION_LENGTH + 5] = _("An electric shock\nattack that may\nalso leave the foe\nparalyzed.");
 const u8 gMoveDescription_Thunderbolt[MOVE_DESCRIPTION_LENGTH + 5] = _("A strong electrical\nattack that may\nalso leave the foe\nparalyzed.");
 const u8 gMoveDescription_ThunderWave[MOVE_DESCRIPTION_LENGTH + 5] = _("A weak electric\nshock that is sure\nto cause paralysis\nif it hits.");
-const u8 gMoveDescription_Thunder[MOVE_DESCRIPTION_LENGTH + 5] = _("A brutal lightning\nattack that may\nalso leave the foe\nparalyzed.");
+const u8 gMoveDescription_Thunder[MOVE_DESCRIPTION_LENGTH + 5] = _("A brutal lightning\nattack that may\nalso leave the foe\nparalyzed.\nAcc grows in Rain\nbut falls in Sun.");
 const u8 gMoveDescription_RockThrow[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is attacked\nwith a shower of\nsmall, easily\nthrown rocks.");
 const u8 gMoveDescription_Earthquake[MOVE_DESCRIPTION_LENGTH + 5] = _("An earthquake that\nstrikes all POKéMON\non the field.\nDeals double damage\nto those underground");
 const u8 gMoveDescription_Fissure[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is dropped\ninto a fissure.\nMay OHKO foe if\nSuper effective or\nthey don't resist.");
@@ -360,7 +360,7 @@ const u8 gMoveDescription_PsychoBoost[MOVE_DESCRIPTION_LENGTH + 5] = _("An inten
 
 //NEW values    -   rules for reading space, 19 chars per line,  5 line breaks. read number letters per word, n # of words, then add number of spaces which is n - 1
 const u8 gMoveDescription_Roost[MOVE_DESCRIPTION_LENGTH + 5] = _("Rests on the ground\nrestoring the user's\nhealth by half.\nThen heals a small\namount each turn\nuntil end of effect.");
-const u8 gMoveDescription_Gravity[MOVE_DESCRIPTION_LENGTH + 5] = _("Gravity intensifies\ngrounding POKéMON\nthat float.\nAlso blocks moves\nthat involve flying.");
+const u8 gMoveDescription_Gravity[MOVE_DESCRIPTION_LENGTH + 5] = _("Gravity intensifies\ngrounding POKéMON\nthat float.\nBlocks airborne\nmoves and boosts\nmove acc for 5 turns");
 const u8 gMoveDescription_MiracleEye[MOVE_DESCRIPTION_LENGTH + 5] = _("Makes GHOSTS and\nevasive foes easier\nto hit.");
 const u8 gMoveDescription_WakeupSlap[MOVE_DESCRIPTION_LENGTH + 5] = _("Doubles dmg against\nsleeping foes, but\nalso awakens them.");
 const u8 gMoveDescription_HammerArm[MOVE_DESCRIPTION_LENGTH + 5] = _("Swings down with\na heavy fist\nthat lowers Speed.");
@@ -808,7 +808,7 @@ const u8 gTAIL_SLAP_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Strikes the foe\nwith its tail\n2 to 5 times.");
 
 const u8 gHURRICANE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Traps the foe in\na fierce wind that\nswirls and cuts.\nNever misses if\nused in rain.\nMay cause confusion.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Traps the foe in\na fierce wind that\nswirls and cuts.\nAcc grows in Rain\nbut falls in Sun.\nMay cause confusion.");
 
 const u8 gHEAD_CHARGE_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("A head-first charge\nusing guard hair.\nIt hurts the\nuser a little.");
@@ -1066,7 +1066,7 @@ const u8 gSTRENGTH_SAP_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Saps the foe's\nAttack to heal HP,\nthen drops their\nAttack stat.");
 
 const u8 gSOLAR_BLADE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Charges first turn,\nthen chops with\na blade of light.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Charges first turn,\nthen chops with\na blade of light.\nSkips charge in Sun\nbut loses power\nin other weather.");
 
 const u8 gLEAFAGE_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with a\nflurry of\nsmall leaves.");
@@ -1248,7 +1248,7 @@ const u8 gDYNAMAX_CANNON_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Fires a strong beam.\nDeals 2x damage\nto Dynamaxed foes.\nBut not Eternamaxed.");
 
 const u8 gSNIPE_SHOT_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user ignores\neffects that draw\nin moves.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user ignores\neffects that draw\nin moves.\nIt has a high\ncritical-hit ratio.");
 
 const u8 gJAW_LOCK_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Prevents the user\nand the target\nfrom escaping.");
