@@ -5153,6 +5153,14 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sFeraligatorTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //attempt make mega feraligator, no idea what can really do with it
+    //all I have is more teeth and the spikes on its spine going on its mouth
+    //to even better enhance its biting power
+    //think enhance hand claws with spikes as well
+    //give mega tough claws which would cover cut/slash moves
+    //and bite moves
+    //think do somehting like venom jaw? idk
+    //vsonic
 
     [SPECIES_SENTRET] =
     {
