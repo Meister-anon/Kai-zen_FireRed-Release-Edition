@@ -224,7 +224,7 @@ if it would otherwise be 0/NONE except in the case of ability.
     Flying: Bird type flying for birds or specifically for things that are expert flyers. some qualities can also overlap w dragons
     Water:  Aquatic type  for fish, or aquatic animals/mamals or things made up of the element, some qualities can also overlap w dragons
     Dragon: rulers of land/air/sea apex predators typically with lizard/reptile like qualities
-    Dark: supernatural type typically tricksters or evil or related to things seen as bad/evil
+    Dark: supernatural type typically tricksters or evil or related to things seen as bad/evil - moves are usually unfair or tricky in some way ex puruit thief sucker punch etc.
     Fairy: Magic type  fairy/magical qualities, like dark can also be tricksters, may also have strong relation to nature - looked further GF seems to have paterned them more after pixie-like fae, nature spirits explains why not effective on fire, as its their weakness/destroys their homes
     Poison: Is poisonous in some manner, or otherwise involves trash/waste or contamination/corruption
     Ground: Lives in deserts/underground or has some link to earth element, is distinct from rock.
@@ -3260,7 +3260,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Electrode"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(60, 50, 75, 150, 95, 100),
+         STATS(60, 50, 76, 150, 95, 100),
         MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
         .catchRate = 60,
         .expYield = 172,
@@ -8744,7 +8744,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Swellow"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(70, 100, 60, 125, 75, 50),
+         STATS(70, 95, 60, 125, 75, 50),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 159,
@@ -8755,7 +8755,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
-        .abilities = {ABILITY_GUTS, ABILITY_NONE},
+        .abilities = {ABILITY_GUTS, ABILITY_PRECISE_STRIKE},
         .abilityHidden = {ABILITY_SCRAPPY, ABILITY_STORM_BREAK},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -8765,7 +8765,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSwellowLevelUpLearnset,
         .tmhmLearnset = sSwellowTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//readjusted atk from drayano buffs
+    //gave precise strike as dex entry says it precisely attacks foe from on high
 
     [SPECIES_WINGULL] =
     {
@@ -16126,6 +16127,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSimisageTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //take buffs from x_bell give each monkey fake out and version of u turn
+    //along with a terrain affecting ability i.e rain set sun set grass terrain 
+    //think will put on learned ability don't think want change set abilities
 
     [SPECIES_PANSEAR] =
     {

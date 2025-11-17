@@ -1261,8 +1261,10 @@ static const struct AbilityLearnset sTaillowAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSwellowAbilityLearnset[] = {
+    ABILITY_KEEN_EYE,
     ABILITY_SET_END
 };
+//DEX entry says never misses its prey
 
 static const struct AbilityLearnset sShroomishAbilityLearnset[] = {
     ABILITY_SET_END
@@ -2287,6 +2289,7 @@ static const struct AbilityLearnset sPansageAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSimisageAbilityLearnset[] = {
+    ABILITY_GRASSY_SURGE,
     ABILITY_SET_END
 };
 
@@ -2295,6 +2298,7 @@ static const struct AbilityLearnset sPansearAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSimisearAbilityLearnset[] = {
+    ABILITY_SUN_DISK,
     ABILITY_SET_END
 };
 
@@ -2303,6 +2307,7 @@ static const struct AbilityLearnset sPanpourAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSimipourAbilityLearnset[] = {
+    ABILITY_SQUALL,
     ABILITY_SET_END
 };
 
