@@ -12133,8 +12133,7 @@ void HazardClearNoMessage(u32 battler)
 
 u32 IsFlowerVeilProtected(u32 battler) //prvent stat drop & status change for user & ally
 {
-    if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), battler, GetBattlerAbility(battler), TYPE_GRASS))
-    || GetBattlerAbility(battler) == ABILITY_FLOWER_VEIL)
+    if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), battler, GetBattlerAbility(battler), TYPE_GRASS))
         return IsAbilityOnSide(battler, ABILITY_FLOWER_VEIL); //will return true or false, based on if ability present
     else
         return 0;
