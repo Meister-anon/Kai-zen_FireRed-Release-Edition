@@ -13,3 +13,12 @@ Branch goals:
     especially as plan to make move tutors
     once per day.
     Makes breeding/daycare more worthwhile to invest with too.
+
+    can just take EE egg moves file
+    think use their py script to get learnset into base stat
+    or I can just make my own either or
+
+    see if I can grep the EE tutor stuff to try and get updated
+    tutor move list
+
+    after that just toss onto egg move list and rename file etc.
