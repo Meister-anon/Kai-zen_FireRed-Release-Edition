@@ -12497,6 +12497,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         ////.zMovePower = 175,
         ////.zMoveEffect = Z_EFFECT_NONE,
     },
+    //effects of these 3 storm moves
+    //are supposed to be perfect acc in rain 
+    //worried is too much
+    //vsonic important
 
     [MOVE_LUNAR_BLESSING] =
     {
