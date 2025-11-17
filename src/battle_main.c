@@ -374,7 +374,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_DRAGON] =     {______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,    X(0.0),   ______}, // dragon
 
-    [TYPE_DARK] =       {______,   X(0.5),   ______,   X(0.5),   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(1.55),   X(0.5),   ______}, // dark
+    [TYPE_DARK] =       {______,   X(0.5),   ______,   X(0.5),   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(1.55),   X(0.5),   ______}, // dark
 
     [TYPE_FAIRY] =      {X(1.55),  ______,   ______,   X(0.5),   ______,   ______,   ______,   X(1.55),   X(0.5),   ______,   X(0.5),   ______,   X(0.0),   ______,   X(0.5),   ______,   X(1.55),   X(1.55),   ______,   ______}, // fairy
 
@@ -393,6 +393,17 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
 //by git chart dark is very low, but dragon is also very low
 //and still a strong type...I think
+
+//ok removed bug dark resist to buff back dark type
+//think THAT should be final type chart change
+//losing that doesn't hurt it much as
+//only bug dual types w weakness to dark 
+//is orbettle line as bug 
+//...forgot bout ninjask and other mon made bug/dark
+
+//would like to keep it but poison needs the resist more than bug
+//only affects about 4 mon for bug type anyway
+
 
 //consider reverting dark back to resist itself
 //but think prefer keep weakness to itself
@@ -678,7 +689,6 @@ static const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e numbe
     TYPE_DRAGON, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,    //-ok so I over nerfed fairy to buff other things, am unwillign to remove them so instead will put dragon immunity back, I'm already abiding a resist that doesn't make sense but for balance so whatever
     TYPE_DRAGON, TYPE_FAIRY, TYPE_MUL_NO_EFFECT,    //i can't explain fairy immunity to dragon, other than a pure balance decision, there's no lore that I can find to any relation between them.
     TYPE_DARK, TYPE_FIGHTING, TYPE_MUL_NOT_EFFECTIVE,   //I thought it was a king arthur thing, but he never actually fought a dragon, though he did have protection of fae magic
-    TYPE_DARK, TYPE_BUG, TYPE_MUL_NOT_EFFECTIVE,    //type change from wolveyvgc to buff bugs, its weak to bugs, so resists it, and dark is evil & bugs are associated with heroes through kamen rider so makes sense
     TYPE_DARK, TYPE_GHOST, TYPE_MUL_NOT_EFFECTIVE,  //changed there's nothing significant bout dark, its more or less same as ghost but alive, and ghosts thrive in darkness, change mind use japanese idea ghosts are spirits not evil so dark corrupts them
     TYPE_DARK, TYPE_FAIRY, TYPE_MUL_NOT_EFFECTIVE, //plus dosen't really make sense when you have cursed blades, and haunted blades exist, i.e dark and ghost affecting steel
     TYPE_DARK, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE, //for balane sake decided revert dark/ghost relation ghost was too free, especially when consider steel/ghost combo...  logic darkness is corosion of the spirit for ghost
