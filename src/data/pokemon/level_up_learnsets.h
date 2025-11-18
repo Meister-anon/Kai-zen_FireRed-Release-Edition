@@ -16083,6 +16083,8 @@ static const struct LevelUpMove sGuzzlordLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 //GAVE MORE option to deal w fairy
+//give dark swamp when I set that up
+//its with low defense big issue is lack of recovery
 
 static const struct LevelUpMove sNecrozmaLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_MOONLIGHT),
