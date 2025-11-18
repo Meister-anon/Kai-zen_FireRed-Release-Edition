@@ -13783,8 +13783,8 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sHappinyAbilityLearnset,
         .levelUpLearnset = sHappinyLevelUpLearnset,
         .tmhmLearnset = sHappinyTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_ITEM_HOLD_DAY, ITEM_OVAL_STONE, 0, SPECIES_CHANSEY},
-                                {EVO_ITEM_DAY, ITEM_OVAL_STONE, 0, SPECIES_CHANSEY}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_ITEM_HOLD_DAY, ITEM_OVAL_STONE, FILL, SPECIES_CHANSEY},
+                                {EVO_ITEM_DAY, ITEM_OVAL_STONE, FILL, SPECIES_CHANSEY}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_CHATOT] =
@@ -51615,6 +51615,124 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         
     },
+
+    [SPECIES_BEECADET] =
+    {
+        .speciesName = _("Beecadet"),
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(38, 50, 42, 78, 50, 29),
+        MON_TYPES(TYPE_BUG, TYPE_NORMAL),
+        .catchRate = 120,
+        .expYield = 49,
+        //.evYield_Speed = 1,
+       // #ifdef ITEM_EXPANSION
+            //.itemRare = ITEM_HONEY,
+        // #endif
+        .genderRatio = MON_MALE,
+        .eggCycles = 15,
+        .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroup1 = EGG_GROUP_BUG,
+        .eggGroup2 = EGG_GROUP_BUG,
+        .abilities = {ABILITY_HONEY_GATHER, ABILITY_KLUTZ},
+        .abilityHidden = {ABILITY_HUSTLE, ABILITY_AVIATOR},
+        //.bodyColor = BODY_COLOR_YELLOW,
+        .noFlip = FALSE,
+        .floating = TRUE,
+        .safariZoneFleeRate = 50, //Day flights vs night flights i.e stealth bomb run at night
+        .abilityLearnset = sCombeeAbilityLearnset,
+        .levelUpLearnset = sCombeeLevelUpLearnset,
+        .tmhmLearnset = sCombeeTMHMLearnset,
+        .evolutions = EVOLUTION({EVO_ITEM_DAY, ITEM_METAL_COAT, FILL, SPECIES_BUZZBOY},
+                                {EVO_ITEM_NIGHT, ITEM_METAL_COAT, FILL, SPECIES_BUMBER}), //Should hopefully blank these for now without issue
+    },
+    //BeeCadet  -> BuzzBoy play on flyboy
+    //ability slip stream sets tailwind on entrance
+    //also gives flying type affinity
+
+    //bug flying type evolve w metal coat
+    //into bug steel
+
+    //bee dreams of flying sky high
+    //inspired by aviators
+    //ends up crafting its own plane 
+    //and becoming a flying ace
+
+    //average speed mix attacker
+    //evolves into hyper fast physical focused support mon
+
+    //alt evo Bumber  pun bumble bee and bomber
+    //high sp atk slower bulkier
+    //specializes in ballistic attacks ability boosts them
+
+    [SPECIES_BUZZBOY] =
+    {
+        .speciesName = _("Buzzboy"),
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(70, 115, 98, 120, 50, 80),
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
+        .catchRate = 120,
+        .expYield = 49,
+        //.evYield_Speed = 1,
+       // #ifdef ITEM_EXPANSION
+            //.itemRare = ITEM_HONEY,
+        // #endif
+        .genderRatio = MON_MALE,
+        .eggCycles = 15,
+        .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroup1 = EGG_GROUP_BUG,
+        .eggGroup2 = EGG_GROUP_BUG,
+        .abilities = {ABILITY_HONEY_GATHER, ABILITY_KLUTZ},
+        .abilityHidden = {ABILITY_HUSTLE, ABILITY_NONE},
+        //.bodyColor = BODY_COLOR_YELLOW,
+        .noFlip = FALSE,
+        .floating = TRUE,
+        .safariZoneFleeRate = 50,
+        .abilityLearnset = sCombeeAbilityLearnset,
+        .levelUpLearnset = sCombeeLevelUpLearnset,
+        .tmhmLearnset = sCombeeTMHMLearnset,
+        .evolutions = EVOLUTION({EVO_LEVEL_FEMALE, RELATIVE_EVO(21, AVERAGE_EFFORT), 0, SPECIES_VESPIQUEN}), //Should hopefully blank these for now without issue
+    },//get ability slipstream set tailwin on entrance ++ flying affinity
+    //note super effective ground effect is it broken for affinity check?
+    //double check may have to set explicitly as flying type if not already
+    //checked did indeed have coded specifically for flying type so good
+    //make fly its level up move and setup tailwind fly charge skip
+
+    [SPECIES_BUMBER] =
+    {
+        .speciesName = _("Bumber"),
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(98, 90, 115, 50, 100, 80),
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
+        .catchRate = 120,
+        .expYield = 49,
+        //.evYield_Speed = 1,
+       // #ifdef ITEM_EXPANSION
+            //.itemRare = ITEM_HONEY,
+        // #endif
+        .genderRatio = MON_MALE,
+        .eggCycles = 15,
+        .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroup1 = EGG_GROUP_BUG,
+        .eggGroup2 = EGG_GROUP_BUG,
+        .abilities = {ABILITY_HONEY_GATHER, ABILITY_KLUTZ},
+        .abilityHidden = {ABILITY_HUSTLE, ABILITY_NONE},
+        //.bodyColor = BODY_COLOR_YELLOW,
+        .noFlip = FALSE,
+        .floating = TRUE,
+        .safariZoneFleeRate = 50,
+        .abilityLearnset = sCombeeAbilityLearnset,
+        .levelUpLearnset = sCombeeLevelUpLearnset,
+        .tmhmLearnset = sCombeeTMHMLearnset,
+        .evolutions = EVOLUTION({EVO_LEVEL_FEMALE, RELATIVE_EVO(21, AVERAGE_EFFORT), 0, SPECIES_VESPIQUEN}), //Should hopefully blank these for now without issue
+    },
+    //get ability payload boosts power of ballistic moves
+    //gets moves of them as level up
 
     [SPECIES_FAEDENTIN] =
     {

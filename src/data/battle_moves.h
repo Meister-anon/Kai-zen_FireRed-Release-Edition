@@ -326,6 +326,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     },
     //if take time to aim decide to add high crit
     //with other effects can make bp 80 to be on line with other effects
+    //think add x_bell idea skips executes in single turn
+    //in tail wind?
+    
 
     [MOVE_BIND] =
     {
