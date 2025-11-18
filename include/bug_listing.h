@@ -48,6 +48,9 @@ options for file checking
 #pragma GCC optimize 0      -set optimization level 0 in file
 #pragma GCC reset_options   -clear option back to defualt
 
+think mostly only need reset_options if I'm trying to only optimize
+specific functions not the entire file or rest of file
+
 can set pragma in include or source file
 
 with test at least I've verified the problem ISN'T my custom 
