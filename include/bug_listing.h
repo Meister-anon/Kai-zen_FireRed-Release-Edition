@@ -32,6 +32,22 @@ is what caused my modern code to break.
 possible my code is written in a way so bad
 it just optimizes out things that shouldn't be?
 
+Talked with Sbird this was confirmed smh
+path forward is to use Eggs idea of 
+separating my compile out between agbcc and modern by file/source file .c files
+to identify which file is causing it.
+
+So path forward is to research makefile stuff to learn how to 
+do that.
+
+GudF also has other idea to use __attribute__((optimize()))
+or  #pragma GCC optimize 
+
+according to them would achieve mostly same results but without
+requiring to touch the makeFile, which may be better for me 
+but I should also learn more about Makefile stuff just so I know 
+I'm not screwing things up smh
+
 also massive size diff between builds
 as of yet unable to identify any clue to cause
 
