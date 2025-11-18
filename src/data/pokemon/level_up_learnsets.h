@@ -3848,6 +3848,7 @@ static const struct LevelUpMove sScizorLevelUpLearnset[] = {
 //gets dual wingbeat gen 9
 
 static const struct LevelUpMove sShuckleLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(1, MOVE_STRENGTH_SAP),
     LEVEL_UP_MOVE(1, MOVE_CONSTRICT),
     LEVEL_UP_MOVE(1, MOVE_WITHDRAW),
     LEVEL_UP_MOVE(9, MOVE_WRAP),
@@ -3860,8 +3861,11 @@ static const struct LevelUpMove sShuckleLevelUpLearnset[] = {
     LEVEL_UP_MOVE(42, MOVE_STUFF_CHEEKS),
     LEVEL_UP_END
 };
+//guess give strength sap? is around sap/juice
 //give pokerogue changes body press - HELLLLL NO, I did not understand what this did o.0
 //stuff cheeks 
+//weird niche but w strength sap recovery it can be perfect bide mon
+//potentially making it as scary as wobuffet
 
 static const struct LevelUpMove sHeracrossLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
