@@ -43,6 +43,16 @@ do that.
 GudF also has other idea to use __attribute__((optimize()))
 or  #pragma GCC optimize 
 
+options for file checking
+
+#pragma GCC optimize 0      -set optimization level 0 in file
+#pragma GCC reset_options   -clear option back to defualt
+
+can set pragma in include or source file
+
+with test at least I've verified the problem ISN'T my custom 
+graphics file thankfully.
+
 according to them would achieve mostly same results but without
 requiring to touch the makeFile, which may be better for me 
 but I should also learn more about Makefile stuff just so I know 
