@@ -5845,17 +5845,17 @@ static const u16 sForbiddenHoldEffects[] =
 //based on battle_main, function  loops through every battler
 //from fastest to slowest, checking for abilities in the order they appear here.
 //so for example  even if drought is after drizzle, if the drought mon was faster, drizzle would come after
-u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 moveArg) //still to update
+u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 moveArg) //still to update
 {
     u8 effect = 0;
     struct Pokemon *pokeAtk;
     struct Pokemon *pokeDef;
-    u16 speciesAtk;
-    u16 speciesDef;
-    u32 pidAtk;
-    u32 pidDef;
-    u16 value;
-    u8 side; //put back here, set in individual cases
+    u16 speciesAtk =  0;
+    u16 speciesDef =  0;
+    u32 pidAtk =  0;
+    u32 pidDef =  0;
+    u16 value =  0;
+    u32 side = 0; //put back here, set in individual cases
 
     if (gBattlerAttacker >= gBattlersCount)
         gBattlerAttacker = battler;
@@ -5876,12 +5876,12 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
     if (!(gBattleTypeFlags & BATTLE_TYPE_SAFARI)) // Why isn't that check done at the beginning?
     {
         u8 moveType;//, move; //why the heck did I use move as a u8 -_-  that's what broke anticipation it couldnt properly store moves above value 255
-        s32 i, j;
+        s32 i, j = 0;
         
-        u8 target1;
+        u8 target1 = 0;
 
         //Pickup variables needed put above switch start
-        u16 PickUpItem, heldItem;
+        u16 PickUpItem, heldItem = 0;
         //u8 weatherEnum; //for forecast  replaced w struct constant
 
         if (special)

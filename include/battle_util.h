@@ -113,7 +113,7 @@ bool8 IsFloatingTargetImmunetoGroundMoves(u8 battler_atk, u8 battler_def, u16 mo
 bool8 HasNoMonsToSwitch(u8 battler, u8 partyIdBattlerOn1, u8 partyIdBattlerOn2);
 bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility);
 u8 CastformDataTypeChange(u8 battler);
-u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 moveArg);
+u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 moveArg);
 void BattleScriptExecute(const u8 *BS_ptr);
 void BattleScriptPushCursorAndCallback(const u8 *BS_ptr);
 u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn);
