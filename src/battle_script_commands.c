@@ -4594,6 +4594,20 @@ void SetMoveEffect(bool32 primary, u32 certain)
     bool32 mirrorArmorReflected = ((GetBattlerAbility(gBattlerTarget) == ABILITY_MIRROR_ARMOR) || (GetBattlerAbility(gBattlerTarget) == ABILITY_EMPATH));
     bool8 activateAfterFaint = FALSE;
 
+    // NULL move effect
+    if (gBattleScripting.moveEffect == 0)
+        return;
+
+    /*
+        if (gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_1ST_HIT
+        && IsBattlerAlive(gBattlerTarget)
+        && IsFinalStrikeEffect(gBattleScripting.moveEffect))
+    {
+        gBattlescriptCurrInstr++;
+        return;
+    }
+    */
+
     switch (gBattleScripting.moveEffect) // Set move effects which happen later on
     {//ported but don't know why need, knock off works without moveeffect2 by default? -its a change for modern item effects, to make sure effects trigger after item effect
     case MOVE_EFFECT_KNOCK_OFF:
