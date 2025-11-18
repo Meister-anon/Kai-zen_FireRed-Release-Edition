@@ -56,6 +56,10 @@ can set pragma in include or source file
 with test at least I've verified the problem ISN'T my custom 
 graphics file thankfully.
 
+ok went quickly was able to identify the problem
+is my SetMoveEffect function, no idea how to more specifically 
+track where and what yet, but its there.
+
 according to them would achieve mostly same results but without
 requiring to touch the makeFile, which may be better for me 
 but I should also learn more about Makefile stuff just so I know 
