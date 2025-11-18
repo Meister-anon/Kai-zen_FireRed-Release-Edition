@@ -23,4 +23,44 @@ see if that fixes issue.
 tracked issue...its part of the agbcc vs modern issue *facepalm
 idk why it is but it is, so need go over sym file and fix rest of 
 different size values
+
+-apparently not the case talked with egg
+and mention of -O flag (optimization) came up
+turning that off for a reason I've yet to be informed of
+is what caused my modern code to break.
+
+possible my code is written in a way so bad
+it just optimizes out things that shouldn't be?
+
+also massive size diff between builds
+as of yet unable to identify any clue to cause
+
+agbcc
+
+Memory region         Used Size  Region Size  %age Used
+           EWRAM:      256681 B       256 KB     97.92%
+           IWRAM:       28248 B        32 KB     86.21%
+             ROM:    22340664 B        32 MB     66.58%
+
+modern
+
+Memory region         Used Size  Region Size  %age Used
+           EWRAM:      256710 B       256 KB     97.93%
+           IWRAM:       27864 B        32 KB     85.03%
+             ROM:    22377452 B        32 MB     66.69%
+
+
+comparing pret to see if diff between make and modern make
+
+agbcc fire red
+Memory region         Used Size  Region Size  %age Used
+           EWRAM:      261040 B       256 KB     99.58%
+           IWRAM:       29824 B        32 KB     91.02%
+             ROM:    15403808 B        32 MB     45.91%
+
+modern fire red
+Memory region         Used Size  Region Size  %age Used
+           EWRAM:      259182 B       256 KB     98.87%
+           IWRAM:       29276 B        32 KB     89.34%
+             ROM:     9357889 B        32 MB     27.89%
 */
