@@ -14372,12 +14372,11 @@ bool8 CanActivateForewarnAnticipation(u8 battler)
     {
         if (gBattleStruct->usedSingleUseAbility[i][side] == ABILITY_ANTICIPATION
         || gBattleStruct->usedSingleUseAbility[i][side] == ABILITY_FOREWARN)
-            return FALSE;
             break;
     }
 
-    if (i == PARTY_SIZE)
-        return TRUE;
+    return (i == PARTY_SIZE);
+
 }
 
 //syntax gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPEED;
