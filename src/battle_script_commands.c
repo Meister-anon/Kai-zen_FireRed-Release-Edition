@@ -4616,7 +4616,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
     {
         gEffectBattler = gBattlerAttacker; // battlerId that effects get applied on
         gBattleScripting.moveEffect &= ~(MOVE_EFFECT_AFFECTS_USER); //looked into contact move multihit bug I think this is the cause, it swaps targetting around
-        affectsUser = MOVE_EFFECT_AFFECTS_USER; //and remove affects user when move effect/ability would be triggered but can reactivate before moveend/turnend
+        //affectsUser = MOVE_EFFECT_AFFECTS_USER; //and remove affects user when move effect/ability would be triggered but can reactivate before moveend/turnend
         gBattleScripting.battler = gBattlerTarget; // theoretically the attacker
     }//so success condition is,  2 bytes? so can fit higher values/more move effects, and can filter/set affect user and effect certain to true non zero values
     else
