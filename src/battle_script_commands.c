@@ -4594,9 +4594,6 @@ void SetMoveEffect(bool32 primary, u32 certain)
     bool32 mirrorArmorReflected = ((GetBattlerAbility(gBattlerTarget) == ABILITY_MIRROR_ARMOR) || (GetBattlerAbility(gBattlerTarget) == ABILITY_EMPATH));
     bool8 activateAfterFaint = FALSE;
 
-    // NULL move effect
-    if (gBattleScripting.moveEffect == 0)
-        return;
 
     /*
         if (gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_1ST_HIT
@@ -5069,11 +5066,9 @@ void SetMoveEffect(bool32 primary, u32 certain)
         }
         else if (statusChanged == FALSE)
         {
-            gBattleScripting.moveEffect = 0;
-            gBattlescriptCurrInstr++;
-            return;
+            ++gBattlescriptCurrInstr;
         }
-        return;//these 3 returns values and reset not in firered ported unsure of effect
+        return;
 
     }   //end case move effects less than 6 i.e toxic and below, ok this is potentially what it means by primary, its all status1 stuff
     else
