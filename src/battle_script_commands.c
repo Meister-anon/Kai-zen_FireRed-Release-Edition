@@ -5064,12 +5064,17 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 gHitMarker |= HITMARKER_SYNCHRONIZE_EFFECT;
              }//Think adding stat drop copy shoud be simple as  copying and putting in the right place, right here is just for status1
             //nvm realized this really is a mirror armor copy so just use that logic
+        
+            return;
         }
         else if (statusChanged == FALSE)
         {
-            ++gBattlescriptCurrInstr;
+            gBattleScripting.moveEffect = 0;
+            gBattlescriptCurrInstr++;
+            return;
         }
-        return;
+        return;//these 3 returns values and reset not in firered ported unsure of effect
+
     }   //end case move effects less than 6 i.e toxic and below, ok this is potentially what it means by primary, its all status1 stuff
     else
     {       //think this means if status set is the same as the one being attempted to be set, skip to next battle string. i.e can't confuse if already confused?
