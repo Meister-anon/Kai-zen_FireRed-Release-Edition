@@ -2084,7 +2084,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Poliwrath"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(100, 105, 105, 70, 70, 90),
+         STATS(90, 105, 105, 70, 50, 90),
         MON_TYPES(TYPE_WATER, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 230,
