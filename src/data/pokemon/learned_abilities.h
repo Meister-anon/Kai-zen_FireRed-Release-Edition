@@ -307,10 +307,12 @@ static const struct AbilityLearnset sMachopAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMachokeAbilityLearnset[] = {
+    ABILITY_NO_GUARD,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sMachampAbilityLearnset[] = {
+    ABILITY_NO_GUARD,
     ABILITY_SET_END
 };
 
