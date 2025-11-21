@@ -237,6 +237,8 @@ bool8 CanActivateExpNull(void);
 
 bool8 IsBattlerUnderProtectEffect(u8 battler);
 bool32 IsGuardModeBannedEffect(u16 moveEffect);
+bool32 EffectIgnoresGuardMode(u32 Atkbattler);
+bool32 CanActivateGuardMode(u32 battler, u16 move);
 
 //cacophony based functions - also affects perish song, bypasses walls and protection
 //and sets sleep and confusion effects to max duration on status set

@@ -97,7 +97,7 @@ static const u8 sQuickFeetDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups S
 static const u8 sNormalizeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("PKMN exudes a completely average aura.\nAll moves become True Normal.");
 static const u8 sSniperDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts critical hits.");
 static const u8 sMagicGuardDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Only damaged by attacks\nand ignores indirect damage.");
-static const u8 sNoGuardDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ensures that all moves used by\nand against the user hit.");
+static const u8 sNoGuardDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Can't guard but bypasses foe guard mode.\nAll attacks used by/against the user hit.");
 static const u8 sStallDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Damaging moves go last sans Trick Room.\nIt bides its time to greatly boost power.");//think change make only affect dmging moves? need extra descriptives as people want expect it or be expected to test
 static const u8 sTechnicianDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts weaker moves.");
 static const u8 sLeafGuardDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents stat drop by hiding in leaves.\nAlso blocks status problems in sunshine.");
@@ -724,6 +724,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_RESOLUTE] = COMPOUND_ABILITY_STRING("Changes form if suffering from status\nor if HP falls to or below half Max HP."),
     [ABILITY_PIERCING_HORN] = COMPOUND_ABILITY_STRING("Boosts headbutt moves.\nAttacks foes with sharpened horns."),
     [ABILITY_X_SIGHT] = COMPOUND_ABILITY_STRING("X-ray Vision reveals battlers held items\nand bypasses Acc check when above 50% hp."),
+    [ABILITY_SECRET_ARTS] = COMPOUND_ABILITY_STRING("Ignores target guard mode. Contact moves\nbelow 75 power also evade protection.")
 
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
@@ -1151,5 +1152,6 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_RESOLUTE] = _("Resolute"),
     [ABILITY_PIERCING_HORN] = _("Piercing Horn"),
     [ABILITY_X_SIGHT] = _("X Sight"),
+    [ABILITY_SECRET_ARTS] = _("Secret Arts"),
 
 };//can have comma

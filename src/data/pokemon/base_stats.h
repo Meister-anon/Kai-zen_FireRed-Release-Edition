@@ -29039,7 +29039,7 @@ const struct BaseStats gBaseStats[] =
         70,
         60
         ),
-        MON_TYPES(TYPE_NORMAL, TYPE_FIGHTING),
+        MON_TYPES(TYPE_NORMAL, TYPE_FIGHTING),//potentially set back to mono fighting
         .catchRate = 45,
         .expYield = 165,
         //.evYield_Attack = 2,
@@ -29050,7 +29050,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_MINERAL,
-        .abilities = {ABILITY_BATTLE_ARMOR, ABILITY_NONE},
+        .abilities = {ABILITY_BATTLE_ARMOR, ABILITY_NO_GUARD},
         .abilityHidden = {ABILITY_DEFIANT, ABILITY_MULTI_TASK}, //look into if skill link is viable option idea from wooper
         .bodyColor = BODY_COLOR_YELLOW,//only really useful for rock blast multi task is prob better
         .noFlip = FALSE,
@@ -29848,7 +29848,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_UNSEEN_FIST, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_NO_GUARD, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -51023,7 +51023,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_UNSEEN_FIST, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_NO_GUARD, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,

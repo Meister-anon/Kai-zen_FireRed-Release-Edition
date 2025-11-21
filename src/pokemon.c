@@ -6561,8 +6561,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     } //end of special effects
 
     //ok I THINK this may be all I need
-    if (gProtectStructs[battlerIdAtk].GuardModeOn
+    //updated - could just use ability check but 
+    //added extra protection
+    //main point of protect struct is for graphic
+    if ((gProtectStructs[battlerIdAtk].GuardModeOn
     || gProtectStructs[battlerIdDef].GuardModeOn)
+    && !EffectIgnoresGuardMode(battlerIdAtk))
         damage /= 2;
 
 

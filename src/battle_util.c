@@ -11754,6 +11754,42 @@ bool32 IsGuardModeBannedEffect(u16 moveEffect)
 //would force more thinking rather than just simply, guard with both
 //mon first turn for easy setup
 
+//will be in move selection to decide whether able to select guard mode
+//will also be needed for ai calcs, hmm think need make move an argument then
+//that way ai can loop it
+//idea boost no guard, can't activate guard mode
+//but all attacks are able to hit through enemy guard
+//should give no guard a worthwhile benefical effect
+//over just not missing, especially in an environment
+//where I've boosted acc
+bool32 CanActivateGuardMode(u32 battler, u16 move)
+{
+    u16 MoveEffect = GetMoveEffect(move);
+    //need check moveId/planned use move with banned effects
+    if (GetBattlerAbility(battler) == ABILITY_NO_GUARD)
+        return FALSE;
+
+    if (IsGuardModeBannedEffect(MoveEffect))
+        return FALSE;
+
+    return TRUE;
+}
+
+//right now just ability affects that ignore guard mode
+//no guard and idea for new mega greninja
+//may include move effects? maybe not
+//think best that this doesn't just get
+//wholes in mechanic
+bool32 EffectIgnoresGuardMode(u32 Atkbattler)
+{
+    u16 atkAbility = GetBattlerAbility(Atkbattler);
+
+    if (atkAbility == ABILITY_NO_GUARD || atkAbility == ABILITY_SECRET_ARTS)
+        return TRUE;
+
+    return FALSE;
+}
+
 //I THINK I want original dragon's ability 
 //to be able to be supressed
 //but rks system and multi type can't so...
