@@ -59,7 +59,6 @@ for line in lines:
             Printed = False
         
         if re.compile(r'.validApprenticeMove').search(line) or re.compile(r'    \},').search(line):
-            #add2List = False
             Printed = True
 
         #since conditionals executed in sequence think should be fine
@@ -71,32 +70,6 @@ for line in lines:
                 moveFlags.append(flagList)
                 add2List = False
 
-            
-
-            
-            
-                
-            #data.update({str(moveId) : line})
-                #x = data.values()
-                #print(x)
-                #this still doesn't work for what I need smh
-                #dictionary stores memory apparently so 
-                #clearing the array removes what was in the dictionary
-                #moveFlags.clear()
-        
-            #needed extra protection for state as 
-            #not everything has apprentice move
-            #if re.compile(r'\},').search(line):
-            #    add2List = False
-            
-            #if add2List == False:
-            #    data.update({str(moveId) : moveFlags})
-                #attempt to clear list for next cycle
-                #so entire list only holds flags for present move
-                #ok this isn't what I need del array completely undefines it
-                #when I simply need to clear it...exact command actually called clear
-                #was ONE bloody line below what I read
-            #    moveFlags.clear()
 
         previous_line = line
 
