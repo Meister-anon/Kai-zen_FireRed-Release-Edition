@@ -24,40 +24,115 @@ appears I may need to make a dictionary to properly line up file
 
 import re
 
+data = {} #forgot need this global
+
 infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/moves_info.h', 'r')
 lines = infile.readlines()
-newId = re.compile(r'\[MOVE_(\w+?)\]')
-reg = re.compile(r'.category')
-species = None
-run = False 'set true after reach line where move struct starts'
+newId = re.compile(r'(\[MOVE_\w+?\])')
+
+add2List = False #if encounter .category set to true start appending, set false on .valid
+run = False #'set true after reach line where move struct starts'
 Printed = False
-previous_line = None 'since want store after .category use when previous line matches'
+previous_line = False #'since want store after .category use when previous line matches'
+
+'''
+ok understand now need both of these to be array
+then use zip at end to organize them into key pairs
+so I need a list of names and a list of flags lists
+'''
 moveFlags = []
-mon = []
-size = []
-Yset = []
+moveId = [] 
+
+ #use above arrays to create dictionary format SizeDict = dict(zip(moveId, moveFlags))
+
 for line in lines:
-    if re.compile(r'gMovesInfo').search(line)
+    if re.compile(r'gMovesInfo').search(line):
         run = True
     
-    if run == True
-        if m := reg.match(line):
-            #mon.append(reg)
-            species = m.group(1).replace('_', ' ').title().replace(' ', '')
-        if species:
-            if re.compile(r'.abilityLearnset = NULL').search(line):
-            #for x in exceptions:
-            #    if species == x[0]:
-            #        species = x[1]
-                line = line.replace(r'NULL', 's'+species+'AbilityLearnset')
-                print(line)
-            #size.append(r'\.size = (\w)')
-            #Yset.append(r'\.y_offset = (\w)')
-            #line = line.replace(r'//FRONT_PIC\(Arceus\w+?\)', 'FRONT_PIC\(Arceus\)')
+    if run == True:
+        if a := newId.search(line):
+            flagList = []
+            moveId.append(a.group(1))
+            
+        if re.compile(r'.category').search(str(previous_line)):
+            add2List = True
+            Printed = False
         
-        moveFlags.append(line)
+        if re.compile(r'.validApprenticeMove').search(line) or re.compile(r'    \},').search(line):
+            #add2List = False
+            Printed = True
+
+        #since conditionals executed in sequence think should be fine
+        if add2List == True:
+            
+            if Printed == False:
+                flagList.append(line)
+            if Printed == True:
+                moveFlags.append(flagList)
+                add2List = False
+
+            
+
+            
+            
+                
+            #data.update({str(moveId) : line})
+                #x = data.values()
+                #print(x)
+                #this still doesn't work for what I need smh
+                #dictionary stores memory apparently so 
+                #clearing the array removes what was in the dictionary
+                #moveFlags.clear()
+        
+            #needed extra protection for state as 
+            #not everything has apprentice move
+            #if re.compile(r'\},').search(line):
+            #    add2List = False
+            
+            #if add2List == False:
+            #    data.update({str(moveId) : moveFlags})
+                #attempt to clear list for next cycle
+                #so entire list only holds flags for present move
+                #ok this isn't what I need del array completely undefines it
+                #when I simply need to clear it...exact command actually called clear
+                #was ONE bloody line below what I read
+            #    moveFlags.clear()
+
+        previous_line = line
+
+'''
+#for the most part works
+#but seems gets out of order at some point?
+#allthe move flags are in, but at some point
+started printing from one move id back?
+found problem my expression isn't catching every move id...
+wrong,issue condition setting Printed True (reset condition)
+is being triggered when it shouldn't luckily only a single line
+in move make it rains additional effects
+
+seems simple fix just shift white space so doesn't trigger filter
+when I print to fill will need to revert that to make it look nice
+...nope that did nothing
+'''
+data = dict(zip(moveId, moveFlags))
+#x = data.keys()
+#print(x)
+x = data.values()
+print(x)
+#print(data)
 infile.close()
+
+'''
+read battle_moves file 
+look for matches to move id 
+to then look for previous line .split
+if found add move flags to line 
+or maybe instead if current line matches .split
+do a line sub where I keep current line
+then do a new line and add in the move flags from array
+yeah that's better
 
 outfile = open('/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon_graphics/front_pic_coordinates.h', 'w')
 outfile.writelines(new_lines)
 outfile.close()
+'''
