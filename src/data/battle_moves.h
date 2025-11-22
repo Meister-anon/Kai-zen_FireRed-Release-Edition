@@ -9696,11 +9696,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_WATER_SHURIKEN] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_7
-            .split = SPLIT_SPECIAL,
-        #else
-            .split = SPLIT_PHYSICAL,
-        #endif
         .effect = EFFECT_MULTI_HIT,
         .power = 15,
         .type = TYPE_WATER,
@@ -9710,6 +9705,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .split = SPLIT_PHYSICAL,
     },
 
     [MOVE_MYSTICAL_FIRE] =

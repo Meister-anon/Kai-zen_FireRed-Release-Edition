@@ -19194,7 +19194,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .mirrorMoveBanned = TRUE,
         .metronomeBanned = TRUE,
         .battleAnimScript = gBattleAnimMove_PowerShift,
-},
+    },
 
     [MOVE_STONE_AXE] =
     {

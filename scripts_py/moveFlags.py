@@ -86,12 +86,15 @@ in move make it rains additional effects
 seems simple fix just shift white space so doesn't trigger filter
 when I print to fill will need to revert that to make it look nice
 ...nope that did nothing
+ok believe found problem wasn't a script error was a file error
+one of the moves had the end bracket with bad white space
+yup that did it
 '''
 data = dict(zip(moveId, moveFlags))
 #x = data.keys()
 #print(x)
-x = data.values()
-print(x)
+#x = data.values()
+#print(x)
 #print(data)
 infile.close()
 
@@ -105,7 +108,17 @@ do a line sub where I keep current line
 then do a new line and add in the move flags from array
 yeah that's better
 
-outfile = open('/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon_graphics/front_pic_coordinates.h', 'w')
+ok here will just read file and do line sub with dict values
+and update file
+will put new flags after line w .split
+so line sub on line w .split
+put .split rest of line \n dict value for move id
+
+infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/battle_moves.h', 'r')
+lines = infile.readlines()
+outfile.close()
+
+outfile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/battle_moves.h', 'w')
 outfile.writelines(new_lines)
 outfile.close()
 '''
