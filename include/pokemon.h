@@ -525,8 +525,8 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_RECKLESS_BOOST         (1 << 7)
 #define FLAG_IRON_FIST_BOOST        (1 << 8)    //1 byte
 #define FLAG_SHEER_FORCE_BOOST      (1 << 9)
-#define FLAG_STRONG_JAW_BOOST       (1 << 10)
-#define FLAG_MEGA_LAUNCHER_BOOST    (1 << 11)
+#define FLAG_STRONG_JAW_BOOST       (1 << 10) //biting
+#define FLAG_MEGA_LAUNCHER_BOOST    (1 << 11) //pulse move
 #define FLAG_EVASIVE_BREAK          (1 << 12)   //reworked minimize effect //sure hit if evasion stage boosted and ignore other boosted evasion effects
 #define FLAG_DMG_2X_UNDERGROUND     (1 << 13)
 #define FLAG_DMG_2X_UNDERWATER      (1 << 14)
