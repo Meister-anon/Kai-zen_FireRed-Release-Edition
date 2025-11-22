@@ -40154,7 +40154,7 @@ const struct BaseStats gBaseStats[] =
         70,
         120
         ),
-        MON_TYPES(TYPE_DRAGON, TYPE_DARK),
+        MON_TYPES(TYPE_WATER, TYPE_DARK), //after lockstin vid realized can't be dragon type
         .catchRate = 45,
         .expYield = 224,
         //.evYield_Attack = 2,
@@ -40182,6 +40182,8 @@ const struct BaseStats gBaseStats[] =
     //but even with now hitting ghost & steel for neutral bu has so many resists
     //yeah can't do it, while would like to, too many of the best mon are dragons,
     //making bug resisted by dragon would automatically ensure it couldn't compete
+    //DRAGON type is specifically for western dragons while gyarados represents
+    //the asian style of dragons
 
     [SPECIES_AERODACTYL_MEGA] =
     {
