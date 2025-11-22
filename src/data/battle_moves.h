@@ -80,6 +80,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .metronomeBanned = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .sketchBanned = TRUE,
+        .assistBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_None,
     },
 
     [MOVE_POUND] =
@@ -94,6 +99,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_POUND,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Pound,
     },
 
     [MOVE_KARATE_CHOP] =
@@ -108,6 +119,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        //.battleAnimScript = gBattleAnimMove_KarateChop,
     },
 
     [MOVE_DOUBLE_SLAP] =
@@ -122,6 +139,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_POUND},
+        //.battleAnimScript = gBattleAnimMove_DoubleSlap,
     },
 
     [MOVE_COMET_PUNCH] =
@@ -136,6 +159,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_CometPunch,
     }, //gave priority
 
     [MOVE_MEGA_PUNCH] =
@@ -150,6 +180,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_MIND_READER},
+        //.battleAnimScript = gBattleAnimMove_MegaPunch,
     },
 
     [MOVE_PAY_DAY] =
@@ -164,6 +201,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PAYDAY,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PayDay,
     },
 
     [MOVE_FIRE_PUNCH] =
@@ -178,6 +223,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_FIRE_PUNCH,
+        //.contestComboMoves = {COMBO_STARTER_ICE_PUNCH, COMBO_STARTER_SUNNY_DAY, COMBO_STARTER_THUNDER_PUNCH},
+        //.battleAnimScript = gBattleAnimMove_FirePunch,
     },
 
     [MOVE_ICE_PUNCH] =
@@ -192,6 +248,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_ICE_PUNCH,
+        //.contestComboMoves = {COMBO_STARTER_FIRE_PUNCH, COMBO_STARTER_THUNDER_PUNCH},
+        //.battleAnimScript = gBattleAnimMove_IcePunch,
     },
 
     [MOVE_THUNDER_PUNCH] =
@@ -206,6 +273,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_THUNDER_PUNCH,
+        //.contestComboMoves = {COMBO_STARTER_CHARGE, COMBO_STARTER_FIRE_PUNCH, COMBO_STARTER_ICE_PUNCH},
+        //.battleAnimScript = gBattleAnimMove_ThunderPunch,
     },
 
     [MOVE_SCRATCH] =
@@ -220,6 +298,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_SCRATCH,
+        //.contestComboMoves = {COMBO_STARTER_LEER},
+        //.battleAnimScript = gBattleAnimMove_Scratch,
     },
 
     [MOVE_VICE_GRIP] =
@@ -248,6 +332,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -5,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_VICE_GRIP},
+        //.battleAnimScript = gBattleAnimMove_Guillotine,
     },
 
     [MOVE_RAZOR_WIND] =
@@ -262,6 +352,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .windMove = B_EXTRAPOLATED_MOVE_FLAGS,
+        .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNWHIPPEDWHIRLWIND },
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RazorWind,
         .argument = TYPE_FLYING,
     },
     //think will give to more flying types
@@ -282,6 +381,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_DANCE,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .danceMove = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_SWORDS_DANCE,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SwordsDance,
     },
 
     [MOVE_CUT] =
@@ -296,6 +403,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Cut,
         .argument = TYPE_GRASS,
         .argumentEffectChance = 30,
     }, //make effect easy to adjust, change command  to read type to effct from argument, and dmg multiplier from gbattlemovedmg * argumetn chance/ 10
@@ -312,6 +426,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_2X_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
+        .damagesAirborneDoubleDamage = TRUE,
+        .windMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Gust,
     }, //blunt wind damage
 
     [MOVE_WING_ATTACK] =
@@ -326,6 +447,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_WingAttack,
     },
     //turn into precision attack
 
@@ -349,6 +476,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = -6,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .windMove = TRUE,
+        .ignoresProtect = B_UPDATED_MOVE_FLAGS >= GEN_6,
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Whirlwind,
     },
 
     [MOVE_FLY] =
@@ -367,6 +506,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .gravityBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNFLEWHIGH, .status = STATE_ON_AIR },
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Fly,
     },
     //if take time to aim decide to add high crit
     //with other effects can make bp 80 to be on line with other effects
@@ -387,6 +537,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_WRAP,
+            .multistring.wrapped = B_MSG_WRAPPED_BIND,
+        }),
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_VICE_GRIP},
+        //.battleAnimScript = gBattleAnimMove_Bind,
     }, //idae from bug, but making this do encore so attack and enemy cant change moves while trapped
 
     [MOVE_SLAM] =
@@ -401,6 +561,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_POUND},
+        //.battleAnimScript = gBattleAnimMove_Slam,
     },
 
     [MOVE_VINE_WHIP] =
@@ -423,6 +589,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH},
+        //.battleAnimScript = gBattleAnimMove_VineWhip,
     },//leafage pretty much takes teh job of his,
     //but can make unique if I change it to a flinch hit?
     //believe would be pretty much only grass move that has that effect
@@ -439,6 +611,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_EVASIVE_BREAK | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .minimizeDoubleDamage = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_LEER},
+        //.battleAnimScript = gBattleAnimMove_Stomp,
     },
 
     [MOVE_DOUBLE_KICK] =
@@ -453,6 +636,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .strikeCount = 2,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DoubleKick,
     },
 
     [MOVE_MEGA_KICK] =
@@ -467,6 +657,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_MIND_READER},
+        //.battleAnimScript = gBattleAnimMove_MegaKick,
     },
 
     [MOVE_JUMP_KICK] =
@@ -489,6 +685,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_RECKLESS_BOOST | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .recoilMove = TRUE,
+        .gravityBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_MIND_READER},
+        //.battleAnimScript = gBattleAnimMove_JumpKick,
     },
 
     [MOVE_ROLLING_KICK] =
@@ -504,6 +708,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RollingKick,
     },
     //think move isn't bad but barely any mon get it
     //machop only by breeding,
@@ -522,6 +736,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_EVSN_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_SAND_ATTACK,
+        //.contestComboMoves = {COMBO_STARTER_MUD_SLAP, COMBO_STARTER_SANDSTORM},
+        //.battleAnimScript = gBattleAnimMove_SandAttack,
     },
 
     [MOVE_HEADBUTT] =
@@ -536,6 +757,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_HEADBUTT_MOVE,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        //.battleAnimScript = gBattleAnimMove_Headbutt,
     },
 
     [MOVE_HORN_ATTACK] =
@@ -550,6 +781,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HEADBUTT_MOVE,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_HORN_ATTACK,
+        //.contestComboMoves = {COMBO_STARTER_LEER},
+        //.battleAnimScript = gBattleAnimMove_HornAttack,
     },
 
     [MOVE_FURY_ATTACK] =
@@ -564,6 +801,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_HEADBUTT_MOVE,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HORN_ATTACK, COMBO_STARTER_PECK},
+        //.battleAnimScript = gBattleAnimMove_FuryAttack,
     },//since hit is with horn or beak i.e head
 
     [MOVE_HORN_DRILL] =
@@ -578,6 +821,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -5,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HORN_ATTACK},
+        //.battleAnimScript = gBattleAnimMove_HornDrill,
     },
 
     [MOVE_TACKLE] =
@@ -600,6 +849,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_DEFENSE_CURL, COMBO_STARTER_HARDEN, COMBO_STARTER_LEER},
+        //.battleAnimScript = gBattleAnimMove_Tackle,
     },
 
     [MOVE_BODY_SLAM] =
@@ -618,6 +873,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .minimizeDoubleDamage = B_UPDATED_MOVE_FLAGS >= GEN_6,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BodySlam,
     },
 
     [MOVE_WRAP] =
@@ -636,6 +902,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_WRAP,
+            .multistring.wrapped = B_MSG_WRAPPED_WRAP,
+        }),
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Wrap,
     },
 
     [MOVE_TAKE_DOWN] =
@@ -650,6 +926,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .argument = { .recoilPercentage = 25 },
+        .makesContact = TRUE,
+        .recoilMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_HARDEN},
+        //.battleAnimScript = gBattleAnimMove_TakeDown,
     },
 
     [MOVE_THRASH] =
@@ -669,6 +953,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .instructBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_THRASH,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAGE},
+        //.battleAnimScript = gBattleAnimMove_Thrash,
     },
 
     [MOVE_DOUBLE_EDGE] =
@@ -683,6 +978,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .argument = { .recoilPercentage = 33 },
+        .makesContact = TRUE,
+        .recoilMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_HARDEN},
+        //.battleAnimScript = gBattleAnimMove_DoubleEdge,
     },
 
     [MOVE_TAIL_WHIP] =
@@ -697,6 +1000,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARM},
+        //.battleAnimScript = gBattleAnimMove_TailWhip,
     },
 
     [MOVE_POISON_STING] =
@@ -711,6 +1021,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PoisonSting,
     },
 
     [MOVE_TWINEEDLE] =
@@ -725,6 +1044,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .strikeCount = 2,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Twineedle,
         .argument = MOVE_EFFECT_INFESTATION,
         .argumentEffectChance = 10,
     },
@@ -746,6 +1075,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PinMissile,
         .argument = MOVE_EFFECT_INFESTATION,
     },
 
@@ -761,6 +1095,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_LEER,
+        //.contestComboMoves = {COMBO_STARTER_RAGE, COMBO_STARTER_SCARY_FACE},
+        //.battleAnimScript = gBattleAnimMove_Leer,
     },
 
     [MOVE_BITE] =
@@ -775,6 +1116,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_STRONG_JAW_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .bitingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 25,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_LEER, COMBO_STARTER_SCARY_FACE},
+        //.battleAnimScript = gBattleAnimMove_Bite,
     },
 
     [MOVE_GROWL] =
@@ -789,6 +1141,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        .soundMove = TRUE,
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARM},
+        //.battleAnimScript = gBattleAnimMove_Growl,
     },
 
     [MOVE_ROAR] =
@@ -811,6 +1172,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = -6,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = B_UPDATED_MOVE_FLAGS >= GEN_6,
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .soundMove = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Roar,
     }, //cacophony boost could make this do dmage percent hp
     //may do like prankster make field cacophony boosted
 
@@ -826,6 +1199,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0, //since this keeps opponent from attacking will keep base priority / also because of high accuracy and good distributnion
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_SING,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Sing,
     },//accuracy buff based on anime logic, and raririty
     //part of me things this should be side target i.e both 
     //since sing in lore puts everyone to sleep, but with that 
@@ -845,8 +1228,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Supersonic,
     },
 
+    //BREAK
     [MOVE_SONIC_SCREECH] =
     {
         .effect = EFFECT_SONIC_SCREECH,
@@ -859,6 +1252,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
+        .soundMove = TRUE,
+        .ignoresSubstitute = TRUE,
+        .argument = { .fixedDamage = 20 },
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SonicBoom,
         .argument = MOVE_EFFECT_CONFUSION,
     },//previously sonic boom / idk but doesn't seem to be setting confuse effect?
     //cacophony boost  increase effect chance as well as infiltrate
@@ -883,6 +1284,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Disable,
     },
 
     [MOVE_ACID] =
@@ -901,6 +1310,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = B_UPDATED_MOVE_DATA >= GEN_4 ? MOVE_EFFECT_SP_DEF_MINUS_1 : MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Acid,
     },
 
     [MOVE_EMBER] =
@@ -915,6 +1333,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_Ember,
     },
 
     [MOVE_FLAMETHROWER] =
@@ -930,6 +1357,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_Flamethrower,
     },
 
     [MOVE_MIST] =
@@ -944,6 +1380,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Mist,
     },
 
     [MOVE_WATER_GUN] =
@@ -958,6 +1403,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_MUD_SPORT, COMBO_STARTER_RAIN_DANCE, COMBO_STARTER_WATER_SPORT},
+        //.battleAnimScript = gBattleAnimMove_WaterGun,
     },
 
     [MOVE_HYDRO_PUMP] =
@@ -972,6 +1422,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_HydroPump,
     },
 
     [MOVE_SURF] =
@@ -986,6 +1441,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_2X_UNDERWATER,
         .split = SPLIT_SPECIAL,
+        .damagesUnderwater = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_SURF,
+        //.contestComboMoves = {COMBO_STARTER_DIVE, COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Surf,
     },//revert for balance
     //realize otherwise everyone just clicks surf
 
@@ -1005,6 +1466,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            // The following effect is also relevant in battle_Pike.c
+            // If you cherry-pick this to use something other than the config, make sure to update it there too
+            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HAIL},
+        //.battleAnimScript = gBattleAnimMove_IceBeam,
     },
 
     [MOVE_BLIZZARD] =
@@ -1019,6 +1491,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
+        .windMove = TRUE,
+        .alwaysHitsInHailSnow = B_BLIZZARD_HAIL >= GEN_4,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HAIL, COMBO_STARTER_POWDER_SNOW},
+        //.battleAnimScript = gBattleAnimMove_Blizzard,
     },
 
     [MOVE_PSYBEAM] =
@@ -1033,6 +1516,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
+        //.battleAnimScript = gBattleAnimMove_Psybeam,
     },
 
     [MOVE_BUBBLE_BEAM] =
@@ -1047,6 +1539,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_BubbleBeam,
     },
 
     [MOVE_AURORA_BEAM] =
@@ -1061,6 +1562,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HAIL},
+        //.battleAnimScript = gBattleAnimMove_AuroraBeam,
     },
 
     [MOVE_HYPER_BEAM] =
@@ -1075,6 +1585,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_RECHARGE,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HyperBeam,
     },
 
     [MOVE_PECK] =
@@ -1089,6 +1608,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_PECK,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Peck,
     },
 
     [MOVE_DRILL_PECK] =
@@ -1103,6 +1628,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_PECK},
+        //.battleAnimScript = gBattleAnimMove_DrillPeck,
     },
     //saw comment on rigamarolled vid I like make drill peck break screens
     //drill enemy weak spot
@@ -1123,6 +1654,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .argument = { .recoilPercentage = 25 },
+        .recoilMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_MIND_READER},
+        //.battleAnimScript = gBattleAnimMove_Submission,
     },
     //was at some point strongest fighting move, think will change to ultimate fighting technique
     //does recoil but breaks through protect essentially same effect as raging bull
@@ -1141,6 +1680,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LowKick,
     },
 
     [MOVE_COUNTER] =
@@ -1161,6 +1706,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_DEPENDS,
         .priority = -5,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .meFirstBanned = TRUE,
+        .metronomeBanned = B_UPDATED_MOVE_FLAGS >= GEN_2,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_TAUNT},
+        //.battleAnimScript = gBattleAnimMove_Counter,
     },
 
     [MOVE_SEISMIC_TOSS] =
@@ -1175,6 +1730,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FAKE_OUT},
+        //.battleAnimScript = gBattleAnimMove_SeismicToss,
     },
 
     [MOVE_STRENGTH] =
@@ -1189,6 +1750,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Strength,
     },
 
     [MOVE_ABSORB] =
@@ -1207,6 +1774,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .argument = { .absorbPercentage = 50 },
+        .healingMove = B_HEAL_BLOCKING >= GEN_6,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH},
+        //.battleAnimScript = gBattleAnimMove_Absorb,
     },
 
     [MOVE_MEGA_DRAIN] =
@@ -1225,6 +1799,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .argument = { .absorbPercentage = 50 },
+        //.zMove = { .powerOverride = 120 },
+        .healingMove = B_HEAL_BLOCKING >= GEN_6,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH},
+        //.battleAnimScript = gBattleAnimMove_MegaDrain,
     },
 
     [MOVE_LEECH_SEED] =
@@ -1239,6 +1821,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_LEECH_SEED,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH, COMBO_STARTER_WORRY_SEED},
+        //.battleAnimScript = gBattleAnimMove_LeechSeed,
     },
 
     [MOVE_GROWTH] =
@@ -1257,6 +1846,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_GROWTH,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Growth,
     },
 
     [MOVE_RAZOR_LEAF] =
@@ -1271,6 +1869,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .slicingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH},
+        //.battleAnimScript = gBattleAnimMove_RazorLeaf,
     },
 
     [MOVE_SOLAR_BEAM] =
@@ -1285,6 +1889,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNTOOKSUNLIGHT, .status = B_WEATHER_SUN },
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH, COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_SolarBeam,
     },
 
     [MOVE_POISON_POWDER] =
@@ -1299,6 +1911,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
         .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_POISON },
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        .powderMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SWEET_SCENT},
+        //.battleAnimScript = gBattleAnimMove_PoisonPowder,
     },
 
     [MOVE_STUN_SPORE] =
@@ -1313,6 +1934,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_PARALYSIS },
+        .powderMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SWEET_SCENT},
+        //.battleAnimScript = gBattleAnimMove_StunSpore,
     },
 
     [MOVE_SLEEP_POWDER] =
@@ -1327,6 +1957,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0, //since this keeps opponent from attacking will keep base priority//allow priority on this because accuracy is low
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
         .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .magicCoatAffected = TRUE,
+        .powderMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SWEET_SCENT},
+        //.battleAnimScript = gBattleAnimMove_SleepPowder,
     },
 
     [MOVE_PETAL_DANCE] =
@@ -1349,6 +1988,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DANCE,
         .split = SPLIT_SPECIAL,
+        .makesContact = TRUE,
+        .danceMove = TRUE,
+        .instructBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_THRASH,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH},
+        //.battleAnimScript = gBattleAnimMove_PetalDance,
     },
 
     [MOVE_STRING_SHOT] =
@@ -1367,6 +2018,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_STRING_SHOT,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_StringShot,
     },
 
     [MOVE_DRAGON_RAGE] =
@@ -1381,6 +2039,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .argument = { .fixedDamage = 40 },
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_DRAGON_RAGE,
+        //.contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RUSH, COMBO_STARTER_DRAGON_TAIL},
+        //.battleAnimScript = gBattleAnimMove_DragonRage,
     },
 
     [MOVE_FIRE_SPIN] =
@@ -1400,6 +2064,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_WRAP,
+            .multistring.wrapped = B_MSG_WRAPPED_FIRE_SPIN,
+        }),
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_FireSpin,
     },
 
     [MOVE_THUNDER_SHOCK] =
@@ -1414,6 +2087,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARGE},
+        //.battleAnimScript = gBattleAnimMove_ThunderShock,
     },
 
     [MOVE_THUNDERBOLT] =
@@ -1429,6 +2111,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARGE},
+        //.battleAnimScript = gBattleAnimMove_Thunderbolt,
     },
     //used many times to hit flying enemies guess can give hits flying?
     //if I give a good variety of moves this effect its good for ground types
@@ -1449,6 +2140,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_PARALYSIS },
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARGE},
+        //.battleAnimScript = gBattleAnimMove_ThunderWave,
     },
 
     [MOVE_THUNDER] =
@@ -1463,6 +2162,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .damagesAirborne = TRUE,
+        .alwaysHitsInRain = TRUE,
+        .accuracy50InSun = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARGE, COMBO_STARTER_LOCK_ON, COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Thunder,
     },
     //since has conditional perfect acc makes sense to drop power some
 
@@ -1478,6 +2189,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_2X_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_ROCK_THROW,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RockThrow,
     },  //now that can hit in air, may give to more fighting types; 
     ////also since its not easy to hit flying target change accuraacy against in air targets
     //don't like that as a standard, just slightly lowered Accuracy instead, since making standardized effect
@@ -1494,6 +2210,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_2X_UNDERGROUND,
         .split = SPLIT_PHYSICAL,
+        .damagesUnderground = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_EARTHQUAKE,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Earthquake,
     },//remove target foes adn ally, from most things as it doesn't make sense, keep for explosion etc.
 
     [MOVE_FISSURE] =
@@ -1508,6 +2230,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -5,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_2X_UNDERGROUND,
         .split = SPLIT_PHYSICAL,
+        .damagesUnderground = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_EARTHQUAKE},
+        //.battleAnimScript = gBattleAnimMove_Fissure,
     },
 
     [MOVE_DIG] =
@@ -1526,6 +2254,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId = STRINGID_PKMNDUGHOLE, .status = STATE_UNDERGROUND },
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Dig,
     },//if current move make grounded
 
     [MOVE_TOXIC] =
@@ -1544,6 +2282,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_TOXIC },
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_TOXIC,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Toxic,
     },
 
     [MOVE_CONFUSION] =
@@ -1558,6 +2304,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_CONFUSION,
+        //.contestComboMoves = {COMBO_STARTER_CALM_MIND, COMBO_STARTER_KINESIS, COMBO_STARTER_PSYCHIC},
+        //.battleAnimScript = gBattleAnimMove_Confusion,
     },
 
     [MOVE_PSYCHIC] =
@@ -1572,6 +2327,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_PSYCHIC,
+        //.contestComboMoves = {COMBO_STARTER_CALM_MIND, COMBO_STARTER_CONFUSION, COMBO_STARTER_KINESIS},
+        //.battleAnimScript = gBattleAnimMove_Psychic,
     },
 
     [MOVE_HYPNOSIS] =
@@ -1586,6 +2350,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0, //since this keeps opponent from attacking will keep base priority//since acc is lower will try give priority,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_HYPNOSIS,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Hypnosis,
     },//unsure if acc is too high
     //with lack of type immunity and compound eyes
     //acc boost items in mind
@@ -1603,6 +2375,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
+        //.battleAnimScript = gBattleAnimMove_Meditate,
     },
 
     [MOVE_AGILITY] =
@@ -1617,6 +2398,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_DOUBLE_TEAM},
+        //.battleAnimScript = gBattleAnimMove_Agility,
     },
 
     [MOVE_QUICK_ATTACK] =
@@ -1631,6 +2421,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_DOUBLE_TEAM},
+        //.battleAnimScript = gBattleAnimMove_QuickAttack,
     },
 
     [MOVE_RAGE] =
@@ -1645,6 +2441,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_RAGE,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Rage,
     },//I feel like this could be a good tm?
 
     [MOVE_TELEPORT] =
@@ -1659,6 +2461,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -6,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CONFUSION, COMBO_STARTER_DOUBLE_TEAM, COMBO_STARTER_KINESIS, COMBO_STARTER_PSYCHIC},
+        //.battleAnimScript = gBattleAnimMove_Teleport,
     }, //fully updated to modern effect
 
     [MOVE_NIGHT_SHADE] =
@@ -1673,6 +2483,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_NightShade,
     },
 
     [MOVE_MIMIC] =
@@ -1687,6 +2502,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ACC_UP_1 },
+        .ignoresSubstitute = TRUE,
+        .mimicBanned = TRUE,
+        .metronomeBanned = B_UPDATED_MOVE_FLAGS >= GEN_2,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Mimic,
     },//keep effect of lasting til end of battle not modern effect to last only until switch
 
     [MOVE_SCREECH] =
@@ -1701,6 +2530,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Screech,
     },
 
     [MOVE_DOUBLE_TEAM] =
@@ -1715,6 +2553,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_DOUBLE_TEAM,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DoubleTeam,
     },
 
     [MOVE_RECOVER] =
@@ -1733,6 +2580,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1, //allowing this as  counter balance for dropped healing
         .flags = FLAG_SNATCH_AFFECTED, //vsonic important KEEP AN EYE ON THIS
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .healingMove = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Recover,
     },
 
     [MOVE_HARDEN] =
@@ -1747,6 +2604,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_HARDEN,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Harden,
     },
 
     [MOVE_MINIMIZE] =
@@ -1765,6 +2631,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Minimize,
     },
 
     [MOVE_SMOKESCREEN] =
@@ -1779,6 +2654,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_EVSN_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SMOG},
+        //.battleAnimScript = gBattleAnimMove_Smokescreen,
     },
 
     [MOVE_CONFUSE_RAY] =
@@ -1793,6 +2675,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ConfuseRay,
     },
 
     [MOVE_WITHDRAW] =
@@ -1807,6 +2696,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Withdraw,
     },
 
     [MOVE_DEFENSE_CURL] =
@@ -1821,6 +2719,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ACC_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_DEFENSE_CURL,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DefenseCurl,
     },
 
     [MOVE_BARRIER] =
@@ -1839,6 +2746,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Barrier,
     },
 
     [MOVE_LIGHT_SCREEN] =
@@ -1853,6 +2769,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
+        //.battleAnimScript = gBattleAnimMove_LightScreen,
     },
 
     [MOVE_HAZE] =
@@ -1867,6 +2792,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0, //since  so strong will keep as is, vsonic important
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HAIL},
+        //.battleAnimScript = gBattleAnimMove_Haze,
     },//black fog, setup but never put command in sript, now is in need test ...breaks game
     //fixed, full effect isn't working. , for now commented out mist command
 
@@ -1882,6 +2816,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
+        //.battleAnimScript = gBattleAnimMove_Reflect,
     },
 
     [MOVE_FOCUS_ENERGY] =
@@ -1896,6 +2839,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ACC_UP_1 },
+        .argument = { .status = VOLATILE_FOCUS_ENERGY },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_FOCUS_ENERGY,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FocusEnergy,
     },
 
     [MOVE_BIDE] =
@@ -1915,6 +2868,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Bide,
     },// made typeless dmg, and buffed revenge damage priority & slight damage buff to account for loss of stab
 
     [MOVE_METRONOME] =
@@ -1929,6 +2891,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1, //same logic as assist
         .flags = 0,
         .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .mimicBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = B_UPDATED_MOVE_FLAGS >= GEN_3,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Metronome,
     },
 
     [MOVE_MIRROR_MOVE] =
@@ -1943,6 +2919,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 3, //think will give priority so can get accurate move easier?
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_2 },
+        .mimicBanned = TRUE,
+        .metronomeBanned = B_UPDATED_MOVE_FLAGS >= GEN_4,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = B_UPDATED_MOVE_FLAGS >= GEN_3,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MirrorMove,
     }, //idea birds ability to parrot/copy, move kinda sucks , but is a bit better with my normal type change, as would always get psudo stab if mon is normal
     //speaking just for spearow/fearow rn
     
@@ -1959,6 +2948,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_PHYSICAL,
+        .parentalBondBanned = TRUE,
+        .dampBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SelfDestruct,
     },//will drop power since added back defense fall,
     //but keep above misty explosion as is normal type
     //hmm couple put self destruct at 140, below hyper beams
@@ -1976,6 +2972,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_PHYSICAL,
+        .ballisticMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SOFT_BOILED},
+        //.battleAnimScript = gBattleAnimMove_EggBomb,
     },
 
     [MOVE_AURORA_VEIL] =
@@ -1990,6 +2992,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HAIL},
+        //.battleAnimScript = gBattleAnimMove_AuroraVeil,
     },//should I set this back to prio 0?
     //I feel like I should it requires hail/snow setting
     //but multiple mon can do so with snowarning
@@ -2015,6 +3026,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 40,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_SMOG,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Smog,
     },
 
     [MOVE_SLUDGE] =
@@ -2029,6 +3049,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_SLUDGE,
+        //.contestComboMoves = {COMBO_STARTER_SLUDGE_BOMB},
+        //.battleAnimScript = gBattleAnimMove_Sludge,
     },
 
     [MOVE_BONE_CLUB] =
@@ -2043,6 +3072,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_BONE_CLUB,
+        //.contestComboMoves = {COMBO_STARTER_BONEMERANG, COMBO_STARTER_BONE_RUSH, COMBO_STARTER_SHADOW_BONE},
+        //.battleAnimScript = gBattleAnimMove_BoneClub,
     },
 
     [MOVE_FIRE_BLAST] =
@@ -2058,6 +3096,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_FireBlast,
     },
 
     [MOVE_WATERFALL] =
@@ -2072,6 +3119,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        #if B_UPDATED_MOVE_DATA >= GEN_4
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_FLINCH,
+                .chance = 20,
+            }),
+        #endif
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Waterfall,
     },
 
     [MOVE_CLAMP] =
@@ -2092,6 +3151,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .argument = MOVE_EFFECT_FLINCH, //attempt to get this to read as flinch chance. don't remember if repo is setup to read arguments
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_WRAP,
+            .multistring.wrapped = B_MSG_WRAPPED_CLAMP,
+        }),
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Clamp,
         .argumentEffectChance = 20,
     },//I'd like to also add a flinch chance to this if I can, maybe with argument?
     //need to use argumenttomoveeffect  command to make use of arguments    uses   VARIOUS_ARGUMENT_TO_MOVE_EFFECT
@@ -2110,6 +3179,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Swift,
 },
 
 [MOVE_SKULL_BASH] =
@@ -2129,6 +3203,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HEADBUTT_MOVE,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId = STRINGID_PKMNLOWEREDHEAD },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_PLUS_1,
+            .self = TRUE,
+            .onChargeTurnOnly = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SkullBash,
 },
 
 [MOVE_SPIKE_CANNON] =
@@ -2143,6 +3231,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
     .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SpikeCannon,
 },
 
 [MOVE_CONSTRICT] =
@@ -2157,6 +3250,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Constrict,
 },
 
 [MOVE_AMNESIA] =
@@ -2171,6 +3274,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Amnesia,
 },
 
 [MOVE_KINESIS] =
@@ -2189,6 +3301,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_SELECTED,
     .priority = 1,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_EVSN_UP_1 },
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_KINESIS,
+        //.contestComboMoves = {COMBO_STARTER_CONFUSION, COMBO_STARTER_PSYCHIC},
+        //.battleAnimScript = gBattleAnimMove_Kinesis,
 },
 
 [MOVE_SOFT_BOILED] =
@@ -2203,6 +3322,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = FLAG_SNATCH_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .healingMove = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_SOFT_BOILED,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SoftBoiled,
 },
 
 [MOVE_HI_JUMP_KICK] =
@@ -2225,6 +3354,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_RECKLESS_BOOST | FLAG_DMG_2X_IN_AIR | FLAG_LETHAL_LEGS_BOOST,
     .split = SPLIT_PHYSICAL,
+    .makesContact = TRUE,
+    .recoilMove = TRUE,
+    .gravityBanned = TRUE,
 },
 //since is jumping kick game hit in air, and since is resisted by flying and risks recoil
 //made 2x
@@ -2247,6 +3379,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_PARALYSIS },
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_LEER},
+        //.battleAnimScript = gBattleAnimMove_Glare,
 },
 
 [MOVE_DREAM_EATER] =
@@ -2261,6 +3401,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_SPECIAL,
+        .healingMove = B_HEAL_BLOCKING >= GEN_6,
+        .ignoresSubstitute = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CALM_MIND, COMBO_STARTER_HYPNOSIS},
+        //.battleAnimScript = gBattleAnimMove_DreamEater,
 },
 
 [MOVE_POISON_GAS] =
@@ -2283,6 +3430,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_POISON },
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PoisonGas,
 },
 
 [MOVE_BARRAGE] =
@@ -2297,6 +3452,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
     .split = SPLIT_PHYSICAL,
+        .ballisticMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Barrage,
     .argument = MOVE_EFFECT_DEF_MINUS_1,
     .argumentEffectChance = 15,
 }, //exegcuttor line siganture , test may make 100 acc,  balance acc w effect chance
@@ -2321,6 +3482,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_PHYSICAL,
+        .argument = { .absorbPercentage = 50 },
+        .makesContact = TRUE,
+        .healingMove = B_HEAL_BLOCKING >= GEN_6,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LeechLife,
     .argument = 0, // restores 75% HP instead of 50% HP
     .argumentEffectChance = 100, //removed infest chance to boost healing, to compete with mega drain
 }, //check balance
@@ -2337,6 +3506,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0, //since this keeps opponent from attacking will keep base priority
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LovelyKiss,
 },
 
 [MOVE_SKY_ATTACK] =
@@ -2352,6 +3529,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_SELECTED,//could do took to the air then end turn effect glowing w energy strnig?
     .priority = 0,
     .split = SPLIT_PHYSICAL,
+        .criticalHitStage = B_UPDATED_MOVE_DATA >= GEN_3,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId = B_UPDATED_MOVE_DATA >= GEN_4 ? STRINGID_CLOAKEDINAHARSHLIGHT : STRINGID_PKMNISGLOWING },
+    #if B_UPDATED_MOVE_DATA >= GEN_3
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+    #endif
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SkyAttack,
     .argument = MOVE_EFFECT_FLINCH,
 }, //DO SOMething with this, thinking raise evasiveness one or two stages, may lower power since hitting both
 //it stil needs to be strongest flying move though and brave bird is base 120 no charge 
@@ -2385,6 +3577,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 2,
     .flags = 0,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .mimicBanned = TRUE,
+        .metronomeBanned = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .copycatBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Transform,
 },
 
 [MOVE_BUBBLE] =
@@ -2403,6 +3609,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
     .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Bubble,
 },
 //bubbles are slow, changed acc to give water gun back a niche
 
@@ -2418,6 +3633,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_SHEER_FORCE_BOOST,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DizzyPunch,
 },
 
 [MOVE_SPORE] =
@@ -2432,6 +3658,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0, 
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
     .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .magicCoatAffected = TRUE,
+        .powderMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Spore,
 },//keep an eye on -vsonic
 //talked w chief making negative priority does nothing for the problem,
 //just make it hard/impossible for faster mon to use the move,
@@ -2452,6 +3687,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1, //since is an hm I guess I could allow this?
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_EVSN_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Flash,
 },//later test flinch chance to see if too much
 
 [MOVE_PSYWAVE] =
@@ -2470,6 +3712,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
+        //.battleAnimScript = gBattleAnimMove_Psywave,
 },
 
 [MOVE_SPLASH] =
@@ -2484,6 +3731,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 3,
     .flags = FLAG_GRAVITY_CANCELED,
     .split = SPLIT_PHYSICAL,//SPLIT_STATUS, //think change to physical
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_3 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .gravityBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Splash,
 },//vsonic important check make sure no issue
 
 [MOVE_ACID_ARMOR] =
@@ -2502,6 +3758,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AcidArmor,
 },
 
 [MOVE_CRABHAMMER] =
@@ -2524,6 +3789,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_IRON_FIST_BOOST,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE, COMBO_STARTER_SWORDS_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Crabhammer,
 },
 
 [MOVE_EXPLOSION] =
@@ -2538,6 +3809,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
     .split = SPLIT_PHYSICAL,
+        .parentalBondBanned = TRUE,
+        .dampBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Explosion,
 },
 
 [MOVE_FURY_SWIPES] =
@@ -2552,6 +3830,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SCRATCH},
+        //.battleAnimScript = gBattleAnimMove_FurySwipes,
 },
 
 [MOVE_BONEMERANG] =
@@ -2566,6 +3850,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
     .split = SPLIT_PHYSICAL,
+        .strikeCount = 2,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_BONEMERANG,
+        //.contestComboMoves = {COMBO_STARTER_BONE_CLUB, COMBO_STARTER_BONE_RUSH, COMBO_STARTER_SHADOW_BONE},
+        //.battleAnimScript = gBattleAnimMove_Bonemerang,
 },
 
 [MOVE_REST] =
@@ -2580,6 +3870,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0, //since is full hp don't think I can boost,
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .healingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_REST,
+        //.contestComboMoves = {COMBO_STARTER_BELLY_DRUM, COMBO_STARTER_CHARM, COMBO_STARTER_YAWN},
+        //.battleAnimScript = gBattleAnimMove_Rest,
 },
 
 [MOVE_ROCK_SLIDE] =
@@ -2594,6 +3894,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
     .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_ROCK_THROW},
+        //.battleAnimScript = gBattleAnimMove_RockSlide,
 },//may set back to 90, and 30 w onix buffs makes onix best rock slide user
 //a significant buff for it... yeah think I will
 //effect is good enough that the accuracy  isn't strange
@@ -2610,6 +3919,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_STRONG_JAW_BOOST,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .bitingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HyperFang,
 },
 
 [MOVE_SHARPEN] =
@@ -2624,6 +3944,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Sharpen,
 },
 
 [MOVE_CONVERSION] =
@@ -2642,6 +3971,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_USER,
     .priority = 1,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ALL_STATS_UP_1 },
+        .snatchAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Conversion,
 },
 
 [MOVE_TRI_ATTACK] =
@@ -2656,6 +3994,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
     .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_TRI_ATTACK,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_LOCK_ON},
+        //.battleAnimScript = gBattleAnimMove_TriAttack,
 },
 
 [MOVE_SUPER_FANG] =
@@ -2670,6 +4017,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_PHYSICAL,
+        .argument = { .damagePercentage = 50 },
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SCARY_FACE},
+        //.battleAnimScript = gBattleAnimMove_SuperFang,
 },
 
 [MOVE_SLASH] =
@@ -2684,6 +4038,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SCRATCH, COMBO_STARTER_SWORDS_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Slash,
 },
 
 [MOVE_SUBSTITUTE] =
@@ -2698,6 +4059,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0, //would like to do but worry makes it too risk free? same as rest
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Substitute,
 },
 
 [MOVE_STRUGGLE] =
@@ -2717,6 +4087,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_SELECTED,
     .priority = 0,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .meFirstBanned = TRUE,
+        .mimicBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .copycatBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        .sketchBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_Struggle,
 },
 
 [MOVE_SKETCH] =
@@ -2731,6 +4112,23 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = 0,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ALL_STATS_UP_1 },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .mimicBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        .sketchBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Sketch,
 },
 
 [MOVE_TRIPLE_KICK] =
@@ -2745,6 +4143,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_LETHAL_LEGS_BOOST,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .strikeCount = 3,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        //.battleAnimScript = gBattleAnimMove_TripleKick,
 },
 
 [MOVE_THIEF] =
@@ -2764,6 +4169,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .meFirstBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Thief,
 },
 
 [MOVE_SPIDER_WEB] =
@@ -2779,6 +4194,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_SELECTED,
     .priority = 1,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = (B_UPDATED_MOVE_FLAGS >= GEN_6) || (B_UPDATED_MOVE_FLAGS <= GEN_3),
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_STRING_SHOT},
+        //.battleAnimScript = gBattleAnimMove_SpiderWeb,
 },
 //taken over by swarm/infestation and sticky web
 //spider webs to my knowledge have effect of paralyzing those stuck in it?
@@ -2806,6 +4229,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_MIND_READER,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MindReader,
 },
 
 [MOVE_NIGHTMARE] =
@@ -2824,6 +4253,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .ignoresProtect = B_UPDATED_MOVE_FLAGS <= GEN_3,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Nightmare,
 },
 
 [MOVE_FLAME_WHEEL] =
@@ -2838,6 +4274,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .thawsUser = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_FlameWheel,
     .argument = MOVE_EFFECT_BURN,
     .argumentEffectChance = 10,
 },
@@ -2871,6 +4318,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_BOTH,
     .priority = 0,
     .split = SPLIT_SPECIAL,
+        .ignoresSubstitute = TRUE,
+        .soundMove = TRUE,
+        .metronomeBanned = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_REST},
+        //.battleAnimScript = gBattleAnimMove_Snore,
     .argument = MOVE_EFFECT_FLINCH,
 }, 
 //redid script put flinch in move argument not on snore script itself
@@ -2893,6 +4352,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = 0,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_CURSE },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_CURSE,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Curse,
 },
 
 [MOVE_FLAIL] =
@@ -2907,6 +4375,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_ENDURE},
+        //.battleAnimScript = gBattleAnimMove_Flail,
 },
 
 [MOVE_CONVERSION_2] =
@@ -2921,6 +4395,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1, //can change priority when finish new effect so not based on last move hit by
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
+        .ignoresProtect = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Conversion2,
 },//now same as conversion 1, so reuse effect, just does type 2 instead
 
 [MOVE_AEROBLAST] =
@@ -2935,6 +4418,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_WIND_MOVE,
     .split = SPLIT_SPECIAL,
+        .windMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Aeroblast,
 },
 //w sp def drop consider may remove high crit?
 //would make it more balanced and allow me to spread its distribution
@@ -2964,6 +4453,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .magicCoatAffected = TRUE,
+        .powderMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_CottonSpore,
 },
 
 [MOVE_REVERSAL] =
@@ -2978,6 +4475,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_ENDURE},
+        //.battleAnimScript = gBattleAnimMove_Reversal,
 },
 
 [MOVE_SPITE] =
@@ -2996,6 +4499,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_SELECTED,
     .priority = 0,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CURSE},
+        //.battleAnimScript = gBattleAnimMove_Spite,
 },//keep as is ,relies on move beign used
 
 [MOVE_POWDER_SNOW] =
@@ -3010,6 +4521,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
     .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_POWDER_SNOW,
+        //.contestComboMoves = {COMBO_STARTER_HAIL},
+        //.battleAnimScript = gBattleAnimMove_PowderSnow,
 },
 
 [MOVE_PROTECT] =
@@ -3024,6 +4544,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_USER,
     .flags = FLAG_PROTECTION_MOVE,
     .split = SPLIT_STATUS,
+        .argument = { .protectMethod = PROTECT_NORMAL },
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HARDEN},
+        //.battleAnimScript = gBattleAnimMove_Protect,
 },
 
 [MOVE_MACH_PUNCH] =
@@ -3038,6 +4568,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MachPunch,
 },
 
 [MOVE_SCARY_FACE] =
@@ -3056,6 +4593,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_SCARY_FACE,
+        //.contestComboMoves = {COMBO_STARTER_LEER, COMBO_STARTER_RAGE},
+        //.battleAnimScript = gBattleAnimMove_ScaryFace,
 },
 
 [MOVE_FEINT_ATTACK] =
@@ -3074,6 +4618,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_SELECTED,
     .priority = 0,
     .split = SPLIT_PHYSICAL,
+        .makesContact = B_UPDATED_MOVE_DATA >= GEN_4,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FAKE_OUT, COMBO_STARTER_LEER, COMBO_STARTER_POUND},
+        //.battleAnimScript = gBattleAnimMove_FeintAttack,
 },
 
 [MOVE_SWEET_KISS] =
@@ -3092,6 +4642,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARM},
+        //.battleAnimScript = gBattleAnimMove_SweetKiss,
 },
 //don't understand why this has 75 acc when confuse ray is 100
 //I guess only reason is its paired with lovely kiss which is 
@@ -3111,6 +4668,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0, //unsure bout this can't tell if its an advantage or disadvantage for the move to go first
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_BELLY_DRUM,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BellyDrum,
 },//ok decide its better this goes last better chance of surviving the turn
 //rather than using it first and having chance get killed now you use it last
 //and have a chance of wasting the turn if the opponent drops you to half
@@ -3130,6 +4696,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_BALLISTIC,
     .split = SPLIT_SPECIAL,
+        .ballisticMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_SLUDGE_BOMB,
+        //.contestComboMoves = {COMBO_STARTER_SLUDGE},
+        //.battleAnimScript = gBattleAnimMove_SludgeBomb,
 },
 
 [MOVE_MUD_SLAP] =
@@ -3144,6 +4720,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
     .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_MUD_SLAP,
+        //.contestComboMoves = {COMBO_STARTER_MUD_SPORT, COMBO_STARTER_SAND_ATTACK, COMBO_STARTER_SANDSTORM},
+        //.battleAnimScript = gBattleAnimMove_MudSlap,
 },
 
 [MOVE_OCTAZOOKA] =
@@ -3158,6 +4743,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_SHEER_FORCE_BOOST,
     .split = SPLIT_SPECIAL,
+        .ballisticMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
+            .chance = 50,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_LOCK_ON, COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Octazooka,
 },
 
 [MOVE_SPIKES] =
@@ -3176,6 +4771,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_OPPONENTS_FIELD,
     .priority = 0,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .forcePressure = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Spikes,
 },
 
 [MOVE_ZAP_CANNON] =
@@ -3194,6 +4799,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_BALLISTIC,
     .split = SPLIT_SPECIAL,
+        .ballisticMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARGE, COMBO_STARTER_LOCK_ON},
+        //.battleAnimScript = gBattleAnimMove_ZapCannon,
 },
 
 [MOVE_FORESIGHT] =
@@ -3216,6 +4831,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_SELECTED,
     .priority = 1,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_BOOST_CRITS },
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Foresight,
 },
 
 [MOVE_DESTINY_BOND] =
@@ -3230,6 +4853,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = 0,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_FOLLOW_ME },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CURSE, COMBO_STARTER_ENDURE, COMBO_STARTER_MEAN_LOOK},
+        //.battleAnimScript = gBattleAnimMove_DestinyBond,
 },
 
 [MOVE_PERISH_SONG] =
@@ -3244,6 +4879,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1, //keep an eye on, but good for increasing moves pressure without overall being oppressive
     .flags = FLAG_SOUND, //vsonic
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_MEAN_LOOK, COMBO_STARTER_SING},
+        //.battleAnimScript = gBattleAnimMove_PerishSong,
 },//need test, attempt set cacophony perish song to set lower timer for opposing side
 
 [MOVE_ICY_WIND] =
@@ -3258,6 +4903,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
     .split = SPLIT_SPECIAL,
+        .windMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HAIL},
+        //.battleAnimScript = gBattleAnimMove_IcyWind,
 },
 
 [MOVE_DETECT] =
@@ -3272,6 +4927,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_USER,
     .flags = FLAG_PROTECTION_MOVE,
     .split = SPLIT_STATUS,
+        .argument = { .protectMethod = PROTECT_NORMAL },
+        //.zMove = { .effect = Z_EFFECT_EVSN_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_TAUNT},
+        //.battleAnimScript = gBattleAnimMove_Detect,
 },
 
 [MOVE_BONE_RUSH] =
@@ -3290,6 +4957,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_BONE_RUSH,
+        //.contestComboMoves = {COMBO_STARTER_BONE_CLUB, COMBO_STARTER_BONEMERANG, COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_SHADOW_BONE},
+        //.battleAnimScript = gBattleAnimMove_BoneRush,
 },
 
 [MOVE_LOCK_ON] =
@@ -3308,6 +4980,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_LOCK_ON,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LockOn,
 },
 
 [MOVE_OUTRAGE] =
@@ -3324,6 +5002,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .instructBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_THRASH,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Outrage,
 },
 
 [MOVE_SANDSTORM] =
@@ -3338,6 +5027,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1, //thought about it decided going first is good for move gives needed utility back to moves
     .flags = FLAG_WIND_MOVE,
     .split = SPLIT_STATUS, //has wider  distribution than abilities and with priority gives reason to use the move
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .windMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_SANDSTORM,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Sandstorm,
 },//would ironically work just like abilities whicher mon is slower if both set weather gest the priority for setting weather
 
 [MOVE_GIGA_DRAIN] =
@@ -3360,6 +5058,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_SPECIAL,
+        .argument = { .absorbPercentage = 50 },
+        .healingMove = B_HEAL_BLOCKING >= GEN_6,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH},
+        //.battleAnimScript = gBattleAnimMove_GigaDrain,
 },//actually think 95 is too much power for a healing move
 //did need better grass moves but going to 95 power was too much
 
@@ -3379,6 +5084,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .flags = FLAG_PROTECTION_MOVE,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_ENDURE,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Endure,
     },
 
     [MOVE_CHARM] =
@@ -3397,6 +5113,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_CHARM,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Charm,
     },
 
     [MOVE_ROLLOUT] =
@@ -3411,6 +5134,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .instructBanned = TRUE,
+        .parentalBondBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_DEFENSE_CURL, COMBO_STARTER_HARDEN},
+        //.battleAnimScript = gBattleAnimMove_Rollout,
     },
 
     [MOVE_FALSE_SWIPE] =
@@ -3425,6 +5156,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
+        //.battleAnimScript = gBattleAnimMove_FalseSwipe,
     },
 
     [MOVE_SWAGGER] =
@@ -3443,6 +5180,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Swagger,
     },
 
     [MOVE_MILK_DRINK] =
@@ -3457,6 +5201,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .healingMove = TRUE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MilkDrink,
     },
 
     [MOVE_SPARK] =
@@ -3471,6 +5225,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARGE},
+        //.battleAnimScript = gBattleAnimMove_Spark,
     },
 
     [MOVE_FURY_CUTTER] =
@@ -3485,6 +5249,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
+        //.battleAnimScript = gBattleAnimMove_FuryCutter,
     }, 
 
     [MOVE_STEEL_WING] =
@@ -3499,6 +5270,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_PLUS_1,
+            .self = TRUE,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SteelWing,
     },
 
     [MOVE_MEAN_LOOK] =
@@ -3517,6 +5299,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .ignoresProtect = (B_UPDATED_MOVE_FLAGS >= GEN_6) || (B_UPDATED_MOVE_FLAGS <= GEN_3),
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_MEAN_LOOK,
+        //.contestComboMoves = {COMBO_STARTER_CURSE},
+        //.battleAnimScript = gBattleAnimMove_MeanLook,
     },
 
     [MOVE_ATTRACT] =
@@ -3531,6 +5321,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .magicCoatAffected = TRUE,
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Attract,
     },
 
     [MOVE_SLEEP_TALK] =
@@ -3545,6 +5343,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1, //same logic as assist
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_BOOST_CRITS },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .mimicBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_REST},
+        //.battleAnimScript = gBattleAnimMove_SleepTalk,
     },
 
     [MOVE_HEAL_BELL] =
@@ -3559,6 +5372,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_HEAL_BELL,
+        //.contestComboMoves = {COMBO_STARTER_LUCKY_CHANT},
+        //.battleAnimScript = gBattleAnimMove_HealBell,
     },
 
     [MOVE_RETURN] =
@@ -3573,6 +5397,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_EXCITE_AUDIENCE_IN_ANY_CONTEST,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Return,
     },
 
     [MOVE_PRESENT] =
@@ -3587,7 +5417,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL, //unsure if shold be physical? ok yeah its, a boobytrap bomb, if explosion is physical this should be too
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Present,
     },
+    //vsonic important think need update kins rock with dmg logic to make sure doesn't activate on heal?
 
     [MOVE_FRUSTRATION] =
     {
@@ -3601,6 +5437,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_EXCITE_AUDIENCE_IN_ANY_CONTEST,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Frustration,
     },
 
     [MOVE_SAFEGUARD] =
@@ -3615,6 +5457,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Safeguard,
     },
 
     [MOVE_PAIN_SPLIT] =
@@ -3629,6 +5480,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,//usually better to go last so keep as is
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_ENDURE},
+        //.battleAnimScript = gBattleAnimMove_PainSplit,
     },//changed mostly spidops in mind, its not broken since its an average 
     //rather than flat cutting enemy hp in half
 
@@ -3644,6 +5501,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .thawsUser = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 50,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_SacredFire,
     },
 
     [MOVE_MAGNITUDE] =
@@ -3658,6 +5525,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_2X_UNDERGROUND,
         .split = SPLIT_PHYSICAL,
+        .damagesUnderground = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Magnitude,
     },
     //w script changes unsureright sript, need change branch
     //and go back to check this and earthquake
@@ -3675,6 +5548,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_MIND_READER},
+        //.battleAnimScript = gBattleAnimMove_DynamicPunch,
     },
 
     [MOVE_MEGAHORN] =
@@ -3689,6 +5573,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HEADBUTT_MOVE,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Megahorn,
         .argument = MOVE_EFFECT_INFESTATION,
         .argumentEffectChance = 5,
     },
@@ -3706,6 +5596,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_DRAGON_BREATH,
+        //.contestComboMoves = {COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_RUSH, COMBO_STARTER_DRAGON_TAIL},
+        //.battleAnimScript = gBattleAnimMove_DragonBreath,
     },
 
     [MOVE_BATON_PASS] =
@@ -3720,6 +5619,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,//1, //makes stronger but still have option to beat w pursuit or priority move
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BatonPass,
     }, //what happens if the user is trapper/has escape prevention? if also blocks then even better
     //seems sometimes you want slower baton pass so guess keep this as is
 
@@ -3739,6 +5646,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .encoreBanned = TRUE,
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Encore,
     },//added to priority boosted list since makes easie to use
 
     [MOVE_PURSUIT] =
@@ -3753,6 +5669,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Pursuit,
     }, //boosted to 60 compare to assurance, make sense as assurance previously was also base 50
     //decide do middle ground make bp 50 change boost to 1.5 rather than 2
     // so a 5bp drop at max but good deal stronger overall
@@ -3777,6 +5699,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS(
+        #if B_SPEED_BUFFING_RAPID_SPIN >= GEN_8
+            {
+                .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
+                .self = TRUE,
+                .chance = 100,
+            }
+        #endif
+        ),
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RapidSpin,
         .argument = MOVE_EFFECT_SPD_PLUS_1,
     },//need redo this script, make go to hit from atkcancel or atkstring, consider  using emerald additional effect implementation
     //should work same but potentially cut down on redundent scripts made. would not need new effect for everyone just to assign the move effect
@@ -3799,6 +5736,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ACC_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_SWEET_SCENT,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SweetScent,
     },
 
     [MOVE_IRON_TAIL] =
@@ -3813,6 +5757,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_IronTail,
     },//for some reason defense lower affected self??
     //issue is all stat down hit, working on fixnig
 
@@ -3828,6 +5782,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ATK_PLUS_1,
+            .self = TRUE,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_METAL_SOUND},
+        //.battleAnimScript = gBattleAnimMove_MetalClaw,
     },//ok but THIS worked correctly?? not sure if it played correct animation, was green expected tobe red
     //they use same flags so may be effect stat setting affect issue not issue w flag
 
@@ -3843,6 +5808,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FAKE_OUT},
+        //.battleAnimScript = gBattleAnimMove_VitalThrow,
     },
 
     [MOVE_MORNING_SUN] =
@@ -3857,6 +5828,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .healingMove = TRUE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_QUALITY_DEPENDS_ON_TIMING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_MorningSun,
     },//buffed recovery movs to standard base 10, more optimal for player, harder to deal with in opponet
     //but has options in heal block, and pp drop effects
 
@@ -3872,6 +5853,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .healingMove = TRUE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_QUALITY_DEPENDS_ON_TIMING,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_Synthesis,
     },
 
     [MOVE_MOONLIGHT] =
@@ -3890,6 +5881,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .healingMove = TRUE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_QUALITY_DEPENDS_ON_TIMING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_Moonlight,
     },
 
     [MOVE_HIDDEN_POWER] =
@@ -3904,6 +5905,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HiddenPower,
     },
 
     [MOVE_CROSS_CHOP] =
@@ -3918,6 +5924,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        //.battleAnimScript = gBattleAnimMove_CrossChop,
     },
 
     [MOVE_TWISTER] =
@@ -3932,6 +5944,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .damagesAirborneDoubleDamage = TRUE,
+        .windMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Twister,
         .argument = MOVE_EFFECT_FLINCH
     },
 
@@ -3947,6 +5970,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_RAIN_DANCE,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RainDance,
     },//has dance in name but not categorized as dance move
     //as there is no point in it working with Dancer ability
     //as if used after move was already used it would just fail
@@ -3963,6 +5994,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_SUNNY_DAY,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SunnyDay,
     },
 
     [MOVE_CRUNCH] =
@@ -3981,6 +6020,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_STRONG_JAW_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .bitingMove = TRUE,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+        #if B_UPDATED_MOVE_DATA >= GEN_4
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+        #else
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+        #endif
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SCARY_FACE},
+        //.battleAnimScript = gBattleAnimMove_Crunch,
     },
 
     [MOVE_MIRROR_COAT] =
@@ -4001,6 +6055,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_DEPENDS,
         .priority = -5,
         .split = SPLIT_SPECIAL,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS >= GEN_4,
+        .meFirstBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_TAUNT},
+        //.battleAnimScript = gBattleAnimMove_MirrorCoat,
     },
 
     [MOVE_PSYCH_UP] =
@@ -4019,6 +6082,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = B_UPDATED_MOVE_FLAGS < GEN_5,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PsychUp,
     },
 
     [MOVE_EXTREME_SPEED] =
@@ -4037,6 +6110,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ExtremeSpeed,
     },
 
     [MOVE_ANCIENT_POWER] =
@@ -4055,6 +6134,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .makesContact = B_UPDATED_MOVE_DATA < GEN_4,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ALL_STATS_UP,
+            .self = TRUE,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AncientPower,
     },
 
     [MOVE_SHADOW_BALL] =
@@ -4069,6 +6159,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_BALLISTIC | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .ballisticMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ShadowBall,
     },
 
     [MOVE_FUTURE_SIGHT] =
@@ -4093,6 +6193,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_SPECIAL,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CALM_MIND, COMBO_STARTER_CONFUSION, COMBO_STARTER_KINESIS, COMBO_STARTER_PSYCHIC},
+        //.battleAnimScript = gBattleAnimMove_FutureSight,
     },
 
     [MOVE_ROCK_SMASH] =
@@ -4111,6 +6218,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 50,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BETTER_WITH_GOOD_CONDITION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RockSmash,
         .argument = TYPE_ROCK,
         .argumentEffectChance = 20,
     }, //Redid the seutp for this to make more flexible and easier to use for binary edits argument chance is multiplier
@@ -4130,6 +6247,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_2X_UNDERWATER,
         .split = SPLIT_SPECIAL,
+        .damagesUnderwater = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_WRAP,
+            .multistring.wrapped = B_MSG_WRAPPED_WHIRLPOOL,
+        }),
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Whirlpool,
     },
 
     [MOVE_BEAT_UP] =
@@ -4145,6 +6272,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BeatUp,
     },//makes sense to be a contact move, but no way to make work right with contact effects
 
     [MOVE_FAKE_OUT] =
@@ -4167,6 +6299,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_FAKE_OUT,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FakeOut,
     },
 
     [MOVE_UPROAR] =
@@ -4185,6 +6326,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
+        .ignoresSubstitute = TRUE,
+        .soundMove = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_UPROAR,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Uproar,
     },
 
     [MOVE_STOCKPILE] =
@@ -4203,6 +6357,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_STOCKPILE,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Stockpile,
     },
 
     [MOVE_SPIT_UP] =
@@ -4221,6 +6384,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_STOCKPILE},
+        //.battleAnimScript = gBattleAnimMove_SpitUp,
     },
 
     [MOVE_SWALLOW] =
@@ -4235,6 +6404,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .healingMove = TRUE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_STOCKPILE},
+        //.battleAnimScript = gBattleAnimMove_Swallow,
     },
 
     [MOVE_HEAT_WAVE] =
@@ -4250,6 +6429,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
+        .windMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_HeatWave,
     },
 
     [MOVE_HAIL] =
@@ -4264,6 +6453,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_HAIL,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_SNOW) ? gBattleAnimMove_Snowscape : gBattleAnimMove_Hail,
     },
 
     [MOVE_TORMENT] =
@@ -4282,6 +6479,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Torment,
     },
 
     [MOVE_FLATTER] =
@@ -4296,6 +6500,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARM},
+        //.battleAnimScript = gBattleAnimMove_Flatter,
     },
     //hmm has no downside could change, either also raise attack,
     //so takes more damage if hit themselves,
@@ -4320,6 +6531,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_BURN },
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_WillOWisp,
     },//should I drop priority on thsi?
     //I did for flash freeze but that's incompaciating,
     //that logic works keep all incompacitating moves at 0
@@ -4338,6 +6557,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0, //giving plus 1 lets it go off, but removes option of slow momento to keep switchin mon from taking dmg
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESTORE_REPLACEMENT_HP },
+        //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Memento,
     },//should bypass acc hit semi invul double check it still does that
     //good deal of mon can learn both fast and slow
     //think I'll just make a negativepriority move,
@@ -4355,6 +6580,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Facade,
     },
 
     [MOVE_FOCUS_PUNCH] =
@@ -4369,6 +6600,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .punchingMove = TRUE,
+        .meFirstBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        //.battleAnimScript = gBattleAnimMove_FocusPunch,
         .argument = MOVE_EFFECT_FLINCH,
     },
 
@@ -4388,6 +6633,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .argument = { .status = STATUS1_PARALYSIS },
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_REMOVE_STATUS,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SmellingSalts,
         //.argument = STATUS1_PARALYSIS,  //usually argument used with effectchance but here its only used to tell script what status to remove
     },
     //very low distribution, removes desirable effect
@@ -4413,6 +6668,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FollowMe,
     },
 
     [MOVE_NATURE_POWER] =
@@ -4427,6 +6693,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_STATUS,
+        .metronomeBanned = B_UPDATED_MOVE_FLAGS >= GEN_4,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        .mimicBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_NaturePower,
     },//buffing add more powerful moves & make flying move condition side status tail wind to be mor accssible //vsonic
 
     [MOVE_CHARGE] =
@@ -4441,6 +6719,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_CHARGE,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Charge,
     },//see if this works attempt do same effect from unbreakable ties
     //idk what was going on with this, but don't need argument
     //better to just do stat change in script itself
@@ -4464,6 +6751,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_TAUNT,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Taunt,
     },
 
     [MOVE_HELPING_HAND] =
@@ -4482,6 +6777,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 5,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HelpingHand,
     },
 
     [MOVE_TRICK] =
@@ -4496,6 +6803,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_2 },
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Trick,
     },//item swap
 
     [MOVE_ROLE_PLAY] =
@@ -4510,6 +6826,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RolePlay,
     }, //copies target ability
 
     [MOVE_WISH] =
@@ -4528,6 +6853,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .healingMove = TRUE,
+        .snatchAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Wish,
     },
 
     [MOVE_ASSIST] =
@@ -4542,6 +6877,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1, //while is calling a move as it normally gets no priority beneift of said move, and its random think safe to give priority
         .flags = 0,
         .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = B_UPDATED_MOVE_FLAGS >= GEN_4,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        .mimicBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_QUALITY_DEPENDS_ON_TIMING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Assist,
     },
 
     [MOVE_INGRAIN] =
@@ -4556,6 +6905,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1, //is end turn effect so wouldn't change it overall
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Ingrain,
     },
 
     [MOVE_SUPERPOWER] =
@@ -4570,6 +6928,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ATK_DEF_DOWN,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_LOCK_ON, COMBO_STARTER_MIND_READER},
+        //.battleAnimScript = gBattleAnimMove_Superpower,
     }, //yeah this is low recoil, double edge is medium recoil 33%
     //could reset back, but only reason to keep as is
     //would be contrary strats which only spinda could do
@@ -4594,6 +6962,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 2,  //added 1 priority back, so can contest with prankster status, not a full block would rely on speed, nvm most prankster mon are fastr than mon that get this
         .flags = 0, //not affected by snatch
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_2 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MagicCoat,
     },//removed priority move becomes 3 turn effect
 
     [MOVE_RECYCLE] =
@@ -4612,6 +6988,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = 0,  //stall strats add to list too strong to boost priority
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_2 },
+        .snatchAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Recycle,
     },
 
     [MOVE_REVENGE] =
@@ -4626,6 +7011,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -4,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_REVENGE,
+        //.contestComboMoves = {COMBO_STARTER_PAYBACK},
+        //.battleAnimScript = gBattleAnimMove_Revenge,
     },
 
     [MOVE_BRICK_BREAK] =
@@ -4640,6 +7031,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        //.battleAnimScript = gBattleAnimMove_BrickBreak,
     },
 
     [MOVE_YAWN] =
@@ -4654,6 +7051,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_YAWN,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Yawn,
     },
 
     [MOVE_KNOCK_OFF] =
@@ -4672,6 +7077,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FAKE_OUT},
+        //.battleAnimScript = gBattleAnimMove_KnockOff,
     },//took riggamarolled idea remove dmg boost
 
 
@@ -4687,6 +7098,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .parentalBondBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_ENDURE},
+        //.battleAnimScript = gBattleAnimMove_Endeavor,
     },
 
     [MOVE_ERUPTION] =
@@ -4701,6 +7119,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_EARTHQUAKE, COMBO_STARTER_ENDURE, COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_Eruption,
     },
 
     [MOVE_SKILL_SWAP] =
@@ -4715,6 +7138,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SkillSwap,
     },//ability swap
 
     [MOVE_IMPRISON] =
@@ -4733,6 +7163,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_2 },
+        .snatchAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .forcePressure = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Imprison,
     }, //seals opponent move if shared by user
     //thought about raising to plus 2 priority but since you want slower mon 
     //to operate in trick room a fast mon with imprison should still counter them
@@ -4750,6 +7191,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SING, COMBO_STARTER_WATER_SPORT},
+        //.battleAnimScript = gBattleAnimMove_Refresh,
     },
 
     [MOVE_GRUDGE] =
@@ -4764,6 +7214,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_FOLLOW_ME },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CURSE},
+        //.battleAnimScript = gBattleAnimMove_Grudge,
     },
     //change effect instead of reduce last move to 0
     //cut all pp in half
@@ -4780,6 +7239,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 4,
         .flags = FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_2 },
+        .ignoresSubstitute = TRUE,
+        .forcePressure = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Snatch,
     },
 
     [MOVE_SECRET_POWER] =
@@ -4794,6 +7264,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SECRET_POWER,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BETTER_WITH_GOOD_CONDITION,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SecretPower,
     },
 
     [MOVE_DIVE] =
@@ -4812,6 +7291,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNHIDUNDERWATER, .status = STATE_UNDERWATER },
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_DIVE,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE, COMBO_STARTER_SURF},
+        //.battleAnimScript = gBattleAnimMove_Dive,
     },
 
     [MOVE_ARM_THRUST] =
@@ -4826,6 +7315,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FAKE_OUT, COMBO_STARTER_FOCUS_ENERGY},
+        //.battleAnimScript = gBattleAnimMove_ArmThrust,
     },
 
     [MOVE_CAMOUFLAGE] =
@@ -4840,6 +7335,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_EVSN_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Camouflage,
     }, //change type based on bg environment
 
     [MOVE_TAIL_GLOW] =
@@ -4858,6 +7362,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_TailGlow,
     },
 
     [MOVE_LUSTER_PURGE] =
@@ -4872,6 +7385,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+            .chance = 50,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
+        //.battleAnimScript = gBattleAnimMove_LusterPurge,
     },
 
     [MOVE_MIST_BALL] =
@@ -4886,6 +7408,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .ballisticMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
+            .chance = 50,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
+        //.battleAnimScript = gBattleAnimMove_MistBall,
     },//somehow always thought this was a fairy move but it was psychic
 
     [MOVE_FEATHER_DANCE] =
@@ -4900,6 +7432,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DANCE,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        .danceMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FeatherDance,
     },
 
     [MOVE_TEETER_DANCE] =
@@ -4918,6 +7458,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_FOES_AND_ALLY,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .danceMove = TRUE,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_4,
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_TeeterDance,
     },//think pair well w telepathy see if /make sure telepathy counts for this
     //and not just damaging moves
     //vsonic
@@ -4934,6 +7482,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_BlazeKick,
     },
 
     [MOVE_MUD_SPORT] =
@@ -4948,6 +7506,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1, //usually used for slow mon, make priority to get the benefit
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_MUD_SPORT,
+        //.contestComboMoves = {COMBO_STARTER_MUD_SLAP, COMBO_STARTER_SANDSTORM, COMBO_STARTER_WATER_SPORT},
+        //.battleAnimScript = gBattleAnimMove_MudSport,
     },
 
     [MOVE_ICE_BALL] =
@@ -4962,6 +7528,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .ballisticMove = TRUE,
+        .instructBanned = TRUE,
+        .parentalBondBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HAIL},
+        //.battleAnimScript = gBattleAnimMove_IceBall,
     },
 
     [MOVE_NEEDLE_ARM] =
@@ -4977,6 +7552,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .minimizeDoubleDamage = B_UPDATED_MOVE_FLAGS < GEN_4,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_NeedleArm,
     }, //equivalent to punching moves/ mega punch
 
     [MOVE_SLACK_OFF] =
@@ -4991,6 +7577,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .healingMove = TRUE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SlackOff,
     }, //could make tm, but then no one would use rest
 
     [MOVE_HYPER_VOICE] =
@@ -5005,6 +7601,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
+        .soundMove = TRUE,
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HyperVoice,
     }, //didn't realize changing moves to sound would exclude from normal transformation abilities like pixelate etc.
     //could make sound type included in those abilities, but will be a trade off, since sound moves have their own effectiveness?
     //yeah go ahead and do that, would be a small trade off to the ability, - done, but just for pixilate idea fairy singing
@@ -5039,6 +7642,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 50,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
+        //.battleAnimScript = gBattleAnimMove_CrushClaw,
     },
 
     [MOVE_BLAST_BURN] =
@@ -5053,6 +7666,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_RECHARGE,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_BlastBurn,
     },
 
     [MOVE_HYDRO_CANNON] =
@@ -5067,6 +7689,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_RECHARGE,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_HydroCannon,
     },
 
     [MOVE_METEOR_MASH] =
@@ -5086,6 +7717,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ATK_PLUS_1,
+            .self = TRUE,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MeteorMash,
     },
 
     [MOVE_SPOOK] =
@@ -5101,6 +7744,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_EVASIVE_BREAK | FLAG_SOUND,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .soundMove = TRUE,
+        .ignoresSubstitute = TRUE,
+        .minimizeDoubleDamage = B_UPDATED_MOVE_FLAGS < GEN_4,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Astonish,
     },
     //previously astonish
     //added to sound list after realized was based on voice
@@ -5119,6 +7775,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        //.zMove = { .powerOverride = 160 },
+        .ballisticMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HAIL, COMBO_STARTER_RAIN_DANCE, COMBO_STARTER_SANDSTORM, COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_WeatherBall,
     },
     //think fine to buff this up to 60, almost no one gets it
     //plus the required setup, mostly just for mega pidgeot buff
@@ -5136,6 +7799,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Aromatherapy,
     },
 
     [MOVE_FAKE_TEARS] =
@@ -5150,6 +7822,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FakeTears,
     },
 
     [MOVE_AIR_CUTTER] =
@@ -5168,6 +7847,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .windMove = TRUE,
+        .slicingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AirCutter,
     },
     //unique point is it can't miss/100% accurate
     //hmm actually think will make this special aerial ace
@@ -5194,7 +7880,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-    },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_Overheat,
+    },//think may still change this to a low recoil move
+    //just to boost back up fire type offense
 
     [MOVE_ODOR_SLEUTH] =
     {
@@ -5216,6 +7912,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_OdorSleuth,
     },
 
     [MOVE_ROCK_TOMB] =
@@ -5236,6 +7940,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_ROCK_THROW},
+        //.battleAnimScript = gBattleAnimMove_RockTomb,
     },
 
     [MOVE_SILVER_WIND] =
@@ -5250,6 +7963,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
+        .windMove = B_EXTRAPOLATED_MOVE_FLAGS,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ALL_STATS_UP,
+            .self = TRUE,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SilverWind,
         .argument = MOVE_EFFECT_INFESTATION,
     },
 
@@ -5265,6 +7989,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_METAL_SOUND,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MetalSound,
     },//cacophony boost drop 3 // think too much instead boost accuracy to 100
 
     [MOVE_GRASS_WHISTLE] =
@@ -5279,6 +8012,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0, //since this keeps opponent from attacking will keep base priority
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GrassWhistle,
     }, //equal acc to sleep powder
     //lower acc than spore and sleep powder already exists
     //only reason to use thisi is to have a sleep move that can also hit grass types?
@@ -5298,6 +8041,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Tickle,
     },
 
     [MOVE_COSMIC_POWER] =
@@ -5312,6 +8062,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_CosmicPower,
     },
 
     [MOVE_WATER_SPOUT] =
@@ -5326,6 +8085,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_WaterSpout,
     },
 
     [MOVE_SIGNAL_BEAM] =
@@ -5340,6 +8104,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SignalBeam,
         .argument = MOVE_EFFECT_INFESTATION,
     },
 
@@ -5355,6 +8128,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ShadowPunch,
     },
 
     [MOVE_EXTRASENSORY] =
@@ -5370,6 +8150,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .minimizeDoubleDamage = B_UPDATED_MOVE_FLAGS < GEN_4,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Extrasensory,
     },
 
     [MOVE_SKY_UPPERCUT] =
@@ -5384,6 +8174,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .damagesAirborne = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        //.battleAnimScript = gBattleAnimMove_SkyUppercut,
     },
 
     [MOVE_SAND_TOMB] =
@@ -5403,6 +8201,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_2X_UNDERGROUND,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_WRAP,
+            .multistring.wrapped = B_MSG_WRAPPED_SAND_TOMB,
+        }),
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SANDSTORM},
+        //.battleAnimScript = gBattleAnimMove_SandTomb,
     },//clamp = flinch sand tomb = lower accuracy for duration whirlpool = lower speed for duration etc.
     //for sky attack argumenttomoveeffect script command went before hitfromacccheck so before dmg & animation stuff
     //sky attack won't work for tis its 2 battlescripts intead of one, instead think emulate relic song
@@ -5420,6 +8227,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -5,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HAIL, COMBO_STARTER_MIND_READER},
+        //.battleAnimScript = gBattleAnimMove_SheerCold,
     },
 
     [MOVE_MUDDY_WATER] =
@@ -5434,6 +8246,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_UNDERGROUND | FLAG_DMG_2X_UNDERWATER,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_MuddyWater,
         .argument = TYPE_GROUND,
     },//think want to make into two typed move, make custom effect so can set accuracy drop in bs would drop power to compensate
     //thinking water//ground bp 65, would still be strong as most things weak to water are also weak to ground
@@ -5457,6 +8278,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_PHYSICAL,
+        .ballisticMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH},
+        //.battleAnimScript = gBattleAnimMove_BulletSeed,
     },
 
     [MOVE_AERIAL_ACE] =
@@ -5471,6 +8298,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AerialAce,
     },
     //potentially make this speed up hit nah already made flying speed boost 
     //just need to give it more spread
@@ -5491,6 +8325,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_IcicleSpear,
     },
 
     [MOVE_IRON_DEFENSE] =
@@ -5505,6 +8344,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_IronDefense,
     },
 
     [MOVE_BLOCK] =
@@ -5523,6 +8371,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = (B_UPDATED_MOVE_FLAGS >= GEN_6) || (B_UPDATED_MOVE_FLAGS <= GEN_3),
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Block,
     },
 
     [MOVE_HOWL] =
@@ -5537,6 +8393,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Howl,
     },
 
     [MOVE_DRAGON_CLAW] =
@@ -5551,6 +8417,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_RUSH, COMBO_STARTER_DRAGON_TAIL},
+        //.battleAnimScript = gBattleAnimMove_DragonClaw,
     },
 
     [MOVE_FRENZY_PLANT] =
@@ -5565,6 +8437,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_RECHARGE,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH},
+        //.battleAnimScript = gBattleAnimMove_FrenzyPlant,
     },
 
     [MOVE_BULK_UP] =
@@ -5579,6 +8460,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BulkUp,
     },
 
     [MOVE_BOUNCE] =
@@ -5593,6 +8483,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .gravityBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNSPRANGUP, .status = STATE_ON_AIR },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Bounce,
         .argument = MOVE_EFFECT_PARALYSIS,
     },
     //buffed acc so can work as alt option to floaty fall
@@ -5610,6 +8515,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SANDSTORM},
+        //.battleAnimScript = gBattleAnimMove_MudShot,
     }, //ranged attack so potentially FLAG_DMG_IN_AIR
     
 
@@ -5625,6 +8539,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PoisonTail,
     },
 
     [MOVE_COVET] =
@@ -5653,6 +8577,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = B_UPDATED_MOVE_DATA >= GEN_4,
+        .meFirstBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Covet,
     },
 
     [MOVE_VOLT_TACKLE] =
@@ -5672,6 +8606,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .argument = { .recoilPercentage = 33 },
+        .makesContact = TRUE,
+        .recoilMove = TRUE,
+        #if B_UPDATED_MOVE_DATA >= GEN_4
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_PARALYSIS,
+                .chance = 10,
+            }),
+        #endif
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_VoltTackle,
         .argument = MOVE_EFFECT_PARALYSIS,
     },
 
@@ -5687,6 +8635,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH},
+        //.battleAnimScript = gBattleAnimMove_MagicalLeaf,
     },
 
     [MOVE_WATER_SPORT] =
@@ -5701,6 +8654,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_WATER_SPORT,
+        //.contestComboMoves = {COMBO_STARTER_MUD_SPORT, COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_WaterSport,
     },
 
     [MOVE_CALM_MIND] =
@@ -5715,6 +8676,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_CALM_MIND,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_CalmMind,
     },
 
     [MOVE_LEAF_BLADE] =
@@ -5733,6 +8703,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LeafBlade,
     },
 
     [MOVE_DRAGON_DANCE] =
@@ -5747,6 +8724,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_DANCE,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .danceMove = TRUE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_DRAGON_DANCE,
+        //.contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_RUSH, COMBO_STARTER_DRAGON_TAIL},
+        //.battleAnimScript = gBattleAnimMove_DragonDance,
     },
 
     [MOVE_ROCK_BLAST] =
@@ -5769,6 +8756,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .ballisticMove = B_UPDATED_MOVE_FLAGS >= GEN_6,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RockBlast,
     }, //give to sandshrew
     //considering if should downgrade to just dmg in air, fly is rare
     //but doubling damage effectively turns this into explosion,
@@ -5790,6 +8783,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARGE},
+        //.battleAnimScript = gBattleAnimMove_ShockWave,
     },
 
     [MOVE_WATER_PULSE] =
@@ -5804,6 +8802,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_MEGA_LAUNCHER_BOOST,
         .split = SPLIT_SPECIAL,
+        .pulseMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_WaterPulse,
     },
 
     [MOVE_DOOM_DESIRE] =
@@ -5823,6 +8831,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_SPECIAL,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DoomDesire,
     },
 
     [MOVE_PSYCHO_BOOST] =
@@ -5837,6 +8852,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
+        //.battleAnimScript = gBattleAnimMove_PsychoBoost,
     },
 
     [MOVE_ROOST] =
@@ -5851,6 +8875,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .healingMove = TRUE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_BRAVE_BIRD},
+        //.battleAnimScript = gBattleAnimMove_Roost,
     },//with new change don't want to give this priority boost
     //as move now does end turn healing, hmm or does it not heal on
     //turn its used...ok yeah it doesn't end turn heal on that turn
@@ -5867,6 +8901,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Gravity,
     },
 
     [MOVE_MIRACLE_EYE] =
@@ -5885,6 +8927,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MiracleEye,
     },//removes type immunity, i.e psychic can hit dark
     //make change effect to work like EFFECT_TARGET_TYPE_DAMAGE
     //can put in same place and have argument be type it removes immunity
@@ -5906,6 +8956,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .argument = { .status = STATUS1_SLEEP },
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_REMOVE_STATUS,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_WakeUpSlap,
         .argument = STATUS1_SLEEP,
     },
     //this is balanced better by my given status changes
@@ -5922,6 +8982,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        //.battleAnimScript = gBattleAnimMove_HammerArm,
     },
 
     [MOVE_GYRO_BALL] =
@@ -5936,6 +9007,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .ballisticMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GyroBall,
     },
 
     [MOVE_HEALING_WISH] =
@@ -5954,6 +9032,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = -1, //to keep new mon from taking switchin dmg
         .split = SPLIT_STATUS,
+        .healingMove = TRUE,
+        .snatchAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HealingWish,
     },//vsonic important look into modern affect in EE
     //as it suposedly changes when mon gets switched in I assume to prevent switch in dmg
     //seem if could work for this and momento, if not keep negative priority
@@ -5970,6 +9057,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Brine,
     },
     //slight buff to make more competitively viable
 
@@ -5985,6 +9077,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_NaturalGift,
     },
     //also effect wasn't setup...
     //changed to no longer remove item on use
@@ -6015,6 +9112,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 2,
         .split = SPLIT_PHYSICAL,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_6,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FEINT,
+        }),
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Feint,
     }, //hits and removes protect likes, decided to make fighting, as a counter part to brick break
 
     [MOVE_PLUCK] =
@@ -6029,6 +9139,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BUG_BITE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Pluck,
     },
     //sharpness/crit doesn't make sense overall it alrady does all it needs to.
 
@@ -6048,6 +9167,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,//think affect is too strong to be given priority, same as rest
         .flags = FLAG_SNATCH_AFFECTED | FLAG_WIND_MOVE,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_BOOST_CRITS },
+        .snatchAffected = TRUE,
+        .windMove = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Tailwind,
     },//vsonic important
 
     [MOVE_ACUPRESSURE] =
@@ -6066,6 +9195,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER | MOVE_TARGET_USER,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_BOOST_CRITS },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = B_UPDATED_MOVE_FLAGS < GEN_5,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Acupressure,
     },
 
     [MOVE_METAL_BURST] =
@@ -6084,6 +9222,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_DEPENDS, //potentially look at this for figuring  set targetting for lightning rod
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .meFirstBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_METAL_SOUND},
+        //.battleAnimScript = gBattleAnimMove_MetalBurst,
     }, //think this couter move
 
     [MOVE_U_TURN] =
@@ -6098,6 +9242,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_UTurn,
         //.argument = MOVE_EFFECT_INFESTATION,
         //.argumentEffectChance = 15,
         
@@ -6116,6 +9266,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_SPDEF_DOWN,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_MIND_READER},
+        //.battleAnimScript = gBattleAnimMove_CloseCombat,
     },
 
     [MOVE_PAYBACK] =
@@ -6130,6 +9290,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_PAYBACK,
+        //.contestComboMoves = {COMBO_STARTER_REVENGE},
+        //.battleAnimScript = gBattleAnimMove_Payback,
     },
     //check effect see how will use,
     //as effect changed w gens
@@ -6159,6 +9325,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_PAYBACK, COMBO_STARTER_REVENGE},
+        //.battleAnimScript = gBattleAnimMove_Assurance,
     },
 
     [MOVE_EMBARGO] =
@@ -6177,6 +9349,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Embargo,
     },
 
     [MOVE_FLING] =
@@ -6191,6 +9370,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .parentalBondBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Fling,
     },
 
     [MOVE_PSYCHO_SHIFT] =
@@ -6209,6 +9394,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_2 },
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PsychoShift,
     },//curses status1 and afflicts them to target
 
     [MOVE_TRUMP_CARD] =
@@ -6223,6 +9414,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_TrumpCard,
     },
 
     [MOVE_HEAL_BLOCK] =
@@ -6241,6 +9438,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_OPPONENTS_FIELD, // if setup rotation/triple battles may need to change this to opponent field target
         .priority = 2,  //added little priority to be able to pre-empt a heal.
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_2 },
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HealBlock,
     }, //make heal block stop potions etc.e simple enough just add clause to itemuse function i think
     //so healing items can't be used if target status is heal block
     //make sure to set as team/side wide status
@@ -6258,6 +9462,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_WringOut,
         .argumentEffectChance = 120,
     },
     //doublne check this think w power 0 it'll do typeless damage?
@@ -6279,6 +9489,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .snatchAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PowerTrick,
     },
 
     [MOVE_GASTRO_ACID] =
@@ -6293,6 +9512,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GastroAcid,
     },
 
     [MOVE_LUCKY_CHANT] =
@@ -6311,6 +9537,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_EVSN_UP_1 },
+        .snatchAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_LUCKY_CHANT,
+        //.contestComboMoves = {COMBO_STARTER_HEAL_BELL},
+        //.battleAnimScript = gBattleAnimMove_LuckyChant,
     },
 
     [MOVE_ME_FIRST] =
@@ -6325,6 +9560,22 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,//leaving as is since calling a move
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_2 },
+        .ignoresSubstitute = TRUE,
+        .metronomeBanned = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .meFirstBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        .mimicBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MeFirst,
     },
 
     [MOVE_COPYCAT] =
@@ -6339,6 +9590,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,//must go first
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ACC_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        .mimicBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Copycat,
     },
 
     [MOVE_POWER_SWAP] =
@@ -6353,6 +9619,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PowerSwap,
     },
 
     [MOVE_GUARD_SWAP] =
@@ -6367,6 +9640,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GuardSwap,
     },
 
     [MOVE_PUNISHMENT] =
@@ -6381,6 +9661,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Punishment,
     },
 
     [MOVE_LAST_RESORT] =
@@ -6399,6 +9685,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LastResort,
     },
 
     [MOVE_WORRY_SEED] =
@@ -6413,6 +9705,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_WORRY_SEED,
+        //.contestComboMoves = {COMBO_STARTER_LEECH_SEED},
+        //.battleAnimScript = gBattleAnimMove_WorrySeed,
     },//makes target ability insomnia
     //for some reason this broke game?
     //or it breaks starter battle
@@ -6431,6 +9730,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SuckerPunch,
     },//remove pp increase on things like megsa
     //pp stalling is the only way to stay alive
     //as I saw playing unbreakable ties
@@ -6452,6 +9757,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_OPPONENTS_FIELD,
         .priority = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .forcePressure = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ToxicSpikes,
     },
 
     [MOVE_HEART_SWAP] =
@@ -6466,6 +9781,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_BOOST_CRITS },
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HeartSwap,
     },//swap stat stages
 
     [MOVE_AQUA_RING] =
@@ -6484,6 +9806,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .snatchAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AquaRing,
     },
 
     [MOVE_MAGNET_RISE] =
@@ -6502,6 +9833,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_EVSN_UP_1 },
+        .snatchAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .gravityBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MagnetRise,
     },
     //makes float
 
@@ -6517,6 +9858,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .argument = { .recoilPercentage = 33 },
+        .makesContact = TRUE,
+        .recoilMove = TRUE,
+        .thawsUser = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_FlareBlitz,
         .argument = MOVE_EFFECT_BURN,
     },
 
@@ -6532,6 +9886,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ForcePalm,
     },
 
     [MOVE_AURA_SPHERE] =
@@ -6550,6 +9914,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_MEGA_LAUNCHER_BOOST | FLAG_BALLISTIC,
         .split = SPLIT_SPECIAL,
+        .pulseMove = TRUE,
+        .ballisticMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AuraSphere,
     },
 
     [MOVE_ROCK_POLISH] =
@@ -6564,6 +9935,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RockPolish,
     },
 
     [MOVE_POISON_JAB] =
@@ -6578,6 +9958,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PoisonJab,
     },
 
     [MOVE_DARK_PULSE] =
@@ -6596,6 +9986,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .pulseMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DarkPulse,
     },
 
     [MOVE_NIGHT_SLASH] =
@@ -6610,6 +10010,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_NightSlash,
     },
 
     [MOVE_AQUA_TAIL] =
@@ -6624,6 +10031,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_AquaTail,
     },
 
     [MOVE_SEED_BOMB] =
@@ -6638,6 +10051,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        .ballisticMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SeedBomb,
     },
 
     [MOVE_AIR_SLASH] =
@@ -6660,6 +10079,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .slicingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AirSlash,
     },
     //think will drop power on this by 10
 
@@ -6675,6 +10104,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
+        //.battleAnimScript = gBattleAnimMove_XScissor,
         .argument = MOVE_EFFECT_INFESTATION,
     },
 
@@ -6690,6 +10126,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .soundMove = TRUE,
+        .ignoresSubstitute = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BugBuzz,
         .argument = MOVE_EFFECT_CONFUSION,
     },
 
@@ -6709,6 +10156,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_MEGA_LAUNCHER_BOOST,
         .split = SPLIT_SPECIAL,
+        .pulseMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DragonPulse,
     },//vsonic seems animation for this not right?
 
     [MOVE_DRAGON_RUSH] =
@@ -6729,6 +10182,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .minimizeDoubleDamage = B_UPDATED_MOVE_FLAGS >= GEN_6,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_DRAGON_RUSH,
+        //.contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_TAIL},
+        //.battleAnimScript = gBattleAnimMove_DragonRush,
     },
 
     [MOVE_POWER_GEM] =
@@ -6747,6 +10211,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PowerGem,
     },
     //turned into psychic
     //maybe should make base 95? doesn't have other effect
@@ -6767,6 +10236,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .argument = { .absorbPercentage = 50 },
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .healingMove = B_HEAL_BLOCKING >= GEN_6,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        //.battleAnimScript = gBattleAnimMove_DrainPunch,
     },
 
     [MOVE_VACUUM_WAVE] =
@@ -6781,6 +10259,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_VacuumWave,
     },
 
     [MOVE_FOCUS_BLAST] =
@@ -6795,6 +10278,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_BALLISTIC,
         .split = SPLIT_SPECIAL,
+        .ballisticMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        //.battleAnimScript = gBattleAnimMove_FocusBlast,
     },
 
     [MOVE_ENERGY_BALL] =
@@ -6813,6 +10306,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .ballisticMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH},
+        //.battleAnimScript = gBattleAnimMove_EnergyBall,
     },
 
     [MOVE_BRAVE_BIRD] =
@@ -6827,6 +10330,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .argument = { .recoilPercentage = 33 },
+        .makesContact = TRUE,
+        .recoilMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_BRAVE_BIRD,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BraveBird,
     },
     //think leave crit off this, just let recoil rework be the buff
 
@@ -6842,6 +10353,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_UNDERGROUND,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_EarthPower,
     },
 
     [MOVE_SWITCHEROO] =
@@ -6856,6 +10376,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_2 },
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Switcheroo,
     }, //teach this
     //swaps items
 
@@ -6871,6 +10400,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_RECHARGE,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GigaImpact,
     },
 
     [MOVE_NASTY_PLOT] =
@@ -6885,6 +10424,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_NastyPlot,
     },
 
     [MOVE_BULLET_PUNCH] =
@@ -6899,6 +10447,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BulletPunch,
     },
 
     [MOVE_AVALANCHE] =
@@ -6913,6 +10468,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -4,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Avalanche,
     },
 
     [MOVE_ICE_SHARD] =
@@ -6927,6 +10488,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_IceShard,
     },
 
     [MOVE_SHADOW_CLAW] =
@@ -6941,6 +10507,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ShadowClaw,
     },
 
     [MOVE_THUNDER_FANG] =
@@ -6955,6 +10527,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .bitingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 10,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 10,
+        }),
         .argument = MOVE_EFFECT_PARALYSIS,
     },
 
@@ -6970,6 +10552,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .bitingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FREEZE,
+            .chance = 10,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 10,
+        }),
         .argument = MOVE_EFFECT_FREEZE,
     },
 
@@ -6985,6 +10577,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .bitingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 10,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 10,
+        }),
         .argument = MOVE_EFFECT_BURN,
     }, //intuition was corret, well teh note was correct, the issue was use of effect_flinch_status
     //rather than my argument move effect setup, believe problem somehow linked to argumenttostatus command?
@@ -7003,6 +10605,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ShadowSneak,
     },
 
     [MOVE_MUD_BOMB] =
@@ -7017,6 +10625,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_BALLISTIC | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .ballisticMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MudBomb,
     },
     
 
@@ -7032,6 +10650,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .slicingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PsychoCut,
     },
 
     [MOVE_ZEN_HEADBUTT] =
@@ -7046,6 +10670,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_HEADBUTT_MOVE,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ZenHeadbutt,
     },
 
     [MOVE_MIRROR_SHOT] =
@@ -7060,6 +10694,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MirrorShot,
     },
 
     [MOVE_FLASH_CANNON] =
@@ -7074,6 +10717,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_MEGA_LAUNCHER_BOOST | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FlashCannon,
     }, //makes sense compared to aura sphere description, similar.
     //change mostly for a blastoise buff
 
@@ -7089,6 +10741,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BETTER_WITH_GOOD_CONDITION,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RockClimb,
     },
 
     [MOVE_DEFOG] =
@@ -7107,6 +10769,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ACC_UP_1 },
+        //.ignoresSubstitute = TRUE, In Gen5+, the evasion drop will no longer bypass Substitute. However, this is tricky to code
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Defog,
     },
 
     [MOVE_TRICK_ROOM] =
@@ -7121,6 +10791,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -7,
         .flags = FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ACC_UP_1 },
+        .ignoresProtect = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_TrickRoom,
     },
 
     [MOVE_DRACO_METEOR] =
@@ -7139,6 +10816,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DracoMeteor,
     },
 
     [MOVE_DISCHARGE] =
@@ -7153,6 +10839,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARGE},
+        //.battleAnimScript = gBattleAnimMove_Discharge,
     },
 
     [MOVE_LAVA_PLUME] =
@@ -7167,6 +10862,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_LavaPlume,
     },
 
     [MOVE_LEAF_STORM] =
@@ -7185,6 +10889,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LeafStorm,
     },
 
     [MOVE_POWER_WHIP] =
@@ -7199,6 +10912,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH},
+        //.battleAnimScript = gBattleAnimMove_PowerWhip,
     }, //add to tangela learnset
 
     [MOVE_ROCK_WRECKER] =
@@ -7213,6 +10932,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_PHYSICAL,
+        .ballisticMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_RECHARGE,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RockWrecker,
     },
 
     [MOVE_CROSS_POISON] =
@@ -7227,6 +10956,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_CrossPoison,
     },
 
     [MOVE_GUNK_SHOT] =
@@ -7245,6 +10985,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GunkShot,
     },
 
     [MOVE_IRON_HEAD] =
@@ -7260,6 +11009,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_IronHead,
     },
 
     [MOVE_MAGNET_BOMB] =
@@ -7274,6 +11033,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_PHYSICAL,
+        .ballisticMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MagnetBomb,
     },
 
     [MOVE_STONE_EDGE] =
@@ -7288,6 +11053,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_StoneEdge,
     },
     //there are very few rock moves
     //should I increase accuracy of this?
@@ -7309,6 +11079,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_2 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARM},
+        //.battleAnimScript = gBattleAnimMove_Captivate,
     },//lower stats if opposite gender
 
     [MOVE_STEALTH_ROCK] =
@@ -7327,6 +11104,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_OPPONENTS_FIELD,
         .priority = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .forcePressure = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_StealthRock,
     },//check for how I adjusted stealth rock think I rebalanced it?
     //think if I don't want traps to auto be set in every match
     //I shouldn't give them priority, with ttk changes
@@ -7345,6 +11132,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GrassKnot,
         .argument = MOVE_EFFECT_FLINCH
     },
 
@@ -7370,6 +11163,30 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_BOTH,//change to target both with cacophony becomes guaranteed confuse
         .priority = 0,          //w max confuse odds
         .split = SPLIT_SPECIAL,
+        .ignoresSubstitute = TRUE,
+        .soundMove = TRUE,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_6,
+        .mimicBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+        #if B_UPDATED_MOVE_DATA >= GEN_6
+            .chance = 100,
+        #elif B_UPDATED_MOVE_DATA >= GEN_5
+            .chance = 10,
+        #else
+            .chance = 31,
+        #endif
+        }),
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Chatter,
     }, //did I intend this to eb a gauranteed confuse?
     //for this and other foncuse will use cacophonyboosted special status to allow to confuse bugs etc.
     //nvm that would be hell to setup just make confuse mon that otherwise block confuse
@@ -7391,6 +11208,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .argument = { .holdEffect = HOLD_EFFECT_PLATE },
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Judgment,
     }, //thinik add message passed judgement def can no longer escape!
     //vsonic  //actually too strong, since this thing is already hella op
     //do second idea, and make random type that will do most damage to target
@@ -7415,6 +11238,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_STRONG_JAW_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BUG_BITE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BugBite,
         .argument = MOVE_EFFECT_INFESTATION,
         .argumentEffectChance = 15,
     },
@@ -7431,6 +11263,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_PLUS_1,
+            .self = TRUE,
+            .chance = 70,
+        }),
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARGE},
+        //.battleAnimScript = gBattleAnimMove_ChargeBeam,
     },
 
     [MOVE_WOOD_HAMMER] =
@@ -7445,6 +11287,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .argument = { .recoilPercentage = 33 },
+        .makesContact = TRUE,
+        .recoilMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_WoodHammer,
     },
 
     [MOVE_AQUA_JET] =
@@ -7459,6 +11309,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_AquaJet,
     },
 
     [MOVE_ATTACK_ORDER] =
@@ -7473,6 +11329,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_ATTACK_ORDER,
+        //.contestComboMoves = {COMBO_STARTER_DEFEND_ORDER, COMBO_STARTER_HEAL_ORDER},
+        //.battleAnimScript = gBattleAnimMove_AttackOrder,
         .argument = MOVE_EFFECT_INFESTATION,
     },
 
@@ -7488,6 +11349,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_DEFEND_ORDER,
+        //.contestComboMoves = {COMBO_STARTER_ATTACK_ORDER, COMBO_STARTER_HEAL_ORDER},
+        //.battleAnimScript = gBattleAnimMove_DefendOrder,
     },
 
     [MOVE_HEAL_ORDER] =
@@ -7502,6 +11372,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .healingMove = TRUE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_HEAL_ORDER,
+        //.contestComboMoves = {COMBO_STARTER_ATTACK_ORDER, COMBO_STARTER_DEFEND_ORDER},
+        //.battleAnimScript = gBattleAnimMove_HealOrder,
     },
 
     [MOVE_HEAD_SMASH] =
@@ -7516,6 +11396,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST | FLAG_HEADBUTT_MOVE,
         .split = SPLIT_PHYSICAL,
+        .argument = { .recoilPercentage = 50 },
+        .makesContact = TRUE,
+        .recoilMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HeadSmash,
     },//consider raising accuracy vsonic double edge has triple pp and is 100% accurate
     //did boost acc from 85 to 90
     //think will go to 95 has heavy recoil and half the pp of most double edge likes
@@ -7533,6 +11421,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .strikeCount = 2,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DoubleHit,
     },
 
     [MOVE_ROAR_OF_TIME] =
@@ -7547,6 +11442,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_RECHARGE,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RoarOfTime,
     },
 
     [MOVE_SPACIAL_REND] =
@@ -7561,6 +11465,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SpacialRend,
     },
 
     [MOVE_LUNAR_DANCE] =
@@ -7579,6 +11488,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = -1,//change ensure mon comes in last
         .split = SPLIT_STATUS,
+        .snatchAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .healingMove = TRUE,
+        .danceMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LunarDance,
     },
 
     [MOVE_CRUSH_GRIP] =
@@ -7593,6 +11512,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_CrushGrip,
         .argumentEffectChance = 150, //will be power
     },
     //may make this power 0 so it ignores type calc
@@ -7609,6 +11534,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_WRAP,
+            .multistring.wrapped = B_MSG_WRAPPED_MAGMA_STORM,
+        }),
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_MagmaStorm,
         .argument = MOVE_EFFECT_BURN,
         .argumentEffectChance = 100,
     },
@@ -7626,6 +11560,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0, //leave as is
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .magicCoatAffected = TRUE,
+        .sketchBanned = (B_SKETCH_BANS >= GEN_9),
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DarkVoid,
     },//instead of dropping accuracy just keep from being sketched by smeargle -_-
 
     [MOVE_SEED_FLARE] =
@@ -7640,6 +11583,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_2,
+            .chance = 40,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SeedFlare,
     },
 
     [MOVE_OMINOUS_WIND] =
@@ -7654,6 +11606,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
+        .windMove = B_EXTRAPOLATED_MOVE_FLAGS,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ALL_STATS_UP,
+            .self = TRUE,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_OminousWind,
     },
 
     [MOVE_SHADOW_FORCE] =
@@ -7668,6 +11631,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .ignoresProtect = TRUE,
+        .minimizeDoubleDamage = B_UPDATED_MOVE_FLAGS == GEN_6,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId = STRINGID_VANISHEDINSTANTLY, .status = STATE_PHANTOM_FORCE },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FEINT,
+        }),
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ShadowForce,
     },
 
     [MOVE_HONE_CLAWS] =
@@ -7682,6 +11660,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HoneClaws,
     },
 
     [MOVE_WIDE_GUARD] =
@@ -7696,6 +11683,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 3,
         .flags = FLAG_PROTECTION_MOVE | FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        .argument = { .protectMethod = PROTECT_WIDE_GUARD },
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_WideGuard,
         .argument = TRUE, // Protects the whole side.
     },
     //vsonic potentialy add to more rock types
@@ -7712,6 +11710,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GuardSplit,
     },
 
     [MOVE_POWER_SPLIT] =
@@ -7726,6 +11731,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PowerSplit,
     },
 
     [MOVE_WONDER_ROOM] =
@@ -7744,6 +11756,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .flags = FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .ignoresProtect = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_WonderRoom,
     },//swap defense sp defense of all
 
     [MOVE_PSYSHOCK] =
@@ -7758,6 +11777,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Psyshock,
     },
 
     [MOVE_VENOSHOCK] =
@@ -7772,6 +11796,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .argument = { .status = STATUS1_PSN_ANY },
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_TOXIC},
+        //.battleAnimScript = gBattleAnimMove_Venoshock,
     },
 
     [MOVE_AUTOTOMIZE] =
@@ -7786,6 +11816,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Autotomize,
     },
 
     [MOVE_RAGE_POWDER] =
@@ -7804,6 +11843,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .flags = FLAG_POWDER_MOVE,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .powderMove = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RagePowder,
     },
 
     [MOVE_TELEKINESIS] =
@@ -7818,6 +11869,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .magicCoatAffected = TRUE,
+        .gravityBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Telekinesis,
     },
 
     [MOVE_MAGIC_ROOM] =
@@ -7836,6 +11895,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .flags = FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .ignoresProtect = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MagicRoom,
     },//blocks all item use on field,
     //with my embargo change this is kinda obsolete
 
@@ -7851,6 +11917,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        .damagesAirborne = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SmackDown,
     }, //now that moved smackdown effect to flag, no longer need effect, repalce with hit,
 
     [MOVE_STORM_THROW] =
@@ -7869,6 +11941,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_ALWAYS_CRIT,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .alwaysCriticalHit = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_StormThrow,
     },
     //would be better if there were any fighting mon that
     //got sniper but its almost exclusively water types hmm
@@ -7889,6 +11968,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLAME_BURST,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FlameBurst,
         .argument = MOVE_EFFECT_BURN,
         .argumentEffectChance = 10,
     },
@@ -7907,6 +11995,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SludgeWave,
     },
 
     [MOVE_QUIVER_DANCE] =
@@ -7921,6 +12018,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_DANCE,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .danceMove = TRUE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_QuiverDance,
     },
 
     [MOVE_HEAVY_SLAM] =
@@ -7935,6 +12042,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .minimizeDoubleDamage = B_UPDATED_MOVE_FLAGS >= GEN_7,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HeavySlam,
     },
 
     [MOVE_SYNCHRONOISE] =
@@ -7954,6 +12068,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Synchronoise,
     },
     //set effect to ignore resist
     //and give stab
@@ -7970,6 +12089,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_SPECIAL,
+        .ballisticMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ElectroBall,
         .argument = MOVE_EFFECT_PARALYSIS,
         .argumentEffectChance = 30,
     },
@@ -7990,6 +12115,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        .argument = { .type = TYPE_WATER },
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Soak,
         .argument = TYPE_WATER, //forgot fully change this, make based on argument
     }, //set type to water
 
@@ -8005,6 +12138,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
+            .self = TRUE,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FlameCharge,
     },
 
     [MOVE_COIL] =
@@ -8019,6 +12163,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Coil,
     },
 
     [MOVE_LOW_SWEEP] =
@@ -8037,6 +12190,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LowSweep,
     },
 
     [MOVE_ACID_SPRAY] =
@@ -8051,6 +12214,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .ballisticMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_2,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AcidSpray,
     },
 
     [MOVE_FOUL_PLAY] =
@@ -8065,6 +12238,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FoulPlay,
     },
 
     [MOVE_SIMPLE_BEAM] =
@@ -8079,6 +12258,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SimpleBeam,
     },//set target ability to simple - doubles stat changes
 
     [MOVE_ENTRAINMENT] =
@@ -8093,6 +12279,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Entrainment,
     },//makes target ability same as user
     //look into move, this seems like a good tm?
     //vsonic important
@@ -8109,6 +12302,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AfterYou,
     },//makes target move after user, only useful for doubles+
     //this will be a huge change, before would be used to speed up slower mon
     //but now would function like helping hand, where I boost their priority to the top
@@ -8125,6 +12328,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
+        .ignoresSubstitute = TRUE,
+        .soundMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ROUND,
+        }),
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Round,
     },
 
     [MOVE_ECHOED_VOICE] =
@@ -8139,6 +12352,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
+        .ignoresSubstitute = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_EchoedVoice,
         .argument = MOVE_EFFECT_CONFUSION,
     },
 
@@ -8154,6 +12374,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .ignoresTargetDefenseEvasionStages = TRUE,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ChipAway,
     },//think change to unique effect, ignores changes to def stat and evasion stat of target
     //would like make special veriant for normal 
     //ahh seems effect was never set...
@@ -8171,6 +12398,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CLEAR_SMOG,
+        }),
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ClearSmog,
     },
 
     [MOVE_STORED_POWER] =
@@ -8185,6 +12420,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_StoredPower,
     },//potentially use with moody mon
 
     [MOVE_QUICK_GUARD] =
@@ -8199,6 +12439,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 3,
         .flags = FLAG_PROTECTION_MOVE | FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        .argument = { .protectMethod = PROTECT_QUICK_GUARD, },
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_QuickGuard,
         .argument = TRUE, // Protects the whole side.
     },//make sure this is using correct effect and doesn't have decreasing odds each use
     //check how works as meant to stop all priority moves - works
@@ -8220,6 +12471,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_2 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AllySwitch,
     },
 
     [MOVE_SCALD] =
@@ -8234,6 +12493,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .thawsUser = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_SCALD,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Scald,
     },
 
     [MOVE_SHELL_SMASH] =
@@ -8248,6 +12517,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -1, //this functions better if last
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ShellSmash,
     },//alrigth every mon that learns this is slow, so will just make negative priority
 
     [MOVE_HEAL_PULSE] =
@@ -8262,6 +12540,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MEGA_LAUNCHER_BOOST,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .magicCoatAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .healingMove = TRUE,
+        .pulseMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HealPulse,
     },
     //give blastoise heal pulse
     //heal pulse is meant to have long rage,
@@ -8283,6 +12571,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.zMove = { .powerOverride = 160 },
+        .argument = { .status = STATUS1_ANY },
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_TOXIC},
+        //.battleAnimScript = gBattleAnimMove_Hex,
     },
 
     [MOVE_SKY_DROP] =
@@ -8297,6 +12592,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .gravityBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId = STRINGID_PKMNTOOKTARGETHIGH, .status = STATE_ON_AIR },
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SkyDrop,
     },//vsonic never tested if works
 
     [MOVE_SHIFT_GEAR] =
@@ -8311,6 +12617,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ShiftGear,
     },
 
     [MOVE_CIRCLE_THROW] =
@@ -8325,6 +12640,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -6,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_CircleThrow,
     },
 
     [MOVE_INCINERATE] =
@@ -8343,6 +12666,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_INCINERATE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Incinerate,
     },
 
     [MOVE_QUASH] =
@@ -8357,6 +12688,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Quash,
     },
     //opposite of after you, makes target act last
     //like after you this is a massive buff
@@ -8373,6 +12711,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Acrobatics,
     },
     //ground dwelling mon can use and its used a lot to hit flying 
     //or other enemies that need to be attacked in unique ways so make hit floating
@@ -8389,6 +12733,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ReflectType,
     },//is just conversion, but with greater access
     //copies target's type(s)
 
@@ -8404,6 +12756,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Retaliate,
     },
 
     [MOVE_FINAL_GAMBIT] =
@@ -8418,6 +12776,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .mirrorMoveBanned = TRUE,
+        .parentalBondBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FinalGambit,
     },
     //review this may have changed effect
     //think will revert my change didn't initially
@@ -8448,6 +12813,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_2 },
+        .ignoresProtect = B_UPDATED_MOVE_FLAGS >= GEN_6,
+        .ignoresSubstitute = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Bestow,
     },//gives held item to target
     //this I feel should probably keep where it is?
     //just because it seems like something where strategies are already locked in and very specific
@@ -8465,6 +12841,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Inferno,
     },
 
     [MOVE_WATER_PLEDGE] =
@@ -8483,6 +12868,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_WaterPledge,
     },
 
     [MOVE_FIRE_PLEDGE] =
@@ -8501,6 +12891,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FirePledge,
     },
 
     [MOVE_GRASS_PLEDGE] =
@@ -8519,6 +12914,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GrassPledge,
     },
 
     [MOVE_VOLT_SWITCH] =
@@ -8533,6 +12933,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_VoltSwitch,
     },
 
     [MOVE_STRUGGLE_BUG] =
@@ -8551,6 +12956,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_StruggleBug,
         .argument = MOVE_EFFECT_INFESTATION,
     }, //hm so is this guaranteed both?if so its VERY good now, yup looks like it
     //put this exclusively in pre evo bug learnset not full evo
@@ -8573,6 +12987,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_UNDERGROUND,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Bulldoze,
     },
     //gave underground boost but otherwise change targetting to make it more accessible version of earthquake
 
@@ -8592,6 +13015,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_ALWAYS_CRIT,
         .split = SPLIT_SPECIAL,
+        .alwaysCriticalHit = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FrostBreath,
     },//add to more learnsets
     //almost better than blizzard, difference is no acc boost in hail
 
@@ -8607,6 +13036,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -6,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_DRAGON_TAIL,
+        //.contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_RUSH},
+        //.battleAnimScript = gBattleAnimMove_DragonTail,
     },
 
     [MOVE_WORK_UP] =
@@ -8621,6 +13058,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_WorkUp,
     },
 
     [MOVE_ELECTROWEB] =
@@ -8635,6 +13081,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Electroweb,
     },
 
     [MOVE_WILD_CHARGE] =
@@ -8649,6 +13104,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .argument = { .recoilPercentage = 25 },
+        .makesContact = TRUE,
+        .recoilMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_WildCharge,
     },
 
     [MOVE_DRILL_RUN] =
@@ -8663,6 +13126,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DrillRun,
     },
 
     [MOVE_DUAL_STRIKE] =
@@ -8691,6 +13160,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HeartStamp,
     },
 
     [MOVE_HORN_LEECH] =
@@ -8705,6 +13184,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .argument = { .absorbPercentage = 50 },
+        .makesContact = TRUE,
+        .healingMove = B_HEAL_BLOCKING >= GEN_6,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HornLeech,
     },
 
     [MOVE_SACRED_SWORD] =
@@ -8723,6 +13210,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .ignoresTargetDefenseEvasionStages = TRUE,
+        .slicingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SacredSword,
     },
 
     [MOVE_RAZOR_SHELL] =
@@ -8737,6 +13232,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 50,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RazorShell,
     },
 
     [MOVE_HEAT_CRASH] =
@@ -8755,6 +13261,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .minimizeDoubleDamage = B_UPDATED_MOVE_FLAGS >= GEN_6,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HeatCrash,
     },
 
     [MOVE_LEAF_TORNADO] =
@@ -8769,6 +13282,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
+            .chance = 50,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LeafTornado,
     },
 
     [MOVE_STEAMROLLER] =
@@ -8782,6 +13304,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .minimizeDoubleDamage = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Steamroller,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_EVASIVE_BREAK,
         //.argument = MOVE_EFFECT_INFESTATION,
     },
@@ -8798,6 +13331,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_CottonGuard,
     },
 
     [MOVE_NIGHT_DAZE] =
@@ -8812,6 +13354,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
+            .chance = 40,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_NightDaze,
     },
 
     [MOVE_PSYSTRIKE] =
@@ -8826,6 +13377,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Psystrike,
     },//mewtwo signature
 
     [MOVE_TAIL_SLAP] =
@@ -8840,6 +13396,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_TailSlap,
     },
 
     [MOVE_HURRICANE] =
@@ -8855,6 +13417,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_IN_AIR | FLAG_WIND_MOVE | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .windMove = TRUE,
+        .damagesAirborne = TRUE,
+        .alwaysHitsInRain = TRUE,
+        .accuracy50InSun = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Hurricane,
     },
     //may change to more literal translation 
     //'Windstorm' cutting wind attack
@@ -8875,6 +13450,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST | FLAG_HEADBUTT_MOVE,
         .split = SPLIT_PHYSICAL,
+        .argument = { .recoilPercentage = 25 },
+        .makesContact = TRUE,
+        .recoilMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HeadCharge,
     },
 
     [MOVE_GEAR_GRIND] =
@@ -8889,6 +13472,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        //.zMove = { .powerOverride = 180 },
+        .makesContact = TRUE,
+        .strikeCount = 2,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GearGrind,
     },
 
     [MOVE_SEARING_SHOT] =
@@ -8903,6 +13494,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .ballisticMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SearingShot,
     },
 
     [MOVE_TECHNO_BLAST] =
@@ -8921,6 +13522,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .argument = { .holdEffect = HOLD_EFFECT_DRIVE },
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_EXCITE_AUDIENCE_IN_ANY_CONTEST,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_TechnoBlast,
         .argument = HOLD_EFFECT_DRIVE
     },
 
@@ -8936,6 +13544,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .argument = { .status = STATUS1_SLEEP },
+        .ignoresSubstitute = TRUE,
+        .soundMove = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SLEEP,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RelicSong,
         .argument = MOVE_EFFECT_SLEEP,//STATUS1_SLEEP, //MOVE_EFFECT_SLEEP
     },//test this, replaced use of argumenttostatus
 
@@ -8951,6 +13572,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .slicingMove = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SecretSword,
     },
 
     [MOVE_GLACIATE] =
@@ -8965,6 +13593,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Glaciate,
     },
 
     [MOVE_BOLT_STRIKE] =
@@ -8979,6 +13616,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BoltStrike,
     },
     //zekrom special move
 
@@ -8994,6 +13641,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BlueFlare,
     },//may need buff this and below,
     //signature of reshiram and zeckrom, kinda underwhelming
     //for signature moves is just slightly better thunder and fireblast
@@ -9010,6 +13666,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DANCE | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .danceMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_PLUS_1,
+            .self = TRUE,
+            .chance = 50,
+        }),
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FieryDance,
     },
 
     [MOVE_FREEZE_SHOCK] =
@@ -9024,6 +13691,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .metronomeBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId = STRINGID_CLOAKEDINAFREEZINGLIGHT },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FreezeShock,
         .argument = TYPE_ELECTRIC,
     },//maintained paralysis chance
 
@@ -9039,6 +13719,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .metronomeBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId = STRINGID_CLOAKEDINAFREEZINGLIGHT },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_IceBurn,
         .argument = TYPE_FIRE,
     },//will still burn
     //think these are just kyurem black/white moves
@@ -9055,6 +13748,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
+        .ignoresSubstitute = TRUE,
+        .soundMove = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Snarl,
     },
 
     [MOVE_ICICLE_CRASH] =
@@ -9069,6 +13774,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_IcicleCrash,
     },
 
     [MOVE_V_CREATE] =
@@ -9083,6 +13797,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        //.zMove = { .powerOverride = 220 },
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_V_CREATE,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_VCreate,
     },
 
     [MOVE_FUSION_FLARE] =
@@ -9097,6 +13823,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .thawsUser = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FusionFlare,
     },
 
     [MOVE_FUSION_BOLT] =
@@ -9111,6 +13843,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FusionBolt,
     },
 
     [MOVE_FLYING_PRESS] =
@@ -9129,6 +13866,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_EVASIVE_BREAK | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        //.zMove = { .powerOverride = 170 },
+        .argument = { .type = TYPE_FLYING },
+        .makesContact = TRUE,
+        .minimizeDoubleDamage = TRUE,
+        .gravityBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FlyingPress,
     },
     //this move is actually just horrendous, the types don't compliment each other at all
     //best I could do is intead turn this into a two turn semi invul
@@ -9149,6 +13896,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        .argument = { .protectMethod = PROTECT_MAT_BLOCK, },
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MatBlock,
         .argument = TRUE, // Protects the whole side.
     },//only works first turn mon is in, doesn't block status moves
     //big buff for the move, but its only learned by throh and greninja
@@ -9168,6 +13928,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
+        .mirrorMoveBanned = TRUE,
+        .meFirstBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .mimicBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        .soundMove = TRUE,
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Belch,
     },
 
     [MOVE_ROTOTILLER] =
@@ -9182,6 +13957,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Rototiller,
     },//confusing name but pretty much just means plow/till the land to enrich it
     //boost offense stats for all grass mon on field
     //plan give to some horse/cow mon as they were used to plow the soil
@@ -9199,6 +13982,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MAGIC_COAT_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_StickyWeb,
     },
     //stiky web doesn't cause dmg,
     //and is on thought to be "weakest" type
@@ -9222,6 +14014,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FellStinger,
         .argument = MOVE_EFFECT_INFESTATION,
         .argumentEffectChance = 35,
     },
@@ -9238,6 +14036,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .ignoresProtect = TRUE,
+        .makesContact = TRUE,
+        .minimizeDoubleDamage = B_UPDATED_MOVE_FLAGS == GEN_6,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId = STRINGID_VANISHEDINSTANTLY, .status = STATE_PHANTOM_FORCE },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FEINT,
+        }),
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PhantomForce,
         .argument = MOVE_EFFECT_FEINT,
     },
 
@@ -9253,6 +14066,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        .argument = { .type = TYPE_GHOST },
+        //.zMove = { .effect = Z_EFFECT_ALL_STATS_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_TrickOrTreat,
         .argument = TYPE_GHOST,
     },
 
@@ -9268,6 +14089,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_NobleRoar,
     },
     //pyroar line signature, drops atk/sp atk
 
@@ -9283,6 +14113,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_IonDeluge,
     },
 
     [MOVE_PARABOLIC_CHARGE] =
@@ -9301,6 +14139,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .argument = { .absorbPercentage = 50 },
+        .healingMove = B_HEAL_BLOCKING >= GEN_6,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ParabolicCharge,
     },//heliolisk signature potentially spread around
     //too good to not have drawback
     //with more types resisting electric is ironically easier to use
@@ -9317,6 +14162,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        .argument = { .type = TYPE_GRASS },
+        //.zMove = { .effect = Z_EFFECT_ALL_STATS_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ForestsCurse,
         .argument = TYPE_GRASS,
     },
 
@@ -9332,6 +14185,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_WIND_MOVE,
         .split = SPLIT_PHYSICAL,
+        .windMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PetalBlizzard,
     },
 
     [MOVE_FREEZE_DRY] =
@@ -9346,6 +14205,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .argument = { .type = TYPE_WATER },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FreezeDry,
         .argument = MOVE_EFFECT_FREEZE, //ADDed freeze chance
     },//add to more learnsets
 
@@ -9361,6 +14230,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
+        .ignoresSubstitute = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DisarmingVoice,
         //.argument = MOVE_EFFECT_CONFUSION,
     }, //doesn't make sense for this to have confusion despite being sound move as its quite
     //don't know what to do with this far as cacophony since I don't have dmg boost it would do nothing to this
@@ -9379,6 +14255,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESTORE_REPLACEMENT_HP },
+        .magicCoatAffected = TRUE,
+        .ignoresSubstitute = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PartingShot,
     },//lower offense stats then switch
     //consider if this priority shold go back down
 
@@ -9398,6 +14283,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_TopsyTurvy,
     },//reverse target stat change
 
     [MOVE_DRAINING_KISS] =
@@ -9412,6 +14304,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .argument = { .absorbPercentage = 75 },
+        .makesContact = TRUE,
+        .healingMove = B_HEAL_BLOCKING >= GEN_6,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DrainingKiss,
         .argument = 0, // restores 75% HP instead of 50% HP
         .argumentEffectChance = 75,
     },
@@ -9428,6 +14328,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 3,
         .flags = 0,
         .split = SPLIT_STATUS,
+        .argument = { .protectMethod = PROTECT_CRAFTY_SHIELD },
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_CraftyShield,
         .argument = TRUE, // Protects the whole side.
     },
 
@@ -9443,6 +14353,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FlowerShield,
     },//boost defense of all grass types
 
     [MOVE_GRASSY_TERRAIN] =
@@ -9457,6 +14375,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_GRASSY_TERRAIN,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GrassyTerrain,
     },//same thing as weather moves, gives some impact back to the moves
 
     [MOVE_MISTY_TERRAIN] =
@@ -9471,6 +14397,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_MISTY_TERRAIN,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MistyTerrain,
     },
 
     [MOVE_ELECTRIFY] =
@@ -9485,6 +14419,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Electrify,
     },//make target move electric
     //would be good for galvanize replacement 
     //if could get on psychic type w telepathy
@@ -9503,6 +14443,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PlayRough,
     },
 
     [MOVE_FAIRY_WIND] =
@@ -9517,6 +14467,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
+        .windMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FairyWind,
     },
 
     [MOVE_MOONBLAST] =
@@ -9531,6 +14487,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Moonblast,
     },
 
     [MOVE_BOOMBURST] =
@@ -9545,6 +14510,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
+        .ignoresSubstitute = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Boomburst,
     },
 
     [MOVE_FAIRY_LOCK] =
@@ -9559,6 +14531,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FairyLock,
     },//klefki signature prevents all mon on field excpet ghosts
     //from being able to switch or flee next turn
 
@@ -9574,6 +14554,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 4,
         .flags = FLAG_PROTECTION_MOVE,
         .split = SPLIT_STATUS,
+        .argument = { .protectMethod = PROTECT_KINGS_SHIELD },
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_KingsShield,
     },
 
     [MOVE_PLAY_NICE] =
@@ -9588,6 +14581,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PlayNice,
     },
 
     [MOVE_CONFIDE] =
@@ -9602,6 +14604,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .magicCoatAffected = TRUE,
+        .ignoresSubstitute = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Confide,
     },
 
     [MOVE_DIAMOND_STORM] =
@@ -9620,6 +14632,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = B_UPDATED_MOVE_DATA >= GEN_7 ? MOVE_EFFECT_DEF_PLUS_2:  MOVE_EFFECT_DEF_PLUS_1,
+            .self = TRUE,
+            .chance = 50,
+        }),
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DiamondStorm,
     },
 
     [MOVE_STEAM_ERUPTION] =
@@ -9634,6 +14657,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .thawsUser = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SCALD},
+        //.battleAnimScript = gBattleAnimMove_SteamEruption,
     },
 
     [MOVE_HYPERSPACE_HOLE] =
@@ -9648,6 +14682,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FEINT,
+        }),
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_HYPERSPACE_HOLE,
+        //.contestComboMoves = {COMBO_STARTER_HYPERSPACE_FURY},
+        //.battleAnimScript = gBattleAnimMove_HyperspaceHole,
     },
 
     [MOVE_WATER_SHURIKEN] =
@@ -9662,6 +14707,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_WaterShuriken,
     },
 
     [MOVE_MYSTICAL_FIRE] =
@@ -9680,6 +14730,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MysticalFire,
     },
 
     [MOVE_SPIKE_SHIELD] =
@@ -9708,6 +14767,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_2 },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AromaticMist,
     }, //teach bellowsom etc.
     //vsonic important
     //buff sp def of an ally
@@ -9724,6 +14792,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_EerieImpulse,
     },
 
     [MOVE_VENOM_DRENCH] =
@@ -9738,6 +14813,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_TOXIC},
+        //.battleAnimScript = gBattleAnimMove_VenomDrench,
     },//lower stats of all poisoned target  atk/spatk & speed
 
     [MOVE_POWDER] =
@@ -9752,6 +14834,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_2 },
+        .powderMove = TRUE,
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Powder,
     },//this move is crazy its a fire type counter, spread to more mon, but make it make sense dustox vespiqueen butterfree etc
 
     [MOVE_GEOMANCY] =
@@ -9766,6 +14856,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ALL_STATS_UP_1 },
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId = STRINGID_PKNMABSORBINGPOWER },
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Geomancy,
     },//xerneas signature charge turn then buff stats
     //seems like it sucks but xerneas is bulky and power herb exists
 
@@ -9781,6 +14880,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MagneticFlux,
     },
     //raise defense stats of user and ally if ability plus or minus
 
@@ -9796,6 +14905,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 3,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ALL_STATS_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HappyHour,
     },//huh this is meant to double money post battle
     //stacks with amulet coin/luck incense and also doubles payday /make it rain returns
 
@@ -9811,6 +14928,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_ELECTRIC_TERRAIN,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ElectricTerrain,
     },
 
     [MOVE_DAZZLING_GLEAM] =
@@ -9825,6 +14950,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DazzlingGleam,
     },
 
     [MOVE_CELEBRATE] =
@@ -9839,6 +14969,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 3,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ALL_STATS_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .mimicBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Celebrate,
     },
 
     [MOVE_HOLD_HANDS] =
@@ -9853,6 +14997,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ALL_STATS_UP_1 },
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .metronomeBanned = TRUE,
+        .mimicBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HoldHands,
     },//buff two different strings, /normal string when does nothing "ally was happy"
     // when rolls effect  "ally got excited! all stats went up" then set all stats go up
 
@@ -9868,6 +15026,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 2,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BabyDollEyes,
     },//think make this a plus 2 to preserve effect?
 
     [MOVE_NUZZLE] =
@@ -9882,6 +15047,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Nuzzle,
     },
 
     [MOVE_HOLD_BACK] =
@@ -9896,6 +15071,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HoldBack,
         .argument = MOVE_EFFECT_DEF_MINUS_1,
     }, //make early level move for more professional style fighting mon i.e hitmon chan lee, hariyama sawk medicham
     //add for tyrogue machop vsonic
@@ -9927,6 +15108,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ATK_PLUS_1,
+            .self = TRUE,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PowerUpPunch,
     },
     //...why did I boost this moves power???
     //lowered pp to balance
@@ -9948,6 +15141,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
+        .argument = { .absorbPercentage = 75 },
+        .healingMove = B_HEAL_BLOCKING >= GEN_6,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_OblivionWing,
         .argument = 0, // restores 75% HP instead of 50% HP
         .argumentEffectChance = 75,
     },
@@ -9964,6 +15164,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        .damagesAirborne = TRUE,
+        .ignoreTypeIfFlyingAndUngrounded = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_THOUSAND_ARROWS,
+        //.contestComboMoves = {COMBO_STARTER_THOUSAND_WAVES},
+        //.battleAnimScript = gBattleAnimMove_ThousandArrows,
     },
 
     [MOVE_THOUSAND_WAVES] =
@@ -9978,6 +15186,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_2X_UNDERGROUND,
         .split = SPLIT_PHYSICAL,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PREVENT_ESCAPE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_THOUSAND_WAVES,
+        //.contestComboMoves = {COMBO_STARTER_THOUSAND_ARROWS},
+        //.battleAnimScript = gBattleAnimMove_ThousandWaves,
     },
 
     [MOVE_LANDS_WRATH] =
@@ -9992,6 +15209,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LandsWrath,
     },
 
     [MOVE_LIGHT_OF_RUIN] =
@@ -10006,6 +15228,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_SPECIAL,
+        .argument = { .recoilPercentage = 50 },
+        .recoilMove = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_LightOfRuin,
     },
 
     [MOVE_ORIGIN_PULSE] =
@@ -10020,6 +15246,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_MEGA_LAUNCHER_BOOST,
         .split = SPLIT_SPECIAL,
+        .pulseMove = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_OriginPulse,
     },
 
     [MOVE_PRECIPICE_BLADES] =
@@ -10034,6 +15267,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PrecipiceBlades,
     },//Groudon Unique ability,  made flg dmg in air as in show move is shown to blast up from the ocean floor,
     //high into the air... and other games describe it as being able to hit far away targets
     //want make standard clone of this move
@@ -10054,6 +15293,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_SPDEF_DOWN,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DragonAscent,
     },//change from flying to dragon type, give out to more mon,
     // as physical draco meteor
 
@@ -10069,6 +15319,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .metronomeBanned = TRUE,
+        .sketchBanned = (B_SKETCH_BANS >= GEN_9),
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            // Feint move effect handled in script as it goes before animation
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_HYPERSPACE_FURY,
+        //.contestComboMoves = {COMBO_STARTER_HYPERSPACE_HOLE},
+        //.battleAnimScript = gBattleAnimMove_HyperspaceFury,
     },
 
     [MOVE_SHORE_UP] =
@@ -10083,6 +15347,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .healingMove = TRUE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_QUALITY_DEPENDS_ON_TIMING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SANDSTORM},
+        //.battleAnimScript = gBattleAnimMove_ShoreUp,
     },
 
     [MOVE_FIRST_IMPRESSION] =
@@ -10097,6 +15371,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 2,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .argument = { .moveProperty = MOVE_FIRST_IMPRESSION },
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FirstImpression,
         .argumentEffectChance = 10,
     },
 
@@ -10112,6 +15393,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 4,
         .flags = FLAG_PROTECTION_MOVE,
         .split = SPLIT_STATUS,
+        .argument = { .protectMethod = PROTECT_BANEFUL_BUNKER },
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BanefulBunker,
     },
 
     [MOVE_SPIRIT_SHACKLE] =
@@ -10126,6 +15419,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PREVENT_ESCAPE,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SpiritShackle,
     },//think may buff to be high crit,  since signature move and weakned ghost offensively
     //need test this, w long reach this becomes quite strong
     //hmm actually rather than high crit I think I would like to give this
@@ -10155,6 +15457,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .ignoresTargetDefenseEvasionStages = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DarkestLariat,
     },
 
     [MOVE_SPARKLING_ARIA] =
@@ -10169,6 +15478,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
+        .argument = { .status = STATUS1_BURN },
+        .ignoresSubstitute = TRUE,
+        .soundMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_REMOVE_STATUS,
+            .sheerForceOverride = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SCALD},
+        //.battleAnimScript = gBattleAnimMove_SparklingAria,
         .argument = STATUS1_BURN,
     }, //like disarming voice can't do much with this with cacophony and I guess that's fine?
     //ended up buffing disarming voice
@@ -10185,6 +15506,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HAIL},
+        //.battleAnimScript = gBattleAnimMove_IceHammer,
     },
 
     [MOVE_FLORAL_HEALING] =
@@ -10199,6 +15531,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .argument = { .moveProperty = MOVE_EFFECT_FLORAL_HEALING },
+        .mirrorMoveBanned = TRUE,
+        .healingMove = TRUE,
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_QUALITY_DEPENDS_ON_TIMING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FloralHealing,
     },//vsonic important need add logic to heal pulse various command
 
     [MOVE_HIGH_HORSEPOWER] =
@@ -10213,6 +15555,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_HighHorsepower,
     },
 
     [MOVE_STRENGTH_SAP] =
@@ -10227,6 +15575,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        .healingMove = B_HEAL_BLOCKING >= GEN_6,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_StrengthSap,
     }, //want to make all healing effects snatchable,  will help cutdown on stall
     //lower target attack recover by same amount as effective attack before stat drop
 
@@ -10242,6 +15598,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId = STRINGID_PKMNTOOKSUNLIGHT, .status = B_WEATHER_SUN },
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_SolarBlade,
     },
 
     [MOVE_LEAFAGE] =
@@ -10256,6 +15622,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH},
+        //.battleAnimScript = gBattleAnimMove_Leafage,
     },
 
     [MOVE_SPOTLIGHT] =
@@ -10270,6 +15641,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 3,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .magicCoatAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Spotlight,
     },
 
     [MOVE_TOXIC_THREAD] =
@@ -10284,6 +15666,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_TOXIC},
+        //.battleAnimScript = gBattleAnimMove_ToxicThread,
     },//supposed to poison and drop speed but still drops speed even if can't poison
     //but with my changes to make status moves follow type calc that no longer works
     //consider whether to reinstate the effect, would be an exception to my rule if so
@@ -10300,6 +15689,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ATK_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LaserFocus,
     },
     //if can crit next attack will crit
 
@@ -10315,6 +15713,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GearUp,
     },
     //same as magnetic flux but for offense stats
 
@@ -10330,6 +15738,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_THROAT_CHOP,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ThroatChop,
     },
 
     [MOVE_POLLEN_PUFF] =
@@ -10344,6 +15762,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_SPECIAL,
+        .ballisticMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PollenPuff,
     },
 
     [MOVE_ANCHOR_SHOT] =
@@ -10358,6 +15782,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PREVENT_ESCAPE,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AnchorShot,
     },
 
     [MOVE_PSYCHIC_TERRAIN] =
@@ -10372,6 +15806,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_PSYCHIC_TERRAIN,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PsychicTerrain,
     },
 
     [MOVE_LUNGE] =
@@ -10386,6 +15828,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Lunge,
         .argumentEffectChance = 10,
         .argument = MOVE_EFFECT_INFESTATION,
     },
@@ -10402,6 +15854,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        //.battleAnimScript = gBattleAnimMove_FireLash,
     },
 
     [MOVE_POWER_TRIP] =
@@ -10416,6 +15878,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PowerTrip,
     },
 
     [MOVE_BURN_OUT] =
@@ -10445,6 +15913,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SpeedSwap,
     },
 
     [MOVE_SMART_STRIKE] =
@@ -10459,6 +15934,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SmartStrike,
     },
 
     [MOVE_PURIFY] =
@@ -10473,6 +15954,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_ALL_STATS_UP_1 },
+        .mirrorMoveBanned = TRUE,
+        .healingMove = TRUE,
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Purify,
     },
     //if target has status1 cure status then heals user
 
@@ -10488,6 +15978,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DANCE,
         .split = SPLIT_SPECIAL,
+        .danceMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_RevelationDance,
     },
 
     [MOVE_CORE_ENFORCER] =
@@ -10502,6 +15998,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.zMove = { .powerOverride = 140 },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CORE_ENFORCER,
+        }),
+        //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_CoreEnforcer,
     },
 
     [MOVE_TROP_KICK] =
@@ -10516,6 +16021,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_TropKick,
     },
 
     [MOVE_INSTRUCT] =
@@ -10530,6 +16045,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0, //leave as is relies on last move, plus seems has complicated turn order logic?
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .instructBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Instruct,
     },
 
     [MOVE_BEAK_BLAST] =
@@ -10544,6 +16069,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -3,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_PHYSICAL,
+        .mirrorMoveBanned = TRUE,
+        .ballisticMove = TRUE,
+        .meFirstBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BeakBlast,
     },
     //burns on contact and charge phase ignores attackcanceler
     //attack cancel doesn't trigger until attack at negative priority
@@ -10562,6 +16100,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
+        .ignoresSubstitute = TRUE,
+        .soundMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ClangingScales,
         .argument = MOVE_EFFECT_CONFUSION,
     },
 
@@ -10577,6 +16126,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_RUSH, COMBO_STARTER_DRAGON_TAIL},
+        //.battleAnimScript = gBattleAnimMove_DragonHammer,
     },
 
     [MOVE_BRUTAL_SWING] =
@@ -10591,6 +16146,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BrutalSwing,
     },
 
     [MOVE_LICK] =
@@ -10609,6 +16170,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Lick,
     },
 
     [MOVE_SHELL_TRAP] =
@@ -10623,6 +16194,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -3,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .mirrorMoveBanned = TRUE,
+        .meFirstBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ShellTrap,
     },
 
     [MOVE_FLEUR_CANNON] =
@@ -10637,6 +16220,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FleurCannon,
     },
 
     [MOVE_PSYCHIC_FANGS] =
@@ -10651,6 +16244,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_STRONG_JAW_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .bitingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 25,
+        }),
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PsychicFangs,
         .argument = MOVE_EFFECT_FLINCH,
     },// kept at power 75, added flinch and effect chance boosted to level of bite
 
@@ -10666,6 +16270,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_StompingTantrum,
     },
 
     [MOVE_SHADOW_BONE] =
@@ -10680,6 +16290,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_SHADOW_BONE,
+        //.contestComboMoves = {COMBO_STARTER_BONE_CLUB, COMBO_STARTER_BONEMERANG, COMBO_STARTER_BONE_RUSH},
+        //.battleAnimScript = gBattleAnimMove_ShadowBone,
     },
 
     [MOVE_ACCELEROCK] =
@@ -10694,6 +16313,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 2,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Accelerock,
     },//made equivalent of extreme speed rather than quick attack, es is base 80,but most mon that learn it aren't normal, so this equivalent dmg w stab in mind
 
     [MOVE_LIQUIDATION] =
@@ -10708,6 +16333,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Liquidation,
     },
 
     [MOVE_PRISMATIC_LASER] =
@@ -10722,6 +16357,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_RECHARGE,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PrismaticLaser,
     },
 
     [MOVE_SPECTRAL_THIEF] =
@@ -10736,6 +16380,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .ignoresSubstitute = TRUE,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SpectralThief,
     },
 
     [MOVE_SUNSTEEL_STRIKE] =
@@ -10750,6 +16402,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_TARGET_ABILITY_IGNORED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .ignoresTargetAbility = TRUE,
+        .metronomeBanned = B_UPDATED_MOVE_FLAGS >= GEN_8,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SunsteelStrike,
     },
 
     [MOVE_MOONGEIST_BEAM] =
@@ -10764,6 +16424,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_TARGET_ABILITY_IGNORED | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .ignoresTargetAbility = TRUE,
+        .metronomeBanned = B_UPDATED_MOVE_FLAGS >= GEN_8,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MoongeistBeam,
     },
 
     [MOVE_TEARFUL_LOOK] =
@@ -10778,6 +16445,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_TearfulLook,
     },
 
     [MOVE_ZING_ZAP] =
@@ -10792,6 +16467,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_CHARGE},
+        //.battleAnimScript = gBattleAnimMove_ZingZap,
     },//had lowered but think will put at ame level as bite?
     //eh screw it will keep unnerfed as electric rock slide
 
@@ -10807,6 +16492,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .argument = { .damagePercentage = 50 },
+        .metronomeBanned = B_UPDATED_MOVE_FLAGS >= GEN_8,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_NaturesMadness,
     },
 
     [MOVE_MULTI_ATTACK] =
@@ -10825,6 +16517,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .argument = { .holdEffect = HOLD_EFFECT_MEMORY },
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MultiAttack,
         .argument = HOLD_EFFECT_MEMORY,
     },
 
@@ -10840,6 +16539,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_SPECIAL,
+        .metronomeBanned = TRUE,
+        .recoilMove = TRUE,
+        .dampBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MindBlown,
     },
     //move custs half the user's hp rather than doing recoil
     //so there's never a reason to use this move,
@@ -10873,6 +16580,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .effect = EFFECT_PHOTON_GEYSER,
+        .power = 100,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 100,
+        .pp = 5,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .ignoresTargetAbility = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PhotonGeyser,
     },//has a function for doesn't need to do in bs, meaning this can just go to hit
     //ok adjusted now goes to hit, should still adjust split
 
@@ -10888,6 +16610,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .alwaysCriticalHit = TRUE,
+        .metronomeBanned = TRUE,
+        #if B_UPDATED_MOVE_DATA >= GEN_8
+            .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_EVS_PLUS_1,
+            .self = TRUE,
+        }),
+        #endif
+        //.battleAnimScript = gBattleAnimMove_ZippyZap,
     },
 
     [MOVE_SPLISHY_SPLASH] =
@@ -10906,6 +16639,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_FOES_AND_ALLY,    //lol its a giant electrified surf, that is gonna have to hit everyone, you can't avoid that XD
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 30,
+        }),
+        //.battleAnimScript = gBattleAnimMove_SplishySplash,
         .argument = TYPE_ELECTRIC,
     },
 
@@ -10921,6 +16661,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .gravityBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+            .sheerForceOverride = TRUE,
+        }),
+        //.battleAnimScript = gBattleAnimMove_FloatyFall,
     },
     //hmm unique pika exclusive but think I may actualy give this 
     //to gyarados as solid physical move outside of bounce
@@ -10941,6 +16691,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_PikaPapow,
     },
 
     [MOVE_BOUNCY_BUBBLE] =
@@ -10963,6 +16716,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .argument = { .absorbPercentage = B_UPDATED_MOVE_DATA >= GEN_8 ? 100 : 50 },
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .metronomeBanned = TRUE,
+        .healingMove = B_HEAL_BLOCKING >= GEN_6,
+        //.battleAnimScript = gBattleAnimMove_BouncyBubble,
     },
 
     [MOVE_BUZZY_BUZZ] =
@@ -10977,6 +16735,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+        }),
+        //.battleAnimScript = gBattleAnimMove_BuzzyBuzz,
     },
 
     [MOVE_SIZZLY_SLIDE] =
@@ -10991,6 +16755,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .thawsUser = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+        }),
+        //.battleAnimScript = gBattleAnimMove_SizzlySlide,
     },
 
     [MOVE_GLITZY_GLOW] =
@@ -11011,6 +16783,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_LIGHT_SCREEN,
+        }),
+        //.battleAnimScript = gBattleAnimMove_GlitzyGlow,
     },
 
     [MOVE_BADDY_BAD] =
@@ -11031,6 +16809,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_REFLECT,
+        }),
+        //.battleAnimScript = gBattleAnimMove_BaddyBad,
     },
 
     [MOVE_SAPPY_SEED] =
@@ -11052,6 +16836,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .magicCoatAffected = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_LEECH_SEED,
+        }),
+        //.battleAnimScript = gBattleAnimMove_SappySeed,
     },
 
     [MOVE_FREEZY_FROST] =
@@ -11073,6 +16864,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_HAZE,
+        }),
+        //.battleAnimScript = gBattleAnimMove_FreezyFrost,
     },
 
     [MOVE_SPARKLY_SWIRL] =
@@ -11094,6 +16891,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_AROMATHERAPY,
+        }),
+        //.battleAnimScript = gBattleAnimMove_SparklySwirl,
     },
 
     [MOVE_VEEVEE_VOLLEY] =
@@ -11112,6 +16915,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .mirrorMoveBanned = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_VeeveeVolley,
     },
 
     [MOVE_DOUBLE_IRON_BASH] =
@@ -11127,6 +16934,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .strikeCount = 2,
+        .minimizeDoubleDamage = B_UPDATED_MOVE_FLAGS < GEN_8,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DoubleIronBash,
     },
 
     [MOVE_DYNAMAX_CANNON] =
@@ -11141,6 +16962,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .mimicBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = B_EXTRAPOLATED_MOVE_FLAGS,
+        .parentalBondBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DynamaxCannon,
     },
 
     [MOVE_SNIPE_SHOT] =
@@ -11155,6 +16990,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SnipeShot,
     },
 
     [MOVE_JAW_LOCK] =
@@ -11169,6 +17009,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_STRONG_JAW_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .bitingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_TRAP_BOTH,
+        }),
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_JawLock,
     },
 
     [MOVE_STUFF_CHEEKS] =
@@ -11183,6 +17033,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_StuffCheeks,
     },//eat berry  boost defense activate effect
 
     [MOVE_NO_RETREAT] =
@@ -11197,6 +17055,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_NoRetreat,
     },//buffs all stats prevents retreat/flee/escape
 
     [MOVE_TAR_SHOT] =
@@ -11211,6 +17077,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_TarShot,
     },
     //lower speed increase fire dmg dealt to target
 
@@ -11226,6 +17098,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
         .split = SPLIT_STATUS,
+        .argument = { .type = TYPE_PSYCHIC },
+        .magicCoatAffected = TRUE,
+        .powderMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MagicPowder,
         .argument = TYPE_PSYCHIC,
     },
 
@@ -11241,6 +17121,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .strikeCount = 2,
+        .parentalBondBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DragonDarts,
     }, //simplest thing is make normal hit, but make target both, unless it would hit twice if single target?
 
     [MOVE_TEATIME] =
@@ -11255,6 +17142,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Teatime,
     },
 
     [MOVE_OCTOLOCK] =
@@ -11269,6 +17164,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Octolock,
     },//prevent escape switch lower defense stats each end turn
 
     [MOVE_BOLT_BEAK] =
@@ -11283,6 +17183,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BoltBeak,
     },
 
     [MOVE_FISHIOUS_REND] =
@@ -11297,6 +17203,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_STRONG_JAW_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .bitingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FishiousRend,
     },
 
     [MOVE_COURT_CHANGE] =
@@ -11311,6 +17224,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_CourtChange,
     },//make activebattle effects swap sides
 
     [MOVE_CLANGOROUS_SOUL] =
@@ -11325,6 +17244,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .soundMove = TRUE,
+        .danceMove = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ClangorousSoul,
     },//might be set but test
 
     [MOVE_BODY_PRESS] =
@@ -11339,6 +17269,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BodyPress,
     },
 
     [MOVE_DECORATE] =
@@ -11353,6 +17290,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Decorate,
     },
 
     [MOVE_DRUM_BEATING] =
@@ -11367,6 +17312,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DrumBeating,
     },
 
     //notes from bulbapedia
@@ -11388,6 +17343,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_WRAP,
+            .multistring.wrapped = B_MSG_WRAPPED_SNAP_TRAP,
+        }),
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SnapTrap,
         .argument = MOVE_EFFECT_FLINCH,   //decided to add flinch chance t3o this like clamp but slightly stronger
         .argumentEffectChance = 25,
     },
@@ -11404,6 +17370,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .thawsUser = TRUE,
+        .ballisticMove = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_PyroBall,
     },
 
     [MOVE_BEHEMOTH_BLADE] =
@@ -11418,6 +17396,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .mimicBanned = TRUE,
+        .assistBanned = B_EXTRAPOLATED_MOVE_FLAGS,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BehemothBlade,
     },//if add an extra effect could add power boost based on weight
     //setup, remmeber to rename later, behemoth burst effect or something
     //40% power boost
@@ -11434,6 +17423,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .mimicBanned = TRUE,
+        .assistBanned = B_EXTRAPOLATED_MOVE_FLAGS,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BehemothBash,
     },
 
     [MOVE_AURA_WHEEL] =
@@ -11448,6 +17447,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
+            .self = TRUE,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AuraWheel,
     },
 
     [MOVE_BREAKING_SWIPE] =
@@ -11462,6 +17472,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BreakingSwipe,
     },
 
     [MOVE_BRANCH_POKE] =
@@ -11476,6 +17497,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BranchPoke,
         .argument = MOVE_EFFECT_FLINCH
     },
 
@@ -11491,6 +17519,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
+        .soundMove = TRUE,
+        .ignoresSubstitute = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Overdrive,
         .argument = MOVE_EFFECT_CONFUSION,
     },
 
@@ -11506,6 +17542,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AppleAcid,
     },
 
     [MOVE_GRAV_APPLE] =
@@ -11520,6 +17566,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GravApple,
     },
     //think also give to bombirdier as entire thing is dropping 
     //things on people
@@ -11536,6 +17592,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SpiritBreak,
     },
 
     [MOVE_STRANGE_STEAM] =
@@ -11550,6 +17617,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_StrangeSteam,
     },
 
     [MOVE_LIFE_DEW] =
@@ -11564,6 +17641,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .healingMove = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_QUALITY_DEPENDS_ON_TIMING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LifeDew,
     },
     //restore hp of user and ally 25% of max
 
@@ -11579,6 +17667,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 4,
         .flags = 0,
         .split = SPLIT_STATUS,
+        .argument = { .protectMethod = PROTECT_OBSTRUCT },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .instructBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Obstruct,
     },
 
     [MOVE_FALSE_SURRENDER] =
@@ -11593,6 +17691,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FalseSurrender,
     },
 
     [MOVE_METEOR_ASSAULT] =
@@ -11607,6 +17712,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .metronomeBanned = TRUE,
+        .instructBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_RECHARGE,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MeteorAssault,
     },
 
     [MOVE_ETERNABEAM] =
@@ -11621,6 +17737,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_RECHARGE,
+            .self = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Eternabeam,
     },
 
     [MOVE_STEEL_BEAM] =
@@ -11635,6 +17761,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .recoilMove = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SteelBeam,
     },//give to empoleon since it lacks steel moves
     //test may lower to med recoil
 
@@ -11650,6 +17783,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_PSYCHIC_TERRAIN},
+        //.battleAnimScript = gBattleAnimMove_ExpandingForce,
     },
 
     [MOVE_STEEL_ROLLER] =
@@ -11664,6 +17802,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SteelRoller,
     },
     //change to base power 90, 
     //becomes 130 only if terrain is up
@@ -11680,6 +17824,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .argument = { .moveProperty = MOVE_EFFECT_SCALE_SHOT },
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ScaleShot,
     }, //shold be able to do with bs, just add check for effect or move  and lower defense if found move/effet or potentially put in move end?
     //yeah doing with moveed,  all have to do is set statchangers in function, (like moody) and use if no move result no effect
 
@@ -11695,6 +17845,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .instructBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId = STRINGID_METEORBEAMCHARGING },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_PLUS_1,
+            .self = TRUE,
+            .onChargeTurnOnly = TRUE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MeteorBeam,
     },//similar to skull bash but boosts sp atk
     //and seems it has effect that once charge starts
     //effect will continue until it executes even if flinches or otherwise
@@ -11717,6 +17879,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ShellSideArm,
     },
 
     [MOVE_MISTY_EXPLOSION] =
@@ -11731,6 +17902,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_SPECIAL,
+        .dampBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_MISTY_TERRAIN},
+        //.battleAnimScript = gBattleAnimMove_MistyExplosion,
     }, 
     //need also remember that this gets boosted further by terrain
     //buffed was given explosion effect defense stat drop (will drop sp def)
@@ -11752,6 +17929,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GRASSY_TERRAIN},
+        //.battleAnimScript = gBattleAnimMove_GrassyGlide,
     },
 
     [MOVE_RISING_VOLTAGE] =
@@ -11766,6 +17949,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_ELECTRIC_TERRAIN},
+        //.battleAnimScript = gBattleAnimMove_RisingVoltage,
     },
 
     [MOVE_TERRAIN_PULSE] =
@@ -11780,6 +17968,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_MEGA_LAUNCHER_BOOST,
         .split = SPLIT_SPECIAL,
+        .pulseMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_ELECTRIC_TERRAIN, COMBO_STARTER_MISTY_TERRAIN, COMBO_STARTER_GRASSY_TERRAIN, COMBO_STARTER_PSYCHIC_TERRAIN},
+        //.battleAnimScript = gBattleAnimMove_TerrainPulse,
     },
 
     [MOVE_SKITTER_SMACK] =
@@ -11794,6 +17988,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SkitterSmack,
         .argumentEffectChance = 10,
         .argument = MOVE_EFFECT_INFESTATION,
     },//think argument defaults to 0, point is to add 
@@ -11816,6 +18020,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .onlyIfTargetRaisedStats = TRUE,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_BurningJealousy,
         .argument = MOVE_EFFECT_BURN,
     },//think make - priorty move if on a fast mon not usefl
     //potentially give to reshiram
@@ -11839,6 +18053,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_LashOut,
     },
 
     [MOVE_POLTERGEIST] =
@@ -11853,6 +18073,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Poltergeist,
     },
 
     [MOVE_CORROSIVE_GAS] =
@@ -11867,6 +18092,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_CorrosiveGas,
     },
 
     [MOVE_COACHING] =
@@ -11881,6 +18112,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Coaching,
     },//boost ally atk def
 
     [MOVE_FLIP_TURN] =
@@ -11895,6 +18134,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FlipTurn,
     },
 
     [MOVE_TRIPLE_AXEL] =
@@ -11909,6 +18154,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .strikeCount = 3,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_TripleAxel,
     },
 
     [MOVE_DUAL_WINGBEAT] =
@@ -11923,6 +18175,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .strikeCount = 2,
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DualWingbeat,
     },
     //kinda want to buff but its fine, being double  hit is its own good point
 
@@ -11938,6 +18197,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .thawsUser = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 30,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ScorchingSands,
     },
 
     [MOVE_JUNGLE_HEALING] =
@@ -11951,6 +18220,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = 1,
         .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .healingMove = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_QUALITY_DEPENDS_ON_TIMING,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_JungleHealing,
     },//effect should be heal quarter max hp user and ally
     //but jungle healing also cures status 1
 
@@ -11966,6 +18245,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .alwaysCriticalHit = TRUE,
+        .punchingMove = TRUE,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_WickedBlow,
     },
 
     [MOVE_SURGING_STRIKES] =
@@ -11980,6 +18268,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .alwaysCriticalHit = TRUE,
+        .punchingMove = TRUE,
+        .strikeCount = 3,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SurgingStrikes,
     }, //rebalanced these 2 for og crit
     //on advice from Chief, changing from full crit to defense pen, will ignore either 25% or 35% of defense
     //in exchange can't crit
@@ -11999,6 +18297,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_WRAP,
+            .multistring.wrapped = B_MSG_WRAPPED_THUNDER_CAGE,
+        }),
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ThunderCage,
     },
     //gave effect trap damage can paralyze, working on
 
@@ -12014,6 +18322,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DragonEnergy,
     },
 
     [MOVE_FREEZING_GLARE] =
@@ -12028,6 +18342,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .chance = 10,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FreezingGlare,
     },
 
     [MOVE_FIERY_WRATH] =
@@ -12042,6 +18366,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 20,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_FieryWrath,
     },
 
     [MOVE_THUNDEROUS_KICK] =
@@ -12056,6 +18390,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 100,
+        }),
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ThunderousKick,
     },
 
     [MOVE_GLACIAL_LANCE] =
@@ -12070,6 +18415,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_GlacialLance,
     },
 
     [MOVE_ASTRAL_BARRAGE] =
@@ -12084,6 +18435,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .metronomeBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AstralBarrage,
     },
 
     [MOVE_EERIE_SPELL] =
@@ -12098,6 +18455,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .soundMove = TRUE,
+        .ignoresSubstitute = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_EERIE_SPELL,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_EerieSpell,
     },//ok checked double checked japanese translation and there's no reason for this move to be a sound move. its just a dark magic spell
 
     //Legends Arceus moves
@@ -12117,8 +18485,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-        ////.zMovePower = 120,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DIRE_CLAW,
+            .chance = 50,
+        }),
+        //.battleAnimScript = gBattleAnimMove_DireClaw,
+        //////.zMovePower = 120,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_PSYSHIELD_BASH] =
@@ -12133,8 +18507,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-        ////.zMovePower = 140,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_PLUS_1,
+            .self = TRUE,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_PsyshieldBash,
+        //////.zMovePower = 140,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_POWER_SHIFT] =
@@ -12149,8 +18530,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-        ////.zMovePower = 100,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_PowerShift,
+        //////.zMovePower = 100,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_STONE_AXE] =
@@ -12165,9 +18551,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .sheerForceOverride = TRUE,
+        }),
+        //.battleAnimScript = gBattleAnimMove_StoneAxe,
         .argument = MOVE_EFFECT_STEALTH_ROCK,
-        ////.zMovePower = 120,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        //////.zMovePower = 120,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     }, //need test
     //low power no reason to have such low acc
     //especially when stealth rocks don't stack
@@ -12189,8 +18581,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
-        ////.zMovePower = 175,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .windMove = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
+            .chance = 30,
+        }),
+        //.battleAnimScript = gBattleAnimMove_SpringtideStorm,
+        //////.zMovePower = 175,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_MYSTICAL_POWER] =
@@ -12205,8 +18604,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
-        ////.zMovePower = 140,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_PLUS_1,
+            .self = TRUE,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_MysticalPower,
+        //////.zMovePower = 140,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
     //changing from sp atk up hit
     //May change, signature of lake spirits LA affect was boost offense stats or defense stats whichever was higher
@@ -12233,8 +18638,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        ////.zMovePower = 175,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_THRASH,
+            .self = TRUE,
+        }),
+        //.battleAnimScript = gBattleAnimMove_RagingFury,
+        //////.zMovePower = 175,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_WAVE_CRASH] =
@@ -12253,10 +18664,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        ////.zMovePower = 140,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .argument = { .recoilPercentage = 33 },
+        .makesContact = TRUE,
+        .recoilMove = TRUE,
+        //.battleAnimScript = gBattleAnimMove_WaveCrash,
+        //////.zMovePower = 140,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },//so they turned it from wter take down to water double edge, but the recoil is still less
-    //*idea rampage plus recoil, potentially no confusion,
+    //*idea rampage plus recoil, potentially no confusion,  -vsonic
 
     [MOVE_CHLOROBLAST] =
     {
@@ -12274,8 +18689,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-        ////.zMovePower = 190,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .recoilMove = TRUE,
+        //.battleAnimScript = gBattleAnimMove_Chloroblast,
+        //////.zMovePower = 190,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_MOUNTAIN_GALE] =
@@ -12290,8 +18707,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-        ////.zMovePower = 180,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        //.battleAnimScript = gBattleAnimMove_MountainGale,
+        //////.zMovePower = 180,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_VICTORY_DANCE] =
@@ -12306,8 +18728,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_DANCE,
         .split = SPLIT_STATUS,
-        ////.zMovePower = 100,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .danceMove = TRUE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_VictoryDance,
+        //////.zMovePower = 100,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },//boost atk def & speed
 
     [MOVE_HEADLONG_RUSH] =
@@ -12326,8 +18753,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_HEADBUTT_MOVE,
         .split = SPLIT_PHYSICAL,
-        ////.zMovePower = 180,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_SPDEF_DOWN,
+            .self = TRUE,
+        }),
+        //.battleAnimScript = gBattleAnimMove_HeadlongRush,
+        //////.zMovePower = 180,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
     //note gets iron fist boost cuz name is sumo term, rush forward while thrusting fists/open palms forwward to attack
     //not overheat effect, supposed to lower def & sp def
@@ -12347,9 +18781,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .argument = { .status = STATUS1_PSN_ANY },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 50,
+        }),
+        //.battleAnimScript = gBattleAnimMove_BarbBarrage,
         .argument = MOVE_EFFECT_POISON,
-        ////.zMovePower = 120,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        //////.zMovePower = 120,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
     //double damage if target poisoned, and set poison
 
@@ -12369,8 +18809,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
-        ////.zMovePower = 140,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
+            .self = TRUE,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_EsperWing,
+        //////.zMovePower = 140,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_BITTER_MALICE] =
@@ -12386,10 +18832,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_BitterMalice,
         .argument = MOVE_EFFECT_FREEZE,
         .argumentEffectChance = 30,
-        ////.zMovePower = 120,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        //////.zMovePower = 120,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },//vsonic - make bitter malilce its own effect atk/spatkdown hit
     //use BattleScript_EffectNobleRoar  as template
     //ok change mind what i'll do is keep power at 60
@@ -12413,8 +18864,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-        ////.zMovePower = 100,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_Shelter,
+        //////.zMovePower = 100,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_TRIPLE_ARROWS] =
@@ -12429,9 +18884,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 50,
+        })
         .argument = MOVE_EFFECT_DEF_MINUS_1,
-        ////.zMovePower = 100,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        //////.zMovePower = 100,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },  //need test fixed put focus energy effect at end, so doesn't trigger before damage done. / changed mind put at start, mon is still relatively frail
 
     [MOVE_INFERNAL_PARADE] =
@@ -12446,9 +18905,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .argument = { .status = STATUS1_ANY },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 30,
+        }),
+        //.battleAnimScript = gBattleAnimMove_InfernalParade,
         .argument = MOVE_EFFECT_BURN,
-        ////.zMovePower = 120,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        //////.zMovePower = 120,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
     //hex + burn chance
 
@@ -12464,9 +18929,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .sheerForceOverride = TRUE,
+        }),
+        //.battleAnimScript = gBattleAnimMove_CeaselessEdge,
         .argument = MOVE_EFFECT_SPIKES,
-        ////.zMovePower = 120,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        //////.zMovePower = 120,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
     //sets spikes
     //lower acc than stone axe because not dark, and effect stacks
@@ -12488,8 +18959,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
-        ////.zMovePower = 175,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .windMove = TRUE,
+        .alwaysHitsInRain = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 30,
+        }),
+        //.battleAnimScript = gBattleAnimMove_BleakwindStorm,
+        //////.zMovePower = 175,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },//signature move of therian tornadus, make form different mon so can only learn this
     //move in therian form, guess will need make a replacement like rotom,
     //so move changes to something else when in incarnate form, and reverts to this when changed to therian
@@ -12513,8 +18991,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
-        ////.zMovePower = 175,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .windMove = TRUE,
+        .alwaysHitsInRain = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 20,
+        }),
+        //.battleAnimScript = gBattleAnimMove_WildboltStorm,
+        //////.zMovePower = 175,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_SANDSEAR_STORM] =
@@ -12534,8 +19019,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
-        ////.zMovePower = 175,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .windMove = TRUE,
+        .alwaysHitsInRain = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 20,
+        }),
+        //.battleAnimScript = gBattleAnimMove_SandsearStorm,
+        //////.zMovePower = 175,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_LUNAR_BLESSING] =
@@ -12550,8 +19042,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-        ////.zMovePower = 100,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .healingMove = TRUE,
+        //.battleAnimScript = gBattleAnimMove_LunarBlessing,
+        //////.zMovePower = 100,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },//restore 25% max hp user and allies plus remove status 1
     //essentially jungle healing
     //to make it its own thing may buff to 33%? //no don't buff sheesh
@@ -12568,8 +19065,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-        ////.zMovePower = 100,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_TakeHeart,
+        //////.zMovePower = 100,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },
     //cures ALL status conditions (make custom list of negative ones to remove)
     //then reaises atk and def  at end turn for 4 turns
@@ -12588,8 +19089,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-        //.zMovePower = 160,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .forcePressure = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_TERA_BLAST,
+            .self = TRUE,
+        }),
+        //.battleAnimScript = gBattleAnimMove_TeraBlast,
+        ////.zMovePower = 160,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_SILK_TRAP] =
@@ -12604,8 +19111,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 4,
         .flags = FLAG_PROTECTION_MOVE,
         .split = SPLIT_STATUS,
-        //.zMovePower = 0,
-        //.zMoveEffect = Z_EFFECT_NONE
+        .argument = { .protectMethod = PROTECT_SILK_TRAP },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_SilkTrap,
+        ////.zMovePower = 0,
+        ////.zMoveEffect = Z_EFFECT_NONE
     },
 
     [MOVE_AXE_KICK] =
@@ -12620,10 +19132,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .recoilMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 30,
+        }),
+        //.battleAnimScript = gBattleAnimMove_AxeKick,
         .argument = MOVE_EFFECT_CONFUSION,
         .argumentEffectChance = 30,
-        //.zMovePower = 190,
-        //.zMoveEffect = Z_EFFECT_NONE
+        ////.zMovePower = 190,
+        ////.zMoveEffect = Z_EFFECT_NONE
     },
 
     [MOVE_LAST_RESPECTS] =
@@ -12638,8 +19157,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 100,
-        //.zMoveEffect = Z_EFFECT_NONE
+        //.metronomeBanned = TRUE, // Only since it isnt implemented yet
+         //.battleAnimScript = gBattleAnimMove_LastRespects,
+        ////.zMovePower = 100,
+        ////.zMoveEffect = Z_EFFECT_NONE
     },
 
     [MOVE_LUMINA_CRASH] =
@@ -12654,8 +19175,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-        //.zMovePower = 160,
-        //.zMoveEffect = Z_EFFECT_NONE
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_2,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_LuminaCrash,
+        ////.zMovePower = 160,
+        ////.zMoveEffect = Z_EFFECT_NONE
     },
 
     [MOVE_ORDER_UP] =
@@ -12670,8 +19196,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED, // No King's Rock I believe? I may be mistaken
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 160,
-        //.zMoveEffect = Z_EFFECT_NONE
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ORDER_UP,
+            .self = TRUE,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_OrderUp,
+        ////.zMovePower = 160,
+        ////.zMoveEffect = Z_EFFECT_NONE
     },
     //I never saw anyone use anything but the attack boosting tatsugiri
     //maybe should adjust stat gain its speed stat is so low base 35 
@@ -12700,8 +19234,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST, // I assume Iron Fist is relevant here, but untested
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 120,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_JetPunch,
+        ////.zMovePower = 120,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // The datamine master sheet mentions uncopiable by Metronome but that sounds odd? not yet implemented
     },
 
@@ -12717,8 +19255,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-        //.zMovePower = 0,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .magicCoatAffected = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_SpicyExtract,
+        ////.zMovePower = 0,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // The datamine master sheet mentions uncopiable by Metronome but that sounds odd? not yet implemented
     },
     //should make scovillian amazing but it never gets used
@@ -12736,8 +19277,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 180,
-        //.zMoveEffect = Z_EFFECT_NONE
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_2,
+            .self = TRUE,
+        }),
+        //.battleAnimScript = gBattleAnimMove_SpinOut,
+        ////.zMovePower = 180,
+        ////.zMoveEffect = Z_EFFECT_NONE
     },
 
     [MOVE_POPULATION_BOMB] =
@@ -12752,8 +19299,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 40,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        .metronomeBanned = TRUE,
+        .strikeCount = 10,
+        //.battleAnimScript = gBattleAnimMove_PopulationBomb,
+        ////.zMovePower = 40,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         //Supposedly uncallable by Metronome? (if so, needs implementation)
         //The master sheet mentions a "slicing" flag but I'm not sure what it refers to
     },
@@ -12770,8 +19322,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 160,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        //.battleAnimScript = gBattleAnimMove_IceSpinner,
+        ////.zMovePower = 160,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         .argument = 1,  //remove terrain
     },
 
@@ -12787,8 +19341,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 190,
-        //.zMoveEffect = Z_EFFECT_NONE
+        .makesContact = TRUE,
+        //.battleAnimScript = gBattleAnimMove_GlaiveRush,
+        ////.zMovePower = 190,
+        ////.zMoveEffect = Z_EFFECT_NONE
     },
 
     [MOVE_REVIVAL_BLESSING] =
@@ -12803,8 +19359,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_STATUS,
-        //.zMovePower = 0,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .healingMove = TRUE,
+        .sketchBanned = (B_SKETCH_BANS >= GEN_9),
+        //.battleAnimScript = gBattleAnimMove_RevivalBlessing,
+        ////.zMovePower = 0,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // Uncallable by Metronome (to be implemented)
     },//move revives a selected fainted mon to 50% hp
     //doesn't cost user their life, also is meant to be excluded from PP up effects
@@ -12822,8 +19384,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 80,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SALT_CURE,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_SaltCure,
+        ////.zMovePower = 80,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // Supposedly uncallable by Metronome, but dubious
     },
     //should  be status2, but isn't passed by baton pass
@@ -12840,8 +19408,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 100,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .strikeCount = 3,
+        //.battleAnimScript = gBattleAnimMove_TripleDive,
+        ////.zMovePower = 100,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_MORTAL_SPIN] =
@@ -12856,8 +19427,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 60,
-        //.zMoveEffect = Z_EFFECT_NONE
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS(
+        {
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_MortalSpin,
+        ////.zMovePower = 60,
+        ////.zMoveEffect = Z_EFFECT_NONE
     },
 
     [MOVE_DOODLE] =
@@ -12872,8 +19450,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_STATUS,
-        //.zMovePower = 0,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_Doodle,
+        ////.zMovePower = 0,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // Supposedly uncallable by Metronome (unimplemented)
     },
     //changes ability of user and ally to that of target
@@ -12891,8 +19473,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-        //.zMovePower = 0,
-        //.zMoveEffect = Z_EFFECT_RECOVER_HP,
+        //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_FilletAway,
+        ////.zMovePower = 0,
+        ////.zMoveEffect = Z_EFFECT_RECOVER_HP,
         // Supposedly uncallable by Metronome (unimplemented)
     },
     //takes half hp (belly drum) but raises atk sp atk and speed 2 stages
@@ -12911,8 +19499,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 160,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        //.battleAnimScript = gBattleAnimMove_KowtowCleave,
+        ////.zMovePower = 160,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // Needs a "slicing" flag (not sure what it refers to)
     },
 
@@ -12928,8 +19519,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_ALWAYS_CRIT,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 140,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .alwaysCriticalHit = TRUE,
+        //.battleAnimScript = gBattleAnimMove_FlowerTrick,
+        ////.zMovePower = 140,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_TORCH_SONG] =
@@ -12944,8 +19537,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
-        //.zMovePower = 160,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .soundMove = TRUE,
+        .ignoresSubstitute = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_PLUS_1,
+            .self = TRUE,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_TorchSong,
+        ////.zMovePower = 160,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_AQUA_STEP] =
@@ -12960,8 +19561,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DANCE,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 160,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .danceMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
+            .self = TRUE,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_AquaStep,
+        ////.zMovePower = 160,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_RAGING_BULL] =
@@ -12976,8 +19585,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 175,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_RagingBull,
+        ////.zMovePower = 175,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // Uncallable by Metronome (to be implemented)
     },
     //change type based on tauros form,
@@ -13004,8 +19616,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-        //.zMovePower = 190,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PAYDAY,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
+            .self = TRUE,
+        }),
+        ////.zMovePower = 190,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // Uncallable by Metronome (to be implemented)
     },
     //payday and sp atk drop
@@ -13022,8 +19642,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-        //.zMovePower = 100,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .argument = { .damagePercentage = 50 },
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_Ruination,
+        ////.zMovePower = 100,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // Uncallable by Metronome (to be implemented)
     },
 
@@ -13039,8 +19662,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 180,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_CollisionCourse,
+        ////.zMovePower = 180,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // Uncallable by Metronome (to be implemented)
     },
 
@@ -13056,8 +19682,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-        //.zMovePower = 180,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_ElectroDrift,
+        ////.zMovePower = 180,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // Uncallable by Metronome (to be implemented)
     },
 
@@ -13073,8 +19702,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_STATUS,
-        //.zMovePower = 0,
-        //.zMoveEffect = Z_EFFECT_RESET_STATS,
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_ShedTail,
+        ////.zMovePower = 0,
+        ////.zMoveEffect = Z_EFFECT_RESET_STATS,
         // Uncallable by Metronome (to be implemented)
         // Supposedly unsnatchable?
     },
@@ -13094,8 +19728,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
-        //.zMovePower = 0,
-        //.zMoveEffect = Z_EFFECT_SPD_UP_1,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_ChillyReception,
+        ////.zMovePower = 0,
+        ////.zMoveEffect = Z_EFFECT_SPD_UP_1,
         // Supposedly uncallable by Metronome? (to be implemented)
     },
     //tells bad joke then switches out, sets hail/snow 5 turns as if used move hail
@@ -13117,8 +19756,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
-        //.zMovePower = 0,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_TidyUp,
+        ////.zMovePower = 0,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // Supposedly uncallable by Metronome? (to be implemented)
         // Supposedly unsnatchable?
     },
@@ -13138,8 +19781,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
-        //.zMovePower = 0,
-        //.zMoveEffect = Z_EFFECT_SPD_UP_1,
+        //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_HAIL) ? gBattleAnimMove_Hail : gBattleAnimMove_Snowscape,
+        ////.zMovePower = 0,
+        ////.zMoveEffect = Z_EFFECT_SPD_UP_1,
         // Currently an exact copy of Hail until we figure out what to do with it
     },
     //ok new idea, change to name icescape well might keep, as a pun for snow escape
@@ -13159,8 +19807,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 100,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_Pounce,
+        ////.zMovePower = 100,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },
     //renamed from pounce
 
@@ -13176,8 +19831,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 100,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
+            .self = TRUE,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_Trailblaze,
+        ////.zMovePower = 100,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_CHILLING_WATER] =
@@ -13192,8 +19855,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
-        //.zMovePower = 100,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
+            .chance = 100,
+        }),
+        //.battleAnimScript = gBattleAnimMove_ChillingWater,
+        ////.zMovePower = 100,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_HYPER_DRILL] =
@@ -13208,8 +19877,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 180,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .ignoresProtect = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_HyperDrill,
+        ////.zMovePower = 180,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_TWIN_BEAM] =
@@ -13224,8 +19897,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-        //.zMovePower = 100,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .strikeCount = 2,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_TwinBeam,
+        ////.zMovePower = 100,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_RAGE_FIST] =
@@ -13240,8 +19916,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 100,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_RageFist,
+        ////.zMovePower = 100,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },//change annihalape evo to perform rage fist at max rage
     //rather than needing a new field I can set a flag like I do w region sand
 
@@ -13257,8 +19937,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-        //.zMovePower = 190,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_SPDEF_DOWN,
+            .self = TRUE,
+        }),
+        //.battleAnimScript = gBattleAnimMove_ArmorCannon,
+        ////.zMovePower = 190,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_BITTER_BLADE] =
@@ -13273,8 +19959,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 160,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .argument = { .absorbPercentage = 50 },
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        .healingMove = TRUE,
+        //.battleAnimScript = gBattleAnimMove_BitterBlade,
+        ////.zMovePower = 160,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // Needs the "slicing" flag
     },
 
@@ -13290,8 +19981,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 200,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .cantUseTwice = TRUE,
+        //.battleAnimScript = gBattleAnimMove_GigatonHammer,
+        ////.zMovePower = 200,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },
     //move cant be used in succession, but not a recharge move.
     //(seems game freak realized how useless they were)
@@ -13315,7 +20008,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .makesContact = TRUE,
+        .meFirstBanned = TRUE,
+        .metronomeBanned = TRUE,
+        //.battleAnimScript = gBattleAnimMove_Comeuppance,
+        ////.zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_AQUA_CUTTER] =
@@ -13330,8 +20027,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 140,
-        //.zMoveEffect = Z_EFFECT_NONE,
+        .slicingMove = TRUE,
+        //.battleAnimScript = gBattleAnimMove_AquaCutter,
+        ////.zMovePower = 140,
+        ////.zMoveEffect = Z_EFFECT_NONE,
         // Needs the "slicing" flag
     },
 
@@ -13347,8 +20046,23 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 160,
-        //.zMoveEffect = Z_EFFECT_NONE
+        .mirrorMoveBanned = TRUE,
+        .meFirstBanned = TRUE,
+        .mimicBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        .sketchBanned = (B_SKETCH_BANS >= GEN_9),
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 30,
+        }),
+        //.battleAnimScript = gBattleAnimMove_BlazingTorque,
+        ////.zMovePower = 160,
+        ////.zMoveEffect = Z_EFFECT_NONE
     },//think make these revaroom move tutor moves
     //if the gen 1 truck is in the game put an npc by it
 
@@ -13364,9 +20078,24 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .mirrorMoveBanned = TRUE,
+        .meFirstBanned = TRUE,
+        .mimicBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        .sketchBanned = (B_SKETCH_BANS >= GEN_9),
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SLEEP,
+            .chance = 10,
+        }),
+        //.battleAnimScript = gBattleAnimMove_WickedTorque,
         .argument = MOVE_EFFECT_SLEEP,
-        //.zMovePower = 160,
-        //.zMoveEffect = Z_EFFECT_NONE
+        ////.zMovePower = 160,
+        ////.zMoveEffect = Z_EFFECT_NONE
     },//check update fo EE should have ability set move effect without needing new effect
 
     [MOVE_NOXIOUS_TORQUE] =
@@ -13381,8 +20110,23 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 160,
-        //.zMoveEffect = Z_EFFECT_NONE
+        .mirrorMoveBanned = TRUE,
+        .meFirstBanned = TRUE,
+        .mimicBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        .sketchBanned = (B_SKETCH_BANS >= GEN_9),
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_POISON,
+            .chance = 30,
+        }),
+        //.battleAnimScript = gBattleAnimMove_NoxiousTorque,
+        ////.zMovePower = 160,
+        ////.zMoveEffect = Z_EFFECT_NONE
     },
 
     [MOVE_COMBAT_TORQUE] =
@@ -13397,8 +20141,23 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 160,
-        //.zMoveEffect = Z_EFFECT_NONE
+        .mirrorMoveBanned = TRUE,
+        .meFirstBanned = TRUE,
+        .mimicBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        .sketchBanned = (B_SKETCH_BANS >= GEN_9),
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 30,
+        }),
+        //.battleAnimScript = gBattleAnimMove_CombatTorque,
+        ////.zMovePower = 160,
+        ////.zMoveEffect = Z_EFFECT_NONE
     },
     //may give to mega mewtwo x
 
@@ -13414,8 +20173,23 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-        //.zMovePower = 160,
-        //.zMoveEffect = Z_EFFECT_NONE
+        .mirrorMoveBanned = TRUE,
+        .meFirstBanned = TRUE,
+        .mimicBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        .sketchBanned = (B_SKETCH_BANS >= GEN_9),
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 30,
+        }),
+        //.battleAnimScript = gBattleAnimMove_MagicalTorque,
+        ////.zMovePower = 160,
+        ////.zMoveEffect = Z_EFFECT_NONE
     },
     //boosted up as pretty much only physical fairy move of strength
 
@@ -13606,7 +20380,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = 4,
         .category = SPLIT_STATUS,
-        .zMove = { .effect = Z_EFFECT_RESET_STATS },
+        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         .metronomeBanned = TRUE,
@@ -13751,6 +20525,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .category = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .recoilMove = TRUE,
     },
 
     [MOVE_PSYCHIC_NOISE] =
@@ -13956,7 +20731,7 @@ use wonder gaurd logic to determine its super effective
     },//GRASS types will be immune to this status condition, potentially make its own effect, then can do grass status exclusion with bs command
     //think give to mostly grass/poison types
     //since effect is essentially poison
-
+    
     [MOVE_SONIC_BOOM] =
     {
         .effect = EFFECT_SPEED_UP_HIT,
@@ -13969,6 +20744,8 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
+        .soundMove = TRUE,
+        .ignoresSubstitute = TRUE,
         .argument = MOVE_EFFECT_CONFUSION,
         //.argumentEffectChance = 10, can use sec effect for this
     },//since effect is affects user its already certain
@@ -14085,8 +20862,16 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //////.zMovePower = 190,
-        //////.zMoveEffect = Z_EFFECT_NONE
+        .makesContact = TRUE,
+        .metronomeBanned = TRUE,
+        .argument = { .type = TYPE_ELECTRIC },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
+            .self = TRUE,
+        }),
+        //.battleAnimScript = gBattleAnimMove_DoubleShock,
+        ////////.zMovePower = 190,
+        ////////.zMoveEffect = Z_EFFECT_NONE
     },//making all losetype 150 because changing effect to last entire battle not just until switch out, also keeping move as my version was special
 
     [MOVE_POUNCE] =
@@ -14161,7 +20946,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
-        ////.zMoveEffect = Z_EFFECT_NONE,
+        //////.zMoveEffect = Z_EFFECT_NONE,
     },//uses rollout animation
     //why didn't I make this damage in air?
     //hmm I guess because it requries a launching pad?
@@ -14375,6 +21160,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .recoilMove = TRUE,
     },
     //super power clone
 
