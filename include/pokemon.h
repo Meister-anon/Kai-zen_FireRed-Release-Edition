@@ -509,6 +509,9 @@ struct BattleMove
     //and has passed the arugment over so it can use the argument chance
 };//without u32 flags, type overflowed with added moves
 //argument is for extra effects other than secondary effect
+//vsonic important seems ignoresKingsRock value isn't necessary
+//only applies for specific  prior gen stuff
+//but should now be done with check additional effects for flinch
 
 extern const struct BattleMove gBattleMoves[];
 
