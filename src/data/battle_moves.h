@@ -17020,6 +17020,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_JawLock,
     },
+    //vsonic think give move to feraligator
 
     [MOVE_STUFF_CHEEKS] =
     {
