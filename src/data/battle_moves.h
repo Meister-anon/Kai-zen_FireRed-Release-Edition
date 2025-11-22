@@ -16587,7 +16587,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .category = DAMAGE_CATEGORY_SPECIAL,
+        .category = SPLIT_SPECIAL,
         .ignoresTargetAbility = TRUE,
         .metronomeBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
@@ -20210,6 +20210,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .category = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .slicingMove = TRUE,
+        .battleAnimScript = gBattleAnimMove_Psyblade,
     },
 
     [MOVE_HYDRO_STEAM] =
@@ -20218,7 +20219,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .description = COMPOUND_STRING(
             "This move's power increases\n"
             "under harsh sunlight."),
-        .effect = EFFECT_HYDRO_STEAM, //not weakned in sun, boosted instead
+        .effect = EFFECT_HYDRO_STEAM,
         .power = 80,
         .type = TYPE_WATER,
         .accuracy = 100,
@@ -20227,6 +20228,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .category = SPLIT_SPECIAL,
         .thawsUser = TRUE,
+        .battleAnimScript = gBattleAnimMove_HydroSteam,
     },
 
     [MOVE_BLOOD_MOON] =
@@ -20244,11 +20246,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .category = SPLIT_SPECIAL,
         .cantUseTwice = TRUE,
+        .battleAnimScript = gBattleAnimMove_BloodMoon,
     },
 
     [MOVE_MATCHA_GOTCHA] =
     {
-        .name = HANDLE_EXPANDED_MOVE_NAME("MatchaGotcha", "Matcha Gotcha"),
+        .name = COMPOUND_STRING("Matcha Gotcha"),
         .description = COMPOUND_STRING(
             "Absorbs half the damage\n"
             "inflicted. May cause a burn."),
@@ -20260,13 +20263,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .category = SPLIT_SPECIAL,
+        .argument = { .absorbPercentage = 50 },
         .thawsUser = TRUE,
         .metronomeBanned = TRUE,
-        .healingMove = B_EXTRAPOLATED_MOVE_FLAGS,
+        .healingMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 20,
         }),
+        .battleAnimScript = gBattleAnimMove_MatchaGotcha,
     },
 
     [MOVE_SYRUP_BOMB] =
@@ -20289,6 +20294,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_SYRUP_BOMB,
             .chance = 100,
         }),
+        .battleAnimScript = gBattleAnimMove_SyrupBomb,
     },
 
     [MOVE_IVY_CUDGEL] =
@@ -20307,14 +20313,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .category = SPLIT_PHYSICAL,
         .metronomeBanned = TRUE,
+        .battleAnimScript = gBattleAnimMove_IvyCudgel,
     },
 
     [MOVE_ELECTRO_SHOT] =
     {
         .name = COMPOUND_STRING("Electro Shot"),
         .description = COMPOUND_STRING(
-            "Absorbs electricity in one turn,\n"
-            "then attacks next turn."),
+            "Gathers electricity, then\n"
+            "fires a high-voltage shot."),
         .effect = EFFECT_TWO_TURNS_ATTACK,
         .power = 130,
         .type = TYPE_ELECTRIC,
@@ -20323,40 +20330,43 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = SPLIT_SPECIAL,
-        .argument = TWO_TURN_ARG(STRINGID_ELECTROSHOTCHARGING, B_WEATHER_RAIN),
+        .argument.twoTurnAttack = { .stringId = STRINGID_ELECTROSHOTCHARGING, .status = B_WEATHER_RAIN },
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_PLUS_1,
             .self = TRUE,
             .onChargeTurnOnly = TRUE,
-        }, SHEER_FORCE_HACK),
+            .sheerForceOverride = TRUE,
+        }),
+        .battleAnimScript = gBattleAnimMove_ElectroShot,
     },
 
     [MOVE_TERA_STARSTORM] =
     {
-        .name = HANDLE_EXPANDED_MOVE_NAME("TeraStarstrm", "Tera Starstorm"),
+        .name = COMPOUND_STRING("Tera Starstorm"),
         .description = COMPOUND_STRING(
-            "Damages all opponents if user is\n"
-            "Stellar form Terapagos."),
-        .effect = EFFECT_PLACEHOLDER, //EFFECT_TERA_STARSTORM
+            "In Terapagos's Stellar\n"
+            "Form, it hits all foes."),
+        .effect = EFFECT_TERA_STARSTORM,
         .power = 120,
-        .type = TYPE_NORMAL, // Stellar type if used by Terapagos-Stellar
+        .type = TYPE_NORMAL,
         .accuracy = 100,
         .pp = 5,
-        .target = MOVE_TARGET_SELECTED, // MOVE_TARGET_BOTH if used by Terapagos-Stellar
+        .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = SPLIT_SPECIAL,
         .assistBanned = TRUE,
         .copycatBanned = TRUE,
         .mimicBanned = TRUE,
         .sketchBanned = (B_SKETCH_BANS >= GEN_9),
+        .battleAnimScript = gBattleAnimMove_TeraStarstorm,
     },
 
     [MOVE_FICKLE_BEAM] =
     {
         .name = COMPOUND_STRING("Fickle Beam"),
         .description = COMPOUND_STRING(
-            "Shoots a beam of light. Sometimes\n"
-            "twice as strong."),
+            "Shoots a beam of light.\n"
+            "Sometimes twice as strong."),
         .effect = EFFECT_FICKLE_BEAM,
         .power = 80,
         .type = TYPE_DRAGON,
@@ -20365,11 +20375,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = SPLIT_SPECIAL,
+        .battleAnimScript = gBattleAnimMove_FickleBeam,
     },
 
     [MOVE_BURNING_BULWARK] =
     {
-        .name = HANDLE_EXPANDED_MOVE_NAME("BurnngBulwrk", "Burning Bulwark"),
+        .name = COMPOUND_STRING("Burning Bulwark"),
         .description = COMPOUND_STRING(
             "Evades attack, and burns\n"
             "the foe if struck."),
@@ -20381,12 +20392,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .priority = 4,
         .category = SPLIT_STATUS,
-        //.zMove = { .effect = Z_EFFECT_RESET_STATS },
+        .argument = { .protectMethod = PROTECT_BURNING_BULWARK },
+        .zMove = { .effect = Z_EFFECT_RESET_STATS },
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         .metronomeBanned = TRUE,
         .copycatBanned = TRUE,
         .assistBanned = TRUE,
+        .battleAnimScript = gBattleAnimMove_BurningBulwark,
     },
 
     [MOVE_THUNDERCLAP] =
@@ -20401,11 +20414,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .category = SPLIT_SPECIAL,
+        .battleAnimScript = gBattleAnimMove_Thunderclap,
     },
 
     [MOVE_MIGHTY_CLEAVE] =
     {
-        .name = HANDLE_EXPANDED_MOVE_NAME("MightyCleave", "Mighty Cleave"),
+        .name = COMPOUND_STRING("Mighty Cleave"),
         .description = sFeintDescription,
         .effect = EFFECT_HIT,
         .power = 95,
@@ -20418,11 +20432,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .ignoresProtect = TRUE,
         .slicingMove = TRUE,
+        .battleAnimScript = gBattleAnimMove_MightyCleave,
     },
 
     [MOVE_TACHYON_CUTTER] =
     {
-        .name = HANDLE_EXPANDED_MOVE_NAME("TachyonCuttr", "Tachyon Cutter"),
+        .name = COMPOUND_STRING("Tachyon Cutter"),
         .description = COMPOUND_STRING(
             "Launches particle blades at\n"
             "the target. Strikes twice."),
@@ -20436,22 +20451,23 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .category = SPLIT_SPECIAL,
         .strikeCount = 2,
         .slicingMove = TRUE,
+        .battleAnimScript = gBattleAnimMove_TachyonCutter,
     },
 
     [MOVE_HARD_PRESS] =
     {
         .name = COMPOUND_STRING("Hard Press"),
         .description = sWringOutDescription,
-        .effect = EFFECT_VARY_POWER_BASED_ON_HP,
-        .power = 1,
+        .effect = EFFECT_POWER_BASED_ON_TARGET_HP,
+        .power = 100,
         .type = TYPE_STEEL,
         .accuracy = 100,
         .pp = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = SPLIT_PHYSICAL,
-        .argumentEffectChance = 120,
         .makesContact = TRUE,
+        .battleAnimScript = gBattleAnimMove_HardPress,
     },
 
     [MOVE_DRAGON_CHEER] =
@@ -20469,14 +20485,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .category = SPLIT_STATUS,
         .ignoresSubstitute = TRUE,
+        .battleAnimScript = gBattleAnimMove_DragonCheer,
     },
 
     [MOVE_ALLURING_VOICE] =
     {
-        .name = HANDLE_EXPANDED_MOVE_NAME("AllurngVoice", "Alluring Voice"),
+        .name = COMPOUND_STRING("Alluring Voice"),
         .description = COMPOUND_STRING(
-            "Confuses the target if their\n"
-            "stats were boosted this turn."),
+            "Confuses foe if its stats\n"
+            "were boosted this turn."),
         .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_FAIRY,
@@ -20492,6 +20509,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .onlyIfTargetRaisedStats = TRUE,
             .chance = 100,
         }),
+        .battleAnimScript = gBattleAnimMove_AlluringVoice,
     },
 
     [MOVE_TEMPER_FLARE] =
@@ -20509,11 +20527,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .category = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .battleAnimScript = gBattleAnimMove_TemperFlare,
     },
 
     [MOVE_SUPERCELL_SLAM] =
     {
-        .name = HANDLE_EXPANDED_MOVE_NAME("SuprcellSlam", "Supercell Slam"),
+        .name = COMPOUND_STRING("Supercell Slam"),
         .description = COMPOUND_STRING(
             "An electrified slam. If it\n"
             "misses, the user is hurt."),
@@ -20526,15 +20545,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .category = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        .recoilMove = TRUE,
+        .minimizeDoubleDamage = TRUE,
+        .battleAnimScript = gBattleAnimMove_SupercellSlam,
     },
 
     [MOVE_PSYCHIC_NOISE] =
     {
-        .name = HANDLE_EXPANDED_MOVE_NAME("PsychicNoise", "Psychic Noise"),
+        .name = COMPOUND_STRING("Psychic Noise"),
         .description = COMPOUND_STRING(
-            "Unpleasant sound waves that\n"
-            "damage and prevent healing."),
+            "Sound waves that damage and\n"
+            "prevent healing for 2 turns."),
         .effect = EFFECT_HIT,
         .power = 75,
         .type = TYPE_PSYCHIC,
@@ -20549,6 +20569,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_PSYCHIC_NOISE,
             .chance = 100,
         }),
+        .battleAnimScript = gBattleAnimMove_PsychicNoise,
     },
 
     [MOVE_UPPER_HAND] =
@@ -20570,11 +20591,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 100,
         }),
+        .battleAnimScript = gBattleAnimMove_UpperHand,
     },
 
     [MOVE_MALIGNANT_CHAIN] =
     {
-        .name = HANDLE_EXPANDED_MOVE_NAME("MalignntChan", "Malignant Chain"),
+        .name = COMPOUND_STRING("Malignant Chain"),
         .description = COMPOUND_STRING(
             "A corrosive chain attack\n"
             "that may badly poison."),
@@ -20590,6 +20612,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_TOXIC,
             .chance = 50,
         }),
+        .battleAnimScript = gBattleAnimMove_MalignantChain,
     },*/
 
 
