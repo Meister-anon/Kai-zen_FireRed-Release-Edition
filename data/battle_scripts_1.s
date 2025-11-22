@@ -6175,6 +6175,8 @@ BattleScript_EffectSuperpower::
 
 @removed sp def drop, was going to make recoil but decided against it
 @think adding back, sp def drop doesn't make sense,
+@well I guess sp def drop can make sense if taking special atk
+@at point blank range should do more damage
 @but is part of balancing as other moves do 2 stat drops,
 @this drops 2 stats by 1 stage
 @plus is already most desired fighting move
