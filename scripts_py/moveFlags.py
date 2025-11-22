@@ -94,6 +94,9 @@ data = dict(zip(moveId, moveFlags))
 #x = data.keys()
 #print(x)
 #x = data.values()
+#print(moveId[0])
+#y = moveId[0]
+#x = data.get('[MOVE_POUND]')
 #print(x)
 #print(data)
 infile.close()
@@ -113,12 +116,52 @@ and update file
 will put new flags after line w .split
 so line sub on line w .split
 put .split rest of line \n dict value for move id
+'''
 
+#'''
 infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/battle_moves.h', 'r')
 lines = infile.readlines()
-outfile.close()
+#to avoid looping dict use reg to pull file moveid in brackets
+#can use get function to compare against dict keys
+#if matching will return values else returns none
+#store return value and assign if not none
+reg = re.compile(r'(\[MOVE_\w+?\])')
+move = 0
+values = 0
 
+newlines = []
+
+
+for line in lines:
+    #look for moveId on line
+    #assign to move
+    if a := reg.search(line):
+        move = a.group(1)
+        #print(move)
+        values = data.get(move)
+        #print(values)
+        #break
+
+    #appears to work issue is need revert constant name changes
+    #as doesn't allign with dictionary smh
+    #luckily simple as checking history of move constants file
+    if re.compile(r'\.split').search(line):
+        #not none do line replace else keep line as is, do nothing
+        if values != None:
+            #print(str(values))
+            line = line.replace(line, line + str(values))
+            line = re.sub(r"'", "",line)
+            line = re.sub(r"\[", "",line)
+            line = re.sub(r"\]", "",line)
+            line = re.sub(r"\\n, ", "\n",line)
+            line = re.sub(r"\\n", "\n",line)
+            #print(line)
+            #break
+    newlines.append(line)
+    
+infile.close()
+    
 outfile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/battle_moves.h', 'w')
-outfile.writelines(new_lines)
+outfile.writelines(newlines)
 outfile.close()
-'''
+#'''
