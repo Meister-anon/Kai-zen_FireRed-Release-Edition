@@ -512,6 +512,8 @@ struct BattleMove
 //vsonic important seems ignoresKingsRock value isn't necessary
 //only applies for specific  prior gen stuff
 //but should now be done with check additional effects for flinch
+//not presently ported in EE but just need to add that line
+//to EE code
 
 extern const struct BattleMove gBattleMoves[];
 
