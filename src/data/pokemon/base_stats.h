@@ -42255,7 +42255,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Marowak"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(70, 88, 80, 65, 66, 118),
+         STATS(70, 88, 80, 65, 50, 134),
         MON_TYPES(TYPE_FIRE, TYPE_GHOST),
         .catchRate = 75,
         .expYield = 149,
@@ -42279,6 +42279,7 @@ const struct BaseStats gBaseStats[] =
         .flags = F_ALOLAN_FORM,
     }, //can keep phantom touch to just normal marowak, makes more sense since this version turned the ghost into a flame that's always with them
     //for this one boosted sp akt
+    //OK why did I boost its sp atk its still unusable?
 
     [SPECIES_MEOWTH_GALARIAN] =
     {
