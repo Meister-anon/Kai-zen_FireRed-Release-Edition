@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include "sprite.h"
+#include "move.h"
 #include "constants/pokemon.h"
 #include "pokemon_storage_system.h"
 

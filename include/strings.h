@@ -255,6 +255,8 @@ extern const u8 gText_WinEarnsPrizeMoney[];
 extern const u8 gText_HowDissapointing[];
 extern const u8 gText_WhatWillOldManDo[];
 
+extern const u8 gNotDoneYetDescription[]; //for placeholder move effect text
+
 // battle_controller_pokedude
 extern const u8 Pokedude_Text_SpeedierBattlerGoesFirst[];
 extern const u8 Pokedude_Text_MyRattataFasterThanPidgey[];

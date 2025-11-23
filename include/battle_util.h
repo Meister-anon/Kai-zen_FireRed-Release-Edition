@@ -274,8 +274,7 @@ u32 IsTypeOnField(u32 battlerId, u8 type);
 s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fixedBasePower,
     bool32 isCrit, bool32 randomFactor, bool32 updateFlags, u16 typeEffectivenessModifier);
 
-u16 GetMoveEffect(u16 move);
-u16 SanitizeMoveId(u16 move);
+
 bool32 WeatherHasEffect(void); //meant to replace macro for Weather_has_effect
 bool8 CanActivateForewarnAnticipation(u8 battler);
 bool8 IsFixationMoveEffect(u16 move); //SETUP FOR new category of move inspired by legends arceus

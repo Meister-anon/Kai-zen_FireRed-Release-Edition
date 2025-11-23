@@ -12211,19 +12211,6 @@ u32 GetBattlerWeight(u8 battlerId) //use ethis for calculating  seismic toss dam
     return weight;
 }
 
-u16 SanitizeMoveId(u16 move)
-{
-    if (move >= MOVES_COUNT)
-        return MOVE_NONE;
-    else
-        return move;
-}
-
-u16 GetMoveEffect(u16 move)
-{
-    return gBattleMoves[SanitizeMoveId(move)].effect;
-}
-
 u32 CountBattlerStatIncreases(u32 battler, bool32 countEvasionAcc)
 {
     u32 i;
