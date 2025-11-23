@@ -224,9 +224,9 @@ static inline bool32 MoveDamagesAirborneDoubleDamage(u32 moveId)
     return gBattleMoves[SanitizeMoveId(moveId)].damagesAirborneDoubleDamage;
 }
 
-static inline bool32 MoveIgnoresTypeIfFlyingAndUngrounded(u32 moveId)
+static inline bool32 MoveCantDamageFloatingTargets(u32 moveId)
 {
-    return gBattleMoves[SanitizeMoveId(moveId)].ignoreTypeIfFlyingAndUngrounded;
+    return gBattleMoves[SanitizeMoveId(moveId)].cantdamageFloating;
 }
 
 static inline bool32 MoveThawsUser(u32 moveId)
