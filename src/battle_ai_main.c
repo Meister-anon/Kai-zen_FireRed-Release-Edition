@@ -800,8 +800,11 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 if (moveType == TYPE_GRASS)
                     RETURN_SCORE_MINUS(20);
                 break;
+            case ABILITY_BRAVERY:
             case ABILITY_JUSTIFIED:
-                if (moveType == TYPE_DARK && !IS_MOVE_STATUS(move))
+                if ((moveType == TYPE_DARK
+                    || moveType == TYPE_GHOST)
+                 && !IS_MOVE_STATUS(move))
                     RETURN_SCORE_MINUS(10);
                 break;
             case ABILITY_RATTLED:
@@ -2978,10 +2981,22 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     }
                     break;
                 case ABILITY_JUSTIFIED:
-                    if (moveType == TYPE_DARK
+                    if ((moveType == TYPE_DARK
+                      || moveType == TYPE_GHOST)
                       && !IS_MOVE_STATUS(move)
                       && HasMoveWithSplit(battlerAtkPartner, SPLIT_PHYSICAL)
                       && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_ATK)
+                      && !CanIndexMoveFaintTarget(battlerAtk, battlerAtkPartner, AI_THINKING_STRUCT->movesetIndex, 1))
+                    {
+                        RETURN_SCORE_PLUS(1);
+                    }
+                    break;
+                case ABILITY_BRAVERY:
+                    if ((moveType == TYPE_DARK
+                      || moveType == TYPE_GHOST)
+                      && !IS_MOVE_STATUS(move)
+                      && HasMoveWithSplit(battlerAtkPartner, SPLIT_SPECIAL)
+                      && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_SPATK)
                       && !CanIndexMoveFaintTarget(battlerAtk, battlerAtkPartner, AI_THINKING_STRUCT->movesetIndex, 1))
                     {
                         RETURN_SCORE_PLUS(1);
@@ -3053,10 +3068,22 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 break;
             case EFFECT_BEAT_UP:
                 if (atkPartnerAbility == ABILITY_JUSTIFIED
-                  && moveType == TYPE_DARK
+                  && (moveType == TYPE_DARK
+                  || moveType == TYPE_GHOST)
                   && !IS_MOVE_STATUS(move)
                   && HasMoveWithSplit(battlerAtkPartner, SPLIT_PHYSICAL)
                   && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_ATK)
+                  && !CanIndexMoveFaintTarget(battlerAtk, battlerAtkPartner, AI_THINKING_STRUCT->movesetIndex, 0))
+                {
+                    RETURN_SCORE_PLUS(1);
+                }
+
+                else if (atkPartnerAbility == ABILITY_BRAVERY
+                  && (moveType == TYPE_DARK
+                  || moveType == TYPE_GHOST)
+                  && !IS_MOVE_STATUS(move)
+                  && HasMoveWithSplit(battlerAtkPartner, SPLIT_SPECIAL)
+                  && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_SPATK)
                   && !CanIndexMoveFaintTarget(battlerAtk, battlerAtkPartner, AI_THINKING_STRUCT->movesetIndex, 0))
                 {
                     RETURN_SCORE_PLUS(1);

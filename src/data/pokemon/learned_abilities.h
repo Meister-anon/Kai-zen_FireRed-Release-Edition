@@ -1323,6 +1323,7 @@ static const struct AbilityLearnset sDelcattyAbilityLearnset[] = {
 };//add more moves and ghost moves
 
 static const struct AbilityLearnset sKecleonAbilityLearnset[] = {
+    ABILITY_INFILTRATOR,
     ABILITY_SET_END
 };
 

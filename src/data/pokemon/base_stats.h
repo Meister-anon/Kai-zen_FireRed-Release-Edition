@@ -11088,7 +11088,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_COLOR_CHANGE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_PROTEAN, ABILITY_REFRIGERATE},
+        .abilityHidden = {ABILITY_PROTEAN, ABILITY_REGENERATOR},
         //.bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -11102,6 +11102,7 @@ const struct BaseStats gBaseStats[] =
     //and it learns good fighting moves to cover normal, I think I only need refrigerate
     //so best set is prob drain punch thunderbolt w one normal move for refrigerate and some support move, unless I run assault vest
     //support move I guess would be nasty plot
+    //dropped refrigerate went with regenerator instead based on lizards losing and regenerating their tails
 
     [SPECIES_SHUPPET] =
     {
@@ -21011,7 +21012,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_JUSTIFIED, ABILITY_NONE},
+        .abilities = {ABILITY_BRAVERY, ABILITY_NONE},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -46843,7 +46844,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_JUSTIFIED, ABILITY_NONE},
+        .abilities = {ABILITY_BRAVERY, ABILITY_NONE},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,

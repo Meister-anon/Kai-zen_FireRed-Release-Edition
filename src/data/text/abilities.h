@@ -152,6 +152,7 @@ static const u8 sInfiltratorDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ste
 static const u8 sMummyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Spreads with contact.\nOverwrites the attackers ability.");
 static const u8 sMoxieDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("KOs raise Attack.");
 static const u8 sJustifiedDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Raises Attack if Intimidated\nor hit by Dark or Ghost moves.");
+static const u8 sBraveryDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Raises Sp. Attack if Intimidated\nor hit by Dark or Ghost moves.");
 static const u8 sRattledDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Raises Speed if Intimdated or\nhit by Dark, Bug, or Ghost moves.");
 static const u8 sMagicBounceDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Reflects status moves and non-redirected\nstat decreases from abilities."); //reflects intimidate likes, gave small bit of mirror armor effect
 static const u8 sSapSipperDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Draws in Grass moves\nto increase Attack.");
@@ -1482,7 +1483,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Justified"),
         .description = sJustifiedDescription,
-        .aiRating = 4,
+        .aiRating = 6,
     },
 
     [ABILITY_RATTLED] =
@@ -3417,6 +3418,13 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Precise Strike"),
         .description = COMPOUND_ABILITY_STRING("Powers up Critical Hits.\nDelivers attacks direct to weak points."),
         .aiRating = 3,
+    },
+
+    [ABILITY_BRAVERY] =
+    {
+        .name = _("Bravery"),
+        .description = sBraveryDescription,
+        .aiRating = 6,
     },
 };
 

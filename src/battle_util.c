@@ -1165,6 +1165,15 @@ void PrepareStringBattle(u16 stringId, u8 battler) //see if should change defian
         SET_STATCHANGER(STAT_ATK, 2, FALSE);  //gave to justified
     }
     else if ((stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_TIGER_MOM_ACTIVATES || stringId == STRINGID_DARKTYPE_INTIMIDATE_RESIST)
+        && targetAbility == ABILITY_BRAVERY
+        && CompareStat(gBattlerTarget, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN))
+    {
+        gBattlerAbility = gBattlerTarget;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_AbilityRaisesDefenderStat;
+        SET_STATCHANGER(STAT_SPATK, 1, FALSE);  //sp version justified
+    }
+    else if ((stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_TIGER_MOM_ACTIVATES || stringId == STRINGID_DARKTYPE_INTIMIDATE_RESIST)
         && targetAbility == ABILITY_ANGER_POINT 
         && CompareStat(gBattlerTarget, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN)) //For the trolls  :)
     {
@@ -8509,6 +8518,20 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 {
                     gEffectBattler = battler;
                     SET_STATCHANGER(STAT_ATK, 1, FALSE);
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_TargetAbilityStatRaiseRet;
+                    ++effect;
+                }
+                break;
+            case ABILITY_BRAVERY:
+                if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                    && TARGET_TURN_DAMAGED
+                    && IsBattlerAlive(battler)
+                    && (moveType == TYPE_DARK || moveType == TYPE_GHOST) //removed bug as bug is supposed to be "good" ie kamen rider super sentai
+                    && CompareStat(battler, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN))
+                {
+                    gEffectBattler = battler;
+                    SET_STATCHANGER(STAT_SPATK, 1, FALSE);
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_TargetAbilityStatRaiseRet;
                     ++effect;
