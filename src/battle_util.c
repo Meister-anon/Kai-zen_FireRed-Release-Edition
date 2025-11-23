@@ -14004,7 +14004,7 @@ bool8 IsFloatingTargetImmunetoGroundBasedMoves(u8 battler_atk, u8 battler_def, u
 {
 
 
-    if (gBattleMoves[move].cantdamageFloating && !IsBattlerGrounded(battler_def))
+    if (MoveCantDamageFloatingTargets(move) && !IsBattlerGrounded(battler_def))
     {
 
         if (GetBattlerAbility(battler_atk) == ABILITY_MOLD_BREAKER)
