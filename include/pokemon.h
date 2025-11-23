@@ -465,15 +465,15 @@ struct BattleMove
     bool32 windMove:1;
     bool32 slicingMove:1; //sharpness
     bool32 healingMove:1;
-    bool32 minimizeDoubleDamage:1;  //changing to surehitagainstBoostedEvasion reworked further do think just call evasive break
+    bool32 evasiveBreak:1;  //may rename was minimize, changing to surehitagainstBoostedEvasion reworked further do think just call evasive break
     bool32 ignoresTargetAbility:1;
     bool32 ignoresTargetDefenseEvasionStages:1;
     bool32 damagesUnderground:1;   //auto doubles dmg 
     bool32 damagesUnderwater:1;
     bool32 damagesAirborne:1;
     bool32 damagesAirborneDoubleDamage:1;
-    bool32 cantdamageFloating:1; //no longer needs was just thousand arrows
-    bool32 thawsUser:1; //^ replaced above for new ground affecting mechanic
+    bool32 cantdamageFloating:1; //no longer needs was just thousand arrows - ignoreTypeIfFlyingAndUngrounded
+    bool32 thawsUser:1; //^ replaced above for new ground affecting mechanic - look for other types than ground to apply too
     bool32 ignoresSubstitute:1;//oh thawsUser is a different thing nvm
     bool32 forcePressure:1; //(for self-targeted moves that are affected by Pressure) //idk how this makes sense yet
     bool32 cantUseTwice:1;
