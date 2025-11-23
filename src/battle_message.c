@@ -705,7 +705,7 @@ static const u8 sText_TargetStatWontGoHigher[] = _("{B_DEF_NAME_WITH_PREFIX}'s {
 static const u8 sText_PkmnMoveBouncedViaAbility[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_CURRENT_MOVE} was refelcted\nby {B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}{PAUSE 26}!"); //had just barely enough space to not need \l escape
 static const u8 sText_ImposterTransform[] = _("{B_ATK_NAME_WITH_PREFIX} transformed into\na {B_DEF_NAME_WITH_PREFIX} using {B_BUFF2}!");//replacing  last ability w buffer
 static const u8 sText_InversionTransform[] = _("{B_ATK_NAME_WITH_PREFIX} transformed into\na {B_BUFF1} using {B_BUFF2}!");
-static const u8 sText_NotDoneYet[] = _("This move effect is not done yet!\p"); //also potentially replace b def name since I want target species for impostre but something dif w inversion
+const u8 gNotDoneYetDescription[] = _("This move effect is not done yet!\p"); //also potentially replace b def name since I want target species for impostre but something dif w inversion
                                                                         //actually look into handle nik case and if can just assign the found species to buff to get prefix or b_eff_namewith prefix
 
 //end turn name scripts need to use B_ATK_NAME_WITH_PREFIX,  scr_active name or anything else causes issues
