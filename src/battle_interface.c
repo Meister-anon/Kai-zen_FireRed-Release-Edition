@@ -2339,6 +2339,13 @@ u8 GetScaledHPFraction(s16 hp, s16 maxhp, u8 scale)
     return result;
 }
 
+/*
+    From Generation II onwards, if a Pokémon has more than half of its max HP,
+     its HP bar remains green. 
+     If the Pokémon has between one-fifth and half of its HP, the bar will turn yellow
+     If a Pokémon has less than one-fifth of its HP remaining, the bar will turn red
+*/
+//vsonic hmm maybe I can adjust health bar logic to go orange before it goes red? mostly for sturdy
 u8 GetHPBarLevel(s16 hp, s16 maxhp)
 {
     u8 result;

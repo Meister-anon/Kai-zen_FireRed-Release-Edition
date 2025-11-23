@@ -1,5 +1,6 @@
-unsure why my kaizen version doesn't have a read me file
-when pret had one but oh well.
+Branch Goals:
+attempt to add new quarter hp color grade
+for health bar.
 
-adding this now will fix later but for now 
-will use this file to outline purpose of each individual feature branch
+hard part is battle health box seems 
+relatively simple to set for summ and party menu

@@ -14019,7 +14019,7 @@ bool8 CanSurviveInstantKOWithSturdy(u8 battler)
     if (GetBattlerAbility(battler) == ABILITY_STURDY
     && gBattleMons[battler].hp >= (gBattleMons[battler].maxHP / 4)//think need to change this, without an indicator Im' just recreating the in a pinch problem
     && gBattleMoves[gCurrentMove].effect != EFFECT_HEALING_WISH //better to change it to when hp becomes red?
-    && !gDisableStructs[battler].sturdyhungon)
+    && !gDisableStructs[battler].sturdyhungon)//vsonic hmm maybe I can adjust health bar logic to go orange before it goes red?
     {
         return TRUE;
     }

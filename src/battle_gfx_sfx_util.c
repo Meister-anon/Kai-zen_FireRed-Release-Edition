@@ -96,6 +96,19 @@ static const struct CompressedSpriteSheet sSpriteSheets_HealthBar[MAX_BATTLERS_C
     },
 };
 
+/*gBattleInterface_Healthbar_Pal has healthbar colors
+  last 6 colors are used for health bar, colors are paired
+  not sure how asignement works exactly but think best to 
+  put in same order there appear to be 2 colors unused i can make use of
+  to make a new color pair for quarter hp orange bar
+  test attempt use aseprite to move color indexes
+  if things don't break I should be able to simply
+  put orange pair after yellow
+  then just update constants.
+  then update for  partymenu and summary screen
+  which thankfully seem to use simpler color assignemnts
+  than battle health box
+*/
 const struct SpritePalette sSpritePalettes_HealthBoxHealthBar[2] =
 {
     {
