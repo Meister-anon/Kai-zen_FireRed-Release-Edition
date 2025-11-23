@@ -7795,7 +7795,8 @@ s8 GetMovePriority(u32 battler, u16 move) //ported from emerald the EXACT thing 
     //w buffed fly/sky attack may be passable to do for wind moves
     //since its a sub category and makes sense becuase air manipulation
     //and not so bad since is mostly flying moves against flying types
-    if ((gBattleMoves[move].flags == FLAG_WIND_MOVE && gBattleMoves[move].flags == FLAG_DAMAGE_AIRBORNE && !IS_MOVE_STATUS(move) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR) //done because flying mon are fast, and most mon with this move are slow, so would never land otherwise
+    if ((gBattleMoves[move].flags == FLAG_WIND_MOVE && CanMoveDamageAirborneTargets(move)
+    && !IS_MOVE_STATUS(move) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR) //done because flying mon are fast, and most mon with this move are slow, so would never land otherwise
     )
     {
         priority++;

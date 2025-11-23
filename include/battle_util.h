@@ -136,7 +136,8 @@ bool8 IsFloatingSpecies(u16 species);
 bool8 IsFlyingTypeBattlerUnableToFly(u32 battler); //battle specific variant
 bool8 CanFlyingTypeRecoverFromSmackDown(u32 battler); //for use w ascension timer prob rename later vsonic
 bool8 IsBattlerGrounded(u8 battlerId);
-bool8 IsFloatingTargetImmunetoGroundMoves(u8 battler_atk, u8 battler_def, u16 move, u8 moveType);
+bool8 CanMoveDamageAirborneTargets(u16 move);
+bool8 IsFloatingTargetImmunetoGroundBasedMoves(u8 battler_atk, u8 battler_def, u16 move);
 bool8 HasNoMonsToSwitch(u8 battler, u8 partyIdBattlerOn1, u8 partyIdBattlerOn2);
 bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility);
 u8 CastformDataTypeChange(u8 battler);
