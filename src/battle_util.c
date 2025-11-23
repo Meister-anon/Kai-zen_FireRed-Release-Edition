@@ -13020,7 +13020,7 @@ static uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u
     {
         modifier = UQ_4_12(0.0);
     }
-    else if (IsFloatingTargetImmunetoGroundMoves(battlerAtk, battlerDef, move, moveType))
+    else if (IsFloatingTargetImmunetoGroundBasedMoves(battlerAtk, battlerDef, move))
     {
         modifier = UQ_4_12(0.0);
         if (recordAbilities)
@@ -14013,25 +14013,29 @@ bool8 CanSurviveInstantKOWithSturdy(u8 battler)
 //for some reason wasn't tracking propery
 //for type effect display w mold breaker
 //but making movetype an argument fixed issue
-bool8 IsFloatingTargetImmunetoGroundMoves(u8 battler_atk, u8 battler_def, u16 move, u8 moveType)
+bool8 IsFloatingTargetImmunetoGroundBasedMoves(u8 battler_atk, u8 battler_def, u16 move)
 {
 
 
-    if (moveType == TYPE_GROUND && !IsBattlerGrounded(battler_def))
+    if (gBattleMoves[move].cantdamageFloating && !IsBattlerGrounded(battler_def))
     {
-        if (gBattleMoves[move].flags & FLAG_DAMAGE_AIRBORNE)
-            return FALSE;
 
-        else if (GetBattlerHoldEffect(battler_def, TRUE) == HOLD_EFFECT_AIR_BALLOON)
-            return TRUE;
-        else if (GetBattlerAbility(battler_atk) == ABILITY_MOLD_BREAKER)
+        if (GetBattlerAbility(battler_atk) == ABILITY_MOLD_BREAKER)
             return FALSE;
         else
             return TRUE;
     }
 
     return FALSE;
+}
 
+bool8 CanMoveDamageAirborneTargets(u16 move)
+{
+    if (gBattleMoves[move].damagesAirborne == TRUE
+    || gBattleMoves[move].damagesAirborneDoubleDamage == TRUE)
+        return TRUE;
+
+    return FALSE;
 }
 
 //for use in party menu

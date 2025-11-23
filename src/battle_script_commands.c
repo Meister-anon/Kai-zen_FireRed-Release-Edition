@@ -1876,7 +1876,7 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
     //vsonic important  if change later check paired value in MOVE_END_GROUND_TARGET
     if (gStatuses3[gBattlerTarget] & STATUS3_SEMI_INVULNERABLE)//i beleve this is the replacement for the hitmarker values for semi invul, just need to add flags to omve data 
     {
-        if ((gStatuses3[gBattlerTarget] & STATUS3_ON_AIR && (gBattleMoves[move].flags & FLAG_DAMAGE_AIRBORNE) && (!(gStatuses3[gBattlerTarget] & STATUS3_SKY_DROPPED)))
+        if ((gStatuses3[gBattlerTarget] & STATUS3_ON_AIR && CanMoveDamageAirborneTargets(move) && (!(gStatuses3[gBattlerTarget] & STATUS3_SKY_DROPPED)))
         || (gStatuses3[gBattlerTarget] & STATUS3_UNDERGROUND && (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERGROUND))
         || (gStatuses3[gBattlerTarget] & STATUS3_UNDERWATER && (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERWATER)))
         {
@@ -1906,7 +1906,7 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
         || ((IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ACID_RAIN_ANY)) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
         || ((IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY)) && move == MOVE_BLIZZARD)
         || (gBattleMoves[move].effect == EFFECT_ALWAYS_HIT || gBattleMoves[move].effect == EFFECT_VITAL_THROW)
-        || ((gBattleMons[gBattlerTarget].statStages[STAT_EVASION] > DEFAULT_STAT_STAGE) && (gBattleMoves[move].flags & FLAG_EVASIVE_BREAK)))
+        || ((gBattleMons[gBattlerTarget].statStages[STAT_EVASION] > DEFAULT_STAT_STAGE) && (gBattleMoves[move].evasiveBreak)))
     {
         JumpIfMoveFailed(7, move);
         return TRUE;
@@ -2833,7 +2833,7 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
     //think can just remove that flag entirely freeing up more options for later
     //groudn is neutral to flying but just can't hit them if htey aren't grounded
     //so replace this check with just flag dmg_in_air which thousand arrows ALSO has
-    if (IsFloatingTargetImmunetoGroundMoves(gBattlerAttacker, gBattlerTarget, gCurrentMove, moveType)) 
+    if (IsFloatingTargetImmunetoGroundBasedMoves(gBattlerAttacker, gBattlerTarget, gCurrentMove)) 
     {
         gMoveResultFlags |= (MOVE_RESULT_MISSED);
         gLastLandedMoves[gBattlerTarget] = 0;
@@ -3160,7 +3160,7 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
 
     }
 
-    if (IsFloatingTargetImmunetoGroundMoves(attacker, defender, move, moveType))
+    if (IsFloatingTargetImmunetoGroundBasedMoves(attacker, defender, move))
     {
         flags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
     }
@@ -3246,7 +3246,7 @@ u8 AI_TypeCalc(u16 move, u16 targetSpecies, u16 targetAbility) //facepalm was us
     GET_MOVE_TYPE(move, moveType);
     multiplier = CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE); //cehck this if need change 
 
-    if (IsFloatingTargetImmunetoGroundMoves(gBattlerAttacker, gBattlerTarget, move, moveType))
+    if (IsFloatingTargetImmunetoGroundBasedMoves(gBattlerAttacker, gBattlerTarget, move))
     {
         flags = MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE;
     }
@@ -8472,7 +8472,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             && TARGET_TURN_DAMAGED)// !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)) //should make sure doesn't trigger till end of multihit
             {           //result no effect didn't work so replace w target must take dmg
                 //double checked and EE uses them together for some reason
-                if (((gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
+                if ((CanMoveDamageAirborneTargets(gCurrentMove) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
                 && (!(gStatuses3[gBattlerTarget] & STATUS3_SKY_DROPPED)))   //using fly/sky attack, airborne specifically not sky drop, too complicated to work with
                 {
                     CancelMultiTurnMoves(gBattlerTarget); //just for fly /skydrop
@@ -8495,7 +8495,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 //vsonic important
 
                 //believe this for floating mon
-                else if (gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE) //redid thnik tryign bitwise stuff was why this at times failed to set grounding
+                else if (CanMoveDamageAirborneTargets(gCurrentMove)) //redid thnik tryign bitwise stuff was why this at times failed to set grounding
                 {
                     gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
                     gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR);
@@ -9198,7 +9198,7 @@ static void atk4A_typecalc2(void)   //aight this is only for counter, mirror coa
        gBattleCommunication[6] = moveType;
        RecordAbilityBattle(gBattlerTarget, gLastUsedAbility);
    }*/
-    if (IsFloatingTargetImmunetoGroundMoves(gBattlerAttacker, gBattlerTarget, gCurrentMove, moveType))
+    if (IsFloatingTargetImmunetoGroundBasedMoves(gBattlerAttacker, gBattlerTarget, gCurrentMove))
     {
         gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
         gLastLandedMoves[gBattlerTarget] = 0;
@@ -10218,8 +10218,8 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && atkAbility != ABILITY_KEEN_EYE
         && atkAbility != ABILITY_MINDS_EYE
         && atkAbility != ABILITY_APOTHEOSCENT
-        && !(gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE)
-        && !(gBattleMoves[gCurrentMove].flags & FLAG_EVASIVE_BREAK)
+        && !CanMoveDamageAirborneTargets(gCurrentMove)
+        && !gBattleMoves[gCurrentMove].evasiveBreak
         )
             calc = (calc * 88) / 100;  //was 93, dropped to 88 - think i sfine where is at most drop to 87 want keep above sand veil likes
         //think may lower this a bit more?  
@@ -10242,7 +10242,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //added sixth sense as an ability not meant to relyon eyes
         //sand stream is not here beacuse it explicitly does not give weather immunity
         if (IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM_ANY) 
-        && !(gBattleMoves[gCurrentMove].flags & FLAG_EVASIVE_BREAK)
+        && !(gBattleMoves[gCurrentMove].evasiveBreak)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_ROCK)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_STEEL)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_GROUND)
@@ -10259,7 +10259,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //trap effect,
         if (((gBattleMons[battlerAtk].status4 & STATUS4_SAND_TOMB)
         && IsBlackFogNotOnField())
-        && !(gBattleMoves[gCurrentMove].flags & FLAG_EVASIVE_BREAK)
+        && !(gBattleMoves[gCurrentMove].evasiveBreak)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_ROCK)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_STEEL)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_GROUND)
@@ -10284,10 +10284,10 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //to make not too oppressive think will lower effect
         //since it stacks with weather drop (requires weather)
         if (defAbility == ABILITY_SAND_VEIL && IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM_ANY)
-        && !(gBattleMoves[gCurrentMove].flags & FLAG_EVASIVE_BREAK))
+        && !(gBattleMoves[gCurrentMove].evasiveBreak))
             calc = (calc * 89) / 100; // 1.2 sand veil loss
         if (defAbility == ABILITY_SNOW_CLOAK && IsBattlerWeatherAffected(battlerAtk, WEATHER_HAIL_ANY)
-        && !(gBattleMoves[gCurrentMove].flags & FLAG_EVASIVE_BREAK))
+        && !(gBattleMoves[gCurrentMove].evasiveBreak))
             calc = (calc * 80) / 100; //
         if (atkAbility == ABILITY_HUSTLE && GetBattleMoveDamageCategory(battlerAtk,move) == SPLIT_PHYSICAL) //can put status based evasion/accuracy effects here
             calc = (calc * 95) / 100; // 20% hustle loss   removed low accuracy effcts,  so changed to 5% accuracy drop
