@@ -5746,13 +5746,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS(
-        #if B_SPEED_BUFFING_RAPID_SPIN >= GEN_8
             {
                 .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
                 .self = TRUE,
                 .chance = 100,
             }
-        #endif
         ),
         //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -16014,6 +16012,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
         .argument = TYPE_FIRE,
+        .argument = { .type = TYPE_FIRE },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
+            .self = TRUE,
+        }),
     },
 
     [MOVE_SPEED_SWAP] =
@@ -20762,6 +20765,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        .snatchAffected = TRUE,
     }, //need change animation effect with new emerald graphics, it has a coccon effect already I can use.
 
     [MOVE_MONOTYPE] =
@@ -20856,6 +20860,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
     },
 
     [MOVE_DIVE_BOMB] =
@@ -20870,6 +20875,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
     },
 
     [MOVE_NETTLE_WHIP] =
@@ -20905,6 +20911,17 @@ use wonder gaurd logic to determine its super effective
         .soundMove = TRUE,
         .ignoresSubstitute = TRUE,
         .argument = MOVE_EFFECT_CONFUSION,
+        .additionalEffects = ADDITIONAL_EFFECTS(
+            {
+                .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
+                .self = TRUE,
+                .chance = 100,
+            },
+            {
+                .moveEffect = MOVE_EFFECT_CONFUSION,
+                .chance = 10,
+            },
+        ),
         //.argumentEffectChance = 10, can use sec effect for this
     },//since effect is affects user its already certain
     //think give this uproar effect as well, good idea
@@ -20924,6 +20941,11 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
         .argument = TYPE_PSYCHIC,
+        .argument = { .type = TYPE_PSYCHIC },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
+            .self = TRUE,
+        }),
     },
 
     [MOVE_SHIMON] =
@@ -20939,6 +20961,11 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
         .argument = TYPE_FIGHTING,
+        .argument = { .type = TYPE_FIGHTING },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
+            .self = TRUE,
+        }),
     },
 
     [MOVE_FINAL_FLIGHT] =
@@ -20955,6 +20982,11 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_SPECIAL,
         .argument = TYPE_FLYING,
         .enhancedCritrate = TRUE,
+        .argument = { .type = TYPE_FLYING },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
+            .self = TRUE,
+        }),
     },//Check flying type average stats, see if need to make this physical
     //idea is user pushes themselves to the limit, and gives everything they have to perform an acrobatic feat  /vsonic
     //let pidgeot get but think this should be a tutor move?
@@ -20973,6 +21005,11 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
         .argument = TYPE_ELECTRIC,
+        .argument = { .type = TYPE_ELECTRIC },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
+            .self = TRUE,
+        }),
     },
 
     [MOVE_BOLTBEAM] =
@@ -21007,6 +21044,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 2,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
         .enhancedCritrate = TRUE,
     },  //point of move isn't necessarily to replace sucker punch, but instead to be an option for slower dark types to take advantage of new dark type change
     //so only give to mon that DON'T get sucker punch and make sure to keep sparse
@@ -21048,6 +21086,11 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
+            .self = TRUE,
+            .chance = 100,
+        }),
     },//normal or dark type  thought up with luxray line in mind and zenmodeYT  
     //keeping normal
 
@@ -21094,8 +21137,9 @@ use wonder gaurd logic to determine its super effective
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0, //weight this as flying mon are fast, may make 0 priority so its an option more for faster birds not just all
-       .flags = FLAG_SNATCH_AFFECTED,
+        .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS, //unsure if shold be physical? ok yeah its, a boobytrap bomb, if explosion is physical this should be too
+        .snatchAffected = TRUE,
     },
 
     [MOVE_SPIN_DASH] =
@@ -21111,6 +21155,7 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
         .damagesAirborne = TRUE,
+        .makesContact = TRUE,
         //////.zMoveEffect = Z_EFFECT_NONE,
     },//uses rollout animation
     //why didn't I make this damage in air?
@@ -21131,9 +21176,11 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_PHYSICAL,
         .argument = TYPE_DARK,
         .enhancedCritrate = TRUE,
+        .slicingMove = TRUE,
     }, //alt slash wnat use shadow claw animation, two claws one white one black slashing enemy
     //think get move at 35 or so?
     //think was mostly for sneasal
+    //Think doesn't make contact cuz like aqua cutter attacks with wave of ice and shadow
 
     
     [MOVE_CONVERSION_Z] =
@@ -21148,6 +21195,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 1, //can change priority when finish new effect as not based on last move hit by
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        .snatchAffected = TRUE,
     },
 
     [MOVE_SOLAR_FLARE] =
@@ -21234,6 +21282,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        .snatchAffected = TRUE,
     },
     //temp animation accupressure
     //capsakid can learn this
@@ -21276,6 +21325,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
         .cantdamageFloating = TRUE,
     },
     //dirt nap and respite 
@@ -21299,6 +21349,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
     },//give to SPECIES_DHELMISE
     //idea drags targetted foe underwater
 
@@ -21415,6 +21466,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
     },//decide make phsyical counter of shadow ball, but healings
     //undecided if should make tm
 
