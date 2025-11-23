@@ -377,13 +377,13 @@ static const struct CompressedSpriteSheet sStatusSummaryBarSpriteSheets[] = {
 };
 
 static const struct SpritePalette sStatusSummaryBarSpritePals[] = {
-    {gBattleInterface_BallStatusBarPal, 55056},
-    {gBattleInterface_BallStatusBarPal, 55057}
+    {gBattleInterface_Healthbox_Pal, 55056},
+    {gBattleInterface_Healthbox_Pal, 55057}
 };
 
 static const struct SpritePalette sStatusSummaryBallsSpritePals[] = {
-    {gBattleInterface_BallDisplayPal, 55058},
-    {gBattleInterface_BallDisplayPal, 55059}
+    {gBattleInterface_Healthbar_Pal, 55058},
+    {gBattleInterface_Healthbar_Pal, 55059}
 };
 
 static const struct SpriteSheet sStatusSummaryBallsSpriteSheets[] = {

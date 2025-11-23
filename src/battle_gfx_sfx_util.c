@@ -99,11 +99,11 @@ static const struct CompressedSpriteSheet sSpriteSheets_HealthBar[MAX_BATTLERS_C
 const struct SpritePalette sSpritePalettes_HealthBoxHealthBar[2] =
 {
     {
-        .data = gBattleInterface_BallStatusBarPal,
+        .data = gBattleInterface_Healthbox_Pal,
         .tag = TAG_HEALTHBOX_PAL,
     },
     {
-        .data = gBattleInterface_BallDisplayPal,
+        .data = gBattleInterface_Healthbar_Pal,
         .tag = TAG_HEALTHBAR_PAL,
     },
 };

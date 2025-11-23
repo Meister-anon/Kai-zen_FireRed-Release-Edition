@@ -6028,14 +6028,14 @@ static void UpdateHpBarObjs(void)
 
     switch (GetHPBarLevel(curHp, maxHp))
     {
-    case 3:
+    case HP_BAR_GREEN:
     default:
         hpBarPalOffset = 0;
         break;
-    case 2:
+    case HP_BAR_YELLOW:
         hpBarPalOffset = 1;
         break;
-    case 1:
+    case HP_BAR_RED:
         hpBarPalOffset = 2;
         break;
     }
