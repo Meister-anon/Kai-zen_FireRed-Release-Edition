@@ -11535,7 +11535,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sClamperlLevelUpLearnset,
         .tmhmLearnset = sClamperlTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_DEEP_SEA_TOOTH, 0, SPECIES_HUNTAIL},
-                                       {EVO_ITEM, ITEM_DEEP_SEA_SCALE, 0, SPECIES_GOREBYSS}), //Should hopefully blank these for now without issue
+        {EVO_ITEM, ITEM_DEEP_SEA_SCALE, 0, SPECIES_GOREBYSS}), //Should hopefully blank these for now without issue
     },  //nother update for mon with very different evo form, so they serve a different purpose/ i.e are self-sufficient in base form 
     //but then can evolve to suit a different purpose/niche  keep an eye on this balance wise
 
