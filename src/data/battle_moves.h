@@ -120,6 +120,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -251,7 +252,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .punchingMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
         }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
@@ -354,7 +355,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
-        .windMove = B_EXTRAPOLATED_MOVE_FLAGS,
+        .windMove = TRUE,
+        .enhancedCritrate = TRUE,
+        .damagesAirborneDoubleDamage = TRUE,
         .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNWHIPPEDWHIRLWIND },
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -448,6 +451,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -507,6 +511,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         .gravityBanned = TRUE,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
@@ -590,6 +595,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -802,6 +808,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_HEADBUTT_MOVE,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -1366,7 +1373,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
         //.battleAnimScript = gBattleAnimMove_Flamethrower,
-    },
+    },//Think flamethrower is too common to be a knock down move, then again good for boosting fire type back up?
 
     [MOVE_MIST] =
     {
@@ -1422,6 +1429,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -1469,7 +1477,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             // The following effect is also relevant in battle_Pike.c
             // If you cherry-pick this to use something other than the config, make sure to update it there too
-            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
         }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
@@ -1477,7 +1485,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL},
         //.battleAnimScript = gBattleAnimMove_IceBeam,
-    },
+    },//yeah no, idk wtf I was thinking, not giving ice a flying knock outside of blizzard
 
     [MOVE_BLIZZARD] =
     {
@@ -1492,9 +1500,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
         .windMove = TRUE,
-        .alwaysHitsInHailSnow = B_BLIZZARD_HAIL >= GEN_4,
+        .damagesAirborne = TRUE,
+        .alwaysHitsInHailSnow = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
         }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
@@ -1629,6 +1638,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -1870,6 +1880,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
         .slicingMove = TRUE,
+        .enhancedCritrate = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -2111,6 +2122,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .damagesAirborne = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 10,
@@ -2954,6 +2966,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .parentalBondBanned = TRUE,
         .dampBanned = TRUE,
+        .ballisticMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -3100,6 +3113,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .damagesAirborne = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
@@ -3235,6 +3249,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
     .split = SPLIT_PHYSICAL,
+    .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -3533,16 +3548,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_SELECTED,//could do took to the air then end turn effect glowing w energy strnig?
     .priority = 0,
     .split = SPLIT_PHYSICAL,
-        .criticalHitStage = B_UPDATED_MOVE_DATA >= GEN_3,
+        .enhancedCritrate = TRUE,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
         .argument.twoTurnAttack = { .stringId = B_UPDATED_MOVE_DATA >= GEN_4 ? STRINGID_CLOAKEDINAHARSHLIGHT : STRINGID_PKMNISGLOWING },
-    #if B_UPDATED_MOVE_DATA >= GEN_3
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 30,
         }),
-    #endif
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -3795,6 +3808,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
+        .enhancedCritrate = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -3816,6 +3830,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_PHYSICAL,
         .parentalBondBanned = TRUE,
         .dampBanned = TRUE,
+        .ballisticMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -3835,12 +3850,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
     .split = SPLIT_PHYSICAL,
-        .makesContact = TRUE,
-        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_SCRATCH},
-        //.battleAnimScript = gBattleAnimMove_FurySwipes,
+    .makesContact = TRUE,
+    .enhancedCritrate = TRUE,
+    //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+    //.contestCategory = CONTEST_CATEGORY_TOUGH,
+    //.contestComboStarterId = 0,
+    //.contestComboMoves = {COMBO_STARTER_SCRATCH},
+    //.battleAnimScript = gBattleAnimMove_FurySwipes,
 },
 
 [MOVE_BONEMERANG] =
@@ -3857,11 +3873,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_PHYSICAL,
     .damagesAirborne = TRUE,
     .strikeCount = 2,
-        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = COMBO_STARTER_BONEMERANG,
-        //.contestComboMoves = {COMBO_STARTER_BONE_CLUB, COMBO_STARTER_BONE_RUSH, COMBO_STARTER_SHADOW_BONE},
-        //.battleAnimScript = gBattleAnimMove_Bonemerang,
+    //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+    //.contestCategory = CONTEST_CATEGORY_TOUGH,
+    //.contestComboStarterId = COMBO_STARTER_BONEMERANG,
+    //.contestComboMoves = {COMBO_STARTER_BONE_CLUB, COMBO_STARTER_BONE_RUSH, COMBO_STARTER_SHADOW_BONE},
+    //.battleAnimScript = gBattleAnimMove_Bonemerang,
 },
 
 [MOVE_REST] =
@@ -4046,6 +4062,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .slicingMove = TRUE,
+        .enhancedCritrate = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -4169,7 +4186,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     #endif
     .effect = EFFECT_THIEF,
     .type = TYPE_DARK,
-    .accuracy = 100,
+    .accuracy = 95,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
     .priority = 0,
@@ -4528,7 +4545,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
     .split = SPLIT_SPECIAL,
         .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
         }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
@@ -4910,6 +4927,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
     .split = SPLIT_SPECIAL,
         .windMove = TRUE,
+        .damagesAirborne = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 100,
@@ -5688,6 +5706,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //decide do same as knock off, remove bonus damage drop acc
     //making all 60 would give move comparity between
     //pursuit knock off and feint attack, each with their own niche
+    //realized thief also counts as dark move with broken effect
+    //that is 60 bp
     //need double check script so accuracy change would work correctly here
 
     [MOVE_RAPID_SPIN] =
@@ -5932,6 +5952,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -6176,7 +6197,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_ShadowBall,
-    },
+    },//again feel is too common to do flying knock, think intead put on ominous wind?
 
     [MOVE_FUTURE_SIGHT] =
     {
@@ -7484,6 +7505,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
@@ -7630,7 +7652,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_STRONG_JAW_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .bitingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_TOXIC,
+            .chance = 40,
+        }),
+        /*.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        .contestCategory = CONTEST_CATEGORY_SMART,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},*/
+        //.battleAnimScript = gBattleAnimMove_PoisonFang,
     }, //potentially lower this? since I changed poison this is technically even easier to set toxic with
+    //should I give this small flinch chance? since is biting move, would give 10%
 
     [MOVE_CRUSH_CLAW] =
     {
@@ -7668,6 +7702,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .damagesAirborne = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
@@ -7691,6 +7726,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .damagesAirborne = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
@@ -7779,6 +7815,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         //.zMove = { .powerOverride = 160 },
         .ballisticMove = TRUE,
+        .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -7851,6 +7888,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .windMove = TRUE,
         .slicingMove = TRUE,
+        .enhancedCritrate = TRUE,
+        .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -7965,7 +8004,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
-        .windMove = B_EXTRAPOLATED_MOVE_FLAGS,
+        .windMove = TRUE,
+        .damagesAirborne = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ALL_STATS_UP,
             .self = TRUE,
@@ -8252,6 +8292,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .cantdamageFloating = TRUE,
         .damagesUnderground = TRUE,
+        .damagesUnderwater = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
             .chance = 30,
@@ -8531,7 +8572,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SANDSTORM},
         //.battleAnimScript = gBattleAnimMove_MudShot,
-    }, //ranged attack so potentially FLAG_DMG_IN_AIR
+    }, //ranged attack so potentially set dmg airborne
     
 
     [MOVE_POISON_TAIL] =
@@ -8547,6 +8588,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 10,
@@ -8711,6 +8753,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -8763,7 +8806,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        .ballisticMove = B_UPDATED_MOVE_FLAGS >= GEN_6,
+        .ballisticMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -9271,7 +9314,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
@@ -9283,7 +9326,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_MIND_READER},
         //.battleAnimScript = gBattleAnimMove_CloseCombat,
-    },
+    }, //remove iron fist flag, as want to emphasize superpower instead
 
     [MOVE_PAYBACK] =
     {
@@ -9727,7 +9770,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SUCKER_PUNCH] =
     {
 
-        .power = 70,    //LOWEred power by 5 to counter pp increase, making it harder to stall out, test and consider
+        .power = 65,    //LOWEred power by 5 to counter pp increase, making it harder to stall out, test and consider
         .effect = EFFECT_SUCKER_PUNCH,
         .type = TYPE_DARK,
         .accuracy = 100,
@@ -9737,6 +9780,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .punchingMove = TRUE,
         .makesContact = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
         //.contestCategory = CONTEST_CATEGORY_SMART,
@@ -9746,7 +9790,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     },//remove pp increase on things like megsa
     //pp stalling is the only way to stay alive
     //as I saw playing unbreakable ties
-    //appliedlate gen power drop
+    //applied late gen power drop
+    //iron fist on this is slightly nutty, lowered bp further
+    //thankfully only one dark mon with both sucker punch and iron fist - pangooro...
 
     [MOVE_TOXIC_SPIKES] =
     {
@@ -9966,6 +10012,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .punchingMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 30,
@@ -10018,6 +10065,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
@@ -10059,6 +10107,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
         .ballisticMove = TRUE,
+        .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -10086,6 +10135,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .windMove = TRUE,
+        .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
@@ -10112,6 +10163,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
@@ -10218,6 +10270,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -10517,6 +10570,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -10660,6 +10714,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -10727,6 +10782,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_MEGA_LAUNCHER_BOOST | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
+        .pulseMove = TRUE,
+        .damagesAirborne = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
             .chance = 10,
@@ -10923,6 +10980,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -10967,6 +11025,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
@@ -11063,6 +11122,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        .enhancedCritrate = TRUE,
+        .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -11249,6 +11310,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_STRONG_JAW_BOOST,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .bitingMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BUG_BITE,
         }),
@@ -11339,6 +11401,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        .enhancedCritrate = TRUE,
+        .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_ATTACK_ORDER,
@@ -11475,6 +11539,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_SPECIAL,
+        .enhancedCritrate = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -11616,7 +11681,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
-        .windMove = B_EXTRAPOLATED_MOVE_FLAGS,
+        .windMove = TRUE,
+        .damagesAirborne = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ALL_STATS_UP,
             .self = TRUE,
@@ -12722,6 +12788,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -13139,6 +13206,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .enhancedCritrate = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -13879,10 +13947,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GRAVITY_CANCELED | FLAG_EVASIVE_BREAK | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
         //.zMove = { .powerOverride = 170 },
-        .argument = { .type = TYPE_FLYING },
         .makesContact = TRUE,
         .evasiveBreak = TRUE,
         .gravityBanned = TRUE,
+        .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -14054,6 +14122,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
         .assistBanned = TRUE,
+        .damagesAirborne = TRUE,
         .argument.twoTurnAttack = { .stringId = STRINGID_VANISHEDINSTANTLY, .status = STATE_PHANTOM_FORCE },
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FEINT,
@@ -14219,7 +14288,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .argument = { .type = TYPE_WATER },
         .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
         }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
@@ -14480,6 +14549,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
         .windMove = TRUE,
+        .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -14508,7 +14578,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Moonblast,
-    },
+    },//again too common so won't put knock move on this
 
     [MOVE_BOOMBURST] =
     {
@@ -15872,6 +15942,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .damagesAirborne = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 100,
@@ -15881,7 +15952,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
         //.battleAnimScript = gBattleAnimMove_FireLash,
-    },
+    },//decide make this the fire flying hit not flamethrower
 
     [MOVE_POWER_TRIP] =
     {
@@ -16559,6 +16630,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .metronomeBanned = TRUE,
         .recoilMove = TRUE,
         .dampBanned = TRUE,
+        .ballisticMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -16583,6 +16655,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .metronomeBanned = TRUE,
+        /*.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        .contestCategory = CONTEST_CATEGORY_COOL,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},*/
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ION_DELUGE,
+            .chance = 100,
+            .sheerForceBoost = SHEER_FORCE_NO_BOOST,
+        }),
+        //.battleAnimScript = gBattleAnimMove_PlasmaFists,
     },//want anim to be trailing blue lightning effect, like wing attack does for tornado  rebalanced, inspired by zera unite move, raw plasma will seek out a target 
 
     [MOVE_PHOTON_GEYSER] =
@@ -16597,14 +16682,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-        .effect = EFFECT_PHOTON_GEYSER,
-        .power = 100,
-        .type = TYPE_PSYCHIC,
-        .accuracy = 100,
-        .pp = 5,
-        .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
-        .category = SPLIT_SPECIAL,
         .ignoresTargetAbility = TRUE,
         .metronomeBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
@@ -17921,6 +17998,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_SPECIAL,
         .dampBanned = TRUE,
+        .ballisticMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -18265,7 +18343,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        .alwaysCriticalHit = TRUE,
         .punchingMove = TRUE,
         .metronomeBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
@@ -18288,7 +18365,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        .alwaysCriticalHit = TRUE,
         .punchingMove = TRUE,
         .strikeCount = 3,
         .metronomeBanned = TRUE,
@@ -18363,7 +18439,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
         }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
@@ -18819,7 +18895,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 75,
         #endif
-        .effect = EFFECT_SPEED_UP_HIT,
+        .effect = EFFECT_TWO_TYPED_MOVE,
         .type = TYPE_PSYCHIC,
         .accuracy = 90,
         .pp = 10,
@@ -18828,15 +18904,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .enhancedCritrate = TRUE,
+        .argument = { .type = TYPE_FLYING },
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
             .self = TRUE,
             .chance = 100,
         }),
+        .argument = TYPE_FLYING,
         //.battleAnimScript = gBattleAnimMove_EsperWing,
         //////.zMovePower = 140,
         //////.zMoveEffect = Z_EFFECT_NONE,
-    },
+    },//vsonic want to make this two typed psychic flying
 
     [MOVE_BITTER_MALICE] =
     {
@@ -18903,6 +18982,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .enhancedCritrate = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 50,
@@ -19039,7 +19119,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
         .windMove = TRUE,
-        .damagesAirborne = TRUE,
         .alwaysHitsInRain = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
@@ -19048,7 +19127,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.battleAnimScript = gBattleAnimMove_SandsearStorm,
         //////.zMovePower = 175,
         //////.zMoveEffect = Z_EFFECT_NONE,
-    },
+    },//dmg in air was only used here because is ground type move but reworked effect
 
     [MOVE_LUNAR_BLESSING] =
     {
@@ -19153,6 +19232,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR | FLAG_LETHAL_LEGS_BOOST,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .damagesAirborne = TRUE,
         .recoilMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
@@ -20047,12 +20127,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
         //.battleAnimScript = gBattleAnimMove_AquaCutter,
         ////.zMovePower = 140,
         ////.zMoveEffect = Z_EFFECT_NONE,
         // Needs the "slicing" flag
-    },
+    },//doesn't actually make contact
 
     [MOVE_BLAZING_TORQUE] =
     {
@@ -20327,7 +20408,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_GRASS,
         .accuracy = 100,
         .pp = 10,
-        .criticalHitStage = 1,
+        .enhancedCritrate = TRUE,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = SPLIT_PHYSICAL,
@@ -20771,6 +20852,8 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .damagesAirborne = TRUE,
     },//GRASS types will be immune to this status condition, potentially make its own effect, then can do grass status exclusion with bs command
     //think give to mostly grass/poison types
     //since effect is essentially poison
@@ -20839,6 +20922,7 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_SPECIAL,
         .argument = TYPE_FLYING,
+        .enhancedCritrate = TRUE,
     },//Check flying type average stats, see if need to make this physical
     //idea is user pushes themselves to the limit, and gives everything they have to perform an acrobatic feat  /vsonic
     //let pidgeot get but think this should be a tutor move?
@@ -20891,7 +20975,10 @@ use wonder gaurd logic to determine its super effective
         .priority = 2,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
+        .enhancedCritrate = TRUE,
     },  //point of move isn't necessarily to replace sucker punch, but instead to be an option for slower dark types to take advantage of new dark type change
+    //so only give to mon that DON'T get sucker punch and make sure to keep sparse
+    //like say give to guzzlord
 
     [MOVE_DOUBLE_SHOCK] =
     {
@@ -20944,6 +21031,8 @@ use wonder gaurd logic to determine its super effective
         .priority = -1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
     },//made for crabominable line but can give to machamp as well
 
 
@@ -21009,6 +21098,7 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         .argument = TYPE_DARK,
+        .enhancedCritrate = TRUE,
     }, //alt slash wnat use shadow claw animation, two claws one white one black slashing enemy
     //think get move at 35 or so?
     //think was mostly for sneasal
@@ -21206,7 +21296,9 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
+        .makesContact = TRUE,
         .recoilMove = TRUE,
+        .punchingMove = TRUE,
     },
     //super power clone
 

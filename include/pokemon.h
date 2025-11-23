@@ -496,8 +496,11 @@ struct BattleMove
     bool32 headbuttMove:1;
     //Other
     bool32 alwaysCriticalHit:1;
-    bool32 criticalHitStage:1; //will rename to enhanced crit rate
-    u32 padding:21;
+    bool32 enhancedCritrate:1; //will rename to enhanced crit rate
+    bool32 dampBanned:1;    //Damp blocks move
+    bool32 alwaysHitsInHailSnow:1;
+    bool32 alwaysHitsInRain:1;
+    u32 padding:18;
     // end of word
     u8 split;
     u16 argument;// for transferring move effects
@@ -527,7 +530,7 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_MIRROR_MOVE_AFFECTED   (1 << 4)    //check if move allowable with mirror move to copy
 #define FLAG_GRAVITY_CANCELED       (1 << 5)    //for moves that get canceled by gravity field status
 #define FLAG_HIGH_CRIT              (1 << 6)
-#define FLAG_RECKLESS_BOOST         (1 << 7)
+#define FLAG_RECKLESS_BOOST         (1 << 7)    //just for recoil finding
 #define FLAG_IRON_FIST_BOOST        (1 << 8)    //1 byte
 #define FLAG_SHEER_FORCE_BOOST      (1 << 9)
 #define FLAG_STRONG_JAW_BOOST       (1 << 10) //biting
