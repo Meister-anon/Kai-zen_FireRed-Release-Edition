@@ -10299,17 +10299,10 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //trap effect,
         if (((gBattleMons[battlerAtk].status4 & STATUS4_SAND_TOMB)
         && IsBlackFogNotOnField())
-<<<<<<< HEAD
         && !(gBattleMoves[gCurrentMove].evasiveBreak)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_ROCK, FALSE)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_STEEL, FALSE)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_GROUND, FALSE)
-=======
-        && !(gBattleMoves[gCurrentMove].evasiveBreak)
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_ROCK)
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_STEEL)
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_GROUND)
->>>>>>> 13bc405706 (setup cantdmgfloating member remove evasive break & dmg_airborne flags)
         && atkAbility != ABILITY_SAND_RUSH
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
