@@ -500,7 +500,8 @@ struct BattleMove
     bool32 dampBanned:1;    //Damp blocks move
     bool32 alwaysHitsInHailSnow:1;
     bool32 alwaysHitsInRain:1;
-    u32 padding:18;
+    bool32 accuracy50InSun:1;
+    u32 padding:17;
     // end of word
     u8 split;
     u16 argument;// for transferring move effects
