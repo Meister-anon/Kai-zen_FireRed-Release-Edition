@@ -1043,11 +1043,13 @@ static const struct AbilityLearnset sSkarmoryAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sHoundourAbilityLearnset[] = {
+    ABILITY_BALL_FETCH,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sHoundoomAbilityLearnset[] = {
     ABILITY_PIERCING_HORN,
+    ABILITY_BALL_FETCH,
     ABILITY_SET_END
 };
 
@@ -1186,10 +1188,12 @@ static const struct AbilityLearnset sSwampertAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sPoochyenaAbilityLearnset[] = {
+    ABILITY_BALL_FETCH,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sMightyenaAbilityLearnset[] = {
+    ABILITY_BALL_FETCH,
     ABILITY_SET_END
 };
 
@@ -1410,11 +1414,13 @@ static const struct AbilityLearnset sHariyamaAbilityLearnset[] = {
 
 static const struct AbilityLearnset sElectrikeAbilityLearnset[] = {
     ABILITY_OVERCHARGE,
+    ABILITY_BALL_FETCH,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sManectricAbilityLearnset[] = {
     ABILITY_OVERCHARGE,
+    ABILITY_BALL_FETCH,
     ABILITY_SET_END
 };
 

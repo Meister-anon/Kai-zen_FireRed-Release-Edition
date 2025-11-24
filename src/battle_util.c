@@ -7148,7 +7148,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
             case ABILITY_MIMICRY:
-                if (gBattleMons[battler].hp != 0 && gFieldStatuses & STATUS_FIELD_TERRAIN_ANY)
+                if (IsBattlerAlive(battler) && gFieldStatuses & STATUS_FIELD_TERRAIN_ANY)
                 {
                     TryToApplyMimicry(battler, FALSE);
                     ++effect;

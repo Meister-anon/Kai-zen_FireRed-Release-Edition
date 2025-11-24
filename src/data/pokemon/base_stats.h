@@ -4861,6 +4861,8 @@ const struct BaseStats gBaseStats[] =
     //maybe assault vest on this would work?
     //ok this isn't so bad now, I forgot how I buffed abilities,
     //pressure is actually a legimite niche intsead of just unnerve
+    // potentially give neuroforce? feels like too much
+    //OH ITS already in learned abilities
 
     [SPECIES_MEW] =
     {
@@ -15915,7 +15917,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_VITAL_SPIRIT, ABILITY_PICKUP},
-        .abilityHidden = {ABILITY_RUN_AWAY, ABILITY_NONE},
+        .abilityHidden = {ABILITY_RUN_AWAY, ABILITY_BALL_FETCH},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -15950,7 +15952,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_INTIMIDATE, ABILITY_SCRAPPY},
-        .abilityHidden = {ABILITY_HUSTLE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_HUSTLE, ABILITY_BALL_FETCH},
         //.bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -15985,7 +15987,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_INTIMIDATE, ABILITY_SCRAPPY},
-        .abilityHidden = {ABILITY_HUSTLE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_HUSTLE, ABILITY_BALL_FETCH},
         //.bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -27989,7 +27991,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_STRONG_JAW, ABILITY_NONE},
+        .abilities = {ABILITY_BALL_FETCH, ABILITY_STRONG_JAW},
         .abilityHidden = {ABILITY_COMPETITIVE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -32043,7 +32045,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_MINERAL),
         .abilities = { ABILITY_OWN_TEMPO, ABILITY_NONE  },
-        .abilityHidden = {ABILITY_KLUTZ, ABILITY_NONE},
+        .abilityHidden = {ABILITY_KLUTZ, ABILITY_BALL_FETCH},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -32107,7 +32109,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_MINERAL),
         .abilities = { ABILITY_WELL_BAKED_BODY, ABILITY_NONE  },
-        .abilityHidden = {ABILITY_AROMA_VEIL, ABILITY_NONE},
+        .abilityHidden = {ABILITY_AROMA_VEIL, ABILITY_BALL_FETCH},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
