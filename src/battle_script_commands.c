@@ -17393,6 +17393,8 @@ static void atkA9_trychoosesleeptalkmove(void)
     {
         u32 movePosition;
 
+        // Set Sleep Talk as used move, so it works with Last Resort.
+        gDisableStructs[gBattlerAttacker].usedMoves |= 1u << gCurrMovePos;
         do
             movePosition = Random() & 3;
         while ((gBitTable[movePosition] & unusableMovesBits));
