@@ -53,8 +53,9 @@ enum StartMenuOption
     STARTMENU_PLAYER2,
     STARTMENU_DEBUG,
     STARTMENU_ACCESS_PC,
+    STARTMENU_LEVEL_CAP,
     MAX_STARTMENU_ITEMS
-};
+};//if I decide to remove exit option would save ewram
 
 enum SaveCBReturn
 {
@@ -185,6 +186,19 @@ static const struct WindowTemplate sWindowTemplates_AfterLinkSaveMessage[] = {
         .baseBlock = 0x198
     }, DUMMY_WIN_TEMPLATE
 };*/
+
+//unsure fully how to setup
+//but use for window to set dynamic lvl cap
+//base off of debug menu value setting, make size of give mon window
+static const struct WindowTemplate sLvlCapWindowTemplate = {
+    .bg = 0,
+    .tilemapLeft = 1,
+    .tilemapTop = 1,
+    .width = 10,
+    .height = 8,
+    .paletteNum = 13,
+    .baseBlock = 14
+};
 
 static const struct WindowTemplate sSaveStatsWindowTemplate = {
     .bg = 0,
