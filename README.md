@@ -1,5 +1,16 @@
-unsure why my kaizen version doesn't have a read me file
-when pret had one but oh well.
+Branch Goals:
 
-adding this now will fix later but for now 
-will use this file to outline purpose of each individual feature branch
+Ability reworks testing for things
+to complex to be assured of to do on master.
+
+rn testing color change and ball fetch reworks
+
+color change set type based on terrain and weather
+default to set type 2 or 3  look at mimicry for planned effect
+
+and ball fetch is more direct clone of Dancer
+user returns ball moves from enemy side back to user
+
+Unlike Dancer this won't work affect ally
+Still need to research origin effect more to see how this would work. ex. is it only one per turn activate?
+or if both foes use target move cat will it activate for both?

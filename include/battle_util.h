@@ -79,6 +79,7 @@
 
 u8 GetBattlerForBattleScript(u8 caseId);
 
+void SetColorchangeType(u8 battlerId);
 void PressurePPLose(u8 target, u8 attacker, u16 move);
 void PressurePPLoseOnUsingImprison(u8 attacker);
 void PressurePPLoseOnUsingPerishSong(u8 attacker);

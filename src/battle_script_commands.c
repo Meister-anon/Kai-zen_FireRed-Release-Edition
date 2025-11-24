@@ -8633,6 +8633,17 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 }
             }
 
+            if (!gSpecialStatuses[gBattlerAttacker].returnedBallMove)//ported need check
+            {
+                gDisableStructs[gBattlerAttacker].usedMoves |= gBitTable[gCurrMovePos];
+                gBattleStruct->lastMoveTarget[gBattlerAttacker] = gBattlerTarget;
+                if (gHitMarker & HITMARKER_ATTACKSTRING_PRINTED)
+                {
+                    gLastPrintedMoves[gBattlerAttacker] = gChosenMove;
+                    gLastUsedMove = gCurrentMove;
+                }
+            }
+
             if (!(gAbsentBattlerFlags & gBitTable[gBattlerAttacker])
              && !(gBattleStruct->absentBattlerFlags & gBitTable[gBattlerAttacker])
              && gBattleMoves[originallyUsedMove].effect != EFFECT_HEALING_WISH
@@ -8961,6 +8972,36 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             }
             ++gBattleScripting.atk49_state;
             break;
+        case MOVE_END_FETCH_BALL: // Special case because it's so annoying     //think this stays here, in emerald its actually in util.c & here??  very strange effect
+            if (gBattleMoves[gCurrentMove].flags & FLAG_BALLISTIC)
+            {
+                u8 battler, nextBallCatcher = 0;
+
+                if (!(gBattleStruct->lastMoveFailed & gBitTable[gBattlerAttacker]
+                    || (!gSpecialStatuses[gBattlerAttacker].returnedBallMove
+                        && gProtectStructs[gBattlerAttacker].usesBouncedMove)))
+                {   // Dance move succeeds
+                    // Set target for other Dancer mons; set bit so that mon cannot activate Dancer off of its own move
+                    if (!gSpecialStatuses[gBattlerAttacker].returnedBallMove)
+                    {
+                        gBattleScripting.savedBattler = gBattlerTarget | 0x4;
+                        gBattleScripting.savedBattler |= (gBattlerAttacker << 4);
+                        gSpecialStatuses[gBattlerAttacker].returnedBallMove = TRUE;
+                    }
+                    for (battler = 0; battler < MAX_BATTLERS_COUNT; battler++)
+                    {
+                        if (GetBattlerAbility(battler) == ABILITY_DANCER && !gSpecialStatuses[battler].returnedBallMove)
+                        {
+                            if (!nextBallCatcher || (gBattleMons[battler].speed < gBattleMons[nextBallCatcher & 0x3].speed))
+                                nextBallCatcher = battler | 0x4;
+                        }
+                    }
+                    if (nextBallCatcher && AbilityBattleEffects(ABILITYEFFECT_MOVE_END_OTHER, nextBallCatcher & 0x3, 0, 0, 0))
+                        effect = TRUE;
+                }
+            }
+            ++gBattleScripting.atk49_state;
+            break;
         case MOVE_END_EMERGENCY_EXIT:
                 //last condition should if target not fainted or enemy has more mon in party
                 //using special status this never triggered because status was alraedy cleared for wimpout
@@ -9121,7 +9162,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 *(gBattleStruct->moveTarget + gBattlerAttacker) = gSpecialStatuses[gBattlerAttacker].instructedChosenTarget & 0x3;
             if (gSpecialStatuses[gBattlerAttacker].dancerOriginalTarget)
                 *(gBattleStruct->moveTarget + gBattlerAttacker) = gSpecialStatuses[gBattlerAttacker].dancerOriginalTarget & 0x3;
-
+            if (gSpecialStatuses[gBattlerAttacker].BallFetchOriginalTarget)
+                *(gBattleStruct->moveTarget + gBattlerAttacker) = gSpecialStatuses[gBattlerAttacker].BallFetchOriginalTarget & 0x3;
         /*#if B_RAMPAGE_CANCELLING >= GEN_5
             if (gBattleMoves[gCurrentMove].effect == EFFECT_RAMPAGE // If we're rampaging
               && (gMoveResultFlags & MOVE_RESULT_NO_EFFECT)         // And it is unusable

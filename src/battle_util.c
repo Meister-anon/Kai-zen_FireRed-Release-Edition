@@ -1490,6 +1490,107 @@ void RestoreBattlerOriginalTypes(u8 battlerId)
     gBattleMons[battlerId].type2 = gBaseStats[gBattleMons[battlerId].species].type2;
 }
 
+void SetColorchangeType(u8 battlerId)
+{
+    u32 Typeset = FALSE;
+    u32 FromWeather = FALSE;
+    u32 FromTerrain = FALSE;
+    bool32 seteffect = FALSE;
+
+    //unsure exactly how to set this
+    //idk guess this is ok
+    if (IsBattlerWeatherAffected(battlerId, WEATHER_ANY))
+    {
+        switch (gBattleWeather)
+        {
+            case WEATHER_SUN_ANY:
+                FromWeather = TYPE_FIRE;
+                break;
+            case WEATHER_RAIN_ANY:
+                FromWeather = TYPE_WATER;
+                break;
+            case WEATHER_SANDSTORM_ANY:
+                FromWeather = TYPE_ROCK; //would prefer do ground here may change
+                break;
+            case WEATHER_HAIL_ANY:
+                FromWeather = TYPE_ICE;
+                break;
+            case WEATHER_MOON_ANY:
+                FromWeather = TYPE_FAIRY;
+                break;
+            case WEATHER_ACID_RAIN_ANY:
+                FromWeather = TYPE_POISON;
+                break;
+        }
+    }
+    else if (IsBattlerTerrainAffected(battlerId, STATUS_FIELD_TERRAIN_ANY))
+    {
+        switch (gFieldStatuses)
+        {
+        case STATUS_FIELD_ELECTRIC_TERRAIN:
+            FromTerrain = TYPE_ELECTRIC;
+            break;
+        case STATUS_FIELD_MISTY_TERRAIN:
+            FromTerrain = TYPE_FAIRY;
+            break;
+        case STATUS_FIELD_GRASSY_TERRAIN:
+            FromTerrain = TYPE_GRASS;
+            break;
+        case STATUS_FIELD_PSYCHIC_TERRAIN:
+            FromTerrain = TYPE_PSYCHIC;
+            break;
+        }
+    }
+
+    //need better check for this and ability to set both types
+    //prob make custom string with both buffs for 2 changes
+    //actually no practically speaking shouldn't do multiple changes at once?
+    if (FromWeather && FromTerrain)
+    {
+        if (!IS_BATTLER_OF_TYPE(battlerId, FromWeather))
+        {
+            seteffect++;
+            SET_BATTLER_TYPE2(battlerId, FromWeather);
+            PREPARE_TYPE_BUFFER(gBattleTextBuff2, FromWeather);
+        }
+
+        if (!IS_BATTLER_OF_TYPE(battlerId, FromTerrain))
+        {
+            seteffect++;
+            SET_BATTLER_TYPE3(battlerId, FromTerrain);
+            PREPARE_TYPE_BUFFER(gBattleTextBuff2, FromTerrain);
+        }
+    }
+
+    else if (FromWeather)
+    {
+        if (!IS_BATTLER_OF_TYPE(battlerId, FromWeather))
+        {
+            seteffect++;
+            SET_BATTLER_TYPE2(battlerId, FromWeather);
+            PREPARE_TYPE_BUFFER(gBattleTextBuff2, FromWeather);
+        }
+    }
+    else if (FromTerrain)
+    {
+        if (!IS_BATTLER_OF_TYPE(battlerId, FromTerrain))
+        {
+            seteffect++;
+            SET_BATTLER_TYPE2(battlerId, FromTerrain);
+            PREPARE_TYPE_BUFFER(gBattleTextBuff2, FromTerrain);
+        }
+    }
+
+    if (seteffect)
+    {
+        PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, battlerId, gBattlerPartyIndexes[battlerId])
+        BattleScriptPushCursorAndCallback(BattleScript_MimicryActivatesEnd3);
+    }
+        
+    
+
+}
+
 void TryToApplyMimicry(u8 battlerId, bool8 various)
 {
     u32 moveType;
@@ -7154,6 +7255,13 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     ++effect;
                 }
                 break;
+            case ABILITY_COLOR_CHANGE:
+                if (IsBattlerAlive(battler))
+                {
+                    SetColorchangeType(battler);
+                    ++effect;
+                }
+                break;//check if this works correctly
             case ABILITY_PURIFYING_AURA: //unsure if need use status to balance like absorb ability - its not a physical block but a special/passive ability
                 //if (gBattleMons[battler].status2 != STATUS2_CONFUSION)  //switch in ver. - could use same check, but its not an absorb so not same principle of effect
                 {
@@ -8185,7 +8293,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         case ABILITYEFFECT_MOVE_END: // Think contact abilities. //logic is if target has ablity
             switch (gLastUsedAbility)//double check if forget other abilities
             {
-            case ABILITY_COLOR_CHANGE:
+            /*case ABILITY_COLOR_CHANGE:
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && moveArg != MOVE_STRUGGLE
                     && gBattleMoves[moveArg].power != 0
@@ -8193,13 +8301,14 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     && !IS_BATTLER_OF_TYPE(battler, moveType)//not affinity this is explicitly type related so leave
                     && gBattleMons[battler].hp != 0)
                 {
+
                     SET_BATTLER_TYPE2(battler, moveType);   //changed only shifts second type when hit, can take advantage of joat that way.
                     PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);//changed joat no longer stacks with stab so nto so good, but still defensively good
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_ColorChangeActivates;
                     ++effect;
                 }
-                break;
+                break;*/ //vsonic check may need put change here
             case ABILITY_IRON_BARBS:
             case ABILITY_TOUGH_SPINES:
             case ABILITY_ROUGH_SKIN:
@@ -9347,6 +9456,34 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     // Make sure that the target isn't an ally - if it is, target the original user
                     if (GetBattlerSide(gBattlerTarget) == GetBattlerSide(gBattlerAttacker))
                         gBattlerTarget = (gBattleScripting.savedBattler & 0xF0) >> 4;
+                    gHitMarker &= ~HITMARKER_ATTACKSTRING_PRINTED;
+                    BattleScriptExecute(BattleScript_DancerActivates);
+                    ++effect;
+                }
+                break;
+            case ABILITY_BALL_FETCH:
+                //should hopefully work for excluding ally
+                //idk why but not activating prob dancer isn't setup right either
+                //but rn can't identify issue will toss on branch to work later
+                if (IsBattlerAlive(battler)
+                    && (gBattleMoves[gCurrentMove].flags & FLAG_BALLISTIC)
+                    && !gSpecialStatuses[battler].returnedBallMove
+                    && gBattlerAttacker != battler
+                    && gBattlerAttacker != BATTLE_PARTNER(battler)) // could exclude explosion but decide not to for the funny
+                {
+
+                    // Set bit and save Dancer mon's original target
+                    gSpecialStatuses[battler].returnedBallMove = TRUE;
+                    gSpecialStatuses[battler].BallFetchOriginalTarget = *(gBattleStruct->moveTarget + battler) | 0x4;
+                    gBattleStruct->atkCancellerTracker = 0;
+                    gBattlerAttacker = gBattlerAbility = battler;
+                    gCalledMove = gCurrentMove;
+
+                    // Set the target to the original target of the mon that first used a Dance move
+                    //gBattlerTarget = gBattleScripting.savedBattler & 0x3;
+
+                    //set target to the original user of move
+                    gBattlerTarget = (gBattleScripting.savedBattler & 0xF0) >> 4;
                     gHitMarker &= ~HITMARKER_ATTACKSTRING_PRINTED;
                     BattleScriptExecute(BattleScript_DancerActivates);
                     ++effect;

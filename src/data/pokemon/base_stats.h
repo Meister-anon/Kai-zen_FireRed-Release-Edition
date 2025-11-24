@@ -11105,6 +11105,11 @@ const struct BaseStats gBaseStats[] =
     //so best set is prob drain punch thunderbolt w one normal move for refrigerate and some support move, unless I run assault vest
     //support move I guess would be nasty plot
     //dropped refrigerate went with regenerator instead based on lizards losing and regenerating their tails
+    //New idea color change was buffed but still just worse protean
+    //so take moxieBoosted idea instead change secondary type
+    //based on weather and terrain
+    //since weather is usually used for dmg
+    //think give weather priority on effect
 
     [SPECIES_SHUPPET] =
     {
@@ -27967,6 +27972,11 @@ const struct BaseStats gBaseStats[] =
     //faithful servant/companian of the fae
     //w chart changes would be advantageous as electric type would beat steel
     //vsonic
+    //if I want to make ball fetch a battle ability
+    //I could turn it into ball based dancer?
+    //if battler used a ball move user would immediately
+    //target them with same move i.e returning ball to them
+    //i.e ballisic moves could cause explosion tho...
 
     [SPECIES_BOLTUND] =
     {
