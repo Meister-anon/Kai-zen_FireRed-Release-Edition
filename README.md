@@ -14,3 +14,5 @@ user returns ball moves from enemy side back to user
 Unlike Dancer this won't work affect ally
 Still need to research origin effect more to see how this would work. ex. is it only one per turn activate?
 or if both foes use target move cat will it activate for both?
+
+ball fetch update is done swapping efforts to color change
