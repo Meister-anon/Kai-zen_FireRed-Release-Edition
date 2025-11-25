@@ -27967,6 +27967,11 @@ const struct BaseStats gBaseStats[] =
     //faithful servant/companian of the fae
     //w chart changes would be advantageous as electric type would beat steel
     //vsonic
+    //if I want to make ball fetch a battle ability
+    //I could turn it into ball based dancer?
+    //if battler used a ball move user would immediately
+    //target them with same move i.e returning ball to them
+    //i.e ballisic moves could cause explosion tho...
 
     [SPECIES_BOLTUND] =
     {

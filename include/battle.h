@@ -399,7 +399,7 @@ struct SpecialStatus
     u8 focusBanded : 1;
     u8 focusSashed : 1;
     u8 sturdied : 1;
-    u8 freespace:1;
+    u8 afterYou:1;
     u8 berryReduced : 1;
     u8 instructedChosenTarget : 3;
 
@@ -411,7 +411,7 @@ struct SpecialStatus
     u8 gemParam;
 
     u8 dancerUsedMove : 1;
-    u8 dancerOriginalTarget : 3;
+    u8 dancerOriginalTarget : 3; //original target of user to execute chosen move after ability ends
     u8 announceNeutralizingGas : 1;   // See Cmd_switchineffects
     u8 neutralizingGasRemoved : 1;    // See VARIOUS_TRY_END_NEUTRALIZING_GAS
     u8 stenchRemoved : 1;    // Set as VARIOUS_TRY_END_STENCH  both exclusive to gastro acid?
@@ -422,18 +422,21 @@ struct SpecialStatus
     s32 specialDmg;
     u8 physicalBattlerId;
     u8 specialBattlerId;
-    u8 changedStatsBattlerId; // Battler that was responsible for the latest stat change. Can be self.
-    
+    u8 changedStatsBattlerId; // Battler that was responsible for the latest stat change. Can be self. 
     //emergency exit works as special status, just need to set it in attack cancelr 
     u8 EmergencyExit : 1; //logic mix truant pursuit/escape hit, setup like truant trigger on end turn that hp met theshold,raise attack then make attack first & set moveeffect escape hit so it leaves after attacking. WILL USE for both wimpout and Emergency exit just use ability check for logic change
     u8 parentalBondState : 2; // 0/1/2 is used, max is 0-3
     u8 multiHitOn : 1; //think is a state chech, seems most used with parental bond
     u8 Cacophonyboosted:1; //need make function for and add to battle_main
-    u8 afterYou:1;
-    u8 padding:2;
+    u8 padding:3;
     
-    u8 firstFuturesightHits;
-    u8 secondFuturesightHits;
+    u8 firstFuturesightHits:1;
+    u8 secondFuturesightHits:1;
+    u8 returnedBallMove : 1;
+    u8 BallFetchOriginalTarget : 3;//original target of user to execute chosen move after ability ends
+    u8 paddSpace:2;
+
+    u8 EmptyBlock:8;    
     u8 field12;
     u8 field13;//check moody case for switchin line something something = 2
 };
