@@ -11110,6 +11110,11 @@ const struct BaseStats gBaseStats[] =
     //based on weather and terrain
     //since weather is usually used for dmg
     //think give weather priority on effect
+    //reworking that need offensive option to take advantage of surroundings
+    //considering weather ball terrain pulse physical equivalents
+    //terrain claw, coat claws in terrain and slash foe
+    //weather bomb collect /coalesce weather effects into sphere and toss at enemy
+    //can do normal weather ball anim just add egg bomb explosion effect on hit
 
     [SPECIES_SHUPPET] =
     {
