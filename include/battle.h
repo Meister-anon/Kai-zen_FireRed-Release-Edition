@@ -422,8 +422,7 @@ struct SpecialStatus
     s32 specialDmg;
     u8 physicalBattlerId;
     u8 specialBattlerId;
-    u8 changedStatsBattlerId; // Battler that was responsible for the latest stat change. Can be self.
-    
+    u8 changedStatsBattlerId; // Battler that was responsible for the latest stat change. Can be self. 
     //emergency exit works as special status, just need to set it in attack cancelr 
     u8 EmergencyExit : 1; //logic mix truant pursuit/escape hit, setup like truant trigger on end turn that hp met theshold,raise attack then make attack first & set moveeffect escape hit so it leaves after attacking. WILL USE for both wimpout and Emergency exit just use ability check for logic change
     u8 parentalBondState : 2; // 0/1/2 is used, max is 0-3

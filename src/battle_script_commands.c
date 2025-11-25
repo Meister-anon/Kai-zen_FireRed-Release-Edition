@@ -8990,7 +8990,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     }
                     for (battler = 0; battler < MAX_BATTLERS_COUNT; battler++)
                     {
-                        if (GetBattlerAbility(battler) == ABILITY_DANCER && !gSpecialStatuses[battler].returnedBallMove)
+                        if (GetBattlerAbility(battler) == ABILITY_BALL_FETCH && !gSpecialStatuses[battler].returnedBallMove)
                         {
                             if (!nextBallCatcher || (gBattleMons[battler].speed < gBattleMons[nextBallCatcher & 0x3].speed))
                                 nextBallCatcher = battler | 0x4;
@@ -11361,12 +11361,31 @@ static void atk62_hidepartystatussummary(void)
     gBattlescriptCurrInstr += 2;
 }
 
+static void ResetValuesForCalledMove(void)
+{
+    if (gBattlerByTurnOrder[gCurrentTurnActionNumber] != gBattlerAttacker)
+        gBattleStruct->atkCancellerTracker = 0;
+    else
+        SetAtkCancellerForCalledMove();
+    gBattleScripting.animTurn = 0;
+    gBattleScripting.animTargetsHit = 0;
+    SetTypeBeforeUsingMove(gCurrentMove, gBattlerAttacker);
+    //HandleMoveTargetRedirection();
+    //ClearDamageCalcResults();
+}
+
 static void atk63_jumptocalledmove(void) //can't tell differenc between what these do
 {
-    if (gBattlescriptCurrInstr[1]) //if not 0
+    CMD_ARGS(bool8 notChosenMove);
+
+    if (cmd->notChosenMove)
         gCurrentMove = gCalledMove;
     else
         gChosenMove = gCurrentMove = gCalledMove;
+
+    //ResetValuesForCalledMove();
+
+    //gBattlescriptCurrInstr = GetMoveBattleScript(gCurrentMove);
     gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
 }
 

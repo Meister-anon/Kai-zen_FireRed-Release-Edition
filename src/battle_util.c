@@ -9468,8 +9468,8 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 if (IsBattlerAlive(battler)
                     && (gBattleMoves[gCurrentMove].flags & FLAG_BALLISTIC)
                     && !gSpecialStatuses[battler].returnedBallMove
-                    && gBattlerAttacker != battler
-                    && gBattlerAttacker != BATTLE_PARTNER(battler)) // could exclude explosion but decide not to for the funny
+                    && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(battler)
+                    ) // could exclude explosion but decide not to for the funny
                 {
 
                     // Set bit and save Dancer mon's original target
