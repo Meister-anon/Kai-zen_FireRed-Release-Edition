@@ -636,9 +636,9 @@
 	.byte \battler
 	.endm
 
-	.macro jumptocalledmove param0:req
+	.macro jumptocalledmove notChosenMove:req
 	.byte 0x63
-	.byte \param0
+	.byte \notChosenMove
 	.endm
 
 	@For status1 only
