@@ -11108,13 +11108,17 @@ const struct BaseStats gBaseStats[] =
     //New idea color change was buffed but still just worse protean
     //so take moxieBoosted idea instead change secondary type
     //based on weather and terrain
-    //since weather is usually used for dmg
-    //think give weather priority on effect
-    //reworking that need offensive option to take advantage of surroundings
-    //considering weather ball terrain pulse physical equivalents
-    //terrain claw, coat claws in terrain and slash foe
-    //weather bomb collect /coalesce weather effects into sphere and toss at enemy
-    //can do normal weather ball anim just add egg bomb explosion effect on hit
+    //revised take idea from Raduziel
+    /*
+     If Color Change changes your type before receiving the hit,
+     it would be a great Ability.
+
+    */
+    //tossing on my own change of adaptability boost 
+    //for moves that match changed type
+    //since I was a autistic dick when they responded and gave me
+    //a legitimately good idea will give them version of ability
+    //sans adaptability boost since they were interested in it
 
     [SPECIES_SHUPPET] =
     {
