@@ -3118,6 +3118,13 @@ static const struct LevelUpMove sNoctowlLevelUpLearnset[] = {
     LEVEL_UP_MOVE(57, MOVE_DREAM_EATER),
     LEVEL_UP_END
 };
+//vsonic
+//keep learnset mostly night related
+//dark ghost fairy
+//but also psychic
+//for normal variety think thunderbolt as tm option
+//add calm mind moonlight
+//think want give vacuum wave and focus blast -since patient
 
 static const struct LevelUpMove sLedybaLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),

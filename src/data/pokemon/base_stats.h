@@ -5261,14 +5261,14 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 50, 50, 70, 120, 96),
-        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),//revert change not properly adhering to flying logic
         .catchRate = 90,
         .expYield = 158,
         //.evYield_HP = 2,
-        .genderRatio = PERCENT_FEMALE(50),
-        .eggCycles = 15,
+        .genderRatio = PERCENT_FEMALE(50),//Makes sense to be normal flying but there's so much of that already
+        .eggCycles = 15,//ok too many normal/flying only a few special attackers but still too common
         .friendship = 15,
-        .growthRate = GROWTH_MEDIUM_FAST,
+        .growthRate = GROWTH_MEDIUM_FAST,//Could keep normal flying with abilities it'd play very different
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_INSOMNIA, ABILITY_TINTED_LENS},
@@ -6180,7 +6180,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_DAMP, ABILITY_WATER_ABSORB},
-        .abilityHidden = {ABILITY_UNAWARE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_UNAWARE, ABILITY_CLOUD_NINE},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
