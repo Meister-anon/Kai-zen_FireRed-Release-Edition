@@ -135,3 +135,12 @@ decide/figure out. I'll only do target based effect
 ability cat 
 Pre-Hit_Reaction
 
+did color change effect
+plan top add adaptability boost on changed type i.e type 2
+
+but can't make effect in my version of game
+better to just do after battle script refactor
+annoying smh
+
+
+
