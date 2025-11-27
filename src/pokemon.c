@@ -4147,8 +4147,7 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //important can use thi
     || species == SPECIES_PIKACHU_BELLE
     || species == SPECIES_PIKACHU_POP_STAR
     || species == SPECIES_PIKACHU_PH_D
-    || species == SPECIES_PIKACHU_LIBRE
-    || species == SPECIES_BASCULIN_WHITE_STRIPED)
+    || species == SPECIES_PIKACHU_LIBRE)
         generatedSpecies = species;
 
     learnset = GetSpeciesLevelUpLearnset(generatedSpecies);
@@ -4206,8 +4205,7 @@ void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: Asparagu
     || species == SPECIES_PIKACHU_BELLE
     || species == SPECIES_PIKACHU_POP_STAR
     || species == SPECIES_PIKACHU_PH_D
-    || species == SPECIES_PIKACHU_LIBRE
-    || species == SPECIES_BASCULIN_WHITE_STRIPED)
+    || species == SPECIES_PIKACHU_LIBRE)
         generatedSpecies = species;
 
     learnset = GetSpeciesLevelUpLearnset(generatedSpecies);
@@ -4270,8 +4268,7 @@ void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species) //Credit
     || Species == SPECIES_PIKACHU_BELLE
     || Species == SPECIES_PIKACHU_POP_STAR
     || Species == SPECIES_PIKACHU_PH_D
-    || Species == SPECIES_PIKACHU_LIBRE
-    || Species == SPECIES_BASCULIN_WHITE_STRIPED)
+    || Species == SPECIES_PIKACHU_LIBRE)
         generatedSpecies = Species;
 
     learnset = GetSpeciesLevelUpLearnset(generatedSpecies);
@@ -11266,6 +11263,10 @@ const u16 *GetSpeciesTeachableLearnset(u16 species)
     const u16 *learnset;// = gBaseStats[SanitizeSpeciesId(species)].tmhmLearnset;
     u16 generatedSpecies;
 
+    //works but more accurate to use on the cosmetic forms themselves than base form
+    //can exclude mon that aren't cosmetic changes
+    //just make cosmetics default to base learnsets
+    //nvm more work than its worth
     if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
       generatedSpecies = GetFormSpeciesId(species, 0);
     else
@@ -11275,8 +11276,7 @@ const u16 *GetSpeciesTeachableLearnset(u16 species)
     || species == SPECIES_PIKACHU_BELLE
     || species == SPECIES_PIKACHU_POP_STAR
     || species == SPECIES_PIKACHU_PH_D
-    || species == SPECIES_PIKACHU_LIBRE
-    || species == SPECIES_BASCULIN_WHITE_STRIPED)
+    || species == SPECIES_PIKACHU_LIBRE)
         generatedSpecies = species;
 
     learnset = gBaseStats[SanitizeSpeciesId(generatedSpecies)].tmhmLearnset;

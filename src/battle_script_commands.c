@@ -9531,8 +9531,7 @@ static void atk4D_switchindataupdate(void)  //important, think can use THIS to m
         || species == SPECIES_PIKACHU_BELLE
         || species == SPECIES_PIKACHU_POP_STAR
         || species == SPECIES_PIKACHU_PH_D
-        || species == SPECIES_PIKACHU_LIBRE
-        || species == SPECIES_BASCULIN_WHITE_STRIPED)
+        || species == SPECIES_PIKACHU_LIBRE)
             applied_species = species;
 
         gBattleMons[gActiveBattler].type1 = gBaseStats[applied_species].type1;

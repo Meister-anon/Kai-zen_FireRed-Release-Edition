@@ -1002,7 +1002,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sPikachuTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, 0, SPECIES_RAICHU},
                                 {EVO_ITEM_FORM, ITEM_THUNDER_STONE, F_ALOLAN_FORM, SPECIES_RAICHU_ALOLAN}), //Should hopefully blank these for now without issue
-        //.flags = F_HAS_COSMETIC_FORMS, exclude as not planning to use/add pika caps, but if you did would use this flag, and exclude cosplay forms
+        .flags = F_HAS_COSMETIC_FORMS,// exclude as not planning to use/add pika caps, but if you did would use this flag, and exclude cosplay forms
     }, //figure hwo to do evo/ evo method use 2nd param check flag, 
 
     [SPECIES_RAICHU] =
@@ -11072,6 +11072,7 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HAS_COSMETIC_FORMS, //may be able to do with this, since not changing species
         //and type setting is done within a function anyway
     },//body color changes see what that is used for
+    //technically makes sense as cosmetic
 
     [SPECIES_KECLEON] =
     {
@@ -17522,7 +17523,6 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sBasculinLevelUpLearnset,
         .tmhmLearnset = sBasculinTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS, //exclude white stripe 
     },
 
     [SPECIES_SANDILE] =
