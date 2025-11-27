@@ -15224,7 +15224,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sRegigigasTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
-    },
+    },//intersting with typing able to use mystery as an attack type via rage
+    //few mon to be able to get passed color change that way
+    //could give rage in a boss battle?
 
     [SPECIES_GIRATINA] =
     {
