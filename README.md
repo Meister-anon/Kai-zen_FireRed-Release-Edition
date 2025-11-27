@@ -36,3 +36,10 @@ and fit back in my custom stuff
 
 rename things FR_ based on if exclusive to firered
 when porting back.
+
+order finish remove gactivebattler
+do gbit table removal, then can create branch
+to update all battle files
+
+pokemon.c will most likely also be affected
+so keep an eye out
