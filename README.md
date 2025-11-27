@@ -33,3 +33,6 @@ and the stuff for the hazard changes
 take files exactly as they are from EE
 then can prune out features I don't need like dynamax
 and fit back in my custom stuff
+
+rename things FR_ based on if exclusive to firered
+when porting back.
