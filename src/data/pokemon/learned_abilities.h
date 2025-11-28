@@ -2808,7 +2808,7 @@ static const struct AbilityLearnset sBisharpAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sBouffalantAbilityLearnset[] = {
-    ABILITY_PIERCING_HORN,
+    ABILITY_ROCK_HEAD,
     ABILITY_SET_END
 };
 

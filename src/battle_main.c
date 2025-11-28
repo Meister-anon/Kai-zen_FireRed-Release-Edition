@@ -352,7 +352,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_ROCK] =       {______,   X(0.5),   X(1.55),   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  X(1.55),   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   ______}, // rock
 
-    [TYPE_BUG] =        {______,   X(0.5),   X(0.5),   X(0.5),   ______,   ______,    ______,   ______,   ______,   ______,   X(0.5),    ______,   X(1.55),   ______,  X(1.55),   X(0.5),  ______,   X(1.55),  ______,  ______}, // bug
+    [TYPE_BUG] =        {______,   X(0.5),   X(0.5),   X(0.5),   ______,   ______,    ______,   ______,   X(0.5),   ______,   X(0.5),    ______,   X(1.55),   ______,  X(1.55),   ______,  ______,   X(1.55),  ______,  ______}, // bug
 
     [TYPE_GHOST] =      {X(0.0),   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,   ______,  ______,    ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),    ______}, // ghost
 
@@ -565,6 +565,16 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 //resist or stop any kinetic force?
 //which lines up with resisting fighting
 
+//re-added steel bug resistance
+//understood steel type isn't just metal
+//its literally steel only steel has atribute of 
+//affecting supernatural entities due to its iron composition
+//not most metals
+//and again steel itself resists advances of insects and bugs
+//research shows bugs are capable of eating light metals
+//but metal itself is toxic so most heavy metals would cause problem
+//and unable to find reliable source of destruction of steel
+
 // format: attacking type, defending type, damage multiplier
 // the multiplier is a (decimal) fixed-point number:
 // 20 is ×2.0 TYPE_MUL_SUPER_EFFECTIVE
@@ -680,11 +690,11 @@ static const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e numbe
     TYPE_BUG, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,    //plus fairy nerfed, will replace with resistancee instad of super effectiveness
     TYPE_BUG, TYPE_FIGHTING, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_BUG, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE,
-    TYPE_BUG, TYPE_ICE, TYPE_MUL_NOT_EFFECTIVE,
+    TYPE_BUG, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_BUG, TYPE_FLYING, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_BUG, TYPE_GRASS, TYPE_MUL_SUPER_EFFECTIVE, 
     TYPE_BUG, TYPE_PSYCHIC, TYPE_MUL_SUPER_EFFECTIVE,//removed ghost resistance to bug by accident in my chart, but was so good will add to my chart
-    TYPE_BUG, TYPE_DARK, TYPE_MUL_SUPER_EFFECTIVE, //removed still resist to bug, apparently many insect types are known to destroy/consume light metals, would be great for the type
+    TYPE_BUG, TYPE_DARK, TYPE_MUL_SUPER_EFFECTIVE, //removed steel resist to bug, apparently many insect types are known to destroy/consume light metals, would be great for the type
     TYPE_ROCK, TYPE_FIRE, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_ROCK, TYPE_ICE, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_ROCK, TYPE_FIGHTING, TYPE_MUL_NOT_EFFECTIVE,
