@@ -387,10 +387,12 @@ static const struct AbilityLearnset sFarfetchdAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sDoduoAbilityLearnset[] = {
+    ABILITY_TELEPATHY,
     ABILITY_SET_END
-};
+};//apparently has telepathy to communicate between its heads?
 
 static const struct AbilityLearnset sDodrioAbilityLearnset[] = {
+    ABILITY_TELEPATHY,
     ABILITY_SET_END
 };
 

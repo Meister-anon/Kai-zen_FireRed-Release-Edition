@@ -5917,6 +5917,10 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
     ||  partnerability == ABILITY_VICTORY_STAR) //gave speed buff rather than crit or dmg, sinc acc & speed are biggest factors for victory usually
         speed = (speed * 120) / 100;    //extra synergy with wo chien
 
+    //magnet rise buff since many mon float now
+    if (gStatuses3[battlerId] & STATUS3_MAGNET_RISE)
+        speed = (speed * 120) / 100;
+
     //maybe 2 much, watching wolfey vid realize speed control great 
     //but is also a variable factor and breaks use in trick room
     //not better/worse per se but more shifting the niche

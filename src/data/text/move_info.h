@@ -406,7 +406,7 @@ const u8 gAQUA_RING_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Forms a veil of\nhealing water\nthat restores HP.");
 
 const u8 gMAGNET_RISE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Electromagnetism\ncauses the user\nto levitate");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Electromagnetism\ncauses the user\nto levitate.\nAlso gives a slight\nboost to SPEED.");
 
 const u8 gFLARE_BLITZ_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("A fierce and fiery\ncharge that hurts\nthe user and\nmay burn the foe.");
