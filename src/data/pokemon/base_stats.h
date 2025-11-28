@@ -41976,9 +41976,9 @@ const struct BaseStats gBaseStats[] =
         60,
         40
         ),
-        MON_TYPES(TYPE_NORMAL, TYPE_DARK),
-        .catchRate = 255,
-        .expYield = 58,
+        MON_TYPES(TYPE_NORMAL, TYPE_DARK),//May have to make pure dark
+        .catchRate = 255,//this is 4x to fight 4x to fairy
+        .expYield = 58, //think point is was betting on its speed
         //.evYield_Speed = 1,
         //.itemRare = ITEM_QUICK_CLAW,
         .genderRatio = PERCENT_FEMALE(50),
@@ -42304,7 +42304,7 @@ const struct BaseStats gBaseStats[] =
         40,
         45
         ),
-        MON_TYPES(TYPE_DARK, TYPE_STEEL),
+        MON_TYPES(TYPE_STEEL),
         .catchRate = 255,
         .expYield = 58,
         //.evYield_Attack = 1,
