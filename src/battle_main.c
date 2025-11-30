@@ -1431,24 +1431,10 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
                 gBattleStruct->dynamicMoveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;
         }
     }
-    else if ((move == MOVE_WEATHER_BALL) && (WeatherHasEffect())) //thought set elsewhere but guess no longer need that
+    else if (move == MOVE_WEATHER_BALL) //thought set elsewhere but guess no longer need that
     {
-         if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
-            gBattleStruct->dynamicMoveType = TYPE_WATER;
-        else if (gBattleWeather & WEATHER_SANDSTORM_ANY)
-            gBattleStruct->dynamicMoveType = TYPE_ROCK;
-        else if (gBattleWeather & WEATHER_SUN_ANY)
-            gBattleStruct->dynamicMoveType = TYPE_FIRE;
-        else if (gBattleWeather & WEATHER_MOON_ANY)
-            gBattleStruct->dynamicMoveType = TYPE_FAIRY;
-        else if (gBattleWeather & WEATHER_HAIL_ANY)
-            gBattleStruct->dynamicMoveType = TYPE_ICE;
-        else if (gBattleWeather & WEATHER_ACID_RAIN_ANY)
-            gBattleStruct->dynamicMoveType = TYPE_POISON;
-        else if (gBattleWeather & WEATHER_STRONG_WINDS)
-            gBattleStruct->dynamicMoveType = TYPE_FLYING;
-        else
-            gBattleStruct->dynamicMoveType = TYPE_NORMAL;
+        gBattleStruct->dynamicMoveType = GetWeatherBallType(move);
+         
     }
 
     else if (move == MOVE_RAGING_BULL)
@@ -1590,7 +1576,7 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
     moveType = gBattleMoves[move].type;
 
     if (move == MOVE_STRUGGLE || move == MOVE_BIDE)
-        return 0xFF;
+        return moveType;
 
 
     gBattleStruct->ateBoost[battlerAtk] = 0;
@@ -1632,24 +1618,9 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
                 moveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;
         }
     }
-    else if ((move == MOVE_WEATHER_BALL) && (WeatherHasEffect()))
+    else if (move == MOVE_WEATHER_BALL)
     {
-         if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
-            moveType = TYPE_WATER;
-        else if (gBattleWeather & WEATHER_SANDSTORM_ANY)
-            moveType = TYPE_ROCK;
-        else if (gBattleWeather & WEATHER_SUN_ANY)
-            moveType = TYPE_FIRE;
-        else if (gBattleWeather & WEATHER_MOON_ANY)
-            moveType = TYPE_FAIRY;
-        else if (gBattleWeather & WEATHER_HAIL_ANY)
-            moveType = TYPE_ICE;
-        else if (gBattleWeather & WEATHER_ACID_RAIN_ANY)
-            moveType = TYPE_POISON;
-        else if (gBattleWeather & WEATHER_STRONG_WINDS)
-            moveType = TYPE_FLYING;
-        else
-            moveType = TYPE_NORMAL;
+        moveType = GetWeatherBallType(move);
     }
 
     else if (move == MOVE_RAGING_BULL)

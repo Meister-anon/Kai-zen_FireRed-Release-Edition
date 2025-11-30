@@ -5778,17 +5778,17 @@ u8 CastformDataTypeChange(u8 battler)
     {
         if (GetBattlerAbility(battler) != ABILITY_FORECAST || gBattleMons[battler].hp == 0)
             return CASTFORM_NO_CHANGE;
-        if (!(IsBattlerWeatherAffected(battler,WEATHER_ANY)) && gBattleMons[battler].type2 != TYPE_GHOST)
+        if (!(IsBattlerWeatherAffected(battler,WEATHER_ANY)) && gBattleMons[battler].type2 != TYPE_NORMAL)
         {
-            SET_BATTLER_TYPE2(battler, TYPE_GHOST);
+            SET_BATTLER_TYPE2(battler, TYPE_NORMAL);
             return CASTFORM_TO_NORMAL;
         }
         if (!(IsBattlerWeatherAffected(battler,WEATHER_ANY)))
             return CASTFORM_NO_CHANGE;
         //need test
-        if (!(IsBattlerWeatherAffected(battler, (WEATHER_RAIN_ANY | WEATHER_SUN_ANY | WEATHER_HAIL_ANY))) && gBattleMons[battler].type2 != TYPE_GHOST)
+        if (!(IsBattlerWeatherAffected(battler, (WEATHER_RAIN_ANY | WEATHER_SUN_ANY | WEATHER_HAIL_ANY))) && gBattleMons[battler].type2 != TYPE_NORMAL)
         {
-            SET_BATTLER_TYPE2(battler, TYPE_GHOST);
+            SET_BATTLER_TYPE2(battler, TYPE_NORMAL);
             formChange = CASTFORM_TO_NORMAL; //if Im' able to setup can put ground version for sandstorm here
         }
         if (IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY) && gBattleMons[battler].type2 != TYPE_FIRE)
@@ -14438,10 +14438,26 @@ void SetAbilityStatGraphic(u8 StatVal1, u8 StatChange1, u8 StatVal2, u8 StatChan
     gBattleScripting.animArg2 = 0; //figured out
 }
 
+//the fuck is this function it makes no sense
 bool32 WeatherHasEffect(void)
 {
-    return (IsAbilityOnField(ABILITY_STORM_BREAK) || IsAbilityOnField(ABILITY_AIR_LOCK));
+    //return (IsAbilityOnField(ABILITY_STORM_BREAK) || IsAbilityOnField(ABILITY_AIR_LOCK));
+    
+    for (u32 battler = 0; battler < gBattlersCount; battler++)
+    {
+        if (!IsBattlerAlive(battler))
+            continue;
 
+        u32 ability = GetBattlerAbility(battler);
+        switch (ability)
+        {
+        case ABILITY_STORM_BREAK:
+        case ABILITY_AIR_LOCK:
+            return FALSE;
+        }
+    }
+
+    return TRUE;
 }
 
 void ClearMoldBreakerSetStatus(u8 battler)

@@ -7023,6 +7023,37 @@ u8 GetGenderFromSpeciesAndPersonality(u16 species, u32 personality)
         return MON_MALE;
 }
 
+//weather ball unaffected by 
+//weather battler is affected by weather
+//only if weather exists
+u8 GetWeatherBallType(u16 move)
+{
+    if (move != MOVE_WEATHER_BALL)
+        return gBattleMoves[move].type;
+
+    if (WeatherHasEffect())
+    {
+        if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
+            return TYPE_WATER;
+        else if (gBattleWeather & WEATHER_SANDSTORM_ANY)
+            return TYPE_ROCK;
+        else if (gBattleWeather & WEATHER_SUN_ANY)
+            return TYPE_FIRE;
+        else if (gBattleWeather & WEATHER_MOON_ANY)
+            return TYPE_FAIRY;
+        else if (gBattleWeather & WEATHER_HAIL_ANY)
+            return TYPE_ICE;
+        else if (gBattleWeather & WEATHER_ACID_RAIN_ANY)
+            return TYPE_POISON;
+        else if (gBattleWeather & WEATHER_STRONG_WINDS)
+            return TYPE_FLYING;
+        else
+            return gBattleMoves[move].type;
+    }
+    else
+        return gBattleMoves[move].type;
+}
+
 //check if gem type set works vsonic
 u8 GetBattlerHiddenPowerType(u8 battler)
 {
