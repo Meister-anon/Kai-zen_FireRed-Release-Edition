@@ -11337,20 +11337,7 @@ static void ResetValuesForCalledMove(void)
         SetAtkCancellerForCalledMove();
     gBattleScripting.animTurn = 0;
     gBattleScripting.animTargetsHit = 0;
-    SetTypeBeforeUsingMove(gCurrentMove, gBattlerAttacker);
-    //HandleMoveTargetRedirection();
-    //ClearDamageCalcResults();
-}
-
-static void ResetValuesForCalledMove(void)
-{
-    if (gBattlerByTurnOrder[gCurrentTurnActionNumber] != gBattlerAttacker)
-        gBattleStruct->atkCancellerTracker = 0;
-    else
-        SetAtkCancellerForCalledMove();
-    gBattleScripting.animTurn = 0;
-    gBattleScripting.animTargetsHit = 0;
-    SetTypeBeforeUsingMove(gCurrentMove, gBattlerAttacker);
+    SetTypeBeforeUsingMove(gCurrentMove, gBattlerAttacker, &gBattleStruct->dynamicMoveType);
     //HandleMoveTargetRedirection();
     //ClearDamageCalcResults();
 }
@@ -19815,7 +19802,7 @@ static void atkE8_settypebasedhalvers(void) // water and mud sport
 }
 
 //not using now, movedlogic to settypebeforeusingmove
-static void atkE9_setweatherballtype(void)//think move to settypebeforeusemove function so it'll show in sum menu
+static void UNUSED atkE9_setweatherballtype(void)//think move to settypebeforeusemove function so it'll show in sum menu
 {
     /*if (WeatherHasEffect())
     {

@@ -936,14 +936,19 @@ extern struct BattleStruct *gBattleStruct;
 #define F_DYNAMIC_TYPE_1 (1 << 6)
 #define F_DYNAMIC_TYPE_2 (1 << 7)
 #define DYNAMIC_TYPE_MASK (F_DYNAMIC_TYPE_1 - 1) //how does this work?
+//looking over EE seems this is only necessary for
+//differentiating dynamicmovetype 0 from 0 of type normal
+//but EE also adjusted type define so normal is 1 not 0
+//meaning its no longer necessary - thankful since I'm currently not using
+//can remove the whole 0xFF thing if I update type defines as well.
 
 //changing this as it is, doesn't work right with things that set 
 //type normal but aren't normal, since normal is type 0
 //think this may be only change I need to make actually
 #define GET_MOVE_TYPE(move, typeArg)                                    \
 {                                                                       \
-    if (gBattleStruct->dynamicMoveType != 0xFF)                         \
-        typeArg = gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;   \
+    if (gBattleStruct->dynamicMoveType)                                 \
+        typeArg = gBattleStruct->dynamicMoveType;                       \
     else                                                                \
         typeArg = gBattleMoves[move].type;                              \
 }
@@ -955,12 +960,10 @@ extern struct BattleStruct *gBattleStruct;
 //have no effect hopefully - or should I do the opposite and make it very obvious
 //nvm its fine, the is only used in casess where I explicitly say its two typed
 //and it doesnt effect anything else so secondary argument doesn't matter at all
+//change don't want to worry bout changing secondary type
 #define GET_MOVE_ARGUMENT(move, typeArg)                                   \
 {                                                                          \
-    if ((gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)               \
-    && gBattleStruct->dynamicMoveType != 0xFF)                             \
-        typeArg = gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;      \
-    else                                                                   \
+    if (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)               \
         typeArg = gBattleMoves[move].argument;                             \
 }
 

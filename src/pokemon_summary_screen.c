@@ -2830,6 +2830,7 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
 {
     u32 powerBits;
     u32 hiddenpower,power;    
+    u8 moveType;
     power = gBattleMoves[sMonSummaryScreen->moveIds[i]].power;
 
     if (i < 4)
@@ -2878,7 +2879,19 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
     && (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY, NULL)
     == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY, NULL)))
     {
-        sMonSummaryScreen->moveTypes[i] = ReturnMoveType(sMonSummaryScreen->moveIds[i], gBattlerAttacker);
+        if (sMonSummaryScreen->moveIds[i] == MOVE_HIDDEN_POWER)
+            sMonSummaryScreen->moveTypes[i] = GetMonHiddenPowerType(&sMonSummaryScreen->currentMon);
+        
+        //small change with plan gem changing battle hiddenmovetype
+        //want to be able to use move info/summ screen to read
+        //the base hidden power type.
+        //this way can see both, battle type will be in move selection
+        if (sMonSummaryScreen->moveIds[i] != MOVE_HIDDEN_POWER)
+        {
+            //sMonSummaryScreen->moveTypes[i] = ReturnMoveType(sMonSummaryScreen->moveIds[i], gBattlerAttacker);
+            SetTypeBeforeUsingMove(sMonSummaryScreen->moveIds[i], gBattlerAttacker, &moveType);
+            sMonSummaryScreen->moveTypes[i] = moveType;
+        }
     }
 
     //oddly seems to break when castform weather is up

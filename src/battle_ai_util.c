@@ -708,7 +708,8 @@ bool32 IsAffectedByPowder(u8 atkbattler, u8 targetbattler, u16 atkability, u16 t
 // Consider a pokemon boosting their attack against a ghost pokemon having only normal-type physical attacks.
 bool32 MovesWithSplitUnusable(u32 attacker, u32 target, u32 split)
 {
-    s32 i, moveType;
+    s32 i;
+    u8 moveType;
     u32 usable = 0;
     u32 unusable = AI_DATA->moveLimitations[attacker];
     u16 *moves = GetMovesArray(attacker);
@@ -722,7 +723,7 @@ bool32 MovesWithSplitUnusable(u32 attacker, u32 target, u32 split)
         {
             //SetTypeBeforeUsingMove(moves[i], attacker);
             //GET_MOVE_TYPE(moves[i], moveType);
-            moveType = ReturnMoveType(moves[i], attacker);    
+            SetTypeBeforeUsingMove(moves[i], attacker, &moveType);
             if (CalcTypeEffectivenessMultiplier(moves[i], moveType, attacker, target, FALSE) != 0)
                 usable |= gBitTable[i];
         }
@@ -776,8 +777,9 @@ static bool32 AI_GetIfCrit(u32 move, u8 battlerAtk, u8 battlerDef)
 //don't want super smart ai that cheats vsonic important
 s32 AI_CalcDamage(u16 move, u8 battlerAtk, u8 battlerDef, u8 *typeEffectiveness, bool32 considerZPower)
 {
-    s32 dmg, moveType, critMultiplier, normalDmg;
+    s32 dmg, critMultiplier, normalDmg;
     s8 critChance;
+    u8 moveType;
     u16 effectivenessMultiplier;
     u16 typeMod;
     u16 sideStatus = gSideStatuses[GET_BATTLER_SIDE(gBattlerTarget)];
@@ -795,14 +797,13 @@ s32 AI_CalcDamage(u16 move, u8 battlerAtk, u8 battlerDef, u8 *typeEffectiveness,
     SetBattlerData(battlerAtk);
     SetBattlerData(battlerDef);
 
-    gBattleStruct->dynamicMoveType = 0;
 
     if (move == MOVE_NATURE_POWER)
         move = GetNaturePowerMove();
 
     //SetTypeBeforeUsingMove(move, battlerAtk);
     //GET_MOVE_TYPE(move, moveType);
-    moveType = ReturnMoveType(move, battlerAtk);  
+    SetTypeBeforeUsingMove(move, battlerAtk, &moveType);
 
     //stores multiplier
     typeMod = CalcTypeEffectivenessMultiplier(move, moveType, battlerAtk, battlerDef, FALSE); 
@@ -1049,7 +1050,8 @@ u32 GetCurrDamageHpPercent(u8 battlerAtk, u8 battlerDef)
 //vsonic IMPORTANT
 u16 AI_GetTypeEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
 {
-    u16 typeEffectiveness, moveType;
+    u16 typeEffectiveness;
+    u8 moveType;
 
     SaveBattlerData(battlerAtk);
     SaveBattlerData(battlerDef);
@@ -1057,7 +1059,6 @@ u16 AI_GetTypeEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
     SetBattlerData(battlerAtk);
     SetBattlerData(battlerDef);
 
-    gBattleStruct->dynamicMoveType = 0;
 
     //can't calculate this as rng can't guarantee
     //to be identical to other calc, wil need change update
@@ -1073,7 +1074,7 @@ u16 AI_GetTypeEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
             
             if (CalcTypeEffectivenessMultiplier(move, i, battlerAtk, battlerDef, FALSE) >= UQ_4_12(1.55)) //issue was ground check wasn't included in update result flag check
             {
-                gBattleStruct->dynamicMoveType = i; //set dynamic type, which assigns to movetype in getmovetype below
+                moveType = i; //set dynamic type, which assigns to movetype in getmovetype below
                 //SetJudgmentTypeString(i);
                 foundType = TRUE;
                 break; //ok found issue, its not wrong grounded logic, its that calctypeeff, sets it to miss and play floating string
@@ -1083,12 +1084,13 @@ u16 AI_GetTypeEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
 
 
         if (!(foundType)) //IDK What's happening right now, - put result brackets around ground check now fixed
-            gBattleStruct->dynamicMoveType = TYPE_MYSTERY;
+            moveType = TYPE_MYSTERY;
     }
+    else
+        //SetTypeBeforeUsingMove(move, battlerAtk);
+        //GET_MOVE_TYPE(move, moveType);
+        SetTypeBeforeUsingMove(move, battlerAtk, &moveType);
 
-    //SetTypeBeforeUsingMove(move, battlerAtk);
-    //GET_MOVE_TYPE(move, moveType);
-    moveType = ReturnMoveType(move, battlerAtk);
     typeEffectiveness = CalcTypeEffectivenessMultiplier(move, moveType, battlerAtk, battlerDef, FALSE);
 
     RestoreBattlerData(battlerAtk);
@@ -3228,8 +3230,6 @@ bool32 AI_CanPutToSleep(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, 
 //vsonic need test but hopefully works
 static bool32 AI_CanPoisonType(u8 battlerAttacker, u8 battlerTarget)
 {
-    u8 moveType = ReturnMoveType(AI_THINKING_STRUCT->moveConsidered, battlerAttacker);    
-
     return ((AI_DATA->abilities[battlerAttacker] == ABILITY_CORROSION)
             || (AI_DATA->abilities[battlerAttacker] == ABILITY_POISONED_LEGACY)
             || !IS_BATTLER_ANY_TYPE(battlerTarget, TYPE_STEEL, TYPE_ROCK)
@@ -3302,8 +3302,7 @@ bool32 AI_CanPoison(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u16 
 static bool32 AI_CanBeParalyzed(u8 battler, u16 ability) //vsonic updated for custom effect double check
 {
     // u8 moveType;
-    // ReturnMoveType(AI_THINKING_STRUCT->moveConsidered, battler);
-    // GET_MOVE_TYPE(AI_THINKING_STRUCT->moveConsidered, moveType);
+
 
     if (ability == ABILITY_LIMBER
       || ability == ABILITY_COMATOSE
@@ -3317,7 +3316,8 @@ static bool32 AI_CanBeParalyzed(u8 battler, u16 ability) //vsonic updated for cu
 //removed use of getmove_type believe this is more correct?
 bool32 AI_CanParalyze(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u16 partnerMove)
 {
-    u8 moveType = ReturnMoveType(AI_THINKING_STRUCT->moveConsidered, battlerAtk);    
+    u8 moveType;
+    SetTypeBeforeUsingMove(AI_THINKING_STRUCT->moveConsidered, battlerAtk, &moveType);
 
     if (!AI_CanBeParalyzed(battlerDef, defAbility)
       || ((DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], battlerDef,  defAbility, TYPE_ELECTRIC)) && moveType == TYPE_ELECTRIC)

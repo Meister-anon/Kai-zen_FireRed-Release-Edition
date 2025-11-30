@@ -7030,6 +7030,8 @@ u8 GetWeatherBallType(u16 move)
     if (move != MOVE_WEATHER_BALL)
         return gBattleMoves[move].type;
 
+    //default has no check for in battle
+    //and will always return true - fixed
     if (WeatherHasEffect())
     {
         if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
@@ -7053,6 +7055,8 @@ u8 GetWeatherBallType(u16 move)
         return gBattleMoves[move].type;
 }
 
+
+
 //check if gem type set works vsonic
 u8 GetBattlerHiddenPowerType(u8 battler)
 {
@@ -7075,7 +7079,9 @@ u8 GetMonHiddenPowerType(struct Pokemon * mon)
 void SetHiddenPowerType(struct BoxPokemon *mon)
 {
     s32 typeBits;
-    u8 storedType;
+    u32 hpTypes[NUMBER_OF_MON_TYPES] = {0};
+    u32 i, hpTypeCount = 0;
+    u32 storedType;
 
 
     typeBits = ((GetBoxMonData(mon, MON_DATA_HP_IV, NULL) & 1) << 0)
@@ -7087,12 +7093,20 @@ void SetHiddenPowerType(struct BoxPokemon *mon)
 
         //// Subtract 3 instead of 1 below because 2 types are excluded (TYPE_NORMAL and TYPE_MYSTERY)
          // The final + 1 skips past Normal, and the following conditional skips TYPE_MYSTERY
-        //changed to -4 for sound type addition, need test unsure if fully necessary
-        storedType = ((NUMBER_OF_MON_TYPES - 4) * typeBits) / 63 + 1; //think changing from 15 to 16 adds one more type to options so now have fairy
-        if (storedType == TYPE_MYSTERY || storedType == TYPE_SOUND) //add or for type sound
-            storedType = TYPE_FAIRY; 
-        storedType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2; //again had to remove this to work w summary screen
+        //changed to -4 for sound tsype addition, need test unsure if fully necessary
+        //type normal got set found issue was addition of type_none need change to -5
 
+        //wasn't working well kept assigning normal
+        //so ported EE version of type set
+        for (i = 0; i < NUMBER_OF_MON_TYPES; i++)
+        {
+            if (gTypesInfo[i].isHiddenPowerType)
+                hpTypes[hpTypeCount++] = i;
+        }
+        storedType = ((hpTypeCount - 1) * typeBits) / 63; //unsure did plus 1 from old talk w sphearicle ice
+            
+        //storedType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2; //again had to remove this to work w summary screen
+        storedType = hpTypes[storedType];
         SetBoxMonData(mon, MON_DATA_HIDDEN_POWER_TYPE, &storedType);
 }
 

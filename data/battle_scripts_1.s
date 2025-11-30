@@ -10876,9 +10876,6 @@ BattleScript_SynchronizeActivates::
 	seteffectprimary
 	return
 
-@pretty sure fixed on other branch leaving like this for now
-BattleScript_BattlerCameToItsSenses::
-BattleScript_BattlerGotOverItsInfatuation::
 BattleScript_AbilityCuredStatus::
 	printstring STRINGID_PKMNSXCUREDITSYPROBLEM
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS

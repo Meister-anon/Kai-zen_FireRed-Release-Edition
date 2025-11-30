@@ -1690,13 +1690,17 @@ static void MoveSelectionDisplayMoveType(u32 battler)//displays type/  & move ty
     //for now leave it
     
     //for some reason this is taking the type of the last move used against it, or the type of the target mon that last hit it??
-    SetTypeBeforeUsingMove(moveInfo->moves[gMoveSelectionCursor[battler]],battler); //should attempt set dynamicmovetype based on move cursor is on
-    GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[battler]], moveType) //should decide whether to set base type ro dynamicmovetype to moveType
+    SetTypeBeforeUsingMove(moveInfo->moves[gMoveSelectionCursor[battler]],battler, &moveType); //should attempt set dynamicmovetype based on move cursor is on
+    
+    //With new change think don't exactly need below will remove for now
+    //to attempt catch any disconnect/issuse.
+    //GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[battler]], moveType) //should decide whether to set base type ro dynamicmovetype to moveType
+    
     if (!IsDoubleBattle())
         SetMoveTypePaletteInMoveSelection_Singles(battler, moveInfo->moves[gMoveSelectionCursor[battler]], moveType);
     
-    //StringCopy(txtPtr, gTypeNames[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[battler]]].type]);
-    StringCopy(gDisplayedStringBattle, gTypeNames[moveType]);   //should display whatever argument was passed,  so rather than 0 when no dynamic type, would display normal move type
+    //StringCopy(txtPtr, gTypesInfo[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[battler]]].type]);
+    StringCopy(gDisplayedStringBattle, gTypesInfo[moveType].name);   //should display whatever argument was passed,  so rather than 0 when no dynamic type, would display normal move type
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MOVE_TYPE); //tested works perfectly
 }//can't use convertIntToDecimalString to attempt make right align, text becomes garbalded numbers and still is left alingned...
 //used StringCopyPadded to have 4 elements to use str_conv right aline it doens't actually right align, but correctly displayed movetype

@@ -315,8 +315,6 @@ extern const u8 BattleScript_BufferEndTurn[];
 extern const u8 BattleScript_SynchronizeActivates[];
 extern const u8 BattleScript_NoItemSteal[];
 extern const u8 BattleScript_AbilityCuredStatus[];
-extern const u8 BattleScript_BattlerGotOverItsInfatuation[];
-extern const u8 BattleScript_BattlerCameToItsSenses[];
 extern const u8 BattleScript_IgnoresAndUsesRandomMove[];    
 extern const u8 BattleScript_PanickedAndUsesRandomMove[];
 extern const u8 BattleScript_BindDoCalledMove[];

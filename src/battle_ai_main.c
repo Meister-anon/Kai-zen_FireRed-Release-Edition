@@ -693,7 +693,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     // move data
     u8 atkPriority = GetMovePriority(battlerAtk, move);
     u16 moveEffect = gBattleMoves[move].effect;
-    s32 moveType;
+    u8 moveType;
     u16 moveTarget = AI_GetBattlerMoveTargetType(battlerAtk, move);
     u16 accuracy = AI_GetMoveAccuracy(battlerAtk, battlerDef, move);
     u32 effectiveness = AI_DATA->effectiveness[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex];
@@ -701,13 +701,12 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     u32 i;
     u16 predictedMove = AI_DATA->predictedMoves[battlerDef];
 
-    SetTypeBeforeUsingMove(move, battlerAtk);
-    GET_MOVE_TYPE(move, moveType);
+    SetTypeBeforeUsingMove(move, battlerAtk, &moveType);
 
     if (IsTargetingPartner(battlerAtk, battlerDef))
         return score;
 
-    GET_MOVE_TYPE(move, moveType);
+    //GET_MOVE_TYPE(move, moveType);
 
     // check non-user target
     if (!(moveTarget & MOVE_TARGET_USER))
@@ -2789,7 +2788,7 @@ static s16 AI_TryToFaint(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
 static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
 {
     // move data
-    u8 moveType = gBattleMoves[move].type;
+    u8 moveType;
     u16 effect = gBattleMoves[move].effect;
     u16 moveTarget = AI_GetBattlerMoveTargetType(battlerAtk, move);
     // ally data
@@ -2801,8 +2800,8 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     bool32 partnerHasBadAbility = (GetAbilityRating(atkPartnerAbility) < 0);
     u16 predictedMove = AI_DATA->predictedMoves[battlerDef];
 
-    SetTypeBeforeUsingMove(move, battlerAtk);
-    GET_MOVE_TYPE(move, moveType);
+    SetTypeBeforeUsingMove(move, battlerAtk, &moveType);
+    //GET_MOVE_TYPE(move, moveType);
 
     // check what effect partner is using
     if (AI_DATA->partnerMove != 0)
@@ -5224,10 +5223,10 @@ static s16 AI_PreferBatonPass(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
 static s16 AI_HPAware(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
 {
     u16 effect = gBattleMoves[move].effect;
-    u8 moveType = gBattleMoves[move].type;
+    u8 moveType;
 
-    SetTypeBeforeUsingMove(move, battlerAtk);
-    GET_MOVE_TYPE(move, moveType);
+    SetTypeBeforeUsingMove(move, battlerAtk, &moveType);
+    //GET_MOVE_TYPE(move, moveType);
 
     if (IsTargetingPartner(battlerAtk, battlerDef))
     {

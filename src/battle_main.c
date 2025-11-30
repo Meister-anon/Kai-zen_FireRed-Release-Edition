@@ -783,29 +783,110 @@ instead keeeping it neutral is a good compromsise and balance in my mind.
 //think this is done?
 
 #define TYPE_NAMES
-const u8 gTypeNames[][TYPE_NAME_LENGTH + 1] =
+const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] = 
 {
-    _("NORMAL"),
-    _("FIGHT"),
-    _("FLYING"),
-    _("POISON"),
-    _("GROUND"),
-    _("ROCK"),
-    _("BUG"),
-    _("GHOST"),
-    _("STEEL"),
-    _("???"),
-    _("FIRE"),
-    _("WATER"),
-    _("GRASS"),
-    _("ELECTR"),
-    _("PSYCHC"),
-    _("ICE"),
-    _("DRAGON"),
-    _("DARK"),
-    _("FAIRY"), //fairy addition
-    _("SOUND"),
-}; //uses same type order as list_menu.c so this fairy is 12, but my actuall fairy type
+    [TYPE_NORMAL] =
+    {
+        .name = _("NORMAL"),
+        .isHiddenPowerType = FALSE,
+    },
+        [TYPE_FIGHTING] =
+    {
+        .name = _("FIGHT"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_FLYING] =
+    {
+        .name = _("FLYING"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_POISON] =
+    {
+        .name = _("POISON"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_GROUND] =
+    {
+        .name = _("GROUND"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_ROCK] =
+    {
+        .name = _("ROCK"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_BUG] =
+    {
+        .name = _("BUG"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_GHOST] =
+    {
+        .name = _("GHOST"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_STEEL] =
+    {
+        .name = _("STEEL"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_MYSTERY] =
+    {
+        .name = _("???"),
+        .isHiddenPowerType = FALSE,
+    },
+        [TYPE_FIRE] =
+    {
+        .name = _("FIRE"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_WATER] =
+    {
+        .name = _("WATER"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_GRASS] =
+    {
+        .name = _("GRASS"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_ELECTRIC] =
+    {
+        .name = _("ELECTR"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_PSYCHIC] =
+    {
+        .name = _("PSYCHC"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_ICE] =
+    {
+        .name = _("ICE"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_DRAGON] =
+    {
+        .name = _("DRAGON"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_DARK] =
+    {
+        .name = _("DARK"),
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_FAIRY] =
+    {
+        .name = _("FAIRY"), //fairy addition
+        .isHiddenPowerType = TRUE,
+    },
+        [TYPE_SOUND] =
+    {
+        .name = _("SOUND"),
+        .isHiddenPowerType = FALSE,
+    },
+};
+//uses same type order as list_menu.c so this fairy is 12, but my actuall fairy type
 //was at 17. fixed now they are both 12.
 //had to retruncate type names to fit move name
 
@@ -1377,18 +1458,28 @@ void SetJudgmentTypeString(u8 type) //if type is normal skip the jugment string 
 }
 
 #define LOGIC_FOR_MOVETYPE_CHANGE
-void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk)
+//think on another branch but decided to make this
+//the sole function I use type calc and remove retrunmovetype
+//no reason to have a dupe, can just make this assigned to a  stored type
+//rather than always setting dynamicmovetype
+//oh nvm it was on this  branches return function I said that lol
+//ok believe should be solid, if I want to set the type
+//rather than just get it all I need to do
+//is set gBattleStruct->dynamicMoveType as typestorage argument
+//think don't need get_move_type macro before use
+//as this function is what sets value of dynamicMoveType to begin with
+void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage)
 {
-    s32 typeBits;
-    u32 moveType, ateType, attackerAbility;
+    u32 ateType, attackerAbility;
     u16 holdEffect = GetBattlerHoldEffect(battlerAtk, TRUE);
+
+    //populate default type, go through assignment and return what would be changed type
+    *typeStorage = gBattleMoves[move].type;
 
     if (move == MOVE_STRUGGLE || move == MOVE_BIDE)
         return;
 
-    //actually pretty sure don't need change this
-    //can just use returntype where I need to
-    gBattleStruct->dynamicMoveType = 0xFF; //change for new setup
+
     gBattleStruct->ateBoost[battlerAtk] = 0;
     gSpecialStatuses[battlerAtk].gemBoost = FALSE;
 
@@ -1396,56 +1487,55 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk)
     if (gBattleMoves[move].effect == EFFECT_CHANGE_TYPE_ON_ITEM) //not fling
     {
         if (holdEffect == gBattleMoves[move].argument)
-            gBattleStruct->dynamicMoveType = ItemId_GetSecondaryId(gBattleMons[battlerAtk].item);// | F_DYNAMIC_TYPE_2;
+            *typeStorage = ItemId_GetSecondaryId(gBattleMons[battlerAtk].item);
     }
     else if (gBattleMoves[move].effect == EFFECT_REVELATION_DANCE)
     {
         if (gBattleMons[battlerAtk].type1 != TYPE_MYSTERY)
-            gBattleStruct->dynamicMoveType = gBattleMons[battlerAtk].type1;// | F_DYNAMIC_TYPE_2;
+            *typeStorage = gBattleMons[battlerAtk].type1;
         else if (gBattleMons[battlerAtk].type2 != TYPE_MYSTERY)
-            gBattleStruct->dynamicMoveType = gBattleMons[battlerAtk].type2;// | F_DYNAMIC_TYPE_2;
+            *typeStorage = gBattleMons[battlerAtk].type2;
         else if (gBattleMons[battlerAtk].type3 != TYPE_MYSTERY)
-            gBattleStruct->dynamicMoveType = gBattleMons[battlerAtk].type3;// | F_DYNAMIC_TYPE_2;
+            *typeStorage = gBattleMons[battlerAtk].type3;
     }
     else if (gBattleMoves[move].effect == EFFECT_NATURAL_GIFT)
     {
         if (ItemId_GetPocket(gBattleMons[battlerAtk].item) == POCKET_BERRY_POUCH)
-            gBattleStruct->dynamicMoveType = gNaturalGiftTable[ITEM_TO_BERRY(gBattleMons[battlerAtk].item)].type;
+            *typeStorage = gNaturalGiftTable[ITEM_TO_BERRY(gBattleMons[battlerAtk].item)].type;
     }
     else if (gBattleMoves[move].effect == EFFECT_TERRAIN_PULSE)
     {
         if (IsBattlerTerrainAffected(battlerAtk, STATUS_FIELD_TERRAIN_ANY))
         {
             if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
-                gBattleStruct->dynamicMoveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;
+                *typeStorage = TYPE_ELECTRIC;
             else if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN)
-                gBattleStruct->dynamicMoveType = TYPE_GRASS;// | F_DYNAMIC_TYPE_2;
+                *typeStorage = TYPE_GRASS;
             else if (gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN)
-                gBattleStruct->dynamicMoveType = TYPE_FAIRY;// | F_DYNAMIC_TYPE_2;
+                *typeStorage = TYPE_FAIRY;
             else if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN)
-                gBattleStruct->dynamicMoveType = TYPE_PSYCHIC;// | F_DYNAMIC_TYPE_2;
+                *typeStorage = TYPE_PSYCHIC;
             else //failsafe
-                gBattleStruct->dynamicMoveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;
+                *typeStorage = TYPE_NORMAL;
         }
     }
     else if (move == MOVE_WEATHER_BALL) //thought set elsewhere but guess no longer need that
     {
-        gBattleStruct->dynamicMoveType = GetWeatherBallType(move);
+        *typeStorage = GetWeatherBallType(move);
          
     }
 
     else if (move == MOVE_RAGING_BULL)
     {
         if (gBattleMons[battlerAtk].species == SPECIES_TAUROS_PALDEAN_COMBAT_BREED)
-            gBattleStruct->dynamicMoveType = TYPE_DARK;
+            *typeStorage = TYPE_DARK;
         else if (gBattleMons[battlerAtk].species == SPECIES_TAUROS_PALDEAN_BLAZE_BREED)
-            gBattleStruct->dynamicMoveType = TYPE_FIRE;
+            *typeStorage = TYPE_FIRE;
         else if (gBattleMons[battlerAtk].species == SPECIES_TAUROS_PALDEAN_AQUA_BREED)
-            gBattleStruct->dynamicMoveType = TYPE_WATER;
+            *typeStorage = TYPE_WATER;
     }
 
     attackerAbility = GetBattlerAbility(battlerAtk);
-    GET_MOVE_TYPE(move, moveType);
 
     //don't attempt to put type changes here that happen BEFORE target selction
     //those must be done in typecalc
@@ -1455,23 +1545,23 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk)
         {
             if (gBattleMons[battlerAtk].type1 == TYPE_NORMAL 
             && gBattleMons[battlerAtk].type2 != TYPE_NORMAL)
-                gBattleStruct->dynamicMoveType = gBattleMons[battlerAtk].type2;
+                *typeStorage = gBattleMons[battlerAtk].type2;
             else //sets rage to type 1
-                gBattleStruct->dynamicMoveType = gBattleMons[battlerAtk].type1; //need make sure use battlerAtk not gbattlerattacker that causes errors for some reason
+                *typeStorage = gBattleMons[battlerAtk].type1; //need make sure use battlerAtk not gbattlerattacker that causes errors for some reason
         }
 
-    if ((gFieldStatuses & STATUS_FIELD_ION_DELUGE && moveType == TYPE_NORMAL)//add absolute zero, check if ability on field, like stench then do water chance to ice
+    if ((gFieldStatuses & STATUS_FIELD_ION_DELUGE && *typeStorage == TYPE_NORMAL)//add absolute zero, check if ability on field, like stench then do water chance to ice
         || gBattleMons[battlerAtk].status4 & STATUS4_ELECTRIFIED)
     {
-        gBattleStruct->dynamicMoveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;   //need test if these work without this extra value
+        *typeStorage = TYPE_ELECTRIC;   //need test if these work without this extra value
     }
-    else if (IsAbilityOnField(ABILITY_ABSOLUTE_ZERO) && moveType == TYPE_WATER)
+    else if (IsAbilityOnField(ABILITY_ABSOLUTE_ZERO) && *typeStorage == TYPE_WATER)
     {
-        gBattleStruct->dynamicMoveType = TYPE_ICE;
+        *typeStorage = TYPE_ICE;
     }
-    else if (GetBattlerAbility(gBattlerTarget) == ABILITY_CREATION_ENGINE && moveType == TYPE_WATER)
+    else if (GetBattlerAbility(gBattlerTarget) == ABILITY_CREATION_ENGINE && *typeStorage == TYPE_WATER)
     {
-        gBattleStruct->dynamicMoveType = TYPE_ICE;
+        *typeStorage = TYPE_ICE;
     }
     else if (gBattleMoves[move].type == TYPE_NORMAL
              && move != MOVE_HIDDEN_POWER    //can remove effects for hidden ower and weather ball can just use hit, and do everything w move name 
@@ -1484,7 +1574,7 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk)
                  || (attackerAbility == ABILITY_GALVANIZE && (ateType = TYPE_ELECTRIC))
                  || (attackerAbility == ABILITY_UNCHAINED_MELODY && (ateType = TYPE_SOUND))))
     {
-        gBattleStruct->dynamicMoveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
+        *typeStorage = ateType; //above should do type change already, dmg boosts are already in pokemon.c
         gBattleStruct->ateBoost[battlerAtk] = 1;
     }
     else if (gBattleMoves[move].type == TYPE_SOUND
@@ -1494,7 +1584,7 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk)
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
              && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
     {
-        gBattleStruct->dynamicMoveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
+        *typeStorage = ateType; //above should do type change already, dmg boosts are already in pokemon.c
         gBattleStruct->ateBoost[battlerAtk] = 1;
     }
     else if ((move != MOVE_HIDDEN_POWER
@@ -1503,56 +1593,36 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk)
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
              && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
     {                                                   //without stab, so not worth
-        gBattleStruct->dynamicMoveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
+        *typeStorage = TYPE_NORMAL;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
         gBattleStruct->ateBoost[battlerAtk] = 1;    //actually I can do this with typecalc function and they can keep stab.
     }
     else if (gBattleMoves[move].flags & FLAG_SOUND
              && attackerAbility == ABILITY_LIQUID_VOICE)
     {
-        gBattleStruct->dynamicMoveType = TYPE_WATER;// | F_DYNAMIC_TYPE_2;
+        *typeStorage = TYPE_WATER;
     }
     else if (gBattleMoves[move].type == TYPE_WATER
         && attackerAbility == ABILITY_LIQUID_SOUL)
     {
-        gBattleStruct->dynamicMoveType = TYPE_GHOST;// | F_DYNAMIC_TYPE_2;
+        *typeStorage = TYPE_GHOST;
     }
     else if (attackerAbility == ABILITY_WETIKO)//technically should put last, but I like the idea of it hitting everything except hidden power
     {
-        gBattleStruct->dynamicMoveType = TYPE_ICE;// | F_DYNAMIC_TYPE_2;
+        *typeStorage = TYPE_ICE;
     }
     else if (move == MOVE_AURA_WHEEL && gBattleMons[battlerAtk].species == SPECIES_MORPEKO_HANGRY)
     {
-        gBattleStruct->dynamicMoveType = TYPE_DARK;// | F_DYNAMIC_TYPE_2;
+        *typeStorage = TYPE_DARK;
     }
 
     else if (move == MOVE_HIDDEN_POWER)
     {
-
-        /*typeBits = ((gBattleMons[battlerAtk].hpIV & 1) << 0)
-            | ((gBattleMons[battlerAtk].attackIV & 1) << 1)
-            | ((gBattleMons[battlerAtk].defenseIV & 1) << 2)
-            | ((gBattleMons[battlerAtk].speedIV & 1) << 3)
-            | ((gBattleMons[battlerAtk].spAttackIV & 1) << 4)
-            | ((gBattleMons[battlerAtk].spDefenseIV & 1) << 5);
-
-        //// Subtract 3 instead of 1 below because 2 types are excluded (TYPE_NORMAL and TYPE_MYSTERY)
-         // The final + 1 skips past Normal, and the following conditional skips TYPE_MYSTERY
-        //changed to -4 for sound type addition, need test unsure if fully necessary
-        gBattleStruct->dynamicMoveType = ((NUMBER_OF_MON_TYPES - 4) * typeBits) / 63 + 1; //think changing from 15 to 16 adds one more type to options so now have fairy
-        if (gBattleStruct->dynamicMoveType == TYPE_MYSTERY || gBattleStruct->dynamicMoveType == TYPE_SOUND) //add or for type sound
-            gBattleStruct->dynamicMoveType = TYPE_FAIRY; 
-        gBattleStruct->dynamicMoveType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
-        */
-
-       typeBits = GetBattlerHiddenPowerType(battlerAtk); //works
-       typeBits |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
-       gBattleStruct->dynamicMoveType = typeBits;
+       *typeStorage = GetBattlerHiddenPowerType(battlerAtk); //works
     }
 
     // Check if a gem should activate.
-    GET_MOVE_TYPE(move, moveType);
     if (holdEffect == HOLD_EFFECT_GEMS
-        && moveType == ItemId_GetSecondaryId(gBattleMons[battlerAtk].item))
+        && *typeStorage == ItemId_GetSecondaryId(gBattleMons[battlerAtk].item))
     {
         gSpecialStatuses[battlerAtk].gemParam = GetBattlerHoldEffectParam(battlerAtk, gBattleMons[battlerAtk].item);
         gSpecialStatuses[battlerAtk].gemBoost = TRUE;
@@ -1583,16 +1653,16 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
     if (gBattleMoves[move].effect == EFFECT_CHANGE_TYPE_ON_ITEM) //not fling
     {
         if (holdEffect == gBattleMoves[move].argument)
-            moveType = ItemId_GetSecondaryId(gBattleMons[battlerAtk].item);// | F_DYNAMIC_TYPE_2;
+            moveType = ItemId_GetSecondaryId(gBattleMons[battlerAtk].item);
     }
     else if (gBattleMoves[move].effect == EFFECT_REVELATION_DANCE)
     {
         if (gBattleMons[battlerAtk].type1 != TYPE_MYSTERY)
-            moveType = gBattleMons[battlerAtk].type1;// | F_DYNAMIC_TYPE_2;
+            moveType = gBattleMons[battlerAtk].type1;
         else if (gBattleMons[battlerAtk].type2 != TYPE_MYSTERY)
-            moveType = gBattleMons[battlerAtk].type2;// | F_DYNAMIC_TYPE_2;
+            moveType = gBattleMons[battlerAtk].type2;
         else if (gBattleMons[battlerAtk].type3 != TYPE_MYSTERY)
-            moveType = gBattleMons[battlerAtk].type3;// | F_DYNAMIC_TYPE_2;
+            moveType = gBattleMons[battlerAtk].type3;
     }
     else if (gBattleMoves[move].effect == EFFECT_NATURAL_GIFT)
     {
@@ -1604,15 +1674,15 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
         if (IsBattlerTerrainAffected(battlerAtk, STATUS_FIELD_TERRAIN_ANY))
         {
             if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
-                moveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;
+                moveType = TYPE_ELECTRIC;
             else if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN)
-                moveType = TYPE_GRASS;// | F_DYNAMIC_TYPE_2;
+                moveType = TYPE_GRASS;
             else if (gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN)
-                moveType = TYPE_FAIRY;// | F_DYNAMIC_TYPE_2;
+                moveType = TYPE_FAIRY;
             else if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN)
-                moveType = TYPE_PSYCHIC;// | F_DYNAMIC_TYPE_2;
+                moveType = TYPE_PSYCHIC;
             else //failsafe
-                moveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;
+                moveType = TYPE_NORMAL;
         }
     }
     else if (move == MOVE_WEATHER_BALL)
@@ -1646,7 +1716,7 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
     if ((gFieldStatuses & STATUS_FIELD_ION_DELUGE && moveType == TYPE_NORMAL)//add absolute zero, check if ability on field, like stench then do water chance to ice
         || gBattleMons[battlerAtk].status4 & STATUS4_ELECTRIFIED)
     {
-        moveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;   //need test if these work without this extra value
+        moveType = TYPE_ELECTRIC;   //need test if these work without this extra value
     }
     else if (IsAbilityOnField(ABILITY_ABSOLUTE_ZERO) && moveType == TYPE_WATER)
     {
@@ -1672,7 +1742,7 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
                  || ((attackerAbility == ABILITY_GALVANIZE) && (ateType = TYPE_ELECTRIC))
                  || (attackerAbility == ABILITY_UNCHAINED_MELODY && (ateType = TYPE_SOUND))))
     {
-        moveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
+        moveType = ateType; //above should do type change already, dmg boosts are already in pokemon.c
 
     }
     else if (gBattleMoves[move].type == TYPE_SOUND
@@ -1682,7 +1752,7 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
              && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
     {
-        moveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
+        moveType = ateType; //above should do type change already, dmg boosts are already in pokemon.c
 
     }
     else if ((move != MOVE_HIDDEN_POWER
@@ -1691,49 +1761,32 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
              && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
     {                                                   //without stab, so not worth
-        moveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
+        moveType = TYPE_NORMAL;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
                                                         //actually I can do this with typecalc function and they can keep stab.
     }
     else if (gBattleMoves[move].flags & FLAG_SOUND
              && attackerAbility == ABILITY_LIQUID_VOICE)
     {
-        moveType = TYPE_WATER;// | F_DYNAMIC_TYPE_2;
+        moveType = TYPE_WATER;
     }
     else if (gBattleMoves[move].type == TYPE_WATER
         && attackerAbility == ABILITY_LIQUID_SOUL)
     {
-        moveType = TYPE_GHOST;// | F_DYNAMIC_TYPE_2;
+        moveType = TYPE_GHOST;
     }
     else if (attackerAbility == ABILITY_WETIKO)
     {
-        moveType = TYPE_ICE;// | F_DYNAMIC_TYPE_2;
+        moveType = TYPE_ICE;
     }
     else if (move == MOVE_AURA_WHEEL && gBattleMons[battlerAtk].species == SPECIES_MORPEKO_HANGRY)
     {
-        moveType = TYPE_DARK;// | F_DYNAMIC_TYPE_2;
+        moveType = TYPE_DARK;
     }
 
     else if (move == MOVE_HIDDEN_POWER)
     {
+       moveType = GetBattlerHiddenPowerType(battlerAtk); //think works still confused on issue w dynamic type masks
 
-        /*typeBits = ((gBattleMons[battlerAtk].hpIV & 1) << 0)
-            | ((gBattleMons[battlerAtk].attackIV & 1) << 1)
-            | ((gBattleMons[battlerAtk].defenseIV & 1) << 2)
-            | ((gBattleMons[battlerAtk].speedIV & 1) << 3)
-            | ((gBattleMons[battlerAtk].spAttackIV & 1) << 4)
-            | ((gBattleMons[battlerAtk].spDefenseIV & 1) << 5);
-
-        //// Subtract 3 instead of 1 below because 2 types are excluded (TYPE_NORMAL and TYPE_MYSTERY)
-         // The final + 1 skips past Normal, and the following conditional skips TYPE_MYSTERY
-        //changed to -4 for sound type addition, need test unsure if fully necessary
-        moveType = ((NUMBER_OF_MON_TYPES - 4) * typeBits) / 63 + 1; //think changing from 15 to 16 adds one more type to options so now have fairy
-        if (moveType == TYPE_MYSTERY || moveType == TYPE_SOUND) //add or for type sound
-            moveType = TYPE_FAIRY; 
-        moveType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
-        */
-       typeBits = GetBattlerHiddenPowerType(battlerAtk); //think works still confused on issue w dynamic type masks
-        //moveType  = GetBattlerHiddenPowerType(battlerAtk);
-        moveType  = typeBits;
     }
 
     return moveType;
@@ -5909,7 +5962,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
         speed = (speed * 120) / 100;    //extra synergy with wo chien
 
     //magnet rise buff since many mon float now
-    if (gStatuses3[battlerId] & STATUS3_MAGNET_RISE)
+    if (gStatuses3[battler] & STATUS3_MAGNET_RISE)
         speed = (speed * 120) / 100;
 
     //maybe 2 much, watching wolfey vid realize speed control great 
@@ -7103,11 +7156,11 @@ static void HandleAction_UseMove(void)
     else
         gBattleResults.lastUsedMoveOpponent = gCurrentMove;
 
-    // Set dynamic move type. - done in get move target so possibly can replace
+    // Set dynamic move type.
     //but multi turns doesn't have getmovetarget  so I guess need to keep
     //this may be necessaary to set opponent type?
     //as player has it set at move chose in battle controller or I put it there?
-    SetTypeBeforeUsingMove(gChosenMove, gBattlerAttacker); 
+    SetTypeBeforeUsingMove(gChosenMove, gBattlerAttacker, &gBattleStruct->dynamicMoveType); 
     //GET_MOVE_TYPE(gChosenMove, moveType); //need add argument type, for two type move
 
 
@@ -7588,7 +7641,7 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
     
     // check if Stellar type boost should be used up
     //moveType = GetMoveType(gCurrentMove);
-    GET_MOVE_TYPE(gCurrentMove, moveType);//EE addition attempt workaround
+    //GET_MOVE_TYPE(gCurrentMove, moveType);//EE addition attempt workaround
 
     /*if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_TERA
         && GetBattlerTeraType(gBattlerAttacker) == TYPE_STELLAR
@@ -7674,8 +7727,9 @@ s8 GetMovePriority(u32 battler, u16 move) //ported from emerald the EXACT thing 
 { //adjusted battler made u8,
     s8 priority;
     u16 power = gDynamicBasePower != 0 ? gDynamicBasePower : gBattleMoves[move].power;
-    u8 moveType = ReturnMoveType(move, battler);
+    u8 moveType;
 
+    SetTypeBeforeUsingMove(move, battler, &moveType);
     priority = gBattleMoves[move].priority;
 
     //just for nuisance rn, doesn't affect damage

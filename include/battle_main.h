@@ -17,6 +17,12 @@ struct TypePower
     u16 effect;
 };
 
+struct TypeInfo
+{
+    u8 name[TYPE_NAME_LENGTH + 1];
+    bool8 isHiddenPowerType; // Changing this for any type will change the distribution of all Hidden Power types from vanilla.
+};
+
 struct MultiBattlePokemonTx
 {
     /*0x00*/ u16 species;
@@ -58,7 +64,7 @@ struct MultiBattlePokemonTx
 //extern const struct SpriteTemplate gUnknownDebugSprite;
 extern const struct OamData gOamData_BattlerOpponent;
 extern const struct OamData gOamData_BattlerPlayer;
-extern const u8 gTypeNames[][TYPE_NAME_LENGTH + 1];
+extern const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES];
 extern const u8 gStatusConditionString_PoisonJpn[8];
 extern const u8 gStatusConditionString_SleepJpn[8];
 extern const u8 gStatusConditionString_ParalysisJpn[8];
@@ -112,7 +118,7 @@ s8 GetChosenMovePriority(u32 battler);
 bool8 IsPriorityElevatedviaAbility(u32 battler); //new thing to track moves w boosted priority from abilities for queenly majesty
 bool8 IsRivalBattle(u16 trainerNum);
 bool32 IsWildMonSmart(void);
-void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk);
+void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage);
 u8 ReturnMoveType(u32 move, u32 battlerAtk); //atempt copy of settype function but using return value of move type so can display stuff in sum screen
 
 void SetJudgmentTypeString(u8 type); //make global since had move effect to battle_script_commands.c

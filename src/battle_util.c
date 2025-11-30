@@ -5628,8 +5628,8 @@ static u8 ForewarnChooseMove(u32 battler) //important add to list of switch in m
     {
         if (IsBattlerAlive(i) && GetBattlerSide(i) != GetBattlerSide(battler))  //battler is mon w forewarn, i is opponent
         {
-            SetTypeBeforeUsingMove(gCurrentMove, i); //put here as thinik need w my change to get_move_type to make calc work
-            GET_MOVE_TYPE(gCurrentMove, moveType);
+            SetTypeBeforeUsingMove(gCurrentMove, i, &moveType); //put here as thinik need w my change to get_move_type to make calc work
+            //GET_MOVE_TYPE(gCurrentMove, moveType);
 
             for (j = 0; j < MAX_MON_MOVES; j++)
             {
@@ -6854,7 +6854,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 u16 moveId = MOVE_NONE; //to store moveId of a move
                 u16 move; //this was the problem I was using a u8 to store move data *facepalm
                 u16 power,storedpower;
-                u8 stored_type; //for storing type of comparison move from moveId
+                u8 anticipated_type, stored_type; //for storing type of comparison move from moveId
 
                 if (!gSpecialStatuses[battler].switchInAbilityDone
                 && CanActivateForewarnAnticipation(battler)) //can prob remove switchindone part?
@@ -6875,11 +6875,11 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                                 move = gBattleMons[i].moves[j];
                                 power = gBattleMoves[move].power;
                                 storedpower = gBattleMoves[moveId].power;
-                                SetTypeBeforeUsingMove(move, i); //usign this fixed it, with get_mvoe_type change without this it just erad as normal type,cuz dynamicmovetype is 0
-                                GET_MOVE_TYPE(move, moveType); //including set type seems to be correct, as ability is supposed to read for things that change type
+                                SetTypeBeforeUsingMove(move, i, &anticipated_type); //usign this fixed it, with get_mvoe_type change without this it just erad as normal type,cuz dynamicmovetype is 0
+                                //GET_MOVE_TYPE(move, anticipated_type); //including set type seems to be correct, as ability is supposed to read for things that change type
                                 
-                                SetTypeBeforeUsingMove(moveId, i);
-                                GET_MOVE_TYPE(moveId, stored_type);
+                                SetTypeBeforeUsingMove(moveId, i, &stored_type);
+                                //GET_MOVE_TYPE(moveId, stored_type);
 
                                 //yup seems to be same issue, once again says "a dangerous move"
                                 //if (gBattleMoves[move].target == MOVE_TARGET_USER) //appears fixed, was right issue was bide, since it ignores type reading
@@ -6903,12 +6903,12 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
 
                                 else if (power == storedpower)
                                 {
-                                    if (CalcTypeEffectivenessMultiplier(move, moveType, i, battler, FALSE) > CalcTypeEffectivenessMultiplier(moveId, stored_type, i, battler, FALSE))
+                                    if (CalcTypeEffectivenessMultiplier(move, anticipated_type, i, battler, FALSE) > CalcTypeEffectivenessMultiplier(moveId, stored_type, i, battler, FALSE))
                                         moveId = move;
                                 }//should be a fix for moves, with non-standard power or equal power, should return the move that should do more damage
 
                                 if (gBattleMoves[move].effect == EFFECT_EXPLOSION //setup multiplier calc think can just use multipier check here.
-                                    && CalcTypeEffectivenessMultiplier(move, moveType, i, battler, FALSE) != UQ_4_12(0.0)) //isue is modifier for some reason doesnt work above 1?
+                                    && CalcTypeEffectivenessMultiplier(move, anticipated_type, i, battler, FALSE) != UQ_4_12(0.0)) //isue is modifier for some reason doesnt work above 1?
                                 {               //ist onlyh returning a value of 1
 
                                     PREPARE_STRING_BUFFER(gBattleTextBuff1, STRINGID_ANTICIPATE_EXPLOSION);
@@ -6918,14 +6918,14 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                                       //depending on value  or have different value copied to gBattleTextBuff1 for each
                                 }
                                 else if (gBattleMoves[move].effect == EFFECT_OHKO && (gBattleMons[i].level >= (gBattleMons[battler].level - 3))
-                                && (CalcTypeEffectivenessMultiplier(move, moveType, i, battler, FALSE) >= UQ_4_12(1.55)))
+                                && (CalcTypeEffectivenessMultiplier(move, anticipated_type, i, battler, FALSE) >= UQ_4_12(1.55)))
                                 {
 
                                     PREPARE_STRING_BUFFER(gBattleTextBuff1, STRINGID_ANTICIPATE_OHKO);
                                     ++effect;//
                                     break;
                                 }
-                                else if ((CalcTypeEffectivenessMultiplier(move, moveType, i, battler, FALSE) >= UQ_4_12(1.55)))//vsonic  //THINK CAN use typecalc fort this?
+                                else if ((CalcTypeEffectivenessMultiplier(move, anticipated_type, i, battler, FALSE) >= UQ_4_12(1.55)))//vsonic  //THINK CAN use typecalc fort this?
                                 {
 
                                     PREPARE_STRING_BUFFER(gBattleTextBuff1, STRINGID_ANTICIPATE_DEFAULT);
@@ -11178,18 +11178,24 @@ bool32 IsAffectedByFollowMe(u32 battlerAtk, u32 defSide, u32 move)
 #define ABILITY_ABSORB_CONDITION_FUNCTION
 u8 ShouldAbilityAbsorb(u16 move) //UPDATE W switch case to make more efficient, give ability argument
 {
-    u8 moveType, argument; //opposiing ability^  use ifs, for movetype
-    u8 moveArgument = 0;    //put all cases for abiilties that count stacked in switch 1 function check for true
+    u8 moveType; //opposiing ability^  use ifs, for movetype
+    u8 moveArgument = 0xFF;    //put all cases for abiilties that count stacked in switch 1 function check for true
     //otherwise return false
     u8 Targetbattler = BATTLE_OPPOSITE(gBattlerAttacker);
 
-    SetTypeBeforeUsingMove(move, gBattlerAttacker);
-    GET_MOVE_TYPE(move, moveType); //need add argument type, for two type move
+    SetTypeBeforeUsingMove(move, gBattlerAttacker, &moveType);
+    //GET_MOVE_TYPE(move, moveType); //need add argument type, for two type move
 
-    GET_MOVE_ARGUMENT(move, argument);//BELIEVE THIS not needed anymore
+    //can't remember below comment but dont think
+    //secondary type of move should change?
+    //GET_MOVE_ARGUMENT(move, argument);//BELIEVE THIS not needed anymore
+
+    //I've since added other absorb effects
+    //not directly linked to type such as moon moves etc.
+    //believe may have to redo this
 
     if (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)
-        moveArgument = argument;
+        moveArgument = gBattleMoves[move].argument;
 
     if (moveType == TYPE_ELECTRIC || moveArgument == TYPE_ELECTRIC)   //if multiple absorb abilities think would trigger in order of top to bottom
     {
@@ -11266,21 +11272,20 @@ u8 CanMovebeRedirected(void)
 u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who gets attacked?
 {
     u8 targetBattler = 0;
-    u8 targetType, moveType, argument;
-    u8 moveArgument = 0;
+    u8 targetType, moveType;
+    u8 moveArgument = 0xFF; //change to prevent false match w normal type
     u8 side;
     u8 typecheck;
 
 
-    // Set dynamic move type.
-    //go over this function see if need use below here, or can just use returnmovetype
-    SetTypeBeforeUsingMove(move, gBattlerAttacker);
-    GET_MOVE_TYPE(move, moveType); //need add argument type, for two type move
 
-    GET_MOVE_ARGUMENT(move, argument);
+    SetTypeBeforeUsingMove(move, gBattlerAttacker, &moveType);
+    //GET_MOVE_TYPE(move, moveType); //need add argument type, for two type move
+
+    //GET_MOVE_ARGUMENT(move, argument);
 
     if (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)
-        moveArgument = argument;
+        moveArgument = gBattleMoves[move].argument;
 
     if (setTarget != NO_TARGET_OVERRIDE)//i have no idea what this is doing...vsonic
         targetType = setTarget - 1;
@@ -14360,39 +14365,25 @@ bool32 TryActivateHeatTrance(u32 battler)  //change mind better to do 2 function
 //can't use before use move battle controller is done
 //because called move & gcurrent move aren't set until its used
 //need execute as part of bs (??)
-u8 GetMoveType(u8 moveType, u8 btlAttacker)
+//not same as EE version of function prob rename later
+//rn only using for charge status
+u8 GetMoveType(u32 moveType, u32 btlAttacker)
 {
-    u8 move; //move should be current move unless move that calls move than instead is calledmove
+    u16 move; //move should be current move unless move that calls move than instead is calledmove
     u8 Type, moveArgument;
 
     move = gCalledMove == 0 ? gCurrentMove : gCalledMove;
-    SetTypeBeforeUsingMove(move, btlAttacker);
-    GET_MOVE_TYPE(move, Type); //need add argument type, for two type move
+    moveArgument = 0xFE;
+    SetTypeBeforeUsingMove(move, btlAttacker, &Type);
+    //GET_MOVE_TYPE(move, Type); //need add argument type, for two type move
 
-    /*if (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)
-    {    
-        GET_MOVE_ARGUMENT(move, moveArgument);
-
-        if (moveArgument == moveType)
-            return moveArgument;
-
-        else if (Type == moveType)
-            return Type;
-        
-        else
-            return 0xFF; //return this if not find type to avoid issue w type none
-        
-
-
-    }
-    else*/
-    {
-        if (Type == moveType)
-            return Type;
-        else
-            return 0xFF; //return this if not find type to avoid issue w type none
-
-    }
+    if (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)
+        moveArgument = gBattleMoves[move].argument;
+    
+    if ((Type || moveArgument) == moveType)
+        return Type;
+    else
+        return 0xFF; //return this if not find type to avoid issue w type none
 
 
 }
@@ -14435,9 +14426,13 @@ void SetAbilityStatGraphic(u8 StatVal1, u8 StatChange1, u8 StatVal2, u8 StatChan
 }
 
 //the fuck is this function it makes no sense
+//believe fixed now
 bool32 WeatherHasEffect(void)
 {
     //return (IsAbilityOnField(ABILITY_STORM_BREAK) || IsAbilityOnField(ABILITY_AIR_LOCK));
+    
+    if (!gMain.inBattle)
+        return FALSE;
     
     for (u32 battler = 0; battler < gBattlersCount; battler++)
     {
