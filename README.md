@@ -19,6 +19,8 @@ also on switch in if neutralizing gas mon comes in
 taking a hit ends battle as if caught opposing mon
 adding them to your team...
 
+-confirmed this bug does exist in master
+
 on btl ctrl update finish removal of gactivebattler
 
 following that can work out move flags rework
