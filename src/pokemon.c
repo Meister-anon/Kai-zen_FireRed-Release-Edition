@@ -7092,7 +7092,7 @@ void SetHiddenPowerType(struct BoxPokemon *mon)
         storedType = ((NUMBER_OF_MON_TYPES - 4) * typeBits) / 63 + 1; //think changing from 15 to 16 adds one more type to options so now have fairy
         if (storedType == TYPE_MYSTERY || storedType == TYPE_SOUND) //add or for type sound
             storedType = TYPE_FAIRY; 
-        //storedType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2; //again had to remove this to work w summary screen
+        storedType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2; //again had to remove this to work w summary screen
 
         SetBoxMonData(mon, MON_DATA_HIDDEN_POWER_TYPE, &storedType);
 }

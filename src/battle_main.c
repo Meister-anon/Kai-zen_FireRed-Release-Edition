@@ -1735,7 +1735,6 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
         moveType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
         */
        typeBits = GetBattlerHiddenPowerType(battlerAtk); //think works still confused on issue w dynamic type masks
-       typeBits |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
         //moveType  = GetBattlerHiddenPowerType(battlerAtk);
         moveType  = typeBits;
     }

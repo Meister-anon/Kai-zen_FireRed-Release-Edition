@@ -2873,8 +2873,28 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
     }
 
     else*/
+    if (gMain.inBattle
+    && (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY, NULL)
+    == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY, NULL)))
+    {
         sMonSummaryScreen->moveTypes[i] = ReturnMoveType(sMonSummaryScreen->moveIds[i], gBattlerAttacker);
-    /*else if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (WeatherHasEffect()))
+    }
+
+    //oddly seems to break when castform weather is up
+    //found appears to not be a problem of conditoin
+    //but failure of form change logic
+    //on sandstorm when don't transform it doesn't break
+    //that said still ONLY works with if, can't use else
+    if (!(gMain.inBattle)
+    || (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY, NULL)
+    != GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY, NULL)))   
+    {
+        if (sMonSummaryScreen->moveIds[i] == MOVE_HIDDEN_POWER)
+            sMonSummaryScreen->moveTypes[i] = GetMonHiddenPowerType(&sMonSummaryScreen->currentMon);
+        if (sMonSummaryScreen->moveIds[i] != MOVE_HIDDEN_POWER)
+            sMonSummaryScreen->moveTypes[i] = GetWeatherBallType(sMonSummaryScreen->moveIds[i]);
+    }     
+         /*else if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (WeatherHasEffect()))
     {
          if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
             sMonSummaryScreen->moveTypes[i] = TYPE_WATER;

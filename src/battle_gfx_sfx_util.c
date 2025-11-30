@@ -771,7 +771,7 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, u8 notTransform)
     else if (notTransform) // Castform form change
     {
         StartSpriteAnim(&gSprites[gBattlerSpriteIds[battlerAtk]], gBattleSpritesDataPtr->animationData->animArg);
-        paletteOffset = 0x100 + battlerAtk * 16;
+        paletteOffset = OBJ_PLTT_ID(battlerAtk);
         LoadPalette(gBattleStruct->castformPalette[gBattleSpritesDataPtr->animationData->animArg], paletteOffset, 32);
         gBattleMonForms[battlerAtk] = gBattleSpritesDataPtr->animationData->animArg;
         if (gBattleSpritesDataPtr->battlerData[battlerAtk].transformSpecies != SPECIES_NONE)
