@@ -2327,6 +2327,7 @@ static const struct AbilityLearnset sMunnaAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMusharnaAbilityLearnset[] = {
+    ABILITY_NEUTRALIZING_GAS,
     ABILITY_SET_END
 };
 
