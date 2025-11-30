@@ -2978,22 +2978,28 @@ static bool32 PartyBattlerShouldAvoidHazards(u8 currBattler, u8 switchBattler)
     return FALSE;
 }
 
-enum {
-    DONT_PIVOT,
-    CAN_TRY_PIVOT,
-    PIVOT,
-};
+
+
 bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 moveIndex)//seems like this should be fine? its only used for hit escape & teleport in battle_ai_main
 {
     bool8 hasStatBoost = AnyUsefulStatIsRaised(battlerAtk) || gBattleMons[battlerDef].statStages[STAT_EVASION] >= 9; //Significant boost in evasion for any class
-    u8 backupBattler = gActiveBattler;
     bool32 shouldSwitch;
-    u8 battlerToSwitch;
+    u32 battlerToSwitch;
 
-    gActiveBattler = battlerAtk; //checked function already existed, so no worries I guess?
-    shouldSwitch = ShouldSwitch(); //base game mon pretty much never switchs so need be careful here with preserving classic feel/logic
-    battlerToSwitch = *(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler);
-    gActiveBattler = backupBattler;
+    shouldSwitch = ShouldSwitch(battlerAtk); //base game mon pretty much never switchs so need be careful here with preserving classic feel/logic
+    battlerToSwitch = gBattleStruct->AI_monToSwitchIntoId[battlerAtk];
+    
+     // Palafin always wants to activate Zero to Hero
+    if (gBattleMons[battlerAtk].species == SPECIES_PALAFIN_ZERO
+        && gBattleMons[battlerAtk].ability == ABILITY_ZERO_TO_HERO
+        && CountUsablePartyMons(battlerAtk) != 0)
+        return SHOULD_PIVOT;
+
+    //battlerToSwitch = gAiLogicData->mostSuitableMonId[battlerAtk];
+    
+    // This shouldn't ever happen, but it's there to make sure we don't accidentally read past the gParty array.
+    if (battlerToSwitch >= PARTY_SIZE)
+        battlerToSwitch = 0;
 
     if (PartyBattlerShouldAvoidHazards(battlerAtk, battlerToSwitch))
         return DONT_PIVOT;
@@ -3005,7 +3011,7 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
 
         //TODO - predict opponent switching
         /*if (IsPredictedToSwitch(battlerDef, battlerAtk) && !hasStatBoost)
-            return PIVOT; // Try pivoting so you can switch to a better matchup to counter your new opponent*/
+            return SHOULD_PIVOT; // Try pivoting so you can switch to a better matchup to counter your new opponent*/
 
         if (AI_WhoStrikesFirst(battlerAtk, battlerDef, move) == AI_IS_FASTER) // Attacker goes first
         {
@@ -3015,14 +3021,14 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
                 {
                     // attacker can kill target in two hits (theoretically)
                     if (CanTargetFaintAi(battlerDef, battlerAtk))
-                        return PIVOT;   // Won't get the two turns, pivot
+                        return SHOULD_PIVOT;   // Won't get the two turns, pivot
 
                     if (!IS_MOVE_STATUS(move) && (shouldSwitch
                         || (AtMaxHp(battlerDef) && (AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_FOCUS_SASH
                         || defAbility == ABILITY_STURDY
                         || defAbility == ABILITY_MULTISCALE
                         || defAbility == ABILITY_SHADOW_SHIELD))))
-                        return PIVOT;   // pivot to break sash/sturdy/multiscale
+                        return SHOULD_PIVOT;   // pivot to break sash/sturdy/multiscale
                 }
                 else if (!hasStatBoost)
                 {
@@ -3030,17 +3036,17 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
                         || (defAbility == ABILITY_STURDY)
                         || defAbility == ABILITY_MULTISCALE
                         || defAbility == ABILITY_SHADOW_SHIELD)))
-                        return PIVOT;   // pivot to break sash/sturdy/multiscale
+                        return SHOULD_PIVOT;   // pivot to break sash/sturdy/multiscale
 
                     if (shouldSwitch)
-                        return PIVOT;
+                        return SHOULD_PIVOT;
 
                     /* TODO - check if switchable mon unafffected by/will remove hazards
                     if (gSideStatuses[battlerAtk] & SIDE_STATUS_SPIKES && switchScore >= SWITCHING_INCREASE_CAN_REMOVE_HAZARDS)
-                        return PIVOT;*/
+                        return SHOULD_PIVOT;*/
 
                     /*if (BattlerWillFaintFromSecondaryDamage(battlerAtk, AI_DATA->abilities[battlerAtk]) && switchScore >= SWITCHING_INCREASE_WALLS_FOE)
-                        return PIVOT;*/
+                        return SHOULD_PIVOT;*/
 
                     /*if (IsClassDamager(class) && switchScore >= SWITCHING_INCREASE_HAS_SUPER_EFFECTIVE_MOVE)
                     {
@@ -3051,17 +3057,17 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
                         if (physMoveInMoveset && !specMoveInMoveset)
                         {
                             if (STAT_STAGE_ATK < 6)
-                                return PIVOT;
+                                return SHOULD_PIVOT;
                         }
                         else if (!physMoveInMoveset && specMoveInMoveset)
                         {
                             if (STAT_STAGE_SPATK < 6)
-                                return PIVOT;
+                                return SHOULD_PIVOT;
                         }
                         else if (physMoveInMoveset && specMoveInMoveset)
                         {
                             if (STAT_STAGE_ATK < 6 && STAT_STAGE_SPATK < 6)
-                                return PIVOT;
+                                return SHOULD_PIVOT;
                         }
 
                         return CAN_TRY_PIVOT;
@@ -3087,7 +3093,7 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
                 }
                 else // Can't KO the foe
                 {
-                    return PIVOT;
+                    return SHOULD_PIVOT;
                 }
             }
             else // Foe can 3HKO+ AI
@@ -3113,17 +3119,17 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
                 else
                 {
                     //if (IsClassDamager(class) && switchScore >= SWITCHING_INCREASE_KO_FOE)
-                        //return PIVOT; //Only switch if way better matchup
+                        //return SHOULD_PIVOT; //Only switch if way better matchup
 
                     if (!hasStatBoost)
                     {
                         // TODO - check if switching prevents/removes hazards
                         //if (gSideStatuses[battlerAtk] & SIDE_STATUS_SPIKES && switchScore >= SWITCHING_INCREASE_CAN_REMOVE_HAZARDS)
-                            //return PIVOT;
+                            //return SHOULD_PIVOT;
 
                         // TODO - not always a good idea
                         //if (BattlerWillFaintFromSecondaryDamage(battlerAtk) && switchScore >= SWITCHING_INCREASE_HAS_SUPER_EFFECTIVE_MOVE)
-                            //return PIVOT;
+                            //return SHOULD_PIVOT;
 
                         /*if (IsClassDamager(class) && switchScore >= SWITCHING_INCREASE_HAS_SUPER_EFFECTIVE_MOVE)
                         {
@@ -3134,17 +3140,17 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
                             if (physMoveInMoveset && !specMoveInMoveset)
                             {
                                 if (STAT_STAGE_ATK < 6)
-                                    return PIVOT;
+                                    return SHOULD_PIVOT;
                             }
                             else if (!physMoveInMoveset && specMoveInMoveset)
                             {
                                 if (STAT_STAGE_SPATK < 6)
-                                    return PIVOT;
+                                    return SHOULD_PIVOT;
                             }
                             else if (physMoveInMoveset && specMoveInMoveset)
                             {
                                 if (STAT_STAGE_ATK < 6 && STAT_STAGE_SPATK < 6)
-                                    return PIVOT;
+                                    return SHOULD_PIVOT;
                             }
                         }*/
 
@@ -3756,7 +3762,7 @@ bool32 ShouldUseWishAromatherapy(u8 battlerAtk, u8 battlerDef, u16 move)
 
     GetAIPartyIndexes(battlerAtk, &firstId, &lastId); //vsonic
 
-    if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
+    if (GetBattlerSide(battlerAtk) == B_SIDE_PLAYER)
         party = gPlayerParty;
     else
         party = gEnemyParty;

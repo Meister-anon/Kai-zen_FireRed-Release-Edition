@@ -597,7 +597,6 @@ struct AIPartyData // Opposing battlers - party mons.
     u8 count[2];
 };
 
-extern u8 gActiveBattler;
 extern u8 gBattlerAbility;
 extern u8 gBattlerTarget;
 extern u8 gAbsentBattlerFlags;
@@ -663,9 +662,10 @@ struct BattleResources
     struct AiLogicData *aiData;
     struct AIPartyData *aiParty;
     struct BattleHistory *battleHistory;
+    u8 transferBuffer[0x100];   //replaces sBattleBuffersTransferData
     //struct BattleScriptsStack *AI_ScriptsStack; //deprecated no longer used
     u8 bufferA[MAX_BATTLERS_COUNT][0x200]; //ported seems for megas
-    u8 bufferB[MAX_BATTLERS_COUNT][0x200];
+    u8 bufferB[MAX_BATTLERS_COUNT][0x200];//wrong this is equivalent of gbattlebuffers
 };
 
 #define AI_THINKING_STRUCT ((struct AI_ThinkingStruct *)(gBattleResources->ai))
@@ -760,6 +760,24 @@ struct StatFractions
 };
 
 extern const struct StatFractions gAccuracyStageRatios[];
+
+union TRANSPARENT StatChangeFlags
+{
+    int raw;
+    u32 raw_u32;
+    u16 raw_u16;
+    u8 raw_u8;
+    struct {
+        bool32 allowPtr:1; // STAT_CHANGE_ALLOW_PTR
+        bool32 mirrorArmored:1; // STAT_CHANGE_MIRROR_ARMOR
+        bool32 onlyChecking:1; // STAT_CHANGE_ONLY_CHECKING
+        bool32 notProtectAffected:1; // STAT_CHANGE_NOT_PROTECT_AFFECTED
+        bool32 updateMoveEffect:1; // STAT_CHANGE_UPDATE_MOVE_EFFECT
+        bool32 statDropPrevention:1; // STAT_CHANGE_CHECK_PREVENTION
+        bool32 certain:1; // STAT_CHANGE_CERTAIN
+        bool32 padding:25;
+    };
+};
 
 //think effects meant to last all battle should go here rather than special status as that is cleared on switch
 //ya know the simplest solution here is just to further buff traps
@@ -1103,7 +1121,7 @@ struct BattleAnimationInfo
     u8 field_6;
     u8 field_7;
     u8 ballThrowCaseId;
-    u8 healthboxSlideInStarted : 1;
+    u8 introAnimActive : 1;
     u8 field_9_x2 : 1;
     u8 field_9_x1C : 3;
     u8 field_9_x20 : 1;
@@ -1238,10 +1256,8 @@ extern u8 gBattlerPositions[MAX_BATTLERS_COUNT];
 extern u8 gHealthboxSpriteIds[MAX_BATTLERS_COUNT];
 extern u8 gBattleOutcome;  //no idea why I had removed this
 extern u8 gBattleMonForms[MAX_BATTLERS_COUNT];
-extern void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(void);
+extern void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(u32 battler);
 extern u32 gBattleControllerExecFlags;
-extern u8 gBattleBufferA[MAX_BATTLERS_COUNT][0x200];
-extern u8 gBattleBufferB[MAX_BATTLERS_COUNT][0x200];
 extern u8 gActionSelectionCursor[MAX_BATTLERS_COUNT];
 extern void (*gPreBattleCallback1)(void);
 extern bool8 gDoingBattleAnim;
@@ -1308,6 +1324,17 @@ static inline u32 GetBattlerPosition(u32 battler)
     return gBattlerPositions[battler];
 }
 
+static inline u32 GetBattlerAtPosition(u32 position)
+{
+    u32 battler;
+    for (battler = 0; battler < gBattlersCount; battler++)
+    {
+        if (GetBattlerPosition(battler) == position)
+            break;
+    }
+    return battler;
+}
+
 
 static inline u32 GetBattlerSide(u32 battler)
 {
@@ -1329,6 +1356,11 @@ static inline struct Pokemon* GetPartyBattlerData(u32 battler)
 {
     u32 index = gBattlerPartyIndexes[battler];
     return (GetBattlerSide(battler) == B_SIDE_OPPONENT) ? &gEnemyParty[index] : &gPlayerParty[index];
+}
+
+static inline u32 GetOpposingSideBattler(u32 battler)
+{
+    return GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerSide(battler)));
 }
 
 #endif // GUARD_BATTLE_H

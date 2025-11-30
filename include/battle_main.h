@@ -84,8 +84,8 @@ u32 GetBattleBgAttribute(u8 arrayId, u8 caseId);
 void SpriteCB_EnemyMon(struct Sprite *sprite);
 void SpriteCallbackDummy2(struct Sprite *sprite);
 void SpriteCB_FaintOpponentMon(struct Sprite *sprite);
-void SpriteCb_ShowAsMoveTarget(struct Sprite *sprite);
-void SpriteCb_HideAsMoveTarget(struct Sprite *sprite);
+void SpriteCB_ShowAsMoveTarget(struct Sprite *sprite);
+void SpriteCB_HideAsMoveTarget(struct Sprite *sprite);
 void SpriteCB_AllyMon(struct Sprite *sprite);
 void SpriteCB_SetToDummy3(struct Sprite *sprite);
 void SpriteCB_FaintSlideAnim(struct Sprite *sprite);
@@ -95,25 +95,25 @@ void SpriteCB_PlayerThrowInit(struct Sprite *sprite);
 void UpdatePlayerPosInThrowAnim(struct Sprite *sprite);
 void BattleDummy(void);
 void BeginBattleIntro(void);
-void SwitchInClearSetData(void);
-void FaintClearSetData(void);
+void SwitchInClearSetData(u32 battler);
+const u8* FaintClearSetData(u32 battler);
 void BattleTurnPassed(void);
-u8 IsRunningFromBattleImpossible(void);
+u8 IsRunningFromBattleImpossible(u32 battler);
 void UpdatePartyOwnerOnSwitch_NonMulti(u8 battler);
 void SwapTurnOrder(u8 id1, u8 id2);
 u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves);
 void SortBattlersBySpeed(u8 *battlers, bool8 slowToFast);
-u32 GetBattlerTotalSpeedStat(u8 battlerId);
+u32 GetBattlerTotalSpeedStat(u32 battler);
 void RunBattleScriptCommands_PopCallbacksStack(void);
 void RunBattleScriptCommands(void);
-bool8 TryRunFromBattle(u8 battler);
-s8 GetMovePriority(u8 battlerId, u16 move);
-s8 GetChosenMovePriority(u8 battlerId);
-bool8 IsPriorityElevatedviaAbility(u8 battlerId); //new thing to track moves w boosted priority from abilities for queenly majesty
+bool8 TryRunFromBattle(u32 battler);
+s8 GetMovePriority(u32 battler, u16 move);
+s8 GetChosenMovePriority(u32 battler);
+bool8 IsPriorityElevatedviaAbility(u32 battler); //new thing to track moves w boosted priority from abilities for queenly majesty
 bool8 IsRivalBattle(u16 trainerNum);
 bool32 IsWildMonSmart(void);
-void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk);
-u8 ReturnMoveType(u16 move, u8 battlerAtk); //atempt copy of settype function but using return value of move type so can display stuff in sum screen
+void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk);
+u8 ReturnMoveType(u32 move, u32 battlerAtk); //atempt copy of settype function but using return value of move type so can display stuff in sum screen
 
 void SetJudgmentTypeString(u8 type); //make global since had move effect to battle_script_commands.c
 

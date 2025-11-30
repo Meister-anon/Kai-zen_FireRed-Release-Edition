@@ -280,12 +280,12 @@ static const u8 sText_PkmnLostFocus[] = _("{B_ATK_NAME_WITH_PREFIX} lost its\nfo
 static const u8 sText_PkmnWasDraggedOut[] = _("{B_DEF_NAME_WITH_PREFIX} was\ndragged out!\p");
 static const u8 sText_TheWallShattered[] = _("The wall shattered!");
 static const u8 sText_ButNoEffect[] = _("But it had no effect!");
-static const u8 sText_PkmnHasNoMovesLeft[] = _("{B_ACTIVE_NAME_WITH_PREFIX} has no\nmoves left!\p");
-static const u8 sText_PkmnMoveIsDisabled[] = _("{B_ACTIVE_NAME_WITH_PREFIX}'s {B_CURRENT_MOVE}\nis disabled!\p");
-static const u8 sText_PkmnCantUseMoveTorment[] = _("{B_ACTIVE_NAME_WITH_PREFIX} can't use the same\nmove in a row due to the TORMENT!\p");
-static const u8 sText_PkmnCantUseMoveTaunt[] = _("{B_ACTIVE_NAME_WITH_PREFIX} can't use\n{B_CURRENT_MOVE} after the TAUNT!\p");
-static const u8 sText_PkmnCantUseMoveSealed[] = _("{B_ACTIVE_NAME_WITH_PREFIX} can't use the\nsealed {B_CURRENT_MOVE}!\p");
-static const u8 sText_PkmnCantUseMoveThroatChop[] = _("{B_ACTIVE_NAME_WITH_PREFIX} can't use\n{B_CURRENT_MOVE} due to Throat Chop!\p");
+static const u8 sText_PkmnHasNoMovesLeft[] = _("{B_ATK_NAME_WITH_PREFIX} has no\nmoves left!\p");
+static const u8 sText_PkmnMoveIsDisabled[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_CURRENT_MOVE}\nis disabled!\p");
+static const u8 sText_PkmnCantUseMoveTorment[] = _("{B_ATK_NAME_WITH_PREFIX} can't use the same\nmove in a row due to the TORMENT!\p");
+static const u8 sText_PkmnCantUseMoveTaunt[] = _("{B_ATK_NAME_WITH_PREFIX} can't use\n{B_CURRENT_MOVE} after the TAUNT!\p");
+static const u8 sText_PkmnCantUseMoveSealed[] = _("{B_ATK_NAME_WITH_PREFIX} can't use the\nsealed {B_CURRENT_MOVE}!\p");
+static const u8 sText_PkmnCantUseMoveThroatChop[] = _("{B_ATK_NAME_WITH_PREFIX} can't use\n{B_CURRENT_MOVE} due to Throat Chop!\p");
 static const u8 sText_PkmnMadeItRain[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nmade it rain!");
 static const u8 sText_PkmnRaisedSpeed[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nraised its SPEED!");
 static const u8 sText_PkmnProtectedBy[] = _("{B_DEF_NAME_WITH_PREFIX} was protected\nby {B_DEF_ABILITY}!");
@@ -2120,12 +2120,12 @@ const u8 gText_PkmnIsEvolving[] = _("What?\n{STR_VAR_1} is evolving!");
 const u8 gText_CongratsPkmnEvolved[] = _("Congratulations! Your {STR_VAR_1}\nevolved into {STR_VAR_2}!{WAIT_SE}\p");
 const u8 gText_PkmnStoppedEvolving[] = _("Huh? {STR_VAR_1}\nstopped evolving!\p");
 const u8 gText_EllipsisQuestionMark[] = _("……?\p");
-const u8 gText_WhatWillPkmnDo[] = _("What will\n{B_ACTIVE_NAME_WITH_PREFIX} do?");
+const u8 gText_WhatWillPkmnDo[] = _("What will\n{B_BUFF1} do?");
 const u8 gText_WhatWillPlayerThrow[] = _("What will {B_PLAYER_NAME}\nthrow?");
 const u8 gText_WhatWillOldManDo[] = _("What will the\nold man do?");
 const u8 gText_LinkStandby[] = _("{PAUSE 16}Link standby…");
 const u8 gText_BattleMenu[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}FIGHT{CLEAR_TO 56}BAG\nPOKéMON{CLEAR_TO 56}RUN");
-const u8 gUnknown_83FE747[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}BALL{CLEAR_TO 56}BAIT\nROCK{CLEAR_TO 56}RUN");
+const u8 gText_SafariZoneMenu[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}BALL{CLEAR_TO 56}BAIT\nROCK{CLEAR_TO 56}RUN");
 const u8 gText_MoveInterfacePP[] = _("PP ");
 const u8 gText_BattleMoveInterfacePP[] = _("PP");
 const u8 gText_MoveInterfaceType[] = _("TYPE/");
@@ -2367,13 +2367,12 @@ static const u16 sGrammarMoveUsedTable[] = {
     MOVE_NONE
 };
 
-// code //vsonic
-void BufferStringBattle(u16 stringId)
+void BufferStringBattle(u32 battler, u16 stringId)
 {
     s32 i;
     const u8 *stringPtr = NULL;
 
-    sBattleMsgDataPtr = (struct BattleMsgData*)(&gBattleBufferA[gActiveBattler][4]);
+    sBattleMsgDataPtr = (struct BattleMsgData *)(&gBattleResources->bufferA[battler][4]);
     gLastUsedItem = sBattleMsgDataPtr->lastItem;
     gLastUsedAbility = sBattleMsgDataPtr->lastAbility;
     gBattleScripting.battler = sBattleMsgDataPtr->scrActive;
@@ -2437,7 +2436,7 @@ void BufferStringBattle(u16 stringId)
         }
         break;
     case STRINGID_INTROSENDOUT: // poke first send-out
-        if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
+        if (GetBattlerSide(battler) == B_SIDE_PLAYER)
         {
             if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
             {
@@ -2474,7 +2473,7 @@ void BufferStringBattle(u16 stringId)
         }
         break;
     case STRINGID_RETURNMON: // sending poke to ball msg
-        if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
+        if (GetBattlerSide(battler) == B_SIDE_PLAYER)
         {
             if (*(&gBattleStruct->hpScale) == 0)
                 stringPtr = sText_PkmnThatsEnough;
@@ -2545,7 +2544,7 @@ void BufferStringBattle(u16 stringId)
         if (gBattleTextBuff1[0] & B_OUTCOME_LINK_BATTLE_RAN)
         {
             gBattleTextBuff1[0] &= ~(B_OUTCOME_LINK_BATTLE_RAN);
-            if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT && gBattleTextBuff1[0] != B_OUTCOME_DREW)
+            if (GetBattlerSide(battler) == B_SIDE_OPPONENT && gBattleTextBuff1[0] != B_OUTCOME_DREW)
                 gBattleTextBuff1[0] ^= (B_OUTCOME_LOST | B_OUTCOME_WON);
 
             if (gBattleTextBuff1[0] == B_OUTCOME_LOST || gBattleTextBuff1[0] == B_OUTCOME_DREW)
@@ -2559,7 +2558,7 @@ void BufferStringBattle(u16 stringId)
         }
         else
         {
-            if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT && gBattleTextBuff1[0] != B_OUTCOME_DREW)
+            if (GetBattlerSide(battler) == B_SIDE_OPPONENT && gBattleTextBuff1[0] != B_OUTCOME_DREW)
                 gBattleTextBuff1[0] ^= (B_OUTCOME_LOST | B_OUTCOME_WON);
 
             if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
@@ -2976,39 +2975,10 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst) //logic for buffers t
             case B_DEF_NAME_WITH_PREFIX: //B_DEF_NAME_WITH_PREFIX
                 HANDLE_NICKNAME_STRING_CASE(gBattlerTarget)
                 break;
-            case B_ACTIVE_NAME: //B_ACTIVE_NAME
-            HANDLE_NICKNAME_STRING_CASE(GetBattlerAtPosition(gActiveBattler)) //think this is right?
-                //GetBattlerNick(gActiveBattler, text);
-                //toCpy = text;
-                break;
-            case B_ACTIVE_NAME2: //B_ACTIVE_NAME2   active battlerId name with prefix, no illusion check
-            {
-                //apparenlty this case is never used?
-                
-                /*u8 side = GetBattlerSide(gActiveBattler);
-                struct Pokemon *party = (side == B_SIDE_PLAYER) ? gPlayerParty : gEnemyParty;
-                u16 species = GetMonData(&party[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_SPECIES);
-
-
-                    GetMonData(&party[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_NICKNAME, text);
-                
-                //if not nicknamed reassign tempStr to speciesname, making it update capitalization
-                if (StringCompare(gBaseStats[species].speciesName, text) == IDENTICAL) 
-                    GetSpeciesName(text, species);
-                else
-                    StringGet_Nickname(text);*/
-                //StringGet_Nickname(text);
-                GetBattlerNick(gActiveBattler, text);
-                toCpy = text;
-            }
-                break;
             case B_EFF_NAME_WITH_PREFIX: //B_EFF_NAME_WITH_PREFIX
                 HANDLE_NICKNAME_STRING_CASE(gEffectBattler)
                 break;
-            case B_ACTIVE_NAME_WITH_PREFIX: //B_ACTIVE_NAME_WITH_PREFIX
-                HANDLE_NICKNAME_STRING_CASE(gActiveBattler)
-                break;
-            case B_SCR_ACTIVE_NAME_WITH_PREFIX: //B_SCR_ACTIVE_NAME_WITH_PREFIX  scripting active battlerId name with prefix
+            case B_SCR_ACTIVE_NAME_WITH_PREFIX: // scripting active battlerId name with prefix
                 HANDLE_NICKNAME_STRING_CASE(gBattleScripting.battler)
                 break;
             case B_CURRENT_MOVE: //B_CURRENT_MOVE
@@ -4017,14 +3987,12 @@ bool8 BattleStringShouldBeColored(u16 stringId)
     return FALSE;
 }
 
-//guess set something like this for move name and type name
-//based on type effect, need figure how to do green think will bold if super
-void SetPpNumbersPaletteInMoveSelection(void)
+void SetPpNumbersPaletteInMoveSelection(u32 battler)
 {
-    struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct*)(&gBattleBufferA[gActiveBattler][4]);
-    const u16 *palPtr = gUnknown_8D2FBB4;
-    u8 var = GetCurrentPpToMaxPpState(chooseMoveStruct->currentPp[gMoveSelectionCursor[gActiveBattler]],
-                                      chooseMoveStruct->maxPp[gMoveSelectionCursor[gActiveBattler]]);
+    struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
+    const u16 *palPtr = gPPTextPalette;
+    u8 var = GetCurrentPpToMaxPpState(chooseMoveStruct->currentPp[gMoveSelectionCursor[battler]],
+                                      chooseMoveStruct->maxPp[gMoveSelectionCursor[battler]]);
 
     gPlttBufferUnfaded[92] = palPtr[(var * 2) + 0];
     gPlttBufferUnfaded[91] = palPtr[(var * 2) + 1];
@@ -4033,14 +4001,14 @@ void SetPpNumbersPaletteInMoveSelection(void)
     CpuCopy16(&gPlttBufferUnfaded[91], &gPlttBufferFaded[91], sizeof(u16));
 }
 
-void SetMoveTypePaletteInMoveSelection_Singles(u16 move, u8 moveType)
+void SetMoveTypePaletteInMoveSelection_Singles(u32 battler, u16 move, u8 moveType)
 {
-    struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct*)(&gBattleBufferA[gActiveBattler][4]);
+    struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct*)(&gBattleResources->bufferA[battler][4]);
     const u16 *palPtr = gMoveTypePal;
-    u8 var = GetTypeEffectivenessState_Singles(move,moveType);//hopefully I understood this correctly
+    u8 var = GetTypeEffectivenessState_Singles(battler, move, moveType);//hopefully I understood this correctly
 
     //takes state and shift to return different
-    //value in pal gUnknown_8D2FBB4
+    //value in pal gPPTextPalette
     //simple fix make new palette 
     //way its setup whatever foreground is
     //shadow will be 1 color above
@@ -4074,9 +4042,9 @@ void SetMoveTypePaletteInMoveSelection_Singles(u16 move, u8 moveType)
 //last thing believe need try take into account is move target random, 
 //not sure will work for now
 //for some reason doubles check isn't working?
-void SetMoveTypePaletteInMoveSelection_Doubles(u16 move, u8 moveType)
+void SetMoveTypePaletteInMoveSelection_Doubles(u32 battler, u16 move, u8 moveType)
 {
-    struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct*)(&gBattleBufferA[gActiveBattler][4]);
+    struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct*)(&gBattleResources->bufferA[battler][4]);
     const u16 *palPtr = gMoveTypePal;
     u8 var; //hopefully I understood this correctly
     
@@ -4098,7 +4066,7 @@ void SetMoveTypePaletteInMoveSelection_Doubles(u16 move, u8 moveType)
     else
         var = GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerPosition(gMultiUsePlayerCursor));
     //takes state and shift to return different
-    //value in pal gUnknown_8D2FBB4
+    //value in pal gPPTextPalette
     //simple fix make new palette 
     //way its setup whatever foreground is
     //shadow will be 1 color above
@@ -4156,10 +4124,10 @@ u8 GetCurrentPpToMaxPpState(u8 currentPp, u8 maxPp)
 }//used with color palette 3 is normal font color
 //1 is  yellow, 2 is red  //correspondes to value in palette
 
-u8 GetTypeEffectivenessState_Singles(u16 move, u8 moveType) //for singles
+u8 GetTypeEffectivenessState_Singles(u32 battler, u16 move, u8 moveType) //for singles
 {
     if (!IsDoubleBattle()) //oddly gbattlertarget is same as attacker at this point without this
-    {    gBattlerTarget = (GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerPosition(gActiveBattler))));
+    {    gBattlerTarget = (GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerPosition(battler))));
         //gBattlerAttacker = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
     }
     //else

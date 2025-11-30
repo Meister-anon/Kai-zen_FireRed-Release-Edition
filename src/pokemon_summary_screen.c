@@ -336,7 +336,7 @@ static EWRAM_DATA struct HpBarObjs * sHpBarObjs = NULL;
 static EWRAM_DATA struct ExpBarObjs * sExpBarObjs = NULL;
 static EWRAM_DATA struct PokerusIconObj * sPokerusIconObj = NULL;
 static EWRAM_DATA struct ShinyStarObjData * sShinyStarObjData = NULL;
-static EWRAM_DATA u8 sLastViewedMonIndex = 0;
+EWRAM_DATA u8 gLastViewedMonIndex = 0;
 static EWRAM_DATA u8 sMoveSelectionCursorPos = 0;
 static EWRAM_DATA u8 sMoveSwapCursorPos = 0;
 static EWRAM_DATA struct MonPicBounceState * sMonPicBounceState = NULL;
@@ -1171,7 +1171,7 @@ void ShowPokemonSummaryScreen(struct Pokemon * party, u8 cursorPos, u8 lastIdx, 
         return;
     }
 
-    sLastViewedMonIndex = cursorPos;
+    gLastViewedMonIndex = cursorPos;
 
     sMoveSelectionCursorPos = 0;
     sMoveSwapCursorPos = 0;
@@ -1247,7 +1247,7 @@ void ShowPokemonSummaryScreenGoToPC(struct Pokemon * party, u8 cursorPos, u8 las
     }
 
 
-    sLastViewedMonIndex = cursorPos;
+    gLastViewedMonIndex = cursorPos;
 
     sMoveSelectionCursorPos = 0;
     sMoveSwapCursorPos = 0;
@@ -1327,6 +1327,7 @@ void ShowMoveInfoForSelectedMove(struct Pokemon *party, u8 partyMember, u8 lastI
 
 void ShowSummaryScreenSelectMoveFromBattle(struct Pokemon *party, u8 partyMember, u8 lastIdx, MainCallback savedCallback, u8 mode)
 {
+    u32 battler = gLastViewedMonIndex;
     sMonSummaryScreen = AllocZeroed(sizeof(struct PokemonSummaryScreenData));
     sMonSkillsPrinterXpos = AllocZeroed(sizeof(struct Struct203B144));
 
@@ -1336,11 +1337,11 @@ void ShowSummaryScreenSelectMoveFromBattle(struct Pokemon *party, u8 partyMember
         return;
     }
 
-    sLastViewedMonIndex = partyMember;
+    gLastViewedMonIndex = partyMember;
 
     //works but need find where input logic is,
     //so can make update move cursor so it tracks when return to battle screen
-    sMoveSelectionCursorPos = gMoveSelectionCursor[gActiveBattler];
+    sMoveSelectionCursorPos = gMoveSelectionCursor[battler];
     sMoveSwapCursorPos = 0;
     sMonSummaryScreen->savedCallback = savedCallback;
     sMonSummaryScreen->monList.mons = party;
@@ -1528,7 +1529,7 @@ static void Task_InputHandler_Info(u8 taskId)
             }
             else if (JOY_NEW(L_BUTTON) && !gMain.inBattle && sMonSummaryScreen->savedCallback != Cb2_ReturnToPSS)
             {
-                if (IsTradedMon(&gPlayerParty[sLastViewedMonIndex]))
+                if (IsTradedMon(&gPlayerParty[gLastViewedMonIndex]))
                     PlaySE(SE_FAILURE);
                 else
                 {
@@ -1558,8 +1559,8 @@ static void Task_InputHandler_Info(u8 taskId)
             {
                 //base setup done but think put specifically on info page
                 //and still need setup reload page to properly display changed slotted ability
-                bool8 AbilityState = GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_USE_TAUGHT_ABILITY, NULL) ? FALSE : TRUE;
-                SetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_USE_TAUGHT_ABILITY, &AbilityState);
+                bool8 AbilityState = GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_USE_TAUGHT_ABILITY, NULL) ? FALSE : TRUE;
+                SetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_USE_TAUGHT_ABILITY, &AbilityState);
                 sMonSummaryScreen->savedCallback = CB2_Debug_Pokemon;
                 PlaySE(SE_SELECT);
                 sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu -won't use close menu in effect
@@ -4065,7 +4066,7 @@ static void Task_DestroyResourcesOnExit(u8 taskId)
     
     SetMainCallback2(sMonSummaryScreen->savedCallback);
 
-    sLastViewedMonIndex = GetLastViewedMonIndex();
+    gLastViewedMonIndex = GetLastViewedMonIndex();
 
     FREE_AND_SET_NULL_IF_SET(sMonSummaryScreen);
     FREE_AND_SET_NULL_IF_SET(sMonSkillsPrinterXpos);
@@ -4322,7 +4323,7 @@ static void PokeSum_SetHelpContext(void)
 //since id is mon is at oak ranch
 //makes more sense to do when its actually with you
 //think can use GetInPartyMenu to filter
-//&gPlayerParty[sLastViewedMonIndex]  
+//&gPlayerParty[gLastViewedMonIndex]  
 //use as argument
 //test
 static void SummScreen_ChangePokemonNickname()
@@ -4332,13 +4333,13 @@ static void SummScreen_ChangePokemonNickname()
     u32 personality;
 
     //unsure what stringVar3 is being used for
-    //GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar3);
+    //GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar3);
     //think this is necessary so if don't right anything it can still set the value it already has
     //otherwise it would set garbage data, as its already using gstringvar2's value
-    GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar2);
-    species = GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_SPECIES, NULL);
-    gender = GetMonGender(&gPlayerParty[sLastViewedMonIndex]);
-    personality = GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_PERSONALITY, NULL);
+    GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar2);
+    species = GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_SPECIES, NULL);
+    gender = GetMonGender(&gPlayerParty[gLastViewedMonIndex]);
+    personality = GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_PERSONALITY, NULL);
     
     
     DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar2, species, gender, personality, SummScreen_ChangePokemonNickname_CB);
@@ -4346,7 +4347,7 @@ static void SummScreen_ChangePokemonNickname()
 
 void SummScreen_ChangePokemonNickname_CB(void)
 {
-    SetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar2);
+    SetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar2);
     //change based on CB2_OpenDexPageFromSummScreen to set info page callback
     //CB2_ReturnToFieldContinueScriptPlayMapMusic();
     CB2_ShowPokemonSummaryScreen2();
@@ -4522,7 +4523,7 @@ static void PokeSum_PrintMonTypeIcons(void)
 
 u8 GetLastViewedMonIndex(void)
 {
-    return sLastViewedMonIndex;
+    return gLastViewedMonIndex;
 }
 
 u8 GetMoveSlotToReplace(void)
@@ -4540,7 +4541,7 @@ static bool32 IsMultiBattlePartner(void)
     if (!IsUpdateLinkStateCBActive()
         && IsMultiBattle() == TRUE
         && gReceivedRemoteLinkPlayers == 1
-        && (sLastViewedMonIndex >= 4 || sLastViewedMonIndex == 1))
+        && (gLastViewedMonIndex >= 4 || gLastViewedMonIndex == 1))
         return TRUE;
 
     return FALSE;
@@ -4564,7 +4565,7 @@ static void BufferSelectedMonData(struct Pokemon * mon)
 //issue is this GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) want to get this set in place of player party, want to use battle position that was plan
 //issue was with switching, playerparty isn't changed how I thought, so current setup isn't as fool proof as I thought
 //looking into potentiallt gBattlerPartyIndexes[] can be used
-//mon = &gPlayerParty[gBattlerPartyIndexes[gActiveBattler]];  taht did it, seems to be working now, but need to check doubles as unsure if it is right,
+//mon = &gPlayerParty[gBattlerPartyIndexes[battler]];  taht did it, seems to be working now, but need to check doubles as unsure if it is right,
 //but it shold be
 static u16 GetMonMoveBySlotId(struct Pokemon * mon, u8 moveSlot) //issue with last mon in party when fainted shows, first mon data instead
 {
@@ -5512,7 +5513,7 @@ static void PokeSum_CreateMonPicSprite(void)
     }
     else
     {
-        if (ShouldIgnoreDeoxysForm(DEOXYS_CHECK_TRADE_MAIN, sLastViewedMonIndex))
+        if (ShouldIgnoreDeoxysForm(DEOXYS_CHECK_TRADE_MAIN, gLastViewedMonIndex))
             spriteId = CreateMonPicSprite(species, IsShiny, personality, TRUE, 60, 65, 12, 0xffff, TRUE);
         else
             spriteId = CreateMonPicSprite_HandleDeoxys(species, IsShiny, personality, TRUE, 60, 65, 12, 0xffff);
@@ -5666,7 +5667,7 @@ static void PokeSum_CreateMonIconSprite(void)
     }
     else
     {
-        if (ShouldIgnoreDeoxysForm(DEOXYS_CHECK_TRADE_MAIN, sLastViewedMonIndex))
+        if (ShouldIgnoreDeoxysForm(DEOXYS_CHECK_TRADE_MAIN, gLastViewedMonIndex))
             sMonSummaryScreen->monIconSpriteId = CreateMonIcon(species, SpriteCallbackDummy, 24, 32, 0, personality, 0);
         else
             sMonSummaryScreen->monIconSpriteId = CreateMonIcon(species, SpriteCallbackDummy, 18, 36, 0, personality, 1);
@@ -6501,7 +6502,7 @@ static void PokeSum_SeekToNextMon(u8 taskId, s8 direction)
     if (scrollResult == -1)
         return;
 
-    sLastViewedMonIndex = scrollResult;
+    gLastViewedMonIndex = scrollResult;
     CreateTask(Task_PokeSum_SwitchDisplayedPokemon, 0);
     sMonSummaryScreen->switchMonTaskState = 0;
 }
@@ -6513,22 +6514,22 @@ static s8 SeekToNextMonInSingleParty(s8 a0)
 
     if (sMonSummaryScreen->curPageIndex == 0)
     {
-        if (a0 == -1 && sLastViewedMonIndex == 0)
+        if (a0 == -1 && gLastViewedMonIndex == 0)
             return -1;
-        else if (a0 == 1 && sLastViewedMonIndex >= sMonSummaryScreen->lastIndex)
+        else if (a0 == 1 && gLastViewedMonIndex >= sMonSummaryScreen->lastIndex)
             return -1;
         else
-            return sLastViewedMonIndex + a0;
+            return gLastViewedMonIndex + a0;
     }
 
     while (TRUE)
     {
         v1 += a0;
-        if (0 > sLastViewedMonIndex + v1 || sLastViewedMonIndex + v1 > sMonSummaryScreen->lastIndex)
+        if (0 > gLastViewedMonIndex + v1 || gLastViewedMonIndex + v1 > sMonSummaryScreen->lastIndex)
             return -1;
 
-        if (GetMonData(&partyMons[sLastViewedMonIndex + v1], MON_DATA_IS_EGG) == 0)
-            return sLastViewedMonIndex + v1;
+        if (GetMonData(&partyMons[gLastViewedMonIndex + v1], MON_DATA_IS_EGG) == 0)
+            return gLastViewedMonIndex + v1;
     }
 
     return -1;

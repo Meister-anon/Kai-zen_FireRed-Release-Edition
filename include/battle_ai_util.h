@@ -7,6 +7,13 @@
 
 #define FOE(battler) ((BATTLE_OPPOSITE(battler)) & BIT_SIDE)
 
+enum AIPivot
+{
+    DONT_PIVOT,
+    CAN_TRY_PIVOT,
+    SHOULD_PIVOT,
+};
+
 bool32 AI_RandLessThan(u8 val);
 void RecordLastUsedMoveByTarget(void);
 bool32 IsBattlerAIControlled(u32 battlerId);

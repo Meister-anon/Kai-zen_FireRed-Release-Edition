@@ -848,9 +848,9 @@ bool8 DoesSpeciesHaveCosmeticForms(u16 species);
 #define BATTLE_ALIVE_ATK_SIDE       1
 #define BATTLE_ALIVE_DEF_SIDE       2
 
-u8 CountAliveMonsInBattle(u8 caseId);
+u8 CountAliveMonsInBattle(u8 caseId, u32 battler);
 
-u8 GetDefaultMoveTarget(u8 battlerId);
+u8 GetDefaultMoveTarget(u32 battler);
 u8 GetMonGender(struct Pokemon *mon);
 u8 GetBoxMonGender(struct BoxPokemon *boxMon);
 u8 GetGenderFromSpeciesAndPersonality(u16 species, u32 personality);
@@ -895,9 +895,9 @@ u8 CalculatePPWithBonus(u16 move, u8 ppBonuses, u8 moveIndex);
 void RemoveMonPPBonus(struct Pokemon *mon, u8 moveIndex);
 void RemoveBattleMonPPBonus(struct BattlePokemon *mon, u8 moveIndex);
 bool8 ExecuteTableBasedItemEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex);
-bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex, u8 e);
 bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex);
-u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
+bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex, bool8 usedByAI);
+u8 GetItemEffectParamOffset(u32 battler, u16 itemId, u8 effectByte, u8 effectBit);
 const u8 *Battle_PrintStatBoosterEffectMessage(u16 itemId);
 u8 GetNature(struct Pokemon *mon);
 u8 SetNature(struct BoxPokemon *mon);

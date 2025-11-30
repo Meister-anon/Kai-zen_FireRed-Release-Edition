@@ -13,9 +13,18 @@ enum
     AI_ITEM_NOT_RECOGNIZABLE
 };
 
-void AI_TrySwitchOrUseItem(void);
-u8 GetMostSuitableMonToSwitchInto(void);
-bool32 ShouldSwitch(void);
+enum {
+    AI_HEAL_CONFUSION,
+    AI_HEAL_PARALYSIS,
+    AI_HEAL_FREEZE,
+    AI_HEAL_BURN,
+    AI_HEAL_POISON,
+    AI_HEAL_SLEEP,
+};
+
+void AI_TrySwitchOrUseItem(u32 battler);
+u8 GetMostSuitableMonToSwitchInto(u32 battler);
+bool32 ShouldSwitch(u32 battler);
 void GetAIPartyIndexes(u32 battlerId, s32 *firstId, s32 *lastId);
 
 #endif // GUARD_BATTLE_AI_SWITCH_ITEMS_H
