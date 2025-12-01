@@ -20,3 +20,6 @@ at completion can remove w regex replace
 think handeling bs update in batl controller branch
 so think can leave defining addtionalEffects over there
 and just pull changes in when that's done?
+
+WORKIGN THROough custom effects need replace
+B_UPDATED_MOVE_FLAGS >=   variants w true

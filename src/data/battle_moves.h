@@ -359,13 +359,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .slicingMove = TRUE,
         .enhancedCritrate = TRUE,
         .damagesAirborneDoubleDamage = TRUE,
+        .argument = { .type = TYPE_FLYING },
         .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNWHIPPEDWHIRLWIND },
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_RazorWind,
-        .argument = TYPE_FLYING,
     },
     //think will give to more flying types
 
@@ -4039,7 +4039,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1,
     .split = SPLIT_STATUS,
         //.zMove = { .effect = Z_EFFECT_ALL_STATS_UP_1 },
-        .snatchAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .snatchAffected = TRUE,
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
@@ -4465,7 +4465,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
         //.zMove = { .effect = Z_EFFECT_RECOVER_HP },
-        .ignoresProtect = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresProtect = TRUE,
         .ignoresSubstitute = TRUE,
         .mirrorMoveBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
@@ -8359,7 +8359,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
         //.battleAnimScript = gBattleAnimMove_MuddyWater,
-        .argument = TYPE_GROUND,
+        .argument = { .type = TYPE_GROUND },
     },//think want to make into two typed move, make custom effect so can set accuracy drop in bs would drop power to compensate
     //thinking water//ground bp 65, would still be strong as most things weak to water are also weak to ground
     //can potentially do accuracy drop with call_if?  since tink two typed effect doesn't actually set anything to move effect?
@@ -13854,7 +13854,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_FreezeShock,
-        .argument = TYPE_ELECTRIC,
+        .argument = { .type = TYPE_ELECTRIC },
     },//maintained paralysis chance
 
     [MOVE_ICE_BURN] =
@@ -13882,7 +13882,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_IceBurn,
-        .argument = TYPE_FIRE,
+        .argument = { .type = TYPE_FIRE },
     },//will still burn
     //think these are just kyurem black/white moves
 
@@ -14905,6 +14905,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 4,
         .flags = FLAG_PROTECTION_MOVE,
         .split = SPLIT_STATUS,
+        .argument = { .protectMethod = PROTECT_SPIKY_SHIELD },
+        //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SpikyShield,
     },
 
     [MOVE_AROMATIC_MIST] =
@@ -16816,7 +16828,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .chance = 30,
         }),
         //.battleAnimScript = gBattleAnimMove_SplishySplash,
-        .argument = TYPE_ELECTRIC,
+        .argument = { .type = TYPE_ELECTRIC },
     },
 
     [MOVE_FLOATY_FALL] =
@@ -18990,7 +19002,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .self = TRUE,
             .chance = 100,
         }),
-        .argument = TYPE_FLYING,
+        .argument = { .type = TYPE_FLYING },
         //.battleAnimScript = gBattleAnimMove_EsperWing,
         //////.zMovePower = 140,
         //////.zMoveEffect = Z_EFFECT_NONE,
@@ -20816,6 +20828,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
         .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
     }, //need change animation effect with new emerald graphics, it has a coccon effect already I can use.
 
     [MOVE_MONOTYPE] =
@@ -20830,6 +20848,22 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .mimicBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        .sketchBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Sketch,
     },
 
     [MOVE_FLASH_FREEZE] =
@@ -20844,6 +20878,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0, //since this keeps opponent from attacking will keep base priority
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_FREEZE },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HAIL},
+        //.battleAnimScript = gBattleAnimMove_FlashFreeze,
     },//lowered to 10 pp, since imobilizing status have lower pp to other similar variant moves
     //vsonic important keep an eye on
 
@@ -20863,6 +20904,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -6,  //lowest priority set unless I can figure a way to make it use dmg from previous turn for calc
         .flags = 0,
         .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_CURSE,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DryadsCurse,
     },//DOES ghost curse effect to last damaged sacrificin stats instead of health
     //give to bug fairy and grass types   def give shiinotic, maybe sudowoodo
 
@@ -20878,6 +20927,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 4,
         .flags = FLAG_PROTECTION_MOVE,
         .split = SPLIT_PHYSICAL,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.argument = { .protectMethod = PROTECT_SPIKY_SHIELD }, unsure if should use protect method
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ShieldBash,
     }, //vsonic when stable test new moves if work can then add new post gen3 learnsets in
     //decide want to give to chespin line as well
     /*so I'm thinking of putting it up to 70% since it's mostly as a scout like you said,
@@ -20911,6 +20971,11 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_UTurn,
     },
 
     [MOVE_DIVE_BOMB] =
@@ -20926,6 +20991,11 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_UTurn,
     },
 
     [MOVE_NETTLE_WHIP] =
@@ -20942,6 +21012,11 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .damagesAirborne = TRUE,
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_GROWTH},
+        //.battleAnimScript = gBattleAnimMove_VineWhip,
     },//GRASS types will be immune to this status condition, potentially make its own effect, then can do grass status exclusion with bs command
     //think give to mostly grass/poison types
     //since effect is essentially poison
@@ -21078,7 +21153,7 @@ use wonder gaurd logic to determine its super effective
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        .argument = TYPE_ELECTRIC,
+        .argument = { .type = TYPE_FLYING },
     },
     //two typed attack w chance to freeze
 
@@ -21175,6 +21250,14 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_PHYSICAL,
         .argument = MOVE_EFFECT_FLINCH,
         .argumentEffectChance = 15,
+        .ballisticMove = TRUE,
+        .instructBanned = TRUE,
+        .parentalBondBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HAIL},
+        //.battleAnimScript = gBattleAnimMove_IceBall,
     }, //still need get animatino how I want to change sprite size with ppower
 
     [MOVE_TRENCH_RUN] =
@@ -21206,6 +21289,7 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_PHYSICAL,
         .damagesAirborne = TRUE,
         .makesContact = TRUE,
+        .ballisticMove = TRUE,
         //////.zMoveEffect = Z_EFFECT_NONE,
     },//uses rollout animation
     //why didn't I make this damage in air?
@@ -21224,7 +21308,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-        .argument = TYPE_DARK,
+        .argument = { .type = TYPE_DARK },
         .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
     }, //alt slash wnat use shadow claw animation, two claws one white one black slashing enemy
@@ -21246,6 +21330,14 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
         .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        .ignoresSubstitute = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ConversionZ,
     },
 
     [MOVE_SOLAR_FLARE] =
