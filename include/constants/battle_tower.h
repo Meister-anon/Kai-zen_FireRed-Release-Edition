@@ -78,5 +78,20 @@
 #define BTSPECIAL_RESULT_LOST      3
 #define BTSPECIAL_RESULT_QUICKSAVE 4
 #define BTSPECIAL_RESULT_INACTIVE  5
+// IDs for the messages printed by potential partners in the Battle Tower Multi Partner Room
+#define PARTNER_MSGID_INTRO      0
+#define PARTNER_MSGID_MON1       1
+#define PARTNER_MSGID_MON2_ASK   2
+#define PARTNER_MSGID_ACCEPT     3
+#define PARTNER_MSGID_REJECT     4
+
+// IDs for communicating with the Link Multi partner
+#define BATTLE_TOWER_LINK_CONTINUE  0
+#define BATTLE_TOWER_LINK_RETIRE    1
+
+#define BATTLE_TOWER_LINKSTAT_CONTINUE       0
+#define BATTLE_TOWER_LINKSTAT_BOTH_RETIRE    1
+#define BATTLE_TOWER_LINKSTAT_MEMBER_RETIRE  2
+#define BATTLE_TOWER_LINKSTAT_LEADER_RETIRE  3
 
 #endif //GUARD_CONSTANTS_BATTLE_TOWER_H

@@ -2,6 +2,9 @@
 #include "gflib.h"
 #include "quest_log.h"
 #include "list_menu.h"
+#include "malloc.h"
+#include "battle_special.h"
+
 #include "diploma.h"
 #include "debug.h"
 #include "script.h"
