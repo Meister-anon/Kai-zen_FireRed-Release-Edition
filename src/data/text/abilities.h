@@ -893,7 +893,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Cacophony"),
         .description = COMPOUND_ABILITY_STRING("+Snd Dmg. Boosts ally Sound-move effects\nand helps bypass screens and protects."),
         .aiRating = 1,
-        .breakable = FALSE,
     }, //low rating cuz very niche activation
 
     [ABILITY_AIR_LOCK] =
@@ -3425,6 +3424,13 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Bravery"),
         .description = sBraveryDescription,
         .aiRating = 6,
+    },
+
+    [ABILITY_FUGUE] =
+    {
+        .name = _("Fugue"),
+        .description = COMPOUND_ABILITY_STRING("Makes sleep and confusion more effective\nagainst targets. Always max turns."),
+        .aiRating = 4,
     },
 };
 

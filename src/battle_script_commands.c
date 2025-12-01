@@ -4949,14 +4949,16 @@ void SetMoveEffect(bool32 primary, u32 certain)
             //makes rest better, which is fine but should be no issues, just test and tweak heal value
             if (sStatusFlagsForMoveEffects[gBattleScripting.moveEffect] == STATUS1_SLEEP)//>>>actually way this is counted it decrements before effect takes palce (i.e in atk canceler not end turn)
             {
-                if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted)
-                    gBattleStruct->SleepTimer[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 5;
-                 //attempt get sleep heal and only sleep 1 turn, if doesnt' work
-                    //may replace w full sleep immunity or keep as is for balance
-                else if (GetBattlerAbility(gEffectBattler) == ABILITY_TOOLS_OF_THE_TRADE) //1 turn of sleep is counter 2s
+                if (GetBattlerAbility(gEffectBattler) == ABILITY_TOOLS_OF_THE_TRADE) //1 turn of sleep is counter 2s
                     gBattleStruct->SleepTimer[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2;
+                else if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted || ShouldActivateFugue(gBattlerAttacker, gEffectBattler))
+                    gBattleStruct->SleepTimer[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = MAX_SLEEP_TURNS;
                 else
                     gBattleStruct->SleepTimer[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = ((Random() % 3) + 3);
+                //attempt get sleep heal and only sleep 1 turn, if doesnt' work
+                    //may replace w full sleep immunity or keep as is for balance
+                
+
                 gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                 //gBattleMons[gEffectBattler].status1 |= ((Random() % 3) + 3); //duration of sleep, and its 2-5 here. /changed to 2-4 /guarantees 1 free turn unless earlybird  //confirmed
                 gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect]; //2-4 means 1-3 turns of sleep (is 2-4 decrementsin atkcanc so can decrease before turn end)
@@ -5107,8 +5109,8 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 else
                 {
-                    if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted)
-                        gDisableStructs[gEffectBattler].ConfusionTurns = 5;
+                    if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted || ShouldActivateFugue(gBattlerAttacker, gEffectBattler))
+                        gDisableStructs[gEffectBattler].ConfusionTurns = MAX_CONFUSION_TURNS;
                     else
                         gDisableStructs[gEffectBattler].ConfusionTurns = ((Random() % 4) + 2); //think this odds for confusion duration again 2-5
                     

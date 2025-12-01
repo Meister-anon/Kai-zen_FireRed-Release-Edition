@@ -13476,6 +13476,18 @@ bool32 ShouldIgnoreBattlerHeldItem(u32 battler)
     return FALSE;
 }
 
+bool32 ShouldActivateFugue(u32 battleratk, u32 battlerdef)
+{
+    if (battleratk == battlerdef)
+        return FALSE;
+
+    if (IsBattlerAlive(battleratk)
+    && GetBattlerAbility(battleratk) == ABILITY_FUGUE)
+        return TRUE;
+
+    return FALSE;
+}
+
 // ability checks
 //absolutely no idea why but putting in battle_util.h w defined bounds is what caused compiler error
 bool32 IsMoldBreakerAffectedAbility(u16 ability)

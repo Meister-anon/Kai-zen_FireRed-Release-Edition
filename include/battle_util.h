@@ -267,6 +267,8 @@ bool8 CanActivateExpNull(void);
 bool8 IsBattlerUnderProtectEffect(u8 battler);
 void ClearMoldBreakerSetStatus(u8 battler);
 
+bool32 ShouldActivateFugue(u32 battleratk, u32 battlerdef);
+
 //cacophony based functions - also affects perish song, bypasses walls and protection
 //and sets sleep and confusion effects to max duration on status set
 bool8 ShouldCacophonyBoostAccuracy(u16 move);
