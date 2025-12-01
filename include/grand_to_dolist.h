@@ -8813,7 +8813,7 @@ Exceptions:
  gBattleStruct->appearedInBattle = 0; //this also potentially useful, tracks all mon, w bitfield
 
 
- coild potentially do  if ((gBattleStruct->appearedInBattle & gBitTable[i])
+ coild potentially do  if ((gBattleStruct->appearedInBattle & (1u << i))
  set used singleuse ability[partyindex[i]] something like that
 
  but if I'm putting in abilitybattleeffects there's no reason to check appearedinBattle as that's a given, they'd be on the field

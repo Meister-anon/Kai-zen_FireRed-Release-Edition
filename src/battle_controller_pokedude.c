@@ -203,7 +203,7 @@ void SetControllerToPokedude(u32 battler)
 
 static void PokedudeBufferRunCommand(u32 battler)
 {
-    if (gBattleControllerExecFlags & gBitTable[battler])
+    if (gBattleControllerExecFlags & (1u << battler))
     {
         if (gBattleResources->bufferA[battler][0] < NELEMS(sPokedudeBufferCommands))
         {
@@ -681,7 +681,7 @@ static void PokedudeBufferExecCompleted(u32 battler)
     }
     else
     {
-        gBattleControllerExecFlags &= ~gBitTable[battler];
+        gBattleControllerExecFlags &= ~(1u << battler);
     }
 }
 
@@ -2583,7 +2583,7 @@ static void PokedudeAction_PrintMessageWithHealthboxPals(u32 battler)
     case 1:
         if (!gPaletteFade.active)
         {
-            u32 mask = (gBitTable[gBattleStruct->pdHealthboxPal2] | gBitTable[gBattleStruct->pdHealthboxPal1]) << 16;
+            u32 mask = ((1u << gBattleStruct->pdHealthboxPal2) | (1u << gBattleStruct->pdHealthboxPal1)) << 16;
 
             ++mask; // It's possible that this is influenced by other functions, as
             --mask; // this also striked in battle_controller_oak_old_man.c but was naturally fixed.
@@ -2609,7 +2609,7 @@ static void PokedudeAction_PrintMessageWithHealthboxPals(u32 battler)
             u32 mask;
 
             PlaySE(SE_SELECT);
-            mask = (gBitTable[gBattleStruct->pdHealthboxPal2] | gBitTable[gBattleStruct->pdHealthboxPal1]) << 16;
+            mask = ((1u << gBattleStruct->pdHealthboxPal2) | (1u << gBattleStruct->pdHealthboxPal1)) << 16;
             ++mask;
             --mask;
             BeginNormalPaletteFade(mask, 4, 0, 8, RGB_BLACK);

@@ -252,7 +252,7 @@ void PressurePPLose(u8 target, u8 attacker, u16 move)
             if (gBattleMons[attacker].pp[i])
                 --gBattleMons[attacker].pp[i];
             if (!(gBattleMons[attacker].status2 & STATUS2_TRANSFORMED)
-                && !(gDisableStructs[attacker].mimickedMoves & gBitTable[i]))
+                && !(gDisableStructs[attacker].mimickedMoves & (1u << i)))
             {
                 BtlController_EmitSetMonData(attacker, BUFFER_A, REQUEST_PPMOVE1_BATTLE + i, 0, 1, &gBattleMons[attacker].pp[i]);
                 MarkBattlerForControllerExec(attacker);
@@ -272,7 +272,7 @@ void PressurePPLose(u8 target, u8 attacker, u16 move)
             }
                 
             if (!(gBattleMons[attacker].status2 & STATUS2_TRANSFORMED)
-                && !(gDisableStructs[attacker].mimickedMoves & gBitTable[i]))
+                && !(gDisableStructs[attacker].mimickedMoves & (1u << i)))
             {
                 BtlController_EmitSetMonData(attacker, BUFFER_A, REQUEST_PPMOVE1_BATTLE + i, 0, 1, &gBattleMons[attacker].pp[i]);
                 MarkBattlerForControllerExec(attacker);
@@ -319,7 +319,7 @@ void PressurePPLoseOnUsingImprison(u8 attacker)//it was so simple *facepalm*
     }
     if (imprisonPos != 4
         && !(gBattleMons[attacker].status2 & STATUS2_TRANSFORMED)
-        && !(gDisableStructs[attacker].mimickedMoves & gBitTable[imprisonPos]))
+        && !(gDisableStructs[attacker].mimickedMoves & (1u << imprisonPos)))
     {
         BtlController_EmitSetMonData(attacker, BUFFER_A, REQUEST_PPMOVE1_BATTLE + imprisonPos, 0, 1, &gBattleMons[attacker].pp[imprisonPos]);
         MarkBattlerForControllerExec(attacker);
@@ -360,7 +360,7 @@ void PressurePPLoseOnUsingPerishSong(u8 attacker)
     }
     if (perishSongPos != MAX_MON_MOVES
         && !(gBattleMons[attacker].status2 & STATUS2_TRANSFORMED)
-        && !(gDisableStructs[attacker].mimickedMoves & gBitTable[perishSongPos]))
+        && !(gDisableStructs[attacker].mimickedMoves & (1u << perishSongPos)))
     {
         BtlController_EmitSetMonData(attacker, BUFFER_A, REQUEST_PPMOVE1_BATTLE + perishSongPos, 0, 1, &gBattleMons[attacker].pp[perishSongPos]);
         MarkBattlerForControllerExec(attacker);
@@ -407,18 +407,18 @@ void MarkAllBattlersForControllerExec(void)
 
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)
         for (i = 0; i < gBattlersCount; ++i)
-            gBattleControllerExecFlags |= gBitTable[i] << 0x1C;
+            gBattleControllerExecFlags |= (1u << i) << 0x1C;
     else
         for (i = 0; i < gBattlersCount; ++i)
-            gBattleControllerExecFlags |= gBitTable[i];
+            gBattleControllerExecFlags |= (1u << i);
 }
 
 void MarkBattlerForControllerExec(u8 battlerId)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)
-        gBattleControllerExecFlags |= gBitTable[battlerId] << 0x1C;
+        gBattleControllerExecFlags |= (1u << battlerId) << 0x1C;
     else
-        gBattleControllerExecFlags |= gBitTable[battlerId];
+        gBattleControllerExecFlags |= (1u << battlerId);
 }
 
 void MarkBattlerReceivedLinkData(u8 arg0)
@@ -426,7 +426,7 @@ void MarkBattlerReceivedLinkData(u8 arg0)
     s32 i;
 
     for (i = 0; i < GetLinkPlayerCount(); ++i)
-        gBattleControllerExecFlags |= gBitTable[arg0] << (i << 2);
+        gBattleControllerExecFlags |= (1u << arg0) << (i << 2);
     gBattleControllerExecFlags &= ~(0x10000000 << arg0);
 }
 
@@ -1202,7 +1202,7 @@ void ResetSentPokesToOpponentValue(void)
     gSentPokesToOpponent[0] = 0;
     gSentPokesToOpponent[1] = 0;
     for (i = 0; i < gBattlersCount; i += 2)
-        bits |= gBitTable[gBattlerPartyIndexes[i]];
+        bits |= (1u << gBattlerPartyIndexes[i]);
     for (i = 1; i < gBattlersCount; i += 2)
         gSentPokesToOpponent[(i & BIT_FLANK) >> 1] = bits;
 }
@@ -1218,8 +1218,8 @@ void sub_8017434(u8 battler)
 
         gSentPokesToOpponent[flank] = 0;
         for (i = 0; i < gBattlersCount; i += 2)
-            if (!(gAbsentBattlerFlags & gBitTable[i]))
-                bits |= gBitTable[gBattlerPartyIndexes[i]];
+            if (!(gAbsentBattlerFlags & (1u << i)))
+                bits |= (1u << gBattlerPartyIndexes[i]);
         gSentPokesToOpponent[flank] = bits;
     }
 }
@@ -1235,7 +1235,7 @@ void UpdateSentPokesToOpponentValue(u8 battler)
         s32 i;
 
         for (i = 1; i < gBattlersCount; ++i)
-            gSentPokesToOpponent[(i & BIT_FLANK) >> 1] |= gBitTable[gBattlerPartyIndexes[battler]];
+            gSentPokesToOpponent[(i & BIT_FLANK) >> 1] |= (1u << gBattlerPartyIndexes[battler]);
     }
 }
 
@@ -1385,47 +1385,47 @@ u8 CheckMoveLimitations(u32 battler, u8 unusableMoves, u16 check)
         move = gBattleMons[battler].moves[i];
 
         if (move == MOVE_NONE && check & MOVE_LIMITATION_ZEROMOVE)
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         if (gBattleMons[battler].pp[i] == 0 && check & MOVE_LIMITATION_PP)
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         if (move == gDisableStructs[battler].disabledMove && check & MOVE_LIMITATION_DISABLED)
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         if (move == gDisableStructs[battler].inthralledMove && check & MOVE_LIMITATION_DISABLED)
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         if (move == gLastMoves[battler] && check & MOVE_LIMITATION_TORMENTED && gBattleMons[battler].status2 & STATUS2_TORMENT)
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         if (gDisableStructs[battler].tauntTimer && check & MOVE_LIMITATION_TAUNT && IS_MOVE_STATUS(move))
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         if (GetImprisonedMovesCount(battler, move) && check & MOVE_LIMITATION_IMPRISON)
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         if (gDisableStructs[battler].bindTurns && gDisableStructs[battler].bindedMove != MOVE_NONE)
             if (gDisableStructs[battler].bindedMove != move) //checking existing moves for locked move, if bind move is move none ex. switch all moves are unusable?
-            unusableMoves |= gBitTable[i]; //adds moves to unusable list
+            unusableMoves |= (1u << i); //adds moves to unusable list
         if (gDisableStructs[battler].encoreTimer && gDisableStructs[battler].encoredMove != move)
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         if (holdEffect == HOLD_EFFECT_CHOICE_BAND && *choicedMove != 0 && *choicedMove != 0xFFFF && *choicedMove != move)
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         // Assault Vest
         if (holdEffect == HOLD_EFFECT_ASSAULT_VEST && IS_MOVE_STATUS(move) && move != MOVE_ME_FIRST)
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         // Gravity
         if (IsGravityPreventingMove(move))
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         // Heal Block
         if (IsHealBlockPreventingMove(battler, move))
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         // Belch
         if (IsBelchPreventingMove(battler, move))
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         // Throat Chop
         if (gDisableStructs[battler].throatChopTimer && gBattleMoves[move].flags & FLAG_SOUND)// this is correct I had thought I removed flag soud but didn't
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         // Stuff Cheeks
         if (move == MOVE_STUFF_CHEEKS && ItemId_GetPocket(gBattleMons[battler].item) != POCKET_BERRY_POUCH)
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
         // Gorilla Tactics
         if (GetBattlerAbility(battler) == ABILITY_GORILLA_TACTICS && *choicedMove != MOVE_NONE && *choicedMove != 0xFFFF && *choicedMove != move)
-            unusableMoves |= gBitTable[i];
+            unusableMoves |= (1u << i);
     }
     return unusableMoves;
 }
@@ -1566,7 +1566,7 @@ static bool32 IsBelchPreventingMove(u32 battler, u32 move)
         return FALSE;
         
 
-    return !(gBattleStruct->ateBerry[battler & BIT_SIDE] & gBitTable[gBattlerPartyIndexes[battler]]);
+    return !(gBattleStruct->ateBerry[battler & BIT_SIDE] & (1u << gBattlerPartyIndexes[battler]));
 }
 
 //added use for is_battler_any_type macro
@@ -1889,10 +1889,10 @@ u8 DoFieldEndTurnEffects(void)
 {
     u8 effect = 0;
 
-    for (gBattlerAttacker = 0; gBattlerAttacker < gBattlersCount && gAbsentBattlerFlags & gBitTable[gBattlerAttacker]; gBattlerAttacker++)
+    for (gBattlerAttacker = 0; gBattlerAttacker < gBattlersCount && gAbsentBattlerFlags & (1u << gBattlerAttacker); gBattlerAttacker++)
     {
     }
-    for (gBattlerTarget = 0; gBattlerTarget < gBattlersCount && gAbsentBattlerFlags & gBitTable[gBattlerTarget]; gBattlerTarget++)
+    for (gBattlerTarget = 0; gBattlerTarget < gBattlersCount && gAbsentBattlerFlags & (1u << gBattlerTarget); gBattlerTarget++)
     {
     }
     do
@@ -2698,7 +2698,7 @@ u8 DoBattlerEndTurnEffects(void)
     while (gBattleStruct->turnEffectsBattlerId < gBattlersCount && gBattleStruct->turnEffectsTracker <= ENDTURN_BATTLER_COUNT)
     {
         battler = gBattlerAttacker = gBattlerByTurnOrder[gBattleStruct->turnEffectsBattlerId];
-        if (gAbsentBattlerFlags & gBitTable[battler])
+        if (gAbsentBattlerFlags & (1u << battler))
         {
             ++gBattleStruct->turnEffectsBattlerId;
         }
@@ -3852,7 +3852,7 @@ bool32 HandleWishPerishSongOnTurnEnd(void)
         while (gBattleStruct->wishPerishSongBattlerId < gBattlersCount)
         {
             battler = gBattleStruct->wishPerishSongBattlerId;
-            if (gAbsentBattlerFlags & gBitTable[battler])
+            if (gAbsentBattlerFlags & (1u << battler))
             {
                 ++gBattleStruct->wishPerishSongBattlerId;
                 continue;
@@ -3910,7 +3910,7 @@ bool32 HandleWishPerishSongOnTurnEnd(void)
         while (gBattleStruct->wishPerishSongBattlerId < gBattlersCount)
         {
             battler = gBattlerAttacker = gBattlerByTurnOrder[gBattleStruct->wishPerishSongBattlerId];
-            if (gAbsentBattlerFlags & gBitTable[battler])
+            if (gAbsentBattlerFlags & (1u << battler))
             {
                 ++gBattleStruct->wishPerishSongBattlerId;
                 continue;
@@ -3967,8 +3967,8 @@ bool8 HandleFaintedMonActions(void)
             ++gBattleStruct->faintedActionsState;
             for (i = 0; i < gBattlersCount; ++i)
             {
-                if (gAbsentBattlerFlags & gBitTable[i] && !HasNoMonsToSwitch(i, 6, 6))
-                    gAbsentBattlerFlags &= ~(gBitTable[i]);
+                if (gAbsentBattlerFlags & (1u << i) && !HasNoMonsToSwitch(i, 6, 6))
+                    gAbsentBattlerFlags &= ~((1u << i));
             }
             // fall through
         case 1:
@@ -3976,8 +3976,8 @@ bool8 HandleFaintedMonActions(void)
             {
                 gBattlerFainted = gBattlerTarget = gBattleStruct->faintedActionsBattlerId;
                 if (gBattleMons[gBattleStruct->faintedActionsBattlerId].hp == 0
-                    && !(gBattleStruct->givenExpMons & gBitTable[gBattlerPartyIndexes[gBattleStruct->faintedActionsBattlerId]])
-                    && !(gAbsentBattlerFlags & gBitTable[gBattleStruct->faintedActionsBattlerId]))
+                    && !(gBattleStruct->givenExpMons & (1u << gBattlerPartyIndexes[gBattleStruct->faintedActionsBattlerId]))
+                    && !(gAbsentBattlerFlags & (1u << gBattleStruct->faintedActionsBattlerId)))
                 {
                     BattleScriptExecute(BattleScript_GiveExp);
                     gBattleStruct->faintedActionsState = 2;
@@ -4002,7 +4002,7 @@ bool8 HandleFaintedMonActions(void)
             {
                 gBattlerFainted = gBattlerTarget = gBattleStruct->faintedActionsBattlerId;
                 if (gBattleMons[gBattleStruct->faintedActionsBattlerId].hp == 0
-                    && !(gAbsentBattlerFlags & gBitTable[gBattleStruct->faintedActionsBattlerId]))
+                    && !(gAbsentBattlerFlags & (1u << gBattleStruct->faintedActionsBattlerId)))
                 {
                     BattleScriptExecute(BattleScript_HandleFaintedMon);
                     gBattleStruct->faintedActionsState = 5;
@@ -4448,7 +4448,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                             {
 
                                 if (CompareStat(gBattlerAttacker, i, MAX_STAT_STAGE, CMP_LESS_THAN))
-                                    validToRaise |= gBitTable[i];
+                                    validToRaise |= (1u << i);
                                 if (CompareStat(gBattlerAttacker, i, DEFAULT_STAT_STAGE, CMP_LESS_THAN))
                                     gBattleMons[gBattlerAttacker].statStages[i] = DEFAULT_STAT_STAGE;
                             }//sets stat to raise, and cleanse lowered stats
@@ -4461,7 +4461,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                                     do
                                     {
                                         i = (Random() % statsNum) + STAT_ATK;
-                                    } while (!(validToRaise & gBitTable[i]));
+                                    } while (!(validToRaise & (1u << i)));
                                     SET_STATCHANGER(i, 2, FALSE);
                                     
                                 }
@@ -4943,7 +4943,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                         *bideDmg = gTakenDmg[gBattlerAttacker] * 23 / 10; //not sure how it loops rn, but I believe it copies to a separate variable
                       //  *bideDmg = gTakenDmg[gBattlerAttacker] * 2;   //may go back to 2x if 2.3 is too much
                         gBattlerTarget = gTakenDmgByBattler[gBattlerAttacker];
-                        if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
+                        if (gAbsentBattlerFlags & (1u << gBattlerTarget))
                             gBattlerTarget = GetMoveTarget(MOVE_BIDE, MOVE_TARGET_SELECTED + 1);
                         gBattlescriptCurrInstr = BattleScript_BideAttack;
                         gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_BIDE); //status remover
@@ -4964,7 +4964,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                 {
 
                     gBattlerTarget = gTakenDmgByBattler[gBattlerAttacker];
-                    if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
+                    if (gAbsentBattlerFlags & (1u << gBattlerTarget))
                         gBattlerTarget = GetMoveTarget(MOVE_DRYADS_CURSE, 1);
                 }
                 else
@@ -7509,9 +7509,9 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                         for (i = STAT_ATK; i < statsNum; i++)
                         {
                             if (CompareStat(battler, i, MIN_STAT_STAGE, CMP_GREATER_THAN))  //if battler's chosen stat to change, is greater than min stage, can lower
-                                validToLower |= gBitTable[i];
+                                validToLower |= (1u << i);
                             if (CompareStat(battler, i, MAX_STAT_STAGE, CMP_LESS_THAN))
-                                validToRaise |= gBitTable[i];
+                                validToRaise |= (1u << i);
                         }
 
                         if (validToLower != 0 || validToRaise != 0) // Can lower one stat, or can raise one stat
@@ -7522,16 +7522,16 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                                 do
                                 {
                                     i = (Random() % statsNum) + STAT_ATK;
-                                } while (!(validToRaise & gBitTable[i]));
+                                } while (!(validToRaise & (1u << i)));
                                 SET_STATCHANGER(i, 2, FALSE);
-                                validToLower &= ~(gBitTable[i]); // Can't lower the same stat as raising.
+                                validToLower &= ~((1u << i)); // Can't lower the same stat as raising.
                             }
                             if (validToLower != 0) // Find stat to lower
                             {
                                 do
                                 {
                                     i = (Random() % statsNum) + STAT_ATK;
-                                } while (!(validToLower & gBitTable[i]));
+                                } while (!(validToLower & (1u << i)));
                                 SET_STATCHANGER2(gBattleScripting.savedStatChanger, i, 1, TRUE);
                             }
                             BattleScriptPushCursorAndCallback(BattleScript_MoodyActivates);
@@ -8411,7 +8411,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                         side = GetBattlerSide(gBattlerAttacker);
                         gLastUsedItem = gBattleMons[gBattlerAttacker].item; //need to make sure these work so player can recover item after check theif/knock off function in bs commands vsonic
                         gBattleMons[gBattlerAttacker].item = ITEM_NONE;
-                        gWishFutureKnock.knockedOffMons[side] |= gBitTable[gBattlerPartyIndexes[gBattlerAttacker]];
+                        gWishFutureKnock.knockedOffMons[side] |= (1u << gBattlerPartyIndexes[gBattlerAttacker]);
                         BattleScriptPushCursor();
                         if (GetBattlerAbility(battler) == ABILITY_MAGMA_ARMOR) //is using battler fine or do I need gbattlertarget? vsonic
                             gBattlescriptCurrInstr = BattleScript_MoveEffectIncinerate;   //changed to new magma armor script
@@ -8607,7 +8607,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             case ABILITY_PICKPOCKET:  //looks clunky, think they had troble setting up will attempt to do it better
                 if (IsBattlerAlive(gBattlerAttacker)
                     && gBattleMons[gBattlerAttacker].item != ITEM_NONE
-                    && !(gWishFutureKnock.knockedOffMons[GetBattlerSide(gBattlerAttacker)] & gBitTable[gBattlerPartyIndexes[gBattlerAttacker]])   //POSSIBLY remove this
+                    && !(gWishFutureKnock.knockedOffMons[GetBattlerSide(gBattlerAttacker)] & (1u << gBattlerPartyIndexes[gBattlerAttacker]))   //POSSIBLY remove this
                     //&& !(TestSheerForceFlag(gBattlerAttacker, gCurrentMove))  // Pickpocket doesn't activate for sheer force  removing this, as its probably a coding error by GF
                     && IsMoveMakingContact(gCurrentMove, gBattlerAttacker)    // Pickpocket requires contact
                     && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
@@ -9113,7 +9113,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                         side = GetBattlerSide(gBattlerTarget);
                         gLastUsedItem = gBattleMons[gBattlerTarget].item;
                         gBattleMons[gBattlerTarget].item = ITEM_NONE;
-                        gWishFutureKnock.knockedOffMons[side] |= gBitTable[gBattlerPartyIndexes[gBattlerTarget]];
+                        gWishFutureKnock.knockedOffMons[side] |= (1u << gBattlerPartyIndexes[gBattlerTarget]);
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_MoveEffectIncinerate;
                         gBattleStruct->choicedMove[gBattlerTarget] = MOVE_NONE; //think can replace with this
@@ -9140,7 +9140,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     && gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[gBattlerAttacker]][GetBattlerSide(gBattlerAttacker)] == ITEM_NONE
                     && CanStealItem(gBattlerAttacker, gBattlerTarget, gBattleMons[gBattlerTarget].item)
                     && !gSpecialStatuses[gBattlerAttacker].gemBoost   // In base game, gems are consumed after magician would activate.
-                    && !(gWishFutureKnock.knockedOffMons[GetBattlerSide(gBattlerTarget)] & gBitTable[gBattlerPartyIndexes[gBattlerTarget]])
+                    && !(gWishFutureKnock.knockedOffMons[GetBattlerSide(gBattlerTarget)] & (1u << gBattlerPartyIndexes[gBattlerTarget]))
                     && !DoesSubstituteBlockMove(gBattlerAttacker, gBattlerTarget, gCurrentMove)
                     && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && (GetBattlerAbility(gBattlerTarget) != ABILITY_STICKY_HOLD || !IsBattlerAlive(gBattlerTarget)))
@@ -11137,7 +11137,7 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn)   //
 
     // Berry was successfully used on a Pokemon.
     if (effect && (gLastUsedItem >= FIRST_BERRY_INDEX && gLastUsedItem <= LAST_BERRY_INDEX))
-        gBattleStruct->ateBerry[battler & BIT_SIDE] |= gBitTable[gBattlerPartyIndexes[battler]];
+        gBattleStruct->ateBerry[battler & BIT_SIDE] |= (1u << gBattlerPartyIndexes[battler]);
 
     return effect;
 }
@@ -11476,7 +11476,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
     case MOVE_TARGET_FOES_AND_ALLY:
     case MOVE_TARGET_OPPONENTS_FIELD:
         targetBattler = GetBattlerAtPosition((GetBattlerPosition(gBattlerAttacker) & BIT_SIDE) ^ BIT_SIDE);
-        if (gAbsentBattlerFlags & gBitTable[targetBattler])
+        if (gAbsentBattlerFlags & (1u << targetBattler))
             targetBattler ^= BIT_FLANK;
         break;
     case MOVE_TARGET_RANDOM:
@@ -11599,7 +11599,7 @@ bool8 CanBattlerGetOrLoseItem(u8 battlerId, u16 itemId)//changed logic will only
         return FALSE;
     // Mega stone cannot be lost if pokemon can mega evolve with it or is already mega evolved.
     else if (ItemId_GetHoldEffect(itemId) == HOLD_EFFECT_MEGA_STONE)
-        //&& ((GetMegaEvolutionSpecies(species, itemId) != SPECIES_NONE) || gBattleStruct->mega.evolvedPartyIds[GetBattlerSide(battlerId)] & gBitTable[gBattlerPartyIndexes[battlerId]]))
+        //&& ((GetMegaEvolutionSpecies(species, itemId) != SPECIES_NONE) || gBattleStruct->mega.evolvedPartyIds[GetBattlerSide(battlerId)] & (1u << gBattlerPartyIndexes[battlerId])))
         return FALSE;
     /*else if (species == SPECIES_GIRATINA && itemId == ITEM_GRISEOUS_ORB)
         return FALSE;*/
@@ -12425,7 +12425,7 @@ bool32 CanMegaEvolve(u32 battler)
 
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
      && IsPartnerMonFromSameTrainer(battler)
-     && (mega->alreadyEvolved[partnerPosition] || (mega->toEvolve & gBitTable[BATTLE_PARTNER(battler)])))
+     && (mega->alreadyEvolved[partnerPosition] || (mega->toEvolve & (1u << BATTLE_PARTNER(battler)))))
         return FALSE;
 
     // Check if mon is currently held by Sky Drop
@@ -12606,9 +12606,9 @@ u16 GetBattleFormChangeTargetSpecies(u8 battlerId, u16 method)
 
 /*void UndoMegaEvolution(u32 monId)
 {
-    if (gBattleStruct->mega.evolvedPartyIds[B_SIDE_PLAYER] & gBitTable[monId])
+    if (gBattleStruct->mega.evolvedPartyIds[B_SIDE_PLAYER] & (1u << monId))
     {
-        gBattleStruct->mega.evolvedPartyIds[B_SIDE_PLAYER] &= ~(gBitTable[monId]);
+        gBattleStruct->mega.evolvedPartyIds[B_SIDE_PLAYER] &= ~((1u << monId));
         SetMonData(&gPlayerParty[monId], MON_DATA_SPECIES, &gBattleStruct->mega.playerEvolvedSpecies);
         CalculateMonStats(&gPlayerParty[monId]);
     }
@@ -12626,15 +12626,15 @@ u16 GetBattleFormChangeTargetSpecies(u8 battlerId, u16 method)
     u16 baseSpecies = GET_BASE_SPECIES_ID(GetMonData(&gPlayerParty[monId], MON_DATA_SPECIES));
     u8 side = GET_BATTLER_SIDE(battler);
 
-    if (gBattleStruct->mega.evolvedPartyIds[B_SIDE_PLAYER] & gBitTable[monId])
+    if (gBattleStruct->mega.evolvedPartyIds[B_SIDE_PLAYER] & (1u << monId))
     {
-        gBattleStruct->mega.evolvedPartyIds[B_SIDE_PLAYER] &= ~(gBitTable[monId]);
+        gBattleStruct->mega.evolvedPartyIds[B_SIDE_PLAYER] &= ~((1u << monId));
         SetMonData(&gPlayerParty[monId], MON_DATA_SPECIES, &gBattleStruct->mega.playerEvolvedSpecies);
         CalculateMonStats(&gPlayerParty[monId]);
     }
-    else if (gBattleStruct->mega.primalRevertedPartyIds[B_SIDE_PLAYER] & gBitTable[monId])
+    else if (gBattleStruct->mega.primalRevertedPartyIds[B_SIDE_PLAYER] & (1u << monId))
     {
-        gBattleStruct->mega.primalRevertedPartyIds[B_SIDE_PLAYER] &= ~(gBitTable[monId]);
+        gBattleStruct->mega.primalRevertedPartyIds[B_SIDE_PLAYER] &= ~((1u << monId));
         SetMonData(&gPlayerParty[monId], MON_DATA_SPECIES, &baseSpecies);
         CalculateMonStats(&gPlayerParty[monId]);
     }

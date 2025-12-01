@@ -2767,7 +2767,7 @@ void CreateAbilityPopUp(u8 battlerId, u32 ability, bool32 isDoubleBattle)
         LoadSpriteSheet(&sSpriteSheet_AbilityPopUp);
         LoadSpritePalette(&sSpritePalette_AbilityPopUp);
     }
-    gBattleStruct->activeAbilityPopUps |= gBitTable[battlerId];
+    gBattleStruct->activeAbilityPopUps |= (1u << battlerId);
     battlerPosition = GetBattlerPosition(battlerId);
 
     if (isDoubleBattle)
@@ -2850,7 +2850,7 @@ static void SpriteCB_AbilityPopUp(struct Sprite* sprite)
                 || (sprite->tRightToLeft && (sprite->pos1.x -= 4) <= sprite->tOriginalX - ABILITY_POP_UP_POS_X_SLIDE)
                 )
             {
-                gBattleStruct->activeAbilityPopUps &= ~(gBitTable[sprite->tBattlerId]);
+                gBattleStruct->activeAbilityPopUps &= ~((1u << sprite->tBattlerId));
                 DestroySprite(sprite);
             }
         }

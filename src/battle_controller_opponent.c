@@ -167,7 +167,7 @@ void SetControllerToOpponent(u32 battler)
 
 static void OpponentBufferRunCommand(u32 battler)
 {
-    if (gBattleControllerExecFlags & gBitTable[battler])
+    if (gBattleControllerExecFlags & (1u << battler))
     {
         if (gBattleResources->bufferA[battler][0] < NELEMS(sOpponentBufferCommands))
             sOpponentBufferCommands[gBattleResources->bufferA[battler][0]](battler);
@@ -425,7 +425,7 @@ static void CompleteOnFinishedBattleAnimation(u32 battler)
 void OpponentBufferExecCompleted(u32 battler)
 {
     gBattlerControllerFuncs[battler] = OpponentBufferRunCommand;
-    gBattleControllerExecFlags &= ~gBitTable[battler];
+    gBattleControllerExecFlags &= ~(1u << battler);
 }
 
 static void OpponentHandleGetMonData(u32 battler) //vsonic IMPORTANT prob need update this  for triple battles
@@ -1392,7 +1392,7 @@ static void OpponentHandleChooseMove(u32 battler)
             if (gBattleMoves[moveInfo->moves[chosenMoveId]].target & MOVE_TARGET_BOTH)
             {
                 gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-                if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
+                if (gAbsentBattlerFlags & (1u << gBattlerTarget))
                     gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
             }
 

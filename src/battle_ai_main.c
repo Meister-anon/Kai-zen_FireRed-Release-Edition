@@ -210,7 +210,7 @@ void BattleAI_SetupAIData(u8 defaultScoreMoves, u32 battler)
     // Ignore moves that aren't possible to use.
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
-        if (gBitTable[i] & moveLimitations) //vsonic compare to normal fire red see if was true
+        if ((1u << i) & moveLimitations) //vsonic compare to normal fire red see if was true
             AI_THINKING_STRUCT->score[i] = 0;
     }
 
@@ -333,12 +333,12 @@ void Ai_UpdateSwitchInData(u32 battler)
         if (doubleBattle)
         {
             u32 partner = BATTLE_PARTNER(battler);
-            if (AI_DATA->shouldSwitchMon & gBitTable[partner] && AI_DATA->monToSwitchId[partner] == monToSwitchId)
+            if (AI_DATA->shouldSwitchMon & (1u << partner) && AI_DATA->monToSwitchId[partner] == monToSwitchId)
             {
                 return FALSE;
             }
         }
-        AI_DATA->shouldSwitchMon |= gBitTable[battler];
+        AI_DATA->shouldSwitchMon |= (1u << battler);
         AI_DATA->monToSwitchId[battler] = monToSwitchId;
         return TRUE;
     }
@@ -407,7 +407,7 @@ void GetAiLogicData(void)
                 if (move != 0
                  && move != 0xFFFF
                  //&& gBattleMoves[move].power != 0  /* we want to get effectiveness of status moves */
-                 && !(AI_DATA->moveLimitations[battlerAtk] & gBitTable[i])) {
+                 && !(AI_DATA->moveLimitations[battlerAtk] & (1u << i))) {
                     //ALso sets effectiveness
                     dmg = AI_CalcDamage(move, battlerAtk, battlerDef, &effectiveness, TRUE); 
                 }
@@ -5499,7 +5499,7 @@ void BattleAI_SetupAIData_Default(void)
     // Ignore moves that aren't possible to use.
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
-        if (gBitTable[i] & moveLimitations)
+        if ((1u << i) & moveLimitations)
             AI_THINKING_STRUCT->score[i] = 0;
 
         AI_THINKING_STRUCT->simulatedRNG[i] = 100 - (Random() % 16);
@@ -5512,7 +5512,7 @@ void BattleAI_SetupAIData_Default(void)
     {
         gBattlerTarget = (Random() & BIT_FLANK);
 
-        if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
+        if (gAbsentBattlerFlags & (1u << gBattlerTarget))
             gBattlerTarget ^= BIT_FLANK;
     }
     // There's only one choice in single battles.

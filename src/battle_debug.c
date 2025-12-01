@@ -1886,7 +1886,7 @@ static const u8 *GetHoldEffectName(u16 holdEffect)
         return FALSE;
     else if (battler >= gBattlersCount)
         return FALSE;
-    else if (gAbsentBattlerFlags & gBitTable[battler])
+    else if (gAbsentBattlerFlags & (1u << battler))
         return FALSE;
     else
         return TRUE;

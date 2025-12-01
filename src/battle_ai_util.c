@@ -719,13 +719,13 @@ bool32 MovesWithSplitUnusable(u32 attacker, u32 target, u32 split)
         if (moves[i] != MOVE_NONE
             && moves[i] != 0xFFFF
             && GetBattleMoveSplit(moves[i]) == split
-            && !(unusable & gBitTable[i]))
+            && !(unusable & (1u << i)))
         {
             //SetTypeBeforeUsingMove(moves[i], attacker);
             //GET_MOVE_TYPE(moves[i], moveType);
             SetTypeBeforeUsingMove(moves[i], attacker, &moveType);
             if (CalcTypeEffectivenessMultiplier(moves[i], moveType, attacker, target, FALSE) != 0)
-                usable |= gBitTable[i];
+                usable |= (1u << i);
         }
     }
 
@@ -1204,7 +1204,7 @@ bool32 CanTargetFaintAi(u8 battlerDef, u8 battlerAtk)
 
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
-        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && !(unusable & gBitTable[i])
+        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && !(unusable & (1u << i))
             && AI_DATA->simulatedDmg[battlerDef][battlerAtk][moves[i]] >= gBattleMons[battlerAtk].hp)
         {
             return TRUE;
@@ -1224,7 +1224,7 @@ bool32 CanAIFaintTarget(u8 battlerAtk, u8 battlerDef, u8 numHits)
 
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
-        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && !(moveLimitations & gBitTable[i]))
+        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && !(moveLimitations & (1u << i)))
         {
             // Use the pre-calculated value in simulatedDmg instead of re-calculating it
             dmg = AI_DATA->simulatedDmg[battlerAtk][battlerDef][i];
@@ -1276,7 +1276,7 @@ bool32 CanTargetFaintAiWithMod(u8 battlerDef, u8 battlerAtk, s32 hpMod, s32 dmgM
         if (dmgMod)
             dmg *= dmgMod;
 
-        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && !(unusable & gBitTable[i]) && dmg >= hpCheck)
+        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && !(unusable & (1u << i)) && dmg >= hpCheck)
         {
             return TRUE;
         }
@@ -2238,7 +2238,7 @@ bool32 HasMoveWithLowAccuracy(u8 battlerAtk, u8 battlerDef, u8 accCheck, bool32 
         if (moves[i] == MOVE_NONE || moves[i] == 0xFFFF)
             continue;
 
-        if (!(gBitTable[i] & moveLimitations))
+        if (!((1u << i) & moveLimitations))
         {
             if (ignoreStatus && IS_MOVE_STATUS(moves[i]))
                 continue;
@@ -2264,7 +2264,7 @@ bool32 HasSleepMoveWithLowAccuracy(u8 battlerAtk, u8 battlerDef)
     {
         if (moves[i] == MOVE_NONE)
             break;
-        if (!(gBitTable[i] & moveLimitations))
+        if (!((1u << i) & moveLimitations))
         {
             if (gBattleMoves[moves[i]].effect == EFFECT_SLEEP
               && AI_GetMoveAccuracy(battlerAtk, battlerDef, moves[i]) < 85)

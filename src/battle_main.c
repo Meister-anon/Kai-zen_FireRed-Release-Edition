@@ -4656,7 +4656,7 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
     gBattleStruct->lastTakenMoveFrom[battler][1] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][2] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][3] = 0;
-    gBattleStruct->lastMoveFailed &= ~(gBitTable[battler]);
+    gBattleStruct->lastMoveFailed &= ~((1u << battler));
 
     if (battler == gBattleStruct->stickyWebUser)
         gBattleStruct->stickyWebUser = 0xFF;    // Switched into sticky web user slot so reset it
@@ -5590,10 +5590,10 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
             *(gBattleStruct->monToSwitchIntoId + battler) = PARTY_SIZE;
             if (gBattleTypeFlags & BATTLE_TYPE_MULTI
              || (position & BIT_FLANK) == B_FLANK_LEFT
-             || gBattleStruct->absentBattlerFlags & gBitTable[GetBattlerAtPosition(BATTLE_PARTNER(position))]
+             || gBattleStruct->absentBattlerFlags & (1u << GetBattlerAtPosition(BATTLE_PARTNER(position)))
              || gBattleCommunication[GetBattlerAtPosition(BATTLE_PARTNER(position))] == STATE_WAIT_ACTION_CONFIRMED) //partner already chose action
             {
-                if (gBattleStruct->absentBattlerFlags & gBitTable[battler])
+                if (gBattleStruct->absentBattlerFlags & (1u << battler))
                 {
                     gChosenActionByBattler[battler] = B_ACTION_NOTHING_FAINTED;
                     if (!(gBattleTypeFlags & BATTLE_TYPE_MULTI))
@@ -5622,7 +5622,7 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
             }
             break;
         case STATE_WAIT_ACTION_CHOSEN: // Try to perform an action. //i.e selection from fight,pokemon,item/run
-            if (!(gBattleControllerExecFlags & ((gBitTable[battler]) | (0xF << 28) | (gBitTable[battler] << 4) | (gBitTable[battler] << 8) | (gBitTable[battler] << 0xC))))
+            if (!(gBattleControllerExecFlags & (((1u << battler)) | (0xF << 28) | ((1u << battler) << 4) | ((1u << battler) << 8) | ((1u << battler) << 0xC))))
             {
                 //passes selected action, to gchosen for next link in action chain, 
                 //present task identify process to fix bind, then return to dex
@@ -5756,7 +5756,7 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
             }
             break;
         case STATE_WAIT_ACTION_CASE_CHOSEN:
-            if (!(gBattleControllerExecFlags & ((gBitTable[battler]) | (0xF0000000) | (gBitTable[battler] << 4) | (gBitTable[battler] << 8) | (gBitTable[battler] << 0xC))))
+            if (!(gBattleControllerExecFlags & (((1u << battler)) | (0xF0000000) | ((1u << battler) << 4) | ((1u << battler) << 8) | ((1u << battler) << 0xC))))
             {
                 switch (gChosenActionByBattler[battler])
                 {
@@ -5851,7 +5851,7 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
             }
             break;
         case STATE_WAIT_ACTION_CONFIRMED_STANDBY:
-            if (!(gBattleControllerExecFlags & ((gBitTable[battler]) | (0xF0000000) | (gBitTable[battler] << 4) | (gBitTable[battler] << 8) | (gBitTable[battler] << 0xC))))
+            if (!(gBattleControllerExecFlags & (((1u << battler)) | (0xF0000000) | ((1u << battler) << 4) | ((1u << battler) << 8) | ((1u << battler) << 0xC))))
             {
                 if (((gBattleTypeFlags & (BATTLE_TYPE_MULTI | BATTLE_TYPE_DOUBLE)) != BATTLE_TYPE_DOUBLE)
                  || (position & BIT_FLANK) != B_FLANK_LEFT
@@ -5864,7 +5864,7 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
             }
             break;
         case STATE_WAIT_ACTION_CONFIRMED:
-            if (!(gBattleControllerExecFlags & ((gBitTable[battler]) | (0xF0000000) | (gBitTable[battler] << 4) | (gBitTable[battler] << 8) | (gBitTable[battler] << 0xC))))
+            if (!(gBattleControllerExecFlags & (((1u << battler)) | (0xF0000000) | ((1u << battler) << 4) | ((1u << battler) << 8) | ((1u << battler) << 0xC))))
                 ++gBattleCommunication[ACTIONS_CONFIRMED_COUNT];
             break;
         case STATE_SELECTION_SCRIPT:
@@ -5876,13 +5876,13 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
             {
                 gBattlerAttacker = battler;
                 gBattlescriptCurrInstr = gSelectionBattleScripts[battler];
-                if (!(gBattleControllerExecFlags & ((gBitTable[battler]) | (0xF0000000) | (gBitTable[battler] << 4) | (gBitTable[battler] << 8) | (gBitTable[battler] << 0xC))))
+                if (!(gBattleControllerExecFlags & (((1u << battler)) | (0xF0000000) | ((1u << battler) << 4) | ((1u << battler) << 8) | ((1u << battler) << 0xC))))
                     gBattleScriptingCommandsTable[gBattlescriptCurrInstr[0]]();
                 gSelectionBattleScripts[battler] = gBattlescriptCurrInstr;
             }
             break;
         case STATE_WAIT_SET_BEFORE_ACTION:
-            if (!(gBattleControllerExecFlags & ((gBitTable[battler]) | (0xF0000000) | (gBitTable[battler] << 4) | (gBitTable[battler] << 8) | (gBitTable[battler] << 0xC))))
+            if (!(gBattleControllerExecFlags & (((1u << battler)) | (0xF0000000) | ((1u << battler) << 4) | ((1u << battler) << 8) | ((1u << battler) << 0xC))))
                 gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
             break;
         }
@@ -6563,21 +6563,21 @@ static void CheckFocusPunch_ClearVarsBeforeTurnStarts(void)
         for (i = 0; i < gBattlersCount; i++)
         {
             // Dynamax Check
-            if (gBattleStruct->dynamax.toDynamax & gBitTable[order[i]])
+            if (gBattleStruct->dynamax.toDynamax & (1u << order[i]))
             {
                 gBattlerAttacker = order[i];
                 gBattleScripting.battler = gBattlerAttacker;
-                gBattleStruct->dynamax.toDynamax &= ~(gBitTable[gBattlerAttacker]);
+                gBattleStruct->dynamax.toDynamax &= ~((1u << gBattlerAttacker));
                 PrepareBattlerForDynamax(gBattlerAttacker);
                 BattleScriptExecute(BattleScript_DynamaxBegins);
                 return TRUE;
             }
             // Mega Evo Check
-            if (gBattleStruct->mega.toEvolve & gBitTable[order[i]]
+            if (gBattleStruct->mega.toEvolve & (1u << order[i])
                 && !(gProtectStructs[order[i]].noValidMoves))
             {
                 gBattlerAttacker = order[i];
-                gBattleStruct->mega.toEvolve &= ~(gBitTable[gBattlerAttacker]);
+                gBattleStruct->mega.toEvolve &= ~((1u << gBattlerAttacker));
                 gLastUsedItem = gBattleMons[gBattlerAttacker].item;
                 if (GetBattleFormChangeTargetSpecies(gBattlerAttacker, FORM_CHANGE_BATTLE_MEGA_EVOLUTION_MOVE) != SPECIES_NONE)
                     BattleScriptExecute(BattleScript_WishMegaEvolution);
@@ -6586,11 +6586,11 @@ static void CheckFocusPunch_ClearVarsBeforeTurnStarts(void)
                 return TRUE;
             }
             // Ultra Burst Check
-            if (gBattleStruct->burst.toBurst & gBitTable[order[i]]
+            if (gBattleStruct->burst.toBurst & (1u << order[i])
                 && !(gProtectStructs[order[i]].noValidMoves))
             {
                 battler = gBattlerAttacker = order[i];
-                gBattleStruct->burst.toBurst &= ~(gBitTable[battler]);
+                gBattleStruct->burst.toBurst &= ~((1u << battler));
                 gLastUsedItem = gBattleMons[battler].item;
                 BattleScriptExecute(BattleScript_UltraBurst);
                 return TRUE;
@@ -6646,12 +6646,12 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
                     return TRUE;
                 }
             }
-            /*if (!(gBattleStruct->focusPunchBattlers & gBitTable[battlers[i]])
+            /*if (!(gBattleStruct->focusPunchBattlers & (1u << battlers[i]))
                 && !(gBattleMons[battlers[i]].status1 & STATUS1_SLEEP)
                 && !(gDisableStructs[battlers[i]].truantCounter)
                 && !(gProtectStructs[battlers[i]].noValidMoves))
             {
-                gBattleStruct->focusPunchBattlers |= gBitTable[battlers[i]];
+                gBattleStruct->focusPunchBattlers |= (1u << battlers[i]);
                 gBattlerAttacker = battlers[i];
                 switch (gChosenMoveByBattler[gBattlerAttacker])
                 {
@@ -6905,7 +6905,7 @@ static void HandleEndTurn_FinishBattle(void)
 
             bool8 changedForm = FALSE;
             // Appeared in battle and didn't faint
-            if ((gBattleStruct->appearedInBattle & gBitTable[i]) && GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) != 0)
+            if ((gBattleStruct->appearedInBattle & (1u << i)) && GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) != 0)
                 changedForm = TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_END_BATTLE_TERRAIN);
             if (!changedForm)
                 changedForm = TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_END_BATTLE);
@@ -6986,12 +6986,12 @@ static void TryEvolvePokemon(void) //want battle evolution for player and oppone
     {
         for (i = 0; i < PARTY_SIZE; ++i)
         {
-            if (gLeveledUpInBattle & gBitTable[i])
+            if (gLeveledUpInBattle & (1u << i))
             {
                 u16 species;
                 u8 levelUpBits = gLeveledUpInBattle;
 
-                levelUpBits &= ~(gBitTable[i]); //This holds specfic mon value so removing keeps from retriggering I believe?
+                levelUpBits &= ~((1u << i)); //This holds specfic mon value so removing keeps from retriggering I believe?
                 gLeveledUpInBattle = levelUpBits;
                 species = GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_NORMAL, levelUpBits);
                 if (species != SPECIES_NONE)
@@ -7077,7 +7077,7 @@ static void HandleAction_UseMove(void)
     u16 moveTarget; //changing that didn't fix anything, targetting still fails
 
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
-    if (*(&gBattleStruct->absentBattlerFlags) & gBitTable[gBattlerAttacker])
+    if (*(&gBattleStruct->absentBattlerFlags) & (1u << gBattlerAttacker))
     {
         gCurrentActionFuncId = B_ACTION_FINISHED;
         return;
@@ -7195,14 +7195,14 @@ static void HandleAction_UseMove(void)
             else
                 gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
         }
-        if (gAbsentBattlerFlags & gBitTable[gBattlerTarget]
+        if (gAbsentBattlerFlags & (1u << gBattlerTarget)
          && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget))
             gBattlerTarget = GetBattlerAtPosition(GetBattlerPosition(gBattlerTarget) ^ BIT_FLANK);
     }
     else
     {
         gBattlerTarget = *(gBattleStruct->moveTarget + gBattlerAttacker);
-        if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
+        if (gAbsentBattlerFlags & (1u << gBattlerTarget))
         {
             if (GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget))
             {
@@ -7211,7 +7211,7 @@ static void HandleAction_UseMove(void)
             else
             {
                 gBattlerTarget = GetBattlerAtPosition(GetBattlerPosition(gBattlerAttacker) ^ BIT_SIDE);
-                if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
+                if (gAbsentBattlerFlags & (1u << gBattlerTarget))
                     gBattlerTarget = GetBattlerAtPosition(GetBattlerPosition(gBattlerTarget) ^ BIT_FLANK);
             }
         }

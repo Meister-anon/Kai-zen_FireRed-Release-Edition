@@ -98,7 +98,7 @@ static bool8 FindMonThatAbsorbsOpponentsMove(u32 battler)
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
         battlerIn1 = battler;
-        if (gAbsentBattlerFlags & gBitTable[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)))])
+        if (gAbsentBattlerFlags & (1u << GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)))))
             battlerIn2 = battler;
         else
             battlerIn2 = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)));
@@ -206,7 +206,7 @@ static bool8 HasSuperEffectiveMoveAgainstOpponents(u32 battler, bool8 noRng)
     u32 opposingPosition = BATTLE_OPPOSITE(GetBattlerPosition(battler));
     u32 opposingBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
 
-    if (!(gAbsentBattlerFlags & gBitTable[opposingBattler]))
+    if (!(gAbsentBattlerFlags & (1u << opposingBattler)))
     {
         for (i = 0; i < MAX_MON_MOVES; ++i)
         {
@@ -227,7 +227,7 @@ static bool8 HasSuperEffectiveMoveAgainstOpponents(u32 battler, bool8 noRng)
 
     opposingBattler = GetBattlerAtPosition(BATTLE_PARTNER(opposingPosition));
 
-    if (!(gAbsentBattlerFlags & gBitTable[opposingBattler]))
+    if (!(gAbsentBattlerFlags & (1u << opposingBattler)))
     {
         for (i = 0; i < MAX_MON_MOVES; ++i)
         {
@@ -276,7 +276,7 @@ static bool8 FindMonWithFlagsAndSuperEffective(u32 battler, u8 flags, u8 moduloP
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
         battlerIn1 = battler;
-        if (gAbsentBattlerFlags & gBitTable[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)))])
+        if (gAbsentBattlerFlags & (1u << GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)))))
             battlerIn2 = battler;
         else
             battlerIn2 = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)));
@@ -352,7 +352,7 @@ bool32 ShouldSwitch(u32 battler)
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
         battlerIn1 = battler;
-        if (gAbsentBattlerFlags & gBitTable[GetBattlerAtPosition(GetBattlerPosition(BATTLE_PARTNER(battler)))])
+        if (gAbsentBattlerFlags & (1u << GetBattlerAtPosition(GetBattlerPosition(BATTLE_PARTNER(battler)))))
             battlerIn2 = battler;
         else
             battlerIn2 = GetBattlerAtPosition(GetBattlerPosition(BATTLE_PARTNER(battler)));
@@ -551,7 +551,7 @@ u8 GetMostSuitableMonToSwitchInto(u32 battler)
             battlerIn2 = GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK);
         // UB: It considers the opponent only player's side even though it can battle alongside player.
         opposingBattler = Random() & BIT_FLANK;
-        if (gAbsentBattlerFlags & gBitTable[opposingBattler])
+        if (gAbsentBattlerFlags & (1u << opposingBattler))
             opposingBattler ^= BIT_FLANK;
     }
     else
@@ -582,7 +582,7 @@ u8 GetMostSuitableMonToSwitchInto(u32 battler)
             u16 species = GetMonData(&gEnemyParty[i], MON_DATA_SPECIES);
             if (species != SPECIES_NONE
                 && GetMonData(&gEnemyParty[i], MON_DATA_HP) != 0
-                && !(gBitTable[i] & invalidMons)
+                && !((1u << i) & invalidMons)
                 && gBattlerPartyIndexes[battlerIn1] != i
                 && gBattlerPartyIndexes[battlerIn2] != i
                 && i != *(gBattleStruct->monToSwitchIntoId + battlerIn1)
@@ -601,7 +601,7 @@ u8 GetMostSuitableMonToSwitchInto(u32 battler)
             }
             else
             {
-                invalidMons |= gBitTable[i];
+                invalidMons |= (1u << i);
             }
         }
         // Ok, we know the mon has the right typing but does it have at least one super effective move?
@@ -616,7 +616,7 @@ u8 GetMostSuitableMonToSwitchInto(u32 battler)
             if (i != MAX_MON_MOVES)
                 return bestMonId; // Has both the typing and at least one super effective move.
 
-            invalidMons |= gBitTable[bestMonId]; // Sorry buddy, we want something better.
+            invalidMons |= (1u << bestMonId); // Sorry buddy, we want something better.
         }
         else
         {

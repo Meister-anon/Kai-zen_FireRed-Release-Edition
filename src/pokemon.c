@@ -5214,7 +5214,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower *= 2;
         break;
         case EFFECT_STOMPING_TANTRUM:
-        if (gBattleStruct->lastMoveFailed & gBitTable[battlerIdAtk])
+        if (gBattleStruct->lastMoveFailed & (1u << battlerIdAtk))
             gBattleMovePower *= 2;
         break;
         case EFFECT_GRAV_APPLE:
@@ -6647,7 +6647,7 @@ u8 CountAliveMonsInBattle(u8 caseId, u32 battler)
     case BATTLE_ALIVE_EXCEPT_ACTIVE:
         for (i = 0; i < 4; i++)
         {
-            if (i != battler && !(gAbsentBattlerFlags & gBitTable[i]))
+            if (i != battler && !(gAbsentBattlerFlags & (1u << i)))
                 retVal++;
         }
         break;
@@ -6689,7 +6689,7 @@ u8 GetDefaultMoveTarget(u32 battler)
     }
     else
     {
-        if ((gAbsentBattlerFlags & gBitTable[opposing]))
+        if ((gAbsentBattlerFlags & (1u << opposing)))
             return GetBattlerAtPosition(BATTLE_PARTNER(opposing));
         else
             return GetBattlerAtPosition(opposing);
@@ -7648,7 +7648,7 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
                     || boxMon->move2 == move
                     || boxMon->move3 == move
                     || boxMon->move4 == move)
-                    retVal |= gBitTable[i];
+                    retVal |= (1u << i);
                 i++;
             }
         }
@@ -9055,7 +9055,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                             {
                                 if (battleMonId != 4)
                                 {
-                                    gAbsentBattlerFlags &= ~gBitTable[battleMonId];
+                                    gAbsentBattlerFlags &= ~(1u << battleMonId);
                                     CopyPlayerPartyMonToBattleData(battleMonId, GetPartyIdFromBattlePartyId(gBattlerPartyIndexes[battleMonId]));
                                     if (GetBattlerSide(gBattlerInMenuId) == B_SIDE_PLAYER && gBattleResults.numRevivesUsed < 63)
                                         gBattleResults.numRevivesUsed++;
@@ -9150,7 +9150,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                     SetMonData(mon, MON_DATA_PP1 + r5, &data);
                                     if (gMain.inBattle
                                         && battleMonId != 4 && !(gBattleMons[battleMonId].status2 & STATUS2_TRANSFORMED)
-                                        && !(gDisableStructs[battleMonId].mimickedMoves & gBitTable[r5]))
+                                        && !(gDisableStructs[battleMonId].mimickedMoves & (1u << r5)))
                                         gBattleMons[battleMonId].pp[r5] = data;
                                     retVal = FALSE;
                                 }
@@ -9175,7 +9175,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 SetMonData(mon, MON_DATA_PP1 + moveIndex, &data);
                                 if (gMain.inBattle
                                     && battleMonId != 4 && !(gBattleMons[battleMonId].status2 & STATUS2_TRANSFORMED)
-                                    && !(gDisableStructs[battleMonId].mimickedMoves & gBitTable[moveIndex]))
+                                    && !(gDisableStructs[battleMonId].mimickedMoves & (1u << moveIndex)))
                                     gBattleMons[battleMonId].pp[moveIndex] = data;
                                 retVal = FALSE;
                             }

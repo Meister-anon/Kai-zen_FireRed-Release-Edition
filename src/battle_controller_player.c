@@ -206,13 +206,13 @@ static void PlayerBufferExecCompleted(u32 battler)
     }
     else
     {
-        gBattleControllerExecFlags &= ~gBitTable[battler];
+        gBattleControllerExecFlags &= ~(1u << battler);
     }
 }
 
 static void PlayerBufferRunCommand(u32 battler)
 {
-    if (gBattleControllerExecFlags & gBitTable[battler])
+    if (gBattleControllerExecFlags & (1u << battler))
     {
         if (gBattleResources->bufferA[battler][0] < NELEMS(sPlayerBufferCommands))
             sPlayerBufferCommands[gBattleResources->bufferA[battler][0]](battler);
@@ -301,7 +301,7 @@ static void HandleInputChooseAction(u32 battler)
     {
         if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
          && GetBattlerPosition(battler) == B_POSITION_PLAYER_RIGHT
-         && !(gAbsentBattlerFlags & gBitTable[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)])
+         && !(gAbsentBattlerFlags & (1u << GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
          && !(gBattleTypeFlags & BATTLE_TYPE_MULTI))
         {
             if (gBattleResources->bufferA[battler][1] == B_ACTION_USE_ITEM) //if first pokemon has chosen actoin use item
@@ -430,7 +430,7 @@ static void HandleInputChooseTarget(u32 battler)
                 ++i;
                 break;
             }
-            if (gAbsentBattlerFlags & gBitTable[gMultiUsePlayerCursor])
+            if (gAbsentBattlerFlags & (1u << gMultiUsePlayerCursor))
                 i = 0;
         }
         while (i == 0);
@@ -477,7 +477,7 @@ static void HandleInputChooseTarget(u32 battler)
                 ++i;
                 break;
             }
-            if (gAbsentBattlerFlags & gBitTable[gMultiUsePlayerCursor])
+            if (gAbsentBattlerFlags & (1u << gMultiUsePlayerCursor))
                 i = 0;
         }
         while (i == 0);
@@ -698,7 +698,7 @@ void HandleInputChooseMove(u32 battler)    //test new targetting setup
 
             if (moveTarget & (MOVE_TARGET_USER | MOVE_TARGET_USER_OR_SELECTED))
                 gMultiUsePlayerCursor = battler;
-            else if (gAbsentBattlerFlags & gBitTable[GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)])
+            else if (gAbsentBattlerFlags & (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)))
                 gMultiUsePlayerCursor = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
             else
                 gMultiUsePlayerCursor = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
@@ -862,10 +862,10 @@ static void HandleMoveSwitching(u32 battler)
             i = moveInfo->maxPp[gMoveSelectionCursor[battler]];
             moveInfo->maxPp[gMoveSelectionCursor[battler]] = moveInfo->maxPp[gMultiUsePlayerCursor];
             moveInfo->maxPp[gMultiUsePlayerCursor] = i;
-            if (gDisableStructs[battler].mimickedMoves & gBitTable[gMoveSelectionCursor[battler]])
+            if (gDisableStructs[battler].mimickedMoves & (1u << gMoveSelectionCursor[battler]))
             {
-                gDisableStructs[battler].mimickedMoves &= (~gBitTable[gMoveSelectionCursor[battler]]);
-                gDisableStructs[battler].mimickedMoves |= gBitTable[gMultiUsePlayerCursor];
+                gDisableStructs[battler].mimickedMoves &= (~(1u << gMoveSelectionCursor[battler]));
+                gDisableStructs[battler].mimickedMoves |= (1u << gMultiUsePlayerCursor);
             }
             MoveSelectionDisplayMoveNames(battler);
             for (i = 0; i < MAX_MON_MOVES; ++i)
@@ -3249,8 +3249,8 @@ static void PreviewDeterminativeMoveTargets(u32 battler) //determine who targett
             break;
         case MOVE_TARGET_BOTH:
         case MOVE_TARGET_OPPONENTS_FIELD:
-            bitMask = (gBitTable[GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)] 
-                     | gBitTable[GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT)]) << 16; 
+            bitMask = ((1u << GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)) 
+                     | (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT))) << 16; 
             startY = 8;
             break;
         case MOVE_TARGET_USER:
@@ -3272,29 +3272,29 @@ static void PreviewDeterminativeMoveTargets(u32 battler) //determine who targett
             case MOVE_AROMATHERAPY:
             case MOVE_MUD_SPORT:
             case MOVE_WATER_SPORT:
-                bitMask = (gBitTable[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] 
-                         | gBitTable[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)]) << 16; 
+                bitMask = ((1u << GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)) 
+                         | (1u << GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT))) << 16; 
                 break;
             case MOVE_HELPING_HAND:
                 bitMask = (gBitTable[GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)]) << 16;
                 break;
             default:
-                bitMask = (gBitTable[battler]) << 16;
+                bitMask = ((1u << battler)) << 16;
                 break;
             }
             startY = 8;
             break;
         case MOVE_TARGET_FOES_AND_ALLY:
-            bitMask = (gBitTable[GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)] 
+            bitMask = ((1u << GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)) 
                      | gBitTable[GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)] 
-                     | gBitTable[GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT)]) << 16;
+                     | (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT))) << 16;
             startY = 8;
             break;
         case MOVE_TARGET_ALL_BATTLERS:  // wwas MOVE_TARGET_USER_AND_ALL  questioning if this wasn't something I added?
-            bitMask = (gBitTable[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)]
-                     | gBitTable[GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)]
+            bitMask = ((1u << GetBattlerAtPosition(B_POSITION_PLAYER_LEFT))
+                     | (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT))
                      | gBitTable[GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)] 
-                     | gBitTable[GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT)]) << 16;
+                     | (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT))) << 16;
             startY = 8;
             break;
         case MOVE_TARGET_ALLY:
