@@ -1913,7 +1913,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
-        .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNTOOKSUNLIGHT, .status = B_WEATHER_SUN },
+        .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNTOOKSUNLIGHT, .status = WEATHER_SUN_ANY },
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -9831,7 +9831,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.zMove = { .effect = Z_EFFECT_DEF_UP_1 },
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
-        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .magicCoatAffected = TRUE,
         .forcePressure = TRUE,
         //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
@@ -15725,7 +15725,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .slicingMove = TRUE,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
-        .argument.twoTurnAttack = { .stringId = STRINGID_PKMNTOOKSUNLIGHT, .status = B_WEATHER_SUN },
+        .argument.twoTurnAttack = { .stringId = STRINGID_PKMNTOOKSUNLIGHT, .status = WEATHER_SUN_ANY },
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -20476,7 +20476,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = SPLIT_SPECIAL,
-        .argument.twoTurnAttack = { .stringId = STRINGID_ELECTROSHOTCHARGING, .status = B_WEATHER_RAIN },
+        .argument.twoTurnAttack = { .stringId = STRINGID_ELECTROSHOTCHARGING, .status = WEATHER_RAIN_ANY },
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_PLUS_1,
             .self = TRUE,
@@ -21165,6 +21165,11 @@ use wonder gaurd logic to determine its super effective
             .self = TRUE,
             .chance = 100,
         }),
+        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Pounce,
     },//normal or dark type  thought up with luxray line in mind and zenmodeYT  
     //keeping normal
 
@@ -21182,6 +21187,11 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_CheapShot,
     },//made for crabominable line but can give to machamp as well
 
 
@@ -21206,7 +21216,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL},
-        //.battleAnimScript = gBattleAnimMove_IceBall,
+        //.battleAnimScript = gBattleAnimMove_Snowball,
     }, //still need get animatino how I want to change sprite size with ppower
 
     [MOVE_TRENCH_RUN] =
@@ -21222,6 +21232,11 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS, //unsure if shold be physical? ok yeah its, a boobytrap bomb, if explosion is physical this should be too
         .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_TrenchRun,
     },
 
     [MOVE_SPIN_DASH] =
@@ -21236,10 +21251,14 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
-        .damagesAirborne = TRUE,
         .makesContact = TRUE,
+        .damagesAirborne = TRUE,
         .ballisticMove = TRUE,
-        //////.zMoveEffect = Z_EFFECT_NONE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_DEFENSE_CURL},
+        //.battleAnimScript = gBattleAnimMove_SpinDash,
     },//uses rollout animation
     //why didn't I make this damage in air?
     //hmm I guess because it requries a launching pad?
@@ -21260,6 +21279,11 @@ use wonder gaurd logic to determine its super effective
         .argument = { .type = TYPE_DARK },
         .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ArcticRake,
     }, //alt slash wnat use shadow claw animation, two claws one white one black slashing enemy
     //think get move at 35 or so?
     //think was mostly for sneasal
@@ -21339,7 +21363,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_MUDSLIDE,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Surf,
+        //.battleAnimScript = gBattleAnimMove_Mudslide,
     },
     //think I need drop this to acc 90
     //otherwise not much reason to use earth power
@@ -21362,6 +21386,12 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
         .argument = ABILITY_HEAT_TRANCE,
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SpiceTrade,
     },
     /*
         @make imperfect acc as very strong
@@ -21384,7 +21414,14 @@ use wonder gaurd logic to determine its super effective
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
         .snatchAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_DOUBLE_TEAM},
+        //.battleAnimScript = gBattleAnimMove_Agility,
     },
     //temp animation accupressure
     //capsakid can learn this
@@ -21408,6 +21445,15 @@ use wonder gaurd logic to determine its super effective
         .target = MOVE_TARGET_OPPONENTS_FIELD,
         .priority = 0,
         .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .magicCoatAffected = TRUE,
+        .forcePressure = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SteelSurge,
     },
     //turned g max move into regualr move
     //still give to copperajah
@@ -21484,6 +21530,11 @@ use wonder gaurd logic to determine its super effective
         .makesContact = TRUE,
         .recoilMove = TRUE,
         .punchingMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_HARDEN},
+        //.battleAnimScript = gBattleAnimMove_BruteForce,
     },
     //super power clone
 
@@ -21499,7 +21550,17 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .onlyIfTargetRaisedStats = TRUE,
+            .chance = 100,
+        }),
         .argument = MOVE_EFFECT_PARALYSIS,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_ShockingMalice,
     },
     //burning jealousy clone
     //may not be that big of a deal but think never give to thunderous
@@ -21524,6 +21585,13 @@ use wonder gaurd logic to determine its super effective
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_MOONDANCE,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_MoonDance,
     },
     //EFFECT_MOONDANCE //intentional spelling don't add space
 
@@ -21539,6 +21607,13 @@ use wonder gaurd logic to determine its super effective
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = COMBO_STARTER_ACID_RAIN,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_AcidRain,
     },
     
     [MOVE_COLD_FRONT] =
@@ -21553,6 +21628,14 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNTOOKSUNLIGHT, .status = WEATHER_HAIL_ANY },
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_HAIL},
+        //.battleAnimScript = gBattleAnimMove_ColdFront,
     },
     //will be ice move that fires in one turn
     //if in hail
