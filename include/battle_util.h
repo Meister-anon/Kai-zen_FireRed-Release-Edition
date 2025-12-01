@@ -57,6 +57,31 @@
 
 #define IS_WHOLE_SIDE_ALIVE(battler)((IsBattlerAlive(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))))
 
+// For the first argument of ItemBattleEffects, to deteremine which block of item effects to try
+enum ItemCaseId
+{
+    ITEMEFFECT_NONE,
+    ITEMEFFECT_ON_SWITCH_IN,
+    ITEMEFFECT_ON_SWITCH_IN_FIRST_TURN,
+    ITEMEFFECT_NORMAL,
+    ITEMEFFECT_MOVE_END,
+    ITEMEFFECT_KINGSROCK,
+    ITEMEFFECT_TARGET,
+    ITEMEFFECT_ORBS,
+    ITEMEFFECT_LIFEORB_SHELLBELL,
+    ITEMEFFECT_USE_LAST_ITEM, // move end effects for just the battler, not whole field
+    ITEMEFFECT_STATS_CHANGED, // For White Herb and Eject Pack
+};
+
+enum ItemEffect
+{
+    ITEM_NO_EFFECT,
+    ITEM_STATUS_CHANGE,
+    ITEM_EFFECT_OTHER,
+    ITEM_PP_CHANGE,
+    ITEM_HP_CHANGE,
+    ITEM_STATS_CHANGE,
+};
 
 #define ITEMEFFECT_ON_SWITCH_IN                 0x0
 #define ITEMEFFECT_NORMAL                       0x1
@@ -84,24 +109,24 @@ void PressurePPLoseOnUsingImprison(u8 attacker);
 void PressurePPLoseOnUsingPerishSong(u8 attacker);
 void MarkAllBattlersForControllerExec(void);
 void MarkBattlerForControllerExec(u8 battlerId);
-void sub_8017298(u8 arg0);
-void CancelMultiTurnMoves(u8 battler);
-bool8 WasUnableToUseMove(u8 battler);
-void PrepareStringBattle(u16 stringId, u8 battler);
+void MarkBattlerReceivedLinkData(u8 battlerId);
+const u8* CancelMultiTurnMoves(u32 battler);
+bool32 WasUnableToUseMove(u32 battler);
+void PrepareStringBattle(u16 stringId, u32 battler);
 void ResetSentPokesToOpponentValue(void);
 void sub_8017434(u8 battler);
 void UpdateSentPokesToOpponentValue(u8 battler);
 void BattleScriptPush(const u8 *bsPtr);
 void BattleScriptPushCursor(void);
 void BattleScriptPop(void);
-u8 TrySetCantSelectMoveBattleScript(void);
-u8 CheckMoveLimitations(u8 battlerId, u8 unusableMoves, u8 check);
-bool8 AreAllMovesUnusable(void);
+u8 TrySetCantSelectMoveBattleScript(u32 battler);
+u8 CheckMoveLimitations(u32 battler, u8 unusableMoves, u16 check);
+bool32 AreAllMovesUnusable(u32 battler);
 u8 GetImprisonedMovesCount(u8 battlerId, u16 move);
 u8 DoFieldEndTurnEffects(void);
 s32 GetDrainedBigRootHp(u32 battler, s32 hp);
 u8 DoBattlerEndTurnEffects(void);
-bool8 HandleWishPerishSongOnTurnEnd(void);
+bool32 HandleWishPerishSongOnTurnEnd(void);
 bool8 HandleFaintedMonActions(void);
 void ClearRageStatuses(u8 battler);
 u8 AtkCanceller_UnableToUseMove(void);
@@ -116,7 +141,7 @@ u8 CastformDataTypeChange(u8 battler);
 u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 moveArg);
 void BattleScriptExecute(const u8 *BS_ptr);
 void BattleScriptPushCursorAndCallback(const u8 *BS_ptr);
-u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn);
+u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn);
 void ClearDestinyBondGrudge(u8 battlerId);
 void HandleAction_RunBattleScript(void);
 u8 GetMoveTarget(u16 move, u8 setTarget);
@@ -136,7 +161,7 @@ u32 GetFlingPowerFromItemId(u32 itemId);
 //u16 GetWishMegaEvolutionSpecies(u16 preEvoSpecies, u16 moveId1, u16 moveId2, u16 moveId3, u16 moveId4);
 bool32 CanMegaEvolve(u32 battler);  //updated from ee new version
 //void UndoMegaEvolution(u32 monId);  no longer used
-bool32 IsBattlerAffectedByHazards(u8 battlerId, bool32 toxicSpikes);
+bool32 IsBattlerAffectedByHazards(u32 battler, bool32 toxicSpikes);
 void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut);
 bool32 DoBattlersShareType(u32 battler1, u32 battler2);
 bool32 CanBattlerEscape(u32 battler);
@@ -242,13 +267,15 @@ bool8 CanActivateExpNull(void);
 bool8 IsBattlerUnderProtectEffect(u8 battler);
 void ClearMoldBreakerSetStatus(u8 battler);
 
+bool32 ShouldActivateFugue(u32 battleratk, u32 battlerdef);
+
 //cacophony based functions - also affects perish song, bypasses walls and protection
 //and sets sleep and confusion effects to max duration on status set
 bool8 ShouldCacophonyBoostAccuracy(u16 move);
 bool8 ShouldCacophonyBoostEffectChance(u16 move);
 bool8 ShouldCacophonyElevateMoveEffect(u16 move);
 void CacophonyElevateMoveEffect(void);
-u8 GetMoveType(u8 moveType, u8 btlAttacker);
+u8 GetMoveType(u32 moveType, u32 btlAttacker);
 void GetBattlerTypes(u32 battler, bool32 ignoreTera, u32 types[/*static*/ 3]); //according to mcgriffin static check should work w my compiler version but doesn't.. advised remove static for now
 u32 GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera);
 u32 CountBattlerStatIncreases(u32 battler, bool32 countEvasionAcc);

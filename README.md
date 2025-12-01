@@ -7,6 +7,20 @@ will use this file to outline purpose of each individual feature branch
 
 next goals
 
+
+-this is a test branch for evaluating changes planned for master
+
+-of note odd bugs with neutralizing gas
+not properly clearing when leave field I think
+kept pixelate from updating move type
+only fixed when sent in castform to activate their abilityeffect
+so guess have to retrigger abilityeffect function to clear 
+also on switch in if neutralizing gas mon comes in
+taking a hit ends battle as if caught opposing mon
+adding them to your team...
+
+-confirmed this bug does exist in master
+
 on btl ctrl update finish removal of gactivebattler
 
 following that can work out move flags rework

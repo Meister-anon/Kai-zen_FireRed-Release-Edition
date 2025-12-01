@@ -22462,7 +22462,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_WATER_2,
-        .abilities = {ABILITY_CONTRARY, ABILITY_SUCTION_CUPS},
+        .abilities = {ABILITY_FUGUE, ABILITY_SUCTION_CUPS},
         .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -22473,6 +22473,11 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMalamarTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //its signature move topsy turvy does essentially what contrary does
+    //but is arguably more useful cuz you have the ability to chose when to activate it
+    //it as no moves to take advantage of contrary otherwise
+    //Plan just replace contrary on evo, not even worth adding to learnable list
+    //it just isn't good on this mon
 
     [SPECIES_BINACLE] =
     {

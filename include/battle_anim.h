@@ -442,7 +442,6 @@ bool8 TranslateAnimVerticalArc(struct Sprite *sprite);
 void SetSpritePrimaryCoordsFromSecondaryCoords(struct Sprite *sprite);
 void InitSpritePosToAnimTarget(struct Sprite *sprite, bool8 respectMonPicOffsets);
 void InitSpritePosToAnimAttacker(struct Sprite *sprite, bool8 respectMonPicOffsets);
-u8 GetBattlerAtPosition(u8 position);
 bool8 IsBattlerSpritePresent(u8 battlerId);
 bool8 IsDoubleBattle(void);
 void GetBattleAnimBg1Data(struct BattleAnimBgData *animBgData);

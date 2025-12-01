@@ -708,7 +708,8 @@ bool32 IsAffectedByPowder(u8 atkbattler, u8 targetbattler, u16 atkability, u16 t
 // Consider a pokemon boosting their attack against a ghost pokemon having only normal-type physical attacks.
 bool32 MovesWithSplitUnusable(u32 attacker, u32 target, u32 split)
 {
-    s32 i, moveType;
+    s32 i;
+    u8 moveType;
     u32 usable = 0;
     u32 unusable = AI_DATA->moveLimitations[attacker];
     u16 *moves = GetMovesArray(attacker);
@@ -718,13 +719,13 @@ bool32 MovesWithSplitUnusable(u32 attacker, u32 target, u32 split)
         if (moves[i] != MOVE_NONE
             && moves[i] != 0xFFFF
             && GetBattleMoveSplit(moves[i]) == split
-            && !(unusable & gBitTable[i]))
+            && !(unusable & (1u << i)))
         {
             //SetTypeBeforeUsingMove(moves[i], attacker);
             //GET_MOVE_TYPE(moves[i], moveType);
-            moveType = ReturnMoveType(moves[i], attacker);    
+            SetTypeBeforeUsingMove(moves[i], attacker, &moveType);
             if (CalcTypeEffectivenessMultiplier(moves[i], moveType, attacker, target, FALSE) != 0)
-                usable |= gBitTable[i];
+                usable |= (1u << i);
         }
     }
 
@@ -776,8 +777,9 @@ static bool32 AI_GetIfCrit(u32 move, u8 battlerAtk, u8 battlerDef)
 //don't want super smart ai that cheats vsonic important
 s32 AI_CalcDamage(u16 move, u8 battlerAtk, u8 battlerDef, u8 *typeEffectiveness, bool32 considerZPower)
 {
-    s32 dmg, moveType, critMultiplier, normalDmg;
+    s32 dmg, critMultiplier, normalDmg;
     s8 critChance;
+    u8 moveType;
     u16 effectivenessMultiplier;
     u16 typeMod;
     u16 sideStatus = gSideStatuses[GET_BATTLER_SIDE(gBattlerTarget)];
@@ -795,14 +797,13 @@ s32 AI_CalcDamage(u16 move, u8 battlerAtk, u8 battlerDef, u8 *typeEffectiveness,
     SetBattlerData(battlerAtk);
     SetBattlerData(battlerDef);
 
-    gBattleStruct->dynamicMoveType = 0;
 
     if (move == MOVE_NATURE_POWER)
         move = GetNaturePowerMove();
 
     //SetTypeBeforeUsingMove(move, battlerAtk);
     //GET_MOVE_TYPE(move, moveType);
-    moveType = ReturnMoveType(move, battlerAtk);  
+    SetTypeBeforeUsingMove(move, battlerAtk, &moveType);
 
     //stores multiplier
     typeMod = CalcTypeEffectivenessMultiplier(move, moveType, battlerAtk, battlerDef, FALSE); 
@@ -1049,7 +1050,8 @@ u32 GetCurrDamageHpPercent(u8 battlerAtk, u8 battlerDef)
 //vsonic IMPORTANT
 u16 AI_GetTypeEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
 {
-    u16 typeEffectiveness, moveType;
+    u16 typeEffectiveness;
+    u8 moveType;
 
     SaveBattlerData(battlerAtk);
     SaveBattlerData(battlerDef);
@@ -1057,7 +1059,6 @@ u16 AI_GetTypeEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
     SetBattlerData(battlerAtk);
     SetBattlerData(battlerDef);
 
-    gBattleStruct->dynamicMoveType = 0;
 
     //can't calculate this as rng can't guarantee
     //to be identical to other calc, wil need change update
@@ -1073,7 +1074,7 @@ u16 AI_GetTypeEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
             
             if (CalcTypeEffectivenessMultiplier(move, i, battlerAtk, battlerDef, FALSE) >= UQ_4_12(1.55)) //issue was ground check wasn't included in update result flag check
             {
-                gBattleStruct->dynamicMoveType = i; //set dynamic type, which assigns to movetype in getmovetype below
+                moveType = i; //set dynamic type, which assigns to movetype in getmovetype below
                 //SetJudgmentTypeString(i);
                 foundType = TRUE;
                 break; //ok found issue, its not wrong grounded logic, its that calctypeeff, sets it to miss and play floating string
@@ -1083,12 +1084,13 @@ u16 AI_GetTypeEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
 
 
         if (!(foundType)) //IDK What's happening right now, - put result brackets around ground check now fixed
-            gBattleStruct->dynamicMoveType = TYPE_MYSTERY;
+            moveType = TYPE_MYSTERY;
     }
+    else
+        //SetTypeBeforeUsingMove(move, battlerAtk);
+        //GET_MOVE_TYPE(move, moveType);
+        SetTypeBeforeUsingMove(move, battlerAtk, &moveType);
 
-    //SetTypeBeforeUsingMove(move, battlerAtk);
-    //GET_MOVE_TYPE(move, moveType);
-    moveType = ReturnMoveType(move, battlerAtk);
     typeEffectiveness = CalcTypeEffectivenessMultiplier(move, moveType, battlerAtk, battlerDef, FALSE);
 
     RestoreBattlerData(battlerAtk);
@@ -1202,7 +1204,7 @@ bool32 CanTargetFaintAi(u8 battlerDef, u8 battlerAtk)
 
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
-        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && !(unusable & gBitTable[i])
+        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && !(unusable & (1u << i))
             && AI_DATA->simulatedDmg[battlerDef][battlerAtk][moves[i]] >= gBattleMons[battlerAtk].hp)
         {
             return TRUE;
@@ -1222,7 +1224,7 @@ bool32 CanAIFaintTarget(u8 battlerAtk, u8 battlerDef, u8 numHits)
 
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
-        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && !(moveLimitations & gBitTable[i]))
+        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && !(moveLimitations & (1u << i)))
         {
             // Use the pre-calculated value in simulatedDmg instead of re-calculating it
             dmg = AI_DATA->simulatedDmg[battlerAtk][battlerDef][i];
@@ -1274,7 +1276,7 @@ bool32 CanTargetFaintAiWithMod(u8 battlerDef, u8 battlerAtk, s32 hpMod, s32 dmgM
         if (dmgMod)
             dmg *= dmgMod;
 
-        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && !(unusable & gBitTable[i]) && dmg >= hpCheck)
+        if (moves[i] != MOVE_NONE && moves[i] != 0xFFFF && !(unusable & (1u << i)) && dmg >= hpCheck)
         {
             return TRUE;
         }
@@ -2236,7 +2238,7 @@ bool32 HasMoveWithLowAccuracy(u8 battlerAtk, u8 battlerDef, u8 accCheck, bool32 
         if (moves[i] == MOVE_NONE || moves[i] == 0xFFFF)
             continue;
 
-        if (!(gBitTable[i] & moveLimitations))
+        if (!((1u << i) & moveLimitations))
         {
             if (ignoreStatus && IS_MOVE_STATUS(moves[i]))
                 continue;
@@ -2262,7 +2264,7 @@ bool32 HasSleepMoveWithLowAccuracy(u8 battlerAtk, u8 battlerDef)
     {
         if (moves[i] == MOVE_NONE)
             break;
-        if (!(gBitTable[i] & moveLimitations))
+        if (!((1u << i) & moveLimitations))
         {
             if (gBattleMoves[moves[i]].effect == EFFECT_SLEEP
               && AI_GetMoveAccuracy(battlerAtk, battlerDef, moves[i]) < 85)
@@ -2978,22 +2980,28 @@ static bool32 PartyBattlerShouldAvoidHazards(u8 currBattler, u8 switchBattler)
     return FALSE;
 }
 
-enum {
-    DONT_PIVOT,
-    CAN_TRY_PIVOT,
-    PIVOT,
-};
+
+
 bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 moveIndex)//seems like this should be fine? its only used for hit escape & teleport in battle_ai_main
 {
     bool8 hasStatBoost = AnyUsefulStatIsRaised(battlerAtk) || gBattleMons[battlerDef].statStages[STAT_EVASION] >= 9; //Significant boost in evasion for any class
-    u8 backupBattler = gActiveBattler;
     bool32 shouldSwitch;
-    u8 battlerToSwitch;
+    u32 battlerToSwitch;
 
-    gActiveBattler = battlerAtk; //checked function already existed, so no worries I guess?
-    shouldSwitch = ShouldSwitch(); //base game mon pretty much never switchs so need be careful here with preserving classic feel/logic
-    battlerToSwitch = *(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler);
-    gActiveBattler = backupBattler;
+    shouldSwitch = ShouldSwitch(battlerAtk); //base game mon pretty much never switchs so need be careful here with preserving classic feel/logic
+    battlerToSwitch = gBattleStruct->AI_monToSwitchIntoId[battlerAtk];
+    
+     // Palafin always wants to activate Zero to Hero
+    if (gBattleMons[battlerAtk].species == SPECIES_PALAFIN_ZERO
+        && gBattleMons[battlerAtk].ability == ABILITY_ZERO_TO_HERO
+        && CountUsablePartyMons(battlerAtk) != 0)
+        return SHOULD_PIVOT;
+
+    //battlerToSwitch = gAiLogicData->mostSuitableMonId[battlerAtk];
+    
+    // This shouldn't ever happen, but it's there to make sure we don't accidentally read past the gParty array.
+    if (battlerToSwitch >= PARTY_SIZE)
+        battlerToSwitch = 0;
 
     if (PartyBattlerShouldAvoidHazards(battlerAtk, battlerToSwitch))
         return DONT_PIVOT;
@@ -3005,7 +3013,7 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
 
         //TODO - predict opponent switching
         /*if (IsPredictedToSwitch(battlerDef, battlerAtk) && !hasStatBoost)
-            return PIVOT; // Try pivoting so you can switch to a better matchup to counter your new opponent*/
+            return SHOULD_PIVOT; // Try pivoting so you can switch to a better matchup to counter your new opponent*/
 
         if (AI_WhoStrikesFirst(battlerAtk, battlerDef, move) == AI_IS_FASTER) // Attacker goes first
         {
@@ -3015,14 +3023,14 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
                 {
                     // attacker can kill target in two hits (theoretically)
                     if (CanTargetFaintAi(battlerDef, battlerAtk))
-                        return PIVOT;   // Won't get the two turns, pivot
+                        return SHOULD_PIVOT;   // Won't get the two turns, pivot
 
                     if (!IS_MOVE_STATUS(move) && (shouldSwitch
                         || (AtMaxHp(battlerDef) && (AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_FOCUS_SASH
                         || defAbility == ABILITY_STURDY
                         || defAbility == ABILITY_MULTISCALE
                         || defAbility == ABILITY_SHADOW_SHIELD))))
-                        return PIVOT;   // pivot to break sash/sturdy/multiscale
+                        return SHOULD_PIVOT;   // pivot to break sash/sturdy/multiscale
                 }
                 else if (!hasStatBoost)
                 {
@@ -3030,17 +3038,17 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
                         || (defAbility == ABILITY_STURDY)
                         || defAbility == ABILITY_MULTISCALE
                         || defAbility == ABILITY_SHADOW_SHIELD)))
-                        return PIVOT;   // pivot to break sash/sturdy/multiscale
+                        return SHOULD_PIVOT;   // pivot to break sash/sturdy/multiscale
 
                     if (shouldSwitch)
-                        return PIVOT;
+                        return SHOULD_PIVOT;
 
                     /* TODO - check if switchable mon unafffected by/will remove hazards
                     if (gSideStatuses[battlerAtk] & SIDE_STATUS_SPIKES && switchScore >= SWITCHING_INCREASE_CAN_REMOVE_HAZARDS)
-                        return PIVOT;*/
+                        return SHOULD_PIVOT;*/
 
                     /*if (BattlerWillFaintFromSecondaryDamage(battlerAtk, AI_DATA->abilities[battlerAtk]) && switchScore >= SWITCHING_INCREASE_WALLS_FOE)
-                        return PIVOT;*/
+                        return SHOULD_PIVOT;*/
 
                     /*if (IsClassDamager(class) && switchScore >= SWITCHING_INCREASE_HAS_SUPER_EFFECTIVE_MOVE)
                     {
@@ -3051,17 +3059,17 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
                         if (physMoveInMoveset && !specMoveInMoveset)
                         {
                             if (STAT_STAGE_ATK < 6)
-                                return PIVOT;
+                                return SHOULD_PIVOT;
                         }
                         else if (!physMoveInMoveset && specMoveInMoveset)
                         {
                             if (STAT_STAGE_SPATK < 6)
-                                return PIVOT;
+                                return SHOULD_PIVOT;
                         }
                         else if (physMoveInMoveset && specMoveInMoveset)
                         {
                             if (STAT_STAGE_ATK < 6 && STAT_STAGE_SPATK < 6)
-                                return PIVOT;
+                                return SHOULD_PIVOT;
                         }
 
                         return CAN_TRY_PIVOT;
@@ -3087,7 +3095,7 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
                 }
                 else // Can't KO the foe
                 {
-                    return PIVOT;
+                    return SHOULD_PIVOT;
                 }
             }
             else // Foe can 3HKO+ AI
@@ -3113,17 +3121,17 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
                 else
                 {
                     //if (IsClassDamager(class) && switchScore >= SWITCHING_INCREASE_KO_FOE)
-                        //return PIVOT; //Only switch if way better matchup
+                        //return SHOULD_PIVOT; //Only switch if way better matchup
 
                     if (!hasStatBoost)
                     {
                         // TODO - check if switching prevents/removes hazards
                         //if (gSideStatuses[battlerAtk] & SIDE_STATUS_SPIKES && switchScore >= SWITCHING_INCREASE_CAN_REMOVE_HAZARDS)
-                            //return PIVOT;
+                            //return SHOULD_PIVOT;
 
                         // TODO - not always a good idea
                         //if (BattlerWillFaintFromSecondaryDamage(battlerAtk) && switchScore >= SWITCHING_INCREASE_HAS_SUPER_EFFECTIVE_MOVE)
-                            //return PIVOT;
+                            //return SHOULD_PIVOT;
 
                         /*if (IsClassDamager(class) && switchScore >= SWITCHING_INCREASE_HAS_SUPER_EFFECTIVE_MOVE)
                         {
@@ -3134,17 +3142,17 @@ bool32 ShouldPivot(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u8 mo
                             if (physMoveInMoveset && !specMoveInMoveset)
                             {
                                 if (STAT_STAGE_ATK < 6)
-                                    return PIVOT;
+                                    return SHOULD_PIVOT;
                             }
                             else if (!physMoveInMoveset && specMoveInMoveset)
                             {
                                 if (STAT_STAGE_SPATK < 6)
-                                    return PIVOT;
+                                    return SHOULD_PIVOT;
                             }
                             else if (physMoveInMoveset && specMoveInMoveset)
                             {
                                 if (STAT_STAGE_ATK < 6 && STAT_STAGE_SPATK < 6)
-                                    return PIVOT;
+                                    return SHOULD_PIVOT;
                             }
                         }*/
 
@@ -3222,8 +3230,6 @@ bool32 AI_CanPutToSleep(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, 
 //vsonic need test but hopefully works
 static bool32 AI_CanPoisonType(u8 battlerAttacker, u8 battlerTarget)
 {
-    u8 moveType = ReturnMoveType(AI_THINKING_STRUCT->moveConsidered, battlerAttacker);    
-
     return ((AI_DATA->abilities[battlerAttacker] == ABILITY_CORROSION)
             || (AI_DATA->abilities[battlerAttacker] == ABILITY_POISONED_LEGACY)
             || !IS_BATTLER_ANY_TYPE(battlerTarget, TYPE_STEEL, TYPE_ROCK)
@@ -3296,8 +3302,7 @@ bool32 AI_CanPoison(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u16 
 static bool32 AI_CanBeParalyzed(u8 battler, u16 ability) //vsonic updated for custom effect double check
 {
     // u8 moveType;
-    // ReturnMoveType(AI_THINKING_STRUCT->moveConsidered, battler);
-    // GET_MOVE_TYPE(AI_THINKING_STRUCT->moveConsidered, moveType);
+
 
     if (ability == ABILITY_LIMBER
       || ability == ABILITY_COMATOSE
@@ -3311,7 +3316,8 @@ static bool32 AI_CanBeParalyzed(u8 battler, u16 ability) //vsonic updated for cu
 //removed use of getmove_type believe this is more correct?
 bool32 AI_CanParalyze(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u16 partnerMove)
 {
-    u8 moveType = ReturnMoveType(AI_THINKING_STRUCT->moveConsidered, battlerAtk);    
+    u8 moveType;
+    SetTypeBeforeUsingMove(AI_THINKING_STRUCT->moveConsidered, battlerAtk, &moveType);
 
     if (!AI_CanBeParalyzed(battlerDef, defAbility)
       || ((DoesBattlerGetTypeBasedAffinity(battlerAtk, AI_DATA->abilities[battlerAtk], battlerDef,  defAbility, TYPE_ELECTRIC)) && moveType == TYPE_ELECTRIC)
@@ -3756,7 +3762,7 @@ bool32 ShouldUseWishAromatherapy(u8 battlerAtk, u8 battlerDef, u16 move)
 
     GetAIPartyIndexes(battlerAtk, &firstId, &lastId); //vsonic
 
-    if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
+    if (GetBattlerSide(battlerAtk) == B_SIDE_PLAYER)
         party = gPlayerParty;
     else
         party = gEnemyParty;

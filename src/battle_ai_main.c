@@ -41,8 +41,8 @@ enum
     AIState_DoNotProcess
 };
 
-static u8 ChooseMoveOrAction_Singles(void);
-static u8 ChooseMoveOrAction_Doubles(void);
+static u32 ChooseMoveOrAction_Singles(u32 battlerAi);
+static u32 ChooseMoveOrAction_Doubles(u32 battlerAi);
 static void BattleAI_DoAIProcessing(void);
 static bool32 IsPinchBerryItemEffect(u16 holdEffect);
 
@@ -120,7 +120,7 @@ void BattleAI_SetupItems(void)
     {
         for (i = 0; i < MAX_TRAINER_ITEMS; i++)
         {
-            if (gTrainers[gTrainerBattleOpponent_A].items[i] != 0)
+            if (gTrainers[gTrainerBattleOpponent_A].items[i] != ITEM_NONE)
             {
                 BATTLE_HISTORY->trainerItems[BATTLE_HISTORY->itemsNo] = gTrainers[gTrainerBattleOpponent_A].items[i];
                 BATTLE_HISTORY->itemsNo++;
@@ -184,7 +184,7 @@ void BattleAI_SetupFlags(void)
 }
 
 // sBattler_AI set in ComputeBattleAiScores - used
-void BattleAI_SetupAIData(u8 defaultScoreMoves)
+void BattleAI_SetupAIData(u8 defaultScoreMoves, u32 battler)
 {
     s32 i, move, dmg;
     u8 moveLimitations;
@@ -205,12 +205,12 @@ void BattleAI_SetupAIData(u8 defaultScoreMoves)
         defaultScoreMoves >>= 1;
     }
 
-    moveLimitations = AI_DATA->moveLimitations[gActiveBattler];
+    moveLimitations = AI_DATA->moveLimitations[sBattler_AI];
 
     // Ignore moves that aren't possible to use.
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
-        if (gBitTable[i] & moveLimitations) //vsonic compare to normal fire red see if was true
+        if ((1u << i) & moveLimitations) //vsonic compare to normal fire red see if was true
             AI_THINKING_STRUCT->score[i] = 0;
     }
 
@@ -219,15 +219,15 @@ void BattleAI_SetupAIData(u8 defaultScoreMoves)
     gBattleStruct->aiChosenTarget[sBattler_AI] = gBattlerTarget;
 }
 
-u8 BattleAI_ChooseMoveOrAction(void)
+u32 BattleAI_ChooseMoveOrAction(u32 battler)
 {
     u32 savedCurrentMove = gCurrentMove;
-    u8 ret;
+    u32 ret;
 
     if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
-        ret = ChooseMoveOrAction_Singles();
+        ret = ChooseMoveOrAction_Singles(battler);
     else
-        ret = ChooseMoveOrAction_Doubles();
+        ret = ChooseMoveOrAction_Doubles(battler);
 
     // Clear protect structures, some flags may be set during AI calcs
     // e.g. pranksterElevated from GetMovePriority
@@ -239,11 +239,16 @@ u8 BattleAI_ChooseMoveOrAction(void)
 
 // damages &/other info computed in GetAIDataAndCalcDmg
 //rn in battle_main, handleturnactionselectionstate
+//when updgrade ai remove gactivebattler
+//will need upgrade ai functions
+//and removeuse of sbattle_ai 
+//rhh version just tracks battler throughout
+//vsonic important
 u8 ComputeBattleAiScores(u8 battler)
 {
     sBattler_AI = battler;
-    BattleAI_SetupAIData(0xF);
-    return BattleAI_ChooseMoveOrAction();
+    BattleAI_SetupAIData(0xF, battler);
+    return BattleAI_ChooseMoveOrAction(battler);
 }
 
 static void CopyBattlerDataToAIParty(u32 bPosition, u32 side)
@@ -328,12 +333,12 @@ void Ai_UpdateSwitchInData(u32 battler)
         if (doubleBattle)
         {
             u32 partner = BATTLE_PARTNER(battler);
-            if (AI_DATA->shouldSwitchMon & gBitTable[partner] && AI_DATA->monToSwitchId[partner] == monToSwitchId)
+            if (AI_DATA->shouldSwitchMon & (1u << partner) && AI_DATA->monToSwitchId[partner] == monToSwitchId)
             {
                 return FALSE;
             }
         }
-        AI_DATA->shouldSwitchMon |= gBitTable[battler];
+        AI_DATA->shouldSwitchMon |= (1u << battler);
         AI_DATA->monToSwitchId[battler] = monToSwitchId;
         return TRUE;
     }
@@ -349,7 +354,7 @@ void Ai_UpdateFaintData(u32 battler)
     aiMon->isFainted = TRUE;
 }
 
-static void SetBattlerAiData(u8 battlerId)
+static void SetBattlerAiData(u32 battlerId)
 {
     AI_DATA->abilities[battlerId] = AI_GetAbility(battlerId);
     AI_DATA->items[battlerId] = gBattleMons[battlerId].item;
@@ -402,7 +407,7 @@ void GetAiLogicData(void)
                 if (move != 0
                  && move != 0xFFFF
                  //&& gBattleMoves[move].power != 0  /* we want to get effectiveness of status moves */
-                 && !(AI_DATA->moveLimitations[battlerAtk] & gBitTable[i])) {
+                 && !(AI_DATA->moveLimitations[battlerAtk] & (1u << i))) {
                     //ALso sets effectiveness
                     dmg = AI_CalcDamage(move, battlerAtk, battlerDef, &effectiveness, TRUE); 
                 }
@@ -414,7 +419,7 @@ void GetAiLogicData(void)
     }
 }
 
-static u8 ChooseMoveOrAction_Singles(void)
+static u32 ChooseMoveOrAction_Singles(u32 battlerAi)
 {
     u8 currentMoveArray[MAX_MON_MOVES];
     u8 consideredMoveArray[MAX_MON_MOVES];
@@ -446,14 +451,12 @@ static u8 ChooseMoveOrAction_Singles(void)
     if (AI_THINKING_STRUCT->aiAction & AI_ACTION_WATCH)
         return AI_CHOICE_WATCH;
 
-    gActiveBattler = sBattler_AI;
-
     // If can switch.
     if (CountUsablePartyMons(sBattler_AI) > 0
         && !IsAbilityPreventingEscape(sBattler_AI)
-        && !(gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
-        && !(gBattleMons[gActiveBattler].status4 & ITS_A_TRAP_STATUS4)
-        && !(gStatuses3[gActiveBattler] & STATUS3_ROOTED)
+        && !(gBattleMons[sBattler_AI].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
+        && !(gBattleMons[sBattler_AI].status4 & ITS_A_TRAP_STATUS4)
+        && !(gStatuses3[sBattler_AI] & STATUS3_ROOTED)
         && AI_THINKING_STRUCT->aiFlags & (AI_FLAG_CHECK_VIABILITY | AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_PREFER_BATON_PASS))
     {
         // Consider switching if all moves are worthless to use.
@@ -467,7 +470,7 @@ static u8 ChooseMoveOrAction_Singles(void)
                     break;
             }
 
-            if (i == MAX_MON_MOVES && GetMostSuitableMonToSwitchInto() != PARTY_SIZE)
+            if (i == MAX_MON_MOVES && GetMostSuitableMonToSwitchInto(sBattler_AI) != PARTY_SIZE)
             {
                 AI_THINKING_STRUCT->switchMon = TRUE;
                 return AI_CHOICE_SWITCH;
@@ -481,7 +484,7 @@ static u8 ChooseMoveOrAction_Singles(void)
             && gDisableStructs[sBattler_AI].truantCounter
             && gBattleMons[sBattler_AI].hp <= gBattleMons[sBattler_AI].maxHP / 2) //change to if hp is half or less to make more forgiving for player
         {
-            if (GetMostSuitableMonToSwitchInto() != PARTY_SIZE)
+            if (GetMostSuitableMonToSwitchInto(sBattler_AI) != PARTY_SIZE)
             {
                 AI_THINKING_STRUCT->switchMon = TRUE;
                 return AI_CHOICE_SWITCH;
@@ -514,7 +517,7 @@ static u8 ChooseMoveOrAction_Singles(void)
     return consideredMoveArray[Random() % numOfBestMoves];
 }
 
-static u8 ChooseMoveOrAction_Doubles(void)
+static u32 ChooseMoveOrAction_Doubles(u32 battlerAi)
 {
     s32 i, j;
     u32 flags;
@@ -537,7 +540,7 @@ static u8 ChooseMoveOrAction_Doubles(void)
         else
         {
 
-                BattleAI_SetupAIData(0xF);
+                BattleAI_SetupAIData(0xF, battlerAi);
 
             gBattlerTarget = i;
             if ((i & BIT_SIDE) != (sBattler_AI & BIT_SIDE))
@@ -690,7 +693,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     // move data
     u8 atkPriority = GetMovePriority(battlerAtk, move);
     u16 moveEffect = gBattleMoves[move].effect;
-    s32 moveType;
+    u8 moveType;
     u16 moveTarget = AI_GetBattlerMoveTargetType(battlerAtk, move);
     u16 accuracy = AI_GetMoveAccuracy(battlerAtk, battlerDef, move);
     u32 effectiveness = AI_DATA->effectiveness[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex];
@@ -698,13 +701,12 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     u32 i;
     u16 predictedMove = AI_DATA->predictedMoves[battlerDef];
 
-    SetTypeBeforeUsingMove(move, battlerAtk);
-    GET_MOVE_TYPE(move, moveType);
+    SetTypeBeforeUsingMove(move, battlerAtk, &moveType);
 
     if (IsTargetingPartner(battlerAtk, battlerDef))
         return score;
 
-    GET_MOVE_TYPE(move, moveType);
+    //GET_MOVE_TYPE(move, moveType);
 
     // check non-user target
     if (!(moveTarget & MOVE_TARGET_USER))
@@ -2786,7 +2788,7 @@ static s16 AI_TryToFaint(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
 static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
 {
     // move data
-    u8 moveType = gBattleMoves[move].type;
+    u8 moveType;
     u16 effect = gBattleMoves[move].effect;
     u16 moveTarget = AI_GetBattlerMoveTargetType(battlerAtk, move);
     // ally data
@@ -2798,8 +2800,8 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     bool32 partnerHasBadAbility = (GetAbilityRating(atkPartnerAbility) < 0);
     u16 predictedMove = AI_DATA->predictedMoves[battlerDef];
 
-    SetTypeBeforeUsingMove(move, battlerAtk);
-    GET_MOVE_TYPE(move, moveType);
+    SetTypeBeforeUsingMove(move, battlerAtk, &moveType);
+    //GET_MOVE_TYPE(move, moveType);
 
     // check what effect partner is using
     if (AI_DATA->partnerMove != 0)
@@ -3812,7 +3814,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         }
         break;
     case EFFECT_BATON_PASS:
-        if (ShouldSwitch() && (gBattleMons[battlerAtk].status2 & STATUS2_SUBSTITUTE
+        if (ShouldSwitch(battlerAtk) && (gBattleMons[battlerAtk].status2 & STATUS2_SUBSTITUTE
           || (gStatuses3[battlerAtk] & (STATUS3_ROOTED | STATUS3_AQUA_RING | STATUS3_MAGNET_RISE | STATUS3_POWER_TRICK))
           || AnyStatIsRaised(battlerAtk)))
             score += 5;
@@ -5221,10 +5223,10 @@ static s16 AI_PreferBatonPass(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
 static s16 AI_HPAware(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
 {
     u16 effect = gBattleMoves[move].effect;
-    u8 moveType = gBattleMoves[move].type;
+    u8 moveType;
 
-    SetTypeBeforeUsingMove(move, battlerAtk);
-    GET_MOVE_TYPE(move, moveType);
+    SetTypeBeforeUsingMove(move, battlerAtk, &moveType);
+    //GET_MOVE_TYPE(move, moveType);
 
     if (IsTargetingPartner(battlerAtk, battlerDef))
     {
@@ -5492,25 +5494,25 @@ void BattleAI_SetupAIData_Default(void)
     for (i = 0; i < MAX_MON_MOVES; i++)
         AI_THINKING_STRUCT->score[i] = 100;
 
-    moveLimitations = CheckMoveLimitations(gActiveBattler, 0, 0xFF);
+    moveLimitations = CheckMoveLimitations(sBattler_AI, 0, 0xFF);
 
     // Ignore moves that aren't possible to use.
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
-        if (gBitTable[i] & moveLimitations)
+        if ((1u << i) & moveLimitations)
             AI_THINKING_STRUCT->score[i] = 0;
 
         AI_THINKING_STRUCT->simulatedRNG[i] = 100 - (Random() % 16);
     }
-
-    gBattlerAttacker = gActiveBattler;
+    //I guess is right?
+    gBattlerAttacker = sBattler_AI;
 
     // Decide a random target battlerId in doubles.
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
         gBattlerTarget = (Random() & BIT_FLANK);
 
-        if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
+        if (gAbsentBattlerFlags & (1u << gBattlerTarget))
             gBattlerTarget ^= BIT_FLANK;
     }
     // There's only one choice in single battles.

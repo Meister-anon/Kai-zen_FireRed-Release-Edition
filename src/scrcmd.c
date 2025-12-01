@@ -1711,7 +1711,7 @@ bool8 ScrCmd_bufferspeciestype(struct ScriptContext * ctx)
     else // found the species
         type = gBaseStats[species].type2;
     
-    StringCopy(sScriptStringVars[stringVarIndex], gTypeNames[type]);
+    StringCopy(sScriptStringVars[stringVarIndex], gTypesInfo[type].name);
     return FALSE;
 }
 

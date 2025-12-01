@@ -38,7 +38,7 @@ static EWRAM_DATA union AffineAnimCmd *sAnimTaskAffineAnim = NULL;
 enum {
     SINGLE_BATTLES,
     DOUBLE_BATTLES,
-    ENEMY_DOUBLES,
+    ENEMY_SIDE_DOUBLES,
 };
 
 const struct UCoords8 sBattlerCoords[][4] =
@@ -57,7 +57,7 @@ const struct UCoords8 sBattlerCoords[][4] =
        [B_POSITION_PLAYER_RIGHT] = { 90, 88 },
        [B_POSITION_OPPONENT_RIGHT] = { 152, 32 },
     },
-    [ENEMY_DOUBLES] =
+    [ENEMY_SIDE_DOUBLES] =
     { // Double battle
        [B_POSITION_PLAYER_LEFT] = { 32, 80 },
        [B_POSITION_OPPONENT_LEFT] = { 200, 37 },
@@ -146,7 +146,7 @@ u8 GetBattlerSpriteCoord(u8 battlerId, u8 coordType)
         else if (IsDoubleBattle() && GetBattlerSide(battlerId) != B_SIDE_OPPONENT)
             retVal = sBattlerCoords[IS_DOUBLE_BATTLE()][GetBattlerPosition(battlerId)].y;
         else if (IsDoubleBattle() && GetBattlerSide(battlerId) != B_SIDE_PLAYER)
-            retVal = sBattlerCoords[ENEMY_DOUBLES][GetBattlerPosition(battlerId)].y;
+            retVal = sBattlerCoords[ENEMY_SIDE_DOUBLES][GetBattlerPosition(battlerId)].y;
         break;
     case BATTLER_COORD_Y_PIC_OFFSET:
     case BATTLER_COORD_Y_PIC_OFFSET_DEFAULT:
@@ -291,7 +291,7 @@ static u8 GetBattlerSpriteFinal_Y(u8 battlerId, u16 species, bool8 a3)
     else if (IsDoubleBattle() && GetBattlerSide(battlerId) != B_SIDE_OPPONENT)
         y = offset + sBattlerCoords[IS_DOUBLE_BATTLE()][GetBattlerPosition(battlerId)].y;
     else if (IsDoubleBattle() && GetBattlerSide(battlerId) != B_SIDE_PLAYER)
-        y = offset + sBattlerCoords[ENEMY_DOUBLES][GetBattlerPosition(battlerId)].y;
+        y = offset + sBattlerCoords[ENEMY_SIDE_DOUBLES][GetBattlerPosition(battlerId)].y;
 
     if (a3)
     {
@@ -800,17 +800,6 @@ void InitSpritePosToAnimAttacker(struct Sprite *sprite, bool8 respectMonPicOffse
     }
     SetAnimSpriteInitialXOffset(sprite, gBattleAnimArgs[0]);
     sprite->pos1.y += gBattleAnimArgs[1];
-}
-
-
-u8 GetBattlerAtPosition(u8 position)
-{
-    u8 i;
-
-    for (i = 0; i < gBattlersCount; ++i)
-        if (gBattlerPositions[i] == position)
-            break;
-    return i;
 }
 
 bool8 IsBattlerSpritePresent(u8 battlerId)
@@ -1415,7 +1404,7 @@ u8 GetSpritePalIdxByBattler(u8 a1)
 }
 
 // not used
-static u8 GetSpritePalIdxByPosition(u8 position)
+static u8 UNUSED GetSpritePalIdxByPosition(u8 position)
 {
     return GetBattlerAtPosition(position);
 }

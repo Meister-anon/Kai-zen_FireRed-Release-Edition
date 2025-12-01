@@ -2131,6 +2131,7 @@ static void MoveBattleBarGraphically(u8 battlerId, u8 whichBar)
         break;
     }
 }
+
 static s32 CalcNewBarValue(s32 maxValue, s32 oldValue, s32 receivedValue, s32 *currValue, u8 scale, u16 toAdd)
 {
     s32 ret, newValue;
@@ -2493,7 +2494,7 @@ static const struct SpriteTemplate sSpriteTemplate_AbilityPopUp1 =
     .anims = sSpriteAnimTable_AbilityPopUp1,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCb_AbilityPopUp
+    .callback = SpriteCB_AbilityPopUp
 };
 
 static const union AnimCmd sSpriteAnim_AbilityPopUp2[] =
@@ -2515,7 +2516,7 @@ static const struct SpriteTemplate sSpriteTemplate_AbilityPopUp2 =
     .anims = sSpriteAnimTable_AbilityPopUp2,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCb_AbilityPopUp
+    .callback = SpriteCB_AbilityPopUp
 };
 
 #define ABILITY_POP_UP_POS_X_DIFF 64
@@ -2766,7 +2767,7 @@ void CreateAbilityPopUp(u8 battlerId, u32 ability, bool32 isDoubleBattle)
         LoadSpriteSheet(&sSpriteSheet_AbilityPopUp);
         LoadSpritePalette(&sSpritePalette_AbilityPopUp);
     }
-    gBattleStruct->activeAbilityPopUps |= gBitTable[battlerId];
+    gBattleStruct->activeAbilityPopUps |= (1u << battlerId);
     battlerPosition = GetBattlerPosition(battlerId);
 
     if (isDoubleBattle)
@@ -2826,7 +2827,7 @@ void CreateAbilityPopUp(u8 battlerId, u32 ability, bool32 isDoubleBattle)
 
 #define FRAMES_TO_WAIT 48
 
-static void SpriteCb_AbilityPopUp(struct Sprite* sprite)
+static void SpriteCB_AbilityPopUp(struct Sprite* sprite)
 {
     if (!sprite->tHide) // Show
     {
@@ -2849,7 +2850,7 @@ static void SpriteCb_AbilityPopUp(struct Sprite* sprite)
                 || (sprite->tRightToLeft && (sprite->pos1.x -= 4) <= sprite->tOriginalX - ABILITY_POP_UP_POS_X_SLIDE)
                 )
             {
-                gBattleStruct->activeAbilityPopUps &= ~(gBitTable[sprite->tBattlerId]);
+                gBattleStruct->activeAbilityPopUps &= ~((1u << sprite->tBattlerId));
                 DestroySprite(sprite);
             }
         }

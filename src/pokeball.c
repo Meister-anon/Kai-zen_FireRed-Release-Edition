@@ -14,13 +14,6 @@
 #include "battle_gfx_sfx_util.h"
 #include "constants/songs.h"
 
-#define tFrames          data[0]
-#define tPan             data[1]
-#define tThrowId         data[2]
-#define tBattler         data[3]
-#define tOpponentBattler data[4]
-
-#define sBattler         data[6]
 
 #define GFX_TAG_POKE_BALL    55000
 #define GFX_TAG_GREAT_BALL   55001
@@ -322,17 +315,27 @@ const struct SpriteTemplate gBallSpriteTemplates[POKEBALL_COUNT] =
     },
 };
 
+#define tFrames          data[0]
+#define tPan             data[1]
+#define tThrowId         data[2]
+#define tBattler         data[3]
+#define tOpponentBattler data[4]
+
+#define sBattler         data[6]
+
 // Functions
-u8 DoPokeballSendOutAnimation(s16 pan, u8 kindOfThrow)
+u8 DoPokeballSendOutAnimation(u32 battler, s16 pan, u8 kindOfThrow)
 {
     u8 taskId;
     
     gDoingBattleAnim = TRUE;
-    gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].ballAnimActive = TRUE;
+    gBattleSpritesDataPtr->healthBoxesData[battler].ballAnimActive = TRUE;
+
     taskId = CreateTask(Task_DoPokeballSendOutAnim, 5);
     gTasks[taskId].tPan = pan;
     gTasks[taskId].tThrowId = kindOfThrow;
-    gTasks[taskId].tBattler = gActiveBattler;
+    gTasks[taskId].tBattler = battler;
+
     return 0;
 }
 
@@ -776,7 +779,7 @@ static void SpriteCB_ReleaseMonFromBall(struct Sprite *sprite)
 
         species = GetMonData(mon, MON_DATA_SPECIES);
         if ((battlerId == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) || battlerId == GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT))
-         && IsDoubleBattle() && gBattleSpritesDataPtr->animationData->healthboxSlideInStarted)
+         && IsDoubleBattle() && gBattleSpritesDataPtr->animationData->introAnimActive)
         {
             if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
             {
@@ -789,7 +792,7 @@ static void SpriteCB_ReleaseMonFromBall(struct Sprite *sprite)
             }
         }
 
-        if (!IsDoubleBattle() || !gBattleSpritesDataPtr->animationData->healthboxSlideInStarted)
+        if (!IsDoubleBattle() || !gBattleSpritesDataPtr->animationData->introAnimActive)
             wantedCryCase = 0;
         else if (battlerId == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) || battlerId == GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT))
             wantedCryCase = 1;
@@ -963,7 +966,7 @@ static void SpriteCB_PlayerMonSendOut_2(struct Sprite *sprite)
             sprite->sBattler = sprite->oam.affineParam & 0xFF;
             sprite->data[0] = 0;
 
-            if (IsDoubleBattle() && gBattleSpritesDataPtr->animationData->healthboxSlideInStarted
+            if (IsDoubleBattle() && gBattleSpritesDataPtr->animationData->introAnimActive
              && sprite->sBattler == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT))
                 sprite->callback = SpriteCB_ReleaseMon2FromBall;
             else
@@ -989,7 +992,7 @@ static void SpriteCB_OpponentMonSendOut(struct Sprite *sprite)
     if (sprite->data[0] > 15)
     {
         sprite->data[0] = 0;
-        if (IsDoubleBattle() && gBattleSpritesDataPtr->animationData->healthboxSlideInStarted
+        if (IsDoubleBattle() && gBattleSpritesDataPtr->animationData->introAnimActive
          && sprite->sBattler == GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT))
             sprite->callback = SpriteCB_ReleaseMon2FromBall;
         else

@@ -2,6 +2,7 @@
 #define GUARD_BATTLE_MESSAGE_H
 
 #include "global.h"
+//#include "battle_string_ids.h"
 
 // for 0xFD values in charmap.txt
 //what I don't understand is why we don't use the same names
@@ -25,7 +26,7 @@
 #define B_ATK_NAME_WITH_PREFIX 0xF  //B_ATK_NAME_WITH_PREFIX  names used in battle_message.c are determined by charmap.txt and match this list order 0xF here FD 0F there
 #define B_DEF_NAME_WITH_PREFIX 0x10
 #define B_EFF_NAME_WITH_PREFIX 0x11 // EFF = short for gEffectBank
-#define B_ACTIVE_NAME_WITH_PREFIX 0x12
+//#define B_ACTIVE_NAME_WITH_PREFIX 0x12 - removed
 #define B_SCR_ACTIVE_NAME_WITH_PREFIX 0x13
 #define B_CURRENT_MOVE 0x14
 #define B_LAST_MOVE 0x15
@@ -231,18 +232,18 @@ struct BattleMsgData
     u8 textBuffs[3][TEXT_BUFF_ARRAY_COUNT];
 };
 
-void BufferStringBattle(u16 stringID);
-u32 BattleStringExpandPlaceholdersToDisplayedString(const u8* src);
-u32 BattleStringExpandPlaceholders(const u8* src, u8* dst);
-void BattleHandleAddTextPrinter(const u8* text, u8 arg1);
-void SetPpNumbersPaletteInMoveSelection(void);
+void BufferStringBattle(u32 battler, u16 stringID);
+u32 BattleStringExpandPlaceholdersToDisplayedString(const u8 *src);
+u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst);
+void BattleHandleAddTextPrinter(const u8 *text, u8 arg1);
+void SetPpNumbersPaletteInMoveSelection(u32 battler);
 u8 GetCurrentPpToMaxPpState(u8 currentPp, u8 maxPp);
 void BattlePutTextOnWindow(const u8* text, u8 windowId_flags);
 bool8 BattleStringShouldBeColored(u16);
 
-void SetMoveTypePaletteInMoveSelection_Singles(u16 move, u8 moveType); //adapted from PP version
-u8 GetTypeEffectivenessState_Singles(u16 move, u8 moveType);
-void SetMoveTypePaletteInMoveSelection_Doubles(u16 move, u8 moveType); //sets target id for color
+void SetMoveTypePaletteInMoveSelection_Singles(u32 battler, u16 move, u8 moveType); //adapted from PP version
+u8 GetTypeEffectivenessState_Singles(u32 battler, u16 move, u8 moveType);
+void SetMoveTypePaletteInMoveSelection_Doubles(u32 battler, u16 move, u8 moveType); //sets target id for color
 u8 GetTypeEffectivenessState_Doubles(u16 move, u8 moveType, u8 targetId);
 extern struct BattleMsgData *gBattleMsgDataPtr;
 

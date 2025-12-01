@@ -420,6 +420,8 @@
 #define PERMANENT_TERRAIN   0     //use timer value 0 so never decrements
 #define MAX_INGRAIN_AQUA_RING_TURNS    6 //turns healing effect stacks
 #define MAX_TOXIC_TURNS 16
+#define MAX_CONFUSION_TURNS 5
+#define MAX_SLEEP_TURNS 5
 
 // Flags describing move's result
 #define MOVE_RESULT_MISSED             (1 << 0)

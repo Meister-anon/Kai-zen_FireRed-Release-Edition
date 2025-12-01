@@ -2705,6 +2705,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     where possible
     1/19/2025
 
+    NOTE**(
+    from Ghoulslash - on how dev teams handle merge conflicts as a team
+    I would say creating a branch for the merge and pushing with conflicts could work. 
+    And you can squash the merge branch later to keep history clean
+    )
+
+    can use this 
+    <<<<< to find conflicts to fix later
+
     NOTE(**
     TESTED was able to confirm charged up status wasn't cleared
     until next move was used.
@@ -8804,7 +8813,7 @@ Exceptions:
  gBattleStruct->appearedInBattle = 0; //this also potentially useful, tracks all mon, w bitfield
 
 
- coild potentially do  if ((gBattleStruct->appearedInBattle & gBitTable[i])
+ coild potentially do  if ((gBattleStruct->appearedInBattle & (1u << i))
  set used singleuse ability[partyindex[i]] something like that
 
  but if I'm putting in abilitybattleeffects there's no reason to check appearedinBattle as that's a given, they'd be on the field

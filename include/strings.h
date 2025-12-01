@@ -227,7 +227,7 @@ extern const u8 gString_SlotMachineControls[];
 
 // battle_controller_safari
 extern const u8 gText_EmptyString3[];
-extern const u8 gUnknown_83FE747[];
+extern const u8 gText_SafariZoneMenu[];
 extern const u8 gText_WhatWillPlayerThrow[];
 
 // battle_controller_player

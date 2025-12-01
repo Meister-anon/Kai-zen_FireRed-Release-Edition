@@ -287,7 +287,7 @@ static bool8 LoadBattlerSpriteGfx(u8 battler)
                 BattleLoadSubstituteOrMonSpriteGfx(battler, FALSE);
         }
         else if (gBattleTypeFlags & BATTLE_TYPE_SAFARI && battler == B_POSITION_PLAYER_LEFT) // Should be checking position, not battler.
-            DecompressTrainerBackPalette(BACK_PIC_RED + gSaveBlock2Ptr->playerGender, battler);
+            DecompressTrainerBackPalette(gSaveBlock2Ptr->playerGender, battler);
         else if (gBattleTypeFlags & BATTLE_TYPE_OLD_MAN_TUTORIAL && battler == B_POSITION_PLAYER_LEFT) // Should be checking position, not battler.
             DecompressTrainerBackPalette(BACK_PIC_OLDMAN, battler);
         else if (!gBattleSpritesDataPtr->battlerData[battler].behindSubstitute)

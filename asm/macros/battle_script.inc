@@ -426,9 +426,9 @@
 	.4byte \ptr
 	.endm
 
-	.macro call ptr:req
+	.macro call jumpInstr:req
 	.byte 0x41
-	.4byte \ptr
+	.4byte \jumpInstr
 	.endm
 
 	.macro currenthealthtoDmg	@was jumpiftype2 replaced using for custom final gambit effect
@@ -526,10 +526,11 @@
 	.byte \battler
 	.endm
 
-	.macro switchinanim battler:req, dontclearsubstitutebit:req
+	.macro switchinanim battler:req, dontClearTransform:req, dontClearSubstitute:req
 	.byte 0x4e
 	.byte \battler
-	.byte \dontclearsubstitutebit
+	.byte \dontClearTransform
+	.byte \dontClearSubstitute
 	.endm
 
 	.macro jumpifcantswitch battler:req, jumpInstr:req
@@ -538,16 +539,16 @@
 	.4byte \jumpInstr
 	.endm
 
-	.macro openpartyscreen param0:req, param1:req
+	.macro openpartyscreen battler:req, failInstr:req
 	.byte 0x50
-	.byte \param0
-	.4byte \param1
+	.byte \battler
+	.4byte \failInstr
 	.endm
 
-	.macro switchhandleorder battler:req, param1:req
+	.macro switchhandleorder battler:req, state:req
 	.byte 0x51
 	.byte \battler
-	.byte \param1
+	.byte \state
 	.endm
 
 	@ believe this is different from ability stuff?
@@ -556,9 +557,9 @@
 	.byte \battler
 	.endm
 
-	.macro trainerslidein battler:req
+	.macro trainerslidein position:req
 	.byte 0x53
-	.byte \battler
+	.byte \position
 	.endm
 
 	.macro playse song:req
@@ -580,9 +581,10 @@
 	.byte 0x57
 	.endm
 
-	.macro returntoball battler:req
+	.macro returntoball battler:req, changingForm:req
 	.byte 0x58
 	.byte \battler
+	.byte \changingForm
 	.endm
 
 	.macro handlelearnnewmove learnedMoveInstr:req, nothingToLearnInstr:req, isFirstMove:req
@@ -698,7 +700,7 @@
 	.byte \battler
 	.endm
 
-	.macro recordlastability battler:req
+	.macro recordability battler:req
 	.byte 0x70
 	.byte \battler
 	.endm
@@ -707,9 +709,9 @@
 	.byte 0x71
 	.endm
 
-	.macro jumpifplayerran ptr:req
+	.macro jumpifplayerran jumpInstr:req
 	.byte 0x72
-	.4byte \ptr
+	.4byte \jumpInstr
 	.endm
 
 	.macro hpthresholds battler:req
@@ -813,8 +815,9 @@
 	.byte 0x88
 	.endm
 
-	.macro statbuffchange flags:req, jumpptr:req
+	.macro statbuffchange battler:req, flags:req, jumpptr:req
 	.byte 0x89
+	.byte \battler
 	.2byte \flags
 	.4byte \jumpptr
 	.endm
@@ -2492,10 +2495,10 @@
 
 	setstatchanger \stat, \amount, \mode
 	.if \affectsUser == FALSE
-		statbuffchange STAT_CHANGE_ALLOW_PTR, \script
+		statbuffchange  \battler, STAT_CHANGE_ALLOW_PTR, \script
 	.else
 	.if \affectsUser == TRUE
-		statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, \script
+		statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, \script
 	.endif
 	.endif
 	setgraphicalstatchangevalues
@@ -2542,10 +2545,10 @@
 	getstatchangeIdfromability
 	setstatchangerviaAbility \amount, \mode
 	.if \affectsUser == FALSE
-		statbuffchange STAT_CHANGE_ALLOW_PTR, \script
+		statbuffchange \battler, STAT_CHANGE_ALLOW_PTR, \script
 	.else
 	.if \affectsUser == TRUE
-		statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, \script
+		statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, \script
 	.endif
 	.endif
 	setgraphicalstatchangevalues
