@@ -5104,10 +5104,14 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //decideed to change to just electric not counterpart ability to make it better/more accessible
     if (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].hp <= (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].maxHP / 2))
     {
-        if (abilityAtk == ABILITY_PLUS && DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), TYPE_ELECTRIC))
+        if (abilityAtk == ABILITY_PLUS 
+        && (DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), TYPE_ELECTRIC)
+        || GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_MINUS))
             gBattleMovePower = (150 * gBattleMovePower) / 100;
 
-        else if (abilityAtk == ABILITY_MINUS && DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), TYPE_ELECTRIC))
+        else if (abilityAtk == ABILITY_MINUS 
+        && (DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), TYPE_ELECTRIC)
+        || GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_PLUS))
             gBattleMovePower = (150 * gBattleMovePower) / 100;   //used gbattlemovedamage, to stack with on field plus/minus effects , it already stacks without that
     }
 
