@@ -19,18 +19,14 @@ also on switch in if neutralizing gas mon comes in
 taking a hit ends battle as if caught opposing mon
 adding them to your team...
 
--confirmed this bug does exist in master
+-confirmed this bug does exist in master - attempt fix on test master
 
-on btl ctrl update finish removal of gactivebattler
+finished removal of gactivebattler
 
 following that can work out move flags rework
 and gbit table removal w regex sub
 
 keep lvl cap form change and guard style work for distractions
-
-go back and reorder all battle.h structs etc
-to make sure they match old order
-with new additions added to bottom to preserve order
 
 most important replace all battle files with EE versions
 after seeing just how much is changed with recent EE work
@@ -50,10 +46,6 @@ and fit back in my custom stuff
 
 rename things FR_ based on if exclusive to firered
 when porting back.
-
-order finish remove gactivebattler
-do gbit table removal, then can create branch
-to update all battle files
 
 pokemon.c will most likely also be affected
 so keep an eye out
