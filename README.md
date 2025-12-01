@@ -23,3 +23,7 @@ and just pull changes in when that's done?
 
 WORKIGN THROough custom effects need replace
 B_UPDATED_MOVE_FLAGS >=   variants w true
+
+need go overd move flags check for 
+
+#if B_UPDATED_MO

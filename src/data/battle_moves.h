@@ -6178,7 +6178,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        .makesContact = B_UPDATED_MOVE_DATA < GEN_4,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ALL_STATS_UP,
             .self = TRUE,
@@ -21304,6 +21303,12 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_STATUS,
         .argument = MOVE_EFFECT_FLINCH,
         .argumentEffectChance = 10,
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_SolarFlare,
     },//think may keep priority at 0,
     //flinch chance is low but as it hits both
     //still a good idea to lower
@@ -21330,6 +21335,11 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
         .cantdamageFloating = TRUE,
+         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_MUDSLIDE,
+        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        //.battleAnimScript = gBattleAnimMove_Surf,
     },
     //think I need drop this to acc 90
     //otherwise not much reason to use earth power
