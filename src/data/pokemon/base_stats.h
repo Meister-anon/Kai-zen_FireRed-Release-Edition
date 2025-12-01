@@ -5260,10 +5260,10 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Noctowl"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(80, 50, 50, 70, 120, 96),
-        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),//revert change not properly adhering to flying logic
-        .catchRate = 90,
-        .expYield = 158,
+         STATS(80, 50, 50, 70, 128, 96),
+        MON_TYPES(TYPE_DARK, TYPE_FLYING),//revert change not properly adhering to flying logic
+        .catchRate = 90,//considering making a dark type would lose ghost immunity
+        .expYield = 158,//but gain psychic immunity and poison resist
         //.evYield_HP = 2,
         .genderRatio = PERCENT_FEMALE(50),//Makes sense to be normal flying but there's so much of that already
         .eggCycles = 15,//ok too many normal/flying only a few special attackers but still too common
@@ -5284,6 +5284,7 @@ const struct BaseStats gBaseStats[] =
     },//change the type to match grand colloseum [done]
     //potentially give shadow tag? as nocturnal predetaor? idk
     //same logic as luxray
+    //still give wide array of coverage moves that a normal mon would get
 
 
     [SPECIES_LEDYBA] =
@@ -6248,6 +6249,8 @@ const struct BaseStats gBaseStats[] =
     },//w dark deal this is legit the perfect teamate 
     //for mega/beedrill if I encounter fighting or fairy,
     //poison beedrill would just destroy them
+    //give move gunk shot apparenlty dex entry it has
+    //poisonous sweat give toxic if it doesn't have it
 
     [SPECIES_MURKROW] =
     {
@@ -16302,7 +16305,7 @@ const struct BaseStats gBaseStats[] =
         67,
         55
         ),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 190,
         .expYield = 58,
         //.evYield_HP = 1,
@@ -16337,7 +16340,7 @@ const struct BaseStats gBaseStats[] =
         107,
         95
         ),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 170,
         //.evYield_HP = 2,
@@ -20217,7 +20220,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_DEFIANT, ABILITY_INNER_FOCUS},
-        .abilityHidden = {ABILITY_PRESSURE, ABILITY_PIERCING_HORN},
+        .abilityHidden = {ABILITY_PRESSURE, ABILITY_ARENA_TRAP},
         //.bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -21057,7 +21060,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_SERENE_GRACE, ABILITY_MAGIC_GUARD},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_LIQUID_VOICE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -22094,7 +22097,7 @@ const struct BaseStats gBaseStats[] =
         63,
         60
         ),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC), //may make normal psychic as joke as anything but normal i.e autism pokemon
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC), //may make normal psychic as joke as anything but normal i.e autism pokemon
         .catchRate = 190,
         .expYield = 71,
         //.evYield_Speed = 1,
@@ -22130,7 +22133,7 @@ const struct BaseStats gBaseStats[] =
         83,
         81
         ),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 163,
         //.evYield_Speed = 2,
@@ -30217,10 +30220,10 @@ const struct BaseStats gBaseStats[] =
          STATS(
         100,
         80,
+        90,
         80,
         80,
-        80,
-        80
+        100
         ),
         MON_TYPES(TYPE_PSYCHIC, TYPE_GRASS),
         .catchRate = 3,
@@ -33279,8 +33282,8 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_INTIMIDATE, ABILITY_RUN_AWAY  },
-        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_NONE},
+        .abilities = {ABILITY_INTIMIDATE, ABILITY_RUN_AWAY},
+        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_THICK_FAT},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -33344,7 +33347,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_GUARD_DOG },
-        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_THICK_FAT},
         //.bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -46893,7 +46896,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_SERENE_GRACE, ABILITY_MAGIC_GUARD},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_LIQUID_VOICE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -48646,7 +48649,7 @@ const struct BaseStats gBaseStats[] =
         83,
         81
         ),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 163,
         //.evYield_Speed = 2,

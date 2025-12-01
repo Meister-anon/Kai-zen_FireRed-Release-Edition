@@ -907,6 +907,7 @@ static const struct AbilityLearnset sEspeonAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sUmbreonAbilityLearnset[] = {
+    ABILITY_GRUNGE,
     ABILITY_SET_END
 };
 
@@ -2805,6 +2806,7 @@ static const struct AbilityLearnset sPawniardAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sBisharpAbilityLearnset[] = {
+    ABILITY_PIERCING_HORN,
     ABILITY_SET_END
 };
 
@@ -4483,10 +4485,12 @@ static const struct AbilityLearnset sKilowattrelAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMaschiffAbilityLearnset[] = {
+    ABILITY_STRONG_JAW,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sMabosstiffAbilityLearnset[] = {
+    ABILITY_STRONG_JAW,
     ABILITY_SET_END
 };
 
