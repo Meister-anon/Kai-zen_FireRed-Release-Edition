@@ -360,7 +360,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_MYSTERY] =    {______,   ______,   ______,   ______,   ______,   ______,   ______,     ______,  ______,   ______,   ______,   ______,   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______}, // mystery
 
-    [TYPE_FIRE] =       {______,   ______,   ______,   ______,   X(0.5),   X(0.5),   ______,    X(0.5),  X(1.55),   ______,  X(0.5),   X(0.5),   X(1.55),   ______,   ______,    X(1.55),  X(0.5),   ______,   ______,   ______}, // fire
+    [TYPE_FIRE] =       {______,   ______,   ______,   ______,   X(0.5),   X(0.5),   ______,    X(0.5),  X(1.55),   ______,  X(0.5),   X(0.5),   X(1.55),   ______,   X(1.55),    X(1.55),  X(0.5),   ______,   ______,   ______}, // fire
 
     [TYPE_WATER] =      {______,   ______,   ______,   ______,   X(1.55),   X(1.55),   ______,   ______,   ______,   ______,  X(1.55),   X(0.5),   X(0.5),   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______}, // water
 
@@ -374,7 +374,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_DRAGON] =     {______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,    X(0.0),   ______}, // dragon
 
-    [TYPE_DARK] =       {______,   X(0.5),   ______,   X(0.5),   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(1.55),   X(0.5),   ______}, // dark
+    [TYPE_DARK] =       {______,   X(0.5),   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   X(0.5),   ______}, // dark
 
     [TYPE_FAIRY] =      {X(1.55),  ______,   ______,   X(0.5),   ______,   ______,   ______,   X(1.55),   X(0.5),   ______,   X(0.5),   ______,   X(0.0),   ______,   X(0.5),   ______,   X(1.55),   X(1.55),   ______,   ______}, // fairy
 
@@ -385,6 +385,35 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
 //reverted ghost dark resist - to buff back dark but mainly cuz ghost/steel was nearly unassailable
 //oh wait I forgot the electric and psychic coverage for steel. hmmm
+
+//made ghost neutral to dark since spirits can be corrupted
+//but ghosts also prefer dark places
+
+//reivaluated dark mon and best I can do is dark is flat neutral to itself
+//tricksters can't be tricksters 
+//but vicious/bad guys are always taken out by the bigger bad
+
+//fire was really nerfed down and psychic boosted up
+//so thinking change I want to make is fire beating psychic...
+//makes sense a bit psychic energy requires focus
+//being scared by dark bugs ghosts etc. ruins said focus
+//also in every case of someone with a force field
+//or other psychic ability a wide aoe fire attack 
+//almost always takes them out.
+//they can't protect themselves from the heat
+//and then can't muster energy
+//matter of fact it also works well for kanto gym order
+//blaine is meant to be after sabrina
+//and then he's checked by giovannia ground types
+
+//on type calculator it also brings ghost defensively
+//equal to steel type
+
+//also like the couter balance for psychic
+//its a mostly special type but in offense and defense
+//ghost bug and dark are predominately phsyical
+//so hit its weak stat where fire is mostly special
+//so while a weakness would be hitting into its stronger def stat
 
 //re reverted ghost dark resist, mostly out of necessity...
 //made steel beat ghost lore is same reason steel beats fairy
@@ -602,6 +631,7 @@ static const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e numbe
     TYPE_NORMAL, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_FIRE, TYPE_GRASS, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_FIRE, TYPE_ICE, TYPE_MUL_SUPER_EFFECTIVE,
+    TYPE_FIRE, TYPE_PSYCHIC, TYPE_MUL_SUPER_EFFECTIVE,  //similar logic to fears beating psychic, heat ruin concentration and psychics can't protect against it
     TYPE_FIRE, TYPE_STEEL, TYPE_MUL_SUPER_EFFECTIVE,
     //TYPE_FIRE, TYPE_BUG, TYPE_MUL_SUPER_EFFECTIVE, //buff for bug  make neutral to fire as good number of bugs resist heat and even can survive fires,heat is even beneficial to some
     TYPE_FIRE, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,
@@ -713,13 +743,13 @@ static const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e numbe
     TYPE_DRAGON, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,    //-ok so I over nerfed fairy to buff other things, am unwillign to remove them so instead will put dragon immunity back, I'm already abiding a resist that doesn't make sense but for balance so whatever
     TYPE_DRAGON, TYPE_FAIRY, TYPE_MUL_NO_EFFECT,    //i can't explain fairy immunity to dragon, other than a pure balance decision, there's no lore that I can find to any relation between them.
     TYPE_DARK, TYPE_FIGHTING, TYPE_MUL_NOT_EFFECTIVE,   //I thought it was a king arthur thing, but he never actually fought a dragon, though he did have protection of fae magic
-    TYPE_DARK, TYPE_GHOST, TYPE_MUL_NOT_EFFECTIVE,  //changed there's nothing significant bout dark, its more or less same as ghost but alive, and ghosts thrive in darkness, change mind use japanese idea ghosts are spirits not evil so dark corrupts them
+                                                         //changed there's nothing significant bout dark, its more or less same as ghost but alive, and ghosts thrive in darkness, change mind use japanese idea ghosts are spirits not evil so dark corrupts them
     TYPE_DARK, TYPE_FAIRY, TYPE_MUL_NOT_EFFECTIVE, //plus dosen't really make sense when you have cursed blades, and haunted blades exist, i.e dark and ghost affecting steel
     TYPE_DARK, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE, //for balane sake decided revert dark/ghost relation ghost was too free, especially when consider steel/ghost combo...  logic darkness is corosion of the spirit for ghost
     //TYPE_DARK, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,   //change essentially makes ghost inverse of normal type effect wise, where most things are neutral and it has 1 weakness
     //TYPE_DARK, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE, //-similar to ghost logic, poison hides in darkness, is linked w dark intentions, actually think will reverse this make dark resist poison, will go more to make counter to fairy who is weak to poison
     TYPE_DARK, TYPE_PSYCHIC, TYPE_MUL_SUPER_EFFECTIVE,  //-keeping psychic weakness to dark post ghost change as dark is living and able to do physical attacks while psychic is usually phsycially weak
-    TYPE_DARK, TYPE_DARK, TYPE_MUL_SUPER_EFFECTIVE,//removing gen 3 steel resist to dark, with dark changes realized ruins it offensively
+                                                    //removing gen 3 steel resist to dark, with dark changes realized ruins it offensively
     TYPE_STEEL, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,//NEW type relation for dark types, showed positively for offense capability and makes sense sneaky backstabbers bad guys take each other out often.
     TYPE_STEEL, TYPE_WATER, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_STEEL, TYPE_ELECTRIC, TYPE_MUL_NOT_EFFECTIVE,
