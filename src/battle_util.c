@@ -5811,7 +5811,6 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
     u16 speciesDef =  0;
     u32 pidAtk =  0;
     u32 pidDef =  0;
-    u16 value =  0;
     u32 side = 0; //put back here, set in individual cases
 
     if (gBattlerAttacker >= gBattlersCount)
@@ -6126,9 +6125,9 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     if (!(gSpecialStatuses[battler].switchInAbilityDone)) // don't want to change weather every turn but I do want it to change, mid battle, and trigger after all battlers have had their turns. think that's turn action count > battlers count.
                     { //I want it to trigger once at start of battle I think, but maybe not. Some people could make use of "normal" form castform. i guess
                     // u16 value;// trying to store the value returned by random function in one field as per phoenixbound's suggestion. since it seemed I was calling 5 separate random functions
-                        u16 predictedWeather;
-                        value = Random() % 4; //and having random() in the if function was causing the effect to only work if true, which means a non 0 value, so a 3/4 chance.
-                        predictedWeather = Random() % 4;
+                        u16 predictedWeather = Random() % 4;
+                        u16 value = Random() % 4; //and having random() in the if function was causing the effect to only work if true, which means a non 0 value, so a 3/4 chance.
+                        
                         gSpecialStatuses[battler].switchInAbilityDone = TRUE;//use enum in place of static weather enum value
 
                         //not right need separate, make sure hold effect is last as it should have highest priority

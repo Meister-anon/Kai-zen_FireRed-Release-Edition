@@ -4667,6 +4667,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     u8 defenderHoldEffectParam;
     u8 attackerHoldEffect;
     u8 attackerHoldEffectParam;
+    u32 atkspecies = gBattleMons[battlerIdAtk].species; //for putting forecast affects on castform
+    u32 atkBaseForm = GetBaseFormSpecies(atkspecies);   //^^ same thing realize need base form to account for form change
     u32 abilityAtk = GetBattlerAbility(battlerIdAtk);
     u32 abilityDef = GetBattlerAbility(battlerIdDef);
     u16 itemDef = gBattleMons[battlerIdDef].item;
@@ -6078,7 +6080,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 switch (moveType)
                 {
                 case TYPE_FIRE:
-                if (abilityAtk != ABILITY_FORECAST
+                if (atkBaseForm != SPECIES_CASTFORM
                 && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
                     OffensiveModifer(50); //tested workss perfectly
                     break;
@@ -6126,12 +6128,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 OffensiveModifer(150);
                 break;
             case TYPE_WATER:
-            if (abilityAtk != ABILITY_FORECAST
+            if (atkBaseForm != SPECIES_CASTFORM
             && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
                 OffensiveModifer(50);
                 break;
             case TYPE_ICE:
-            if (abilityAtk != ABILITY_FORECAST
+            if (atkBaseForm != SPECIES_CASTFORM
             && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
                 OffensiveModifer(50);
                 //66% dmg cut  this is a grass type buff, especially so for sunflora who is now grass/fire
@@ -6165,7 +6167,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             switch (moveType)
             {
             case TYPE_FIRE:
-            if (abilityAtk != ABILITY_FORECAST
+            if (atkBaseForm != SPECIES_CASTFORM
             && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
                 OffensiveModifer(50);
                 //33% damage cut, so less of a cut than in rain, edit- actually fires are harder to start in cold so makes sense to have higher drop than rain

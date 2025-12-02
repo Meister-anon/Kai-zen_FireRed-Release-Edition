@@ -903,6 +903,7 @@ static const struct AbilityLearnset sQuagsireAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sEspeonAbilityLearnset[] = {
+    ABILITY_ANTICIPATION,
     ABILITY_SET_END
 };
 

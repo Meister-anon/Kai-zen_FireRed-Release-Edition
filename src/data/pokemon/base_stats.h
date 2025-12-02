@@ -6208,8 +6208,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_EMPATH, ABILITY_EMPATH},
-        .abilityHidden = {ABILITY_MAGIC_BOUNCE, ABILITY_ANTICIPATION},
+        .abilities = {ABILITY_EMPATH, ABILITY_SOLAR_POWER},
+        .abilityHidden = {ABILITY_MAGIC_BOUNCE, ABILITY_FORECAST},
         //.bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6219,6 +6219,12 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sEspeonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //sun pokemon thought about giving sun ability
+    //but psychic weak to fire instead
+    //found dex entry about predicting weather so give forecast
+    //think tweak ability so just the type change is linked to castform
+    //dex ironically says nothing about sun at all
+    //ah found it, absorbs energy from bathing in sunlight
 
     [SPECIES_UMBREON] =
     {
@@ -6236,7 +6242,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SYNCHRONIZE, ABILITY_SYNCHRONIZE},
+        .abilities = {ABILITY_SYNCHRONIZE, ABILITY_LUNAR_POWER},
         .abilityHidden = {ABILITY_INNER_FOCUS, ABILITY_DARK_DEAL},
         //.bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
@@ -11076,6 +11082,8 @@ const struct BaseStats gBaseStats[] =
         //and type setting is done within a function anyway
     },//body color changes see what that is used for
     //technically makes sense as cosmetic
+    //make change put some of forecasts effects onto castform itself
+    //since giving forecast to more mon
 
     [SPECIES_KECLEON] =
     {
