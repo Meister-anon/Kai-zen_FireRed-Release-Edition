@@ -4664,6 +4664,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     gBitTable replacement using regex search
     it follows explicit pattern so should work
 
+    search line
+    gBitTable\[(\S+)(\])
+
+    replace line
+    (1u << $1)
+
+    works for most but left, ^ BIT_FLANK  values
+    had to replace by hand
+
     Decide shift move page over to the right more,
     has usable empty space after pp and will never have more than 2 digits
     gives more room for move descriptions

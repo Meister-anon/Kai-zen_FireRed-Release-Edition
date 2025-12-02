@@ -5885,7 +5885,7 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
             {
                 if (((gBattleTypeFlags & (BATTLE_TYPE_MULTI | BATTLE_TYPE_DOUBLE)) != BATTLE_TYPE_DOUBLE)
                  || (position & BIT_FLANK) != B_FLANK_LEFT
-                 || (*(&gBattleStruct->absentBattlerFlags) & gBitTable[GetBattlerAtPosition(position ^ BIT_FLANK)]))
+                 || (*(&gBattleStruct->absentBattlerFlags) & (1u << GetBattlerAtPosition(position ^ BIT_FLANK))))
                     BtlController_EmitLinkStandbyMsg(battler, BUFFER_A, 0);
                 else
                     BtlController_EmitLinkStandbyMsg(battler, BUFFER_A, 1);
