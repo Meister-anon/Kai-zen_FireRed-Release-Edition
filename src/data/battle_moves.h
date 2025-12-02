@@ -1619,6 +1619,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = 0,
         .split = SPLIT_STATUS,
     }, //fully updated to modern effect
+    //consider make neutral priority so more psychic types
+    //can use effect slow mon wouldn't be affected
+    //except case of intentinonally using neg priority moves
+    //which presently aren't used outside of force switch effects?
+    //only difference for fast mon hard switching
+    //is being able to avoid pursuit
+    //which being psychic is the entire point
+    //not a big deal in official play because
+    //pursuit is no longer in the game
 
     [MOVE_NIGHT_SHADE] =
     {
@@ -6550,12 +6559,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .power = 80,
         .type = TYPE_DARK,
         .accuracy = 100,
-        .pp = 15,
+        .pp = 10,
         .secondaryEffectChance = 20,
-        .target = MOVE_TARGET_SELECTED,
+        .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-    },
+    },//think will buff this to give better dark special options
+    //...this may be broken eh cut distribution to mostly dark types
+    //hopefully that'll work
 
     [MOVE_NIGHT_SLASH] =
     {
