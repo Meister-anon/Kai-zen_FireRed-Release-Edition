@@ -1288,7 +1288,7 @@ static bool32 TryAegiFormChange(void)
     }
 
     BattleScriptPushCursor();
-    gBattlescriptCurrInstr = BattleScript_AttackerFormChange;
+    gBattlescriptCurrInstr = BattleScript_BattlerFormChange;
     return TRUE;
 }
 
