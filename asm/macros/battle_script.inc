@@ -1639,6 +1639,12 @@
 	.4byte \failInstr
 	.endm
 
+	.macro handleformchange battler:req, case_:req
+	callnative BS_HandleFormChange
+	.byte \battler
+	.byte \case_
+	.endm
+
 	@^put added bs commands above this^
 	@ returns B_SIDE_x to gBattleCommunication[0]
 	.macro getbattlerside battler:req
@@ -1845,12 +1851,6 @@
 	.macro tryreflecttype ptr:req
 	various BS_ATTACKER, VARIOUS_TRY_REFLECT_TYPE
 	.4byte \ptr
-	.endm
-
-
-	.macro handleformchange battler:req, case:req
-	various \battler, VARIOUS_HANDLE_FORM_CHANGE
-	.byte \case
 	.endm
 
 	.macro jumpifcantuselastresort battler:req, ptr:req

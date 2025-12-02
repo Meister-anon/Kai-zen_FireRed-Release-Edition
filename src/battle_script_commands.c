@@ -20936,6 +20936,28 @@ void BS_TrySoak(void)
     }
 }
 
+void BS_HandleFormChange(void)
+{
+    NATIVE_ARGS(u8 battler, u8 case_);
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    struct Pokemon *mon = GetBattlerMon(battler);
+
+    if (cmd->case_ == 0) // Change species.
+    {
+        BtlController_EmitSetMonData(battler, BUFFER_A, REQUEST_SPECIES_BATTLE, 1u << gBattlerPartyIndexes[battler], sizeof(gBattleMons[battler].species), &gBattleMons[battler].species);
+        MarkBattlerForControllerExec(battler);
+    }
+    else if (cmd->case_ == 1) // Change stats.
+    {
+        RecalcBattlerStats(battler, mon);
+    }
+    else // Update healthbox.
+    {
+        UpdateHealthboxAttribute(gHealthboxSpriteIds[battler], mon, HEALTHBOX_ALL);
+    }
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
 void BS_setgastroacid(void)
 {
     NATIVE_ARGS(const u8 *ptr);
