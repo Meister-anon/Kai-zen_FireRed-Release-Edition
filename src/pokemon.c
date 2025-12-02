@@ -9066,7 +9066,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 }
                                 else
                                 {
-                                    gAbsentBattlerFlags &= ~gBitTable[gBattlerInMenuId ^ 2];
+                                    gAbsentBattlerFlags &= ~(1u << (gBattlerInMenuId ^ BIT_FLANK));
                                     if (GetBattlerSide(gBattlerInMenuId) == B_SIDE_PLAYER && gBattleResults.numRevivesUsed < 63)
                                         gBattleResults.numRevivesUsed++;
                                 }

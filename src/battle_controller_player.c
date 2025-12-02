@@ -3276,7 +3276,7 @@ static void PreviewDeterminativeMoveTargets(u32 battler) //determine who targett
                          | (1u << GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT))) << 16; 
                 break;
             case MOVE_HELPING_HAND:
-                bitMask = (gBitTable[GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)]) << 16;
+                bitMask = ((1u << GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK))) << 16;
                 break;
             default:
                 bitMask = ((1u << battler)) << 16;
@@ -3286,19 +3286,19 @@ static void PreviewDeterminativeMoveTargets(u32 battler) //determine who targett
             break;
         case MOVE_TARGET_FOES_AND_ALLY:
             bitMask = ((1u << GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)) 
-                     | gBitTable[GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)] 
+                     | (1u << GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)) 
                      | (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT))) << 16;
             startY = 8;
             break;
         case MOVE_TARGET_ALL_BATTLERS:  // wwas MOVE_TARGET_USER_AND_ALL  questioning if this wasn't something I added?
             bitMask = ((1u << GetBattlerAtPosition(B_POSITION_PLAYER_LEFT))
                      | (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT))
-                     | gBitTable[GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)] 
+                     | (1u << GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)) 
                      | (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT))) << 16;
             startY = 8;
             break;
         case MOVE_TARGET_ALLY:
-            bitMask = (gBitTable[GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)]) << 16;
+            bitMask = ((1u << GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK))) << 16;
             startY = 8;
             break;
         }

@@ -545,7 +545,7 @@ u8 GetMostSuitableMonToSwitchInto(u32 battler)
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
         battlerIn1 = battler;
-        if (gAbsentBattlerFlags & gBitTable[GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)])
+        if (gAbsentBattlerFlags & (1u << GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)))
             battlerIn2 = battler;
         else
             battlerIn2 = GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK);
