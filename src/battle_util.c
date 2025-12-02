@@ -1249,6 +1249,12 @@ void BattleScriptPushCursor(void)
     gBattleResources->battleScriptsStack->ptr[gBattleResources->battleScriptsStack->size++] = gBattlescriptCurrInstr;
 }
 
+void BattleScriptCall(const u8 *bsPtr)
+{
+    BattleScriptPushCursor();
+    gBattlescriptCurrInstr = bsPtr;
+}
+
 void BattleScriptPop(void)
 {
     gBattlescriptCurrInstr = gBattleResources->battleScriptsStack->ptr[--gBattleResources->battleScriptsStack->size];
@@ -6250,10 +6256,11 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                             else
                             {
                                 effect = CastformDataTypeChange(battler); //does type change
-                                if (effect){
-                                BattleScriptPushCursorAndCallback(BattleScript_ForecastSwitchin); //does form change, need replace this w forecast equivalent
+                                if (effect && TryBattleFormChange(battler, FORM_CHANGE_BATTLE_WEATHER)){
                                 gBattleScripting.battler = battler;
-                                *(&gBattleStruct->formToChangeInto) = effect - 1;// sandstorm effect is continuing oddly, before I change "while" I'm trying line up
+                                BattleScriptPushCursorAndCallback(BattleScript_BattlerFormChangeEnd3);
+                                //BattleScriptPushCursorAndCallback(BattleScript_ForecastSwitchin); //does form change, need replace this w forecast equivalent
+                                //*(&gBattleStruct->formToChangeInto) = effect - 1;// sandstorm effect is continuing oddly, before I change "while" I'm trying line up
                                 // the dotted linebetween brackets,  I'm assuming for some reason misalignemnt broke it 
                                 }
                             }
@@ -6348,10 +6355,11 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                             else//i,e if (gCurrentTurnActionNumber >= gBattlersCount) && (gBattleMons[battler].hp != 0)  do value and random as before but a higher number and include
                             {// value for setting weather timers to 0, prob should use if for each weather type, and link it with its respective timer.
                                 effect = CastformDataTypeChange(battler); //does type change
-                                if (effect){
-                                BattleScriptPushCursorAndCallback(BattleScript_ForecastSwitchin); //does form change, need replace this w forecast equivalent
+                                if (effect && TryBattleFormChange(battler, FORM_CHANGE_BATTLE_WEATHER)){
                                 gBattleScripting.battler = battler;
-                                *(&gBattleStruct->formToChangeInto) = effect - 1;// sandstorm effect is continuing oddly, before I change "while" I'm trying line up
+                                BattleScriptPushCursorAndCallback(BattleScript_BattlerFormChangeEnd3);
+                                //BattleScriptPushCursorAndCallback(BattleScript_ForecastSwitchin); //does form change, need replace this w forecast equivalent
+                                //*(&gBattleStruct->formToChangeInto) = effect - 1;// sandstorm effect is continuing oddly, before I change "while" I'm trying line up
                                 // the dotted linebetween brackets,  I'm assuming for some reason misalignemnt broke it 
                                 }
                             }//need add string of messages scripts, somehwewre before this
@@ -6361,11 +6369,12 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 break;
             case ABILITY_FLOWER_GIFT:
                 effect = CastformDataTypeChange(battler);// I think if I copy the function values to an else if using random chance to activate & turn ended it should work how I want
-                if (effect)//i,e if (gCurrentTurnActionNumber >= gBattlersCount) && (gBattleMons[battler].hp != 0)  do value and random as before but a higher number and include
+                if (effect && TryBattleFormChange(battler, FORM_CHANGE_BATTLE_WEATHER))//i,e if (gCurrentTurnActionNumber >= gBattlersCount) && (gBattleMons[battler].hp != 0)  do value and random as before but a higher number and include
                 {// value for setting weather timers to 0, prob should use if for each weather type, and link it with its respective timer.
-                    BattleScriptPushCursorAndCallback(BattleScript_CastformChange);
                     gBattleScripting.battler = battler;
-                    *(&gBattleStruct->formToChangeInto) = effect - 1;// sandstorm effect is continuing oddly, before I change "while" I'm trying line up
+                    BattleScriptPushCursorAndCallback(BattleScript_BattlerFormChangeWithStringEnd3);
+                    //BattleScriptPushCursorAndCallback(BattleScript_CastformChange);
+                    //*(&gBattleStruct->formToChangeInto) = effect - 1;// sandstorm effect is continuing oddly, before I change "while" I'm trying line up
                     // the dotted linebetween brackets,  I'm assuming for some reason misalignemnt broke it 
                 }
                 break;
@@ -6376,11 +6385,11 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 for (target1 = 0; target1 < gBattlersCount; ++target1)
                 {
                     effect = CastformDataTypeChange(target1);
-                    if (effect)
+                    if (effect && TryBattleFormChange(target1, FORM_CHANGE_BATTLE_WEATHER))
                     {
                         BattleScriptPushCursorAndCallback(BattleScript_CastformChange);
                         gBattleScripting.battler = target1;
-                        *(&gBattleStruct->formToChangeInto) = effect - 1;
+                        //*(&gBattleStruct->formToChangeInto) = effect - 1;
                         break;
                     }
                 }
@@ -7048,7 +7057,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             case ABILITY_SHIELDS_DOWN:
                 if (ShouldChangeFormHpBased(battler))
                 {
-                    BattleScriptPushCursorAndCallback(BattleScript_AttackerFormChangeEnd3);
+                    BattleScriptPushCursorAndCallback(BattleScript_BattlerFormChangeEnd3);
                     ++effect;
                 }
                 break;//actually I kinda like putting these on a timer
@@ -7618,7 +7627,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 case ABILITY_ZEN_MODE:
                 case ABILITY_SHIELDS_DOWN:
                     if ((effect = ShouldChangeFormHpBased(battler)))    //if true do formchange, and set effect to value. 
-                        BattleScriptPushCursorAndCallback(BattleScript_AttackerFormChangeEnd3); //so has same effect as incrementing effect
+                        BattleScriptPushCursorAndCallback(BattleScript_BattlerFormChangeEnd3); //so has same effect as incrementing effect
                     break;
                 case ABILITY_POWER_CONSTRUCT:
                 {
@@ -7628,7 +7637,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     {
                         gBattleStruct->changedSpecies[side][gBattlerPartyIndexes[battler]] = gBattleMons[battler].species;
                         gBattleMons[battler].species = SPECIES_ZYGARDE_COMPLETE;
-                        BattleScriptPushCursorAndCallback(BattleScript_AttackerFormChangeEnd3);
+                        BattleScriptPushCursorAndCallback(BattleScript_BattlerFormChangeEnd3);
                         ++effect;
                     }
                     break;
@@ -7681,12 +7690,12 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                         if (gBattleMons[battler].species == SPECIES_MORPEKO_FULL_BELLY)
                         {
                             gBattleMons[battler].species = SPECIES_MORPEKO_HANGRY;
-                            BattleScriptPushCursorAndCallback(BattleScript_AttackerFormChangeEnd3NoPopup);
+                            BattleScriptPushCursorAndCallback(BattleScript_BattlerFormChangeEnd3NoPopup);
                         }
                         else if (gBattleMons[battler].species == SPECIES_MORPEKO_HANGRY)
                         {
                             gBattleMons[battler].species = SPECIES_MORPEKO_FULL_BELLY;
-                            BattleScriptPushCursorAndCallback(BattleScript_AttackerFormChangeEnd3NoPopup);
+                            BattleScriptPushCursorAndCallback(BattleScript_BattlerFormChangeEnd3NoPopup);
                         }
                         ++effect;
                     }
@@ -9124,11 +9133,12 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
                 break;
             case ABILITY_GULP_MISSILE:
-                if (((gCurrentMove == MOVE_SURF && TARGET_TURN_DAMAGED) || gStatuses3[gBattlerAttacker] & STATUS3_UNDERWATER)
-                    && (effect = ShouldChangeFormHpBased(gBattlerAttacker)))
+                if ((gBattleMons[gBattlerAttacker].species == SPECIES_CRAMORANT)
+                   && ((CanActivateGulpMissle(gCurrentMove) && TARGET_TURN_DAMAGED) || gStatuses3[gBattlerAttacker] & STATUS3_UNDERWATER)
+                   && TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_HP_PERCENT))
                 {
-                    BattleScriptPushCursor();
-                    gBattlescriptCurrInstr = BattleScript_AttackerFormChange;
+                    gBattleScripting.battler = gBattlerAttacker;
+                    BattleScriptCall(BattleScript_BattlerFormChange);
                     ++effect;
                 }
                 break;
@@ -9524,11 +9534,12 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 if (gBattleMons[battler].ability == ABILITY_FORECAST || gBattleMons[battler].ability == ABILITY_FLOWER_GIFT)
                 {
                     effect = CastformDataTypeChange(battler);
-                    if (effect)
+                    if (effect && TryBattleFormChange(battler, FORM_CHANGE_BATTLE_WEATHER))
                     {
-                        BattleScriptPushCursorAndCallback(BattleScript_CastformChange);
                         gBattleScripting.battler = battler;
-                        *(&gBattleStruct->formToChangeInto) = effect - 1;
+                        BattleScriptPushCursorAndCallback(BattleScript_BattlerFormChangeWithStringEnd3);
+                        //BattleScriptPushCursorAndCallback(BattleScript_CastformChange);
+                        //*(&gBattleStruct->formToChangeInto) = effect - 1;
                         return effect;
                     }
                 }

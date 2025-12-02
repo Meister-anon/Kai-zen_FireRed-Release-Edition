@@ -1338,6 +1338,19 @@ static inline u32 GetBattlerAtPosition(u32 position)
     return battler;
 }
 
+static inline u32 GetMoveBaseType(u32 move)
+{
+    return gBattleMoves[move].type;
+}
+
+//not fully sure if want to use movepower or base move power
+//don't want any plain move or prio move to proc ability
+//but would like synergy with rain
+static inline u32 CanActivateGulpMissle(u32 move)
+{
+    return (gBattleMovePower >= 80 && GetMoveBaseType(move) == TYPE_WATER);
+}
+
 
 static inline u32 GetBattlerSide(u32 battler)
 {

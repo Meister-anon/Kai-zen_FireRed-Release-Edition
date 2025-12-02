@@ -7888,29 +7888,42 @@ BattleScript_PrimalReversionRet::
 
 @temp standin till can look over scripts
 BattleScript_GulpMissileFormChange::
-	call BattleScript_AttackerFormChange
+	call BattleScript_BattlerFormChange
 	return
 	@goto BattleScript_FromTwoTurnMovesSecondTurnRet
 
-BattleScript_AttackerFormChange::
+BattleScript_BattlerFormChange::
 	pause B_WAIT_TIME_CLEAR_BUFF
 	copybyte gBattlerAbility, gBattlerAttacker
 	@ call BattleScript_AbilityPopUp
 	flushtextbox
-BattleScript_AttackerFormChangeNoPopup::
-	handleformchange BS_ATTACKER, 0
-	handleformchange BS_ATTACKER, 1
-	playanimation BS_ATTACKER, B_ANIM_FORM_CHANGE, NULL
+BattleScript_BattlerFormChangeNoPopup::
+	handleformchange BS_SCRIPTING, 0
+	handleformchange BS_SCRIPTING, 1
+	playanimation BS_SCRIPTING, B_ANIM_FORM_CHANGE, NULL
 	waitanimation
-	handleformchange BS_ATTACKER, 2
+	handleformchange BS_SCRIPTING, 2
 	return
 
-BattleScript_AttackerFormChangeEnd3::
-	call BattleScript_AttackerFormChange
+BattleScript_BattlerFormChangeEnd3::
+	call BattleScript_BattlerFormChange
 	end3
 
-BattleScript_AttackerFormChangeEnd3NoPopup::
-	call BattleScript_AttackerFormChangeNoPopup
+BattleScript_BattlerFormChangeEnd3NoPopup::
+	call BattleScript_BattlerFormChangeNoPopup
+
+BattleScript_BattlerFormChangeWithStringEnd3::
+	@pause B_WAIT_TIME_CLEAR_BUFF
+	@call BattleScript_AbilityPopUp
+	flushtextbox
+	handleformchange BS_SCRIPTING, 0
+	handleformchange BS_SCRIPTING, 1
+	playanimation BS_SCRIPTING, B_ANIM_FORM_CHANGE, NULL
+	waitanimation
+	handleformchange BS_SCRIPTING, 2
+	printstring STRINGID_PKMNTRANSFORMED
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end3
 
 @need test
 BattleScript_AttackerFormChangeMoveEffect::
@@ -8803,19 +8816,6 @@ BattleScript_TargetFormChangeWithStringNoPopup::
 	printstring STRINGID_PKMNTRANSFORMED
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
-
-BattleScript_BattlerFormChangeWithStringEnd3::
-	@pause B_WAIT_TIME_CLEAR_BUFF
-	@call BattleScript_AbilityPopUp
-	flushtextbox
-	handleformchange BS_SCRIPTING, 0
-	handleformchange BS_SCRIPTING, 1
-	playanimation BS_SCRIPTING, B_ANIM_FORM_CHANGE, NULL
-	waitanimation
-	handleformchange BS_SCRIPTING, 2
-	printstring STRINGID_PKMNTRANSFORMED
-	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	end3
 
 BattleScript_IllusionOff::
 	spriteignore0hp TRUE
