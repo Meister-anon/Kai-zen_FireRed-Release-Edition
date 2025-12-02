@@ -9688,28 +9688,28 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             break; //since case isn't called anywhere, think I can safely rename and make category for switch in to activate after everyone is in battle here
         case ABILITYEFFECT_NEUTRALIZINGGAS:
             // Prints message only. separate from ABILITYEFFECT_ON_SWITCHIN bc msg activates before entry hazards, but don't think I'm using THIS for intro message?
-            for (i = 0; i < gBattlersCount; i++) //yeah I have practically this copied, in bs commands.c but its not actually using the abilityeffect function at all...
+            
+            if (gBattleMons[battler].ability == ABILITY_NEUTRALIZING_GAS && !(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_NEUTRALIZING_GAS))
             {
-                if (gBattleMons[i].ability == ABILITY_NEUTRALIZING_GAS && !(gBattleResources->flags->flags[i] & RESOURCE_FLAG_NEUTRALIZING_GAS))
-                {
-                    gBattleResources->flags->flags[i] |= RESOURCE_FLAG_NEUTRALIZING_GAS;
-                    gBattlerAbility = i;
-                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_NEUTRALIZING_GAS;
-                    BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
-                    ++effect;
-                }
-                else if (gBattleMons[i].ability == ABILITY_IMMUTABLE_WIND && !(gBattleResources->flags->flags[i] & RESOURCE_FLAG_NEUTRALIZING_GAS))
-                {
-                    gBattleResources->flags->flags[i] |= RESOURCE_FLAG_NEUTRALIZING_GAS;
-                    gBattlerAbility = i;
-                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_IMMUTABLE_WIND;
-                    BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
-                    ++effect;
-                }
-
-                if (effect) //since changed to side ability think need change a bit
-                    break;//vsonic important
+                gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_NEUTRALIZING_GAS;
+                gBattlerAbility = battler;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_NEUTRALIZING_GAS;
+                BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
+                ++effect;
             }
+            else if (gBattleMons[battler].ability == ABILITY_IMMUTABLE_WIND && !(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_IMMUTABLE_WIND))
+            {
+                gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_IMMUTABLE_WIND;
+                gBattlerAbility = battler;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_IMMUTABLE_WIND;
+                BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
+                ++effect;
+            }//resource flag not called anywhere, thing all it does is prevent loop
+            //but affects are no longer the same so shouldn't be mutually exclusive
+            //need separeate flag check for immutable wind
+
+            if (effect) //since changed to side ability think need change a bit
+                break;//vsonic important
             break;
         case ABILITYEFFECT_CHECK_OTHER_SIDE: // 12
             side = GetBattlerSide(battler);

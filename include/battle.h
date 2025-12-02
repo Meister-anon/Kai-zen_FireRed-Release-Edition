@@ -201,12 +201,16 @@ struct ResourceFlags
 {
     u32 flags[MAX_BATTLERS_COUNT];
 };
+//don't yet know if better than putting in disable structs
+//putting there removes need to clear I guess
+//both take up ewram
 
-#define RESOURCE_FLAG_FLASH_FIRE     1
-#define RESOURCE_FLAG_ROOST          2
-#define RESOURCE_FLAG_UNBURDEN       4
-#define RESOURCE_FLAG_EMERGENCY_EXIT 8  //check how this used will prob do it differently for my implementation
-#define RESOURCE_FLAG_NEUTRALIZING_GAS 16 //works by doubling previous
+#define RESOURCE_FLAG_FLASH_FIRE     (1 << 0)
+#define RESOURCE_FLAG_ROOST          (1 << 1)
+#define RESOURCE_FLAG_UNBURDEN       (1 << 2)
+#define RESOURCE_FLAG_EMERGENCY_EXIT (1 << 3)  //check how this used will prob do it differently for my implementation
+#define RESOURCE_FLAG_NEUTRALIZING_GAS (1 << 4) //allows for 32 flag options 0 - 31 - EE appears to replace with disable struct values
+#define RESOURCE_FLAG_IMMUTABLE_WIND (1 << 5)
 
 //vsonic important remmber bit fields can store max 2^bit value
 //ex bit 3  :3 is 2^3 = 8 can store 8 values between 0-7

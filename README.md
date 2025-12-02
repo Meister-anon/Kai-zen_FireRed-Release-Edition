@@ -20,6 +20,16 @@ taking a hit ends battle as if caught opposing mon
 adding them to your team...
 
 -confirmed this bug does exist in master
+-fixed neutralizing gas
+
+-major note more battle anim issues with speed up
+seems morning sun which does blend effects
+skips an important clear and the screen remains washed out
+like a flash bang.
+
+only fix is closing and opening party menu 
+to refresh display maybe adding some sort of cleanse
+as last command of all animations would help with that?
 
 on btl ctrl update finish removal of gactivebattler
 

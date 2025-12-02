@@ -10518,7 +10518,12 @@ static void atk52_switchineffects(void) //important, think can put ability reset
     
     // Neutralizing Gas announces itself before hazards
     //potentialy should hvae swapped this for abilitybattleeffects  neutralizing gas case, idk.
-    if (gBattleMons[battler].ability == ABILITY_NEUTRALIZING_GAS && gSpecialStatuses[battler].announceNeutralizingGas == 0)
+    //yup replacing with ability affect is all I needed
+    if (AbilityBattleEffects(ABILITYEFFECT_NEUTRALIZINGGAS, battler, 0, 0, 0))
+    {
+        return;
+    }
+    /*if (gBattleMons[battler].ability == ABILITY_NEUTRALIZING_GAS && gSpecialStatuses[battler].announceNeutralizingGas == 0)
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_NEUTRALIZING_GAS;
         gSpecialStatuses[battler].announceNeutralizingGas = TRUE;
@@ -10534,7 +10539,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         gBattlerAbility = battler;
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_SwitchInAbilityMsgRet;
-    }
+    }*/
      
 
     if (!(gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_SPIKES_TRIGGERED)
