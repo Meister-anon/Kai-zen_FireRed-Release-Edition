@@ -3108,6 +3108,7 @@ static const struct LevelUpMove sHoothootLevelUpLearnset[] = {
 static const struct LevelUpMove sNoctowlLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE)
     LEVEL_UP_MOVE(1, MOVE_GROWL)
+    LEVEL_UP_MOVE(1, MOVE_TELEPORT)
     LEVEL_UP_MOVE(1, MOVE_FORESIGHT)
     LEVEL_UP_MOVE(1, MOVE_PECK)
     LEVEL_UP_MOVE(6, MOVE_FORESIGHT)
@@ -3115,7 +3116,7 @@ static const struct LevelUpMove sNoctowlLevelUpLearnset[] = {
     LEVEL_UP_MOVE(16, MOVE_HYPNOSIS)
     LEVEL_UP_MOVE(25, MOVE_REFLECT)
     LEVEL_UP_MOVE(33, MOVE_TAKE_DOWN)
-    LEVEL_UP_MOVE(41, MOVE_CONFUSION)
+    LEVEL_UP_MOVE(41, MOVE_DARK_PULSE)
     LEVEL_UP_MOVE(57, MOVE_DREAM_EATER)
     LEVEL_UP_END
 };

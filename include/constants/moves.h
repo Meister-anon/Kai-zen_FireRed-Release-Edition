@@ -915,7 +915,8 @@
 #define MOVE_ACID_RAIN          881   //poison move to make acid rain
 #define MOVE_COLD_FRONT         882     //ice solar beam, 
 #define MOVE_LIFE_DRAIN         883     //mostly for giratina but ghost healing attack
-#define MOVE_NA                 884 //avoid extra copy paste
+#define MOVE_DARK_SWAMP         884 //new special dark move
+#define MOVE_NA                 885 //avoid extra copy paste
 
 //for completion new moves have to be defined in:  move_descriptions.inc,  move_names.h, & battle_anim_scripts.s
 // also need actual move data in battle_moves.h

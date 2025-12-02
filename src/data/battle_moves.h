@@ -14453,4 +14453,19 @@ use wonder gaurd logic to determine its super effective
     },//decide make phsyical counter of shadow ball, but healings
     //undecided if should make tm
 
+    [MOVE_DARK_SWAMP] =
+    {
+        .effect = EFFECT_ABSORB,
+        .power = 60,
+        .type = TYPE_DARK,
+        .accuracy = 95,
+        .pp = 10,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .split = SPLIT_SPECIAL,
+    },
+    //made 60 bp to continue trend of oddly broken dark moves category
+
 };
