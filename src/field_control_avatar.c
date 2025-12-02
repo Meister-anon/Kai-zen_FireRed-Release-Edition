@@ -881,7 +881,7 @@ static void UpdatePickupCounter(void)
         //shift which ball you get based on level
         if (sPickupItems[j].itemId == ITEM_POKE_BALL)
         {
-            if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 20)
+            if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 20)//vsonic Important post lvl cap may change to use rec level for progression linking
                 arrayItem = sPickupItems[j].itemId;
             else if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 35)
                 arrayItem = ITEM_GREAT_BALL;
@@ -923,6 +923,9 @@ static void UpdatePickupCounter(void)
     
 }
 
+//consider roll mon egg check and nuzlocke alive
+//into single is mon alive check 
+//as an overworld counterpart to isbattleralive
 static void UpdateHoneyGatherCounter(void)
 {
     u16 *ptr = GetVarPointer(VAR_HONEY_GATHER_COUNTER);
