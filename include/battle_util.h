@@ -269,6 +269,7 @@ bool8 IsBattlerUnderProtectEffect(u8 battler);
 void ClearMoldBreakerSetStatus(u8 battler);
 
 bool32 ShouldActivateFugue(u32 battleratk, u32 battlerdef);
+bool32 ShouldActivateObliviousLike(u32 battler); //oblivious femme fatale ability block was constalty resetting cuz didn't have top condition
 
 //cacophony based functions - also affects perish song, bypasses walls and protection
 //and sets sleep and confusion effects to max duration on status set

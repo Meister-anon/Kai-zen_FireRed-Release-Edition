@@ -372,6 +372,10 @@ void PressurePPLoseOnUsingPerishSong(u8 attacker)
 //not sure it'll target correctly  so will make custom effect
 //realized wasn't right, need take target from targetting funciton to set correct battler here
 //if fails to infatuate should end script/effect
+//vsonic important double check how i have this,
+//ability effect removes infatuation at move end if set
+//which would be before it affects move choice etc.
+//unsure if need here then. well for infatuation set with ability I guess?
 static void infatuationchecks(u8 target, u8 attacker)//cusotm effect used for cupidarrow
 {
     u16 targetAbility = GetBattlerAbility(target);
@@ -9409,7 +9413,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     break;
                 case ABILITY_FEMME_FATALE:
                 case ABILITY_OBLIVIOUS:
-                    //if (gBattleMons[battler].status2 & STATUS2_INFATUATION)
+                    if (ShouldActivateObliviousLike(battler))
                     {
                         //StringCopy(gBattleTextBuff1, gStatusConditionString_LoveJpn);
                         effect = 4; //was 3
@@ -9446,17 +9450,13 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_BattlerGotOverItsInfatuation;
                         break; //-take EE version doesn't use string copy special battlescript instead
-                    case 4: // consolidated modern oblivious affect
-                        if (gBattleMons[battler].status2 & STATUS2_INFATUATION)
-                        {
-                            gBattleMons[battler].status2 &= ~(STATUS2_INFATUATION);
-                            gBattleStruct->infatuatedwithBattleId[battler] = BATTLE_ID_NONE;
-                        }
-                        
+                    case 4: // consolidated modern oblivious affect                        
                         gDisableStructs[battler].tauntTimer = 0;
+                        gBattleMons[battler].status2 &= ~ (STATUS2_TORMENT);
+                        gBattleMons[battler].status2 &= ~(STATUS2_INFATUATION);
+                        gBattleStruct->infatuatedwithBattleId[battler] = BATTLE_ID_NONE;
 
-                        if (gBattleMons[battler].status2 & STATUS2_TORMENT)
-                            gBattleMons[battler].status2 &= ~ (STATUS2_TORMENT);
+
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_BattlerCameToItsSenses; //TODO
                         break;
@@ -13493,6 +13493,16 @@ bool32 ShouldActivateFugue(u32 battleratk, u32 battlerdef)
 
     if (IsBattlerAlive(battleratk)
     && GetBattlerAbility(battleratk) == ABILITY_FUGUE)
+        return TRUE;
+
+    return FALSE;
+}
+
+bool32 ShouldActivateObliviousLike(u32 battler)
+{
+    if (gDisableStructs[battler].tauntTimer
+    || gBattleMons[battler].status2 & STATUS2_INFATUATION
+    || gBattleMons[battler].status2 & STATUS2_TORMENT)
         return TRUE;
 
     return FALSE;

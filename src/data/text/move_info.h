@@ -643,7 +643,7 @@ const u8 gSTORM_THROW_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The user strikes\nthe target with\na fierce blow.\nThis attack always\nresults in a\ncritical hit.");
 
 const u8 gFLAME_BURST_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A bursting flamen\nthat does damage\nto all foes.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A bursting flame\nthat does damage\nto all foes.");
 
 const u8 gSLUDGE_WAVE_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Swamps the area with\na wave of sludge\nMay also poison.");
@@ -802,7 +802,7 @@ const u8 gCOTTON_GUARD_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Swaddles its body\nin cotton.\nDrastically raising\nits Defense.");
 
 const u8 gNIGHT_DAZE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Looses a pitch-black\nshockwave\nMay lower accuracy.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user unleashes\na pitch-black\nshockwave that\nmay lower accuracy.");
 
 const u8 gTAIL_SLAP_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Strikes the foe\nwith its tail\n2 to 5 times.");
