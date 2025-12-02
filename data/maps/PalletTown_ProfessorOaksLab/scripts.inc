@@ -1387,6 +1387,8 @@ PalletTown_ProfessorOaksLab_Movement_RivalWalksToBulbasaur:: @ 8169D72
 PalletTown_ProfessorOaksLab_EventScript_BulbasaurBall:: @ 8169BAB
 	lock
 	faceplayer
+	compare VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3
+	goto_if_ge PalletTown_ProfessorOaksLab_EventScript_LastPokeBall
 	setvar PLAYER_STARTER_NUM, 0
 	copyvar PLAYER_STARTER_SPECIES, VAR_TEMP_5
 	copyvar VAR_PLAYER_STARTER, VAR_TEMP_5
@@ -1394,8 +1396,6 @@ PalletTown_ProfessorOaksLab_EventScript_BulbasaurBall:: @ 8169BAB
 	callnative RivalStarterConditionCheck	@attempt loop check, to ensure rival starter meets chets type advantage condition
 	copyvar VAR_RIVAL_STARTER, VAR_TEMP_8
 	setvar RIVAL_STARTER_ID, LOCALID_CHARMANDER_BALL
-	compare VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3
-	goto_if_ge PalletTown_ProfessorOaksLab_EventScript_LastPokeBall
 	compare VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 2
 	goto_if_eq PalletTown_ProfessorOaksLab_EventScript_ConfirmStarterChoice
 	msgbox PalletTown_ProfessorOaksLab_Text_ThoseArePokeBalls
@@ -1405,6 +1405,8 @@ PalletTown_ProfessorOaksLab_EventScript_BulbasaurBall:: @ 8169BAB
 PalletTown_ProfessorOaksLab_EventScript_SquirtleBall:: @ 8169D78
 	lock
 	faceplayer
+	compare VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3
+	goto_if_ge PalletTown_ProfessorOaksLab_EventScript_LastPokeBall
 	setvar PLAYER_STARTER_NUM, 1
 	copyvar PLAYER_STARTER_SPECIES, VAR_TEMP_6
 	copyvar VAR_PLAYER_STARTER, VAR_TEMP_6
@@ -1412,8 +1414,6 @@ PalletTown_ProfessorOaksLab_EventScript_SquirtleBall:: @ 8169D78
 	callnative RivalStarterConditionCheck	@attempt loop check, to ensure rival starter meets chets type advantage condition
 	copyvar VAR_RIVAL_STARTER, VAR_TEMP_9
 	setvar RIVAL_STARTER_ID, LOCALID_BULBASAUR_BALL
-	compare VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3
-	goto_if_ge PalletTown_ProfessorOaksLab_EventScript_LastPokeBall
 	compare VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 2
 	goto_if_eq PalletTown_ProfessorOaksLab_EventScript_ConfirmStarterChoice
 	msgbox PalletTown_ProfessorOaksLab_Text_ThoseArePokeBalls
@@ -1423,6 +1423,8 @@ PalletTown_ProfessorOaksLab_EventScript_SquirtleBall:: @ 8169D78
 PalletTown_ProfessorOaksLab_EventScript_CharmanderBall:: @ 8169DAE
 	lock
 	faceplayer
+	compare VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3
+	goto_if_ge PalletTown_ProfessorOaksLab_EventScript_LastPokeBall
 	setvar PLAYER_STARTER_NUM, 2
 	copyvar PLAYER_STARTER_SPECIES, VAR_TEMP_7
 	copyvar VAR_PLAYER_STARTER, VAR_TEMP_7
@@ -1430,8 +1432,6 @@ PalletTown_ProfessorOaksLab_EventScript_CharmanderBall:: @ 8169DAE
 	callnative RivalStarterConditionCheck	@attempt loop check, to ensure rival starter meets chets type advantage condition
 	copyvar VAR_RIVAL_STARTER, VAR_TEMP_A
 	setvar RIVAL_STARTER_ID, LOCALID_SQUIRTLE_BALL
-	compare VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3
-	goto_if_ge PalletTown_ProfessorOaksLab_EventScript_LastPokeBall
 	compare VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 2
 	goto_if_eq PalletTown_ProfessorOaksLab_EventScript_ConfirmStarterChoice
 	msgbox PalletTown_ProfessorOaksLab_Text_ThoseArePokeBalls
