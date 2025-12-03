@@ -8770,7 +8770,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     && IsBattlerAlive(battler)
                     && CompareStat(battler, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN))
                 { //think will add immunity to crit to thjis, check balance may be too much - gave o inner focus instead
-                    SET_STATCHANGER(STAT_SPEED, 1, FALSE);
+                    SET_STATCHANGER(STAT_SPEED, 2, FALSE); //rebalaned gave +2 its not offense so not op
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_TargetAbilityStatRaiseOnMoveEnd;  //need test //need replace with one that matches level of stat change
                     ++effect;
