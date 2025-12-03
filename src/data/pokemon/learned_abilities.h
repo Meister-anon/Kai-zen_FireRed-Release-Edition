@@ -1109,6 +1109,7 @@ static const struct AbilityLearnset sMagbyAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMiltankAbilityLearnset[] = {
+    ABILITY_CUD_CHEW,
     ABILITY_SET_END
 };//want to do more with but not sure what like the moves are pretty good but 
 
@@ -1124,10 +1125,12 @@ static const struct AbilityLearnset sRaikouAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sEnteiAbilityLearnset[] = {
+    ABILITY_TELEPATHY,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sSuicuneAbilityLearnset[] = {
+    ABILITY_WATER_ABSORB,
     ABILITY_SET_END
 };
 

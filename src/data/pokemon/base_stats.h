@@ -7599,7 +7599,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 80, 105, 100, 40, 80),
-        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
+        MON_TYPES(TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_Defense = 2,
@@ -25968,7 +25968,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_CLOUD_NINE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         .safariZoneFleeRate = 50,
         .abilityLearnset = sDrampaAbilityLearnset,
         .levelUpLearnset = sDrampaLevelUpLearnset,
