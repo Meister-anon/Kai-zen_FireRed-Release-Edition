@@ -3999,7 +3999,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Electabuzz"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 83, 57, 105, 95, 85),
+         STATS(65, 88, 57, 105, 95, 85),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 172,
