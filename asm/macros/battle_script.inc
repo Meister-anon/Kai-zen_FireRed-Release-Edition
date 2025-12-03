@@ -2508,7 +2508,7 @@
 		statbuffchange  \battler, STAT_CHANGE_ALLOW_PTR, \script
 	.else
 	.if \affectsUser == TRUE
-		statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, \script
+		statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, \script
 	.endif
 	.endif
 	setgraphicalstatchangevalues
@@ -2558,7 +2558,7 @@
 		statbuffchange \battler, STAT_CHANGE_ALLOW_PTR, \script
 	.else
 	.if \affectsUser == TRUE
-		statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, \script
+		statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, \script
 	.endif
 	.endif
 	setgraphicalstatchangevalues
