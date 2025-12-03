@@ -4590,13 +4590,14 @@ static bool8 IsFinalStrikeEffect(u16 move)
 //sets status based on moves, in bs called from setmoveeffectwithchance
 //but some things can bypass this function to set status directly
 //usually ability logic or item logic
-void SetMoveEffect(bool32 primary, u32 certain) 
+void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certain)
 {
 
     u32 flags = {0};
     u16 battlerAbility, AttackerAbility;
     bool32 statusChanged = FALSE;
-    s32 affectsUser, byTwo, i = 0; // 0x40 otherwise
+    s32 byTwo, i = 0; // 0x40 otherwise
+    bool32 affectsUser = (battler == effectBattler);
     bool32 mirrorArmorReflected = ((GetBattlerAbility(gBattlerTarget) == ABILITY_MIRROR_ARMOR) || (GetBattlerAbility(gBattlerTarget) == ABILITY_EMPATH));
     bool8 activateAfterFaint = FALSE;
 
@@ -4629,7 +4630,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
         break;
     } 
 
-    if (gBattleScripting.moveEffect & MOVE_EFFECT_AFFECTS_USER)  //because of bit logic  and value of affects user, this means if given move effect does not return 0, make affect user return true, meant to always return non 0 value
+    /*if (gBattleScripting.moveEffect & MOVE_EFFECT_AFFECTS_USER)  //because of bit logic  and value of affects user, this means if given move effect does not return 0, make affect user return true, meant to always return non 0 value
     {
         gEffectBattler = gBattlerAttacker; // battlerId that effects get applied on
         gBattleScripting.moveEffect &= ~(MOVE_EFFECT_AFFECTS_USER); //looked into contact move multihit bug I think this is the cause, it swaps targetting around
@@ -4640,15 +4641,16 @@ void SetMoveEffect(bool32 primary, u32 certain)
     {
         gEffectBattler = gBattlerTarget;
         gBattleScripting.battler = gBattlerAttacker;
-    }
+    }*/
+
     if (gBattleTypeFlags & BATTLE_TYPE_POKEDUDE
      && gBattleScripting.moveEffect != 1
-     && GetBattlerSide(gEffectBattler) == B_SIDE_OPPONENT)
+     && GetBattlerSide(effectBattler) == B_SIDE_OPPONENT)
     {
         ++gBattlescriptCurrInstr;
         return;
     }
-    battlerAbility = GetBattlerAbility(gEffectBattler); //port      is for target ability
+    battlerAbility = GetBattlerAbility(effectBattler); //port      is for target ability
     AttackerAbility = GetBattlerAbility(gBattlerAttacker);   //for attacker ability
 
     // Just in case this flag is still set
@@ -4659,11 +4661,11 @@ void SetMoveEffect(bool32 primary, u32 certain)
      && (gBattleScripting.moveEffect <= MOVE_EFFECT_TRI_ATTACK || gBattleScripting.moveEffect >= MOVE_EFFECT_FLAME_BURST)) // Exclude stat lowering effects)  //skip script command if in threshold
     {
         if (battlerAbility == ABILITY_SHIELD_DUST)
-            RecordAbilityBattle(gEffectBattler, battlerAbility);
+            RecordAbilityBattle(effectBattler, battlerAbility);
         ++gBattlescriptCurrInstr;
         return; //like emerald so is correct
     }
-    if (gSideStatuses[GET_BATTLER_SIDE(gEffectBattler)] & SIDE_STATUS_SAFEGUARD //safegaurd check is here already dont need safeguard in status functions
+    if (gSideStatuses[GET_BATTLER_SIDE(effectBattler)] & SIDE_STATUS_SAFEGUARD //safegaurd check is here already dont need safeguard in status functions
      //&& !(gHitMarker & HITMARKER_IGNORE_SAFEGUARD) //removing this not part of status check functions from emerald is becuase this was removed in later gen
      && !primary            //more consistent and easier to setup function logic if I just remove it.
      && gBattleScripting.moveEffect <= MOVE_EFFECT_CONFUSION)   //skip script command if in threshold
@@ -4675,10 +4677,10 @@ void SetMoveEffect(bool32 primary, u32 certain)
     if (TestSheerForceFlag(gBattlerAttacker, gCurrentMove) && affectsUser != MOVE_EFFECT_AFFECTS_USER)
         INCREMENT_RESET_RETURN
 
-    if (!IsBattlerAlive(gEffectBattler) && !activateAfterFaint)
+    if (!IsBattlerAlive(effectBattler) && !activateAfterFaint)
         INCREMENT_RESET_RETURN
 
-    if (DoesSubstituteBlockMove(gBattlerAttacker, gEffectBattler, gCurrentMove) && affectsUser != MOVE_EFFECT_AFFECTS_USER)
+    if (DoesSubstituteBlockMove(gBattlerAttacker, effectBattler, gCurrentMove) && affectsUser != MOVE_EFFECT_AFFECTS_USER)
         INCREMENT_RESET_RETURN
 
     if (gBattleScripting.moveEffect <= PRIMARY_STATUS_MOVE_EFFECT) // status change
@@ -4695,7 +4697,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 i = gBattlersCount; //why is vital spirit etc. not here? check later  has jumpifcantmakeasleep that checks these abilities so think this is fine
             }
 
-            if (!(CanSleep(gEffectBattler)))
+            if (!(CanSleep(effectBattler)))
                 break;
             
             if ((gMoveResultFlags & MOVE_RESULT_NO_EFFECT && gBattleMoves[gCurrentMove].split == SPLIT_STATUS)
@@ -4708,7 +4710,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
             
             if (i != gBattlersCount)
                 break;
-            CancelMultiTurnMoves(gEffectBattler); //if it passes all checks cancel multi turn moves and appply sleep. I think
+            CancelMultiTurnMoves(effectBattler); //if it passes all checks cancel multi turn moves and appply sleep. I think
             statusChanged = TRUE;
             break;//NEED to better check swithch statements to see if break ends entire switch, or it just makes it continue checking for matches in other cases
         case STATUS1_BURN:
@@ -4718,14 +4720,14 @@ void SetMoveEffect(bool32 primary, u32 certain)
              && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))
             {
                 gLastUsedAbility = battlerAbility;
-                RecordAbilityBattle(gEffectBattler, battlerAbility);
+                RecordAbilityBattle(effectBattler, battlerAbility);
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_BRNPrevention;
                 gBattleCommunication[MULTISTRING_CHOOSER] = 0;
                 return;
             }
     
-            if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gEffectBattler, battlerAbility, TYPE_FIRE))
+            if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), effectBattler, battlerAbility, TYPE_FIRE))
             && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))
             {
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
@@ -4733,7 +4735,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 gBattleCommunication[MULTISTRING_CHOOSER] = 2;
                 return;
             }
-            if (!(CanBeBurned(gEffectBattler)))
+            if (!(CanBeBurned(effectBattler)))
                 break;
 
             //put no effect check here, below ability checks above status1 check
@@ -4752,7 +4754,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
             statusChanged = TRUE;
             break;
         case STATUS1_FREEZE:
-            if (!(CanBeFrozen(gEffectBattler)))
+            if (!(CanBeFrozen(effectBattler)))
                 break;
 
             //put no effect check here, below ability checks above status1 check
@@ -4764,7 +4766,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 break;
             }
 
-            CancelMultiTurnMoves(gEffectBattler);
+            CancelMultiTurnMoves(effectBattler);
             statusChanged = TRUE;
             //moved freeze timer below w sleep //2-4 turns for frozn should work  - nvm using value of 3, can have 2 full turns of freeze, decrement in end turn
             break;  //new note, made change to freeze, but don't want move to just be a switch as I'll lose the end turn, think I will adapt frostbite
@@ -4781,7 +4783,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 if (primary == TRUE || certain == MOVE_EFFECT_CERTAIN)
                 {
                     gLastUsedAbility = battlerAbility;
-                    RecordAbilityBattle(gEffectBattler, gLastUsedAbility);
+                    RecordAbilityBattle(effectBattler, gLastUsedAbility);
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
                     gBattlescriptCurrInstr = BattleScript_PRLZPrevention;
                     gBattleCommunication[MULTISTRING_CHOOSER] = 0; //ability status prevention
@@ -4791,7 +4793,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     break;
             }
            
-           if (!(CanBeParalyzed(gEffectBattler)))
+           if (!(CanBeParalyzed(effectBattler)))
                 break;
 
             
@@ -4814,14 +4816,14 @@ void SetMoveEffect(bool32 primary, u32 certain)
             {   //so make it if   and else using multiple or operands to group up the thinigs that break status and status changd will equal false
                 // then an else that will do the normal things that go along with status being applied. and then keeps going without a break
                 gLastUsedAbility = battlerAbility;
-                RecordAbilityBattle(gEffectBattler, gLastUsedAbility);
+                RecordAbilityBattle(effectBattler, gLastUsedAbility);
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_PSNPrevention;
                 gBattleCommunication[MULTISTRING_CHOOSER] = 0;
                 return;
             }
             
-            /*if (!(CanPoisonType(gBattleScripting.battler, gEffectBattler) //corrossion logic here
+            /*if (!(CanPoisonType(gBattleScripting.battler, effectBattler) //corrossion logic here
                 && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN)))
             {
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
@@ -4830,7 +4832,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 return;
             }*/  //need properly review this for later
 
-            if (!CanBePoisoned(gBattleScripting.battler, gEffectBattler))
+            if (!CanBePoisoned(gBattleScripting.battler, effectBattler))
                 break;
 
             //put no effect check here, below ability checks above status1 check
@@ -4849,45 +4851,45 @@ void SetMoveEffect(bool32 primary, u32 certain)
             }//think add poisoned legacy to this - done below
             
 
-            /*if (IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_POISON))
+            /*if (IS_BATTLER_OF_TYPE(effectBattler, TYPE_POISON))
                 break;
-            if (IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_STEEL))
+            if (IS_BATTLER_OF_TYPE(effectBattler, TYPE_STEEL))
                 break;  */
 
-            //if (!(CanBePoisoned(gBattleScripting.battler, gEffectBattler)))
+            //if (!(CanBePoisoned(gBattleScripting.battler, effectBattler)))
             //    break;
 
-            /*if (gBattleMons[gEffectBattler].status1)
+            /*if (gBattleMons[effectBattler].status1)
                 break;*/    //removed this line, has check in battlescript, think will just not do text string, there's no way to do it simply?
             //instead can just do jump in commands to set move effect toxic,  just need to remove poison with this function
             //think this shouldn't go here, status is set below this so it would set twice?
              //OK THIS hopefully works.?   //should remove poison and set toxic, the missing part is setting toxic counter value
             //dont know if works as I want but it compiles
             
-           /* else if (gBattleMons[gEffectBattler].status1)   //realized i could keep this, if i use else if,  since thsi should mean if status1 not 0?
+           /* else if (gBattleMons[effectBattler].status1)   //realized i could keep this, if i use else if,  since thsi should mean if status1 not 0?
                 break;*/ //removed put comparative logic in ported function
             //statusChanged = TRUE;
             //break;
-            if (CanBePoisoned(gBattleScripting.battler, gEffectBattler))
+            if (CanBePoisoned(gBattleScripting.battler, effectBattler))
             {
                    
                 statusChanged = TRUE;
                 //break;
             }
-            /*else// if (!CanPoisonType(gBattleScripting.battler, gEffectBattler))
+            /*else// if (!CanPoisonType(gBattleScripting.battler, effectBattler))
             {
                 gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
             }
             */
             break;
             
-            /*if (CanBePoisoned(gBattleScripting.battler, gEffectBattler))
+            /*if (CanBePoisoned(gBattleScripting.battler, effectBattler))
             {
                    
                 statusChanged = TRUE;
                 break;
             }
-            else if (!(CanPoisonType(gBattleScripting.battler, gEffectBattler)))
+            else if (!(CanPoisonType(gBattleScripting.battler, effectBattler)))
             {
                 gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
             }
@@ -4898,14 +4900,14 @@ void SetMoveEffect(bool32 primary, u32 certain)
             && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))
             {
                 gLastUsedAbility = battlerAbility;
-                RecordAbilityBattle(gEffectBattler, gLastUsedAbility);
+                RecordAbilityBattle(effectBattler, gLastUsedAbility);
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_PSNPrevention;
                 gBattleCommunication[MULTISTRING_CHOOSER] = 0;
                 return;
             }
             
-            /*if (!(CanPoisonType(gBattleScripting.battler, gEffectBattler))
+            /*if (!(CanPoisonType(gBattleScripting.battler, effectBattler))
              && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))
             {
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
@@ -4914,7 +4916,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 return;
             }*/  //paralysis works and this si removed, removing for now, but think need multistring choice 2 for status blocking abilities
 
-            if (!CanBePoisoned(gBattleScripting.battler, gEffectBattler))
+            if (!CanBePoisoned(gBattleScripting.battler, effectBattler))
                 break;
             //put no effect check here, below ability checks above status1 check
             //I guess put this here? its passed most checks
@@ -4925,18 +4927,18 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 gBattlescriptCurrInstr = BattleScript_NotAffected; //do jump
                 break;
             }
-            /*if (gBattleMons[gEffectBattler].status1)    //for poison worsend need change this to status1 != poison break, will let it set toxic if normal poison
+            /*if (gBattleMons[effectBattler].status1)    //for poison worsend need change this to status1 != poison break, will let it set toxic if normal poison
                 break;*/
             //attempting to just remove, as status checks etc. are already part of battlescript
             //need to better understand what setmoveeffect is doing
 
-            if (CanBePoisoned(gBattleScripting.battler, gEffectBattler))
+            if (CanBePoisoned(gBattleScripting.battler, effectBattler))
             {
                    
                 statusChanged = TRUE;
                 break;
             }
-            else if (!CanPoisonType(gBattleScripting.battler, gEffectBattler))
+            else if (!CanPoisonType(gBattleScripting.battler, effectBattler))
             {
                 gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
             }
@@ -4949,23 +4951,23 @@ void SetMoveEffect(bool32 primary, u32 certain)
             //makes rest better, which is fine but should be no issues, just test and tweak heal value
             if (sStatusFlagsForMoveEffects[gBattleScripting.moveEffect] == STATUS1_SLEEP)//>>>actually way this is counted it decrements before effect takes palce (i.e in atk canceler not end turn)
             {
-                if (GetBattlerAbility(gEffectBattler) == ABILITY_TOOLS_OF_THE_TRADE) //1 turn of sleep is counter 2s
-                    gBattleStruct->SleepTimer[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2;
-                else if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted || ShouldActivateFugue(gBattlerAttacker, gEffectBattler))
-                    gBattleStruct->SleepTimer[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = MAX_SLEEP_TURNS;
+                if (GetBattlerAbility(effectBattler) == ABILITY_TOOLS_OF_THE_TRADE) //1 turn of sleep is counter 2s
+                    gBattleStruct->SleepTimer[gBattlerPartyIndexes[effectBattler]][GetBattlerSide(effectBattler)] = 2;
+                else if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted || ShouldActivateFugue(gBattlerAttacker, effectBattler))
+                    gBattleStruct->SleepTimer[gBattlerPartyIndexes[effectBattler]][GetBattlerSide(effectBattler)] = MAX_SLEEP_TURNS;
                 else
-                    gBattleStruct->SleepTimer[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = ((Random() % 3) + 3);
+                    gBattleStruct->SleepTimer[gBattlerPartyIndexes[effectBattler]][GetBattlerSide(effectBattler)] = ((Random() % 3) + 3);
                 //attempt get sleep heal and only sleep 1 turn, if doesnt' work
                     //may replace w full sleep immunity or keep as is for balance
                 
 
-                gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
-                //gBattleMons[gEffectBattler].status1 |= ((Random() % 3) + 3); //duration of sleep, and its 2-5 here. /changed to 2-4 /guarantees 1 free turn unless earlybird  //confirmed
+                gBattleMons[effectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                //gBattleMons[effectBattler].status1 |= ((Random() % 3) + 3); //duration of sleep, and its 2-5 here. /changed to 2-4 /guarantees 1 free turn unless earlybird  //confirmed
                 gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect]; //2-4 means 1-3 turns of sleep (is 2-4 decrementsin atkcanc so can decrease before turn end)
                 
-                if (gBattleMons[gEffectBattler].status2 & STATUS2_RAGE) //would be any time miss, with ANY attack, so don't really want that            
+                if (gBattleMons[effectBattler].status2 & STATUS2_RAGE) //would be any time miss, with ANY attack, so don't really want that            
                 {
-                    ClearRageStatuses(gEffectBattler);
+                    ClearRageStatuses(effectBattler);
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_RageEnds; //need test doesn't work, no message
                 } //just realized I'm not activating this logic since I'm using yawn, that bypasses this function
@@ -4973,19 +4975,19 @@ void SetMoveEffect(bool32 primary, u32 certain)
             else if (sStatusFlagsForMoveEffects[gBattleScripting.moveEffect] == STATUS1_FREEZE)
             {
                 
-                if (gDisableStructs[gEffectBattler].FrozenTurns == 0 && !(gBattleMons[gEffectBattler].status1 & STATUS1_FREEZE))
-                    gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                if (gDisableStructs[effectBattler].FrozenTurns == 0 && !(gBattleMons[effectBattler].status1 & STATUS1_FREEZE))
+                    gBattleMons[effectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                 
                 //setup since plan move can't freeze solid can only
                 //chill to be frozen //message is lacking tho
                 //would still say frozen solid, could change to only say frozen? -
                 if (gCurrentMove != MOVE_BITTER_MALICE)
-                    gDisableStructs[gEffectBattler].FrozenTurns = 3;    //means 2 turns of freeze
+                    gDisableStructs[effectBattler].FrozenTurns = 3;    //means 2 turns of freeze
                 gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
 
-                if (gBattleMons[gEffectBattler].status2 & STATUS2_RAGE) //would be any time miss, with ANY attack, so don't really want that            
+                if (gBattleMons[effectBattler].status2 & STATUS2_RAGE) //would be any time miss, with ANY attack, so don't really want that            
                 {
-                    ClearRageStatuses(gEffectBattler);
+                    ClearRageStatuses(effectBattler);
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_RageEnds; //need test
                 }
@@ -4994,68 +4996,68 @@ void SetMoveEffect(bool32 primary, u32 certain)
             {
                 //hmm decided think will limit this to poison types specifically
                 //as otherwise does same effect of over distribution of toxic
-                if (gBattleMons[gEffectBattler].status1 & STATUS1_POISON /*&& DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_POISON)*/)//now i understand the note,
+                if (gBattleMons[effectBattler].status1 & STATUS1_POISON /*&& DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_POISON)*/)//now i understand the note,
                 {   //the two lins are removing the status even though, the prior logic ensured that no status was set, ironically necessary for my changes
                     // It's redundant, because at this point we know the status1 value is 0.
-                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON); //^not my notes
-                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON);
-                    gBattleMons[gEffectBattler].status1 = STATUS1_TOXIC_POISON;
-                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2;
+                    //gBattleMons[effectBattler].status1 &= ~(STATUS1_TOXIC_POISON); //^not my notes
+                    //gBattleMons[effectBattler].status1 &= ~(STATUS1_POISON);
+                    gBattleMons[effectBattler].status1 = STATUS1_TOXIC_POISON;
+                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[effectBattler]][GetBattlerSide(effectBattler)] = 2;
                     //attempting set toxic counter, to start above normal poison base dmg //will o 3/16 - nah, this was already meant to put it on same footing as poison legacy
                     gBattlescriptCurrInstr = BattleScript_PoisonWorsened;
                 }
                 else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_POISONED_LEGACY
                 && (gBattleMons[gBattlerAttacker].hp <= (gBattleMons[gBattlerAttacker].maxHP / 2)))
                 {
-                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
-                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
-                    gBattleMons[gEffectBattler].status1 = STATUS1_TOXIC_POISON;
-                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2;
+                    //gBattleMons[effectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
+                    //gBattleMons[effectBattler].status1 &= ~(STATUS1_POISON); //extra protection
+                    gBattleMons[effectBattler].status1 = STATUS1_TOXIC_POISON;
+                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[effectBattler]][GetBattlerSide(effectBattler)] = 2;
                     gBattlescriptCurrInstr = BattleScript_MoveEffectToxic; //setup its own message ability severely poisoned I think
                     
                 }
                 else //normal poison setting
                 {
-                    gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                    gBattleMons[effectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                     gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
                 }
                 
             }
             else if (sStatusFlagsForMoveEffects[gBattleScripting.moveEffect] == STATUS1_TOXIC_POISON)
             {
-                if (gBattleMons[gEffectBattler].status1 & STATUS1_POISON)//normal toxic setting
+                if (gBattleMons[effectBattler].status1 & STATUS1_POISON)//normal toxic setting
                 {
-                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
-                    gBattleMons[gEffectBattler].status1 = sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
-                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2;
+                    //gBattleMons[effectBattler].status1 &= ~(STATUS1_POISON); //extra protection
+                    gBattleMons[effectBattler].status1 = sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[effectBattler]][GetBattlerSide(effectBattler)] = 2;
                     gBattlescriptCurrInstr = BattleScript_PoisonWorsened;
                     //gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
                 }//since setting bad poison on top of normla poinson may increase to 3, keep regular poison on poison at 2
                 else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_POISONED_LEGACY
                 && (gBattleMons[gBattlerAttacker].hp <= (gBattleMons[gBattlerAttacker].maxHP / 2)))
                 {
-                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
-                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
-                    //gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
-                    gBattleMons[gEffectBattler].status1 = sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
-                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2; //works now, awesome
+                    //gBattleMons[effectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
+                    //gBattleMons[effectBattler].status1 &= ~(STATUS1_POISON); //extra protection
+                    //gBattleMons[effectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                    gBattleMons[effectBattler].status1 = sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[effectBattler]][GetBattlerSide(effectBattler)] = 2; //works now, awesome
                     gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
                     //gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
                 } //ok issue was setting wrong thing, toxic turn is a counter, but gDisableStructs[battler].toxicTurn is the actual dmg part
          
                 else //normal toxic setting
                 {
-                    gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                    gBattleMons[effectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                     gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
                 }
             }            
             else //normal status setting
             {
-                gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                gBattleMons[effectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                 gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
             }
-            BtlController_EmitSetMonData(gEffectBattler, BUFFER_A, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[gEffectBattler].status1), &gBattleMons[gEffectBattler].status1);  //not really sure what this is doing but leave it
-            MarkBattlerForControllerExec(gEffectBattler);
+            BtlController_EmitSetMonData(effectBattler, BUFFER_A, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[effectBattler].status1), &gBattleMons[effectBattler].status1);  //not really sure what this is doing but leave it
+            MarkBattlerForControllerExec(effectBattler);
            gBattleCommunication[MULTISTRING_CHOOSER] = 0; //add infestation and spirit lock when done to below
             
             // for synchronize / empath / empathic curse
@@ -5083,7 +5085,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
     {       //think this means if status set is the same as the one being attempted to be set, skip to next battle string. i.e can't confuse if already confused?
         //for fear of overlap may remove this line, and remove status2 from sStatusFlagsForMoveEffects[gBattleScripting.moveEffect]) 
         //instead just put explicit status check within the case
-        /*if (gBattleMons[gEffectBattler].status2 & sStatusFlagsForMoveEffects[gBattleScripting.moveEffect]) //not gonna be a problem for trap status as using dif status for each
+        /*if (gBattleMons[effectBattler].status2 & sStatusFlagsForMoveEffects[gBattleScripting.moveEffect]) //not gonna be a problem for trap status as using dif status for each
         {                                           //and just put in each case, lan like magic gaurd check, check macro and do increment, with a one line paste
             ++gBattlescriptCurrInstr;
         }
@@ -5103,30 +5105,30 @@ void SetMoveEffect(bool32 primary, u32 certain)
             switch (gBattleScripting.moveEffect)
             {
             case MOVE_EFFECT_CONFUSION:
-                if (!CanBeConfused(gEffectBattler))
+                if (!CanBeConfused(effectBattler))
                 {
                     ++gBattlescriptCurrInstr;
                 }
                 else
                 {
-                    if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted || ShouldActivateFugue(gBattlerAttacker, gEffectBattler))
-                        gDisableStructs[gEffectBattler].ConfusionTurns = MAX_CONFUSION_TURNS;
+                    if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted || ShouldActivateFugue(gBattlerAttacker, effectBattler))
+                        gDisableStructs[effectBattler].ConfusionTurns = MAX_CONFUSION_TURNS;
                     else
-                        gDisableStructs[gEffectBattler].ConfusionTurns = ((Random() % 4) + 2); //think this odds for confusion duration again 2-5
+                        gDisableStructs[effectBattler].ConfusionTurns = ((Random() % 4) + 2); //think this odds for confusion duration again 2-5
                     
                     //if mon setting confusion has moldbreaker set special confusion 
                     //for breaking through bug affinity
                     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MOLD_BREAKER)
-                        gDisableStructs[gEffectBattler].StatusSetViaMoldBreaker = TRUE;
+                        gDisableStructs[effectBattler].StatusSetViaMoldBreaker = TRUE;
                     
                     // If the confusion is activating due to being released from Sky Drop, go to "confused due to fatigue" script.
                     // Otherwise, do normal confusion script.
                     //ok confusion turn etc. set the base status as well, so without it I need to manually set status
-                    gBattleMons[gEffectBattler].status2 |= STATUS2_CONFUSION;
+                    gBattleMons[effectBattler].status2 |= STATUS2_CONFUSION;
                         if (gCurrentMove == MOVE_SKY_DROP)
                         {
-                            gBattleMons[gEffectBattler].status2 &= ~(STATUS2_LOCK_CONFUSE);
-                            gBattlerAttacker = gEffectBattler;
+                            gBattleMons[effectBattler].status2 &= ~(STATUS2_LOCK_CONFUSE);
+                            gBattlerAttacker = effectBattler;
                             gBattlescriptCurrInstr = BattleScript_ThrashConfuses;
                         }
                         else
@@ -5138,14 +5140,14 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 break;
             case MOVE_EFFECT_INFESTATION:
             {
-                if (gBattleMons[gEffectBattler].status2 & STATUS2_INFESTATION) //not gonna be a problem for trap status as using dif status for each
+                if (gBattleMons[effectBattler].status2 & STATUS2_INFESTATION) //not gonna be a problem for trap status as using dif status for each
                 {                                           //and just put in each case, lan like magic gaurd check, check macro and do increment, with a one line paste
                     ++gBattlescriptCurrInstr;
                 }
                 else
                 {
 
-                    gBattleMons[gEffectBattler].status2 |= STATUS2_INFESTATION;
+                    gBattleMons[effectBattler].status2 |= STATUS2_INFESTATION;
                 
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
                     gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
@@ -5158,8 +5160,8 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     if (primary == TRUE || certain == MOVE_EFFECT_CERTAIN)
                     {
                         gLastUsedAbility = battlerAbility;
-                        gBattlerAbility = gEffectBattler;
-                        RecordAbilityBattle(gEffectBattler, battlerAbility);
+                        gBattlerAbility = effectBattler;
+                        RecordAbilityBattle(effectBattler, battlerAbility);
                         gBattlescriptCurrInstr = BattleScript_FlinchPrevention;
                     }
                     else
@@ -5169,27 +5171,27 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 else
                 {
-                    if (gBattleMons[gEffectBattler].status2 & STATUS2_FLINCHED)
+                    if (gBattleMons[effectBattler].status2 & STATUS2_FLINCHED)
                     {                                           //and just put in each case, lan like magic gaurd check, check macro and do increment, with a one line paste
                         ++gBattlescriptCurrInstr;
                     }
                     else
                     {
 
-                        if (GetBattlerTurnOrderNum(gEffectBattler) > gCurrentTurnActionNumber)
-                            gBattleMons[gEffectBattler].status2 |= STATUS2_FLINCHED;
+                        if (GetBattlerTurnOrderNum(effectBattler) > gCurrentTurnActionNumber)
+                            gBattleMons[effectBattler].status2 |= STATUS2_FLINCHED;
                         ++gBattlescriptCurrInstr;
                     }
                 }
                 break;
             case MOVE_EFFECT_UPROAR:
-                if (!(gBattleMons[gEffectBattler].status2 & STATUS2_UPROAR))
+                if (!(gBattleMons[effectBattler].status2 & STATUS2_UPROAR))
                 {
-                    gBattleMons[gEffectBattler].status2 |= STATUS2_MULTIPLETURNS;
-                    gBattleMons[gEffectBattler].status2 |= STATUS2_UPROAR;
-                    gLockedMoves[gEffectBattler] = gCurrentMove;
-                    //gBattleMons[gEffectBattler].status2 |= ((Random() & 3) + 2) << 4;   //believe means 2-5
-                    gDisableStructs[gEffectBattler].uproarTurns = 3;
+                    gBattleMons[effectBattler].status2 |= STATUS2_MULTIPLETURNS;
+                    gBattleMons[effectBattler].status2 |= STATUS2_UPROAR;
+                    gLockedMoves[effectBattler] = gCurrentMove;
+                    //gBattleMons[effectBattler].status2 |= ((Random() & 3) + 2) << 4;   //believe means 2-5
+                    gDisableStructs[effectBattler].uproarTurns = 3;
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
                     gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
                 }
@@ -5219,7 +5221,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 gBattlescriptCurrInstr++;
                 break;
             case MOVE_EFFECT_TRI_ATTACK:
-                if (gBattleMons[gEffectBattler].status1)
+                if (gBattleMons[effectBattler].status1)
                 {
                     ++gBattlescriptCurrInstr;
                 }
@@ -5240,18 +5242,18 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     }
                     //cleaned up so effect would always work even if order of effects changed
                     //gBattleScripting.moveEffect = Random() % 3 + 3; //somewhat odd logic to return move effect burn freeze or paras
-                    SetMoveEffect(FALSE, 0);
+                    SetMoveEffect(battler, effectBattler, FALSE, FALSE);
                 }
                 break;
             case MOVE_EFFECT_CHARGING:
-                gBattleMons[gEffectBattler].status2 |= STATUS2_MULTIPLETURNS;
-                gLockedMoves[gEffectBattler] = gCurrentMove;
-                gProtectStructs[gEffectBattler].chargingTurn = TRUE;
+                gBattleMons[effectBattler].status2 |= STATUS2_MULTIPLETURNS;
+                gLockedMoves[effectBattler] = gCurrentMove;
+                gProtectStructs[effectBattler].chargingTurn = TRUE;
                 ++gBattlescriptCurrInstr;
                 break;//v IMPORTANT v       //think I'll put traj extra effects in the pokemon.c "damage" formula since it handles concurrent stuff
             case MOVE_EFFECT_WRAP:  //make envionment trap status4 define update other trap moveeffcts below than add end turn effects in util.c
-                //if ((gBattleMons[gEffectBattler].status2 & STATUS2_WRAPPED) || (gBattleMons[gEffectBattler].status1 & STATUS1_WRAPPED)) was right this was cause of bind bug, work on setup new effect 
-                /*if (gBattleMons[gEffectBattler].status2 & STATUS2_WRAPPED)  //if already wrapped do nothing/revamp wrapped status to be catch all for all traps
+                //if ((gBattleMons[effectBattler].status2 & STATUS2_WRAPPED) || (gBattleMons[effectBattler].status1 & STATUS1_WRAPPED)) was right this was cause of bind bug, work on setup new effect 
+                /*if (gBattleMons[effectBattler].status2 & STATUS2_WRAPPED)  //if already wrapped do nothing/revamp wrapped status to be catch all for all traps
                 {
                     ++gBattlescriptCurrInstr; //when done change wrapped check to, if wrapped move == currentmove (I think, need to see how set multiple wraps, 
                     //could just set different timer for each but still do all here)
@@ -5272,8 +5274,8 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         || (GetBattlerAbility(gBattlerAttacker) == ABILITY_SUCTION_CUPS))   //BUFF for suction cups
                     {
                         TrapDuration = 8;  //changed to 8 here, as actual trap duration is n - 1,  so this actually matches expected 7 turn duration
-                        //gDisableStructs[gEffectBattler].wrapTurns = 7;
-                        //gBattleMons[gEffectBattler].status1 |= STATUS1_WRAPPED; //not doing staus1, instead in battle_main where status2 clear is , check for wrap and hold effect of wrapped by
+                        //gDisableStructs[effectBattler].wrapTurns = 7;
+                        //gBattleMons[effectBattler].status1 |= STATUS1_WRAPPED; //not doing staus1, instead in battle_main where status2 clear is , check for wrap and hold effect of wrapped by
                         //if hold effect of wrappedby is grip claw etc. (checks above) then don't remove status when swithing, won't need to do status1
                     }
                     else 
@@ -5293,12 +5295,12 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         u32 selection;
                         
                         
-                    if (gBattleMons[gEffectBattler].status4 & STATUS4_BIND) //mos things arodn repo use status2 wrapped for if trap set, rework that
+                    if (gBattleMons[effectBattler].status4 & STATUS4_BIND) //mos things arodn repo use status2 wrapped for if trap set, rework that
                         ++gBattlescriptCurrInstr;       //since added multiple statuses and timers make bool  true/valse set below for if trapped
                     else                                //same as how sturdied focus sashed etc. set battler trapped  when set timers, then clear when clear status
                     {                                   //replace its a trap status with that as well if used
                         SetTrap = TRUE;
-                        //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
+                        //gBattleStruct->wrappedBy[effectBattler] = gBattlerAttacker;
 
                         //because strong effect separted trap duration boost from remaining effects
                         if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_GRIP_CLAW
@@ -5308,69 +5310,69 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         }
 
                     
-                        gDisableStructs[gEffectBattler].bindTurns = TrapDuration;
-                        gBattleMons[gEffectBattler].status4 |= STATUS4_BIND; //moved effect to attk canceler
+                        gDisableStructs[effectBattler].bindTurns = TrapDuration;
+                        gBattleMons[effectBattler].status4 |= STATUS4_BIND; //moved effect to attk canceler
 
                         //should skip everything if first turn/just switched, moved setting logic to battle_main battle action process
                         //that version will never struggle, so you're safer on switch in
                         //somehow this works exactly as I want, works even if switching into bind...
-                        if (gDisableStructs[gEffectBattler].bindedMove == MOVE_NONE && gLastMoves[gEffectBattler] != MOVE_NONE) //gave in and set to work within encore restrictions
+                        if (gDisableStructs[effectBattler].bindedMove == MOVE_NONE && gLastMoves[effectBattler] != MOVE_NONE) //gave in and set to work within encore restrictions
                         {
                             for (i = 0; i < MAX_MON_MOVES; ++i)
-                                if (gBattleMons[gEffectBattler].moves[i] == gLastMoves[gEffectBattler]) //select last used move
+                                if (gBattleMons[effectBattler].moves[i] == gLastMoves[effectBattler]) //select last used move
                                     break; //if finds a move would stop between 0-3, otherwise would be 4
 
                             for (k = 0; k < MAX_MON_MOVES; ++k) //used for movepos
-                                if (gBattleMons[gEffectBattler].moves[k] == gChosenMoveByBattler[gEffectBattler]) //select last used move
+                                if (gBattleMons[effectBattler].moves[k] == gChosenMoveByBattler[effectBattler]) //select last used move
                                     break;
                                     
-                            for (numMoves = 0; gBattleMons[gEffectBattler].moves[numMoves] != MOVE_NONE; ++numMoves)
-                                if (gBattleMons[gEffectBattler].moves[numMoves] == MOVE_NONE)
+                            for (numMoves = 0; gBattleMons[effectBattler].moves[numMoves] != MOVE_NONE; ++numMoves)
+                                if (gBattleMons[effectBattler].moves[numMoves] == MOVE_NONE)
                                     break;
 
-                            if (gLastMoves[gEffectBattler] == MOVE_STRUGGLE
-                            || gLastMoves[gEffectBattler] == MOVE_ENCORE
-                            || gLastMoves[gEffectBattler] == MOVE_TRANSFORM
-                            //|| gLastMoves[gEffectBattler] == MOVE_NONE
-                            || gLastMoves[gEffectBattler] == MOVE_MIMIC
-                            || gLastMoves[gEffectBattler] == MOVE_SKETCH
-                            || gLastMoves[gEffectBattler] == MOVE_SLEEP_TALK
-                            || gLastMoves[gEffectBattler] == MOVE_MIRROR_MOVE)
+                            if (gLastMoves[effectBattler] == MOVE_STRUGGLE
+                            || gLastMoves[effectBattler] == MOVE_ENCORE
+                            || gLastMoves[effectBattler] == MOVE_TRANSFORM
+                            //|| gLastMoves[effectBattler] == MOVE_NONE
+                            || gLastMoves[effectBattler] == MOVE_MIMIC
+                            || gLastMoves[effectBattler] == MOVE_SKETCH
+                            || gLastMoves[effectBattler] == MOVE_SLEEP_TALK
+                            || gLastMoves[effectBattler] == MOVE_MIRROR_MOVE)
                                 i = 4;  //if the move it finds is banned also set i to 4
 
                             if (i != 4
-                            && gLastMoves[gEffectBattler] != MOVE_NONE
-                            && gBattleMons[gEffectBattler].pp[i] != 0)
+                            && gLastMoves[effectBattler] != MOVE_NONE
+                            && gBattleMons[effectBattler].pp[i] != 0)
                             {
-                                gDisableStructs[gEffectBattler].bindedMove = gBattleMons[gEffectBattler].moves[i];
-                                gDisableStructs[gEffectBattler].bindMovepos = i;
+                                gDisableStructs[effectBattler].bindedMove = gBattleMons[effectBattler].moves[i];
+                                gDisableStructs[effectBattler].bindMovepos = i;
                             }
                             else if (i == 4
-                            && gLastMoves[gEffectBattler] != MOVE_NONE) //should be out of pp for selected move just struggle to avoid reloop
+                            && gLastMoves[effectBattler] != MOVE_NONE) //should be out of pp for selected move just struggle to avoid reloop
                             {
-                                gDisableStructs[gEffectBattler].bindedMove = MOVE_STRUGGLE;
+                                gDisableStructs[effectBattler].bindedMove = MOVE_STRUGGLE;
                                 
                             }
-                            else if (gLastMoves[gEffectBattler] == MOVE_NONE) //try pick random move with pp, if bind is faster than enemy
+                            else if (gLastMoves[effectBattler] == MOVE_NONE) //try pick random move with pp, if bind is faster than enemy
                             {
                                 selection = Random() % numMoves;
                                 if (Rand == 0)
-                                    gChosenMoveByBattler[gEffectBattler] = MOVE_STRUGGLE;
+                                    gChosenMoveByBattler[effectBattler] = MOVE_STRUGGLE;
                                 else
-                                    gChosenMoveByBattler[gEffectBattler] = gBattleMons[gEffectBattler].moves[selection];
+                                    gChosenMoveByBattler[effectBattler] = gBattleMons[effectBattler].moves[selection];
 
-                                if (gChosenMoveByBattler[gEffectBattler] == MOVE_STRUGGLE
-                                || gChosenMoveByBattler[gEffectBattler] == MOVE_ENCORE
-                                || gChosenMoveByBattler[gEffectBattler] == MOVE_TRANSFORM
-                                //|| gChosenMoveByBattler[gEffectBattler] == MOVE_NONE
-                                || gChosenMoveByBattler[gEffectBattler] == MOVE_MIMIC
-                                || gChosenMoveByBattler[gEffectBattler] == MOVE_SKETCH
-                                || gChosenMoveByBattler[gEffectBattler] == MOVE_SLEEP_TALK
-                                || gChosenMoveByBattler[gEffectBattler] == MOVE_MIRROR_MOVE)
-                                    gChosenMoveByBattler[gEffectBattler] = MOVE_STRUGGLE;
+                                if (gChosenMoveByBattler[effectBattler] == MOVE_STRUGGLE
+                                || gChosenMoveByBattler[effectBattler] == MOVE_ENCORE
+                                || gChosenMoveByBattler[effectBattler] == MOVE_TRANSFORM
+                                //|| gChosenMoveByBattler[effectBattler] == MOVE_NONE
+                                || gChosenMoveByBattler[effectBattler] == MOVE_MIMIC
+                                || gChosenMoveByBattler[effectBattler] == MOVE_SKETCH
+                                || gChosenMoveByBattler[effectBattler] == MOVE_SLEEP_TALK
+                                || gChosenMoveByBattler[effectBattler] == MOVE_MIRROR_MOVE)
+                                    gChosenMoveByBattler[effectBattler] = MOVE_STRUGGLE;
 
-                                gDisableStructs[gEffectBattler].bindedMove = gChosenMoveByBattler[gEffectBattler];//gBattleMons[gEffectBattler].moves[j];
-                                gDisableStructs[gEffectBattler].bindMovepos = selection;
+                                gDisableStructs[effectBattler].bindedMove = gChosenMoveByBattler[effectBattler];//gBattleMons[effectBattler].moves[j];
+                                gDisableStructs[effectBattler].bindMovepos = selection;
                             }
                                
                         } //idk what's wrong this should work for every situation far as I can tell?
@@ -5382,108 +5384,108 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         break;
                     }
                     case MOVE_WRAP:
-                    if (gBattleMons[gEffectBattler].status2 & STATUS2_WRAPPED)
+                    if (gBattleMons[effectBattler].status2 & STATUS2_WRAPPED)
                         ++gBattlescriptCurrInstr;
                     else
                     {
                         SetTrap = TRUE;
-                        //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
+                        //gBattleStruct->wrappedBy[effectBattler] = gBattlerAttacker;
 
-                        gDisableStructs[gEffectBattler].wrapTurns = TrapDuration;
-                        gBattleMons[gEffectBattler].status2 |= STATUS2_WRAPPED;
+                        gDisableStructs[effectBattler].wrapTurns = TrapDuration;
+                        gBattleMons[effectBattler].status2 |= STATUS2_WRAPPED;
                     } //if  use individual timer for identifier instead of status for these can do more and save space, without needing to take up flags                 
                         break; //idk if can do, otherwise could just make status 4  environmentTrapTurns
                     case MOVE_FIRE_SPIN:
-                    if (gDisableStructs[gEffectBattler].environmentTrapTurns) //vsonic make message environment trap already in effect 
+                    if (gDisableStructs[effectBattler].environmentTrapTurns) //vsonic make message environment trap already in effect 
                         ++gBattlescriptCurrInstr;
                     else
                     {
                         SetTrap = TRUE;
-                        //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
+                        //gBattleStruct->wrappedBy[effectBattler] = gBattlerAttacker;
 
-                        gDisableStructs[gEffectBattler].environmentTrapTurns = TrapDuration;
-                        gBattleMons[gEffectBattler].status4 |= STATUS4_FIRE_SPIN;
+                        gDisableStructs[effectBattler].environmentTrapTurns = TrapDuration;
+                        gBattleMons[effectBattler].status4 |= STATUS4_FIRE_SPIN;
                     }
                         break;
                     case MOVE_WHIRLPOOL:
-                     if (gDisableStructs[gEffectBattler].environmentTrapTurns)
+                     if (gDisableStructs[effectBattler].environmentTrapTurns)
                         ++gBattlescriptCurrInstr;
                     else
                     {
                         SetTrap = TRUE;
-                        //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
+                        //gBattleStruct->wrappedBy[effectBattler] = gBattlerAttacker;
 
-                        gDisableStructs[gEffectBattler].environmentTrapTurns = TrapDuration;
-                        gBattleMons[gEffectBattler].status4 |= STATUS4_WHIRLPOOL;
+                        gDisableStructs[effectBattler].environmentTrapTurns = TrapDuration;
+                        gBattleMons[effectBattler].status4 |= STATUS4_WHIRLPOOL;
                     }
                         break;
                     case MOVE_SAND_TOMB:
-                     if (gDisableStructs[gEffectBattler].environmentTrapTurns)
+                     if (gDisableStructs[effectBattler].environmentTrapTurns)
                         ++gBattlescriptCurrInstr;
                     else
                     {
-                        //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
+                        //gBattleStruct->wrappedBy[effectBattler] = gBattlerAttacker;
                         SetTrap = TRUE;
-                        gDisableStructs[gEffectBattler].environmentTrapTurns = TrapDuration;
-                        gBattleMons[gEffectBattler].status4 |= STATUS4_SAND_TOMB;
+                        gDisableStructs[effectBattler].environmentTrapTurns = TrapDuration;
+                        gBattleMons[effectBattler].status4 |= STATUS4_SAND_TOMB;
                     }
                         break;
                     case MOVE_MAGMA_STORM:
-                     if (gDisableStructs[gEffectBattler].environmentTrapTurns)
+                     if (gDisableStructs[effectBattler].environmentTrapTurns)
                         ++gBattlescriptCurrInstr;
                     else
                     {
                         SetTrap = TRUE;
                         TrapDuration = ((Random() % 2) + 4);  //magma stormshould be  4-5
-                        //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
+                        //gBattleStruct->wrappedBy[effectBattler] = gBattlerAttacker;
 
-                        gDisableStructs[gEffectBattler].environmentTrapTurns = TrapDuration;
-                        gBattleMons[gEffectBattler].status4 |= STATUS4_MAGMA_STORM;
+                        gDisableStructs[effectBattler].environmentTrapTurns = TrapDuration;
+                        gBattleMons[effectBattler].status4 |= STATUS4_MAGMA_STORM;
                     }
                         break;
                     case MOVE_CLAMP:
-                    if (gBattleMons[gEffectBattler].status4 & STATUS4_CLAMP)
+                    if (gBattleMons[effectBattler].status4 & STATUS4_CLAMP)
                         ++gBattlescriptCurrInstr;
                     else
                     {
                         SetTrap = TRUE;
-                        //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
-                        gDisableStructs[gEffectBattler].clampTurns = TrapDuration;
-                        gBattleMons[gEffectBattler].status4 |= STATUS4_CLAMP;
+                        //gBattleStruct->wrappedBy[effectBattler] = gBattlerAttacker;
+                        gDisableStructs[effectBattler].clampTurns = TrapDuration;
+                        gBattleMons[effectBattler].status4 |= STATUS4_CLAMP;
                     }
                         break;
                     case MOVE_SWARM:
-                    if (gBattleMons[gEffectBattler].status4 & STATUS4_SWARM)
+                    if (gBattleMons[effectBattler].status4 & STATUS4_SWARM)
                         ++gBattlescriptCurrInstr;
                     else
                     {
                         SetTrap = TRUE;
-                        //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
-                        gDisableStructs[gEffectBattler].swarmTurns = TrapDuration;
-                        gBattleMons[gEffectBattler].status4 |= STATUS4_SWARM;
+                        //gBattleStruct->wrappedBy[effectBattler] = gBattlerAttacker;
+                        gDisableStructs[effectBattler].swarmTurns = TrapDuration;
+                        gBattleMons[effectBattler].status4 |= STATUS4_SWARM;
                     }
                         break;
                     case MOVE_SNAP_TRAP:
-                    if (gBattleMons[gEffectBattler].status4 & STATUS4_SNAP_TRAP) //snap trap by default should stay if you switch out, grip claw just makes it last longer
+                    if (gBattleMons[effectBattler].status4 & STATUS4_SNAP_TRAP) //snap trap by default should stay if you switch out, grip claw just makes it last longer
                         ++gBattlescriptCurrInstr;
                     else
                     {
                         SetTrap = TRUE;
-                        //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
-                        gDisableStructs[gEffectBattler].snaptrapTurns = 5; //since supposed to be 4-5 turns - done effect lasts 4 turns
-                        gBattleMons[gEffectBattler].status4 |= STATUS4_SNAP_TRAP;
+                        //gBattleStruct->wrappedBy[effectBattler] = gBattlerAttacker;
+                        gDisableStructs[effectBattler].snaptrapTurns = 5; //since supposed to be 4-5 turns - done effect lasts 4 turns
+                        gBattleMons[effectBattler].status4 |= STATUS4_SNAP_TRAP;
                     }
                         break; 
                     case MOVE_THUNDER_CAGE:
-                    if (gBattleMons[gEffectBattler].status4 & STATUS4_THUNDER_CAGE)
+                    if (gBattleMons[effectBattler].status4 & STATUS4_THUNDER_CAGE)
                         ++gBattlescriptCurrInstr;
                     else
                     {
                         SetTrap = TRUE;
                         TrapDuration = ((Random() % 2) + 3); //change thunder cage is supposed tobe diff timer 3-4 turns
-                        //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
-                        gDisableStructs[gEffectBattler].thundercageTurns = TrapDuration;
-                        gBattleMons[gEffectBattler].status4 |= STATUS4_THUNDER_CAGE;
+                        //gBattleStruct->wrappedBy[effectBattler] = gBattlerAttacker;
+                        gDisableStructs[effectBattler].thundercageTurns = TrapDuration;
+                        gBattleMons[effectBattler].status4 |= STATUS4_THUNDER_CAGE;
                     }
                         break;   //phoned in for now, change to non enviro trapp later, think   
 
@@ -5512,7 +5514,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 break;
             /*case MOVE_EFFECT_LIGHT_RECOIL: // 25% recoil   also struggle
                 gBattleMoveDamage = max((gHpDealt) / 4,1);
-                if (GetBattlerAbility(gEffectBattler) == ABILITY_PARENTAL_BOND)
+                if (GetBattlerAbility(effectBattler) == ABILITY_PARENTAL_BOND)
                     gBattleMoveDamage *= 2;
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
@@ -5525,7 +5527,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_ACC_PLUS_1:
             case MOVE_EFFECT_EVS_PLUS_1:
                 if (NoAliveMonsForEitherParty()
-                  || ChangeStatBuffs(gEffectBattler, SET_STAT_BUFF_VALUE(1),
+                  || ChangeStatBuffs(effectBattler, SET_STAT_BUFF_VALUE(1),
                                     gBattleScripting.moveEffect - MOVE_EFFECT_ATK_PLUS_1 + 1,
                                     affectsUser | STAT_CHANGE_UPDATE_MOVE_EFFECT, 0) == STAT_CHANGE_DIDNT_WORK)
                 {
@@ -5554,7 +5556,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 targetAbility = GetBattlerAbility(gBattlerTarget);
                 battlerAbility = GetBattlerAbility(gBattlerAttacker);
 
-               if (affectsUser == MOVE_EFFECT_AFFECTS_USER)
+               if (affectsUser)
                     flags = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN;
                 else
                     flags = 0;
@@ -5579,7 +5581,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 } 
 
                //issue appears to be here, changing flags to 0 or something else makes defense drop work correctly
-                if (ChangeStatBuffs(gEffectBattler, SET_STAT_BUFF_VALUE(1) | STAT_BUFF_NEGATIVE,
+                if (ChangeStatBuffs(effectBattler, SET_STAT_BUFF_VALUE(1) | STAT_BUFF_NEGATIVE,
                                     gBattleScripting.moveEffect - MOVE_EFFECT_ATK_MINUS_1 + 1,
                                     flags, gBattlescriptCurrInstr + 1) == STAT_CHANGE_DIDNT_WORK)
                 {
@@ -5603,7 +5605,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_ACC_PLUS_2:
             case MOVE_EFFECT_EVS_PLUS_2:
                 if (NoAliveMonsForEitherParty()
-                    || ChangeStatBuffs(gEffectBattler, SET_STAT_BUFF_VALUE(2),
+                    || ChangeStatBuffs(effectBattler, SET_STAT_BUFF_VALUE(2),
                                     gBattleScripting.moveEffect - MOVE_EFFECT_ATK_PLUS_2 + 1,
                                     affectsUser | STAT_CHANGE_UPDATE_MOVE_EFFECT, NULL))
                 {
@@ -5630,7 +5632,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 battlerAbility = GetBattlerAbility(gBattlerAttacker);
             
 
-                if (affectsUser == MOVE_EFFECT_AFFECTS_USER)
+                if (affectsUser)
                     flags = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN;
                 else
                     flags = 0;
@@ -5654,7 +5656,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     return; //oh adding the return fixed it o.0
                 }
 
-                if (ChangeStatBuffs(gEffectBattler, SET_STAT_BUFF_VALUE(2) | STAT_BUFF_NEGATIVE,
+                if (ChangeStatBuffs(effectBattler, SET_STAT_BUFF_VALUE(2) | STAT_BUFF_NEGATIVE,
                                     gBattleScripting.moveEffect - MOVE_EFFECT_ATK_MINUS_2 + 1,
                                     flags | STAT_CHANGE_UPDATE_MOVE_EFFECT, gBattlescriptCurrInstr + 1) == STAT_CHANGE_DIDNT_WORK)
                 {
@@ -5671,14 +5673,14 @@ void SetMoveEffect(bool32 primary, u32 certain)
             }
                 break;
             case MOVE_EFFECT_RECHARGE:
-                if (CanActivateTimeControl(gEffectBattler))
+                if (CanActivateTimeControl(effectBattler))
                 {
-                    gDisableStructs[gEffectBattler].timecontrolAbilityTimer = 2;
+                    gDisableStructs[effectBattler].timecontrolAbilityTimer = 2;
                 }
                 else
                 {                
-                    gDisableStructs[gEffectBattler].rechargeTimer = 1; //need check in emerald this is 2
-                    gLockedMoves[gEffectBattler] = gCurrentMove; //may be due to turn order rework stuff I need to add vsonic important
+                    gDisableStructs[effectBattler].rechargeTimer = 1; //need check in emerald this is 2
+                    gLockedMoves[effectBattler] = gCurrentMove; //may be due to turn order rework stuff I need to add vsonic important
                 }
                 ++gBattlescriptCurrInstr;
                 break;
@@ -5754,7 +5756,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 break;
             case MOVE_EFFECT_PREVENT_ESCAPE:
-                if (gBattleMons[gEffectBattler].status2 & STATUS2_ESCAPE_PREVENTION)
+                if (gBattleMons[effectBattler].status2 & STATUS2_ESCAPE_PREVENTION)
                 {                                           //and just put in each case, lan like magic gaurd check, check macro and do increment, with a one line paste
                     ++gBattlescriptCurrInstr;
                 }
@@ -5768,7 +5770,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 break;
             case MOVE_EFFECT_SWITCH_LOCKED:
-                if (gBattleMons[gEffectBattler].status2 & STATUS2_SWITCH_LOCKED)
+                if (gBattleMons[effectBattler].status2 & STATUS2_SWITCH_LOCKED)
                 {
                     ++gBattlescriptCurrInstr;
                 }
@@ -5782,7 +5784,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }               
                 break;
             case MOVE_EFFECT_NIGHTMARE:
-                if (gBattleMons[gEffectBattler].status2 & STATUS2_NIGHTMARE)
+                if (gBattleMons[effectBattler].status2 & STATUS2_NIGHTMARE)
                 {                                           //and just put in each case, lan like magic gaurd check, check macro and do increment, with a one line paste
                     ++gBattlescriptCurrInstr;
                 }
@@ -5821,22 +5823,22 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 gBattlescriptCurrInstr = BattleScript_MoveEffectRecoil;
                 break;
             case MOVE_EFFECT_THRASH:
-                if (gBattleMons[gEffectBattler].status2 & STATUS2_LOCK_CONFUSE) //move effect thrash sets status lock confusion I think? so do nothing if already set?
+                if (gBattleMons[effectBattler].status2 & STATUS2_LOCK_CONFUSE) //move effect thrash sets status lock confusion I think? so do nothing if already set?
                 {
                     ++gBattlescriptCurrInstr;
                 }
                 else
                 {
-                    gBattleMons[gEffectBattler].status2 |= STATUS2_MULTIPLETURNS;
-                    gLockedMoves[gEffectBattler] = gCurrentMove;
-                    gBattleMons[gEffectBattler].status2 |= STATUS2_LOCK_CONFUSE;   //thrash for 2-3 turns
-                    gDisableStructs[gEffectBattler].rampageMoveTurns = ((Random() & 1) + 2); //thrash for 2-3 turns
+                    gBattleMons[effectBattler].status2 |= STATUS2_MULTIPLETURNS;
+                    gLockedMoves[effectBattler] = gCurrentMove;
+                    gBattleMons[effectBattler].status2 |= STATUS2_LOCK_CONFUSE;   //thrash for 2-3 turns
+                    gDisableStructs[effectBattler].rampageMoveTurns = ((Random() & 1) + 2); //thrash for 2-3 turns
                 }
                 break;
             /*case MOVE_EFFECT_KNOCK_OFF:
                 if (battlerAbility == ABILITY_STICKY_HOLD)
                 {
-                    if (gBattleMons[gEffectBattler].item == ITEM_NONE)
+                    if (gBattleMons[effectBattler].item == ITEM_NONE)
                     {
                         ++gBattlescriptCurrInstr;
                     }
@@ -5844,20 +5846,20 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     {
                         gLastUsedAbility = ABILITY_STICKY_HOLD;
                         gBattlescriptCurrInstr = BattleScript_StickyHoldActivates;
-                        RecordAbilityBattle(gEffectBattler, ABILITY_STICKY_HOLD);
+                        RecordAbilityBattle(effectBattler, ABILITY_STICKY_HOLD);
                     }
                     break;
                 }
-                if (gBattleMons[gEffectBattler].item)
+                if (gBattleMons[effectBattler].item)
                 {
-                    side = GetBattlerSide(gEffectBattler);
-                    gLastUsedItem = gBattleMons[gEffectBattler].item;
-                    gBattleMons[gEffectBattler].item = ITEM_NONE;
-                    gWishFutureKnock.knockedOffMons[side] |= (1u << gBattlerPartyIndexes[gEffectBattler]);
+                    side = GetBattlerSide(effectBattler);
+                    gLastUsedItem = gBattleMons[effectBattler].item;
+                    gBattleMons[effectBattler].item = ITEM_NONE;
+                    gWishFutureKnock.knockedOffMons[side] |= (1u << gBattlerPartyIndexes[effectBattler]);
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
                     gBattlescriptCurrInstr = BattleScript_KnockedOff;
-                    *(u8 *)((u8 *)(&gBattleStruct->choicedMove[gEffectBattler]) + 0) = 0;
-                    *(u8 *)((u8 *)(&gBattleStruct->choicedMove[gEffectBattler]) + 1) = 0;
+                    *(u8 *)((u8 *)(&gBattleStruct->choicedMove[effectBattler]) + 0) = 0;
+                    *(u8 *)((u8 *)(&gBattleStruct->choicedMove[effectBattler]) + 1) = 0;
                 }
                 else
                 {
@@ -5874,13 +5876,13 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_CLEAR_SMOG:
                 for (i = 0; i < NUM_BATTLE_STATS; i++)
                 {
-                    if (gBattleMons[gEffectBattler].statStages[i] != DEFAULT_STAT_STAGE)
+                    if (gBattleMons[effectBattler].statStages[i] != DEFAULT_STAT_STAGE)
                         break;
                 }
-                if ((gSpecialStatuses[gEffectBattler].physicalDmg || gSpecialStatuses[gEffectBattler].specialDmg) && i != NUM_BATTLE_STATS)
+                if ((gSpecialStatuses[effectBattler].physicalDmg || gSpecialStatuses[effectBattler].specialDmg) && i != NUM_BATTLE_STATS)
                 {
                     for (i = 0; i < NUM_BATTLE_STATS; i++)
-                        gBattleMons[gEffectBattler].statStages[i] = DEFAULT_STAT_STAGE;
+                        gBattleMons[effectBattler].statStages[i] = DEFAULT_STAT_STAGE;
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
                     gBattlescriptCurrInstr = BattleScript_MoveEffectClearSmog;
                 }
@@ -5978,25 +5980,25 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 break;
             case MOVE_EFFECT_THROAT_CHOP:
-                gDisableStructs[gEffectBattler].throatChopTimer = 2;
+                gDisableStructs[effectBattler].throatChopTimer = 2;
                 gBattlescriptCurrInstr++;
                 break;
             case MOVE_EFFECT_INCINERATE:
-                if ((ItemId_GetPocket(gBattleMons[gEffectBattler].item) == POCKET_BERRY_POUCH)
-                    || (GetBattlerHoldEffect(gEffectBattler, FALSE) == HOLD_EFFECT_GEMS)
+                if ((ItemId_GetPocket(gBattleMons[effectBattler].item) == POCKET_BERRY_POUCH)
+                    || (GetBattlerHoldEffect(effectBattler, FALSE) == HOLD_EFFECT_GEMS)
                     )
                 {
                     
-                    TryKnockOffBattleScript(gEffectBattler, gBattlerAttacker, gBattleScripting.moveEffect);
+                    TryKnockOffBattleScript(effectBattler, gBattlerAttacker, gBattleScripting.moveEffect);
                 }
                 else
                     gBattlescriptCurrInstr++;
                 break;
             case MOVE_EFFECT_BUG_BITE:
-                if (ItemId_GetPocket(gBattleMons[gEffectBattler].item) == POCKET_BERRY_POUCH)
+                if (ItemId_GetPocket(gBattleMons[effectBattler].item) == POCKET_BERRY_POUCH)
                 {
                     
-                    TryKnockOffBattleScript(gEffectBattler, gBattlerAttacker, gBattleScripting.moveEffect);
+                    TryKnockOffBattleScript(effectBattler, gBattlerAttacker, gBattleScripting.moveEffect);
                 } //vsonic potentially, can emulate to make my vers belch work, where consumes users berry if held
                 else
                     gBattlescriptCurrInstr++;
@@ -6048,7 +6050,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 gBattlescriptCurrInstr++;
                 break;
             case MOVE_EFFECT_STEALTH_ROCK:
-                if (!(gSideStatuses[GetBattlerSide(gEffectBattler)] & SIDE_STATUS_STEALTH_ROCK))
+                if (!(gSideStatuses[GetBattlerSide(effectBattler)] & SIDE_STATUS_STEALTH_ROCK))
                 {
                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_POINTEDSTONESFLOAT;
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
@@ -6056,7 +6058,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 break;
             case MOVE_EFFECT_STEEL_SURGE:
-                if (!(gSideStatuses[GetBattlerSide(gEffectBattler)] & SIDE_STATUS_STEEL_SURGE))
+                if (!(gSideStatuses[GetBattlerSide(effectBattler)] & SIDE_STATUS_STEEL_SURGE))
                 {
                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STEEL_SPEARS;
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
@@ -6064,7 +6066,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 break;
             case MOVE_EFFECT_SPIKES:
-                if (gSideTimers[GetBattlerSide(gEffectBattler)].spikesAmount < 3)
+                if (gSideTimers[GetBattlerSide(effectBattler)].spikesAmount < 3)
                 {
                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SPIKESSCATTERED;
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
@@ -6096,6 +6098,8 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
     //hey old me, that ish is all wrong, without secondary chance, effects won't apply, and that's dealt with in battle_moves file
     //
     CMD_ARGS();
+    //bool32 affectsUser = gBattleScripting.moveEffect & MOVE_EFFECT_AFFECTS_USER;
+    bool32 affectsUser = (gBattlerAttacker == gBattlerTarget);
     u32 percentChance,argumentChance;
     u8 atkHoldEffectParam = GetBattlerHoldEffectParam(gBattlerAttacker, gBattleMons[gBattlerAttacker].item); //for kings rock
     if (gBattleMoves[gCurrentMove].effect != EFFECT_TWO_TYPED_MOVE)
@@ -6234,16 +6238,22 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
      && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
     {
         gBattleScripting.moveEffect &= ~(MOVE_EFFECT_CERTAIN);
-        SetMoveEffect(0, MOVE_EFFECT_CERTAIN);
+        SetMoveEffect(gBattlerAttacker,
+        affectsUser ? gBattlerAttacker : gBattlerTarget,
+        FALSE, TRUE);
     }
     else if (Random() % 100 <= percentChance    //random % here, is a chance to fail, higher percent chance less chance to fail, if random higher than moveefect chance doesn't set
           && gBattleScripting.moveEffect         //believe just means and has move effect?  i.e moveeffect not 0
           && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))   //didn't miss && enemy isn't immune
     {
         if (percentChance >= 100)
-            SetMoveEffect(0, MOVE_EFFECT_CERTAIN);
+            SetMoveEffect(gBattlerAttacker,
+            affectsUser ? gBattlerAttacker : gBattlerTarget,
+            FALSE, TRUE);
         else
-            SetMoveEffect(0, 0);
+            SetMoveEffect(gBattlerAttacker,
+            affectsUser ? gBattlerAttacker : gBattlerTarget,
+            FALSE, FALSE);
     }
     else //doesn't have move effect  /need double check and make sure two_typed_moves aren't passing type from arguemnt to moveEffect 
     {                                               //argumenttomoveeffect was taking them but I added conditional to exclude it
@@ -6255,12 +6265,22 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
 
 static void atk16_seteffectprimary(void)
 {
-    SetMoveEffect(TRUE, 0);
+    CMD_ARGS(u8 battler, u8 effectBattler);
+
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    u32 effectBattler = GetBattlerForBattleScript(cmd->effectBattler);
+    gBattlescriptCurrInstr = cmd->nextInstr - 1;
+    SetMoveEffect(battler, effectBattler, TRUE, FALSE);
 }
 
 static void atk17_seteffectsecondary(void)
 {
-    SetMoveEffect(FALSE, 0);
+    CMD_ARGS(u8 battler, u8 effectBattler);
+
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    u32 effectBattler = GetBattlerForBattleScript(cmd->effectBattler);
+    gBattlescriptCurrInstr = cmd->nextInstr - 1;
+    SetMoveEffect(battler, effectBattler, FALSE, FALSE);
 }
 
 static bool32 TryCheekPouch(u32 battlerId, u32 itemId)
@@ -15382,21 +15402,22 @@ static u16 ReverseStatChangeMoveEffect(u16 moveEffect)
 #define STAT_CHANGE_ABILITIES
 static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr)
 {
-    bool32 certain = FALSE;
     bool32 notProtectAffected = FALSE;
     u32 index;
     u16 activeBattlerAbility, battlerHoldEffect;
-    bool32 affectsUser = (flags & MOVE_EFFECT_AFFECTS_USER);
+    //bool32 affectsUser = (flags & MOVE_EFFECT_AFFECTS_USER);
+    bool32 affectsUser = (battler == gBattlerAttacker);
     bool32 mirrorArmored = (flags & STAT_CHANGE_MIRROR_ARMOR);
     
     //affectsuser and move effect affects user 
     //no longer exist in EE port maybe will fix my problems
     //this and setmoveeffect function are diff use battler argument
     //will attempt after btlr controler removals done
-    if (affectsUser)
+    /*if (affectsUser)
         battler = gBattlerAttacker;
     else
         battler = gBattlerTarget;
+    */
 
     activeBattlerAbility = GetBattlerAbility(battler);
     battlerHoldEffect = GetBattlerHoldEffect(battler, TRUE);
@@ -15405,8 +15426,7 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, u32 flags, con
 
     flags &= ~(MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_MIRROR_ARMOR);
 
-    if (flags & MOVE_EFFECT_CERTAIN)
-        certain = TRUE;
+
     flags &= ~(MOVE_EFFECT_CERTAIN);
 
     if (flags & STAT_CHANGE_NOT_PROTECT_AFFECTED)
@@ -15438,7 +15458,7 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, u32 flags, con
         //afterwards it attempts to do stat change
         if (gSideTimers[GET_BATTLER_SIDE(battler)].mistTimer
             && IsBlackFogNotOnField()
-            && !certain && gCurrentMove != MOVE_CURSE
+            && !affectsUser && gCurrentMove != MOVE_CURSE
             && !(battler == gBattlerTarget && GetBattlerAbility(gBattlerAttacker) == ABILITY_INFILTRATOR)
             && !(GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY && gBattleMoves[gCurrentMove].flags & FLAG_SOUND))
         {
@@ -15469,7 +15489,7 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, u32 flags, con
                   || activeBattlerAbility == ABILITY_WHITE_SMOKE
                   || activeBattlerAbility == ABILITY_FULL_METAL_BODY
                   || activeBattlerAbility == ABILITY_LIQUID_METAL)
-            && (!affectsUser || mirrorArmored) && !certain && gCurrentMove != MOVE_CURSE)
+            && (!affectsUser || mirrorArmored) && !affectsUser && gCurrentMove != MOVE_CURSE)
         {
             if (flags == STAT_CHANGE_ALLOW_PTR)
             {
@@ -15490,7 +15510,7 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, u32 flags, con
             }
             return STAT_CHANGE_DIDNT_WORK;
         }
-        else if ((IsFlowerVeilProtected(battler)) && !certain) //thinnk this will work?
+        else if ((IsFlowerVeilProtected(battler)) && !affectsUser) //thinnk this will work?
         {
             if (flags == STAT_CHANGE_ALLOW_PTR)
             {
@@ -15511,7 +15531,7 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, u32 flags, con
             || activeBattlerAbility == ABILITY_QUICK_FEET
             || activeBattlerAbility == ABILITY_RUN_AWAY
             || activeBattlerAbility == ABILITY_AVIATOR)
-            && !certain && statId == STAT_SPEED)
+            && !affectsUser && statId == STAT_SPEED)
         {
             if (flags == STAT_CHANGE_ALLOW_PTR)
             {
@@ -15525,7 +15545,7 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, u32 flags, con
             return STAT_CHANGE_DIDNT_WORK;
         }
         
-        else if (!certain
+        else if (!affectsUser
         && ((activeBattlerAbility == ABILITY_KEEN_EYE && statId == STAT_ACC)
         || (activeBattlerAbility == ABILITY_MINDS_EYE && statId == STAT_ACC)
         || (activeBattlerAbility == ABILITY_APOTHEOSCENT && statId == STAT_ACC)
@@ -21198,6 +21218,8 @@ void BS_setargumenteffectwithchance(void) //different effect for in hit, where a
 {
     NATIVE_ARGS();
     u32 argumentChance;
+    //bool32 affectsUser = gBattleScripting.moveEffect & MOVE_EFFECT_AFFECTS_USER;
+    bool32 affectsUser = (gBattlerAttacker == gBattlerTarget);
     u8 atkHoldEffectParam = GetBattlerHoldEffectParam(gBattlerAttacker, gBattleMons[gBattlerAttacker].item); //for kings rock
 
     //only do logic if move has argument
@@ -21307,16 +21329,22 @@ void BS_setargumenteffectwithchance(void) //different effect for in hit, where a
         && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
         {
             gBattleScripting.moveEffect &= ~(MOVE_EFFECT_CERTAIN);
-            SetMoveEffect(0, MOVE_EFFECT_CERTAIN);
+            SetMoveEffect(gBattlerAttacker,
+            affectsUser ? gBattlerAttacker : gBattlerTarget,
+            FALSE, TRUE);
         }
         else if (Random() % 100 <= argumentChance    //random % here, is a chance to fail, higher percent chance less chance to fail, if random higher than moveefect chance doesn't set
             && gBattleScripting.moveEffect         //believe just means and has move effect?  i.e moveeffect not 0
             && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))   //didn't miss && enemy isn't immune
         {
             if (argumentChance >= 100)
-                SetMoveEffect(0, MOVE_EFFECT_CERTAIN);
+                SetMoveEffect(gBattlerAttacker,
+                affectsUser ? gBattlerAttacker : gBattlerTarget,
+                FALSE, TRUE);
             else
-                SetMoveEffect(0, 0);
+                SetMoveEffect(gBattlerAttacker,
+                affectsUser ? gBattlerAttacker : gBattlerTarget,
+                FALSE, FALSE);
         }
         else //doesn't have move effect  /need double check and make sure two_typed_moves aren't passing type from arguemnt to moveEffect 
         {                                               //argumenttomoveeffect was taking them but I added conditional to exclude it

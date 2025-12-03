@@ -101,12 +101,22 @@
 	.endm
 
 	@vsonic important check EE for update
-	.macro seteffectprimary
+	.macro seteffectprimary battler:req, effectBattler:req, moveEffect=0
+	.if \moveEffect != 0
+		setmoveeffect \moveEffect
+	.endif
 	.byte 0x16
+	.byte \battler
+	.byte \effectBattler
 	.endm
 
-	.macro seteffectsecondary
+	.macro seteffectsecondary battler:req, effectBattler:req, moveEffect=0
+	.if \moveEffect != 0
+		setmoveeffect \moveEffect
+	.endif
 	.byte 0x17
+	.byte \battler
+	.byte \effectBattler
 	.endm
 
 	.macro clearstatusfromeffect battler:req, moveEffect=0
