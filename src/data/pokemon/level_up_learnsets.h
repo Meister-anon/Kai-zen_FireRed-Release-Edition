@@ -20851,10 +20851,10 @@ static const struct LevelUpMove sCapsakidLevelUpLearnset[] = {
     LEVEL_UP_MOVE(28, MOVE_ZEN_HEADBUTT)
     LEVEL_UP_MOVE(38, MOVE_CRUNCH)
     LEVEL_UP_MOVE(44, MOVE_SEED_BOMB)
-    LEVEL_UP_MOVE(48, MOVE_SOLAR_BEAM)
+    LEVEL_UP_MOVE(48, MOVE_SOLAR_BLADE)
     LEVEL_UP_END
 };
-//trail blaze?
+//trail blaze? -set as tm
 
 static const struct LevelUpMove sScovillainLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 0, MOVE_SPICY_EXTRACT)
@@ -20875,7 +20875,7 @@ static const struct LevelUpMove sScovillainLevelUpLearnset[] = {
     LEVEL_UP_MOVE(33, MOVE_WORRY_SEED)
     LEVEL_UP_MOVE(38, MOVE_CRUNCH)
     LEVEL_UP_MOVE(44, MOVE_SEED_BOMB)
-    LEVEL_UP_MOVE(48, MOVE_SOLAR_BEAM)
+    LEVEL_UP_MOVE(48, MOVE_SOLAR_BLADE)
     LEVEL_UP_MOVE(48, MOVE_OVERHEAT)
     LEVEL_UP_END
 };

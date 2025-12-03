@@ -2079,6 +2079,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_SPECIAL,
 },
+//potentially make this tutor move rather than tm
 
 [MOVE_SKULL_BASH] =
 {
