@@ -11782,9 +11782,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .effect = EFFECT_STATUS_IF_STAT_BOOST,
         .power = 70,
-        .type = TYPE_FIRE,
+        .type = TYPE_FIRE,//believe mayu need raise pp to 10
         .accuracy = 100,
-        .pp = 5,
+        .pp = 10,
         .secondaryEffectChance = 0, //check battlescript for //TODO values
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
@@ -14375,7 +14375,7 @@ use wonder gaurd logic to determine its super effective
         .power = 70,
         .type = TYPE_ELECTRIC,
         .accuracy = 100,
-        .pp = 5,
+        .pp = 10,
         .secondaryEffectChance = 0, //check battlescript for //TODO values
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
