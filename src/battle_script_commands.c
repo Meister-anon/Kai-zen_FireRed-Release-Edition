@@ -4611,6 +4611,8 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
         return;
     }
     */
+   //needed to get animations on scripts to play correctly
+   gEffectBattler = effectBattler;
 
     switch (gBattleScripting.moveEffect) // Set move effects which happen later on
     {//ported but don't know why need, knock off works without moveeffect2 by default? -its a change for modern item effects, to make sure effects trigger after item effect
@@ -5549,12 +5551,6 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
             case MOVE_EFFECT_ACC_MINUS_1:
             case MOVE_EFFECT_EVS_MINUS_1:
             {
-                //unless masking, this appears to fix problem
-                //too much memory consumed at read time
-                //by funtion calls in conditional
-                u16 targetAbility,battlerAbility;
-                targetAbility = GetBattlerAbility(gBattlerTarget);
-                battlerAbility = GetBattlerAbility(gBattlerAttacker);
 
                if (affectsUser)
                     flags = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN;
@@ -5567,7 +5563,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                     flags |= STAT_CHANGE_UPDATE_MOVE_EFFECT;
 
                if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_1)
-                && (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerAbility, gBattlerTarget, targetAbility, TYPE_GROUND))
+                && (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, AttackerAbility, battler, battlerAbility, TYPE_GROUND))
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].type == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].argument == TYPE_GROUND)
@@ -5627,9 +5623,6 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
             case MOVE_EFFECT_ACC_MINUS_2:
             case MOVE_EFFECT_EVS_MINUS_2:
             {
-                u16 targetAbility,battlerAbility;
-                targetAbility = GetBattlerAbility(gBattlerTarget);
-                battlerAbility = GetBattlerAbility(gBattlerAttacker);
             
 
                 if (affectsUser)
@@ -5642,7 +5635,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                     flags |= STAT_CHANGE_UPDATE_MOVE_EFFECT;
 
                 if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_2) 
-                && (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerAbility, gBattlerTarget, targetAbility, TYPE_GROUND))
+                && (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, AttackerAbility, battler, battlerAbility, TYPE_GROUND))
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].type == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].argument == TYPE_GROUND)
