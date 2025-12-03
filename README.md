@@ -31,6 +31,13 @@ only fix is closing and opening party menu
 to refresh display maybe adding some sort of cleanse
 as last command of all animations would help with that?
 
+new update fixed move effect stat drop
+on right battler but now the animation got flipped
+need figure that out
+-only changed setmoveeffect & ChangeStatBuffs
+-found issue removed use of geffectbattler
+but that was needed for playanimation
+
 on btl ctrl update finish removal of gactivebattler
 
 following that can work out move flags rework
