@@ -2361,10 +2361,12 @@ static const struct AbilityLearnset sRoggenrolaAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sBoldoreAbilityLearnset[] = {
+    ABILITY_PHOTOSYNTHESIZE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sGigalithAbilityLearnset[] = {
+    ABILITY_PHOTOSYNTHESIZE,
     ABILITY_SET_END
 };
 

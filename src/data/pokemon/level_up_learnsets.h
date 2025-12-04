@@ -10517,6 +10517,10 @@ static const struct LevelUpMove sGigalithLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 //reworked into special attacker
+//saw someone mention dazzling gleam on this in anthroyd server
+//for special variant I'm taking that, gonna toss in as a tm
+//almost wish I kept fairy super to fighting lol
+//vsonic
 
 static const struct LevelUpMove sWoobatLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_CONFUSION)
