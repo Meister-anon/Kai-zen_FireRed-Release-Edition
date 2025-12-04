@@ -16230,6 +16230,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSimisearTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //stats aren't equal between forms but actually kinda like that
+    //its like 3 sanin they weren't equal strength
 
     [SPECIES_PANPOUR] =
     {

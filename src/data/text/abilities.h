@@ -2834,6 +2834,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Toadstool Nymph"),
         .description = sToadstoolNymphDescription,
         .aiRating = 3,
+        .breakable = TRUE,
+        .cantBeSuppressed = TRUE,
     },
     
     [ABILTY_UNKNOWN_POWER] =
@@ -2934,6 +2936,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Aviator"),
         .description = sAviatorDescription, 
         .aiRating = 0,
+        .breakable = TRUE,
+        .cantBeSuppressed = TRUE,
     },//vsonic maybe just need add breakable ot do thing rather than needing moldbreaker check function?
     //yeah think all I need for moldbreaker negate is set every affinity ability as breakable
     //well no its meant to ignore affinity itself not just the ability
@@ -3159,6 +3163,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Ignores accuracy and evasion changes.\nImmune to effects of being confused."),
         .aiRating = 0,
         .breakable = TRUE,
+        .cantBeSuppressed = TRUE,
     },
     
     [ABILITY_WEIGHTED_GI] =
@@ -3258,6 +3263,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Torch Soul"),
         .description = COMPOUND_ABILITY_STRING("Possesses a burning inner-flame.\nGain FIRE Affinity and boosts Fire moves."),
         .aiRating = 0,
+        .breakable = TRUE,
+        .cantBeSuppressed = TRUE,
     },
     
     [ABILITY_GRUNGE] =
@@ -3265,6 +3272,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Grunge"),
         .description = COMPOUND_ABILITY_STRING("Gain POISON Affinity and boosts damage\ndone by Poison-type moves."),
         .aiRating = 0,
+        .breakable = TRUE,
+        .cantBeSuppressed = TRUE,
     },
     
     [ABILITY_SWIFT_JUSTICE] =

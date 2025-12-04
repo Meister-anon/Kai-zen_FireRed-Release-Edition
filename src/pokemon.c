@@ -4825,26 +4825,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (move == MOVE_SURGING_STRIKES || move == MOVE_WICKED_BLOW)
         defense = (65 * defense) / 100; 
     
-       
 
-
-    //should work for whatever move I use
-    //need double check if this effect spirit shackle
-    //don't think want to boost its damage?
-    //yeah curr setup would make spirit shackle also  do bonus damage
-    /*if (gBattleStruct->pursuitTarget & (1u << battlerIdDef))
-    {
-        if (move == MOVE_PURSUIT)
-        {
-            //dark types blocking damage boost
-            //potentially remove this?
-            //as it already worked on psychic types without destorying them?
-            if (!(DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_DARK)))
-                gBattleMovePower = (150 * gBattleMovePower) / 100;
-        }
-        else
-            gBattleMovePower = (150 * gBattleMovePower) / 100;
-    }*/
     
     if (gSpecialStatuses[battlerIdAtk].Lostresolve)
         gBattleMovePower = (gBattleMovePower * 75) / 100; //fix for iron will, pressure, hi pressure affect
