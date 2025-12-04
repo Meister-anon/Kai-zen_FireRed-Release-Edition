@@ -412,7 +412,7 @@ struct BaseStats  // had to adjust struct order to match paste value from base_s
  /* 0x1D */ //u16 bodyColor : 7; //ok bodyColor is leftover of emerald is literally just an pokedex filter option that doesn't exist in fr, but is here for sake of trading to those games
             // Flags
             u16 noFlip : 1;  //represents if sprite is flipped in summary screen and trade screen, normal is the pc sprite
-            u16 floating : 1; //put here cuz easier to quick replace in file. replacement for use of gFloatingSpecies array, logic flynig and non flyign mon that can fly/float or who's natural state is floating, (replace levitate) mon has to display ability to do more than just hover slightly over ground
+            u16 floating : 1; // logic flying and non flying mon that can fly/float or who's natural state is floating, (replace levitate) mon has to display ability to do more than just hover slightly over ground to exclude legendaries to prevent destroy groud type, think need logic for mon to do most of its fighting in air as well
             u16 isLegendaryOrMythical:1;
             //u16 isMythical:1; //will combine these two as practically no real distinction
             u16 isUltraBeast:1; //handling elsewhere curr can blank for more space
