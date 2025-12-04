@@ -15405,12 +15405,6 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, u32 flags, con
     //affectsuser and move effect affects user 
     //no longer exist in EE port maybe will fix my problems
     //this and setmoveeffect function are diff use battler argument
-    //will attempt after btlr controler removals done
-    /*if (affectsUser)
-        battler = gBattlerAttacker;
-    else
-        battler = gBattlerTarget;
-    */
 
     activeBattlerAbility = GetBattlerAbility(battler);
     battlerHoldEffect = GetBattlerHoldEffect(battler, TRUE);
@@ -15584,6 +15578,7 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, u32 flags, con
                 //gBattleScripting.battler = battler; //sets battler executing the script
                 //gLastUsedAbility = gBattleMons[battler].ability;
                 //gBattlerAbility = battler;
+                //beleive should be ability activation vs move activation
                 if (gCurrentMove == MOVE_NONE)
                     gBattlescriptCurrInstr = BattleScript_EmpathActivates; //skip animation for abilities that stat drop
                 else
@@ -15592,6 +15587,8 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, u32 flags, con
                 RecordAbilityBattle(battler, activeBattlerAbility);//removed affects user, set mirror armor flag instead to avoid loop
             }//WORKS!!  ...effect works but causes graphic glitch when try to attack after, but only with move, doesn't do for ability stat drops...
             //potentially means issue is to do with my  attack animation fix so check that //tested nope that wasn't it...
+            
+            //double test this, should this have an else
                 return STAT_CHANGE_DIDNT_WORK;  //not sure how thsi and mirror armor avoid looping as they call functions that execute stateebuffchange/this function again.
             //understand now, the bs for mirrr armor sets affectUser, so soon as it starts the battlescript it can't retrigger the logic here
             //so I need to set affectuser  to avoid loop, then I need set battler to battler so changes apply to correct target

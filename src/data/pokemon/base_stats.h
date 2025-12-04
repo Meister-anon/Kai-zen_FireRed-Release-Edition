@@ -6225,6 +6225,8 @@ const struct BaseStats gBaseStats[] =
     //think tweak ability so just the type change is linked to castform
     //dex ironically says nothing about sun at all
     //ah found it, absorbs energy from bathing in sunlight
+    //joh my god choice band or life orb boosted solar power
+    //stab is going to go insane o.0
 
     [SPECIES_UMBREON] =
     {
