@@ -306,6 +306,22 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -6,
         .split = SPLIT_STATUS,
     },
+    //these effects seem worthless, but are exactly what you wish
+    //you had when an enemy gets stat buffed on you.
+    //but are kinda still near worthless since you have to wait for
+    //them to attack you and prey you survive a hit to get this off.
+    //so with addition of non repeat move effects
+    //like blood moon blast and gigaton hammer
+    //what if rather than negative priority 
+    //I just make the switch effects neutral
+    //but unable to be spammed each turn. that should fix them
+    //I imagine.
+    //talked w alex and mgriffin and its still too good of an effect
+    //especially in vgc without negative priority it speeds up battles
+    //and allows switching things into damage without anyway to protect them
+    //this and other effects will just have to be good
+    //based on existence of guard mode, you could more easily survive
+    //to get the effect off.
 
     [MOVE_FLY] =
     {
