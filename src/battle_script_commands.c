@@ -1506,11 +1506,11 @@ static void atk00_attackcanceler(void) //vsonic
         gBattleCommunication[MULTISTRING_CHOOSER] = 0;
         // Edge case for bouncing a powder move against a grass type pokemon.
         SetAtkCancellerForCalledMove();
-        if (BlocksPrankster(gCurrentMove, gBattlerTarget, gBattlerAttacker, TRUE))
+        if (ShouldPranksterBoostedMoveFail(gCurrentMove, gBattlerTarget, gBattlerAttacker, TRUE))
         {
             // Opponent used a prankster'd magic coat -> reflected status move should fail against a dark-type attacker
             gBattlerTarget = gBattlerAttacker;
-            gBattlescriptCurrInstr = BattleScript_MagicCoatBouncePrankster;//effect is accurate, its saying target using magic coat also has prankster, so it should fail against a dark type
+            gBattlescriptCurrInstr = BattleScript_MagicCoatBouncePranksterMoveFailed;//effect is accurate, its saying target using magic coat also has prankster, so it should fail against a dark type
         }
         else
         {
@@ -11893,7 +11893,7 @@ static bool32 IsRototillerAffected(u32 battlerId)
         return FALSE;   // Only grass types affected
     if (gStatuses3[battlerId] & STATUS3_SEMI_INVULNERABLE)
         return FALSE;   // Rototiller doesn't affected semi-invulnerable battlers
-    if (BlocksPrankster(MOVE_ROTOTILLER, gBattlerAttacker, battlerId, FALSE))
+    if (ShouldPranksterBoostedMoveFail(MOVE_ROTOTILLER, gBattlerAttacker, battlerId, FALSE))
         return FALSE;
     return TRUE;
 }
@@ -14097,7 +14097,7 @@ static void atk76_various(void) //will need to add all these emerald various com
     { 
         VARIOUS_ARGS(const u8 *jumpInstr);
         //for some reason not currently used?
-        if (BlocksPrankster(gCurrentMove, gBattlerAttacker, battler, TRUE))
+        if (ShouldPranksterBoostedMoveFail(gCurrentMove, gBattlerAttacker, battler, TRUE))
             gBattlescriptCurrInstr = cmd->jumpInstr;
         else
             gBattlescriptCurrInstr = cmd->nextInstr;

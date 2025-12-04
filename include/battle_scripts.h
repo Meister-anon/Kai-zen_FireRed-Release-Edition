@@ -586,7 +586,7 @@ extern const u8 BattleScript_TargetFormChange[];
 extern const u8 BattleScript_MagicianActivates[];
 extern const u8 BattleScript_MagicianSwap[];
 extern const u8 BattleScript_SymbiosisActivates[];
-extern const u8 BattleScript_MagicCoatBouncePrankster[];
+extern const u8 BattleScript_MagicCoatBouncePranksterMoveFailed[];
 extern const u8 BattleScript_MagicCoatBounce[];
 extern const u8 BattleScript_PrintBerryReduceString[];
 extern const u8 BattleScript_BerryReduceDmg[];

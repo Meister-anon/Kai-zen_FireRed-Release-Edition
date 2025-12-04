@@ -882,7 +882,15 @@ void BufferStatChange(u8 battlerId, u8 statId, u8 stringId)
     }
 }
 
-bool32 BlocksPrankster(u16 move, u8 battlerwithPrankster, u8 battlerDef, bool32 checkTarget)
+//think understand now this is more a check for if move or effect
+//is compatible with prankster, if it isn't then it outright fails
+//but also includes pranksters fail conditions irrespective of move
+//i.e the dark type block
+//so its not a check for if prankster will even activate
+//hence no status move check as that's assumed,
+//but intead a check for if it will outright fail given the conditions
+//I guess the semi invul thing is a miss, not being a fail
+bool32 ShouldPranksterBoostedMoveFail(u16 move, u8 battlerwithPrankster, u8 battlerDef, bool32 checkTarget)
 {
     if (!gProtectStructs[battlerwithPrankster].pranksterElevated)   //if  not boosted by prankster? /only happens if not status move
         return FALSE;
@@ -7915,7 +7923,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 gBattlescriptCurrInstr = BattleScript_DazzlingProtected;
                 effect = 1;
             }
-            else if (BlocksPrankster(moveArg, gBattlerAttacker, gBattlerTarget, TRUE) && GetChosenMovePriority(gBattlerAttacker) > 0
+            else if (ShouldPranksterBoostedMoveFail(moveArg, gBattlerAttacker, gBattlerTarget, TRUE) && GetChosenMovePriority(gBattlerAttacker) > 0
             && !(IS_MOVE_STATUS(moveArg) && targetAbility == ABILITY_MAGIC_BOUNCE))
             {
                 if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE) || !(moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY)))

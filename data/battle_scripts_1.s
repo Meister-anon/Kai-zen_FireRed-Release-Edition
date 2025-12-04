@@ -6842,16 +6842,6 @@ BattleScript_CudChewActivates::
 	setbyte sBERRY_OVERRIDE, 0
 	end3
 
-BattleScript_MagicCoatBouncePrankster::
-	attackstring
-	ppreduce
-	pause B_WAIT_TIME_SHORT
-	printfromtable gMagicCoatBounceStringIds
-	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	printstring STRINGID_ITDOESNTAFFECT
-	waitmessage B_WAIT_TIME_LONG
-	orhalfword gMoveResultFlags, MOVE_RESULT_NO_EFFECT
-	goto BattleScript_MoveEnd
 
 BattleScript_HandleFaintedMon::
 	confirmlosingteam BattleScript_LinkBattleHandleFaint
@@ -8163,6 +8153,17 @@ BattleScript_GrudgeTakesPp::
 	printstring STRINGID_PKMNLOSTPPGRUDGE
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
+
+BattleScript_MagicCoatBouncePranksterMoveFailed::
+	attackstring
+	ppreduce
+	pause B_WAIT_TIME_SHORT
+	printfromtable gMagicCoatBounceStringIds
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	printstring STRINGID_ITDOESNTAFFECT
+	waitmessage B_WAIT_TIME_LONG
+	orhalfword gMoveResultFlags, MOVE_RESULT_NO_EFFECT
+	goto BattleScript_MoveEnd
 
 BattleScript_MagicCoatBounce::
 	attackstring
