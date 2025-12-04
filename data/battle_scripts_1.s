@@ -5927,6 +5927,11 @@ BattleScript_FlatterTryConfuse::
 	seteffectprimary BS_ATTACKER, BS_TARGET
 	goto BattleScript_MoveEnd
 
+@have no effect logic in setmoveeffect
+@idk why I have affinity jump...
+@ah type check was part of initial script
+@nto explicitly necessary, but makes skip animation
+@if wouldn't activate so I guess makes sense
 BattleScript_EffectWillOWisp::
 	attackcanceler
 	attackstring

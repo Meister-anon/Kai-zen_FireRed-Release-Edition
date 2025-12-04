@@ -11332,6 +11332,22 @@ const struct Evolution *GetSpeciesEvolutions(u16 species)
 //I think I would need recusive do while
 //while species preevo is not species none, (i.e ther IS a pre evo)
 //do getspeciesPreevo
+//cool idea to have relearner handle pre evo moves as well
+//but is functionally a pain to setup
+//would be potentially massively expansive
+//best I could come up with is making a species evo list
+//for each mon
+//ex flareon would be eevee flareon
+//would take up a lot of physical space, 
+//but would be simpler than looping backwards to find species
+//my worry would be it would be too clinical/convenient
+//they would feel less like living things
+//since you can easily make them learn moves
+//even tho they normally can't learn them at the evo they're in
+//beneift removes need to train and catch multiple of a moon to 
+//get exact moveset you want, alternative would be to never
+//evolve things until they are full leveled, (which isn't viable)
+//and just relearn the evos moves after if different
 u16 GetSpeciesPreEvolution(u16 species, u32 LoopTarget) //so I feel like I'm not supposed to use i for this? 
 {
     u32 j;

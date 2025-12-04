@@ -14901,6 +14901,8 @@ static void atk7B_tryhealportionhealth(void)
 }
 
 //nvm plannin gcustom versino if possible
+//think my plan was parrot so learns move, and that replaces mirror move
+//for duration of battle or until switched?
 static void atk7C_trymirrormove(void) //need update with emerald logic  vsonic
 {
     s32 validMovesCount;
