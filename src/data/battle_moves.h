@@ -1929,6 +1929,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_STATUS,
     }, //idea birds ability to parrot/copy, move kinda sucks , but is a bit better with my normal type change, as would always get psudo stab if mon is normal
     //speaking just for spearow/fearow rn
+     //plan replace mirror move until switched out fainted or battle ends
     
 
     [MOVE_SELF_DESTRUCT] =
@@ -4189,6 +4190,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
+    //keep 3 stage effect but allow 2 uses 
+    //of companion move before charge goes away
+    //think keep status change just remove stockpiled status
+    //diff idea, stockpile level has 3 stages
+    //after 2 uses of companion moves i.e usedStoredStockpile
+    //rollover at 2, when is equal to 2, decrement
+    //stockpile stage, if after decrement is 0, then remove status
+    //and can't use stock pile moves until stores more charges
+    //for balance think will only remove stat buffs
+    //if stockpile hits 0? unsure
 
     [MOVE_SPIT_UP] =
     {
@@ -7557,7 +7568,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .flags = FLAG_DANCE,
         #endif
-        .effect = EFFECT_HEALING_WISH,
+        .effect = EFFECT_HEALING_WISH,//nvm this is different its suppoed to recover pp as well
         .power = 0,
         .type = TYPE_PSYCHIC,
         .accuracy = 0,
@@ -7964,6 +7975,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //on average would only ever be base 50 power
     //change to be a more dynamic formulal like gyro ball 
     //also give a paralyze chance
+    //THINK press L to show move power in battle window
+    //replace pp and type data
 
     [MOVE_SOAK] =
     {
