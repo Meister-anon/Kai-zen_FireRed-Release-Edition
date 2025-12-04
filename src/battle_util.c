@@ -10910,7 +10910,7 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn)   //
                     effect = ITEM_EFFECT_OTHER;//vsonic Important
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_AirBaloonMsgPop;
-                }//check after wake up decide if this makes sense for raikou or anyone else 
+                }//check after wake up decide if this makes sense for raikou or anyone else -can do shedtail strats to protect flying types etc.
                 break; //only really useful as a lead or given a slow pivot, I think not broken at least?
             case HOLD_EFFECT_ROCKY_HELMET://still not awake but can't find any major way to abuse/break game so keeping would be a chnage I need to put in a doc
                 if (TARGET_TURN_DAMAGED

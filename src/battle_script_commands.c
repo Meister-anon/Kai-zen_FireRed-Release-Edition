@@ -8526,7 +8526,20 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             && TARGET_TURN_DAMAGED)// !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)) //should make sure doesn't trigger till end of multihit
             {           //result no effect didn't work so replace w target must take dmg
                 //double checked and EE uses them together for some reason
-                if (((gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
+                
+                //do I need to add an exception for hold item air balloon or would it already be removed?
+                //ok adjusted so is before removal of air balloon, now  can filter for this
+                //ok how do I want to do this shouold it only work for floaitng
+                //what about non floating mon that are capable of using moves like fly
+                //I think I need both, and just have air balloon prevent knock down once
+                //since already checks target is ungrouded should be fine
+                //dont need extra logic for things like gravity etc.
+                if (GetBattlerHoldEffect(gBattlerTarget, TRUE) == HOLD_EFFECT_AIR_BALLOON)
+                {
+                    ; //just in case
+                }
+
+                else if (((gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
                 && (!(gStatuses3[gBattlerTarget] & STATUS3_SKY_DROPPED)))   //using fly/sky attack, airborne specifically not sky drop, too complicated to work with
                 {
                     CancelMultiTurnMoves(gBattlerTarget); //just for fly /skydrop
@@ -8540,15 +8553,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     gBattlescriptCurrInstr = BattleScript_GroundFlyingEnemywithoutGravity;
 
                 }//NEW bs for   //didnt need move damage multiplier that's already accounted for by damage calc
-                //do I need to add an exception for hold item air balloon or would it already be removed?
-                //ok adjusted so is before removal of air balloon, now  can filter for this
-                else if (GetBattlerHoldEffect(gBattlerTarget, TRUE) == HOLD_EFFECT_AIR_BALLOON
-                && !IsFloatingSpecies(gBattleMons[gBattlerTarget].species))
-                {
-                    //++gBattleScripting.atk49_state;
-                }//unsure  if can move to next case with increment
-                //with above specifically excludes non floating species with air balloon from triggering air balloon
-                //vsonic important
+                
+                
 
                 //believe this for floating mon
                 else if (gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE) //redid thnik tryign bitwise stuff was why this at times failed to set grounding
