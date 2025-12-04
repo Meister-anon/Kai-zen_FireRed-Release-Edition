@@ -5510,8 +5510,6 @@ u8 IsRunningFromBattleImpossible(u32 battler) // equal to emerald is ability pre
      || (GetBattlerAbility(battler) == ABILITY_DEFEATIST //
          && gDisableStructs[battler].defeatistActivated) //
      || holdEffect == HOLD_EFFECT_SHED_SHELL
-     //|| (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
-     //|| (DoesBattlerGetTypeBasedAffinity(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species))
      || (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))) //added cuz issue created with adding shadow tag to gastly
         return BATTLE_RUN_SUCCESS;
     
@@ -6043,7 +6041,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
         speed /= 2;
     //note with affinity change need to pay close attention to interaction could be broken on wrong mon
     //...float stone onix is probably the fastest mon in the game?
-    else if (DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_ROCK) && holdEffect == HOLD_EFFECT_FLOAT_STONE)
+    else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_ROCK, FALSE) && holdEffect == HOLD_EFFECT_FLOAT_STONE)
         speed = (speed * 150) / 100;
     else if (holdEffect == HOLD_EFFECT_CHOICE_SCARF)
         speed = (speed * 150) / 100;
@@ -6055,7 +6053,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
         speed *= 2;
     if (gBattleResources->flags->flags[battler] & RESOURCE_FLAG_UNBURDEN)
         speed *= 2;
-    if (DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_GRASS) && (gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_WATERSPORT)) //give to more grass types
+    if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GRASS, FALSE) && (gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_WATERSPORT)) //give to more grass types
         speed = (speed * 150) / 100; //should prob make grass specific text string, i.e x became revitalized  //vsonic important
         //put in moveendI guess moveend sport, just to display string vsonic
 
@@ -6083,8 +6081,8 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
         //flyig tuype can still just get up and fly away
         //and strengthens type a bit, but need function for flyingmonthatcantfly or something
         //make simpler permanently grounded species could combine nah can't fit in category well
-        if ((DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
-        || (DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)))
+        if ((DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GHOST, FALSE) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
+        || (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_FLYING, FALSE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler)))
         {
             if (gDisableStructs[battler].TrapSetViaMoldBreaker)
                 speed /= 2;
@@ -6093,6 +6091,8 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
             speed /= 2; //cut speed by half, which is the same as 2 stat stage drops & guess it makes more sense to cut 
 
     }
+    //traps inconjunction with paralysis 
+    //gives old paralysis effect of 25% speed drop
 
     return speed;
 }
@@ -7417,7 +7417,7 @@ bool8 TryRunFromBattle(u32 battler)
     else if (gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4 && gDisableStructs[battler].TrapSetViaMoldBreaker)
         return FALSE;
 
-    else if (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), battler, GetBattlerAbility(battler), TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
+    else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GHOST, FALSE) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
     {
         ++effect;
     }//vsonic if add ability that gives ghost type affinity keep isbattlertype and add below same as aviator
@@ -7425,9 +7425,19 @@ bool8 TryRunFromBattle(u32 battler)
     else if (gDisableStructs[battler].trappedinStickyweb)
         return FALSE;
 
-    else if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)
+    //with ability flag check, can use affinity here
+    //Oh nvm I separate it so can have diff msg for ability
+    //ok need to figure this out want to be able to flee
+    //regardless of smack down but hard grouding effects
+    //like iron ball and gravity should still stop it.
+    //don't make too strict if I use grouded logic
+    //it'll block things ghost types would be able to escape under
+    //and its not switching its just run away
+    //only relevant for player or for roaming battles
+    //so think just gravity and iron ball
+    else if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) 
     && gBattleMons[battler].ability != ABILITY_AVIATOR
-    && !IsBattlerGrounded(battler))
+    && !IsFlyingTypeBattlerUnableToFly(battler))
     {
         ++effect;
     }
@@ -7444,10 +7454,18 @@ bool8 TryRunFromBattle(u32 battler)
         gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
         ++effect;
     }
+
     //want to remove species check instead making grounded
     //but grounded check includes species, oh wait I removed that lol
+    //but is better to use getbattlerability here considering
+    //ability flag check, don't want to activate if ability is suprressed
+    //just specifically this ability isn't suprressable
+    //just more consistent
+    //nvm the nvm some abilities have affects that would be surpressed
+    //but should not effect the escape portion so this is
+    //more appropriate
     else if (gBattleMons[battler].ability == ABILITY_AVIATOR
-    && !IsBattlerGrounded(battler))
+    && !IsFlyingTypeBattlerUnableToFly(battler))
     {
         gLastUsedAbility = ABILITY_AVIATOR;
         gProtectStructs[battler].fleeFlag = FLEE_ABILITY;

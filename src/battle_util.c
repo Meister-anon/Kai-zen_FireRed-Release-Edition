@@ -898,7 +898,7 @@ bool32 ShouldPranksterBoostedMoveFail(u16 move, u8 battlerwithPrankster, u8 batt
         return FALSE;
     if (checkTarget && (gBattleMoves[move].target & (MOVE_TARGET_OPPONENTS_FIELD | MOVE_TARGET_DEPENDS)))
         return FALSE;
-    if (!DoesBattlerGetTypeBasedAffinity(battlerwithPrankster, GetBattlerAbility(battlerwithPrankster), battlerDef, GetBattlerAbility(battlerDef), TYPE_DARK))
+    if (!DoesBattlerGetTypeBasedAffinity(battlerwithPrankster, battlerDef, TYPE_DARK, FALSE))
         return FALSE;
     if (gStatuses3[battlerDef] & STATUS3_SEMI_INVULNERABLE)
         return FALSE;
@@ -1646,7 +1646,7 @@ bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget)  //somehow works...
     return ((GetBattlerAbility(battlerAttacker) == ABILITY_CORROSION)
         || (GetBattlerAbility(battlerAttacker) == ABILITY_POISONED_LEGACY)
         || !IS_BATTLER_ANY_TYPE(battlerTarget, TYPE_STEEL, TYPE_ROCK)
-        || !(DoesBattlerGetTypeBasedAffinity(battlerAttacker, GetBattlerAbility(battlerAttacker), battlerTarget, GetBattlerAbility(battlerTarget), TYPE_POISON)) 
+        || !(DoesBattlerGetTypeBasedAffinity(battlerAttacker, battlerTarget, TYPE_POISON, FALSE)) 
         );
         
 }
@@ -3710,7 +3710,7 @@ u8 DoBattlerEndTurnEffects(void)
                     && IsBattlerAffectedByHazards(battler, FALSE)
                     && IsBattlerGrounded(battler))
                 {
-                    if (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), battler, GetBattlerAbility(battler), TYPE_GROUND)) // Absorb the spikes.
+                    if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GROUND, FALSE)) // Absorb the spikes.
                     {
                         gSideStatuses[GetBattlerSide(battler)] &= ~SIDE_STATUS_SPIKES;
                         gSideTimers[GetBattlerSide(battler)].spikesAmount = 0;
@@ -3750,7 +3750,7 @@ u8 DoBattlerEndTurnEffects(void)
                         }
                         
                     }
-                    else if (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), battler, GetBattlerAbility(battler), TYPE_POISON)) // Absorb the toxic spikes.
+                    else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_POISON, FALSE)) // Absorb the toxic spikes.
                     {
                         gSideStatuses[GetBattlerSide(battler)] &= ~SIDE_STATUS_TOXIC_SPIKES;
                         gSideTimers[GetBattlerSide(battler)].toxicSpikesAmount = 0;
@@ -3798,7 +3798,7 @@ u8 DoBattlerEndTurnEffects(void)
                         BattleScriptExecute(BattleScript_HazardAbsorbAbilityStatBoost_Endturn);
                         ++effect; //*facepalm game broke because I forgot to add effect here
                     }
-                    else if (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), battler, GetBattlerAbility(battler), TYPE_ROCK)) // Absorb the stealth rock.
+                    else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_ROCK, FALSE)) // Absorb the stealth rock.
                     {
                         gSideStatuses[GetBattlerSide(battler)] &= ~SIDE_STATUS_STEALTH_ROCK;
                         gBattleScripting.battler = battler;
@@ -3836,7 +3836,7 @@ u8 DoBattlerEndTurnEffects(void)
                             ++effect;
                         }
                     }
-                    else if (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), battler, GetBattlerAbility(battler), TYPE_STEEL)) // Absorb the stealth rock.
+                    else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_STEEL, FALSE)) // Absorb the stealth rock.
                     {
                         gSideStatuses[GetBattlerSide(battler)] &= ~SIDE_STATUS_STEEL_SURGE;
                         gBattleScripting.battler = battler;
@@ -4736,7 +4736,7 @@ u8 AtkCanceller_UnableToUseMove(void)
 
                     if (gBattleMons[gBattlerAttacker].status2 & STATUS2_CONFUSION && gDisableStructs[gBattlerAttacker].ConfusionTurns) //&& !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_BUG))
                     {// idea cammymealtee trying setup so tangled feet like bug gets confused but never hits themselves
-                        if (!(DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), TYPE_BUG) && !gDisableStructs[gBattlerAttacker].StatusSetViaMoldBreaker)
+                        if (!(DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerAttacker, TYPE_BUG, FALSE) && !gDisableStructs[gBattlerAttacker].StatusSetViaMoldBreaker)
                          || GetBattlerAbility(gBattlerAttacker) != ABILITY_TANGLED_FEET
                         
                         ) //moved bug exclusion to here, so goes through animations //keep an eye on this make sure double not still works for AND here
@@ -5035,7 +5035,7 @@ u8 AtkCanceller_UnableToUseMove(void)
         case CANCELLER_POWDER_MOVE:
             if ((gBattleMoves[gCurrentMove].flags & FLAG_POWDER_MOVE) && (gBattlerAttacker != gBattlerTarget))
             {
-                if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GRASS))
+                if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerTarget, TYPE_GRASS, FALSE))
                     || GetBattlerAbility(gBattlerTarget) == ABILITY_OVERCOAT)
                 {
                     gBattlerAbility = gBattlerTarget;
@@ -5252,24 +5252,41 @@ bool8 IsFloatingSpecies(u16 species)
     return FALSE;
 }
 
-//including mon without wings,
-//and mon that simply are very bad flyers
-//so can't lore wise easily start flying
-//is more fleible with species rather than battler argument
-bool8 IsFlyingTypeSpeciesUnableToFly(u16 species) 
+bool8 IsFlyingTypeBattlerUnableToFly(u32 battler)
 {
-    return (species == SPECIES_DODUO
-    || species == SPECIES_DODRIO
-    || species == SPECIES_ARCHEN
-    || species == SPECIES_ARCHEOPS
-    || species == SPECIES_GYARADOS
-    || species == SPECIES_NATU
-    || species == SPECIES_VULLABY    
-    || species == SPECIES_SIRFETCHD
-    || species == SPECIES_FARFETCHD_GALARIAN
-    || species == SPECIES_ZAPDOS_GALARIAN
-    || species == SPECIES_SILVALLY_FLYING);
-    
+    u16 species = gBattleMons[battler].species;
+
+    if (gFieldStatuses & STATUS_FIELD_GRAVITY
+    || (GetBattlerHoldEffect(battler, FALSE) == HOLD_EFFECT_IRON_BALL))
+        return TRUE;
+
+   
+    if (IsFloatingSpecies(species))
+        return FALSE;
+    else
+        return TRUE;
+
+}
+
+//simplify rather than include affinty check
+//assume flying just include things necessary
+//to not be grounded
+//hopefully accounts for loss of item as well 
+//well those are prob both move end affects
+//so may need to shift move end affect so
+//item removal happens before MOVE_END_GROUND_TARGET
+//vsonic important
+bool8 CanFlyingTypeRecoverFromSmackDown(u32 battler)
+{
+    u16 species = gBattleMons[battler].species;
+
+    if (IsFloatingSpecies(species))
+        return TRUE;
+    else if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_FLOAT_STONE)
+            return TRUE;
+
+    return FALSE;
+
 }
 
 
@@ -5294,7 +5311,7 @@ bool8 IsBattlerGrounded(u8 battlerId)
     if (IsFloatingSpecies(species))//used if as breakline, as else if only reads if everything above it is false
         grounded = FALSE; //nice new version of floating setup greatly cleanns up this function
 
-    else if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), battlerId, GetBattlerAbility(battlerId), TYPE_FLYING)
+    else if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerId, TYPE_FLYING, FALSE)
      && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_FLOAT_STONE)
         grounded = FALSE;
     //for setting the sript to play think can do it in atk49 moveend
@@ -8231,7 +8248,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && gBattleMons[gBattlerAttacker].hp != 0
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-                    && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), TYPE_GRASS)
+                    && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerAttacker, TYPE_GRASS, FALSE)
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_OVERCOAT
                     && GetBattlerHoldEffect(gBattlerAttacker, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES
                     && TARGET_TURN_DAMAGED
@@ -8377,7 +8394,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                     && TARGET_TURN_DAMAGED
                     && CanBeParalyzedViaAbility(gBattlerAttacker)
-                    && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), TYPE_ELECTRIC)
+                    && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerAttacker, TYPE_ELECTRIC, FALSE)
                     && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND) //leaving as involves type chart logic
                     && (IsMoveMakingContact(moveArg, gBattlerAttacker)) //ok only thing I can gather from this is its not setting affect certaain, that's why odds are so low
                     && (Random() % 3) == 0)
@@ -8996,7 +9013,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && gBattleMons[gBattlerTarget].hp != 0
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-                    && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GRASS)
+                    && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerTarget, TYPE_GRASS, FALSE)
                     && GetBattlerAbility(gBattlerTarget) != ABILITY_OVERCOAT
                     && GetBattlerHoldEffect(gBattlerTarget, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES
                     && TARGET_TURN_DAMAGED //no issue with status set, all is good
@@ -9037,7 +9054,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && gBattleMons[gBattlerTarget].hp != 0
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-                    && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_GRASS) //grass powder immunity
+                    && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerTarget, TYPE_GRASS, FALSE) //grass powder immunity
                     && GetBattlerAbility(gBattlerTarget) != ABILITY_OVERCOAT
                     && GetBattlerHoldEffect(gBattlerTarget, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES
                     && TARGET_TURN_DAMAGED //no issue with status set, all is good
@@ -9055,7 +9072,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     && gBattleMons[gBattlerTarget].hp != 0
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                     && CanBeParalyzedViaAbility(gBattlerTarget)
-                    && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerTarget, GetBattlerAbility(gBattlerTarget), TYPE_ELECTRIC) //only addition want make, static shouldn't work on electric types
+                    && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerTarget, TYPE_ELECTRIC, FALSE) //only addition want make, static shouldn't work on electric types
                     && !IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GROUND) //think this needs to stay as is, as point is groud type is immune to electric by type chart
                     && IsMoveMakingContact(moveArg, gBattlerAttacker) //not using other paralyze statemetn cuz think I already have my own logic,\ thats for moves not abilities                    
                     && TARGET_TURN_DAMAGED
@@ -10561,7 +10578,7 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn)   //
                     goto LEFTOVERS;
                 break;
             case HOLD_EFFECT_BLACK_SLUDGE:
-                if (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), battler, GetBattlerAbility(battler), TYPE_POISON))
+                if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_POISON, FALSE))
                 {
                     goto LEFTOVERS;
                 }
@@ -11174,16 +11191,16 @@ void HandleAction_RunBattleScript(void) // identical to RunBattleScriptCommands
 
 bool32 IsAffectedByFollowMe(u32 battlerAtk, u32 defSide, u32 move)
 {
-    u32 ability = GetBattlerAbility(battlerAtk);
+    u32 atk_ability = GetBattlerAbility(battlerAtk);
 
     if (gSideTimers[defSide].followmeTimer == 0
         || gBattleMons[gSideTimers[defSide].followmeTarget].hp == 0
         || gBattleMoves[move].effect == EFFECT_SNIPE_SHOT
         || gBattleMoves[move].effect == EFFECT_SKY_DROP
-        || ability == ABILITY_PROPELLER_TAIL || ability == ABILITY_STALWART)
+        || atk_ability == ABILITY_PROPELLER_TAIL || atk_ability == ABILITY_STALWART)
         return FALSE;
 
-    if (gSideTimers[defSide].ragePowder)// && !IsAffectedByPowder(battlerAtk, ability, GetBattlerHoldEffect(battlerAtk, TRUE)))
+    if (gSideTimers[defSide].ragePowder && !IsAffectedByPowder(battlerAtk, battlerAtk, GetBattlerHoldEffect(battlerAtk, TRUE), FALSE))
         return FALSE; //function in ai update add back later
 
     return TRUE; //need to add ragepowder setup
@@ -11311,7 +11328,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
         targetType = GetBattlerMoveTargetType(gBattlerAttacker, move);
 
     // Special cases
-    if (move == MOVE_CURSE && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), TYPE_GHOST))
+    if (move == MOVE_CURSE && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerAttacker, TYPE_GHOST, FALSE))
         targetType = MOVE_TARGET_USER;
     switch (targetType)
     {
@@ -12023,7 +12040,7 @@ u32 IsTypeOnField(u32 battlerId, u8 type)
     side = GetBattlerSide(battlerId);
     for (i = 0; i < gBattlersCount; ++i)
     {
-        if (IsBattlerAlive(i) && GetBattlerSide(i) != side && DoesBattlerGetTypeBasedAffinity(i, GetBattlerAbility(i), i, GetBattlerAbility(i), type))
+        if (IsBattlerAlive(i) && GetBattlerSide(i) != side && DoesBattlerGetTypeBasedAffinity(i, i, type, FALSE))
         {
             filter = i + 1;
             break;
@@ -12033,7 +12050,7 @@ u32 IsTypeOnField(u32 battlerId, u8 type)
     {
         for (i = 0; i < gBattlersCount; ++i)
         {
-            if (IsBattlerAlive(i) && DoesBattlerGetTypeBasedAffinity(i, GetBattlerAbility(i), i, GetBattlerAbility(i), type) && GetBattlerSide(i) == side && i != battlerId)
+            if (IsBattlerAlive(i) && DoesBattlerGetTypeBasedAffinity(i, i, type, FALSE) && GetBattlerSide(i) == side && i != battlerId)
             {
                 filter = i + 1;
             }
@@ -12099,11 +12116,15 @@ u32 IsAbilityOnFieldExcept(u32 battlerId, u32 ability)
 //than just keep this for bs, with the abilities that get the full set of affinities
 //TypeAffinityCheck - will be for type and specific ability
 //changed but realized target doesnt work as some case are offense affinity user i.e curse and sure hit poison
+//all affinity abilities should have .breakable = TRUE, 
+//.cantBeSuppressed = TRUE,
 #define NEW_ABILITY_CATEGORY //-use only for things that don't affect type chart relations
-bool8 DoesBattlerGetTypeBasedAffinity(u32 attacker, u16 atkability, u32 battler, u16 battlerAbility, u8 typeFactor)
+bool8 DoesBattlerGetTypeBasedAffinity(u32 attacker, u32 battler, u8 typeFactor, bool32 checkAI)
 {
+    u16 atkAbility = checkAI == TRUE ? AI_DATA->abilities[attacker] : GetBattlerAbility(attacker);
+    u16 battlerAbility = checkAI == TRUE ? AI_DATA->abilities[battler] : GetBattlerAbility(battler);
     //extra protection for effects that check partner 
-    if (IsBattlerAlive(attacker) && atkability == ABILITY_MOLD_BREAKER
+    if (IsBattlerAlive(attacker) && atkAbility == ABILITY_MOLD_BREAKER
     && GetBattlerSide(attacker) != GetBattlerSide(battler))
         return FALSE;
 
@@ -12165,8 +12186,7 @@ u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic i
     if ((GetBattlerAbility(battlerId) == ABILITY_DEFEATIST
         && gDisableStructs[battlerId].defeatistActivated) //overwrite usual switch preveention from status & traps
         || (GetBattlerAbility(battlerId) == ABILITY_RUN_AWAY)
-        || (DoesBattlerGetTypeBasedAffinity(battlerId, GetBattlerAbility(battlerId), battlerId, GetBattlerAbility(battlerId), TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB))
-        //|| (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)))
+        || (DoesBattlerGetTypeBasedAffinity(battlerId, battlerId, TYPE_GHOST, FALSE) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB))
         return FALSE;
 
     //don't have ghost condition on this as most ghosts float
@@ -12178,11 +12198,10 @@ u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic i
     //extra parenthesis to avoid compiler warning
     //unsure if it makes sense to replace steel check with steel affinity check?
     //ok could be a bio-organic that has magnetic properties?
-    if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_MAGNET_PULL)) && DoesBattlerGetTypeBasedAffinity(battlerId, GetBattlerAbility(battlerId), battlerId, GetBattlerAbility(battlerId), TYPE_STEEL))
+    if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_MAGNET_PULL)) && DoesBattlerGetTypeBasedAffinity(battlerId, battlerId, TYPE_STEEL, FALSE))
         return id;
 
-    else if (DoesBattlerGetTypeBasedAffinity(battlerId, GetBattlerAbility(battlerId), battlerId, GetBattlerAbility(battlerId), TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)
-    && !IsBattlerGrounded(battlerId))
+    else if (DoesBattlerGetTypeBasedAffinity(battlerId, battlerId, TYPE_FLYING, FALSE) && !IsFlyingTypeBattlerUnableToFly(battlerId))
         return FALSE; //flying away would work for all but magnet pull,
 
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_SHADOW_TAG)) && GetBattlerAbility(battlerId) != ABILITY_HANDS_OF_FATE)
@@ -12210,7 +12229,7 @@ bool32 CanBattlerEscape(u32 battler) // no oppoising side ability check
     else if ((GetBattlerAbility(battler) == ABILITY_DEFEATIST
         && gDisableStructs[battler].defeatistActivated) //overwrite usual switch preveention from status & traps
         || (GetBattlerAbility(battler) == ABILITY_RUN_AWAY)
-        || (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), battler, GetBattlerAbility(battler), TYPE_GHOST)
+        || (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GHOST, FALSE)
         && gBattleMons[battler].species != SPECIES_SPIRITOMB)  //considering below - decidedhad already done research flying birds dont have shadow makes sense can escape shadow tag and normally
         )
         return TRUE;
@@ -12218,9 +12237,8 @@ bool32 CanBattlerEscape(u32 battler) // no oppoising side ability check
     else if (gDisableStructs[battler].trappedinStickyweb)
         return FALSE;
 
-    else if (DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), battler, GetBattlerAbility(battler), TYPE_FLYING) 
-    && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)
-    && !IsBattlerGrounded(battler))
+    else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_FLYING, FALSE) 
+    && !IsFlyingTypeBattlerUnableToFly(battler))
         return TRUE; //flying away would work for all but sticky web,
 
     else if (gBattleMons[battler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))
@@ -12673,7 +12691,7 @@ bool32 IsBattlerAffectedByHazards(u32 battler, bool32 toxicSpikes)
     u32 holdEffect = GetBattlerHoldEffect(battler, TRUE);
     
     if (toxicSpikes && holdEffect == HOLD_EFFECT_HEAVY_DUTY_BOOTS 
-    && !DoesBattlerGetTypeBasedAffinity(battler, GetBattlerAbility(battler), battler, GetBattlerAbility(battler), TYPE_POISON))
+    && !DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_POISON, FALSE))
     {
         ret = FALSE;
         RecordItemEffectBattle(battler, holdEffect);
@@ -13100,8 +13118,8 @@ static uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u
     
 
     if (move == MOVE_GLARE 
-    && (DoesBattlerGetTypeBasedAffinity(battlerAtk, GetBattlerAbility(battlerAtk), battlerDef, defAbility, TYPE_GHOST)
-    || DoesBattlerGetTypeBasedAffinity(battlerAtk, GetBattlerAbility(battlerAtk), battlerDef, defAbility, TYPE_DARK))
+    && (DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_GHOST, FALSE)
+    || DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_DARK, FALSE))
     ) //can keep this line
     {
         modifier = UQ_4_12(0.0);
@@ -13119,7 +13137,7 @@ static uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u
     }
 
     else if ((move == MOVE_SHEER_COLD) 
-    && DoesBattlerGetTypeBasedAffinity(battlerAtk, GetBattlerAbility(battlerAtk), battlerDef, defAbility, TYPE_ICE)) //no longer need with other ohko changes
+    && DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_ICE, FALSE)) //no longer need with other ohko changes
     {
         modifier = UQ_4_12(0.0);
     } //potentially replace with effet ohko and not very effective change mod to 0, since it will never land, better for ai
@@ -13957,7 +13975,7 @@ bool32 CanBePoisoned(u8 PoisonUser, u8 PoisonTarget)
 bool32 CanBeBurned(u8 battlerId)
 {
     u16 ability = GetBattlerAbility(battlerId);
-    if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), battlerId, ability, TYPE_FIRE))
+    if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerId, TYPE_FIRE, FALSE))
         || gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD
         || gBattleMons[battlerId].status1 & STATUS1_ANY
         || ability == ABILITY_WATER_VEIL
@@ -14002,7 +14020,7 @@ bool32 CanBeParalyzed(u8 battlerId)
         || gBattleMons[battlerId].status1 & STATUS1_ANY
         || IsAbilityStatusProtected(battlerId)
         || IsBattlerTerrainAffected(battlerId, STATUS_FIELD_MISTY_TERRAIN)
-        || ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), battlerId, ability, TYPE_ELECTRIC))
+        || ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerId, TYPE_ELECTRIC, FALSE))
         && movetype == TYPE_ELECTRIC))
         return FALSE;
     return TRUE;
@@ -14012,7 +14030,7 @@ bool32 CanBeFrozen(u8 battlerId)
 {
     u16 ability = GetBattlerAbility(battlerId);
     
-    if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), battlerId, ability, TYPE_ICE))
+    if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerId, TYPE_ICE, FALSE))
         || IsBattlerWeatherAffected(battlerId, WEATHER_SUN_ANY)
         || gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD
         || ability == ABILITY_LAVA_FISSURE
@@ -14352,7 +14370,7 @@ bool32 TryActivateBattlePoisonHeal(u32 battler)  //change mind better to do 2 fu
             return TRUE;
         }
 
-        else if (DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_POISON) 
+        else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_POISON, FALSE) 
             && ((GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_BLACK_SLUDGE)
             || (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_TOXIC_ORB)))
         {
@@ -14388,7 +14406,7 @@ bool32 TryActivateHeatTrance(u32 battler)  //change mind better to do 2 function
 
         //since I already stipulated ability is heat trance this is fine
         //it just means is fire type
-        else if (DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_FIRE) 
+        else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_FIRE, FALSE) 
             && ((GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_FLAME_ORB)))
         {
             return TRUE;

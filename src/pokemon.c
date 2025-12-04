@@ -5088,12 +5088,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].hp <= (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].maxHP / 2))
     {
         if (abilityAtk == ABILITY_PLUS 
-        && (DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), TYPE_ELECTRIC)
+        && (DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), BATTLE_PARTNER(battlerIdAtk), TYPE_ELECTRIC, FALSE)
         || GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_MINUS))
             gBattleMovePower = (150 * gBattleMovePower) / 100;
 
         else if (abilityAtk == ABILITY_MINUS 
-        && (DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), TYPE_ELECTRIC)
+        && (DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), BATTLE_PARTNER(battlerIdAtk), TYPE_ELECTRIC, FALSE)
         || GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_PLUS))
             gBattleMovePower = (150 * gBattleMovePower) / 100;   //used gbattlemovedamage, to stack with on field plus/minus effects , it already stacks without that
     }
@@ -5423,20 +5423,20 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //works now //suddenly not working again -_- oh it is working just effect is so low not very noticeable?
     //sideStatus wasn't working had to use gstatus and realied I hadn't updated the function argument while I made gsidestatus u32
     //the function was still u16, updated and that fixed it
-    if (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_GROUND) 
+    if (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdDef, TYPE_GROUND, FALSE) 
     && (sideStatus & SIDE_STATUS_MUDSPORT)) //if done right these should stack
         spDefense = (170 * spDefense) / 100;    //gets to work as its on the ground not in the air
                     //changed mind,not as realistic but gives more options, keep just ground affecting, rock/ground are only rocks that really need 
                     //unsure if should buff further
 
     // sandstorm sp.def boost for rock types  // decided to add this for ground types as well,
-    if ((DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_ROCK) 
-    || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_GROUND)))
+    if ((DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdDef, TYPE_ROCK, FALSE) 
+    || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdDef, TYPE_GROUND, FALSE)))
         && IsBattlerWeatherAffected(battlerIdDef, WEATHER_SANDSTORM_ANY) && abilityAtk != ABILITY_CLOUD_NINE)     
         spDefense = (150 * spDefense) / 100;
 
     // hail sp.def & def boost for ice types  // still deciding if I want a 50% defense boost or a 25% boost to def & sp def
-    if ((DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_ICE))
+    if ((DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdDef, TYPE_ICE, FALSE))
         && IsBattlerWeatherAffected(battlerIdDef, WEATHER_HAIL_ANY) && abilityAtk != ABILITY_CLOUD_NINE)    
     {
         spDefense = (115 * spDefense) / 100;
@@ -5468,7 +5468,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
     case ABILITY_FLARE_BOOST:
         if ((gBattleMons[battlerIdAtk].status1 & STATUS1_BURN
-        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdAtk, abilityAtk, TYPE_FIRE) && attackerHoldEffect == HOLD_EFFECT_FLAME_ORB))
+        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdAtk, TYPE_FIRE, FALSE) && attackerHoldEffect == HOLD_EFFECT_FLAME_ORB))
             && (MoveDamageCategory == SPLIT_SPECIAL) //!usesDefStat //IS_MOVE_SPECIAL(move))
             && IsBlackFogNotOnField())
             gBattleMovePower = (gBattleMovePower * 150 / 100);
@@ -5476,7 +5476,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
     case ABILITY_TOXIC_BOOST:
         if ((gBattleMons[battlerIdAtk].status1 & STATUS1_PSN_ANY || IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN_ANY)
-        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdAtk, abilityAtk, TYPE_POISON) && attackerHoldEffect == HOLD_EFFECT_TOXIC_ORB)) 
+        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdAtk, TYPE_POISON, FALSE) && attackerHoldEffect == HOLD_EFFECT_TOXIC_ORB)) 
             && (MoveDamageCategory == SPLIT_PHYSICAL)
             && IsBlackFogNotOnField())
             gBattleMovePower = (gBattleMovePower * 150 / 100);

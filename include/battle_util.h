@@ -133,7 +133,8 @@ void ClearRageStatuses(u8 battler);
 u8 AtkCanceller_UnableToUseMove(void);
 u8 AtkCanceller_UnableToUseMove2(void);
 bool8 IsFloatingSpecies(u16 species);
-bool8 IsFlyingTypeSpeciesUnableToFly(u16 battler); //used just for trap effect debuff logic
+bool8 IsFlyingTypeBattlerUnableToFly(u32 battler); //battle specific variant
+bool8 CanFlyingTypeRecoverFromSmackDown(u32 battler); //for use w ascension timer prob rename later vsonic
 bool8 IsBattlerGrounded(u8 battlerId);
 bool8 IsFloatingTargetImmunetoGroundMoves(u8 battler_atk, u8 battler_def, u16 move, u8 moveType);
 bool8 HasNoMonsToSwitch(u8 battler, u8 partyIdBattlerOn1, u8 partyIdBattlerOn2);
@@ -241,7 +242,7 @@ s32 CalculateMoveDamageAndEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef, 
 //keeps from being reset on switch/faint
 u8 GetAbilityTimer(u16 ability);
 //reworked function to include moldbreaker negate for cleaner use
-bool8 DoesBattlerGetTypeBasedAffinity(u32 attacker, u16 atkability, u32 battler, u16 battlerAbility, u8 typeFactor); //for new category of abiility, replace sipmle checks for isbattler type
+bool8 DoesBattlerGetTypeBasedAffinity(u32 attacker, u32 battler, u8 typeFactor, bool32 checkAI); //for new category of abiility, replace sipmle checks for isbattler type
 u8 ShouldActivateBindingBand(void); //function made for attempt setup pre healthbar drop activation
 
 u8 ShouldAbilityAbsorb(u16 move); //ATTEMPT workaroud for absorb abilty/lightning rod targetting
