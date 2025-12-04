@@ -882,9 +882,9 @@ void BufferStatChange(u8 battlerId, u8 statId, u8 stringId)
     }
 }
 
-bool32 DoesPranksterBlockMove(u16 move, u8 battlerwithPrankster, u8 battlerDef, bool32 checkTarget)
+bool32 BlocksPrankster(u16 move, u8 battlerwithPrankster, u8 battlerDef, bool32 checkTarget)
 {
-    if (!gProtectStructs[battlerwithPrankster].pranksterElevated)   //if  not boosted by prankster?
+    if (!gProtectStructs[battlerwithPrankster].pranksterElevated)   //if  not boosted by prankster? /only happens if not status move
         return FALSE;
     if (GetBattlerSide(battlerwithPrankster) == GetBattlerSide(battlerDef)) //if prankster mon & target are on same side, doesn't block move
         return FALSE;
@@ -7915,7 +7915,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 gBattlescriptCurrInstr = BattleScript_DazzlingProtected;
                 effect = 1;
             }
-            else if (DoesPranksterBlockMove(moveArg, gBattlerAttacker, gBattlerTarget, TRUE) && GetChosenMovePriority(gBattlerAttacker) > 0
+            else if (BlocksPrankster(moveArg, gBattlerAttacker, gBattlerTarget, TRUE) && GetChosenMovePriority(gBattlerAttacker) > 0
             && !(IS_MOVE_STATUS(moveArg) && targetAbility == ABILITY_MAGIC_BOUNCE))
             {
                 if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE) || !(moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY)))
