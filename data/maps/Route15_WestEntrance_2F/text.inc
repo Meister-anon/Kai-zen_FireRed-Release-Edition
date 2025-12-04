@@ -21,19 +21,16 @@ Route15_WestEntrance_2F_Text_ReceivedItemFromAide:: @ 819F6FD
     .string "from the AIDE.$"
 
 @need test
-Route15_WestEntrance_2F_Text_ExplainExpShare:: @ 819F71F
-    .string "EXP. SHARE is an item to be used\n"
-    .string "by a POKéMON.\p"
-    .string "The POKéMON will receive a share\n"
-    .string "of the EXP. Points without having\l"
-    .string "to battle.\p"
-    .string "You activate it from the party menu\n"
-    .string "press {START_BUTTON} on your POKéMON\l"
-    .string "to select it.\p"
-    .string "Or over the Cancel button to set for\n"
-    .string "the entire party.\p"
-    .string "When you see the plus sign,\n"
-    .string "you're good to go!$"
+@plan put mega stones in case like tms
+Route15_WestEntrance_2F_Text_ExplainMegaRing:: @ 819F71F
+    .string "MEGA RING is an item to be used\n"
+    .string "by a POKéMON Trainer.\p"
+    .string "With a given Mega Stone\n"
+    .string "it allows a POKéMON to Mega Evolve!\p"
+    .string "An enhanced form that only one\n"
+    .string "member of your party may take.\p"
+    .string "Your POKéMON doesn't need to hold\n"
+    .string "its mega stone to be able to evolve.$"
 
 Route15_WestEntrance_2F_Text_LargeShiningBird:: @ 819F79C
     .string "Let's see what the binoculars have\n"

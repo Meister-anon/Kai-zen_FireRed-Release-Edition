@@ -14163,7 +14163,7 @@ bool8 IsFloatingTargetImmunetoGroundMoves(u8 battler_atk, u8 battler_def, u16 mo
 //for use in party menu
 bool8 CanActivateExpShare(void)
 {
-    if (FlagGet(FLAG_NEW_GAME_PLUS) || FlagGet(FLAG_GOT_EXP_SHARE_FROM_OAKS_AIDE))
+    if (FlagGet(FLAG_NEW_GAME_PLUS) || FlagGet(FLAG_GOT_EXP_SHARE))
         return TRUE;
     return FALSE;
 }

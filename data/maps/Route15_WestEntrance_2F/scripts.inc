@@ -19,11 +19,14 @@ Route15_WestEntrance_2F_EventScript_RightBinoculars:: @ 81700B0
 	msgbox Route15_WestEntrance_2F_Text_SmallIslandOnHorizon, MSGBOX_SIGN
 	end
 
+@figure something else to put here
+@as moving exp share earliers
+@hmm should i make this the mega ring?
 Route15_WestEntrance_2F_EventScript_Aide:: @ 81700B9
 	lock
 	faceplayer
 	call Route15_WestEntrance_2F_EventScript_GetAideRequestInfo
-	goto_if_set FLAG_GOT_EXP_SHARE_FROM_OAKS_AIDE, Route15_WestEntrance_2F_EventScript_AlreadyGotExpShare
+	goto_if_set FLAG_GOT_MEGA_RING_FROM_OAKS_AIDE, Route15_WestEntrance_2F_EventScript_AlreadyGotMegaRing
 	msgbox Route15_WestEntrance_2F_Text_GiveItemIfCaughtEnough, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Aide_EventScript_DeclineCheckMons
@@ -34,17 +37,17 @@ Route15_WestEntrance_2F_EventScript_Aide:: @ 81700B9
 	compare VAR_0x8006, REQUIRED_CAUGHT_MONS
 	goto_if_lt Aide_EventScript_HaventCaughtEnough
 	msgbox Route15_WestEntrance_2F_Text_GreatHereYouGo
-	checkitemspace ITEM_EXP_SHARE, 1
+	checkitemspace ITEM_MEGA_RING, 1
 	compare VAR_RESULT, FALSE
 	goto_if_eq Aide_EventScript_NoRoomForItem
-	giveitem_msg Route15_WestEntrance_2F_Text_ReceivedItemFromAide, ITEM_EXP_SHARE, 1, MUS_OBTAIN_KEY_ITEM
-	setflag FLAG_GOT_EXP_SHARE_FROM_OAKS_AIDE
-	msgbox Route15_WestEntrance_2F_Text_ExplainExpShare
+	giveitem_msg Route15_WestEntrance_2F_Text_ReceivedItemFromAide, ITEM_MEGA_RING, 1, MUS_OBTAIN_KEY_ITEM
+	setflag FLAG_GOT_MEGA_RING_FROM_OAKS_AIDE
+	msgbox Route15_WestEntrance_2F_Text_ExplainMegaRing
 	release
 	end
 
-Route15_WestEntrance_2F_EventScript_AlreadyGotExpShare:: @ 817013B
-	msgbox Route15_WestEntrance_2F_Text_ExplainExpShare
+Route15_WestEntrance_2F_EventScript_AlreadyGotMegaRing:: @ 817013B
+	msgbox Route15_WestEntrance_2F_Text_ExplainMegaRing
 	release
 	end
 

@@ -612,14 +612,14 @@
 #define FLAG_WOKE_UP_ROUTE_12_SNORLAX                    0x253
 #define FLAG_GOT_TM39_FROM_BROCK                         0x254
 #define FLAG_GOT_SUPER_ROD                               0x255
-#define FLAG_GOT_EXP_SHARE_FROM_OAKS_AIDE                0x256 
+#define FLAG_GOT_EXP_SHARE                               0x256 
 #define FLAG_DID_MARC_TRADE                              0x257
 #define FLAG_BEAT_RIVAL_IN_OAKS_LAB                      0x258
 #define FLAG_GOT_TM06_FROM_KOGA                          0x259
 #define FLAG_GOT_EXP_NULL_FROM_MOM                       0x25A
 #define FLAG_GOT_TM27                                    0x25B
 #define FLAG_GOT_OMNI_BOX                                0x25C //want to give early game not sure when, game start? lol have teach tv man give it 
-#define FLAG_0x25D                                       0x25D  
+#define FLAG_GOT_MEGA_RING_FROM_OAKS_AIDE                0x25D  
 #define FLAG_GOT_OLD_AMBER                               0x25E
 #define FLAG_0x25F                                       0x25F
 #define FLAG_0x260                                       0x260
