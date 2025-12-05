@@ -821,6 +821,7 @@ static const u8 *const sMoveEffectBS_Ptrs[] =
     [MOVE_EFFECT_REMOVE_STATUS] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_ATK_DEF_DOWN] = BattleScript_MoveEffectSleep,//BattleScript_MoveEffectFallInLove
     [MOVE_EFFECT_DEF_SPDEF_DOWN] = BattleScript_MoveEffectSleep,//BattleScript_MoveEffectFallInLove
+    [MOVE_EFFECT_TARGET_ATK_SPATK_DOWN] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_MEDIUM_RECOIL] = BattleScript_MoveEffectRecoil,
     [MOVE_EFFECT_MED_RECOIL_W_STATUS] = BattleScript_MoveEffectRecoilWithStatus,
     [MOVE_EFFECT_SPD_MINUS_2] = BattleScript_MoveEffectSleep,    
@@ -5807,6 +5808,12 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                 gBattlescriptCurrInstr = BattleScript_DefSpDefDown;
                 }
                 break;
+            case MOVE_EFFECT_TARGET_ATK_SPATK_DOWN:
+            if (!NoAliveMonsForEitherParty()){
+                BattleScriptPush(gBattlescriptCurrInstr + 1);
+                gBattlescriptCurrInstr = BattleScript_TargetAtkSpAtkDown;
+                }                
+            break;
             case MOVE_EFFECT_HEAVY_RECOIL:
             case MOVE_EFFECT_LIGHT_RECOIL:
             case MOVE_EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
@@ -12236,6 +12243,49 @@ void BS_JumpIfBattlerAbilityStatusProtected(void)
         gBattlescriptCurrInstr = cmd->jumpInstr;
     else
         gBattlescriptCurrInstr = cmd->nextInstr;
+}
+//BattleScriptCall
+
+//...ok guess i'm tired acn't figure out how 
+//to properly check this oh just put in sript duh
+//ok nvm its fine logic is in setmoveeffects
+//flinch freeze burn 2 stage atk sp atk drop
+//effect works but need more bs changes
+//to properly print effects of abilities that should block effect
+//also stat drop isn't working is only dropping sp atk
+//couldn't figure out 2 bit store so made new move effect
+void BS_SetTrumpCardMoveEffect(void)
+{
+    NATIVE_ARGS();
+    u32 random = Random() % 4;
+
+    switch (random)
+    {
+        case 0:
+        gBattleScripting.moveEffect = gBattleScripting.savedMoveEffect = MOVE_EFFECT_FLINCH;
+        StringCopy(gStringVar2, COMPOUND_STRING("Flinch"));
+        break;
+        case 1:
+        gBattleScripting.moveEffect = gBattleScripting.savedMoveEffect = MOVE_EFFECT_FREEZE;
+        StringCopy(gStringVar2, COMPOUND_STRING("Freeze"));
+        break;
+        case 2:
+        gBattleScripting.moveEffect = gBattleScripting.savedMoveEffect = MOVE_EFFECT_BURN;
+        StringCopy(gStringVar2, COMPOUND_STRING("Burn"));
+        break;
+        case 3:
+        gBattleScripting.moveEffect = gBattleScripting.savedMoveEffect = MOVE_EFFECT_TARGET_ATK_SPATK_DOWN;
+        StringCopy(gStringVar2, COMPOUND_STRING("Debuff"));
+        break;
+        
+    }
+    //set move effect and make string to say what effect was drawn
+
+    //decide just do buff in case put main string here
+    gBattleScripting.savedStringId = STRINGID_TRUMPCARD;
+
+    gBattlescriptCurrInstr = cmd->nextInstr;
+
 }
 
 bool32 CanUseLastResort(u8 battlerId)

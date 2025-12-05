@@ -854,6 +854,8 @@ static const u8 sText_TargetTooHeavy[] = _("But the target was too heavy!");  //
 static const u8 sText_MeteorBeamCharging[] = _("{B_ATK_NAME_WITH_PREFIX} is overflowing\nwith space energy!");
 static const u8 sText_HeatingUpBeak[] = _("{B_ATK_NAME_WITH_PREFIX} started\nheating up its beak!");
 static const u8 sText_StatWentBackDown[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_BUFF1} went back down!"); //main use revert sky drop evasion boost, want specific stat tobe in buffer
+static const u8 sText_TrumpCardString[] = _("{B_ATK_NAME_WITH_PREFIX} drew a {STR_VAR_2} Trump Card!");
+
 static const u8 sText_CelebrateTrollString[] = _("{B_ATK_NAME_WITH_PREFIX} began to dance strangely!");
 static const u8 sText_JudgmentString[] = _("{B_DEF_NAME} faced {STR_VAR_2} Judgment!{PAUSE 15}");
 
@@ -1589,6 +1591,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_PKMNSWARMED]              = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} was trapped\nin a swirling Swarm!"),
     [STRINGID_PKMNCAMETOITSSENSES]       = COMPOUND_STRING("{B_SCR_ACTIVE_NAME_WITH_PREFIX} came to its senses!"),
     [STRINGID_PKMNRETURNEDTOAIR]        = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} returned to the air!"),
+    [STRINGID_TRUMPCARD]                = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} drew a {STR_VAR_2} Card!"),
 
     [STRINGID_TRAINER2CLASS]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME]                  = sText_Trainer2Name,

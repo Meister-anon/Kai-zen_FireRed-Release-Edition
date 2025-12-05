@@ -1560,6 +1560,10 @@
 	callnative BS_TryActivateGulpMissile
 	.endm
 
+	.macro setTrumpCardEffect
+	callnative BS_SetTrumpCardMoveEffect
+	.endm
+
 	@^put future commands above this^
 	.macro typebaseddmgboost
 	callnative BS_typebaseddmgboost

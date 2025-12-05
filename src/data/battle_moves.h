@@ -1904,6 +1904,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_STATUS,
     }, //idea birds ability to parrot/copy, move kinda sucks , but is a bit better with my normal type change, as would always get psudo stab if mon is normal
     //speaking just for spearow/fearow rn
+    //plan replace mirror move until switched out fainted or battle ends
     
 
     [MOVE_SELF_DESTRUCT] =
@@ -6179,10 +6180,36 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-        .split = SPLIT_SPECIAL,
+        .priority = 1,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .split = SPLIT_STATUS,
     },
+    /*
+    researched is any final played card that overrides
+    or beats a preceeding one.
+    also  can be called a final recourse/action
+
+    can either make a clone of last resort
+    or some other effect that gets stronger when done last
+    hmm I could turn it into a status move that applies a random effect?
+    i.e may make flinch freeze burn drop atk 2 stages something like that
+    definitely falls into category of a trump as it beats/counters the enemy
+
+    and depending on effect rolled could only be used once per target
+    yeah I like this better, 
+    unsure how would affect atk canceler
+    since I would need a command to set effect
+
+    ok found solution do like mirror move
+    just need put SetAtkCancellerForCalledMove();
+    in command for effect
+
+    (actually don't need that, its not retriggering atk cancler
+    all I need should be covered in the move effect set logic?)
+
+    should make for solid support move
+
+    */
 
     [MOVE_HEAL_BLOCK] =
     {

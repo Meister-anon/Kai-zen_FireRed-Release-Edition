@@ -5330,6 +5330,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (move == MOVE_STEEL_ROLLER)
             gBattleMovePower = (gFieldStatuses & STATUS_FIELD_TERRAIN_ANY) ? 130 : 90;
     break;
+    /*case EFFECT_TRUMP_CARD:
     {
         i = GetMoveSlot(gBattleMons[battlerIdAtk].moves, move);
         if (i != MAX_MON_MOVES)
@@ -5341,7 +5342,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }
         
     }
-    break;
+    break;*/
     case EFFECT_ECHOED_VOICE:
         // gBattleStruct->sameMoveTurns incremented in ppreduce
         if (gBattleStruct->sameMoveTurns[battlerIdAtk] != 0)

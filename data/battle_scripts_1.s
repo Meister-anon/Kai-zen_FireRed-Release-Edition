@@ -245,7 +245,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectHit                     @ EFFECT_VARY_POWER_BASED_ON_HP
 	.4byte BattleScript_EffectHit                     @ EFFECT_HEX
 	.4byte BattleScript_EffectHit                     @ EFFECT_ASSURANCE
-	.4byte BattleScript_EffectHit                     @ EFFECT_TRUMP_CARD
+	.4byte BattleScript_EffectTrumpCard               @ EFFECT_TRUMP_CARD
 	.4byte BattleScript_EffectHit                     @ EFFECT_ACROBATICS
 	.4byte BattleScript_EffectHit                     @ EFFECT_HEAT_CRASH
 	.4byte BattleScript_EffectHit                     @ EFFECT_PUNISHMENT
@@ -3358,6 +3358,18 @@ BattleScript_EffectMirrorMove::
 	printstring STRINGID_MIRRORMOVEFAILED
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
+
+BattleScript_EffectTrumpCard::
+	attackcanceler
+	attackstring
+	pause B_WAIT_TIME_LONG
+	setTrumpCardEffect
+	ppreduce
+	attackanimation
+	waitanimation
+	printsavedstring
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	goto BattleScript_TrySetMoveEffect
 
 @since these are status these are actually fine,
 @means I only need to worry about the dmging move stuff
@@ -8119,6 +8131,25 @@ BattleScript_DefSpDefDownTrySpDef::
 	printfromtable gStatDownStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_DefSpDefDownRet::
+	return
+
+BattleScript_TargetAtkSpAtkDown::
+	setbyte sSTAT_ANIM_PLAYED, 0
+	playstatchangeanimation BS_TARGET, BIT_ATK | BIT_SPATK, STAT_CHANGE_NEGATIVE | STAT_CHANGE_MULTIPLE_STATS | STAT_CHANGE_DONT_CHECK_LOWER
+	playstatchangeanimation BS_TARGET, BIT_ATK, STAT_CHANGE_NEGATIVE | STAT_CHANGE_DONT_CHECK_LOWER
+	setstatchanger STAT_ATK, 1, TRUE
+	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_CERTAIN, BattleScript_TargetAtkSpAtkDownTrySpAtk
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_TargetAtkSpAtkDownTrySpAtk
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_TargetAtkSpAtkDownTrySpAtk::
+	playstatchangeanimation BS_TARGET, BIT_SPATK, STAT_CHANGE_NEGATIVE | STAT_CHANGE_DONT_CHECK_LOWER
+	setstatchanger STAT_SPATK, 1, TRUE
+	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_CERTAIN, BattleScript_TargetAtkSpAtkDownRet
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_TargetAtkSpAtkDownRet
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_TargetAtkSpAtkDownRet::
 	return
 	
 	

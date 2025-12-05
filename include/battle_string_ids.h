@@ -888,7 +888,8 @@
 #define STRINGID_PKMNSWARMED                        724
 #define STRINGID_PKMNCAMETOITSSENSES                725
 #define STRINGID_PKMNRETURNEDTOAIR                  726
-#define STRINGID_NA                                 727 //entreed to avoid extra copy paste
+#define STRINGID_TRUMPCARD                          727
+#define STRINGID_NA                                 728 //entreed to avoid extra copy paste
 
 #define BATTLESTRINGS_COUNT     STRINGID_NA - 1
 
