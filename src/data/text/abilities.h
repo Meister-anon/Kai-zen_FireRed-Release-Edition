@@ -18,7 +18,7 @@ static const u8 sInsomniaDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Preven
 static const u8 sColorChangeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Changes secondary type\nto match last move hit by.");
 static const u8 sImmunityDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents poisoning.");
 static const u8 sFlashFireDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Draws in and powers up fire moves");
-static const u8 sShieldDustDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents added effects.");
+static const u8 sShieldDustDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Protective dust shields the Pokémon\nfrom the additional effects of moves.");
 static const u8 sOwnTempoDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents confusion.\nBlocks Intimidate, Taunt, and Torment.");
 static const u8 sSuctionCupsDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Firmly anchors itself, stops force switch.\nTrap move effects last longer.");
 static const u8 sIntimidateDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Lowers the foe's ATTACK.");
@@ -194,18 +194,18 @@ static const u8 sShieldsDownDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("If 
 static const u8 sStakeoutDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("2x damage if targets switched in mid turn\n50% boost to foes replacing fainted ally"); //vsonic fix description    //Stakeout doubles the power of moves used against targets switched in mid turn.
 static const u8 sWaterBubbleDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Guards from fire damage and burns.\nBoosts power of user water moves."); //^ability still sucks, change to just switched in, so can get boost on turn fainted mon is replaced as well, just keep to mostly weakish mon
 static const u8 sSteelworkerDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Powers up Steel moves.");
-static const u8 sBerserkDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts Sp. Atk at low HP.");
+static const u8 sBerserkDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts the Pokémon's Sp. Atk if\nan attack drops its HP to half or less.");
 static const u8 sSlushRushDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Raises Speed in hail.");
 static const u8 sLongReachDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Never makes contact. Boosts priority\nof non-contact physical moves.");
-static const u8 sLiquidVoiceDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Makes sound moves Water.");
+static const u8 sLiquidVoiceDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Makes sound moves become Water Type.");
 static const u8 sTriageDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Healing moves get a priority boost.");
 static const u8 sGalvanizeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Normal moves become Electric and\ngain a boost in power.");
-static const u8 sSurgeSurferDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Faster on electricity.");
+static const u8 sSurgeSurferDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Faster on electric terrain.");
 static const u8 sSchoolingDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Heals on switch, and forms together\nif lvl. 20+ and above a quarter Max HP");
 static const u8 sDisguiseDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Decoy protects it once.");
 static const u8 sBattleBondDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Changes form after a KO.");
 static const u8 sPowerConstructDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Cells aid it when weakened.");
-static const u8 sCorrosionDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Poisons any type.");
+static const u8 sCorrosionDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Able to Poison any type\neven if otherwise immune.");
 static const u8 sComatoseDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Always drowsing.\nRecovers HP slightly each turn.");
 static const u8 sQueenlyMajestyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Blocks ability boosted priority moves\ndamaging priority moves and Intimidate");
 static const u8 sInnardsOutDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("On faint hurts foe for last hp dmg dealt.\nIf damaged on switch-in strikes back.");
@@ -217,10 +217,10 @@ static const u8 sTanglingHairDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Co
 static const u8 sReceiverDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Copies ally's ability.");
 static const u8 sBeastBoostDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("KOs boost the Pokémon's best stat.");
 static const u8 sRKSSystemDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Memories change its type.");
-static const u8 sElectricSurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes Electric.");
-static const u8 sPsychicSurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes weird.");
-static const u8 sMistySurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes misty.");
-static const u8 sGrassySurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes grassy.");
+static const u8 sElectricSurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes Electric. Ups Elec. moves\nand prevents grounded from sleeping.");
+static const u8 sPsychicSurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes weird. Ups Psych. moves\nNon-spread prio. moves fail on grounded.");
+static const u8 sMistySurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes misty. Weaken Dragon moves\nBoosts attack recovery & blocks statusing");
+static const u8 sGrassySurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes grassy. Ups Grass moves.\nSlight HP recovery for grounded Pokémon.");
 static const u8 sFullMetalBodyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents stat reduction.");
 static const u8 sNeuroforceDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups power of “supereffective” moves.");
 static const u8 sIntrepidSwordDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("The Hero arrives!\nUps Attack for one turn on entry.");
@@ -249,10 +249,10 @@ static const u8 sNeutralizingGasDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _(
 static const u8 sPastelVeilDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Protects team from poison.");
 static const u8 sHungerSwitchDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Changes form each turn.");;
 static const u8 sQuickDrawDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Moves first occasionally.");
-static const u8 sUnseenFistDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Contact moves below 75 power\nevades protection.");
+static const u8 sUnseenFistDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Contact moves at or below 75 power\nevades protection.");
 static const u8 sCuriousMedicineDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Remove ally's stat changes.");
-static const u8 sTransistorDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Electric-type moves.");
-static const u8 sDragonsMawDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Dragon-type moves.");
+static const u8 sTransistorDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Electric-type moves by 30 percent.");
+static const u8 sDragonsMawDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Dragon-type moves by 50 percent.");
 static const u8 sChillingNeighDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("KOs boost Attack stat.");
 static const u8 sGrimNeighDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("KOs boost Sp. Atk stat.");
 static const u8 sAsOneIceRiderDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Unnerve and Chilling Neigh.");
@@ -331,7 +331,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Stench"),
         .description = sStenchDescription,
-        .aiRating = 3,
+        .aiRating = 4,
     },
 
     [ABILITY_DRIZZLE] =
@@ -355,6 +355,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 2,
         .breakable = TRUE,
     },
+    //suprised this only a two
 
     [ABILITY_STURDY] =
     {
@@ -448,8 +449,10 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Color Change"),
         .description = sColorChangeDescription,
-        .aiRating = 2,
+        .aiRating = 5,
     },
+    //potentially should add mold breaker leaving off for now
+    //concpet stance change isn't breakable
 
     [ABILITY_IMMUNITY] =
     {
@@ -524,7 +527,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Femme Fatale"),
         .description = sFemmeFataleDescription,
-        .aiRating = 4,
+        .aiRating = 6,
         .breakable = TRUE,
     },//based off oblivious but double check effect, for flags and ratings
 
@@ -591,8 +594,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Illuminate"),
         .description = sIlluminateDescription,
         .aiRating = 0,
-        .breakable = TRUE,
     },
+    //my version doesn't prevent stat drop so not breakable
 
     [ABILITY_TRACE] =
     {
@@ -1108,7 +1111,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Stall"),
         .description = sStallDescription,
-        .aiRating = 0,
+        .aiRating = 1,
     },
 
     [ABILITY_TECHNICIAN] =
@@ -1131,6 +1134,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Klutz"),
         .description = sKlutzDescription,
         .aiRating = 0,
+        .breakable = TRUE,
     },
 
     [ABILITY_MOLD_BREAKER] =
@@ -1196,6 +1200,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Slow Start"),
         .description = sSlowStartDescription,
         .aiRating = -2,
+        .breakable = TRUE,
     },
 
     [ABILITY_SCRAPPY] =
@@ -1294,6 +1299,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Pickpocket"),
         .description = sPickpocketDescription,
         .aiRating = 5,
+        .breakable = TRUE,
     },
 
     [ABILITY_SHEER_FORCE] =
@@ -1649,6 +1655,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Bulletproof"),
         .description = sBulletproofDescription,
         .aiRating = 7,
+        .breakable = TRUE,
     },
 
     [ABILITY_COMPETITIVE] =
@@ -1859,6 +1866,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Water Bubble"),
         .description = sWaterBubbleDescription,
         .aiRating = 8,
+        .breakable = TRUE,
     },//pretty sure this should be breakable
     //allow to be burned at least
 
@@ -2158,13 +2166,15 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Libero"),
         .description = sLiberoDescription,
-    },
+    },//vsonic see if changed may revert back, to making monotype
+    //oh it is set to that, type 1 and 2 are changed but type 3 stays the same
 
     [ABILITY_BALL_FETCH] =
     {
         .name = _("Ball Fetch"),
         .description = sBallFetchDescription,
         .aiRating = 5,
+        .breakable = TRUE,
     },
 
     [ABILITY_COTTON_DOWN] =
@@ -2293,7 +2303,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 2,
     },
     //no longer makes user faint, only low value cuz of who its on.
-    //idea being ghosts can't die.  also mon is fraile is cheese
+    //idea being ghosts can't die.  also mon is frail is cheese
 
     [ABILITY_WANDERING_SPIRIT] =
     {
@@ -2415,21 +2425,21 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_LINGERING_AROMA] =
     {
         .name = _("Lingering Aroma"),
-        .description = COMPOUND_STRING("Spreads with contact."),
+        .description = COMPOUND_STRING("Spreads with contact.\nOverwrites attacker ability."),
         .aiRating = 5,
     },
 
     [ABILITY_SEED_SOWER] =
     {
         .name = _("Seed Sower"),
-        .description = COMPOUND_STRING("Affects terrain when hit."),//vsonic
+        .description = COMPOUND_STRING("Turns the ground into Grassy Terrain\nwhen the Pokémon is hit by an attack."),//vsonic
         .aiRating = 5,
     },
 
     [ABILITY_THERMAL_EXCHANGE] =
     {
         .name = _("Thermal Exchange"),
-        .description = COMPOUND_STRING("Fire hits up Attack."),
+        .description = COMPOUND_STRING("Boosts Attack when hit by a Fire move.\nThe Pokémon also cannot be burned."),
         .aiRating = 4,
         .breakable = TRUE,
     },
@@ -2437,7 +2447,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_ANGER_SHELL] =
     {
         .name = _("Anger Shell"),
-        .description = COMPOUND_STRING("Gets angry at half HP."),//vsonic
+        .description = COMPOUND_STRING("When an attack drops its HP to <= half,\ndef stats fall, ups Atk stats and speed."),//vsonic
         .aiRating = 3,
     },
 
@@ -2452,7 +2462,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_WELL_BAKED_BODY] =
     {
         .name = _("Well-Baked Body"),
-        .description = COMPOUND_STRING("Strengthened by Fire."), //vsonic
+        .description = COMPOUND_STRING("The Pokémon takes is immune to Fire moves\nInstead, its Defense is sharply boosted."), //vsonic
         .aiRating = 5,
         .breakable = TRUE,
     },
@@ -2468,7 +2478,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_GUARD_DOG] =
     {
         .name = _("Guard Dog"),
-        .description = COMPOUND_STRING("Cannot be intimidated."),
+        .description = COMPOUND_STRING("Boosts the Pokémon’s Atk if intimidated.\nMoves or items that force switch out fail"),
         .aiRating = 5,
         .breakable = TRUE,
     },
@@ -2476,16 +2486,18 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_ROCKY_PAYLOAD] =
     {
         .name = _("Rocky Payload"),
-        .description = COMPOUND_STRING("Powers up Rock moves."),
+        .description = COMPOUND_STRING("Powers up Rock moves by 50 percent."),
         .aiRating = 6,
-    },
+    },//didn't realize that's what this did, but its basically fake stab
+    //do I need to lower it to match new stab
+    //mon its on isn't that good so will live at default
 
     [ABILITY_WIND_POWER] =
     {
         .name = _("Wind Power"),
-        .description = COMPOUND_STRING("Gets charged by wind."),
+        .description = COMPOUND_STRING("The Pokémon becomes charged by wind moves\nboosting the power of its next Elec. move"),
         .aiRating = 4,
-    },
+    },//vsonic wind moves not set yet
 
     [ABILITY_ZERO_TO_HERO] =
     {
@@ -2515,7 +2527,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_ELECTROMORPHOSIS] =
     {
         .name = _("Electromorphosis"),
-        .description = COMPOUND_STRING("Gets Charged when hit."),
+        .description = COMPOUND_STRING("The Pokémon becomes charged when damaged,\nboosting the power of its next Elec. move"),
         .aiRating = 5,
     },
 
@@ -2570,7 +2582,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Tablets of Ruin"),
         .description = COMPOUND_ABILITY_STRING("Lowers Speed by 25 percent\nfor all mon without this ability."),
         .aiRating = 5,
-        .breakable = TRUE,
     },
 
     [ABILITY_BEADS_OF_RUIN] =
@@ -2722,7 +2733,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_TOXIC_CHAIN] =
     {
         .name = _("Toxic Chain"),
-        .description = COMPOUND_STRING("Moves can poison."),
+        .description = COMPOUND_STRING("The corrosive chain empowers its moves.\nMay badly poison any target of attack."),
         .aiRating = 8,
     },
 
@@ -2814,6 +2825,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Hi-Pressure"),
         .description = sHipressureDescription,
         .aiRating = 7,
+        .breakable = TRUE,
     },
     
     [ABILITY_CUPIDS_ARROW] =
@@ -2834,7 +2846,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Liquid Soul"),
         .description = sLiquidSoulDescription,
-        .aiRating = 0,
+        .aiRating = 7,
+        .breakable = TRUE,
     },
     
     [ABILITY_OCEAN_MEMORY] =
@@ -2881,8 +2894,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Toadstool Nymph"),
         .description = sToadstoolNymphDescription,
         .aiRating = 3,
-        .breakable = TRUE,
-        .cantBeSuppressed = TRUE,
     },
     
     [ABILTY_UNKNOWN_POWER] =
@@ -2969,7 +2980,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Corruption"),
         .description = sCorruptionDescription,
         .aiRating = 0,
-    },
+    },//heal block
     
     [ABILITY_BANDIT_KING] =
     {
@@ -2984,7 +2995,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = sAviatorDescription, 
         .aiRating = 0,
         .breakable = TRUE,
-        .cantBeSuppressed = TRUE,
     },//vsonic maybe just need add breakable ot do thing rather than needing moldbreaker check function?
     //yeah think all I need for moldbreaker negate is set every affinity ability as breakable
     //well no its meant to ignore affinity itself not just the ability
@@ -3099,6 +3109,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Iron Will"),
         .description = sIronWillDescription,
         .aiRating = 0,
+        .breakable = TRUE,
     },
     
     [ABILITY_LIVEWIRE] =
@@ -3165,7 +3176,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = sNoneDescription,
         .aiRating = 0,
     },
-    //todo - anti heal ability
+    //todo - anti heal ability for opposing side plan darkrai use
     
     [ABILITY_RISING_PHOENIX] =
     {
@@ -3212,7 +3223,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Ignores accuracy and evasion changes.\nImmune to effects of being confused."),
         .aiRating = 0,
         .breakable = TRUE,
-        .cantBeSuppressed = TRUE,
     },
     
     [ABILITY_WEIGHTED_GI] =
@@ -3253,6 +3263,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Shaman Cure"),
         .description = COMPOUND_ABILITY_STRING("Protects party from poison.\nCures own status upon switching out."),
         .aiRating = 0,
+        .breakable = TRUE,
     },//vsonic
     
     [ABILITY_UNCHAINED_MELODY] =
@@ -3311,18 +3322,16 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Torch Soul"),
         .description = COMPOUND_ABILITY_STRING("Possesses a burning inner-flame.\nGain FIRE Affinity and boosts Fire moves."),
-        .aiRating = 0,
+        .aiRating = 5,
         .breakable = TRUE,
-        .cantBeSuppressed = TRUE,
     },
     
     [ABILITY_GRUNGE] =
     {
         .name = _("Grunge"),
         .description = COMPOUND_ABILITY_STRING("Gain POISON Affinity and boosts damage\ndone by Poison-type moves."),
-        .aiRating = 0,
+        .aiRating = 5,
         .breakable = TRUE,
-        .cantBeSuppressed = TRUE,
     },
     
     [ABILITY_SWIFT_JUSTICE] =
@@ -3341,11 +3350,12 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     },
     //would like this to boost pursuit dmg
     //idk if it does that
+    //breaks stat buff from status not stat drop
     
     [ABILITY_TROJAN_SWORD] =
     {
         .name = _("Trojan Sword"),
-        .description = COMPOUND_ABILITY_STRING("Blocks Intimdiate and\nboosts sharp attacks."),
+        .description = COMPOUND_ABILITY_STRING("Blocks Intimdiate and\nboosts slicing attacks."),
         .aiRating = 0,
     },
     

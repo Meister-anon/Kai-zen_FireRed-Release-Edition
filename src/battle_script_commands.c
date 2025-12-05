@@ -8879,9 +8879,9 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
         case MOVE_END_RED_CARD:    //think move to itemeffects function
         {
             if (gBattleMoves[gCurrentMove].effect != EFFECT_HIT_SWITCH_TARGET
-                && IsBattlerAlive(gBattlerAttacker))
+                && IsBattlerAlive(gBattlerAttacker)
                 //&& !TestSheerForceFlag(gBattlerAttacker, gCurrentMove))
-                //&& GetBattlerAbility(gBattlerAttacker) != ABILITY_GUARD_DOG)
+                && GetBattlerAbility(gBattlerAttacker) != ABILITY_GUARD_DOG)
             {
                 // Since we check if battler was damaged, we don't need to check move result.
                 // In fact, doing so actually prevents multi-target moves from activating red card properly

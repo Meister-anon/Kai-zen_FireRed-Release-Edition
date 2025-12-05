@@ -6184,7 +6184,8 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
     if ((holdEffectBattler2 == HOLD_EFFECT_QUICK_CLAW && gRandomTurnNumber < (0xFFFF * holdEffectParam2) / 100)   //buffed param to 45% rathre than 20
         || (holdEffectBattler2 == HOLD_EFFECT_CUSTAP_BERRY && HasEnoughHpToEatBerry(battler2, 4, gBattleMons[battler2].item)))
         gProtectStructs[battler2].usedCustapBerry = TRUE;
-    // Quick Draw
+    // Quick Draw //since buffed item claw may make exclusive so can't use both
+    //then again with such significant investment may not be broken.
     if (!ignoreChosenMoves && ability2 == ABILITY_QUICK_DRAW && !IS_MOVE_STATUS(gChosenMoveByBattler[battler2]) && Random() % 100 < 30)
         gProtectStructs[battler2].quickDraw = TRUE; //like how came out, item versino has better odds since it takes up an item slot, 
 
