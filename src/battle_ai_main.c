@@ -795,7 +795,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     return 0;
                 break;
             case ABILITY_DISPIRIT_GUARD:
-                if (effectiveness > AI_EFFECTIVENESS_x0_5)
+                if (effectiveness > AI_EFFECTIVENESS_x0_775) //AI_EFFECTIVENESS_x0_775
                     return 0;
                 break;
             case ABILITY_SAP_SIPPER:

@@ -210,7 +210,7 @@ static const u8 sComatoseDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Always
 static const u8 sQueenlyMajestyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Blocks ability boosted priority moves\ndamaging priority moves and Intimidate");
 static const u8 sInnardsOutDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("On faint hurts foe for last hp dmg dealt.\nIf damaged on switch-in strikes back.");
 static const u8 sDancerDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Dances along with others.\nUses Dance Move right after previous user");
-static const u8 sBatteryDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts ally's Sp. Atk."); //think idea was turn this into vikavolt version of tatsugiri dondozo effect
+static const u8 sBatteryDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts ally's Sp. Atk."); //vsonic think idea was turn this into vikavolt version of tatsugiri dondozo effect
 static const u8 sFluffyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Takes increased damage from FIRE moves.\nTakes reduced damage from contact moves.");
 static const u8 sSoulHeartDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("KOs raise Sp. Atk.");
 static const u8 sTanglingHairDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Contact lowers Speed.");
@@ -1595,6 +1595,9 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Moldbreaker and Lightning Rod."),
         .aiRating = 9,
     },
+    //with change should be breakable 
+    //but will take point from full metal body 
+    //and leave off
 
     [ABILITY_AROMA_VEIL] =
     {
@@ -1609,6 +1612,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Flower Veil"),
         .description = sFlowerVeilDescription,
         .aiRating = 0,
+        .breakable = TRUE,
     },
 
     [ABILITY_CHEEK_POUCH] =
@@ -1771,6 +1775,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Aura Break"),
         .description = sAuraBreakDescription,
         .aiRating = 3,
+        .breakable = TRUE,
     },
 
     [ABILITY_PRIMORDIAL_SEA] =
@@ -1820,6 +1825,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Water Compaction"),
         .description = sWaterCompactionDescription,
         .aiRating = 4,
+        .breakable = TRUE,
     },
 
     [ABILITY_MERCILESS] =
@@ -1853,7 +1859,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Water Bubble"),
         .description = sWaterBubbleDescription,
         .aiRating = 8,
-    },
+    },//pretty sure this should be breakable
+    //allow to be burned at least
 
     [ABILITY_STEELWORKER] =
     {
@@ -1986,7 +1993,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = sQueenlyMajestyDescription,
         .aiRating = 6,
         .breakable = TRUE,
-    },
+    },//so does this stop prankster as well
 
     [ABILITY_INNARDS_OUT] =
     {
@@ -2020,10 +2027,10 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_DAZZLING] =
     {
         .name = _("Dazzling"),
-        .description = sQueenlyMajestyDescription,
+        .description = COMPOUND_ABILITY_STRING("Blocks ability boosted priority moves\nand damaging priority moves."),
         .aiRating = 5,
         .breakable = TRUE,
-    },
+    }, //didn't know this description repeated pretty sure effect is now different
 
     [ABILITY_SOUL_HEART] =
     {
@@ -2110,6 +2117,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = sFullMetalBodyDescription,
         .aiRating = 4,
     },//vsonic
+    //not breakable for some reason
 
     [ABILITY_SHADOW_SHIELD] =
     {
@@ -2282,8 +2290,10 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Perish Body"),
         .description = sPerishBodyDescription,
-        .aiRating = -1,
+        .aiRating = 2,
     },
+    //no longer makes user faint, only low value cuz of who its on.
+    //idea being ghosts can't die.  also mon is fraile is cheese
 
     [ABILITY_WANDERING_SPIRIT] =
     {
@@ -2772,9 +2782,11 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Dispirit Guard"),
         .description = sDispiritGuardDescription,
-        .aiRating = 0,
+        .aiRating = 8,
         .breakable = TRUE,
     },
+    //may change but rn includes what was previously neutral hits as resisted
+    //
     
     [ABILITY_NUISANCE] =
     {
