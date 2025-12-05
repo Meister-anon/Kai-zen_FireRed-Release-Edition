@@ -6858,7 +6858,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_GUTS, ABILITY_QUICK_FEET},
-        .abilityHidden = {ABILITY_GORILLA_TACTICS, ABILITY_UNNERVE},
+        .abilityHidden = {ABILITY_UNNERVE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -12251,7 +12251,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_GRASS,
         .abilities = {ABILITY_OVERGROW, ABILITY_NONE},
-        .abilityHidden = {ABILITY_SHELL_ARMOR, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SHELL_ARMOR, ABILITY_HARVEST},
         //.bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -30359,7 +30359,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_GUTS, ABILITY_BULLETPROOF},
-        .abilityHidden = {ABILITY_GORILLA_TACTICS, ABILITY_UNNERVE},
+        .abilityHidden = {ABILITY_UNNERVE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -30369,6 +30369,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sUrsalunaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //is cool but think remove gorilla tactics meant to be monkey ability
 
     [SPECIES_BASCULEGION_MALE] =
     {

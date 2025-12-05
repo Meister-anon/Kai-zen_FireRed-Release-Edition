@@ -263,10 +263,12 @@ static const struct AbilityLearnset sGolduckAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMankeyAbilityLearnset[] = {
+    ABILITY_GORILLA_TACTICS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sPrimeapeAbilityLearnset[] = {
+    ABILITY_GORILLA_TACTICS,
     ABILITY_SET_END
 };
 
@@ -1757,10 +1759,12 @@ static const struct AbilityLearnset sChimcharAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMonfernoAbilityLearnset[] = {
+    ABILITY_GORILLA_TACTICS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sInfernapeAbilityLearnset[] = {
+    ABILITY_GORILLA_TACTICS,
     ABILITY_SET_END
 };
 
@@ -4660,6 +4664,7 @@ static const struct AbilityLearnset sTatsugiriAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sAnnihilapeAbilityLearnset[] = {
+    ABILITY_GORILLA_TACTICS,
     ABILITY_SET_END
 };
 

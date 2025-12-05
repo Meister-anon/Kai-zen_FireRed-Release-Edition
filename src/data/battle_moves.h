@@ -11961,7 +11961,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_WICKED_BLOW] =
     {
         .effect = EFFECT_HIT,
-        .power = 72,
+        .power = 75,
         .type = TYPE_DARK,
         .accuracy = 95,
         .pp = 5,
@@ -11975,7 +11975,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SURGING_STRIKES] =
     {
         .effect = EFFECT_TRIPLE_KICK,   
-        .power = 24,
+        .power = 25,
         .type = TYPE_WATER,
         .accuracy = 95,
         .pp = 5,
