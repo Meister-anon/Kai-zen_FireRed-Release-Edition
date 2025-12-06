@@ -1999,7 +1999,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Queenly Majesty"),
         .description = sQueenlyMajestyDescription,
-        .aiRating = 10,//6,
+        .aiRating = 8,//6,
         .breakable = TRUE,
     },//idk if gen 9 change but realized affects entire side o.0
 
