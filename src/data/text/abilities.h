@@ -1,3 +1,4 @@
+#include "config.h"
 
 static const u8 sNoneDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("No special ability.");
 static const u8 sStenchDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Can repel wild POKéMON and trainers.\nAll battlers have a chance to flinch.");
@@ -1236,7 +1237,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_SNOW_WARNING] =
     {
         .name = _("Snow Warning"),
-    #if B_SNOW_WARNING >= GEN_9
+    #if B_SNOW_WARNING == TRUE
         .description = COMPOUND_STRING("Summons snow in battle."),
     #else
         .description = sSnowWarningDescription,

@@ -3699,7 +3699,7 @@ BattleScript_EffectRampage::
 	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_EffectRampage2
 	ppreduce
 BattleScript_EffectRampage2::
-	confuseifrepeatingattackends
+	confuseifrepeatingattackends	@this sets move effect thrash
 	goto BattleScript_HitFromCritCalc
 
 BattleScript_EffectRoar::

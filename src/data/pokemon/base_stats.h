@@ -2977,7 +2977,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCloysterLevelUpLearnset,
         .tmhmLearnset = sCloysterTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },//need add rock moves
+    },
     //give megahorn
 
     [SPECIES_GASTLY] =
