@@ -214,7 +214,6 @@ static const u8 sDancerDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Dances a
 static const u8 sBatteryDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts ally's Sp. Atk."); //vsonic think idea was turn this into vikavolt version of tatsugiri dondozo effect
 static const u8 sFluffyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Takes increased damage from FIRE moves.\nTakes reduced damage from contact moves.");
 static const u8 sSoulHeartDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("KOs raise Sp. Atk.");
-static const u8 sTanglingHairDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Contact lowers Speed.");
 static const u8 sReceiverDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Copies ally's ability.");
 static const u8 sBeastBoostDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("KOs boost the Pokémon's best stat.");
 static const u8 sRKSSystemDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Memories change its type.");
