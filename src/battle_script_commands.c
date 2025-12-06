@@ -15813,6 +15813,17 @@ static void atk8B_setbide(void)
     gBattlescriptCurrInstr++;
 }
 
+//may be this, nuance of shifting to byte
+//over bgattlecommunicator
+//may not be able to read bti shift
+//similar to how I had to change new move effect
+//cuz couldn't store both...
+//can't tell smh but either way doens't work
+//yeah...setting 2 move affects to the value just doesn't work
+//unless its because the value is so high idk.
+//either way everything is broken becuase of this
+//including all move end abilities... like static
+//only fix is update bs script to EE
 static void atk8C_confuseifrepeatingattackends(void)
 {
     if (!(gBattleMons[gBattlerAttacker].status2 & STATUS2_LOCK_CONFUSE))
