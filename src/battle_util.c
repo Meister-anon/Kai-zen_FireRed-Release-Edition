@@ -7908,9 +7908,10 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         break;
         case ABILITYEFFECT_MOVES_BLOCK: // 2
         {   
-            u16 moveTarget = GetBattlerMoveTargetType(battler, moveArg);
+            u16 moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, moveArg);
             u16 battlerAbility = GetBattlerAbility(battler);
             u16 targetAbility = GetBattlerAbility(gBattlerTarget);
+            //nvm battler is gbattlertarget
 
             //realized movearg takes gcurrentmove
             //and if no move chosen i.e gets here via ability
@@ -7928,18 +7929,20 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 gBattlescriptCurrInstr = BattleScript_SoundproofProtected;
                 effect = 1;
             }
-            else if ((gLastUsedAbility == ABILITY_DAZZLING || gLastUsedAbility == ABILITY_QUEENLY_MAJESTY || IsBattlerAlive(battler ^= BIT_FLANK))
-                && (battlerAbility == ABILITY_DAZZLING || battlerAbility == ABILITY_QUEENLY_MAJESTY)
+            //wtf did I right here? 
+            else if ((IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_DAZZLING) || IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_QUEENLY_MAJESTY)
+                || IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_ARMOR_TAIL))
                 && GetChosenMovePriority(gBattlerAttacker) > 0
-                && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(battler)
-                && (!(moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY)))//was missing but not supposed to be able to block wide affect moves
-                && (gBattleMoves[gCurrentMove].power || IsPriorityElevatedviaAbility(gBattlerAttacker) || gCurrentMove == MOVE_BIDE)) //last thing for bide boost
+                //&& GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget)
+                //think targetting logic may be off, as has exclusions i.e perish song
+                && (!(moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY))))//was missing but not supposed to be able to block wide affect moves
+                //&& (gBattleMoves[gCurrentMove].power || IsPriorityElevatedviaAbility(gBattlerAttacker) || gCurrentMove == MOVE_BIDE)) //last thing for bide boost
             {
                 if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS)
                     gHitMarker |= HITMARKER_NO_PPDEDUCT;
                 gBattlescriptCurrInstr = BattleScript_DazzlingProtected;
                 effect = 1;
-            }
+            }//vsonic important check make sure bide effect works
             else if (ShouldPranksterBoostedMoveFail(moveArg, gBattlerAttacker, gBattlerTarget, TRUE) && GetChosenMovePriority(gBattlerAttacker) > 0
             && !(IS_MOVE_STATUS(moveArg) && targetAbility == ABILITY_MAGIC_BOUNCE))
             {
@@ -12116,8 +12119,6 @@ u32 IsAbilityOnFieldExcept(u32 battlerId, u32 ability)
 //than just keep this for bs, with the abilities that get the full set of affinities
 //TypeAffinityCheck - will be for type and specific ability
 //changed but realized target doesnt work as some case are offense affinity user i.e curse and sure hit poison
-//all affinity abilities should have .breakable = TRUE, 
-//.cantBeSuppressed = TRUE,
 #define NEW_ABILITY_CATEGORY //-use only for things that don't affect type chart relations
 bool8 DoesBattlerGetTypeBasedAffinity(u32 attacker, u32 battler, u8 typeFactor, bool32 checkAI)
 {

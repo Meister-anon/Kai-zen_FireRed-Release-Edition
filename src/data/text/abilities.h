@@ -207,7 +207,8 @@ static const u8 sBattleBondDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Chan
 static const u8 sPowerConstructDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Cells aid it when weakened.");
 static const u8 sCorrosionDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Able to Poison any type\neven if otherwise immune.");
 static const u8 sComatoseDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Always drowsing.\nRecovers HP slightly each turn.");
-static const u8 sQueenlyMajestyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Blocks ability boosted priority moves\ndamaging priority moves and Intimidate");
+static const u8 sQueenlyMajestyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Blocks boosted priority moves\nfor itself and allies and Intimidate."); //see gen 9 this applies to use and allies
+static const u8 sDazzlingDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Blocks boosted priority moves\nfor itself and allies.");
 static const u8 sInnardsOutDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("On faint hurts foe for last hp dmg dealt.\nIf damaged on switch-in strikes back.");
 static const u8 sDancerDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Dances along with others.\nUses Dance Move right after previous user");
 static const u8 sBatteryDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts ally's Sp. Atk."); //vsonic think idea was turn this into vikavolt version of tatsugiri dondozo effect
@@ -1999,9 +2000,9 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Queenly Majesty"),
         .description = sQueenlyMajestyDescription,
-        .aiRating = 6,
+        .aiRating = 10,//6,
         .breakable = TRUE,
-    },//so does this stop prankster as well
+    },//idk if gen 9 change but realized affects entire side o.0
 
     [ABILITY_INNARDS_OUT] =
     {
@@ -2035,7 +2036,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_DAZZLING] =
     {
         .name = _("Dazzling"),
-        .description = COMPOUND_ABILITY_STRING("Blocks ability boosted priority moves\nand damaging priority moves."),
+        .description = sDazzlingDescription,
         .aiRating = 5,
         .breakable = TRUE,
     }, //didn't know this description repeated pretty sure effect is now different
@@ -2651,7 +2652,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_ARMOR_TAIL] =
     {
         .name = _("Armor Tail"),
-        .description = COMPOUND_STRING("Protects from priority."),
+        .description = sDazzlingDescription,
         .aiRating = 5,
         .breakable = TRUE,
     },

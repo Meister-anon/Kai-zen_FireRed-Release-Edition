@@ -9538,7 +9538,7 @@ BattleScript_IntimidateLikeImmunityChecks::
 	jumpifability BS_TARGET, ABILITY_OBLIVIOUS, BattleScript_IntimidateAbilityFail
 	jumpifability BS_TARGET, ABILITY_UNAWARE, BattleScript_IntimidateAbilityFail
 	jumpifability BS_TARGET, ABILITY_FEMME_FATALE, BattleScript_IntimidateAbilityFail
-	jumpifability BS_TARGET, ABILITY_QUEENLY_MAJESTY, BattleScript_IntimidateAbilityFail
+	jumpifability BS_TARGET_SIDE, ABILITY_QUEENLY_MAJESTY, BattleScript_IntimidateAbilityFail
 	jumpifability BS_TARGET, ABILITY_TROJAN_SWORD, BattleScript_IntimidateAbilityFail
 	return
 

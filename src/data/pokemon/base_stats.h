@@ -7886,7 +7886,7 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(106, 90, 130, 110, 90, 154),
         MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),  //dragon to resist 3 birds, and dragons have dominion over air and sea, psychic because it has bariers and is able to "talk"
-        .catchRate = 3,
+        .catchRate = 3, //psychic also works well since it became a shadow pokemon
         .expYield = 306,
         //.evYield_SpDefense = 3,
         .genderRatio = MON_GENDERLESS,
