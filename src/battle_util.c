@@ -9069,7 +9069,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     gBattlescriptCurrInstr = BattleScript_ApplySecondaryEffect;
                     ++effect;
                 }
-                break;
+                break;//think need rebalance these effects that now activate on both contacts
             case ABILITY_STATIC:
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && gBattleMons[gBattlerTarget].hp != 0
@@ -9079,7 +9079,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     && !IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GROUND) //think this needs to stay as is, as point is groud type is immune to electric by type chart
                     && IsMoveMakingContact(moveArg, gBattlerAttacker) //not using other paralyze statemetn cuz think I already have my own logic,\ thats for moves not abilities                    
                     && TARGET_TURN_DAMAGED
-                    && (Random() % 3) == 0)
+                    && (Random() % 5) == 0)
                 {
                     gBattleScripting.moveEffect = MOVE_EFFECT_PARALYSIS;
                     //gBattleScripting.moveEffect = MOVE_EFFECT_PARALYSIS;
@@ -9096,7 +9096,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     && CanBeBurned(gBattlerTarget)
                     && IsMoveMakingContact(moveArg, gBattlerAttacker)
                     && TARGET_TURN_DAMAGED
-                    && (Random() % 3) == 0)
+                    && (Random() % 5) == 0)
                 {
                     gBattleScripting.moveEffect = MOVE_EFFECT_BURN;
                     BattleScriptPushCursor();
