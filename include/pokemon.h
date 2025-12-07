@@ -449,7 +449,7 @@ struct BattleMove
     u8 secondaryEffectChance;
     u16 target;
     s8 priority;
-    u32 flags;
+    //u32 flags;
     // Flags
     bool32 makesContact:1;
     bool32 ignoresProtect:1;
@@ -502,7 +502,9 @@ struct BattleMove
     bool32 alwaysHitsInHailSnow:1;
     bool32 alwaysHitsInRain:1;
     bool32 accuracy50InSun:1;
-    u32 padding:17;
+    u32 numAdditionalEffects:2; // limited to 3 - don't want to get too crazy
+    u32 strikeCount:4; // Max 15 hits. Defaults to 1 if not set. May apply its effect on each hit.
+    u32 padding:11; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
     // end of word
     u8 split;
     u16 argument;// for transferring move effects
@@ -512,6 +514,25 @@ struct BattleMove
     //so just do a check in seteffectwithchance that checks if  battlescripting.moveeffect equals gbattlemons[move].effect or the argument
     //if it equals the argument use argument chance, that means it has already done the effect
     //and has passed the arugment over so it can use the argument chance
+    union {
+        struct {
+            u16 stringId;
+            u16 status;
+        } twoTurnAttack;
+        u32 protectMethod;
+        u32 status;
+        u32 moveProperty;
+        u32 holdEffect;
+        u32 type;
+        u32 fixedDamage;
+        u32 damagePercentage;
+        u32 absorbPercentage;
+        u32 recoilPercentage; //not gonna use this
+        u32 nonVolatileStatus;
+    } argument;
+
+    // primary/secondary effects
+    const struct AdditionalEffect *additionalEffects;
 };//without u32 flags, type overflowed with added moves
 //argument is for extra effects other than secondary effect
 //vsonic important seems ignoresKingsRock value isn't necessary
