@@ -3006,7 +3006,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SELF_DESTRUCT] =
     {
-        .effect = EFFECT_EXPLOSION,
+        .effect = EFFECT_MIND_BLOWN,
         .power = 140,// 200,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -3028,6 +3028,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //but keep above misty explosion as is normal type
     //hmm couple put self destruct at 140, below hyper beams
     //but since it cuts defense its actually twice as strong?
+    //to differentiate from explosion
+    //think make this drop hp by half so can survive
+    //hmm but this is essentially what mindblown already does
+    //but that move sucks, well its bad prob cuz it doesn't have
+    //the def cut
 
     [MOVE_EGG_BOMB] =
     {
@@ -3884,7 +3889,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 [MOVE_EXPLOSION] =
 {
     .effect = EFFECT_EXPLOSION,
-    .power = 200,//250,
+    .power = 170,//250,
     .type = TYPE_NORMAL,
     .accuracy = 100,
     .pp = 5,
@@ -3901,7 +3906,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Explosion,
-},
+},//gen 1 power 170 consider drop and rework self destruct
+//cut distribution may boost power up slighty
+//if need give reason to use over self destruct
+//well a difference I could make is
+//self destruct and mind blown would fail
+//if didn't have enoough hp to activate it
+//i.e they die before it goes off.
+//leaving explosion as the pre-eminent boom.
+//think that's good, requires a bit of planning and forethought
+//vsonic
+//sturdy mon could survive 
+//making them best bomb users as well
 
 [MOVE_FURY_SWIPES] =
 {
@@ -16750,7 +16766,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_MIND_BLOWN] =
     {
         .effect = EFFECT_MIND_BLOWN,
-        .power = 150,
+        .power = 120, //cut down cuz like misty explosion can get super, and also boosted in sun
         .type = TYPE_FIRE,
         .accuracy = 100,
         .pp = 5,
@@ -16760,9 +16776,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        .recoilMove = TRUE,
         .dampBanned = TRUE,
-        .argument = { .recoilType = MOVE_EFFECT_HEAVY_RECOIL },
         .ballisticMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
@@ -16775,6 +16789,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //with bs rework make this heavy recoil effect instead
     //that is just canceled by damp
     //would need make new bs command fail if damp etc.
+    //change mind may keep effect 
 
     [MOVE_PLASMA_FIST] =
     {

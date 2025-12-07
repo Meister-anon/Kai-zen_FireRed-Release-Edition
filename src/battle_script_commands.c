@@ -18338,6 +18338,10 @@ static void atk95_setsandstorm(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+//split off effects like EE
+//set null to failinstr to allow continue to next isntr
+//well figure out how to adjust script so can die before usign effect
+//think just need add tryfaintmon attacker
 static void atkBC_maxattackhalvehp(void) // belly drum
 {
 
