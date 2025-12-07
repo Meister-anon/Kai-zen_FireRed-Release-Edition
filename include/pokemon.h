@@ -145,7 +145,8 @@ struct BoxPokemon
     u8 otName[OT_NAME_LENGTH]; //odd name length so believe makes even again
     u8 cuteRibbon:3;
     u8 toughRibbon:3;
-    u8 padding:2;
+    u8 victoryRibbon:1;
+    u8 padding:1;
     
     u8 language:3; // 7 languages
     u8 nature:5;  // 1-0xF is the timer. 0x10 is set when timer runs out  //single byte think odd, think will reset back to EE way so doesn't potentially affect nature set odds/distribution
@@ -185,9 +186,9 @@ struct BoxPokemon
         //think I can make space by turning this into bit field
     //has sub 400 abilties rn with everything if I make bit 9 can hold 512 max
     //then move some ribbons in to fill space
-    u16 LearnedAbilityId:9; //after all done may add byte back to this to give more space for cap at 10 would be +1k
+    //added back type to abilityId since curr abilities are at 400
+    u16 LearnedAbilityId:10; //after all done may add byte back to this to give more space for cap at 10 would be +1k
     u16 beautyRibbon:3;
-    u16 victoryRibbon:1;
     u16 smartRibbon:3;
     //u16 freeblank:4;
 
