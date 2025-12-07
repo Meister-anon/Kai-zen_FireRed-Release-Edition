@@ -285,10 +285,12 @@ static const struct AbilityLearnset sPoliwagAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sPoliwhirlAbilityLearnset[] = {
+    ABILITY_FUGUE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sPoliwrathAbilityLearnset[] = {
+    ABILITY_FUGUE,
     ABILITY_SET_END
 };
 
@@ -849,6 +851,7 @@ static const struct AbilityLearnset sSudowoodoAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sPolitoedAbilityLearnset[] = {
+    ABILITY_CACOPHONY,
     ABILITY_SET_END
 };
 
