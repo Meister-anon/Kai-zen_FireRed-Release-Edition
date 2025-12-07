@@ -2103,6 +2103,7 @@ static const struct AbilityLearnset sTangrowthAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sElectivireAbilityLearnset[] = {
+    ABILITY_IRON_FIST,
     ABILITY_SET_END
 };
 
