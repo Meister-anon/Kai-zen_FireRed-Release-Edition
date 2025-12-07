@@ -69,7 +69,7 @@
 #define UBFIX
 #define SPECIES_NAME_EXPANSION
 
-#define GEN_9 9
+#define GEN_9 0
 
 
 #define B_SNOW_WARNING 0

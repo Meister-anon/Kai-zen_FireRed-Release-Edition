@@ -5,6 +5,61 @@
 #include "constants/battle_effects.h"
 #include "constants/moves.h"
 
+// For defining EFFECT_HIT etc. with battle TV scores and flags etc.
+struct __attribute__((packed, aligned(2))) BattleMoveEffect
+{
+    const u8 *battleScript;
+    u16 battleTvScore:3; //unsure need but keep for now mostly emerald stuff
+    u16 encourageEncore:1;
+    u16 twoTurnEffect:1;
+    u16 semiInvulnerableEffect:1;
+    u16 usesProtectCounter:1;
+    u16 hasAccCheckAfterAtkstring:1; //for new pre hit ability effect, keep an eye out for effects that go to same battlescript where condition should be TRUE
+    u16 padding:8;
+};
+
+#define EFFECTS_ARR(...) (const struct AdditionalEffect[]) {__VA_ARGS__}
+#define ADDITIONAL_EFFECTS(...) EFFECTS_ARR( __VA_ARGS__ ), .numAdditionalEffects = ARRAY_COUNT(EFFECTS_ARR( __VA_ARGS__ ))
+
+struct AdditionalEffect
+{
+    //enum MoveEffect moveEffect;
+    u32 moveEffect;
+    u8 self:1;
+    u8 onlyIfTargetRaisedStats:1;
+    u8 onChargeTurnOnly:1;
+    u8 sheerForceOverride:1; // Handles edge cases for Sheer Force - if TRUE, boosts when it shouldn't, or doesn't boost when it should
+    u8 padding:4;
+    union PACKED {
+        enum WrappedStringID wrapped;
+    } multistring;
+    u8 chance; // 0% = effect certain, primary effect
+};
+
+enum ProtectType
+{
+    PROTECT_TYPE_NONE,
+    PROTECT_TYPE_SIDE,
+    PROTECT_TYPE_SINGLE,
+};
+
+enum ProtectMethod
+{
+    PROTECT_NONE,
+    PROTECT_NORMAL,
+    PROTECT_SPIKY_SHIELD,
+    PROTECT_KINGS_SHIELD,
+    PROTECT_BANEFUL_BUNKER,
+    PROTECT_BURNING_BULWARK,
+    PROTECT_OBSTRUCT,
+    PROTECT_SILK_TRAP,
+    PROTECT_MAX_GUARD, //can get rid of this
+    PROTECT_WIDE_GUARD,
+    PROTECT_QUICK_GUARD,
+    PROTECT_CRAFTY_SHIELD,
+    PROTECT_MAT_BLOCK,
+};
+
 static inline u32 SanitizeMoveId(u32 moveId)
 {
     if (moveId >= MOVES_COUNT)
