@@ -703,6 +703,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .kickingMove = TRUE,
         .recoilMove = TRUE,
         .gravityBanned = TRUE,
+        .argument = { .recoilType = MOVE_EFFECT_RECOIL_IF_MISS },
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -946,7 +947,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         //.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
-        .argument = { .recoilPercentage = 25 },
+        .argument = { .recoilType = MOVE_EFFECT_LIGHT_RECOIL },
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -988,7 +989,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DOUBLE_EDGE] =
     {
-        .effect = EFECT_MED_RECOIL,
+        .effect = EFFECT_RECOIL,
         .power = 120,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -998,7 +999,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         //.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
-        .argument = { .recoilPercentage = 33 },
+        .argument = { .recoilType = MOVE_EFFECT_MED_RECOIL },
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -1678,7 +1679,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        .argument = { .recoilPercentage = 25 },
+        .argument = { .recoilType = MOVE_EFFECT_LIGHT_RECOIL },
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -3394,6 +3395,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .recoilMove = TRUE,
     .damagesAirborneDoubleDamage = TRUE,
     .gravityBanned = TRUE,
+    .argument = { .recoilType = MOVE_EFFECT_RECOIL_IF_MISS },
 },
 //since is jumping kick game hit in air, and since is resisted by flying and risks recoil
 //made 2x
@@ -8658,7 +8660,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_VOLT_TACKLE] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_4
-            .effect = EFFECT_MED_RECOIL_W_STATUS,
+            .effect = EFFECT_RECOIL,
             //.argument = STATUS1_PARALYSIS,
         #else
             .effect = EFECT_MED_RECOIL,
@@ -8672,7 +8674,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         //.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-        .argument = { .recoilPercentage = 33 },
+        .argument = { .recoilType = MOVE_EFFECT_MED_RECOIL },
         .makesContact = TRUE,
         .recoilMove = TRUE,
         #if B_UPDATED_MOVE_DATA >= GEN_4
@@ -9917,7 +9919,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_FLARE_BLITZ] =
     {
-        .effect = EFFECT_MED_RECOIL_W_STATUS,
+        .effect = EFFECT_RECOIL,
         .power = 120,
         .type = TYPE_FIRE,
         .accuracy = 100,
@@ -9927,7 +9929,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         //.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
-        .argument = { .recoilPercentage = 33 },
+        .argument = { .recoilType = MOVE_EFFECT_MED_RECOIL },
         .makesContact = TRUE,
         .recoilMove = TRUE,
         .thawsUser = TRUE,
@@ -10396,7 +10398,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BRAVE_BIRD] =
     {
-        .effect = EFECT_MED_RECOIL,
+        .effect = EFFECT_RECOIL,
         .power = 120,
         .type = TYPE_FLYING,
         .accuracy = 100,
@@ -10406,7 +10408,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         //.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
-        .argument = { .recoilPercentage = 33 },
+        .argument = { .recoilType = MOVE_EFFECT_MED_RECOIL },
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -11376,7 +11378,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         //.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
-        .argument = { .recoilPercentage = 33 },
+        .argument = { .recoilType = MOVE_EFFECT_MED_RECOIL },
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -11487,7 +11489,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         //.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST | FLAG_HEADBUTT_MOVE,
         .split = SPLIT_PHYSICAL,
-        .argument = { .recoilPercentage = 50 },
+        .argument = { .recoilType = MOVE_EFFECT_HEAVY_RECOIL },
         .makesContact = TRUE,
         .recoilMove = TRUE,
         .headbuttMove = TRUE,
@@ -13202,7 +13204,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         //.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
-        .argument = { .recoilPercentage = 25 },
+        .argument = { .recoilType = MOVE_EFFECT_LIGHT_RECOIL },
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -13550,7 +13552,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         //.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST | FLAG_HEADBUTT_MOVE,
         .split = SPLIT_PHYSICAL,
-        .argument = { .recoilPercentage = 25 },
+        .argument = { .recoilType = MOVE_EFFECT_LIGHT_RECOIL },
         .makesContact = TRUE,
         .recoilMove = TRUE,
         .headbuttMove = TRUE,
@@ -15347,7 +15349,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_SPECIAL,
-        .argument = { .recoilPercentage = 50 },
+        .argument = { .recoilType = MOVE_EFFECT_HEAVY_RECOIL },
         .recoilMove = TRUE,
         .metronomeBanned = TRUE,
         //.battleAnimScript = gBattleAnimMove_LightOfRuin,
@@ -16669,13 +16671,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .metronomeBanned = TRUE,
         .recoilMove = TRUE,
         .dampBanned = TRUE,
+        .argument = { .recoilType = MOVE_EFFECT_HEAVY_RECOIL },
         .ballisticMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_MindBlown,
-    },
+    },//work todo
     //move custs half the user's hp rather than doing recoil
     //so there's never a reason to use this move,
     //with bs rework make this heavy recoil effect instead
@@ -17884,6 +17887,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .recoilMove = TRUE,
         .metronomeBanned = TRUE,
+        .argument = { .recoilType = MOVE_EFFECT_HEAVY_RECOIL },
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -17891,6 +17895,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.battleAnimScript = gBattleAnimMove_SteelBeam,
     },//give to empoleon since it lacks steel moves
     //test may lower to med recoil
+    //looked into different from reg recoil
+    //takes 50% health not 50% dmg dealt
+    //believe basis its only special recoil move
+    //so its not a reckless rush
+    //its a high stamina draining effect
+    //which is why it doesn't synergize with
+    //rockhead or recless
+    //so can adjust so those affects specify
+    //physical recoil only
+    //edit. description it rips metal 
+    //from its own body to use for attack
+    //was normal recoil in arceus think will go with that
+    //actualy weird, chloroblast does same thing as this,
+    //and is also special, but it gets rock head reckless boost..
 
     [MOVE_EXPANDING_FORCE] =
     {
@@ -18787,7 +18805,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         //.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        .argument = { .recoilPercentage = 33 },
+        .argument = { .recoilType = MOVE_EFFECT_MED_RECOIL },
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.battleAnimScript = gBattleAnimMove_WaveCrash,
@@ -18813,6 +18831,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
         .recoilMove = TRUE,
+        .argument = { .recoilType = MOVE_EFFECT_HEAVY_RECOIL },
         //.battleAnimScript = gBattleAnimMove_Chloroblast,
         //////.zMovePower = 190,
         //////.zMoveEffect = Z_EFFECT_NONE,
@@ -19250,7 +19269,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_AXE_KICK] =
     {
-        .effect = EFFECT_RECOIL_IF_MISS,    //Todo // EFFECT_RECOIL_IF_MISS + 30% chance to confuse
+        .effect = EFFECT_RECOIL_IF_MISS,    
         .power = 120,
         .type = TYPE_FIGHTING,
         .accuracy = 90,
@@ -19271,6 +19290,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.battleAnimScript = gBattleAnimMove_AxeKick,
         .argument = MOVE_EFFECT_CONFUSION,
         .argumentEffectChance = 30,
+        .argument = { .recoilType = MOVE_EFFECT_RECOIL_IF_MISS },
         ////.zMovePower = 190,
         ////.zMoveEffect = Z_EFFECT_NONE
     },
@@ -20679,6 +20699,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .evasiveBreak = TRUE,
         .battleAnimScript = gBattleAnimMove_SupercellSlam,
+        .argument = { .recoilType = MOVE_EFFECT_RECOIL_IF_MISS },
     },
 
     [MOVE_PSYCHIC_NOISE] =
