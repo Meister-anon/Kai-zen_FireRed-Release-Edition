@@ -527,7 +527,7 @@ struct BattleMove
         u32 fixedDamage;
         u32 damagePercentage;
         u32 absorbPercentage;
-        u32 recoilPercentage; //not gonna use this
+        u32 recoilType; //replace make recoilType will take move effect and do same thing my seutp does
         u32 nonVolatileStatus;
     } argument;
 

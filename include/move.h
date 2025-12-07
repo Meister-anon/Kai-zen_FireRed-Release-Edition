@@ -424,7 +424,7 @@ static inline u32 GetMoveAbsorbPercentage(u32 moveId)
 
 static inline u32 GetMoveRecoil(u32 moveId)
 {
-    return gBattleMoves[SanitizeMoveId(moveId)].argument.recoilPercentage;
+    return gBattleMoves[SanitizeMoveId(moveId)].argument.recoilType;
 }
 
 static inline const struct AdditionalEffect *GetMoveAdditionalEffectById(u32 moveId, u32 effect)

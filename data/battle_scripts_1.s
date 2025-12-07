@@ -5257,6 +5257,8 @@ BattleScript_EffectBatonPass::
 	switchineffects BS_ATTACKER
 	goto BattleScript_MoveEnd
 
+@since making recoil gotta rework
+@need figure out hp drop
 BattleScript_EffectMindBlown::
 	attackcanceler
 	attackstring
