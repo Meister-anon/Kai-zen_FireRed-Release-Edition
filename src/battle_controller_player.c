@@ -1176,18 +1176,6 @@ static void Intro_WaitForShinyAnimAndHealthbox(void)
     }
 }
 
-/*static void HandleAction_WaitTurnEnd(void) {
-    if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
-    {
-        gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
-        PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, gBattlerAttacker, *(gBattleStruct->battlerPartyIndexes + gBattlerAttacker));
-        gBattleScripting.battler = gBattlerAttacker;
-        gBattlescriptCurrInstr = BattleScript_SkipTurn;
-        gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
-        //gCurrentActionFuncId = B_ACTION_FINISHED;
-        //++gCurrentTurnActionNumber;
-    }
-}*/
 
 
 static void Intro_TryShinyAnimShowHealthbox(void)

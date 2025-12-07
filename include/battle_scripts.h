@@ -814,7 +814,6 @@ extern const u8 BattleScript_FlushMessageBox[];//i think the issue was because I
 extern const u8 BattleScript_SpikesOnFaintedBattler[]; //order here shouldn't matter
 extern const u8 BattleScript_WildMonBallBlock[];
 extern const u8 BattleScript_NonGhost_BallDodge[];
-extern const u8 BattleScript_SkipTurn[];
 extern const u8 BattleScript_ExpOnCatch[];
 extern const u8 BattleScript_GhostBallDodge[];
 extern const u8 BattleScript_OldMan_Pokedude_CaughtMessage[];

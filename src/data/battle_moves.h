@@ -1,4 +1,5 @@
 #include "constants/battle_script_commands.h"
+#include "constants/battle.h"
 #include "battle_string_ids.h"
 //EE uses .battleAnimScript = gBattleAnimMove_Struggle,
 //instead I want to set pointer table
@@ -19923,6 +19924,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //but idea is weather setting but also trap
     //sets 5 turn hail for the duration the enemy can't switch
     //unsure if should include user or user side in hazard set for balance
+    //keeping user from switching would make it not broken
+    //but unsure if that's worth using
 
     [MOVE_GRASSHOPPER] =
     {
