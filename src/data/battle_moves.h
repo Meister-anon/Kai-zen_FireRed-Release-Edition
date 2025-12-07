@@ -1,4 +1,5 @@
 #include "constants/battle_script_commands.h"
+#include "constants/battle.h"
 #include "battle_string_ids.h"
 //EE uses .battleAnimScript = gBattleAnimMove_Struggle,
 //instead I want to set pointer table
@@ -17152,11 +17153,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-<<<<<<< HEAD
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
-=======
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
->>>>>>> 01c9a325c1 (update flags more, transition to update all battle files)
         .split = SPLIT_SPECIAL,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
@@ -19976,7 +19973,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //but idea is weather setting but also trap
     //sets 5 turn hail for the duration the enemy can't switch
     //unsure if should include user or user side in hazard set for balance
-    //vsonic
+    //keeping user from switching would make it not broken
+    //but unsure if that's worth using vsonic
 
     [MOVE_GRASSHOPPER] =
     {
