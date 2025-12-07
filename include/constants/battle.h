@@ -323,6 +323,24 @@
 #define ITS_A_TRAP_STATUS4 (STATUS4_BIND | STATUS4_FIRE_SPIN | STATUS4_CLAMP | STATUS4_WHIRLPOOL | STATUS4_SAND_TOMB | STATUS4_MAGMA_STORM | STATUS4_SWARM | STATUS4_SNAP_TRAP | STATUS4_THUNDER_CAGE)
 
 
+enum SemiInvulnerableState
+{
+    STATE_NONE,
+    STATE_UNDERGROUND,
+    STATE_UNDERWATER,
+    STATE_ON_AIR,
+    STATE_PHANTOM_FORCE,
+    STATE_SKY_DROP,
+    STATE_COMMANDER,
+    SEMI_INVULNERABLE_COUNT,
+};
+
+enum SemiInvulnerableExclusion
+{
+    CHECK_ALL,
+    EXCLUDE_COMMANDER,
+};
+
 // Not really sure what a "hitmarker" is.
 #define HITMARKER_WAKE_UP_CLEAR         (1 << 4)	//// Cleared when waking up. Never set or checked.
 #define HITMARKER_SKIP_DMG_TRACK        (1 << 5)

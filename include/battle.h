@@ -1089,6 +1089,7 @@ enum turn_Priority
     MOVE_EFFECT_FREEZE = 4,
     MOVE_EFFECT_PARALYSIS = 5,
     MOVE_EFFECT_TOXIC = 6,
+    MOVE_EFFECT_FROSTBITE = 7,  //set freeze without setting timer
     MOVE_EFFECT_CONFUSION,
     MOVE_EFFECT_FLINCH,
     MOVE_EFFECT_TRI_ATTACK,
