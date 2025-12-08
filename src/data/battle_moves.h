@@ -17219,6 +17219,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .enhancedCritrate = TRUE,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -21818,8 +21819,10 @@ use wonder gaurd logic to determine its super effective
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .argument = { .absorbPercentage = 50 },
+        .healingMove = TRUE,
     },
     //made 60 bp to continue trend of oddly broken dark moves category
 
