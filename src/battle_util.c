@@ -8470,7 +8470,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg//alternative is to buff odds or remove random chance
                     && (IsMoveMakingContact(moveArg, gBattlerAttacker))//since its so particular
                     && TARGET_TURN_DAMAGED
-                    && IsBattlerAlive(gBattlerTarget)//decided make work on attack, two different odds
+                    && IsBattlerAlive(gBattlerTarget)
                     //&& (Random() % 3) == 0      //make this guaranteed, make the attack use these odds
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_OBLIVIOUS
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_FEMME_FATALE
@@ -9111,7 +9111,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     && (IsMoveMakingContact(moveArg, gBattlerAttacker))//since its so particular
                     && TARGET_TURN_DAMAGED
                     && IsBattlerAlive(gBattlerTarget)//decided make work on attack, two different odds
-                    && (Random() % 3) == 0      //make this guaranteed, make the attack use these odds
+                    && (Random() % 4) == 0      //target hit is guaranteed, make the attack use old odds
                     && GetBattlerAbility(gBattlerTarget) != ABILITY_OBLIVIOUS
                     && GetBattlerAbility(gBattlerTarget) != ABILITY_FEMME_FATALE
                     && GetGenderFromSpeciesAndPersonality(speciesAtk, pidAtk) != GetGenderFromSpeciesAndPersonality(speciesDef, pidDef)
@@ -9125,7 +9125,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     gBattlescriptCurrInstr = BattleScript_AttackerCuteCharmActivates;//need test
                     ++effect;
                 }
-                break;
+                break; //thought about removing but since so specific, think needs the option
             case ABILITY_MAGMA_ARMOR:
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && gBattleMons[gBattlerTarget].hp != 0
