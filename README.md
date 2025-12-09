@@ -1,9 +1,15 @@
-
+.
 Branch Goals:
 
 Need split off extra changes to other branches
 leaving only the battle_moves.h flag related changes 
 was new_battle_update_branch  delete deprecated remotes as well
+
+so plan finish flag related changes i.e update to no longer use flag
+checks in battle moves use inline functions that check for members
+after that I can depreciate the branch and merge or cherry pick over
+the stuff needed for flags leaving everything else to go to 
+another branch to continue work.
 
 update battle_moves.h file flags to EE standard
 end goal remove .flags field
