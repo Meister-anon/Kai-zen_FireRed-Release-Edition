@@ -10,6 +10,19 @@ next goals
 
 -this is a test branch for evaluating changes planned for master
 
+keeping type change of bug resisting electric
+makes sense lot of bugs 
+can generate or manipulate electricity or electric fields
+even common bugs like bees
+
+think to get this across to the player
+best way is to adjust the bug trainer text
+in viridian forest
+add some bug facts about bugs generating electricity
+give some bugs select low power electric moves
+
+main diff they will still be able to be paralyzed
+
 -of note odd bugs with neutralizing gas
 not properly clearing when leave field I think
 kept pixelate from updating move type
