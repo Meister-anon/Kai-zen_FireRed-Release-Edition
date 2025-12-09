@@ -523,7 +523,7 @@ struct BattleMove
         u32 status;
         u32 moveProperty;
         u32 holdEffect;
-        u32 type;
+        u32 storedValue; //think use this for general storage type ebility etc. rename storedValue
         u32 fixedDamage;
         u32 damagePercentage;
         u32 absorbPercentage;

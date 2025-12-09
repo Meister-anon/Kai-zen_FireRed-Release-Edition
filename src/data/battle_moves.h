@@ -363,7 +363,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .enhancedCritrate = TRUE,
         .damagesAirborneDoubleDamage = TRUE,
         .argument = TYPE_FLYING,
-        //.argument = { .type = TYPE_FLYING },
+        .argument = { .storedValue = TYPE_FLYING },
         //.argument.twoTurnAttack = { .stringId =  STRINGID_PKMNWHIPPEDWHIRLWIND },
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -8415,7 +8415,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
         //.battleAnimScript = gBattleAnimMove_MuddyWater,
-        //.argument = { .type = TYPE_GROUND },
+       .argument = { .storedValue = TYPE_GROUND },
     },//think want to make into two typed move, make custom effect so can set accuracy drop in bs would drop power to compensate
     //thinking water//ground bp 65, would still be strong as most things weak to water are also weak to ground
     //can potentially do accuracy drop with call_if?  since tink two typed effect doesn't actually set anything to move effect?
@@ -12323,7 +12323,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-        .argument = { .type = TYPE_WATER },
+        .argument = { .storedValue = TYPE_WATER },
         //.zMove = { .effect = Z_EFFECT_SPATK_UP_1 },
         .magicCoatAffected = TRUE,
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
@@ -13920,7 +13920,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_FreezeShock,
-        //.argument = { .type = TYPE_ELECTRIC },
+       .argument = { .storedValue = TYPE_ELECTRIC },
     },//maintained paralysis chance
 
     [MOVE_ICE_BURN] =
@@ -13949,7 +13949,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_IceBurn,
-        //.argument = { .type = TYPE_FIRE },
+       .argument = { .storedValue = TYPE_FIRE },
     },//will still burn
     //think these are just kyurem black/white moves
 
@@ -14288,7 +14288,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-        .argument = { .type = TYPE_GHOST },
+        .argument = { .storedValue = TYPE_GHOST },
         //.zMove = { .effect = Z_EFFECT_ALL_STATS_UP_1 },
         .magicCoatAffected = TRUE,
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
@@ -14384,7 +14384,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-        .argument = { .type = TYPE_GRASS },
+        .argument = { .storedValue = TYPE_GRASS },
         //.zMove = { .effect = Z_EFFECT_ALL_STATS_UP_1 },
         .magicCoatAffected = TRUE,
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
@@ -14427,7 +14427,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
-        .argument = { .type = TYPE_WATER },
+        .argument = { .storedValue = TYPE_WATER },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
@@ -16147,7 +16147,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
         .argument = TYPE_FIRE,
-        .argument = { .type = TYPE_FIRE },
+        .argument = { .storedValue = TYPE_FIRE },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
@@ -16907,7 +16907,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .chance = 30,
         }),*/
         //.battleAnimScript = gBattleAnimMove_SplishySplash,
-        //.argument = { .type = TYPE_ELECTRIC },
+       .argument = { .storedValue = TYPE_ELECTRIC },
     },
 
     [MOVE_FLOATY_FALL] =
@@ -17350,7 +17350,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
         .split = SPLIT_STATUS,
-        .argument = { .type = TYPE_PSYCHIC },
+        .argument = { .storedValue = TYPE_PSYCHIC },
         .magicCoatAffected = TRUE,
         .powderMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
@@ -19095,7 +19095,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .self = TRUE,
             .chance = 100,
         }),*/
-        //.argument = { .type = TYPE_FLYING },
+       .argument = { .storedValue = TYPE_FLYING },
         //.battleAnimScript = gBattleAnimMove_EsperWing,
         //////.zMovePower = 140,
         //////.zMoveEffect = Z_EFFECT_NONE,
@@ -21169,7 +21169,7 @@ use wonder gaurd logic to determine its super effective
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
         .argument = TYPE_PSYCHIC,
-        .argument = { .type = TYPE_PSYCHIC },
+        .argument = { .storedValue = TYPE_PSYCHIC },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
@@ -21189,7 +21189,7 @@ use wonder gaurd logic to determine its super effective
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
         .argument = TYPE_FIGHTING,
-        .argument = { .type = TYPE_FIGHTING },
+        .argument = { .storedValue = TYPE_FIGHTING },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
@@ -21210,7 +21210,7 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_SPECIAL,
         .argument = TYPE_FLYING,
         .enhancedCritrate = TRUE,
-        .argument = { .type = TYPE_FLYING },
+        .argument = { .storedValue = TYPE_FLYING },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
@@ -21233,7 +21233,7 @@ use wonder gaurd logic to determine its super effective
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
         .argument = TYPE_ELECTRIC,
-        .argument = { .type = TYPE_ELECTRIC },
+        .argument = { .storedValue = TYPE_ELECTRIC },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
@@ -21257,7 +21257,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .argument = TYPE_ELECTRIC,
-        //.argument = { .type = TYPE_ELECTRIC },
+       .argument = { .storedValue = TYPE_ELECTRIC },
     },
     //two typed attack w chance to freeze
 
@@ -21293,7 +21293,7 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        .argument = { .type = TYPE_ELECTRIC },
+        .argument = { .storedValue = TYPE_ELECTRIC },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
@@ -21436,7 +21436,7 @@ use wonder gaurd logic to determine its super effective
         //.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         .argument = TYPE_DARK,
-        //.argument = { .type = TYPE_DARK },
+       .argument = { .storedValue = TYPE_DARK },
         .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
@@ -21555,6 +21555,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
+        .argument = { .storedValue = ABILITY_HEAT_TRANCE },
         //.battleAnimScript = gBattleAnimMove_SpiceTrade,
     },
     /*
