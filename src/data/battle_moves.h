@@ -5832,8 +5832,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
                 .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
                 .self = TRUE,
                 .chance = 100,
-            }
-        ),
+            }),
         //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -8767,12 +8766,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .argument = { .recoilType = MOVE_EFFECT_MED_RECOIL },
         .makesContact = TRUE,
         .recoilMove = TRUE,
-        #if B_UPDATED_MOVE_DATA >= GEN_4
-            .additionalEffects = ADDITIONAL_EFFECTS({
-                .moveEffect = MOVE_EFFECT_PARALYSIS,
-                .chance = 10,
-            }),
-        #endif
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 10,
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -16872,12 +16869,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .alwaysCriticalHit = TRUE,
         .metronomeBanned = TRUE,
-        #if B_UPDATED_MOVE_DATA >= GEN_8
             .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_EVS_PLUS_1,
             .self = TRUE,
         }),
-        #endif
         //.battleAnimScript = gBattleAnimMove_ZippyZap,
     },
 
@@ -19170,7 +19165,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 50,
-        })
+        }),
         .argument = MOVE_EFFECT_DEF_MINUS_1,
         //////.zMovePower = 100,
         //////.zMoveEffect = Z_EFFECT_NONE,
@@ -21145,8 +21140,7 @@ use wonder gaurd logic to determine its super effective
             {
                 .moveEffect = MOVE_EFFECT_CONFUSION,
                 .chance = 10,
-            },
-        ),
+            }),
         //.argumentEffectChance = 10, can use sec effect for this
     },//since effect is affects user its already certain
     //think give this uproar effect as well, good idea
