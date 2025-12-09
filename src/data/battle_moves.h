@@ -1308,6 +1308,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_SonicBoom,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 10,
+        }),*/
         .argument = MOVE_EFFECT_CONFUSION,
     },//previously sonic boom / idk but doesn't seem to be setting confuse effect?
     //cacophony boost  increase effect chance as well as infiltrate
