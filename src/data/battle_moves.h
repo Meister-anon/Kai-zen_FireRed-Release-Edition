@@ -3033,6 +3033,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //hmm but this is essentially what mindblown already does
     //but that move sucks, well its bad prob cuz it doesn't have
     //the def cut
+    //base power in gen 1 was 130, buffed keeping at 140,
+    //cuz normal and to attempt stand out from other effects
+    //well since you no longer have to die for it, 
+    //is prob still worth at 130
+    //but will drop the typed variants to base 100
+    //as they are able to hit super effectively
+    //change mind blown to sacrifice 50% max hp 
+    //to attempt blow everyone 
+    //the change of needing to survive the hp drop to 
+    //get the effect off is prob most important point of balance
+    //for this...
+    //other variants max out at 465 power but requires
+    //significant setup
 
     [MOVE_EGG_BOMB] =
     {
@@ -16766,7 +16779,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_MIND_BLOWN] =
     {
         .effect = EFFECT_MIND_BLOWN,
-        .power = 120, //cut down cuz like misty explosion can get super, and also boosted in sun
+        .power = 100, //cut down cuz like misty explosion can get super, and also boosted in sun
         .type = TYPE_FIRE,
         .accuracy = 100,
         .pp = 5,
@@ -16790,6 +16803,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //that is just canceled by damp
     //would need make new bs command fail if damp etc.
     //change mind may keep effect 
+    //misty explosion should be same as mind blown
+    //but just boosted on fairy terrain
+    //while this would get boosted by sun
+    //and self destruct would just be higher in power
 
     [MOVE_PLASMA_FIST] =
     {
@@ -18143,7 +18160,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_MISTY_EXPLOSION] =
     {
         .effect = EFFECT_EXPLOSION,
-        .power = 120,   //was base 100 made 120 to compare to explosion w change type multiplier accounter for
+        .power = 100,   //was base 100 made 120 to compare to explosion w change type multiplier accounter for
         .type = TYPE_FAIRY,
         .accuracy = 100,
         .pp = 5,
@@ -18166,7 +18183,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //seems my change is appropriate buff without breaking its balance
     //think remove misty explosion from balistic i.e bulletproof immunity, not physical,
     //and is mystical in nature
-    //dumb idea point is its an explosion
+    //dumb idea point is its an explosion so keep effect
 
     [MOVE_GRASSY_GLIDE] =
     {
