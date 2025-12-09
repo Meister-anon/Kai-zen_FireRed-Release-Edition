@@ -6233,7 +6233,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Umbreon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(95, 79, 110, 65, 66, 130),
+         STATS(95, 75, 110, 65, 50, 130),
         MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 45,
         .expYield = 184,
