@@ -144,7 +144,7 @@
 	.byte \pan
 	.endm
 
-	.macro panse_1B se:req, param1:req, param2:req, param3:req, param4:req
+	.macro panse se:req, param1:req, param2:req, param3:req, param4:req
 	.byte 0x1b
 	.2byte \se
 	.byte \param1
@@ -193,12 +193,12 @@
 	.4byte \ptr
 	.endm
 
-	.macro monbg_22 battler:req
+	.macro monbg_static battler:req
 	.byte 0x22
 	.byte \battler
 	.endm
 
-	.macro clearmonbg_23 battler:req
+	.macro clearmonbg_static battler:req
 	.byte 0x23
 	.byte \battler
 	.endm
@@ -215,7 +215,7 @@
 	.byte \param2
 	.endm
 
-	.macro panse_26 se:req, param1:req, param2:req, param3:req, param4:req
+	.macro panse_adjustnone se:req, param1:req, param2:req, param3:req, param4:req
 	.byte 0x26
 	.2byte \se
 	.byte \param1
@@ -224,7 +224,7 @@
 	.byte \param4
 	.endm
 
-	.macro panse_27 se:req, param1:req, param2:req, param3:req, param4:req
+	.macro panse_adjustall se:req, param1:req, param2:req, param3:req, param4:req
 	.byte 0x27
 	.2byte \se
 	.byte \param1
@@ -233,16 +233,16 @@
 	.byte \param4
 	.endm
 
-	.macro monbgprio_28 battler:req
+	.macro splitbgprio battler:req
 	.byte 0x28
 	.byte \battler
 	.endm
 
-	.macro monbgprio_29
+	.macro splitbgprio_all
 	.byte 0x29
 	.endm
 
-	.macro monbgprio_2A battler:req
+	.macro splitbgprio_foes battler:req
 	.byte 0x2a
 	.byte \battler
 	.endm
@@ -257,12 +257,12 @@
 	.byte \battler
 	.endm
 
-	.macro doublebattle_2D battler:req
+	.macro teamattack_moveback battler:req
 	.byte 0x2d
 	.byte \battler
 	.endm
 
-	.macro doublebattle_2E battler:req
+	.macro teamattack_movefwd battler:req
 	.byte 0x2e
 	.byte \battler
 	.endm
@@ -309,6 +309,25 @@
 	.byte (\subpriority_offset & 0x7F)
 	.endif
 	.byte \battlerargindex
+	.byte (.Lsprite_\@_2 - .Lsprite_\@_1) / 2
+.Lsprite_\@_1:
+	.2byte \argv
+.Lsprite_\@_2:
+	.endm
+
+	.macro jumpifmovetypeequal type:req, jumpInstr:req
+	.byte 0x33
+	.byte \type
+	.4byte \jumpInstr
+	.endm
+
+	.macro createdragondartsprite anim_battler:req, subpriority_offset:req, argv:vararg
+	.byte 0x34
+	.if \anim_battler == ANIM_TARGET
+	.byte ANIMSPRITE_IS_TARGET | (\subpriority_offset & 0x7F)
+	.else
+	.byte (\subpriority_offset & 0x7F)
+	.endif
 	.byte (.Lsprite_\@_2 - .Lsprite_\@_1) / 2
 .Lsprite_\@_1:
 	.2byte \argv

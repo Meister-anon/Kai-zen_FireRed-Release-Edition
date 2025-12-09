@@ -10,6 +10,14 @@ u8 GetBattlerYDelta(u8 battlerId, u16 species);
 
 enum
 {
+    ANIM_TYPE_GENERAL,
+    ANIM_TYPE_MOVE,
+    ANIM_TYPE_STATUS,
+    ANIM_TYPE_SPECIAL,
+};
+
+enum
+{
     BG_ANIM_SCREEN_SIZE,
     BG_ANIM_AREA_OVERFLOW_MODE,
     BG_ANIM_MOSAIC,
@@ -569,6 +577,9 @@ void AnimFissureDirtPlumeParticle(struct Sprite *sprite);
 extern const union AffineAnimCmd *const gAffineAnims_SpinningBone[];
 
 // dragon.c
+extern const union AnimCmd *const gAnims_DreepyMissilePlayer[];
+extern const union AnimCmd *const gAnims_DreepyMissileOpponent[];
+extern const union AnimCmd *const gAnims_DreepyMissileOpponentNotDrag[];
 void AnimTask_DragonDanceWaver(u8 taskId);
 void AnimDragonRageFirePlume(struct Sprite *sprite);
 void AnimDragonFireToTarget(struct Sprite *sprite);

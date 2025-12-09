@@ -4,6 +4,7 @@
 #include "battle_anim.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
+#include "battle_util.h"
 #include "new_menu_helpers.h"
 #include "battle_bg.h"
 #include "decompress.h"
@@ -14,6 +15,8 @@
 #include "sound.h"
 #include "sprite.h"
 #include "task.h"
+#include "test_runner.h"
+#include "test/battle.h"
 #include "constants/battle_anim.h"
 #include "constants/moves.h"
 
@@ -86,30 +89,32 @@ static void ScriptCmd_waitbgfadein(void);
 static void ScriptCmd_changebg(void);
 static void ScriptCmd_playsewithpan(void);
 static void ScriptCmd_setpan(void);
-static void ScriptCmd_panse_1B(void);
+static void ScriptCmd_panse(void);
 static void ScriptCmd_loopsewithpan(void);
 static void ScriptCmd_waitplaysewithpan(void);
 static void ScriptCmd_setbldcnt(void);
 static void ScriptCmd_createsoundtask(void);
 static void ScriptCmd_waitsound(void);
 static void ScriptCmd_jumpargeq(void);
-static void ScriptCmd_monbg_22(void);
-static void ScriptCmd_clearmonbg_23(void);
+static void ScriptCmd_monbg_static(void);
+static void ScriptCmd_clearmonbg_static(void);
 static void ScriptCmd_jumpifcontest(void);
 static void ScriptCmd_fadetobgfromset(void);
-static void ScriptCmd_panse_26(void);
-static void ScriptCmd_panse_27(void);
-static void ScriptCmd_monbgprio_28(void);
-static void ScriptCmd_monbgprio_29(void);
-static void ScriptCmd_monbgprio_2A(void);
+static void ScriptCmd_panse_adjustnone(void);
+static void ScriptCmd_panse_adjustall(void);
+static void ScriptCmd_splitbgprio(void);
+static void ScriptCmd_splitbgprio_all(void);
+static void ScriptCmd_splitbgprio_foes(void);
 static void ScriptCmd_invisible(void);
 static void ScriptCmd_visible(void);
-static void ScriptCmd_doublebattle_2D(void);
-static void ScriptCmd_doublebattle_2E(void);
+static void ScriptCmd_teamattack_moveback(void);
+static void ScriptCmd_teamattack_movefwd(void);
 static void ScriptCmd_stopsound(void);
 static void ScriptCmd_createvisualtaskontargets(void);
 static void ScriptCmd_createspriteontargets(void);
 static void ScriptCmd_createspriteontargets_onpos(void);
+static void Cmd_jumpifmovetypeequal(void);
+static void Cmd_createdragondartsprite(void);
 
 // Data
 const struct OamData gOamData_AffineOff_ObjNormal_8x8 =
@@ -1509,7 +1514,7 @@ const struct CompressedSpriteSheet gBattleAnimPicTable[] =
     {gBattleAnimSpriteGfx_Orbs, 0x0180, ANIM_TAG_STEEL_BEAM},
     {gBattleAnimSpriteGfx_AuraSphere, 0x200, ANIM_TAG_POLTERGEIST},//last added value, 
 
-    /*{gBattleAnimSpriteGfx_Teapot, 0x1800, ANIM_TAG_TEAPOT},
+    {gBattleAnimSpriteGfx_Teapot, 0x1800, ANIM_TAG_TEAPOT},
     {gBattleAnimSpriteGfx_WoodHammerHammer, 0x800, ANIM_TAG_WOOD_HAMMER_HAMMER},
     {gBattleAnimSpriteGfx_Snowflakes, 0x0700, ANIM_TAG_SNOWFLAKES},
     {gBattleAnimSpriteGfx_SyrupBlob, 0x400, ANIM_TAG_SYRUP_BLOB_RED},
@@ -1520,7 +1525,18 @@ const struct CompressedSpriteSheet gBattleAnimPicTable[] =
     {gBattleAnimSpriteGfx_SyrupSplat, 0x400, ANIM_TAG_SYRUP_SPLAT_YELLOW},
     {gBattleAnimSpriteGfx_TeraCrystal, 0x800, ANIM_TAG_TERA_CRYSTAL},
     {gBattleAnimSpriteGfx_TeraShatter, 0x0180, ANIM_TAG_TERA_SHATTER},
-    {gBattleAnimSpriteGfx_DreepyMissile, 0x200, ANIM_TAG_DREEPY_SHINY},*/
+    {gBattleAnimSpriteGfx_DreepyMissile, 0x200, ANIM_TAG_DREEPY_SHINY},
+    /*{gBattleAnimSpriteGfx_BloodMoon, 0x0800, ANIM_TAG_BLOOD_MOON},
+    {gBattleAnimSpriteGfx_RedExplosion, 0x0800, ANIM_TAG_RED_EXPLOSION},
+    {gBattleAnimSpriteGfx_Beam, 0x0800, ANIM_TAG_BEAM},
+    {gBattleAnimSpriteGfx_PurpleChain, 0x1000, ANIM_TAG_PURPLE_CHAIN},
+    {gBattleAnimSpriteGfx_PinkVioletOrb, 0x0080, ANIM_TAG_PINKVIO_ORB},
+    {gBattleAnimSpriteGfx_TeraStarstormBeam, 0x200, ANIM_TAG_STARSTORM},
+    {gBattleAnimSpriteGfx_SaltParticle, 0x400, ANIM_TAG_SALT_PARTICLE},
+    {gBattleAnimSpriteGfx_TeraSymbol, 0x0200, ANIM_TAG_TERA_SYMBOL},
+    {gBattleAnimSpriteGfx_TatsugiriCurly, 0x200, ANIM_TAG_TATSUGIRI_CURLY},
+    {gBattleAnimSpriteGfx_TatsugiriDroopy, 0x200, ANIM_TAG_TATSUGIRI_DROOPY},
+    {gBattleAnimSpriteGfx_TatsugiriStretchy, 0x200, ANIM_TAG_TATSUGIRI_STRETCHY},*/
 };
 
 const struct CompressedSpritePalette gBattleAnimPaletteTable[] =
@@ -1924,7 +1940,18 @@ const struct CompressedSpritePalette gBattleAnimPaletteTable[] =
     {gBattleAnimSpritePal_SyrupYellow, ANIM_TAG_SYRUP_SPLAT_YELLOW},
     {gBattleAnimSpritePal_TeraCrystal, ANIM_TAG_TERA_CRYSTAL},
     {gBattleAnimSpritePal_TeraShatter, ANIM_TAG_TERA_SHATTER},
-    {gBattleAnimSpritePal_DreepyMissileShiny, ANIM_TAG_DREEPY_SHINY},*/
+    {gBattleAnimSpritePal_DreepyMissileShiny, ANIM_TAG_DREEPY_SHINY},
+    {gBattleAnimSpritePal_BloodMoon, ANIM_TAG_BLOOD_MOON},
+    {gBattleAnimSpritePal_RedExplosion, ANIM_TAG_RED_EXPLOSION},
+    {gBattleAnimSpritePal_Beam, ANIM_TAG_BEAM},
+    {gBattleAnimSpritePal_PurpleChain, ANIM_TAG_PURPLE_CHAIN},
+    {gBattleAnimSpritePal_PinkVioletOrb, ANIM_TAG_PINKVIO_ORB},
+    {gBattleAnimSpritePal_TeraStarstormBeam, ANIM_TAG_STARSTORM},
+    {gBattleAnimSpritePal_SaltParticle, ANIM_TAG_SALT_PARTICLE},
+    {gBattleAnimSpritePal_TeraSymbol, ANIM_TAG_TERA_SYMBOL},
+    {gBattleAnimSpritePal_TatsugiriCurly, ANIM_TAG_TATSUGIRI_CURLY},
+    {gBattleAnimSpritePal_TatsugiriDroopy, ANIM_TAG_TATSUGIRI_DROOPY},
+    {gBattleAnimSpritePal_TatsugiriStretchy, ANIM_TAG_TATSUGIRI_STRETCHY},*/
 };
 
 //use python to reformat table like emerald
@@ -2049,30 +2076,32 @@ static void (*const sScriptCmdTable[])(void) =
     ScriptCmd_changebg,
     ScriptCmd_playsewithpan,
     ScriptCmd_setpan,
-    ScriptCmd_panse_1B,
+    ScriptCmd_panse,
     ScriptCmd_loopsewithpan,
     ScriptCmd_waitplaysewithpan,
     ScriptCmd_setbldcnt,
     ScriptCmd_createsoundtask,
     ScriptCmd_waitsound,
     ScriptCmd_jumpargeq,
-    ScriptCmd_monbg_22,
-    ScriptCmd_clearmonbg_23,
+    ScriptCmd_monbg_static,
+    ScriptCmd_clearmonbg_static,
     ScriptCmd_jumpifcontest,
     ScriptCmd_fadetobgfromset,
-    ScriptCmd_panse_26,
-    ScriptCmd_panse_27,
-    ScriptCmd_monbgprio_28,
-    ScriptCmd_monbgprio_29,
-    ScriptCmd_monbgprio_2A,
+    ScriptCmd_panse_adjustnone,
+    ScriptCmd_panse_adjustall,
+    ScriptCmd_splitbgprio,
+    ScriptCmd_splitbgprio_all,
+    ScriptCmd_splitbgprio_foes,
     ScriptCmd_invisible,
     ScriptCmd_visible,
-    ScriptCmd_doublebattle_2D,
-    ScriptCmd_doublebattle_2E,
+    ScriptCmd_teamattack_moveback,
+    ScriptCmd_teamattack_movefwd,
     ScriptCmd_stopsound,
     ScriptCmd_createvisualtaskontargets,
     ScriptCmd_createspriteontargets,
-    ScriptCmd_createspriteontargets_onpos
+    ScriptCmd_createspriteontargets_onpos,
+    Cmd_jumpifmovetypeequal,
+    Cmd_createdragondartsprite,
 };
 
 // Functions
@@ -2111,15 +2140,16 @@ void DoMoveAnim(u16 move)
 {
     gBattleAnimAttacker = gBattlerAttacker;
     gBattleAnimTarget = gBattlerTarget;
+    
     // Make sure the anim target of moves hitting everyone is at the opposite side.
-    /*if (GetBattlerMoveTargetType(gBattlerAttacker, move) & MOVE_TARGET_FOES_AND_ALLY && IsDoubleBattle())
+    if (GetBattlerMoveTargetType(gBattlerAttacker, move) & MOVE_TARGET_FOES_AND_ALLY && IsDoubleBattle())
     {
         while (IsBattlerAlly(gBattleAnimAttacker, gBattleAnimTarget))
         {
             if (++gBattleAnimTarget >= MAX_BATTLERS_COUNT)
                 gBattleAnimTarget = 0;
         }
-    }*/
+    }
     LaunchBattleAnimation(gBattleAnims_Moves, move, TRUE);
 }//vsonic
 
@@ -2363,35 +2393,15 @@ static void ScriptCmd_createsprite(void)
         sBattleAnimScriptPtr += 2;
     }
 
-    if (argVar & 0x80)
-    {
-        argVar ^= 0x80;
-        if (argVar >= 0x40)
-            argVar -= 0x40;
-        else
-            argVar *= -1;
+    subpriority = GetSubpriorityForMoveAnim(argVar);
 
-        subpriority = GetBattlerSpriteSubpriority(gBattleAnimTarget) + (s8)(argVar);
-    }
-    else
-    {
-        if (argVar >= 0x40)
-            argVar -= 0x40;
-        else
-            argVar *= -1;
-
-        subpriority = GetBattlerSpriteSubpriority(gBattleAnimAttacker) + (s8)(argVar);
-    }
-
-    if (subpriority < 3)
-        subpriority = 3;
-
-    CreateSpriteAndAnimate(
-        template,
+    if (CreateSpriteAndAnimate(template,
         GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_X_2),
         GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_Y_PIC_OFFSET),
-        subpriority);
-    gAnimVisualTaskCount++;
+        subpriority) != MAX_SPRITES) // Don't increment the task count if the sprite couldn't be created(i.e. there are too many created sprites atm).
+     {
+         gAnimVisualTaskCount++;
+     }
 }
 
 static void CreateSpriteOnTargets(const struct SpriteTemplate *template, u8 argVar, u8 battlerArgIndex, u8 argsCount, bool32 overwriteAnimTgt)
@@ -2535,6 +2545,8 @@ static void ScriptCmd_createvisualtaskontargets(void)
     }
 
     numArgs = GetBattleAnimMoveTargets(battlerArgIndex, targets);
+    if (numArgs == 0)
+        return;
 
     for (i = 0; i < numArgs; i++)
     {
@@ -2983,7 +2995,7 @@ static void sub_807331C(u8 taskId)
     }
 }
 
-static void ScriptCmd_monbg_22(void)
+static void ScriptCmd_monbg_static(void)
 {
     bool8 toBG_2;
     u8 battlerId;
@@ -3030,7 +3042,7 @@ static void ScriptCmd_monbg_22(void)
     sBattleAnimScriptPtr++;
 }
 
-static void ScriptCmd_clearmonbg_23(void)
+static void ScriptCmd_clearmonbg_static(void)
 {
     u8 animBattlerId;
     u8 battlerId;
@@ -3444,7 +3456,7 @@ static void ScriptCmd_setpan(void)
 #define tCurrentPan     data[4]
 #define tFrameCounter   data[8]
 
-static void ScriptCmd_panse_1B(void)
+static void ScriptCmd_panse(void)
 {
     u16 songNum;
     s8 currentPanArg, incrementPan, incrementPanArg, currentPan, targetPan;
@@ -3516,7 +3528,7 @@ static void Task_PanFromInitialToTarget(u8 taskId)
     }
 }
 
-static void ScriptCmd_panse_26(void)
+static void ScriptCmd_panse_adjustnone(void)
 {
     u16 songId;
     s8 currentPan, targetPan, incrementPan;
@@ -3543,7 +3555,7 @@ static void ScriptCmd_panse_26(void)
     sBattleAnimScriptPtr += 6;
 }
 
-static void ScriptCmd_panse_27(void)
+static void ScriptCmd_panse_adjustall(void)
 {
     u16 songId;
     s8 targetPanArg, incrementPanArg, currentPanArg, currentPan, targetPan, incrementPan;
@@ -3746,10 +3758,14 @@ static void ScriptCmd_jumpargeq(void)
 
 static void ScriptCmd_jumpifcontest(void)
 {
-    sBattleAnimScriptPtr += 5;
+    sBattleAnimScriptPtr++;
+    if (IsContest())
+        sBattleAnimScriptPtr = T2_READ_PTR(sBattleAnimScriptPtr);
+    else
+        sBattleAnimScriptPtr += 4;
 }
 
-static void ScriptCmd_monbgprio_28(void)
+static void ScriptCmd_splitbgprio(void)
 {
     u8 wantedBattler;
     u8 battlerId;
@@ -3771,14 +3787,14 @@ static void ScriptCmd_monbgprio_28(void)
     }
 }
 
-static void ScriptCmd_monbgprio_29(void)
+static void ScriptCmd_splitbgprio_all(void)
 {
     sBattleAnimScriptPtr++;
     SetAnimBgAttribute(1, BG_ANIM_PRIORITY, 1);
     SetAnimBgAttribute(2, BG_ANIM_PRIORITY, 2);
 }
 
-static void ScriptCmd_monbgprio_2A(void)
+static void ScriptCmd_splitbgprio_foes(void)
 {
     u8 wantedBattler;
     u8 battlerPosition;
@@ -3786,6 +3802,8 @@ static void ScriptCmd_monbgprio_2A(void)
 
     wantedBattler = sBattleAnimScriptPtr[1];
     sBattleAnimScriptPtr += 2;
+
+    // Apply only if the attacking the opposing side
     if (GetBattlerSide(gBattleAnimAttacker) != GetBattlerSide(gBattleAnimTarget))
     {
         if (wantedBattler != ANIM_ATTACKER)
@@ -3793,6 +3811,7 @@ static void ScriptCmd_monbgprio_2A(void)
         else
             battlerId = gBattleAnimAttacker;
 
+        // Apply only if the given battler is the lead (on left from team's perspective)
         battlerPosition = GetBattlerPosition(battlerId);
         if (battlerPosition == B_POSITION_PLAYER_LEFT || battlerPosition == B_POSITION_OPPONENT_RIGHT)
         {
@@ -3824,7 +3843,8 @@ static void ScriptCmd_visible(void)
     sBattleAnimScriptPtr += 2;
 }
 
-static void ScriptCmd_doublebattle_2D(void)
+// Below two commands are never used
+static void ScriptCmd_teamattack_moveback(void)
 {
     u8 wantedBattler;
     u8 priority;
@@ -3832,6 +3852,8 @@ static void ScriptCmd_doublebattle_2D(void)
 
     wantedBattler = sBattleAnimScriptPtr[1];
     sBattleAnimScriptPtr += 2;
+
+    // Apply to double battles when attacking own side
     if (IsDoubleBattle()
      && GetBattlerSide(gBattleAnimAttacker) == GetBattlerSide(gBattleAnimTarget))
     {
@@ -3859,7 +3881,7 @@ static void ScriptCmd_doublebattle_2D(void)
     }
 }
 
-static void ScriptCmd_doublebattle_2E(void)
+static void ScriptCmd_teamattack_movefwd(void)
 {
     u8 wantedBattler;
     u8 priority;
@@ -3867,6 +3889,8 @@ static void ScriptCmd_doublebattle_2E(void)
 
     wantedBattler = sBattleAnimScriptPtr[1];
     sBattleAnimScriptPtr += 2;
+
+    // Apply to double battles when attacking own side
     if (IsDoubleBattle()
      && GetBattlerSide(gBattleAnimAttacker) == GetBattlerSide(gBattleAnimTarget))
     {
@@ -3891,4 +3915,73 @@ static void ScriptCmd_stopsound(void)
     m4aMPlayStop(&gMPlayInfo_SE1);
     m4aMPlayStop(&gMPlayInfo_SE2);
     sBattleAnimScriptPtr++;
+}
+
+static void Cmd_jumpifmovetypeequal(void)
+{
+    const u8 *type = sBattleAnimScriptPtr + 1;
+    sBattleAnimScriptPtr += 2;
+    if (*type != GetBattleMoveType(gCurrentMove))
+        sBattleAnimScriptPtr += 4;
+    else
+        sBattleAnimScriptPtr = T2_READ_PTR(sBattleAnimScriptPtr);
+}
+
+static void Cmd_createdragondartsprite(void)
+{
+    s32 i;
+    struct SpriteTemplate template;
+    u8 argVar;
+    u8 argsCount;
+    s16 subpriority;
+    struct Pokemon *mon = GetBattlerMon(gBattleAnimAttacker);
+
+    sBattleAnimScriptPtr++;
+
+    argVar = sBattleAnimScriptPtr[0];
+    sBattleAnimScriptPtr++;
+    argsCount = sBattleAnimScriptPtr[0];
+    sBattleAnimScriptPtr++;
+
+    for (i = 0; i < argsCount; i++)
+    {
+        gBattleAnimArgs[i] = T1_READ_16(sBattleAnimScriptPtr);
+        sBattleAnimScriptPtr += 2;
+    }
+
+    subpriority = GetSubpriorityForMoveAnim(argVar);
+
+    if (GetMonData(mon, MON_DATA_SPECIES) == SPECIES_DRAGAPULT)
+    {
+        template.tileTag = ANIM_TAG_DREEPY;
+        if (IsMonShiny(mon) == TRUE)
+            template.paletteTag = ANIM_TAG_DREEPY_SHINY;
+        else
+            template.paletteTag = ANIM_TAG_DREEPY;
+        template.oam = &gOamData_AffineOff_ObjNormal_32x32;
+        if (!IsOnPlayerSide(gBattleAnimAttacker))
+            template.anims = gAnims_DreepyMissileOpponent;
+        else
+            template.anims = gAnims_DreepyMissilePlayer;
+    }
+    else
+    {
+        template.tileTag = ANIM_TAG_AIR_WAVE;
+        template.paletteTag = ANIM_TAG_DREEPY;
+        template.oam = &gOamData_AffineOff_ObjNormal_32x16;
+        if (!IsOnPlayerSide(gBattleAnimAttacker))
+            template.anims = gAnims_DreepyMissileOpponentNotDrag;
+        else
+            template.anims = gAnims_DreepyMissilePlayer;
+    }
+
+    template.images = NULL;
+    template.affineAnims = gDummySpriteAffineAnimTable;
+    template.callback = AnimShadowBall;
+
+    if (CreateSpriteAndAnimate(&template,
+        GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_X_2),
+        GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_Y_PIC_OFFSET),
+        subpriority) != MAX_SPRITES) // Don't increment the task count if the sprite couldn't be created(i.e. there are too many created sprites atm).
+         gAnimVisualTaskCount++;
 }

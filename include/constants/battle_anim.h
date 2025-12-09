@@ -1,6 +1,8 @@
 #ifndef GUARD_CONSTANTS_BATTLE_ANIM_H
 #define GUARD_CONSTANTS_BATTLE_ANIM_H
 
+#include "battle_anim_scripts.h"
+
 // Sprites start at 10000 and thus must be subtracted of 10000 to account for the true index.
 #define GET_TRUE_SPRITE_INDEX(i) ((i - ANIM_SPRITES_START))
 
@@ -396,12 +398,45 @@
 #define ANIM_TAG_STEEL_BEAM                 (ANIM_SPRITES_START + 384)
 #define ANIM_TAG_POLTERGEIST                (ANIM_SPRITES_START + 385)
 #define ANIM_TAG_TEAPOT                     (ANIM_SPRITES_START + 386)
+#define ANIM_TAG_WOOD_HAMMER_HAMMER         (ANIM_SPRITES_START + 386)
+#define ANIM_TAG_SNOWFLAKES                 (ANIM_SPRITES_START + 387)
+#define ANIM_TAG_SYRUP_BLOB_RED             (ANIM_SPRITES_START + 388)
+#define ANIM_TAG_SYRUP_SHELL_RED            (ANIM_SPRITES_START + 389)
+#define ANIM_TAG_SYRUP_BLOB_YELLOW          (ANIM_SPRITES_START + 390)
+#define ANIM_TAG_SYRUP_SHELL_YELLOW         (ANIM_SPRITES_START + 391)
+#define ANIM_TAG_SYRUP_SPLAT_RED            (ANIM_SPRITES_START + 392)
+#define ANIM_TAG_SYRUP_SPLAT_YELLOW         (ANIM_SPRITES_START + 393)
+#define ANIM_TAG_IVY_CUDGEL_GRASS           (ANIM_SPRITES_START + 394)
+#define ANIM_TAG_IVY_CUDGEL_FIRE            (ANIM_SPRITES_START + 395)
+#define ANIM_TAG_IVY_CUDGEL_ROCK            (ANIM_SPRITES_START + 396)
+#define ANIM_TAG_IVY_CUDGEL_WATER           (ANIM_SPRITES_START + 397)
+#define ANIM_TAG_TERA_CRYSTAL               (ANIM_SPRITES_START + 398)
+#define ANIM_TAG_TERA_SHATTER               (ANIM_SPRITES_START + 399)
+#define ANIM_TAG_DREEPY_SHINY               (ANIM_SPRITES_START + 400)
+#define ANIM_TAG_BLOOD_MOON                 (ANIM_SPRITES_START + 401)
+#define ANIM_TAG_BEAM                       (ANIM_SPRITES_START + 402)
+#define ANIM_TAG_RED_EXPLOSION              (ANIM_SPRITES_START + 403)
+#define ANIM_TAG_PURPLE_CHAIN               (ANIM_SPRITES_START + 404)
+#define ANIM_TAG_PINKVIO_ORB                (ANIM_SPRITES_START + 405)
+#define ANIM_TAG_STARSTORM                  (ANIM_SPRITES_START + 406)
+#define ANIM_TAG_SALT_PARTICLE              (ANIM_SPRITES_START + 407)
+#define ANIM_TAG_TERA_SYMBOL                (ANIM_SPRITES_START + 408)
+#define ANIM_TAG_TATSUGIRI_CURLY            (ANIM_SPRITES_START + 409)
+#define ANIM_TAG_TATSUGIRI_DROOPY           (ANIM_SPRITES_START + 410)
+#define ANIM_TAG_TATSUGIRI_STRETCHY         (ANIM_SPRITES_START + 411)
 
 // battlers
 #define ANIM_ATTACKER    0
 #define ANIM_TARGET      1
 #define ANIM_ATK_PARTNER 2
 #define ANIM_DEF_PARTNER 3
+
+// Below are used by AnimTask_ShakeMon2 and AnimTask_SetGrayscaleOrOriginalPal
+#define ANIM_PLAYER_LEFT      (MAX_BATTLERS_COUNT + 0)
+#define ANIM_OPPONENT_LEFT    (MAX_BATTLERS_COUNT + 1)
+#define ANIM_PLAYER_RIGHT     (MAX_BATTLERS_COUNT + 2)
+#define ANIM_OPPONENT_RIGHT   (MAX_BATTLERS_COUNT + 3)
+#define ANIM_ATTACKER_FORCE   (MAX_BATTLERS_COUNT + 4)
 
 // stereo panning constants [0-255]
 //
@@ -674,5 +709,9 @@
 #define F_PAL_ADJACENT            (F_PAL_DEF_SIDE | F_PAL_ATK_PARTNER)
 #define F_PAL_ALL_BUT_DEF         (F_PAL_ATK_SIDE | F_PAL_DEF_PARTNER)
 #define F_PAL_ALL_BUT_ATK_PARTNER (F_PAL_ATTACKER | F_PAL_DEF_SIDE)
+
+// The below are only used by AnimTask_BlendBattleAnimPal to get battler sprite palettes by position rather than by role.
+// It's redundant with F_PAL_BATTLERS, because they're only ever used together to refer to all the battlers at once.
+#define F_PAL_BATTLERS_2  (1 << 7 | 1 << 8 | 1 << 9 | 1 << 10)
 
 #endif // GUARD_CONSTANTS_BATTLE_ANIM_H

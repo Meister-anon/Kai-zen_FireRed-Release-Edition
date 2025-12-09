@@ -14447,6 +14447,14 @@ u8 GetMoveType(u32 moveType, u32 btlAttacker)
 
 }
 
+u32 GetBattleMoveType(u32 move)
+{
+    if (gMain.inBattle && gBattleStruct->dynamicMoveType)
+        return gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;
+
+    return gBattleMoves[move].type;
+}
+
 #define FIXATION_EFFECTS
 bool8 IsFixationMoveEffect(u16 move)
 {

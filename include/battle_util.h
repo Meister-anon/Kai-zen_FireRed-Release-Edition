@@ -279,6 +279,7 @@ bool8 ShouldCacophonyBoostEffectChance(u16 move);
 bool8 ShouldCacophonyElevateMoveEffect(u16 move);
 void CacophonyElevateMoveEffect(void);
 u8 GetMoveType(u32 moveType, u32 btlAttacker);
+u32 GetBattleMoveType(u32 move); //not really using rn, mostly just for anim script update
 void GetBattlerTypes(u32 battler, bool32 ignoreTera, u32 types[/*static*/ 3]); //according to mcgriffin static check should work w my compiler version but doesn't.. advised remove static for now
 u32 GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera);
 u32 CountBattlerStatIncreases(u32 battler, bool32 countEvasionAcc);

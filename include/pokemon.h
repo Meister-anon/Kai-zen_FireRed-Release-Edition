@@ -452,6 +452,33 @@ struct BattleMove
     //so just do a check in seteffectwithchance that checks if  battlescripting.moveeffect equals gbattlemons[move].effect or the argument
     //if it equals the argument use argument chance, that means it has already done the effect
     //and has passed the arugment over so it can use the argument chance
+    union {
+        struct {
+            u16 stringId;
+            u16 status;
+        } twoTurnAttack;
+        u32 protectMethod;
+        u32 status;
+        u32 moveProperty;
+        u32 holdEffect;
+        u32 type;
+        u32 fixedDamage;
+        u32 damagePercentage;
+        u32 absorbPercentage;
+        u32 recoilType; //replace make recoilType will take move effect and do same thing my seutp does
+        u32 nonVolatileStatus;
+    } argument;
+    
+
+    // primary/secondary effects
+    const struct AdditionalEffect *additionalEffects;
+
+    // contest parameters
+    //u8 contestEffect;
+    //u8 contestCategory:3;
+    //u8 contestComboStarterId;
+    //u8 contestComboMoves[MAX_COMBO_MOVES];
+    const u8 *battleAnimScript;
 };//without u32 flags, type overflowed with added moves
 //argument is for extra effects other than secondary effect
 
