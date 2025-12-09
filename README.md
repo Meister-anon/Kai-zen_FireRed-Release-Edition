@@ -1,6 +1,10 @@
 
 Branch Goals:
 
+Need split off extra changes to other branches
+leaving only the battle_moves.h flag related changes 
+was new_battle_update_branch  delete deprecated remotes as well
+
 update battle_moves.h file flags to EE standard
 end goal remove .flags field
 much better filtering and will eventually update
@@ -21,9 +25,4 @@ think handeling bs update in batl controller branch
 so think can leave defining addtionalEffects over there
 and just pull changes in when that's done?
 
-WORKIGN THROough custom effects need replace
-B_UPDATED_MOVE_FLAGS >=   variants w true
 
-need go overd move flags check for 
-
-#if B_UPDATED_MO
