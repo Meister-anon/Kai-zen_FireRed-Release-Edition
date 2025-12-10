@@ -17,7 +17,8 @@ struct __attribute__((packed, aligned(2))) BattleMoveEffect
     u16 semiInvulnerableEffect:1;
     u16 usesProtectCounter:1;
     u16 hasAccCheckAfterAtkstring:1; //for new pre hit ability effect, keep an eye out for effects that go to same battlescript where condition should be TRUE
-    u16 padding:8;
+    u16 setfromatkcanceler:1; //rn for strength and triple arrow, attempt do setmoveeffect stuff in attack canceler if move succeeds
+    u16 padding:7;
 };
 
 #define EFFECTS_ARR(...) (const struct AdditionalEffect[]) {__VA_ARGS__}
@@ -170,7 +171,7 @@ struct BattleMove
 //to EE code
 
 extern const struct BattleMove gBattleMoves[];
-//extern const struct BattleMoveEffect gBattleMoveEffects[];
+extern const struct BattleMoveEffect gBattleMoveEffects[];
 
 static inline u32 SanitizeMoveId(u32 moveId)
 {

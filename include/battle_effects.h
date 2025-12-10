@@ -811,9 +811,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_BEAT_UP] =
     {
-        .battleScript = (B_BEAT_UP >= GEN_5) ? BattleScript_EffectHit : BattleScript_EffectBeatUp,
+        .battleScript = BattleScript_EffectBeatUp,
         .battleTvScore = 2,
     },
+    //vsonic menat to be custom effect check effect
+    //attempt to mix mash old and modern effects
+    //to get benefits of both
 
     [EFFECT_SEMI_INVULNERABLE] =
     {
@@ -2041,7 +2044,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectDarkVoid,
         .battleTvScore = 0, // TODO: Assign points
         .hasAccCheckAfterAtkstring = TRUE,
-    },
+    },//prob not use just use sketchban is enough vsonic
     //if species not darkrai goes to script 
     //BattleScript_PokemonCantUseTheMove which has atkstring but no acc check
     //as move fails
@@ -2091,10 +2094,11 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 0, // TODO: Assign points
     },
 
-    [EFFECT_SNOWSCAPE] =
+    [EFFECT_SNOW_DAY] =
     {
-        .battleScript = BattleScript_EffectSnow,
+        .battleScript = BattleScript_EffectSnow, //to port vsonic
         .battleTvScore = 4,
+        .encourageEncore = TRUE,
     },
 
     [EFFECT_TAKE_HEART] =
@@ -2286,7 +2290,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_STEEL_ROLLER] =
     {
-        .battleScript = BattleScript_EffectSteelRoller,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
     },
 
@@ -2301,4 +2305,99 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
     },
+
+    [EFFECT_TARGET_TYPE_DAMAGE] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 0, // TODO: Assign points
+    },
+
+    [EFFECT_HIGHEST_STAT_UP_HIT] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 0, // TODO: Assign points
+    },
+
+    [EFFECT_DMG_FIXATION] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 0, // TODO: Assign points
+    },
+
+
+    [EFFECT_SET_TARGET_ABILITY] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 0, // TODO: Assign points
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_SHIELD_BASH] =
+    {
+        .battleScript = BattleScript_EffectProtect,
+        .battleTvScore = 3,
+        .encourageEncore = TRUE,
+        .usesProtectCounter = TRUE,
+    },
+
+    [EFFECT_MONOTYPE] =
+    {
+        .battleScript = BattleScript_EffectMonotype,
+        .battleTvScore = 3,
+    },
+
+    [EFFECT_MOONDANCE] =
+    {
+        .battleScript = BattleScript_EffectMoondance,
+        .battleTvScore = 4,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_ACID_RAIN] =
+    {
+        .battleScript = BattleScript_EffectAcidRain,
+        .battleTvScore = 4,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_SUBMISSION] =
+    {
+        .battleScript = BattleScript_EffectBrickBreak,
+        .battleTvScore = 3,
+    },
+
+    [EFFECT_RAGING_BULL] =
+    {
+        .battleScript = BattleScript_EffectBrickBreak,
+        .battleTvScore = 3,
+    },//these two don't have type immunity unlike brick break so keep an eye on
+
+    [EFFECT_SET_EFFECT_PRE_HIT] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 3,
+        .setfromatkcanceler = TRUE,
+    },
+
+    [EFFECT_SNOWESCAPE] =
+    {
+        .battleScript = BattleScript_EffectSnowescape,
+        .battleTvScore = 4,
+        .encourageEncore = TRUE,
+    },//vsonic different effect planned so change script
+    //set weather trap all on field for duration
+    //well weather extender could extend so make
+    //separate from weather duration?
+    //well actually no, link to weather timer
+    //give more play nuance, 
+    //will make its own timer
+    //set by weather duration
+    //but be linked intrinsically to weather
+    //so if weather changed effect ends
+    //or cleared w ability like air lock
+    //unsure exactly how will setup think I want
+    //hail for this for the chip damage but idk maybe snow
+    //think needs its own bs tho
+    //think will do as field status
+    
 };

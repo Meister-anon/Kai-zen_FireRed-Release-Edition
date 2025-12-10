@@ -1,7 +1,7 @@
 #ifndef GUARD_CONSTANTS_BATTLE_EFFECTS_H
 #define GUARD_CONSTANTS_BATTLE_EFFECTS_H
 
-#define EFFECT_HIT 0
+/*#define EFFECT_HIT 0
 #define EFFECT_SLEEP 1
 #define EFFECT_POISON_HIT 2
 #define EFFECT_ABSORB 3
@@ -215,11 +215,11 @@
 #define EFFECT_CALM_MIND 211
 #define EFFECT_DRAGON_DANCE 212 // ok EFFECT_POISON_TAIL is an effect based on battle_moves.h
 #define EFFECT_CAMOUFLAGE 213 //but isn't in emerald list o effects...ok got it that was a cfru thing
-/*   figured it out poison_tail was an effect in gen3 but changed in pokeemerald so that's prop why its replaced with placeholder
-#define EFFECT_HEAL_PULSE 214
-#define EFFECT_HEALING_WISH 215
-#define EFFECT_ROOST 216
-#define EFFECT_HURRICANE 217 */
+//  figured it out poison_tail was an effect in gen3 but changed in pokeemerald so that's prop why its replaced with placeholder
+//#define EFFECT_HEAL_PULSE 214
+//#define EFFECT_HEALING_WISH 215
+//#define EFFECT_ROOST 216
+//#define EFFECT_HURRICANE 217 
 
 // New move effects
 #define EFFECT_PLEDGE 214
@@ -437,8 +437,9 @@
 #define EFFECT_DMG_FIXATION 424 //fixation moves have differing effects when used multiple times/ decided make categorical effect diffect effects for diff things. idea of effect is continued use makes user better at move so gains additional effect / dmg fixation will have move incrase dmg with use for example
 #define EFFECT_DIRE_CLAW 425
 #define EFFECT_COLD_FLARE 426 //was ice burn, make effect 2 turns but 1 turn in hail/snow
+*/
 
-/*
+
 enum __attribute__((packed)) BattleMoveEffects
 {
     EFFECT_PLACEHOLDER,
@@ -758,7 +759,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_PSYBLADE,
     EFFECT_HYDRO_STEAM,
     EFFECT_REVIVAL_BLESSING,
-    EFFECT_SNOWSCAPE,
+    EFFECT_SNOW_DAY,
     EFFECT_TAKE_HEART,
     EFFECT_COLLISION_COURSE,
     EFFECT_CORROSIVE_GAS,
@@ -766,7 +767,6 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_CHILLY_RECEPTION,
     EFFECT_MAX_MOVE,
     EFFECT_GLAIVE_RUSH,
-    EFFECT_RAGING_BULL,
     EFFECT_RAGE_FIST,
     EFFECT_DOODLE,
     EFFECT_FILLET_AWAY,
@@ -792,9 +792,42 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_STEEL_ROLLER, // Will fail if there is no terrain up but removes it regardless if attacker is removed from field or not
     EFFECT_STONE_AXE, // Not to be confused with MOVE_EFFECT_STEALTH_ROCK. They have two different activation timings.
     EFFECT_CEASELESS_EDGE, // Same applies to spikes
+    
+    //custom effects start    
+    EFFECT_TARGET_TYPE_DAMAGE,
+    EFFECT_HIGHEST_STAT_UP_HIT,
+    EFFECT_DMG_FIXATION,
+    EFFECT_SET_TARGET_ABILITY,
+    EFFECT_SHIELD_BASH,
+    EFFECT_MONOTYPE,
+    EFFECT_MOONDANCE,
+    EFFECT_ACID_RAIN,
+    EFFECT_SUBMISSION,
+    EFFECT_RAGING_BULL,
+    EFFECT_SET_EFFECT_PRE_HIT, //attempt repalce below 2
+    EFFECT_SNOWESCAPE,
+    //EFFECT_STRENGTH_UP_HIT,
+    //EFFECT_TRIPLE_ARROWS, //may need since plan is set effects before use move
     NUM_BATTLE_MOVE_EFFECTS,
 };
-*/
+
+
+//note unsure if there's any meaning to 
+//order of effects for additional effects
+//but will do best to set it so main effect is 
+//always goes first
+
+//potentially make new effect or move effect
+//category for activating before move goes off
+//can put it in attack canceler or something?
+//similar to how abilityeffect function is handled
+//has specific cases that call the main thing
+//from different places
+//think put in additionaleffect struct
+//setfromatkcanceler or something
+
+//ex. atk stat up for strength
+//focus energy for triple arrow
 
 /*MOVE_FIRE_SPIN, //increases burn chance //serenge grace is effect *2 by requires no setup, I think I can get away w * 3 here actually do more to near guarantee 50-60%
 MOVE_CLAMP,     //no extra wrap effect,  but give flich chance on hit //changed mind you're staying clamped on them, so for duration statused target has chance to flinch when attacking

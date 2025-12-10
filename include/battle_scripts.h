@@ -5,6 +5,7 @@
 
 //Curr effect scripts
 extern const u8 BattleScript_EffectMoondance[];    //weather start
+extern const u8 BattleScript_EffectAcidRain[];
 extern const u8 BattleScript_EffectSnowescape[];
 extern const u8 BattleScript_EffectMediumRecoil[]; //not all effects here
 extern const u8 BattleScript_EffectMediumRecoilWithStatus[];
@@ -908,6 +909,7 @@ extern const u8 BattleScript_EffectSnore[];
 extern const u8 BattleScript_EffectConversion2[];
 extern const u8 BattleScript_EffectLockOn[];
 extern const u8 BattleScript_EffectSketch[];
+extern const u8 BattleScript_EffectMonotype[];
 extern const u8 BattleScript_EffectSleepTalk[];
 extern const u8 BattleScript_EffectDestinyBond[];
 extern const u8 BattleScript_EffectSpite[];
@@ -916,6 +918,9 @@ extern const u8 BattleScript_MoveEffectAromatherapy[];
 extern const u8 BattleScript_EffectMeanLook[];
 extern const u8 BattleScript_EffectNightmare[];
 extern const u8 BattleScript_EffectMinimize[];
+extern const u8 BattleScript_EffectSpectralThief[];
+extern const u8 BattleScript_EffectLifeDew[];
+extern const u8 BattleScript_EffectPsychicNoise[];
 extern const u8 BattleScript_EffectCurse[];
 extern const u8 BattleScript_EffectHealingWish[];
 extern const u8 BattleScript_EffectProtect[];
