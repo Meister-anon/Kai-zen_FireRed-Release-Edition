@@ -930,7 +930,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        //.argument = { .recoilType = MOVE_EFFECT_LIGHT_RECOIL },
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_LIGHT_RECOIL,
+                .self = TRUE,
+            }),*/
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -980,7 +983,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        //.argument = { .recoilType = MOVE_EFFECT_MED_RECOIL },
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_MED_RECOIL,
+                .self = TRUE,
+            }),*/
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -1636,7 +1642,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        //.argument = { .recoilType = MOVE_EFFECT_LIGHT_RECOIL },
+        .ignoresProtect = TRUE,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_MED_RECOIL,
+                .self = TRUE,
+            }),*/ //vsonic adjust down as needed
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -4023,7 +4033,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     #else
         .accuracy = 100,
     #endif
-    .effect = EFECT_MED_RECOIL, //w my change struggle is far less punishing, potentially swap effect for EFECT_MED_RECOIL
+    .effect = EFFECT_RECOIL, //w my change struggle is far less punishing, potentially swap effect for EFECT_MED_RECOIL
     .power = 50,
     .type = TYPE_NORMAL,//tested seems fine at boosted recoil
     .pp = 1,
@@ -4041,6 +4051,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .encoreBanned = TRUE,
         .assistBanned = TRUE,
         .sketchBanned = TRUE,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_MED_RECOIL,
+                .self = TRUE,
+            }),*/
         //.battleAnimScript = gBattleAnimMove_Struggle,
 },
 
@@ -8382,12 +8396,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        //.argument = { .recoilType = MOVE_EFFECT_MED_RECOIL },
         .makesContact = TRUE,
         .recoilMove = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 10,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_MED_RECOIL,
+            .self = TRUE,
         }),*/
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -9571,13 +9588,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        //.argument = { .recoilType = MOVE_EFFECT_MED_RECOIL },
         .makesContact = TRUE,
         .recoilMove = TRUE,
         .thawsUser = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_MED_RECOIL,
+            .self = TRUE,
         }),*/
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_SMART,
@@ -10029,7 +10049,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        //.argument = { .recoilType = MOVE_EFFECT_MED_RECOIL },
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_MED_RECOIL,
+                .self = TRUE,
+            }),*/
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -10956,7 +10979,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        //.argument = { .recoilType = MOVE_EFFECT_MED_RECOIL },
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_MED_RECOIL,
+                .self = TRUE,
+            }),*/
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -11053,7 +11079,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_HEAD_SMASH] =
     {
-        .effect = EFFECT_HEAVY_RECOIL,
+        .effect = EFFECT_RECOIL,
         .power = 150,
         .type = TYPE_ROCK,
         .accuracy = 90,
@@ -11062,7 +11088,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        //.argument = { .recoilType = MOVE_EFFECT_HEAVY_RECOIL },
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_HEAVY_RECOIL,
+                .self = TRUE,
+            }),*/
         .makesContact = TRUE,
         .recoilMove = TRUE,
         .headbuttMove = TRUE,
@@ -12719,7 +12748,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        //.argument = { .recoilType = MOVE_EFFECT_LIGHT_RECOIL },
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_LIGHT_RECOIL,
+                .self = TRUE,
+            }),*/
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -13051,7 +13083,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        //.argument = { .recoilType = MOVE_EFFECT_LIGHT_RECOIL },
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_LIGHT_RECOIL,
+                .self = TRUE,
+            }),*/
         .makesContact = TRUE,
         .recoilMove = TRUE,
         .headbuttMove = TRUE,
@@ -14771,7 +14806,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_LIGHT_OF_RUIN] =
     {
-        .effect = EFFECT_HEAVY_RECOIL,
+        .effect = EFFECT_RECOIL,
         .power = 140,
         .type = TYPE_FAIRY,
         .accuracy = 90,
@@ -14780,7 +14815,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        //.argument = { .recoilType = MOVE_EFFECT_HEAVY_RECOIL },
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_HEAVY_RECOIL,
+                .self = TRUE,
+            }),*/
         .recoilMove = TRUE,
         .metronomeBanned = TRUE,
         //.battleAnimScript = gBattleAnimMove_LightOfRuin,
@@ -17206,7 +17244,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_STEEL_BEAM] =
     {
-        .effect = EFFECT_HEAVY_RECOIL,
+        .effect = EFFECT_RECOIL,
         .power = 140,
         .type = TYPE_STEEL,
         .accuracy = 95,
@@ -17217,7 +17255,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .recoilMove = TRUE,
         .metronomeBanned = TRUE,
-        //.argument = { .recoilType = MOVE_EFFECT_HEAVY_RECOIL },
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_HEAVY_RECOIL,
+                .self = TRUE,
+            }),*/
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -18094,7 +18135,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 75,
         #endif
-        .effect = EFECT_MED_RECOIL,
+        .effect = EFFECT_RECOIL,
         .type = TYPE_WATER,
         .accuracy = 100,
         .pp = 10,
@@ -18102,7 +18143,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        //.argument = { .recoilType = MOVE_EFFECT_MED_RECOIL },
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_MED_RECOIL,
+                .self = TRUE,
+            }),*/
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.battleAnimScript = gBattleAnimMove_WaveCrash,
@@ -18118,7 +18162,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 120,
         #endif
-        .effect = EFFECT_HEAVY_RECOIL,
+        .effect = EFFECT_RECOIL,
         .type = TYPE_GRASS,
         .accuracy = 95,
         .pp = 5,
@@ -18127,7 +18171,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .recoilMove = TRUE,
-        //.argument = { .recoilType = MOVE_EFFECT_HEAVY_RECOIL },
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_HEAVY_RECOIL,
+                .self = TRUE,
+            }),*/
         //.battleAnimScript = gBattleAnimMove_Chloroblast,
         //////.zMovePower = 190,
         //////.zMoveEffect = Z_EFFECT_NONE,
@@ -19019,6 +19066,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //so an effect that is weaker than unseen fist
     //which competely bypasses protect
     //this would run through it instead
+    //see how to setup since doesn't fully ignore protect
 
     [MOVE_MAKE_IT_RAIN] =
     {
