@@ -133,6 +133,7 @@
 
 //idk what's up with this but it breaks
 //with the packed attribute on it
+//needed preproc update for packed
 // gWrappedStringIds
 enum __attribute__((packed)) WrappedStringID
 {
