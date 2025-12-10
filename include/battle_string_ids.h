@@ -134,7 +134,7 @@
 //idk what's up with this but it breaks
 //with the packed attribute on it
 // gWrappedStringIds
-enum WrappedStringID
+enum __attribute__((packed)) WrappedStringID
 {
     B_MSG_WRAPPED_BIND,
     B_MSG_WRAPPED_WRAP,
