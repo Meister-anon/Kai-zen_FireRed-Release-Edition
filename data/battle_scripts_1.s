@@ -6234,6 +6234,9 @@ BattleScript_EffectHighestStatUpHit::
 	raiseAttackerhigheststat
 	goto BattleScript_EffectHit
 
+@potentially do like BattleScript_MoveEffectIonDeluge
+@where its just for printing sting  vsonic
+@can otherwise just access with a bs call
 BattleScript_EffectSubmission::
 	setmoveeffect MOVE_EFFECT_MEDIUM_RECOIL | MOVE_EFFECT_CERTAIN
 	call_if EFFECT_SUBMISSION
