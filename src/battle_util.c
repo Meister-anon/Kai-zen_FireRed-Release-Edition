@@ -3670,7 +3670,7 @@ u8 DoBattlerEndTurnEffects(void)
                 {
                     --gDisableStructs[battler].SwitchBinding;
                 }//change emulate perish song to ensure 3 full turns of effect
-            }
+            }//with not being forced to switch or cleared on faint setting mon think too strong make 2 turn
             ++gBattleStruct->turnEffectsTracker;    
             break;
             case ENDTURN_BIDE:

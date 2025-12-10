@@ -5772,7 +5772,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                     gBattleMons[gBattlerTarget].status2 |= STATUS2_SWITCH_LOCKED;
                     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MOLD_BREAKER)
                         gDisableStructs[gBattlerTarget].TrapSetViaMoldBreaker = TRUE;
-                    gDisableStructs[gBattlerTarget].SwitchBinding = 3;
+                    gDisableStructs[gBattlerTarget].SwitchBinding = 2; //rebalance effect
                      ++gBattlescriptCurrInstr;
                 }               
                 break;
