@@ -5812,8 +5812,8 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                 break;
             case MOVE_EFFECT_HEAVY_RECOIL:
             case MOVE_EFFECT_LIGHT_RECOIL:
-            case MOVE_EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
-            case MOVE_EFFECT_MEDIUM_RECOIL: // Double Edge / removed below to use upgraded recoil setup
+            //case MOVE_EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
+            case MOVE_EFFECT_MED_RECOIL: // Double Edge / removed below to use upgraded recoil setup
                 //gBattleMoveDamage = max(gHpDealt / 3,1);
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_MoveEffectRecoil;
@@ -14977,7 +14977,7 @@ static void atk80_manipulatedamage(void)
 
         //
         //gBattleScripting.moveEffect
-        switch (gBattleMoves[gCurrentMove].effect) //if I change this to use move effect would woork
+        switch (gBattleScripting.moveEffect) //if I change this to use move effect would woork
         //switch (gBattleScripting.moveEffect)
         {
             //this one may be too strong
@@ -14993,23 +14993,23 @@ static void atk80_manipulatedamage(void)
             //
             //at low levels on a mon w average hp
             //is effectively approx 1/5th damage seems good
-            case EFFECT_HEAVY_RECOIL:   //head smash etc.
-            //case MOVE_EFFECT_HEAVY_RECOIL:
+            //case EFFECT_HEAVY_RECOIL:   //head smash etc.
+            case MOVE_EFFECT_HEAVY_RECOIL:
                 gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleMoveDamage / 10,1));
                 gBattleMoveDamage *= 2;// max((gBattleMoveDamage * 8) / 3,1);//2 2/3  2.67
                 //gBattleMoveDamage /= 2;
             break;
-            case EFFECT_RECOIL:
-            //case MOVE_EFFECT_LIGHT_RECOIL:
+            //case EFFECT_RECOIL:
+            case MOVE_EFFECT_LIGHT_RECOIL:
                 gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleMoveDamage / 10,1));
                 gBattleMoveDamage += max(gBattleMoveDamage / 4,1);
                 //gBattleMoveDamage /= 4; //w raichu min dmg should be 3
             break;
-            case EFFECT_SUBMISSION:
-            case EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
-            case EFECT_MED_RECOIL:
+            //case EFFECT_SUBMISSION:
+            //case EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
+            //case EFECT_MED_RECOIL:
             //case MOVE_EFFECT_MEDIUM_RECOIL:
-            //case MOVE_EFFECT_MED_RECOIL_W_STATUS:
+            case MOVE_EFFECT_MED_RECOIL:
                 gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleMoveDamage / 10,1));
                 gBattleMoveDamage += max((gBattleMoveDamage * 2) / 3,1);
                 //gBattleMoveDamage /= 3; //double edge damag
@@ -15047,7 +15047,7 @@ static void atk80_manipulatedamage(void)
        /* if ((gBattleMons[gBattlerTarget].maxHP / 3) < gBattleMoveDamage)
             gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 3;*/  //removed doesn't make sense even if helpful, plus gen4 removed it anyway
 
-        break;  //only used for recoil miss, make define so can use name properly, oh I already did
+    break;  //only used for recoil miss, make define so can use name properly, oh I already did
     case RECOIL_MISS_DMG:
         if (gMoveResultFlags & MOVE_RESULT_NO_EFFECT) //miss
             gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1);    //dmg for immunity rolled into one command

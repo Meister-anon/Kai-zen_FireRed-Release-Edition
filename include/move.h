@@ -155,9 +155,9 @@ struct BattleMove
         u32 fixedDamage;
         u32 damagePercentage;
         u32 absorbPercentage;
-        u32 recoilType; //replace make recoilType will take move effect and do same thing my seutp does
-        u32 nonVolatileStatus;
-    } argument_;
+        u32 Fill; //replace make recoilType will take move effect and do same thing my seutp does
+        u32 nonVolatileStatus; //looking at plasma fists which can go use effect_hit then go to other move effect
+    } argument_; //think may not need recoilType at all
 
     // primary/secondary effects
     const struct AdditionalEffect *additionalEffects;
@@ -530,10 +530,6 @@ static inline u32 GetMoveAbsorbPercentage(u32 moveId)
     return gBattleMoves[moveId].argument.absorbPercentage;
 }
 
-static inline u32 GetMoveRecoil(u32 moveId)
-{
-    return gBattleMoves[SanitizeMoveId(moveId)].argument.recoilType;
-}
 
 static inline const struct AdditionalEffect *GetMoveAdditionalEffectById(u32 moveId, u32 effect)
 {
