@@ -14,6 +14,15 @@ enum AIPivot
     SHOULD_PIVOT,
 };
 
+static inline bool32 IsMoveUnusable(u32 moveIndex, u32 move, u32 moveLimitations)
+{
+    return move == MOVE_NONE
+        || move == MOVE_UNAVAILABLE
+        || moveLimitations & 1u << moveIndex;
+}
+
+typedef bool32 (*MoveFlag)(u32 move);
+
 bool32 AI_RandLessThan(u8 val);
 void RecordLastUsedMoveByTarget(void);
 bool32 IsBattlerAIControlled(u32 battlerId);
@@ -108,7 +117,6 @@ bool32 HasMoveWithTypeAndSplit(u32 battler, u8 type, u8 split);
 bool32 HasContactMove(u32 battler);
 bool32 HasMoveEffect(u32 battlerId, u16 moveEffect);
 bool32 HasMoveWithLowAccuracy(u8, u8, u8, bool32, u16, u16, u16, u16);
-bool32 TestMoveFlagsInMoveset(u8 battler, u32 flags);
 bool32 IsAromaVeilProtectedMove(u16 move);
 bool32 IsNonVolatileStatusMoveEffect(u16 moveEffect);
 bool32 IsStatLoweringMoveEffect(u16 moveEffect);
@@ -146,6 +154,8 @@ s32 GetStealthHazardDamageByTypesAndHP(u8 hazardType, u8 type1, u8 type2, u32 ma
 //check but don't think need this, redid effect, yeah need to redo
 bool8 IsMonFloatingSpecies(u16 species); //alt versions of battle_util functions using getmondata arguments specificaly for ai
 bool8 AI_Hazard_Grounded(struct Pokemon *mon);
+
+bool32 HasMoveWithFlag(u32 battler, MoveFlag getFlag);
 
 // status checks
 bool32 AI_CanBeBurned(u8 battler, u16 ability);

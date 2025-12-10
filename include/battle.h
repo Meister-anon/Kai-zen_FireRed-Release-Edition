@@ -91,7 +91,7 @@
 #define MOVE_TARGET_ALL_BATTLERS        (MOVE_TARGET_FOES_AND_ALLY | MOVE_TARGET_USER)  //use untl setup like emerald, taken from MOVE_ROTOTILLER
 //#define MOVE_TARGET_ALL_BATTLERS        ((1 << 8) | MOVE_TARGET_USER)  can use when setup correctly
 
-// For the second argument of GetMoveTarget, when no target override is needed
+// For the second argument of GetBattleMoveTarget, when no target override is needed
 #define NO_TARGET_OVERRIDE 0
 
 // Flag settings
@@ -976,7 +976,6 @@ extern struct BattleStruct *gBattleStruct;
 
 #define IS_MOVE_PHYSICAL(move)(GetBattleMoveSplit(move) == SPLIT_PHYSICAL)
 #define IS_MOVE_SPECIAL(move)(GetBattleMoveSplit(move) == SPLIT_SPECIAL)
-#define IS_MOVE_STATUS(move)(gBattleMoves[move].split == SPLIT_STATUS)
 #define BATTLER_MAX_HP(battlerId)(gBattleMons[battlerId].hp == gBattleMons[battlerId].maxHP)
 #define TARGET_TURN_DAMAGED ((gSpecialStatuses[gBattlerTarget].physicalDmg != 0 || gSpecialStatuses[gBattlerTarget].specialDmg != 0))
 //#define IS_BATTLER_OF_TYPE(battlerId, type)((gBattleMons[battlerId].type1 == type || gBattleMons[battlerId].type2 == type || gBattleMons[battlerId].type3 == type))
@@ -1433,6 +1432,16 @@ static inline u32 GetBattlerAtPosition(u32 position)
 static inline u32 GetMoveBaseType(u32 move)
 {
     return gBattleMoves[move].type;
+}
+
+static inline bool32 IsBattlerAtMaxHp(u32 battler)
+{
+    return gBattleMons[battler].hp == gBattleMons[battler].maxHP;
+}
+
+static inline bool32 IsBattlerAboveHalfHP(u32 battler)
+{
+    return gBattleMons[battler].hp > (gBattleMons[battler].maxHP / 2);
 }
 
 //not fully sure if want to use movepower or base move power

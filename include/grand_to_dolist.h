@@ -7116,7 +7116,7 @@ goto WEATHER_CONFIG_STUFFF //weather logic
     it makes them attack themselves with their moves
     instead of picking a random one *facepalm
 
-    may have found bind issue  bind uses GetMoveTarget
+    may have found bind issue  bind uses GetBattleMoveTarget
     and I change that around when I was doing my logic for
     absorb abilities, so it may be gettign caught in that?
     - yeah issue was getmovetarget idk why I did it way I did,

@@ -131,8 +131,10 @@
 #define B_MSG_SET_SWAMP             10
 #define B_MSG_STARTING_STATUS_COUNT 11
 
+//idk what's up with this but it breaks
+//with the packed attribute on it
 // gWrappedStringIds
-enum __attribute__((packed)) WrappedStringID
+enum WrappedStringID
 {
     B_MSG_WRAPPED_BIND,
     B_MSG_WRAPPED_WRAP,
@@ -185,7 +187,7 @@ enum __attribute__((packed)) WrappedStringID
 #define B_MSG_TURN1_METEOR_BEAM    12
 #define B_MSG_TURN1_COLD_FRONT     13
 
-#define NUM_TRAPPING_MOVES 10
+//#define NUM_TRAPPING_MOVES 10
 
 // todo: make some of those names less vague: attacker/target vs pkmn, etc.
 #define STRINGID_TRAINER1LOSETEXT 12

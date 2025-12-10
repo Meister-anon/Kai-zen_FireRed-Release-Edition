@@ -4603,7 +4603,7 @@ void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCate
     //between attacker and target its not something on the mon itself
     //so it wouldn't block me punching myself in the face
     //facepalm removing confusion check from here makes it do less dmg which is the oposite ofwhat I wanted
-    if (IS_CRIT || GetBattlerAbility(battlerAtk) == ABILITY_INFILTRATOR || (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
+    if (IS_CRIT || GetBattlerAbility(battlerAtk) == ABILITY_INFILTRATOR || (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
     || gProtectStructs[battlerAtk].confusionSelfDmg
     || !IsBlackFogNotOnField())
         return; //think should be fine would just mean do nothing to damage
@@ -5138,7 +5138,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         case EFFECT_PAYBACK: //moves after target and target not just switched in does that mean it doesn't work on first turn of battle? yeah think it does will add on to just in case
         if (GetBattlerTurnOrderNum(battlerIdAtk) > GetBattlerTurnOrderNum(battlerIdDef)
             //&& gLastMoves[battlerIdDef] != MOVE_NONE
-            //&& !IS_MOVE_STATUS(gLastMoves[battlerIdDef])
+            //&& !IsBattleMoveStatus(gLastMoves[battlerIdDef])
             &&  gDisableStructs[battlerIdDef].isFirstTurn != 2) //this is fine becuase turnvaluescleanup decrements it before first turn of battle, so its only 2 at switch in
             gBattleMovePower *= 2;
         break;
@@ -5487,34 +5487,37 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         break;
     case ABILITY_RECKLESS:
-        if (gBattleMoves[move].flags & FLAG_RECKLESS_BOOST)
+        if (IsRecoilMove(move))
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_IRON_FIST:
-        if (gBattleMoves[move].flags & FLAG_IRON_FIST_BOOST)
+        if (IsPunchingMove(move))
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_LETHAL_LEGS:
-        if (gBattleMoves[move].flags & FLAG_LETHAL_LEGS_BOOST)
+        if (IsKickingMove(move))
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_PIERCING_HORN:
     case ABILITY_ROCK_HEAD:
-        if (gBattleMoves[move].flags & FLAG_HEADBUTT_MOVE)
+        if (IsHeadbuttMove(move))
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_SHEER_FORCE:
-        if (gBattleMoves[move].flags & FLAG_SHEER_FORCE_BOOST)
+        //if (gBattleMoves[move].flags & FLAG_SHEER_FORCE_BOOST)
+        //stand in for additional effect check
+        if (GetMoveEffect(move) != EFFECT_HIT
+        && GetMovePower(move) > 1)
             gBattleMovePower = (gBattleMovePower * 130 / 100);
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_TROJAN_SWORD:
     case ABILITY_SHARPNESS:
-        if (gBattleMoves[move].flags & FLAG_SHARPNESS_AFFECTED)
+        if (IsSlicingMove(move))
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         break;
     case ABILITY_SWIFT_JUSTICE: //boost damage if moving first, curious if works right for multi-target moves
@@ -5576,7 +5579,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_STRONG_JAW:
-        if (gBattleMoves[move].flags & FLAG_STRONG_JAW_BOOST)
+        if (IsBitingMove(move))
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         //MulModifier(&modifier, UQ_4_12(1.5));
         break;
@@ -5588,7 +5591,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         break;
     case ABILITY_MEGA_LAUNCHER:
-        if (gBattleMoves[move].flags & FLAG_MEGA_LAUNCHER_BOOST)
+        if (IsPulseMove(move))
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         //MulModifier(&modifier, UQ_4_12(1.5));
         break;
@@ -5645,19 +5648,19 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             //MulModifier(&finalModifier, UQ_4_12(1.25));
         break;
     case ABILITY_PUNK_ROCK:
-        if (gBattleMoves[move].flags & FLAG_SOUND)
+        if (IsSoundMove(move))
             gBattleMovePower = (gBattleMovePower * 130 / 100);
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_CACOPHONY:
-        if (gBattleMoves[move].flags & FLAG_SOUND)
+        if (IsSoundMove(move))
         {
             gBattleMovePower = (gBattleMovePower * 120 / 100);
 
         }//20% boost w normal type joat would give normal type effective stab w sound moves
         break;//and only(mostly) normal mon get cacophony ex. whismur loudred etc.
     case ABILITY_SONAR:
-        if (gBattleMoves[move].flags & FLAG_SOUND)
+        if (IsSoundMove(move))
         {
             gBattleMovePower = (gBattleMovePower * 150 / 100);
             //gBattleMoveDamage = gBattleMoveDamage * 15;
@@ -5816,7 +5819,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             //gBattleMoveDamage = 0;
         break;
     case ABILITY_GALEFORCE:
-        if (gBattleMoves[move].flags & FLAG_WIND_MOVE)
+        if (IsWindMove(move))
             //gBattleMoveDamage = 0;*/
     case ABILITY_DRY_SKIN:
         if (moveType == TYPE_FIRE)
@@ -5911,7 +5914,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             OffensiveModifer(50);
         break;
     case ABILITY_PUNK_ROCK:
-        if (gBattleMoves[move].flags & FLAG_SOUND)
+        if (IsSoundMove(move))
             OffensiveModifer(50);
         break;
     case ABILITY_WATER_COMPACTION:
@@ -6173,11 +6176,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
          //how does this work, do I need to move it, or does it auto boost all damage?
                                         //it boosts all because its not in physical or special formula 
 
-    if (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERGROUND && gStatuses3[battlerIdDef] & STATUS3_UNDERGROUND)
+    if (MoveDamagesUnderground(move) && gStatuses3[battlerIdDef] & STATUS3_UNDERGROUND)
         OffensiveModifer(200);
-    if (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERWATER && gStatuses3[battlerIdDef] & STATUS3_UNDERWATER)
+    if (MoveDamagesUnderWater(move) && gStatuses3[battlerIdDef] & STATUS3_UNDERWATER)
         OffensiveModifer(200);
-    if (gBattleMoves[move].flags & FLAG_DMG_2X_IN_AIR && gStatuses3[battlerIdDef] & STATUS3_ON_AIR)
+    if (MoveDamagesAirborneDoubleDamage(move) && gStatuses3[battlerIdDef] & STATUS3_ON_AIR)
         OffensiveModifer(200);
     
     //to make sure take in all effects realize need to put at end 
@@ -6380,7 +6383,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         /*if ((sideStatus & SIDE_STATUS_REFLECT) && !IS_CRIT
             && abilityAtk != ABILITY_INFILTRATOR
             && !gProtectStructs[battlerIdAtk].confusionSelfDmg
-            && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
+            && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
             && IsBlackFogNotOnField())
         {
             //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
@@ -6564,7 +6567,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         /*    if ((sideStatus & SIDE_STATUS_LIGHTSCREEN) && !IS_CRIT
             && abilityAtk != ABILITY_INFILTRATOR
-            && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
+            && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
             && IsBlackFogNotOnField())
         {
             //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)

@@ -1353,7 +1353,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_ASSAULTVESTDOESNTALLOW]        = sText_AssaultVestDoesntAllow,
     [STRINGID_GRAVITYPREVENTSUSAGE]          = sText_GravityPreventsUsage,
     [STRINGID_HEALBLOCKPREVENTSUSAGE]        = sText_HealBlockPreventsUsage,
-    [STRINGID_NOTDONEYET]                    = sText_NotDoneYet,
+    [STRINGID_NOTDONEYET]                    = COMPOUND_STRING("Not Done Yet"),
     [STRINGID_STICKYWEBUSED]                 = sText_StickyWebUsed,
     [STRINGID_QUASHSUCCESS]                  = sText_QuashSuccess,
     [STRINGID_PKMNBLEWAWAYTOXICSPIKES]       = sText_PkmnBlewAwayToxicSpikes,
@@ -1808,7 +1808,7 @@ const u16 gFirstTurnOfTwoStringIds[] = {
 //don't forget trap effect exclusion for floating enemies, not including magmastorm
 //use grounded function rather than just floating species array, so it'll work when grounded
 //ok this is linked to gTrappingMoves
-const u16 gWrappedStringIds[] = {
+const u16 gWrappedStringIds[NUM_TRAPPING_MOVES] = {
 
     [B_MSG_WRAPPED_BIND]        = STRINGID_PKMNSQUEEZEDBYBIND,     // MOVE_BIND
     [B_MSG_WRAPPED_WRAP]        = STRINGID_PKMNWRAPPEDBY,          // MOVE_WRAP

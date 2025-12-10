@@ -43,7 +43,7 @@
 #include "constants/pokemon.h"
 #include "constants/maps.h"
 
-#define DEFENDER_IS_PROTECTED ((gProtectStructs[gBattlerTarget].protected) && (gBattleMoves[gCurrentMove].flags & FLAG_PROTECT_AFFECTED))
+#define DEFENDER_IS_PROTECTED ((gProtectStructs[gBattlerTarget].protected) && !MoveIgnoresProtect(gCurrentMove))
 
 // Helper for accessing command arguments and advancing gBattlescriptCurrInstr.
 //
@@ -716,7 +716,7 @@ s32 AICalcCritChance(u8 battlerAtk, u8 battlerDef, u32 move, bool32 recordAbilit
         critChance = -1;    //never crit
     }
     else if (gStatuses3[battlerAtk] & STATUS3_LASER_FOCUS
-        || (gBattleMoves[gCurrentMove].flags & FLAG_ALWAYS_CRIT)
+        || (MoveAlwaysCrits(gCurrentMove))
         || (abilityAtk == ABILITY_MERCILESS && gBattleMons[battlerDef].status1 & STATUS1_PSN_ANY))
          {
         critChance = -2;    //always crit
@@ -724,7 +724,7 @@ s32 AICalcCritChance(u8 battlerAtk, u8 battlerDef, u32 move, bool32 recordAbilit
     else
     {
         critChance = 2 * ((gBattleMons[gBattlerAttacker].status2 & STATUS2_FOCUS_ENERGY) != 0)
-            + (gBattleMoves[gCurrentMove].flags & FLAG_HIGH_CRIT)
+            + (IsEnhancedCritMove(gCurrentMove))
             + (holdEffectAtk == HOLD_EFFECT_SCOPE_LENS)
             + 2 * (holdEffectAtk == HOLD_EFFECT_LUCKY_PUNCH && (gBattleMons[gBattlerAttacker].species == SPECIES_HAPPINY || gBattleMons[gBattlerAttacker].species == SPECIES_CHANSEY || gBattleMons[gBattlerAttacker].species == SPECIES_BLISSEY))
             + 2 * BENEFITS_FROM_LEEK(battlerAtk, holdEffectAtk)
@@ -1276,7 +1276,7 @@ static bool32 TryAegiFormChange(void)
         return FALSE;
     case SPECIES_AEGISLASH: // Shield -> Blade  //myust be damaging move, so this should be if status or couter 
         //if (gBattleMoves[gCurrentMove].power == 0)
-        if (IS_MOVE_STATUS(gCurrentMove) || IsMoveCounterAttack(gCurrentMove))
+        if (IsBattleMoveStatus(gCurrentMove) || IsMoveCounterAttack(gCurrentMove))
             return FALSE;
         gBattleMons[gBattlerAttacker].species = SPECIES_AEGISLASH_BLADE;
         break;
@@ -1417,7 +1417,7 @@ static void atk00_attackcanceler(void) //vsonic
     } 
 
     if (GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY
-    && gBattleMoves[gCurrentMove].flags & FLAG_SOUND)
+    && IsSoundMove(gCurrentMove))
         gSpecialStatuses[gBattlerAttacker].Cacophonyboosted = TRUE;
 
     if (gBattleResources->flags->flags[gBattlerAttacker] & RESOURCE_FLAG_EMERGENCY_EXIT
@@ -1484,7 +1484,7 @@ static void atk00_attackcanceler(void) //vsonic
             gCalledMove = gBattleMons[gBattlerAttacker].moves[gCurrMovePos];
             SetAtkCancellerForCalledMove();
             gBattlescriptCurrInstr = BattleScript_IgnoresAndUsesRandomMove;
-            gBattlerTarget = GetMoveTarget(gCalledMove, NO_TARGET_OVERRIDE);
+            gBattlerTarget = GetBattleMoveTarget(gCalledMove, NO_TARGET_OVERRIDE);
             gHitMarker |= HITMARKER_DISOBEDIENT_MOVE;
             gHitMarker |= HITMARKER_OBEYS;
             return;
@@ -1495,9 +1495,9 @@ static void atk00_attackcanceler(void) //vsonic
     
 
     if (gProtectStructs[gBattlerTarget].bounceMove  //target has magic coat effect/ already setup and should work as sidestatus, could replace with timer check but don't need to
-        && gBattleMoves[gCurrentMove].flags & FLAG_MAGIC_COAT_AFFECTED
+        && MoveCanBeBouncedBack(gCurrentMove)
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_INFILTRATOR   //since this is a screen-like, needed add infiltrator bypass
-        && !(GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY && gBattleMoves[gCurrentMove].flags & FLAG_SOUND)
+        && !(GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY && IsSoundMove(gCurrentMove))
         && !gProtectStructs[gBattlerAttacker].usesBouncedMove) //move attacker is using is not one already bounced
     {
         PressurePPLose(gBattlerAttacker, gBattlerTarget, MOVE_MAGIC_COAT);
@@ -1521,7 +1521,7 @@ static void atk00_attackcanceler(void) //vsonic
     }
     //need adjust this for EE doubles logic vsonic
     else if (GetBattlerAbility(gBattlerTarget) == ABILITY_MAGIC_BOUNCE
-        && gBattleMoves[gCurrentMove].flags & FLAG_MAGIC_COAT_AFFECTED
+        && MoveCanBeBouncedBack(gCurrentMove)
         && !gProtectStructs[gBattlerAttacker].usesBouncedMove)  //still working on proper setup for new magic coat need double check if ported magic bounce stuff for statbuffchange, as its similar effect
     {
         RecordAbilityBattle(gBattlerTarget, ABILITY_MAGIC_BOUNCE);
@@ -1543,7 +1543,7 @@ static void atk00_attackcanceler(void) //vsonic
     && !gDisableStructs[gBattlerTarget].AnticipationForewornIsDone //works perfectly
     && CanActivateForewarnAnticipation(gBattlerTarget))
     {
-        if (!IS_MOVE_STATUS(gCurrentMove))
+        if (!IsBattleMoveStatus(gCurrentMove))
         {
             
             gMoveResultFlags |= MOVE_RESULT_MISSED;     //that way can make sure it lasts entire battle, not cleard on switch or faingt
@@ -1558,7 +1558,7 @@ static void atk00_attackcanceler(void) //vsonic
     && !gDisableStructs[gBattlerTarget].AnticipationForewornIsDone
     && CanActivateForewarnAnticipation(gBattlerTarget))
     {
-        if (!IS_MOVE_STATUS(gCurrentMove))
+        if (!IsBattleMoveStatus(gCurrentMove))
         {
 
             gMoveResultFlags |= MOVE_RESULT_MISSED;
@@ -1574,7 +1574,7 @@ static void atk00_attackcanceler(void) //vsonic
 
     for (i = 0; i < gBattlersCount; ++i)
     {
-        if ((gProtectStructs[gBattlerByTurnOrder[i]].stealMove) && gBattleMoves[gCurrentMove].flags & FLAG_SNATCH_AFFECTED)
+        if ((gProtectStructs[gBattlerByTurnOrder[i]].stealMove) && MoveCanBeSnatched(gCurrentMove))
         {
             PressurePPLose(gBattlerAttacker, gBattlerByTurnOrder[i], MOVE_SNATCH);
             gProtectStructs[gBattlerByTurnOrder[i]].stealMove = FALSE;
@@ -1607,7 +1607,7 @@ static void atk00_attackcanceler(void) //vsonic
     and it plays the heal or stat buff visual & sound instead the new function should be called & end in a return or a end, 
     vsonic IMPORTANT
     */
-    if (gProtectStructs[gBattlerTarget].shieldBashed && (gBattleMoves[gCurrentMove].flags & FLAG_PROTECT_AFFECTED))
+    if (gProtectStructs[gBattlerTarget].shieldBashed && !MoveIgnoresProtect(gCurrentMove))
     {
         if (IsMoveMakingContact(gCurrentMove, gBattlerAttacker))
         {
@@ -1708,7 +1708,7 @@ static bool8 IsBattlerProtectedFromAttack(u8 battlerAtk, u8 battlerDef, u16 move
 { //setprotectlike does the protection, then hre I can undo it when this gets checked in attack canceleror
     //make sure add check for if move is protect affected to all protectstructs listed below
 
-    if (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
+    if (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
         return FALSE;
     else if (IsMoveMakingContact(move, battlerAtk) && GetBattlerAbility(battlerAtk) == ABILITY_UNSEEN_FIST
     && gBattleMoves[move].power <= 75)
@@ -1717,7 +1717,7 @@ static bool8 IsBattlerProtectedFromAttack(u8 battlerAtk, u8 battlerDef, u16 move
         return FALSE;
     else if (move == MOVE_BIDE)
         return FALSE;
-    else if ((gProtectStructs[battlerDef].protected) && (gBattleMoves[gCurrentMove].flags & FLAG_PROTECT_AFFECTED))
+    else if ((gProtectStructs[battlerDef].protected) && !MoveIgnoresProtect(move))
         return TRUE;
     else if (gBattleMoves[move].effect == MOVE_EFFECT_FEINT)
         return FALSE;
@@ -1726,20 +1726,20 @@ static bool8 IsBattlerProtectedFromAttack(u8 battlerAtk, u8 battlerDef, u16 move
         return TRUE;
     else if (gProtectStructs[battlerDef].banefulBunkered)
         return TRUE;
-    else if ((gProtectStructs[battlerDef].obstructed || gProtectStructs[battlerDef].silkTrapped) && !IS_MOVE_STATUS(move))
+    else if ((gProtectStructs[battlerDef].obstructed || gProtectStructs[battlerDef].silkTrapped) && !IsBattleMoveStatus(move))
         return TRUE;
     else if (gProtectStructs[battlerDef].spikyShielded)
         return TRUE;
     else if (gProtectStructs[battlerDef].kingsShielded && gBattleMoves[move].power != 0)
         return TRUE;
     else if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_QUICK_GUARD
-        && GetChosenMovePriority(gBattlerAttacker) > 0)
+        && GetChosenMovePriority(battlerAtk, GetBattlerAbility(battlerAtk)) > 0)
         return TRUE;
     else if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_CRAFTY_SHIELD //user side moves shouldnt affect i.e aromatherapy also perish song bypasses vsonic
-        && IS_MOVE_STATUS(move))
+        && IsBattleMoveStatus(move))
         return TRUE;
     else if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_MAT_BLOCK
-        && !IS_MOVE_STATUS(move))
+        && !IsBattleMoveStatus(move))
         return TRUE;
     
     else
@@ -1876,9 +1876,9 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
     //vsonic important  if change later check paired value in MOVE_END_GROUND_TARGET
     if (gStatuses3[gBattlerTarget] & STATUS3_SEMI_INVULNERABLE)//i beleve this is the replacement for the hitmarker values for semi invul, just need to add flags to omve data 
     {
-        if ((gStatuses3[gBattlerTarget] & STATUS3_ON_AIR && CanMoveDamageAirborneTargets(move) && (!(gStatuses3[gBattlerTarget] & STATUS3_SKY_DROPPED)))
-        || (gStatuses3[gBattlerTarget] & STATUS3_UNDERGROUND && (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERGROUND))
-        || (gStatuses3[gBattlerTarget] & STATUS3_UNDERWATER && (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERWATER)))
+        if ((gStatuses3[gBattlerTarget] & STATUS3_ON_AIR && MoveCanDamageAirborne(move) && (!(gStatuses3[gBattlerTarget] & STATUS3_SKY_DROPPED)))
+        || (gStatuses3[gBattlerTarget] & STATUS3_UNDERGROUND && MoveDamagesUnderground(move))
+        || (gStatuses3[gBattlerTarget] & STATUS3_UNDERWATER && MoveDamagesUnderWater(move)))
         {
             gBattleMons[gBattlerTarget].status2 |= STATUS2_TWOTURN_INTERRUPT; //seems to work perfectly
             return FALSE;
@@ -1906,7 +1906,7 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
         || ((IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ACID_RAIN_ANY)) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
         || ((IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY)) && move == MOVE_BLIZZARD)
         || (gBattleMoves[move].effect == EFFECT_ALWAYS_HIT || gBattleMoves[move].effect == EFFECT_VITAL_THROW)
-        || ((gBattleMons[gBattlerTarget].statStages[STAT_EVASION] > DEFAULT_STAT_STAGE) && (gBattleMoves[move].evasiveBreak)))
+        || ((gBattleMons[gBattlerTarget].statStages[STAT_EVASION] > DEFAULT_STAT_STAGE) && MoveSureHitEvasionBoostedTargets(move)))
     {
         JumpIfMoveFailed(7, move);
         return TRUE;
@@ -1914,7 +1914,7 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
 
     if (gBattleMoves[move].accuracy == 0)   //MOVED OUT HERE for wonderskin buff? yeah affect isn't in base wonderskin   
     {
-        if (IS_MOVE_STATUS(move) 
+        if (IsBattleMoveStatus(move) 
         && (GetBattlerAbility(gBattlerTarget) == ABILITY_WONDER_SKIN
         || GetBattlerAbility(gBattlerTarget) == ABILITY_IMMUTABLE_WIND))
             return FALSE;
@@ -2261,7 +2261,7 @@ static void atk04_critcalc(void)    //working/works
     gPotentialItemEffectBattler = gBattlerAttacker; //realized these don't increase total crit chance but are all the things that raise crit odds,
     //+'s raise crit ratio by 1 stage, 2x raises two stages etc.
     critChance = 2 * ((gBattleMons[gBattlerAttacker].status2 & STATUS2_FOCUS_ENERGY) != 0)
-        +((gBattleMoves[gCurrentMove].flags & FLAG_HIGH_CRIT) != 0)
+        +(IsEnhancedCritMove(gCurrentMove))
         + (holdEffect == HOLD_EFFECT_SCOPE_LENS)   
         + 2 * (holdEffect == HOLD_EFFECT_LUCKY_PUNCH && gBattleMons[gBattlerAttacker].species == SPECIES_CHANSEY)
         + 2 * BENEFITS_FROM_LEEK(gPotentialItemEffectBattler, holdEffect)
@@ -2282,7 +2282,7 @@ static void atk04_critcalc(void)    //working/works
      && (Random() % gCriticalHitChance[critChance] == 0) //sets crit odds by array and crit ratio, random % selects crit odds based on stat stage i.e if 0, uses 1st value in array i.e random 16 == 0 for 1 in 16 crit chance
      && (!(gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE) || BtlCtrl_OakOldMan_TestState2Flag(1))
      && !(gBattleTypeFlags & BATTLE_TYPE_POKEDUDE)
-     && !(gBattleMoves[gCurrentMove].flags & FLAG_ALWAYS_CRIT)
+     && !(MoveAlwaysCrits(gCurrentMove))
      && !(gStatuses3[gBattlerAttacker] & STATUS3_LASER_FOCUS)
      && !((GetBattlerAbility(gBattlerAttacker) == ABILITY_MERCILESS) && gBattleMons[gBattlerTarget].status1 & STATUS1_PSN_ANY) //unsure if this is right
      && !(gSideStatuses[gBattlerTarget] & SIDE_STATUS_LUCKY_CHANT))
@@ -2302,7 +2302,7 @@ static void atk04_critcalc(void)    //working/works
         && !(gBattleTypeFlags & BATTLE_TYPE_OLD_MAN_TUTORIAL)
         && (!(gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE) || BtlCtrl_OakOldMan_TestState2Flag(1))
         && !(gBattleTypeFlags & BATTLE_TYPE_POKEDUDE)
-        && ((gBattleMoves[gCurrentMove].flags & FLAG_ALWAYS_CRIT)
+        && ((MoveAlwaysCrits(gCurrentMove))
             || ((GetBattlerAbility(gBattlerAttacker) == ABILITY_MERCILESS) && gBattleMons[gBattlerTarget].status1 & STATUS1_PSN_ANY)
             || gStatuses3[gBattlerAttacker] & STATUS3_LASER_FOCUS)
          && !(gSideStatuses[gBattlerTarget] & SIDE_STATUS_LUCKY_CHANT)) //may run as regular if, but should set crit effect without regarding chance
@@ -3358,7 +3358,7 @@ static inline void ApplyRandomDmgMultiplier(void) //vsonic test works
     if ((randPercent == 100 || IS_CRIT) 
     && GetBattleMoveSplit(gCurrentMove) != SPLIT_STATUS
     && gBattleMoves[gCurrentMove].effect != EFFECT_MULTI_HIT
-    && !(gBattleMoves[gCurrentMove].flags & FLAG_ALWAYS_CRIT) //hope this is still right vsonic
+    && !(MoveAlwaysCrits(gCurrentMove)) //hope this is still right vsonic
     && gBattleMoves[gCurrentMove].effect != EFFECT_TRIPLE_KICK
     && gBattleMoves[gCurrentMove].effect != EFFECT_BEAT_UP
     && gBattleMoves[gCurrentMove].effect != EFFECT_RECOIL_IF_MISS
@@ -6593,7 +6593,7 @@ static void atk1E_jumpbasedonability(void)
             }
             else if (ability == ABILITY_CACOPHONY)
             {
-                if (gBattleMoves[gCurrentMove].flags & FLAG_SOUND)
+                if (IsSoundMove(gCurrentMove))
                     hasAbility = TRUE;
                 else
                     hasAbility = FALSE;
@@ -8539,7 +8539,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     ; //just in case
                 }
 
-                else if ((CanMoveDamageAirborneTargets(gCurrentMove) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
+                else if ((MoveCanDamageAirborne(gCurrentMove) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
                 && (!(gStatuses3[gBattlerTarget] & STATUS3_SKY_DROPPED)))   //using fly/sky attack, airborne specifically not sky drop, too complicated to work with
                 {
                     CancelMultiTurnMoves(gBattlerTarget); //just for fly /skydrop
@@ -8563,7 +8563,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 
 
                 //believe this for floating mon
-                else if (CanMoveDamageAirborneTargets(gCurrentMove)) //redid thnik tryign bitwise stuff was why this at times failed to set grounding
+                else if (MoveCanDamageAirborne(gCurrentMove)) //redid thnik tryign bitwise stuff was why this at times failed to set grounding
                 {
                     gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
                     gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR);
@@ -8589,8 +8589,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             && TARGET_TURN_DAMAGED)// !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)) //should make sure doesn't trigger till end of multihit
             {           //result no effect didn't work so replace w target must take dmg
                 //double checked and EE uses them together for some reason
-                if (((gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_UNDERGROUND) && gStatuses3[gBattlerTarget] & STATUS3_UNDERGROUND)
-                || ((gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_UNDERWATER) && gStatuses3[gBattlerTarget] & STATUS3_UNDERWATER))
+                if ((MoveDamagesUnderground(gCurrentMove) && gStatuses3[gBattlerTarget] & STATUS3_UNDERGROUND)
+                || (MoveDamagesUnderWater(gCurrentMove) && gStatuses3[gBattlerTarget] & STATUS3_UNDERWATER))
                 {
                     CancelMultiTurnMoves(gBattlerTarget);
                     effect = TRUE;
@@ -8725,7 +8725,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
         case MOVE_END_MIRROR_MOVE: // mirror move
             if (!(gAbsentBattlerFlags & (1u << gBattlerAttacker))
              && !(gBattleStruct->absentBattlerFlags & (1u << gBattlerAttacker))
-             && gBattleMoves[originallyUsedMove].flags & FLAG_MIRROR_MOVE_AFFECTED
+             && !IsMoveMirrorMoveBanned(originallyUsedMove)
              && gHitMarker & HITMARKER_OBEYS
              && gBattlerAttacker != gBattlerTarget
              && !(gHitMarker & HITMARKER_FAINTED(gBattlerTarget))
@@ -8983,7 +8983,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             ++gBattleScripting.atk49_state;
             break;
         case MOVE_END_DANCER: // Special case because it's so annoying     //think this stays here, in emerald its actually in util.c & here??  very strange effect
-            if (gBattleMoves[gCurrentMove].flags & FLAG_DANCE)
+            if (IsDanceMove(gCurrentMove))
             {
                 u8 battler, nextDancer = 0;
 
@@ -9013,7 +9013,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             ++gBattleScripting.atk49_state;
             break;
         case MOVE_END_FETCH_BALL: // Special case because it's so annoying     //think this stays here, in emerald its actually in util.c & here??  very strange effect
-            if (gBattleMoves[gCurrentMove].flags & FLAG_BALLISTIC)
+            if (IsBallisticMove(gCurrentMove))
             {
                 u8 battler, nextBallCatcher = 0;
 
@@ -10200,11 +10200,11 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         // Check Wonder Skin.
         if ((defAbility == ABILITY_WONDER_SKIN
         || defAbility == ABILITY_IMMUTABLE_WIND) 
-        && IS_MOVE_STATUS(move) && moveAcc != 50)   //changed so can include 0 accuracy status moves.
+        && IsBattleMoveStatus(move) && moveAcc != 50)   //changed so can include 0 accuracy status moves.
             moveAcc = 50;       //as many status moves were changed later gen and would be excluded from wonder skin    
 
         if (atkAbility == ABILITY_SPACE_CONTROL
-        && !IS_MOVE_STATUS(move)
+        && !IsBattleMoveStatus(move)
         && moveAcc != 0)
             moveAcc = 100;
         
@@ -10258,8 +10258,8 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && atkAbility != ABILITY_KEEN_EYE
         && atkAbility != ABILITY_MINDS_EYE
         && atkAbility != ABILITY_APOTHEOSCENT
-        && !CanMoveDamageAirborneTargets(gCurrentMove)
-        && !gBattleMoves[gCurrentMove].evasiveBreak
+        && !MoveCanDamageAirborne(gCurrentMove)
+        && !MoveSureHitEvasionBoostedTargets(gCurrentMove)
         )
             calc = (calc * 88) / 100;  //was 93, dropped to 88 - think i sfine where is at most drop to 87 want keep above sand veil likes
         //think may lower this a bit more?  
@@ -10282,7 +10282,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //added sixth sense as an ability not meant to relyon eyes
         //sand stream is not here beacuse it explicitly does not give weather immunity
         if (IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM_ANY) 
-        && !(gBattleMoves[gCurrentMove].flags & FLAG_EVASIVE_BREAK)
+        && !(MoveSureHitEvasionBoostedTargets(gCurrentMove))
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_ROCK, FALSE)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_STEEL, FALSE)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_GROUND, FALSE)
@@ -10299,7 +10299,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //trap effect,
         if (((gBattleMons[battlerAtk].status4 & STATUS4_SAND_TOMB)
         && IsBlackFogNotOnField())
-        && !(gBattleMoves[gCurrentMove].evasiveBreak)
+        && !(MoveSureHitEvasionBoostedTargets(gCurrentMove))
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_ROCK, FALSE)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_STEEL, FALSE)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_GROUND, FALSE)
@@ -10324,10 +10324,10 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //to make not too oppressive think will lower effect
         //since it stacks with weather drop (requires weather)
         if (defAbility == ABILITY_SAND_VEIL && IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM_ANY)
-        && !(gBattleMoves[gCurrentMove].evasiveBreak))
+        && !(MoveSureHitEvasionBoostedTargets(gCurrentMove)))
             calc = (calc * 89) / 100; // 1.2 sand veil loss
         if (defAbility == ABILITY_SNOW_CLOAK && IsBattlerWeatherAffected(battlerAtk, WEATHER_HAIL_ANY)
-        && !(gBattleMoves[gCurrentMove].evasiveBreak))
+        && !(MoveSureHitEvasionBoostedTargets(gCurrentMove)))
             calc = (calc * 80) / 100; //
         if (atkAbility == ABILITY_HUSTLE && GetBattleMoveDamageCategory(battlerAtk,move) == SPLIT_PHYSICAL) //can put status based evasion/accuracy effects here
             calc = (calc * 95) / 100; // 20% hustle loss   removed low accuracy effcts,  so changed to 5% accuracy drop
@@ -11512,7 +11512,7 @@ static void atk69_adjustsetdamage(void)
 
     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SONAR)
     {
-        if (gBattleMoves[gCurrentMove].flags & FLAG_SOUND)  //specifically for boosting sonic screech fixed dmg
+        if (IsSoundMove(gCurrentMove))  //specifically for boosting sonic screech fixed dmg
         {
             gBattleMoveDamage = gBattleMoveDamage * 15;
             gBattleMoveDamage = gBattleMoveDamage / 10;
@@ -12495,7 +12495,7 @@ static void atk76_various(void) //will need to add all these emerald various com
     case VARIOUS_GET_MOVE_TARGET:
     {
         VARIOUS_ARGS();
-        gBattlerTarget = GetMoveTarget(gCurrentMove, 0);
+        gBattlerTarget = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
         break;
     }
     case VARIOUS_GET_BATTLER_FAINTED:
@@ -12911,7 +12911,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         if (GetBattlerTurnOrderNum(gBattlerAttacker) > GetBattlerTurnOrderNum(gBattlerTarget))
             gBattlescriptCurrInstr = cmd->failInstr;
         //else if (gBattleMoves[move].power == 0)
-        else if (IS_MOVE_STATUS(move) && move != MOVE_ME_FIRST)
+        else if (IsBattleMoveStatus(move) && move != MOVE_ME_FIRST)
             gBattlescriptCurrInstr = cmd->failInstr;
         else
             gBattlescriptCurrInstr = cmd->nextInstr;
@@ -13026,7 +13026,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         if (GetBattlerTurnOrderNum(gBattlerAttacker) > GetBattlerTurnOrderNum(gBattlerTarget))
             gBattlescriptCurrInstr = cmd->failInstr;
         //else if (gBattleMoves[gBattleMons[gBattlerTarget].moves[gBattleStruct->chosenMovePositions[gBattlerTarget]]].power == 0)
-        else if (IS_MOVE_STATUS(move))
+        else if (IsBattleMoveStatus(move))
             gBattlescriptCurrInstr = cmd->failInstr;
         else
         {
@@ -13048,7 +13048,7 @@ static void atk76_various(void) //will need to add all these emerald various com
             default:
                 gCalledMove = move;
                 gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
-                gBattlerTarget = GetMoveTarget(gCalledMove, 0);
+                gBattlerTarget = GetBattleMoveTarget(gCalledMove, NO_TARGET_OVERRIDE);
                 gStatuses3[gBattlerAttacker] |= STATUS3_ME_FIRST;
                 gBattlescriptCurrInstr = cmd->nextInstr;
                 break;
@@ -13229,7 +13229,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         {
             gCalledMove = lastMove;
             gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
-            gBattlerTarget = GetMoveTarget(gCalledMove, 0);
+            gBattlerTarget = GetBattleMoveTarget(gCalledMove, NO_TARGET_OVERRIDE);
             gBattlescriptCurrInstr = cmd->nextInstr;
         }
         return;
@@ -14688,7 +14688,12 @@ static void atk77_setprotectlike(void)
     bool32 fail = TRUE;
     bool32 notLastTurn = TRUE;
 
-    if (!(gBattleMoves[gLastResultingMoves[gBattlerAttacker]].flags & FLAG_PROTECTION_MOVE))
+    //if (!(gBattleMoves[gLastResultingMoves[gBattlerAttacker]].flags & FLAG_PROTECTION_MOVE))
+    //    gDisableStructs[gBattlerAttacker].protectUses = 0;
+    
+    //vsonic basic stand in for TryResetProtectUseCounter
+    //which I'll need to update w my custom effects and guard mode stuff
+    if (GetMoveEffect(gLastResultingMoves[gBattlerAttacker]) != EFFECT_PROTECT)
         gDisableStructs[gBattlerAttacker].protectUses = 0;
 
     if (gCurrentTurnActionNumber == (gBattlersCount - 1))
@@ -14928,7 +14933,7 @@ static void atk7C_trymirrormove(void) //need update with emerald logic  vsonic
     {
         gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
         gCurrentMove = move;
-        gBattlerTarget = GetMoveTarget(gCurrentMove, 0);
+        gBattlerTarget = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
         SetAtkCancellerForCalledMove();
         gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
     }
@@ -14937,7 +14942,7 @@ static void atk7C_trymirrormove(void) //need update with emerald logic  vsonic
         gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
         i = Random() % validMovesCount;
         gCurrentMove = movesArray[i];
-        gBattlerTarget = GetMoveTarget(gCurrentMove, 0);
+        gBattlerTarget = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
         SetAtkCancellerForCalledMove();
         gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
     }
@@ -15461,7 +15466,7 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, u32 flags, con
             && IsBlackFogNotOnField()
             && !affectsUser && gCurrentMove != MOVE_CURSE
             && !(battler == gBattlerTarget && GetBattlerAbility(gBattlerAttacker) == ABILITY_INFILTRATOR)
-            && !(GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY && gBattleMoves[gCurrentMove].flags & FLAG_SOUND))
+            && !(GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY && IsSoundMove(gCurrentMove)))
         {
             if (flags == STAT_CHANGE_ALLOW_PTR)
             {
@@ -16923,7 +16928,7 @@ static void atk9E_metronome(void) //speaknig of prob need change this, value for
         gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
         SetAtkCancellerForCalledMove();
         gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
-        gBattlerTarget = GetMoveTarget(gCurrentMove, 0);
+        gBattlerTarget = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
         return;
     }
     /*while (1)
@@ -16949,7 +16954,7 @@ static void atk9E_metronome(void) //speaknig of prob need change this, value for
         {
             gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
             gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
-            gBattlerTarget = GetMoveTarget(gCurrentMove, 0);
+            gBattlerTarget = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
             return;
         }
     }*/
@@ -17483,7 +17488,7 @@ static void atkA9_trychoosesleeptalkmove(void)
         gCalledMove = gBattleMons[gBattlerAttacker].moves[movePosition];
         gCurrMovePos = movePosition;
         gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
-        gBattlerTarget = GetMoveTarget(gCalledMove, 0);
+        gBattlerTarget = GetBattleMoveTarget(gCalledMove, NO_TARGET_OVERRIDE);
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
     }
 }
@@ -18947,7 +18952,7 @@ static void atkCC_callterrainattack(void) // nature power
 {
     gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
     gCurrentMove = GetNaturePowerMove();//sNaturePowerMoves[gBattleTerrain];
-    gBattlerTarget = GetMoveTarget(gCurrentMove, 0);
+    gBattlerTarget = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
     SetAtkCancellerForCalledMove();
     BattleScriptPush(gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect]);
     ++gBattlescriptCurrInstr;
@@ -19412,7 +19417,7 @@ static void atkDE_assistattackselect(void)
     {
         gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
         gCalledMove = movesArray[((Random() & 0xFF) * chooseableMovesNo) >> 8];
-        gBattlerTarget = GetMoveTarget(gCalledMove, 0);
+        gBattlerTarget = GetBattleMoveTarget(gCalledMove, NO_TARGET_OVERRIDE);
         gBattlescriptCurrInstr += 5;
     }
     else
@@ -20954,7 +20959,7 @@ void BS_TryHealPulse(void)
     }
     else
     {
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MEGA_LAUNCHER && gBattleMoves[gCurrentMove].flags & FLAG_MEGA_LAUNCHER_BOOST)
+        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MEGA_LAUNCHER && IsPulseMove(gCurrentMove))
             //gBattleMoveDamage = -(GetNonDynamaxMaxHP(gBattlerTarget) * 75 / 100);
             gBattleMoveDamage = max((75 * gBattleMons[gBattlerTarget].maxHP) / 100,1);
         else if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN && gCurrentMove == MOVE_FLORAL_HEALING)
@@ -21113,7 +21118,7 @@ bool32 IsStallActive(u8 battler)
 
     //changed from not power 0, to not status better condition
     if (GetBattlerAbility(battler) == ABILITY_STALL
-    && !IS_MOVE_STATUS(move)) 
+    && !IsBattleMoveStatus(move)) 
         return TRUE;
         
     return FALSE;
@@ -21125,9 +21130,9 @@ bool32 DoesSubstituteBlockMove(u8 battlerAtk, u8 battlerDef, u32 move) //sound b
 {
     if (!(gBattleMons[battlerDef].status2 & STATUS2_SUBSTITUTE))
         return FALSE;
-    else if (gBattleMoves[move].flags & FLAG_SOUND)
+    else if (IsSoundMove(move))
         return FALSE;
-    else if (gBattleMoves[move].flags & FLAG_HIT_IN_SUBSTITUTE)
+    else if (MoveIgnoresSubstitute(move))
         return FALSE;
     else if (GetBattlerAbility(battlerAtk) == ABILITY_INFILTRATOR)
         return FALSE;
@@ -21143,7 +21148,7 @@ bool32 DoesDisguiseBlockMove(u8 battlerAtk, u8 battlerDef, u32 move) //plan add 
         || (gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battlerDef]][GetBattlerSide(battlerDef)] == TRUE && gBattleMons[battlerDef].ability == ABILITY_DISGUISE)
         || gBattleMons[battlerDef].status2 & STATUS2_TRANSFORMED //^new change seems to work without species, but need check w double batte ensure not just spot 0
         //|| gBattleMoves[move].power == 0      /need/want it to track with the mon as it moves so if I switch it, the status still applies,
-        || IS_MOVE_STATUS(move)                 //hmm I guess simple as look into status then since status1 stays with mon, no matter where switch
+        || IsBattleMoveStatus(move)                 //hmm I guess simple as look into status then since status1 stays with mon, no matter where switch
         || gHitMarker & HITMARKER_IGNORE_DISGUISE
         || GetBattlerAbility(battlerAtk) == ABILITY_INFILTRATOR
         || gProtectStructs[battlerAtk].confusionSelfDmg) //should allow conufusion dmg through without breaking form -works, just makes more sense, 
