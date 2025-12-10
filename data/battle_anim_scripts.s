@@ -869,7 +869,7 @@ gBattleAnims_Moves::
 	.4byte Move_SHED_TAIL
 	.4byte Move_CHILLY_RECEPTION
 	.4byte Move_TIDY_UP
-	.4byte Move_SNOWSCAPE
+	.4byte Move_SNOWESCAPE
 	.4byte Move_GRASSHOPPER
 	.4byte Move_TRAILBLAZE
 	.4byte Move_CHILLING_WATER
@@ -24293,7 +24293,7 @@ Move_ELECTRO_DRIFT::
 Move_SHED_TAIL::
 Move_CHILLY_RECEPTION::
 Move_TIDY_UP::
-Move_SNOWSCAPE::
+Move_SNOWESCAPE::
 Move_GRASSHOPPER::
 Move_TRAILBLAZE::
 Move_CHILLING_WATER::

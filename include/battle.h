@@ -490,6 +490,7 @@ struct FieldTimer
     u8 fairyLockTimer;
     u8 IonDelugeTimer; // this & roost will be only ones that don't fail if used when timer isn't 0
     u8 HazeTimer;
+    u8 SnowescapeTimer; //linked to weather duration
 
 
 };//check how I setup roost may not need iondelugetimer here
