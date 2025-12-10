@@ -19226,21 +19226,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //then raises atk & speed one stage
     //signature of maushold
 
-    [MOVE_SNOWSCAPE] =
+    [MOVE_SNOWESCAPE] =
     {
-        .effect = EFFECT_HAIL,
+        .effect = EFFECT_SNOWESCAPE,
         .power = 0,
         .type = TYPE_ICE,
         .accuracy = 0,
         .pp = 10,
         .secondaryEffectChance = 0,
-        .target = MOVE_TARGET_ALL_BATTLERS,
+        .target = MOVE_TARGET_USER,
         .priority = 1,
         .split = SPLIT_STATUS,
         //.zMove = { .effect = Z_EFFECT_SPD_UP_1 },
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
-        .metronomeBanned = TRUE,
         //.battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_HAIL) ? gBattleAnimMove_Hail : gBattleAnimMove_Snowscape,
         ////.zMovePower = 0,
         ////.zMoveEffect = Z_EFFECT_SPD_UP_1,
