@@ -8750,7 +8750,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     gHitMarker |= HITMARKER_NO_ATTACKSTRING;
                     gBattleScripting.atk49_state = 0;
                     MoveValuesCleanUp();
-                    BattleScriptPush(gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect]);
+                    BattleScriptPush(GetMoveBattleScript(gCurrentMove));
                     gBattlescriptCurrInstr = BattleScript_FlushMessageBox;
                     return;
                 }
@@ -8799,7 +8799,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                         gSpecialStatuses[gBattlerTarget].focusSashed = 0; // Delete this line to make Focus Sash last for the duration of the whole move turn.
    //this line may be issue makes sure hit    gSpecialStatuses[gBattlerAttacker].multiHitOn = TRUE;
                         MoveValuesCleanUp();
-                        BattleScriptPush(gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect]);
+                        BattleScriptPush(GetMoveBattleScript(gCurrentMove));
                         gBattlescriptCurrInstr = BattleScript_FlushMessageBox;
                         return;
                     }
@@ -9163,7 +9163,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     gBattleScripting.atk49_state = 0;
                     MoveValuesCleanUp();
                     gBattleScripting.moveEffect = gBattleScripting.savedMoveEffect; //this line not in originalfunciton think issue
-                    BattleScriptPush(gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect]); //issue was saveMoveEffect wasn't assigned, so value was random
+                    BattleScriptPush(GetMoveBattleScript(gCurrentMove)); //issue was saveMoveEffect wasn't assigned, so value was random
                     gBattlescriptCurrInstr = BattleScript_FlushMessageBox;
                     return;
                 }
@@ -9184,7 +9184,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                         gBattleScripting.animTurn = 0;
                         gBattleScripting.animTargetsHit = 0;
                         MoveValuesCleanUp();
-                        BattleScriptPush(gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect]);
+                        BattleScriptPush(GetMoveBattleScript(gCurrentMove));
                         gBattlescriptCurrInstr = BattleScript_FlushMessageBox;
                         return;//think the push is to reapply effects well jump to battlescript for effect?
                     }//well its not repeating the entire script, the animation would reply if it was that
@@ -11386,7 +11386,7 @@ static void atk63_jumptocalledmove(void) //can't tell differenc between what the
 
     ResetValuesForCalledMove();
 
-    gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
+    gBattlescriptCurrInstr = GetMoveBattleScript(gCurrentMove);
 }
 
 //Used for only status1, eventually goes into chosenstatusanimation command
@@ -14935,7 +14935,7 @@ static void atk7C_trymirrormove(void) //need update with emerald logic  vsonic
         gCurrentMove = move;
         gBattlerTarget = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
         SetAtkCancellerForCalledMove();
-        gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
+        gBattlescriptCurrInstr = GetMoveBattleScript(gCurrentMove);
     }
     else if (validMovesCount != 0)
     {
@@ -14944,7 +14944,7 @@ static void atk7C_trymirrormove(void) //need update with emerald logic  vsonic
         gCurrentMove = movesArray[i];
         gBattlerTarget = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
         SetAtkCancellerForCalledMove();
-        gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
+        gBattlescriptCurrInstr = GetMoveBattleScript(gCurrentMove);
     }
     else
     {
@@ -16927,7 +16927,7 @@ static void atk9E_metronome(void) //speaknig of prob need change this, value for
     {
         gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
         SetAtkCancellerForCalledMove();
-        gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
+        gBattlescriptCurrInstr = GetMoveBattleScript(gCurrentMove);
         gBattlerTarget = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
         return;
     }
@@ -16953,7 +16953,7 @@ static void atk9E_metronome(void) //speaknig of prob need change this, value for
         if (sMovesForbiddenToCopy[i] == METRONOME_FORBIDDEN_END)
         {
             gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
-            gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
+            gBattlescriptCurrInstr = GetMoveBattleScript(gCurrentMove);
             gBattlerTarget = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
             return;
         }
@@ -18954,7 +18954,7 @@ static void atkCC_callterrainattack(void) // nature power
     gCurrentMove = GetNaturePowerMove();//sNaturePowerMoves[gBattleTerrain];
     gBattlerTarget = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
     SetAtkCancellerForCalledMove();
-    BattleScriptPush(gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect]);
+    BattleScriptPush(GetMoveBattleScript(gCurrentMove));
     ++gBattlescriptCurrInstr;
 }
 

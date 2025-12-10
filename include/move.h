@@ -566,7 +566,7 @@ static inline const u8 *GetMoveAnimationScript(u32 moveId)
         return gBattleMoves[MOVE_NONE].battleAnimScript;
     }
     return gBattleMoves[moveId].battleAnimScript;
-}
+}*/
 
 static inline const u8 *GetMoveBattleScript(u32 moveId)
 {
@@ -577,5 +577,5 @@ static inline const u8 *GetMoveBattleScript(u32 moveId)
         return gBattleMoveEffects[EFFECT_PLACEHOLDER].battleScript;
     }
     return gBattleMoveEffects[gBattleMoves[moveId].effect].battleScript;
-}*/
+}
 #endif // GUARD_MOVE_H

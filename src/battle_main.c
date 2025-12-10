@@ -7255,7 +7255,7 @@ static void HandleAction_UseMove(void)
         gBattleStruct->hpBefore[i] = gBattleMons[i].hp;
     }
 
-    gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];   //important, link for battle_1.s effects at top to effects from battle_effects.h   vsonic
+    gBattlescriptCurrInstr = GetMoveBattleScript(gCurrentMove);   //important, link for battle_1.s effects at top to effects from battle_effects.h   vsonic
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }//when use move above line will read effect and make it start at specific battlescript as ordered by battle_move_effects
 //but there are also move_effects as named from the /constants/battle.h  this is needlesl confusing
