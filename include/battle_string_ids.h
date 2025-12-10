@@ -131,6 +131,24 @@
 #define B_MSG_SET_SWAMP             10
 #define B_MSG_STARTING_STATUS_COUNT 11
 
+//idk what's up with this but it breaks
+//with the packed attribute on it
+// gWrappedStringIds
+enum WrappedStringID
+{
+    B_MSG_WRAPPED_BIND,
+    B_MSG_WRAPPED_WRAP,
+    B_MSG_WRAPPED_FIRE_SPIN,
+    B_MSG_WRAPPED_CLAMP,
+    B_MSG_WRAPPED_WHIRLPOOL,
+    B_MSG_WRAPPED_SAND_TOMB,
+    B_MSG_WRAPPED_MAGMA_STORM,
+    B_MSG_WRAPPED_SWARM,
+    B_MSG_WRAPPED_SNAP_TRAP,
+    B_MSG_WRAPPED_THUNDER_CAGE,
+    NUM_TRAPPING_MOVES,
+};
+
 // gTerrainPreventsStringIds
 #define B_MSG_TERRAINPREVENTS_MISTY     0
 #define B_MSG_TERRAINPREVENTS_ELECTRIC  1
@@ -169,7 +187,7 @@
 #define B_MSG_TURN1_METEOR_BEAM    12
 #define B_MSG_TURN1_COLD_FRONT     13
 
-#define NUM_TRAPPING_MOVES 10
+//#define NUM_TRAPPING_MOVES 10
 
 // todo: make some of those names less vague: attacker/target vs pkmn, etc.
 #define STRINGID_TRAINER1LOSETEXT 12

@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include "sprite.h"
+#include "move.h"
 #include "constants/pokemon.h"
 #include "pokemon_storage_system.h"
 
@@ -433,29 +434,7 @@ struct BaseStats  // had to adjust struct order to match paste value from base_s
             const struct Evolution *evolutions;
 };
 
-struct BattleMove
-{
-    u16 effect;
-    u8 power;
-    u8 type;
-    u8 accuracy;
-    u8 pp;
-    u8 secondaryEffectChance;
-    u16 target;
-    s8 priority;
-    u32 flags;
-    u8 split;
-    u16 argument;// for transferring move effects
-    u8 argumentEffectChance; // setup status commands and seteffectwithchance function to read this as a value explicitly for argument
-    //would possibly need to redo setup for effects that become certain without reading effectchance nvm it works 
-    //Argument works by passive value of argument to battlescript.moveeffect
-    //so just do a check in seteffectwithchance that checks if  battlescripting.moveeffect equals gbattlemons[move].effect or the argument
-    //if it equals the argument use argument chance, that means it has already done the effect
-    //and has passed the arugment over so it can use the argument chance
-};//without u32 flags, type overflowed with added moves
-//argument is for extra effects other than secondary effect
 
-extern const struct BattleMove gBattleMoves[];
 
 #define IS_CRIT (gCritMultiplier > 1)
 
@@ -464,14 +443,14 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_PROTECT_AFFECTED       (1 << 1)
 #define FLAG_MAGIC_COAT_AFFECTED    (1 << 2)
 #define FLAG_SNATCH_AFFECTED        (1 << 3)
-#define FLAG_MIRROR_MOVE_AFFECTED   (1 << 4)
+#define FLAG_MIRROR_MOVE_AFFECTED   (1 << 4)    //check if move allowable with mirror move to copy
 #define FLAG_GRAVITY_CANCELED       (1 << 5)    //for moves that get canceled by gravity field status
 #define FLAG_HIGH_CRIT              (1 << 6)
-#define FLAG_RECKLESS_BOOST         (1 << 7)
+#define FLAG_RECKLESS_BOOST         (1 << 7)    //just for recoil finding
 #define FLAG_IRON_FIST_BOOST        (1 << 8)    //1 byte
 #define FLAG_SHEER_FORCE_BOOST      (1 << 9)
-#define FLAG_STRONG_JAW_BOOST       (1 << 10)
-#define FLAG_MEGA_LAUNCHER_BOOST    (1 << 11)
+#define FLAG_STRONG_JAW_BOOST       (1 << 10) //biting
+#define FLAG_MEGA_LAUNCHER_BOOST    (1 << 11) //pulse move
 #define FLAG_EVASIVE_BREAK          (1 << 12)   //reworked minimize effect //sure hit if evasion stage boosted and ignore other boosted evasion effects
 #define FLAG_DMG_2X_UNDERGROUND     (1 << 13)
 #define FLAG_DMG_2X_UNDERWATER      (1 << 14)

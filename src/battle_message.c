@@ -68,8 +68,8 @@ static const u8 sText_UseNextPkmn[] = _("Use next POKéMON?");
 static const u8 sText_AttackMissed[] = _("{B_ATK_NAME_WITH_PREFIX}'s\nattack missed!");
 static const u8 sText_PkmnProtectedItself[] = _("{B_DEF_NAME_WITH_PREFIX}\nprotected itself!");
 static const u8 sText_AvoidedDamage[] = _("{B_DEF_NAME_WITH_PREFIX} avoided\ndamage with {B_DEF_ABILITY}!");
-static const u8 sText_PkmnMakesGroundMiss[] = _("{B_DEF_NAME_WITH_PREFIX} nullifies {B_BUFF1}\nmoves with {B_DEF_ABILITY}!");
-static const u8 sText_PkmnMakesGroundMiss2[] = _("{B_DEF_NAME_WITH_PREFIX} can float!\nGROUND moves can't hit it!{PAUSE 5}"); //gave pause to be able to read better
+static const u8 sText_PkmnNullifyTypeViaAbility[] = _("{B_DEF_NAME_WITH_PREFIX} nullifies {B_BUFF1}\nmoves with {B_DEF_ABILITY}!");
+static const u8 sText_PkmnMakesGroundMiss[] = _("{B_DEF_NAME_WITH_PREFIX} can float!\nGROUND-based moves can't hit it!{PAUSE 8}"); //gave pause to be able to read better
 static const u8 sText_GroundNullifiesEarth[] = _("GROUND Types can't be blinded\nby Earth attacks!{PAUSE 5}"); //type name buffer make
 static const u8 sText_PkmnRoosting[] = _("{B_ATK_NAME_WITH_PREFIX} is resting on the ground.");
 static const u8 sText_PkmnRoostEnds[] = _("{B_ATK_NAME_WITH_PREFIX} stopped roosting\nand took to the air!{PAUSE 15}"); //needed pause to read long message
@@ -705,7 +705,7 @@ static const u8 sText_TargetStatWontGoHigher[] = _("{B_DEF_NAME_WITH_PREFIX}'s {
 static const u8 sText_PkmnMoveBouncedViaAbility[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_CURRENT_MOVE} was refelcted\nby {B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}{PAUSE 26}!"); //had just barely enough space to not need \l escape
 static const u8 sText_ImposterTransform[] = _("{B_ATK_NAME_WITH_PREFIX} transformed into\na {B_DEF_NAME_WITH_PREFIX} using {B_BUFF2}!");//replacing  last ability w buffer
 static const u8 sText_InversionTransform[] = _("{B_ATK_NAME_WITH_PREFIX} transformed into\na {B_BUFF1} using {B_BUFF2}!");
-static const u8 sText_NotDoneYet[] = _("This move effect is not done yet!\p"); //also potentially replace b def name since I want target species for impostre but something dif w inversion
+const u8 gNotDoneYetDescription[] = _("This move effect is not done yet!\p"); //also potentially replace b def name since I want target species for impostre but something dif w inversion
                                                                         //actually look into handle nik case and if can just assign the found species to buff to get prefix or b_eff_namewith prefix
 
 //end turn name scripts need to use B_ATK_NAME_WITH_PREFIX,  scr_active name or anything else causes issues
@@ -1197,7 +1197,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_EMPTYSTRING4]                  = sText_EmptyString4,
     [STRINGID_ABOOSTED]                      = sText_ABoosted,
     [STRINGID_PKMNSXINTENSIFIEDSUN]          = sText_PkmnsXIntensifiedSun,
-    [STRINGID_PKMNMAKESGROUNDMISS]           = sText_PkmnMakesGroundMiss2,
+    [STRINGID_PKMNMAKESGROUNDMISS]           = sText_PkmnMakesGroundMiss,
     [STRINGID_YOUTHROWABALLNOWRIGHT]         = sText_YouThrowABallNowRight,
     [STRINGID_PKMNSXTOOKATTACK]              = sText_PkmnsXTookAttack,
     [STRINGID_PKMNCHOSEXASDESTINY]           = sText_PkmnChoseXAsDestiny,
@@ -1353,7 +1353,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_ASSAULTVESTDOESNTALLOW]        = sText_AssaultVestDoesntAllow,
     [STRINGID_GRAVITYPREVENTSUSAGE]          = sText_GravityPreventsUsage,
     [STRINGID_HEALBLOCKPREVENTSUSAGE]        = sText_HealBlockPreventsUsage,
-    [STRINGID_NOTDONEYET]                    = sText_NotDoneYet,
+    [STRINGID_NOTDONEYET]                    = COMPOUND_STRING("Not Done Yet"),
     [STRINGID_STICKYWEBUSED]                 = sText_StickyWebUsed,
     [STRINGID_QUASHSUCCESS]                  = sText_QuashSuccess,
     [STRINGID_PKMNBLEWAWAYTOXICSPIKES]       = sText_PkmnBlewAwayToxicSpikes,
@@ -1510,7 +1510,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_ATTACKER_ABILITYHURTS_TARGET]  = sText_AttackerHurtsPkmnWith,
     [STRINGID_PKMNINFESTED]                  = sText_Infested,
     [STRINGID_PKMNPANICKED]                  = sText_PkmnPanicked,
-    [STRINGID_ABILITYNULLIFYTYPEDAMAGE]      = sText_PkmnMakesGroundMiss,
+    [STRINGID_ABILITYNULLIFYTYPEDAMAGE]      = sText_PkmnNullifyTypeViaAbility,
     [STRINGID_CAUGHTMONDROPPEDITEM]          = sText_ReceiveditemfromCaughtMon,
     [STRINGID_MONROOSTING]                   = sText_PkmnRoosting,
     [STRINGID_ATK_RAGEBUILDING]              = sText_AttackerRageBuilding,
@@ -1808,17 +1808,18 @@ const u16 gFirstTurnOfTwoStringIds[] = {
 //don't forget trap effect exclusion for floating enemies, not including magmastorm
 //use grounded function rather than just floating species array, so it'll work when grounded
 //ok this is linked to gTrappingMoves
-const u16 gWrappedStringIds[] = {
-    STRINGID_PKMNSQUEEZEDBYBIND,    //bind
-    STRINGID_PKMNWRAPPEDBY,         //wrap
-    STRINGID_PKMNTRAPPEDINVORTEX,   //fire spin
-    STRINGID_PKMNCLAMPED,           //clamp
-    STRINGID_PKMNTRAPPEDINVORTEX,   //whirlpool
-    STRINGID_PKMNTRAPPEDBYSANDTOMB, //sandtomb
-    STRINGID_TRAPPEDBYSWIRLINGMAGMA, //magma storm
-    STRINGID_PKMNSWARMED,            //infestation   //now swarm
-    STRINGID_PKMNINSNAPTRAP,         // MOVE_SNAP_TRAP
-    STRINGID_THUNDERCAGETRAPPED,     // MOVE_THUNDER_CAGE
+const u16 gWrappedStringIds[NUM_TRAPPING_MOVES] = {
+
+    [B_MSG_WRAPPED_BIND]        = STRINGID_PKMNSQUEEZEDBYBIND,     // MOVE_BIND
+    [B_MSG_WRAPPED_WRAP]        = STRINGID_PKMNWRAPPEDBY,          // MOVE_WRAP
+    [B_MSG_WRAPPED_FIRE_SPIN]   = STRINGID_PKMNTRAPPEDINVORTEX,    // MOVE_FIRE_SPIN
+    [B_MSG_WRAPPED_CLAMP]       = STRINGID_PKMNCLAMPED,            // MOVE_CLAMP
+    [B_MSG_WRAPPED_WHIRLPOOL]   = STRINGID_PKMNTRAPPEDINVORTEX,    // MOVE_WHIRLPOOL
+    [B_MSG_WRAPPED_SAND_TOMB]   = STRINGID_PKMNTRAPPEDBYSANDTOMB,  // MOVE_SAND_TOMB
+    [B_MSG_WRAPPED_MAGMA_STORM] = STRINGID_TRAPPEDBYSWIRLINGMAGMA, // MOVE_MAGMA_STORM
+    [B_MSG_WRAPPED_SWARM] = STRINGID_PKMNSWARMED,            // MOVE_INFESTATION   //now swarm
+    [B_MSG_WRAPPED_SNAP_TRAP]   = STRINGID_PKMNINSNAPTRAP,         // MOVE_SNAP_TRAP
+    [B_MSG_WRAPPED_THUNDER_CAGE]= STRINGID_THUNDERCAGETRAPPED,     // MOVE_THUNDER_CAGE
 };//need to add snaptrap, thundercage
 
 const u16 gMistUsedStringIds[] = {

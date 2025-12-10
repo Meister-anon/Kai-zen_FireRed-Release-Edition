@@ -91,7 +91,7 @@
 #define MOVE_TARGET_ALL_BATTLERS        (MOVE_TARGET_FOES_AND_ALLY | MOVE_TARGET_USER)  //use untl setup like emerald, taken from MOVE_ROTOTILLER
 //#define MOVE_TARGET_ALL_BATTLERS        ((1 << 8) | MOVE_TARGET_USER)  can use when setup correctly
 
-// For the second argument of GetMoveTarget, when no target override is needed
+// For the second argument of GetBattleMoveTarget, when no target override is needed
 #define NO_TARGET_OVERRIDE 0
 
 // Flag settings
@@ -976,7 +976,6 @@ extern struct BattleStruct *gBattleStruct;
 
 #define IS_MOVE_PHYSICAL(move)(GetBattleMoveSplit(move) == SPLIT_PHYSICAL)
 #define IS_MOVE_SPECIAL(move)(GetBattleMoveSplit(move) == SPLIT_SPECIAL)
-#define IS_MOVE_STATUS(move)(gBattleMoves[move].split == SPLIT_STATUS)
 #define BATTLER_MAX_HP(battlerId)(gBattleMons[battlerId].hp == gBattleMons[battlerId].maxHP)
 #define TARGET_TURN_DAMAGED ((gSpecialStatuses[gBattlerTarget].physicalDmg != 0 || gSpecialStatuses[gBattlerTarget].specialDmg != 0))
 //#define IS_BATTLER_OF_TYPE(battlerId, type)((gBattleMons[battlerId].type1 == type || gBattleMons[battlerId].type2 == type || gBattleMons[battlerId].type3 == type))
@@ -1107,6 +1106,94 @@ enum turn_Priority
     BATTLER_FIRST = 1,
     SPEED_TIE = 2
 };
+
+// Explicit numbers until frostbite because those shouldn't be shifted
+/*enum __attribute__((packed)) MoveEffect
+{
+    MOVE_EFFECT_NONE = 0,
+    MOVE_EFFECT_SLEEP = 1,
+    MOVE_EFFECT_POISON = 2,
+    MOVE_EFFECT_BURN = 3,
+    MOVE_EFFECT_FREEZE = 4,
+    MOVE_EFFECT_PARALYSIS = 5,
+    MOVE_EFFECT_TOXIC = 6,
+    MOVE_EFFECT_FROSTBITE = 7,  //set freeze without setting timer
+    MOVE_EFFECT_CONFUSION,
+    MOVE_EFFECT_FLINCH,
+    MOVE_EFFECT_TRI_ATTACK,
+    MOVE_EFFECT_UPROAR,
+    MOVE_EFFECT_PAYDAY,
+    MOVE_EFFECT_WRAP,
+    MOVE_EFFECT_ATK_PLUS_1,
+    MOVE_EFFECT_DEF_PLUS_1,
+    MOVE_EFFECT_SPD_PLUS_1,
+    MOVE_EFFECT_SP_ATK_PLUS_1,
+    MOVE_EFFECT_SP_DEF_PLUS_1,
+    MOVE_EFFECT_ACC_PLUS_1,
+    MOVE_EFFECT_EVS_PLUS_1,
+    MOVE_EFFECT_ATK_MINUS_1,
+    MOVE_EFFECT_DEF_MINUS_1,
+    MOVE_EFFECT_SPD_MINUS_1,
+    MOVE_EFFECT_SP_ATK_MINUS_1,
+    MOVE_EFFECT_SP_DEF_MINUS_1,
+    MOVE_EFFECT_ACC_MINUS_1,
+    MOVE_EFFECT_EVS_MINUS_1,
+    MOVE_EFFECT_REMOVE_ARG_TYPE,
+    MOVE_EFFECT_RECHARGE,
+    MOVE_EFFECT_RAGE,
+    MOVE_EFFECT_PREVENT_ESCAPE,
+    MOVE_EFFECT_NIGHTMARE,
+    MOVE_EFFECT_ALL_STATS_UP,
+    MOVE_EFFECT_REMOVE_STATUS,
+    MOVE_EFFECT_ATK_DEF_DOWN,
+    MOVE_EFFECT_ATK_PLUS_2,
+    MOVE_EFFECT_DEF_PLUS_2,
+    MOVE_EFFECT_SPD_PLUS_2,
+    MOVE_EFFECT_SP_ATK_PLUS_2,
+    MOVE_EFFECT_SP_DEF_PLUS_2,
+    MOVE_EFFECT_ACC_PLUS_2,
+    MOVE_EFFECT_EVS_PLUS_2,
+    MOVE_EFFECT_ATK_MINUS_2,
+    MOVE_EFFECT_DEF_MINUS_2,
+    MOVE_EFFECT_SPD_MINUS_2,
+    MOVE_EFFECT_SP_ATK_MINUS_2,
+    MOVE_EFFECT_SP_DEF_MINUS_2,
+    MOVE_EFFECT_ACC_MINUS_2,
+    MOVE_EFFECT_EVS_MINUS_2,
+    MOVE_EFFECT_SCALE_SHOT,
+    MOVE_EFFECT_THRASH,
+    MOVE_EFFECT_DEF_SPDEF_DOWN,
+    MOVE_EFFECT_CLEAR_SMOG,
+    MOVE_EFFECT_FLAME_BURST,
+    MOVE_EFFECT_FEINT,
+    MOVE_EFFECT_V_CREATE,
+    MOVE_EFFECT_HAPPY_HOUR,
+    MOVE_EFFECT_CORE_ENFORCER,
+    MOVE_EFFECT_THROAT_CHOP,
+    MOVE_EFFECT_INCINERATE,
+    MOVE_EFFECT_BUG_BITE,
+    MOVE_EFFECT_LIGHT_RECOIL,
+    MOVE_EFFECT_MED_RECOIL,
+    MOVE_EFFECT_HEAVY_RECOIL,
+    MOVE_EFFECT_RECOIL_IF_MISS,
+    MOVE_EFFECT_TRAP_BOTH,
+    MOVE_EFFECT_ROUND, //last effectI have
+    MOVE_EFFECT_DIRE_CLAW,
+    MOVE_EFFECT_SYRUP_BOMB,
+    MOVE_EFFECT_FLORAL_HEALING,
+    MOVE_EFFECT_SECRET_POWER,
+    MOVE_EFFECT_PSYCHIC_NOISE,
+    MOVE_EFFECT_TERA_BLAST,
+    MOVE_EFFECT_ORDER_UP,
+    MOVE_EFFECT_ION_DELUGE,
+    MOVE_EFFECT_HAZE,
+    MOVE_EFFECT_LEECH_SEED,
+    MOVE_EFFECT_REFLECT,
+    MOVE_EFFECT_LIGHT_SCREEN,
+    MOVE_EFFECT_SALT_CURE,
+    MOVE_EFFECT_EERIE_SPELL,
+    NUM_MOVE_EFFECTS
+};*/
 
 struct BattleSpriteInfo
 {
@@ -1345,6 +1432,16 @@ static inline u32 GetBattlerAtPosition(u32 position)
 static inline u32 GetMoveBaseType(u32 move)
 {
     return gBattleMoves[move].type;
+}
+
+static inline bool32 IsBattlerAtMaxHp(u32 battler)
+{
+    return gBattleMons[battler].hp == gBattleMons[battler].maxHP;
+}
+
+static inline bool32 IsBattlerAboveHalfHP(u32 battler)
+{
+    return gBattleMons[battler].hp > (gBattleMons[battler].maxHP / 2);
 }
 
 //not fully sure if want to use movepower or base move power

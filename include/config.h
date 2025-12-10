@@ -69,6 +69,7 @@
 #define UBFIX
 #define SPECIES_NAME_EXPANSION
 
+#define GEN_9 0
 
 
 

@@ -1628,7 +1628,7 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage)
         *typeStorage = TYPE_NORMAL;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
         gBattleStruct->ateBoost[battlerAtk] = 1;    //actually I can do this with typecalc function and they can keep stab.
     }
-    else if (gBattleMoves[move].flags & FLAG_SOUND
+    else if (IsSoundMove(move)
              && attackerAbility == ABILITY_LIQUID_VOICE)
     {
         *typeStorage = TYPE_WATER;
@@ -1796,7 +1796,7 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
         moveType = TYPE_NORMAL;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
                                                         //actually I can do this with typecalc function and they can keep stab.
     }
-    else if (gBattleMoves[move].flags & FLAG_SOUND
+    else if (IsSoundMove(move)
              && attackerAbility == ABILITY_LIQUID_VOICE)
     {
         moveType = TYPE_WATER;
@@ -6170,7 +6170,7 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
 
 
     // Quick Draw
-    if (!ignoreChosenMoves && ability1 == ABILITY_QUICK_DRAW && !IS_MOVE_STATUS(gChosenMoveByBattler[battler1]) && Random() % 100 < 30)
+    if (!ignoreChosenMoves && ability1 == ABILITY_QUICK_DRAW && !IsBattleMoveStatus(gChosenMoveByBattler[battler1]) && Random() % 100 < 30)
         gProtectStructs[battler1].quickDraw = TRUE;   //pretty sure can use this rather than needing take memory for struc
         //gProtectStructs[battler1].quickDraw = TRUE;
 
@@ -6186,15 +6186,15 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
         gProtectStructs[battler2].usedCustapBerry = TRUE;
     // Quick Draw //since buffed item claw may make exclusive so can't use both
     //then again with such significant investment may not be broken.
-    if (!ignoreChosenMoves && ability2 == ABILITY_QUICK_DRAW && !IS_MOVE_STATUS(gChosenMoveByBattler[battler2]) && Random() % 100 < 30)
+    if (!ignoreChosenMoves && ability2 == ABILITY_QUICK_DRAW && !IsBattleMoveStatus(gChosenMoveByBattler[battler2]) && Random() % 100 < 30)
         gProtectStructs[battler2].quickDraw = TRUE; //like how came out, item versino has better odds since it takes up an item slot, 
 
     if (!ignoreChosenMoves)
     {
         if (gChosenActionByBattler[battler1] == B_ACTION_USE_MOVE)
-            priority1 = GetChosenMovePriority(battler1);
+            priority1 = GetChosenMovePriority(battler1, ability1);
         if (gChosenActionByBattler[battler2] == B_ACTION_USE_MOVE)
-            priority2 = GetChosenMovePriority(battler2);
+            priority2 = GetChosenMovePriority(battler2, ability2);
     }
     
     // both move priorities are different than 0
@@ -6214,11 +6214,11 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
             strikesFirst = USER_FIRST;
         else if (gProtectStructs[battler2].usedCustapBerry && !gProtectStructs[battler1].usedCustapBerry)
             strikesFirst = BATTLER_FIRST;
-        /*else if (holdEffectBattler1 == HOLD_EFFECT_LAGGING_TAIL && holdEffectBattler2 != HOLD_EFFECT_LAGGING_TAIL)
+        else if (holdEffectBattler1 == HOLD_EFFECT_LAGGING_TAIL && holdEffectBattler2 != HOLD_EFFECT_LAGGING_TAIL)
             strikesFirst = 1;
         else if (holdEffectBattler2 == HOLD_EFFECT_LAGGING_TAIL && holdEffectBattler1 != HOLD_EFFECT_LAGGING_TAIL)
             strikesFirst = 0;
-        else if (ability1 == ABILITY_STALL && ability2 != ABILITY_STALL)
+        /*else if (ability1 == ABILITY_STALL && ability2 != ABILITY_STALL)
             strikesFirst = 1;
         else if (ability2 == ABILITY_STALL && ability1 != ABILITY_STALL)
             strikesFirst = 0;*/
@@ -7131,7 +7131,7 @@ static void HandleAction_UseMove(void)
         gProtectStructs[gBattlerAttacker].noValidMoves = 0;
         gCurrentMove = gChosenMove = MOVE_STRUGGLE;
         gHitMarker |= HITMARKER_NO_PPDEDUCT;
-        *(gBattleStruct->moveTarget + gBattlerAttacker) = GetMoveTarget(MOVE_STRUGGLE, 0);
+        *(gBattleStruct->moveTarget + gBattlerAttacker) = GetBattleMoveTarget(MOVE_STRUGGLE, NO_TARGET_OVERRIDE);
     }
     else if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS || gDisableStructs[gBattlerAttacker].rechargeTimer)
     {
@@ -7144,7 +7144,7 @@ static void HandleAction_UseMove(void)
         gCurrentMove = gChosenMove = gDisableStructs[gBattlerAttacker].bindedMove;  //bind move
         if (gCurrentMove != MOVE_STRUGGLE)
         gCurrMovePos = gChosenMovePos = gDisableStructs[gBattlerAttacker].bindMovepos;
-        *(gBattleStruct->moveTarget + gBattlerAttacker) = GetMoveTarget(gCurrentMove, 0);
+        *(gBattleStruct->moveTarget + gBattlerAttacker) = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
         //fixed bind not working on first move
     }
     // encore forces you to use the same move
@@ -7153,7 +7153,7 @@ static void HandleAction_UseMove(void)
     {
         gCurrentMove = gChosenMove = gDisableStructs[gBattlerAttacker].encoredMove;
         gCurrMovePos = gChosenMovePos = gDisableStructs[gBattlerAttacker].encoredMovePos;
-        *(gBattleStruct->moveTarget + gBattlerAttacker) = GetMoveTarget(gCurrentMove, 0);
+        *(gBattleStruct->moveTarget + gBattlerAttacker) = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
     }
     // check if the encored move wasn't overwritten
     else if (gDisableStructs[gBattlerAttacker].encoredMove != MOVE_NONE
@@ -7164,18 +7164,18 @@ static void HandleAction_UseMove(void)
         gDisableStructs[gBattlerAttacker].encoredMove = MOVE_NONE;
         gDisableStructs[gBattlerAttacker].encoredMovePos = 0;
         gDisableStructs[gBattlerAttacker].encoreTimer = 0;
-        *(gBattleStruct->moveTarget + gBattlerAttacker) = GetMoveTarget(gCurrentMove, 0);
+        *(gBattleStruct->moveTarget + gBattlerAttacker) = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
     }
     else if (gBattleMons[gBattlerAttacker].moves[gCurrMovePos] != gChosenMoveByBattler[gBattlerAttacker]) //force sets move to curr move if chosen move doesnt match
     {
         gCurrentMove = gChosenMove = gBattleMons[gBattlerAttacker].moves[gCurrMovePos]; //so think need bind logic in else if above this block
-        *(gBattleStruct->moveTarget + gBattlerAttacker) = GetMoveTarget(gCurrentMove, 0);
+        *(gBattleStruct->moveTarget + gBattlerAttacker) = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
     }
     else if (ShouldAbilityAbsorb(gBattleMons[gBattlerAttacker].moves[gCurrMovePos])) //tink need add extra condition? makae this else if, cehck for absorb ability on other side then go here, then put else with original condition
     {
         gCurrentMove = gChosenMove = gBattleMons[gBattlerAttacker].moves[gCurrMovePos];
         if (CanMovebeRedirected()) //putting a block here does seem to prevent retargetting
-        *(gBattleStruct->moveTarget + gBattlerAttacker) = GetMoveTarget(gCurrentMove, TRUE);  //don't know if there are consequences but putting this her makes work?
+        *(gBattleStruct->moveTarget + gBattlerAttacker) = GetBattleMoveTarget(gCurrentMove, TRUE);  //don't know if there are consequences but putting this her makes work?
     } //just need to add dynamic type logic to getmovetarget, and  put argument logic below this
     //using getmovetarget, does cause issue, it makes target swap work, but then for abilities that shouldn't be absorbed/retargetted, they get moved too
     //ex I use electric move into lightning rod, mon, it gets pulled, then I use non electric move, and it still gets pulled next turn
@@ -7206,7 +7206,7 @@ static void HandleAction_UseMove(void)
      && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gSideTimers[side].followmeTarget)
      && gBattleMons[gSideTimers[side].followmeTarget].hp != 0)
     {
-        gBattlerTarget = gSideTimers[side].followmeTarget;  //think use gBattlerTarget = GetMoveTarget(gCurrentMove, TRUE); somewhere
+        gBattlerTarget = gSideTimers[side].followmeTarget;  //think use gBattlerTarget = GetBattleMoveTarget(gCurrentMove, TRUE); somewhere
     }
     
     else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
@@ -7753,7 +7753,8 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
     }
 }
 
-s8 GetChosenMovePriority(u32 battler) //made u8 (in test build)
+#define PRIORITY_EFFECTS
+s32 GetChosenMovePriority(u32 battler, u32 ability) //made u8 (in test build)
 {
     u16 move;
     gProtectStructs[battler].pranksterElevated = FALSE;
@@ -7769,208 +7770,184 @@ s8 GetChosenMovePriority(u32 battler) //made u8 (in test build)
     else
         move = gBattleMons[battler].moves[*(gBattleStruct->chosenMovePositions + battler)];
 
-    return GetMovePriority(battler, move);
+    return GetBattleMovePriority(battler, ability, move);
 }
 
-#define PRIORITY_EFFECTS
-
-s8 GetMovePriority(u32 battler, u16 move) //ported from emerald the EXACT thing I needed to make nuisance work (facepalm)
-{ //adjusted battler made u8,
-    s8 priority;
+//updated w my custom logic and dropped lagging tail change
+//idea was dumb
+s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
+{
+    s32 priority = 0;
     u16 power = gDynamicBasePower != 0 ? gDynamicBasePower : gBattleMoves[move].power;
     u8 moveType;
 
+
+    priority = GetMovePriority(move);
+
     SetTypeBeforeUsingMove(move, battler, &moveType);
-    priority = gBattleMoves[move].priority;
 
     //just for nuisance rn, doesn't affect damage
     //just accounts for things that happen later in damage calc
     ApplyMovePowerModifiers(battler,move,power);
+
+    //quash is an effect set on battler
+    //forcing them to go last
+    //not an effect they use
+    if (gProtectStructs[battler].quash)
+    {
+        priority = -8;
+    }
+    else
+    {
+    
  
-    //if gBattleMoves[move].flags == FLAG_DMG_2X_IN_AIR & target is STATUS3_ON_AIR increment priority (gStatuses3[battler] & STATUS3_SKY_DROPPED)
-    //why in the world did I change this hmm ok yeah makes sense at first glance,
-    //but not every wind move hits in air, is this a good idea to do?
-    //think won't do this, moves are already rare, and not thought of as good
-    //making them even harder to use isn't such a good idea
-    //w buffed fly/sky attack may be passable to do for wind moves
-    //since its a sub category and makes sense becuase air manipulation
-    //and not so bad since is mostly flying moves against flying types
-    if ((gBattleMoves[move].flags == FLAG_WIND_MOVE && gBattleMoves[move].flags == FLAG_DAMAGE_AIRBORNE && !IS_MOVE_STATUS(move) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR) //done because flying mon are fast, and most mon with this move are slow, so would never land otherwise
-    )
-    {
-        priority++;
-    }//that's good, just need to figure how to set grounded if by 2x flag move while in air - done in bs command
-    //may bneed add this to queenly majesty too? //or could remove, may do that
-    //may keep the idea is good, a punish for semi invul, since all those effects 
-    //are based on going a certain distance away that would otherwise make them untouchable
-    //it makes sense that because of that they wouldn't be able to reach me in time to counter
-    //me using a move that COULD reach them.
-    //hmm thinkcan leave as the single exclusion to queenly majesty, can't excert control while underground
-    //think will remove fly effect from this, as completely invalidates fly
-    //and logic for other effects is they are already in the element that is hitting them
-    //so should be faster so equivalent would be change
-    //fly stuff to if hit by wind move?
-    //keep an eye on this effect
-
-    if (GetBattlerAbility(battler) == ABILITY_GALE_WINGS
-        && moveType == TYPE_FLYING
-        && (gBattleMons[battler].hp > (gBattleMons[battler].maxHP / 2)))
-    {
-        gProtectStructs[battler].galewingsElevated = TRUE;
-        priority++;
-    }
-    else if (GetBattlerAbility(battler) == ABILITY_PRANKSTER && IS_MOVE_STATUS(move))
-    {
-        gProtectStructs[battler].pranksterElevated = TRUE; //setup equivalent for gale wings and triage so cna be checked by queenly majesty
-        priority++; //and one for omnipotent aide as well
-    }
-    else if (gBattleMoves[move].effect == EFFECT_GRASSY_GLIDE && IsBattlerTerrainAffected(battler, STATUS_FIELD_GRASSY_TERRAIN))
-    {
-        priority++;
-    }
-
-    //made this before did status priority rework
-    //so think should drop this down 1,
-    //includes damaging moves too
-    //and only on comfee so not a big deal
-    //+3 is just meant to get around fakeout anyway
-    else if (GetBattlerAbility(battler) == ABILITY_TRIAGE)
-    {
-        switch (gBattleMoves[move].effect)
+        //if gBattleMoves[move].flags == FLAG_DMG_2X_IN_AIR & target is STATUS3_ON_AIR increment priority (gStatuses3[battler] & STATUS3_SKY_DROPPED)
+        //why in the world did I change this hmm ok yeah makes sense at first glance,
+        //but not every wind move hits in air, is this a good idea to do?
+        //think won't do this, moves are already rare, and not thought of as good
+        //making them even harder to use isn't such a good idea
+        //w buffed fly/sky attack may be passable to do for wind moves
+        //since its a sub category and makes sense becuase air manipulation
+        //and not so bad since is mostly flying moves against flying types
+        if ((IsWindMove(move) && MoveCanDamageAirborne(move)
+        && !IsBattleMoveStatus(move) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR) //done because flying mon are fast, and most mon with this move are slow, so would never land otherwise
+        )
         {
-        case EFFECT_RESTORE_HP:
-        case EFFECT_REST:
-        case EFFECT_MORNING_SUN:
-        case EFFECT_MOONLIGHT:
-        case EFFECT_SYNTHESIS:
-        case EFFECT_HEAL_PULSE:
-        case EFFECT_HEALING_WISH:
-        case EFFECT_ROOST:
-        case EFFECT_SWALLOW:
-        case EFFECT_WISH:
-        case EFFECT_SOFTBOILED:
-        case EFFECT_SHORE_UP:
-        case EFFECT_ABSORB:
+            priority++;
+        }//that's good, just need to figure how to set grounded if by 2x flag move while in air - done in bs command
+        //may bneed add this to queenly majesty too? //or could remove, may do that
+        //may keep the idea is good, a punish for semi invul, since all those effects 
+        //are based on going a certain distance away that would otherwise make them untouchable
+        //it makes sense that because of that they wouldn't be able to reach me in time to counter
+        //me using a move that COULD reach them.
+        //hmm thinkcan leave as the single exclusion to queenly majesty, can't excert control while underground
+        //think will remove fly effect from this, as completely invalidates fly
+        //and logic for other effects is they are already in the element that is hitting them
+        //so should be faster so equivalent would be change
+        //fly stuff to if hit by wind move?
+        //keep an eye on this effect
+
+        if (ability == ABILITY_GALE_WINGS
+            && moveType == TYPE_FLYING
+            && IsBattlerAboveHalfHP(battler))
         {
+            gProtectStructs[battler].galewingsElevated = TRUE;
+            priority++;
+        }
+        else if (ability == ABILITY_PRANKSTER 
+        && IsBattleMoveStatus(move))
+        {
+            gProtectStructs[battler].pranksterElevated = TRUE; //setup equivalent for gale wings and triage so cna be checked by queenly majesty
+            priority++; //and one for omnipotent aide as well
+        }
+        else if (gBattleMoves[move].effect == EFFECT_GRASSY_GLIDE && IsBattlerTerrainAffected(battler, STATUS_FIELD_GRASSY_TERRAIN))
+        {
+            priority++;
+        }
+
+        //made this before did status priority rework
+        //so think should drop this down 1,
+        //includes damaging moves too
+        //and only on comfee so not a big deal
+        //+3 is just meant to get around fakeout anyway
+        else if (ability == ABILITY_TRIAGE
+        && IsHealingMove(move))
+        {
+
             gProtectStructs[battler].triageElevated = TRUE;
-            priority += 3;
+                priority += 3;
         }
-            break;
-        }
-    }
 
-    //sets priority still need setup pass healing  to partner, also add partner mon is alive
-    //when heal pass is setup, rest would be the only way to have this mon heal itself
-    //with sleep change. also sitrus berry seems potentially best item?
-    //oh right, leftoveres exists lol vsonic
-    else if ((GetBattlerAbility(battler) == ABILITY_OMNIPOTENT_AIDE) && CAN_ABILITY_ABSORB(battler) && IsBattlerAlive(BATTLE_PARTNER(battler)))
-    {
-        switch (gBattleMoves[move].effect)
+        //sets priority still need setup pass healing  to partner, also add partner mon is alive
+        //when heal pass is setup, rest would be the only way to have this mon heal itself
+        //with sleep change. also sitrus berry seems potentially best item?
+        //oh right, leftoveres exists lol vsonic
+        else if ((ability == ABILITY_OMNIPOTENT_AIDE) && CAN_ABILITY_ABSORB(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))
+        && IsHealingMove(move))
         {
-        case EFFECT_RESTORE_HP:
-        case EFFECT_REST:
-        case EFFECT_MORNING_SUN:
-        case EFFECT_MOONLIGHT:
-        case EFFECT_SYNTHESIS:
-        case EFFECT_HEAL_PULSE:
-        case EFFECT_HEALING_WISH:
-        case EFFECT_ROOST:
-        case EFFECT_SWALLOW:
-        case EFFECT_WISH:
-        case EFFECT_SOFTBOILED:
-        case EFFECT_SHORE_UP:
-        case EFFECT_ABSORB:
-        {
+
             gProtectStructs[battler].OmniAideElevated = TRUE;
+                priority += 3;
+        }
+        //potentially boost to 65 vsonic
+        //doesn't seem to be working right, have 63 bp hidden power
+        //and it still boosts the move priority
+        //just realized this is dumb, if power is variable
+        //i.e a lvl 1 move, it'd always be true
+        //ok can't do anything with this, since moved dynamic power to dmg calc
+        //and this is triggered in attack calnceler
+        //it'll use gbalttmovepower which is 1
+        //I might need to just exclude variable power moves from the list hmm
+        //ok works better I guess
+        //ok gbattlemovepower  is set in damagecalc, 
+        //its NOT the same things as gbattlemoves[move].power
+        //gbattlemovepower stores either base power or gdynamicbasepower and is augmented in calbasedamage 
+        //function in pokemon.c
+        //huh didn't reallize I never fixed this-fixed now
+        //need way to get effective power in battle
+        //nuisance synergizes well with dark deal,
+        //but since this is in attack canceler and power shift is handled
+        //in damage calc I don't have a way to live update this
+        //so would need something like what EE has for
+        //calcing power modifiers think, vsonic    
+        else if (ability == ABILITY_NUISANCE
+            && (power > 1 && power <= 65) //added dynamic for moves like hidden power
+            && !IsBattleMoveStatus(move)) //change to balance out, so not just prankster plus, given status change
+        {
+            gProtectStructs[battler].NuisanceElevated = TRUE;
             priority += 3;
         }
-            break;
+        //can use other effect that I use for displaying hidden power
+        else if (ability == ABILITY_LIGHT_METAL
+            && moveType == TYPE_STEEL)
+        {
+            gProtectStructs[battler].LightMetalElevated = TRUE;
+            priority++;
         }
+        //is cool and fun but makes more sense 
+        //if its contact moves that get elevated
+        //well no there's arguments for each interpretation.
+        //will just keep as is
+        //sigh now undecided if should use
+        //GetBattleMoveDamageCategory  or IsPhysicalMove for this
+        //Former being offense stat used, latter being defense stat it affects
+        //ability was originally for decidueye who is known for firing arrows
+        //but not much difference between that and using mind to throw objects
+        //most effets would stay the same only difference is 
+        //it'd include things that swap category like psyshock
+        //ok I think long as it hits physically its fine smh
+
+        else if (ability == ABILITY_LONG_REACH
+            && !MoveMakesContact(move)
+            && IsPhysicalMove(battler, move) == SPLIT_PHYSICAL)
+        {
+            gProtectStructs[battler].LongReachElevated = TRUE;
+            priority++;
+        }
+        //unsure about affect, conflicted on if it should be contact moves get priority
+        //since its attacking from long range, but if its that, than it doesnt make sense to go on contact moves
+        //if instead I boost the priority of non-contact physical moves, its signature move gets stronger
+        //still has some good use while not being potentially broken?
+        //but getting priority on contact moves is also realy nice, and would just make them good
+
+        else if (gDisableStructs[battler].EmergencyExitTimer == 0
+        && gBattleResources->flags->flags[battler] & RESOURCE_FLAG_EMERGENCY_EXIT
+        && ability == ABILITY_EMERGENCY_EXIT) 
+        {   
+            priority = 9;
+        }//should ensure goes first, and will allow to be excluded from effects that otherwise block priority
+
+
+        else if (gBattleMons[battler].status2 & STATUS2_BIDE
+            && gDisableStructs[battler].bideTimer == 0) //think had to remove check for move bide, since that's not set until atk canceler
+        {
+            priority = 3; //if works, second attack will go before most priority moves /that did it works now
+        }    
     }
-    //potentially boost to 65 vsonic
-    //doesn't seem to be working right, have 63 bp hidden power
-    //and it still boosts the move priority
-    //just realized this is dumb, if power is variable
-    //i.e a lvl 1 move, it'd always be true
-    //ok can't do anything with this, since moved dynamic power to dmg calc
-    //and this is triggered in attack calnceler
-    //it'll use gbalttmovepower which is 1
-    //I might need to just exclude variable power moves from the list hmm
-    //ok works better I guess
-    //ok gbattlemovepower  is set in damagecalc, 
-    //its NOT the same things as gbattlemoves[move].power
-    //gbattlemovepower stores either base power or gdynamicbasepower and is augmented in calbasedamage 
-    //function in pokemon.c
-    //huh didn't reallize I never fixed this-fixed now
-    //need way to get effective power in battle
-    //nuisance synergizes well with dark deal,
-    //but since this is in attack canceler and power shift is handled
-    //in damage calc I don't have a way to live update this
-    //so would need something like what EE has for
-    //calcing power modifiers think, vsonic    
-    else if (GetBattlerAbility(battler) == ABILITY_NUISANCE
-        && (power > 1 && power <= 65) //added dynamic for moves like hidden power
-        && gBattleMoves[move].split != SPLIT_STATUS) //change to balance out, so not just prankster plus, given status change
-    {
-        gProtectStructs[battler].NuisanceElevated = TRUE;
-        priority += 3;
-    }
-    //can use other effect that I use for displaying hidden power
-    else if (GetBattlerAbility(battler) == ABILITY_LIGHT_METAL
-        && moveType == TYPE_STEEL)
-    {
-        gProtectStructs[battler].LightMetalElevated = TRUE;
-        priority++;
-    }
-    //is cool and fun but makes more sense 
-    //if its contact moves that get elevated
-    //well no there's arguments for each interpretation.
-    //will just keep as is
-    //sigh now undecided if should use
-    //GetBattleMoveDamageCategory  or IsPhysicalMove for this
-    //Former being offense stat used, latter being defense stat it affects
-    //ability was originally for decidueye who is known for firing arrows
-    //but not much difference between that and using mind to throw objects
-    //most effets would stay the same only difference is 
-    //it'd include things that swap category like psyshock
-    //ok I think long as it hits physically its fine smh
-
-    else if (GetBattlerAbility(battler) == ABILITY_LONG_REACH
-        && !(gBattleMoves[move].flags & FLAG_MAKES_CONTACT)
-        && IsPhysicalMove(battler, move) == SPLIT_PHYSICAL)
-    {
-        gProtectStructs[battler].LongReachElevated = TRUE;
-        priority++;
-    }
-    //unsure about affect, conflicted on if it should be contact moves get priority
-    //since its attacking from long range, but if its that, than it doesnt make sense to go on contact moves
-    //if instead I boost the priority of non-contact physical moves, its signature move gets stronger
-    //still has some good use while not being potentially broken?
-    //but getting priority on contact moves is also realy nice, and would just make them good
-
-    else if (gDisableStructs[battler].EmergencyExitTimer == 0
-    && gBattleResources->flags->flags[battler] & RESOURCE_FLAG_EMERGENCY_EXIT
-    && GetBattlerAbility(battler) == ABILITY_EMERGENCY_EXIT) 
-    {   
-        priority = 9;
-    }//should ensure goes first, and will allow to be excluded from effects that otherwise block priority
-
-
-    else if (gBattleMons[battler].status2 & STATUS2_BIDE
-        && gDisableStructs[battler].bideTimer == 0) //think had to remove check for move bide, since that's not set until atk canceler
-    {
-        priority = 3; //if works, second attack will go before most priority moves /that did it works now
-    }    
-
-    //consider returnto previous effect, think this is better
-    //but then again has exactly the issue from before,  if its not limited
-    //to priorioty bracket can just infinitely switch out and shut down 
-    //a target w force switch effects, but then again does require heavy setup
-    else if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_LAGGING_TAIL)
-        priority = -12;
 
     return priority;
 }
+
 
 bool8 IsPriorityElevatedviaAbility(u32 battler)
 {

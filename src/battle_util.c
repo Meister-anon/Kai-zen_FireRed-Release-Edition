@@ -1307,7 +1307,7 @@ u8 TrySetCantSelectMoveBattleScript(u32 battler)
         gSelectionBattleScripts[battler] = BattleScript_SelectingNotAllowedMoveTaunt;
         ++limitations;
     }
-    if (gDisableStructs[battler].throatChopTimer != 0 && gBattleMoves[move].flags & FLAG_SOUND)
+    if (gDisableStructs[battler].throatChopTimer != 0 && IsSoundMove(move))
     {
         gCurrentMove = move;
         gSelectionBattleScripts[battler] = BattleScript_SelectingNotAllowedMoveThroatChop;
@@ -1360,7 +1360,7 @@ u8 TrySetCantSelectMoveBattleScript(u32 battler)
         gSelectionBattleScripts[battler] = BattleScript_SelectingNotAllowedMoveChoiceItem;
         ++limitations;
     }
-    else if (holdEffect == HOLD_EFFECT_ASSAULT_VEST && IS_MOVE_STATUS(move) && move != MOVE_ME_FIRST)
+    else if (holdEffect == HOLD_EFFECT_ASSAULT_VEST && IsBattleMoveStatus(move) && move != MOVE_ME_FIRST)
     {
         gCurrentMove = move;
         gLastUsedItem = gBattleMons[battler].item;
@@ -1412,7 +1412,7 @@ u8 CheckMoveLimitations(u32 battler, u8 unusableMoves, u16 check)
             unusableMoves |= (1u << i);
         if (move == gLastMoves[battler] && check & MOVE_LIMITATION_TORMENTED && gBattleMons[battler].status2 & STATUS2_TORMENT)
             unusableMoves |= (1u << i);
-        if (gDisableStructs[battler].tauntTimer && check & MOVE_LIMITATION_TAUNT && IS_MOVE_STATUS(move))
+        if (gDisableStructs[battler].tauntTimer && check & MOVE_LIMITATION_TAUNT && IsBattleMoveStatus(move))
             unusableMoves |= (1u << i);
         if (GetImprisonedMovesCount(battler, move) && check & MOVE_LIMITATION_IMPRISON)
             unusableMoves |= (1u << i);
@@ -1424,7 +1424,7 @@ u8 CheckMoveLimitations(u32 battler, u8 unusableMoves, u16 check)
         if (holdEffect == HOLD_EFFECT_CHOICE_BAND && *choicedMove != 0 && *choicedMove != 0xFFFF && *choicedMove != move)
             unusableMoves |= (1u << i);
         // Assault Vest
-        if (holdEffect == HOLD_EFFECT_ASSAULT_VEST && IS_MOVE_STATUS(move) && move != MOVE_ME_FIRST)
+        if (holdEffect == HOLD_EFFECT_ASSAULT_VEST && IsBattleMoveStatus(move) && move != MOVE_ME_FIRST)
             unusableMoves |= (1u << i);
         // Gravity
         if (IsGravityPreventingMove(move))
@@ -1436,7 +1436,7 @@ u8 CheckMoveLimitations(u32 battler, u8 unusableMoves, u16 check)
         if (IsBelchPreventingMove(battler, move))
             unusableMoves |= (1u << i);
         // Throat Chop
-        if (gDisableStructs[battler].throatChopTimer && gBattleMoves[move].flags & FLAG_SOUND)// this is correct I had thought I removed flag soud but didn't
+        if (gDisableStructs[battler].throatChopTimer && IsSoundMove(move))// this is correct I had thought I removed flag soud but didn't
             unusableMoves |= (1u << i);
         // Stuff Cheeks
         if (move == MOVE_STUFF_CHEEKS && ItemId_GetPocket(gBattleMons[battler].item) != POCKET_BERRY_POUCH)
@@ -1543,7 +1543,7 @@ static bool32 IsGravityPreventingMove(u32 move)
     if (!(gFieldStatuses & STATUS_FIELD_GRAVITY))
         return FALSE;
 
-    else if (gBattleMoves[move].flags & FLAG_GRAVITY_CANCELED)
+    else if (!IsMoveGravityBanned(move))
         return TRUE;
 
 }
@@ -4702,7 +4702,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                 if (--gDisableStructs[gBattlerAttacker].tauntTimer == 0)
                     gDisableStructs[gBattlerAttacker].tauntEnds = 1;
                 
-                if (IS_MOVE_STATUS(gCurrentMove))
+                if (IsBattleMoveStatus(gCurrentMove))
                 {
                     gProtectStructs[gBattlerAttacker].usedTauntedMove = TRUE;
                     CancelMultiTurnMoves(gBattlerAttacker);
@@ -4962,7 +4962,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                       //  *bideDmg = gTakenDmg[gBattlerAttacker] * 2;   //may go back to 2x if 2.3 is too much
                         gBattlerTarget = gTakenDmgByBattler[gBattlerAttacker];
                         if (gAbsentBattlerFlags & (1u << gBattlerTarget))
-                            gBattlerTarget = GetMoveTarget(MOVE_BIDE, MOVE_TARGET_SELECTED + 1);
+                            gBattlerTarget = GetBattleMoveTarget(MOVE_BIDE, MOVE_TARGET_SELECTED + 1);
                         gBattlescriptCurrInstr = BattleScript_BideAttack;
                         gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_BIDE); //status remover
                     }
@@ -4983,7 +4983,7 @@ u8 AtkCanceller_UnableToUseMove(void)
 
                     gBattlerTarget = gTakenDmgByBattler[gBattlerAttacker];
                     if (gAbsentBattlerFlags & (1u << gBattlerTarget))
-                        gBattlerTarget = GetMoveTarget(MOVE_DRYADS_CURSE, 1);
+                        gBattlerTarget = GetBattleMoveTarget(MOVE_DRYADS_CURSE, 1);
                 }
                 else
                 {
@@ -5033,7 +5033,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             ++gBattleStruct->atkCancellerTracker; //so don't use prefix
             break;
         case CANCELLER_POWDER_MOVE:
-            if ((gBattleMoves[gCurrentMove].flags & FLAG_POWDER_MOVE) && (gBattlerAttacker != gBattlerTarget))
+            if (IsPowderMove(gCurrentMove) && (gBattlerAttacker != gBattlerTarget))
             {
                 if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerTarget, TYPE_GRASS, FALSE))
                     || GetBattlerAbility(gBattlerTarget) == ABILITY_OVERCOAT)
@@ -5069,7 +5069,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             ++gBattleStruct->atkCancellerTracker;
             break;
         case CANCELLER_THROAT_CHOP:
-            if (gDisableStructs[gBattlerAttacker].throatChopTimer && gBattleMoves[gCurrentMove].flags & FLAG_SOUND)
+            if (gDisableStructs[gBattlerAttacker].throatChopTimer && IsSoundMove(gCurrentMove))
             {
                 gProtectStructs[gBattlerAttacker].usedThroatChopPreventedMove = TRUE;
                 CancelMultiTurnMoves(gBattlerAttacker);
@@ -5217,7 +5217,7 @@ u8 AtkCanceller_UnableToUseMove2(void)
         case CANCELLER_PSYCHIC_TERRAIN:
             if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN
                 && IsBattlerGrounded(gBattlerTarget)
-                && GetChosenMovePriority(gBattlerAttacker) > 0
+                && GetChosenMovePriority(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)) > 0
                 && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget)
                 && (!(moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY)))//was missing but not supposed to be able to block wide affect moves
                 && (gBattleMoves[gCurrentMove].power || IsPriorityElevatedviaAbility(gBattlerAttacker) || gCurrentMove == MOVE_BIDE)) //last thing for bide boost
@@ -7920,8 +7920,8 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             //w intimidate?
             if (moveArg != MOVE_NONE)
             {            
-            if ((gLastUsedAbility == ABILITY_SOUNDPROOF && (gBattleMoves[moveArg].type == TYPE_SOUND || gBattleMoves[moveArg].flags & FLAG_SOUND) && !(moveTarget & MOVE_TARGET_USER))
-                || (gLastUsedAbility == ABILITY_BULLETPROOF && gBattleMoves[moveArg].flags & FLAG_BALLISTIC)
+            if ((gLastUsedAbility == ABILITY_SOUNDPROOF && IsSoundMove(moveArg) && !(moveTarget & MOVE_TARGET_USER))
+                || (gLastUsedAbility == ABILITY_BULLETPROOF && IsBallisticMove(moveArg))
                 || (gLastUsedAbility == ABILITY_LUNAR_POWER && IsMoonbasedMove(moveArg) && !(moveTarget & MOVE_TARGET_USER)))
             {
                 if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS)
@@ -7932,7 +7932,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             //wtf did I right here? 
             else if ((IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_DAZZLING) || IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_QUEENLY_MAJESTY)
                 || IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_ARMOR_TAIL))
-                && GetChosenMovePriority(gBattlerAttacker) > 0
+                && GetChosenMovePriority(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)) > 0
                 //&& GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget)
                 //think targetting logic may be off, as has exclusions i.e perish song
                 && (!(moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY))))//was missing but not supposed to be able to block wide affect moves
@@ -7943,8 +7943,9 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 gBattlescriptCurrInstr = BattleScript_DazzlingProtected;
                 effect = 1;
             }//vsonic important check make sure bide effect works
-            else if (ShouldPranksterBoostedMoveFail(moveArg, gBattlerAttacker, gBattlerTarget, TRUE) && GetChosenMovePriority(gBattlerAttacker) > 0
-            && !(IS_MOVE_STATUS(moveArg) && targetAbility == ABILITY_MAGIC_BOUNCE))
+            else if (ShouldPranksterBoostedMoveFail(moveArg, gBattlerAttacker, gBattlerTarget, TRUE) 
+            && GetChosenMovePriority(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)) > 0
+            && !(IsBattleMoveStatus(moveArg) && targetAbility == ABILITY_MAGIC_BOUNCE))
             {
                 if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE) || !(moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY)))
                     CancelMultiTurnMoves(gBattlerAttacker); // Don't cancel moves that can hit two targets bc one target might not be protected
@@ -8018,12 +8019,12 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                         effect = 2, statId = STAT_ATK;
                     break;
                 case ABILITY_GALEFORCE:
-                    if (gBattleMoves[moveArg].flags & FLAG_WIND_MOVE)
+                    if (IsWindMove(moveArg))
                         effect = 2, statId = STAT_SPATK;
                     break;
                 case ABILITY_DUST_DEVIL:
                 case ABILITY_WIND_RIDER:
-                if (gBattleMoves[gCurrentMove].flags & FLAG_WIND_MOVE && !(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove) & MOVE_TARGET_USER))
+                if (IsWindMove(moveArg) && !(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove) & MOVE_TARGET_USER))
                     effect = 2, statId = STAT_ATK;
                 break;
                 case ABILITY_TURBOBLAZE:
@@ -8042,7 +8043,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                             gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_FLASH_FIRE;
                             effect = 3; 
                         }
-                        else if ((gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE) || IS_MOVE_STATUS(moveArg))
+                        else if ((gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE) || IsBattleMoveStatus(moveArg))
                         {
                             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_NO_BOOST;
                             if (gProtectStructs[gBattlerAttacker].notFirstStrike)
@@ -8072,7 +8073,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                                 gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_FLASH_FIRE;
                                 effect = 3; 
                             }
-                            else if ((gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE) || IS_MOVE_STATUS(moveArg))
+                            else if ((gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE) || IsBattleMoveStatus(moveArg))
                             {
                                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_NO_BOOST;
                                 if (gProtectStructs[gBattlerAttacker].notFirstStrike)
@@ -8098,7 +8099,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                         else
                             gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless_PPLoss;
                     }
-                    else if (IS_MOVE_STATUS(moveArg))
+                    else if (IsBattleMoveStatus(moveArg))
                     {
                         if ((gProtectStructs[gBattlerAttacker].notFirstStrike))
                             gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless;
@@ -8126,7 +8127,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                         else
                             gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless_PPLoss;
                     }
-                    else if (IS_MOVE_STATUS(moveArg))
+                    else if (IsBattleMoveStatus(moveArg))
                     {
                         if ((gProtectStructs[gBattlerAttacker].notFirstStrike))
                             gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless;
@@ -8159,7 +8160,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                         else
                             gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless_PPLoss;
                     }
-                    else if (IS_MOVE_STATUS(moveArg))
+                    else if (IsBattleMoveStatus(moveArg))
                     {
                         if ((gProtectStructs[gBattlerAttacker].notFirstStrike))
                             gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless;
@@ -8737,7 +8738,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT) //WHY DO these 2 use different restriction? mummy seems to follow simplebeam/entertainment
                     && IsBattlerAlive(gBattlerAttacker)
                     && TARGET_TURN_DAMAGED
-                    && (gBattleMoves[moveArg].flags & FLAG_MAKES_CONTACT))
+                    && MoveMakesContact(moveArg))
                 {
                     switch (gBattleMons[gBattlerAttacker].ability)
                     {
@@ -8959,7 +8960,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 break;
             }
             case ABILITY_WIND_POWER:
-            if (!(gBattleMoves[gCurrentMove].flags & FLAG_WIND_MOVE))
+            if (!(IsWindMove(moveArg)))
                 break;
             // fall through
         case ABILITY_ELECTROMORPHOSIS:
@@ -9329,7 +9330,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             {
             case ABILITY_DANCER:
                 if (IsBattlerAlive(battler)
-                    && (gBattleMoves[gCurrentMove].flags & FLAG_DANCE)
+                    && IsDanceMove(gCurrentMove)
                     && !gSpecialStatuses[battler].dancerUsedMove
                     && gBattlerAttacker != battler)
                 {
@@ -9356,7 +9357,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 //idk why but not activating prob dancer isn't setup right either
                 //but rn can't identify issue will toss on branch to work later
                 if (IsBattlerAlive(battler)
-                    && (gBattleMoves[gCurrentMove].flags & FLAG_BALLISTIC)
+                    && IsBallisticMove(gCurrentMove)
                     && !gSpecialStatuses[battler].returnedBallMove
                     && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(battler)
                     ) // could exclude explosion but decide not to for the funny
@@ -10910,7 +10911,7 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn)   //
             break;
         case HOLD_EFFECT_THROAT_SPRAY:  // Does NOT need to be a damaging move
             if (gBattleMons[gBattlerAttacker].hp != 0
-                && gBattleMoves[gCurrentMove].flags & FLAG_SOUND
+                && IsSoundMove(gCurrentMove)
                 && CompareStat(gBattlerAttacker, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN)
                 && !NoAliveMonsForEitherParty()   // Don't activate if battle will end
                 && !gProtectStructs[gBattlerAttacker].targetNotAffected)    //should be result not no effect
@@ -11307,7 +11308,7 @@ u8 CanMovebeRedirected(void)
 }
 
 #define ABSORB_ABILITY_TARGETTING
-u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who gets attacked?
+u8 GetBattleMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who gets attacked?
 {
     u8 targetBattler = 0;
     u8 targetType, moveType;
@@ -11580,7 +11581,7 @@ bool8 IsMoveMakingContact(u16 move, u8 battlerAtk)
 
     u16 atkHoldEffect = GetBattlerHoldEffect(battlerAtk, TRUE);
 
-    if (!(gBattleMoves[move].flags & FLAG_MAKES_CONTACT))
+    if (!MoveMakesContact(move))
     {
         if (gBattleMoves[move].effect == EFFECT_SHELL_SIDE_ARM && GetBattleMoveDamageCategory(battlerAtk, move) == SPLIT_PHYSICAL)
             return TRUE;
@@ -11595,7 +11596,7 @@ bool8 IsMoveMakingContact(u16 move, u8 battlerAtk)
     }
     else if (atkHoldEffect == HOLD_EFFECT_PROTECTIVE_PADS
            || GetBattlerAbility(battlerAtk) == ABILITY_LONG_REACH
-           //|| (atkHoldEffect == HOLD_EFFECT_PUNCHING_GLOVE && gBattleMoves[move].flags & FLAG_IRON_FIST_BOOST)
+           //|| (atkHoldEffect == HOLD_EFFECT_PUNCHING_GLOVE && IsPunchingMove(move))
            )
     {
         return FALSE;
@@ -11919,7 +11920,7 @@ bool32 IsMoldBreakerTypeAbilityActive(u32 battler, u32 ability)
         return FALSE;
 
     return (ability == ABILITY_MOLD_BREAKER || ability == ABILITY_TERAVOLT || ability == ABILITY_TURBOBLAZE || ability == ABILITY_PLASMA_OVERDRIVE
-        || (ability == ABILITY_MYCELIUM_MIGHT && IS_MOVE_STATUS(gCurrentMove)));
+        || (ability == ABILITY_MYCELIUM_MIGHT && IsBattleMoveStatus(gCurrentMove)));
 }
 
 static inline bool32 CanBreakThroughAbility(u32 battlerAtk, u32 battlerDef, u32 ability, u32 hasAbilityShield)
@@ -12316,19 +12317,6 @@ u32 GetBattlerWeight(u8 battlerId) //use ethis for calculating  seismic toss dam
     return weight;
 }
 
-u16 SanitizeMoveId(u16 move)
-{
-    if (move >= MOVES_COUNT)
-        return MOVE_NONE;
-    else
-        return move;
-}
-
-u16 GetMoveEffect(u16 move)
-{
-    return gBattleMoves[SanitizeMoveId(move)].effect;
-}
-
 u32 CountBattlerStatIncreases(u32 battler, bool32 countEvasionAcc)
 {
     u32 i;
@@ -12705,9 +12693,13 @@ bool32 IsBattlerAffectedByHazards(u32 battler, bool32 toxicSpikes)
     return ret;
 }
 
+//vsonic important quick sub for effect
+//need additional effects to replace
 bool32 TestSheerForceFlag(u8 battler, u16 move)
 {
-    if (GetBattlerAbility(battler) == ABILITY_SHEER_FORCE && gBattleMoves[move].flags & FLAG_SHEER_FORCE_BOOST)
+    if (GetBattlerAbility(battler) == ABILITY_SHEER_FORCE 
+    //&& gBattleMoves[move].flags & FLAG_SHEER_FORCE_BOOST
+    && (GetMoveEffect(move) != EFFECT_HIT && GetMovePower(move) > 1))
         return TRUE;
     else
         return FALSE;
@@ -13125,7 +13117,7 @@ static uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u
     {
         modifier = UQ_4_12(0.0);
     }
-    else if (IsFloatingTargetImmunetoGroundMoves(battlerAtk, battlerDef, move, moveType))
+    else if (IsFloatingTargetImmunetoGroundBasedMoves(battlerAtk, battlerDef, move))
     {
         modifier = UQ_4_12(0.0);
         if (recordAbilities)
@@ -13716,13 +13708,6 @@ bool32 IsBattlerTerrainAffected(u8 battlerId, u32 terrainFlag)
     //which in itself coudl be good for celebi
 }
 
-bool32 TestMoveFlags(u16 move, u32 flag)
-{
-    if (gBattleMoves[move].flags & flag)
-        return TRUE;
-    return FALSE;
-}
-
 //made then realized didn't need
 //keeping for other potential use,
 //keep even on completion someone else may find use for
@@ -14140,25 +14125,20 @@ bool8 CanSurviveInstantKOWithSturdy(u8 battler)
 //for some reason wasn't tracking propery
 //for type effect display w mold breaker
 //but making movetype an argument fixed issue
-bool8 IsFloatingTargetImmunetoGroundMoves(u8 battler_atk, u8 battler_def, u16 move, u8 moveType)
+bool8 IsFloatingTargetImmunetoGroundBasedMoves(u8 battler_atk, u8 battler_def, u16 move)
 {
 
 
-    if (moveType == TYPE_GROUND && !IsBattlerGrounded(battler_def))
+    if (MoveCantDamageFloatingTargets(move) && !IsBattlerGrounded(battler_def))
     {
-        if (gBattleMoves[move].flags & FLAG_DAMAGE_AIRBORNE)
-            return FALSE;
 
-        else if (GetBattlerHoldEffect(battler_def, TRUE) == HOLD_EFFECT_AIR_BALLOON)
-            return TRUE;
-        else if (GetBattlerAbility(battler_atk) == ABILITY_MOLD_BREAKER)
+        if (GetBattlerAbility(battler_atk) == ABILITY_MOLD_BREAKER)
             return FALSE;
         else
             return TRUE;
     }
 
     return FALSE;
-
 }
 
 //for use in party menu
