@@ -35,75 +35,58 @@ and just pull changes in when that's done?
 next goals
 
 
--this is a test branch for evaluating changes planned for master
+updating battle effects and scripts to EE
+standard in prep for ability effect changes etc.
 
-keeping type change of bug resisting electric
-makes sense lot of bugs 
-can generate or manipulate electricity or electric fields
-even common bugs like bees
+step by step to not be overwhelmed 
+will need replace battle effects
+and move effects
 
-think to get this across to the player
-best way is to adjust the bug trainer text
-in viridian forest
-add some bug facts about bugs generating electricity
-give some bugs select low power electric moves
+a lot of refactors done for moves
+so scripts are changed a lot
+ex explosion refactor
+does everything in c code rather than 
+needing like 7 different bs scripts
 
-main diff they will still be able to be paralyzed
+big impact is the changes I made will need
+to be reintroduced,
+ a major effect is my call_if logic
+ which I THINK shouldn't be a big deal
+ and will just be handled by the additional_effects struct
 
--of note odd bugs with neutralizing gas
-not properly clearing when leave field I think
-kept pixelate from updating move type
-only fixed when sent in castform to activate their abilityeffect
-so guess have to retrigger abilityeffect function to clear 
-also on switch in if neutralizing gas mon comes in
-taking a hit ends battle as if caught opposing mon
-adding them to your team...
 
--confirmed this bug does exist in master
--fixed neutralizing gas
+ process is go over moves
+ see what if any effects I changed from default.
 
--major note more battle anim issues with speed up
-seems morning sun which does blend effects
-skips an important clear and the screen remains washed out
-like a flash bang.
+ same for custom changse to any move effects
 
-only fix is closing and opening party menu 
-to refresh display maybe adding some sort of cleanse
-as last command of all animations would help with that?
+ if none replace with emerald version
+ if their are custom changes then preserve
+ effect as needed to keep track of new changes
+ if no better way to do them with new functionality incoming
 
-on btl ctrl update finish removal of gactivebattler
+ ex submission in ee is just effect hit
+ but I've updated to recoil move that
+ brick breaks, and goes through protect
 
-following that can work out move flags rework
-and gbit table removal w regex sub
+ so may have case to include effect now
 
-keep lvl cap form change and guard style work for distractions
+ also of note most bs commands I made to 
+ load power or daamgae change efects
+ can prob just wrap into EE damage calc
+ makes more senes to just have all in one function
+ rather than a bunch of commands slapped in randomly smh
 
-go back and reorder all battle.h structs etc
-to make sure they match old order
-with new additions added to bottom to preserve order
+ ex. typebaseddmgboost
+ variablepowercalc
+ presentdamagecalculation
 
-most important replace all battle files with EE versions
-after seeing just how much is changed with recent EE work
-on color change no way I can just peicemeal it.
+ also revise multihit to use strikecout filed and how they set
+ which will remove multihit bs 
+ 
+ concern is just fury cutter moslty
+ since supposed to incrase in damage base on counter
 
-this includes battle animations moves battle_move effects
-consolidating battle controller to degree necessary
-battle script commands battle main and battle util
-then I can just take ai files as they are
-
-for ai think just need take my multiplier change logic
-and the stuff for the hazard changes
-
-take files exactly as they are from EE
-then can prune out features I don't need like dynamax
-and fit back in my custom stuff
-
-rename things FR_ based on if exclusive to firered
-when porting back.
-
-order finish remove gactivebattler
-do gbit table removal, then can create branch
-to update all battle files
-
-pokemon.c will most likely also be affected
-so keep an eye out
+ if can use strike count to hold num total hits
+ should be able to remove one counter
+ prob multi task counter and just keep multihit counter
