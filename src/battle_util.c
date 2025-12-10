@@ -13628,6 +13628,10 @@ bool32 CanActivateTimeControl(u32 battler)
 
 }
 
+//potentially should be different since
+//only brick break should land regardless
+//of type effectiveness
+//so need lands but not result no effect maybe? 
 bool32 TryRemoveScreens(u8 battler)
 {
     bool32 removed = FALSE;
