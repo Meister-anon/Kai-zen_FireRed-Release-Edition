@@ -2372,13 +2372,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 3,
     },//these two don't have type immunity unlike brick break so keep an eye on
 
-    [EFFECT_SET_EFFECT_PRE_HIT] =
-    {
-        .battleScript = BattleScript_EffectHit,
-        .battleTvScore = 3,
-        .setfromatkcanceler = TRUE,
-    },
-
     [EFFECT_SNOWESCAPE] =
     {
         .battleScript = BattleScript_EffectSnowescape,

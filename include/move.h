@@ -133,7 +133,8 @@ struct BattleMove
     bool32 accuracy50InSun:1;
     u32 numAdditionalEffects:2; // limited to 3 - don't want to get too crazy
     u32 strikeCount:4; // Max 15 hits. Defaults to 1 if not set. May apply its effect on each hit.
-    u32 padding:11; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
+    u32 multiTaskBanned:1; // remove need for multitask exclude 
+    u32 padding:10; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
     // end of word
     u8 split;
     u16 argument;// for transferring move effects
@@ -349,6 +350,11 @@ static inline bool32 IsHealingMove(u32 moveId)
 static inline bool32 IsMoveDampBanned(u32 moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].dampBanned;
+}
+
+static inline bool32 IsMoveMultiTaskBanned(u32 moveId)
+{
+    return gBattleMoves[SanitizeMoveId(moveId)].multiTaskBanned;
 }
 
 static inline bool32 MoveSureHitEvasionBoostedTargets(u32 moveId)

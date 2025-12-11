@@ -5122,17 +5122,17 @@ u8 AtkCanceller_UnableToUseMove(void)
                         gMultiTask = 5;
                         break; 
                     default:
-                    if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MULTI_TASK
-                        && CanMultiTask(gCurrentMove) == TRUE
-                        && gBattleMoves[gCurrentMove].split != SPLIT_STATUS)
-                        {
-                                gMultiTask = Random() % 4; //return a number between 0 & 3
-                                if (gMultiTask >= 1)
-                                    gMultiTask = (Random() % 4) + 2; // if non 0, multihit is between 2-5 htis
-                                else
-                                    gMultiTask += 2; //else add 2 to multi counter, returning a multihit of 2.
-                        }
-                        break;
+                    if (CanMultiTask(gBattlerAttacker, gCurrentMove) == TRUE)
+                    {
+                            gMultiTask = Random() % 4; //return a number between 0 & 3
+                            if (gMultiTask >= 1)
+                                gMultiTask = (Random() % 4) + 2; // if non 0, multihit is between 2-5 htis
+                            else
+                                gMultiTask += 2; //else add 2 to multi counter, returning a multihit of 2.
+                    }
+                    else
+                        gMultiTask = GetMoveStrikeCount(gCurrentMove);
+                    break; //vsonic important review later when brain works, should be good tho
                 }
 
                 //will need add loaded dice here eventually vsonic

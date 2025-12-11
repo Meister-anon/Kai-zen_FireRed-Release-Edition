@@ -2405,16 +2405,17 @@ static void TryUpdateRoundTurnOrder(void)
     }
 }
 
-bool8 CanMultiTask(u16 move) //works, but now I need to negate the jump, because it will still attack multiple times otherwise  done!
+bool8 CanMultiTask(u32 battleratk, u16 move) //works, but now I need to negate the jump, because it will still attack multiple times otherwise  done!
 {
-    u16 i;
-    for (i = 0; sMultiTaskExcludedEffects[i] != MULTI_TASK_FORBIDDEN_END && sMultiTaskExcludedEffects[i] != gBattleMoves[move].effect; ++i);
-    ;
-    if (sMultiTaskExcludedEffects[i] == MULTI_TASK_FORBIDDEN_END
-    && gBattleMoves[move].split != SPLIT_STATUS) //should mean if loop through till end, move can be multi tasked
+
+    if (GetBattlerAbility(battleratk) == ABILITY_MULTI_TASK
+    && !IsBattleMoveStatus(move)
+    && !IsMoveMultiTaskBanned(move))
+    {
         return TRUE;
-    else
-        return FALSE;
+    }
+
+    return FALSE;
 }
 
 //damgage formula emerald puts stab checks here
@@ -2448,8 +2449,7 @@ static void atk05_damagecalc(void)
     //ability just needs a bit of help in early game,
     //once you get to the point you can consistantly do min 10 damage
     //there's no issues
-    if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MULTI_TASK
-    && CanMultiTask(gCurrentMove) == TRUE)
+    if (CanMultiTask(gBattlerAttacker, gCurrentMove) == TRUE)
     {
         if (gMultiTask > 2)
             gBattleMoveDamage = max(gBattleMoveDamage / gMultiTask, 1);
@@ -2481,8 +2481,7 @@ s32 AI_CalcDmgFormula(u8 attacker, u8 defender) //made for ai .c update
     if (gProtectStructs[attacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
 
-    if (GetBattlerAbility(attacker) == ABILITY_MULTI_TASK
-    && CanMultiTask(gCurrentMove) == TRUE)
+    if (CanMultiTask(attacker, gCurrentMove) == TRUE)
     {
         gBattleMoveDamage = max(gBattleMoveDamage / gMultiTask, 1);
     }
@@ -2511,8 +2510,7 @@ void AI_CalcDmg(u8 attacker, u8 defender) //needed for ai script  , brought back
     if (gProtectStructs[attacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
 
-    if (GetBattlerAbility(attacker) == ABILITY_MULTI_TASK
-    && CanMultiTask(gCurrentMove) == TRUE)
+    if (CanMultiTask(attacker, gCurrentMove) == TRUE)
     {
         gBattleMoveDamage = max(gBattleMoveDamage / gMultiTask, 1);
     }
@@ -3671,8 +3669,7 @@ static void atk09_attackanimation(void)
             }
             if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)) //do animation only if not move result no effect
             {
-                if ((GetBattlerAbility(gBattlerAttacker) == ABILITY_MULTI_TASK)
-                && CanMultiTask(gCurrentMove)
+                if (CanMultiTask(gBattlerAttacker, gCurrentMove)
                 && gBattleScripting.animTargetsHit)
                 {
                     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -6584,7 +6581,7 @@ static void atk1E_jumpbasedonability(void)
         {
             if (ability == ABILITY_MULTI_TASK)
             {
-                if (CanMultiTask(gCurrentMove)) //seems to be workign now, but some move animations dont show still investigating
+                if (CanMultiTask(battlerId, gCurrentMove)) //seems to be workign now, but some move animations dont show still investigating
                 {
                     hasAbility = TRUE; //if shouldn't multitask will fail to jump to portion that gives moves multi hit effect
                 } //only used in, low kick script, and non multihit scripts

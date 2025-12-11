@@ -46,7 +46,7 @@ s8 GetInverseCritChance(u8 battlerAtk, u8 battlerDef, u32 move);
 s32 AI_CalcDmgFormula(u8 attacker, u8 defender);
 u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u32 defAbility, u32 atkHoldEffect, u32 defHoldEffect);
 bool32 IsStallActive(u8 battler); //new checks for ability stall
-bool8 CanMultiTask(u16 move);
+bool8 CanMultiTask(u32 battleratk, u16 move);
 bool8 DoesTargetAbilityBlockCrit(u8 Targetbattler);
 bool32 TryKnockOffBattleScript(u32 loseitembattler, u32 EffectUser, u16 moveEffect);
 u8 CanMoveHitSwitchingTarget(u16 move);
