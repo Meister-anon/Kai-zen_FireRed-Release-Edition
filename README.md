@@ -92,6 +92,15 @@ to be reintroduced,
  prob multi task counter and just keep multihit counter
 
 
+ next step go over bs.inc and commands to see what I changed or added
+ make note of that in inc so I don't lose it and can readd them after
+ well for existing commands can add them in ee in advance of copy over
+ so I don't lose anything
+
+ that'll be best methodology for all changes prob
+ see where the EE equivalent is,
+ add my changes as needed and then port that over
+
 
  New idea for arceus genesect type null/sylvally
  but requires complete item expansion smh - noting for now
@@ -119,3 +128,9 @@ to be reintroduced,
     //yeah think like that better that way memories and plates
     //are similarly linked while drive gets its own
     //distinct effect
+    //since type is a loop and odd
+    //think best way is just do a 50% power drop
+    //if atk type matches drive type
+    //and w technoblast separted from drive
+    //can have a way to use the move
+    //while having a separte option to use the drive
