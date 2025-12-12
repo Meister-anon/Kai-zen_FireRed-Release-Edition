@@ -477,7 +477,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_SHEER_COLD, // Same as EFFECT_OHKO but Ice-types are immune to it and has decreased accuracy for non Ice-type users.
     EFFECT_FUSION_COMBO,
     EFFECT_FIXED_PERCENT_DAMAGE,
-    EFFECT_FIXED_HP_DAMAGE,
+    EFFECT_FIXED_HP_DAMAGE, //note add logic for these 2 to be expluded from super effective sound
     EFFECT_HEAL_BLOCK,
     EFFECT_RECOIL_IF_MISS,
     EFFECT_MIST,
@@ -516,7 +516,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_ENCORE,
     EFFECT_PAIN_SPLIT,
     EFFECT_SNORE,
-    EFFECT_CONVERSION_2,
+    EFFECT_CONVERSION_Z,
     EFFECT_LOCK_ON,
     EFFECT_SKETCH,
     EFFECT_SLEEP_TALK,
@@ -726,7 +726,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_COACHING,
     EFFECT_LASH_OUT,
     EFFECT_GRASSY_GLIDE,
-    EFFECT_DYNAMAX_DOUBLE_DMG,
+    EFFECT_BOOST_PWR_BASED_WEIGHT,//EFFECT_DYNAMAX_DOUBLE_DMG, make better name later
     EFFECT_DECORATE,
     EFFECT_SNIPE_SHOT,
     EFFECT_STRUGGLE,
@@ -747,7 +747,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_RISING_VOLTAGE,
     EFFECT_BEAK_BLAST,
     EFFECT_COURT_CHANGE,
-    EFFECT_MAX_HP_50_RECOIL,
+    EFFECT_MAX_HP_50_RECOIL,    //mind blown steel beam effect but neither will use it
     EFFECT_CHLOROBLAST, // Same effect as EFFECT_MAX_HP_50_RECOIL but follows the same rules as EFFECT_RECOIL
     EFFECT_EXTREME_EVOBOOST,
     EFFECT_HIT_SET_TERRAIN,
@@ -794,6 +794,8 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_CEASELESS_EDGE, // Same applies to spikes
     
     //custom effects start    
+    EFFECT_COCOON,
+    EFFECT_DRYADS_CURSE,
     EFFECT_TARGET_TYPE_DAMAGE,
     EFFECT_HIGHEST_STAT_UP_HIT,
     EFFECT_DMG_FIXATION,
@@ -804,10 +806,18 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_ACID_RAIN,
     EFFECT_SUBMISSION,
     EFFECT_RAGING_BULL,
-    EFFECT_SET_EFFECT_PRE_HIT, //attempt repalce below 2
+    //EFFECT_SET_EFFECT_PRE_HIT, //attempt repalce below 2 - hHad wrong dont need effect
     EFFECT_SNOWESCAPE,
-    //EFFECT_STRENGTH_UP_HIT,
+    //EFFECT_SACRIFICE_HEALTH, //decide not use for mind blown but will make set of effects that sacrifice hp before going off -realized was dumb, no use case for
+    EFFECT_MIND_BLOWN, //will be used for mindblown & self destruct diff from 50% hp recoil in that it goes off first and can kill like curse but fails if user faints
+    //EFFECT_STRENGTH_UP_HIT, //instead straight 50% use damagepercentage argument for max hp amount to lose
     //EFFECT_TRIPLE_ARROWS, //may need since plan is set effects before use move
+    EFFECT_JUDGMENT, //custom judgement effect just sets type to super effective
+    EFFECT_SNOWBALL,
+    EFFECT_NETTLE_WHIP, //BURN if not grass and bypass fire burn immunity
+    EFFECT_STATUS_IF_NOT_ARG_TYPE,
+    EFFECT_TRENCH_RUN,
+    EFFECT_STEEL_SURGE,
     NUM_BATTLE_MOVE_EFFECTS,
 };
 

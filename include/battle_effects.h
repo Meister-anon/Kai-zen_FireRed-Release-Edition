@@ -491,9 +491,9 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .hasAccCheckAfterAtkstring = TRUE,
     },
 
-    [EFFECT_CONVERSION_2] =
+    [EFFECT_CONVERSION_Z] =
     {
-        .battleScript = BattleScript_EffectConversion2,
+        .battleScript = BattleScript_EffectConversionZ,
         .battleTvScore = 4,
         .encourageEncore = TRUE,
     },
@@ -767,7 +767,8 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectBellyDrum,
         .battleTvScore = 7,
         .encourageEncore = TRUE,
-    },
+    },//consider generalize effect script sacrificehealth boost stat
+    //can do based on move effect vsonic fillet away and this would use it
 
     [EFFECT_PSYCH_UP] =
     {
@@ -1884,11 +1885,11 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 0, // TODO: Assign points
     },
 
-    [EFFECT_DYNAMAX_DOUBLE_DMG] =
+    [EFFECT_BOOST_PWR_BASED_WEIGHT] =
     {
         .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
-    },
+    }, //was dynamax double emg
 
     [EFFECT_DECORATE] =
     {
@@ -2306,6 +2307,18 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 0, // TODO: Assign points
     },
 
+    [EFFECT_COCOON] =
+    {
+        .battleScript = BattleScript_EffectCocoon,
+        .battleTvScore = 0, // TODO: Assign points
+    },
+
+    [EFFECT_DRYADS_CURSE] =
+    {
+        .battleScript = BattleScript_EffectDryadsCurse,
+        .battleTvScore = 0, // TODO: Assign points
+    },
+
     [EFFECT_TARGET_TYPE_DAMAGE] =
     {
         .battleScript = BattleScript_EffectHit,
@@ -2392,5 +2405,54 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     //hail for this for the chip damage but idk maybe snow
     //think needs its own bs tho
     //think will do as field status
+
+    [EFFECT_MIND_BLOWN] =
+    {
+        .battleScript = BattleScript_EffectHit, //make script later vsonic
+        .battleTvScore = 0, //score todo
+    }, //self destruct and mindblown
+    //this one specifically want hp drop to happen in atk canceler
+    //before move goes off
+    //ok normal script from EE can use
+    //only change I need to make is for if mon faints
+    //from hp drop move doen't go off
+
+    [EFFECT_JUDGMENT] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 0, //score todo
+    },
+
+    [EFFECT_SNOWBALL] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 0, //score todo
+    },
+
+    [EFFECT_NETTLE_WHIP] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 0, //score todo
+    },
+    
+    [EFFECT_STATUS_IF_NOT_ARG_TYPE] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 0, //score todo
+    },
+    //hit or nonvolatile idk which should go to rn
+
+    [EFFECT_TRENCH_RUN] =
+    {
+        .battleScript = BattleScript_EffectHit, //make script later vsonic
+        .battleTvScore = 0, //score todo
+    },//evasion up 2 but set grounded w timer
+
+    [EFFECT_STEEL_SURGE] =
+    {
+        .battleScript = BattleScript_EffectSteelSurge,
+        .battleTvScore = 0, // TODO: Assign points
+        .encourageEncore = TRUE,
+    },
     
 };

@@ -10,6 +10,8 @@ extern const u8 BattleScript_EffectSnowescape[];
 extern const u8 BattleScript_EffectMediumRecoil[]; //not all effects here
 extern const u8 BattleScript_EffectMediumRecoilWithStatus[];
 extern const u8 BattleScript_EffectHeavyRecoil[];
+extern const u8 BattleScript_EffectCocoon[];
+extern const u8 BattleScript_EffectDryadsCurse[];
 extern const u8 BattleScript_EffectTwoTurnsAttackFreezeShock[];
 extern const u8 BattleScript_EffectTwoTurnsAttackIceBurn[];
 extern const u8 BattleScript_EffectTwoTurnsAttackContinue[];
@@ -840,7 +842,8 @@ extern const u8 BattleScript_OldMan_Pokedude_CaughtMessage[];
 extern const u8 BattleScript_SilphScopeUnveiled[];
 extern const u8 BattleScript_BattleTowerTrainerBattleWon[];
 
-// Battle move scripts - from EE
+// Battle move scripts - from EE - some small replacements from me 
+//consolidate when done
 extern const u8 BattleScript_EffectAbsorb[];
 extern const u8 BattleScript_EffectAbsorbLiquidOoze[];
 extern const u8 BattleScript_EffectExplosion[];
@@ -906,7 +909,7 @@ extern const u8 BattleScript_EffectCounter[];
 extern const u8 BattleScript_EffectEncore[];
 extern const u8 BattleScript_EffectPainSplit[];
 extern const u8 BattleScript_EffectSnore[];
-extern const u8 BattleScript_EffectConversion2[];
+extern const u8 BattleScript_EffectConversionZ[];
 extern const u8 BattleScript_EffectLockOn[];
 extern const u8 BattleScript_EffectSketch[];
 extern const u8 BattleScript_EffectMonotype[];

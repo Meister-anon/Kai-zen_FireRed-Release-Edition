@@ -1044,7 +1044,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_TWINEEDLE] =
     {
-        .effect = EFFECT_TWINEEDLE,
+        .effect = EFFECT_HIT,
         .power = 25,
         .type = TYPE_BUG,
         .accuracy = 100,
@@ -7199,7 +7199,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #if B_UPDATED_MOVE_DATA >= GEN_4
             #else
             #endif
-        .effect = EFFECT_TEETER_DANCE,
+        .effect = EFFECT_CONFUSE,
         .power = 0,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -7367,7 +7367,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             //.secondaryEffectChance = 30,
         #endif
-        .effect = EFFECT_TOXIC_FANG,
+        .effect = EFFECT_HIT,
         .power = 65,
         .type = TYPE_POISON,
         .accuracy = 100,
@@ -7380,6 +7380,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_TOXIC,
             .chance = 40,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 10,
         }),*/
         /*.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
         .contestCategory = CONTEST_CATEGORY_SMART,
@@ -7621,7 +7625,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             #else
             .power = 140,
             #endif
-        .effect = EFFECT_OVERHEAT,  //changed to MOVE_EFFECT_MEDIUM_RECOIL
+        .effect = EFFECT_HIT,  
         .type = TYPE_FIRE,
         .accuracy = 90,
         .pp = 5,
@@ -8550,7 +8554,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_PSYCHO_BOOST] =
     {
-        .effect = EFFECT_OVERHEAT,  //changed to MOVE_EFFECT_MEDIUM_RECOIL
+        .effect = EFFECT_HIT,  //changed to MOVE_EFFECT_MEDIUM_RECOIL
         .power = 140,
         .type = TYPE_PSYCHIC,
         .accuracy = 90,
@@ -8789,7 +8793,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             #else
             .power = 50,
             #endif
-        .effect = EFFECT_FEINT,
+        .effect = EFFECT_HIT,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
         .pp = 10,
@@ -10411,7 +10415,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 140,
         #endif
-        .effect = EFFECT_OVERHEAT,  //changed to MOVE_EFFECT_MEDIUM_RECOIL
+        .effect = EFFECT_HIT,  //changed to MOVE_EFFECT_MEDIUM_RECOIL
         .type = TYPE_DRAGON,
         .accuracy = 90,
         .pp = 5,
@@ -10481,7 +10485,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 140,
         #endif
-        .effect = EFFECT_OVERHEAT,
+        .effect = EFFECT_HIT,
         .type = TYPE_GRASS,
         .accuracy = 90,
         .pp = 5,
@@ -10789,7 +10793,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_JUDGMENT] =
     {
-        .effect = EFFECT_JUDGMENT,//EFFECT_HIT_PREVENT_ESCAPE, //I LIKe this  a Lot better
+        .effect = EFFECT_JUDGMENT,
         .power = 100,
         .type = TYPE_MYSTERY,
         .accuracy = 100,
@@ -11163,7 +11167,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SEED_FLARE] =
     {
-        .effect = EFFECT_HIT_2,
+        .effect = EFFECT_HIT,
         .power = 120,
         .type = TYPE_GRASS,
         .accuracy = 85,
@@ -11546,8 +11550,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_FlameBurst,
-        .argument = MOVE_EFFECT_BURN,
-        .argumentEffectChance = 10,
     },
     //may need to revise battle script to actually set adjacent burn effect
     //vsonic
@@ -11765,7 +11767,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_ACID_SPRAY] =
     {
-        .effect = EFFECT_HIT_2,
+        .effect = EFFECT_HIT,
         .power = 40,
         .type = TYPE_POISON,
         .accuracy = 100,
@@ -11941,7 +11943,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_CLEAR_SMOG] =
     {
-        .effect = EFFECT_CLEAR_SMOG,
+        .effect = EFFECT_HIT,
         .power = 50,
         .type = TYPE_POISON,
         .accuracy = 0,
@@ -12192,7 +12194,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 30,
         #endif
-        .effect = EFFECT_INCINERATE,
+        .effect = EFFECT_HIT,
         .type = TYPE_FIRE,
         .accuracy = 100,
         .pp = 15,
@@ -12276,7 +12278,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_RETALIATE] =
     {
-        .effect = EFFECT_RETALITATE,
+        .effect = EFFECT_RETALIATE,
         .power = 70,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -14095,11 +14097,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DIAMOND_STORM] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_4
-            .effect = EFFECT_DEFENSE_UP2_HIT,
-        #else
-            .effect = EFFECT_HIT,
-        #endif
+
+        .effect = EFFECT_HIT,
         .power = 100,
         .type = TYPE_ROCK,
         .accuracy = 95,
@@ -14147,7 +14146,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_HYPERSPACE_HOLE] =
     {
-        .effect = EFFECT_FEINT,
+        .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_PSYCHIC,
         .accuracy = 0,
@@ -14632,7 +14631,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_THOUSAND_WAVES] =
     {
-        .effect = EFFECT_HIT_PREVENT_ESCAPE,
+        .effect = EFFECT_HIT,
         .power = 90,
         .type = TYPE_GROUND,
         .accuracy = 100,
@@ -14743,7 +14742,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DRAGON_ASCENT] =
     {
-        .effect = EFFECT_CLOSE_COMBAT,
+        .effect = EFFECT_HIT,
         .power = 120,
         .type = TYPE_DRAGON,
         .accuracy = 100,
@@ -14868,7 +14867,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SPIRIT_SHACKLE] =
     {
-        .effect = EFFECT_SWITCH_BIND, //changed from escape prevention now applier of effect doesn't have to stay in
+        .effect = EFFECT_HIT, //changed from escape prevention now applier of effect doesn't have to stay in
         .power = 80,
         .type = TYPE_GHOST, //don't give effect to otehr move, if do and not ghost/dark will need adjust script for hand of fate check
         .accuracy = 100,
@@ -15168,7 +15167,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_THROAT_CHOP] =
     {
-        .effect = EFFECT_THROAT_CHOP,
+        .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_DARK,
         .accuracy = 100,
@@ -15210,7 +15209,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_ANCHOR_SHOT] =
     {
-        .effect = EFFECT_HIT_PREVENT_ESCAPE,
+        .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_STEEL,
         .accuracy = 100,
@@ -15420,7 +15419,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_CORE_ENFORCER] =
     {
-        .effect = EFFECT_CORE_ENFORCER,
+        .effect = EFFECT_HIT,
         .power = 100,
         .type = TYPE_DRAGON,
         .accuracy = 100,
@@ -15639,7 +15638,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_FLEUR_CANNON] =
     {
-        .effect = EFFECT_OVERHEAT,  //changed to MOVE_EFFECT_MEDIUM_RECOIL
+        .effect = EFFECT_HIT,  //changed to MOVE_EFFECT_MEDIUM_RECOIL
         .power = 130,
         .type = TYPE_FAIRY,
         .accuracy = 90,
@@ -16173,7 +16172,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .power = 90,
             .accuracy = 100,
             #endif
-        .effect = EFFECT_GLITZY_GLOW,   //TODO (Light Screen + Hit)
+        .effect = EFFECT_HIT,   //TODO (Light Screen + Hit)
         .type = TYPE_PSYCHIC,
         .pp = 15,
         //.secondaryEffectChance = 0,
@@ -16196,7 +16195,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .power = 90,
             .accuracy = 100,
             #endif
-        .effect = EFFECT_BADDY_BAD,   //TODO (Reflect + Hit)
+        .effect = EFFECT_HIT,   //TODO (Reflect + Hit)
         .type = TYPE_DARK,
         .pp = 15,
         //.secondaryEffectChance = 0,
@@ -16221,7 +16220,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .accuracy = 100,
             .pp = 15,
             #endif
-        .effect = EFFECT_SAPPY_SEED,   //TODO (Leech Seed + Hit)
+        .effect = EFFECT_HIT,   //TODO (Leech Seed + Hit)
         .type = TYPE_GRASS,
         //.secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -16246,7 +16245,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .accuracy = 100,
             .pp = 15,
             #endif
-        .effect = EFFECT_FREEZY_FROST,   //TODO (Haze + Hit)
+        .effect = EFFECT_HIT,   //TODO (Haze + Hit)
         .type = TYPE_ICE,
         //.secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -16270,7 +16269,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .accuracy = 100,
             .pp = 15,
             #endif
-        .effect = EFFECT_SPARKLY_SWIRL,   //TODO (Heal Bell + Hit)
+        .effect = EFFECT_HIT,   //TODO (Heal Bell + Hit)
         .type = TYPE_FAIRY,
         //.secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -16305,7 +16304,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_DOUBLE_IRON_BASH] =
     {
 
-        .effect = EFFECT_DOUBLE_IRON_BASH,
+        .effect = EFFECT_HIT,
         .power = 60,
         .type = TYPE_STEEL,
         .accuracy = 100,
@@ -16333,7 +16332,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DYNAMAX_CANNON] =
     {
-        .effect = EFFECT_BEHEMOTH_ATTACK,
+        .effect = EFFECT_BOOST_PWR_BASED_WEIGHT,
         .power = 100,
         .type = TYPE_DRAGON,
         .accuracy = 100,
@@ -16379,7 +16378,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_JAW_LOCK] =
     {
-        .effect = EFFECT_JAW_LOCK,
+        .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_DARK,
         .accuracy = 100,
@@ -16753,7 +16752,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BEHEMOTH_BLADE] =
     {
-        .effect = EFFECT_BEHEMOTH_ATTACK,   //TODO: 2x damage if dynamaxed? meh...
+        .effect = EFFECT_BOOST_PWR_BASED_WEIGHT,   //TODO: 2x damage if dynamaxed? meh...
         .power = 100,
         .type = TYPE_STEEL,
         .accuracy = 100,
@@ -16779,7 +16778,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BEHEMOTH_BASH] =
     {
-        .effect = EFFECT_BEHEMOTH_ATTACK,   //TODO: 2x damage if dynamaxed? meh...
+        .effect = EFFECT_BOOST_PWR_BASED_WEIGHT,   //TODO: 2x damage if dynamaxed? meh...
         .power = 100,
         .type = TYPE_STEEL,
         .accuracy = 100,
@@ -17166,7 +17165,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_STEEL_ROLLER] =
     {
-        .effect = EFFECT_REMOVE_TERRAIN,   //Think done
+        .effect = EFFECT_STEEL_ROLLER,   //Think done
         .power = 1,
         .type = TYPE_STEEL,
         .accuracy = 100,
@@ -17800,7 +17799,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_EERIE_SPELL] =
     {
-        .effect = EFFECT_EERIE_SPELL, // Done. It's a copy of Spite that inflicts damage and reduced the target's last move's PP by 3 instead of 4.
+        .effect = EFFECT_HIT, // Done. It's a copy of Spite that inflicts damage and reduced the target's last move's PP by 3 instead of 4.
         .power = 80,
         .type = TYPE_PSYCHIC,   //test  //since its a 5 pp move, I think I'll just give it the normal spite effect I made, rather than limiting it to reduce 3 pp.
         .accuracy = 100,
@@ -17811,6 +17810,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .soundMove = TRUE,
         .ignoresSubstitute = TRUE,
+        .multiTaskBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -17821,6 +17821,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         }),*/
         //.battleAnimScript = gBattleAnimMove_EerieSpell,
     },//ok checked double checked japanese translation and there's no reason for this move to be a sound move. its just a dark magic spell
+    //idk maybe need something like generates sound in enemies head that curses them -vsonic
+    //vsonic set to new spite effect maybe?
 
     //Legends Arceus moves
     [MOVE_DIRE_CLAW] =
@@ -18074,7 +18076,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 100,
         #endif
-        .effect = EFFECT_CLOSE_COMBAT, //changed from close combat, is recoil move
+        .effect = EFFECT_HIT,
         .type = TYPE_GROUND,
         .accuracy = 100,
         .pp = 5,
@@ -19128,7 +19130,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_ARMOR_CANNON] =
     {
-        .effect = EFFECT_CLOSE_COMBAT,
+        .effect = EFFECT_HIT,
         .power = 120,
         .type = TYPE_FIRE,
         .accuracy = 100,
@@ -19866,7 +19868,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .type = TYPE_MYSTERY,
         #endif
-        .effect = EFFECT_DRYADS_CURSE,
+        .effect = EFFECT_DRYADS_CURSE, //attempt lower self atk stat to set curse
         .power = 0,
         .accuracy = 0,
         .pp = 10,
@@ -19967,7 +19969,7 @@ use wonder gaurd logic to determine its super effective
 
     [MOVE_NETTLE_WHIP] =
     {
-        .effect = EFFECT_NETTLE_WHIP, //burns if not grass type
+        .effect = EFFECT_NETTLE_WHIP, //in set move effect put not grass check
         .power = 85,
         .type = TYPE_GRASS,
         .accuracy = 100,
@@ -19978,6 +19980,11 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .damagesAirborne = TRUE,
+        //.argument = { .storedValue = TYPE_GRASS },
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 20,
+        }),*/
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -19986,6 +19993,11 @@ use wonder gaurd logic to determine its super effective
     },//GRASS types will be immune to this status condition, potentially make its own effect, then can do grass status exclusion with bs command
     //think give to mostly grass/poison types
     //since effect is essentially poison
+    //differet kind of burn but is still burn
+    //is more like a chemical burn than a fire burn
+    //think may setup to bypass fire type immunity?
+    //ok will do both will make its own effect so can get around burn
+    //otherwise keep effect for specific status setting
     
     [MOVE_SONIC_BOOM] =
     {
@@ -20230,7 +20242,7 @@ use wonder gaurd logic to determine its super effective
         //.secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0, //weight this as flying mon are fast, may make 0 priority so its an option more for faster birds not just all
-        .split = SPLIT_STATUS, //unsure if shold be physical? ok yeah its, a boobytrap bomb, if explosion is physical this should be too
+        .split = SPLIT_STATUS,
         .snatchAffected = TRUE,
         //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -20238,6 +20250,11 @@ use wonder gaurd logic to determine its super effective
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_TrenchRun,
     },
+    //maybe just drop effect evasion boosting is annoying
+    //this is better double team plus runs counter to flying affinity buff
+    //well is cool idea think will keep
+    //especially if I can get the bee figher jet fake mon
+
 
     [MOVE_SPIN_DASH] =
     {
