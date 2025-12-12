@@ -966,6 +966,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .instructBanned = TRUE,
+        .multiTaskBanned = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THRASH,
             .self = TRUE,
@@ -1195,7 +1196,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SING] =
     {
-        .effect = EFFECT_SLEEP, //giving effects that immobalize priority are too broken
+        .effect = EFFECT_NON_VOLATILE_STATUS, //giving effects that immobalize priority are too broken
         .power = 0,
         .type = TYPE_SOUND,
         .accuracy = 80,
@@ -1880,7 +1881,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_POISON_POWDER] =
     {
-        .effect = EFFECT_POISON,
+        .effect = EFFECT_NON_VOLATILE_STATUS,
         .power = 0,
         .type = TYPE_POISON,
         .accuracy = 75,
@@ -1901,7 +1902,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_STUN_SPORE] =
     {
-        .effect = EFFECT_PARALYZE,
+        .effect = EFFECT_NON_VOLATILE_STATUS,
         .power = 0,
         .type = TYPE_GRASS,
         .accuracy = 75,
@@ -1922,7 +1923,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SLEEP_POWDER] =
     {
-        .effect = EFFECT_SLEEP,
+        .effect = EFFECT_NON_VOLATILE_STATUS,
         .power = 0,
         .type = TYPE_GRASS,
         .accuracy = 75,
@@ -1963,6 +1964,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .danceMove = TRUE,
         .instructBanned = TRUE,
+        .multiTaskBanned = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THRASH,
             .self = TRUE,
@@ -2008,6 +2010,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .multiTaskBanned = TRUE,
         //.argument = { .fixedDamage = 40 },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DRAGON_RAGE,
@@ -2113,7 +2116,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
 
         .accuracy = 90,
-        .effect = EFFECT_PARALYZE,
+        .effect = EFFECT_NON_VOLATILE_STATUS,
         .power = 0,
         .type = TYPE_ELECTRIC,
         .pp = 20,
@@ -2254,7 +2257,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .accuracy = 85,
         #endif
-        .effect = EFFECT_TOXIC,
+        .effect = EFFECT_NON_VOLATILE_STATUS,
         .power = 0,
         .type = TYPE_POISON,
         .pp = 10,
@@ -2318,7 +2321,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_HYPNOSIS] =
     {
-        .effect = EFFECT_SLEEP,
+        .effect = EFFECT_NON_VOLATILE_STATUS,
         .power = 0,
         .type = TYPE_PSYCHIC,
         .accuracy = 75,
@@ -3326,7 +3329,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     #else
         .accuracy = 75,
     #endif
-    .effect = EFFECT_PARALYZE,
+    .effect = EFFECT_NON_VOLATILE_STATUS,
     .power = 0,
     .type = TYPE_DARK,
     .pp = 30,
@@ -3375,7 +3378,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 55,
         .target = MOVE_TARGET_SELECTED,
     #endif
-    .effect = EFFECT_POISON,
+    .effect = EFFECT_NON_VOLATILE_STATUS,
     .power = 0,
     .type = TYPE_POISON,
     .pp = 40,
@@ -3448,7 +3451,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_LOVELY_KISS] =
 {
-    .effect = EFFECT_SLEEP,
+    .effect = EFFECT_NON_VOLATILE_STATUS,
     .power = 0,
     .type = TYPE_NORMAL,
     .accuracy = 75,
@@ -3591,7 +3594,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_SPORE] =
 {
-    .effect = EFFECT_SLEEP,
+    .effect = EFFECT_NON_VOLATILE_STATUS,
     .power = 0,
     .type = TYPE_GRASS,
     .accuracy = 95,
@@ -3961,6 +3964,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_PHYSICAL,
         //.argument = { .damagePercentage = 50 },
         .makesContact = TRUE,
+        .multiTaskBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -4124,7 +4128,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 [MOVE_SPIDER_WEB] =
 {
 
-    .effect = EFFECT_PARALYZE,
+    .effect = EFFECT_NON_VOLATILE_STATUS,
     .power = 0,
     .type = TYPE_BUG,
     .accuracy = 0,
@@ -4893,6 +4897,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .instructBanned = TRUE,
+        .multiTaskBanned = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THRASH,
             .self = TRUE,
@@ -6145,6 +6150,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .soundMove = TRUE,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
+        .multiTaskBanned = TRUE, //mostly cuz fail ends upraor
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_UPROAR,
             .self = TRUE,
@@ -7751,7 +7757,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_GRASS_WHISTLE] =
     {
-        .effect = EFFECT_SLEEP,
+        .effect = EFFECT_NON_VOLATILE_STATUS,
         .power = 0,
         .type = TYPE_GRASS,
         .accuracy = 75,
@@ -11147,7 +11153,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
 
         .accuracy = 80,
-        .effect = EFFECT_SLEEP,
+        .effect = EFFECT_NON_VOLATILE_STATUS,
         .power = 0,
         .type = TYPE_DARK,
         .pp = 10,
@@ -13068,6 +13074,36 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //if so calc damage using said type
     //sounds good, think will make memories do same thing as drive
     //to drive home its not arceus
+    //or keep memories to default
+    //yeah think like that better that way memories and plates
+    //are similarly linked while drive gets its own
+    //distinct effect
+    //since type is a loop and odd
+    //think best way is just do a 50% power drop
+    //if atk type matches drive type
+    //and w technoblast separted from drive
+    //can have a way to use the move
+    //while having a separte option to use the drive
+
+
+    //potentially change cosmetic form species 
+    //to just be same as how ogerpon etc. was handled
+    //but idk if that actually saves any space
+    //or if its just a visual distinction
+    //ahh EE already did that
+    //ok unfortunately is just for visial benefit
+    //and ease of working with data.
+    //the only way to cut space on base stats
+    //is to not have a species value there in the first place
+    //since all the data is the same for cosmetic forms outside 
+    //of graphics I could keep hascosmeticforms value on base form
+    //and use that for species check to get alt graphics
+    //remove them from base stats and just call all the base forms data
+    //outside of graphics and type for arceus etc.
+    //potentially change cosmetic form value to have bit 2
+    //so can store states since some like castform and arceus
+    //wouldn't work cuz would still need to display proper type
+    //outside of battle as well. smh
     //vsonic important
 
     [MOVE_RELIC_SONG] =
@@ -15907,6 +15943,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         //.argument = { .damagePercentage = 50 },
         .metronomeBanned = TRUE,
+        .multiTaskBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -17273,6 +17310,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .dampBanned = TRUE,
         .ballisticMove = TRUE,
+        .multiTaskBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -17975,6 +18013,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .metronomeBanned = TRUE,
+        .multiTaskBanned = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THRASH,
             .self = TRUE,
@@ -18878,6 +18917,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         //.argument = { .damagePercentage = 50 },
         .metronomeBanned = TRUE,
+        .multiTaskBanned = TRUE,
         //.battleAnimScript = gBattleAnimMove_Ruination,
         // Uncallable by Metronome (to be implemented)
     },

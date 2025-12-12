@@ -1402,4 +1402,18 @@ static inline struct Pokemon* GetBattlerMon(u32 battler)
     return !IsOnPlayerSide(battler) ? &gEnemyParty[index] : &gPlayerParty[index];
 }
 
+//vsonic important
+//using for print result message
+//and effectiveness sound
+//unsure may not need power check, may already skip
+//from type calc change so wouldn't have result
+//does job but won't need on update
+//as EE does this better
+static inline bool32 TrySkipMoveResultChecks(u16 move)
+{
+    return (gBattleMoves[move].power == 0
+    || GetMoveEffect(move) == EFFECT_FIXED_PERCENT_DAMAGE
+    || GetMoveEffect(move) == EFFECT_FIXED_HP_DAMAGE);
+}
+
 #endif // GUARD_BATTLE_H

@@ -1155,45 +1155,6 @@ static const u16 sMovesForbiddenToCopy[] =
     METRONOME_FORBIDDEN_END
 };
 
-//these two arrays relate only to multi_task, could probably do with just 1, but just some extra redundancy
-//ledian buff taking multi hit & fury cutt effect out of this to make like skill link
-//FOR MOVES that cant work with multitask setup, or would be broken
-//rage added as effect can't work in setup - tired
-static const u16 sMultiTaskExcludedEffects[] =
-{ 
-    EFFECT_MAGNITUDE, //variable power  made function to account for - doesnt work
-    EFFECT_ROLLOUT,
-    EFFECT_SKY_ATTACK,
-    EFFECT_SOLARBEAM,
-    EFFECT_COLD_FLARE,
-    EFFECT_SKULL_BASH,
-    EFFECT_SEMI_INVULNERABLE,
-    //EFFECT_RAZOR_WIND,  //canremove from exclusions since changed to two_typed effect well, razorwind as an effect isn't used at all now
-    EFFECT_MULTI_HIT,
-    EFFECT_FURY_CUTTER,
-    EFFECT_DOUBLE_HIT,
-    EFFECT_DOUBLE_IRON_BASH,
-    EFFECT_TRIPLE_KICK,
-    EFFECT_SUPER_FANG,
-    EFFECT_ENDEAVOR,
-    EFFECT_SONIC_SCREECH,
-    EFFECT_COUNTER, //because can't crit
-    EFFECT_LEVEL_DAMAGE, //same
-    EFFECT_DRAGON_RAGE,
-    EFFECT_BIDE,
-    EFFECT_PRESENT, //since making multi-hit would work,  give delibird multitask, since like santa everywhere at once
-    EFFECT_MIRROR_COAT,
-    EFFECT_BEAT_UP,
-    EFFECT_TWINEEDLE,
-    EFFECT_EXPLOSION,  //ya ALMOST snuck by me, but not quite!!
-    EFFECT_FUTURE_SIGHT,  //yeah, you can come too!! I gotcha.
-    EFFECT_UPROAR,
-    EFFECT_RAMPAGE,
-    EFFECT_OHKO, //no pokemon I'm giving this to normally learns a ohko move, so I may leave in for something potentially fun for the player.
-    EFFECT_RAGE,  //same as magnitude -requires specific script movement
-    //EFFECT_TWO_TURNS_ATTACK // because I'm not using two turns attack??  doube check this
-    MULTI_TASK_FORBIDDEN_END
-}; //had add multi hit effects back to this, it only affects dmg share from dmg calc macro
 
 // the moves that are multihit without the effect i.e use setmultihit or setmultihitcounter, before going to multihitloop...it was only twinneedle
 //so don't need this now
@@ -3978,7 +3939,9 @@ static void atk0F_resultmessage(void) //covers the battle message displayed afte
             switch (gMoveResultFlags & (u8)(~(MOVE_RESULT_MISSED)))
             {
             case MOVE_RESULT_SUPER_EFFECTIVE:
-                if (!(gBattleMoves[gCurrentMove].power)) //try skip message  if status move, works - its f ppower 0, will use to exclude moves that should ignore type like counter
+                //pretty sure don't need this since, think in effectiveness set
+                //already said power 0 skips type check so would never trigger effectivess result
+                if (TrySkipMoveResultChecks(gCurrentMove)) //try skip message  if status move, works - its f ppower 0, will use to exclude moves that should ignore type like counter
                     break;
                 else if (VarGet(VAR_LAST_MULTIHIT_RESULT) == STRINGID_SUPEREFFECTIVE)
                     break;
@@ -3988,7 +3951,7 @@ static void atk0F_resultmessage(void) //covers the battle message displayed afte
             case MOVE_RESULT_NOT_VERY_EFFECTIVE:
                 if (CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12_TO_INT((UQ_4_12(1.55) * UQ_4_12(0.5)) + UQ_4_12_ROUND))
                     gBattleCommunication[MSG_DISPLAY] = 0; //should keep effect remove message, keep not very effective sound
-                else if (!(gBattleMoves[gCurrentMove].power)) //try skip message  if status move, seems to work
+                else if (TrySkipMoveResultChecks(gCurrentMove)) //try skip message  if status move, seems to work
                     break;//think can use var to store multihit result message string id, (at end, if super or not effective)
                 else if (VarGet(VAR_LAST_MULTIHIT_RESULT) == STRINGID_NOTVERYEFFECTIVE)
                     break;//looks odd but works, I made sure to clear it, point of this was to save on ewram consumptiion
@@ -21780,13 +21743,23 @@ void BS_Multihit_resultmessage(void) //there are no multihit status moves I don'
         {
             if (gMoveResultFlags & MOVE_RESULT_SUPER_EFFECTIVE) //above works but then when it goes to result on last hit it displays same string again, need to ensure string displayed is not same
             {
-                stringId = STRINGID_SUPEREFFECTIVE;
-                gBattleCommunication[MSG_DISPLAY] = 1;
+                if(TrySkipMoveResultChecks(gCurrentMove))
+                {
+                    stringId = STRINGID_EMPTYSTRING3;
+                    gBattleCommunication[MSG_DISPLAY] = 1;
+                    gBattlescriptCurrInstr = cmd->nextInstr;
+                }
+                else
+                {
+                    stringId = STRINGID_SUPEREFFECTIVE;
+                    gBattleCommunication[MSG_DISPLAY] = 1;
+                }
             }
 
             else if (gMoveResultFlags & MOVE_RESULT_NOT_VERY_EFFECTIVE)
             {
-              if (CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12_TO_INT((UQ_4_12(1.55) * UQ_4_12(0.5)) + UQ_4_12_ROUND))
+              if ((CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12_TO_INT((UQ_4_12(1.55) * UQ_4_12(0.5)) + UQ_4_12_ROUND))
+              || TrySkipMoveResultChecks(gCurrentMove))
                 {
                     stringId = STRINGID_EMPTYSTRING3;
                     gBattleCommunication[MSG_DISPLAY] = 1;
