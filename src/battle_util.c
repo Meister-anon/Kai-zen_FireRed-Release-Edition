@@ -3544,7 +3544,7 @@ u8 DoBattlerEndTurnEffects(void)
             ++gBattleStruct->turnEffectsTracker;
             break;
             case ENDTURN_TAUNT:  // taunt - changeed, based on ect descr. in EE its clear modern games shiftedd timer to atk canceler which makes sense, its more consistent that way as well
-                if (gDisableStructs[battler].tauntEnds && --gDisableStructs[battler].tauntEnds == 0)
+                if (gDisableStructs[battler].tauntTimer && --gDisableStructs[battler].tauntTimer == 0)
                 {
                     BattleScriptExecute(BattleScript_BufferEndTurn);
                     PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_TAUNT);
@@ -4699,8 +4699,6 @@ u8 AtkCanceller_UnableToUseMove(void)
         case CANCELLER_TAUNTED: // taunt
             if (gDisableStructs[gBattlerAttacker].tauntTimer)
             {
-                if (--gDisableStructs[gBattlerAttacker].tauntTimer == 0)
-                    gDisableStructs[gBattlerAttacker].tauntEnds = 1;
                 
                 if (IsBattleMoveStatus(gCurrentMove))
                 {
@@ -5110,11 +5108,6 @@ u8 AtkCanceller_UnableToUseMove(void)
                         }
                         break;
                     }
-                    case EFFECT_TWINEEDLE:
-                    case EFFECT_DOUBLE_HIT:
-                    case EFFECT_DOUBLE_IRON_BASH:
-                        gMultiTask = 2;
-                        break;
                     case EFFECT_TRIPLE_KICK: //triple kick, triple axel, & surging strikes
                         gMultiTask = 3; //not showing result message corrclty, if miss it just ends
                         break;  
@@ -13965,7 +13958,8 @@ bool32 CanBePoisoned(u8 PoisonUser, u8 PoisonTarget)
 bool32 CanBeBurned(u8 battlerId)
 {
     u16 ability = GetBattlerAbility(battlerId);
-    if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerId, TYPE_FIRE, FALSE))
+    if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerId, TYPE_FIRE, FALSE)
+    && GetMoveEffect(gCurrentMove) != EFFECT_NETTLE_WHIP)
         || gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD
         || gBattleMons[battlerId].status1 & STATUS1_ANY
         || ability == ABILITY_WATER_VEIL

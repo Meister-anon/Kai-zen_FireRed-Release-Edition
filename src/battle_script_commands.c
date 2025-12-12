@@ -5677,7 +5677,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
             case MOVE_EFFECT_RAGE:
             if (gBattleMons[gBattlerAttacker].status2 & STATUS2_RAGE)
             {
-                if (gDisableStructs[gBattlerAttacker].rageCounter != 5) //with curr setup would max at a move of bp 75
+                if (gDisableStructs[gBattlerAttacker].rageCounter != MAX_RAGE_BOOST_COUNTER) //with curr setup would max at a move of bp 75
                 {
                         gDisableStructs[gBattlerAttacker].rageCounter++; //ok would need to see if this works, since in this script setmoveeffect is before atk, this should work but idk
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
@@ -5690,6 +5690,19 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
             else
             {
                 gBattleMons[gBattlerAttacker].status2 |= STATUS2_RAGE; //add check for status2 rage, if set just go to next instruction
+                ++gBattlescriptCurrInstr;
+            }
+                break;
+            case MOVE_EFFECT_DRAGON_RAGE:
+            if (gBattleMons[gBattlerAttacker].status2 & STATUS2_DRAGON_RAGE)
+            {
+
+                ++gBattlescriptCurrInstr;
+                
+            }
+            else
+            {
+                gBattleMons[gBattlerAttacker].status2 |= STATUS2_DRAGON_RAGE; //add check for status2 rage, if set just go to next instruction
                 ++gBattlescriptCurrInstr;
             }
                 break;
@@ -8306,12 +8319,17 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
              && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget) //keep this wouldn't want to just attack your own mon in doubles 
              && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
              && TARGET_TURN_DAMAGED
-             && gBattleMoves[gCurrentMove].power
+             && !IsBattleMoveStatus(gCurrentMove)
              && IsBlackFogNotOnField()
              && gBattleMons[gBattlerTarget].statStages[STAT_ATK] < MAX_STAT_STAGE)    //not max atk
             {
-                if (gDisableStructs[gBattlerAttacker].rageCounter != 5)
-                    gDisableStructs[gBattlerAttacker].rageCounter++;
+                //wait is this right?
+                //ok is weird way to have this 
+                //but pretty sure I set it up so ragecounter
+                //only increases when I use/reuse the move itself
+                //and atk stat goes up only when I take damage
+                //if (gDisableStructs[gBattlerTarget].rageCounter != MAX_RAGE_BOOST_COUNTER)
+                //    gDisableStructs[gBattlerTarget].rageCounter++;
                 ++gBattleMons[gBattlerTarget].statStages[STAT_ATK];
                 BattleScriptPushCursor();
                 gBattlescriptCurrInstr = BattleScript_RageIsBuilding;
@@ -8326,6 +8344,24 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 gBattlescriptCurrInstr = BattleScript_RageEnds; //tested and works, just need make message
                 effect = TRUE;
             } //so removing this, and putting in canclers instead  */
+            ++gBattleScripting.atk49_state;
+            break;
+        case MOVE_END_DRAGON_RAGE: // rage check
+            if (gBattleMons[gBattlerTarget].status2 & STATUS2_DRAGON_RAGE
+             && gBattleMons[gBattlerTarget].hp != 0
+             && gBattlerAttacker != gBattlerTarget //v worried bout below would make draco meteor and dragons op again, that said fairies exist now
+             //&& GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget) //keep this wouldn't want to just attack your own mon in doubles 
+             && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT) //fuck it decide setup like rage fist, requires heavy invest anyway
+             && TARGET_TURN_DAMAGED
+             && !IsBattleMoveStatus(gCurrentMove)
+             && IsBlackFogNotOnField())    //not max atk
+            {
+                if (gDisableStructs[gBattlerTarget].DragonrageCounter != MAX_DRAGON_RAGE_COUNTER)
+                    gDisableStructs[gBattlerTarget].DragonrageCounter++;
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_RageIsBuilding;
+                effect = TRUE;
+            }
             ++gBattleScripting.atk49_state;
             break;
         case MOVE_END_ROOST:

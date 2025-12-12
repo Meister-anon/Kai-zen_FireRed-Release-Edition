@@ -174,7 +174,7 @@
 //#define STATUS2_CONFUSION_TURN(num)   ((num) << 0)
 #define STATUS2_FLINCHED              (1 << 3)
 #define STATUS2_UPROAR                (1 << 4)
-#define STATUS2_BLANK_SPACE           (1 << 5)
+#define STATUS2_DRAGON_RAGE           (1 << 5)  //move these blanks to end weird to have them at start
 #define STATUS2_NOTHING               (1 << 6)
 //#define STATUS2_UPROAR_TURN(num)      ((num) << 4)
 #define STATUS2_EMERGENCY_EXIT        (1 << 7)	//use for emergency exit
@@ -436,10 +436,13 @@ enum SemiInvulnerableExclusion
 
 #define STATUS_FIELD_TERRAIN_ANY              (STATUS_FIELD_SCORCHED_TERRAIN | STATUS_FIELD_FLOODED_TERRAIN | STATUS_FIELD_OCEAN_TERRAIN | STATUS_FIELD_GRASSY_TERRAIN | STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_PSYCHIC_TERRAIN)
 #define PERMANENT_TERRAIN   0     //use timer value 0 so never decrements
+#define PERMANENT_WEATHER   0       //same as terrain
 #define MAX_INGRAIN_AQUA_RING_TURNS    6 //turns healing effect stacks
 #define MAX_TOXIC_TURNS 16
 #define MAX_CONFUSION_TURNS 5
 #define MAX_SLEEP_TURNS 5
+#define MAX_RAGE_BOOST_COUNTER 5
+#define MAX_DRAGON_RAGE_COUNTER 5
 
 // Flags describing move's result
 #define MOVE_RESULT_MISSED             (1 << 0)
@@ -558,6 +561,7 @@ enum SemiInvulnerableExclusion
     MOVE_EFFECT_REMOVE_ARG_TYPE,
     MOVE_EFFECT_RECHARGE,
     MOVE_EFFECT_RAGE,
+    MOVE_EFFECT_DRAGON_RAGE,
     MOVE_EFFECT_PREVENT_ESCAPE,
     MOVE_EFFECT_NIGHTMARE,
     MOVE_EFFECT_ALL_STATS_UP,
