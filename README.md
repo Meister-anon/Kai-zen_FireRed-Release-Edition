@@ -90,3 +90,32 @@ to be reintroduced,
  if can use strike count to hold num total hits
  should be able to remove one counter
  prob multi task counter and just keep multihit counter
+
+
+
+ New idea for arceus genesect type null/sylvally
+ but requires complete item expansion smh - noting for now
+
+ //may give move property so can distinguish between the moves
+    //of shared effect
+    //PROB best to just do same thing I did with judgment
+    //think will change effect of plates and drive
+    //drive especially has little use
+    //so what think will do is give it a type resist
+    //so fire drive would give you a resistance to fire type moves for genesect
+    //hmm ok think do something different for plates
+    //rather than giving single type waakness since would be worse
+    //than its existing effect would set to give type attribute and benefits
+    //so give type affinity i.e fire cant be burned
+    //and then also give the benefit of the types resistances
+    //but without becoming said type
+    //think check type argument from plate fire plate
+    //integrate with type check, when found item
+    //check if attack type would be resisted by item arg type
+    //if so calc damage using said type
+    //sounds good, think will make memories do same thing as drive
+    //to drive home its not arceus
+    //or keep memories to default
+    //yeah think like that better that way memories and plates
+    //are similarly linked while drive gets its own
+    //distinct effect
