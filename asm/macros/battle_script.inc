@@ -13,6 +13,7 @@
 	.byte 0x2
 	.endm
 
+	@vsonic unused in EE
 	.macro ppreduce
 	.byte 0x3
 	.endm
@@ -29,10 +30,12 @@
 	.byte 0x6
 	.endm
 
+	@vsonic EE renamed to adjustdamage
 	.macro adjustnormaldamage
 	.byte 0x7
 	.endm
 
+	@vsonic multihitresultmessage in EE I have that in Callnative
 	.macro adjustnormaldamage2
 	.byte 0x8
 	.endm
@@ -45,6 +48,8 @@
 	.byte 0xa
 	.endm
 
+	@vsonic EE gave these two extra byte argument updateState
+	@I have hp changes necessary for my transform logic will need keep eye on
 	.macro healthbarupdate battler:req
 	.byte 0xb
 	.byte \battler
@@ -81,6 +86,7 @@
 	.2byte \id
 	.endm
 
+	@vsonic adjusted for speed up
 	.macro waitmessage param0:req
 	.byte 0x12
 	.2byte \param0
@@ -96,11 +102,11 @@
 	.4byte \ptr
 	.endm
 
+	@vsonic replaced is setadditionaleffects in EE
 	.macro setmoveeffectwithchance
 	.byte 0x15
 	.endm
 
-	@vsonic important check EE for update
 	.macro seteffectprimary battler:req, effectBattler:req, moveEffect=0
 	.if \moveEffect != 0
 		setmoveeffect \moveEffect
@@ -119,6 +125,7 @@
 	.byte \effectBattler
 	.endm
 
+	@vsonic EE is clearvolatile unsure if use base version of this rn
 	.macro clearstatusfromeffect battler:req, moveEffect=0
 	.if \moveEffect != 0
 		setmoveeffect \moveEffect
@@ -127,11 +134,16 @@
 	.byte \battler
 	.endm
 
+	@vsonic EE change only battler is req check 4 diffs
 	.macro tryfaintmon battler:req, fromHazard:req, ptr:req
 	.byte 0x19
 	.byte \battler
 	.byte \fromHazard
 	.4byte \ptr
+	.endm
+
+	.macro tryfaintmon_spikes battler:req, ptr:req	@for hazards port
+	tryfaintmon \battler, TRUE, \ptr
 	.endm
 
 	.macro dofaintanimation battler:req
@@ -144,6 +156,7 @@
 	.byte \battler
 	.endm
 
+	@vsonic appears non volatile status i.e status1 only
 	.macro jumpifstatus battler:req, status1:req, ptr:req
 	.byte 0x1c
 	.byte \battler
@@ -151,6 +164,7 @@
 	.4byte \ptr
 	.endm
 
+	@vsonic EE replaces status2 w volatile
 	.macro jumpifstatus2 battler:req, status2:req, ptr:req
 	.byte 0x1d
 	.byte \battler
@@ -158,6 +172,7 @@
 	.4byte \ptr
 	.endm
 
+	@vsonic custom effect EE doesnt have this is just jumpifability there
 	@add on to this then make separate function for if ability there or not
 	@split into jumpifability and jumpifnotability
 	.macro jumpbasedonability battler:req, ability:req, jumpCondition:req, jumpInstr:req
@@ -176,15 +191,18 @@
 	jumpbasedonability \battler, \ability, FALSE, \jumpptr
 	.endm
 
+	@vsonic custom
 	.macro jumpifIgnoreIntimidateChecks jumpInstr:req
 	callnative BS_JumpifAttackerAbilitySkipsIntimidateChecks
 	.4byte \jumpInstr
 	.endm
 
+	@vsonic custom
 	.macro jumptoIntimidateLikeSpecificStatCheck
 	callnative BS_JumpToStatSpecificChecksForIntimidateLike
 	.endm
 
+	@vsonic custom double check forget what they do
 	.macro onfieldAbilityJump battler:req, ability:req, jumpCondition:req, jumpInstr:req
 	callnative BS_AbilityJumpBasedOnField
 	.byte \battler
@@ -193,6 +211,7 @@
 	.4byte \jumpInstr
 	.endm
 
+	@vsonic need check unsure if same as jumpifabilitypresent
 	@base function uses isabilityonfieldExceptBattler to exclude battler set
 	@use for things like stench neutralzing gas etc. that should clear
 	@only if no other mon on field can continue effect
@@ -204,6 +223,7 @@
 	onfieldAbilityJump \battler, \ability, FALSE, \jumpptr
 	.endm
 
+	@vsonic is flags not sidestatus in EE prefer mine
 	@FIXED think needed to make 4byte instead of 2
 	.macro jumpifsideaffecting battler:req, sidestatus:req, jumpInstr:req
 	.byte 0x1f
@@ -212,6 +232,7 @@
 	.4byte \jumpInstr
 	.endm
 
+	@vsonic in EE ifflag is comparison take that version
 	.macro jumpifstat battler:req, ifflag:req, stat:req, value:req, ptr
 	.byte 0x20
 	.byte \battler
@@ -221,6 +242,7 @@
 	.4byte \ptr
 	.endm
 
+	@vsonic not used, in EE is jumpifstatignorecontrary take that
 	.macro jumpifstatus3condition battler:req, status3:req, param2:req, ptr:req
 	.byte 0x21
 	.byte \battler
@@ -236,6 +258,7 @@
 	@.4byte \ptr
 	@.endm
 
+	@vsonic EE calls jumpbasedontype same concept keep my name
 	.macro typebasedjump battler:req, type:req, case:req, ptr:req
 	.byte 0x22
 	.byte \battler
@@ -265,6 +288,7 @@
 	.byte \battler
 	.endm
 
+	@vsonic EE name changed checkteamslost
 	.macro confirmlosingteam jumpInstr:req
 	.byte 0x24
 	.4byte \jumpInstr
@@ -400,6 +424,7 @@
 	.4byte \param1
 	.endm
 
+	@vsonic updated function for speedup
 	.macro pause value:req
 	.byte 0x39
 	.2byte \value
@@ -430,6 +455,7 @@
 	.byte 0x3f
 	.endm
 
+	@vsonic replaced w setchargingturn in EE
 	@no longer used
 	.macro jumpifaffectedbyprotect ptr:req
 	.byte 0x40
@@ -441,6 +467,9 @@
 	.4byte \jumpInstr
 	.endm
 
+
+	@vsonic setroost in EE which I have at 0xf8
+	@not using can take EE command
 	.macro currenthealthtoDmg	@was jumpiftype2 replaced using for custom final gambit effect
 	.byte 0x42
 	.endm
@@ -462,6 +491,7 @@
 	.4byte \arg
 	.endm
 
+	@vsonic is playanimation_var in EE
 	.macro playanimation2 battler:req, animType:req, arg=NULL
 	.byte 0x46
 	.byte \battler
@@ -469,10 +499,12 @@
 	.4byte \arg
 	.endm
 
+	@vsonic is jumpifsemiinvulnerable in EE
 	.macro setgraphicalstatchangevalues
 	.byte 0x47
 	.endm
 
+	@vsonic unused in EE
 	.macro playstatchangeanimation battler:req, statId:req, mode:req
 	.byte 0x48
 	.byte \battler
@@ -518,6 +550,8 @@
 	moveend 2, \to
 	.endm
 
+	@vsonic FR exclusive is sethealblock in EE
+	@I have at 0xfa
 	.macro typecalc2
 	.byte 0x4a
 	.endm
@@ -619,11 +653,14 @@
 	.byte \battler
 	.endm
 
+	@vsonic EE version doesnt have addr argument
 	.macro getmoneyreward addr
 	.byte 0x5d
 	.4byte \addr
 	.endm
 
+	@vsonic same as EE just different name
+	@never used
 	.macro atk5E battler:req
 	.byte 0x5e
 	.byte \battler
@@ -653,18 +690,23 @@
 	.byte \notChosenMove
 	.endm
 
+	@vsonic EE version has more arguments
 	@For status1 only
 	.macro statusanimation battler:req
 	.byte 0x64
 	.byte \battler
 	.endm
 
+	@vsonic name change volatileanimation in EE
+	@is state change function not different byte command
+	@still using statusanimation macro
 	.macro status2animation battler:req, status2:req
 	.byte 0x65
 	.byte \battler
 	.4byte \status2
 	.endm
 
+	@vsonic doesnt exist and byte 65 and 66 not used in EE
 	.macro chosenstatusanimation battler:req, StatusType:req, status:req
 	.byte 0x66
 	.byte \battler
@@ -680,6 +722,7 @@
 	.byte 0x68
 	.endm
 
+	@vsonic not in EE is instead setgravity which is 0xfb for me
 	.macro adjustsetdamage
 	.byte 0x69
 	.endm
@@ -738,6 +781,7 @@
 	.byte 0x75
 	.endm
 
+	@vsonic various args unused in EE
 	.macro various battler:req, id:req
 	.byte 0x76
 	.byte \battler
@@ -748,6 +792,8 @@
 	.byte 0x77
 	.endm
 
+	@vsonic renamed to tryexplosion in EE
+	@also has custom work 
 	.macro faintifabilitynotdamp
 	.byte 0x78
 	.endm
@@ -761,6 +807,8 @@
 	.4byte \ptr
 	.endm
 
+	@vsonic recovery command renamed from EE version for my rebalance
+	@keep my version by write better
 	.macro tryhealportionhealth failInstr:req, battler:req
 	.byte 0x7b
 	.4byte \failInstr
@@ -771,6 +819,8 @@
 	.byte 0x7c
 	.endm
 
+	@vsonic EE is setfieldweather handles all weather
+	@not single variant split between multiple commands
 	.macro setrain
 	.byte 0x7d
 	.endm
@@ -793,24 +843,29 @@
 	.4byte \failInstr
 	.endm
 
+	@vsonic unsure if I made but unsused in EE
 	.macro jumpifnotfirstturn ptr:req
 	.byte 0x82
 	.4byte \ptr
 	.endm
 
+	@vsonic command not used, is unused in EE
 	.macro nop
 	.byte 0x83
 	.endm
 
+	@vsonic unsure if dif EE is jumpifuproarwakes
 	.macro jumpifcantmakeasleep param0:req
 	.byte 0x84
 	.4byte \param0
 	.endm
 
+	@vsonic diff in EE take that version
 	.macro stockpile
 	.byte 0x85
 	.endm
 
+	@vsonic diff in EE take that version
 	.macro stockpiletobasedamage param0:req
 	.byte 0x86
 	.4byte \param0
@@ -821,10 +876,12 @@
 	.4byte \param0
 	.endm
 
+	@vsonic in FR sets hp value to drain/heal
+	@EE handles in code so is unused
 	.macro sethpdrain
 	.byte 0x88
 	.endm
-
+	
 	.macro statbuffchange battler:req, flags:req, jumpptr:req
 	.byte 0x89
 	.byte \battler
@@ -836,14 +893,22 @@
 	.byte 0x8a
 	.endm
 
+	@vsonic my version of effect different need remake
+	@my timer is 3 turns rather than 2 also
+	@looks simple enough just need add check for bide turns
+	@may be more difficult believe I actually needed
+	@both a status check and turncount check 
+	@EE doesnt seem to have bide status?
 	.macro setbide
 	.byte 0x8b
 	.endm
 
+	@vsonic is twoturn move charge string in EE
 	.macro confuseifrepeatingattackends
 	.byte 0x8c
 	.endm
 	
+	@vsonic is trynonvolatilestatus in EE
 	@depricated no longer used
 	.macro setmultihitcounter param0:req
 	.byte 0x8d
@@ -859,6 +924,7 @@
 	.4byte \param0
 	.endm
 
+	@vsonic take my version, completely rewrote effect
 	.macro tryconversiontypechange failInstr:req
 	.byte 0x90
 	.4byte \failInstr
@@ -877,10 +943,15 @@
 	.4byte \param0
 	.endm
 
+	@vsonic EE replaced to checknonvolatiletrigger
 	.macro damagetohalftargethp
 	.byte 0x94
 	.endm
 
+	@vsonic EE replaced to copybidedmg
+	@idk how that works multiplies by 2
+	@and base counter is 2, my counter is 3
+	@will need to figure out later
 	.macro setsandstorm
 	.byte 0x95
 	.endm
@@ -1565,6 +1636,7 @@
 	callnative BS_typebaseddmgboost
 	.endm
 
+	@vsonic is byte 0x8 in EE check if identical
 	.macro multihit_resultmessage
 	callnative BS_Multihit_resultmessage
 	.endm
@@ -2308,10 +2380,6 @@
 	.macro setmoveeffect effect:req
 	sethword sMOVE_EFFECT \effect
 	sethword sSAVED_MOVE_EFFECT \effect
-	.endm
-
-	.macro tryfaintmon_spikes battler:req, ptr:req	@for hazards port
-	tryfaintmon \battler, TRUE, \ptr
 	.endm
 
 	@true false is isStatus2 
