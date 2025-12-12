@@ -351,7 +351,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .slicingMove = TRUE,
         .enhancedCritrate = TRUE,
         .damagesAirborneDoubleDamage = TRUE,
-        .argument = TYPE_FLYING,
         //.argument = { .storedValue = TYPE_FLYING },
        //.argument.twoTurnAttack = { .stringId =  STRINGID_PKMNWHIPPEDWHIRLWIND },
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
@@ -404,8 +403,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
         //.battleAnimScript = gBattleAnimMove_Cut,
-        .argument = TYPE_GRASS,
-        .argumentEffectChance = 30,
         //.argument = {.type = TYPE_GRASS,
         //.damagePercentage = 30},
     }, //make effect easy to adjust, change command  to read type to effct from argument, and dmg multiplier from gbattlemovedmg * argumetn chance/ 10
@@ -1071,8 +1068,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Twineedle,
-        .argument = MOVE_EFFECT_INFESTATION,
-        .argumentEffectChance = 10,
     },
 
     [MOVE_PIN_MISSILE] =
@@ -1092,12 +1087,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .multiTaskBanned = TRUE,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_INFESTATION,
+            .chance = 15,
+        }),*/
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_PinMissile,
-        .argument = MOVE_EFFECT_INFESTATION,
     },
 
     [MOVE_LEER] =
@@ -1268,7 +1266,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 10,
         }),*/
-        .argument = MOVE_EFFECT_CONFUSION,
     },//previously sonic boom / idk but doesn't seem to be setting confuse effect?
     //cacophony boost  increase effect chance as well as infiltrate
 
@@ -3110,7 +3107,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .argument = MOVE_EFFECT_FLINCH, //attempt to get this to read as flinch chance. don't remember if repo is setup to read arguments
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
@@ -3126,7 +3122,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
         //.battleAnimScript = gBattleAnimMove_Clamp,
-        .argumentEffectChance = 20,
     },//I'd like to also add a flinch chance to this if I can, maybe with argument?
     //need to use argumenttomoveeffect  command to make use of arguments    uses   VARIOUS_ARGUMENT_TO_MOVE_EFFECT
     //also uses VARIOUS_ARGUMENT_STATUS_EFFECT to transfer effect into status still using secondaryeffectchance
@@ -3418,8 +3413,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 15,
         }),*/
-    .argument = MOVE_EFFECT_DEF_MINUS_1,
-    .argumentEffectChance = 15,
 }, //exegcuttor line siganture , test may make 100 acc,  balance acc w effect chance
 //could be normal cuz just objects
 //could be psychic cuz covered in psychic energy
@@ -3449,8 +3442,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_LeechLife,
-    .argument = 0, // restores 75% HP instead of 50% HP
-    .argumentEffectChance = 100, //removed infest chance to boost healing, to compete with mega drain
+     // restores 75% HP instead of 50% HP
+     //removed infest chance to boost healing, to compete with mega drain
 }, //check balance
 
 [MOVE_LOVELY_KISS] =
@@ -3499,7 +3492,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_SkyAttack,
-    .argument = MOVE_EFFECT_FLINCH,
 }, //DO SOMething with this, thinking raise evasiveness one or two stages, may lower power since hitting both
 //it stil needs to be strongest flying move though and brave bird is base 120 no charge 
 //ok alraedy added a 2 stage evasion boost to this, done on the charging turn
@@ -4226,8 +4218,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
         //.battleAnimScript = gBattleAnimMove_FlameWheel,
-    .argument = MOVE_EFFECT_BURN,
-    .argumentEffectChance = 10,
 },
 //rebalanced effect for this max is 2
 //effect inspired by legends arceus fixated status
@@ -4268,7 +4258,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_REST},
         //.battleAnimScript = gBattleAnimMove_Snore,
-    .argument = MOVE_EFFECT_FLINCH,
 }, 
 //redid script put flinch in move argument not on snore script itself
 //should make a good tm?
@@ -5463,8 +5452,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Megahorn,
-        .argument = MOVE_EFFECT_INFESTATION,
-        .argumentEffectChance = 5,
     },
     //most mon that get it are slow so can keep at 10pp
 
@@ -5589,7 +5576,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_RapidSpin,
-        .argument = MOVE_EFFECT_SPD_PLUS_1,
     },//need redo this script, make go to hit from atkcancel or atkstring, consider  using emerald additional effect implementation
     //should work same but potentially cut down on redundent scripts made. would not need new effect for everyone just to assign the move effect
     //if it was that simple ex. rather than needing a rapid spin effect to set moveeffect rapid spin, 
@@ -5817,7 +5803,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Twister,
-        .argument = MOVE_EFFECT_FLINCH
     },
 
     [MOVE_RAIN_DANCE] =
@@ -6065,8 +6050,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_RockSmash,
-        .argument = TYPE_ROCK,
-        .argumentEffectChance = 20,
     }, //Redid the seutp for this to make more flexible and easier to use for binary edits argument chance is multiplier
     //gets divided by  10,  so value of 20 is 2x dmg, binary cant do extra effects though, had to use call if in script to make defense drop work- test
     //same as how I did function for hidden power make conditions to augment damage
@@ -6428,13 +6411,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 80,
         }),*/
         //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
         //.battleAnimScript = gBattleAnimMove_FocusPunch,
-        .argument = MOVE_EFFECT_FLINCH,
     },
 
     [MOVE_SMELLING_SALTS] =
@@ -6462,7 +6448,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_SmellingSalts,
-        //.argument = STATUS1_PARALYSIS,  //usually argument used with effectchance but here its only used to tell script what status to remove
     },
     //very low distribution, removes desirable effect
     //requires setup that nearly no mon with move can provide alone
@@ -6716,7 +6701,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SUPERPOWER] =
     {
-        .effect = EFFECT_SUPERPOWER,
+        .effect = EFFECT_HIT,
         .power = 120,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
@@ -6897,7 +6882,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_ERUPTION] =
     {
-        .effect = EFFECT_ERUPTION,
+        .effect = EFFECT_POWER_BASED_ON_USER_HP,
         .power = 150,
         .type = TYPE_FIRE,
         .accuracy = 100,
@@ -7030,7 +7015,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SECRET_POWER] =
     {
-        .effect = EFFECT_SECRET_POWER,
+        .effect = EFFECT_HIT,
         .power = 70,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -7168,7 +7153,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_MIST_BALL] =
     {
-        .effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT,
+        .effect = EFFECT_HIT,
         .power = 95,
         .type = TYPE_FAIRY,
         .accuracy = 100,
@@ -7727,13 +7712,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_ALL_STATS_UP,
             .self = TRUE,
             .chance = 10,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_INFESTATION,
+            .chance = 10,
         }),*/
         //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_SilverWind,
-        .argument = MOVE_EFFECT_INFESTATION,
     },
 
     [MOVE_METAL_SOUND] =
@@ -7826,7 +7814,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_WATER_SPOUT] =
     {
-        .effect = EFFECT_ERUPTION,
+        .effect = EFFECT_POWER_BASED_ON_USER_HP,
         .power = 150,
         .type = TYPE_WATER,
         .accuracy = 100,
@@ -7856,13 +7844,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 10,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_INFESTATION,
+            .chance = 10,
         }),*/
         //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_SignalBeam,
-        .argument = MOVE_EFFECT_INFESTATION,
     },
 
     [MOVE_SHADOW_PUNCH] =
@@ -7995,7 +7986,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .cantdamageFloating = TRUE,
         .damagesUnderground = TRUE,
         .damagesUnderwater = TRUE,
-        .argument = TYPE_GROUND,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
             .chance = 30,
@@ -8237,7 +8227,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Bounce,
-        .argument = MOVE_EFFECT_PARALYSIS,
     },
     //buffed acc so can work as alt option to floaty fall
     //make both into tms
@@ -8326,12 +8315,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_VOLT_TACKLE] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_4
-            .effect = EFFECT_RECOIL,
-            //.argument = STATUS1_PARALYSIS,
-        #else
-            .effect = EFECT_MED_RECOIL,
-        #endif
+        .effect = EFFECT_RECOIL,
         .power = 120,
         .type = TYPE_ELECTRIC,
         .accuracy = 100,
@@ -8355,7 +8339,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_VoltTackle,
-        .argument = MOVE_EFFECT_PARALYSIS,
     },
 
     [MOVE_MAGICAL_LEAF] =
@@ -8659,12 +8642,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_WAKE_UP_SLAP] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_6
-            .power = 70,
-        #else
-            .power = 60,
-        #endif
-        .effect = EFFECT_WAKE_UP_SLAP,
+        .power = 70,
+        .effect = EFFECT_DOUBLE_POWER_ON_ARG_STATUS,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
         .pp = 10,
@@ -8682,13 +8661,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_WakeUpSlap,
-        .argument = STATUS1_SLEEP,
     },
     //this is balanced better by my given status changes
 
     [MOVE_HAMMER_ARM] =
     {
-        .effect = EFFECT_HAMMER_ARM,
+        .effect = EFFECT_HIT,
         .power = 100,
         .type = TYPE_FIGHTING,
         .accuracy = 90,
@@ -8835,7 +8813,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_PLUCK] =
     {
-        .effect = EFFECT_BUG_BITE,
+        .effect = EFFECT_HIT,
         .power = 60,
         .type = TYPE_FLYING,
         .accuracy = 100,
@@ -8944,15 +8922,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_UTurn,
-        //.argument = MOVE_EFFECT_INFESTATION,
-        //.argumentEffectChance = 15,
         
     },//too good, and too wide spread to have infestation,
     //want to be mostly on bugs, w a rare mon being able to get access that isn't bug type
 
     [MOVE_CLOSE_COMBAT] =
     {
-        .effect = EFFECT_CLOSE_COMBAT,
+        .effect = EFFECT_HIT,
         .power = 120,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
@@ -9135,7 +9111,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_WRING_OUT] =
     {
-        .effect = EFFECT_VARY_POWER_BASED_ON_HP,
+        .effect = EFFECT_POWER_BASED_ON_TARGET_HP,
         .power = 0,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -9151,7 +9127,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_WringOut,
         //.argument = {.damagePercentage = 120},
-        .argumentEffectChance = 120,
     },
     //doublne check this think w power 0 it'll do typeless damage?
     //unsure if should be but seems fine?
@@ -9527,7 +9502,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
         //.battleAnimScript = gBattleAnimMove_FlareBlitz,
-        .argument = MOVE_EFFECT_BURN,
     },
 
     [MOVE_FORCE_PALM] =
@@ -9757,12 +9731,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_INFESTATION,
+            .chance = 15,
+        }),*/
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
         //.battleAnimScript = gBattleAnimMove_XScissor,
-        .argument = MOVE_EFFECT_INFESTATION,
     },
 
     [MOVE_BUG_BUZZ] =
@@ -9791,7 +9768,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_BugBuzz,
-        .argument = MOVE_EFFECT_CONFUSION,
     },
 
     [MOVE_DRAGON_PULSE] =
@@ -10177,7 +10153,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 15,
         }),*/
-        .argument = MOVE_EFFECT_PARALYSIS,
     },
 
     [MOVE_ICE_FANG] =
@@ -10201,7 +10176,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 15,
         }),*/
-        .argument = MOVE_EFFECT_FREEZE,
     },
 
     [MOVE_FIRE_FANG] =
@@ -10225,7 +10199,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 15,
         }),*/
-        .argument = MOVE_EFFECT_BURN,
     }, //intuition was corret, well teh note was correct, the issue was use of effect_flinch_status
     //rather than my argument move effect setup, believe problem somehow linked to argumenttostatus command?
     //argument to status is meant ot be about the same as setting move effect to arg itself, 
@@ -10752,12 +10725,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .makesContact = TRUE,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 15,
+        }),*/
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_GrassKnot,
-        .argument = MOVE_EFFECT_FLINCH
     },
 
     [MOVE_CHATTER] =
@@ -10842,7 +10818,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BUG_BITE] =
     {
-        .effect = EFFECT_BUG_BITE,
+        .effect = EFFECT_HIT,
         .power = 60,
         .type = TYPE_BUG,
         .accuracy = 100,
@@ -10855,19 +10831,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .bitingMove = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BUG_BITE,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_INFESTATION,
+            .chance = 15,
         }),*/
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_BugBite,
-        .argument = MOVE_EFFECT_INFESTATION,
-        .argumentEffectChance = 15,
     },
 
     [MOVE_CHARGE_BEAM] =
     {
-        .effect = EFFECT_SPECIAL_ATTACK_UP_HIT,
+        .effect = EFFECT_HIT,
         .power = 50,
         .type = TYPE_ELECTRIC,
         .accuracy = 90,
@@ -10944,12 +10922,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .enhancedCritrate = TRUE,
         .damagesAirborne = TRUE,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_INFESTATION,
+            .chance = 20, //potentially drop to 15
+        }),*/
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_ATTACK_ORDER,
         //.contestComboMoves = {COMBO_STARTER_DEFEND_ORDER, COMBO_STARTER_HEAL_ORDER},
         //.battleAnimScript = gBattleAnimMove_AttackOrder,
-        .argument = MOVE_EFFECT_INFESTATION,
     },
 
     [MOVE_DEFEND_ORDER] =
@@ -11113,7 +11094,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_CRUSH_GRIP] =
     {
-        .effect = EFFECT_VARY_POWER_BASED_ON_HP, //effect isn't setup...
+        .effect = EFFECT_POWER_BASED_ON_TARGET_HP, //effect isn't setup...
         .power = 0,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -11128,7 +11109,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_CrushGrip,
-        .argumentEffectChance = 150, //will be power
         //.argument = {.damagePercentage = 150},
     },
     //may make this power 0 so it ignores type calc
@@ -11157,8 +11137,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
         //.battleAnimScript = gBattleAnimMove_MagmaStorm,
-        .argument = MOVE_EFFECT_BURN,
-        .argumentEffectChance = 100,
     },
 
     [MOVE_DARK_VOID] =
@@ -11301,7 +11279,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_WideGuard,
-        .argument = TRUE, // Protects the whole side.
     },
     //vsonic potentialy add to more rock types
 
@@ -11386,7 +11363,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_VENOSHOCK] =
     {
-        .effect = EFFECT_VENOSHOCK, //double damage if target poisoned
+        .effect = EFFECT_DOUBLE_POWER_ON_ARG_STATUS, //double damage if target poisoned
         .power = 65,
         .type = TYPE_POISON,
         .accuracy = 100,
@@ -11547,7 +11524,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_FLAME_BURST] =
     {
-        .effect = EFFECT_FLAME_BURST,
+        .effect = EFFECT_HIT,
         .power = 75,
         .type = TYPE_FIRE,
         .accuracy = 100,
@@ -11685,8 +11662,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
         }),*/
-        .argument = MOVE_EFFECT_PARALYSIS,
-        .argumentEffectChance = 30,
     },
     //saw damage function this move is practicaly useless.
     //on average would only ever be base 50 power
@@ -11713,12 +11688,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Soak,
-        .argument = TYPE_WATER, //forgot fully change this, make based on argument
     }, //set type to water
 
     [MOVE_FLAME_CHARGE] =
     {
-        .effect = EFFECT_SPEED_UP_HIT,
+        .effect = EFFECT_HIT,
         .power = 60,
         .type = TYPE_FIRE,
         .accuracy = 100,
@@ -11931,17 +11905,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .ignoresSubstitute = TRUE,
         .soundMove = TRUE,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 10,
+        }),*/
         //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_EchoedVoice,
-        .argument = MOVE_EFFECT_CONFUSION,
     },
 
     [MOVE_CHIP_AWAY] =
     {
-        .effect = EFFECT_IGNORE_STAT_CHANGES_HIT,
+        .effect = EFFECT_HIT,
         .power = 70,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -12022,7 +11999,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_QuickGuard,
-        .argument = TRUE, // Protects the whole side.
     },//make sure this is using correct effect and doesn't have decreasing odds each use
     //check how works as meant to stop all priority moves - works
     //sets sidestatus  on move not effect
@@ -12491,7 +12467,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 30,
         #endif
-        .effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT,
+        .effect = EFFECT_HIT,
         .type = TYPE_BUG,
         .accuracy = 100,
         .pp = 15,
@@ -12502,13 +12478,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
             .chance = 100,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_INFESTATION,
         }),*/
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_StruggleBug,
-        .argument = MOVE_EFFECT_INFESTATION,
     }, //hm so is this guaranteed both?if so its VERY good now, yup looks like it
     //put this exclusively in pre evo bug learnset not full evo
     //ex caterpie, not kakuna and butterfree
@@ -12747,7 +12725,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .pp = 20,
         #endif
-        .effect = EFFECT_IGNORE_DEFENSE_EVASION_STAGE,
+        .effect = EFFECT_HIT,
         .power = 90,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
@@ -12850,13 +12828,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 25,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_INFESTATION,
+            .chance = 25,
         }),*/
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Steamroller,
-        //.argument = MOVE_EFFECT_INFESTATION,
     },
 
     [MOVE_COTTON_GUARD] =
@@ -12944,7 +12925,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
 
         .power = 120,
-        .effect = EFFECT_HURRICANE, //does confusion
+        .effect = EFFECT_HIT, //does confusion
         .type = TYPE_FLYING,
         .accuracy = 80,
         .pp = 10,
@@ -13065,12 +13046,31 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_TechnoBlast,
-        .argument = HOLD_EFFECT_DRIVE
     },
+    //may give move property so can distinguish between the moves
+    //of shared effect
+    //PROB best to just do same thing I did with judgment
+    //think will change effect of plates and drive
+    //drive especially has little use
+    //so what think will do is give it a type resist
+    //so fire drive would give you a resistance to fire type moves for genesect
+    //hmm ok think do something different for plates
+    //rather than giving single type waakness since would be worse
+    //than its existing effect would set to give type attribute and benefits
+    //so give type affinity i.e fire cant be burned
+    //and then also give the benefit of the types resistances
+    //but without becoming said type
+    //think check type argument from plate fire plate
+    //integrate with type check, when found item
+    //check if attack type would be resisted by item arg type
+    //if so calc damage using said type
+    //sounds good, think will make memories do same thing as drive
+    //to drive home its not arceus
+    //vsonic important
 
     [MOVE_RELIC_SONG] =
     {
-        .effect = EFFECT_RELIC_SONG,
+        .effect = EFFECT_HIT,
         .power = 85,
         .type = TYPE_SOUND,
         .accuracy = 100,
@@ -13092,7 +13092,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_RelicSong,
-        .argument = MOVE_EFFECT_SLEEP,//STATUS1_SLEEP, //MOVE_EFFECT_SLEEP
     },//test this, replaced use of argumenttostatus
 
     [MOVE_SECRET_SWORD] =
@@ -13142,7 +13141,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_HIT,
         .power = 130,
         .type = TYPE_ELECTRIC,
-        .accuracy = 85,
+        .accuracy = 100,
         .pp = 5,
         .secondaryEffectChance = 20,
         .target = MOVE_TARGET_SELECTED,
@@ -13166,7 +13165,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_HIT,
         .power = 130,
         .type = TYPE_FIRE,
-        .accuracy = 85,
+        .accuracy = 100,
         .pp = 5,
         .secondaryEffectChance = 20,
         .target = MOVE_TARGET_SELECTED,
@@ -13187,7 +13186,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_FIERY_DANCE] =
     {
-        .effect = EFFECT_SPECIAL_ATTACK_UP_HIT,
+        .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_FIRE,
         .accuracy = 100,
@@ -13223,11 +13222,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .metronomeBanned = TRUE,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
-        .argument = TYPE_ELECTRIC,
        //.argument.twoTurnAttack = { .stringId = STRINGID_CLOAKEDINAFREEZINGLIGHT },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
-            .chance = 30,
+            .chance = 50,
         }),*/
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
@@ -13251,11 +13249,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .metronomeBanned = TRUE,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
-        .argument = TYPE_FIRE,
        //.argument.twoTurnAttack = { .stringId = STRINGID_CLOAKEDINAFREEZINGLIGHT },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
-            .chance = 30,
+            .chance = 50,
         }),*/
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
@@ -13268,7 +13265,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SNARL] =
     {
-        .effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT,
+        .effect = EFFECT_HIT,
         .power = 55,
         .type = TYPE_DARK,
         .accuracy = 95,
@@ -13315,7 +13312,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_V_CREATE] =
     {
-        .effect = EFFECT_V_CREATE,
+        .effect = EFFECT_HIT,
         .power = 180,
         .type = TYPE_FIRE,
         .accuracy = 95,
@@ -13433,7 +13430,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_MatBlock,
-        .argument = TRUE, // Protects the whole side.
     },//only works first turn mon is in, doesn't block status moves
     //big buff for the move, but its only learned by throh and greninja
     //and greninja is already faster than most, 
@@ -13516,6 +13512,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //long as keep to only bugs
     //think fine to give this only priority
     //keep an eye on this
+    //think buffed more check if still good
+    //vsonic
 
     [MOVE_FELL_STINGER] =
     {
@@ -13542,8 +13540,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 35,
         }),*/
-        .argument = MOVE_EFFECT_INFESTATION,
-        .argumentEffectChance = 35,
     },
 
     [MOVE_PHANTOM_FORCE] =
@@ -13574,7 +13570,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_PhantomForce,
-        .argument = MOVE_EFFECT_FEINT,
     },
 
     [MOVE_TRICK_OR_TREAT] =
@@ -13595,7 +13590,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_TrickOrTreat,
-        .argument = TYPE_GHOST,
     },
 
     [MOVE_NOBLE_ROAR] =
@@ -13684,7 +13678,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_ForestsCurse,
-        .argument = TYPE_GRASS,
     },
 
     [MOVE_PETAL_BLIZZARD] =
@@ -13708,7 +13701,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_FREEZE_DRY] =
     {
-        .effect = EFFECT_FREEZE_DRY,
+        .effect = EFFECT_SUPER_EFFECTIVE_ON_ARG,
         .power = 75,
         .type = TYPE_ICE,
         .accuracy = 100,
@@ -13727,12 +13720,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_FreezeDry,
-        .argument = MOVE_EFFECT_FREEZE, //ADDed freeze chance
     },//add to more learnsets
 
     [MOVE_DISARMING_VOICE] =
     {
-        .effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT,
+        .effect = EFFECT_HIT,
         .power = 40,
         .type = TYPE_FAIRY,
         .accuracy = 0,
@@ -13743,12 +13735,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .ignoresSubstitute = TRUE,
         .soundMove = TRUE,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
+            .chance = 20,
+        }),*/
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_DisarmingVoice,
-        //.argument = MOVE_EFFECT_CONFUSION,
     }, //doesn't make sense for this to have confusion despite being sound move as its quite
     //don't know what to do with this far as cacophony since I don't have dmg boost it would do nothing to this
     //could make boost damaage? just for this kinda stuff, but I prefer for it to not do damage
@@ -13818,8 +13813,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_DrainingKiss,
-        .argument = 0, // restores 75% HP instead of 50% HP
-        .argumentEffectChance = 75,
     },
 
     [MOVE_CRAFTY_SHIELD] =
@@ -13842,7 +13835,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_CraftyShield,
-        .argument = TRUE, // Protects the whole side.
     },
 
     [MOVE_FLOWER_SHIELD] =
@@ -13972,7 +13964,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_MOONBLAST] =
     {
-        .effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT,
+        .effect = EFFECT_HIT,
         .power = 95,
         .type = TYPE_FAIRY,
         .accuracy = 100,
@@ -14203,7 +14195,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 65,
         #endif
-        .effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT,
+        .effect = EFFECT_HIT,
         .type = TYPE_FIRE,
         .accuracy = 100,
         .pp = 10,
@@ -14538,12 +14530,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 15,
+        }),*/
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_HoldBack,
-        .argument = MOVE_EFFECT_DEF_MINUS_1,
     }, //make early level move for more professional style fighting mon i.e hitmon chan lee, hariyama sawk medicham
     //add for tyrogue machop vsonic
 
@@ -14558,7 +14553,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        .argument = MOVE_EFFECT_INFESTATION,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_INFESTATION,
+        }),*/
     },//previously infestation
 
     [MOVE_POWER_UP_PUNCH] =
@@ -14611,8 +14608,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_OblivionWing,
-        .argument = 0, // restores 75% HP instead of 50% HP
-        .argumentEffectChance = 75,
     },
 
     [MOVE_THOUSAND_ARROWS] =
@@ -14842,7 +14837,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_FirstImpression,
-        .argumentEffectChance = 10,
     },
     //MOVE IS already really good, may remove fakeout effect
     //oh it doesn't flinch fakeout effect is just 1st turn effect
@@ -14911,7 +14905,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DARKEST_LARIAT] =
     {
-        .effect = EFFECT_IGNORE_DEFENSE_EVASION_STAGE,
+        .effect = EFFECT_HIT,
         .power = 85,
         .type = TYPE_DARK,
         .accuracy = 100,
@@ -14931,15 +14925,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SPARKLING_ARIA] =
     {
-        .effect = EFFECT_SPARKLING_ARIA,
+        .effect = EFFECT_HIT,
         .power = 90,
         .type = TYPE_WATER,
         .accuracy = 100,
         .pp = 10,
         .secondaryEffectChance = 0,
-        .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
-        .split = SPLIT_SPECIAL,
+        .target = MOVE_TARGET_BOTH, //changed to target both to give niche over surf
+        .priority = 0, //then again if you want to cure your own burn you have to give up dmg
+        .split = SPLIT_SPECIAL, //most times you won't want to cure your burn so guess its good
         //.argument = { .status = STATUS1_BURN },
         .ignoresSubstitute = TRUE,
         .soundMove = TRUE,
@@ -14952,13 +14946,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SCALD},
         //.battleAnimScript = gBattleAnimMove_SparklingAria,
-        .argument = STATUS1_BURN,
     }, //like disarming voice can't do much with this with cacophony and I guess that's fine?
     //ended up buffing disarming voice
 
     [MOVE_ICE_HAMMER] =
     {
-        .effect = EFFECT_HAMMER_ARM,
+        .effect = EFFECT_HIT,
         .power = 100,
         .type = TYPE_ICE,
         .accuracy = 90,
@@ -15283,8 +15276,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Lunge,
-        .argumentEffectChance = 10,
-        .argument = MOVE_EFFECT_INFESTATION,
     },
 
     [MOVE_FIRE_LASH] =
@@ -15332,7 +15323,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BURN_OUT] =
     {
-        .effect = EFFECT_LOSETYPE_HIT,
+        .effect = EFFECT_FAIL_IF_NOT_ARG_TYPE,
         .power = 150,
         .type = TYPE_FIRE,
         .accuracy = 100,
@@ -15341,7 +15332,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        .argument = TYPE_FIRE,
         //.argument = { .storedValue = TYPE_FIRE },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
@@ -15527,7 +15517,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_CLANGING_SCALES] =
     {
-        .effect = EFFECT_ATTACKER_DEFENSE_DOWN_HIT, //already uses certain effect in battle script
+        .effect = EFFECT_HIT, //already uses certain effect in battle script
         .power = 110,
         .type = TYPE_DRAGON,
         .accuracy = 100,
@@ -15541,13 +15531,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .self = TRUE,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 30,
         }),*/
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_ClangingScales,
-        .argument = MOVE_EFFECT_CONFUSION,
     },
 
     [MOVE_DRAGON_HAMMER] =
@@ -15689,7 +15682,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_PsychicFangs,
-        .argument = MOVE_EFFECT_FLINCH,
     },// kept at power 75, added flinch and effect chance boosted to level of bite
 
     [MOVE_STOMPING_TANTRUM] =
@@ -15946,7 +15938,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_MultiAttack,
         .argument = HOLD_EFFECT_MEMORY,
-    },
+    }, //unsure if want to give free super like arceus
+    //is meant to be a failed copy
 
     [MOVE_MIND_BLOWN] =
     {
@@ -16064,13 +16057,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        .argument = TYPE_ELECTRIC,
+        //.argument = { .storedValue = TYPE_ELECTRIC },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
         }),*/
         //.battleAnimScript = gBattleAnimMove_SplishySplash,
-       //.argument = { .storedValue = TYPE_ELECTRIC },
+       
     },
 
     [MOVE_FLOATY_FALL] =
@@ -16118,15 +16111,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BOUNCY_BUBBLE] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_8
-            .power = 60,
-            .pp = 20,
-                .argument = 0, // restores 100% HP instead of 50% HP
-            .argumentEffectChance = 100,
-        #else
-            .power = 90,
-            .pp = 15,
-            #endif
+        .power = 60,
+        .pp = 20,
         .effect = EFFECT_ABSORB,
         .type = TYPE_WATER,
         .accuracy = 100,
@@ -16496,7 +16482,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_MagicPowder,
-        .argument = TYPE_PSYCHIC,
     },
 
     [MOVE_DRAGON_DARTS] =
@@ -16738,8 +16723,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_SnapTrap,
-        .argument = MOVE_EFFECT_FLINCH,   //decided to add flinch chance t3o this like clamp but slightly stronger
-        .argumentEffectChance = 25,
     },
 
 
@@ -16878,12 +16861,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 20,
+        }),*/
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_BranchPoke,
-        .argument = MOVE_EFFECT_FLINCH
     },
 
     [MOVE_OVERDRIVE] =
@@ -16900,12 +16886,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .soundMove = TRUE,
         .ignoresSubstitute = TRUE,
         .metronomeBanned = TRUE,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 10,
+        }),*/
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Overdrive,
-        .argument = MOVE_EFFECT_CONFUSION,
     },
 
     [MOVE_APPLE_ACID] =
@@ -16958,7 +16947,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SPIRIT_BREAK] =
     {
-        .effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT,
+        .effect = EFFECT_HIT,
         .power = 75,
         .type = TYPE_FAIRY,
         .accuracy = 100,
@@ -17357,7 +17346,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SKITTER_SMACK] =
     {
-        .effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT,
+        .effect = EFFECT_HIT,
         .power = 55, //base game is 70, may make my version 50?
         .type = TYPE_BUG,
         .accuracy = 100,//hmm w stab at 60 is base while 55 is just shy of 75 that seems better?
@@ -17380,8 +17369,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_SkitterSmack,
-        .argumentEffectChance = 10,
-        .argument = MOVE_EFFECT_INFESTATION,
     },//think argument defaults to 0, point is to add 
     //when I get it working w teh proper animation, and have all bug moves a 10% chance to infest
     //think will rework this to priority move,
@@ -17392,7 +17379,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BURNING_JEALOUSY] =
     {
-        .effect = EFFECT_STATUS_IF_STAT_BOOST,
+        .effect = EFFECT_HIT,
         .power = 70,
         .type = TYPE_FIRE,//believe mayu need raise pp to 10
         .accuracy = 100,
@@ -17685,7 +17672,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DRAGON_ENERGY] =
     {
-        .effect = EFFECT_ERUPTION,
+        .effect = EFFECT_POWER_BASED_ON_USER_HP,
         .power = 150,
         .type = TYPE_DRAGON,
         .accuracy = 100,
@@ -17899,7 +17886,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_STONE_AXE] =
     {
-        .effect = EFFECT_HIT_SET_ENTRY_HAZARD, // EFFECT_STONE_AXE,  //is done in emerald can take
+        .effect = EFFECT_STONE_AXE,
         .power = 65,
         .type = TYPE_ROCK,
         .accuracy = 95,
@@ -17914,7 +17901,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .sheerForceOverride = TRUE,
         }),*/
         //.battleAnimScript = gBattleAnimMove_StoneAxe,
-        .argument = MOVE_EFFECT_STEALTH_ROCK,
     }, //need test
     //low power no reason to have such low acc
     //especially when stealth rocks don't stack
@@ -18113,7 +18099,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BARB_BARRAGE] =
     {
-        .effect = EFFECT_VENOSHOCK, // EFFECT_BARB_BARRAGE,
+        .effect = EFFECT_DOUBLE_POWER_ON_ARG_STATUS,
         .power = 60,
         .type = TYPE_POISON, //poison hit + hex well actually literally just poison hit
         .accuracy = 100,
@@ -18128,7 +18114,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .chance = 50,
         }),*/
         //.battleAnimScript = gBattleAnimMove_BarbBarrage,
-        .argument = MOVE_EFFECT_POISON,
     },
     //double damage if target poisoned, and set poison
 
@@ -18148,7 +18133,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .enhancedCritrate = TRUE,
-        .argument = TYPE_FLYING,
+        .slicingMove = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
             .self = TRUE,
@@ -18179,8 +18164,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .chance = 30,
         }),*/
         //.battleAnimScript = gBattleAnimMove_BitterMalice,
-        .argument = MOVE_EFFECT_FREEZE,
-        .argumentEffectChance = 30,
     },//vsonic - make bitter malilce its own effect atk/spatkdown hit
     //use BattleScript_EffectNobleRoar  as template
     //ok change mind what i'll do is keep power at 60
@@ -18230,7 +18213,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 30,
         }),*/
-        .argument = MOVE_EFFECT_DEF_MINUS_1,
     },  //need test fixed put focus energy effect at end, so doesn't trigger before damage done. / changed mind put at start, mon is still relatively frail
 
     [MOVE_INFERNAL_PARADE] =
@@ -18250,13 +18232,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .chance = 30,
         }),*/
         //.battleAnimScript = gBattleAnimMove_InfernalParade,
-        .argument = MOVE_EFFECT_BURN,
     },
     //hex + burn chance
 
     [MOVE_CEASELESS_EDGE] =
     {
-        .effect = EFFECT_HIT_SET_ENTRY_HAZARD, // EFFECT_CEASELESS_EDGE,
+        .effect = EFFECT_CEASELESS_EDGE,
         .power = 65,
         .type = TYPE_DARK,
         .accuracy = 90,
@@ -18271,7 +18252,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .sheerForceOverride = TRUE,
         }),*/
         //.battleAnimScript = gBattleAnimMove_CeaselessEdge,
-        .argument = MOVE_EFFECT_SPIKES,
     },
     //sets spikes
     //lower acc than stone axe because not dark, and effect stacks
@@ -18457,9 +18437,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .chance = 30,
         }),*/
         //.battleAnimScript = gBattleAnimMove_AxeKick,
-        .argument = MOVE_EFFECT_CONFUSION,
-        .argumentEffectChance = 30,
-        //.argument = { .recoilType = MOVE_EFFECT_RECOIL_IF_MISS },
     },
 
     [MOVE_LAST_RESPECTS] =
@@ -18479,7 +18456,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_LUMINA_CRASH] =
     {
-        .effect = EFFECT_HIT_2,
+        .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_PSYCHIC,
         .accuracy = 100,
@@ -18620,7 +18597,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         //.battleAnimScript = gBattleAnimMove_IceSpinner,
-        .argument = 1,  //remove terrain
     },
 
     [MOVE_GLAIVE_RUSH] =
@@ -18795,7 +18771,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_TORCH_SONG] =
     {
-        .effect = EFFECT_SPECIAL_ATTACK_UP_HIT,
+        .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_FIRE,
         .accuracy = 100,
@@ -18816,7 +18792,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_AQUA_STEP] =
     {
-        .effect = EFFECT_SPEED_UP_HIT,
+        .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_WATER,
         .accuracy = 100,
@@ -19056,7 +19032,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_TRAILBLAZE] =
     {
-        .effect = EFFECT_SPEED_UP_HIT,
+        .effect = EFFECT_HIT,
         .power = 50,
         .type = TYPE_GRASS,
         .accuracy = 100,
@@ -19185,7 +19161,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .slicingMove = TRUE,
         .healingMove = TRUE,
         //.battleAnimScript = gBattleAnimMove_BitterBlade,
-        // Needs the "slicing" flag
     },
 
     [MOVE_GIGATON_HAMMER] =
@@ -19301,7 +19276,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .chance = 10,
         }),*/
         //.battleAnimScript = gBattleAnimMove_WickedTorque,
-        .argument = MOVE_EFFECT_SLEEP,
     },//check update fo EE should have ability set move effect without needing new effect
 
     [MOVE_NOXIOUS_TORQUE] =
@@ -19744,7 +19718,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .evasiveBreak = TRUE,
         .battleAnimScript = gBattleAnimMove_SupercellSlam,
-        //.argument = { .recoilType = MOVE_EFFECT_RECOIL_IF_MISS },
     },
 
     [MOVE_PSYCHIC_NOISE] =
@@ -20016,7 +19989,7 @@ use wonder gaurd logic to determine its super effective
     
     [MOVE_SONIC_BOOM] =
     {
-        .effect = EFFECT_SPEED_UP_HIT,
+        .effect = EFFECT_HIT,
         .power = 65,
         .type = TYPE_FLYING,
         .accuracy = 100,
@@ -20038,7 +20011,6 @@ use wonder gaurd logic to determine its super effective
                 .moveEffect = MOVE_EFFECT_CONFUSION,
                 .chance = 10,
             }),*/
-        //.argumentEffectChance = 10, can use sec effect for this
     },//since effect is affects user its already certain
     //think give this uproar effect as well, good idea
     //to have more sleep control in game even with rebalance
@@ -20046,7 +20018,7 @@ use wonder gaurd logic to determine its super effective
 
     [MOVE_OVER_MAX_POWER] =
     {
-        .effect = EFFECT_LOSETYPE_HIT, //remember plan to set this up for entire battle 
+        .effect = EFFECT_FAIL_IF_NOT_ARG_TYPE, //remember plan to set this up for entire battle 
         .power = 150,       //think will do by storing move used, and removing type based on that, potentially set a status?
         .type = TYPE_PSYCHIC,
         .accuracy = 100,
@@ -20055,7 +20027,6 @@ use wonder gaurd logic to determine its super effective
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        .argument = TYPE_PSYCHIC,
         //.argument = { .storedValue = TYPE_PSYCHIC },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
@@ -20065,7 +20036,7 @@ use wonder gaurd logic to determine its super effective
 
     [MOVE_SHIMON] =
     {
-        .effect = EFFECT_LOSETYPE_HIT,
+        .effect = EFFECT_FAIL_IF_NOT_ARG_TYPE,
         .power = 150,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
@@ -20074,7 +20045,6 @@ use wonder gaurd logic to determine its super effective
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        .argument = TYPE_FIGHTING,
         //.argument = { .storedValue = TYPE_FIGHTING },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
@@ -20084,7 +20054,7 @@ use wonder gaurd logic to determine its super effective
 
     [MOVE_FINAL_FLIGHT] =
     {
-        .effect = EFFECT_LOSETYPE_HIT,
+        .effect = EFFECT_FAIL_IF_NOT_ARG_TYPE,
         .power = 150,
         .type = TYPE_FLYING,
         .accuracy = 100,
@@ -20093,8 +20063,7 @@ use wonder gaurd logic to determine its super effective
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        .argument = TYPE_FLYING,
-        .enhancedCritrate = TRUE,
+        //.enhancedCritrate = TRUE, //this is prob too much no? vsonic
         //.argument = { .storedValue = TYPE_FLYING },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
@@ -20107,7 +20076,7 @@ use wonder gaurd logic to determine its super effective
 
     [MOVE_PLASMA_RAILGUN] =
     {
-        .effect = EFFECT_LOSETYPE_HIT,
+        .effect = EFFECT_FAIL_IF_NOT_ARG_TYPE,
         .power = 150,
         .type = TYPE_ELECTRIC,
         .accuracy = 100,
@@ -20116,7 +20085,6 @@ use wonder gaurd logic to determine its super effective
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        .argument = TYPE_ELECTRIC,
         //.argument = { .storedValue = TYPE_ELECTRIC },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
@@ -20126,9 +20094,6 @@ use wonder gaurd logic to determine its super effective
 
     [MOVE_BOLTBEAM] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_8
-            #else
-            #endif
         .effect = EFFECT_TWO_TYPED_MOVE,
         .power = 90,
         .type = TYPE_ICE,
@@ -20138,8 +20103,11 @@ use wonder gaurd logic to determine its super effective
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        .argument = TYPE_ELECTRIC,
        //.argument = { .storedValue = TYPE_ELECTRIC },
+       /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FREEZE,
+            .chance = 30,
+        }),*/
     },
     //two typed attack w chance to freeze
 
@@ -20162,7 +20130,7 @@ use wonder gaurd logic to determine its super effective
 
     [MOVE_DOUBLE_SHOCK] =
     {
-        .effect = EFFECT_LOSETYPE_HIT,
+        .effect = EFFECT_FAIL_IF_NOT_ARG_TYPE,
         .power = 150,
         .type = TYPE_ELECTRIC,
         .accuracy = 100,
@@ -20173,7 +20141,6 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        .argument = TYPE_ELECTRIC,
         //.argument = { .storedValue = TYPE_ELECTRIC },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
@@ -20184,7 +20151,7 @@ use wonder gaurd logic to determine its super effective
 
     [MOVE_POUNCE] =
     {
-        .effect = EFFECT_SPEED_UP_HIT,
+        .effect = EFFECT_HIT,
         .power = 60,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -20238,8 +20205,6 @@ use wonder gaurd logic to determine its super effective
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        .argument = MOVE_EFFECT_FLINCH,
-        .argumentEffectChance = 15,
         .ballisticMove = TRUE,
         .instructBanned = TRUE,
         .parentalBondBanned = TRUE,
@@ -20253,6 +20218,7 @@ use wonder gaurd logic to determine its super effective
         //.contestComboMoves = {COMBO_STARTER_HAIL},
         //.battleAnimScript = gBattleAnimMove_Snowball,
     }, //still need get animatino how I want to change sprite size with ppower
+    //3 stage effect diff power like ice ball want change anim based on power
 
     [MOVE_TRENCH_RUN] =
     {
@@ -20308,7 +20274,6 @@ use wonder gaurd logic to determine its super effective
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        .argument = TYPE_DARK,
        //.argument = { .storedValue = TYPE_DARK },
         .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
@@ -20356,8 +20321,6 @@ use wonder gaurd logic to determine its super effective
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_STATUS,
-        .argument = MOVE_EFFECT_FLINCH,
-        .argumentEffectChance = 10,
         .magicCoatAffected = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
@@ -20422,7 +20385,6 @@ use wonder gaurd logic to determine its super effective
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .split = SPLIT_STATUS,
-        .argument = ABILITY_HEAT_TRANCE,
         .magicCoatAffected = TRUE,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -20583,7 +20545,7 @@ use wonder gaurd logic to determine its super effective
 
     [MOVE_SHOCKING_MALICE] =
     {
-        .effect = EFFECT_STATUS_IF_STAT_BOOST,
+        .effect = EFFECT_HIT,
         .power = 70,
         .type = TYPE_ELECTRIC,
         .accuracy = 100,
@@ -20597,7 +20559,6 @@ use wonder gaurd logic to determine its super effective
             .onlyIfTargetRaisedStats = TRUE,
             .chance = 100,
         }),*/
-        .argument = MOVE_EFFECT_PARALYSIS,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,

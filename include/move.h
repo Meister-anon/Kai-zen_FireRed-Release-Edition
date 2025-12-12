@@ -17,8 +17,7 @@ struct __attribute__((packed, aligned(2))) BattleMoveEffect
     u16 semiInvulnerableEffect:1;
     u16 usesProtectCounter:1;
     u16 hasAccCheckAfterAtkstring:1; //for new pre hit ability effect, keep an eye out for effects that go to same battlescript where condition should be TRUE
-    u16 setfromatkcanceler:1; //rn for strength and triple arrow, attempt do setmoveeffect stuff in attack canceler if move succeeds
-    u16 padding:7;
+    u16 padding:8;
 };
 
 #define EFFECTS_ARR(...) (const struct AdditionalEffect[]) {__VA_ARGS__}
@@ -32,7 +31,8 @@ struct AdditionalEffect
     u8 onlyIfTargetRaisedStats:1;
     u8 onChargeTurnOnly:1;
     u8 sheerForceOverride:1; // Handles edge cases for Sheer Force - if TRUE, boosts when it shouldn't, or doesn't boost when it should
-    u8 padding:4;
+    u8 setfromatkcanceler:1; //rn for strength and triple arrow, attempt do setmoveeffect stuff in attack canceler if move succeeds
+    u8 padding:3; //^realize effect needs to go here rather than on battle effect so correct effect gets set
     union PACKED {
         enum WrappedStringID wrapped;
     } multistring;
@@ -71,13 +71,13 @@ enum ProtectMethod
 struct BattleMove
 {
     u16 effect;
+    u16 target;
     u8 power;
     u8 type;
     u8 accuracy;
     u8 pp;
-    u8 secondaryEffectChance;
-    u16 target;
     s8 priority;
+    u8 split;
     //u32 flags;
     // Flags
     bool32 makesContact:1;
@@ -136,14 +136,6 @@ struct BattleMove
     u32 multiTaskBanned:1; // remove need for multitask exclude 
     u32 padding:10; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
     // end of word
-    u8 split;
-    u16 argument;// for transferring move effects
-    u8 argumentEffectChance; // setup status commands and seteffectwithchance function to read this as a value explicitly for argument
-    //would possibly need to redo setup for effects that become certain without reading effectchance nvm it works 
-    //Argument works by passive value of argument to battlescript.moveeffect
-    //so just do a check in seteffectwithchance that checks if  battlescripting.moveeffect equals gbattlemons[move].effect or the argument
-    //if it equals the argument use argument chance, that means it has already done the effect
-    //and has passed the arugment over so it can use the argument chance
     union {
         struct {
             u16 stringId;
@@ -157,9 +149,9 @@ struct BattleMove
         u32 fixedDamage;
         u32 damagePercentage;
         u32 absorbPercentage;
-        u32 Fill; //replace make recoilType will take move effect and do same thing my seutp does
+        u32 sacrificedHpPercentage; //decide use for hp loss for self destruct mind blown may filter into curse as well
         u32 nonVolatileStatus; //looking at plasma fists which can go use effect_hit then go to other move effect
-    } argument_; //think may not need recoilType at all
+    } argument; //think may not need recoilType at all
 
     // primary/secondary effects
     const struct AdditionalEffect *additionalEffects;
@@ -537,6 +529,11 @@ static inline u32 GetMoveAbsorbPercentage(u32 moveId)
     return gBattleMoves[moveId].argument.absorbPercentage;
 }
 
+static inline u32 GetHpPercentagetoSacrifice(u32 moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    return gBattleMoves[moveId].argument.sacrificedHpPercentage;
+}
 
 static inline const struct AdditionalEffect *GetMoveAdditionalEffectById(u32 moveId, u32 effect)
 {
