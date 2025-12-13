@@ -964,7 +964,7 @@ const u8 gMYSTICAL_FIRE_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Breathes a special,\nhot fire.\nMay lower Sp. Atk.");
 
 const u8 gSPIKY_SHIELD_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Evades attack,\nand damages the\nfoe if struck.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Evades attack,\nand damages the\nfoe if struck.\nThe impact also\nsends spikes to\nenemy side of field.");
 
 const u8 gAROMATIC_MIST_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Raises the Sp. Def\nof its partner\nin battle.");

@@ -17710,15 +17710,20 @@ static void atkAF_cursetarget(void)
 static void atkB0_trysetspikes(void)
 {
     u8 targetSide = GetBattlerSide(gBattlerAttacker) ^ BIT_SIDE; //opposite attacker?
+    bool32 isspikesFromShield = gCurrentMove == MOVE_SPIKES ? FALSE : TRUE ;
 
     if (gProtectStructs[gBattlerTarget].spikyShielded)  //doesn't need extra clause already has move end clause for touch protect like. 
-        targetSide = GetBattlerSide(gBattlerTarget) ^ BIT_SIDE; //hope works and fixes spiky shield issue WORKS!!!
+        //targetSide = GetBattlerSide(gBattlerTarget) ^ BIT_SIDE; //hope works and fixes spiky shield issue WORKS!!!
+        targetSide = GetBattlerSide(gBattlerAttacker);
     //think the conditional was the problem
+    //not quite right if attacker was your ally would still set spikes to opposite side
+    //instead should have used get side of attacker since using bit side is for opposing field
 
 
     if (gSideTimers[targetSide].spikesAmount == 3)
     {
-        gSpecialStatuses[gBattlerAttacker].ppNotAffectedByPressure = 1;
+        if (!isspikesFromShield)
+            gSpecialStatuses[gBattlerAttacker].ppNotAffectedByPressure = 1;
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
     }
     else

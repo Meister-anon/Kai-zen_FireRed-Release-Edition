@@ -17,7 +17,8 @@
 	.macro ppreduce
 	.byte 0x3
 	.endm
-
+	@vsonic adjusted for my new values plus changed crit odds in gCriticalHitChance
+	@need bring in equivalent done ported mine and edited over to EE
 	.macro critcalc
 	.byte 0x4
 	.endm
@@ -955,11 +956,13 @@
 	.macro setsandstorm
 	.byte 0x95
 	.endm
-
+	@vsonic doesnt exist in EE is animatewildmonafterfailedcatch which think I wont use
+	@believe emerald specific cuz of their animations, will become unusued
 	.macro weatherdamage
 	.byte 0x96
 	.endm
 
+	@vsonic take my updated changes
 	.macro tryinfatuating param0:req
 	.byte 0x97
 	.4byte \param0
@@ -978,6 +981,8 @@
 	.byte 0x9a
 	.endm
 
+	@vsonic very changed on my part 
+	@as well as how hp functions work
 	.macro transformdataexecution
 	.byte 0x9b
 	.endm
@@ -991,14 +996,18 @@
 	.4byte \param0
 	.endm
 
+	@vsonic in EE is setcalledmove believe conposite function
+	@no longer just metronome
+	@no is just different all together metronome handled differently
 	.macro metronome
 	.byte 0x9e
 	.endm
-
+	@vsonic is unused in EE
 	.macro dmgtolevel
 	.byte 0x9f
 	.endm
 
+	@vsonic is unused in EE
 	.macro psywavedamageeffect
 	.byte 0xa0
 	.endm
@@ -1028,7 +1037,9 @@
 	.4byte \param0
 	.endm
 
+	@vsonic very changed take my version
 	@conversion 2 redid effect, change type based on target mon type
+	@is now used for conversionz
 	.macro settypetorandomresistance param0:req
 	.byte 0xa6
 	.4byte \param0
@@ -1043,23 +1054,29 @@
 	.4byte \param0
 	.endm
 
+	@believe was working on change for this effect
+	@vsonic my diff just remove focus punch condition
 	.macro trychoosesleeptalkmove param0:req
 	.byte 0xa9
 	.4byte \param0
 	.endm
 
+	@vsonic trysetdestinybond in EE
 	.macro setdestinybond
 	.byte 0xaa
 	.endm
 
+	@vsonic unused in EE consolidated
 	.macro trysetdestinybondtohappen
 	.byte 0xab
 	.endm
 
+	@vsonic in EE is settailwind which is 0xfd for me
 	.macro remaininghptopower
 	.byte 0xac
 	.endm
 
+	@vsonic effect reworked take my changes
 	.macro tryspiteppreduce param0:req
 	.byte 0xad
 	.4byte \param0
@@ -1069,16 +1086,20 @@
 	.byte 0xae
 	.endm
 
+	@vsonic set effect filter for dryads curse
 	.macro cursetarget param0:req
 	.byte 0xaf
 	.4byte \param0
 	.endm
 
+	@vsonic 
+	@added logic for spikyshield change
 	.macro trysetspikes param0:req
 	.byte 0xb0
 	.4byte \param0
 	.endm
 
+	@vsonic replaced w setvolatile
 	.macro setforesight
 	.byte 0xb1
 	.endm
@@ -1088,6 +1109,7 @@
 	.4byte \param0
 	.endm
 
+	@vsonic becomes handlerollout
 	.macro rolloutdamagecalculation
 	.byte 0xb3
 	.endm
@@ -1098,14 +1120,17 @@
 	.4byte \ptr
 	.endm
 
+	@vsonic unused now done in basedamagecalc
 	.macro furycuttercalc
 	.byte 0xb5
 	.endm
 
+	@vsonic unused setembargo in EE is 0xfe for me
 	.macro happinesstodamagecalculation
 	.byte 0xb6
 	.endm
 
+	@vsonic custom effect may be able to fold into damagecalc with a bs call? idk
 	@changed gave pointer arg, so it can jump script if will heal instead of doing dmg
 	@changed jump is for healing, Fail is for target full hp
 	.macro presentdamagecalculation jumpInstr:req failInstr:req
@@ -1118,6 +1143,9 @@
 	.byte 0xb8
 	.endm
 
+	@vsonic had swapped to variable power calc
+	@but will remove that and need to use this and presentdamagecalc
+	@because they both print strings
 	.macro magnitudedamagecalculation
 	.byte 0xb9
 	.endm
@@ -1127,10 +1155,12 @@
 	.4byte \param0
 	.endm
 
+	@vsonic replaced in EE w tryactivateitem
 	.macro setsunny
 	.byte 0xbb
 	.endm
 
+	@vsonic in EE just halvshp
 	.macro maxattackhalvehp param0:req
 	.byte 0xbc
 	.4byte \param0
@@ -1141,10 +1171,12 @@
 	.4byte \param0
 	.endm
 
+	@vsonic major changes on my side port over
 	.macro rapidspinfree
 	.byte 0xbe
 	.endm
 
+	@vsonic unused in EE
 	.macro setdefensecurlbit
 	.byte 0xbf
 	.endm
@@ -1154,6 +1186,10 @@
 	.4byte \param0
 	.endm
 
+	@vsonic dont need but was still used
+	@replaced in EE w setstickyweb is callnative in mine
+	@need integrate with mine as I reworked stickyweb to stack
+	@and for second layer to trap on field
 	.macro hiddenpowercalc
 	.byte 0xc1
 	.endm
@@ -1162,29 +1198,36 @@
 	.byte 0xc2
 	.endm
 
+	@vsonic take my effect made 2 stack
 	.macro trysetfutureattack param0:req
 	.byte 0xc3
 	.4byte \param0
 	.endm
 
+	@vsonic take my version custom effect
 	.macro trydobeatup ptr:req, failInstr:req
 	.byte 0xc4
 	.4byte \ptr
 	.4byte \failInstr
 	.endm
 
+	@vsonic add set on air to remove smack down status
 	.macro setsemiinvulnerablebit
 	.byte 0xc5
 	.endm
 
+	@vsonic in EE consolidated into previous byte
+	@in EE is tryfiretwoturnmovenowbyeffect
 	.macro clearsemiinvulnerablebit
 	.byte 0xc6
 	.endm
 
+	@vsonic unused in EE
 	.macro setminimize
 	.byte 0xc7
 	.endm
 
+	@vsonic unused in EE
 	.macro sethail
 	.byte 0xc8
 	.endm
@@ -1198,15 +1241,19 @@
 	.byte 0xca
 	.endm
 
+	@vsonic unused in EE
 	.macro setcharge battler:req
 	.byte 0xcb
 	.byte \battler
 	.endm
 
+	@vsonic unused in EE previously used for naturepower
 	.macro callterrainattack
 	.byte 0xcc
 	.endm
 
+	@vsonic renamed in EE curestatuswithmove 
+	@can take but requires frostbite define
 	.macro cureifburnedparalysedorpoisoned param0:req
 	.byte 0xcd
 	.4byte \param0

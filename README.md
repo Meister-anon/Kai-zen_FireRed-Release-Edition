@@ -91,6 +91,8 @@ to be reintroduced,
  should be able to remove one counter
  prob multi task counter and just keep multihit counter
 
+ remmber made hazard dmg changes for stealth rock etc.
+ and sticky web changes make sure aren't lost in ai files
 
  next step go over bs.inc and commands to see what I changed or added
  make note of that in inc so I don't lose it and can readd them after
