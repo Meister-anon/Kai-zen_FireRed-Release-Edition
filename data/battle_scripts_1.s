@@ -10303,6 +10303,7 @@ BattleScript_HurtAttacker:
 	tryfaintmon BS_ATTACKER, FALSE, NULL
 	return
 
+@vsonic IMPORTANT
 BattleScript_SetSpikesfromSpikyShield::
 	trysetspikes BattleScript_LearnMoveReturn	@using this as an attempt to end script without text/effects should just return from call if failed
 	@attackanimation	@may swap to just playanimation 

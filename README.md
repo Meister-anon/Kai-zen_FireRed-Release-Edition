@@ -94,6 +94,8 @@ to be reintroduced,
  remmber made hazard dmg changes for stealth rock etc.
  and sticky web changes make sure aren't lost in ai files
 
+ also keep eye on BattleScript_SetSpikesfromSpikyShield
+
  next step go over bs.inc and commands to see what I changed or added
  make note of that in inc so I don't lose it and can readd them after
  well for existing commands can add them in ee in advance of copy over
