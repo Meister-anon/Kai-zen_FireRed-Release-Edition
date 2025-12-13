@@ -13,10 +13,10 @@
 	.byte 0x2
 	.endm
 
-	@vsonic unused in EE
 	.macro ppreduce
 	.byte 0x3
 	.endm
+
 	@vsonic adjusted for my new values plus changed crit odds in gCriticalHitChance
 	@need bring in equivalent done ported mine and edited over to EE
 	.macro critcalc
@@ -103,7 +103,6 @@
 	.4byte \ptr
 	.endm
 
-	@vsonic replaced is setadditionaleffects in EE
 	.macro setmoveeffectwithchance
 	.byte 0x15
 	.endm
@@ -135,7 +134,8 @@
 	.byte \battler
 	.endm
 
-	@vsonic EE change only battler is req check 4 diffs
+	@vsonic in EE only battler is req check 4 diffs
+	@major changes sturdy destiny bond etc.
 	.macro tryfaintmon battler:req, fromHazard:req, ptr:req
 	.byte 0x19
 	.byte \battler
@@ -192,7 +192,7 @@
 	jumpbasedonability \battler, \ability, FALSE, \jumpptr
 	.endm
 
-	@vsonic custom
+	@vsonic custom look into EE intimidate script updates may be able to move to C code
 	.macro jumpifIgnoreIntimidateChecks jumpInstr:req
 	callnative BS_JumpifAttackerAbilitySkipsIntimidateChecks
 	.4byte \jumpInstr
@@ -204,6 +204,7 @@
 	.endm
 
 	@vsonic custom double check forget what they do
+	@not used
 	.macro onfieldAbilityJump battler:req, ability:req, jumpCondition:req, jumpInstr:req
 	callnative BS_AbilityJumpBasedOnField
 	.byte \battler
@@ -212,7 +213,7 @@
 	.4byte \jumpInstr
 	.endm
 
-	@vsonic need check unsure if same as jumpifabilitypresent
+	@only used for Neutralizing gas/stench dont need
 	@base function uses isabilityonfieldExceptBattler to exclude battler set
 	@use for things like stench neutralzing gas etc. that should clear
 	@only if no other mon on field can continue effect
@@ -224,7 +225,6 @@
 	onfieldAbilityJump \battler, \ability, FALSE, \jumpptr
 	.endm
 
-	@vsonic is flags not sidestatus in EE prefer mine
 	@FIXED think needed to make 4byte instead of 2
 	.macro jumpifsideaffecting battler:req, sidestatus:req, jumpInstr:req
 	.byte 0x1f
@@ -233,7 +233,6 @@
 	.4byte \jumpInstr
 	.endm
 
-	@vsonic in EE ifflag is comparison take that version
 	.macro jumpifstat battler:req, ifflag:req, stat:req, value:req, ptr
 	.byte 0x20
 	.byte \battler
@@ -243,7 +242,6 @@
 	.4byte \ptr
 	.endm
 
-	@vsonic not used, in EE is jumpifstatignorecontrary take that
 	.macro jumpifstatus3condition battler:req, status3:req, param2:req, ptr:req
 	.byte 0x21
 	.byte \battler
@@ -289,7 +287,6 @@
 	.byte \battler
 	.endm
 
-	@vsonic EE name changed checkteamslost
 	.macro confirmlosingteam jumpInstr:req
 	.byte 0x24
 	.4byte \jumpInstr
@@ -456,7 +453,6 @@
 	.byte 0x3f
 	.endm
 
-	@vsonic replaced w setchargingturn in EE
 	@no longer used
 	.macro jumpifaffectedbyprotect ptr:req
 	.byte 0x40
@@ -492,7 +488,6 @@
 	.4byte \arg
 	.endm
 
-	@vsonic is playanimation_var in EE
 	.macro playanimation2 battler:req, animType:req, arg=NULL
 	.byte 0x46
 	.byte \battler
@@ -500,12 +495,10 @@
 	.4byte \arg
 	.endm
 
-	@vsonic is jumpifsemiinvulnerable in EE
 	.macro setgraphicalstatchangevalues
 	.byte 0x47
 	.endm
 
-	@vsonic unused in EE
 	.macro playstatchangeanimation battler:req, statId:req, mode:req
 	.byte 0x48
 	.byte \battler
@@ -552,6 +545,7 @@
 	.endm
 
 	@vsonic FR exclusive is sethealblock in EE
+	@my healblock is side status
 	@I have at 0xfa
 	.macro typecalc2
 	.byte 0x4a
@@ -654,13 +648,11 @@
 	.byte \battler
 	.endm
 
-	@vsonic EE version doesnt have addr argument
 	.macro getmoneyreward addr
 	.byte 0x5d
 	.4byte \addr
 	.endm
 
-	@vsonic same as EE just different name
 	@never used
 	.macro atk5E battler:req
 	.byte 0x5e
@@ -691,14 +683,12 @@
 	.byte \notChosenMove
 	.endm
 
-	@vsonic EE version has more arguments
 	@For status1 only
 	.macro statusanimation battler:req
 	.byte 0x64
 	.byte \battler
 	.endm
 
-	@vsonic name change volatileanimation in EE
 	@is state change function not different byte command
 	@still using statusanimation macro
 	.macro status2animation battler:req, status2:req
@@ -783,6 +773,8 @@
 	.endm
 
 	@vsonic various args unused in EE
+	@may need comb over to see if anything changed
+	@would need update in EE
 	.macro various battler:req, id:req
 	.byte 0x76
 	.byte \battler
@@ -809,7 +801,7 @@
 	.endm
 
 	@vsonic recovery command renamed from EE version for my rebalance
-	@keep my version by write better
+	@keep my version but write better
 	.macro tryhealportionhealth failInstr:req, battler:req
 	.byte 0x7b
 	.4byte \failInstr
@@ -820,7 +812,7 @@
 	.byte 0x7c
 	.endm
 
-	@vsonic EE is setfieldweather handles all weather
+	@vsonic EE is setfieldweather handles all weather need add my new weather
 	@not single variant split between multiple commands
 	.macro setrain
 	.byte 0x7d
@@ -844,13 +836,11 @@
 	.4byte \failInstr
 	.endm
 
-	@vsonic unsure if I made but unsused in EE
 	.macro jumpifnotfirstturn ptr:req
 	.byte 0x82
 	.4byte \ptr
 	.endm
 
-	@vsonic command not used, is unused in EE
 	.macro nop
 	.byte 0x83
 	.endm
@@ -862,11 +852,11 @@
 	.endm
 
 	@vsonic diff in EE take that version
+	@actually think had plan to rework stockpile keep eye on
 	.macro stockpile
 	.byte 0x85
 	.endm
 
-	@vsonic diff in EE take that version
 	.macro stockpiletobasedamage param0:req
 	.byte 0x86
 	.4byte \param0
@@ -877,7 +867,6 @@
 	.4byte \param0
 	.endm
 
-	@vsonic in FR sets hp value to drain/heal
 	@EE handles in code so is unused
 	.macro sethpdrain
 	.byte 0x88
@@ -904,12 +893,10 @@
 	.byte 0x8b
 	.endm
 
-	@vsonic is twoturn move charge string in EE
 	.macro confuseifrepeatingattackends
 	.byte 0x8c
 	.endm
 	
-	@vsonic is trynonvolatilestatus in EE
 	@depricated no longer used
 	.macro setmultihitcounter param0:req
 	.byte 0x8d
@@ -956,6 +943,7 @@
 	.macro setsandstorm
 	.byte 0x95
 	.endm
+
 	@vsonic doesnt exist in EE is animatewildmonafterfailedcatch which think I wont use
 	@believe emerald specific cuz of their animations, will become unusued
 	.macro weatherdamage
@@ -996,18 +984,15 @@
 	.4byte \param0
 	.endm
 
-	@vsonic in EE is setcalledmove believe conposite function
-	@no longer just metronome
-	@no is just different all together metronome handled differently
+	
 	.macro metronome
 	.byte 0x9e
 	.endm
-	@vsonic is unused in EE
+
 	.macro dmgtolevel
 	.byte 0x9f
 	.endm
 
-	@vsonic is unused in EE
 	.macro psywavedamageeffect
 	.byte 0xa0
 	.endm
@@ -1055,18 +1040,18 @@
 	.endm
 
 	@believe was working on change for this effect
-	@vsonic my diff just remove focus punch condition
 	.macro trychoosesleeptalkmove param0:req
 	.byte 0xa9
 	.4byte \param0
 	.endm
 
-	@vsonic trysetdestinybond in EE
+	@is just for setting effect new logic is all in
+	@tryfaintmon
+	@nvm unused
 	.macro setdestinybond
 	.byte 0xaa
 	.endm
 
-	@vsonic unused in EE consolidated
 	.macro trysetdestinybondtohappen
 	.byte 0xab
 	.endm
@@ -1099,7 +1084,6 @@
 	.4byte \param0
 	.endm
 
-	@vsonic replaced w setvolatile
 	.macro setforesight
 	.byte 0xb1
 	.endm
@@ -1248,7 +1232,7 @@
 	.endm
 
 	@vsonic unused in EE previously used for naturepower
-	.macro callterrainattack
+	.macro unused_0xcc
 	.byte 0xcc
 	.endm
 
@@ -1259,6 +1243,7 @@
 	.4byte \param0
 	.endm
 
+	@vsonic need abilities immune to torment now
 	.macro settorment param0:req
 	.byte 0xce
 	.4byte \param0
@@ -1269,6 +1254,9 @@
 	.4byte \param0
 	.endm
 
+	@vsonic update w my ability blocks
+	@make functions doesabilityblock torment
+	@and does abilityblocktaunt and use there
 	.macro settaunt failInstr:req
 	.byte 0xd0
 	.4byte \failInstr
@@ -1295,11 +1283,13 @@
 	.4byte \param1
 	.endm
 
+	@vsonic replaed in EE is settoxicspikes is callnative for me
 	.macro trysetroots failInstr:req
 	.byte 0xd5
 	.4byte \failInstr
 	.endm
 
+	@vsonic was used for revent in EE is setgastroacid is callnative for me
 	.macro doubledamagedealtifdamaged
 	.byte 0xd6
 	.endm
@@ -1314,6 +1304,7 @@
 	.4byte \param0
 	.endm
 
+	@vsonic in EE is setroom  trick room wonder room etc is callnative for me
 	.macro scaledamagebyhealthratio
 	.byte 0xd9
 	.endm
@@ -1328,20 +1319,24 @@
 	.4byte \param0
 	.endm
 
+	@vsonic in EE is setstealthrock grudge just set in setvolatile
 	.macro trysetgrudge param0:req
 	.byte 0xdc
 	.4byte \param0
 	.endm
 
+	@vsonic I no longer use, in EE is trysetvolatile
 	.macro weightdamagecalculation
 	.byte 0xdd
 	.endm
 
+	@not used in EE
 	.macro assistattackselect param0:req
 	.byte 0xde
 	.4byte \param0
 	.endm
 
+	@vsonic take EE fail argument but use my changes
 	.macro setmagiccoat
 	.byte 0xdf
 	.endm
@@ -1351,11 +1346,13 @@
 	.4byte \param0
 	.endm
 
+	@vsonic unused in EE
 	.macro trygetintimidatetarget failInstr:req
 	.byte 0xe1
 	.4byte \failInstr
 	.endm
 
+	@vsonic update with my changes
 	.macro switchoutabilities battler:req
 	.byte 0xe2
 	.byte \battler
@@ -2569,6 +2566,7 @@
 	1:
 	.endm
 
+	@vsonic need to keep since made side status for both below
 	.macro jumpifhealblock battler:req, jumpptr:req
 	jumpifsideaffecting \battler, SIDE_STATUS_HEAL_BLOCK, \jumpptr
 	.endm
