@@ -17972,7 +17972,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_MYSTICAL_POWER] =
     {
-        .effect = EFFECT_HIGHEST_STAT_UP_HIT,
+        .effect = EFFECT_HIT,
         .power = 70,
         .type = TYPE_PSYCHIC,
         .accuracy = 90,

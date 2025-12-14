@@ -361,6 +361,7 @@ static const u16 gWeightToDamageTable[] =
 
 // percent in UQ_4_12 format
 extern const uq4_12_t gPercentToModifier[101];
-extern const u16 gAbilitiesAffectedByMoldBreaker[];
+
+u32 DoEndTurnEffects(void);
 
 #endif // GUARD_BATTLE_UTIL_H
