@@ -6353,13 +6353,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         damage = damage / damageHelper;
 
-       if ((attacker->level - defender->level >= 4 && attacker->level <= 12) //dmg feels GOOD,w new formula may inreas this to 10
-        || attacker->level - defender->level >= 10)
-            damage /= 60;
-        else if (defender->level - attacker->level >= 5) //boost underlevel enmemise added back
-            damage /= 42; //keep; an eye on this since it would work for both sides
-        else
-            damage /= 51;  
+       
         
         //if (attacker->level <= 9)
         /*if ((attacker->level - defender->level >= 4) || defender->level <= 4)
@@ -6385,7 +6379,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 damage /= 2;
         }
 
-        ApplyScreenModifier(battlerIdAtk, battlerIdDef, move, MoveDamageCategory, damage);
 
         /*if ((sideStatus & SIDE_STATUS_REFLECT) && !IS_CRIT
             && abilityAtk != ABILITY_INFILTRATOR
@@ -6400,20 +6393,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }
         */
 
-        //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2) // this is spread move cut
-        //    damage /= 2; //target 0x8 is target both    
-        //this removes the split damage from double target moves ...just remove the line you idiot
-        if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE))
-        {
-            
-            if (GetMoveEffect(move) == EFFECT_EXPLOSION) //better way to balance this than they did
-                damage = (3 * damage) / 4; //25% cut so still get benefit of defense stat strip
-
-            //modern game changed to a 25% drop average damage 
-            //is lower in my game so guess safe to make this a little stronger
-            else if (gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerIdAtk) >= 2)
-                damage = (2 * damage) / 3;
-        }
+       
 
     
 
@@ -6530,17 +6510,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         
         damage = damage / damageHelper; 
 
-        //replacment for below given new formula
-        //player assist to have more room for strategy
-        //smth might be wrong w damage anger point maxed mankey did no dmg 
-        //to super morpeko can't tell if its issue of transform or something idk
-        if ((attacker->level - defender->level >= 4 && attacker->level <= 12) //dmg feels GOOD,w new formula may inreas this to 10
-        || attacker->level - defender->level >= 10)
-            damage /= 60;
-        else if (defender->level - attacker->level >= 5) //boost underlevel enmemise added back
-            damage /= 42; //keep; an eye on this since it would work for both sides
-        else
-            damage /= 51;
+        
 
         //rn don't have value that incraesed dmg from underlevel enemies
         //test and decide if need to add back seems I don't?
@@ -6570,7 +6540,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //ok need to turn this into a function that uses reflect or lightscreen
         //based on attacking category as psyshock hits defense but uses special to calc the drop
 
-        ApplyScreenModifier(battlerIdAtk, battlerIdDef, move, MoveDamageCategory, damage);
 
         /*    if ((sideStatus & SIDE_STATUS_LIGHTSCREEN) && !IS_CRIT
             && abilityAtk != ABILITY_INFILTRATOR
@@ -6584,21 +6553,46 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }*/
 
 
-        if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE))
-        {
-            
-            if (GetMoveEffect(move) == EFFECT_EXPLOSION) //better way to balance this than they did
-                damage = (3 * damage) / 4; //25% cut so still get benefit of defense stat strip
-
-            //modern game changed to a 25% drop average damage 
-            //is lower in my game so guess safe to make this a little stronger
-            else if (gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerIdAtk) >= 2)
-                damage = (2 * damage) / 3;
-        }
+       
     
 
         
     } //end of special effects
+
+
+        //replacment for below given new formula
+        //player assist to have more room for strategy
+        //smth might be wrong w damage anger point maxed mankey did no dmg 
+        //to super morpeko can't tell if its issue of transform or something idk
+        if ((attacker->level - defender->level >= 4 && attacker->level <= 12) //dmg feels GOOD,w new formula may inreas this to 10
+        || attacker->level - defender->level >= 10)
+            damage /= 60;
+        else if (defender->level - attacker->level >= 5) //boost underlevel enmemise added back //yeah add side check nah want lower level to not be worthless in general keep as is
+            damage /= 42; //keep; an eye on this since it would work for both sides //potentially add enemy side only as was initial intent
+        else
+            damage /= 51;
+
+         //other damage factors
+        //ok need to turn this into a function that uses reflect or lightscreen
+        //based on attacking category as psyshock hits defense but uses special to calc the drop
+
+        ApplyScreenModifier(battlerIdAtk, battlerIdDef, move, MoveDamageCategory, damage);
+
+     //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2) // this is spread move cut
+        //    damage /= 2; //target 0x8 is target both    
+        //this removes the split damage from double target moves ...just remove the line you idiot
+        if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE))
+        {
+            
+            //decide get rid of this with effect rebalance
+            //if (GetMoveEffect(move) == EFFECT_EXPLOSION) //better way to balance this than they did
+            //    damage = (3 * damage) / 4; //25% cut so still get benefit of defense stat strip
+
+            //modern game changed to a 25% drop average damage 
+            //is lower in my game so guess safe to make this a little stronger
+            if (gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerIdAtk) >= 2)
+                damage = (2 * damage) / 3;
+        }
 
 
     // moves always do at least 1 damage.
