@@ -20882,8 +20882,8 @@ void BS_HandleEscapePrevention(void)
     || GetBattlerAbility(battler) == ABILITY_HANDS_OF_FATE
     || (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battler, TYPE_GHOST, FALSE)
     && gBattleMons[battler].species != SPECIES_SPIRITOMB)
-    || ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker,battler, TYPE_FLYING, FALSE)
-    && !IsFlyingTypeBattlerUnableToFly(battler)))
+    || (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker,battler, TYPE_FLYING, FALSE)
+    && !IsFlyingTypeBattlerUnableToFly(battler))
     )
     {
         gBattlescriptCurrInstr = cmd->failInstr;
