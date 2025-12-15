@@ -6480,7 +6480,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderLtSurge[] = {
         .iv = 25,
         .lvl = 27,
         .species = SPECIES_RAICHU,
-        .moves = {MOVE_QUICK_ATTACK, MOVE_THUNDER_WAVE, MOVE_DOUBLE_TEAM, MOVE_SHOCK_WAVE},
+        .moves = {MOVE_SLAM, MOVE_THUNDER_WAVE, MOVE_DOUBLE_TEAM, MOVE_SHOCK_WAVE},
     },
 };
 

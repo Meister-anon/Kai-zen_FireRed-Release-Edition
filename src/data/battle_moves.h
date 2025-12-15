@@ -561,7 +561,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SLAM] =
     {
         .effect = EFFECT_HIT,
-        .power = 80,
+        .power = 95,
         .type = TYPE_NORMAL,
         .accuracy = 95,
         .pp = 20,
@@ -575,7 +575,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_POUND},
         //.battleAnimScript = gBattleAnimMove_Slam,
-    },
+    },//think will turn this into upgrade of tackle keep 95 acc
+    //equiv beam move now separate from body slam
+    //vsonic important 15 bp inrease so coulda kinda stay where it is in movesets
+    //but is far more accurate now which is more fitting for mid to late move
+    //adjust learnsets for below 20-25 raise up 5-7 levels
 
     [MOVE_VINE_WHIP] =
     {
@@ -17955,17 +17959,22 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #endif
         .effect = EFFECT_HIT,
         .type = TYPE_FAIRY,
-        .accuracy = 80,
-        .pp = 5,
+        .accuracy = 85,
+        .pp = 10,
         //.secondaryEffectChance = 30,
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .windMove = TRUE,
         .metronomeBanned = TRUE,
+        //.alwaysHitsInRain = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
             .chance = 30,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_ATTRACT,
+            //.chance = 30,            
         }),*/
         //.battleAnimScript = gBattleAnimMove_SpringtideStorm,
     },
