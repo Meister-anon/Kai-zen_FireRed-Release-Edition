@@ -45727,7 +45727,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -45762,7 +45762,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_FLYING, TYPE_FLYING),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -45797,7 +45797,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_POISON, TYPE_POISON),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -45832,7 +45832,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_GROUND, TYPE_GROUND),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -45867,7 +45867,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_ROCK),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -45902,7 +45902,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_BUG, TYPE_BUG),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -45937,7 +45937,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_GHOST, TYPE_GHOST),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -45972,7 +45972,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_STEEL, TYPE_STEEL),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -46007,7 +46007,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -46042,7 +46042,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_WATER, TYPE_WATER),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -46077,7 +46077,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -46112,7 +46112,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -46147,7 +46147,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -46182,7 +46182,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_ICE, TYPE_ICE),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -46217,7 +46217,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -46252,7 +46252,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_DARK, TYPE_DARK),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -46287,7 +46287,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
+        MON_TYPES(TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,

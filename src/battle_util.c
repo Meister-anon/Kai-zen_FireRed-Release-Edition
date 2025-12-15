@@ -434,120 +434,7 @@ void MarkBattlerReceivedLinkData(u8 arg0)
     gBattleControllerExecFlags &= ~(0x10000000 << arg0);
 }
 
-//if wonder guard is in one of these lists (and I want it to be) make sure to add dispirit guard too
-//also need to remember to add all custom abilities to these lists as I see fit  !important
 
-const u16 gAbilitiesAffectedByMoldBreaker[] =
-{
-    ABILITY_BATTLE_ARMOR,
-    ABILITY_CLEAR_BODY,
-    ABILITY_LIQUID_METAL,
-    ABILITY_DAMP,
-    ABILITY_DRY_SKIN,
-    ABILITY_FILTER,
-    ABILITY_FLASH_FIRE,
-    ABILITY_FLOWER_GIFT,
-    ABILITY_HEATPROOF,
-    ABILITY_HYPER_CUTTER,
-    ABILITY_IMMUNITY,
-    ABILITY_INNER_FOCUS,
-    ABILITY_INSOMNIA,
-    ABILITY_KEEN_EYE,
-    ABILITY_LEAF_GUARD,
-    ABILITY_ANTICIPATION,
-    ABILITY_FOREWARN,
-    //ABILITY_LEVITATE,
-    ABILITY_LIGHTNING_ROD,
-    ABILITY_TERAVOLT,
-    ABILITY_TURBOBLAZE,
-    ABILITY_PLASMA_OVERDRIVE, //a bit weird since is itself a moldbreaker abiltity but makes sense/good balance
-    ABILITY_LIMBER,
-    ABILITY_MAGMA_ARMOR,
-    ABILITY_MARVEL_SCALE,
-    ABILITY_MOTOR_DRIVE,
-    ABILITY_OBLIVIOUS,
-    ABILITY_OWN_TEMPO,
-    ABILITY_SAND_VEIL,
-    ABILITY_SHELL_ARMOR,
-    ABILITY_SHIELD_DUST,
-    ABILITY_SIMPLE,
-    ABILITY_SNOW_CLOAK,
-    ABILITY_SOLID_ROCK,
-    ABILITY_SOUNDPROOF,
-    ABILITY_STICKY_HOLD,
-    ABILITY_STORM_DRAIN,
-    ABILITY_STURDY,
-    ABILITY_SUCTION_CUPS,
-    ABILITY_TANGLED_FEET,
-    ABILITY_THICK_FAT,
-    ABILITY_UNAWARE,
-    ABILITY_VITAL_SPIRIT,
-    ABILITY_VOLT_ABSORB,
-    ABILITY_VOLT_DASH,
-    ABILITY_WATER_ABSORB,
-    ABILITY_WATER_VEIL,
-    ABILITY_WHITE_SMOKE,
-    ABILITY_WONDER_GUARD,
-    ABILITY_DISPIRIT_GUARD,
-    ABILITY_BIG_PECKS,
-    ABILITY_CONTRARY,
-    ABILITY_FRIEND_GUARD,
-    ABILITY_HEAVY_METAL,
-    ABILITY_LIGHT_METAL,
-    ABILITY_MAGIC_BOUNCE,
-    ABILITY_MULTISCALE,
-    ABILITY_SAP_SIPPER,
-    ABILITY_TELEPATHY,
-    ABILITY_WONDER_SKIN,
-    ABILITY_AROMA_VEIL,
-    ABILITY_BULLETPROOF,
-    ABILITY_LUNAR_POWER,
-    ABILITY_NEW_MOON,
-    ABILITY_FLOWER_VEIL,
-    ABILITY_FUR_COAT,
-    ABILITY_OVERCOAT,
-    ABILITY_SWEET_VEIL,
-    ABILITY_DAZZLING,
-    ABILITY_DISGUISE,
-    ABILITY_FLUFFY,
-    ABILITY_QUEENLY_MAJESTY,
-    ABILITY_WATER_BUBBLE,
-    ABILITY_MIRROR_ARMOR,
-    ABILITY_PUNK_ROCK,
-    ABILITY_ICE_SCALES,
-    ABILITY_ICE_FACE,
-    ABILITY_PASTEL_VEIL,
-};
-
-static const u8 sAbilitiesNotTraced[ABILITIES_COUNT] =
-{
-    [ABILITY_AS_ONE_ICE_RIDER] = 1,
-    [ABILITY_AS_ONE_SHADOW_RIDER] = 1,
-    [ABILITY_BATTLE_BOND] = 1,
-    [ABILITY_COMATOSE] = 1,
-    [ABILITY_DISGUISE] = 1,
-    [ABILITY_FLOWER_GIFT] = 1,
-    [ABILITY_FORECAST] = 1,
-    [ABILITY_GULP_MISSILE] = 1,
-    [ABILITY_HUNGER_SWITCH] = 1,
-    [ABILITY_ICE_FACE] = 1,
-    [ABILITY_ILLUSION] = 1,
-    [ABILITY_IMPOSTER] = 1,
-    [ABILITY_INVERSION] = 1,
-    [ABILITY_MULTITYPE] = 1,
-    [ABILITY_NEUTRALIZING_GAS] = 1,
-    [ABILITY_IMMUTABLE_WIND] = 1,
-    [ABILITY_NONE] = 1,
-    [ABILITY_POWER_CONSTRUCT] = 1,
-    [ABILITY_POWER_OF_ALCHEMY] = 1,
-    [ABILITY_RECEIVER] = 1,
-    [ABILITY_RKS_SYSTEM] = 1,
-    [ABILITY_SCHOOLING] = 1,
-    [ABILITY_SHIELDS_DOWN] = 1,
-    [ABILITY_STANCE_CHANGE] = 1,
-    [ABILITY_TRACE] = 1,
-    [ABILITY_ZEN_MODE] = 1,
-};
 
 //come back to this when doing move expansion
 //changing stench so no longer applicable.
@@ -5677,6 +5564,7 @@ static u8 ForewarnChooseMove(u32 battler) //important add to list of switch in m
                 switch (gBattleMoves[data[count].moveId].effect)    //add more conditions for move effect for smarter move choice
                 {//i.e for archetypes mon with highest stat being speed, or defense etc. high speed mon worrying about paralysis etc.
                     //high phys atk worrying about burn etc.
+                case EFFECT_SHEER_COLD:
                 case EFFECT_OHKO:
                     if (gBattleMons[i].level >= (gBattleMons[battler].level - 3)
                     && CalcTypeEffectivenessMultiplier(data[count].moveId, moveType, battler, i, FALSE) >= UQ_4_12(1.55))
@@ -5684,6 +5572,8 @@ static u8 ForewarnChooseMove(u32 battler) //important add to list of switch in m
                     else
                         data[count].power = 0;
                     break;
+                case EFFECT_MIND_BLOWN:
+                case EFFECT_MISTY_EXPLOSION:
                 case EFFECT_EXPLOSION:
                     if (CalcTypeEffectivenessMultiplier(data[count].moveId, moveType, battler, i, FALSE) != UQ_4_12(0.0))
                         data[count].power = 200;
@@ -6946,7 +6836,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                                         moveId = move;
                                 }//should be a fix for moves, with non-standard power or equal power, should return the move that should do more damage
 
-                                if (gBattleMoves[move].effect == EFFECT_EXPLOSION //setup multiplier calc think can just use multipier check here.
+                                if (IsExplosionMove(move) //setup multiplier calc think can just use multipier check here.
                                     && CalcTypeEffectivenessMultiplier(move, anticipated_type, i, battler, FALSE) != UQ_4_12(0.0)) //isue is modifier for some reason doesnt work above 1?
                                 {               //ist onlyh returning a value of 1
 
@@ -6956,7 +6846,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                                     //    want setup different message for each, nickname w prefix sensed an X move and shuddered
                                       //depending on value  or have different value copied to gBattleTextBuff1 for each
                                 }
-                                else if (gBattleMoves[move].effect == EFFECT_OHKO && (gBattleMons[i].level >= (gBattleMons[battler].level - 3))
+                                else if (IsOHKOmoveEffect(move) && (gBattleMons[i].level >= (gBattleMons[battler].level - 3))
                                 && (CalcTypeEffectivenessMultiplier(move, anticipated_type, i, battler, FALSE) >= UQ_4_12(1.55)))
                                 {
 
@@ -9235,6 +9125,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                             switch (gBattleMoves[gBattleMons[gBattlerTarget].moves[j]].effect)    //add more conditions for move effect for smarter move choice
                             {//i.e for archetypes mon with highest stat being speed, or defense etc. high speed mon worrying about paralysis etc.
                                 //high phys atk worrying about burn etc.
+                            case EFFECT_SHEER_COLD:
                             case EFFECT_OHKO:
                                 if (gBattleMons[gBattlerTarget].level >= (gBattleMons[battler].level - 3)
                                 && CalcTypeEffectivenessMultiplier(gBattleMons[gBattlerTarget].moves[j], moveType, gBattlerAttacker, gBattlerTarget, FALSE) >= UQ_4_12(1.55))
@@ -9250,6 +9141,8 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
 
                                 }
                                 break;
+                            case EFFECT_MIND_BLOWN:
+                            case EFFECT_MISTY_EXPLOSION:
                             case EFFECT_EXPLOSION:
                                 if (CalcTypeEffectivenessMultiplier(gBattleMons[gBattlerTarget].moves[j], moveType, gBattlerAttacker, gBattlerTarget, FALSE) > UQ_4_12(0.0))
                                     MovePower = 200;
@@ -12981,21 +12874,7 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     } //may remove set for needing to be low hp for this to activate,
     //idea being an elite among poison users
 
-    //need vsonic check effect may not be true to accuracy
-    //EE shows it as a damage multiplier equal to addition of super,
-    //makes it weak(er) to fire not making it a type weak to fire
-    //think just toss in dmgcalc and make a 1.5x incrase?
-    //effect is to double effectiveness, since its effectively multi by super, I did this instead
-    //put here to not accidentally trigger strong winds reduction
-    if (moveType == TYPE_FIRE && gDisableStructs[battlerDef].tarShot)
-        mod = uq4_12_multiply(mod, UQ_4_12(1.55));
-
-    //decide change thick fat to change effectiveness
-    //so clear the moves aren't effecting it much
-    if ((moveType == TYPE_FIRE || moveType == TYPE_ICE)
-    && (GetBattlerAbility(battlerDef) == ABILITY_THICK_FAT
-    || GetBattlerAbility(battlerDef) == ABILITY_DESERT_DWELLER))
-        mod = uq4_12_divide(mod, UQ_4_12(2.0));
+    
 
     //should be fine smack down only works on floating mon
     //and this specifically only works on the flying mon that get knocked to the ground
@@ -13110,6 +12989,30 @@ static uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u
         }
 
     }*/
+   //need vsonic check effect may not be true to accuracy
+    //EE shows it as a damage multiplier equal to addition of super,
+    //makes it weak(er) to fire not making it a type weak to fire
+    //think just toss in dmgcalc and make a 1.5x incrase?
+    //effect is to double effectiveness, since its effectively multi by super, I did this instead
+    //put here to not accidentally trigger strong winds reduction
+    if (moveType == TYPE_FIRE && gDisableStructs[battlerDef].tarShot)
+        modifier = uq4_12_multiply(modifier, UQ_4_12(1.55));
+
+    //decide change thick fat to change effectiveness
+    //so clear the moves aren't effecting it much
+    //does this make sense or would this trigger twice?
+    //for dual type reads type of move into both types of defbattler
+    //like say both types are neutral wouldn't this 
+    //apply to both resulting in .5 and then multiply together
+    //and give a .25 dmg result when it should in total be .5?
+    //yeah it does *FACEPALM checked EE it has these type of 
+    //multiplier shifts moves to the main function
+    //CalcTypeEffectivenessMultiplierInternal 
+    //to ensure its only activated once same for above tarshot
+    if ((moveType == TYPE_FIRE || moveType == TYPE_ICE)
+    && (GetBattlerAbility(battlerDef) == ABILITY_THICK_FAT
+    || GetBattlerAbility(battlerDef) == ABILITY_DESERT_DWELLER))
+        modifier = uq4_12_divide(modifier, UQ_4_12(2.0));
     
 
     if (move == MOVE_GLARE 

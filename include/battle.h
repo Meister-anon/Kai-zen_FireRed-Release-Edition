@@ -1402,6 +1402,12 @@ static inline struct Pokemon* GetBattlerMon(u32 battler)
     return !IsOnPlayerSide(battler) ? &gEnemyParty[index] : &gPlayerParty[index];
 }
 
+static inline bool32 IsBattlerAlly(u32 battlerAtk, u32 battlerDef)
+{
+    return GetBattlerSide(battlerAtk) == GetBattlerSide(battlerDef);
+}
+
+
 //vsonic important
 //using for print result message
 //and effectiveness sound
