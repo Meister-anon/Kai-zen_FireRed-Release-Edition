@@ -189,7 +189,7 @@
 //#define STATUS2_WRAPPED_TURN(num)     ((num) << 13)	//left shift value is starting point of status wrapped
 #define STATUS2_POWDER                (1 << 14)
 #define STATUS2_FREE_SPACE            (1 << 15)
-#define STATUS2_INFATUATION           (1 << 16)  // 4 bits, one for every battler, hmm ok I think its because infatuated w is built off infatuation so needs to store for every possible battler target and user
+#define STATUS2_INFATUATION           (1 << 16)  // further reworking, plan only fails to attack w target attract battler, otherwise lower dmg long as attracted mon is on field
 #define STATUS2_FREE_SPACE_1          (1 << 17)
 #define STATUS2_FREE_SPACE_2          (1 << 18)
 #define STATUS2_FREE_SPACE_3          (1 << 19)
@@ -615,7 +615,7 @@ enum SemiInvulnerableExclusion
     MOVE_EFFECT_EERIE_SPELL,
     MOVE_EFFECT_INFESTATION,
     MOVE_EFFECT_SWITCH_LOCKED, //need this to set status and timer can remove effect
-    MOVE_EFFECT_ATTRACT,
+    MOVE_EFFECT_ATTRACT,    //need to setup
     MOVE_EFFECT_HIGHEST_STAT_UP, //for MOVE_MYSTICAL_POWER
     MOVE_EFFECT_FOCUS_ENERGY,   //Plan use for triple arrow
     NUM_MOVE_EFFECTS

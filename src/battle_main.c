@@ -4647,6 +4647,8 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
 
     // is this something that removes wrap, and infatuation if the mon that caused the effect is switched out? yes
     //forgot I planned steup for suction cup and certain held item to make traps persist
+    //battler is one switchign so believe what does is
+    //remove infatuation if target of infatuation switched out
     for (i = 0; i < gBattlersCount; ++i)
     {
 

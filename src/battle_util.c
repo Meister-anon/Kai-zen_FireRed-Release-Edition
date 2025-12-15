@@ -4872,17 +4872,26 @@ u8 AtkCanceller_UnableToUseMove(void)
                     //yeah I think so, should be able to replace w battle check
                     //gBattleScripting.battler = CountTrailingZeroBits((gBattleMons[gBattlerAttacker].status2 & STATUS2_INFATUATION) >> 0x10);
                     gBattleScripting.battler = gBattleStruct->infatuatedwithBattleId[gBattlerAttacker];
-                    if (Random() & 1) //test if that worked, next step change so infatuation animation only plays if battler their infatuated with is on the field.
-                        //well maybe not, if it reminds you each turn, even if not there, its a good reminder the status is still in effect.
+                    
+                    //should hopefully make it so only attracted target can prevent attacks
+                    if (gBattlerTarget == gBattleStruct->infatuatedwithBattleId[gBattlerAttacker])
                     {
-                        BattleScriptPushCursor(); //attack through infatuation
+                        if (Random() & 1) //test if that worked, next step change so infatuation animation only plays if battler their infatuated with is on the field.
+                            //well maybe not, if it reminds you each turn, even if not there, its a good reminder the status is still in effect.
+                        {
+                            BattleScriptPushCursor(); //attack through infatuation
+                        }
+                        else
+                        {
+                            BattleScriptPush(BattleScript_MoveUsedIsInLoveCantAttack);
+                            gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+                            gProtectStructs[gBattlerAttacker].loveImmobility = 1;
+                            CancelMultiTurnMoves(gBattlerAttacker);
+                        }
                     }
                     else
                     {
-                        BattleScriptPush(BattleScript_MoveUsedIsInLoveCantAttack);
-                        gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
-                        gProtectStructs[gBattlerAttacker].loveImmobility = 1;
-                        CancelMultiTurnMoves(gBattlerAttacker);
+                        BattleScriptPushCursor(); //attack through infatuation
                     }
                     gBattlescriptCurrInstr = BattleScript_MoveUsedIsInLove;
                     effect = 1;

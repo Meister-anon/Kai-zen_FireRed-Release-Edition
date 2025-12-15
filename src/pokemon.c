@@ -6600,8 +6600,16 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //that's not an error that's how the formula always worked...
     //only does less on resist
     //should be good idea infatuation status buff
-    if (gBattleMons[battlerIdAtk].status2 & STATUS2_INFATUATION
-    && gBattleStruct->infatuatedwithBattleId[battlerIdAtk] == battlerIdDef)
+    //further buffed effect should be any target other than ally
+    //while target of infatuation is on field
+    //double check other logic but think what I have elsewhere
+    //should ensure infatuation only blocks attack, on mon infatuated with
+    //ok updated pretty sure infatuation gets cured soon as infatuated battler 
+    //is off the field so status infatuation shuld be all I need for this
+    if (gBattleMons[battlerIdAtk].status2 & STATUS2_INFATUATION)
+    //&& gBattleStruct->infatuatedwithBattleId[battlerIdAtk] != BATTLE_ID_NONE
+    //&& !IsBattlerAlly(battlerIdAtk, gBattleStruct->infatuatedwithBattleId[battlerIdAtk]))
+    //&& gBattleStruct->infatuatedwithBattleId[battlerIdAtk] == battlerIdDef)
         damage = max((damage * 75) / 100, 1);
 
 
