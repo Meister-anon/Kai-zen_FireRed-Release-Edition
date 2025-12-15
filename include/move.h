@@ -573,6 +573,22 @@ static inline const u8 *GetMoveAnimationScript(u32 moveId)
     return gBattleMoves[moveId].battleAnimScript;
 }
 
+static inline bool32 IsOHKOmoveEffect(u32 moveId)
+{
+    return (GetMoveEffect(moveId) == EFFECT_SHEER_COLD 
+            || GetMoveEffect(moveId) == EFFECT_OHKO);
+}
+
+static inline bool32 IsExplosionMove(u32 moveId)
+{
+    if (GetMoveEffect(moveId) == EFFECT_EXPLOSION
+    || GetMoveEffect(moveId) == EFFECT_MISTY_EXPLOSION
+    || GetMoveEffect(moveId) == EFFECT_MIND_BLOWN)
+        return TRUE;
+
+    return FALSE;
+}
+
 static inline const u8 *GetMoveBattleScript(u32 moveId)
 {
     moveId = SanitizeMoveId(moveId);
