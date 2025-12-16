@@ -2211,6 +2211,9 @@ goto FONT_INFO //setup specifics of how diff fonts are displayed
   divide values by speed buff to make smaller increments
   to accout for the exxagerated movement.
 
+  functions are very opaque I have no idea
+  what the hell these things are doing
+
   issue with nicknames mon with nicknames aren't having their name said
   because of how I did the name storing, need fix
   mon is nicknamed but its still just callign out the species name
