@@ -2186,6 +2186,31 @@ goto NEW_DEX_USE_NOTES //new big idea for more dex utility - more realism, make 
 goto FONT_INFO //setup specifics of how diff fonts are displayed
 /*
 
+  2025/12/16
+  believe found issue w pokeabbie speed up
+  but only issue I'm coming into right now,  is that
+  anims that use scanline effects
+  to distort sprites are what breaks it.
+
+  Moves go off fine, no crashing, but the effect is no longer smooth,
+  and the sprite typically gets split up.
+
+   scanline effects is the one that makes
+  the sprite wavy.
+
+  AnimTask_ExtrasensoryDistortion
+  &
+  AnimTask_DragonDanceWaver
+  
+  but another conclusion I drew is the higher speed ups 
+  seem to exxaggerate the movements so idk
+  maybe adding protections in the task itself
+  to make smaller movements at higher speed
+
+  look into same thing did w pause and delay
+  divide values by speed buff to make smaller increments
+  to accout for the exxagerated movement.
+
   issue with nicknames mon with nicknames aren't having their name said
   because of how I did the name storing, need fix
   mon is nicknamed but its still just callign out the species name
