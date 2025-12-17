@@ -4656,7 +4656,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     u32 i;
     u32 percentBoost;
     s32 damage = 0;
-    s32 damageHelper,h,j;
+    s32 damageHelper;
     u16 value = Random() % 2; //for hidden power
     u8 moveType;
     bool8 usesDefStat;  //determines split, 
@@ -4717,8 +4717,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //usesDefStat = FALSE; //ported from emerald, will use this later  this wasn't actually the problem can most likely safely bring back in.
     } //sets what defense stat move effects based on if special or physical and sets usesDefStat accordingly
 
-    h = atk_diff();
-    j = spatk_diff();  // since the values are a differnece  the lower stat will actually be the one with the greater value. so I should use greater than for these.
+    //h = atk_diff();
+    //j = spatk_diff();  // since the values are a differnece  the lower stat will actually be the one with the greater value. so I should use greater than for these.
     // if equal I think I'll just toss up a 50/50 Random() % 2  setting each, like I did for forecast.
      //so this should boost attack,if atk is lower & split is physical
     
@@ -4783,11 +4783,15 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //or special and special lower than target
         //keep an eye on for balance, can't remember 
         //what the max power is post buff
-        if (usesDefStat && h > 0)
+        //coulda sworn I rmeoved this part of effect?
+        //yeah should remove, too random and 
+        //average power is already higher than default version
+        //plus being able to fire from better offense stat
+        /*if (usesDefStat && h > 0)
             gBattleMovePower = (gBattleMovePower * 130) / 100;
 
         if (!usesDefStat && j > 0)
-            gBattleMovePower = (gBattleMovePower * 130) / 100;
+            gBattleMovePower = (gBattleMovePower * 130) / 100;*/
         
 
         //change to set power here just like weather ball
@@ -4826,7 +4830,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (move == MOVE_SURGING_STRIKES || move == MOVE_WICKED_BLOW)
         defense = (65 * defense) / 100; 
     
-
+    //keeps special explosion variants consistent
+    if (IsExplosionMove(move))
+        DefenseModifer(50);
     
     if (gSpecialStatuses[battlerIdAtk].Lostresolve)
         gBattleMovePower = (gBattleMovePower * 75) / 100; //fix for iron will, pressure, hi pressure affect
@@ -5164,11 +5170,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }
         break;
 
-        case EFFECT_MIND_BLOWN:
+        /*case EFFECT_MIND_BLOWN:
         case EFFECT_MISTY_EXPLOSION:
         case EFFECT_EXPLOSION: //keeps special explosion variants consistent
             DefenseModifer(50);
-        break;
+        break;*/
         case EFFECT_FUSION_COMBO:
         if (GetMoveEffect(gLastUsedMove) == EFFECT_FUSION_COMBO && move != gLastUsedMove)
             gBattleMovePower *= 2;

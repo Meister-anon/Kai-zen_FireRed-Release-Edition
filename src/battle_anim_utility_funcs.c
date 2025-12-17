@@ -488,7 +488,7 @@ static void StatsChangeAnimation_Step1(u8 taskId)
     //if (IsContest())
     //    sAnimStatsChangeData->species = gContestResources->moveAnim->species;
     if (!IsContest())
-        sAnimStatsChangeData->species = GetMonData(GetPartyBattlerData(sAnimStatsChangeData->battler1), MON_DATA_SPECIES);
+        sAnimStatsChangeData->species = GetMonData(GetBattlerMon(sAnimStatsChangeData->battler1), MON_DATA_SPECIES);
 
     gTasks[taskId].func = StatsChangeAnimation_Step2;
 }
