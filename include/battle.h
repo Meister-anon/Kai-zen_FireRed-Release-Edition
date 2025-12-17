@@ -5,7 +5,7 @@
 #include "global.h"
 #include "constants/battle.h"
 #include "constants/form_change_types.h"
-#include "constants/battle_move_effects.h"
+//#include "constants/battle_move_effects.h"
 #include "battle_util.h"
 #include "battle_script_commands.h"
 #include "battle_main.h"

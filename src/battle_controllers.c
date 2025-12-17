@@ -14,7 +14,7 @@
 #include "util.h"
 #include "constants/abilities.h"
 #include "constants/battle.h"
-#include "constants/battle_move_effects.h"
+//#include "constants/battle_move_effects.h"
 
 //static EWRAM_DATA u8 sLinkSendTaskId = 0;
 //static EWRAM_DATA u8 sLinkReceiveTaskId = 0;

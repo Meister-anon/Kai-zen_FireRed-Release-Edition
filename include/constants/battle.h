@@ -1,7 +1,6 @@
 #ifndef GUARD_CONSTANTS_BATTLE_H
 #define GUARD_CONSTANTS_BATTLE_H
 
-#include "battle_move_effects.h"
 
 /*
  * A battler may be in one of four positions on the field. The first bit determines
@@ -673,7 +672,7 @@ enum BattleWeather
 
 
 // Explicit numbers until frostbite because those shouldn't be shifted
-/*enum __attribute__((packed)) MoveEffect
+enum __attribute__((packed)) MoveEffect
 {
     MOVE_EFFECT_NONE = 0,
     MOVE_EFFECT_SLEEP = 1,
@@ -758,15 +757,16 @@ enum BattleWeather
     MOVE_EFFECT_LIGHT_SCREEN, //end lets go
     MOVE_EFFECT_SALT_CURE,
     MOVE_EFFECT_EERIE_SPELL,
-    MOVE_EFFECT_INFESTATION,
+    MOVE_EFFECT_INFESTATION, //bug status
     MOVE_EFFECT_SWITCH_LOCKED, //need this to set status and timer can remove effect
+    MOVE_EFFECT_SPIRIT_LOCK, //fairy status
     MOVE_EFFECT_ATTRACT,    //need to setup
     MOVE_EFFECT_HIGHEST_STAT_UP, //for MOVE_MYSTICAL_POWER
     MOVE_EFFECT_FOCUS_ENERGY,   //Plan use for triple arrow
     NUM_MOVE_EFFECTS
-};*/
+};
 
-//#define MOVE_EFFECT_CONTINUE            0x8000
+#define MOVE_EFFECT_CONTINUE            0x8000
 
 // Battle terrain defines for gBattleTerrain.
 #define BATTLE_TERRAIN_GRASS        0

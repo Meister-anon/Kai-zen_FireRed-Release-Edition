@@ -21,7 +21,7 @@
 #include "battle_ai_main.h"
 #include "battle_ai_util.h"
 #include "constants/battle.h"
-#include "constants/battle_move_effects.h"
+//#include "constants/battle_move_effects.h"
 #include "constants/moves.h"
 #include "constants/items.h"
 #include "constants/weather.h"
