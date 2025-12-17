@@ -4620,6 +4620,7 @@ static const struct LevelUpMove sBlisseyLevelUpLearnset[] = {
 static const struct LevelUpMove sRaikouLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_EXTREME_SPEED)
     LEVEL_UP_MOVE( 1, MOVE_THUNDER_SHOCK)
+    LEVEL_UP_MOVE( 1, MOVE_ROOST)
     LEVEL_UP_MOVE( 1, MOVE_LEER)
     LEVEL_UP_MOVE( 1, MOVE_CHARGE)
     LEVEL_UP_MOVE( 1, MOVE_ZAP_CANNON)
@@ -4642,7 +4643,8 @@ static const struct LevelUpMove sRaikouLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 //hurricane? =- yeah replaced zap canon as capstone
-//MOVE_AEROBLAST?  
+//MOVE_AEROBLAST?  //nah
+//hurricane is so good on this
 
 static const struct LevelUpMove sEnteiLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SACRED_FIRE)
@@ -8631,6 +8633,7 @@ static const struct LevelUpMove sMunchlaxLevelUpLearnset[] = {
     LEVEL_UP_MOVE(12, MOVE_LICK)
     LEVEL_UP_MOVE(17, MOVE_CHIP_AWAY)
     LEVEL_UP_MOVE(20, MOVE_SCREECH)
+    LEVEL_UP_MOVE(22, MOVE_SLACK_OFF)
     LEVEL_UP_MOVE(25, MOVE_BODY_SLAM)
     LEVEL_UP_MOVE(28, MOVE_STOCKPILE)
     LEVEL_UP_MOVE(33, MOVE_SWALLOW)

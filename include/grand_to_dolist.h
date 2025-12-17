@@ -13552,7 +13552,7 @@ goto FLYING_TYPE_BONUS //of note according to bulbapedia flying type DOES have s
 * instead make it transform into a random pokemon that resists the typeing of the target.
 * will be pretty complex, need to use emerald way to read type effectiveness 
 * loop through mon of type that resists, potentially need to put in list, but don't want to.
-* /note found conversion2 battlescript alredy does that  atkA6_settypetorandomresistance
+* /note found conversion2 battlescript alredy does that  atkA6_changetypetoresisttarget
 * so would need to run that, and then transfer type set to that of to mon to look for from loop of all species.
 * its a void function so it doesn't return anything, so what I can do is, use the command to change dittos' type
 * on entrance, and then use a command to check battler type, and then loop the imposter function/command to use that type

@@ -487,8 +487,8 @@ struct SideTimer    //effects below persist regardless of mon
     u32 MagicTimer:3;
     u32 padding2:4;
 
-    u8 auroraVeilBattlerId;    
-    u8 tailwindBattlerId;    
+    u8 auroraVeilBattlerId; //EE doesn't use any of these battlerid things...   
+    u8 tailwindBattlerId;    //with end turn reworks they have a function for that
     u8 luckyChantBattlerId;    
     u8 healBlockBattlerId; //hopefully will be able to individual target clear status, but keep side status in effect for new switches
     u8 embargoBattlerId;    
@@ -524,15 +524,15 @@ struct WishFutureKnock
     u8 futureSightCounter[MAX_BATTLERS_COUNT]; //these are arrays so not messing with this
     u8 futureSightCounter2[MAX_BATTLERS_COUNT];
     u8 futureSightAttacker[MAX_BATTLERS_COUNT];
-    s32 futureSightDmg[MAX_BATTLERS_COUNT];
+    s32 futureSightDmg[MAX_BATTLERS_COUNT]; //not in EE
     u16 futureSightMove[MAX_BATTLERS_COUNT];
     u8 wishCounter[MAX_BATTLERS_COUNT];
-    u8 wishMonId[MAX_BATTLERS_COUNT];
+    u8 wishPartyId[MAX_BATTLERS_COUNT];
     u8 weatherDuration:4; //could make bit 4 w padding nothing else to currently match with
     u8 padding:4;
     u8 forecastedCurrWeather; //will be 1st weather effect predicted on switchin by forecast, set so can compare effects before set
     u8 forecastedNextWeather; //will be second weather effect predicted on switchin by forecast
-    u8 knockedOffMons[2];
+    u8 knockedOffMons[NUM_BATTLE_SIDES];
 };
 
 extern struct WishFutureKnock gWishFutureKnock;
@@ -1400,6 +1400,12 @@ static inline bool32 IsBattlerAlly(u32 battlerAtk, u32 battlerDef)
 {
     return GetBattlerSide(battlerAtk) == GetBattlerSide(battlerDef);
 }
+
+static inline bool32 IsFogOnField(void)
+{
+    return (HasWeatherEffect() && gBattleWeather & WEATHER_FOG);
+}
+
 
 
 //vsonic important

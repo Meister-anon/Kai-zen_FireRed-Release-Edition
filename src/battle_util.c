@@ -4153,37 +4153,37 @@ static u8 ItemEffectMoveEnd(u32 battlerId, u16 holdEffect)
 
 enum
 {
-    CANCELLER_FLAGS,
-    CANCELLER_YAWN, //remove yawn set sleep
-    CANCELLER_ASLEEP,
-    CANCELLER_FROZEN,
-    CANCELLER_TRUANT,
-    CANCELLER_RECHARGE,
-    CANCELLER_BLACK_FOG,
-    CANCELLER_FLINCH,
-    CANCELLER_TWO_TURNS_INTERRUPT,
-    CANCELLER_DISABLED,
-    CANCELLER_INTHRALLED,    
-    CANCELLER_IN_LOVE,
-    CANCELLER_HEAL_BLOCKED, //no full action block effects below this
-    CANCELLER_GRAVITY,
-    CANCELLER_TAUNTED,
-    CANCELLER_IMPRISONED,
-    CANCELLER_CONFUSED,
-    CANCELLER_PARALYZED,
-    CANCELLER_IRON_WILL,
-    CANCELLER_GHOST,    
-    CANCELLER_BIDE,
-    CANCELLER_THAW, //think put smack down for flying here that way can do 3 turn and makes sense as incapacitating effects should prevent ascending
-    CANCELLER_ASCENSION, //For flying type in smackdown, make disable struct timer set on hit
-    CANCELLER_POWDER_MOVE, //since becomes super think best to use timer of 3 over 4, don't want to be impossible to survive
-    CANCELLER_POWDER_STATUS,
-    CANCELLER_THROAT_CHOP,
-    CANCELLER_MULTI_HIT_MOVES,
-    CANCELLER_FIXATED_ON_MOVE,
-    CANCELLER_END,
-    CANCELLER_PSYCHIC_TERRAIN,
-    CANCELLER_END2,
+    CANCELER_FLAGS,
+    CANCELER_YAWN, //remove yawn set sleep
+    CANCELER_ASLEEP,
+    CANCELER_FROZEN,
+    CANCELER_TRUANT,
+    CANCELER_RECHARGE,
+    CANCELER_BLACK_FOG,
+    CANCELER_FLINCH,
+    CANCELER_TWO_TURNS_INTERRUPT,
+    CANCELER_DISABLED,
+    CANCELER_INTHRALLED,    
+    CANCELER_INFATUATION,
+    CANCELER_HEAL_BLOCKED, //no full action block effects below this
+    CANCELER_GRAVITY,
+    CANCELER_TAUNTED,
+    CANCELER_IMPRISONED,
+    CANCELER_CONFUSED,
+    CANCELER_PARALYZED,
+    CANCELER_IRON_WILL,
+    CANCELER_GHOST,    
+    CANCELER_BIDE,
+    CANCELER_THAW, //think put smack down for flying here that way can do 3 turn and makes sense as incapacitating effects should prevent ascending
+    CANCELER_ASCENSION, //For flying type in smackdown, make disable struct timer set on hit
+    CANCELER_POWDER_MOVE, //since becomes super think best to use timer of 3 over 4, don't want to be impossible to survive
+    CANCELER_POWDER_STATUS,
+    CANCELER_THROAT_CHOP,
+    CANCELER_MULTI_HIT_MOVES,
+    CANCELER_FIXATED_ON_MOVE,
+    CANCELER_END,
+    CANCELER_PSYCHIC_TERRAIN,
+    CANCELER_END2,
 };
 
 //understand now attack cancler for called move
@@ -4200,7 +4200,7 @@ enum
 //vsonic IMPORTANT
 void SetAtkCancellerForCalledMove(void)
 {
-    gBattleStruct->atkCancellerTracker = CANCELLER_HEAL_BLOCKED;
+    gBattleStruct->atkCancellerTracker = CANCELER_HEAL_BLOCKED;
     gBattleStruct->isAtkCancelerForCalledMove = TRUE;
 }
 
@@ -4215,14 +4215,14 @@ u8 AtkCanceller_UnableToUseMove(void)
     {
         switch (gBattleStruct->atkCancellerTracker)
         {
-        case CANCELLER_FLAGS: // flags clear
+        case CANCELER_FLAGS: // flags clear
             gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_DESTINY_BOND);
             gStatuses3[gBattlerAttacker] &= ~(STATUS3_GRUDGE);
             if (GetBattlerAbility(gBattlerAttacker) == ABILITY_COMATOSE) //in case I decide to nerf comatose healing to sleep levels every other turn
                 gDisableStructs[gBattlerAttacker].sleepCounter ^= 1;
             ++gBattleStruct->atkCancellerTracker;//need add the special stuff from emerald to prevent read this twice
             break;
-        case CANCELLER_YAWN:
+        case CANCELER_YAWN:
         {
         u16 battlerAbility = GetBattlerAbility(gBattlerAttacker);
         if (gStatuses3[gBattlerAttacker] & STATUS3_YAWN)
@@ -4271,7 +4271,7 @@ u8 AtkCanceller_UnableToUseMove(void)
         ++gBattleStruct->atkCancellerTracker;
         }
             break; //should never prevent action so don't think need effect
-        case CANCELLER_ASLEEP: // check being asleep
+        case CANCELER_ASLEEP: // check being asleep
             if (gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP)
             {
 
@@ -4394,7 +4394,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_FROZEN: // check being frozen //think I want change back and put decrement here in atk canceler like sleep does, more punishing for fast mon,  but also simpler endturn logic/messaging
+        case CANCELER_FROZEN: // check being frozen //think I want change back and put decrement here in atk canceler like sleep does, more punishing for fast mon,  but also simpler endturn logic/messaging
             if (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE && gDisableStructs[gBattlerAttacker].FrozenTurns != 0) //frozen solid
             {
                 --gDisableStructs[gBattlerAttacker].FrozenTurns;
@@ -4425,7 +4425,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }   //done should no longer need thaw effects already replaced
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_TRUANT: // truant
+        case CANCELER_TRUANT: // truant
             if (GetBattlerAbility(gBattlerAttacker) == ABILITY_TRUANT && gDisableStructs[gBattlerAttacker].truantCounter)
             {
                 CancelMultiTurnMoves(gBattlerAttacker);
@@ -4450,7 +4450,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_RECHARGE: // recharge
+        case CANCELER_RECHARGE: // recharge
             if (gDisableStructs[gBattlerAttacker].rechargeTimer)
             {
                 gDisableStructs[gBattlerAttacker].rechargeTimer = 0; //??? what? timer is set in end turn to 2, decremnts to 1, but in canceler gets set to 0? and status is removed?
@@ -4461,7 +4461,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_BLACK_FOG: // fly sky drop block
+        case CANCELER_BLACK_FOG: // fly sky drop block
             if (!IsBlackFogNotOnField()) // black fog on field
             {
                 if ((gCurrentMove == MOVE_FLY) || (gCurrentMove == MOVE_SKY_DROP) || (gCurrentMove == MOVE_BOUNCE)) //make list for these
@@ -4475,7 +4475,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_FLINCH: // flinch
+        case CANCELER_FLINCH: // flinch
             if ((IsAbilityOnField(ABILITY_STENCH))  
                 && (GetBattlerAbility(gBattlerAttacker) != ABILITY_STENCH
                 && GetBattlerAbility(gBattlerAttacker) != ABILITY_INNER_FOCUS 
@@ -4525,7 +4525,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             //works for stopping two turn effect when interupt user is faster 
             //but prevents next attack from going through
             //fixed by clearing status in end turn
-        case CANCELLER_TWO_TURNS_INTERRUPT: 
+        case CANCELER_TWO_TURNS_INTERRUPT: 
             if (gBattleMons[gBattlerAttacker].status2 & STATUS2_TWOTURN_INTERRUPT)
             {
                 gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_TWOTURN_INTERRUPT);
@@ -4534,7 +4534,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker; 
             break;
-        case CANCELLER_DISABLED: // disabled move
+        case CANCELER_DISABLED: // disabled move
             if (gDisableStructs[gBattlerAttacker].disabledMove == gCurrentMove && gDisableStructs[gBattlerAttacker].disabledMove != MOVE_NONE)
             {
                 gProtectStructs[gBattlerAttacker].usedDisabledMove = 1;
@@ -4546,7 +4546,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_INTHRALLED: // INTHRALLED move
+        case CANCELER_INTHRALLED: // INTHRALLED move
             if (gDisableStructs[gBattlerAttacker].inthralledMove == gCurrentMove && gDisableStructs[gBattlerAttacker].inthralledMove != MOVE_NONE)
             {
                 gProtectStructs[gBattlerAttacker].usedDisabledMove = 1;
@@ -4559,7 +4559,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_GRAVITY: //ok this is what I want for fly chaneg I think?
+        case CANCELER_GRAVITY: //ok this is what I want for fly chaneg I think?
             if (gFieldStatuses & STATUS_FIELD_GRAVITY && IsGravityPreventingMove(gCurrentMove))
             {
                 gProtectStructs[gBattlerAttacker].usedGravityPreventedMove = TRUE;
@@ -4571,7 +4571,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_HEAL_BLOCKED:
+        case CANCELER_HEAL_BLOCKED:
             if (gSideStatuses[GET_BATTLER_SIDE(gBattlerAttacker)] & SIDE_STATUS_HEAL_BLOCK && IsHealBlockPreventingMove(gBattlerAttacker, gCurrentMove))
             {
                 gProtectStructs[gBattlerAttacker].usedHealBlockedMove = TRUE;
@@ -4583,7 +4583,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_TAUNTED: // taunt
+        case CANCELER_TAUNTED: // taunt
             if (gDisableStructs[gBattlerAttacker].tauntTimer)
             {
                 
@@ -4598,7 +4598,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_IMPRISONED: // imprisoned
+        case CANCELER_IMPRISONED: // imprisoned
             if (GetImprisonedMovesCount(gBattlerAttacker, gCurrentMove))
             {
                 gProtectStructs[gBattlerAttacker].usedImprisonedMove = TRUE;
@@ -4609,7 +4609,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_CONFUSED: // confusion need test but done, until double battles are in
+        case CANCELER_CONFUSED: // confusion need test but done, until double battles are in
             if (!gBattleStruct->isAtkCancelerForCalledMove && gBattleMons[gBattlerAttacker].status2 & STATUS2_CONFUSION)//can add bug type exclusion here, they will have confusion affect but never fail atk check
             { //users most likely won't notice the difference unless they attack themselves
                 u16 rando = Random() % 4;
@@ -4699,7 +4699,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_PARALYZED: // paralysis
+        case CANCELER_PARALYZED: // paralysis
             if ((!gBattleStruct->isAtkCancelerForCalledMove && (gBattleMons[gBattlerAttacker].status1 & STATUS1_PARALYSIS) && (Random() % 4) == 0)
                 && IsBlackFogNotOnField())
             {
@@ -4716,7 +4716,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_IRON_WILL:
+        case CANCELER_IRON_WILL:
             if (!gBattleStruct->isAtkCancelerForCalledMove && (GetBattlerAbility(gBattlerTarget) == ABILITY_IRON_WILL
             && gBattlerTarget != gBattlerAttacker)) //need to ensure not self target
             {
@@ -4737,7 +4737,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_GHOST: // GHOST in pokemon tower
+        case CANCELER_GHOST: // GHOST in pokemon tower
             if (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))
             {
                 if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
@@ -4749,7 +4749,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_IN_LOVE: // infatuation
+        case CANCELER_INFATUATION: // infatuation
             if (!gBattleStruct->isAtkCancelerForCalledMove && gBattleMons[gBattlerAttacker].status2 & STATUS2_INFATUATION)      //put more planning into this vsonic          
                 //&& gBattleMons[gBattlerAttacker].status2 & STATUS2_INFATUATED_WITH(gBattlerTarget)) //important change ot add check that the target is the one pokemon is infatuated with
             {
@@ -4806,7 +4806,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_BIDE: // bide
+        case CANCELER_BIDE: // bide
             if (gBattleMons[gBattlerAttacker].status2 & STATUS2_BIDE)//still need logic so can't use bide with status bide
             {
                 //gBattleMons[gBattlerAttacker].status2 -= STATUS2_BIDE_TURN(1);
@@ -4887,7 +4887,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_THAW: // move thawing
+        case CANCELER_THAW: // move thawing
             if (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE
                 && gDisableStructs[gBattlerAttacker].FrozenTurns != 0) //should be thaw if scald, or a fire type move above base 60
             {
@@ -4912,7 +4912,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }//thaw for if defrosted by timer, doesnt prevent attack, only triggers if timer is 0
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_ASCENSION:
+        case CANCELER_ASCENSION:
             if (gStatuses3[gBattlerAttacker] & STATUS3_SMACKED_DOWN)
             {
                 if (--gDisableStructs[gBattlerAttacker].AscensionTimer == 0)
@@ -4926,7 +4926,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                 gDisableStructs[gBattlerAttacker].AscensionTimer = 0;
             ++gBattleStruct->atkCancellerTracker; //so don't use prefix
             break;
-        case CANCELLER_POWDER_MOVE:
+        case CANCELER_POWDER_MOVE:
             if (IsPowderMove(gCurrentMove) && (gBattlerAttacker != gBattlerTarget))
             {
                 if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerTarget, TYPE_GRASS, FALSE))
@@ -4947,7 +4947,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_POWDER_STATUS:   //doesn't make sense for grass type to be immune to this but will keep anyway
+        case CANCELER_POWDER_STATUS:   //doesn't make sense for grass type to be immune to this but will keep anyway
             if (gBattleMons[gBattlerAttacker].status2 & STATUS2_POWDER)
             {
                 u32 moveType;
@@ -4962,7 +4962,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_THROAT_CHOP:
+        case CANCELER_THROAT_CHOP:
             if (gDisableStructs[gBattlerAttacker].throatChopTimer && IsSoundMove(gCurrentMove))
             {
                 gProtectStructs[gBattlerAttacker].usedThroatChopPreventedMove = TRUE;
@@ -4973,7 +4973,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_MULTI_HIT_MOVES: //set multihit counter  //not working here think will just make its own thing in atk cancel
+        case CANCELER_MULTI_HIT_MOVES: //set multihit counter  //not working here think will just make its own thing in atk cancel
             {
                 switch(gBattleMoves[gCurrentMove].effect)
                 {   
@@ -5046,7 +5046,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             }    
             ++gBattleStruct->atkCancellerTracker;
                 break; 
-        case CANCELLER_FIXATED_ON_MOVE:
+        case CANCELER_FIXATED_ON_MOVE:
         {
             if (IsFixationMoveEffect(gCurrentMove))
             {
@@ -5076,11 +5076,11 @@ u8 AtkCanceller_UnableToUseMove(void)
         }
         ++gBattleStruct->atkCancellerTracker;
             break; 
-        case CANCELLER_END:
+        case CANCELER_END:
             break;
         } //end of main switch
 
-    } while (gBattleStruct->atkCancellerTracker != CANCELLER_END && gBattleStruct->atkCancellerTracker != CANCELLER_END2 && effect == 0);
+    } while (gBattleStruct->atkCancellerTracker != CANCELER_END && gBattleStruct->atkCancellerTracker != CANCELER_END2 && effect == 0);
                     //while atkunable touse move hasnt ended, or atkunable to use move 2 hasnt ended and effect is 0 keep looping
                     //so stops soon as effect is set
     if (effect == 2)
@@ -5101,9 +5101,9 @@ u8 AtkCanceller_UnableToUseMove2(void)
     {
         switch (gBattleStruct->atkCancellerTracker)
         {
-        case CANCELLER_END:
+        case CANCELER_END:
             gBattleStruct->atkCancellerTracker++;
-        case CANCELLER_PSYCHIC_TERRAIN:
+        case CANCELER_PSYCHIC_TERRAIN:
             if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN
                 && IsBattlerGrounded(gBattlerTarget)
                 && GetChosenMovePriority(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)) > 0
@@ -5118,11 +5118,11 @@ u8 AtkCanceller_UnableToUseMove2(void)
             }
             gBattleStruct->atkCancellerTracker++;
             break;
-        case CANCELLER_END2:
+        case CANCELER_END2:
             break;
         }
 
-    } while (gBattleStruct->atkCancellerTracker != CANCELLER_END2 && effect == 0);
+    } while (gBattleStruct->atkCancellerTracker != CANCELER_END2 && effect == 0);
 
     return effect;
 }
