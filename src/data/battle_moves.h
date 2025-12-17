@@ -9351,7 +9351,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_WORRY_SEED] =
     {
-        .effect = EFFECT_WORRY_SEED,
+        .effect = EFFECT_OVERWRITE_ABILITY,
         .power = 0,
         .type = TYPE_GRASS,
         .accuracy = 100,
@@ -19927,7 +19927,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         //.secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = -6,  //lowest priority set unless I can figure a way to make it use dmg from previous turn for calc
+        .priority = 1,  //lowest priority set unless I can figure a way to make it use dmg from previous turn for calc
         .split = SPLIT_STATUS,
         .ignoresProtect = TRUE,
         .ignoresSubstitute = TRUE,
@@ -19939,6 +19939,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.battleAnimScript = gBattleAnimMove_DryadsCurse,
     },//DOES ghost curse effect to last damaged sacrificin stats instead of health
     //give to bug fairy and grass types   def give shiinotic, maybe sudowoodo
+    //since I'm applying affect to mon that hit me last I have to take damage
+    //that already makes it equal to loss of sacrificing hp to activate curse
+    //think droppign stat as well is too much
+    //do work on this don't want make -6 priority
+    //instead want to set status so applies curse to next mon to hit
+    //can do move end effect make like destiny bond
+    //set timer or status then make move end effect
+    //if attacker does damage to target with timer
+    //set curse upon them
 
     [MOVE_SHIELD_BASH] =
     {

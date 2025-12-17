@@ -2256,7 +2256,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
               || IsSkillSwapBannedAbility(AI_DATA->abilities[battlerAtk]) || IsSkillSwapBannedAbility(AI_DATA->abilities[battlerDef]))
                 score -= 10;
             break;
-        case EFFECT_WORRY_SEED:
+        case EFFECT_OVERWRITE_ABILITY:
             if (AI_DATA->abilities[battlerDef] == ABILITY_INSOMNIA
               || IsWorrySeedBannedAbility(AI_DATA->abilities[battlerDef]))
                 score -= 10;
@@ -3116,7 +3116,7 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     RETURN_SCORE_PLUS(1);
                 }
                 break;
-            case EFFECT_WORRY_SEED:
+            case EFFECT_OVERWRITE_ABILITY:
             case EFFECT_GASTRO_ACID:
             case EFFECT_SIMPLE_BEAM:
                 if (partnerHasBadAbility)
@@ -4521,7 +4521,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         if (GetAbilityRating(AI_DATA->abilities[battlerDef]) > GetAbilityRating(AI_DATA->abilities[battlerAtk]))
             score++;
         break;
-    case EFFECT_WORRY_SEED:
+    case EFFECT_OVERWRITE_ABILITY:
     case EFFECT_GASTRO_ACID:
     case EFFECT_SIMPLE_BEAM:
         if (IsAbilityOfRating(AI_DATA->abilities[battlerDef], 5))

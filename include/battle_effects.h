@@ -20,8 +20,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectNonVolatileStatus,
         .battleTvScore = 0, // Handled within the battle TV functions
-        .hasAccCheckAfterAtkstring = TRUE,
-    },
+        .encourageEncore = TRUE,
+    },//ok looks like rather than a small portion EVERY move
+    //now has its accuracy check after attack strings long as it actually has an acc check
+    //status moves don't count for the setup for color change
+    //so for this updatd system seems will need to rework effect
+    //but potentially benefits as I can save space?
 
     [EFFECT_ABSORB] =
     {
@@ -33,14 +37,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectExplosion,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_MISTY_EXPLOSION] =
     {
         .battleScript = BattleScript_EffectExplosion,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_DREAM_EATER] =
@@ -52,7 +54,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_MIRROR_MOVE] =
     {
-        .battleScript = BattleScript_EffectMirrorMove,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 1,
     },
 
@@ -170,7 +172,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectRoar,
         .battleTvScore = 5,
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_MULTI_HIT] =
@@ -270,7 +271,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectConfuse,
         .battleTvScore = 4,
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_ATTACK_UP_2] =
@@ -399,12 +399,11 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectMimic,
         .battleTvScore = 4,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_METRONOME] =
     {
-        .battleScript = BattleScript_EffectMetronome,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 1,
     },
 
@@ -413,7 +412,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectLeechSeed,
         .battleTvScore = 4,
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_DO_NOTHING] =
@@ -428,7 +426,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectHoldHands,
         .battleTvScore = 1,
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_CELEBRATE] =
@@ -449,7 +446,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectDisable,
         .battleTvScore = 7,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_LEVEL_DAMAGE] =
@@ -481,14 +477,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectPainSplit,
         .battleTvScore = 3,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_SNORE] =
     {
         .battleScript = BattleScript_EffectSnore,
         .battleTvScore = 3,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_CONVERSION_Z] =
@@ -503,7 +497,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectLockOn,
         .battleTvScore = 3,
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_SKETCH] =
@@ -514,7 +507,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_SLEEP_TALK] =
     {
-        .battleScript = BattleScript_EffectSleepTalk,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 3,
         .encourageEncore = TRUE,
     },
@@ -535,7 +528,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectSpite,
         .battleTvScore = 4,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_FALSE_SWIPE] =
@@ -562,7 +554,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectMeanLook,
         .battleTvScore = 5,
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_NIGHTMARE] =
@@ -583,7 +574,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectCurse,
         .battleTvScore = 2,
         .encourageEncore = TRUE,
-    },//specifically ghost curse only so put logic in function instead
+    },
 
     [EFFECT_HEALING_WISH] =
     {
@@ -610,7 +601,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectForesight,
         .battleTvScore = 3,
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_PERISH_SONG] =
@@ -639,7 +629,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectRollout,
         .battleTvScore = 3,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_SWAGGER] =
@@ -653,7 +642,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectFuryCutter,
         .battleTvScore = 2,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_ATTRACT] =
@@ -661,7 +649,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectAttract,
         .battleTvScore = 4,
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_RETURN] =
@@ -693,7 +680,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectMagnitude,
         .battleTvScore = 1,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_BATON_PASS] =
@@ -712,7 +698,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectCaptivate,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_MORNING_SUN] =
@@ -767,8 +752,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectBellyDrum,
         .battleTvScore = 7,
         .encourageEncore = TRUE,
-    },//consider generalize effect script sacrificehealth boost stat
-    //can do based on move effect vsonic fillet away and this would use it
+    },
 
     [EFFECT_PSYCH_UP] =
     {
@@ -815,9 +799,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectBeatUp,
         .battleTvScore = 2,
     },
-    //vsonic menat to be custom effect check effect
-    //attempt to mix mash old and modern effects
-    //to get benefits of both
 
     [EFFECT_SEMI_INVULNERABLE] =
     {
@@ -843,14 +824,14 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_FIRST_TURN_ONLY] =
     {
-        .battleScript = BattleScript_EffectFirstTurnOnly,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 4,
         .encourageEncore = TRUE,
     },
 
     [EFFECT_UPROAR] =
     {
-        .battleScript = BattleScript_EffectUproar,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 4,
     },
 
@@ -866,7 +847,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectSpitUp,
         .battleTvScore = 3,
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_SWALLOW] =
@@ -876,9 +856,9 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .encourageEncore = TRUE,
     },
 
-    [EFFECT_WORRY_SEED] =
+    [EFFECT_OVERWRITE_ABILITY] =
     {
-        .battleScript = BattleScript_EffectWorrySeed,
+        .battleScript = BattleScript_EffectOverwriteAbility,
         .battleTvScore = 0, // TODO: Assign points
         .encourageEncore = TRUE,
     },
@@ -895,7 +875,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectTorment,
         .battleTvScore = 7,
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_FLATTER] =
@@ -937,7 +916,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_NATURE_POWER] =
     {
-        .battleScript = BattleScript_EffectNaturePower,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
     },
 
@@ -952,7 +931,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectTaunt,
         .battleTvScore = 4,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_HELPING_HAND] =
@@ -966,7 +944,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectTrick,
         .battleTvScore = 4,
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_ROLE_PLAY] =
@@ -974,7 +951,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectRolePlay,
         .battleTvScore = 4,
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_WISH] =
@@ -985,7 +961,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_ASSIST] =
     {
-        .battleScript = BattleScript_EffectAssist,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 2,
     },
 
@@ -1025,7 +1001,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectYawn,
         .battleTvScore = 5,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_KNOCK_OFF] =
@@ -1044,7 +1019,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectEndeavor,
         .battleTvScore = 1,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_POWER_BASED_ON_USER_HP] =
@@ -1058,7 +1032,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectSkillSwap,
         .battleTvScore = 6,
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_IMPRISON] =
@@ -1117,7 +1090,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectTickle,
         .battleTvScore = 1,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_COSMIC_POWER] =
@@ -1180,7 +1152,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectNaturalGift,
         .battleTvScore = 0, // TODO: Assign points
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_POWER_BASED_ON_TARGET_HP] =
@@ -1377,7 +1348,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectPowerSwap,
         .battleTvScore = 0, // TODO: Assign points
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_GUARD_SWAP] =
@@ -1385,28 +1355,24 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectGuardSwap,
         .battleTvScore = 0, // TODO: Assign points
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_HEART_SWAP] =
     {
         .battleScript = BattleScript_EffectHeartSwap,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_POWER_SPLIT] =
     {
         .battleScript = BattleScript_EffectPowerSplit,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_GUARD_SPLIT] =
     {
         .battleScript = BattleScript_EffectGuardSplit,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_STICKY_WEB] =
@@ -1431,13 +1397,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_SUCKER_PUNCH] =
     {
-        .battleScript = BattleScript_EffectSuckerPunch,
-        .battleTvScore = 0, // TODO: Assign points
-    },
-
-    [EFFECT_SIMPLE_BEAM] =
-    {
-        .battleScript = BattleScript_EffectSimpleBeam,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
     },
 
@@ -1452,7 +1412,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectHealPulse,
         .battleTvScore = 0, // TODO: Assign points
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_QUASH] =
@@ -1478,7 +1437,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectTopsyTurvy,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_MISTY_TERRAIN] =
@@ -1527,7 +1485,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_ME_FIRST] =
     {
-        .battleScript = BattleScript_EffectMeFirst,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
     },
 
@@ -1572,9 +1530,8 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_LAST_RESORT] =
     {
-        .battleScript = BattleScript_EffectLastResort,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_SHELL_SMASH] =
@@ -1602,14 +1559,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectNobleRoar,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_VENOM_DRENCH] =
     {
         .battleScript = BattleScript_EffectVenomDrench,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_TOXIC_THREAD] =
@@ -1645,7 +1600,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_COPYCAT] =
     {
-        .battleScript = BattleScript_EffectCopycat,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
     },
 
@@ -1666,7 +1621,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectSynchronoise,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_PSYCHO_SHIFT] =
@@ -1712,7 +1666,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectSpeedSwap,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_REVELATION_DANCE] =
@@ -1763,12 +1716,11 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectPartingShot,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_MAT_BLOCK] =
     {
-        .battleScript = BattleScript_EffectMatBlock,
+        .battleScript = BattleScript_EffectProtect,
         .battleTvScore = 0, // TODO: Assign points
         .encourageEncore = TRUE,
     },
@@ -1817,14 +1769,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectPurify,
         .battleTvScore = 0, // TODO: Assign points
         .encourageEncore = TRUE,
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_FAIL_IF_NOT_ARG_TYPE] =
     {
-        .battleScript = BattleScript_FailIfNotArgType,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_SHORE_UP] =
@@ -1870,7 +1820,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectCoaching,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_LASH_OUT] =
@@ -1889,7 +1838,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
-    }, //was dynamax double emg
+    },
 
     [EFFECT_DECORATE] =
     {
@@ -1931,7 +1880,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_AURA_WHEEL] =
     {
-        .battleScript = BattleScript_EffectAuraWheel,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
     },
 
@@ -2034,22 +1983,11 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 0, // TODO: Assign points
     },
 
-    [EFFECT_HIT_SET_TERRAIN] =
-    {
-        .battleScript = BattleScript_EffectHitSetTerrain,
-        .battleTvScore = 0, // TODO: Assign points
-    },
-
     [EFFECT_DARK_VOID] =
     {
         .battleScript = BattleScript_EffectDarkVoid,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
-    },//prob not use just use sketchban is enough vsonic
-    //if species not darkrai goes to script 
-    //BattleScript_PokemonCantUseTheMove which has atkstring but no acc check
-    //as move fails
-    //assigned TRUE still as no one but darkrai should get by default
+    },
 
     [EFFECT_VICTORY_DANCE] =
     {
@@ -2095,11 +2033,10 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 0, // TODO: Assign points
     },
 
-    [EFFECT_SNOW_DAY] =
+    [EFFECT_SNOWESCAPE] =
     {
-        .battleScript = BattleScript_EffectSnow, //to port vsonic
+        .battleScript = BattleScript_EffectSnow,
         .battleTvScore = 4,
-        .encourageEncore = TRUE,
     },
 
     [EFFECT_TAKE_HEART] =
@@ -2136,7 +2073,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectMaxMove,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_GLAIVE_RUSH] =
@@ -2179,7 +2115,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectFickleBeam,
         .battleTvScore = 0, // TODO: Assign points
-        .hasAccCheckAfterAtkstring = TRUE,
     },
 
     [EFFECT_SHED_TAIL] =
@@ -2191,7 +2126,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_UPPER_HAND] =
     {
-        .battleScript = BattleScript_EffectUpperHand,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
         .encourageEncore = TRUE,
     },
@@ -2305,7 +2240,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
-    },
+    },//default effects end
 
     [EFFECT_COCOON] =
     {
@@ -2318,6 +2253,8 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectDryadsCurse,
         .battleTvScore = 0, // TODO: Assign points
     },
+    //new idea set curse status on self
+    //to create move end effect vsonic
 
     [EFFECT_TARGET_TYPE_DAMAGE] =
     {

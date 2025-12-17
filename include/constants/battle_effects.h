@@ -357,7 +357,7 @@
 #define EFFECT_ALLY_SWITCH 346
 #define EFFECT_RELIC_SONG 347 // Relic Song
 #define EFFECT_HIT_ESCAPE 348
-#define EFFECT_WORRY_SEED 349
+#define EFFECT_OVERWRITE_ABILITY 349
 #define EFFECT_FELL_STINGER 350
 #define EFFECT_CAPTIVATE 351
 #define EFFECT_UPPER_HAND 352  
@@ -444,7 +444,7 @@ enum __attribute__((packed)) BattleMoveEffects
 {
     EFFECT_PLACEHOLDER,
     EFFECT_HIT,
-    EFFECT_NON_VOLATILE_STATUS, //figure how set this up don't want lose option for binary to use available flags for new status effects may be able to just leave to spaces open
+    EFFECT_NON_VOLATILE_STATUS,
     EFFECT_ABSORB,
     EFFECT_EXPLOSION,
     EFFECT_MISTY_EXPLOSION, // Same as EFFECT_EXPLOSION but it's boosted on Misty Terrain
@@ -477,7 +477,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_SHEER_COLD, // Same as EFFECT_OHKO but Ice-types are immune to it and has decreased accuracy for non Ice-type users.
     EFFECT_FUSION_COMBO,
     EFFECT_FIXED_PERCENT_DAMAGE,
-    EFFECT_FIXED_HP_DAMAGE, //note add logic for these 2 to be expluded from super effective sound
+    EFFECT_FIXED_HP_DAMAGE, //find logic for how thse 2 effects are excluded from move result for effetivenesss sound
     EFFECT_HEAL_BLOCK,
     EFFECT_RECOIL_IF_MISS,
     EFFECT_MIST,
@@ -572,7 +572,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_STOCKPILE,
     EFFECT_SPIT_UP,
     EFFECT_SWALLOW,
-    EFFECT_WORRY_SEED,
+    EFFECT_OVERWRITE_ABILITY,
     EFFECT_HAIL,
     EFFECT_TORMENT,
     EFFECT_FLATTER,
@@ -657,7 +657,6 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_METAL_BURST,
     EFFECT_LUCKY_CHANT,
     EFFECT_SUCKER_PUNCH,
-    EFFECT_SIMPLE_BEAM,
     EFFECT_ENTRAINMENT,
     EFFECT_HEAL_PULSE,
     EFFECT_QUASH,
@@ -750,7 +749,6 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_MAX_HP_50_RECOIL,    //mind blown steel beam effect but neither will use it
     EFFECT_CHLOROBLAST, // Same effect as EFFECT_MAX_HP_50_RECOIL but follows the same rules as EFFECT_RECOIL
     EFFECT_EXTREME_EVOBOOST,
-    EFFECT_HIT_SET_TERRAIN,
     EFFECT_DARK_VOID,
     EFFECT_VICTORY_DANCE,
     EFFECT_TEATIME,
