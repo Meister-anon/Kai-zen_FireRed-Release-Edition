@@ -3503,6 +3503,7 @@ bool8 InBattleChoosingMoves() //base function didn't have void don't understand
     return gBattleMainFunc == HandleTurnActionSelectionState;
 }
 
+//I no longer use
 bool8 InBattleRunningActions() //just used for battle scene off w speed up
 {
     return gBattleMainFunc == RunTurnActionsFunctions;

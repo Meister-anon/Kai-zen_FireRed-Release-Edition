@@ -133,7 +133,8 @@ struct BattleMove
     u32 numAdditionalEffects:2; // limited to 3 - don't want to get too crazy
     u32 strikeCount:4; // Max 15 hits. Defaults to 1 if not set. May apply its effect on each hit.
     u32 multiTaskBanned:1; // remove need for multitask exclude 
-    u32 padding:10; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
+    u32 explosiveMove:1; //simplify logic for moves/effects that do defense stripping just explosion likes
+    u32 padding:9; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
     // end of word
     u8 split;
     u16 argument;// for transferring move effects
@@ -581,12 +582,7 @@ static inline bool32 IsOHKOmoveEffect(u32 moveId)
 
 static inline bool32 IsExplosionMove(u32 moveId)
 {
-    if (GetMoveEffect(moveId) == EFFECT_EXPLOSION
-    || GetMoveEffect(moveId) == EFFECT_MISTY_EXPLOSION
-    || GetMoveEffect(moveId) == EFFECT_MIND_BLOWN)
-        return TRUE;
-
-    return FALSE;
+    return gBattleMoves[moveId].explosiveMove;
 }
 
 static inline const u8 *GetMoveBattleScript(u32 moveId)
