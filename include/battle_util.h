@@ -104,6 +104,7 @@ enum ItemEffect
 
 u8 GetBattlerForBattleScript(u8 caseId);
 
+u32 GetFuryCutterAccuracy(u32 battlerAtk, u32 move);
 void PressurePPLose(u8 target, u8 attacker, u16 move);
 void PressurePPLoseOnUsingImprison(u8 attacker);
 void PressurePPLoseOnUsingPerishSong(u8 attacker);
@@ -304,7 +305,7 @@ s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fi
     bool32 isCrit, bool32 randomFactor, bool32 updateFlags, u16 typeEffectivenessModifier);
 
 
-bool32 WeatherHasEffect(void); //meant to replace macro for Weather_has_effect
+bool32 HasWeatherEffect(void); //meant to replace macro for Weather_has_effect
 bool8 CanActivateForewarnAnticipation(u8 battler);
 bool8 IsFixationMoveEffect(u16 move); //SETUP FOR new category of move inspired by legends arceus
 

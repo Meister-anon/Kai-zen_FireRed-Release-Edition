@@ -460,7 +460,7 @@ struct SideTimer    //effects below persist regardless of mon
              u16 ragePowder:1; //believe this is actually rage powder
              u16 padding:2;
 
-    /*0x01*/ u8 reflectBattlerId;
+    /*0x01*/ u8 stickyWebBattlerId;
     /*0x02*/ 
     /*0x03*/ u8 lightscreenBattlerId;
     /*0x04*/ 
@@ -911,7 +911,7 @@ struct BattleStruct //fill in unused fields when porting
     u8 sameMoveTurns[MAX_BATTLERS_COUNT]; // For Metronome, number of times the same moves has been SUCCESFULLY used.
     u16 moveEffect2; // For Knock Off smack down and removestatus moves i.e smelling salts wakeupslap & sparklin aria   -PORTED
     u8 ballSpriteIds[2];    // item gfx, window gfx
-    u8 stickyWebUser;
+    u8 padding;
     u8 appearedInBattle; // Bitfield to track which Pokemon appeared in battle. Used for Burmy's form change
     u8 skyDropTargets[MAX_BATTLERS_COUNT]; // For Sky Drop, to account for if multiple Pokemon use Sky Drop in a double battle.
     // When using a move which hits multiple opponents which is then bounced by a target, we need to make sure, the move hits both opponents, the one with bounce, and the one without.

@@ -1500,7 +1500,7 @@ bool32 AI_WeatherHasEffect(void)
     if (AI_THINKING_STRUCT->aiFlags & AI_FLAG_NEGATE_UNAWARE)
         return TRUE;   // AI doesn't understand weather supression (handicap)
 
-    return WeatherHasEffect();  // weather damping abilities are announced
+    return HasWeatherEffect();  // weather damping abilities are announced
 }
 
 u32 AI_GetBattlerMoveTargetType(u8 battlerId, u16 move)

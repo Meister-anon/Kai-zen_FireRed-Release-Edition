@@ -396,6 +396,8 @@ static inline bool32 MoveCantDamageFloatingTargets(u32 moveId)
     return gBattleMoves[SanitizeMoveId(moveId)].cantdamageFloating;
 }
 
+//update this to be more inline w 
+//my own thaw logic vsonic
 static inline bool32 MoveThawsUser(u32 moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].thawsUser;
@@ -414,6 +416,21 @@ static inline bool32 MoveForcesPressure(u32 moveId)
 static inline bool32 MoveCantBeUsedTwice(u32 moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].cantUseTwice;
+}
+
+static inline bool32 MoveAlwaysHitsInRain(u32 moveId)
+{
+    return gBattleMoves[SanitizeMoveId(moveId)].alwaysHitsInRain;
+}
+
+static inline bool32 MoveHas50AccuracyInSun(u32 moveId)
+{
+    return gBattleMoves[SanitizeMoveId(moveId)].accuracy50InSun;
+}
+
+static inline bool32 MoveAlwaysHitsInHailSnow(u32 moveId)
+{
+    return gBattleMoves[SanitizeMoveId(moveId)].alwaysHitsInHailSnow;
 }
 
 static inline bool32 IsMoveGravityBanned(u32 moveId)
@@ -497,6 +514,16 @@ static inline u32 GetMoveProtectSide(u32 moveId)
     return gBattleMoves[SanitizeMoveId(moveId)].argument.protect.side;
 }
 
+static inline enum ProtectMethod GetMoveProtectMethod(u32 moveId)
+{
+    return gBattleMoves[SanitizeMoveId(moveId)].argument.protectMethod;
+}
+
+static inline u32 GetMoveTerrainFlag(u32 moveId)
+{
+    return gBattleMoves[SanitizeMoveId(moveId)].argument.moveProperty;
+}
+
 static inline u32 GetMoveEffectArg_Status(u32 moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].argument.status;
@@ -534,6 +561,30 @@ static inline u32 GetHpPercentagetoSacrifice(u32 moveId)
 {
     moveId = SanitizeMoveId(moveId);
     return gBattleMoves[moveId].argument.sacrificedHpPercentage;
+}
+
+static inline u32 GetMoveNonVolatileStatus(u32 move)
+{
+    move = SanitizeMoveId(move);
+    switch(GetMoveEffect(move))
+    {
+    case EFFECT_NON_VOLATILE_STATUS:
+    case EFFECT_YAWN:
+    case EFFECT_DARK_VOID:
+        return gBattleMoves[move].argument.nonVolatileStatus;
+    default:
+        return MOVE_EFFECT_NONE;
+    }
+}
+
+static inline u32 GetMoveDamagePercentage(u32 move)
+{
+    return gBattleMoves[SanitizeMoveId(move)].argument.damagePercentage;
+}
+
+static inline u32 GetMoveOverwriteAbility(u32 move)
+{
+    return gBattleMoves[SanitizeMoveId(move)].argument.overwriteAbility;
 }
 
 static inline const struct AdditionalEffect *GetMoveAdditionalEffectById(u32 moveId, u32 effect)

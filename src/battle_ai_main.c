@@ -997,7 +997,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     if (gSideStatuses[battlerAtk] & SIDE_STATUS_HEAL_BLOCK && IsHealBlockPreventingMove(battlerAtk, move))
         return 0; // Can't even select heal blocked move
     // primal weather check
-    if (WeatherHasEffect())
+    if (HasWeatherEffect())
     {
         if (gBattleWeather & WEATHER_PRIMAL_ANY)
         {

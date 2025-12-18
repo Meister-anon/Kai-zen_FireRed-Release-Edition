@@ -4540,7 +4540,10 @@ static void BattleStartClearSetData(void)
     gBattleStruct->givenExpMons = 0;
     gBattleStruct->mega.triggerSpriteId = 0xFF;
 
-    gBattleStruct->stickyWebUser = 0xFF;
+    for (i = 0; i < ARRAY_COUNT(gSideTimers); i++)
+    {
+        gSideTimers[i].stickyWebBattlerId = BATTLE_ID_NONE;
+    }
     gBattleStruct->appearedInBattle = 0;  //not making burmy change form,, will keep whatever form you caught it with
 
     //hmm fill like this actually off and this and catchattempt should use pokeball_count
@@ -4691,9 +4694,13 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
     gBattleStruct->lastTakenMoveFrom[battler][3] = 0;
     gBattleStruct->lastMoveFailed &= ~((1u << battler));
 
-    if (battler == gBattleStruct->stickyWebUser)
-        gBattleStruct->stickyWebUser = 0xFF;    // Switched into sticky web user slot so reset it
-    
+    for (i = 0; i < ARRAY_COUNT(gSideTimers); i++)
+    {
+        // Switched into sticky web user slot, so reset stored battler ID
+        if (gSideTimers[i].stickyWebBattlerId == battler)
+            gSideTimers[i].stickyWebBattlerId = BATTLE_ID_NONE;
+    }
+
     for (i = 0; i < gBattlersCount; i++)
     {
         if (i != battler && GetBattlerSide(i) != GetBattlerSide(battler))
@@ -4824,9 +4831,13 @@ const u8* FaintClearSetData(u32 battler) //see about make status1 not fade wen f
     gBattleStruct->pursuitSwitchByMove = FALSE; //not used by EE? anymore
     gBattleStruct->pursuitStoredSwitch = 0;
 
-    //vsonic doesn't match with EE
-    if (battler == gBattleStruct->stickyWebUser)
-        gBattleStruct->stickyWebUser = 0xFF;    // User of sticky web fainted, so reset the stored battler ID
+    for (i = 0; i < ARRAY_COUNT(gSideTimers); i++)
+    {
+        // User of sticky web fainted, so reset the stored battler ID
+        if (gSideTimers[i].stickyWebBattlerId == battler)
+            gSideTimers[i].stickyWebBattlerId = BATTLE_ID_NONE;
+    }
+            // User of sticky web fainted, so reset the stored battler ID
         //looking at this can do same for forewarn/anticipation, if ability wasn't triggered but stored mon fainted,
         // reset the abiity check and let it pick another mon
 

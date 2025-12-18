@@ -6044,7 +6044,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //using gbattlemovedmage didn't seem to change dmg, only fix I can think of is to reuse and just keep damage
     //value but put inside both physical and special
     // are effects of weather negated with cloud nine or air lock
-    if (WeatherHasEffect() && IsBlackFogNotOnField()) //weather dmg changes weren't working at all, think was becuz I had  below dmg calc
+    if (HasWeatherEffect() && IsBlackFogNotOnField()) //weather dmg changes weren't working at all, think was becuz I had  below dmg calc
     {
 
         //black fog check has already been added to weatheraffected funcion directly
@@ -6058,7 +6058,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         //moved these here, because they don't have to do with physical or special damage alone anymore.  since I removed the type link
         // any weather except sun weakens solar beam
-        else if ((gBattleWeather & (WEATHER_RAIN_ANY | WEATHER_SANDSTORM_ANY | WEATHER_HAIL)) 
+        else if ((gBattleWeather & (WEATHER_LOW_LIGHT)) 
         && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
             OffensiveModifer(50);
 
@@ -6088,7 +6088,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }
 
         //acid rain
-        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN_ANY))
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN))
         {
             switch (moveType)
             {
@@ -6132,7 +6132,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }
 
         //moonlight
-        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_MOON_ANY))
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_MOON))
         {
             switch (moveType)
             {
@@ -6151,7 +6151,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //so you could run a mix of fire and water on the same team
 
         // hail
-        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_HAIL_ANY))
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ICY_ANY))
         {
 
             switch (moveType)
@@ -7030,19 +7030,23 @@ u8 GetWeatherBallType(u16 move)
 
     //default has no check for in battle
     //and will always return true - fixed
-    if (WeatherHasEffect())
+    //should I attempt to add fog to this,
+    //wind and water, best I can come up with
+    //is using it to boost normal? would be stab so guess fine
+    //fog is already normal lol
+    if (HasWeatherEffect())
     {
         if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
             return TYPE_WATER;
-        else if (gBattleWeather & WEATHER_SANDSTORM_ANY)
+        else if (gBattleWeather & WEATHER_SANDSTORM)
             return TYPE_ROCK;
         else if (gBattleWeather & WEATHER_SUN_ANY)
             return TYPE_FIRE;
-        else if (gBattleWeather & WEATHER_MOON_ANY)
+        else if (gBattleWeather & WEATHER_MOON)
             return TYPE_FAIRY;
-        else if (gBattleWeather & WEATHER_HAIL_ANY)
+        else if (gBattleWeather & WEATHER_ICY_ANY)
             return TYPE_ICE;
-        else if (gBattleWeather & WEATHER_ACID_RAIN_ANY)
+        else if (gBattleWeather & WEATHER_ACID_RAIN)
             return TYPE_POISON;
         else if (gBattleWeather & WEATHER_STRONG_WINDS)
             return TYPE_FLYING;

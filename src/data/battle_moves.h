@@ -9811,12 +9811,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DRAGON_RUSH] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_6
-            #elif B_UPDATED_MOVE_DATA == GEN_5
-            #else
-            #endif
+
         .effect = EFFECT_HIT,
-        .power = 100,
+        .power = 110,
         .type = TYPE_DRAGON,
         .accuracy = 80,
         .pp = 10,
@@ -9835,7 +9832,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = COMBO_STARTER_DRAGON_RUSH,
         //.contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_TAIL},
         //.battleAnimScript = gBattleAnimMove_DragonRush,
-    },
+    },//slight power buff to compete w draco meteor
 
     [MOVE_POWER_GEM] =
     {
