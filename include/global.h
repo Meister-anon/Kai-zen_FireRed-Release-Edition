@@ -355,12 +355,28 @@ extern u8 gUnknownStringVar[]; //new buffer seems fine? haven't printed yet but 
 //move description version
 //_Description can hold 5 line breaks (so 6 lines total)
 //at approx 19 chars per line// so 114 max ( + 5 for line break escape chars)
-#define COMPOUND_MOVE_STRING(str) (const u8[MOVE_DESCRIPTION_LENGTH + 5]) _(str)
+#define COMPOUND_MOVE_STRING_(str) (const u8[MOVE_DESCRIPTION_LENGTH + 5]) _(str)
+
+#define COMPOUND_MOVE_STRING(str) (COMPOUND_STRING_SIZE_LIMIT(str, MOVE_DESCRIPTION_LENGTH + 5))
 
 //replacement version so can use compound string logic w my ability stuff and keep my limiter
-#define COMPOUND_ABILITY_STRING(str) (const u8[ABILITY_DESCRIPTION_LENGTH + 1]) _(str)
+#define COMPOUND_ABILITY_STRING_(str) (const u8[ABILITY_DESCRIPTION_LENGTH + 1]) _(str)
+
+#define COMPOUND_ABILITY_STRING(str) (COMPOUND_STRING_SIZE_LIMIT(str, ABILITY_DESCRIPTION_LENGTH + 1))
+
+//for extra space saving can make stand in/conversion for the static strings
+//that would preserve their name and still be able to check size without expanding allocation
+//would just need name argument limit and the string itself
+//and could just regex sub it in
+//core version so could inpupt name field
+//couldn't get working give up
+//#define CONVERGENT_STRING_ABILITY_LIMIT(name, str) (const u8 name[CONVERGENT_STRING_CHECK_SIZE(name, ABILITY_DESCRIPTION_LENGTH + 1, str)]) const u8 name[] = _(str)
+
+//#define CONVERGENT_STRING_MOVE_LIMIT(name, str) (const u8 name[CONVERGENT_STRING_CHECK_SIZE(name, MOVE_DESCRIPTION_LENGTH + 5, str)]) ((const u8 name[]) _(str))
 
 //same for trainer names in trainers.h before can use need check all name values for repeats, replace replace w static string
+//was for shinydragonhunter space saving rec but ee has more options now
+//would be good but may not need doin
 #define COMPOUND_TRAINER_NAME_STRING(str) (const u8[TRAINER_NAME_LENGTH + 1]) _(str)
 
 

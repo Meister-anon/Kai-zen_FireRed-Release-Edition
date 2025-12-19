@@ -1,5 +1,6 @@
 #include "global.h"
 #include "gflib.h"
+#include "battle_main.h"
 #include "decompress.h"
 #include "graphics.h"
 #include "task.h"
@@ -499,29 +500,6 @@ static const struct SpriteTemplate sTMSpriteTemplate = {
     NULL,
     gDummySpriteAffineAnimTable,
     SpriteCallbackDummy
-};
-
-//each type pallete is 16 bytes, 
-//so anything added would increase by 0x10
-static const u16 sTMSpritePaletteOffsetByType[] = { // fairy addition need do, need do sound as well
-    [TYPE_NORMAL]   = 0x000,
-    [TYPE_FIRE]     = 0x010,
-    [TYPE_WATER]    = 0x020,
-    [TYPE_GRASS]    = 0x030,
-    [TYPE_ELECTRIC] = 0x040,
-    [TYPE_ROCK]     = 0x050,
-    [TYPE_GROUND]   = 0x060,
-    [TYPE_ICE]      = 0x070,
-    [TYPE_FLYING]   = 0x080,
-    [TYPE_FIGHTING] = 0x090,
-    [TYPE_GHOST]    = 0x0a0,
-    [TYPE_BUG]      = 0x0b0,
-    [TYPE_POISON]   = 0x0c0,
-    [TYPE_PSYCHIC]  = 0x0d0,
-    [TYPE_STEEL]    = 0x0e0,
-    [TYPE_DARK]     = 0x0f0,
-    [TYPE_DRAGON]   = 0x100,
-    [TYPE_FAIRY]    = 0X110   //works
 };
 
 void InitTMCase(u8 type, void (* exitCallback)(void), bool8 allowSelectClose)
@@ -1924,7 +1902,7 @@ static void SetTMSpriteAnim(struct Sprite * sprite, u8 mode)
 static void TintTMSpriteByType(u8 type) //don't get this type here is worthless all that matters is offset?
 {
     u8 palIndex = IndexOfSpritePaletteTag(TM_CASE_TM_TAG) << 4;
-    LoadPalette(sTMSpritePaletteBuffer + sTMSpritePaletteOffsetByType[type], OBJ_PLTT_OFFSET  | palIndex, 0x20);
+    LoadPalette(sTMSpritePaletteBuffer + gTypesInfo[type].tmhmSpritePalOffset, OBJ_PLTT_OFFSET  | palIndex, 0x20);
     if (sTMCaseStaticResources.tmCaseMenuType == 4)     //The 0x100 that was here had nothing to do w offset replaced w constant to make clearer
     {
         BlendPalettes(1 << (0x10 + palIndex), 4, RGB_BLACK);

@@ -821,46 +821,55 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("NORMAL"),
         .isHiddenPowerType = FALSE,
+        .tmhmSpritePalOffset = 0x000,
     },
         [TYPE_FIGHTING] =
     {
         .name = _("FIGHT"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x090,
     },
         [TYPE_FLYING] =
     {
         .name = _("FLYING"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x080,
     },
         [TYPE_POISON] =
     {
         .name = _("POISON"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x0c0,
     },
         [TYPE_GROUND] =
     {
         .name = _("GROUND"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x060,
     },
         [TYPE_ROCK] =
     {
         .name = _("ROCK"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x050,
     },
         [TYPE_BUG] =
     {
         .name = _("BUG"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x0b0,
     },
         [TYPE_GHOST] =
     {
         .name = _("GHOST"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x0a0,
     },
         [TYPE_STEEL] =
     {
         .name = _("STEEL"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x0e0,
     },
         [TYPE_MYSTERY] =
     {
@@ -871,51 +880,61 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("FIRE"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x010,
     },
         [TYPE_WATER] =
     {
         .name = _("WATER"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x020,
     },
         [TYPE_GRASS] =
     {
         .name = _("GRASS"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x030,
     },
         [TYPE_ELECTRIC] =
     {
         .name = _("ELECTR"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x040,
     },
         [TYPE_PSYCHIC] =
     {
         .name = _("PSYCHC"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x0d0,
     },
         [TYPE_ICE] =
     {
         .name = _("ICE"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x070,
     },
         [TYPE_DRAGON] =
     {
         .name = _("DRAGON"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x100,
     },
         [TYPE_DARK] =
     {
         .name = _("DARK"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x0f0,
     },
         [TYPE_FAIRY] =
     {
         .name = _("FAIRY"), //fairy addition
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x110,
     },
         [TYPE_SOUND] =
     {
         .name = _("SOUND"),
         .isHiddenPowerType = FALSE,
+        .tmhmSpritePalOffset = 0x120, //believe still to do
     },
 };
 //uses same type order as list_menu.c so this fairy is 12, but my actuall fairy type

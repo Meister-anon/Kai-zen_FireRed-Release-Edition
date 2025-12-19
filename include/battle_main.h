@@ -21,7 +21,12 @@ struct TypeInfo
 {
     u8 name[TYPE_NAME_LENGTH + 1];
     bool8 isHiddenPowerType; // Changing this for any type will change the distribution of all Hidden Power types from vanilla.
+    u16 tmhmSpritePalOffset;
 };
+//replace sTMSpritePaletteOffsetByType
+//each type pallete is 16 bytes, 
+//so anything added would increase by 0x10
+//did I work out something for sound type just in case?
 
 struct MultiBattlePokemonTx
 {
