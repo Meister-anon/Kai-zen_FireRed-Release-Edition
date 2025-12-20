@@ -1605,7 +1605,7 @@ const struct Item gItems[] =
       .name = _("Moon Stone"),
       .itemId = ITEM_MOON_STONE,
       .price =  0,
-      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffect = HOLD_EFFECT_MOON_ROCK,
       .holdEffectParam =  0,
      .description = gItemDescription_ITEM_MOON_STONE,
 //      "description":  "A peculiar stone that makes certain\\nspecies of POKéMON evolve.\\nIt is as black as the night sky.,
@@ -3205,7 +3205,7 @@ const struct Item gItems[] =
       .name = _("Silver Powder"),
       .itemId = ITEM_SILVER_POWDER,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_BUG_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  10,
      .description = gItemDescription_ITEM_SILVER_POWDER,
 //      "description":  "An item to be held by a POKéMON.\\nA shiny silver powder that boosts\\nthe power of BUG-type moves.,
@@ -3215,7 +3215,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_BUG
     },
     [ITEM_AMULET_COIN] =
     {
@@ -3460,7 +3460,7 @@ const struct Item gItems[] =
       .name = _("Soft Sand"),
       .itemId = ITEM_SOFT_SAND,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_GROUND_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_SOFT_SAND,
 //      "description":  "An item to be held by a POKéMON.\\nA loose, silky sand that boosts the\\npower of GROUND-type moves.,
@@ -3470,14 +3470,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_GROUND
     },
     [ITEM_HARD_STONE] =
     {
       .name = _("Hard Stone"),
       .itemId = ITEM_HARD_STONE,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_ROCK_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_HARD_STONE,
 //      "description":  "An item to be held by a POKéMON.\\nAn unbreakable stone that boosts\\nthe power of ROCK-type moves.,
@@ -3487,14 +3487,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_ROCK
     },
     [ITEM_MIRACLE_SEED] =
     {
       .name = _("Miracle Seed"),
       .itemId = ITEM_MIRACLE_SEED,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_GRASS_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_MIRACLE_SEED,
 //      "description":  "An item to be held by a POKéMON.\\nA seed imbued with life that boosts\\nthe power of GRASS-type moves.,
@@ -3504,14 +3504,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_GRASS
     },
     [ITEM_BLACK_GLASSES] =
     {
       .name = _("Black Glasses"),
       .itemId = ITEM_BLACK_GLASSES,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_DARK_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_BLACK_GLASSES,
 //      "description":  "An item to be held by a POKéMON.\\nA shady-looking pair of glasses\\nthat boosts DARK-type moves.,
@@ -3521,14 +3521,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_DARK
     },
     [ITEM_BLACK_BELT] =
     {
       .name = _("Black Belt"),
       .itemId = ITEM_BLACK_BELT,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_FIGHTING_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_BLACK_BELT,
 //      "description":  "An item to be held by a POKéMON.\\nA belt that boosts determination\\nand FIGHTING-type moves.,
@@ -3538,14 +3538,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_FIGHTING
     },
     [ITEM_MAGNET] =
     {
       .name = _("Magnet"),
       .itemId = ITEM_MAGNET,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_ELECTRIC_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_MAGNET,
 //      "description":  "An item to be held by a POKéMON.\\nA powerful magnet that boosts the\\npower of ELECTRIC-type moves.,
@@ -3555,14 +3555,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_ELECTRIC
     },
     [ITEM_MYSTIC_WATER] =
     {
       .name = _("Mystic Water"),
       .itemId = ITEM_MYSTIC_WATER,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_WATER_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_MYSTIC_WATER,
 //      "description":  "An item to be held by a POKéMON.\\nA teardrop-shaped gem that boosts\\nthe power of WATER-type moves.,
@@ -3572,14 +3572,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_WATER
     },
     [ITEM_SHARP_BEAK] =
     {
       .name = _("Sharp Beak"),
       .itemId = ITEM_SHARP_BEAK,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_FLYING_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_SHARP_BEAK,
 //      "description":  "An item to be held by a POKéMON.\\nA long, sharp beak that boosts the\\npower of FLYING-type moves.,
@@ -3589,14 +3589,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_FLYING
     },
     [ITEM_POISON_BARB] =
     {
       .name = _("Poison Barb"),
       .itemId = ITEM_POISON_BARB,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_POISON_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_POISON_BARB,
 //      "description":  "An item to be held by a POKéMON.\\nA small, poisonous barb that boosts\\nthe power of POISON-type moves.,
@@ -3606,14 +3606,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_POISON
     },
     [ITEM_NEVER_MELT_ICE] =
     {
       .name = _("NeverMelt Ice"),
       .itemId = ITEM_NEVER_MELT_ICE,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_ICE_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_NEVER_MELT_ICE,
 //      "description":  "An item to be held by a POKéMON.\\nA piece of ice that repels heat\\nand boosts ICE-type moves.,
@@ -3623,14 +3623,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_ICE
     },
     [ITEM_SPELL_TAG] =
     {
       .name = _("Spell Tag"),
       .itemId = ITEM_SPELL_TAG,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_GHOST_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_SPELL_TAG,
 //      "description":  "An item to be held by a POKéMON.\\nA sinister, eerie tag that boosts\\nGHOST-type moves.,
@@ -3640,14 +3640,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_GHOST
     },
     [ITEM_TWISTED_SPOON] =
     {
       .name = _("Twisted Spoon"),
       .itemId = ITEM_TWISTED_SPOON,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_PSYCHIC_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_TWISTED_SPOON,
 //      "description":  "An item to be held by a POKéMON.\\nA spoon imbued with telekinetic\\npower boosts PSYCHIC-type moves.,
@@ -3657,14 +3657,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_PSYCHIC
     },
     [ITEM_CHARCOAL] =
     {
       .name = _("Charcoal"),
       .itemId = ITEM_CHARCOAL,
       .price =  9800,
-      .holdEffect = HOLD_EFFECT_FIRE_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_CHARCOAL,
 //      "description":  "An item to be held by a POKéMON.\\nA combustible fuel that boosts the\\npower of FIRE-type moves.,
@@ -3674,14 +3674,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_FIRE
     },
     [ITEM_DRAGON_FANG] =
     {
       .name = _("Dragon Fang"),
       .itemId = ITEM_DRAGON_FANG,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_DRAGON_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_DRAGON_FANG,
 //      "description":  "An item to be held by a POKéMON.\\nA hard and sharp fang that boosts\\nthe power of DRAGON-type moves.,
@@ -3691,14 +3691,14 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_DRAGON
     },
     [ITEM_SILK_SCARF] =
     {
       .name = _("Silk Scarf"),
       .itemId = ITEM_SILK_SCARF,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_NORMAL_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  20,
      .description = gItemDescription_ITEM_SILK_SCARF,
 //      "description":  "An item to be held by a POKéMON.\\nA sumptuous scarf that boosts the\\npower of NORMAL-type moves.,
@@ -3708,7 +3708,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_NORMAL
     },
     [ITEM_0DA] =
     {
@@ -9554,7 +9554,7 @@ const struct Item gItems[] =
       .name = _("Metal Coat"),
       .itemId = ITEM_METAL_COAT,
       .price =  100,
-      .holdEffect = HOLD_EFFECT_STEEL_POWER,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
       .holdEffectParam =  10,
      .description = gItemDescription_ITEM_METAL_COAT,
 //      "description":  "An item to be held by a POKéMON.\\nA special metallic film that boosts\\nthe power of STEEL-type moves.,
@@ -9564,7 +9564,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = FieldUseFunc_EvoItem,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_STEEL
     }, 
     [ITEM_ALOLAN_SAND] =
     {
@@ -9639,8 +9639,8 @@ const struct Item gItems[] =
       .name = _("Sea Incense"),
       .itemId = ITEM_SEA_INCENSE,
       .price =  9600,
-      .holdEffect = HOLD_EFFECT_WATER_POWER,
-      .holdEffectParam =  5,
+      .holdEffect = HOLD_EFFECT_TYPE_POWER,
+      .holdEffectParam =  20, //buffed in later gen
      .description = gItemDescription_ITEM_SEA_INCENSE,
 //      "description":  "An item to be held by a POKéMON.\\nIt slightly boosts the power of\\nWATER-type moves.,
       .importance = 0,
@@ -9649,7 +9649,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  TYPE_WATER
     },
     [ITEM_LAX_INCENSE] =
     {
@@ -9657,7 +9657,7 @@ const struct Item gItems[] =
       .itemId = ITEM_LAX_INCENSE,
       .price =  9600,
       .holdEffect = HOLD_EFFECT_EVASION_UP,
-      .holdEffectParam =  5,
+      .holdEffectParam =  10, //buffed in later gen
      .description = gItemDescription_ITEM_LAX_INCENSE,
 //      "description":  "An item to be held by a POKéMON.\\nIts tricky aroma slightly reduces\\nthe foe's accuracy.,
       .importance = 0,

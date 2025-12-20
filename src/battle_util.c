@@ -6746,6 +6746,11 @@ bool32 IsMoveMakingContact(u32 battlerAtk, u32 battlerDef, enum Ability abilityA
         RecordItemEffectBattle(battlerAtk, HOLD_EFFECT_PUNCHING_GLOVE);
         return FALSE;
     }
+    else if (holdEffectAtk == HOLD_EFFECT_LEG_WEIGHTS && IsKickingMove(move))
+    {
+        RecordItemEffectBattle(battlerAtk, HOLD_EFFECT_LEG_WEIGHTS);
+        return FALSE;
+    }
     else if (abilityAtk == ABILITY_LONG_REACH)
     {
         RecordAbilityBattle(battlerAtk, ABILITY_LONG_REACH);
@@ -7719,7 +7724,11 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
         break;
     case HOLD_EFFECT_PUNCHING_GLOVE:
         if (IsPunchingMove(move))
-           modifier = uq4_12_multiply(modifier, UQ_4_12(1.1));
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.15));
+        break;
+    case HOLD_EFFECT_LEG_WEIGHTS:
+        if (IsKickingMove(move))
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.15));
         break;
     case HOLD_EFFECT_OGERPON_MASK:
         if (GET_BASE_SPECIES_ID(gBattleMons[battlerAtk].species) == SPECIES_OGERPON)
@@ -8478,8 +8487,8 @@ static inline uq4_12_t GetDefenderAbilitiesModifier(struct DamageContext *ctx)
     case ABILITY_PRISM_ARMOR:
         if (ctx->typeEffectivenessModifier >= UQ_4_12(2.0))
         {
-            modifier = UQ_4_12(0.75);
-            recordAbility = TRUE;
+            modifier = UQ_4_12(0.80); ///readjusted multiplier for lower super mod, default matched stab
+            recordAbility = TRUE; //my version is just slightly below it
         }
         break;
     case ABILITY_FLUFFY:
@@ -8951,10 +8960,40 @@ s32 CalculateMoveDamageVars(struct DamageContext *ctx)
     return DoMoveDamageCalcVars(ctx);
 }
 
+static inline bool32 ActivateGenesectDownloadDefense(u32 battler)
+{
+    if (GetBaseFormSpecies(gBattleMons[battler].species) == SPECIES_GENESECT
+    && GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_DRIVE)
+        return TRUE;
+
+    return FALSE;
+}
+
+static inline bool32 ActivateArcuesMultiTypeDefense(u32 battler)
+{
+    if (GetBaseFormSpecies(gBattleMons[battler].species) == SPECIES_ARCEUS
+    && GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_PLATE)
+        return TRUE;
+
+    return FALSE;
+}
+
 static inline void MulByTypeEffectiveness(struct DamageContext *ctx, uq4_12_t *modifier, enum Type defType)
 {
     uq4_12_t mod = GetTypeModifier(ctx->moveType, defType);
+    uq4_12_t arceus_mod = UQ_4_12(5.0);
 
+    //set unique modifier for arcues based on if def type was 
+    //type of plate so don't have to actually change form
+    //not done yet but need accout for def type and mod changes
+    //but then again since I only want benefits
+    //technically I'd ignore effects that would make you weaker
+    //ok think should be simple think can safely ignore most things
+    if (ActivateArcuesMultiTypeDefense(ctx->battlerDef))
+        arceus_mod = GetTypeModifier(ctx->moveType, GetItemSecondaryId(gBattleMons[ctx->battlerDef].item));
+
+    //don't have to worry about this for multi type
+    //since already determined by hold effect
     if (mod == UQ_4_12(0.0) && ctx->holdEffectDef == HOLD_EFFECT_RING_TARGET)
     {
         mod = UQ_4_12(1.0);
@@ -9001,7 +9040,15 @@ static inline void MulByTypeEffectiveness(struct DamageContext *ctx, uq4_12_t *m
         }
     }
 
-    *modifier = uq4_12_multiply(*modifier, mod);
+    //if not arceus will always be true
+    //should be no problems and can't be equal
+    //and since arceues is type neutral 
+    //should do what I want and only bring in 
+    //resistances of type
+    if (mod < arceus_mod)
+        *modifier = uq4_12_multiply(*modifier, mod);
+    else
+        *modifier = uq4_12_multiply(*modifier, arceus_mod);
 }
 
 static inline void TryNoticeIllusionInTypeEffectiveness(u32 move, enum Type moveType, u32 battlerAtk, u32 battlerDef, uq4_12_t resultingModifier, u32 illusionSpecies)
@@ -9063,8 +9110,13 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct DamageCont
         MulByTypeEffectiveness(ctx, &modifier, types[1]);
     if (types[2] != TYPE_MYSTERY && types[2] != types[1] && types[2] != types[0])
         MulByTypeEffectiveness(ctx, &modifier, types[2]);
-    if (ctx->moveType == TYPE_FIRE && gDisableStructs[ctx->battlerDef].tarShot)
-        modifier = uq4_12_multiply(modifier, UQ_4_12(2.0));
+    if (ctx->moveType == TYPE_FIRE && gDisableStructs[ctx->battlerDef].tarShot) //thiink is make fire weak?
+        modifier = uq4_12_multiply(modifier, SUPER_EFFECTIVE);
+
+    if (ctx->moveType == GetItemSecondaryId(gBattleMons[ctx->battlerDef].item)
+    && ActivateGenesectDownloadDefense(ctx->battlerDef))
+        modifier = uq4_12_multiply(modifier, NOT_VERY_EFFECTIVE);
+    
 
     if (ctx->updateFlags && (illusionSpecies = GetIllusionMonSpecies(ctx->battlerDef)))
         TryNoticeIllusionInTypeEffectiveness(ctx->move, ctx->moveType, ctx->battlerAtk, ctx->battlerDef, modifier, illusionSpecies);
@@ -9072,36 +9124,41 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct DamageCont
     if (GetMoveCategory(ctx->move) == DAMAGE_CATEGORY_STATUS && ctx->move != MOVE_THUNDER_WAVE)
     {
         modifier = UQ_4_12(1.0);
-        if (B_GLARE_GHOST < GEN_4 && ctx->move == MOVE_GLARE && IS_BATTLER_OF_TYPE(ctx->battlerDef, TYPE_GHOST))
+        if (ctx->move == MOVE_GLARE && DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->battlerDef, TYPE_GHOST, FALSE))
             modifier = UQ_4_12(0.0);
     }
-    else if (ctx->moveType == TYPE_GROUND && !IsBattlerGroundedInverseCheck(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef, INVERSE_BATTLE, ctx->isAnticipation) && !(MoveIgnoresTypeIfFlyingAndUngrounded(ctx->move)))
+    else if (IsFloatingTargetImmunetoGroundBasedMoves(ctx->battlerAtk, ctx->battlerDef, ctx->move) 
+    && !IsBattlerGroundedInverseCheck(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef, INVERSE_BATTLE, ctx->isAnticipation) && !(MoveIgnoresTypeIfFlyingAndUngrounded(ctx->move)))
     {
         modifier = UQ_4_12(0.0);
-        if (ctx->updateFlags && ctx->abilityDef == ABILITY_LEVITATE)
+        
+        if (ctx->updateFlags /*&& ctx->abilityDef == ABILITY_LEVITATE*/)
         {
             gBattleStruct->moveResultFlags[ctx->battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
-            gLastUsedAbility = ABILITY_LEVITATE;
+            //gLastUsedAbility = ABILITY_LEVITATE;
             gLastLandedMoves[ctx->battlerDef] = 0;
             gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_GROUND_MISS;
-            RecordAbilityBattle(ctx->battlerDef, ABILITY_LEVITATE);
-        }
+            //RecordAbilityBattle(ctx->battlerDef, ABILITY_LEVITATE);
+        }//think is right
+        
     }
-    else if (GetConfig(CONFIG_SHEER_COLD_IMMUNITY) >= GEN_7 && GetMoveEffect(ctx->move) == EFFECT_SHEER_COLD && IS_BATTLER_OF_TYPE(ctx->battlerDef, TYPE_ICE))
+    else if (GetMoveEffect(ctx->move) == EFFECT_SHEER_COLD 
+    && DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->battlerDef, TYPE_ICE, FALSE))
     {
         modifier = UQ_4_12(0.0);
     }
 
     // Thousand Arrows ignores type modifiers for flying mons
-    if (MoveIgnoresTypeIfFlyingAndUngrounded(ctx->move)
+    /*if (MoveIgnoresTypeIfFlyingAndUngrounded(ctx->move)
      && !IsBattlerGrounded(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef)
      && IS_BATTLER_OF_TYPE(ctx->battlerDef, TYPE_FLYING))
     {
         modifier = UQ_4_12(1.0);
-    }
+    }*/
 
     // Iron Ball ignores type modifiers for flying-type mons if it is the only source of grounding
-    if (B_IRON_BALL >= GEN_5
+    //think don't need this wrapped in grouded
+    /*if (B_IRON_BALL >= GEN_5
         && ctx->moveType == TYPE_GROUND
         && ctx->holdEffectDef == HOLD_EFFECT_IRON_BALL
         && IS_BATTLER_OF_TYPE(ctx->battlerDef, TYPE_FLYING)
@@ -9109,9 +9166,10 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct DamageCont
         && !FlagGet(B_FLAG_INVERSE_BATTLE))
     {
         modifier = UQ_4_12(1.0);
-    }
+    }*/
 
-    if (((ctx->abilityDef == ABILITY_WONDER_GUARD && modifier <= UQ_4_12(1.0))
+    if (((ctx->abilityDef == ABILITY_WONDER_GUARD && modifier <= UQ_4_12(1.0)
+    || ctx->abilityDef == ABILITY_DISPIRIT_GUARD && modifier >= UQ_4_12(1.0))
         || (ctx->abilityDef == ABILITY_TELEPATHY && ctx->battlerDef == BATTLE_PARTNER(ctx->battlerAtk)))
         && GetMovePower(ctx->move) != 0)
     {
@@ -9126,8 +9184,23 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct DamageCont
         }
     }
 
-    if (ctx->updateFlags)
-        TryInitializeFirstSTABMoveTrainerSlide(ctx->battlerDef, ctx->battlerAtk, ctx->moveType);
+    if ((ctx->abilityDef == ABILITY_LIQUID_SOUL && ctx->moveType == TYPE_WATER)
+        && GetBattleMoveSplit(ctx->move) != SPLIT_STATUS)
+    {
+        modifier = UQ_4_12(0.0);
+        if (ctx->updateFlags)
+        {
+            gLastUsedAbility = gBattleMons[ctx->battlerDef].ability;
+            gBattleStruct->moveResultFlags[ctx->battlerDef] |= MOVE_RESULT_MISSED;
+            gLastLandedMoves[ctx->battlerDef] = 0;
+            PREPARE_TYPE_BUFFER(gBattleTextBuff1, ctx->moveType);
+            gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_ABILITY_TYPE_MISS;
+            RecordAbilityBattle(ctx->battlerDef, gBattleMons[ctx->battlerDef].ability);
+        }
+    }
+
+    //if (ctx->updateFlags)
+    //    TryInitializeFirstSTABMoveTrainerSlide(ctx->battlerDef, ctx->battlerAtk, ctx->moveType);
 
     return modifier;
 }

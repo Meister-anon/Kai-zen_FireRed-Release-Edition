@@ -94,9 +94,8 @@ const u8 gItemDescription_ITEM_ABILITY_CAPSULE[] = _("Switches a Pokémon's abil
 const u8 gItemDescription_ITEM_BINDING_BAND[] = _("Binds the life of holder and attacker\nDraining-moves also heal user.");
 
 
-
 const u8 gItemDescription_ITEM_SUN_STONE[] = _("A peculiar stone that makes certain\nspecies of POKéMON evolve.\nIt is as red as the sun.");
-const u8 gItemDescription_ITEM_MOON_STONE[] = _("A peculiar stone that makes certain\nspecies of POKéMON evolve.\nIt is as black as the night sky.");
+const u8 gItemDescription_ITEM_MOON_STONE[] = _("An odd black as night stone that\nmakes certain POKéMON evolve.\nIf held extends lunar weather.");
 const u8 gItemDescription_ITEM_FIRE_STONE[] = _("A peculiar stone that makes certain\nspecies of POKéMON evolve.\nIt is colored orange.");
 const u8 gItemDescription_ITEM_THUNDER_STONE[] = _("A peculiar stone that makes certain\nspecies of POKéMON evolve.\nIt has a thunderbolt pattern.");
 const u8 gItemDescription_ITEM_WATER_STONE[] = _("A peculiar stone that makes certain\nspecies of POKéMON evolve.\nIt is a clear light blue.");
@@ -624,8 +623,8 @@ const u8 gItemDescription_ITEM_VENUSAURITE[] = _("?????");
 const u8 gItemDescription_ITEM_TORTERRAITE[] = _("?????");
 const u8 gItemDescription_ITEM_MAROWAKONITE[] = _("?????");
 const u8 gItemDescription_ITEM_MEGA_BRACELET[] = _("?????");//put regional sand right below this
-const u8 gItemDescription_ITEM_SEA_INCENSE[] = _("An item to be held by a POKéMON.\nIt slightly boosts the power of\nWATER-type moves.");
-const u8 gItemDescription_ITEM_LAX_INCENSE[] = _("An item to be held by a POKéMON.\nIts tricky aroma slightly reduces\nthe foe's accuracy.");
+const u8 gItemDescription_ITEM_SEA_INCENSE[] = _("An item to be held by a POKéMON.\nIt boosts the power of\nWATER-type moves.");
+const u8 gItemDescription_ITEM_LAX_INCENSE[] = _("An item to be held by a POKéMON.\nIts tricky aroma reduces\nthe foe's accuracy.");
 const u8 gItemDescription_ITEM_BLACK_SLUDGE[] = _("Gradually restores\nHP of Poison-types.\nBut Damages others.");
 const u8 gItemDescription_ITEM_BAD_ONION[] = _("Prevents trainers from\napproaching for 100 steps.");
 const u8 gItemDescription_ITEM_NONE[] = _("?????");

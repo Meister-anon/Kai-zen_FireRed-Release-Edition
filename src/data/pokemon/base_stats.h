@@ -15453,6 +15453,15 @@ const struct BaseStats gBaseStats[] =
     },//nothing should ne higher normally - just finished readjust and wow its actually perfect
     //all thes have been brought down and the highest legendarys are just slightly above arceus
     //while its still clearly better in every way
+    //plan change multitype holding plates gives resistance
+    //of said type without the weaknesses
+    //and without changing type
+    //think will exclude arceus from tera type
+    //plates will allow it to chose an alignment/form,
+    //giving it select affinity and resistances
+    //realize I can set this up now, don't have the item defined
+    //but I have the hold effect and that's the important part
+    //ok think done, and genesect done as well
 
     [SPECIES_VICTINI] =
     {

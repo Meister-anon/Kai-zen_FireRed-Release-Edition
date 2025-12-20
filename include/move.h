@@ -359,7 +359,7 @@ static inline bool32 IsVariableMultiHitMove(u32 moveId)
 
 static inline bool32 IsMultiHitMove(u32 moveId)
 {
-    return (GetMoveStrikeCount(moveId) > 1 || IsVariableMultiHitMove(moveId))
+    return (GetMoveStrikeCount(moveId) > 1 || IsVariableMultiHitMove(moveId));
 }
 
 static inline bool32 MoveSureHitEvasionBoostedTargets(u32 moveId)

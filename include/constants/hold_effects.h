@@ -158,7 +158,7 @@
 #define HOLD_EFFECT_ABILITY_SHIELD      175
 #define HOLD_EFFECT_CLEAR_AMULET		176
 #define HOLD_EFFECT_MIRROR_HERB		    177
-#define HOLD_EFFECT_PUNCHING_GLOVE			178 //call punch glove, and make leg equivalent
+#define HOLD_EFFECT_PUNCHING_GLOVE			178 //buff this and custom equiv too weak on its own and still not meta even w iron fist mon lower than choice barely equal life orb boost
 #define HOLD_EFFECT_COVERT_CLOAK		179
 #define HOLD_EFFECT_LOADED_DICE			180
 #define HOLD_EFECT_BOOSTER_ENERGY			181
@@ -166,7 +166,7 @@
 
 //custom hold effects
 #define HOLD_EFFECT_ULTIMA_BRACE	183 // block exp multiply ev gain *exp=0		I guess could just be stronger version of my new macho brace effect?
-#define HOLD_EFFECT_SOUND_POWER     184   //call deci bell (I think)
+#define HOLD_EFFECT_TYPE_POWER     184   //call deci bell (I think) //everything but was sound power
 #define HOLD_EFFECT_SNOW_GLOBE      185   //ice orb,
 //new idea split off of snow globe, item that works differently based on type if ice type, boosts some defense stat a good deal,
 //if not...then it freezes the holder :)  check if canbefrozen, is not already frozen, then freeze solid 
@@ -175,7 +175,11 @@
 #define HOLD_EFFECT_ICE_BOX      186   
 #define HOLD_EFFECT_HONEY    187
 #define HOLD_EFFECT_LEG_WEIGHTS 188  //leg equialent of punching gloves
-
+#define HOLD_EFFECT_SLIMY_ROCK 189 //similar lime stone acidic extends acid rain
+//set for moon stone rather than new item
+//with planned mining gives more purpose to item
+//passed evolution
+#define HOLD_EFFECT_MOON_ROCK 190 //new weather extenders hold effect moon rock is moon stone
 
 // Terrain seed params
 #define HOLD_EFFECT_PARAM_ELECTRIC_TERRAIN  0
