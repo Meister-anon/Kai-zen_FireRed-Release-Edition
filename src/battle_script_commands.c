@@ -1518,6 +1518,8 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
                     return;
                 }
 
+                //same as my thing power 0 becomes typeless
+                //unsure how acc check type calc effects things
                 if (GetMovePower(move) != 0)
                 {
                     struct DamageContext ctx = {0};
@@ -2084,7 +2086,7 @@ static u32 UpdateEffectivenessResultFlagsForDoubleSpreadMoves(u32 resultFlags)
 
 static inline bool32 TryStrongWindsWeakenAttack(u32 battlerDef, u32 moveType)
 {
-    if (gBattleWeather & B_WEATHER_STRONG_WINDS && HasWeatherEffect())
+    if (gBattleWeather & WEATHER_STRONG_WINDS && HasWeatherEffect())
     {
         if (GetMoveCategory(gCurrentMove) != DAMAGE_CATEGORY_STATUS
          && IS_BATTLER_OF_TYPE(battlerDef, TYPE_FLYING)
@@ -2133,6 +2135,7 @@ static inline bool32 TryActivateWeaknessBerry(u32 battlerDef)
     return FALSE;
 }
 
+//vsonic important hold for color change rework
 static bool32 ProcessPreAttackAnimationFuncs(void)
 {
     u32 moveType = GetBattleMoveType(gCurrentMove);
@@ -3597,7 +3600,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, enum MoveEffect moveEffect, c
         break;
     case MOVE_EFFECT_REMOVE_ARG_TYPE:
     {
-        u32 type = GetMoveArgType(gCurrentMove);
+        u32 type = GetMoveStoredValue(gCurrentMove);
         // This seems unnecessary but is done to make it work properly with Parental Bond
         BattleScriptPush(battleScript);
         switch (type)
@@ -8070,7 +8073,7 @@ bool32 DoSwitchInAbilities(u32 battler)
 {
     return (TryPrimalReversion(battler)
          || AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, battler, 0, 0, 0)
-         || (gBattleWeather & B_WEATHER_ANY && HasWeatherEffect() && AbilityBattleEffects(ABILITYEFFECT_ON_WEATHER, battler, 0, 0, 0))
+         || (gBattleWeather & WEATHER_ANY && HasWeatherEffect() && AbilityBattleEffects(ABILITYEFFECT_ON_WEATHER, battler, 0, 0, 0))
          || (gFieldStatuses & STATUS_FIELD_TERRAIN_ANY && AbilityBattleEffects(ABILITYEFFECT_ON_TERRAIN, battler, 0, 0, 0)));
 }
 
@@ -9532,19 +9535,19 @@ static void RemoveAllWeather(void)
 {
     gWishFutureKnock.weatherDuration = 0;
 
-    if (gBattleWeather & B_WEATHER_RAIN)
+    if (gBattleWeather & WEATHER_RAIN)
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEATHER_END_RAIN;
-    else if (gBattleWeather & B_WEATHER_SANDSTORM)
+    else if (gBattleWeather & WEATHER_SANDSTORM)
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEATHER_END_SANDSTORM;
-    else if (gBattleWeather & B_WEATHER_SUN)
+    else if (gBattleWeather & WEATHER_SUN)
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEATHER_END_SUN;
-    else if (gBattleWeather & B_WEATHER_HAIL)
+    else if (gBattleWeather & WEATHER_HAIL)
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEATHER_END_HAIL;
-    else if (gBattleWeather & B_WEATHER_STRONG_WINDS)
+    else if (gBattleWeather & WEATHER_STRONG_WINDS)
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEATHER_END_STRONG_WINDS;
-    else if (gBattleWeather & B_WEATHER_SNOW)
+    else if (gBattleWeather & WEATHER_SNOW)
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEATHER_END_SNOW;
-    else if (gBattleWeather & B_WEATHER_FOG)
+    else if (gBattleWeather & WEATHER_FOG)
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEATHER_END_FOG;
     else
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEATHER_END_COUNT;  // failsafe
@@ -9647,11 +9650,11 @@ static bool32 TryDefogClear(u32 battlerAtk, bool32 clear)
             if (DefogClearHazards(saveBattler, i, clear))
                 return TRUE;
         }
-        if (gBattleWeather & B_WEATHER_FOG)
+        if (gBattleWeather & WEATHER_FOG)
         {
             if (clear)
             {
-                gBattleWeather &= ~B_WEATHER_FOG;
+                gBattleWeather &= ~WEATHER_FOG;
                 BattleScriptCall(BattleScript_FogEnded_Ret);
             }
             return TRUE;
@@ -9714,7 +9717,7 @@ u32 IsFlowerVeilProtected(u32 battler)
 
 u32 IsLeafGuardProtected(u32 battler, enum Ability ability)
 {
-    if (IsBattlerWeatherAffected(battler, B_WEATHER_SUN))
+    if (IsBattlerWeatherAffected(battler, WEATHER_SUN))
         return ability == ABILITY_LEAF_GUARD;
     else
         return 0;
@@ -12670,16 +12673,16 @@ static void Cmd_recoverbasedonsunlight(void)
         s32 recoverAmount = 0;
         if (GetMoveEffect(gCurrentMove) == EFFECT_SHORE_UP)
         {
-            if (HasWeatherEffect() && gBattleWeather & B_WEATHER_SANDSTORM)
+            if (HasWeatherEffect() && gBattleWeather & WEATHER_SANDSTORM)
                 recoverAmount = 20 * GetNonDynamaxMaxHP(gBattlerAttacker) / 30;
             else
                 recoverAmount = GetNonDynamaxMaxHP(gBattlerAttacker) / 2;
         }
         else if (GetConfig(CONFIG_TIME_OF_DAY_HEALING_MOVES) != GEN_2)
         {
-            if (!(gBattleWeather & B_WEATHER_ANY) || !HasWeatherEffect() || GetBattlerHoldEffect(gBattlerAttacker) == HOLD_EFFECT_UTILITY_UMBRELLA)
+            if (!(gBattleWeather & WEATHER_ANY) || !HasWeatherEffect() || GetBattlerHoldEffect(gBattlerAttacker) == HOLD_EFFECT_UTILITY_UMBRELLA)
                 recoverAmount = GetNonDynamaxMaxHP(gBattlerAttacker) / 2;
-            else if (gBattleWeather & B_WEATHER_SUN)
+            else if (gBattleWeather & WEATHER_SUN)
                 recoverAmount = 20 * GetNonDynamaxMaxHP(gBattlerAttacker) / 30;
             else // not sunny weather
                 recoverAmount = GetNonDynamaxMaxHP(gBattlerAttacker) / 4;
@@ -12709,9 +12712,9 @@ static void Cmd_recoverbasedonsunlight(void)
                 break;
             }
 
-            if (!(gBattleWeather & B_WEATHER_ANY) || !HasWeatherEffect() || GetBattlerHoldEffect(gBattlerAttacker) == HOLD_EFFECT_UTILITY_UMBRELLA)
+            if (!(gBattleWeather & WEATHER_ANY) || !HasWeatherEffect() || GetBattlerHoldEffect(gBattlerAttacker) == HOLD_EFFECT_UTILITY_UMBRELLA)
                 recoverAmount = healingModifier * GetNonDynamaxMaxHP(gBattlerAttacker) / 4;
-            else if (gBattleWeather & B_WEATHER_SUN)
+            else if (gBattleWeather & WEATHER_SUN)
                 recoverAmount = healingModifier * GetNonDynamaxMaxHP(gBattlerAttacker) / 2;
             else // not sunny weather
                 recoverAmount = healingModifier * GetNonDynamaxMaxHP(gBattlerAttacker) / 8;
@@ -12727,7 +12730,7 @@ static void Cmd_recoverbasedonsunlight(void)
     }
 }
 
-//
+//think dopne
 static void Cmd_setstickyweb(void)
 {
     CMD_ARGS(const u8 *failInstr);
@@ -17249,7 +17252,7 @@ void BS_SwitchinAbilities(void)
     AbilityBattleEffects(ABILITYEFFECT_OPPORTUNIST, battler, 0, 0, 0);
     AbilityBattleEffects(ABILITYEFFECT_IMMUNITY, battler, 0, 0, 0);
 
-    if (gBattleWeather & B_WEATHER_ANY && HasWeatherEffect())
+    if (gBattleWeather & WEATHER_ANY && HasWeatherEffect())
         AbilityBattleEffects(ABILITYEFFECT_ON_WEATHER, battler, 0, 0, 0);
 
     if (gFieldStatuses & STATUS_FIELD_TERRAIN_ANY)
@@ -17443,7 +17446,7 @@ void BS_TrySoak(void)
     NATIVE_ARGS(const u8 *failInstr);
     enum Type types[3];
     GetBattlerTypes(gBattlerTarget, FALSE, types);
-    enum Type typeToSet = GetMoveArgType(gCurrentMove);
+    enum Type typeToSet = GetMoveStoredValue(gCurrentMove);
     if ((types[0] == typeToSet && types[1] == typeToSet)
      || GetActiveGimmick(gBattlerTarget) == GIMMICK_TERA)
     {
@@ -17752,7 +17755,7 @@ void BS_SetAuroraVeil(void)
 void BS_TryThirdType(void)
 {
     NATIVE_ARGS(const u8 *failInstr);
-    u32 type = GetMoveArgType(gCurrentMove);
+    u32 type = GetMoveStoredValue(gCurrentMove);
     if (IS_BATTLER_OF_TYPE(gBattlerTarget, type) || GetActiveGimmick(gBattlerTarget) == GIMMICK_TERA)
     {
         gBattlescriptCurrInstr = cmd->failInstr;
@@ -17995,27 +17998,27 @@ void BS_TryToClearPrimalWeather(void)
     for (u32 i = 0; i < gBattlersCount; i++)
     {
         enum Ability ability = GetBattlerAbility(i);
-        if (((ability == ABILITY_DESOLATE_LAND && gBattleWeather & B_WEATHER_SUN_PRIMAL)
-             || (ability == ABILITY_PRIMORDIAL_SEA && gBattleWeather & B_WEATHER_RAIN_PRIMAL)
-             || (ability == ABILITY_DELTA_STREAM && gBattleWeather & B_WEATHER_STRONG_WINDS))
+        if (((ability == ABILITY_DESOLATE_LAND && gBattleWeather & WEATHER_SUN_PRIMAL)
+             || (ability == ABILITY_PRIMORDIAL_SEA && gBattleWeather & WEATHER_RAIN_PRIMAL)
+             || (ability == ABILITY_DELTA_STREAM && gBattleWeather & WEATHER_STRONG_WINDS))
             && IsBattlerAlive(i))
             shouldNotClear = TRUE;
     }
-    if (gBattleWeather & B_WEATHER_SUN_PRIMAL && !shouldNotClear)
+    if (gBattleWeather & WEATHER_SUN_PRIMAL && !shouldNotClear)
     {
-        gBattleWeather &= ~B_WEATHER_SUN_PRIMAL;
+        gBattleWeather &= ~WEATHER_SUN_PRIMAL;
         PrepareStringBattle(STRINGID_EXTREMESUNLIGHTFADED, gBattlerAttacker);
         gBattleCommunication[MSG_DISPLAY] = 1;
     }
-    else if (gBattleWeather & B_WEATHER_RAIN_PRIMAL && !shouldNotClear)
+    else if (gBattleWeather & WEATHER_RAIN_PRIMAL && !shouldNotClear)
     {
-        gBattleWeather &= ~B_WEATHER_RAIN_PRIMAL;
+        gBattleWeather &= ~WEATHER_RAIN_PRIMAL;
         PrepareStringBattle(STRINGID_HEAVYRAINLIFTED, gBattlerAttacker);
         gBattleCommunication[MSG_DISPLAY] = 1;
     }
-    else if (gBattleWeather & B_WEATHER_STRONG_WINDS && !shouldNotClear)
+    else if (gBattleWeather & WEATHER_STRONG_WINDS && !shouldNotClear)
     {
-        gBattleWeather &= ~B_WEATHER_STRONG_WINDS;
+        gBattleWeather &= ~WEATHER_STRONG_WINDS;
         PrepareStringBattle(STRINGID_STRONGWINDSDISSIPATED, gBattlerAttacker);
         gBattleCommunication[MSG_DISPLAY] = 1;
     }

@@ -115,6 +115,18 @@
 #define B_OUTCOME_MON_TELEPORTED       0xA
 #define B_OUTCOME_LINK_BATTLE_RAN      0x80
 
+//vsonic important use this for bringing counters etc
+//into uq
+//modifier = uq4_12_multiply(modifier, uq4_12_add(UQ_4_12(1.0), PercentToUQ4_12(gSpecialStatuses[battlerAtk].gemParam)));
+//default stab is 1.5 keep in mind for other 1.5 mods if decide adjust
+#define SUPER_EFFECTIVE     UQ_4_12(1.55)
+#define NOT_VERY_EFFECTIVE  UQ_4_12(0.5)
+#define NO_EFFECT           UQ_4_12(0.0)
+
+#define JOAT_BONUS          UQ_4_12(1.17)
+#define SAME_TYPE_BONUS     UQ_4_12(1.35)
+#define ADAPTABILITY_BONUS  UQ_4_12(1.75)
+
 
 // Non-volatile status conditions
 // These persist remain outside of battle and after switching out
