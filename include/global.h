@@ -355,10 +355,13 @@ extern u8 gUnknownStringVar[]; //new buffer seems fine? haven't printed yet but 
 //move description version
 //_Description can hold 5 line breaks (so 6 lines total)
 //at approx 19 chars per line// so 114 max ( + 5 for line break escape chars)
-#define COMPOUND_MOVE_STRING(str) (const u8[MOVE_DESCRIPTION_LENGTH + 5]) _(str)
+#define COMPOUND_MOVE_STRING(str) (COMPOUND_STRING_SIZE_LIMIT(str, MOVE_DESCRIPTION_LENGTH + 5))
 
 //replacement version so can use compound string logic w my ability stuff and keep my limiter
-#define COMPOUND_ABILITY_STRING(str) (const u8[ABILITY_DESCRIPTION_LENGTH + 1]) _(str)
+//reworked with EE new changes, is able to save space since not hard setting
+//value of string to max limit allows smaller strings to exist at their true
+//saved approx 5k bytes .01 % rom size
+#define COMPOUND_ABILITY_STRING(str) (COMPOUND_STRING_SIZE_LIMIT(str, ABILITY_DESCRIPTION_LENGTH + 1))
 
 //same for trainer names in trainers.h before can use need check all name values for repeats, replace replace w static string
 #define COMPOUND_TRAINER_NAME_STRING(str) (const u8[TRAINER_NAME_LENGTH + 1]) _(str)

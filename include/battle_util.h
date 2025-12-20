@@ -102,6 +102,12 @@ enum ItemEffect
 #define BS_GET_PLAYER2                  13
 #define BS_GET_OPPONENT2                14
 
+// Lowest and highest percentages used for damage roll calculations
+#define DMG_ROLL_PERCENT_LO 85
+#define DMG_ROLL_PERCENT_HI 100
+
+extern const u8 *const gPlayCryanims[];
+
 u8 GetBattlerForBattleScript(u8 caseId);
 
 u32 GetFuryCutterAccuracy(u32 battlerAtk, u32 move);

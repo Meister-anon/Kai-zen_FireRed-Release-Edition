@@ -913,6 +913,7 @@ extern const u8 BattleScript_EffectPainSplit[];
 extern const u8 BattleScript_EffectSnore[];
 extern const u8 BattleScript_EffectLockOn[];
 extern const u8 BattleScript_EffectSketch[];
+extern const u8 BattleScript_EffectMonotype[];
 extern const u8 BattleScript_EffectDestinyBond[];
 extern const u8 BattleScript_EffectSpite[];
 extern const u8 BattleScript_EffectHealBell[];

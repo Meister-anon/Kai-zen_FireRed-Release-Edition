@@ -8249,9 +8249,36 @@ static inline u32 CalcDefenseStat(struct DamageContext *ctx)
 }
 
 // base damage formula before adding any modifiers
-static inline s32 CalculateBaseDamage(u32 power, u32 userFinalAttack, u32 level, u32 targetFinalDefense)
+//added defenderlevel and attack battler argument
+static inline s32 CalculateBaseDamage(u32 battlerAtk, u32 power, u32 userFinalAttack, u32 levelAtk, u32 levelDef, u32 targetFinalDefense)
 {
-    return power * userFinalAttack * (2 * level / 5 + 2) / targetFinalDefense / 50 + 2;
+
+    s32 FinalValue;
+
+    //return power * userFinalAttack * (2 * level / 5 + 2) / targetFinalDefense / 50 + 2;
+
+    //portion fits into (2 * level)
+    if ((levelDef - levelAtk >= 7 && GetBattlerSide(battlerAtk) != B_SIDE_PLAYER)
+    || (levelAtk < 6 && levelDef >= 3 && levelDef < 6 && !GetNumBadges()))
+        FinalValue = power * userFinalAttack *  (max(2 * levelAtk / 5, 1) + 3); //speed up early leveling a bit
+    else
+        FinalValue = power * userFinalAttack *  ((((levelAtk*110)/100)/5)+(((levelAtk*168)/100)/11)+2); //perfect formula
+
+    FinalValue /= targetFinalDefense;
+
+    //end divisor after target defense
+    if ((levelAtk - levelDef >= 4 && levelAtk <= 12) //dmg feels GOOD,w new formula may inreas this to 10
+        || levelAtk - levelDef >= 10)
+            FinalValue /= 60;
+        else if (levelDef - levelAtk >= 5) //boost underlevel enmemise added back
+            FinalValue /= 42; //keep; an eye on this since it would work for both sides
+        else
+            FinalValue /= 51;
+
+    
+    return FinalValue;
+
+
 }
 
 static inline uq4_12_t GetTargetDamageModifier(struct DamageContext *ctx)
@@ -8606,25 +8633,36 @@ static inline uq4_12_t GetOtherModifiers(struct DamageContext *ctx)
 
 //used to exclude for bottom effect doesn't include status moves that do so
 //well nah might as well include all
-static bool8 DoesMoveUseCryInBattleAnim(u16 move)
+const u8 *const gPlayCryanims[] =
 {
-    switch (move)
+    gBattleAnimMove_AlluringVoice,
+    gBattleAnimMove_Boomburst,
+    gBattleAnimMove_RelicSong,
+    gBattleAnimMove_TorchSong,
+    gBattleAnimMove_HyperVoice,
+    gBattleAnimMove_Round,
+    gBattleAnimMove_Chatter,
+    gBattleAnimMove_RoarOfTime,
+    gBattleAnimMove_DisarmingVoice,
+    gBattleAnimMove_HyperspaceFury
+};
+
+//used to exclude for bottom effect doesn't include status moves that do so
+//well nah might as well include all
+static bool32 DoesMoveUseCryInBattleAnim(u16 move)
+{
+    u32 i;
+    GetMoveAnimationScript(move);
+
+    for (i = 0; i < sizeof(gPlayCryanims); i++)
     {
-        case MOVE_GROWL:
-        case MOVE_PARTING_SHOT:
-        case MOVE_OBSTRUCT:
-        case MOVE_DISARMING_VOICE:
-        case MOVE_HYPERSPACE_FURY:
-        case MOVE_CHATTER:
-        case MOVE_ROAR:
-        case MOVE_ROAR_OF_TIME:
+        if (GetMoveAnimationScript(move) == gPlayCryanims[i])
             return TRUE;
-            break;
-        default:
-            return FALSE;
-            break;
-        
     }
+
+    return FALSE;
+
+
 }
 
 //idk where this applies but need to adjust this
@@ -8635,6 +8673,7 @@ static inline s32 DoMoveDamageCalcVars(struct DamageContext *ctx)
     s32 dmg;
     u32 userFinalAttack;
     u32 targetFinalDefense;
+    u32 dmgroll = DMG_ROLL_PERCENT_HI - RandomUniform(RNG_DAMAGE_MODIFIER, 0, DMG_ROLL_PERCENT_HI - DMG_ROLL_PERCENT_LO);
 
     if (ctx->fixedBasePower)
         gBattleMovePower = ctx->fixedBasePower;
@@ -8644,7 +8683,7 @@ static inline s32 DoMoveDamageCalcVars(struct DamageContext *ctx)
     userFinalAttack = CalcAttackStat(ctx);
     targetFinalDefense = CalcDefenseStat(ctx);
 
-    dmg = CalculateBaseDamage(gBattleMovePower, userFinalAttack, gBattleMons[ctx->battlerAtk].level, targetFinalDefense);
+    dmg = CalculateBaseDamage(ctx->battlerAtk, gBattleMovePower, userFinalAttack, gBattleMons[ctx->battlerAtk].level, gBattleMons[ctx->battlerDef].level, targetFinalDefense);
     DAMAGE_APPLY_MODIFIER(GetTargetDamageModifier(ctx));
     DAMAGE_APPLY_MODIFIER(GetParentalBondModifier(ctx->battlerAtk));
     DAMAGE_APPLY_MODIFIER(GetWeatherDamageModifier(ctx));
@@ -8653,8 +8692,15 @@ static inline s32 DoMoveDamageCalcVars(struct DamageContext *ctx)
 
     if (ctx->randomFactor)
     {
-        dmg *= DMG_ROLL_PERCENT_HI - RandomUniform(RNG_DAMAGE_MODIFIER, 0, DMG_ROLL_PERCENT_HI - DMG_ROLL_PERCENT_LO);
+        dmg *= dmgroll;
         dmg /= 100;
+
+        //works in EE putting within randomfactor should
+        //naturally exclude things like fixed effects and status moves
+        if (gMain.inBattle && !DoesMoveUseCryInBattleAnim(ctx->move)
+        && (dmgroll == DMG_ROLL_PERCENT_HI || ctx->isCrit))
+            PlayCry_Normal(gBattleMons[ctx->battlerAtk].species, 25);
+
     }
     else // Apply rest of modifiers in the ai function
     {
@@ -8663,6 +8709,7 @@ static inline s32 DoMoveDamageCalcVars(struct DamageContext *ctx)
         return dmg;
     }
 
+    
     dmg = ApplyModifiersAfterDmgRoll(ctx, dmg);
 
     if (dmg == 0)
@@ -8810,9 +8857,10 @@ static inline s32 DoFutureSightAttackDamageCalcVars(struct DamageContext *ctx)
     enum Type moveType = ctx->moveType;
 
     struct Pokemon *party = GetBattlerParty(battlerAtk);
-    struct Pokemon *partyMon = &party[gWishFutureKnock.futureSightPartyIndex[battlerDef]];
+    struct Pokemon *partyMon = &party[gWishFutureKnock.futureSightPartyIndex[battlerDef]];//store mon that used future sight believe
     u32 partyMonLevel = GetMonData(partyMon, MON_DATA_LEVEL, NULL);
     u32 partyMonSpecies = GetMonData(partyMon, MON_DATA_SPECIES, NULL);
+    u32 targetMonLevel = GetMonData(GetBattlerMon(battlerDef), MON_DATA_LEVEL);
     gBattleMovePower = GetMovePower(move);
 
     if (IsBattleMovePhysical(move))
@@ -8821,7 +8869,7 @@ static inline s32 DoFutureSightAttackDamageCalcVars(struct DamageContext *ctx)
         userFinalAttack = GetMonData(partyMon, MON_DATA_SPATK, NULL);
 
     targetFinalDefense = CalcDefenseStat(ctx);
-    dmg = CalculateBaseDamage(gBattleMovePower, userFinalAttack, partyMonLevel, targetFinalDefense);
+    dmg = CalculateBaseDamage(battlerAtk, gBattleMovePower, userFinalAttack, partyMonLevel, targetMonLevel, targetFinalDefense);
 
     DAMAGE_APPLY_MODIFIER(GetCriticalModifier(ctx->isCrit));
 
@@ -9129,20 +9177,24 @@ uq4_12_t CalcPartyMonTypeEffectivenessMultiplier(u16 move, u16 speciesDef, enum 
     return modifier;
 }
 
+//vsonic need double check but believe I adjusted this
+//intead of immune becoming super it becomes neutral
+//and neutral becomes immune?
 static uq4_12_t GetInverseTypeMultiplier(uq4_12_t multiplier)
 {
     switch (multiplier)
     {
     case UQ_4_12(0.0):
+        return UQ_4_12(1.0);
     case UQ_4_12(0.5):
-        return UQ_4_12(2.0);
-    case UQ_4_12(2.0):
+        return UQ_4_12(1.55);
+    case UQ_4_12(1.55):
         return UQ_4_12(0.5);
     case UQ_4_12(1.0):
     default:
-        return UQ_4_12(1.0);
+        return UQ_4_12(0.0);
     }
-}
+}//unsure if default matters here
 
 uq4_12_t GetOverworldTypeEffectiveness(struct Pokemon *mon, enum Type moveType)
 {
@@ -9178,6 +9230,7 @@ uq4_12_t GetTypeModifier(enum Type atkType, enum Type defType)
     return gTypeEffectivenessTable[atkType][defType];
 }
 
+//done
 s32 GetStealthHazardDamageByTypesAndHP(enum TypeSideHazard hazardType, enum Type type1, enum Type type2, u32 maxHp)
 {
     s32 dmg = 0;
@@ -9193,21 +9246,15 @@ s32 GetStealthHazardDamageByTypesAndHP(enum TypeSideHazard hazardType, enum Type
         dmg = 0;
         break;
     case UQ_4_12(0.25):
-        dmg = maxHp / 32;
-        if (dmg == 0)
-            dmg = 1;
+        dmg = max(maxHp / 32, 1);
         break;
     case UQ_4_12(0.5):
-        dmg = maxHp / 16;
-        if (dmg == 0)
-            dmg = 1;
+        dmg = max(maxHp / 16, 1);
         break;
     case UQ_4_12(1.0):
-        dmg = maxHp / 8;
-        if (dmg == 0)
-            dmg = 1;
+        dmg = max(maxHp / 8, 1);
         break;
-    case UQ_4_12(2.0):
+    /*case UQ_4_12(2.0):
         dmg = maxHp / 4;
         if (dmg == 0)
             dmg = 1;
@@ -9216,7 +9263,12 @@ s32 GetStealthHazardDamageByTypesAndHP(enum TypeSideHazard hazardType, enum Type
         dmg = maxHp / 2;
         if (dmg == 0)
             dmg = 1;
-        break;
+        break;*/
+    }
+
+    if (modifier > UQ_4_12(1.0))
+    {
+        dmg = max(maxHp / 5, 1);
     }
 
     return dmg;

@@ -506,7 +506,7 @@ static inline bool32 IsMoveSketchBanned(u32 moveId)
     return gBattleMoves[SanitizeMoveId(moveId)].sketchBanned;
 }
 
-/*static inline u32 GetMoveTwoTurnAttackStringId(u32 moveId)
+static inline u32 GetMoveTwoTurnAttackStringId(u32 moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].argument.twoTurnAttack.stringId;
 }
@@ -599,6 +599,8 @@ static inline const struct AdditionalEffect *GetMoveAdditionalEffectById(u32 mov
 {
     return &gBattleMoves[SanitizeMoveId(moveId)].additionalEffects[effect];
 }
+
+/*
 
 static inline u32 GetMoveContestEffect(u32 moveId)
 {
