@@ -278,7 +278,7 @@ SINGLE_BATTLE_TEST("Multi-hit moves don't hit a protected target and fail only o
     PARAMETRIZE { move = MOVE_SPIKY_SHIELD; }
 
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_ARM_THRUST].effect == EFFECT_MULTI_HIT);
+        ASSUME(gMovesInfo[MOVE_ARM_THRUST].variableMultihit == TRUE);
         PLAYER(SPECIES_RAPIDASH);
         OPPONENT(SPECIES_BEAUTIFLY);
     } WHEN {

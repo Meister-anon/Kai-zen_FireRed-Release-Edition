@@ -6446,6 +6446,7 @@ static void Cmd_moveend(void)
                 {
                     s32 healAmount = (gBattleStruct->moveDamage[gBattlerTarget] * GetMoveAbsorbPercentage(gCurrentMove) / 100);
                     healAmount = GetDrainedBigRootHp(gBattlerAttacker, healAmount);
+                    healAmount = MistyTerrainHealBoost(gBattlerAttacker, healAmount);
                     effect = TRUE;
                     if ((moveEffect == EFFECT_DREAM_EATER && GetConfig(CONFIG_DREAM_EATER_LIQUID_OOZE) < GEN_5)
                         || GetBattlerAbility(gBattlerTarget) != ABILITY_LIQUID_OOZE)
@@ -6838,7 +6839,7 @@ static void Cmd_moveend(void)
                 gBattleScripting.multihitString[4]++;
                 if (gMultiHitCounter == 0)
                 {
-                    if (moveEffect == EFFECT_MULTI_HIT
+                    if (IsVariableMultiHitMove(gCurrentMove)
                      && GetMoveEffectArg_MoveProperty(gCurrentMove) == MOVE_EFFECT_SCALE_SHOT
                      && !NoAliveMonsForEitherParty())
                         BattleScriptCall(BattleScript_ScaleShot);
@@ -14589,7 +14590,7 @@ static void Cmd_tryoverwriteability(void)
     CMD_ARGS(const u8 *failInstr);
 
     if (gAbilitiesInfo[gBattleMons[gBattlerTarget].ability].cantBeOverwritten
-     || gBattleMons[gBattlerTarget].ability == GetMoveOverwriteAbility(gCurrentMove))
+     || gBattleMons[gBattlerTarget].ability == GetMoveStoredValue(gCurrentMove))
     {
         RecordAbilityBattle(gBattlerTarget, gBattleMons[gBattlerTarget].ability);
         gBattlescriptCurrInstr = cmd->failInstr;
@@ -14606,7 +14607,7 @@ static void Cmd_tryoverwriteability(void)
 
         RemoveAbilityFlags(gBattlerTarget);
         gBattleScripting.abilityPopupOverwrite = gBattleMons[gBattlerTarget].ability;
-        gBattleMons[gBattlerTarget].ability = gDisableStructs[gBattlerTarget].overwrittenAbility = GetMoveOverwriteAbility(gCurrentMove);
+        gBattleMons[gBattlerTarget].ability = gDisableStructs[gBattlerTarget].overwrittenAbility = GetMoveStoredValue(gCurrentMove);
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
@@ -14807,10 +14808,9 @@ bool32 IsMoveAffectedByParentalBond(u32 move, u32 battler)
     if (move != MOVE_NONE && move != MOVE_UNAVAILABLE && move != MOVE_STRUGGLE
         && !IsMoveParentalBondBanned(move)
         && GetMoveCategory(move) != DAMAGE_CATEGORY_STATUS
-        && GetMoveStrikeCount(move) < 2
+        && !IsMultiHitMove(move)
         && GetMoveEffect(move) != EFFECT_SEMI_INVULNERABLE
-        && GetMoveEffect(move) != EFFECT_TWO_TURNS_ATTACK
-        && GetMoveEffect(move) != EFFECT_MULTI_HIT)
+        && GetMoveEffect(move) != EFFECT_TWO_TURNS_ATTACK)
     {
         if (IsDoubleBattle())
         {

@@ -468,10 +468,11 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_HAZE,
     EFFECT_BIDE,
     EFFECT_ROAR,
-    EFFECT_MULTI_HIT,
+    //EFFECT_MULTI_HIT, //gonna remove this
     EFFECT_CONVERSION,
     EFFECT_RESTORE_HP,
     EFFECT_LIGHT_SCREEN,
+    EFFECT_STAT_BASED_SPLIT, //swap dmg cat based on user stat
     EFFECT_REST,
     EFFECT_OHKO,
     EFFECT_SHEER_COLD, // Same as EFFECT_OHKO but Ice-types are immune to it and has decreased accuracy for non Ice-type users.
@@ -797,7 +798,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_TARGET_TYPE_DAMAGE,
     EFFECT_HIGHEST_STAT_UP_HIT,
     EFFECT_DMG_FIXATION,
-    EFFECT_SET_TARGET_ABILITY,
+    //EFFECT_SET_TARGET_ABILITY, //removed relized was just overwrite ability
     EFFECT_SHIELD_BASH,
     EFFECT_MONOTYPE,
     EFFECT_MOONDANCE,

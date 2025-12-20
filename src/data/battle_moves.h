@@ -130,7 +130,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DOUBLE_SLAP] =
     {
-        .effect = EFFECT_MULTI_HIT,
+        .effect = EFFECT_HIT,
         .power = 15,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -141,6 +141,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .multiTaskBanned = TRUE,
+        .variableMultihit = TRUE,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -150,7 +151,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_COMET_PUNCH] =
     {
-        .effect = EFFECT_MULTI_HIT,
+        .effect = EFFECT_HIT,
         .power = 21,
         .type = TYPE_NORMAL,
         .accuracy = 90,
@@ -162,6 +163,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .punchingMove = TRUE,
         .multiTaskBanned = TRUE,
+        .variableMultihit = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -807,7 +809,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_FURY_ATTACK] =
     {
-        .effect = EFFECT_MULTI_HIT,
+        .effect = EFFECT_HIT,
         .power = 15,
         .type = TYPE_NORMAL,
         .accuracy = 90,
@@ -820,6 +822,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .headbuttMove = TRUE,
         .enhancedCritrate = TRUE,
         .multiTaskBanned = TRUE,
+        .variableMultihit = TRUE,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -1084,7 +1087,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .power = 14,
             .accuracy = 85,
         #endif
-        .effect = EFFECT_MULTI_HIT,
+        .effect = EFFECT_HIT,
         .type = TYPE_BUG,
         .pp = 20,
         //.secondaryEffectChance = 15,
@@ -1092,6 +1095,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .multiTaskBanned = TRUE,
+        .variableMultihit = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 15,
@@ -3190,7 +3194,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_SPIKE_CANNON] =
 {
-    .effect = EFFECT_MULTI_HIT,
+    .effect = EFFECT_HIT,
     .power = 20,
     .type = TYPE_ROCK,
     .accuracy = 100, //was buffed is only 100 acc multi move
@@ -3200,6 +3204,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .split = SPLIT_PHYSICAL,
     .multiTaskBanned = TRUE,
+    .variableMultihit = TRUE,
     .damagesAirborne = TRUE,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -3401,7 +3406,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_BARRAGE] =
 {
-    .effect = EFFECT_MULTI_HIT,
+    .effect = EFFECT_STAT_BASED_SPLIT,//Forgot also gave this dmg swap based on stats
     .power = 15,
     .type = TYPE_NORMAL, //idea is uses psychic energy to pick up and throw
     .accuracy = 95, //objects at the enemy with force
@@ -3411,16 +3416,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .split = SPLIT_PHYSICAL,
     .multiTaskBanned = TRUE,
-        .ballisticMove = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Barrage,
-     /*.additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
-            .chance = 15,
-        }),*/
+    .ballisticMove = TRUE,
+    .variableMultihit = TRUE,
+    //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+    //.contestCategory = CONTEST_CATEGORY_TOUGH,
+    //.contestComboStarterId = 0,
+    //.contestComboMoves = {0},
+    //.battleAnimScript = gBattleAnimMove_Barrage,
+    /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .moveEffect = MOVE_EFFECT_DEF_MINUS_1, //should i make new effect that'll swap def 
+        .chance = 15, //to drop based on dmg category? since it could be special?
+    }),*/
 }, //exegcuttor line siganture , test may make 100 acc,  balance acc w effect chance
 //could be normal cuz just objects
 //could be psychic cuz covered in psychic energy
@@ -3780,7 +3786,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_FURY_SWIPES] =
 {
-    .effect = EFFECT_MULTI_HIT,
+    .effect = EFFECT_HIT,
     .power = 15,
     .type = TYPE_NORMAL,
     .accuracy = 90,
@@ -3792,6 +3798,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .makesContact = TRUE,
     .multiTaskBanned = TRUE,
     .enhancedCritrate = TRUE,
+    .variableMultihit = TRUE,
     //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
     //.contestCategory = CONTEST_CATEGORY_TOUGH,
     //.contestComboStarterId = 0,
@@ -4850,7 +4857,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     #else
         .accuracy = 80,
     #endif
-    .effect = EFFECT_MULTI_HIT,
+    .effect = EFFECT_HIT,
     .power = 28,
     .type = TYPE_GROUND,
     .pp = 10,
@@ -4859,6 +4866,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .split = SPLIT_PHYSICAL,
     .multiTaskBanned = TRUE,
+    .variableMultihit = TRUE,
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_BONE_RUSH,
@@ -7077,7 +7085,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_ARM_THRUST] =
     {
-        .effect = EFFECT_MULTI_HIT,
+        .effect = EFFECT_HIT,
         .power = 15,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
@@ -7088,6 +7096,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .multiTaskBanned = TRUE,
+        .variableMultihit = TRUE,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -8025,7 +8034,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 10,
         #endif
-        .effect = EFFECT_MULTI_HIT,
+        .effect = EFFECT_HIT,
         .type = TYPE_GRASS,
         .accuracy = 100,
         .pp = 30,
@@ -8035,6 +8044,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .multiTaskBanned = TRUE,
         .ballisticMove = TRUE,
+        .variableMultihit = TRUE,
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -8071,7 +8081,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 10,
         #endif
-        .effect = EFFECT_MULTI_HIT,
+        .effect = EFFECT_HIT,
         .type = TYPE_ICE,
         .accuracy = 100,
         .pp = 30,
@@ -8080,6 +8090,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .multiTaskBanned = TRUE,
+        .variableMultihit = TRUE,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -8472,7 +8483,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             #else
             .accuracy = 80,
             #endif
-        .effect = EFFECT_MULTI_HIT,
+        .effect = EFFECT_HIT,
         .power = 25,
         .type = TYPE_ROCK,
         .pp = 10,
@@ -8482,6 +8493,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .multiTaskBanned = TRUE,
         .ballisticMove = TRUE,
+        .variableMultihit = TRUE,
         .damagesAirborneDoubleDamage = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
@@ -12914,7 +12926,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_TAIL_SLAP] =
     {
-        .effect = EFFECT_MULTI_HIT,
+        .effect = EFFECT_HIT,
         .power = 25,
         .type = TYPE_NORMAL,
         .accuracy = 95,
@@ -12925,6 +12937,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .multiTaskBanned = TRUE,
         .makesContact = TRUE,
+        .variableMultihit = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -14209,7 +14222,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_WATER_SHURIKEN] =
     {
-        .effect = EFFECT_MULTI_HIT,
+        .effect = EFFECT_HIT,
         .power = 15,
         .type = TYPE_WATER,
         .accuracy = 100,
@@ -14219,6 +14232,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .split = SPLIT_PHYSICAL,
         .multiTaskBanned = TRUE,
+        .variableMultihit = TRUE,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -17227,7 +17241,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SCALE_SHOT] =
     {
-        .effect = EFFECT_MULTI_HIT,   //TODO (EFFECT_MULTI_HIT + ABILITY_WEAK_ARMOR,
+        .effect = EFFECT_HIT,   
         .power = 25,
         .type = TYPE_DRAGON,    //me look at how double iron bash was done may be able to do these myself
         .accuracy = 90,
@@ -17237,6 +17251,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .multiTaskBanned = TRUE,
+        .variableMultihit = TRUE,
         //.argument = { .moveProperty = MOVE_EFFECT_SCALE_SHOT },
         //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
         //.contestCategory = CONTEST_CATEGORY_COOL,

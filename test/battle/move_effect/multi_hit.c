@@ -3,7 +3,7 @@
 
 ASSUMPTIONS
 {
-    ASSUME(gMovesInfo[MOVE_BULLET_SEED].effect == EFFECT_MULTI_HIT);
+    ASSUME(gMovesInfo[MOVE_BULLET_SEED].variableMultihit == TRUE);
 }
 
 SINGLE_BATTLE_TEST("Multi hit Moves hit the maximum amount with Skill Link")
@@ -141,7 +141,7 @@ SINGLE_BATTLE_TEST("Multi hit Moves hit five times 50 Percent of the time with L
 SINGLE_BATTLE_TEST("Scale Shot decreases defense and increases speed after final hit")
 {
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_SCALE_SHOT].effect == EFFECT_MULTI_HIT);
+        ASSUME(gMovesInfo[MOVE_SCALE_SHOT].variableMultihit == TRUE);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
@@ -163,7 +163,7 @@ SINGLE_BATTLE_TEST("Scale Shot decreases defense and increases speed after final
 SINGLE_BATTLE_TEST("Endure does not prevent multiple hits and stat changes occur at the end of the turn")
 {
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_SCALE_SHOT].effect == EFFECT_MULTI_HIT);
+        ASSUME(gMovesInfo[MOVE_SCALE_SHOT].variableMultihit == TRUE);
         ASSUME(gMovesInfo[MOVE_ENDURE].effect == EFFECT_ENDURE);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET) { HP(1); }
@@ -188,7 +188,7 @@ SINGLE_BATTLE_TEST("Scale Shot decreases defense and increases speed after the 4
 {
     PASSES_RANDOMLY(50, 100, RNG_LOADED_DICE);
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_SCALE_SHOT].effect == EFFECT_MULTI_HIT);
+        ASSUME(gMovesInfo[MOVE_SCALE_SHOT].variableMultihit == TRUE);
         PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_LOADED_DICE); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
@@ -213,7 +213,7 @@ SINGLE_BATTLE_TEST("Scale Shot decreases defense and increases speed after killi
     PARAMETRIZE { item = ITEM_LOADED_DICE; }
 
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_SCALE_SHOT].effect == EFFECT_MULTI_HIT);
+        ASSUME(gMovesInfo[MOVE_SCALE_SHOT].variableMultihit == TRUE);
         PLAYER(SPECIES_BAGON) { Item(item); }
         OPPONENT(SPECIES_SLUGMA) { Ability(ABILITY_WEAK_ARMOR); }
         OPPONENT(SPECIES_WOBBUFFET);

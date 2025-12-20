@@ -3,6 +3,7 @@
 
 //#include "contest_effect.h"
 #include "constants/pokemon.h"
+#include "constants/battle.h"
 #include "constants/battle_effects.h"
 #include "battle_string_ids.h"
 #include "constants/moves.h"
@@ -135,7 +136,8 @@ struct BattleMove
     u32 strikeCount:4; // Max 15 hits. Defaults to 1 if not set. May apply its effect on each hit.
     u32 multiTaskBanned:1; // remove need for multitask exclude 
     u32 explosiveMove:1; //simplify logic for moves/effects that do defense stripping just explosion likes
-    u32 padding:9; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
+    u32 variableMultihit:1; //replace effect multihit
+    u32 padding:8; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
     // end of word
     union {
         struct {
@@ -350,6 +352,16 @@ static inline bool32 IsMoveMultiTaskBanned(u32 moveId)
     return gBattleMoves[SanitizeMoveId(moveId)].multiTaskBanned;
 }
 
+static inline bool32 IsVariableMultiHitMove(u32 moveId)
+{
+    return gBattleMoves[SanitizeMoveId(moveId)].variableMultihit;
+}
+
+static inline bool32 IsMultiHitMove(u32 moveId)
+{
+    return (GetMoveStrikeCount(moveId) > 1 || IsVariableMultiHitMove(moveId))
+}
+
 static inline bool32 MoveSureHitEvasionBoostedTargets(u32 moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].evasiveBreak;
@@ -509,11 +521,6 @@ static inline u32 GetMoveTwoTurnAttackWeather(u32 moveId)
     return gBattleMoves[SanitizeMoveId(moveId)].argument.twoTurnAttack.status;
 }
 
-static inline u32 GetMoveProtectSide(u32 moveId)
-{
-    return gBattleMoves[SanitizeMoveId(moveId)].argument.protect.side;
-}
-
 static inline enum ProtectMethod GetMoveProtectMethod(u32 moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].argument.protectMethod;
@@ -582,10 +589,11 @@ static inline u32 GetMoveDamagePercentage(u32 move)
     return gBattleMoves[SanitizeMoveId(move)].argument.damagePercentage;
 }
 
-static inline u32 GetMoveOverwriteAbility(u32 move)
+//don't need this can just used storedvalue
+/*static inline u32 GetMoveOverwriteAbility(u32 move)
 {
     return gBattleMoves[SanitizeMoveId(move)].argument.overwriteAbility;
-}
+}*/
 
 static inline const struct AdditionalEffect *GetMoveAdditionalEffectById(u32 moveId, u32 effect)
 {

@@ -93,7 +93,7 @@ SINGLE_BATTLE_TEST("Dry Skin is only triggered once on multi strike moves")
 {
     GIVEN {
         ASSUME(gMovesInfo[MOVE_WATER_SHURIKEN].type == TYPE_WATER);
-        ASSUME(gMovesInfo[MOVE_WATER_SHURIKEN].effect == EFFECT_MULTI_HIT);
+        ASSUME(gMovesInfo[MOVE_WATER_SHURIKEN].variableMultihit == TRUE);
         PLAYER(SPECIES_PARASECT) { Ability(ABILITY_DRY_SKIN); HP(100); MaxHP(200); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {

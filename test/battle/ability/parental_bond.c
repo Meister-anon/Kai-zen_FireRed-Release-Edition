@@ -138,7 +138,7 @@ SINGLE_BATTLE_TEST("Parental Bond has no affect on multi hit moves and they stil
     GIVEN {
         ASSUME(B_MULTI_HIT_CHANCE >= GEN_5);
         ASSUME(gMovesInfo[MOVE_COMET_PUNCH].category != DAMAGE_CATEGORY_STATUS);
-        ASSUME(gMovesInfo[MOVE_COMET_PUNCH].effect == EFFECT_MULTI_HIT);
+        ASSUME(gMovesInfo[MOVE_COMET_PUNCH].variableMultihit == TRUE);
         PLAYER(SPECIES_KANGASKHAN) { Item(ITEM_KANGASKHANITE); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
@@ -164,7 +164,7 @@ SINGLE_BATTLE_TEST("Parental Bond has no affect on multi hit moves and they stil
     GIVEN {
         ASSUME(B_MULTI_HIT_CHANCE >= GEN_5);
         ASSUME(gMovesInfo[MOVE_COMET_PUNCH].category != DAMAGE_CATEGORY_STATUS);
-        ASSUME(gMovesInfo[MOVE_COMET_PUNCH].effect == EFFECT_MULTI_HIT);
+        ASSUME(gMovesInfo[MOVE_COMET_PUNCH].variableMultihit == TRUE);
         PLAYER(SPECIES_KANGASKHAN) { Item(ITEM_KANGASKHANITE); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
@@ -191,7 +191,7 @@ SINGLE_BATTLE_TEST("Parental Bond has no affect on multi hit moves and they stil
     GIVEN {
         ASSUME(B_MULTI_HIT_CHANCE >= GEN_5);
         ASSUME(gMovesInfo[MOVE_COMET_PUNCH].category != DAMAGE_CATEGORY_STATUS);
-        ASSUME(gMovesInfo[MOVE_COMET_PUNCH].effect == EFFECT_MULTI_HIT);
+        ASSUME(gMovesInfo[MOVE_COMET_PUNCH].variableMultihit == TRUE);
         PLAYER(SPECIES_KANGASKHAN) { Item(ITEM_KANGASKHANITE); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
@@ -219,7 +219,7 @@ SINGLE_BATTLE_TEST("Parental Bond has no affect on multi hit moves and they stil
     GIVEN {
         ASSUME(B_MULTI_HIT_CHANCE >= GEN_5);
         ASSUME(gMovesInfo[MOVE_COMET_PUNCH].category != DAMAGE_CATEGORY_STATUS);
-        ASSUME(gMovesInfo[MOVE_COMET_PUNCH].effect == EFFECT_MULTI_HIT);
+        ASSUME(gMovesInfo[MOVE_COMET_PUNCH].variableMultihit == TRUE);
         PLAYER(SPECIES_KANGASKHAN) { Item(ITEM_KANGASKHANITE); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {

@@ -4525,10 +4525,7 @@ bool8 CanEvioliteActivate(u8 target)
     u16 species = gBattleMons[target].species;
     struct Pokemon *mon;
 
-    if (GET_BATTLER_SIDE(target) == B_SIDE_PLAYER)
-        mon = &gPlayerParty[gBattlerPartyIndexes[target]];
-    else
-        mon = &gEnemyParty[gBattlerPartyIndexes[target]];
+    mon = GetBattlerMon(target);
 
     if (CanEvolve(species) && (GetBaseStatTotal(species) <= 510
     && GetGlobalStatTotal(mon) <= 600)) //with boosted stats thing may raiase limit to 465? using new tangela as example, is still below chansey 

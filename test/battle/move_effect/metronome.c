@@ -45,7 +45,7 @@ SINGLE_BATTLE_TEST("Metronome's called powder move fails against Grass Types")
 SINGLE_BATTLE_TEST("Metronome's called multi-hit move hits multiple times")
 {
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_ROCK_BLAST].effect == EFFECT_MULTI_HIT);
+        ASSUME(gMovesInfo[MOVE_ROCK_BLAST].variableMultihit == TRUE);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {

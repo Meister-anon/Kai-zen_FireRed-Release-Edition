@@ -174,12 +174,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .encourageEncore = TRUE,
     },
 
-    [EFFECT_MULTI_HIT] =
-    {
-        .battleScript = BattleScript_EffectHit,
-        .battleTvScore = 1,
-    },
-
     [EFFECT_CONVERSION] =
     {
         .battleScript = BattleScript_EffectConversion,
@@ -200,6 +194,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 7,
         .encourageEncore = TRUE,
     },
+
+    [EFFECT_STAT_BASED_SPLIT] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 2,
+    },//rn use tri attack and barrage swap split based on user stat
 
     [EFFECT_REST] =
     {
@@ -2272,14 +2272,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
-    },
-
-
-    [EFFECT_SET_TARGET_ABILITY] =
-    {
-        .battleScript = BattleScript_EffectHit,
-        .battleTvScore = 0, // TODO: Assign points
-        .encourageEncore = TRUE,
     },
 
     [EFFECT_SHIELD_BASH] =

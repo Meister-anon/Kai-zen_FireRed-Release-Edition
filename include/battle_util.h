@@ -127,6 +127,7 @@ bool32 AreAllMovesUnusable(u32 battler);
 u8 GetImprisonedMovesCount(u8 battlerId, u16 move);
 u8 DoFieldEndTurnEffects(void);
 s32 GetDrainedBigRootHp(u32 battler, s32 hp);
+s32 MistyTerrainHealBoost(u32 battler, s32 healamount);
 u8 DoBattlerEndTurnEffects(void);
 bool32 HandleWishPerishSongOnTurnEnd(void);
 bool8 HandleFaintedMonActions(void);

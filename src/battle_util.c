@@ -1833,6 +1833,7 @@ bool32 BattleArenaTurnEnd(void)
 }
 
 // Ingrain, Leech Seed, Strength Sap and Aqua Ring
+//also used for general drain effects
 s32 GetDrainedBigRootHp(u32 battler, s32 hp)
 {
     if (GetBattlerHoldEffect(battler) == HOLD_EFFECT_BIG_ROOT)
@@ -1841,6 +1842,19 @@ s32 GetDrainedBigRootHp(u32 battler, s32 hp)
         hp = 1;
 
     return hp;
+}
+
+//effects together are a 1.69 boost
+s32 MistyTerrainHealBoost(u32 battler, s32 healamount)
+{
+    if (IsBattlerTerrainAffected(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler), STATUS_FIELD_MISTY_TERRAIN))
+    {
+        healamount = (healamount * 1300) / 1000;
+        if (healamount == 0)
+            healamount = 1;    
+    }
+    
+    return healamount;
 }
 
 // Should always be the last check. Otherwise the ability might be wrongly recorded.
@@ -2866,9 +2880,27 @@ static enum MoveCanceler CancelerExplodingDamp(struct BattleContext *ctx)
     return MOVE_STEP_SUCCESS;
 }
 
+//think instead of multihit effect
+//can just put into move struct value
+//ismultihit move and have the separation be
+//on if move uses strikecount
+//change here would simply be go to canceler only if multihit move
+//and in here, set strike count logic first
+//then just use an else for everything else
+//i.e is fixedmultihit  can say if has strike count
+//oh dont need function can just use getstrikecout as below
+//think will just replae effect multi hit 
+//don't need include moves w strike count
+//just use isvariablemultihit
+//believe should also allow for more freedom
+//within category
+//won't need whole separate script for effects
+//can just adjust acc checks etc.
+//so if multihit can just continue through a miss until dec hits 0
+//done - vsonic
 static enum MoveCanceler CancelerMultihitMoves(struct BattleContext *ctx)
 {
-    if (GetMoveEffect(ctx->currentMove) == EFFECT_MULTI_HIT)
+    if (IsVariableMultiHitMove(ctx->currentMove))
     {
         enum Ability ability = ctx->abilities[ctx->battlerAtk];
 
@@ -9864,20 +9896,21 @@ static enum DamageCategory SwapMoveDamageCategory(u32 move)
     can be removed but a lot of function arguments (battlerAtk and battlerDef) have to be added for this, about 50+.
     This is potentially a good change because it is less likely to cause bugs in the future.
 */
+//SetDynamicMoveCategory sets this up
 enum DamageCategory GetBattleMoveCategory(u32 move)
 {
     if (gMain.inBattle)
     {
         if (gBattleStruct->swapDamageCategory) // Photon Geyser, Shell Side Arm, Light That Burns the Sky, Tera Blast
             return SwapMoveDamageCategory(move);
-        if (IsZMove(move) || IsMaxMove(move)) // TODO: Might be buggy depending on when this is called.
-            return gBattleStruct->categoryOverride;
+        //if (IsZMove(move) || IsMaxMove(move)) // TODO: Might be buggy depending on when this is called.
+        //    return gBattleStruct->categoryOverride;
         if (IsBattleMoveStatus(move))
             return DAMAGE_CATEGORY_STATUS;
     }
 
-    if (B_PHYSICAL_SPECIAL_SPLIT < GEN_4)
-        return gTypesInfo[GetBattleMoveType(move)].damageCategory;
+    //if (B_PHYSICAL_SPECIAL_SPLIT < GEN_4)
+    //    return gTypesInfo[GetBattleMoveType(move)].damageCategory;
 
     return GetMoveCategory(move);
 }
@@ -9886,8 +9919,10 @@ void SetDynamicMoveCategory(u32 battlerAtk, u32 battlerDef, u32 move)
 {
     switch (GetMoveEffect(move))
     {
+    case EFFECT_HIDDEN_POWER:
+    case EFFECT_STAT_BASED_SPLIT:
     case EFFECT_PHOTON_GEYSER:
-        gBattleStruct->swapDamageCategory = (GetCategoryBasedOnStats(battlerAtk) == DAMAGE_CATEGORY_PHYSICAL);
+        gBattleStruct->swapDamageCategory = (GetCategoryBasedOnStats(battlerAtk) != GetMoveCategory(move));
         break;
     case EFFECT_SHELL_SIDE_ARM:
         if (gBattleStruct->shellSideArmCategory[battlerAtk][battlerDef] == DAMAGE_CATEGORY_PHYSICAL)
@@ -9931,21 +9966,34 @@ static bool32 TryRemoveScreens(u32 battler)
 }
 
 // Photon Geyser, Light That Burns the Sky, Tera Blast
-enum DamageCategory GetCategoryBasedOnStats(u32 battler)
+enum DamageCategory GetCategoryBasedOnStats(u32 battlerAtk, u32 battlerDef)
 {
-    u32 attack = gBattleMons[battler].attack;
-    u32 spAttack = gBattleMons[battler].spAttack;
+    u32 attack = gBattleMons[battlerAtk].attack;
+    u32 spAttack = gBattleMons[battlerAtk].spAttack;
 
-    attack = attack * gStatStageRatios[gBattleMons[battler].statStages[STAT_ATK]][0];
-    attack = attack / gStatStageRatios[gBattleMons[battler].statStages[STAT_ATK]][1];
+    u32 defense = gBattleMons[battlerAtk].defense;
+    u32 spDefense = gBattleMons[battlerAtk].spDefense;
 
-    spAttack = spAttack * gStatStageRatios[gBattleMons[battler].statStages[STAT_SPATK]][0];
-    spAttack = spAttack / gStatStageRatios[gBattleMons[battler].statStages[STAT_SPATK]][1];
+    attack = attack * gStatStageRatios[gBattleMons[battlerAtk].statStages[STAT_ATK]][0];
+    attack = attack / gStatStageRatios[gBattleMons[battlerAtk].statStages[STAT_ATK]][1];
 
-    if (spAttack >= attack)
-        return DAMAGE_CATEGORY_SPECIAL;
-    else
+    spAttack = spAttack * gStatStageRatios[gBattleMons[battlerAtk].statStages[STAT_SPATK]][0];
+    spAttack = spAttack / gStatStageRatios[gBattleMons[battlerAtk].statStages[STAT_SPATK]][1];
+
+    defense = defense * gStatStageRatios[gBattleMons[battlerDef].statStages[STAT_DEF]][0];
+    defense = defense / gStatStageRatios[gBattleMons[battlerDef].statStages[STAT_DEF]][1];
+
+    spDefense = spDefense * gStatStageRatios[gBattleMons[battlerDef].statStages[STAT_SPDEF]][0];
+    spDefense = spDefense / gStatStageRatios[gBattleMons[battlerDef].statStages[STAT_SPDEF]][1];
+
+    if ((spAttack < attack || GetBattlerAbility(battlerAtk) == ABILITY_MUSCLE_MAGIC)
+    || (spAttack == attack && GetBattlerMoveTargetType(gBattlerAttacker, move) == MOVE_TARGET_SELECTED
+    && defense < spDefense))
         return DAMAGE_CATEGORY_PHYSICAL;
+    else
+        return DAMAGE_CATEGORY_SPECIAL;
+
+
 }
 
 static u32 GetFlingPowerFromItemId(u32 itemId)

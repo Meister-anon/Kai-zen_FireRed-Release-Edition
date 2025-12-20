@@ -134,7 +134,7 @@ SINGLE_BATTLE_TEST("Metronome Item doesn't increase damage per hit of multi-hit 
 {
     s16 damage[3];
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_FURY_ATTACK].effect == EFFECT_MULTI_HIT);
+        ASSUME(gMovesInfo[MOVE_FURY_ATTACK].variableMultihit == TRUE);
         PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_METRONOME); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {

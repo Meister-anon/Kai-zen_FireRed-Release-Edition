@@ -25,7 +25,7 @@ SINGLE_BATTLE_TEST("Toxic Chain inflicts bad poison on any hit of a multi-hit mo
 {
     GIVEN {
         ASSUME(gMovesInfo[MOVE_DOUBLE_SLAP].category != DAMAGE_CATEGORY_STATUS);
-        ASSUME(gMovesInfo[MOVE_DOUBLE_SLAP].effect == EFFECT_MULTI_HIT);
+        ASSUME(gMovesInfo[MOVE_DOUBLE_SLAP].variableMultihit == TRUE);
         ASSUME(gMovesInfo[MOVE_DOUBLE_SLAP].power > 0);
         ASSUME(gItemsInfo[ITEM_PECHA_BERRY].holdEffect == HOLD_EFFECT_CURE_PSN);
         PLAYER(SPECIES_OKIDOGI) { Ability(ABILITY_TOXIC_CHAIN); }
