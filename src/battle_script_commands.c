@@ -10247,8 +10247,8 @@ static void Cmd_manipulatedamage(void)
         gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1); //think no longer need can just use top recoil effect
         break;
     
-    }
-    case DMG_CHANGE_SIGN:
+    
+    /*case DMG_CHANGE_SIGN:
         gBattleStruct->passiveHpUpdate[gBattlerAttacker] *= -1;
         break;
     case DMG_1_8_TARGET_HP:
@@ -10259,7 +10259,7 @@ static void Cmd_manipulatedamage(void)
         break;
     case DMG_BIG_ROOT:
         gBattleStruct->passiveHpUpdate[gBattlerAttacker] = -1 * GetDrainedBigRootHp(gBattlerAttacker, gBattleStruct->passiveHpUpdate[gBattlerAttacker]);
-        break;
+        break;*/
     }
 
     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -12823,7 +12823,17 @@ static bool32 CheckIfCanFireTwoTurnMoveNow(u8 battler, bool8 checkChargeTurnEffe
 {
     // Semi-invulnerable moves cannot skip their charge turn (except with Power Herb)
     if (gBattleMoveEffects[GetMoveEffect(gCurrentMove)].semiInvulnerableEffect == TRUE)
-        return FALSE;
+    {    
+        if (gCurrentMove == MOVE_FLY
+        && gBattleMons[battler].volatiles.semiInvulnerable == STATE_NONE)
+        {
+            u32 sidestatus = GetMoveEffectArg_Status(gCurrentMove);
+            if (gSideStatuses[GetBattlerSide(battler)] & sidestatus)
+                return TRUE;
+        }
+        else
+            return FALSE;
+    }
 
     // If this move has charge turn effects, it must charge, activate them, then try to fire
     if (checkChargeTurnEffects && MoveHasChargeTurnAdditionalEffect(gCurrentMove))
