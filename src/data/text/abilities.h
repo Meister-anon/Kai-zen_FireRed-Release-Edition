@@ -1245,6 +1245,22 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 8,
     },
 
+    
+    //attempt separate hail /snow set abilities
+    //distribution would be a problem would want both
+    //but can't have both some would have to be learned
+    //...huh actually no, every mon that gets snow warning
+    //has an open space I could slot in this
+    //mega abomasnow would have to split base ability
+    //potentially doable
+    [ABILITY_CRYOSTORM] =
+    {
+        .name = _("Cryo-Storm"),
+        .description = sSnowWarningDescription,
+        .aiRating = 8,
+    },
+    
+
     [ABILITY_HONEY_GATHER] =
     {
         .name = _("Honey Gather"),
