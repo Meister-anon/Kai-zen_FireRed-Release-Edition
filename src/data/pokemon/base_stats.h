@@ -6233,7 +6233,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Umbreon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(95, 79, 110, 65, 66, 130),
+         STATS(95, 75, 110, 65, 50, 130),
         MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 45,
         .expYield = 184,
@@ -9976,7 +9976,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_LIQUID_OOZE, ABILITY_STICKY_HOLD},
-        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_NONE},
+        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_NEUTRALIZING_GAS},
         //.bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -10006,7 +10006,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_LIQUID_OOZE, ABILITY_STICKY_HOLD},
-        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_NONE},
+        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_CORROSION},
         //.bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,

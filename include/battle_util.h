@@ -136,7 +136,7 @@ bool8 IsFloatingSpecies(u16 species);
 bool8 IsFlyingTypeBattlerUnableToFly(u32 battler); //battle specific variant
 bool8 CanFlyingTypeRecoverFromSmackDown(u32 battler); //for use w ascension timer prob rename later vsonic
 bool8 IsBattlerGrounded(u8 battlerId);
-bool8 IsFloatingTargetImmunetoGroundMoves(u8 battler_atk, u8 battler_def, u16 move, u8 moveType);
+bool8 IsFloatingTargetImmunetoGroundBasedMoves(u8 battler_atk, u8 battler_def, u16 move);
 bool8 HasNoMonsToSwitch(u8 battler, u8 partyIdBattlerOn1, u8 partyIdBattlerOn2);
 bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility);
 u8 CastformDataTypeChange(u8 battler);
@@ -146,7 +146,7 @@ void BattleScriptPushCursorAndCallback(const u8 *BS_ptr);
 u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn);
 void ClearDestinyBondGrudge(u8 battlerId);
 void HandleAction_RunBattleScript(void);
-u8 GetMoveTarget(u16 move, u8 setTarget);
+u8 GetBattleMoveTarget(u16 move, u8 setTarget);
 u32 SetRandomTarget(u32 battlerId);
 bool32 IsAffectedByFollowMe(u32 battlerAtk, u32 defSide, u32 move);
 u8 IsMonDisobedient(void);
@@ -304,8 +304,7 @@ u32 IsTypeOnField(u32 battlerId, u8 type);
 s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fixedBasePower,
     bool32 isCrit, bool32 randomFactor, bool32 updateFlags, u16 typeEffectivenessModifier);
 
-u16 GetMoveEffect(u16 move);
-u16 SanitizeMoveId(u16 move);
+
 bool32 WeatherHasEffect(void); //meant to replace macro for Weather_has_effect
 bool8 CanActivateForewarnAnticipation(u8 battler);
 bool8 IsFixationMoveEffect(u16 move); //SETUP FOR new category of move inspired by legends arceus

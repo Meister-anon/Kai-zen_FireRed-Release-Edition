@@ -5084,6 +5084,15 @@ gBattleAnimMove_ShadowPunch::
 	waitbgfadein
 	end
 
+
+@this breaks w speed up
+@something to do with x y postion of distortion
+@instead of a slight bend seems to get flipped accross screen?
+@appears only happens at 4x speed
+@checked is tied to AnimTask_ExtrasensoryDistortion
+@looks odd but not major issue
+@only guesss is loop effect is somehow magnifying
+@the distortion which is a scanline effect
 gBattleAnimMove_Extrasensory::
 	call SetPsychicBackground
 	monbg ANIM_DEF_PARTNER

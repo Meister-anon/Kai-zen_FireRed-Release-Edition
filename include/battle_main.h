@@ -21,7 +21,12 @@ struct TypeInfo
 {
     u8 name[TYPE_NAME_LENGTH + 1];
     bool8 isHiddenPowerType; // Changing this for any type will change the distribution of all Hidden Power types from vanilla.
+    u16 tmhmSpritePalOffset;
 };
+//replace sTMSpritePaletteOffsetByType
+//each type pallete is 16 bytes, 
+//so anything added would increase by 0x10
+//did I work out something for sound type just in case?
 
 struct MultiBattlePokemonTx
 {
@@ -113,8 +118,8 @@ u32 GetBattlerTotalSpeedStat(u32 battler);
 void RunBattleScriptCommands_PopCallbacksStack(void);
 void RunBattleScriptCommands(void);
 bool8 TryRunFromBattle(u32 battler);
-s8 GetMovePriority(u32 battler, u16 move);
-s8 GetChosenMovePriority(u32 battler);
+s32 GetChosenMovePriority(u32 battler, u32 ability);
+s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move);
 bool8 IsPriorityElevatedviaAbility(u32 battler); //new thing to track moves w boosted priority from abilities for queenly majesty
 bool8 IsRivalBattle(u16 trainerNum);
 bool32 IsWildMonSmart(void);
