@@ -130,7 +130,8 @@
 #define TYPE_DARK     0x12
 #define TYPE_FAIRY	  0x13 //fairy addition
 #define TYPE_SOUND	  0x14 //for normal type sound moves -having issue with non move type locations.. //may need to be 18?
-#define NUMBER_OF_MON_TYPES     0x15
+#define TYPE_STELLAR  21
+#define NUMBER_OF_MON_TYPES     0x16
 
 // Pokemon egg groups
 #define EGG_GROUP_NONE 0

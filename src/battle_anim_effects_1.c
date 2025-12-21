@@ -98,7 +98,6 @@ static void AnimWoodHammerBig(struct Sprite *sprite);
 static void AnimNightSlash(struct Sprite *sprite);
 static void AnimRockPolishStreak(struct Sprite *sprite);
 static void AnimRockPolishSparkle(struct Sprite *sprite);
-static void AnimPoisonJabProjectile(struct Sprite *sprite);
 static void AnimNightSlash(struct Sprite *sprite);
 static void AnimPluck(struct Sprite *sprite);
 
@@ -6745,7 +6744,7 @@ static void AnimRockPolishSparkle(struct Sprite *sprite)
 // arg 0: initial x pixel offset
 // arg 1: initial y pixel offset
 // arg 2: duration
-static void AnimPoisonJabProjectile(struct Sprite *sprite)
+void AnimPoisonJabProjectile(struct Sprite *sprite)
 {
     s16 targetXPos;
     s16 targetYPos;

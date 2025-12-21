@@ -50,7 +50,7 @@ const u8 gBattleIntroRegOffsBgCnt[] = { REG_OFFSET_BG0CNT, REG_OFFSET_BG1CNT, RE
 //   8: Player battler right
 //   9: Enemy battler left
 //  10: Enemy battler right
-void AnimTask_BlendSelected(u8 taskId)  //equivalent of AnimTask_BlendBattleAnimPal
+void AnimTask_BlendBattleAnimPal(u8 taskId)  //equivalent of AnimTask_BlendBattleAnimPal
 {
     u32 selectedPalettes = UnpackSelectedBattleAnimPalettes(gBattleAnimArgs[0]);
     
@@ -72,7 +72,7 @@ void AnimTask_BlendSelected(u8 taskId)  //equivalent of AnimTask_BlendBattleAnim
 // 5: Blend all
 // 6: Neither bg nor attacker's partner
 // 7: Neither bg nor target's partner
-void AnimTask_BlendExcept(u8 taskId)    //equivalet of AnimTask_BlendBattleAnimPalExclude from emerald
+void AnimTask_BlendBattleAnimPalExclude(u8 taskId)    //equivalet of AnimTask_BlendBattleAnimPalExclude from emerald
 {
     u8 battler;
     u32 selectedPalettes;

@@ -322,6 +322,7 @@ extern const union AnimCmd *const gScratchAnimTable[];
 extern const union AnimCmd *const gEclipsingOrbAnimTable[];
 extern const union AnimCmd *const gOpeningEyeAnimTable[];
 extern const union AffineAnimCmd *const gSpotlightAffineAnimTable[]; //table is array, needs brackets
+extern const union AnimCmd *const gSweetScentPetalAnimCmdTable[];
 void AnimBlackSmoke(struct Sprite *);
 void AnimWhiteHalo(struct Sprite *);
 void AnimTealAlert(struct Sprite *);
@@ -574,6 +575,7 @@ void AnimMudSportDirt(struct Sprite *sprite);
 void AnimDirtScatter(struct Sprite *sprite);
 void AnimMudSportDirtRising(struct Sprite *sprite);
 void AnimFissureDirtPlumeParticle(struct Sprite *sprite);
+extern const union AnimCmd *const gAnims_MudSlapMud[];
 extern const union AffineAnimCmd *const gAffineAnims_SpinningBone[];
 
 // dragon.c
@@ -585,6 +587,7 @@ void AnimDragonRageFirePlume(struct Sprite *sprite);
 void AnimDragonFireToTarget(struct Sprite *sprite);
 void AnimDragonDanceOrb(struct Sprite *sprite);
 void AnimOverheatFlame(struct Sprite *sprite);
+void AnimDracoMeteorRock(struct Sprite *sprite);
 extern const union AnimCmd *const gAnims_DragonBreathFire[];
 extern const union AffineAnimCmd *const gAffineAnims_DragonBreathFire[];
 extern const union AnimCmd *const gAnims_DragonRageFirePlume[];
@@ -603,6 +606,7 @@ void AnimShadowBall(struct Sprite *sprite);
 void AnimGhostStatusSprite(struct Sprite *sprite);
 void sub_80B6BBC(u8 taskId);
 extern const union AffineAnimCmd *const gAffineAnims_ShadowBall[];
+extern const union AnimCmd *const gAnims_GrudgeFlame[];
 
 // rock.c
 void AnimTask_LoadSandstormBackground(u8 taskId);
@@ -618,6 +622,8 @@ void AnimFallingRock(struct Sprite *sprite);
 void AnimRaiseSprite(struct Sprite *sprite);
 void AnimFallingRock_Step(struct Sprite *sprite);
 void AnimFlyingSandCrescent(struct Sprite *sprite);
+void AnimRockTomb(struct Sprite *sprite);
+extern const union AnimCmd *const gAnims_BasicRock[];
 
 // psychic.c
 extern const union AffineAnimCmd *const gAffineAnims_PsychoBoostOrb[];
@@ -674,6 +680,7 @@ extern const union AffineAnimCmd *const gAffineAnims_Bubble[];
 void AnimSludgeBombHitParticle(struct Sprite *sprite);  //only strut Sprite * in emerald, this should be fine
 void AnimAcidPoisonBubble_Step(struct Sprite *sprite);
 void AnimBubbleEffect(struct Sprite *sprite);
+void AnimPoisonJabProjectile(struct Sprite *sprite);
 
 // fighting.c
 void AnimTask_MoveSkyUppercutBg(u8 taskId); //defined here in firered not emerald
@@ -707,6 +714,7 @@ void AnimTask_Haze1(u8 taskId);
 void AnimTask_LoadMistTiles(u8 taskId);
 void AnimTask_Hail1(u8 taskId);
 void AnimTask_GetRolloutCounter(u8 taskId);
+void AnimIceBeamParticle(struct Sprite *sprite);
 
 // electric.c
 void AnimTask_ElectricBolt(u8 taskId);
@@ -728,6 +736,7 @@ extern const union AffineAnimCmd *const gAffineAnims_FlashingSpark[];
 extern const union AnimCmd *const gAnims_ThunderboltOrb[];
 extern const union AnimCmd *const gAnims_ElectricPuff[];
 extern const union AnimCmd *const gAnims_ElectricChargingParticles[];
+extern const union AnimCmd *const gAnims_CirclingElectricShock[];
 
 // fire.c
 void AnimTask_EruptionLaunchRocks(u8 taskId);
@@ -759,8 +768,8 @@ extern const union AnimCmd *const gAnims_WaterPulseBubble[];
 u8 SmokescreenImpact(s16 x, s16 y, u8 a3);
 
 // battle_anim_utility_funcs.c
-void AnimTask_BlendSelected(u8 taskId);
-void AnimTask_BlendExcept(u8 taskId);
+void AnimTask_BlendBattleAnimPal(u8 taskId);
+void AnimTask_BlendBattleAnimPalExclude(u8 taskId);
 void AnimTask_SetCamouflageBlend(u8 taskId);
 void AnimTask_BlendParticle(u8 taskId);
 void AnimTask_HardwarePaletteFade(u8 taskId);
@@ -799,5 +808,8 @@ void CoreEnforcerLoadBeamTarget(struct Sprite *sprite);
 void AnimTask_CreateBestowItem(u8 taskId);
 void AnimTask_PurpleFlamesOnTarget(u8 taskId);
 void AnimTask_TechnoBlast(u8 taskId);
+extern const union AffineAnimCmd *const gSpriteAffineAnimTable_PrimalSymbol[];
+extern const union AffineAnimCmd *const gSpriteAffineAnimTable_MegaSymbol[];
+
 
 #endif // GUARD_BATTLE_ANIM_H

@@ -12,7 +12,6 @@ static void AnimRockFragment(struct Sprite *sprite);
 //static void AnimRaiseSprite(struct Sprite *sprite);
 static void AnimTask_Rollout_Step(u8 taskId);
 static void AnimRolloutParticle(struct Sprite *sprite);
-static void AnimRockTomb(struct Sprite *sprite);
 static void AnimRockBlastRock(struct Sprite *sprite);
 static void AnimRockScatter(struct Sprite *sprite);
 //static void AnimParticleInVortex(struct Sprite *sprite);
@@ -192,7 +191,7 @@ static const union AnimCmd sAnim_TwisterRock_1[] =
     ANIMCMD_END,
 };
 
-static const union AnimCmd *const sAnims_BasicRock[] =
+const union AnimCmd *const gAnims_BasicRock[] =
 {
     sAnim_BasicRock_0,
     sAnim_BasicRock_1,
@@ -215,7 +214,7 @@ const struct SpriteTemplate gAncientPowerRockSpriteTemplate =
     .tileTag = ANIM_TAG_ROCKS,
     .paletteTag = ANIM_TAG_ROCKS,
     .oam = &gOamData_AffineOff_ObjNormal_32x32,
-    .anims = sAnims_BasicRock,
+    .anims = gAnims_BasicRock,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimRaiseSprite,
@@ -248,7 +247,7 @@ const struct SpriteTemplate gRockTombRockSpriteTemplate =
     .tileTag = ANIM_TAG_ROCKS,
     .paletteTag = ANIM_TAG_ROCKS,
     .oam = &gOamData_AffineOff_ObjNormal_32x32,
-    .anims = sAnims_BasicRock,
+    .anims = gAnims_BasicRock,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimRockTomb,
@@ -277,7 +276,7 @@ const struct SpriteTemplate gRockBlastRockSpriteTemplate =
     .tileTag = ANIM_TAG_ROCKS,
     .paletteTag = ANIM_TAG_ROCKS,
     .oam = &gOamData_AffineNormal_ObjNormal_32x32,
-    .anims = sAnims_BasicRock,
+    .anims = gAnims_BasicRock,
     .images = NULL,
     .affineAnims = gAffineAnims_BasicRock,
     .callback = AnimRockBlastRock,
@@ -288,7 +287,7 @@ const struct SpriteTemplate gRockScatterSpriteTemplate =
     .tileTag = ANIM_TAG_ROCKS,
     .paletteTag = ANIM_TAG_ROCKS,
     .oam = &gOamData_AffineNormal_ObjNormal_32x32,
-    .anims = sAnims_BasicRock,
+    .anims = gAnims_BasicRock,
     .images = NULL,
     .affineAnims = gAffineAnims_BasicRock,
     .callback = AnimRockScatter,
@@ -336,7 +335,7 @@ const struct SpriteTemplate gCrushGripHandTemplate =
     .tileTag = ANIM_TAG_PURPLE_HAND_OUTLINE,
     .paletteTag = ANIM_TAG_ACUPRESSURE,
     .oam = &gOamData_AffineNormal_ObjNormal_32x32,
-    .anims = sAnims_BasicRock,
+    .anims = gAnims_BasicRock,
     .images = NULL,
     .affineAnims = sSpriteAffineAnimTable_CrushGripHand,
     .callback = AnimRockBlastRock
@@ -822,7 +821,7 @@ static u8 GetRolloutCounter(void)
     return retVal;
 }
 
-static void AnimRockTomb(struct Sprite *sprite)
+void AnimRockTomb(struct Sprite *sprite)
 {
     StartSpriteAnim(sprite, gBattleAnimArgs[4]);
     sprite->pos2.x = gBattleAnimArgs[0];

@@ -92,7 +92,7 @@ static const union AnimCmd sAnim_MudSlapMud[] =
     ANIMCMD_END,
 };
 
-static const union AnimCmd *const sAnims_MudSlapMud[] =
+const union AnimCmd *const gAnims_MudSlapMud[] =
 {
     sAnim_MudSlapMud,
 };
@@ -102,7 +102,7 @@ const struct SpriteTemplate gMudSlapMudSpriteTemplate =
     .tileTag = ANIM_TAG_MUD_SAND,
     .paletteTag = ANIM_TAG_MUD_SAND,
     .oam = &gOamData_AffineOff_ObjNormal_16x16,
-    .anims = sAnims_MudSlapMud,
+    .anims = gAnims_MudSlapMud,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimDirtScatter,
@@ -157,7 +157,7 @@ const struct SpriteTemplate gMudBombToss =
     .tileTag = ANIM_TAG_MUD_SAND,
     .paletteTag = ANIM_TAG_MUD_SAND,
     .oam = &gOamData_AffineOff_ObjNormal_16x16,
-    .anims = sAnims_MudSlapMud,
+    .anims = gAnims_MudSlapMud,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimThrowProjectile,

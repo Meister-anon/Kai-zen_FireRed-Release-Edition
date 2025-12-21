@@ -789,6 +789,8 @@ static bool8 IsSoftwarePaletteFadeFinishing(void)
     }
 }
 
+#define DEFAULT_LIGHT_COLOR RGB2GBA(248, 224, 120)
+
 void BlendPalettes(u32 selectedPalettes, u8 coeff, u16 color)
 {
     u16 paletteOffset;

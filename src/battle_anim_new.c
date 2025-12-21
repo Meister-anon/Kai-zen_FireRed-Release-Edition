@@ -6520,6 +6520,308 @@ const struct SpriteTemplate gSoulStealZStarSpriteTemplate =
     .callback = AnimCrossImpact
 };
 
+const struct SpriteTemplate gOrderUpTatsugiriCurlySpriteTemplate =
+{
+    .tileTag = ANIM_TAG_TATSUGIRI_CURLY,
+    .paletteTag = ANIM_TAG_TATSUGIRI_CURLY,
+    .oam = &gOamData_AffineOff_ObjNormal_32x32,
+    .anims = gAnims_DreepyMissilePlayer,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimRockTomb,
+};
+
+const struct SpriteTemplate gOrderUpTatsugiriDroopySpriteTemplate =
+{
+    .tileTag = ANIM_TAG_TATSUGIRI_DROOPY,
+    .paletteTag = ANIM_TAG_TATSUGIRI_DROOPY,
+    .oam = &gOamData_AffineOff_ObjNormal_32x32,
+    .anims = gAnims_DreepyMissilePlayer,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimRockTomb,
+};
+
+const struct SpriteTemplate gOrderUpTatsugiriStretchySpriteTemplate =
+{
+    .tileTag = ANIM_TAG_TATSUGIRI_STRETCHY,
+    .paletteTag = ANIM_TAG_TATSUGIRI_STRETCHY,
+    .oam = &gOamData_AffineOff_ObjNormal_32x32,
+    .anims = gAnims_DreepyMissilePlayer,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimRockTomb,
+};
+
+// Start of Tera Blast sprite templates
+const struct SpriteTemplate gFireSpreadBlastSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_SMALL_EMBER,
+    .paletteTag = ANIM_TAG_SMALL_EMBER,
+    .oam = &gOamData_AffineOff_ObjNormal_32x32,
+    .anims = gAnims_BasicFire,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimIceBeamParticle,
+};
+
+const struct SpriteTemplate gPurpleFlameSpiralOutwardSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_PURPLE_FLAME,
+    .paletteTag = ANIM_TAG_PURPLE_FLAME,
+    .oam = &gOamData_AffineOff_ObjBlend_16x32,
+    .anims = gAnims_GrudgeFlame,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimFireSpiralOutward,
+};
+
+const struct SpriteTemplate gAirWaveSpiralOutwardSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_AIR_WAVE_2,
+    .paletteTag = ANIM_TAG_AIR_WAVE_2,
+    .oam = &gOamData_AffineOff_ObjNormal_32x16,
+    .anims = gAffineAnims_AirWaveCrescent,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimFireSpiralOutward,
+};
+
+const struct SpriteTemplate gPinkVioletOrbSpiralOutwardSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_PINKVIO_ORB,
+    .paletteTag = ANIM_TAG_PINKVIO_ORB,
+    .oam = &gOamData_AffineNormal_ObjNormal_16x16,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimFireSpiralOutward,
+};
+
+const struct SpriteTemplate gHydroPumpSpiralOutwardSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_HYDRO_PUMP,
+    .paletteTag = ANIM_TAG_HYDRO_PUMP,
+    .oam = &gOamData_AffineOff_ObjBlend_16x16,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimFireSpiralOutward,
+};
+
+const struct SpriteTemplate sCirclingShockSpiralOutwardSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_SHOCK,
+    .paletteTag = ANIM_TAG_SHOCK,
+    .oam = &gOamData_AffineOff_ObjNormal_32x32,
+    .anims = gAnims_CirclingElectricShock,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimFireSpiralOutward,
+};
+
+const struct SpriteTemplate sIceCrystalSpiralOutwardSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_ICE_CRYSTALS,
+    .paletteTag = ANIM_TAG_ICE_CRYSTALS,
+    .oam = &gOamData_AffineDouble_ObjBlend_8x16,
+    .anims = gAnims_IceCrystalLarge,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimFireSpiralOutward,
+};
+
+const struct SpriteTemplate sMudSandSpiralOutwardSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_MUD_SAND,
+    .paletteTag = ANIM_TAG_MUD_SAND,
+    .oam = &gOamData_AffineOff_ObjNormal_16x16,
+    .anims = gAnims_MudSlapMud,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimFireSpiralOutward,
+};
+
+const struct SpriteTemplate sPoisonSpiralOutwardSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_POISON_BUBBLE,
+    .paletteTag = ANIM_TAG_POISON_BUBBLE,
+    .oam = &gOamData_AffineDouble_ObjNormal_16x16,
+    .anims = &gAnims_PoisonProjectile[0],
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimFireSpiralOutward,
+};
+
+const struct SpriteTemplate sRockSpiralOutwardSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_ROCKS,
+    .paletteTag = ANIM_TAG_ROCKS,
+    .oam = &gOamData_AffineOff_ObjNormal_32x32,
+    .anims = gAnims_FlyingRock,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimFireSpiralOutward,
+};
+
+const struct SpriteTemplate sMetalBallSpiralOutwardSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_METAL_BALL,
+    .paletteTag = ANIM_TAG_METAL_BALL,
+    .oam = &gOamData_AffineOff_ObjNormal_16x16,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimFireSpiralOutward,
+};
+
+const struct SpriteTemplate sPinkHeartSpiralOutwardSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_PINK_HEART,
+    .paletteTag = ANIM_TAG_PINK_HEART,
+    .oam = &gOamData_AffineOff_ObjNormal_16x16,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimFireSpiralOutward,
+};
+
+const struct SpriteTemplate gDragonDanceOrbSpiralOutwardSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_HOLLOW_ORB,
+    .paletteTag = ANIM_TAG_HOLLOW_ORB,
+    .oam = &gOamData_AffineOff_ObjNormal_16x16,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimFireSpiralOutward,
+};
+
+const struct SpriteTemplate gYellowStarSpiralOutwardSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_YELLOW_STAR,
+    .paletteTag = ANIM_TAG_YELLOW_STAR,
+    .oam = &gOamData_AffineNormal_ObjNormal_32x32,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimFireSpiralOutward,
+};
+
+const struct SpriteTemplate gTeraBlastFlyingSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_METAL_SOUND_WAVES,
+    .paletteTag = ANIM_TAG_METAL_SOUND_WAVES,
+    .oam = &gOamData_AffineDouble_ObjNormal_32x64,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gAffineAnims_SpinningBone,
+    .callback = AnimShadowBall,
+};
+
+const struct SpriteTemplate gTeraBlastWaterSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_HYDRO_PUMP,
+    .paletteTag = ANIM_TAG_HYDRO_PUMP,
+    .oam = &gOamData_AffineDouble_ObjNormal_16x16,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimDracoMeteorRock,
+};
+
+const struct SpriteTemplate gTeraBlastRockSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_ROCKS,
+    .paletteTag = ANIM_TAG_ROCKS,
+    .oam = &gOamData_AffineOff_ObjNormal_32x32,
+    .anims = gAnims_BasicRock,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimDracoMeteorRock,
+};
+
+const struct SpriteTemplate gGhostProjectileSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_GHOSTLY_SPIRIT,
+    .paletteTag = ANIM_TAG_GHOSTLY_SPIRIT,
+    .oam = &gOamData_AffineOff_ObjBlend_32x32,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimPoisonJabProjectile,
+};
+// End of Tera Blast sprite templates
+
+// Credit to Skeli
+#define PRIMAL_PULSE_SCALE_SIZE 16
+#define PRIMAL_PULSE_FRAME_COUNT 4
+static const union AffineAnimCmd sSpriteAffineAnim_PrimalSymbol[] =
+{
+    AFFINEANIMCMD_FRAME(16, 16, 0, 0),
+    AFFINEANIMCMD_FRAME(32, 32, 0, 15),
+    AFFINEANIMCMD_FRAME(0, 0, 0, 2),
+    AFFINEANIMCMD_FRAME(-PRIMAL_PULSE_SCALE_SIZE, -PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME( PRIMAL_PULSE_SCALE_SIZE,  PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME(-PRIMAL_PULSE_SCALE_SIZE, -PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME( PRIMAL_PULSE_SCALE_SIZE,  PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME(-PRIMAL_PULSE_SCALE_SIZE, -PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME( PRIMAL_PULSE_SCALE_SIZE,  PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME(-PRIMAL_PULSE_SCALE_SIZE, -PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME( PRIMAL_PULSE_SCALE_SIZE,  PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME(-32, -32, 0, 15), //Shrink down again
+    AFFINEANIMCMD_END,
+};
+
+const union AffineAnimCmd *const gSpriteAffineAnimTable_PrimalSymbol[] =
+{
+    sSpriteAffineAnim_PrimalSymbol,
+};
+
+static const union AffineAnimCmd sSpriteAffineAnim_MegaSymbol[] =
+{
+    AFFINEANIMCMD_FRAME(16, 16, 0, 0), //Start small
+    AFFINEANIMCMD_FRAME(32, 32, 0, 15), //Grow sprite
+    AFFINEANIMCMD_FRAME(0, 0, 0, 2), //Pause
+
+    //Pulsate
+    AFFINEANIMCMD_FRAME(-PRIMAL_PULSE_SCALE_SIZE, -PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME( PRIMAL_PULSE_SCALE_SIZE,  PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME(-PRIMAL_PULSE_SCALE_SIZE, -PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME( PRIMAL_PULSE_SCALE_SIZE,  PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME(-PRIMAL_PULSE_SCALE_SIZE, -PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME( PRIMAL_PULSE_SCALE_SIZE,  PRIMAL_PULSE_SCALE_SIZE, 0, PRIMAL_PULSE_FRAME_COUNT),
+    AFFINEANIMCMD_FRAME(-32, -32, 0, 15), //Shrink down again
+    AFFINEANIMCMD_END,
+};
+
+const union AffineAnimCmd* const gSpriteAffineAnimTable_MegaSymbol[] =
+{
+    sSpriteAffineAnim_MegaSymbol,
+};
+
+// Used for determining which animation to use for Order Up
+void AnimTask_GetCommanderType(u8 taskId)
+{
+    /*switch (gBattleStruct->battlerState[gEffectBattler].commanderSpecies)
+    {
+    case SPECIES_TATSUGIRI_CURLY:
+        gBattleAnimArgs[ARG_RET_ID] = ANIM_ORDER_UP_CURLY;
+        break;
+    case SPECIES_TATSUGIRI_DROOPY:
+        gBattleAnimArgs[ARG_RET_ID] = ANIM_ORDER_UP_DROOPY;
+        break;
+    case SPECIES_TATSUGIRI_STRETCHY:
+        gBattleAnimArgs[ARG_RET_ID] = ANIM_ORDER_UP_STRETCHY;
+        break;
+    default:
+        gBattleAnimArgs[ARG_RET_ID] = ANIM_ORDER_UP_NONE;
+        break;
+    }*/
+
+    DestroyAnimVisualTask(taskId);
+}
+
 //// functions
 //general
 void AnimTask_IsTargetPartner(u8 taskId)

@@ -16,6 +16,7 @@ static void UpdateDragonDanceScanlineEffect(struct Task *task);
 static void AnimDragonRushStep(struct Sprite *sprite);
 static void AnimSpinningDracoMeteor(struct Sprite *sprite);
 static void AnimSpinningDracoMeteorFinish(struct Sprite *sprite);
+static void AnimDracoMeteorRock_Step(struct Sprite *sprite);
 
 //static EWRAM_DATA u16 gUnusedOverheatData[7] = {0};
 
@@ -593,4 +594,40 @@ static void AnimOverheatFlame_Step(struct Sprite *sprite)
     sprite->pos2.y = sprite->data[5] / 10;
     if (++sprite->data[0] > sprite->data[3])
         DestroyAnimSprite(sprite);
+}
+
+void AnimDracoMeteorRock(struct Sprite *sprite)
+{
+    if (IsOnPlayerSide(gBattleAnimTarget))
+    {
+        sprite->data[0] = sprite->pos1.x - gBattleAnimArgs[0];
+        sprite->data[2] = sprite->pos1.x - gBattleAnimArgs[2];
+    }
+    else
+    {
+        sprite->data[0] = sprite->pos1.x + gBattleAnimArgs[0];
+        sprite->data[2] = sprite->pos1.x + gBattleAnimArgs[2];
+    }
+
+    sprite->data[1] = sprite->pos1.y + gBattleAnimArgs[1];
+    sprite->data[3] = sprite->pos1.y + gBattleAnimArgs[3];
+    sprite->data[4] = gBattleAnimArgs[4];
+
+    sprite->data[6] = gBattleAnimArgs[2];
+    sprite->data[7] = gBattleAnimArgs[3];
+
+    sprite->pos1.x = sprite->data[0];
+    sprite->pos1.y = sprite->data[1];
+    sprite->callback = AnimDracoMeteorRock_Step;
+}
+
+static void AnimDracoMeteorRock_Step(struct Sprite *sprite)
+{
+    sprite->pos2.x = ((sprite->data[2] - sprite->data[0]) * sprite->data[5]) / sprite->data[4];
+    sprite->pos2.y = ((sprite->data[3] - sprite->data[1]) * sprite->data[5]) / sprite->data[4];
+
+    if (sprite->data[5] == sprite->data[4])
+        DestroyAnimSprite(sprite);
+
+    sprite->data[5]++;
 }
