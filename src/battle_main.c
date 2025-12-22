@@ -6080,7 +6080,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
             && ability != ABILITY_AVIATOR
             && ability != ABILITY_RUN_AWAY
             )
-        && IsBlackFogNotOnField())
+       )
         speed /= 2;
 
     //trap effects  gBattleMons[battlerAtk].status4 & ITS_A_TRAP_STATUS4  potentially make all drop speed, on top of new effects //vsonic
@@ -6089,7 +6089,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
     //excluding spiritomb and several flying types that can't fly
     if ((gBattleMons[battler].status2 & STATUS2_WRAPPED
     || gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4)
-    && IsBlackFogNotOnField())
+   )
     {
         //decide want to make flyig type also a species exclusion since even if knocked down
         //flyig tuype can still just get up and fly away

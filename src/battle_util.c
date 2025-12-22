@@ -11509,7 +11509,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, enum Ability atkA
 
         //trap effect,
         if (((gBattleMons[battlerAtk].status4 & STATUS4_SAND_TOMB)
-        && IsBlackFogNotOnField())
+       )
         && !(MoveSureHitEvasionBoostedTargets(gCurrentMove))
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_ROCK, FALSE)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_STEEL, FALSE)

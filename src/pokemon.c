@@ -4601,8 +4601,7 @@ void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCate
     //so it wouldn't block me punching myself in the face
     //facepalm removing confusion check from here makes it do less dmg which is the oposite ofwhat I wanted
     if (IS_CRIT || GetBattlerAbility(battlerAtk) == ABILITY_INFILTRATOR || (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
-    || gProtectStructs[battlerAtk].confusionSelfDmg
-    || !IsBlackFogNotOnField())
+    || gProtectStructs[battlerAtk].confusionSelfDmg)
         return; //think should be fine would just mean do nothing to damage
 
     if (reflect || lightScreen || auroraVeil)
@@ -5035,15 +5034,15 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     && IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY)
     && GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
         spAttack = (150 * spAttack) / 100;
-    if (abilityAtk == ABILITY_USURPER && attacker->status1 & STATUS1_ANY && IsBlackFogNotOnField())
+    if (abilityAtk == ABILITY_USURPER && attacker->status1 & STATUS1_ANY)
     {
         OffensiveModifer(125);        
     }
 
     //may change to 125, half of guts
-    if (abilityAtk == ABILITY_DEFIANT && attacker->status1 & STATUS1_ANY && IsBlackFogNotOnField())
+    if (abilityAtk == ABILITY_DEFIANT && attacker->status1 & STATUS1_ANY)
         attack = (130 * attack) / 100;
-    if (abilityAtk == ABILITY_COMPETITIVE && attacker->status1 & STATUS1_ANY && IsBlackFogNotOnField())
+    if (abilityAtk == ABILITY_COMPETITIVE && attacker->status1 & STATUS1_ANY)
         spAttack = (130 * spAttack) / 100;  //CUT Back to 130, because it already has stat raise component
     if (abilityAtk == ABILITY_PLUS 
     && (ABILITY_ON_FIELD2(ABILITY_MINUS)
@@ -5055,14 +5054,14 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         spAttack = (150 * spAttack) / 100;
     if (abilityAtk == ABILTY_UNKNOWN_POWER && (BATTLE_PARTNER(attacker->species) == SPECIES_UNOWN))
         OffensiveModifer(200);
-    if (abilityAtk == ABILITY_GUTS && attacker->status1 & STATUS1_ANY && IsBlackFogNotOnField())
+    if (abilityAtk == ABILITY_GUTS && attacker->status1 & STATUS1_ANY)
         attack = (150 * attack) / 100;
-    if (GetBattlerAbility(battlerIdDef) == ABILITY_TOOLS_OF_THE_TRADE && defender->status1 & STATUS1_ANY && IsBlackFogNotOnField())
+    if (GetBattlerAbility(battlerIdDef) == ABILITY_TOOLS_OF_THE_TRADE && defender->status1 & STATUS1_ANY)
     {
         defense = (125 * defense) / 100;
         spDefense = (125 * spDefense) / 100;
     }   
-    if (GetBattlerAbility(battlerIdDef) == ABILITY_MARVEL_SCALE && defender->status1 & STATUS1_ANY && IsBlackFogNotOnField())
+    if (GetBattlerAbility(battlerIdDef) == ABILITY_MARVEL_SCALE && defender->status1 & STATUS1_ANY)
         defense = (150 * defense) / 100;
     if (moveType == TYPE_ELECTRIC && (sideStatus & SIDE_STATUS_MUDSPORT)) //sidestatus means target side status, checked from bs_commands.c damagecalc function
         gBattleMovePower /= 2;
@@ -5194,15 +5193,15 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower *= 2;
         break;
         case EFFECT_VENOSHOCK:
-        if (defender->status1 & STATUS1_PSN_ANY && IsBlackFogNotOnField())
+        if (defender->status1 & STATUS1_PSN_ANY)
             gBattleMovePower *= 2;
         break;
         case EFFECT_HEX:
-        if (defender->status1 & STATUS1_ANY && IsBlackFogNotOnField())
+        if (defender->status1 & STATUS1_ANY)
             gBattleMovePower *= 2;
         break;
         case EFFECT_SMELLINGSALTS:
-        if (gBattleMons[battlerIdDef].status1 & STATUS1_PARALYSIS && IsBlackFogNotOnField())
+        if (gBattleMons[battlerIdDef].status1 & STATUS1_PARALYSIS)
             gBattleMovePower = (150 * gBattleMovePower) / 100;
         break;
         case EFFECT_BRINE:
@@ -5473,7 +5472,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if ((gBattleMons[battlerIdAtk].status1 & STATUS1_BURN
         || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdAtk, TYPE_FIRE, FALSE) && attackerHoldEffect == HOLD_EFFECT_FLAME_ORB))
             && (MoveDamageCategory == SPLIT_SPECIAL) //!usesDefStat //IS_MOVE_SPECIAL(move))
-            && IsBlackFogNotOnField())
+           )
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         //MulModifier(&modifier, UQ_4_12(1.5));
         break;
@@ -5481,7 +5480,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if ((gBattleMons[battlerIdAtk].status1 & STATUS1_PSN_ANY || IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN_ANY)
         || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdAtk, TYPE_POISON, FALSE) && attackerHoldEffect == HOLD_EFFECT_TOXIC_ORB)) 
             && (MoveDamageCategory == SPLIT_PHYSICAL)
-            && IsBlackFogNotOnField())
+           )
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         //MulModifier(&modifier, UQ_4_12(1.5));
         break;
@@ -6041,14 +6040,14 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //using gbattlemovedmage didn't seem to change dmg, only fix I can think of is to reuse and just keep damage
     //value but put inside both physical and special
     // are effects of weather negated with cloud nine or air lock
-    if (HasWeatherEffect() && IsBlackFogNotOnField()) //weather dmg changes weren't working at all, think was becuz I had  below dmg calc
+    if (HasWeatherEffect()) //weather dmg changes weren't working at all, think was becuz I had  below dmg calc
     {
 
         //black fog check has already been added to weatheraffected funcion directly
         if ((abilityAtk == ABILITY_FLUORESCENCE   
         || DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))     
-        && !IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY)// && IsBlackFogNotOnField()
-        && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
+        && !IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY)//
+        && gBattleMoves[move].effect == EFFECT_SOLAR_BEAM)
         {
             OffensiveModifer(100);
         } //simpler balancing for fluorescence do dmg cut/ nvm removed dmg cut, low bst and forgot lowered super bonus etc., so will mean just avoids dmg cut from other weather
@@ -6056,7 +6055,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //moved these here, because they don't have to do with physical or special damage alone anymore.  since I removed the type link
         // any weather except sun weakens solar beam
         else if ((gBattleWeather & (WEATHER_LOW_LIGHT)) 
-        && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
+        && gBattleMoves[move].effect == EFFECT_SOLAR_BEAM)
             OffensiveModifer(50);
 
 
@@ -6217,8 +6216,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             else
                 damage = Offensive_Stat;
         }
-        else if (IsBlackFogNotOnField()) //is this right, for what I had in mind?
-            APPLY_STAT_MOD(damage, attacker, Offensive_Stat, StatMod_Stat)
         else 
             damage = Offensive_Stat; //if black fog all stat changes & external effects irrelevant
 
@@ -6286,7 +6283,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         //trap effects & bug status def drop
         if ((gBattleMons[battlerIdDef].status2 & STATUS2_INFESTATION) //this is bug status
-            && IsBlackFogNotOnField()) //liked the idea of creating a bug status effect, change  move infestaion to swarm, atked by biting swarm!
+           ) //liked the idea of creating a bug status effect, change  move infestaion to swarm, atked by biting swarm!
             //then make infested/infestation the bug status, the extra effect of swarm would be setting the infestation status
         {
 
@@ -6330,8 +6327,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             else
                 damageHelper = defense;
         }
-        else if (IsBlackFogNotOnField())
-            APPLY_STAT_MOD(damageHelper, defender, defense, STAT_DEF) //apply stat mod actually sets damgageHelper to value of stat stage
         else
             damageHelper = defense;
 
@@ -6363,7 +6358,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     
         //other damage factors
 
-        if ((attacker->status1 & STATUS1_BURN) && IsBlackFogNotOnField() 
+        if ((attacker->status1 & STATUS1_BURN) 
         && abilityAtk != ABILITY_GUTS //nvm don't need is physical because its already in the bracket for that ^
         && abilityAtk != ABILITY_HEAT_TRANCE
         && abilityAtk != ABILITY_TOOLS_OF_THE_TRADE)
@@ -6380,7 +6375,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             && abilityAtk != ABILITY_INFILTRATOR
             && !gProtectStructs[battlerIdAtk].confusionSelfDmg
             && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
-            && IsBlackFogNotOnField())
+           )
         {
             //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
                // damage = 2 * (damage / 3); //believe what's happening here is it lowers the effectiveness of reflect for doubles 
@@ -6417,8 +6412,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             else
                 damage = Offensive_Stat;
         }
-        else if (IsBlackFogNotOnField())
-            APPLY_STAT_MOD(damage, attacker, Offensive_Stat, StatMod_Stat)
         else
             damage = Offensive_Stat;
 
@@ -6490,8 +6483,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             else
                 damageHelper = spDefense;
         }
-        else if (IsBlackFogNotOnField())
-            APPLY_STAT_MOD(damageHelper, defender, spDefense, STAT_SPDEF)
         else
             damageHelper = spDefense;
 
@@ -6540,7 +6531,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         /*    if ((sideStatus & SIDE_STATUS_LIGHTSCREEN) && !IS_CRIT
             && abilityAtk != ABILITY_INFILTRATOR
             && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
-            && IsBlackFogNotOnField())
+           )
         {
             //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
             //    damage = 2 * (damage / 3);    //looks strange, but screens blocked less damage instead of more for doubles, 
