@@ -403,6 +403,11 @@ static inline bool32 MoveCanDamageAirborne(u32 moveId)
     || gBattleMoves[moveId].damagesAirborneDoubleDamage == TRUE);
 }
 
+//for most part is category without a distinction
+//intention is to differentiate new category of
+//effects that are unable to hit floating mon separate from type
+//ex. moves that explicitly flow along the ground
+//this should now be main distinction of whether moves can hit floating types
 static inline bool32 MoveCantDamageFloatingTargets(u32 moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].cantdamageFloating;

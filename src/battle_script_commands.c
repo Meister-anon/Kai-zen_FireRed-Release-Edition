@@ -10240,15 +10240,15 @@ static void Cmd_manipulatedamage(void)
     case DMG_CURR_ATTACKER_HP:
         gBattleMoveDamage = gBattleMons[gBattlerAttacker].hp;
         break;
-    case DMG_BIG_ROOT:  //think handled in util.c can skip
-        gBattleMoveDamage = GetDrainedBigRootHp(gBattlerAttacker, gBattleMoveDamage);
-        break; //nope this uses the battle_util.c stuff actually, gbattlemovedamage argument ie heal amount, is set from sethpdrain bs command
     case DMG_1_2_ATTACKER_HP:
         gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 2,1);
         break;
-    case DMG_RECOIL_FROM_IMMUNE:
-        gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1); //think no longer need can just use top recoil effect
-        break;
+    case DMG_BIG_ROOT:  //think handled in util.c can skip
+        gBattleMoveDamage = -1 * GetDrainedBigRootHp(gBattlerAttacker, gBattleMoveDamage);
+        //break; //nope this uses the battle_util.c stuff actually, gbattlemovedamage argument ie heal amount, is set from sethpdrain bs command
+    case DMG_MISTY_HEAL_BOOST:
+        gBattleMoveDamage = MistyTerrainHealBoost(gBattlerAttacker, gBattleMoveDamage); //think no longer need can just use top recoil effect
+        break;//unsure if will keep affects
     
     
     /*case DMG_CHANGE_SIGN:
@@ -10266,7 +10266,10 @@ static void Cmd_manipulatedamage(void)
     }
 
     gBattlescriptCurrInstr = cmd->nextInstr;
-}
+}//since dmg_big_root effect is only used by strength sap
+    //could get mist boost but simply setting up fallthrough rather
+    //than adding extra command to script
+
 
 static void Cmd_trysetrest(void)
 {
