@@ -6885,10 +6885,65 @@ enum IronBallCheck
     IGNORE_IRON_BALL
 };
 
+//can use this for mon or battler
+//for battler take gBattleMons[battlerId].species
+bool8 IsFloatingSpecies(u16 species) 
+{
+    s32 i;
+
+    if (gBaseStats[species].floating)
+        return TRUE;
+
+    return FALSE;
+}
+
+bool8 IsFlyingTypeBattlerUnableToFly(u32 battler)
+{
+    u16 species = gBattleMons[battler].species;
+
+    if (gFieldStatuses & STATUS_FIELD_GRAVITY
+    || (GetBattlerHoldEffect(battler, FALSE) == HOLD_EFFECT_IRON_BALL))
+        return TRUE;
+
+   
+    if (IsFloatingSpecies(species))
+        return FALSE;
+    else
+        return TRUE;
+
+}
+
+//simplify rather than include affinty check
+//assume flying just include things necessary
+//to not be grounded
+//hopefully accounts for loss of item as well 
+//well those are prob both move end affects
+//so may need to shift move end affect so
+//item removal happens before MOVE_END_GROUND_TARGET
+//vsonic important
+bool8 CanFlyingTypeRecoverFromSmackDown(u32 battler)
+{
+    u16 species = gBattleMons[battler].species;
+
+    if (IsFloatingSpecies(species))
+        return TRUE;
+    else if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_FLOAT_STONE)
+            return TRUE;
+
+    return FALSE;
+
+}
+
+
+#define GROUNDED_FUNCTION
+
 // Only called directly when calculating damage type effectiveness, and Iron Ball's type effectiveness mechanics
+//with levitate removal wont be using abiilty argument
+//this function doesn't have roost check cuz it has flying type check
+//and default effect makes lose flying type defaulting it to grouded status - my version doesn't
 static bool32 IsBattlerGroundedInverseCheck(u32 battler, enum Ability ability, enum HoldEffect holdEffect, enum InverseBattleCheck checkInverse, bool32 isAnticipation)
 {
-    if (holdEffect == HOLD_EFFECT_IRON_BALL)
+    /*if (holdEffect == HOLD_EFFECT_IRON_BALL)
         return TRUE;
     if (gFieldStatuses & STATUS_FIELD_GRAVITY && isAnticipation == FALSE)
         return TRUE;
@@ -6902,11 +6957,109 @@ static bool32 IsBattlerGroundedInverseCheck(u32 battler, enum Ability ability, e
         return FALSE;
     if (holdEffect == HOLD_EFFECT_AIR_BALLOON)
         return FALSE;
-    if (ability == ABILITY_LEVITATE)
-        return FALSE;
+
     if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) && (checkInverse != INVERSE_BATTLE || !FlagGet(B_FLAG_INVERSE_BATTLE)))
         return FALSE;
-    return TRUE;
+    return TRUE;*/
+    //need figure how to do inverse stuff interact
+    //w my floating mechancic changes as defaults to neutral
+    //on chart then gets set immune
+
+    u16 species = gBattleMons[battler].species;
+    bool8 grounded = TRUE; //changed so goes through all checks  //not using else, so need to make it default TRUE
+
+    //order is bad, need setup so if I change it from not grounded, it doesn't get cleared -fixed orderr
+    //setup is different from emerald, that uses return to immediately  stop if found true case
+    //but I have cases that don't get removed/are always true, so I need to filter
+
+    if (IsFloatingSpecies(species))//used if as breakline, as else if only reads if everything above it is false
+        grounded = FALSE; //nice new version of floating setup greatly cleanns up this function
+
+    else if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battler, TYPE_FLYING, FALSE)
+     && holdEffect == HOLD_EFFECT_FLOAT_STONE)
+        grounded = FALSE;
+    //for setting the sript to play think can do it in atk49 moveend
+    //check battlescript.moveeffect if sleep or paralysis
+    //can do a before and after thing like how emergency exit does before after hp checks
+    //put check in attack canceler if mon is not grounded
+    //and then in move end check if becomes grounded and set script then
+    //if can get that to work can consolidate effect
+    //won't need do separate effects for each thing,
+
+    //need put logic in status cure 
+    //may just make a new ewram thing that can loop all battlers
+    //at turn start from main, to check if they are grounded
+    //turnstartgroundedcheck  just a true false assignment
+    //then in endturn/moveend can do what I need to, to update
+    //MOVE_END_GROUND_TARGET already handle that without new ewram thing
+    //if (gBattleMons[battler].status1 & STATUS1_PARALYSIS) 
+    //    grounded = TRUE; //may remove from paralysis think anime still fly plus too strong for effect
+    
+    if (gBattleMons[battler].status1 & STATUS1_INCAPACITATED) 
+        grounded = TRUE;
+
+    //if (gDisableStructs[battler].FrozenTurns != 0) //frozen solid since adding frostbite can explicilty set as freeze
+    //    grounded = TRUE;
+    //added status excemptions to replace lose of synergy with 
+    //ability removal/swap effects/moldbreaker likes
+    //needed some form of accessible effect removal besides just
+    //requiring speific moves - review can't remember if moldbreaker still allows
+    //getting passed floating mechanic as if tied to ability
+    //since I have it affecting affinities vsonic
+    
+    //have roost timer now don't imagine would need this?
+    //if (gBattleResources->flags->flags[battler] & RESOURCE_FLAG_ROOST)
+    //    grounded = TRUE; //hope this set up right/works
+    //according to Mcgriffin needed make flying & roost flag true statement
+    //as else at bottom just means not flyign or has roost flag, TRUE
+
+    //looking at these realize I prob have in wrong order
+    //smack down trench run and roost shoulnt stop magnet rise telekinesis etc.
+    //not setup fully yet vsonic -//hmm w ground flying change this is also more balanced now vsonic
+    if (gDisableStructs[battler].trenchRunTimer) //change name, using for trench run
+        grounded = TRUE;
+    if (gDisableStructs[battler].RoostTimer) //
+        grounded = TRUE;
+    
+
+    if ((gStatuses3[battler] & STATUS3_TELEKINESIS))
+        grounded = FALSE;
+    if ((gStatuses3[battler] & STATUS3_MAGNET_RISE))
+        grounded = FALSE;
+    
+    if ((holdEffect == HOLD_EFFECT_AIR_BALLOON))
+        grounded = FALSE;
+
+    //still don't see point of anticipation check
+    //ancticipation is only able to read it in gen 4 for type calc vsonic
+    if (gFieldStatuses & STATUS_FIELD_GRAVITY && isAnticipation == FALSE)
+        grounded = TRUE;
+    if (gStatuses3[battler] & STATUS3_ROOTED)
+        grounded = TRUE;
+    //oh might be wrong in origial smack down superscedes magnet rise
+    //and telekinesis apparently
+    if (gStatuses3[battler] & STATUS3_SMACKED_DOWN)
+        grounded = TRUE;
+    
+    
+    if (holdEffect == HOLD_EFFECT_IRON_BALL)
+        grounded = TRUE;   
+    
+    //doesn't matter much other than smacking down targets
+    //in mid flight still think may not need
+    //as triggering on air status already clears smackdown
+    //if ((gStatuses3[battler] & STATUS3_ON_AIR))
+    //    grounded = FALSE;
+
+    //while makes sense they never "fixed" this so I guess
+    //that's an intentional oversight for fun/unique options
+    //but then again is better for ground type to work,
+    //and not working flies in face of water version of effect
+    //that works as expected this doesn't
+    if (gStatuses3[battler] & STATUS3_UNDERGROUND)
+        grounded = TRUE;
+    
+    return grounded;
 }
 
 bool32 IsBattlerGrounded(u32 battler, enum Ability ability, enum HoldEffect holdEffect)
@@ -9308,8 +9461,8 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct DamageCont
         modifier = UQ_4_12(1.0);
     }*/
 
-    if (((ctx->abilityDef == ABILITY_WONDER_GUARD && modifier <= UQ_4_12(1.0)
-    || ctx->abilityDef == ABILITY_DISPIRIT_GUARD && modifier >= UQ_4_12(1.0))
+    if (((ctx->abilityDef == ABILITY_WONDER_GUARD && modifier <= UQ_4_12(1.0))
+    || (ctx->abilityDef == ABILITY_DISPIRIT_GUARD && modifier >= UQ_4_12(1.0))
         || (ctx->abilityDef == ABILITY_TELEPATHY && ctx->battlerDef == BATTLE_PARTNER(ctx->battlerAtk)))
         && GetMovePower(ctx->move) != 0)
     {
@@ -9385,7 +9538,9 @@ uq4_12_t CalcPartyMonTypeEffectivenessMultiplier(u16 move, u16 speciesDef, enum 
 
         if (ctx.moveType == TYPE_GROUND && abilityDef == ABILITY_LEVITATE && !(gFieldStatuses & STATUS_FIELD_GRAVITY))
             modifier = UQ_4_12(0.0);
-        if (abilityDef == ABILITY_WONDER_GUARD && modifier <= UQ_4_12(1.0) && GetMovePower(move) != 0)
+        if ((abilityDef == ABILITY_WONDER_GUARD && modifier <= UQ_4_12(1.0))
+        || (abilityDef == ABILITY_DISPIRIT_GUARD && modifier >= UQ_4_12(1.0)) 
+        && GetMovePower(move) != 0)
             modifier = UQ_4_12(0.0);
     }
 
@@ -11874,6 +12029,175 @@ static u32 GetMeFirstMove(void)
         return MOVE_NONE;
 
     return move;
+}
+
+//may be a few more suicide moves I'll have to add to this
+//only reason have to add healing wish is user fainting is part of effect
+//tied in so much that move script opens party menu to force switch
+//fixed effect now works one time per on field so requires
+//healing and switching out and back in to reset
+//making it abusable but not completely free
+//believe still need setup gbattlemovedamage change to fully work
+bool8 CanSurviveInstantKOWithSturdy(u8 battler)
+{
+    if (GetBattlerAbility(battler) == ABILITY_STURDY
+    && gBattleMons[battler].hp >= (gBattleMons[battler].maxHP / 4)//think need to change this, without an indicator Im' just recreating the in a pinch problem
+    && gBattleMoves[gCurrentMove].effect != EFFECT_HEALING_WISH //better to change it to when hp becomes red?
+    && !gDisableStructs[battler].sturdyhungon)
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+//for some reason wasn't tracking propery
+//for type effect display w mold breaker
+//but making movetype an argument fixed issue
+bool8 IsFloatingTargetImmunetoGroundBasedMoves(u8 battler_atk, u8 battler_def, u16 move)
+{
+
+
+    if (MoveCantDamageFloatingTargets(move) && !IsBattlerGrounded(battler_def))
+    {
+
+        if (GetBattlerAbility(battler_atk) == ABILITY_MOLD_BREAKER)
+            return FALSE;
+        else
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+//for use in party menu
+bool8 CanActivateExpShare(void)
+{
+    if (FlagGet(FLAG_NEW_GAME_PLUS) || FlagGet(FLAG_GOT_EXP_SHARE))
+        return TRUE;
+    return FALSE;
+}
+
+bool8 CanActivateExpNull(void)
+{
+    if (FlagGet(FLAG_NEW_GAME_PLUS) || FlagGet(FLAG_GOT_EXP_NULL_FROM_MOM))
+        return TRUE;
+    return FALSE;
+}
+
+//put in acc check if true set to acc to 100
+//make sure to put high enough it can take effect but still be affected
+//by other accuracy factors
+//for sound status moves that change stat stage at above stage 1
+//vsonic important do these effects better, better condition
+//that categorizes what has what effect and why
+//if can do that can potentially consolidate functions
+//do state return based on condition
+bool8 ShouldCacophonyBoostAccuracy(u16 move)
+{
+
+
+    if (gBattleMoves[move].split == SPLIT_STATUS && gSpecialStatuses[gBattlerAttacker].Cacophonyboosted
+    &&  (move == MOVE_METAL_SOUND
+    || move == MOVE_SCREECH))
+        return TRUE;
+    else
+        return FALSE;
+}
+
+//double relevant effect chance
+//sound moves w effects not including sleep or confusion
+//think had that wrong, was thinking of ...
+//nah well long as sleep chance is low should be fine
+bool8 ShouldCacophonyBoostEffectChance(u16 move)
+{
+
+    //uses secondary effect chance
+    if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted
+    && (move == MOVE_CLANGING_SCALES
+    || move == MOVE_OVERDRIVE
+    || move == MOVE_SONIC_BOOM
+    || move == MOVE_SONIC_SCREECH
+    || move == MOVE_SNORE
+    || move == MOVE_HYPER_VOICE
+    || move == MOVE_SPOOK
+    || move == MOVE_BUG_BUZZ
+    || move == MOVE_CHATTER
+    || move == MOVE_ECHOED_VOICE
+    || move == MOVE_RELIC_SONG
+    || move == MOVE_DISARMING_VOICE))
+        return TRUE;
+    //for moves thata use argument chance
+    /*else if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted
+    && (move == MOVE_CLANGING_SCALES))
+        return TRUE;*/
+    else
+        return FALSE;
+}
+
+//two part companion function
+//for dmging sound based mvoes that change stat stage
+//at lvl 1, most done in script but this is for generic ones
+//without unique move effect  ex. effect attack down hit
+//use snarl to test if affect works
+bool8 ShouldCacophonyElevateMoveEffect(u16 move)
+{
+    if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted
+    && (move == MOVE_BUG_BUZZ
+    || move == MOVE_SNARL
+    || move == MOVE_DISARMING_VOICE))
+        return TRUE;
+    else
+        return FALSE;
+}
+
+void CacophonyElevateMoveEffect(void)
+{
+    switch (gBattleScripting.moveEffect)
+    {
+        case MOVE_EFFECT_ATK_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_ATK_PLUS_2;
+                break;
+            case MOVE_EFFECT_DEF_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_DEF_PLUS_2;
+                break;
+            case MOVE_EFFECT_SPD_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_SPD_PLUS_2;
+                break;
+            case MOVE_EFFECT_SP_ATK_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_SP_ATK_PLUS_2;
+                break;
+            case MOVE_EFFECT_SP_DEF_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_SP_DEF_PLUS_2;
+                break;
+            case MOVE_EFFECT_ACC_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_ACC_PLUS_2;
+                break;
+            case MOVE_EFFECT_EVS_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_EVS_PLUS_2;
+                break;
+            case MOVE_EFFECT_ATK_MINUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_ATK_MINUS_2;
+                break;
+            case MOVE_EFFECT_DEF_MINUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_DEF_MINUS_2;
+                break;
+            case MOVE_EFFECT_SPD_MINUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_SPD_MINUS_2;
+                break;
+            case MOVE_EFFECT_SP_ATK_MINUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2;
+                break;
+            case MOVE_EFFECT_SP_DEF_MINUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_SP_DEF_MINUS_2;
+                break;
+            case MOVE_EFFECT_ACC_MINUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_ACC_MINUS_2;
+                break;
+            case MOVE_EFFECT_EVS_MINUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_EVS_MINUS_2;
+                break;
+            break;
+    }
 }
 
 void RemoveAbilityFlags(u32 battler)

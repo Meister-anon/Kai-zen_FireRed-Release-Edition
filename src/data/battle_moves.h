@@ -9797,6 +9797,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_BugBuzz,
     },
+    //potentially lower power back down
+    //since I want bug to be a utility type
+    //rather than a big dmg dealer
 
     [MOVE_DRAGON_PULSE] =
     {
