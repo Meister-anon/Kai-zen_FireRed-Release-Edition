@@ -879,6 +879,8 @@ setup a big switch case  and just jump through
 printing and increment and value setting etc.
 until done pretty much do what the loop was doing
 just in separate conditional segments
+//think use check textprinters done or something
+//to know user finished input and box closed
 */
 #define PICKUP_LOGIC
 static void UpdatePickupCounter(void)
