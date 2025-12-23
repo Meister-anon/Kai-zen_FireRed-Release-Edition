@@ -132,12 +132,13 @@ then just multiply by 31 and divide by 255, to find the replace value
 */
 struct TrainerMonPartyData
 {
-    u8 iv;
-    u16 evs[6];
-    u8 lvl;
-    u8 abilityNum;
     u16 species;
     u16 heldItem;
+    u8 abilityNum;
+    u8 iv;
+    u16 evs[6];
+    u8 lvl;    
+    u8 padding;
     u16 moves[4];
 };
 
@@ -152,8 +153,8 @@ struct Trainer
     /*0x04*/ u8 trainerName[12];
              //const u8 *trainerName;  not implemented but idea for space saving from Josh, use to take place of text strings that get reused i.e rematches or same name ex rocket GRUNT
     /*0x10*/ u16 items[4];  //don't use 12 for above, I think?  can make limiter in compount string define
-    /*0x18*/ u8 padding; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
     /*0x1C*/ u32 aiFlags;
+    /*0x18*/ u8 padding; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
     /*0x20*/ u8 partySize;
     /*0x24*/ const struct TrainerMonPartyData *party;
 };//unsure what this should be exactly pointer or no?
@@ -166,7 +167,8 @@ extern const struct Trainer gTrainers[];
 struct ResourceFlags
 {
     u32 flags[MAX_BATTLERS_COUNT];
-};
+};//removed from battle resoure struct
+//saved ewram  don't need resource flags below
 
 #define RESOURCE_FLAG_FLASH_FIRE     1
 #define RESOURCE_FLAG_ROOST          2
@@ -260,7 +262,8 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 timecontrolAbilityTimer:2; //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
     u8 StatusSetViaMoldBreaker:1;
     u8 TrapSetViaMoldBreaker:1;
-    u8 padspace:4;
+    u8 EmergencyExitActive:1; //replace use of RESOURCE_FLAG_EMERGENCY_EXIT
+    u8 padspace:3;
     //u8 RoostTimerStartValue;  //remove for now until I get 
     /*0x1A*/ u8 unk1A[2]; //don't think this is used
 }; //think I may not actually need roost start value, long as I have timer
@@ -616,8 +619,8 @@ struct StatsArray
 
 struct BattleResources
 {
-    struct SecretBaseRecord *secretBase;
-    struct ResourceFlags *flags;
+    //struct SecretBaseRecord *secretBase;
+    //struct ResourceFlags *flags;
     struct BattleScriptsStack *battleScriptsStack;
     struct BattleCallbacksStack *battleCallbackStack;
     struct StatsArray *beforeLvlUp;
