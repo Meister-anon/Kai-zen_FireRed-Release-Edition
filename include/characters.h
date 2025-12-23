@@ -291,6 +291,7 @@
 #define EXT_CTRL_CODE_MISC_CAP    0x1D  //WILL BE FOR handling various terms that get capped will plan turn into string placeholders, i.e OAK, PROF.  DAISY etc.  work like {RIVAL}
 #define EXT_CTRL_CODE_END_CAPITALIZATION    0x1E
 */
+
 /*
 #define CHAR_SPACE             0x00
 #define CHAR_A_GRAVE           0x01
@@ -486,7 +487,7 @@
 #define CHAR_DPAD_UPDOWN    0x0A
 #define CHAR_DPAD_LEFTRIGHT 0x0B
 #define CHAR_DPAD_NONE      0x0C
-
+*/
 // CHAR_EXTRA_SYMBOL chars
 #define CHAR_UP_ARROW_2        0x00
 #define CHAR_DOWN_ARROW_2      0x01
@@ -512,7 +513,7 @@
 #define CHAR_BULLSEYE          0x15
 #define CHAR_TRIANGLE          0x16
 #define CHAR_CROSS_X           0x17
-
+/*
 #define EXT_CTRL_CODE_COLOR                  0x01
 #define EXT_CTRL_CODE_HIGHLIGHT              0x02
 #define EXT_CTRL_CODE_SHADOW                 0x03

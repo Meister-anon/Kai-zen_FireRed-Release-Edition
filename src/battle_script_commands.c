@@ -7,7 +7,7 @@
 #include "battle_ai_main.h"
 #include "battle_ai_util.h"
 #include "battle_scripts.h"
-#include "battle_environment.h"
+#include "battle_environment.h" //file made split off pre-existing file data btl bgs etc.
 #include "item.h"
 #include "util.h"
 #include "pokemon.h"
@@ -297,8 +297,6 @@ enum GiveCaughtMonStates
     GIVECAUGHTMON_GIVE_AND_SHOW_MSG,
 };
 
-#define STAT_CHANGE_WORKED      0
-#define STAT_CHANGE_DIDNT_WORK  1
 
 #define LEVEL_UP_BANNER_START 416
 #define LEVEL_UP_BANNER_END   512
@@ -851,10 +849,6 @@ void (*const gBattleScriptingCommandsTable[])(void) =
     Cmd_callnative,                              //0xFF
 };
 
-static const u16 gUnknown_82506D0[] = INCBIN_U16("graphics/battle_interface/unk_battlebox.gbapal");
-static const u32 gUnknown_82506F0[] = INCBIN_U32("graphics/battle_interface/unk_battlebox.4bpp.lz");
-
-
 //planning to set for both pause and wait message
 //right now its based on text speed but when get changes from pokeabbie
 //for battle think will change to work based off her options settings instead
@@ -904,8 +898,9 @@ static const struct WindowTemplate sUnusedWinTemplate =
     .baseBlock = 0x3F
 };
 
-static const u16 sLevelUpBanner_Pal[] = INCBIN_U16("graphics/battle_interface/level_up_banner.gbapal");
-static const u32 sLevelUpBanner_Gfx[] = INCBIN_U32("graphics/battle_interface/level_up_banner.4bpp.smol");
+static const u16 sLevelUpBanner_Pal[] = INCBIN_U16("graphics/battle_interface/unk_battlebox.gbapal");
+static const u32 sLevelUpBanner_Gfx[] = INCBIN_U32("graphics/battle_interface/unk_battlebox.4bpp.lz");
+
 
 static const struct OamData sOamData_MonIconOnLvlUpBanner =
 {
@@ -5687,6 +5682,7 @@ static void Cmd_setroost(void)
         //u16 virtue = Random() % 4; //had to make start value timer and set equal so they use the same value without recalc
         gDisableStructs[gBattlerAttacker].RoostTimer = 4; //setting timer to 4, should give 3 full turns
         
+        //believe can replace checks for this w timer checks
         gDisableStructs[gBattlerAttacker].roostActive = TRUE;
 
         gBattlescriptCurrInstr = cmd->nextInstr; 
@@ -9286,7 +9282,7 @@ static void DrawLevelUpBannerText(void)
     printerTemplate.unk = 0;
     printerTemplate.fgColor = TEXT_COLOR_WHITE;
     printerTemplate.bgColor = TEXT_COLOR_TRANSPARENT;
-    printerTemplate.shadowColor = TEXT_COLOR_DARK_GRAY;
+    printerTemplate.shadowColor = TEXT_COLOR_DARK_GREY;
 
     AddTextPrinter(&printerTemplate, TEXT_SKIP_DRAW, NULL);
 
@@ -9297,7 +9293,8 @@ static void DrawLevelUpBannerText(void)
     var = (u32)(txtPtr);
     txtPtr = ConvertIntToDecimalStringN(txtPtr, monLevel, STR_CONV_MODE_LEFT_ALIGN, 3);
     var = (u32)(txtPtr) - var;
-    txtPtr = StringFill(txtPtr, CHAR_SPACER, 4 - var);
+    //vsonic test that this works
+    txtPtr = StringFill(txtPtr, CHAR_SPACE, 4 - var); //fr and ee font is diff think need use base version
 
     if (monGender != MON_GENDERLESS)
     {
@@ -9383,6 +9380,7 @@ static void SpriteCB_MonIconOnLvlUpBanner(struct Sprite *sprite)
 #undef sDestroy
 #undef sXOffset
 
+//believe index 0 is 1st battle party slot i.e player side left
 static bool32 IsMonGettingExpSentOut(void)
 {
     if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId)

@@ -815,8 +815,8 @@ enum __attribute__((packed)) MoveEffect
 #define B_WAIT_TIME_BRIEFEST 4
 #define B_WAIT_TIME_CLEAR_BUFF 5
 #define B_WAIT_TIME_CLEAR_BUFF_2 6
-#define B_WAIT_TIME_UNIQUE 7
-#define B_WAIT_TIME_LONG_LONG   8
+#define B_WAIT_TIME_UNIQUE 7    //for multihit miss and sleep heal
+#define B_WAIT_TIME_LONG_LONG   8   //for mon block ball message
 #define B_WAIT_TIME_IMPORTANT_STRINGS 9  //Replace wait time long for printstrings not crit message result message
 //changed to be array values pause time is still teh same
 
