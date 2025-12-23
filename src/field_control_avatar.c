@@ -855,6 +855,23 @@ static inline void DesyncPartyPickupCounters(u32 *MonArray, u32 numPickupMon)
     }
 }
 
+
+//word from Alex on 
+//loop interaction
+//so looks like need work 
+//to keep from incrementing further than my print effects?
+/*
+You have to store the current instruction 
+(or some other instruction. Depending on where you want to go),
+ set the script you want to play and return from the loop. 
+ Also the loop does not wait.
+  If you go back to the instruction, you will loop again.
+   That's why the battle engine uses a lot of state machines
+    (I think that's the right terminology),
+     e.g. Attackcanceler. Flags can also control the flow. 
+
+*/
+
 #define PICKUP_LOGIC
 static void UpdatePickupCounter(void)
 {
