@@ -872,6 +872,14 @@ You have to store the current instruction
 
 */
 
+/*instead of a for loop, think what I need 
+is the state thing alex mentioned
+i've seen it so I more or less know what I need
+setup a big switch case  and just jump through
+printing and increment and value setting etc.
+until done pretty much do what the loop was doing
+just in separate conditional segments
+*/
 #define PICKUP_LOGIC
 static void UpdatePickupCounter(void)
 {
