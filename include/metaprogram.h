@@ -28,9 +28,19 @@
 
 /* You'll never guess what this one does */
 #define APPEND_SEMICOLON(a) a;
+#define APPEND_COMMA(a) a,
 
 /* Converts a string to a compound literal, essentially making it a pointer to const u8 */
 #define COMPOUND_STRING(str) (const u8[]) _(str)
+#define COMPOUND_STRING_SIZE_LIMIT(str, limit) (const u8[COMPOUND_STRING_CHECK_SIZE(str, limit)]) _(str)
+
+/* Used for COMPOUND_STRING_SIZE_LIMIT. Stupid, but makes sure we only get
+ * one error message regardless of how many characters over the limit we are.
+ * Otherwise, GCC gives an error for each and every character (which is annoying). */
+#define COMPOUND_STRING_CHECK_SIZE(str, limit) (sizeof(COMPOUND_STRING(str)) > limit ? sizeof(COMPOUND_STRING(str)) - 1 : sizeof(COMPOUND_STRING(str)))
+
+#define CONVERGENT_STRING_CHECK_SIZE(name, limit, str) (sizeof(CONVERGED_COMPOUND_STRING(name, str)) > limit ? sizeof(CONVERGED_COMPOUND_STRING(name, str)) - 1 : sizeof(CONVERGED_COMPOUND_STRING(name, str)))
+#define CONVERGED_COMPOUND_STRING(name, str) (const u8 name[]) _(str)
 
 /* Expands to the first/second/third/fourth argument. */
 #define FIRST(a, ...) a

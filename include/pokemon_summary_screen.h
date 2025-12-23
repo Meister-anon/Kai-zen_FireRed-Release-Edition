@@ -5,6 +5,7 @@
 
 extern const u8 * const gMoveDescriptionPointers[];
 extern const u8 * const gNatureNamePointers[];
+extern u8 gLastViewedMonIndex; //made global for use with move info callback, should be fine
 
 void ShowSelectMovePokemonSummaryScreen(struct Pokemon *, u8, u8, MainCallback, u16);
 u8 GetMoveSlotToReplace(void);

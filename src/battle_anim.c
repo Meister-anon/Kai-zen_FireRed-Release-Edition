@@ -2578,10 +2578,17 @@ static void ScriptCmd_delay(void) //only this one need use actual speed return a
             //pretty much I believe I need to square it, gonna make global value to store speedup amouunt
             //when I use it here I'll divide by it below, and above I'll square it, if 1
             //i.e frames to wait *= (gvalue squarwed   ex. gvalue^2)
-        sAnimFramesToWait = max((sAnimFramesToWait / BattleSpeed), 1);  //ported pokabbie stuff, this doesn't sppear smooth but will keep testing
+            //seemes to have fixed it? since im looping at frame speed
+            //to get 1 frame of wait I need the wait to match speedup
+            //but it didn't do anything for super power 
+            //so appears to be 2 separate issues?
+        //sAnimFramesToWait = max((sAnimFramesToWait / BattleSpeed), BattleSpeed);  //ported pokabbie stuff, this doesn't sppear smooth but will keep testing
     }
-    if (sAnimFramesToWait == 0) //this this ist the problem but think I need increase all values to 2
-        sAnimFramesToWait = -1;
+
+    //ok idk whats up but everything seems fine and I didn't need
+    //to add custom stuff? just remove the thing below?
+    //if (sAnimFramesToWait == 0) //this this ist the problem but think I need increase all values to 2
+    //    sAnimFramesToWait = -1;
     sBattleAnimScriptPtr++;
     gAnimScriptCallback = WaitAnimFrameCount;
 }

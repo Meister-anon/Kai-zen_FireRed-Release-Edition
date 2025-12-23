@@ -1,6 +1,8 @@
 #ifndef GUARD_GRAND_TO_DOLIST_H
 #define GUARD_GRAND_TO_DOLIST_H
 
+goto BUG_TRACKING
+
 /*this file is to be an itemized list of things I plan to do/my progress.
 with the intention of cleaning up my files, so I dont have comments everywhere
 and to help ensure I don't lose track of things
@@ -2184,6 +2186,34 @@ goto NEW_DEX_USE_NOTES //new big idea for more dex utility - more realism, make 
 goto FONT_INFO //setup specifics of how diff fonts are displayed
 /*
 
+  2025/12/16
+  believe found issue w pokeabbie speed up
+  but only issue I'm coming into right now,  is that
+  anims that use scanline effects
+  to distort sprites are what breaks it.
+
+  Moves go off fine, no crashing, but the effect is no longer smooth,
+  and the sprite typically gets split up.
+
+   scanline effects is the one that makes
+  the sprite wavy.
+
+  AnimTask_ExtrasensoryDistortion
+  &
+  AnimTask_DragonDanceWaver
+  
+  but another conclusion I drew is the higher speed ups 
+  seem to exxaggerate the movements so idk
+  maybe adding protections in the task itself
+  to make smaller movements at higher speed
+
+  look into same thing did w pause and delay
+  divide values by speed buff to make smaller increments
+  to accout for the exxagerated movement.
+
+  functions are very opaque I have no idea
+  what the hell these things are doing
+
   issue with nicknames mon with nicknames aren't having their name said
   because of how I did the name storing, need fix
   mon is nicknamed but its still just callign out the species name
@@ -2702,6 +2732,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     compare w EE and go about replacing stat changes with this command 
     where possible
     1/19/2025
+
+    NOTE**(
+    from Ghoulslash - on how dev teams handle merge conflicts as a team
+    I would say creating a branch for the merge and pushing with conflicts could work. 
+    And you can squash the merge branch later to keep history clean
+    )
+
+    can use this 
+    <<<<< to find conflicts to fix later
 
     NOTE(**
     TESTED was able to confirm charged up status wasn't cleared
@@ -4699,6 +4738,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     gBitTable replacement using regex search
     it follows explicit pattern so should work
 
+    search line
+    gBitTable\[(\S+)(\])
+
+    replace line
+    (1u << $1)
+
+    works for most but left, ^ BIT_FLANK  values
+    had to replace by hand
+
     Decide shift move page over to the right more,
     has usable empty space after pp and will never have more than 2 digits
     gives more room for move descriptions
@@ -4727,6 +4775,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     do num balls divide by 10
     round down and set that as num premier balls to give
     -done
+
+    potential major issues seems certain abilities not triggering
+    for player only foe?
+    modern noticed anticipation not procing
+    could be anything.
+    11/25 
+    //vsonic important also may be good idea
+    to make separate file for unaddressed bugs...
 
     also something wrong w aqua ring its somehow triggering leech seed?
     same issue as wtih pickup bad code that didn't make sense
@@ -7134,7 +7190,7 @@ goto WEATHER_CONFIG_STUFFF //weather logic
     it makes them attack themselves with their moves
     instead of picking a random one *facepalm
 
-    may have found bind issue  bind uses GetMoveTarget
+    may have found bind issue  bind uses GetBattleMoveTarget
     and I change that around when I was doing my logic for
     absorb abilities, so it may be gettign caught in that?
     - yeah issue was getmovetarget idk why I did it way I did,
@@ -8840,7 +8896,7 @@ Exceptions:
  gBattleStruct->appearedInBattle = 0; //this also potentially useful, tracks all mon, w bitfield
 
 
- coild potentially do  if ((gBattleStruct->appearedInBattle & gBitTable[i])
+ coild potentially do  if ((gBattleStruct->appearedInBattle & (1u << i))
  set used singleuse ability[partyindex[i]] something like that
 
  but if I'm putting in abilitybattleeffects there's no reason to check appearedinBattle as that's a given, they'd be on the field

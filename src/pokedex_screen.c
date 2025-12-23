@@ -8431,7 +8431,7 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
                 StringExpandPlaceholders(gStringVar4, sText_EVO_MOVE );
                 break;
             case EVO_MOVE_TYPE:
-                StringCopy(gStringVar2, gTypeNames[evolutions[i].param]);
+                StringCopy(gStringVar2, gTypesInfo[evolutions[i].param].name);
                 StringExpandPlaceholders(gStringVar4, sText_EVO_MOVE_TYPE );
                 break;
             case EVO_MAPSEC:

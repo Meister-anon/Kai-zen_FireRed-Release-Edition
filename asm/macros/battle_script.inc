@@ -101,12 +101,22 @@
 	.endm
 
 	@vsonic important check EE for update
-	.macro seteffectprimary
+	.macro seteffectprimary battler:req, effectBattler:req, moveEffect=0
+	.if \moveEffect != 0
+		setmoveeffect \moveEffect
+	.endif
 	.byte 0x16
+	.byte \battler
+	.byte \effectBattler
 	.endm
 
-	.macro seteffectsecondary
+	.macro seteffectsecondary battler:req, effectBattler:req, moveEffect=0
+	.if \moveEffect != 0
+		setmoveeffect \moveEffect
+	.endif
 	.byte 0x17
+	.byte \battler
+	.byte \effectBattler
 	.endm
 
 	.macro clearstatusfromeffect battler:req, moveEffect=0
@@ -426,9 +436,9 @@
 	.4byte \ptr
 	.endm
 
-	.macro call ptr:req
+	.macro call jumpInstr:req
 	.byte 0x41
-	.4byte \ptr
+	.4byte \jumpInstr
 	.endm
 
 	.macro currenthealthtoDmg	@was jumpiftype2 replaced using for custom final gambit effect
@@ -526,10 +536,11 @@
 	.byte \battler
 	.endm
 
-	.macro switchinanim battler:req, dontclearsubstitutebit:req
+	.macro switchinanim battler:req, dontClearTransform:req, dontClearSubstitute:req
 	.byte 0x4e
 	.byte \battler
-	.byte \dontclearsubstitutebit
+	.byte \dontClearTransform
+	.byte \dontClearSubstitute
 	.endm
 
 	.macro jumpifcantswitch battler:req, jumpInstr:req
@@ -538,16 +549,16 @@
 	.4byte \jumpInstr
 	.endm
 
-	.macro openpartyscreen param0:req, param1:req
+	.macro openpartyscreen battler:req, failInstr:req
 	.byte 0x50
-	.byte \param0
-	.4byte \param1
+	.byte \battler
+	.4byte \failInstr
 	.endm
 
-	.macro switchhandleorder battler:req, param1:req
+	.macro switchhandleorder battler:req, state:req
 	.byte 0x51
 	.byte \battler
-	.byte \param1
+	.byte \state
 	.endm
 
 	@ believe this is different from ability stuff?
@@ -556,9 +567,9 @@
 	.byte \battler
 	.endm
 
-	.macro trainerslidein battler:req
+	.macro trainerslidein position:req
 	.byte 0x53
-	.byte \battler
+	.byte \position
 	.endm
 
 	.macro playse song:req
@@ -580,9 +591,10 @@
 	.byte 0x57
 	.endm
 
-	.macro returntoball battler:req
+	.macro returntoball battler:req, changingForm:req
 	.byte 0x58
 	.byte \battler
+	.byte \changingForm
 	.endm
 
 	.macro handlelearnnewmove learnedMoveInstr:req, nothingToLearnInstr:req, isFirstMove:req
@@ -636,9 +648,9 @@
 	.byte \battler
 	.endm
 
-	.macro jumptocalledmove param0:req
+	.macro jumptocalledmove notChosenMove:req
 	.byte 0x63
-	.byte \param0
+	.byte \notChosenMove
 	.endm
 
 	@For status1 only
@@ -698,7 +710,7 @@
 	.byte \battler
 	.endm
 
-	.macro recordlastability battler:req
+	.macro recordability battler:req
 	.byte 0x70
 	.byte \battler
 	.endm
@@ -707,9 +719,9 @@
 	.byte 0x71
 	.endm
 
-	.macro jumpifplayerran ptr:req
+	.macro jumpifplayerran jumpInstr:req
 	.byte 0x72
-	.4byte \ptr
+	.4byte \jumpInstr
 	.endm
 
 	.macro hpthresholds battler:req
@@ -813,8 +825,9 @@
 	.byte 0x88
 	.endm
 
-	.macro statbuffchange flags:req, jumpptr:req
+	.macro statbuffchange battler:req, flags:req, jumpptr:req
 	.byte 0x89
+	.byte \battler
 	.2byte \flags
 	.4byte \jumpptr
 	.endm
@@ -1539,6 +1552,14 @@
 	callnative BS_TryActivateResoluteMoveEnd
 	.endm
 
+	.macro trygulpmissle
+	callnative BS_TryGulpMissile
+	.endm
+
+	.macro tryactivategulpmissile
+	callnative BS_TryActivateGulpMissile
+	.endm
+
 	@^put future commands above this^
 	.macro typebaseddmgboost
 	callnative BS_typebaseddmgboost
@@ -1626,6 +1647,12 @@
 	callnative	BS_HandleEscapePrevention
 	.byte \battler
 	.4byte \failInstr
+	.endm
+
+	.macro handleformchange battler:req, case_:req
+	callnative BS_HandleFormChange
+	.byte \battler
+	.byte \case_
 	.endm
 
 	@^put added bs commands above this^
@@ -1834,12 +1861,6 @@
 	.macro tryreflecttype ptr:req
 	various BS_ATTACKER, VARIOUS_TRY_REFLECT_TYPE
 	.4byte \ptr
-	.endm
-
-
-	.macro handleformchange battler:req, case:req
-	various \battler, VARIOUS_HANDLE_FORM_CHANGE
-	.byte \case
 	.endm
 
 	.macro jumpifcantuselastresort battler:req, ptr:req
@@ -2484,10 +2505,10 @@
 
 	setstatchanger \stat, \amount, \mode
 	.if \affectsUser == FALSE
-		statbuffchange STAT_CHANGE_ALLOW_PTR, \script
+		statbuffchange  \battler, STAT_CHANGE_ALLOW_PTR, \script
 	.else
 	.if \affectsUser == TRUE
-		statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, \script
+		statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, \script
 	.endif
 	.endif
 	setgraphicalstatchangevalues
@@ -2534,10 +2555,10 @@
 	getstatchangeIdfromability
 	setstatchangerviaAbility \amount, \mode
 	.if \affectsUser == FALSE
-		statbuffchange STAT_CHANGE_ALLOW_PTR, \script
+		statbuffchange \battler, STAT_CHANGE_ALLOW_PTR, \script
 	.else
 	.if \affectsUser == TRUE
-		statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, \script
+		statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, \script
 	.endif
 	.endif
 	setgraphicalstatchangevalues

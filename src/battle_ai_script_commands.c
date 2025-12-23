@@ -309,7 +309,7 @@ void BattleAI_SetupAIData(void)
     // Ignore moves that aren't possible to use.
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
-        if (gBitTable[i] & moveLimitations)
+        if ((1u << i) & moveLimitations)
             AI_THINKING_STRUCT->score[i] = 0;
 
         AI_THINKING_STRUCT->simulatedRNG[i] = 100 - (Random() % 16);
@@ -323,7 +323,7 @@ void BattleAI_SetupAIData(void)
     {
         gBattlerTarget = (Random() & BIT_FLANK);
 
-        if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
+        if (gAbsentBattlerFlags & (1u << gBattlerTarget))
             gBattlerTarget ^= BIT_FLANK;
     }
     // There's only one choice in single battles.

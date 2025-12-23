@@ -55,7 +55,7 @@
 // Used to exclude moves learned temporarily by Transform or Mimic
 #define MOVE_IS_PERMANENT(battler, moveSlot)                        \
    (!(gBattleMons[battler].status2 & STATUS2_TRANSFORMED)           \
- && !(gDisableStructs[battler].mimickedMoves & gBitTable[moveSlot]))
+ && !(gDisableStructs[battler].mimickedMoves & (1u << moveSlot)))
 
 #define B_ACTION_USE_MOVE                  0
 #define B_ACTION_USE_ITEM                  1
@@ -91,7 +91,7 @@
 #define MOVE_TARGET_ALL_BATTLERS        (MOVE_TARGET_FOES_AND_ALLY | MOVE_TARGET_USER)  //use untl setup like emerald, taken from MOVE_ROTOTILLER
 //#define MOVE_TARGET_ALL_BATTLERS        ((1 << 8) | MOVE_TARGET_USER)  can use when setup correctly
 
-// For the second argument of GetMoveTarget, when no target override is needed
+// For the second argument of GetBattleMoveTarget, when no target override is needed
 #define NO_TARGET_OVERRIDE 0
 
 // Flag settings
@@ -170,11 +170,12 @@ struct ResourceFlags
 };//removed from battle resoure struct
 //saved ewram  don't need resource flags below
 
-#define RESOURCE_FLAG_FLASH_FIRE     1
-#define RESOURCE_FLAG_ROOST          2
-#define RESOURCE_FLAG_UNBURDEN       4
-#define RESOURCE_FLAG_EMERGENCY_EXIT 8  //check how this used will prob do it differently for my implementation
-#define RESOURCE_FLAG_NEUTRALIZING_GAS 16 //works by doubling previous
+#define RESOURCE_FLAG_FLASH_FIRE     (1 << 0)
+#define RESOURCE_FLAG_ROOST          (1 << 1)
+#define RESOURCE_FLAG_UNBURDEN       (1 << 2)
+#define RESOURCE_FLAG_EMERGENCY_EXIT (1 << 3)  //check how this used will prob do it differently for my implementation
+#define RESOURCE_FLAG_NEUTRALIZING_GAS (1 << 4) //allows for 32 flag options 0 - 31 - EE appears to replace with disable struct values
+#define RESOURCE_FLAG_IMMUTABLE_WIND (1 << 5)
 
 //vsonic important remmber bit fields can store max 2^bit value
 //ex bit 3  :3 is 2^3 = 8 can store 8 values between 0-7
@@ -263,7 +264,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 StatusSetViaMoldBreaker:1;
     u8 TrapSetViaMoldBreaker:1;
     u8 EmergencyExitActive:1; //replace use of RESOURCE_FLAG_EMERGENCY_EXIT
-    u8 padspace:3;
+    u8 AscensionTimer:2; //time for flying types to recover from smack down 3 turns
     //u8 RoostTimerStartValue;  //remove for now until I get 
     /*0x1A*/ u8 unk1A[2]; //don't think this is used
 }; //think I may not actually need roost start value, long as I have timer
@@ -367,7 +368,7 @@ struct SpecialStatus
     u8 focusBanded : 1;
     u8 focusSashed : 1;
     u8 sturdied : 1;
-    u8 freespace:1;
+    u8 afterYou:1;
     u8 berryReduced : 1;
     u8 instructedChosenTarget : 3;
 
@@ -379,7 +380,7 @@ struct SpecialStatus
     u8 gemParam;
 
     u8 dancerUsedMove : 1;
-    u8 dancerOriginalTarget : 3;
+    u8 dancerOriginalTarget : 3; //original target of user to execute chosen move after ability ends
     u8 announceNeutralizingGas : 1;   // See Cmd_switchineffects
     u8 neutralizingGasRemoved : 1;    // See VARIOUS_TRY_END_NEUTRALIZING_GAS
     u8 stenchRemoved : 1;    // Set as VARIOUS_TRY_END_STENCH  both exclusive to gastro acid?
@@ -390,18 +391,21 @@ struct SpecialStatus
     s32 specialDmg;
     u8 physicalBattlerId;
     u8 specialBattlerId;
-    u8 changedStatsBattlerId; // Battler that was responsible for the latest stat change. Can be self.
-    
+    u8 changedStatsBattlerId; // Battler that was responsible for the latest stat change. Can be self. 
     //emergency exit works as special status, just need to set it in attack cancelr 
     u8 EmergencyExit : 1; //logic mix truant pursuit/escape hit, setup like truant trigger on end turn that hp met theshold,raise attack then make attack first & set moveeffect escape hit so it leaves after attacking. WILL USE for both wimpout and Emergency exit just use ability check for logic change
     u8 parentalBondState : 2; // 0/1/2 is used, max is 0-3
     u8 multiHitOn : 1; //think is a state chech, seems most used with parental bond
     u8 Cacophonyboosted:1; //need make function for and add to battle_main
-    u8 afterYou:1;
-    u8 padding:2;
+    u8 padding:3;
     
-    u8 firstFuturesightHits;
-    u8 secondFuturesightHits;
+    u8 firstFuturesightHits:1;
+    u8 secondFuturesightHits:1;
+    u8 returnedBallMove : 1;
+    u8 BallFetchOriginalTarget : 3;//original target of user to execute chosen move after ability ends
+    u8 paddSpace:2;
+
+    u8 EmptyBlock:8;    
     u8 field12;
     u8 field13;//check moody case for switchin line something something = 2
 };
@@ -562,7 +566,6 @@ struct AIPartyData // Opposing battlers - party mons.
     u8 count[2];
 };
 
-extern u8 gActiveBattler;
 extern u8 gBattlerAbility;
 extern u8 gBattlerTarget;
 extern u8 gAbsentBattlerFlags;
@@ -628,9 +631,10 @@ struct BattleResources
     struct AiLogicData *aiData;
     struct AIPartyData *aiParty;
     struct BattleHistory *battleHistory;
+    u8 transferBuffer[0x100];   //replaces sBattleBuffersTransferData
     //struct BattleScriptsStack *AI_ScriptsStack; //deprecated no longer used
     u8 bufferA[MAX_BATTLERS_COUNT][0x200]; //ported seems for megas
-    u8 bufferB[MAX_BATTLERS_COUNT][0x200];
+    u8 bufferB[MAX_BATTLERS_COUNT][0x200];//wrong this is equivalent of gbattlebuffers
 };
 
 #define AI_THINKING_STRUCT ((struct AI_ThinkingStruct *)(gBattleResources->ai))
@@ -725,6 +729,24 @@ struct StatFractions
 };
 
 extern const struct StatFractions gAccuracyStageRatios[];
+
+union TRANSPARENT StatChangeFlags
+{
+    int raw;
+    u32 raw_u32;
+    u16 raw_u16;
+    u8 raw_u8;
+    struct {
+        bool32 allowPtr:1; // STAT_CHANGE_ALLOW_PTR
+        bool32 mirrorArmored:1; // STAT_CHANGE_MIRROR_ARMOR
+        bool32 onlyChecking:1; // STAT_CHANGE_ONLY_CHECKING
+        bool32 notProtectAffected:1; // STAT_CHANGE_NOT_PROTECT_AFFECTED
+        bool32 updateMoveEffect:1; // STAT_CHANGE_UPDATE_MOVE_EFFECT
+        bool32 statDropPrevention:1; // STAT_CHANGE_CHECK_PREVENTION
+        bool32 certain:1; // STAT_CHANGE_CERTAIN
+        bool32 padding:25;
+    };
+};
 
 //think effects meant to last all battle should go here rather than special status as that is cleared on switch
 //ya know the simplest solution here is just to further buff traps
@@ -883,14 +905,19 @@ extern struct BattleStruct *gBattleStruct;
 #define F_DYNAMIC_TYPE_1 (1 << 6)
 #define F_DYNAMIC_TYPE_2 (1 << 7)
 #define DYNAMIC_TYPE_MASK (F_DYNAMIC_TYPE_1 - 1) //how does this work?
+//looking over EE seems this is only necessary for
+//differentiating dynamicmovetype 0 from 0 of type normal
+//but EE also adjusted type define so normal is 1 not 0
+//meaning its no longer necessary - thankful since I'm currently not using
+//can remove the whole 0xFF thing if I update type defines as well.
 
 //changing this as it is, doesn't work right with things that set 
 //type normal but aren't normal, since normal is type 0
 //think this may be only change I need to make actually
 #define GET_MOVE_TYPE(move, typeArg)                                    \
 {                                                                       \
-    if (gBattleStruct->dynamicMoveType != 0xFF)                         \
-        typeArg = gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;   \
+    if (gBattleStruct->dynamicMoveType)                                 \
+        typeArg = gBattleStruct->dynamicMoveType;                       \
     else                                                                \
         typeArg = gBattleMoves[move].type;                              \
 }
@@ -902,12 +929,10 @@ extern struct BattleStruct *gBattleStruct;
 //have no effect hopefully - or should I do the opposite and make it very obvious
 //nvm its fine, the is only used in casess where I explicitly say its two typed
 //and it doesnt effect anything else so secondary argument doesn't matter at all
+//change don't want to worry bout changing secondary type
 #define GET_MOVE_ARGUMENT(move, typeArg)                                   \
 {                                                                          \
-    if ((gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)               \
-    && gBattleStruct->dynamicMoveType != 0xFF)                             \
-        typeArg = gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;      \
-    else                                                                   \
+    if (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)               \
         typeArg = gBattleMoves[move].argument;                             \
 }
 
@@ -916,7 +941,6 @@ extern struct BattleStruct *gBattleStruct;
 
 #define IS_MOVE_PHYSICAL(move)(GetBattleMoveSplit(move) == SPLIT_PHYSICAL)
 #define IS_MOVE_SPECIAL(move)(GetBattleMoveSplit(move) == SPLIT_SPECIAL)
-#define IS_MOVE_STATUS(move)(gBattleMoves[move].split == SPLIT_STATUS)
 #define BATTLER_MAX_HP(battlerId)(gBattleMons[battlerId].hp == gBattleMons[battlerId].maxHP)
 #define TARGET_TURN_DAMAGED ((gSpecialStatuses[gBattlerTarget].physicalDmg != 0 || gSpecialStatuses[gBattlerTarget].specialDmg != 0))
 //#define IS_BATTLER_OF_TYPE(battlerId, type)((gBattleMons[battlerId].type1 == type || gBattleMons[battlerId].type2 == type || gBattleMons[battlerId].type3 == type))
@@ -1048,6 +1072,94 @@ enum turn_Priority
     SPEED_TIE = 2
 };
 
+// Explicit numbers until frostbite because those shouldn't be shifted
+/*enum __attribute__((packed)) MoveEffect
+{
+    MOVE_EFFECT_NONE = 0,
+    MOVE_EFFECT_SLEEP = 1,
+    MOVE_EFFECT_POISON = 2,
+    MOVE_EFFECT_BURN = 3,
+    MOVE_EFFECT_FREEZE = 4,
+    MOVE_EFFECT_PARALYSIS = 5,
+    MOVE_EFFECT_TOXIC = 6,
+    MOVE_EFFECT_FROSTBITE = 7,  //set freeze without setting timer
+    MOVE_EFFECT_CONFUSION,
+    MOVE_EFFECT_FLINCH,
+    MOVE_EFFECT_TRI_ATTACK,
+    MOVE_EFFECT_UPROAR,
+    MOVE_EFFECT_PAYDAY,
+    MOVE_EFFECT_WRAP,
+    MOVE_EFFECT_ATK_PLUS_1,
+    MOVE_EFFECT_DEF_PLUS_1,
+    MOVE_EFFECT_SPD_PLUS_1,
+    MOVE_EFFECT_SP_ATK_PLUS_1,
+    MOVE_EFFECT_SP_DEF_PLUS_1,
+    MOVE_EFFECT_ACC_PLUS_1,
+    MOVE_EFFECT_EVS_PLUS_1,
+    MOVE_EFFECT_ATK_MINUS_1,
+    MOVE_EFFECT_DEF_MINUS_1,
+    MOVE_EFFECT_SPD_MINUS_1,
+    MOVE_EFFECT_SP_ATK_MINUS_1,
+    MOVE_EFFECT_SP_DEF_MINUS_1,
+    MOVE_EFFECT_ACC_MINUS_1,
+    MOVE_EFFECT_EVS_MINUS_1,
+    MOVE_EFFECT_REMOVE_ARG_TYPE,
+    MOVE_EFFECT_RECHARGE,
+    MOVE_EFFECT_RAGE,
+    MOVE_EFFECT_PREVENT_ESCAPE,
+    MOVE_EFFECT_NIGHTMARE,
+    MOVE_EFFECT_ALL_STATS_UP,
+    MOVE_EFFECT_REMOVE_STATUS,
+    MOVE_EFFECT_ATK_DEF_DOWN,
+    MOVE_EFFECT_ATK_PLUS_2,
+    MOVE_EFFECT_DEF_PLUS_2,
+    MOVE_EFFECT_SPD_PLUS_2,
+    MOVE_EFFECT_SP_ATK_PLUS_2,
+    MOVE_EFFECT_SP_DEF_PLUS_2,
+    MOVE_EFFECT_ACC_PLUS_2,
+    MOVE_EFFECT_EVS_PLUS_2,
+    MOVE_EFFECT_ATK_MINUS_2,
+    MOVE_EFFECT_DEF_MINUS_2,
+    MOVE_EFFECT_SPD_MINUS_2,
+    MOVE_EFFECT_SP_ATK_MINUS_2,
+    MOVE_EFFECT_SP_DEF_MINUS_2,
+    MOVE_EFFECT_ACC_MINUS_2,
+    MOVE_EFFECT_EVS_MINUS_2,
+    MOVE_EFFECT_SCALE_SHOT,
+    MOVE_EFFECT_THRASH,
+    MOVE_EFFECT_DEF_SPDEF_DOWN,
+    MOVE_EFFECT_CLEAR_SMOG,
+    MOVE_EFFECT_FLAME_BURST,
+    MOVE_EFFECT_FEINT,
+    MOVE_EFFECT_V_CREATE,
+    MOVE_EFFECT_HAPPY_HOUR,
+    MOVE_EFFECT_CORE_ENFORCER,
+    MOVE_EFFECT_THROAT_CHOP,
+    MOVE_EFFECT_INCINERATE,
+    MOVE_EFFECT_BUG_BITE,
+    MOVE_EFFECT_LIGHT_RECOIL,
+    MOVE_EFFECT_MED_RECOIL,
+    MOVE_EFFECT_HEAVY_RECOIL,
+    MOVE_EFFECT_RECOIL_IF_MISS,
+    MOVE_EFFECT_TRAP_BOTH,
+    MOVE_EFFECT_ROUND, //last effectI have
+    MOVE_EFFECT_DIRE_CLAW,
+    MOVE_EFFECT_SYRUP_BOMB,
+    MOVE_EFFECT_FLORAL_HEALING,
+    MOVE_EFFECT_SECRET_POWER,
+    MOVE_EFFECT_PSYCHIC_NOISE,
+    MOVE_EFFECT_TERA_BLAST,
+    MOVE_EFFECT_ORDER_UP,
+    MOVE_EFFECT_ION_DELUGE,
+    MOVE_EFFECT_HAZE,
+    MOVE_EFFECT_LEECH_SEED,
+    MOVE_EFFECT_REFLECT,
+    MOVE_EFFECT_LIGHT_SCREEN,
+    MOVE_EFFECT_SALT_CURE,
+    MOVE_EFFECT_EERIE_SPELL,
+    NUM_MOVE_EFFECTS
+};*/
+
 struct BattleSpriteInfo
 {
     /*0x0*/ u16 invisible : 1; // 0x1
@@ -1068,7 +1180,7 @@ struct BattleAnimationInfo
     u8 field_6;
     u8 field_7;
     u8 ballThrowCaseId;
-    u8 healthboxSlideInStarted : 1;
+    u8 introAnimActive : 1;
     u8 field_9_x2 : 1;
     u8 field_9_x1C : 3;
     u8 field_9_x20 : 1;
@@ -1203,10 +1315,8 @@ extern u8 gBattlerPositions[MAX_BATTLERS_COUNT];
 extern u8 gHealthboxSpriteIds[MAX_BATTLERS_COUNT];
 extern u8 gBattleOutcome;  //no idea why I had removed this
 extern u8 gBattleMonForms[MAX_BATTLERS_COUNT];
-extern void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(void);
+extern void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(u32 battler);
 extern u32 gBattleControllerExecFlags;
-extern u8 gBattleBufferA[MAX_BATTLERS_COUNT][0x200];
-extern u8 gBattleBufferB[MAX_BATTLERS_COUNT][0x200];
 extern u8 gActionSelectionCursor[MAX_BATTLERS_COUNT];
 extern void (*gPreBattleCallback1)(void);
 extern bool8 gDoingBattleAnim;
@@ -1273,12 +1383,50 @@ static inline u32 GetBattlerPosition(u32 battler)
     return gBattlerPositions[battler];
 }
 
+static inline u32 GetBattlerAtPosition(u32 position)
+{
+    u32 battler;
+    for (battler = 0; battler < gBattlersCount; battler++)
+    {
+        if (GetBattlerPosition(battler) == position)
+            break;
+    }
+    return battler;
+}
+
+static inline u32 GetMoveBaseType(u32 move)
+{
+    return gBattleMoves[move].type;
+}
+
+static inline bool32 IsBattlerAtMaxHp(u32 battler)
+{
+    return gBattleMons[battler].hp == gBattleMons[battler].maxHP;
+}
+
+static inline bool32 IsBattlerAboveHalfHP(u32 battler)
+{
+    return gBattleMons[battler].hp > (gBattleMons[battler].maxHP / 2);
+}
+
+//not fully sure if want to use movepower or base move power
+//don't want any plain move or prio move to proc ability
+//but would like synergy with rain
+static inline u32 CanActivateGulpMissle(u32 move)
+{
+    return (gBattleMovePower >= 80 && GetMoveBaseType(move) == TYPE_WATER);
+}
+
 
 static inline u32 GetBattlerSide(u32 battler)
 {
     return GetBattlerPosition(battler) & BIT_SIDE;
 }
 
+static inline u32 IsOnPlayerSide(u32 battler)
+{
+    return GetBattlerSide(battler) == B_SIDE_PLAYER;
+}
 
 static inline struct Pokemon *GetSideParty(u32 side)
 {
@@ -1294,6 +1442,17 @@ static inline struct Pokemon* GetPartyBattlerData(u32 battler)
 {
     u32 index = gBattlerPartyIndexes[battler];
     return (GetBattlerSide(battler) == B_SIDE_OPPONENT) ? &gEnemyParty[index] : &gPlayerParty[index];
+}
+
+static inline u32 GetOpposingSideBattler(u32 battler)
+{
+    return GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerSide(battler)));
+}
+
+static inline struct Pokemon* GetBattlerMon(u32 battler)
+{
+    u32 index = gBattlerPartyIndexes[battler];
+    return !IsOnPlayerSide(battler) ? &gEnemyParty[index] : &gPlayerParty[index];
 }
 
 #endif // GUARD_BATTLE_H

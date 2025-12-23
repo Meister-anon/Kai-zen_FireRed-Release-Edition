@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include "sprite.h"
+#include "move.h"
 #include "constants/pokemon.h"
 #include "pokemon_storage_system.h"
 
@@ -432,7 +433,7 @@ struct BaseStats  // had to adjust struct order to match paste value from base_s
  /* 0x1D */ //u16 bodyColor : 7; //ok bodyColor is leftover of emerald is literally just an pokedex filter option that doesn't exist in fr, but is here for sake of trading to those games
             // Flags
             u16 noFlip : 1;  //represents if sprite is flipped in summary screen and trade screen, normal is the pc sprite
-            u16 floating : 1; //put here cuz easier to quick replace in file. replacement for use of gFloatingSpecies array, logic flynig and non flyign mon that can fly/float or who's natural state is floating, (replace levitate) mon has to display ability to do more than just hover slightly over ground
+            u16 floating : 1; // logic flying and non flying mon that can fly/float or who's natural state is floating, (replace levitate) mon has to display ability to do more than just hover slightly over ground to exclude legendaries to prevent destroy groud type, think need logic for mon to do most of its fighting in air as well
             u16 isLegendaryOrMythical:1;
             //u16 isMythical:1; //will combine these two as practically no real distinction
             u16 isUltraBeast:1; //handling elsewhere curr can blank for more space
@@ -453,29 +454,7 @@ struct BaseStats  // had to adjust struct order to match paste value from base_s
             const struct Evolution *evolutions;
 };
 
-struct BattleMove
-{
-    u16 effect;
-    u8 power;
-    u8 type;
-    u8 accuracy;
-    u8 pp;
-    u8 secondaryEffectChance;
-    u16 target;
-    s8 priority;
-    u32 flags;
-    u8 split;
-    u16 argument;// for transferring move effects
-    u8 argumentEffectChance; // setup status commands and seteffectwithchance function to read this as a value explicitly for argument
-    //would possibly need to redo setup for effects that become certain without reading effectchance nvm it works 
-    //Argument works by passive value of argument to battlescript.moveeffect
-    //so just do a check in seteffectwithchance that checks if  battlescripting.moveeffect equals gbattlemons[move].effect or the argument
-    //if it equals the argument use argument chance, that means it has already done the effect
-    //and has passed the arugment over so it can use the argument chance
-};//without u32 flags, type overflowed with added moves
-//argument is for extra effects other than secondary effect
 
-extern const struct BattleMove gBattleMoves[];
 
 #define IS_CRIT (gCritMultiplier > 1)
 
@@ -484,14 +463,14 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_PROTECT_AFFECTED       (1 << 1)
 #define FLAG_MAGIC_COAT_AFFECTED    (1 << 2)
 #define FLAG_SNATCH_AFFECTED        (1 << 3)
-#define FLAG_MIRROR_MOVE_AFFECTED   (1 << 4)
+#define FLAG_MIRROR_MOVE_AFFECTED   (1 << 4)    //check if move allowable with mirror move to copy
 #define FLAG_GRAVITY_CANCELED       (1 << 5)    //for moves that get canceled by gravity field status
 #define FLAG_HIGH_CRIT              (1 << 6)
-#define FLAG_RECKLESS_BOOST         (1 << 7)
+#define FLAG_RECKLESS_BOOST         (1 << 7)    //just for recoil finding
 #define FLAG_IRON_FIST_BOOST        (1 << 8)    //1 byte
 #define FLAG_SHEER_FORCE_BOOST      (1 << 9)
-#define FLAG_STRONG_JAW_BOOST       (1 << 10)
-#define FLAG_MEGA_LAUNCHER_BOOST    (1 << 11)
+#define FLAG_STRONG_JAW_BOOST       (1 << 10) //biting
+#define FLAG_MEGA_LAUNCHER_BOOST    (1 << 11) //pulse move
 #define FLAG_EVASIVE_BREAK          (1 << 12)   //reworked minimize effect //sure hit if evasion stage boosted and ignore other boosted evasion effects
 #define FLAG_DMG_2X_UNDERGROUND     (1 << 13)
 #define FLAG_DMG_2X_UNDERWATER      (1 << 14)
@@ -853,6 +832,7 @@ u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove);
 u16 MonTryLearningEvoMove(struct Pokemon *mon, bool8 firstMove); //changing to use 0, with normal call forces level 0 learnig on each level up, so makeing separate
 void DeleteFirstMoveAndGiveMoveToMon(struct Pokemon *mon, u16 move);
 s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u32 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef);
+u8 GetWeatherBallType(u16 move);
 //sidestatus meant to hold gsidestatus but forgot I had to upgrade that to u32 *facepalm
 
 //recent emerald addditions, change for form change (not planning use for ditto/transform)
@@ -867,9 +847,9 @@ bool8 DoesSpeciesHaveCosmeticForms(u16 species);
 #define BATTLE_ALIVE_ATK_SIDE       1
 #define BATTLE_ALIVE_DEF_SIDE       2
 
-u8 CountAliveMonsInBattle(u8 caseId);
+u8 CountAliveMonsInBattle(u8 caseId, u32 battler);
 
-u8 GetDefaultMoveTarget(u8 battlerId);
+u8 GetDefaultMoveTarget(u32 battler);
 u8 GetMonGender(struct Pokemon *mon);
 u8 GetBoxMonGender(struct BoxPokemon *boxMon);
 u8 GetGenderFromSpeciesAndPersonality(u16 species, u32 personality);
@@ -914,9 +894,9 @@ u8 CalculatePPWithBonus(u16 move, u8 ppBonuses, u8 moveIndex);
 void RemoveMonPPBonus(struct Pokemon *mon, u8 moveIndex);
 void RemoveBattleMonPPBonus(struct BattlePokemon *mon, u8 moveIndex);
 bool8 ExecuteTableBasedItemEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex);
-bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex, u8 e);
 bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex);
-u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
+bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex, bool8 usedByAI);
+u8 GetItemEffectParamOffset(u32 battler, u16 itemId, u8 effectByte, u8 effectBit);
 const u8 *Battle_PrintStatBoosterEffectMessage(u16 itemId);
 u8 GetNature(struct Pokemon *mon);
 u8 SetNature(struct BoxPokemon *mon);

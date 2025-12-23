@@ -7,6 +7,22 @@
 
 #define FOE(battler) ((BATTLE_OPPOSITE(battler)) & BIT_SIDE)
 
+enum AIPivot
+{
+    DONT_PIVOT,
+    CAN_TRY_PIVOT,
+    SHOULD_PIVOT,
+};
+
+static inline bool32 IsMoveUnusable(u32 moveIndex, u32 move, u32 moveLimitations)
+{
+    return move == MOVE_NONE
+        || move == MOVE_UNAVAILABLE
+        || moveLimitations & 1u << moveIndex;
+}
+
+typedef bool32 (*MoveFlag)(u32 move);
+
 bool32 AI_RandLessThan(u8 val);
 void RecordLastUsedMoveByTarget(void);
 bool32 IsBattlerAIControlled(u32 battlerId);
@@ -84,7 +100,7 @@ bool32 ShouldLowerAccuracy(u8 battlerAtk, u8 battlerDef, u16 defAbility);
 bool32 ShouldLowerEvasion(u8 battlerAtk, u8 battlerDef, u16 defAbility);
 
 // move checks
-bool32 IsAffectedByPowder(u8 atkbattler, u8 targetbattler, u16 atkability, u16 targetability, u16 holdEffect);
+bool32 IsAffectedByPowder(u8 atkbattler, u8 targetbattler, u16 holdEffect, bool32 checkAI);
 bool32 MovesWithSplitUnusable(u32 attacker, u32 target, u32 split);
 s32 AI_CalcDamage(u16 move, u8 battlerAtk, u8 battlerDef, u8 *effectiveness, bool32 considerZPower);
 u8 GetMoveDamageResult(u16 move);
@@ -101,7 +117,6 @@ bool32 HasMoveWithTypeAndSplit(u32 battler, u8 type, u8 split);
 bool32 HasContactMove(u32 battler);
 bool32 HasMoveEffect(u32 battlerId, u16 moveEffect);
 bool32 HasMoveWithLowAccuracy(u8, u8, u8, bool32, u16, u16, u16, u16);
-bool32 TestMoveFlagsInMoveset(u8 battler, u32 flags);
 bool32 IsAromaVeilProtectedMove(u16 move);
 bool32 IsNonVolatileStatusMoveEffect(u16 moveEffect);
 bool32 IsStatLoweringMoveEffect(u16 moveEffect);
@@ -115,10 +130,10 @@ bool32 IsEncoreEncouragedEffect(u16 moveEffect);
 void ProtectChecks(u8 battlerAtk, u8 battlerDef, u16 move, u16 predictedMove, s16 *score);
 bool32 ShouldSetSandstorm(u8 battler, u16 ability, u16 holdEffect);
 bool32 ShouldSetHail(u8 battler, u16 ability, u16 holdEffect);
-bool32 ShouldSetRain(u8 battlerAtk, u16 ability, u16 holdEffect);
-bool32 ShouldSetAcidRain(u8 battlerAtk, u16 atkAbility, u16 holdEffect);
-bool32 ShouldSetSun(u8 battlerAtk, u16 atkAbility, u16 holdEffect);
-bool32 ShouldSetMoon(u8 battlerAtk, u16 atkAbility, u16 holdEffect);
+bool32 ShouldSetRain(u8 battler, u16 ability, u16 holdEffect);
+bool32 ShouldSetAcidRain(u8 battler, u16 ability, u16 holdEffect);
+bool32 ShouldSetSun(u8 battler, u16 ability, u16 holdEffect);
+bool32 ShouldSetMoon(u8 battler, u16 ability, u16 holdEffect);
 bool32 HasSleepMoveWithLowAccuracy(u8 battlerAtk, u8 battlerDef);
 bool32 IsHealingMoveEffect(u16 effect);
 bool32 HasHealingEffect(u32 battler);
@@ -139,6 +154,8 @@ s32 GetStealthHazardDamageByTypesAndHP(u8 hazardType, u8 type1, u8 type2, u32 ma
 //check but don't think need this, redid effect, yeah need to redo
 bool8 IsMonFloatingSpecies(u16 species); //alt versions of battle_util functions using getmondata arguments specificaly for ai
 bool8 AI_Hazard_Grounded(struct Pokemon *mon);
+
+bool32 HasMoveWithFlag(u32 battler, MoveFlag getFlag);
 
 // status checks
 bool32 AI_CanBeBurned(u8 battler, u16 ability);

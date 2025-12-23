@@ -336,7 +336,7 @@ static EWRAM_DATA struct HpBarObjs * sHpBarObjs = NULL;
 static EWRAM_DATA struct ExpBarObjs * sExpBarObjs = NULL;
 static EWRAM_DATA struct PokerusIconObj * sPokerusIconObj = NULL;
 static EWRAM_DATA struct ShinyStarObjData * sShinyStarObjData = NULL;
-static EWRAM_DATA u8 sLastViewedMonIndex = 0;
+EWRAM_DATA u8 gLastViewedMonIndex = 0;
 static EWRAM_DATA u8 sMoveSelectionCursorPos = 0;
 static EWRAM_DATA u8 sMoveSwapCursorPos = 0;
 static EWRAM_DATA struct MonPicBounceState * sMonPicBounceState = NULL;
@@ -1171,7 +1171,7 @@ void ShowPokemonSummaryScreen(struct Pokemon * party, u8 cursorPos, u8 lastIdx, 
         return;
     }
 
-    sLastViewedMonIndex = cursorPos;
+    gLastViewedMonIndex = cursorPos;
 
     sMoveSelectionCursorPos = 0;
     sMoveSwapCursorPos = 0;
@@ -1247,7 +1247,7 @@ void ShowPokemonSummaryScreenGoToPC(struct Pokemon * party, u8 cursorPos, u8 las
     }
 
 
-    sLastViewedMonIndex = cursorPos;
+    gLastViewedMonIndex = cursorPos;
 
     sMoveSelectionCursorPos = 0;
     sMoveSwapCursorPos = 0;
@@ -1327,6 +1327,7 @@ void ShowMoveInfoForSelectedMove(struct Pokemon *party, u8 partyMember, u8 lastI
 
 void ShowSummaryScreenSelectMoveFromBattle(struct Pokemon *party, u8 partyMember, u8 lastIdx, MainCallback savedCallback, u8 mode)
 {
+    u32 battler = gLastViewedMonIndex;
     sMonSummaryScreen = AllocZeroed(sizeof(struct PokemonSummaryScreenData));
     sMonSkillsPrinterXpos = AllocZeroed(sizeof(struct Struct203B144));
 
@@ -1336,11 +1337,11 @@ void ShowSummaryScreenSelectMoveFromBattle(struct Pokemon *party, u8 partyMember
         return;
     }
 
-    sLastViewedMonIndex = partyMember;
+    gLastViewedMonIndex = partyMember;
 
     //works but need find where input logic is,
     //so can make update move cursor so it tracks when return to battle screen
-    sMoveSelectionCursorPos = gMoveSelectionCursor[gActiveBattler];
+    sMoveSelectionCursorPos = gMoveSelectionCursor[battler];
     sMoveSwapCursorPos = 0;
     sMonSummaryScreen->savedCallback = savedCallback;
     sMonSummaryScreen->monList.mons = party;
@@ -1528,7 +1529,7 @@ static void Task_InputHandler_Info(u8 taskId)
             }
             else if (JOY_NEW(L_BUTTON) && !gMain.inBattle && sMonSummaryScreen->savedCallback != Cb2_ReturnToPSS)
             {
-                if (IsTradedMon(&gPlayerParty[sLastViewedMonIndex]))
+                if (IsTradedMon(&gPlayerParty[gLastViewedMonIndex]))
                     PlaySE(SE_FAILURE);
                 else
                 {
@@ -1558,8 +1559,8 @@ static void Task_InputHandler_Info(u8 taskId)
             {
                 //base setup done but think put specifically on info page
                 //and still need setup reload page to properly display changed slotted ability
-                bool8 AbilityState = GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_USE_TAUGHT_ABILITY, NULL) ? FALSE : TRUE;
-                SetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_USE_TAUGHT_ABILITY, &AbilityState);
+                bool8 AbilityState = GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_USE_TAUGHT_ABILITY, NULL) ? FALSE : TRUE;
+                SetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_USE_TAUGHT_ABILITY, &AbilityState);
                 sMonSummaryScreen->savedCallback = CB2_Debug_Pokemon;
                 PlaySE(SE_SELECT);
                 sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu -won't use close menu in effect
@@ -2829,6 +2830,7 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
 {
     u32 powerBits;
     u32 hiddenpower,power;    
+    u8 moveType;
     power = gBattleMoves[sMonSummaryScreen->moveIds[i]].power;
 
     if (i < 4)
@@ -2845,22 +2847,10 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
         return;
     }
 
-    if (sMonSummaryScreen->moveIds[i] == MOVE_HIDDEN_POWER || sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL)
+    /*if (sMonSummaryScreen->moveIds[i] == MOVE_HIDDEN_POWER || sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL)
     {
         
-        /*s32 typeBits = ((GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP_IV) & 1) << 0)
-        | ((GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ATK_IV) & 1) << 1)
-        | ((GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_DEF_IV) & 1) << 2)
-        | ((GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPEED_IV) & 1) << 3)
-        | ((GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPATK_IV) & 1) << 4)
-        | ((GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPDEF_IV) & 1) << 5);
 
-
-        u32 type = (((NUMBER_OF_MON_TYPES - 4) * typeBits) / 63 + 1); //think changing from 15 to 16 adds one more type to options so now have fairy
-        if (type == TYPE_MYSTERY || type == TYPE_SOUND)
-            type = TYPE_FAIRY; // or may need to increase it by 6 to get over other types to 21 since the +1 and ++ adds 2 tellign the last type added
-        //type |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2; //no idea why removing this fixed it but guess makes sense?
-        */
         u32 type;
         //cant test this part until item port is done vsonic IMPORTANT
         if (gMain.inBattle
@@ -2875,38 +2865,50 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
         != GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY, NULL)))        
             type = GetMonHiddenPowerType(&sMonSummaryScreen->currentMon);
 
-        if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (WeatherHasEffect()))
+        if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL)
         {
-            if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
-                sMonSummaryScreen->moveTypes[i] = TYPE_WATER;
-            else if (gBattleWeather & WEATHER_SANDSTORM_ANY)
-                sMonSummaryScreen->moveTypes[i] = TYPE_ROCK;
-            else if (gBattleWeather & WEATHER_SUN_ANY)
-                sMonSummaryScreen->moveTypes[i] = TYPE_FIRE;
-            else if (gBattleWeather & WEATHER_HAIL_ANY)
-                sMonSummaryScreen->moveTypes[i] = TYPE_ICE;
-            else
-                sMonSummaryScreen->moveTypes[i] = TYPE_NORMAL;
+            //I should make a function for this since I made new weather
+            sMonSummaryScreen->moveTypes[i] = GetWeatherBallType(sMonSummaryScreen->moveIds[i]);
         }
         else
             sMonSummaryScreen->moveTypes[i] = type;
     }
-    /*if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (WeatherHasEffect()))
+
+    else*/
+    if (gMain.inBattle
+    && (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY, NULL)
+    == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY, NULL)))
     {
-         if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
-            sMonSummaryScreen->moveTypes[i] = TYPE_WATER;
-        else if (gBattleWeather & WEATHER_SANDSTORM_ANY)
-            sMonSummaryScreen->moveTypes[i] = TYPE_ROCK;
-        else if (gBattleWeather & WEATHER_SUN_ANY)
-            sMonSummaryScreen->moveTypes[i] = TYPE_FIRE;
-        else if (gBattleWeather & WEATHER_HAIL_ANY)
-            sMonSummaryScreen->moveTypes[i] = TYPE_ICE;
-        else
-            sMonSummaryScreen->moveTypes[i] = TYPE_NORMAL;
-    }*/
-    else
-        sMonSummaryScreen->moveTypes[i] = gBattleMoves[sMonSummaryScreen->moveIds[i]].type;
-    /*else if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (WeatherHasEffect()))
+        if (sMonSummaryScreen->moveIds[i] == MOVE_HIDDEN_POWER)
+            sMonSummaryScreen->moveTypes[i] = GetMonHiddenPowerType(&sMonSummaryScreen->currentMon);
+        
+        //small change with plan gem changing battle hiddenmovetype
+        //want to be able to use move info/summ screen to read
+        //the base hidden power type.
+        //this way can see both, battle type will be in move selection
+        if (sMonSummaryScreen->moveIds[i] != MOVE_HIDDEN_POWER)
+        {
+            //sMonSummaryScreen->moveTypes[i] = ReturnMoveType(sMonSummaryScreen->moveIds[i], gBattlerAttacker);
+            SetTypeBeforeUsingMove(sMonSummaryScreen->moveIds[i], gBattlerAttacker, &moveType);
+            sMonSummaryScreen->moveTypes[i] = moveType;
+        }
+    }
+
+    //oddly seems to break when castform weather is up
+    //found appears to not be a problem of conditoin
+    //but failure of form change logic
+    //on sandstorm when don't transform it doesn't break
+    //that said still ONLY works with if, can't use else
+    if (!(gMain.inBattle)
+    || (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY, NULL)
+    != GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY, NULL)))   
+    {
+        if (sMonSummaryScreen->moveIds[i] == MOVE_HIDDEN_POWER)
+            sMonSummaryScreen->moveTypes[i] = GetMonHiddenPowerType(&sMonSummaryScreen->currentMon);
+        if (sMonSummaryScreen->moveIds[i] != MOVE_HIDDEN_POWER)
+            sMonSummaryScreen->moveTypes[i] = GetWeatherBallType(sMonSummaryScreen->moveIds[i]);
+    }     
+         /*else if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (WeatherHasEffect()))
     {
          if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
             sMonSummaryScreen->moveTypes[i] = TYPE_WATER;
@@ -4077,7 +4079,7 @@ static void Task_DestroyResourcesOnExit(u8 taskId)
     
     SetMainCallback2(sMonSummaryScreen->savedCallback);
 
-    sLastViewedMonIndex = GetLastViewedMonIndex();
+    gLastViewedMonIndex = GetLastViewedMonIndex();
 
     FREE_AND_SET_NULL_IF_SET(sMonSummaryScreen);
     FREE_AND_SET_NULL_IF_SET(sMonSkillsPrinterXpos);
@@ -4334,7 +4336,7 @@ static void PokeSum_SetHelpContext(void)
 //since id is mon is at oak ranch
 //makes more sense to do when its actually with you
 //think can use GetInPartyMenu to filter
-//&gPlayerParty[sLastViewedMonIndex]  
+//&gPlayerParty[gLastViewedMonIndex]  
 //use as argument
 //test
 static void SummScreen_ChangePokemonNickname()
@@ -4344,13 +4346,13 @@ static void SummScreen_ChangePokemonNickname()
     u32 personality;
 
     //unsure what stringVar3 is being used for
-    //GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar3);
+    //GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar3);
     //think this is necessary so if don't right anything it can still set the value it already has
     //otherwise it would set garbage data, as its already using gstringvar2's value
-    GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar2);
-    species = GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_SPECIES, NULL);
-    gender = GetMonGender(&gPlayerParty[sLastViewedMonIndex]);
-    personality = GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_PERSONALITY, NULL);
+    GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar2);
+    species = GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_SPECIES, NULL);
+    gender = GetMonGender(&gPlayerParty[gLastViewedMonIndex]);
+    personality = GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_PERSONALITY, NULL);
     
     
     DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar2, species, gender, personality, SummScreen_ChangePokemonNickname_CB);
@@ -4358,7 +4360,7 @@ static void SummScreen_ChangePokemonNickname()
 
 void SummScreen_ChangePokemonNickname_CB(void)
 {
-    SetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar2);
+    SetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar2);
     //change based on CB2_OpenDexPageFromSummScreen to set info page callback
     //CB2_ReturnToFieldContinueScriptPlayMapMusic();
     CB2_ShowPokemonSummaryScreen2();
@@ -4534,7 +4536,7 @@ static void PokeSum_PrintMonTypeIcons(void)
 
 u8 GetLastViewedMonIndex(void)
 {
-    return sLastViewedMonIndex;
+    return gLastViewedMonIndex;
 }
 
 u8 GetMoveSlotToReplace(void)
@@ -4552,7 +4554,7 @@ static bool32 IsMultiBattlePartner(void)
     if (!IsUpdateLinkStateCBActive()
         && IsMultiBattle() == TRUE
         && gReceivedRemoteLinkPlayers == 1
-        && (sLastViewedMonIndex >= 4 || sLastViewedMonIndex == 1))
+        && (gLastViewedMonIndex >= 4 || gLastViewedMonIndex == 1))
         return TRUE;
 
     return FALSE;
@@ -4576,7 +4578,7 @@ static void BufferSelectedMonData(struct Pokemon * mon)
 //issue is this GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) want to get this set in place of player party, want to use battle position that was plan
 //issue was with switching, playerparty isn't changed how I thought, so current setup isn't as fool proof as I thought
 //looking into potentiallt gBattlerPartyIndexes[] can be used
-//mon = &gPlayerParty[gBattlerPartyIndexes[gActiveBattler]];  taht did it, seems to be working now, but need to check doubles as unsure if it is right,
+//mon = &gPlayerParty[gBattlerPartyIndexes[battler]];  taht did it, seems to be working now, but need to check doubles as unsure if it is right,
 //but it shold be
 static u16 GetMonMoveBySlotId(struct Pokemon * mon, u8 moveSlot) //issue with last mon in party when fainted shows, first mon data instead
 {
@@ -5524,7 +5526,7 @@ static void PokeSum_CreateMonPicSprite(void)
     }
     else
     {
-        if (ShouldIgnoreDeoxysForm(DEOXYS_CHECK_TRADE_MAIN, sLastViewedMonIndex))
+        if (ShouldIgnoreDeoxysForm(DEOXYS_CHECK_TRADE_MAIN, gLastViewedMonIndex))
             spriteId = CreateMonPicSprite(species, IsShiny, personality, TRUE, 60, 65, 12, 0xffff, TRUE);
         else
             spriteId = CreateMonPicSprite_HandleDeoxys(species, IsShiny, personality, TRUE, 60, 65, 12, 0xffff);
@@ -5678,7 +5680,7 @@ static void PokeSum_CreateMonIconSprite(void)
     }
     else
     {
-        if (ShouldIgnoreDeoxysForm(DEOXYS_CHECK_TRADE_MAIN, sLastViewedMonIndex))
+        if (ShouldIgnoreDeoxysForm(DEOXYS_CHECK_TRADE_MAIN, gLastViewedMonIndex))
             sMonSummaryScreen->monIconSpriteId = CreateMonIcon(species, SpriteCallbackDummy, 24, 32, 0, personality, 0);
         else
             sMonSummaryScreen->monIconSpriteId = CreateMonIcon(species, SpriteCallbackDummy, 18, 36, 0, personality, 1);
@@ -6028,14 +6030,14 @@ static void UpdateHpBarObjs(void)
 
     switch (GetHPBarLevel(curHp, maxHp))
     {
-    case 3:
+    case HP_BAR_GREEN:
     default:
         hpBarPalOffset = 0;
         break;
-    case 2:
+    case HP_BAR_YELLOW:
         hpBarPalOffset = 1;
         break;
-    case 1:
+    case HP_BAR_RED:
         hpBarPalOffset = 2;
         break;
     }
@@ -6513,7 +6515,7 @@ static void PokeSum_SeekToNextMon(u8 taskId, s8 direction)
     if (scrollResult == -1)
         return;
 
-    sLastViewedMonIndex = scrollResult;
+    gLastViewedMonIndex = scrollResult;
     CreateTask(Task_PokeSum_SwitchDisplayedPokemon, 0);
     sMonSummaryScreen->switchMonTaskState = 0;
 }
@@ -6525,22 +6527,22 @@ static s8 SeekToNextMonInSingleParty(s8 a0)
 
     if (sMonSummaryScreen->curPageIndex == 0)
     {
-        if (a0 == -1 && sLastViewedMonIndex == 0)
+        if (a0 == -1 && gLastViewedMonIndex == 0)
             return -1;
-        else if (a0 == 1 && sLastViewedMonIndex >= sMonSummaryScreen->lastIndex)
+        else if (a0 == 1 && gLastViewedMonIndex >= sMonSummaryScreen->lastIndex)
             return -1;
         else
-            return sLastViewedMonIndex + a0;
+            return gLastViewedMonIndex + a0;
     }
 
     while (TRUE)
     {
         v1 += a0;
-        if (0 > sLastViewedMonIndex + v1 || sLastViewedMonIndex + v1 > sMonSummaryScreen->lastIndex)
+        if (0 > gLastViewedMonIndex + v1 || gLastViewedMonIndex + v1 > sMonSummaryScreen->lastIndex)
             return -1;
 
-        if (GetMonData(&partyMons[sLastViewedMonIndex + v1], MON_DATA_IS_EGG) == 0)
-            return sLastViewedMonIndex + v1;
+        if (GetMonData(&partyMons[gLastViewedMonIndex + v1], MON_DATA_IS_EGG) == 0)
+            return gLastViewedMonIndex + v1;
     }
 
     return -1;

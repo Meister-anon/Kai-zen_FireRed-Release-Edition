@@ -668,9 +668,9 @@ const u32 gUnusedTilemap_BasicFrame[] = INCBIN_U32("graphics/unused/basic_frame.
 
 // Battle Interface
 
-const u16 gBattleInterface_BallStatusBarPal[] = INCBIN_U16("graphics/battle_interface/ball_status_bar.gbapal");
+const u16 gBattleInterface_Healthbox_Pal[] = INCBIN_U16("graphics/battle_interface/ball_status_bar.gbapal");
 
-const u16 gBattleInterface_BallDisplayPal[] = INCBIN_U16("graphics/battle_interface/ball_display.gbapal");
+const u16 gBattleInterface_Healthbar_Pal[] = INCBIN_U16("graphics/battle_interface/ball_display.gbapal");
 
 //Originally an array?
 const u8 gHealthboxElementsGfxTable[] = INCBIN_U8("graphics/battle_interface/hp_bar.4bpp");
@@ -1269,7 +1269,7 @@ const u32 gBattleAnimSpritePal_Meteor[] = INCBIN_U32("graphics/battle_anims/spri
 const u32 gBattleAnimSpriteGfx_FlatRock[] = INCBIN_U32("graphics/battle_anims/sprites/flat_rock.4bpp.lz");
 const u32 gBattleAnimSpritePal_FlatRock[] = INCBIN_U32("graphics/battle_anims/sprites/flat_rock.gbapal.lz");
 
-const u16 gUnknown_8D2FBB4[] = INCBIN_U16("graphics/interface/unk_8D2FBB4.gbapal"); //text pal, used for pp abot equvaetof text.pal in EE
+const u16 gPPTextPalette[] = INCBIN_U16("graphics/interface/unk_8D2FBB4.gbapal"); //text pal, used for pp abot equvaetof text.pal in EE
 const u16 gMoveTypePal[] = INCBIN_U16("graphics/interface/MoveTypePal.gbapal");
 
 //#include "data/graphics/pokemon.h"

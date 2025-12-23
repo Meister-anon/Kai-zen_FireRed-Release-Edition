@@ -865,7 +865,7 @@ static void Task_BattleUse_StatBooster_DelayAndPrint(u8 taskId)
         u16 itemId = gSpecialVar_ItemId;
         PlaySE(SE_USE_ITEM);
         RemoveBagItem(itemId, 1);
-        DisplayItemMessageInBag(taskId, 2, Battle_PrintStatBoosterEffectMessage(itemId), Task_BattleUse_StatBooster_WaitButton_ReturnToBattle);
+        DisplayItemMessageInBag(taskId, FONT_NORMAL, Battle_PrintStatBoosterEffectMessage(itemId), Task_BattleUse_StatBooster_WaitButton_ReturnToBattle);
     }
 }
 

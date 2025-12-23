@@ -1063,13 +1063,16 @@
 //#define SPECIES_CEFIREON 1029
 //#define SPECIES_FRAEYJTA 1030    //fray-eat-ah fray-tah  fray-itta original mon fairy ghost mysthic from another world (fairy world) protector healer and watches over the dead, so found graveyard comforts living and dead
 #define SPECIES_CEFIREON COSMETIC_FORMS_END + 1
-#define SPECIES_FRAEYJTA COSMETIC_FORMS_END + 2  //put here test dex values contingeously
-#define SPECIES_FAEDENTIN COSMETIC_FORMS_END + 3
-#define SPECIES_BEINFAE COSMETIC_FORMS_END + 4 //Faedentin evo, mostly literal translation mix w old english name of fairy
-#define SPECIES_LARVALKING  COSMETIC_FORMS_END + 5
-#define SPECIES_DEVIOPTERA  COSMETIC_FORMS_END + 6//on research realized name doesn't work as lepidoptera specifically refers to 4 winged in form can work for evo but not caterpillar form
-#define SPECIES_MAZRAOM     COSMETIC_FORMS_END + 7
-#define SPECIES_ZEKANRYUREM COSMETIC_FORMS_END + 8
+#define SPECIES_BEECADET COSMETIC_FORMS_END + 2
+#define SPECIES_BUZZBOY COSMETIC_FORMS_END + 3
+#define SPECIES_BUMBER COSMETIC_FORMS_END + 4
+#define SPECIES_FRAEYJTA COSMETIC_FORMS_END + 5  //put here test dex values contingeously
+#define SPECIES_FAEDENTIN COSMETIC_FORMS_END + 6
+#define SPECIES_BEINFAE COSMETIC_FORMS_END + 7 //Faedentin evo, mostly literal translation mix w old english name of fairy
+#define SPECIES_LARVALKING  COSMETIC_FORMS_END + 8
+#define SPECIES_DEVIOPTERA  COSMETIC_FORMS_END + 9//on research realized name doesn't work as lepidoptera specifically refers to 4 winged in form can work for evo but not caterpillar form
+#define SPECIES_MAZRAOM     COSMETIC_FORMS_END + 10
+#define SPECIES_ZEKANRYUREM COSMETIC_FORMS_END + 11
 //move back to end of base spescies when done w fixes
 
 

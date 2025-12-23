@@ -81,8 +81,8 @@
 #define BS_EFFECT_BATTLER           2
 #define BS_FAINTED                  3
 #define BS_ATTACKER_WITH_PARTNER    4 // for atk98_updatestatusicon
-#define BS_FAINTED_LINK_MULTIPLE_1  5 // for openpartyscreen
-#define BS_FAINTED_LINK_MULTIPLE_2  6 // for openpartyscreen
+#define BS_FAINTED_MULTIPLE_1       5 // for openpartyscreen
+#define BS_FAINTED_MULTIPLE_2       6 // for openpartyscreen
 #define BS_BATTLER_0                7
 #define BS_ATTACKER_SIDE            8 // for atk1E_jumpifability
 #define BS_TARGET_SIDE				9 // for atk1E_jumpifability
@@ -357,13 +357,14 @@
 #define MOVE_END_LIFEORB_SHELLBELL                 29    // Includes shell bell, throat spray, etc
 #define MOVE_END_PICKPOCKET                        30
 #define MOVE_END_DANCER							   31
-#define MOVE_END_EMERGENCY_EXIT					   32
-#define MOVE_END_SYMBIOSIS						   33
-#define MOVE_END_INFATUATION                       34  //to setup for attract hit effect, just need set STRINGID_PKMNFELLINLOVE
-#define MOVE_END_NEXT_TARGET                       35 //was last value before count, in base firered
-#define MOVE_END_CLEAR_BITS						   36
-#define MOVE_END_PURSUIT_NEXT_ACTION               37
-#define MOVE_END_COUNT							   38
+#define MOVE_END_FETCH_BALL                        32
+#define MOVE_END_EMERGENCY_EXIT					   33
+#define MOVE_END_SYMBIOSIS						   34
+#define MOVE_END_INFATUATION                       35  //to setup for attract hit effect, just need set STRINGID_PKMNFELLINLOVE
+#define MOVE_END_NEXT_TARGET                       36 //was last value before count, in base firered
+#define MOVE_END_CLEAR_BITS						   37
+#define MOVE_END_PURSUIT_NEXT_ACTION               38
+#define MOVE_END_COUNT							   39
 
 // switch cases - PORTED right now not used, adding red card only for now
 #define B_SWITCH_NORMAL     0

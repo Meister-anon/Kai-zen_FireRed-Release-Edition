@@ -12,19 +12,19 @@
 #include "constants/moves.h"
 #include "constants/pokemon.h"
 
-static bool8 HasSuperEffectiveMoveAgainstOpponents(bool8 noRng);
-static bool8 FindMonWithFlagsAndSuperEffective(u8 flags, u8 moduloPercent);
-static bool8 ShouldUseItem(void);
-static bool32 AI_ShouldHeal(u32 healAmount);
-static bool32 AI_OpponentCanFaintAiWithMod(u32 healAmount);
+static bool8 HasSuperEffectiveMoveAgainstOpponents(u32 battler, bool8 noRng);
+static bool8 FindMonWithFlagsAndSuperEffective(u32 battler, u8 flags, u8 moduloPercent);
+static bool8 ShouldUseItem(u32 battler);
+static bool32 AI_ShouldHeal(u32 battler, u32 healAmount);
+static bool32 AI_OpponentCanFaintAiWithMod(u32 battler, u32 healAmount);
 
-static bool8 ShouldSwitchIfPerishSong(void)
+static bool8 ShouldSwitchIfPerishSong(u32 battler)
 {
-    if (gStatuses3[gActiveBattler] & STATUS3_PERISH_SONG
-     && gDisableStructs[gActiveBattler].perishSongTimer == 0)
+    if (gStatuses3[battler] & STATUS3_PERISH_SONG
+     && gDisableStructs[battler].perishSongTimer == 0)
     {
-        *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(gActiveBattler) >> 1)) = PARTY_SIZE;
-        BtlController_EmitTwoReturnValues(1, B_ACTION_SWITCH, 0);
+        *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1)) = PARTY_SIZE;
+        BtlController_EmitTwoReturnValues(battler, 1, B_ACTION_SWITCH, 0);
         return TRUE;
     }
     else
@@ -33,9 +33,8 @@ static bool8 ShouldSwitchIfPerishSong(void)
     }
 }
 
-//vsonic needs to be updated, prob most of file as well,
-//to match EE
-static bool8 ShouldSwitchIfWonderGuard(void)
+//vsonic important potentially make dispirit guard version
+static bool8 ShouldSwitchIfWonderGuard(u32 battler)
 {
     u8 opposingBattler;
     u8 moveFlags;
@@ -49,7 +48,7 @@ static bool8 ShouldSwitchIfWonderGuard(void)
         // Check if Pokemon has a super effective move.
         for (opposingBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT), i = 0; i < MAX_MON_MOVES; ++i)
         {
-            move = gBattleMons[gActiveBattler].moves[i];
+            move = gBattleMons[battler].moves[i];
             if (move == MOVE_NONE)
                 continue;
             moveFlags = AI_TypeCalc(move, gBattleMons[opposingBattler].species, gBattleMons[opposingBattler].ability);
@@ -62,10 +61,9 @@ static bool8 ShouldSwitchIfWonderGuard(void)
             if (GetMonData(&gEnemyParty[i], MON_DATA_HP) == 0
              || GetMonData(&gEnemyParty[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_NONE
              || GetMonData(&gEnemyParty[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_EGG
-             || i == gBattlerPartyIndexes[gActiveBattler])
+             || i == gBattlerPartyIndexes[battler])
                 continue;
-            GetMonData(&gEnemyParty[i], MON_DATA_SPECIES); // Unused return value.
-            GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM); // Unused return value.        
+       
             for (opposingBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT), j = 0; j < MAX_MON_MOVES; ++j)
             {
                 move = GetMonData(&gEnemyParty[i], MON_DATA_MOVE1 + j);
@@ -75,8 +73,8 @@ static bool8 ShouldSwitchIfWonderGuard(void)
                 if (moveFlags & MOVE_RESULT_SUPER_EFFECTIVE && Random() % 3 < 2)
                 {
                     // We found a mon.
-                    *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(gActiveBattler) >> 1)) = i;
-                    BtlController_EmitTwoReturnValues(1, B_ACTION_SWITCH, 0);
+                    *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1)) = i;
+                    BtlController_EmitTwoReturnValues(battler, 1, B_ACTION_SWITCH, 0);
                     return TRUE;
                 }
             }
@@ -85,40 +83,40 @@ static bool8 ShouldSwitchIfWonderGuard(void)
     return FALSE; // There is not a single Pokemon in the party that has a super effective move against a mon with Wonder Guard.
 }
 
-static bool8 FindMonThatAbsorbsOpponentsMove(void)
+static bool8 FindMonThatAbsorbsOpponentsMove(u32 battler)
 {
     u8 battlerIn1, battlerIn2;
     u16 absorbingTypeAbility;
     s32 i;
 
-    if ((HasSuperEffectiveMoveAgainstOpponents(TRUE) && Random() % 3) 
-    || (gLastLandedMoves[gActiveBattler] == MOVE_NONE))
+    if ((HasSuperEffectiveMoveAgainstOpponents(battler, TRUE) && Random() % 3) 
+    || (gLastLandedMoves[battler] == MOVE_NONE))
         return FALSE;
-    if (gLastLandedMoves[gActiveBattler] == 0xFFFF
-     || gBattleMoves[gLastLandedMoves[gActiveBattler]].power == 0)
+    if (gLastLandedMoves[battler] == 0xFFFF
+     || gBattleMoves[gLastLandedMoves[battler]].power == 0)
         return FALSE;
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
-        battlerIn1 = gActiveBattler;
-        if (gAbsentBattlerFlags & gBitTable[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)))])
-            battlerIn2 = gActiveBattler;
+        battlerIn1 = battler;
+        if (gAbsentBattlerFlags & (1u << GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)))))
+            battlerIn2 = battler;
         else
-            battlerIn2 = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)));
+            battlerIn2 = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)));
     }
     else
     {
-        battlerIn1 = gActiveBattler;
-        battlerIn2 = gActiveBattler;
+        battlerIn1 = battler;
+        battlerIn2 = battler;
     }
-    if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_FIRE)
+    if (gBattleMoves[gLastLandedMoves[battler]].type == TYPE_FIRE)
         absorbingTypeAbility = ABILITY_FLASH_FIRE;
-    else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_WATER)
+    else if (gBattleMoves[gLastLandedMoves[battler]].type == TYPE_WATER)
         absorbingTypeAbility = ABILITY_WATER_ABSORB;
-    else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_ELECTRIC)
+    else if (gBattleMoves[gLastLandedMoves[battler]].type == TYPE_ELECTRIC)
         absorbingTypeAbility = ABILITY_VOLT_ABSORB;
     else
         return FALSE;
-    if (gBattleMons[gActiveBattler].ability == absorbingTypeAbility)
+    if (gBattleMons[battler].ability == absorbingTypeAbility)
         return FALSE;
     for (i = 0; i < PARTY_SIZE; ++i)
     {
@@ -134,64 +132,85 @@ static bool8 FindMonThatAbsorbsOpponentsMove(void)
          || (i == *(gBattleStruct->monToSwitchIntoId + battlerIn2)))
             continue;
         species = GetMonData(&gEnemyParty[i], MON_DATA_SPECIES);
-        if (GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM) != ABILITY_NONE)
+        /*if (GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM) != ABILITY_NONE)
             monAbility = gBaseStats[species].abilities[1];
         else
             monAbility = gBaseStats[species].abilities[0];
+            */
+        
+        /*switch (GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM))
+        {
+            case 0:
+                monAbility = gBaseStats[species].abilities[ABILITY_SLOT_1];
+                break;
+            case 1:
+                monAbility = gBaseStats[species].abilities[ABILITY_SLOT_2];
+                break;
+            case 2:
+                monAbility = gBaseStats[species].abilityHidden[HIDDEN_ABILITY_SLOT_1];
+                break;
+            case 3:
+                monAbility = gBaseStats[species].abilityHidden[HIDDEN_ABILITY_SLOT_2];
+                break;
+        }*/
+
+        monAbility = GetAbilityBySpecies(species, GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM), &gEnemyParty[i]);
+
         if (absorbingTypeAbility == monAbility && Random() & 1)
         {
             // we found a mon
-            *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(gActiveBattler) >> 1)) = i;
-            BtlController_EmitTwoReturnValues(1, B_ACTION_SWITCH, 0);
+            *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1)) = i;
+            BtlController_EmitTwoReturnValues(battler, 1, B_ACTION_SWITCH, 0);
             return TRUE;
         }
     }
     return FALSE;
 }
 
-static bool8 ShouldSwitchIfNaturalCure(void)
+static bool8 ShouldSwitchIfNaturalCure(u32 battler)
 {
-    if (!(gBattleMons[gActiveBattler].status1 & STATUS1_SLEEP)
-     || (gBattleMons[gActiveBattler].ability != ABILITY_NATURAL_CURE)
-     || (gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP / 2))
+    if (!(gBattleMons[battler].status1 & STATUS1_SLEEP)
+     || (gBattleMons[battler].ability != ABILITY_NATURAL_CURE)
+     || (gBattleMons[battler].hp < gBattleMons[battler].maxHP / 2))
         return FALSE;
-    if ((gLastLandedMoves[gActiveBattler] == MOVE_NONE || gLastLandedMoves[gActiveBattler] == 0xFFFF) && Random() & 1)
+    if ((gLastLandedMoves[battler] == MOVE_NONE || gLastLandedMoves[battler] == 0xFFFF) && Random() & 1)
     {
-        *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(gActiveBattler) >> 1)) = PARTY_SIZE;
-        BtlController_EmitTwoReturnValues(1, B_ACTION_SWITCH, 0);
+        *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1)) = PARTY_SIZE;
+        BtlController_EmitTwoReturnValues(battler, 1, B_ACTION_SWITCH, 0);
         return TRUE;
     }
-    else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].power == 0 && Random() & 1)
+    else if (gBattleMoves[gLastLandedMoves[battler]].power == 0 && Random() & 1)
     {
-        *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(gActiveBattler) >> 1)) = PARTY_SIZE;
-        BtlController_EmitTwoReturnValues(1, B_ACTION_SWITCH, 0);
+        *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1)) = PARTY_SIZE;
+        BtlController_EmitTwoReturnValues(battler, 1, B_ACTION_SWITCH, 0);
         return TRUE;
     }
-    if (FindMonWithFlagsAndSuperEffective(MOVE_RESULT_DOESNT_AFFECT_FOE, 1)
-     || FindMonWithFlagsAndSuperEffective(MOVE_RESULT_NOT_VERY_EFFECTIVE, 1))
+    if (FindMonWithFlagsAndSuperEffective(battler, MOVE_RESULT_DOESNT_AFFECT_FOE, 1)
+     || FindMonWithFlagsAndSuperEffective(battler, MOVE_RESULT_NOT_VERY_EFFECTIVE, 1))
         return TRUE;
     if (Random() & 1)
     {
-        *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(gActiveBattler) >> 1)) = PARTY_SIZE;
-        BtlController_EmitTwoReturnValues(1, B_ACTION_SWITCH, 0);
+        *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1)) = PARTY_SIZE;
+        BtlController_EmitTwoReturnValues(battler, 1, B_ACTION_SWITCH, 0);
         return TRUE;
     }
     return FALSE;
 }
 
-static bool8 HasSuperEffectiveMoveAgainstOpponents(bool8 noRng)
+static bool8 HasSuperEffectiveMoveAgainstOpponents(u32 battler, bool8 noRng)
 {
-    u8 opposingBattler;
     s32 i;
     u8 moveFlags;
     u16 move;
+    
+    u32 opposingPosition = BATTLE_OPPOSITE(GetBattlerPosition(battler));
+    u32 opposingBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
 
-    opposingBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-    if (!(gAbsentBattlerFlags & gBitTable[opposingBattler]))
+    if (!(gAbsentBattlerFlags & (1u << opposingBattler)))
     {
         for (i = 0; i < MAX_MON_MOVES; ++i)
         {
-            move = gBattleMons[gActiveBattler].moves[i];
+            move = gBattleMons[battler].moves[i];
             if (move == MOVE_NONE)
                 continue;
 
@@ -205,12 +224,14 @@ static bool8 HasSuperEffectiveMoveAgainstOpponents(bool8 noRng)
     }
     if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
         return FALSE;
-    opposingBattler = GetBattlerAtPosition(BATTLE_PARTNER(B_POSITION_PLAYER_LEFT));
-    if (!(gAbsentBattlerFlags & gBitTable[opposingBattler]))
+
+    opposingBattler = GetBattlerAtPosition(BATTLE_PARTNER(opposingPosition));
+
+    if (!(gAbsentBattlerFlags & (1u << opposingBattler)))
     {
         for (i = 0; i < MAX_MON_MOVES; ++i)
         {
-            move = gBattleMons[gActiveBattler].moves[i];
+            move = gBattleMons[battler].moves[i];
             if (move == MOVE_NONE)
                 continue;
             moveFlags = AI_TypeCalc(move, gBattleMons[opposingBattler].species, gBattleMons[opposingBattler].ability);
@@ -226,44 +247,44 @@ static bool8 HasSuperEffectiveMoveAgainstOpponents(bool8 noRng)
     return FALSE;
 }
 
-static bool8 AreStatsRaised(void)
+static bool8 AreStatsRaised(u32 battler)
 {
     u8 buffedStatsValue = 0;
     s32 i;
 
     for (i = 0; i < NUM_BATTLE_STATS; ++i)
     {
-        if (gBattleMons[gActiveBattler].statStages[i] > 6)
-            buffedStatsValue += gBattleMons[gActiveBattler].statStages[i] - 6;
+        if (gBattleMons[battler].statStages[i] > 6)
+            buffedStatsValue += gBattleMons[battler].statStages[i] - 6;
     }
     return (buffedStatsValue > 3);
 }
 
-static bool8 FindMonWithFlagsAndSuperEffective(u8 flags, u8 moduloPercent)
+static bool8 FindMonWithFlagsAndSuperEffective(u32 battler, u8 flags, u8 moduloPercent)
 {
     u8 battlerIn1, battlerIn2;
     s32 i, j;
     u16 move;
     u8 moveFlags;
 
-    if (gLastLandedMoves[gActiveBattler] == 0)
+    if (gLastLandedMoves[battler] == 0)
         return FALSE;
-    if ((gLastLandedMoves[gActiveBattler] == 0xFFFF)
-     || (gLastHitBy[gActiveBattler] == 0xFF)
-     || (gBattleMoves[gLastLandedMoves[gActiveBattler]].power == 0))
+    if ((gLastLandedMoves[battler] == 0xFFFF)
+     || (gLastHitBy[battler] == 0xFF)
+     || (gBattleMoves[gLastLandedMoves[battler]].power == 0))
         return FALSE;
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
-        battlerIn1 = gActiveBattler;
-        if (gAbsentBattlerFlags & gBitTable[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)))])
-            battlerIn2 = gActiveBattler;
+        battlerIn1 = battler;
+        if (gAbsentBattlerFlags & (1u << GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)))))
+            battlerIn2 = battler;
         else
-            battlerIn2 = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)));
+            battlerIn2 = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)));
     }
     else
     {
-        battlerIn1 = gActiveBattler;
-        battlerIn2 = gActiveBattler;
+        battlerIn1 = battler;
+        battlerIn2 = battler;
     }
     for (i = 0; i < PARTY_SIZE; ++i)
     {
@@ -279,14 +300,21 @@ static bool8 FindMonWithFlagsAndSuperEffective(u8 flags, u8 moduloPercent)
          || (i == *(gBattleStruct->monToSwitchIntoId + battlerIn2)))
             continue;
         species = GetMonData(&gEnemyParty[i], MON_DATA_SPECIES);
-        if (GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM) != ABILITY_NONE)
+
+        //idk what this is for yet but will need to rework this part
+        //for hidden abilities will prob use switch case
+        /*if (GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM) != ABILITY_NONE)
             monAbility = gBaseStats[species].abilities[1];
         else
             monAbility = gBaseStats[species].abilities[0];
-        moveFlags = AI_TypeCalc(gLastLandedMoves[gActiveBattler], species, monAbility);
+        */
+
+        monAbility = GetAbilityBySpecies(species, GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM), &gEnemyParty[i]);
+
+        moveFlags = AI_TypeCalc(gLastLandedMoves[battler], species, monAbility);
         if (moveFlags & flags)
         {
-            battlerIn1 = gLastHitBy[gActiveBattler];
+            battlerIn1 = gLastHitBy[battler];
             for (j = 0; j < MAX_MON_MOVES; ++j)
             {
                 move = GetMonData(&gEnemyParty[i], MON_DATA_MOVE1 + j);
@@ -295,8 +323,8 @@ static bool8 FindMonWithFlagsAndSuperEffective(u8 flags, u8 moduloPercent)
                 moveFlags = AI_TypeCalc(move, gBattleMons[battlerIn1].species, gBattleMons[battlerIn1].ability);
                 if (moveFlags & MOVE_RESULT_SUPER_EFFECTIVE && Random() % moduloPercent == 0)
                 {
-                    *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(gActiveBattler) >> 1)) = i;
-                    BtlController_EmitTwoReturnValues(1, B_ACTION_SWITCH, 0);
+                    *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1)) = i;
+                    BtlController_EmitTwoReturnValues(battler, 1, B_ACTION_SWITCH, 0);
                     return TRUE;
                 }
             }
@@ -305,35 +333,34 @@ static bool8 FindMonWithFlagsAndSuperEffective(u8 flags, u8 moduloPercent)
     return FALSE;
 }
 
-//vsonic check this
-bool32 ShouldSwitch(void)
+bool32 ShouldSwitch(u32 battler)
 {
     u8 battlerIn1, battlerIn2;
     s32 i;
     s32 availableToSwitch;
 
-    if ((gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
-     || (gBattleMons[gActiveBattler].status4 & ITS_A_TRAP_STATUS4)
-     || (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
-     || AbilityBattleEffects(ABILITYEFFECT_CHECK_OTHER_SIDE, gActiveBattler, ABILITY_SHADOW_TAG, 0, 0)
-     || AbilityBattleEffects(ABILITYEFFECT_CHECK_OTHER_SIDE, gActiveBattler, ABILITY_ARENA_TRAP, 0, 0))
+    if ((gBattleMons[battler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
+     || (gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4)
+     || (gStatuses3[battler] & STATUS3_ROOTED)
+     || AbilityBattleEffects(ABILITYEFFECT_CHECK_OTHER_SIDE, battler, ABILITY_SHADOW_TAG, 0, 0)
+     || AbilityBattleEffects(ABILITYEFFECT_CHECK_OTHER_SIDE, battler, ABILITY_ARENA_TRAP, 0, 0))
         return FALSE; // misses the flying or levitate check /and hands of fate for shadow tag
     if (AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, ABILITY_MAGNET_PULL, 0, 0))
-        if ((gBattleMons[gActiveBattler].type1 == TYPE_STEEL) || (gBattleMons[gActiveBattler].type2 == TYPE_STEEL))
+        if ((gBattleMons[battler].type1 == TYPE_STEEL) || (gBattleMons[battler].type2 == TYPE_STEEL))
             return FALSE;
     availableToSwitch = 0;
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
-        battlerIn1 = gActiveBattler;
-        if (gAbsentBattlerFlags & gBitTable[GetBattlerAtPosition(GetBattlerPosition(gActiveBattler) ^ BIT_FLANK)])
-            battlerIn2 = gActiveBattler;
+        battlerIn1 = battler;
+        if (gAbsentBattlerFlags & (1u << GetBattlerAtPosition(GetBattlerPosition(BATTLE_PARTNER(battler)))))
+            battlerIn2 = battler;
         else
-            battlerIn2 = GetBattlerAtPosition(GetBattlerPosition(gActiveBattler) ^ BIT_FLANK);
+            battlerIn2 = GetBattlerAtPosition(GetBattlerPosition(BATTLE_PARTNER(battler)));
     }
     else
     {
-        battlerIn2 = gActiveBattler;
-        battlerIn1 = gActiveBattler;
+        battlerIn2 = battler;
+        battlerIn1 = battler;
     }
     for (i = 0; i < PARTY_SIZE; ++i)
     {
@@ -349,31 +376,31 @@ bool32 ShouldSwitch(void)
     }
     if (!availableToSwitch)
         return FALSE;
-    if (ShouldSwitchIfPerishSong()
-     || ShouldSwitchIfWonderGuard()
-     || FindMonThatAbsorbsOpponentsMove()
-     || ShouldSwitchIfNaturalCure())
+    if (ShouldSwitchIfPerishSong(battler)
+     || ShouldSwitchIfWonderGuard(battler)
+     || FindMonThatAbsorbsOpponentsMove(battler)
+     || ShouldSwitchIfNaturalCure(battler))
         return TRUE;
-    if (HasSuperEffectiveMoveAgainstOpponents(FALSE)
-     || AreStatsRaised())
+    if (HasSuperEffectiveMoveAgainstOpponents(battler, FALSE)
+     || AreStatsRaised(battler))
         return FALSE;
-    if (FindMonWithFlagsAndSuperEffective(MOVE_RESULT_DOESNT_AFFECT_FOE, 2)
-     || FindMonWithFlagsAndSuperEffective(MOVE_RESULT_NOT_VERY_EFFECTIVE, 3)) //vsonic could potentially adapt to setup conversion/new ditto ability just need loop all mon instead of party
+    if (FindMonWithFlagsAndSuperEffective(battler, MOVE_RESULT_DOESNT_AFFECT_FOE, 2)
+     || FindMonWithFlagsAndSuperEffective(battler, MOVE_RESULT_NOT_VERY_EFFECTIVE, 3))
         return TRUE;
     return FALSE;
 }
 
-void AI_TrySwitchOrUseItem(void)
+void AI_TrySwitchOrUseItem(u32 battler)
 {
     u8 battlerIn1, battlerIn2;
 
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
     {
-        if (ShouldSwitch())
+        if (ShouldSwitch(battler))
         {
-            if (*(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(gActiveBattler) >> 1)) == 6)
+            if (*(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1)) == 6)
             {
-                s32 monToSwitchId = GetMostSuitableMonToSwitchInto();
+                s32 monToSwitchId = GetMostSuitableMonToSwitchInto(battler);
                 if (monToSwitchId == 6)
                 {
                     if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
@@ -396,17 +423,17 @@ void AI_TrySwitchOrUseItem(void)
                             break;
                     }
                 }
-                *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(gActiveBattler) >> 1)) = monToSwitchId;
+                *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1)) = monToSwitchId;
             }
-            *(gBattleStruct->monToSwitchIntoId + gActiveBattler) = *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(gActiveBattler) >> 1));
+            *(gBattleStruct->monToSwitchIntoId + battler) = *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1));
             return;
         }
-        else if (ShouldUseItem())
+        else if (ShouldUseItem(battler))
         {
             return;
         }
     }
-    BtlController_EmitTwoReturnValues(1, B_ACTION_USE_MOVE, (gActiveBattler ^ BIT_SIDE) << 8);
+    BtlController_EmitTwoReturnValues(battler, 1, B_ACTION_USE_MOVE, (battler ^ BIT_SIDE) << 8);
 }
 
 //remove part of cleanup to make gtypeeffectiveness array static
@@ -496,7 +523,7 @@ static u32 GetBestMonTypeMatchup(struct Pokemon *party, int firstId, int lastId,
     return PARTY_SIZE;
 }
 
-u8 GetMostSuitableMonToSwitchInto(void)
+u8 GetMostSuitableMonToSwitchInto(u32 battler)
 {
     u8 opposingBattler;
     u8 bestDmg; // Note : should be changed to u32 for obvious reasons.
@@ -513,33 +540,33 @@ u8 GetMostSuitableMonToSwitchInto(void)
     
 
 
-    if (*(gBattleStruct->monToSwitchIntoId + gActiveBattler) != PARTY_SIZE)
-        return *(gBattleStruct->monToSwitchIntoId + gActiveBattler);
+    if (*(gBattleStruct->monToSwitchIntoId + battler) != PARTY_SIZE)
+        return *(gBattleStruct->monToSwitchIntoId + battler);
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
-        battlerIn1 = gActiveBattler;
-        if (gAbsentBattlerFlags & gBitTable[GetBattlerAtPosition(GetBattlerPosition(gActiveBattler) ^ BIT_FLANK)])
-            battlerIn2 = gActiveBattler;
+        battlerIn1 = battler;
+        if (gAbsentBattlerFlags & (1u << GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)))
+            battlerIn2 = battler;
         else
-            battlerIn2 = GetBattlerAtPosition(GetBattlerPosition(gActiveBattler) ^ BIT_FLANK);
+            battlerIn2 = GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK);
         // UB: It considers the opponent only player's side even though it can battle alongside player.
         opposingBattler = Random() & BIT_FLANK;
-        if (gAbsentBattlerFlags & gBitTable[opposingBattler])
+        if (gAbsentBattlerFlags & (1u << opposingBattler))
             opposingBattler ^= BIT_FLANK;
     }
     else
     {
         opposingBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-        battlerIn1 = gActiveBattler;
-        battlerIn2 = gActiveBattler;
+        battlerIn1 = battler;
+        battlerIn2 = battler;
     }
 
-    GetAIPartyIndexes(gActiveBattler, &firstId, &lastId);
-    party = GetBattlerParty(gActiveBattler);
+    GetAIPartyIndexes(battler, &firstId, &lastId);
+    party = GetBattlerParty(battler);
 
     //can slot GetBestMonTypeMatchup in here
     //identical comments for this section
-    bestMonId = GetBestMonTypeMatchup(party, firstId, lastId, invalidMons, gActiveBattler, opposingBattler);
+    bestMonId = GetBestMonTypeMatchup(party, firstId, lastId, invalidMons, battler, opposingBattler);
         if (bestMonId != PARTY_SIZE)
             return bestMonId;
             
@@ -555,7 +582,7 @@ u8 GetMostSuitableMonToSwitchInto(void)
             u16 species = GetMonData(&gEnemyParty[i], MON_DATA_SPECIES);
             if (species != SPECIES_NONE
                 && GetMonData(&gEnemyParty[i], MON_DATA_HP) != 0
-                && !(gBitTable[i] & invalidMons)
+                && !((1u << i) & invalidMons)
                 && gBattlerPartyIndexes[battlerIn1] != i
                 && gBattlerPartyIndexes[battlerIn2] != i
                 && i != *(gBattleStruct->monToSwitchIntoId + battlerIn1)
@@ -574,7 +601,7 @@ u8 GetMostSuitableMonToSwitchInto(void)
             }
             else
             {
-                invalidMons |= gBitTable[i];
+                invalidMons |= (1u << i);
             }
         }
         // Ok, we know the mon has the right typing but does it have at least one super effective move?
@@ -583,13 +610,13 @@ u8 GetMostSuitableMonToSwitchInto(void)
             for (i = 0; i < MAX_MON_MOVES; ++i)
             {
                 move = GetMonData(&gEnemyParty[bestMonId], MON_DATA_MOVE1 + i);
-                if (move != MOVE_NONE && TypeCalc(move, gActiveBattler, opposingBattler) & MOVE_RESULT_SUPER_EFFECTIVE)
+                if (move != MOVE_NONE && TypeCalc(move, battler, opposingBattler) & MOVE_RESULT_SUPER_EFFECTIVE)
                     break;
             }
             if (i != MAX_MON_MOVES)
                 return bestMonId; // Has both the typing and at least one super effective move.
 
-            invalidMons |= gBitTable[bestMonId]; // Sorry buddy, we want something better.
+            invalidMons |= (1u << bestMonId); // Sorry buddy, we want something better.
         }
         else
         {
@@ -621,8 +648,8 @@ u8 GetMostSuitableMonToSwitchInto(void)
             gBattleMoveDamage = 0;
             if (move != MOVE_NONE && gBattleMoves[move].power != 1)
             {
-                AI_CalcDmgFormula(gActiveBattler, opposingBattler);
-                TypeCalc(move, gActiveBattler, opposingBattler);
+                AI_CalcDmg(battler, opposingBattler);
+                TypeCalc(move, battler, opposingBattler);
             }
             if (bestDmg < gBattleMoveDamage)
             {
@@ -669,18 +696,17 @@ static u8 GetAI_ItemType(u8 itemId, const u8 *itemEffect) // NOTE: should take u
         return AI_ITEM_NOT_RECOGNIZABLE;
 }
 
-static bool32 AiExpectsToFaintPlayer(void)
+static bool32 AiExpectsToFaintPlayer(u32 battler)
 {
-    bool32 canFaintPlayer;
-    //u32 i;
-    u8 target = gBattleStruct->aiChosenTarget[gActiveBattler];
 
-    if (gBattleStruct->aiMoveOrAction[gActiveBattler] > 3)
+    u8 target = gBattleStruct->aiChosenTarget[battler];
+
+    if (gBattleStruct->aiMoveOrAction[battler] > 3)
         return FALSE; // AI not planning to use move
 
-    if (GetBattlerSide(target) != GetBattlerSide(gActiveBattler)
-      && CanIndexMoveFaintTarget(gActiveBattler, target, gBattleStruct->aiMoveOrAction[gActiveBattler], 0)
-      && AI_WhoStrikesFirst(gActiveBattler, target, GetAIChosenMove(gActiveBattler)) == AI_IS_FASTER) {
+    if (GetBattlerSide(target) != GetBattlerSide(battler)
+      && CanIndexMoveFaintTarget(battler, target, gBattleStruct->aiMoveOrAction[battler], 0)
+      && AI_WhoStrikesFirst(battler, target, GetAIChosenMove(battler)) == AI_IS_FASTER) {
         // We expect to faint the target and move first -> dont use an item
         return TRUE;
     }
@@ -688,24 +714,24 @@ static bool32 AiExpectsToFaintPlayer(void)
     return FALSE;
 }
 
-static bool8 ShouldUseItem(void)
+static bool8 ShouldUseItem(u32 battler)
 {
     struct Pokemon *party;
     s32 i;
     u8 validMons = 0;
     bool8 shouldUse = FALSE;
     // If teaming up with player and Pokemon is on the right, or Pokemon is currently held by Sky Drop
-    if ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && GetBattlerPosition(gActiveBattler) == B_POSITION_PLAYER_RIGHT)
-       || gStatuses3[gActiveBattler] & STATUS3_SKY_DROPPED)
+    if ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && GetBattlerPosition(battler) == B_POSITION_PLAYER_RIGHT)
+       || gStatuses3[battler] & STATUS3_SKY_DROPPED)
         return FALSE;
 
-    if (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_EMBARGO)
+    if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_EMBARGO)
         return FALSE;
 
-    if (AiExpectsToFaintPlayer())
+    if (AiExpectsToFaintPlayer(battler))
         return FALSE;
 
-    if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
+    if (GetBattlerSide(battler) == B_SIDE_PLAYER)
         party = gPlayerParty;
     else
         party = gEnemyParty;
@@ -735,100 +761,98 @@ static bool8 ShouldUseItem(void)
             itemEffects = gSaveBlock1Ptr->enigmaBerry.itemEffect;
         else
             itemEffects = gItemEffectTable[item - ITEM_POTION];
-        *(gBattleStruct->AI_itemType + gActiveBattler / 2) = GetAI_ItemType(item, itemEffects);
-        switch (*(gBattleStruct->AI_itemType + gActiveBattler / 2))
+        *(gBattleStruct->AI_itemType + battler / 2) = GetAI_ItemType(item, itemEffects);
+        switch (*(gBattleStruct->AI_itemType + battler / 2))
         {
         case AI_ITEM_FULL_RESTORE:
-            if (gBattleMons[gActiveBattler].hp >= gBattleMons[gActiveBattler].maxHP / 4)
+            if (gBattleMons[battler].hp >= gBattleMons[battler].maxHP / 4)
                 break;
-            if (gBattleMons[gActiveBattler].hp == 0)
+            if (gBattleMons[battler].hp == 0)
                 break;
             shouldUse = TRUE;
-            shouldUse = AI_ShouldHeal(0);
+            shouldUse = AI_ShouldHeal(battler, 0);
             break;
         case AI_ITEM_HEAL_HP:
-            paramOffset = GetItemEffectParamOffset(item, 4, 4);
-            if (paramOffset == 0)
+            paramOffset = GetItemEffectParamOffset(battler, item, 4, 4);
+            if (paramOffset == 0 || gBattleMons[battler].hp == 0)
                 break;
-            if (gBattleMons[gActiveBattler].hp == 0)
-                break;
-            if (gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP / 4
-                || gBattleMons[gActiveBattler].maxHP - gBattleMons[gActiveBattler].hp > itemEffects[paramOffset])
+            if (gBattleMons[battler].hp < gBattleMons[battler].maxHP / 4 
+                || gBattleMons[battler].maxHP - gBattleMons[battler].hp > itemEffects[paramOffset])
                 shouldUse = TRUE;
-            shouldUse = AI_ShouldHeal(itemEffects[GetItemEffectParamOffset(item, 4, 4)]);
+            shouldUse = AI_ShouldHeal(battler, itemEffects[GetItemEffectParamOffset(battler, item, 4, 4)]);
             break;
         case AI_ITEM_CURE_CONDITION:
-            *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) = 0;
-            if (itemEffects[3] & ITEM3_SLEEP && gBattleMons[gActiveBattler].status1 & STATUS1_SLEEP)
+            *(gBattleStruct->AI_itemFlags + battler / 2) = 0;
+            if (itemEffects[3] & ITEM3_SLEEP && gBattleMons[battler].status1 & STATUS1_SLEEP)
             {
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= 0x20;
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= 0x20;
                 shouldUse = TRUE;
             }
             if (itemEffects[3] & ITEM3_POISON 
-            && (gBattleMons[gActiveBattler].status1 & STATUS1_POISON || gBattleMons[gActiveBattler].status1 & STATUS1_TOXIC_POISON))
+            && (gBattleMons[battler].status1 & STATUS1_POISON || gBattleMons[battler].status1 & STATUS1_TOXIC_POISON))
             {
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= 0x10;
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= 0x10;
                 shouldUse = TRUE;
             }
-            if (itemEffects[3] & ITEM3_BURN && gBattleMons[gActiveBattler].status1 & STATUS1_BURN)
+            if (itemEffects[3] & ITEM3_BURN && gBattleMons[battler].status1 & STATUS1_BURN)
             {
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= 0x8;
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= 0x8;
                 shouldUse = TRUE;
             }
-            if (itemEffects[3] & ITEM3_FREEZE && gBattleMons[gActiveBattler].status1 & STATUS1_FREEZE)
+            if (itemEffects[3] & ITEM3_FREEZE && gBattleMons[battler].status1 & STATUS1_FREEZE)
             {
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= 0x4;
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= 0x4;
                 shouldUse = TRUE;
             }
-            if (itemEffects[3] & ITEM3_PARALYSIS && gBattleMons[gActiveBattler].status1 & STATUS1_PARALYSIS)
+            if (itemEffects[3] & ITEM3_PARALYSIS && gBattleMons[battler].status1 & STATUS1_PARALYSIS)
             {
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= 0x2;
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= 0x2;
                 shouldUse = TRUE;
             }
-            if (itemEffects[3] & ITEM3_CONFUSION && gBattleMons[gActiveBattler].status2 & STATUS2_CONFUSION)
+            if (itemEffects[3] & ITEM3_CONFUSION && gBattleMons[battler].status2 & STATUS2_CONFUSION)
             {
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= 0x1;
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= 0x1;
                 shouldUse = TRUE;
             }
             break;
         case AI_ITEM_X_STAT:
-            *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) = 0;
-            if (gDisableStructs[gActiveBattler].isFirstTurn == 0)
+            *(gBattleStruct->AI_itemFlags + battler / 2) = 0;
+            if (gDisableStructs[battler].isFirstTurn == 0)
                 break;
         #ifndef ITEM_EXPANSION
             if (itemEffects[0] & ITEM0_X_ATTACK)
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= 0x1;
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= 0x1;
             if (itemEffects[1] & ITEM1_X_DEFEND)
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= 0x2;
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= 0x2;
             if (itemEffects[1] & ITEM1_X_SPEED)
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= 0x4;
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= 0x4;
             if (itemEffects[2] & ITEM2_X_SPATK)
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= 0x8;
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= 0x8;
             if (itemEffects[2] & ITEM2_X_ACCURACY)
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= 0x20;
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= 0x20;
             if (itemEffects[0] & ITEM0_HIGH_CRIT)
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= 0x80;
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= 0x80;
         #else
             if (itemEffects[1] & ITEM1_X_ATTACK)
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= (1 << AI_X_ATTACK);
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= (1 << AI_X_ATTACK);
             if (itemEffects[1] & ITEM1_X_DEFENSE)
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= (1 << AI_X_DEFEND);
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= (1 << AI_X_DEFEND);
             if (itemEffects[1] & ITEM1_X_SPEED)
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= (1 << AI_X_SPEED);
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= (1 << AI_X_SPEED);
             if (itemEffects[1] & ITEM1_X_SPATK)
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= (1 << AI_X_SPATK);
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= (1 << AI_X_SPATK);
             if (itemEffects[1] & ITEM1_X_SPDEF)
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= (1 << AI_X_SPDEF);
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= (1 << AI_X_SPDEF);
             if (itemEffects[1] & ITEM1_X_ACCURACY)
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= (1 << AI_X_ACCURACY);
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= (1 << AI_X_ACCURACY);
             if (itemEffects[0] & ITEM0_DIRE_HIT)
-                *(gBattleStruct->AI_itemFlags + gActiveBattler / 2) |= (1 << AI_DIRE_HIT);
+                *(gBattleStruct->AI_itemFlags + battler / 2) |= (1 << AI_DIRE_HIT);
         #endif
             shouldUse = TRUE;
             break;
         case AI_ITEM_GUARD_SPECS:
-            battlerSide = GetBattlerSide(gActiveBattler);
-            if (gDisableStructs[gActiveBattler].isFirstTurn && gSideTimers[battlerSide].mistTimer == 0)
+            battlerSide = GetBattlerSide(battler);
+            if (gDisableStructs[battler].isFirstTurn && gSideTimers[battlerSide].mistTimer == 0)
                 shouldUse = TRUE;
             break;
         case AI_ITEM_NOT_RECOGNIZABLE:
@@ -836,8 +860,11 @@ static bool8 ShouldUseItem(void)
         }
         if (shouldUse)
         {
-            BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_USE_ITEM, 0);
-            *(gBattleStruct->chosenItem + (gActiveBattler / 2) * 2) = item; //for some reason it used this
+            //vsonic important look into later
+            //if (gBattleStruct->itemPartyIndex[battler] == PARTY_SIZE)
+            //    gBattleStruct->itemPartyIndex[battler] = gBattlerPartyIndexes[battler];
+            BtlController_EmitTwoReturnValues(battler, BUFFER_B, B_ACTION_USE_ITEM, 0);
+            *(gBattleStruct->chosenItem + (battler / 2) * 2) = item;
             gBattleResources->battleHistory->trainerItems[i] = 0;
             return shouldUse;
         }
@@ -846,27 +873,27 @@ static bool8 ShouldUseItem(void)
     return FALSE;
 }
 
-static bool32 AI_ShouldHeal(u32 healAmount)
+static bool32 AI_ShouldHeal(u32 battler, u32 healAmount)
 {
     bool32 shouldHeal = FALSE;
 
-    if (gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP / 4
-     || gBattleMons[gActiveBattler].hp == 0
-     || (healAmount != 0 && gBattleMons[gActiveBattler].maxHP - gBattleMons[gActiveBattler].hp > healAmount)) {
+    if (gBattleMons[battler].hp < gBattleMons[battler].maxHP / 4
+     || gBattleMons[battler].hp == 0
+     || (healAmount != 0 && gBattleMons[battler].maxHP - gBattleMons[battler].hp > healAmount)) {
         // We have low enough HP to consider healing
-        shouldHeal = !AI_OpponentCanFaintAiWithMod(healAmount); // if target can kill us even after we heal, why bother
+        shouldHeal = !AI_OpponentCanFaintAiWithMod(battler, healAmount); // if target can kill us even after we heal, why bother
     }
 
     return shouldHeal;
 }
 
-static bool32 AI_OpponentCanFaintAiWithMod(u32 healAmount)
+static bool32 AI_OpponentCanFaintAiWithMod(u32 battler, u32 healAmount)
 {
     u32 i;
     // Check special cases to NOT heal
     for (i = 0; i < gBattlersCount; i++) {
         if (GetBattlerSide(i) == B_SIDE_PLAYER) {
-            if (CanTargetFaintAiWithMod(i, gActiveBattler, healAmount, 0)) {
+            if (CanTargetFaintAiWithMod(i, battler, healAmount, 0)) {
                 // Target is expected to faint us
                 return TRUE;
             }

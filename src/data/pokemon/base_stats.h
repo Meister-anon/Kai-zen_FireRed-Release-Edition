@@ -224,7 +224,7 @@ if it would otherwise be 0/NONE except in the case of ability.
     Flying: Bird type flying for birds or specifically for things that are expert flyers. some qualities can also overlap w dragons
     Water:  Aquatic type  for fish, or aquatic animals/mamals or things made up of the element, some qualities can also overlap w dragons
     Dragon: rulers of land/air/sea apex predators typically with lizard/reptile like qualities
-    Dark: supernatural type typically tricksters or evil or related to things seen as bad/evil
+    Dark: supernatural type typically tricksters or evil or related to things seen as bad/evil - moves are usually unfair or tricky in some way ex puruit thief sucker punch etc.
     Fairy: Magic type  fairy/magical qualities, like dark can also be tricksters, may also have strong relation to nature - looked further GF seems to have paterned them more after pixie-like fae, nature spirits explains why not effective on fire, as its their weakness/destroys their homes
     Poison: Is poisonous in some manner, or otherwise involves trash/waste or contamination/corruption
     Ground: Lives in deserts/underground or has some link to earth element, is distinct from rock.
@@ -1002,7 +1002,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sPikachuTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, 0, SPECIES_RAICHU},
                                 {EVO_ITEM_FORM, ITEM_THUNDER_STONE, F_ALOLAN_FORM, SPECIES_RAICHU_ALOLAN}), //Should hopefully blank these for now without issue
-        //.flags = F_HAS_COSMETIC_FORMS, exclude as not planning to use/add pika caps, but if you did would use this flag, and exclude cosplay forms
+        .flags = F_HAS_COSMETIC_FORMS,// exclude as not planning to use/add pika caps, but if you did would use this flag, and exclude cosplay forms
     }, //figure hwo to do evo/ evo method use 2nd param check flag, 
 
     [SPECIES_RAICHU] =
@@ -1083,7 +1083,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SAND_VEIL, ABILITY_NONE},
+        .abilities = {ABILITY_SAND_VEIL, ABILITY_TOUGH_SPINES},
         .abilityHidden = {ABILITY_SAND_RUSH, ABILITY_DRY_SKIN},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -1094,6 +1094,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSandslashTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //gave tough spines idea from TheChiptide YT
 
     [SPECIES_NIDORAN_F] =
     {
@@ -2083,7 +2084,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Poliwrath"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(90, 105, 105, 70, 70, 90),
+         STATS(90, 105, 105, 70, 50, 90),
         MON_TYPES(TYPE_WATER, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 230,
@@ -2106,6 +2107,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sPoliwrathTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //since dex entries talked so much of its vitality 
+    //gave extra hp
 
     [SPECIES_ABRA] =
     {
@@ -2974,7 +2977,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCloysterLevelUpLearnset,
         .tmhmLearnset = sCloysterTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },//need add rock moves
+    },
     //give megahorn
 
     [SPECIES_GASTLY] =
@@ -3259,7 +3262,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Electrode"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(60, 50, 75, 150, 95, 100),
+         STATS(60, 50, 76, 150, 95, 100),
         MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
         .catchRate = 60,
         .expYield = 172,
@@ -3996,7 +3999,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Electabuzz"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 83, 57, 105, 95, 85),
+         STATS(65, 88, 57, 105, 95, 85),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 172,
@@ -4858,6 +4861,8 @@ const struct BaseStats gBaseStats[] =
     //maybe assault vest on this would work?
     //ok this isn't so bad now, I forgot how I buffed abilities,
     //pressure is actually a legimite niche intsead of just unnerve
+    // potentially give neuroforce? feels like too much
+    //OH ITS already in learned abilities
 
     [SPECIES_MEW] =
     {
@@ -4967,7 +4972,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_GRASS,
-        .abilities = {ABILITY_OVERGROW, ABILITY_LEAF_GUARD},
+        .abilities = {ABILITY_OVERGROW, ABILITY_FLOWER_VEIL},
         .abilityHidden = {ABILITY_CHLOROPHYLL, ABILITY_GRASSY_SURGE},
         //.bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -5152,6 +5157,14 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sFeraligatorTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //attempt make mega feraligator, no idea what can really do with it
+    //all I have is more teeth and the spikes on its spine going on its mouth
+    //to even better enhance its biting power
+    //think enhance hand claws with spikes as well
+    //give mega tough claws which would cover cut/slash moves
+    //and bite moves
+    //think do somehting like venom jaw? idk
+    //vsonic
 
     [SPECIES_SENTRET] =
     {
@@ -5247,15 +5260,15 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Noctowl"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(80, 50, 50, 70, 120, 96),
-        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
-        .catchRate = 90,
-        .expYield = 158,
+         STATS(80, 50, 50, 70, 128, 96),
+        MON_TYPES(TYPE_DARK, TYPE_FLYING),//revert change not properly adhering to flying logic
+        .catchRate = 90,//considering making a dark type would lose ghost immunity
+        .expYield = 158,//but gain psychic immunity and poison resist
         //.evYield_HP = 2,
-        .genderRatio = PERCENT_FEMALE(50),
-        .eggCycles = 15,
+        .genderRatio = PERCENT_FEMALE(50),//Makes sense to be normal flying but there's so much of that already
+        .eggCycles = 15,//ok too many normal/flying only a few special attackers but still too common
         .friendship = 15,
-        .growthRate = GROWTH_MEDIUM_FAST,
+        .growthRate = GROWTH_MEDIUM_FAST,//Could keep normal flying with abilities it'd play very different
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_INSOMNIA, ABILITY_TINTED_LENS},
@@ -5271,6 +5284,7 @@ const struct BaseStats gBaseStats[] =
     },//change the type to match grand colloseum [done]
     //potentially give shadow tag? as nocturnal predetaor? idk
     //same logic as luxray
+    //still give wide array of coverage moves that a normal mon would get
 
 
     [SPECIES_LEDYBA] =
@@ -6021,7 +6035,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_RUN_AWAY, ABILITY_PICKUP},
-        .abilityHidden = {ABILITY_SKILL_LINK, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SKILL_LINK, ABILITY_SCRAPPY},
         //.bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6167,7 +6181,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_DAMP, ABILITY_WATER_ABSORB},
-        .abilityHidden = {ABILITY_UNAWARE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_UNAWARE, ABILITY_CLOUD_NINE},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6194,8 +6208,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_EMPATH, ABILITY_EMPATH},
-        .abilityHidden = {ABILITY_MAGIC_BOUNCE, ABILITY_ANTICIPATION},
+        .abilities = {ABILITY_EMPATH, ABILITY_SOLAR_POWER},
+        .abilityHidden = {ABILITY_MAGIC_BOUNCE, ABILITY_FORECAST},
         //.bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6205,13 +6219,21 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sEspeonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //sun pokemon thought about giving sun ability
+    //but psychic weak to fire instead
+    //found dex entry about predicting weather so give forecast
+    //think tweak ability so just the type change is linked to castform
+    //dex ironically says nothing about sun at all
+    //ah found it, absorbs energy from bathing in sunlight
+    //joh my god choice band or life orb boosted solar power
+    //stab is going to go insane o.0
 
     [SPECIES_UMBREON] =
     {
         .speciesName = _("Umbreon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(95, 79, 110, 65, 66, 130),
+         STATS(95, 75, 110, 65, 50, 130),
         MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 45,
         .expYield = 184,
@@ -6222,7 +6244,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SYNCHRONIZE, ABILITY_SYNCHRONIZE},
+        .abilities = {ABILITY_SYNCHRONIZE, ABILITY_LUNAR_POWER},
         .abilityHidden = {ABILITY_INNER_FOCUS, ABILITY_DARK_DEAL},
         //.bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
@@ -6235,6 +6257,8 @@ const struct BaseStats gBaseStats[] =
     },//w dark deal this is legit the perfect teamate 
     //for mega/beedrill if I encounter fighting or fairy,
     //poison beedrill would just destroy them
+    //give move gunk shot apparenlty dex entry it has
+    //poisonous sweat give toxic if it doesn't have it
 
     [SPECIES_MURKROW] =
     {
@@ -6834,7 +6858,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_GUTS, ABILITY_QUICK_FEET},
-        .abilityHidden = {ABILITY_GORILLA_TACTICS, ABILITY_UNNERVE},
+        .abilityHidden = {ABILITY_UNNERVE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -7577,7 +7601,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 80, 105, 100, 40, 80),
-        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
+        MON_TYPES(TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_Defense = 2,
@@ -7862,7 +7886,7 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(106, 90, 130, 110, 90, 154),
         MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),  //dragon to resist 3 birds, and dragons have dominion over air and sea, psychic because it has bariers and is able to "talk"
-        .catchRate = 3,
+        .catchRate = 3, //psychic also works well since it became a shadow pokemon
         .expYield = 306,
         //.evYield_SpDefense = 3,
         .genderRatio = MON_GENDERLESS,
@@ -8743,7 +8767,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Swellow"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(70, 100, 60, 125, 75, 50),
+         STATS(70, 95, 60, 125, 75, 50),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 159,
@@ -8754,7 +8778,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
-        .abilities = {ABILITY_GUTS, ABILITY_NONE},
+        .abilities = {ABILITY_GUTS, ABILITY_PRECISE_STRIKE},
         .abilityHidden = {ABILITY_SCRAPPY, ABILITY_STORM_BREAK},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -8764,7 +8788,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSwellowLevelUpLearnset,
         .tmhmLearnset = sSwellowTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//readjusted atk from drayano buffs
+    //gave precise strike as dex entry says it precisely attacks foe from on high
 
     [SPECIES_WINGULL] =
     {
@@ -9951,7 +9976,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_LIQUID_OOZE, ABILITY_STICKY_HOLD},
-        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_NONE},
+        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_NEUTRALIZING_GAS},
         //.bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -9981,7 +10006,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_LIQUID_OOZE, ABILITY_STICKY_HOLD},
-        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_NONE},
+        .abilityHidden = {ABILITY_GLUTTONY, ABILITY_CORROSION},
         //.bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -11034,13 +11059,13 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
-        MON_TYPES(TYPE_NORMAL, TYPE_GHOST),    //with planned changes makes it a better switch mon, also kinda works think of like casper a friendly ghost
+        MON_TYPES(TYPE_GHOST, TYPE_NORMAL),    //with planned changes makes it a better switch mon, also kinda works think of like casper a friendly ghost
         .catchRate = 45,
         .expYield = 147,
         //.evYield_HP = 1,
         //.itemCommon = ITEM_MYSTIC_WATER,
         //.itemRare = ITEM_MYSTIC_WATER,
-        .genderRatio = PERCENT_FEMALE(50),
+        .genderRatio = PERCENT_FEMALE(50),//decide get rid of normal its not an attack mon
         .eggCycles = 25,
         .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
@@ -11058,6 +11083,9 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HAS_COSMETIC_FORMS, //may be able to do with this, since not changing species
         //and type setting is done within a function anyway
     },//body color changes see what that is used for
+    //technically makes sense as cosmetic
+    //make change put some of forecasts effects onto castform itself
+    //since giving forecast to more mon
 
     [SPECIES_KECLEON] =
     {
@@ -11076,7 +11104,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_COLOR_CHANGE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_PROTEAN, ABILITY_REFRIGERATE},
+        .abilityHidden = {ABILITY_PROTEAN, ABILITY_REGENERATOR},
         //.bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -11090,6 +11118,7 @@ const struct BaseStats gBaseStats[] =
     //and it learns good fighting moves to cover normal, I think I only need refrigerate
     //so best set is prob drain punch thunderbolt w one normal move for refrigerate and some support move, unless I run assault vest
     //support move I guess would be nasty plot
+    //dropped refrigerate went with regenerator instead based on lizards losing and regenerating their tails
 
     [SPECIES_SHUPPET] =
     {
@@ -11523,7 +11552,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sClamperlLevelUpLearnset,
         .tmhmLearnset = sClamperlTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_DEEP_SEA_TOOTH, 0, SPECIES_HUNTAIL},
-                                       {EVO_ITEM, ITEM_DEEP_SEA_SCALE, 0, SPECIES_GOREBYSS}), //Should hopefully blank these for now without issue
+        {EVO_ITEM, ITEM_DEEP_SEA_SCALE, 0, SPECIES_GOREBYSS}), //Should hopefully blank these for now without issue
     },  //nother update for mon with very different evo form, so they serve a different purpose/ i.e are self-sufficient in base form 
     //but then can evolve to suit a different purpose/niche  keep an eye on this balance wise
 
@@ -12222,7 +12251,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_GRASS,
         .abilities = {ABILITY_OVERGROW, ABILITY_NONE},
-        .abilityHidden = {ABILITY_SHELL_ARMOR, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SHELL_ARMOR, ABILITY_HARVEST},
         //.bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -12665,7 +12694,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_INTIMIDATE, ABILITY_RIVALRY},
-        .abilityHidden = {ABILITY_STRONG_JAW, ABILITY_GUTS},
+        .abilityHidden = {ABILITY_STRONG_JAW, ABILITY_UNBURDEN},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -12693,7 +12722,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_INTIMIDATE, ABILITY_SHADOW_TAG},
-        .abilityHidden = {ABILITY_X_SIGHT, ABILITY_GUTS},
+        .abilityHidden = {ABILITY_X_SIGHT, ABILITY_UNBURDEN},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -13295,7 +13324,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_TECHNICIAN, ABILITY_MULTI_TASK},
-        .abilityHidden = {ABILITY_SKILL_LINK, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SKILL_LINK, ABILITY_SCRAPPY},
         //.bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -13587,7 +13616,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_STENCH, ABILITY_AFTERMATH},
-        .abilityHidden = {ABILITY_KEEN_EYE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_KEEN_EYE, ABILITY_NEUTRALIZING_GAS},
         //.bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -13615,7 +13644,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_STENCH, ABILITY_AFTERMATH},
-        .abilityHidden = {ABILITY_KEEN_EYE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_KEEN_EYE, ABILITY_NEUTRALIZING_GAS},
         //.bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -13773,8 +13802,8 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sHappinyAbilityLearnset,
         .levelUpLearnset = sHappinyLevelUpLearnset,
         .tmhmLearnset = sHappinyTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_ITEM_HOLD_DAY, ITEM_OVAL_STONE, 0, SPECIES_CHANSEY},
-                                {EVO_ITEM_DAY, ITEM_OVAL_STONE, 0, SPECIES_CHANSEY}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_ITEM_HOLD_DAY, ITEM_OVAL_STONE, FILL, SPECIES_CHANSEY},
+                                {EVO_ITEM_DAY, ITEM_OVAL_STONE, FILL, SPECIES_CHANSEY}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_CHATOT] =
@@ -14111,7 +14140,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_WATER_3,
         .abilities = {ABILITY_BATTLE_ARMOR, ABILITY_SNIPER},
-        .abilityHidden = {ABILITY_KEEN_EYE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_KEEN_EYE, ABILITY_APOTHEOSCENT},
         //.bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -15209,7 +15238,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sRegigigasTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
-    },
+    },//intersting with typing able to use mystery as an attack type via rage
+    //few mon to be able to get passed color change that way
+    //could give rage in a boss battle?
 
     [SPECIES_GIRATINA] =
     {
@@ -15902,7 +15933,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_VITAL_SPIRIT, ABILITY_PICKUP},
-        .abilityHidden = {ABILITY_RUN_AWAY, ABILITY_NONE},
+        .abilityHidden = {ABILITY_RUN_AWAY, ABILITY_BALL_FETCH},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -15937,7 +15968,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_INTIMIDATE, ABILITY_SCRAPPY},
-        .abilityHidden = {ABILITY_HUSTLE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_HUSTLE, ABILITY_BALL_FETCH},
         //.bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -15972,7 +16003,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_INTIMIDATE, ABILITY_SCRAPPY},
-        .abilityHidden = {ABILITY_HUSTLE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_HUSTLE, ABILITY_BALL_FETCH},
         //.bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -16125,6 +16156,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSimisageTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //take buffs from x_bell give each monkey fake out and version of u turn
+    //along with a terrain affecting ability i.e rain set sun set grass terrain 
+    //think will put on learned ability don't think want change set abilities
 
     [SPECIES_PANSEAR] =
     {
@@ -16196,6 +16230,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSimisearTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //stats aren't equal between forms but actually kinda like that
+    //its like 3 sanin they weren't equal strength
 
     [SPECIES_PANPOUR] =
     {
@@ -16281,7 +16317,7 @@ const struct BaseStats gBaseStats[] =
         67,
         55
         ),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 190,
         .expYield = 58,
         //.evYield_HP = 1,
@@ -16316,7 +16352,7 @@ const struct BaseStats gBaseStats[] =
         107,
         95
         ),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 170,
         //.evYield_HP = 2,
@@ -16543,7 +16579,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_STURDY, ABILITY_WEAK_ARMOR},
-        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_FLUORESCENCE},//can absorb sunlight as energy :) finally a PHOTOSYNTHESIZE user
+        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -17502,7 +17538,6 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sBasculinLevelUpLearnset,
         .tmhmLearnset = sBasculinTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS, //exclude white stripe 
     },
 
     [SPECIES_SANDILE] =
@@ -19530,7 +19565,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_INFILTRATOR, ABILITY_FLASH_FIRE},
-                .abilityHidden = {ABILITY_SHADOW_TAG, ABILITY_CURSED_BODY},
+                .abilityHidden = {ABILITY_WHITE_SMOKE, ABILITY_CURSED_BODY},
             //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -19565,7 +19600,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_INFILTRATOR, ABILITY_FLASH_FIRE},
-                .abilityHidden = {ABILITY_SHADOW_TAG, ABILITY_CURSED_BODY},
+                .abilityHidden = {ABILITY_WHITE_SMOKE, ABILITY_CURSED_BODY},
             //.bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -19600,7 +19635,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_INFILTRATOR, ABILITY_FLASH_FIRE},
-                .abilityHidden = {ABILITY_SHADOW_TAG, ABILITY_CURSED_BODY},
+                .abilityHidden = {ABILITY_WHITE_SMOKE, ABILITY_CURSED_BODY},
             //.bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -19610,6 +19645,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sChandelureTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //think misread bulbapedia it never actually got shadow tag
+    //and would kill everything think give white smoke instead
 
     [SPECIES_AXEW] =
     {
@@ -20195,7 +20232,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_DEFIANT, ABILITY_INNER_FOCUS},
-        .abilityHidden = {ABILITY_PRESSURE, ABILITY_PIERCING_HORN},
+        .abilityHidden = {ABILITY_PRESSURE, ABILITY_ARENA_TRAP},
         //.bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -20994,7 +21031,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_JUSTIFIED, ABILITY_NONE},
+        .abilities = {ABILITY_BRAVERY, ABILITY_NONE},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -21035,7 +21072,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_SERENE_GRACE, ABILITY_MAGIC_GUARD},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_LIQUID_VOICE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -21885,7 +21922,7 @@ const struct BaseStats gBaseStats[] =
         62,
         57
         ),
-        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
+        MON_TYPES(TYPE_GRASS, TYPE_NORMAL),
         .catchRate = 200,
         .expYield = 70,
         //.evYield_HP = 1,
@@ -21909,6 +21946,8 @@ const struct BaseStats gBaseStats[] =
     //find a way to buff grass pelt so it has constant effect..
     //ok I'l treat it as softening blows and just make it block crit
     //ok that should make it worth benig an hidden ability
+    //vsonic unsure normal type gives it more offense but fighting weakness
+    //eh may balance out
 
     [SPECIES_GOGOAT] =
     {
@@ -21923,7 +21962,7 @@ const struct BaseStats gBaseStats[] =
         97,
         81
         ),
-        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
+        MON_TYPES(TYPE_GRASS, TYPE_NORMAL),//thought I made this grass normal?
         .catchRate = 45,
         .expYield = 186,
         //.evYield_HP = 2,
@@ -22070,7 +22109,7 @@ const struct BaseStats gBaseStats[] =
         63,
         60
         ),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC), //may make normal psychic as joke as anything but normal i.e autism pokemon
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC), //may make normal psychic as joke as anything but normal i.e autism pokemon
         .catchRate = 190,
         .expYield = 71,
         //.evYield_Speed = 1,
@@ -22106,7 +22145,7 @@ const struct BaseStats gBaseStats[] =
         83,
         81
         ),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 163,
         //.evYield_Speed = 2,
@@ -22435,7 +22474,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_WATER_2,
-        .abilities = {ABILITY_CONTRARY, ABILITY_SUCTION_CUPS},
+        .abilities = {ABILITY_FUGUE, ABILITY_SUCTION_CUPS},
         .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -22446,6 +22485,11 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMalamarTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //its signature move topsy turvy does essentially what contrary does
+    //but is arguably more useful cuz you have the ability to chose when to activate it
+    //it as no moves to take advantage of contrary otherwise
+    //Plan just replace contrary on evo, not even worth adding to learnable list
+    //it just isn't good on this mon
 
     [SPECIES_BINACLE] =
     {
@@ -25452,7 +25496,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        115,
+        75,
         125,
         140,
         40,
@@ -25928,8 +25972,8 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_CLOUD_NINE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
-        .floating = FALSE,
-        .safariZoneFleeRate = 50,
+        .floating = FALSE, //still unsure bout this it can fly but mostly doesn't
+        .safariZoneFleeRate = 50, //logic with legendaries all over again
         .abilityLearnset = sDrampaAbilityLearnset,
         .levelUpLearnset = sDrampaLevelUpLearnset,
         .tmhmLearnset = sDrampaTMHMLearnset,
@@ -27452,7 +27496,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_KEEN_EYE, ABILITY_UNNERVE},
-        .abilityHidden = {ABILITY_BIG_PECKS, ABILITY_NONE},
+        .abilityHidden = {ABILITY_BIG_PECKS, ABILITY_SHARPNESS},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -27487,7 +27531,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_HI_PRESSURE, ABILITY_UNNERVE}, //potentially change to hi_pressure
-        .abilityHidden = {ABILITY_MIRROR_ARMOR, ABILITY_NONE},
+        .abilityHidden = {ABILITY_MIRROR_ARMOR, ABILITY_SHARPNESS},
         //.bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -27945,6 +27989,11 @@ const struct BaseStats gBaseStats[] =
     //faithful servant/companian of the fae
     //w chart changes would be advantageous as electric type would beat steel
     //vsonic
+    //if I want to make ball fetch a battle ability
+    //I could turn it into ball based dancer?
+    //if battler used a ball move user would immediately
+    //target them with same move i.e returning ball to them
+    //i.e ballisic moves could cause explosion tho...
 
     [SPECIES_BOLTUND] =
     {
@@ -27969,7 +28018,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_STRONG_JAW, ABILITY_NONE},
+        .abilities = {ABILITY_BALL_FETCH, ABILITY_STRONG_JAW},
         .abilityHidden = {ABILITY_COMPETITIVE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -28536,8 +28585,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_DRY_SKIN, ABILITY_NONE},
-        .abilityHidden = {ABILITY_TECHNICIAN, ABILITY_NONE},
+        .abilities = {ABILITY_DRY_SKIN, ABILITY_LIMBER},
+        .abilityHidden = {ABILITY_TECHNICIAN, ABILITY_STICKY_HOLD},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -28571,8 +28620,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_DRY_SKIN, ABILITY_NONE},
-        .abilityHidden = {ABILITY_TECHNICIAN, ABILITY_NONE},
+        .abilities = {ABILITY_DRY_SKIN, ABILITY_LIMBER},
+        .abilityHidden = {ABILITY_TECHNICIAN, ABILITY_STICKY_HOLD},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -29265,8 +29314,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_SHIELD_DUST, ABILITY_NONE},
-        .abilityHidden = {ABILITY_ICE_SCALES, ABILITY_ANTICIPATION},
+        .abilities = {ABILITY_ICE_SCALES, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SHIELD_DUST, ABILITY_ANTICIPATION},
         //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -29300,8 +29349,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_SHIELD_DUST, ABILITY_NONE},
-        .abilityHidden = {ABILITY_ICE_SCALES, ABILITY_ANTICIPATION},
+        .abilities = {ABILITY_ICE_SCALES, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SHIELD_DUST, ABILITY_ANTICIPATION},
         //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -30188,10 +30237,10 @@ const struct BaseStats gBaseStats[] =
          STATS(
         100,
         80,
+        90,
         80,
         80,
-        80,
-        80
+        100
         ),
         MON_TYPES(TYPE_PSYCHIC, TYPE_GRASS),
         .catchRate = 3,
@@ -30310,7 +30359,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_GUTS, ABILITY_BULLETPROOF},
-        .abilityHidden = {ABILITY_GORILLA_TACTICS, ABILITY_UNNERVE},
+        .abilityHidden = {ABILITY_UNNERVE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -30320,6 +30369,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sUrsalunaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //is cool but think remove gorilla tactics meant to be monkey ability
 
     [SPECIES_BASCULEGION_MALE] =
     {
@@ -32023,7 +32073,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_MINERAL),
         .abilities = { ABILITY_OWN_TEMPO, ABILITY_NONE  },
-        .abilityHidden = {ABILITY_KLUTZ, ABILITY_NONE},
+        .abilityHidden = {ABILITY_KLUTZ, ABILITY_BALL_FETCH},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -32087,7 +32137,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_MINERAL),
         .abilities = { ABILITY_WELL_BAKED_BODY, ABILITY_NONE  },
-        .abilityHidden = {ABILITY_AROMA_VEIL, ABILITY_NONE},
+        .abilityHidden = {ABILITY_AROMA_VEIL, ABILITY_BALL_FETCH},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -33250,8 +33300,8 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_INTIMIDATE, ABILITY_RUN_AWAY  },
-        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_NONE},
+        .abilities = {ABILITY_INTIMIDATE, ABILITY_RUN_AWAY},
+        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_THICK_FAT},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -33315,7 +33365,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_GUARD_DOG },
-        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_THICK_FAT},
         //.bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -40135,7 +40185,7 @@ const struct BaseStats gBaseStats[] =
         70,
         120
         ),
-        MON_TYPES(TYPE_DRAGON, TYPE_DARK),
+        MON_TYPES(TYPE_WATER, TYPE_DARK), //after lockstin vid realized can't be dragon type
         .catchRate = 45,
         .expYield = 224,
         //.evYield_Attack = 2,
@@ -40163,6 +40213,8 @@ const struct BaseStats gBaseStats[] =
     //but even with now hitting ghost & steel for neutral bu has so many resists
     //yeah can't do it, while would like to, too many of the best mon are dragons,
     //making bug resisted by dragon would automatically ensure it couldn't compete
+    //DRAGON type is specifically for western dragons while gyarados represents
+    //the asian style of dragons
 
     [SPECIES_AERODACTYL_MEGA] =
     {
@@ -41945,9 +41997,9 @@ const struct BaseStats gBaseStats[] =
         60,
         40
         ),
-        MON_TYPES(TYPE_NORMAL, TYPE_DARK),
-        .catchRate = 255,
-        .expYield = 58,
+        MON_TYPES(TYPE_NORMAL, TYPE_DARK),//May have to make pure dark
+        .catchRate = 255,//this is 4x to fight 4x to fairy
+        .expYield = 58, //think point is was betting on its speed
         //.evYield_Speed = 1,
         //.itemRare = ITEM_QUICK_CLAW,
         .genderRatio = PERCENT_FEMALE(50),
@@ -42234,7 +42286,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Marowak"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(70, 88, 80, 65, 66, 118),
+         STATS(70, 88, 80, 65, 50, 134),
         MON_TYPES(TYPE_FIRE, TYPE_GHOST),
         .catchRate = 75,
         .expYield = 149,
@@ -42258,6 +42310,7 @@ const struct BaseStats gBaseStats[] =
         .flags = F_ALOLAN_FORM,
     }, //can keep phantom touch to just normal marowak, makes more sense since this version turned the ghost into a flame that's always with them
     //for this one boosted sp akt
+    //OK why did I boost its sp atk its still unusable?
 
     [SPECIES_MEOWTH_GALARIAN] =
     {
@@ -42272,7 +42325,7 @@ const struct BaseStats gBaseStats[] =
         40,
         45
         ),
-        MON_TYPES(TYPE_DARK, TYPE_STEEL),
+        MON_TYPES(TYPE_STEEL),
         .catchRate = 255,
         .expYield = 58,
         //.evYield_Attack = 1,
@@ -43768,6 +43821,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sPikachuLibreTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //not taking cap forms
+    //give flying press level up when form learnsets done, vsonic
 
     [SPECIES_PIKACHU_ORIGINAL_CAP] =
     {
@@ -45076,7 +45130,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
-        MON_TYPES(TYPE_NORMAL, TYPE_FIRE),
+        MON_TYPES(TYPE_GHOST, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_HP = 1,
@@ -45105,7 +45159,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
-        MON_TYPES(TYPE_NORMAL, TYPE_WATER),
+        MON_TYPES(TYPE_GHOST, TYPE_WATER),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_HP = 1,
@@ -45134,7 +45188,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
-        MON_TYPES(TYPE_NORMAL, TYPE_ICE),
+        MON_TYPES(TYPE_GHOST, TYPE_ICE),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_HP = 1,
@@ -46820,7 +46874,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_JUSTIFIED, ABILITY_NONE},
+        .abilities = {ABILITY_BRAVERY, ABILITY_NONE},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -46860,7 +46914,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_SERENE_GRACE, ABILITY_MAGIC_GUARD},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_LIQUID_VOICE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -48613,7 +48667,7 @@ const struct BaseStats gBaseStats[] =
         83,
         81
         ),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 163,
         //.evYield_Speed = 2,
@@ -50412,9 +50466,9 @@ const struct BaseStats gBaseStats[] =
         97,
         113,
         109,
-        77,
-        157,
-        127
+        57,
+        147,
+        157
         ),
         MON_TYPES(TYPE_PSYCHIC, TYPE_GHOST),
         .catchRate = 255,
@@ -50437,6 +50491,24 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sNecrozmaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //stat distribution doesn't work
+    //its pretty much completely outshined by just base lunala
+    //honestly don't know what to do with this
+    //dusk mane is the bulky one ultra is the offensive one
+    //so I can't make its offense higher than that
+    //maybe I could shift its hp but since other forms keep constant hp
+    //I can't  even move that too much
+    //ok hp is the same cuz that's necrozma's hp
+    //and its slow cuz necrozma is slow, until that doesnt change
+    //until its in its ultimate form, Ultra
+    //can't tweak ability either since its tied to duskmane and necrozma
+    //think best I can do is swap highest stat to defense
+    //is thankfully no longer quad to dark, but still quad to ghost
+    //checked phsycial ghost moves are near non existent
+    //so guess will just boost its sp def
+    //ok hopefully that does something good,
+    //speed is already below anything it competes against so 
+    //screw it dropped it even more, so actually useful in trick room
 
     [SPECIES_NECROZMA_ULTRA] =
     {
@@ -51579,6 +51651,124 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         
     },
+
+    [SPECIES_BEECADET] =
+    {
+        .speciesName = _("Beecadet"),
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(38, 50, 42, 78, 50, 29),
+        MON_TYPES(TYPE_BUG, TYPE_NORMAL),
+        .catchRate = 120,
+        .expYield = 49,
+        //.evYield_Speed = 1,
+       // #ifdef ITEM_EXPANSION
+            //.itemRare = ITEM_HONEY,
+        // #endif
+        .genderRatio = MON_MALE,
+        .eggCycles = 15,
+        .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroup1 = EGG_GROUP_BUG,
+        .eggGroup2 = EGG_GROUP_BUG,
+        .abilities = {ABILITY_HONEY_GATHER, ABILITY_KLUTZ},
+        .abilityHidden = {ABILITY_HUSTLE, ABILITY_AVIATOR},
+        //.bodyColor = BODY_COLOR_YELLOW,
+        .noFlip = FALSE,
+        .floating = TRUE,
+        .safariZoneFleeRate = 50, //Day flights vs night flights i.e stealth bomb run at night
+        .abilityLearnset = sCombeeAbilityLearnset,
+        .levelUpLearnset = sCombeeLevelUpLearnset,
+        .tmhmLearnset = sCombeeTMHMLearnset,
+        .evolutions = EVOLUTION({EVO_ITEM_DAY, ITEM_METAL_COAT, FILL, SPECIES_BUZZBOY},
+                                {EVO_ITEM_NIGHT, ITEM_METAL_COAT, FILL, SPECIES_BUMBER}), //Should hopefully blank these for now without issue
+    },
+    //BeeCadet  -> BuzzBoy play on flyboy
+    //ability slip stream sets tailwind on entrance
+    //also gives flying type affinity
+
+    //bug flying type evolve w metal coat
+    //into bug steel
+
+    //bee dreams of flying sky high
+    //inspired by aviators
+    //ends up crafting its own plane 
+    //and becoming a flying ace
+
+    //average speed mix attacker
+    //evolves into hyper fast physical focused support mon
+
+    //alt evo Bumber  pun bumble bee and bomber
+    //high sp atk slower bulkier
+    //specializes in ballistic attacks ability boosts them
+
+    [SPECIES_BUZZBOY] =
+    {
+        .speciesName = _("Buzzboy"),
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(70, 115, 98, 120, 50, 80),
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
+        .catchRate = 120,
+        .expYield = 49,
+        //.evYield_Speed = 1,
+       // #ifdef ITEM_EXPANSION
+            //.itemRare = ITEM_HONEY,
+        // #endif
+        .genderRatio = MON_MALE,
+        .eggCycles = 15,
+        .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroup1 = EGG_GROUP_BUG,
+        .eggGroup2 = EGG_GROUP_BUG,
+        .abilities = {ABILITY_HONEY_GATHER, ABILITY_KLUTZ},
+        .abilityHidden = {ABILITY_HUSTLE, ABILITY_NONE},
+        //.bodyColor = BODY_COLOR_YELLOW,
+        .noFlip = FALSE,
+        .floating = TRUE,
+        .safariZoneFleeRate = 50,
+        .abilityLearnset = sCombeeAbilityLearnset,
+        .levelUpLearnset = sCombeeLevelUpLearnset,
+        .tmhmLearnset = sCombeeTMHMLearnset,
+        .evolutions = EVOLUTION({EVO_LEVEL_FEMALE, RELATIVE_EVO(21, AVERAGE_EFFORT), 0, SPECIES_VESPIQUEN}), //Should hopefully blank these for now without issue
+    },//get ability slipstream set tailwin on entrance ++ flying affinity
+    //note super effective ground effect is it broken for affinity check?
+    //double check may have to set explicitly as flying type if not already
+    //checked did indeed have coded specifically for flying type so good
+    //make fly its level up move and setup tailwind fly charge skip
+
+    [SPECIES_BUMBER] =
+    {
+        .speciesName = _("Bumber"),
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(98, 90, 115, 50, 100, 80),
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
+        .catchRate = 120,
+        .expYield = 49,
+        //.evYield_Speed = 1,
+       // #ifdef ITEM_EXPANSION
+            //.itemRare = ITEM_HONEY,
+        // #endif
+        .genderRatio = MON_MALE,
+        .eggCycles = 15,
+        .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroup1 = EGG_GROUP_BUG,
+        .eggGroup2 = EGG_GROUP_BUG,
+        .abilities = {ABILITY_HONEY_GATHER, ABILITY_KLUTZ},
+        .abilityHidden = {ABILITY_HUSTLE, ABILITY_NONE},
+        //.bodyColor = BODY_COLOR_YELLOW,
+        .noFlip = FALSE,
+        .floating = TRUE,
+        .safariZoneFleeRate = 50,
+        .abilityLearnset = sCombeeAbilityLearnset,
+        .levelUpLearnset = sCombeeLevelUpLearnset,
+        .tmhmLearnset = sCombeeTMHMLearnset,
+        .evolutions = EVOLUTION({EVO_LEVEL_FEMALE, RELATIVE_EVO(21, AVERAGE_EFFORT), 0, SPECIES_VESPIQUEN}), //Should hopefully blank these for now without issue
+    },
+    //get ability payload boosts power of ballistic moves
+    //gets moves of them as level up
 
     [SPECIES_FAEDENTIN] =
     {

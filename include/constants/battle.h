@@ -287,7 +287,7 @@
 #define STATUS4_ELECTRIFIED             (1 << 0)	//need to check how status4 is setup to make sure it runs on same conditions as status2
 //if it works I can move wrap status and wrap counter up here so it all uses status4
 //start of new trap effects, each will have its own status and timer in disable structs
-#define STATUS4_PLACE_HOLDER            (1 << 1)
+#define STATUS4_SYRUP_BOMB              (1 << 1)
 #define STATUS4_BIND                    (1 << 2)
 #define STATUS4_FIRE_SPIN				(1 << 3)
 #define STATUS4_CLAMP					(1 << 4)
@@ -322,6 +322,24 @@
 //temp just the status4 stuff		//OK so status4 not currently used in battle? its not in BattlePokemon struct need add and investigate
 #define ITS_A_TRAP_STATUS4 (STATUS4_BIND | STATUS4_FIRE_SPIN | STATUS4_CLAMP | STATUS4_WHIRLPOOL | STATUS4_SAND_TOMB | STATUS4_MAGMA_STORM | STATUS4_SWARM | STATUS4_SNAP_TRAP | STATUS4_THUNDER_CAGE)
 
+
+enum SemiInvulnerableState
+{
+    STATE_NONE,
+    STATE_UNDERGROUND,
+    STATE_UNDERWATER,
+    STATE_ON_AIR,
+    STATE_PHANTOM_FORCE,
+    STATE_SKY_DROP,
+    STATE_COMMANDER,
+    SEMI_INVULNERABLE_COUNT,
+};
+
+enum SemiInvulnerableExclusion
+{
+    CHECK_ALL,
+    EXCLUDE_COMMANDER,
+};
 
 // Not really sure what a "hitmarker" is.
 #define HITMARKER_WAKE_UP_CLEAR         (1 << 4)	//// Cleared when waking up. Never set or checked.
@@ -420,6 +438,8 @@
 #define PERMANENT_TERRAIN   0     //use timer value 0 so never decrements
 #define MAX_INGRAIN_AQUA_RING_TURNS    6 //turns healing effect stacks
 #define MAX_TOXIC_TURNS 16
+#define MAX_CONFUSION_TURNS 5
+#define MAX_SLEEP_TURNS 5
 
 // Flags describing move's result
 #define MOVE_RESULT_MISSED             (1 << 0)

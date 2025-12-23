@@ -4147,8 +4147,7 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //important can use thi
     || species == SPECIES_PIKACHU_BELLE
     || species == SPECIES_PIKACHU_POP_STAR
     || species == SPECIES_PIKACHU_PH_D
-    || species == SPECIES_PIKACHU_LIBRE
-    || species == SPECIES_BASCULIN_WHITE_STRIPED)
+    || species == SPECIES_PIKACHU_LIBRE)
         generatedSpecies = species;
 
     learnset = GetSpeciesLevelUpLearnset(generatedSpecies);
@@ -4206,8 +4205,7 @@ void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: Asparagu
     || species == SPECIES_PIKACHU_BELLE
     || species == SPECIES_PIKACHU_POP_STAR
     || species == SPECIES_PIKACHU_PH_D
-    || species == SPECIES_PIKACHU_LIBRE
-    || species == SPECIES_BASCULIN_WHITE_STRIPED)
+    || species == SPECIES_PIKACHU_LIBRE)
         generatedSpecies = species;
 
     learnset = GetSpeciesLevelUpLearnset(generatedSpecies);
@@ -4270,8 +4268,7 @@ void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species) //Credit
     || Species == SPECIES_PIKACHU_BELLE
     || Species == SPECIES_PIKACHU_POP_STAR
     || Species == SPECIES_PIKACHU_PH_D
-    || Species == SPECIES_PIKACHU_LIBRE
-    || Species == SPECIES_BASCULIN_WHITE_STRIPED)
+    || Species == SPECIES_PIKACHU_LIBRE)
         generatedSpecies = Species;
 
     learnset = GetSpeciesLevelUpLearnset(generatedSpecies);
@@ -4606,14 +4603,14 @@ void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCate
     //between attacker and target its not something on the mon itself
     //so it wouldn't block me punching myself in the face
     //facepalm removing confusion check from here makes it do less dmg which is the oposite ofwhat I wanted
-    if (IS_CRIT || GetBattlerAbility(battlerAtk) == ABILITY_INFILTRATOR || (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
+    if (IS_CRIT || GetBattlerAbility(battlerAtk) == ABILITY_INFILTRATOR || (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
     || gProtectStructs[battlerAtk].confusionSelfDmg
     || !IsBlackFogNotOnField())
         return; //think should be fine would just mean do nothing to damage
 
     if (reflect || lightScreen || auroraVeil)
     {
-        if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) >= 2)
+        if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerAtk) >= 2)
             damage = (2 * damage) / 3;
         else
             damage /= 2;
@@ -4670,6 +4667,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     u8 defenderHoldEffectParam;
     u8 attackerHoldEffect;
     u8 attackerHoldEffectParam;
+    u32 atkspecies = gBattleMons[battlerIdAtk].species; //for putting forecast affects on castform
+    u32 atkBaseForm = GetBaseFormSpecies(atkspecies);   //^^ same thing realize need base form to account for form change
     u32 abilityAtk = GetBattlerAbility(battlerIdAtk);
     u32 abilityDef = GetBattlerAbility(battlerIdDef);
     u16 itemDef = gBattleMons[battlerIdDef].item;
@@ -4826,26 +4825,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (move == MOVE_SURGING_STRIKES || move == MOVE_WICKED_BLOW)
         defense = (65 * defense) / 100; 
     
-       
 
-
-    //should work for whatever move I use
-    //need double check if this effect spirit shackle
-    //don't think want to boost its damage?
-    //yeah curr setup would make spirit shackle also  do bonus damage
-    /*if (gBattleStruct->pursuitTarget & (1u << battlerIdDef))
-    {
-        if (move == MOVE_PURSUIT)
-        {
-            //dark types blocking damage boost
-            //potentially remove this?
-            //as it already worked on psychic types without destorying them?
-            if (!(DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_DARK)))
-                gBattleMovePower = (150 * gBattleMovePower) / 100;
-        }
-        else
-            gBattleMovePower = (150 * gBattleMovePower) / 100;
-    }*/
     
     if (gSpecialStatuses[battlerIdAtk].Lostresolve)
         gBattleMovePower = (gBattleMovePower * 75) / 100; //fix for iron will, pressure, hi pressure affect
@@ -5107,10 +5087,14 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //decideed to change to just electric not counterpart ability to make it better/more accessible
     if (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].hp <= (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].maxHP / 2))
     {
-        if (abilityAtk == ABILITY_PLUS && DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), TYPE_ELECTRIC))
+        if (abilityAtk == ABILITY_PLUS 
+        && (DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), BATTLE_PARTNER(battlerIdAtk), TYPE_ELECTRIC, FALSE)
+        || GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_MINUS))
             gBattleMovePower = (150 * gBattleMovePower) / 100;
 
-        else if (abilityAtk == ABILITY_MINUS && DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), BATTLE_PARTNER(battlerIdAtk), GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)), TYPE_ELECTRIC))
+        else if (abilityAtk == ABILITY_MINUS 
+        && (DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), BATTLE_PARTNER(battlerIdAtk), TYPE_ELECTRIC, FALSE)
+        || GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_PLUS))
             gBattleMovePower = (150 * gBattleMovePower) / 100;   //used gbattlemovedamage, to stack with on field plus/minus effects , it already stacks without that
     }
 
@@ -5154,7 +5138,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         case EFFECT_PAYBACK: //moves after target and target not just switched in does that mean it doesn't work on first turn of battle? yeah think it does will add on to just in case
         if (GetBattlerTurnOrderNum(battlerIdAtk) > GetBattlerTurnOrderNum(battlerIdDef)
             //&& gLastMoves[battlerIdDef] != MOVE_NONE
-            //&& !IS_MOVE_STATUS(gLastMoves[battlerIdDef])
+            //&& !IsBattleMoveStatus(gLastMoves[battlerIdDef])
             &&  gDisableStructs[battlerIdDef].isFirstTurn != 2) //this is fine becuase turnvaluescleanup decrements it before first turn of battle, so its only 2 at switch in
             gBattleMovePower *= 2;
         break;
@@ -5217,7 +5201,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower *= 2;
         break;
         case EFFECT_STOMPING_TANTRUM:
-        if (gBattleStruct->lastMoveFailed & gBitTable[battlerIdAtk])
+        if (gBattleStruct->lastMoveFailed & (1u << battlerIdAtk))
             gBattleMovePower *= 2;
         break;
         case EFFECT_GRAV_APPLE:
@@ -5439,20 +5423,20 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //works now //suddenly not working again -_- oh it is working just effect is so low not very noticeable?
     //sideStatus wasn't working had to use gstatus and realied I hadn't updated the function argument while I made gsidestatus u32
     //the function was still u16, updated and that fixed it
-    if (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_GROUND) 
+    if (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdDef, TYPE_GROUND, FALSE) 
     && (sideStatus & SIDE_STATUS_MUDSPORT)) //if done right these should stack
         spDefense = (170 * spDefense) / 100;    //gets to work as its on the ground not in the air
                     //changed mind,not as realistic but gives more options, keep just ground affecting, rock/ground are only rocks that really need 
                     //unsure if should buff further
 
     // sandstorm sp.def boost for rock types  // decided to add this for ground types as well,
-    if ((DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_ROCK) 
-    || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_GROUND)))
+    if ((DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdDef, TYPE_ROCK, FALSE) 
+    || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdDef, TYPE_GROUND, FALSE)))
         && IsBattlerWeatherAffected(battlerIdDef, WEATHER_SANDSTORM_ANY) && abilityAtk != ABILITY_CLOUD_NINE)     
         spDefense = (150 * spDefense) / 100;
 
     // hail sp.def & def boost for ice types  // still deciding if I want a 50% defense boost or a 25% boost to def & sp def
-    if ((DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdDef, abilityDef, TYPE_ICE))
+    if ((DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdDef, TYPE_ICE, FALSE))
         && IsBattlerWeatherAffected(battlerIdDef, WEATHER_HAIL_ANY) && abilityAtk != ABILITY_CLOUD_NINE)    
     {
         spDefense = (115 * spDefense) / 100;
@@ -5484,7 +5468,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
     case ABILITY_FLARE_BOOST:
         if ((gBattleMons[battlerIdAtk].status1 & STATUS1_BURN
-        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdAtk, abilityAtk, TYPE_FIRE) && attackerHoldEffect == HOLD_EFFECT_FLAME_ORB))
+        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdAtk, TYPE_FIRE, FALSE) && attackerHoldEffect == HOLD_EFFECT_FLAME_ORB))
             && (MoveDamageCategory == SPLIT_SPECIAL) //!usesDefStat //IS_MOVE_SPECIAL(move))
             && IsBlackFogNotOnField())
             gBattleMovePower = (gBattleMovePower * 150 / 100);
@@ -5492,7 +5476,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
     case ABILITY_TOXIC_BOOST:
         if ((gBattleMons[battlerIdAtk].status1 & STATUS1_PSN_ANY || IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN_ANY)
-        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, abilityAtk, battlerIdAtk, abilityAtk, TYPE_POISON) && attackerHoldEffect == HOLD_EFFECT_TOXIC_ORB)) 
+        || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdAtk, TYPE_POISON, FALSE) && attackerHoldEffect == HOLD_EFFECT_TOXIC_ORB)) 
             && (MoveDamageCategory == SPLIT_PHYSICAL)
             && IsBlackFogNotOnField())
             gBattleMovePower = (gBattleMovePower * 150 / 100);
@@ -5503,34 +5487,37 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         break;
     case ABILITY_RECKLESS:
-        if (gBattleMoves[move].flags & FLAG_RECKLESS_BOOST)
+        if (IsRecoilMove(move))
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_IRON_FIST:
-        if (gBattleMoves[move].flags & FLAG_IRON_FIST_BOOST)
+        if (IsPunchingMove(move))
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_LETHAL_LEGS:
-        if (gBattleMoves[move].flags & FLAG_LETHAL_LEGS_BOOST)
+        if (IsKickingMove(move))
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_PIERCING_HORN:
     case ABILITY_ROCK_HEAD:
-        if (gBattleMoves[move].flags & FLAG_HEADBUTT_MOVE)
+        if (IsHeadbuttMove(move))
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_SHEER_FORCE:
-        if (gBattleMoves[move].flags & FLAG_SHEER_FORCE_BOOST)
+        //if (gBattleMoves[move].flags & FLAG_SHEER_FORCE_BOOST)
+        //stand in for additional effect check
+        if (GetMoveEffect(move) != EFFECT_HIT
+        && GetMovePower(move) > 1)
             gBattleMovePower = (gBattleMovePower * 130 / 100);
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_TROJAN_SWORD:
     case ABILITY_SHARPNESS:
-        if (gBattleMoves[move].flags & FLAG_SHARPNESS_AFFECTED)
+        if (IsSlicingMove(move))
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         break;
     case ABILITY_SWIFT_JUSTICE: //boost damage if moving first, curious if works right for multi-target moves
@@ -5592,7 +5579,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_STRONG_JAW:
-        if (gBattleMoves[move].flags & FLAG_STRONG_JAW_BOOST)
+        if (IsBitingMove(move))
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         //MulModifier(&modifier, UQ_4_12(1.5));
         break;
@@ -5604,7 +5591,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         break;
     case ABILITY_MEGA_LAUNCHER:
-        if (gBattleMoves[move].flags & FLAG_MEGA_LAUNCHER_BOOST)
+        if (IsPulseMove(move))
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         //MulModifier(&modifier, UQ_4_12(1.5));
         break;
@@ -5661,19 +5648,19 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             //MulModifier(&finalModifier, UQ_4_12(1.25));
         break;
     case ABILITY_PUNK_ROCK:
-        if (gBattleMoves[move].flags & FLAG_SOUND)
+        if (IsSoundMove(move))
             gBattleMovePower = (gBattleMovePower * 130 / 100);
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_CACOPHONY:
-        if (gBattleMoves[move].flags & FLAG_SOUND)
+        if (IsSoundMove(move))
         {
             gBattleMovePower = (gBattleMovePower * 120 / 100);
 
         }//20% boost w normal type joat would give normal type effective stab w sound moves
         break;//and only(mostly) normal mon get cacophony ex. whismur loudred etc.
     case ABILITY_SONAR:
-        if (gBattleMoves[move].flags & FLAG_SOUND)
+        if (IsSoundMove(move))
         {
             gBattleMovePower = (gBattleMovePower * 150 / 100);
             //gBattleMoveDamage = gBattleMoveDamage * 15;
@@ -5832,7 +5819,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             //gBattleMoveDamage = 0;
         break;
     case ABILITY_GALEFORCE:
-        if (gBattleMoves[move].flags & FLAG_WIND_MOVE)
+        if (IsWindMove(move))
             //gBattleMoveDamage = 0;*/
     case ABILITY_DRY_SKIN:
         if (moveType == TYPE_FIRE)
@@ -5906,12 +5893,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             OffensiveModifer(67); //so that's an extra bonus of having damage reduction via ability     may do 4 turn timer with 75% damage reduction instead of 50% @ 2 turns
         break;//yeah like that idea a lot more , that's most likley way to powerful... doing 3 turn timer at 50%, regi has high hp and def changed to 1/3rd cut
     case ABILITY_GRASS_PELT:
-        if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN
-            && !gProtectStructs[battlerIdAtk].confusionSelfDmg)
+        if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN)
+            //&& !gProtectStructs[battlerIdAtk].confusionSelfDmg)
         {
-            defense = (150 * defense) / 100;
-        }
-        break;
+            defense *= 2;
+        }//decided buff a bit more since hard to use, and include confusion in reduction
+        break;//idea mon coverd in grass terrain makes it grow fuller so a vest of protection
     case ABILITY_FLOWER_GIFT:
         if (IsBattlerWeatherAffected(battlerIdDef, WEATHER_SUN_ANY) && abilityAtk != ABILITY_CLOUD_NINE)
             spDefense = (150 * spDefense) / 100;
@@ -5927,7 +5914,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             OffensiveModifer(50);
         break;
     case ABILITY_PUNK_ROCK:
-        if (gBattleMoves[move].flags & FLAG_SOUND)
+        if (IsSoundMove(move))
             OffensiveModifer(50);
         break;
     case ABILITY_WATER_COMPACTION:
@@ -6077,7 +6064,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 switch (moveType)
                 {
                 case TYPE_FIRE:
-                if (abilityAtk != ABILITY_FORECAST
+                if (atkBaseForm != SPECIES_CASTFORM
                 && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
                     OffensiveModifer(50); //tested workss perfectly
                     break;
@@ -6125,12 +6112,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 OffensiveModifer(150);
                 break;
             case TYPE_WATER:
-            if (abilityAtk != ABILITY_FORECAST
+            if (atkBaseForm != SPECIES_CASTFORM
             && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
                 OffensiveModifer(50);
                 break;
             case TYPE_ICE:
-            if (abilityAtk != ABILITY_FORECAST
+            if (atkBaseForm != SPECIES_CASTFORM
             && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
                 OffensiveModifer(50);
                 //66% dmg cut  this is a grass type buff, especially so for sunflora who is now grass/fire
@@ -6164,7 +6151,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             switch (moveType)
             {
             case TYPE_FIRE:
-            if (abilityAtk != ABILITY_FORECAST
+            if (atkBaseForm != SPECIES_CASTFORM
             && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
                 OffensiveModifer(50);
                 //33% damage cut, so less of a cut than in rain, edit- actually fires are harder to start in cold so makes sense to have higher drop than rain
@@ -6189,11 +6176,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
          //how does this work, do I need to move it, or does it auto boost all damage?
                                         //it boosts all because its not in physical or special formula 
 
-    if (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERGROUND && gStatuses3[battlerIdDef] & STATUS3_UNDERGROUND)
+    if (MoveDamagesUnderground(move) && gStatuses3[battlerIdDef] & STATUS3_UNDERGROUND)
         OffensiveModifer(200);
-    if (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERWATER && gStatuses3[battlerIdDef] & STATUS3_UNDERWATER)
+    if (MoveDamagesUnderWater(move) && gStatuses3[battlerIdDef] & STATUS3_UNDERWATER)
         OffensiveModifer(200);
-    if (gBattleMoves[move].flags & FLAG_DMG_2X_IN_AIR && gStatuses3[battlerIdDef] & STATUS3_ON_AIR)
+    if (MoveDamagesAirborneDoubleDamage(move) && gStatuses3[battlerIdDef] & STATUS3_ON_AIR)
         OffensiveModifer(200);
     
     //to make sure take in all effects realize need to put at end 
@@ -6299,10 +6286,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             && IsBlackFogNotOnField()) //liked the idea of creating a bug status effect, change  move infestaion to swarm, atked by biting swarm!
             //then make infested/infestation the bug status, the extra effect of swarm would be setting the infestation status
         {
-            //gBattleMons[battlerIdDef].statStages[STAT_DEF] -= 2;    //should lower defense by 2 i.e 50% 
-            /*if (gBattleMons[gActiveBattler].statStages[STAT_DEF] < 0)
-                gBattleMons[gActiveBattler].statStages[STAT_DEF] = 0;
-            APPLY_STAT_MOD(damageHelper, defender, defense, STAT_DEF)*/
+
             
             //defense /= 2;
             //equivalent of 2 stage drop for something
@@ -6399,7 +6383,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         /*if ((sideStatus & SIDE_STATUS_REFLECT) && !IS_CRIT
             && abilityAtk != ABILITY_INFILTRATOR
             && !gProtectStructs[battlerIdAtk].confusionSelfDmg
-            && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
+            && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
             && IsBlackFogNotOnField())
         {
             //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
@@ -6420,7 +6404,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
             //modern game changed to a 25% drop average damage 
             //is lower in my game so guess safe to make this a little stronger
-            else if (gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) >= 2)
+            else if (gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerIdAtk) >= 2)
                 damage = (2 * damage) / 3;
         }
 
@@ -6583,7 +6567,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         /*    if ((sideStatus & SIDE_STATUS_LIGHTSCREEN) && !IS_CRIT
             && abilityAtk != ABILITY_INFILTRATOR
-            && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
+            && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
             && IsBlackFogNotOnField())
         {
             //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
@@ -6601,7 +6585,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
             //modern game changed to a 25% drop average damage 
             //is lower in my game so guess safe to make this a little stronger
-            else if (gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) >= 2)
+            else if (gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerIdAtk) >= 2)
                 damage = (2 * damage) / 3;
         }
     
@@ -6642,9 +6626,10 @@ void ApplyMovePowerModifiers(u8 battlerAtk, u16 move, u16 power)
             power /= 2;
 }
 
-u8 CountAliveMonsInBattle(u8 caseId)
+u8 CountAliveMonsInBattle(u8 caseId, u32 battler)
 {
-    s32 i;
+    u32 i;
+    u32 battlerSide;
     u8 retVal = 0;
 
     switch (caseId)
@@ -6652,36 +6637,37 @@ u8 CountAliveMonsInBattle(u8 caseId)
     case BATTLE_ALIVE_EXCEPT_ACTIVE:
         for (i = 0; i < 4; i++)
         {
-            if (i != gActiveBattler && !(gAbsentBattlerFlags & gBitTable[i]))
+            if (i != battler && !(gAbsentBattlerFlags & (1u << i)))
                 retVal++;
         }
         break;
     case BATTLE_ALIVE_ATK_SIDE:
-        for (i = 0; i < 4; i++)
+        battlerSide = GetBattlerSide(battler);
+        for (i = 0; i < MAX_BATTLERS_COUNT; i++)
         {
-            if (GetBattlerSide(i) == GetBattlerSide(gBattlerAttacker) && !(gAbsentBattlerFlags & gBitTable[i]))
+            if (GetBattlerSide(i) == battlerSide && !(gAbsentBattlerFlags & (1u << i)))
                 retVal++;
         }
-        break;
+        break;//think aka Battler_ALIVE_SIDE
     case BATTLE_ALIVE_DEF_SIDE:
-        for (i = 0; i < 4; i++)
+        for (i = 0; i < MAX_BATTLERS_COUNT; i++)
         {
-            if (GetBattlerSide(i) == GetBattlerSide(gBattlerTarget) && !(gAbsentBattlerFlags & gBitTable[i]))
+            if (i != battler && i != BATTLE_PARTNER(battler) && !(gAbsentBattlerFlags & (1u << i)))
                 retVal++;
         }
-        break;
-    }
+        break; //think aka battler_alive_except battler side
+    }   //yeah seems got this right
 
     return retVal;
 }
 
-u8 GetDefaultMoveTarget(u8 battlerId)
+u8 GetDefaultMoveTarget(u32 battler)
 {
-    u8 opposing = BATTLE_OPPOSITE(GetBattlerPosition(battlerId) & BIT_SIDE);
+    u8 opposing = BATTLE_OPPOSITE(GetBattlerPosition(battler) & BIT_SIDE);
 
     if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
         return GetBattlerAtPosition(opposing);
-    if (CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_ACTIVE) > 1)
+    if (CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_ACTIVE, battler) > 1)
     {
         u8 position;
 
@@ -6693,7 +6679,7 @@ u8 GetDefaultMoveTarget(u8 battlerId)
     }
     else
     {
-        if ((gAbsentBattlerFlags & gBitTable[opposing]))
+        if ((gAbsentBattlerFlags & (1u << opposing)))
             return GetBattlerAtPosition(BATTLE_PARTNER(opposing));
         else
             return GetBattlerAtPosition(opposing);
@@ -7026,6 +7012,41 @@ u8 GetGenderFromSpeciesAndPersonality(u16 species, u32 personality)
         return MON_MALE;
 }
 
+//weather ball unaffected by 
+//weather battler is affected by weather
+//only if weather exists
+u8 GetWeatherBallType(u16 move)
+{
+    if (move != MOVE_WEATHER_BALL)
+        return gBattleMoves[move].type;
+
+    //default has no check for in battle
+    //and will always return true - fixed
+    if (WeatherHasEffect())
+    {
+        if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
+            return TYPE_WATER;
+        else if (gBattleWeather & WEATHER_SANDSTORM_ANY)
+            return TYPE_ROCK;
+        else if (gBattleWeather & WEATHER_SUN_ANY)
+            return TYPE_FIRE;
+        else if (gBattleWeather & WEATHER_MOON_ANY)
+            return TYPE_FAIRY;
+        else if (gBattleWeather & WEATHER_HAIL_ANY)
+            return TYPE_ICE;
+        else if (gBattleWeather & WEATHER_ACID_RAIN_ANY)
+            return TYPE_POISON;
+        else if (gBattleWeather & WEATHER_STRONG_WINDS)
+            return TYPE_FLYING;
+        else
+            return gBattleMoves[move].type;
+    }
+    else
+        return gBattleMoves[move].type;
+}
+
+
+
 //check if gem type set works vsonic
 u8 GetBattlerHiddenPowerType(u8 battler)
 {
@@ -7048,7 +7069,9 @@ u8 GetMonHiddenPowerType(struct Pokemon * mon)
 void SetHiddenPowerType(struct BoxPokemon *mon)
 {
     s32 typeBits;
-    u8 storedType;
+    u32 hpTypes[NUMBER_OF_MON_TYPES] = {0};
+    u32 i, hpTypeCount = 0;
+    u32 storedType;
 
 
     typeBits = ((GetBoxMonData(mon, MON_DATA_HP_IV, NULL) & 1) << 0)
@@ -7060,12 +7083,20 @@ void SetHiddenPowerType(struct BoxPokemon *mon)
 
         //// Subtract 3 instead of 1 below because 2 types are excluded (TYPE_NORMAL and TYPE_MYSTERY)
          // The final + 1 skips past Normal, and the following conditional skips TYPE_MYSTERY
-        //changed to -4 for sound type addition, need test unsure if fully necessary
-        storedType = ((NUMBER_OF_MON_TYPES - 4) * typeBits) / 63 + 1; //think changing from 15 to 16 adds one more type to options so now have fairy
-        if (storedType == TYPE_MYSTERY || storedType == TYPE_SOUND) //add or for type sound
-            storedType = TYPE_FAIRY; 
-        //storedType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2; //again had to remove this to work w summary screen
+        //changed to -4 for sound tsype addition, need test unsure if fully necessary
+        //type normal got set found issue was addition of type_none need change to -5
 
+        //wasn't working well kept assigning normal
+        //so ported EE version of type set
+        for (i = 0; i < NUMBER_OF_MON_TYPES; i++)
+        {
+            if (gTypesInfo[i].isHiddenPowerType)
+                hpTypes[hpTypeCount++] = i;
+        }
+        storedType = ((hpTypeCount - 1) * typeBits) / 63; //unsure did plus 1 from old talk w sphearicle ice
+            
+        //storedType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2; //again had to remove this to work w summary screen
+        storedType = hpTypes[storedType];
         SetBoxMonData(mon, MON_DATA_HIDDEN_POWER_TYPE, &storedType);
 }
 
@@ -7073,7 +7104,7 @@ void SetMultiuseSpriteTemplateToPokemon(u16 speciesTag, u8 battlerPosition)
 {
     if (gMonSpritesGfxPtr != NULL)
     {
-        if (battlerPosition >= 4)
+        if (battlerPosition >= MAX_BATTLERS_COUNT)
             battlerPosition = 0;
 
         gMultiuseSpriteTemplate = gMonSpritesGfxPtr->templates[battlerPosition];
@@ -7089,7 +7120,7 @@ void SetMultiuseSpriteTemplateToPokemon(u16 speciesTag, u8 battlerPosition)
         }
         else
         {
-            if (battlerPosition >= 4)
+            if (battlerPosition >= MAX_BATTLERS_COUNT)
                 battlerPosition = 0;
 
             gMultiuseSpriteTemplate = gSpriteTemplates_Battlers[battlerPosition];
@@ -7610,7 +7641,7 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
                     || boxMon->move2 == move
                     || boxMon->move3 == move
                     || boxMon->move4 == move)
-                    retVal |= gBitTable[i];
+                    retVal |= (1u << i);
                 i++;
             }
         }
@@ -8692,11 +8723,11 @@ static void CopyPlayerPartyMonToBattleData(u8 battlerId, u8 partyIndex) //functi
 
 bool8 ExecuteTableBasedItemEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex)
 {
-    return PokemonUseItemEffects(mon, item, partyIndex, moveIndex, 0);
+    return PokemonUseItemEffects(mon, item, partyIndex, moveIndex, FALSE);
 }
 
 #define ITEM_USE
-bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex, u8 e) //this "e" isn't wrong
+bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex, bool8 usedByAI) //this "e" isn't wrong
 {
     u32 data;
     s32 friendship;
@@ -8730,8 +8761,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
     gPotentialItemEffectBattler = gBattlerInMenuId;
     if (gMain.inBattle)
     {
-        gActiveBattler = gBattlerInMenuId;
-        cmdIndex = (GetBattlerSide(gActiveBattler) != B_SIDE_PLAYER);
+        cmdIndex = (GetBattlerSide(gBattlerInMenuId) != B_SIDE_PLAYER);
         while (cmdIndex < gBattlersCount)
         {
             if (gBattlerPartyIndexes[cmdIndex] == partyIndex)
@@ -8744,7 +8774,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
     }
     else
     {
-        gActiveBattler = 0;
+        //gBattlerInMenuId = 0;  //was gactivebattler
         battleMonId = 4;
     }
     
@@ -8766,7 +8796,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
     if (item == ITEM_ENIGMA_BERRY)
     {
         if (gMain.inBattle)
-            itemEffect = gEnigmaBerries[gActiveBattler].itemEffect;
+            itemEffect = gEnigmaBerries[gBattlerInMenuId].itemEffect;
         else
             itemEffect = gSaveBlock1Ptr->enigmaBerry.itemEffect;
     }
@@ -8789,17 +8819,17 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                 retVal = FALSE;
             }
             if ((itemEffect[cmdIndex] & ITEM0_HIGH_CRIT)
-             && !(gBattleMons[gActiveBattler].status2 & STATUS2_FOCUS_ENERGY))
+             && !(gBattleMons[gBattlerInMenuId].status2 & STATUS2_FOCUS_ENERGY))
             {
-                gBattleMons[gActiveBattler].status2 |= STATUS2_FOCUS_ENERGY;
+                gBattleMons[gBattlerInMenuId].status2 |= STATUS2_FOCUS_ENERGY;
                 retVal = FALSE;
             }
             if ((itemEffect[cmdIndex] & ITEM0_X_ATTACK)
-             && gBattleMons[gActiveBattler].statStages[STAT_ATK] < 12)
+             && gBattleMons[gBattlerInMenuId].statStages[STAT_ATK] < 12)
             {
-                gBattleMons[gActiveBattler].statStages[STAT_ATK] += itemEffect[cmdIndex] & ITEM0_X_ATTACK;
-                if (gBattleMons[gActiveBattler].statStages[STAT_ATK] > 12)
-                    gBattleMons[gActiveBattler].statStages[STAT_ATK] = 12;
+                gBattleMons[gBattlerInMenuId].statStages[STAT_ATK] += itemEffect[cmdIndex] & ITEM0_X_ATTACK;
+                if (gBattleMons[gBattlerInMenuId].statStages[STAT_ATK] > 12)
+                    gBattleMons[gBattlerInMenuId].statStages[STAT_ATK] = 12;
                 retVal = FALSE;
             }
             break;
@@ -8811,19 +8841,19 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
             //const struct Evolution *evolutions = GetSpeciesEvolutions(species);
 
             if ((itemEffect[cmdIndex] & ITEM1_X_DEFEND)
-             && gBattleMons[gActiveBattler].statStages[STAT_DEF] < 12)
+             && gBattleMons[gBattlerInMenuId].statStages[STAT_DEF] < 12)
             {
-                gBattleMons[gActiveBattler].statStages[STAT_DEF] += (itemEffect[cmdIndex] & ITEM1_X_DEFEND) >> 4;
-                if (gBattleMons[gActiveBattler].statStages[STAT_DEF] > 12)
-                    gBattleMons[gActiveBattler].statStages[STAT_DEF] = 12;
+                gBattleMons[gBattlerInMenuId].statStages[STAT_DEF] += (itemEffect[cmdIndex] & ITEM1_X_DEFEND) >> 4;
+                if (gBattleMons[gBattlerInMenuId].statStages[STAT_DEF] > 12)
+                    gBattleMons[gBattlerInMenuId].statStages[STAT_DEF] = 12;
                 retVal = FALSE;
             }
             if ((itemEffect[cmdIndex] & ITEM1_X_SPEED)
-             && gBattleMons[gActiveBattler].statStages[STAT_SPEED] < 12)
+             && gBattleMons[gBattlerInMenuId].statStages[STAT_SPEED] < 12)
             {
-                gBattleMons[gActiveBattler].statStages[STAT_SPEED] += itemEffect[cmdIndex] & ITEM1_X_SPEED;
-                if (gBattleMons[gActiveBattler].statStages[STAT_SPEED] > 12)
-                    gBattleMons[gActiveBattler].statStages[STAT_SPEED] = 12;
+                gBattleMons[gBattlerInMenuId].statStages[STAT_SPEED] += itemEffect[cmdIndex] & ITEM1_X_SPEED;
+                if (gBattleMons[gBattlerInMenuId].statStages[STAT_SPEED] > 12)
+                    gBattleMons[gBattlerInMenuId].statStages[STAT_SPEED] = 12;
                 retVal = FALSE;
             }
 
@@ -8863,28 +8893,28 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
         // more stat boosting effects?
         case 2:
             if ((itemEffect[cmdIndex] & ITEM2_X_ACCURACY)
-             && gBattleMons[gActiveBattler].statStages[STAT_ACC] < 12)
+             && gBattleMons[gBattlerInMenuId].statStages[STAT_ACC] < 12)
             {
-                gBattleMons[gActiveBattler].statStages[STAT_ACC] += (itemEffect[cmdIndex] & ITEM2_X_ACCURACY) >> 4;
-                if (gBattleMons[gActiveBattler].statStages[STAT_ACC] > 12)
-                    gBattleMons[gActiveBattler].statStages[STAT_ACC] = 12;
+                gBattleMons[gBattlerInMenuId].statStages[STAT_ACC] += (itemEffect[cmdIndex] & ITEM2_X_ACCURACY) >> 4;
+                if (gBattleMons[gBattlerInMenuId].statStages[STAT_ACC] > 12)
+                    gBattleMons[gBattlerInMenuId].statStages[STAT_ACC] = 12;
                 retVal = FALSE;
             }
             if ((itemEffect[cmdIndex] & ITEM2_X_SPATK)
-             && gBattleMons[gActiveBattler].statStages[STAT_SPATK] < 12)
+             && gBattleMons[gBattlerInMenuId].statStages[STAT_SPATK] < 12)
             {
-                gBattleMons[gActiveBattler].statStages[STAT_SPATK] += itemEffect[cmdIndex] & ITEM2_X_SPATK;
-                if (gBattleMons[gActiveBattler].statStages[STAT_SPATK] > 12)
-                    gBattleMons[gActiveBattler].statStages[STAT_SPATK] = 12;
+                gBattleMons[gBattlerInMenuId].statStages[STAT_SPATK] += itemEffect[cmdIndex] & ITEM2_X_SPATK;
+                if (gBattleMons[gBattlerInMenuId].statStages[STAT_SPATK] > 12)
+                    gBattleMons[gBattlerInMenuId].statStages[STAT_SPATK] = 12;
                 retVal = FALSE;
             }
             break;
         case 3:
         {
             if ((itemEffect[cmdIndex] & ITEM3_MIST)
-             && gSideTimers[GetBattlerSide(gActiveBattler)].mistTimer == 0)
+             && gSideTimers[GetBattlerSide(gBattlerInMenuId)].mistTimer == 0)
             {
-                gSideTimers[GetBattlerSide(gActiveBattler)].mistTimer = 5;
+                gSideTimers[GetBattlerSide(gBattlerInMenuId)].mistTimer = 5;
                 retVal = FALSE;
             }
             if ((itemEffect[cmdIndex] & ITEM3_LEVEL_UP)  // raise level /rare candy
@@ -9021,15 +9051,15 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                             {
                                 if (battleMonId != 4)
                                 {
-                                    gAbsentBattlerFlags &= ~gBitTable[battleMonId];
+                                    gAbsentBattlerFlags &= ~(1u << battleMonId);
                                     CopyPlayerPartyMonToBattleData(battleMonId, GetPartyIdFromBattlePartyId(gBattlerPartyIndexes[battleMonId]));
-                                    if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER && gBattleResults.numRevivesUsed < 63)
+                                    if (GetBattlerSide(gBattlerInMenuId) == B_SIDE_PLAYER && gBattleResults.numRevivesUsed < 63)
                                         gBattleResults.numRevivesUsed++;
                                 }
                                 else
                                 {
-                                    gAbsentBattlerFlags &= ~gBitTable[gActiveBattler ^ 2];
-                                    if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER && gBattleResults.numRevivesUsed < 63)
+                                    gAbsentBattlerFlags &= ~(1u << (gBattlerInMenuId ^ BIT_FLANK));
+                                    if (GetBattlerSide(gBattlerInMenuId) == B_SIDE_PLAYER && gBattleResults.numRevivesUsed < 63)
                                         gBattleResults.numRevivesUsed++;
                                 }
                             }
@@ -9045,21 +9075,22 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                         data = itemEffect[idx++];
                         switch (data)
                         {
-                        case 0xFF:
+                        case ITEM6_HEAL_HP_FULL:
                             data = GetMonData(mon, MON_DATA_MAX_HP, NULL) - GetMonData(mon, MON_DATA_HP, NULL);
                             break;
-                        case 0xFE:
+                        case ITEM6_HEAL_HP_HALF:
                             data = GetMonData(mon, MON_DATA_MAX_HP, NULL) / 2;
                             if (data == 0)
                                 data = 1;
                             break;
-                        case 0xFD:
+                        case ITEM6_HEAL_HP_LVL_UP:
                             data = gBattleScripting.levelUpHP;
                             break;
                         }
+                        // Only restore HP if not at max health
                         if (GetMonData(mon, MON_DATA_MAX_HP, NULL) != GetMonData(mon, MON_DATA_HP, NULL))
                         {
-                            if (e == 0)
+                            if (!usedByAI)
                             {
                                 data = GetMonData(mon, MON_DATA_HP, NULL) + data;
                                 if (data > GetMonData(mon, MON_DATA_MAX_HP, NULL))
@@ -9073,16 +9104,16 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                     data = gBattleMons[battleMonId].maxHP;
 
                                     gBattleMons[battleMonId].hp = data;
-                                    if (!(val & (ITEM4_REVIVE >> 2)) && GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
+                                    if (!(val & (ITEM4_REVIVE >> 2)) && GetBattlerSide(gBattlerInMenuId) == B_SIDE_PLAYER)
                                     {
                                         if (gBattleResults.numHealingItemsUsed < 255)
                                             gBattleResults.numHealingItemsUsed++;
                                         // I have to re-use this variable to match.
-                                        r5 = gActiveBattler;
-                                        gActiveBattler = battleMonId;
-                                        BtlController_EmitGetMonData(0, 0, 0);
-                                        MarkBattlerForControllerExec(gActiveBattler);
-                                        gActiveBattler = r5;
+                                        r5 = gBattlerInMenuId;
+                                        gBattlerInMenuId = battleMonId;
+                                        BtlController_EmitGetMonData(gBattlerInMenuId, BUFFER_A, 0, 0);
+                                        MarkBattlerForControllerExec(gBattlerInMenuId);
+                                        gBattlerInMenuId = r5;
                                     }
                                 }
                             }
@@ -9115,7 +9146,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                     SetMonData(mon, MON_DATA_PP1 + r5, &data);
                                     if (gMain.inBattle
                                         && battleMonId != 4 && !(gBattleMons[battleMonId].status2 & STATUS2_TRANSFORMED)
-                                        && !(gDisableStructs[battleMonId].mimickedMoves & gBitTable[r5]))
+                                        && !(gDisableStructs[battleMonId].mimickedMoves & (1u << r5)))
                                         gBattleMons[battleMonId].pp[r5] = data;
                                     retVal = FALSE;
                                 }
@@ -9140,7 +9171,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 SetMonData(mon, MON_DATA_PP1 + moveIndex, &data);
                                 if (gMain.inBattle
                                     && battleMonId != 4 && !(gBattleMons[battleMonId].status2 & STATUS2_TRANSFORMED)
-                                    && !(gDisableStructs[battleMonId].mimickedMoves & gBitTable[moveIndex]))
+                                    && !(gDisableStructs[battleMonId].mimickedMoves & (1u << moveIndex)))
                                     gBattleMons[battleMonId].pp[moveIndex] = data;
                                 retVal = FALSE;
                             }
@@ -9377,8 +9408,7 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
     gPotentialItemEffectBattler = gBattlerInMenuId;
     if (gMain.inBattle)
     {
-        gActiveBattler = gBattlerInMenuId;
-        for (cmdIndex = GetBattlerSide(gActiveBattler) != B_SIDE_PLAYER;
+        for (cmdIndex = GetBattlerSide(gBattlerInMenuId) != B_SIDE_PLAYER;
              cmdIndex < gBattlersCount;
              cmdIndex += 2)
         {
@@ -9391,7 +9421,7 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
     }
     else
     {
-        gActiveBattler = 0;
+        //gBattlerInMenuId = 0; //was gactivebattler
         battlerId = 4;
     }
 
@@ -9407,7 +9437,7 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
     if (item == ITEM_ENIGMA_BERRY)
     {
         if (gMain.inBattle)
-            itemEffect = gEnigmaBerries[gActiveBattler].itemEffect;
+            itemEffect = gEnigmaBerries[gBattlerInMenuId].itemEffect;
         else
             itemEffect = gSaveBlock1Ptr->enigmaBerry.itemEffect;
     }
@@ -9427,10 +9457,10 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
              && gBattleMons[battlerId].status2 & STATUS2_INFATUATION)
                 retVal = FALSE;
             if (itemEffect[cmdIndex] & ITEM0_HIGH_CRIT
-             && !(gBattleMons[gActiveBattler].status2 & STATUS2_FOCUS_ENERGY))
+             && !(gBattleMons[gBattlerInMenuId].status2 & STATUS2_FOCUS_ENERGY))
                 retVal = FALSE;
             if ((itemEffect[cmdIndex] & ITEM0_X_ATTACK)
-             && gBattleMons[gActiveBattler].statStages[STAT_ATK] < 12)
+             && gBattleMons[gBattlerInMenuId].statStages[STAT_ATK] < 12)
                 retVal = FALSE;
             break;
         // in-battle stat boosting effects?
@@ -9441,10 +9471,10 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
             //const struct Evolution *evolutions = GetSpeciesEvolutions(species);
 
             if ((itemEffect[cmdIndex] & ITEM1_X_DEFEND)
-             && gBattleMons[gActiveBattler].statStages[STAT_DEF] < 12)
+             && gBattleMons[gBattlerInMenuId].statStages[STAT_DEF] < 12)
                 retVal = FALSE;
             if ((itemEffect[cmdIndex] & ITEM1_X_SPEED)
-             && gBattleMons[gActiveBattler].statStages[STAT_SPEED] < 12)
+             && gBattleMons[gBattlerInMenuId].statStages[STAT_SPEED] < 12)
                 retVal = FALSE;
 
 
@@ -9459,16 +9489,16 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
         }// more stat boosting effects?
         case 2:
             if ((itemEffect[cmdIndex] & ITEM2_X_ACCURACY)
-             && gBattleMons[gActiveBattler].statStages[STAT_ACC] < 12)
+             && gBattleMons[gBattlerInMenuId].statStages[STAT_ACC] < 12)
                 retVal = FALSE;
             if ((itemEffect[cmdIndex] & ITEM2_X_SPATK)
-             && gBattleMons[gActiveBattler].statStages[STAT_SPATK] < 12)
+             && gBattleMons[gBattlerInMenuId].statStages[STAT_SPATK] < 12)
                 retVal = FALSE;
             break;
         case 3:  //think affects that change mon data?  //beieve can put vials here?
                
             if ((itemEffect[cmdIndex] & ITEM3_MIST)
-             && gSideTimers[GetBattlerSide(gActiveBattler)].mistTimer == 0)
+             && gSideTimers[GetBattlerSide(gBattlerInMenuId)].mistTimer == 0)
                 retVal = FALSE;
             if ((itemEffect[cmdIndex] & ITEM3_LEVEL_UP)  // raise level
              && GetMonData(mon, MON_DATA_LEVEL, NULL) != MAX_LEVEL)
@@ -9653,30 +9683,30 @@ static bool8 PartyMonHasStatus(struct Pokemon *mon, u32 unused, u32 healMask, u8
         return FALSE;
 }
 
-u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit)
+u8 GetItemEffectParamOffset(u32 battler, u16 itemId, u8 effectByte, u8 effectBit)
 {
     const u8 *temp;
     const u8 *itemEffect;
     u8 offset;
     int i;
     u8 j;
-    u8 val;
+    u8 effectFlags;
 
-    offset = 6;
+    offset = ITEM_EFFECT_ARG_START;
 
     temp = gItemEffectTable[itemId - 13];
 
-    if (!temp && itemId != ITEM_ENIGMA_BERRY)
+    if (temp != NULL && !temp && itemId != ITEM_ENIGMA_BERRY)
         return 0;
 
     if (itemId == ITEM_ENIGMA_BERRY)
     {
-        temp = gEnigmaBerries[gActiveBattler].itemEffect;
+        temp = gEnigmaBerries[battler].itemEffect;
     }
 
     itemEffect = temp;
 
-    for (i = 0; i < 6; i++)
+    for (i = 0; i < ITEM_EFFECT_ARG_START; i++)
     {
         switch (i)
         {
@@ -9688,74 +9718,75 @@ u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit)
                 return 0;
             break;
         case 4:
-            val = itemEffect[4];
-            if (val & 0x20)
-                val &= 0xDF;
+            effectFlags = itemEffect[4];
+            if (effectFlags & ITEM4_PP_UP)
+                effectFlags &= ~(ITEM4_PP_UP);
             j = 0;
-            while (val)
+            while (effectFlags)
             {
-                if (val & 1)
+                if (effectFlags & 1)
                 {
                     switch (j)
                     {
-                    case 2:
-                        if (val & 0x10)
-                            val &= 0xEF;
-                    case 0:
-                        if (i == effectByte && (val & effectBit))
+                    case 2: // ITEM4_HEAL_HP
+                        if (effectFlags & (ITEM4_REVIVE >> 2))
+                            effectFlags &= ~(ITEM4_REVIVE >> 2);
+                        // fallthrough
+                    case 0: // ITEM4_EV_HP
+                        if (i == effectByte && (effectFlags & effectBit))
                             return offset;
                         offset++;
                         break;
-                    case 1:
-                        if (i == effectByte && (val & effectBit))
+                    case 1: // ITEM4_EV_ATK
+                        if (i == effectByte && (effectFlags & effectBit))
                             return offset;
                         offset++;
                         break;
-                    case 3:
-                        if (i == effectByte && (val & effectBit))
+                    case 3: // ITEM4_HEAL_PP
+                        if (i == effectByte && (effectFlags & effectBit))
                             return offset;
                         offset++;
                         break;
-                    case 7:
+                    case 7: // ITEM4_EVO_STONE
                         if (i == effectByte)
                             return 0;
                         break;
                     }
                 }
                 j++;
-                val >>= 1;
+                effectFlags >>= 1;
                 if (i == effectByte)
                     effectBit >>= 1;
             }
             break;
         case 5:
-            val = itemEffect[5];
+            effectFlags = itemEffect[5];
             j = 0;
-            while (val)
+            while (effectFlags)
             {
-                if (val & 1)
+                if (effectFlags & 1)
                 {
                     switch (j)
                     {
-                    case 0:
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
-                    case 6:
-                        if (i == effectByte && (val & effectBit))
+                    case 0: // ITEM5_EV_DEF
+                    case 1: // ITEM5_EV_SPEED
+                    case 2: // ITEM5_EV_SPDEF
+                    case 3: // ITEM5_EV_SPATK
+                    case 4: // ITEM5_PP_MAX
+                    case 5: // ITEM5_FRIENDSHIP_LOW
+                    case 6: // ITEM5_FRIENDSHIP_MID
+                        if (i == effectByte && (effectFlags & effectBit))
                             return offset;
                         offset++;
                         break;
-                    case 7:
+                    case 7: // ITEM5_FRIENDSHIP_HIGH
                         if (i == effectByte)
                             return 0;
                         break;
                     }
                 }
                 j++;
-                val >>= 1;
+                effectFlags >>= 1;
                 if (i == effectByte)
                     effectBit >>= 1;
             }
@@ -11272,6 +11303,10 @@ const u16 *GetSpeciesTeachableLearnset(u16 species)
     const u16 *learnset;// = gBaseStats[SanitizeSpeciesId(species)].tmhmLearnset;
     u16 generatedSpecies;
 
+    //works but more accurate to use on the cosmetic forms themselves than base form
+    //can exclude mon that aren't cosmetic changes
+    //just make cosmetics default to base learnsets
+    //nvm more work than its worth
     if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
       generatedSpecies = GetFormSpeciesId(species, 0);
     else
@@ -11281,8 +11316,7 @@ const u16 *GetSpeciesTeachableLearnset(u16 species)
     || species == SPECIES_PIKACHU_BELLE
     || species == SPECIES_PIKACHU_POP_STAR
     || species == SPECIES_PIKACHU_PH_D
-    || species == SPECIES_PIKACHU_LIBRE
-    || species == SPECIES_BASCULIN_WHITE_STRIPED)
+    || species == SPECIES_PIKACHU_LIBRE)
         generatedSpecies = species;
 
     learnset = gBaseStats[SanitizeSpeciesId(generatedSpecies)].tmhmLearnset;
@@ -11307,6 +11341,22 @@ const struct Evolution *GetSpeciesEvolutions(u16 species)
 //I think I would need recusive do while
 //while species preevo is not species none, (i.e ther IS a pre evo)
 //do getspeciesPreevo
+//cool idea to have relearner handle pre evo moves as well
+//but is functionally a pain to setup
+//would be potentially massively expansive
+//best I could come up with is making a species evo list
+//for each mon
+//ex flareon would be eevee flareon
+//would take up a lot of physical space, 
+//but would be simpler than looping backwards to find species
+//my worry would be it would be too clinical/convenient
+//they would feel less like living things
+//since you can easily make them learn moves
+//even tho they normally can't learn them at the evo they're in
+//beneift removes need to train and catch multiple of a moon to 
+//get exact moveset you want, alternative would be to never
+//evolve things until they are full leveled, (which isn't viable)
+//and just relearn the evos moves after if different
 u16 GetSpeciesPreEvolution(u16 species, u32 LoopTarget) //so I feel like I'm not supposed to use i for this? 
 {
     u32 j;

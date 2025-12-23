@@ -1,3 +1,4 @@
+#include "config.h"
 
 static const u8 sNoneDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("No special ability.");
 static const u8 sStenchDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Can repel wild POKéMON and trainers.\nAll battlers have a chance to flinch.");
@@ -18,7 +19,7 @@ static const u8 sInsomniaDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Preven
 static const u8 sColorChangeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Changes secondary type\nto match last move hit by.");
 static const u8 sImmunityDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents poisoning.");
 static const u8 sFlashFireDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Draws in and powers up fire moves");
-static const u8 sShieldDustDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents added effects.");
+static const u8 sShieldDustDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Protective dust shields the Pokémon\nfrom the additional effects of moves.");
 static const u8 sOwnTempoDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents confusion.\nBlocks Intimidate, Taunt, and Torment.");
 static const u8 sSuctionCupsDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Firmly anchors itself, stops force switch.\nTrap move effects last longer.");
 static const u8 sIntimidateDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Lowers the foe's ATTACK.");
@@ -56,9 +57,9 @@ static const u8 sPickupDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("May pick
 static const u8 sTruantDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Only moves every other turn.\nBut heals while at rest.");
 static const u8 sHustleDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Trades a small accuracy drop for power.\n5% accuracy drop for 50% Atk boost.");
 static const u8 sCuteCharmDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("May Infatuate on contact.\nAlways Infatuates when hit.");
-static const u8 sPlusDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boost Sp.Atk. if MINUS or Elec. on field.\nPwr up when Elec. Partner is in a pinch.");
-static const u8 sMinusDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boost Sp.Atk. if PLUS or Elec. on field.\nPwr up when Elec. Partner is in a pinch.");
-static const u8 sForecastDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Predicts, and changes with, the weather.\nImmune to weather-based dmg drops."); //prediction still to setup
+static const u8 sPlusDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boost Sp.Atk. if MINUS or Elec. on field.\nPwr up if Elec./MINUS ally is in a pinch");
+static const u8 sMinusDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boost Sp.Atk. if PLUS or Elec. on field.\nPwr up when Elec./PLUS ally is in a pinch");
+static const u8 sForecastDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Predicts, the coming weather.\nWeather extenders enhance prediction."); //since giving to non castform consider tweak a bit more, put some effects on just castform like weather drop immunity
 static const u8 sStickyHoldDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents item theft.\nAbsorbs foe's item on contact.");
 static const u8 sShedSkinDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Heals the body by shedding.\nMay attempt to cure status."); //added comatose heal on top
 static const u8 sGutsDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups ATTACK if suffering from status.");
@@ -152,6 +153,7 @@ static const u8 sInfiltratorDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ste
 static const u8 sMummyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Spreads with contact.\nOverwrites the attackers ability.");
 static const u8 sMoxieDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("KOs raise Attack.");
 static const u8 sJustifiedDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Raises Attack if Intimidated\nor hit by Dark or Ghost moves.");
+static const u8 sBraveryDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Raises Sp. Attack if Intimidated\nor hit by Dark or Ghost moves.");
 static const u8 sRattledDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Raises Speed if Intimdated or\nhit by Dark, Bug, or Ghost moves.");
 static const u8 sMagicBounceDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Reflects status moves and non-redirected\nstat decreases from abilities."); //reflects intimidate likes, gave small bit of mirror armor effect
 static const u8 sSapSipperDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Draws in Grass moves\nto increase Attack.");
@@ -159,8 +161,8 @@ static const u8 sPranksterDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Statu
 static const u8 sSandForceDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Powers up in a sandstorm.");
 static const u8 sZenModeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Transforms at half HP.");
 static const u8 sVictoryStarDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Raises party accuracy and speed.");
-static const u8 sAromaVeilDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Protects itself and allies from attacks\nthat limit their move choices."); //("Prevents limiting of moves.");
-static const u8 sFlowerVeilDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Protects user and Grass-type allies\nfrom status and stat changes.");
+static const u8 sAromaVeilDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Protects itself and allies from effects\nthat prevent the use of moves."); //("Prevents limiting of moves.");
+static const u8 sFlowerVeilDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Protects Grass-types on user's side\nfrom status and stat changing effects.");
 static const u8 sCheekPouchDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Eating Berries restores HP.\nCan Belch without eating a berry.");
 static const u8 sProteanDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Changes type to used move.");
 static const u8 sFurCoatDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Raises Defense.");
@@ -191,41 +193,41 @@ static const u8 sWaterCompactionDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _(
 static const u8 sMercilessDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Deals critical damage to poisoned foes.");
 static const u8 sShieldsDownDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("If HP above 50% boosts Def blocks status\nWhen below, shell breaks and boosts atk.");
 static const u8 sStakeoutDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("2x damage if targets switched in mid turn\n50% boost to foes replacing fainted ally"); //vsonic fix description    //Stakeout doubles the power of moves used against targets switched in mid turn.
-static const u8 sWaterBubbleDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Guards from fire damage and burns.\nBoosts power of user water moves."); //ability still sucks, change to just switched in, so can get boost on turn fainted mon is replaced as well, just keep to mostly weakish mon
+static const u8 sWaterBubbleDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Guards from fire damage and burns.\nBoosts power of user water moves."); //^ability still sucks, change to just switched in, so can get boost on turn fainted mon is replaced as well, just keep to mostly weakish mon
 static const u8 sSteelworkerDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Powers up Steel moves.");
-static const u8 sBerserkDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts Sp. Atk at low HP.");
+static const u8 sBerserkDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts the Pokémon's Sp. Atk if\nan attack drops its HP to half or less.");
 static const u8 sSlushRushDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Raises Speed in hail.");
 static const u8 sLongReachDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Never makes contact. Boosts priority\nof non-contact physical moves.");
-static const u8 sLiquidVoiceDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Makes sound moves Water.");
+static const u8 sLiquidVoiceDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Makes sound moves become Water Type.");
 static const u8 sTriageDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Healing moves get a priority boost.");
 static const u8 sGalvanizeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Normal moves become Electric and\ngain a boost in power.");
-static const u8 sSurgeSurferDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Faster on electricity.");
+static const u8 sSurgeSurferDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Faster on electric terrain.");
 static const u8 sSchoolingDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Heals on switch, and forms together\nif lvl. 20+ and above a quarter Max HP");
 static const u8 sDisguiseDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Decoy protects it once.");
 static const u8 sBattleBondDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Changes form after a KO.");
 static const u8 sPowerConstructDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Cells aid it when weakened.");
-static const u8 sCorrosionDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Poisons any type.");
+static const u8 sCorrosionDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Able to Poison any type\neven if otherwise immune.");
 static const u8 sComatoseDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Always drowsing.\nRecovers HP slightly each turn.");
-static const u8 sQueenlyMajestyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Blocks ability boosted priority moves\ndamaging priority moves and Intimidate");
+static const u8 sQueenlyMajestyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Blocks boosted priority moves\nfor itself and allies and Intimidate."); //see gen 9 this applies to use and allies
+static const u8 sDazzlingDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Blocks boosted priority moves\nfor itself and allies.");
 static const u8 sInnardsOutDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("On faint hurts foe for last hp dmg dealt.\nIf damaged on switch-in strikes back.");
-static const u8 sDancerDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Dances along with others.");
-static const u8 sBatteryDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts ally's Sp. Atk."); //think idea was turn this into vikavolt version of tatsugiri dondozo effect
+static const u8 sDancerDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Dances along with others.\nUses Dance Move right after previous user");
+static const u8 sBatteryDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts ally's Sp. Atk."); //vsonic think idea was turn this into vikavolt version of tatsugiri dondozo effect
 static const u8 sFluffyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Takes increased damage from FIRE moves.\nTakes reduced damage from contact moves.");
 static const u8 sSoulHeartDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("KOs raise Sp. Atk.");
-static const u8 sTanglingHairDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Contact lowers Speed.");
 static const u8 sReceiverDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Copies ally's ability.");
 static const u8 sBeastBoostDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("KOs boost the Pokémon's best stat.");
 static const u8 sRKSSystemDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Memories change its type.");
-static const u8 sElectricSurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes Electric.");
-static const u8 sPsychicSurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes weird.");
-static const u8 sMistySurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes misty.");
-static const u8 sGrassySurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes grassy.");
+static const u8 sElectricSurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes Electric. Ups Elec. moves\nand prevents grounded from sleeping.");
+static const u8 sPsychicSurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes weird. Ups Psych. moves\nNon-spread prio. moves fail on grounded.");
+static const u8 sMistySurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes misty. Weaken Dragon moves\nBoosts attack recovery & blocks statusing");
+static const u8 sGrassySurgeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Field becomes grassy. Ups Grass moves.\nSlight HP recovery for grounded Pokémon.");
 static const u8 sFullMetalBodyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents stat reduction.");
 static const u8 sNeuroforceDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups power of “supereffective” moves.");
 static const u8 sIntrepidSwordDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("The Hero arrives!\nUps Attack for one turn on entry.");
 static const u8 sDauntlessShieldDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("The Hero arrives!\nUps Defense for one turn on entry.");
 static const u8 sLiberoDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Changes type to move's.");
-static const u8 sBallFetchDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Has a chance to Fetch failed Poké Balls.\nAdding them to the bag on pickup.");
+static const u8 sBallFetchDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("May Fetch failed Poké Balls back to bag.\nImmediately returns Ball Moves to user.");
 static const u8 sCottonDownDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Lower Speed of all when hit.");
 static const u8 sPropellerTailDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ignores foe's redirection.");
 static const u8 sMirrorArmorDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Reflect stat decreases back to the user.");
@@ -248,10 +250,10 @@ static const u8 sNeutralizingGasDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _(
 static const u8 sPastelVeilDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Protects team from poison.");
 static const u8 sHungerSwitchDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Changes form each turn.");;
 static const u8 sQuickDrawDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Moves first occasionally.");
-static const u8 sUnseenFistDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Contact moves below 75 power\nevades protection.");
+static const u8 sUnseenFistDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Contact moves at or below 75 power\nevades protection.");
 static const u8 sCuriousMedicineDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Remove ally's stat changes.");
-static const u8 sTransistorDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Electric-type moves.");
-static const u8 sDragonsMawDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Dragon-type moves.");
+static const u8 sTransistorDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Electric-type moves by 30 percent.");
+static const u8 sDragonsMawDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Dragon-type moves by 50 percent.");
 static const u8 sChillingNeighDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("KOs boost Attack stat.");
 static const u8 sGrimNeighDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("KOs boost Sp. Atk stat.");
 static const u8 sAsOneIceRiderDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Unnerve and Chilling Neigh.");
@@ -281,7 +283,7 @@ static const u8 sLiquidmetalDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("A s
 static const u8 sMusclemagicDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Special moves become Physical contact.\nControl the elements with pure Muscle!");
 static const u8 sTigercubDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("To rise to the high expectations\nof the pride. Ups resisted move dmg.");
 static const u8 sTigerMomDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Postures with an overbearing presence.\nLowers the foe's DEFENSE.");
-static const u8 sDarkDealDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Increases crit and effect chance. Halves\npartner's strong moves to share ability"); //vsonic looks good not accurate as it doubels effect for partner
+static const u8 sDarkDealDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Increases crit and effect chance. Halves\npartner's 80+ pwr moves to share ability."); //vsonic looks good not accurate as it doubels effect for partner
 static const u8 sCorruptionDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("The user's corrupted influence spreads\ndecay. Preventing the foe from healing.");
 static const u8 sBanditKingDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("This POKéMON posesses a covetous nature.\nIt won't let its targets use items.");
 static const u8 sAviatorDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("An uncontested ace that always escapes.\nStops speed loss, gains FLYING Affinity.");//Gains FLYING type benefits. flying type runnaway
@@ -330,7 +332,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Stench"),
         .description = sStenchDescription,
-        .aiRating = 3,
+        .aiRating = 4,
     },
 
     [ABILITY_DRIZZLE] =
@@ -354,6 +356,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 2,
         .breakable = TRUE,
     },
+    //suprised this only a two
 
     [ABILITY_STURDY] =
     {
@@ -414,7 +417,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Oblivious"),
         .description = sObliviousDescription,
-        .aiRating = 2,
+        .aiRating = 6,
         .breakable = TRUE,
     },
 
@@ -422,8 +425,11 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Cloud Nine"),
         .description = sCloudNineDescription,
-        .aiRating = 5,
+        .aiRating = 6,
+        .breakable = TRUE,
     },
+    //may need to make breakable
+    //vsonic need to work out
 
     [ABILITY_COMPOUND_EYES] =
     {
@@ -444,8 +450,10 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Color Change"),
         .description = sColorChangeDescription,
-        .aiRating = 2,
+        .aiRating = 5,
     },
+    //potentially should add mold breaker leaving off for now
+    //concpet stance change isn't breakable
 
     [ABILITY_IMMUNITY] =
     {
@@ -520,7 +528,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Femme Fatale"),
         .description = sFemmeFataleDescription,
-        .aiRating = 4,
+        .aiRating = 6,
         .breakable = TRUE,
     },//based off oblivious but double check effect, for flags and ratings
 
@@ -587,8 +595,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Illuminate"),
         .description = sIlluminateDescription,
         .aiRating = 0,
-        .breakable = TRUE,
     },
+    //my version doesn't prevent stat drop so not breakable
 
     [ABILITY_TRACE] =
     {
@@ -628,6 +636,33 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 3,
         .breakable = TRUE,
     },
+    //how does breakable work
+    //this burns items on contact 
+    //and blocks physical crits
+    //I think I'd want mold breaker to only
+    //break through the crit protection
+    //idk if it makes sense to avoid burning items
+    //for example checkked flamebody and that 
+    //isn't affected by moldbreaker
+    //ok looked into EE, breakable makes it read 
+    //as no ability, but despite being breakable
+    //it also has ability checks that ignore moldbreaker
+    //so certain times it reads the ability as is, 
+    //allowing its effect to activate
+    //so I would just need to use that version for item burn check
+    //and the full check for physical crit
+    //am just unsure if that is true to how it should be used
+    //got it, from bulbapedia
+    //(Ignorable Abilities are most Abilities that could 
+    //potentially negatively affect the success, 
+    //damage, or effects of a move.)
+    //which is why magma armor is breakable but otherwise ignored 
+    //for moldbreaker, it gets broken to allow freezing
+    //since otherwise the move success would be affected
+    //I can do what I want, break the crits
+    //but keep the item burn up
+    //as crits affect damage, but the item loss
+    //doens't affect success or damage of moves used
 
     [ABILITY_WATER_VEIL] =
     {
@@ -671,6 +706,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Pressure"),
         .description = sPressureDescription,
         .aiRating = 5,
+        .breakable = TRUE,
     },
 
     [ABILITY_THICK_FAT] =
@@ -700,7 +736,11 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Run Away"),
         .description = sRunAwayDescription,
         .aiRating = 0,
+        .breakable = TRUE,
     },
+    //vsonic just realized with new effect changes
+    //this is breakable now, so would need to go over 
+    //and reevaluate these
 
     [ABILITY_KEEN_EYE] =
     {
@@ -892,7 +932,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Cacophony"),
         .description = COMPOUND_ABILITY_STRING("+Snd Dmg. Boosts ally Sound-move effects\nand helps bypass screens and protects."),
         .aiRating = 1,
-        .breakable = FALSE,
     }, //low rating cuz very niche activation
 
     [ABILITY_AIR_LOCK] =
@@ -1073,7 +1112,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Stall"),
         .description = sStallDescription,
-        .aiRating = 0,
+        .aiRating = 1,
     },
 
     [ABILITY_TECHNICIAN] =
@@ -1096,6 +1135,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Klutz"),
         .description = sKlutzDescription,
         .aiRating = 0,
+        .breakable = TRUE,
     },
 
     [ABILITY_MOLD_BREAKER] =
@@ -1161,6 +1201,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Slow Start"),
         .description = sSlowStartDescription,
         .aiRating = -2,
+        .breakable = TRUE,
     },
 
     [ABILITY_SCRAPPY] =
@@ -1196,7 +1237,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_SNOW_WARNING] =
     {
         .name = _("Snow Warning"),
-    #if B_SNOW_WARNING >= GEN_9
+    #if B_SNOW_WARNING == TRUE
         .description = COMPOUND_STRING("Summons snow in battle."),
     #else
         .description = sSnowWarningDescription,
@@ -1259,6 +1300,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Pickpocket"),
         .description = sPickpocketDescription,
         .aiRating = 5,
+        .breakable = TRUE,
     },
 
     [ABILITY_SHEER_FORCE] =
@@ -1482,7 +1524,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Justified"),
         .description = sJustifiedDescription,
-        .aiRating = 4,
+        .aiRating = 6,
     },
 
     [ABILITY_RATTLED] =
@@ -1560,6 +1602,9 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Moldbreaker and Lightning Rod."),
         .aiRating = 9,
     },
+    //with change should be breakable 
+    //but will take point from full metal body 
+    //and leave off
 
     [ABILITY_AROMA_VEIL] =
     {
@@ -1574,6 +1619,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Flower Veil"),
         .description = sFlowerVeilDescription,
         .aiRating = 0,
+        .breakable = TRUE,
     },
 
     [ABILITY_CHEEK_POUCH] =
@@ -1610,6 +1656,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Bulletproof"),
         .description = sBulletproofDescription,
         .aiRating = 7,
+        .breakable = TRUE,
     },
 
     [ABILITY_COMPETITIVE] =
@@ -1736,6 +1783,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Aura Break"),
         .description = sAuraBreakDescription,
         .aiRating = 3,
+        .breakable = TRUE,
     },
 
     [ABILITY_PRIMORDIAL_SEA] =
@@ -1785,6 +1833,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Water Compaction"),
         .description = sWaterCompactionDescription,
         .aiRating = 4,
+        .breakable = TRUE,
     },
 
     [ABILITY_MERCILESS] =
@@ -1818,7 +1867,9 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Water Bubble"),
         .description = sWaterBubbleDescription,
         .aiRating = 8,
-    },
+        .breakable = TRUE,
+    },//pretty sure this should be breakable
+    //allow to be burned at least
 
     [ABILITY_STEELWORKER] =
     {
@@ -1949,9 +2000,9 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Queenly Majesty"),
         .description = sQueenlyMajestyDescription,
-        .aiRating = 6,
+        .aiRating = 8,//6,
         .breakable = TRUE,
-    },
+    },//idk if gen 9 change but realized affects entire side o.0
 
     [ABILITY_INNARDS_OUT] =
     {
@@ -1985,10 +2036,10 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_DAZZLING] =
     {
         .name = _("Dazzling"),
-        .description = sQueenlyMajestyDescription,
+        .description = sDazzlingDescription,
         .aiRating = 5,
         .breakable = TRUE,
-    },
+    }, //didn't know this description repeated pretty sure effect is now different
 
     [ABILITY_SOUL_HEART] =
     {
@@ -2075,6 +2126,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = sFullMetalBodyDescription,
         .aiRating = 4,
     },//vsonic
+    //not breakable for some reason
 
     [ABILITY_SHADOW_SHIELD] =
     {
@@ -2115,13 +2167,15 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Libero"),
         .description = sLiberoDescription,
-    },
+    },//vsonic see if changed may revert back, to making monotype
+    //oh it is set to that, type 1 and 2 are changed but type 3 stays the same
 
     [ABILITY_BALL_FETCH] =
     {
         .name = _("Ball Fetch"),
         .description = sBallFetchDescription,
-        .aiRating = 0,
+        .aiRating = 5,
+        .breakable = TRUE,
     },
 
     [ABILITY_COTTON_DOWN] =
@@ -2247,8 +2301,10 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Perish Body"),
         .description = sPerishBodyDescription,
-        .aiRating = -1,
+        .aiRating = 2,
     },
+    //no longer makes user faint, only low value cuz of who its on.
+    //idea being ghosts can't die.  also mon is frail is cheese
 
     [ABILITY_WANDERING_SPIRIT] =
     {
@@ -2370,21 +2426,21 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_LINGERING_AROMA] =
     {
         .name = _("Lingering Aroma"),
-        .description = COMPOUND_STRING("Spreads with contact."),
+        .description = COMPOUND_STRING("Spreads with contact.\nOverwrites attacker ability."),
         .aiRating = 5,
     },
 
     [ABILITY_SEED_SOWER] =
     {
         .name = _("Seed Sower"),
-        .description = COMPOUND_STRING("Affects terrain when hit."),//vsonic
+        .description = COMPOUND_STRING("Turns the ground into Grassy Terrain\nwhen the Pokémon is hit by an attack."),//vsonic
         .aiRating = 5,
     },
 
     [ABILITY_THERMAL_EXCHANGE] =
     {
         .name = _("Thermal Exchange"),
-        .description = COMPOUND_STRING("Fire hits up Attack."),
+        .description = COMPOUND_STRING("Boosts Attack when hit by a Fire move.\nThe Pokémon also cannot be burned."),
         .aiRating = 4,
         .breakable = TRUE,
     },
@@ -2392,7 +2448,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_ANGER_SHELL] =
     {
         .name = _("Anger Shell"),
-        .description = COMPOUND_STRING("Gets angry at half HP."),//vsonic
+        .description = COMPOUND_STRING("When an attack drops its HP to <= half,\ndef stats fall, ups Atk stats and speed."),//vsonic
         .aiRating = 3,
     },
 
@@ -2407,7 +2463,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_WELL_BAKED_BODY] =
     {
         .name = _("Well-Baked Body"),
-        .description = COMPOUND_STRING("Strengthened by Fire."), //vsonic
+        .description = COMPOUND_STRING("The Pokémon takes is immune to Fire moves\nInstead, its Defense is sharply boosted."), //vsonic
         .aiRating = 5,
         .breakable = TRUE,
     },
@@ -2423,7 +2479,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_GUARD_DOG] =
     {
         .name = _("Guard Dog"),
-        .description = COMPOUND_STRING("Cannot be intimidated."),
+        .description = COMPOUND_STRING("Boosts the Pokémon’s Atk if intimidated.\nMoves or items that force switch out fail"),
         .aiRating = 5,
         .breakable = TRUE,
     },
@@ -2431,16 +2487,18 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_ROCKY_PAYLOAD] =
     {
         .name = _("Rocky Payload"),
-        .description = COMPOUND_STRING("Powers up Rock moves."),
+        .description = COMPOUND_STRING("Powers up Rock moves by 50 percent."),
         .aiRating = 6,
-    },
+    },//didn't realize that's what this did, but its basically fake stab
+    //do I need to lower it to match new stab
+    //mon its on isn't that good so will live at default
 
     [ABILITY_WIND_POWER] =
     {
         .name = _("Wind Power"),
-        .description = COMPOUND_STRING("Gets charged by wind."),
+        .description = COMPOUND_STRING("The Pokémon becomes charged by wind moves\nboosting the power of its next Elec. move"),
         .aiRating = 4,
-    },
+    },//vsonic wind moves not set yet
 
     [ABILITY_ZERO_TO_HERO] =
     {
@@ -2470,7 +2528,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_ELECTROMORPHOSIS] =
     {
         .name = _("Electromorphosis"),
-        .description = COMPOUND_STRING("Gets Charged when hit."),
+        .description = COMPOUND_STRING("The Pokémon becomes charged when damaged,\nboosting the power of its next Elec. move"),
         .aiRating = 5,
     },
 
@@ -2525,7 +2583,6 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Tablets of Ruin"),
         .description = COMPOUND_ABILITY_STRING("Lowers Speed by 25 percent\nfor all mon without this ability."),
         .aiRating = 5,
-        .breakable = TRUE,
     },
 
     [ABILITY_BEADS_OF_RUIN] =
@@ -2595,7 +2652,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_ARMOR_TAIL] =
     {
         .name = _("Armor Tail"),
-        .description = COMPOUND_STRING("Protects from priority."),
+        .description = sDazzlingDescription,
         .aiRating = 5,
         .breakable = TRUE,
     },
@@ -2677,7 +2734,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_TOXIC_CHAIN] =
     {
         .name = _("Toxic Chain"),
-        .description = COMPOUND_STRING("Moves can poison."),
+        .description = COMPOUND_STRING("The corrosive chain empowers its moves.\nMay badly poison any target of attack."),
         .aiRating = 8,
     },
 
@@ -2737,9 +2794,11 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Dispirit Guard"),
         .description = sDispiritGuardDescription,
-        .aiRating = 0,
+        .aiRating = 8,
         .breakable = TRUE,
     },
+    //may change but rn includes what was previously neutral hits as resisted
+    //
     
     [ABILITY_NUISANCE] =
     {
@@ -2767,6 +2826,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Hi-Pressure"),
         .description = sHipressureDescription,
         .aiRating = 7,
+        .breakable = TRUE,
     },
     
     [ABILITY_CUPIDS_ARROW] =
@@ -2787,7 +2847,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Liquid Soul"),
         .description = sLiquidSoulDescription,
-        .aiRating = 0,
+        .aiRating = 7,
+        .breakable = TRUE,
     },
     
     [ABILITY_OCEAN_MEMORY] =
@@ -2920,7 +2981,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Corruption"),
         .description = sCorruptionDescription,
         .aiRating = 0,
-    },
+    },//heal block
     
     [ABILITY_BANDIT_KING] =
     {
@@ -2934,6 +2995,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Aviator"),
         .description = sAviatorDescription, 
         .aiRating = 0,
+        .breakable = TRUE,
     },//vsonic maybe just need add breakable ot do thing rather than needing moldbreaker check function?
     //yeah think all I need for moldbreaker negate is set every affinity ability as breakable
     //well no its meant to ignore affinity itself not just the ability
@@ -3018,7 +3080,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Wetiko"),
         .description = sWetikoDescription,
-        .aiRating = 8,
+        .aiRating = 9,
     },
     
     [ABILITY_EMPATH] =
@@ -3026,9 +3088,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Empath"),
         .description = sEmpathDescription,
         .aiRating = 0,
-        .cantBeCopied = TRUE,
-        .cantBeTraced = TRUE,
     },//upgraded Trace same conditions
+    //why am I calling this trace when its synchronize?     
     
     [ABILITY_EMPATHIC_CURSE] =
     {
@@ -3049,6 +3110,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Iron Will"),
         .description = sIronWillDescription,
         .aiRating = 0,
+        .breakable = TRUE,
     },
     
     [ABILITY_LIVEWIRE] =
@@ -3062,7 +3124,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("GaleForce"),
         .description = sGaleforceDescription,
-        .aiRating = 0,
+        .aiRating = 6,
         .breakable = TRUE,
     },
     
@@ -3115,6 +3177,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = sNoneDescription,
         .aiRating = 0,
     },
+    //todo - anti heal ability for opposing side plan darkrai use
     
     [ABILITY_RISING_PHOENIX] =
     {
@@ -3131,26 +3194,28 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 0,
         .breakable = TRUE,
     },//potentially make these two un suppressable?
+    //no being unsuppressable is only for things
+    //that would break or cause glitches otherwise
     
     [ABILITY_PLAGUE_WINGS] =
     {
         .name = _("Plague Wings"),
         .description = sPlagueWingsDescription,
-        .aiRating = 0,
+        .aiRating = 5,
     },
     
     [ABILITY_TOXIC_WING] =
     {
         .name = _("Toxic Wing"),
         .description = COMPOUND_ABILITY_STRING("Spreads poison powder on attack.\nMay poison the foe."),
-        .aiRating = 0,
+        .aiRating = 5,
     },
     
     [ABILITY_PHANTOM_TOUCH] =
     {
         .name = _("Phantom Touch"),
         .description = sPhantomTouchDescription,
-        .aiRating = 0,
+        .aiRating = 6,
     },
     
     [ABILITY_APOTHEOSCENT] =
@@ -3180,7 +3245,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Immutable Wind"),
         .description = COMPOUND_ABILITY_STRING("Summons winds that nullify foes abilities\nand blow status moves off course."),
-        .aiRating = 0,
+        .aiRating = 7,
         .cantBeCopied = TRUE,
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
@@ -3191,7 +3256,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Evergreen"),
         .description = COMPOUND_ABILITY_STRING("Summons Grassy Terrain on switch-in.\nMay also Harvest a Berry."),
-        .aiRating = 0,
+        .aiRating = 9,
     },
     
     [ABILITY_SHAMAN_CURE] =
@@ -3199,13 +3264,14 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Shaman Cure"),
         .description = COMPOUND_ABILITY_STRING("Protects party from poison.\nCures own status upon switching out."),
         .aiRating = 0,
+        .breakable = TRUE,
     },//vsonic
     
     [ABILITY_UNCHAINED_MELODY] =
     {
         .name = _("Unchained Melody"),
         .description = COMPOUND_ABILITY_STRING("Boosts damage of Normal moves\nand converts them to Sound type."),
-        .aiRating = 0,
+        .aiRating = 7,
     },
     
     [ABILITY_ENAMEL] =
@@ -3228,7 +3294,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Storm Break"),
         .description = COMPOUND_ABILITY_STRING("User creates a gust of wind dissipating\nweather effects on entry."),
-        .aiRating = 0,
+        .aiRating = 5,
     },
     
     [ABILITY_SPACE_CONTROL] =
@@ -3243,7 +3309,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Cold Embrace"),
         .description = COMPOUND_ABILITY_STRING("Releases sub-zero breath when close.\nMay Freeze foe when they make contact."),
-        .aiRating = 0,
+        .aiRating = 4,
     },
     
     [ABILITY_TIME_CONTROL] =
@@ -3257,14 +3323,16 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Torch Soul"),
         .description = COMPOUND_ABILITY_STRING("Possesses a burning inner-flame.\nGain FIRE Affinity and boosts Fire moves."),
-        .aiRating = 0,
+        .aiRating = 5,
+        .breakable = TRUE,
     },
     
     [ABILITY_GRUNGE] =
     {
         .name = _("Grunge"),
         .description = COMPOUND_ABILITY_STRING("Gain POISON Affinity and boosts damage\ndone by Poison-type moves."),
-        .aiRating = 0,
+        .aiRating = 5,
+        .breakable = TRUE,
     },
     
     [ABILITY_SWIFT_JUSTICE] =
@@ -3278,13 +3346,17 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Tools of the Trade"),
         .description = COMPOUND_ABILITY_STRING("{UP_ARROW}dmg to foes switching faster or trapped\nUps DEF if statused or stat drops"),
-        .aiRating = 0,
+        .aiRating = 7,
+        .breakable = TRUE,
     },
+    //would like this to boost pursuit dmg
+    //idk if it does that
+    //breaks stat buff from status not stat drop
     
     [ABILITY_TROJAN_SWORD] =
     {
         .name = _("Trojan Sword"),
-        .description = COMPOUND_ABILITY_STRING("Blocks Intimdiate and\nboosts sharp attacks."),
+        .description = COMPOUND_ABILITY_STRING("Blocks Intimdiate and\nboosts slicing attacks."),
         .aiRating = 0,
     },
     
@@ -3314,7 +3386,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_COMPASS] =
     {
         .name = _("Compass"),
-        .description = COMPOUND_ABILITY_STRING("Locks-on and moves unerringly to foe.\nAll moves used by and aginst will land."),
+        .description = COMPOUND_ABILITY_STRING("Locks-on and moves unerringly to foe.\nAll moves used by and against will land."),
         .aiRating = 8,
     },
     
@@ -3354,21 +3426,21 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Dark Corona"),
         .description = COMPOUND_ABILITY_STRING("A Tainted Crown of spikes that hurts\nand may poison when foes make contact."),
-        .aiRating = 0,
+        .aiRating = 7,
     },
     
     [ABILITY_LUNAR_SOLSTICE] =
     {
         .name = _("Lunar Solstice"),
         .description = COMPOUND_ABILITY_STRING("The POKéMON celebrates the moon.\nTemporarily boosts moonlight in battle."),
-        .aiRating = 7,
+        .aiRating = 9,
     },
     
     [ABILITY_LUNAR_POWER] =
     {
         .name = _("Lunar Power"),
         .description = COMPOUND_ABILITY_STRING("Powers up in strong moonlight.\nBoosts Sp. Def avoids Moon based attacks."),
-        .aiRating = 0,
+        .aiRating = 3,
         .breakable = TRUE,
     },
     
@@ -3376,14 +3448,15 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("New Moon"),
         .description = COMPOUND_ABILITY_STRING("Moderate HP recovery in moonlight.\nAlso absorbs Moon based attacks."),
-        .aiRating = 0,
+        .aiRating = 3,
+        .breakable = TRUE,
     },
     
     [ABILITY_TOXIC_DELUGE] =
     {
         .name = _("Toxic Deluge"),
         .description = COMPOUND_ABILITY_STRING("Summons Acid Rain to Battle."),
-        .aiRating = 8,
+        .aiRating = 9,
     },
     
     [ABILITY_RESOLUTE] =
@@ -3418,845 +3491,19 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Powers up Critical Hits.\nDelivers attacks direct to weak points."),
         .aiRating = 3,
     },
+
+    [ABILITY_BRAVERY] =
+    {
+        .name = _("Bravery"),
+        .description = sBraveryDescription,
+        .aiRating = 6,
+    },
+
+    [ABILITY_FUGUE] =
+    {
+        .name = _("Fugue"),
+        .description = COMPOUND_ABILITY_STRING("Makes sleep and confusion more effective\nagainst targets. Always max turns."),
+        .aiRating = 4,
+    },
 };
 
-/*const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
-{
-    [ABILITY_NONE] = sNoneDescription,
-    [ABILITY_STENCH] = sStenchDescription,
-    [ABILITY_DRIZZLE] = sDrizzleDescription,
-    [ABILITY_SPEED_BOOST] = sSpeedBoostDescription,
-    [ABILITY_BATTLE_ARMOR] = sBattleArmorDescription,
-    [ABILITY_STURDY] = sSturdyDescription,
-    [ABILITY_DAMP] = sDampDescription,
-    [ABILITY_LIMBER] = sLimberDescription,
-    [ABILITY_SAND_VEIL] = sSandVeilDescription,
-    [ABILITY_STATIC] = sStaticDescription,
-    [ABILITY_VOLT_ABSORB] = sVoltAbsorbDescription,
-    [ABILITY_WATER_ABSORB] = sWaterAbsorbDescription,
-    [ABILITY_OBLIVIOUS] = sObliviousDescription,
-    [ABILITY_CLOUD_NINE] = sCloudNineDescription, //protects battler form all negative weather effects, protects team from most
-    [ABILITY_COMPOUND_EYES] = sCompoundEyesDescription,
-    [ABILITY_INSOMNIA] = sInsomniaDescription,
-    [ABILITY_COLOR_CHANGE] = sColorChangeDescription,
-    [ABILITY_IMMUNITY] = sImmunityDescription,
-    [ABILITY_FLASH_FIRE] = sFlashFireDescription,
-    [ABILITY_SHIELD_DUST] = sShieldDustDescription,
-    [ABILITY_OWN_TEMPO] = sOwnTempoDescription,
-    [ABILITY_SUCTION_CUPS] = sSuctionCupsDescription,
-    [ABILITY_INTIMIDATE] = sIntimidateDescription,
-    [ABILITY_SHADOW_TAG] = sShadowTagDescription,
-    [ABILITY_ROUGH_SKIN] = sRoughSkinDescription,
-    [ABILITY_WONDER_GUARD] = sWonderGuardDescription,
-    [ABILITY_FEMME_FATALE] = sFemmeFataleDescription,
-    [ABILITY_EFFECT_SPORE] = sEffectSporeDescription,
-    [ABILITY_SYNCHRONIZE] = sSynchronizeDescription,
-    [ABILITY_CLEAR_BODY] = sClearBodyDescription,
-    [ABILITY_NATURAL_CURE] = sNaturalCureDescription,
-    [ABILITY_LIGHTNING_ROD] = sLightningRodDescription,
-    [ABILITY_SERENE_GRACE] = sSereneGraceDescription,
-    [ABILITY_SWIFT_SWIM] = sSwiftSwimDescription,
-    [ABILITY_CHLOROPHYLL] = sChlorophyllDescription,
-    [ABILITY_ILLUMINATE] = sIlluminateDescription,
-    [ABILITY_TRACE] = sTraceDescription,
-    [ABILITY_HUGE_POWER] = sHugePowerDescription,
-    [ABILITY_POISON_POINT] = sPoisonPointDescription,
-    [ABILITY_INNER_FOCUS] = sInnerFocusDescription,
-    [ABILITY_MAGMA_ARMOR] = sMagmaArmorDescription,
-    [ABILITY_WATER_VEIL] = sWaterVeilDescription,
-    [ABILITY_MAGNET_PULL] = sMagnetPullDescription,
-    [ABILITY_SOUNDPROOF] = sSoundproofDescription,
-    [ABILITY_RAIN_DISH] = sRainDishDescription,
-    [ABILITY_SAND_STREAM] = sSandStreamDescription,
-    [ABILITY_PRESSURE] = sPressureDescription,
-    [ABILITY_THICK_FAT] = sThickFatDescription,
-    [ABILITY_EARLY_BIRD] = sEarlyBirdDescription,
-    [ABILITY_FLAME_BODY] = sFlameBodyDescription,
-    [ABILITY_RUN_AWAY] = sRunAwayDescription,
-    [ABILITY_KEEN_EYE] = sKeenEyeDescription,
-    [ABILITY_HYPER_CUTTER] = sHyperCutterDescription,
-    [ABILITY_PICKUP] = sPickupDescription,
-    [ABILITY_TRUANT] = sTruantDescription,
-    [ABILITY_HUSTLE] = sHustleDescription,
-    [ABILITY_CUTE_CHARM] = sCuteCharmDescription,
-    [ABILITY_PLUS] = sPlusDescription,
-    [ABILITY_MINUS] = sMinusDescription,
-    [ABILITY_FORECAST] = sForecastDescription,
-    [ABILITY_STICKY_HOLD] = sStickyHoldDescription,
-    [ABILITY_SHED_SKIN] = sShedSkinDescription,
-    [ABILITY_GUTS] = sGutsDescription,
-    [ABILITY_MARVEL_SCALE] = sMarvelScaleDescription,
-    [ABILITY_LIQUID_OOZE] = sLiquidOozeDescription,
-    [ABILITY_OVERGROW] = sOvergrowDescription,
-    [ABILITY_BLAZE] = sBlazeDescription,
-    [ABILITY_TORRENT] = sTorrentDescription,
-    [ABILITY_SWARM] = sSwarmDescription,
-    [ABILITY_ROCK_HEAD] = sRockHeadDescription,
-    [ABILITY_DROUGHT] = sDroughtDescription,
-    [ABILITY_ARENA_TRAP] = sArenaTrapDescription,
-    [ABILITY_VITAL_SPIRIT] = sVitalSpiritDescription,
-    [ABILITY_WHITE_SMOKE] = sWhiteSmokeDescription,
-    [ABILITY_PURE_POWER] = sPurePowerDescription,
-    [ABILITY_SHELL_ARMOR] = sShellArmorDescription,
-    [ABILITY_CACOPHONY] = COMPOUND_ABILITY_STRING("+Snd Dmg. Boosts ally Sound-move effects\nand helps bypass screens and protects."), //still wish could word better
-    [ABILITY_TANGLED_FEET] = sTangledFeetDescription, //alraedy added to self hit exclusion
-    [ABILITY_MOTOR_DRIVE] = sMotorDriveDescription,
-    [ABILITY_RIVALRY] = sRivalryDescription,
-    [ABILITY_STEADFAST] = sSteadfastDescription,
-    [ABILITY_SNOW_CLOAK] = sSnowCloakDescription,
-    [ABILITY_GLUTTONY] = sGluttonyDescription,
-    [ABILITY_ANGER_POINT] = sAngerPointDescription,
-    [ABILITY_UNBURDEN] = sUnburdenDescription,
-    [ABILITY_HEATPROOF] = sHeatproofDescription,
-    [ABILITY_SIMPLE] = sSimpleDescription,
-    [ABILITY_DRY_SKIN] = sDrySkinDescription,
-    [ABILITY_DOWNLOAD] = sDownloadDescription,
-    [ABILITY_IRON_FIST] = sIronFistDescription,
-    [ABILITY_POISON_HEAL] = sPoisonHealDescription,
-    [ABILITY_ADAPTABILITY] = sAdaptabilityDescription,
-    [ABILITY_SKILL_LINK] = sSkillLinkDescription,
-    [ABILITY_HYDRATION] = sHydrationDescription,
-    [ABILITY_SOLAR_POWER] = sSolarPowerDescription,
-    [ABILITY_QUICK_FEET] = sQuickFeetDescription,
-    [ABILITY_NORMALIZE] = sNormalizeDescription,
-    [ABILITY_SNIPER] = sSniperDescription,
-    [ABILITY_MAGIC_GUARD] = sMagicGuardDescription,
-    [ABILITY_NO_GUARD] = sNoGuardDescription,
-    [ABILITY_STALL] = sStallDescription,
-    [ABILITY_TECHNICIAN] = sTechnicianDescription,
-    [ABILITY_LEAF_GUARD] = sLeafGuardDescription,
-    [ABILITY_KLUTZ] = sKlutzDescription,
-    [ABILITY_MOLD_BREAKER] = sMoldBreakerDescription,
-    [ABILITY_SUPER_LUCK] = sSuperLuckDescription,
-    [ABILITY_AFTERMATH] = sAftermathDescription,
-    [ABILITY_ANTICIPATION] = sAnticipationDescription,
-    [ABILITY_FOREWARN] = sForewarnDescription,
-    [ABILITY_UNAWARE] = sUnawareDescription,
-    [ABILITY_TINTED_LENS] = sTintedLensDescription,
-    [ABILITY_FILTER] = sFilterDescription,
-    [ABILITY_SLOW_START] = sSlowStartDescription,
-    [ABILITY_SCRAPPY] = sScrappyDescription,
-    [ABILITY_STORM_DRAIN] = sStormDrainDescription,
-    [ABILITY_ICE_BODY] = sIceBodyDescription,
-    [ABILITY_SOLID_ROCK] = sFilterDescription,
-    [ABILITY_SNOW_WARNING] = sSnowWarningDescription,
-    [ABILITY_HONEY_GATHER] = sHoneyGatherDescription,
-    [ABILITY_FRISK] = sFriskDescription,
-    [ABILITY_RECKLESS] = sRecklessDescription,
-    [ABILITY_MULTITYPE] = sMultitypeDescription,
-    [ABILITY_FLOWER_GIFT] = sFlowerGiftDescription,
-    [ABILITY_BAD_DREAMS] = sBadDreamsDescription,
-    [ABILITY_PICKPOCKET] = sPickpocketDescription,  
-    [ABILITY_SHEER_FORCE] = sSheerForceDescription,
-    [ABILITY_CONTRARY] = sContraryDescription,
-    [ABILITY_UNNERVE] = sUnnerveDescription,
-    [ABILITY_DEFIANT] = sDefiantDescription,
-    [ABILITY_DEFEATIST] = sDefeatistDescription,   
-    [ABILITY_CURSED_BODY] = sCursedBodyDescription,
-    [ABILITY_HEALER] = sHealerDescription,
-    [ABILITY_FRIEND_GUARD] = sFriendGuardDescription,
-    [ABILITY_WEAK_ARMOR] = sWeakArmorDescription,
-    [ABILITY_HEAVY_METAL] = sHeavyMetalDescription,
-    [ABILITY_LIGHT_METAL] = sLightMetalDescription,
-    [ABILITY_MULTISCALE] = sMultiscaleDescription,
-    [ABILITY_TOXIC_BOOST] = sToxicBoostDescription,
-    [ABILITY_FLARE_BOOST] = sFlareBoostDescription,
-    [ABILITY_HARVEST] = sHarvestDescription,
-    [ABILITY_TELEPATHY] = sTelepathyDescription,
-    [ABILITY_MOODY] = sMoodyDescription,
-    [ABILITY_OVERCOAT] = sOvercoatDescription,
-    [ABILITY_POISON_TOUCH] = sPoisonTouchDescription,
-    [ABILITY_REGENERATOR] = COMPOUND_ABILITY_STRING("Restores a portion of HP\nupon switching out."),
-    [ABILITY_BIG_PECKS] = sBigPecksDescription,
-    [ABILITY_SAND_RUSH] = sSandRushDescription,
-    [ABILITY_WONDER_SKIN] = sWonderSkinDescription,
-    [ABILITY_ANALYTIC] = sAnalyticDescription,
-    [ABILITY_ILLUSION] = sIllusionDescription,
-    [ABILITY_IMPOSTER] = sImposterDescription,
-    [ABILITY_INFILTRATOR] = sInfiltratorDescription,
-    [ABILITY_MUMMY] = sMummyDescription,
-    [ABILITY_MOXIE] = sMoxieDescription,
-    [ABILITY_JUSTIFIED] = sJustifiedDescription,
-    [ABILITY_RATTLED] = sRattledDescription,
-    [ABILITY_MAGIC_BOUNCE] = sMagicBounceDescription,
-    [ABILITY_SAP_SIPPER] = sSapSipperDescription,
-    [ABILITY_PRANKSTER] = sPranksterDescription,
-    [ABILITY_SAND_FORCE] = sSandForceDescription,
-    [ABILITY_IRON_BARBS] = sRoughSkinDescription,
-    [ABILITY_ZEN_MODE] = sZenModeDescription,
-    [ABILITY_VICTORY_STAR] = sVictoryStarDescription,
-    [ABILITY_TURBOBLAZE] = COMPOUND_ABILITY_STRING("Moldbreaker and Flash Fire."), //felt lazy just copied as one style description
-    [ABILITY_TERAVOLT] = COMPOUND_ABILITY_STRING("Moldbreaker and Lightning Rod."),
-    [ABILITY_AROMA_VEIL] = sAromaVeilDescription,
-    [ABILITY_FLOWER_VEIL] = sFlowerVeilDescription,
-    [ABILITY_CHEEK_POUCH] = sCheekPouchDescription,
-    [ABILITY_PROTEAN] = sProteanDescription,
-    [ABILITY_FUR_COAT] = sFurCoatDescription,
-    [ABILITY_MAGICIAN] = sMagicianDescription,
-    [ABILITY_BULLETPROOF] = sBulletproofDescription,
-    [ABILITY_COMPETITIVE] = sCompetitiveDescription,
-    [ABILITY_STRONG_JAW] = sStrongJawDescription,
-    [ABILITY_REFRIGERATE] = sRefrigerateDescription,
-    [ABILITY_SWEET_VEIL] = sSweetVeilDescription,
-    [ABILITY_STANCE_CHANGE] = sStanceChangeDescription,
-    [ABILITY_GALE_WINGS] = sGaleWingsDescription,
-    [ABILITY_MEGA_LAUNCHER] = sMegaLauncherDescription,
-    [ABILITY_GRASS_PELT] = sGrassPeltDescription,
-    [ABILITY_SYMBIOSIS] = sSymbiosisDescription,
-    [ABILITY_TOUGH_CLAWS] = sToughClawsDescription,
-    [ABILITY_PIXILATE] = sPixilateDescription,
-    [ABILITY_GOOEY] = sGooeyDescription,
-    [ABILITY_AERILATE] = sAerilateDescription,
-    [ABILITY_PARENTAL_BOND] = sParentalBondDescription,
-    [ABILITY_DARK_AURA] = sDarkAuraDescription,
-    [ABILITY_FAIRY_AURA] = sFairyAuraDescription,
-    [ABILITY_AURA_BREAK] = sAuraBreakDescription,
-    [ABILITY_PRIMORDIAL_SEA] = sPrimordialSeaDescription,
-    [ABILITY_DESOLATE_LAND] = sDesolateLandDescription,
-    [ABILITY_DELTA_STREAM] = sDeltaStreamDescription,
-    [ABILITY_STAMINA] = sStaminaDescription,
-    [ABILITY_WIMP_OUT] = sWimpOutDescription,
-    [ABILITY_EMERGENCY_EXIT] = COMPOUND_ABILITY_STRING("When HP falls below half delivers a\nsudden vindictive attack then flees."),
-    [ABILITY_WATER_COMPACTION] = sWaterCompactionDescription,
-    [ABILITY_MERCILESS] = sMercilessDescription,
-    [ABILITY_SHIELDS_DOWN] = sShieldsDownDescription,
-    [ABILITY_STAKEOUT] = sStakeoutDescription,
-    [ABILITY_WATER_BUBBLE] = sWaterBubbleDescription,
-    [ABILITY_STEELWORKER] = sSteelworkerDescription,
-    [ABILITY_BERSERK] = sBerserkDescription,
-    [ABILITY_SLUSH_RUSH] = sSlushRushDescription,
-    [ABILITY_LONG_REACH] = sLongReachDescription,
-    [ABILITY_LIQUID_VOICE] = sLiquidVoiceDescription,
-    [ABILITY_TRIAGE] = sTriageDescription,
-    [ABILITY_GALVANIZE] = sGalvanizeDescription,
-    [ABILITY_SURGE_SURFER] = sSurgeSurferDescription,
-    [ABILITY_SCHOOLING] = sSchoolingDescription,
-    [ABILITY_DISGUISE] = sDisguiseDescription,
-    [ABILITY_BATTLE_BOND] = sBattleBondDescription,
-    [ABILITY_POWER_CONSTRUCT] = sPowerConstructDescription,
-    [ABILITY_CORROSION] = sCorrosionDescription,
-    [ABILITY_COMATOSE] = sComatoseDescription,
-    [ABILITY_QUEENLY_MAJESTY] = sQueenlyMajestyDescription,
-    [ABILITY_INNARDS_OUT] = sInnardsOutDescription,
-    [ABILITY_DANCER] = sDancerDescription,
-    [ABILITY_BATTERY] = sBatteryDescription,
-    [ABILITY_FLUFFY] = sFluffyDescription,
-    [ABILITY_DAZZLING] = sQueenlyMajestyDescription,
-    [ABILITY_SOUL_HEART] = sSoulHeartDescription,
-    [ABILITY_TANGLING_HAIR] = sGooeyDescription,
-    [ABILITY_RECEIVER] = sReceiverDescription,
-    [ABILITY_POWER_OF_ALCHEMY] = sReceiverDescription,
-    [ABILITY_BEAST_BOOST] = sBeastBoostDescription,
-    [ABILITY_RKS_SYSTEM] = sRKSSystemDescription,
-    [ABILITY_ELECTRIC_SURGE] = sElectricSurgeDescription,
-    [ABILITY_PSYCHIC_SURGE] = sPsychicSurgeDescription,
-    [ABILITY_MISTY_SURGE] = sMistySurgeDescription,
-    [ABILITY_GRASSY_SURGE] = sGrassySurgeDescription,
-    [ABILITY_FULL_METAL_BODY] = sFullMetalBodyDescription,
-    [ABILITY_SHADOW_SHIELD] = sMultiscaleDescription,
-    [ABILITY_PRISM_ARMOR] = sFilterDescription,
-    [ABILITY_NEUROFORCE] = sNeuroforceDescription,
-    [ABILITY_INTREPID_SWORD] = sIntrepidSwordDescription,
-    [ABILITY_DAUNTLESS_SHIELD] = sDauntlessShieldDescription,
-    [ABILITY_LIBERO] = sLiberoDescription,
-    [ABILITY_BALL_FETCH] = sBallFetchDescription,
-    [ABILITY_COTTON_DOWN] = sCottonDownDescription,
-    [ABILITY_PROPELLER_TAIL] = sPropellerTailDescription,
-    [ABILITY_MIRROR_ARMOR] = sMirrorArmorDescription,
-    [ABILITY_GULP_MISSILE] = sGulpMissileDescription,
-    [ABILITY_STALWART] = sStalwartDescription,
-    [ABILITY_STEAM_ENGINE] = sSteamEngineDescription,
-    [ABILITY_PUNK_ROCK] = sPunkRockDescription,
-    [ABILITY_SAND_SPIT] = sSandSpitDescription,
-    [ABILITY_ICE_SCALES] = sIceScalesDescription,
-    [ABILITY_RIPEN] = sRipenDescription,
-    [ABILITY_ICE_FACE] = sIceFaceDescription,
-    [ABILITY_POWER_SPOT] = sPowerSpotDescription,
-    [ABILITY_MIMICRY] = sMimicryDescription,
-    [ABILITY_SCREEN_CLEANER] = sScreenCleanerDescription,
-    [ABILITY_STEELY_SPIRIT] = sSteelySpiritDescription,
-    [ABILITY_PERISH_BODY] = sPerishBodyDescription,
-    [ABILITY_WANDERING_SPIRIT] = sWanderingSpiritDescription,
-    [ABILITY_GORILLA_TACTICS] = sGorillaTacticsDescription,
-    [ABILITY_NEUTRALIZING_GAS] = sNeutralizingGasDescription,
-    [ABILITY_PASTEL_VEIL] = sPastelVeilDescription,
-    [ABILITY_HUNGER_SWITCH] = sHungerSwitchDescription,
-    [ABILITY_QUICK_DRAW] = sQuickDrawDescription,
-    [ABILITY_UNSEEN_FIST] = sUnseenFistDescription,
-    [ABILITY_CURIOUS_MEDICINE] = sCuriousMedicineDescription,
-    [ABILITY_TRANSISTOR] = sTransistorDescription,
-    [ABILITY_DRAGONS_MAW] = sDragonsMawDescription,
-    [ABILITY_CHILLING_NEIGH] = sChillingNeighDescription,
-    [ABILITY_GRIM_NEIGH] = sGrimNeighDescription,
-    [ABILITY_AS_ONE_ICE_RIDER] = sAsOneIceRiderDescription,
-    [ABILITY_AS_ONE_SHADOW_RIDER] = sAsOneShadowRiderDescription, //gen 9 descriptions go below
-
-    //quick fix to prevent undefined behavior from debug menu,fill in later
-    //with ability file update to new EE standard
-    [ABILITY_LINGERING_AROMA] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_SEED_SOWER] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_THERMAL_EXCHANGE] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_ANGER_SHELL] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_PURIFYING_SALT] = COMPOUND_ABILITY_STRING("The Pokémon's pure salt protects it.\nReduces Ghost damage and blocks status."),
-    [ABILITY_WELL_BAKED_BODY] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_WIND_RIDER] = COMPOUND_ABILITY_STRING("Takes no damage from Wind Effects instead\nps Atk if the target of a wind effect."),
-    [ABILITY_GUARD_DOG] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_ROCKY_PAYLOAD] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_WIND_POWER] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_ZERO_TO_HERO] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_COMMANDER] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_ELECTROMORPHOSIS] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_PROTOSYNTHESIS] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_QUARK_DRIVE] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_GOOD_AS_GOLD] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_VESSEL_OF_RUIN] = COMPOUND_ABILITY_STRING("Lowers Sp.Atk by 25 percent\nfor all mon without this ability."),
-    [ABILITY_SWORD_OF_RUIN] = COMPOUND_ABILITY_STRING("Lowers Defense by 25 percent\nfor all mon without this ability."),
-    [ABILITY_TABLETS_OF_RUIN] = COMPOUND_ABILITY_STRING("Lowers Speed by 25 percent\nfor all mon without this ability."),
-    [ABILITY_BEADS_OF_RUIN] = COMPOUND_ABILITY_STRING("Lowers Sp.Def by 25 percent\nfor all mon without this ability."),
-    [ABILITY_ORICHALCUM_PULSE] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_HADRON_ENGINE] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_OPPORTUNIST] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_CUD_CHEW] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_SHARPNESS] = COMPOUND_ABILITY_STRING("A specialist in sharp cutting attacks.\nPowers up Slicing-moves."),
-    [ABILITY_SUPREME_OVERLORD] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_COSTAR] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_TOXIC_DEBRIS] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_ARMOR_TAIL] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_EARTH_EATER] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_MYCELIUM_MIGHT] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_HOSPITALITY] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_MINDS_EYE] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_EMBODY_ASPECT_TEAL_MASK] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_EMBODY_ASPECT_HEARTHFLAME_MASK] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_EMBODY_ASPECT_WELLSPRING_MASK] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_EMBODY_ASPECT_CORNERSTONE_MASK] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_TOXIC_CHAIN] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_SUPERSWEET_SYRUP] = COMPOUND_ABILITY_STRING("Gives off a sweet scent.\nAlso lowers foes evasion on switch-in."),
-    [ABILITY_TERA_SHIFT] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_TERA_SHELL] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_TERAFORM_ZERO] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_POISON_PUPPETEER] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    
-
-    [ABILITY_AIR_LOCK] = sAirLockDescription,
-    [ABILITY_DISPIRIT_GUARD] = sDispiritGuardDescription,
-    [ABILITY_NUISANCE] = sNuisanceDescription,
-    [ABILITY_MULTI_TASK] = sMultiTaskDescription,
-    [ABILITY_SIROCCO] = sSiroccoDescription,
-    [ABILITY_HI_PRESSURE] = sHipressureDescription, 
-    [ABILITY_CUPIDS_ARROW] = sCupidsArrowDescription,
-    [ABILITY_BATTLE_MATRON] = sBattleMatronDescription,
-    [ABILITY_LIQUID_SOUL] = sLiquidSoulDescription,
-    [ABILITY_OCEAN_MEMORY] = sOceanMemoryDescription,
-    [ABILITY_OVERCHARGE] = sOverchargeDescription,
-    [ABILITY_PHOTOSYNTHESIZE] = sPhotosynthesizeDescription,
-    [ABILITY_GLACIAL_ICE] = sGlacialIceDescription,
-    [ABILITY_LAVA_FISSURE] = sLavaFissureDescription,
-    [ABILITY_TOADSTOOL_NYMPH] = sToadstoolNymphDescription,
-    [ABILTY_UNKNOWN_POWER] = sUnknownPowerDescription,
-    [ABILITY_PURIFYING_AURA] = sPurifyingAuraDescription,
-    [ABILITY_SQUALL] = sSquallDescription,
-    [ABILITY_SUN_DISK] = sSundiskDescription,
-    [ABILITY_TOUGH_SPINES] = sToughSpinesDescription,
-    [ABILITY_EROSION] = sErosionDescription,
-    [ABILITY_LIQUID_METAL] = sLiquidmetalDescription,
-    [ABILITY_MUSCLE_MAGIC] = sMusclemagicDescription,
-    [ABILITY_TIGER_CUB] = sTigercubDescription,
-    [ABILITY_TIGER_MOM] = sTigerMomDescription,
-    [ABILITY_DARK_DEAL] = sDarkDealDescription,
-    [ABILITY_CORRUPTION] = sCorruptionDescription,
-    [ABILITY_BANDIT_KING] = sBanditKingDescription,
-    [ABILITY_AVIATOR] = sAviatorDescription, 
-    [ABILITY_USURPER] = sUsurperDescription,
-    [ABILITY_INVERSE_WORLD] = sInverseWorldDescription,
-    [ABILITY_SONAR] = sSonarDescription,
-    [ABILITY_ECOSYSTEM] = sEcosystemDescription,
-    [ABILITY_ABSOLUTE_ZERO] = sAbsolutezeroDescription,
-    [ABILITY_FEATHER_JACKET] = sFeatherJacketDescription,
-    [ABILITY_POISONED_LEGACY] = sPoisonedLegacyDescription,
-    [ABILITY_JEWEL_METABOLISM] = sJewelMetabolismDescription,
-    [ABILITY_INVERSION] = sInversionDescription,
-    [ABILITY_WETIKO] = sWetikoDescription,
-    [ABILITY_EMPATH] = sEmpathDescription,
-    [ABILITY_EMPATHIC_CURSE] = sEmpathicCurseDescription,
-    [ABILITY_INTHRALL] = sInthrallDescription,
-    [ABILITY_IRON_WILL] = sIronWillDescription,
-    [ABILITY_LIVEWIRE] = sLivewireDescription,
-    [ABILITY_GALEFORCE] = sGaleforceDescription,
-    [ABILITY_LETHAL_LEGS] = sLethalLegsDescription,
-    [ABILITY_TOXUNGUE] = sToxungueDescription,
-    [ABILITY_OMNIPOTENT_AIDE] = sOmnipotentAideDescription,
-    [ABILITY_FLUORESCENCE] = sFluorescenceDescription,
-    [ABILITY_SPECTRE] = COMPOUND_ABILITY_STRING("A speeding Blur!\nBoosts Evasion on Switch-in."),
-    [ABILITY_AURA_OF_LIGHT] = COMPOUND_ABILITY_STRING("Wakes allies on switch-in and prevents\nsleep. Also cuts damage from dark moves."),
-    [ABILITY_DESPAIR] = sNoneDescription,
-    [ABILITY_RISING_PHOENIX] = COMPOUND_ABILITY_STRING("Cures status heals and cleanses field if\nhit by fire. May also burn on contact."), //fire absorption plus stat cleans + egg hatch + trap removal
-    [ABILITY_DREAD_WING] = COMPOUND_ABILITY_STRING("Spreads despair. Foes take more damage.\nWeakens foes Physical Attacks."),
-    [ABILITY_PLAGUE_WINGS] = sPlagueWingsDescription,
-    [ABILITY_TOXIC_WING] = COMPOUND_ABILITY_STRING("Spreads poison powder on attack.\nMay poison the foe."),
-    [ABILITY_PHANTOM_TOUCH] = sPhantomTouchDescription,
-    [ABILITY_APOTHEOSCENT] = COMPOUND_ABILITY_STRING("Ignores accuracy and evasion changes.\nImmune to effects of being confused."),//initially planned to be bug exclusive effect but gave to lucario for aura sense, research shows bug hive mind is actually just heightened sense of smell i.e ants never getting lost is following sent trails
-    [ABILITY_WEIGHTED_GI] = COMPOUND_ABILITY_STRING("Casts off weighted clothes or fur\nwhen in a pinch boosting SPEED."),//^so consider rename, super sense apex sense, heightend sense, something else to denote enhanced elevated state? plan to only go to mon with some heightened sense
-    [ABILITY_VOLT_DASH] = COMPOUND_ABILITY_STRING("Turns electricity into HP\nand gradually boosts SPEED."), //APOTHEOSENSE ? combo apotheosis elevate to heightened/highest form, and sense
-    [ABILITY_IMMUTABLE_WIND] = COMPOUND_ABILITY_STRING("Summons winds that nullify foes abilities\nand blow status moves off course."),//*apotheoscent APOTHEOSCENT  yeah I think that workse for me, its both peak smell or detection ability
-    [ABILITY_EVERGREEN] = COMPOUND_ABILITY_STRING("Summons Grassy Terrain on switch-in.\nMay also Harvest a Berry."),
-    [ABILITY_SHAMAN_CURE] = COMPOUND_ABILITY_STRING("Protects party from poison.\nCures own status upon switching out."),
-    [ABILITY_UNCHAINED_MELODY] = COMPOUND_ABILITY_STRING("Boosts damage of Normal moves\nand converts them to Sound type."),
-    [ABILITY_ENAMEL] = COMPOUND_ABILITY_STRING("Increased heat protection. Immune to burn."),
-    [ABILITY_BONE_ARMOR] = COMPOUND_ABILITY_STRING("Increased heat protection. Blocks burn.\nPrevents recoil and force switch."),
-    [ABILITY_STORM_BREAK] = COMPOUND_ABILITY_STRING("User creates a gust of wind dissipating\nweather effects on entry."),
-    [ABILITY_SPACE_CONTROL] = COMPOUND_ABILITY_STRING("Attacks via portal, attacks are 100% Acc\nAdapted to space is immune to Ice Dmg."),
-    [ABILITY_COLD_EMBRACE] = COMPOUND_ABILITY_STRING("Releases sub-zero breath when close.\nMay Freeze foe when they make contact."),
-    [ABILITY_TIME_CONTROL] = COMPOUND_ABILITY_STRING("Every two turns can distort time\nnegating charging and recharge turns."),
-    [ABILITY_TORCHSOUL] = COMPOUND_ABILITY_STRING("Possesses a burning inner-flame.\nGain FIRE Affinity and boosts Fire moves."),
-    [ABILITY_GRUNGE] = COMPOUND_ABILITY_STRING("Gain POISON Affinity and boosts damage\ndone by Poison-type moves."),
-    [ABILITY_SWIFT_JUSTICE] = COMPOUND_ABILITY_STRING("Stikes swiftly and decisively.\nBoosts damage if attacks before target."),
-    [ABILITY_TOOLS_OF_THE_TRADE] = COMPOUND_ABILITY_STRING("{UP_ARROW}dmg to foes switching faster or trapped\nUps DEF if statused or stat drops"), //still missing sleep clause, had to remove burn logic but guts also doesn't include that in description, want to work in stacking trap effect i.e if battler cant escape boost dmg
-    [ABILITY_TROJAN_SWORD] = COMPOUND_ABILITY_STRING("Blocks Intimdiate and\nboosts sharp attacks."),
-    [ABILITY_HEAT_TRANCE] = COMPOUND_ABILITY_STRING("Elated by all things spicy and hot.\nHeals by burn or sun, cuts Fire Dmg taken"),
-    [ABILITY_DESERT_DWELLER] = COMPOUND_ABILITY_STRING("Adapted to the extremes of the desert.\nLessens effect of Heat Cold and burn."),
-    [ABILITY_FAIRY_MIST] = COMPOUND_ABILITY_STRING("Normal and Sound moves become Fairy.\nSets Misty Terrain upon entering battle."),
-    [ABILITY_COMPASS] = COMPOUND_ABILITY_STRING("Locks-on and moves unerringly to foe.\nAll moves used by and aginst will land."),
-    [ABILITY_HANDS_OF_FATE] = COMPOUND_ABILITY_STRING("Protected from shadowy forces and traps.\nReduces Ghost/Dark dmg and blocks status"), //done and set purifying stalt to almost forgot trap effect but immune to mean look shadow tag, and siwtch binding i.e spirit shackle
-    [ABILITY_DUST_DEVIL] = COMPOUND_ABILITY_STRING("Immune to wind damage. Sets Sandstorm.\nUps Attack if the target of a wind effect"),
-    [ABILITY_PLASMA_OVERDRIVE] = COMPOUND_ABILITY_STRING("Moves ignore ability affects, and draws\nin FIRE/ELEC to up Fire moves or Sp. Atk"), //ok I made this mold breaker + flash fire & lightning rod, can buff base abilities to do those affects individually?
-    [ABILITY_CREATION_ENGINE] = COMPOUND_ABILITY_STRING("Gain STAB and Immunity to Ice Fire & Elec\nWater moves targetting user become Ice."),
-    [ABILITY_DARK_CORONA] = COMPOUND_ABILITY_STRING("A Tainted Crown of spikes that hurts\nand may poison when foes make contact."),
-    [ABILITY_LUNAR_SOLSTICE] = COMPOUND_ABILITY_STRING("The POKéMON celebrates the moon.\nTemporarily boosts moonlight in battle."),
-    [ABILITY_LUNAR_POWER] = COMPOUND_ABILITY_STRING("Powers up in strong moonlight.\nBoosts Sp. Def avoids Moon based attacks."),
-    [ABILITY_NEW_MOON] = COMPOUND_ABILITY_STRING("Moderate HP recovery in moonlight.\nAlso absorbs Moon based attacks."), //doesn't change target just takes it in
-    [ABILITY_TOXIC_DELUGE] = COMPOUND_ABILITY_STRING("Summons Acid Rain to Battle."), //expandon later
-    [ABILITY_RESOLUTE] = COMPOUND_ABILITY_STRING("Changes form if suffering from status\nor if HP falls to or below half Max HP."),
-    [ABILITY_PIERCING_HORN] = COMPOUND_ABILITY_STRING("Boosts headbutt moves.\nAttacks foes with sharpened horns."),
-    [ABILITY_X_SIGHT] = COMPOUND_ABILITY_STRING("X-ray Vision reveals battlers held items\nand bypasses Acc check when above 50% hp."),
-    [ABILITY_PRECISE_STRIKE] = COMPOUND_ABILITY_STRING("Powers up Critical Hits.\nDelivers attacks direct to weak points.")
-};//last value can have comma
-  //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
-  ///on advice from ShadowdragonHUnter aka Josh  setup Compound String for abilities
-  //made tweak to it,
-
-  //checked in fire red limit is 40 chars per line, changing description length to 80/    changed to 82 max
-//based on suction cups I kinda have more space?  so more like 41 per line?
-
-//END OF ABILITY DESCRIPTIONS
-
-//now undrestand reason strings (strings are arrays) use that +1 value
-//in the elements is because C always adds an extra "null terminating character"
-//to the end, its invisible to me as its automatic. but its there.
-//so all limits should exclude the +1 from their calculation
-//-remember all these are having +1 added to them, so sub 1 from name value to get actual value name length is 16, so max for table is 17
-//like moves think need lowercase version, for those that want it.
-//then just make option 
-
-//plan do like move data put name and descriptions togeter in table
-const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
-{
-    [ABILITY_NONE] = _("-------"),
-    [ABILITY_STENCH] = _("Stench"),
-    [ABILITY_DRIZZLE] = _("Drizzle"),
-    [ABILITY_SPEED_BOOST] = _("Speed Boost"),
-    [ABILITY_BATTLE_ARMOR] = _("Battle Armor"),
-    [ABILITY_STURDY] = _("Sturdy"),
-    [ABILITY_DAMP] = _("Damp"),
-    [ABILITY_LIMBER] = _("Limber"),
-    [ABILITY_SAND_VEIL] = _("Sand Veil"),
-    [ABILITY_STATIC] = _("Static"),
-    [ABILITY_VOLT_ABSORB] = _("Volt Absorb"),
-    [ABILITY_WATER_ABSORB] = _("Water Absorb"),
-    [ABILITY_OBLIVIOUS] = _("Oblivious"),
-    [ABILITY_CLOUD_NINE] = _("Cloud Nine"), //Cloud 9? , anyway believe I will change effect to be unique from rays air lock
-    [ABILITY_COMPOUND_EYES] = _("Compound Eyes"), //start with don't block all weather make immune to weather dmg
-    [ABILITY_INSOMNIA] = _("Insomnia"), //but since only hail is damaging need extra effect to incorporation elation
-    [ABILITY_COLOR_CHANGE] = _("Color Change"), //think will make clear all stat drops when weather set and prevent drops during weather
-    [ABILITY_IMMUNITY] = _("Immunity"), //can use weather has effect  =and/or gbattle weather not 0, since primal weather ignores wetaher has effect stuff? I think
-    [ABILITY_FLASH_FIRE] = _("Flash Fire"),
-    [ABILITY_SHIELD_DUST] = _("Shield Dust"),//ok change cloud 9 to just be battler,  not affected by weather, effects, not blocking them
-    [ABILITY_OWN_TEMPO] = _("Own Tempo"),//so cloud 9 doesn't take weatehr dmg and doesnt have water moves dropped in sun
-    [ABILITY_SUCTION_CUPS] = _("Suction Cups"),//think just remove negative effects
-    [ABILITY_INTIMIDATE] = _("Intimidate"),
-    [ABILITY_SHADOW_TAG] = _("Shadow Tag"),
-    [ABILITY_ROUGH_SKIN] = _("Rough Skin"),
-    [ABILITY_WONDER_GUARD] = _("Wonder Guard"),
-    [ABILITY_FEMME_FATALE] = _("Femme Fatale"),
-    [ABILITY_EFFECT_SPORE] = _("Effect Spore"),
-    [ABILITY_SYNCHRONIZE] = _("Synchronize"),
-    [ABILITY_CLEAR_BODY] = _("Clear Body"),
-    [ABILITY_NATURAL_CURE] = _("Natural Cure"),
-    [ABILITY_LIGHTNING_ROD] = _("Lightning Rod"),
-    [ABILITY_SERENE_GRACE] = _("Serene Grace"),
-    [ABILITY_SWIFT_SWIM] = _("Swift Swim"),
-    [ABILITY_CHLOROPHYLL] = _("Chlorophyll"),
-    [ABILITY_ILLUMINATE] = _("Illuminate"),
-    [ABILITY_TRACE] = _("Trace"),
-    [ABILITY_HUGE_POWER] = _("Huge Power"),
-    [ABILITY_POISON_POINT] = _("Poison Point"),
-    [ABILITY_INNER_FOCUS] = _("Inner Focus"),
-    [ABILITY_MAGMA_ARMOR] = _("Magma Armor"),
-    [ABILITY_WATER_VEIL] = _("Water Veil"),
-    [ABILITY_MAGNET_PULL] = _("Magnet Pull"),
-    [ABILITY_SOUNDPROOF] = _("Soundproof"),
-    [ABILITY_RAIN_DISH] = _("Rain Dish"),
-    [ABILITY_SAND_STREAM] = _("Sand Stream"),
-    [ABILITY_PRESSURE] = _("Pressure"),
-    [ABILITY_THICK_FAT] = _("Thick Fat"),
-    [ABILITY_EARLY_BIRD] = _("Early Bird"),
-    [ABILITY_FLAME_BODY] = _("Flame Body"),
-    [ABILITY_RUN_AWAY] = _("Run Away"),
-    [ABILITY_KEEN_EYE] = _("Keen Eye"),
-    [ABILITY_HYPER_CUTTER] = _("Hyper Cutter"),
-    [ABILITY_PICKUP] = _("Pickup"),
-    [ABILITY_TRUANT] = _("Truant"),
-    [ABILITY_HUSTLE] = _("Hustle"),
-    [ABILITY_CUTE_CHARM] = _("Cute Charm"),
-    [ABILITY_PLUS] = _("Plus"),
-    [ABILITY_MINUS] = _("Minus"),
-    [ABILITY_FORECAST] = _("Forecast"),
-    [ABILITY_STICKY_HOLD] = _("Sticky Hold"),
-    [ABILITY_SHED_SKIN] = _("Shed Skin"),
-    [ABILITY_GUTS] = _("Guts"),
-    [ABILITY_MARVEL_SCALE] = _("Marvel Scale"),
-    [ABILITY_LIQUID_OOZE] = _("Liquid Ooze"),
-    [ABILITY_OVERGROW] = _("Overgrow"),
-    [ABILITY_BLAZE] = _("Blaze"),
-    [ABILITY_TORRENT] = _("Torrent"),
-    [ABILITY_SWARM] = _("Swarm"),
-    [ABILITY_ROCK_HEAD] = _("Rock Head"),
-    [ABILITY_DROUGHT] = _("Drought"),
-    [ABILITY_ARENA_TRAP] = _("Arena Trap"),
-    [ABILITY_VITAL_SPIRIT] = _("Vital Spirit"),
-    [ABILITY_WHITE_SMOKE] = _("White Smoke"),
-    [ABILITY_PURE_POWER] = _("Pure Power"),
-    [ABILITY_SHELL_ARMOR] = _("Shell Armor"),
-    [ABILITY_CACOPHONY] = _("Cacophony"),
-    [ABILITY_AIR_LOCK] = _("Air Lock"),
-    [ABILITY_TANGLED_FEET] = _("Tangled Feet"),
-    [ABILITY_MOTOR_DRIVE] = _("Motor Drive"),
-    [ABILITY_RIVALRY] = _("Rivalry"),
-    [ABILITY_STEADFAST] = _("Steadfast"),
-    [ABILITY_SNOW_CLOAK] = _("Snow Cloak"),
-    [ABILITY_GLUTTONY] = _("Gluttony"),
-    [ABILITY_ANGER_POINT] = _("Anger Point"),
-    [ABILITY_UNBURDEN] = _("Unburden"),
-    [ABILITY_HEATPROOF] = _("Heatproof"),
-    [ABILITY_SIMPLE] = _("Simple"),
-    [ABILITY_DRY_SKIN] = _("Dry Skin"),
-    [ABILITY_DOWNLOAD] = _("Download"),
-    [ABILITY_IRON_FIST] = _("Iron Fist"),
-    [ABILITY_POISON_HEAL] = _("Poison Heal"),
-    [ABILITY_ADAPTABILITY] = _("Adaptability"),
-    [ABILITY_SKILL_LINK] = _("Skill Link"),
-    [ABILITY_HYDRATION] = _("Hydration"),
-    [ABILITY_SOLAR_POWER] = _("Solar Power"),
-    [ABILITY_QUICK_FEET] = _("Quick Feet"),
-    [ABILITY_NORMALIZE] = _("Normalize"),
-    [ABILITY_SNIPER] = _("Sniper"),
-    [ABILITY_MAGIC_GUARD] = _("Magic Guard"),
-    [ABILITY_NO_GUARD] = _("No Guard"),
-    [ABILITY_STALL] = _("Stall"),
-    [ABILITY_TECHNICIAN] = _("Technician"),
-    [ABILITY_LEAF_GUARD] = _("Leaf Guard"),
-    [ABILITY_KLUTZ] = _("Klutz"),
-    [ABILITY_MOLD_BREAKER] = _("Mold Breaker"),
-    [ABILITY_SUPER_LUCK] = _("Super Luck"),
-    [ABILITY_AFTERMATH] = _("Aftermath"),
-    [ABILITY_ANTICIPATION] = _("Anticipation"),
-    [ABILITY_FOREWARN] = _("Forewarn"),
-    [ABILITY_UNAWARE] = _("Unaware"),
-    [ABILITY_TINTED_LENS] = _("Tinted Lens"),
-    [ABILITY_FILTER] = _("Filter"),
-    [ABILITY_SLOW_START] = _("Slow Start"),
-    [ABILITY_SCRAPPY] = _("Scrappy"),
-    [ABILITY_STORM_DRAIN] = _("Storm Drain"),
-    [ABILITY_ICE_BODY] = _("Ice Body"),
-    [ABILITY_SOLID_ROCK] = _("Solid Rock"),
-    [ABILITY_SNOW_WARNING] = _("Snow Warning"),
-    [ABILITY_HONEY_GATHER] = _("Honey Gather"),
-    [ABILITY_FRISK] = _("Frisk"),
-    [ABILITY_RECKLESS] = _("Reckless"),
-    [ABILITY_MULTITYPE] = _("Multitype"),
-    [ABILITY_FLOWER_GIFT] = _("Flower Gift"),
-    [ABILITY_BAD_DREAMS] = _("Bad Dreams"),
-    [ABILITY_PICKPOCKET] = _("Pickpocket"),
-    [ABILITY_SHEER_FORCE] = _("Sheer Force"),
-    [ABILITY_CONTRARY] = _("Contrary"),
-    [ABILITY_UNNERVE] = _("Unnerve"),
-    [ABILITY_DEFIANT] = _("Defiant"),
-    [ABILITY_DEFEATIST] = _("Defeatist"),
-    [ABILITY_CURSED_BODY] = _("Cursed Body"),
-    [ABILITY_HEALER] = _("Healer"),
-    [ABILITY_FRIEND_GUARD] = _("Friend Guard"),
-    [ABILITY_WEAK_ARMOR] = _("Weak Armor"),
-    [ABILITY_HEAVY_METAL] = _("Heavy Metal"),
-    [ABILITY_LIGHT_METAL] = _("Light Metal"),
-    [ABILITY_MULTISCALE] = _("Multiscale"),
-    [ABILITY_TOXIC_BOOST] = _("Toxic Boost"),
-    [ABILITY_FLARE_BOOST] = _("Flare Boost"),
-    [ABILITY_HARVEST] = _("Harvest"),
-    [ABILITY_TELEPATHY] = _("Telepathy"),
-    [ABILITY_MOODY] = _("Moody"),
-    [ABILITY_OVERCOAT] = _("Overcoat"),
-    [ABILITY_POISON_TOUCH] = _("Poison Touch"),
-    [ABILITY_REGENERATOR] = _("Regenerator"),
-    [ABILITY_BIG_PECKS] = _("Big Pecks"),
-    [ABILITY_SAND_RUSH] = _("Sand Rush"),
-    [ABILITY_WONDER_SKIN] = _("Wonder Skin"),
-    [ABILITY_ANALYTIC] = _("Analytic"),
-    [ABILITY_ILLUSION] = _("Illusion"),
-    [ABILITY_IMPOSTER] = _("Imposter"),
-    [ABILITY_INFILTRATOR] = _("Infiltrator"),
-    [ABILITY_MUMMY] = _("Mummy"),
-    [ABILITY_MOXIE] = _("Moxie"),
-    [ABILITY_JUSTIFIED] = _("Justified"),
-    [ABILITY_RATTLED] = _("Rattled"),
-    [ABILITY_MAGIC_BOUNCE] = _("Magic Bounce"),
-    [ABILITY_SAP_SIPPER] = _("Sap Sipper"),
-    [ABILITY_PRANKSTER] = _("Prankster"),
-    [ABILITY_SAND_FORCE] = _("Sand Force"),
-    [ABILITY_IRON_BARBS] = _("Iron Barbs"),
-    [ABILITY_ZEN_MODE] = _("Zen Mode"),
-    [ABILITY_VICTORY_STAR] = _("Victory Star"),
-    [ABILITY_TURBOBLAZE] = _("Turboblaze"),
-    [ABILITY_TERAVOLT] = _("Teravolt"),
-    [ABILITY_AROMA_VEIL] = _("Aroma Veil"),
-    [ABILITY_FLOWER_VEIL] = _("Flower Veil"),
-    [ABILITY_CHEEK_POUCH] = _("Cheek Pouch"),
-    [ABILITY_PROTEAN] = _("Protean"),
-    [ABILITY_FUR_COAT] = _("Fur Coat"),
-    [ABILITY_MAGICIAN] = _("Magician"),
-    [ABILITY_BULLETPROOF] = _("Bulletproof"),
-    [ABILITY_COMPETITIVE] = _("Competitive"),
-    [ABILITY_STRONG_JAW] = _("Strong Jaw"),
-    [ABILITY_REFRIGERATE] = _("Refrigerate"),
-    [ABILITY_SWEET_VEIL] = _("Sweet Veil"),
-    [ABILITY_STANCE_CHANGE] = _("Stance Change"),
-    [ABILITY_GALE_WINGS] = _("Gale Wings"),
-    [ABILITY_MEGA_LAUNCHER] = _("Mega Launcher"),
-    [ABILITY_GRASS_PELT] = _("Grass Pelt"),
-    [ABILITY_SYMBIOSIS] = _("Symbiosis"),
-    [ABILITY_TOUGH_CLAWS] = _("Tough Claws"),
-    [ABILITY_PIXILATE] = _("Pixilate"),
-    [ABILITY_GOOEY] = _("Gooey"),
-    [ABILITY_AERILATE] = _("Aerilate"),
-    [ABILITY_PARENTAL_BOND] = _("Parental Bond"),
-    [ABILITY_DARK_AURA] = _("Dark Aura"),
-    [ABILITY_FAIRY_AURA] = _("Fairy Aura"),
-    [ABILITY_AURA_BREAK] = _("Aura Break"),
-    [ABILITY_PRIMORDIAL_SEA] = _("Primordial Sea"),
-    [ABILITY_DESOLATE_LAND] = _("Desolate Land"),
-    [ABILITY_DELTA_STREAM] = _("Delta Stream"),
-    [ABILITY_STAMINA] = _("Stamina"),
-    [ABILITY_WIMP_OUT] = _("Wimp Out"),
-    [ABILITY_EMERGENCY_EXIT] = _("Emergency Exit"),
-    [ABILITY_WATER_COMPACTION] = _("Water Compaction"),
-    [ABILITY_MERCILESS] = _("Merciless"),
-    [ABILITY_SHIELDS_DOWN] = _("Shields Down"),
-    [ABILITY_STAKEOUT] = _("Stakeout"),
-    [ABILITY_WATER_BUBBLE] = _("Water Bubble"),
-    [ABILITY_STEELWORKER] = _("Steelworker"),
-    [ABILITY_BERSERK] = _("Berserk"),
-    [ABILITY_SLUSH_RUSH] = _("Slush Rush"),
-    [ABILITY_LONG_REACH] = _("Long Reach"),
-    [ABILITY_LIQUID_VOICE] = _("Liquid Voice"),
-    [ABILITY_TRIAGE] = _("Triage"),
-    [ABILITY_GALVANIZE] = _("Galvanize"),
-    [ABILITY_SURGE_SURFER] = _("Surge Surfer"),
-    [ABILITY_SCHOOLING] = _("Schooling"),
-    [ABILITY_DISGUISE] = _("Disguise"),
-    [ABILITY_BATTLE_BOND] = _("Battle Bond"),
-    [ABILITY_POWER_CONSTRUCT] = _("Power Construct"),
-    [ABILITY_CORROSION] = _("Corrosion"),
-    [ABILITY_COMATOSE] = _("Comatose"),
-    [ABILITY_QUEENLY_MAJESTY] = _("Queenly Majesty"),
-    [ABILITY_INNARDS_OUT] = _("Innards Out"),
-    [ABILITY_DANCER] = _("Dancer"),
-    [ABILITY_BATTERY] = _("Battery"),
-    [ABILITY_FLUFFY] = _("Fluffy"),
-    [ABILITY_DAZZLING] = _("Dazzling"),
-    [ABILITY_SOUL_HEART] = _("Soul-Heart"),
-    [ABILITY_TANGLING_HAIR] = _("Tangling Hair"),
-    [ABILITY_RECEIVER] = _("Receiver"),
-    [ABILITY_POWER_OF_ALCHEMY] = _("Power Of Alchemy"),
-    [ABILITY_BEAST_BOOST] = _("Beast Boost"),
-    [ABILITY_RKS_SYSTEM] = _("RKS System"),
-    [ABILITY_ELECTRIC_SURGE] = _("Electric Surge"),
-    [ABILITY_PSYCHIC_SURGE] = _("Psychic Surge"),
-    [ABILITY_MISTY_SURGE] = _("Misty Surge"),
-    [ABILITY_GRASSY_SURGE] = _("Grassy Surge"),
-    [ABILITY_FULL_METAL_BODY] = _("Full Metal Body"),
-    [ABILITY_SHADOW_SHIELD] = _("Phantom Guard"), //more direct translation taken from Bulbapedia
-    [ABILITY_PRISM_ARMOR] = _("Prism Armor"),
-    [ABILITY_NEUROFORCE] = _("Neuroforce"),
-    [ABILITY_INTREPID_SWORD] = _("Intrepid Sword"),
-    [ABILITY_DAUNTLESS_SHIELD] = _("Dauntless Shield"),
-    [ABILITY_LIBERO] = _("Libero"),
-    [ABILITY_BALL_FETCH] = _("Ball Fetch"),
-    [ABILITY_COTTON_DOWN] = _("Cotton Down"),
-    [ABILITY_PROPELLER_TAIL] = _("Propeller Tail"),
-    [ABILITY_MIRROR_ARMOR] = _("Mirror Armor"),
-    [ABILITY_GULP_MISSILE] = _("Gulp Missile"),
-    [ABILITY_STALWART] = _("Stalwart"),
-    [ABILITY_STEAM_ENGINE] = _("Steam Engine"),
-    [ABILITY_PUNK_ROCK] = _("Punk Rock"),
-    [ABILITY_SAND_SPIT] = _("Sand Spit"),
-    [ABILITY_ICE_SCALES] = _("Ice Scales"),
-    [ABILITY_RIPEN] = _("Ripen"),
-    [ABILITY_ICE_FACE] = _("Ice Face"),
-    [ABILITY_POWER_SPOT] = _("Power Spot"),
-    [ABILITY_MIMICRY] = _("Mimicry"),
-    [ABILITY_SCREEN_CLEANER] = _("Screen Cleaner"),
-    [ABILITY_STEELY_SPIRIT] = _("Steely Spirit"),
-    [ABILITY_PERISH_BODY] = _("Perish Body"),
-    [ABILITY_WANDERING_SPIRIT] = _("Wandering Spirit"),
-    [ABILITY_GORILLA_TACTICS] = _("Gorilla Tactics"),
-    [ABILITY_NEUTRALIZING_GAS] = _("Neutralizing Gas"),
-    [ABILITY_PASTEL_VEIL] = _("Pastel Veil"),
-    [ABILITY_HUNGER_SWITCH] = _("Hunger Switch"),
-    [ABILITY_QUICK_DRAW] = _("Quick Draw"),
-    [ABILITY_UNSEEN_FIST] = _("Unseen Fist"),
-    [ABILITY_CURIOUS_MEDICINE] = _("Curious Medicine"),
-    [ABILITY_TRANSISTOR] = _("Transistor"),
-    [ABILITY_DRAGONS_MAW] = _("Dragon's Maw"),
-    [ABILITY_CHILLING_NEIGH] = _("Chilling Neigh"),
-    [ABILITY_GRIM_NEIGH] = _("Grim Neigh"),
-    [ABILITY_AS_ONE_ICE_RIDER] = _("As One"),
-    [ABILITY_AS_ONE_SHADOW_RIDER] = _("As One"),
-
-    [ABILITY_LINGERING_AROMA] = _("Lingering Aroma"), //not added effects
-    [ABILITY_SEED_SOWER] = _("Seed Sower"),
-    [ABILITY_THERMAL_EXCHANGE] = _("Thermal Exchange"),
-    [ABILITY_ANGER_SHELL] = _("Anger Shell"),
-    [ABILITY_PURIFYING_SALT] = _("Purifying Salt"),
-    [ABILITY_WELL_BAKED_BODY] = _("Well-Baked Body"),
-    [ABILITY_WIND_RIDER] = _("Wind Rider"),
-    [ABILITY_GUARD_DOG] = _("Guard Dog"),
-    [ABILITY_ROCKY_PAYLOAD] = _("Rocky Payload"),
-    [ABILITY_WIND_POWER] = _("Wind Power"),
-    [ABILITY_ZERO_TO_HERO] = _("Zero to Hero"),
-    [ABILITY_COMMANDER] = _("Commander"),
-    [ABILITY_ELECTROMORPHOSIS] = _("Electromorphosis"),
-    [ABILITY_PROTOSYNTHESIS] = _("Protosynthesis"),
-    [ABILITY_QUARK_DRIVE] = _("Quark Drive"),
-    [ABILITY_GOOD_AS_GOLD] = _("Good as Gold"),
-    [ABILITY_VESSEL_OF_RUIN] = _("Vessel of Ruin"), //ruin abilities are set
-    [ABILITY_SWORD_OF_RUIN] = _("Sword of Ruin"),
-    [ABILITY_TABLETS_OF_RUIN] = _("Tablets of Ruin"),
-    [ABILITY_BEADS_OF_RUIN] = _("Beads of Ruin"),
-    [ABILITY_ORICHALCUM_PULSE] = _("Orichalcum Pulse"),
-    [ABILITY_HADRON_ENGINE] = _("Hadron Engine"),
-    [ABILITY_OPPORTUNIST] = _("Opportunist"),
-    [ABILITY_CUD_CHEW] = _("Cud Chew"),
-    [ABILITY_SHARPNESS] = _("Sharpness"),
-    [ABILITY_SUPREME_OVERLORD] = _("Supreme Overlord"),
-    [ABILITY_COSTAR] = _("Costar"),
-    [ABILITY_TOXIC_DEBRIS] = _("Toxic Debris"),
-    [ABILITY_ARMOR_TAIL] = _("Armor Tail"),
-    [ABILITY_EARTH_EATER] = _("Earth Eater"),
-    [ABILITY_MYCELIUM_MIGHT] = _("Mycelium Might"),
-    [ABILITY_HOSPITALITY] = _("Hospitality"),
-    [ABILITY_MINDS_EYE] = _("Mind's Eye"),
-    [ABILITY_EMBODY_ASPECT_TEAL_MASK] = _("Embody Aspect"),
-    [ABILITY_EMBODY_ASPECT_HEARTHFLAME_MASK] = _("Embody Aspect"),
-    [ABILITY_EMBODY_ASPECT_WELLSPRING_MASK] = _("Embody Aspect"),
-    [ABILITY_EMBODY_ASPECT_CORNERSTONE_MASK] = _("Embody Aspect"),
-    [ABILITY_TOXIC_CHAIN] = _("Toxic Chain"),
-    [ABILITY_SUPERSWEET_SYRUP] = _("Supersweet Syrup"),
-    [ABILITY_TERA_SHIFT] = _("Tera Shift"),
-    [ABILITY_TERA_SHELL] = _("Tera Shell"),
-    [ABILITY_TERAFORM_ZERO] = _("Teraform Zero"),
-    [ABILITY_POISON_PUPPETEER] = _("Poison Puppeteer"),
-    //end of gen 9 addition not yet added
-
-    [ABILITY_DISPIRIT_GUARD] = _("Dispirit Guard"),
-    [ABILITY_NUISANCE] = _("Nuisance"),
-    [ABILITY_MULTI_TASK] = _("Multi-Task"),
-    [ABILITY_SIROCCO] = _("Sirocco"),
-    [ABILITY_HI_PRESSURE] = _("Hi-Pressure"),
-    [ABILITY_CUPIDS_ARROW] = _("Cupid's Arrow"),
-    [ABILITY_BATTLE_MATRON] = _("Battle Matron"),
-    [ABILITY_LIQUID_SOUL] = _("Liquid Soul"),
-    [ABILITY_OCEAN_MEMORY] = _("Ocean Memory"),
-    [ABILITY_OVERCHARGE] = _("Overcharge"),
-    [ABILITY_PHOTOSYNTHESIZE] = _("Photosynthesize"),
-    [ABILITY_GLACIAL_ICE] = _("Glacial Ice"),
-    [ABILITY_LAVA_FISSURE] = _("Lava Fissure"),
-    [ABILITY_TOADSTOOL_NYMPH] = _("Toadstool Nymph"),
-    [ABILTY_UNKNOWN_POWER] = _("Unknown Power"),
-    [ABILITY_PURIFYING_AURA] = _("Purifying Aura"),
-    [ABILITY_SQUALL] = _("Squall"),
-    [ABILITY_SUN_DISK] = _("Sun Disk"),
-    [ABILITY_TOUGH_SPINES] = _("Tough Spines"),
-    [ABILITY_EROSION] = _("Erosion"),
-    [ABILITY_LIQUID_METAL] = _("Liquid Metal"),
-    [ABILITY_MUSCLE_MAGIC] = _("Muscle Magic"),
-    [ABILITY_TIGER_CUB] = _("Tiger Cub"),
-    [ABILITY_TIGER_MOM] = _("Tiger Mom"),
-    [ABILITY_DARK_DEAL] = _("Dark Deal"),
-    [ABILITY_CORRUPTION] = _("Corruption"),
-    [ABILITY_BANDIT_KING] = _("Bandit King"),
-    [ABILITY_AVIATOR] = _("Aviator"),
-    [ABILITY_USURPER] = _("Usurper"),
-    [ABILITY_INVERSE_WORLD] = _("Inverse World"),
-    [ABILITY_SONAR] = _("Sonar"),
-    [ABILITY_ECOSYSTEM] = _("Ecosystem"),
-    [ABILITY_ABSOLUTE_ZERO] = _("Absolute Zero"),
-    [ABILITY_FEATHER_JACKET] = _("Feather Jacket"),
-    [ABILITY_POISONED_LEGACY] = _("Poisoned Legacy"),
-    [ABILITY_JEWEL_METABOLISM] = _("Jewel Metabolism"),
-    [ABILITY_INVERSION] = _("Inversion"),
-    [ABILITY_WETIKO] = _("Wetiko"),
-    [ABILITY_EMPATH] = _("Empath"),
-    [ABILITY_EMPATHIC_CURSE] = _("Empathic Curse"),
-    [ABILITY_INTHRALL] = _("Inthrall"),
-    [ABILITY_IRON_WILL] = _("Iron Will"),
-    [ABILITY_LIVEWIRE] = _("Livewire"),
-    [ABILITY_GALEFORCE] = _("GaleForce"),
-    [ABILITY_LETHAL_LEGS] = _("Lethal Legs"),
-    [ABILITY_TOXUNGUE] = _("Toxunge"),
-    [ABILITY_OMNIPOTENT_AIDE] = _("Omnipotent Aide"),
-    [ABILITY_FLUORESCENCE] = _("Fluorescence"),
-    [ABILITY_SPECTRE] = _("Spectre"),
-    [ABILITY_AURA_OF_LIGHT] = _("Aura of Light"),
-    [ABILITY_DESPAIR] = _("Despair"),
-    [ABILITY_RISING_PHOENIX] = _("Rising Phoenix"),
-    [ABILITY_DREAD_WING] = _("Dread Wings"),
-    [ABILITY_PLAGUE_WINGS] = _("Plague Wings"),
-    [ABILITY_PHANTOM_TOUCH] = _("Phantom Touch"),
-    [ABILITY_APOTHEOSCENT] = _("Apotheoscent"),
-    [ABILITY_WEIGHTED_GI] = _("Weighted Gi"),
-    [ABILITY_VOLT_DASH] = _("Volt Dash"),
-    [ABILITY_IMMUTABLE_WIND] = _("Immutable Wind"),
-    [ABILITY_EVERGREEN] = _("Evergreen"),
-    [ABILITY_SHAMAN_CURE] = _("Shaman Cure"),
-    [ABILITY_UNCHAINED_MELODY] = _("Unchained Melody"),
-    [ABILITY_ENAMEL] = _("Enamel"),
-    [ABILITY_BONE_ARMOR] = _("Bone Armor"),
-    [ABILITY_STORM_BREAK] = _("Storm Break"),
-    [ABILITY_SPACE_CONTROL] = _("Space Control"),
-    [ABILITY_COLD_EMBRACE] = _("Cold Embrace"),
-    [ABILITY_TOXIC_WING] = _("Toxic Wing"),
-    [ABILITY_TIME_CONTROL] = _("Time Control"),
-    [ABILITY_TORCHSOUL] = _("Torch Soul"),
-    [ABILITY_GRUNGE] = _("Grunge"),
-    [ABILITY_SWIFT_JUSTICE] = _("Swift Justice"),
-    [ABILITY_TOOLS_OF_THE_TRADE] = _("Tools of the Trade"),
-    [ABILITY_TROJAN_SWORD] = _("Trojan Sword"),
-    [ABILITY_HEAT_TRANCE] = _("Heat Trance"),
-    [ABILITY_DESERT_DWELLER] = _("Desert Dweller"),
-    [ABILITY_FAIRY_MIST] = _("Fairy Mist"),
-    [ABILITY_COMPASS] = _("Compass"),
-    [ABILITY_HANDS_OF_FATE] = _("Hands of Fate"),
-    [ABILITY_DUST_DEVIL] = _("Dust Devil"),
-    [ABILITY_PLASMA_OVERDRIVE] = _("Plasma Overdrive"),
-    [ABILITY_CREATION_ENGINE] = _("Creation Engine"),
-    [ABILITY_DARK_CORONA] = _("Dark Corona"),
-    [ABILITY_LUNAR_SOLSTICE] = _("Lunar Solstice"),
-    [ABILITY_LUNAR_POWER] = _("Lunar Power"),
-    [ABILITY_NEW_MOON] = _("New Moon"), //finally decided name as new moon represents rebirth and healing
-    [ABILITY_TOXIC_DELUGE] = _("Toxic Deluge"),
-    [ABILITY_RESOLUTE] = _("Resolute"),
-    [ABILITY_PIERCING_HORN] = _("Piercing Horn"),
-    [ABILITY_X_SIGHT] = _("X Sight"),
-    [ABILITY_PRECISE_STRIKE] = _("Precise Strike"),
-
-};//can have comma
-*/

@@ -1016,7 +1016,7 @@ gBattleAnims_Special::
 	.4byte Special_SwitchOutPlayerMon		@ B_ANIM_SWITCH_OUT_PLAYER_MON
 	.4byte Special_SwitchOutOpponentMon		@ B_ANIM_SWITCH_OUT_OPPONENT_MON
 	.4byte Special_BallThrow				@ B_ANIM_BALL_THROW
-	.4byte Special_SafariBallThrow			@ B_ANIM_SAFARI_BALL_THROW
+	.4byte Special_SafariBallThrow			@ B_ANIM_BALL_THROW_WITH_TRAINER
 	.4byte Special_SubstituteToMon			@ B_ANIM_SUBSTITUTE_TO_MON
 	.4byte Special_MonToSubstitute			@ B_ANIM_MON_TO_SUBSTITUTE
 	.4byte Special_LevelUpEvolve            @ B_ANIM_LVL_UP_EVOLVE
@@ -5101,6 +5101,14 @@ Move_SHADOW_PUNCH:: @ 81CCB76
 	waitbgfadein
 	end
 
+@this breaks w speed up
+@something to do with x y postion of distortion
+@instead of a slight bend seems to get flipped accross screen?
+@appears only happens at 4x speed
+@checked is tied to AnimTask_ExtrasensoryDistortion
+@looks odd but not major issue
+@only guesss is loop effect is somehow magnifying
+@the distortion which is a scanline effect
 Move_EXTRASENSORY:: @ 81CCBD1
 	call SetPsychicBackground
 	monbg ANIM_DEF_PARTNER

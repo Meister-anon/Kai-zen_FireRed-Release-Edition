@@ -99,11 +99,11 @@ static const struct CompressedSpriteSheet sSpriteSheets_HealthBar[MAX_BATTLERS_C
 const struct SpritePalette sSpritePalettes_HealthBoxHealthBar[2] =
 {
     {
-        .data = gBattleInterface_BallStatusBarPal,
+        .data = gBattleInterface_Healthbox_Pal,
         .tag = TAG_HEALTHBOX_PAL,
     },
     {
-        .data = gBattleInterface_BallDisplayPal,
+        .data = gBattleInterface_Healthbar_Pal,
         .tag = TAG_HEALTHBAR_PAL,
     },
 };
@@ -169,6 +169,7 @@ void SpriteCB_TrainerSlideIn(struct Sprite *sprite)
     }
 }
 
+
 //will need to change to task based work
 //check if battler has status1  status2 then status4
 //check if (status1) increment through each status 1 to see if htey have that status flag and do animaiton if so
@@ -181,13 +182,6 @@ void SpriteCB_TrainerSlideIn(struct Sprite *sprite)
 //but that alone could cause unintended overlap, so set status cat
 //then do equal, w that can properly filter
 
-enum StatusType
-{
-    status1 = 1,
-    status2 = 2,
-    status3 = 3,
-    status4 = 4
-};
 
 
 /*Explanation from Sbird
@@ -198,58 +192,41 @@ as to why that works, status 1 can probably never overlap, i.e. a pokemon cannot
 //my understanding there's no functional difference between using them,
 //far as recognizing the status itself, only in whether it can oveerlap/hold more than one status,
 //so for now change all to and, so its ready, if I decide to do multi status
-void InitAndLaunchChosenStatusAnimation(u8 StatusType, u32 status)
+
+void InitAndLaunchChosenStatusAnimation(u32 battler, bool8 isStatus2, u32 status)
 {
-
-
-    gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].statusAnimActive = TRUE;
-    
-    switch (StatusType)
+    gBattleSpritesDataPtr->healthBoxesData[battler].statusAnimActive = 1;
+    if (!isStatus2)
     {
-        case status1:
-        {
-            if (status & STATUS1_FREEZE)
-                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_FRZ);
-            else if (status & STATUS1_POISON || status & STATUS1_TOXIC_POISON)
-                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_PSN);
-            else if (status & STATUS1_BURN)
-                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_BRN);
-            else if (status & STATUS1_SLEEP)
-                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_SLP);
-            else if (status & STATUS1_PARALYSIS)
-                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_PRZ);
-            else // no animation
-                gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].statusAnimActive = 0;
-        }
-        break;
-        case status2:
-        {
-            if (status & STATUS2_INFATUATION)
-                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_INFATUATION);
-            else if (status & STATUS2_CONFUSION)
-                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_CONFUSION);
-            else if (status & STATUS2_CURSED)
-                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_CURSED);
-            else if (status & STATUS2_NIGHTMARE)
-                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_NIGHTMARE);
-            else if (status & STATUS2_INFESTATION)
-                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_INFESTED);
-            else if (status & STATUS2_WRAPPED)
-                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_WRAPPED); // this animation doesn't actually exist
-            else // no animation
-                gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].statusAnimActive = 0;
-        }
-        break;
-        case status3:
-        break;
-        case status4://potentially remove entire category?
-        {
-            //if (status & STATUS2_INFESTATION)
-            //    LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_INFESTED); //think for ionfested rather than reuse move animation do battler shake w exclamation point
-            //else // no animation
-                gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].statusAnimActive = 0;
-        }
-        break;
+        if (status == STATUS1_FREEZE)
+            LaunchStatusAnimation(battler, B_ANIM_STATUS_FRZ);
+        else if (status == STATUS1_POISON || status & STATUS1_TOXIC_POISON)
+            LaunchStatusAnimation(battler, B_ANIM_STATUS_PSN);
+        else if (status == STATUS1_BURN)
+            LaunchStatusAnimation(battler, B_ANIM_STATUS_BRN);
+        else if (status & STATUS1_SLEEP)
+            LaunchStatusAnimation(battler, B_ANIM_STATUS_SLP);
+        else if (status == STATUS1_PARALYSIS)
+            LaunchStatusAnimation(battler, B_ANIM_STATUS_PRZ);
+        else // no animation
+            gBattleSpritesDataPtr->healthBoxesData[battler].statusAnimActive = 0;
+    }
+    else
+    {
+        if (status & STATUS2_INFATUATION)
+            LaunchStatusAnimation(battler, B_ANIM_STATUS_INFATUATION);
+        else if (status & STATUS2_CONFUSION)
+            LaunchStatusAnimation(battler, B_ANIM_STATUS_CONFUSION);
+        else if (status & STATUS2_CURSED)
+            LaunchStatusAnimation(battler, B_ANIM_STATUS_CURSED);
+        else if (status & STATUS2_NIGHTMARE)
+            LaunchStatusAnimation(battler, B_ANIM_STATUS_NIGHTMARE);
+        else if (status & STATUS2_INFESTATION)
+            LaunchStatusAnimation(battler, B_ANIM_STATUS_INFESTED);
+        else if (status & STATUS2_WRAPPED)
+            LaunchStatusAnimation(battler, B_ANIM_STATUS_WRAPPED); // this animation doesn't actually exist
+        else // no animation
+            gBattleSpritesDataPtr->healthBoxesData[battler].statusAnimActive = 0;
     }
     
 
@@ -351,10 +328,7 @@ bool8 IsBattleSEPlaying(u8 battlerId)
     if (IsSEPlaying())
     {
         ++gBattleSpritesDataPtr->healthBoxesData[battlerId].soundTimer;
-        // UB: Uses gActiveBattler instead of battlerId.
-        // In practice, this is never a problem, as this routine
-        // is only ever passed gActiveBattler.
-        if (gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].soundTimer < 30)
+        if (gBattleSpritesDataPtr->healthBoxesData[battlerId].soundTimer < 30)
             return TRUE;
         m4aMPlayStop(&gMPlayInfo_SE1);
         m4aMPlayStop(&gMPlayInfo_SE2);
@@ -768,10 +742,10 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, u8 notTransform)
         UpdateNickInHealthbox(gHealthboxSpriteIds[battlerAtk], &gEnemyParty[gBattlerPartyIndexes[battlerAtk]]);
         TryAddPokeballIconToHealthbox(gHealthboxSpriteIds[battlerAtk], 1); 
     }
-    else if (notTransform)
+    else if (notTransform) // Castform form change
     {
         StartSpriteAnim(&gSprites[gBattlerSpriteIds[battlerAtk]], gBattleSpritesDataPtr->animationData->animArg);
-        paletteOffset = 0x100 + battlerAtk * 16;
+        paletteOffset = OBJ_PLTT_ID(battlerAtk);
         LoadPalette(gBattleStruct->castformPalette[gBattleSpritesDataPtr->animationData->animArg], paletteOffset, 32);
         gBattleMonForms[battlerAtk] = gBattleSpritesDataPtr->animationData->animArg;
         if (gBattleSpritesDataPtr->battlerData[battlerAtk].transformSpecies != SPECIES_NONE)

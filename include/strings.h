@@ -227,7 +227,7 @@ extern const u8 gString_SlotMachineControls[];
 
 // battle_controller_safari
 extern const u8 gText_EmptyString3[];
-extern const u8 gUnknown_83FE747[];
+extern const u8 gText_SafariZoneMenu[];
 extern const u8 gText_WhatWillPlayerThrow[];
 
 // battle_controller_player
@@ -254,6 +254,8 @@ extern const u8 gText_OakNoRunningFromATrainer[];
 extern const u8 gText_WinEarnsPrizeMoney[];
 extern const u8 gText_HowDissapointing[];
 extern const u8 gText_WhatWillOldManDo[];
+
+extern const u8 gNotDoneYetDescription[]; //for placeholder move effect text
 
 // battle_controller_pokedude
 extern const u8 Pokedude_Text_SpeedierBattlerGoesFirst[];

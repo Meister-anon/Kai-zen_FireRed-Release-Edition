@@ -50,7 +50,7 @@
 #define MOVE_ROAR 46
 #define MOVE_SING 47
 #define MOVE_SUPERSONIC 48
-#define MOVE_SONIC_SCREECH 49
+#define MOVE_SONIC_SCREECH 49 // renamed was MOVE_SONIC_BOOM
 #define MOVE_DISABLE 50
 #define MOVE_ACID 51
 #define MOVE_EMBER 52
@@ -311,7 +311,7 @@
 #define MOVE_BLAST_BURN 307
 #define MOVE_HYDRO_CANNON 308
 #define MOVE_METEOR_MASH 309
-#define MOVE_SPOOK 310  //previously astonish, renamed to better fit ghost theme
+#define MOVE_SPOOK 310  // renamed previously astonish,  to better fit ghost theme
 #define MOVE_WEATHER_BALL 311
 #define MOVE_AROMATHERAPY 312
 #define MOVE_FAKE_TEARS 313
@@ -836,7 +836,7 @@
 #define MOVE_CHILLY_RECEPTION 807
 #define MOVE_TIDY_UP 808
 #define MOVE_SNOWSCAPE 809
-#define MOVE_GRASSHOPPER 810
+#define MOVE_GRASSHOPPER 810    //renamed was MOVE_POUNCE
 #define MOVE_TRAILBLAZE 811
 #define MOVE_CHILLING_WATER 812
 #define MOVE_HYPER_DRILL 813
@@ -915,7 +915,8 @@
 #define MOVE_ACID_RAIN          881   //poison move to make acid rain
 #define MOVE_COLD_FRONT         882     //ice solar beam, 
 #define MOVE_LIFE_DRAIN         883     //mostly for giratina but ghost healing attack
-#define MOVE_NA                 884 //avoid extra copy paste
+#define MOVE_DARK_SWAMP         884 //new special dark move
+#define MOVE_NA                 885 //avoid extra copy paste
 
 //for completion new moves have to be defined in:  move_descriptions.inc,  move_names.h, & battle_anim_scripts.s
 // also need actual move data in battle_moves.h

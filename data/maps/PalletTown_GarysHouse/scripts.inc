@@ -164,7 +164,7 @@ PalletTown_GarysHouse_EventScript_GiveTownMap:: @ 8168EF6
 	compare VAR_RESULT, FALSE
 	goto_if_eq PalletTown_GarysHouse_EventScript_NoRoomForTownMap
 	giveitem_msg PalletTown_GarysHouse_Text_ReceivedExpShareFromDaisy, ITEM_EXP_SHARE, 1, MUS_OBTAIN_KEY_ITEM
-	setflag FLAG_GOT_EXP_SHARE_FROM_OAKS_AIDE
+	setflag FLAG_GOT_EXP_SHARE
 	goto_if_questlog EventScript_ReleaseEnd
 	special QuestLog_CutRecording	
 	msgbox PalletTown_GarysHouse_Text_TakeThisToo
