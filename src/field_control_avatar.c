@@ -840,7 +840,8 @@ static inline bool32 IsViablePickupMon(struct Pokemon *mon)
 //idk if inline makes it faster but whatever
 static inline void UpdateMonPickupCounter(struct Pokemon *mon)
 {
-    u16 *ptr = GetMonData(mon, MON_DATA_PICKUP_COUNTER);
+    u16 value = GetMonData(mon, MON_DATA_PICKUP_COUNTER);
+    u16 *ptr = &value;
 
     (*ptr)++;       //increment counter
     (*ptr) %= 325;  //wrap around value
@@ -851,7 +852,7 @@ static inline void DesyncPartyPickupCounters(u32 *MonArray, u32 numPickupMon)
 {
     for (u32 i = 0; numPickupMon != 0; ++i, --numPickupMon)
     {
-        SetMonData(&gPlayerParty[MonArray[i]], MON_DATA_PICKUP_COUNTER, numPickupMon);
+        SetMonData(&gPlayerParty[MonArray[i]], MON_DATA_PICKUP_COUNTER, &numPickupMon);
     }
 }
 
@@ -897,173 +898,180 @@ static void UpdatePickupCounter(void)
     //counter by numUsers then decrement stop when hit 0
     //so loop either num users or pickupUsers[i] != 0
     //either should work
-    u32 pickupUsers[6] = 0;
+    u32 pickupUsers[6] = {0};
     s32 randomTM = Random() % NUM_TECHNICAL_MACHINES;   //using will make function automatically scale
     u16 arrayItem;// = sPickupItems[j].itemId;  //guessing this was issue inserts random value causing overflow
-    bool8 foundPickupUser = FALSE;
-    u32 NumNewPickupmon = 0; //for now storing viablepickupmon if pass test rename otherwise use desync version
-    
-    //clear counter of nonviable mon (nuzlocke)
-    //identify if have viable mon in party to continue
-    for (i = 0, j = 0; i < PARTY_SIZE; ++i)
+    //bool8 foundPickupUser = FALSE;
+    u32 NumPickupmon = 0; //for now storing viablepickupmon if pass test rename otherwise use desync version
+    u32 PickupStateCheck = 0;
+
+    switch (PickupStateCheck)
     {
-        if ((GetMonAbility(&gPlayerParty[i]) == ABILITY_PICKUP)
-        && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))  //works, also learned daycare eggs aren't treated as species egg, cuz don't sue species2
+
+        //clear counter of nonviable mon (nuzlocke)
+        //identify if have viable mon in party to continue
+        case 0:
+        for (i = 0, j = 0; i < PARTY_SIZE; ++i)
         {
-            if (GetMonData(&gPlayerParty[i], MON_DATA_PICKUP_COUNTER)
-            && IsMonNuzlockeDead(&gPlayerParty[i]))
+            if ((GetMonAbility(&gPlayerParty[i]) == ABILITY_PICKUP)
+            && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))  //works, also learned daycare eggs aren't treated as species egg, cuz don't sue species2
             {
-                //reset counter to 0
-                SetMonData(&gPlayerParty[i], MON_DATA_PICKUP_COUNTER, NONE);
-            }
-            /*else if (GetMonData(&gPlayerParty[i], MON_DATA_PICKUP_COUNTER)
-            && !IsMonNuzlockeDead(&gPlayerParty[i])) //ensure mon not counted if dead by nuzlocke clause
-            {
-                foundPickupUser = TRUE;
-                //think can increment here
-                UpdateMonPickupCounter(&gPlayerParty[i]);
-                
-            }
-            else if (!IsMonNuzlockeDead(&gPlayerParty[i]))
-            {
-                foundPickupUser = TRUE;
-                //this is for mon fresh to party
-                pickupUsers[j] = i;
-                ++NumNewPickupmon;
-                ++j;
-            }*/
-           else if (!IsMonNuzlockeDead(&gPlayerParty[i])) //ensure mon not counted if dead by nuzlocke clause
-            {
-                foundPickupUser = TRUE;
-                //think can increment here
-                UpdateMonPickupCounter(&gPlayerParty[i]);
-                pickupUsers[j] = i;
-                ++NumNewPickupmon;
-                ++j;
-                
-            }
-            
-        }
-    } //looks in party for mon with pickup, functionally stops at first party slot that encounters ability
-
-    if (!foundPickupUser)
-        return;
-
-    /*if (NumNewPickupmon == 1)
-    {
-        //do counter increment for
-        //pickupUsers[0] as index for gPlayerParty
-        UpdateMonPickupCounter(&gPlayerParty[pickupUsers[0]]);
-    }
-    else //need do counter desync 
-    {
-        //pass pickupUser array and numpickupmon
-        DesyncPartyPickupCounters(pickupUsers, NumNewPickupmon);
-    }*/
-
-    //at this point updates should be done 
-    //all new mon to party should have non 0 values
-    //...just had a thought loops don't execute until entire inside is done
-    //and since I have a pause for input in the script
-    //wouldn't that mean even if multiple mon activate at once.
-    //I'd only have to wait for a single loop cycle
-    //rather than all the loops to complete since
-    //its segmented??
-    //if so I don't have to worry about desyncing at all
-    //ok need test but for now removed desync stuff and 
-    //extra conditions
-
-    
-    //ok so this partis the problem??
-    //maybe not think its just this is increment
-    //so nothing else can trigger without it
-    /*if (i == PARTY_SIZE)
-    {
-        VarSet(VAR_PICKUP_COUNTER, 0);
-        return;
-    }//if didn't find valid mon, reset couter and stop function
-    else
-    {
-        (*ptr)++;       //increment counter
-        (*ptr) %= 325;   //wrap around at 325
-    }*/
-    
-
-    //filted items,
-    //identified glitch has nothing to do with
-    //ptr counter the array
-    //or the loops below
-    //only thing haven't checked is bottom if condition
-    //but that doesn't make sense tobe the issue?
-    //honesty idk anymore I made clean and somehow my tye chart broke...
-    
-    //new change would involve looping this
-    //for party technically shouldn't add to time
-    //as liklihood that multiple mon in party
-    //should activate at same time is low?
-    //then again when selecting a party
-    //it would just take putting multiple pickup mon in party 
-    //at same time to sync timers
-    //so think I need to add desync to prevent looping
-    //ok add fields to store slot id of pickup battler
-    //if multiple are found set counter forward if multiple are at 0
-    //to ensure not all start at same value
-    for (i = 0; i < NumNewPickupmon; ++i)
-    {
-        if (GetMonData(&gPlayerParty[pickupUsers[i]], MON_DATA_PICKUP_COUNTER) == 0)  //can use pointer without ability check, as ability check is already in call for this function
-        {
-            s32 random = Random() % 101;
-            for (j = 0; j < ARRAY_COUNT(sPickupItems); ++j) //minus 1 was specific for this array, as it wasn't made to go to last value, I changed it.
-            {
-                if (sPickupItems[j].chance >= random)
-                    break;
-            }
-            //think add logic for item ITEM_POKE_BALL
-            //shift which ball you get based on level
-            if (sPickupItems[j].itemId == ITEM_POKE_BALL)
-            {
-                if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 20)//vsonic Important post lvl cap may change to use rec level for progression linking
-                    arrayItem = sPickupItems[j].itemId;
-                else if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 35)
-                    arrayItem = ITEM_GREAT_BALL;
-                else
-                    arrayItem = ITEM_ULTRA_BALL;
-            }
-            
-            if ((sPickupItems[j].itemId == ITEM_TM10_HIDDEN_POWER) && (BagGetQuantityByItemId(ITEM_TM10_HIDDEN_POWER) != 0))
-            {
-
-                for (k = ITEM_NONE; k != ITEMS_COUNT; k++)
+                if (GetMonData(&gPlayerParty[i], MON_DATA_PICKUP_COUNTER)
+                && IsMonNuzlockeDead(&gPlayerParty[i]))
                 {
-                    if (gItems[k].pocket != POCKET_TM_CASE)
-                        continue;
-                    if (ItemIdToBattleMoveId(k) == gTM_Moves[randomTM])
+                    //reset counter to 0
+                    SetMonData(&gPlayerParty[i], MON_DATA_PICKUP_COUNTER, NONE);
+                }
+                /*else if (GetMonData(&gPlayerParty[i], MON_DATA_PICKUP_COUNTER)
+                && !IsMonNuzlockeDead(&gPlayerParty[i])) //ensure mon not counted if dead by nuzlocke clause
+                {
+                    foundPickupUser = TRUE;
+                    //think can increment here
+                    UpdateMonPickupCounter(&gPlayerParty[i]);
+                    
+                }
+                else if (!IsMonNuzlockeDead(&gPlayerParty[i]))
+                {
+                    foundPickupUser = TRUE;
+                    //this is for mon fresh to party
+                    pickupUsers[j] = i;
+                    ++NumPickupmon;
+                    ++j;
+                }*/
+            else if (!IsMonNuzlockeDead(&gPlayerParty[i])) //ensure mon not counted if dead by nuzlocke clause
+                {
+                    //foundPickupUser = TRUE;
+                    //think can increment here
+                    UpdateMonPickupCounter(&gPlayerParty[i]);
+                    pickupUsers[j] = i;
+                    ++NumPickupmon;
+                    ++j;
+                    
+                }
+                
+            }
+        } //looks in party for mon with pickup, functionally stops at first party slot that encounters ability
+
+        if (!NumPickupmon)
+            return;
+
+        /*if (NumPickupmon == 1)
+        {
+            //do counter increment for
+            //pickupUsers[0] as index for gPlayerParty
+            UpdateMonPickupCounter(&gPlayerParty[pickupUsers[0]]);
+        }
+        else //need do counter desync 
+        {
+            //pass pickupUser array and numpickupmon
+            DesyncPartyPickupCounters(pickupUsers, NumPickupmon);
+        }*/
+
+        //at this point updates should be done 
+        //all new mon to party should have non 0 values
+        //...just had a thought loops don't execute until entire inside is done
+        //and since I have a pause for input in the script
+        //wouldn't that mean even if multiple mon activate at once.
+        //I'd only have to wait for a single loop cycle
+        //rather than all the loops to complete since
+        //its segmented??
+        //if so I don't have to worry about desyncing at all
+        //ok need test but for now removed desync stuff and 
+        //extra conditions
+
+        
+        //ok so this partis the problem??
+        //maybe not think its just this is increment
+        //so nothing else can trigger without it
+        /*if (i == PARTY_SIZE)
+        {
+            VarSet(VAR_PICKUP_COUNTER, 0);
+            return;
+        }//if didn't find valid mon, reset couter and stop function
+        else
+        {
+            (*ptr)++;       //increment counter
+            (*ptr) %= 325;   //wrap around at 325
+        }*/
+        
+
+        //filted items,
+        //identified glitch has nothing to do with
+        //ptr counter the array
+        //or the loops below
+        //only thing haven't checked is bottom if condition
+        //but that doesn't make sense tobe the issue?
+        //honesty idk anymore I made clean and somehow my tye chart broke...
+        
+        //new change would involve looping this
+        //for party technically shouldn't add to time
+        //as liklihood that multiple mon in party
+        //should activate at same time is low?
+        //then again when selecting a party
+        //it would just take putting multiple pickup mon in party 
+        //at same time to sync timers
+        //so think I need to add desync to prevent looping
+        //ok add fields to store slot id of pickup battler
+        //if multiple are found set counter forward if multiple are at 0
+        //to ensure not all start at same value
+
+        for (i = 0; i < NumPickupmon; ++i)
+        {
+            if (GetMonData(&gPlayerParty[pickupUsers[i]], MON_DATA_PICKUP_COUNTER) == 0)  //can use pointer without ability check, as ability check is already in call for this function
+            {
+                s32 random = Random() % 101;
+                for (j = 0; j < ARRAY_COUNT(sPickupItems); ++j) //minus 1 was specific for this array, as it wasn't made to go to last value, I changed it.
+                {
+                    if (sPickupItems[j].chance >= random)
                         break;
                 }
-                arrayItem = (k);// give random tm, if already have tm10, will put add random%3  so not super easy to get everything
+                //think add logic for item ITEM_POKE_BALL
+                //shift which ball you get based on level
+                if (sPickupItems[j].itemId == ITEM_POKE_BALL)
+                {
+                    if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 20)//vsonic Important post lvl cap may change to use rec level for progression linking
+                        arrayItem = sPickupItems[j].itemId;
+                    else if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 35)
+                        arrayItem = ITEM_GREAT_BALL;
+                    else
+                        arrayItem = ITEM_ULTRA_BALL;
+                }
+                
+                if ((sPickupItems[j].itemId == ITEM_TM10_HIDDEN_POWER) && (BagGetQuantityByItemId(ITEM_TM10_HIDDEN_POWER) != 0))
+                {
+
+                    for (k = ITEM_NONE; k != ITEMS_COUNT; k++)
+                    {
+                        if (gItems[k].pocket != POCKET_TM_CASE)
+                            continue;
+                        if (ItemIdToBattleMoveId(k) == gTM_Moves[randomTM])
+                            break;
+                    }
+                    arrayItem = (k);// give random tm, if already have tm10, will put add random%3  so not super easy to get everything
+
+                }
+                else
+                    arrayItem = sPickupItems[j].itemId;
+                
+                //add if has space to add
+                //and trigger scripts
+                //consier use CheckBagHasSpace for task
+                if (AddBagItem(arrayItem, 1) == TRUE)  //attempting remove from loop. think placing within made it add for each value of  the array. yup that's why *facepalm
+                {
+
+                    GetMonNickname(&gPlayerParty[i], gStringVar2);  //for battle effect
+                    CopyItemName(arrayItem, gStringVar1);
+                    LockForFieldEffect();
+
+                    ShowFieldMessage(gText_MonPickedUpItem);
+                    ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
+
+                }
 
             }
-            else
-                arrayItem = sPickupItems[j].itemId;
-            
-            //add if has space to add
-            //and trigger scripts
-            if (AddBagItem(arrayItem, 1) == TRUE)  //attempting remove from loop. think placing within made it add for each value of  the array. yup that's why *facepalm
-            {
-
-                GetMonNickname(&gPlayerParty[i], gStringVar2);  //for battle effect
-                CopyItemName(arrayItem, gStringVar1);
-                LockForFieldEffect();
-
-                ShowFieldMessage(gText_MonPickedUpItem);
-                ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
-
-            }
-
         }
+    
     }
-    
-    
 }
 
 //consider roll mon egg check and nuzlocke alive

@@ -1420,13 +1420,13 @@ static void atk00_attackcanceler(void) //vsonic
     && IsSoundMove(gCurrentMove))
         gSpecialStatuses[gBattlerAttacker].Cacophonyboosted = TRUE;
 
-    if (gBattleResources->flags->flags[gBattlerAttacker] & RESOURCE_FLAG_EMERGENCY_EXIT
+    if (gDisableStructs[gBattlerAttacker].EmergencyExitWimpoutActive
     && gDisableStructs[gBattlerAttacker].EmergencyExitTimer == 0
     && GetBattlerAbility(gBattlerAttacker) == ABILITY_EMERGENCY_EXIT) 
     {   
         //need remove this to prevent loop, but can use special status I think for move end check?
-        gBattleResources->flags->flags[gBattlerAttacker] &= ~RESOURCE_FLAG_EMERGENCY_EXIT;
-        gSpecialStatuses[gBattlerAttacker].EmergencyExit = TRUE;
+        gDisableStructs[gBattlerAttacker].EmergencyExitWimpoutActive = FALSE;
+        gSpecialStatuses[gBattlerAttacker].EmergencyExit = TRUE; //is this still used? 
         if (gBattleMoves[gCurrentMove].split != SPLIT_STATUS)
         {
             BattleScriptPushCursor();
@@ -4215,7 +4215,7 @@ static void CheckSetUnburden(u8 battlerId)
 {
     if (GetBattlerAbility(battlerId) == ABILITY_UNBURDEN)
     {
-        gBattleResources->flags->flags[battlerId] |= RESOURCE_FLAG_UNBURDEN;
+        gDisableStructs[battlerId].unburdenActive = TRUE;
         RecordAbilityBattle(battlerId, ABILITY_UNBURDEN);
     }
 }
@@ -4325,7 +4325,8 @@ void StealTargetItem(u8 battlerStealer, u8 battlerItem)
             MarkBattlerForControllerExec(battlerItem);
             */
 
-            gBattleResources->flags->flags[battlerStealer] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
+            //this means lose unburden boost as you're gaining an item
+            gDisableStructs[battlerStealer].unburdenActive = FALSE;
             TrySaveExchangedItem(battlerItem, gLastUsedItem); //if player loses item it tries to save it
 
         }
@@ -4344,7 +4345,8 @@ void StealTargetItem(u8 battlerStealer, u8 battlerItem)
             MarkBattlerForControllerExec(battlerItem);
             */
 
-            gBattleResources->flags->flags[battlerStealer] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
+            //this means lose unburden boost as you're gaining an item
+            gDisableStructs[battlerStealer].unburdenActive = FALSE;
             TrySaveExchangedItem(battlerItem, gLastUsedItem); //if player loses item it tries to save it
 
         }
@@ -4365,7 +4367,8 @@ void StealTargetItem(u8 battlerStealer, u8 battlerItem)
             MarkBattlerForControllerExec(battlerItem);
             */
 
-            gBattleResources->flags->flags[battlerStealer] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
+            //this means lose unburden boost as you're gaining an item
+            gDisableStructs[battlerStealer].unburdenActive = FALSE;
             TrySaveExchangedItem(battlerItem, gLastUsedItem); //if player loses item it tries to save it
 
         }
@@ -6307,7 +6310,7 @@ static void BestowItem(u32 battlerAtk, u32 battlerDef)
     gBattleMons[battlerDef].item = gLastUsedItem;
     BtlController_EmitSetMonData(battlerDef, BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[battlerDef].item), &gBattleMons[battlerDef].item);
     MarkBattlerForControllerExec(battlerDef);
-    gBattleResources->flags->flags[battlerDef] &= ~RESOURCE_FLAG_UNBURDEN;
+    gDisableStructs[battlerDef].unburdenActive = FALSE;
 }
 
 #define SYMBIOSIS_CHECK(battler, ally)                                                                                               \
@@ -9047,12 +9050,13 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
         case MOVE_END_EMERGENCY_EXIT:
                 //last condition should if target not fainted or enemy has more mon in party
                 //using special status this never triggered because status was alraedy cleared for wimpout
-                if ((gBattleResources->flags->flags[gBattlerAttacker] & RESOURCE_FLAG_EMERGENCY_EXIT
+                if ((gDisableStructs[gBattlerAttacker].EmergencyExitWimpoutActive
                 || gSpecialStatuses[gBattlerAttacker].EmergencyExit)
                 && (!(gHitMarker & HITMARKER_FAINTED(gBattlerTarget)) || CountUsablePartyMons(gBattlerTarget) > 0)
                 && gMultiHitCounter == 0) //to prevent switchout before multihit move ends
                 {
-                    gBattleResources->flags->flags[gBattlerAttacker] &= ~RESOURCE_FLAG_EMERGENCY_EXIT;
+                    gDisableStructs[gBattlerAttacker].EmergencyExitWimpoutActive = FALSE;
+                    
                     //needed this part to prevent repeat switchout
                     gSpecialStatuses[gBattlerAttacker].EmergencyExit = FALSE;
                     
@@ -11588,7 +11592,6 @@ static void atk6A_removeitem(void) //vsonic
         gBattleMons[battler].item = secondaryItem;
         gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = ITEM_NONE;
     
-        //gBattleResources->flags->flags[battler] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
 
         BtlController_EmitSetMonData(battler, BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[battler].item), &gBattleMons[battler].item);
         MarkBattlerForControllerExec(battler);
@@ -11631,40 +11634,6 @@ void BS_TrySymbiosis(void)
 
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
-
-//why didn't I just fold this into remove item?
-//its tied in after every case of remove item so makes no sense 
-//to not just put in it...
-/*void BS_checksecondaryItemslot(void)
-{
-    
-
-    NATIVE_ARGS(u8 battler);
-
-    u16 itemId = 0;
-    u16 secondaryItem = 0;
-
-    
-
-    battler = GetBattlerForBattleScript(cmd->battler);
-    itemId = gBattleMons[battler].item;
-    secondaryItem = gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)];
-
-    if (itemId == ITEM_NONE && secondaryItem != ITEM_NONE)
-    {
-        gBattleMons[battler].item = secondaryItem;
-        gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = ITEM_NONE;
-    
-        gBattleResources->flags->flags[battler] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
-
-        BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[battler].item), &gBattleMons[battler].item);
-        MarkBattlerForControllerExec(battler);
-    }
-    
-    
-
-    gBattlescriptCurrInstr = cmd->nextInstr;
-}*/
 
 static void atk6B_atknameinbuff1(void)
 {
@@ -12905,7 +12874,7 @@ static void atk76_various(void) //will need to add all these emerald various com
                 gSpecialStatuses[gBattlerTarget].neutralizingGasRemoved = TRUE;
 
             else if (GetBattlerAbility(gBattlerTarget) == ABILITY_IMMUTABLE_WIND)
-                gSpecialStatuses[gBattlerTarget].neutralizingGasRemoved = TRUE;
+                gSpecialStatuses[gBattlerTarget].immutableWindRemoved = TRUE;
 
             gBattleMons[gBattlerTarget].ability = ABILITY_SIMPLE;
             gBattlescriptCurrInstr = cmd->nextInstr;
@@ -13740,7 +13709,16 @@ static void atk76_various(void) //will need to add all these emerald various com
                 BattleScriptPush(cmd->nextInstr);
                 gBattlescriptCurrInstr = BattleScript_NeutralizingGasExits;
             }
-            else if (gBattleMons[battler].ability == ABILITY_IMMUTABLE_WIND)
+
+            return;
+        }
+        //idk how this works or if works prob need update using EE logic
+        //well yeah, various gets removed anyway -vsonic
+        else if (gSpecialStatuses[battler].immutableWindRemoved)
+        {
+            gSpecialStatuses[battler].immutableWindRemoved = FALSE;
+
+            if (gBattleMons[battler].ability == ABILITY_IMMUTABLE_WIND)
             {
                 BattleScriptPush(cmd->nextInstr);
                 gBattlescriptCurrInstr = BattleScript_ImmutableWindExits; //make unique strange winds subsided
@@ -18783,8 +18761,7 @@ static void atkC5_setsemiinvulnerablebit(void)  //thsi command is why move effec
             gBattleMons[gBattlerAttacker].status2 |= STATUS2_SKY_ATTACK;
         gStatuses3[gBattlerAttacker] |= STATUS3_ON_AIR;
         gStatuses3[gBattlerAttacker] &= ~(STATUS3_SMACKED_DOWN); //remove grounding by flying/taking to the air //don't forget moves w hit in air flag have priority aginst in air targetgs
-        gBattleResources->flags->flags[gBattlerAttacker] &= ~(RESOURCE_FLAG_ROOST); //end roost
-        gDisableStructs[gBattlerAttacker].RoostTimer = 0;
+        gDisableStructs[gBattlerAttacker].RoostTimer = 0; //end roost
         gDisableStructs[gBattlerAttacker].trenchRunTimer = 0;        
         break;
     case MOVE_DIG:
@@ -20678,10 +20655,6 @@ static void atkF8_setroost(void) { //actually I don't like this type change idea
     {
         //u16 virtue = Random() % 4; //had to make start value timer and set equal so they use the same value without recalc
         gDisableStructs[gBattlerAttacker].RoostTimer = 4; //setting timer to 4, should give 3 full turns
-        
-        //should be set timer value, and if flag not set, set flag
-        if (!(gBattleResources->flags->flags[gBattlerAttacker] & RESOURCE_FLAG_ROOST)) //check if this means flag not set
-            gBattleResources->flags->flags[gBattlerAttacker] |= RESOURCE_FLAG_ROOST;  //why do I need this if I have a timer? but potentially use for trenchrun
 
         gBattlescriptCurrInstr = cmd->nextInstr; 
     }
@@ -21004,7 +20977,7 @@ void BS_setgastroacid(void)
             gSpecialStatuses[gBattlerTarget].neutralizingGasRemoved = TRUE;
 
         if (gBattleMons[gBattlerTarget].ability == ABILITY_IMMUTABLE_WIND)
-            gSpecialStatuses[gBattlerTarget].neutralizingGasRemoved = TRUE;
+            gSpecialStatuses[gBattlerTarget].immutableWindRemoved = TRUE;
 
         else if (gBattleMons[gBattlerTarget].ability == ABILITY_STENCH)
             gSpecialStatuses[gBattlerTarget].stenchRemoved = TRUE;

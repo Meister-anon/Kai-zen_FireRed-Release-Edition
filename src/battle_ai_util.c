@@ -1412,7 +1412,7 @@ bool32 AI_IsBattlerGrounded(u8 battlerId)
     if (gDisableStructs[battlerId].FrozenTurns != 0) //frozen solid
         grounded = TRUE;
     
-    if (gBattleResources->flags->flags[battlerId] & RESOURCE_FLAG_ROOST)
+    if (gDisableStructs[battlerId].RoostTimer)
         grounded = TRUE; 
 
     if ((gStatuses3[battlerId] & STATUS3_TELEKINESIS) && IsBlackFogNotOnField())

@@ -3541,7 +3541,6 @@ static void BattleStartClearSetData(void)
         gLastHitBy[i] = BATTLE_ID_NONE;
         gLockedMoves[i] = MOVE_NONE;
         gLastPrintedMoves[i] = MOVE_NONE;
-        gBattleResources->flags->flags[i] = 0;
         gBattleStruct->lastTakenMove[i] = MOVE_NONE;
         gBattleStruct->choicedMove[i] = MOVE_NONE;
         gBattleStruct->changedItems[i] = 0;
@@ -3825,7 +3824,6 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
         gBattleStruct->lastTakenMoveFrom[i][battler] = 0;
     }
     gBattleStruct->choicedMove[battler] = MOVE_NONE;
-    gBattleResources->flags->flags[battler] = 0;
     gCurrentMove = MOVE_NONE;
 
     // Record HP of incoming battler
@@ -3960,7 +3958,6 @@ const u8* FaintClearSetData(u32 battler) //see about make status1 not fade wen f
 
         gBattleStruct->lastTakenMoveFrom[i][battler] = 0;
     }
-    gBattleResources->flags->flags[battler] = 0;
     gBattleMons[battler].type1 = gBaseStats[gBattleMons[battler].species].type1;
     gBattleMons[battler].type2 = gBaseStats[gBattleMons[battler].species].type2;
     gBattleMons[battler].type3 = TYPE_MYSTERY;
@@ -5177,7 +5174,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
     // various effects
     if (gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_TAILWIND)
         speed *= 2;
-    if (gBattleResources->flags->flags[battler] & RESOURCE_FLAG_UNBURDEN)
+    if (gDisableStructs[battler].unburdenActive)
         speed *= 2;
     if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GRASS, FALSE) && (gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_WATERSPORT)) //give to more grass types
         speed = (speed * 150) / 100; //should prob make grass specific text string, i.e x became revitalized  //vsonic important
@@ -7057,8 +7054,8 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
         //but getting priority on contact moves is also realy nice, and would just make them good
 
         else if (gDisableStructs[battler].EmergencyExitTimer == 0
-        && gBattleResources->flags->flags[battler] & RESOURCE_FLAG_EMERGENCY_EXIT
-        && ability == ABILITY_EMERGENCY_EXIT) 
+        && gDisableStructs[battler].EmergencyExitWimpoutActive
+        && GetBattlerAbility(battler) == ABILITY_EMERGENCY_EXIT) 
         {   
             priority = 9;
         }//should ensure goes first, and will allow to be excluded from effects that otherwise block priority

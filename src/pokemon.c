@@ -6171,7 +6171,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     You will need more heat to get your fire started in the cold.*/  //logic for why fire dmg cut in hail/
 
     // flash fire triggered
-    if ((gBattleResources->flags->flags[battlerIdAtk] & RESOURCE_FLAG_FLASH_FIRE) && moveType == TYPE_FIRE)
+    if ((gDisableStructs[battlerIdAtk].flashFireBoosted) && moveType == TYPE_FIRE)
         OffensiveModifer(150);
          //how does this work, do I need to move it, or does it auto boost all damage?
                                         //it boosts all because its not in physical or special formula 

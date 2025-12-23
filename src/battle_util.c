@@ -3593,41 +3593,37 @@ u8 DoBattlerEndTurnEffects(void)
                 //setup like healblock timer above.
                 //I'd like to have a little battlestring display when timer is at 0
                 //something like "pokemonname" returned to the air or something..
-                if (gBattleResources->flags->flags[battler] & RESOURCE_FLAG_ROOST)
+
+                //put here so active before decrement to ensure easier condition setting //shuold be not first turn and not last turn of roost
+                //looks a bit janky does this work?
+                //tested yup looks weird but works pefectly
+                if (gDisableStructs[battler].RoostTimer != 4 && gDisableStructs[battler].RoostTimer != 1) 
                 {
-                    //put here so active before decrement to ensure easier condition setting //shuold be not first turn and not last turn of roost
-                    //looks a bit janky does this work?
-                    //tested yup looks weird but works pefectly
-                    if (gDisableStructs[battler].RoostTimer != 4 && gDisableStructs[battler].RoostTimer != 1) 
+                    MarkBattlerForControllerExec(battler);
+                    gEffectBattler = battler;
+                    //initial heal 50% then heal for a 3rd of that for next 3 turns, so does same amount
+                    gBattleMoveDamage = max(gBattleMons[battler].maxHP / 6,1);
+                    gBattleMoveDamage *= -1;
+                    BattleScriptExecute(BattleScript_EndturnRoost); //issue is endturn cant end with return
+                    ++effect;
+                }
+                
+                if (--gDisableStructs[battler].RoostTimer == 0)
+                {
+                    MarkBattlerForControllerExec(battler);
+                    gEffectBattler = battler;
+                    if (gBattleMons[battler].maxHP == gBattleMons[battler].hp)
+                        BattleScriptExecute(BattlesScript_RoostEnds);
+                    else
                     {
-                        MarkBattlerForControllerExec(battler);
-                        gEffectBattler = battler;
-                        //initial heal 50% then heal for a 3rd of that for next 3 turns, so does same amount
                         gBattleMoveDamage = max(gBattleMons[battler].maxHP / 6,1);
                         gBattleMoveDamage *= -1;
-                        BattleScriptExecute(BattleScript_EndturnRoost); //issue is endturn cant end with return
-                        ++effect;
-                    }
-                    
-                    if (--gDisableStructs[battler].RoostTimer == 0)
-                    {
-                        gBattleResources->flags->flags[battler] &= ~(RESOURCE_FLAG_ROOST);
-                        MarkBattlerForControllerExec(battler);
-                        gEffectBattler = battler;
-                        if (gBattleMons[battler].maxHP == gBattleMons[battler].hp)
-                            BattleScriptExecute(BattlesScript_RoostEnds);
-                        else
-                        {
-                            gBattleMoveDamage = max(gBattleMons[battler].maxHP / 6,1);
-                            gBattleMoveDamage *= -1;
-                            BattleScriptExecute(BattlesScript_RoostEndsHeal);
-                        }                        
-                        ++effect; //think logic is if execute/uses battle script use should increment effect?
-                        //gBattleMons[battler].type1 = gBattleStruct->roostTypes[battler][0];
-                        //gBattleMons[battler].type2 = gBattleStruct->roostTypes[battler][1];
-                    }
-                    
-                }
+                        BattleScriptExecute(BattlesScript_RoostEndsHeal);
+                    }                        
+                    ++effect; //think logic is if execute/uses battle script use should increment effect?
+                    //gBattleMons[battler].type1 = gBattleStruct->roostTypes[battler][0];
+                    //gBattleMons[battler].type2 = gBattleStruct->roostTypes[battler][1];
+                }                    
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_ELECTRIFY:
@@ -5342,7 +5338,7 @@ bool8 IsBattlerGrounded(u8 battlerId)
     //requiring speific moves
     
 
-    if (gBattleResources->flags->flags[battlerId] & RESOURCE_FLAG_ROOST)
+    if (gDisableStructs[battlerId].RoostTimer)
         grounded = TRUE; //hope this set up right/works
     //according to Mcgriffin needed make flying & roost flag true statement
     //as else at bottom just means not flyign or has roost flag, TRUE
@@ -7599,10 +7595,10 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                         --gDisableStructs[battler].timecontrolAbilityTimer;
                     break;
             case ABILITY_WIMP_OUT: //this is triggering instead of the move end script when ti shouldn't be able to
-                if (gBattleResources->flags->flags[battler] & RESOURCE_FLAG_EMERGENCY_EXIT)
+                if (gDisableStructs[battler].EmergencyExitWimpoutActive)
                 {
                     gBattlerTarget = BATTLE_OPPOSITE(battler);
-                    gBattleResources->flags->flags[battler] &= ~RESOURCE_FLAG_EMERGENCY_EXIT;
+                    gDisableStructs[battler].EmergencyExitWimpoutActive = FALSE;
                     if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER || GetBattlerSide(battler) == B_SIDE_PLAYER))
                     {
                         if (CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battler) || CountUsablePartyMons(gBattlerTarget) > 0)
@@ -7617,7 +7613,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 if (gDisableStructs[battler].EmergencyExitTimer)
                 {
                     if (--gDisableStructs[battler].EmergencyExitTimer == 0)
-                        gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_EMERGENCY_EXIT;
+                        gDisableStructs[battler].EmergencyExitWimpoutActive = TRUE;
                     ++effect;
                 }
                 break;
@@ -8032,7 +8028,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 case ABILITY_FLASH_FIRE:
                     if ((moveType == TYPE_FIRE) && !((gBattleMons[battler].status1 & STATUS1_FREEZE)))// && B_FLASH_FIRE_FROZEN <= GEN_4))
                     {
-                        if (!(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE))
+                        if (!gDisableStructs[battler].flashFireBoosted)
                         {
                             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_BOOST;
                             if (gProtectStructs[gBattlerAttacker].notFirstStrike)
@@ -8040,10 +8036,10 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                             else
                                 gBattlescriptCurrInstr = BattleScript_FlashFireBoost_PPLoss;
 
-                            gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_FLASH_FIRE;
+                            gDisableStructs[battler].flashFireBoosted = TRUE;
                             effect = 3; 
                         }
-                        else if ((gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE) || IsBattleMoveStatus(moveArg))
+                        else if ((gDisableStructs[battler].flashFireBoosted) || IsBattleMoveStatus(moveArg))
                         {
                             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_NO_BOOST;
                             if (gProtectStructs[gBattlerAttacker].notFirstStrike)
@@ -8062,7 +8058,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                         
                         else if ((moveType == TYPE_FIRE) && !((gBattleMons[battler].status1 & STATUS1_FREEZE)))// && B_FLASH_FIRE_FROZEN <= GEN_4))
                         {
-                            if (!(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE))
+                            if (!gDisableStructs[battler].flashFireBoosted)
                             {
                                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_BOOST;
                                 if (gProtectStructs[gBattlerAttacker].notFirstStrike)
@@ -8070,10 +8066,10 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                                 else
                                     gBattlescriptCurrInstr = BattleScript_FlashFireBoost_PPLoss;
 
-                                gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_FLASH_FIRE;
+                                gDisableStructs[battler].flashFireBoosted = TRUE;
                                 effect = 3; 
                             }
-                            else if ((gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE) || IsBattleMoveStatus(moveArg))
+                            else if ((gDisableStructs[battler].flashFireBoosted) || IsBattleMoveStatus(moveArg))
                             {
                                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_NO_BOOST;
                                 if (gProtectStructs[gBattlerAttacker].notFirstStrike)
@@ -8608,7 +8604,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     // Not currently held by Sky Drop
                     && !(gStatuses3[battler] & STATUS3_SKY_DROPPED))
                 {
-                    gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_EMERGENCY_EXIT;
+                    gDisableStructs[battler].EmergencyExitWimpoutActive = TRUE;
                     ++effect;
                 }//removed multihit check for both as just made not activate if hit by multihit
                 break;//did I do end turn or just after it attacks? hm ok I have both end turn and move end logic?
@@ -9717,17 +9713,19 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         case ABILITYEFFECT_NEUTRALIZINGGAS:
             // Prints message only. separate from ABILITYEFFECT_ON_SWITCHIN bc msg activates before entry hazards, but don't think I'm using THIS for intro message?
             
-            if (gBattleMons[battler].ability == ABILITY_NEUTRALIZING_GAS && !(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_NEUTRALIZING_GAS))
+            if (gBattleMons[battler].ability == ABILITY_NEUTRALIZING_GAS 
+            && !gDisableStructs[battler].neutralizingGas)
             {
-                gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_NEUTRALIZING_GAS;
+                gDisableStructs[battler].neutralizingGas = TRUE;
                 gBattlerAbility = battler;
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_NEUTRALIZING_GAS;
                 BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
                 ++effect;
             }
-            else if (gBattleMons[battler].ability == ABILITY_IMMUTABLE_WIND && !(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_IMMUTABLE_WIND))
+            else if (gBattleMons[battler].ability == ABILITY_IMMUTABLE_WIND 
+            && !gDisableStructs[battler].immutableWind)
             {
-                gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_IMMUTABLE_WIND;
+                gDisableStructs[battler].immutableWind = TRUE;
                 gBattlerAbility = battler;
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_IMMUTABLE_WIND;
                 BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);

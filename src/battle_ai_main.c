@@ -2974,7 +2974,7 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 case ABILITY_FLASH_FIRE:
                     if (moveType == TYPE_FIRE
                       && HasMoveWithType(battlerAtkPartner, TYPE_FIRE)
-                      && !(gBattleResources->flags->flags[battlerAtkPartner] & RESOURCE_FLAG_FLASH_FIRE))
+                      && !gDisableStructs[battlerAtkPartner].flashFireBoosted)
                     {
                         RETURN_SCORE_PLUS(1);
                     }
