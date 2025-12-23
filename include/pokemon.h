@@ -262,6 +262,14 @@ enum StatsSetState
     SET_VIA_PARTY
 };
 
+//note size of struct pokemon does effect ewram
+//goes through struct PokemonStorageSystemData
+//which stores the struct multiple times
+//in that case I might as well use up my free space
+//and its a bad idea to attempt store form data here
+//...but there's literally no where else to put it
+//yeah go ahead and use the space, its necessary for
+//4 byte allignment anyway
 struct Pokemon
 {
     struct BoxPokemon box; //size of this is size of mon in box, so multiply by mon in box x number of boxes to get size boxes take
@@ -277,10 +285,22 @@ struct Pokemon
     u16 spDefense;
     u8 StatusSetState;
     u8 Exp_state;
-    u16 padding;// - from 4 allignment
+    u16 pickupCounter;// - from 4 allignment
 };//ok with the stuff I added
 //I now have 2 bytes of extra space
 //I plan to remove mail 
+//removing mail won't save space
+//as for allignment will still need
+//to keep value for padding byte
+//new idea I will have 3 bytes of unused space
+//when done could use 2 bytes
+//to make pickup timer attached to pokemon itself
+//that way intead of var could have multiple individual
+//opportunities to get resoures
+//making the weak pickup mon
+//the most advantageous for nuzlockes/resource farming
+//seems fine, even EE doens't have extra things
+//stored to pokemon struct
 
 u8 GetLevelFromMonExp(struct Pokemon *mon);
 u16 ModifyStatByNature(u8 nature, u16 stat, u8 statIndex);//made global for bs command level up calc

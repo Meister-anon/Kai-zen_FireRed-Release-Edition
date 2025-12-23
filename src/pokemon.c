@@ -7282,6 +7282,9 @@ u32 GetMonData(struct Pokemon *mon, s32 field, u8 *data)
     case MON_DATA_STATUS_SET_STATE:
         ret = mon->StatusSetState;
         break;
+    case MON_DATA_PICKUP_COUNTER:
+        ret = mon->pickupCounter;
+        break;
     case MON_DATA_MAIL:
         //ret = mon->mail;
         break;
@@ -7715,6 +7718,9 @@ void SetMonData(struct Pokemon *mon, s32 field, const void *dataArg)
     break;
     case MON_DATA_STATUS_SET_STATE:
         SET8(mon->StatusSetState);
+    break;
+    case MON_DATA_PICKUP_COUNTER:
+        SET16(mon->pickupCounter);
     break;
     case MON_DATA_MAIL:
         //SET8(mon->mail);
