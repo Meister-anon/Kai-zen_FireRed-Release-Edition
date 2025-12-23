@@ -165,7 +165,7 @@ struct BoxPokemon
 
     u32 species:11;
     u32 heldItem:10; //looks like both of these will be bit 10
-    u32 totalUnallocatedEvs:11;
+    u32 totalUnallocatedEvs:11;//couple ways can do, pay to set or only pay to respec if former ev items bypass cost and auto set for free would require reset base stats exp yield thankfully didn't delete bs values would just need regexsub to make general evs
 
     //u32 winningRibbon:1; //these two for emerald battle tower
     //u32 victoryRibbon:1;
@@ -250,12 +250,33 @@ enum StatsSetState
     SET_VIA_PARTY
 };
 
+//form species change don't put in pokemon struct
+//just make its own buffer store one value
+//don't need for entire party as only one mon can activate anyway
+//potentially change mail to bitstruct
+//use 1 bit for is formbuffer active
+//that way can know to load relevant data from form buffer
+//instead of pokemon struct
+//to ensure buffer not accidentally overwritten
+//store species of form changed into
+//and personality so I know regardless of slot position
+//which mon it is
+//and only to reset values stored to form buffer
+//if species and or personality differ from what's inside
+//store both only for rare chance have multiple of the same species
+//in party able to formchange into same form stored
+//...but in that case would need identifier so dont
+//form change wrong one... *facepalm
+//sigh ok now need make a paryt menu symbol or icon
+//for form stored mon
 struct Pokemon
 {
     struct BoxPokemon box; //size of this is size of mon in box, so multiply by mon in box x number of boxes to get size boxes take
     u32 status;
     u8 level;
     u8 mail; //remove mail   vsonic
+    //u8 isFormbufferActive:1; //replacement for mail
+    //u8 freespace:7;
     u16 hp;
     u16 maxHP;
     u16 attack;
@@ -265,7 +286,6 @@ struct Pokemon
     u16 spDefense;
     u8 StatusSetState;
     u8 Exp_state;
-    struct FormDataStorage formdata;
 };
 //believe put formchange stuff here
 //thikn long as keep out of boxPokemon
@@ -326,12 +346,13 @@ struct FormDataStorage {
     u32 Form_hpEV:9; //FACEPALM I never adjusted these for the new cap!!! //max per stat 360
     u32 Form_attackEV:9; //wich is bit 9
     u32 Form_defenseEV:9;    
-    u32 blank:5;
+    u32 abilityNum:2;
+    u32 blank:3;
 
     u32 Form_speedEV:9; //FACEPALM I never adjusted these for the new cap!!! //max per stat 360
     u32 Form_spAttackEV:9; //wich is bit 9
-    u32 Form_spDefenseEV:9;    
-    u32 formspace:5;
+    u32 Form_spDefenseEV:9;  
+    u32 HiddenPowerType:5;  //perfectly fits free space, add in case want to change
     
    //goes over ewram cap
    //belive applying compression update can save
@@ -356,10 +377,12 @@ struct FormDataStorage {
    //its all the same things that change with use of transform
 
     u8 ppBonuses;    //potentially remove for space and simplicity, lost on boxing so not much point
-    u8 abilityNum; //if give megas hidden ability then I need to store abilityNum so that reverts correctly too
+    u8 blankspace; //if give megas hidden ability then I need to store abilityNum so that reverts correctly too
     u16 species;
+    u32 personality;
 
 };
+//8 x 4 =32  x 6 = 130 bytes
 //guess should be 10 bytes total
 //then storage is that times 2
 //for entire party
@@ -421,7 +444,12 @@ struct FormDataStorage {
 //if mon has a mega loop party check if mega/primal species is in party
 //note mon revert on enter pc
 //after that works can have unique learnsets for forms
-extern struct FormDataStorage gFormSwapBuffer[PARTY_SIZE][MAX_FORM_DATA_STORED];
+//had wrong idea can work for anymon in party don't need store for EVERY
+//mon in party wait actually no I do need it for every mon
+//just don't need the extra 2 form stuff
+//needed for every so can store data for any mon
+//so any mon can be viable to form change
+extern struct FormDataStorage gFormSwapBuffer[PARTY_SIZE];
 
 
 u8 GetLevelFromMonExp(struct Pokemon *mon);
