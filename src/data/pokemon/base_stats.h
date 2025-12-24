@@ -7895,7 +7895,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_THICK_FAT, ABILITY_NONE}, //thick fat to cover ice weakness
+        .abilities = {ABILITY_THICK_FAT, ABILITY_MAGIC_BOUNCE}, //thick fat to cover ice weakness
         .abilityHidden = {ABILITY_MULTISCALE, ABILITY_STORM_BREAK}, //pressure was just he default legendary ability,may just remove pressure for this
         //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
@@ -7907,6 +7907,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },
+    //gave magic bounce as in movie reflects legendary birds attacks back at them
     //hmm w type changes this is perfect, psychic covers fairy weakness
     //and ability change covers Ice
 
@@ -7940,7 +7941,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },//didn't exactly want storm break on these 2 but made too much sense,
-    //beleive bought are none to clear weather or affect weather in some way
+    //beleive bought are known to clear weather or affect weather in some way
 
     [SPECIES_CELEBI] =
     {
