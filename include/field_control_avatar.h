@@ -28,10 +28,11 @@ enum PickupAbilityEventState
     UPDATE_PICKUP_VARIABLES,
     END_TASK_NO_VIABLE_MON,
     ASSIGN_ITEM_TO_ARRAY,
-    CHECK_BAG_SPACE, //rather than addbagitem think repalce chekbaghasspace
-    ADD_ITEM,
+    CHECK_ITEM_SPACE, //rather than addbagitem think repalce chekbaghasspace 
+    ADD_ITEM_BAG, //if true go to bag if false add to pc then do print string and loop
+    ADD_ITEM_PC,
     PRINT_STRING,
-    LOOP_FROM_ASSIGNMENT
+    LOOP_FROM_ASSIGNMENT //check numpickup mon decrement if not 0 jump to assignment and loop //increment loopincrement
 };
 //if no space think print no space and return or add to pc
 //had considered setup auto add to player item pc
