@@ -19096,6 +19096,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //regi ice's ability would only heal itself in hail etc.
     //snow cloak would only work in snow specifically
     //while some things like ice body could work in both
+    //hail may be better for singles
+    //snow better for vgc at first glance
 
     [MOVE_GRASSHOPPER] =
     {
