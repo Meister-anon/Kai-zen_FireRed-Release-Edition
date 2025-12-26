@@ -2378,7 +2378,9 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_ACID_RAIN] = gMoveDescription_AcidRain,
     [MOVE_COLD_FRONT] = COMPOUND_MOVE_STRING("A sudden temperature\ndrop that chills\nto the bone.\nTwo-turn attack\nskips charge in hail"),
     [MOVE_LIFE_DRAIN] = COMPOUND_MOVE_STRING("User latches onto\nthe target tightly\nand fiercly drains\ntheir energy."),
-
+    [MOVE_DARK_SWAMP] = COMPOUND_MOVE_STRING("Todo"),
+    [MOVE_SNOW_DAY] = COMPOUND_MOVE_STRING("Todo"),
+    [MOVE_FOG_HORN] = COMPOUND_MOVE_STRING("Todo"),
 };//last value can have comma
 //with using compound string realized can paste descriptions directly
 //from bulbapedia, then just a matter of adjusting for spacing
@@ -3282,6 +3284,9 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_ACID_RAIN] = _("Acid Rain"),
     [MOVE_COLD_FRONT] = _("Cold Front"),
     [MOVE_LIFE_DRAIN] = _("Life Drain"),
+    [MOVE_DARK_SWAMP] = _("Dark Swamp"),
+    [MOVE_SNOW_DAY] = _("Snow Day"),
+    [MOVE_FOG_HORN] = _("Fog Horn"),
 };//don't need remove comma from last value for this file, port of emerald
 
 //remember to remove comma from last entry //longest name is 17 chars
