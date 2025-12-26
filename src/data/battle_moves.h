@@ -20770,4 +20770,45 @@ use wonder gaurd logic to determine its super effective
     },
     //made 60 bp to continue trend of oddly broken dark moves category
 
+    [MOVE_SNOW_DAY] =
+    {
+        .effect = EFFECT_SNOW_DAY,
+        .power = 0,
+        .type = TYPE_ICE,
+        .accuracy = 0,
+        .pp = 5,
+        //.secondaryEffectChance = 0,
+        .target = MOVE_TARGET_USER,
+        .priority = 1,
+        .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS, //change use calming effect
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = COMBO_STARTER_HAIL,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Snowscape
+    },
+    //snowday replaces original snowscape
+
+    [MOVE_FOG_HORN] =
+    {
+        .effect = EFFECT_FOG,
+        .power = 0,
+        .type = TYPE_NORMAL, //idk stuck between water normal or sound
+        .accuracy = 0, //
+        .pp = 5,
+        //.secondaryEffectChance = 0,
+        .target = MOVE_TARGET_USER,
+        .priority = 1,
+        .split = SPLIT_STATUS,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_HAIL,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_SNOW) ? gBattleAnimMove_Snowscape : gBattleAnimMove_Hail,
+    },
+
 };

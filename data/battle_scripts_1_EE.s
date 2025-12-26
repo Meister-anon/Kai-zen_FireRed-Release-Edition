@@ -3961,6 +3961,18 @@ BattleScript_EffectHail::
 	setfieldweather BATTLE_WEATHER_HAIL
 	goto BattleScript_MoveWeatherChange
 
+BattleScript_EffectSnow::
+	attackcanceler
+	call BattleScript_CheckPrimalWeather
+	setfieldweather BATTLE_WEATHER_SNOW
+	goto BattleScript_MoveWeatherChange
+
+BattleScript_EffectFog::
+	attackcanceler
+	call BattleScript_CheckPrimalWeather
+	setfieldweather BATTLE_WEATHER_FOG
+	goto BattleScript_MoveWeatherChange
+
 BattleScript_EffectTorment::
 	attackcanceler
 	accuracycheck BattleScript_ButItFailed, ACC_CURR_MOVE
@@ -8848,11 +8860,7 @@ BattleScript_BoosterEnergyRet::
 	removeitem BS_SCRIPTING
 	return
 
-BattleScript_EffectSnow::
-	attackcanceler
-	call BattleScript_CheckPrimalWeather
-	setfieldweather BATTLE_WEATHER_SNOW
-	goto BattleScript_MoveWeatherChange
+
 
 BattleScript_SleepClauseBlocked::
 	pause B_WAIT_TIME_SHORT

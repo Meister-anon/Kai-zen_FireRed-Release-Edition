@@ -758,7 +758,6 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_PSYBLADE,
     EFFECT_HYDRO_STEAM,
     EFFECT_REVIVAL_BLESSING,
-    EFFECT_SNOW_DAY,
     EFFECT_TAKE_HEART,
     EFFECT_COLLISION_COURSE,
     EFFECT_CORROSIVE_GAS,
@@ -806,7 +805,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_SUBMISSION,
     EFFECT_RAGING_BULL,
     //EFFECT_SET_EFFECT_PRE_HIT, //attempt repalce below 2 - hHad wrong dont need effect
-    EFFECT_SNOWESCAPE,
+    EFFECT_SNOWESCAPE,    
     //EFFECT_SACRIFICE_HEALTH, //decide not use for mind blown but will make set of effects that sacrifice hp before going off -realized was dumb, no use case for
     EFFECT_MIND_BLOWN, //will be used for mindblown & self destruct diff from 50% hp recoil in that it goes off first and can kill like curse but fails if user faints
     //EFFECT_STRENGTH_UP_HIT, //instead straight 50% use damagepercentage argument for max hp amount to lose
@@ -817,6 +816,8 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_STATUS_IF_NOT_ARG_TYPE,
     EFFECT_TRENCH_RUN,
     EFFECT_STEEL_SURGE,
+    EFFECT_SNOW_DAY,
+    EFFECT_FOG,
     NUM_BATTLE_MOVE_EFFECTS,
 };
 

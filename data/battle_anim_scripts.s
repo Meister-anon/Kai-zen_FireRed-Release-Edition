@@ -1009,6 +1009,8 @@ gBattleAnims_General::		@aligns with constants/battle_anim.h
 	.4byte Status_Infestation				@ B_ANIM_INFESTATION
 	.4byte General_Moonlight				@ B_ANIM_MOONLIGHT_SHINES
 	.4byte General_AcidRain					@ B_ANIM_ACID_RAIN_CONTINUES
+	.4byte General_Snow						@ B_ANIM_SNOW_CONTINUES
+	.4byte General_Fog						@ B_ANIM_FOG_CONTINUES
 
 gBattleAnims_Special::
 	.4byte Special_LevelUp					@ B_ANIM_LVL_UP
@@ -25101,6 +25103,9 @@ General_Rain:: @ 81D5F8F
 	waitforvisualfinish
 	end
 
+General_Fog::
+	goto Move_HAZE
+
 General_AcidRain:: @ 81D5F8F
 	goto Move_ACID_RAIN
 
@@ -25110,6 +25115,8 @@ General_Sun:: @ 81D5FD8
 General_Sandstorm:: @ 81D5FDD
 	goto Move_SANDSTORM
 
+@put here for now
+General_Snow::
 General_Hail:: @ 81D5FE2
 	goto Move_HAIL
 

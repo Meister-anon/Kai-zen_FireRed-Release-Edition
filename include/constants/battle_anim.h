@@ -551,6 +551,8 @@
 #define B_ANIM_INFESTATION              0x2C
 #define B_ANIM_MOONLIGHT_SHINES         0x2D    //should be setup now?
 #define B_ANIM_ACID_RAIN_CONTINUES      0x2E
+#define B_ANIM_SNOW_CONTINUES           0x2F
+#define B_ANIM_FOG_CONTINUES            0x30
 
 // special animations table
 #define B_ANIM_LVL_UP                   0x0

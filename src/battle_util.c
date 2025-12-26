@@ -213,8 +213,8 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     {
         .flag = WEATHER_ACID_RAIN,
         .rock = HOLD_EFFECT_SLIMY_ROCK,
-        .endMessage = B_MSG_WEATHER_END_ACIDRAIN,
-        .continuesMessage = B_MSG_WEATHER_TURN_ACIDRAIN,
+        .endMessage = B_MSG_WEATHER_END_ACID_RAIN,
+        .continuesMessage = B_MSG_WEATHER_TURN_ACID_RAIN,
         .animation = B_ANIM_ACID_RAIN_CONTINUES,
     },
 
