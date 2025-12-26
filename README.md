@@ -23,6 +23,9 @@ and go over all the flags I added/previously may have updated i.e pulse moves pu
 
 and add the member if necessary
 
+make new weather into Tms think give in early game
+best way for player to get idea of new effects
+
 want contests since I enjoyed them so for now keeping contest data just
 commented out
 at completion can remove w regex replace
