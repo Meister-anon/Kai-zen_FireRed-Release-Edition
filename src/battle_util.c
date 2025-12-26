@@ -3986,6 +3986,14 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                     effect = TRUE;
                 }
                 break;
+            case WEATHER_ACID_RAIN:
+                if (!(gBattleWeather & WEATHER_ACID_RAIN))
+                {
+                    gBattleWeather = WEATHER_ACID_RAIN;
+                    gBattleScripting.animArg1 = B_ANIM_ACID_RAIN_CONTINUES;
+                    effect = TRUE;
+                }
+                break;
             case WEATHER_SANDSTORM:
                 if (!(gBattleWeather & WEATHER_SANDSTORM))
                 {
@@ -4020,6 +4028,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                 break;
             case WEATHER_FOG_DIAGONAL:
             case WEATHER_FOG_HORIZONTAL:
+            case WEATHER_DARKFOG_HORIZONTAL:
                 if (B_OVERWORLD_FOG == GEN_4 && !(gBattleWeather & WEATHER_FOG))
                 {
                     gBattleWeather = WEATHER_FOG;
@@ -4792,15 +4801,40 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
             case ABILITY_DRY_SKIN:
                 if (IsBattlerWeatherAffected(battler, WEATHER_SUN))
                     goto SOLAR_POWER_HP_DROP;
+                else if ((IsBattlerWeatherAffected(battler, WEATHER_RAIN)
+                || IsFogOnField())
+                && CanBattlerHeal(battler))
+                {
+                    s32 healAmount = 8;
+                    SetHealAmount(battler, GetNonDynamaxMaxHP(battler) / healAmount);
+                    BattleScriptExecute(BattleScript_EndTurnAbilityHpHeal);
+                    effect++;
+                }
+                break;
             // Dry Skin works similarly to Rain Dish in Rain
+            //not sure why they did it this way, not doin that
+            //also rebalanced heal effects
+            //had removed dry skin drop from dry skin
+            //but makes sense think what will do instead
+            //is just lower dmg insteed of 1/8  do 1/12 - done
+            case ABILITY_WATER_ABSORB:
+                if ((IsBattlerWeatherAffected(battler, WEATHER_RAIN)
+                || IsFogOnField())
+                && CanBattlerHeal(battler))
+                    {
+                        s32 healAmount = 16;
+                        SetHealAmount(battler, GetNonDynamaxMaxHP(battler) / healAmount);
+                        BattleScriptExecute(BattleScript_EndTurnAbilityHpHeal);
+                        ++effect;
+                    }
+                    break;
             case ABILITY_RAIN_DISH:
                 if (IsBattlerWeatherAffected(battler, WEATHER_RAIN)
-                 && !IsBattlerAtMaxHp(battler)
-                 && !gBattleMons[battler].volatiles.healBlock)
+                 && CanBattlerHeal(battler))
                 {
-                    s32 healAmount = gLastUsedAbility == ABILITY_RAIN_DISH ? 16 : 8;
+                    s32 healAmount = 12;
                     SetHealAmount(battler, GetNonDynamaxMaxHP(battler) / healAmount);
-                    BattleScriptExecute(BattleScript_RainDishActivates);
+                    BattleScriptExecute(BattleScript_EndTurnAbilityHpHeal);
                     effect++;
                 }
                 break;
@@ -4899,7 +4933,8 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
                 if (IsBattlerWeatherAffected(battler, WEATHER_SUN))
                 {
                 SOLAR_POWER_HP_DROP:
-                    SetPassiveDamageAmount(battler, GetNonDynamaxMaxHP(battler) / 8);
+                    s32 passiveDmg = gLastUsedAbility == ABILITY_DRY_SKIN ? 12 : 8;
+                    SetPassiveDamageAmount(battler, GetNonDynamaxMaxHP(battler) / passiveDmg);
                     BattleScriptExecute(BattleScript_SolarPowerActivates);
                     effect++;
                 }
@@ -8551,7 +8586,8 @@ static inline uq4_12_t GetParentalBondModifier(u32 battlerAtk)
 }
 
 //ok NOW think should be good unsure if I need add bide as well? vsonic
-static inline uq4_12_t GetSameTypeAttackBonusModifier(struct DamageContext *ctx)
+//since include joat etc decide rename function was GetSameTypeAttackBonusModifier
+static inline uq4_12_t GetTypeBasedBonusModifier(struct DamageContext *ctx)
 {
     u8 SecondarymoveType = GetMoveEffect(ctx->move) == EFFECT_TWO_TYPED_MOVE ? GetMoveStoredValue(ctx->move) : 0xFF;
 
@@ -9022,7 +9058,7 @@ s32 ApplyModifiersAfterDmgRoll(struct DamageContext *ctx, s32 dmg)
     if (GetActiveGimmick(ctx->battlerAtk) == GIMMICK_TERA)
         DAMAGE_APPLY_MODIFIER(GetTeraMultiplier(ctx));
     else
-        DAMAGE_APPLY_MODIFIER(GetSameTypeAttackBonusModifier(ctx));
+        DAMAGE_APPLY_MODIFIER(GetTypeBasedBonusModifier(ctx));
     DAMAGE_APPLY_MODIFIER(ctx->typeEffectivenessModifier);
     DAMAGE_APPLY_MODIFIER(GetBurnOrFrostBiteModifier(ctx));
     DAMAGE_APPLY_MODIFIER(GetZMaxMoveAgainstProtectionModifier(ctx));
@@ -12251,6 +12287,26 @@ bool32 IsAllowedToUseBag(void)
     default:
         return TRUE; // Undefined Behavior
     }
+}
+
+//since plan make heal block ability affect/antiheal
+//and there are moves that do single target healblock
+//think best idea to make function for healblockaffected
+//to consolidate said effects
+// vsonic
+bool32 CanBattlerHeal(u8 battlerId)
+{
+    if (IsBattlerAlive(battlerId))
+    {
+
+        if (IsBattlerAtMaxHp(battlerId) 
+        || (gBattleMons[battlerId].volatiles.healBlock))
+            return FALSE;
+        
+        return TRUE;
+    }
+    
+    return FALSE;
 }
 
 //unsure if using, have singlueuseability logic

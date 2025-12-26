@@ -1401,6 +1401,23 @@ static inline bool32 IsBattlerAlly(u32 battlerAtk, u32 battlerDef)
     return GetBattlerSide(battlerAtk) == GetBattlerSide(battlerDef);
 }
 
+//can't  remember where I had notes for 
+//new weather change but point was
+//unique thing was effect can't be negated with items
+//effect todo was set damp
+//do psuedo haze attack drops no longer have affect
+//also instead of acc drop effect because reduced vision in fog
+//what will do is fog prevents redirection effects 
+//well not bounce effects just prevents move redirection
+//things like lightning rod
+//consider also interact with some low level water based
+//abilities? 
+//already said its wet since works in place of damp
+//considering allowing to activate water absorb
+//done decide use w effects that imply moisture
+//rather than direct related to rain
+//redirection block would also stop rage powder 
+//and follow me
 static inline bool32 IsFogOnField(void)
 {
     return (HasWeatherEffect() && gBattleWeather & WEATHER_FOG);
