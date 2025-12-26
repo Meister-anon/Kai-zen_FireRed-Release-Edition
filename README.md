@@ -23,6 +23,18 @@ and go over all the flags I added/previously may have updated i.e pulse moves pu
 
 and add the member if necessary
 
+IMPORTANT note for later
+for randomizer consisder setup restricted runs
+rather than have to remake all encouters
+let randomize to only a set type of mon for wild encouters
+so players can do runs with only a certain type of mon
+doesn't have to be monotype
+then randomize existing encouters to mon of said type
+within range of bst so progression doesn't get broken
+
+only odd thing to work out are surf/fishing encouters
+guess look for mon that match part water part restrcited type
+
 make new weather into Tms think give in early game
 best way for player to get idea of new effects
 
