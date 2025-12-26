@@ -112,8 +112,7 @@ const u8 gMoveDescription_Withdraw[MOVE_DESCRIPTION_LENGTH + 5] = _("The user wi
 const u8 gMoveDescription_DefenseCurl[MOVE_DESCRIPTION_LENGTH + 5] = _("The user curls up\nto conceal weak\nspots and raise its\nDEFENSE stat.");
 const u8 gMoveDescription_Barrier[MOVE_DESCRIPTION_LENGTH + 5] = _("The user creates a\nsturdy wall that\nsharply raises its\nDEFENSE stat.");
 const u8 gMoveDescription_LightScreen[MOVE_DESCRIPTION_LENGTH + 5] = _("A wall of light\ncuts damage from\nSP. ATK attacks\nfor five turns.");
-//const u8 gMoveDescription_Haze[MOVE_DESCRIPTION_LENGTH + 5] = _("Eliminates all stat\nchanges among all\nPOKéMON engaged in\nbattle.");
-const u8 gMoveDescription_Haze[MOVE_DESCRIPTION_LENGTH + 5] = _("Covers the field in\na strange black fog\nresetting stats and\nblocking external,\nand status effects\nfor the duration.");
+const u8 gMoveDescription_Haze[MOVE_DESCRIPTION_LENGTH + 5] = _("Eliminates all stat\nchanges among all\nPOKéMON engaged in\nbattle.");
 const u8 gMoveDescription_Reflect[MOVE_DESCRIPTION_LENGTH + 5] = _("A wall of light\ncuts damage from\nphysical attacks\nfor five turns.");
 const u8 gMoveDescription_FocusEnergy[MOVE_DESCRIPTION_LENGTH + 5] = _("The user takes a\ndeep breath and\nfocuses to raise its\ncritical-hit ratio.");
 const u8 gMoveDescription_Bide[MOVE_DESCRIPTION_LENGTH + 5] = _("The user endures\nattacks for two\nturns, then strikes\nback double.");
@@ -201,7 +200,6 @@ const u8 gMoveDescription_Detect[MOVE_DESCRIPTION_LENGTH + 5] = _("Enables the u
 const u8 gMoveDescription_BoneRush[MOVE_DESCRIPTION_LENGTH + 5] = _("The user strikes\nthe foe with a bone\nin hand two to five\ntimes.");
 const u8 gMoveDescription_LockOn[MOVE_DESCRIPTION_LENGTH + 5] = _("The user locks on\nto the foe, making\nthe next move sure\nto hit.");
 const u8 gMoveDescription_Outrage[MOVE_DESCRIPTION_LENGTH + 5] = _("The user thrashes\nabout for two to\nthree turns, then\nbecomes confused.");
-const u8 gMoveDescription_Sandstorm[MOVE_DESCRIPTION_LENGTH + 5] = _("A 5-turn sandstorm\nthat damages all\ntypes except ROCK,\nGROUND, and STEEL.");
 const u8 gMoveDescription_GigaDrain[MOVE_DESCRIPTION_LENGTH + 5] = _("A harsh attack that\nabsorbs half the\ndamage it inflicted\nto restore HP.");
 const u8 gMoveDescription_Endure[MOVE_DESCRIPTION_LENGTH + 5] = _("The user endures\nany hit with 1 HP\nleft. It may fail if\nused in succession.");
 const u8 gMoveDescription_Charm[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is charmed\nby the user's cute\nappeals, sharply\ncutting its ATTACK.");
@@ -239,10 +237,15 @@ const u8 gMoveDescription_Moonlight[MOVE_DESCRIPTION_LENGTH + 5] = _("Restores t
 const u8 gMoveDescription_HiddenPower[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\nvaries in type and\nintensity depending\non the user.\nSplit is based on\nhighest attack stat.");
 const u8 gMoveDescription_CrossChop[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is hit with\ndouble chops.\nIt has a high\ncritical-hit ratio.");
 const u8 gMoveDescription_Twister[MOVE_DESCRIPTION_LENGTH + 5] = _("A vicious twister\nattacks the foe.\nIt may make the\nfoe flinch.");
+//weather descriptions
 const u8 gMoveDescription_RainDance[MOVE_DESCRIPTION_LENGTH + 5] = _("A heavy rain falls\nfor five turns,\npowering up WATER-\ntype moves.");
-const u8 gMoveDescription_SunnyDay[MOVE_DESCRIPTION_LENGTH + 5] = _("The sun blazes for\nfive turns, powering\nup FIRE-type\nmoves.");
+const u8 gMoveDescription_SunnyDay[MOVE_DESCRIPTION_LENGTH + 5] = _("The sun blazes for\nfive turns, powering\nup FIRE-type\nmoves and weakening\nWATER and ICE moves.");
+const u8 gMoveDescription_Sandstorm[MOVE_DESCRIPTION_LENGTH + 5] = _("A 5-turn sandstorm\nthat damages all\ntypes except ROCK,\nGROUND, and STEEL.\nBoost SP. DEF of\nGROUND and ROCK mon.");
+const u8 gMoveDescription_Hail[MOVE_DESCRIPTION_LENGTH + 5] = _("Summons a hailstorm\nlasting five turns.\nDamaging Non-Ice mon\nslightly cuts Fire\nand slightly Ups Ice\ntype Defenses.");
+const u8 gMoveDescription_SnowDay[MOVE_DESCRIPTION_LENGTH + 5] = _("Summons a snowstorm\nlasting five turns.\nSlightly cuts Fire\nand slightly Ups Ice\ntype Defenses.");
 const u8 gMoveDescription_Moondance[MOVE_DESCRIPTION_LENGTH + 5] = _("The Moon's power\nis intensified for\nfive turns, giving\na slight boost\nfor both WATER and\nFAIRY type moves.");
-const u8 gMoveDescription_AcidRain[MOVE_DESCRIPTION_LENGTH + 5] = _("Acid rain falls\nfrom the sky for\nfive turns. Slightly\nboosts FIRE and\nWATER type moves.\nAlso treated as PSN.");
+const u8 gMoveDescription_AcidRain[MOVE_DESCRIPTION_LENGTH + 5] = _("Acid rain falls for\nfive turns, damaging\nNon-Psn mon Slightly\nboosts FIRE and\nWATER type moves.\nTriggers Psn effects"); //ok what did this mean again ...oh its actually treated as being poisoned things like toxic boost
+const u8 gMoveDescription_FogHorn[MOVE_DESCRIPTION_LENGTH + 5] = _("Summons a damp fog\nfor five turns.\nBlocks move redirect\nand ignores Offense\nstat changes.\nPrevents Explosions.");
 const u8 gMoveDescription_Crunch[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is crunched\nwith sharp fangs.\nIt may lower the\nfoe's SP. DEF.");
 const u8 gMoveDescription_MirrorCoat[MOVE_DESCRIPTION_LENGTH + 5] = _("A retaliation move\nthat pays back the\nfoe's special attack\ndouble.");
 const u8 gMoveDescription_PsychUp[MOVE_DESCRIPTION_LENGTH + 5] = _("The user hypnotizes\nitself into copying\nany stat change\nmade by the foe.");
@@ -259,7 +262,6 @@ const u8 gMoveDescription_Stockpile[MOVE_DESCRIPTION_LENGTH + 5] = _("The user c
 const u8 gMoveDescription_SpitUp[MOVE_DESCRIPTION_LENGTH + 5] = _("The power built\nusing STOCKPILE is\nreleased at once\nfor attack.");
 const u8 gMoveDescription_Swallow[MOVE_DESCRIPTION_LENGTH + 5] = _("The energy it built\nusing STOCKPILE is\nabsorbed to restore\nHP.");
 const u8 gMoveDescription_HeatWave[MOVE_DESCRIPTION_LENGTH + 5] = _("The user exhales a\nheated breath to\nattack. It may also\ninflict a burn.");
-const u8 gMoveDescription_Hail[MOVE_DESCRIPTION_LENGTH + 5] = _("A hailstorm lasting\nfive turns damages\nall POKéMON except\nthe ICE-type.");
 const u8 gMoveDescription_Torment[MOVE_DESCRIPTION_LENGTH + 5] = _("It enrages the foe,\nmaking it incapable\nof using the same\nmove successively.");
 const u8 gMoveDescription_Flatter[MOVE_DESCRIPTION_LENGTH + 5] = _("Flattery is used to\nconfuse the foe.\nIt sharply raises\ntargets SP. ATK.\nbut also lowers DEF.");
 const u8 gMoveDescription_WillOWisp[MOVE_DESCRIPTION_LENGTH + 5] = _("A sinister, bluish\nwhite flame is shot\nat the foe to\ninflict a burn.");
@@ -2379,8 +2381,9 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_COLD_FRONT] = COMPOUND_MOVE_STRING("A sudden temperature\ndrop that chills\nto the bone.\nTwo-turn attack\nskips charge in hail"),
     [MOVE_LIFE_DRAIN] = COMPOUND_MOVE_STRING("User latches onto\nthe target tightly\nand fiercly drains\ntheir energy."),
     [MOVE_DARK_SWAMP] = COMPOUND_MOVE_STRING("Todo"),
-    [MOVE_SNOW_DAY] = COMPOUND_MOVE_STRING("Todo"),
-    [MOVE_FOG_HORN] = COMPOUND_MOVE_STRING("Todo"),
+    //these two need constant as will be made tms along w other weather moves
+    [MOVE_SNOW_DAY] = gMoveDescription_SnowDay,
+    [MOVE_FOG_HORN] = gMoveDescription_FogHorn,
 };//last value can have comma
 //with using compound string realized can paste descriptions directly
 //from bulbapedia, then just a matter of adjusting for spacing

@@ -5439,7 +5439,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     // hail sp.def & def boost for ice types  // still deciding if I want a 50% defense boost or a 25% boost to def & sp def
     if ((DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdDef, TYPE_ICE, FALSE))
-        && IsBattlerWeatherAffected(battlerIdDef, WEATHER_HAIL_ANY) && abilityAtk != ABILITY_CLOUD_NINE)    
+        && IsBattlerWeatherAffected(battlerIdDef, WEATHER_ICY_ANY) && abilityAtk != ABILITY_CLOUD_NINE)    
     {
         spDefense = (115 * spDefense) / 100;
         defense = (135 * defense) / 100;
@@ -6146,16 +6146,24 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //but doesn't weaken fire moves
         //so you could run a mix of fire and water on the same team
 
-        // hail
+        // hail/snow
         if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ICY_ANY))
         {
-
+            //fire is in very precarious position
+            //balance wise, is barely good
+            //any shifts can knock it off
+            //to that effect need lower this
+            //ice types get def boosts already 
+            //this is too much of a drop
+            //but has to stil be effective
+            //for non ice types to benefit hmm
             switch (moveType)
             {
             case TYPE_FIRE:
             if (atkBaseForm != SPECIES_CASTFORM
             && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
-                OffensiveModifer(50);
+                //OffensiveModifer(50);
+                OffensiveModifer(80);
                 //33% damage cut, so less of a cut than in rain, edit- actually fires are harder to start in cold so makes sense to have higher drop than rain
                 break;  //changed to 66% cut,  so for mon weak to fire they take slightly less than neutral dmg
 
