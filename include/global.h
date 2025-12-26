@@ -352,6 +352,13 @@ extern u8 gUnknownStringVar[]; //new buffer seems fine? haven't printed yet but 
 #define NUM_FLAG_BYTES (ROUND_BITS_TO_BYTES(FLAGS_COUNT)) //this also affects ewram but to a lesser degree than num_species
 
 
+//realized w string bounds py script didn't need
+//limits at all as it already measured it
+//and in fact returns EXACT part of line where
+//its exceeding bounds
+//with removing the limits on the remaining static strings
+//I saved an additional .16 % rom size...
+
 //move description version
 //_Description can hold 5 line breaks (so 6 lines total)
 //at approx 19 chars per line// so 114 max ( + 5 for line break escape chars)

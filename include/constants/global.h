@@ -49,6 +49,14 @@
 
 #define TYPE_NAME_LENGTH 6 //forgot change back as I undid type name expansion
 #define ABILITY_NAME_LENGTH 18 //is 16 in emerald expansion may look into raising - DONE //increased for new ability does this affect ewram? since have font id not a big deal to havev longer name
+//I'm a fucking idiot, realized I don't need these at all
+//with string bounds py working
+//I could just use the py to tell if a strings
+//max length is beyond bounds, they're all on a single line too
+//using these is just greatly increasing rom size for no reason
+//ok believe py script already accounted for all that
+//and is appropriate sub for these limits so they haven't 
+//been necessary for a while...
 #define ABILITY_DESCRIPTION_LENGTH 82   //two lines 41 chars per line
 #define MOVE_DESCRIPTION_LENGTH 114  //approx 19 per line, over 6 lines so 114 max ( + 5 for line break escape chars)
 #define TRAINER_NAME_LENGTH 10 //to match rom header gfc dont remember if I changed this
