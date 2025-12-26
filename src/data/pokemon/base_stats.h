@@ -4366,8 +4366,8 @@ const struct BaseStats gBaseStats[] =
         .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
-        .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_VOLT_ABSORB, ABILITY_VOLT_ABSORB},
+        .eggGroup2 = EGG_GROUP_FIELD,//decided give aftermath gets angry can use spiky fur to atk enemies
+        .abilities = {ABILITY_VOLT_ABSORB, ABILITY_AFTERMATH},
         .abilityHidden = {ABILITY_QUICK_FEET, ABILITY_OVERCHARGE},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -4389,6 +4389,13 @@ const struct BaseStats gBaseStats[] =
     //its fast enough not to need much else,
     //so best set should be, hidden power, natural gift,
     //thunderbolt or some other electric move, and a status move
+    //potentially give parabolic charge to sustain
+    //yeah that's fine
+    //ok while I wanted to give it some physical power
+    //since many of its coverage are physical i.e pin missle
+    //I'm unsure if it was worth the lost bulk
+    //well most of its coverage moves are physical
+    //but all of its stab moves are special...
 
     [SPECIES_FLAREON] =
     {
