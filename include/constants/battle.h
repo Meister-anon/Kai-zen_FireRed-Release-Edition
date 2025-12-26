@@ -261,9 +261,8 @@
 //think should remove flinch?
 //it activates typically after attacked,
 //and is removed on attack so it would never really be noticed
-#define PREOCCUPIED_STATUS (STATUS2_CONFUSION | STATUS2_UPROAR | STATUS2_BIDE | STATUS2_LOCK_CONFUSE\
-| STATUS2_MULTIPLETURNS | STATUS2_WRAPPED | STATUS2_INFATUATION | STATUS2_RAGE\
-| STATUS2_ESCAPE_PREVENTION | STATUS2_TORMENT)
+//STATUS2_SWITCH_LOCKED unsure if should add think should
+#define PREOCCUPIED_STATUS (STATUS2_CONFUSION | STATUS2_BIDE | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED)
 
 // Seems like per-battler statuses. Not quite sure how to categorize these
 //#define STATUS3_SKY_DROPPED             0x1 // Target of Sky Drop

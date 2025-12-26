@@ -12162,6 +12162,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
         .assistBanned = TRUE,
+        .ignoresRedirection = TRUE,
         .argument.twoTurnAttack = { .stringId = STRINGID_PKMNTOOKTARGETHIGH, .status = STATE_ON_AIR },
         //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
         //.contestCategory = CONTEST_CATEGORY_SMART,
@@ -16418,7 +16419,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SNIPE_SHOT] =
     {
-        .effect = EFFECT_SNIPE_SHOT,
+        .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_WATER,
         .accuracy = 100,
@@ -16428,6 +16429,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .enhancedCritrate = TRUE,
+        .ignoresRedirection = TRUE,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -20601,6 +20603,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .ignoresRedirection = TRUE,
     },//give to SPECIES_DHELMISE
     //idea drags targetted foe underwater
 

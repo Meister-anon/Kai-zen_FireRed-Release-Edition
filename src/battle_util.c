@@ -393,6 +393,9 @@ static bool32 IsUnnerveAbilityOnOpposingSide(u32 battler)
     return FALSE;
 }
 
+//may change effects and ability checks
+//into single canberedirected
+//or cannotberedirected check
 bool32 IsAffectedByFollowMe(u32 battlerAtk, u32 defSide, u32 move)
 {
     enum Ability ability = GetBattlerAbility(battlerAtk);
@@ -400,10 +403,13 @@ bool32 IsAffectedByFollowMe(u32 battlerAtk, u32 defSide, u32 move)
 
     if (gSideTimers[defSide].followmeTimer == 0
         || (!IsBattlerAlive(gSideTimers[defSide].followmeTarget) && !IsDragonDartsSecondHit(effect))
-        || effect == EFFECT_SNIPE_SHOT
+        || PreventsRedirection(battlerAtk, move)
+        /*|| effect == EFFECT_SNIPE_SHOT
         || effect == EFFECT_SKY_DROP
+        || IsFogOnField()
         || IsAbilityAndRecord(battlerAtk, ability, ABILITY_PROPELLER_TAIL)
-        || IsAbilityAndRecord(battlerAtk, ability, ABILITY_STALWART))
+        || IsAbilityAndRecord(battlerAtk, ability, ABILITY_STALWART)*/
+        )
         return FALSE;
 
     if (effect == EFFECT_PURSUIT && IsPursuitTargetSet())
@@ -414,16 +420,35 @@ bool32 IsAffectedByFollowMe(u32 battlerAtk, u32 defSide, u32 move)
 
     return TRUE;
 }
+/*
+ok need 3 splits
+1 can ability absorb move type -includes dual type move
+2 can battler with ability redirect said move
+and 3 does incomming move bypass absorb immunity - rejects dual type move takes damage
 
+//issue right now is seems EE just uses 1 function for all parts
+except redirection TryHandleAbilityAbsorbMove
+
+//checked my base code and I excluded 
+//non elemental effects from redirect
+//i.e things like wind moves soud moves etc.
+didn't jump in front which I guess works for me
+make it just an elemntal thing I guess
+*/
 bool32 HandleMoveTargetRedirection(void)
 {
     u32 redirectorOrderNum = MAX_BATTLERS_COUNT;
     u16 moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove);
     enum Type moveType = GetBattleMoveType(gCurrentMove);
+    enum Type SecondarymoveType = 0xFF;
     enum BattleMoveEffects moveEffect = GetMoveEffect(gCurrentMove);
     u32 side = BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker));
     enum Ability ability = GetBattlerAbility(gBattleStruct->moveTarget[gBattlerAttacker]);
 
+    if (GetMoveEffect(gCurrentMove) == EFFECT_TWO_TYPED_MOVE)
+        SecondarymoveType = GetTwoTypedMove2ndType(gCurrentMove);
+
+    //covers rage powder here
     if (IsAffectedByFollowMe(gBattlerAttacker, side, gCurrentMove)
      && moveTarget == MOVE_TARGET_SELECTED
      && !IsBattlerAlly(gBattlerAttacker, gSideTimers[side].followmeTarget))
@@ -431,11 +456,44 @@ bool32 HandleMoveTargetRedirection(void)
         gBattleStruct->moveTarget[gBattlerAttacker] = gBattlerTarget = gSideTimers[side].followmeTarget; // follow me moxie fix
         return TRUE;
     }
+
+    
+    //my change added exceptions so mon even with an absorb ability
+    //may be unable to absorb effect
+    //the question is if I should change condition to absorb capabiltiy
+    //problem is that stops redirection which isn't what I want.
+    //if I make function for each effect should be fine
+    //one for redirection one for absorption
+    //makes sense since I effectively already had that actually...
+    //hmm actually no only had things that bypass abroption recently
+    //with change to two typed move effect I think???
+    //vsonic important took a big search
+    //but yes canabsorb was logic for REDIRECTION only
+    //not whether if hit they shouldn't absorb it
+    //consider should I add that for incapacitating status?
+    //would be sleep and freeze sleep is already damn op
+    //lil unsure about adding more benefits to it
+    //main consideration is if things like lightning rod storm drain etc.
+    //are active or passive effects
+    //in anime things like pikachu explicitly direct their tail in front of attack
+    //or rhyhorn again using their horn to draw in or asborb attacks
+    //but then things like storm drain you have pokemon absorbing the element 
+    //directly into themselves can go either way
+    //if its passive....ok I think purely for sake of balance
+    //its too strong for statuses that already completely incapacitate
+    //to also turn off immunities so will leave only 
+    //true absorption bypass to be two type moves
+
+    //move of absorbable type 
+    //not targetting a mon with absorb ability
+    //note is meant to redirect from a mon that is unable to absorb effect
     else if (IsDoubleBattle()
            && gSideTimers[side].followmeTimer == 0
            && (!IsBattleMoveStatus(gCurrentMove) || (moveTarget != MOVE_TARGET_USER && moveTarget != MOVE_TARGET_ALL_BATTLERS))
-           && ((ability != ABILITY_LIGHTNING_ROD && moveType == TYPE_ELECTRIC)
-            || (ability != ABILITY_STORM_DRAIN && moveType == TYPE_WATER)))
+           && !CanAbilityAbsorbMoveType(gBattleStruct->moveTarget[gBattlerAttacker], moveType, SecondarymoveType)
+           //&& ((ability != ABILITY_LIGHTNING_ROD && moveType == TYPE_ELECTRIC)
+           // || (ability != ABILITY_STORM_DRAIN && moveType == TYPE_WATER))
+            )
     {
         // Find first battler that redirects the move (in turn order)
         enum Ability abilityAtk = GetBattlerAbility(gBattlerAttacker);
@@ -443,16 +501,20 @@ bool32 HandleMoveTargetRedirection(void)
         for (battler = 0; battler < gBattlersCount; battler++)
         {
             ability = GetBattlerAbility(battler);
-            if ((B_REDIRECT_ABILITY_ALLIES >= GEN_4 || !IsBattlerAlly(gBattlerAttacker, battler))
+            if (!IsBattlerAlly(gBattlerAttacker, battler)
                 && battler != gBattlerAttacker
                 && gBattleStruct->moveTarget[gBattlerAttacker] != battler
-                && ((ability == ABILITY_LIGHTNING_ROD && moveType == TYPE_ELECTRIC)
-                 || (ability == ABILITY_STORM_DRAIN && moveType == TYPE_WATER))
+                && (CanAbilityAbsorbMoveType(battler, moveType, SecondarymoveType)
+                && CanBattlerAbilityDrawInMove(battler))
+                //&& ((ability == ABILITY_LIGHTNING_ROD && moveType == TYPE_ELECTRIC)
+                // || (ability == ABILITY_STORM_DRAIN && moveType == TYPE_WATER))
                 && GetBattlerTurnOrderNum(battler) < redirectorOrderNum
-                && moveEffect != EFFECT_SNIPE_SHOT
+                && !PreventsRedirection(gBattlerAttacker, gCurrentMove)
+                //&& moveEffect != EFFECT_SNIPE_SHOT
                 && moveEffect != EFFECT_PLEDGE
-                && !IsAbilityAndRecord(gBattlerAttacker, abilityAtk, ABILITY_PROPELLER_TAIL)
-                && !IsAbilityAndRecord(gBattlerAttacker, abilityAtk, ABILITY_STALWART))
+                //&& !IsAbilityAndRecord(gBattlerAttacker, abilityAtk, ABILITY_PROPELLER_TAIL)
+                //&& !IsAbilityAndRecord(gBattlerAttacker, abilityAtk, ABILITY_STALWART)
+                )
             {
                 redirectorOrderNum = GetBattlerTurnOrderNum(battler);
             }
@@ -2993,6 +3055,8 @@ static enum MoveCanceler CancelerMultihitMoves(struct BattleContext *ctx)
     return MOVE_STEP_SUCCESS;
 }
 
+//vsonic unsure how TryHandleAbilityAbsorbMove works here
+//idk if the type reads what I want it to do review later
 static enum MoveCanceler CancelerMultiTargetMoves(struct BattleContext *ctx)
 {
     u32 moveTarget = GetBattlerMoveTargetType(ctx->battlerAtk, ctx->currentMove);
@@ -3021,7 +3085,7 @@ static enum MoveCanceler CancelerMultiTargetMoves(struct BattleContext *ctx)
                 gBattleStruct->moveResultFlags[battlerDef] = 0;
                 gBattleStruct->noResultString[battlerDef] = WILL_FAIL;
             }
-            else if (CanAbilityAbsorbMove(ctx->battlerAtk, battlerDef, abilityDef, ctx->currentMove, GetBattleMoveType(gCurrentMove), CHECK_TRIGGER))
+            else if (TryHandleAbilityAbsorbMove(ctx->battlerAtk, battlerDef, abilityDef, ctx->currentMove, GetBattleMoveType(gCurrentMove), CHECK_TRIGGER))
             {
                 gBattleStruct->moveResultFlags[battlerDef] = 0;
                 gBattleStruct->noResultString[battlerDef] = CHECK_ACCURACY;
@@ -3559,8 +3623,83 @@ bool32 CanAbilityBlockMove(u32 battlerAtk, u32 battlerDef, enum Ability abilityA
     return TRUE;
 }
 
+//may rename to draw in or redirect
+//oh this is specifically does battler have ability
+//that can draw in and absorb move type
+//its just specifically applied in the redirection functions
+bool32 CanAbilityAbsorbMoveType(u32 battlerDef, enum Type mainMoveType, enum Type SecondaryMoveType)
+{
+    u32 abilityDef = GetBattlerAbility(battlerDef);
+
+    //just realized I'm an idiot and this doesn't calculate
+    switch (abilityDef)
+        {
+        case ABILITY_RISING_PHOENIX:
+            return ((mainMoveType == TYPE_FIRE || SecondaryMoveType == TYPE_FIRE))
+            break;
+        case ABILITY_VOLT_DASH:
+        case ABILITY_VOLT_ABSORB:
+            return ((mainMoveType == TYPE_ELECTRIC || SecondaryMoveType == TYPE_ELECTRIC))
+            break;
+        case ABILITY_WATER_ABSORB:
+        case ABILITY_DRY_SKIN:
+            return ((mainMoveType == TYPE_WATER || SecondaryMoveType == TYPE_WATER))
+            break;
+        case ABILITY_GLACIAL_ICE:
+            return ((mainMoveType == TYPE_ICE || SecondaryMoveType == TYPE_ICE))
+            break;
+        case ABILITY_EROSION:
+            return ((mainMoveType == TYPE_ROCK || SecondaryMoveType == TYPE_ROCK))
+            break;
+        case ABILITY_EARTH_EATER:
+            return ((mainMoveType == TYPE_GROUND || SecondaryMoveType == TYPE_GROUND))
+            break;
+        case ABILITY_MOTOR_DRIVE:
+            return ((mainMoveType == TYPE_ELECTRIC || SecondaryMoveType == TYPE_ELECTRIC))
+            break;
+        case ABILITY_TERAVOLT:
+        case ABILITY_LIGHTNING_ROD:
+            return ((mainMoveType == TYPE_ELECTRIC || SecondaryMoveType == TYPE_ELECTRIC))
+            break;
+        case ABILITY_PLASMA_OVERDRIVE:
+            return ((mainMoveType == TYPE_ELECTRIC || SecondaryMoveType == TYPE_ELECTRIC))
+            || ((mainMoveType == TYPE_FIRE || SecondaryMoveType == TYPE_FIRE))
+            break;
+        case ABILITY_STORM_DRAIN:
+            return ((mainMoveType == TYPE_WATER || SecondaryMoveType == TYPE_WATER))
+            break;
+        case ABILITY_SAP_SIPPER:
+            return ((mainMoveType == TYPE_GRASS || SecondaryMoveType == TYPE_GRASS))
+            break;
+        case ABILITY_JEWEL_METABOLISM:
+            return ((mainMoveType == TYPE_ROCK || SecondaryMoveType == TYPE_ROCK))
+            break;
+        case ABILITY_WELL_BAKED_BODY:
+            return ((mainMoveType == TYPE_FIRE || SecondaryMoveType == TYPE_FIRE))
+            break;
+        case ABILITY_LAVA_FISSURE:
+        case ABILITY_TURBOBLAZE:
+        case ABILITY_FLASH_FIRE:
+            return ((mainMoveType == TYPE_FIRE || SecondaryMoveType == TYPE_FIRE))
+            break;
+        default:
+            return FALSE;
+            break;
+        }
+}
+
 //need rework this or make inline to check this
-#define CAN_ABILITY_ABSORB_MOVE(battler) if (gBattleMons[battler].status1 == 0 && !gDisableStructs[battler].rechargeTimer && !(gBattleMons[battler].status2 & PREOCCUPIED_STATUS) && !(gStatuses3[battler] & STAUS3_VULNERABLE) && !(gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4)) can_absorb = TRUE;
+//added two typed move effect bypass
+//wait realize this isn't a check for absorption
+//this is a check for if can redirect to user w absorption ability
+//confirmed by searching old repo this is meant to be only 
+//a check for if mon with ability can jump in front of a mon that can't absorb the hit
+
+//NOTE**(testing one step at a time, first, just to fix targetting for normal moves, then to see if can use this for statusing exclusion
+//-worked for separatng targetting, last check is if I status the absorb mon, will it prevent them from swapping the targetting
+//-nice it works perfectly!! if absorb mon is statused according to conditoin, they can't "jump in front of" the attack,
+//but if targetted directly they still absorb it!!)
+//#define CAN_ABILITY_ABSORB_MOVE(battler) if (gBattleMons[battler].status1 == 0 && !gDisableStructs[battler].rechargeTimer && !(gBattleMons[battler].status2 & PREOCCUPIED_STATUS) && !(gStatuses3[battler] & STAUS3_VULNERABLE) && !(gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4)) can_absorb = TRUE;
 
 
 //think may make simpler
@@ -3570,7 +3709,10 @@ bool32 CanAbilityBlockMove(u32 battlerAtk, u32 battlerDef, enum Ability abilityA
 //looks like I'll need to still use my massive unweidly logic for that...
 //I removed the special status in my version can't remember why tho...
 //HandleMoveTargetRedirection also relevant
-bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, enum Ability abilityDef, u32 move, enum Type moveType, enum FunctionCallOption option)
+//this function does full absorption effect including script logic
+//consider rename to attempt absorb move should be final step of trio
+//adjust macro and rename function that's it
+bool32 TryHandleAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, enum Ability abilityDef, u32 move, enum Type moveType, enum FunctionCallOption option)
 {
     enum MoveAbsorbed effect = MOVE_ABSORBED_BY_NO_ABILITY;
     const u8 *battleScript = NULL;
@@ -3578,8 +3720,9 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, enum Ability ability
     u32 statAmount = 1;
     bool32 can_absorb = FALSE;
 
-    CAN_ABILITY_ABSORB_MOVE(battlerDef)
     //do below only if can absorb is true
+    if (GetMoveEffect(move) != EFFECT_TWO_TYPED_MOVE)
+        can_absorb = TRUE;
 
     //double check work as I plan my version
     //only healed for non status moves
@@ -3592,13 +3735,12 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, enum Ability ability
     //as an option to prevent move redirection.
     //i.e can't see attack coming as well so can't get ahead of it
 
+    //think 
     if (can_absorb)
     {
         switch (abilityDef)
         {
-        default:
-            effect = MOVE_ABSORBED_BY_NO_ABILITY;
-            break;
+
         case ABILITY_RISING_PHOENIX:
             if (moveType == TYPE_FIRE && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
                 effect = MOVE_ABSORBED_BY_RISING_PHOENIX_ABILITY; //do heal and status cleanse & reset dropped stats to default
@@ -3625,10 +3767,6 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, enum Ability ability
             if (moveType == TYPE_GROUND)
                 effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
             break;
-        case ABILITY_NEW_MOON:
-            if (IsMoonbasedMove(move))
-                effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
-            break;
         case ABILITY_MOTOR_DRIVE:
             if (moveType == TYPE_ELECTRIC && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
             {
@@ -3638,23 +3776,23 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, enum Ability ability
             break;
         case ABILITY_TERAVOLT:
         case ABILITY_LIGHTNING_ROD:
-            if (B_REDIRECT_ABILITY_IMMUNITY >= GEN_5 && moveType == TYPE_ELECTRIC && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
+            if (moveType == TYPE_ELECTRIC && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
             {
                 effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
                 statId = STAT_SPATK;
             }
             break;
         case ABILITY_PLASMA_OVERDRIVE:
-            if (B_REDIRECT_ABILITY_IMMUNITY >= GEN_5 && moveType == TYPE_ELECTRIC && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
+            if (moveType == TYPE_ELECTRIC && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
             {
                 effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
                 statId = STAT_SPATK;
             }
-            else if (moveType == TYPE_FIRE && (B_FLASH_FIRE_FROZEN >= GEN_5 || !(gBattleMons[battlerDef].status1 & STATUS1_FREEZE)))
+            else if (moveType == TYPE_FIRE)
                 effect = MOVE_ABSORBED_BY_BOOST_FLASH_FIRE;
             break;
         case ABILITY_STORM_DRAIN:
-            if (B_REDIRECT_ABILITY_IMMUNITY >= GEN_5 && moveType == TYPE_WATER)
+            if (moveType == TYPE_WATER)
             {
                 effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
                 statId = STAT_SPATK;
@@ -3697,10 +3835,14 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, enum Ability ability
                 statId = STAT_ATK;
             }
             break;
+        case ABILITY_NEW_MOON:
+            if (IsMoonbasedMove(move))
+                effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
+            break;
         case ABILITY_LAVA_FISSURE:
         case ABILITY_TURBOBLAZE:
         case ABILITY_FLASH_FIRE:
-            if (moveType == TYPE_FIRE && (!(gBattleMons[battlerDef].status1 & STATUS1_FREEZE)))
+            if (moveType == TYPE_FIRE)
                 effect = MOVE_ABSORBED_BY_BOOST_FLASH_FIRE;
             break;
         }
@@ -9624,7 +9766,7 @@ uq4_12_t GetOverworldTypeEffectiveness(struct Pokemon *mon, enum Type moveType)
         MulByTypeEffectiveness(&ctx, &modifier, type2);
 
     if ((modifier <= UQ_4_12(1.0) && abilityDef == ABILITY_WONDER_GUARD)
-     || CanAbilityAbsorbMove(0, 0, abilityDef, MOVE_NONE, moveType, CHECK_TRIGGER))
+     || TryHandleAbilityAbsorbMove(0, 0, abilityDef, MOVE_NONE, moveType, CHECK_TRIGGER))
         modifier = UQ_4_12(0.0);
 
     return modifier;
@@ -11118,7 +11260,7 @@ static inline bool32 DoesBattlerHaveAbilityImmunity(u32 battlerAtk, u32 battlerD
     enum Ability abilityDef = GetBattlerAbility(battlerDef);
 
     return CanAbilityBlockMove(battlerAtk, battlerDef, GetBattlerAbility(battlerAtk), abilityDef, gCurrentMove, CHECK_TRIGGER)
-        || CanAbilityAbsorbMove(battlerAtk, battlerDef, abilityDef, gCurrentMove, moveType, CHECK_TRIGGER);
+        || TryHandleAbilityAbsorbMove(battlerAtk, battlerDef, abilityDef, gCurrentMove, moveType, CHECK_TRIGGER);
 }
 
 bool32 TargetFullyImmuneToCurrMove(u32 battlerAtk, u32 battlerDef)
@@ -11287,7 +11429,7 @@ void UpdateStallMons(void)
         enum Type moveType = GetBattleMoveType(gCurrentMove); //  Probably doesn't handle dynamic move types right now
         enum Ability abilityAtk = GetBattlerAbility(gBattlerAttacker);
         enum Ability abilityDef = GetBattlerAbility(gBattlerTarget);
-        if (CanAbilityAbsorbMove(gBattlerAttacker, gBattlerTarget, abilityDef, gCurrentMove, moveType, CHECK_TRIGGER))
+        if (TryHandleAbilityAbsorbMove(gBattlerAttacker, gBattlerTarget, abilityDef, gCurrentMove, moveType, CHECK_TRIGGER))
         {
             gAiBattleData->playerStallMons[gBattlerPartyIndexes[gBattlerTarget]]++;
         }

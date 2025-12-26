@@ -137,7 +137,8 @@ struct BattleMove
     u32 multiTaskBanned:1; // remove need for multitask exclude 
     u32 explosiveMove:1; //simplify logic for moves/effects that do defense stripping just explosion likes
     u32 variableMultihit:1; //replace effect multihit
-    u32 padding:8; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
+    bool32 ignoresRedirection:1;
+    u32 padding:7; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
     // end of word
     union {
         struct {
@@ -367,6 +368,12 @@ static inline bool32 MoveSureHitEvasionBoostedTargets(u32 moveId)
     return gBattleMoves[SanitizeMoveId(moveId)].evasiveBreak;
 }
 
+static inline bool32 DoesMovePreventRedirection(u32 moveId)
+{
+    return gBattleMoves[SanitizeMoveId(moveId)].ignoresRedirection;
+}
+
+//mold breaker
 static inline bool32 MoveIgnoresTargetAbility(u32 moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].ignoresTargetAbility;
@@ -551,9 +558,21 @@ static inline u32 GetMoveEffectArg_HoldEffect(u32 moveId)
     return gBattleMoves[SanitizeMoveId(moveId)].argument.holdEffect;
 }
 
+//think will split into dif functions for simplicity
 static inline u32 GetMoveStoredValue(u32 moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].argument.storedValue;
+}
+
+//don't need this can just used storedvalue
+static inline u32 GetMoveOverwriteAbility(u32 moveId)
+{
+    return GetMoveStoredValue(moveId);
+}
+
+static inline u32 GetTwoTypedMove2ndType(u32 moveId)
+{
+    return GetMoveStoredValue(moveId);
 }
 
 static inline u32 GetMoveFixedDamage(u32 moveId)
@@ -594,11 +613,6 @@ static inline u32 GetMoveDamagePercentage(u32 move)
     return gBattleMoves[SanitizeMoveId(move)].argument.damagePercentage;
 }
 
-//don't need this can just used storedvalue
-/*static inline u32 GetMoveOverwriteAbility(u32 move)
-{
-    return gBattleMoves[SanitizeMoveId(move)].argument.overwriteAbility;
-}*/
 
 static inline const struct AdditionalEffect *GetMoveAdditionalEffectById(u32 moveId, u32 effect)
 {

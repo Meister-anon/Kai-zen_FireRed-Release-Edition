@@ -72,7 +72,7 @@ DOUBLE_BATTLE_TEST("Ally Switch changes the position of battlers")
 DOUBLE_BATTLE_TEST("Ally Switch does not redirect the target of Snipe Shot")
 {
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_SNIPE_SHOT].effect == EFFECT_SNIPE_SHOT);
+        ASSUME(gMovesInfo[MOVE_SNIPE_SHOT].ignoresRedirection == TRUE);
         PLAYER(SPECIES_WOBBUFFET); // Wobb is playerLeft, but it'll be Wynaut after Ally Switch
         PLAYER(SPECIES_WYNAUT);
         OPPONENT(SPECIES_KADABRA);

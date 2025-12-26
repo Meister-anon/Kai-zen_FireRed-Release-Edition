@@ -1194,7 +1194,7 @@ static void Cmd_attackcanceler(void)
 
     if (GetMoveNonVolatileStatus(ctx.currentMove) == MOVE_EFFECT_PARALYSIS)
     {
-        if (CanAbilityAbsorbMove(
+        if (TryHandleAbilityAbsorbMove(
                 ctx.battlerAtk,
                 ctx.battlerDef,
                 ctx.abilities[ctx.battlerDef],
@@ -1360,7 +1360,7 @@ static void JumpIfMoveFailed(u32 adder, u32 move, u32 moveType, const u8 *failIn
     }
     else
     {
-        if (CanAbilityAbsorbMove(gBattlerAttacker,
+        if (TryHandleAbilityAbsorbMove(gBattlerAttacker,
                                  gBattlerTarget,
                                  GetBattlerAbility(gBattlerTarget),
                                  move,
@@ -1430,18 +1430,18 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
             gBattlescriptCurrInstr = nextInstr;
         }
 
-        if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_DYNAMAX)
+        /*if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_DYNAMAX)
         {
             if (gProtectStructs[gBattlerTarget].protected == PROTECT_MAX_GUARD)
                 gBattlescriptCurrInstr = nextInstr;
             else
-                CanAbilityAbsorbMove(gBattlerAttacker,
+                TryHandleAbilityAbsorbMove(gBattlerAttacker,
                                      gBattlerTarget,
                                      GetBattlerAbility(gBattlerTarget),
                                      gCurrentMove,
                                      GetBattleMoveType(gCurrentMove),
                                      RUN_SCRIPT);
-        }
+        }*/
         return;
     }
 
@@ -9749,6 +9749,11 @@ static bool32 IsRototillerAffected(u32 battler)
     return TRUE;
 }
 
+//what is this and why is it needed?
+//exclusive for teatime think wont use
+//since meant to handle moves type being changed
+//to an absorbable type and a weird interaction it has
+//vsonic
 static bool32 IsElectricAbilityAffected(u32 battler, enum Ability ability)
 {
     u32 moveType;
@@ -9761,7 +9766,6 @@ static bool32 IsElectricAbilityAffected(u32 battler, enum Ability ability)
         moveType = GetMoveType(gCurrentMove);
 
     if (moveType == TYPE_ELECTRIC
-     && (ability != ABILITY_LIGHTNING_ROD || B_REDIRECT_ABILITY_IMMUNITY >= GEN_5)
      && GetBattlerAbility(battler) == ability)
         return TRUE;
     else

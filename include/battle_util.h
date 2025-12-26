@@ -57,6 +57,53 @@
 
 #define IS_WHOLE_SIDE_ALIVE(battler)((IsBattlerAlive(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))))
 
+//unsure how pledge move work with this
+//has some interaction w redirection
+//first mon in combo sets target
+//but second mon is responsible for actual attack
+//checked bulbapedia seems sky drop is immune to redirection
+//via follow me or rage powder and since no ability presently exists
+//that draws in specifically flying moves that's all that could effect it
+//but I feel safe in excluding it from redirection based on that
+//think will make function and add as move characteristic
+//with that think will remove snipe_shot effect
+//as presently affect was only for redirection there
+//sky drop keeps effect but still replaced in function
+static inline bool32 PreventsRedirection(u32 battlerAtk, u32 move)
+{
+    enum Ability ability = GetBattlerAbility(battlerAtk);
+
+    if (IsFogOnField()
+    || DoesMovePreventRedirection(move)
+    || IsAbilityAndRecord(battlerAtk, ability, ABILITY_PROPELLER_TAIL)
+    || IsAbilityAndRecord(battlerAtk, ability, ABILITY_STALWART)
+    )
+        return TRUE;
+    
+    return FALSE;
+}
+
+//ok fog already blocks redirection from above
+//with far more reliable exclusions
+//don't want/need too many blocks here
+//think just want to cut down preoccupied status
+//think lock to confusion wrap and bide
+//think will leave status 1 as main block
+//will leave lightning rod with advantage still
+//which is good, if paralysis is main status to set
+//it'll mostly be excluded for lightning rod mon
+static inline bool32 CanBattlerAbilityDrawInMove(u32 battlerDef)
+{
+    if (gBattleMons[battlerDef].status1 == 0 
+    && !gDisableStructs[battlerDef].rechargeTimer 
+    && !(gBattleMons[battlerDef].status2 & PREOCCUPIED_STATUS) 
+    && !(gStatuses3[battlerDef] & STAUS3_VULNERABLE) 
+    && !(gBattleMons[battlerDef].status4 & ITS_A_TRAP_STATUS4))
+        return TRUE;
+    
+    return FALSE;
+}
+
 // For the first argument of ItemBattleEffects, to deteremine which block of item effects to try
 enum ItemCaseId
 {

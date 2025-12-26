@@ -728,7 +728,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_GRASSY_GLIDE,
     EFFECT_BOOST_PWR_BASED_WEIGHT,//EFFECT_DYNAMAX_DOUBLE_DMG, make better name later
     EFFECT_DECORATE,
-    EFFECT_SNIPE_SHOT,
+    //EFFECT_SNIPE_SHOT, moved redirection effet to struct value
     EFFECT_STRUGGLE,
     EFFECT_STUFF_CHEEKS,
     EFFECT_GRAV_APPLE,
