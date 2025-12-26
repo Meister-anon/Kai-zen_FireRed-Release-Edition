@@ -4223,7 +4223,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_FLAME_WHEEL] =
 {
-    .effect = EFFECT_DMG_FIXATION,//think for this set fixation turns based on number times used it, increment in attack canceler
+    .effect = EFFECT_FIXATION,//think for this set fixation turns based on number times used it, increment in attack canceler
     .power = 60,
     .type = TYPE_FIRE,//change back to 60 base power 2 turn fixation
     .accuracy = 100,
@@ -4237,8 +4237,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_DMG_FIXATION,
+            .self = TRUE,
         }),*/
-        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        .argument = {.fixedDamage = 15},
+        //think wanna do something like improved condition
+        //w repeated use can't be starteled or can't lose heart something
+        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING, 
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
@@ -4253,6 +4260,22 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 //not always dmg, just it becomes improved in some way over time
 //dmg, acc, or some other additional benefit
 //vsonic Important
+//could do with move effect
+//set base effect as Fixation
+//then use additional effects to set category of fixation? 
+//then again that would take up an effect when
+//I could easily put that in effect
+//but for sake of balance that would be 
+//a lot to put on something to have 2 full slots
+//in addition to an effect that is good/gets better w use
+//decided generalize effect set category w move effect and self
+//then have move effect set volatile status specifically 
+//based on category so can filter in the fixation canceler
+//ok technically don't need effect fixation it'd just be hit
+//but will have same balane issue instead
+//keep effect_fixation and have that be the requirement
+//for using fixation move effects the move has to be a fixation move
+//the effect requirement is both thematic and for balance
 
 [MOVE_SNORE] =
 {

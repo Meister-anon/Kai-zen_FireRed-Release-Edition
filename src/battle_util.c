@@ -12463,3 +12463,100 @@ bool32 IsMimikyuDisguised(u32 battler)
     return gBattleMons[battler].species == SPECIES_MIMIKYU_DISGUISED
         || gBattleMons[battler].species == SPECIES_MIMIKYU_TOTEM_DISGUISED;
 }
+
+bool32 TryActivateBattlePoisonHeal(u32 battler)  //change mind better to do 2 functions, rather than do 2 different effects with one.
+{
+    u16 ability = GetBattlerAbility(battler);
+
+    if (!gProtectStructs[battler].activatedAbilityStatusHealing
+    && (ability == ABILITY_POISON_HEAL && IsBattlerAlive(battler)))
+    {
+
+        if (gBattleMons[battler].status1 & STATUS1_POISON
+            || gBattleMons[battler].status1 & STATUS1_TOXIC_POISON
+            || IsBattlerWeatherAffected(battler, WEATHER_ACID_RAIN_ANY))
+        {
+            return TRUE;
+        }
+
+        else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_POISON, FALSE) 
+            && ((GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_BLACK_SLUDGE)
+            || (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_TOXIC_ORB)))
+        {
+            return TRUE;
+        }
+        else
+            return FALSE;
+    }
+    else
+        return FALSE;
+
+    
+}
+
+//fire type poison healing mostly for capsakid/scovillain
+//ok yeah think I'm fine with this activating in sun too
+//is on fire type to begin with so I'd never get burned in a normal playthrough
+bool32 TryActivateHeatTrance(u32 battler)  //change mind better to do 2 functions, rather than do 2 different effects with one.
+{
+
+    u16 ability = GetBattlerAbility(battler);
+
+    if (!gProtectStructs[battler].activatedAbilityStatusHealing
+    && (ability == ABILITY_HEAT_TRANCE && IsBattlerAlive(battler)))
+    {
+
+        if (gBattleMons[battler].status1 & STATUS1_BURN
+            || IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY) //may keep?
+            )
+        {
+            return TRUE;
+        }
+
+        //since I already stipulated ability is heat trance this is fine
+        //it just means is fire type
+        else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_FIRE, FALSE) 
+            && ((GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_FLAME_ORB)))
+        {
+            return TRUE;
+        }
+        else
+            return FALSE;
+    }
+    else
+        return FALSE;
+
+    
+}
+
+#define FIXATION_EFFECTS
+//present form useless plan rework
+//to instead check for fixated status
+//ex. volatile dmg fixation
+bool8 IsFixationMoveEffect(u16 move)
+{
+    switch (GetMoveEffect(move))
+    {
+        case EFFECT_FIXATION:
+            return TRUE;
+            break;
+        default:
+            return FALSE;
+    }
+}
+
+bool8 CanActivateForewarnAnticipation(u8 battler)
+{
+    u32 i;
+    u8 side = GetBattlerSide(battler);
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (gBattleStruct->usedSingleUseAbility[i][side] == ABILITY_ANTICIPATION
+        || gBattleStruct->usedSingleUseAbility[i][side] == ABILITY_FOREWARN)
+            break;
+    }
+
+    return (i == PARTY_SIZE);
+
+}

@@ -452,7 +452,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectSubmission			  @EFFECT_SUBMISSION
 	.4byte BattleScript_EffectMoondance				  @EFFECT_MOONDANCE
 	.4byte BattleScript_EffectAcidRain				  @EFFECT_ACID_RAIN
-	.4byte BattleScript_EffectHit					  @EFFECT_DMG_FIXATION
+	.4byte BattleScript_EffectHit					  @EFFECT_FIXATION
 	.4byte BattleScript_EffectTwoTurnsAttack		  @EFFECT_COLD_FLARE
 
 BattleScript_EffectAlwaysCrit:

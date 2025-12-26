@@ -434,7 +434,7 @@
 #define EFFECT_SUBMISSION 421 //same as raging bull separated for new submission effect
 #define EFFECT_MOONDANCE 422    
 #define EFFECT_ACID_RAIN 423
-#define EFFECT_DMG_FIXATION 424 //fixation moves have differing effects when used multiple times/ decided make categorical effect diffect effects for diff things. idea of effect is continued use makes user better at move so gains additional effect / dmg fixation will have move incrase dmg with use for example
+#define EFFECT_FIXATION 424 //fixation moves have differing effects when used multiple times/ decided make categorical effect diffect effects for diff things. idea of effect is continued use makes user better at move so gains additional effect / dmg fixation will have move incrase dmg with use for example
 #define EFFECT_DIRE_CLAW 425
 #define EFFECT_COLD_FLARE 426 //was ice burn, make effect 2 turns but 1 turn in hail/snow
 */
@@ -796,7 +796,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_DRYADS_CURSE,
     EFFECT_TARGET_TYPE_DAMAGE,
     EFFECT_HIGHEST_STAT_UP_HIT,
-    EFFECT_DMG_FIXATION,
+    EFFECT_FIXATION,    //base effect goes to hit, but required to activate fixation move effects
     //EFFECT_SET_TARGET_ABILITY, //removed relized was just overwrite ability
     EFFECT_SHIELD_BASH,
     EFFECT_MONOTYPE,

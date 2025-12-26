@@ -774,6 +774,7 @@ enum __attribute__((packed)) MoveEffect
     MOVE_EFFECT_ATTRACT,    //need to setup
     MOVE_EFFECT_HIGHEST_STAT_UP, //for MOVE_MYSTICAL_POWER
     MOVE_EFFECT_FOCUS_ENERGY,   //Plan use for triple arrow
+    MOVE_EFFECT_DMG_FIXATION,   //fixation category to set volatile status of same name
     NUM_MOVE_EFFECTS
 };
 
