@@ -11272,6 +11272,11 @@ bool32 TargetFullyImmuneToCurrMove(u32 battlerAtk, u32 battlerDef)
          || DoesBattlerHaveAbilityImmunity(battlerAtk, battlerDef, moveType));
 }
 
+//for beatup think what I did was give stab
+//but make do typeless so gets around wonder guard? 
+//think can't use for ability absorb 2nd move type check
+//intead need make new function for
+//nah can put directly in redirect logic don't need type function
 enum Type GetBattleMoveType(u32 move)
 {
     if (gMain.inBattle && gBattleStruct->dynamicMoveType)

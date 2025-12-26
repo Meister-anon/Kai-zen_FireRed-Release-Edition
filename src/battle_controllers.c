@@ -373,6 +373,18 @@ u8 GetBattleSpeedOption(void) //return battle speed
     return gSaveBlock2Ptr->optionsBattleSpeed;
 }
 
+//for speed up potentially
+//just catch effects that break at +2x speed
+//can set speed to 2x
+//like setup animation struct
+//to limit speed and can check
+//effects here and set speed to 2x
+//don't know how else to address break effect
+//pretty much for battle moves
+//turn single pointer into struct or union that
+//takes pointer and bool
+//just make limit speed value
+//and just have it return 2 here
 u8 Rogue_GetBattleSpeedScale(void) //since not taking healthbar setup make void
 {
     u8 battleSpeedOption = GetBattleSpeedOption(); //retrun speed up option

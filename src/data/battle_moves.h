@@ -362,6 +362,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.battleAnimScript = gBattleAnimMove_RazorWind,
     },
     //think will give to more flying types
+    //ok new schema for two typed moves
+    //they offer two opportunities to gain stab
+    //and while can be redirected they
+    //bypass absorb affects to still do damage
+    //without giving the benefit of the ability
+
+    //ok with that in mind I SHOULD still keep the idea
+    //that absorb abilities should read from both main type or 2nd type
+    //to attempt absorption
 
     [MOVE_SWORDS_DANCE] =
     {
@@ -19081,6 +19090,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //that could bypass the lock
     //such as uturn teleport etc.
     //emergency exit
+    //somewhat like idea of having both snow and hail
+    //and having them both perform differently.
+    //ex. icescue's ice face ability would only activate in hail
+    //regi ice's ability would only heal itself in hail etc.
+    //snow cloak would only work in snow specifically
+    //while some things like ice body could work in both
 
     [MOVE_GRASSHOPPER] =
     {

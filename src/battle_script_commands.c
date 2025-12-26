@@ -1192,6 +1192,16 @@ static void Cmd_attackcanceler(void)
             RUN_SCRIPT))
         return;
 
+    //a bit confusing but think is attempt to absorb 
+    //move effect on basis is most likely electric?
+    //shouldn't this just be here in general? 
+    //rather...oh right I don't want it in atk canceler
+    //specifically cuz I want the move animation to play out I think?
+    //hmm since this only does status moves is fine to me
+    //thought had issue w type and needed to read 2nd move type
+    //but this is for end step and two typed effect would already make it fail
+    //so inconsequential there
+    //double check my lightning rod etc. setup may remove this
     if (GetMoveNonVolatileStatus(ctx.currentMove) == MOVE_EFFECT_PARALYSIS)
     {
         if (TryHandleAbilityAbsorbMove(
@@ -1349,6 +1359,7 @@ static void Cmd_attackcanceler(void)
     }
 }
 
+//look into how absorb is used with this vsonic
 static void JumpIfMoveFailed(u32 adder, u32 move, u32 moveType, const u8 *failInstr)
 {
     if (gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
@@ -15302,6 +15313,12 @@ void BS_JumpIfShellTrap(void)
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+//exclusively used for Teatime
+//case of movetype being changed and 
+//interacting with an absorb ability
+//will just adapt to work with any type change
+//that woud make it absorbable by any ability of said type
+//vsonic
 void BS_JumpIfElectricAbilityAffected(void)
 {
     NATIVE_ARGS(u8 battler, enum Ability ability, const u8 *jumpInstr);
