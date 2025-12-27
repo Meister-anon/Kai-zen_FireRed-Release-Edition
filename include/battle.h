@@ -349,7 +349,7 @@ struct ProtectStruct
              u32 kingsShielded : 1;
              u32 banefulBunkered : 1;
              u32 silkTrapped : 1;
-             u32 shieldBashed : 1;
+             u32 shieldBashed : 1; //removed protect stuff in EE so these will be freed
              u32 usesBouncedMove : 1;
              u32 usedHealBlockedMove : 1;
              u32 usedGravityPreventedMove : 1;
@@ -1341,6 +1341,112 @@ static inline u32 GetBattlerAtPosition(u32 position)
     return battler;
 }
 
+static inline u32 GetPartnerBattler(u32 battler)
+{
+    return GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)));
+}
+
+static inline u32 GetOppositeBattler(u32 battler)
+{
+    return GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerPosition(battler)));
+}
+
+static inline u32 GetBattlerSide(u32 battler)
+{
+    return GetBattlerPosition(battler) & BIT_SIDE;
+}
+
+static inline u32 IsOnPlayerSide(u32 battler)
+{
+    return GetBattlerSide(battler) == B_SIDE_PLAYER;
+}
+
+static inline bool32 IsBattlerAlly(u32 battlerAtk, u32 battlerDef)
+{
+    return GetBattlerSide(battlerAtk) == GetBattlerSide(battlerDef);
+}
+
+static inline u32 GetOpposingSideBattler(u32 battler)
+{
+    return GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerSide(battler)));
+}
+
+static inline struct Pokemon* GetBattlerMon(u32 battler)
+{
+    u32 index = gBattlerPartyIndexes[battler];
+    return !IsOnPlayerSide(battler) ? &gEnemyParty[index] : &gPlayerParty[index];
+}
+
+static inline struct Pokemon *GetSideParty(u32 side)
+{
+    return side == B_SIDE_PLAYER ? gPlayerParty : gEnemyParty;
+}
+
+static inline struct Pokemon *GetBattlerParty(u32 battlerId)
+{
+    return GetSideParty(GetBattlerSide(battlerId));
+}
+
+static inline bool32 IsDoubleBattle(void)
+{
+    return (gBattleTypeFlags & BATTLE_TYPE_MORE_THAN_TWO_BATTLERS);
+}
+
+static inline bool32 IsSpreadMove(u32 moveTarget)
+{
+    return IsDoubleBattle() && (moveTarget == MOVE_TARGET_BOTH || moveTarget == MOVE_TARGET_FOES_AND_ALLY);
+}
+
+static inline bool32 IsDoubleSpreadMove(void)
+{
+    return gBattleStruct->numSpreadTargets > 1
+        && !(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)
+        && IsSpreadMove(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove));
+}
+
+static inline bool32 IsBattlerInvalidForSpreadMove(u32 battlerAtk, u32 battlerDef, u32 moveTarget)
+{
+    return battlerDef == battlerAtk
+        || !IsBattlerAlive(battlerDef)
+        || (battlerDef == BATTLE_PARTNER(battlerAtk) && (moveTarget == MOVE_TARGET_BOTH));
+}
+
+static inline u32 GetChosenMoveFromPosition(u32 battler)
+{
+    return gBattleMons[battler].moves[gBattleStruct->chosenMovePositions[battler]];
+}
+
+//wanted to replace value w max() check
+//but realized value is signed type
+//and would break negative values
+//that said can't imagine there's a case where either
+//of these functions takes a negative value
+//checked w rhh techniically could change value to u32
+//-1 * value causes problems since can't store well
+//NOTE**( from Mgriffin -1 * value would be invalid for any u32 value greater than INT_MAX)
+//so would need to pass positive to passivehpupdate
+//and just multiply that by negative 1
+//ok ironically while there's no reason for EE to have this signed
+//I NEED it to be signed, this is the best way for me to 
+//do my anti heal effect,
+//hmm conversly I could just include battler ability on field check
+//and do and make it skip the negative 1 hmm ok!
+static inline void SetPassiveDamageAmount(u32 battler, u32 value)
+{
+    value = max(value, 1);
+    gBattleStruct->passiveHpUpdate[battler] = value;
+}
+
+static inline void SetHealAmount(u32 battler, u32 value)
+{
+    value = max(value, 1);
+    gBattleStruct->passiveHpUpdate[battler] = value;
+    if (!IsAbilityOnOpposingSide(battler, ABILITY_DESPAIR))
+        gBattleStruct->passiveHpUpdate[battler] *= -1;
+}
+
+
+
 static inline u32 GetMoveBaseType(u32 move)
 {
     return gBattleMoves[move].type;
@@ -1365,41 +1471,7 @@ static inline u32 CanActivateGulpMissle(u32 move)
 }
 
 
-static inline u32 GetBattlerSide(u32 battler)
-{
-    return GetBattlerPosition(battler) & BIT_SIDE;
-}
 
-static inline u32 IsOnPlayerSide(u32 battler)
-{
-    return GetBattlerSide(battler) == B_SIDE_PLAYER;
-}
-
-static inline struct Pokemon *GetSideParty(u32 side)
-{
-    return side == B_SIDE_PLAYER ? gPlayerParty : gEnemyParty;
-}
-
-static inline struct Pokemon *GetBattlerParty(u32 battlerId)
-{
-    return GetSideParty(GetBattlerSide(battlerId));
-}
-
-static inline u32 GetOpposingSideBattler(u32 battler)
-{
-    return GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerSide(battler)));
-}
-
-static inline struct Pokemon* GetBattlerMon(u32 battler)
-{
-    u32 index = gBattlerPartyIndexes[battler];
-    return !IsOnPlayerSide(battler) ? &gEnemyParty[index] : &gPlayerParty[index];
-}
-
-static inline bool32 IsBattlerAlly(u32 battlerAtk, u32 battlerDef)
-{
-    return GetBattlerSide(battlerAtk) == GetBattlerSide(battlerDef);
-}
 
 //can't  remember where I had notes for 
 //new weather change but point was
