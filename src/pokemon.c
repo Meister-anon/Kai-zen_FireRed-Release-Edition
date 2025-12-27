@@ -6042,7 +6042,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     // are effects of weather negated with cloud nine or air lock
     if (HasWeatherEffect()) //weather dmg changes weren't working at all, think was becuz I had  below dmg calc
     {
-
+        //feel like I'd want to break things out into
+        //weather buffs and weather debuffs
+        //feel would be simpler to manage
         //black fog check has already been added to weatheraffected funcion directly
         if ((abilityAtk == ABILITY_FLUORESCENCE   
         || DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))     
