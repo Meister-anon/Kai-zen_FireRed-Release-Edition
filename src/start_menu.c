@@ -52,8 +52,8 @@ enum StartMenuOption
     STARTMENU_RETIRE,
     STARTMENU_PLAYER2,
     STARTMENU_DEBUG,
-    STARTMENU_ACCESS_PC,
     STARTMENU_LEVEL_CAP,
+    STARTMENU_ACCESS_PC,    
     MAX_STARTMENU_ITEMS
 };//if I decide to remove exit option would save ewram
 
@@ -124,8 +124,12 @@ static void CloseStartMenu(void);
 static void HideStartMenuDebug(void);
 
 static const u8 sText_MenuDebug[] = _("DEBUG");
+static const u8 sText_MenuLevelCap[] = _("LVL CAP");
 static const u8 sText_MenuPc[] = _("PC");
 
+//list of actions w functions not the order they appear in menu
+//not 100% but may need to be in order of start menu enum above? 
+//think so, reordered enum to match here
 static const struct MenuAction sStartMenuActionTable[] = {
     { gStartMenuText_Pokedex, {.u8_void = StartMenuPokedexCallback} },
     { gStartMenuText_Pokemon, {.u8_void = StartMenuPokemonCallback} },
@@ -137,6 +141,7 @@ static const struct MenuAction sStartMenuActionTable[] = {
     { gStartMenuText_Retire, {.u8_void = StartMenuSafariZoneRetireCallback} },
     { gStartMenuText_Player, {.u8_void = NULL}},//StartMenuLinkPlayerCallback} },
     { sText_MenuDebug, {.u8_void = StartMenuDebugCallback} },
+    { sText_MenuLevelCap, {.u8_void = StartMenuDynamicLvlCapback} },
     { sText_MenuPc, {.u8_void = StartMenuPcCallback} }
 };
 
@@ -250,6 +255,8 @@ static void BuildDebugStartMenu(void)
     AppendToStartMenuItems(STARTMENU_OPTION);
     if (HasPlayerUnlockedMobilePcAccess() && !IsAccessingMobilePCDisallowed())
         AppendToStartMenuItems(STARTMENU_ACCESS_PC);
+    if (IsLevelCapModeOn())
+        AppendToStartMenuItems(STARTMENU_LEVEL_CAP);
     AppendToStartMenuItems(STARTMENU_DEBUG);
     
 }
@@ -267,6 +274,8 @@ static void SetUpStartMenu_NormalField(void)
     AppendToStartMenuItems(STARTMENU_OPTION);
     if (HasPlayerUnlockedMobilePcAccess() && !IsAccessingMobilePCDisallowed())
         AppendToStartMenuItems(STARTMENU_ACCESS_PC);
+    if (IsLevelCapModeOn())
+        AppendToStartMenuItems(STARTMENU_LEVEL_CAP);
     AppendToStartMenuItems(STARTMENU_EXIT); //prob need to use a switch case, to replace startmenu_exit with iv/ev
     /*if (gSaveBlock2Ptr->optionsButtonMode != OPTIONS_BUTTON_MODE_HELP
     && FLAG_SYS_POKEMON_GET == TRUE)
@@ -281,6 +290,9 @@ static void SetUpStartMenu_NormalField(void)
     //instead will setup ev iv swap with l & r from summary screen.
 }
 
+//think exclude lvl cap from here
+//no practical reason to change lvl cap
+//from within safari zone
 static void SetUpStartMenu_SafariZone(void)
 {
     AppendToStartMenuItems(STARTMENU_RETIRE);
@@ -514,6 +526,7 @@ static void StartMenu_FadeScreenIfLeavingOverworld(void)
     if (sStartMenuCallback != StartMenuSaveCallback
      && sStartMenuCallback != StartMenuExitCallback
      && sStartMenuCallback != StartMenuDebugCallback
+     && sStartMenuCallback != StartMenuDynamicLvlCapback
      && sStartMenuCallback != StartMenuPcCallback
      && sStartMenuCallback != StartMenuSafariZoneRetireCallback)
     {
@@ -622,6 +635,26 @@ static bool8 StartMenuDebugCallback(void)
     FreezeObjectEvents();
     Debug_ShowMainMenu();
 #endif
+
+    return TRUE;
+}
+
+//ok need setup replacement for showmainmenu
+//want open small window like debug selection
+//display recommended lvl and current lvl cap
+//then be able to scroll to set new cap
+//pressing A will set lvl cap press b will close 
+//both options will return player to start menu task
+static bool8 StartMenuDynamicLvlCapback(void)
+{
+    //think don't need as not
+    //enabled in safari zone
+    //DestroySafariZoneStatsWindow();
+    DestroyHelpMessageWindow_();
+    HideStartMenuDebug(); // Hide start menu without enabling movement
+    FreezeObjectEvents();
+
+    Debug_ShowMainMenu();
 
     return TRUE;
 }
