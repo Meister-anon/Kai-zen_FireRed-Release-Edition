@@ -802,7 +802,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_MONOTYPE,
     EFFECT_MOONDANCE,
     EFFECT_ACID_RAIN,
-    EFFECT_SUBMISSION,
+    EFFECT_SUBMISSION, //changed to full protect bypass so just use brick break effect changed mind since increasing distribution
     EFFECT_RAGING_BULL,
     //EFFECT_SET_EFFECT_PRE_HIT, //attempt repalce below 2 - hHad wrong dont need effect
     EFFECT_SNOWESCAPE,    

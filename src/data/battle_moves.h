@@ -1658,7 +1658,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .ignoresProtect = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
-                .moveEffect = MOVE_EFFECT_MED_RECOIL,
+                .moveEffect = MOVE_EFFECT_LIGHT_RECOIL,
                 .self = TRUE,
             }),*/ //vsonic adjust down as needed
         .recoilMove = TRUE,
@@ -1672,6 +1672,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //does recoil but breaks through protect essentially same effect as raging bull
     //recoil works off effect only? so don't think can do raging bull & recoil?
     //done just needed its own effect
+    //changed ignoresproetect means it fully bypasses protect
+    //can just do effect brick break then
+    //changed back since plan was increase distribution
+    //change to hit protect like and do low recoil rather than mid
+    //for the most part thing leftovers should cover effect
 
     [MOVE_LOW_KICK] =
     {
@@ -18928,8 +18933,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
+        .ignoresProtect = TRUE, //needs effect makes still touch protect like
         //.battleAnimScript = gBattleAnimMove_RagingBull,
-        // Uncallable by Metronome (to be implemented)
     },
     //change type based on tauros form,
     //since I changed tauros form may need change move type of first form
@@ -20023,7 +20028,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .metronomeBanned = TRUE,
         .copycatBanned = TRUE,
         .assistBanned = TRUE,
-       .argument = { .protectMethod = PROTECT_SPIKY_SHIELD }, unsure if should use protect method
+        .argument = { .protectMethod = PROTECT_SHIELD_BASH },
         //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,

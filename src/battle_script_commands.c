@@ -1321,12 +1321,13 @@ static void Cmd_attackcanceler(void)
         }
     }
 
-    if (gSpecialStatuses[gBattlerTarget].abilityRedirected)
+    /*if (gSpecialStatuses[gBattlerTarget].abilityRedirected)
     {
         gSpecialStatuses[gBattlerTarget].abilityRedirected = FALSE;
         BattleScriptCall(BattleScript_TookAttack);
-    }
-    else if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove)
+    }*/
+
+    if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove)
      && (moveEffect != EFFECT_CURSE || IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST))
      && (!gBattleMoveEffects[moveEffect].twoTurnEffect || (gBattleMons[gBattlerAttacker].volatiles.multipleTurns))
      && moveEffect != EFFECT_COUNTER)
@@ -1334,21 +1335,36 @@ static void Cmd_attackcanceler(void)
         if (!CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker), gCurrentMove))
             gProtectStructs[gBattlerAttacker].touchedProtectLike = TRUE;
         CancelMultiTurnMoves(gBattlerAttacker, SKY_DROP_ATTACKCANCELER_CHECK);
-        gBattleStruct->moveResultFlags[gBattlerTarget] |= MOVE_RESULT_MISSED;
-        gLastLandedMoves[gBattlerTarget] = 0;
-        gLastHitByType[gBattlerTarget] = 0;
 
-        if (gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_1ST_HIT)
+        //attempt make shield bash skipped by effects
+        //that bypass protect, still set touch protect like
+        //but otherwise don't ignore damage and set result miss
+        if (gProtectStructs[gBattlerTarget].protected != PROTECT_SHIELD_BASH)
         {
-            gSpecialStatuses[gBattlerAttacker].parentalBondState = PARENTAL_BOND_OFF; // No second hit if first hit was blocked
-            gSpecialStatuses[gBattlerAttacker].multiHitOn = 0;
-            gMultiHitCounter = 0;
+            gBattleStruct->moveResultFlags[gBattlerTarget] |= MOVE_RESULT_MISSED;
+            gLastLandedMoves[gBattlerTarget] = 0;
+            gLastHitByType[gBattlerTarget] = 0;
+
+            if (gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_1ST_HIT)
+            {
+                gSpecialStatuses[gBattlerAttacker].parentalBondState = PARENTAL_BOND_OFF; // No second hit if first hit was blocked
+                gSpecialStatuses[gBattlerAttacker].multiHitOn = 0;
+                gMultiHitCounter = 0;
+            }
+            gBattleCommunication[MISS_TYPE] = B_MSG_PROTECTED;
         }
-        gBattleCommunication[MISS_TYPE] = B_MSG_PROTECTED;
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
-    else if (IsBattlerUsingBeakBlast(gBattlerTarget)
-          && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker), gCurrentMove))
+    //think this should be best fit
+    //actually putting to not be protected
+    //means it bypasses protect so doesnt get affects of touching protect
+    //need add raging bull to exceptions in isbattlerprotected
+    //hmm well I could just set ignores protect then put catch to set touchprotectlike here
+    //and for sheildbash think need put in battler protected logic
+    else if ((IsBattlerUsingBeakBlast(gBattlerTarget)
+    || GetMoveEffect(gCurrentMove) == EFFECT_RAGING_BULL
+    || GetMoveEffect(gCurrentMove) == EFFECT_SUBMISSION)
+        && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker), gCurrentMove))
     {
         gProtectStructs[gBattlerAttacker].touchedProtectLike = TRUE;
         gBattlescriptCurrInstr = cmd->nextInstr;
@@ -6332,15 +6348,26 @@ static void Cmd_moveend(void)
                         effect = 1;
                     }
                     break;
+                case PROTECT_SHIELD_BASH:
+                {
+                    gProtectStructs[gBattlerAttacker].touchedProtectLike = FALSE;
+
+                    if (!(gBattleStruct->moveResultFlags[gBattlerAttacker] & MOVE_RESULT_SUPER_EFFECTIVE)) //use wonder guard effect logic to help here pretty much long as not super effective do counter damage
+                    {
+                        SetPassiveDamageAmount(gBattlerAttacker, (gBattleMons[gBattlerTarget].defense / 2));
+                        PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SHIELD_BASH);
+                        BattleScriptCall(BattleScript_ShieldBash);
+                        effect = 1;
+                    }//vsonic double check balance on this
+                    
+                }//most of effect should be done just need dmg reduction set
+                break;
                 case PROTECT_KINGS_SHIELD:
                     if (!IsProtectivePadsProtected(gBattlerAttacker, GetBattlerHoldEffect(gBattlerAttacker)))
                     {
                         gProtectStructs[gBattlerAttacker].touchedProtectLike = FALSE;
                         SWAP(gBattlerAttacker, gBattlerTarget, i); // gBattlerTarget and gBattlerAttacker are swapped in order to activate Defiant, if applicable
-                        if (B_KINGS_SHIELD_LOWER_ATK >= GEN_8)
-                            gBattleScripting.moveEffect = MOVE_EFFECT_ATK_MINUS_1;
-                        else
-                            gBattleScripting.moveEffect = MOVE_EFFECT_ATK_MINUS_2;
+                        gBattleScripting.moveEffect = MOVE_EFFECT_ATK_MINUS_1;
                         BattleScriptCall(BattleScript_KingsShieldEffect);
                         effect = 1;
                     }
@@ -9976,6 +10003,11 @@ static void Cmd_setprotectlike(void)
         if (GetMoveEffect(gCurrentMove) == EFFECT_ENDURE)
         {
             gDisableStructs[gBattlerAttacker].endured = TRUE;
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_BRACED_ITSELF;
+        }
+        else if (GetMoveEffect(gCurrentMove) == EFFECT_SHIELD_BASH)
+        {
+            gProtectStructs[gBattlerAttacker].protected = protectMethod;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_BRACED_ITSELF;
         }
         else if (GetProtectType(protectMethod) == PROTECT_TYPE_SIDE)

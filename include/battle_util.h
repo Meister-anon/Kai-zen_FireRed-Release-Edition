@@ -226,10 +226,13 @@ bool32 IsHealBlockPreventingMove(u32 battler, u32 move);
 u32 IsAbilityPreventingEscape(u32 battlerId);
 u32 IsAbilityOnFieldExcept(u32 battlerId, u32 ability);
 u32 IsAbilityOnField(u32 ability); 
+bool32 IsBattlerProtected(u32 battlerAtk, u32 battlerDef, u32 move);
+u32 GetProtectType(enum ProtectMethod method);
 u32 GetBattlerHoldEffect(u32 battler, bool32 checkNegating);
 u32 GetBattlerHoldEffectIgnoreAbility(u32 battler, bool32 checkNegating);
 u32 GetBattlerHoldEffectInternal(u32 battler, bool32 checkNegating, bool32 checkAbility);
 u32 GetBattlerHoldEffectParam(u8 battlerId, u32 itemId);
+bool32 CanBattlerAvoidContactEffects(u32 battlerAtk, u32 battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, u32 move);
 bool8 IsMoveMakingContact(u16 move, u8 battlerAtk); //made bool8 since its just a true false return
 bool8 CanBattlerGetOrLoseItem(u8 battlerId, u16 itemId); //same as above
 struct Pokemon *GetIllusionMonPtr(u32 battlerId);

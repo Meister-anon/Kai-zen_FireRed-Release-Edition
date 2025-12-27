@@ -6016,6 +6016,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     
     //logic didn't work in adjustnormaldamage bs command function, put here bcause is equivalent to where aurora veil damage reducion is done 4 emerald
     //I'm stupid I forgot this was meant to be flat damage reduction, not require contact
+    //implented already
     if (gProtectStructs[battlerIdDef].shieldBashed
         && !IS_CRIT) //most things done just need put in super effective logic
     { //here and in atk49 move end

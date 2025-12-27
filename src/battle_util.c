@@ -8844,12 +8844,33 @@ static inline uq4_12_t GetGlaiveRushModifier(u32 battlerDef)
     return UQ_4_12(1.0);
 }
 
-static inline uq4_12_t GetZMaxMoveAgainstProtectionModifier(struct DamageContext *ctx)
+//not using z or max moves but function is useful
+//potentially rename to protectBreak effects 
+//GetProtectBreakModifiers
+//hmm with that in mind could make new cat
+//separates ignores protect and breaks through protect
+//on the other hand think bad for balance for breaking through
+//protect to become a common effect 
+//so better to just leave to a few moves that bypass alltogether
+//was GetZMaxMoveAgainstProtectionModifier
+static inline uq4_12_t GetProtectBreakModifiers(struct DamageContext *ctx)
 {
-    if (!IsZMove(ctx->move) && !IsMaxMove(ctx->move))
+    u32 protected = gProtectStructs[ctx->battlerDef].protected;
+    
+    if (protected == PROTECT_SHIELD_BASH && !ctx->isCrit)
+    {
+        //believe initially made this w original super multiplier
+        //so think need adjust since super no longer 2x
+        if (ctx->typeEffectivenessModifier >= SUPER_EFFECTIVE)
+            return UQ_4_12(0.20);
+        else
+            return UQ_4_12(0.30);
+    }
+    
+    else if (!IsZMove(ctx->move) && !IsMaxMove(ctx->move))
         return UQ_4_12(1.0);
 
-    u32 protected = gProtectStructs[ctx->battlerDef].protected;
+    
     if (GetProtectType(protected) == PROTECT_TYPE_SINGLE && protected != PROTECT_MAX_GUARD)
         return UQ_4_12(0.25);
     return UQ_4_12(1.0);
@@ -9203,7 +9224,7 @@ s32 ApplyModifiersAfterDmgRoll(struct DamageContext *ctx, s32 dmg)
         DAMAGE_APPLY_MODIFIER(GetTypeBasedBonusModifier(ctx));
     DAMAGE_APPLY_MODIFIER(ctx->typeEffectivenessModifier);
     DAMAGE_APPLY_MODIFIER(GetBurnOrFrostBiteModifier(ctx));
-    DAMAGE_APPLY_MODIFIER(GetZMaxMoveAgainstProtectionModifier(ctx));
+    DAMAGE_APPLY_MODIFIER(GetProtectBreakModifiers(ctx));
     DAMAGE_APPLY_MODIFIER(GetOtherModifiers(ctx));
 
     return dmg;
