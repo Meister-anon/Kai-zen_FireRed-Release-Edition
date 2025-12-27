@@ -2998,6 +2998,13 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = sCorruptionDescription,
         .aiRating = 0,
     },//heal block
+    //for sake of balance rather than enemy side
+    //could potentially make it work for every battler except the user
+    //so would loop all battlers except attacker/holder
+    //and set heal block volatile for them
+    //and rather than timer won't clear until battler is off field
+    //essentailly same setup as neutralizing gas
+
     
     [ABILITY_BANDIT_KING] =
     {
@@ -3190,10 +3197,18 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_DESPAIR] =
     {
         .name = _("Despair"),
-        .description = sNoneDescription,
+        .description = COMPOUND_ABILITY_STRING("Even the waking world becomes a nightmare\nHealing becomes dmg for opposing side."),
         .aiRating = 0,
     },
     //todo - anti heal ability for opposing side plan darkrai use
+    //in practice does pretty much same as bad dreams when they try to sleep
+    //they'd take damage intead of healing
+    //but darkrai won't be healed from it
+    //considering if I should put extra protection on this
+    //if heal is greater than quarter hp either divide by 2
+    //or cap at quarter hp, similar to trap effects
+    //use min function I think -done
+    //exclusive ability
     
     [ABILITY_RISING_PHOENIX] =
     {

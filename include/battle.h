@@ -1441,7 +1441,10 @@ static inline void SetHealAmount(u32 battler, u32 value)
 {
     value = max(value, 1);
     gBattleStruct->passiveHpUpdate[battler] = value;
-    if (!IsAbilityOnOpposingSide(battler, ABILITY_DESPAIR))
+    //attempt cap so do lesser of heal amount and quarter health
+    if (IsAbilityOnOpposingSide(battler, ABILITY_DESPAIR))
+        gBattleStruct->passiveHpUpdate[battler] = min(value, max(gBattleMons[battler].maxHP / 4, 1));
+    else
         gBattleStruct->passiveHpUpdate[battler] *= -1;
 }
 

@@ -525,7 +525,7 @@ bool32 HandleMoveTargetRedirection(void)
             battler = gBattlerByTurnOrder[redirectorOrderNum];
             battlerAbility = GetBattlerAbility(battler);
             RecordAbilityBattle(battler, battlerAbility);
-            gSpecialStatuses[battler].abilityRedirected = TRUE;
+            //gSpecialStatuses[battler].abilityRedirected = TRUE;
             gBattlerTarget = battler;
             return TRUE;
         }
@@ -6648,6 +6648,7 @@ u32 GetBattleMoveTarget(u16 move, u8 setTarget)
 {
     u8 targetBattler = 0;
     u32 moveTarget, side;
+    enum Type SecondarymoveType = TYPE_NONE;
     enum Type moveType = GetBattleMoveType(move);
 
     if (setTarget != NO_TARGET_OVERRIDE)
@@ -6666,10 +6667,30 @@ u32 GetBattleMoveTarget(u16 move, u8 setTarget)
         }
         else
         {
-            enum Ability battlerAbilityOnField = 0;
+            //not using
+            //enum Ability battlerAbilityOnField = 0;
 
             targetBattler = SetRandomTarget(gBattlerAttacker);
-            if (moveType == TYPE_ELECTRIC && GetBattlerAbility(targetBattler) != ABILITY_LIGHTNING_ROD)
+            
+            if (GetMoveEffect(move) == EFFECT_TWO_TYPED_MOVE)
+            SecondarymoveType = GetTwoTypedMove2ndType(move);
+            
+
+           if (!CanAbilityAbsorbMoveType(targetBattler, moveType, SecondarymoveType))
+           {
+                
+                if (CanAbilityAbsorbMoveType(GetPartnerBattler(targetBattler), moveType, SecondarymoveType)
+                && CanBattlerAbilityDrawInMove(GetPartnerBattler(targetBattler)))
+                {
+                    targetBattler =  GetPartnerBattler(targetBattler);
+                    RecordAbilityBattle(targetBattler, gBattleMons[targetBattler].ability);
+                }
+           }
+            
+            //if type is absorbable but target battler doesnt have
+            //redirect ability check if mon on side does
+            //if so assign targetId to them
+            /*if (moveType == TYPE_ELECTRIC && GetBattlerAbility(targetBattler) != ABILITY_LIGHTNING_ROD)
             {
                 if (B_REDIRECT_ABILITY_ALLIES >= GEN_4)
                     battlerAbilityOnField = IsAbilityOnField(ABILITY_LIGHTNING_ROD);
@@ -6680,7 +6701,7 @@ u32 GetBattleMoveTarget(u16 move, u8 setTarget)
                 {
                     targetBattler = battlerAbilityOnField - 1;
                     RecordAbilityBattle(targetBattler, gBattleMons[targetBattler].ability);
-                    gSpecialStatuses[targetBattler].abilityRedirected = TRUE;
+                    gSpecialStatuses[targetBattler].abilityRedirected = TRUE; //I removed this need find what my fix was
                 }
             }
             else if (moveType == TYPE_WATER && GetBattlerAbility(targetBattler) != ABILITY_STORM_DRAIN)
@@ -6696,7 +6717,7 @@ u32 GetBattleMoveTarget(u16 move, u8 setTarget)
                     RecordAbilityBattle(targetBattler, gBattleMons[targetBattler].ability);
                     gSpecialStatuses[targetBattler].abilityRedirected = TRUE;
                 }
-            }
+            }*/
         }
         break;
     case MOVE_TARGET_DEPENDS:
