@@ -78,6 +78,39 @@ extern const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPE
 extern const struct TrainerMoney gTrainerMoneyTable[];
 extern const struct TypePower gNaturalGiftTable[];
 
+struct DamageContext
+{
+    u32 battlerAtk:3;
+    u32 battlerDef:3;
+    u32 move:16;
+    enum Type moveType:5;
+    u32 isCrit:1;
+    u32 randomFactor:1;
+    u32 updateFlags:1;
+    u32 isAnticipation:1;
+    u32 isSelfInflicted:1;
+    u32 weather:16;
+    u32 fixedBasePower:8;
+    u32 padding2:8;
+    u32 chosenMove:16; // May be different to 'move', e.g. for Z moves.
+    u32 padding3:16;
+    uq4_12_t typeEffectivenessModifier;
+    enum Ability abilityAtk;
+    enum Ability abilityDef;
+    enum HoldEffect holdEffectAtk;
+    enum HoldEffect holdEffectDef;
+};
+
+struct BattleContext
+{
+    u32 battlerAtk:3;
+    u32 battlerDef:3;
+    u32 currentMove:16;
+    u32 padding:10;
+    enum Ability abilities[MAX_BATTLERS_COUNT];
+    enum HoldEffect holdEffects[MAX_BATTLERS_COUNT];
+};
+
 void CB2_InitBattle(void);
 void BattleMainCB2(void);
 void FreeRestoreBattleData(void);
