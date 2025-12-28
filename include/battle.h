@@ -107,7 +107,10 @@ struct Formdata
 {
     u16 species;
     u16 FormChangeMoveset[4];
-};
+    u16 evs[6];
+};//to match what player do potentailly need add ability and evs field
+//if change moves reset pp i.e only reset pp if move slot move has changed
+//vsonic
 //attempt simplify call for form info in trainer party
 //unsure how to write this
 //think may need to rework trainer party
