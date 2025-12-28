@@ -8754,24 +8754,27 @@ static inline uq4_12_t GetTypeBasedBonusModifier(struct DamageContext *ctx)
 {
     u8 SecondarymoveType = GetMoveEffect(ctx->move) == EFFECT_TWO_TYPED_MOVE ? GetMoveStoredValue(ctx->move) : TYPE_NONE;
 
+    //if its just returning neutral do I need these at all here?
+    //yeah it needs to return something cuz multiplies result
     if (ctx->move == MOVE_STRUGGLE || ctx->move == MOVE_NONE)
         return UQ_4_12(1.0);
         
-    if (GetBaseFormSpecies(gBattleMons[ctx->battlerAtk].species) == SPECIES_ARCEUS)
+    else if (GetBaseFormSpecies(gBattleMons[ctx->battlerAtk].species) == SPECIES_ARCEUS)
         return SAME_TYPE_BONUS;
 
-    if (ctx->moveType == TYPE_MYSTERY
+    else if (ctx->moveType == TYPE_MYSTERY
     || (ctx->moveType == TYPE_SOUND && !IS_BATTLER_OF_TYPE(ctx->battlerAtk, TYPE_NORMAL)))
         return UQ_4_12(1.0);
 
-    if (gBattleStruct->pledgeMove && IS_BATTLER_OF_TYPE(BATTLE_PARTNER(ctx->battlerAtk), ctx->moveType))
+    else if (gBattleStruct->pledgeMove && IS_BATTLER_OF_TYPE(BATTLE_PARTNER(ctx->battlerAtk), ctx->moveType))
         return (ctx->abilityAtk == ABILITY_ADAPTABILITY) ? ADAPTABILITY_BONUS : SAME_TYPE_BONUS;
 
+    //normal stab, applied for two typed moves  as well
     else if (IS_BATTLER_OF_TYPE(ctx->battlerAtk, ctx->moveType)
     || IS_BATTLER_OF_TYPE(ctx->battlerAtk, SecondarymoveType))
         return (ctx->abilityAtk == ABILITY_ADAPTABILITY) ? ADAPTABILITY_BONUS : SAME_TYPE_BONUS;
     
-    
+    //ability psuedo stab effects
     else if (GetBattlerAbility(ctx->battlerAtk) == ABILITY_TOADSTOOL_NYMPH
     && (ctx->moveType == TYPE_FAIRY || SecondarymoveType == TYPE_FAIRY))
         return SAME_TYPE_BONUS;
@@ -8783,7 +8786,7 @@ static inline uq4_12_t GetTypeBasedBonusModifier(struct DamageContext *ctx)
     else if (IS_BATTLER_OF_TYPE(ctx->battlerAtk, TYPE_NORMAL))
         return JOAT_BONUS;
 
-    
+    return UQ_4_12(1.0); //catch all
 
 
     //return (ctx->abilityAtk == ABILITY_ADAPTABILITY) ? ADAPTABILITY_BONUS : SAME_TYPE_BONUS;
