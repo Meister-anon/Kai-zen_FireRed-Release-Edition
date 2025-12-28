@@ -1049,29 +1049,35 @@ SafariReaction_Eating:: @ 81D644E
 	createvisualtask AnimTask_RotateMonToSideAndRestore, 2, 8, 136, 0, 2
 	end
 
-SnatchMoveTrySwapFromSubstitute:: @ 81D6476
-	createvisualtask AnimTask_IsAttackerBehindSubstitute, 2, 
-	jumpargeq 7, 1, SnatchMoveSwapSubstituteForMon
+gBattleAnimGeneral_SwapToSubstitute::
+	createvisualtask AnimTask_SwapMonSpriteToFromSubstitute, 2, FALSE
+	waitforvisualfinish
+	end
 
-SnatchMoveTrySwapFromSubstituteEnd:: @ 81D6485
+gBattleAnimGeneral_SwapFromSubstitute::
+	createvisualtask AnimTask_SwapMonSpriteToFromSubstitute, 2, TRUE
+	waitforvisualfinish
+	end
+
+SnatchMoveTrySwapFromSubstitute:
+	createvisualtask AnimTask_IsAttackerBehindSubstitute, 2
+	jumprettrue SnatchMoveSwapSubstituteForMon
+SnatchMoveTrySwapFromSubstituteEnd:
 	waitforvisualfinish
 	return
-
-SnatchMoveSwapSubstituteForMon:: @ 81D6487
-	createvisualtask AnimTask_SwapMonSpriteToFromSubstitute, 2, 1
+SnatchMoveSwapSubstituteForMon:
+	createvisualtask AnimTask_SwapMonSpriteToFromSubstitute, 2, TRUE
 	waitforvisualfinish
 	goto SnatchMoveTrySwapFromSubstituteEnd
 
-SnatchMoveTrySwapToSubstitute:: @ 81D6496
-	createvisualtask AnimTask_IsAttackerBehindSubstitute, 2, 
-	jumpargeq 7, 1, SnatchMoveSwapMonForSubstitute
-
-SnatchMoveTrySwapToSubstituteEnd:: @ 81D64A5
+SnatchMoveTrySwapToSubstitute:
+	createvisualtask AnimTask_IsAttackerBehindSubstitute, 2
+	jumprettrue SnatchMoveSwapMonForSubstitute
+SnatchMoveTrySwapToSubstituteEnd:
 	waitforvisualfinish
 	return
-
-SnatchMoveSwapMonForSubstitute:: @ 81D64A7
-	createvisualtask AnimTask_SwapMonSpriteToFromSubstitute, 2, 0
+SnatchMoveSwapMonForSubstitute:
+	createvisualtask AnimTask_SwapMonSpriteToFromSubstitute, 2, FALSE
 	waitforvisualfinish
 	goto SnatchMoveTrySwapToSubstituteEnd
 
@@ -26026,7 +26032,24 @@ gBattleAnimMove_SilkTrap::
 	end
 
 @ Also used by Snow weather. Credits to Dat.H A
-gBattleAnimMove_Snowscape::
+gBattleAnimMove_Snowday::
+	loadspritegfx ANIM_TAG_SNOWFLAKES
+	playsewithpan SE_M_GUST, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, (F_PAL_BG | F_PAL_BATTLERS_2), 2, 0, 4, RGB(11, 18, 22)
+	waitforvisualfinish
+	createvisualtask AnimTask_CreateSnowflakes, 2, 0, 3, 120
+	createvisualtask AnimTask_CreateSnowflakes, 2, 0, 3, 120
+	createvisualtask AnimTask_CreateSnowflakes, 2, 0, 3, 120
+	delay 120
+	playsewithpan SE_M_GUST2, SOUND_PAN_ATTACKER
+	delay 30
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, (F_PAL_BG | F_PAL_BATTLERS_2), 2, 4, 0, RGB(11, 18, 22)
+	waitforvisualfinish
+	end
+
+@rework for new effect later
+gBattleAnimMove_SnowEscape::
 	loadspritegfx ANIM_TAG_SNOWFLAKES
 	playsewithpan SE_M_GUST, SOUND_PAN_ATTACKER
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, (F_PAL_BG | F_PAL_BATTLERS_2), 2, 0, 4, RGB(11, 18, 22)
@@ -32554,6 +32577,17 @@ gBattleAnimStatus_Nightmare:: @ 81D5B63
 gBattleAnimStatus_Powder:
 	end
 
+gBattleAnimStatus_Frostbite::
+	playsewithpan SE_M_ICY_WIND, 0
+	loadspritegfx ANIM_TAG_ICE_CRYSTALS
+	monbg ANIM_DEF_PARTNER
+	splitbgprio ANIM_TARGET
+	call IceCrystalEffectShort
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, F_PAL_TARGET, 5, 7, 0, RGB(0, 20, 31)
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	end
+
 @not using for swarm, keep for infestation bug status so animations are different
 @since swarm sets infestation	vsonic
 @trying to setup animation to work since looked like coudln't pull status4 from normla function?
@@ -32898,6 +32932,12 @@ gBattleAnimGeneral_Hail:: @ 81D5FE2
 
 gBattleAnimGeneral_Moonlight::
 	goto gBattleAnimMove_Moondance
+
+gBattleAnimGeneral_Snow::
+	goto gBattleAnimMove_Snowday
+
+gBattleAnimGeneral_Fog::
+	goto gBattleAnimMove_Haze
 
 gBattleAnimGeneral_LeechSeedDrain:: @ 81D5FE7
 	createvisualtask AnimTask_GetBattlersFromArg, 5, 

@@ -811,7 +811,8 @@ extern const u8 gBattleAnimMove_ElectroDrift[];
 extern const u8 gBattleAnimMove_ShedTail[];
 extern const u8 gBattleAnimMove_ChillyReception[];
 extern const u8 gBattleAnimMove_TidyUp[];
-extern const u8 gBattleAnimMove_Snowscape[];
+extern const u8 gBattleAnimMove_SnowEscape[];
+extern const u8 gBattleAnimMove_Snowday[];
 extern const u8 gBattleAnimMove_Grasshopper[];
 extern const u8 gBattleAnimMove_Trailblaze[];
 extern const u8 gBattleAnimMove_ChillingWater[];
@@ -991,6 +992,7 @@ extern const u8 gBattleAnimStatus_Curse[];
 extern const u8 gBattleAnimStatus_Nightmare[];
 extern const u8 gBattleAnimStatus_Infestation[]; //B_ANIM_INFESTATION
 extern const u8 gBattleAnimStatus_Powder[];
+extern const u8 gBattleAnimStatus_Frostbite[];
 
 // general animations
 extern const u8 gBattleAnimGeneral_StatsChange[];
@@ -1041,8 +1043,8 @@ extern const u8 gBattleAnimGeneral_AcidRain[];
 extern const u8 gBattleAnimGeneral_Snow[];
 extern const u8 gBattleAnimGeneral_UltraBurst[];
 extern const u8 gBattleAnimGeneral_SaltCureDamage[];
-extern const u8 gBattleAnimGeneral_DynamaxGrowth[];
-extern const u8 gBattleAnimGeneral_SetWeather[];
+//extern const u8 gBattleAnimGeneral_DynamaxGrowth[];
+//extern const u8 gBattleAnimGeneral_SetWeather[]; //dynamax effect
 extern const u8 gBattleAnimGeneral_SyrupBombSpeedDrop[];
 extern const u8 gBattleAnimGeneral_Rainbow[];
 extern const u8 gBattleAnimGeneral_SeaOfFire[];
@@ -1054,8 +1056,10 @@ extern const u8 gBattleAnimGeneral_Tailwind[];
 extern const u8 gBattleAnimGeneral_Fog[];
 extern const u8 gBattleAnimGeneral_TeraCharge[];
 extern const u8 gBattleAnimGeneral_TeraActivate[];
-extern const u8 gBattleAnimGeneral_SimpleHeal[];
 extern const u8 gBattleAnimGeneral_PowerConstruct[];
+extern const u8 gBattleAnimGeneral_SwapToSubstitute[];
+extern const u8 gBattleAnimGeneral_SwapFromSubstitute[];
+
 
 // special animations
 extern const u8 gBattleAnimSpecial_LevelUp[];

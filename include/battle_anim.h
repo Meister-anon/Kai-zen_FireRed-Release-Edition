@@ -152,7 +152,7 @@ void MoveBattlerSpriteToBG(u8 battlerId, u8);
 void ResetBattleAnimBg(u8);
 void ClearBattleAnimationVars(void);
 void DoMoveAnim(u16 move);
-void LaunchBattleAnimation(const u8 *const animsTable[], u16 tableId, bool8 isMoveAnim);
+void LaunchBattleAnimation(u32 animType, u32 animId);
 void DestroyAnimSprite(struct Sprite *sprite);
 void DestroyAnimVisualTask(u8 taskId);
 void DestroyAnimSoundTask(u8 taskId);
@@ -506,7 +506,7 @@ void *LoadPointerFromVars(s16 lo, s16 hi);
 void PrepareEruptAnimTaskData(struct Task *task, u8 spriteId, s16 a3, s16 a4, s16 a5, s16 a6, u16 a7);
 u8 UpdateEruptAnimTask(struct Task *task);
 void AnimTask_GetFrustrationPowerLevel(u8 taskId);
-void sub_80767F0(void);
+void InitPrioritiesForVisibleBattlers(void);
 u8 GetBattlerSpriteSubpriority(u8 battlerId);
 u8 GetBattlerSpriteBGPriority(u8 battlerId);
 
@@ -713,7 +713,7 @@ void AnimIceEffectParticle(struct Sprite *sprite);
 void AnimTask_Haze1(u8 taskId);
 void AnimTask_LoadMistTiles(u8 taskId);
 void AnimTask_Hail1(u8 taskId);
-void AnimTask_GetRolloutCounter(u8 taskId);
+void AnimTask_GetIceBallCounter(u8 taskId);
 void AnimIceBeamParticle(struct Sprite *sprite);
 
 // electric.c
@@ -798,9 +798,9 @@ void AnimTask_SetAnimAttackerAndTargetForEffectAtk(u8 taskId);
 void AnimTask_SetAttackerInvisibleWaitForSignal(u8 taskId);
 
 // battle_anim_scripts.s
-extern const u8 *const gBattleAnims_StatusConditions[];
-extern const u16 gMovesWithQuietBGM[];
-extern const u8 *const gBattleAnims_Moves[];
+//extern const u8 *const gBattleAnims_StatusConditions[];
+//extern const u16 gMovesWithQuietBGM[];
+//extern const u8 *const gBattleAnims_Moves[];
 
 // battle_anim_new.c
 void AnimTask_SquishTarget(u8 taskId);

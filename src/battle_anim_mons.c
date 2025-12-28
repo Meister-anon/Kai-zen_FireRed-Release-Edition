@@ -1894,9 +1894,9 @@ static void sub_80766EC(u8 priority)
         gSprites[gBattlerSpriteIds[BATTLE_PARTNER(gBattleAnimAttacker)]].oam.priority = priority;
 }
 
-void sub_80767F0(void)
+void InitPrioritiesForVisibleBattlers(void)
 {
-    s32 i;
+    int i;
 
     for (i = 0; i < gBattlersCount; ++i)
     {

@@ -9326,6 +9326,7 @@ extern const u32 gGhostPalette[];
 extern const u32 gSubstituteDollGfx[];
 extern const u32 gSubstituteDollTilemap[];
 extern const u32 gSubstituteDollPal[];
+extern const u32 gBattleAnimSpriteGfx_SubstituteBack[]; //attempt use new sub back sprite
 
 // ice
 extern const u8 gWeatherFogHorizontalTiles[];

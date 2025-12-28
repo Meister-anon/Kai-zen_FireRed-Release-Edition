@@ -398,6 +398,7 @@
 #define ANIM_TAG_STEEL_BEAM                 (ANIM_SPRITES_START + 384)
 #define ANIM_TAG_POLTERGEIST                (ANIM_SPRITES_START + 385)
 #define ANIM_TAG_TEAPOT                     (ANIM_SPRITES_START + 386)
+//below need add graphic defines in graphics.c
 #define ANIM_TAG_WOOD_HAMMER_HAMMER         (ANIM_SPRITES_START + 386)
 #define ANIM_TAG_SNOWFLAKES                 (ANIM_SPRITES_START + 387)
 #define ANIM_TAG_SYRUP_BLOB_RED             (ANIM_SPRITES_START + 388)
@@ -559,7 +560,7 @@
 #define B_ANIM_SNATCH_MOVE              0x11
 #define B_ANIM_FUTURE_SIGHT_HIT         0x12
 #define B_ANIM_DOOM_DESIRE_HIT          0x13
-#define B_ANIM_FOCUS_PUNCH_SETUP        0x14
+#define B_ANIM_FOCUS_PUNCH_SETUP        0x14    //no longer used
 #define B_ANIM_INGRAIN_HEAL             0x15
 #define B_ANIM_WISH_HEAL                0x16
 #define B_ANIM_MON_SCARED               0x17
@@ -586,6 +587,26 @@
 #define B_ANIM_INFESTATION              0x2C
 #define B_ANIM_MOONLIGHT_SHINES         0x2D    //should be setup now?
 #define B_ANIM_ACID_RAIN_CONTINUES      0x2E
+#define B_ANIM_SNOW_CONTINUES           0x2F
+#define B_ANIM_FOG_CONTINUES            0x30
+#define B_ANIM_ULTRA_BURST              0x31
+#define B_ANIM_SALT_CURE_DAMAGE         0x32
+#define B_ANIM_SYRUP_BOMB_SPEED_DROP    0x33
+#define B_ANIM_RAINBOW                  0x34
+#define B_ANIM_SEA_OF_FIRE              0x35
+#define B_ANIM_SWAMP                    0x36
+#define B_ANIM_TRICK_ROOM               0x37
+#define B_ANIM_WONDER_ROOM              0x38
+#define B_ANIM_MAGIC_ROOM               0x39
+#define B_ANIM_TAILWIND                 0x3A
+#define B_ANIM_TERA_CHARGE              0x3B
+#define B_ANIM_TERA_ACTIVATE            0x3C
+#define B_ANIM_POWER_CONSTRUCT          0x3D
+#define B_ANIM_SWAP_TO_SUBSTITUTE       0x3E
+#define B_ANIM_SWAP_FROM_SUBSTITUTE     0x3F
+
+
+#define NUM_B_ANIMS_GENERAL 0x40
 
 // special animations table
 #define B_ANIM_LVL_UP                   0x0
@@ -597,6 +618,8 @@
 #define B_ANIM_MON_TO_SUBSTITUTE        0x6
 #define B_ANIM_LVL_UP_EVOLVE            0x7
 #define B_ANIM_CRITICAL_CAPTURE_THROW   0x8	//added need test
+
+#define NUM_B_ANIMS_SPECIAL 0x9
 
 //vsonic important
 //think match battle.inc & battle_anim_scripts.s
@@ -613,6 +636,9 @@
 #define B_ANIM_STATUS_NIGHTMARE         0x8
 #define B_ANIM_STATUS_INFESTED          0x9
 #define B_ANIM_POWDER                   0xA
+#define B_ANIM_STATUS_FRB               0xB //frost bite may look better
+#define NUM_B_ANIMS_STATUS              0xC
+
 #define B_ANIM_STATUS_SPRT				0xB	//for spirit lock
 #define B_ANIM_STATUS_WRAPPED           0xC // does not actually exist, so needs be on end
 
