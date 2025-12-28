@@ -986,6 +986,7 @@ static const struct AbilityLearnset sScizorAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sShuckleAbilityLearnset[] = {
+    ABILITY_RIPEN,
     ABILITY_HONEY_GATHER,
     ABILITY_SET_END
 };
