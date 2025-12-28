@@ -2,7 +2,7 @@
 #define GUARD_CONSTANTS_BATTLE_MOVE_EFFECTS_H
 
 // Move Effects
-#define MOVE_EFFECT_NOTHING_0           0x0
+/*#define MOVE_EFFECT_NOTHING_0           0x0
 #define MOVE_EFFECT_SLEEP               0x1
 #define MOVE_EFFECT_POISON              0x2
 #define MOVE_EFFECT_BURN                0x3
@@ -98,5 +98,6 @@
 #define MOVE_EFFECT_AFFECTS_USER        0x2000
 #define MOVE_EFFECT_CERTAIN             0x4000
 #define MOVE_EFFECT_CONTINUE            0x8000
+*/
 
 #endif  // GUARD_CONSTANTS_BATTLE_MOVE_EFFECTS_H

@@ -414,7 +414,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
         //.battleAnimScript = gBattleAnimMove_Cut,
-        .argument = {.storedValue = TYPE_GRASS,
+        .argument = {
+        .storedValue = TYPE_GRASS,
         .damagePercentage = 30},
     }, //make effect easy to adjust, change command  to read type to effct from argument, and dmg multiplier from gbattlemovedmg * argumetn chance/ 10
     //ok hopefully this works vsonic
@@ -514,13 +515,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 70,
         #endif
-        .effect = EFFECT_SEMI_INVULNERABLE,
+        .effect = EFFECT_FLY, //think will just make effect fly that goes to semi invul
         .type = TYPE_FLYING,
         .accuracy = 100,
-        .pp = 15,
+        .pp = 10,
         //.secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .enhancedCritrate = TRUE,
@@ -530,7 +531,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .assistBanned = TRUE,
         .multiTaskBanned = TRUE,
         .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNFLEWHIGH, .status = STATE_ON_AIR },
-        .argument.status = SIDE_STATUS_TAILWIND,
         //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -541,6 +541,36 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //with other effects can make bp 80 to be on line with other effects
     //think add x_bell idea skips executes in single turn
     //in tail wind?
+    //I think two turn effects aren't actually as bad as people are making them
+    //out to be.
+    //long as you're faster you dodge an attack so its effectively protect
+    //without fail chance.
+    //and people say its invalidated by just protecting, or switching to a resist
+    //but not every mon has protect, or would even want to use a protet then
+    //forcing a protect is still useful imo
+    //and dependign on type a resist might not even be available
+    //and again that's still giving up tempo
+    //plus in doubles any counter would hinge on properly
+    //predicting the intended target
+    //since effect is more beneficial when faster
+    //should I just give all semi invul effects priority? 
+    //negatives would still be there, but it'd be easier
+    //to get something out of the move at least.
+    //something of a tempo stealer
+    //to avoid stall would lower pp of moves to 5 or so.
+    //reivalluating this most mon that get it are fast
+    //I've added a way for it to attack in same turn
+    //and it also has high crit now
+    //I feel this may be strong enough to not need
+    //boost to priority? 
+    //would potentially drop pp to 10 to accomodate
+    //gave to more slower mon so screw it
+    //will make this the quintissential flying move
+    //it'll underscore what the type is about
+    //speed utility versatility
+    //remembered I setup semi invul interupt effect
+    //so think this should be balanced at 10 pp
+
     
 
     [MOVE_BIND] =
@@ -2256,7 +2286,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         //.secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .cantdamageFloating = TRUE,
@@ -2271,6 +2301,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Dig,
     },//if current move make grounded
+    //since have to deal with floating immunity
+    //think will let dig be only move to keep full pp
 
     [MOVE_TOXIC] =
     {
@@ -6098,7 +6130,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 50,
         }),*/
-        .argument = {.storedValue = TYPE_ROCK,
+        .argument = {
+        .storedValue = TYPE_ROCK,
         .damagePercentage = 20},
         //.contestEffect = CONTEST_EFFECT_BETTER_WITH_GOOD_CONDITION,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
@@ -7101,10 +7134,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_SEMI_INVULNERABLE,
         .type = TYPE_WATER,
         .accuracy = 100,
-        .pp = 10,
+        .pp = 5,
         //.secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .sleepTalkBanned = TRUE,
@@ -8272,7 +8305,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         //.secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .gravityBanned = TRUE,
@@ -10863,12 +10896,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        .argument = { .holdEffect = HOLD_EFFECT_PLATE },
+        //.argument = { .holdEffect = HOLD_EFFECT_PLATE },
         //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Judgment,
+        //forgot changed to no longer need plate
     }, //thinik add message passed judgement def can no longer escape!
     //vsonic  //actually too strong, since this thing is already hella op
     //do second idea, and make random type that will do most damage to target
@@ -11282,7 +11316,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         //.secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1, //ironically description was vanished instantly
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .ignoresProtect = TRUE,
@@ -11301,6 +11335,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_ShadowForce,
     },
+    //like phantom force this also ignores and removes protect
+    //difference is this is giratina exclusive think can give prio boost
+    //is "worst" legendary and meant to compete against the others
+    //so now it can disappear first, and then rip away the protect
+    //meant to block it at the start of the turn
 
     [MOVE_HONE_CLAWS] =
     {
@@ -13318,7 +13357,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .metronomeBanned = TRUE,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
-       .argument.twoTurnAttack = { .stringId = STRINGID_CLOAKEDINAFREEZINGLIGHT },
+       //.argument.twoTurnAttack = { .stringId = STRINGID_CLOAKEDINAFREEZINGLIGHT },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 50,
@@ -13345,7 +13384,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .metronomeBanned = TRUE,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
-       .argument.twoTurnAttack = { .stringId = STRINGID_CLOAKEDINAFREEZINGLIGHT },
+       //.argument.twoTurnAttack = { .stringId = STRINGID_CLOAKEDINAFREEZINGLIGHT },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 50,
@@ -13667,6 +13706,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_PhantomForce,
     },
+    //difference of having feint effect with ignoreProtect
+    //is that not only will it hit through
+    //but will also remove the protect effect
+    //since so strong will keep to priority 0
 
     [MOVE_TRICK_OR_TREAT] =
     {
@@ -16032,7 +16075,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_MultiAttack,
-        .argument = HOLD_EFFECT_MEMORY,
     }, //unsure if want to give free super like arceus
     //is meant to be a failed copy
 

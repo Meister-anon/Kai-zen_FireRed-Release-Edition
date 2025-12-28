@@ -13062,11 +13062,10 @@ static bool32 CheckIfCanFireTwoTurnMoveNow(u8 battler, bool8 checkChargeTurnEffe
     // Semi-invulnerable moves cannot skip their charge turn (except with Power Herb)
     if (gBattleMoveEffects[GetMoveEffect(gCurrentMove)].semiInvulnerableEffect == TRUE)
     {    
-        if (gCurrentMove == MOVE_FLY
+        if (GetMoveEffect(gCurrentMove) == EFFECT_FLY
         && gBattleMons[battler].volatiles.semiInvulnerable == STATE_NONE)
         {
-            u32 sidestatus = GetMoveEffectArg_Status(gCurrentMove);
-            if (gSideStatuses[GetBattlerSide(battler)] & sidestatus)
+            if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_TAILWIND)
                 return TRUE;
         }
         else

@@ -8752,7 +8752,7 @@ static inline uq4_12_t GetParentalBondModifier(u32 battlerAtk)
 //since include joat etc decide rename function was GetSameTypeAttackBonusModifier
 static inline uq4_12_t GetTypeBasedBonusModifier(struct DamageContext *ctx)
 {
-    u8 SecondarymoveType = GetMoveEffect(ctx->move) == EFFECT_TWO_TYPED_MOVE ? GetMoveStoredValue(ctx->move) : 0xFF;
+    u8 SecondarymoveType = GetMoveEffect(ctx->move) == EFFECT_TWO_TYPED_MOVE ? GetMoveStoredValue(ctx->move) : TYPE_NONE;
 
     if (ctx->move == MOVE_STRUGGLE || ctx->move == MOVE_NONE)
         return UQ_4_12(1.0);

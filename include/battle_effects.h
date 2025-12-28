@@ -808,6 +808,14 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .semiInvulnerableEffect = TRUE,
     },
 
+    [EFFECT_FLY] =
+    {
+        .battleScript = BattleScript_EffectTwoTurnsAttack,
+        .battleTvScore = 3,
+        .twoTurnEffect = TRUE,
+        .semiInvulnerableEffect = TRUE,
+    },
+
     [EFFECT_DEFENSE_CURL] =
     {
         .battleScript = BattleScript_EffectDefenseCurl,
