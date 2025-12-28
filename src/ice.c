@@ -1551,7 +1551,7 @@ static void AnimIceBallParticle(struct Sprite *sprite)
 }
 
 // Counter for Ice Ball.
-void AnimTask_GetRolloutCounter(u8 taskId)
+void AnimTask_GetIceBallCounter(u8 taskId)
 {
     u8 arg = gBattleAnimArgs[0];
     if (gBattleMoves[gCurrentMove].effect == EFFECT_ROLLOUT)

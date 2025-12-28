@@ -270,6 +270,10 @@ const u32 gBattleAnimSpritePal_Poltergeist[] = INCBIN_U32("graphics/battle_anims
 
 const u32 gBattleAnimSpritePal_SteelBeam[] = INCBIN_U32("graphics/battle_anims/sprites/steel_beam.gbapal.lz");
 
+const u32 gBattleAnimSpriteGfx_Teapot[] = INCBIN_U32("graphics/battle_anims/sprites/teapot.4bpp.lz");
+const u16 gBattleAnimSpritePal_Teapot[] = INCBIN_U16("graphics/battle_anims/sprites/teapot.gbapal.lz");
+
+
 const u32 gBattleAnimSpriteGfx_StraightBeam[] = INCBIN_U32("graphics/battle_anims/sprites/straight_beam.4bpp.lz");
 const u32 gBattleAnimSpritePal_StraightBeam[] = INCBIN_U32("graphics/battle_anims/sprites/straight_beam.gbapal.lz");
 

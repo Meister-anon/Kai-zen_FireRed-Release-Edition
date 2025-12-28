@@ -835,7 +835,7 @@
 #define MOVE_SHED_TAIL 806
 #define MOVE_CHILLY_RECEPTION 807
 #define MOVE_TIDY_UP 808
-#define MOVE_SNOWSCAPE 809
+#define MOVE_SNOWESCAPE 809
 #define MOVE_GRASSHOPPER 810    //renamed was MOVE_POUNCE
 #define MOVE_TRAILBLAZE 811
 #define MOVE_CHILLING_WATER 812
@@ -916,7 +916,11 @@
 #define MOVE_COLD_FRONT         882     //ice solar beam, 
 #define MOVE_LIFE_DRAIN         883     //mostly for giratina but ghost healing attack
 #define MOVE_DARK_SWAMP         884 //new special dark move
-#define MOVE_NA                 885 //avoid extra copy paste
+#define MOVE_SNOW_DAY           885 //replace snowscape
+#define MOVE_FOG_HORN           886 //name pending summons calls forth deep fog
+#define MOVE_SHADOW_STRIKE      887 //mega gren z signature multi hit, does dragon darts and boost evasion 2 stages till turn end for clones
+#define MOVE_FENCE              888 //new dark protect that steals attacker item
+#define MOVE_NA                 889 //avoid extra copy paste
 
 //for completion new moves have to be defined in:  move_descriptions.inc,  move_names.h, & battle_anim_scripts.s
 // also need actual move data in battle_moves.h
