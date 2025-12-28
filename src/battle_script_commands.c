@@ -1708,8 +1708,10 @@ static bool8 IsBattlerProtectedFromAttack(u8 battlerAtk, u8 battlerDef, u16 move
 
     if (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
         return FALSE;
-    else if (IsMoveMakingContact(move, battlerAtk) && GetBattlerAbility(battlerAtk) == ABILITY_UNSEEN_FIST
-    && gBattleMoves[move].power < 75)
+    else if (IsMoveMakingContact(move, battlerAtk) 
+    && (GetBattlerAbility(battlerAtk) == ABILITY_UNSEEN_FIST
+    || GetBattlerAbility(battlerAtk) == ABILITY_SECRET_ARTS)
+    && gBattleMoves[move].power <= 75)
         return FALSE;
     else if (move == MOVE_RAGING_BULL)
         return FALSE;

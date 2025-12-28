@@ -724,6 +724,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_RESOLUTE] = COMPOUND_ABILITY_STRING("Changes form if suffering from status\nor if HP falls to or below half Max HP."),
     [ABILITY_PIERCING_HORN] = COMPOUND_ABILITY_STRING("Boosts headbutt moves.\nAttacks foes with sharpened horns."),
     [ABILITY_X_SIGHT] = COMPOUND_ABILITY_STRING("X-ray Vision reveals battlers held items\nand bypasses Acc check when above 50% hp."),
+    [ABILITY_SECRET_ARTS] = COMPOUND_ABILITY_STRING("Ignores target guard mode. Contact moves\nup to 75 power also evade protection."),
 
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
@@ -1151,5 +1152,6 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_RESOLUTE] = _("Resolute"),
     [ABILITY_PIERCING_HORN] = _("Piercing Horn"),
     [ABILITY_X_SIGHT] = _("X Sight"),
+    [ABILITY_SECRET_ARTS] = _("Secret Arts"),
 
 };//can have comma

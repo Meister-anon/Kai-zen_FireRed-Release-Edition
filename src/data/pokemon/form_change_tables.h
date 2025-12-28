@@ -395,9 +395,10 @@ static const struct FormChange sGenesectFormChangeTable[] = {
     {FORM_CHANGE_TERMINATOR},
 };
 
-static const struct FormChange sGreninjaBattleBondFormChangeTable[] = {
+static const struct FormChange sGreninjaFormChangeTable[] = {
     {FORM_CHANGE_FAINT,         SPECIES_GRENINJA},
     {FORM_CHANGE_END_BATTLE,    SPECIES_GRENINJA},
+    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_GRENINJA_MEGA, ITEM_CHARIZARDITE_X},
     {FORM_CHANGE_TERMINATOR},
 };
 
