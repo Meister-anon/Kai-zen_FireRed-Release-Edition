@@ -20856,4 +20856,38 @@ use wonder gaurd logic to determine its super effective
         //.battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_SNOW) ? gBattleAnimMove_Snowscape : gBattleAnimMove_Hail,
     },
 
+    //name pending
+    [MOVE_SHADOW_STRIKE] =
+    {
+        .effect = EFFECT_DRAGON_DARTS,
+        .power = 25,
+        .type = TYPE_DARK, //I can chese this actually, since single target effects only hit single target, make target both, and specific bs command for it, put effect in multihit 
+        .accuracy = 100, //switch case, and have it read the number of enemies on enemy side, if 2 set to 1 hit, if 1 set to 2 hits
+        .pp = 5,
+        //.secondaryEffectChance = 0,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .split = SPLIT_PHYSICAL,
+        .strikeCount = 4,
+        .multiTaskBanned = TRUE,
+        .parentalBondBanned = TRUE,
+        //new category effect at moveend
+        //set special protectstatus one turn stat boost
+        //will store stat to boost from storedValue
+        //convenient since value 0 is hp 
+        //overall same as how protect method is stored
+        //unsure how will do this, can do with moveproperty
+        //or a move effect to set status
+        .argument = {
+        .moveProperty = MOVE_EFFECT_SHADOW_STRIKE,
+        .storedValue = STAT_EVASION},       
+        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_DragonDarts,
+    },
+    //for anim do double team animation and then something like
+    //beatup
+
 };

@@ -377,7 +377,8 @@ struct ProtectStruct
              u32 activatedAbilityStatusHealing:1;  //since separated from status need this to filter so doesn't retrigger. //using for both poison heal and heat trance, 
              u32 statRaised:1;
              u32 statFell:1;
-             u32 padding:3;  
+             u32 oneTurnStatBoost:1; //stat to boost set from stored value made for mega gren z, meant to be 2 stage boost
+             u32 padding:2;  
              u16 fieldE;
 };
 
@@ -899,7 +900,7 @@ struct BattleStruct //fill in unused fields when porting
     u8 wishPerishSongBattlerId;
     u8 isAtkCancelerForCalledMove:1; // Certain cases in atk canceler should only be checked once, when the original move is called, however others need to be checked the twice.
     u8 savedBattlerTarget;
-    bool8 anyMonHasTransformed;
+    bool8 anyMonHasTransformed; // Only used in battle_tv.c
     u16 tracedAbility[MAX_BATTLERS_COUNT]; //didn't really need to port, but prob can use it to show current ability in menu summary screen //important
     u16 hpBefore[MAX_BATTLERS_COUNT]; // Hp of battlers before using a move. For Berserk
     bool8 spriteIgnore0Hp;

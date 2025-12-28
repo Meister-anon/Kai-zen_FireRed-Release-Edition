@@ -322,9 +322,104 @@
 #define BIT_ACC                     (1 << 6)
 #define BIT_EVASION                 (1 << 7)
 
+enum SetMoveEffectFlags
+{
+    NO_FLAGS = 0,
+    EFFECT_PRIMARY = (1 << 0),
+    EFFECT_CERTAIN = (1 << 1),
+};
+
+// cases for Cmd_moveend - Order matters!
+enum MoveEndEffects
+{
+    MOVEEND_SET_VALUES,
+    MOVEEND_PROTECT_LIKE_EFFECT,
+    MOVEEND_GRUDGE,
+    MOVEEND_DESTINY_BOND,
+    MOVEEND_ABSORB,
+    MOVEEND_RAGE,
+    MOVEEND_DRAGON_RAGE,
+    MOVEEND_ROOST, //needed for end turn print string after set effect
+    MOVEEND_SYNCHRONIZE_TARGET,
+    MOVEEND_ABILITIES,
+    MOVEEND_ABILITIES_ATTACKER,
+    MOVEEND_STATUS_IMMUNITY_ABILITIES, // TODO: Do berries come before????
+    MOVEEND_SYNCHRONIZE_ATTACKER,
+    MOVEEND_ATTACKER_INVISIBLE,
+    MOVEEND_ATTACKER_VISIBLE,
+    MOVEEND_TARGET_VISIBLE,
+    MOVEEND_GROUND_TARGET,
+    MOVEEND_SEMI_INVULNERABLE_INTERRUPT,
+    MOVEEND_ITEM_EFFECTS_TARGET,
+    MOVEEND_ITEM_EFFECTS_ATTACKER_1,
+    MOVEEND_SYMBIOSIS,
+    MOVEEND_SUBSTITUTE,
+    MOVEEND_SKY_DROP_CONFUSE,
+    MOVEEND_UPDATE_LAST_MOVES,
+    MOVEEND_MIRROR_MOVE,
+    MOVEEND_DEFROST,
+    MOVEEND_NEXT_TARGET, // Everything up until here is handled for each strike of a spread move
+    MOVEEND_HP_THRESHHOLD_ITEMS_TARGET, // Activation only during a multi hit move / ability (Parental Bond)
+    MOVEEND_MULTIHIT_MOVE, //still unsure if I need and what does may use just for parental bond or dragon darts
+    MOVEEND_MOVE_BLOCK,
+    MOVEEND_ITEM_EFFECTS_ATTACKER_2,
+    MOVEEND_ABILITY_BLOCK, //seems magician handled here, also moxie likes and battle bond
+    MOVEEND_SHEER_FORCE, // If move is Sheer Force affected, skip to Hit Escape + One
+    MOVEEND_COLOR_CHANGE, // Color Change / Berserk / Anger Shell //w my rework color change would be removed from this vsonic
+    MOVEEND_KEE_MARANGA_HP_THRESHOLD_ITEM_TARGET,
+    MOVEEND_RED_CARD,
+    MOVEEND_EJECT_BUTTON,
+    MOVEEND_LIFE_ORB_SHELL_BELL,
+    MOVEEND_FORM_CHANGE, //form change after using move mega ray, for things like this think need update my idea of form change need revert party mon if in mega form and not sent out yet think of as transferring mega energy
+    MOVEEND_EMERGENCY_EXIT, // need tweak to integrate with my changed version
+    MOVEEND_EJECT_PACK,
+    MOVEEND_HIT_ESCAPE,
+    MOVEEND_ITEMS_EFFECTS_ALL,
+    MOVEEND_WHITE_HERB,
+    MOVEEND_OPPORTUNIST,
+    MOVEEND_MIRROR_HERB,
+    MOVEEND_PICKPOCKET,
+    MOVEEND_THIRD_MOVE_BLOCK,
+    MOVEEND_CHANGED_ITEMS,
+    MOVEEND_SAME_MOVE_TURNS,
+    MOVEEND_CLEAR_BITS,
+    MOVEEND_DANCER,
+    MOVEEND_FETCH_BALL,
+    MOVEEND_PURSUIT_NEXT_ACTION,
+    MOVEEND_COUNT,
+
+    // This guarantees a correct jump if new moveends are added directly after MOVEEND_HIT_ESCAPE
+    MOVEEND_JUMP_TO_HIT_ESCAPE_PLUS_ONE = (MOVEEND_HIT_ESCAPE + 1),
+};
+
+// switch cases
+#define B_SWITCH_NORMAL     0
+#define B_SWITCH_HIT        1   // dragon tail, circle throw
+#define B_SWITCH_RED_CARD   2
+
+enum StatusTrigger
+{
+    TRIGGER_ON_MOVE,
+    TRIGGER_ON_ABILITY,
+    TRIGGER_ON_PROTECT,
+};
+
+enum TriggerOnFieldStatus
+{
+    ON_ANY,
+    ON_TERRAIN,
+    ON_WEATHER,
+};
+
+enum HealthUpdate
+{
+    PASSIVE_HP_UPDATE,
+    MOVE_DAMAGE_HP_UPDATE,
+};
+
 //turn these into enum later
 // atk49, moveend cases
-#define MOVE_END_PROTECT_LIKE_EFFECT			   0
+/*#define MOVE_END_PROTECT_LIKE_EFFECT			   0
 #define MOVE_END_RAGE                              1
 #define MOVE_END_DRAGON_RAGE                       2
 #define MOVE_END_ROOST                             3
@@ -362,17 +457,11 @@
 #define MOVE_END_FETCH_BALL                        33
 #define MOVE_END_EMERGENCY_EXIT					   34
 #define MOVE_END_SYMBIOSIS						   35
-#define MOVE_END_INFATUATION                       36  //to setup for attract hit effect, just need set STRINGID_PKMNFELLINLOVE
+#define MOVE_END_INFATUATION                       36  //to setup for attract hit effect, just need set STRINGID_PKMNFELLINLOVE //actually don't think need, do w moveeffect instead
 #define MOVE_END_NEXT_TARGET                       37 //was last value before count, in base firered
 #define MOVE_END_CLEAR_BITS						   38
 #define MOVE_END_PURSUIT_NEXT_ACTION               39
 #define MOVE_END_COUNT							   40
-
-// switch cases - PORTED right now not used, adding red card only for now
-#define B_SWITCH_NORMAL     0
-#define B_SWITCH_HIT        1   // dragon tail, circle throw
-#define B_SWITCH_RED_CARD   2
-
-
+*/
 
 #endif // GUARD_CONSTANTS_BATTLE_SCRIPT_COMMANDS_H

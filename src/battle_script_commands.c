@@ -3442,8 +3442,38 @@ void SetMoveEffect(u32 battler, u32 effectBattler, enum MoveEffect moveEffect, c
         gBattlescriptCurrInstr = battleScript;
         break;
     case MOVE_EFFECT_RAGE:
-        gBattleMons[gBattlerAttacker].volatiles.rage = TRUE;
-        gBattlescriptCurrInstr = battleScript;
+        if (gBattleMons[gBattlerAttacker].volatiles.rage)
+        {
+            if (gDisableStructs[gBattlerAttacker].rageCounter != MAX_RAGE_BOOST_COUNTER) //with curr setup would max at a move of bp 75
+            {
+                    gDisableStructs[gBattlerAttacker].rageCounter++; //ok would need to see if this works, since in this script setmoveeffect is before atk, this should work but idk
+                //BattleScriptPush(battleScript);
+                //gBattlescriptCurrInstr = BattleScript_AttackerRageBuilding; //this works perfectly
+                //test think this is right, if wrong should infini loop
+                BattleScriptCall(BattleScript_AttackerRageBuilding);
+            }
+            else
+                gBattlescriptCurrInstr = battleScript;
+            
+        } //vsonic
+        else
+        {
+            gBattleMons[gBattlerAttacker].volatiles.rage = TRUE; //add check for status2 rage, if set just go to next instruction
+            gBattlescriptCurrInstr = battleScript;
+        }
+        break;
+    case MOVE_EFFECT_DRAGON_RAGE:
+        if (gBattleMons[gBattlerAttacker].status2 & STATUS2_DRAGON_RAGE)
+        {
+
+            gBattlescriptCurrInstr = battleScript;
+            
+        }
+        else
+        {
+            gBattleMons[gBattlerAttacker].status2 |= STATUS2_DRAGON_RAGE; //add check for status2 rage, if set just go to next instruction
+            gBattlescriptCurrInstr = battleScript;
+        }
         break;
     case MOVE_EFFECT_PREVENT_ESCAPE:
         if (!gBattleMons[gBattlerTarget].volatiles.escapePrevention) // Do we need to check if the status is already set?
@@ -5890,6 +5920,7 @@ static inline bool32 CanEjectPackTrigger(u32 battlerAtk, u32 battlerDef, enum Ba
     return FALSE;
 }
 
+//vsonic magician moxie updates go here
 static bool32 HandleMoveEndAbilityBlock(u32 battlerAtk, u32 battlerDef, u32 move)
 {
     bool32 effect = FALSE;
@@ -6526,6 +6557,31 @@ static void Cmd_moveend(void)
             }
             gBattleScripting.moveendState++;
             break;
+        case MOVEEND_DRAGON_RAGE: // rage check
+            if (gBattleMons[gBattlerTarget].status2 & STATUS2_DRAGON_RAGE
+             && gBattleMons[gBattlerTarget].hp != 0
+             && gBattlerAttacker != gBattlerTarget //v worried bout below would make draco meteor and dragons op again, that said fairies exist now
+             //&& GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget) //keep this wouldn't want to just attack your own mon in doubles 
+             && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT) //fuck it decide setup like rage fist, requires heavy invest anyway
+             && TARGET_TURN_DAMAGED
+             && !IsBattleMoveStatus(gCurrentMove))    //not max atk
+            {
+                if (gDisableStructs[gBattlerTarget].DragonrageCounter != MAX_DRAGON_RAGE_COUNTER)
+                    gDisableStructs[gBattlerTarget].DragonrageCounter++;
+                BattleScriptCall(BattleScript_RageIsBuilding);
+                effect = TRUE;
+            }
+            gBattleScripting.moveendState++;
+            break;
+        case MOVEEND_ROOST:
+            if (gDisableStructs[gBattlerAttacker].RoostTimer == 4)
+            {
+
+                BattleScriptCall(BattleScript_Roosting);
+                effect = TRUE;
+            }
+            gBattleScripting.moveendState++;
+            break;
         case MOVEEND_SYNCHRONIZE_TARGET: // target synchronize
             if (AbilityBattleEffects(ABILITYEFFECT_SYNCHRONIZE, gBattlerTarget, 0, 0, 0))
                 effect = TRUE;
@@ -6556,6 +6612,93 @@ static void Cmd_moveend(void)
             if (AbilityBattleEffects(ABILITYEFFECT_ATK_SYNCHRONIZE, gBattlerAttacker, 0, 0, 0))
                 effect = TRUE;
             gBattleScripting.moveendState++;
+            break;
+        case MOVEEND_GROUND_TARGET: //for some reason retriggering so think, grounded isn't being set right?
+            if (!IsBattlerGrounded(gBattlerTarget) 
+            && IsBattlerAlive(gBattlerTarget) //not working at all for some reason
+            //&& gMultiHitCounter == 0  //removing this line seemed to fix issue of not dispalying, didn't need as should only trigger if 0/move complete
+            && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+            && TARGET_TURN_DAMAGED)// !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)) //should make sure doesn't trigger till end of multihit
+            {           //result no effect didn't work so replace w target must take dmg
+                //double checked and EE uses them together for some reason
+                
+                //do I need to add an exception for hold item air balloon or would it already be removed?
+                //ok adjusted so is before removal of air balloon, now  can filter for this
+                //ok how do I want to do this shouold it only work for floaitng
+                //what about non floating mon that are capable of using moves like fly
+                //I think I need both, and just have air balloon prevent knock down once
+                //since already checks target is ungrouded should be fine
+                //dont need extra logic for things like gravity etc.
+                if (GetBattlerHoldEffect(gBattlerTarget, TRUE) == HOLD_EFFECT_AIR_BALLOON)
+                {
+                    ; //just in case
+                }
+
+                else if ((MoveCanDamageAirborne(gCurrentMove) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
+                && (!(gStatuses3[gBattlerTarget] & STATUS3_SKY_DROPPED)))   //using fly/sky attack, airborne specifically not sky drop, too complicated to work with
+                {
+                    CancelMultiTurnMoves(gBattlerTarget); //just for fly /skydrop
+                    //gStatuses3[battler] &= ~(STATUS3_ON_AIR); // doesn't need this part handled in cancelmultiturn
+                    gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
+                    gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR); //think need these, were part of smack down
+
+                    //air balloon is only temp effect unless there's a knock down move that also removes item
+                    //otherwise the non grounded check at the start is enough wait but what about ability based item removal... ok need make function for this
+                    //vsonic flying make specific function for check if flying mon should rise up again
+                    //unsure if or what should message be for ascensiontimer ends
+                    if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerTarget, TYPE_FLYING, FALSE)
+                    && CanFlyingTypeRecoverFromSmackDown(gBattlerTarget)) 
+                        gDisableStructs[gBattlerAttacker].AscensionTimer = 3;  
+                    effect = TRUE;
+                    BattleScriptPush(gBattlescriptCurrInstr);
+                    gBattlescriptCurrInstr = BattleScript_GroundFlyingEnemywithoutGravity;
+
+                }//NEW bs for   //didnt need move damage multiplier that's already accounted for by damage calc
+                
+                
+
+                //believe this for floating mon
+                else if (MoveCanDamageAirborne(gCurrentMove)) //redid thnik tryign bitwise stuff was why this at times failed to set grounding
+                {
+                    gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
+                    gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR);
+                    //Nox fixed other bug think want put ability back within function just use two battlers and type as arguments
+                    if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerTarget, TYPE_FLYING, FALSE)
+                    && CanFlyingTypeRecoverFromSmackDown(gBattlerTarget))
+                        gDisableStructs[gBattlerAttacker].AscensionTimer = 3;
+                    effect = TRUE;
+                    //BattleScriptPush(gBattlescriptCurrInstr);
+                    //gBattlescriptCurrInstr = BattleScript_GroundFloatingTarget; //just a battle message
+                    BattleScriptCall(BattleScript_GroundFloatingTarget);
+                }//for some reason seems doesn't always work?,idk what's going on with this thing...
+                
+
+
+            } //vsonic need test
+            gBattleScripting.moveendState++;
+            break;
+        case MOVEEND_SEMI_INVULNERABLE_INTERRUPT:
+        {
+            if (IsBattlerAlive(gBattlerTarget) //not working at all for some reason
+            //&& gMultiHitCounter == 0  //removing this line seemed to fix issue of not dispalying, didn't need as should only trigger if 0/move complete
+            && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+            && TARGET_TURN_DAMAGED)// !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)) //should make sure doesn't trigger till end of multihit
+            {           //result no effect didn't work so replace w target must take dmg
+                //double checked and EE uses them together for some reason
+                if ((MoveDamagesUnderground(gCurrentMove) && gStatuses3[gBattlerTarget] & STATUS3_UNDERGROUND)
+                || (MoveDamagesUnderWater(gCurrentMove) && gStatuses3[gBattlerTarget] & STATUS3_UNDERWATER))
+                {
+                    CancelMultiTurnMoves(gBattlerTarget);
+                    effect = TRUE;
+                    //BattleScriptPush(gBattlescriptCurrInstr);
+                    //gBattlescriptCurrInstr = BattleScript_ForceTargetToSurface;
+                    BattleScriptCall(BattleScript_ForceTargetToSurface);
+
+                }//for some reason problem is directly with string itself...
+
+            }
+        }
+        gBattleScripting.moveendState++;
             break;
         case MOVEEND_ITEM_EFFECTS_TARGET:
         {
@@ -6588,8 +6731,10 @@ static void Cmd_moveend(void)
                     gEffectBattler = i;
                     gBattleScripting.battler = gBattlerAbility = BATTLE_PARTNER(i);
                     gBattlerAttacker = i;
-                    BattleScriptPushCursor();
-                    gBattlescriptCurrInstr = BattleScript_SymbiosisActivates;
+                    //think this should be updated to use bs call
+                    //BattleScriptPushCursor();
+                    //gBattlescriptCurrInstr = BattleScript_SymbiosisActivates;
+                    BattleScriptCall(BattleScript_SymbiosisActivates);
                     effect = TRUE;
                 }
             }
@@ -6866,6 +7011,7 @@ static void Cmd_moveend(void)
             break;
         case MOVEEND_MULTIHIT_MOVE:
         {
+            //think presentpower 0 refers to rolling the heal effect? 
             if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
              && !(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)
              && gMultiHitCounter
@@ -6878,10 +7024,17 @@ static void Cmd_moveend(void)
                 gBattleScripting.multihitString[4]++;
                 if (gMultiHitCounter == 0)
                 {
-                    if (IsVariableMultiHitMove(gCurrentMove)
-                     && GetMoveEffectArg_MoveProperty(gCurrentMove) == MOVE_EFFECT_SCALE_SHOT
-                     && !NoAliveMonsForEitherParty())
-                        BattleScriptCall(BattleScript_ScaleShot);
+                    if (IsVariableMultiHitMove(gCurrentMove) && !NoAliveMonsForEitherParty())
+                    {
+                        if (GetMoveEffectArg_MoveProperty(gCurrentMove) == MOVE_EFFECT_SCALE_SHOT)
+                            BattleScriptCall(BattleScript_ScaleShot);
+                        else if (GetMoveEffectArg_MoveProperty(gCurrentMove) == MOVE_EFFECT_SHADOW_STRIKE)
+                        {
+                            gProtectStructs[gBattlerAttacker].oneTurnStatBoost = GetMoveStoredValue(gCurrentMove);
+                            BattleScriptCall(BattleScript_ScaleShot); //setup text print evasion boost
+                        } //prob need end turn clear print as well
+                            
+                    }                    
                     else
                         BattleScriptCall(BattleScript_MultiHitPrintStrings);
                     effect = TRUE;
@@ -6897,6 +7050,8 @@ static void Cmd_moveend(void)
 
                     enum BattleMoveEffects chosenEffect = GetMoveEffect(gChosenMove);
 
+                    //is this called move effect that fails
+                    //while attacker is not incapable of moving/acting? 
                     if (gBattleMons[gBattlerAttacker].hp
                      && gBattleMons[gBattlerTarget].hp
                      && (chosenEffect == EFFECT_SLEEP_TALK || chosenEffect == EFFECT_SNORE || !(gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP))
@@ -7442,6 +7597,36 @@ static void Cmd_moveend(void)
                         }
                     }
                     if (nextDancer && AbilityBattleEffects(ABILITYEFFECT_MOVE_END_OTHER, nextDancer & 0x3, 0, 0, gCurrentMove))
+                        effect = TRUE;
+                }
+            }
+            gBattleScripting.moveendState++;
+            break;
+        case MOVEEND_FETCH_BALL: // Special case because it's so annoying     //think this stays here, in emerald its actually in util.c & here??  very strange effect
+            if (IsBallisticMove(gCurrentMove))
+            {
+                u8 battler, nextBallCatcher = 0;
+
+                if (!(gBattleStruct->lastMoveFailed & (1u << gBattlerAttacker)
+                    || (!gSpecialStatuses[gBattlerAttacker].returnedBallMove
+                        && gProtectStructs[gBattlerAttacker].usesBouncedMove)))
+                {   // Dance move succeeds
+                    // Set target for other Dancer mons; set bit so that mon cannot activate Dancer off of its own move
+                    if (!gSpecialStatuses[gBattlerAttacker].returnedBallMove)
+                    {
+                        gBattleScripting.savedBattler = gBattlerTarget | 0x4;
+                        gBattleScripting.savedBattler |= (gBattlerAttacker << 4);
+                        gSpecialStatuses[gBattlerAttacker].returnedBallMove = TRUE;
+                    }
+                    for (battler = 0; battler < MAX_BATTLERS_COUNT; battler++)
+                    {
+                        if (GetBattlerAbility(battler) == ABILITY_BALL_FETCH && !gSpecialStatuses[battler].returnedBallMove)
+                        {
+                            if (!nextBallCatcher || (gBattleMons[battler].speed < gBattleMons[nextBallCatcher & 0x3].speed))
+                                nextBallCatcher = battler | 0x4;
+                        }
+                    }
+                    if (nextBallCatcher && AbilityBattleEffects(ABILITYEFFECT_MOVE_END_OTHER, nextBallCatcher & 0x3, 0, 0, 0))
                         effect = TRUE;
                 }
             }

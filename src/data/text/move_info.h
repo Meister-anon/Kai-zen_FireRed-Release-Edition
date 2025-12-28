@@ -2384,6 +2384,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     //these two need constant as will be made tms along w other weather moves
     [MOVE_SNOW_DAY] = gMoveDescription_SnowDay,
     [MOVE_FOG_HORN] = gMoveDescription_FogHorn,
+    [MOVE_SHADOW_STRIKE] = COMPOUND_MOVE_STRING("The user summons\nfour clones to\nattack the foes side\nThey stay one turn\nsharply boosting\nthe user's evasion."),
 };//last value can have comma
 //with using compound string realized can paste descriptions directly
 //from bulbapedia, then just a matter of adjusting for spacing
@@ -3290,6 +3291,7 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_DARK_SWAMP] = _("Dark Swamp"),
     [MOVE_SNOW_DAY] = _("Snow Day"),
     [MOVE_FOG_HORN] = _("Fog Horn"),
+    [MOVE_SHADOW_STRIKE] = _("Shadow Strike"),
 };//don't need remove comma from last value for this file, port of emerald
 
 //remember to remove comma from last entry //longest name is 17 chars

@@ -918,7 +918,8 @@
 #define MOVE_DARK_SWAMP         884 //new special dark move
 #define MOVE_SNOW_DAY           885 //replace snowscape
 #define MOVE_FOG_HORN           886 //name pending summons calls forth deep fog
-#define MOVE_NA                 887 //avoid extra copy paste
+#define MOVE_SHADOW_STRIKE      887 //mega gren z signature multi hit, does dragon darts and boost evasion 2 stages till turn end for clones
+#define MOVE_NA                 888 //avoid extra copy paste
 
 //for completion new moves have to be defined in:  move_descriptions.inc,  move_names.h, & battle_anim_scripts.s
 // also need actual move data in battle_moves.h
