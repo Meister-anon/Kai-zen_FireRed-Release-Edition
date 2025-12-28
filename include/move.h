@@ -81,7 +81,6 @@ struct BattleMove
     u8 pp;
     s8 priority;
     u8 split;
-    //u32 flags;
     // Flags
     bool32 makesContact:1;
     bool32 ignoresProtect:1;
