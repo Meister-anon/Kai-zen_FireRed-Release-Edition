@@ -231,7 +231,13 @@ static inline uq4_12_t uq4_12_multiply(uq4_12_t a, uq4_12_t b)
 {
     u32 product = (u32) a * b;
     return (product + UQ_4_12_ROUND) >> UQ_4_12_SHIFT;
-    //return (product) >> UQ_4_12_SHIFT;
+}
+
+//for same type tera bonus is multiplier * 2 - 1
+static inline uq4_12_t getsametypeTeraBonus(uq4_12_t a)
+{
+    u32 product = (u32) a * UQ_4_12(2.0);
+    uq4_12_subtract(((product + UQ_4_12_ROUND) >> UQ_4_12_SHIFT), UQ_4_12(1.0));
 }
 
 //my addition

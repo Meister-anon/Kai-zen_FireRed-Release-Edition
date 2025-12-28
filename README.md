@@ -21,6 +21,25 @@ Presently have updated file with all data from EE file
 still to do is set struct values for my custom effects
 and go over all the flags I added/previously may have updated i.e pulse moves punching moves etc. effects I may have added to moves that previously didn't have them essentially.
 
+NOTE**(
+    for terrastilizing several normal effects are now sound
+    lowing reason to terra normal
+    so to counter for terrastilizing normal type
+    have it increase joat boost
+    i.e if pokemon was normal and terras normal boost joat
+
+    typically the boost recieved is doubled 1.5 becomes 2x
+
+    if I double joat it becomes 1.34  where stab is 1.35
+
+    simplest way to get bonus is base multiplier x 2 - 1
+
+    so for normal going terra normal you'd have
+    both doubled stab bonus on normal moves
+
+    and essentially fake stab on EVERY other type
+)
+
 and add the member if necessary
 
 want contests since I enjoyed them so for now keeping contest data just
