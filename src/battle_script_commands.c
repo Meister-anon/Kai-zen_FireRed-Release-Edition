@@ -6575,7 +6575,7 @@ static void Cmd_moveend(void)
                     {
                         gProtectStructs[gBattlerAttacker].touchedProtectLike = FALSE;
                         SetPassiveDamageAmount(gBattlerAttacker, GetNonDynamaxMaxHP(gBattlerAttacker) / 8);
-                        PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SPIKY_SHIELD);
+                        PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SPIKE_SHIELD);
                         BattleScriptCall(BattleScript_SpikyShieldEffect);
                         effect = 1;
                     }
@@ -6593,6 +6593,17 @@ static void Cmd_moveend(void)
                     }//vsonic double check balance on this
                     
                 }//most of effect should be done just need dmg reduction set
+                break;
+                case PROTECT_FENCE:
+                    if (CanStealItem(gBattlerTarget, gBattlerAttacker, gBattleMons[gBattlerAttacker].item))
+                    {
+                        if (GetBattlerAbility(gBattlerAttacker) != ABILITY_STICKY_HOLD)
+                            StealTargetItem(gBattlerTarget, gBattlerAttacker);
+                            //copy pickpocket print item stolen
+                            //test see if works
+                            BattleScriptCall(BattleScript_Pickpocket);
+                            effect = 1;
+                    }
                 break;
                 case PROTECT_KINGS_SHIELD:
                     if (!IsProtectivePadsProtected(gBattlerAttacker, GetBattlerHoldEffect(gBattlerAttacker)))
