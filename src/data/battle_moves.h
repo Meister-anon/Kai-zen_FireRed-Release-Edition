@@ -20932,4 +20932,30 @@ use wonder gaurd logic to determine its super effective
     //for anim do double team animation and then something like
     //beatup
 
+    [MOVE_FENCE] =
+    {
+        .priority = 4,
+        .effect = EFFECT_PROTECT,
+        .power = 0,
+        .type = TYPE_DARK,
+        .accuracy = 0,
+        .pp = 5,
+        //.secondaryEffectChance = 0,
+        .target = MOVE_TARGET_USER,
+        .split = SPLIT_STATUS,
+        .argument = { .protectMethod = PROTECT_FENCE },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .assistBanned = TRUE,
+        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        //.contestCategory = CONTEST_CATEGORY_COOL,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_TAUNT},
+        //.battleAnimScript = gBattleAnimMove_Detect,
+    },//name is funny double entendre
+    //fence meaning a means of protection
+    //and fance meaning a person who receives stolen goods
+
 };

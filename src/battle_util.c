@@ -10737,7 +10737,7 @@ bool32 CanStealItem(u32 battlerStealing, u32 battlerItem, u16 item)
 {
     enum BattleSide stealerSide = GetBattlerSide(battlerStealing);
 
-    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+    /*if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
         return FALSE;
 
     // Check if the battler trying to steal should be able to
@@ -10766,7 +10766,7 @@ bool32 CanStealItem(u32 battlerStealing, u32 battlerItem, u16 item)
 
     // It's supposed to pop before trying to steal but this also works
     if (GetItemHoldEffect(item) == HOLD_EFFECT_AIR_BALLOON)
-        return FALSE;
+        return FALSE;*/
 
     if (!CanBattlerGetOrLoseItem(battlerItem, item)      // Battler with item cannot have it stolen
      || !CanBattlerGetOrLoseItem(battlerStealing, item)) // Stealer cannot take the item

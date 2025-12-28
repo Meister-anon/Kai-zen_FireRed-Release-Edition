@@ -2936,7 +2936,8 @@ static void CheckSetUnburden(u8 battler)
 }
 
 // battlerStealer steals the item of itemBattler
-void StealTargetItem(u8 battlerStealer, u8 itemBattler)
+//replaced w my version check and update as needed vsonic
+/*void StealTargetItem(u8 battlerStealer, u8 itemBattler)
 {
     gLastUsedItem = gBattleMons[itemBattler].item;
     gBattleMons[itemBattler].item = ITEM_NONE;
@@ -2968,6 +2969,206 @@ void StealTargetItem(u8 battlerStealer, u8 itemBattler)
         gBattleStruct->choicedMove[itemBattler] = MOVE_NONE;
 
     TrySaveExchangedItem(itemBattler, gLastUsedItem);
+}*/
+
+void StealTargetItem(u8 battlerStealer, u8 itemBattler)
+{
+    
+    gLastUsedItem = gBattleMons[itemBattler].item;
+
+    if (gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[itemBattler]][GetBattlerSide(itemBattler)] == ITEM_NONE)
+        gBattleMons[itemBattler].item = ITEM_NONE;
+    else
+    {    
+        gBattleMons[itemBattler].item = gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[itemBattler]][GetBattlerSide(itemBattler)];
+        gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[itemBattler]][GetBattlerSide(itemBattler)] = ITEM_NONE;
+    }//if mon stolen frmo has secondary item their held item is replaced w secondary item slot
+
+    //unsure if this is correct if has secondary item
+    //think should update to that
+    //also unsure if should remove all this 
+    //and just make item slot swap an end turn effect
+    //as is think both effects can activate same turn?
+    //need test system to better identify how works smh
+    //vsonic important
+    //checked thing assumption is correct
+    //this is for updating what ai sees
+    //changed to use battlemons item
+    //if no item will read as such
+    //if swapped item will be new secondary swap item
+    //still need check/test, just updating cuz likely will be forgotten
+    RecordItemEffectBattle(itemBattler, gBattleMons[itemBattler].item);    //just for ai
+
+    if (gBattleMons[itemBattler].item == ITEM_NONE)
+    {
+        CheckSetUnburden(itemBattler);  //target is losing item so give unburden boost, if possible
+        if (gBattleMons[itemBattler].ability != ABILITY_GORILLA_TACTICS)
+            gBattleStruct->choicedMove[itemBattler] = MOVE_NONE;
+    }
+    BtlController_EmitSetMonData(itemBattler, BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[itemBattler].item);  // remove/set target item
+    MarkBattlerForControllerExec(itemBattler);
+    
+    //Ability base item steal
+    if ((GetBattlerAbility(battlerStealer) == ABILITY_PICKPOCKET
+    || GetBattlerAbility(battlerStealer) == ABILITY_MAGICIAN)
+    && gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battlerStealer]][GetBattlerSide(battlerStealer)] == ITEM_NONE)
+    {
+        if (gBattleMons[battlerStealer].item == ITEM_NONE)
+        {
+            RecordItemEffectBattle(battlerStealer, ItemId_GetHoldEffect(gLastUsedItem));
+            gBattleMons[battlerStealer].item = gLastUsedItem;
+
+            BtlController_EmitSetMonData(battlerStealer, BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
+            MarkBattlerForControllerExec(battlerStealer);//thinkk above is filling held item field using data from glastuseditem?
+
+            /*battler = itemBattler;
+            BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[itemBattler].item);  // remove target item
+            MarkBattlerForControllerExec(itemBattler);
+            */
+
+            gBattleResources->flags->flags[battlerStealer] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
+            TrySaveExchangedItem(itemBattler, gLastUsedItem); //if player loses item it tries to save it
+
+        }
+
+        else //held item ability steal
+        {
+            //this is for ai I think, not sure if correct
+            RecordItemEffectBattle(battlerStealer, ItemId_GetHoldEffect(gLastUsedItem));
+            gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battlerStealer]][GetBattlerSide(battlerStealer)] = gLastUsedItem;
+
+            /*BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
+            MarkBattlerForControllerExec(battlerStealer);*/
+
+            /*battler = itemBattler;
+            BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[itemBattler].item);  // remove target item
+            MarkBattlerForControllerExec(itemBattler);
+            */
+
+            gBattleResources->flags->flags[battlerStealer] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
+            TrySaveExchangedItem(itemBattler, gLastUsedItem); //if player loses item it tries to save it
+
+        }
+    }
+    else //normal item steal
+    {
+
+        if (gBattleMons[battlerStealer].item == ITEM_NONE)
+        {
+            RecordItemEffectBattle(battlerStealer, ItemId_GetHoldEffect(gLastUsedItem));
+            gBattleMons[battlerStealer].item = gLastUsedItem;
+
+            BtlController_EmitSetMonData(battlerStealer, BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
+            MarkBattlerForControllerExec(battlerStealer);
+
+            /*battler = itemBattler;
+            BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[itemBattler].item);  // remove target item
+            MarkBattlerForControllerExec(itemBattler);
+            */
+
+            gBattleResources->flags->flags[battlerStealer] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
+            TrySaveExchangedItem(itemBattler, gLastUsedItem); //if player loses item it tries to save it
+
+        }
+
+        else if (GET_BATTLER_SIDE(battlerStealer) == B_SIDE_PLAYER) //if side player because don't think bag logic would work for opponent don't want to break something
+        {
+            AddBagItem(gLastUsedItem, 1); //allows steal item if holding item
+        }//ok think that outta do it
+    }
+    
+    
+}
+
+//loseitembattler
+//considering changing to use in place of current 
+//magma armor sticky hold lose item logic
+
+/*This Ability prevents the held item of the Pokémon with this Ability
+from being taken by Covet, Thief, Pickpocket, or Magician;
+eaten by Bug Bite or Pluck; destroyed by Incinerate or Corrosive Gas;
+or removed by Knock Off. It also prevents the Pokémon from being affected
+by other Pokémon's Trick or Switcheroo (even if it has no held item), but not its own.
+
+Sticky Hold does not prevent a Sticky Barb being transferred by its own effect.*/
+//move effet added so will use this for all effects, bug bite incinerate etc.
+//if used for those put move effect in other wise put 0 for move effect
+//looks to work now using to replace knock off bug bite incinerate i.e knock off likes
+//hmm well bug bite should be stealing so not use this?
+//yeah bug bite doesnt work w this, idk why bug bite doesn't work with this??
+//it DOES with stealitem but I would have to do more with that
+bool32 TryKnockOffBattleScript(u32 loseitembattler, u32 EffectUser, u16 moveEffect)
+{
+    if (gBattleMons[loseitembattler].item != ITEM_NONE
+        && CanBattlerGetOrLoseItem(loseitembattler, gBattleMons[loseitembattler].item)
+        && !NoAliveMonsForEitherParty())
+    {
+        if (GetBattlerAbility(loseitembattler) == ABILITY_STICKY_HOLD && IsBattlerAlive(loseitembattler))
+        {
+            gBattlerAbility = loseitembattler;
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_StickyHoldActivates;
+            RecordAbilityBattle(loseitembattler, ABILITY_STICKY_HOLD);
+        }   //block knock off/item theft
+        else
+        {
+            u32 side = GetBattlerSide(loseitembattler);
+
+            gLastUsedItem = gBattleMons[loseitembattler].item;
+
+            if (gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[loseitembattler]][GetBattlerSide(loseitembattler)] == ITEM_NONE)
+                gBattleMons[loseitembattler].item = ITEM_NONE;
+            else
+            {    
+                gBattleMons[loseitembattler].item = gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[loseitembattler]][GetBattlerSide(loseitembattler)];
+                gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[loseitembattler]][GetBattlerSide(loseitembattler)] = ITEM_NONE;
+            }
+            if (gBattleMons[loseitembattler].ability != ABILITY_GORILLA_TACTICS)
+                gBattleStruct->choicedMove[loseitembattler] = MOVE_NONE;
+            
+            // In Gen 5+, Knock Off removes the target's item rather than rendering it unusable.
+            //if (B_KNOCK_OFF_REMOVAL >= GEN_5)
+            //if (gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[loseitembattler]][GetBattlerSide(loseitembattler)] == ITEM_NONE)
+            
+                BtlController_EmitSetMonData(loseitembattler, BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[loseitembattler].item), &gBattleMons[loseitembattler].item);
+                MarkBattlerForControllerExec(loseitembattler);
+            
+            /*else
+            {
+
+                //gWishFutureKnock.knockedOffMons[side] |= 1u << gBattlerPartyIndexes[loseitembattler];
+            }//if want return item after battle
+            */
+
+            //gWishFutureKnock.knockedOffMons[side] |= (1u << gBattlerPartyIndexes[loseitembattler]);
+            
+            if (gBattleMons[loseitembattler].item == ITEM_NONE)
+                CheckSetUnburden(loseitembattler);
+
+            BattleScriptPushCursor();
+
+            if (moveEffect == MOVE_EFFECT_INCINERATE)
+                gBattlescriptCurrInstr = BattleScript_MoveEffectIncinerate;
+            else if (moveEffect == MOVE_EFFECT_BUG_BITE)
+                gBattlescriptCurrInstr = BattleScript_MoveEffectBugBite;
+            else if (GetBattlerAbility(EffectUser) == ABILITY_STICKY_HOLD)
+            {   
+                gBattlescriptCurrInstr = BattleScript_StickyHoldKnockoff;
+                RecordAbilityBattle(EffectUser, ABILITY_STICKY_HOLD);
+            }
+            else if (GetBattlerAbility(EffectUser) == ABILITY_MAGMA_ARMOR)
+            { 
+                gBattlescriptCurrInstr = BattleScript_MoveEffectIncinerate;
+                RecordAbilityBattle(EffectUser, ABILITY_MAGMA_ARMOR);
+            }
+            else
+                gBattlescriptCurrInstr = BattleScript_KnockedOff;
+            //*(u8 *)((u8 *)(&gBattleStruct->choicedMove[loseitembattler]) + 0) = 0;
+            //*(u8 *)((u8 *)(&gBattleStruct->choicedMove[loseitembattler]) + 1) = 0;   //for now put this to keep standard firered setup
+        }
+        return TRUE;
+    }
+    return FALSE;
 }
 
 static inline bool32 TrySetReflect(u32 battler)

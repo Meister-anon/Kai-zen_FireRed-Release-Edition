@@ -63,6 +63,7 @@ enum ProtectMethod
     PROTECT_CRAFTY_SHIELD,
     PROTECT_MAT_BLOCK,
     PROTECT_SHIELD_BASH,
+    PROTECT_FENCE,
 };
 
 //reworking struct start w flags 
