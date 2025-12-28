@@ -3005,7 +3005,7 @@ void StealTargetItem(u8 battlerStealer, u8 itemBattler)
         if (gBattleMons[itemBattler].ability != ABILITY_GORILLA_TACTICS)
             gBattleStruct->choicedMove[itemBattler] = MOVE_NONE;
     }
-    BtlController_EmitSetMonData(itemBattler, BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[itemBattler].item);  // remove/set target item
+    BtlController_EmitSetMonData(itemBattler, B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[itemBattler].item);  // remove/set target item
     MarkBattlerForControllerExec(itemBattler);
     
     //Ability base item steal
@@ -3018,11 +3018,11 @@ void StealTargetItem(u8 battlerStealer, u8 itemBattler)
             RecordItemEffectBattle(battlerStealer, ItemId_GetHoldEffect(gLastUsedItem));
             gBattleMons[battlerStealer].item = gLastUsedItem;
 
-            BtlController_EmitSetMonData(battlerStealer, BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
+            BtlController_EmitSetMonData(battlerStealer, B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
             MarkBattlerForControllerExec(battlerStealer);//thinkk above is filling held item field using data from glastuseditem?
 
             /*battler = itemBattler;
-            BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[itemBattler].item);  // remove target item
+            BtlController_EmitSetMonData(B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[itemBattler].item);  // remove target item
             MarkBattlerForControllerExec(itemBattler);
             */
 
@@ -3037,11 +3037,11 @@ void StealTargetItem(u8 battlerStealer, u8 itemBattler)
             RecordItemEffectBattle(battlerStealer, ItemId_GetHoldEffect(gLastUsedItem));
             gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battlerStealer]][GetBattlerSide(battlerStealer)] = gLastUsedItem;
 
-            /*BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
+            /*BtlController_EmitSetMonData(B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
             MarkBattlerForControllerExec(battlerStealer);*/
 
             /*battler = itemBattler;
-            BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[itemBattler].item);  // remove target item
+            BtlController_EmitSetMonData(B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[itemBattler].item);  // remove target item
             MarkBattlerForControllerExec(itemBattler);
             */
 
@@ -3058,11 +3058,11 @@ void StealTargetItem(u8 battlerStealer, u8 itemBattler)
             RecordItemEffectBattle(battlerStealer, ItemId_GetHoldEffect(gLastUsedItem));
             gBattleMons[battlerStealer].item = gLastUsedItem;
 
-            BtlController_EmitSetMonData(battlerStealer, BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
+            BtlController_EmitSetMonData(battlerStealer, B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
             MarkBattlerForControllerExec(battlerStealer);
 
             /*battler = itemBattler;
-            BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[itemBattler].item);  // remove target item
+            BtlController_EmitSetMonData(B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[itemBattler].item);  // remove target item
             MarkBattlerForControllerExec(itemBattler);
             */
 
@@ -3130,7 +3130,7 @@ bool32 TryKnockOffBattleScript(u32 loseitembattler, u32 EffectUser, u16 moveEffe
             //if (B_KNOCK_OFF_REMOVAL >= GEN_5)
             //if (gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[loseitembattler]][GetBattlerSide(loseitembattler)] == ITEM_NONE)
             
-                BtlController_EmitSetMonData(loseitembattler, BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[loseitembattler].item), &gBattleMons[loseitembattler].item);
+                BtlController_EmitSetMonData(loseitembattler, B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[loseitembattler].item), &gBattleMons[loseitembattler].item);
                 MarkBattlerForControllerExec(loseitembattler);
             
             /*else
@@ -14305,19 +14305,19 @@ static void Cmd_handleballthrow(void)
         struct Pokemon *catchTarget = GetBattlerMon(gBattlerTarget);
         if (gBattleTypeFlags & BATTLE_TYPE_GHOST)
         {
-            BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_GHOST_DODGE);
+            BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_GHOST_DODGE);
             MarkBattlerForControllerExec(gBattlerAttacker);
             gBattlescriptCurrInstr = BattleScript_GhostBallDodge;
         }
         else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
         {
-            BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_TRAINER_BLOCK);
+            BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_TRAINER_BLOCK);
             MarkBattlerForControllerExec(gBattlerAttacker);
             gBattlescriptCurrInstr = BattleScript_TrainerBallBlock;
         }
         else if (gBattleTypeFlags & (BATTLE_TYPE_POKEDUDE | BATTLE_TYPE_OLD_MAN_TUTORIAL))
         {
-            BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_3_SHAKES_SUCCESS);
+            BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
             MarkBattlerForControllerExec(gBattlerAttacker);
             gBattlescriptCurrInstr = BattleScript_OldMan_Pokedude_CaughtMessage;
         }
@@ -14450,7 +14450,7 @@ static void Cmd_handleballthrow(void)
             {
                 //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
                 gDisableStructs[gBattlerTarget].caughtMon = TRUE;
-                BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_3_SHAKES_SUCCESS);
+                BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
                 //think may need remove this when setup double catch
                 TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
                 MarkBattlerForControllerExec(gBattlerAttacker);
@@ -14465,7 +14465,7 @@ static void Cmd_handleballthrow(void)
             {
                 //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
                 gDisableStructs[gBattlerTarget].caughtMon = TRUE;
-                BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_3_SHAKES_SUCCESS);
+                BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
                 TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
                 MarkBattlerForControllerExec(gBattlerAttacker);
                 gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
@@ -14491,7 +14491,7 @@ static void Cmd_handleballthrow(void)
                 {
                     //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
                     gDisableStructs[gBattlerTarget].caughtMon = TRUE;
-                    BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_3_SHAKES_SUCCESS);
+                    BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
                     TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
                     MarkBattlerForControllerExec(gBattlerAttacker);
                     gBattlescriptCurrInstr = BattleScript_ExpOnCatch;
@@ -14505,7 +14505,7 @@ static void Cmd_handleballthrow(void)
                 {
                     //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
                     gDisableStructs[gBattlerTarget].caughtMon = TRUE;
-                    BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_3_SHAKES_SUCCESS);
+                    BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
                     TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);  //form change fix for mon caught i.e disguise etc.
                     MarkBattlerForControllerExec(gBattlerAttacker);
                     gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
@@ -14528,24 +14528,24 @@ static void Cmd_handleballthrow(void)
                     gLastUsedBall = gLastUsedItem;
 
                     if (catchstate == 0 || catchstate == 1)  { // to add a 3rd option where it can shake and fail normally.
-                        BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_TRAINER_BLOCK);
+                        BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_TRAINER_BLOCK);
                         MarkBattlerForControllerExec(gBattlerAttacker);
                         gBattlescriptCurrInstr = BattleScript_WildMonBallBlock;
                     }
                     if (catchstate == 2 || catchstate == 3) {
-                        BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_GHOST_DODGE);
+                        BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_GHOST_DODGE);
                         MarkBattlerForControllerExec(gBattlerAttacker);
                         gBattlescriptCurrInstr = BattleScript_NonGhost_BallDodge;
                     }
                     if (catchstate == 4 && shakes != BALL_3_SHAKES_SUCCESS) {//extra protection -_-
-                        BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, shakes);
+                        BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, shakes);
                         MarkBattlerForControllerExec(gBattlerAttacker);
                         gBattlescriptCurrInstr = BattleScript_ShakeBallThrow;   //normal catch shake mechanic in case I decide to do, but I want this to be least chosen option
                     }    // so insteaad of %3  I may do %5 and give the first 2 sates 2 success criteria (i.e 0,1 & 2,3   then have this only work on 4.  will have to test odds in effect)
                 }
                 else 
                 {
-                    BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, shakes);
+                    BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, shakes);
                     MarkBattlerForControllerExec(gBattlerAttacker);
                     gBattlescriptCurrInstr = BattleScript_ShakeBallThrow;
                 }//intend to be for safari, works

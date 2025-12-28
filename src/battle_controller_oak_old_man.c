@@ -972,7 +972,7 @@ static void OakOldManHandleGetMonData(u32 battler) //this could be part of issue
             monToCheck >>= 1;
         }
     }
-    BtlController_EmitDataTransfer(battler, BUFFER_B, size, monData);
+    BtlController_EmitDataTransfer(battler, B_COMM_TO_ENGINE, size, monData);
     OakOldManBufferExecCompleted(battler);
 }
 

@@ -464,7 +464,7 @@ static void LinkOpponentHandleGetMonData(u32 battler)
             monToCheck >>= 1;
         }
     }
-    BtlController_EmitDataTransfer(battler, BUFFER_B, size, monData);
+    BtlController_EmitDataTransfer(battler, B_COMM_TO_ENGINE, size, monData);
     LinkOpponentBufferExecCompleted(battler);
 }
 

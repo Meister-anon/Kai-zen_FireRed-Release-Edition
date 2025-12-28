@@ -9116,7 +9116,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                         // I have to re-use this variable to match.
                                         r5 = gBattlerInMenuId;
                                         gBattlerInMenuId = battleMonId;
-                                        BtlController_EmitGetMonData(gBattlerInMenuId, BUFFER_A, 0, 0);
+                                        BtlController_EmitGetMonData(gBattlerInMenuId, B_COMM_TO_CONTROLLER, 0, 0);
                                         MarkBattlerForControllerExec(gBattlerInMenuId);
                                         gBattlerInMenuId = r5;
                                     }

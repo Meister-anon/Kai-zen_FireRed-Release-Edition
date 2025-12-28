@@ -353,11 +353,11 @@ static void PrepareBufferDataTransfer(u32 battler, u32 bufferId, u8 *data, u16 s
     {
         switch (bufferId)
         {
-        case BUFFER_A:
+        case B_COMM_TO_CONTROLLER:
             for (i = 0; i < size; data++, i++)
                 gBattleResources->bufferA[battler][i] = *data;
             break;
-        case BUFFER_B:
+        case B_COMM_TO_ENGINE:
             for (i = 0; i < size; data++, i++)
                 gBattleResources->bufferB[battler][i] = *data;
             break;

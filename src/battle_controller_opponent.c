@@ -449,7 +449,7 @@ static void OpponentHandleGetMonData(u32 battler) //vsonic IMPORTANT prob need u
             monToCheck >>= 1;
         }
     }
-    BtlController_EmitDataTransfer(battler, BUFFER_B, size, monData);
+    BtlController_EmitDataTransfer(battler, B_COMM_TO_ENGINE, size, monData);
     OpponentBufferExecCompleted(battler);
 }
 
@@ -765,7 +765,7 @@ static void OpponentHandleGetRawMonData(u32 battler)
 
     for (i = 0; i < gBattleResources->bufferA[battler][2]; ++i)
         dst[i] = src[i];
-    BtlController_EmitDataTransfer(battler, BUFFER_B, gBattleResources->bufferA[battler][2], dst);
+    BtlController_EmitDataTransfer(battler, B_COMM_TO_ENGINE, gBattleResources->bufferA[battler][2], dst);
     OpponentBufferExecCompleted(battler);
 }
 
@@ -1376,16 +1376,16 @@ static void OpponentHandleChooseMove(u32 battler)
         switch (chosenMoveId)
         {
         case AI_CHOICE_WATCH:
-            BtlController_EmitTwoReturnValues(battler, BUFFER_B, B_ACTION_SAFARI_WATCH_CAREFULLY, 0);
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_SAFARI_WATCH_CAREFULLY, 0);
             break;
         case AI_CHOICE_FLEE:
-            BtlController_EmitTwoReturnValues(battler, BUFFER_B, B_ACTION_RUN, 0);
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_RUN, 0);
             break;
         case AI_CHOICE_SWITCH:
-                BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, 0xFFFF);
+                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, 0xFFFF);
                 break;
             case 6:
-                BtlController_EmitTwoReturnValues(battler, BUFFER_B, 15, gBattlerTarget);
+                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 15, gBattlerTarget);
         default:
             if (gBattleMoves[moveInfo->moves[chosenMoveId]].target & (MOVE_TARGET_USER_OR_SELECTED | MOVE_TARGET_USER))
                 gBattlerTarget = battler;
@@ -1399,9 +1399,9 @@ static void OpponentHandleChooseMove(u32 battler)
             // If opponent can mega evolve, do it.
             //redo in form change branch don't won't always frame 1 mega evolve
             if (CanMegaEvolve(battler))
-                BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, (chosenMoveId) | (RET_MEGA_EVOLUTION) | (gBattlerTarget << 8));
+                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (RET_MEGA_EVOLUTION) | (gBattlerTarget << 8));
             else
-                BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, (chosenMoveId) | (gBattlerTarget << 8));
+                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (gBattlerTarget << 8));
             break;
         }
         OpponentBufferExecCompleted(battler);
@@ -1418,7 +1418,7 @@ static void OpponentHandleChooseMove(u32 battler)
         }
         while (move == MOVE_NONE);
         if (GetBattlerMoveTargetType(battler, move) & (MOVE_TARGET_USER_OR_SELECTED | MOVE_TARGET_USER))
-            BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, (chosenMoveId) | (battler << 8));
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (battler << 8));
         else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
             {
                 do {
@@ -1450,15 +1450,15 @@ static void OpponentHandleChooseMove(u32 battler)
                         }
                     }
                     if (isPartnerEnemy && CanTargetBattler(battler, target, move))
-                        BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, (chosenMoveId) | (GetBattlerAtPosition(BATTLE_PARTNER(battler)) << 8));
+                        BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (GetBattlerAtPosition(BATTLE_PARTNER(battler)) << 8));
                     else
-                        BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, (chosenMoveId) | (target << 8));
+                        BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (target << 8));
                 }
                 else
-                    BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, (chosenMoveId) | (target << 8));
+                    BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (target << 8));
             }
         else
-            BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, (chosenMoveId) | (GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) << 8));
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) << 8));
 
         OpponentBufferExecCompleted(battler);
     }
@@ -1466,7 +1466,7 @@ static void OpponentHandleChooseMove(u32 battler)
 
 static void OpponentHandleChooseItem(u32 battler)
 {
-    BtlController_EmitOneReturnValue(battler, BUFFER_B, gBattleStruct->chosenItem[battler]);
+    BtlController_EmitOneReturnValue(battler, B_COMM_TO_ENGINE, gBattleStruct->chosenItem[battler]);
     OpponentBufferExecCompleted(battler);
 }
 

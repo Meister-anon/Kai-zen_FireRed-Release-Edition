@@ -69,14 +69,31 @@ enum
     REQUEST_TOUGH_RIBBON_BATTLE,
 };
 
-enum { // Values given to the emit functions to choose gBattleResources->bufferA or gBattleResources->bufferB
-    BUFFER_A,   //Values given to the emit functions to choose gBattleResources->bufferA or gBattleResources->bufferB
-    BUFFER_B    //Values given to the emit functions to choose gBattleResources->bufferA or gBattleResources->bufferB
+
+// Special arguments for Battle Controller functions.
+
+// Values given to the emit functions to choose gBattleResources->bufferA or gBattleResources->bufferB
+enum {
+   // For commands sent from the core battle engine to a controller.
+   B_COMM_TO_CONTROLLER, // gBattleResources->bufferA
+
+   // For replies sent from a controller to the core battle engine.
+   B_COMM_TO_ENGINE, // gBattleResources->bufferB
+
+   // During local play, a controller must directly mark itself as
+   // inactive when it's done processing, whether or not it sends
+   // a reply. During multiplayer, it must NOT directly mark itself
+   // as inactive, but instead send one of these, with the player's
+   // multiplayer ID as data.
+   B_COMM_CONTROLLER_IS_DONE
 };
 
-#define RESET_ACTION_MOVE_SELECTION     0
-#define RESET_ACTION_SELECTION          1
-#define RESET_MOVE_SELECTION            2
+enum {
+    RESET_ACTION_MOVE_SELECTION,
+    RESET_ACTION_SELECTION,
+    RESET_MOVE_SELECTION,
+};
+
 
 enum {
     LINK_STANDBY_MSG_STOP_BOUNCE,
