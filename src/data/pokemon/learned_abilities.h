@@ -1472,8 +1472,11 @@ static const struct AbilityLearnset sSnoruntAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sGlalieAbilityLearnset[] = {
+    ABILITY_ICE_BODY,
+    ABILITY_INTIMIDATE,
     ABILITY_SET_END
 };
+//ablity addition courtesy of zenmodeyt
 
 static const struct AbilityLearnset sLunatoneAbilityLearnset[] = {
     ABILITY_MISTY_SURGE,
@@ -2165,6 +2168,7 @@ static const struct AbilityLearnset sDusknoirAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sFroslassAbilityLearnset[] = {
+    ABILITY_SNOW_WARNING,
     ABILITY_SET_END
 };
 
