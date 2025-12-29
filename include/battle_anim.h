@@ -710,7 +710,7 @@ void AnimThrowMistBall(struct Sprite *sprite);
 void AnimSwirlingSnowball_Step1(struct Sprite *sprite);
 void AnimMoveParticleBeyondTarget(struct Sprite *sprite);
 void AnimIceEffectParticle(struct Sprite *sprite);
-void AnimTask_Haze1(u8 taskId);
+void AnimTask_HazeScrollingFog(u8 taskId);
 void AnimTask_LoadMistTiles(u8 taskId);
 void AnimTask_Hail1(u8 taskId);
 void AnimTask_GetIceBallCounter(u8 taskId);

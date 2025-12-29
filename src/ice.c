@@ -39,7 +39,7 @@ static void InitIceBallAnim(struct Sprite *sprite);
 static void AnimThrowIceBall(struct Sprite *sprite);
 static void InitIceBallParticle(struct Sprite *sprite);
 static void AnimIceBallParticle(struct Sprite *sprite);
-static void AnimTask_Haze2(u8 taskId);
+static void AnimTask_HazeScrollingFog_Step(u8 taskId);
 static void AnimTask_OverlayFogTiles(u8 taskId);
 static void AnimTask_Hail2(u8 taskId);
 static bool8 GenerateHailParticle(u8 hailStructId, u8 affineAnimNum, u8 taskId, u8 c);
@@ -1014,7 +1014,7 @@ static void AnimSwirlingFogAnim(struct Sprite *sprite)
 }
 
 // Fades mons to black and places foggy overlay in Haze.
-void AnimTask_Haze1(u8 taskId)
+void AnimTask_HazeScrollingFog(u8 taskId)
 {
     struct BattleAnimBgData animBg;
 
@@ -1034,10 +1034,10 @@ void AnimTask_Haze1(u8 taskId)
     LoadPalette(&gDefaultWeatherSpritePalette, animBg.paletteId * 16, 32);
     if (IsContest())
         RelocateBattleBgPal(animBg.paletteId, animBg.bgTilemap, 0, 0);
-    gTasks[taskId].func = AnimTask_Haze2;
+    gTasks[taskId].func = AnimTask_HazeScrollingFog_Step;
 }
 
-static void AnimTask_Haze2(u8 taskId)
+static void AnimTask_HazeScrollingFog_Step(u8 taskId)
 {
     struct BattleAnimBgData animBg;
 
