@@ -119,13 +119,75 @@
 //into uq
 //modifier = uq4_12_multiply(modifier, uq4_12_add(UQ_4_12(1.0), PercentToUQ4_12(gSpecialStatuses[battlerAtk].gemParam)));
 //default stab is 1.5 keep in mind for other 1.5 mods if decide adjust
+
 #define SUPER_EFFECTIVE     UQ_4_12(1.55)
 #define NOT_VERY_EFFECTIVE  UQ_4_12(0.5)
 #define NO_EFFECT           UQ_4_12(0.0)
 
-#define JOAT_BONUS          UQ_4_12(1.17)
-#define SAME_TYPE_BONUS     UQ_4_12(1.35)
-#define ADAPTABILITY_BONUS  UQ_4_12(1.75)
+#define JOAT_MULTIPLIER          UQ_4_12(1.17)
+#define SAME_TYPE_MULTIPLIER     UQ_4_12(1.35)
+//above should be hard coded
+//below are meant to be approximates
+//of how affects are handled in base game
+//think will separate things out to keep for making formulae
+//ex set 0.35 as same type bonus
+//this is tera w stab not base tera
+//and adaptability w stab well adaptability is only ever w stab
+//but point is its not breaking out the individual effects
+#define STELLAR_NON_STAB            UQ_4_12(1.2)
+#define STELLAR_STAB_MULTIPLIER     SUPER_EFFECTIVE
+#define TERA_STAB_MULTIPLIER        SUPER_EFFECTIVE
+#define ADAPTABILITY_MULTIPLIER     SUPER_EFFECTIVE
+#define TERA_MULTIPLIER             SAME_TYPE_MULTIPLIER
+#define SAME_TYPE_BONUS             UQ_4_12(0.35)
+#define TERA_ADAPTABILITY_MUL   uq4_12_add(TERA_STAB_MULTIPLIER, uq4_12_divide(SAME_TYPE_BONUS, 2))
+
+//(fixed still keep note)
+//...adaptability is stronger than super effective here
+//realized my adaptability bonus is average of
+//2 results using the multiplier formula
+//I supposedly just came up with...
+
+//ok idk how that got passed me that's a serious issue
+//need to bring adaptability down... I'm so confused
+//wtf didn't I just use the same value as super??? 
+
+//sigh ok fixing that, now found made formula
+//that makes sense as tera is psuedo stab
+//gets same bonus as stab
+//but when applied with adaptability 
+//it takes half of the adaptability bonus
+//for base game that's a 25% bonus added
+//since difference between my stab
+//and super is 20 points
+//I instead will have a 10% bonus added from adaptability
+//oh wait no ok rework think of adaptability bonus 
+//as adding stab on top of stab
+//stab is 50% and adaptability adds another 50%
+
+//and tera adaptabiltiy is half of that bonus
+//since tera is already applying psuedo stab bonus
+//so that becomes a 25% additive bonus
+
+//proportionality is there but I worry I don't make them
+//impactful enough blah blah applying good jrpg logic
+//smaller multipliers that work togther for impact
+
+
+//ok continuing did that wrong
+//my tera bonus wouldn't be 10%
+//it'd be .35 / 2 = .175  or .17
+
+//ok what I'm doing is translating my formula
+//while also breakikng down the default formula
+
+//my stab no longer equates half of the super multiplier
+//but I'm still keeping the frame that
+//stab + tera or adaptability should equal the super multiplier
+
+//and from there stab tera with adaptability bonus
+//should add half of stab since adaptability and tera are meant to be psudo stab
+//so end result for me would be super + .17  rather than the + .25 base game uses
 
 
 // Non-volatile status conditions

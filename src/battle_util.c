@@ -8760,36 +8760,36 @@ static inline uq4_12_t GetTypeBasedBonusModifier(struct DamageContext *ctx)
         return UQ_4_12(1.0);
         
     else if (GetBaseFormSpecies(gBattleMons[ctx->battlerAtk].species) == SPECIES_ARCEUS)
-        return SAME_TYPE_BONUS;
+        return SAME_TYPE_MULTIPLIER;
 
     else if (ctx->moveType == TYPE_MYSTERY
     || (ctx->moveType == TYPE_SOUND && !IS_BATTLER_OF_TYPE(ctx->battlerAtk, TYPE_NORMAL)))
         return UQ_4_12(1.0);
 
     else if (gBattleStruct->pledgeMove && IS_BATTLER_OF_TYPE(BATTLE_PARTNER(ctx->battlerAtk), ctx->moveType))
-        return (ctx->abilityAtk == ABILITY_ADAPTABILITY) ? ADAPTABILITY_BONUS : SAME_TYPE_BONUS;
+        return (ctx->abilityAtk == ABILITY_ADAPTABILITY) ? ADAPTABILITY_MULTIPLIER : SAME_TYPE_MULTIPLIER;
 
     //normal stab, applied for two typed moves  as well
     else if (IS_BATTLER_OF_TYPE(ctx->battlerAtk, ctx->moveType)
     || IS_BATTLER_OF_TYPE(ctx->battlerAtk, SecondarymoveType))
-        return (ctx->abilityAtk == ABILITY_ADAPTABILITY) ? ADAPTABILITY_BONUS : SAME_TYPE_BONUS;
+        return (ctx->abilityAtk == ABILITY_ADAPTABILITY) ? ADAPTABILITY_MULTIPLIER : SAME_TYPE_MULTIPLIER;
     
     //ability psuedo stab effects
     else if (GetBattlerAbility(ctx->battlerAtk) == ABILITY_TOADSTOOL_NYMPH
     && (ctx->moveType == TYPE_FAIRY || SecondarymoveType == TYPE_FAIRY))
-        return SAME_TYPE_BONUS;
+        return SAME_TYPE_MULTIPLIER;
     else if (GetBattlerAbility(ctx->battlerAtk) == ABILITY_CREATION_ENGINE
     && (ctx->moveType == TYPE_FIRE || ctx->moveType == TYPE_ICE || ctx->moveType == TYPE_ELECTRIC) 
     || (SecondarymoveType == TYPE_FIRE || SecondarymoveType == TYPE_ICE || SecondarymoveType == TYPE_ELECTRIC))
-        return SAME_TYPE_BONUS;
+        return SAME_TYPE_MULTIPLIER;
 
     else if (IS_BATTLER_OF_TYPE(ctx->battlerAtk, TYPE_NORMAL))
-        return JOAT_BONUS;
+        return JOAT_MULTIPLIER;
 
     return UQ_4_12(1.0); //catch all
 
 
-    //return (ctx->abilityAtk == ABILITY_ADAPTABILITY) ? ADAPTABILITY_BONUS : SAME_TYPE_BONUS;
+    //return (ctx->abilityAtk == ABILITY_ADAPTABILITY) ? ADAPTABILITY_MULTIPLIER : SAME_TYPE_MULTIPLIER;
 }
 
 // Utility Umbrella holders take normal damage from what would be rain- and sun-weakened attacks.
@@ -9404,7 +9404,7 @@ static inline s32 DoFutureSightAttackDamageCalcVars(struct DamageContext *ctx)
 
     // Same type attack bonus
     if (GetSpeciesType(partyMonSpecies, 0) == moveType || GetSpeciesType(partyMonSpecies, 1) == moveType)
-        DAMAGE_APPLY_MODIFIER(SAME_TYPE_BONUS);
+        DAMAGE_APPLY_MODIFIER(SAME_TYPE_MULTIPLIER);
     else
         DAMAGE_APPLY_MODIFIER(UQ_4_12(1.0));
     DAMAGE_APPLY_MODIFIER(ctx->typeEffectivenessModifier);
