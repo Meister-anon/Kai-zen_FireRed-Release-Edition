@@ -139,8 +139,12 @@
 #define TERA_STAB_MULTIPLIER        SUPER_EFFECTIVE
 #define ADAPTABILITY_MULTIPLIER     SUPER_EFFECTIVE
 #define TERA_MULTIPLIER             SAME_TYPE_MULTIPLIER
+
 #define SAME_TYPE_BONUS             UQ_4_12(0.35)
-#define TERA_ADAPTABILITY_MUL   uq4_12_add(TERA_STAB_MULTIPLIER, uq4_12_divide(SAME_TYPE_BONUS, 2))
+#define TERA_BONUS                  SAME_TYPE_BONUS
+#define ADAPTABILITY_BONUS          SAME_TYPE_BONUS
+
+#define TERA_ADAPTABILITY_MUL   uq4_12_add(TERA_STAB_MULTIPLIER, uq4_12_divide(ADAPTABILITY_BONUS, 2))
 
 //(fixed still keep note)
 //...adaptability is stronger than super effective here
