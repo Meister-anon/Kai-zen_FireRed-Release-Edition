@@ -59,6 +59,7 @@ static void AnimKnockOffAquaTail(struct Sprite *sprite);
 static void AnimKnockOffAquaTailStep(struct Sprite *sprite);
 void AnimFlyUpTarget(struct Sprite *);
 static void AnimFlyUpTarget_Step(struct Sprite *);
+static void AnimTask_BrineRain_Step(u8 taskId);
 
 // Both unused? Comment copied from pokeemerald
 static const u8 gUnknown_83E44F4[] = INCBIN_U8("graphics/battle_anims/unk_83E4874.4bpp");
