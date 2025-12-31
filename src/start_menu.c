@@ -648,11 +648,7 @@ static bool8 StartMenuDynamicLvlCapCallback(void)
     DestroyHelpMessageWindow_();
     HideStartMenuDebug(); // Hide start menu without enabling movement
     FreezeObjectEvents();
-
-    //Debug_ShowMainMenu();
-    //oh wow this actually worked o.0
     Debug_CallLvlCapMenu();
-
     return TRUE;
 }
 

@@ -241,6 +241,7 @@ static void Debug_DestroyMenu(u8 taskId);
 static void Debug_DestroyMenu_Full(u8 taskId);
 static void DebugAction_Cancel(u8 taskId);
 static void DebugAction_DestroyExtraWindow(u8 taskId);
+static void DebugAction_DestroySpecialWindow(u8 taskId); //
 static void Debug_RefreshListMenu(u8 taskId);
 static void Debug_RedrawListMenu(u8 taskId);
 
@@ -949,6 +950,27 @@ static void DebugAction_DestroyExtraWindow(u8 taskId)
     RemoveWindow(gTasks[taskId].tSubWindowId);
 
     DestroyListMenuTask(gTasks[taskId].tMenuTaskId, NULL, NULL);
+    DestroyTask(taskId);
+    EnableBothScriptContexts();
+    UnfreezeObjectEvents();
+}
+
+//special clear used for lvlcap setup
+//doesn't come through debug main so twindowId never set
+//caused memory issue think from attempting
+//to free something it shouldn't? 
+static void DebugAction_DestroySpecialWindow(u8 taskId)
+{
+    //ClearStdWindowAndFrame(gTasks[taskId].tWindowId, TRUE);
+    //RemoveWindow(gTasks[taskId].tWindowId);
+
+    ClearStdWindowAndFrame(gTasks[taskId].tSubWindowId, TRUE);
+    RemoveWindow(gTasks[taskId].tSubWindowId);
+    //yeah issue was these remove window specifically
+    //for applying free to value never assigned to
+    //and this trying to use memory address of a value
+    //never assigned
+    //DestroyListMenuTask(gTasks[taskId].tMenuTaskId, NULL, NULL);
     DestroyTask(taskId);
     EnableBothScriptContexts();
     UnfreezeObjectEvents();
@@ -2015,8 +2037,12 @@ static void DebugAction_DynamicLvlCap(u8 taskId)
     u8 LvlCap = GetSetLvlCap(); //works can only access when flag set
     u8 recommendedLvl = GetRecommendedLevel(GetNumBadges());
 
-    ClearStdWindowAndFrame(gTasks[taskId].tWindowId, TRUE);
-    RemoveWindow(gTasks[taskId].tWindowId);
+    //so apparently this was issue and its equivalent in
+    //DebugAction_DestroyExtraWindow
+    //since I came directly here rather than coming through main debug
+    //those values were never set
+    //ClearStdWindowAndFrame(gTasks[taskId].tWindowId, TRUE);
+    //RemoveWindow(gTasks[taskId].tWindowId);
 
     DismissMapNamePopup();
     LoadMessageBoxAndBorderGfx();
@@ -2054,13 +2080,13 @@ static void DebugAction_DynamicLvlCap_Select(u8 taskId)
         {
             PlaySE(MUS_LEVEL_UP);            
             gSaveBlock2Ptr->DynamicLevelCap = gTasks[taskId].tInput;
-            DebugAction_DestroyExtraWindow(taskId);
+            DebugAction_DestroySpecialWindow(taskId);
             return;
         }
         else if (JOY_NEW(B_BUTTON))
         {
             PlaySE(SE_SELECT);
-            DebugAction_DestroyExtraWindow(taskId);
+            DebugAction_DestroySpecialWindow(taskId);
             return;
         }
 
