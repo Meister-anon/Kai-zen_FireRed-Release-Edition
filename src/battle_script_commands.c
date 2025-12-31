@@ -7106,6 +7106,7 @@ static void atk23_getexp(void)
             //if they were sent in
             //belive translates to, if not sent in and not holding exp share,
             //so what I need is, if sent in, but holding exp null
+            //this is no exp share and not sent in
             if ((GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE) != EXP_SHARE) && !(gBattleStruct->sentInPokes & 1))
             {
                 *(&gBattleStruct->sentInPokes) >>= 1;
@@ -7115,6 +7116,9 @@ static void atk23_getexp(void)
             //separate for no friendship gain only for those that want to use frustration over return? check friendship logic may be irrelevant if 
             else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) == MAX_LEVEL)//I setup general just be in battle friendship gain
             {
+                if (gBattleStruct->sentInPokes & 1)
+                    gParticipatedInBattle |= (1u << gBattleStruct->expGetterMonId);
+                
                 *(&gBattleStruct->sentInPokes) >>= 1;
                 gBattleScripting.atk23_getexpState = 3;  //commented out to remove the jump to case 5. should allow for ev gain at max level
                 gBattleMoveDamage = 0; // used for exp // confirmed from Lunos, apparently the case jump only happens after everything in the code block is run so he added the evgain function here and it ran even though it was below the case jump
@@ -7123,6 +7127,9 @@ static void atk23_getexp(void)
             else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE) == EXP_NULL
             || (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) == GetSetLvlCap()))
             {
+                if (gBattleStruct->sentInPokes & 1)
+                    gParticipatedInBattle |= (1u << gBattleStruct->expGetterMonId);
+
                 *(&gBattleStruct->sentInPokes) >>= 1;
                 gBattleScripting.atk23_getexpState = 3;  //commented out to remove the jump to case 5. should allow for ev gain at max level
                 gBattleMoveDamage = 0; // used for exp // confirmed from Lunos, apparently the case jump only happens after everything in the code block is run so he added the evgain function here and it ran even though it was below the case jump
@@ -7131,6 +7138,9 @@ static void atk23_getexp(void)
             } //hopefully this works without issue
             else
             {
+                if (gBattleStruct->sentInPokes & 1)
+                    gParticipatedInBattle |= (1u << gBattleStruct->expGetterMonId);
+                
                 // music change in wild battle after fainting a poke
                 if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_POKEDUDE))
                  && gBattleMons[0].hp
@@ -7248,8 +7258,7 @@ static void atk23_getexp(void)
                 PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, expBattler, gBattleStruct->expGetterMonId);
                 PREPARE_BYTE_NUMBER_BUFFER(gBattleTextBuff2, 3, GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL));
                 BattleScriptPushCursor();
-                //hm ok believe this is what specifically tells which pokemon is leveling up
-                gLeveledUpInBattle |= (1u << gBattleStruct->expGetterMonId);
+
                 gBattlescriptCurrInstr = BattleScript_LevelUp;
                 gBattleMoveDamage = (gBattleResources->bufferB[expBattler][2] | (gBattleResources->bufferB[expBattler][3] << 8));
                 AdjustFriendship(&gPlayerParty[gBattleStruct->expGetterMonId], FRIENDSHIP_EVENT_GROW_LEVEL);

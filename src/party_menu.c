@@ -1954,6 +1954,30 @@ u8 GetMonExpState(struct Pokemon *mon)
 
 #define ON TRUE
 
+//for boxmonexp and daycare equivalent it kinda defeats point
+//to have to grind up extra levels just for being able to evolve
+//fix for that is to take modern feature of being able to player control evolve
+//from party menu, which I don't like, makes feel less alive.
+//other idea was rather than needing entire lvl up could just
+//evolve in a single battle if already met requirements
+//but that would be annoying and force players to mash b FAR
+//after every battle if they don't want mon to evolve rather than lvl
+//considerd updating early game package with everstones but came up with better idea.
+//just let player control evolution, will set it so single battle
+//will evolve mon after met evo condition
+//but add on to pokemon struct a boolean flag
+//to deny evolution, so mon won't evolve unless trainer wants them to
+//which makes sense and is something they do in universe
+//a pokemon doesn't evolve unless it wants to even if strong enough
+//and at times will follow trainer wish and not attempt to evolve
+//so I'll just make a flag that can be swapped from party menu
+//Can Evo or something
+//create box dialogue do you want to deny
+//this pokemon from evolution yes no
+//think have it display evostate in party selection
+//but clicking on state should add pop up text and yesno options
+//EVO_ON,  EVO_OFF
+//yes no cursor should hover over option that would keep state the same
 bool32 GetMonEvoState(struct Pokemon *mon)
 {
     bool32 DenyEvo = GetMonData(mon, MON_DATA_EVOLUTION_STATE);

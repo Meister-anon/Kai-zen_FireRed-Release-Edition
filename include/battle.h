@@ -1380,7 +1380,7 @@ extern u16 gLastUsedMove;
 extern u8 gCurrentTurnActionNumber;
 extern struct BattleResources *gBattleResources;
 extern u16 gExpShareExp;
-extern u8 gLeveledUpInBattle;
+extern u8 gParticipatedInBattle; //replaced gLeveledUpInBattle for evo rework
 extern u16 gLastResultingMoves[MAX_BATTLERS_COUNT];
 extern u16 gLastPrintedMoves[MAX_BATTLERS_COUNT];
 extern u8 gActionsByTurnOrder[MAX_BATTLERS_COUNT];

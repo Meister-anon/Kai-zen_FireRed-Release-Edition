@@ -307,6 +307,7 @@ struct Pokemon
 //the most advantageous for nuzlockes/resource farming
 //seems fine, even EE doens't have extra things
 //stored to pokemon struct
+
 bool32 CanEvolve(u32 species);
 
 u8 GetLevelFromMonExp(struct Pokemon *mon);

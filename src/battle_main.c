@@ -236,7 +236,7 @@ EWRAM_DATA struct FormDataStorage gFormSwapMoveBuffer[PARTY_SIZE][MAX_FORM_DATA_
 COMMON_DATA void (*gPreBattleCallback1)(void) = NULL;
 COMMON_DATA void (*gBattleMainFunc)(void) = NULL;
 COMMON_DATA struct BattleResults gBattleResults = {0};
-COMMON_DATA u8 gLeveledUpInBattle = 0;
+COMMON_DATA u8 gParticipatedInBattle = 0;
 COMMON_DATA u8 gHealthboxSpriteIds[MAX_BATTLERS_COUNT] = {0};
 COMMON_DATA u8 gMultiUsePlayerCursor = 0;
 COMMON_DATA u8 gNumberOfMovesToChoose = 0;
@@ -3599,7 +3599,7 @@ static void BattleStartClearSetData(void)
     gIntroSlideFlags = 0;
     gBattleScripting.animTurn = 0;
     gBattleScripting.animTargetsHit = 0;
-    gLeveledUpInBattle = 0;
+    gParticipatedInBattle = 0;
     gAbsentBattlerFlags = 0;
     gBattleStruct->runTries = 0;
     gBattleStruct->safariGoNearCounter = 0;
@@ -6116,10 +6116,28 @@ static void FreeResetData_ReturnToOvOrDoEvolutions(void) //  this causes end bat
         //should just be this entire thing but all true and using AND not or
         ///double check leveldupinbattle see if it resets on switch or how it tracks
         //individual mon
-        if (gLeveledUpInBattle == 0 || (gBattleOutcome != B_OUTCOME_WON  && gBattleOutcome != B_OUTCOME_CAUGHT)) //0 is false anything but 0. //ok this is reason for not evoling w exp on catch
+        
+        //rn uses leveldupinbattle as field
+        //to filter and store mon data
+        //what I want is if struct value set to allow evo
+        //and mon was sent out or received exp in battle
+        //trigger evo hopefully can set something to 
+        //get that that works same as filter here
+        
+        //w change gParticipatedInBattle will always be true
+        //might as well remove condition I guess
+        //hopefullly doesn't cause anny issues or lag
+        //other benefit mon that evolve based on location
+        //will do so soon as participating in a bttle
+        //in said location, is much better same for other
+        //very specific conditions like w mon or type in party
+        //well keep an eye on test much as can think
+        //eventually make test for vsonic
+        if (gParticipatedInBattle == FALSE || (gBattleOutcome != B_OUTCOME_WON  && gBattleOutcome != B_OUTCOME_CAUGHT)) //0 is false anything but 0. //ok this is reason for not evoling w exp on catch
             gBattleMainFunc = ReturnFromBattleToOverworld;
         else
             gBattleMainFunc = TryEvolvePokemon; //hope works should allow evo if caught mon - works
+        
         FreeAllWindowBuffers();
         if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
         {
@@ -6136,24 +6154,28 @@ static void TryEvolvePokemon(void) //want battle evolution for player and oppone
 { //     after they have exp need set function to make it feel real that they would level up i.e they aren't starting from 0.
     s32 i; //  for that make random function that would get their needed exp to level and then random divide that by either 2, 3, or 4 to increase their chance of lvl in battle.
     // player can use this and the above function to evolve, but enemy needs a specific one, that won't take out of battle, make it so if they can evolve they will. 
-    while (gLeveledUpInBattle != 0) // use CFRU mega evolve for opponent.
+    while (gParticipatedInBattle != 0) // use CFRU mega evolve for opponent.
     {
         for (i = 0; i < PARTY_SIZE; ++i)
         {
-            if (gLeveledUpInBattle & (1u << i))
+            if (gParticipatedInBattle & (1u << i))
             {
                 u16 species;
-                u8 levelUpBits = gLeveledUpInBattle;
-
-                levelUpBits &= ~((1u << i)); //This holds specfic mon value so removing keeps from retriggering I believe?
-                gLeveledUpInBattle = levelUpBits;
-                species = GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_NORMAL, levelUpBits);
+                u8 participationBits = gParticipatedInBattle;
+                bool32 EvoState = GetMonEvoState(&gPlayerParty[i]);
+                //update assigned value
+                participationBits &= ~((1u << i)); //This holds specfic mon value so removing keeps from retriggering I believe?
+                gParticipatedInBattle = participationBits;
+                
+                if (!EvoState)
+                    continue;
+                species = GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_NORMAL, participationBits);
                 if (species != SPECIES_NONE)
                 {
                     gBattleMainFunc = WaitForEvoSceneToFinish;
                     EvolutionScene(&gPlayerParty[i], species, 0x81, i);//checked 81 doesnt matter here not a constant, its a bool any positive value tells it I can stop the evo
                     return;
-                }// for evo in battle, use  if (gCurrentTurnActionNumber >= gBattlersCount) && (gLeveledUpInBattle != 0 || gBattleOutcome != B_OUTCOME_WON)
+                }// for evo in battle, use  if (gCurrentTurnActionNumber >= gBattlersCount) && (gParticipatedInBattle != 0 || gBattleOutcome != B_OUTCOME_WON)
             }// need to import mega evo graphic,  also make it check for or come after learn move on level up then, go into gBattleMainFunc = TryEvolvePokemon;
         } //vsonic IMPORTANT, hmm actually no don't want it to wait till end turn action, want it to all be calculated mid turn just like speed is
     }
