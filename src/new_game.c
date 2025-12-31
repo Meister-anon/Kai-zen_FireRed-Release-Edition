@@ -171,6 +171,8 @@ void NewGameInitData(void)
     gSaveBlock1Ptr->registeredItem = 0;
     gSaveBlock1Ptr->oakRanchStepCounter = 0;
     //realized needs go here otherwise only set when open options menu
+    //can set 0 leave turning on option as what assigns value
+    //nah for things like new game plus is just better to set correctly
     gSaveBlock2Ptr->DynamicLevelCap = GetRecommendedLevel(GetNumberofBadges()); 
     ClearBag();//skip for new game plus
     NewGameInitPCItems();

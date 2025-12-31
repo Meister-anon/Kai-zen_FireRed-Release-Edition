@@ -768,13 +768,37 @@ void UpdatePokemonStorageSystemMonExp(void)
 //could turn this into a u32 and make it return exp and pass to BoxMonAtGainExp
 //to reduce need to call getboxmon again
 //would just need to change BoxMonAtGainExp to take currExp
+//for this and daycare equivalent it kinda defeats point
+//to have to grind up extra levels just for being able to evolve
+//fix for that is to take modern feature of being able to player control evolve
+//from party menu, which I don't like, makes feel less alive.
+//other idea was rather than needing entire lvl up could just
+//evolve in a single battle if already met requirements
+//but that would be annoying and force players to mash b FAR
+//after every battle if they don't want mon to evolve rather than lvl
+//considerd updating early game package with everstones but came up with better idea.
+//just let player control evolution, will set it so single battle
+//will evolve mon after met evo condition
+//but add on to pokemon struct a boolean flag
+//to deny evolution, so mon won't evolve unless trainer wants them to
+//which makes sense and is something they do in universe
+//a pokemon doesn't evolve unless it wants to even if strong enough
+//and at times will follow trainer wish and not attempt to evolve
+//so I'll just make a flag that can be swapped from party menu
+//Can Evo or something
+//create box dialogue do you want to deny
+//this pokemon from evolution yes no
+//think have it display evostate in party selection
+//but clicking on state should add pop up text and yesno options
+//EVO_ON,  EVO_OFF
+//yes no cursor should hover over option that would keep state the same
 u32 CanBoxMonGainExp(struct BoxPokemon *mon, u16 species) //lvl cap works - didnt actually work before, badge count function was off, but now is correct
 {
     //struct Pokemon dst;
     //BoxMonToMon(mon, &dst); //num badge function is countering wrong after getting brock badge its returning 0
     bool8 Blocked = FALSE;
     u32 experience = GetBoxMonData(mon, MON_DATA_EXP);
-    u8 levelLimit = gSaveBlock2Ptr->DynamicLevelCap - AVE_EVO_STAGES;
+    u8 levelLimit = FlagGet(FLAG_LEVEL_CAP_STATE) ? gSaveBlock2Ptr->DynamicLevelCap - MAX_EVO_STAGES : MAX_LEVEL;
     //u32 level;
     //can use getmondata experience loop level
     //compare actual experience if experience is equal break return level

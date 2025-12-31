@@ -339,6 +339,10 @@ static void DebugAction_Sound_SE_SelectId(u8 taskId);
 static void DebugAction_Sound_MUS(u8 taskId);
 static void DebugAction_Sound_MUS_SelectId(u8 taskId);
 
+//custom sets
+static void DebugAction_DynamicLvlCap(u8 taskId);
+static void DebugAction_DynamicLvlCap_Select(u8 taskId);
+
 
 extern const u8 Debug_FlagsNotSetOverworldConfigMessage[];
 extern const u8 Debug_FlagsNotSetBattleConfigMessage[];
@@ -442,6 +446,21 @@ static const u8 sDebugText_FlagsVars_SwitchCollision[] =        _("Toggle {STR_V
 static const u8 sDebugText_FlagsVars_SwitchEncounter[] =        _("Toggle {STR_VAR_1}Encounter OFF");
 static const u8 sDebugText_FlagsVars_SwitchTrainerSee[] =       _("Toggle {STR_VAR_1}TrainerSee OFF");
 static const u8 sDebugText_FlagsVars_SwitchQuestLog[] =         _("Toggle {STR_VAR_1}QuestLog OFF");
+
+//reference
+/*
+static const u8 sDebugText_FlagsVars_Flag[] =                   _("Flag: {STR_VAR_1}{CLEAR_TEXT_TO 90}\n{STR_VAR_2}{CLEAR_TEXT_TO 90}\n{STR_VAR_3}");
+static const u8 sDebugText_FlagsVars_FlagHex[] =                _("{STR_VAR_1}{CLEAR_TEXT_TO 90}\n0x{STR_VAR_2}{CLEAR_TEXT_TO 90}");
+*/
+//Dynamic LvlCap Menu
+//displays flag: hex value and true false only need top
+//change to Curr Cap: str value for cap
+//only uses strvar1
+static const u8 sDebugText_LvlCapMenu_CurrentCap[] =            _("Curr Cap: {STR_VAR_1}{CLEAR_TEXT_TO 90}");
+//overlapped with above change to
+//Rec. Lvl \n  lvl  replaces flag hex and true false
+//only uses strvar2
+static const u8 sDebugText_LvlCapMenu_RecLvl[] =                _("Rec. Lvl: \n{STR_VAR_2}{CLEAR_TEXT_TO 90}");
 
 // Give Menu
 static const u8 sDebugText_Give_GiveItem[] =            _("Give item XYZ…{CLEAR_TEXT_TO 110}{RIGHT_ARROW}");
@@ -770,6 +789,13 @@ static const struct WindowTemplate sDebugMenuWindowTemplateFlagsVars =
 // *******************************
 // List Menu Templates
 static const struct ListMenuTemplate sDebugMenu_ListTemplate_Main =
+{
+    .items = sDebugMenu_Items_Main,
+    .moveCursorFunc = ListMenuDefaultCursorMoveFunc,
+    .totalItems = ARRAY_COUNT(sDebugMenu_Items_Main),
+};
+//makes sense to be debug feature but will use this to setup my lvl cap thing
+static const struct ListMenuTemplate sDebugMenu_ListTemplate_LevelCap =
 {
     .items = sDebugMenu_Items_Main,
     .moveCursorFunc = ListMenuDefaultCursorMoveFunc,
@@ -1261,6 +1287,7 @@ static void DebugTask_HandleMenuInput_Give(u8 taskId)
     if (JOY_NEW(A_BUTTON))
     {
         PlaySE(SE_SELECT);
+        //input from main function selects sub function
         if ((func = sDebugMenu_Actions_Give[input]) != NULL)
             func(taskId);
     }
@@ -1973,7 +2000,121 @@ static void DebugAction_FlagsVars_FlagsSelect(u8 taskId)
     }
 }
 
+//works just need populate custom stuff,
+//and add sound effect on A press to set value
+//triggering this from start menu somehow breaks save menu
+//the window doesn't load so something isn't
+//being cleared or something idk heck tomorrow or later
+void Debug_CallLvlCapMenu(void)
+{
+    u8 inputTaskId = CreateTask(0, 3);
+    gTasks[inputTaskId].func = DebugAction_DynamicLvlCap;
+}
+
 #define tVarValue  data[5]
+
+//values I need to print
+//Category labels
+//rec. level  curr. cap
+static void DebugAction_DynamicLvlCap(u8 taskId)
+{
+    u8 windowId;
+    u8 LvlCap = GetSetLvlCap(); //works can only access when flag set
+    u8 recommendedLvl = GetRecommendedLevel(GetNumBadges());
+
+    ClearStdWindowAndFrame(gTasks[taskId].tWindowId, TRUE);
+    RemoveWindow(gTasks[taskId].tWindowId);
+
+    DismissMapNamePopup();
+    LoadMessageBoxAndBorderGfx();
+    windowId = AddWindow(&sDebugMenuWindowTemplateExtra);
+    DrawStdWindowFrame(windowId, FALSE);
+
+    CopyWindowToVram(windowId, COPYWIN_BOTH);
+
+    // Display initial values
+    ConvertIntToDecimalStringN(gStringVar1, LvlCap, STR_CONV_MODE_LEADING_ZEROS, DEBUG_NUMBER_DIGITS_FLAGS);
+    ConvertIntToDecimalStringN(gStringVar2, recommendedLvl, STR_CONV_MODE_LEFT_ALIGN, 3);
+    StringExpandPlaceholders(gStringVar1, sDebugText_LvlCapMenu_CurrentCap);
+    //if (FlagGet(FLAG_TEMP_1))
+    //    StringCopyPadded(gStringVar2, sDebugText_True, CHAR_SPACE, 15);
+    //else
+    //    StringCopyPadded(gStringVar2, sDebugText_False, CHAR_SPACE, 15);
+    StringCopy(gStringVar3, gText_DigitIndicator[0]);
+    //StringExpandPlaceholders(gStringVar4, sDebugText_FlagsVars_Flag);
+    StringExpandPlaceholders(gStringVar2, sDebugText_LvlCapMenu_RecLvl);
+    //go over again think understand what it did
+    //was lil weird but it takes what was 2 strings
+    //makes it into one and then prints that in the expanded strvar4
+    AddTextPrinterParameterized(windowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
+
+    gTasks[taskId].func = DebugAction_DynamicLvlCap_Select;
+    gTasks[taskId].tSubWindowId = windowId;
+    //starting value -replace w dynamic lvl block
+    gTasks[taskId].tInput = LvlCap;
+    gTasks[taskId].tDigit = 3;
+}
+
+static void DebugAction_DynamicLvlCap_Select(u8 taskId)
+{
+    {
+        if (JOY_NEW(A_BUTTON))
+        {
+            FlagToggle(gTasks[taskId].tInput);
+        }
+        else if (JOY_NEW(B_BUTTON))
+        {
+            PlaySE(SE_SELECT);
+            DebugAction_DestroyExtraWindow(taskId);
+            return;
+        }
+
+        if (JOY_NEW(DPAD_UP))
+        {
+            PlaySE(SE_SELECT);
+            gTasks[taskId].tInput += sPowersOfTen[gTasks[taskId].tDigit];
+            if (gTasks[taskId].tInput >= FLAGS_COUNT)
+                gTasks[taskId].tInput = FLAGS_COUNT - 1;
+        }
+        if (JOY_NEW(DPAD_DOWN))
+        {
+            PlaySE(SE_SELECT);
+            gTasks[taskId].tInput -= sPowersOfTen[gTasks[taskId].tDigit];
+            if (gTasks[taskId].tInput < 1)
+                gTasks[taskId].tInput = 1;
+        }
+        if (JOY_NEW(DPAD_LEFT))
+        {
+            PlaySE(SE_SELECT);
+            gTasks[taskId].tDigit -= 1;
+            if (gTasks[taskId].tDigit < 0)
+                gTasks[taskId].tDigit = 0;
+        }
+        if (JOY_NEW(DPAD_RIGHT))
+        {
+            PlaySE(SE_SELECT);
+            gTasks[taskId].tDigit += 1;
+            if (gTasks[taskId].tDigit > DEBUG_NUMBER_DIGITS_FLAGS - 1)
+                gTasks[taskId].tDigit = DEBUG_NUMBER_DIGITS_FLAGS - 1;
+        }
+
+        //what was flaghex becomes a static value
+        //that shouldn't be updated
+        if (JOY_NEW(DPAD_ANY) || JOY_NEW(A_BUTTON))
+        {
+            ConvertIntToDecimalStringN(gStringVar1, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, DEBUG_NUMBER_DIGITS_FLAGS);
+            ConvertIntToHexStringN(gStringVar2, gTasks[taskId].tInput, STR_CONV_MODE_LEFT_ALIGN, 3);
+            StringExpandPlaceholders(gStringVar1, sDebugText_FlagsVars_FlagHex);
+            if (FlagGet(gTasks[taskId].tInput) == TRUE)
+                StringCopyPadded(gStringVar2, sDebugText_True, CHAR_SPACE, 15);
+            else
+                StringCopyPadded(gStringVar2, sDebugText_False, CHAR_SPACE, 15);
+            StringCopy(gStringVar3, gText_DigitIndicator[gTasks[taskId].tDigit]);
+            StringExpandPlaceholders(gStringVar4, sDebugText_LvlCapMenu_CurrentCap);
+            AddTextPrinterParameterized(gTasks[taskId].tSubWindowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
+        }
+    }
+}
 
 static void DebugAction_FlagsVars_Vars(u8 taskId)
 {

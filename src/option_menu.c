@@ -1182,12 +1182,13 @@ static void UpdateSettingDecapMisc(u8 selection)
 static void UpdateSettingLevelCap(u8 selection)
 {
     if (selection == _ON)
+    {    
         FlagSet(FLAG_LEVEL_CAP_STATE);
-
+        gSaveBlock2Ptr->DynamicLevelCap = GetRecommendedLevel(GetNumberofBadges());
+    }
     else if (selection == _OFF)
     {
         FlagClear(FLAG_LEVEL_CAP_STATE);
-        gSaveBlock2Ptr->DynamicLevelCap = GetRecommendedLevel(GetNumberofBadges());
     }
 }//turn off level cap reset to rec level
 //next set option menu toggle
@@ -1196,6 +1197,12 @@ static void UpdateSettingLevelCap(u8 selection)
 //and the hard part the toggleitself
 //which should use the debug menu logic but also display rec level
 //in window
+
+//if lvl cap on return cap, otherwise max level i.e no cap
+u16 GetSetLvlCap(void)
+{
+    return (FlagGet(FLAG_LEVEL_CAP_STATE) ? gSaveBlock2Ptr->DynamicLevelCap : MAX_LEVEL);
+}
 
 u8 IsEventSpeedupOn(void)
 {
@@ -1208,14 +1215,6 @@ u8 IsEventSpeedupOn(void)
 u8 IsNuzlockeModeOn(void)
 {
     if (gSaveBlock2Ptr->optionsNuzlockeMode)
-        return TRUE;
-
-    return FALSE;
-}
-
-u8 IsLevelCapModeOn(void)
-{
-    if (FlagGet(FLAG_LEVEL_CAP_STATE))
         return TRUE;
 
     return FALSE;

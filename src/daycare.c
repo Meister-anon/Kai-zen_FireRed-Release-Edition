@@ -655,7 +655,7 @@ static u16 TakeSelectedPokemonFromDaycare(struct DaycareMon *daycareMon)
     struct Pokemon pokemon;
     u32 experience = GetMonData(&pokemon, MON_DATA_EXP);
     u32 ExpToGive;
-    u8 level_Limit = gSaveBlock2Ptr->DynamicLevelCap - AVE_EVO_STAGES;
+    u8 level_Limit = FlagGet(FLAG_LEVEL_CAP_STATE) ? gSaveBlock2Ptr->DynamicLevelCap - MAX_EVO_STAGES : MAX_LEVEL;
 
     DayCare_GetBoxMonNickname(&daycareMon->mon, gStringVar1);
     species = GetBoxMonData(&daycareMon->mon, MON_DATA_SPECIES);

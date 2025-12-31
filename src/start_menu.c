@@ -95,6 +95,7 @@ static bool8 StartMenuOptionCallback(void);
 static bool8 StartMenuExitCallback(void);
 static bool8 StartMenuSafariZoneRetireCallback(void);
 //static bool8 StartMenuLinkPlayerCallback(void);
+static bool8 StartMenuDynamicLvlCapCallback(void);
 static bool8 StartMenuDebugCallback(void);
 static bool8 StartMenuPcCallback(void);
 static bool8 StartCB_Save1(void);
@@ -141,7 +142,7 @@ static const struct MenuAction sStartMenuActionTable[] = {
     { gStartMenuText_Retire, {.u8_void = StartMenuSafariZoneRetireCallback} },
     { gStartMenuText_Player, {.u8_void = NULL}},//StartMenuLinkPlayerCallback} },
     { sText_MenuDebug, {.u8_void = StartMenuDebugCallback} },
-    { sText_MenuLevelCap, {.u8_void = StartMenuDynamicLvlCapback} },
+    { sText_MenuLevelCap, {.u8_void = StartMenuDynamicLvlCapCallback} },
     { sText_MenuPc, {.u8_void = StartMenuPcCallback} }
 };
 
@@ -192,18 +193,6 @@ static const struct WindowTemplate sWindowTemplates_AfterLinkSaveMessage[] = {
     }, DUMMY_WIN_TEMPLATE
 };*/
 
-//unsure fully how to setup
-//but use for window to set dynamic lvl cap
-//base off of debug menu value setting, make size of give mon window
-static const struct WindowTemplate sLvlCapWindowTemplate = {
-    .bg = 0,
-    .tilemapLeft = 1,
-    .tilemapTop = 1,
-    .width = 10,
-    .height = 8,
-    .paletteNum = 13,
-    .baseBlock = 14
-};
 
 static const struct WindowTemplate sSaveStatsWindowTemplate = {
     .bg = 0,
@@ -255,7 +244,7 @@ static void BuildDebugStartMenu(void)
     AppendToStartMenuItems(STARTMENU_OPTION);
     if (HasPlayerUnlockedMobilePcAccess() && !IsAccessingMobilePCDisallowed())
         AppendToStartMenuItems(STARTMENU_ACCESS_PC);
-    if (IsLevelCapModeOn())
+    if (FlagGet(FLAG_LEVEL_CAP_STATE) == TRUE)
         AppendToStartMenuItems(STARTMENU_LEVEL_CAP);
     AppendToStartMenuItems(STARTMENU_DEBUG);
     
@@ -274,7 +263,7 @@ static void SetUpStartMenu_NormalField(void)
     AppendToStartMenuItems(STARTMENU_OPTION);
     if (HasPlayerUnlockedMobilePcAccess() && !IsAccessingMobilePCDisallowed())
         AppendToStartMenuItems(STARTMENU_ACCESS_PC);
-    if (IsLevelCapModeOn())
+    if (FlagGet(FLAG_LEVEL_CAP_STATE) == TRUE)
         AppendToStartMenuItems(STARTMENU_LEVEL_CAP);
     AppendToStartMenuItems(STARTMENU_EXIT); //prob need to use a switch case, to replace startmenu_exit with iv/ev
     /*if (gSaveBlock2Ptr->optionsButtonMode != OPTIONS_BUTTON_MODE_HELP
@@ -521,12 +510,18 @@ static bool8 StartCB_HandleInput(void)
     return FALSE;
 }
 
+//pc callback and safari handled in scripts
+//exit callback is just close menu
+//save and debug are handled in other files
+//unsure if worth making separate lvl cap file
+//just for comprity would just be
+//a callback for making window with input
 static void StartMenu_FadeScreenIfLeavingOverworld(void)
 {
     if (sStartMenuCallback != StartMenuSaveCallback
      && sStartMenuCallback != StartMenuExitCallback
      && sStartMenuCallback != StartMenuDebugCallback
-     && sStartMenuCallback != StartMenuDynamicLvlCapback
+     && sStartMenuCallback != StartMenuDynamicLvlCapCallback
      && sStartMenuCallback != StartMenuPcCallback
      && sStartMenuCallback != StartMenuSafariZoneRetireCallback)
     {
@@ -645,7 +640,7 @@ static bool8 StartMenuDebugCallback(void)
 //then be able to scroll to set new cap
 //pressing A will set lvl cap press b will close 
 //both options will return player to start menu task
-static bool8 StartMenuDynamicLvlCapback(void)
+static bool8 StartMenuDynamicLvlCapCallback(void)
 {
     //think don't need as not
     //enabled in safari zone
@@ -654,7 +649,9 @@ static bool8 StartMenuDynamicLvlCapback(void)
     HideStartMenuDebug(); // Hide start menu without enabling movement
     FreezeObjectEvents();
 
-    Debug_ShowMainMenu();
+    //Debug_ShowMainMenu();
+    //oh wow this actually worked o.0
+    Debug_CallLvlCapMenu();
 
     return TRUE;
 }
