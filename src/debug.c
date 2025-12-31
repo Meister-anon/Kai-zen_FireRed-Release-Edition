@@ -194,6 +194,8 @@ enum SoundMenu
 #define DEBUG_NUMBER_DIGITS_ITEMS 4
 #define DEBUG_NUMBER_DIGITS_ITEM_QUANTITY 3
 
+#define DEBUG_NUMBER_DIGITS_LVL_CAP 3
+
 #define DEBUG_NUMBER_ICON_X 210
 #define DEBUG_NUMBER_ICON_Y 50
 
@@ -447,20 +449,8 @@ static const u8 sDebugText_FlagsVars_SwitchEncounter[] =        _("Toggle {STR_V
 static const u8 sDebugText_FlagsVars_SwitchTrainerSee[] =       _("Toggle {STR_VAR_1}TrainerSee OFF");
 static const u8 sDebugText_FlagsVars_SwitchQuestLog[] =         _("Toggle {STR_VAR_1}QuestLog OFF");
 
-//reference
-/*
-static const u8 sDebugText_FlagsVars_Flag[] =                   _("Flag: {STR_VAR_1}{CLEAR_TEXT_TO 90}\n{STR_VAR_2}{CLEAR_TEXT_TO 90}\n{STR_VAR_3}");
-static const u8 sDebugText_FlagsVars_FlagHex[] =                _("{STR_VAR_1}{CLEAR_TEXT_TO 90}\n0x{STR_VAR_2}{CLEAR_TEXT_TO 90}");
-*/
-//Dynamic LvlCap Menu
-//displays flag: hex value and true false only need top
-//change to Curr Cap: str value for cap
-//only uses strvar1
-static const u8 sDebugText_LvlCapMenu_CurrentCap[] =            _("Curr Cap: {STR_VAR_1}{CLEAR_TEXT_TO 90}");
-//overlapped with above change to
-//Rec. Lvl \n  lvl  replaces flag hex and true false
-//only uses strvar2
-static const u8 sDebugText_LvlCapMenu_RecLvl[] =                _("Rec. Lvl: \n{STR_VAR_2}{CLEAR_TEXT_TO 90}");
+//str 1 cur cap, str 2 rec lvl, str 3 scroll indicators
+static const u8 sDebugText_LvlCapMenu_CapInfo[] =            _("Curr Cap: {STR_VAR_1}{CLEAR_TEXT_TO 90}\nRec. Lvl: \n{STR_VAR_2}{CLEAR_TEXT_TO 90}\n{STR_VAR_3}");
 
 // Give Menu
 static const u8 sDebugText_Give_GiveItem[] =            _("Give item XYZ…{CLEAR_TEXT_TO 110}{RIGHT_ARROW}");
@@ -2008,6 +1998,7 @@ static void DebugAction_FlagsVars_FlagsSelect(u8 taskId)
 void Debug_CallLvlCapMenu(void)
 {
     u8 inputTaskId = CreateTask(0, 3);
+    //gTasks[inputTaskId].func = DebugAction_FlagsVars_Flags;
     gTasks[inputTaskId].func = DebugAction_DynamicLvlCap;
 }
 
@@ -2016,6 +2007,8 @@ void Debug_CallLvlCapMenu(void)
 //values I need to print
 //Category labels
 //rec. level  curr. cap
+//for the most part works now,
+//just need figure out issue w save screen windows
 static void DebugAction_DynamicLvlCap(u8 taskId)
 {
     u8 windowId;
@@ -2033,16 +2026,14 @@ static void DebugAction_DynamicLvlCap(u8 taskId)
     CopyWindowToVram(windowId, COPYWIN_BOTH);
 
     // Display initial values
-    ConvertIntToDecimalStringN(gStringVar1, LvlCap, STR_CONV_MODE_LEADING_ZEROS, DEBUG_NUMBER_DIGITS_FLAGS);
+    ConvertIntToDecimalStringN(gStringVar1, LvlCap, STR_CONV_MODE_LEADING_ZEROS, DEBUG_NUMBER_DIGITS_LVL_CAP);
     ConvertIntToDecimalStringN(gStringVar2, recommendedLvl, STR_CONV_MODE_LEFT_ALIGN, 3);
-    StringExpandPlaceholders(gStringVar1, sDebugText_LvlCapMenu_CurrentCap);
     //if (FlagGet(FLAG_TEMP_1))
     //    StringCopyPadded(gStringVar2, sDebugText_True, CHAR_SPACE, 15);
     //else
     //    StringCopyPadded(gStringVar2, sDebugText_False, CHAR_SPACE, 15);
     StringCopy(gStringVar3, gText_DigitIndicator[0]);
-    //StringExpandPlaceholders(gStringVar4, sDebugText_FlagsVars_Flag);
-    StringExpandPlaceholders(gStringVar2, sDebugText_LvlCapMenu_RecLvl);
+    StringExpandPlaceholders(gStringVar4, sDebugText_LvlCapMenu_CapInfo);
     //go over again think understand what it did
     //was lil weird but it takes what was 2 strings
     //makes it into one and then prints that in the expanded strvar4
@@ -2052,7 +2043,8 @@ static void DebugAction_DynamicLvlCap(u8 taskId)
     gTasks[taskId].tSubWindowId = windowId;
     //starting value -replace w dynamic lvl block
     gTasks[taskId].tInput = LvlCap;
-    gTasks[taskId].tDigit = 3;
+    //is telling what tens place to increment by at start
+    gTasks[taskId].tDigit = 0;
 }
 
 static void DebugAction_DynamicLvlCap_Select(u8 taskId)
@@ -2060,7 +2052,10 @@ static void DebugAction_DynamicLvlCap_Select(u8 taskId)
     {
         if (JOY_NEW(A_BUTTON))
         {
-            FlagToggle(gTasks[taskId].tInput);
+            PlaySE(MUS_LEVEL_UP);            
+            gSaveBlock2Ptr->DynamicLevelCap = gTasks[taskId].tInput;
+            DebugAction_DestroyExtraWindow(taskId);
+            return;
         }
         else if (JOY_NEW(B_BUTTON))
         {
@@ -2073,8 +2068,8 @@ static void DebugAction_DynamicLvlCap_Select(u8 taskId)
         {
             PlaySE(SE_SELECT);
             gTasks[taskId].tInput += sPowersOfTen[gTasks[taskId].tDigit];
-            if (gTasks[taskId].tInput >= FLAGS_COUNT)
-                gTasks[taskId].tInput = FLAGS_COUNT - 1;
+            if (gTasks[taskId].tInput >= MAX_LEVEL)
+                gTasks[taskId].tInput = MAX_LEVEL;
         }
         if (JOY_NEW(DPAD_DOWN))
         {
@@ -2094,23 +2089,16 @@ static void DebugAction_DynamicLvlCap_Select(u8 taskId)
         {
             PlaySE(SE_SELECT);
             gTasks[taskId].tDigit += 1;
-            if (gTasks[taskId].tDigit > DEBUG_NUMBER_DIGITS_FLAGS - 1)
-                gTasks[taskId].tDigit = DEBUG_NUMBER_DIGITS_FLAGS - 1;
+            if (gTasks[taskId].tDigit > DEBUG_NUMBER_DIGITS_LVL_CAP - 1)
+                gTasks[taskId].tDigit = DEBUG_NUMBER_DIGITS_LVL_CAP - 1;
         }
 
-        //what was flaghex becomes a static value
-        //that shouldn't be updated
-        if (JOY_NEW(DPAD_ANY) || JOY_NEW(A_BUTTON))
+        //update print text
+        if (JOY_NEW(DPAD_ANY))
         {
-            ConvertIntToDecimalStringN(gStringVar1, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, DEBUG_NUMBER_DIGITS_FLAGS);
-            ConvertIntToHexStringN(gStringVar2, gTasks[taskId].tInput, STR_CONV_MODE_LEFT_ALIGN, 3);
-            StringExpandPlaceholders(gStringVar1, sDebugText_FlagsVars_FlagHex);
-            if (FlagGet(gTasks[taskId].tInput) == TRUE)
-                StringCopyPadded(gStringVar2, sDebugText_True, CHAR_SPACE, 15);
-            else
-                StringCopyPadded(gStringVar2, sDebugText_False, CHAR_SPACE, 15);
+            ConvertIntToDecimalStringN(gStringVar1, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, DEBUG_NUMBER_DIGITS_LVL_CAP);
             StringCopy(gStringVar3, gText_DigitIndicator[gTasks[taskId].tDigit]);
-            StringExpandPlaceholders(gStringVar4, sDebugText_LvlCapMenu_CurrentCap);
+            StringExpandPlaceholders(gStringVar4, sDebugText_LvlCapMenu_CapInfo);
             AddTextPrinterParameterized(gTasks[taskId].tSubWindowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
         }
     }
