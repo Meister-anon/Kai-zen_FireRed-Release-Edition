@@ -330,6 +330,8 @@ extern const u8 gText_EscapeFromHere[];
 extern const u8 gText_LureWildPokemon[];
 extern const u8 gText_ShareHp[];
 extern const u8 gText_ReturnToAHealingSpot[];
+extern const u8 gText_EvoState_On[];
+extern const u8 gText_EvoState_Off[];
 extern const u8 gText_Summary5[];
 extern const u8 gText_Switch2[];
 extern const u8 gText_Item[];

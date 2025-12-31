@@ -4434,7 +4434,7 @@ static void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 mo
     SetBoxMonData(boxMon, MON_DATA_PP_BONUSES, &ppBonuses);
 }
 
-static bool32 CanEvolve(u32 species) //default use for eviolite but will also use for new nidoqueen ability
+bool32 CanEvolve(u32 species) //default use for eviolite but will also use for new nidoqueen ability
 {
     u32 i;
     u16 NUM_EVOS_CAP = (gBaseStats[SanitizeSpeciesId(species)].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
@@ -7313,6 +7313,9 @@ u32 GetMonData(struct Pokemon *mon, s32 field, u8 *data)
     case MON_DATA_STATUS_SET_STATE:
         ret = mon->StatusSetState;
         break;
+    case MON_DATA_EVOLUTION_STATE:
+        ret = mon->DenyEvolution;
+        break;
     case MON_DATA_PICKUP_COUNTER:
         ret = mon->pickupCounter;
         break;
@@ -7749,6 +7752,9 @@ void SetMonData(struct Pokemon *mon, s32 field, const void *dataArg)
     break;
     case MON_DATA_STATUS_SET_STATE:
         SET8(mon->StatusSetState);
+    break;
+    case MON_DATA_EVOLUTION_STATE:
+        SET8(mon->DenyEvolution);
     break;
     case MON_DATA_PICKUP_COUNTER:
         SET16(mon->pickupCounter);

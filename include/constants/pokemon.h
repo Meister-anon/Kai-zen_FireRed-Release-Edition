@@ -106,6 +106,7 @@
 #define MON_DATA_LEARNED_ABILITY_ID 99
 #define MON_DATA_HIDE_EGG_SPECIES 100 //for option to not display egg species for special eggs received outside daycare
 #define MON_DATA_PICKUP_COUNTER 101 //for individual pickup counter
+#define MON_DATA_EVOLUTION_STATE 102 //set if mon can evolve or not on lvl up special lvl up evo graphic still plays if conditions met to evolve
 
 #define TYPE_DEFINES
 // Pokemon types	type order found in list_menu.c    actually is in graphics_file_rules.mk 
@@ -322,7 +323,8 @@
 #define SPLIT_SPECIAL   0x1
 #define SPLIT_STATUS    0x2
 
-#define AVE_EVO_STAGES 2 //buffer so players can evolve after removing from box
+//rather than ave no mon has more than 2 stages
+#define MAX_EVO_STAGES 2 //buffer so players can evolve after removing from box
 
 
 #define MON_PIC_WIDTH 64
