@@ -2974,9 +2974,11 @@ static u8 DisplaySelectionWindow(u8 windowType)
     case SELECTWINDOW_MAIL:
         window = sMailReadTakeWindowTemplate;
         break;
-    case SELECTWINDOW_EVOSTATE:
     case SELECTWINDOW_HATCH:
         window = sEggHatchYesNoWindowTemplate;
+        break;
+    case SELECTWINDOW_EVOSTATE:
+        window = sEvoStateSelectWindowTemplate;
         break;
     default: // SELECTWINDOW_MOVES
         window = sMoveSelectWindowTemplate;
@@ -4319,19 +4321,13 @@ static void CursorCB_Hatch(u8 taskId)
 //I guess just 0, 1 can set in function
 static void CursorCB_EvoState(u8 taskId)
 {
-    bool32 EvoState = GetMonEvoState(&gPlayerParty[GetCursorSelectionMonId()]);
     PlaySE(SE_SELECT);
     PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
     PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
     SetPartyMonSelectionActions(gPlayerParty, gPartyMenu.slotId, ACTIONS_SET_EVO_STATE);
     DisplaySelectionWindow(SELECTWINDOW_EVOSTATE); //creates window for selection options i.e give/take/cancel
     DisplayPartyMenuStdMessage(PARTY_MSG_ALLOW_TO_EVOLVE);//want yes no inpupt box
-    //attempt set correct cursor pos based on state
-    //yes is first in string idk which is 0 or 1
-    //ok checked bs command 0 is the top 1 is down from that
-    //Yes / No / Cancel
-    //not quite working yet tired
-    EvoState == ON ? Menu_SetCursorPos(0) : Menu_SetCursorPos(1);
+
     gTasks[taskId].data[0] = 0xFF;
     gTasks[taskId].func = Task_HandleSelectionMenuInput;
 }
@@ -4343,16 +4339,16 @@ static void CursorCB_EvoState(u8 taskId)
 static void CursorCB_SetEvoStateFalse(u8 taskId)
 {
     bool32 value = FALSE;
-    PlaySE(SE_SELECT);
     SetMonData(&gPlayerParty[GetCursorSelectionMonId()], MON_DATA_EVOLUTION_STATE, &value);
+    Task_CancelAfterAorBPress(taskId); //soud effect handled here
 }
 
 //deny evo
 static void CursorCB_SetEvoStateTrue(u8 taskId)
 {
     bool32 value = TRUE;
-    PlaySE(SE_SELECT);
     SetMonData(&gPlayerParty[GetCursorSelectionMonId()], MON_DATA_EVOLUTION_STATE, &value);
+    Task_CancelAfterAorBPress(taskId);
 }
 
 static void CursorCB_Item(u8 taskId)

@@ -363,11 +363,6 @@ u8 Menu_GetCursorPos(void)
     return sMenu.cursorPos;
 }
 
-void Menu_SetCursorPos(s8 assignment)
-{
-    sMenu.cursorPos = assignment;
-}
-
 s8 Menu_ProcessInput(void)
 {
     if (JOY_NEW(A_BUTTON))

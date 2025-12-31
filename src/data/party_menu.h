@@ -684,6 +684,18 @@ static const struct WindowTemplate sEggHatchYesNoWindowTemplate =
     .baseBlock = 0x373,
 };
 
+//evo state - can share block mutually exclusive never used together
+static const struct WindowTemplate sEvoStateSelectWindowTemplate =
+{
+    .bg = 2,
+    .tilemapLeft = 22,
+    .tilemapTop = 13,
+    .width = 7,
+    .height = 6,
+    .paletteNum = 14,
+    .baseBlock = 0x373,
+};
+
 static const struct WindowTemplate sMoveSelectWindowTemplate =
 {
     .bg = 2,
@@ -863,7 +875,7 @@ static const u8 *const sActionStringTable[] =
     [PARTY_MSG_DO_WHAT_WITH_ITEM]      = gText_DoWhatWithItem,
     [PARTY_MSG_DO_WHAT_WITH_MAIL]      = gText_DoWhatWithMail,
     [PARTY_MSG_HATCH_THIS_EGG]         = COMPOUND_STRING("Hatch this Egg?"),
-    [PARTY_MSG_ALLOW_TO_EVOLVE]        = COMPOUND_STRING("Should mon Evolve?"),
+    [PARTY_MSG_ALLOW_TO_EVOLVE]        = COMPOUND_STRING("Should POKéMON Evolve?"),
 };
 //think compound string here may be the issue?
 //nope maybe it was the table order vs string order instead?
@@ -1411,8 +1423,8 @@ static struct
     [MENU_TRADE1] = {MENU_TRADE1, CursorCB_Trade1},
     [MENU_TRADE2] = {MENU_TRADE2, CursorCB_Trade2},
     [MENU_YES_HATCH] = {MENU_YES_HATCH, CursorCB_BeginHatch},
-    [MENU_EVOSTATE_YES] = {MENU_EVOSTATE_YES, CursorCB_SetEvoStateFalse}, 
-    [MENU_EVOSTATE_NO] = {MENU_EVOSTATE_NO, CursorCB_SetEvoStateTrue}, 
+    [MENU_EVOSTATE_YES] = {MENU_EVOSTATE_YES, CursorCB_SetEvoStateFalse}, //allow evo
+    [MENU_EVOSTATE_NO] = {MENU_EVOSTATE_NO, CursorCB_SetEvoStateTrue},  //deny evo
     [MENU_FIELD_MOVES + FIELD_MOVE_CUT] = {(MENU_FIELD_MOVES + FIELD_MOVE_CUT), CursorCB_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_FLY] = {(MENU_FIELD_MOVES + FIELD_MOVE_FLY), CursorCB_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_SURF] = {(MENU_FIELD_MOVES + FIELD_MOVE_SURF), CursorCB_FieldMove},

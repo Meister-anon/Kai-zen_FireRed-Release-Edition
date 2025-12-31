@@ -58,7 +58,6 @@ s8 Menu_ProcessInput_other(void);
 s8 Menu_ProcessInputNoWrapAround(void);
 s8 Menu_ProcessInput(void);
 u8 Menu_GetCursorPos(void);
-void Menu_SetCursorPos(s8 assignment); //new setup for party menu funcs
 u8 Menu_MoveCursorNoWrapAround(s8 cursorDelta);
 u8 Menu_MoveCursor(s8 cursorDelta);
 u8 Menu_InitCursor(u8 windowId, u8 fontId, u8 left, u8 top, u8 cursorHeight, u8 numChoices, u8 initialCursorPos);
