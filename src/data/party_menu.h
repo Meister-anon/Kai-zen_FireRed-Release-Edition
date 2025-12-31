@@ -1452,6 +1452,7 @@ static const u8 sPartyMenuAction_ShiftSummaryEvoCancel[]   = {MENU_SHIFT, MENU_S
 static const u8 sPartyMenuAction_SendOutSummaryCancel[] = {MENU_SEND_OUT, MENU_SUMMARY, MENU_CANCEL1};
 static const u8 sPartyMenuAction_SendOutSummaryEvoCancel[] = {MENU_SEND_OUT, MENU_SUMMARY, MENU_EVO_STATE, MENU_CANCEL1};
 static const u8 sPartyMenuAction_SummaryCancel[]        = {MENU_SUMMARY, MENU_CANCEL1};
+static const u8 sPartyMenuAction_SummaryEvoCancel[]        = {MENU_SUMMARY, MENU_EVO_STATE, MENU_CANCEL1};
 static const u8 sPartyMenuAction_EnterSummaryCancel[]   = {MENU_ENTER, MENU_SUMMARY, MENU_CANCEL1};
 static const u8 sPartyMenuAction_NoEntrySummaryCancel[] = {MENU_NO_ENTRY, MENU_SUMMARY, MENU_CANCEL1};
 static const u8 sPartyMenuAction_StoreSummaryCancel[]   = {MENU_STORE, MENU_SUMMARY, MENU_CANCEL1};
@@ -1477,6 +1478,7 @@ enum
     ACTIONS_NO_ENTRY,
     ACTIONS_STORE,
     ACTIONS_SUMMARY_ONLY,
+    ACTIONS_SUMMARY_EVO_ONLY,
     ACTIONS_ITEM,
     ACTIONS_HATCH,
     ACTIONS_SET_EVO_STATE,
@@ -1488,46 +1490,48 @@ enum
 
 static const u8 *const sPartyMenuActions[] =
 {
-    [ACTIONS_NONE]          = NULL,
-    [ACTIONS_SWITCH]        = sPartyMenuAction_SummarySwitchCancel,
+    [ACTIONS_NONE]              = NULL,
+    [ACTIONS_SWITCH]            = sPartyMenuAction_SummarySwitchCancel,
     //used for in battle
-    [ACTIONS_SHIFT]         = sPartyMenuAction_ShiftSummaryCancel,
+    [ACTIONS_SHIFT]             = sPartyMenuAction_ShiftSummaryCancel,
     //in battle swap fainted mon
-    [ACTIONS_SEND_OUT]      = sPartyMenuAction_SendOutSummaryCancel,
+    [ACTIONS_SEND_OUT]          = sPartyMenuAction_SendOutSummaryCancel,
     [ACTIONS_SHIFT_EVO]         = sPartyMenuAction_ShiftSummaryEvoCancel,
     [ACTIONS_SEND_OUT_EVO]      = sPartyMenuAction_SendOutSummaryEvoCancel,
-    [ACTIONS_ENTER]         = sPartyMenuAction_EnterSummaryCancel,
-    [ACTIONS_NO_ENTRY]      = sPartyMenuAction_NoEntrySummaryCancel,
-    [ACTIONS_STORE]         = sPartyMenuAction_StoreSummaryCancel,
-    [ACTIONS_SUMMARY_ONLY]  = sPartyMenuAction_SummaryCancel,
-    [ACTIONS_ITEM]          = sPartyMenuAction_GiveTakeItemCancel,
-    [ACTIONS_HATCH]         = sPartyMenuAction_ConfirmHatchYesNo,
-    [ACTIONS_SET_EVO_STATE] = sPartyMenuAction_AssignEvoState,
-    [ACTIONS_MAIL]          = sPartyMenuAction_ReadTakeMailCancel,
-    [ACTIONS_REGISTER]      = sPartyMenuAction_RegisterSummaryCancel,
-    [ACTIONS_TRADE]         = sPartyMenuAction_TradeSummaryCancel1,
-    [ACTIONS_SPIN_TRADE]    = sPartyMenuAction_TradeSummaryCancel2,
+    [ACTIONS_ENTER]             = sPartyMenuAction_EnterSummaryCancel,
+    [ACTIONS_NO_ENTRY]          = sPartyMenuAction_NoEntrySummaryCancel,
+    [ACTIONS_STORE]             = sPartyMenuAction_StoreSummaryCancel,
+    [ACTIONS_SUMMARY_ONLY]      = sPartyMenuAction_SummaryCancel,
+    [ACTIONS_SUMMARY_EVO_ONLY]  = sPartyMenuAction_SummaryEvoCancel,
+    [ACTIONS_ITEM]              = sPartyMenuAction_GiveTakeItemCancel,
+    [ACTIONS_HATCH]             = sPartyMenuAction_ConfirmHatchYesNo,
+    [ACTIONS_SET_EVO_STATE]     = sPartyMenuAction_AssignEvoState,
+    [ACTIONS_MAIL]              = sPartyMenuAction_ReadTakeMailCancel,
+    [ACTIONS_REGISTER]          = sPartyMenuAction_RegisterSummaryCancel,
+    [ACTIONS_TRADE]             = sPartyMenuAction_TradeSummaryCancel1,
+    [ACTIONS_SPIN_TRADE]        = sPartyMenuAction_TradeSummaryCancel2,
 };
 
 static const u8 sPartyMenuActionCounts[] =
 {
-    [ACTIONS_NONE]          = 0,
-    [ACTIONS_SWITCH]        = NELEMS(sPartyMenuAction_SummarySwitchCancel),
-    [ACTIONS_SHIFT]         = NELEMS(sPartyMenuAction_ShiftSummaryCancel),
-    [ACTIONS_SEND_OUT]      = NELEMS(sPartyMenuAction_SendOutSummaryCancel),
-    [ACTIONS_SHIFT_EVO]     = NELEMS(sPartyMenuAction_ShiftSummaryEvoCancel),
-    [ACTIONS_SEND_OUT_EVO]  = NELEMS(sPartyMenuAction_SendOutSummaryEvoCancel),
-    [ACTIONS_ENTER]         = NELEMS(sPartyMenuAction_EnterSummaryCancel),
-    [ACTIONS_NO_ENTRY]      = NELEMS(sPartyMenuAction_NoEntrySummaryCancel),
-    [ACTIONS_STORE]         = NELEMS(sPartyMenuAction_StoreSummaryCancel),
-    [ACTIONS_SUMMARY_ONLY]  = NELEMS(sPartyMenuAction_SummaryCancel),
-    [ACTIONS_ITEM]          = NELEMS(sPartyMenuAction_GiveTakeItemCancel),
-    [ACTIONS_HATCH]         = NELEMS(sPartyMenuAction_ConfirmHatchYesNo),
-    [ACTIONS_SET_EVO_STATE] = NELEMS(sPartyMenuAction_AssignEvoState),
-    [ACTIONS_MAIL]          = NELEMS(sPartyMenuAction_ReadTakeMailCancel),
-    [ACTIONS_REGISTER]      = NELEMS(sPartyMenuAction_RegisterSummaryCancel),
-    [ACTIONS_TRADE]         = NELEMS(sPartyMenuAction_TradeSummaryCancel1),
-    [ACTIONS_SPIN_TRADE]    = NELEMS(sPartyMenuAction_TradeSummaryCancel2),
+    [ACTIONS_NONE]              = 0,
+    [ACTIONS_SWITCH]            = NELEMS(sPartyMenuAction_SummarySwitchCancel),
+    [ACTIONS_SHIFT]             = NELEMS(sPartyMenuAction_ShiftSummaryCancel),
+    [ACTIONS_SEND_OUT]          = NELEMS(sPartyMenuAction_SendOutSummaryCancel),
+    [ACTIONS_SHIFT_EVO]         = NELEMS(sPartyMenuAction_ShiftSummaryEvoCancel),
+    [ACTIONS_SEND_OUT_EVO]      = NELEMS(sPartyMenuAction_SendOutSummaryEvoCancel),
+    [ACTIONS_ENTER]             = NELEMS(sPartyMenuAction_EnterSummaryCancel),
+    [ACTIONS_NO_ENTRY]          = NELEMS(sPartyMenuAction_NoEntrySummaryCancel),
+    [ACTIONS_STORE]             = NELEMS(sPartyMenuAction_StoreSummaryCancel),
+    [ACTIONS_SUMMARY_ONLY]      = NELEMS(sPartyMenuAction_SummaryCancel),
+    [ACTIONS_SUMMARY_EVO_ONLY]  = NELEMS(sPartyMenuAction_SummaryEvoCancel),
+    [ACTIONS_ITEM]              = NELEMS(sPartyMenuAction_GiveTakeItemCancel),
+    [ACTIONS_HATCH]             = NELEMS(sPartyMenuAction_ConfirmHatchYesNo),
+    [ACTIONS_SET_EVO_STATE]     = NELEMS(sPartyMenuAction_AssignEvoState),
+    [ACTIONS_MAIL]              = NELEMS(sPartyMenuAction_ReadTakeMailCancel),
+    [ACTIONS_REGISTER]          = NELEMS(sPartyMenuAction_RegisterSummaryCancel),
+    [ACTIONS_TRADE]             = NELEMS(sPartyMenuAction_TradeSummaryCancel1),
+    [ACTIONS_SPIN_TRADE]        = NELEMS(sPartyMenuAction_TradeSummaryCancel2),
 };
 
 static const u16 sFieldMoves[] =

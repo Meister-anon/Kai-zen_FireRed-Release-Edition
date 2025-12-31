@@ -4441,17 +4441,24 @@ bool32 CanEvolve(u32 species) //default use for eviolite but will also use for n
     const struct Evolution *evolutions = GetSpeciesEvolutions(species);
     
 
+    if (gBaseStats[SanitizeSpeciesId(species)].evolutions == NULL)
+        return FALSE;
 
     //for (i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
     for (i = 0; evolutions[i].method != NUM_EVOS_CAP; i++)
     {
         if (SanitizeSpeciesId(evolutions[i].targetSpecies) == SPECIES_NONE)
                 continue;
-
-        if (evolutions[i].method
+        
+        //oh I'm dumb as hell, these dont exist so would just
+        //immediately return true smh
+        /*if (evolutions[i].method != 0
          && evolutions[i].method != EVO_MEGA_EVOLUTION
          && evolutions[i].method != EVO_MOVE_MEGA_EVOLUTION
          && evolutions[i].method != EVO_PRIMAL_REVERSION) //technically true if it has a listed method it can evolve
+            return TRUE;*/
+
+        if (SanitizeSpeciesId(evolutions[i].targetSpecies) != SPECIES_NONE)
             return TRUE;
     }
     return FALSE;
