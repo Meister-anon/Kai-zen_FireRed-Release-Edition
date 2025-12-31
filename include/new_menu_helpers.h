@@ -38,7 +38,7 @@ void ClearStdWindowAndFrame(u8 windowId, bool8 copyNow);
 void sub_80F6C14(void);
 void sub_80F771C(bool8 copyToVram);
 void SetStdWindowBorderStyle(u8 windowId, bool8 copyToVram);
-void sub_80F7768(u8 windowId, bool8 copyToVram);
+void LoadMessageBoxAndFrameGfx(u8 windowId, bool8 copyToVram);
 void Menu_LoadStdPal(void);
 void Menu_LoadStdPalAt(u16 offset);
 void DisplayItemMessageOnField(u8 taskId, u8 textSpeed, const u8 *src, TaskFunc callback);
