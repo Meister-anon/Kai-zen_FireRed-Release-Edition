@@ -23,6 +23,10 @@ and go over all the flags I added/previously may have updated i.e pulse moves pu
 
 and add the member if necessary
 
+noticed viridian forest seems darker than normal overworld
+wonder if there is an effect there I can use 
+for night time or tinting caves to replace full black circle
+
 IMPORTANT note for later
 for randomizer consisder setup restricted runs
 rather than have to remake all encouters
@@ -31,6 +35,7 @@ so players can do runs with only a certain type of mon
 doesn't have to be monotype
 then randomize existing encouters to mon of said type
 within range of bst so progression doesn't get broken
+
 
 only odd thing to work out are surf/fishing encouters
 guess look for mon that match part water part restrcited type
