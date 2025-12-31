@@ -171,6 +171,15 @@ bool8 CheckHasAtLeastOneBerry(void)
     return FALSE;
 }
 
+//want figure how to use to transfer to pc
+//when full, but with caps it has
+//seems impossible to trigger fail condition?
+//look into figuring out
+//also only cheks one found stack not if there is anothe stack of itemid
+//that isn't full so need update to emerald logic at least
+//once I understand it
+//and believe for safety need make comparative
+//function for pc space as well
 bool8 CheckBagHasSpace(u16 itemId, u16 count)
 {
     u8 i;
@@ -188,6 +197,47 @@ bool8 CheckBagHasSpace(u16 itemId, u16 count)
             u16 quantity;
             // Does this stack have room for more??
             quantity = GetBagItemQuantity(&gBagPockets[pocket].itemSlots[i].quantity);
+            //so ee was max capacity used in Emerald for berry pouch
+            //loops entire pocket at capacity size i.e num slots in pocket
+            //quantity checks max quanitty in stack
+            //emerald uses 99 for non berry pouch fr only uses 999
+            //which was berry pouch max stack in Em
+            if (quantity + count <= 999)
+                return TRUE;
+            // RS and Emerald check whether there is enough of the
+            // item across all stacks.
+            // For whatever reason, FR/LG assume there's only one
+            // stack of the item.
+            else
+                return FALSE;
+        }
+    }
+    //seems actually this is most important part for space checking
+    //if no empty slot return false  above section
+    //checks if there is an existing stack to add to
+    if (BagPocketGetFirstEmptySlot(pocket) != -1)
+        return TRUE;
+
+    return FALSE;
+}
+
+//ok def not perfect but logic is essentially same
+bool8 CheckPcHasSpace(u16 itemId, u16 count)
+{
+    u8 i;
+
+    for (i = 0; i < PC_ITEMS_COUNT; i++)
+    {
+        if (gSaveBlock1Ptr->pcItems[i].itemId == itemId)
+        {
+            u16 quantity;
+            // Does this stack have room for more??
+            quantity = GetPcItemQuantity(&gSaveBlock1Ptr->pcItems[i].quantity);
+            //so ee was max capacity used in Emerald for berry pouch
+            //loops entire pocket at capacity size i.e num slots in pocket
+            //quantity checks max quanitty in stack
+            //emerald uses 99 for non berry pouch fr only uses 999
+            //which was berry pouch max stack in Em
             if (quantity + count <= 999)
                 return TRUE;
             // RS and Emerald check whether there is enough of the
@@ -199,7 +249,7 @@ bool8 CheckBagHasSpace(u16 itemId, u16 count)
         }
     }
 
-    if (BagPocketGetFirstEmptySlot(pocket) != -1)
+    if (PCItemsGetFirstEmptySlot() != -1)
         return TRUE;
 
     return FALSE;

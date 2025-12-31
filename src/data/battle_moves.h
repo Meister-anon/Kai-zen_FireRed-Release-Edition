@@ -5931,7 +5931,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_PSYCH_UP] =
     {
-
         .effect = EFFECT_PSYCH_UP,
         .power = 0,
         .type = TYPE_PSYCHIC,

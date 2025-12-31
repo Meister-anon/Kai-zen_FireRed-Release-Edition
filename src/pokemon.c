@@ -4434,7 +4434,7 @@ static void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 mo
     SetBoxMonData(boxMon, MON_DATA_PP_BONUSES, &ppBonuses);
 }
 
-static bool32 CanEvolve(u32 species) //default use for eviolite but will also use for new nidoqueen ability
+bool32 CanEvolve(u32 species) //default use for eviolite but will also use for new nidoqueen ability
 {
     u32 i;
     u16 NUM_EVOS_CAP = (gBaseStats[SanitizeSpeciesId(species)].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
@@ -6171,7 +6171,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     You will need more heat to get your fire started in the cold.*/  //logic for why fire dmg cut in hail/
 
     // flash fire triggered
-    if ((gBattleResources->flags->flags[battlerIdAtk] & RESOURCE_FLAG_FLASH_FIRE) && moveType == TYPE_FIRE)
+    if ((gDisableStructs[battlerIdAtk].flashFireBoosted) && moveType == TYPE_FIRE)
         OffensiveModifer(150);
          //how does this work, do I need to move it, or does it auto boost all damage?
                                         //it boosts all because its not in physical or special formula 
@@ -7313,6 +7313,12 @@ u32 GetMonData(struct Pokemon *mon, s32 field, u8 *data)
     case MON_DATA_STATUS_SET_STATE:
         ret = mon->StatusSetState;
         break;
+    case MON_DATA_EVOLUTION_STATE:
+        ret = mon->DenyEvolution;
+        break;
+    case MON_DATA_PICKUP_COUNTER:
+        ret = mon->pickupCounter;
+        break;
     case MON_DATA_MAIL:
         //ret = mon->mail;
         break;
@@ -7746,6 +7752,12 @@ void SetMonData(struct Pokemon *mon, s32 field, const void *dataArg)
     break;
     case MON_DATA_STATUS_SET_STATE:
         SET8(mon->StatusSetState);
+    break;
+    case MON_DATA_EVOLUTION_STATE:
+        SET8(mon->DenyEvolution);
+    break;
+    case MON_DATA_PICKUP_COUNTER:
+        SET16(mon->pickupCounter);
     break;
     case MON_DATA_MAIL:
         //SET8(mon->mail);
@@ -12794,6 +12806,23 @@ void CreateEventLegalEnemyMon(void)
         heldItem[1] = itemId >> 8;
         SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, heldItem);
     }
+}
+
+//use for setting recommended level from gym leader teams
+u8 GetEnemyPartyAverageLevel(u16 trainerId)
+{
+
+    u32 i = 0;
+    u32 average = 0;    
+   const struct TrainerMonPartyData *party = gTrainers[trainerId].party;
+
+    for (i = 0; i < gTrainers[trainerId].partySize; ++i)
+        average += party[i].lvl;
+
+    average /= gTrainers[trainerId].partySize;    
+
+    return average;
+
 }
 
 //this is used for catching seeing mon,

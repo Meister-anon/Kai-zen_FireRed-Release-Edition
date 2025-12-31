@@ -116,6 +116,7 @@ static u16 GetCaughtMonsCount(void);
 static void PrintPokedexOnCard(void);
 static void PrintTimeOnCard(void);
 static void PrintProfilePhraseOnCard(void);
+static void PrintRecommendedLevelOnCard(void);
 static void BufferNameForCardBack(void);
 static void PrintNameOnCardBack(void);
 static void BufferHofDebutTime(void);
@@ -276,6 +277,7 @@ static const u8 sTrainerCardTextColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_D
 static const u8 sTrainerCardStatColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_RED, TEXT_COLOR_LIGHT_RED};
 static const u8 sTimeColonInvisibleTextColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_TRANSPARENT, TEXT_COLOR_TRANSPARENT};
 static const u8 sTrainerCardFontIds[] = {FONT_SMALL, FONT_NORMAL, FONT_SMALL};
+static const u8 sTrainerCardLvlTextColor[] = {TEXT_COLOR_TRANSPARENT, TEXT_DYNAMIC_COLOR_1, TEXT_COLOR_LIGHT_GREY};
 
 static const u8 sTrainerPicOffsets[2][GENDER_COUNT][2] = 
 {
@@ -1088,6 +1090,9 @@ static bool8 PrintAllOnCardFront(void)
     case 5:
         PrintProfilePhraseOnCard();
         break;
+    case 6:
+        PrintRecommendedLevelOnCard();
+        break;
     default:
         sTrainerCardDataPtr->printState = 0;
         return TRUE;
@@ -1271,6 +1276,37 @@ static void PrintProfilePhraseOnCard(void)
 
         AddTextPrinterParameterized3(1, FONT_NORMAL, GetStringWidth(FONT_NORMAL, sTrainerCardDataPtr->easyChatProfile[2], 0) + 16, sTrainerCardProfilePhraseYPositions[sTrainerCardDataPtr->cardType],
             sTrainerCardTextColors, TEXT_SKIP_DRAW, sTrainerCardDataPtr->easyChatProfile[3]);    
+    }
+}
+
+#define TRAINER_LVL_X 28
+#define TRAINER_LVL_Y 123
+static void PrintRecommendedLevelOnCard(void)
+{
+    u32 x = TRAINER_LVL_X; //takes large value to move over
+    u32 y = TRAINER_LVL_Y;
+    u8 buffer[2];
+    u32 i;
+
+    for (i = 0; i < NUM_BADGES; i++)
+    {
+        u8 lvlCap = GetRecommendedLevel(i);
+        *buffer = 0;
+        if (i)
+            x += 24;
+        
+        //because use print rather than draw on bg
+        //is on higher level than badge
+        //so what I need to do is skip the print
+        //if I've unlocked the badge
+        //is a bit of a problem if done out of order
+        //but fine long as I get the lvl cap window setup        
+        if (FlagGet(FLAG_BADGE01_GET + i))
+            continue;
+
+    
+        ConvertIntToDecimalStringN(buffer, lvlCap, STR_CONV_MODE_LEADING_ZEROS, 2);
+        AddTextPrinterParameterized3(1, sTrainerCardFontIds[0], x, y, sTrainerCardLvlTextColor, TEXT_SKIP_DRAW, buffer);
     }
 }
 

@@ -23,6 +23,23 @@ struct FieldInput
 
 extern struct FieldInput gFieldInputRecord;
 
+enum PickupAbilityEventState
+{
+    UPDATE_PICKUP_VARIABLES,
+    END_TASK_NO_VIABLE_MON,
+    ASSIGN_ITEM_TO_ARRAY,
+    CHECK_ITEM_SPACE, //rather than addbagitem think repalce chekbaghasspace 
+    ADD_ITEM_BAG, //if true go to bag if false add to pc then do print string and loop
+    ADD_ITEM_PC,
+    PRINT_STRING,
+    LOOP_FROM_ASSIGNMENT //check numpickup mon decrement if not 0 jump to assignment and loop //increment loopincrement
+};
+//if no space think print no space and return or add to pc
+//had considered setup auto add to player item pc
+//via addbagitem function if no space in bag
+//never setup
+//has add to pc function
+
 void RestartWildEncounterImmunitySteps(void);
 void ClearPoisonStepCounter(void);
 void ClearOakRanchVar(void); //for box exp

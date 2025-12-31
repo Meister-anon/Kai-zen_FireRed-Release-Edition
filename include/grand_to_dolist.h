@@ -4686,6 +4686,67 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     That way not so gamebreaking to have stone evo early on.
     still get benefit compared to other evo methods but fairer
     11/25
+
+    NOTE**(
+
+        vsonic important 
+          11/9/2025
+          since players can control level good idea to 
+          let them know what the next gym level is 
+          ahead of time.
+          so look into print average gym level/min level
+          (either average or lvl of lowest leader mon)
+          oh actually very simple trainer card already prints numbers
+          for number of gym badge(for some reason lol)
+          so I'll just replace the badge number with recommended levels
+
+
+
+      New idea dynamic level caps, have recommended level
+      level caps are set to rec level by default
+      but have menu option to open and set specific number
+      doesn't change recomended level and rec. level is still displayed
+
+      when set new level cap all levelcap values in game shift to that
+      would need add value to store rec level  and level cap value?
+      or just have  rec level pulled from a function based on gym badge count
+
+      would need to go back and adjust  box exp function 
+      to be a derivative of level cap.
+
+      i.e rather than one specific value for most make it 
+      level cap - 4 or something 
+      * want them to be usable quickly for quick swapping
+      so instead do -1 or -2  cap,
+      just so if needeed can evolve
+      yeah will do -2 so can evolve twice if needed
+
+
+      wouldn't change how fast they get exp since that's badge based
+      but would just shift how high it can go
+
+      ok lvl cap option without it you just have exp share and exp null
+      with lvl cap option on
+      the box exp and battle exp and day care 
+      well maybe can find way to do all in one give exp function ro something
+      but anyway
+
+      all those places will be limited based on lvl cap
+      in battle it'll introduce exp scaling
+      measure how much exp mon should get measure how much exp needed to get them to lvl cap
+      if to add exp is higher than tocap exp take the difference and add that
+      following that all exp gain in battle will either skip exp give or add 1 prob just skip exp give
+
+      box exp and daycare exp should just stop adding exp once mon hits level simple
+      enough actually
+    
+    )11/12/25
+
+    Note**(
+    12/31/25
+    changed set evo to happen off battle participation
+    rather than level up
+    )
     
     NOTE  for code stuff -vsonic Important
     believe I may be able to do

@@ -263,12 +263,19 @@ enum StatsSetState
     SET_VIA_PARTY
 };
 
+//note size of struct pokemon does effect ewram
+//goes through struct PokemonStorageSystemData
+//which stores the struct multiple times
+//in that case I might as well use up my free space
+//and its a bad idea to attempt store form data here
+//...but there's literally no where else to put it
+//yeah go ahead and use the space, its necessary for
+//4 byte allignment anyway
+//looks weird but keep struct at top rather than bottom for sake of match
 struct Pokemon
 {
     struct BoxPokemon box; //size of this is size of mon in box, so multiply by mon in box x number of boxes to get size boxes take
     u32 status;
-    u8 level;
-    u8 mail; //remove mail   vsonic
     u16 hp;
     u16 maxHP;
     u16 attack;
@@ -276,12 +283,32 @@ struct Pokemon
     u16 speed;
     u16 spAttack;
     u16 spDefense;
-    u8 StatusSetState;
-    u8 Exp_state;
-    u16 padding;// - from 4 allignment
+    u16 pickupCounter;// - from 4 allignment
+    u8 StatusSetState:2;//states are both 3 options so take bitfield 2
+    u8 Exp_state:2; //sinec is 4 alligned need pad byte can't make up space
+    u8 DenyEvolution:1;//new field for evolution rework need set at end of battle check for evo
+    u8 padding:3;//not just lvl up from exp function need update eviolite and everstone remove evo block logic
+    u8 level;
+    u8 mail; //remove mail   vsonic
+    u8 padspace;
+   
 };//ok with the stuff I added
 //I now have 2 bytes of extra space
 //I plan to remove mail 
+//removing mail won't save space
+//as for allignment will still need
+//to keep value for padding byte
+//new idea I will have 3 bytes of unused space
+//when done could use 2 bytes
+//to make pickup timer attached to pokemon itself
+//that way intead of var could have multiple individual
+//opportunities to get resoures
+//making the weak pickup mon
+//the most advantageous for nuzlockes/resource farming
+//seems fine, even EE doens't have extra things
+//stored to pokemon struct
+
+bool32 CanEvolve(u32 species);
 
 u8 GetLevelFromMonExp(struct Pokemon *mon);
 u16 ModifyStatByNature(u8 nature, u16 stat, u8 statIndex);//made global for bs command level up calc
@@ -987,6 +1014,8 @@ const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny);
 
 void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst);
 bool8 IsPokemonStorageFull(void); //for set egg to pc by default
+
+u8 GetEnemyPartyAverageLevel(u16 trainerId);
 
 //ported things for debug
 u8 GetNatureFromPersonality(u32 personality);

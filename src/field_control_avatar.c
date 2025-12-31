@@ -23,6 +23,7 @@
 #include "safari_zone.h"
 #include "script.h"
 #include "start_menu.h"
+#include "trainer_card.h" //for num badges rec level
 #include "trainer_see.h"
 #include "vs_seeker.h"
 #include "wild_encounter.h"
@@ -97,6 +98,8 @@ struct PickupItem
 //revert to static and move these 2 to field_control_avatar?
 //but would still need it for battle_util.c  ;  nvm will make separate one for that, since not all of these items can be used in battle
 //and I'm going to be setting the list as held items
+//beries above nugget are useless only for poffins
+//think exchange for sitrus likes instead
 static const struct PickupItem sPickupItems[] =
 {
     { ITEM_ORAN_BERRY, 15 },
@@ -111,10 +114,10 @@ static const struct PickupItem sPickupItems[] =
     { ITEM_PP_UP, 85 },
     { ITEM_RARE_CANDY, 90 },
     { ITEM_NUGGET, 95 },
-    { ITEM_SPELON_BERRY, 96 },
-    { ITEM_PAMTRE_BERRY, 97 },
-    { ITEM_WATMEL_BERRY, 98 },
-    { ITEM_DURIN_BERRY, 99 },
+    { ITEM_FIGY_BERRY, 96 },
+    { ITEM_WIKI_BERRY, 97 },
+    { ITEM_MAGO_BERRY, 98 },
+    { ITEM_LUM_BERRY, 99 },
     { ITEM_LUXURY_BALL, 100 },
 };
 
@@ -825,104 +828,205 @@ static void UpdateHappinessStepCounter(void)
     }
 }
 
+//idk if inline makes it faster but whatever
+static inline void UpdateMonPickupCounter(struct Pokemon *mon)
+{
+    u16 value = GetMonData(mon, MON_DATA_PICKUP_COUNTER);
+    u16 *ptr = &value;
+
+    (*ptr)++;       //increment counter
+    (*ptr) %= 325;  //wrap around value
+    SetMonData(mon, MON_DATA_PICKUP_COUNTER, ptr);
+}
+
+
+//word from Alex on 
+//loop interaction
+//so looks like need work 
+//to keep from incrementing further than my print effects?
+/*
+You have to store the current instruction 
+(or some other instruction. Depending on where you want to go),
+ set the script you want to play and return from the loop. 
+ Also the loop does not wait.
+  If you go back to the instruction, you will loop again.
+   That's why the battle engine uses a lot of state machines
+    (I think that's the right terminology),
+     e.g. Attackcanceler. Flags can also control the flow. 
+
+*/
+
+/*instead of a for loop, think what I need 
+is the state thing alex mentioned
+i've seen it so I more or less know what I need
+setup a big switch case  and just jump through
+printing and increment and value setting etc.
+until done pretty much do what the loop was doing
+just in separate conditional segments
+//think use check textprinters done or something
+//to know user finished input and box closed
+*/
 #define PICKUP_LOGIC
 static void UpdatePickupCounter(void)
 {
-    u16 *ptr = GetVarPointer(VAR_PICKUP_COUNTER);
+    //u16 *ptr = GetVarPointer(VAR_PICKUP_COUNTER);
     s32 i;
     u32 j,k;
+
+    bool32 pickupFailed = FALSE;
+    u32 pickupUsers[6] = {0};
     s32 randomTM = Random() % NUM_TECHNICAL_MACHINES;   //using will make function automatically scale
     u16 arrayItem;// = sPickupItems[j].itemId;  //guessing this was issue inserts random value causing overflow
-    
+    u32 NumPickupmon = 0; //for now storing viablepickupmon if pass test rename otherwise use desync version
+    u32 loopIncrement = 0; //for getting right value of pickupusers as you cycle through loop
+    enum PickupAbilityEventState PickupStateCheck = UPDATE_PICKUP_VARIABLES;
 
-    
-
-    for (i = 0; i < PARTY_SIZE; ++i)
+    switch (PickupStateCheck)
     {
-        if ((GetMonAbility(&gPlayerParty[i]) == ABILITY_PICKUP)
-        && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG)  //works, also learned daycare eggs aren't treated as species egg, cuz don't sue species2
-        && !IsMonNuzlockeDead(&gPlayerParty[i])) //ensure mon not counted if dead by nuzlocke clause
-            break;
-    } //looks in party for mon with pickup, functionally stops at first party slot that encounters ability
 
-    
-    //ok so this partis the problem??
-    //maybe not think its just this is increment
-    //so nothing else can trigger without it
-    if (i == PARTY_SIZE)
-    {
-        VarSet(VAR_PICKUP_COUNTER, 0);
-        return;
-    }//if didn't find valid mon, reset couter and stop function
-    else
-    {
-        (*ptr)++;       //increment counter
-        (*ptr) %= 325;   //wrap around at 325
-    }
-    
-
-    //filted items,
-    //identified glitch has nothing to do with
-    //ptr counter the array
-    //or the loops below
-    //only thing haven't checked is bottom if condition
-    //but that doesn't make sense tobe the issue?
-    //honesty idk anymore I made clean and somehow my tye chart broke...
-    
-    if (*ptr == 0)  //can use pointer without ability check, as ability check is already in call for this function
-    {
-        s32 random = Random() % 101;
-        for (j = 0; j < ARRAY_COUNT(sPickupItems); ++j) //minus 1 was specific for this array, as it wasn't made to go to last value, I changed it.
-        {
-            if (sPickupItems[j].chance >= random)
-                break;
-        }
-        //think add logic for item ITEM_POKE_BALL
-        //shift which ball you get based on level
-        if (sPickupItems[j].itemId == ITEM_POKE_BALL)
-        {
-            if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 20)
-                arrayItem = sPickupItems[j].itemId;
-            else if (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) <= 35)
-                arrayItem = ITEM_GREAT_BALL;
-            else
-                arrayItem = ITEM_ULTRA_BALL;
-        }
-        
-        if ((sPickupItems[j].itemId == ITEM_TM10_HIDDEN_POWER) && (BagGetQuantityByItemId(ITEM_TM10_HIDDEN_POWER) != 0))
-        {
-
-            for (k = ITEM_NONE; k != ITEMS_COUNT; k++)
+        //clear counter of nonviable mon (nuzlocke)
+        //identify if have viable mon in party to continue
+        case UPDATE_PICKUP_VARIABLES:
+            for (i = 0, j = 0; i < PARTY_SIZE; ++i)
             {
-                if (gItems[k].pocket != POCKET_TM_CASE)
-                    continue;
-                if (ItemIdToBattleMoveId(k) == gTM_Moves[randomTM])
-                    break;
-            }
-            arrayItem = (k);// give random tm, if already have tm10, will put add random%3  so not super easy to get everything
-
-        }
-        else
-            arrayItem = sPickupItems[j].itemId;
+                if ((GetMonAbility(&gPlayerParty[i]) == ABILITY_PICKUP)
+                && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))  //works, also learned daycare eggs aren't treated as species egg, cuz don't sue species2
+                {
+                    if (GetMonData(&gPlayerParty[i], MON_DATA_PICKUP_COUNTER)
+                    && IsMonNuzlockeDead(&gPlayerParty[i]))
+                    {
+                        //reset counter to 0
+                        SetMonData(&gPlayerParty[i], MON_DATA_PICKUP_COUNTER, NONE);
+                    }
+                    
+                    else if (!IsMonNuzlockeDead(&gPlayerParty[i])) //ensure mon not counted if dead by nuzlocke clause
+                    {
+                        //think can increment here
+                        UpdateMonPickupCounter(&gPlayerParty[i]);
+                        pickupUsers[j] = i;
+                        ++NumPickupmon;
+                        ++j;
+                        
+                    }
+                    
+                }
+            } //looks in party for mon with pickup, functionally stops at first party slot that encounters ability
+            PickupStateCheck++;
+        break;
+        case END_TASK_NO_VIABLE_MON:
+            if (!NumPickupmon)
+                return;
+            PickupStateCheck++;
+        break;        
+        case ASSIGN_ITEM_TO_ARRAY:
         
-        //add if has space to add
-        //and trigger scripts
-        if (AddBagItem(arrayItem, 1) == TRUE)  //attempting remove from loop. think placing within made it add for each value of  the array. yup that's why *facepalm
-        {
+            
+            if (GetMonData(&gPlayerParty[pickupUsers[loopIncrement]], MON_DATA_PICKUP_COUNTER) == 0)  //can use pointer without ability check, as ability check is already in call for this function
+            {
+                s32 random = Random() % 101;
+                for (j = 0; j < ARRAY_COUNT(sPickupItems); ++j) //minus 1 was specific for this array, as it wasn't made to go to last value, I changed it.
+                {
+                    if (sPickupItems[j].chance >= random)
+                        break;
+                }
 
-            GetMonNickname(&gPlayerParty[i], gStringVar2);  //for battle effect
+                if (sPickupItems[j].itemId == ITEM_ORAN_BERRY)
+                {
+                    //vsonic Important post lvl cap may change to use rec level for progression linking
+                    if (GetRecommendedLevel(GetNumberofBadges()) <= 22)
+                        arrayItem = sPickupItems[j].itemId;
+                    else
+                        arrayItem = ITEM_SITRUS_BERRY;
+                }
+                //think add logic for item ITEM_POKE_BALL
+                //shift which ball you get based on level
+                if (sPickupItems[j].itemId == ITEM_POKE_BALL)
+                {
+                    //vsonic Important post lvl cap may change to use rec level for progression linking
+                    if (GetRecommendedLevel(GetNumberofBadges()) <= 20)
+                        arrayItem = sPickupItems[j].itemId;
+                    else if (GetRecommendedLevel(GetNumberofBadges()) <= 36)
+                        arrayItem = ITEM_GREAT_BALL;
+                    else
+                        arrayItem = ITEM_ULTRA_BALL;
+                }
+                
+                if ((sPickupItems[j].itemId == ITEM_TM10_HIDDEN_POWER) && (BagGetQuantityByItemId(ITEM_TM10_HIDDEN_POWER) != 0))
+                {
+
+                    for (k = ITEM_NONE; k != ITEMS_COUNT; k++)
+                    {
+                        if (gItems[k].pocket != POCKET_TM_CASE)
+                            continue;
+                        if (ItemIdToBattleMoveId(k) == gTM_Moves[randomTM])
+                            break;
+                    }
+                    arrayItem = (k);// give random tm, if already have tm10, will put add random%3  so not super easy to get everything
+
+                }
+                else
+                    arrayItem = sPickupItems[j].itemId;
+            }
+            PickupStateCheck++;
+        break;
+        case CHECK_ITEM_SPACE:
+
+            //should make pcspace check function for this
+            //can make script for sayign pc is full pick up failed
+            //or can just ignore it if lazy
+            if (CheckBagHasSpace(arrayItem, 1) == TRUE)
+                PickupStateCheck++;
+            else if (CheckPcHasSpace(arrayItem, 1) == TRUE)
+                PickupStateCheck = ADD_ITEM_PC;
+            else
+            {
+                pickupFailed = TRUE;
+                PickupStateCheck = PRINT_STRING;
+            }
+        break;
+        case ADD_ITEM_BAG:
+
+            AddBagItem(arrayItem, 1);
+            PickupStateCheck = PRINT_STRING;
+        break;
+        case ADD_ITEM_PC:
+            
+            AddPCItem(arrayItem, 1);
+            PickupStateCheck = PRINT_STRING;
+        break;
+        case PRINT_STRING:
+
+            GetMonNickname(&gPlayerParty[pickupUsers[loopIncrement]], gStringVar2);  //for battle effect
             CopyItemName(arrayItem, gStringVar1);
             LockForFieldEffect();
+            
+            //make failed string for here
+            //mon picked up item but player didn't have space
+            if (pickupFailed)
+                ShowFieldMessage(gText_MonPickedUpItemFailed);
+            else
+                ShowFieldMessage(gText_MonPickedUpItem);
 
-            ShowFieldMessage(gText_MonPickedUpItem);
             ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
+            PickupStateCheck++;
+        break;
+        case LOOP_FROM_ASSIGNMENT:
+            if (--NumPickupmon != 0)
+            {
+                ++loopIncrement;
+                PickupStateCheck = ASSIGN_ITEM_TO_ARRAY;
+            }
+        break;
+            
 
-        }
-
-    }
+            
     
+    }
 }
 
+//consider roll mon egg check and nuzlocke alive
+//into single is mon alive check 
+//as an overworld counterpart to isbattleralive
 static void UpdateHoneyGatherCounter(void)
 {
     u16 *ptr = GetVarPointer(VAR_HONEY_GATHER_COUNTER);

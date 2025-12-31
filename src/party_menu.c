@@ -155,6 +155,9 @@ static void CursorCB_Switch(u8 taskId);
 static void CursorCB_Cancel1(u8 taskId);
 static void CursorCB_Item(u8 taskId);
 static void CursorCB_Hatch(u8 taskId);
+static void CursorCB_EvoState(u8 taskId);
+static void CursorCB_SetEvoStateFalse(u8 taskId);
+static void CursorCB_SetEvoStateTrue(u8 taskId);
 static void CursorCB_BeginHatch(u8 taskId);
 static void CursorCB_Give(u8 taskId);
 static void CursorCB_TakeItem(u8 taskId);
@@ -986,8 +989,7 @@ static void CreatePartyMonSprites(u8 slot)
                 //think I need to loop party and do a personality check?
                 //beleive is better but still technically not infallable
                 if (gMultiPartnerParty[actualSlot].personality == GetMonData(&gPlayerParty[slot], MON_DATA_PERSONALITY))
-                    if (GetMonExpState(&gPlayerParty[slot]))
-                        expState = GetMonExpState(&gPlayerParty[slot]);
+                    expState = GetMonExpState(&gPlayerParty[slot]);
             CreatePartyMonStatusSpriteParameterized(gMultiPartnerParty[actualSlot].species, status, &sPartyMenuBoxes[slot]);
                 if (expState)
                     CreatePartyMonExpSPriteParameterized(gMultiPartnerParty[actualSlot].species, expState, &sPartyMenuBoxes[slot]);
@@ -1950,6 +1952,42 @@ u8 GetMonExpState(struct Pokemon *mon)
     return OFF;
 }
 
+#define ON TRUE
+
+//for boxmonexp and daycare equivalent it kinda defeats point
+//to have to grind up extra levels just for being able to evolve
+//fix for that is to take modern feature of being able to player control evolve
+//from party menu, which I don't like, makes feel less alive.
+//other idea was rather than needing entire lvl up could just
+//evolve in a single battle if already met requirements
+//but that would be annoying and force players to mash b FAR
+//after every battle if they don't want mon to evolve rather than lvl
+//considerd updating early game package with everstones but came up with better idea.
+//just let player control evolution, will set it so single battle
+//will evolve mon after met evo condition
+//but add on to pokemon struct a boolean flag
+//to deny evolution, so mon won't evolve unless trainer wants them to
+//which makes sense and is something they do in universe
+//a pokemon doesn't evolve unless it wants to even if strong enough
+//and at times will follow trainer wish and not attempt to evolve
+//so I'll just make a flag that can be swapped from party menu
+//Can Evo or something
+//create box dialogue do you want to deny
+//this pokemon from evolution yes no
+//think have it display evostate in party selection
+//but clicking on state should add pop up text and yesno options
+//EVO_ON,  EVO_OFF
+//yes no cursor should hover over option that would keep state the same
+bool32 GetMonEvoState(struct Pokemon *mon)
+{
+    bool32 DenyEvo = GetMonData(mon, MON_DATA_EVOLUTION_STATE);
+
+    if (DenyEvo)
+        return OFF;
+    
+    return ON;
+}
+
 static void SetPartyMonsAllowedInMinigame(void)
 {
     u16 *ptr;
@@ -2758,6 +2796,9 @@ void DisplayPartyMenuStdMessage(u32 stringId)
         case PARTY_MSG_HATCH_THIS_EGG:
             *windowPtr = AddWindow(&sHatchThisEggMsgWindowTemplate);
             break;
+        case PARTY_MSG_ALLOW_TO_EVOLVE:
+            *windowPtr = AddWindow(&sHatchThisEggMsgWindowTemplate);
+            break;
         case PARTY_MSG_DO_WHAT_WITH_ITEM:
             *windowPtr = AddWindow(&sDoWhatWithItemMsgWindowTemplate);
             break;
@@ -2826,6 +2867,14 @@ static const u8* ReturnCursorIdText(u8 i)
             return gFameCheckerText_Cancel;
         case MENU_HATCH:
             return gText_EggHatch;
+        case MENU_EVO_STATE:
+        {
+           bool32 EvoAllowed = GetMonEvoState(&gPlayerParty[GetCursorSelectionMonId()]);
+            if (EvoAllowed)
+                return gText_EvoState_On;
+            else
+                return gText_EvoState_Off;
+        }
         case MENU_ITEM:
             return gText_Item;
         case MENU_GIVE:
@@ -2857,7 +2906,10 @@ static const u8* ReturnCursorIdText(u8 i)
         case MENU_TRADE2:
             return gText_Trade4;
         case MENU_YES_HATCH:
+        case MENU_EVOSTATE_YES:
             return gText_Yes;
+        case MENU_EVOSTATE_NO:
+            return gText_No;
         case (MENU_FIELD_MOVES + FIELD_MOVE_CUT):
             GetMoveName(gStringVar4, MOVE_CUT);
                 return gStringVar4;
@@ -2924,6 +2976,9 @@ static u8 DisplaySelectionWindow(u8 windowType)
         break;
     case SELECTWINDOW_HATCH:
         window = sEggHatchYesNoWindowTemplate;
+        break;
+    case SELECTWINDOW_EVOSTATE:
+        window = sEvoStateSelectWindowTemplate;
         break;
     default: // SELECTWINDOW_MOVES
         window = sMoveSelectWindowTemplate;
@@ -3688,6 +3743,7 @@ u8 ShouldDisplayHMFieldMove(u8 fieldMove)
 //i.e can be added via multiple conditions
 //mostly sweet scent which is linked to honey gather ability now
 //as well as the move
+//For out of battle
 #define FIELD_MOVE_LIST_LOGIC
 static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
 {
@@ -3780,6 +3836,11 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     /*if (ItemIsMail(GetMonData(&mons[slotId], MON_DATA_HELD_ITEM)))
         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_MAIL);*/
     //else
+    if (CanEvolve(species))
+    {
+        AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_EVO_STATE);
+    }
+
     if (species != SPECIES_NONE && species != SPECIES_EGG)
         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_ITEM);
     else if (species == SPECIES_EGG)
@@ -3787,6 +3848,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_CANCEL1);
 }
 
+//vsonic important
 static u8 GetPartyMenuActionsType(struct Pokemon *mon)
 {
     u32 actionType;
@@ -4251,6 +4313,42 @@ static void CursorCB_Hatch(u8 taskId)
     DisplayPartyMenuStdMessage(PARTY_MSG_HATCH_THIS_EGG);//want yes no inpupt box
     gTasks[taskId].data[0] = 0xFF;
     gTasks[taskId].func = Task_HandleSelectionMenuInput;
+}
+
+//want to be a lil different set cursor position
+//based on mon state
+//think this can set cursor pos sMenu.cursorPos
+//I guess just 0, 1 can set in function
+static void CursorCB_EvoState(u8 taskId)
+{
+    PlaySE(SE_SELECT);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+    SetPartyMonSelectionActions(gPlayerParty, gPartyMenu.slotId, ACTIONS_SET_EVO_STATE);
+    DisplaySelectionWindow(SELECTWINDOW_EVOSTATE); //creates window for selection options i.e give/take/cancel
+    DisplayPartyMenuStdMessage(PARTY_MSG_ALLOW_TO_EVOLVE);//want yes no inpupt box
+
+    gTasks[taskId].data[0] = 0xFF;
+    gTasks[taskId].func = Task_HandleSelectionMenuInput;
+}
+//think need different task input thing since I'm using cursor to set value
+//need setmon value based on selection
+//if cursor 0 yes
+
+//allow evo
+static void CursorCB_SetEvoStateFalse(u8 taskId)
+{
+    bool32 value = FALSE;
+    SetMonData(&gPlayerParty[GetCursorSelectionMonId()], MON_DATA_EVOLUTION_STATE, &value);
+    Task_CancelAfterAorBPress(taskId); //soud effect handled here
+}
+
+//deny evo
+static void CursorCB_SetEvoStateTrue(u8 taskId)
+{
+    bool32 value = TRUE;
+    SetMonData(&gPlayerParty[GetCursorSelectionMonId()], MON_DATA_EVOLUTION_STATE, &value);
+    Task_CancelAfterAorBPress(taskId);
 }
 
 static void CursorCB_Item(u8 taskId)
@@ -7229,9 +7327,21 @@ static u8 GetPartyMenuActionsTypeInBattle(struct Pokemon *mon)
     if (GetMonData(&gPlayerParty[1], MON_DATA_SPECIES) == SPECIES_NONE || GetMonData(mon, MON_DATA_IS_EGG))
         return ACTIONS_SUMMARY_ONLY;
     else if (gPartyMenu.action == PARTY_ACTION_SEND_OUT)
-        return ACTIONS_SEND_OUT;
+    {
+       if (CanEvolve(GetMonData(mon, MON_DATA_SPECIES)))
+            return ACTIONS_SEND_OUT_EVO;
+        else
+            return ACTIONS_SEND_OUT;
+
+    }
     else
-        return ACTIONS_SHIFT;
+    {
+        if (CanEvolve(GetMonData(mon, MON_DATA_SPECIES)))
+            return ACTIONS_SHIFT_EVO;
+        else
+            return ACTIONS_SHIFT;
+    }
+       
 }
 
 static bool8 TrySwitchInPokemon(void)

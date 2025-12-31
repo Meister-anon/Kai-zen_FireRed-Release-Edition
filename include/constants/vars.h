@@ -326,6 +326,7 @@
 //has a mon with pickup ability in their party
 //the ability logic activates and mon has a 
 //10% chance to attempt searching for an item
+//no longer used
 #define VAR_PICKUP_COUNTER		   0x4108
 
 // If nonzero, counts down by one every step.

@@ -9859,6 +9859,7 @@ extern const u16 gKantoTrainerCard_Pal[];
 extern const u32 gKantoTrainerCard_Gfx[];
 extern const u16 gHoennTrainerCard_Pal[];
 extern const u32 gHoennTrainerCard_Gfx[];
+extern const u32 gKantoTrainerCard_DefaultGfx[]; //unchanged kanto card
 
 // battle_interface
 extern const u32 gFile_graphics_battle_interface_ball_status_bar_sheet[];
