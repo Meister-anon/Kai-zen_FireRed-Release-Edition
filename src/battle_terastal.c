@@ -131,6 +131,9 @@ bool32 IsTypeStellarBoosted(u32 battler, enum Type type)
 
 // Returns the STAB power multiplier to use when Terastallized.
 // Power multipliers from Smogon Research thread.
+//need add joat to this
+//tera normal gives joat
+//tera normal on a normal mon boosts joat to stab levels
 uq4_12_t GetTeraMultiplier(struct BattleContext *ctx)
 {
     enum Type teraType = GetBattlerTeraType(ctx->battlerAtk);
@@ -163,17 +166,34 @@ uq4_12_t GetTeraMultiplier(struct BattleContext *ctx)
         else
             return TERA_STAB_MULTIPLIER;
     }
-    // Base or Tera type only.
-    else if ((ctx->moveType == teraType && !IS_BATTLER_OF_BASE_TYPE(ctx->battlerAtk, ctx->moveType))
-             || (ctx->moveType != teraType && IS_BATTLER_OF_BASE_TYPE(ctx->battlerAtk, ctx->moveType)))
+    //decide need separate out tera and stab to propelry do joat
+    // Tera type only.
+    else if (ctx->moveType == teraType && !IS_BATTLER_OF_BASE_TYPE(ctx->battlerAtk, ctx->moveType))
     {
         //non tera adaptability stab
         if (ctx->abilityAtk == ABILITY_ADAPTABILITY)
             return ADAPTABILITY_MULTIPLIER;
         else
-            return SAME_TYPE_MULTIPLIER;
+            return TERA_MULTIPLIER;
             //just stab or tera bonus
     }
+    //base stab joat here
+    //supposedly adaptability only works off tera type
+    //so actually think adaptability shouldn't activate
+    else if (ctx->moveType != teraType)
+    {
+        if (IS_BATTLER_OF_BASE_TYPE(ctx->battlerAtk, ctx->moveType))
+            return SAME_TYPE_MULTIPLIER;
+        else if (teraType == TYPE_NORMAL)
+        {
+            if (IS_BATTLER_OF_BASE_TYPE(ctx->battlerAtk, teraType))
+                return TERA_JOAT;
+            else
+                return JOAT_MULTIPLIER;
+        }
+
+    }
+
     // Neither base or Tera type.
     else
     {

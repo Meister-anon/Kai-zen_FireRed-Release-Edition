@@ -9122,7 +9122,7 @@ static inline uq4_12_t GetOtherModifiers(struct DamageContext *ctx)
     u32 unmodifiedDefenderSpeed = gBattleMons[ctx->battlerDef].speed;
 
     //TODO: Behemoth Blade, Behemoth Bash, Dynamax Cannon (Dynamax)
-    DAMAGE_MULTIPLY_MODIFIER(GetMinimizeModifier(ctx->move, ctx->battlerDef));
+    //DAMAGE_MULTIPLY_MODIFIER(GetMinimizeModifier(ctx->move, ctx->battlerDef));
     DAMAGE_MULTIPLY_MODIFIER(GetUndergroundModifier(ctx->move, ctx->battlerDef));
     DAMAGE_MULTIPLY_MODIFIER(GetDiveModifier(ctx->move, ctx->battlerDef));
     DAMAGE_MULTIPLY_MODIFIER(GetAirborneModifier(ctx->move, ctx->battlerDef));
@@ -9243,9 +9243,9 @@ static inline s32 DoMoveDamageCalcVars(struct DamageContext *ctx)
 s32 ApplyModifiersAfterDmgRoll(struct DamageContext *ctx, s32 dmg)
 {
     if (GetActiveGimmick(ctx->battlerAtk) == GIMMICK_TERA)
-        DAMAGE_APPLY_MODIFIER(GetTeraMultiplier(ctx));
+        DAMAGE_APPLY_MODIFIER(GetTeraMultiplier(ctx)); //includes stab
     else
-        DAMAGE_APPLY_MODIFIER(GetTypeBasedBonusModifier(ctx));
+        DAMAGE_APPLY_MODIFIER(GetTypeBasedBonusModifier(ctx)); //stab and the like
     DAMAGE_APPLY_MODIFIER(ctx->typeEffectivenessModifier);
     DAMAGE_APPLY_MODIFIER(GetBurnOrFrostBiteModifier(ctx));
     DAMAGE_APPLY_MODIFIER(GetProtectBreakModifiers(ctx));
