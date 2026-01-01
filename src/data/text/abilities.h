@@ -112,7 +112,7 @@ static const u8 sUnawareDescription[] = _("Ignores stat changes for dmg and acc.
 static const u8 sTintedLensDescription[] = _("Ups damage if move's type is resisted.");
 static const u8 sFilterDescription[] = _("Weakens incoming “Super effective”\nmoves.");
 static const u8 sSlowStartDescription[] = _("Takes a while to get going.\nClears all ailments upon power awakening.");
-static const u8 sScrappyDescription[] = _("Normal and Fighting Moves do neutral\ndamage against Ghost-type Pokémon.");
+static const u8 sScrappyDescription[] = _("Attacks bypass immunities of Ghost-type\nPokémon to deal neutral damage.");
 static const u8 sStormDrainDescription[] = _("Draws in Water moves.\nBoosting Sp.Attack.");
 static const u8 sIceBodyDescription[] = _("Slight HP recovery in Hail.");
 static const u8 sSnowWarningDescription[] = _("Summons a hailstorm.");
@@ -309,7 +309,7 @@ static const u8 sOmnipotentAideDescription[] = _("Gives priority to healing effe
 static const u8 sFluorescenceDescription[] = _("Naturally absorbs sunlight.\nBoosts speed and Sp.Atk in sun.");
 
 static const u8 sPlagueWingsDescription[] = _("Spreads powder-like scales on attack.\nThat apply a variety of statuses.");
-static const u8 sPhantomTouchDescription[] = _("Gained the ability to touch ghosts due to\na strong desire to be with those lost.");
+static const u8 sPhantomTouchDescription[] = _("Contact moves ignore the immunities\nof GHOST types.");
 //checked in fire red limit is 40 chars per line, changing description length to 80/    changed to 82 max
 //based on suction cups I kinda have more space?  so more like 41 per line?
 //template - top line: literal effect\n bottom line: flavor text    -flipped usually put flavor text on top, effect on bottom
@@ -2698,10 +2698,11 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_MINDS_EYE] =
     {
         .name = _("Mind's Eye"),
-        .description = COMPOUND_STRING("Normal and Fighting Moves hit Ghost Type.\nIgnore Evasion checks and Acc can't fall."),
+        .description = COMPOUND_STRING("Ignores the immunities of GHOST types.\nIgnore Evasion checks and Acc can't fall."),
         .aiRating = 8,
         .breakable = TRUE,
-    },
+    },//not mix of scrappy is just foresight
+    //...oh its keen eye scrappy o.0
 
     [ABILITY_EMBODY_ASPECT_TEAL_MASK] =
     {

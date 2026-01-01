@@ -7838,6 +7838,10 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
         if (gBattleMons[battlerAtk].status1 & STATUS1_CAN_MOVE)
             modifier = uq4_12_multiply(modifier, UQ_4_12(2.0));
         break;
+    case EFFECT_TARGET_TYPE_DAMAGE:
+        if (IS_BATTLER_OF_TYPE(battlerDef, GetMoveStoredValue(move)))
+            modifier = uq4_12_multiply(modifier, PercentToUQ4_12(GetMoveDamagePercentage(move)));
+        break;
     case EFFECT_BRINE:
         if (gBattleMons[battlerDef].hp <= (gBattleMons[battlerDef].maxHP / 2))
             modifier = uq4_12_multiply(modifier, UQ_4_12(2.0));
@@ -9514,12 +9518,23 @@ static inline void MulByTypeEffectiveness(struct DamageContext *ctx, uq4_12_t *m
         if (ctx->updateFlags)
             RecordItemEffectBattle(ctx->battlerDef, HOLD_EFFECT_RING_TARGET);
     }
-    else if ((ctx->moveType == TYPE_FIGHTING || ctx->moveType == TYPE_NORMAL) && defType == TYPE_GHOST && gBattleMons[ctx->battlerDef].volatiles.foresight && mod == UQ_4_12(0.0))
+    
+    //change effects foresight and miracel eye slightly
+    //rather than stating types to ignore
+    //just set so whatever immunity is to block it
+    //belive would need logic to prevent from doing so based on inverse type matchup
+    //hmm actually no, keep that, makes it more useful
+    //since I've added and remove no immunities from these types
+    //functions effectively the same in base
+    //still need update ability and move descriptions
+    else if (/*(ctx->moveType == TYPE_FIGHTING || ctx->moveType == TYPE_NORMAL) &&*/ defType == TYPE_GHOST && gBattleMons[ctx->battlerDef].volatiles.foresight && mod == UQ_4_12(0.0))
     {
         mod = UQ_4_12(1.0);
     }
-    else if ((ctx->moveType == TYPE_FIGHTING || ctx->moveType == TYPE_NORMAL) && defType == TYPE_GHOST
-        && (ctx->abilityAtk == ABILITY_SCRAPPY || ctx->abilityAtk == ABILITY_MINDS_EYE)
+    else if (/*(ctx->moveType == TYPE_FIGHTING || ctx->moveType == TYPE_NORMAL) &&*/ defType == TYPE_GHOST
+        && (ctx->abilityAtk == ABILITY_SCRAPPY || ctx->abilityAtk == ABILITY_MINDS_EYE
+        || (ctx->abilityAtk == ABILITY_PHANTOM_TOUCH && IsMoveMakingContact(ctx->battlerAtk, ctx->battlerDef, ctx->abilityAtk, ctx->holdEffectAtk, ctx->move))
+        )
         && mod == UQ_4_12(0.0))
     {
         mod = UQ_4_12(1.0);
@@ -9527,9 +9542,12 @@ static inline void MulByTypeEffectiveness(struct DamageContext *ctx, uq4_12_t *m
             RecordAbilityBattle(ctx->battlerAtk, ctx->abilityAtk);
     }
 
-    if (ctx->moveType == TYPE_PSYCHIC && defType == TYPE_DARK && gBattleMons[ctx->battlerDef].volatiles.miracleEye && mod == UQ_4_12(0.0))
+    if (/*ctx->moveType == TYPE_PSYCHIC &&*/ defType == TYPE_DARK && gBattleMons[ctx->battlerDef].volatiles.miracleEye && mod == UQ_4_12(0.0))
         mod = UQ_4_12(1.0);
+
     //believe things like flashfreeze
+    //lol flashfreeze is my effect
+    //I meant freeze dry
     if (GetMoveEffect(ctx->move) == EFFECT_SUPER_EFFECTIVE_ON_ARG && defType == GetMoveStoredValue(ctx->move) && !ctx->isAnticipation)
         mod = SUPER_EFFECTIVE;
     if (ctx->moveType == TYPE_GROUND && defType == TYPE_FLYING && IsBattlerGrounded(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef) && mod == UQ_4_12(0.0))

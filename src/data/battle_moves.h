@@ -400,9 +400,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.battleAnimScript = gBattleAnimMove_Cut,
         .argument = {
         .storedValue = TYPE_GRASS,
-        .damagePercentage = 30},
+        .damagePercentage = 300}, //power x multiplier / 10 basically is just times 3...
     }, //make effect easy to adjust, change command  to read type to effct from argument, and dmg multiplier from gbattlemovedmg * argumetn chance/ 10
     //ok hopefully this works vsonic
+    //if I instead change to 300 I think I can use PercentToUQ4_12 function to make it 3.0
+    //and can just do multiply power x percent
 
     [MOVE_GUST] =
     {
@@ -4607,13 +4609,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_FORESIGHT] =
 {
-    #if B_UPDATED_MOVE_DATA >= GEN_5
-        .accuracy = 0,
-    #elif B_UPDATED_MOVE_DATA == GEN_4
-        .accuracy = 0,
-    #else
-        .accuracy = 100,
-    #endif
+    .accuracy = 0,
     .effect = EFFECT_FORESIGHT,
     .power = 0,
     .type = TYPE_NORMAL,
@@ -4621,8 +4617,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_SELECTED,
     .priority = 1,
     .split = SPLIT_STATUS,
-        .magicCoatAffected = TRUE,
-        .ignoresSubstitute = TRUE,
+    .magicCoatAffected = TRUE,
+    .ignoresSubstitute = TRUE,
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -5879,7 +5875,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         }),*/
         .argument = {
         .storedValue = TYPE_ROCK,
-        .damagePercentage = 20},
+        .damagePercentage = 200},
         //.contestEffect = CONTEST_EFFECT_BETTER_WITH_GOOD_CONDITION,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -7417,13 +7413,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_ODOR_SLEUTH] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_5
-            .accuracy = 0,
-            #elif B_UPDATED_MOVE_DATA == GEN_4
-            .accuracy = 0,
-            #else
-            .accuracy = 100,
-            #endif
+        .accuracy = 0,
         .effect = EFFECT_FORESIGHT,
         .power = 0,
         .type = TYPE_NORMAL,
@@ -8352,9 +8342,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_MIRACLE_EYE] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_5
-            #else
-            #endif
         .effect = EFFECT_MIRACLE_EYE,
         .power = 0,
         .type = TYPE_PSYCHIC,
@@ -8374,6 +8361,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //make change effect to work like EFFECT_TARGET_TYPE_DAMAGE
     //can put in same place and have argument be type it removes immunity
     //vsonic important,  
+    //nvm since is specific to immunity from a certain type
+    //would require two type arguments
+    //unless the effect is to fully remove immunity
+    //since foresight is normal but targets ghosts
+    //and removes both its normal and fighting immunity
+    //this targets dark and its only immunity is psychic
+    //ok I think if I change it to that, then it can work
+    //technically matches default effect
+    //but still slightly different in execution
+    //realized dont need separate effect to do effect
+    //no real benefit to consolidating
 
     [MOVE_WAKE_UP_SLAP] =
     {
