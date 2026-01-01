@@ -7125,7 +7125,7 @@ static void atk23_getexp(void)
                 MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId]);// his method works but not sure if stats will change since think that's in case 3,  so I'm removing the jump and putting ev gain to here.
             } //vsonic
             else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE) == EXP_NULL
-            || (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) == GetSetLvlCap()))
+            || (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= GetSetLvlCap()))
             {
                 if (gBattleStruct->sentInPokes & 1)
                     gParticipatedInBattle |= (1u << gBattleStruct->expGetterMonId);
