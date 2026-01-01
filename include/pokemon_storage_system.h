@@ -66,4 +66,6 @@ u8 CheckIfPcEmpty(void); //check if there is a mon in pc, for resetting pc exp g
 void ChooseBoxMon(void);
 u32 GetInPartyMenu(void);
 
+u8 GetRecommendedLevel(u8 badgeCount);
+
 #endif // GUARD_POKEMON_STORAGE_SYSTEM_H

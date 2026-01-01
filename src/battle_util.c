@@ -1925,7 +1925,7 @@ s32 GetDrainedBigRootHp(u32 battler, s32 hp)
     return hp;
 }
 
-//effects together are a 1.69 boost
+//effects together are a 1.69 boost vsonic
 s32 MistyTerrainHealBoost(u32 battler, s32 healamount)
 {
     if (IsBattlerTerrainAffected(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler), STATUS_FIELD_MISTY_TERRAIN))

@@ -194,6 +194,8 @@ enum SoundMenu
 #define DEBUG_NUMBER_DIGITS_ITEMS 4
 #define DEBUG_NUMBER_DIGITS_ITEM_QUANTITY 3
 
+#define DEBUG_NUMBER_DIGITS_LVL_CAP 3
+
 #define DEBUG_NUMBER_ICON_X 210
 #define DEBUG_NUMBER_ICON_Y 50
 
@@ -239,6 +241,7 @@ static void Debug_DestroyMenu(u8 taskId);
 static void Debug_DestroyMenu_Full(u8 taskId);
 static void DebugAction_Cancel(u8 taskId);
 static void DebugAction_DestroyExtraWindow(u8 taskId);
+static void DebugAction_DestroySpecialWindow(u8 taskId); //
 static void Debug_RefreshListMenu(u8 taskId);
 static void Debug_RedrawListMenu(u8 taskId);
 
@@ -338,6 +341,10 @@ static void DebugAction_Sound_SE(u8 taskId);
 static void DebugAction_Sound_SE_SelectId(u8 taskId);
 static void DebugAction_Sound_MUS(u8 taskId);
 static void DebugAction_Sound_MUS_SelectId(u8 taskId);
+
+//custom sets
+static void DebugAction_DynamicLvlCap(u8 taskId);
+static void DebugAction_DynamicLvlCap_Select(u8 taskId);
 
 
 extern const u8 Debug_FlagsNotSetOverworldConfigMessage[];
@@ -442,6 +449,9 @@ static const u8 sDebugText_FlagsVars_SwitchCollision[] =        _("Toggle {STR_V
 static const u8 sDebugText_FlagsVars_SwitchEncounter[] =        _("Toggle {STR_VAR_1}Encounter OFF");
 static const u8 sDebugText_FlagsVars_SwitchTrainerSee[] =       _("Toggle {STR_VAR_1}TrainerSee OFF");
 static const u8 sDebugText_FlagsVars_SwitchQuestLog[] =         _("Toggle {STR_VAR_1}QuestLog OFF");
+
+//str 1 cur cap, str 2 rec lvl, str 3 scroll indicators
+static const u8 sDebugText_LvlCapMenu_CapInfo[] =            _("Curr Cap: {STR_VAR_1}{CLEAR_TEXT_TO 90}\nRec. Lvl: \n{STR_VAR_2}{CLEAR_TEXT_TO 90}\n{STR_VAR_3}");
 
 // Give Menu
 static const u8 sDebugText_Give_GiveItem[] =            _("Give item XYZ…{CLEAR_TEXT_TO 110}{RIGHT_ARROW}");
@@ -775,6 +785,13 @@ static const struct ListMenuTemplate sDebugMenu_ListTemplate_Main =
     .moveCursorFunc = ListMenuDefaultCursorMoveFunc,
     .totalItems = ARRAY_COUNT(sDebugMenu_Items_Main),
 };
+//makes sense to be debug feature but will use this to setup my lvl cap thing
+static const struct ListMenuTemplate sDebugMenu_ListTemplate_LevelCap =
+{
+    .items = sDebugMenu_Items_Main,
+    .moveCursorFunc = ListMenuDefaultCursorMoveFunc,
+    .totalItems = ARRAY_COUNT(sDebugMenu_Items_Main),
+};
 
 static const struct ListMenuTemplate sDebugMenu_ListTemplate_Utilities =
 {
@@ -933,6 +950,27 @@ static void DebugAction_DestroyExtraWindow(u8 taskId)
     RemoveWindow(gTasks[taskId].tSubWindowId);
 
     DestroyListMenuTask(gTasks[taskId].tMenuTaskId, NULL, NULL);
+    DestroyTask(taskId);
+    EnableBothScriptContexts();
+    UnfreezeObjectEvents();
+}
+
+//special clear used for lvlcap setup
+//doesn't come through debug main so twindowId never set
+//caused memory issue think from attempting
+//to free something it shouldn't? 
+static void DebugAction_DestroySpecialWindow(u8 taskId)
+{
+    //ClearStdWindowAndFrame(gTasks[taskId].tWindowId, TRUE);
+    //RemoveWindow(gTasks[taskId].tWindowId);
+
+    ClearStdWindowAndFrame(gTasks[taskId].tSubWindowId, TRUE);
+    RemoveWindow(gTasks[taskId].tSubWindowId);
+    //yeah issue was these remove window specifically
+    //for applying free to value never assigned to
+    //and this trying to use memory address of a value
+    //never assigned
+    //DestroyListMenuTask(gTasks[taskId].tMenuTaskId, NULL, NULL);
     DestroyTask(taskId);
     EnableBothScriptContexts();
     UnfreezeObjectEvents();
@@ -1261,6 +1299,7 @@ static void DebugTask_HandleMenuInput_Give(u8 taskId)
     if (JOY_NEW(A_BUTTON))
     {
         PlaySE(SE_SELECT);
+        //input from main function selects sub function
         if ((func = sDebugMenu_Actions_Give[input]) != NULL)
             func(taskId);
     }
@@ -1973,7 +2012,123 @@ static void DebugAction_FlagsVars_FlagsSelect(u8 taskId)
     }
 }
 
+//works just need populate custom stuff,
+//and add sound effect on A press to set value
+//triggering this from start menu somehow breaks save menu
+//the window doesn't load so something isn't
+//being cleared or something idk heck tomorrow or later
+void Debug_CallLvlCapMenu(void)
+{
+    u8 inputTaskId = CreateTask(0, 3);
+    //gTasks[inputTaskId].func = DebugAction_FlagsVars_Flags;
+    gTasks[inputTaskId].func = DebugAction_DynamicLvlCap;
+}
+
 #define tVarValue  data[5]
+
+//values I need to print
+//Category labels
+//rec. level  curr. cap
+//for the most part works now,
+//just need figure out issue w save screen windows
+static void DebugAction_DynamicLvlCap(u8 taskId)
+{
+    u8 windowId;
+    u8 LvlCap = GetSetLvlCap(); //works can only access when flag set
+    u8 recommendedLvl = GetRecommendedLevel(GetNumBadges());
+
+    //so apparently this was issue and its equivalent in
+    //DebugAction_DestroyExtraWindow
+    //since I came directly here rather than coming through main debug
+    //those values were never set
+    //ClearStdWindowAndFrame(gTasks[taskId].tWindowId, TRUE);
+    //RemoveWindow(gTasks[taskId].tWindowId);
+
+    DismissMapNamePopup();
+    LoadMessageBoxAndBorderGfx();
+    windowId = AddWindow(&sDebugMenuWindowTemplateExtra);
+    DrawStdWindowFrame(windowId, FALSE);
+
+    CopyWindowToVram(windowId, COPYWIN_BOTH);
+
+    // Display initial values
+    ConvertIntToDecimalStringN(gStringVar1, LvlCap, STR_CONV_MODE_LEADING_ZEROS, DEBUG_NUMBER_DIGITS_LVL_CAP);
+    ConvertIntToDecimalStringN(gStringVar2, recommendedLvl, STR_CONV_MODE_LEFT_ALIGN, 3);
+    //if (FlagGet(FLAG_TEMP_1))
+    //    StringCopyPadded(gStringVar2, sDebugText_True, CHAR_SPACE, 15);
+    //else
+    //    StringCopyPadded(gStringVar2, sDebugText_False, CHAR_SPACE, 15);
+    StringCopy(gStringVar3, gText_DigitIndicator[0]);
+    StringExpandPlaceholders(gStringVar4, sDebugText_LvlCapMenu_CapInfo);
+    //go over again think understand what it did
+    //was lil weird but it takes what was 2 strings
+    //makes it into one and then prints that in the expanded strvar4
+    AddTextPrinterParameterized(windowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
+
+    gTasks[taskId].func = DebugAction_DynamicLvlCap_Select;
+    gTasks[taskId].tSubWindowId = windowId;
+    //starting value -replace w dynamic lvl block
+    gTasks[taskId].tInput = LvlCap;
+    //is telling what tens place to increment by at start
+    gTasks[taskId].tDigit = 0;
+}
+
+static void DebugAction_DynamicLvlCap_Select(u8 taskId)
+{
+    {
+        if (JOY_NEW(A_BUTTON))
+        {
+            PlaySE(MUS_LEVEL_UP);            
+            gSaveBlock2Ptr->DynamicLevelCap = gTasks[taskId].tInput;
+            DebugAction_DestroySpecialWindow(taskId);
+            return;
+        }
+        else if (JOY_NEW(B_BUTTON))
+        {
+            PlaySE(SE_SELECT);
+            DebugAction_DestroySpecialWindow(taskId);
+            return;
+        }
+
+        if (JOY_NEW(DPAD_UP))
+        {
+            PlaySE(SE_SELECT);
+            gTasks[taskId].tInput += sPowersOfTen[gTasks[taskId].tDigit];
+            if (gTasks[taskId].tInput >= MAX_LEVEL)
+                gTasks[taskId].tInput = MAX_LEVEL;
+        }
+        if (JOY_NEW(DPAD_DOWN))
+        {
+            PlaySE(SE_SELECT);
+            gTasks[taskId].tInput -= sPowersOfTen[gTasks[taskId].tDigit];
+            if (gTasks[taskId].tInput < 1)
+                gTasks[taskId].tInput = 1;
+        }
+        if (JOY_NEW(DPAD_LEFT))
+        {
+            PlaySE(SE_SELECT);
+            gTasks[taskId].tDigit -= 1;
+            if (gTasks[taskId].tDigit < 0)
+                gTasks[taskId].tDigit = 0;
+        }
+        if (JOY_NEW(DPAD_RIGHT))
+        {
+            PlaySE(SE_SELECT);
+            gTasks[taskId].tDigit += 1;
+            if (gTasks[taskId].tDigit > DEBUG_NUMBER_DIGITS_LVL_CAP - 1)
+                gTasks[taskId].tDigit = DEBUG_NUMBER_DIGITS_LVL_CAP - 1;
+        }
+
+        //update print text
+        if (JOY_NEW(DPAD_ANY))
+        {
+            ConvertIntToDecimalStringN(gStringVar1, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, DEBUG_NUMBER_DIGITS_LVL_CAP);
+            StringCopy(gStringVar3, gText_DigitIndicator[gTasks[taskId].tDigit]);
+            StringExpandPlaceholders(gStringVar4, sDebugText_LvlCapMenu_CapInfo);
+            AddTextPrinterParameterized(gTasks[taskId].tSubWindowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
+        }
+    }
+}
 
 static void DebugAction_FlagsVars_Vars(u8 taskId)
 {

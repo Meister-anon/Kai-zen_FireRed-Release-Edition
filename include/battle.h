@@ -104,34 +104,6 @@
 #define B_FLAG_NO_CATCHING          0     // If this flag is set, the ability to catch wild Pok�mon is disabled.
 
 
-struct TrainerMonNoItemDefaultMoves //pull from 4-12 later
-{
-    u8 iv;
-    u16 evs[6];
-    u8 lvl;
-    u8 abilityNum;
-    u16 species;
-};
-
-struct TrainerMonItemDefaultMoves
-{
-    u8 iv;
-    u16 evs[6];
-    u8 lvl;
-    u8 abilityNum;
-    u16 species;
-    u16 heldItem;
-};
-
-struct TrainerMonNoItemCustomMoves
-{
-    u8 iv;
-    u16 evs[6];
-    u8 lvl;
-    u8 abilityNum;
-    u16 species;
-    u16 moves[4];
-};
 
 /*there isn't really much reason to have more structs than just TrainerMonItemCustomMoves, since I've fixed the move error
 only values needed in selction are lvl and species, everything else can be left empty and can safely default to zero.
@@ -158,59 +130,52 @@ the only used values: 20 30 40 50 60 80 90
 so simple as running a ctrl h for  .iv = existing value,
 then just multiply by 31 and divide by 255, to find the replace value
 */
-struct TrainerMonItemCustomMoves
+struct TrainerMonPartyData
 {
-    u8 iv;
-    u16 evs[6];
-    u8 lvl;
-    u8 abilityNum;
     u16 species;
     u16 heldItem;
+    u8 abilityNum;
+    u8 iv;
+    u16 evs[6];
+    u8 lvl;    
+    u8 padding;
     u16 moves[4];
 };
 
-union TrainerMonPtr
-{
-    const struct TrainerMonNoItemDefaultMoves *NoItemDefaultMoves;
-    const struct TrainerMonNoItemCustomMoves *NoItemCustomMoves;
-    const struct TrainerMonItemDefaultMoves *ItemDefaultMoves;
-    const struct TrainerMonItemCustomMoves *ItemCustomMoves;
-};
 
 struct Trainer
 {
-    /*0x00*/ u8 partyFlags;
+    /*0x00*/ //u8 partyFlags; //since unifying trainer party struct don't need flags
+    /*0x00*/ u8 battleType; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
     /*0x01*/ u8 trainerClass;
     /*0x02*/ u8 encounterMusic_gender; // last bit is gender
     /*0x03*/ u8 trainerPic;
     /*0x04*/ u8 trainerName[12];
              //const u8 *trainerName;  not implemented but idea for space saving from Josh, use to take place of text strings that get reused i.e rematches or same name ex rocket GRUNT
     /*0x10*/ u16 items[4];  //don't use 12 for above, I think?  can make limiter in compount string define
-    /*0x18*/ u8 battleType; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
     /*0x1C*/ u32 aiFlags;
+    /*0x18*/ u8 padding; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
     /*0x20*/ u8 partySize;
-    /*0x24*/ const union TrainerMonPtr party;
-};
+    /*0x24*/ const struct TrainerMonPartyData *party;
+};//unsure what this should be exactly pointer or no?
 
 extern const struct Trainer gTrainers[];
 
 #define SINGLES      0  //needed rename include was causing issues
 #define DOUBLE        1 //relized this was used as 1 for double value in trainers.h because it lined up with BATTLE_TYPE_DOUBLE for gbattletypeflags, its the actual value, 0 is no flags so just default single I guess
 
-struct ResourceFlags
-{
-    u32 flags[MAX_BATTLERS_COUNT];
-};
-//don't yet know if better than putting in disable structs
-//putting there removes need to clear I guess
-//both take up ewram
 
-#define RESOURCE_FLAG_FLASH_FIRE     (1 << 0)
-#define RESOURCE_FLAG_ROOST          (1 << 1)
-#define RESOURCE_FLAG_UNBURDEN       (1 << 2)
-#define RESOURCE_FLAG_EMERGENCY_EXIT (1 << 3)  //check how this used will prob do it differently for my implementation
-#define RESOURCE_FLAG_NEUTRALIZING_GAS (1 << 4) //allows for 32 flag options 0 - 31 - EE appears to replace with disable struct values
-#define RESOURCE_FLAG_IMMUTABLE_WIND (1 << 5)
+
+//removed resource flag use, saves ewram
+//was able to fit into disable struct
+//will need to add on to struct later tho
+//for more EE port
+/*#define RESOURCE_FLAG_FLASH_FIRE     1
+#define RESOURCE_FLAG_ROOST          2
+#define RESOURCE_FLAG_UNBURDEN       4
+#define RESOURCE_FLAG_EMERGENCY_EXIT 8  //check how this used will prob do it differently for my implementation
+#define RESOURCE_FLAG_NEUTRALIZING_GAS 16 //works by doubling previous
+*/
 
 //vsonic important remmber bit fields can store max 2^bit value
 //ex bit 3  :3 is 2^3 = 8 can store 8 values between 0-7
@@ -219,7 +184,6 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     /*0x00*/ //u32 transformedMonPersonality; //src of gTransformedPersonalities
     /*0x04*/ u16 disabledMove;
     /*0x06*/ u16 encoredMove;
-    /*0x08*/ u8 protectUses;
     u16 transformedViaAbility; //story ability if used ability to transform, for properly showing shininess of sprite
     s8 stockpileDef;    //vsonic still to setup
     s8 stockpileSpDef;
@@ -231,10 +195,11 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     /*0x0E*/ u8 encoredMovePos;
     /*0x0F*/ u8 perishSongTimer : 4;
              u8 tauntTimer : 4;
-    /*0x10*/ u8 furyCutterCounter;  //apparently still need for anim task in anim_effects_2  //for some reason task is broken not switching hits
-             u16 furyCutterAccDrop; //need for acc drop to keep value 
     /*0x11*/ u8 rolloutTimer : 4;
     /*0x11*/ u8 rolloutTimerStartValue : 4; //this one is relevant as its used to decide the animation/power, tell it how many turns have elapsed
+    /*0x10*/ u8 furyCutterCounter;  //apparently still need for anim task in anim_effects_2  //for some reason task is broken not switching hits
+             u16 furyCutterAccDrop; //need for acc drop to keep value 
+    
     /*0x13*/ 
     /*0x14*/ u8 battlerPreventingEscape;
     /*0x15*/ u8 battlerWithSureHit;
@@ -276,6 +241,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 thundercageTurns;
     u8 environmentTrapTurns;   //turn counter for environment traps fire spin whirlpool sandtomb magma storm
     u8 bideTimer;
+    u8 protectUses; //had to move for allgnment vsonic
     u8 bindMovepos; //stored pos of bind move   //double check I'm actually using
     u16 bindedMove; //move bind locks you to
     u8 inthralled;
@@ -288,6 +254,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 ConfusionTurns:3; //if correct above should be 3 turns
     u8 sturdyhungon:1; //to surivive full hp ko effect one time /destiny bond, explosion, perish song, final gambit etc.
     u8 trappedinStickyweb:1; //needed trigger for mon trapped in sticky web and can't switch
+    
     u8 rechargeTimer:1; //would use 1, just need change decrement condition
     u8 uproarTurns:2;   //2-5 turns //updated effect is 3 turns
     u8 rampageMoveTurns:2; //for replace lock confuse turns, is how long rampge move last, should be 2-3 turns?
@@ -297,8 +264,16 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 hasSwitchinActivated; //use for switch in end turn check //rn just for zacian zamazenta effetcts, triggered on switch in activate/end in endturn
     u8 timecontrolAbilityTimer:2; //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
     u8 TrapSetViaMoldBreaker:1;
+    u8 EmergencyExitWimpoutActive:1; //replace use of RESOURCE_FLAG_EMERGENCY_EXIT //facepalm I never actually replaced this
+    u8 flashFireBoosted:1; //
+    u8 unburdenActive:1; //replace resource flag
+    u8 neutralizingGas:1; //used for battler with effect so think also need for immutable wind even if is clone different enough
+    //this throws off by 1 creates 1 byte paddspace
+    u8 immutableWind:1;
     u8 AscensionTimer:2; //time for flying types to recover from smack down 3 turns
     u8 DragonrageCounter:3; //set to max at 5 increase when gets hit make dragon rage move effect & status set in end turn
+    u8 futureValues:2;
+    u8 paddSpace:8;
     //u8 RoostTimerStartValue;  //remove for now until I get 
     /*0x1A*/ u8 unk1A[2]; //don't think this is used
 }; //think I may not actually need roost start value, long as I have timer
@@ -306,6 +281,8 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
 //if I don't have proper padding it won't be faster/save space, and could actually slow it down instead
 //vsonic
 
+//largest value is u16 so think struct
+//alligns to 2?
 extern struct DisableStruct gDisableStructs[MAX_BATTLERS_COUNT];
 
 // gets cleared at end turn, via TurnValuesCleanUp function
@@ -416,7 +393,7 @@ struct SpecialStatus
 
     u8 dancerUsedMove : 1;
     u8 dancerOriginalTarget : 3; //original target of user to execute chosen move after ability ends
-    u8 announceNeutralizingGas : 1;   // See Cmd_switchineffects
+    u8 immutableWindRemoved : 1;   // See Cmd_switchineffects - not used in EE
     u8 neutralizingGasRemoved : 1;    // See VARIOUS_TRY_END_NEUTRALIZING_GAS
     u8 stenchRemoved : 1;    // Set as VARIOUS_TRY_END_STENCH  both exclusive to gastro acid?
     u8 Lostresolve:1; //for ability -tweaked as for pressure and iron will, moved here as realize makes more sense as special status
@@ -658,8 +635,8 @@ struct StatsArray
 
 struct BattleResources
 {
-    struct SecretBaseRecord *secretBase;
-    struct ResourceFlags *flags;
+    //struct SecretBaseRecord *secretBase;
+    //struct ResourceFlags *flags;
     struct BattleScriptsStack *battleScriptsStack;
     struct BattleCallbacksStack *battleCallbackStack;
     struct StatsArray *beforeLvlUp;
@@ -1317,7 +1294,7 @@ extern u16 gLastUsedMove;
 extern u8 gCurrentTurnActionNumber;
 extern struct BattleResources *gBattleResources;
 extern u16 gExpShareExp;
-extern u8 gLeveledUpInBattle;
+extern u8 gParticipatedInBattle; //replaced gLeveledUpInBattle for evo rework
 extern u16 gLastResultingMoves[MAX_BATTLERS_COUNT];
 extern u16 gLastPrintedMoves[MAX_BATTLERS_COUNT];
 extern u8 gActionsByTurnOrder[MAX_BATTLERS_COUNT];

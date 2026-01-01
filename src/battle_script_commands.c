@@ -3026,7 +3026,8 @@ void StealTargetItem(u8 battlerStealer, u8 itemBattler)
             MarkBattlerForControllerExec(itemBattler);
             */
 
-            gBattleResources->flags->flags[battlerStealer] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
+            //this means lose unburden boost as you're gaining an item
+            gDisableStructs[battlerStealer].unburdenActive = FALSE;
             TrySaveExchangedItem(itemBattler, gLastUsedItem); //if player loses item it tries to save it
 
         }
@@ -3045,7 +3046,8 @@ void StealTargetItem(u8 battlerStealer, u8 itemBattler)
             MarkBattlerForControllerExec(itemBattler);
             */
 
-            gBattleResources->flags->flags[battlerStealer] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
+            //this means lose unburden boost as you're gaining an item
+            gDisableStructs[battlerStealer].unburdenActive = FALSE;
             TrySaveExchangedItem(itemBattler, gLastUsedItem); //if player loses item it tries to save it
 
         }
@@ -3066,7 +3068,8 @@ void StealTargetItem(u8 battlerStealer, u8 itemBattler)
             MarkBattlerForControllerExec(itemBattler);
             */
 
-            gBattleResources->flags->flags[battlerStealer] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
+            //this means lose unburden boost as you're gaining an item
+            gDisableStructs[battlerStealer].unburdenActive = FALSE;
             TrySaveExchangedItem(itemBattler, gLastUsedItem); //if player loses item it tries to save it
 
         }
@@ -4922,7 +4925,8 @@ static u32 GetMonHoldEffect(struct Pokemon *mon)
 }
 
 
-//vsonic replace w my function think
+//vsonic replace w my function think yeah bunch of stuff
+//will have to adjust for my stuff
 static void Cmd_getexp(void)
 {
     CMD_ARGS(u8 battler);
@@ -5033,25 +5037,48 @@ static void Cmd_getexp(void)
     case 2: // set exp value to the poke in expgetter_id and print message
         if (gBattleControllerExecFlags == 0)
         {
-            bool32 wasSentOut = (gBattleStruct->expSentInMons & (1u << *expMonId)) != 0;
+            bool32 (wasSentOut) = (gBattleStruct->expSentInMons & (1u << *expMonId)) != 0;
             holdEffect = GetMonHoldEffect(&gPlayerParty[*expMonId]);
-
-            if ((holdEffect != HOLD_EFFECT_EXP_SHARE && !wasSentOut && !IsGen6ExpShareEnabled())
-             || GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPECIES_OR_EGG) == SPECIES_EGG)
+            //need identify and set specific case for exp null, for that,
+            //block exp skip most logic but still set evs and friendship increase
+            //if they were sent in
+            //belive translates to, if not sent in and not holding exp share,
+            //so what I need is, if sent in, but holding exp null
+            //this is no exp share and not sent in
+            if ((GetMonData(&gPlayerParty[*expMonId], MON_DATA_EXP_SHARE_STATE) != EXP_SHARE) && !(wasSentOut))
             {
                 gBattleScripting.getexpState = 5;
                 gBattleStruct->battlerExpReward = 0;
             }
+            //separate for no friendship gain only for those that want to use frustration over return? check friendship logic may be irrelevant if 
             else if ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && *expMonId >= 3)
-                  || GetMonData(&gPlayerParty[*expMonId], MON_DATA_LEVEL) == MAX_LEVEL)
+                  || GetMonData(&gPlayerParty[*expMonId], MON_DATA_LEVEL) == MAX_LEVEL)//I setup general just be in battle friendship gain
             {
-                gBattleScripting.getexpState = 5;
-                gBattleStruct->battlerExpReward = 0;
-                if (B_MAX_LEVEL_EV_GAINS >= GEN_5)
-                    MonGainEVs(&gPlayerParty[*expMonId], gBattleMons[gBattlerFainted].species);
-            }
+                if (wasSentOut)
+                    gParticipatedInBattle |= (1u << gBattleStruct->expGetterMonId);
+                
+                *(&gBattleStruct->sentInPokes) >>= 1;
+                gBattleScripting.getexpState = 5;  //commented out to remove the jump to case 5. should allow for ev gain at max level
+                gBattleStruct->battlerExpReward = 0; // used for exp // confirmed from Lunos, apparently the case jump only happens after everything in the code block is run so he added the evgain function here and it ran even though it was below the case jump
+                MonGainEVs(&gPlayerParty[*expMonId]);// his method works but not sure if stats will change since think that's in case 3,  so I'm removing the jump and putting ev gain to here.
+            } //vsonic
+            else if (GetMonData(&gPlayerParty[*expMonId], MON_DATA_EXP_SHARE_STATE) == EXP_NULL
+            || (GetMonData(&gPlayerParty[*expMonId], MON_DATA_LEVEL) == GetSetLvlCap()))
+            {
+                if (wasSentOut)
+                    gParticipatedInBattle |= (1u << gBattleStruct->expGetterMonId);
+
+                *(&gBattleStruct->sentInPokes) >>= 1;
+                gBattleScripting.getexpState = 5;  //commented out to remove the jump to case 5. should allow for ev gain at max level
+                gBattleStruct->battlerExpReward = 0; // used for exp // confirmed from Lunos, apparently the case jump only happens after everything in the code block is run so he added the evgain function here and it ran even though it was below the case jump
+                MonGainEVs(&gPlayerParty[*expMonId]);// his method works but not sure if stats will change since think that's in case 3,  so I'm removing the jump and putting ev gain to here.
+                AdjustFriendship(&gPlayerParty[*expMonId], FRIENDSHIP_EVENT_EXP_GAINED); //
+            } //hopefully this works without issue
             else
             {
+                if (wasSentOut)
+                    gParticipatedInBattle |= (1u << gBattleStruct->expGetterMonId);
+                
                 // Music change in a wild battle after fainting opposing pokemon.
                 if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER)
                     && (gBattleMons[0].hp || (IsDoubleBattle() && gBattleMons[2].hp))
@@ -5066,7 +5093,7 @@ static void Cmd_getexp(void)
 
                 if (IsValidForBattle(&gPlayerParty[*expMonId]))
                 {
-                    if (wasSentOut)
+                    if ((wasSentOut))
                         gBattleStruct->battlerExpReward = GetSoftLevelCapExpValue(gPlayerParty[*expMonId].level, gBattleStruct->expValue);
                     else
                         gBattleStruct->battlerExpReward = 0;
@@ -5124,7 +5151,7 @@ static void Cmd_getexp(void)
                     PREPARE_STRING_BUFFER(gBattleTextBuff2, i);
                     PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff3, 6, gBattleStruct->battlerExpReward);
 
-                    if (wasSentOut || holdEffect == HOLD_EFFECT_EXP_SHARE)
+                    if ((wasSentOut) || holdEffect == HOLD_EFFECT_EXP_SHARE)
                     {
                         PrepareStringBattle(STRINGID_PKMNGAINEDEXP, gBattleStruct->expGetterBattlerId);
                     }
@@ -5169,9 +5196,46 @@ static void Cmd_getexp(void)
             u32 expBattler = gBattleStruct->expGetterBattlerId;
             if (gBattleResources->bufferB[expBattler][0] == CONTROLLER_TWORETURNVALUES && gBattleResources->bufferB[expBattler][1] == RET_VALUE_LEVELED_UP)
             {
-                u16 temp, battler = 0xFF;
-                if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && gBattlerPartyIndexes[expBattler] == *expMonId)
-                    HandleLowHpMusicChange(GetBattlerMon(expBattler), expBattler);
+                u16 temp, battlerId = 0xFF;
+                //in single believe gBattleStruct->expGetterBattlerId; will always be 0 or 2", and 0 is player battler
+                if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && gBattlerPartyIndexes[expBattler] == gBattleStruct->expGetterMonId)
+                    HandleLowHpMusicChange(&gPlayerParty[gBattlerPartyIndexes[expBattler]], expBattler);
+                PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, expBattler, gBattleStruct->expGetterMonId);
+                PREPARE_BYTE_NUMBER_BUFFER(gBattleTextBuff2, 3, GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL));
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_LevelUp;
+                gBattleMoveDamage = (gBattleResources->bufferB[expBattler][2] | (gBattleResources->bufferB[expBattler][3] << 8));
+                AdjustFriendship(&gPlayerParty[gBattleStruct->expGetterMonId], FRIENDSHIP_EVENT_GROW_LEVEL);
+                // update battle mon structure after level up
+                //according to bulbapedia transformed stats are only recalced on levelup up to gen3
+                //so I should probably add a value here to exclude transformed mon
+                if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId && gBattleMons[0].hp
+                && !gBattleMons[0].status2 & STATUS2_TRANSFORMED)
+                {
+                    gBattleMons[0].level = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL);
+                    gBattleMons[0].hp = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP);
+                    gBattleMons[0].maxHP = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_MAX_HP);
+                    gBattleMons[0].attack = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_ATK);
+                    gBattleMons[0].defense = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_DEF);
+                    // Why is this duplicated?
+                    //gBattleMons[0].speed = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED);
+                    gBattleMons[0].speed = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED);
+                    gBattleMons[0].spAttack = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPATK);
+                    gBattleMons[0].spDefense = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF);
+                }
+                // What is else if?     fixed speed dup, & sp def exclusion
+                if (gBattlerPartyIndexes[2] == gBattleStruct->expGetterMonId && gBattleMons[2].hp 
+                && !gBattleMons[2].status2 & STATUS2_TRANSFORMED && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
+                {
+                    gBattleMons[2].level = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL);
+                    gBattleMons[2].hp = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP);
+                    gBattleMons[2].maxHP = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_MAX_HP);
+                    gBattleMons[2].attack = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_ATK);
+                    gBattleMons[2].defense = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_DEF);
+                    // Duplicated again, but this time there's no Sp Defense
+                    gBattleMons[2].speed = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED);
+                    gBattleMons[2].spDefense = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF);
+                    gBattleMons[2].spAttack = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPATK);
 
                 PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, expBattler, *expMonId);
                 PREPARE_BYTE_NUMBER_BUFFER(gBattleTextBuff2, 3, GetMonData(&gPlayerParty[*expMonId], MON_DATA_LEVEL));
@@ -5180,7 +5244,7 @@ static void Cmd_getexp(void)
                 BattleScriptCall(BattleScript_LevelUp);
                 gBattleStruct->battlerExpReward = T1_READ_32(&gBattleResources->bufferB[expBattler][2]);
                 AdjustFriendship(&gPlayerParty[*expMonId], FRIENDSHIP_EVENT_GROW_LEVEL);
-
+                }
                 // update battle mon structure after level up
                 if (gBattlerPartyIndexes[0] == *expMonId && gBattleMons[0].hp)
                     battler = 0;
@@ -5241,6 +5305,7 @@ static void Cmd_getexp(void)
         break;
     }
 }
+
 
 static u32 CountAliveMonsForBattlerSide(u32 battler)
 {
@@ -7813,6 +7878,48 @@ static void Cmd_moveend(void)
                 }
             }
             gBattleScripting.moveendState++;
+            break;
+        case MOVEEND_EMERGENCY_EXIT:
+                //last condition should if target not fainted or enemy has more mon in party
+                //using special status this never triggered because status was alraedy cleared for wimpout
+                if ((gDisableStructs[gBattlerAttacker].EmergencyExitWimpoutActive
+                || gSpecialStatuses[gBattlerAttacker].EmergencyExit)
+                && (!(gHitMarker & HITMARKER_FAINTED(gBattlerTarget)) || CountUsablePartyMons(gBattlerTarget) > 0)
+                && gMultiHitCounter == 0) //to prevent switchout before multihit move ends
+                {
+                    gDisableStructs[gBattlerAttacker].EmergencyExitWimpoutActive = FALSE;
+                    
+                    //needed this part to prevent repeat switchout
+                    gSpecialStatuses[gBattlerAttacker].EmergencyExit = FALSE;
+                    
+                    if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER || GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
+                    && CountUsablePartyMons(gBattlerAttacker) > 0
+                    && (CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, gBattlerAttacker) || CountUsablePartyMons(gBattlerTarget) > 0)) //believe this causes to skip to next case
+                    {
+                    /*#if B_ABILITY_POP_UP == TRUE
+                        gBattlescriptCurrInstr = BattleScript_EmergencyExit;
+                    #else*/
+                        BattleScriptPushCursor();
+                        gBattlescriptCurrInstr = BattleScript_EmergencyExitNoPopUp;
+                        effect = TRUE;
+                        return;
+                    //#endif
+                    }
+                    else if ((CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, gBattlerAttacker) || CountUsablePartyMons(gBattlerTarget) > 0)
+                    && (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER)))
+                    {
+                    /*#if B_ABILITY_POP_UP == TRUE
+                        gBattlescriptCurrInstr = BattleScript_EmergencyExitWild;
+                    #else*/
+                        BattleScriptPushCursor();
+                        gBattlescriptCurrInstr = BattleScript_EmergencyExitWildNoPopUp;
+                        effect = TRUE;
+                        return;
+                    //#endif
+                    }
+                    
+                }
+            ++gBattleScripting.atk49_state;
             break;
         case MOVEEND_PURSUIT_NEXT_ACTION:
             if (gBattleStruct->battlerState[gBattlerTarget].pursuitTarget)

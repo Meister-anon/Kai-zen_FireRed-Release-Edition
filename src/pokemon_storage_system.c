@@ -151,7 +151,8 @@ void BoxMonAtGainExp(struct BoxPokemon * mon, u16 species, u32 currExperience)
     //level set byitself so apparently don't need this, ro to set level
     //meaning wouldn't need applyoakranchexperience function
 
-
+    //handles scaling for how amount of exp is generated
+    //not caps for if it should give exp that's canboxmongainexp
     if (currExperience < gExperienceTables[gBaseStats[species].growthRate][MAX_LEVEL])
     {
         if (currExperience <= gExperienceTables[gBaseStats[species].growthRate][11]) //test see if change works in sub of a wrap around, should make increase 1 for every 30 steps

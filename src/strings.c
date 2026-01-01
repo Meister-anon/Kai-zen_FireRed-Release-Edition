@@ -248,6 +248,8 @@ const u8 gText_Shift[] = _("SHIFT");
 const u8 gText_SendOut[] = _("SEND OUT");
 const u8 gText_Switch2[] = _("SWITCH");
 const u8 gText_Summary5[] = _("SUMMARY");
+const u8 gText_EvoState_On[] = _("EVO ON");//_("DENY EVO");
+const u8 gText_EvoState_Off[] = _("EVO OFF");//_("ALLOW EVO");
 const u8 gUnknown_841699C[] = _("つかえるわざ");
 const u8 gText_Enter[] = _("ENTER");
 const u8 gText_NoEntry[] = _("NO ENTRY");
@@ -401,6 +403,7 @@ const u8 gText_NoMoreRoomInBag[] = _("There is no more\nroom in the BAG.");
 const u8 gText_WithdrawHowMany[] = _("Withdraw how many\n{STR_VAR_1}(s)?");
 const u8 gText_WithdrewQuantItem[] = _("Withdrew {STR_VAR_2}\n{STR_VAR_1}(s).");
 const u8 gText_MonPickedUpItem[] = _("{STR_VAR_2} picked up\na {STR_VAR_1}.{PAUSE 0x50}");
+const u8 gText_MonPickedUpItemFailed[] = _("{STR_VAR_2} picked up\na {STR_VAR_1}, but {PLAYER} didn't have space.{PAUSE 0x50}");
 const u8 gText_MonGatheredHoney[] = _("{STR_VAR_2} picked up\nsome {STR_VAR_1}.{PAUSE 0x50}");
 const u8 gText_RockSmashFoundItem[] = _("After the dust cleared,\na {STR_VAR_1} was found!{PAUSE_UNTIL_PRESS}");
 const u8 gOtherText_Read[] = _("READ");
@@ -917,6 +920,7 @@ const u8 gText_BattleSpeed[] = _("BATTLE SPEED");
 const u8 gText_BattleTextSpeed[] =_("BATTLE TEXT SPEED");
 const u8 gText_DisplayTypeEffect[] = _("SHOW TYPE EFFECT.");
 const u8 gText_NuzlockeMode[] = _("NUZLOCKE MODE");
+const u8 gText_LevelCap[] = _("LEVEL CAP");
 
 //battle speed options
 const u8 gText_BattleSpeed1x[] = _("1x");

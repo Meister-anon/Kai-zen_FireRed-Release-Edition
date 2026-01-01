@@ -5743,9 +5743,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_PSYCH_UP] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_5
-            #else
-            #endif
         .effect = EFFECT_PSYCH_UP,
         .power = 0,
         .type = TYPE_NORMAL,

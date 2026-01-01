@@ -670,7 +670,8 @@ struct SaveBlock2
               u16 padding:2; //moved battle speedup as increased speed options
               u16 optionsEventSpeedup:1;
               u16 optionsNuzlockeMode:1;
-    /*0x016*/ u16 NewPlaceholder:9;
+              u16 DynamicLevelCap:7;    //128 options player can set
+    /*0x016*/ u16 NewPlaceholder:2;
               u16 optionsBattleTextSpeed:3; //reaized practically necessary w speed up, can speed up battle but lower battle text speed so can read better
               u16 optionsBattleSpeed:3; //for pokabbie setup navie battle speed up should be 6 options for 1-6x at bit 3 has enough options for x8
               u16 optionsDisplayTypeEffect:1;//could increase speed further? (did using 8x) all safety buffers are already in place, can just lower text speed to balance as needed
@@ -703,7 +704,9 @@ struct SecretBaseParty
     u16 heldItems[PARTY_SIZE];
     u8 levels[PARTY_SIZE];
     u16 evs[PARTY_SIZE];
-};
+};//dont want to use secret base trainers fights
+//at most would want as persona style safe rooms
+//for healing potentially time passing
 
 struct SecretBaseRecord
 {
@@ -722,6 +725,10 @@ struct SecretBaseRecord
     /*0x1ABE*/ u8 decorationPos[16];
     /*0x1AD0*/ struct SecretBaseParty party;
 };
+//since my version of secret base's wouldn't be
+//static idk how what I would need decorations for
+//could make decorations into upgrades you buy
+//which would be added to all secret bases? 
 
 struct WarpData
 {

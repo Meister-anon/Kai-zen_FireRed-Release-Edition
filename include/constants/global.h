@@ -92,12 +92,17 @@
 #define GAME_LANGUAGE (LANGUAGE_ENGLISH)
 #endif
 
-#define PC_ITEMS_COUNT      30
+//been adding tms still has good ewram space so 
+//attempt expand values for berry pouch
+//and pc items - expanding didnt take much room
+//so gonna take on more for pc
+//since doesnt have pouches
+#define PC_ITEMS_COUNT      65 //30
 #define BAG_ITEMS_COUNT     52
 #define BAG_KEYITEMS_COUNT  50
 #define BAG_POKEBALLS_COUNT 13  //double check how many poke ball types i have
 #define BAG_TMHM_COUNT      NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES //168 rn //Value from NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES  also couunt from sTMHMMoves
-#define BAG_BERRIES_COUNT   23 
+#define BAG_BERRIES_COUNT   46 //23
 #define MAX_REMATCH_ENTRIES 100
 #define OBJECT_EVENT_TEMPLATES_COUNT 64
 

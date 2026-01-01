@@ -684,6 +684,18 @@ static const struct WindowTemplate sEggHatchYesNoWindowTemplate =
     .baseBlock = 0x373,
 };
 
+//evo state - can share block mutually exclusive never used together
+static const struct WindowTemplate sEvoStateSelectWindowTemplate =
+{
+    .bg = 2,
+    .tilemapLeft = 22,
+    .tilemapTop = 13,
+    .width = 7,
+    .height = 6,
+    .paletteNum = 14,
+    .baseBlock = 0x373,
+};
+
 static const struct WindowTemplate sMoveSelectWindowTemplate =
 {
     .bg = 2,
@@ -857,16 +869,18 @@ static const u8 *const sActionStringTable[] =
     [PARTY_MSG_MONS_CANT_BE_SAME]      = gText_PokemonCantBeSame,
     [PARTY_MSG_NO_SAME_HOLD_ITEMS]     = gText_NoIdenticalHoldItems,
     [PARTY_MSG_UNUSED]                 = gString_Dummy,
-    [PARTY_MSG_DO_WHAT_WITH_MON]       = gText_DoWhatWithPokemon,
+    [PARTY_MSG_DO_WHAT_WITH_MON]       = gText_DoWhatWithPokemon,//approx max space est. 20 char
     [PARTY_MSG_RESTORE_WHICH_MOVE]     = gText_RestoreWhichMove,
     [PARTY_MSG_BOOST_PP_WHICH_MOVE]    = gText_BoostPp,
     [PARTY_MSG_DO_WHAT_WITH_ITEM]      = gText_DoWhatWithItem,
     [PARTY_MSG_DO_WHAT_WITH_MAIL]      = gText_DoWhatWithMail,
     [PARTY_MSG_HATCH_THIS_EGG]         = COMPOUND_STRING("Hatch this Egg?"),
+    [PARTY_MSG_ALLOW_TO_EVOLVE]        = COMPOUND_STRING("Should POKéMON Evolve?"),
 };
 //think compound string here may be the issue?
 //nope maybe it was the table order vs string order instead?
 //*faecpalm yeah that was it, it worked off order in this array not just string order
+//and returning compoundingstring I think was issue since its not static memory space
 
 static const u8 *const sDescriptionStringTable[] =
 {
@@ -1355,6 +1369,9 @@ enum
     MENU_CANCEL1,
     MENU_ITEM,
     MENU_HATCH,
+    //display toggleable evo state only if mon has evolutions
+    //change which displayed based on mon evo state
+    MENU_EVO_STATE,
     MENU_GIVE,
     MENU_TAKE_ITEM,
     MENU_MAIL,
@@ -1370,6 +1387,8 @@ enum
     MENU_TRADE1,
     MENU_TRADE2,
     MENU_YES_HATCH,
+    MENU_EVOSTATE_YES,
+    MENU_EVOSTATE_NO,
     MENU_FIELD_MOVES,
 };
 //menu item and now hatch
@@ -1388,6 +1407,7 @@ static struct
     [MENU_CANCEL1] = {MENU_CANCEL1, CursorCB_Cancel1},
     [MENU_ITEM] = {MENU_ITEM, CursorCB_Item},
     [MENU_HATCH] = {MENU_HATCH, CursorCB_Hatch},
+    [MENU_EVO_STATE] = {MENU_EVO_STATE, CursorCB_EvoState}, //update
     [MENU_GIVE] = {MENU_GIVE, CursorCB_Give},
     [MENU_TAKE_ITEM] = {MENU_TAKE_ITEM, CursorCB_TakeItem},
     [MENU_MAIL] = {MENU_MAIL, CursorCB_Mail},
@@ -1403,6 +1423,8 @@ static struct
     [MENU_TRADE1] = {MENU_TRADE1, CursorCB_Trade1},
     [MENU_TRADE2] = {MENU_TRADE2, CursorCB_Trade2},
     [MENU_YES_HATCH] = {MENU_YES_HATCH, CursorCB_BeginHatch},
+    [MENU_EVOSTATE_YES] = {MENU_EVOSTATE_YES, CursorCB_SetEvoStateFalse}, //allow evo
+    [MENU_EVOSTATE_NO] = {MENU_EVOSTATE_NO, CursorCB_SetEvoStateTrue},  //deny evo
     [MENU_FIELD_MOVES + FIELD_MOVE_CUT] = {(MENU_FIELD_MOVES + FIELD_MOVE_CUT), CursorCB_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_FLY] = {(MENU_FIELD_MOVES + FIELD_MOVE_FLY), CursorCB_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_SURF] = {(MENU_FIELD_MOVES + FIELD_MOVE_SURF), CursorCB_FieldMove},
@@ -1424,19 +1446,23 @@ static struct
 //best to just do with a clock or item, could take item from
 //unicorn overlord dream blossom? meaan to shift 12 hours
 
-static const u8 sPartyMenuAction_SummarySwitchCancel[] = {MENU_SUMMARY, MENU_SWITCH, MENU_CANCEL1};
-static const u8 sPartyMenuAction_ShiftSummaryCancel[] = {MENU_SHIFT, MENU_SUMMARY, MENU_CANCEL1};
+static const u8 sPartyMenuAction_SummarySwitchCancel[]  = {MENU_SUMMARY, MENU_SWITCH, MENU_CANCEL1};
+static const u8 sPartyMenuAction_ShiftSummaryCancel[]   = {MENU_SHIFT, MENU_SUMMARY, MENU_CANCEL1};
+static const u8 sPartyMenuAction_ShiftSummaryEvoCancel[]   = {MENU_SHIFT, MENU_SUMMARY, MENU_EVO_STATE, MENU_CANCEL1};
 static const u8 sPartyMenuAction_SendOutSummaryCancel[] = {MENU_SEND_OUT, MENU_SUMMARY, MENU_CANCEL1};
-static const u8 sPartyMenuAction_SummaryCancel[] = {MENU_SUMMARY, MENU_CANCEL1};
-static const u8 sPartyMenuAction_EnterSummaryCancel[] = {MENU_ENTER, MENU_SUMMARY, MENU_CANCEL1};
+static const u8 sPartyMenuAction_SendOutSummaryEvoCancel[] = {MENU_SEND_OUT, MENU_SUMMARY, MENU_EVO_STATE, MENU_CANCEL1};
+static const u8 sPartyMenuAction_SummaryCancel[]        = {MENU_SUMMARY, MENU_CANCEL1};
+static const u8 sPartyMenuAction_SummaryEvoCancel[]        = {MENU_SUMMARY, MENU_EVO_STATE, MENU_CANCEL1};
+static const u8 sPartyMenuAction_EnterSummaryCancel[]   = {MENU_ENTER, MENU_SUMMARY, MENU_CANCEL1};
 static const u8 sPartyMenuAction_NoEntrySummaryCancel[] = {MENU_NO_ENTRY, MENU_SUMMARY, MENU_CANCEL1};
-static const u8 sPartyMenuAction_StoreSummaryCancel[] = {MENU_STORE, MENU_SUMMARY, MENU_CANCEL1};
-static const u8 sPartyMenuAction_GiveTakeItemCancel[] = {MENU_GIVE, MENU_TAKE_ITEM, MENU_CANCEL2};
-static const u8 sPartyMenuAction_ReadTakeMailCancel[] = {MENU_READ, MENU_TAKE_MAIL, MENU_CANCEL2};
+static const u8 sPartyMenuAction_StoreSummaryCancel[]   = {MENU_STORE, MENU_SUMMARY, MENU_CANCEL1};
+static const u8 sPartyMenuAction_GiveTakeItemCancel[]   = {MENU_GIVE, MENU_TAKE_ITEM, MENU_CANCEL2};
+static const u8 sPartyMenuAction_ReadTakeMailCancel[]   = {MENU_READ, MENU_TAKE_MAIL, MENU_CANCEL2};
 static const u8 sPartyMenuAction_RegisterSummaryCancel[] = {MENU_REGISTER, MENU_SUMMARY, MENU_CANCEL1};
-static const u8 sPartyMenuAction_ConfirmHatchYesNo[] = {MENU_YES_HATCH, MENU_CANCEL1};
-static const u8 sPartyMenuAction_TradeSummaryCancel1[] = {MENU_TRADE1, MENU_SUMMARY, MENU_CANCEL1};
-static const u8 sPartyMenuAction_TradeSummaryCancel2[] = {MENU_TRADE2, MENU_SUMMARY, MENU_CANCEL1};
+static const u8 sPartyMenuAction_ConfirmHatchYesNo[]    = {MENU_YES_HATCH, MENU_CANCEL1};
+static const u8 sPartyMenuAction_AssignEvoState[]       = {MENU_EVOSTATE_YES, MENU_EVOSTATE_NO, MENU_CANCEL1};
+static const u8 sPartyMenuAction_TradeSummaryCancel1[]  = {MENU_TRADE1, MENU_SUMMARY, MENU_CANCEL1};
+static const u8 sPartyMenuAction_TradeSummaryCancel2[]  = {MENU_TRADE2, MENU_SUMMARY, MENU_CANCEL1};
 //think I need to only remove mail, because other options have other places they could be used besides union room
 
 // IDs for the action lists that appear when a party mon is selected
@@ -1446,12 +1472,16 @@ enum
     ACTIONS_SWITCH,
     ACTIONS_SHIFT,
     ACTIONS_SEND_OUT,
+    ACTIONS_SHIFT_EVO,
+    ACTIONS_SEND_OUT_EVO,
     ACTIONS_ENTER,
     ACTIONS_NO_ENTRY,
     ACTIONS_STORE,
     ACTIONS_SUMMARY_ONLY,
+    ACTIONS_SUMMARY_EVO_ONLY,
     ACTIONS_ITEM,
     ACTIONS_HATCH,
+    ACTIONS_SET_EVO_STATE,
     ACTIONS_MAIL,
     ACTIONS_REGISTER,
     ACTIONS_TRADE,
@@ -1460,38 +1490,48 @@ enum
 
 static const u8 *const sPartyMenuActions[] =
 {
-    [ACTIONS_NONE]          = NULL,
-    [ACTIONS_SWITCH]        = sPartyMenuAction_SummarySwitchCancel,
-    [ACTIONS_SHIFT]         = sPartyMenuAction_ShiftSummaryCancel,
-    [ACTIONS_SEND_OUT]      = sPartyMenuAction_SendOutSummaryCancel,
-    [ACTIONS_ENTER]         = sPartyMenuAction_EnterSummaryCancel,
-    [ACTIONS_NO_ENTRY]      = sPartyMenuAction_NoEntrySummaryCancel,
-    [ACTIONS_STORE]         = sPartyMenuAction_StoreSummaryCancel,
-    [ACTIONS_SUMMARY_ONLY]  = sPartyMenuAction_SummaryCancel,
-    [ACTIONS_ITEM]          = sPartyMenuAction_GiveTakeItemCancel,
-    [ACTIONS_HATCH]         = sPartyMenuAction_ConfirmHatchYesNo,
-    [ACTIONS_MAIL]          = sPartyMenuAction_ReadTakeMailCancel,
-    [ACTIONS_REGISTER]      = sPartyMenuAction_RegisterSummaryCancel,
-    [ACTIONS_TRADE]         = sPartyMenuAction_TradeSummaryCancel1,
-    [ACTIONS_SPIN_TRADE]    = sPartyMenuAction_TradeSummaryCancel2,
+    [ACTIONS_NONE]              = NULL,
+    [ACTIONS_SWITCH]            = sPartyMenuAction_SummarySwitchCancel,
+    //used for in battle
+    [ACTIONS_SHIFT]             = sPartyMenuAction_ShiftSummaryCancel,
+    //in battle swap fainted mon
+    [ACTIONS_SEND_OUT]          = sPartyMenuAction_SendOutSummaryCancel,
+    [ACTIONS_SHIFT_EVO]         = sPartyMenuAction_ShiftSummaryEvoCancel,
+    [ACTIONS_SEND_OUT_EVO]      = sPartyMenuAction_SendOutSummaryEvoCancel,
+    [ACTIONS_ENTER]             = sPartyMenuAction_EnterSummaryCancel,
+    [ACTIONS_NO_ENTRY]          = sPartyMenuAction_NoEntrySummaryCancel,
+    [ACTIONS_STORE]             = sPartyMenuAction_StoreSummaryCancel,
+    [ACTIONS_SUMMARY_ONLY]      = sPartyMenuAction_SummaryCancel,
+    [ACTIONS_SUMMARY_EVO_ONLY]  = sPartyMenuAction_SummaryEvoCancel,
+    [ACTIONS_ITEM]              = sPartyMenuAction_GiveTakeItemCancel,
+    [ACTIONS_HATCH]             = sPartyMenuAction_ConfirmHatchYesNo,
+    [ACTIONS_SET_EVO_STATE]     = sPartyMenuAction_AssignEvoState,
+    [ACTIONS_MAIL]              = sPartyMenuAction_ReadTakeMailCancel,
+    [ACTIONS_REGISTER]          = sPartyMenuAction_RegisterSummaryCancel,
+    [ACTIONS_TRADE]             = sPartyMenuAction_TradeSummaryCancel1,
+    [ACTIONS_SPIN_TRADE]        = sPartyMenuAction_TradeSummaryCancel2,
 };
 
 static const u8 sPartyMenuActionCounts[] =
 {
-    [ACTIONS_NONE]          = 0,
-    [ACTIONS_SWITCH]        = NELEMS(sPartyMenuAction_SummarySwitchCancel),
-    [ACTIONS_SHIFT]         = NELEMS(sPartyMenuAction_ShiftSummaryCancel),
-    [ACTIONS_SEND_OUT]      = NELEMS(sPartyMenuAction_SendOutSummaryCancel),
-    [ACTIONS_ENTER]         = NELEMS(sPartyMenuAction_EnterSummaryCancel),
-    [ACTIONS_NO_ENTRY]      = NELEMS(sPartyMenuAction_NoEntrySummaryCancel),
-    [ACTIONS_STORE]         = NELEMS(sPartyMenuAction_StoreSummaryCancel),
-    [ACTIONS_SUMMARY_ONLY]  = NELEMS(sPartyMenuAction_SummaryCancel),
-    [ACTIONS_ITEM]          = NELEMS(sPartyMenuAction_GiveTakeItemCancel),
-    [ACTIONS_HATCH]         = NELEMS(sPartyMenuAction_ConfirmHatchYesNo),
-    [ACTIONS_MAIL]          = NELEMS(sPartyMenuAction_ReadTakeMailCancel),
-    [ACTIONS_REGISTER]      = NELEMS(sPartyMenuAction_RegisterSummaryCancel),
-    [ACTIONS_TRADE]         = NELEMS(sPartyMenuAction_TradeSummaryCancel1),
-    [ACTIONS_SPIN_TRADE]    = NELEMS(sPartyMenuAction_TradeSummaryCancel2),
+    [ACTIONS_NONE]              = 0,
+    [ACTIONS_SWITCH]            = NELEMS(sPartyMenuAction_SummarySwitchCancel),
+    [ACTIONS_SHIFT]             = NELEMS(sPartyMenuAction_ShiftSummaryCancel),
+    [ACTIONS_SEND_OUT]          = NELEMS(sPartyMenuAction_SendOutSummaryCancel),
+    [ACTIONS_SHIFT_EVO]         = NELEMS(sPartyMenuAction_ShiftSummaryEvoCancel),
+    [ACTIONS_SEND_OUT_EVO]      = NELEMS(sPartyMenuAction_SendOutSummaryEvoCancel),
+    [ACTIONS_ENTER]             = NELEMS(sPartyMenuAction_EnterSummaryCancel),
+    [ACTIONS_NO_ENTRY]          = NELEMS(sPartyMenuAction_NoEntrySummaryCancel),
+    [ACTIONS_STORE]             = NELEMS(sPartyMenuAction_StoreSummaryCancel),
+    [ACTIONS_SUMMARY_ONLY]      = NELEMS(sPartyMenuAction_SummaryCancel),
+    [ACTIONS_SUMMARY_EVO_ONLY]  = NELEMS(sPartyMenuAction_SummaryEvoCancel),
+    [ACTIONS_ITEM]              = NELEMS(sPartyMenuAction_GiveTakeItemCancel),
+    [ACTIONS_HATCH]             = NELEMS(sPartyMenuAction_ConfirmHatchYesNo),
+    [ACTIONS_SET_EVO_STATE]     = NELEMS(sPartyMenuAction_AssignEvoState),
+    [ACTIONS_MAIL]              = NELEMS(sPartyMenuAction_ReadTakeMailCancel),
+    [ACTIONS_REGISTER]          = NELEMS(sPartyMenuAction_RegisterSummaryCancel),
+    [ACTIONS_TRADE]             = NELEMS(sPartyMenuAction_TradeSummaryCancel1),
+    [ACTIONS_SPIN_TRADE]        = NELEMS(sPartyMenuAction_TradeSummaryCancel2),
 };
 
 static const u16 sFieldMoves[] =

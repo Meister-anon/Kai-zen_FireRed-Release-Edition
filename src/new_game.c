@@ -25,6 +25,7 @@
 #include "union_room_chat.h"
 #include "mevent.h"
 #include "renewable_hidden_items.h"
+#include "trainer_card.h"
 #include "trainer_tower.h"
 #include "script.h"
 #include "berry_powder.h"
@@ -169,6 +170,10 @@ void NewGameInitData(void)
     ClearRoamerData();//skip for new game plus
     gSaveBlock1Ptr->registeredItem = 0;
     gSaveBlock1Ptr->oakRanchStepCounter = 0;
+    //realized needs go here otherwise only set when open options menu
+    //can set 0 leave turning on option as what assigns value
+    //nah for things like new game plus is just better to set correctly
+    gSaveBlock2Ptr->DynamicLevelCap = GetRecommendedLevel(GetNumberofBadges()); 
     ClearBag();//skip for new game plus
     NewGameInitPCItems();
     sub_809C794();

@@ -50,6 +50,7 @@ void PartyMenuModifyHP(u8 taskId, u8 slot, s8 hpIncrement, s16 hpDifference, Tas
 u8 GetAilmentFromStatus(u32 status);
 u8 GetMonAilment(struct Pokemon *mon);
 u8 GetMonExpState(struct Pokemon *mon);
+bool32 GetMonEvoState(struct Pokemon *mon); //For is allowed to evolve or not
 void DisplayPartyMenuStdMessage(u32 stringId);
 void LoadHeldItemIcons(void);
 void DrawHeldItemIconsForTrade(u8 *partyCounts, u8 *partySpriteIds, u8 whichParty);
