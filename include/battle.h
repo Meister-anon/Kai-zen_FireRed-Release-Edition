@@ -179,6 +179,8 @@ extern const struct Trainer gTrainers[];
 
 //vsonic important remmber bit fields can store max 2^bit value
 //ex bit 3  :3 is 2^3 = 8 can store 8 values between 0-7
+//vsonic important disablestruct no longer exists
+//set in volatiles and volatiles is in battlemon
 struct DisableStruct    //reset only on switch and faint, -defeatist needs to be here - not necessarily..
 {
     /*0x00*/ //u32 transformedMonPersonality; //src of gTransformedPersonalities

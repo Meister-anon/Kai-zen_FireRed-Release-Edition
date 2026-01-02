@@ -5,6 +5,7 @@
 #include "sprite.h"
 #include "move.h"
 #include "constants/pokemon.h"
+#include "constants/battle.h"
 #include "pokemon_storage_system.h"
 
 #define GET_BASE_SPECIES_ID(speciesId) (GetFormSpeciesId(speciesId, 0))
@@ -358,6 +359,21 @@ struct BattleTowerPokemon //apparently used for both battle tower leftover from 
 
 #define BATTLE_STATS_NO 8
 
+#define UNPACK_VOLATILE_STRUCT(_enum, _fieldName, _typeMaxValue, ...) INVOKE_WITH_(UNPACK_VOLATILE_STRUCT_, _fieldName, UNPACK_B(_typeMaxValue));
+#define UNPACK_VOLATILE_STRUCT_(_fieldName, _type, ...) _type FIRST(__VA_OPT__(_fieldName:BIT_SIZE(FIRST(__VA_ARGS__)),) _fieldName)
+
+//replaced disablestructs
+struct Volatiles
+{
+    VOLATILE_DEFINITIONS(UNPACK_VOLATILE_STRUCT)
+    // Expands to:
+    // u32 confusionTurns:3;
+    // u32 flinched:1;
+    // u32 uproarTurns:3;
+    // etc.
+};
+//replaced
+
 struct BattlePokemon
 {
     /*0x58*/ u32 otId; //may not need status4 in struct status3 & 4 seem to work through gstatuses3 & gstatus4 the same as status 2 already?
@@ -395,6 +411,8 @@ struct BattlePokemon
     /*0x44*/ u32 experience;
     /*0x48*/ u32 personality;
     /*0x4C*/ u32 status1;   //stays on switch
+             struct Volatiles volatiles; //replace other statusses
+             bool8 isShiny; //take ismonshiny pass on set battle data
     /*0x50*/ u32 status2;   //temp status lost on switch
     /*0x54*/ u32 status4;   //new addition  for new statuses mostly for new wrap effects, plan to make equivalent of status2
 };                   //idk guessing statu1 2 and now 4 are different from status3 as its applied direclty to a mon/?  status3 seems more like a set of temp states?

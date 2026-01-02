@@ -7817,6 +7817,7 @@ static inline u32 CalcMoveBasePower(struct DamageContext *ctx)
     return basePower;
 }
 
+//vsonic
 static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
 {
     u32 holdEffectParamAtk;
@@ -7900,7 +7901,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
     if (gBattleMons[battlerAtk].status2 & STATUS2_DRAGON_RAGE
     && moveType == TYPE_DRAGON)
     {
-        
+        //this too
         switch (gDisableStructs[battlerAtk].DragonrageCounter)
         {
             //annoying but best I could figure

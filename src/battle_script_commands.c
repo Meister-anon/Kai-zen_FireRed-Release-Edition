@@ -60,7 +60,7 @@
 #include "test/battle.h"
 #include "battle_util.h"
 #include "constants/pokemon.h"
-//#include "config/battle.h"
+#include "constants/battle.h"
 //#include "data/battle_move_effects.h"
 #include "test/battle.h"
 //#include "follower_npc.h"
@@ -3448,7 +3448,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, enum MoveEffect moveEffect, c
         {
             gBattleMons[gEffectBattler].volatiles.multipleTurns = TRUE;
             gLockedMoves[gEffectBattler] = gCurrentMove;
-            gBattleMons[gEffectBattler].volatiles.uproarTurns = B_UPROAR_TURNS >= GEN_5 ? 3 : (Random() & 3) + 2;
+            gBattleMons[gEffectBattler].volatiles.uproarTurns = B_UPROAR_TURN_COUNT;
 
             BattleScriptPush(battleScript);
             gBattlescriptCurrInstr = BattleScript_MoveEffectUproar;
