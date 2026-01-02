@@ -413,8 +413,8 @@ struct BattlePokemon
     /*0x4C*/ u32 status1;   //stays on switch
              struct Volatiles volatiles; //replace other statusses
              bool8 isShiny; //take ismonshiny pass on set battle data
-    /*0x50*/ u32 status2;   //temp status lost on switch
-    /*0x54*/ u32 status4;   //new addition  for new statuses mostly for new wrap effects, plan to make equivalent of status2
+    /*0x50*/ //u32 status2;   //temp status lost on switch
+    /*0x54*/ //u32 status4;   //new addition  for new statuses mostly for new wrap effects, plan to make equivalent of status2
 };                   //idk guessing statu1 2 and now 4 are different from status3 as its applied direclty to a mon/?  status3 seems more like a set of temp states?
 
 //believe all fields default to 0, if not set?

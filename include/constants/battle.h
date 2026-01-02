@@ -351,7 +351,7 @@
 #define STATUS3_ME_FIRST                (1 << 14) //use for commander gen9, then roll into semi invul
 #define STATUS3_IMPRISONED_OTHERS       (1 << 15)
 #define STATUS3_GRUDGE                  (1 << 16)
-#define STATUS3_CANT_SCORE_A_CRIT       (1 << 17)
+#define STATUS3_CANT_SCORE_A_CRIT       (1 << 17) //never actually set
 #define STATUS3_GASTRO_ACID             (1 << 18)	//is there any reaso this needs to be status3 rather than a status 2?
 //#define STATUS3_EMBARGO                 (1 << 17)	//move to side status to make room
 #define STATUS3_SMACKED_DOWN            (1 << 19)
@@ -446,6 +446,7 @@
 #define B_CONFUSION_TURNS    5
 #define B_UPROAR_TURN_COUNT  5
 #define B_RAMPAGE_TURNS      3
+#define B_BIDE_TURNS         3 //Why didn't this exist, changed idk if need I  add 1 turn to bide
 #define B_DISABLE_TIMER      4
 #define B_ENCORE_TIMER       4
 #define B_PERISH_SONG_TIMER  3
@@ -468,26 +469,37 @@ enum VolatileFlags
 
 //bring over infatuatedwithbattlerId
 //remove wrappedby and wrappedmove
+//don't see enum elsewhere so guess it creates enum 
+//here based on name used
+
+//order of below was staus2 flags etc.
+//hence unsued was unused space
+//think will need to redo even these top ones
+//to match my status2 stuff otherwise won't be optimized right
+
 
 /* Volatile status ailments
  * These are removed after exiting the battle or switching
  *  Enum,                                   Type                           Type, max value, flags */
 #define VOLATILE_DEFINITIONS(F) \
     F(VOLATILE_CONFUSION,                   confusionTurns,                (u32, B_CONFUSION_TURNS + 1), V_BATON_PASSABLE) \
+    F(VOLATILE_INFESTATION,                 infested,                      (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_FLINCHED,                    flinched,                      (u32, 1)) \
     F(VOLATILE_UPROAR,                      uproarTurns,                   (u32, 5)) \
+    F(VOLATILE_DRAGON_RAGE,                 drgonrage,                     (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_EMERGENCY_EXIT,              emergencyExit,                 (u32, 1)) \
     F(VOLATILE_TORMENT,                     torment,                       (u32, 1)) \
-    F(VOLATILE_BIDE,                        bideTurns,                     (u32, 3)) \
+    F(VOLATILE_BIDE,                        bideTurns,                     (u32, B_BIDE_TURNS + 1)) \
+    F(VOLATILE_SWITCH_LOCKED,               switchlocked,                  (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_RAMPAGE_TURNS,               rampageTurns,                  (u32, B_RAMPAGE_TURNS + 1)) \
     F(VOLATILE_MULTIPLETURNS,               multipleTurns,                 (u32, 1)) \
     F(VOLATILE_WRAPPED,                     wrapped,                       (u32, 1)) \
-    F(VOLATILE_WRAPPED_BY,                  wrappedBy,                     (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT))) \
-    F(VOLATILE_WRAPPED_MOVE,                wrappedMove,                   (u32, MOVES_COUNT_ALL)) \
     F(VOLATILE_POWDER,                      powder,                        (u32, 1)) \
+    F(VOLATILE_TWOTURN_INTERRUPT,           twoturnInterupt,               (u32, 1)) \
     F(VOLATILE_UNUSED,                      padding,                       (u32, 1)) \
-    F(VOLATILE_INFATUATION,                 infatuation,                   (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT))) \
     F(VOLATILE_DEFENSE_CURL,                defenseCurl,                   (u32, 1)) \
     F(VOLATILE_TRANSFORMED,                 transformed,                   (u32, 1)) \
+    F(VOLATILE_INFATUATION,                 infatuation,                   (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT))) \
     F(VOLATILE_RAGE,                        rage,                          (u32, 1)) \
     F(VOLATILE_SUBSTITUTE,                  substitute,                    (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_DESTINY_BOND,                destinyBond,                   (u32, 3)) \
@@ -497,35 +509,38 @@ enum VolatileFlags
     F(VOLATILE_FORESIGHT,                   foresight,                     (u32, 1)) \
     F(VOLATILE_DRAGON_CHEER,                dragonCheer,                   (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_FOCUS_ENERGY,                focusEnergy,                   (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_BONUS_CRIT_STAGES,           bonusCritStages,               (u32, 4)) \
     F(VOLATILE_SEMI_INVULNERABLE,           semiInvulnerable,              (u32, SEMI_INVULNERABLE_COUNT)) \
     F(VOLATILE_ELECTRIFIED,                 electrified,                   (u32, 1)) \
-    F(VOLATILE_MUD_SPORT,                   mudSport,                      (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_WATER_SPORT,                 waterSport,                    (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_INFINITE_CONFUSION,          infiniteConfusion,             (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_SALT_CURE,                   saltCure,                      (u32, 1)) \
     F(VOLATILE_SYRUP_BOMB,                  syrupBomb,                     (u32, 1)) \
     F(VOLATILE_STICKY_SYRUPED_BY,           stickySyrupedBy,               (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT))) \
     F(VOLATILE_GLAIVE_RUSH,                 glaiveRush,                    (u32, 1)) \
-    F(VOLATILE_LEECH_SEED,                  leechSeed,                     (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT)), V_BATON_PASSABLE) \
     F(VOLATILE_LOCK_ON,                     lockOn,                        (u32, 2), V_BATON_PASSABLE) \
+    F(VOLATILE_LEECH_SEED,                  leechSeed,                     (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT)), V_BATON_PASSABLE) \
     F(VOLATILE_PERISH_SONG,                 perishSong,                    (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_MINIMIZE,                    minimize,                      (u32, 1)) \
+    F(VOLATILE_FIXATED,                     fixated,                       (u32, 1)) \
     F(VOLATILE_CHARGE_TIMER,                chargeTimer,                   (u32, 3)) \
-    F(VOLATILE_ROOT,                        root,                          (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_YAWN,                        yawn,                          (u32, 3)) \
+    F(VOLATILE_ROOT,                        rooted,                        (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_YAWN,                        yawn,                          (u32, 1)) \
     F(VOLATILE_IMPRISON,                    imprison,                      (u32, 1)) \
     F(VOLATILE_GRUDGE,                      grudge,                        (u32, 1)) \
     F(VOLATILE_GASTRO_ACID,                 gastroAcid,                    (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_EMBARGO,                     embargo,                       (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_SMACK_DOWN,                  smackDown,                     (u32, 1)) \
     F(VOLATILE_TELEKINESIS,                 telekinesis,                   (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_MIRACLE_EYE,                 miracleEye,                    (u32, 1)) \
     F(VOLATILE_MAGNET_RISE,                 magnetRise,                    (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_HEAL_BLOCK,                  healBlock,                     (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_AQUA_RING,                   aquaRing,                      (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_LASER_FOCUS,                 laserFocus,                    (u32, 1)) \
     F(VOLATILE_POWER_TRICK,                 powerTrick,                    (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_BIND,                        bind,                          (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_FIRE_SPIN,                   firespin,                      (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_CLAMP,                       clamp,                         (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_WHIRLPOOL,                   whirlpool,                     (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_SAND_TOMB,                   sandtomb,                      (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_MAGMA_STORM,                 magmaStorm,                    (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_SWARM,                       swarm,                         (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_SNAP_TRAP,                   snaptrap,                      (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_THUNDER_CAGE,                thundercage,                   (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_NO_RETREAT,                  noRetreat,                     (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_VESSEL_OF_RUIN,              vesselOfRuin,                  (u32, 1)) \
     F(VOLATILE_SWORD_OF_RUIN,               swordOfRuin,                   (u32, 1)) \
