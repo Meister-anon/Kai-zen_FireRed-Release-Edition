@@ -1,6 +1,37 @@
 .
 Branch Goals:
 
+IMPORTANT:
+I know now expansion fundamentally changed ai
+and all their ai updates have been done to the base version
+not at all preserving how base ai worked. *facepalm*
+
+so with battle system updates I'll have to go back and redo the ai
+to ATTEMPT to make it decision whise work like base game,
+along with any changes between fire red and emerald
+
+AND THEN make my own ai changes that I had planned
+to handle switch logic, plan for that was switch counter
+based on category or level of trainer ex ace and gym leader
+w elite four being highest  young trainer being lower usually
+giving them max amount of switches so its doesn't become
+an annoying infinite counter fest
+
+But keep randomness in as well especially at lower levels.
+might not be as bad alex mentioned
+
+the basic flags from gen3 are "check bad move, try to faint and check viability". If only those 3 flags are used the AI will feel familiar to gen 3
+
+also of note "if you remove check viability it will never use a status move"
+
+
+//for randomizer certain species forms require their item
+    //to be the form i.e areus forms are meaningless
+    //without the plates now, as the plate is what activates ability
+    //and changes form,
+    //so need setup so if spawned the held item MUST always
+    //be the corresponding item necesssary to enter form
+
 Need split off extra changes to other branches
 leaving only the battle_moves.h flag related changes 
 was new_battle_update_branch  delete deprecated remotes as well

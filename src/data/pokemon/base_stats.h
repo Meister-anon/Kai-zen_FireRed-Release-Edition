@@ -15462,6 +15462,13 @@ const struct BaseStats gBaseStats[] =
     //all thes have been brought down and the highest legendarys are just slightly above arceus
     //while its still clearly better in every way
 
+    //for randomizer certain species forms require their item
+    //to be the form i.e areus forms are meaningless
+    //without the plates now, as the plate is what activates ability
+    //and changes form,
+    //so need setup so if spawned the held item MUST always
+    //be the corresponding item necesssary to enter form
+
     [SPECIES_VICTINI] =
     {
         .speciesName = _("Victini"),
@@ -51867,10 +51874,10 @@ const struct BaseStats gBaseStats[] =
         .catchRate = 13,
         .expYield = 384,
         //.evYield_SpDefense = 2,
-        .genderRatio = MON_FEMALE,
+        .genderRatio = MON_FEMALE,//think change ability atk heal moves work on self make big root mon
         .eggCycles = 35,
-            .friendship = 15,
-        .growthRate = GROWTH_SLOW,
+        .friendship = 15,
+        .growthRate = GROWTH_SLOW,//both items passive heals and status heal moves get passed to partner
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_OMNIPOTENT_AIDE, ABILITY_NONE}, //make ability that passes on any healing received to battle partner, potentially also makes healing effect priority?

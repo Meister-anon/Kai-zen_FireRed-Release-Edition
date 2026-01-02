@@ -7007,12 +7007,37 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
         //when heal pass is setup, rest would be the only way to have this mon heal itself
         //with sleep change. also sitrus berry seems potentially best item?
         //oh right, leftoveres exists lol vsonic
-        else if ((ability == ABILITY_OMNIPOTENT_AIDE) && CAN_ABILITY_ABSORB(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))
+        //reworking, all item and status based healing effects
+        //will be applied to partner when there is one
+        //it can't heal itself w moves other than with
+        //dmging healing moves, 
+        //items would still work just only when no partner is alive
+        //well to make things like berry easier - no don't do that
+        //so make it so literally can't activate status based
+        //healing moves when solo, just make them fail
+        //guess can add to max health and heal block checks
+        //status moves and passive heal effects etc.
+        //and heal items when partner is alive
+        //will use user max hp to get heal amount
+        //but then pass effect to partner
+        //well leech seed etc does its own thing
+        //but battler to get heal would pass to partner
+        //if no partner should ust not heal user or something
+        else if (ability == ABILITY_OMNIPOTENT_AIDE 
         && IsHealingMove(move))
         {
-
-            gProtectStructs[battler].OmniAideElevated = TRUE;
+            if (IsBattleMoveStatus(move)
+            && IsBattlerAlive(BATTLE_PARTNER(battler)))
+            {
+                gProtectStructs[battler].OmniAideElevated = TRUE;
                 priority += 3;
+            }
+            else if (!IsBattleMoveStatus(move))
+            {
+                gProtectStructs[battler].OmniAideElevated = TRUE;
+                priority += 3;
+            }
+            
         }
         //potentially boost to 65 vsonic
         //doesn't seem to be working right, have 63 bp hidden power
