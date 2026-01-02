@@ -372,7 +372,6 @@ struct Volatiles
     // u32 uproarTurns:3;
     // etc.
 };
-//replaced
 
 struct BattlePokemon
 {

@@ -12797,6 +12797,8 @@ static void Cmd_trysetspikes(void)
     }
 }
 
+//if no value is set via script
+//will apply maxvalue from volatile_definitions macro
 static void Cmd_setvolatile(void)
 {
     CMD_ARGS(u8 battler, u8 _volatile, u8 value);
