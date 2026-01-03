@@ -1472,10 +1472,13 @@ static inline bool32 IsBattlerAlly(u32 battlerAtk, u32 battlerDef)
 }
 
 //unsure if works, so not yet using
-static inline struct Pokemon* GetBattlerPersonality(u32 battler)
+//compiler error so guess is wrong
+//remove pointer logic for u32 maybe fine now
+//if works can prob use to cleanup infatuation stuff
+static inline u32 GetBattlerPersonality(u32 battler)
 {
     u32 index = gBattlerPartyIndexes[battler];
-    return !IsOnPlayerSide(battler) ? GetMonData(&gEnemyParty[index], MON_DATA_PERSONALITY) : GetMonData(&gPlayerParty[index], MON_DATA_PERSONALITY);
+    return !IsOnPlayerSide(battler) ? GetMonData(&gEnemyParty[index], MON_DATA_PERSONALITY, NULL) : GetMonData(&gPlayerParty[index], MON_DATA_PERSONALITY, NULL);
 }
 
 #endif // GUARD_BATTLE_H

@@ -6,12 +6,12 @@ static const u8 sDrizzleDescription[] = _("Summons rain in battle.");
 static const u8 sSpeedBoostDescription[] = _("Gradually boosts SPEED.");
 static const u8 sBattleArmorDescription[] = _("Blocks critical hits.");
 static const u8 sSturdyDescription[] = _("Negates 1-hit KO moves.\nResists moves that would otherwise OHKO.");
-static const u8 sDampDescription[] = _("Dampens area preventing explosions.\nAnd weakens incoming fire damage.");
+static const u8 sDampDescription[] = _("Dampens area preventing explosions.\nAnd weakens incoming Fire damage.");
 static const u8 sLimberDescription[] = _("Prevents paralysis.");
 static const u8 sSandVeilDescription[] = _("Ups evasion in a sandstorm.");
 static const u8 sStaticDescription[] = _("May Paralyze on contact.");
 static const u8 sVoltAbsorbDescription[] = _("Turns incomming electric damage into HP.");
-static const u8 sWaterAbsorbDescription[] = _("Turns incomming water damage into HP.\nSlight HP recovery in rain");
+static const u8 sWaterAbsorbDescription[] = _("Turns incomming water damage into HP.\nSlight HP recovery in rain and fog.");
 static const u8 sObliviousDescription[] = _("Prevents attraction.\nBlocks Intimidate, Taunt, and Torment.");
 static const u8 sCloudNineDescription[] = _("Blocks all negative weather effects for\nthe user and most effects for the team."); //to get more benefit/synergy think will make it side based
 static const u8 sCompoundEyesDescription[] = _("Raises accuracy.");
@@ -86,7 +86,7 @@ static const u8 sAngerPointDescription[] = _("Raises attack if hit by “Critica
 static const u8 sUnburdenDescription[] = _("Using a hold item ups Speed.");
 static const u8 sHeatproofDescription[] = _("Lowers effectiveness of Fire and burn.");
 static const u8 sSimpleDescription[] = _("Prone to wild stat changes.");
-static const u8 sDrySkinDescription[] = _("Prefers moisture to heat. Absorbs water.\nHeals in rain, takes more Dmg from fire."); //removed sunlight hp drop,
+static const u8 sDrySkinDescription[] = _("Takes slight Dmg in Sun absorbs water.\nHeals in rain/fog, takes more Fire Dmg."); //removed sunlight hp drop,...added back
 static const u8 sDownloadDescription[] = _("Adjusts offensive power favorably,\nto foe's defenses.");
 static const u8 sIronFistDescription[] = _("Boosts Punching moves.");
 static const u8 sPoisonHealDescription[] = _("Heals if poisoned or PSN-type holds\na toxic item. Also clears toxic spikes."); //may come up with better description absorb toxi spikes poison type heal effect
@@ -112,7 +112,7 @@ static const u8 sUnawareDescription[] = _("Ignores stat changes for dmg and acc.
 static const u8 sTintedLensDescription[] = _("Ups damage if move's type is resisted.");
 static const u8 sFilterDescription[] = _("Weakens incoming “Super effective”\nmoves.");
 static const u8 sSlowStartDescription[] = _("Takes a while to get going.\nClears all ailments upon power awakening.");
-static const u8 sScrappyDescription[] = _("Normal and Fighting Moves do neutral\ndamage against Ghost-type Pokémon.");
+static const u8 sScrappyDescription[] = _("Attacks bypass immunities of Ghost-type\nPokémon to deal neutral damage.");
 static const u8 sStormDrainDescription[] = _("Draws in Water moves.\nBoosting Sp.Attack.");
 static const u8 sIceBodyDescription[] = _("Slight HP recovery in Hail.");
 static const u8 sSnowWarningDescription[] = _("Summons a hailstorm.");
@@ -184,16 +184,16 @@ static const u8 sParentalBondDescription[] = _("Moves hit twice.");
 static const u8 sDarkAuraDescription[] = _("Boosts Dark moves.");
 static const u8 sFairyAuraDescription[] = _("Boosts Fairy moves.");
 static const u8 sAuraBreakDescription[] = _("Reverse aura abilities.\nWeakens Dark and Fairy moves."); //buffed aura break to actually be useful
-static const u8 sPrimordialSeaDescription[] = _("Calls Primal rain, blocks Fire moves.\nBlock all Non-Primal weather changes."); //primal weather...does a lot more than this
-static const u8 sDesolateLandDescription[] = _("Calls Primal sunlight, blocks Water moves\nBlock all Non-Primal weather changes.");
-static const u8 sDeltaStreamDescription[] = _("Block all Non-Primal weather changes.\nAlso removes Flying-type weaknesses.");
+static const u8 sPrimordialSeaDescription[] = _("Summons heavy rain.");
+static const u8 sDesolateLandDescription[] = _("Summons intense sunlight.");
+static const u8 sDeltaStreamDescription[] = _("Summons strong winds.");
 static const u8 sStaminaDescription[] = _("Boosts Defense when hit.");
 static const u8 sWimpOutDescription[] = _("Flees if HP below half after attacking.");
 static const u8 sWaterCompactionDescription[] = _("Water attacks sharply boosts Defense.\nSligthtly resists water damage.");
 static const u8 sMercilessDescription[] = _("Deals critical damage to poisoned foes.");
 static const u8 sShieldsDownDescription[] = _("If HP above 50% boosts Def blocks status\nWhen below, shell breaks and boosts atk.");
 static const u8 sStakeoutDescription[] = _("2x damage if targets switched in mid turn\n50% boost to foes replacing fainted ally"); //vsonic fix description    //Stakeout doubles the power of moves used against targets switched in mid turn.
-static const u8 sWaterBubbleDescription[] = _("Guards from fire damage and burns.\nBoosts power of user water moves."); //^ability still sucks, change to just switched in, so can get boost on turn fainted mon is replaced as well, just keep to mostly weakish mon
+static const u8 sWaterBubbleDescription[] = _("Reduces Fire damage and prevents burns.\nBoosts power of user water moves."); //^ability still sucks, change to just switched in, so can get boost on turn fainted mon is replaced as well, just keep to mostly weakish mon
 static const u8 sSteelworkerDescription[] = _("Powers up Steel moves.");
 static const u8 sBerserkDescription[] = _("Boosts the Pokémon's Sp. Atk if\nan attack drops its HP to half or less.");
 static const u8 sSlushRushDescription[] = _("Raises Speed in hail.");
@@ -309,7 +309,7 @@ static const u8 sOmnipotentAideDescription[] = _("Gives priority to healing effe
 static const u8 sFluorescenceDescription[] = _("Naturally absorbs sunlight.\nBoosts speed and Sp.Atk in sun.");
 
 static const u8 sPlagueWingsDescription[] = _("Spreads powder-like scales on attack.\nThat apply a variety of statuses.");
-static const u8 sPhantomTouchDescription[] = _("Gained the ability to touch ghosts due to\na strong desire to be with those lost.");
+static const u8 sPhantomTouchDescription[] = _("Contact moves ignore the immunities\nof GHOST types.");
 //checked in fire red limit is 40 chars per line, changing description length to 80/    changed to 82 max
 //based on suction cups I kinda have more space?  so more like 41 per line?
 //template - top line: literal effect\n bottom line: flavor text    -flipped usually put flavor text on top, effect on bottom
@@ -2509,7 +2509,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_WIND_POWER] =
     {
         .name = _("Wind Power"),
-        .description = COMPOUND_ABILITY_STRING("The Pokémon becomes charged by wind moves\nboosting the power of its next Elec. move"),
+        .description = COMPOUND_ABILITY_STRING("The Pokémon gets charged by wind moves\nboosting its next Electric move."),
         .aiRating = 4,
     },//vsonic wind moves not set yet
 
@@ -2541,7 +2541,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_ELECTROMORPHOSIS] =
     {
         .name = _("Electromorphosis"),
-        .description = COMPOUND_ABILITY_STRING("The Pokémon becomes charged when damaged,\nboosting the power of its next Elec. move"),
+        .description = COMPOUND_ABILITY_STRING("The Pokémon gets charged when damaged,\nboosting its next Electric move."),
         .aiRating = 5,
     },
 
@@ -2695,10 +2695,11 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_MINDS_EYE] =
     {
         .name = _("Mind's Eye"),
-        .description = COMPOUND_ABILITY_STRING("Normal and Fighting Moves hit Ghost Type.\nIgnore Evasion checks and Acc can't fall."),
+        .description = COMPOUND_ABILITY_STRING("Ignores the immunities of GHOST types.\nIgnore Evasion checks and Acc can't fall."),
         .aiRating = 8,
         .breakable = TRUE,
-    },
+    },//not mix of scrappy is just foresight
+    //...oh its keen eye scrappy o.0
 
     [ABILITY_EMBODY_ASPECT_TEAL_MASK] =
     {
@@ -2995,6 +2996,13 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = sCorruptionDescription,
         .aiRating = 0,
     },//heal block
+    //for sake of balance rather than enemy side
+    //could potentially make it work for every battler except the user
+    //so would loop all battlers except attacker/holder
+    //and set heal block volatile for them
+    //and rather than timer won't clear until battler is off field
+    //essentailly same setup as neutralizing gas
+
     
     [ABILITY_BANDIT_KING] =
     {
@@ -3187,10 +3195,18 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_DESPAIR] =
     {
         .name = _("Despair"),
-        .description = sNoneDescription,
+        .description = COMPOUND_ABILITY_STRING("Even the waking world becomes a nightmare\nHealing becomes dmg for opposing side."),
         .aiRating = 0,
     },
     //todo - anti heal ability for opposing side plan darkrai use
+    //in practice does pretty much same as bad dreams when they try to sleep
+    //they'd take damage intead of healing
+    //but darkrai won't be healed from it
+    //considering if I should put extra protection on this
+    //if heal is greater than quarter hp either divide by 2
+    //or cap at quarter hp, similar to trap effects
+    //use min function I think -done
+    //exclusive ability
     
     [ABILITY_RISING_PHOENIX] =
     {
@@ -3290,7 +3306,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_ENAMEL] =
     {
         .name = _("Enamel"),
-        .description = COMPOUND_ABILITY_STRING("Increased heat protection. Immune to burn."),
+        .description = COMPOUND_ABILITY_STRING("Reduces Fire damage and prevents burns."),
         .aiRating = 0,
         .breakable = TRUE,
     },
@@ -3298,7 +3314,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_BONE_ARMOR] =
     {
         .name = _("Bone Armor"),
-        .description = COMPOUND_ABILITY_STRING("Increased heat protection. Blocks burn.\nPrevents recoil and force switch."),
+        .description = COMPOUND_ABILITY_STRING("Reduces Fire damage and prevents burns.\nPrevents recoil and force switch."),
         .aiRating = 0,
         .breakable = TRUE,
     },
