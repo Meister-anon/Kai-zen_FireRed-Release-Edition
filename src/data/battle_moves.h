@@ -969,6 +969,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .instructBanned = TRUE,
+        .multiTaskBanned = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THRASH,
             .self = TRUE,
@@ -1970,6 +1971,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .danceMove = TRUE,
         .instructBanned = TRUE,
+        .multiTaskBanned = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THRASH,
             .self = TRUE,
@@ -2015,6 +2017,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .multiTaskBanned = TRUE,
         //.argument = { .fixedDamage = 40 },
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DRAGON_RAGE,
@@ -3973,6 +3976,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_PHYSICAL,
         //.argument = { .damagePercentage = 50 },
         .makesContact = TRUE,
+        .multiTaskBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -4908,6 +4912,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .instructBanned = TRUE,
+        .multiTaskBanned = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THRASH,
             .self = TRUE,
@@ -6170,6 +6175,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .soundMove = TRUE,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
+        .multiTaskBanned = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_UPROAR,
             .self = TRUE,
@@ -15924,6 +15930,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         //.argument = { .damagePercentage = 50 },
         .metronomeBanned = TRUE,
+        .multiTaskBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -17293,6 +17300,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .dampBanned = TRUE,
         .ballisticMove = TRUE,
+        .multiTaskBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -17832,6 +17840,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .soundMove = TRUE,
         .ignoresSubstitute = TRUE,
+        .multiTaskBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -17842,6 +17851,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         }),*/
         //.battleAnimScript = gBattleAnimMove_EerieSpell,
     },//ok checked double checked japanese translation and there's no reason for this move to be a sound move. its just a dark magic spell
+     //idk maybe need something like generates sound in enemies head that curses them -vsonic
+    //vsonic set to new spite effect maybe?
 
     //Legends Arceus moves
     [MOVE_DIRE_CLAW] =
@@ -17995,6 +18006,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .metronomeBanned = TRUE,
+        .multiTaskBanned = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THRASH,
             .self = TRUE,
@@ -18908,6 +18920,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         //.argument = { .damagePercentage = 50 },
         .metronomeBanned = TRUE,
+        .multiTaskBanned = TRUE,
         //.battleAnimScript = gBattleAnimMove_Ruination,
         // Uncallable by Metronome (to be implemented)
     },
