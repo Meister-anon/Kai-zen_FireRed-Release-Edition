@@ -3243,6 +3243,17 @@ BattleScript_EffectPerishSong::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
+BattleScript_PerishSongBlocked::
+	copybyte sBATTLER, gBattlerTarget
+	printstring STRINGID_PKMNSXBLOCKSY2
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_PerishSongLoopIncrement
+
+BattleScript_PerishSongNotAffected:
+	printstring STRINGID_ITDOESNTAFFECT
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_PerishSongLoopIncrement
+
 BattleScript_EffectSwagger::
 	attackcanceler
 	jumpifsubstituteblocks BattleScript_MakeMoveMissed
@@ -3363,15 +3374,12 @@ BattleScript_EffectWeatherSetWeather:
 	call BattleScript_MoveWeatherChangeRet
 	goto BattleScript_MoveEnd
 
-BattleScript_ChillyReceptionMessage::
+BattleScript_EffectWeatherAndSwitch::
 	printstring STRINGID_PKMNTELLCHILLINGRECEPTIONJOKE
 	waitmessage B_WAIT_TIME_LONG
-	return
-
-BattleScript_EffectWeatherAndSwitch::
+	jumpifbattletype BATTLE_TYPE_ARENA, BattleScript_EffectWeather
+	jumpifcantswitch SWITCH_IGNORE_ESCAPE_PREVENTION | BS_ATTACKER, BattleScript_EffectWeather
 	attackcanceler
-	jumpifbattletype BATTLE_TYPE_ARENA, BattleScript_EffectWeatherSetWeather
-	jumpifcantswitch SWITCH_IGNORE_ESCAPE_PREVENTION | BS_ATTACKER, BattleScript_EffectWeatherSetWeather
 	setfieldweather
 	clearmoveresultflags MOVE_RESULT_NO_EFFECT
 	attackanimation
@@ -3393,6 +3401,7 @@ BattleScript_FailOnPrimalWeather::
 	jumpifhalfword CMP_COMMON_BITS, gBattleWeather, B_WEATHER_STRONG_WINDS, BattleScript_MysteriousAirCurrentBlowsOn
 	return
 
+@@@@ not using keeping for report later@@@@
 BattleScript_TrySandstormwindAbilitiesLoop:
 	savetarget
 	setbyte gBattlerTarget, 0
@@ -3433,6 +3442,7 @@ BattleScript_TrySandstormwindAbilitiesLoop_WindPower:
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_TrySandstormwindAbilitiesLoop_Increment
 
+@@@@
 
 BattleScript_ExtremelyHarshSunlightWasNotLessened:
 	pause B_WAIT_TIME_SHORT

@@ -367,7 +367,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .slicingMove = TRUE,
         .enhancedCritrate = TRUE,
         .airborneDmgState = DOUBLE_DAMAGE_AIRBORNE,
-        .argument = { .storedValue = TYPE_WIND },
+        .argument = { .typeArg = TYPE_WIND },
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -5169,21 +5169,22 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Sandstorm"),
         .description = COMPOUND_MOVE_STRING("A 5-turn sandstorm\nthat damages all\ntypes except ROCK,\nGROUND, and STEEL.\nBoost SP. DEF of\nGROUND and ROCK mon."),
-        .effect = EFFECT_SANDSTORM,
+        .effect = EFFECT_WEATHER,
         .power = 0,
         .type = TYPE_ROCK,
         .accuracy = 0,
         .pp = 5,
-        .target = TARGET_USER,
+        .target = TARGET_FIELD,
         .priority = 1, //thought about it decided going first is good for move gives needed utility back to moves
         .category = DAMAGE_CATEGORY_STATUS, //has wider  distribution than abilities and with priority gives reason to use the move
-            .ignoresProtect = TRUE,
-            .windMove = TRUE,
-            //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
-            //.contestCategory = CONTEST_CATEGORY_TOUGH,
-            //.contestComboStarterId = COMBO_STARTER_SANDSTORM,
-            //.contestComboMoves = {0},
-            .battleAnimScript = gBattleAnimMove_Sandstorm,
+        .ignoresProtect = TRUE,
+        .windMove = TRUE,
+        .argument = { .weatherType = BATTLE_WEATHER_SANDSTORM },
+        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_SANDSTORM,
+        //.contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_Sandstorm,
     },//would ironically work just like abilities whicher mon is slower if both set weather gest the priority for setting weather
 
     [MOVE_GIGA_DRAIN] =
@@ -6128,15 +6129,16 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Rain Dance"),
         .description = COMPOUND_MOVE_STRING("A heavy rain falls\nfor five turns,\npowering up WATER-\ntype moves."),
-        .effect = EFFECT_RAIN_DANCE,
+        .effect = EFFECT_WEATHER,
         .power = 0,
         .type = TYPE_WATER,
         .accuracy = 0,
         .pp = 5,
-        .target = TARGET_USER,
+        .target = TARGET_FIELD,
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
+        .argument = { .weatherType =  BATTLE_WEATHER_RAIN },
         //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_RAIN_DANCE,
@@ -6150,15 +6152,16 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Sunny Day"),
         .description = COMPOUND_MOVE_STRING("The sun blazes for\nfive turns, powering\nup FIRE-type\nmoves and weakening\nWATER and ICE moves."),
-        .effect = EFFECT_SUNNY_DAY,
+        .effect = EFFECT_WEATHER,
         .power = 0,
         .type = TYPE_FIRE,
         .accuracy = 0,
         .pp = 5,
-        .target = TARGET_USER,
+        .target = TARGET_FIELD,
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
+        .argument = { .weatherType = BATTLE_WEATHER_SUN },
         //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_SUNNY_DAY,
@@ -6597,10 +6600,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .type = TYPE_ICE,
         .accuracy = 0,
         .pp = 5,
-        .target = TARGET_USER,
+        .target = TARGET_FIELD,
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
+        .argument = { .weatherType = BATTLE_WEATHER_HAIL },
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_HAIL,
@@ -7895,9 +7899,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Weather Ball"),
         .description = COMPOUND_MOVE_STRING("An attack that\nvaries in power and\ntype depending on\nthe weather."),
-        .effect = EFFECT_HIT,//EFFECT_WEATHER_BALL, //can just use effect hit now
+        .effect = EFFECT_WEATHER_BALL,//can just use effect hit now
         .power = 55,
-        .type = TYPE_NORMAL,
+        .type = TYPE_NORMAL, //keeping weather ball effect fo rnow just for ease use w ai
         .accuracy = 100,
         .pp = 10,
         .target = TARGET_SELECTED,
@@ -8379,7 +8383,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
         .battleAnimScript = gBattleAnimMove_MuddyWater,
-       .argument = { .storedValue = TYPE_GROUND },
+       .argument = { .typeArg = TYPE_GROUND },
     },//think want to make into two typed move, make custom effect so can set accuracy drop in bs would drop power to compensate
     //thinking water//ground bp 65, would still be strong as most things weak to water are also weak to ground
     //can potentially do accuracy drop with call_if?  since tink two typed effect doesn't actually set anything to move effect?
@@ -9781,7 +9785,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
         .magicCoatAffected = TRUE,
-        .argument = { .storedValue = ABILITY_INSOMNIA },
+        .argument = { .overwriteAbility = ABILITY_INSOMNIA },
         //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_WORRY_SEED,
@@ -12198,7 +12202,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
-        .argument = { .storedValue = TYPE_WATER },
+        .argument = { .typeArg = TYPE_WATER },
         .magicCoatAffected = TRUE,
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
@@ -12339,7 +12343,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
         .magicCoatAffected = TRUE,
-        .argument = { .storedValue = ABILITY_SIMPLE },
+        .argument = { .overwriteAbility = ABILITY_SIMPLE },
         //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -13848,7 +13852,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_FreezeShock,
-       .argument = { .storedValue = TYPE_ELECTRIC },
+       .argument = { .typeArg = TYPE_ELECTRIC },
     },//maintained paralysis chance
 
     [MOVE_ICE_BURN] =
@@ -13876,7 +13880,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_IceBurn,
-       .argument = { .storedValue = TYPE_FIRE },
+       .argument = { .typeArg = TYPE_FIRE },
     },//will still burn
     //think these are just kyurem black/white moves
 
@@ -14213,7 +14217,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
-        .argument = { .storedValue = TYPE_GHOST },
+        .argument = { .typeArg = TYPE_GHOST },
         .magicCoatAffected = TRUE,
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
@@ -14304,7 +14308,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
-        .argument = { .storedValue = TYPE_GRASS },
+        .argument = { .typeArg = TYPE_GRASS },
         .magicCoatAffected = TRUE,
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
@@ -14345,7 +14349,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
-        .argument = { .storedValue = TYPE_WATER },
+        .argument = { .typeArg = TYPE_WATER },
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
@@ -16029,7 +16033,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
-        .argument = { .storedValue = TYPE_FIRE },
+        .argument = { .typeArg = TYPE_FIRE },
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
@@ -16786,7 +16790,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
         .metronomeBanned = TRUE,
-        .argument = { .storedValue = TYPE_ELECTRIC },
+        .argument = { .typeArg = TYPE_ELECTRIC },
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
@@ -17220,7 +17224,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
-        .argument = { .storedValue = TYPE_PSYCHIC },
+        .argument = { .typeArg = TYPE_PSYCHIC },
         .magicCoatAffected = TRUE,
         .powderMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
@@ -19004,7 +19008,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .self = TRUE,
             .chance = 100,
         }),
-       .argument = { .storedValue = TYPE_FLYING },
+       .argument = { .typeArg = TYPE_FLYING },
         .battleAnimScript = gBattleAnimMove_EsperWing,
     },//vsonic want to make this two typed psychic flying
 
@@ -19841,16 +19845,17 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Chilly Reception"),
         .description = COMPOUND_MOVE_STRING("The Pokémon tells an\nawfully bad joke\nbefore fleeing the\ncold stares.\nThis summons hail\nlasting five turns."),
-        .effect = EFFECT_CHILLY_RECEPTION,    //Todo // EFFECT_CHILLY_RECEPTION
+        .effect = EFFECT_WEATHER_AND_SWITCH,    //Todo // EFFECT_CHILLY_RECEPTION
         .power = 0,
         .type = TYPE_ICE,
         .accuracy = 0,
         .pp = 10,
-        .target = TARGET_ALL_BATTLERS,
+        .target = TARGET_FIELD,
         .priority = 0,
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
         .metronomeBanned = TRUE,
+        .argument = { .weatherType = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_HAIL) ? BATTLE_WEATHER_HAIL : BATTLE_WEATHER_SNOW },
         .battleAnimScript = gBattleAnimMove_ChillyReception,
         // Supposedly uncallable by Metronome? (to be implemented)
     },
@@ -19887,18 +19892,19 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Snowescape"),
         .description = COMPOUND_MOVE_STRING("Summons a snowstorm\nthat blankets the\nfield for five turns"),//not adding snow so don't need?
-        .effect = EFFECT_SNOWESCAPE,
+        .effect = EFFECT_WEATHER_TRAP, //vsonic still figuring out either weather + no retreat or trap user and opponent side until weather ends or user dies
         .power = 0,
         .type = TYPE_ICE,
         .accuracy = 0,
         .pp = 10,
-        .target = TARGET_USER,
+        .target = TARGET_SELECTED, //got feedback from ryuji decided to make weather escape prevention just lock on target w user makes much more sense
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
+        .argument = { .weatherType = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_HAIL) ? BATTLE_WEATHER_HAIL : BATTLE_WEATHER_SNOW },
         .battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_HAIL) ? gBattleAnimMove_Hail : gBattleAnimMove_Snowscape,
         // Currently an exact copy of Hail until we figure out what to do with it
-    },
+    },//look at MOVE_EFFECT_TRAP_BOTH to get effect I want - vsonic
     //ok new idea, change to name icescape well might keep, as a pun for snow escape
     //but idea is weather setting but also trap
     //sets 5 turn hail for the duration the enemy can't switch
@@ -20953,7 +20959,7 @@ use wonder gaurd logic to determine its super effective
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .airborneDmgState = DAMAGES_AIRBORNE,
-        .argument = { .storedValue = TYPE_GRASS },
+        .argument = { .typeArg = TYPE_GRASS },
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 20,
@@ -21013,7 +21019,7 @@ use wonder gaurd logic to determine its super effective
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
-        .argument = { .storedValue = TYPE_PSYCHIC },
+        .argument = { .typeArg = TYPE_PSYCHIC },
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
@@ -21032,7 +21038,7 @@ use wonder gaurd logic to determine its super effective
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
-        .argument = { .storedValue = TYPE_FIGHTING },
+        .argument = { .typeArg = TYPE_FIGHTING },
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
@@ -21052,7 +21058,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
         //.enhancedCritrate = TRUE, //this is prob too much no? vsonic
-        .argument = { .storedValue = TYPE_FLYING },
+        .argument = { .typeArg = TYPE_FLYING },
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
@@ -21074,7 +21080,7 @@ use wonder gaurd logic to determine its super effective
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
-        .argument = { .storedValue = TYPE_ELECTRIC },
+        .argument = { .typeArg = TYPE_ELECTRIC },
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
@@ -21093,7 +21099,7 @@ use wonder gaurd logic to determine its super effective
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
-       .argument = { .storedValue = TYPE_ELECTRIC },
+       .argument = { .typeArg = TYPE_ELECTRIC },
        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 30,
@@ -21136,7 +21142,7 @@ use wonder gaurd logic to determine its super effective
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        .argument = { .storedValue = TYPE_ELECTRIC },
+        .argument = { .typeArg = TYPE_ELECTRIC },
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
@@ -21282,7 +21288,7 @@ use wonder gaurd logic to determine its super effective
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
-       .argument = { .storedValue = TYPE_DARK },
+       .argument = { .typeArg = TYPE_DARK },
         .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
@@ -21401,7 +21407,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        .argument = { .storedValue = ABILITY_HEAT_TRANCE },
+        .argument = { .overwriteAbility = ABILITY_HEAT_TRANCE },
         .battleAnimScript = gBattleAnimMove_SpiceTrade,
     },//didn't realize but didn't need make a new effect for
     //this is just what worry seed etc. does
@@ -21597,15 +21603,16 @@ use wonder gaurd logic to determine its super effective
     {
         .name = COMPOUND_STRING("Moondance"),
         .description = COMPOUND_MOVE_STRING("The Moon's power\nis intensified for\nfive turns, giving\na slight boost\nfor both WATER and\nFAIRY type moves."),
-        .effect = EFFECT_MOONDANCE,
+        .effect = EFFECT_WEATHER,
         .power = 0,
         .type = TYPE_FAIRY,
         .accuracy = 0,
         .pp = 5,
-        .target = TARGET_USER,
+        .target = TARGET_FIELD,
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
+        .argument = { .weatherType = BATTLE_WEATHER_MOONLIGHT },
         //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_MOONDANCE,
@@ -21618,15 +21625,16 @@ use wonder gaurd logic to determine its super effective
     {
         .name = COMPOUND_STRING("Acid Rain"),
         .description = COMPOUND_MOVE_STRING("Acid rain falls for\nfive turns, damaging\nNon-Psn mon Slightly\nboosts FIRE and\nWATER type moves.\nTriggers Psn effects"), //ok what did this mean again ...oh its actually treated as being poisoned things like toxic boost
-        .effect = EFFECT_ACID_RAIN,
+        .effect = EFFECT_WEATHER,
         .power = 0,
         .type = TYPE_POISON,
         .accuracy = 0,
         .pp = 5,
-        .target = TARGET_USER,
+        .target = TARGET_FIELD,
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
+        .argument = { .weatherType = BATTLE_WEATHER_ACID_RAIN },
         //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_ACID_RAIN,
@@ -21704,17 +21712,18 @@ use wonder gaurd logic to determine its super effective
         .type = TYPE_ICE,
         .accuracy = 0,
         .pp = 5,
-        .target = TARGET_USER,
+        .target = TARGET_FIELD,
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
+        .argument = { .weatherType = BATTLE_WEATHER_SNOW },
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS, //change use calming effect
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_HAIL,
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_Snowscape
     },
-    //snowday replaces original snowscape
+
 
     [MOVE_FOG_HORN] =
     {
@@ -21725,16 +21734,17 @@ use wonder gaurd logic to determine its super effective
         .type = TYPE_NORMAL, //idk stuck between water normal or sound
         .accuracy = 0, //
         .pp = 5,
-        .target = TARGET_USER,
+        .target = TARGET_FIELD,
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
+        .argument = { .weatherType = BATTLE_WEATHER_FOG },
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_HAIL,
         //.contestComboMoves = {0},
-        .battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_SNOW) ? gBattleAnimMove_Snowscape : gBattleAnimMove_Hail,
-    },
+        .battleAnimScript = gBattleAnimMove_Haze,
+    },//for now think use animmove haze
 
     //name pending
     [MOVE_SHADOW_STRIKE] =

@@ -1227,6 +1227,15 @@ bool8 IsPhysicalMove(u32 attackerId, u16 move); //new function consolidating eff
 void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u16 move, u8 DamageCategory, s32 damage);
 void ApplyMovePowerModifiers(enum BattlerId battlerAtk, u16 move, u16 power);
 
+enum Type GetSpeciesType(u16 species, u8 slot);
+enum Ability GetSpeciesAbility(u16 species, u8 slot);
+u32 GetSpeciesBaseHP(u16 species);
+u32 GetSpeciesBaseAttack(u16 species);
+u32 GetSpeciesBaseDefense(u16 species);
+u32 GetSpeciesBaseSpAttack(u16 species);
+u32 GetSpeciesBaseSpDefense(u16 species);
+u32 GetSpeciesBaseSpeed(u16 species);
+u32 GetSpeciesBaseStat(u16 species, u32 statIndex);
 const struct AbilityLearnset *GetSpeciesTeachableAbilities(u16 species);
 const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species);
 const u16 *GetSpeciesTeachableLearnset(u16 species);

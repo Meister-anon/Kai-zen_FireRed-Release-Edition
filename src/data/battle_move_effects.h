@@ -2255,7 +2255,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     //of submission and differences of effect
     //think I can safely have use same effect
 
-    [EFFECT_SNOWESCAPE] =
+    [EFFECT_WEATHER_TRAP] =
     {
         .battleScript = BattleScript_EffectSnowescape,
         .battleTvScore = 4,

@@ -4,16 +4,17 @@
 // Please add Snow interactions with move, item and ability effects on their respective files.
 ASSUMPTIONS
 {
-    ASSUME(gMovesInfo[MOVE_SNOWSCAPE].effect == EFFECT_SNOWSCAPE);
-    ASSUME(gSpeciesInfo[SPECIES_WOBBUFFET].types[0] != TYPE_ICE && gSpeciesInfo[SPECIES_WOBBUFFET].types[1] != TYPE_ICE);
-    ASSUME(gSpeciesInfo[SPECIES_GLALIE].types[0] == TYPE_ICE || gSpeciesInfo[SPECIES_GLALIE].types[1] == TYPE_ICE);
-    ASSUME(gMovesInfo[MOVE_TACKLE].category == DAMAGE_CATEGORY_PHYSICAL);
+    ASSUME(GetMoveEffect(MOVE_SNOW_DAY) == EFFECT_WEATHER);
+    ASSUME(GetMoveWeatherType(MOVE_SNOW_DAY) == BATTLE_WEATHER_SNOW);
+    ASSUME(GetSpeciesType(SPECIES_WOBBUFFET, 0) != TYPE_ICE && GetSpeciesType(SPECIES_WOBBUFFET, 1) != TYPE_ICE);
+    ASSUME(GetSpeciesType(SPECIES_GLALIE, 0) == TYPE_ICE || GetSpeciesType(SPECIES_GLALIE, 1) == TYPE_ICE);
+    ASSUME(GetMoveCategory(MOVE_SCRATCH) == DAMAGE_CATEGORY_PHYSICAL);
 }
 
 SINGLE_BATTLE_TEST("Snow multiplies the defense of Ice-types by 1.5x", s16 damage)
 {
     u16 move;
-    PARAMETRIZE { move = MOVE_SNOWSCAPE; }
+    PARAMETRIZE { move = MOVE_SNOW_DAY; }
     PARAMETRIZE { move = MOVE_CELEBRATE; }
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET);
@@ -41,13 +42,13 @@ SINGLE_BATTLE_TEST("Snowscape fails if Desolate Land or Primordial Sea are activ
         PLAYER(species) { Item(item); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { MOVE(opponent, MOVE_SNOWSCAPE); }
+        TURN { MOVE(opponent, MOVE_SNOW_DAY); }
     } SCENE {
         if (item == ITEM_RED_ORB || item == ITEM_BLUE_ORB) {
             ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_PRIMAL_REVERSION, player);
-            NOT ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWSCAPE, opponent);
+            NOT ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOW_DAY, opponent);
         } else {
-            ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWSCAPE, opponent);
+            ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOW_DAY, opponent);
         }
     }
 }

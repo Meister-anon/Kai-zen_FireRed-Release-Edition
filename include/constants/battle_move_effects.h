@@ -352,7 +352,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_ACID_RAIN,
     EFFECT_SUBMISSION, //changed to full protect bypass so just use brick break effect changed mind since increasing distribution
     EFFECT_RAGING_BULL,
-    EFFECT_SNOWESCAPE,    //with coming weather effect refactor will prob generalize to weather prevent escape - vsonic
+    EFFECT_WEATHER_TRAP,   //set weather trap user and selected target till user dies or weather ends  
     //EFFECT_SACRIFICE_HEALTH, //decide not use for mind blown but will make set of effects that sacrifice hp before going off -realized was dumb, no use case for
     EFFECT_MIND_BLOWN, //will be used for mindblown & self destruct diff from 50% hp recoil in that it goes off first and can kill like curse but fails if user faints
     //EFFECT_STRENGTH_UP_HIT, //instead straight 50% use damagepercentage argument for max hp amount to lose

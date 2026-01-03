@@ -69,11 +69,14 @@ DOUBLE_BATTLE_TEST("Retaliate works with passive damage")
         #if B_USE_FROSTBITE == TRUE
         ASSUME(gMovesInfo[MOVE_ICE_BEAM].additionalEffects[0].moveEffect == MOVE_EFFECT_FREEZE_OR_FROSTBITE);
         #endif
-        ASSUME(gMovesInfo[MOVE_SANDSTORM].effect == EFFECT_SANDSTORM);
-        ASSUME(gMovesInfo[MOVE_HAIL].effect == EFFECT_HAIL);
-        ASSUME(gMovesInfo[MOVE_LEECH_SEED].effect == EFFECT_LEECH_SEED);
-        ASSUME(gMovesInfo[MOVE_MAGMA_STORM].additionalEffects[0].moveEffect == MOVE_EFFECT_WRAP);
-        ASSUME(gMovesInfo[MOVE_FLAME_BURST].additionalEffects[0].moveEffect == MOVE_EFFECT_FLAME_BURST);
+
+        ASSUME(GetMoveEffect(MOVE_SANDSTORM) == EFFECT_WEATHER);
+        ASSUME(GetMoveWeatherType(MOVE_SANDSTORM) == BATTLE_WEATHER_SANDSTORM);
+        ASSUME(GetMoveEffect(MOVE_HAIL) == EFFECT_WEATHER);
+        ASSUME(GetMoveWeatherType(MOVE_HAIL) == BATTLE_WEATHER_HAIL);
+        ASSUME(GetMoveEffect(MOVE_LEECH_SEED) == EFFECT_LEECH_SEED);
+        ASSUME(GetMoveAdditionalEffectById(MOVE_MAGMA_STORM, 0)->moveEffect == MOVE_EFFECT_WRAP);
+        ASSUME(GetMoveAdditionalEffectById(MOVE_FLAME_BURST, 0)->moveEffect == MOVE_EFFECT_FLAME_BURST);
         PLAYER(SPECIES_WYNAUT) { Ability(ABILITY_SHADOW_TAG); HP(18); }
         PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_SHADOW_TAG); }
         PLAYER(SPECIES_WOBBUFFET);

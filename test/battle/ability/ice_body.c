@@ -2,15 +2,17 @@
 #include "test/battle.h"
 
 ASSUMPTIONS {
-    ASSUME(gMovesInfo[MOVE_HAIL].effect == EFFECT_HAIL);
-    ASSUME(gMovesInfo[MOVE_SNOWSCAPE].effect == EFFECT_SNOWSCAPE);
+    ASSUME(GetMoveEffect(MOVE_HAIL) == EFFECT_WEATHER);
+    ASSUME(GetMoveWeatherType(MOVE_HAIL) == BATTLE_WEATHER_HAIL);
+    ASSUME(GetMoveEffect(MOVE_SNOW_DAY) == EFFECT_WEATHER);
+    ASSUME(GetMoveWeatherType(MOVE_SNOW_DAY) == BATTLE_WEATHER_SNOW);
 }
 
 SINGLE_BATTLE_TEST("Ice Body prevents damage from hail")
 {
     u32 move;
     PARAMETRIZE { move = MOVE_HAIL; }
-    PARAMETRIZE { move = MOVE_SNOWSCAPE; }
+    PARAMETRIZE { move = MOVE_SNOW_DAY; }
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_GLALIE) { Ability(ABILITY_ICE_BODY); }
@@ -25,7 +27,7 @@ SINGLE_BATTLE_TEST("Ice Body recovers 1/16th of Max HP in hail.")
 {
     u32 move;
     PARAMETRIZE { move = MOVE_HAIL; }
-    PARAMETRIZE { move = MOVE_SNOWSCAPE; }
+    PARAMETRIZE { move = MOVE_SNOW_DAY; }
     GIVEN {
         PLAYER(SPECIES_GLALIE) { Ability(ABILITY_ICE_BODY); HP(1); MaxHP(100); }
         OPPONENT(SPECIES_WOBBUFFET);
@@ -42,7 +44,7 @@ SINGLE_BATTLE_TEST("Ice Body doesn't recover HP if Cloud Nine/Air Lock is on the
 {
     u32 move;
     PARAMETRIZE { move = MOVE_HAIL; }
-    PARAMETRIZE { move = MOVE_SNOWSCAPE; }
+    PARAMETRIZE { move = MOVE_SNOW_DAY; }
     GIVEN {
         PLAYER(SPECIES_GLALIE) { Ability(ABILITY_ICE_BODY); HP(1); MaxHP(100); }
         OPPONENT(SPECIES_GOLDUCK) { Ability(ABILITY_CLOUD_NINE); }

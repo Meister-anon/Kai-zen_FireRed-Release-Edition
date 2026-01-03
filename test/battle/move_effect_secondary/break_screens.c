@@ -5,8 +5,8 @@ ASSUMPTIONS
 {
     ASSUME(MoveHasAdditionalEffect(MOVE_BRICK_BREAK, MOVE_EFFECT_BREAK_SCREEN));
     ASSUME(MoveHasAdditionalEffect(MOVE_PSYCHIC_FANGS, MOVE_EFFECT_BREAK_SCREEN));
-    ASSUME(GetMoveEffect(MOVE_SNOWSCAPE) == EFFECT_WEATHER);
-    ASSUME(GetMoveWeatherType(MOVE_SNOWSCAPE) == BATTLE_WEATHER_SNOW);
+    ASSUME(GetMoveEffect(MOVE_SNOW_DAY) == EFFECT_WEATHER);
+    ASSUME(GetMoveWeatherType(MOVE_SNOW_DAY) == BATTLE_WEATHER_SNOW);
     ASSUME(GetMoveEffect(MOVE_LIGHT_SCREEN) == EFFECT_LIGHT_SCREEN);
     ASSUME(GetMoveEffect(MOVE_REFLECT) == EFFECT_REFLECT);
     ASSUME(GetMoveEffect(MOVE_AURORA_VEIL) == EFFECT_AURORA_VEIL);
@@ -24,10 +24,10 @@ SINGLE_BATTLE_TEST("Brick Break removes Light Screen, Reflect and Aurora Veil fr
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { MOVE(player, MOVE_SNOWSCAPE); }
+        TURN { MOVE(player, MOVE_SNOW_DAY); }
         TURN { MOVE(opponent, move); MOVE(player, MOVE_BRICK_BREAK); }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWSCAPE, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOW_DAY, player);
         ANIMATION(ANIM_TYPE_MOVE, move, opponent);
         ANIMATION(ANIM_TYPE_MOVE, MOVE_BRICK_BREAK, player);
         MESSAGE("The wall shattered!");
@@ -48,10 +48,10 @@ SINGLE_BATTLE_TEST("Brick Break doesn't remove Light Screen, Reflect and Aurora 
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_GASTLY);
     } WHEN {
-        TURN { MOVE(player, MOVE_SNOWSCAPE); }
+        TURN { MOVE(player, MOVE_SNOW_DAY); }
         TURN { MOVE(opponent, move); MOVE(player, MOVE_BRICK_BREAK); }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWSCAPE, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOW_DAY, player);
         ANIMATION(ANIM_TYPE_MOVE, move, opponent);
         NONE_OF {
             ANIMATION(ANIM_TYPE_MOVE, MOVE_BRICK_BREAK, player);
@@ -73,10 +73,10 @@ SINGLE_BATTLE_TEST("Brick Break doesn't remove Light Screen, Reflect and Aurora 
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { MOVE(player, MOVE_SNOWSCAPE); MOVE(opponent, move); }
+        TURN { MOVE(player, MOVE_SNOW_DAY); MOVE(opponent, move); }
         TURN { MOVE(player, MOVE_BRICK_BREAK); MOVE(opponent, MOVE_PROTECT); }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWSCAPE, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOW_DAY, player);
         ANIMATION(ANIM_TYPE_MOVE, move, opponent);
         ANIMATION(ANIM_TYPE_MOVE, MOVE_PROTECT, opponent);
         NONE_OF {
@@ -99,10 +99,10 @@ SINGLE_BATTLE_TEST("Brick Break doesn't remove Light Screen, Reflect and Aurora 
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET) { Item(ITEM_BRIGHT_POWDER); }
     } WHEN {
-        TURN { MOVE(player, MOVE_SNOWSCAPE); MOVE(opponent, move); }
+        TURN { MOVE(player, MOVE_SNOW_DAY); MOVE(opponent, move); }
         TURN { MOVE(player, MOVE_BRICK_BREAK, hit: FALSE); }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWSCAPE, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOW_DAY, player);
         ANIMATION(ANIM_TYPE_MOVE, move, opponent);
         NONE_OF {
             ANIMATION(ANIM_TYPE_MOVE, MOVE_BRICK_BREAK, player);
@@ -127,12 +127,12 @@ DOUBLE_BATTLE_TEST("Brick Break can remove Light Screen, Reflect and Aurora Veil
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
         TURN {
-            MOVE(opponentLeft, MOVE_SNOWSCAPE);
+            MOVE(opponentLeft, MOVE_SNOW_DAY);
             MOVE(playerLeft, move);
             MOVE(playerRight, MOVE_BRICK_BREAK, target: playerLeft);
         }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWSCAPE, opponentLeft);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOW_DAY, opponentLeft);
         ANIMATION(ANIM_TYPE_MOVE, move, playerLeft);
         ANIMATION(ANIM_TYPE_MOVE, MOVE_BRICK_BREAK, playerRight);
         MESSAGE("The wall shattered!");

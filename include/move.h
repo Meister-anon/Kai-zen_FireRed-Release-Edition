@@ -211,12 +211,14 @@ struct MoveInfo
         u32 status;
         u32 moveProperty;
         u32 holdEffect;
-        u32 storedValue; //think use this for general storage type ebility etc. rename storedValue
-        u32 fixedDamage;
+        u32 typeArg; //think use this for general storage type ebility etc. rename storedValue
+        u32 fixedDamage;//^didn't understand how union works more values doesn't take more space can split out betwen type and ability
         u32 damagePercentage;
         u32 absorbPercentage;//if sacrifice hp percent is just for curse can do without it, just wrap into explosion rework
         //u32 sacrificedHpPercentage; //decide use for hp loss for self destruct mind blown may filter into curse as well
         u32 nonVolatileStatus; //looking at plasma fists which can go use effect_hit then go to other move effect
+        u32 overwriteAbility;
+        u32 weatherType;
     } argument; //think may not need recoilType at all
     //unions are weird can't be bit field but can have bit fields within them,
     //are read as same byte so must be mutually exclusive
@@ -815,6 +817,12 @@ static inline bool32 MoveDoesTypelessDmg(enum Move moveId)
     return gMovesInfo[moveId].typelessDmg == TRUE;
 }
 
+
+static inline u32 GetMoveWeatherType(u32 move)
+{
+    //assertf(gMovesInfo[move].effect == EFFECT_WEATHER || gMovesInfo[move].effect == EFFECT_WEATHER_AND_SWITCH, "not a move that sets weather: %S", gMovesInfo[move].name);
+    return gMovesInfo[SanitizeMoveId(move)].argument.weatherType;
+}
 
 static inline const struct AdditionalEffect *GetMoveAdditionalEffectById(u32 moveId, u32 effect)
 {
