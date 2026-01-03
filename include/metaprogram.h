@@ -39,8 +39,12 @@
  * Otherwise, GCC gives an error for each and every character (which is annoying). */
 #define COMPOUND_STRING_CHECK_SIZE(str, limit) (sizeof(COMPOUND_STRING(str)) > limit ? sizeof(COMPOUND_STRING(str)) - 1 : sizeof(COMPOUND_STRING(str)))
 
-#define CONVERGENT_STRING_CHECK_SIZE(name, limit, str) (sizeof(CONVERGED_COMPOUND_STRING(name, str)) > limit ? sizeof(CONVERGED_COMPOUND_STRING(name, str)) - 1 : sizeof(CONVERGED_COMPOUND_STRING(name, str)))
+#define STRING_CHECK_SIZE(str) (sizeof(str) > MOVE_DESCRIPTION_LENGTH + 5 ? sizeof(str) - 1 : sizeof(str))
+
 #define CONVERGED_COMPOUND_STRING(name, str) (const u8 name[]) _(str)
+#define CONVERGE_STRING_SIZE_LIMIT(name, limit, string) (const u8 name[CONVERGENT_STRING_CHECK_SIZE(name, limit, str)]) _(str)
+#define CONVERGENT_STRING_CHECK_SIZE(name, limit, str) (sizeof(CONVERGED_COMPOUND_STRING(name, str)) > limit ? sizeof(CONVERGED_COMPOUND_STRING(name, str)) - 1 : sizeof(CONVERGED_COMPOUND_STRING(name, str)))
+
 
 /* Expands to the first/second/third/fourth argument. */
 #define FIRST(a, ...) a

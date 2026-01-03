@@ -2885,38 +2885,33 @@ s32 GetStealthHazardDamageByTypesAndHP(u8 hazardType, u8 type1, u8 type2, u32 ma
         dmg = 0;
         break;
     case UQ_4_12(0.25):
-        dmg = maxHp / 32;
-        if (dmg == 0)
-            dmg = 1;
+        dmg = max(maxHp / 32, 1);
         break;
     case UQ_4_12(0.5):
-        dmg = maxHp / 16;
-        if (dmg == 0)
-            dmg = 1;
+        dmg = max(maxHp / 16, 1);
         break;
     case UQ_4_12(1.0):
-        dmg = maxHp / 8;
-        if (dmg == 0)
-            dmg = 1;
+        dmg = max(maxHp / 8, 1);
         break;
     /*case UQ_4_12(2.0):
-        dmg = maxHp / 6;
+        dmg = maxHp / 4;
         if (dmg == 0)
             dmg = 1;
         break;
     case UQ_4_12(4.0):
-        dmg = maxHp / 4;
+        dmg = maxHp / 2;
         if (dmg == 0)
             dmg = 1;
         break;*/
+    default:
+        if (modifier > UQ_4_12(1.0))
+        {
+            dmg = max(maxHp / 5, 1);
+        }
+        else
+            dmg = max(maxHp / 8, 1); //account for half resist now no longer neutral
     }
 
-    if (modifier > UQ_4_12(1.0))
-    {
-        dmg = maxHp / 5;
-        if (dmg == 0)
-            dmg = 1;
-    }
 
     return dmg;
 }

@@ -11812,7 +11812,7 @@ static void PutLevelAndGenderOnLvlUpBox(void)
     printerTemplate.shadowColor = TEXT_COLOR_DARK_GREY;
     AddTextPrinter(&printerTemplate, 0xFF, NULL);
     txtPtr = gStringVar4;
-    gStringVar4[0] = 0xF9;
+    gStringVar4[0] = CHAR_EXTRA_SYMBOL;
     *++txtPtr = 5;
     *++txtPtr = 0;
     txtPtr2 = txtPtr + 1;
@@ -15277,6 +15277,7 @@ static void atk87_stockpiletohpheal(void)
 //moved ghost drain to big root logic(function) as majority of
 //base effect is done in that now anyway
 //redid setup to use argumenteffectchance more effiicient setup
+//done
 static void atk88_sethpdrain(void) 
 {
     
@@ -15290,9 +15291,10 @@ static void atk88_sethpdrain(void)
     else if (gBattleMoves[gCurrentMove].effect == EFFECT_ABSORB && argumentchance != 0) //issue seems to bne this part?
         gBattleMoveDamage = max((gHpDealt * argumentchance) / 100,1);
 
-    
+    //decided cut effect down to 1.3 forgot can stack w big root
+    //plus put together that's a 1.69 boost 
     if (IsBattlerTerrainAffected(gBattlerAttacker, STATUS_FIELD_MISTY_TERRAIN))
-        gBattleMoveDamage = max((150 * gBattleMoveDamage) / 100,1); //may cut down //vsonic
+        gBattleMoveDamage = max((130 * gBattleMoveDamage) / 100,1); //may cut down //vsonic
 
     
     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -20669,7 +20671,9 @@ static void atkF8_setroost(void) { //actually I don't like this type change idea
         gBattlescriptCurrInstr = cmd->failInstr;
 
     
-}
+}//important note battle move info callback is too slow
+//still noticeably slower than opening party menu from battle
+//when don't think should be
 
 //think EE has better stuff for this may replace
 //I don't think I'm really using this

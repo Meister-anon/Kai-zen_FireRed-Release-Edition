@@ -25,6 +25,11 @@ the basic flags from gen3 are "check bad move, try to faint and check viability"
 also of note "if you remove check viability it will never use a status move"
 
 
+//important note battle move info callback is too slow
+//still noticeably slower than opening party menu from battle
+//when don't think should be
+
+
 //for randomizer certain species forms require their item
     //to be the form i.e areus forms are meaningless
     //without the plates now, as the plate is what activates ability
