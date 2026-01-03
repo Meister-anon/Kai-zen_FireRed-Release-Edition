@@ -1121,7 +1121,7 @@ static const u16 sMoveEffectsForbiddenToInstruct[] =
     //EFFECT_SKY_DROP,
     EFFECT_SKULL_BASH,
     EFFECT_SLEEP_TALK,
-    EFFECT_SOLARBEAM,
+    EFFECT_SOLAR_BEAM,
     EFFECT_COLD_FLARE,
     EFFECT_TRANSFORM,
     EFFECT_TWO_TURNS_ATTACK,
@@ -1164,7 +1164,7 @@ static const u16 sMultiTaskExcludedEffects[] =
     EFFECT_MAGNITUDE, //variable power  made function to account for - doesnt work
     EFFECT_ROLLOUT,
     EFFECT_SKY_ATTACK,
-    EFFECT_SOLARBEAM,
+    EFFECT_SOLAR_BEAM,
     EFFECT_COLD_FLARE,
     EFFECT_SKULL_BASH,
     EFFECT_SEMI_INVULNERABLE,
@@ -2405,16 +2405,17 @@ static void TryUpdateRoundTurnOrder(void)
     }
 }
 
-bool8 CanMultiTask(u16 move) //works, but now I need to negate the jump, because it will still attack multiple times otherwise  done!
+bool8 CanMultiTask(u32 battleratk, u16 move) //works, but now I need to negate the jump, because it will still attack multiple times otherwise  done!
 {
-    u16 i;
-    for (i = 0; sMultiTaskExcludedEffects[i] != MULTI_TASK_FORBIDDEN_END && sMultiTaskExcludedEffects[i] != gBattleMoves[move].effect; ++i);
-    ;
-    if (sMultiTaskExcludedEffects[i] == MULTI_TASK_FORBIDDEN_END
-    && gBattleMoves[move].split != SPLIT_STATUS) //should mean if loop through till end, move can be multi tasked
+
+    if (GetBattlerAbility(battleratk) == ABILITY_MULTI_TASK
+    && !IsBattleMoveStatus(move)
+    && !IsMoveMultiTaskBanned(move))
+    {
         return TRUE;
-    else
-        return FALSE;
+    }
+
+    return FALSE;
 }
 
 //damgage formula emerald puts stab checks here
@@ -2448,8 +2449,7 @@ static void atk05_damagecalc(void)
     //ability just needs a bit of help in early game,
     //once you get to the point you can consistantly do min 10 damage
     //there's no issues
-    if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MULTI_TASK
-    && CanMultiTask(gCurrentMove) == TRUE)
+    if (CanMultiTask(gBattlerAttacker, gCurrentMove) == TRUE)
     {
         if (gMultiTask > 2)
             gBattleMoveDamage = max(gBattleMoveDamage / gMultiTask, 1);
@@ -2481,8 +2481,7 @@ s32 AI_CalcDmgFormula(u8 attacker, u8 defender) //made for ai .c update
     if (gProtectStructs[attacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
 
-    if (GetBattlerAbility(attacker) == ABILITY_MULTI_TASK
-    && CanMultiTask(gCurrentMove) == TRUE)
+    if (CanMultiTask(attacker, gCurrentMove) == TRUE)
     {
         gBattleMoveDamage = max(gBattleMoveDamage / gMultiTask, 1);
     }
@@ -2511,8 +2510,7 @@ void AI_CalcDmg(u8 attacker, u8 defender) //needed for ai script  , brought back
     if (gProtectStructs[attacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
 
-    if (GetBattlerAbility(attacker) == ABILITY_MULTI_TASK
-    && CanMultiTask(gCurrentMove) == TRUE)
+    if (CanMultiTask(attacker, gCurrentMove) == TRUE)
     {
         gBattleMoveDamage = max(gBattleMoveDamage / gMultiTask, 1);
     }
@@ -3671,8 +3669,7 @@ static void atk09_attackanimation(void)
             }
             if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)) //do animation only if not move result no effect
             {
-                if ((GetBattlerAbility(gBattlerAttacker) == ABILITY_MULTI_TASK)
-                && CanMultiTask(gCurrentMove)
+                if (CanMultiTask(gBattlerAttacker, gCurrentMove)
                 && gBattleScripting.animTargetsHit)
                 {
                     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -5812,8 +5809,8 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                 break;
             case MOVE_EFFECT_HEAVY_RECOIL:
             case MOVE_EFFECT_LIGHT_RECOIL:
-            //case MOVE_EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
-            case MOVE_EFFECT_MED_RECOIL: // Double Edge / removed below to use upgraded recoil setup
+            case MOVE_EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
+            case MOVE_EFFECT_MEDIUM_RECOIL: // Double Edge / removed below to use upgraded recoil setup
                 //gBattleMoveDamage = max(gHpDealt / 3,1);
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_MoveEffectRecoil;
@@ -6587,7 +6584,7 @@ static void atk1E_jumpbasedonability(void)
         {
             if (ability == ABILITY_MULTI_TASK)
             {
-                if (CanMultiTask(gCurrentMove)) //seems to be workign now, but some move animations dont show still investigating
+                if (CanMultiTask(battlerId, gCurrentMove)) //seems to be workign now, but some move animations dont show still investigating
                 {
                     hasAbility = TRUE; //if shouldn't multitask will fail to jump to portion that gives moves multi hit effect
                 } //only used in, low kick script, and non multihit scripts
@@ -17361,7 +17358,7 @@ static bool8 IsTwoTurnsMove(u16 move) //prob need to add on to this
 {
     if (gBattleMoves[move].effect == EFFECT_SKULL_BASH
      || gBattleMoves[move].effect == EFFECT_GEOMANCY
-     || gBattleMoves[move].effect == EFFECT_SOLARBEAM
+     || gBattleMoves[move].effect == EFFECT_SOLAR_BEAM
      || gBattleMoves[move].effect == EFFECT_COLD_FLARE
      || gBattleMoves[move].effect == EFFECT_TWO_TURNS_ATTACK)
         return TRUE;
@@ -21646,7 +21643,7 @@ void BS_AttacksThisTurn(void) // Note: returns 1 if it's a charging turn, otherw
     NATIVE_ARGS(const u8 *ptr);
     bool8 Thisturn = FALSE;
     // first argument is unused
-    /*if ((gBattleMoves[gCurrentMove].effect == EFFECT_SOLARBEAM) //rebalanced effect not using special status for
+    /*if ((gBattleMoves[gCurrentMove].effect == EFFECT_SOLAR_BEAM) //rebalanced effect not using special status for
      && (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY)
       || (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE && IsBlackFogNotOnField())) 
     )   
@@ -21677,14 +21674,14 @@ static bool8 CanTwoTurnMoveAttackThisTurn(u16 move)
     if ((gBattleMoves[move].effect == EFFECT_SKULL_BASH
      || gBattleMoves[move].effect == EFFECT_GEOMANCY
      || gBattleMoves[move].effect == EFFECT_SKY_ATTACK
-     || gBattleMoves[move].effect == EFFECT_SOLARBEAM
+     || gBattleMoves[move].effect == EFFECT_SOLAR_BEAM
      || gBattleMoves[move].effect == EFFECT_COLD_FLARE
      || gBattleMoves[move].effect == EFFECT_SKY_DROP
      || gBattleMoves[move].effect == EFFECT_TWO_TURNS_ATTACK)
      && CanActivateTimeControl(gBattlerAttacker))
         return TRUE;
 
-    else if ((gBattleMoves[move].effect == EFFECT_SOLARBEAM) //rebalanced effect not using special status for
+    else if ((gBattleMoves[move].effect == EFFECT_SOLAR_BEAM) //rebalanced effect not using special status for
     && (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY)
     || (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE && IsBlackFogNotOnField())))
         return TRUE;

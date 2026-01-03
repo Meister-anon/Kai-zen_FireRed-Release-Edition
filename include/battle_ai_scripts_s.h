@@ -193,7 +193,7 @@ AI_CheckBadMove_CheckEffect:: @ 81D9D27
 	if_effect EFFECT_FUTURE_SIGHT, AI_CBM_FutureSight
 	if_effect EFFECT_TELEPORT, Score_Minus10
 	if_effect EFFECT_DEFENSE_CURL, AI_CBM_DefenseUp
-	if_effect EFFECT_FAKE_OUT, AI_CBM_FakeOut
+	if_effect EFFECT_FIRST_TURN_ONLY, AI_CBM_FakeOut
 	if_effect EFFECT_STOCKPILE, AI_CBM_Stockpile
 	if_effect EFFECT_SPIT_UP, AI_CBM_SpitUpAndSwallow
 	if_effect EFFECT_SWALLOW, AI_CBM_SpitUpAndSwallow
@@ -749,10 +749,10 @@ AI_CheckViability:: @ 81DA445
 	if_effect EFFECT_PSYCH_UP, AI_CV_PsychUp
 	if_effect EFFECT_MIRROR_COAT, AI_CV_MirrorCoat
 	if_effect EFFECT_SKULL_BASH, AI_CV_ChargeUpMove
-	if_effect EFFECT_SOLARBEAM, AI_CV_ChargeUpMove
+	if_effect EFFECT_SOLAR_BEAM, AI_CV_ChargeUpMove
 	if_effect EFFECT_SEMI_INVULNERABLE, AI_CV_SemiInvulnerable
 	if_effect EFFECT_SOFTBOILED, AI_CV_Heal
-	if_effect EFFECT_FAKE_OUT, AI_CV_FakeOut
+	if_effect EFFECT_FIRST_TURN_ONLY, AI_CV_FakeOut
 	if_effect EFFECT_SPIT_UP, AI_CV_SpitUp
 	if_effect EFFECT_SWALLOW, AI_CV_Heal
 	if_effect EFFECT_HAIL, AI_CV_Hail
@@ -1860,7 +1860,7 @@ AI_CV_Encore_EncouragedMovesToEncore:: @ 81DB164
 	.byte EFFECT_BELLY_DRUM
 	.byte EFFECT_PSYCH_UP
 	.byte EFFECT_FUTURE_SIGHT
-	.byte EFFECT_FAKE_OUT
+	.byte EFFECT_FIRST_TURN_ONLY
 	.byte EFFECT_STOCKPILE
 	.byte EFFECT_SPIT_UP
 	.byte EFFECT_SWALLOW
@@ -3115,7 +3115,7 @@ AI_HPAware_DiscouragedEffectsWhenLowHP:: @ 81DBBFC
 	.byte EFFECT_BELLY_DRUM
 	.byte EFFECT_PSYCH_UP
 	.byte EFFECT_MIRROR_COAT
-	.byte EFFECT_SOLARBEAM
+	.byte EFFECT_SOLAR_BEAM
 	.byte EFFECT_ERUPTION
 	.byte EFFECT_TICKLE
 	.byte EFFECT_COSMIC_POWER

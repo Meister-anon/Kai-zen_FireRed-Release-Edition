@@ -338,7 +338,7 @@ static const u16 sEncouragedEncoreEffects[] =
     EFFECT_BELLY_DRUM,
     EFFECT_PSYCH_UP,
     EFFECT_FUTURE_SIGHT,
-    EFFECT_FAKE_OUT,
+    EFFECT_FIRST_TURN_ONLY,
     EFFECT_STOCKPILE,
     EFFECT_SPIT_UP,
     EFFECT_SWALLOW,
@@ -372,7 +372,7 @@ static const u16 sIgnoredPowerfulMoveEffects[] =
     EFFECT_DREAM_EATER,
     EFFECT_RECHARGE,
     EFFECT_SKULL_BASH,
-    EFFECT_SOLARBEAM,
+    EFFECT_SOLAR_BEAM,
     EFFECT_COLD_FLARE,
     EFFECT_SPIT_UP,
  //   EFFECT_FOCUS_PUNCH,
@@ -1866,7 +1866,7 @@ bool32 ShouldSetSun(u8 battler, u16 ability, u16 holdEffect)
       || ability == ABILITY_FLUORESCENCE
       || ability == ABILITY_HARVEST
       || GetBaseFormSpecies(gBattleMons[battler].species) == SPECIES_CASTFORM
-      || HasMoveEffect(battler, EFFECT_SOLARBEAM)
+      || HasMoveEffect(battler, EFFECT_SOLAR_BEAM)
       || HasMoveEffect(battler, EFFECT_MORNING_SUN)
       || HasMoveEffect(battler, EFFECT_SYNTHESIS)
       || HasMoveEffect(battler, EFFECT_MOONLIGHT)

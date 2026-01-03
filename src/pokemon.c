@@ -6052,7 +6052,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if ((abilityAtk == ABILITY_FLUORESCENCE   
         || DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))     
         && !IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY)// && IsBlackFogNotOnField()
-        && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
+        && gBattleMoves[move].effect == EFFECT_SOLAR_BEAM)
         {
             OffensiveModifer(100);
         } //simpler balancing for fluorescence do dmg cut/ nvm removed dmg cut, low bst and forgot lowered super bonus etc., so will mean just avoids dmg cut from other weather
@@ -6060,7 +6060,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //moved these here, because they don't have to do with physical or special damage alone anymore.  since I removed the type link
         // any weather except sun weakens solar beam
         else if ((gBattleWeather & (WEATHER_RAIN_ANY | WEATHER_SANDSTORM_ANY | WEATHER_HAIL)) 
-        && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
+        && gBattleMoves[move].effect == EFFECT_SOLAR_BEAM)
             OffensiveModifer(50);
 
 

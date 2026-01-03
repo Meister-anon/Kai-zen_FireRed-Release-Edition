@@ -1711,7 +1711,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         case EFFECT_TELEPORT:
             score -= 10;
             break;
-        case EFFECT_FAKE_OUT:
+        case EFFECT_FIRST_TURN_ONLY:
             if (!gDisableStructs[battlerAtk].isFirstTurn)
             {
                 score -= 10;
@@ -2174,7 +2174,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             break;
         case EFFECT_SPECTRAL_THIEF:
             break;
-        case EFFECT_SOLARBEAM:
+        case EFFECT_SOLAR_BEAM:
             if (AI_DATA->holdEffects[battlerAtk] == HOLD_EFFECT_POWER_HERB
               || (AI_WeatherHasEffect() && gBattleWeather & WEATHER_SUN_ANY && AI_DATA->holdEffects[battlerAtk] != HOLD_EFFECT_UTILITY_UMBRELLA))
                 break;
@@ -4212,7 +4212,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             score++;
         IncreaseStatUpScore(battlerAtk, battlerDef, STAT_DEF, &score);
         break;
-    case EFFECT_FAKE_OUT:
+    case EFFECT_FIRST_TURN_ONLY:
         if (move == MOVE_FAKE_OUT    // filter out first impression
           && ShouldFakeOut(battlerAtk, battlerDef, move))
             score += 8;
@@ -4923,7 +4923,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         break;
     case EFFECT_TWO_TURNS_ATTACK:
     case EFFECT_SKULL_BASH:
-    case EFFECT_SOLARBEAM:
+    case EFFECT_SOLAR_BEAM:
     case EFFECT_COLD_FLARE:
         if (AI_DATA->holdEffects[battlerAtk] == HOLD_EFFECT_POWER_HERB)
             score += 2;
@@ -5329,7 +5329,7 @@ static s16 AI_HPAware(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             case EFFECT_BELLY_DRUM:
             case EFFECT_PSYCH_UP:
             case EFFECT_MIRROR_COAT:
-            case EFFECT_SOLARBEAM:
+            case EFFECT_SOLAR_BEAM:
             case EFFECT_COLD_FLARE:
             case EFFECT_TWO_TURNS_ATTACK:
             case EFFECT_ERUPTION:
