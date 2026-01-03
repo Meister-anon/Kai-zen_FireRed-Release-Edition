@@ -105,7 +105,7 @@ else
     endif
   endif
   LIB += -lnosys
-endif
+endif # need add -Werror -Wall  to modern override cflags makes string bounds test stop build plus more strict catch issues
 # Enable debug info if set
 ifeq ($(DINFO),1)
   override CFLAGS += -g

@@ -2,6 +2,33 @@
 Branch Goals:
 
 IMPORTANT:
+
+test/text.c
+Expansion already has file that perfectly catches
+string length and if it finds bounds of a given
+graphic measured using pixels
+
+when I get test system working use above file path
+to edit tests to fit my values
+hard part prob be dex page and figure how to get
+pixel width since I don't want to take entire space
+as that would break indent well no can use 2 tests
+one for fitting the default space 
+2nd for max space should I need it
+and only return error if fails both
+guess just warning if fails first
+
+also need add wall werror to cpp flags for modern
+to catch code errors pretty much entire point of modern
+and I'm not taking advantage of it forgot
+only reason I turned it off was to find issues
+why modern wouldn't build now that Ive addressed them all
+need to turn back on.
+unfortunately have bunch of code that doesn't follow modern
+standard and needs to be fixed.
+
+think wait till have everything merged back to master to fix smh
+
 I know now expansion fundamentally changed ai
 and all their ai updates have been done to the base version
 not at all preserving how base ai worked. *facepalm*
