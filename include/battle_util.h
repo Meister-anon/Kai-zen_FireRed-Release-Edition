@@ -272,6 +272,11 @@ void ClearMoldBreakerSetStatus(u8 battler);
 bool32 ShouldActivateFugue(u32 battleratk, u32 battlerdef);
 bool32 ShouldActivateObliviousLike(u32 battler); //oblivious femme fatale ability block was constalty resetting cuz didn't have top condition
 
+//new personality searches for revamped infatuation setup
+u32 IsPersonalityOnSide(u32 battlerId, u32 MonPid);
+u32 IsMonOnOpposingSide(u32 battlerId, u32 MonPid);
+u32 GetBattlerFromPersonality(u32 MonPid);
+
 //cacophony based functions - also affects perish song, bypasses walls and protection
 //and sets sleep and confusion effects to max duration on status set
 bool8 ShouldCacophonyBoostAccuracy(u16 move);

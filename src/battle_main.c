@@ -3551,7 +3551,7 @@ static void BattleStartClearSetData(void)
         gBattleStruct->AI_monToSwitchIntoId[i] = PARTY_SIZE;
         gBattleStruct->skyDropTargets[i] = BATTLE_ID_NONE;
         gBattleStruct->seedSetterBattleId[i] = BATTLE_ID_NONE;
-        gBattleStruct->infatuatedwithBattleId[i] = BATTLE_ID_NONE;
+        gBattleStruct->infatuatedwithMon[i] = FALSE;
         gBattleStruct->overwrittenAbilities[i] = ABILITY_NONE;
         // Record HP of each battler
         gBattleStruct->hpBefore[i] = gBattleMons[i].hp;
@@ -3767,23 +3767,27 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
         //look to wrapped by logic for example, use that as battlerId and check hold effect vsonic
         //should be simple change to trappedby  and use for all traps
         gBattleStruct->seedSetterBattleId[battler] = BATTLE_ID_NONE;
-        gBattleStruct->infatuatedwithBattleId[battler] = BATTLE_ID_NONE;
+        gBattleStruct->infatuatedwithMon[battler] = FALSE;
     }
 
     // is this something that removes wrap, and infatuation if the mon that caused the effect is switched out? yes
     //forgot I planned steup for suction cup and certain held item to make traps persist
-    for (i = 0; i < gBattlersCount; ++i)
+    //battler is one switchign so believe what does is
+    //remove infatuation if target of infatuation switched out
+    //decided not clear on switch only on faint
+    //i.e death do us part
+    /*for (i = 0; i < gBattlersCount; ++i)
     {
 
         if (gBattleMons[i].status2 & STATUS2_INFATUATION
-        && gBattleStruct->infatuatedwithBattleId[i] == battler)
+        && gBattleStruct->infatuatedwithMon[i] == battler)
         {
             gBattleMons[i].status2 &= ~(STATUS2_INFATUATION);
-            gBattleStruct->infatuatedwithBattleId[i] = BATTLE_ID_NONE;
+            gBattleStruct->infatuatedwithMon[i] = BATTLE_ID_NONE;
         }
         
         // was too annoying to track, just removed battler switch clearing for traps, may need other buff for suction cups
-    }
+    }*/
     gActionSelectionCursor[battler] = 0;
     gMoveSelectionCursor[battler] = 0;
 
@@ -3863,10 +3867,10 @@ const u8* FaintClearSetData(u32 battler) //see about make status1 not fade wen f
         if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == battler)
             gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;
         if (gBattleMons[i].status2 & STATUS2_INFATUATION
-        && gBattleStruct->infatuatedwithBattleId[i] == battler)
+        && gBattleStruct->infatuatedwithMon[i] == GetMonData(GetBattlerMon(battler), MON_DATA_PERSONALITY))
         {
             gBattleMons[i].status2 &= ~(STATUS2_INFATUATION);
-            gBattleStruct->infatuatedwithBattleId[i] = BATTLE_ID_NONE;
+            gBattleStruct->infatuatedwithMon[i] = FALSE;
         }
             
         

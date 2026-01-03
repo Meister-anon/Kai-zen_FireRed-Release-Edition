@@ -6607,8 +6607,20 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //that's not an error that's how the formula always worked...
     //only does less on resist
     //should be good idea infatuation status buff
+    //further buffed effect should be any target other than ally
+    //while target of infatuation is on field
+    //double check other logic but think what I have elsewhere
+    //should ensure infatuation only blocks attack, on mon infatuated with
+    //ok updated pretty sure infatuation gets cured soon as infatuated battler 
+    //is off the field so status infatuation shuld be all I need for this
+    //will go back to idea of if mon infatuated with is on opposing side
+
+    //and do mean mon, decided will store personality value
+    //not battleId that way can perfectly match correct mon
+    //store make is mon on opposiing side function that takes personality
+    //and supply it from infatuatedwithMon
     if (gBattleMons[battlerIdAtk].status2 & STATUS2_INFATUATION
-    && gBattleStruct->infatuatedwithBattleId[battlerIdAtk] == battlerIdDef)
+    && IsMonOnOpposingSide(battlerIdAtk, gBattleStruct->infatuatedwithMon[battlerIdAtk]))
         damage = max((damage * 75) / 100, 1);
 
 
@@ -8822,7 +8834,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                 && gMain.inBattle && battleMonId != 4 && (gBattleMons[battleMonId].status2 & STATUS2_INFATUATION))
             {
                 gBattleMons[battleMonId].status2 &= ~STATUS2_INFATUATION;
-                gBattleStruct->infatuatedwithBattleId[battleMonId] = BATTLE_ID_NONE;
+                gBattleStruct->infatuatedwithMon[battleMonId] = FALSE;
                 retVal = FALSE;
             }
             if ((itemEffect[cmdIndex] & ITEM0_HIGH_CRIT)

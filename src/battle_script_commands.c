@@ -14459,7 +14459,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         if (gBattleMons[battler].status2 & STATUS2_INFATUATION)
         {
             gBattleMons[battler].status2 &= ~(STATUS2_INFATUATION);
-            gBattleStruct->infatuatedwithBattleId[battler] = BATTLE_ID_NONE;
+            gBattleStruct->infatuatedwithMon[battler] = FALSE;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_MENTALHERBCURE_INFATUATION;  // STRINGID_TARGETGOTOVERINFATUATION
             StringCopy(gBattleTextBuff1, gStatusConditionString_LoveJpn);
         }
@@ -16388,7 +16388,7 @@ static void atk97_tryinfatuating(void)
         else
         {
             gBattleMons[gBattlerTarget].status2 |= STATUS2_INFATUATION;
-            gBattleStruct->infatuatedwithBattleId[gBattlerTarget] = gBattlerAttacker;
+            gBattleStruct->infatuatedwithMon[gBattlerTarget] = personalityAttacker;
             gBattlescriptCurrInstr += 5;        //would just need to replace the move end and but it failed jumps, with jumps to the hit battlescript
         }
     }//vsonic come back to this
@@ -19666,16 +19666,16 @@ static void atkE2_switchoutabilities(void) //emerald has logic for switchin that
             if (GetBattlerAbility(BATTLE_PARTNER(battler)) != ABILITY_CUPIDS_ARROW)
             {
                 gBattleMons[gBattlerTarget].status2 &= ~(STATUS2_INFATUATION);
-                gBattleStruct->infatuatedwithBattleId[gBattlerTarget] = BATTLE_ID_NONE;
+                gBattleStruct->infatuatedwithMon[gBattlerTarget] = FALSE;
                 gBattleMons[BATTLE_PARTNER(gBattlerTarget)].status2 &= ~(STATUS2_INFATUATION);
-                gBattleStruct->infatuatedwithBattleId[BATTLE_PARTNER(gBattlerTarget)] = BATTLE_ID_NONE;
+                gBattleStruct->infatuatedwithMon[BATTLE_PARTNER(gBattlerTarget)] = FALSE;
             }
         }
         else
         {
             gBattleMons[gBattlerTarget].status2 &= ~(STATUS2_INFATUATION);
-            gBattleStruct->infatuatedwithBattleId[gBattlerTarget] = BATTLE_ID_NONE;
-        }
+            gBattleStruct->infatuatedwithMon[gBattlerTarget] = FALSE;
+        }//since sets on switch can clear infatuation on switch out unlike other infatuation effects as small debuff
         break;//works how I want, even with faint
         }
         

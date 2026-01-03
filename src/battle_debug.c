@@ -1278,18 +1278,18 @@ static void UpdateBattlerValue(struct BattleDebugMenu *data)
             if (IsBattlerAlive(BATTLE_OPPOSITE(data->battlerId)))
             {    
                 gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATION;
-                gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_OPPOSITE(data->battlerId);
+                gBattleStruct->infatuatedwithMon[data->battlerId] = GetMonData(GetBattlerMon(BATTLE_OPPOSITE(data->battlerId)), MON_DATA_PERSONALITY);
             }
             else
             {
                gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATION;
-               gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_PARTNER(BATTLE_OPPOSITE(data->battlerId));
+               gBattleStruct->infatuatedwithMon[data->battlerId] = GetMonData(GetBattlerMon(BATTLE_PARTNER(BATTLE_OPPOSITE(data->battlerId))), MON_DATA_PERSONALITY);
             }
         }
         else
         {
             gBattleMons[data->battlerId].status2 &= ~STATUS2_INFATUATION;
-            gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_ID_NONE;
+            gBattleStruct->infatuatedwithMon[data->battlerId] = FALSE;
         }
         break;
     case VAR_SLEEP_TIMER:

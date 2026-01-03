@@ -781,7 +781,7 @@ struct BattleStruct //fill in unused fields when porting
     u8 wildVictorySong;//yeah decide move to pokemon struct but will use party size set true false to indicate which battler set effect
     u8 dynamicMoveType;//thinkbest I can do for wrappyby is move to battlepokemon struct so auto linked to targetmon, than can use maxbattlers to store a value for each battler, but auto default to 0xFF at battle start switch in
     u8 seedSetterBattleId[MAX_BATTLERS_COUNT]; //scrapped previous entry was wrappedby think can use store leechseed battler, instead of weird attacker swap logic?, if works gains +2 spaces in status3
-    u8 infatuatedwithBattleId[MAX_BATTLERS_COUNT];
+    u32 infatuatedwithMon[MAX_BATTLERS_COUNT]; //change hold personality instead of battleId
     u8 sentInPokes;
     u8 battlerPreventingSwitchout;
     u8 moneyMultiplier;
@@ -1465,6 +1465,13 @@ static inline struct Pokemon* GetBattlerMon(u32 battler)
 {
     u32 index = gBattlerPartyIndexes[battler];
     return !IsOnPlayerSide(battler) ? &gEnemyParty[index] : &gPlayerParty[index];
+}
+
+//unsure if works, so not yet using
+static inline struct Pokemon* GetBattlerPersonality(u32 battler)
+{
+    u32 index = gBattlerPartyIndexes[battler];
+    return !IsOnPlayerSide(battler) ? GetMonData(&gEnemyParty[index], MON_DATA_PERSONALITY) : GetMonData(&gPlayerParty[index], MON_DATA_PERSONALITY);
 }
 
 #endif // GUARD_BATTLE_H
