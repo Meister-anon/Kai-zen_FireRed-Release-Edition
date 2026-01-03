@@ -13378,13 +13378,7 @@ bool32 ShouldActivateObliviousLike(u32 battler)
 //absolutely no idea why but putting in battle_util.h w defined bounds is what caused compiler error
 bool32 IsMoldBreakerAffectedAbility(u16 ability)
 {
-    u32 i;
-    for (i = 0; i < NELEMS(gAbilitiesAffectedByMoldBreaker); i++)
-    {
-        if (ability == gAbilitiesAffectedByMoldBreaker[i])
-            return TRUE;
-    }
-    return FALSE;
+    return gAbilitiesInfo[ability].breakable;
 }
 
 bool32 IsRolePlayBannedAbilityAtk(u16 ability)

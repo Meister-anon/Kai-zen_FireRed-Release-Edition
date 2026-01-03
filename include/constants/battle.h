@@ -467,7 +467,7 @@ enum TypeSideHazard
 #define STATUS_FIELD_SNOWESCAPE  (1 << 12)	//realize don't need STATUS_FIELD_TERRAIN_PERMANENT could make conditional to make it permanent using the timer?
 #define STATUS_FIELD_ION_DELUGE         (1 << 13)
 #define STATUS_FIELD_FAIRY_LOCK         (1 << 14)
-#define STATUS_FIELD_HAZE          (1 << 15)	//will reset back to haze, to annoying to manage and too centralizing HAZE -3 full turns so timer is 4
+#define STATUS_FIELD_BLACK_FOG          (1 << 15)	//will reset back to haze, to annoying to manage and too centralizing HAZE -3 full turns so timer is 4
 //#define STATUS_FIELD_MUDSPORT			(1 << 15) gonna put these in side status instead
 //#define STATUS_FIELD_WATERSPORT         (1 << 16)
 //need pledge stuff
@@ -564,29 +564,84 @@ enum BattleWeather
 //with that I could give toxic boost...to POISON TYPES!!
 //vsonic
 
-// Battle Weather flags
-#define WEATHER_NONE          0
-#define WEATHER_RAIN_NORMAL   (1 << BATTLE_WEATHER_RAIN)
-#define WEATHER_RAIN_PRIMAL   (1 << BATTLE_WEATHER_RAIN_PRIMAL)
-#define WEATHER_RAIN_DOWNPOUR (1 << BATTLE_WEATHER_RAIN_DOWNPOUR)  // unused
-#define WEATHER_RAIN_ANY          (WEATHER_RAIN_NORMAL | WEATHER_RAIN_PRIMAL | WEATHER_RAIN_DOWNPOUR)
-#define WEATHER_SUN_NORMAL    (1 << BATTLE_WEATHER_SUN)
-#define WEATHER_SUN_PRIMAL    (1 << BATTLE_WEATHER_SUN_PRIMAL)
-#define WEATHER_SUN_ANY            (WEATHER_SUN_NORMAL | WEATHER_SUN_PRIMAL)
-#define WEATHER_SANDSTORM     (1 << BATTLE_WEATHER_SANDSTORM)
-#define WEATHER_HAIL          (1 << BATTLE_WEATHER_HAIL)
-#define WEATHER_SNOW          (1 << BATTLE_WEATHER_SNOW)
-#define WEATHER_MOON            (1 << BATTLE_WEATHER_MOONLIGHT)
-#define WEATHER_ACID_RAIN       (1 << BATTLE_WEATHER_ACID_RAIN)
-#define WEATHER_FOG           (1 << BATTLE_WEATHER_FOG)
-#define WEATHER_STRONG_WINDS  (1 << BATTLE_WEATHER_STRONG_WINDS)
+// Battle Weather as enum
+#define ENUM_WEATHER_NONE			      0
+#define ENUM_WEATHER_RAIN		          1
+#define ENUM_WEATHER_SUN	              2
+#define ENUM_WEATHER_SANDSTORM			  3
+#define ENUM_WEATHER_HAIL				  4
+#define ENUM_WEATHER_SUN_PRIMAL           5
+#define ENUM_WEATHER_RAIN_PRIMAL          6
+#define ENUM_WEATHER_STRONG_WINDS         7
+#define ENUM_WEATHER_MOON                 8
+#define ENUM_WEATHER_ACID_RAIN            9
+//vsonic since added special status switchin done prob don't need now?
 
-#define WEATHER_ANY           (WEATHER_RAIN_ANY | WEATHER_SANDSTORM | WEATHER_SUN_ANY | WEATHER_HAIL | WEATHER_STRONG_WINDS | WEATHER_SNOW | WEATHER_MOON | WEATHER_ACID_RAIN | WEATHER_FOG)
+
+//used on gBattleWeather is a u16, max value is 15
+//if I don't add anything else I have space for 
+//1 more temp/permanent weather condition
+//well guess could add snow for those that want it
+//hmm or maybe acid rain, for a poison effect
+//would have anotehr way to activate poison heal
+//for poison types hmm yeah I like that
+//can just alter hail setup like emerald
+//where it can function as either hail or snow
+//weather move could be poison cloud caustic cloud or something
+//hmm and THAT I could roll into forecast
+//could reuse same form just maybe do a palette swap?
+
+//in research of acid rain found its combosed of two non flamable
+// acids nitric acid and sulphuric acid that are very reacticive
+// capable of causing fires intensifying fires or causing explosions
+//with that in mind think idea of acid rain I'd go with is
+//a type that boosts water AND fire dmg activates poison heal on poison types
+//but damages all non poison types would still activate other rain based boosts
+// enhancing fire damage is the important "drawback" here since it is still "rain"
+//think fire dmg will be boosted to a less degree than sun, but boosted none the less
+//gives more for rain teams but also not eliminating the place that moon weather 
+//could have, mostly because it also boosts fire
+//decide also have acid rain activate toxic boost
+//with that I could give toxic boost...to POISON TYPES!!
+//vsonic
+
+// Battle Weather flags
+#define WEATHER_RAIN_TEMPORARY			(1 << 0)
+#define WEATHER_RAIN_DOWNPOUR			(1 << 1)  // unused
+#define WEATHER_RAIN_PERMANENT			(1 << 2)
+#define WEATHER_RAIN_PRIMAL				(1 << 13)
+#define WEATHER_RAIN_NON_TEMP			(WEATHER_RAIN_DOWNPOUR | WEATHER_RAIN_PERMANENT | WEATHER_RAIN_PRIMAL)	//excludes tmporary rain effects
+#define WEATHER_RAIN_ANY				(WEATHER_RAIN_TEMPORARY | WEATHER_RAIN_DOWNPOUR | WEATHER_RAIN_PERMANENT | WEATHER_RAIN_PRIMAL)
+#define WEATHER_ALL_RAIN                (WEATHER_RAIN_ANY | WEATHER_ACID_RAIN_ANY)
+#define WEATHER_SANDSTORM_TEMPORARY		(1 << 3)
+#define WEATHER_SANDSTORM_PERMANENT		(1 << 4)
+#define WEATHER_SANDSTORM_NON_TEMP		(WEATHER_SANDSTORM_PERMANENT)	//irrelevant unless add more sandstorm types
+#define WEATHER_SANDSTORM_ANY			(WEATHER_SANDSTORM_TEMPORARY | WEATHER_SANDSTORM_PERMANENT)
+#define WEATHER_SUN_TEMPORARY			(1 << 5)
+#define WEATHER_SUN_PERMANENT			(1 << 6)
+#define WEATHER_SUN_PRIMAL				(1 << 14)
+#define WEATHER_SUN_NON_TEMP			(WEATHER_SUN_PERMANENT | WEATHER_SUN_PRIMAL)	//excludes temporary sun effects
+#define WEATHER_SUN_ANY					(WEATHER_SUN_TEMPORARY | WEATHER_SUN_PERMANENT | WEATHER_SUN_PRIMAL)
+#define WEATHER_HAIL					(1 << 7)
+#define WEATHER_HAIL_PERMANENT			(1 << 8)
+#define WEATHR_MOON_TEMPORARY           (1 << 9)
+#define WEATHER_MOON_PERMANENT          (1 << 10)
+#define WEATHER_ACID_RAIN_TEMPORARY     (1 << 11)
+#define WEATHER_ACID_RAIN_PERMANENT     (1 << 12)
+#define WEATHER_STRONG_WINDS			(1 << 15)
+#define WEATHER_HAIL_NON_TEMP			(WEATHER_HAIL_PERMANENT)	//only relevant if add more hail types
+#define WEATHER_HAIL_ANY				(WEATHER_HAIL | WEATHER_HAIL_PERMANENT)
+#define WEATHER_MOON_ANY                (WEATHR_MOON_TEMPORARY | WEATHER_MOON_PERMANENT)
+#define WEATHER_ACID_RAIN_ANY           (WEATHER_ACID_RAIN_TEMPORARY | WEATHER_ACID_RAIN_PERMANENT)
+#define WEATHER_ANY						(WEATHER_RAIN_ANY | WEATHER_SANDSTORM_ANY | WEATHER_SUN_ANY | WEATHER_MOON_ANY | WEATHER_HAIL_ANY)
+#define WEATHER_PRIMAL_ANY				(WEATHER_RAIN_PRIMAL | WEATHER_SUN_PRIMAL | WEATHER_STRONG_WINDS)
+
+/*#define WEATHER_ANY           (WEATHER_RAIN_ANY | WEATHER_SANDSTORM | WEATHER_SUN_ANY | WEATHER_HAIL | WEATHER_STRONG_WINDS | WEATHER_SNOW | WEATHER_MOON | WEATHER_ACID_RAIN | WEATHER_FOG)
 #define WEATHER_DAMAGING_ANY  (WEATHER_HAIL | WEATHER_SANDSTORM | WEATHER_ACID_RAIN)
 #define WEATHER_ICY_ANY       (WEATHER_HAIL | WEATHER_SNOW)
 #define WEATHER_LOW_LIGHT     (WEATHER_FOG | WEATHER_ICY_ANY | WEATHER_RAIN_ANY | WEATHER_SANDSTORM | WEATHER_MOON | WEATHER_ACID_RAIN)
 #define WEATHER_PRIMAL_ANY    (WEATHER_RAIN_PRIMAL | WEATHER_SUN_PRIMAL | WEATHER_STRONG_WINDS)
-
+*/
 
 // Explicit numbers until frostbite because those shouldn't be shifted
 /*enum __attribute__((packed)) MoveEffect
