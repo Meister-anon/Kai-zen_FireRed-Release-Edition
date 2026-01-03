@@ -3364,7 +3364,6 @@ bool32 AI_CanBeBurned(u8 battler, u16 ability)//VSONIC need add on to this
     if (ability == ABILITY_WATER_VEIL
       || ability == ABILITY_WATER_BUBBLE
       || ability == ABILITY_COMATOSE
-      //|| DoesBattlerGetTypeBasedAffinity(battler,  ability, TYPE_FIRE)
       || gBattleMons[battler].status1 & STATUS1_ANY
       || IsAbilityStatusProtected(battler)
       || gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_SAFEGUARD)
@@ -3385,12 +3384,13 @@ bool32 ShouldBurnSelf(u8 battler, u16 ability)
       || HasMoveEffect(battler, EFFECT_PSYCHO_SHIFT)))
         return TRUE;
     return FALSE;
-}
+}//think need move rarg on canbeburned so can accout for exclusionary effects vsonic
 
 bool32 AI_CanBurn(u8 battlerAtk, u8 battlerDef, u16 defAbility, u8 battlerAtkPartner, u16 move, u16 partnerMove)
 {
     if (!AI_CanBeBurned(battlerDef, defAbility)
-      || (DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_FIRE, TRUE))
+      || (DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_FIRE, TRUE) 
+            && GetMoveEffect(move) != EFFECT_NETTLE_WHIP)
       || AI_GetMoveEffectiveness(move, battlerAtk, battlerDef) == AI_EFFECTIVENESS_x0
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || PartnerMoveEffectIsStatusSameTarget(battlerAtkPartner, battlerDef, partnerMove))

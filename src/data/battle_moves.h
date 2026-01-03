@@ -16355,7 +16355,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DYNAMAX_CANNON] =
     {
-        .effect = EFFECT_BEHEMOTH_ATTACK,
+        .effect = EFFECT_BOOST_PWR_BASED_WEIGHT,
         .power = 100,
         .type = TYPE_DRAGON,
         .accuracy = 100,
@@ -16778,7 +16778,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BEHEMOTH_BLADE] =
     {
-        .effect = EFFECT_BEHEMOTH_ATTACK,   //TODO: 2x damage if dynamaxed? meh...
+        .effect = EFFECT_BOOST_PWR_BASED_WEIGHT,   //TODO: 2x damage if dynamaxed? meh...
         .power = 100,
         .type = TYPE_STEEL,
         .accuracy = 100,
@@ -16804,7 +16804,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BEHEMOTH_BASH] =
     {
-        .effect = EFFECT_BEHEMOTH_ATTACK,   //TODO: 2x damage if dynamaxed? meh...
+        .effect = EFFECT_BOOST_PWR_BASED_WEIGHT,   //TODO: 2x damage if dynamaxed? meh...
         .power = 100,
         .type = TYPE_STEEL,
         .accuracy = 100,

@@ -427,7 +427,7 @@
 #define EFFECT_NETTLE_WHIP 414 //BURN HIT grass types are immune to effect, like power moves
 #define EFFECT_HIGHEST_STAT_UP_HIT 415 //effect for lake fairy signature move from Legends Arceus
 #define EFFECT_SET_TARGET_ABILITY 416
-#define EFFECT_BEHEMOTH_ATTACK 417 //new weight based boost for behemoth bash and blade
+#define EFFECT_BOOST_PWR_BASED_WEIGHT 417 //new weight based boost for behemoth bash and blade
 #define EFFECT_SPICY_EXTRACT 418
 #define EFFECT_STEEL_SURGE 419
 #define EFFECT_RAGING_BULL 420 //think got working but would like setup a message, crashed through protect? think can do with call_if in bs_commands

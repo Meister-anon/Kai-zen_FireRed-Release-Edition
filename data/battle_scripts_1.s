@@ -445,7 +445,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectNettleWhip			  @EFFECT_NETTLE_WHIP
 	.4byte BattleScript_EffectHighestStatUpHit		  @EFFECT_HIGHEST_STAT_UP_HIT
 	.4byte BattleScript_Effect_SetTargetAbility		  @EFFECT_SET_TARGET_ABILITY
-	.4byte BattleScript_EffectHit					  @EFFECT_BEHEMOTH_ATTACK
+	.4byte BattleScript_EffectHit					  @EFFECT_BOOST_PWR_BASED_WEIGHT
 	.4byte BattleScript_EffectSpicyExtract			  @EFFECT_SPICY_EXTRACT
 	.4byte BattleScript_EffectSteelSurge			  @EFFECT_STEEL_SURGE
 	.4byte BattleScript_EffectRagingBull			  @ EFFECT_RAGING_BULL

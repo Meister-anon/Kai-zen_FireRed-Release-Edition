@@ -4689,6 +4689,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //offense stat that should be used based on above movedamagecategory
     u32 Offensive_Stat;
     u32 weight, hpFraction, speed_Value; 
+    u32 dragonPower = gDisableStructs[battlerIdAtk].DragonrageCounter * 10; //5 to 50
 
     if (!powerOverride)
         gBattleMovePower = gBattleMoves[move].power;
@@ -4837,6 +4838,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (gSpecialStatuses[battlerIdAtk].Lostresolve)
         gBattleMovePower = (gBattleMovePower * 75) / 100; //fix for iron will, pressure, hi pressure affect
     
+    if (gBattleMons[battlerIdAtk].status2 & STATUS2_DRAGON_RAGE
+    && moveType == TYPE_DRAGON)
+    {
+        gBattleMovePower = (gBattleMovePower * (dragonPower + 100)) / 100;
+    }
 
     if (attacker->item == ITEM_ENIGMA_BERRY)
     {
@@ -5164,9 +5170,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             }
         }
         break;
-        case EFFECT_MIND_BLOWN: //decided give mini buff since blacephalon is supposedly so bad
-            DefenseModifer(75);
-        break;
+
+        case EFFECT_MIND_BLOWN:
+        case EFFECT_MISTY_EXPLOSION:
         case EFFECT_EXPLOSION: //keeps special explosion variants consistent
             DefenseModifer(50);
         break;
@@ -5268,7 +5274,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 gBattleMovePower = gHeatCrashPowerTable[weight];
             break;
         }
-        case EFFECT_BEHEMOTH_ATTACK:
+        case EFFECT_BOOST_PWR_BASED_WEIGHT:
         {
             weight = GetBattlerWeight(battlerIdDef);//
 
@@ -5277,12 +5283,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 gBattleMovePower = (140 * gBattleMovePower) / 100;
         }
         break; 
-        case EFFECT_DYNAMAX_DOUBLE_DMG:
-        {
-
-
-        }
-        break;
     case EFFECT_PUNISHMENT:
         gBattleMovePower += (CountBattlerStatIncreases(battlerIdDef, FALSE) * 20);
         if (gBattleMovePower > 200)
@@ -5308,7 +5308,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (gBattleMovePower > 150)
             gBattleMovePower = 150;
         break;
-    case EFFECT_VARY_POWER_BASED_ON_HP:
+    case EFFECT_POWER_BASED_ON_TARGET_HP:
         gBattleMovePower = (gBattleMoves[move].argumentEffectChance * (gBattleMons[battlerIdDef].hp / gBattleMons[battlerIdDef].maxHP));
         if (gBattleMovePower < 40)
             gBattleMovePower = 40;
@@ -5316,7 +5316,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     case EFFECT_NATURAL_GIFT:
         gBattleMovePower = gNaturalGiftTable[ITEM_TO_BERRY(gBattleMons[battlerIdAtk].item)].power;
         break;
-    case EFFECT_REMOVE_TERRAIN:
+    case EFFECT_STEEL_ROLLER:
         if (move == MOVE_STEEL_ROLLER)
             gBattleMovePower = (gFieldStatuses & STATUS_FIELD_TERRAIN_ANY) ? 130 : 90;
     break;
@@ -5409,7 +5409,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //ok removed 15% special move dmg buff with effect no idea why I thought that was a good idea...
     if (IsBattlerTerrainAffected(battlerIdAtk, STATUS_FIELD_MISTY_TERRAIN)) //also setup effect_absorb boost 25% or 50%
     {   
-        if (move == MOVE_MISTY_EXPLOSION)    
+        if (GetMoveEffect(move) == EFFECT_MISTY_EXPLOSION)    
             gBattleMovePower = (150 * gBattleMovePower) / 100;
     }
         //modifier = uq4_12_multiply(modifier, UQ_4_12(0.5));

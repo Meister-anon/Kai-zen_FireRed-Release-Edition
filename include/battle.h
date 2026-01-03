@@ -258,12 +258,11 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 rechargeTimer:1; //would use 1, just need change decrement condition
     u8 uproarTurns:2;   //2-5 turns //updated effect is 3 turns
     u8 rampageMoveTurns:2; //for replace lock confuse turns, is how long rampge move last, should be 2-3 turns?
-    u8 tauntEnds:1; //set taunt to atk cancel decrement, made this for end turm message
+    u8 StatusSetViaMoldBreaker:1;
     u8 fixationTurns:2;   //to track that fixation move is being repeated max value 3?
     u16 fixatedMove; //was forewarnmove replaced for Fixation status
     u8 hasSwitchinActivated; //use for switch in end turn check //rn just for zacian zamazenta effetcts, triggered on switch in activate/end in endturn
     u8 timecontrolAbilityTimer:2; //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
-    u8 StatusSetViaMoldBreaker:1;
     u8 TrapSetViaMoldBreaker:1;
     u8 EmergencyExitWimpoutActive:1; //replace use of RESOURCE_FLAG_EMERGENCY_EXIT //facepalm I never actually replaced this
     u8 flashFireBoosted:1; //
@@ -272,7 +271,8 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     //this throws off by 1 creates 1 byte paddspace
     u8 immutableWind:1;
     u8 AscensionTimer:2; //time for flying types to recover from smack down 3 turns
-    u8 futureValues:5;
+    u8 futureValues:3;
+    u8 DragonrageCounter:3; //set to max at 5 increase when gets hit make dragon rage move effect & status set in end turn
     u8 paddSpace:8;
     //u8 RoostTimerStartValue;  //remove for now until I get 
     /*0x1A*/ u8 unk1A[2]; //don't think this is used
