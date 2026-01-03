@@ -1129,6 +1129,7 @@ static const struct AbilityLearnset sBlisseyAbilityLearnset[] = {
 
 static const struct AbilityLearnset sRaikouAbilityLearnset[] = {
     ABILITY_OVERCHARGE,
+    ABILITY_WIND_POWER,
     ABILITY_SET_END
 };
 

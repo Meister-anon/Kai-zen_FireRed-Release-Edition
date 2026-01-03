@@ -129,11 +129,24 @@
 #define STATUS1_FREEZE           (1 << 4)
 #define STATUS1_PARALYSIS        (1 << 5)
 #define STATUS1_TOXIC_POISON     (1 << 6)
-#define STATUS1_SPIRIT_LOCK      (1 << 7)	//not using for now
+#define STATUS1_FROSTBITE        (1 << 7)	//
 //#define STATUS1_TOXIC_COUNTER    (1 << 8 | 1 << 9 | 1 << 10 | 1 << 11)
 //#define STATUS1_TOXIC_TURN(num)  ((num) << 10)//redid toxic, put at original value, moved others
 //decide remove spirit lock  - since I made a turn counter value realized dont need turn status at all?
 
+//for update need add frostbite as a status
+//rn is inverse of toxic in that 
+//its not set when the timer is set
+//it counts down rather than up
+//will treat them similar makes sense
+//when toxic poisoned at start of next battle is 
+//set to regular poison
+//ok will add frostbite set logic that
+//freeze becomes frost bite when timer hits 0
+//may turn spirit lock into a volatile staatus
+//use sweet kiss angel devils as status symbol
+//would be fairy status that lowers special dmg
+//set only through randoms odds as kinda too many status effects already
 
 //can prob reduce values for ones that use timer
 //if can rmeove turn count from actually being needed to store the values
@@ -150,13 +163,22 @@
 
 //could decide what things I want to separate out for main distribution
 
+//vsonic important
+//use this for icon check to ensure not removed
+//when downgrade to frostbite
+#define STATUS1_FREEZE_OR_FROSTBITE (STATUS1_FREEZE | STATUS1_FROSTBITE)
 
 #define STATUS1_PSN_ANY          (STATUS1_POISON | STATUS1_TOXIC_POISON)
 //will need to go through and review all use of this variable since I've expanded status1
 //laso cean up status definex
 
+#define STATUS1_CAN_MOVE         (STATUS1_PSN_ANY | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_FROSTBITE)
+#define STATUS1_INCAPACITATED    (STATUS1_SLEEP | STATUS1_FREEZE)
+#define STATUS1_DAMAGING         (STATUS1_PSN_ANY | STATUS1_BURN | STATUS1_FREEZE_OR_FROSTBITE)
+
+
 //status1_any seeems tobe used to check all status1 but exclude toxic counter values & sleep counter
-#define STATUS1_ANY              (STATUS1_SLEEP | STATUS1_POISON | STATUS1_BURN | STATUS1_FREEZE | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON)
+#define STATUS1_ANY              (STATUS1_SLEEP | STATUS1_POISON | STATUS1_BURN | STATUS1_FREEZE | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON | STATUS1_FROSTBITE)
 
 //with setup switchlock realize don't need to make these status1 for them to persist
 //#define STATUS1_ENVIRONMENT_TRAP (STATUS1_FIRE_SPIN || STATUS1_WHIRLPOOL || STATUS1_SAND_TOMB || STATUS1_MAGMA_STORM)
@@ -408,6 +430,25 @@ enum SemiInvulnerableExclusion
 #define SIDE_STATUS_SCREEN_ANY     (SIDE_STATUS_REFLECT | SIDE_STATUS_LIGHTSCREEN | SIDE_STATUS_AURORA_VEIL)
 #define SIDE_STATUS_PLEDGE_ANY     (SIDE_STATUS_RAINBOW | SIDE_STATUS_SEA_OF_FIRE | SIDE_STATUS_SWAMP)
 
+enum Hazards
+{
+    HAZARDS_NONE,
+    HAZARDS_SPIKES,
+    HAZARDS_STICKY_WEB,
+    HAZARDS_TOXIC_SPIKES,
+    HAZARDS_STEALTH_ROCK,
+    HAZARDS_STEELSURGE,
+    HAZARDS_MAX_COUNT,
+};
+
+// Used for damaging entry hazards based on type
+enum TypeSideHazard
+{
+    TYPE_SIDE_HAZARD_POINTED_STONES = TYPE_ROCK,
+    TYPE_SIDE_HAZARD_SHARP_STEEL    = TYPE_STEEL,
+};
+
+
 // Field affecting statuses.
 #define STATUS_FIELD_MAGIC_ROOM         (1 << 0)
 #define STATUS_FIELD_TRICK_ROOM        (1 << 1)
@@ -426,7 +467,7 @@ enum SemiInvulnerableExclusion
 #define STATUS_FIELD_SNOWESCAPE  (1 << 12)	//realize don't need STATUS_FIELD_TERRAIN_PERMANENT could make conditional to make it permanent using the timer?
 #define STATUS_FIELD_ION_DELUGE         (1 << 13)
 #define STATUS_FIELD_FAIRY_LOCK         (1 << 14)
-#define STATUS_FIELD_BLACK_FOG          (1 << 15)	//HAZE -3 full turns so timer is 4
+#define STATUS_FIELD_HAZE          (1 << 15)	//will reset back to haze, to annoying to manage and too centralizing HAZE -3 full turns so timer is 4
 //#define STATUS_FIELD_MUDSPORT			(1 << 15) gonna put these in side status instead
 //#define STATUS_FIELD_WATERSPORT         (1 << 16)
 //need pledge stuff
@@ -467,6 +508,32 @@ enum SemiInvulnerableExclusion
 #define ENUM_WEATHER_STRONG_WINDS         7
 #define ENUM_WEATHER_MOON                 8
 #define ENUM_WEATHER_ACID_RAIN            9
+
+enum BattleWeather
+{
+    BATTLE_WEATHER_RAIN,
+    BATTLE_WEATHER_RAIN_PRIMAL,
+    BATTLE_WEATHER_RAIN_DOWNPOUR,
+    BATTLE_WEATHER_SUN,
+    BATTLE_WEATHER_SUN_PRIMAL,
+    BATTLE_WEATHER_SANDSTORM,
+    BATTLE_WEATHER_HAIL,
+    BATTLE_WEATHER_SNOW,
+    BATTLE_WEATHER_MOONLIGHT,
+    BATTLE_WEATHER_ACID_RAIN,
+    BATTLE_WEATHER_FOG, 
+    BATTLE_WEATHER_STRONG_WINDS,
+    BATTLE_WEATHER_COUNT,
+};
+//attempting to rework fog considering set damp maybe block stat boosts
+//ok think turn fog into a psuedo haze?
+//sets damp stoping explosions and will treat
+//enemies as if they don't have stat boosts
+//hmm since want effect to be slow down tempo
+//maybe just ignore only offensive stat buffs?
+
+//fog entry message will be a  damp fog covered the field
+
 //vsonic since added special status switchin done prob don't need now?
 
 
@@ -496,36 +563,30 @@ enum SemiInvulnerableExclusion
 //decide also have acid rain activate toxic boost
 //with that I could give toxic boost...to POISON TYPES!!
 //vsonic
+
 // Battle Weather flags
-#define WEATHER_RAIN_TEMPORARY			(1 << 0)
-#define WEATHER_RAIN_DOWNPOUR			(1 << 1)  // unused
-#define WEATHER_RAIN_PERMANENT			(1 << 2)
-#define WEATHER_RAIN_PRIMAL				(1 << 13)
-#define WEATHER_RAIN_NON_TEMP			(WEATHER_RAIN_DOWNPOUR | WEATHER_RAIN_PERMANENT | WEATHER_RAIN_PRIMAL)	//excludes tmporary rain effects
-#define WEATHER_RAIN_ANY				(WEATHER_RAIN_TEMPORARY | WEATHER_RAIN_DOWNPOUR | WEATHER_RAIN_PERMANENT | WEATHER_RAIN_PRIMAL)
-#define WEATHER_ALL_RAIN                (WEATHER_RAIN_ANY | WEATHER_ACID_RAIN_ANY)
-#define WEATHER_SANDSTORM_TEMPORARY		(1 << 3)
-#define WEATHER_SANDSTORM_PERMANENT		(1 << 4)
-#define WEATHER_SANDSTORM_NON_TEMP		(WEATHER_SANDSTORM_PERMANENT)	//irrelevant unless add more sandstorm types
-#define WEATHER_SANDSTORM_ANY			(WEATHER_SANDSTORM_TEMPORARY | WEATHER_SANDSTORM_PERMANENT)
-#define WEATHER_SUN_TEMPORARY			(1 << 5)
-#define WEATHER_SUN_PERMANENT			(1 << 6)
-#define WEATHER_SUN_PRIMAL				(1 << 14)
-#define WEATHER_SUN_NON_TEMP			(WEATHER_SUN_PERMANENT | WEATHER_SUN_PRIMAL)	//excludes temporary sun effects
-#define WEATHER_SUN_ANY					(WEATHER_SUN_TEMPORARY | WEATHER_SUN_PERMANENT | WEATHER_SUN_PRIMAL)
-#define WEATHER_HAIL					(1 << 7)
-#define WEATHER_HAIL_PERMANENT			(1 << 8)
-#define WEATHR_MOON_TEMPORARY           (1 << 9)
-#define WEATHER_MOON_PERMANENT          (1 << 10)
-#define WEATHER_ACID_RAIN_TEMPORARY     (1 << 11)
-#define WEATHER_ACID_RAIN_PERMANENT     (1 << 12)
-#define WEATHER_STRONG_WINDS			(1 << 15)
-#define WEATHER_HAIL_NON_TEMP			(WEATHER_HAIL_PERMANENT)	//only relevant if add more hail types
-#define WEATHER_HAIL_ANY				(WEATHER_HAIL | WEATHER_HAIL_PERMANENT)
-#define WEATHER_MOON_ANY                (WEATHR_MOON_TEMPORARY | WEATHER_MOON_PERMANENT)
-#define WEATHER_ACID_RAIN_ANY           (WEATHER_ACID_RAIN_TEMPORARY | WEATHER_ACID_RAIN_PERMANENT)
-#define WEATHER_ANY						(WEATHER_RAIN_ANY | WEATHER_SANDSTORM_ANY | WEATHER_SUN_ANY | WEATHER_MOON_ANY | WEATHER_HAIL_ANY)
-#define WEATHER_PRIMAL_ANY				(WEATHER_RAIN_PRIMAL | WEATHER_SUN_PRIMAL | WEATHER_STRONG_WINDS)
+#define WEATHER_NONE          0
+#define WEATHER_RAIN_NORMAL   (1 << BATTLE_WEATHER_RAIN)
+#define WEATHER_RAIN_PRIMAL   (1 << BATTLE_WEATHER_RAIN_PRIMAL)
+#define WEATHER_RAIN_DOWNPOUR (1 << BATTLE_WEATHER_RAIN_DOWNPOUR)  // unused
+#define WEATHER_RAIN_ANY          (WEATHER_RAIN_NORMAL | WEATHER_RAIN_PRIMAL | WEATHER_RAIN_DOWNPOUR)
+#define WEATHER_SUN_NORMAL    (1 << BATTLE_WEATHER_SUN)
+#define WEATHER_SUN_PRIMAL    (1 << BATTLE_WEATHER_SUN_PRIMAL)
+#define WEATHER_SUN_ANY            (WEATHER_SUN_NORMAL | WEATHER_SUN_PRIMAL)
+#define WEATHER_SANDSTORM     (1 << BATTLE_WEATHER_SANDSTORM)
+#define WEATHER_HAIL          (1 << BATTLE_WEATHER_HAIL)
+#define WEATHER_SNOW          (1 << BATTLE_WEATHER_SNOW)
+#define WEATHER_MOON            (1 << BATTLE_WEATHER_MOONLIGHT)
+#define WEATHER_ACID_RAIN       (1 << BATTLE_WEATHER_ACID_RAIN)
+#define WEATHER_FOG           (1 << BATTLE_WEATHER_FOG)
+#define WEATHER_STRONG_WINDS  (1 << BATTLE_WEATHER_STRONG_WINDS)
+
+#define WEATHER_ANY           (WEATHER_RAIN_ANY | WEATHER_SANDSTORM | WEATHER_SUN_ANY | WEATHER_HAIL | WEATHER_STRONG_WINDS | WEATHER_SNOW | WEATHER_MOON | WEATHER_ACID_RAIN | WEATHER_FOG)
+#define WEATHER_DAMAGING_ANY  (WEATHER_HAIL | WEATHER_SANDSTORM | WEATHER_ACID_RAIN)
+#define WEATHER_ICY_ANY       (WEATHER_HAIL | WEATHER_SNOW)
+#define WEATHER_LOW_LIGHT     (WEATHER_FOG | WEATHER_ICY_ANY | WEATHER_RAIN_ANY | WEATHER_SANDSTORM | WEATHER_MOON | WEATHER_ACID_RAIN)
+#define WEATHER_PRIMAL_ANY    (WEATHER_RAIN_PRIMAL | WEATHER_SUN_PRIMAL | WEATHER_STRONG_WINDS)
+
 
 // Explicit numbers until frostbite because those shouldn't be shifted
 /*enum __attribute__((packed)) MoveEffect
