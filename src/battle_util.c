@@ -12661,7 +12661,7 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     else if ((moveType == TYPE_FIGHTING || moveType == TYPE_NORMAL) && defType == TYPE_GHOST && mod == UQ_4_12(0.0)
     && (GetBattlerAbility(battlerAtk) == ABILITY_SCRAPPY
     || GetBattlerAbility(battlerAtk) == ABILITY_MINDS_EYE
-    || (GetBattlerAbility(battlerAtk) == ABILITY_PHANTOM_TOUCH && IsMoveMakingContact(move, battlerAtk)))) //works
+    || (GetBattlerAbility(battlerAtk) == ABILITY_PHANTOM_TOUCH && MoveMakesContact(move)))) //works redid based on info of unseenfist still works w protective pads, user doesnt take contact effects but move still counts
     {
         mod = UQ_4_12(1.0);
         /*if (recordAbilities)

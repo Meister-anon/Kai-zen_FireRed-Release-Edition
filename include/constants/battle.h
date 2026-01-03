@@ -116,6 +116,17 @@
 #define B_OUTCOME_MON_TELEPORTED       0xA
 #define B_OUTCOME_LINK_BATTLE_RAN      0x80
 
+//vsonic important use this for bringing counters etc
+//into uq
+//modifier = uq4_12_multiply(modifier, uq4_12_add(UQ_4_12(1.0), PercentToUQ4_12(gSpecialStatuses[battlerAtk].gemParam)));
+//default stab is 1.5 keep in mind for other 1.5 mods if decide adjust
+#define SUPER_EFFECTIVE     UQ_4_12(1.55)
+#define NOT_VERY_EFFECTIVE  UQ_4_12(0.5)
+#define NO_EFFECT           UQ_4_12(0.0)
+
+#define JOAT_BONUS          UQ_4_12(1.17)
+#define SAME_TYPE_BONUS     UQ_4_12(1.35)
+#define ADAPTABILITY_BONUS  UQ_4_12(1.75)
 
 // Non-volatile status conditions
 // These persist remain outside of battle and after switching out
@@ -774,8 +785,8 @@ enum BattleWeather
 #define B_WAIT_TIME_BRIEFEST 4
 #define B_WAIT_TIME_CLEAR_BUFF 5
 #define B_WAIT_TIME_CLEAR_BUFF_2 6
-#define B_WAIT_TIME_UNIQUE 7
-#define B_WAIT_TIME_LONG_LONG   8
+#define B_WAIT_TIME_UNIQUE 7    //for multihit miss and sleep heal
+#define B_WAIT_TIME_LONG_LONG   8   //for mon block ball message
 #define B_WAIT_TIME_IMPORTANT_STRINGS 9  //Replace wait time long for printstrings not crit message result message
 //changed to be array values pause time is still teh same
 
