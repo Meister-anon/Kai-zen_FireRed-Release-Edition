@@ -18596,7 +18596,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_POPULATION_BOMB] =
     {
-        .effect = EFFECT_POPULATION_BOMB,    //Todo // EFFECT_MULTI_HIT maybe?
+        .effect = EFFECT_MULTI_HIT,    //Todo // EFFECT_MULTI_HIT maybe?
         .power = 20, //EFFECT_POPULATION_BOMB doesn't really need compare w my version of multihit this is moslty for rng seeding
         .type = TYPE_NORMAL, //of note multihit scripts all go to effect hit much simpler to setup multitask that way...
         .accuracy = 90, //vsonic important
@@ -19016,7 +19016,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SNOWESCAPE] =
     {
-        .effect = EFFECT_SNOWESCAPE,
+        .effect = EFFECT_HAIL,
         .power = 0,
         .type = TYPE_ICE,
         .accuracy = 0,
