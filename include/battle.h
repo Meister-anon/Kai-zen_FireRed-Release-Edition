@@ -1457,7 +1457,7 @@ static inline u32 GetOpposingSideBattler(u32 battler)
 
 /*static inline bool32 IsFogOnField(void)
 {
-    return (HasWeatherEffect() && gBattleWeather & WEATHER_FOG);
+    return (WeatherHasEffect() && gBattleWeather & WEATHER_FOG);
 }*/
 
 static inline struct Pokemon* GetBattlerMon(u32 battler)

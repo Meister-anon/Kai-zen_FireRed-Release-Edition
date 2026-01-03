@@ -1382,7 +1382,7 @@ static void atk00_attackcanceler(void) //vsonic
     //as its affects are all odds based with no consistent affect
     if (!gBattleStruct->isAtkCancelerForCalledMove 
         && (GetBattlerAbility(gBattlerTarget) == ABILITY_IRON_WILL) //remove flinch affect for  pressure just give dmg drop
-        && IsBlackFogNotOnField()
+        
         && !gSpecialStatuses[gBattlerAttacker].Lostresolve //sinceit returns needs value to allow skip so doesnt loop
         && gBattlerTarget != gBattlerAttacker) //need to ensure not self target
         {
@@ -1401,7 +1401,7 @@ static void atk00_attackcanceler(void) //vsonic
     else if (!gBattleStruct->isAtkCancelerForCalledMove 
         && (GetBattlerAbility(gBattlerTarget) == ABILITY_HI_PRESSURE
         || GetBattlerAbility(gBattlerTarget) == ABILITY_PRESSURE)
-        && IsBlackFogNotOnField()
+        
         && !gSpecialStatuses[gBattlerAttacker].Lostresolve //sinceit returns needs value to allow skip so doesnt loop
         && gBattlerTarget != gBattlerAttacker)
     {
@@ -2324,10 +2324,16 @@ static void atk04_critcalc(void)    //working/works
     && GetBattlerSide(gBattlerAttacker) != B_SIDE_PLAYER)
         gCritMultiplier = 1;
     
-
-    if (!IsBlackFogNotOnField()
-    || gCurrentMove == MOVE_SURGING_STRIKES
-    || gCurrentMove == MOVE_WICKED_BLOW) //black fog on field no one can crit, and urshifu signature rebalance
+    //urshifu signature rebalance
+    //removed guaranteed crit replaced w def pen
+    //equated to extra stab
+    //hmm actually that's about same percent wise
+    //to what default effect was since crit was lowered to 1.5
+    //it equated to stab.
+    //so relatively its doing the same things
+    //but modifiers are lower so overall dmg is lower
+    if (gCurrentMove == MOVE_SURGING_STRIKES
+    || gCurrentMove == MOVE_WICKED_BLOW) 
         gCritMultiplier = 1;
 
     if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE
@@ -8097,8 +8103,7 @@ static void atk48_playstatchangeanimation(void)
                         ++changeableStatsCount;
                     }
                 }
-                else if ((!gSideTimers[GET_BATTLER_SIDE(battler)].mistTimer
-                        || (!IsBlackFogNotOnField() && gSideTimers[GET_BATTLER_SIDE(battler)].mistTimer))
+                else if (!gSideTimers[GET_BATTLER_SIDE(battler)].mistTimer                        
                         && ability != ABILITY_CLEAR_BODY
                         && ability != ABILITY_LEAF_GUARD
                         && ability != ABILITY_FULL_METAL_BODY
@@ -8333,7 +8338,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
              && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
              && TARGET_TURN_DAMAGED
              && !IsBattleMoveStatus(gCurrentMove)
-             && IsBlackFogNotOnField()
+             
              && gBattleMons[gBattlerTarget].statStages[STAT_ATK] < MAX_STAT_STAGE)    //not max atk
             {
                 //wait is this right?
@@ -8367,7 +8372,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
              && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT) //fuck it decide setup like rage fist, requires heavy invest anyway
              && TARGET_TURN_DAMAGED
              && !IsBattleMoveStatus(gCurrentMove)
-             && IsBlackFogNotOnField())    //not max atk
+             )    //not max atk
             {
                 if (gDisableStructs[gBattlerTarget].DragonrageCounter != MAX_DRAGON_RAGE_COUNTER)
                     gDisableStructs[gBattlerTarget].DragonrageCounter++;
@@ -10345,7 +10350,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
 
         //trap effect,
         if (((gBattleMons[battlerAtk].status4 & STATUS4_SAND_TOMB)
-        && IsBlackFogNotOnField())
+        )
         && !(MoveSureHitEvasionBoostedTargets(gCurrentMove))
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_ROCK, FALSE)
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_STEEL, FALSE)
@@ -10645,7 +10650,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         && (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_STEALTH_ROCK)
         && IsBattlerAffectedByHazards(battler, FALSE)
         && GetBattlerAbility(battler) != ABILITY_MAGIC_GUARD
-        && IsBlackFogNotOnField())
+        )
     {
         gSideStatuses[GetBattlerSide(battler)] |= SIDE_STATUS_STEALTH_ROCK_TRIGGERED;
         
@@ -10768,7 +10773,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         && (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_STEEL_SURGE)
         && IsBattlerAffectedByHazards(battler, FALSE)
         && GetBattlerAbility(battler) != ABILITY_MAGIC_GUARD
-        && IsBlackFogNotOnField()
+        
         && IsBattlerGrounded(battler)) //balance adjust so steel not taking rock niche
     {
         gSideStatuses[GetBattlerSide(battler)] |= SIDE_STATUS_STEEL_SURGE_TRIGGERED;
@@ -15458,7 +15463,7 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, u32 flags, con
         //these are set of exclusions that prevenet stat drop
         //afterwards it attempts to do stat change
         if (gSideTimers[GET_BATTLER_SIDE(battler)].mistTimer
-            && IsBlackFogNotOnField()
+            
             && !affectsUser && gCurrentMove != MOVE_CURSE
             && !(battler == gBattlerTarget && GetBattlerAbility(gBattlerAttacker) == ABILITY_INFILTRATOR)
             && !(GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY && IsSoundMove(gCurrentMove)))
@@ -18488,7 +18493,7 @@ static void atkC0_recoverbasedonsunlight(void) //since requires setting sun, wil
         }
         else if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY))
             gBattleMoveDamage = max(20 * gBattleMons[gBattlerAttacker].maxHP / 30,1);
-        else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE && IsBlackFogNotOnField()) //eitehr give boosted heal, or make it heal the normal amount regardless of weather change
+        else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE ) //eitehr give boosted heal, or make it heal the normal amount regardless of weather change
             gBattleMoveDamage = max(20 * gBattleMons[gBattlerAttacker].maxHP / 30,1); //it has low bst overall so just keep full boost here, cut solar beam boost
         else if (gBattleWeather == 0 || !IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ANY)) //pretty sure need replace weatherhaseffect w function that has umbrella logic in it
             gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 3,1);
@@ -21681,7 +21686,7 @@ void BS_AttacksThisTurn(void) // Note: returns 1 if it's a charging turn, otherw
     // first argument is unused
     /*if ((gBattleMoves[gCurrentMove].effect == EFFECT_SOLAR_BEAM) //rebalanced effect not using special status for
      && (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY)
-      || (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE && IsBlackFogNotOnField())) 
+      || (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE )) 
     )   
     */            
     if (CanTwoTurnMoveAttackThisTurn(gCurrentMove))                                 
@@ -21719,7 +21724,7 @@ static bool8 CanTwoTurnMoveAttackThisTurn(u16 move)
 
     else if ((gBattleMoves[move].effect == EFFECT_SOLAR_BEAM) //rebalanced effect not using special status for
     && (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY)
-    || (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE && IsBlackFogNotOnField())))
+    || (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE )))
         return TRUE;
     else if (gBattleMoves[move].effect == EFFECT_COLD_FLARE
     && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY))

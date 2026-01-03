@@ -154,7 +154,6 @@ u8 IsMonDisobedient(void);
 u32 GetBattleMoveSplit(u32 moveId);
 u32 GetBattleMoveDamageCategory(u32 attackerId, u16 move);
 bool8 IsBattlerAlive(u8 battlerId);
-bool8 IsBlackFogNotOnField(void);
 u32 GetBattlerAbility(u32 battler);
 u32 GetBattlerWeight(u8 battlerId);
 u32 GetFlingPowerFromItemId(u32 itemId);

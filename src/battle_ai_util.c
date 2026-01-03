@@ -1415,21 +1415,19 @@ bool32 AI_IsBattlerGrounded(u8 battlerId)
     if (gDisableStructs[battlerId].RoostTimer)
         grounded = TRUE; 
 
-    if ((gStatuses3[battlerId] & STATUS3_TELEKINESIS) && IsBlackFogNotOnField())
+    if ((gStatuses3[battlerId] & STATUS3_TELEKINESIS))
         grounded = FALSE;
-    if ((gStatuses3[battlerId] & STATUS3_MAGNET_RISE) && IsBlackFogNotOnField())
+    if ((gStatuses3[battlerId] & STATUS3_MAGNET_RISE))
         grounded = FALSE;
-    if ((gStatuses3[battlerId] & STATUS3_ON_AIR) && IsBlackFogNotOnField())
+    if ((gStatuses3[battlerId] & STATUS3_ON_AIR))
         grounded = FALSE;
-    if ((GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_AIR_BALLOON) && IsBlackFogNotOnField())
+    if ((GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_AIR_BALLOON))
         grounded = FALSE;
 
     //not setup fully yet
     if (gDisableStructs[battlerId].trenchRunTimer) //change name, using for trench run
         grounded = TRUE;
     if (gFieldStatuses & STATUS_FIELD_GRAVITY)
-        grounded = TRUE;
-    if (gFieldStatuses & STATUS_FIELD_BLACK_FOG) //on review this does make sense, its not that they are face down on the ground its that flying higher isn't an option
         grounded = TRUE;
     if (gStatuses3[battlerId] & STATUS3_ROOTED)
         grounded = TRUE;
