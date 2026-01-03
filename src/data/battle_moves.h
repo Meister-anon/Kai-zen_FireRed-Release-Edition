@@ -20703,7 +20703,7 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_SPECIAL,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
-        //.argument.twoTurnAttack = { .stringId =  STRINGID_PKMNTOOKSUNLIGHT, .status = WEATHER_HAIL_ANY },
+        //.argument.twoTurnAttack = { .stringId =  STRINGID_PKMNDROPPEDTEMP, .status = WEATHER_HAIL_ANY },
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,

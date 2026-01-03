@@ -499,9 +499,9 @@ static inline u32 GetMoveTwoTurnAttackWeather(u32 moveId)
     return gBattleMoves[SanitizeMoveId(moveId)].argument.twoTurnAttack.status;
 }
 
-static inline u32 GetMoveProtectSide(u32 moveId)
+static inline enum ProtectMethod GetMoveProtectMethod(u32 moveId)
 {
-    return gBattleMoves[SanitizeMoveId(moveId)].argument.protect.side;
+    return gBattleMoves[SanitizeMoveId(moveId)].argument.protectMethod;
 }
 
 static inline u32 GetMoveEffectArg_Status(u32 moveId)
@@ -535,7 +535,7 @@ static inline u32 GetMoveAbsorbPercentage(u32 moveId)
     if (gBattleMoves[moveId].argument.absorbPercentage == 0)
         return 50;
     return gBattleMoves[moveId].argument.absorbPercentage;
-}
+}*/
 
 
 static inline const struct AdditionalEffect *GetMoveAdditionalEffectById(u32 moveId, u32 effect)
@@ -543,7 +543,7 @@ static inline const struct AdditionalEffect *GetMoveAdditionalEffectById(u32 mov
     return &gBattleMoves[SanitizeMoveId(moveId)].additionalEffects[effect];
 }
 
-static inline u32 GetMoveContestEffect(u32 moveId)
+/*static inline u32 GetMoveContestEffect(u32 moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].contestEffect;
 }
@@ -572,7 +572,7 @@ static inline const u8 *GetMoveAnimationScript(u32 moveId)
         return gBattleMoves[MOVE_NONE].battleAnimScript;
     }
     return gBattleMoves[moveId].battleAnimScript;
-}
+}*/
 
 static inline bool32 IsOHKOmoveEffect(u32 moveId)
 {
@@ -585,7 +585,7 @@ static inline bool32 IsExplosionMove(u32 moveId)
     return gBattleMoves[moveId].explosiveMove;
 }
 
-static inline const u8 *GetMoveBattleScript(u32 moveId)
+/*static inline const u8 *GetMoveBattleScript(u32 moveId)
 {
     moveId = SanitizeMoveId(moveId);
     if (gBattleMoveEffects[gBattleMoves[moveId].effect].battleScript == NULL)

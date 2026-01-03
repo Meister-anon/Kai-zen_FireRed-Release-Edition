@@ -15041,8 +15041,8 @@ static void atk80_manipulatedamage(void)
             //case EFFECT_SUBMISSION:
             //case EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
             //case EFECT_MED_RECOIL:
-            //case MOVE_EFFECT_MEDIUM_RECOIL:
-            case MOVE_EFFECT_MED_RECOIL:
+            case MOVE_EFFECT_MEDIUM_RECOIL:
+            //case MOVE_EFFECT_MED_RECOIL:
                 gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleMoveDamage / 10,1));
                 gBattleMoveDamage += max((gBattleMoveDamage * 2) / 3,1);
                 //gBattleMoveDamage /= 3; //double edge damag

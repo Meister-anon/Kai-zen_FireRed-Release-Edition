@@ -88,7 +88,7 @@
 #define MOVE_EFFECT_SPIKES              0x50
 #define MOVE_EFFECT_SWITCH_LOCKED       0x51 //need do stuff
 #define MOVE_EFFECT_STEEL_SURGE         0x52 //like effect idk if need entire new move effect for? is just steel steath rock
-
+#define MOVE_EFFECT_DRAGON_RAGE         0x53
 
 #define NUM_MOVE_EFFECTS                MOVE_EFFECT_STEEL_SURGE + 1	//ok think i got this right, battlescript are assigned based on battle_move_effects.h file
 //#define MOVE_EFFECT_AFFECTS_USER        0x4000//that has to line up with battle_scripts_1.s but don't need move effect unlesss new status made or other new effect

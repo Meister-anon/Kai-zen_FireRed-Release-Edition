@@ -434,7 +434,8 @@
 #define ABILITY_PRECISE_STRIKE 402 //fighting version of sniper, for storm throw buff
 #define ABILITY_BRAVERY 403  //keldeo version justified
 #define ABILITY_FUGUE 404   //wow this being 404 is so appropriate lmao, malamar new signature ability confusion & sleep always max turns
-#define ABILITY_NA 405
+#define ABILITY_CRYOSTORM 405 //for separating hail ability from snow ability
+#define ABILITY_NA 406
 #define ABILITIES_COUNT ABILITY_NA //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H
