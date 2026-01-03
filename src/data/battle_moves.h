@@ -17289,7 +17289,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_MISTY_EXPLOSION] =
     {
-        .effect = EFFECT_EXPLOSION,
+        .effect = EFFECT_MISTY_EXPLOSION,
         .power = 100,   //was base 100 made 120 to compare to explosion w change type multiplier accounter for
         .type = TYPE_FAIRY,
         .accuracy = 100,
@@ -19676,7 +19676,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Hard Press"),
         .description = sWringOutDescription,
-        .effect = EFFECT_POWER_BASED_ON_TARGET_HP,
+        .effect = EFFECT_VARY_POWER_BASED_ON_HP,
         .power = 100,
         .type = TYPE_STEEL,
         .accuracy = 100,

@@ -5308,7 +5308,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (gBattleMovePower > 150)
             gBattleMovePower = 150;
         break;
-    case EFFECT_POWER_BASED_ON_TARGET_HP:
+    case EFFECT_VARY_POWER_BASED_ON_HP:
         gBattleMovePower = (gBattleMoves[move].argumentEffectChance * (gBattleMons[battlerIdDef].hp / gBattleMons[battlerIdDef].maxHP));
         if (gBattleMovePower < 40)
             gBattleMovePower = 40;
@@ -5316,7 +5316,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     case EFFECT_NATURAL_GIFT:
         gBattleMovePower = gNaturalGiftTable[ITEM_TO_BERRY(gBattleMons[battlerIdAtk].item)].power;
         break;
-    case EFFECT_STEEL_ROLLER:
+    case EFFECT_REMOVE_TERRAIN:
         if (move == MOVE_STEEL_ROLLER)
             gBattleMovePower = (gFieldStatuses & STATUS_FIELD_TERRAIN_ANY) ? 130 : 90;
     break;

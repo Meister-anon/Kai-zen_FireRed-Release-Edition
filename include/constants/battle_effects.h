@@ -437,6 +437,8 @@
 #define EFFECT_DMG_FIXATION 424 //fixation moves have differing effects when used multiple times/ decided make categorical effect diffect effects for diff things. idea of effect is continued use makes user better at move so gains additional effect / dmg fixation will have move incrase dmg with use for example
 #define EFFECT_DIRE_CLAW 425
 #define EFFECT_COLD_FLARE 426 //was ice burn, make effect 2 turns but 1 turn in hail/snow
+#define EFFECT_SHEER_COLD 427
+#define EFFECT_MISTY_EXPLOSION 428
 
 /*MOVE_FIRE_SPIN, //increases burn chance //serenge grace is effect *2 by requires no setup, I think I can get away w * 3 here actually do more to near guarantee 50-60%
 MOVE_CLAMP,     //no extra wrap effect,  but give flich chance on hit //changed mind you're staying clamped on them, so for duration statused target has chance to flinch when attacking

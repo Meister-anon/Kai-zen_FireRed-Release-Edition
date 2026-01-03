@@ -454,6 +454,8 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectAcidRain				  @EFFECT_ACID_RAIN
 	.4byte BattleScript_EffectHit					  @EFFECT_DMG_FIXATION
 	.4byte BattleScript_EffectTwoTurnsAttack		  @EFFECT_COLD_FLARE
+	.4byte BattleScript_EffectOHKO					  @EFFECT_SHEER_COLD
+	.4byte BattleScript_EffectExplosion				  @EFFECT_MISTY_EXPLOSION
 
 BattleScript_EffectAlwaysCrit:
 BattleScript_EffectFellStinger:
