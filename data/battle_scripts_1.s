@@ -8502,7 +8502,13 @@ BattleScript_WrapEnds::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end2
 
-BattleScript_MoveUsedIsInLove::
+BattleScript_MoveUsedIsInLoveWith::
+	printstring STRINGID_PKMNINLOVEWITHBATTLER
+	waitmessage B_WAIT_TIME_LONG
+	status2animation BS_ATTACKER, STATUS2_INFATUATION
+	return
+
+BattleScript_InLoveUsedMove::
 	printstring STRINGID_PKMNINLOVE
 	waitmessage B_WAIT_TIME_LONG
 	status2animation BS_ATTACKER, STATUS2_INFATUATION

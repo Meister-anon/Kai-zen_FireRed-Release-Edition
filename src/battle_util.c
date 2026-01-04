@@ -4730,29 +4730,42 @@ u8 AtkCanceller_UnableToUseMove(void)
                 //is possible to trigger block when infatuation battler is not on field
                 //EE still uses this but if possible would like to be able to
                 //to do case without needing scripting.battler vsonic important
-                gBattleScripting.battler = GetBattlerFromPersonality(gBattleStruct->infatuatedwithMon[gBattlerAttacker]);
+                //ok simple fix only reason this is here is string calls name of infatuation target
+                //when attempting to attack all I need do is make separate script for
+                //when mon isn't there and skip name print
+                //and put this in a specific case for only when it is.
+                //can just do ismononopposing side function
+                //thankfully name print is not part of immobilized script
                 
-                //should hopefully make it so only attracted target can prevent attacks
-                if (gBattlerTarget == GetBattlerFromPersonality(gBattleStruct->infatuatedwithMon[gBattlerAttacker]))
+                
+                if (IsMonOnOpposingSide(gBattlerAttacker, gBattleStruct->infatuatedwithMon[gBattlerAttacker]))
                 {
-                    if (Random() & 1) //test if that worked, next step change so infatuation animation only plays if battler their infatuated with is on the field.
-                        //well maybe not, if it reminds you each turn, even if not there, its a good reminder the status is still in effect.
+                    gBattleScripting.battler = GetBattlerFromPersonality(gBattleStruct->infatuatedwithMon[gBattlerAttacker]);
+                    
+                    if (gBattlerTarget == gBattleScripting.battler)
                     {
-                        BattleScriptPushCursor(); //attack through infatuation
+                        if (Random() & 1) //test if that worked, next step change so infatuation animation only plays if battler their infatuated with is on the field.
+                            //well maybe not, if it reminds you each turn, even if not there, its a good reminder the status is still in effect.
+                        {
+                            BattleScriptCall(BattleScript_MoveUsedIsInLoveWith); //attack through infatuation
+                        }
+                        else
+                        {
+                            BattleScriptPush(BattleScript_MoveUsedIsInLoveCantAttack);
+                            gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+                            gProtectStructs[gBattlerAttacker].loveImmobility = 1;
+                            CancelMultiTurnMoves(gBattlerAttacker);
+                        }
                     }
                     else
                     {
-                        BattleScriptPush(BattleScript_MoveUsedIsInLoveCantAttack);
-                        gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
-                        gProtectStructs[gBattlerAttacker].loveImmobility = 1;
-                        CancelMultiTurnMoves(gBattlerAttacker);
+                        BattleScriptCall(BattleScript_MoveUsedIsInLoveWith); //attack through infatuation
                     }
                 }
                 else
                 {
-                    BattleScriptPushCursor(); //attack through infatuation
+                    BattleScriptCall(BattleScript_InLoveUsedMove);//attack through infat
                 }
-                gBattlescriptCurrInstr = BattleScript_MoveUsedIsInLove;
                 effect = 1;
             
             }
@@ -11790,7 +11803,7 @@ u32 IsPersonalityOnSide(u32 battlerId, u32 MonPid)
     else if (IsBattlerAlive(BATTLE_PARTNER(battlerId)) && GetMonData(GetBattlerMon(BATTLE_PARTNER(battlerId)), MON_DATA_PERSONALITY) == MonPid)
         return BATTLE_PARTNER(battlerId) + 1;
     else
-        return 0;
+        return FALSE;
 }
 
 u32 IsMonOnOpposingSide(u32 battlerId, u32 MonPid)
@@ -11806,7 +11819,7 @@ u32 GetBattlerFromPersonality(u32 MonPid)
             return i;
     }
 
-    return 0xFF;
+    return BATTLE_ID_NONE;
 }
 
 //Abilities that make all move used by and against

@@ -248,7 +248,7 @@ enum __attribute__((packed)) WrappedStringID
 #define STRINGID_PKMNWASCONFUSED 67
 #define STRINGID_PKMNALREADYCONFUSED 68
 #define STRINGID_PKMNFELLINLOVE 69
-#define STRINGID_PKMNINLOVE 70
+#define STRINGID_PKMNINLOVEWITHBATTLER 70
 #define STRINGID_PKMNIMMOBILIZEDBYLOVE 71
 #define STRINGID_PKMNBLOWNAWAY 72
 #define STRINGID_PKMNCHANGEDTYPE 73
@@ -906,7 +906,8 @@ enum __attribute__((packed)) WrappedStringID
 #define STRINGID_PKMNSWARMED                        724
 #define STRINGID_PKMNCAMETOITSSENSES                725
 #define STRINGID_PKMNRETURNEDTOAIR                  726
-#define STRINGID_NA                                 727 //entreed to avoid extra copy paste
+#define STRINGID_PKMNINLOVE                         727 
+#define STRINGID_NA                                 728 //entreed to avoid extra copy paste
 
 #define BATTLESTRINGS_COUNT     STRINGID_NA - 1
 
