@@ -373,6 +373,9 @@ struct Volatiles
     // etc.
 };
 
+//EE has otid at bottom,
+//my version alingns to 4 bytes rather than 2
+//go over see which works best
 struct BattlePokemon
 {
     /*0x58*/ u32 otId; //may not need status4 in struct status3 & 4 seem to work through gstatuses3 & gstatus4 the same as status 2 already?
@@ -393,25 +396,26 @@ struct BattlePokemon
     /*0x17*/ u32 spDefenseIV:5;
     /*0x17*/ u32 abilityNum:2;
     /*0x18*/ s8 statStages[BATTLE_STATS_NO];
-    /*0x20*/ u16 ability;
-    /*0x21*/ u8 type1;
-    /*0x22*/ u8 type2;
-    /*0x23*/ u8 type3; //no space change replaced unknown
-    /*0x24*/ u8 pp[MAX_MON_MOVES];
-    /*0x28*/ u16 hp;
-    /*0x2A*/ u8 level;
-    /*0x2B*/ u8 friendship;
-    /*0x2C*/ u16 maxHP;
-    /*0x2E*/ u16 item;
-    /*0x30*/ u8 nickname[POKEMON_NAME_LENGTH + 1];
-    /*0x3B*/ u8 ppBonuses;
-    /*0x3C*/ u8 otName[OT_NAME_LENGTH + 1];
-             u8 isEgg:1; //changed to u8 to align w above array
-    /*0x44*/ u32 experience;
-    /*0x48*/ u32 personality;
-    /*0x4C*/ u32 status1;   //stays on switch
+    /*0x20*/ u16 ability; //this is off throws off rest should be 2 bytes not 1
+    /*0x22*/ u8 type1;
+    /*0x23*/ u8 type2;
+    /*0x24*/ u8 type3; //no space change replaced unknown
+    /*0x25*/ bool8 isShiny:1; //take ismonshiny pass on set battle data put here for alingment idk if can be bitfield
+             bool8 isEgg:1;
+             u8 padding:6;
+    /*0x26*/ u8 pp[MAX_MON_MOVES];
+    /*0x29*/ u16 hp;
+    /*0x2B*/ u8 level;
+    /*0x2C*/ u8 friendship;
+    /*0x2D*/ u16 maxHP;
+    /*0x2F*/ u16 item;
+    /*0x31*/ u8 nickname[POKEMON_NAME_LENGTH + 1];
+    /*0x3C*/ u8 ppBonuses;
+    /*0x3D*/ u8 otName[OT_NAME_LENGTH + 1];             
+    /*0x45*/ u32 experience;
+    /*0x49*/ u32 personality;
+    /*0x4D*/ u32 status1;   //stays on switch
              struct Volatiles volatiles; //replace other statusses
-             bool8 isShiny; //take ismonshiny pass on set battle data
     /*0x50*/ //u32 status2;   //temp status lost on switch
     /*0x54*/ //u32 status4;   //new addition  for new statuses mostly for new wrap effects, plan to make equivalent of status2
 };                   //idk guessing statu1 2 and now 4 are different from status3 as its applied direclty to a mon/?  status3 seems more like a set of temp states?
