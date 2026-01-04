@@ -7914,10 +7914,6 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
         modifier = uq4_12_multiply(modifier, UQ_4_12(0.5));
     if (IsFieldWaterSportAffected(ctx->moveType))
         modifier = uq4_12_multiply(modifier, UQ_4_12(0.5));
-    if (gBattleMons[battlerAtk].volatiles.infatuation
-    && IsMonOnOpposingSide(battlerAtk, gBattleMons[battlerAtk].volatiles.infatuation))
-        modifier = uq4_12_multiply(modifier, UQ_4_12(0.75));
-        //damage = max((damage * 75) / 100, 1);
 
     //eventually turn into volatile
     if (gBattleMons[battlerAtk].status2 & STATUS2_DRAGON_RAGE
@@ -8851,6 +8847,9 @@ static uq4_12_t GetWeatherDamageModifier(struct DamageContext *ctx)
 }
 
 //removed frostbite was just legends arcues sp atk drop
+//put infatuation drop here rename function to status modifiers
+//actually no will make another one to put after this
+//so its its own thing
 static inline uq4_12_t GetBurnOrFrostBiteModifier(struct DamageContext *ctx)
 {
     enum BattleMoveEffects moveEffect = GetMoveEffect(ctx->move);
@@ -8877,6 +8876,20 @@ static inline uq4_12_t GetBurnOrFrostBiteModifier(struct DamageContext *ctx)
         && moveEffect != EFFECT_FACADE)
         return UQ_4_12(0.5);
     */
+    
+    return UQ_4_12(1.0);
+}
+
+//made its on thing and moved further down
+//to avoid getting truncated with other multipliers applying
+//should hopefully be more in line with intention.
+static inline uq4_12_t GetInfatuationModifier(struct DamageContext *ctx)
+{
+
+    if (gBattleMons[ctx->battlerAtk].volatiles.infatuation
+    && IsMonOnOpposingSide(ctx->battlerAtk, gBattleMons[ctx->battlerAtk].volatiles.infatuation))
+        return UQ_4_12(0.75);
+        
     
     return UQ_4_12(1.0);
 }
@@ -9275,6 +9288,7 @@ s32 ApplyModifiersAfterDmgRoll(struct DamageContext *ctx, s32 dmg)
         DAMAGE_APPLY_MODIFIER(GetTypeBasedBonusModifier(ctx)); //stab and the like
     DAMAGE_APPLY_MODIFIER(ctx->typeEffectivenessModifier);
     DAMAGE_APPLY_MODIFIER(GetBurnOrFrostBiteModifier(ctx));
+    DAMAGE_APPLY_MODIFIER(GetInfatuationModifier(ctx));
     DAMAGE_APPLY_MODIFIER(GetProtectBreakModifiers(ctx));
     DAMAGE_APPLY_MODIFIER(GetOtherModifiers(ctx));
 
