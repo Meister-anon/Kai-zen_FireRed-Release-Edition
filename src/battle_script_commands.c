@@ -11438,15 +11438,22 @@ static void Cmd_normalisebuffs(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+//my version of bide is different requires separate
+//status from bideturn but now see can use
+//multiple turns status in place of that
+//also changed dmg formula and priority on atk
+//should use 2.3, since expanded utility
+//and allowing to hit ghost think will keep as is
+//at 2 rather than boosted - vsonic
+//added fail condition to script so don't 
+//need filter condition here now
 static void Cmd_setbide(void)
 {
     CMD_ARGS();
 
     gBattleMons[gBattlerAttacker].volatiles.multipleTurns = TRUE;
-    gLockedMoves[gBattlerAttacker] = gCurrentMove;
     gBideDmg[gBattlerAttacker] = 0;
-    gBattleMons[gBattlerAttacker].volatiles.bideTurns = 2;
-
+    gBattleMons[gBattlerAttacker].volatiles.bideTurns = 3;
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 

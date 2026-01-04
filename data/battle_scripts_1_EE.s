@@ -2737,6 +2737,7 @@ BattleScript_EffectHaze::
 
 BattleScript_EffectBide::
 	attackcanceler
+	jumpifvolatile BS_TARGET, VOLATILE_BIDE, BattleScript_ButItFailed
 	attackanimation
 	waitanimation
 	setbide

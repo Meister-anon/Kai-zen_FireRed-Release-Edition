@@ -268,6 +268,8 @@
 //from what I see game is only set up to display status animations for status 1 & status2 staus...but then leech seed works and its status3?
 //if everything works will most likely reorganize
 //so free space is at the bottom
+//realized this is a bit field
+//if value takes 1 space then its bitfield 1
 #define STATUS2_CONFUSION             (1 << 0)
 #define STATUS2_SPIRIT_LOCK             (1 << 1) //vsonic fairy status moved here special dmg drop
 #define STATUS2_INFESTATION           (1 << 2)
@@ -523,7 +525,19 @@ max value of bit is 2^n -1
     as log2 may mistakenly allocated lower than we need
     ex timer of max value 2 would need bit 2
     but log2(2) would instead allocate 1 bit
+
+    same for max value 4, needs 3 bits
+    but log2(4) would allocate 2 bits instead.
 */
+
+//MAX_BITS(MAX_BATTLERS_COUNT) seems to return a  value of 15
+//so I guess bit:4
+//which I don't really get normally I'd use a byte u8 with array[4]
+//to store value for each potential battler
+//but if broken into a field at max it stores value between 0-3
+//but has to store 4 of those
+//that's bit 2 stores 4 values so 4 x 4 values is 16 values
+//so techncially same space I guess but feels weird
 
 /* Volatile status ailments
  * These are removed after exiting the battle or switching
@@ -533,13 +547,13 @@ max value of bit is 2^n -1
     F(VOLATILE_CONFUSION,                   confusionTurns,                (u32, B_CONFUSION_TURNS + 1), V_BATON_PASSABLE) \
     F(VOLATILE_INFESTATION,                 infested,                      (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_FLINCHED,                    flinched,                      (u32, 1)) \
-    F(VOLATILE_UPROAR,                      uproarTurns,                   (u32, 5)) \
+    F(VOLATILE_UPROAR,                      uproarTurns,                   (u32, 3)) \
     F(VOLATILE_DRAGON_RAGE,                 drgonrage,                     (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_EMERGENCY_EXIT,              emergencyExit,                 (u32, 1)) \
     F(VOLATILE_TORMENT,                     torment,                       (u32, 1)) \
-    F(VOLATILE_BIDE,                        bideTurns,                     (u32, B_BIDE_TURNS + 1)) \
+    F(VOLATILE_BIDE,                        bideTurns,                     (u32, B_BIDE_TURNS)) \
     F(VOLATILE_SWITCH_LOCKED,               switchlocked,                  (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_RAMPAGE_TURNS,               rampageTurns,                  (u32, B_RAMPAGE_TURNS + 1)) \
+    F(VOLATILE_RAMPAGE_TURNS,               rampageTurns,                  (u32, B_RAMPAGE_TURNS)) \
     F(VOLATILE_MULTIPLETURNS,               multipleTurns,                 (u32, 1)) \
     F(VOLATILE_WRAPPED,                     wrapped,                       (u32, 1)) \
     F(VOLATILE_POWDER,                      powder,                        (u32, 1)) \
