@@ -816,10 +816,17 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .semiInvulnerableEffect = TRUE,
     },
 
+    [EFFECT_WITHDRAW] =
+    {
+        .battleScript = BattleScript_EffectWithdraw,
+        .battleTvScore = 2,
+        .encourageEncore = TRUE,
+    },
+
     [EFFECT_DEFENSE_CURL] =
     {
         .battleScript = BattleScript_EffectDefenseCurl,
-        .battleTvScore = 1,
+        .battleTvScore = 2,
         .encourageEncore = TRUE,
     },
 

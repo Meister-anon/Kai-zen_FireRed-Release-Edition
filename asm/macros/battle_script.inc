@@ -12,9 +12,10 @@
 	.macro printattackstring
 	.byte 0x2
 	.endm
-
-	.macro unused_0x3
+	
+	.macro setcritprotect battler:req
 	.byte 0x3
+	.byte \battler
 	.endm
 
 	.macro critcalc

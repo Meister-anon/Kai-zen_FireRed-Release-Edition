@@ -108,8 +108,8 @@ const u8 gMoveDescription_Harden[] = _("The user stiffens\nall the muscles in\ni
 const u8 gMoveDescription_Minimize[] = _("The user compresses\nall the cells in its\nbody to raise its\nevasiveness.");
 const u8 gMoveDescription_Smokescreen[] = _("An obscuring cloud\nof smoke or ink\nreduces the foe's\naccuracy.");
 const u8 gMoveDescription_ConfuseRay[] = _("The foe is exposed\nto a sinister ray\nthat triggers\nconfusion.");
-const u8 gMoveDescription_Withdraw[] = _("The user withdraws\nits body in its hard\nshell, raising its\nDEFENSE stat.");
-const u8 gMoveDescription_DefenseCurl[] = _("The user curls up\nto conceal weak\nspots and raise its\nDEFENSE stat.");
+const u8 gMoveDescription_Withdraw[] = _("The user withdraws\nits body in its hard\nshell, raising its\nDEFENSE stat.\nBlocks critical-hits\nfor rest of turn.");
+const u8 gMoveDescription_DefenseCurl[] = _("The user curls up\nto conceal weak\nspots and raise its\nDEFENSE stat.\nBlocks critical-hits\nfor rest of turn.");
 const u8 gMoveDescription_Barrier[] = _("The user creates a\nsturdy wall that\nsharply raises its\nDEFENSE stat.");
 const u8 gMoveDescription_LightScreen[] = _("A wall of light\ncuts damage from\nSP. ATK attacks\nfor five turns.");
 const u8 gMoveDescription_Haze[] = _("Eliminates all stat\nchanges among all\nPOKéMON engaged in\nbattle.");
@@ -386,7 +386,7 @@ const u8 gMoveDescription_HealBlock[] = _("Prevents foes from\nrecovering HP.\nF
 const u8 gMoveDescription_WringOut[] = _("The move scales\nin power the higher\npercentage of HP\nthe target has left.\nIgnores type check.");
 const u8 gMoveDescription_PowerTrick[] = _("The user swaps\nits Attack and\nDefense stats.");
 const u8 gMoveDescription_Gastro_Acid[] = _("Stomach acid\nsuppresses the\nfoe's ability.");
-const u8 gMoveDescription_LuckyChant[] = _("Prevents foes team\nfrom landing any\ncritical hits\nfor 5 turns.");
+const u8 gMoveDescription_LuckyChant[] = _("Prevents foes team\nfrom landing any\ncritical-hits\nfor 5 turns.");
 const u8 gMoveDescription_Me_First[] = _("Copies the foe's\nselected attack\nand uses it before\nthey can act with\nincreased power.");
 const u8 gMoveDescription_Copycat[] = _("The user mimics\nthe last move\nused by a foe.");
 const u8 gMoveDescription_Power_Swap[] = _("Swaps changes to\nAttack and\nSp. Atk with\nthe foe.");
@@ -641,7 +641,7 @@ const u8 gSMACK_DOWN_Description
     [] = _("Throws a rock to\nknock the foe down\nto the ground.");
 
 const u8 gSTORM_THROW_Description 
-    [] = _("The user strikes\nthe target with\na fierce blow.\nThis attack always\nresults in a\ncritical hit.");
+    [] = _("The user strikes\nthe target with\na fierce blow.\nThis attack always\nresults in a\ncritical-hit.");
 
 const u8 gFLAME_BURST_Description 
     [] = _("A bursting flame\nthat does damage\nto all foes.");
@@ -1079,7 +1079,7 @@ const u8 gTOXIC_THREAD_Description
     [] = _("Attacks with a\nthread that poisons\nand drops Speed.");
 
 const u8 gLASER_FOCUS_Description 
-    [] = _("Guarantees the next\nmove will be\na critical hit.");
+    [] = _("Guarantees the next\nmove will be\na critical-hit.");
 
 const u8 gGEAR_UP_Description 
     [] = _("The user engages its\ngears creating a\nstatic field raising\nAtk. and Sp. Atk\nof itself and allies\nwith Electric type.");
@@ -1200,7 +1200,7 @@ const u8 gPHOTON_GEYSER_Description
 
         //Lets Go P/E
 const u8 gZIPPY_ZAP_Description 
-    [] = _("An Electric burst\nthat is very quick\nand always lands\na critical hit.");
+    [] = _("An Electric burst\nthat is very quick\nand always lands\na critical-hit.");
 
 const u8 gSPLISHY_SPLASH_Description 
     [] = _("A huge electrified\nwave that may\nparalyze everyone.\nAlso deals electric\ndamage.");
@@ -2289,7 +2289,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_DOODLE] = COMPOUND_MOVE_STRING("Changes user's and\nally's Ability into\nthe target's Ability"),
     [MOVE_FILLET_AWAY] = COMPOUND_MOVE_STRING("Sharply boosts\noffense stats and\nSpeed at the cost of\nhalf its max HP."),
     [MOVE_KOWTOW_CLEAVE] = COMPOUND_MOVE_STRING("Kowtows then slashes\nat the foe when\nthey least expect it\nIt never misses."),
-    [MOVE_FLOWER_TRICK] = COMPOUND_MOVE_STRING("The user throws\na rigged bouquet of\nflowers at the foe.\nThis attack never\nmisses and is always\na critical hit."),
+    [MOVE_FLOWER_TRICK] = COMPOUND_MOVE_STRING("The user throws\na rigged bouquet of\nflowers at the foe.\nThis attack never\nmisses and is always\na critical-hit."),
     [MOVE_TORCH_SONG] = COMPOUND_MOVE_STRING("Belts out a raging\nflame as if singing\na song,\nscorching the target\nThis also boosts the\nuser's Sp. Atk stat."),
     [MOVE_AQUA_STEP] = COMPOUND_MOVE_STRING("The user toys with\nthe target attacking\nwith light, fluid\ndance steps.\nThis also boosts the\nuser's Speed stat."),
     [MOVE_RAGING_BULL] = COMPOUND_MOVE_STRING("A bull-like tackle\nbreaks barriers.\ntype depends on\nthe user's form."),

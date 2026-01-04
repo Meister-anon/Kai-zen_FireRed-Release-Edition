@@ -3819,8 +3819,20 @@ BattleScript_EffectBeatUpGen3:
 	printstring STRINGID_PKMNATTACK
 	goto BattleScript_HitFromCritCalc
 
+BattleScript_EffectWithdraw::
+	attackcanceler
+	setcritprotect BS_TARGET
+	setstatchanger STAT_DEF, 1, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR | STAT_CHANGE_ONLY_CHECKING, BattleScript_DefenseCurlDoStatUpAnim
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_CHANGE, BattleScript_StatUpPrintString
+	attackanimation
+	waitanimation
+BattleScript_WithdrawDoStatUpAnim::
+	goto BattleScript_StatUpDoAnim
+
 BattleScript_EffectDefenseCurl::
 	attackcanceler
+	setcritprotect BS_TARGET
 	setvolatile BS_TARGET, VOLATILE_DEFENSE_CURL
 	setstatchanger STAT_DEF, 1, FALSE
 	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR | STAT_CHANGE_ONLY_CHECKING, BattleScript_DefenseCurlDoStatUpAnim

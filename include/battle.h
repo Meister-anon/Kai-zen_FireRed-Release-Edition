@@ -324,11 +324,9 @@ struct ProtectStruct
              u8 physicalBattlerId;
              u8 specialBattlerId;
 
-             u32 spikyShielded : 1;  //consider renaming spike shield
-             u32 kingsShielded : 1;
-             u32 banefulBunkered : 1;
-             u32 silkTrapped : 1;
-             u32 shieldBashed : 1; //removed protect stuff in EE so these will be freed
+
+             u32 blockcrit : 1; //rn just giving to defense curl
+             u32 blankspace : 4; //removed protect stuff in EE so these will be freed
              u32 usesBouncedMove : 1;
              u32 usedHealBlockedMove : 1;
              u32 usedGravityPreventedMove : 1;
@@ -1454,6 +1452,17 @@ static inline u32 CanActivateGulpMissle(u32 move)
 }
 
 
+static inline bool32 DoesTargetAbilityBlockCrit(u32 battlerAtk, u32 battlerDef, u32 move, enum Ability abilityDef)
+{
+
+     return (abilityDef == ABILITY_BATTLE_ARMOR
+        || abilityDef == ABILITY_SHELL_ARMOR
+        || (abilityDef == ABILITY_MAGMA_ARMOR && IsPhysicalMove(battlerAtk, move)) //removed physical move macro for function consolidating effects
+        || abilityDef == ABILITY_INNER_FOCUS
+        || (abilityDef == ABILITY_TANGLED_FEET && gBattleMons[battlerDef].volatiles.confusionTurns)
+        || abilityDef == ABILITY_GRASS_PELT);
+
+}
 
 
 //can't  remember where I had notes for 

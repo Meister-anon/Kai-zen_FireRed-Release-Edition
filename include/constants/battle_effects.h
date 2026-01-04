@@ -567,7 +567,8 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_BEAT_UP,
     EFFECT_SEMI_INVULNERABLE,
     EFFECT_FLY,
-    EFFECT_DEFENSE_CURL,
+    EFFECT_WITHDRAW,
+    EFFECT_DEFENSE_CURL, //think want buff this effect make block crit since curlin in on itself to protect vitals but stall is already stronger in my hack hmm
     EFFECT_SOFTBOILED, // differences vs Recover - can be used outside of battle to restore HP
     EFFECT_FIRST_TURN_ONLY,
     EFFECT_UPROAR,

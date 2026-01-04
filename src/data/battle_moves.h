@@ -2599,11 +2599,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_WITHDRAW] =
     {
-        .effect = EFFECT_DEFENSE_UP,
+        .effect = EFFECT_WITHDRAW,
         .power = 0,
         .type = TYPE_WATER,
         .accuracy = 0,
-        .pp = 40,
+        .pp = 25,
         .target = MOVE_TARGET_USER,
         .priority = 1,
         .split = SPLIT_STATUS,
@@ -2615,7 +2615,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
         //.battleAnimScript = gBattleAnimMove_Withdraw,
-    },
+    },//reduced pp to 25 for new effects w pp max
+    //can get original pp
 
     [MOVE_DEFENSE_CURL] =
     {
@@ -2623,7 +2624,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .power = 0,
         .type = TYPE_NORMAL,
         .accuracy = 0,
-        .pp = 40,
+        .pp = 25,
         .target = MOVE_TARGET_USER,
         .priority = 1,
         .split = SPLIT_STATUS,
