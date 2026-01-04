@@ -6288,7 +6288,13 @@ BattleScript_WrapEnds::
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
-BattleScript_MoveUsedIsInLove::
+BattleScript_MoveUsedIsInLoveWith::
+	printstring STRINGID_PKMNINLOVEWITHBATTLER
+	waitmessage B_WAIT_TIME_LONG
+	volatileanimation BS_ATTACKER, VOLATILE_INFATUATION
+	return
+
+BattleScript_InLoveUsedMove::
 	printstring STRINGID_PKMNINLOVE
 	waitmessage B_WAIT_TIME_LONG
 	volatileanimation BS_ATTACKER, VOLATILE_INFATUATION

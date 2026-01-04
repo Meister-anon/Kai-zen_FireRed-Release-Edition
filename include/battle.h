@@ -1494,4 +1494,16 @@ static inline bool32 TrySkipMoveResultChecks(u16 move)
     || GetMoveEffect(move) == EFFECT_FIXED_HP_DAMAGE);
 }
 
+
+//unsure if works, so not yet using
+//compiler error so guess is wrong
+//remove pointer logic for u32 maybe fine now
+//if works can prob use to cleanup infatuation stuff
+//idk if personality can be zero need find out
+static inline u32 GetBattlerPersonality(u32 battler)
+{
+    u32 index = gBattlerPartyIndexes[battler];
+    return !IsOnPlayerSide(battler) ? GetMonData(&gEnemyParty[index], MON_DATA_PERSONALITY, NULL) : GetMonData(&gPlayerParty[index], MON_DATA_PERSONALITY, NULL);
+}
+
 #endif // GUARD_BATTLE_H

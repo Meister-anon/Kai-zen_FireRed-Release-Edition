@@ -3218,6 +3218,7 @@ void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV,
 
 
     personality = Random32();
+    personality = max(personality, 1);
 
     //potential worry is this would also change the guy that gives magikarp
     //by mt moon but honestly that would be even better lol
@@ -6618,10 +6619,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //should ensure infatuation only blocks attack, on mon infatuated with
     //ok updated pretty sure infatuation gets cured soon as infatuated battler 
     //is off the field so status infatuation shuld be all I need for this
-    if (gBattleMons[battlerIdAtk].status2 & STATUS2_INFATUATION)
-    //&& gBattleStruct->infatuatedwithBattleId[battlerIdAtk] != BATTLE_ID_NONE
-    //&& !IsBattlerAlly(battlerIdAtk, gBattleStruct->infatuatedwithBattleId[battlerIdAtk]))
-    //&& gBattleStruct->infatuatedwithBattleId[battlerIdAtk] == battlerIdDef)
+    if (gBattleMons[battlerIdAtk].volatiles.infatuation
+    && IsMonOnOpposingSide(battlerIdAtk, gBattleMons[battlerIdAtk].volatiles.infatuation))
         damage = max((damage * 75) / 100, 1);
 
 
@@ -8838,8 +8837,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
             if ((itemEffect[cmdIndex] & ITEM0_INFATUATION)
                 && gMain.inBattle && battleMonId != 4 && (gBattleMons[battleMonId].status2 & STATUS2_INFATUATION))
             {
-                gBattleMons[battleMonId].status2 &= ~STATUS2_INFATUATION;
-                gBattleStruct->infatuatedwithBattleId[battleMonId] = BATTLE_ID_NONE;
+                gBattleMons[battleMonId].volatiles.infatuation = FALSE;
                 retVal = FALSE;
             }
             if ((itemEffect[cmdIndex] & ITEM0_HIGH_CRIT)

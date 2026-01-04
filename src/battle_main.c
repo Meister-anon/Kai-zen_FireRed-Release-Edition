@@ -190,7 +190,8 @@ EWRAM_DATA u8 gTakenDmgByBattler[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gSavedPartyCount = 0; //was unused rn am just using to track num party mon before catch for pc access
 EWRAM_DATA u32 gSideStatuses[NUM_BATTLE_SIDES] = {0};
 EWRAM_DATA struct SideTimer gSideTimers[NUM_BATTLE_SIDES] = {0};
-EWRAM_DATA u32 gStatuses3[MAX_BATTLERS_COUNT] = {0};
+//removed put into volatile struct in battlepokemon
+//EWRAM_DATA u32 gStatuses3[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA struct DisableStruct gDisableStructs[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gPauseCounterBattle = 0;
 EWRAM_DATA u16 gPaydayMoney = 0;
@@ -2692,6 +2693,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
             for (j = 0; gBaseStats[species].speciesName[j] != EOS; ++j)
                 nameHash += gBaseStats[species].speciesName[j];
             personalityValue += nameHash << 8;
+            personalityValue = max(personalityValue, 1);
             fixedIV = partyData[i].iv;
             if (fixedIV > MAX_PER_STAT_IVS)
                 fixedIV = MAX_PER_STAT_IVS;
@@ -3533,7 +3535,8 @@ static void BattleStartClearSetData(void)
         gBattleStruct->AI_monToSwitchIntoId[i] = PARTY_SIZE;
         gBattleStruct->skyDropTargets[i] = BATTLE_ID_NONE;
         gBattleStruct->seedSetterBattleId[i] = BATTLE_ID_NONE;
-        gBattleStruct->infatuatedwithBattleId[i] = BATTLE_ID_NONE;
+        //since is battlemons not battlestruct may not need here
+        gBattleMons[i].volatiles.infatuation = FALSE;
         gBattleStruct->overwrittenAbilities[i] = ABILITY_NONE;
         // Record HP of each battler
         gBattleStruct->hpBefore[i] = gBattleMons[i].hp;
@@ -3752,14 +3755,16 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
         //look to wrapped by logic for example, use that as battlerId and check hold effect vsonic
         //should be simple change to trappedby  and use for all traps
         gBattleStruct->seedSetterBattleId[battler] = BATTLE_ID_NONE;
-        gBattleStruct->infatuatedwithBattleId[battler] = BATTLE_ID_NONE;
+        gBattleMons[battler].volatiles.infatuation = FALSE;
     }
 
     // is this something that removes wrap, and infatuation if the mon that caused the effect is switched out? yes
     //forgot I planned steup for suction cup and certain held item to make traps persist
     //battler is one switchign so believe what does is
     //remove infatuation if target of infatuation switched out
-    for (i = 0; i < gBattlersCount; ++i)
+    //decide only clear on faint
+    //i.e death do us part
+    /*for (i = 0; i < gBattlersCount; ++i)
     {
 
         if (gBattleMons[i].status2 & STATUS2_INFATUATION
@@ -3770,7 +3775,7 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
         }
         
         // was too annoying to track, just removed battler switch clearing for traps, may need other buff for suction cups
-    }
+    }*/
     gActionSelectionCursor[battler] = 0;
     gMoveSelectionCursor[battler] = 0;
 
@@ -3853,13 +3858,13 @@ const u8* FaintClearSetData(u32 battler) //see about make status1 not fade wen f
         //also exclude STATUS2_SWITCH_LOCKED from this, so effect persists
         if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == battler)
             gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;
-        if (gBattleMons[i].status2 & STATUS2_INFATUATION
-        && gBattleStruct->infatuatedwithBattleId[i] == battler)
+        
+        if (gBattleMons[i].volatiles.infatuation
+        && GetBattlerFromPersonality(gBattleMons[i].volatiles.infatuation) == battler)
         {
-            gBattleMons[i].status2 &= ~(STATUS2_INFATUATION);
-            gBattleStruct->infatuatedwithBattleId[i] = BATTLE_ID_NONE;
+            gBattleMons[i].volatiles.infatuation = FALSE;
         }
-            
+        
         
         //cleared trap timers too hard to track w rework
         //actually should still clear timers but just dont link it

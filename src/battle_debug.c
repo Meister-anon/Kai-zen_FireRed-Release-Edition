@@ -1277,19 +1277,20 @@ static void UpdateBattlerValue(struct BattleDebugMenu *data)
             //idk if this conditional is quite right, just for singles
             if (IsBattlerAlive(BATTLE_OPPOSITE(data->battlerId)))
             {    
-                gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATION;
-                gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_OPPOSITE(data->battlerId);
+                gBattleMons[data->battlerId].volatiles.infatuation = GetBattlerPersonality(BATTLE_OPPOSITE(data->battlerId));
+                //gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATION;
+                //gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_OPPOSITE(data->battlerId);
             }
             else
             {
-               gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATION;
-               gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_PARTNER(BATTLE_OPPOSITE(data->battlerId));
+                gBattleMons[data->battlerId].volatiles.infatuation = GetBattlerPersonality(BATTLE_PARTNER(BATTLE_OPPOSITE(data->battlerId)));
+               //gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATION;
+               //gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_PARTNER(BATTLE_OPPOSITE(data->battlerId));
             }
         }
         else
         {
-            gBattleMons[data->battlerId].status2 &= ~STATUS2_INFATUATION;
-            gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_ID_NONE;
+            gBattleMons[data->battlerId].volatiles.infatuation = FALSE;
         }
         break;
     case VAR_SLEEP_TIMER:

@@ -2417,20 +2417,38 @@ static enum MoveCanceler CancelerInfatuation(struct BattleContext *ctx)
 {
     if (gBattleMons[ctx->battlerAtk].volatiles.infatuation)
     {
-        gBattleScripting.battler = gBattleMons[ctx->battlerAtk].volatiles.infatuation - 1;
-        if (!RandomPercentage(RNG_INFATUATION, 50))
+        if (IsMonOnOpposingSide(ctx->battlerAtk, gBattleMons[ctx->battlerAtk].volatiles.infatuation))
         {
-            BattleScriptCall(BattleScript_MoveUsedIsInLove);
-            return MOVE_STEP_BREAK;
+            gBattleScripting.battler = GetBattlerFromPersonality(gBattleMons[ctx->battlerAtk].volatiles.infatuation);
+            
+            if (ctx->battlerDef == gBattleScripting.battler)
+            {
+                if (!RandomPercentage(RNG_INFATUATION, 50)) //test if that worked, next step change so infatuation animation only plays if battler their infatuated with is on the field.
+                    //well maybe not, if it reminds you each turn, even if not there, its a good reminder the status is still in effect.
+                {
+                    BattleScriptCall(BattleScript_MoveUsedIsInLoveWith); //attack through infatuation
+                    return MOVE_STEP_BREAK;
+                }
+                else
+                {
+                    BattleScriptPush(BattleScript_MoveUsedIsInLoveCantAttack);
+                    gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+                    gProtectStructs[ctx->battlerAtk].unableToUseMove = TRUE;
+                    CancelMultiTurnMoves(ctx->battlerAtk, SKY_DROP_ATTACKCANCELER_CHECK);
+                    gBattlescriptCurrInstr = BattleScript_MoveUsedIsInLoveWith;
+                    return MOVE_STEP_FAILURE;
+                }
+            }
+            else
+            {
+                BattleScriptCall(BattleScript_MoveUsedIsInLoveWith); //attack through infatuation
+                    return MOVE_STEP_BREAK;
+            }
         }
         else
         {
-            BattleScriptPush(BattleScript_MoveUsedIsInLoveCantAttack);
-            gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
-            gProtectStructs[ctx->battlerAtk].unableToUseMove = TRUE;
-            CancelMultiTurnMoves(ctx->battlerAtk, SKY_DROP_ATTACKCANCELER_CHECK);
-            gBattlescriptCurrInstr = BattleScript_MoveUsedIsInLove;
-            return MOVE_STEP_FAILURE;
+            BattleScriptCall(BattleScript_InLoveUsedMove);//attack through infat
+            return MOVE_STEP_BREAK;
         }
     }
     return MOVE_STEP_SUCCESS;
@@ -5522,7 +5540,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
              && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker), move)
              && !IsAbilityOnSide(gBattlerAttacker, ABILITY_AROMA_VEIL))
             {
-                gBattleMons[gBattlerAttacker].volatiles.infatuation = INFATUATED_WITH(gBattlerTarget);
+                gBattleMons[gBattlerAttacker].volatiles.infatuation = GetBattlerPersonality(gBattlerTarget);
                 BattleScriptCall(BattleScript_CuteCharmActivates);
                 effect++;
             }
@@ -12625,4 +12643,30 @@ bool8 CanActivateForewarnAnticipation(u8 battler)
 
     return (i == PARTY_SIZE);
 
+}
+
+u32 IsPersonalityOnSide(u32 battlerId, u32 MonPid)
+{
+    if (IsBattlerAlive(battlerId) && GetMonData(GetBattlerMon(battlerId), MON_DATA_PERSONALITY) == MonPid)
+        return battlerId + 1;
+    else if (IsBattlerAlive(BATTLE_PARTNER(battlerId)) && GetMonData(GetBattlerMon(BATTLE_PARTNER(battlerId)), MON_DATA_PERSONALITY) == MonPid)
+        return BATTLE_PARTNER(battlerId) + 1;
+    else
+        return FALSE;
+}
+
+u32 IsMonOnOpposingSide(u32 battlerId, u32 MonPid)
+{
+    return IsPersonalityOnSide(BATTLE_OPPOSITE(battlerId), MonPid);
+}
+
+u32 GetBattlerFromPersonality(u32 MonPid)
+{
+    for (u32 i = 0; i < gBattlersCount; i++)
+    {
+        if (GetMonData(GetBattlerMon(i), MON_DATA_PERSONALITY) == MonPid)
+            return i;
+    }
+
+    return BATTLE_ID_NONE;
 }

@@ -11926,7 +11926,7 @@ static void Cmd_tryinfatuating(void)
         }
         else
         {
-            gBattleMons[gBattlerTarget].volatiles.infatuation = INFATUATED_WITH(gBattlerAttacker);
+            gBattleMons[gBattlerTarget].volatiles.infatuation = GetBattlerPersonality(gBattlerAttacker);
             gBattlescriptCurrInstr = cmd->nextInstr;
         }
     }
@@ -16965,7 +16965,7 @@ void BS_TrySetInfatuation(void)
         && !IsAbilityOnSide(gBattlerTarget, ABILITY_AROMA_VEIL)
         && AreBattlersOfOppositeGender(gBattlerAttacker, gBattlerTarget))
     {
-        gBattleMons[gBattlerTarget].volatiles.infatuation = INFATUATED_WITH(gBattlerAttacker);
+        gBattleMons[gBattlerTarget].volatiles.infatuation = GetBattlerPersonality(gBattlerAttacker);
         gBattleCommunication[MULTIUSE_STATE] = 2;
         gEffectBattler = gBattlerTarget;
         gBattlescriptCurrInstr = cmd->nextInstr;

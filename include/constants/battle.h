@@ -529,6 +529,7 @@ max value of bit is 2^n -1
  * These are removed after exiting the battle or switching
  *  Enum,                                   Type                           Type, max value, flags */
 #define VOLATILE_DEFINITIONS(F) \
+    F(VOLATILE_INFATUATION,                 infatuation,                   (u32, UINT32_MAX)) \
     F(VOLATILE_CONFUSION,                   confusionTurns,                (u32, B_CONFUSION_TURNS + 1), V_BATON_PASSABLE) \
     F(VOLATILE_INFESTATION,                 infested,                      (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_FLINCHED,                    flinched,                      (u32, 1)) \
@@ -546,7 +547,6 @@ max value of bit is 2^n -1
     F(VOLATILE_UNUSED,                      padding,                       (u32, 1)) \
     F(VOLATILE_DEFENSE_CURL,                defenseCurl,                   (u32, 1)) \
     F(VOLATILE_TRANSFORMED,                 transformed,                   (u32, 1)) \
-    F(VOLATILE_INFATUATION,                 infatuation,                   (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT))) \
     F(VOLATILE_RAGE,                        rage,                          (u32, 1)) \
     F(VOLATILE_SUBSTITUTE,                  substitute,                    (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_DESTINY_BOND,                destinyBond,                   (u32, B_DESTINY_BOND + 1)) \

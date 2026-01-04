@@ -324,6 +324,11 @@ bool8 CanActivateExpShare(void);
 bool8 CanActivateExpNull(void);
 //condition for using Exp items
 
+//new personality searches for revamped infatuation setup
+u32 IsPersonalityOnSide(u32 battlerId, u32 MonPid);
+u32 IsMonOnOpposingSide(u32 battlerId, u32 MonPid);
+u32 GetBattlerFromPersonality(u32 MonPid);
+
 bool8 IsBattlerUnderProtectEffect(u8 battler);
 void ClearMoldBreakerSetStatus(u8 battler);
 
