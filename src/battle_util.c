@@ -7914,6 +7914,10 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
         modifier = uq4_12_multiply(modifier, UQ_4_12(0.5));
     if (IsFieldWaterSportAffected(ctx->moveType))
         modifier = uq4_12_multiply(modifier, UQ_4_12(0.5));
+    if (gBattleMons[battlerAtk].volatiles.infatuation
+    && IsMonOnOpposingSide(battlerAtk, gBattleMons[battlerAtk].volatiles.infatuation))
+        modifier = uq4_12_multiply(modifier, UQ_4_12(0.75));
+        //damage = max((damage * 75) / 100, 1);
 
     //eventually turn into volatile
     if (gBattleMons[battlerAtk].status2 & STATUS2_DRAGON_RAGE
