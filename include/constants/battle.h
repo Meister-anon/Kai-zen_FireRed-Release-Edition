@@ -547,6 +547,12 @@ will worry about optimization later
 since I have my comparison repo setup
 I can just bring over all files at once
 and just update things one by one
+
+sinec swapped EE to upcoming and it removed disable structs
+will need to back port some of the more recent changes
+I made here to EE's upcoming mostly
+just things dealing with absorb logic and I guess
+infatuation again
 */
 
 /* Volatile status ailments
@@ -630,6 +636,9 @@ and just update things one by one
     F(VOLATILE_STOCKPILE_SP_DEF,            stockpileSpDef,                (u32, MAX_STAT_STAGE)) \
     F(VOLATILE_STOCKPILE_BEFORE_DEF,        stockpileBeforeDef,            (u32, MAX_STAT_STAGE)) \
     F(VOLATILE_STOCKPILE_BEFORE_SP_DEF,     stockpileBeforeSpDef,          (u32, MAX_STAT_STAGE)) \
+    F(VOLATILE_INGRAIN_TURN,                ingrainTurn,                   (u32, MAX_INGRAIN_AQUA_RING_TURNS)) \
+    F(VOLATILE_AQUA_RING_TURN,              aquaringTurn,                  (u32, MAX_INGRAIN_AQUA_RING_TURNS)) \
+    F(VOLATILE_RAGE_COUNTER,                rageCounter,                  (u32, MAX_RAGE_BOOST_COUNTER)) \
     F(VOLATILE_SUBSTITUTE_HP,               substituteHP,                  (u32, UINT8_MAX)) \
     F(VOLATILE_ENCORED_MOVE_POS,            encoredMovePos,                (u32, MAX_BITS(MAX_MON_MOVES))) \
     F(VOLATILE_DISABLE_TIMER,               disableTimer,                  (u32, B_DISABLE_TIMER + 1)) \
@@ -666,6 +675,7 @@ and just update things one by one
     F(VOLATILE_TAR_SHOT,                    tarShot,                       (u32, 1)) \
     F(VOLATILE_OCTOLOCK,                    octolock,                      (u32, 1)) \
     F(VOLATILE_CUD_CHEW,                    cudChew,                       (u32, 1)) \
+    F(VOLATILE_DEFEATIST_ACTIVATED,         defeatistActivated,            (u32, 1)) \
     F(VOLATILE_WEATHER_ABILITY_DONE,        weatherAbilityDone,            (u32, 1)) \
     F(VOLATILE_TERRAIN_ABILITY_DONE,        terrainAbilityDone,            (u32, 1)) \
     F(VOLATILE_SYRUP_BOMB_IS_SHINY,         syrupBombIsShiny,              (u32, 1)) \
