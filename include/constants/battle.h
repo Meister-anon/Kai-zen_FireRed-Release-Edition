@@ -539,6 +539,16 @@ max value of bit is 2^n -1
 //that's bit 2 stores 4 values so 4 x 4 values is 16 values
 //so techncially same space I guess but feels weird
 
+/*Notes*(changes custom removed transformpid reworked transform logic)
+rechargeTimer can use bit 1 value 1
+I put decrement in atk cancler rather than end turn
+just need to finish getting my new values added
+will worry about optimization later
+since I have my comparison repo setup
+I can just bring over all files at once
+and just update things one by one
+*/
+
 /* Volatile status ailments
  * These are removed after exiting the battle or switching
  *  Enum,                                   Type                           Type, max value, flags */
@@ -607,12 +617,14 @@ max value of bit is 2^n -1
     F(VOLATILE_SWORD_OF_RUIN,               swordOfRuin,                   (u32, 1)) \
     F(VOLATILE_TABLETS_OF_RUIN,             tabletsOfRuin,                 (u32, 1)) \
     F(VOLATILE_BEADS_OF_RUIN,               beadsOfRuin,                   (u32, 1)) \
-    
-    //F(VOLATILE_IS_TRANSFORMED_MON_SHINY,    isTransformedMonShiny,         (u32, 1)) \
-    F(VOLATILE_TRANSFORMED_MON_PID,         transformedMonPID,             (u32, UINT32_MAX)) \
+    F(VOLATILE_IS_TRANSFORMED_MON_SHINY,    isTransformedMonShiny,         (u32, 1)) \
     F(VOLATILE_DISABLED_MOVE,               disabledMove,                  (u32, MOVES_COUNT_ALL)) \
     F(VOLATILE_ENCORED_MOVE,                encoredMove,                   (u32, MOVES_COUNT_ALL)) \
     F(VOLATILE_PROTECT_USES,                protectUses,                   (u32, UINT8_MAX)) \
+    F(VOLATILE_BIND_MOVE_POS,               bindMovepos,                   (u32, MAX_BITS(MAX_MON_MOVES))) \
+    F(VOLATILE_BINDED_MOVE,                 bindedMove,                    (u32, MOVES_COUNT_ALL)) \
+    F(VOLATILE_INTHRALL,                    inthrallTimer,                 (u32, 3)) \
+    F(VOLATILE_INTHRALLED_MOVE,             inthralledMove,                (u32, MOVES_COUNT_ALL)) \
     F(VOLATILE_STOCKPILE_COUNTER,           stockpileCounter,              (u32, MAX_STAT_STAGE)) \
     F(VOLATILE_STOCKPILE_DEF,               stockpileDef,                  (u32, MAX_STAT_STAGE)) \
     F(VOLATILE_STOCKPILE_SP_DEF,            stockpileSpDef,                (u32, MAX_STAT_STAGE)) \
@@ -641,6 +653,12 @@ max value of bit is 2^n -1
     F(VOLATILE_LASER_FOCUS_TIMER,           laserFocusTimer,               (u32, B_LASER_FOCUS_TIMER + 1)) \
     F(VOLATILE_THROAT_CHOP_TIMER,           throatChopTimer,               (u32, B_THROAT_CHOP_TIMER + 1)) \
     F(VOLATILE_WRAP_TURNS,                  wrapTurns,                     (u32, B_WRAP_TURNS + 1)) \
+    F(VOLATILE_BIND_TURNS,                  bindTurns,                     (u32, B_WRAP_TURNS + 1)) \
+    F(VOLATILE_CLAMP_TURNS,                 clampTurns,                    (u32, B_WRAP_TURNS + 1)) \
+    F(VOLATILE_SWARM_TURNS,                 swarmTurns,                    (u32, B_WRAP_TURNS + 1)) \
+    F(VOLATILE_SNAPTRAP_TURNS,              snaptrapTurns,                 (u32, B_WRAP_TURNS + 1)) \
+    F(VOLATILE_THUNDERCAGE_TURNS,           thundercageTurns,              (u32, B_WRAP_TURNS + 1)) \
+    F(VOLATILE_ENVIRONMENTRAP_TURNS,        environmentTrapTurns,          (u32, B_WRAP_TURNS + 1)) \
     F(VOLATILE_SYRUP_BOMB_TIMER,            syrupBombTimer,                (u32, B_SYRUP_BOMB_TIMER + 1)) \
     F(VOLATILE_USED_MOVES,                  usedMoves,                     (u32, MAX_BITS(MAX_MON_MOVES))) \
     F(VOLATILE_TRUANT_COUNTER,              truantCounter,                 (u32, 1)) \
