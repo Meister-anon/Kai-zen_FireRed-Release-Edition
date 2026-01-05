@@ -69,8 +69,8 @@ void SetBagPocketsPointers(void)
     gBagPockets[POCKET_POKE_BALLS - 1].capacity = BAG_POKEBALLS_COUNT;
     gBagPockets[POCKET_TM_CASE - 1].itemSlots = gSaveBlock1Ptr->bagPocket_TMHM;
     gBagPockets[POCKET_TM_CASE - 1].capacity = BAG_TMHM_COUNT;
-    gBagPockets[POCKET_BERRY_POUCH - 1].itemSlots = gSaveBlock1Ptr->bagPocket_Berries;
-    gBagPockets[POCKET_BERRY_POUCH - 1].capacity = BAG_BERRIES_COUNT;
+    gBagPockets[POCKET_BERRIES - 1].itemSlots = gSaveBlock1Ptr->bagPocket_Berries;
+    gBagPockets[POCKET_BERRIES - 1].capacity = BAG_BERRIES_COUNT;
 }
 
 void CopyItemName(u16 itemId, u8 * dest)
@@ -296,7 +296,7 @@ bool8 AddBagItem(u16 itemId, u16 count)
         SetBagItemQuantity(&gBagPockets[POCKET_KEY_ITEMS - 1].itemSlots[idx].quantity, 1);
     }
 
-    if (pocket == POCKET_BERRY_POUCH - 1 && !CheckBagHasItem(ITEM_BERRY_POUCH, 1))
+    if (pocket == POCKET_BERRIES - 1 && !CheckBagHasItem(ITEM_BERRY_POUCH, 1))
     {
         idx = BagPocketGetFirstEmptySlot(POCKET_KEY_ITEMS - 1);
         if (idx == -1)

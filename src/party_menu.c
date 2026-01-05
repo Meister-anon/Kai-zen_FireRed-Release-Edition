@@ -1820,7 +1820,7 @@ static void BufferBagFullCantTakeItemMessage(u16 itemId)
     case POCKET_TM_CASE:
         string = ItemId_GetName(gStringVar3, ITEM_TM_CASE);
         break;
-    case POCKET_BERRY_POUCH:
+    case POCKET_BERRIES:
         string = ItemId_GetName(gStringVar3, ITEM_BERRY_POUCH);
         break;
     }
@@ -5222,7 +5222,7 @@ void CB2_ShowPartyMenuForItemUse(void)
                 break;
             }
         }
-        if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_BERRY_POUCH)
+        if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_BERRIES)
             callback = CB2_ReturnToBerryPouchMenu;
         task = Task_SetSacredAshCB;
         msgId = PARTY_MSG_NONE;
@@ -5238,7 +5238,7 @@ void CB2_ShowPartyMenuForItemUse(void)
             msgId = PARTY_MSG_TEACH_WHICH_MON;
             callback = CB2_ReturnToTMCaseMenu;
             break;
-        case POCKET_BERRY_POUCH:
+        case POCKET_BERRIES:
             msgId = PARTY_MSG_USE_ON_WHICH_MON;
             callback = CB2_ReturnToBerryPouchMenu;
             break;
@@ -6863,7 +6863,7 @@ void CB2_ChooseMonToGiveItem(void)
     case POCKET_TM_CASE:
         callback = CB2_ReturnToTMCaseMenu;
         break;
-    case POCKET_BERRY_POUCH:
+    case POCKET_BERRIES:
         callback = CB2_ReturnToBerryPouchMenu;
         break;
     }
@@ -7306,7 +7306,7 @@ void EnterPartyFromItemMenuInBattle(void)
     {
         MainCallback callback;
 
-        if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_BERRY_POUCH)
+        if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_BERRIES)
             callback = CB2_ReturnToBerryPouchMenu;
         else
             callback = CB2_BagMenuFromBattle;

@@ -1808,7 +1808,7 @@ bool8 ScrCmd_bufferitemnameplural(struct ScriptContext * ctx)
         StringAppend(sScriptStringVars[stringVarIndex], gStringVar3);
     }
     //do plan change this to berry pouch vsonic
-    else if (GetPocketByItemId(itemId) == POCKET_BERRY_POUCH && quantity >= 2)
+    else if (GetPocketByItemId(itemId) == POCKET_BERRIES && quantity >= 2)
     {
         u16 strlength = StringLength(sScriptStringVars[stringVarIndex]);
         if (strlength != 0)

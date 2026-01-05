@@ -144,7 +144,7 @@ static void SetUpItemUseCallback(u8 taskId)
     else
         itemType = ItemId_GetType(gSpecialVar_ItemId) - 1; //otherwise use type field
     
-    if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_BERRY_POUCH)
+    if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_BERRIES)
     {
         BerryPouch_SetExitCallback(sExitCallbackByItemType[itemType]);
         BerryPouch_StartFadeToExitCallback(taskId);
@@ -880,7 +880,7 @@ static void Task_BattleUse_StatBooster_WaitButton_ReturnToBattle(u8 taskId)
 
 static void ItemUse_SwitchToPartyMenuInBattle(u8 taskId)
 {
-    if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_BERRY_POUCH)
+    if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_BERRIES)
     {
         BerryPouch_SetExitCallback(EnterPartyFromItemMenuInBattle);
         BerryPouch_StartFadeToExitCallback(taskId);
@@ -993,7 +993,7 @@ void ItemUseInBattle_EnigmaBerry(u8 taskId)
 
 void FieldUseFunc_OakStopsYou(u8 taskId)
 {
-    if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_BERRY_POUCH)
+    if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_BERRIES)
     {
         StringExpandPlaceholders(gStringVar4, gText_OakForbidsUseOfItemHere);
         DisplayItemMessageInBerryPouch(taskId, 4, gStringVar4, Task_BerryPouch_DestroyDialogueWindowAndRefreshListMenu);

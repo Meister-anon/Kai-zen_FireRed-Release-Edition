@@ -32,7 +32,7 @@ EventScript_BufferPocketNameTryFanfare:: @ 81A66BC
 	case POCKET_KEY_ITEMS, EventScript_BufferKeyItemsPocket
 	case POCKET_POKE_BALLS, EventScript_BufferPokeBallsPocket
 	case POCKET_TM_CASE, EventScript_BufferTMCase
-	case POCKET_BERRY_POUCH, EventScript_BufferBerryPouch
+	case POCKET_BERRIES, EventScript_BufferBerryPouch
 	end
 
 EventScript_BufferItemsPocket:: @ 81A66F9

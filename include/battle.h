@@ -79,17 +79,6 @@
 #define MAX_TRAINER_ITEMS 4
 
 
-#define MOVE_TARGET_SELECTED            0
-#define MOVE_TARGET_DEPENDS             (1 << 0)
-#define MOVE_TARGET_USER_OR_SELECTED    (1 << 1)
-#define MOVE_TARGET_RANDOM              (1 << 2)
-#define MOVE_TARGET_BOTH                (1 << 3)
-#define MOVE_TARGET_USER                (1 << 4)
-#define MOVE_TARGET_FOES_AND_ALLY       (1 << 5)
-#define MOVE_TARGET_OPPONENTS_FIELD     (1 << 6)
-#define MOVE_TARGET_ALLY                (1 << 7)
-#define MOVE_TARGET_ALL_BATTLERS        (MOVE_TARGET_FOES_AND_ALLY | MOVE_TARGET_USER)  //use untl setup like emerald, taken from MOVE_ROTOTILLER
-//#define MOVE_TARGET_ALL_BATTLERS        ((1 << 8) | MOVE_TARGET_USER)  can use when setup correctly
 
 // For the second argument of GetBattleMoveTarget, when no target override is needed
 #define NO_TARGET_OVERRIDE 0
@@ -1454,7 +1443,7 @@ static inline bool32 IsDoubleBattle(void)
 
 static inline bool32 IsSpreadMove(u32 moveTarget)
 {
-    return IsDoubleBattle() && (moveTarget == MOVE_TARGET_BOTH || moveTarget == MOVE_TARGET_FOES_AND_ALLY);
+    return IsDoubleBattle() && (moveTarget == TARGET_BOTH || moveTarget == TARGET_FOES_AND_ALLY);
 }
 
 static inline bool32 IsDoubleSpreadMove(void)
@@ -1468,7 +1457,7 @@ static inline bool32 IsBattlerInvalidForSpreadMove(u32 battlerAtk, u32 battlerDe
 {
     return battlerDef == battlerAtk
         || !IsBattlerAlive(battlerDef)
-        || (battlerDef == BATTLE_PARTNER(battlerAtk) && (moveTarget == MOVE_TARGET_BOTH));
+        || (battlerDef == BATTLE_PARTNER(battlerAtk) && (moveTarget == TARGET_BOTH));
 }
 
 static inline u32 GetChosenMoveFromPosition(u32 battler)

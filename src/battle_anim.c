@@ -2112,7 +2112,7 @@ void DoMoveAnim(u16 move)
     gBattleAnimAttacker = gBattlerAttacker;
     gBattleAnimTarget = gBattlerTarget;
     // Make sure the anim target of moves hitting everyone is at the opposite side.
-    /*if (GetBattlerMoveTargetType(gBattlerAttacker, move) & MOVE_TARGET_FOES_AND_ALLY && IsDoubleBattle())
+    /*if (GetBattlerMoveTargetType(gBattlerAttacker, move) & TARGET_FOES_AND_ALLY && IsDoubleBattle())
     {
         while (IsBattlerAlly(gBattleAnimAttacker, gBattleAnimTarget))
         {
@@ -2272,7 +2272,7 @@ static u8 GetBattleAnimMoveTargets(u8 battlerArgIndex, u8 *targets)
     u8 numTargets = 1;
     switch (gBattleMoves[gAnimMoveIndex].target)
     {
-    case MOVE_TARGET_BOTH:
+    case TARGET_BOTH:
         targets[0] = gBattleAnimArgs[battlerArgIndex];
         numTargets = 1;
         if (IsBattlerAlive(BATTLE_PARTNER(targets[0])))
@@ -2281,7 +2281,7 @@ static u8 GetBattleAnimMoveTargets(u8 battlerArgIndex, u8 *targets)
             numTargets = 2;
         }
         break;
-    case MOVE_TARGET_FOES_AND_ALLY:
+    case TARGET_FOES_AND_ALLY:
         targets[0] = gBattleAnimArgs[battlerArgIndex];
         numTargets = 1;
         if (IsBattlerAlive(BATTLE_PARTNER(targets[0])))

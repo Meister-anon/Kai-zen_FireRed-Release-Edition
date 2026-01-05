@@ -1475,6 +1475,14 @@ bool32 IsBelchPreventingMove(u32 battler, u32 move)
 {
     if (GetMoveEffect(move) != EFFECT_BELCH)
         return FALSE;
+    
+    if (ItemId_GetPocket(gBattleMons[battler].item) == POCKET_BERRIES)
+    {
+        return FALSE;  //works
+    }
+
+    if (GetBattlerAbility(battler) == ABILITY_CHEEK_POUCH)
+        return FALSE;
 
     return !GetBattlerPartyState(battler)->ateBerry;
 }

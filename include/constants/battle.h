@@ -1124,6 +1124,25 @@ enum __attribute__((packed)) MoveEffect
 #define B_TEXT_FLAG_NPC_CONTEXT_FONT    (1 << 6)
 #define B_TEXT_FLAG_WINDOW_CLEAR        (1 << 7)
 
+enum MoveTarget
+{
+    TARGET_NONE,
+    TARGET_SELECTED,
+    TARGET_SMART, // Like target select but can also smartly redirect to partner. Works only with strikeCount > 1 moves
+    TARGET_DEPENDS,
+    TARGET_OPPONENT,
+    TARGET_RANDOM,
+    TARGET_BOTH,
+    TARGET_USER,
+    TARGET_ALLY,
+    TARGET_USER_AND_ALLY, // TODO: No functionality yet but would be used for howl in the future
+    TARGET_USER_OR_ALLY, // Acupressure
+    TARGET_FOES_AND_ALLY,
+    TARGET_FIELD, // Moves that target the field, e.g. Rain Dance
+    TARGET_OPPONENTS_FIELD, // Targets all other battlers and self, e.g. Teatime
+    TARGET_ALL_BATTLERS,
+};
+
 // Constants for Parental Bond
 #define PARENTAL_BOND_1ST_HIT 2
 #define PARENTAL_BOND_2ND_HIT 1

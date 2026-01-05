@@ -882,7 +882,7 @@ static const u16 *BufferQuestLogText_UsedItem(const u16 *eventData)
     {
     case POCKET_ITEMS:
     case POCKET_POKE_BALLS:
-    case POCKET_BERRY_POUCH:
+    case POCKET_BERRIES:
         //StringCopy(gStringVar1, ItemId_GetName(r5[0]));
         ItemId_GetName(gStringVar1, r5[0]);
         if (r5[0] == ITEM_ESCAPE_ROPE)

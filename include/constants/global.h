@@ -156,7 +156,7 @@
 #define POCKET_KEY_ITEMS    2
 #define POCKET_POKE_BALLS   3
 #define POCKET_TM_CASE      4
-#define POCKET_BERRY_POUCH  5
+#define POCKET_BERRIES  5 //was berry_pouch renamed easier match EE porting and name doesn't matter much
 #define NUM_BAG_POCKETS 5   //plan add medicine pouch/field item pouch for things like repel revives potions etc. so items doesn't get as cluttered
 #define NUM_BAG_POCKETS_NO_CASES 3 // number of pockets without considering TM case or berry pouch
 

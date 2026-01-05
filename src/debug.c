@@ -2636,7 +2636,7 @@ static void DebugAction_Give_Item_SelectQuantity(u8 taskId)
 
         if (JOY_NEW(DPAD_UP))
         {
-            u32 maxCapacity = (ItemId_GetPocket(itemId) - 1 == POCKET_BERRY_POUCH) ? MAX_BERRY_CAPACITY : MAX_BAG_ITEM_CAPACITY;
+            u32 maxCapacity = (ItemId_GetPocket(itemId) - 1 == POCKET_BERRIES) ? MAX_BERRY_CAPACITY : MAX_BAG_ITEM_CAPACITY;
             gTasks[taskId].tInput += sPowersOfTen[gTasks[taskId].tDigit];
             if (gTasks[taskId].tInput > maxCapacity)
                 gTasks[taskId].tInput = maxCapacity;

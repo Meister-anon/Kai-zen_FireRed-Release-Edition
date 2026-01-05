@@ -1533,7 +1533,7 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage)
     }
     else if (gBattleMoves[move].effect == EFFECT_NATURAL_GIFT)
     {
-        if (ItemId_GetPocket(gBattleMons[battlerAtk].item) == POCKET_BERRY_POUCH)
+        if (ItemId_GetPocket(gBattleMons[battlerAtk].item) == POCKET_BERRIES)
             *typeStorage = gNaturalGiftTable[ITEM_TO_BERRY(gBattleMons[battlerAtk].item)].type;
     }
     else if (gBattleMoves[move].effect == EFFECT_TERRAIN_PULSE)
@@ -1699,7 +1699,7 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
     }
     else if (gBattleMoves[move].effect == EFFECT_NATURAL_GIFT)
     {
-        if (ItemId_GetPocket(gBattleMons[battlerAtk].item) == POCKET_BERRY_POUCH)
+        if (ItemId_GetPocket(gBattleMons[battlerAtk].item) == POCKET_BERRIES)
             moveType = gNaturalGiftTable[ITEM_TO_BERRY(gBattleMons[battlerAtk].item)].type;
     }
     else if (gBattleMoves[move].effect == EFFECT_TERRAIN_PULSE)
@@ -6347,7 +6347,7 @@ static void HandleAction_UseMove(void)
     // choose target - need look into may not need this anymore
     side = GetBattlerSide(gBattlerAttacker) ^ BIT_SIDE; //comparing getmovetarget logic appears almost identical, far as checks
     if (gSideTimers[side].followmeTimer != 0
-     && gBattleMoves[gCurrentMove].target == MOVE_TARGET_SELECTED
+     && gBattleMoves[gCurrentMove].target == TARGET_SELECTED
      && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gSideTimers[side].followmeTarget)
      && gBattleMons[gSideTimers[side].followmeTarget].hp != 0)
     {
@@ -6355,7 +6355,7 @@ static void HandleAction_UseMove(void)
     }
     
     else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
-          && gBattleMoves[gChosenMove].target & MOVE_TARGET_RANDOM)
+          && gBattleMoves[gChosenMove].target & TARGET_RANDOM)
     {
         if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
         {
