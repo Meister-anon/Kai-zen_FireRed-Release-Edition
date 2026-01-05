@@ -111,28 +111,34 @@
 #define TYPE_DEFINES
 // Pokemon types	type order found in list_menu.c    actually is in graphics_file_rules.mk 
 //list menu is the location of the icons on the graphic
-#define TYPE_NONE     0x00
-#define TYPE_NORMAL   0x01
-#define TYPE_FIGHTING 0x02
-#define TYPE_FLYING   0x03
-#define TYPE_POISON   0x04
-#define TYPE_GROUND   0x05
-#define TYPE_ROCK     0x06
-#define TYPE_BUG      0x07
-#define TYPE_GHOST    0x08
-#define TYPE_STEEL    0x09
-#define TYPE_MYSTERY  0x0a
-#define TYPE_FIRE     0x0b
-#define TYPE_WATER    0x0c
-#define TYPE_GRASS    0x0d
-#define TYPE_ELECTRIC 0x0e
-#define TYPE_PSYCHIC  0x0f
-#define TYPE_ICE      0x10
-#define TYPE_DRAGON   0x11
-#define TYPE_DARK     0x12
-#define TYPE_FAIRY	  0x13 //fairy addition
-#define TYPE_SOUND	  0x14 //for normal type sound moves -having issue with non move type locations.. //may need to be 18?
-#define NUMBER_OF_MON_TYPES     0x15
+
+// Pokémon types
+enum __attribute__((packed)) Type
+{
+    TYPE_NONE = 0,
+    TYPE_NORMAL = 1,
+    TYPE_FIGHTING = 2,
+    TYPE_FLYING = 3,
+    TYPE_POISON = 4,
+    TYPE_GROUND = 5,
+    TYPE_ROCK = 6,
+    TYPE_BUG = 7,
+    TYPE_GHOST = 8,
+    TYPE_STEEL = 9,
+    TYPE_MYSTERY = 10,
+    TYPE_FIRE = 11,
+    TYPE_WATER = 12,
+    TYPE_GRASS = 13,
+    TYPE_ELECTRIC = 14,
+    TYPE_PSYCHIC = 15,
+    TYPE_ICE = 16,
+    TYPE_DRAGON = 17,
+    TYPE_DARK = 18,
+    TYPE_FAIRY = 19,
+    TYPE_SOUND = 20,
+    TYPE_STELLAR = 21,
+    NUMBER_OF_MON_TYPES
+};
 
 // Pokemon egg groups
 #define EGG_GROUP_NONE 0

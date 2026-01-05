@@ -1,185 +1,162 @@
 #ifndef GUARD_HOLD_EFFECTS_H
 #define GUARD_HOLD_EFFECTS_H
 
-#define HOLD_EFFECT_NONE            0
-#define HOLD_EFFECT_RESTORE_HP      1
-#define HOLD_EFFECT_CURE_PAR        2
-#define HOLD_EFFECT_CURE_SLP        3
-#define HOLD_EFFECT_CURE_PSN        4
-#define HOLD_EFFECT_CURE_BRN        5
-#define HOLD_EFFECT_CURE_FRZ        6
-#define HOLD_EFFECT_RESTORE_PP      7
-#define HOLD_EFFECT_CURE_CONFUSION  8
-#define HOLD_EFFECT_CURE_STATUS     9
-#define HOLD_EFFECT_CONFUSE_SPICY  10
-#define HOLD_EFFECT_CONFUSE_DRY    11
-#define HOLD_EFFECT_CONFUSE_SWEET  12
-#define HOLD_EFFECT_CONFUSE_BITTER 13
-#define HOLD_EFFECT_CONFUSE_SOUR   14
-#define HOLD_EFFECT_ATTACK_UP      15
-#define HOLD_EFFECT_DEFENSE_UP     16
-#define HOLD_EFFECT_SPEED_UP       17
-#define HOLD_EFFECT_SP_ATTACK_UP   18
-#define HOLD_EFFECT_SP_DEFENSE_UP  19
-#define HOLD_EFFECT_CRITICAL_UP    20
-#define HOLD_EFFECT_RANDOM_STAT_UP 21
-#define HOLD_EFFECT_EVASION_UP     22
-#define HOLD_EFFECT_RESTORE_STATS  23
-#define HOLD_EFFECT_MACHO_BRACE    24  //post ev change, make general training tool, will add to every stat rather than being targetted ads about +30 bst to all.
-#define HOLD_EFFECT_EXP_SHARE      25
-#define HOLD_EFFECT_QUICK_CLAW     26
-#define HOLD_EFFECT_HAPPINESS_UP   27
-#define HOLD_EFFECT_MENTAL_HERB    28
-#define HOLD_EFFECT_CHOICE_BAND    29
-#define HOLD_EFFECT_FLINCH         30
-#define HOLD_EFFECT_BUG_POWER      31
-#define HOLD_EFFECT_DOUBLE_PRIZE   32
-#define HOLD_EFFECT_CLEANSE_TAG    33   //used for cleanse tag only, no real effect rename hold_effect_cleanse tag, add to battle_util.c to do weaker version of shed skin
-#define HOLD_EFFECT_SOUL_DEW       34
-#define HOLD_EFFECT_DEEP_SEA_TOOTH 35
-#define HOLD_EFFECT_DEEP_SEA_SCALE 36
-#define HOLD_EFFECT_CAN_ALWAYS_RUN 37
-#define HOLD_EFFECT_PREVENT_EVOLVE 38
-#define HOLD_EFFECT_FOCUS_BAND     39
-#define HOLD_EFFECT_LUCKY_EGG      40
-#define HOLD_EFFECT_SCOPE_LENS     41
-#define HOLD_EFFECT_STEEL_POWER    42
-#define HOLD_EFFECT_LEFTOVERS      43
-#define HOLD_EFFECT_DRAGON_SCALE   44
-#define HOLD_EFFECT_LIGHT_BALL     45
-#define HOLD_EFFECT_GROUND_POWER   46
-#define HOLD_EFFECT_ROCK_POWER     47   //type boosters not gems, hard stone
-#define HOLD_EFFECT_GRASS_POWER    48   //grass seed
-#define HOLD_EFFECT_DARK_POWER     49
-#define HOLD_EFFECT_FIGHTING_POWER 50
-#define HOLD_EFFECT_ELECTRIC_POWER 51
-#define HOLD_EFFECT_WATER_POWER    52
-#define HOLD_EFFECT_FLYING_POWER   53
-#define HOLD_EFFECT_POISON_POWER   54
-#define HOLD_EFFECT_ICE_POWER      55
-#define HOLD_EFFECT_GHOST_POWER    56
-#define HOLD_EFFECT_PSYCHIC_POWER  57
-#define HOLD_EFFECT_FIRE_POWER     58
-#define HOLD_EFFECT_DRAGON_POWER   59
-#define HOLD_EFFECT_NORMAL_POWER   60
-#define HOLD_EFFECT_UP_GRADE       61
-#define HOLD_EFFECT_SHELL_BELL     62
-#define HOLD_EFFECT_LUCKY_PUNCH    63
-#define HOLD_EFFECT_METAL_POWDER   64
-#define HOLD_EFFECT_THICK_CLUB     65
-#define HOLD_EFFECT_LEEK           66
-
-// Gen4 hold effects.
-#define HOLD_EFFECT_CHOICE_SCARF   67
-#define HOLD_EFFECT_CHOICE_SPECS   68
-#define HOLD_EFFECT_DAMP_ROCK      69   //change to weather extenders , boost type move 10%, use itemid of held item rather than hold effect
-#define HOLD_EFFECT_GRIP_CLAW      70
-#define HOLD_EFFECT_HEAT_ROCK      71
-#define HOLD_EFFECT_ICY_ROCK       72
-#define HOLD_EFFECT_LIGHT_CLAY     73
-#define HOLD_EFFECT_SMOOTH_ROCK    74
-#define HOLD_EFFECT_POWER_HERB     75
-#define HOLD_EFFECT_BIG_ROOT       76
-#define HOLD_EFFECT_EXPERT_BELT    77
-#define HOLD_EFFECT_LIFE_ORB       78
-#define HOLD_EFFECT_METRONOME      79
-#define HOLD_EFFECT_MUSCLE_BAND    80
-#define HOLD_EFFECT_WIDE_LENS      81
-#define HOLD_EFFECT_WISE_GLASSES   82
-#define HOLD_EFFECT_ZOOM_LENS      83
-#define HOLD_EFFECT_LAGGING_TAIL   84
-#define HOLD_EFFECT_FOCUS_SASH     85
-#define HOLD_EFFECT_FLAME_ORB      86
-#define HOLD_EFFECT_TOXIC_ORB      87
-#define HOLD_EFFECT_STICKY_BARB    88
-#define HOLD_EFFECT_IRON_BALL      89
-#define HOLD_EFFECT_BLACK_SLUDGE   90
-#define HOLD_EFFECT_DESTINY_KNOT   91
-#define HOLD_EFFECT_SHED_SHELL     92
-#define HOLD_EFFECT_QUICK_POWDER   93
-#define HOLD_EFFECT_ADAMANT_ORB    94
-#define HOLD_EFFECT_LUSTROUS_ORB   95
-#define HOLD_EFFECT_GRISEOUS_ORB   96
-#define HOLD_EFFECT_GRACIDEA       97
-#define HOLD_EFFECT_RESIST_BERRY   98
-#define HOLD_EFFECT_POWER_ITEM     99
-#define HOLD_EFFECT_RESTORE_PCT_HP 100
-#define HOLD_EFFECT_MICLE_BERRY    101
-#define HOLD_EFFECT_CUSTAP_BERRY   102
-#define HOLD_EFFECT_JABOCA_BERRY   103
-#define HOLD_EFFECT_ROWAP_BERRY    104
-#define HOLD_EFFECT_KEE_BERRY      105
-#define HOLD_EFFECT_MARANGA_BERRY  106
-#define HOLD_EFFECT_PLATE          107
-
-// Gen5 hold effects
-#define HOLD_EFFECT_FLOAT_STONE    117
-#define HOLD_EFFECT_EVIOLITE       118
-#define HOLD_EFFECT_ASSAULT_VEST   119
-#define HOLD_EFFECT_DRIVE          120
-#define HOLD_EFFECT_GEMS           121
-#define HOLD_EFFECT_ROCKY_HELMET   122
-#define HOLD_EFFECT_AIR_BALLOON    123
-#define HOLD_EFFECT_RED_CARD       124
-#define HOLD_EFFECT_RING_TARGET    125
-#define HOLD_EFFECT_BINDING_BAND   126
-#define HOLD_EFFECT_EJECT_BUTTON   127
-#define HOLD_EFFECT_ABSORB_BULB    128
-#define HOLD_EFFECT_CELL_BATTERY   129
-
-// Gen6 hold effects
-#define HOLD_EFFECT_FAIRY_POWER     139 //since made its own type potentially need make sound_power item
-#define HOLD_EFFECT_MEGA_STONE      140 //idea call it deci bell?
-#define HOLD_EFFECT_SAFETY_GOGGLES  141
-#define HOLD_EFFECT_LUMINOUS_MOSS   142
-#define HOLD_EFFECT_SNOWBALL        143
-#define HOLD_EFFECT_WEAKNESS_POLICY 144
-#define HOLD_EFFECT_PRIMAL_ORB      145
-
-// Gen7 hold effects
-#define HOLD_EFFECT_PROTECTIVE_PADS  154
-#define HOLD_EFFECT_TERRAIN_EXTENDER 155
-#define HOLD_EFFECT_SEEDS            156
-#define HOLD_EFFECT_ADRENALINE_ORB   157
-#define HOLD_EFFECT_MEMORY           158
-#define HOLD_EFFECT_Z_CRYSTAL        159
-
-
-
-// Gen8 hold effects
-#define HOLD_EFFECT_UTILITY_UMBRELLA    169
-#define HOLD_EFFECT_EJECT_PACK          170
-#define HOLD_EFFECT_ROOM_SERVICE        171
-#define HOLD_EFFECT_BLUNDER_POLICY      172
-#define HOLD_EFFECT_HEAVY_DUTY_BOOTS    173
-#define HOLD_EFFECT_THROAT_SPRAY        174
-
-//gen9 hold effects
-#define HOLD_EFFECT_ABILITY_SHIELD      175
-#define HOLD_EFFECT_CLEAR_AMULET		176
-#define HOLD_EFFECT_MIRROR_HERB		    177
-#define HOLD_EFFECT_PUNCHING_GLOVE			178 //buff this and custom equiv too weak on its own and still not meta even w iron fist mon lower than choice barely equal life orb boost
-#define HOLD_EFFECT_COVERT_CLOAK		179
-#define HOLD_EFFECT_LOADED_DICE			180
-#define HOLD_EFECT_BOOSTER_ENERGY			181
-#define HOLD_EFFECT_OGERPON_MASK 182   // since stat reaise is based on secondary id, pretty sure can just use this and remoe all other power item hold effects
-
-//custom hold effects
-#define HOLD_EFFECT_ULTIMA_BRACE	183 // block exp multiply ev gain *exp=0		I guess could just be stronger version of my new macho brace effect?
-#define HOLD_EFFECT_TYPE_POWER     184   //call deci bell (I think) //everything but was sound power
-#define HOLD_EFFECT_SNOW_GLOBE      185   //ice orb,
-//new idea split off of snow globe, item that works differently based on type if ice type, boosts some defense stat a good deal,
-//if not...then it freezes the holder :)  check if canbefrozen, is not already frozen, then freeze solid 
-//negative effect/debuff should only activate at end of turn, think like shut in freezer, took time to freeze solid
-//also small counter effect so cant just fast trick and make target unable to attack
-#define HOLD_EFFECT_ICE_BOX      186   
-#define HOLD_EFFECT_HONEY    187
-#define HOLD_EFFECT_LEG_WEIGHTS 188  //leg equialent of punching gloves
-#define HOLD_EFFECT_SLIMY_ROCK 189 //similar lime stone acidic extends acid rain
-//set for moon stone rather than new item
-//with planned mining gives more purpose to item
-//passed evolution
-#define HOLD_EFFECT_MOON_ROCK 190 //new weather extenders hold effect moon rock is moon stone
+enum __attribute__((packed)) HoldEffect
+{
+    HOLD_EFFECT_NONE,
+    HOLD_EFFECT_RESTORE_HP,
+    HOLD_EFFECT_CURE_PAR,
+    HOLD_EFFECT_CURE_SLP,
+    HOLD_EFFECT_CURE_PSN,
+    HOLD_EFFECT_CURE_BRN,
+    HOLD_EFFECT_CURE_FRZ,
+    HOLD_EFFECT_RESTORE_PP,
+    HOLD_EFFECT_CURE_CONFUSION,
+    HOLD_EFFECT_CURE_STATUS,
+    HOLD_EFFECT_CONFUSE_SPICY,
+    HOLD_EFFECT_CONFUSE_DRY,
+    HOLD_EFFECT_CONFUSE_SWEET,
+    HOLD_EFFECT_CONFUSE_BITTER,
+    HOLD_EFFECT_CONFUSE_SOUR,
+    HOLD_EFFECT_ATTACK_UP,
+    HOLD_EFFECT_DEFENSE_UP,
+    HOLD_EFFECT_SPEED_UP,
+    HOLD_EFFECT_SP_ATTACK_UP,
+    HOLD_EFFECT_SP_DEFENSE_UP,
+    HOLD_EFFECT_CRITICAL_UP,
+    HOLD_EFFECT_RANDOM_STAT_UP,
+    HOLD_EFFECT_EVASION_UP,
+    HOLD_EFFECT_WHITE_HERB,
+    HOLD_EFFECT_MACHO_BRACE,
+    HOLD_EFFECT_EXP_SHARE,
+    HOLD_EFFECT_QUICK_CLAW,
+    HOLD_EFFECT_FRIENDSHIP_UP,
+    HOLD_EFFECT_MENTAL_HERB,
+    HOLD_EFFECT_CHOICE_BAND,
+    HOLD_EFFECT_FLINCH,
+    HOLD_EFFECT_DOUBLE_PRIZE,
+    HOLD_EFFECT_REPEL,
+    HOLD_EFFECT_SOUL_DEW,
+    HOLD_EFFECT_DEEP_SEA_TOOTH,
+    HOLD_EFFECT_DEEP_SEA_SCALE,
+    HOLD_EFFECT_CAN_ALWAYS_RUN,
+    HOLD_EFFECT_PREVENT_EVOLVE,
+    HOLD_EFFECT_FOCUS_BAND,
+    HOLD_EFFECT_LUCKY_EGG,
+    HOLD_EFFECT_SCOPE_LENS,
+    HOLD_EFFECT_LEFTOVERS,
+    HOLD_EFFECT_LIGHT_BALL,
+    HOLD_EFFECT_TYPE_POWER,
+    HOLD_EFFECT_SHELL_BELL,
+    HOLD_EFFECT_LUCKY_PUNCH,
+    HOLD_EFFECT_METAL_POWDER,
+    HOLD_EFFECT_THICK_CLUB,
+    HOLD_EFFECT_LEEK,
+    // Gen4 hold effects.
+    HOLD_EFFECT_CHOICE_SCARF,
+    HOLD_EFFECT_CHOICE_SPECS,
+    HOLD_EFFECT_DAMP_ROCK,
+    HOLD_EFFECT_GRIP_CLAW,
+    HOLD_EFFECT_HEAT_ROCK,
+    HOLD_EFFECT_ICY_ROCK,
+    HOLD_EFFECT_LIGHT_CLAY,
+    HOLD_EFFECT_SMOOTH_ROCK,
+    HOLD_EFFECT_POWER_HERB,
+    HOLD_EFFECT_BIG_ROOT,
+    HOLD_EFFECT_EXPERT_BELT,
+    HOLD_EFFECT_LIFE_ORB,
+    HOLD_EFFECT_METRONOME,
+    HOLD_EFFECT_MUSCLE_BAND,
+    HOLD_EFFECT_WIDE_LENS,
+    HOLD_EFFECT_WISE_GLASSES,
+    HOLD_EFFECT_ZOOM_LENS,
+    HOLD_EFFECT_LAGGING_TAIL,
+    HOLD_EFFECT_FOCUS_SASH,
+    HOLD_EFFECT_FLAME_ORB,
+    HOLD_EFFECT_TOXIC_ORB,
+    HOLD_EFFECT_STICKY_BARB,
+    HOLD_EFFECT_IRON_BALL,
+    HOLD_EFFECT_BLACK_SLUDGE,
+    HOLD_EFFECT_DESTINY_KNOT,
+    HOLD_EFFECT_SHED_SHELL,
+    HOLD_EFFECT_QUICK_POWDER,
+    HOLD_EFFECT_ADAMANT_ORB,
+    HOLD_EFFECT_LUSTROUS_ORB,
+    HOLD_EFFECT_GRISEOUS_ORB,
+    HOLD_EFFECT_ENIGMA_BERRY,
+    HOLD_EFFECT_RESIST_BERRY,
+    HOLD_EFFECT_POWER_ITEM,
+    HOLD_EFFECT_RESTORE_PCT_HP,
+    HOLD_EFFECT_MICLE_BERRY,
+    HOLD_EFFECT_CUSTAP_BERRY,
+    HOLD_EFFECT_JABOCA_BERRY,
+    HOLD_EFFECT_ROWAP_BERRY,
+    HOLD_EFFECT_KEE_BERRY,
+    HOLD_EFFECT_MARANGA_BERRY,
+    HOLD_EFFECT_PLATE,
+    // Gen5 hold effects
+    HOLD_EFFECT_FLOAT_STONE,
+    HOLD_EFFECT_EVIOLITE,
+    HOLD_EFFECT_ASSAULT_VEST,
+    HOLD_EFFECT_DRIVE,
+    HOLD_EFFECT_GEMS,
+    HOLD_EFFECT_ROCKY_HELMET,
+    HOLD_EFFECT_AIR_BALLOON,
+    HOLD_EFFECT_RED_CARD,
+    HOLD_EFFECT_RING_TARGET,
+    HOLD_EFFECT_BINDING_BAND,
+    HOLD_EFFECT_EJECT_BUTTON,
+    HOLD_EFFECT_ABSORB_BULB,
+    HOLD_EFFECT_CELL_BATTERY,
+    // Gen6 hold effects
+    HOLD_EFFECT_MEGA_STONE,
+    HOLD_EFFECT_SAFETY_GOGGLES,
+    HOLD_EFFECT_LUMINOUS_MOSS,
+    HOLD_EFFECT_SNOWBALL,
+    HOLD_EFFECT_WEAKNESS_POLICY,
+    HOLD_EFFECT_PRIMAL_ORB,
+    // Gen7 hold effects
+    HOLD_EFFECT_PROTECTIVE_PADS,
+    HOLD_EFFECT_TERRAIN_EXTENDER,
+    HOLD_EFFECT_TERRAIN_SEED,
+    HOLD_EFFECT_ADRENALINE_ORB,
+    HOLD_EFFECT_MEMORY,
+    HOLD_EFFECT_Z_CRYSTAL,
+    // Gen8 hold effects
+    HOLD_EFFECT_UTILITY_UMBRELLA,
+    HOLD_EFFECT_EJECT_PACK,
+    HOLD_EFFECT_ROOM_SERVICE,
+    HOLD_EFFECT_BLUNDER_POLICY,
+    HOLD_EFFECT_HEAVY_DUTY_BOOTS,
+    HOLD_EFFECT_THROAT_SPRAY,
+    // Gen9 hold effects
+    HOLD_EFFECT_ABILITY_SHIELD,
+    HOLD_EFFECT_CLEAR_AMULET,
+    HOLD_EFFECT_MIRROR_HERB,
+    HOLD_EFFECT_PUNCHING_GLOVE, // may buff this and custom equiv too weak on its own and still not meta even w iron fist mon lower than choice barely equal life orb boost
+    HOLD_EFFECT_COVERT_CLOAK,
+    HOLD_EFFECT_LOADED_DICE,
+    HOLD_EFFECT_BOOSTER_ENERGY,
+    HOLD_EFFECT_OGERPON_MASK,
+    // Gen2 hold effect
+    HOLD_EFFECT_BERSERK_GENE,
+    // Custom hold effects
+    HOLD_EFFECT_ULTIMA_BRACE, // block exp multiply ev gain *exp=0
+    HOLD_EFFECT_SNOW_GLOBE, //ice orb, sets frostbite to user
+    //new idea split off of snow globe, item that works differently based on type if ice type, boosts some defense stat a good deal,
+    //if not...then it freezes the holder :)  check if canbefrozen, is not already frozen, then freeze solid 
+    //negative effect/debuff should only activate at end of turn, think like shut in freezer, took time to freeze solid
+    //also small counter effect so cant just fast trick and make target unable to attack
+    HOLD_EFFECT_ICE_BOX,
+    HOLD_EFFECT_HONEY, //niche leftovers like
+    HOLD_EFFECT_LEG_WEIGHTS, //leg equialent of punching gloves
+    HOLD_EFFECT_SLIMY_ROCK, //similar lime stone acidic extends acid rain
+    //set for moon stone rather than new item
+    //with planned mining gives more purpose to item
+    //passed evolution
+    HOLD_EFFECT_MOON_ROCK,
+    HOLD_EFFECT_COUNT
+};
 
 // Terrain seed params
 #define HOLD_EFFECT_PARAM_ELECTRIC_TERRAIN  0
@@ -187,11 +164,12 @@
 #define HOLD_EFFECT_PARAM_MISTY_TERRAIN     2
 #define HOLD_EFFECT_PARAM_PSYCHIC_TERRAIN   3
 
-
-//#define HOLD_EFFECT_EV_SHACKLES	   176 // block ev gain, either just that with 0 drawback or double exp gain.
-
-
-#define HOLD_EFFECT_CHOICE(holdEffect)((holdEffect == HOLD_EFFECT_CHOICE_BAND || holdEffect == HOLD_EFFECT_CHOICE_SCARF || holdEffect == HOLD_EFFECT_CHOICE_SPECS))
-
+enum ItemActivationState
+{
+    ACTIVATION_ON_USABLE_AGAIN,
+    ACTIVATION_ON_PICK_UP,
+    ACTIVATION_ON_HARVEST,
+    ACTIVATION_ON_HP_THRESHOLD,
+};
 
 #endif // GUARD_HOLD_EFFECTS_H

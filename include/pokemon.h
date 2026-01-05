@@ -125,7 +125,7 @@ union PokemonSubstruct
     u16 raw[NUM_SUBSTRUCT_BYTES / 2]; // /2 because it's u16, not u8
 };*/
 
-struct Ability
+struct AbilityInfo
 {
     u8 name[ABILITY_NAME_LENGTH + 1];
     const u8 *description;

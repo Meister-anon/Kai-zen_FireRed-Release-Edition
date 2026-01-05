@@ -1,441 +1,449 @@
 #ifndef GUARD_CONSTANTS_ABILITIES_H
 #define GUARD_CONSTANTS_ABILITIES_H
 
-#define ABILITY_NONE 0
-#define ABILITY_STENCH 1
-#define ABILITY_DRIZZLE 2
-#define ABILITY_SPEED_BOOST 3
-#define ABILITY_BATTLE_ARMOR 4
-#define ABILITY_STURDY 5
-#define ABILITY_DAMP 6      //reduce fire damage, also blocks aftermath
-#define ABILITY_LIMBER 7
-#define ABILITY_SAND_VEIL 8
-#define ABILITY_STATIC 9
-#define ABILITY_VOLT_ABSORB 10
-#define ABILITY_WATER_ABSORB 11
-#define ABILITY_OBLIVIOUS 12
-#define ABILITY_CLOUD_NINE 13
-#define ABILITY_COMPOUND_EYES 14
-#define ABILITY_INSOMNIA 15
-#define ABILITY_COLOR_CHANGE 16
-#define ABILITY_IMMUNITY 17
-#define ABILITY_FLASH_FIRE 18
-#define ABILITY_SHIELD_DUST 19
-#define ABILITY_OWN_TEMPO 20
-#define ABILITY_SUCTION_CUPS 21
-#define ABILITY_INTIMIDATE 22
-#define ABILITY_SHADOW_TAG 23
-#define ABILITY_ROUGH_SKIN 24
-#define ABILITY_WONDER_GUARD 25
-#define ABILITY_FEMME_FATALE 26 //since removing can replace with something else idk what though possibly anercomps random high roller ability or perhaps a community poll
-#define ABILITY_EFFECT_SPORE 27  //ABILITY_FEMME_FATALE  replacement for levitate  //think will also give to jinx as well
-#define ABILITY_SYNCHRONIZE 28
-#define ABILITY_CLEAR_BODY 29
-#define ABILITY_NATURAL_CURE 30
-#define ABILITY_LIGHTNING_ROD 31
-#define ABILITY_SERENE_GRACE 32
-#define ABILITY_SWIFT_SWIM 33
-#define ABILITY_CHLOROPHYLL 34
-#define ABILITY_ILLUMINATE 35
-#define ABILITY_TRACE 36
-#define ABILITY_HUGE_POWER 37 //given mostly bunny mon as japanese "pun" related to bunnies or moon goddess
-#define ABILITY_POISON_POINT 38
-#define ABILITY_INNER_FOCUS 39
-#define ABILITY_MAGMA_ARMOR 40
-#define ABILITY_WATER_VEIL 41
-#define ABILITY_MAGNET_PULL 42
-#define ABILITY_SOUNDPROOF 43
-#define ABILITY_RAIN_DISH 44
-#define ABILITY_SAND_STREAM 45
-#define ABILITY_PRESSURE 46
-#define ABILITY_THICK_FAT 47
-#define ABILITY_EARLY_BIRD 48
-#define ABILITY_FLAME_BODY 49
-#define ABILITY_RUN_AWAY 50
-#define ABILITY_KEEN_EYE 51
-#define ABILITY_HYPER_CUTTER 52
-#define ABILITY_PICKUP 53
-#define ABILITY_TRUANT 54
-#define ABILITY_HUSTLE 55
-#define ABILITY_CUTE_CHARM 56
-#define ABILITY_PLUS 57
-#define ABILITY_MINUS 58
-#define ABILITY_FORECAST 59
-#define ABILITY_STICKY_HOLD 60
-#define ABILITY_SHED_SKIN 61
-#define ABILITY_GUTS 62
-#define ABILITY_MARVEL_SCALE 63
-#define ABILITY_LIQUID_OOZE 64
-#define ABILITY_OVERGROW 65
-#define ABILITY_BLAZE 66
-#define ABILITY_TORRENT 67
-#define ABILITY_SWARM 68
-#define ABILITY_ROCK_HEAD 69
-#define ABILITY_DROUGHT 70
-#define ABILITY_ARENA_TRAP 71
-#define ABILITY_VITAL_SPIRIT 72
-#define ABILITY_WHITE_SMOKE 73
-#define ABILITY_PURE_POWER 74  //nother pun I believe japanese refers to yoga, and is separate ability since other is for rabbits so give pure power over huge power if decide to use boost
-#define ABILITY_SHELL_ARMOR 75
-#define ABILITY_CACOPHONY 76 //used made new effect
-#define ABILITY_AIR_LOCK 77
-// Gen 4
-#define ABILITY_TANGLED_FEET 78
-#define ABILITY_MOTOR_DRIVE 79
-#define ABILITY_RIVALRY 80
-#define ABILITY_STEADFAST 81
-#define ABILITY_SNOW_CLOAK 82
-#define ABILITY_GLUTTONY 83
-#define ABILITY_ANGER_POINT 84
-#define ABILITY_UNBURDEN 85
-#define ABILITY_HEATPROOF 86
-#define ABILITY_SIMPLE 87
-#define ABILITY_DRY_SKIN 88
-#define ABILITY_DOWNLOAD 89
-#define ABILITY_IRON_FIST 90
-#define ABILITY_POISON_HEAL 91
-#define ABILITY_ADAPTABILITY 92
-#define ABILITY_SKILL_LINK 93
-#define ABILITY_HYDRATION 94    //plan buff to include any negative status, so yawn think attraction taunt torment and also destiny bond  perish song? nah too much
-#define ABILITY_SOLAR_POWER 95
-#define ABILITY_QUICK_FEET 96
-#define ABILITY_NORMALIZE 97 //gets power boost + stab, but always neutral dmg, have to give to weak mon, is pretty much huge power
-#define ABILITY_SNIPER 98
-#define ABILITY_MAGIC_GUARD 99
-#define ABILITY_NO_GUARD 100
-#define ABILITY_STALL 101	//made specifically and only for sableye, doesnt synergize with trick room potentially worst abilityin the game... vsonic  -fixed
-#define ABILITY_TECHNICIAN 102
-#define ABILITY_LEAF_GUARD 103
-#define ABILITY_KLUTZ 104
-#define ABILITY_MOLD_BREAKER 105 //this is actually much better than I thought, hits wonderguard ignores things that affect move dmg or absorb abilities etc.
-#define ABILITY_SUPER_LUCK 106
-#define ABILITY_AFTERMATH 107 //do something more with this, maybe give a switch out effect and then strengthen faint effect? 2/5 2/6 or like a weaker counter, takes portion of movedmg??
-#define ABILITY_ANTICIPATION 108 //oh aftermath already does 2/5 enemy max health
-#define ABILITY_FOREWARN 109
-#define ABILITY_UNAWARE 110
-#define ABILITY_TINTED_LENS 111
-#define ABILITY_FILTER 112
-#define ABILITY_SLOW_START 113
-#define ABILITY_SCRAPPY 114
-#define ABILITY_STORM_DRAIN 115
-#define ABILITY_ICE_BODY 116
-#define ABILITY_SOLID_ROCK 117
-#define ABILITY_SNOW_WARNING 118
-#define ABILITY_HONEY_GATHER 119 //add woot change idea that holding honey will act like leftovers
-#define ABILITY_FRISK 120
-#define ABILITY_RECKLESS 121
-#define ABILITY_MULTITYPE 122
-#define ABILITY_FLOWER_GIFT 123
-#define ABILITY_BAD_DREAMS 124
+ enum __attribute__((packed)) Ability
+{
+ ABILITY_NONE,
+ ABILITY_STENCH,
+ ABILITY_DRIZZLE,
+ ABILITY_SPEED_BOOST,
+ ABILITY_BATTLE_ARMOR,
+ ABILITY_STURDY,
+ ABILITY_DAMP,      //reduce fire damage, also blocks aftermath
+ ABILITY_LIMBER,
+ ABILITY_SAND_VEIL,
+ ABILITY_STATIC,
+ ABILITY_VOLT_ABSORB,
+ ABILITY_WATER_ABSORB,
+ ABILITY_OBLIVIOUS,
+ ABILITY_CLOUD_NINE,
+ ABILITY_COMPOUND_EYES,
+ ABILITY_INSOMNIA,
+ ABILITY_COLOR_CHANGE,
+ ABILITY_IMMUNITY,
+ ABILITY_FLASH_FIRE,
+ ABILITY_SHIELD_DUST,
+ ABILITY_OWN_TEMPO,
+ ABILITY_SUCTION_CUPS,
+ ABILITY_INTIMIDATE,
+ ABILITY_SHADOW_TAG,
+ ABILITY_ROUGH_SKIN,
+ ABILITY_WONDER_GUARD,
+ ABILITY_FEMME_FATALE, //since removing can replace with something else idk what though possibly anercomps random high roller ability or perhaps a community poll
+ ABILITY_EFFECT_SPORE,  //ABILITY_FEMME_FATALE  replacement for levitate  //think will also give to jinx as well
+ ABILITY_SYNCHRONIZE,
+ ABILITY_CLEAR_BODY,
+ ABILITY_NATURAL_CURE,
+ ABILITY_LIGHTNING_ROD,
+ ABILITY_SERENE_GRACE,
+ ABILITY_SWIFT_SWIM,
+ ABILITY_CHLOROPHYLL,
+ ABILITY_ILLUMINATE,
+ ABILITY_TRACE,
+ ABILITY_HUGE_POWER, //given mostly bunny mon as japanese "pun" related to bunnies or moon goddess
+ ABILITY_POISON_POINT,
+ ABILITY_INNER_FOCUS,
+ ABILITY_MAGMA_ARMOR,
+ ABILITY_WATER_VEIL,
+ ABILITY_MAGNET_PULL,
+ ABILITY_SOUNDPROOF,
+ ABILITY_RAIN_DISH,
+ ABILITY_SAND_STREAM,
+ ABILITY_PRESSURE,
+ ABILITY_THICK_FAT,
+ ABILITY_EARLY_BIRD,
+ ABILITY_FLAME_BODY,
+ ABILITY_RUN_AWAY,
+ ABILITY_KEEN_EYE,
+ ABILITY_HYPER_CUTTER,
+ ABILITY_PICKUP,
+ ABILITY_TRUANT,
+ ABILITY_HUSTLE,
+ ABILITY_CUTE_CHARM,
+ ABILITY_PLUS,
+ ABILITY_MINUS,
+ ABILITY_FORECAST,
+ ABILITY_STICKY_HOLD,
+ ABILITY_SHED_SKIN,
+ ABILITY_GUTS,
+ ABILITY_MARVEL_SCALE,
+ ABILITY_LIQUID_OOZE,
+ ABILITY_OVERGROW,
+ ABILITY_BLAZE,
+ ABILITY_TORRENT,
+ ABILITY_SWARM,
+ ABILITY_ROCK_HEAD,
+ ABILITY_DROUGHT,
+ ABILITY_ARENA_TRAP,
+ ABILITY_VITAL_SPIRIT,
+ ABILITY_WHITE_SMOKE,
+ ABILITY_PURE_POWER,  //nother pun I believe japanese refers to yoga, and is separate ability since other is for rabbits so give pure power over huge power if decide to use boost
+ ABILITY_SHELL_ARMOR,
+ ABILITY_CACOPHONY, //used made new effect - default effect equal to soundproof
+ ABILITY_AIR_LOCK,
 
-#define ABILITIES_COUNT_GEN4 125
+ ABILITIES_COUNT_GEN3,
 
-// Gen 5
-#define ABILITY_PICKPOCKET 125
-#define ABILITY_SHEER_FORCE 126
-#define ABILITY_CONTRARY 127
-#define ABILITY_UNNERVE 128 //bad in game buffing with og pressure effect of additional pp useage, leans into unnerving aura idea
-#define ABILITY_DEFIANT 129
-#define ABILITY_DEFEATIST 130
-#define ABILITY_CURSED_BODY 131
-#define ABILITY_HEALER 132
-#define ABILITY_FRIEND_GUARD 133
-#define ABILITY_WEAK_ARMOR 134
-#define ABILITY_HEAVY_METAL 135 //potentially boost power of steel type moves?
-#define ABILITY_LIGHT_METAL 136 //potentially boost priority of steel type moves
-#define ABILITY_MULTISCALE 137
-#define ABILITY_TOXIC_BOOST 138
-#define ABILITY_FLARE_BOOST 139
-#define ABILITY_HARVEST 140
-#define ABILITY_TELEPATHY 141
-#define ABILITY_MOODY 142
-#define ABILITY_OVERCOAT 143
-#define ABILITY_POISON_TOUCH 144
-#define ABILITY_REGENERATOR 145
-#define ABILITY_BIG_PECKS 146
-#define ABILITY_SAND_RUSH 147
-#define ABILITY_WONDER_SKIN 148
-#define ABILITY_ANALYTIC 149
-#define ABILITY_ILLUSION 150
-#define ABILITY_IMPOSTER 151 //remeber check todo list for plan for this, setup extra case effect for wilds i.e only mon in party effect
-#define ABILITY_INFILTRATOR 152
-#define ABILITY_MUMMY 153
-#define ABILITY_MOXIE 154
-#define ABILITY_JUSTIFIED 155
-#define ABILITY_RATTLED 156
-#define ABILITY_MAGIC_BOUNCE 157
-#define ABILITY_SAP_SIPPER 158
-#define ABILITY_PRANKSTER 159
-#define ABILITY_SAND_FORCE 160
-#define ABILITY_IRON_BARBS 161
-#define ABILITY_ZEN_MODE 162
-#define ABILITY_VICTORY_STAR 163
-#define ABILITY_TURBOBLAZE 164
-#define ABILITY_TERAVOLT 165
+// Gen_4
+ ABILITY_TANGLED_FEET = ABILITIES_COUNT_GEN3,
+ ABILITY_MOTOR_DRIVE,
+ ABILITY_RIVALRY,
+ ABILITY_STEADFAST,
+ ABILITY_SNOW_CLOAK,
+ ABILITY_GLUTTONY,
+ ABILITY_ANGER_POINT,
+ ABILITY_UNBURDEN,
+ ABILITY_HEATPROOF,
+ ABILITY_SIMPLE,
+ ABILITY_DRY_SKIN,
+ ABILITY_DOWNLOAD,
+ ABILITY_IRON_FIST,
+ ABILITY_POISON_HEAL,
+ ABILITY_ADAPTABILITY,
+ ABILITY_SKILL_LINK,
+ ABILITY_HYDRATION,    //plan buff to include any negative status, so yawn think attraction taunt torment and also destiny bond  perish song? nah too much
+ ABILITY_SOLAR_POWER,
+ ABILITY_QUICK_FEET,
+ ABILITY_NORMALIZE, //gets power boost + stab, but always neutral dmg, have to give to weak mon, is pretty much huge power
+ ABILITY_SNIPER,
+ ABILITY_MAGIC_GUARD,
+ ABILITY_NO_GUARD,
+ ABILITY_STALL,	//made specifically and only for sableye, doesnt synergize with trick room potentially worst abilityin the game... vsonic  -fixed
+ ABILITY_TECHNICIAN,
+ ABILITY_LEAF_GUARD,
+ ABILITY_KLUTZ,
+ ABILITY_MOLD_BREAKER, //this is actually much better than I thought, hits wonderguard ignores things that affect move dmg or absorb abilities etc.
+ ABILITY_SUPER_LUCK,
+ ABILITY_AFTERMATH, //do something more with this, maybe give a switch out effect and then strengthen faint effect?,/5,/6 or like a weaker counter, takes portion of movedmg??
+ ABILITY_ANTICIPATION, //oh aftermath already does _2/5 enemy max health
+ ABILITY_FOREWARN,
+ ABILITY_UNAWARE,
+ ABILITY_TINTED_LENS,
+ ABILITY_FILTER,
+ ABILITY_SLOW_START,
+ ABILITY_SCRAPPY,
+ ABILITY_STORM_DRAIN,
+ ABILITY_ICE_BODY,
+ ABILITY_SOLID_ROCK,
+ ABILITY_SNOW_WARNING,
+ ABILITY_HONEY_GATHER, //add woot change idea that holding honey will act like leftovers
+ ABILITY_FRISK,
+ ABILITY_RECKLESS,
+ ABILITY_MULTITYPE,
+ ABILITY_FLOWER_GIFT,
+ ABILITY_BAD_DREAMS,
 
-#define ABILITIES_COUNT_GEN5 166
+ ABILITIES_COUNT_GEN4,
 
-// Gen 6
-#define ABILITY_AROMA_VEIL 166
-#define ABILITY_FLOWER_VEIL 167
-#define ABILITY_CHEEK_POUCH 168
-#define ABILITY_PROTEAN 169
-#define ABILITY_FUR_COAT 170
-#define ABILITY_MAGICIAN 171
-#define ABILITY_BULLETPROOF 172
-#define ABILITY_COMPETITIVE 173
-#define ABILITY_STRONG_JAW 174
-#define ABILITY_REFRIGERATE 175
-#define ABILITY_SWEET_VEIL 176
-#define ABILITY_STANCE_CHANGE 177
-#define ABILITY_GALE_WINGS 178
-#define ABILITY_MEGA_LAUNCHER 179
-#define ABILITY_GRASS_PELT 180
-#define ABILITY_SYMBIOSIS 181
-#define ABILITY_TOUGH_CLAWS 182
-#define ABILITY_PIXILATE 183
-#define ABILITY_GOOEY 184
-#define ABILITY_AERILATE 185
-#define ABILITY_PARENTAL_BOND 186
-#define ABILITY_DARK_AURA 187
-#define ABILITY_FAIRY_AURA 188
-#define ABILITY_AURA_BREAK 189
-#define ABILITY_PRIMORDIAL_SEA 190
-#define ABILITY_DESOLATE_LAND 191
-#define ABILITY_DELTA_STREAM 192
+// Gen_5
+ ABILITY_PICKPOCKET = ABILITIES_COUNT_GEN4,
+ ABILITY_SHEER_FORCE,
+ ABILITY_CONTRARY,
+ ABILITY_UNNERVE, //bad in game buffing with og pressure effect of additional pp useage, leans into unnerving aura idea
+ ABILITY_DEFIANT,
+ ABILITY_DEFEATIST,
+ ABILITY_CURSED_BODY,
+ ABILITY_HEALER,
+ ABILITY_FRIEND_GUARD,
+ ABILITY_WEAK_ARMOR,
+ ABILITY_HEAVY_METAL, //potentially boost power of steel type moves?
+ ABILITY_LIGHT_METAL, //potentially boost priority of steel type moves
+ ABILITY_MULTISCALE,
+ ABILITY_TOXIC_BOOST,
+ ABILITY_FLARE_BOOST,
+ ABILITY_HARVEST,
+ ABILITY_TELEPATHY,
+ ABILITY_MOODY,
+ ABILITY_OVERCOAT,
+ ABILITY_POISON_TOUCH,
+ ABILITY_REGENERATOR,
+ ABILITY_BIG_PECKS,
+ ABILITY_SAND_RUSH,
+ ABILITY_WONDER_SKIN,
+ ABILITY_ANALYTIC,
+ ABILITY_ILLUSION,
+ ABILITY_IMPOSTER, //remeber check todo list for plan for this, setup extra case effect for wilds i.e only mon in party effect
+ ABILITY_INFILTRATOR,
+ ABILITY_MUMMY,
+ ABILITY_MOXIE,
+ ABILITY_JUSTIFIED,
+ ABILITY_RATTLED,
+ ABILITY_MAGIC_BOUNCE,
+ ABILITY_SAP_SIPPER,
+ ABILITY_PRANKSTER,
+ ABILITY_SAND_FORCE,
+ ABILITY_IRON_BARBS,
+ ABILITY_ZEN_MODE,
+ ABILITY_VICTORY_STAR,
+ ABILITY_TURBOBLAZE,
+ ABILITY_TERAVOLT,
 
-#define ABILITIES_COUNT_GEN6 193
+ ABILITIES_COUNT_GEN5,
 
-// Gen 7
-#define ABILITY_STAMINA 193
-#define ABILITY_WIMP_OUT 194
-#define ABILITY_EMERGENCY_EXIT 195
-#define ABILITY_WATER_COMPACTION 196
-#define ABILITY_MERCILESS 197
-#define ABILITY_SHIELDS_DOWN 198
-#define ABILITY_STAKEOUT 199
-#define ABILITY_WATER_BUBBLE 200
-#define ABILITY_STEELWORKER 201
-#define ABILITY_BERSERK 202
-#define ABILITY_SLUSH_RUSH 203
-#define ABILITY_LONG_REACH 204
-#define ABILITY_LIQUID_VOICE 205
-#define ABILITY_TRIAGE 206
-#define ABILITY_GALVANIZE 207
-#define ABILITY_SURGE_SURFER 208
-#define ABILITY_SCHOOLING 209
-#define ABILITY_DISGUISE 210
-#define ABILITY_BATTLE_BOND 211
-#define ABILITY_POWER_CONSTRUCT 212
-#define ABILITY_CORROSION 213
-#define ABILITY_COMATOSE 214
-#define ABILITY_QUEENLY_MAJESTY 215
-#define ABILITY_INNARDS_OUT 216
-#define ABILITY_DANCER 217
-#define ABILITY_BATTERY 218 //dex entry charjabug it power up vikavolt so does version of commander of tatsugiri want do just for charjabug
-#define ABILITY_FLUFFY 219
-#define ABILITY_DAZZLING 220
-#define ABILITY_SOUL_HEART 221
-#define ABILITY_TANGLING_HAIR 222
-#define ABILITY_RECEIVER 223
-#define ABILITY_POWER_OF_ALCHEMY 224
-#define ABILITY_BEAST_BOOST 225
-#define ABILITY_RKS_SYSTEM 226
-#define ABILITY_ELECTRIC_SURGE 227
-#define ABILITY_PSYCHIC_SURGE 228
-#define ABILITY_MISTY_SURGE 229
-#define ABILITY_GRASSY_SURGE 230
-#define ABILITY_FULL_METAL_BODY 231
-#define ABILITY_SHADOW_SHIELD 232
-#define ABILITY_PRISM_ARMOR 233
-#define ABILITY_NEUROFORCE 234
+// Gen_6
+ ABILITY_AROMA_VEIL = ABILITIES_COUNT_GEN5,
+ ABILITY_FLOWER_VEIL,
+ ABILITY_CHEEK_POUCH,
+ ABILITY_PROTEAN,
+ ABILITY_FUR_COAT,
+ ABILITY_MAGICIAN,
+ ABILITY_BULLETPROOF,
+ ABILITY_COMPETITIVE,
+ ABILITY_STRONG_JAW,
+ ABILITY_REFRIGERATE,
+ ABILITY_SWEET_VEIL,
+ ABILITY_STANCE_CHANGE,
+ ABILITY_GALE_WINGS,
+ ABILITY_MEGA_LAUNCHER,
+ ABILITY_GRASS_PELT,
+ ABILITY_SYMBIOSIS,
+ ABILITY_TOUGH_CLAWS,
+ ABILITY_PIXILATE,
+ ABILITY_GOOEY,
+ ABILITY_AERILATE,
+ ABILITY_PARENTAL_BOND,
+ ABILITY_DARK_AURA,
+ ABILITY_FAIRY_AURA,
+ ABILITY_AURA_BREAK,
+ ABILITY_PRIMORDIAL_SEA,
+ ABILITY_DESOLATE_LAND,
+ ABILITY_DELTA_STREAM,
 
-#define ABILITIES_COUNT_GEN7 235
+ ABILITIES_COUNT_GEN6,
 
-// Gen 8
-#define ABILITY_INTREPID_SWORD 235
-#define ABILITY_DAUNTLESS_SHIELD 236
-#define ABILITY_LIBERO 237
-#define ABILITY_BALL_FETCH 238
-#define ABILITY_COTTON_DOWN 239
-#define ABILITY_PROPELLER_TAIL 240
-#define ABILITY_MIRROR_ARMOR 241
-#define ABILITY_GULP_MISSILE 242
-#define ABILITY_STALWART 243
-#define ABILITY_STEAM_ENGINE 244
-#define ABILITY_PUNK_ROCK 245
-#define ABILITY_SAND_SPIT 246
-#define ABILITY_ICE_SCALES 247
-#define ABILITY_RIPEN 248
-#define ABILITY_ICE_FACE 249
-#define ABILITY_POWER_SPOT 250
-#define ABILITY_MIMICRY 251
-#define ABILITY_SCREEN_CLEANER 252
-#define ABILITY_STEELY_SPIRIT 253
-#define ABILITY_PERISH_BODY 254
-#define ABILITY_WANDERING_SPIRIT 255
-#define ABILITY_GORILLA_TACTICS 256
-#define ABILITY_NEUTRALIZING_GAS 257
-#define ABILITY_PASTEL_VEIL 258
-#define ABILITY_HUNGER_SWITCH 259
-#define ABILITY_QUICK_DRAW 260
-#define ABILITY_UNSEEN_FIST 261
-#define ABILITY_CURIOUS_MEDICINE 262
-#define ABILITY_TRANSISTOR 263
-#define ABILITY_DRAGONS_MAW 264
-#define ABILITY_CHILLING_NEIGH 265
-#define ABILITY_GRIM_NEIGH 266
-#define ABILITY_AS_ONE_ICE_RIDER 267
-#define ABILITY_AS_ONE_SHADOW_RIDER 268
+// Gen_7
+ ABILITY_STAMINA = ABILITIES_COUNT_GEN6,
+ ABILITY_WIMP_OUT,
+ ABILITY_EMERGENCY_EXIT,
+ ABILITY_WATER_COMPACTION,
+ ABILITY_MERCILESS,
+ ABILITY_SHIELDS_DOWN,
+ ABILITY_STAKEOUT,
+ ABILITY_WATER_BUBBLE,
+ ABILITY_STEELWORKER,
+ ABILITY_BERSERK,
+ ABILITY_SLUSH_RUSH,
+ ABILITY_LONG_REACH,
+ ABILITY_LIQUID_VOICE,
+ ABILITY_TRIAGE,
+ ABILITY_GALVANIZE,
+ ABILITY_SURGE_SURFER,
+ ABILITY_SCHOOLING,
+ ABILITY_DISGUISE,
+ ABILITY_BATTLE_BOND,
+ ABILITY_POWER_CONSTRUCT,
+ ABILITY_CORROSION,
+ ABILITY_COMATOSE,
+ ABILITY_QUEENLY_MAJESTY,
+ ABILITY_INNARDS_OUT,
+ ABILITY_DANCER,
+ ABILITY_BATTERY, //dex entry charjabug it power up vikavolt so does version of commander of tatsugiri want do just for charjabug
+ ABILITY_FLUFFY,
+ ABILITY_DAZZLING,
+ ABILITY_SOUL_HEART,
+ ABILITY_TANGLING_HAIR,
+ ABILITY_RECEIVER,
+ ABILITY_POWER_OF_ALCHEMY,
+ ABILITY_BEAST_BOOST,
+ ABILITY_RKS_SYSTEM,
+ ABILITY_ELECTRIC_SURGE,
+ ABILITY_PSYCHIC_SURGE,
+ ABILITY_MISTY_SURGE,
+ ABILITY_GRASSY_SURGE,
+ ABILITY_FULL_METAL_BODY,
+ ABILITY_SHADOW_SHIELD,
+ ABILITY_PRISM_ARMOR,
+ ABILITY_NEUROFORCE,
 
+ ABILITIES_COUNT_GEN7,
 
-// Gen 9
-#define ABILITY_LINGERING_AROMA 269
-#define ABILITY_SEED_SOWER 270
-#define ABILITY_THERMAL_EXCHANGE 271
-#define ABILITY_ANGER_SHELL 272
-#define ABILITY_PURIFYING_SALT 273
-#define ABILITY_WELL_BAKED_BODY 274
-#define ABILITY_WIND_RIDER 275
-#define ABILITY_GUARD_DOG 276
-#define ABILITY_ROCKY_PAYLOAD 277
-#define ABILITY_WIND_POWER 278
-#define ABILITY_ZERO_TO_HERO 279
-#define ABILITY_COMMANDER 280
-#define ABILITY_ELECTROMORPHOSIS 281
-#define ABILITY_PROTOSYNTHESIS 282
-#define ABILITY_QUARK_DRIVE 283
-#define ABILITY_GOOD_AS_GOLD 284
-#define ABILITY_VESSEL_OF_RUIN 285
-#define ABILITY_SWORD_OF_RUIN 286
-#define ABILITY_TABLETS_OF_RUIN 287
-#define ABILITY_BEADS_OF_RUIN 288
-#define ABILITY_ORICHALCUM_PULSE 289
-#define ABILITY_HADRON_ENGINE 290
-#define ABILITY_OPPORTUNIST 291
-#define ABILITY_CUD_CHEW 292
-#define ABILITY_SHARPNESS 293
-#define ABILITY_SUPREME_OVERLORD 294
-#define ABILITY_COSTAR 295
-#define ABILITY_TOXIC_DEBRIS 296
-#define ABILITY_ARMOR_TAIL 297
-#define ABILITY_EARTH_EATER 298
-#define ABILITY_MYCELIUM_MIGHT 299
-#define ABILITY_HOSPITALITY 300
-#define ABILITY_MINDS_EYE 301
-#define ABILITY_EMBODY_ASPECT_TEAL_MASK 302
-#define ABILITY_EMBODY_ASPECT_HEARTHFLAME_MASK 303
-#define ABILITY_EMBODY_ASPECT_WELLSPRING_MASK 304
-#define ABILITY_EMBODY_ASPECT_CORNERSTONE_MASK 305
-#define ABILITY_TOXIC_CHAIN 306
-#define ABILITY_SUPERSWEET_SYRUP 307
-#define ABILITY_TERA_SHIFT 308
-#define ABILITY_TERA_SHELL 309
-#define ABILITY_TERAFORM_ZERO 310   //alter make also break all other terra and long as on field no one else can use terra does default cloud 9 w terrain clear idk can't tell if it removes them or not maybe it does?
-#define ABILITY_POISON_PUPPETEER 311
+// Gen_8
+ ABILITY_INTREPID_SWORD = ABILITIES_COUNT_GEN7,
+ ABILITY_DAUNTLESS_SHIELD,
+ ABILITY_LIBERO,
+ ABILITY_BALL_FETCH,
+ ABILITY_COTTON_DOWN,
+ ABILITY_PROPELLER_TAIL,
+ ABILITY_MIRROR_ARMOR,
+ ABILITY_GULP_MISSILE,
+ ABILITY_STALWART,
+ ABILITY_STEAM_ENGINE,
+ ABILITY_PUNK_ROCK,
+ ABILITY_SAND_SPIT,
+ ABILITY_ICE_SCALES,
+ ABILITY_RIPEN,
+ ABILITY_ICE_FACE,
+ ABILITY_POWER_SPOT,
+ ABILITY_MIMICRY,
+ ABILITY_SCREEN_CLEANER,
+ ABILITY_STEELY_SPIRIT,
+ ABILITY_PERISH_BODY,
+ ABILITY_WANDERING_SPIRIT,
+ ABILITY_GORILLA_TACTICS,
+ ABILITY_NEUTRALIZING_GAS,
+ ABILITY_PASTEL_VEIL,
+ ABILITY_HUNGER_SWITCH,
+ ABILITY_QUICK_DRAW,
+ ABILITY_UNSEEN_FIST,
+ ABILITY_CURIOUS_MEDICINE,
+ ABILITY_TRANSISTOR,
+ ABILITY_DRAGONS_MAW,
+ ABILITY_CHILLING_NEIGH,
+ ABILITY_GRIM_NEIGH,
+ ABILITY_AS_ONE_ICE_RIDER,
+ ABILITY_AS_ONE_SHADOW_RIDER,
+
+ ABILITIES_COUNT_GEN8,
+
+// Gen_9
+ ABILITY_LINGERING_AROMA = ABILITIES_COUNT_GEN8,
+ ABILITY_SEED_SOWER,
+ ABILITY_THERMAL_EXCHANGE,
+ ABILITY_ANGER_SHELL,
+ ABILITY_PURIFYING_SALT,
+ ABILITY_WELL_BAKED_BODY,
+ ABILITY_WIND_RIDER,
+ ABILITY_GUARD_DOG,
+ ABILITY_ROCKY_PAYLOAD,
+ ABILITY_WIND_POWER,
+ ABILITY_ZERO_TO_HERO,
+ ABILITY_COMMANDER,
+ ABILITY_ELECTROMORPHOSIS,
+ ABILITY_PROTOSYNTHESIS,
+ ABILITY_QUARK_DRIVE,
+ ABILITY_GOOD_AS_GOLD,
+ ABILITY_VESSEL_OF_RUIN,
+ ABILITY_SWORD_OF_RUIN,
+ ABILITY_TABLETS_OF_RUIN,
+ ABILITY_BEADS_OF_RUIN,
+ ABILITY_ORICHALCUM_PULSE,
+ ABILITY_HADRON_ENGINE,
+ ABILITY_OPPORTUNIST,
+ ABILITY_CUD_CHEW,
+ ABILITY_SHARPNESS,
+ ABILITY_SUPREME_OVERLORD,
+ ABILITY_COSTAR,
+ ABILITY_TOXIC_DEBRIS,
+ ABILITY_ARMOR_TAIL,
+ ABILITY_EARTH_EATER,
+ ABILITY_MYCELIUM_MIGHT,
+ ABILITY_HOSPITALITY,
+ ABILITY_MINDS_EYE,
+ ABILITY_EMBODY_ASPECT_TEAL_MASK,
+ ABILITY_EMBODY_ASPECT_HEARTHFLAME_MASK,
+ ABILITY_EMBODY_ASPECT_WELLSPRING_MASK,
+ ABILITY_EMBODY_ASPECT_CORNERSTONE_MASK,
+ ABILITY_TOXIC_CHAIN,
+ ABILITY_SUPERSWEET_SYRUP,
+ ABILITY_TERA_SHIFT,
+ ABILITY_TERA_SHELL,
+ ABILITY_TERAFORM_ZERO,   //alter make also break all other terra and long as on field no one else can use terra does default cloud, w terrain clear idk can't tell if it removes them or not maybe it does?
+ ABILITY_POISON_PUPPETEER,
+
+ ABILITIES_COUNT_GEN9,
 
 //CUSTOM ABILITIES
-#define ABILITY_DISPIRIT_GUARD 312
-#define ABILITY_NUISANCE 313		//can't remember original plan for this, but I effectively made better prankster..
-#define ABILITY_MULTI_TASK 314
-#define ABILITY_SIROCCO 315
-#define ABILITY_HI_PRESSURE 316
-#define ABILITY_CUPIDS_ARROW 317
-#define ABILITY_BATTLE_MATRON 318
-#define ABILITY_LIQUID_SOUL 319
-#define ABILITY_OCEAN_MEMORY 320
-#define ABILITY_OVERCHARGE 321
-#define ABILITY_PHOTOSYNTHESIZE 322
-#define ABILITY_GLACIAL_ICE 323	//fire immunity + ice body effect	REGICE ability
-#define ABILITY_LAVA_FISSURE 324 // pending heatran ability
-#define ABILITY_TOADSTOOL_NYMPH 325 // pending Shiinotic ability
-#define ABILTY_UNKNOWN_POWER 326	//unown specific ability similar to plus minus but if partner is unown
-#define ABILITY_PURIFYING_AURA 327 //Suicune ability  mix of healer & shedskin but gauranteed
-#define ABILITY_SQUALL 328	//temp versions of drizzle/drought
-#define ABILITY_SUN_DISK 329
-#define ABILITY_TOUGH_SPINES 330	//rough skin for grass types spines can also be bone/spikes
-#define ABILITY_EROSION 331	//regirock ability, rock absorb also absorbs stealth rocks on switchin
-#define ABILITY_LIQUID_METAL 332	//Registeel exclusive 
-#define ABILITY_MUSCLE_MAGIC 333
-#define ABILITY_TIGER_CUB 334	//tinted lens copy
-#define ABILITY_TIGER_MOM 335	//alt version intimidate, drops defense instead of atk, defense drop may be too strong, instead consider speed drop, idea still works, tiger mom pressures you so you cant make a decision i.e lowering your speed
-#define ABILITY_DARK_DEAL 336   //
-#define ABILITY_CORRUPTION 337   //anti heal switch in ability,  users corrupted influence spreads decay, preventing foe from healing, giving to guzzlord etc. make side based effect
-#define ABILITY_BANDIT_KING 338   //embargo on switch in
-#define ABILITY_AVIATOR 339   //Usually flying type, an experienced flyer who's speed can't be lowered  flying version of run away //ok change what will do is make class of ability that gives all benefits of type based bonus, aviator will give all benefits flying types get
-#define ABILITY_USURPER 340	//NEW giratina base ability
-#define ABILITY_INVERSE_WORLD 341	//NEW giratina origin ability
-#define ABILITY_SONAR 342	//sound move boost for bat pokemon,  double move damage, mostly to make sonic boom do dragon breath damage, and be strong early HA only
-#define ABILITY_ECOSYSTEM 343		//MEGA torterra excluive
-#define ABILITY_ABSOLUTE_ZERO 344		//kyurem excluive
-#define ABILITY_FEATHER_JACKET 345	//hisuian decidueye inspired by dex entry and smisonian arcticle cold climate birds have "They had fluffier jackets" to insulate them from cold
-#define ABILITY_POISONED_LEGACY 346 // poison pinch ability, for poipoile as its technically a starter,  inspired by marriagetoxin manga, boost poison in a pinch and if poison target will be bad poison consider set to turn 45 so it does full dmg 44st turn
-#define ABILITY_JEWEL_METABOLISM 347 //can't think of a name right now, this is just a sableye rock absorb based on dex entry, hmm maybe do more boost damage to rock types? ok, instead of raising hp, boosts def as eaten rocks form more crystals ok i like that
-#define ABILITY_INVERSION 348 //  - for ditto  - still to do - mostly works now 
-#define ABILITY_WETIKO 349 // for my version crabominable mix of refrigerate & regenerator
-#define ABILITY_EMPATH 350 // upgraded synchronize, copies stat change too, not for umbreon psychic only
-#define ABILITY_EMPATHIC_CURSE 351 //ability for Mespirit - synchronize with dmg reflect
-#define ABILITY_INTHRALL 352 //ability for Uxie - anticipation except it seals the move so it can't be used/selected  //magician conditions, anticipation function logic
-#define ABILITY_IRON_WILL 353 //abillity for Azelf - mix of pressure where it can paralyze the attacker, but lower odds, as thye also have to break will pressure odds that lower dmg done
-#define ABILITY_LIVEWIRE 354 //for rotom base, weaker version of transistor
-#define ABILITY_GALEFORCE 355
-#define ABILITY_LETHAL_LEGS 356 //hitmonlee ability boost kicking moves
-#define ABILITY_TOXUNGUE 357    //Likitung line signature paralytic poison touch
-#define ABILITY_OMNIPOTENT_AIDE 358//for Fraeyjta, can use healing moves for itself, but transfers any heal it would receive to battle partner (if heal target mon with this ability change target to battle partner, otherwise fail)
-                                    //if this mon uses a healing move its priority gets increased long as it has a living battle partner, for balanve remove priority effect if status 44,  logic is ABILITY_TRIAGE 
+ ABILITY_DISPIRIT_GUARD = ABILITIES_COUNT_GEN9,
+ ABILITY_NUISANCE,		//can't remember original plan for this, but I effectively made better prankster..
+ ABILITY_MULTI_TASK,
+ ABILITY_SIROCCO,
+ ABILITY_HI_PRESSURE,
+ ABILITY_CUPIDS_ARROW,
+ ABILITY_BATTLE_MATRON,
+ ABILITY_LIQUID_SOUL,
+ ABILITY_OCEAN_MEMORY,
+ ABILITY_OVERCHARGE,
+ ABILITY_PHOTOSYNTHESIZE,
+ ABILITY_GLACIAL_ICE,	//fire immunity + ice body effect	REGICE ability
+ ABILITY_LAVA_FISSURE, // pending heatran ability
+ ABILITY_TOADSTOOL_NYMPH, // pending Shiinotic ability
+ ABILTY_UNKNOWN_POWER,	//unown specific ability similar to plus minus but if partner is unown
+ ABILITY_PURIFYING_AURA, //Suicune ability  mix of healer & shedskin but gauranteed
+ ABILITY_SQUALL,	//temp versions of drizzle/drought
+ ABILITY_SUN_DISK,
+ ABILITY_TOUGH_SPINES,	//rough skin for grass types spines can also be bone/spikes
+ ABILITY_EROSION,	//regirock ability, rock absorb also absorbs stealth rocks on switchin
+ ABILITY_LIQUID_METAL,	//Registeel exclusive 
+ ABILITY_MUSCLE_MAGIC,
+ ABILITY_TIGER_CUB,	//tinted lens copy
+ ABILITY_TIGER_MOM,	//alt version intimidate, drops defense instead of atk, defense drop may be too strong, instead consider speed drop, idea still works, tiger mom pressures you so you cant make a decision i.e lowering your speed
+ ABILITY_DARK_DEAL,   //
+ ABILITY_CORRUPTION,   //anti heal switch in ability,  users corrupted influence spreads decay, preventing foe from healing, giving to guzzlord etc. make side based effect
+ ABILITY_BANDIT_KING,   //embargo on switch in
+ ABILITY_AVIATOR,   //Usually flying type, an experienced flyer who's speed can't be lowered  flying version of run away //ok change what will do is make class of ability that gives all benefits of type based bonus, aviator will give all benefits flying types get
+ ABILITY_USURPER,	//NEW giratina base ability
+ ABILITY_INVERSE_WORLD,	//NEW giratina origin ability
+ ABILITY_SONAR,	//sound move boost for bat pokemon,  double move damage, mostly to make sonic boom do dragon breath damage, and be strong early HA only
+ ABILITY_ECOSYSTEM,		//MEGA torterra excluive
+ ABILITY_ABSOLUTE_ZERO,		//kyurem excluive
+ ABILITY_FEATHER_JACKET,	//hisuian decidueye inspired by dex entry and smisonian arcticle cold climate birds have "They had fluffier jackets" to insulate them from cold
+ ABILITY_POISONED_LEGACY, // poison pinch ability, for poipoile as its technically a starter,  inspired by marriagetoxin manga, boost poison in a pinch and if poison target will be bad poison consider set to turn, so it does full dmg,st turn
+ ABILITY_JEWEL_METABOLISM, //can't think of a name right now, this is just a sableye rock absorb based on dex entry, hmm maybe do more boost damage to rock types? ok, instead of raising hp, boosts def as eaten rocks form more crystals ok i like that
+ ABILITY_INVERSION, //  - for ditto  - still to do - mostly works now 
+ ABILITY_WETIKO, // for my version crabominable mix of refrigerate & regenerator
+ ABILITY_EMPATH, // upgraded synchronize, copies stat change too, not for umbreon psychic only
+ ABILITY_EMPATHIC_CURSE, //ability for Mespirit - synchronize with dmg reflect
+ ABILITY_INTHRALL, //ability for Uxie - anticipation except it seals the move so it can't be used/selected  //magician conditions, anticipation function logic
+ ABILITY_IRON_WILL, //abillity for Azelf - mix of pressure where it can paralyze the attacker, but lower odds, as thye also have to break will pressure odds that lower dmg done
+ ABILITY_LIVEWIRE, //for rotom base, weaker version of transistor
+ ABILITY_GALEFORCE,
+ ABILITY_LETHAL_LEGS, //hitmonlee ability boost kicking moves
+ ABILITY_TOXUNGUE,    //Likitung line signature paralytic poison touch
+ ABILITY_OMNIPOTENT_AIDE,//for Fraeyjta, can use healing moves for itself, but transfers any heal it would receive to battle partner (if heal target mon with this ability change target to battle partner, otherwise fail)
+                                    //if this mon uses a healing move its priority gets increased long as it has a living battle partner, for balanve remove priority effect if status,,  logic is ABILITY_TRIAGE 
                                     //heal priority setup, target swap is not working yet - look at lightning rod?
-#define ABILITY_FLUORESCENCE 359     
-#define ABILITY_SPECTRE 360  //latios & latias ability raise evasiveness on switch in
-#define ABILITY_AURA_OF_LIGHT 361//CRESELIA ABILITY prevent sleep for self and allies, plus reduce dark damage on side - done setup
-#define ABILITY_DESPAIR 362 //nother idea true anti heal, gbattlemovedamage *-1  if attempts to heal re-reverses damage formula, so it causes you to take damage instead. 
+ ABILITY_FLUORESCENCE,     
+ ABILITY_SPECTRE,  //latios & latias ability raise evasiveness on switch in
+ ABILITY_AURA_OF_LIGHT,//CRESELIA ABILITY prevent sleep for self and allies, plus reduce dark damage on side - done setup
+ ABILITY_DESPAIR, //nother idea true anti heal, gbattlemovedamage *-1  if attempts to heal re-reverses damage formula, so it causes you to take damage instead. 
                                     //give to darkrai //use stringutil to change strings ids like intimidate angerpoint etc. //think put in bigroot function, heal commands and sleep end turn
-#define ABILITY_RISING_PHOENIX 363 //MOLTRES ability,  slight DxD reference
-#define ABILITY_DREAD_WING 364 //aka burnout GALARIAN MOLTRES ABILITY, tweaking status to fit, set similar to unaware, when attacknig lower enemy def/sp def when target lower foe attack
-                            //should be equivalent to amount of 1 stat stage drop
-#define ABILITY_PLAGUE_WINGS 365 //butterfree ability, effect spore no contect, work like powder move, grass immune
-#define ABILITY_PHANTOM_TOUCH 366  //cubone line, contact only scrappy
-#define ABILITY_APOTHEOSCENT 367  //immune to affect of being confused like bugs, and prevent acc drop  for mon w extra senses, fightnig psychic ghost insinct etc.
+ ABILITY_RISING_PHOENIX, //MOLTRES ability,  slight DxD reference
+ ABILITY_DREAD_WING, //aka burnout GALARIAN MOLTRES ABILITY, tweaking status to fit, set similar to unaware, when attacknig lower enemy def/sp def when target lower foe attack
+                            //should be equivalent to amount of, stat stage drop
+ ABILITY_PLAGUE_WINGS, //butterfree ability, effect spore no contect, work like powder move, grass immune
+ ABILITY_PHANTOM_TOUCH,  //cubone line, contact only scrappy
+ ABILITY_APOTHEOSCENT,  //immune to affect of being confused like bugs, and prevent acc drop  for mon w extra senses, fightnig psychic ghost insinct etc.
                                     //planned for parasect if made grass ghost, so still keep bug type confuse exclusion
-#define ABILITY_WEIGHTED_GI 368     //dbz themed in a pinch fighting abiility, boost speed throwing off weights in a pinch boost 1.5x or 2x, give to bulky fighting types and mienshoo line (based on dex entry)
-#define ABILITY_VOLT_DASH 369       //thunderous therian ability volt absorb + speed boost
-#define ABILITY_IMMUTABLE_WIND 370   //Tornadus therian ability, neutralizing gas + wonder skin
+ ABILITY_WEIGHTED_GI,     //dbz themed in a pinch fighting abiility, boost speed throwing off weights in a pinch boost,.5x or,x, give to bulky fighting types and mienshoo line (based on dex entry)
+ ABILITY_VOLT_DASH,       //thunderous therian ability volt absorb + speed boost
+ ABILITY_IMMUTABLE_WIND,   //Tornadus therian ability, neutralizing gas + wonder skin
 
-#define ABILITY_EVERGREEN 371   //celebi ability
-#define ABILITY_SHAMAN_CURE 372 //shaman base ability
-#define ABILITY_UNCHAINED_MELODY 373  //NORMAL MOVES into sound moves
-#define ABILITY_ENAMEL 374
-#define ABILITY_BONE_ARMOR 375  //abilities for faedentin and bone fairy evo, //cuts fire damage, bone armor also has force switch prevention, think also recoil?
-#define ABILITY_STORM_BREAK 376 //old cloud nine effect, by for flying types, pretty much delta stream but just to break weather have to find birds I have space to give this to
-#define ABILITY_SPACE_CONTROL 377 //hmm domain expansion? nah too long, palkia ability uses portals to make moves 100% accurate and is immune to ice because adapted to void of space
-#define ABILITY_COLD_EMBRACE 378    //froslass ability 
-#define ABILITY_TOXIC_WING 379
-#define ABILITY_TIME_CONTROL 380 //new dialga ability
-#define ABILITY_TORCHSOUL 381 //fire affinity ability, embroar
-#define ABILITY_GRUNGE 382  //poison affinity / can't be poisoned should also give poison boost? or should I go more creative give all moves chance to poison?
-#define ABILITY_SWIFT_JUSTICE 383 //virizion new ability boost damage if move first
-#define ABILITY_TOOLS_OF_THE_TRADE 384 //FATE reference //new ability for spidops combine insomnia stakeout analytic and guts/defiant but weaker effects for all if only sleeps one turn could boost defense and get heal? if heal doesn't work just block sleep altogether
-#define ABILITY_TROJAN_SWORD 385  //idea for buff iron leaves, block intimidate and gives sharpness
-#define ABILITY_HEAT_TRANCE 386 //SCOVILLAIN capsakid buff burn healing since is fire type still not great as requires holding flame orb guess can fing it if I don't need it?
-#define ABILITY_DESERT_DWELLER 387 //new cacturne line ability heat proof + thick fat
-#define ABILITY_FAIRY_MIST 388 //for iron valiant combine misty surge w pixilate
-#define ABILITY_COMPASS 389 //no guard clone for onix nosepass binacle as designed around compasses
-#define ABILITY_HANDS_OF_FATE 390 //purifying salt clone for binacle as designed around hamsa protective ward against the evil eye, think also give specific immunity to shadow tag mean look and decidueye move
-#define ABILITY_DUST_DEVIL 391 //combine sandstream & wind rider for new bug psuedo
-#define ABILITY_PLASMA_OVERDRIVE 392 //custom moldbreaker lightningrod flash fire for zekrom/reshiram fusion
-#define ABILITY_CREATION_ENGINE 393 //custom ability for original dragon //power over fire electricity and ice  //consider rename to creation engine as zek resh based aruond turbine
-#define ABILITY_DARK_CORONA 394 //initial intended ability for larvalking tough spines + poison point
-#define ABILITY_LUNAR_SOLSTICE 395 //moon version of sundisk
-#define ABILITY_LUNAR_POWER 396 //moon version of solar power //think may add on can't be damaged by moon based attacks? like balistic
-#define ABILITY_NEW_MOON 397 //heal by moonlight think also heal from taking moon based attacks?
-#define ABILITY_TOXIC_DELUGE 398  //acid rain ability
-#define ABILITY_RESOLUTE 399  //planned ability for lokix to enter showdown mode same idea as ash greninja
-#define ABILITY_PIERCING_HORN 400
-#define ABILITY_X_SIGHT 401 //luxray new signature ability frisk plus bypass acc check when above half hp, as dex entry says its xray vision requires a lot of energy
-#define ABILITY_PRECISE_STRIKE 402 //fighting version of sniper, for storm throw buff
-#define ABILITY_BRAVERY 403  //keldeo version justified
-#define ABILITY_FUGUE 404   //wow this being 404 is so appropriate lmao, malamar new signature ability confusion & sleep always max turns
-#define ABILITY_CRYOSTORM 405 //for separating hail ability from snow ability
-#define ABILITY_NA 406
-#define ABILITIES_COUNT ABILITY_NA //   ability count is last ability number + 1 since we have to count ability 0
+ ABILITY_EVERGREEN,   //celebi ability
+ ABILITY_SHAMAN_CURE, //shaman base ability
+ ABILITY_UNCHAINED_MELODY,  //NORMAL MOVES into sound moves
+ ABILITY_ENAMEL,
+ ABILITY_BONE_ARMOR,  //abilities for faedentin and bone fairy evo, //cuts fire damage, bone armor also has force switch prevention, think also recoil?
+ ABILITY_STORM_BREAK, //old cloud nine effect, by for flying types, pretty much delta stream but just to break weather have to find birds I have space to give this to
+ ABILITY_SPACE_CONTROL, //hmm domain expansion? nah too long, palkia ability uses portals to make moves,% accurate and is immune to ice because adapted to void of space
+ ABILITY_COLD_EMBRACE,    //froslass ability 
+ ABILITY_TOXIC_WING,
+ ABILITY_TIME_CONTROL, //new dialga ability
+ ABILITY_TORCHSOUL, //fire affinity ability, embroar
+ ABILITY_GRUNGE,  //poison affinity / can't be poisoned should also give poison boost? or should I go more creative give all moves chance to poison?
+ ABILITY_SWIFT_JUSTICE, //virizion new ability boost damage if move first
+ ABILITY_TOOLS_OF_THE_TRADE, //FATE reference //new ability for spidops combine insomnia stakeout analytic and guts/defiant but weaker effects for all if only sleeps one turn could boost defense and get heal? if heal doesn't work just block sleep altogether
+ ABILITY_TROJAN_SWORD,  //idea for buff iron leaves, block intimidate and gives sharpness
+ ABILITY_HEAT_TRANCE, //SCOVILLAIN capsakid buff burn healing since is fire type still not great as requires holding flame orb guess can fing it if I don't need it?
+ ABILITY_DESERT_DWELLER, //new cacturne line ability heat proof + thick fat
+ ABILITY_FAIRY_MIST, //for iron valiant combine misty surge w pixilate
+ ABILITY_COMPASS, //no guard clone for onix nosepass binacle as designed around compasses
+ ABILITY_HANDS_OF_FATE, //purifying salt clone for binacle as designed around hamsa protective ward against the evil eye, think also give specific immunity to shadow tag mean look and decidueye move
+ ABILITY_DUST_DEVIL, //combine sandstream & wind rider for new bug psuedo
+ ABILITY_PLASMA_OVERDRIVE, //custom moldbreaker lightningrod flash fire for zekrom/reshiram fusion
+ ABILITY_CREATION_ENGINE, //custom ability for original dragon //power over fire electricity and ice  //consider rename to creation engine as zek resh based aruond turbine
+ ABILITY_DARK_CORONA, //initial intended ability for larvalking tough spines + poison point
+ ABILITY_LUNAR_SOLSTICE, //moon version of sundisk
+ ABILITY_LUNAR_POWER, //moon version of solar power //think may add on can't be damaged by moon based attacks? like balistic
+ ABILITY_NEW_MOON, //heal by moonlight think also heal from taking moon based attacks?
+ ABILITY_TOXIC_DELUGE,  //acid rain ability
+ ABILITY_RESOLUTE,  //planned ability for lokix to enter showdown mode same idea as ash greninja
+ ABILITY_PIERCING_HORN,
+ ABILITY_X_SIGHT, //luxray new signature ability frisk plus bypass acc check when above half hp, as dex entry says its xray vision requires a lot of energy
+ ABILITY_PRECISE_STRIKE, //fighting version of sniper, for storm throw buff
+ ABILITY_BRAVERY,  //keldeo version justified
+ ABILITY_FUGUE,   //wow this being #404 is so appropriate lmao, malamar new signature ability confusion & sleep always max turns
+ ABILITY_CRYOSTORM, //for separating hail ability from snow ability
+ ABILITIES_COUNT //   ability count is last ability number +, since we have to count ability,
+};
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

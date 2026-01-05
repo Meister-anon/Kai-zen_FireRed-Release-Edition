@@ -9,9 +9,65 @@
 #define MOVE_LIMITATION_TORMENTED               (1 << 3)
 #define MOVE_LIMITATION_TAUNT                   (1 << 4)
 #define MOVE_LIMITATION_IMPRISON                (1 << 5)
+#define MOVE_LIMITATION_ENCORE                  (1 << 6)
+#define MOVE_LIMITATION_CHOICE_ITEM             (1 << 7)
+#define MOVE_LIMITATION_ASSAULT_VEST            (1 << 8)
+#define MOVE_LIMITATION_GRAVITY                 (1 << 9)
+#define MOVE_LIMITATION_HEAL_BLOCK              (1 << 10)
+#define MOVE_LIMITATION_BELCH                   (1 << 11)
+#define MOVE_LIMITATION_THROAT_CHOP             (1 << 12)
+#define MOVE_LIMITATION_STUFF_CHEEKS            (1 << 13)
+#define MOVE_LIMITATION_CANT_USE_TWICE          (1 << 14)
 
-//vsonic important more need add here from EE
-#define MOVE_LIMITATIONS_ALL                    0xFF
+#define MOVE_LIMITATION_PLACEHOLDER             (1 << 15)
+#define MOVE_LIMITATIONS_ALL                    0xFFFF
+
+// Switches between simulated battle calc and actual battle combat
+enum FunctionCallOption
+{
+    CHECK_TRIGGER, // Check the function without running scripts / setting any flags.
+    AI_CHECK,  // Check the function without running scripts / setting any flags. Same as CHECK_TRIGGER but only used when additional data has to be fetched during ai calcs
+    RUN_SCRIPT, // Used during actual combat where a script has to be run / flags need to be set
+};
+
+enum MoveAbsorbed
+{
+    MOVE_ABSORBED_BY_NO_ABILITY,
+    MOVE_ABSORBED_BY_DRAIN_HP_ABILITY,
+    MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY,
+    MOVE_ABSORBED_BY_BOOST_FLASH_FIRE,
+};//add new effect for pheonix ability that combines fields w stat cleanse
+
+enum FieldEffectCases
+{
+    FIELD_EFFECT_TRAINER_STATUSES,
+    FIELD_EFFECT_OVERWORLD_TERRAIN,
+    FIELD_EFFECT_OVERWORLD_WEATHER,
+};
+
+enum AbilityEffect
+{
+    ABILITYEFFECT_ON_SWITCHIN,
+    ABILITYEFFECT_ENDTURN,
+    ABILITYEFFECT_MOVE_END_ATTACKER,
+    ABILITYEFFECT_PRE_HIT_REACT, // new effect for color change
+    ABILITYEFFECT_COLOR_CHANGE, // Color Change / Berserk / Anger Shell
+    ABILITYEFFECT_MOVE_END,
+    ABILITYEFFECT_IMMUNITY,
+    ABILITYEFFECT_SYNCHRONIZE,
+    ABILITYEFFECT_ATK_SYNCHRONIZE,
+    ABILITYEFFECT_MOVE_END_OTHER,
+    ABILITYEFFECT_MOVE_END_FOES_FAINTED, // Moxie-like abilities / Battle Bond / Magician
+
+    // On Switch in
+    ABILITYEFFECT_TERA_SHIFT,
+    ABILITYEFFECT_NEUTRALIZINGGAS,
+    ABILITYEFFECT_UNNERVE,
+    ABILITYEFFECT_COMMANDER, // Commander / Hospitality / Costar
+    ABILITYEFFECT_ON_WEATHER,
+    ABILITYEFFECT_ON_TERRAIN,
+    ABILITYEFFECT_OPPORTUNIST,
+};
 
 
 #define ABILITYEFFECT_ON_SWITCHIN                0x0
@@ -39,7 +95,8 @@
 #define ABILITYEFFECT_MOVE_END_OTHER			 0x16
 #define ABILITYEFFECT_SWITCH_IN_ABILITIES		 0x17   //realized ability battle effects function doesn't really separate blocks well, so added more for better organization
 #define ABILITYEFFECT_SWITCH_IN_TERRAIN_ABILITY	 0x18   //nvm can't do more as new block would require new switch...and would break switch in effects i beleive //could just put in same plac as switcin think in bs commands
-#define ABILITYEFFECT_ONETURN_SWITCHIN_RESOLUTION  0x19
+
+#define ABILITYEFFECT_ONETURN_SWITCHIN_RESOLUTION  0x19 //could this just be put in end turn? -vsonic
 //#define ABILITYEFFECT_CUPIDSARROW				 0x15  //1st attempted implementation realized goes in switchin don't need new effect
 #define ABILITYEFFECT_MUD_SPORT                  0xFC	//actually potentially does as trace and intimidate have them? look over implementation again
 #define ABILITYEFFECT_WATER_SPORT                0xFD //changed to side status no longer needed
@@ -56,6 +113,7 @@
 #define ABILITY_ON_FIELD2(abilityId)(AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, abilityId, 0, 0))
 
 #define IS_WHOLE_SIDE_ALIVE(battler)((IsBattlerAlive(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))))
+#define IS_ALIVE_AND_PRESENT(battler)   (IsBattlerAlive(battler) && IsBattlerSpritePresent(battler))
 
 //unsure how pledge move work with this
 //has some interaction w redirection
@@ -130,6 +188,135 @@ enum ItemEffect
     ITEM_STATS_CHANGE,
 };
 
+// for Natural Gift and Fling
+struct TypePower
+{
+    enum Type type;
+    u8 power;
+    u16 effect;
+};
+
+enum MoveSuccessOrder
+{
+    CANCELER_STANCE_CHANGE_1,
+    CANCELER_CLEAR_FLAGS,
+    CANCELER_SKY_DROP,
+    CANCELER_RECHARGE,
+    CANCELER_ASLEEP_OR_FROZEN,
+    CANCELER_POWER_POINTS,
+    CANCELER_OBEDIENCE,
+    CANCELER_TRUANT,
+    CANCELER_FOCUS_GEN5,
+    CANCELER_FLINCH,
+    CANCELER_DISABLED,
+    CANCELER_VOLATILE_BLOCKED, // Gravity / Heal Block / Throat Chop
+    CANCELER_TAUNTED,
+    CANCELER_IMPRISONED,
+    CANCELER_CONFUSED,
+    CANCELER_PARALYZED,
+    CANCELER_INFATUATION,
+    CANCELER_BIDE,
+    CANCELER_Z_MOVES,
+    CANCELER_CHOICE_LOCK,
+    CANCELER_CALLSUBMOVE,
+    CANCELER_THAW,
+    CANCELER_STANCE_CHANGE_2,
+    CANCELER_ATTACKSTRING,
+    CANCELER_PPDEDUCTION,
+    CANCELER_WEATHER_PRIMAL,
+    CANCELER_FOCUS_PRE_GEN5,
+    CANCELER_MOVE_FAILURE,
+    CANCELER_POWDER_STATUS,
+    CANCELER_PRIORITY_BLOCK,
+    CANCELER_PROTEAN,
+    CANCELER_EXPLODING_DAMP,
+    CANCELER_EXPLOSION,
+    CANCELER_MULTIHIT_MOVES,
+    CANCELER_MULTI_TARGET_MOVES,
+    CANCELER_END,
+};
+
+enum Obedience
+{
+    OBEYS,
+    DISOBEYS_LOAFS,
+    DISOBEYS_HITS_SELF,
+    DISOBEYS_FALL_ASLEEP,
+    DISOBEYS_WHILE_ASLEEP,
+    DISOBEYS_RANDOM_MOVE,
+};
+
+enum MoveCanceler
+{
+    MOVE_STEP_SUCCESS,
+    MOVE_STEP_BREAK, // Breaks out of the function to run a script
+    MOVE_STEP_FAILURE, // Same as break but breaks out of it due to move failure and jumps to script that handles the failure
+};
+
+extern const struct TypePower gNaturalGiftTable[];
+
+struct BattleContext
+{
+    u32 battlerAtk:3;
+    u32 battlerDef:3;
+    u32 fixedBasePower:8;
+    u32 weather:16;
+    u32 unused:2;
+    u32 fieldStatuses;
+
+    u32 move:13;
+    u32 chosenMove:13; // May be different to 'move', e.g. for Z moves.
+    enum Type moveType:6; //idk why is bit 6 5 is 32 and there's only 21 types + 1 for type count
+    //u32 unused2:1; //ah guess with 25 free bits they figured 1 more was inconsequential
+
+    uq4_12_t typeEffectivenessModifier;
+    enum Ability abilityAtk;
+    enum Ability abilityDef;
+    enum HoldEffect holdEffectAtk;
+    enum HoldEffect holdEffectDef;
+
+    // Flags
+    u32 isCrit:1;
+    u32 randomFactor:1;
+    u32 updateFlags:1;
+    u32 isAnticipation:1;
+    u32 isSelfInflicted:1;
+    u32 aiCalc:1;
+    u32 aiCheckBerryModifier:1; // Flags that KOing through a berry should be checked
+    u32 padding:25;
+};
+
+// Helper struct to keep the arg list small and prevent constant recalculations of abilities/hold effects.
+struct BattleCalcValues
+{
+    u32 battlerAtk:3;
+    u32 battlerDef:3;
+    u32 move:16;
+    u32 padding:10;
+    enum Ability abilities[MAX_BATTLERS_COUNT];
+    enum HoldEffect holdEffects[MAX_BATTLERS_COUNT];
+};
+
+enum SkyDropState
+{
+    SKY_DROP_IGNORE,
+    SKY_DROP_ATTACKCANCELER_CHECK,
+    SKY_DROP_GRAVITY_ON_AIRBORNE,
+    SKY_DROP_CANCEL_MULTI_TURN_MOVES,
+    SKY_DROP_STATUS_YAWN,
+    SKY_DROP_STATUS_FREEZE_SLEEP,
+};
+
+#define SKY_DROP_NO_TARGET 0xFF
+#define SKY_DROP_RELEASED_TARGET 0xFE
+
+enum EjectPackTiming
+{
+    START_OF_TURN,
+    END_TURN,
+    OTHER,
+};
+
 #define ITEMEFFECT_ON_SWITCH_IN                 0x0
 #define ITEMEFFECT_NORMAL                       0x1
 #define ITEMEFFECT_MOVE_END                     0x3
@@ -152,6 +339,10 @@ enum ItemEffect
 // Lowest and highest percentages used for damage roll calculations
 #define DMG_ROLL_PERCENT_LO 85
 #define DMG_ROLL_PERCENT_HI 100
+
+// Crit chance exceptions
+#define CRITICAL_HIT_BLOCKED -1
+#define CRITICAL_HIT_ALWAYS  -2
 
 extern const u8 *const gPlayCryanims[];
 
