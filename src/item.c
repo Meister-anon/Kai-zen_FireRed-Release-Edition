@@ -952,3 +952,10 @@ u32 ItemId_GetFlingPower(u32 itemId)
 {
     return gItems[SanitizeItemId(itemId)].flingPower;
 }
+
+bool32 IsHoldEffectChoice(enum HoldEffect holdEffect)
+{
+    return holdEffect == HOLD_EFFECT_CHOICE_BAND
+        || holdEffect == HOLD_EFFECT_CHOICE_SCARF
+        || holdEffect == HOLD_EFFECT_CHOICE_SPECS;
+}

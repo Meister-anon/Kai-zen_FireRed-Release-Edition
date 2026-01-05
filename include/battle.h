@@ -402,8 +402,8 @@ struct SpecialStatus
     
     u8 firstFuturesightHits:1;
     u8 secondFuturesightHits:1;
-    u8 returnedBallMove : 1;
-    u8 BallFetchOriginalTarget : 3;//original target of user to execute chosen move after ability ends
+    u8 returnedBallMove : 1;    //equiv dancerUsedMove
+    u8 BallFetchOriginalTarget : 3;//original target of user to execute chosen move after ability ends //equiv dancerOriginalTarget
     u8 paddSpace:2;
 
     u8 EmptyBlock:8;    

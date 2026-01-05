@@ -38,7 +38,6 @@ bool32 TryResetBattlerStatChanges(u8 battler);
 bool32 CanCamouflage(u8 battlerId);
 void StealTargetItem(u8 battlerStealer, u8 battlerItem);
 bool32 CanStealItem(u8 battlerStealing, u8 battlerItem, u16 item);
-u32 GetHighestStatId(u32 battlerId);
 bool32 ProteanTryChangeType(u32 battler, u32 ability, u32 move, u32 moveType);
 s32 AICalcCritChance(u8 battlerAtk, u8 battlerDef, u32 move, bool32 recordAbility);
 u16 GetNaturePowerMove(void);

@@ -104,6 +104,7 @@ void SortAndCompactTmCase(struct BagPocket * pocket); //comparable function spec
 u8 CountItemsInPC(void);
 void ApplyNewEncryptionKeyToBagItems_(u32 newKey);
 bool8 CheckHasAtLeastOneBerry(void);
+bool32 IsHoldEffectChoice(enum HoldEffect holdEffect);
 
 u16 SanitizeItemId(u16 itemId);
 

@@ -442,7 +442,6 @@ bool32 IsGastroAcidBannedAbility(u16 ability);
 bool32 IsMoldBreakerAffectedAbility(u16 ability); //new addition to clean up get battler ability
 bool32 IsEntrainmentBannedAbilityAttacker(u16 ability);
 bool32 IsEntrainmentTargetOrSimpleBeamBannedAbility(u16 ability);
-bool32 IsBattlerTerrainAffected(u8 battlerId, u32 terrainFlag);
 bool8 IsMoveCounterAttack(u16 move); 
 bool32 CanSleep(u8 battlerId);
 bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget);
@@ -485,6 +484,16 @@ u32 GetMoveSlot(u16 *moves, u32 move); //added w battle ai port
 s32 CalculateMoveDamageAndEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, u16 *typeEffectivenessModifier);
 //learned defined need be on one line, this should be logic for thawing i.e remove frozen status
 //removed fire fang restriction, any heat transafer is good enough
+
+bool32 IsPsychicTerrainAffected(u32 battler, enum Ability ability, enum HoldEffect holdEffect, u32 fieldStatuses);
+bool32 IsMistyTerrainAffected(u32 battler, enum Ability ability, enum HoldEffect holdEffect, u32 fieldStatuses);
+bool32 IsGrassyTerrainAffected(u32 battler, enum Ability ability, enum HoldEffect holdEffect, u32 fieldStatuses);
+bool32 IsElectricTerrainAffected(u32 battler, enum Ability ability, enum HoldEffect holdEffect, u32 fieldStatuses);
+bool32 IsAnyTerrainAffected(u32 battler, enum Ability ability, enum HoldEffect holdEffect, u32 fieldStatuses);
+bool32 IsBattlerTerrainAffected(u32 battler, enum Ability ability, enum HoldEffect holdEffect, u32 fieldStatuses, u32 terrainFlag);
+u32 GetHighestStatId(u32 battler);
+u32 GetParadoxHighestStatId(u32 battler);
+u32 GetParadoxBoostedStatId(u32 battler);
 
 //new custom function, for storing ability timers by battler, 
 //instead of in disable struct so lasts all battle
