@@ -497,24 +497,6 @@ struct FieldTimer
 };//check how I setup roost may not need iondelugetimer here
 //can't make fieldtimers bitfields
 
-struct WishFutureKnock
-{
-    u8 futureSightCounter[MAX_BATTLERS_COUNT]; //these are arrays so not messing with this
-    u8 futureSightCounter2[MAX_BATTLERS_COUNT];
-    u8 futureSightAttacker[MAX_BATTLERS_COUNT];
-    s32 futureSightDmg[MAX_BATTLERS_COUNT]; //not in EE
-    u16 futureSightMove[MAX_BATTLERS_COUNT];
-    u8 wishCounter[MAX_BATTLERS_COUNT];
-    u8 wishPartyId[MAX_BATTLERS_COUNT];
-    u8 weatherDuration:4; //could make bit 4 w padding nothing else to currently match with
-    u8 padding:4;
-    u8 forecastedCurrWeather; //will be 1st weather effect predicted on switchin by forecast, set so can compare effects before set
-    u8 forecastedNextWeather; //will be second weather effect predicted on switchin by forecast
-    u8 knockedOffMons[NUM_BATTLE_SIDES];
-};
-
-extern struct WishFutureKnock gWishFutureKnock;
-
 struct AI_SavedBattleMon
 {
     u16 ability;
@@ -761,14 +743,119 @@ union TRANSPARENT StatChangeFlags
     };
 };
 
+struct Wish
+{
+    u16 counter;
+    u8 partyId;
+};
+
+struct FutureSight
+{
+    u16 move;
+    u16 counter:5;
+    u16 counter2:5;
+    u16 battlerIndex:3;
+    u16 partyIndex:3;
+};
+
+struct WeatherEffects
+{
+    u8 weatherDuration;
+    u8 forecastedCurrWeather; //will be 1st weather effect predicted on switchin by forecast, set so can compare effects before set
+    u8 forecastedNextWeather; //will be second weather effect predicted on switchin by forecast
+};
+
+struct BattlerState
+{
+    u8 targetsDone[MAX_BATTLERS_COUNT];
+
+    u32 commandingDondozo:1;
+    u32 focusPunchBattlers:1;
+    u32 multipleSwitchInBattlers:1;
+    u32 alreadyStatusedMoveAttempt:1; // For example when using Thunder Wave on an already paralyzed Pokémon.
+    u32 activeAbilityPopUps:1;
+    u32 forcedSwitch:1;
+    u32 storedHealingWish:1;
+    u32 storedLunarDance:1;
+    u32 usedEjectItem:1;
+    u32 sleepClauseEffectExempt:1; // Stores whether effect should be exempt from triggering Sleep Clause (Effect Spore)
+    u32 usedMicleBerry:1;
+    u32 pursuitTarget:1;
+    u32 stompingTantrumTimer:2;
+    u32 canPickupItem:1;
+    u32 ateBoost:1;
+    u32 wasAboveHalfHp:1; // For Berserk, Emergency Exit, Wimp Out and Anger Shell.
+    u32 commanderSpecies:11;
+    u32 selectionScriptFinished:1;
+    u32 lastMoveTarget:3; // The last target on which each mon used a move, for the sake of Instruct
+    // End of Word
+    u16 hpOnSwitchout;
+    u16 switchIn:1;
+    u16 fainted:1;
+    u16 isFirstTurn:2;
+    u16 padding:12;
+};
+
+struct PartyState
+{
+    u32 intrepidSwordBoost:1;
+    u32 dauntlessShieldBoost:1;
+    u32 ateBerry:1;
+    u32 battleBondBoost:1;
+    u32 transformZeroToHero:1;
+    u32 supersweetSyrup:1;
+    u32 timesGotHit:5;
+    u32 changedSpecies:11; // For forms when multiple mons can change into the same pokemon.
+    u32 sentOut:1;
+    u32 padding:9;
+    u32 knockedOffItem; //was knock from wishfutureknock struct
+    u16 usedHeldItem;
+    u16 usedSingleUseAbility; //for abilities that activate once per battle - my addition //not bool stores ability too
+    u8 ToxicTurnCounter:5; //MAX_TOXIC_TURNS 16 //change make toxic dmg tracked not reset on switch
+    u8 SleepTimer:3; //MAX_SLEEP_TURNS 5
+    u8 SingleUseAbilityTimers; //rn just for slow start / wonder guard
+    u16 SecondaryItemSlot;//for pickpocket and magician store taken item if already holding item
+
+};//taken from EE may be able to use for 
+//single use effects 
+//my single use ability stuff
+//uses same fields too
+//call
+//GetBattlerPartyState(battler)->intrepidSwordBoost = TRUE;
+
+struct EventStates
+{
+    enum EndTurnResolutionOrder endTurn:8;
+    u32 endTurnBlock:8; // FirstEventBlock, SecondEventBlock, ThirdEventBlock
+    enum BattlerId endTurnBattler:4;
+    u32 arenaTurn:8;
+    enum BattleSide battlerSide:4;
+    enum BattlerId moveEndBattler:4;
+    enum FirstTurnEventsStates beforeFirstTurn:8;
+    enum FaintedActions faintedAction:8;
+    enum BattlerId faintedActionBattler:4;
+    enum MoveSuccessOrder atkCanceler:8;
+    enum BattleIntroStates battleIntro:8;
+    enum SwitchInEvents switchIn:8;
+    u32 battlerSwitchIn:8; // SwitchInFirstEventBlock, SwitchInSecondEventBlock
+    u32 moveEndBlock:8;
+};
+
 //think effects meant to last all battle should go here rather than special status as that is cleared on switch
 //ya know the simplest solution here is just to further buff traps
 //so they aren't cleared when the setting mon switches out...
 //plus that already makes sense for the environment traps
 //they all have timers so just make them free chip damage at the cost
 //of investing in weaker move
+//cleared at start of battle
 struct BattleStruct //fill in unused fields when porting
 {
+    struct BattlerState battlerState[MAX_BATTLERS_COUNT];
+    struct PartyState partyState[NUM_BATTLE_SIDES][PARTY_SIZE];
+    struct EventStates eventState;
+    struct WeatherEffects weatherEffects[MAX_BATTLERS_COUNT];
+    struct FutureSight futureSight[MAX_BATTLERS_COUNT];
+    struct Wish wish[MAX_BATTLERS_COUNT];
     u8 turnEffectsTracker;
     u8 turnEffectsBattlerId;
     u8 debugBattler;
@@ -850,16 +937,11 @@ struct BattleStruct //fill in unused fields when porting
     u8 synchronizeMoveEffect;
     u8 multiplayerId;
     u8 atkCancellerTracker;//almost feels like I should turn these party wide things into their own struct at this point
-    u16 SecondaryItemSlot[PARTY_SIZE][NUM_BATTLE_SIDES];//for pickpocket and magician store taken item if already holding item
     //u16 usedHeldItems[MAX_BATTLERS_COUNT]; //original value below is emerald expansion changed version,  
     u16 usedHeldItems[PARTY_SIZE][NUM_BATTLE_SIDES]; //check may need adjust harvest recycle w setup for 2nd held slot // For each party member and side. For harvest, recycle  //think I"m setup to use this? adjusted all values now
     //can save some space here, this is different from above it doesn't store id of what was used it just does true/false
     //then again as I'm just checking for a positive value if I stored the ability used
     //then I can use this to ensure anticipation/forewarn can't reactivate for a different mon
-    u16 usedSingleUseAbility[PARTY_SIZE][NUM_BATTLE_SIDES]; ///for abilities that activate once per battle - my addition
-    u8 SingleUseAbilityTimers[PARTY_SIZE][NUM_BATTLE_SIDES]; //rn just for slow start / wonder guard
-    u8 ToxicTurnCounter[PARTY_SIZE][NUM_BATTLE_SIDES]; //change make toxic dmg tracked not reset on switch
-    u8 SleepTimer[PARTY_SIZE][NUM_BATTLE_SIDES];
     u16 chosenItem[4]; // why is this an u8?
     u8 AI_itemType[2];
     u8 AI_itemFlags[2];
