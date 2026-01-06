@@ -43,7 +43,8 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectExplosion,
         .battleTvScore = 0, // TODO: Assign points
-    },
+    },//since reworking to be self destruct mindblown
+    //consider put fairy terrain boost as flag on move data
 
     [EFFECT_DREAM_EATER] =
     {

@@ -128,6 +128,58 @@ bool32 IsTypeStellarBoosted(u32 battler, enum Type type)
     else
         return FALSE;
 }
+        return FALSE;
+    }
+    else if (FlagGet(B_FLAG_TERA_ORB_NO_COST))
+    {
+        // Tera Orb is not depleted, go to HasTrainerUsedGimmick
+    }
+    else if (!FlagGet(B_FLAG_TERA_ORB_CHARGED))
+    {
+        return FALSE;
+    }
+
+    // Check if Trainer has already Terastallized.
+    if (HasTrainerUsedGimmick(battler, GIMMICK_TERA))
+        return FALSE;
+
+    // Check if AI battler is intended to Terastallize.
+    if (!ShouldTrainerBattlerUseGimmick(battler, GIMMICK_TERA))
+        return FALSE;
+
+    // Check if battler has another gimmick active.
+    if (GetActiveGimmick(battler) != GIMMICK_NONE)
+        return FALSE;
+
+    // Check if battler is holding a Z-Crystal or Mega Stone.
+    if (!TESTING && (holdEffect == HOLD_EFFECT_Z_CRYSTAL || holdEffect == HOLD_EFFECT_MEGA_STONE)) // tests make this check already
+        return FALSE;
+
+    // Every check passed!
+    return TRUE;
+}
+
+// Returns a battler's Tera type.
+enum Type GetBattlerTeraType(u32 battler)
+{
+    return GetMonData(GetBattlerMon(battler), MON_DATA_TERA_TYPE);
+}
+
+// Uses up a type's Stellar boost.
+void ExpendTypeStellarBoost(u32 battler, enum Type type)
+{
+    if (type < 32 && gBattleMons[battler].species != SPECIES_TERAPAGOS_STELLAR) // avoid OOB access
+        gBattleStruct->stellarBoostFlags[GetBattlerSide(battler)] |= 1u << type;
+}
+
+// Checks whether a type's Stellar boost has been expended.
+bool32 IsTypeStellarBoosted(u32 battler, enum Type type)
+{
+    if (type < 32) // avoid OOB access
+        return !(gBattleStruct->stellarBoostFlags[GetBattlerSide(battler)] & (1u << type));
+    else
+        return FALSE;
+}
 
 // Returns the STAB power multiplier to use when Terastallized.
 // Power multipliers from Smogon Research thread.

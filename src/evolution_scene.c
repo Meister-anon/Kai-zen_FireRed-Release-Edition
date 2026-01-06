@@ -22,7 +22,7 @@
 #include "task.h"
 #include "text_window.h"
 #include "trig.h"
-#include "battle_string_ids.h"
+#include "constants/battle_string_ids.h"
 #include "constants/songs.h"
 #include "constants/pokemon.h"
 

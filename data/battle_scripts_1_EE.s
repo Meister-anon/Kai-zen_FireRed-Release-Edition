@@ -6,7 +6,7 @@
 @#include "constants/battle_arena.h"
 #include "constants/battle_script_commands.h"
 #include "constants/battle_anim.h"
-#include "battle_string_ids.h"
+#include "constants/battle_string_ids.h"
 #include "constants/abilities.h"
 #include "constants/hold_effects.h"
 #include "constants/moves.h"

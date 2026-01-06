@@ -5,7 +5,7 @@
 #include "constants/pokemon.h"
 #include "constants/battle.h"
 #include "constants/battle_effects.h"
-#include "battle_string_ids.h"
+#include "constants/battle_string_ids.h"
 #include "constants/moves.h"
 
 // For defining EFFECT_HIT etc. with battle TV scores and flags etc.

@@ -1,6 +1,6 @@
 #include "global.h"
 #include "gflib.h"
-#include "battle_string_ids.h"
+#include "constants/battle_string_ids.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_util.h"

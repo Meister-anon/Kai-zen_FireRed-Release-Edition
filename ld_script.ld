@@ -78,7 +78,7 @@ SECTIONS {
         src/battle_controller_player.o(.text);
         src/battle_gfx_sfx_util.o(.text);
         src/battle_controller_opponent.o(.text);
-        src/battle_ai_switch_items.o(.text);
+        src/battle_ai_switch.o(.text);
         src/battle_controller_link_opponent.o(.text);
         src/pokemon.o(.text);
         src/trig.o(.text);

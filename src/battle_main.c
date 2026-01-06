@@ -11,7 +11,7 @@
 #include "battle_message.h"
 #include "battle_scripts.h"
 #include "battle_setup.h"
-#include "battle_string_ids.h"
+#include "constants/battle_string_ids.h"
 #include "berry.h"
 #include "data.h"
 #include "decompress.h"

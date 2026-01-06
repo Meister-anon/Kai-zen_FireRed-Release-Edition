@@ -42,7 +42,7 @@
 #include "constants/hold_effects.h"
 #include "constants/abilities.h"
 #include "constants/battle_anim.h"
-#include "constants/battle_move_effects.h"
+#include "constants/battle_effects.h"
 #include "constants/battle_script_commands.h"
 #include "constants/battle_string_ids.h"
 #include "constants/items.h"
