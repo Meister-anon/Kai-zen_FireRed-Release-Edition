@@ -780,7 +780,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_SPICY_EXTRACT,
     EFFECT_TERA_BLAST,
     EFFECT_TERA_STARSTORM,
-    EFFECT_DRAGON_DARTS,
+    //EFFECT_DRAGON_DARTS, EE replaced w hit just did effect with unique target value instead
     EFFECT_SHELL_SIDE_ARM,
     EFFECT_ORDER_UP,
     EFFECT_RAPID_SPIN,

@@ -576,6 +576,11 @@ static inline u32 GetTwoTypedMove2ndType(u32 moveId)
     return GetMoveStoredValue(moveId);
 }
 
+static inline u32 GetMoveArgType(u32 moveId)
+{
+    return GetMoveStoredValue(moveId);
+}
+
 static inline u32 GetMoveFixedDamage(u32 moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].argument.fixedDamage;

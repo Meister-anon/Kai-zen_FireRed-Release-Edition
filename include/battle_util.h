@@ -141,6 +141,36 @@ static inline bool32 PreventsRedirection(u32 battlerAtk, u32 move)
     return FALSE;
 }
 
+static inline u32 GetAbilityTimer(enum Ability ability)
+{
+    switch (ability)
+    {
+        case ABILITY_SLOW_START:
+            return 3;
+        break;
+        case ABILITY_WONDER_GUARD:
+            return 4; //might use 5
+        break;
+        
+        case ABILITY_SPECTRE:
+            return 2;
+        break; //causes memory corruption to rear its head, I give up
+        //I'm gonna just swap to modern fix everything as it builds and pray to GOD 
+        //I find the damned source of the issue
+        //awesome fixes from building modern was able to address memory corruption
+        //linked w this at least
+        //still need test make sure effects still work, (believe they should)
+
+    }
+}
+
+//missing include
+static inline void SetSingleUseAbilityValues(u32 battler, enum Ability ability)
+{
+    GetBattlerPartyState(battler)->SingleUseAbilityTimers = GetAbilityTimer(ability);
+    GetBattlerPartyState(battler)->usedSingleUseAbility = ability;
+}
+
 //ok fog already blocks redirection from above
 //with far more reliable exclusions
 //don't want/need too many blocks here

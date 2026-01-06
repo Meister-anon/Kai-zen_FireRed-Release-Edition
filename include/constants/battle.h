@@ -564,12 +564,13 @@ infatuation again
     F(VOLATILE_INFESTATION,                 infested,                      (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_FLINCHED,                    flinched,                      (u32, 1)) \
     F(VOLATILE_UPROAR,                      uproarTurns,                   (u32, 3)) \
-    F(VOLATILE_DRAGON_RAGE,                 drgonrage,                     (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_DRAGON_RAGE,                 dragonrage,                    (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_EMERGENCY_EXIT,              emergencyExit,                 (u32, 1)) \
     F(VOLATILE_TORMENT,                     torment,                       (u32, 1)) \
     F(VOLATILE_BIDE,                        bideTurns,                     (u32, B_BIDE_TURNS)) \
-    F(VOLATILE_SWITCH_LOCKED,               switchlocked,                  (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_SWITCH_LOCKED,               switchlocked,                  (u32, 2 + 1), V_BATON_PASSABLE) \
     F(VOLATILE_RAMPAGE_TURNS,               rampageTurns,                  (u32, B_RAMPAGE_TURNS)) \
+    F(VOLATILE_DRAGON_RAGE_COUNTER,         dragonrageCounter,             (u32, MAX_DRAGON_RAGE_COUNTER), V_BATON_PASSABLE) \
     F(VOLATILE_MULTIPLETURNS,               multipleTurns,                 (u32, 1)) \
     F(VOLATILE_WRAPPED,                     wrapped,                       (u32, 1)) \
     F(VOLATILE_POWDER,                      powder,                        (u32, 1)) \
@@ -638,7 +639,7 @@ infatuation again
     F(VOLATILE_STOCKPILE_BEFORE_SP_DEF,     stockpileBeforeSpDef,          (u32, MAX_STAT_STAGE)) \
     F(VOLATILE_INGRAIN_TURN,                ingrainTurn,                   (u32, MAX_INGRAIN_AQUA_RING_TURNS)) \
     F(VOLATILE_AQUA_RING_TURN,              aquaringTurn,                  (u32, MAX_INGRAIN_AQUA_RING_TURNS)) \
-    F(VOLATILE_RAGE_COUNTER,                rageCounter,                  (u32, MAX_RAGE_BOOST_COUNTER)) \
+    F(VOLATILE_RAGE_COUNTER,                rageCounter,                   (u32, MAX_RAGE_BOOST_COUNTER)) \
     F(VOLATILE_SUBSTITUTE_HP,               substituteHP,                  (u32, UINT8_MAX)) \
     F(VOLATILE_ENCORED_MOVE_POS,            encoredMovePos,                (u32, MAX_BITS(MAX_MON_MOVES))) \
     F(VOLATILE_DISABLE_TIMER,               disableTimer,                  (u32, B_DISABLE_TIMER + 1)) \
@@ -650,13 +651,11 @@ infatuation again
     F(VOLATILE_BATTLER_PREVENTING_ESCAPE,   battlerPreventingEscape,       (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT))) \
     F(VOLATILE_BATTLER_WITH_SURE_HIT,       battlerWithSureHit,            (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT))) \
     F(VOLATILE_MIMICKED_MOVES,              mimickedMoves,                 (u32, MAX_BITS(MAX_MON_MOVES))) \
-    F(VOLATILE_RECHARGE_TIMER,              rechargeTimer,                 (u32, 3)) \
+    F(VOLATILE_RECHARGE_TIMER,              rechargeTimer,                 (u32, 1)) \
     F(VOLATILE_AUTOTOMIZE_COUNT,            autotomizeCount,               (u32, UINT8_MAX)) \
     F(VOLATILE_SLOW_START_TIMER,            slowStartTimer,                (u32, B_SLOW_START_TIMER + 1)) \
-    F(VOLATILE_EMBARGO_TIMER,               embargoTimer,                  (u32, B_EMBARGO_TIMER + 1)) \
     F(VOLATILE_MAGNET_RISE_TIMER,           magnetRiseTimer,               (u32, B_MAGNET_RISE_TIMER + 1)) \
     F(VOLATILE_TELEKINESIS_TIMER,           telekinesisTimer,              (u32, B_TELEKINESIS_TIMER + 1)) \
-    F(VOLATILE_HEAL_BLOCK_TIMER,            healBlockTimer,                (u32, B_HEAL_BLOCK_TIMER + 1)) \
     F(VOLATILE_TAUNT_TIMER,                 tauntTimer,                    (u32, B_TAUNT_TIMER + 1)) \
     F(VOLATILE_TORMENT_TIMER,               tormentTimer,                  (u32, B_TORMENT_TIMER + 1)) \
     F(VOLATILE_LASER_FOCUS_TIMER,           laserFocusTimer,               (u32, B_LASER_FOCUS_TIMER + 1)) \
@@ -950,6 +949,9 @@ enum BattleWeather
 #define WEATHER_LOW_LIGHT     (WEATHER_FOG | WEATHER_ICY_ANY | WEATHER_RAIN_ANY | WEATHER_SANDSTORM | WEATHER_MOON | WEATHER_ACID_RAIN)
 #define WEATHER_PRIMAL_ANY    (WEATHER_RAIN_PRIMAL | WEATHER_SUN_PRIMAL | WEATHER_STRONG_WINDS)
 
+#define WEATHER_RAIN_ALL    (WEATHER_RAIN_ANY | WEATHER_ACID_RAIN)
+#define WEATHER_LIGHT_BASED (WEATHER_SUN_ANY | WEATHER_MOON)
+#define WEATHER_ICE_SAND    (WEATHER_ICY_ANY | WEATHER_SANDSTORM)
 
 // Explicit numbers until frostbite because those shouldn't be shifted
 enum __attribute__((packed)) MoveEffect

@@ -133,7 +133,7 @@ enum __attribute__((packed)) HoldEffect
     HOLD_EFFECT_ABILITY_SHIELD,
     HOLD_EFFECT_CLEAR_AMULET,
     HOLD_EFFECT_MIRROR_HERB,
-    HOLD_EFFECT_PUNCHING_GLOVE, // may buff this and custom equiv too weak on its own and still not meta even w iron fist mon lower than choice barely equal life orb boost
+    HOLD_EFFECT_PUNCHING_GLOVE, // may buff this (Done buffed 5%) and custom equiv too weak on its own and still not meta even w iron fist mon lower than choice barely equal life orb boost
     HOLD_EFFECT_COVERT_CLOAK,
     HOLD_EFFECT_LOADED_DICE,
     HOLD_EFFECT_BOOSTER_ENERGY,
