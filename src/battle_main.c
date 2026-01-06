@@ -228,10 +228,40 @@ EWRAM_DATA u8 gCatchTargetId = 0xFF; //set to FF so not accidentally trigger on 
 EWRAM_DATA u16 gLastUsedBall = 0;    //need to implement add in these 2 somewhere //removed glastthrownball make htis u16
 //EWRAM_DATA u16 gLastThrownBall = 0; //don't need both of these removing, search this to setup throw ball callback in battle
 EWRAM_DATA bool8 gSwapDamageCategory = FALSE; // Photon Geyser, Shell Side Arm, Light That Burns the Sky
-EWRAM_DATA struct FormDataStorage gFormSwapMoveBuffer[PARTY_SIZE][MAX_FORM_DATA_STORED] = {0};
+EWRAM_DATA struct FormDataStorage gFormSwapBuffer[PARTY_SIZE] = {0};
 //store data for mon long as its in party
 //if put in pc free the space/reset to 0 for said slot
 //only attempt store data for mon if it has a form
+
+
+/*
+2 slots 0 for base form, 1 for alt form
+will need logic to tell it which slot I should be using
+think best use species check hey is mon base form use base form slot
+when selecting form from party menu otherwise use alt slot.
+also
+to save on memory think will not store data at all
+unless mon has an alt form that I'm currently able to swith to.
+i.e if I have a form I can use and form option menu is on party menu 
+-rotom but also the item needed for rotom to change form
+
+then I should buffer base form data when I put said mon into the party
+think that's better than having to do every time open party menu.
+
+That would just be storing the base form data, 
+as when initial switch to alt form it should just copy base form data
+will need some specific logic for mon like rotom that have multiple alt forms (castform doesn't count for this)
+alt form struct data is assigned at specific time I"m changing what should be a stored value on a form mon
+i.e moves ev alloation
+
+thing I stil need to come up with logic for is,
+what to do when switching between alt form to alt form
+if I keep moves from pprevious form could result in illegal movesets
+guess I just have to reset move data back from base form
+somewhat annoying but guess makes sense
+
+ev allocation can carry over from previous form tho
+*/
 
 COMMON_DATA void (*gPreBattleCallback1)(void) = NULL;
 COMMON_DATA void (*gBattleMainFunc)(void) = NULL;

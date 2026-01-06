@@ -435,7 +435,9 @@
 #define ABILITY_BRAVERY 403  //keldeo version justified
 #define ABILITY_FUGUE 404   //wow this being 404 is so appropriate lmao, malamar new signature ability confusion & sleep always max turns
 #define ABILITY_CRYOSTORM 405 //for separating hail ability from snow ability
-#define ABILITY_NA 406
+#define ABILITY_SECRET_ARTS 406 //shadow mega greninja ability part no guard part unseen fist to break protect and guard
+
+#define ABILITY_NA 407
 #define ABILITIES_COUNT ABILITY_NA //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

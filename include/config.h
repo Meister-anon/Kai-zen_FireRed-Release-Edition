@@ -68,6 +68,7 @@
 #define BUGFIX
 #define UBFIX
 #define SPECIES_NAME_EXPANSION
+#define NEW_MEGA_FORMS //add data for new megas using gigantimax sprites/forms etc.
 
 #define GEN_9 0
 

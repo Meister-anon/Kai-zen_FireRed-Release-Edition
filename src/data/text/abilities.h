@@ -3534,5 +3534,12 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Makes sleep and confusion more effective\nagainst targets. Always max turns."),
         .aiRating = 4,
     },
+
+    [ABILITY_SECRET_ARTS] =
+    {
+        .name = _("Secret Arts"),
+        .description = COMPOUND_ABILITY_STRING("Ignores target guard mode. Contact moves\nup to 75 power also evade protection."),
+        .aiRating = 5,
+    }
 };
 

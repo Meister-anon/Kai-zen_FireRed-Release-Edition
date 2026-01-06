@@ -103,6 +103,21 @@
 #define B_FLAG_NO_BAG_USE           0     // If this flag is set, the ability to use the bag in battle is disabled.
 #define B_FLAG_NO_CATCHING          0     // If this flag is set, the ability to catch wild Pok�mon is disabled.
 
+struct Formdata
+{
+    u16 species;
+    u16 FormChangeMoveset[4];
+    u16 evs[6];
+};//to match what player do potentailly need add ability and evs field
+//if change moves reset pp i.e only reset pp if move slot move has changed
+//vsonic
+//attempt simplify call for form info in trainer party
+//unsure how to write this
+//think may need to rework trainer party
+//will need acount for both form change data
+//AND learned abilities
+//idea check list if given ability is not within learned
+//ability list default to random inate ability
 
 
 /*there isn't really much reason to have more structs than just TrainerMonItemCustomMoves, since I've fixed the move error
@@ -135,13 +150,38 @@ struct TrainerMonPartyData
     u16 species;
     u16 heldItem;
     u8 abilityNum;
-    u8 iv;
-    u16 evs[6];
-    u8 lvl;    
     u8 padding;
+    u16 evs[6];
+    u8 iv;    
+    u8 lvl;    
     u16 moves[4];
+    struct Formdata FormInfo;
 };
 
+/*struct TrainerMonFormChangeFullCustom
+{
+    u8 iv;
+    u16 evs[6];
+    u8 lvl;
+    u8 abilityNum;
+    u16 species;
+    u16 heldItem;
+    u16 moves[4];
+    struct Formdata FormInfo;
+};*/
+//need store both form species and form moveset
+//think do with an array instead?
+//FormChangeMoveSet won't be triggered at battle start
+//it'll just be a place I refer to for the moves when it form changes
+//mid battle.
+//thing I'm unsure of is if I can properly trace the mon placement
+//from this?
+//idea is if I have identical species etc.
+//but mon switch, if I can correctly track
+//what moves it would have for form given switching
+//check form change logic in EE to see how it knows 
+//which to transform but prob only one has mega stone etc.
+//and I've removed the need for mega stones...
 
 struct Trainer
 {
@@ -895,7 +935,7 @@ struct BattleStruct //fill in unused fields when porting
     bool8 effectsBeforeUsingMoveDone:1; // Mega Evo and Focus Punch/Shell Trap effects.  //adding to hopefully fix bind not working on switch-in
     u8 attackerBeforeBounce : 2;
     u16 overwrittenAbilities[MAX_BATTLERS_COUNT];    // abilities overwritten during battle (keep separate from battle history in case of switching)
-    u8 battleBondTransformed[NUM_BATTLE_SIDES]; // Bitfield for each party.
+    u8 usedExclusiveFormGimmick[NUM_BATTLE_SIDES];// Bitfield for each party. //for my use mega or primal reversion since only 1 per battle tobe activated on switchin or turn use
     u8 pursuitTarget:4; // Each battler as a bit.
     u8 pursuitSwitchByMove:1;
     u8 pursuitStoredSwitch; // Stored id for the Pursuit target's switch

@@ -836,6 +836,7 @@ static const u16 sGenesectFormSpeciesIdTable[] = {
 static const u16 sGreninjaFormSpeciesIdTable[] = {
     SPECIES_GRENINJA,
     SPECIES_GRENINJA_ASH, //nvm COULD remove battle bond gren just needed adjust form change values to allow use norm gren w batle_bond
+    SPECIES_GRENINJA_MEGA,
     FORM_SPECIES_END,
 };
 
