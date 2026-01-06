@@ -11447,6 +11447,9 @@ static void Cmd_normalisebuffs(void)
 //at 2 rather than boosted - vsonic
 //added fail condition to script so don't 
 //need filter condition here now
+//script and command is setup but
+//custom effect is not
+//vsonic
 static void Cmd_setbide(void)
 {
     CMD_ARGS();

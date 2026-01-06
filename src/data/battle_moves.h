@@ -15921,12 +15921,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DRAGON_DARTS] =
     {
-        .effect = EFFECT_DRAGON_DARTS, //TODO   //weird effect, rather than double target, is a single target move that moves on to the next target after landing, think can use intimidate logic
+        .effect = EFFECT_HIT, //TODO   //weird effect, rather than double target, is a single target move that moves on to the next target after landing, think can use intimidate logic
         .power = 50,
         .type = TYPE_DRAGON, //I can chese this actually, since single target effects only hit single target, make target both, and specific bs command for it, put effect in multihit 
         .accuracy = 100, //switch case, and have it read the number of enemies on enemy side, if 2 set to 1 hit, if 1 set to 2 hits
         .pp = 10,
-        .target = TARGET_SELECTED,
+        .target = TARGET_SMART,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .strikeCount = 2,
@@ -20029,12 +20029,12 @@ use wonder gaurd logic to determine its super effective
     //name pending
     [MOVE_SHADOW_STRIKE] =
     {
-        .effect = EFFECT_DRAGON_DARTS,
+        .effect = EFFECT_HIT,
         .power = 25,
         .type = TYPE_DARK, //I can chese this actually, since single target effects only hit single target, make target both, and specific bs command for it, put effect in multihit 
         .accuracy = 100, //switch case, and have it read the number of enemies on enemy side, if 2 set to 1 hit, if 1 set to 2 hits
         .pp = 5,
-        .target = TARGET_SELECTED,
+        .target = TARGET_SMART,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .strikeCount = 4,
