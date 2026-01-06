@@ -164,13 +164,16 @@ struct BoxPokemon
     
     
     u8 otName[OT_NAME_LENGTH]; //odd name length so believe makes even again
-    u8 padding;
+    u8 cuteRibbon:3;
+    u8 toughRibbon:3;
+    u8 victoryRibbon:1; //this and winning ribbon //these two for emerald battle tower
+    u8 padding:1;
     
     u8 language:3; // 7 languages
     u8 nature:5;  // 1-0xF is the timer. 0x10 is set when timer runs out  //single byte think odd, think will reset back to EE way so doesn't potentially affect nature set odds/distribution
     u8 isMonShiny:1; //potentially replace w removal of checksum? //yeah can get rid of this its all determined by checksum replace w shiny set
     u8 isEgg:1;
-    u8 freespace:1; //made more space for padding
+    u8 winningRibbon:1; //made more space for padding
     u8 storedviaMobilePc:1; //for tracking if mon came from mobile pc for hp reconsiliation
     u8 metGame:4;    //byte 29?
     //byte 30? so even again - ok perfect so should be able to add u16 below this to not add extra padding
@@ -182,11 +185,27 @@ struct BoxPokemon
 
     u32 species:11;
     u32 heldItem:10; //looks like both of these will be bit 10
-    u32 winningRibbon:1; //these two for emerald battle tower
-    u32 victoryRibbon:1;
-    u32 cuteRibbon:3;
-    u32 smartRibbon:3;
-    u32 toughRibbon:3;
+    //don't need bit 11 for this just that's the freed space
+    //default ev count can fit in bit 9
+    //so at most I guess I'd need bit 10 for this,
+    //if I realy needed to free up more space
+    //so new idea is all mon give flat evs on death
+    //but you have to pay to allocate them
+    //using or holding a training item
+    //would auto allocate gained evs directly to a stat
+    //think what I'll do is keep ev gain invisible
+    //and then have a point in the game where I explain the system
+    //and show players how to access menu etc.
+    //think will be like other sum screen stuff just press start
+    //on specific page but guess have flag check or new game plus mode
+    //so its not activated by accident
+    //makes first playthrough harder but also makes
+    //new game plus more things to work with from start
+    //think will do at the saffron fighting gym
+    //after beating gym have an npc sell training items from there
+    //planning same thing for erica's gym but berry stuff
+    //vsonic important
+    u32 totalUnallocatedEvs:11;//couple ways can do, pay to set or only pay to respec if former ev items bypass cost and auto set for free would require reset base stats exp yield thankfully didn't delete bs values would just need regexsub to make general evs
  
     u8 ppBonuses;
     u8 otGender:1;
@@ -201,9 +220,10 @@ struct BoxPokemon
         //think I can make space by turning this into bit field
     //has sub 400 abilties rn with everything if I make bit 9 can hold 512 max
     //then move some ribbons in to fill space
-    u16 LearnedAbilityId:9; //after all done may add byte back to this to give more space for cap at 10 would be +1k
+    //added back type to abilityId since curr abilities are at 400
+    u16 LearnedAbilityId:10; //after all done may add byte back to this to give more space for cap at 10 would be +1k
     u16 beautyRibbon:3;
-    u16 freeblank:4;
+    u16 smartRibbon:3;
 
     u32 hpIV:5;
     u32 attackIV:5;
@@ -244,7 +264,6 @@ struct BoxPokemon
     u8 smart;
     u8 tough;
 
-
 };
 //wil use bit fields to cut down on substruct stuff on rec
 //from josh/shinydragonhunter
@@ -272,7 +291,27 @@ enum StatsSetState
 //...but there's literally no where else to put it
 //yeah go ahead and use the space, its necessary for
 //4 byte allignment anyway
+
 //looks weird but keep struct at top rather than bottom for sake of match
+//form species change don't put in pokemon struct
+//just make its own buffer store one value
+//don't need for entire party as only one mon can activate anyway
+//potentially change mail to bitstruct
+//use 1 bit for is formbuffer active
+//that way can know to load relevant data from form buffer
+//instead of pokemon struct
+//to ensure buffer not accidentally overwritten
+//store species of form changed into
+//and personality so I know regardless of slot position
+//which mon it is
+//and only to reset values stored to form buffer
+//if species and or personality differ from what's inside
+//store both only for rare chance have multiple of the same species
+//in party able to formchange into same form stored
+//...but in that case would need identifier so dont
+//form change wrong one... *facepalm
+//sigh ok now need make a paryt menu symbol or icon
+//for form stored mon
 struct Pokemon
 {
     struct BoxPokemon box; //size of this is size of mon in box, so multiply by mon in box x number of boxes to get size boxes take
@@ -291,6 +330,8 @@ struct Pokemon
     u8 padding:3;//not just lvl up from exp function need update eviolite and everstone remove evo block logic
     u8 level;
     u8 mail; //remove mail   vsonic
+    //u8 isFormbufferActive:1; //replacement for mail
+    //u8 freespace:7;
     u8 padspace;
    
 };//ok with the stuff I added
@@ -309,8 +350,174 @@ struct Pokemon
 //seems fine, even EE doens't have extra things
 //stored to pokemon struct
 
-bool32 CanEvolve(u32 species);
 
+
+//believe put formchange stuff here
+//thikn long as keep out of boxPokemon
+//will be able to add on but not take up ewram
+//needed for pc expansion
+//need 4 u16 for move and pp data
+//ivs will stay same but want Evs to be unique for form
+//initial just copy ev from base form to form ev
+//but allow changes to be made to form evs
+//that won't track to base on revert
+//but then again if dont change 
+//would want to keep evs gained when in form...
+
+//being able to put my form stuff directly on the
+//pokemon would be much easier and remove need
+//for form buffer
+//slightly annoying that it would 
+//add on stuff that not every mon could use
+//but functionally worthwhile,
+//and consistent i.e not every mon can evolve
+//and yet evo data is on basestats struct
+//vsonic important since form have different learnset
+//will need to adjust trainer party data struct for forms
+//if mon should mega evolve it'll need a separate move set
+//for mega form think keep megas to single ability
+//much simpler to deal with
+
+
+//note plan for this was store base form and form to change into
+//but realized there are mon with more than 1 mega form
+//and without requiring mon to hold specific mega stone to
+//determine the form to change into will need some other determinator
+//maybe should make 3 slots have them be numbered by form?
+//0 be base form
+//1 be first mega form ex charizard x
+//2 be 2nd mega form ex charizard y ?
+//and when its trying to transform mid battle,
+//it should read slot 1 and 2 for said pokemon
+//and transform based on whichever one is NOT empty/NULL?
+//or just move1 isn't 0? since I can just check first byte value?
+//will need to make sure to 0 out the data at the party slot
+//for a mon removed from the party either via trade, daycare or pc
+//vsonic
+struct FormDataStorage {
+    u16 move1:10;
+    u16 pp1:6;
+    u16 move2:10;
+    u16 pp2:6;
+    u16 move3:10;
+    u16 pp3:6;
+    u16 move4:10;
+    u16 pp4:6;
+
+    //idea ev duplicate for forms
+    //so its not lost when boxed
+    //is much more a pain to reset evs than moves
+    //after you change forms
+    u32 Form_hpEV:9; //FACEPALM I never adjusted these for the new cap!!! //max per stat 360
+    u32 Form_attackEV:9; //wich is bit 9
+    u32 Form_defenseEV:9;    
+    u32 abilityNum:2;
+    u32 blank:3;
+
+    u32 Form_speedEV:9; //FACEPALM I never adjusted these for the new cap!!! //max per stat 360
+    u32 Form_spAttackEV:9; //wich is bit 9
+    u32 Form_spDefenseEV:9;  
+    u32 HiddenPowerType:5;  //perfectly fits free space, add in case want to change
+    
+   //goes over ewram cap
+   //belive applying compression update can save
+   //me enough ewram to add this for form update
+   //found way to fix do fangame style ev respec
+   //can allocate from the pool of available unallocated evs
+   //just need a single u16 field to keep track of unallocated evs
+   //works against idea of evs only given via macho bracer
+   //as if a mon is used in mega form it couldn't gain evs
+   //so will combine, make ev items proper way to train
+   //but think fighting any mon will give a single ev
+   //to unallocated evs?
+   //Setting evs through respec/allocation will cost money
+   //but a flat amount per respec rather than based on
+   //how many evs you're moving think 10-15k
+   //but using an ev item will directly allocate evs
+   //to the desired stat
+   //by default copy mon's exact ev distriution when change forms
+   //then allow to respec and save specific distribution for said form
+   //seems odd to have so many differences i.e full ev change and moves
+   //but think about like full transformation it makes sense
+   //its all the same things that change with use of transform
+
+    u8 ppBonuses;    //potentially remove for space and simplicity, lost on boxing so not much point
+    u8 blankspace; //if give megas hidden ability then I need to store abilityNum so that reverts correctly too
+    u16 species;
+    u32 personality;
+
+};
+//8 x 4 =32  x 6 = 130 bytes
+//guess should be 10 bytes total
+//then storage is that times 2
+//for entire party
+//so 120? (actual is 144)
+//wondering if i need pp fields as well here? unsure how pp decrement/storage works rn
+//base game uses ppbonus in single u8 so 
+//guess I don't need a field for each move?
+
+//put buffer in ewram would prefer to dynamically allocate
+//memory but I'm bad with that
+//plan is to get it working as is,
+//then attempt make dynamic
+#define MAX_FORM_DATA_STORED 2
+
+#define BASE_FORM 0
+#define CHANGED_FORM 1
+//realied don't need make extra slot 
+//I just need to store species in form data
+//in task I can chose which species I want to form change to
+//of those available simple.
+
+//its only charizard and mewtwo that have 2 mega forms
+//and thankfully they are both X / Y forms
+
+//for battle transform first check if has more than 1 mega form
+//or just check base species yeah that's simpler, no loop involved
+//just transform if not divergengt species
+//otherwise loop form space starting from value 1, to 2
+//and if non 0 break and just transform into that form
+//but how does that tell it what species to turn into?
+//need to figure that out, since I guess I want to add dynamax?
+//hmm but I"m turning gigantimax into new meags so that doesn't work
+//well I guess it can just go through the form change table
+//if the only forms are mega and primal reversion?
+//and mon that have other forms i.e hoopa tornadus etc.
+//don't have megas so I guess that would work
+//so think would nee to take mega form value and do - 1
+// to find correct species in table?
+//or I can change table lookup, so it can use mega form number
+//in said lookup
+//param 1 has the item  to transform, 
+//param 2 data filled in for form buffer slot
+//but then that would mean can't use it unless you've 
+//actually set moves beforehand...? idk
+//its how you should do it but idk if its how you need to?
+
+
+//meant to store move info for mon swaping between forms,
+//ex base moves w pp bonus for base form and set moves for alt form
+//so can keep assigned moves between forms,
+//resets when goes in box
+//need assignn memory think will make ewram value?
+//putting in battle main set from overworld
+//but will be accessed in battle so fine
+//form variable will be directly set by function accessing array/value
+//will have task to check if can change form, 
+//loop party for single use form i.e mega/primal reversion
+//depending on what forms the mon in question has
+//if mon has a mega loop party check if mega/primal species is in party
+//note mon revert on enter pc
+//after that works can have unique learnsets for forms
+//had wrong idea can work for anymon in party don't need store for EVERY
+//mon in party wait actually no I do need it for every mon
+//just don't need the extra 2 form stuff
+//needed for every so can store data for any mon
+//so any mon can be viable to form change
+extern struct FormDataStorage gFormSwapBuffer[PARTY_SIZE];
+
+
+bool32 CanEvolve(u32 species);
 u8 GetLevelFromMonExp(struct Pokemon *mon);
 u16 ModifyStatByNature(u8 nature, u16 stat, u8 statIndex);//made global for bs command level up calc
 u8 GetMonHiddenPowerType(struct Pokemon *mon); //simplified call
@@ -722,49 +929,6 @@ struct FormChange {
     u16 param3; //new adition from emerald logic
 }; //may change based on how I use forms
 
-struct FormDataStorage {
-    u16 move1:10;
-    u16 pp1:6;
-    u16 move2:10;
-    u16 pp2:6;
-    u16 move3:10;
-    u16 pp3:6;
-    u16 move4:10;
-    u16 pp4:6;
-
-    u8 ppBonuses;    
-    u8 abilityNum; //if give megas hidden ability then I need to store abilityNum so that reverts correctly too
-
-};
-//guess should be 10 bytes total
-//then storage is that times 2
-//for entire party
-//so 120? (actual is 144)
-//wondering if i need pp fields as well here? unsure how pp decrement/storage works rn
-//base game uses ppbonus in single u8 so 
-//guess I don't need a field for each move?
-
-//put buffer in ewram would prefer to dynamically allocate
-//memory but I'm bad with that
-//plan is to get it working as is,
-//then attempt make dynamic
-#define MAX_FORM_DATA_STORED 2
-
-//meant to store move info for mon swaping between forms,
-//ex base moves w pp bonus for base form and set moves for alt form
-//so can keep assigned moves between forms,
-//resets when goes in box
-//need assignn memory think will make ewram value?
-//putting in battle main set from overworld
-//but will be accessed in battle so fine
-//form variable will be directly set by function accessing array/value
-//will have task to check if can change form, 
-//loop party for single use form i.e mega/primal reversion
-//depending on what forms the mon in question has
-//if mon has a mega loop party check if mega/primal species is in party
-//note mon revert on enter pc
-//after that works can have unique learnsets for forms
-extern struct FormDataStorage gFormSwapMoveBuffer[PARTY_SIZE][MAX_FORM_DATA_STORED];
 
 //replaces front_pic_table back_pic_table front_pic_coordinates back_pic_coordinates pokemon_icon.c arrays palette_table  & shiny_palette_table
 struct SpeciesGraphicInfo 

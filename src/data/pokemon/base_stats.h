@@ -47115,7 +47115,10 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGreninjaLevelUpLearnset,
         .tmhmLearnset = sGreninjaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//does battle bond still work as a form change abilty
+    //balance wise well with my form change refactor you could just start
+    //battle with it.  but idea you have to get a kill
+    //with base gren before transforming is a bit worrying
 
     [SPECIES_VIVILLON_POLAR] =
     {
@@ -51615,6 +51618,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSnorlaxLevelUpLearnset,
         .tmhmLearnset = sSnorlaxTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .flags = SPECIES_FLAG_MEGA_FORM,
     },//plan graphic buddhist wheel of life/existence
     //mega form for snorlax give comatose and boost sp atk.
     //should let fire off snore without needing to be full asleep
@@ -51624,6 +51628,53 @@ const struct BaseStats gBaseStats[] =
     //Due to this its energy is rumored to be boundless
     //make normal psychic
     //eyes still closed but 3rd eye open
+
+    [SPECIES_GRENINJA_MEGA] =
+    {
+        .speciesName = _("Greninja"),
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(
+        72,
+        140,
+        72,
+        132,
+        113,
+        111
+        ),
+        MON_TYPES(TYPE_WATER, TYPE_DARK),
+        .catchRate = 45,
+        .expYield = 288,
+        //.evYield_Speed = 3,
+        .genderRatio = MON_MALE,
+        .eggCycles = 20,
+        .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroup1 = EGG_GROUP_UNDISCOVERED,
+        .eggGroup2 = EGG_GROUP_UNDISCOVERED,
+        .abilities = {ABILITY_SECRET_ARTS, ABILITY_SECRET_ARTS},
+        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BLUE,
+        .noFlip = FALSE,
+        .floating = FALSE,
+        .safariZoneFleeRate = 50,
+        .abilityLearnset = NULL,
+        .levelUpLearnset = sGreninjaLevelUpLearnset,
+        .tmhmLearnset = sGreninjaTMHMLearnset,
+        .evolutions = NULL, //Should hopefully blank these for now without issue
+        .flags = SPECIES_FLAG_MEGA_FORM,
+    },
+    //leave ash gren as itself just treat like a mega
+    //make unique form
+    //since dark no longer resists dark, 
+    //sucker punch is a threat
+    //prob needs setup psychic terrain or anti priority effects
+    //unsure if boost should go to sp def or physical def
+    //idea is its shadows protect it and absorb attacks
+    //its special weaknesses are electricity and fairy and grass
+    //physical weaknesses are fighing and bug
+    //unsure if this should be mega and ash gren should be z or what
+
 
     [SPECIES_CEFIREON] =
     {

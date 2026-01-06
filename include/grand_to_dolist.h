@@ -4360,6 +4360,27 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
       formchangedata[partyslot][2byte mondata] 0 = baseform, 1 = altform
       store moves w pp bonus pass zero to alt form for pp bonus
+
+      form data that needs to be stored is in FormDataStorage
+      data stored in gFormSwapBuffer
+
+      for setup need get all relevant forms that should 
+      have material forms/differences
+      and update base stats file so they all have 
+      unique ability levelup and tmhm learnset
+      can take form species name put in a list
+      and then just replace the base name for the array
+
+      overall would need to copy all the existing stuff over
+      or something until I make new values
+      should be able to do with python script
+
+      get species forms from form_change_table_pointers.h
+      and cross reference with learnedabilties file names
+      or base stats
+      add rest of planned mega species consants and base stats
+
+
     )
     5/8/2025 VERY IMPORTANT NOTE
 

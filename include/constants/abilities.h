@@ -443,6 +443,7 @@
  ABILITY_BRAVERY,  //keldeo version justified
  ABILITY_FUGUE,   //wow this being #404 is so appropriate lmao, malamar new signature ability confusion & sleep always max turns
  ABILITY_CRYOSTORM, //for separating hail ability from snow ability
+ ABILITY_SECRET_ARTS, //shadow mega greninja ability part no guard part unseen fist to break protect and guard
  ABILITIES_COUNT //   ability count is last ability number +, since we have to count ability,
 };
 

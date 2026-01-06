@@ -1585,8 +1585,9 @@
 //New Mega Forms will put meags
 #define SPECIES_TORTERRA_MEGA				        FORMS_START + 355
 #define SPECIES_MAROWAK_MEGA                FORMS_START + 356
-#define SPECIES_SNORLAX_MEGA                FORMS_START + 357    
-#define SPECIES_EGG                         FORMS_START + 358   //add avoid extra copy paste
+#define SPECIES_SNORLAX_MEGA                FORMS_START + 357
+#define SPECIES_GRENINJA_MEGA               FORMS_START + 358
+#define SPECIES_EGG                         FORMS_START + 359   //add avoid extra copy paste
 
 #define NUM_SPECIES SPECIES_EGG	//Num species determins number dex entries now instead of pokemon slots
 //for base stats space saving, put all cosmetic forms at end of list
