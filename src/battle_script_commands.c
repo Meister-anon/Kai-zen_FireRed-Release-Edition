@@ -3737,6 +3737,10 @@ void SetMoveEffect(u32 battler, u32 effectBattler, enum MoveEffect moveEffect, c
             gBattlescriptCurrInstr = battleScript;
         }
         break;
+    case MOVE_EFFECT_CRIT_PROTECTION:
+        gProtectStructs[gBattlerAttacker].blockcrit = TRUE;
+        gBattlescriptCurrInstr = battleScript;
+        break;
     case MOVE_EFFECT_PREVENT_ESCAPE:
         if (!gBattleMons[gBattlerTarget].volatiles.escapePrevention) // Do we need to check if the status is already set?
         {

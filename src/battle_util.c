@@ -10137,12 +10137,12 @@ static const u32 sCriticalHitChance[]   = { 16, 6, 4, 2, 1 }; // 1/x  my version
 
 static inline u32 GetCriticalHitOdds(u32 critChance)
 {
-    if (GetConfig(CONFIG_CRIT_CHANCE) >= GEN_7)
+    /*if (GetConfig(CONFIG_CRIT_CHANCE) >= GEN_7)
         return sGen7CriticalHitOdds[critChance];
     if (GetConfig(CONFIG_CRIT_CHANCE) == GEN_6)
         return sGen6CriticalHitOdds[critChance];
     if (GetConfig(CONFIG_CRIT_CHANCE) == GEN_2)
-        return sGen2CriticalHitOdds[critChance];
+        return sGen2CriticalHitOdds[critChance];*/
 
     return sCriticalHitChance[critChance];
 }
@@ -10186,7 +10186,8 @@ s32 CalcCritChanceStage(struct BattleContext *ctx)
 {
     s32 critChance = 0;
 
-    if (gSideStatuses[GetBattlerSide(ctx->battlerDef)] & SIDE_STATUS_LUCKY_CHANT)
+    if (gSideStatuses[GetBattlerSide(ctx->battlerDef)] & SIDE_STATUS_LUCKY_CHANT
+    || gProtectStructs[ctx->battlerDef].blockcrit)
     {
         critChance = CRITICAL_HIT_BLOCKED;
     }
@@ -10202,15 +10203,14 @@ s32 CalcCritChanceStage(struct BattleContext *ctx)
                     + (gBattleMons[ctx->battlerAtk].volatiles.dragonCheer != 0 ? 1 : 0)
                     + GetMoveCriticalHitStage(ctx->move)
                     + GetHoldEffectCritChanceIncrease(ctx->battlerAtk, ctx->holdEffectAtk)
-                    + ((B_AFFECTION_MECHANICS == TRUE && GetBattlerAffectionHearts(ctx->battlerAtk) == AFFECTION_FIVE_HEARTS) ? 2 : 0)
                     + (ctx->abilityAtk == ABILITY_SUPER_LUCK ? 1 : 0)
                     + gBattleMons[ctx->battlerAtk].volatiles.bonusCritStages;
 
-        if (critChance >= ARRAY_COUNT(sCriticalHitOdds))
-            critChance = ARRAY_COUNT(sCriticalHitOdds) - 1;
+        if (critChance >= ARRAY_COUNT(sCriticalHitChance))
+            critChance = ARRAY_COUNT(sCriticalHitChance) - 1;
     }
 
-    if (critChance != CRITICAL_HIT_BLOCKED && (ctx->abilityDef == ABILITY_BATTLE_ARMOR || ctx->abilityDef == ABILITY_SHELL_ARMOR))
+    if (critChance != CRITICAL_HIT_BLOCKED && DoesTargetAbilityBlockCrit(ctx->battlerAtk, ctx->battlerDef, ctx->move, ctx->abilityDef))
     {
         // Record ability only if move had 100% chance to get a crit
         if (ctx->updateFlags)
@@ -10288,12 +10288,12 @@ static bool32 IsCriticalHit(struct BattleContext *ctx)
     bool32 isCrit = FALSE;
     s32 critChance = 0;
 
-    if (GetConfig(CONFIG_CRIT_CHANCE) == GEN_1)
+    /*if (GetConfig(CONFIG_CRIT_CHANCE) == GEN_1)
         critChance = CalcCritChanceStageGen1(ctx);
-    else
+    else*/
         critChance = CalcCritChanceStage(ctx);
 
-    if (gBattleTypeFlags & (BATTLE_TYPE_WALLY_TUTORIAL | BATTLE_TYPE_FIRST_BATTLE))
+    if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE)
         isCrit = FALSE;
     else if (critChance == -1)
         isCrit = FALSE;
@@ -10301,11 +10301,11 @@ static bool32 IsCriticalHit(struct BattleContext *ctx)
         isCrit = TRUE;
     else
     {
-        if (GetConfig(CONFIG_CRIT_CHANCE) == GEN_1)
+        /*if (GetConfig(CONFIG_CRIT_CHANCE) == GEN_1)
             isCrit = RandomChance(RNG_CRITICAL_HIT, critChance, 256);
         else if (GetConfig(CONFIG_CRIT_CHANCE) == GEN_2)
             isCrit = RandomChance(RNG_CRITICAL_HIT, GetCriticalHitOdds(critChance), 256);
-        else
+        else*/
             isCrit = RandomChance(RNG_CRITICAL_HIT, 1, GetCriticalHitOdds(critChance));
     }
 
