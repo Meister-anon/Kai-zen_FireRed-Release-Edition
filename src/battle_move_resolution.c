@@ -39,7 +39,7 @@ static enum MoveEndResult MoveEnd_ProtectLikeEffect(void)
     enum MoveEndResult result = MOVEEND_STEP_CONTINUE;
     u32 temp = 0;
 
-    if (CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker), gCurrentMove))
+    if (!gProtectStructs[gBattlerAttacker].touchedProtectLike)
     {
         gBattleScripting.moveendState++;
         return result;
@@ -52,17 +52,35 @@ static enum MoveEndResult MoveEnd_ProtectLikeEffect(void)
         if (!IsAbilityAndRecord(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), ABILITY_MAGIC_GUARD))
         {
             SetPassiveDamageAmount(gBattlerAttacker, GetNonDynamaxMaxHP(gBattlerAttacker) / 8);
-            PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SPIKY_SHIELD);
+            PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SPIKE_SHIELD);
             BattleScriptCall(BattleScript_SpikyShieldEffect);
             result = MOVEEND_STEP_RUN_SCRIPT;
         }
         break;
+    case PROTECT_SHIELD_BASH:
+        if (!(gBattleStruct->moveResultFlags[gBattlerAttacker] & MOVE_RESULT_SUPER_EFFECTIVE)) //use wonder guard effect logic to help here pretty much long as not super effective do counter damage
+        {
+            SetPassiveDamageAmount(gBattlerAttacker, (gBattleMons[gBattlerTarget].defense / 2));
+            PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SHIELD_BASH);
+            BattleScriptCall(BattleScript_ShieldBash);
+            result = MOVEEND_STEP_RUN_SCRIPT;
+        }//vsonic double check balance on this
+        
+    break;
+    case PROTECT_FENCE:
+        if (CanStealItem(gBattlerTarget, gBattlerAttacker, gBattleMons[gBattlerAttacker].item))
+        {
+            if (GetBattlerAbility(gBattlerAttacker) != ABILITY_STICKY_HOLD)
+                StealTargetItem(gBattlerTarget, gBattlerAttacker);
+                //copy pickpocket print item stolen
+                //test see if works vsonic
+                BattleScriptCall(BattleScript_Pickpocket);
+                result = MOVEEND_STEP_RUN_SCRIPT;
+        }
+    break;
     case PROTECT_KINGS_SHIELD:
         SWAP(gBattlerAttacker, gBattlerTarget, temp); // gBattlerTarget and gBattlerAttacker are swapped in order to activate Defiant, if applicable
-        if (B_KINGS_SHIELD_LOWER_ATK >= GEN_8)
-            gBattleScripting.moveEffect = MOVE_EFFECT_ATK_MINUS_1;
-        else
-            gBattleScripting.moveEffect = MOVE_EFFECT_ATK_MINUS_2;
+        gBattleScripting.moveEffect = MOVE_EFFECT_ATK_MINUS_1;
         BattleScriptCall(BattleScript_KingsShieldEffect);
         result = MOVEEND_STEP_RUN_SCRIPT;
         break;
@@ -100,8 +118,8 @@ static enum MoveEndResult MoveEnd_ProtectLikeEffect(void)
 
     // Not strictly a protect effect, but works the same way
     if (IsBattlerUsingBeakBlast(gBattlerTarget)
-     && CanBeBurned(gBattlerAttacker, gBattlerAttacker, GetBattlerAbility(gBattlerAttacker))
-     && !(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT))
+        && CanBeBurned(gBattlerAttacker, gBattlerAttacker, GetBattlerAbility(gBattlerAttacker))
+        && !(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT))
     {
         gBattleMons[gBattlerAttacker].status1 = STATUS1_BURN;
         BtlController_EmitSetMonData(gBattlerAttacker, B_COMM_TO_CONTROLLER, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[gBattlerAttacker].status1), &gBattleMons[gBattlerAttacker].status1);
@@ -109,98 +127,9 @@ static enum MoveEndResult MoveEnd_ProtectLikeEffect(void)
         BattleScriptCall(BattleScript_BeakBlastBurn);
         result = MOVEEND_STEP_RUN_SCRIPT;
     }
+  
 
-    /*
-    case MOVEEND_PROTECT_LIKE_EFFECT:
-            if (gProtectStructs[gBattlerAttacker].touchedProtectLike)
-            {
-                enum ProtectMethod method = gProtectStructs[gBattlerTarget].protected;
-                switch (method)
-                {
-                case PROTECT_SPIKY_SHIELD:
-                    if (moveEffect != EFFECT_COUNTER                     
-                     && !IsAbilityAndRecord(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), ABILITY_MAGIC_GUARD))
-                    {
-                        SetPassiveDamageAmount(gBattlerAttacker, GetNonDynamaxMaxHP(gBattlerAttacker) / 8);
-                        PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SPIKE_SHIELD);
-                        BattleScriptCall(BattleScript_SpikyShieldEffect);
-                        effect = 1;
-                    }
-                    break;
-                case PROTECT_SHIELD_BASH:
-                    if (!(gBattleStruct->moveResultFlags[gBattlerAttacker] & MOVE_RESULT_SUPER_EFFECTIVE)) //use wonder guard effect logic to help here pretty much long as not super effective do counter damage
-                    {
-                        SetPassiveDamageAmount(gBattlerAttacker, (gBattleMons[gBattlerTarget].defense / 2));
-                        PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SHIELD_BASH);
-                        BattleScriptCall(BattleScript_ShieldBash);
-                        effect = 1;
-                    }//vsonic double check balance on this
-                    
-                break;
-                case PROTECT_FENCE:
-                    if (CanStealItem(gBattlerTarget, gBattlerAttacker, gBattleMons[gBattlerAttacker].item))
-                    {
-                        if (GetBattlerAbility(gBattlerAttacker) != ABILITY_STICKY_HOLD)
-                            StealTargetItem(gBattlerTarget, gBattlerAttacker);
-                            //copy pickpocket print item stolen
-                            //test see if works
-                            BattleScriptCall(BattleScript_Pickpocket);
-                            effect = 1;
-                    }
-                break;
-                case PROTECT_KINGS_SHIELD:
-                    SWAP(gBattlerAttacker, gBattlerTarget, i); // gBattlerTarget and gBattlerAttacker are swapped in order to activate Defiant, if applicable
-                    gBattleScripting.moveEffect = MOVE_EFFECT_ATK_MINUS_1;
-                    BattleScriptCall(BattleScript_KingsShieldEffect);
-                    effect = 1;
-                    break;
-                case PROTECT_BANEFUL_BUNKER:
-                    if (CanBePoisoned(gBattlerTarget, gBattlerAttacker, gLastUsedAbility, GetBattlerAbility(gBattlerAttacker)))
-                    {
-                        gBattleScripting.moveEffect = MOVE_EFFECT_POISON;
-                        BattleScriptCall(BattleScript_BanefulBunkerEffect);
-                        effect = 1;
-                    }
-                    break;
-                case PROTECT_BURNING_BULWARK:
-                    if (CanBeBurned(gBattlerTarget, gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)))
-                    {
-                        gBattleScripting.moveEffect = MOVE_EFFECT_BURN;
-                        BattleScriptCall(BattleScript_BanefulBunkerEffect);
-                        effect = 1;
-                    }
-                    break;
-                case PROTECT_OBSTRUCT:
-                    SWAP(gBattlerAttacker, gBattlerTarget, i); // gBattlerTarget and gBattlerAttacker are swapped in order to activate Defiant, if applicable
-                    gBattleScripting.moveEffect = MOVE_EFFECT_DEF_MINUS_2;
-                    BattleScriptCall(BattleScript_KingsShieldEffect);
-                    effect = 1;
-                    break;
-                case PROTECT_SILK_TRAP:
-                    SWAP(gBattlerAttacker, gBattlerTarget, i); // gBattlerTarget and gBattlerAttacker are swapped in order to activate Defiant, if applicable
-                    gBattleScripting.moveEffect = MOVE_EFFECT_SPD_MINUS_1;
-                    BattleScriptCall(BattleScript_KingsShieldEffect);
-                    effect = 1;
-                    break;
-                default:
-                    break;
-                }
-
-                // Not strictly a protect effect, but works the same way
-                if (IsBattlerUsingBeakBlast(gBattlerTarget)
-                 && CanBeBurned(gBattlerAttacker, gBattlerAttacker, GetBattlerAbility(gBattlerAttacker))
-                 && !(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT))
-                {
-                    gBattleMons[gBattlerAttacker].status1 = STATUS1_BURN;
-                    BtlController_EmitSetMonData(gBattlerAttacker, B_COMM_TO_CONTROLLER, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[gBattlerAttacker].status1), &gBattleMons[gBattlerAttacker].status1);
-                    MarkBattlerForControllerExec(gBattlerAttacker);
-                    BattleScriptCall(BattleScript_BeakBlastBurn);
-                    effect = 1;
-                }
-
-                gProtectStructs[gBattlerAttacker].touchedProtectLike = FALSE;
-            }
-    */
+    gProtectStructs[gBattlerAttacker].touchedProtectLike = FALSE;    
 
     gBattleScripting.moveendState++;
     return result;
@@ -214,6 +143,7 @@ static enum MoveEndResult MoveEnd_Absorb(void)
         return MOVEEND_STEP_CONTINUE;
     }
 
+    //i don't understand this...
     if (IsExplosionMove(gCurrentMove)
      && (gBattleStruct->doneDoublesSpreadHit || !IsDoubleSpreadMove())
      && !IsBattlerAlive(gBattlerAttacker)

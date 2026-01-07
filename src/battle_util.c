@@ -6863,6 +6863,10 @@ u32 GetParadoxBoostedStatId(u32 battler)
     return gBattleMons[battler].volatiles.paradoxBoostedStat;
 }
 
+//with swap to cansetnonvolatilestatus
+//will need to redo all well no
+//just need to slot in my use of abilityaffinity
+//vsonic
 bool32 CanBeSlept(u32 battlerAtk, u32 battlerDef, enum Ability abilityDef, enum SleepClauseBlock isBlockedBySleepClause)
 {
     if (IsSleepClauseActiveForSide(GetBattlerSide(battlerDef)) && isBlockedBySleepClause != NOT_BLOCKED_BY_SLEEP_CLAUSE)
