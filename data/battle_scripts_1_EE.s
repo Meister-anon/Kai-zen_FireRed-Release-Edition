@@ -684,7 +684,6 @@ BattleScript_EffectFling::
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNFLUNG
 	waitmessage B_WAIT_TIME_SHORT
-	critcalc
 	damagecalc
 	adjustdamage
 	removeitem BS_ATTACKER
@@ -1160,7 +1159,6 @@ BattleScript_EffectSpectralThief::
 	typecalc
 	tryspectralthiefsteal BattleScript_SpectralThiefSteal
 BattleScript_EffectSpectralThiefFromDamage:
-	critcalc
 	damagecalc
 	adjustdamage
 	call BattleScript_Hit_RetFromAtkAnimation
@@ -2396,7 +2394,6 @@ BattleScript_EffectHit::
 BattleScript_HitFromAccCheck::
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
 BattleScript_HitFromCritCalc::
-	critcalc
 	damagecalc
 	adjustdamage
 BattleScript_HitFromAtkAnimation::
@@ -2412,7 +2409,6 @@ BattleScript_EffectHit_Ret::
 BattleScript_EffectHit_RetFromAccCheck::
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
 BattleScript_EffectHit_RetFromCritCalc::
-	critcalc
 	damagecalc
 	adjustdamage
 BattleScript_Hit_RetFromAtkAnimation::
@@ -3492,7 +3488,6 @@ BattleScript_RolloutCheckAccuracy::
 	accuracycheck BattleScript_RolloutHit, ACC_CURR_MOVE
 BattleScript_RolloutHit::
 	typecalc
-	handlerollout
 	goto BattleScript_HitFromCritCalc
 
 BattleScript_EffectSwagger::
@@ -3512,17 +3507,6 @@ BattleScript_SwaggerTryConfuse:
 	jumpifsafeguard BattleScript_SafeguardProtected
 	seteffectprimary BS_ATTACKER, BS_TARGET, MOVE_EFFECT_CONFUSION
 	goto BattleScript_MoveEnd
-
-BattleScript_EffectFuryCutter::
-	attackcanceler
-	accuracycheck BattleScript_FuryCutterHit, ACC_CURR_MOVE
-BattleScript_FuryCutterHit:
-	handlefurycutter
-	critcalc
-	damagecalc
-	jumpifmovehadnoeffect BattleScript_FuryCutterHit
-	adjustdamage
-	goto BattleScript_HitFromAtkAnimation
 
 BattleScript_TryDestinyKnotTarget:
 	jumpifnoholdeffect BS_ATTACKER, HOLD_EFFECT_DESTINY_KNOT, BattleScript_TryDestinyKnotTargetRet
@@ -4082,7 +4066,6 @@ BattleScript_MementoTargetProtectEnd:
 
 BattleScript_EffectFocusPunch::
 	attackcanceler
-	jumpifnodamage BattleScript_HitFromAccCheck
 	printstring STRINGID_PKMNLOSTFOCUS
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
@@ -4199,7 +4182,6 @@ BattleScript_EffectBrickBreak::
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
 	typecalc
 	removescreens
-	critcalc
 	damagecalc
 	adjustdamage
 	jumpifbyte CMP_EQUAL, sB_ANIM_TURN, 0, BattleScript_BrickBreakAnim
@@ -4256,7 +4238,6 @@ BattleScript_PrintAbilityMadeIneffective::
 
 BattleScript_EffectEndeavor::
 	attackcanceler
-	setdamagetohealthdifference BattleScript_ButItFailed
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
 	typecalc
 	jumpifmovehadnoeffect BattleScript_HitFromAtkAnimation
@@ -5524,7 +5505,6 @@ BattleScript_MonTookFutureAttack::
 BattleScript_CheckDoomDesireMiss::
 	accuracycheck BattleScript_FutureAttackMiss, MOVE_DOOM_DESIRE
 BattleScript_FutureAttackAnimate::
-	critcalc
 	damagecalc
 	adjustdamage
 	jumpifmovehadnoeffect BattleScript_DoFutureAttackResult

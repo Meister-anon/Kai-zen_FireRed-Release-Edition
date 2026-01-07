@@ -115,4 +115,6 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk); //atempt copy of settype function b
 
 void SetJudgmentTypeString(u8 type); //make global since had move effect to battle_script_commands.c
 
+void TryResetProtectUseCounter(u32 battler);
+
 #endif // GUARD_BATTLE_MAIN_H

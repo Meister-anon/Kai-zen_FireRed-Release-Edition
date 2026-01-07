@@ -930,7 +930,7 @@ static const struct SpriteTemplate sSpriteTemplate_MonIconOnLvlUpBanner =
     .callback = SpriteCB_MonIconOnLvlUpBanner
 };
 
-static const u16 sProtectSuccessRates[] = {USHRT_MAX, USHRT_MAX / 2, USHRT_MAX / 4, USHRT_MAX / 8};
+const u16 gProtectSuccessRates[] = {USHRT_MAX, USHRT_MAX / 2, USHRT_MAX / 4, USHRT_MAX / 8};
 
 #define _ 0
 
@@ -10456,37 +10456,21 @@ static void Cmd_unused_0x78(void)
 {
 }
 
-static void TryResetProtectUseCounter(u32 battler)
-{
-    u32 lastMove = gLastResultingMoves[battler];
-    enum BattleMoveEffects lastEffect = GetMoveEffect(lastMove);
-    if (lastMove == MOVE_UNAVAILABLE
-        || (!gBattleMoveEffects[lastEffect].usesProtectCounter
-          && ((GetConfig(CONFIG_ALLY_SWITCH_FAIL_CHANCE) >= GEN_9 && lastEffect != EFFECT_ALLY_SWITCH)
-            || GetConfig(CONFIG_ALLY_SWITCH_FAIL_CHANCE) < GEN_9)))
-        gDisableStructs[battler].protectUses = 0;
-}
-
 static void Cmd_setprotectlike(void)
 {
     CMD_ARGS();
 
-    bool32 protectFails = TRUE;
-    bool32 notLastTurn = TRUE;
     u32 protectMethod = GetMoveProtectMethod(gCurrentMove);
 
-    TryResetProtectUseCounter(gBattlerAttacker);
 
-    if (gCurrentTurnActionNumber == (gBattlersCount - 1))
-        notLastTurn = FALSE;
 
-    if ((sProtectSuccessRates[gDisableStructs[gBattlerAttacker].protectUses] >= RandomUniform(RNG_PROTECT_FAIL, 0, USHRT_MAX) && notLastTurn)
+    if (!DoesProtectFail(gBattlerAttacker)
      || (protectMethod == PROTECT_WIDE_GUARD && GetConfig(CONFIG_WIDE_GUARD) >= GEN_6)
      || (protectMethod == PROTECT_QUICK_GUARD && GetConfig(CONFIG_QUICK_GUARD) >= GEN_6))
     {
         if (GetMoveEffect(gCurrentMove) == EFFECT_ENDURE)
         {
-            gDisableStructs[gBattlerAttacker].endured = TRUE;
+            gBattleMons[gBattlerAttacker].volatiles.endured = TRUE;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_BRACED_ITSELF;
         }
         else if (GetMoveEffect(gCurrentMove) == EFFECT_SHIELD_BASH)
@@ -10505,13 +10489,11 @@ static void Cmd_setprotectlike(void)
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_PROTECTED_ITSELF;
         }
 
-        gDisableStructs[gBattlerAttacker].protectUses++;
-        protectFails = FALSE;
+        gBattleMons[gBattlerAttacker].volatiles.protectUses++;
     }
-
-    if (protectFails)
+    else // Protect failed
     {
-        gDisableStructs[gBattlerAttacker].protectUses = 0;
+        gBattleMons[gBattlerAttacker].volatiles.protectUses = 0;
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_PROTECT_FAILED;
         gBattleStruct->moveResultFlags[gBattlerTarget] |= MOVE_RESULT_MISSED;
         gBattleStruct->battlerState[gBattlerAttacker].stompingTantrumTimer = 2;
@@ -16218,15 +16200,14 @@ void BS_TryAllySwitch(void)
     }
     else if (GetConfig(CONFIG_ALLY_SWITCH_FAIL_CHANCE) >= GEN_9)
     {
-        TryResetProtectUseCounter(gBattlerAttacker);
-        if (sProtectSuccessRates[gDisableStructs[gBattlerAttacker].protectUses] < Random())
+        if (gProtectSuccessRates[gBattleMons[gBattlerAttacker].volatiles.protectUses] < Random())
         {
-            gDisableStructs[gBattlerAttacker].protectUses = 0;
+            gBattleMons[gBattlerAttacker].volatiles.protectUses = 0;
             gBattlescriptCurrInstr = cmd->failInstr;
         }
         else
         {
-            gDisableStructs[gBattlerAttacker].protectUses++;
+            gBattleMons[gBattlerAttacker].volatiles.protectUses++;
             gBattlescriptCurrInstr = cmd->nextInstr;
         }
     }

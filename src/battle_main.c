@@ -5607,6 +5607,9 @@ static void TurnValuesCleanUp(bool8 var0) //resets protect structs specific disb
             if (gDisableStructs[i].isFirstTurn) //starts at 2, think this decrements so its no longer switch in?
                 --gDisableStructs[i].isFirstTurn;
 
+            gBattleStruct->battlerState[i].protectSuccessiveFail = FALSE;
+            gBattleStruct->battlerState[i].protectTurnOrderFail = FALSE;
+
             //if (!(gBattleMons[i].status2 & STATUS2_LOCK_CONFUSE))
             //    gDisableStructs[i].rampageMoveTurns = 0;
             
@@ -5798,7 +5801,8 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
         SortBattlersBySpeed(battlers, FALSE);
         for (i = 0; i < gBattlersCount; i++)
         {
-            if (gBattleMons[battlers[i]].status4 & STATUS4_BIND) //conditions shuold be more or less on same level don' tknow why this one fails
+            TryResetProtectUseCounter(battlers[i]);
+            if (gBattleMons[battlers[i]].volatiles.bindTurns) //conditions shuold be more or less on same level don' tknow why this one fails
             {
                 //shold handle switch in bind case, to make use random move
                 if (gDisableStructs[battlers[i]].bindedMove == MOVE_NONE) //ok this just isn't workingand I don't know why
@@ -5830,24 +5834,30 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
                     return TRUE;
                 }
             }
-            /*if (!(gBattleStruct->focusPunchBattlers & (1u << battlers[i]))
-                && !(gBattleMons[battlers[i]].status1 & STATUS1_SLEEP)
+            if (//!(gBattleStruct->focusPunchBattlers & (1u << battlers[i]))
+                 !(gBattleMons[battlers[i]].status1 & STATUS1_SLEEP)
                 && !(gDisableStructs[battlers[i]].truantCounter)
                 && !(gProtectStructs[battlers[i]].noValidMoves))
             {
-                gBattleStruct->focusPunchBattlers |= (1u << battlers[i]);
+                //gBattleStruct->focusPunchBattlers |= (1u << battlers[i]);
                 gBattlerAttacker = battlers[i];
-                switch (gChosenMoveByBattler[gBattlerAttacker])
+                switch (GetMoveEffect(gChosenMoveByBattler[gBattlerAttacker]))
                 {
                 
-                /*case MOVE_BEAK_BLAST:
+                /*case EFFECT_BEAK_BLAST:
                     BattleScriptExecute(BattleScript_BeakBlastSetUp);
                     return TRUE;
-                case MOVE_SHELL_TRAP:
+                case EFFECT_SHELL_TRAP:
                     BattleScriptExecute(BattleScript_ShellTrapSetUp);
+                    return TRUE;*/
+                case EFFECT_PROTECT:
+                if (gProtectSuccessRates[gBattleMons[battlers[i]].volatiles.protectUses] < Random())
+                    gBattleStruct->battlerState[battlers[i]].protectSuccessiveFail = TRUE;
+                if (IsLastMonToMove(battlers[i]))
+                    gBattleStruct->battlerState[battlers[i]].protectTurnOrderFail = TRUE;
                     return TRUE;
                 }
-            }*/
+            }
         }
     }
 
@@ -6175,6 +6185,24 @@ static void FreeResetData_ReturnToOvOrDoEvolutions(void) //  this causes end bat
             FreeBattleSpritesData();
             FreeBattleResources();
         }
+    }
+}
+
+
+void TryResetProtectUseCounter(u32 battler)
+{
+    u32 lastMove = gLastResultingMoves[battler];
+    if (lastMove == MOVE_UNAVAILABLE)
+    {
+        gBattleMons[battler].volatiles.protectUses = 0;
+        return;
+    }
+
+    enum BattleMoveEffects lastEffect = GetMoveEffect(lastMove);
+    if (!gBattleMoveEffects[lastEffect].usesProtectCounter)
+    {
+        if (lastEffect != EFFECT_ALLY_SWITCH)
+            gBattleMons[battler].volatiles.protectUses = 0;
     }
 }
 

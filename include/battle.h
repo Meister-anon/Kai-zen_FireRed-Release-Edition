@@ -822,7 +822,9 @@ struct BattlerState
     u16 switchIn:1;
     u16 fainted:1;
     u16 isFirstTurn:2;
-    u16 padding:12;
+    u16 protectSuccessiveFail:1; //if fails successive use
+    u16 protectTurnOrderFail:1; //if fails because moved last in turn
+    u16 padding:10;
 };
 
 struct PartyState
@@ -1414,6 +1416,8 @@ extern u8 gBattleTerrain;
 extern struct MultiBattlePokemonTx gMultiPartnerParty[3];
 extern u16 gRandomTurnNumber;
 
+extern const u16 gProtectSuccessRates[NUM_PROTECT_ODDS];
+
 static inline u32 GetBattlerPosition(u32 battler)
 {
     return gBattlerPositions[battler];
@@ -1552,6 +1556,12 @@ static inline bool32 IsBattlerAtMaxHp(u32 battler)
 static inline bool32 IsBattlerAboveHalfHP(u32 battler)
 {
     return gBattleMons[battler].hp > (gBattleMons[battler].maxHP / 2);
+}
+
+static inline bool32 DoesProtectFail(u32 battler)
+{
+    return (gBattleStruct->battlerState[battler].protectSuccessiveFail
+    || gBattleStruct->battlerState[battler].protectTurnOrderFail);
 }
 
 //not fully sure if want to use movepower or base move power
