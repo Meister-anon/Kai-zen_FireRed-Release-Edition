@@ -122,7 +122,7 @@ extern const u8 BattleScript_EffectAllySwitch[];
 extern const u8 BattleScript_EffectSleepHit[];
 
 // Misc scripts
-extern const u8 BattleScript_HitFromCritCalc[]; //only defined because its refered to in function
+extern const u8 BattleScript_HitFromDamageCalc[]; //only defined because its refered to in function
 extern const u8 BattleScript_EffectWithChance[]; //putting more emerald ports below this
 extern const u8 BattleScript_SideStatusWoreOff[];
 extern const u8 BattleScript_NeutralizingGasExits[];

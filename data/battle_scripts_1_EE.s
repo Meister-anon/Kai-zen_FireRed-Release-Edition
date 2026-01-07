@@ -25,12 +25,12 @@ BattleScript_EffectFickleBeam::
 	attackcanceler
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
 	ficklebeamdamagecalculation
-	goto BattleScript_HitFromCritCalc
+	goto BattleScript_HitFromDamageCalc
 BattleScript_FickleBeamDoubled::
 	pause B_WAIT_TIME_SHORTEST
 	printstring STRINGID_FICKLEBEAMDOUBLED
 	waitmessage B_WAIT_TIME_LONG
-	goto BattleScript_HitFromCritCalc
+	goto BattleScript_HitFromDamageCalc
 
 BattleScript_Terastallization::
 	@ TODO: no string prints in S/V, but right now this helps with clarity
@@ -652,7 +652,7 @@ BattleScript_SkyDropTurn2:
 	call BattleScript_TwoTurnMovesSecondTurnRet
 	clearskydrop BattleScript_SkyDropChangedTarget
 	jumpiftype BS_TARGET, TYPE_FLYING, BattleScript_SkyDropFlyingType
-	goto BattleScript_HitFromCritCalc
+	goto BattleScript_HitFromDamageCalc
 BattleScript_SkyDropFlyingType:
 	makevisible BS_TARGET
 	printstring STRINGID_ITDOESNTAFFECT
@@ -769,7 +769,7 @@ BattleScript_EffectPoltergeist::
 	setpoltergeistmessage BattleScript_ButItFailed
 	printstring STRINGID_ABOUTTOUSEPOLTERGEIST
 	waitmessage B_WAIT_TIME_LONG
-	goto BattleScript_HitFromCritCalc
+	goto BattleScript_HitFromDamageCalc
 
 BattleScript_EffectTarShot::
 	attackcanceler
@@ -1468,7 +1468,7 @@ BattleScript_EffectSynchronoise::
 	pause B_WAIT_TIME_MED
 	trysynchronoise BattleScript_MoveEnd
 	accuracycheck BattleScript_ButItFailed, ACC_CURR_MOVE
-	goto BattleScript_HitFromCritCalc
+	goto BattleScript_HitFromDamageCalc
 
 BattleScript_ItDoesntAffectFoe::
 	savetarget
@@ -2393,7 +2393,7 @@ BattleScript_EffectHit::
 	attackcanceler
 BattleScript_HitFromAccCheck::
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
-BattleScript_HitFromCritCalc::
+BattleScript_HitFromDamageCalc::
 	damagecalc
 	adjustdamage
 BattleScript_HitFromAtkAnimation::
@@ -2433,7 +2433,7 @@ BattleScript_EffectNaturalGift::
 	jumpifability BS_ATTACKER, ABILITY_KLUTZ, BattleScript_ButItFailed
 	jumpifvolatile BS_ATTACKER, VOLATILE_EMBARGO, BattleScript_ButItFailed
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
-	call BattleScript_HitFromCritCalc
+	call BattleScript_HitFromDamageCalc
 
 BattleScript_MakeMoveMissed::
 	setmoveresultflags MOVE_RESULT_MISSED
@@ -2564,7 +2564,7 @@ BattleScript_EffectExplosion::
 	waitstate
 	jumpiffainted BS_TARGET, TRUE, BattleScript_MoveEnd
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
-	goto BattleScript_HitFromCritCalc
+	goto BattleScript_HitFromDamageCalc
 
 BattleScript_FaintAttackerForExplosion::
 	tryfaintmon BS_ATTACKER
@@ -3082,7 +3082,7 @@ BattleScript_TwoTurnMovesSecondPowerHerbActivates:
 BattleScript_FromTwoTurnMovesSecondTurnRet:
 	call BattleScript_TwoTurnMovesSecondTurnRet
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
-	goto BattleScript_HitFromCritCalc
+	goto BattleScript_HitFromDamageCalc
 
 BattleScript_TwoTurnMovesSecondTurn::
 	attackcanceler
@@ -3127,7 +3127,7 @@ BattleScript_EffectRage::
 	attackcanceler
 	accuracycheck BattleScript_RageMiss, ACC_CURR_MOVE
 	seteffectprimary BS_ATTACKER, BS_TARGET, MOVE_EFFECT_RAGE
-	goto BattleScript_HitFromCritCalc
+	goto BattleScript_HitFromDamageCalc
 BattleScript_RageMiss::
 	clearvolatile BS_ATTACKER, VOLATILE_RAGE
 	goto BattleScript_MoveMissedPause
@@ -3241,7 +3241,7 @@ BattleScript_EffectSnore::
 	statusanimation BS_ATTACKER
 BattleScript_DoSnore::
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
-	goto BattleScript_HitFromCritCalc
+	goto BattleScript_HitFromDamageCalc
 
 BattleScript_EffectConversionZ::
 	attackcanceler
@@ -3488,7 +3488,7 @@ BattleScript_RolloutCheckAccuracy::
 	accuracycheck BattleScript_RolloutHit, ACC_CURR_MOVE
 BattleScript_RolloutHit::
 	typecalc
-	goto BattleScript_HitFromCritCalc
+	goto BattleScript_HitFromDamageCalc
 
 BattleScript_EffectSwagger::
 	attackcanceler
@@ -3568,7 +3568,7 @@ BattleScript_EffectMagnitude::
 	printstring STRINGID_MAGNITUDESTRENGTH
 	waitmessage B_WAIT_TIME_LONG
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
-	goto BattleScript_HitFromCritCalc
+	goto BattleScript_HitFromDamageCalc
 
 BattleScript_EffectBatonPass::
 	attackcanceler
@@ -3802,7 +3802,7 @@ BattleScript_EffectBeatUpGen3:
 	pause B_WAIT_TIME_SHORT
 	trydobeatup BattleScript_MoveEnd, BattleScript_ButItFailed
 	printstring STRINGID_PKMNATTACK
-	goto BattleScript_HitFromCritCalc
+	goto BattleScript_HitFromDamageCalc
 
 BattleScript_EffectWithdraw::
 	attackcanceler
@@ -8497,7 +8497,7 @@ BattleScript_TargetAbilityStatRaiseRet_End:
 BattleScript_EffectMaxMove::
 	attackcanceler
 	accuracycheck BattleScript_ButItFailed, NO_ACC_CALC_CHECK_LOCK_ON
-	goto BattleScript_HitFromCritCalc
+	goto BattleScript_HitFromDamageCalc
 
 BattleScript_EffectRaiseStatAllies::
 	savetarget
