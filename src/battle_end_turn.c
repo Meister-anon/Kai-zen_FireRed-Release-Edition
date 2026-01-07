@@ -201,14 +201,13 @@ static bool32 HandleEndTurnEmergencyExit(u32 battler)
     return effect;
 }
 
-static bool32 HandleEndTurnAffection(u32 battler)
+/*static bool32 HandleEndTurnAffection(u32 battler)
 {
     bool32 effect = FALSE;
 
     gBattleStruct->eventState.endTurnBattler++;
 
-    if (!B_AFFECTION_MECHANICS
-     || !IsBattlerAlive(battler)
+    if (!IsBattlerAlive(battler)
      || !IsOnPlayerSide(battler))
         return effect;
 
@@ -220,7 +219,7 @@ static bool32 HandleEndTurnAffection(u32 battler)
     }
 
     return effect;
-}
+}*/
 
 // Note: Technically Future Sight, Doom Desire and Wish need a queue but
 // I think we should accept this slight inconsistency so custom moves don't have to touch this code
@@ -1434,7 +1433,7 @@ static bool32 (*const sEndTurnEffectHandlers[])(u32 battler) =
     [ENDTURN_WEATHER] = HandleEndTurnWeather,
     [ENDTURN_WEATHER_DAMAGE] = HandleEndTurnWeatherDamage,
     [ENDTURN_EMERGENCY_EXIT_1] = HandleEndTurnEmergencyExit,
-    [ENDTURN_AFFECTION] = HandleEndTurnAffection,
+    //[ENDTURN_AFFECTION] = HandleEndTurnAffection,
     [ENDTURN_FUTURE_SIGHT] = HandleEndTurnFutureSight,
     [ENDTURN_WISH] = HandleEndTurnWish,
     [ENDTURN_FIRST_EVENT_BLOCK] = HandleEndTurnFirstEventBlock,
