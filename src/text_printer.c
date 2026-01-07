@@ -62,7 +62,7 @@ u16 AddTextPrinterParameterized(u8 windowId, u8 fontId, const u8 *str, u8 x, u8 
     printerTemplate.currentY = y;
     printerTemplate.letterSpacing = gFonts[fontId].letterSpacing;
     printerTemplate.lineSpacing = gFonts[fontId].lineSpacing;
-    printerTemplate.unk = gFonts[fontId].unk;
+    printerTemplate.accentColor = gFonts[fontId].unk;
     printerTemplate.fgColor = gFonts[fontId].fgColor;
     printerTemplate.bgColor = gFonts[fontId].bgColor;
     printerTemplate.shadowColor = gFonts[fontId].shadowColor;

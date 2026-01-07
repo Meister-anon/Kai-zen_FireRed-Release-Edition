@@ -942,14 +942,15 @@ static bool32 HandleEndTurnPerishSong(u32 battler)
     return effect;
 }
 
+//vsonic put end turn decrement and print string here
 static bool32 HandleEndTurnRoost(u32 battler)
 {
     bool32 effect = FALSE;
 
     gBattleStruct->eventState.endTurnBattler++;
 
-    if (gBattleMons[battler].volatiles.roostActive)
-        gBattleMons[battler].volatiles.roostActive = FALSE;
+    if (gBattleMons[battler].volatiles.roostTimer)
+        gBattleMons[battler].volatiles.roostTimer--;
 
     return effect;
 }

@@ -464,6 +464,7 @@
 #define B_SYRUP_BOMB_TIMER   3
 #define B_TORMENT_TIMER      3
 #define B_DESTINY_BOND       2  //Don't Change -value of 2 needed for gen 7 config to block successive use of Destiny Bond
+#define B_ROOST_TIMER        4
 
 enum VolatileFlags
 {
@@ -682,7 +683,7 @@ infatuation again
     F(VOLATILE_FLASH_FIRE_BOOSTED,          flashFireBoosted,              (u32, 1)) \
     F(VOLATILE_BOOSTER_ENERGY_ACTIVATED,    boosterEnergyActivated,        (u32, 1)) \
     F(VOLATILE_OVERWRITTEN_ABILITY,         overwrittenAbility,            (u32, ABILITIES_COUNT)) \
-    F(VOLATILE_ROOST_ACTIVE,                roostActive,                   (u32, 1)) \
+    F(VOLATILE_ROOST_TIMER,                 roostTimer,                    (u32, B_ROOST_TIMER + 1)) \
     F(VOLATILE_UNBURDEN_ACTIVE,             unburdenActive,                (u32, 1)) \
     F(VOLATILE_NEUTRALIZING_GAS,            neutralizingGas,               (u32, 1)) \
     F(VOLATILE_TRIGGER_ICE_FACE,            triggerIceFace,                (u32, 1)) \
@@ -1047,6 +1048,9 @@ enum __attribute__((packed)) MoveEffect
     MOVE_EFFECT_FOCUS_ENERGY,   //Plan use for triple arrow
     MOVE_EFFECT_DMG_FIXATION,   //fixation category to set volatile status of same name
     MOVE_EFFECT_SHADOW_STRIKE, //for 2nd mega gren siganture handled in move end multi hit set stat boost status
+    MOVE_EFFECT_CRIT_PROTECTION, //move critprotect bs command to move effect instead
+    //zmove and lets go move effects
+    MOVE_EFFECT_AROMATHERAPY,
     NUM_MOVE_EFFECTS
 };
 

@@ -641,9 +641,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_FURY_CUTTER] =
     {
-        .battleScript = BattleScript_EffectFuryCutter,
-        .battleTvScore = 2,
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 3,
     },
+    //vsonic important need to re setup 
+    //multihit print and attack changes
+    //where it continues if miss
 
     [EFFECT_ATTRACT] =
     {

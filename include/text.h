@@ -378,6 +378,16 @@ enum {
     RENDER_STATE_PAUSE,
 };
 
+union TextColor {
+    struct {
+        u8 background;
+        u8 foreground;
+        u8 shadow;
+        u8 accent;
+    };
+    u32 asU32;
+};
+
 struct TextPrinterSubStruct
 {
     u8 glyphId:4;  // 0x14
@@ -411,10 +421,16 @@ struct TextPrinterTemplate // TODO: Better name
     u8 currentY;
     u8 letterSpacing;
     u8 lineSpacing;
-    u8 unk:4;   // 0xC
-    u8 fgColor:4;
-    u8 bgColor:4;
-    u8 shadowColor:4;
+    union {
+        struct {
+            DEPRECATED("Use color.background instead") u8 bgColor;
+            DEPRECATED("Use color.foreground instead") u8 fgColor;
+            DEPRECATED("Use color.shadow instead") u8 shadowColor;
+            DEPRECATED("Use color.accent instead") u8 accentColor;
+        };
+        union TextColor color;
+    };
+
 };
 
 struct TextPrinter

@@ -456,54 +456,52 @@ extern struct SpecialStatus gSpecialStatuses[MAX_BATTLERS_COUNT];
 //think can replace most timers w bitfield 3, as usually nothing goes aboe 8
 //slightly misunderstood that, is :3 can represent 8 values that's 0-7 not 0-8
 //so bit 3 only works for timers that don't get extended to 8
-//so not weather or terrain
+//so not weather or terrain.
+//checked EE all this is wrong
+//only sticyweb uses battlerId nothing else smh
 struct SideTimer    //effects below persist regardless of mon
 {
-    /*0x00*/ u16 reflectTimer:3;
-             u16 lightscreenTimer:3;
-             u16 mistTimer:3;
-             u16 safeguardTimer:3;
-             u16 followmeTimer:1; //follow me only goes to 1
-             u16 ragePowder:1; //believe this is actually rage powder
-             u16 padding:2;
+    /*0x00*/
+    //screens
+    u16 reflectTimer:3;
+    u16 lightscreenTimer:3;
+    u16 magicTimer:3; ////magic coat
+    u16 safeguardTimer:3;             
+    u16 padding:4;
 
-    /*0x01*/ u8 stickyWebBattlerId;
-    /*0x02*/ 
-    /*0x03*/ u8 lightscreenBattlerId;
-    /*0x04*/ 
-    /*0x05*/ u8 mistBattlerId;
-    /*0x06*/ 
-    /*0x07*/ u8 safeguardBattlerId;
-    /*0x08*/ 
-    /*0x09*/ u8 followmeTarget;
+
+    u8 followmeTarget;
     /*0x0A*/ 
     u8 spikesAmount:2; //3 effective layers
     u8 toxicSpikesAmount:2; //2 effective layers
     u8 padding1:2; //1 effective layers    //...why is this here?? vsonic -replace w padding value
     u8 stickyWebAmount:2; //2 effective layers - ability or move to set stickyweb //bleive was my own change,
     u8 stickyWebBattlerSide; // Used for Court Change
+    u8 stickyWebBattlerId; //try see why this one specifcally needs battlerid prob to do with printed string
     
-    u32 auroraVeilTimer:4; //still need add to debugger
-    u32 tailwindTimer:3;
-    u32 luckyChantTimer:3;
-    u32 healBlockTimer:3; //added for side status effect
-    u32 embargoTimer:3;
-    u32 mudSportTimer:3;     //put these back, gen 3 effect didn' work how I thought. effect only lasts long as user stays in, and only for user who set it.
-    u32 waterSportTimer:3;  //forgot to remove these earlier, since I'm using gen 3 effects for them
-    u32 retaliateTimer:3;  
-    u32 MagicTimer:3;
-    u32 padding2:4;
+    u16 auroraVeilTimer:4; //still need add to debugger
+    u16 tailwindTimer:3;
+    u16 luckyChantTimer:3;
+    u16 healBlockTimer:3; //added for side status effect
+    u16 embargoTimer:3;
 
-    u8 auroraVeilBattlerId; //EE doesn't use any of these battlerid things...   
-    u8 tailwindBattlerId;    //with end turn reworks they have a function for that
-    u8 luckyChantBattlerId;    
-    u8 healBlockBattlerId; //hopefully will be able to individual target clear status, but keep side status in effect for new switches
-    u8 embargoBattlerId;    
-    u8 mudSportBattlerId;    
-    u8 waterSportBattlerId;    
-    u8 MagicBattlerId; //magic coat defines changed from one turn to screen like side status
-    
-    /*0x0B*/ u8 fieldB;
+    u16 mudSportTimer:3;     //put these back, gen 3 effect didn' work how I thought. effect only lasts long as user stays in, and only for user who set it.
+    u16 waterSportTimer:3;  //forgot to remove these earlier, since I'm using gen 3 effects for them
+    u16 mistTimer:3;
+    u16 padding2:7;
+
+    // Timers below this point are not swapped by Court Change
+    u16 followmeTimer:1; //follow me only goes to 1
+    u16 followmePowder:1; // Rage powder, does not affect grass type pokemon.
+    u16 retaliateTimer:3;
+    u16 flagspace:11;
+
+    u16 damageNonTypesTimer;    
+    u16 rainbowTimer;
+    u16 seaOfFireTimer;
+    u16 swampTimer;
+    enum Type damageNonTypesType;
+    /*0x0B*/ //u8 fieldB; never used so hopefully safe to remove
 };
 
 extern struct SideTimer gSideTimers[NUM_BATTLE_SIDES];

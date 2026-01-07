@@ -6,16 +6,16 @@
 #define TRUE  1
 #define FALSE 0
 
-#if defined(__APPLE__)
-#define IWRAM_DATA __attribute__((section("__DATA,iwram_data")))
-#define EWRAM_DATA __attribute__((section("__DATA,ewram_data")))
-#else
+
 #define IWRAM_DATA __attribute__((section("iwram_data")))
 #define EWRAM_DATA __attribute__((section("ewram_data")))
 #define COMMON_DATA __attribute__((section("common_data")))
 #define UNUSED __attribute__((unused))
-#endif
-#define COMMON_DATA __attribute__((section("common_data")))
+#define USED __attribute__((used))
+#define KEEP_SECTION __attribute__((section(".text.consts")))
+#define DEPRECATED(msg) __attribute__((deprecated(msg)))
+
+#define ARM_FUNC __attribute__((target("arm")))
 
 
 #if MODERN

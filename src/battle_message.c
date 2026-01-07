@@ -3963,7 +3963,7 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId) {
     printerTemplate.currentY = printerTemplate.y;
     printerTemplate.letterSpacing = sTextOnWindowsInfo_Normal[windowId].letterSpacing;
     printerTemplate.lineSpacing = sTextOnWindowsInfo_Normal[windowId].lineSpacing;
-    printerTemplate.unk = 0;
+    printerTemplate.accentColor = 0;
     printerTemplate.fgColor = sTextOnWindowsInfo_Normal[windowId].fgColor;
     printerTemplate.bgColor = sTextOnWindowsInfo_Normal[windowId].bgColor;
     printerTemplate.shadowColor = sTextOnWindowsInfo_Normal[windowId].shadowColor;

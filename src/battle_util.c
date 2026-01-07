@@ -12082,17 +12082,7 @@ void GetBattlerTypes(u32 battler, bool32 ignoreTera, enum Type types[static 3])
     types[1] = gBattleMons[battler].types[1];
     types[2] = gBattleMons[battler].types[2];
 
-    // Roost.
-    /*if (!isTera && gBattleMons[battler].volatiles.roostActive)
-    {
-        if (types[0] == TYPE_FLYING && types[1] == TYPE_FLYING)
-            types[0] = types[1] = B_ROOST_PURE_FLYING >= GEN_5 ? TYPE_NORMAL : TYPE_MYSTERY;
-        else if (types[0] == TYPE_FLYING)
-            types[0] = TYPE_MYSTERY;
-        else if (types[1] == TYPE_FLYING)
-            types[1] = TYPE_MYSTERY;
-    }
-    */
+
 }
 
 enum Type GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera)
