@@ -195,9 +195,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PAYDAY,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -217,10 +217,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_FIRE_PUNCH,
@@ -240,10 +240,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_ICE_PUNCH,
@@ -263,10 +263,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_THUNDER_PUNCH,
@@ -570,10 +570,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_WRAP,
             .multistring.wrapped = B_MSG_WRAPPED_BIND,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -623,10 +623,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -649,10 +649,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .evasiveBreak = TRUE,
         .kickingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -742,10 +742,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .kickingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 25,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -787,10 +787,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .headbuttMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 25,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -899,10 +899,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .evasiveBreak = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -925,10 +925,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_WRAP,
             .multistring.wrapped = B_MSG_WRAPPED_WRAP,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -946,10 +946,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_LIGHT_RECOIL,
                 .self = TRUE,
-            }),*/
+            }),
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -977,10 +977,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .instructBanned = TRUE,
         .multiTaskBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THRASH,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -998,10 +998,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_MED_RECOIL,
                 .self = TRUE,
-            }),*/
+            }),
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -1039,10 +1039,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -1062,14 +1062,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .strikeCount = 2,
         .multiTaskBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 20,
         },
         {
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -1094,10 +1094,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .multiTaskBanned = TRUE,
         .variableMultihit = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 15,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -1135,10 +1135,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .bitingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 25,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -1262,10 +1262,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_SonicBoom,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 10,
-        }),*/
+        }),
     },//previously sonic boom / idk but doesn't seem to be setting confuse effect?
     //cacophony boost  increase effect chance as well as infiltrate
 
@@ -1304,10 +1304,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-            /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -1325,10 +1325,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -1347,10 +1347,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -1446,12 +1446,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             // The following effect is also relevant in battle_Pike.c
             // If you cherry-pick this to use something other than the config, make sure to update it there too
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -1472,10 +1472,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .windMove = TRUE,
         .damagesAirborne = TRUE,
         .alwaysHitsInHailSnow = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -1493,10 +1493,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -1514,10 +1514,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -1535,10 +1535,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -1556,10 +1556,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -1622,10 +1622,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .ignoresProtect = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_LIGHT_RECOIL,
                 .self = TRUE,
-            }),*/ //vsonic adjust down as needed
+            }), //vsonic adjust down as needed
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -1716,11 +1716,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_PLUS_1,
             .self = TRUE,
             .setfromatkcanceler = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -1938,10 +1938,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .danceMove = TRUE,
         .instructBanned = TRUE,
         .multiTaskBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THRASH,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -1983,10 +1983,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .multiTaskBanned = TRUE,
         .argument = { .fixedDamage = 40 },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DRAGON_RAGE,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_DRAGON_RAGE,
@@ -2020,10 +2020,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_WRAP,
             .multistring.wrapped = B_MSG_WRAPPED_FIRE_SPIN,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -2041,10 +2041,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -2064,10 +2064,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -2113,10 +2113,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .damagesAirborneDoubleDamage = TRUE,
         .alwaysHitsInRain = TRUE,
         .accuracy50InSun = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -2247,10 +2247,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_CONFUSION,
@@ -2269,10 +2269,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_PSYCHIC,
@@ -2610,6 +2610,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         .snatchAffected = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+        .moveEffect = MOVE_EFFECT_CRIT_PROTECTION,
+        .self = TRUE,
+        }),
         //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -2631,6 +2635,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         .snatchAffected = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+        .moveEffect = MOVE_EFFECT_CRIT_PROTECTION,
+        .self = TRUE,
+        }),//think snatch should be able to take this as well no?
         //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_DEFENSE_CURL,
@@ -2927,10 +2935,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 40,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_SMOG,
@@ -2948,10 +2956,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_SLUDGE,
@@ -2969,10 +2977,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_BONE_CLUB,
@@ -2992,10 +3000,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -3014,10 +3022,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -3041,14 +3049,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_WRAP,
             .multistring.wrapped = B_MSG_WRAPPED_CLAMP,
         },
         {
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -3098,11 +3106,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .instructBanned = TRUE,
     .multiTaskBanned = TRUE,
     .argument.twoTurnAttack = { .stringId = STRINGID_PKMNLOWEREDHEAD },
-    /*.additionalEffects = ADDITIONAL_EFFECTS({
+    .additionalEffects = ADDITIONAL_EFFECTS({
         .moveEffect = MOVE_EFFECT_DEF_PLUS_1,
         .self = TRUE,
         .onChargeTurnOnly = TRUE,
-    }),*/
+    }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -3141,10 +3149,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -3330,10 +3338,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //.contestComboStarterId = 0,
     //.contestComboMoves = {0},
     //.battleAnimScript = gBattleAnimMove_Barrage,
-    /*.additionalEffects = ADDITIONAL_EFFECTS({
+    .additionalEffects = ADDITIONAL_EFFECTS({
         .moveEffect = MOVE_EFFECT_DEF_MINUS_1, //should i make new effect that'll swap def 
         .chance = 15, //to drop based on dmg category? since it could be special?
-    }),*/
+    }),
 }, //exegcuttor line siganture , test may make 100 acc,  balance acc w effect chance
 //could be normal cuz just objects
 //could be psychic cuz covered in psychic energy
@@ -3401,10 +3409,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .instructBanned = TRUE,
         .multiTaskBanned = TRUE,
         .argument.twoTurnAttack = { .stringId = B_UPDATED_MOVE_DATA >= GEN_4 ? STRINGID_CLOAKEDINAHARSHLIGHT : STRINGID_PKMNISGLOWING },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -3469,10 +3477,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = TARGET_BOTH,
     .priority = 0,
     .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -3493,10 +3501,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -3541,10 +3549,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1, //since is an hm I guess I could allow this?
     .split = SPLIT_STATUS,
         .magicCoatAffected = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -3750,10 +3758,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = TARGET_BOTH,
     .priority = 0,
     .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -3775,10 +3783,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .bitingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -3839,10 +3847,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = TARGET_SELECTED,
     .priority = 0,
     .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_TRI_ATTACK,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -3934,10 +3942,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .encoreBanned = TRUE,
         .assistBanned = TRUE,
         .sketchBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_MED_RECOIL,
                 .self = TRUE,
-            }),*/
+            }),
         //.battleAnimScript = gBattleAnimMove_Struggle,
 },
 
@@ -4101,14 +4109,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .thawsUser = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
         },
         {
             .moveEffect = MOVE_EFFECT_DMG_FIXATION,
             .self = TRUE,
-        }),*/
+        }),
         .argument = {.fixedDamage = 15},
         //think wanna do something like improved condition
         //w repeated use can't be starteled or can't lose heart something
@@ -4163,10 +4171,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .ignoresSubstitute = TRUE,
         .soundMove = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -4250,10 +4258,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = TARGET_SELECTED,
     .priority = 0,
     .split = SPLIT_SPECIAL,
-    /*.additionalEffects = ADDITIONAL_EFFECTS({
+    .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
             .chance = 50,
-        }),*/
+        }),
         .windMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -4346,10 +4354,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = TARGET_BOTH,
     .priority = 0,
     .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_POWDER_SNOW,
@@ -4504,10 +4512,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .split = SPLIT_SPECIAL,
         .ballisticMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_SLUDGE_BOMB,
@@ -4525,10 +4533,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = TARGET_SELECTED,
     .priority = 0,
     .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_MUD_SLAP,
@@ -4547,10 +4555,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .split = SPLIT_SPECIAL,
         .ballisticMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
             .chance = 50,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -4597,10 +4605,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .split = SPLIT_SPECIAL,
         .ballisticMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -4683,10 +4691,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_SPECIAL,
         .windMove = TRUE,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -4776,10 +4784,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .instructBanned = TRUE,
         .multiTaskBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THRASH,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -4977,10 +4985,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -5020,11 +5028,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_PLUS_1,
             .self = TRUE,
             .chance = 15,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -5228,10 +5236,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .thawsUser = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 50,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -5274,10 +5282,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 70,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -5297,7 +5305,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .headbuttMove = TRUE,
-         /*.additionalEffects = ADDITIONAL_EFFECTS(
+         .additionalEffects = ADDITIONAL_EFFECTS(
          {
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 15,
@@ -5305,7 +5313,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
          {
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 5,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -5324,10 +5332,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_DRAGON_BREATH,
@@ -5419,12 +5427,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS(
+        .additionalEffects = ADDITIONAL_EFFECTS(
             {
                 .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
                 .self = TRUE,
                 .chance = 100,
-            }),*/
+            }),
         //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -5468,10 +5476,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -5491,11 +5499,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_PLUS_1,
             .self = TRUE,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -5638,10 +5646,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .damagesAirborneDoubleDamage = TRUE,
         .windMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -5701,10 +5709,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .bitingMove = TRUE,
-            /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -5791,11 +5799,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ALL_STATS_UP,
             .self = TRUE,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -5814,10 +5822,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .ballisticMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -5870,10 +5878,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 50,
-        }),*/
+        }),
         .argument = {
         .storedValue = TYPE_ROCK,
         .damagePercentage = 200},
@@ -5898,10 +5906,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .damagesUnderwater = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_WRAP,
             .multistring.wrapped = B_MSG_WRAPPED_WHIRLPOOL,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -5944,10 +5952,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .target = TARGET_SELECTED,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_FAKE_OUT,
@@ -5974,10 +5982,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
         .multiTaskBanned = TRUE, //mostly cuz fail ends upraor
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_UPROAR,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -6074,10 +6082,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .windMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -6226,14 +6234,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
         },
         {
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 80,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -6257,9 +6265,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .argument = { .status = STATUS1_PARALYSIS },
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_STATUS,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -6518,10 +6526,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_DEF_DOWN,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -6816,10 +6824,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SECRET_POWER,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_WITH_GOOD_CONDITION,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -6928,10 +6936,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
             .chance = 50,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -6950,10 +6958,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .ballisticMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
             .chance = 50,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -7016,10 +7024,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .kickingMove = TRUE,
         .enhancedCritrate = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -7082,10 +7090,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .punchingMove = TRUE,
         .evasiveBreak = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 15,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -7126,10 +7134,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .soundMove = TRUE,
         .ignoresSubstitute = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_CONFUSE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -7154,14 +7162,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .bitingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_TOXIC,
             .chance = 40,
         },
         {
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 10,
-        }),*/
+        }),
         /*.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
         .contestCategory = CONTEST_CATEGORY_SMART,
         .contestComboStarterId = 0,
@@ -7181,10 +7189,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 50,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -7203,10 +7211,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -7225,10 +7233,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -7253,11 +7261,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_PLUS_1,
             .self = TRUE,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -7280,10 +7288,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .soundMove = TRUE,
         .ignoresSubstitute = TRUE,
         .evasiveBreak = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -7400,10 +7408,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -7447,10 +7455,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -7470,7 +7478,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .windMove = TRUE,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ALL_STATS_UP,
             .self = TRUE,
             .chance = 10,
@@ -7478,7 +7486,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         {
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -7597,14 +7605,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 10,
         },
         {
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -7643,10 +7651,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .evasiveBreak = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -7691,10 +7699,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .cantdamageFloating = TRUE,
         .damagesUnderground = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_WRAP,
             .multistring.wrapped = B_MSG_WRAPPED_SAND_TOMB,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -7736,10 +7744,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .cantdamageFloating = TRUE,
         .damagesUnderground = TRUE,
         .damagesUnderwater = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -7912,10 +7920,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -7960,10 +7968,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .assistBanned = TRUE,
         .multiTaskBanned = TRUE,
         .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNSPRANGUP, .status = STATE_ON_AIR },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -7984,10 +7992,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -8008,10 +8016,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .enhancedCritrate = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -8064,14 +8072,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .recoilMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 10,
         },
         {
             .moveEffect = MOVE_EFFECT_MED_RECOIL,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -8242,10 +8250,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .pulseMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -8288,10 +8296,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -8386,9 +8394,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .argument = { .status = STATUS1_SLEEP },
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_STATUS,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -8409,10 +8417,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -8528,9 +8536,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .metronomeBanned = TRUE,
         .copycatBanned = TRUE,
         .assistBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FEINT,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -8549,9 +8557,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BUG_BITE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -8659,10 +8667,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_SPDEF_DOWN,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -9187,14 +9195,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .recoilMove = TRUE,
         .thawsUser = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
         },
         {
             .moveEffect = MOVE_EFFECT_MED_RECOIL,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -9213,10 +9221,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -9279,10 +9287,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -9304,10 +9312,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .pulseMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -9394,10 +9402,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .windMove = TRUE,
         .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 25,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -9419,10 +9427,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 15,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -9442,14 +9450,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .soundMove = TRUE,
         .ignoresSubstitute = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
             .chance = 10,
         },
         {
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -9495,10 +9503,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .evasiveBreak = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_DRAGON_RUSH,
@@ -9583,10 +9591,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .ballisticMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -9609,10 +9617,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .ballisticMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -9630,10 +9638,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_MED_RECOIL,
                 .self = TRUE,
-            }),*/
+            }),
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -9656,10 +9664,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .cantdamageFloating = TRUE,
         .damagesUnderground = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -9699,10 +9707,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -9815,14 +9823,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .bitingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 15,
         },
         {
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 15,
-        }),*/
+        }),
     },
 
     [MOVE_ICE_FANG] =
@@ -9837,14 +9845,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .bitingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 15,
         },
         {
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 15,
-        }),*/
+        }),
     },
 
     [MOVE_FIRE_FANG] =
@@ -9859,14 +9867,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .bitingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 15,
         },
         {
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 15,
-        }),*/
+        }),
     }, //intuition was corret, well teh note was correct, the issue was use of effect_flinch_status
     //rather than my argument move effect setup, believe problem somehow linked to argumenttostatus command?
     //argument to status is meant ot be about the same as setting move effect to arg itself, 
@@ -9902,10 +9910,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .ballisticMove = TRUE,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -9945,10 +9953,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .headbuttMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -9966,10 +9974,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -9989,10 +9997,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .pulseMove = TRUE,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -10012,10 +10020,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_WITH_GOOD_CONDITION,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -10077,10 +10085,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -10098,10 +10106,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_FOES_AND_ALLY,    //keep for this, as is actually an indiscriminate attack
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -10119,10 +10127,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_FOES_AND_ALLY,    //same logic as above 
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -10144,10 +10152,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -10185,10 +10193,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .ballisticMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -10209,10 +10217,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -10234,10 +10242,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -10258,10 +10266,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .headbuttMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -10370,10 +10378,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 15,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -10405,7 +10413,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
         .assistBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
         #if B_UPDATED_MOVE_DATA >= GEN_6
             .chance = 50,
@@ -10414,7 +10422,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .chance = 31,
         #endif
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -10470,13 +10478,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .bitingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BUG_BITE,
         },
         {
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 15,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -10494,11 +10502,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_PLUS_1,
             .self = TRUE,
             .chance = 70,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -10516,10 +10524,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_MED_RECOIL,
                 .self = TRUE,
-            }),*/
+            }),
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -10559,10 +10567,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .enhancedCritrate = TRUE,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 20, //potentially drop to 15
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_ATTACK_ORDER,
@@ -10621,10 +10629,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_HEAVY_RECOIL,
                 .self = TRUE,
-            }),*/
+            }),
         .makesContact = TRUE,
         .recoilMove = TRUE,
         .headbuttMove = TRUE,
@@ -10668,10 +10676,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -10752,14 +10760,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_WRAP,
             .multistring.wrapped = B_MSG_WRAPPED_MAGMA_STORM,
         },
         {
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -10798,10 +10806,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_2,
             .chance = 40,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -10821,11 +10829,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .windMove = TRUE,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ALL_STATS_UP,
             .self = TRUE,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -10851,9 +10859,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .assistBanned = TRUE,
         .multiTaskBanned = TRUE,
         .argument.twoTurnAttack = { .stringId = STRINGID_VANISHEDINSTANTLY, .status = STATE_PHANTOM_FORCE },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FEINT,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -11148,14 +11156,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLAME_BURST,
             .self = TRUE,
         },
         {
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
-        }),*///vsonic hopefully can work burn burst target
+        }),//vsonic hopefully can work burn burst target
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -11175,10 +11183,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -11266,10 +11274,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_ElectroBall,
-         /*.additionalEffects = ADDITIONAL_EFFECTS({
+         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
-        }),*/
+        }),
     },
     //saw damage function this move is practicaly useless.
     //on average would only ever be base 50 power
@@ -11308,11 +11316,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
             .self = TRUE,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -11356,10 +11364,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .kickingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -11378,10 +11386,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .ballisticMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_2,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -11481,9 +11489,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .ignoresSubstitute = TRUE,
         .soundMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ROUND,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -11503,10 +11511,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .ignoresSubstitute = TRUE,
         .soundMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -11546,9 +11554,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CLEAR_SMOG,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -11631,10 +11639,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .thawsUser = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 25,
-        }),*///vsonic should I drop this to 25?
+        }),//vsonic should I drop this to 25?
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_SCALD,
@@ -11786,9 +11794,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_INCINERATE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -11944,10 +11952,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -12049,13 +12057,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
             .chance = 100,
         },
         {
             .moveEffect = MOVE_EFFECT_INFESTATION,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -12082,10 +12090,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .cantdamageFloating = TRUE,
         .damagesUnderground = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -12167,10 +12175,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -12188,10 +12196,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_LIGHT_RECOIL,
                 .self = TRUE,
-            }),*/
+            }),
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -12251,10 +12259,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 25,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -12318,10 +12326,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .slicingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 50,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -12361,10 +12369,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
             .chance = 50,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -12384,14 +12392,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .evasiveBreak = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 25,
         },
         {
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 25,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -12429,10 +12437,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
             .chance = 40,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -12493,10 +12501,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .damagesAirborneDoubleDamage = TRUE,
         .alwaysHitsInRain = TRUE,
         .accuracy50InSun = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -12520,10 +12528,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_LIGHT_RECOIL,
                 .self = TRUE,
-            }),*/
+            }),
         .makesContact = TRUE,
         .recoilMove = TRUE,
         .headbuttMove = TRUE,
@@ -12565,10 +12573,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .ballisticMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -12663,10 +12671,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .ignoresSubstitute = TRUE,
         .soundMove = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SLEEP,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -12703,10 +12711,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -12725,10 +12733,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -12747,10 +12755,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -12771,11 +12779,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .danceMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_PLUS_1,
             .self = TRUE,
             .chance = 50,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -12797,10 +12805,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
        //.argument.twoTurnAttack = { .stringId = STRINGID_CLOAKEDINAFREEZINGLIGHT },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 50,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -12823,10 +12831,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
        //.argument.twoTurnAttack = { .stringId = STRINGID_CLOAKEDINAFREEZINGLIGHT },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 50,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -12849,10 +12857,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .ignoresSubstitute = TRUE,
         .soundMove = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -12870,10 +12878,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -12893,10 +12901,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_V_CREATE,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -12957,10 +12965,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .evasiveBreak = TRUE,
         .gravityBanned = TRUE,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -13098,10 +13106,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_FellStinger,
-         /*.additionalEffects = ADDITIONAL_EFFECTS({
+         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 35,
-        }),*/
+        }),
     },
 
     [MOVE_PHANTOM_FORCE] =
@@ -13123,9 +13131,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .multiTaskBanned = TRUE,
         .damagesAirborne = TRUE,
         .argument.twoTurnAttack = { .stringId = STRINGID_VANISHEDINSTANTLY, .status = STATE_PHANTOM_FORCE },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FEINT,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -13269,10 +13277,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .argument = { .storedValue = TYPE_WATER },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -13292,10 +13300,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .ignoresSubstitute = TRUE,
         .soundMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -13479,10 +13487,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -13519,10 +13527,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -13646,11 +13654,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_PLUS_2,
             .self = TRUE,
             .chance = 50,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -13670,10 +13678,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .thawsUser = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -13694,9 +13702,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .ignoresProtect = TRUE,
         .ignoresSubstitute = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FEINT,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_HYPERSPACE_HOLE,
@@ -13737,10 +13745,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -14027,10 +14035,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -14049,10 +14057,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 15,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -14071,9 +14079,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_INFESTATION,
-        }),*/
+        }),
     },//previously infestation
 
     [MOVE_POWER_UP_PUNCH] =
@@ -14088,11 +14096,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_PLUS_1,
             .self = TRUE,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -14158,9 +14166,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .metronomeBanned = TRUE,
         .cantdamageFloating = TRUE,
         .damagesUnderground = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PREVENT_ESCAPE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_THOUSAND_WAVES,
@@ -14198,10 +14206,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_HEAVY_RECOIL,
                 .self = TRUE,
-            }),*/
+            }),
         .recoilMove = TRUE,
         .metronomeBanned = TRUE,
         //.battleAnimScript = gBattleAnimMove_LightOfRuin,
@@ -14263,10 +14271,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_SPDEF_DOWN,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -14289,11 +14297,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .ignoresSubstitute = TRUE,
         .metronomeBanned = TRUE,
         .sketchBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             // Feint move effect handled in script as it goes before animation
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_HYPERSPACE_FURY,
@@ -14334,10 +14342,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .argument = { .moveProperty = MOVE_FIRST_IMPRESSION },
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -14381,10 +14389,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SWITCH_LOCKED,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -14439,10 +14447,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .argument = { .status = STATUS1_BURN },
         .ignoresSubstitute = TRUE,
         .soundMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_STATUS,
             .sheerForceOverride = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -14463,10 +14471,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -14669,10 +14677,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THROAT_CHOP,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -14709,10 +14717,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PREVENT_ESCAPE,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -14750,14 +14758,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
             .chance = 100,
         },
         {
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -14777,10 +14785,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .damagesAirborne = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -14817,10 +14825,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .argument = { .storedValue = TYPE_FIRE },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
-        }),*/
+        }),
     },
 
     [MOVE_SPEED_SWAP] =
@@ -14908,9 +14916,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CORE_ENFORCER,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -14930,10 +14938,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .kickingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -15003,14 +15011,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .ignoresSubstitute = TRUE,
         .soundMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .self = TRUE,
         },
         {
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -15047,10 +15055,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -15073,10 +15081,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -15119,10 +15127,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -15142,10 +15150,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .bitingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 25,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -15181,10 +15189,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_SHADOW_BONE,
@@ -15221,10 +15229,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -15242,10 +15250,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -15342,10 +15350,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -15448,11 +15456,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},*/
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ION_DELUGE,
-            .chance = 100,
-            .sheerForceBoost = SHEER_FORCE_NO_BOOST,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_PlasmaFists,
     },//want anim to be trailing blue lightning effect, like wing attack does for tornado  rebalanced, inspired by zera unite move, raw plasma will seek out a target 
 
@@ -15489,10 +15495,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .alwaysCriticalHit = TRUE,
         .metronomeBanned = TRUE,
-            /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_EVS_PLUS_1,
             .self = TRUE,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_ZippyZap,
     },
 
@@ -15511,10 +15517,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
         .argument = { .storedValue = TYPE_ELECTRIC },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_SplishySplash,
        
     },
@@ -15532,11 +15538,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .gravityBanned = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
             .sheerForceOverride = TRUE,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_FloatyFall,
     },
     //hmm unique pika exclusive but think I may actualy give this 
@@ -15587,9 +15593,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_BuzzyBuzz,
     },
 
@@ -15606,9 +15612,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .thawsUser = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_SizzlySlide,
     },
 
@@ -15628,9 +15634,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_LIGHT_SCREEN,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_GlitzyGlow,
     },
 
@@ -15650,9 +15656,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REFLECT,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_BaddyBad,
     },
 
@@ -15674,9 +15680,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .magicCoatAffected = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_LEECH_SEED,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_SappySeed,
     },
 
@@ -15697,9 +15703,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_HAZE,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_FreezyFrost,
     },
 
@@ -15720,9 +15726,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_AROMATHERAPY,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_SparklySwirl,
     },
 
@@ -15761,10 +15767,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .evasiveBreak = TRUE,
         .metronomeBanned = TRUE,
         .multiTaskBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -15829,9 +15835,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .bitingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_HIT_BOTH,
-        }),*/
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_TRAP_BOTH,
+        }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -16104,10 +16110,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -16134,14 +16140,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_WRAP,
             .multistring.wrapped = B_MSG_WRAPPED_SNAP_TRAP,
         },
         {
-            .moveEfect = MOVE_EFFECT_FLINCH,
+            .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 25,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -16163,10 +16169,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .thawsUser = TRUE,
         .ballisticMove = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -16232,11 +16238,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
             .self = TRUE,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -16256,10 +16262,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -16279,10 +16285,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -16303,10 +16309,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .soundMove = TRUE,
         .ignoresSubstitute = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -16325,10 +16331,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -16347,10 +16353,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -16372,10 +16378,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -16394,10 +16400,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -16482,10 +16488,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .metronomeBanned = TRUE,
         .instructBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -16504,10 +16510,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_RECHARGE,
             .self = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -16527,10 +16533,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .recoilMove = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_HEAVY_RECOIL,
                 .self = TRUE,
-            }),*/
+            }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -16623,11 +16629,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .instructBanned = TRUE,
         .argument.twoTurnAttack = { .stringId = STRINGID_METEORBEAMCHARGING },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_PLUS_1,
             .self = TRUE,
             .onChargeTurnOnly = TRUE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -16653,10 +16659,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -16756,14 +16762,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
             .chance = 100,
         },
         {
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -16787,11 +16793,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .onlyIfTargetRaisedStats = TRUE,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -16952,10 +16958,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .thawsUser = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 30,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -17045,10 +17051,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_WRAP,
             .multistring.wrapped = B_MSG_WRAPPED_THUNDER_CAGE,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -17086,10 +17092,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -17108,10 +17114,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -17132,10 +17138,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .kickingMove = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -17196,10 +17202,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_EERIE_SPELL,
             .chance = 100,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_EerieSpell,
     },//ok checked double checked japanese translation and there's no reason for this move to be a sound move. its just a dark magic spell
     //idk maybe need something like generates sound in enemies head that curses them -vsonic
@@ -17221,10 +17227,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DIRE_CLAW,
             .chance = 50,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_DireClaw,
     },
 
@@ -17239,11 +17245,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_PLUS_1,
             .self = TRUE,
             .chance = 100,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_PsyshieldBash,
     },
 
@@ -17276,9 +17282,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .slicingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .sheerForceOverride = TRUE,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_StoneAxe,
     }, //need test
     //low power no reason to have such low acc
@@ -17302,14 +17308,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .windMove = TRUE,
         .metronomeBanned = TRUE,
         //.alwaysHitsInRain = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
             .chance = 30,
         },
         {
             .moveEffect = MOVE_EFFECT_ATTRACT,
             //.chance = 30,            
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_SpringtideStorm,
     },
 
@@ -17323,11 +17329,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_HIGHEST_STAT_UP,
             .self = TRUE,
             .chance = 100,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_MysticalPower,
     },
     //changing from sp atk up hit
@@ -17355,10 +17361,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .metronomeBanned = TRUE,
         .multiTaskBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THRASH,
             .self = TRUE,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_RagingFury,
     },
 
@@ -17376,10 +17382,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_MED_RECOIL,
                 .self = TRUE,
-            }),*/
+            }),
         .makesContact = TRUE,
         .recoilMove = TRUE,
         //.battleAnimScript = gBattleAnimMove_WaveCrash,
@@ -17401,10 +17407,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .recoilMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_HEAVY_RECOIL,
                 .self = TRUE,
-            }),*/
+            }),
         //.battleAnimScript = gBattleAnimMove_Chloroblast,
     },
 
@@ -17418,10 +17424,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 30,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_MountainGale,
     },
     //buffed since only given to avalug
@@ -17462,10 +17468,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .punchingMove = TRUE,
         .headbuttMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_SPDEF_DOWN,
             .self = TRUE,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_HeadlongRush,
     },
     //note gets iron fist boost cuz name is sumo term, rush forward while thrusting fists/open palms forwward to attack
@@ -17485,10 +17491,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .argument = { .status = STATUS1_PSN_ANY },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 50,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_BarbBarrage,
     },
     //double damage if target poisoned, and set poison
@@ -17509,11 +17515,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
             .self = TRUE,
             .chance = 100,
-        }),*/
+        }),
        .argument = { .storedValue = TYPE_FLYING },
         //.battleAnimScript = gBattleAnimMove_EsperWing,
     },//vsonic want to make this two typed psychic flying
@@ -17529,14 +17535,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED, //for that use shadow ball background with creeping ice crystals from bottom up
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
             .chance = 100,
         },
         {
             .moveEffect = MOVE_EFFECT_FROSTBITE,
             .chance = 30,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_BitterMalice,
     },//vsonic - make bitter malilce its own effect atk/spatkdown hit
     //use BattleScript_EffectNobleRoar  as template
@@ -17576,7 +17582,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .enhancedCritrate = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FOCUS_ENERGY,
             .self = TRUE,
             .setfromatkcanceler = TRUE,
@@ -17584,7 +17590,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         {
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 30,
-        }),*/
+        }),
     },  //need test fixed put focus energy effect at end, so doesn't trigger before damage done. / changed mind put at start, mon is still relatively frail
 
     [MOVE_INFERNAL_PARADE] =
@@ -17598,10 +17604,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .argument = { .status = STATUS1_ANY },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 30,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_InfernalParade,
     },
     //hex + burn chance
@@ -17618,9 +17624,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .slicingMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .sheerForceOverride = TRUE,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_CeaselessEdge,
     },
     //sets spikes
@@ -17643,10 +17649,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .windMove = TRUE,
         .alwaysHitsInRain = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 20,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_BleakwindStorm,
     },//signature move of therian tornadus, make form different mon so can only learn this
     //move in therian form, guess will need make a replacement like rotom,
@@ -17671,10 +17677,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .windMove = TRUE,
         .alwaysHitsInRain = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 20,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_WildboltStorm,
     },
 
@@ -17695,10 +17701,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .windMove = TRUE,
         .alwaysHitsInRain = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 20,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_SandsearStorm,
     },//dmg in air was only used here because is ground type move but reworked effect
     //effects of these 3 storm moves
@@ -17756,10 +17762,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .forcePressure = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_TERA_BLAST,
             .self = TRUE,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_TeraBlast,
     },
 
@@ -17794,10 +17800,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .kickingMove = TRUE,
         .damagesAirborne = TRUE,
         .recoilMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 30,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_AxeKick,
     },
 
@@ -17825,10 +17831,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_2,
             .chance = 100,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_LuminaCrash,
     },
 
@@ -17844,11 +17850,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .mirrorMoveBanned = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ORDER_UP,
             .self = TRUE,
             .chance = 100,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_OrderUp,
     },
     //I never saw anyone use anything but the attack boosting tatsugiri
@@ -17912,10 +17918,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_2,
             .self = TRUE,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_SpinOut,
     },
 
@@ -17999,10 +18005,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SALT_CURE,
             .chance = 100,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_SaltCure,
         // Supposedly uncallable by Metronome, but dubious
     },
@@ -18035,11 +18041,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS(
+        .additionalEffects = ADDITIONAL_EFFECTS(
         {
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 100,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_MortalSpin,
     },
 
@@ -18126,11 +18132,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .soundMove = TRUE,
         .ignoresSubstitute = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_PLUS_1,
             .self = TRUE,
             .chance = 100,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_TorchSong,
     },
 
@@ -18146,11 +18152,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .danceMove = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
             .self = TRUE,
             .chance = 100,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_AquaStep,
     },
 
@@ -18193,13 +18199,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PAYDAY,
         },
         {
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
             .self = TRUE,
-        }),*/
+        }),
         // Uncallable by Metronome (to be implemented)
     },
     //payday and sp atk drop
@@ -18364,10 +18370,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 100,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_Pounce,
     },
     //renamed from pounce
@@ -18384,11 +18390,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
             .self = TRUE,
             .chance = 100,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_Trailblaze,
     },
 
@@ -18403,14 +18409,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
             .chance = 100,
         },
         {
             .moveEffect = MOVE_EFFECT_FROSTBITE,
             .chance = 30,
-        }),*/ //potentially drop to 20
+        }), //potentially drop to 20
         //.battleAnimScript = gBattleAnimMove_ChillingWater,
     },
 
@@ -18474,10 +18480,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_SPDEF_DOWN,
             .self = TRUE,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_ArmorCannon,
     },
 
@@ -18573,10 +18579,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .encoreBanned = TRUE,
         .assistBanned = TRUE,
         .sketchBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 30,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_BlazingTorque,
     },//think make these revaroom move tutor moves
     //if the gen 1 truck is in the game put an npc by it
@@ -18601,10 +18607,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .encoreBanned = TRUE,
         .assistBanned = TRUE,
         .sketchBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SLEEP,
             .chance = 10,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_WickedTorque,
     },//check update fo EE should have ability set move effect without needing new effect
 
@@ -18628,10 +18634,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .encoreBanned = TRUE,
         .assistBanned = TRUE,
         .sketchBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 30,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_NoxiousTorque,
     },
 
@@ -18655,10 +18661,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .encoreBanned = TRUE,
         .assistBanned = TRUE,
         .sketchBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_CombatTorque,
     },
     //may give to mega mewtwo x
@@ -18683,10 +18689,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .encoreBanned = TRUE,
         .assistBanned = TRUE,
         .sketchBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 30,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_MagicalTorque,
     },
     //boosted up as pretty much only physical fairy move of strength
@@ -19307,10 +19313,10 @@ use wonder gaurd logic to determine its super effective
         .makesContact = TRUE,
         .damagesAirborne = TRUE,
         .argument = { .storedValue = TYPE_GRASS },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 20,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -19338,7 +19344,7 @@ use wonder gaurd logic to determine its super effective
         .soundMove = TRUE,
         .ignoresSubstitute = TRUE,
         .argument = MOVE_EFFECT_CONFUSION,
-        /*.additionalEffects = ADDITIONAL_EFFECTS(
+        .additionalEffects = ADDITIONAL_EFFECTS(
             {
                 .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
                 .self = TRUE,
@@ -19347,7 +19353,7 @@ use wonder gaurd logic to determine its super effective
             {
                 .moveEffect = MOVE_EFFECT_CONFUSION,
                 .chance = 10,
-            }),*/
+            }),
     },//since effect is affects user its already certain
     //think give this uproar effect as well, good idea
     //to have more sleep control in game even with rebalance
@@ -19364,10 +19370,10 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .argument = { .storedValue = TYPE_PSYCHIC },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
-        }),*/
+        }),
     },
 
     [MOVE_SHIMON] =
@@ -19381,10 +19387,10 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .argument = { .storedValue = TYPE_FIGHTING },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
-        }),*/
+        }),
     },
 
     [MOVE_FINAL_FLIGHT] =
@@ -19399,10 +19405,10 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_SPECIAL,
         //.enhancedCritrate = TRUE, //this is prob too much no? vsonic
         .argument = { .storedValue = TYPE_FLYING },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
-        }),*/
+        }),
     },//Check flying type average stats, see if need to make this physical
     //idea is user pushes themselves to the limit, and gives everything they have to perform an acrobatic feat  /vsonic
     //let pidgeot get but think this should be a tutor move?
@@ -19419,10 +19425,10 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .argument = { .storedValue = TYPE_ELECTRIC },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
-        }),*/
+        }),
     },
 
     [MOVE_BOLTBEAM] =
@@ -19436,10 +19442,10 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .split = SPLIT_SPECIAL,
        .argument = { .storedValue = TYPE_ELECTRIC },
-       /*.additionalEffects = ADDITIONAL_EFFECTS({
+       .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 30,
-        }),*/
+        }),
     },
     //two typed attack w chance to freeze
 
@@ -19472,10 +19478,10 @@ use wonder gaurd logic to determine its super effective
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
         .argument = { .storedValue = TYPE_ELECTRIC },
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
-        }),*/
+        }),
         //.battleAnimScript = gBattleAnimMove_DoubleShock,
     },//making all losetype 150 because changing effect to last entire battle not just until switch out, also keeping move as my version was special
 
@@ -19489,11 +19495,11 @@ use wonder gaurd logic to determine its super effective
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
             .self = TRUE,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -19535,10 +19541,10 @@ use wonder gaurd logic to determine its super effective
         .ballisticMove = TRUE,
         .instructBanned = TRUE,
         .parentalBondBanned = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 15,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -19649,10 +19655,10 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .split = SPLIT_STATUS,
         .magicCoatAffected = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 10,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -19682,10 +19688,10 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .cantdamageFloating = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 20,
-        }),*/
+        }),
          //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_MUDSLIDE,
@@ -19874,11 +19880,11 @@ use wonder gaurd logic to determine its super effective
         .target = TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .onlyIfTargetRaisedStats = TRUE,
             .chance = 100,
-        }),*/
+        }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -19947,7 +19953,7 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_SPECIAL,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
-        .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNTOOKSUNLIGHT, .status = WEATHER_HAIL_ANY },
+        .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNTOOKSUNLIGHT, .status = WEATHER_HAIL },
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
