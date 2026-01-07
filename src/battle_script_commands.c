@@ -303,6 +303,7 @@ enum GiveCaughtMonStates
 
 #define TAG_LVLUP_BANNER_MON_ICON 55130
 
+static void TryActivatePreHitAbilities(u32 battlerDef);
 static u32 ChangeStatBuffs(u32 battler, s8 statValue, enum Stat statId, union StatChangeFlags flags, u32 stats, const u8 *BS_ptr);
 static bool32 IsMonGettingExpSentOut(void);
 static void InitLevelUpBanner(void);
@@ -2180,6 +2181,26 @@ static inline bool32 TryActivateWeaknessBerry(u32 battlerDef)
     return FALSE;
 }
 
+static void TryActivatePreHitAbilities(u32 battlerDef)
+{
+    if (!gSpecialStatuses[battlerDef].preHitAbilityDone)
+        AbilityBattleEffects(ABILITYEFFECT_PRE_HIT_REACT, battlerDef, 0, 0, 0);
+}
+
+static inline bool32 TryPrintPreHitAbilityActivationText(u32 battlerDef)
+{
+    u32 moveType = GetBattleMoveType(gCurrentMove);
+
+    if (gBattleStruct->shouldPrintPreHitAbilityText)
+    {
+        PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
+        BattleScriptCall(BattleScript_ColorChangeActivates);
+        gBattleStruct->shouldPrintPreHitAbilityText = FALSE;
+        return TRUE;
+    }    
+    return FALSE;
+}
+
 //vsonic important hold for color change rework
 static bool32 ProcessPreAttackAnimationFuncs(void)
 {
@@ -2211,6 +2232,8 @@ static bool32 ProcessPreAttackAnimationFuncs(void)
 
             if (TryTeraShellDistortTypeMatchups(battlerDef))
                 return TRUE;
+            if (TryPrintPreHitAbilityActivationText(battlerDef)) //put above weakness berry as changes type
+                return TRUE;
             if (TryActivateWeaknessBerry(battlerDef))
                 return TRUE;
         }
@@ -2221,11 +2244,23 @@ static bool32 ProcessPreAttackAnimationFuncs(void)
             return TRUE;
         if (TryTeraShellDistortTypeMatchups(gBattlerTarget))
             return TRUE;
+        if (TryPrintPreHitAbilityActivationText(gBattlerTarget))
+                return TRUE;
         if (TryActivateWeaknessBerry(gBattlerTarget))
             return TRUE;
     }
 
     return FALSE;
+}
+
+//should work fine long as no effects
+//that run type check before animations -which i believe aren't
+void BS_ProcessPreAttackAnimationFuncs(void)
+{
+      NATIVE_ARGS();
+      if (ProcessPreAttackAnimationFuncs())
+        return;
+      gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void Cmd_attackanimation(void)

@@ -438,7 +438,8 @@ struct SpecialStatus
     u8 parentalBondState : 2; // 0/1/2 is used, max is 0-3
     u8 multiHitOn : 1; //think is a state chech, seems most used with parental bond
     u8 Cacophonyboosted:1; //need make function for and add to battle_main
-    u8 padding:3;
+    u8 preHitAbilityDone:1;
+    u8 padding:2;
     
     u8 firstFuturesightHits:1;
     u8 secondFuturesightHits:1;
@@ -1000,7 +1001,8 @@ struct BattleStruct //fill in unused fields when porting
     u8 sameMoveTurns[MAX_BATTLERS_COUNT]; // For Metronome, number of times the same moves has been SUCCESFULLY used.
     u16 moveEffect2; // For Knock Off smack down and removestatus moves i.e smelling salts wakeupslap & sparklin aria   -PORTED
     u8 ballSpriteIds[2];    // item gfx, window gfx
-    u8 padding;
+    u8 shouldPrintPreHitAbilityText:1;
+    u8 padding:7;
     u8 appearedInBattle; // Bitfield to track which Pokemon appeared in battle. Used for Burmy's form change
     u8 skyDropTargets[MAX_BATTLERS_COUNT]; // For Sky Drop, to account for if multiple Pokemon use Sky Drop in a double battle.
     // When using a move which hits multiple opponents which is then bounced by a target, we need to make sure, the move hits both opponents, the one with bounce, and the one without.

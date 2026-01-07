@@ -5505,6 +5505,7 @@ BattleScript_MonTookFutureAttack::
 BattleScript_CheckDoomDesireMiss::
 	accuracycheck BattleScript_FutureAttackMiss, MOVE_DOOM_DESIRE
 BattleScript_FutureAttackAnimate::
+	processPreAttackAnimFuncs	@for color change strong wind
 	damagecalc
 	adjustdamage
 	jumpifmovehadnoeffect BattleScript_DoFutureAttackResult

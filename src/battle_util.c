@@ -5463,21 +5463,6 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
     case ABILITYEFFECT_COLOR_CHANGE:
         switch (gLastUsedAbility)
         {
-        case ABILITY_COLOR_CHANGE:
-            if (IsBattlerTurnDamaged(battler)
-             && IsBattlerAlive(battler)
-             && !IS_BATTLER_OF_TYPE(battler, moveType)
-             && move != MOVE_STRUGGLE
-             && moveType != TYPE_STELLAR
-             && moveType != TYPE_MYSTERY)
-            {
-                gEffectBattler = gBattlerAbility = battler;
-                SET_BATTLER_TYPE(battler, moveType);
-                PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
-                BattleScriptCall(BattleScript_ColorChangeActivates);
-                effect++;
-            }
-            break;
         case ABILITY_BERSERK:
             if (IsBattlerTurnDamaged(battler)
              && IsBattlerAlive(battler)
@@ -6493,6 +6478,30 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
             break;
         }
         break;
+    case ABILITYEFFECT_PRE_HIT_REACT:
+
+        gLastUsedAbility = GetBattlerAbility(battler);
+        switch (gLastUsedAbility)
+        {
+        case ABILITY_COLOR_CHANGE:
+            if (move != MOVE_STRUGGLE
+            && IsBattlerAlive(battler)
+            && !IsBattleMoveStatus(move)
+            && !IS_BATTLER_OF_TYPE(battler, moveType)
+            && moveType != TYPE_STELLAR
+            && moveType != TYPE_MYSTERY
+            && !gSpecialStatuses[battler].preHitAbilityDone
+            )
+            {
+                gBattlerAbility = battler; //unsure if need
+                gBattleStruct->shouldPrintPreHitAbilityText = TRUE;
+                gSpecialStatuses[battler].preHitAbilityDone = TRUE;
+                SET_BATTLER_TYPE2(battler, moveType);
+                effect++;//affect works but can't yet workout how to get battlescript and ability popup working
+            }            
+            break;//unsure if this version of effect believe would not be affected by future sight or doom desire
+        }
+    
     }
 
     if (effect)
