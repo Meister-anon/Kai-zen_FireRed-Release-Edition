@@ -838,7 +838,7 @@ struct PartyState
     u32 sentOut:1;
     u32 padding:9;
     u32 knockedOffItem; //was knock from wishfutureknock struct
-    u16 usedHeldItem;
+    u16 usedHeldItem;//check may need adjust harvest recycle w setup for 2nd held slot
     u16 usedSingleUseAbility; //for abilities that activate once per battle - my addition //not bool stores ability too
     u8 ToxicTurnCounter:5; //MAX_TOXIC_TURNS 16 //change make toxic dmg tracked not reset on switch
     u8 SleepTimer:3; //MAX_SLEEP_TURNS 5
@@ -967,7 +967,7 @@ struct BattleStruct //fill in unused fields when porting
     u8 multiplayerId;
     u8 atkCancellerTracker;//almost feels like I should turn these party wide things into their own struct at this point
     //u16 usedHeldItems[MAX_BATTLERS_COUNT]; //original value below is emerald expansion changed version,  
-    u16 usedHeldItems[PARTY_SIZE][NUM_BATTLE_SIDES]; //check may need adjust harvest recycle w setup for 2nd held slot // For each party member and side. For harvest, recycle  //think I"m setup to use this? adjusted all values now
+    //u16 usedHeldItems[PARTY_SIZE][NUM_BATTLE_SIDES]; //check may need adjust harvest recycle w setup for 2nd held slot // For each party member and side. For harvest, recycle  //think I"m setup to use this? adjusted all values now
     //can save some space here, this is different from above it doesn't store id of what was used it just does true/false
     //then again as I'm just checking for a positive value if I stored the ability used
     //then I can use this to ensure anticipation/forewarn can't reactivate for a different mon
