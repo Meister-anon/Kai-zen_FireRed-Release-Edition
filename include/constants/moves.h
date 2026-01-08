@@ -986,9 +986,6 @@ enum Move {
 #define MOVE_UNAVAILABLE 0xFFFF
 
 
-//#define LAST_MOVE_INDEX     MOVE_COCOON
-
-//#define MOVES_COUNT 357
 
 #define MOVETUTOR_MEGA_PUNCH    0
 #define MOVETUTOR_SWORDS_DANCE  1
