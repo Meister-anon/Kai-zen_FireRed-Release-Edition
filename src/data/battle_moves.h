@@ -11822,6 +11822,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     },
     //opposite of after you, makes target act last
     //like after you this is a massive buff
+    //thought about lowering back down but is significantly rare enough
+    //to be fine
 
     [MOVE_ACROBATICS] =
     {
@@ -20074,7 +20076,7 @@ use wonder gaurd logic to determine its super effective
         .power = 0,
         .type = TYPE_DARK,
         .accuracy = 0,
-        .pp = 5,
+        .pp = 10,
         .target = TARGET_USER,
         .split = SPLIT_STATUS,
         .argument = { .protectMethod = PROTECT_FENCE },
