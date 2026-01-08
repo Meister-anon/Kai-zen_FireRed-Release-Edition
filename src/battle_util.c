@@ -10056,6 +10056,7 @@ static inline s32 DoMoveDamageCalc(struct BattleContext *ctx)
     return DoMoveDamageCalcVars(ctx);
 }
 
+//no crit no stab typless dmg
 static inline s32 DoFutureSightAttackDamageCalcVars(struct BattleContext *ctx)
 {
     s32 dmg;
@@ -10081,7 +10082,7 @@ static inline s32 DoFutureSightAttackDamageCalcVars(struct BattleContext *ctx)
     targetFinalDefense = CalcDefenseStat(ctx);
     dmg = CalculateBaseDamage(battlerAtk, gBattleMovePower, userFinalAttack, partyMonLevel, targetMonLevel, targetFinalDefense);
 
-    DAMAGE_APPLY_MODIFIER(GetCriticalModifier(ctx->isCrit));
+    //DAMAGE_APPLY_MODIFIER(GetCriticalModifier(ctx->isCrit));
 
     if (ctx->randomFactor)
     {
@@ -10090,11 +10091,11 @@ static inline s32 DoFutureSightAttackDamageCalcVars(struct BattleContext *ctx)
     }
 
     // Same type attack bonus
-    if (GetSpeciesType(partyMonSpecies, 0) == moveType || GetSpeciesType(partyMonSpecies, 1) == moveType)
+    /*if (GetSpeciesType(partyMonSpecies, 0) == moveType || GetSpeciesType(partyMonSpecies, 1) == moveType)
         DAMAGE_APPLY_MODIFIER(SAME_TYPE_MULTIPLIER);
-    else
+    else*/
         DAMAGE_APPLY_MODIFIER(UQ_4_12(1.0));
-    DAMAGE_APPLY_MODIFIER(ctx->typeEffectivenessModifier);
+    //DAMAGE_APPLY_MODIFIER(ctx->typeEffectivenessModifier);
 
     if (dmg == 0)
         dmg = 1;
