@@ -37,8 +37,8 @@ struct AdditionalEffect
     union PACKED {
         enum WrappedStringID wrapped;
     } multistring;
-    u8 chance; // 0% = effect certain, primary effect
-};//vsonic will have to add base doesn't have that remove any checks for not 0
+    u8 chance; // 0% = effect certain, primary effect //note from alex a primary effect isn't blocked by sheer force, while a certain effect would be
+};//so I need to set 100 all effects I added that don't use chance... greaaaat
 
 enum ProtectType
 {
