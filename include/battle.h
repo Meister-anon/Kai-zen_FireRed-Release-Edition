@@ -383,9 +383,8 @@ struct ProtectStruct
              u32 activatedAbilityStatusHealing:1;  //since separated from status need this to filter so doesn't retrigger. //using for both poison heal and heat trance, 
              u32 statRaised:1;
              u32 statFell:1;
-             u32 oneTurnStatBoost:1; //stat to boost set from stored value made for mega gren z, meant to be 2 stage boost
-             u32 padding:2;  
-             u16 fieldE;
+             u32 oneTurnStatBoost:3; //stat to boost set from stored value made for mega gren z, meant to be 2 stage boost
+             u16 fieldE; //realized meant to store stat not a bool max stat id is 7 so thankfully fits
 };
 
 extern struct ProtectStruct gProtectStructs[MAX_BATTLERS_COUNT];

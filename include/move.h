@@ -146,6 +146,10 @@ struct BattleMove
             u16 stringId;
             u16 status;
         } twoTurnAttack;
+        struct {
+            u16 typeCheck;
+            u16 powerMultiplier;
+        } typeBasedPowerBoost;
         u32 protectMethod;
         u32 status;
         u32 moveProperty;
@@ -157,6 +161,12 @@ struct BattleMove
         u32 sacrificedHpPercentage; //decide use for hp loss for self destruct mind blown may filter into curse as well
         u32 nonVolatileStatus; //looking at plasma fists which can go use effect_hit then go to other move effect
     } argument; //think may not need recoilType at all
+    //unions are weird can't be bit field but can have bit fields within them,
+    //are read as same byte so must be mutually exclusive
+    //so unless its a strut within the union I can't have
+    //more than 1 field assigned at a time and return values from it.
+    //unions I believe save space since no matter how many members I have
+    //in said union I believe its all read as a single byte/memory block
 
     // primary/secondary effects
     const struct AdditionalEffect *additionalEffects;
@@ -614,9 +624,23 @@ static inline u32 GetMoveNonVolatileStatus(u32 move)
     }
 }
 
-static inline u32 GetMoveDamagePercentage(u32 move)
+static inline u32 GetMoveDamagePercentage(u32 moveId)
 {
-    return gBattleMoves[SanitizeMoveId(move)].argument.damagePercentage;
+    return gBattleMoves[SanitizeMoveId(moveId)].argument.damagePercentage;
+}
+
+static inline u16 GetTypeBasedBoostTypeCheck(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    assertf(gBattleMoves[moveId].effect == EFFECT_TARGET_TYPE_DAMAGE, "not a type boosted move: %S", GetMoveName(moveId));
+    return gBattleMoves[moveId].argument.typeBasedPowerBoost.typeCheck;
+}
+
+static inline uq4_12_t GetTypeBasedBoostMultiplier(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    assertf(gBattleMoves[moveId].effect == EFFECT_TARGET_TYPE_DAMAGE, "not a type boosted move: %S", GetMoveName(moveId));
+    return PercentToUQ4_12(gBattleMoves[moveId].argument.typeBasedPowerBoost.powerMultiplier);
 }
 
 

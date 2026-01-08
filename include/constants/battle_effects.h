@@ -766,7 +766,6 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_POPULATION_BOMB,
     EFFECT_CHILLY_RECEPTION,
     EFFECT_MAX_MOVE,
-    EFFECT_GLAIVE_RUSH,
     EFFECT_RAGE_FIST,
     EFFECT_DOODLE,
     EFFECT_FILLET_AWAY,
@@ -802,7 +801,7 @@ enum __attribute__((packed)) BattleMoveEffects
     //EFFECT_SET_TARGET_ABILITY, //removed relized was just overwrite ability
     EFFECT_SHIELD_BASH,
     EFFECT_MONOTYPE,
-    EFFECT_MOONDANCE,
+    EFFECT_MOONDANCE, //EE update weather effects consolidate to effect_weather
     EFFECT_ACID_RAIN,
     EFFECT_SUBMISSION, //changed to full protect bypass so just use brick break effect changed mind since increasing distribution
     EFFECT_RAGING_BULL,

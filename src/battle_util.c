@@ -8454,8 +8454,8 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
             modifier = uq4_12_multiply(modifier, UQ_4_12(2.0));
         break;
     case EFFECT_TARGET_TYPE_DAMAGE:
-        if (IS_BATTLER_OF_TYPE(battlerDef, GetMoveStoredValue(move)))
-            modifier = uq4_12_multiply(modifier, PercentToUQ4_12(GetMoveDamagePercentage(move)));
+        if (IS_BATTLER_OF_TYPE(battlerDef, GetTypeBasedBoostTypeCheck(move)))
+            modifier = uq4_12_multiply(modifier, GetTypeBasedBoostMultiplier(move));
         break;
     case EFFECT_BRINE:
         if (gBattleMons[battlerDef].hp <= (gBattleMons[battlerDef].maxHP / 2))

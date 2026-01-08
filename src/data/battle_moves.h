@@ -340,7 +340,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .enhancedCritrate = TRUE,
         .damagesAirborneDoubleDamage = TRUE,
         .argument = { .storedValue = TYPE_FLYING },
-       .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNWHIPPEDWHIRLWIND },
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -398,9 +397,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
         //.battleAnimScript = gBattleAnimMove_Cut,
-        .argument = {
-        .storedValue = TYPE_GRASS,
-        .damagePercentage = 300}, //power x multiplier / 10 basically is just times 3...
+        .argument.typeBasedPowerBoost = {
+        .typeCheck = TYPE_GRASS,
+        .powerMultiplier = 300}, //power x multiplier / 10 basically is just times 3...
     }, //make effect easy to adjust, change command  to read type to effct from argument, and dmg multiplier from gbattlemovedmg * argumetn chance/ 10
     //ok hopefully this works vsonic
     //if I instead change to 300 I think I can use PercentToUQ4_12 function to make it 3.0
@@ -5882,9 +5881,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
             .chance = 50,
         }),
-        .argument = {
-        .storedValue = TYPE_ROCK,
-        .damagePercentage = 200},
+        .argument.typeBasedPowerBoost = {
+        .typeCheck = TYPE_ROCK,
+        .powerMultiplier = 200},
         //.contestEffect = CONTEST_EFFECT_BETTER_WITH_GOOD_CONDITION,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -16803,7 +16802,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_BurningJealousy,
-        .argument = MOVE_EFFECT_BURN,
     },//think make - priorty move if on a fast mon not usefl
     //potentially give to reshiram
     //unsure if should make electric variant for zekrom?
@@ -17961,7 +17959,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_GLAIVE_RUSH] =
     {
-        .effect = EFFECT_GLAIVE_RUSH,    //Todo // EFFECT_GLAIVE_RUSH
+        .effect = EFFECT_HIT,    //Todo // EFFECT_GLAIVE_RUSH
         .power = 120,
         .type = TYPE_DRAGON,
         .accuracy = 100,
@@ -17970,6 +17968,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_GLAIVE_RUSH,
+            .self = TRUE,
+        }),
         //.battleAnimScript = gBattleAnimMove_GlaiveRush,
     },
 
@@ -19343,7 +19345,6 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_SPECIAL,
         .soundMove = TRUE,
         .ignoresSubstitute = TRUE,
-        .argument = MOVE_EFFECT_CONFUSION,
         .additionalEffects = ADDITIONAL_EFFECTS(
             {
                 .moveEffect = MOVE_EFFECT_SPD_PLUS_1,
@@ -20046,6 +20047,10 @@ use wonder gaurd logic to determine its super effective
         .strikeCount = 4,
         .multiTaskBanned = TRUE,
         .parentalBondBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SHADOW_STRIKE,
+            .self = TRUE,
+        }),//boost evasion one turn STAT_EVASION
         //new category effect at moveend
         //set special protectstatus one turn stat boost
         //will store stat to boost from storedValue
@@ -20053,9 +20058,6 @@ use wonder gaurd logic to determine its super effective
         //overall same as how protect method is stored
         //unsure how will do this, can do with moveproperty
         //or a move effect to set status
-        .argument = {
-        .moveProperty = MOVE_EFFECT_SHADOW_STRIKE,
-        .storedValue = STAT_EVASION},       
         //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
