@@ -150,7 +150,11 @@ static inline u32 GetAbilityTimer(enum Ability ability)
         break;
         case ABILITY_WONDER_GUARD:
             return 4; //might use 5
-        break;
+        break;//review effect base version of use is clear weaknesses then switch in shedinja to sweep untouchable
+        //need remember what changes I made along w timer is it immune to weather and hazards?
+        //consider adjust timer to what makes sense for vgc average length 
+        //believe my change makes it both easier and harder to use shedinja
+        //which technically is the goal, just want to make sure the value is still there
         
         case ABILITY_SPECTRE:
             return 2;
