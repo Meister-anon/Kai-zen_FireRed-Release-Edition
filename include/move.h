@@ -39,6 +39,8 @@ struct AdditionalEffect
     } multistring;
     u8 chance; // 0% = primary effect, 100 is effect certain //note from alex a primary effect isn't blocked by sheer force, while a certain effect would be
 };//so I need to set 100 all effects I added that don't use chance... greaaaat
+//oh wait actually no, so value 100 would exclude from sheerforce
+//meaning that should be the exception not the norm
 
 enum ProtectType
 {

@@ -4267,7 +4267,7 @@ static void Cmd_setadditionaleffects(void)
                     gBattleCommunication[MULTISTRING_CHOOSER] = *((u8 *) &additionalEffect->multistring);
 
                     enum SetMoveEffectFlags flags = NO_FLAGS;
-                    if (percentChance == 0) flags |= EFFECT_PRIMARY; //what is this I want 0 to be certain vsonic
+                    if (percentChance == 0) flags |= EFFECT_PRIMARY;
                     if (percentChance >= 100) flags |= EFFECT_CERTAIN;
 
                     SetMoveEffect(

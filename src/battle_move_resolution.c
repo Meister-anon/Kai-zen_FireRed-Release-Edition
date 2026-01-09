@@ -991,7 +991,7 @@ static enum MoveEndResult MoveEnd_MoveBlock(void)
          && !gBattleStruct->noTargetPresent)
         {
             s32 recoil = 0;
-            if (B_RECOIL_IF_MISS_DMG >= GEN_5 || (B_CRASH_IF_TARGET_IMMUNE == GEN_4 && gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_DOESNT_AFFECT_FOE))
+            /*if (B_RECOIL_IF_MISS_DMG >= GEN_5 || (B_CRASH_IF_TARGET_IMMUNE == GEN_4 && gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_DOESNT_AFFECT_FOE))
                 recoil = GetNonDynamaxMaxHP(gBattlerAttacker) / 2;
             else if (B_RECOIL_IF_MISS_DMG == GEN_4 && (GetNonDynamaxMaxHP(gBattlerTarget) / 2) < gBattleStruct->moveDamage[gBattlerTarget])
                 recoil = GetNonDynamaxMaxHP(gBattlerTarget) / 2;
@@ -999,23 +999,45 @@ static enum MoveEndResult MoveEnd_MoveBlock(void)
                 recoil = GetNonDynamaxMaxHP(gBattlerTarget) / 2;
             else if (B_RECOIL_IF_MISS_DMG == GEN_2)
                 recoil = GetNonDynamaxMaxHP(gBattlerTarget) / 8;
-            else
-                recoil = 1;
+            else*/
+                recoil = GetNonDynamaxMaxHP(gBattlerAttacker) / 4;
             SetPassiveDamageAmount(gBattlerAttacker, recoil);
             BattleScriptCall(BattleScript_RecoilIfMiss);
             result = MOVEEND_STEP_RUN_SCRIPT;
         }
         break;
+    case EFFECT_SUBMISSION:
     case EFFECT_RECOIL:
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker) && gBattleStruct->moveDamage[gBattlerTarget] > 0)
         {
+            u32 additionalEffectCount = GetMoveAdditionalEffectCount(gCurrentMove);
             enum Ability ability = GetBattlerAbility(gBattlerAttacker);
             if (IsAbilityAndRecord(gBattlerAttacker, ability, ABILITY_ROCK_HEAD)
              || IsAbilityAndRecord(gBattlerAttacker, ability, ABILITY_MAGIC_GUARD))
                 break;
 
-            SetPassiveDamageAmount(gBattlerAttacker, gBattleScripting.savedDmg * max(1, GetMoveRecoil(gCurrentMove)) / 100);
-            TryUpdateEvolutionTracker(IF_RECOIL_DAMAGE_GE, gBattleStruct->passiveHpUpdate[gBattlerAttacker], MOVE_NONE);
+            for (u32 effectIndex = 0; effectIndex < additionalEffectCount; effectIndex++)
+            {
+                const struct AdditionalEffect *additionalEffect = GetMoveAdditionalEffectById(gCurrentMove, effectIndex);
+                switch (additionalEffect->moveEffect)
+                {
+                    case MOVE_EFFECT_LIGHT_RECOIL:
+                        gBattleScripting.savedDmg = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleScripting.savedDmg / 10,1));
+                        gBattleScripting.savedDmg += max(gBattleScripting.savedDmg / 4,1);
+                    break;
+                    case MOVE_EFFECT_MED_RECOIL:
+                        gBattleScripting.savedDmg = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleScripting.savedDmg / 10,1));
+                        gBattleScripting.savedDmg += max((gBattleScripting.savedDmg * 2) / 3,1);
+                    break;
+                    case MOVE_EFFECT_HEAVY_RECOIL:
+                        gBattleScripting.savedDmg = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleScripting.savedDmg / 10,1));
+                        gBattleScripting.savedDmg *= 2;
+                    break;
+                }
+            }
+
+            SetPassiveDamageAmount(gBattlerAttacker, gBattleScripting.savedDmg);
+            //TryUpdateEvolutionTracker(IF_RECOIL_DAMAGE_GE, gBattleStruct->passiveHpUpdate[gBattlerAttacker], MOVE_NONE);
             BattleScriptCall(BattleScript_MoveEffectRecoil);
             result = MOVEEND_STEP_RUN_SCRIPT;
         }
