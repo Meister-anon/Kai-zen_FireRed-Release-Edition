@@ -5678,7 +5678,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
                 effect++;
             }
             break;
-        case ABILITY_INNARDS_OUT:
+        case ABILITY_INNARDS_OUT: //effect reworked need check if future logic still makes sense vsonic
             if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
              && !IsBattlerAlive(gBattlerTarget)
              && IsBattlerAlive(gBattlerAttacker))
@@ -9976,6 +9976,7 @@ static s32 returnVariableDmg(struct BattleContext *ctx)
 
 //mostly done just setup beatup think
 //make sure test seismic toss
+//values here make it do typeless dmg
 s32 DoFixedDamageMoveCalc(struct BattleContext *ctx)
 {
     s32 dmg = INT32_MAX;
@@ -10002,7 +10003,7 @@ s32 DoFixedDamageMoveCalc(struct BattleContext *ctx)
         break;
     case EFFECT_BEAT_UP:
         if (GetConfig(CONFIG_BEAT_UP) < GEN_5)
-            dmg = CalcBeatUpDamage(ctx);
+            dmg = CalcBeatUpDamage(ctx);//check this vsonic
         break;
     case EFFECT_REFLECT_DAMAGE:
         if (!ctx->aiCalc)
@@ -10045,6 +10046,8 @@ s32 DoFixedDamageMoveCalc(struct BattleContext *ctx)
     return dmg;
 }
 
+//if is fixed move skip calcvar function
+//whihc makes it skip type check and do typeless dmg
 static inline s32 DoMoveDamageCalc(struct BattleContext *ctx)
 {
     if (ctx->typeEffectivenessModifier == UQ_4_12(0.0))
@@ -10058,6 +10061,11 @@ static inline s32 DoMoveDamageCalc(struct BattleContext *ctx)
 }
 
 //no crit no stab typless dmg
+//no crit added stab back
+//will keep typeless rework description
+//rather than hurling psychic energy at foe to damage them
+//they use their psychic powers to peer into the future
+//to cause the target harm
 static inline s32 DoFutureSightAttackDamageCalcVars(struct BattleContext *ctx)
 {
     s32 dmg;

@@ -1025,9 +1025,9 @@ enum __attribute__((packed)) MoveEffect
     MOVE_EFFECT_LIGHT_RECOIL,
     MOVE_EFFECT_MED_RECOIL,
     MOVE_EFFECT_HEAVY_RECOIL,
-    MOVE_EFFECT_RECOIL_IF_MISS,
+    MOVE_EFFECT_RECOIL_HP_25,
     MOVE_EFFECT_TRAP_BOTH,
-    MOVE_EFFECT_ROUND, //last effectI have
+    MOVE_EFFECT_ROUND,
     MOVE_EFFECT_DIRE_CLAW,
     MOVE_EFFECT_SYRUP_BOMB,
     MOVE_EFFECT_FLORAL_HEALING,
@@ -1042,6 +1042,7 @@ enum __attribute__((packed)) MoveEffect
     MOVE_EFFECT_LIGHT_SCREEN, //end lets go
     MOVE_EFFECT_SALT_CURE,
     MOVE_EFFECT_EERIE_SPELL,
+    //custom effects
     MOVE_EFFECT_INFESTATION, //bug status
     MOVE_EFFECT_SWITCH_LOCKED, //need this to set status and timer can remove effect
     MOVE_EFFECT_SPIRIT_LOCK, //fairy status

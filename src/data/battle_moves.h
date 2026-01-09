@@ -2371,6 +2371,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .multiTaskBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_RAGE,
+        }),//vsonic check this why doesnt need self argument
+        //think reason for that is it doesnt use effect battler? 
+        //instead directly sets gbattlerattacker? 
+        //if so I don't need it on move effect dragon rage either
         //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_RAGE,
