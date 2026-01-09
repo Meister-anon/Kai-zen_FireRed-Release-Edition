@@ -33,18 +33,11 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 4,
     },
 
-    [EFFECT_EXPLOSION] =
+    [EFFECT_TERRAIN_BOOST] =
     {
-        .battleScript = BattleScript_EffectExplosion,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
     },
-
-    [EFFECT_MISTY_EXPLOSION] =
-    {
-        .battleScript = BattleScript_EffectExplosion,
-        .battleTvScore = 0, // TODO: Assign points
-    },//since reworking to be self destruct mindblown
-    //consider put fairy terrain boost as flag on move data
 
     [EFFECT_DREAM_EATER] =
     {
@@ -461,9 +454,9 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 1,
     },
 
-    [EFFECT_COUNTER] =
+    [EFFECT_REFLECT_DAMAGE] =
     {
-        .battleScript = BattleScript_EffectCounter,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 5,
         .encourageEncore = TRUE,
     },
@@ -583,6 +576,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 0, // TODO: Assign points
     },
 
+    [EFFECT_LUNAR_DANCE] =
+    {
+        .battleScript = BattleScript_EffectHealingWish,
+        .battleTvScore = 0, // TODO: Assign points
+    },
+
     [EFFECT_PROTECT] =
     {
         .battleScript = BattleScript_EffectProtect,
@@ -611,13 +610,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .encourageEncore = TRUE,
     },
 
-    [EFFECT_SANDSTORM] =
-    {
-        .battleScript = BattleScript_EffectSandstorm,
-        .battleTvScore = 4,
-        .encourageEncore = TRUE,
-    },
-
     [EFFECT_ENDURE] =
     {
         .battleScript = BattleScript_EffectEndure,
@@ -628,7 +620,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_ROLLOUT] =
     {
-        .battleScript = BattleScript_EffectRollout,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 3,
     },
 
@@ -731,16 +723,9 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 1,
     },
 
-    [EFFECT_RAIN_DANCE] =
+    [EFFECT_WEATHER] =
     {
-        .battleScript = BattleScript_EffectRainDance,
-        .battleTvScore = 4,
-        .encourageEncore = TRUE,
-    },
-
-    [EFFECT_SUNNY_DAY] =
-    {
-        .battleScript = BattleScript_EffectSunnyDay,
+        .battleScript = BattleScript_EffectWeather,
         .battleTvScore = 4,
         .encourageEncore = TRUE,
     },
@@ -762,13 +747,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectPsychUp,
         .battleTvScore = 7,
-        .encourageEncore = TRUE,
-    },
-
-    [EFFECT_MIRROR_COAT] =
-    {
-        .battleScript = BattleScript_EffectMirrorCoat,
-        .battleTvScore = 6,
         .encourageEncore = TRUE,
     },
 
@@ -882,13 +860,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .encourageEncore = TRUE,
     },
 
-    [EFFECT_HAIL] =
-    {
-        .battleScript = BattleScript_EffectHail,
-        .battleTvScore = 4,
-        .encourageEncore = TRUE,
-    },
-
     [EFFECT_TORMENT] =
     {
         .battleScript = BattleScript_EffectTorment,
@@ -916,9 +887,10 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_FOCUS_PUNCH] =
     {
-        .battleScript = BattleScript_EffectFocusPunch,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 7,
-    },
+    },//not using but curious why score is so high
+    //I guess impressive if can sucessfully get move off
 
     [EFFECT_DOUBLE_POWER_ON_ARG_STATUS] =
     {
@@ -1036,7 +1008,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_ENDEAVOR] =
     {
-        .battleScript = BattleScript_EffectEndeavor,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 1,
     },
 
@@ -1399,12 +1371,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectStickyWeb,
         .battleTvScore = 0, // TODO: Assign points
         .encourageEncore = TRUE,
-    },
-
-    [EFFECT_METAL_BURST] =
-    {
-        .battleScript = BattleScript_EffectMetalBurst,
-        .battleTvScore = 0, // TODO: Assign points
     },
 
     [EFFECT_LUCKY_CHANT] =
@@ -1866,6 +1832,13 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .encourageEncore = TRUE,
     },
 
+    /*[EFFECT_SNIPE_SHOT] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 0, // TODO: Assign points
+    },*/
+    //not currently using waiting for pr on redirection targetting
+
     [EFFECT_STRUGGLE] =
     {
         .battleScript = BattleScript_EffectStruggle,
@@ -1954,18 +1927,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .semiInvulnerableEffect = TRUE,
     },
 
-    [EFFECT_EXPANDING_FORCE] =
-    {
-        .battleScript = BattleScript_EffectHit,
-        .battleTvScore = 0, // TODO: Assign points
-    },
-
-    [EFFECT_RISING_VOLTAGE] =
-    {
-        .battleScript = BattleScript_EffectHit,
-        .battleTvScore = 0, // TODO: Assign points
-    },
-
     [EFFECT_BEAK_BLAST] =
     {
         .battleScript = BattleScript_EffectHit,
@@ -2028,12 +1989,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 0, // TODO: Assign points
     },
 
-    [EFFECT_PSYBLADE] =
-    {
-        .battleScript = BattleScript_EffectHit,
-        .battleTvScore = 0, // TODO: Assign points
-    },
-
     [EFFECT_HYDRO_STEAM] =
     {
         .battleScript = BattleScript_EffectHit,
@@ -2044,12 +1999,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectRevivalBlessing,
         .battleTvScore = 0, // TODO: Assign points
-    },
-
-    [EFFECT_SNOWESCAPE] =
-    {
-        .battleScript = BattleScript_EffectSnow,
-        .battleTvScore = 4,
     },
 
     [EFFECT_TAKE_HEART] =
@@ -2076,9 +2025,9 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 0, // TODO: Assign points
     },
 
-    [EFFECT_CHILLY_RECEPTION] =
+    [EFFECT_WEATHER_AND_SWITCH] =
     {
-        .battleScript = BattleScript_EffectChillyReception,
+        .battleScript = BattleScript_EffectWeatherAndSwitch,
         .battleTvScore = 0, // TODO: Assign points
     },
 
@@ -2177,12 +2126,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 0, // TODO: Assign points
     },
 
-    [EFFECT_ORDER_UP] =
-    {
-        .battleScript = BattleScript_EffectHit,
-        .battleTvScore = 0, // TODO: Assign points
-    },
-
     [EFFECT_RAPID_SPIN] =
     {
         .battleScript = BattleScript_EffectHit,
@@ -2232,6 +2175,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     },
 
     [EFFECT_CEASELESS_EDGE] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 0, // TODO: Assign points
+    },
+
+    [EFFECT_SPECIES_POWER_OVERRIDE] =
     {
         .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points

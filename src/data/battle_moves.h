@@ -307,7 +307,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_GUILLOTINE] =
     {
         .effect = EFFECT_OHKO,
-        .power = 0,
+        .power = 1,
         .type = TYPE_STEEL,
         .accuracy = 30, //change these back - was base 30, made 50 reset back to 40  / may make 35 test later
         .pp = 5,
@@ -498,7 +498,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .power = 70,
         #endif
         .effect = EFFECT_FLY, //think will just make effect fly that goes to semi invul
-        .type = TYPE_FLYING,
+        .type = TYPE_FLYING,//need effect since now executes in 1 in tailwind
         .accuracy = 100,
         .pp = 10,
         .target = TARGET_SELECTED,
@@ -841,7 +841,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_HORN_DRILL] =
     {
         .effect = EFFECT_OHKO,
-        .power = 0,
+        .power = 1,
         .type = TYPE_BUG,
         .accuracy = 30,
         .pp = 5,
@@ -1664,8 +1664,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_COUNTER] =
     {
 
-        .effect = EFFECT_COUNTER,
-        .power = 0,
+        .effect = EFFECT_REFLECT_DAMAGE,
+        .power = 1,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
         .pp = 20,
@@ -1688,7 +1688,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SEISMIC_TOSS] =
     {
         .effect = EFFECT_LEVEL_DAMAGE,
-        .power = 0,
+        .power = 1,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
         .pp = 20,
@@ -2166,7 +2166,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_FISSURE] =
     {
         .effect = EFFECT_OHKO,
-        .power = 0,
+        .power = 1,
         .type = TYPE_GROUND,
         .accuracy = 30,
         .pp = 5,
@@ -3590,7 +3590,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 40,
     .target = TARGET_USER,
     .priority = 3,
-    .split = SPLIT_PHYSICAL,//SPLIT_STATUS, //think change to physical
+    .split = SPLIT_STATUS, //think change to physical
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         .gravityBanned = TRUE,
@@ -5722,12 +5722,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_MIRROR_COAT] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_5
-            #elif B_UPDATED_MOVE_DATA == GEN_4
-            #else
-            #endif
-        .effect = EFFECT_MIRROR_COAT,
-        .power = 0,
+        .effect = EFFECT_REFLECT_DAMAGE,
+        .power = 1,
         .type = TYPE_PSYCHIC,
         .accuracy = 100,
         .pp = 20,
@@ -5937,6 +5933,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_BeatUp,
     },//makes sense to be a contact move, but no way to make work right with contact effects
+    //consider if should set variable multihit technically correct
+    //but it ranges from 1-6 vsonic
 
     [MOVE_FAKE_OUT] =
     {
@@ -6672,7 +6670,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_ENDEAVOR] =
     {
         .effect = EFFECT_ENDEAVOR,
-        .power = 0,
+        .power = 1,
         .type = TYPE_NORMAL,
         .accuracy = 100,
         .pp = 5,
@@ -7717,8 +7715,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SHEER_COLD] =
     {
-        .effect = EFFECT_OHKO,
-        .power = 0,
+        .effect = EFFECT_SHEER_COLD,
+        .power = 1,
         .type = TYPE_ICE,
         .accuracy = 30,
         .pp = 5,
@@ -8622,8 +8620,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #if B_UPDATED_MOVE_DATA >= GEN_4
             #else
             #endif
-        .effect = EFFECT_METAL_BURST,
-        .power = 0,
+        .effect = EFFECT_REFLECT_DAMAGE,
+        .power = 1,
         .type = TYPE_STEEL,
         .accuracy = 100,
         .pp = 10,
@@ -8800,7 +8798,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         .target = TARGET_SELECTED,
         .priority = 0,
-        .split = SPLIT_SPECIAL,
+        .split = SPLIT_STATUS,
         .makesContact = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -8836,7 +8834,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_WRING_OUT] =
     {
         .effect = EFFECT_POWER_BASED_ON_TARGET_HP,
-        .power = 0,
+        .power = 1,
         .type = TYPE_NORMAL,
         .accuracy = 100,
         .pp = 5,
@@ -11891,7 +11889,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_FINAL_GAMBIT] =
     {
         .effect = EFFECT_FINAL_GAMBIT,
-        .power = 0,
+        .power = 1,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
         .pp = 5,
@@ -11906,18 +11904,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_FinalGambit,
     },
-    //review this may have changed effect
-    //think will revert my change didn't initially
-    //understand use case for move
-    //vsonic important
-    //effect is damage equals remainig hp,
-    //I changed to dmg equals lost hp
-    //so you could still get effect out of the mon
-    //vs needing to use it, as soon as it hit the field
-    //but if I do it as a last ditch effort, 
-    //its easier to use but overall the overall damage output
-    //is also lower, which balances I guess
-    //with being able to do damage before using the move
+    //fixed dmg effect doesnt need typeless
 
     [MOVE_BESTOW] =
     {
@@ -14291,7 +14278,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_HYPERSPACE_FURY] =
     {
         .effect = EFFECT_HYPERSPACE_FURY,
-        .power = 0,
+        .power = 100,
         .type = TYPE_DARK,
         .accuracy = 0,
         .pp = 0,
@@ -16723,7 +16710,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_RISING_VOLTAGE] =
     {
-        .effect = EFFECT_RISING_VOLTAGE,   //TODO
+        .effect = EFFECT_TERRAIN_BOOST,   //TODO
         .power = 70,
         .type = TYPE_ELECTRIC,
         .accuracy = 100,
@@ -16737,6 +16724,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboMoves = {COMBO_STARTER_ELECTRIC_TERRAIN},
         //.battleAnimScript = gBattleAnimMove_RisingVoltage,
     },
+    //I really need to get this file together
+    //if I had descriptions here I'd know what this was
+    //without having to go to emerald to look smh
 
     [MOVE_TERRAIN_PULSE] =
     {
@@ -18537,8 +18527,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_COMEUPPANCE] =
     {
-        .effect = EFFECT_METAL_BURST,
-        .power = 0,
+        .effect = EFFECT_REFLECT_DAMAGE,
+        .power = 1,
         .type = TYPE_DARK,
         .accuracy = 100,
         .pp = 10,
@@ -19240,7 +19230,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .target = TARGET_USER,
         .priority = 4,
-        .split = SPLIT_PHYSICAL,
+        .split = SPLIT_PHYSICAL, //keep eye on this works, like spike shield but built off counter vsonic
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         .metronomeBanned = TRUE,

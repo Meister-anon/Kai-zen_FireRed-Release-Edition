@@ -446,8 +446,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_HIT,
     EFFECT_NON_VOLATILE_STATUS,
     EFFECT_ABSORB,
-    EFFECT_EXPLOSION,
-    EFFECT_MISTY_EXPLOSION, // Same as EFFECT_EXPLOSION but it's boosted on Misty Terrain
+    EFFECT_TERRAIN_BOOST,   //used for misty explosion expanding force other moves boosteed by terrain
     EFFECT_DREAM_EATER, // Same as EFFECT_ABSORB but it can only be used on sleeping targets
     EFFECT_MIRROR_MOVE,
     EFFECT_ATTACK_UP,
@@ -468,7 +467,6 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_HAZE,
     EFFECT_BIDE,
     EFFECT_ROAR,
-    //EFFECT_MULTI_HIT, //gonna remove this
     EFFECT_CONVERSION,
     EFFECT_RESTORE_HP,
     EFFECT_LIGHT_SCREEN,
@@ -478,7 +476,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_SHEER_COLD, // Same as EFFECT_OHKO but Ice-types are immune to it and has decreased accuracy for non Ice-type users.
     EFFECT_FUSION_COMBO,
     EFFECT_FIXED_PERCENT_DAMAGE,
-    EFFECT_FIXED_HP_DAMAGE, //find logic for how thse 2 effects are excluded from move result for effetivenesss sound
+    EFFECT_FIXED_HP_DAMAGE, //effects in DoFixedDamageMoveCalc skip type checks
     EFFECT_HEAL_BLOCK,
     EFFECT_RECOIL_IF_MISS,
     EFFECT_MIST,
@@ -513,7 +511,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_DISABLE,
     EFFECT_LEVEL_DAMAGE,
     EFFECT_PSYWAVE,
-    EFFECT_COUNTER,
+    EFFECT_REFLECT_DAMAGE,
     EFFECT_ENCORE,
     EFFECT_PAIN_SPLIT,
     EFFECT_SNORE,
@@ -532,11 +530,11 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_MINIMIZE,
     EFFECT_CURSE,
     EFFECT_HEALING_WISH,
+    EFFECT_LUNAR_DANCE, // Same as EFFECT_HEALING_WISH, but also heals PP.
     EFFECT_PROTECT,
     EFFECT_SPIKES,
     EFFECT_FORESIGHT,
     EFFECT_PERISH_SONG,
-    EFFECT_SANDSTORM,
     EFFECT_ENDURE,
     EFFECT_ROLLOUT,
     EFFECT_SWAGGER,
@@ -554,12 +552,10 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_SYNTHESIS,
     EFFECT_MOONLIGHT,
     EFFECT_HIDDEN_POWER,
-    EFFECT_RAIN_DANCE,
-    EFFECT_SUNNY_DAY,
+    EFFECT_WEATHER,
     EFFECT_FELL_STINGER,
     EFFECT_BELLY_DRUM,
     EFFECT_PSYCH_UP,
-    EFFECT_MIRROR_COAT,
     EFFECT_EARTHQUAKE,
     EFFECT_FUTURE_SIGHT,
     EFFECT_SOLAR_BEAM,
@@ -576,7 +572,6 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_SPIT_UP,
     EFFECT_SWALLOW,
     EFFECT_OVERWRITE_ABILITY,
-    EFFECT_HAIL,
     EFFECT_TORMENT,
     EFFECT_FLATTER,
     EFFECT_MEMENTO,
@@ -657,7 +652,6 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_POWER_SPLIT,
     EFFECT_GUARD_SPLIT,
     EFFECT_STICKY_WEB,
-    EFFECT_METAL_BURST,
     EFFECT_LUCKY_CHANT,
     EFFECT_SUCKER_PUNCH,
     EFFECT_ENTRAINMENT,
@@ -730,7 +724,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_GRASSY_GLIDE,
     EFFECT_BOOST_PWR_BASED_WEIGHT,//EFFECT_DYNAMAX_DOUBLE_DMG, make better name later
     EFFECT_DECORATE,
-    //EFFECT_SNIPE_SHOT, moved redirection effet to struct value
+    //EFFECT_SNIPE_SHOT, moved redirection effet to struct value //leave off for now pending upcoing redirection pr
     EFFECT_STRUGGLE,
     EFFECT_STUFF_CHEEKS,
     EFFECT_GRAV_APPLE,
@@ -745,8 +739,6 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_CLANGOROUS_SOUL,
     EFFECT_BOLT_BEAK,
     EFFECT_SKY_DROP,
-    EFFECT_EXPANDING_FORCE,
-    EFFECT_RISING_VOLTAGE,
     EFFECT_BEAK_BLAST,
     EFFECT_COURT_CHANGE,
     EFFECT_MAX_HP_50_RECOIL,    //mind blown steel beam effect but neither will use it
@@ -757,14 +749,13 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_TEATIME,
     EFFECT_ATTACK_UP_USER_ALLY,
     EFFECT_SHELL_TRAP,
-    EFFECT_PSYBLADE,
     EFFECT_HYDRO_STEAM,
     EFFECT_REVIVAL_BLESSING,
     EFFECT_TAKE_HEART,
     EFFECT_COLLISION_COURSE,
     EFFECT_CORROSIVE_GAS,
     EFFECT_POPULATION_BOMB,
-    EFFECT_CHILLY_RECEPTION,
+    EFFECT_WEATHER_AND_SWITCH, //replace chilly reception
     EFFECT_MAX_MOVE,
     EFFECT_RAGE_FIST,
     EFFECT_DOODLE,
@@ -779,9 +770,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_SPICY_EXTRACT,
     EFFECT_TERA_BLAST,
     EFFECT_TERA_STARSTORM,
-    //EFFECT_DRAGON_DARTS, EE replaced w hit just did effect with unique target value instead
     EFFECT_SHELL_SIDE_ARM,
-    EFFECT_ORDER_UP,
     EFFECT_RAPID_SPIN,
     EFFECT_SPECTRAL_THIEF,
     EFFECT_RECOIL,
@@ -791,6 +780,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_STEEL_ROLLER, // Will fail if there is no terrain up but removes it regardless if attacker is removed from field or not
     EFFECT_STONE_AXE, // Not to be confused with MOVE_EFFECT_STEALTH_ROCK. They have two different activation timings.
     EFFECT_CEASELESS_EDGE, // Same applies to spikes
+    EFFECT_SPECIES_POWER_OVERRIDE, // Uses argument field to for the species, power and (number of hits, used only for multi hit moves)
     
     //custom effects start    
     EFFECT_COCOON,
@@ -798,15 +788,13 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_TARGET_TYPE_DAMAGE,
     EFFECT_HIGHEST_STAT_UP_HIT,
     EFFECT_FIXATION,    //base effect goes to hit, but required to activate fixation move effects
-    //EFFECT_SET_TARGET_ABILITY, //removed relized was just overwrite ability
     EFFECT_SHIELD_BASH,
     EFFECT_MONOTYPE,
     EFFECT_MOONDANCE, //EE update weather effects consolidate to effect_weather
     EFFECT_ACID_RAIN,
     EFFECT_SUBMISSION, //changed to full protect bypass so just use brick break effect changed mind since increasing distribution
     EFFECT_RAGING_BULL,
-    //EFFECT_SET_EFFECT_PRE_HIT, //attempt repalce below 2 - hHad wrong dont need effect
-    EFFECT_SNOWESCAPE,    
+    EFFECT_SNOWESCAPE,    //with coming weather effect refactor will prob generalize to weather prevent escape - vsonic
     //EFFECT_SACRIFICE_HEALTH, //decide not use for mind blown but will make set of effects that sacrifice hp before going off -realized was dumb, no use case for
     EFFECT_MIND_BLOWN, //will be used for mindblown & self destruct diff from 50% hp recoil in that it goes off first and can kill like curse but fails if user faints
     //EFFECT_STRENGTH_UP_HIT, //instead straight 50% use damagepercentage argument for max hp amount to lose
@@ -817,8 +805,6 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_STATUS_IF_NOT_ARG_TYPE,
     EFFECT_TRENCH_RUN,
     EFFECT_STEEL_SURGE,
-    EFFECT_SNOW_DAY,
-    EFFECT_FOG,
     NUM_BATTLE_MOVE_EFFECTS,
 };
 
