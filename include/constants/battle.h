@@ -69,7 +69,7 @@
 #define BATTLE_TYPE_BATTLE_TOWER     (1 << 8) //last value for u8 size, so if want use this for trainer set in trainers, would need all relevant battle types below this...
 #define BATTLE_TYPE_OLD_MAN_TUTORIAL (1 << 9) //checked and can move all others, without issue, trainer battle type is only one that uses u8 value all else is u32
 #define BATTLE_TYPE_ROAMER           (1 << 10)
-#define BATTLE_TYPE_EREADER_TRAINER  (1 << 11)	//remove this, so I can replace it.
+#define BATTLE_TYPE_BATTLE_RETRY     (1 << 11)	//remove this, so I can replace it.
 #define BATTLE_TYPE_KYOGRE_GROUDON   (1 << 12)
 #define BATTLE_TYPE_LEGENDARY        (1 << 13) //with planned legendary fight change can't resuse value, hmm actually I can as it works by combining flgas, i.e  //BATTLE_TYPE_GHOST | BATTLE_TYPE_GHOST_UNVEILED  essentially what I plan do w master so its fine
 #define BATTLE_TYPE_GHOST_UNVEILED   (1 << 13) // Re-use of BATTLE_TYPE_LEGENDARY, when combined with BATTLE_TYPE_GHOST
@@ -86,7 +86,7 @@
 #define BATTLE_TYPE_RECORDED         (1 << 24)  //also not used, or wont be
 #define BATTLE_TYPE_RECORDED_LINK    (1 << 25)  //added for now, to deal w record battle link additions w test system, can prob remove later vsonic
 #define BATTLE_TYPE_x4000000         (1 << 26)
-#define BATTLE_TYPE_MASTER_BALL      (1 << 27) //ok can remove this and use for master ball
+#define BATTLE_TYPE_MASTER_BALL      (1 << 27) //ok can remove this and use for master ball //think keep battle type may be useful for effect
 #define BATTLE_TYPE_GROUDON          (1 << 28)
 #define BATTLE_TYPE_KYOGRE           (1 << 29)
 #define BATTLE_TYPE_RAYQUAZA         (1 << 30)
