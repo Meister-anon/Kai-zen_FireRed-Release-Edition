@@ -1563,6 +1563,27 @@ static inline bool32 DoesProtectFail(u32 battler)
     || gBattleStruct->battlerState[battler].protectTurnOrderFail);
 }
 
+static inline enum Ability AbilityPreventsRecoilDmg(enum Ability ability)
+{
+    //check if has ability that blocks recoil 
+    //returns ability count to not trigger
+    //negated abilities in IsAbilityAndRecord
+    //where this is used
+    //nvm above reworked IsAbilityAndRecord
+    switch (ability)
+    {
+        case ABILITY_MAGIC_GUARD:
+        case ABILITY_BONE_ARMOR:
+        case ABILITY_ROCK_HEAD:
+        case ABILITY_KLUTZ:
+            return ability;
+        break;
+        default:
+            return ABILITY_NONE;
+        break;
+    }
+}
+
 //not fully sure if want to use movepower or base move power
 //don't want any plain move or prio move to proc ability
 //but would like synergy with rain

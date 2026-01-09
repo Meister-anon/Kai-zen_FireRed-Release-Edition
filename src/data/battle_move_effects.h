@@ -244,6 +244,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectHit,
         .battleTvScore = 1,
+        .recoilEffect = TRUE,
     },
 
     [EFFECT_MIST] =
@@ -2142,6 +2143,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
+        .recoilEffect = TRUE,
     },
 
     [EFFECT_SMACK_DOWN] =
@@ -2250,6 +2252,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectBrickBreak,
         .battleTvScore = 3,
+        .recoilEffect = TRUE,
     },
 
     [EFFECT_RAGING_BULL] =

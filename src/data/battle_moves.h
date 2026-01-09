@@ -719,7 +719,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
         .kickingMove = TRUE,
-        .recoilMove = TRUE,
         .gravityBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -950,7 +949,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
                 .self = TRUE,
             }),
         .makesContact = TRUE,
-        .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -1002,7 +1000,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
                 .self = TRUE,
             }),
         .makesContact = TRUE,
-        .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -1625,7 +1622,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
                 .moveEffect = MOVE_EFFECT_LIGHT_RECOIL,
                 .self = TRUE,
             }), //vsonic adjust down as needed
-        .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -3157,7 +3153,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
-            .chance = 10,
+            .chance = 100,
         }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
@@ -3248,7 +3244,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_PHYSICAL,
     .makesContact = TRUE,
     .kickingMove = TRUE,
-    .recoilMove = TRUE,
     .damagesAirborneDoubleDamage = TRUE,
     .gravityBanned = TRUE,
 },
@@ -3345,7 +3340,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //.contestComboMoves = {0},
     //.battleAnimScript = gBattleAnimMove_Barrage,
     .additionalEffects = ADDITIONAL_EFFECTS({
-        .moveEffect = MOVE_EFFECT_DEF_MINUS_1, //should i make new effect that'll swap def 
+        .moveEffect = MOVE_EFFECT_DEF_CAT_MINUS_1, //should i make new effect that'll swap def 
         .chance = 15, //to drop based on dmg category? since it could be special?
     }),
 }, //exegcuttor line siganture , test may make 100 acc,  balance acc w effect chance
@@ -8077,7 +8072,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        .recoilMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 10,
@@ -9199,7 +9193,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        .recoilMove = TRUE,
         .thawsUser = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
@@ -9306,9 +9299,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DARK_PULSE] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_5
-            #else
-            #endif
         .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_DARK,
@@ -9649,7 +9639,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
                 .self = TRUE,
             }),
         .makesContact = TRUE,
-        .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_BRAVE_BIRD,
@@ -10265,7 +10254,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_STEEL,
-        .accuracy = 90,
+        .accuracy = 100,
         .pp = 15,
         .target = TARGET_SELECTED,
         .priority = 0,
@@ -10274,7 +10263,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .headbuttMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
-            .chance = 20,
+            .chance = 25,
         }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
@@ -10282,6 +10271,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_IronHead,
     },
+    //idk why I dropped acc of this so much
+    //most steel types are slow so even w high flinch chance not too crazy
 
     [MOVE_MAGNET_BOMB] =
     {
@@ -10409,7 +10400,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 100,
         .pp = 20,
         .target = TARGET_BOTH,//change to target both with cacophony becomes guaranteed confuse
-        .priority = 0,          //w max confuse odds
+        .priority = 0,          //w max confuse odds //vsonic
         .split = SPLIT_SPECIAL,
         .ignoresSubstitute = TRUE,
         .soundMove = TRUE,
@@ -10535,7 +10526,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
                 .self = TRUE,
             }),
         .makesContact = TRUE,
-        .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
@@ -10640,7 +10630,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
                 .self = TRUE,
             }),
         .makesContact = TRUE,
-        .recoilMove = TRUE,
         .headbuttMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
@@ -10773,7 +10762,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         },
         {
             .moveEffect = MOVE_EFFECT_BURN,
-            .chance = 100,
         }),
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
@@ -11290,8 +11278,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //on average would only ever be base 50 power
     //change to be a more dynamic formulal like gyro ball 
     //also give a paralyze chance
-    //THINK press L to show move power in battle window
-    //replace pp and type data
+    //THINK press L or R to show move power in battle window
+    //replace pp and type data /vsonic
 
     [MOVE_SOAK] =
     {
@@ -12061,6 +12049,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         },
         {
             .moveEffect = MOVE_EFFECT_INFESTATION,
+            .chance = 100,
         }),
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
@@ -12197,15 +12186,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_LIGHT_RECOIL,
                 .self = TRUE,
+            },
+            {
+                 .moveEffect = MOVE_EFFECT_PARALYSIS,
+                .chance = 15,
             }),
         .makesContact = TRUE,
-        .recoilMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_WildCharge,
     },
+    //attempts buff, less recoil and paralysis chance
+    //matches Legend Arceus effect
 
     [MOVE_DRILL_RUN] =
     {
@@ -12531,7 +12525,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
                 .self = TRUE,
             }),
         .makesContact = TRUE,
-        .recoilMove = TRUE,
         .headbuttMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
@@ -14078,6 +14071,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_WRAP,
+            .multistring.wrapped = B_MSG_WRAPPED_SWARM,
+        },
+        {
             .moveEffect = MOVE_EFFECT_INFESTATION,
         }),
     },//previously infestation
@@ -14172,7 +14169,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = COMBO_STARTER_THOUSAND_WAVES,
         //.contestComboMoves = {COMBO_STARTER_THOUSAND_ARROWS},
         //.battleAnimScript = gBattleAnimMove_ThousandWaves,
-    },
+    },//this move specifically says prevent escape isn't an additoinal effect so 
+    //not sheer force affected
 
     [MOVE_LANDS_WRATH] =
     {
@@ -14208,7 +14206,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
                 .moveEffect = MOVE_EFFECT_HEAVY_RECOIL,
                 .self = TRUE,
             }),
-        .recoilMove = TRUE,
         .metronomeBanned = TRUE,
         //.battleAnimScript = gBattleAnimMove_LightOfRuin,
     },
@@ -15116,7 +15113,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_FLEUR_CANNON] =
     {
-        .effect = EFFECT_HIT,  //changed to MOVE_EFFECT_MEDIUM_RECOIL
+        .effect = EFFECT_HIT,
         .power = 130,
         .type = TYPE_FAIRY,
         .accuracy = 90,
@@ -15502,9 +15499,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SPLISHY_SPLASH] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_8
-            #else
-            #endif
         .effect = EFFECT_TWO_TYPED_MOVE,      //changed two a dual typed move with paralyze chance. lol i made it more op than ever
         .power = 90,        //something between discharge and surf, discharge is base 80,  surf is base 95
         .type = TYPE_WATER,
@@ -16529,7 +16523,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        .recoilMove = TRUE,
         .metronomeBanned = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_HEAVY_RECOIL,
@@ -17293,15 +17286,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SPRINGTIDE_STORM] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_9
+        /*#if B_UPDATED_MOVE_DATA >= GEN_9
             .power = 100,
-        #else
+        #else*/
             .power = 95,
-        #endif
+        //#endif
         .effect = EFFECT_HIT,
         .type = TYPE_FAIRY,
-        .accuracy = 85,
-        .pp = 10,
+        .accuracy = 90,
+        .pp = 15,
         .target = TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_SPECIAL,
@@ -17314,10 +17307,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         },
         {
             .moveEffect = MOVE_EFFECT_ATTRACT,
-            //.chance = 30,            
+            .chance = 50,            
         }),
         //.battleAnimScript = gBattleAnimMove_SpringtideStorm,
     },
+    //potential rebalance don't do in rain
+    //drop power make utility effect since attraction is good now
+    //power 95 acc 90
+    //think make attract 50 odds?
+    //idea fall in love in spring
 
     [MOVE_MYSTICAL_POWER] =
     {
@@ -17387,7 +17385,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
                 .self = TRUE,
             }),
         .makesContact = TRUE,
-        .recoilMove = TRUE,
         //.battleAnimScript = gBattleAnimMove_WaveCrash,
     },//so they turned it from wter take down to water double edge, but the recoil is still less
     //*idea rampage plus recoil, potentially no confusion,  -vsonic
@@ -17406,7 +17403,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
-        .recoilMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_HEAVY_RECOIL,
                 .self = TRUE,
@@ -17799,7 +17795,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .kickingMove = TRUE,
         .damagesAirborne = TRUE,
-        .recoilMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 30,
@@ -18408,7 +18403,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .power = 50,
         .type = TYPE_WATER,
         .accuracy = 100,
-        .pp = 20,
+        .pp = 15,
         .target = TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_SPECIAL,
@@ -18422,6 +18417,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .chance = 30,
         }), //potentially drop to 20
         //.battleAnimScript = gBattleAnimMove_ChillingWater,
+        //well is scald but since doesnt drop stat should be coool
     },
 
     [MOVE_HYPER_DRILL] =
@@ -19555,6 +19551,8 @@ use wonder gaurd logic to determine its super effective
         //.battleAnimScript = gBattleAnimMove_Snowball,
     }, //still need get animatino how I want to change sprite size with ppower
     //3 stage effect diff power like ice ball want change anim based on power
+    //rather than defense curl think want
+    //boost damage if snowing vsonic
 
     [MOVE_TRENCH_RUN] =
     {
@@ -19863,7 +19861,6 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
-        .recoilMove = TRUE,
         .punchingMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
@@ -20018,7 +20015,7 @@ use wonder gaurd logic to determine its super effective
 
     [MOVE_FOG_HORN] =
     {
-        .effect = EFFECT_FOG,
+        .effect = EFFECT_WEATHER,
         .power = 0,
         .type = TYPE_NORMAL, //idk stuck between water normal or sound
         .accuracy = 0, //

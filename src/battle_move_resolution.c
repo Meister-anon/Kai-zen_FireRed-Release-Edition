@@ -1012,8 +1012,8 @@ static enum MoveEndResult MoveEnd_MoveBlock(void)
         {
             u32 additionalEffectCount = GetMoveAdditionalEffectCount(gCurrentMove);
             enum Ability ability = GetBattlerAbility(gBattlerAttacker);
-            if (IsAbilityAndRecord(gBattlerAttacker, ability, ABILITY_ROCK_HEAD)
-             || IsAbilityAndRecord(gBattlerAttacker, ability, ABILITY_MAGIC_GUARD))
+            //attempt consolidate so don't need multi line check
+            if (IsAbilityAndRecord(gBattlerAttacker, ability, AbilityPreventsRecoilDmg(ability)))
                 break;
 
             for (u32 effectIndex = 0; effectIndex < additionalEffectCount; effectIndex++)
@@ -1046,13 +1046,12 @@ static enum MoveEndResult MoveEnd_MoveBlock(void)
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker))
         {
             enum Ability ability = GetBattlerAbility(gBattlerAttacker);
-            if (IsAbilityAndRecord(gBattlerAttacker, ability, ABILITY_ROCK_HEAD)
-             || IsAbilityAndRecord(gBattlerAttacker, ability, ABILITY_MAGIC_GUARD))
+            if (IsAbilityAndRecord(gBattlerAttacker, ability, AbilityPreventsRecoilDmg(ability)))
                 break;
 
             s32 recoil = (GetNonDynamaxMaxHP(gBattlerAttacker) + 1) / 2; // Half of Max HP Rounded UP
             SetPassiveDamageAmount(gBattlerAttacker, recoil);
-            TryUpdateEvolutionTracker(IF_RECOIL_DAMAGE_GE, gBattleStruct->passiveHpUpdate[gBattlerAttacker], MOVE_NONE);
+            //TryUpdateEvolutionTracker(IF_RECOIL_DAMAGE_GE, gBattleStruct->passiveHpUpdate[gBattlerAttacker], MOVE_NONE);
             BattleScriptCall(BattleScript_MoveEffectRecoil);
             result = MOVEEND_STEP_RUN_SCRIPT;
         }

@@ -3306,11 +3306,15 @@ void SetMoveEffect(u32 battler, u32 effectBattler, enum MoveEffect moveEffect, c
     case MOVE_EFFECT_SP_DEF_MINUS_1:
     case MOVE_EFFECT_ACC_MINUS_1:
     case MOVE_EFFECT_EVS_MINUS_1:
+    case MOVE_EFFECT_DEF_CAT_MINUS_1:
         flags.certain = affectsUser;
         if (mirrorArmorReflected && !affectsUser)
             flags.allowPtr = TRUE;
         else
             flags.updateMoveEffect = TRUE;
+
+        if (moveEffect == MOVE_EFFECT_DEF_CAT_MINUS_1)
+            moveEffect = gBattleStruct->swapDamageCategory == DAMAGE_CATEGORY_PHYSICAL ? MOVE_EFFECT_DEF_MINUS_1 : MOVE_EFFECT_SP_DEF_MINUS_1;
 
         if (ChangeStatBuffs(
                 effectBattler,
@@ -3362,11 +3366,15 @@ void SetMoveEffect(u32 battler, u32 effectBattler, enum MoveEffect moveEffect, c
     case MOVE_EFFECT_SP_DEF_MINUS_2:
     case MOVE_EFFECT_ACC_MINUS_2:
     case MOVE_EFFECT_EVS_MINUS_2:
+    case MOVE_EFFECT_DEF_CAT_MINUS_2:
         flags.certain = affectsUser;
         if (mirrorArmorReflected && !affectsUser)
             flags.allowPtr = TRUE;
         else
             flags.updateMoveEffect = TRUE;
+
+        if (moveEffect == MOVE_EFFECT_DEF_CAT_MINUS_2)
+            moveEffect = gBattleStruct->swapDamageCategory == DAMAGE_CATEGORY_PHYSICAL ? MOVE_EFFECT_DEF_MINUS_2 : MOVE_EFFECT_SP_DEF_MINUS_2;
 
         if (ChangeStatBuffs(
                 effectBattler,

@@ -1051,6 +1051,8 @@ enum __attribute__((packed)) MoveEffect
     MOVE_EFFECT_FOCUS_ENERGY,   //Plan use for triple arrow
     MOVE_EFFECT_DMG_FIXATION,   //fixation category to set volatile status of same name
     MOVE_EFFECT_SHADOW_STRIKE, //for 2nd mega gren siganture handled in move end multi hit set stat boost status
+    MOVE_EFFECT_DEF_CAT_MINUS_1, //drop defense stat based on move category specific for moves that have variable split
+    MOVE_EFFECT_DEF_CAT_MINUS_2,
     //zmove and lets go move effects
     MOVE_EFFECT_AROMATHERAPY,
     NUM_MOVE_EFFECTS

@@ -2001,7 +2001,10 @@ s32 MistyTerrainHealBoost(u32 battler, s32 healamount)
 // Should always be the last check. Otherwise the ability might be wrongly recorded.
 bool32 IsAbilityAndRecord(u32 battler, enum Ability battlerAbility, enum Ability abilityToCheck)
 {
-    if (battlerAbility != abilityToCheck)
+    //change to account for using ability return function
+    //for abilitytoCheck to avoid false positive
+    if (battlerAbility != abilityToCheck
+    || battlerAbility == ABILITY_NONE)
         return FALSE;
 
     RecordAbilityBattle(battler, abilityToCheck);
@@ -8554,11 +8557,15 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
         break;
     case ABILITY_RECKLESS:
-        if (moveEffect == EFFECT_RECOIL || moveEffect == EFFECT_RECOIL_IF_MISS)
+        if (MoveEffectDoesRecoil(moveEffect))
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         break;
     case ABILITY_IRON_FIST:
         if (IsPunchingMove(move))
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+        break;
+    case ABILITY_LETHAL_LEGS:
+        if (IsKickingMove(move))
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         break;
     case ABILITY_SHEER_FORCE:

@@ -17,9 +17,11 @@ struct __attribute__((packed, aligned(2))) BattleMoveEffect
     u16 twoTurnEffect:1;
     u16 semiInvulnerableEffect:1;
     u16 usesProtectCounter:1;
-    u16 hasAccCheckAfterAtkstring:1; //for new pre hit ability effect, keep an eye out for effects that go to same battlescript where condition should be TRUE
+    u16 recoilEffect:1; //for new pre hit ability effect, keep an eye out for effects that go to same battlescript where condition should be TRUE
     u16 padding:8;
 };
+//w new battle refactors believe no longer need acc check after atk string
+//as all done in atk canceler so no longer relevant
 
 #define EFFECTS_ARR(...) (const struct AdditionalEffect[]) {__VA_ARGS__}
 #define ADDITIONAL_EFFECTS(...) EFFECTS_ARR( __VA_ARGS__ ), .numAdditionalEffects = ARRAY_COUNT(EFFECTS_ARR( __VA_ARGS__ ))
@@ -125,7 +127,7 @@ struct BattleMove
     bool32 instructBanned:1;
     bool32 encoreBanned:1;
     bool32 parentalBondBanned:1;
-    bool32 recoilMove:1; //removed  skybattle stuff just use for reckless 
+    bool32 padding:1; //removed  skybattle stuff just use for reckless -realized didnt need move effect can just put on effect itself
     bool32 sketchBanned:1; //would use for monotype as well
     bool32 headbuttMove:1;
     //Other
@@ -190,6 +192,14 @@ static inline u32 SanitizeMoveId(u32 moveId)
         return MOVE_NONE;
     else
         return moveId;
+}
+
+static inline u32 SanitizeMoveEffect(u32 moveEffect)
+{
+    if (moveEffect >= NUM_BATTLE_MOVE_EFFECTS)
+        return EFFECT_PLACEHOLDER;
+    else
+        return moveEffect;
 }
 
 /*static inline const u8 *GetMoveName(u32 moveId)
@@ -297,10 +307,6 @@ static inline bool32 IsHeadbuttMove(u32 moveId)
     return gBattleMoves[SanitizeMoveId(moveId)].headbuttMove;
 }
 
-static inline bool32 IsRecoilMove(u32 moveId)
-{
-    return gBattleMoves[SanitizeMoveId(moveId)].recoilMove;
-}
 
 static inline bool32 IsPunchingMove(u32 moveId)
 {
@@ -694,13 +700,22 @@ static inline const u8 *GetMoveAnimationScript(u32 moveId)
 
 static inline bool32 IsOHKOmoveEffect(u32 moveId)
 {
+    moveId = SanitizeMoveId(moveId);
+
     return (GetMoveEffect(moveId) == EFFECT_SHEER_COLD 
             || GetMoveEffect(moveId) == EFFECT_OHKO);
 }
 
 static inline bool32 IsExplosionMove(u32 moveId)
 {
+    moveId = SanitizeMoveId(moveId);
     return gBattleMoves[moveId].explosiveMove;
+}
+
+static inline bool32 MoveEffectDoesRecoil(enum BattleMoveEffects moveEffect)
+{
+    moveEffect = SanitizeMoveEffect(moveEffect);
+    return gBattleMoveEffects[moveEffect].recoilEffect;
 }
 
 static inline const u8 *GetMoveBattleScript(u32 moveId)
