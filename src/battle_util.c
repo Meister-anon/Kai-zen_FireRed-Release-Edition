@@ -8256,7 +8256,8 @@ static inline u32 CalcMoveBasePower(struct BattleContext *ctx)
             basePower *= 2;
         break;
     case EFFECT_POWER_BASED_ON_TARGET_HP:
-        basePower = gBattleMons[battlerDef].hp * basePower / gBattleMons[battlerDef].maxHP;
+        basePower = gBattleMons[battlerDef].hp * GetMoveDamagePercentage(move) / gBattleMons[battlerDef].maxHP;
+        basePower = max(basePower, 40);
         break;
     case EFFECT_ASSURANCE:
         if (gProtectStructs[battlerDef].assuranceDoubled)
@@ -10091,10 +10092,11 @@ static inline s32 DoFutureSightAttackDamageCalcVars(struct BattleContext *ctx)
     }
 
     // Same type attack bonus
-    /*if (GetSpeciesType(partyMonSpecies, 0) == moveType || GetSpeciesType(partyMonSpecies, 1) == moveType)
+    if (GetSpeciesType(partyMonSpecies, 0) == moveType || GetSpeciesType(partyMonSpecies, 1) == moveType)
         DAMAGE_APPLY_MODIFIER(SAME_TYPE_MULTIPLIER);
-    else*/
+    else
         DAMAGE_APPLY_MODIFIER(UQ_4_12(1.0));
+
     //DAMAGE_APPLY_MODIFIER(ctx->typeEffectivenessModifier);
 
     if (dmg == 0)
@@ -10103,6 +10105,9 @@ static inline s32 DoFutureSightAttackDamageCalcVars(struct BattleContext *ctx)
     return dmg;
 }
 
+//ok previously move type was set to mystery
+//its fine just don't need change just set typeless logic in
+//that function that way will return value 1 same as before
 static inline s32 DoFutureSightAttackDamageCalc(struct BattleContext *ctx)
 {
     if (ctx->typeEffectivenessModifier == NO_EFFECT)
@@ -10319,6 +10324,9 @@ static bool32 IsCriticalHit(struct BattleContext *ctx)
     return isCrit;
 }
 
+//previously got type set from GetBattleMoveType
+//read certain move effects and set them to type mystery
+//which is what made effects do typeless dmg
 s32 CalculateMoveDamage(struct BattleContext *ctx)
 {
     ctx->abilityAtk = GetBattlerAbility(ctx->battlerAtk);
@@ -10605,7 +10613,8 @@ uq4_12_t CalcTypeEffectivenessMultiplier(struct BattleContext *ctx)
 {
     uq4_12_t modifier = UQ_4_12(1.0);
 
-    if (ctx->move != MOVE_STRUGGLE && ctx->moveType != TYPE_MYSTERY)
+    if (ctx->move != MOVE_STRUGGLE && ctx->moveType != TYPE_SOUND && ctx->moveType != TYPE_MYSTERY
+    && !MoveDoesTypelessDmg(ctx->move))
     {
         modifier = CalcTypeEffectivenessMultiplierInternal(ctx, modifier);
 
@@ -12203,6 +12212,12 @@ bool32 TargetFullyImmuneToCurrMove(u32 battlerAtk, u32 battlerDef)
 
 //for beatup think what I did was give stab
 //but make do typeless so gets around wonder guard? 
+//ok this is the part that makes things do typeless dmg
+//but its conflated with type mystery to make it skip dmg calc
+//and thus wonder guard logic
+//which doesnt allow me to set stab becuase it overwrites move type
+//it works for what EE wants but for me I'll just make a flag
+//to set typeless dmg without overwriting type
 //vsonic
 enum Type GetBattleMoveType(u32 move)
 {
@@ -12212,8 +12227,6 @@ enum Type GetBattleMoveType(u32 move)
             return gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;
 
         enum BattleMoveEffects effect = GetMoveEffect(move);
-        if (effect == EFFECT_BEAT_UP)
-          return TYPE_MYSTERY;
     }
     return GetMoveType(move);
 }

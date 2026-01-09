@@ -3448,6 +3448,10 @@ void SetMoveEffect(u32 battler, u32 effectBattler, enum MoveEffect moveEffect, c
         gBattleMons[gBattlerAttacker].volatiles.glaiveRush = TRUE;
         gBattlescriptCurrInstr = battleScript;
         break;
+    case MOVE_EFFECT_SHADOW_STRIKE:
+        gProtectStructs[gBattlerAttacker].oneTurnStatBoost = STAT_EVASION;
+        gBattlescriptCurrInstr = battleScript;
+        break;
     case MOVE_EFFECT_ALL_STATS_UP:
         if (!NoAliveMonsForEitherParty())
         {

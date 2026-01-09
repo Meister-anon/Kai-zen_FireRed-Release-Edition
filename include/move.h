@@ -139,7 +139,8 @@ struct BattleMove
     u32 explosiveMove:1; //simplify logic for moves/effects that do defense stripping just explosion likes
     u32 variableMultihit:1; //replace effect multihit
     bool32 ignoresRedirection:1;
-    u32 padding:7; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
+    bool32 typelessDmg:1; //replace for move power not 0, needed to do stab and typeless dmg default logic for typeless is set type mystery
+    u32 padding:6; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
     // end of word
     union {
         struct {
@@ -641,6 +642,13 @@ static inline uq4_12_t GetTypeBasedBoostMultiplier(enum Move moveId)
     moveId = SanitizeMoveId(moveId);
     assertf(gBattleMoves[moveId].effect == EFFECT_TARGET_TYPE_DAMAGE, "not a type boosted move: %S", GetMoveName(moveId));
     return PercentToUQ4_12(gBattleMoves[moveId].argument.typeBasedPowerBoost.powerMultiplier);
+}
+
+//don't need assert cuz not part of union
+static inline bool32 MoveDoesTypelessDmg(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId)
+    return gBattleMoves[moveId].typelessDmg = TRUE;
 }
 
 
