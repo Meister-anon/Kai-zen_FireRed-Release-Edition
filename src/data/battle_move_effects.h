@@ -1,6 +1,6 @@
 #include "battle.h"
 #include "battle_scripts.h"
-#include "constants/battle_effects.h"
+#include "constants/battle_move_effects.h"
 
 const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 {

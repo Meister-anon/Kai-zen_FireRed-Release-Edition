@@ -24,7 +24,7 @@
 #include "script.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
-#include "constants/battle_effects.h"
+#include "constants/battle_move_effects.h"
 #include "constants/moves.h"
 #include "constants/items.h"
 #include "constants/trainers.h"

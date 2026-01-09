@@ -4,7 +4,7 @@
 //#include "contest_effect.h"
 #include "constants/pokemon.h"
 #include "constants/battle.h"
-#include "constants/battle_effects.h"
+#include "constants/battle_move_effects.h"
 #include "constants/battle_string_ids.h"
 #include "constants/moves.h"
 
@@ -37,7 +37,7 @@ struct AdditionalEffect
     union PACKED {
         enum WrappedStringID wrapped;
     } multistring;
-    u8 chance; // 0% = effect certain, primary effect //note from alex a primary effect isn't blocked by sheer force, while a certain effect would be
+    u8 chance; // 0% = primary effect, 100 is effect certain //note from alex a primary effect isn't blocked by sheer force, while a certain effect would be
 };//so I need to set 100 all effects I added that don't use chance... greaaaat
 
 enum ProtectType

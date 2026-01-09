@@ -39,7 +39,7 @@
 #include "constants/trainer_classes.h"
 #include "constants/facility_trainer_classes.h"
 #include "constants/hold_effects.h"
-#include "constants/battle_effects.h"
+#include "constants/battle_move_effects.h"
 #include "constants/weather.h"
 #include "rtc.h" 
   // weird but failure to build pokemon.s was literally all becuase of these two, inclusions that I guess I didn't add to repository correctly

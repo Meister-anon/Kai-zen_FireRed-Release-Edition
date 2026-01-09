@@ -41,7 +41,7 @@
 #include "new_menu_helpers.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
-#include "constants/battle_effects.h"
+#include "constants/battle_move_effects.h"
 #include "constants/battle_setup.h"
 #include "constants/hold_effects.h"
 #include "constants/items.h"

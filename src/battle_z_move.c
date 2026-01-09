@@ -37,7 +37,7 @@
 #include "constants/items.h"
 #include "constants/species.h"
 #include "constants/battle_string_ids.h"
-#include "constants/battle_effects.h"
+#include "constants/battle_move_effects.h"
 #include "constants/abilities.h"
 #include "constants/moves.h"
 

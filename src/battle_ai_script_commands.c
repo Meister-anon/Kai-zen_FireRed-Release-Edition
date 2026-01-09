@@ -9,7 +9,7 @@
 #include "battle_ai_util.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
-//#include "constants/battle_effects.h"
+//#include "constants/battle_move_effects.h"
 #include "constants/moves.h"
 
 //keeping this file just for comparison of ai logic to default fire red

@@ -6,7 +6,7 @@
 #include "task.h"
 #include "trig.h"
 #include "constants/battle_anim.h"
-#include "constants/battle_effects.h"
+#include "constants/battle_move_effects.h"
 
 struct HailStruct
 {
