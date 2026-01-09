@@ -149,6 +149,17 @@ enum __attribute__((packed)) WrappedStringID
     B_MSG_WRAPPED_THUNDER_CAGE,
     NUM_TRAPPING_MOVES,
 };
+//think all traps do slow
+//several have extra effects
+//think only whirlpool wrap does nothing extra? 
+//bind does encore
+//fire spin increases burn odds
+//sand tomb drops acc
+//magma storm just has guaranteed burn now and better acc
+//swarm sets infestation for duration which does equiv of 1 stage def drop
+//believe both clamp and snaptrap have flinch chance for duration
+//-sounds op but should be wild w inner focus etc.
+//thunder cage believe should have chance to paralyze each turn it does dmg
 
 // gTerrainPreventsStringIds
 #define B_MSG_TERRAINPREVENTS_MISTY     0

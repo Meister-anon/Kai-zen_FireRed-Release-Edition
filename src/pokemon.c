@@ -4528,6 +4528,10 @@ u16 GetIndividualBaseStatValue(u16 species, u8 statIndex)
 //new description an odd stone that boosts defenses
 //of pokemon yet to unlock their full potential
 //bst limit 510 gst limit 600
+//gst at 600 as mon can still evolve 
+//if with evs they're already at psuedo level
+//they def don't need eviolite
+//especially considering higher ev cap
 bool8 CanEvioliteActivate(u8 target)
 {
     u16 species = gBattleMons[target].species;
@@ -4541,7 +4545,7 @@ bool8 CanEvioliteActivate(u8 target)
     else
         return FALSE;//chansey is 475
 }
-//previous ev limit total stat gain is 126 stat points
+//previous ev limit total stat gain is 127 stat points
 //252 *2  / 4  504 /4
 //removed base stat limiter,
 //but think with increased ev cap still need a limit for eviolite?
