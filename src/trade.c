@@ -862,7 +862,7 @@ static void CB2_ReturnFromLinkTrade2(void)
         for (i = 0; i < sTradeMenuResourcesPtr->partyCounts[1]; i++)
         {
             struct Pokemon * mon = &gEnemyParty[i];
-            sTradeMenuResourcesPtr->partyIcons[1][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
+            sTradeMenuResourcesPtr->partyIcons[1][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG),
                                                                 SpriteCB_MonIcon,
                                                                 (sTradeMonSpriteCoords[i + PARTY_SIZE][0] * 8) + 14,
                                                                 (sTradeMonSpriteCoords[i + PARTY_SIZE][1] * 8) - 12,
@@ -1051,7 +1051,7 @@ void CB2_ReturnToTradeMenuFromSummary(void)
         for (i = 0; i < sTradeMenuResourcesPtr->partyCounts[0]; i++)
         {
             sTradeMenuResourcesPtr->partyIcons[0][i] = CreateMonIcon(
-                GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL),
+                GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG),
                 SpriteCB_MonIcon,
                 sTradeMonSpriteCoords[i][0] * 8 + 14,
                 sTradeMonSpriteCoords[i][1] * 8 - 12,
@@ -1063,7 +1063,7 @@ void CB2_ReturnToTradeMenuFromSummary(void)
         for (i = 0; i < sTradeMenuResourcesPtr->partyCounts[1]; i++)
         {
             sTradeMenuResourcesPtr->partyIcons[1][i] = CreateMonIcon(
-                GetMonData(&gEnemyParty[i], MON_DATA_SPECIES_OR_EGG, NULL),
+                GetMonData(&gEnemyParty[i], MON_DATA_SPECIES_OR_EGG),
                 SpriteCB_MonIcon,
                 sTradeMonSpriteCoords[i + 6][0] * 8 + 14,
                 sTradeMonSpriteCoords[i + 6][1] * 8 - 12,
@@ -2216,11 +2216,11 @@ static void BuildMovesString(u8 *movesString, u8 whichParty, u8 whichMon)
         {
             if (!whichParty)
             {
-                moves[i] = GetMonData(&gPlayerParty[whichMon], i + MON_DATA_MOVE1, NULL);
+                moves[i] = GetMonData(&gPlayerParty[whichMon], i + MON_DATA_MOVE1);
             }
             else
             {
-                moves[i] = GetMonData(&gEnemyParty[whichMon], i + MON_DATA_MOVE1, NULL);
+                moves[i] = GetMonData(&gEnemyParty[whichMon], i + MON_DATA_MOVE1);
             }
         }
 
@@ -2282,9 +2282,9 @@ static void PrintLevelAndGenderDirectlyOnVram(u8 whichParty, u8 monIdx, u8 x, u8
     CopyBgTilemapBufferToVram(1);
 
     if (whichParty == 0)
-        level = GetMonData(&gPlayerParty[monIdx], MON_DATA_LEVEL, NULL);
+        level = GetMonData(&gPlayerParty[monIdx], MON_DATA_LEVEL);
     else
-        level = GetMonData(&gEnemyParty[monIdx], MON_DATA_LEVEL, NULL);
+        level = GetMonData(&gEnemyParty[monIdx], MON_DATA_LEVEL);
 
     if (sTradeMenuResourcesPtr->eggFlags[whichParty][monIdx] == 0)
     {

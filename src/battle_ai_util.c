@@ -2561,7 +2561,7 @@ bool32 HasMoveWithFlag(u32 battler, MoveFlag getFlag)
 
 bool8 IsMonFloatingSpecies(u16 species) 
 {
-    //u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    //u16 species = GetMonData(mon, MON_DATA_SPECIES);
 
     if (gBaseStats[species].floating)
         return TRUE;
@@ -2575,7 +2575,7 @@ bool8 IsMonFloatingSpecies(u16 species)
 //if can, will attempt not usethis anduse other groune function
 bool8 AI_Hazard_Grounded(struct Pokemon *mon) //used for PartyBattlerShouldAvoidHazards function  removed battler statuses, and hold effects as they could be done by main funnction
 {
-    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
     bool8 grounded = TRUE; //changed so goes through all checks  //not using else, so need to make it default TRUE
 
 
@@ -3780,7 +3780,7 @@ bool32 ShouldUseWishAromatherapy(u8 battlerAtk, u8 battlerDef, u16 move)
         u16 currHp = GetMonData(&party[i], MON_DATA_HP);
         u16 maxHp = GetMonData(&party[i], MON_DATA_MAX_HP);
 
-        if (!GetMonData(&party[i], MON_DATA_IS_EGG, NULL) && currHp > 0)
+        if (!GetMonData(&party[i], MON_DATA_IS_EGG) && currHp > 0)
         {
             if ((currHp * 100) / maxHp < 65 // Less than 65% health remaining
               && i >= firstId && i < lastId) // Can only switch to mon on your team
@@ -3788,7 +3788,7 @@ bool32 ShouldUseWishAromatherapy(u8 battlerAtk, u8 battlerDef, u16 move)
                 needHealing = TRUE;
             }
 
-            if (GetMonData(&party[i], MON_DATA_STATUS, NULL) != STATUS1_NONE)
+            if (GetMonData(&party[i], MON_DATA_STATUS) != STATUS1_NONE)
             {
                 if (move != MOVE_HEAL_BELL || GetMonAbility(&party[i]) != ABILITY_SOUNDPROOF)
                     hasStatus = TRUE;
@@ -3927,13 +3927,13 @@ bool32 PartyHasMoveSplit(u8 battlerId, u8 split)
 
     for (i = 0; i < PARTY_SIZE; i++)
     {
-        if (GetMonData(&party[i], MON_DATA_HP, NULL) == 0)
+        if (GetMonData(&party[i], MON_DATA_HP) == 0)
             continue;
 
         for (j = 0; j < MAX_MON_MOVES; j++)
         {
-            u16 move = GetMonData(&party[i], MON_DATA_MOVE1 + j, NULL);
-            u16 pp = GetMonData(&party[i], MON_DATA_PP1 + j, NULL);
+            u16 move = GetMonData(&party[i], MON_DATA_MOVE1 + j);
+            u16 pp = GetMonData(&party[i], MON_DATA_PP1 + j);
 
             if (pp > 0 && move != MOVE_NONE)
             {

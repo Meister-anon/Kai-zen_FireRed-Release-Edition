@@ -1518,7 +1518,7 @@ static inline bool32 IsBattlerAlly(u32 battlerAtk, u32 battlerDef)
 static inline u32 GetBattlerPersonality(u32 battler)
 {
     u32 index = gBattlerPartyIndexes[battler];
-    return !IsOnPlayerSide(battler) ? GetMonData(&gEnemyParty[index], MON_DATA_PERSONALITY, NULL) : GetMonData(&gPlayerParty[index], MON_DATA_PERSONALITY, NULL);
+    return !IsOnPlayerSide(battler) ? GetMonData(&gEnemyParty[index], MON_DATA_PERSONALITY) : GetMonData(&gPlayerParty[index], MON_DATA_PERSONALITY);
 }
 
 #endif // GUARD_BATTLE_H

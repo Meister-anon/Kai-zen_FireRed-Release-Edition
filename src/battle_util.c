@@ -6370,13 +6370,13 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
 
                         target1 = GetBattlerAtPosition(BATTLE_OPPOSITE(i));
                         target2 = GetBattlerAtPosition(BATTLE_OPPOSITE(BATTLE_PARTNER(i)));
-
-                        speciesAttacker = GetMonData(i, MON_DATA_SPECIES);
-                        personalityAttacker = GetMonData(i, MON_DATA_PERSONALITY);
-                        speciesTarget1 = GetMonData(target1, MON_DATA_SPECIES);
-                        speciesTarget2 = GetMonData(target2, MON_DATA_SPECIES);
-                        personalityTarget1 = GetMonData(target1, MON_DATA_PERSONALITY);
-                        personalityTarget2 = GetMonData(target2, MON_DATA_PERSONALITY);
+                        
+                        speciesAttacker = GetMonData(GetBattlerMon(i), MON_DATA_SPECIES);
+                        personalityAttacker = GetMonData(GetBattlerMon(i), MON_DATA_PERSONALITY);
+                        speciesTarget1 = GetMonData(GetBattlerMon(target1), MON_DATA_SPECIES);
+                        speciesTarget2 = GetMonData(GetBattlerMon(target2), MON_DATA_SPECIES);
+                        personalityTarget1 = GetMonData(GetBattlerMon(target1), MON_DATA_PERSONALITY);
+                        personalityTarget2 = GetMonData(GetBattlerMon(target2), MON_DATA_PERSONALITY);
 
                         if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
                         {
@@ -11497,10 +11497,10 @@ bool32 SetIllusionMon(struct Pokemon *mon, u32 battlerId)
 static bool32 IsNotEventLegalMewOrDeoxys(u8 battlerId) //fix to remove GF mew deoxys lock check
 {
     if (GetBattlerSide(battlerId) == B_SIDE_OPPONENT
-        || (GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerId]], MON_DATA_SPECIES, NULL) != SPECIES_DEOXYS
-            && GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerId]], MON_DATA_SPECIES, NULL) != SPECIES_MEW))
+        || (GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerId]], MON_DATA_SPECIES) != SPECIES_DEOXYS
+            && GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerId]], MON_DATA_SPECIES) != SPECIES_MEW))
         return TRUE;
-    //return GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerId]], MON_DATA_EVENT_LEGAL, NULL);
+    //return GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerId]], MON_DATA_EVENT_LEGAL);
     else
         return TRUE;
 }
@@ -12436,7 +12436,7 @@ u16 GetBattleFormChangeTargetSpecies(u8 battlerId, u16 method)
         CalculateMonStats(&gPlayerParty[monId]);
     }
     // While not exactly a mega evolution, Zygarde follows the same rules.
-    else if (GetMonData(&gPlayerParty[monId], MON_DATA_SPECIES, NULL) == SPECIES_ZYGARDE_COMPLETE)
+    else if (GetMonData(&gPlayerParty[monId], MON_DATA_SPECIES) == SPECIES_ZYGARDE_COMPLETE)
     {
         SetMonData(&gPlayerParty[monId], MON_DATA_SPECIES, &gBattleStruct->changedSpecies[monId]);
         gBattleStruct->changedSpecies[monId] = 0;
@@ -12462,7 +12462,7 @@ u16 GetBattleFormChangeTargetSpecies(u8 battlerId, u16 method)
         CalculateMonStats(&gPlayerParty[monId]);
     }
     // While not exactly a mega evolution, Zygarde follows the same rules.
-    else if (GetMonData(&gPlayerParty[monId], MON_DATA_SPECIES, NULL) == SPECIES_ZYGARDE_COMPLETE)
+    else if (GetMonData(&gPlayerParty[monId], MON_DATA_SPECIES) == SPECIES_ZYGARDE_COMPLETE)
     {
         SetMonData(&gPlayerParty[monId], MON_DATA_SPECIES, &gBattleStruct->changedSpecies[monId]);
         gBattleStruct->changedSpecies[monId] = 0;
@@ -12531,7 +12531,7 @@ void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut)
         {SPECIES_DARMANITAN_ZEN_MODE_GALARIAN,  SPECIES_DARMANITAN_GALARIAN,  TRUE},
         };
 
-    currSpecies = GetMonData(&party[monId], MON_DATA_SPECIES, NULL);
+    currSpecies = GetMonData(&party[monId], MON_DATA_SPECIES);
     for (i = 0; i < ARRAY_COUNT(species); i++)
     {
         //curr species is form species
@@ -12582,7 +12582,7 @@ void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut)
         {SPECIES_DARMANITAN_ZEN_MODE_GALARIAN,  SPECIES_DARMANITAN_GALARIAN,  TRUE},
     };
 
-    currSpecies = GetMonData(&party[monId], MON_DATA_SPECIES, NULL);
+    currSpecies = GetMonData(&party[monId], MON_DATA_SPECIES);
     for (i = 0; i < ARRAY_COUNT(species); i++)
     {
         if (currSpecies == species[i][0] && (!isSwitchingOut || species[i][2] == TRUE))
@@ -14126,7 +14126,7 @@ bool8 IscurrentMonOnFieldAtPos(struct Pokemon *mon, u8 position)
     u8 battler = GetBattlerAtPosition(position);
     u8 side = GetBattlerSide(battler);
     u32 battler_personality = gBattleMons[battler].personality;
-    u32 mon_personality = GetMonData(mon, MON_DATA_PERSONALITY, NULL);
+    u32 mon_personality = GetMonData(mon, MON_DATA_PERSONALITY);
 
     if (IsBattlerAlive(battler) && side == B_SIDE_PLAYER
     && battler_personality == mon_personality)

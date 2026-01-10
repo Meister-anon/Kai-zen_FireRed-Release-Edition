@@ -2400,7 +2400,7 @@ void UseItem(u32 sourceLine, struct BattlePokemon *battler, struct ItemContext c
         INVALID_IF(!ctx.explicitMove, "%S requires an explicit move", gItems[SanitizeItemId((ctx.itemId))].name);
         for (i = 0; i < MAX_MON_MOVES; i++)
         {
-            if (GetMonData(CurrentMon(battlerId), MON_DATA_MOVE1 + i, NULL) == ctx.move)
+            if (GetMonData(CurrentMon(battlerId), MON_DATA_MOVE1 + i) == ctx.move)
                 break;
         }
         INVALID_IF(i == MAX_MON_MOVES, "USE_ITEM on invalid move: %d", ctx.move);

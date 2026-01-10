@@ -668,7 +668,7 @@ void UpdatePartyMonBoxHp(void)
     
     for (i = 0; i < PARTY_SIZE; i++)
     {   
-        u16 boxHP = GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL);
+        u16 boxHP = GetMonData(&gPlayerParty[i], MON_DATA_HP);
         if (IsMonNuzlockeDead(&gPlayerParty[i]) || gIsMobilePC == TRUE) //if has pokedex received pokeballs already
         {
             SetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, &boxHP);
@@ -742,10 +742,10 @@ void UpdatePokemonStorageSystemMonExp(void)
             else
             {    
                 BoxMonRestorePP(checkingMon);
-                if (GetBoxMonData(checkingMon, MON_DATA_BOX_HP, NULL) != Maxhp)            
+                if (GetBoxMonData(checkingMon, MON_DATA_BOX_HP) != Maxhp)            
                     SetBoxMonData(checkingMon, MON_DATA_BOX_HP, &Maxhp);
                 
-                if (GetBoxMonData(checkingMon, MON_DATA_FROM_MOBILE_PC, NULL) == TRUE)
+                if (GetBoxMonData(checkingMon, MON_DATA_FROM_MOBILE_PC) == TRUE)
                     SetBoxMonData(checkingMon, MON_DATA_FROM_MOBILE_PC, &clearValue);
             }
             

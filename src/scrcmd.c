@@ -1680,7 +1680,7 @@ bool8 ScrCmd_getmondata(struct ScriptContext *ctx)
     u16 data = VarGet(ScriptReadHalfword(ctx));
     u8 slot = ScriptReadByte(ctx); //may need special thing to read upper half word?
 
-    gSpecialVar_Result = GetMonData(&gPlayerParty[slot], data, NULL);
+    gSpecialVar_Result = GetMonData(&gPlayerParty[slot], data);
     return FALSE;
 }
 
@@ -1728,7 +1728,7 @@ bool8 ScrCmd_bufferleadmonspeciesname(struct ScriptContext * ctx)
 
     u8 *dest = sScriptStringVars[stringVarIndex];
     u8 partyIndex = GetLeadMonIndex();
-    u32 species = GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPECIES, NULL);
+    u32 species = GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPECIES);
     //StringCopy(dest, gBaseStats[species].speciesName);
     GetSpeciesName(dest, species);
     return FALSE;
@@ -1738,7 +1738,7 @@ bool8 ScrCmd_bufferpartymonnick(struct ScriptContext * ctx)
 {
     u8 stringVarIndex = ScriptReadByte(ctx);
     u16 partyIndex = VarGet(ScriptReadHalfword(ctx));
-    u32 species = GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPECIES, NULL);
+    u32 species = GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPECIES);
 
     GetMonData(&gPlayerParty[partyIndex], MON_DATA_NICKNAME, sScriptStringVars[stringVarIndex]);
     
@@ -2010,7 +2010,7 @@ bool8 ScrCmd_checkpartymove(struct ScriptContext * ctx)
 
     for (i = 0; i < PARTY_SIZE; i++)
     {
-        u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL);
+        u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
         if (species == SPECIES_EGG)
             break;                 
         
@@ -2807,7 +2807,7 @@ bool8 ScrCmd_checkmoneventlegal(struct ScriptContext * ctx)
 {
     u16 partyIndex = VarGet(ScriptReadHalfword(ctx));
 
-    gSpecialVar_Result = TRUE; //GetMonData(&gPlayerParty[partyIndex], MON_DATA_EVENT_LEGAL, NULL);
+    gSpecialVar_Result = TRUE; //GetMonData(&gPlayerParty[partyIndex], MON_DATA_EVENT_LEGAL);
     return FALSE;
 }
 

@@ -6938,7 +6938,7 @@ void BS_typebasedjump2(void)  //may need to adjust currinstr values
 static inline s32  HP_StatRecalc(s32 iv, s32 ev)
 {
     s32 level = GetLevelFromMonExp(&gPlayerParty[gBattleStruct->expGetterMonId]);
-    u16 species =  GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPECIES, NULL);
+    u16 species =  GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPECIES);
     u16 ability = GetMonAbility(&gPlayerParty[gBattleStruct->expGetterMonId]);
     u8 baseStat = gBaseStats[species].baseHP;     
     s32 n;            
@@ -6965,7 +6965,7 @@ static inline s32 StatReclacForLevelup(s32 iv, s32 ev, u8 statIndex)
     u8 baseStat;
     s32 n;      
     u8 nature;
-    u16 species =  GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPECIES, NULL);
+    u16 species =  GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPECIES);
     //this may be part ofthe problem if expgettermonid is not what I thought,
     //and doens't actually hold battlers place in party, cheked it does hold party position
     s32 level = GetLevelFromMonExp(&gPlayerParty[gBattleStruct->expGetterMonId]); 
@@ -7010,18 +7010,18 @@ static void atk23_getexp(void)
     u8 *expMonId = &gBattleStruct->expGetterMonId;
 
     //values for stat recalc for transformed mons level up
-    s32 hpIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP_IV, NULL);
-    s32 hpEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP_EV, NULL);
-    s32 attackIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_ATK_IV, NULL);
-    s32 attackEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_ATK_EV, NULL);
-    s32 defenseIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_DEF_IV, NULL);
-    s32 defenseEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_DEF_EV, NULL);
-    s32 speedIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED_IV, NULL);
-    s32 speedEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED_EV, NULL);
-    s32 spAttackIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPATK_IV, NULL);
-    s32 spAttackEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPATK_EV, NULL);
-    s32 spDefenseIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF_IV, NULL);
-    s32 spDefenseEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF_EV, NULL);
+    s32 hpIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP_IV);
+    s32 hpEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP_EV);
+    s32 attackIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_ATK_IV);
+    s32 attackEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_ATK_EV);
+    s32 defenseIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_DEF_IV);
+    s32 defenseEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_DEF_EV);
+    s32 speedIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED_IV);
+    s32 speedEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED_EV);
+    s32 spAttackIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPATK_IV);
+    s32 spAttackEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPATK_EV);
+    s32 spDefenseIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF_IV);
+    s32 spDefenseEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF_EV);
 
 
     gBattlerFainted = GetBattlerForBattleScript(cmd->battler);
@@ -16753,13 +16753,13 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
                     //if it copies the current ability, in the case you swap off a bad ability
                     //ok will use battle, 9/10 its same result, but has opporutinty for more flexibility
                     //targetAbility = GetMonAbility(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]]);
-                    TransformSpecies = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_SPECIES, NULL);
+                    TransformSpecies = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_SPECIES);
 
                 }
                 else
                 {
                     //targetAbility = GetMonAbility(&gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]]);
-                    TransformSpecies = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_SPECIES, NULL);
+                    TransformSpecies = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_SPECIES);
                 }
                 targetAbility = GetBattlerAbility(gBattlerTarget);
 
@@ -20333,8 +20333,8 @@ static void atkF0_givecaughtmon(void) //useful if I set up alt storage,
 static void atkF1_trysetcaughtmondexflags(void)
 {
     CMD_ARGS(const u8 *jumpInstr);
-    u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_SPECIES, NULL);
-    u32 personality = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_PERSONALITY, NULL);
+    u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_SPECIES);
+    u32 personality = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_PERSONALITY);
 
     if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT)) //if mon caught skip, 
     {
@@ -20356,7 +20356,7 @@ static void atkF1_trysetcaughtmondexflags(void)
 static void atkF2_displaydexinfo(void)
 {
     CMD_ARGS();
-    u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_SPECIES, NULL);
+    u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_SPECIES);
     
     switch (gBattleCommunication[0])
     {
@@ -20555,7 +20555,7 @@ static void atkF3_trygivecaughtmonnick(void)
                 DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
                            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_SPECIES),
                            GetMonGender(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]]),
-                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_PERSONALITY, NULL),
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_PERSONALITY),
                            SetCB2ToReshowScreenAfterMenu); //almost works just need not reshow mon caught, and figure what to do for double wilds
             } //for now seems work next step will make ewram to store battle position or some other function for should display sprite/create sprite
             //which would rely on battlehp being fainted or mon being caught? which are I guess fields I would add to batlemons?
@@ -20566,7 +20566,7 @@ static void atkF3_trygivecaughtmonnick(void)
                 DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
                            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_SPECIES),
                            GetMonGender(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]]),
-                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_PERSONALITY, NULL),
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gCatchTargetId]], MON_DATA_PERSONALITY),
                            BattleMainCB2);
             }
             ++gBattleCommunication[MULTIUSE_STATE]; //next case //for double wilds I'd want to not reshow healthbox

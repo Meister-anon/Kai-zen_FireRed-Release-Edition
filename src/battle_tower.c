@@ -650,7 +650,7 @@ static void FillBattleTowerTrainerParty(void)
             // Ensure this pokemon species isn't a duplicate.
             for (i = 0; i < partyIndex; i++)
             {
-                if (GetMonData(&gEnemyParty[i], MON_DATA_SPECIES, NULL) == battleTowerMons[battleMonIndex].species)
+                if (GetMonData(&gEnemyParty[i], MON_DATA_SPECIES) == battleTowerMons[battleMonIndex].species)
                     break;
             }
 
@@ -660,8 +660,8 @@ static void FillBattleTowerTrainerParty(void)
             // Ensure this pokemon's held item isn't a duplicate.
             for (i = 0; i < partyIndex; i++)
             {
-                if (GetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM, NULL) != ITEM_NONE
-                    && GetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM, NULL) == sBattleTowerHeldItems[battleTowerMons[battleMonIndex].heldItem])
+                if (GetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM) != ITEM_NONE
+                    && GetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM) == sBattleTowerHeldItems[battleTowerMons[battleMonIndex].heldItem])
                     break;
             }
 
