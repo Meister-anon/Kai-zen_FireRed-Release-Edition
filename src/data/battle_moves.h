@@ -19990,8 +19990,11 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_SPECIAL,
         .argument = { .absorbPercentage = 50 },
         .healingMove = TRUE,
+        .cantdamageFloating = TRUE,
     },
     //made 60 bp to continue trend of oddly broken dark moves category
+    //forgot was meant to add grounnd based logic to this
+    //as first instance of separating floating exclusion from just ground type effects
 
     [MOVE_SNOW_DAY] =
     {
