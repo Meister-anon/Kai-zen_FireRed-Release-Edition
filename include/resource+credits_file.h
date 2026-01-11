@@ -49,6 +49,11 @@ can put restricted mode in place of that
 can just lock to either mono or stereo
 for the most part thing doesn't change much? 
 
+oh realize can just get rid of button mode
+its just lr or help and I have several features
+that rely on using the l or r buttons
+and help mode doesnt exist
+
 idea have credits listeed but think
 also edit Celadon gamefreak office to have the credits as well
 can have a model for each person (default for most not unique models)
