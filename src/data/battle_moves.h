@@ -3466,11 +3466,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_BUBBLE] =
 {
-    #if B_UPDATED_MOVE_DATA >= GEN_6
+    /*#if B_UPDATED_MOVE_DATA >= GEN_6
         .power = 40,
-    #else
+    #else*/
         .power = 20,
-    #endif
+    //#endif
     .effect = EFFECT_HIT,
     .type = TYPE_WATER,
     .accuracy = 95,
@@ -3480,7 +3480,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_SPECIAL,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
-            .chance = 10,
+            .chance = 100,
         }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
