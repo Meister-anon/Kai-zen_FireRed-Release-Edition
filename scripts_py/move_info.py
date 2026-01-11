@@ -34,6 +34,20 @@ appears I may need to make a dictionary to properly line up file
 #move name as key w name and description as fields 
 #hmm
 
+'''
+reviewed dictioanry stuff locked to pairs can't have
+one key value for multiple values
+instead have to have nested dictionary
+with that can make dictionary based on move name
+have name and description field
+then can just print fields
+
+ok had hard time figuring out how to create nested 
+w names I need but researched seems
+best plan is create empty potentially global dictionary yeah global
+
+'''
+
 import re
 
 data = {} #forgot need this global

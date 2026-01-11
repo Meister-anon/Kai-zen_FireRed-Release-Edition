@@ -773,15 +773,6 @@ struct AbilityLearnset
     u16 Teachable_Ability;
 };
 
-enum
-{
-    GROWTH_MEDIUM_FAST,
-    GROWTH_ERRATIC,
-    GROWTH_FLUCTUATING,
-    GROWTH_MEDIUM_SLOW,
-    GROWTH_FAST,
-    GROWTH_SLOW
-};
 
 enum
 {

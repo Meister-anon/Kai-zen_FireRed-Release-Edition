@@ -77,10 +77,12 @@ enum ProtectMethod
 //then can figure out the rest as I go
 struct BattleMove
 {
-    u16 effect;
+    const u8 *name;
+    const u8 *description;
+    enum BattleMoveEffects effect;
     u16 target;
-    u8 power;
-    u8 type;
+    u8 power; //max 255
+    enum Type type;
     u8 accuracy;
     u8 pp;
     s8 priority;

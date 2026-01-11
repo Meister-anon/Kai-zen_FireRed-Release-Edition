@@ -275,11 +275,26 @@ enum __attribute__((packed)) Type
 #define MIN_FIXED_IVS 20	//minimum value I plan to use for trainer assignment, is used for gym leaders  [replaced IV Mask]
 #define USE_RANDOM_IVS (MAX_PER_STAT_IVS + 1)	//makes createmon function use random data for ivs, just like wild mon	can override fixed value for trainer party
 #define MAX_PER_STAT_EVS 360 //had changd to 564 insane	//prviously 255 //recently learned amount of stat able to add to total stat w evs is about same as an bst increase so this is insane
-#define MAX_TOTAL_EVS 788	//previosly 510
+#define MAX_TOTAL_EVS 788 //may lower 738 612 also isnt bad mix of new per stat and old per stat	//previosly 510
 #define EV_ITEM_BOOSTER_LIMIT 250	//how many evs can be gained from ev boost items, previously 100  each one apparently ads 10 evs? every 4 is 1 stat point
 //consider raising to new per stat cap, don't want to make it to easy to get the boosted evs, I want people to actually train their mon.
 #define FRIENDSHIP_EVO_LIMITER 85
 //#define GLOBAL_STAT_TOTAL_LIMIT 600 // limit for ev gain + bst would be bst + total evs / 4
+
+//think goal should be to be able to train weak mon
+//up to bout mid 500s maybe 520-550 or so
+//base was able to add 126 to bst
+//and for mon to be considered good usually
+//needs around 500
+
+//idea  for this is with ev investment mon couldn't raise individual stat
+//above 135 but that limits strong mon
+//think instead need dynamic logic
+//if set base stat + 63 is less than 135
+//then their limit is 135 otherwise is base stat + 135
+//63 being old per stat limit actually fuck this just make a function
+//point is bring up lower mon, while not lowering potential
+//of strong mon
 #define GLOBAL_PER_STAT_LIMIT 135 //realized would need a individual stat limit as well
 //will keep stats from getting too nutty, keep mon that are hyper specialized by default still special
 //ex. haxorous who has +147 base, he'll still be noticeabley stronger by default than any mon that had to train
@@ -293,6 +308,25 @@ enum __attribute__((packed)) Type
 //and just put it in all the functions better but not as simple to do 
 //but plan is if bst is below 600  gain limit is 600
 //if bst is above 600 global gain limit is 650
+
+// Move category defines.
+enum __attribute__((packed)) DamageCategory
+{
+    DAMAGE_CATEGORY_PHYSICAL,
+    DAMAGE_CATEGORY_SPECIAL,
+    DAMAGE_CATEGORY_STATUS
+};
+
+// Growth rates
+enum GrowthRate
+{
+    GROWTH_MEDIUM_FAST,
+    GROWTH_ERRATIC,
+    GROWTH_FLUCTUATING,
+    GROWTH_MEDIUM_SLOW,
+    GROWTH_FAST,
+    GROWTH_SLOW,
+};
 
 //Stat EV Ids- believe was mostly for power items logic
 #define HpEV 0
