@@ -83,11 +83,15 @@ static void SetTextCapFlags(void)
 //and yet somehow I did change textspeed to fast in the past?
 //nvm it is this, its just only triggered the first stime you start game
 //doesn't trigger if you already had a save
+//changed sound option to default stereo
+//preceding remove sound from menu replace w
+//restricted battle mode
+//to lock max party size based on gym badge progression
 static void SetDefaultOptions(void) //changed setup, now when start new game, will rollover options from existing save if in saveblock
 {
     gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_FASTER;
     gSaveBlock2Ptr->optionsWindowFrameType = 0;
-    gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_MONO;
+    gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_STEREO;
     gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SHIFT;
     gSaveBlock2Ptr->optionsTurnBattleSceneOff = FALSE; //?  uses a double negative for some reason //renamed for ease of use
     gSaveBlock2Ptr->regionMapZoom = FALSE;
