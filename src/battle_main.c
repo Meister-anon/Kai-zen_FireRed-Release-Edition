@@ -6198,11 +6198,41 @@ static void TryEvolvePokemon(void) //want battle evolution for player and oppone
                 u16 species;
                 u8 participationBits = gParticipatedInBattle;
                 bool32 EvoState = GetMonEvoState(&gPlayerParty[i]);
+                bool32 MonFainted = GetMonData(&gPlayerParty[i], MON_DATA_HP) == 0;
                 //update assigned value
                 participationBits &= ~((1u << i)); //This holds specfic mon value so removing keeps from retriggering I believe?
                 gParticipatedInBattle = participationBits;
                 
-                if (!EvoState)
+                //vsonic still plan to setup mid battle evolution
+                //consider setup ee special evo tracker for weird evo methods
+                //thought could run after every turn of battle
+                //checking if a mon can evolve on player side
+                //so mid battle evo could take place soon as possible
+                //ex. enough recoil or use move enough times
+                //or maybe gain friendship look at how friendship works
+                //if it works from after battle may need to adjust
+                //so dynamically adjusted mid battle
+                //i.e use items on mon faint other mon
+                //lvl up etc.  and of course things that drop friendship
+                //as well use bitter flavor items
+                //could rework friendship moves
+                //so frustration could actually be useful?
+                //taking status dmg lowers friendship
+                //which could synergize with flame orb sets
+                //could keep return the same but make frustration
+                //just that, a move that requires a build up
+                //of frustration with trainer
+                //to get max power so no longer linked 
+                //w friendship itself think make like rage
+                //keep counter of effects triggered
+                //that would drop friendship
+                //using bitter items, fainting
+                //turns of taking status dmg and not being healed etc.
+                //went on tangent but point is
+                //using fainting to block evo is big effect
+                //but luckily will be mitigated by
+                //getting mid battle evos working
+                if (!EvoState || MonFainted)
                     continue;
                 species = GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_NORMAL, participationBits);
                 if (species != SPECIES_NONE)

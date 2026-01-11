@@ -6997,6 +6997,8 @@ static inline s32 StatReclacForLevelup(s32 iv, s32 ev, u8 statIndex)
 }
 
 
+//saw cool youtube video
+//idea mon gains exp even when fainted
 #define EXP_FUNCTION
 static void atk23_getexp(void)
 {
@@ -7058,7 +7060,8 @@ static void atk23_getexp(void)
             //ok hopefully this works
             for (viaSentIn = 0, i = 0; i < PARTY_SIZE; ++i)
             {
-                if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(&gPlayerParty[i], MON_DATA_HP) != 0)
+                if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE 
+                && !IsMonNuzlockeDead(&gPlayerParty[i]))
                 {
                         if ((1u << i) & sentIn)
                             ++viaSentIn;
@@ -7166,7 +7169,7 @@ static void atk23_getexp(void)
                     PlayBGM(MUS_VICTORY_WILD);
                     ++gBattleStruct->wildVictorySong;
                 }
-                if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP))
+                if (!IsMonNuzlockeDead(&gPlayerParty[gBattleStruct->expGetterMonId]))
                 {
                     //should be able to do streamer/creator mode exp boost here
                     //would be total exp  * multiplier /size of party,
@@ -7183,7 +7186,10 @@ static void atk23_getexp(void)
                         gBattleMoveDamage = *exp;
                     else
                         gBattleMoveDamage = 0;
-                    if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE) == EXP_SHARE)
+
+                    //want keep fainted mon from getting exp share stuff
+                    if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE) == EXP_SHARE
+                    && GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP))
                         gBattleMoveDamage += gExpShareExp;
                     
                     if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
@@ -7217,13 +7223,22 @@ static void atk23_getexp(void)
                     {
                         gBattleStruct->expGetterBattlerId = 0;
                     }
-                    PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gBattleStruct->expGetterBattlerId, gBattleStruct->expGetterMonId);
-                    // buffer 'gained' or 'gained a boosted'
-                    PREPARE_STRING_BUFFER(gBattleTextBuff2, i);
-                    PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff3, 5, gBattleMoveDamage);
-                    PrepareStringBattle(STRINGID_PKMNGAINEDEXP, gBattleStruct->expGetterBattlerId);
-                    MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId]);
-                    AdjustFriendship(&gPlayerParty[gBattleStruct->expGetterMonId], FRIENDSHIP_EVENT_EXP_GAINED); //apparently friendship calculation doesnt have a filter for if mon is alive
+                    //don't print gained exp message if only from exp share
+                    //fainted and not sent out
+                    if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE) == EXP_SHARE
+                    && GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP) == 0
+                    && !(gBattleStruct->sentInPokes & 1))
+                    {}
+                    else
+                    {
+                        PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gBattleStruct->expGetterBattlerId, gBattleStruct->expGetterMonId);
+                        // buffer 'gained' or 'gained a boosted'
+                        PREPARE_STRING_BUFFER(gBattleTextBuff2, i);
+                        PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff3, 5, gBattleMoveDamage);
+                        PrepareStringBattle(STRINGID_PKMNGAINEDEXP, gBattleStruct->expGetterBattlerId);
+                        MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId]);
+                        AdjustFriendship(&gPlayerParty[gBattleStruct->expGetterMonId], FRIENDSHIP_EVENT_EXP_GAINED); //apparently friendship calculation doesnt have a filter for if mon is alive
+                    }
                 }//so it triggers regardless,  but putting here ensures that it would only activate if mon is alive,
                 gBattleStruct->sentInPokes >>= 1;
                 ++gBattleScripting.atk23_getexpState;
@@ -7234,7 +7249,7 @@ static void atk23_getexp(void)
         if (!gBattleControllerExecFlags) //this is what i need to change for transform level up, think can use a version fo calc_stat but just remove set stat part
         {                                           //my species isn't changed with transform so it should properly read the right base stats, so if mew or ditto is using it it'd still work
             gBattleResources->bufferB[gBattleStruct->expGetterBattlerId][0] = 0;
-            if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP))// && GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) != MAX_LEVEL)
+            if (!IsMonNuzlockeDead(&gPlayerParty[gBattleStruct->expGetterMonId]))// && GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) != MAX_LEVEL)
             { // that and case 2 change were all for ev again/stat change @ level 100, think peak condition/phsycal prime like track stars. they can still get small marginal gains form training
                 //or is this all just ev gain and not leve up? or is itboth??
                 if (gBattleMons[gBattleStruct->expGetterMonId].status2 & STATUS2_TRANSFORMED)
@@ -7280,7 +7295,7 @@ static void atk23_getexp(void)
                 // update battle mon structure after level up
                 //according to bulbapedia transformed stats are only recalced on levelup up to gen3
                 //so I should probably add a value here to exclude transformed mon
-                if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId && gBattleMons[0].hp
+                if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId
                 && !gBattleMons[0].status2 & STATUS2_TRANSFORMED)
                 {
                     gBattleMons[0].level = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL);
@@ -7295,7 +7310,7 @@ static void atk23_getexp(void)
                     gBattleMons[0].spDefense = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF);
                 }
                 // What is else if?     fixed speed dup, & sp def exclusion
-                if (gBattlerPartyIndexes[2] == gBattleStruct->expGetterMonId && gBattleMons[2].hp 
+                if (gBattlerPartyIndexes[2] == gBattleStruct->expGetterMonId
                 && !gBattleMons[2].status2 & STATUS2_TRANSFORMED && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
                 {
                     gBattleMons[2].level = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL);

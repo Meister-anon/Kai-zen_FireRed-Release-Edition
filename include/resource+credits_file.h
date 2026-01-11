@@ -33,6 +33,22 @@ believe sourced from rom hack project palladium
 
 move effcts inspired by fangame Pokemon Unbreakable Ties
 
+new idea yt redwings13400
+general things regarding game balance and exp share
+
+plan add ideas exp on faint
+and actually rebalance game around exp share mechanics
+that make it easier to raise larger teams earlier on
+I already have middle ground with system
+but liked idea of limiting team slots to game progression etc.
+think best leave as optional challenge mode tho
+idea restricted mode  checked options no space
+for new option think have to remove sound option
+can put restricted mode in place of that
+
+can just lock to either mono or stereo
+for the most part thing doesn't change much? 
+
 idea have credits listeed but think
 also edit Celadon gamefreak office to have the credits as well
 can have a model for each person (default for most not unique models)

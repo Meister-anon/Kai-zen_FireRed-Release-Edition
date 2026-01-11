@@ -3560,16 +3560,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_BUBBLE] =
 {
-    #if B_UPDATED_MOVE_DATA >= GEN_6
+    /*#if B_UPDATED_MOVE_DATA >= GEN_6
         .power = 40,
-    #else
+    #else*/
         .power = 20,
-    #endif
+    //#endif
     .effect = EFFECT_SPEED_DOWN_HIT,
     .type = TYPE_WATER,
     .accuracy = 95,
     .pp = 30,
-    .secondaryEffectChance = 10,
+    .secondaryEffectChance = 0,
     .target = MOVE_TARGET_BOTH,
     .priority = 0,
     .split = SPLIT_SPECIAL,
@@ -3584,6 +3584,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.battleAnimScript = gBattleAnimMove_Bubble,
 },
 //bubbles are slow, changed acc to give water gun back a niche
+//decided change further lower power back to 20
+//but make guaranteed speed drop
 
 [MOVE_DIZZY_PUNCH] =
 {
