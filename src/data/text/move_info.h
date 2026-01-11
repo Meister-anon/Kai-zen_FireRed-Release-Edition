@@ -2379,7 +2379,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_ACID_RAIN] = gMoveDescription_AcidRain,
     [MOVE_COLD_FRONT] = COMPOUND_MOVE_STRING("A sudden temperature\ndrop that chills\nto the bone.\nTwo-turn attack\nskips charge in hail"),
     [MOVE_LIFE_DRAIN] = COMPOUND_MOVE_STRING("User latches onto\nthe target tightly\nand fiercly drains\ntheir energy."),
-    [MOVE_DARK_SWAMP] = COMPOUND_MOVE_STRING("Todo"),
+    [MOVE_DARK_SWAMP] = COMPOUND_MOVE_STRING("Summons a shadowy\nbog that drains life\nfrom affected foes."),
     //these two need constant as will be made tms along w other weather moves
     [MOVE_SNOW_DAY] = gMoveDescription_SnowDay,
     [MOVE_FOG_HORN] = gMoveDescription_FogHorn,
