@@ -5811,7 +5811,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SHADOW_BALL] =
     {
         .effect = EFFECT_HIT,
-        .power = 80,
+        .power = 85,
         .type = TYPE_GHOST,
         .accuracy = 100,
         .pp = 15,
@@ -13511,7 +13511,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_MOONBLAST] =
     {
         .effect = EFFECT_HIT,
-        .power = 95,
+        .power = 85,
         .type = TYPE_FAIRY,
         .accuracy = 100,
         .pp = 15,
@@ -13527,7 +13527,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Moonblast,
-    },//again too common so won't put knock move on this
+    },
+    //off x bell flutter main rebalance
+    //decided rework moonblast into a shadowball like
+    //and buff dazzling gleam into surf equivalent
+    //w damage cut in doubles this would still do more
+    //and it has more utility
+    //slight buff to shadowball since didn't want to drop this to 80
 
     [MOVE_BOOMBURST] =
     {
@@ -13932,7 +13938,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_DAZZLING_GLEAM] =
     {
         .effect = EFFECT_HIT,
-        .power = 80,
+        .power = 90,
         .type = TYPE_FAIRY,
         .accuracy = 100,
         .pp = 10,
@@ -17153,6 +17159,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
         .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_ATK_MINUS_1,
+            .self = TRUE,
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -17171,6 +17181,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .metronomeBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
+            .self = TRUE,
+        }),
         //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -17222,7 +17236,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .makesContact = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DIRE_CLAW,
-            .chance = 50,
+            .chance = 37, //was 50 took 13% away for bad luck number
         }),
         //.battleAnimScript = gBattleAnimMove_DireClaw,
     },

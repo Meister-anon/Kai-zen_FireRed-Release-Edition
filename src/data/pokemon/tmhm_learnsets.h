@@ -27788,6 +27788,8 @@ static const u16 sMiraidonTMHMLearnset[] = {
     TMHM_LEARNSET_END
 };
 //#endif //P_FAMILY_MIRAIDON
+//from x bell remove dazzling gleam as tm
+//(plus I buffed the move... add moon blast to learnset instead)
 
 //#if P_FAMILY_WALKING_WAKE
 static const u16 sWalkingWakeTMHMLearnset[] = {

@@ -1434,10 +1434,10 @@ const u8 gTHUNDEROUS_KICK_Description
     [] = _("A lightning-like hit\nstrikes with force.\nLowers foe's Defense"); //"with a force like rolling thunder",  (this can keep name)
 
 const u8 gGLACIAL_LANCE_Description 
-    [] = _("Strikes by hurling\na blizzard-cloaked\nicicle lance\nat a foe.");
+    [] = _("Strikes by hurling\na blizzard-cloaked\nicicle lance\nat a foe.\nThis also lowers\nthe user's Atk.");
 
 const u8 gASTRAL_BARRAGE_Description 
-    [] = _("Strikes by sending\na frightful amount\nof ghosts at a foe.");
+    [] = _("Strikes by sending\na frightful amount\nof ghosts at a foe.\nThis also lowers\nthe user's Sp. Atk.");
 
 const u8 gEERIE_SPELL_Description 
     [] = _("Attacks with psychic\npower.\nFoe's last move has\na varying amount\nof PP cut.");
@@ -2244,7 +2244,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [ MOVE_EERIE_SPELL ] = gEERIE_SPELL_Description,
 
     //I Need to fix PLA Moves descriptions don't match effects - everything from here on is bad about 80 left
-    [MOVE_DIRE_CLAW] = COMPOUND_MOVE_STRING("High crit. chance.\nMay paralyze, poison\nor put foe to sleep."),
+    [MOVE_DIRE_CLAW] = COMPOUND_MOVE_STRING("High crit. chance.\nMay paralyze, poison\nor put foe to sleep.\nStatus set has a 37%\nchance to occur."),
     [MOVE_PSYSHIELD_BASH] = COMPOUND_MOVE_STRING("User slams iteslef\ninto the foe\nwhile cloaked in\npsychic energy.\nMay raise Defense."),
     [MOVE_POWER_SHIFT] = COMPOUND_MOVE_STRING("The user swaps\nits offensive\nand defensive stats."),
     [MOVE_STONE_AXE] = COMPOUND_MOVE_STRING("The user swings its\nstone axe at the foe\nStone splinters left\nbehind float around\nthe target"),//adjust description does'nt use crit
