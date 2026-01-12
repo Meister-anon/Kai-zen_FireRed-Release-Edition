@@ -1,6 +1,7 @@
 #include "global.h"
 #include "gflib.h"
 #include "berry.h"
+#include "data.h"
 #include "event_data.h"
 #include "item.h"
 #include "item_use.h"
@@ -905,7 +906,16 @@ u8 ItemId_GetHoldEffectParam(u16 itemId)
 
 const u8 * ItemId_GetDescription(u16 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].description;
+    itemId = SanitizeItemId(itemId);
+
+    if (IsTMHM(itemId))
+    {
+       u16 moveId = ItemId_GetSecondaryId(itemId);
+       return gMoveDescriptionPointers[moveId];
+    }
+        
+    else
+        return gItems[itemId].description;
 }
 
 bool8 itemid_is_unique(u16 itemId)
@@ -943,7 +953,7 @@ ItemUseFunc ItemId_GetBattleFunc(u16 itemId)
     return gItems[SanitizeItemId(itemId)].battleUseFunc;
 }
 
-u8 ItemId_GetSecondaryId(u16 itemId)
+u16 ItemId_GetSecondaryId(u16 itemId)
 {
     return gItems[SanitizeItemId(itemId)].secondaryId;
 }

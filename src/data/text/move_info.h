@@ -125,7 +125,7 @@ const u8 gMoveDescription_Smog[] = _("The foe is attacked\nwith exhaust gases.\n
 const u8 gMoveDescription_Sludge[] = _("Toxic sludge is\nhurled at the foe.\nIt may poison the\ntarget.");
 const u8 gMoveDescription_BoneClub[] = _("The foe is clubbed\nwith a bone held in\nhand. It may make\nthe foe flinch.");
 const u8 gMoveDescription_FireBlast[] = _("The foe is hit with\nan intense flame.\nIt may leave the\ntarget with a burn.");
-const u8 gMoveDescription_Waterfall[] = _("A powerful charge\nattack. It can also\nbe used to climb\na waterfall.\nIt may make the\nfoe flinch.");
+const u8 gMoveDescription_Waterfall[] = _("A powerful charge\nattack. That may\nmake the foe flinch.\nIt can also\nbe used to climb\na waterfall.");
 const u8 gMoveDescription_Clamp[] = _("The foe is clamped\nand squeezed by\nthe user's shell for\ntwo to four turns.");
 const u8 gMoveDescription_Swift[] = _("Star-shaped rays\nthat never miss are\nfired at all foes in\nbattle.");
 const u8 gMoveDescription_SkullBash[] = _("The user raises its\nDEFENSE in the 1st\nturn, then attacks\nin the 2nd turn.");
@@ -295,7 +295,7 @@ const u8 gMoveDescription_Refresh[] = _("A self-healing move\nthat cures the use
 const u8 gMoveDescription_Grudge[] = _("If the user faints,\nthis move cuts\nthe PP of all\nmoves of the foe\nthat fainted it\nby half.");
 const u8 gMoveDescription_Snatch[] = _("Steals the effects\nof the foe's\nhealing or status\nchanging move.");
 const u8 gMoveDescription_SecretPower[] = _("An attack that may\nhave an additional\neffect that varies\nwith the terrain.");
-const u8 gMoveDescription_Dive[] = _("The user dives\nunderwater on the\nfirst turn and\nstrikes next turn.");
+const u8 gMoveDescription_Dive[] = _("The user dives\nunderwater on the\nfirst turn and\nstrikes next turn.\nThat is also used to\ndive into deep water.");
 const u8 gMoveDescription_ArmThrust[] = _("A quick flurry of\nstraight-arm\npunches that hit\ntwo to five times.");
 const u8 gMoveDescription_Camouflage[] = _("Alters the user's\ntype depending on\nthe location's\nterrain.");
 const u8 gMoveDescription_TailGlow[] = _("The user flashes a\nlight that sharply\nraises its SP. ATK\nstat.");
@@ -512,7 +512,7 @@ const u8 gFLASH_CANNON_Description
     [] = _("Releases a blast\nof light that\nmay lower Sp. Def.");
 
 const u8 gMoveDescription_RockClimb 
-    [] = _("A charging attack\nthat may confuse\nthe foe.");
+    [] = _("A charging attack\nthat may confuse\nthe foe.\nIt can be used\nto climb up\nsteep rock faces.");
 
 const u8 gDEFOG_Description 
     [] = _("Removes obstacles\nand lowers evasion.");

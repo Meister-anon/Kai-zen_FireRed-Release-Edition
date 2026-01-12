@@ -1005,6 +1005,12 @@ static void TMCase_ItemPrintFunc(u8 windowId, s32 itemId, u8 y)
     }
 }
 
+//just realized for tms don't need to make item description fields
+//w my changes I can fit move description into field
+//so can leave description empty as null and just bypass
+//it here to print the actual move description
+//hmm actually no just put in getdescription function itself
+//much simpler
 static void TMCase_MoveCursor_UpdatePrintedDescription(s32 itemIndex)
 {
     const u8 * str;
