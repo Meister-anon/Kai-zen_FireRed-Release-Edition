@@ -77,8 +77,8 @@ enum ProtectMethod
 //then can figure out the rest as I go
 struct BattleMove
 {
-    const u8 *name;
-    const u8 *description;
+    const u8 *name; //move name length 16 chars + 1
+    const u8 *description; //approx 20 chars per line 5 lines
     enum BattleMoveEffects effect;
     u16 target;
     u8 power; //max 255
