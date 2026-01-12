@@ -20195,6 +20195,9 @@ use wonder gaurd logic to determine its super effective
     },  //point of move isn't necessarily to replace sucker punch, but instead to be an option for slower dark types to take advantage of new dark type change
     //so only give to mon that DON'T get sucker punch and make sure to keep sparse
     //like say give to guzzlord
+    //may remove pretty broken but making 90 acc
+    //just makes it maybe worthless? idk
+    //keep but make print but it failed rather than missed
 
     [MOVE_DOUBLE_SHOCK] =
     {
