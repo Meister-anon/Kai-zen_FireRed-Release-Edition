@@ -918,7 +918,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
 //vsonic took values from emerald will need to re-extend shortened move names again
 const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
 {
-    [MOVE_NONE] = COMPOUND_STRING(""),
+    [MOVE_NONE] = COMPOUND_STRING("-"),
     [MOVE_POUND] = COMPOUND_STRING("Pound"),
     [MOVE_KARATE_CHOP] = COMPOUND_STRING("Karate Chop"),
     [MOVE_DOUBLE_SLAP] = COMPOUND_STRING("Double Slap"),

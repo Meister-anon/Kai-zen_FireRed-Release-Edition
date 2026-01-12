@@ -174,6 +174,7 @@ const u8 gCaseToggleTable[239] = {
 };
 
 
+extern u8 gExpandedPlaceholder_Empty[];
 extern u8 gExpandedPlaceholder_Kun[];
 extern u8 gExpandedPlaceholder_Chan[];
 extern u8 gExpandedPlaceholder_Sapphire[];
