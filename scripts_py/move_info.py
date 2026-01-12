@@ -46,58 +46,55 @@ ok had hard time figuring out how to create nested
 w names I need but researched seems
 best plan is create empty potentially global dictionary yeah global
 
+screw it cant figure out can just make 2 dicts arrays
+for move and description attempt find iterable
+that matches list id and use for both
+so don't have to double loop
 '''
 
 import re
 
-data = {} #forgot need this global
+nameDict = {}
+descriptionDict = {}
 
-infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/moves_info.h', 'r')
+infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/text/move_info.h', 'r')
 lines = infile.readlines()
-newId = re.compile(r'(\[MOVE_\w+?\])')
+newId = re.compile(r'(g.*Description.*),')
 
 add2List = False #if encounter .category set to true start appending, set false on .valid
 run = False #'set true after reach line where move struct starts'
 Printed = False
-previous_line = False #'since want store after .category use when previous line matches'
+
 
 '''
 ok understand now need both of these to be array
 then use zip at end to organize them into key pairs
 so I need a list of names and a list of flags lists
 '''
-moveFlags = []
+newlines = []
 moveId = [] 
 
  #use above arrays to create dictionary format SizeDict = dict(zip(moveId, moveFlags))
 
 for line in lines:
-    if re.compile(r'gMovesInfo').search(line):
+    if re.compile(r'gMoveDescriptionPointers').search(line):
         run = True
-    
+    #add description to line
+    if re.compile(r'g.*Description.*').search(line) and run == False:
+        moveId.append(line)
+
     if run == True:
         if a := newId.search(line):
-            flagList = []
-            moveId.append(a.group(1))
-            
-        if re.compile(r'.category').search(str(previous_line)):
-            add2List = True
-            Printed = False
+            #what I need is loop moveId for a match
+            #to a.group(1) and do a line sub with that value
+            #replacing a.group(1)
+            for x in moveId:
+                if a.group(1) in x:
+                    add2List = a.group(1)
+                    line = line.replace(add2List, x)
+                    line = line.replace(';\n', '')
+    newlines.append(line)            
         
-        if re.compile(r'.validApprenticeMove').search(line) or re.compile(r'    \},').search(line):
-            Printed = True
-
-        #since conditionals executed in sequence think should be fine
-        if add2List == True:
-            
-            if Printed == False:
-                flagList.append(line)
-            if Printed == True:
-                moveFlags.append(flagList)
-                add2List = False
-
-
-        previous_line = line
 
 '''
 #for the most part works
@@ -116,9 +113,9 @@ ok believe found problem wasn't a script error was a file error
 one of the moves had the end bracket with bad white space
 yup that did it
 '''
-data = dict(zip(moveId, moveFlags))
+#data = dict(zip(moveId, moveFlags))
 #x = data.keys()
-#print(x)
+#print(newlines)
 #x = data.values()
 #print(moveId[0])
 #y = moveId[0]
@@ -126,6 +123,10 @@ data = dict(zip(moveId, moveFlags))
 #print(x)
 #print(data)
 infile.close()
+
+outfile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/text/move_info.h', 'w')
+outfile.writelines(newlines)
+outfile.close()
 
 '''
 read battle_moves file 
@@ -144,7 +145,7 @@ so line sub on line w .split
 put .split rest of line \n dict value for move id
 '''
 
-#'''
+'''
 infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/battle_moves.h', 'r')
 lines = infile.readlines()
 #to avoid looping dict use reg to pull file moveid in brackets
