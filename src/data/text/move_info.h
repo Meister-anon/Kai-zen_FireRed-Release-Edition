@@ -1495,7 +1495,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [ MOVE_HEALING_WISH ] = COMPOUND_MOVE_STRING("The user faints\nto heal up the\nnext battler."),
     [ MOVE_BRINE ] = COMPOUND_MOVE_STRING("Doubles in damage\nagainst foes at or\nbelow half HP."),
     [ MOVE_NATURAL_GIFT ] = COMPOUND_MOVE_STRING("The effectiveness\nand damage varies\nby the held Berry.\nDoes not consume\nberry on use."),
-    [ MOVE_FEINT ] = const u8 COMPOUND_MOVE_STRING("An attack that\nhits foes using\nmoves like Protect."),
+    [ MOVE_FEINT ] = COMPOUND_MOVE_STRING("An attack that\nhits foes using\nmoves like Protect."),
     [ MOVE_PLUCK ] = COMPOUND_MOVE_STRING("Eats the foe's\nheld Berry,\ngaining its effect."),
     [ MOVE_TAILWIND ] = COMPOUND_MOVE_STRING("Whips up a\nturbulent gale\nbehind the user.\nRaises party Speed."),
     [ MOVE_ACUPRESSURE ] = COMPOUND_MOVE_STRING("The user sharply\nraises a\nrandom stat."),
@@ -2930,6 +2930,7 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_ACID_RAIN] = _("Acid Rain"),
     [MOVE_COLD_FRONT] = _("Cold Front"),
     [MOVE_LIFE_DRAIN] = _("Life Drain"),
+    [MOVE_DARK_SWAMP] = _("Dark Swamp"),
 };//don't need remove comma from last value for this file, port of emerald
 
 //remember to remove comma from last entry //longest name is 17 chars
