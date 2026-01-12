@@ -7,6 +7,7 @@
 #include "constants/battle_move_effects.h"
 #include "constants/battle_string_ids.h"
 #include "constants/moves.h"
+#include "strings.h"
 
 // For defining EFFECT_HIT etc. with battle TV scores and flags etc.
 struct __attribute__((packed, aligned(2))) BattleMoveEffect
@@ -204,7 +205,7 @@ static inline u32 SanitizeMoveEffect(u32 moveEffect)
         return moveEffect;
 }
 
-/*static inline const u8 *GetMoveName(u32 moveId)
+static inline const u8 *GetMoveName_(u32 moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].name;
 }
@@ -212,10 +213,10 @@ static inline u32 SanitizeMoveEffect(u32 moveEffect)
 static inline const u8 *GetMoveDescription(u32 moveId)
 {
     moveId = SanitizeMoveId(moveId);
-    if (gBattleMoves[moveId].effect == EFFECT_HIT)
+    if (gBattleMoves[moveId].effect == EFFECT_PLACEHOLDER)
         return gNotDoneYetDescription;
     return gBattleMoves[moveId].description;
-}*/
+}
 
 static inline u32 GetMoveEffect(u32 moveId)
 {
