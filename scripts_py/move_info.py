@@ -59,10 +59,11 @@ descriptionDict = {}
 
 infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/text/move_info.h', 'r')
 lines = infile.readlines()
-newId = re.compile(r'(g.*Description.*),')
+newId = re.compile(r'(MOVE\w+)')
+strTarget = re.compile(r'(COMPOUND\w+STRING.*)')
 
 add2List = False #if encounter .category set to true start appending, set false on .valid
-run = False #'set true after reach line where move struct starts'
+run = 0 #'set true after reach line where move struct starts'
 Printed = False
 
 
@@ -71,19 +72,39 @@ ok understand now need both of these to be array
 then use zip at end to organize them into key pairs
 so I need a list of names and a list of flags lists
 '''
-newlines = []
-moveId = [] 
+
 
  #use above arrays to create dictionary format SizeDict = dict(zip(moveId, moveFlags))
 
 for line in lines:
-    if re.compile(r'gMoveDescriptionPointers').search(line):
-        run = True
-    #add description to line
-    if re.compile(r'g.*Description.*').search(line) and run == False:
-        moveId.append(line)
 
-    if run == True:
+    if re.compile(r'MOVE_NONE').search(line):
+        add2List = True
+    
+    if re.compile(r'\};').search(line):
+        add2List = False
+
+    if re.compile(r'gMoveDescriptionPointers').search(line):
+        run = 1
+    if re.compile(r'gMoveNames').search(line):
+        run = 2
+    #add update desription dictionary
+    #with moveId and desc
+    #add2List uses to prevent bringing in array name llne w moves_count
+    if run == 1 and add2List == True:
+        if Move := newId.search(line):
+            redline = re.sub(r'\\n', '/n',line)
+            if string := strTarget.search(redline):
+                descriptionDict.update({Move.group(1) : string.group(1)})
+
+    #add update movename dictionary
+    #with moveId and name
+    if run == 2 and add2List == True:
+        if Move := newId.search(line):
+            if string := strTarget.search(line):
+                nameDict.update({Move.group(1) : string.group(1)})
+
+    '''if run == 1:
         if a := newId.search(line):
             #what I need is loop moveId for a match
             #to a.group(1) and do a line sub with that value
@@ -93,7 +114,7 @@ for line in lines:
                     add2List = a.group(1)
                     line = line.replace(add2List, x)
                     line = line.replace(';\n', '')
-    newlines.append(line)            
+    newlines.append(line)   '''         
         
 
 '''
@@ -122,11 +143,12 @@ yup that did it
 #x = data.get('[MOVE_POUND]')
 #print(x)
 #print(data)
+#print(descriptionDict)
 infile.close()
 
-outfile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/text/move_info.h', 'w')
+'''outfile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/text/move_info.h', 'w')
 outfile.writelines(newlines)
-outfile.close()
+outfile.close()'''
 
 '''
 read battle_moves file 
@@ -145,45 +167,62 @@ so line sub on line w .split
 put .split rest of line \n dict value for move id
 '''
 
-'''
+
+
+
 infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/battle_moves.h', 'r')
 lines = infile.readlines()
 #to avoid looping dict use reg to pull file moveid in brackets
 #can use get function to compare against dict keys
 #if matching will return values else returns none
 #store return value and assign if not none
-reg = re.compile(r'(\[MOVE_\w+?\])')
+moveId = re.compile(r'(MOVE_\w+)\]')
 move = 0
 values = 0
+
+Active = False # gBattleMoves
+Start = False #move_none
+Print = False #{ change to moveId match within moveID match set false after line replace  
+Run = False
 
 newlines = []
 
 
 for line in lines:
-    #look for moveId on line
-    #assign to move
-    if a := reg.search(line):
-        move = a.group(1)
-        #print(move)
-        values = data.get(move)
-        #print(values)
-        #break
 
-    #appears to work issue is need revert constant name changes
-    #as doesn't allign with dictionary smh
-    #luckily simple as checking history of move constants file
-    if re.compile(r'\.split').search(line):
-        #not none do line replace else keep line as is, do nothing
-        if values != None:
-            #print(str(values))
-            line = line.replace(line, line + str(values))
-            line = re.sub(r"'", "",line)
-            line = re.sub(r"\[", "",line)
-            line = re.sub(r"\]", "",line)
-            line = re.sub(r"\\n, ", "\n",line)
-            line = re.sub(r"\\n", "\n",line)
-            #print(line)
-            #break
+    if re.compile(r'gBattleMoves').search(line):
+        Active = True
+    
+    if re.compile(r'MOVE_NONE').search(line) and Active == True:
+        Start = True
+
+    #think here I need to find iterable oh 
+    #I assign move here
+    #this was problem print was being set back to true
+    if Start == True:
+        if a := moveId.search(line):
+            move = a.group(1)
+            Print = True
+
+    #set Print to false in run portion of script
+    #so doesnt retrigger within same moveId
+    #actually dont need run value can just 
+    #put logic here and set print false
+    #mostly works but meed prevent removal of \ in description
+    #this most important condition isnt working
+    if re.compile(r'\{').search(line) and Print == True:
+        Print = False
+        #descString = (descriptionDict.get(move))
+        #descString = re.sub(r'\n', r'\\n', str(descString))
+        line = re.sub(r'\{', '{\n        ' + '.name = ' + str(nameDict.get(move)) + '\n'
+        + '        ' + '.description = ' + str(descriptionDict.get(move)),line)
+
+    #if Print == True and re.compile(r'\.effect').search(line):
+    #    Print = False
+
+    #after script run vs code replace w regex
+    #(\w)/n
+    #$1\\n
     newlines.append(line)
     
 infile.close()
