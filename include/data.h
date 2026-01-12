@@ -8,7 +8,6 @@
 #include "debug.h"
 
 #define SPECIES_SHINY_TAG 500
-#define TRAINER_ENCOUNTER_MUSIC(trainer)((gTrainers[trainer].encounterMusic_gender & 0x7F))
 
 #define MAX_TRAINER_AI_FLAGS 64
 #define MAX_TRAINER_ITEMS 4
@@ -182,13 +181,14 @@ struct Trainer
     /*0x00*/ //u8 partyFlags; //since unifying trainer party struct don't need flags
     /*0x00*/ u8 battleType; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
     /*0x01*/ u8 trainerClass;
-    /*0x02*/ u8 encounterMusic_gender; // last bit is gender
-    /*0x03*/ u8 trainerPic;
+    /*0x02*/ u8 encounterMusic:7;
+             u8 gender:1;
+    /*0x03*/ enum TrainerPicID trainerPic;
     /*0x04*/ u8 trainerName[12];
              //const u8 *trainerName;  not implemented but idea for space saving from Josh, use to take place of text strings that get reused i.e rematches or same name ex rocket GRUNT
     /*0x10*/ u16 items[4];  //don't use 12 for above, I think?  can make limiter in compount string define
     /*0x1C*/ u64 aiFlags;
-    /*0x18*/ u8 padding; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
+    /*0x18*/ u8 padding;//with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
     /*0x20*/ u8 partySize;
              u8 initialPartysize; //default party size before changes my field
     /*0x24*/ const struct TrainerMon *party;

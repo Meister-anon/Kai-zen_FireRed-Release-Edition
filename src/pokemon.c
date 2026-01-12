@@ -10800,9 +10800,16 @@ s32 GetBattlerMultiplayerId(u16 a1)
 
 //vsonic important need pr  #8892
 //separate trainer music from gender
-u8 GetTrainerEncounterMusicId(u16 trainer)
+u8 GetTrainerEncounterMusicId(u16 trainerOpponentId)
 {
-    return gTrainers[trainer].encounterMusic_gender & 0x7F;
+    u32 sanitizedTrainerId = SanitizeTrainerId(trainerOpponentId);
+
+    /*if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)
+        return GetTrainerEncounterMusicIdInBattlePyramid(trainerOpponentId);
+    else if (InTrainerHillChallenge())
+        return GetTrainerEncounterMusicIdInTrainerHill(trainerOpponentId);
+    else*/
+        return gTrainers[sanitizedTrainerId].encounterMusic;
 }
 
 u16 ModifyStatByNature(u8 nature, u16 stat, u8 statIndex)
