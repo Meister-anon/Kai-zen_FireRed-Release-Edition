@@ -243,7 +243,7 @@ enum BattleScriptOpcode
     B_SCR_OP_SETTYPETOENVIRONMENT,
     B_SCR_OP_PURSUITDOUBLES,
     B_SCR_OP_SNATCHSETBATTLERS,
-    B_SCR_OP_REMOVESCREENS,
+    B_SCR_OP_UNUSED_0XEE,
     B_SCR_OP_HANDLEBALLTHROW,
     B_SCR_OP_GIVECAUGHTMON,
     B_SCR_OP_TRYSETCAUGHTMONDEXFLAGS,
@@ -581,9 +581,9 @@ enum BattleScriptOpcode
 
 enum SetMoveEffectFlags
 {
-    NO_FLAGS = 0,
-    EFFECT_PRIMARY = (1 << 0),
-    EFFECT_CERTAIN = (1 << 1),
+    NO_FLAGS          = 0,
+    EFFECT_PRIMARY    = (1 << 0),
+    EFFECT_CERTAIN    = (1 << 1),
 };
 
 // cases for Cmd_moveend - Order matters!

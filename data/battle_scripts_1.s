@@ -1023,28 +1023,6 @@ BattleScript_VCreateTrySpeed:
 BattleScript_VCreateStatLossRet:
 	return
 
-BattleScript_SpectralThiefSteal::
-	setbyte sB_ANIM_TURN, 1
-	playmoveanimation MOVE_SPECTRAL_THIEF
-	waitanimation
-	setbyte sB_ANIM_TURN, 0
-	printstring STRINGID_SPECTRALTHIEFSTEAL
-	waitmessage B_WAIT_TIME_LONG
-	setbyte sB_ANIM_ARG2, 0
-	spectralthiefprintstats
-	flushtextbox
-	goto BattleScript_EffectSpectralThiefFromDamage
-
-BattleScript_EffectSpectralThief::
-	attackcanceler
-	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
-	typecalc
-	tryspectralthiefsteal BattleScript_SpectralThiefSteal
-BattleScript_EffectSpectralThiefFromDamage:
-	damagecalc
-	adjustdamage
-	goto BattleScript_HitFromAtkAnimation
-
 BattleScript_EffectPartingShot::
 	attackcanceler
 	jumpifstat BS_TARGET, CMP_GREATER_THAN, STAT_ATK, MIN_STAT_STAGE, BattleScript_EffectPartingShotTryAtk
@@ -3899,34 +3877,20 @@ BattleScript_EffectRecycle::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
-BattleScript_EffectBrickBreak::
-	attackcanceler
-	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
-	typecalc
-	removescreens
-	damagecalc
-	adjustdamage
-	jumpifbyte CMP_EQUAL, sB_ANIM_TURN, 0, BattleScript_BrickBreakAnim
-	clearmoveresultflags MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE
-BattleScript_BrickBreakAnim::
-	attackanimation
+BattleScript_BreakScreens::
+	playmoveanimation MOVE_NONE @use current move
 	waitanimation
-	jumpifbyte CMP_LESS_THAN, sB_ANIM_TURN, 2, BattleScript_BrickBreakDoHit
 	printstring STRINGID_THEWALLSHATTERED
+	return
+
+BattleScript_StealStats::
+	playmoveanimation MOVE_SPECTRAL_THIEF
+	waitanimation
+	printstring STRINGID_SPECTRALTHIEFSTEAL
 	waitmessage B_WAIT_TIME_LONG
-BattleScript_BrickBreakDoHit::
-	typecalc
-	effectivenesssound
-	hitanimation BS_TARGET
-	waitstate
-	healthbarupdate BS_TARGET, MOVE_DAMAGE_HP_UPDATE
-	datahpupdate BS_TARGET, MOVE_DAMAGE_HP_UPDATE
-	critmessage
-	waitmessage B_WAIT_TIME_LONG
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
-	setadditionaleffects
-	goto BattleScript_MoveEnd
+	spectralthiefprintstats
+	flushtextbox
+	return
 
 @can put rage clear in move end instead vsonic
 BattleScript_EffectYawn::

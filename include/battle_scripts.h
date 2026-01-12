@@ -835,8 +835,7 @@ extern const u8 BattleScript_ActionSwitch[];
 extern const u8 BattleScript_Pausex20[];
 extern const u8 BattleScript_Pausex40[];
 extern const u8 BattleScript_LevelUp[];
-<<<<<<< HEAD
-=======
+
 extern const u8 BattleScript_WeatherContinues[];
 extern const u8 BattleScript_WeatherFaded[];
 extern const u8 BattleScript_DamagingWeatherContinues[];
@@ -1301,7 +1300,6 @@ extern const u8 BattleScript_Explosion[];
 extern const u8 BattleScript_ActivateSwitchInAbility[];
 extern const u8 BattleScript_BreakScreens[];
 extern const u8 BattleScript_StealStats[];
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 
 // Battle_scripts_2.s
 extern const u8 BattleScript_WildMonBallBlock[];
@@ -1444,7 +1442,6 @@ extern const u8 BattleScript_EffectWish[];
 extern const u8 BattleScript_EffectIngrain[];
 extern const u8 BattleScript_EffectMagicCoat[];
 extern const u8 BattleScript_EffectRecycle[];
-extern const u8 BattleScript_EffectBrickBreak[];
 extern const u8 BattleScript_EffectYawn[];
 extern const u8 BattleScript_EffectEndeavor[];
 extern const u8 BattleScript_EffectSkillSwap[];

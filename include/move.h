@@ -36,8 +36,8 @@ struct AdditionalEffect
     u8 onlyIfTargetRaisedStats:1;
     u8 onChargeTurnOnly:1;
     u8 sheerForceOverride:1; // Handles edge cases for Sheer Force - if TRUE, boosts when it shouldn't, or doesn't boost when it should
-    u8 setfromatkcanceler:1; //rn for strength and triple arrow, attempt do setmoveeffect stuff in attack canceler if move succeeds
-    u8 padding:3; //^realize effect needs to go here rather than on battle effect so correct effect gets set
+    u8 preAttackEffect:1;//EE made their own version of pre hit effect can just use this
+    u8 padding:3; //only differenece is only activates if move would hit which is fine again use for strength and triple arrows stuff
     union PACKED {
         enum WrappedStringID wrapped;
     } multistring;

@@ -58,13 +58,8 @@ static bool32 TryRemoveScreens(u32 battler);
 static bool32 IsUnnerveAbilityOnOpposingSide(u32 battler);
 static u32 GetFlingPowerFromItemId(u32 itemId);
 static void SetRandomMultiHitCounter();
-<<<<<<< HEAD
-static bool32 IsNonVolatileStatusBlocked(u32 battlerDef, enum Ability abilityDef, enum Ability abilityAffected, const u8 *battleScript, enum FunctionCallOption option);
-static bool32 CanSleepDueToSleepClause(u32 battlerAtk, u32 battlerDef, enum FunctionCallOption option);
-=======
 static bool32 IsNonVolatileStatusBlocked(u32 battlerDef, enum Ability abilityDef, bool32 abilityAffected, const u8 *battleScript, enum ResultOption option);
 static bool32 CanSleepDueToSleepClause(u32 battlerAtk, u32 battlerDef, enum ResultOption option);
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 static bool32 IsOpposingSideEmpty(u32 battler);
 static void ResetParadoxWeatherStat(u32 battler);
 static void ResetParadoxTerrainStat(u32 battler);
@@ -243,27 +238,7 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     },
 };
 
-<<<<<<< HEAD
-// Helper function for actual dmg calcs during battle. For simulated AI dmg, CalcTypeEffectivenessMultiplier should be used directly
-// This should stay a static function. Ideally everything else is handled through CalcTypeEffectivenessMultiplier just like AI
-static uq4_12_t CalcTypeEffectivenessMultiplierHelper(u32 move, enum Type moveType, u32 battlerAtk, u32 battlerDef, enum Ability abilityAtk, enum Ability abilityDef, bool32 recordAbilities)
-{
-    struct BattleContext ctx = {0};
-    ctx.battlerAtk = battlerAtk;
-    ctx.battlerDef = battlerDef;
-    ctx.move = ctx.chosenMove = move;
-    ctx.moveType = moveType;
-    ctx.updateFlags = recordAbilities;
-    ctx.abilityAtk = abilityAtk;
-    ctx.abilityDef = abilityDef;
-    ctx.holdEffectAtk = GetBattlerHoldEffect(battlerAtk);
-    ctx.holdEffectDef = GetBattlerHoldEffect(battlerDef);
 
-    return CalcTypeEffectivenessMultiplier(&ctx);
-}
-
-=======
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 u32 GetCurrentBattleWeather(void)
 {
     u32 currBattleWeather = 0xFF;
@@ -432,7 +407,9 @@ bool32 IsAffectedByFollowMe(u32 battlerAtk, u32 defSide, u32 move)
 {
     enum Ability ability = GetBattlerAbility(battlerAtk);
     enum BattleMoveEffects effect = GetMoveEffect(move);
-
+    //waiting on word from test if it can be ability redirected
+    //need add skydrop as specified exception rather than
+    //one that's just immune to all redirection
     if (gSideTimers[defSide].followmeTimer == 0
         || (!IsBattlerAlive(gSideTimers[defSide].followmeTarget) && !IsDragonDartsSecondHit(battlerAtk, move))
         || PreventsRedirection(battlerAtk, move)
@@ -452,7 +429,6 @@ bool32 IsAffectedByFollowMe(u32 battlerAtk, u32 defSide, u32 move)
     return TRUE;
 }
 
-<<<<<<< HEAD
 /*
 ok need 3 splits
 1 can ability absorb move type -includes dual type move
@@ -474,12 +450,6 @@ bool32 HandleMoveTargetRedirection(void)
     enum MoveTarget moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove);
     enum Type moveType = GetBattleMoveType(gCurrentMove);
     enum Type SecondarymoveType = TYPE_NONE;
-=======
-static bool32 HandleMoveTargetRedirection(void)
-{
-    u32 redirectorOrderNum = MAX_BATTLERS_COUNT;
-    enum MoveTarget moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove);
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
     enum BattleMoveEffects moveEffect = GetMoveEffect(gCurrentMove);
     u32 side = BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker));
 
@@ -573,7 +543,7 @@ static bool32 HandleMoveTargetRedirection(void)
                 && GetBattlerTurnOrderNum(battler) < redirectorOrderNum
                 && !PreventsRedirection(gBattlerAttacker, gCurrentMove)
                 //&& moveEffect != EFFECT_SNIPE_SHOT
-                && moveEffect != EFFECT_PLEDGE
+                //&& moveEffect != EFFECT_PLEDGE
                 //&& !IsAbilityAndRecord(gBattlerAttacker, abilityAtk, ABILITY_PROPELLER_TAIL)
                 //&& !IsAbilityAndRecord(gBattlerAttacker, abilityAtk, ABILITY_STALWART)
                 )
@@ -3215,7 +3185,8 @@ static enum MoveCanceler CancelerMultihitMoves(struct BattleContext *ctx)
 =======
 static bool32 CanTwoTurnMoveFireThisTurn(struct BattleContext *ctx)
 {
-    if (gBattleMoveEffects[GetMoveEffect(ctx->move)].semiInvulnerableEffect
+    if ((gBattleMoveEffects[GetMoveEffect(ctx->move)].semiInvulnerableEffect
+    && !(GetMoveEffect(ctx->move) == EFFECT_FLY && gSideStatuses[GetBattlerSide(ctx->battlerAtk)] & SIDE_STATUS_TAILWIND))
      || GetMoveEffect(ctx->move) == EFFECT_GEOMANCY
      || !IsBattlerWeatherAffected(ctx->battlerAtk, GetMoveTwoTurnAttackWeather(ctx->move)))
         return FALSE;
@@ -3643,7 +3614,7 @@ static enum MoveCanceler CancelerMultihitMoves(struct BattleContext *ctx)
     {
         gMultiHitCounter = 0;
     }
-    else if (IsMultiHitMove(ctx->move))
+    else if (IsVariableMultiHitMove(ctx->move))
 >>>>>>> bb41e5622c (Refactor move target failure (#8696))
     {
         enum Ability ability = ctx->abilityAtk;
@@ -7766,11 +7737,8 @@ bool32 CanSetNonVolatileStatus(u32 battlerAtk, u32 battlerDef, enum Ability abil
     return TRUE;
 }
 
-<<<<<<< HEAD
-static bool32 IsNonVolatileStatusBlocked(u32 battlerDef, enum Ability abilityDef, enum Ability abilityAffected, const u8 *battleScript, enum FunctionCallOption option)
-=======
+
 static bool32 IsNonVolatileStatusBlocked(u32 battlerDef, enum Ability abilityDef, bool32 abilityAffected, const u8 *battleScript, enum ResultOption option)
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 {
     if (battleScript != NULL)
     {
@@ -12976,6 +12944,7 @@ void ClearDamageCalcResults(void)
     gBattleStruct->printedStrongWindsWeakenedAttack = FALSE;
     gBattleStruct->numSpreadTargets = 0;
     gBattleStruct->unableToUseMove = FALSE;
+	gBattleStruct->preAttackAnimPlayed = FALSE;
     gBattleScripting.savedDmg = 0;
     if (gCurrentMove != MOVE_NONE)
         gBattleStruct->moldBreakerActive = IsMoldBreakerTypeAbility(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)) || MoveIgnoresTargetAbility(gCurrentMove);

@@ -983,12 +983,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 4,
     },
 
-    [EFFECT_BRICK_BREAK] =
-    {
-        .battleScript = BattleScript_EffectBrickBreak,
-        .battleTvScore = 2,
-    },
-
     [EFFECT_YAWN] =
     {
         .battleScript = BattleScript_EffectYawn,
@@ -2127,12 +2121,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 2,
     },
 
-    [EFFECT_SPECTRAL_THIEF] =
-    {
-        .battleScript = BattleScript_EffectSpectralThief,
-        .battleTvScore = 0, // TODO: Assign points
-    },
-
     [EFFECT_RECOIL] =
     {
         .battleScript = BattleScript_EffectHit,
@@ -2244,14 +2232,14 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_SUBMISSION] =
     {
-        .battleScript = BattleScript_EffectBrickBreak,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 3,
         .recoilEffect = TRUE,
     },
 
     [EFFECT_RAGING_BULL] =
     {
-        .battleScript = BattleScript_EffectBrickBreak,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 3,
     },//these two don't have type immunity unlike brick break so keep an eye on
 
