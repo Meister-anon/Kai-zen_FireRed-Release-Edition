@@ -1298,7 +1298,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Sing"),
         .description = COMPOUND_MOVE_STRING("A soothing song\nin a calming voice\nlulls the foe into\na deep slumber."),
-        .effect = EFFECT_NON_VOLATILE_STATUS, //giving effects that immobalize priority are too broken
+        .effect = EFFECT_SLEEP, //giving effects that immobalize priority are too broken
         .power = 0,
         .type = TYPE_SOUND,
         .accuracy = 80,
@@ -1351,7 +1351,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Sonic Screech"),
         .description = COMPOUND_MOVE_STRING("The foe is hit with\na shock wave that\nalways inflicts 20-/nHP damage."),
-        .effect = EFFECT_FIXED_HP_DAMAGE,
+        .effect = EFFECT_SONIC_SCREECH,
         .power = 1, //idk why I did this makes it typless think shouldn't do that just cuz its fixed
         .type = TYPE_SOUND,
         .accuracy = 95,
@@ -2044,7 +2044,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Poison Powder"),
         .description = COMPOUND_MOVE_STRING("A cloud of toxic\ndust is scattered./nIt may poison the\nfoe."),
-        .effect = EFFECT_NON_VOLATILE_STATUS,
+        .effect = EFFECT_POISON,
         .power = 0,
         .type = TYPE_POISON,
         .accuracy = 75,
@@ -2067,7 +2067,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Stun Spore"),
         .description = COMPOUND_MOVE_STRING("Paralyzing dust is\nscattered wildly./nIt may paralyze\nthe foe."),
-        .effect = EFFECT_NON_VOLATILE_STATUS,
+        .effect = EFFECT_PARALYZE,
         .power = 0,
         .type = TYPE_GRASS,
         .accuracy = 75,
@@ -2090,7 +2090,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Sleep Powder"),
         .description = COMPOUND_MOVE_STRING("A sleep-inducing\ndust is scattered\nin high volume\naround a foe."),
-        .effect = EFFECT_NON_VOLATILE_STATUS,
+        .effect = EFFECT_SLEEP,
         .power = 0,
         .type = TYPE_GRASS,
         .accuracy = 75,
@@ -2174,7 +2174,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Dragon Rage"),
         .description = COMPOUND_MOVE_STRING("The foe is hit with\na shock wave that\nalways inflicts 40-/nHP damage."),
-        .effect = EFFECT_FIXED_HP_DAMAGE,
+        .effect = EFFECT_DRAGON_RAGE,
         .power = 1,
         .type = TYPE_DRAGON,
         .accuracy = 100,
@@ -2520,7 +2520,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Hypnosis"),
         .description = COMPOUND_MOVE_STRING("Hypnotic suggestion\nis used to make the\nfoe fall into a\ndeep sleep."),
-        .effect = EFFECT_NON_VOLATILE_STATUS,
+        .effect = EFFECT_SLEEP,
         .power = 0,
         .type = TYPE_PSYCHIC,
         .accuracy = 75,
@@ -2882,7 +2882,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Withdraw"),
         .description = COMPOUND_MOVE_STRING("The user withdraws\nits body in its hard\nshell, raising its\nDEFENSE stat./nBlocks critical-hits\nfor rest of turn."),
-        .effect = EFFECT_WITHDRAW,
+        .effect = EFFECT_DEFENSE_UP,
         .power = 0,
         .type = TYPE_WATER,
         .accuracy = 0,
@@ -3688,7 +3688,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 {
         .name = COMPOUND_STRING("Barrage"),
         .description = COMPOUND_MOVE_STRING("A Multi-hit attack\nwhere Round objects\nare hurled at foes./nDoes physical damage\nusing highest ATK./nMay lower Defense."),
-    .effect = EFFECT_STAT_BASED_SPLIT,//Forgot also gave this dmg swap based on stats
+    .effect = EFFECT_MULTI_HIT,//Forgot also gave this dmg swap based on stats
     .power = 15,
     .type = TYPE_NORMAL, //idea is uses psychic energy to pick up and throw
     .accuracy = 95, //objects at the enemy with force
@@ -3749,7 +3749,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 {
         .name = COMPOUND_STRING("Lovely Kiss"),
         .description = COMPOUND_MOVE_STRING("The user forces a\nkiss on the foe\nwith a scary face\nthat induces sleep."),
-    .effect = EFFECT_NON_VOLATILE_STATUS,
+    .effect = EFFECT_SLEEP,
     .power = 0,
     .type = TYPE_NORMAL,
     .accuracy = 75,
@@ -3905,7 +3905,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 {
         .name = COMPOUND_STRING("Spore"),
         .description = COMPOUND_MOVE_STRING("The user scatters\nbursts of fine\nspores that induce\nsleep."),
-    .effect = EFFECT_NON_VOLATILE_STATUS,
+    .effect = EFFECT_SLEEP,
     .power = 0,
     .type = TYPE_GRASS,
     .accuracy = 95,
@@ -4271,7 +4271,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 {
         .name = COMPOUND_STRING("Tri Attack"),
         .description = COMPOUND_MOVE_STRING("A simultaneous\n3-beam attack that\nmay paralyze, burn,/nor freeze the foe./nSplit is based on\nhighest Attack stat."),
-    .effect = EFFECT_STAT_BASED_SPLIT,
+    .effect = EFFECT_TRI_ATTACK,
     .power = 80,
     .type = TYPE_NORMAL,
     .accuracy = 100,
@@ -4564,12 +4564,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 {
         .name = COMPOUND_STRING("Flame Wheel"),
         .description = COMPOUND_MOVE_STRING("The user makes a\nfiery charge at the\nfoe that may burn./nUser gets fixated\nincreasing power\non use, maxes at 3."), //changed requires 2 additioanl uses to max power instead of 3, i.e 3 uses total
-    .effect = EFFECT_FIXATION,//think for this set fixation turns based on number times used it, increment in attack canceler
+    .effect = EFFECT_DMG_FIXATION,//think for this set fixation turns based on number times used it, increment in attack canceler
     .power = 60,
     .type = TYPE_FIRE,//change back to 60 base power 2 turn fixation
     .accuracy = 100,
     .pp = 25,
-    .target = TARGET_SELECTED,//note since effect is in atk canceler completely ignores acc need for move to actually land
+    .target = MOVE_TARGET_SELECTED,//note since effect is in atk canceler completely ignores acc need for move to actually land
     .priority = 0,
     .split = SPLIT_PHYSICAL,
         .makesContact = TRUE,
@@ -8398,7 +8398,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Grass Whistle"),
         .description = COMPOUND_MOVE_STRING("A pleasant melody\nis played to lull\nthe foe into a deep\nsleep."),
-        .effect = EFFECT_NON_VOLATILE_STATUS,
+        .effect = EFFECT_SLEEP,
         .power = 0,
         .type = TYPE_GRASS,
         .accuracy = 75,
@@ -20534,7 +20534,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Shed Tail"),
         .description = COMPOUND_MOVE_STRING("Creates a Substitute\nfor itself before\nswitching out."),
-        .effect = EFFECT_SHED_TAIL,    //Todo // EFFECT_SHED_TAIL
+        //.effect = EFFECT_SHED_TAIL,    //Todo // EFFECT_SHED_TAIL
         .power = 0,
         .type = TYPE_NORMAL,
         .accuracy = 0,
@@ -22461,111 +22461,5 @@ use wonder gaurd logic to determine its super effective
     //made 60 bp to continue trend of oddly broken dark moves category
     //forgot was meant to add grounnd based logic to this
     //as first instance of separating floating exclusion from just ground type effects
-
-    [MOVE_SNOW_DAY] =
-    {
-        .name = COMPOUND_STRING("Snow Day"),
-        .description = COMPOUND_MOVE_STRING("Summons a snowstorm\nlasting five turns./nSlightly cuts Fire\nand slightly Ups Ice\ntype Defenses."),
-        .effect = EFFECT_SNOW_DAY,
-        .power = 0,
-        .type = TYPE_ICE,
-        .accuracy = 0,
-        .pp = 5,
-        .target = TARGET_USER,
-        .priority = 1,
-        .split = SPLIT_STATUS,
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS, //change use calming effect
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = COMBO_STARTER_HAIL,
-        //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Snowscape
-    },
-    //snowday replaces original snowscape
-
-    [MOVE_FOG_HORN] =
-    {
-        .name = COMPOUND_STRING("Fog Horn"),
-        .description = COMPOUND_MOVE_STRING("Summons a damp fog\nfor five turns./nBlocks move redirect\nand ignores Offense\nstat changes./nPrevents Explosions."),
-        .effect = EFFECT_WEATHER,
-        .power = 0,
-        .type = TYPE_NORMAL, //idk stuck between water normal or sound
-        .accuracy = 0, //
-        .pp = 5,
-        .target = TARGET_USER,
-        .priority = 1,
-        .split = SPLIT_STATUS,
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = COMBO_STARTER_HAIL,
-        //.contestComboMoves = {0},
-        //.battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_SNOW) ? gBattleAnimMove_Snowscape : gBattleAnimMove_Hail,
-    },
-
-    //name pending
-    [MOVE_SHADOW_STRIKE] =
-    {
-        .name = COMPOUND_STRING("Shadow Strike"),
-        .description = COMPOUND_MOVE_STRING("The user summons\nfour clones to\nattack the foes side\nThey stay one turn\nsharply boosting\nthe user's evasion."),
-        .effect = EFFECT_HIT,
-        .power = 25,
-        .type = TYPE_DARK, //I can chese this actually, since single target effects only hit single target, make target both, and specific bs command for it, put effect in multihit 
-        .accuracy = 100, //switch case, and have it read the number of enemies on enemy side, if 2 set to 1 hit, if 1 set to 2 hits
-        .pp = 5,
-        .target = TARGET_SMART,
-        .priority = 0,
-        .split = SPLIT_PHYSICAL,
-        .strikeCount = 4,
-        .multiTaskBanned = TRUE,
-        .parentalBondBanned = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_SHADOW_STRIKE,
-            .self = TRUE,
-        }),//boost evasion one turn STAT_EVASION
-        //new category effect at moveend
-        //set special protectstatus one turn stat boost
-        //will store stat to boost from storedValue
-        //convenient since value 0 is hp 
-        //overall same as how protect method is stored
-        //unsure how will do this, can do with moveproperty
-        //or a move effect to set status
-        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DragonDarts,
-    },
-    //for anim do double team animation and then something like
-    //beatup
-
-    [MOVE_FENCE] =
-    {
-        .name = COMPOUND_STRING("Fence"),
-        .description = COMPOUND_MOVE_STRING("A deft guard that\nprotects the user\nfrom damage. While\nskillfully stealing\nfrom the attacker."),
-        .priority = 4,
-        .effect = EFFECT_PROTECT,
-        .power = 0,
-        .type = TYPE_DARK,
-        .accuracy = 0,
-        .pp = 10,
-        .target = TARGET_USER,
-        .split = SPLIT_STATUS,
-        .argument = { .protectMethod = PROTECT_FENCE },
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .metronomeBanned = TRUE,
-        .copycatBanned = TRUE,
-        .assistBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_TAUNT},
-        //.battleAnimScript = gBattleAnimMove_Detect,
-    },//name is funny double entendre
-    //fence meaning a means of protection
-    //and fance meaning a person who receives stolen goods
 
 };
