@@ -397,1065 +397,716 @@ const u8 gMoveDescription_WorrySeed[] = _("Plants a seed\non the foe\ngiving it 
 const u8 gMoveDescription_SuckerPunch[] = _("Strikes first if the\nfoe is preparing\nan attack.");
 const u8 gMoveDescription_BackStab[] = _("Sneakily strikes at\nthe foe's weak point\nwhen least expected\nIt always hits first\nand has a high\ncritical-hit ratio.");
 const u8 gMoveDescription_HoldBack[] = _("A restrained attack\nto make foe lower\ntheir guard. Always\nleaves the foe with\nat least 1 HP.\nMay lower defense.");
-const u8 gTOXIC_SPIKES_Description 
-    [] = _("Sets spikes that\npoison a foe\nswitching in.\nUsing again will\nbadly poison.");
+const u8 gTOXIC_SPIKES_Description[] = _("Sets spikes that\npoison a foe\nswitching in.\nUsing again will\nbadly poison.");
 
-const u8 gHEART_SWAP_Description 
-    [] = _("Swaps any stat\nchanges with those\nof the foe.");
+const u8 gHEART_SWAP_Description[] = _("Swaps any stat\nchanges with those\nof the foe.");
 
-const u8 gAQUA_RING_Description 
-    [] = _("Forms a veil of\nhealing water\nthat restores HP.");
+const u8 gAQUA_RING_Description[] = _("Forms a veil of\nhealing water\nthat restores HP.");
 
-const u8 gMAGNET_RISE_Description 
-    [] = _("Electromagnetism\ncauses the user\nto levitate.\nAlso gives a slight\nboost to SPEED.");
+const u8 gMAGNET_RISE_Description[] = _("Electromagnetism\ncauses the user\nto levitate.\nAlso gives a slight\nboost to SPEED.");
 
-const u8 gFLARE_BLITZ_Description 
-    [] = _("A fierce and fiery\ncharge that hurts\nthe user and\nmay burn the foe.");
+const u8 gFLARE_BLITZ_Description[] = _("A fierce and fiery\ncharge that hurts\nthe user and\nmay burn the foe.");
 
-const u8 gFORCE_PALM_Description 
-    [] = _("A shock wave attack\nthat may paralyze\nthe foe.");
+const u8 gFORCE_PALM_Description[] = _("A shock wave attack\nthat may paralyze\nthe foe.");
 
-const u8 gAURA_SPHERE_Description 
-    [] = _("Attacks with an aura\nblast that cannot\nbe evaded.");
+const u8 gAURA_SPHERE_Description[] = _("Attacks with an aura\nblast that cannot\nbe evaded.");
 
-const u8 gROCK_POLISH_Description 
-    [] = _("Polishes the body\nsharply raising\nthe users Speed.");
+const u8 gROCK_POLISH_Description[] = _("Polishes the body\nsharply raising\nthe users Speed.");
 
-const u8 gPOISON_JAB_Description 
-    [] = _("A stabbing attack\nthat may poison\nthe foe.");
+const u8 gPOISON_JAB_Description[] = _("A stabbing attack\nthat may poison\nthe foe.");
 
-const u8 gDARK_PULSE_Description 
-    [] = _("Attacks with a\nhorrible corrupted\naura.\nMay cause flinching.");
+const u8 gDARK_PULSE_Description[] = _("Attacks with a\nhorrible corrupted\naura.\nMay cause flinching.");
 
-const u8 gNIGHT_SLASH_Description 
-    [] = _("The user slashes\nthe instant the foe\nlowers its guard.\nIt has a high\ncritical-hit ratio.");
+const u8 gNIGHT_SLASH_Description[] = _("The user slashes\nthe instant the foe\nlowers its guard.\nIt has a high\ncritical-hit ratio.");
 
-const u8 gAQUA_TAIL_Description 
-    [] = _("The user swings\nits tail like\na crashing wave\nto attack.");
+const u8 gAQUA_TAIL_Description[] = _("The user swings\nits tail like\na crashing wave\nto attack.");
 
-const u8 gSEED_BOMB_Description 
-    [] = _("A barrage of hard\nseeds is fired\nat the foe.");
+const u8 gSEED_BOMB_Description[] = _("A barrage of hard\nseeds is fired\nat the foe.");
 
-const u8 gAIR_SLASH_Description 
-    [] = _("Attacks with a\nsharpened blade of\ncompressed air.\nIt has a high\ncritical-hit ratio.\nMay cause flinching.");
+const u8 gAIR_SLASH_Description[] = _("Attacks with a\nsharpened blade of\ncompressed air.\nIt has a high\ncritical-hit ratio.\nMay cause flinching.");
 
-const u8 gX_SCISSOR_Description 
-    [] = _("Slashes at the foe\nwith crossed\nscythes, claws, etc.\nIt has a high\ncritical-hit ratio.");
+const u8 gX_SCISSOR_Description[] = _("Slashes at the foe\nwith crossed\nscythes, claws, etc.\nIt has a high\ncritical-hit ratio.");
 
-const u8 gBUG_BUZZ_Description 
-    [] = _("User makes a rumpus\nattacking the\nfoe with a\ndamaging sound wave\nthat may lower\nSp. Def.");
+const u8 gBUG_BUZZ_Description[] = _("User makes a rumpus\nattacking the\nfoe with a\ndamaging sound wave\nthat may lower\nSp. Def.");
 
-const u8 gDRAGON_PULSE_Description 
-    [] = _("Damages the foe\nwith a pulse of\ndraconic aura.");
+const u8 gDRAGON_PULSE_Description[] = _("Damages the foe\nwith a pulse of\ndraconic aura.");
 
-const u8 gDRAGON_RUSH_Description 
-    [] = _("A menacing tackle.\nThat may make\nthe foe flinch.");
+const u8 gDRAGON_RUSH_Description[] = _("A menacing tackle.\nThat may make\nthe foe flinch.");
 
-const u8 gPOWER_GEM_Description 
-    [] = _("Attacks with rays\nof light sparkling\nlike diamonds.");
+const u8 gPOWER_GEM_Description[] = _("Attacks with rays\nof light sparkling\nlike diamonds.");
 
-const u8 gVACUUM_WAVE_Description 
-    [] = _("Whirls its fists\nto send a wave\nof vacuum force\nthat strikes foes\nfirst.");
+const u8 gVACUUM_WAVE_Description[] = _("Whirls its fists\nto send a wave\nof vacuum force\nthat strikes foes\nfirst.");
 
-const u8 gFOCUS_BLAST_Description 
-    [] = _("A full power\nattack that may\nlower the foe's\nSp. Def.");
+const u8 gFOCUS_BLAST_Description[] = _("A full power\nattack that may\nlower the foe's\nSp. Def.");
 
-const u8 gENERGY_BALL_Description 
-    [] = _("Draws power from\nnature to attack.\nMay lower Sp. Def.");
+const u8 gENERGY_BALL_Description[] = _("Draws power from\nnature to attack.\nMay lower Sp. Def.");
 
-const u8 gBRAVE_BIRD_Description 
-    [] = _("A low altitude\ncharge that also\nhurts the user.");
+const u8 gBRAVE_BIRD_Description[] = _("A low altitude\ncharge that also\nhurts the user.");
 
-const u8 gEARTH_POWER_Description 
-    [] = _("Makes the ground\nerupt with power.\nMay lower Sp. Def.");
+const u8 gEARTH_POWER_Description[] = _("Makes the ground\nerupt with power.\nMay lower Sp. Def.");
 
-const u8 gSWITCHEROO_Description 
-    [] = _("Swaps items with\nthe foe faster\nthan eyes can see.\nFails if user\nor target not\nholding an item.");
+const u8 gSWITCHEROO_Description[] = _("Swaps items with\nthe foe faster\nthan eyes can see.\nFails if user\nor target not\nholding an item.");
 
-const u8 gNASTY_PLOT_Description 
-    [] = _("Thinks bad thoughts\nsharply boosting\nthe user's Sp. Atk.");
+const u8 gNASTY_PLOT_Description[] = _("Thinks bad thoughts\nsharply boosting\nthe user's Sp. Atk.");
 
-const u8 gBULLET_PUNCH_Description 
-    [] = _("Punches as fast as\na bullet.\nIt always hits first");
+const u8 gBULLET_PUNCH_Description[] = _("Punches as fast as\na bullet.\nIt always hits first");
 
-const u8 gICE_SHARD_Description 
-    [] = _("Hurls a sharp chunk\nof ice that\nalways strike first.");
+const u8 gICE_SHARD_Description[] = _("Hurls a sharp chunk\nof ice that\nalways strike first.");
 
-const u8 gSHADOW_CLAW_Description 
-    [] = _("Strikes with\na sinister claw\nwreathed in shadow.\nIt has a high\ncritical-hit ratio.");
+const u8 gSHADOW_CLAW_Description[] = _("Strikes with\na sinister claw\nwreathed in shadow.\nIt has a high\ncritical-hit ratio.");
 
-const u8 gTHUNDER_FANG_Description 
-    [] = _("May cause flinch or\nleave the foe\nparalyzed.");
+const u8 gTHUNDER_FANG_Description[] = _("May cause flinch or\nleave the foe\nparalyzed.");
 
-const u8 gICE_FANG_Description 
-    [] = _("May cause flinch or\nleave the foe\nfrozen.");
+const u8 gICE_FANG_Description[] = _("May cause flinch or\nleave the foe\nfrozen.");
 
-const u8 gFIRE_FANG_Description 
-    [] = _("May cause flinch or\nleave the foe with\na burn.");
+const u8 gFIRE_FANG_Description[] = _("May cause flinch or\nleave the foe with\na burn.");
 
-const u8 gSHADOW_SNEAK_Description 
-    [] = _("Extends the user's\nshadow to attack.\nAlways hits first.");
+const u8 gSHADOW_SNEAK_Description[] = _("Extends the user's\nshadow to attack.\nAlways hits first.");
 
-const u8 gMUD_BOMB_Description 
-    [] = _("Throws a blob\nof thick mud to\ndamage the foe\nand cut accuracy.");
+const u8 gMUD_BOMB_Description[] = _("Throws a blob\nof thick mud to\ndamage the foe\nand cut accuracy.");
 
-const u8 gPSYCHO_CUT_Description 
-    [] = _("Tears into the\ntarget with psychic\nblades.\nIt has a high\ncritical-hit ratio.");
+const u8 gPSYCHO_CUT_Description[] = _("Tears into the\ntarget with psychic\nblades.\nIt has a high\ncritical-hit ratio.");
 
-const u8 gZEN_HEADBUTT_Description 
-    [] = _("Hits with a strong\nhead-butt.\nMay cause flinching.");
+const u8 gZEN_HEADBUTT_Description[] = _("Hits with a strong\nhead-butt.\nMay cause flinching.");
 
-const u8 gMIRROR_SHOT_Description 
-    [] = _("Emits a flash of\nenergy from\na polished body.\nMay also lower the\nfoe's accuracy.");
+const u8 gMIRROR_SHOT_Description[] = _("Emits a flash of\nenergy from\na polished body.\nMay also lower the\nfoe's accuracy.");
 
-const u8 gFLASH_CANNON_Description 
-    [] = _("Releases a blast\nof light that\nmay lower Sp. Def.");
+const u8 gFLASH_CANNON_Description[] = _("Releases a blast\nof light that\nmay lower Sp. Def.");
 
-const u8 gMoveDescription_RockClimb 
-    [] = _("A charging attack\nthat may confuse\nthe foe.\nIt can be used\nto climb up\nsteep rock faces.");
+const u8 gMoveDescription_RockClimb[] = _("A charging attack\nthat may confuse\nthe foe.\nIt can be used\nto climb up\nsteep rock faces.");
 
-const u8 gDEFOG_Description 
-    [] = _("Removes obstacles\nand lowers evasion.");
+const u8 gDEFOG_Description[] = _("Removes obstacles\nand lowers evasion.");
 
-const u8 gTRICK_ROOM_Description 
-    [] = _("Slower POKéMON get\nto move first\nfor 5 turns.");
+const u8 gTRICK_ROOM_Description[] = _("Slower POKéMON get\nto move first\nfor 5 turns.");
 
-const u8 gDRACO_METEOR_Description 
-    [] = _("Enforces Dragons\ndominion over the\nskies to cast comets\ndown onto the foe.\nHarshly lowers the\nfoe's Sp. Atk."); //vsonic check
+const u8 gDRACO_METEOR_Description[] = _("Enforces Dragons\ndominion over the\nskies to cast comets\ndown onto the foe.\nHarshly lowers the\nfoe's Sp. Atk."); //vsonic check
 
-const u8 gDISCHARGE_Description 
-    [] = _("The user strikes\neverything around it\nby letting loose an\nelectric surge.\nThis may also\ncause paralysis.");
+const u8 gDISCHARGE_Description[] = _("The user strikes\neverything around it\nby letting loose an\nelectric surge.\nThis may also\ncause paralysis.");
 
-const u8 gPOWER_WHIP_Description 
-    [] = _("Violently lashes the\nfoe with vines\nor tentacles.");
+const u8 gPOWER_WHIP_Description[] = _("Violently lashes the\nfoe with vines\nor tentacles.");
 
-const u8 gCROSS_POISON_Description 
-    [] = _("Poison tipped slash\nthat may leave a\nfoe poisoned.\nHigh critical-hit.");
+const u8 gCROSS_POISON_Description[] = _("Poison tipped slash\nthat may leave a\nfoe poisoned.\nHigh critical-hit.");
 
-const u8 gGUNK_SHOT_Description 
-    [] = _("Shoots filthy trash\nat the foe.\nMay also poison.");
+const u8 gGUNK_SHOT_Description[] = _("Shoots filthy trash\nat the foe.\nMay also poison.");
 
-const u8 gIRON_HEAD_Description 
-    [] = _("Slams the foe with\na steel-hard head.\nMay cause flinching.");
+const u8 gIRON_HEAD_Description[] = _("Slams the foe with\na steel-hard head.\nMay cause flinching.");
 
-const u8 gMAGNET_BOMB_Description 
-    [] = _("Launches a magnet\nat the foe that\nlocks-on to strike\nwithout fail.");
+const u8 gMAGNET_BOMB_Description[] = _("Launches a magnet\nat the foe that\nlocks-on to strike\nwithout fail.");
 
-const u8 gSTONE_EDGE_Description 
-    [] = _("Stabs the foe with\nsharp-spiked stones.\nIt has a high\ncritical-hit ratio.");
+const u8 gSTONE_EDGE_Description[] = _("Stabs the foe with\nsharp-spiked stones.\nIt has a high\ncritical-hit ratio.");
 
-const u8 gCAPTIVATE_Description 
-    [] = _("Makes the opposite\ngender sharply\nreduce its Sp. Atk."); //vsonic check
+const u8 gCAPTIVATE_Description[] = _("Makes the opposite\ngender sharply\nreduce its Sp. Atk."); //vsonic check
 
-const u8 gSTEALTH_ROCK_Description 
-    [] = _("Sets floating stones\nthat hurt foes who\nare switching in.\nDamage varies by\ntype effectiveness."); //vsonic
+const u8 gSTEALTH_ROCK_Description[] = _("Sets floating stones\nthat hurt foes who\nare switching in.\nDamage varies by\ntype effectiveness."); //vsonic
 
-const u8 gGRASS_KNOT_Description 
-    [] = _("A snare attack that\ndoes more damage\nto heavier foes.");
+const u8 gGRASS_KNOT_Description[] = _("A snare attack that\ndoes more damage\nto heavier foes.");
 
-const u8 gCHATTER_Description 
-    [] = _("Attacks with sound\nwaves to cause\nconfusion.");
+const u8 gCHATTER_Description[] = _("Attacks with sound\nwaves to cause\nconfusion.");
 
-const u8 gJUDGMENT_Description 
-    [] = _("The Omnipotent One\njudges all.\nStrike of varying\ntype that always\nfinds the foe's\nweakness.");//vsonic check
+const u8 gJUDGMENT_Description[] = _("The Omnipotent One\njudges all.\nStrike of varying\ntype that always\nfinds the foe's\nweakness.");//vsonic check
 
-const u8 gCHARGE_BEAM_Description 
-    [] = _("Fires a beam of\nionized electricity.\nMay raise Sp. Atk.");
+const u8 gCHARGE_BEAM_Description[] = _("Fires a beam of\nionized electricity.\nMay raise Sp. Atk.");
 
-const u8 gWOOD_HAMMER_Description 
-    [] = _("The user slams\nits rugged body into\nthe foe to attack.\nThe user also takse\nserious damage.");
+const u8 gWOOD_HAMMER_Description[] = _("The user slams\nits rugged body into\nthe foe to attack.\nThe user also takse\nserious damage.");
 
-const u8 gAQUA_JET_Description 
-    [] = _("The user lunges at\nthe foe at a speed\nthat makes it\nalmost invisible.\nIt is sure to\nstrike first.");
+const u8 gAQUA_JET_Description[] = _("The user lunges at\nthe foe at a speed\nthat makes it\nalmost invisible.\nIt is sure to\nstrike first.");
 
-const u8 gATTACK_ORDER_Description 
-    [] = _("Underlings pummel\nthe foe at the\nbehest of the Queen.\nIt has a high\ncritical-hit ratio.");
+const u8 gATTACK_ORDER_Description[] = _("Underlings pummel\nthe foe at the\nbehest of the Queen.\nIt has a high\ncritical-hit ratio.");
 
-const u8 gDEFEND_ORDER_Description 
-    [] = _("Raises Defense and\nSp. Def with an\nliving shield.");
+const u8 gDEFEND_ORDER_Description[] = _("Raises Defense and\nSp. Def with an\nliving shield.");
 
-const u8 gHEAL_ORDER_Description 
-    [] = _("It's underlings\nshow up to heal\na third of\nits max HP.");
+const u8 gHEAL_ORDER_Description[] = _("It's underlings\nshow up to heal\na third of\nits max HP.");
 
-const u8 gHEAD_SMASH_Description 
-    [] = _("A life-risking\nheadbutt that\nalso seriously hurts\nthe user.");
+const u8 gHEAD_SMASH_Description[] = _("A life-risking\nheadbutt that\nalso seriously hurts\nthe user.");
 
-const u8 gDOUBLE_HIT_Description 
-    [] = _("Slams the foe with\na tail or etc.\nStrikes twice.");
+const u8 gDOUBLE_HIT_Description[] = _("Slams the foe with\na tail or etc.\nStrikes twice.");
 
-const u8 gROAR_OF_TIME_Description 
-    [] = _("Powerful, but leaves\nthe user immobile\nthe next turn.");
+const u8 gROAR_OF_TIME_Description[] = _("Powerful, but leaves\nthe user immobile\nthe next turn.");
 
-const u8 gSPACIAL_REND_Description 
-    [] = _("Distorts space to\nslash the foe.\nIt has a high\ncritical-hit ratio.");
+const u8 gSPACIAL_REND_Description[] = _("Distorts space to\nslash the foe.\nIt has a high\ncritical-hit ratio.");
 
-const u8 gMAGMA_STORM_Description 
-    [] = _("Traps the foe in\na vortex of fire\nfor 2 to 4 turns.\nAlways burns foe.");
+const u8 gMAGMA_STORM_Description[] = _("Traps the foe in\na vortex of fire\nfor 2 to 4 turns.\nAlways burns foe.");
 
-const u8 gDARK_VOID_Description 
-    [] = _("Drags foe into total\ndarkness, inducing\na deep Sleep.");
+const u8 gDARK_VOID_Description[] = _("Drags foe into total\ndarkness, inducing\na deep Sleep.");
 
-const u8 gSEED_FLARE_Description 
-    [] = _("The user generates\na shock wave from\nwithin its body.\nIt may harshly lower\nthe target's Sp. Def");
+const u8 gSEED_FLARE_Description[] = _("The user generates\na shock wave from\nwithin its body.\nIt may harshly lower\nthe target's Sp. Def");
 
-const u8 gOMINOUS_WIND_Description 
-    [] = _("A repulsive attack\nthat may raise\nall stats.");
+const u8 gOMINOUS_WIND_Description[] = _("A repulsive attack\nthat may raise\nall stats.");
 
-const u8 gSHADOW_FORCE_Description 
-    [] = _("Vanishes first turn\nthen strikes on\nthe next turn.");
+const u8 gSHADOW_FORCE_Description[] = _("Vanishes first turn\nthen strikes on\nthe next turn.");
 
-const u8 gHONE_CLAWS_Description 
-    [] = _("Sharpens its claws\nto raise Attack\nand Accuracy.");
+const u8 gHONE_CLAWS_Description[] = _("Sharpens its claws\nto raise Attack\nand Accuracy.");
 
-const u8 gWIDE_GUARD_Description 
-    [] = _("Evades move that\nattack multiple\ntargets for one turn");
+const u8 gWIDE_GUARD_Description[] = _("Evades move that\nattack multiple\ntargets for one turn");
 
-const u8 gGUARD_SPLIT_Description 
-    [] = _("Averages changes to\nDefense and Sp. Def\nwith the foe.");
+const u8 gGUARD_SPLIT_Description[] = _("Averages changes to\nDefense and Sp. Def\nwith the foe.");
 
-const u8 gPOWER_SPLIT_Description 
-    [] = _("Averages changes to\nAttack and Sp. Atk\nwith the foe.");
+const u8 gPOWER_SPLIT_Description[] = _("Averages changes to\nAttack and Sp. Atk\nwith the foe.");
 
-const u8 gWONDER_ROOM_Description 
-    [] = _("Defense and Sp. Def\nstats are swapped\nfor 5 turns.");
+const u8 gWONDER_ROOM_Description[] = _("Defense and Sp. Def\nstats are swapped\nfor 5 turns.");
 
-const u8 gPSYSHOCK_Description 
-    [] = _("Attacks with a\npsychic wave\nthat does physical\ndamage.");
+const u8 gPSYSHOCK_Description[] = _("Attacks with a\npsychic wave\nthat does physical\ndamage.");
 
-const u8 gVENOSHOCK_Description 
-    [] = _("Does double damage\nif the foe has\nan ailment.\nDeals extra damage\nto poisoned targets.");
+const u8 gVENOSHOCK_Description[] = _("Does double damage\nif the foe has\nan ailment.\nDeals extra damage\nto poisoned targets.");
 
-const u8 gAUTOTOMIZE_Description 
-    [] = _("Sheds weight to\nsharply boost its\nSpeed.");
+const u8 gAUTOTOMIZE_Description[] = _("Sheds weight to\nsharply boost its\nSpeed.");
 
-const u8 gRAGE_POWDER_Description 
-    [] = _("Scatters powder that\nforces foes to\ntarget only the user");
+const u8 gRAGE_POWDER_Description[] = _("Scatters powder that\nforces foes to\ntarget only the user");
 
-const u8 gTELEKINESIS_Description 
-    [] = _("Makes the foe float\nand easier to\nhit for 3 turns.");
+const u8 gTELEKINESIS_Description[] = _("Makes the foe float\nand easier to\nhit for 3 turns.");
 
-const u8 gMAGIC_ROOM_Description 
-    [] = _("Hold items lose\ntheir effects for\n5 turns.");
+const u8 gMAGIC_ROOM_Description[] = _("Hold items lose\ntheir effects for\n5 turns.");
 
-const u8 gSMACK_DOWN_Description 
-    [] = _("Throws a rock to\nknock the foe down\nto the ground.");
+const u8 gSMACK_DOWN_Description[] = _("Throws a rock to\nknock the foe down\nto the ground.");
 
-const u8 gSTORM_THROW_Description 
-    [] = _("The user strikes\nthe target with\na fierce blow.\nThis attack always\nresults in a\ncritical-hit.");
+const u8 gSTORM_THROW_Description[] = _("The user strikes\nthe target with\na fierce blow.\nThis attack always\nresults in a\ncritical-hit.");
 
-const u8 gFLAME_BURST_Description 
-    [] = _("A bursting flame\nthat does damage\nto all foes.");
+const u8 gFLAME_BURST_Description[] = _("A bursting flame\nthat does damage\nto all foes.");
 
-const u8 gSLUDGE_WAVE_Description 
-    [] = _("Swamps the area with\na wave of sludge\nMay also poison.");
+const u8 gSLUDGE_WAVE_Description[] = _("Swamps the area with\na wave of sludge\nMay also poison.");
 
-const u8 gQUIVER_DANCE_Description 
-    [] = _("Dances to raisen\nSp. Atk, Sp. Def\nand Speed.");
+const u8 gQUIVER_DANCE_Description[] = _("Dances to raisen\nSp. Atk, Sp. Def\nand Speed.");
 
-const u8 gHEAVY_SLAM_Description 
-    [] = _("The user slams its\nbody into the foe.\nThe heavier the user\nis than the target,\nthe greater the\nmove's power.");
+const u8 gHEAVY_SLAM_Description[] = _("The user slams its\nbody into the foe.\nThe heavier the user\nis than the target,\nthe greater the\nmove's power.");
 
-const u8 gSYNCHRONOISE_Description 
-    [] = _("An odd shock wave\nthat only damages\nsame-type foes.\nIgnores weakness\nand resistances.");
+const u8 gSYNCHRONOISE_Description[] = _("An odd shock wave\nthat only damages\nsame-type foes.\nIgnores weakness\nand resistances.");
 
-const u8 gELECTRO_BALL_Description 
-    [] = _("Hurls an orb\nof electricity at\nthe foe that does\nmore damage the\nslower the foe is.\nMay paralyze.");
+const u8 gELECTRO_BALL_Description[] = _("Hurls an orb\nof electricity at\nthe foe that does\nmore damage the\nslower the foe is.\nMay paralyze.");
 
-const u8 gSOAK_Description 
-    [] = _("Sprays an odd stream\nof water at the foe\nchanging it into\na Water-Type.");
+const u8 gSOAK_Description[] = _("Sprays an odd stream\nof water at the foe\nchanging it into\na Water-Type.");
 
-const u8 gFLAME_CHARGE_Description 
-    [] = _("Attacks in a cloak\nof flames.\nRaises Speed.");
+const u8 gFLAME_CHARGE_Description[] = _("Attacks in a cloak\nof flames.\nRaises Speed.");
 
 const u8 gTrailBlaze_Description[]  = _("A sudden attack\nas if leaping out\nfrom tall grass.\nThe user's nimble\nfootwork boosts its\nSpeed stat.");
 
-const u8 gCOIL_Description 
-    [] = _("Coils up to raise\nthe user's Attack,\nDefense and Accuracy");
+const u8 gCOIL_Description[] = _("Coils up to raise\nthe user's Attack,\nDefense and Accuracy");
 
-const u8 gLOW_SWEEP_Description 
-    [] = _("An attack to\nthe foe's legs\nlowering its Speed.");
+const u8 gLOW_SWEEP_Description[] = _("An attack to\nthe foe's legs\nlowering its Speed.");
 
-const u8 gACID_SPRAY_Description 
-    [] = _("Sprays hide-melting\nacid at the target.\nSharply reducing the\nfoe's Sp. Def.");
+const u8 gACID_SPRAY_Description[] = _("Sprays hide-melting\nacid at the target.\nSharply reducing the\nfoe's Sp. Def.");
 
-const u8 gFOUL_PLAY_Description 
-    [] = _("Turns the foe's\nstrength against it.\nThe higher the foe's\nAttack, the greater\nthe move's power.");
+const u8 gFOUL_PLAY_Description[] = _("Turns the foe's\nstrength against it.\nThe higher the foe's\nAttack, the greater\nthe move's power.");
 
-const u8 gSIMPLE_BEAM_Description 
-    [] = _("A beam that changes\nthe foe's ability\nto Simple.");
+const u8 gSIMPLE_BEAM_Description[] = _("A beam that changes\nthe foe's ability\nto Simple.");
 
-const u8 gENTRAINMENT_Description 
-    [] = _("Makes the foe mimic\nthe user, gaining\nits ability.");
+const u8 gENTRAINMENT_Description[] = _("Makes the foe mimic\nthe user, gaining\nits ability.");
 
-const u8 gAFTER_YOU_Description 
-    [] = _("Helps out the target\nletting it move next");
+const u8 gAFTER_YOU_Description[] = _("Helps out the target\nletting it move next");
 
-const u8 gROUND_Description 
-    [] = _("The recurring song.\nIf others use it\nin the same turn\nthey will act next\nwith greater power.");
+const u8 gROUND_Description[] = _("The recurring song.\nIf others use it\nin the same turn\nthey will act next\nwith greater power.");
 
-const u8 gECHOED_VOICE_Description 
-    [] = _("Does more damage\neach turn it is\nused in succession.");
+const u8 gECHOED_VOICE_Description[] = _("Does more damage\neach turn it is\nused in succession.");
 
-const u8 gCHIP_AWAY_Description 
-    [] = _("A reliable attack\nthat ignores changes\nto the foe's defense\nor evasion\nstat stages.");
+const u8 gCHIP_AWAY_Description[] = _("A reliable attack\nthat ignores changes\nto the foe's defense\nor evasion\nstat stages.");
 
-const u8 gCLEAR_SMOG_Description 
-    [] = _("Attacks with white\nhaze that\neliminates all\nstat changes.");
+const u8 gCLEAR_SMOG_Description[] = _("Attacks with white\nhaze that\neliminates all\nstat changes.");
 
-const u8 gSTORED_POWER_Description 
-    [] = _("The higher the\nuser's stats are\nraised the more\nthe move's power\nincreases.");
+const u8 gSTORED_POWER_Description[] = _("The higher the\nuser's stats are\nraised the more\nthe move's power\nincreases.");
 
-const u8 gQUICK_GUARD_Description 
-    [] = _("Evades priority\nattack moves for\none turn.");
+const u8 gQUICK_GUARD_Description[] = _("Evades priority\nattack moves for\none turn.");
 
-const u8 gALLY_SWITCH_Description 
-    [] = _("The user instantly\nswitches places with\nits partner.");
+const u8 gALLY_SWITCH_Description[] = _("The user instantly\nswitches places with\nits partner.");
 
-const u8 gSCALD_Description 
-    [] = _("Shoots boiling water\nat the foe.\nMay inflict a burn.");
+const u8 gSCALD_Description[] = _("Shoots boiling water\nat the foe.\nMay inflict a burn.");
 
-const u8 gSHELL_SMASH_Description 
-    [] = _("Breaks its shell,\nlowering its Defense\nstats but sharply\nups its offense, and\nSpeed stats.");
+const u8 gSHELL_SMASH_Description[] = _("Breaks its shell,\nlowering its Defense\nstats but sharply\nups its offense, and\nSpeed stats.");
 
-const u8 gHEAL_PULSE_Description 
-    [] = _("The user emits\na healing pulse.\n.Recovers up to\na third the\ntarget's max HP.");
+const u8 gHEAL_PULSE_Description[] = _("The user emits\na healing pulse.\n.Recovers up to\na third the\ntarget's max HP.");
 
-const u8 gHEX_Description 
-    [] = _("Does double damage\nif the foe\nhas an ailment.");
+const u8 gHEX_Description[] = _("Does double damage\nif the foe\nhas an ailment.");
 
-const u8 gSKY_DROP_Description 
-    [] = _("Takes the foe\ninto the sky\nthen drops it\nthe next turn.");
+const u8 gSKY_DROP_Description[] = _("Takes the foe\ninto the sky\nthen drops it\nthe next turn.");
 
-const u8 gSHIFT_GEAR_Description 
-    [] = _("Rotates its gears\nto raise Attack\nand Speed.");
+const u8 gSHIFT_GEAR_Description[] = _("Rotates its gears\nto raise Attack\nand Speed.");
 
-const u8 gCIRCLE_THROW_Description 
-    [] = _("The foe is thrown\nand switched.\nIn the wild, a\nbattle against\na single Pokémon\nends.");
+const u8 gCIRCLE_THROW_Description[] = _("The foe is thrown\nand switched.\nIn the wild, a\nbattle against\na single Pokémon\nends.");
 
-const u8 gINCINERATE_Description 
-    [] = _("Burns up Berries\nand Gems preventing\ntheir use.");
+const u8 gINCINERATE_Description[] = _("Burns up Berries\nand Gems preventing\ntheir use.");
 
-const u8 gQUASH_Description 
-    [] = _("Suppresses the foe,\nmaking it move last.");
+const u8 gQUASH_Description[] = _("Suppresses the foe,\nmaking it move last.");
 
-const u8 gACROBATICS_Description 
-    [] = _("Does double damage\nif the user is not\nholding an item.");
+const u8 gACROBATICS_Description[] = _("Does double damage\nif the user is not\nholding an item.");
 
-const u8 gREFLECT_TYPE_Description 
-    [] = _("The user reflects\nthe foe's type,\ncopying it.");
+const u8 gREFLECT_TYPE_Description[] = _("The user reflects\nthe foe's type,\ncopying it.");
 
-const u8 gRETALIATE_Description 
-    [] = _("A vengeful strike\nfor a fainted ally.\nIf an ally fainted\nthe previous turn,\nthis move's power\nis increased.");
+const u8 gRETALIATE_Description[] = _("A vengeful strike\nfor a fainted ally.\nIf an ally fainted\nthe previous turn,\nthis move's power\nis increased.");
 
-const u8 gFINAL_GAMBIT_Description 
-    [] = _("The user gives\nits all to damage\nthe foe then faints.\nMove power is equal\nto remaining HP.");
+const u8 gFINAL_GAMBIT_Description[] = _("The user gives\nits all to damage\nthe foe then faints.\nMove power is equal\nto remaining HP.");
 
-const u8 gBESTOW_Description 
-    [] = _("The user gives\nits held item\nto the foe.");
+const u8 gBESTOW_Description[] = _("The user gives\nits held item\nto the foe.");
 
-const u8 gINFERNO_Description 
-    [] = _("Powerful and sure\nto inflict burn,\nbut inaccurate.");
+const u8 gINFERNO_Description[] = _("Powerful and sure\nto inflict burn,\nbut inaccurate.");
 
-const u8 gWATER_PLEDGE_Description 
-    [] = _("Attacks with a\ncolumn of water\nMay make a rainbow.");
+const u8 gWATER_PLEDGE_Description[] = _("Attacks with a\ncolumn of water\nMay make a rainbow.");
 
-const u8 gFIRE_PLEDGE_Description 
-    [] = _("Attacks with a\ncolumn of fire\nMay burn the grass.");
+const u8 gFIRE_PLEDGE_Description[] = _("Attacks with a\ncolumn of fire\nMay burn the grass.");
 
-const u8 gGRASS_PLEDGE_Description 
-    [] = _("Attacks with a\ncolumn of grass\nMay create a swamp.");
+const u8 gGRASS_PLEDGE_Description[] = _("Attacks with a\ncolumn of grass\nMay create a swamp.");
 
-const u8 gSTRUGGLE_BUG_Description 
-    [] = _("the user attacks\nthe foe desperately.\nLowers Sp. Atk\nand Infests foe.");
+const u8 gSTRUGGLE_BUG_Description[] = _("the user attacks\nthe foe desperately.\nLowers Sp. Atk\nand Infests foe.");
 
-const u8 gBULLDOZE_Description 
-    [] = _("Stomps down on\nthe ground.\nLowers Speed.\nDeals double damage\nto foes underground.");
+const u8 gBULLDOZE_Description[] = _("Stomps down on\nthe ground.\nLowers Speed.\nDeals double damage\nto foes underground.");
 
-const u8 gWORK_UP_Description 
-    [] = _("The user rouses its\nfighting spirit.\nUps offense stats.");
+const u8 gWORK_UP_Description[] = _("The user rouses its\nfighting spirit.\nUps offense stats.");
 
-const u8 gELECTROWEB_Description 
-    [] = _("Snares the foe with\nan electric net.\nLowers Speed.");
+const u8 gELECTROWEB_Description[] = _("Snares the foe with\nan electric net.\nLowers Speed.");
 
-const u8 gWILD_CHARGE_Description 
-    [] = _("The user electrifies\nitself and then\nslams into the foe.\nAlso hurts the user.");
+const u8 gWILD_CHARGE_Description[] = _("The user electrifies\nitself and then\nslams into the foe.\nAlso hurts the user.");
 
-const u8 gDRILL_RUN_Description 
-    [] = _("The user spins\nits body like\na drill then crashes\ninto the foe.\nIt has a high\ncritical-hit ratio.");
+const u8 gDRILL_RUN_Description[] = _("The user spins\nits body like\na drill then crashes\ninto the foe.\nIt has a high\ncritical-hit ratio.");
 
 //sounds strange to call dragon move with word chop. changing to claw,  previously dual chop
-const u8 gDUAL_STRIKE_Description 
-    [] = _("A brutal attack\nthat strike twice.");
+const u8 gDUAL_STRIKE_Description[] = _("A brutal attack\nthat strike twice.");
 
-const u8 gHEART_STAMP_Description 
-    [] = _("A sudden blow\nafter a playing cute\nMay cause flinching.");
+const u8 gHEART_STAMP_Description[] = _("A sudden blow\nafter a playing cute\nMay cause flinching.");
 
-const u8 gRAZOR_SHELL_Description 
-    [] = _("Tears at the foe\nwith sharp shells.\nMay lower Defense.");
+const u8 gRAZOR_SHELL_Description[] = _("Tears at the foe\nwith sharp shells.\nMay lower Defense.");
 
-const u8 gLEAF_TORNADO_Description 
-    [] = _("Encircles the foe\nin a whirl of leaves\nMay drop accuracy.");
+const u8 gLEAF_TORNADO_Description[] = _("Encircles the foe\nin a whirl of leaves\nMay drop accuracy.");
 
-const u8 gSTEAMROLLER_Description 
-    [] = _("Crushes the foe\nwith its body.\nMay cause flinching.");
+const u8 gSTEAMROLLER_Description[] = _("Crushes the foe\nwith its body.\nMay cause flinching.");
 
-const u8 gCOTTON_GUARD_Description 
-    [] = _("Swaddles its body\nin cotton.\nDrastically raising\nits Defense.");
+const u8 gCOTTON_GUARD_Description[] = _("Swaddles its body\nin cotton.\nDrastically raising\nits Defense.");
 
-const u8 gNIGHT_DAZE_Description 
-    [] = _("The user unleashes\na pitch-black\nshockwave that\nmay lower accuracy.");
+const u8 gNIGHT_DAZE_Description[] = _("The user unleashes\na pitch-black\nshockwave that\nmay lower accuracy.");
 
-const u8 gTAIL_SLAP_Description 
-    [] = _("Strikes the foe\nwith its tail\n2 to 5 times.");
+const u8 gTAIL_SLAP_Description[] = _("Strikes the foe\nwith its tail\n2 to 5 times.");
 
-const u8 gHURRICANE_Description 
-    [] = _("Traps the foe in\na fierce wind that\nswirls and cuts.\nAcc grows in Rain\nbut falls in Sun.\nMay cause confusion.");
+const u8 gHURRICANE_Description[] = _("Traps the foe in\na fierce wind that\nswirls and cuts.\nAcc grows in Rain\nbut falls in Sun.\nMay cause confusion.");
 
-const u8 gHEAD_CHARGE_Description 
-    [] = _("A head-first charge\nusing guard hair.\nIt hurts the\nuser a little.");
+const u8 gHEAD_CHARGE_Description[] = _("A head-first charge\nusing guard hair.\nIt hurts the\nuser a little.");
 
-const u8 gGEAR_GRIND_Description 
-    [] = _("The user attacks by\nthrowing two steel\ngears at the foe.\nthat strike twice.");
+const u8 gGEAR_GRIND_Description[] = _("The user attacks by\nthrowing two steel\ngears at the foe.\nthat strike twice.");
 
-const u8 gTECHNO_BLAST_Description 
-    [] = _("The type varies with\nthe kind of\nDrive held.");
+const u8 gTECHNO_BLAST_Description[] = _("The type varies with\nthe kind of\nDrive held.");
 
-const u8 gRELIC_SONG_Description 
-    [] = _("Attacks with an\nancient song\nMay induce sleep.");
+const u8 gRELIC_SONG_Description[] = _("Attacks with an\nancient song\nMay induce sleep.");
 
-const u8 gSECRET_SWORD_Description 
-    [] = _("The user cuts with\nits long horn.\nThe odd power within\nthe horn does\nphysical damage\nto the target.");
+const u8 gSECRET_SWORD_Description[] = _("The user cuts with\nits long horn.\nThe odd power within\nthe horn does\nphysical damage\nto the target.");
 
-const u8 gGLACIATE_Description 
-    [] = _("Blows very cold air\nat the foes.\nLowers their Speed.");
+const u8 gGLACIATE_Description[] = _("Blows very cold air\nat the foes.\nLowers their Speed.");
 
-const u8 gBOLT_STRIKE_Description 
-    [] = _("The user charges at\nthe foe, surrounding\nitself with a great\namount of lightning.\nMay paralyze.");
+const u8 gBOLT_STRIKE_Description[] = _("The user charges at\nthe foe, surrounding\nitself with a great\namount of lightning.\nMay paralyze.");
 
-const u8 gBLUE_FLARE_Description 
-    [] = _("Engulfs the foe\nin a blue flame.\nMay inflict a burn.");
+const u8 gBLUE_FLARE_Description[] = _("Engulfs the foe\nin a blue flame.\nMay inflict a burn.");
 
-const u8 gFIERY_DANCE_Description 
-    [] = _("Dances cloaked in\nbrilliant flames.\nMay raise Sp. Atk.");
+const u8 gFIERY_DANCE_Description[] = _("Dances cloaked in\nbrilliant flames.\nMay raise Sp. Atk.");
 
-const u8 gFREEZE_SHOCK_Description 
-    [] = _("A strong fusion move\nthat deals Ice and\nElectric damage\nIt has a high chance\nto paralyze the foe.");
+const u8 gFREEZE_SHOCK_Description[] = _("A strong fusion move\nthat deals Ice and\nElectric damage\nIt has a high chance\nto paralyze the foe.");
 
-const u8 gICE_BURN_Description 
-    [] = _("A strong fusion move\nthat deals Fire and\nIce damage.\nIt has a high chance\nto inflict a burn.");
+const u8 gICE_BURN_Description[] = _("A strong fusion move\nthat deals Fire and\nIce damage.\nIt has a high chance\nto inflict a burn.");
 
-const u8 gSNARL_Description 
-    [] = _("Yells and rants at\nthe foe lowering\nits Sp. Atk.");
+const u8 gSNARL_Description[] = _("Yells and rants at\nthe foe lowering\nits Sp. Atk.");
 
-const u8 gICICLE_CRASH_Description 
-    [] = _("Drops large icicles\non the foe.\nMay cause flinching.");
+const u8 gICICLE_CRASH_Description[] = _("Drops large icicles\non the foe.\nMay cause flinching.");
 
-const u8 gV_CREATE_Description 
-    [] = _("Powerful, but lowers\nDefense, Sp. Def\nand Speed.");
+const u8 gV_CREATE_Description[] = _("Powerful, but lowers\nDefense, Sp. Def\nand Speed.");
 
-const u8 gFUSION_FLARE_Description 
-    [] = _("User summons a giant\nfireball. The move's\npower is boosted\nif paired with\nFusion Bolt.");
+const u8 gFUSION_FLARE_Description[] = _("User summons a giant\nfireball. The move's\npower is boosted\nif paired with\nFusion Bolt.");
 
-const u8 gFUSION_BOLT_Description 
-    [] = _("User summons a giant\nlightning bolt.\nThis move's power\nis boosted if paired\nwith Fusion Flare.");
+const u8 gFUSION_BOLT_Description[] = _("User summons a giant\nlightning bolt.\nThis move's power\nis boosted if paired\nwith Fusion Flare.");
 
-const u8 gFLYING_PRESS_Description 
-    [] = _("The user dives down\nonto the target from\nthe sky.\nGrounding floating\ntargets, and may\nmake them flinch.");
+const u8 gFLYING_PRESS_Description[] = _("The user dives down\nonto the target from\nthe sky.\nGrounding floating\ntargets, and may\nmake them flinch.");
 
-const u8 gMAT_BLOCK_Description 
-    [] = _("Using a pulled-up\nmat as a shield,\nthe user protects\nits side from damage");
+const u8 gMAT_BLOCK_Description[] = _("Using a pulled-up\nmat as a shield,\nthe user protects\nits side from damage");
 
-const u8 gBELCH_Description 
-    [] = _("The POKéMON lets\nout a loud belch.\nMust eat or hold\na Berry to use it.");
+const u8 gBELCH_Description[] = _("The POKéMON lets\nout a loud belch.\nMust eat or hold\na Berry to use it.");
 
-const u8 gROTOTILLER_Description 
-    [] = _("Tilling the soil the\nuser makes it easier\nfor plants to grow.\nRaising the offense\nof Grass Pokémon.");
+const u8 gROTOTILLER_Description[] = _("Tilling the soil the\nuser makes it easier\nfor plants to grow.\nRaising the offense\nof Grass Pokémon.");
 
-const u8 gSTICKY_WEB_Description 
-    [] = _("Weaves a sticky net\nto slow on switch-in\nBoost effect if used\nagain. Traps foes\non the field and\ncathes floating PKMN");
+const u8 gSTICKY_WEB_Description[] = _("Weaves a sticky net\nto slow on switch-in\nBoost effect if used\nagain. Traps foes\non the field and\ncathes floating PKMN");
 
-const u8 gFELL_STINGER_Description 
-    [] = _("If it knocks out a\nfoe the user's\nAttack stat is\nraised.");
+const u8 gFELL_STINGER_Description[] = _("If it knocks out a\nfoe the user's\nAttack stat is\nraised.");
 
-const u8 gTRICK_OR_TREAT_Description 
-    [] = _("Goes trick-or-treat\nturning the foe\ninto a Ghost-type.");
+const u8 gTRICK_OR_TREAT_Description[] = _("Goes trick-or-treat\nturning the foe\ninto a Ghost-type.");
 
-const u8 gNOBLE_ROAR_Description 
-    [] = _("Intimidates the foe,\ncutting its offense\nstats by one stage.");
+const u8 gNOBLE_ROAR_Description[] = _("Intimidates the foe,\ncutting its offense\nstats by one stage.");
 
-const u8 gION_DELUGE_Description 
-    [] = _("Electrifies Normal\nmoves by charging\natoms in the air.\nLasts 4 turns.");
+const u8 gION_DELUGE_Description[] = _("Electrifies Normal\nmoves by charging\natoms in the air.\nLasts 4 turns.");
 
-const u8 gPARABOLIC_CHARGE_Description 
-    [] = _("Damages all adjacent\nPokémon then heals\nfor half the damage.");
+const u8 gPARABOLIC_CHARGE_Description[] = _("Damages all adjacent\nPokémon then heals\nfor half the damage.");
 
-const u8 gFORESTS_CURSE_Description 
-    [] = _("Puts a curse\non the foe\nmaking the foe\na Grass-type.");
+const u8 gFORESTS_CURSE_Description[] = _("Puts a curse\non the foe\nmaking the foe\na Grass-type.");
 
-const u8 gPETAL_BLIZZARD_Description 
-    [] = _("Stirs up a violent\nstorm of petals\nto attack.");
+const u8 gPETAL_BLIZZARD_Description[] = _("Stirs up a violent\nstorm of petals\nto attack.");
 
-const u8 gFREEZE_DRY_Description 
-    [] = _("Super effective\non Water-types.\nMay cause freezing.");
+const u8 gFREEZE_DRY_Description[] = _("Super effective\non Water-types.\nMay cause freezing.");
 
-const u8 gDISARMING_VOICE_Description 
-    [] = _("Lets out a charming\ncry that cannot\nbe evaded.\nMay lower Sp. Atk."); //give better desscription
+const u8 gDISARMING_VOICE_Description[] = _("Lets out a charming\ncry that cannot\nbe evaded.\nMay lower Sp. Atk."); //give better desscription
 
-const u8 gPARTING_SHOT_Description 
-    [] = _("Lowers the foe's\noffensive stats\nthen switches out.");
+const u8 gPARTING_SHOT_Description[] = _("Lowers the foe's\noffensive stats\nthen switches out.");
 
-const u8 gTOPSY_TURVY_Description 
-    [] = _("Reverses all stat\nchanges that affect\nthe target.");
+const u8 gTOPSY_TURVY_Description[] = _("Reverses all stat\nchanges that affect\nthe target.");
 
-const u8 gDRAINING_KISS_Description 
-    [] = _("This attack absorbs\nover half the damage\ninflicted.");
+const u8 gDRAINING_KISS_Description[] = _("This attack absorbs\nover half the damage\ninflicted.");
 
-const u8 gCRAFTY_SHIELD_Description 
-    [] = _("Evades status moves\nfor one turn.");
+const u8 gCRAFTY_SHIELD_Description[] = _("Evades status moves\nfor one turn.");
 
-const u8 gFLOWER_SHIELD_Description 
-    [] = _("Raises Defense of\nGrass-type POKéMON.");
+const u8 gFLOWER_SHIELD_Description[] = _("Raises Defense of\nGrass-type POKéMON.");
 
-const u8 gGRASSY_TERRAIN_Description 
-    [] = _("The ground turns\nto grass for 5 turns\nRestores HP.");
+const u8 gGRASSY_TERRAIN_Description[] = _("The ground turns\nto grass for 5 turns\nRestores HP.");
 
-const u8 gMISTY_TERRAIN_Description 
-    [] = _("Covers ground with\nmist for 5 turns.\nWeakens Dragon moves\nblocks statusing and\nboosts healing from\ndamaging moves.");
+const u8 gMISTY_TERRAIN_Description[] = _("Covers ground with\nmist for 5 turns.\nWeakens Dragon moves\nblocks statusing and\nboosts healing from\ndamaging moves.");
 
-const u8 gELECTRIFY_Description 
-    [] = _("Electrifies target,\nmaking its next\nmove Electric-type.");
+const u8 gELECTRIFY_Description[] = _("Electrifies target,\nmaking its next\nmove Electric-type.");
 
-const u8 gPLAY_ROUGH_Description 
-    [] = _("Frolics playfully\nwith the foe\nbefore attacking.\nMay lower Attack.");
+const u8 gPLAY_ROUGH_Description[] = _("Frolics playfully\nwith the foe\nbefore attacking.\nMay lower Attack.");
 
-const u8 gFAIRY_WIND_Description 
-    [] = _("Stirs up an odd\nwind of fairy wisps\nto strike the foe.\nAlways strike first.");
+const u8 gFAIRY_WIND_Description[] = _("Stirs up an odd\nwind of fairy wisps\nto strike the foe.\nAlways strike first.");
 
-const u8 gMOONBLAST_Description 
-    [] = _("Attacks with the max\npower of the moon.\nMay lower Sp. Atk.");
+const u8 gMOONBLAST_Description[] = _("Attacks with the max\npower of the moon.\nMay lower Sp. Atk.");
 
-const u8 gBOOMBURST_Description 
-    [] = _("Attacks foes with a\nlarge concussive\nsound wave.");
+const u8 gBOOMBURST_Description[] = _("Attacks foes with a\nlarge concussive\nsound wave.");
 
-const u8 gFAIRY_LOCK_Description 
-    [] = _("Locks down the\nbattlefield prevents\nescape next turn.");
+const u8 gFAIRY_LOCK_Description[] = _("Locks down the\nbattlefield prevents\nescape next turn.");
 
-const u8 gKINGS_SHIELD_Description 
-    [] = _("Evades damage, and\nsharply reduces\nAttack if struck.");
+const u8 gKINGS_SHIELD_Description[] = _("Evades damage, and\nsharply reduces\nAttack if struck.");
 
-const u8 gPLAY_NICE_Description 
-    [] = _("Befriends the foe,\nlowering its Attack\nwithout fail.");
+const u8 gPLAY_NICE_Description[] = _("Befriends the foe,\nlowering its Attack\nwithout fail.");
 
-const u8 gCONFIDE_Description 
-    [] = _("Shares a secret\nwith the foe,\nlowering Sp. Atk.");
+const u8 gCONFIDE_Description[] = _("Shares a secret\nwith the foe,\nlowering Sp. Atk.");
 
-const u8 gDIAMOND_STORM_Description 
-    [] = _("Whips up a storm\nof diamonds\nMay up Defense.");
+const u8 gDIAMOND_STORM_Description[] = _("Whips up a storm\nof diamonds\nMay up Defense.");
 
-const u8 gSTEAM_ERUPTION_Description 
-    [] = _("Immerses the foe\nin heated steam.\nMay inflict a burn.");
+const u8 gSTEAM_ERUPTION_Description[] = _("Immerses the foe\nin heated steam.\nMay inflict a burn.");
 
-const u8 gHYPERSPACE_HOLE_Description 
-    [] = _("Uses a warp hole\nto attack.\nCan't be evaded.");
+const u8 gHYPERSPACE_HOLE_Description[] = _("Uses a warp hole\nto attack.\nCan't be evaded.");
 
-const u8 gWATER_SHURIKEN_Description 
-    [] = _("Throws 2 to 5 stars\nthat are sure\nto strike first.");
+const u8 gWATER_SHURIKEN_Description[] = _("Throws 2 to 5 stars\nthat are sure\nto strike first.");
 
-const u8 gMYSTICAL_FIRE_Description 
-    [] = _("Breathes a special,\nhot fire.\nMay lower Sp. Atk.");
+const u8 gMYSTICAL_FIRE_Description[] = _("Breathes a special,\nhot fire.\nMay lower Sp. Atk.");
 
-const u8 gSPIKY_SHIELD_Description 
-    [] = _("Evades attack,\nand damages the\nfoe if struck.\nThe impact also\nsends spikes to\nenemy side of field.");
+const u8 gSPIKY_SHIELD_Description[] = _("Evades attack,\nand damages the\nfoe if struck.\nThe impact also\nsends spikes to\nenemy side of field.");
 
-const u8 gAROMATIC_MIST_Description 
-    [] = _("Raises the Sp. Def\nof its partner\nin battle.");
+const u8 gAROMATIC_MIST_Description[] = _("Raises the Sp. Def\nof its partner\nin battle.");
 
-const u8 gEERIE_IMPULSE_Description 
-    [] = _("Exposes the foe\nto a pulse\nthat sharply cuts\nSp. Atk.");
+const u8 gEERIE_IMPULSE_Description[] = _("Exposes the foe\nto a pulse\nthat sharply cuts\nSp. Atk.");
 
-const u8 gVENOM_DRENCH_Description 
-    [] = _("Lowers the Attack,\nSp. Atk and Speed\nof a poisoned foe.");
+const u8 gVENOM_DRENCH_Description[] = _("Lowers the Attack,\nSp. Atk and Speed\nof a poisoned foe.");
 
-const u8 gPOWDER_Description 
-    [] = _("Damages the foe\nif it uses\na Fire-type move.");
+const u8 gPOWDER_Description[] = _("Damages the foe\nif it uses\na Fire-type move.");
 
-const u8 gGEOMANCY_Description 
-    [] = _("Raises Sp. Stats and\nSpeed on next turn.");
+const u8 gGEOMANCY_Description[] = _("Raises Sp. Stats and\nSpeed on next turn.");
 
-const u8 gMAGNETIC_FLUX_Description 
-    [] = _("The user manipulates\nmagnetic fields\nto raise the\nDefense and Sp. Def.\nof itself and allies\nwith Electric type.");
+const u8 gMAGNETIC_FLUX_Description[] = _("The user manipulates\nmagnetic fields\nto raise the\nDefense and Sp. Def.\nof itself and allies\nwith Electric type.");
 
-const u8 gHAPPY_HOUR_Description 
-    [] = _("Doubles the amount\nof Prize Money\nreceived upon\nending battle.");
+const u8 gHAPPY_HOUR_Description[] = _("Doubles the amount\nof Prize Money\nreceived upon\nending battle.");
 
-const u8 gELECTRIC_TERRAIN_Description 
-    [] = _("Electrify the ground\nfor 5 turns.\nPreventing sleep.");
+const u8 gELECTRIC_TERRAIN_Description[] = _("Electrify the ground\nfor 5 turns.\nPreventing sleep.");
 
-const u8 gDAZZLING_GLEAM_Description 
-    [] = _("Emtis a bright flash\nto damage foes.");
+const u8 gDAZZLING_GLEAM_Description[] = _("Emtis a bright flash\nto damage foes.");
 
-const u8 gCELEBRATE_Description 
-    [] = _("As the user performs\nthis euphoric dance,\nsomething special\nmight happen!");
+const u8 gCELEBRATE_Description[] = _("As the user performs\nthis euphoric dance,\nsomething special\nmight happen!");
 
-const u8 gHOLD_HANDS_Description 
-    [] = _("The user and ally\nhold hands\nmaking them happy.");
+const u8 gHOLD_HANDS_Description[] = _("The user and ally\nhold hands\nmaking them happy.");
 
-const u8 gBABYDOLL_EYES_Description 
-    [] = _("Lowers the foe's\nAttack before it\ncan move.");
+const u8 gBABYDOLL_EYES_Description[] = _("Lowers the foe's\nAttack before it\ncan move.");
 
-const u8 gNUZZLE_Description 
-    [] = _("Rubs its cheecks\nagainst the foe,\nparalyzing it.");
+const u8 gNUZZLE_Description[] = _("Rubs its cheecks\nagainst the foe,\nparalyzing it.");
 
-const u8 gSWARM_Description 
-    [] = _("Foe is surrounded\nby biting insects\nand infested for\n2 to 4 turns.");
+const u8 gSWARM_Description[] = _("Foe is surrounded\nby biting insects\nand infested for\n2 to 4 turns.");
 
-const u8 gPOWER_UP_PUNCH_Description 
-    [] = _("A hard punch\nthat raises\nthe user's Attack.");
+const u8 gPOWER_UP_PUNCH_Description[] = _("A hard punch\nthat raises\nthe user's Attack.");
 
-const u8 gTHOUSAND_ARROWS_Description 
-    [] = _("Can hit Flying foes,\nand also knocks them\nto the ground.");
+const u8 gTHOUSAND_ARROWS_Description[] = _("Can hit Flying foes,\nand also knocks them\nto the ground.");
 
-const u8 gTHOUSAND_WAVES_Description 
-    [] = _("Those hit by\nthe wave can\nno longer escape.");
+const u8 gTHOUSAND_WAVES_Description[] = _("Those hit by\nthe wave can\nno longer escape.");
 
-const u8 gLANDS_WRATH_Description 
-    [] = _("Gathers the energy\nof the land to\nattack every foe.");
+const u8 gLANDS_WRATH_Description[] = _("Gathers the energy\nof the land to\nattack every foe.");
 
-const u8 gLIGHT_OF_RUIN_Description 
-    [] = _("Fires a great beam\nof light that\nalso hurts the user.");
+const u8 gLIGHT_OF_RUIN_Description[] = _("Fires a great beam\nof light that\nalso hurts the user.");
 
-const u8 gORIGIN_PULSE_Description 
-    [] = _("Beams of glowing\nblue light blast\nboth foes.");
+const u8 gORIGIN_PULSE_Description[] = _("Beams of glowing\nblue light blast\nboth foes.");
 
-const u8 gPRECIPICE_BLADES_Description 
-    [] = _("Fearsome blades\nof stone\nattack both foes.");
+const u8 gPRECIPICE_BLADES_Description[] = _("Fearsome blades\nof stone\nattack both foes.");
 
-const u8 gLAVA_PLUME_Description 
-    [] = _("The user torches\neverything around\nit in an inferno of\nscarlet flames.\nThis may also leave\nfoes with a burn.");
+const u8 gLAVA_PLUME_Description[] = _("The user torches\neverything around\nit in an inferno of\nscarlet flames.\nThis may also leave\nfoes with a burn.");
 
-const u8 gLEAF_STORM_Description 
-    [] = _("Whips up a storm\nof leaves.\nHarshly lowers the\nuser's Sp. Atk.");
+const u8 gLEAF_STORM_Description[] = _("Whips up a storm\nof leaves.\nHarshly lowers the\nuser's Sp. Atk.");
 
-const u8 gSHORE_UP_Description 
-    [] = _("Restores user's HP.\nHeal's more HP\nin a sandstorm.");
+const u8 gSHORE_UP_Description[] = _("Restores user's HP.\nHeal's more HP\nin a sandstorm.");
 
-const u8 gFIRST_IMPRESSION_Description 
-    [] = _("Hits hard and first.\nHits first turn only");
+const u8 gFIRST_IMPRESSION_Description[] = _("Hits hard and first.\nHits first turn only");
 
-const u8 gBANEFUL_BUNKER_Description 
-    [] = _("Protects user and\npoisons foes on\ncontact.");
+const u8 gBANEFUL_BUNKER_Description[] = _("Protects user and\npoisons foes on\ncontact.");
 
-const u8 gSPIRIT_SHACKLE_Description 
-    [] = _("The user attacks\nwhile simultaneously\nstitching the foe's\nshadow to the ground\nFoe can't escape.");
+const u8 gSPIRIT_SHACKLE_Description[] = _("The user attacks\nwhile simultaneously\nstitching the foe's\nshadow to the ground\nFoe can't escape.");
 
-const u8 gDARKEST_LARIAT_Description 
-    [] = _("The user swings\nboth arms to hit\nthe target.\nIgnores changes to\ntarget's Eva or Def");
+const u8 gDARKEST_LARIAT_Description[] = _("The user swings\nboth arms to hit\nthe target.\nIgnores changes to\ntarget's Eva or Def");
 
-const u8 gSPARKLING_ARIA_Description 
-    [] = _("The user bursts\ninto song,\nemitting bubbles.\nCures burns on hit.");
+const u8 gSPARKLING_ARIA_Description[] = _("The user bursts\ninto song,\nemitting bubbles.\nCures burns on hit.");
 
-const u8 gICE_HAMMER_Description 
-    [] = _("The user swings and\nhits with a strong,\nheavy fist.\nHowever it lowers\nthe user's SPEED.");
+const u8 gICE_HAMMER_Description[] = _("The user swings and\nhits with a strong,\nheavy fist.\nHowever it lowers\nthe user's SPEED.");
 
-const u8 gFLORAL_HEALING_Description 
-    [] = _("Restore an ally's HP\nHeals more on grass.");
+const u8 gFLORAL_HEALING_Description[] = _("Restore an ally's HP\nHeals more on grass.");
 
-const u8 gHIGH_HORSEPOWER_Description 
-    [] = _("Slams hard into\nthe foe with\nits entire body.");
+const u8 gHIGH_HORSEPOWER_Description[] = _("Slams hard into\nthe foe with\nits entire body.");
 
-const u8 gSTRENGTH_SAP_Description 
-    [] = _("Saps the foe's\nAttack to heal HP,\nthen drops their\nAttack stat.");
+const u8 gSTRENGTH_SAP_Description[] = _("Saps the foe's\nAttack to heal HP,\nthen drops their\nAttack stat.");
 
-const u8 gSOLAR_BLADE_Description 
-    [] = _("Charges first turn,\nthen chops with\na blade of light.\nSkips charge in Sun\nbut loses power\nin other weather.");
+const u8 gSOLAR_BLADE_Description[] = _("Charges first turn,\nthen chops with\na blade of light.\nSkips charge in Sun\nbut loses power\nin other weather.");
 
-const u8 gLEAFAGE_Description 
-    [] = _("Attacks with a\nflurry of\nsmall leaves.");
+const u8 gLEAFAGE_Description[] = _("Attacks with a\nflurry of\nsmall leaves.");
 
-const u8 gSPOTLIGHT_Description 
-    [] = _("Makes the foe\nattack the\nspotlighted POKéMON.");
+const u8 gSPOTLIGHT_Description[] = _("Makes the foe\nattack the\nspotlighted POKéMON.");
 
-const u8 gTOXIC_THREAD_Description 
-    [] = _("Attacks with a\nthread that poisons\nand drops Speed.");
+const u8 gTOXIC_THREAD_Description[] = _("Attacks with a\nthread that poisons\nand drops Speed.");
 
-const u8 gLASER_FOCUS_Description 
-    [] = _("Guarantees the next\nmove will be\na critical-hit.");
+const u8 gLASER_FOCUS_Description[] = _("Guarantees the next\nmove will be\na critical-hit.");
 
-const u8 gGEAR_UP_Description 
-    [] = _("The user engages its\ngears creating a\nstatic field raising\nAtk. and Sp. Atk\nof itself and allies\nwith Electric type.");
+const u8 gGEAR_UP_Description[] = _("The user engages its\ngears creating a\nstatic field raising\nAtk. and Sp. Atk\nof itself and allies\nwith Electric type.");
 
-const u8 gTHROAT_CHOP_Description 
-    [] = _("The user delivers\na debilitating chop\nto the foe's throat\nthat disables sound\nmoves for a while.");
+const u8 gTHROAT_CHOP_Description[] = _("The user delivers\na debilitating chop\nto the foe's throat\nthat disables sound\nmoves for a while.");
 
-const u8 gPOLLEN_PUFF_Description 
-    [] = _("The user attacks\nthe enemy with a\npollen puff bomb.\nIt restores ally HP\nIf they are\nthe target.");
+const u8 gPOLLEN_PUFF_Description[] = _("The user attacks\nthe enemy with a\npollen puff bomb.\nIt restores ally HP\nIf they are\nthe target.");
 
-const u8 gANCHOR_SHOT_Description 
-    [] = _("Strangles the foe\nwith a chain.\nThe foe can't flee.");
+const u8 gANCHOR_SHOT_Description[] = _("Strangles the foe\nwith a chain.\nThe foe can't flee.");
 
-const u8 gPSYCHIC_TERRAIN_Description 
-    [] = _("The ground turns\nweird for 5 turns.\nBlocks priority.");
+const u8 gPSYCHIC_TERRAIN_Description[] = _("The ground turns\nweird for 5 turns.\nBlocks priority.");
 
-const u8 gLUNGE_Description 
-    [] = _("Lunges at the foe to\nlower its Attack.");
+const u8 gLUNGE_Description[] = _("Lunges at the foe to\nlower its Attack.");
 
-const u8 gFIRE_LASH_Description 
-    [] = _("Whips the foe with\na stream of fire\nlowering its Defense");
+const u8 gFIRE_LASH_Description[] = _("Whips the foe with\na stream of fire\nlowering its Defense");
 
-const u8 gPOWER_TRIP_Description 
-    [] = _("It hits harder\nthe more stat boosts\nthe user has.");
+const u8 gPOWER_TRIP_Description[] = _("It hits harder\nthe more stat boosts\nthe user has.");
 
-const u8 gBURN_OUT_Description 
-    [] = _("To inflict massive\ndamage, the PKMN\nburns itself out.\nAfter using this\nmove, the user loses\nits Fire type.");
+const u8 gBURN_OUT_Description[] = _("To inflict massive\ndamage, the PKMN\nburns itself out.\nAfter using this\nmove, the user loses\nits Fire type.");
 
-const u8 gSPEED_SWAP_Description 
-    [] = _("Swaps user's\nSpeed with\nthe target's.");
+const u8 gSPEED_SWAP_Description[] = _("Swaps user's\nSpeed with\nthe target's.");
 
-const u8 gSMART_STRIKE_Description 
-    [] = _("The user hits\nwith an sharp horn\nthat never misses.");
+const u8 gSMART_STRIKE_Description[] = _("The user hits\nwith an sharp horn\nthat never misses.");
 
-const u8 gPURIFY_Description 
-    [] = _("Cures the target's\nstatus to\nrestore HP.");
+const u8 gPURIFY_Description[] = _("Cures the target's\nstatus to\nrestore HP.");
 
-const u8 gREVELATION_DANCE_Description 
-    [] = _("Dances with\nmystical power.\nMatches user's\nprimary type.");
+const u8 gREVELATION_DANCE_Description[] = _("Dances with\nmystical power.\nMatches user's\nprimary type.");
 
-const u8 gCORE_ENFORCER_Description 
-    [] = _("Hits with a\nray that\nnullifies the foe's\nability.");
+const u8 gCORE_ENFORCER_Description[] = _("Hits with a\nray that\nnullifies the foe's\nability.");
 
-const u8 gTROP_KICK_Description 
-    [] = _("An intense kick\nfrom the tropics.\nLowers Attack.");
+const u8 gTROP_KICK_Description[] = _("An intense kick\nfrom the tropics.\nLowers Attack.");
 
-const u8 gINSTRUCT_Description 
-    [] = _("Orders the target\nto use its\nlast move again.");
+const u8 gINSTRUCT_Description[] = _("Orders the target\nto use its\nlast move again.");
 
-const u8 gBEAK_BLAST_Description 
-    [] = _("Heats up beak\nto attack.\nBurns the foe\non contact.");
+const u8 gBEAK_BLAST_Description[] = _("Heats up beak\nto attack.\nBurns the foe\non contact.");
 
-const u8 gCLANGING_SCALES_Description 
-    [] = _("Makes a big\nnoise with\nits scales.\nDrops Defense.");
+const u8 gCLANGING_SCALES_Description[] = _("Makes a big\nnoise with\nits scales.\nDrops Defense.");
 
-const u8 gDRAGON_HAMMER_Description 
-    [] = _("Swings its body\nlike a hammer.");
+const u8 gDRAGON_HAMMER_Description[] = _("Swings its body\nlike a hammer.");
 
-const u8 gBRUTAL_SWING_Description 
-    [] = _("Violently swings\nblindly to hurt\neveryone nearby.");
+const u8 gBRUTAL_SWING_Description[] = _("Violently swings\nblindly to hurt\neveryone nearby.");
 
-const u8 gAURORA_VEIL_Description 
-    [] = _("Weakens all\nattacks, but\nonly usable in hail.");
+const u8 gAURORA_VEIL_Description[] = _("Weakens all\nattacks, but\nonly usable in hail.");
 
-const u8 gSHELL_TRAP_Description 
-    [] = _("Sets a shell\ntrap that\ndamages on contact.");
+const u8 gSHELL_TRAP_Description[] = _("Sets a shell\ntrap that\ndamages on contact.");
 
-const u8 gFLEUR_CANNON_Description 
-    [] = _("A strong ray\nthat harshly\nlowers Sp. Attack.");
+const u8 gFLEUR_CANNON_Description[] = _("A strong ray\nthat harshly\nlowers Sp. Attack.");
 
-const u8 gPSYCHIC_FANGS_Description 
-    [] = _("Chomps with\npsychic fangs.\nDestroys any\nbarriers.");
+const u8 gPSYCHIC_FANGS_Description[] = _("Chomps with\npsychic fangs.\nDestroys any\nbarriers.");
 
-const u8 gSTOMPING_TANTRUM_Description 
-    [] = _("Stomps around\nangrily. If the\nprevious move failed\nthe power of\nthis move doubles.");
+const u8 gSTOMPING_TANTRUM_Description[] = _("Stomps around\nangrily. If the\nprevious move failed\nthe power of\nthis move doubles.");
 
-const u8 gSHADOW_BONE_Description 
-    [] = _("Strikes with\na haunted bone.\nMight drop Defense.");
+const u8 gSHADOW_BONE_Description[] = _("Strikes with\na haunted bone.\nMight drop Defense.");
 
-const u8 gACCELEROCK_Description 
-    [] = _("Hits the foe\nwith a high-speed\nrock that always\ngoes first.");
+const u8 gACCELEROCK_Description[] = _("Hits the foe\nwith a high-speed\nrock that always\ngoes first.");
 
-const u8 gLIQUIDATION_Description 
-    [] = _("Slams the foe\nwith water.\nCan lower Defense.");
+const u8 gLIQUIDATION_Description[] = _("Slams the foe\nwith water.\nCan lower Defense.");
 
-const u8 gPRISMATIC_LASER_Description 
-    [] = _("A high power\nlaser that forces\nrecharge next turn.");
+const u8 gPRISMATIC_LASER_Description[] = _("A high power\nlaser that forces\nrecharge next turn.");
 
-const u8 gSPECTRAL_THIEF_Description 
-    [] = _("Steals the\ntarget's stat\nboosts then attacks.");
+const u8 gSPECTRAL_THIEF_Description[] = _("Steals the\ntarget's stat\nboosts then attacks.");
 
-const u8 gSUNSTEEL_STRIKE_Description 
-    [] = _("A sun-fueled\nstrike that\nignores abilities.");
+const u8 gSUNSTEEL_STRIKE_Description[] = _("A sun-fueled\nstrike that\nignores abilities.");
 
-const u8 gMOONGEIST_BEAM_Description 
-    [] = _("A moon-powered\nbeam that\nignores abilities.");
+const u8 gMOONGEIST_BEAM_Description[] = _("A moon-powered\nbeam that\nignores abilities.");
 
-const u8 gTEARFUL_LOOK_Description 
-    [] = _("The user tears up,\ndropping the foe's\nOffense stats.");
+const u8 gTEARFUL_LOOK_Description[] = _("The user tears up,\ndropping the foe's\nOffense stats.");
 
-const u8 gZING_ZAP_Description 
-    [] = _("An electrified\nimpact that\ncan cause flinching.");
+const u8 gZING_ZAP_Description[] = _("An electrified\nimpact that\ncan cause flinching.");
 
-const u8 gNATURES_MADNESS_Description 
-    [] = _("Halves the foe's HP\nwith the power of\nnature.");
+const u8 gNATURES_MADNESS_Description[] = _("Halves the foe's HP\nwith the power of\nnature.");
 
-const u8 gMULTI_ATTACK_Description 
-    [] = _("An attack that\nchanges type with\nthe held Memories.");
+const u8 gMULTI_ATTACK_Description[] = _("An attack that\nchanges type with\nthe held Memories.");
 
-const u8 gMIND_BLOWN_Description 
-    [] = _("The user turns its\nhead into a bomb to\ndestroy everything.\nCosts half health.\nIgnores a small\nportion of defenses.");
+const u8 gMIND_BLOWN_Description[] = _("The user turns its\nhead into a bomb to\ndestroy everything.\nCosts half health.\nIgnores a small\nportion of defenses.");
 
-const u8 gPLASMA_FISTS_Description 
-    [] = _("A wicked strike from\nelectrified fists.\nDuring the turn\nNormal moves become\nElectric-Type.\nIt never misses.");
+const u8 gPLASMA_FISTS_Description[] = _("A wicked strike from\nelectrified fists.\nDuring the turn\nNormal moves become\nElectric-Type.\nIt never misses.");
 
-const u8 gPHOTON_GEYSER_Description 
-    [] = _("Necrozma's signature\nphoton attack.\nA strange beam that\ntargets a different\ndefense stat based\non Necrozma's form.");
+const u8 gPHOTON_GEYSER_Description[] = _("Necrozma's signature\nphoton attack.\nA strange beam that\ntargets a different\ndefense stat based\non Necrozma's form.");
 
         //Lets Go P/E
-const u8 gZIPPY_ZAP_Description 
-    [] = _("An Electric burst\nthat is very quick\nand always lands\na critical-hit.");
+const u8 gZIPPY_ZAP_Description[] = _("An Electric burst\nthat is very quick\nand always lands\na critical-hit.");
 
-const u8 gSPLISHY_SPLASH_Description 
-    [] = _("A huge electrified\nwave that may\nparalyze everyone.\nAlso deals electric\ndamage.");
+const u8 gSPLISHY_SPLASH_Description[] = _("A huge electrified\nwave that may\nparalyze everyone.\nAlso deals electric\ndamage.");
 
-const u8 gFLOATY_FALL_Description 
-    [] = _("Floats in air\nand dives at\nangle.\nMay cause flinching.");
+const u8 gFLOATY_FALL_Description[] = _("Floats in air\nand dives at\nangle.\nMay cause flinching.");
 
-const u8 gPIKA_PAPOW_Description 
-    [] = _("Pikachu's love\nboosts its power.\nIt never misses.");
+const u8 gPIKA_PAPOW_Description[] = _("Pikachu's love\nboosts its power.\nIt never misses.");
 
-const u8 gBOUNCY_BUBBLE_Description 
-    [] = _("An attack that\nabsorbs all the\ndamage it inflicts.");
+const u8 gBOUNCY_BUBBLE_Description[] = _("An attack that\nabsorbs all the\ndamage it inflicts.");
 
-const u8 gBUZZY_BUZZ_Description 
-    [] = _("Shoots a jolt of\nelectricity that\nHas a high chance\nto leave the foe\nparalyzed.");
+const u8 gBUZZY_BUZZ_Description[] = _("Shoots a jolt of\nelectricity that\nHas a high chance\nto leave the foe\nparalyzed.");
 
         //will attempt to slightly rebalance Lets go moves, since they're meant to be OP by design.
-const u8 gSIZZLY_SLIDE_Description 
-    [] = _("User charges while\ncloaked in fire.\nHas a high chance\nto leave the foe\nwith a burn.");
+const u8 gSIZZLY_SLIDE_Description[] = _("User charges while\ncloaked in fire.\nHas a high chance\nto leave the foe\nwith a burn.");
 
-const u8 gGLITZY_GLOW_Description 
-    [] = _("A telekinetic force\nthat sets\na light screen, wall\nRaising Sp. Def.");
+const u8 gGLITZY_GLOW_Description[] = _("A telekinetic force\nthat sets\na light screen, wall\nRaising Sp. Def.");
 
         //want to change name, bad behavior or bratty behavior?
-const u8 gBADDY_BAD_Description 
-    [] = _("Throws a tantrum,\nand lashes out.\nThen puts a reflect\nwall, between them\nand the opponent.\nRaising Defense.");
+const u8 gBADDY_BAD_Description[] = _("Throws a tantrum,\nand lashes out.\nThen puts a reflect\nwall, between them\nand the opponent.\nRaising Defense.");
 
-const u8 gSAPPY_SEED_Description 
-    [] = _("Giant stalk scatters\nseeds that drain\nHP every turn.");
+const u8 gSAPPY_SEED_Description[] = _("Giant stalk scatters\nseeds that drain\nHP every turn.");
 
     //change to potentially also have 30 % freeze chance but lower pp
-const u8 gFREEZY_FROST_Description 
-    [] = _("Crystal from cold\nhaze hits.\nEliminates all\nstat changes.");
+const u8 gFREEZY_FROST_Description[] = _("Crystal from cold\nhaze hits.\nEliminates all\nstat changes.");
 
-const u8 gSPARKLY_SWIRL_Description 
-    [] = _("Wrap foe with\na whirlwind of\nscent.\nHeals party's status");
+const u8 gSPARKLY_SWIRL_Description[] = _("Wrap foe with\na whirlwind of\nscent.\nHeals party's status");
 
-const u8 gVEEVEE_VOLLEY_Description 
-    [] = _("Eevee's love boosts\nits power.\nIt never misses.");
+const u8 gVEEVEE_VOLLEY_Description[] = _("Eevee's love boosts\nits power.\nIt never misses.");
 
-const u8 gDOUBLE_IRON_BASH_Description 
-    [] = _("The user spins\nand hits with\nits arms.\nMay cause flinch.");
+const u8 gDOUBLE_IRON_BASH_Description[] = _("The user spins\nand hits with\nits arms.\nMay cause flinch.");
 
     // GEN 8
-const u8 gDYNAMAX_CANNON_Description 
-    [] = _("Fires a strong beam.\nDeals 2x damage\nto Dynamaxed foes.\nBut not Eternamaxed.");
+const u8 gDYNAMAX_CANNON_Description[] = _("Fires a strong beam.\nDeals 2x damage\nto Dynamaxed foes.\nBut not Eternamaxed.");
 
-const u8 gSNIPE_SHOT_Description 
-    [] = _("The user ignores\neffects that draw\nin moves.\nIt has a high\ncritical-hit ratio.");
+const u8 gSNIPE_SHOT_Description[] = _("The user ignores\neffects that draw\nin moves.\nIt has a high\ncritical-hit ratio.");
 
-const u8 gJAW_LOCK_Description 
-    [] = _("Prevents the user\nand the target\nfrom escaping.");
+const u8 gJAW_LOCK_Description[] = _("Prevents the user\nand the target\nfrom escaping.");
 
-const u8 gSTUFF_CHEEKS_Description 
-    [] = _("Consumes the user's\nBerry, then sharply\nraises Defense.");
+const u8 gSTUFF_CHEEKS_Description[] = _("Consumes the user's\nBerry, then sharply\nraises Defense.");
 
-const u8 gNO_RETREAT_Description 
-    [] = _("Raises all of\nthe user's stats\nbut prevents escape.");
+const u8 gNO_RETREAT_Description[] = _("Raises all of\nthe user's stats\nbut prevents escape.");
 
-const u8 gTAR_SHOT_Description 
-    [] = _("Lowers the foe's\nSpeed and makes it\nweak to Fire.");
+const u8 gTAR_SHOT_Description[] = _("Lowers the foe's\nSpeed and makes it\nweak to Fire.");
 
-const u8 gMAGIC_POWDER_Description 
-    [] = _("Magic powder\nchanges the target\ninto a Psychic-type.");
+const u8 gMAGIC_POWDER_Description[] = _("Magic powder\nchanges the target\ninto a Psychic-type.");
 
-const u8 gDRAGON_DARTS_Description 
-    [] = _("The user attacks\ntwice.\nTwo targets are\nhit once each.");
+const u8 gDRAGON_DARTS_Description[] = _("The user attacks\ntwice.\nTwo targets are\nhit once each.");
 
-const u8 gTEATIME_Description 
-    [] = _("All Pokémon have\nteatime and eat\ntheir Berries.");
+const u8 gTEATIME_Description[] = _("All Pokémon have\nteatime and eat\ntheir Berries.");
 
-const u8 gOCTOLOCK_Description 
-    [] = _("Traps the foe in\na tight hold.\nTheir Defense Stats\nfall each turn.");
+const u8 gOCTOLOCK_Description[] = _("Traps the foe in\na tight hold.\nTheir Defense Stats\nfall each turn.");
 
-const u8 gBOLT_BEAK_Description 
-    [] = _("Deals 2x damage\nif the user moves\nbefore the target.");
+const u8 gBOLT_BEAK_Description[] = _("Deals 2x damage\nif the user moves\nbefore the target.");
 
-const u8 gFISHIOUS_REND_Description 
-    [] = _("Deals 2x damage\nif the user moves\nbefore the target.");
+const u8 gFISHIOUS_REND_Description[] = _("Deals 2x damage\nif the user moves\nbefore the target.");
 
-const u8 gCOURT_CHANGE_Description 
-    [] = _("The user swaps\neffects on either\nside of the field.");
+const u8 gCOURT_CHANGE_Description[] = _("The user swaps\neffects on either\nside of the field.");
 
-const u8 gCLANGOROUS_SOUL_Description 
-    [] = _("The user uses some\nof its HP to\nraise all its stats.");
+const u8 gCLANGOROUS_SOUL_Description[] = _("The user uses some\nof its HP to\nraise all its stats.");
 
-const u8 gBODY_PRESS_Description 
-    [] = _("Does more damage\nthe higher\nthe user's Defense.");
+const u8 gBODY_PRESS_Description[] = _("Does more damage\nthe higher\nthe user's Defense.");
 
-const u8 gDECORATE_Description 
-    [] = _("The user sharply\nraises the target's\nAttack and Sp.Atk");
+const u8 gDECORATE_Description[] = _("The user sharply\nraises the target's\nAttack and Sp.Atk");
 
-const u8 gDRUM_BEATING_Description 
-    [] = _("Plays a drum\nto attack the foe.\nThen foe's Speed\nis lowered.");
+const u8 gDRUM_BEATING_Description[] = _("Plays a drum\nto attack the foe.\nThen foe's Speed\nis lowered.");
 
         //fill end with new effect
-const u8 gSNAP_TRAP_Description 
-    [] = _("Snares the target\nin a snap trap\nfor 4 turns.\nTrap persists even\nif user switches out");
+const u8 gSNAP_TRAP_Description[] = _("Snares the target\nin a snap trap\nfor 4 turns.\nTrap persists even\nif user switches out");
 
-const u8 gPYRO_BALL_Description 
-    [] = _("Launches a fiery\nball at the target.\nIt may cause a burn.");
+const u8 gPYRO_BALL_Description[] = _("Launches a fiery\nball at the target.\nIt may cause a burn.");
 
-const u8 gBEHEMOTH_BLADE_Description 
-    [] = _("The user becomes a\ngigantic sword and\ncuts the target.\nBoosts power against\nvery heavy foes.");
+const u8 gBEHEMOTH_BLADE_Description[] = _("The user becomes a\ngigantic sword and\ncuts the target.\nBoosts power against\nvery heavy foes.");
 
-const u8 gBEHEMOTH_BASH_Description 
-    [] = _("The user becomes a\ngigantic shield and\nslams into the foe.\nBoosts power against\nvery heavy foes.");
+const u8 gBEHEMOTH_BASH_Description[] = _("The user becomes a\ngigantic shield and\nslams into the foe.\nBoosts power against\nvery heavy foes.");
 
-const u8 gAURA_WHEEL_Description 
-    [] = _("Attacks then raises\nSpeed with energy\nstored beforehand.\nThis move's type\nchanges depending on\nthe user's form.");
+const u8 gAURA_WHEEL_Description[] = _("Attacks then raises\nSpeed with energy\nstored beforehand.\nThis move's type\nchanges depending on\nthe user's form.");
 
-const u8 gBREAKING_SWIPE_Description 
-    [] = _("Swings its tail\nto attack all foes.\nLowers the attack\nof those hit.");
+const u8 gBREAKING_SWIPE_Description[] = _("Swings its tail\nto attack all foes.\nLowers the attack\nof those hit.");
 
-const u8 gBRANCH_POKE_Description 
-    [] = _("The user pokes\nthe target with\na pointed branch.");
+const u8 gBRANCH_POKE_Description[] = _("The user pokes\nthe target with\na pointed branch.");
 
-const u8 gOVERDRIVE_Description 
-    [] = _("The user twangs\nits guitar, causing\nstrong vibrations.\nIt may confuse\nthe foe.");
+const u8 gOVERDRIVE_Description[] = _("The user twangs\nits guitar, causing\nstrong vibrations.\nIt may confuse\nthe foe.");
 
-const u8 gAPPLE_ACID_Description 
-    [] = _("Attacks with tart\napple acid\nLowers Sp. Def.");
+const u8 gAPPLE_ACID_Description[] = _("Attacks with tart\napple acid\nLowers Sp. Def.");
 
 const u8 gGRAV_APPLE_Description
-    [] = _("Drops an apple\nfrom above.\nLowers Defense.");
+[] = _("Drops an apple\nfrom above.\nLowers Defense.");
 
-const u8 gSPIRIT_BREAK_Description 
-    [] = _("An Attack with\nspirit-breaking\nforce.\nLowers Sp. Atk.");
+const u8 gSPIRIT_BREAK_Description[] = _("An Attack with\nspirit-breaking\nforce.\nLowers Sp. Atk.");
 
-const u8 gSTRANGE_STEAM_Description 
-    [] = _("Emits a strange\nsteam that may\nconfuse the foe.");
+const u8 gSTRANGE_STEAM_Description[] = _("Emits a strange\nsteam that may\nconfuse the foe.");
 
-const u8 gLIFE_DEW_Description 
-    [] = _("Scatters water to\nrestore the HP of\nitself and allies.");
+const u8 gLIFE_DEW_Description[] = _("Scatters water to\nrestore the HP of\nitself and allies.");
 
-const u8 gOBSTRUCT_Description 
-    [] = _("Protects itself,\nharshly lowers\nenemy Def on contact");
+const u8 gOBSTRUCT_Description[] = _("Protects itself,\nharshly lowers\nenemy Def on contact");
 
         //grim snarl surrender
-const u8 gFALSE_SURRENDER_Description 
-    [] = _("Bows to stab the foe\nwith hair.\nIt never misses.");
+const u8 gFALSE_SURRENDER_Description[] = _("Bows to stab the foe\nwith hair.\nIt never misses.");
 
-const u8 gMETEOR_ASSAULT_Description 
-    [] = _("The user attacks\nwildly with its\nthick leek. The user\ncan't move\non the next turn.");
+const u8 gMETEOR_ASSAULT_Description[] = _("The user attacks\nwildly with its\nthick leek. The user\ncan't move\non the next turn.");
 
-const u8 gETERNABEAM_Description 
-    [] = _("Eternatus' strongest\nmove.\nThe user rests\nthe following turn.");
+const u8 gETERNABEAM_Description[] = _("Eternatus' strongest\nmove.\nThe user rests\nthe following turn.");
 
-const u8 gSTEEL_BEAM_Description 
-    [] = _("Fires a beam\nof steel from\nits body.\nThe user takes half\nHP as recoil,\neven if it misses.");
+const u8 gSTEEL_BEAM_Description[] = _("Fires a beam\nof steel from\nits body.\nThe user takes half\nHP as recoil,\neven if it misses.");
 
-const u8 gEXPANDING_FORCE_Description 
-    [] = _("Power and target\nrange goes up\non Psychic Terrain.");
+const u8 gEXPANDING_FORCE_Description[] = _("Power and target\nrange goes up\non Psychic Terrain.");
 
-const u8 gSTEEL_ROLLER_Description 
-    [] = _("Destroys terrain.\nFails if no\nterrain is set.");
+const u8 gSTEEL_ROLLER_Description[] = _("Destroys terrain.\nFails if no\nterrain is set.");
 
-const u8 gSCALE_SHOT_Description 
-    [] = _("Shoots scales 2 to 5\ntimes.\nUps Speed,\nlowers defense.");
+const u8 gSCALE_SHOT_Description[] = _("Shoots scales 2 to 5\ntimes.\nUps Speed,\nlowers defense.");
 
-const u8 gMETEOR_BEAM_Description 
-    [] = _("A 2-turn move\nthat raises Sp. Atk.\nbefore attacking.");
+const u8 gMETEOR_BEAM_Description[] = _("A 2-turn move\nthat raises Sp. Atk.\nbefore attacking.");
 
-const u8 gSHELL_SIDE_ARM_Description 
-    [] = _("Uses higher of\nphysical and\nspecial damage\nMay poison.");
+const u8 gSHELL_SIDE_ARM_Description[] = _("Uses higher of\nphysical and\nspecial damage\nMay poison.");
 
-const u8 gMISTY_EXPLOSION_Description 
-    [] = _("The user explodes\ndamaging everything\nand then fainting.\nPowers up\non Misty Terrain.");
+const u8 gMISTY_EXPLOSION_Description[] = _("The user explodes\ndamaging everything\nand then fainting.\nPowers up\non Misty Terrain.");
 
-const u8 gGRASSY_GLIDE_Description 
-    [] = _("Hits the foe while\ngliding along the\nground.\nGoes first\non Grassy Terrain.");
+const u8 gGRASSY_GLIDE_Description[] = _("Hits the foe while\ngliding along the\nground.\nGoes first\non Grassy Terrain.");
 
-const u8 gRISING_VOLTAGE_Description 
-    [] = _("This move's power\ndoubles when on\nElectric Terrain.");
+const u8 gRISING_VOLTAGE_Description[] = _("This move's power\ndoubles when on\nElectric Terrain.");
 
-const u8 gTERRAIN_PULSE_Description 
-    [] = _("The moves Type\nand power changes\nbased on the terrain");
+const u8 gTERRAIN_PULSE_Description[] = _("The moves Type\nand power changes\nbased on the terrain");
 
-const u8 gSKITTER_SMACK_Description 
-    [] = _("User skitters behind\nthe foe to attack.\nLowers foe's Sp. Atk\nAlso strikes first.");
+const u8 gSKITTER_SMACK_Description[] = _("User skitters behind\nthe foe to attack.\nLowers foe's Sp. Atk\nAlso strikes first.");
 
-const u8 gBURNING_JEALOUSY_Description 
-    [] = _("Foes that have\nstats raised during\nthe turn get burned.");
+const u8 gBURNING_JEALOUSY_Description[] = _("Foes that have\nstats raised during\nthe turn get burned.");
 
-const u8 gLASH_OUT_Description 
-    [] = _("If stats lowered\nduring turn,\npower is doubled.");
+const u8 gLASH_OUT_Description[] = _("If stats lowered\nduring turn,\npower is doubled.");
 
-const u8 gPOLTERGEIST_Description 
-    [] = _("Control foe's item\nto attack.\nIt fails if the\nfoe has no item.");
+const u8 gPOLTERGEIST_Description[] = _("Control foe's item\nto attack.\nIt fails if the\nfoe has no item.");
 
-const u8 gCORROSIVE_GAS_Description 
-    [] = _("Highly acidic gas\nmelts items held by\nsurrounding Pokémon.");
+const u8 gCORROSIVE_GAS_Description[] = _("Highly acidic gas\nmelts items held by\nsurrounding Pokémon.");
 
-const u8 gCOACHING_Description 
-    [] = _("Properly coaches\nallies to up their\nAttack and Defense.");
+const u8 gCOACHING_Description[] = _("Properly coaches\nallies to up their\nAttack and Defense.");
 
-const u8 gFLIP_TURN_Description 
-    [] = _("Attacks then rushes\nback to switch\nwith a Pokémon\nin the party.");
+const u8 gFLIP_TURN_Description[] = _("Attacks then rushes\nback to switch\nwith a Pokémon\nin the party.");
 
-const u8 gTRIPLE_AXEL_Description 
-    [] = _("A 3-kick attack\nthat gets more\npowerful each hit.");
+const u8 gTRIPLE_AXEL_Description[] = _("A 3-kick attack\nthat gets more\npowerful each hit.");
 
-const u8 gDUAL_WINGBEAT_Description 
-    [] = _("Slams the target\nwith wings and\nhits twice in a row.");
+const u8 gDUAL_WINGBEAT_Description[] = _("Slams the target\nwith wings and\nhits twice in a row.");
 
-const u8 gSCORCHING_SANDS_Description 
-    [] = _("Sears the foe\nwith scorching sand.\nMay leave a burn.");
+const u8 gSCORCHING_SANDS_Description[] = _("Sears the foe\nwith scorching sand.\nMay leave a burn.");
 
-const u8 gJUNGLE_HEALING_Description 
-    [] = _("Heals HP and status\nof itself and\nallies in battle.");
+const u8 gJUNGLE_HEALING_Description[] = _("Heals HP and status\nof itself and\nallies in battle.");
 
-const u8 gWICKED_BLOW_Description 
-    [] = _("The Final technique\nof the Dark style.\nIgnores a small\nportion of defense.");
+const u8 gWICKED_BLOW_Description[] = _("The Final technique\nof the Dark style.\nIgnores a small\nportion of defense.");
 
-const u8 gSURGING_STRIKES_Description 
-    [] = _("The Final technique\nof the Water style.\nFluidly strikes\nthree times.\nIgnores a small\nportion of defense.");
+const u8 gSURGING_STRIKES_Description[] = _("The Final technique\nof the Water style.\nFluidly strikes\nthree times.\nIgnores a small\nportion of defense.");
 
-const u8 gTHUNDER_CAGE_Description 
-    [] = _("Traps the foe in a\ncage of electricity.\nFor 2 to 4 turns.\nTrap damage may\nparalyze the foe."); //buff apparently never used, think give chance to paralyze each end turn, low odds maybe 10%
+const u8 gTHUNDER_CAGE_Description[] = _("Traps the foe in a\ncage of electricity.\nFor 2 to 4 turns.\nTrap damage may\nparalyze the foe."); //buff apparently never used, think give chance to paralyze each end turn, low odds maybe 10%
 
-const u8 gDRAGON_ENERGY_Description 
-    [] = _("The higher the\nuser's HP the more\ndamage caused.");
+const u8 gDRAGON_ENERGY_Description[] = _("The higher the\nuser's HP the more\ndamage caused.");
 
-const u8 gFREEZING_GLARE_Description 
-    [] = _("Shoots psychic power\nfrom the eyes.\nMay freeze the foe.");
+const u8 gFREEZING_GLARE_Description[] = _("Shoots psychic power\nfrom the eyes.\nMay freeze the foe.");
 
-const u8 gFIERY_WRATH_Description 
-    [] = _("An attack fueled\nby great wrath.\nMay cause flinching.");
+const u8 gFIERY_WRATH_Description[] = _("An attack fueled\nby great wrath.\nMay cause flinching.");
 
-const u8 gTHUNDEROUS_KICK_Description 
-    [] = _("A lightning-like hit\nstrikes with force.\nLowers foe's Defense"); //"with a force like rolling thunder",  (this can keep name)
+const u8 gTHUNDEROUS_KICK_Description[] = _("A lightning-like hit\nstrikes with force.\nLowers foe's Defense"); //"with a force like rolling thunder",  (this can keep name)
 
-const u8 gGLACIAL_LANCE_Description 
-    [] = _("Strikes by hurling\na blizzard-cloaked\nicicle lance\nat a foe.\nThis also lowers\nthe user's Atk.");
+const u8 gGLACIAL_LANCE_Description[] = _("Strikes by hurling\na blizzard-cloaked\nicicle lance\nat a foe.\nThis also lowers\nthe user's Atk.");
 
-const u8 gASTRAL_BARRAGE_Description 
-    [] = _("Strikes by sending\na frightful amount\nof ghosts at a foe.\nThis also lowers\nthe user's Sp. Atk.");
+const u8 gASTRAL_BARRAGE_Description[] = _("Strikes by sending\na frightful amount\nof ghosts at a foe.\nThis also lowers\nthe user's Sp. Atk.");
 
-const u8 gEERIE_SPELL_Description 
-    [] = _("Attacks with psychic\npower.\nFoe's last move has\na varying amount\nof PP cut.");
+const u8 gEERIE_SPELL_Description[] = _("Attacks with psychic\npower.\nFoe's last move has\na varying amount\nof PP cut.");
 
-const u8 gMoveDescription_Cocoon 
-    [] = _("The PKMN wraps\nitself in silk etc.\nRaising its Defense\nand Sp Defense.\nBut harshly lowers\nspeed.");
+const u8 gMoveDescription_Cocoon[] = _("The PKMN wraps\nitself in silk etc.\nRaising its Defense\nand Sp Defense.\nBut harshly lowers\nspeed.");
 
-const u8 gMoveDescription_Monotype 
-    [] = _("This move copies\nthe move last used\nby the foe, then\ndisappears.");
+const u8 gMoveDescription_Monotype[] = _("This move copies\nthe move last used\nby the foe, then\ndisappears.");
 
-const u8 gMoveDescription_FlashFreeze 
-    [] = _("Instantly freezes\nthe foe with a gust\nof sub-zero wind.");
+const u8 gMoveDescription_FlashFreeze[] = _("Instantly freezes\nthe foe with a gust\nof sub-zero wind.");
 
-const u8 gMoveDescription_DryadsCurse 
-    [] = _("Sacrifices stats\nto curse the last\nfoe who attacked\nthe user.");
+const u8 gMoveDescription_DryadsCurse[] = _("Sacrifices stats\nto curse the last\nfoe who attacked\nthe user.");
 
-const u8 gMoveDescription_ShieldBash 
-    [] = _("The user blocks\nwith a shield, and\ncounters if hit with\na physical move.\nDamage is based\non DEFENSE.");
+const u8 gMoveDescription_ShieldBash[] = _("The user blocks\nwith a shield, and\ncounters if hit with\na physical move.\nDamage is based\non DEFENSE.");
 
 
 const u8 gMoveDescription_UpRoot[] = _("Pulls up ingrained\nroots to attack\nthen switches\nout the user.");
