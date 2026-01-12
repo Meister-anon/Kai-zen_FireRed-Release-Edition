@@ -3,6 +3,7 @@
 
 #include "main.h"
 
+extern const u8 * const gMoveDescriptionPointers[];
 extern const u8 * const gNatureNamePointers[];
 extern u8 gLastViewedMonIndex; //made global for use with move info callback, should be fine
 

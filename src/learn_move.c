@@ -860,7 +860,7 @@ static void PrintMoveInfo(u16 move)
     }
     ConvertIntToDecimalStringN(buffer, gBattleMoves[move].pp, STR_CONV_MODE_LEFT_ALIGN, 2);
     PrintTextOnWindow(4, buffer, 2, 2, 0, 0);
-    PrintTextOnWindow(5, GetMoveDescription(move), 1, 0, 0, 0);
+    PrintTextOnWindow(5, gMoveDescriptionPointers[move - 1], 1, 0, 0, 0);
 }
 
 static void LoadMoveInfoUI(void)
