@@ -175,7 +175,7 @@
 #define HOLD_EFFECT_ICE_BOX      186   
 #define HOLD_EFFECT_HONEY    187
 #define HOLD_EFFECT_LEG_WEIGHTS 188  //leg equialent of punching gloves
-
+#define HOLD_EFFECT_WIND_POWER 189
 
 // Terrain seed params
 #define HOLD_EFFECT_PARAM_ELECTRIC_TERRAIN  0
