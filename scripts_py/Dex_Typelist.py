@@ -90,7 +90,8 @@ then just replace the list afterwards.
 	.set TYPE_ICE,      0x0f
 	.set TYPE_DRAGON,   0x10
 	.set TYPE_DARK,     0x11
-	.set TYPE_FAIRY,	0x12*/
+	.set TYPE_FAIRY,	0x12
+    .set TYPE_WIND,	    0x13*/
 '''
 
 
@@ -104,7 +105,7 @@ new_lines = []
 TypeList = ["TYPE_NORMAL", "TYPE_FIGHTING", "TYPE_FLYING", "TYPE_POISON", "TYPE_GROUND", 
 "TYPE_ROCK", "TYPE_BUG", "TYPE_GHOST", "TYPE_STEEL", "TYPE_MYSTERY", "TYPE_FIRE",
 "TYPE_WATER", "TYPE_GRASS", "TYPE_ELECTRIC", "TYPE_PSYCHIC", "TYPE_ICE", "TYPE_DRAGON",
-"TYPE_DARK", "TYPE_FAIRY"]
+"TYPE_DARK", "TYPE_FAIRY", "TYPE_WIND"]
 #ok now that I have everything, could potentially use two varialbes and just loop typelist?
 #i.e type1 = TypeList[a]   and a can be 0, and I just increment the value each time
 #long as it doesn't equal fairy?

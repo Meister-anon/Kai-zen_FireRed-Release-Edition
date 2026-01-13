@@ -5170,7 +5170,8 @@ bool8 IsBattlerGrounded(u8 battlerId)
     if (IsFloatingSpecies(species))//used if as breakline, as else if only reads if everything above it is false
         grounded = FALSE; //nice new version of floating setup greatly cleanns up this function
 
-    else if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerId, TYPE_FLYING, FALSE)
+    else if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerId, TYPE_FLYING, FALSE)
+    || DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerId, TYPE_WIND, FALSE))
      && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_FLOAT_STONE)
         grounded = FALSE;
     //for setting the sript to play think can do it in atk49 moveend
@@ -12001,7 +12002,9 @@ u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic i
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_MAGNET_PULL)) && DoesBattlerGetTypeBasedAffinity(battlerId, battlerId, TYPE_STEEL, FALSE))
         return id;
 
-    else if (DoesBattlerGetTypeBasedAffinity(battlerId, battlerId, TYPE_FLYING, FALSE) && !IsFlyingTypeBattlerUnableToFly(battlerId))
+    else if ((DoesBattlerGetTypeBasedAffinity(battlerId, battlerId, TYPE_FLYING, FALSE) 
+    || DoesBattlerGetTypeBasedAffinity(battlerId, battlerId, TYPE_WIND, FALSE))
+    && !IsFlyingTypeBattlerUnableToFly(battlerId))
         return FALSE; //flying away would work for all but magnet pull,
 
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_SHADOW_TAG)) && GetBattlerAbility(battlerId) != ABILITY_HANDS_OF_FATE)
@@ -12037,7 +12040,8 @@ bool32 CanBattlerEscape(u32 battler) // no oppoising side ability check
     else if (gDisableStructs[battler].trappedinStickyweb)
         return FALSE;
 
-    else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_FLYING, FALSE) 
+    else if ((DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_FLYING, FALSE) 
+    || DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_WIND, FALSE))
     && !IsFlyingTypeBattlerUnableToFly(battler))
         return TRUE; //flying away would work for all but sticky web,
 
@@ -12681,8 +12685,9 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
             RecordAbilityBattle(battlerAtk, ABILITY_SCRAPPY);*/ //may use but for now just not displaying message, for surprise
     }
     //grounded mon logic
-    else if ((moveType == TYPE_FIGHTING) && defType == TYPE_FLYING && IsBattlerGrounded(battlerDef) && mod == UQ_4_12(0.5))
+    else if ((moveType == TYPE_FIGHTING) && IsAirborneType(defType) && IsBattlerGrounded(battlerDef) && mod == UQ_4_12(0.5))
         mod = UQ_4_12(1.0);
+    //Unsure about doing this as would remove all weakness for wind type
     else if ((moveType == TYPE_ELECTRIC) && defType == TYPE_FLYING && IsBattlerGrounded(battlerDef) && mod == UQ_4_12(1.55))
         mod = UQ_4_12(1.0);
     /*else if ((moveType == TYPE_ICE) && defType == TYPE_FLYING && IsBattlerGrounded(battlerDef) && mod == UQ_4_12(1.55))
@@ -12692,7 +12697,7 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     // B_WEATHER_STRONG_WINDS weakens Super Effective moves against Flying-type Pok�mon
     else if (gBattleWeather & WEATHER_STRONG_WINDS && WeatherHasEffect())
     {
-        if (defType == TYPE_FLYING && mod == UQ_4_12(1.55))
+        if (IsAirborneType(defType) && mod == UQ_4_12(1.55))
             mod = UQ_4_12(1.0);//moved here to avoid collision w other modifier effects, think should work
     }
     //ability logic
@@ -12793,7 +12798,8 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     //do I need extra logic to say hey if reading flying type now
     //only execute otherwise skip?
     //yup I should have been reading def type not batler type
-    if (moveType == TYPE_GROUND
+    //hmm actually think this is bad for balance
+    /*if (moveType == TYPE_GROUND
     && defType == TYPE_FLYING
     && (gStatuses3[battlerDef] & STATUS3_SMACKED_DOWN
     || (gFieldStatuses & STATUS_FIELD_GRAVITY))
@@ -12801,7 +12807,7 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     {
         if (IsFloatingSpecies(gBattleMons[battlerDef].species))
             mod = UQ_4_12(1.55);
-    }
+    }*/
     //vsonic important make sure this is evaluated by ai
 
     //move specific effects

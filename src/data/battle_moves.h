@@ -351,7 +351,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .slicingMove = TRUE,
         .enhancedCritrate = TRUE,
         .damagesAirborneDoubleDamage = TRUE,
-        .argument = TYPE_FLYING,
+        .argument = TYPE_WIND,
         //.argument = { .storedValue = TYPE_FLYING },
        //.argument.twoTurnAttack = { .stringId =  STRINGID_PKMNWHIPPEDWHIRLWIND },
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
@@ -415,7 +415,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .effect = EFFECT_HIT,  //does nothing just goes to hit, can change to hit
         .power = 40,
-        .type = TYPE_FLYING,
+        .type = TYPE_WIND,
         .accuracy = 100,
         .pp = 35,
         .secondaryEffectChance = 0,
@@ -4360,7 +4360,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 {
     .effect = EFFECT_SPECIAL_DEFENSE_DOWN_HIT,
     .power = 100,
-    .type = TYPE_FLYING,
+    .type = TYPE_WIND,
     .accuracy = 95,
     .pp = 5,
     .secondaryEffectChance = 50,
@@ -7627,7 +7627,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .power = 55,
         #endif
         .effect = EFFECT_HIT, //think drop back to 55
-        .type = TYPE_FLYING,
+        .type = TYPE_WIND,
         .accuracy = 100,
         .pp = 25,
         .secondaryEffectChance = 0,
@@ -8887,7 +8887,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #endif
         .effect = EFFECT_TAILWIND,
         .power = 0,
-        .type = TYPE_FLYING,
+        .type = TYPE_WIND,
         .accuracy = 0,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
@@ -9744,7 +9744,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             #endif
         .effect = EFFECT_FLINCH_HIT,
         .power = 65,
-        .type = TYPE_FLYING,
+        .type = TYPE_WIND,
         .accuracy = 95,
         .secondaryEffectChance = 25,
         .target = MOVE_TARGET_SELECTED,
@@ -12967,7 +12967,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
         .power = 120,
         .effect = EFFECT_HURRICANE, //does confusion
-        .type = TYPE_FLYING,
+        .type = TYPE_WIND,
         .accuracy = 80,
         .pp = 10,
         .secondaryEffectChance = 30,
@@ -18321,7 +18321,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .pp = 5,
         #endif
         .effect = EFFECT_FREEZE_HIT,//EFFECT_SPEED_DOWN_HIT, //put freeze back on this
-        .type = TYPE_FLYING, //is balanced w my freeze changes
+        .type = TYPE_WIND, //is balanced w my freeze changes
         .accuracy = 85,
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_BOTH,

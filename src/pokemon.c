@@ -2540,6 +2540,13 @@ const u8 gStatStageRatios[][2] =
 
 static const u8 sFiller = _("");
 
+//make flying power work for wind power too
+//can I do mix bit type and it'll work?
+//nah its for boosting a move type
+//it already gets stab on either move
+//so just have a separate item for this
+//think will use the wind orb thing from
+//mage of aerovous thing
 static const u8 sHoldEffectToType[][2] = 
 {
     {HOLD_EFFECT_BUG_POWER, TYPE_BUG},
@@ -2560,6 +2567,7 @@ static const u8 sHoldEffectToType[][2] =
     {HOLD_EFFECT_DRAGON_POWER, TYPE_DRAGON},
     {HOLD_EFFECT_NORMAL_POWER, TYPE_NORMAL},
     {HOLD_EFFECT_FAIRY_POWER, TYPE_FAIRY}, //fairy addition item added in gen 9, Fairy_Feather
+    {HOLD_EFFECT_WIND_POWER, TYPE_WIND},
     {HOLD_EFFECT_SOUND_POWER, TYPE_SOUND},
 };//apparently these aren't for gems? but for stat boost items i.e rock power twisted spoon, nevermelt ice etc.
 
@@ -5006,6 +5014,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     if (defenderHoldEffect == HOLD_EFFECT_RESIST_BERRY)
     {
+        //need to setup resist berry for wind
         if (moveType == GetBattlerHoldEffectParam(battlerIdDef, itemDef)
             && (moveType == TYPE_NORMAL || moveType == TYPE_SOUND
             || (typeEffectiveness >= UQ_4_12(1.55)))) //excluding type myystery
@@ -7047,7 +7056,7 @@ u8 GetWeatherBallType(u16 move)
         else if (gBattleWeather & WEATHER_ACID_RAIN_ANY)
             return TYPE_POISON;
         else if (gBattleWeather & WEATHER_STRONG_WINDS)
-            return TYPE_FLYING;
+            return TYPE_WIND;
         else
             return gBattleMoves[move].type;
     }

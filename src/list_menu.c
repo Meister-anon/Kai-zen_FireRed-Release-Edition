@@ -93,13 +93,14 @@ static const struct MoveMenuInfoIcon sMoveMenuInfoIcons[] =
     [TYPE_DRAGON + 1] = { 32, 12, 0xA0 },
     [TYPE_DARK + 1] = { 32, 12, 0x8C },
     [TYPE_FAIRY + 1] = { 40, 12, 0x08 },       // Fairy Icon   -12    //fixed was 17 realized I could put here.
+    [TYPE_WIND + 1] = { 32, 12, 0x04 }, //still to do think use blue green 
     [TYPE_SOUND + 1] = { 32, 12, 0x104 },      // Sound Icon   -13
     [MENU_INFO_ICON_TYPE] = { 40, 12, 0xA8 },
     [MENU_INFO_ICON_POWER] = { 40, 12, 0xC0 },
     [MENU_INFO_ICON_ACCURACY] = { 40, 12, 0xC8 },
     [MENU_INFO_ICON_PP] = { 40, 12, 0xE0 },
     [MENU_INFO_ICON_EFFECT] = { 40, 12, 0xE8 },
-}; // use this comment order for any additional types
+}; // use this comment order for any additional types TYPE_WIND
 //important  fairy addition ok so found out putting fairy at end as 0x17 messes up gTypeNames
 //which I need to make my dynamic starter text work, so I'll try rearranging the order of the icons
 //in the list,  note put any future type icons after type dark, that way the game will read it as next. -nvm understood that wrong

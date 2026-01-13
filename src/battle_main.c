@@ -365,52 +365,59 @@ static const s8 sPlayerThrowXTranslation[] = { -32, -16, -16, -32, -32, 0, 0, 0 
 //since plan is they are weakened/stunned by crashing down to the ground
 const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 {//                           Defender -->
-//                      None      normal    fight     flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water      grass    electric   psychic   ice      dragon     dark     fairy      sound
+//                      None      normal    fight     flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water      grass    electric   psychic   ice      dragon     dark     fairy         wind        sound
     //Attack Type
-    [TYPE_NONE] =      {______,   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,    ______,   ______,}, // None
+    [TYPE_NONE] =      {______,   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,    ______,      ______,   ______,}, // None
     
-    [TYPE_NORMAL] =    {______,    ______,    ______,   ______,   ______,   ______,   X(0.5),   ______,   X(0.0),   X(0.5),   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______}, // normal
+    [TYPE_NORMAL] =    {______,    ______,    ______,   ______,   ______,   ______,   X(0.5),   ______,   X(0.0),   X(0.5),   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,     ______,   ______}, // normal
 
-    [TYPE_FIGHTING] =   {______,    X(1.55),  ______,   X(0.5),   X(0.5),   X(0.5),   X(1.55),   X(0.5),   X(0.0),   X(1.55),  ______,    ______,   ______,   ______,   ______,   X(0.5),   X(1.55),   ______,  X(1.55),   X(0.5),   ______}, // fight
+    [TYPE_FIGHTING] =   {______,    X(1.55),  ______,   X(0.5),   X(0.5),   X(0.5),   X(1.55),   X(0.5),   X(0.0),   X(1.55),  ______,    ______,   ______,   ______,   ______,   X(0.5),   X(1.55),   ______,  X(1.55),   X(0.5),   X(0.5),   ______}, // fight
 
-    [TYPE_FLYING] =     {______,    ______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  ______,   ______,   X(1.55),   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,   ______}, // flying
+    [TYPE_FLYING] =     {______,    ______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  ______,   ______,   X(1.55),   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,    ______,   ______}, // flying
 
-    [TYPE_POISON] =     {______,    ______,   X(1.55),   ______,   X(0.0),   X(0.5),   X(0.0),   ______,   X(0.5),   X(0.0),   ______,    ______,   ______,   X(1.55),   ______,  ______,    X(0.5),   ______,  X(0.5),   X(1.55),   ______}, // poison
+    [TYPE_POISON] =     {______,    ______,   X(1.55),   ______,   X(0.0),   X(0.5),   X(0.0),   ______,   X(0.5),   X(0.0),   ______,    ______,   ______,   X(1.55),   ______,  ______,    X(0.5),   ______,  X(0.5),   X(1.55),   ______,   ______}, // poison
 
-    [TYPE_GROUND] =     {______,    ______,   ______,   ______,   X(1.55),   ______,   X(1.55),  X(0.5),   ______,   ______,   ______,   X(1.55),   ______,   X(0.5),   X(1.55),   ______,   ______,   ______,   ______,   ______,   ______}, // ground
+    [TYPE_GROUND] =     {______,    ______,   ______,   ______,   X(1.55),   ______,   X(1.55),  X(0.5),   ______,   ______,   ______,   X(1.55),   ______,   X(0.5),   X(1.55),   ______,   ______,   ______,   ______,   ______,   ______,   ______}, // ground
 
-    [TYPE_ROCK] =       {______,    ______,   X(0.5),   X(1.55),   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  X(1.55),   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   ______}, // rock
+    [TYPE_ROCK] =       {______,    ______,   X(0.5),   X(1.55),   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  X(1.55),   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   ______,   ______}, // rock
 
-    [TYPE_BUG] =        {______,    ______,   X(0.5),   X(0.5),   X(0.5),   ______,   ______,    ______,   ______,   X(0.5),   ______,   X(0.5),    ______,   X(1.55),   ______,  X(1.55),   ______,  ______,   X(1.55),  ______,  ______}, // bug
+    [TYPE_BUG] =        {______,    ______,   X(0.5),   X(0.5),   X(0.5),   ______,   ______,    ______,   ______,   X(0.5),   ______,   X(0.5),    ______,   X(1.55),   ______,  X(1.55),   ______,  ______,   X(1.55),  ______,    X(0.5),   ______}, // bug
 
-    [TYPE_GHOST] =      {______,    X(0.0),   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,   ______,  ______,    ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),    ______}, // ghost
+    [TYPE_GHOST] =      {______,    X(0.0),   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,   ______,  ______,    ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),   ______,   ______}, // ghost
 
-    [TYPE_STEEL] =      {______,    ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   ______,   X(0.5),    X(0.5),   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   ______,   X(1.55),   ______}, // steel
+    [TYPE_STEEL] =      {______,    ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   ______,   X(0.5),    X(0.5),   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   ______,   X(1.55),  ______,   ______}, // steel
 
-    [TYPE_MYSTERY] =    {______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,     ______,  ______,   ______,   ______,   ______,   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______}, // mystery
+    [TYPE_MYSTERY] =    {______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,     ______,  ______,   ______,   ______,   ______,   ______,    ______,   ______,   ______,   ______,   ______,   ______,    ______,   ______}, // mystery
 
-    [TYPE_FIRE] =       {______,    ______,   ______,   ______,   ______,   X(0.5),   X(0.5),   ______,    X(0.5),  X(1.55),   ______,  X(0.5),   X(0.5),   X(1.55),   ______,   X(1.55),    X(1.55),  X(0.5),   ______,   ______,   ______}, // fire
+    [TYPE_FIRE] =       {______,    ______,   ______,   ______,   ______,   X(0.5),   X(0.5),   ______,    X(0.5),  X(1.55),   ______,  X(0.5),   X(0.5),   X(1.55),   ______,   X(1.55),    X(1.55),  X(0.5),   ______,   ______,   ______,   ______}, // fire
 
-    [TYPE_WATER] =      {______,    ______,   ______,   ______,   ______,   X(1.55),   X(1.55),   ______,   ______,   ______,   ______,  X(1.55),   X(0.5),   X(0.5),   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______}, // water
+    [TYPE_WATER] =      {______,    ______,   ______,   ______,   ______,   X(1.55),   X(1.55),   ______,   ______,   ______,   ______,  X(1.55),   X(0.5),   X(0.5),   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,    ______,   ______}, // water
 
-    [TYPE_GRASS] =      {______,    ______,   ______,   X(0.5),   X(0.5),   X(1.55),   X(1.55),   X(0.5),   ______,   X(0.5),   ______,  X(0.5),   X(1.55),   X(0.5),   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______}, // grass
+    [TYPE_GRASS] =      {______,    ______,   ______,   X(0.5),   X(0.5),   X(1.55),   X(1.55),   X(0.5),   ______,   X(0.5),   ______,  X(0.5),   X(1.55),   X(0.5),   ______,   ______,   ______,   X(0.5),   ______,   ______,    X(0.5),   ______}, // grass
 
-    [TYPE_ELECTRIC] =   {______,    ______,   ______,   X(1.55),  ______,    X(0.0),   X(0.5),   X(0.5),   ______,   X(1.55),   ______,  ______,   X(1.55),   ______,   X(0.5),   ______,   X(0.5),   X(0.5),   ______,   ______,   ______}, // electric
+    [TYPE_ELECTRIC] =   {______,    ______,   ______,   X(1.55),  ______,    X(0.0),   X(0.5),   X(0.5),   ______,   X(1.55),   ______,  ______,   X(1.55),   ______,   X(0.5),   ______,   X(0.5),   X(0.5),   ______,   ______,    X(1.55),   ______}, // electric
 
-    [TYPE_PSYCHIC] =    {______,    ______,   X(1.55),   ______,   X(1.55),  ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   X(0.0),   ______,   ______}, // psychic
+    [TYPE_PSYCHIC] =    {______,    ______,   X(1.55),   ______,   X(1.55),  ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   X(0.0),   ______,    ______,   ______}, // psychic
 
-    [TYPE_ICE] =        {______,    ______,   ______,   X(1.55),   ______,   X(1.55),  ______,   X(1.55),   X(0.5),  X(0.5),  ______,    X(0.5),  ______,   X(1.55),   ______,   ______,   X(0.5),   X(1.55),   ______,   ______,   ______}, // ice
+    [TYPE_ICE] =        {______,    ______,   ______,   X(1.55),   ______,   X(1.55),  ______,   X(1.55),   X(0.5),  X(0.5),  ______,    X(0.5),  ______,   X(1.55),   ______,   ______,   X(0.5),   X(1.55),   ______,   ______,    ______,   ______}, // ice
 
-    [TYPE_DRAGON] =     {______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,    X(0.0),   ______}, // dragon
+    [TYPE_DRAGON] =     {______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,    X(0.0),   ______,   ______}, // dragon
 
-    [TYPE_DARK] =       {______,    ______,   X(0.5),   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   X(0.5),   ______}, // dark
+    [TYPE_DARK] =       {______,    ______,   X(0.5),   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   X(0.5),     ______,   ______}, // dark
 
-    [TYPE_FAIRY] =      {______,    X(1.55),  ______,   ______,   X(0.5),   ______,   ______,   ______,   X(1.55),   X(0.5),   ______,   X(0.5),   ______,   X(0.0),   ______,   X(0.5),   ______,   X(1.55),   X(1.55),   ______,   ______}, // fairy
+    [TYPE_FAIRY] =      {______,    X(1.55),  ______,   ______,   X(0.5),   ______,   ______,   ______,   X(1.55),   X(0.5),   ______,   X(0.5),   ______,   X(0.0),   ______,   X(0.5),   ______,   X(1.55),   X(1.55),   ______,   ______,   ______}, // fairy
 
-       /*sound*/        {______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,    ______,   ______,    ______}, // sound
-};//                     None       normal    fight      flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water    grass    electric   psychic    ice      dragon     dark     fairy      sound
+    [TYPE_WIND] =     {______,    ______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  ______,   ______,   X(1.55),   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,     ______,   ______}, // wind
+
+       /*sound*/      {______,    ______,   ______,   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,    ______,   ______,      ______,   ______}, // sound
+};//                     None      normal     fight    flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water    grass    electric   psychic    ice      dragon      dark      fairy        wind       sound
 
 #undef X
+
+//ok made wind type recontextualize flying type
+//same offensive properties better defensive properties
+//wind type lose rock and flying weakness
+//is ironically counter type to electric only has 1 weakness
 
 //reverted ghost dark resist - to buff back dark but mainly cuz ghost/steel was nearly unassailable
 //oh wait I forgot the electric and psychic coverage for steel. hmmm
@@ -960,6 +967,11 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x110,
     },
+        [TYPE_WIND] =
+    {
+        .name = _("WIND"), //flying type readjust
+        .isHiddenPowerType = TRUE,
+    },
         [TYPE_SOUND] =
     {
         .name = _("SOUND"),
@@ -1486,6 +1498,7 @@ void SetJudgmentTypeString(u8 type) //if type is normal skip the jugment string 
         case TYPE_FIGHTING:
             StringCopy(gStringVar2, COMPOUND_STRING("Fierce")); //doesn't throw up errors so gues I'm good, that said prob need actually define later for placeholder cap
         break;
+        case TYPE_WIND:
         case TYPE_FLYING:
             StringCopy(gStringVar2, COMPOUND_STRING("the Sky's")); //the Sky's /Sky
         break;
@@ -1702,6 +1715,9 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage)
     }
 
     // Check if a gem should activate.
+    //vsonic consider if need split flying gem in to wind and flying
+    //well sice gem is boosting a move of said type 
+    //yeah think should make separate item
     if (holdEffect == HOLD_EFFECT_GEMS
         && *typeStorage == ItemId_GetSecondaryId(gBattleMons[battlerAtk].item))
     {
@@ -5240,7 +5256,8 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
         //and strengthens type a bit, but need function for flyingmonthatcantfly or something
         //make simpler permanently grounded species could combine nah can't fit in category well
         if ((DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GHOST, FALSE) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
-        || (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_FLYING, FALSE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler)))
+        || (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_FLYING, FALSE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler))
+        || (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_WIND, FALSE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler)))
         {
             if (gDisableStructs[battler].TrapSetViaMoldBreaker)
                 speed /= 2;
@@ -6646,7 +6663,8 @@ bool8 TryRunFromBattle(u32 battler)
     //and its not switching its just run away
     //only relevant for player or for roaming battles
     //so think just gravity and iron ball
-    else if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) 
+    else if ((IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) 
+    || IS_BATTLER_OF_TYPE(battler, TYPE_WIND))
     && gBattleMons[battler].ability != ABILITY_AVIATOR
     && !IsFlyingTypeBattlerUnableToFly(battler))
     {
@@ -7038,7 +7056,7 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
         //keep an eye on this effect
 
         if (ability == ABILITY_GALE_WINGS
-            && moveType == TYPE_FLYING
+            && IsAirborneType(moveType)
             && IsBattlerAboveHalfHP(battler))
         {
             gProtectStructs[battler].galewingsElevated = TRUE;
