@@ -50,7 +50,7 @@ will need to use python instead make moves list from names here,
 take what I need from moves_info and apply changes here
 do like did tm list data file
 
-use   const struct BattleMove gBattleMoves[MOVES_COUNT] =
+use   const struct MoveInfo gMovesInfo[MOVES_COUNT] =
 as the start point
 
 when name matches start adding data
@@ -69,7 +69,7 @@ think may keep battleanim stuff just comment it out for later update
 
 */
 
-const struct BattleMove gBattleMoves[MOVES_COUNT] =
+const struct MoveInfo gMovesInfo[MOVES_COUNT] =
 {
     [MOVE_NONE] =
     {

@@ -355,7 +355,7 @@ static void HandleInputChooseTarget(u32 battler)
     u16 moveTarget;
     u8 moveType;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
-    moveTarget = gBattleMoves[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
+    moveTarget = gMovesInfo[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
 
     memcpy(identities, sTargetIdentities, NELEMS(sTargetIdentities));
     DoBounceEffect(gMultiUsePlayerCursor, BOUNCE_HEALTHBOX, 15, 1);
@@ -422,7 +422,7 @@ static void HandleInputChooseTarget(u32 battler)
             case B_POSITION_PLAYER_RIGHT:
                 if (battler != gMultiUsePlayerCursor)
                     ++i;
-                else if (gBattleMoves[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
+                else if (gMovesInfo[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
                     ++i;
                 break;
             case B_POSITION_OPPONENT_LEFT:
@@ -469,7 +469,7 @@ static void HandleInputChooseTarget(u32 battler)
             case B_POSITION_PLAYER_RIGHT:
                 if (battler != gMultiUsePlayerCursor)
                     ++i;
-                else if (gBattleMoves[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
+                else if (gMovesInfo[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
                     ++i;
                 break;
             case B_POSITION_OPPONENT_LEFT:
@@ -620,7 +620,7 @@ void HandleInputChooseMove(u32 battler)    //test new targetting setup
         }
         else
         {
-            moveTarget = gBattleMoves[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
+            moveTarget = gMovesInfo[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
         }
 
         if (moveTarget & TARGET_USER)
@@ -1698,7 +1698,7 @@ static void MoveSelectionDisplayMoveType(u32 battler)//displays type/  & move ty
     if (!IsDoubleBattle())
         SetMoveTypePaletteInMoveSelection_Singles(battler, moveInfo->moves[gMoveSelectionCursor[battler]], moveType);
     
-    //StringCopy(txtPtr, gTypesInfo[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[battler]]].type]);
+    //StringCopy(txtPtr, gTypesInfo[gMovesInfo[moveInfo->moves[gMoveSelectionCursor[battler]]].type]);
     StringCopy(gDisplayedStringBattle, gTypesInfo[moveType].name);   //should display whatever argument was passed,  so rather than 0 when no dynamic type, would display normal move type
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MOVE_TYPE); //tested works perfectly
 }//can't use convertIntToDecimalString to attempt make right align, text becomes garbalded numbers and still is left alingned...
@@ -3235,7 +3235,7 @@ static void PreviewDeterminativeMoveTargets(u32 battler) //determine who targett
         }
         else
         {
-            moveTarget = gBattleMoves[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
+            moveTarget = gMovesInfo[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
         }
         switch (moveTarget)
         {

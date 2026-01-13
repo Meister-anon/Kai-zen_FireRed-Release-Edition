@@ -2270,7 +2270,7 @@ static void ScriptCmd_unloadspritegfx(void)
 static u8 GetBattleAnimMoveTargets(u8 battlerArgIndex, u8 *targets)
 {
     u8 numTargets = 1;
-    switch (gBattleMoves[gAnimMoveIndex].target)
+    switch (gMovesInfo[gAnimMoveIndex].target)
     {
     case TARGET_BOTH:
         targets[0] = gBattleAnimArgs[battlerArgIndex];

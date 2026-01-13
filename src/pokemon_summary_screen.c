@@ -2831,7 +2831,7 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
     u32 powerBits;
     u32 hiddenpower,power;    
     u8 moveType;
-    power = gBattleMoves[sMonSummaryScreen->moveIds[i]].power;
+    power = gMovesInfo[sMonSummaryScreen->moveIds[i]].power;
 
     if (i < 4)
         sMonSummaryScreen->moveIds[i] = GetMonMoveBySlotId(&sMonSummaryScreen->currentMon, i);
@@ -2922,7 +2922,7 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
             sMonSummaryScreen->moveTypes[i] = TYPE_NORMAL;
     }*/
     //else
-      //  sMonSummaryScreen->moveTypes[i] = gBattleMoves[sMonSummaryScreen->moveIds[i]].type;// if works right should set hidden power to display its type in summary screen
+      //  sMonSummaryScreen->moveTypes[i] = gMovesInfo[sMonSummaryScreen->moveIds[i]].type;// if works right should set hidden power to display its type in summary screen
         //was playing on keeping this unknown to test but realistic people won't want to use it 
         //if they don't know what its doing
 
@@ -2934,9 +2934,9 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
     if (i >= 4 && sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE)//assume it would only be greater than 4 if its a new move that is being learned when you already have 4
     {
         ConvertIntToDecimalStringN(sMonSummaryScreen->summary.moveCurPpStrBufs[i],
-                                   gBattleMoves[sMonSummaryScreen->moveIds[i]].pp, STR_CONV_MODE_LEFT_ALIGN, 3);
+                                   gMovesInfo[sMonSummaryScreen->moveIds[i]].pp, STR_CONV_MODE_LEFT_ALIGN, 3);
         ConvertIntToDecimalStringN(sMonSummaryScreen->summary.moveMaxPpStrBufs[i],
-                                   gBattleMoves[sMonSummaryScreen->moveIds[i]].pp, STR_CONV_MODE_LEFT_ALIGN, 3);
+                                   gMovesInfo[sMonSummaryScreen->moveIds[i]].pp, STR_CONV_MODE_LEFT_ALIGN, 3);
     }
     else
     {
@@ -2963,17 +2963,17 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
     if (sMonSummaryScreen->moveIds[i] == MOVE_HIDDEN_POWER)
         power = hiddenpower;
     else
-        power = gBattleMoves[sMonSummaryScreen->moveIds[i]].power;
+        power = gMovesInfo[sMonSummaryScreen->moveIds[i]].power;
 
     if (power <= 1 && (!(sMonSummaryScreen->moveIds[i] == MOVE_HIDDEN_POWER)))
         StringCopy(sMonSummaryScreen->summary.movePowerStrBufs[i], gText_ThreeHyphens);//the part that makes status/non-damage moves show as hyphens instead of a power
     else
         ConvertIntToDecimalStringN(sMonSummaryScreen->summary.movePowerStrBufs[i], power, STR_CONV_MODE_RIGHT_ALIGN, 3);
 
-    if (gBattleMoves[sMonSummaryScreen->moveIds[i]].accuracy == 0)
+    if (gMovesInfo[sMonSummaryScreen->moveIds[i]].accuracy == 0)
         StringCopy(sMonSummaryScreen->summary.moveAccuracyStrBufs[i], gText_ThreeHyphens);//same as above but for accuracy
     else
-        ConvertIntToDecimalStringN(sMonSummaryScreen->summary.moveAccuracyStrBufs[i], gBattleMoves[sMonSummaryScreen->moveIds[i]].accuracy, STR_CONV_MODE_RIGHT_ALIGN, 3);
+        ConvertIntToDecimalStringN(sMonSummaryScreen->summary.moveAccuracyStrBufs[i], gMovesInfo[sMonSummaryScreen->moveIds[i]].accuracy, STR_CONV_MODE_RIGHT_ALIGN, 3);
 }//will update rest of file but for now all names have been updated for this function
 
 static u8 PokeSum_HandleCreateSprites(void)

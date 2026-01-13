@@ -95,7 +95,7 @@ static bool32 CheckTypeBySpecies(u16 species, u8 type); //made for field poiso t
 
 static void SetMonMoveSlot_KeepPP(struct Pokemon *mon, u16 move, u8 slot); //port from EE
 
-#include "data/battle_moves.h"
+#include "data/moves_info.h"
 
 // Used in an unreferenced function in RS.
 // Unreferenced here and in Emerald.
@@ -4083,7 +4083,7 @@ static u16 GiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move)
         if (!existingMove)
         {
             SetBoxMonData(boxMon, MON_DATA_MOVE1 + i, &move);
-            SetBoxMonData(boxMon, MON_DATA_PP1 + i, &gBattleMoves[move].pp);
+            SetBoxMonData(boxMon, MON_DATA_PP1 + i, &gMovesInfo[move].pp);
             return move;
         }
         if (existingMove == move)
@@ -4102,7 +4102,7 @@ u16 GiveMoveToBattleMon(struct BattlePokemon *mon, u16 move)
         if (!mon->moves[i])
         {
             mon->moves[i] = move;
-            mon->pp[i] = gBattleMoves[move].pp;
+            mon->pp[i] = gMovesInfo[move].pp;
             return move;
         }
     }
@@ -4113,7 +4113,7 @@ u16 GiveMoveToBattleMon(struct BattlePokemon *mon, u16 move)
 void SetMonMoveSlot(struct Pokemon *mon, u16 move, u8 slot)
 {
     SetMonData(mon, MON_DATA_MOVE1 + slot, &move);
-    SetMonData(mon, MON_DATA_PP1 + slot, &gBattleMoves[move].pp);
+    SetMonData(mon, MON_DATA_PP1 + slot, &gMovesInfo[move].pp);
 }
 
 static void SetMonMoveSlot_KeepPP(struct Pokemon *mon, u16 move, u8 slot) //from emerlad expansion, use for form change move replacement
@@ -4130,7 +4130,7 @@ static void SetMonMoveSlot_KeepPP(struct Pokemon *mon, u16 move, u8 slot) //from
 void SetBattleMonMoveSlot(struct BattlePokemon *mon, u16 move, u8 slot)
 {
     mon->moves[slot] = move;
-    mon->pp[slot] = gBattleMoves[move].pp;
+    mon->pp[slot] = gMovesInfo[move].pp;
 }
 
 void GiveMonInitialMoveset(struct Pokemon *mon)
@@ -4253,7 +4253,7 @@ void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: Asparagu
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
         SetBoxMonData(boxMon, MON_DATA_MOVE1 + i, &moves[i]);
-        SetBoxMonData(boxMon, MON_DATA_PP1 + i, &gBattleMoves[moves[i]].pp);
+        SetBoxMonData(boxMon, MON_DATA_PP1 + i, &gMovesInfo[moves[i]].pp);
     }
 }
 
@@ -4316,9 +4316,9 @@ void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species) //Credit
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
         gBattleMons[gBattlerAttacker].moves[i] = moves[i];
-        gBattleMons[gBattlerAttacker].pp[i] = gBattleMoves[moves[i]].pp;
+        gBattleMons[gBattlerAttacker].pp[i] = gMovesInfo[moves[i]].pp;
         //SetBoxMonData(boxMon, MON_DATA_MOVE1 + i, &moves[i]);
-        //SetBoxMonData(boxMon, MON_DATA_PP1 + i, &gBattleMoves[moves[i]].pp);
+        //SetBoxMonData(boxMon, MON_DATA_PP1 + i, &gMovesInfo[moves[i]].pp);
     }
 }
 
@@ -4402,7 +4402,7 @@ void DeleteFirstMoveAndGiveMoveToMon(struct Pokemon *mon, u16 move) // this impo
     ppBonuses = GetMonData(mon, MON_DATA_PP_BONUSES, NULL);
     ppBonuses >>= 2;
     moves[3] = move;
-    pp[3] = gBattleMoves[move].pp;
+    pp[3] = gMovesInfo[move].pp;
 
     for (i = 0; i < 4; i++)
     {
@@ -4432,7 +4432,7 @@ static void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 mo
     ppBonuses = GetBoxMonData(boxMon, MON_DATA_PP_BONUSES, NULL);
     ppBonuses >>= 2;
     moves[3] = move;
-    pp[3] = gBattleMoves[move].pp;
+    pp[3] = gMovesInfo[move].pp;
 
     for (i = 0; i < 4; i++)
     {
@@ -4596,7 +4596,7 @@ bool8 IsPhysicalMove(u32 attackerId, u16 move)
     spDefense = spDefense * gStatStageRatios[gBattleMons[gBattlerTarget].statStages[STAT_SPDEF]][0];
     spDefense = spDefense / gStatStageRatios[gBattleMons[gBattlerTarget].statStages[STAT_SPDEF]][1];
 
-    if (gBattleMoves[move].effect == EFFECT_PSYSHOCK 
+    if (gMovesInfo[move].effect == EFFECT_PSYSHOCK 
     || GetBattlerAbility(attackerId) == ABILITY_MUSCLE_MAGIC     
     || ((move == MOVE_HIDDEN_POWER || move == MOVE_TRI_ATTACK) && attack > spAttack)
     || ((move == MOVE_HIDDEN_POWER || move == MOVE_TRI_ATTACK) && attack == spAttack && defense < spDefense) //works cuz hp is single target
@@ -4701,12 +4701,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     u32 dragonPower = gDisableStructs[battlerIdAtk].DragonrageCounter * 10; //5 to 50
 
     if (!powerOverride)
-        gBattleMovePower = gBattleMoves[move].power;
+        gBattleMovePower = gMovesInfo[move].power;
     else
         gBattleMovePower = powerOverride;
 
     if (!typeOverride)
-        moveType = gBattleMoves[move].type;
+        moveType = gMovesInfo[move].type;
     else
         GET_MOVE_TYPE(move, moveType); //should all I need, type already set before this point
 
@@ -5129,7 +5129,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     //MOVE / VARIOUS EFFECTS - realized never added terrain boost, should put here
     //MOVE EFFECTS
-    switch (gBattleMoves[move].effect)
+    switch (gMovesInfo[move].effect)
     {
         case EFFECT_TRIPLE_KICK:
         {
@@ -5148,7 +5148,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
         case EFFECT_FIXATION:
         {
-            gBattleMovePower = gBattleMovePower + (gBattleMoves[move].secondaryEffectChance * gDisableStructs[gBattlerAttacker].fixationTurns);
+            gBattleMovePower = gBattleMovePower + (gMovesInfo[move].secondaryEffectChance * gDisableStructs[gBattlerAttacker].fixationTurns);
         }
         break;
         case EFFECT_PLEDGE: //need set this up
@@ -5325,7 +5325,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower = 150;
         break;
     case EFFECT_POWER_BASED_ON_TARGET_HP:
-        gBattleMovePower = (gBattleMoves[move].argumentEffectChance * (gBattleMons[battlerIdDef].hp / gBattleMons[battlerIdDef].maxHP));
+        gBattleMovePower = (gMovesInfo[move].argumentEffectChance * (gBattleMons[battlerIdDef].hp / gBattleMons[battlerIdDef].maxHP));
         if (gBattleMovePower < 40)
             gBattleMovePower = 40;
         break;
@@ -5372,7 +5372,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //will need to find & test other multi hit (try spearow fury attack,) to ensure I didn't break it.
         {
             
-            gBattleMovePower = gBattleMoves[gCurrentMove].power; //it's working now.
+            gBattleMovePower = gMovesInfo[gCurrentMove].power; //it's working now.
 
             //ok believe wcan replace all instance of this subtraction check
             //with furycuttercount, that way both acc and dmg would reset
@@ -5531,7 +5531,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_SHEER_FORCE:
-        //if (gBattleMoves[move].flags & FLAG_SHEER_FORCE_BOOST)
+        //if (gMovesInfo[move].flags & FLAG_SHEER_FORCE_BOOST)
         //stand in for additional effect check
         if (GetMoveEffect(move) != EFFECT_HIT
         && GetMovePower(move) > 1)
@@ -6071,7 +6071,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if ((abilityAtk == ABILITY_FLUORESCENCE   
         || DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))     
         && !IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY)//
-        && gBattleMoves[move].effect == EFFECT_SOLAR_BEAM)
+        && gMovesInfo[move].effect == EFFECT_SOLAR_BEAM)
         {
             OffensiveModifer(100);
         } //simpler balancing for fluorescence do dmg cut/ nvm removed dmg cut, low bst and forgot lowered super bonus etc., so will mean just avoids dmg cut from other weather
@@ -6079,7 +6079,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //moved these here, because they don't have to do with physical or special damage alone anymore.  since I removed the type link
         // any weather except sun weakens solar beam
         else if ((gBattleWeather & (WEATHER_LOW_LIGHT)) 
-        && gBattleMoves[move].effect == EFFECT_SOLAR_BEAM)
+        && gMovesInfo[move].effect == EFFECT_SOLAR_BEAM)
             OffensiveModifer(50);
 
 
@@ -6101,7 +6101,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 }
 
                 if (abilityAtk == ABILITY_LIQUID_SOUL
-                    && gBattleMoves[move].type == TYPE_WATER)  //hopefully checks if move was orginally water and will boost damage in rain even when ghost type
+                    && gMovesInfo[move].type == TYPE_WATER)  //hopefully checks if move was orginally water and will boost damage in rain even when ghost type
                 {
                     OffensiveModifer(150);
                 }
@@ -6597,7 +6597,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         ApplyScreenModifier(battlerIdAtk, battlerIdDef, move, MoveDamageCategory, damage);
 
-     //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2) // this is spread move cut
+     //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gMovesInfo[move].target == TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2) // this is spread move cut
         //    damage /= 2; //target 0x8 is target both    
         //this removes the split damage from double target moves ...just remove the line you idiot
         if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE))
@@ -6609,7 +6609,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
             //modern game changed to a 25% drop average damage 
             //is lower in my game so guess safe to make this a little stronger
-            if (gBattleMoves[move].target == TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerIdAtk) >= 2)
+            if (gMovesInfo[move].target == TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerIdAtk) >= 2)
                 damage = (2 * damage) / 3;
         }
 
@@ -7044,7 +7044,7 @@ u8 GetGenderFromSpeciesAndPersonality(u16 species, u32 personality)
 u8 GetWeatherBallType(u16 move)
 {
     if (move != MOVE_WEATHER_BALL)
-        return gBattleMoves[move].type;
+        return gMovesInfo[move].type;
 
     //default has no check for in battle
     //and will always return true - fixed
@@ -7069,10 +7069,10 @@ u8 GetWeatherBallType(u16 move)
         else if (gBattleWeather & WEATHER_STRONG_WINDS)
             return TYPE_WIND;
         else
-            return gBattleMoves[move].type;
+            return gMovesInfo[move].type;
     }
     else
-        return gBattleMoves[move].type;
+        return gMovesInfo[move].type;
 }
 
 
@@ -8406,7 +8406,7 @@ static bool32 CheckTypeBySpecies(u16 species, u8 type)
             for (j = 0; j < 4; j++)
             {
                 SetMonData(&gEnemyParty[i], MON_DATA_MOVE1 + j, &gBattleResources->secretBase->party.moves[i * 4 + j]);
-                SetMonData(&gEnemyParty[i], MON_DATA_PP1 + j, &gBattleMoves[gBattleResources->secretBase->party.moves[i * 4 + j]].pp);
+                SetMonData(&gEnemyParty[i], MON_DATA_PP1 + j, &gMovesInfo[gBattleResources->secretBase->party.moves[i * 4 + j]].pp);
             }
         }
     }
@@ -8572,7 +8572,7 @@ void GetTmHm_Name(u8 *dest, u16 itemId)
 
 u8 CalculatePPWithBonus(u16 move, u8 ppBonuses, u8 moveIndex)
 {
-    u8 basePP = gBattleMoves[move].pp;
+    u8 basePP = gMovesInfo[move].pp;
     return basePP + ((basePP * 20 * ((gPPUpGetMask[moveIndex] & ppBonuses) >> (2 * moveIndex))) / 100);
 }
 
@@ -10266,7 +10266,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
             case EVO_MOVE_TYPE:
                 for (j = 0; j < 4; j++)
                 {
-                    if (gBattleMoves[GetMonData(mon, MON_DATA_MOVE1 + j, NULL)].type == evolutions[i].param)
+                    if (gMovesInfo[GetMonData(mon, MON_DATA_MOVE1 + j, NULL)].type == evolutions[i].param)
                     {
                         EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
                         targetSpecies = evolutions[i].targetSpecies;
@@ -10277,7 +10277,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
             case EVO_MOVE_TYPE_ATK_GT_DEF:
                 for (j = 0; j < 4; j++)
                 {
-                    if (gBattleMoves[GetMonData(mon, MON_DATA_MOVE1 + j, NULL)].type == evolutions[i].param)
+                    if (gMovesInfo[GetMonData(mon, MON_DATA_MOVE1 + j, NULL)].type == evolutions[i].param)
                     {
                         if (GetMonData(mon, MON_DATA_ATK, 0) > GetMonData(mon, MON_DATA_DEF, 0))
                         {
@@ -10291,7 +10291,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
             case EVO_MOVE_TYPE_ATK_LT_DEF:
                 for (j = 0; j < 4; j++)
                 {
-                    if (gBattleMoves[GetMonData(mon, MON_DATA_MOVE1 + j, NULL)].type == evolutions[i].param)
+                    if (gMovesInfo[GetMonData(mon, MON_DATA_MOVE1 + j, NULL)].type == evolutions[i].param)
                     {
                         if (GetMonData(mon, MON_DATA_ATK, 0) < GetMonData(mon, MON_DATA_DEF, 0))
                         {

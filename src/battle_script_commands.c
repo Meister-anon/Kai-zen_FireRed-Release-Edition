@@ -8239,7 +8239,7 @@ static void Cmd_manipulatedamage(void)
 
         //gbattlemovedamage += (gbattlemovedamage / 3) //for 1/3rd and 1/2 add extra 3rd or 1/2 of formula?
 
-        //if (gBattleMoves[gCurrentMove].effect == EFFECT_HEAVY_RECOIL) //believe was initially hi jump kick miss?
+        //if (gMovesInfo[gCurrentMove].effect == EFFECT_HEAVY_RECOIL) //believe was initially hi jump kick miss?
         //    gBattleMoveDamage /= 2;
 
        /* if ((gBattleMons[gBattlerTarget].maxHP / 3) < gBattleMoveDamage)

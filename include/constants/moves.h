@@ -933,7 +933,7 @@ enum Move {
 
  MOVES_COUNT = MOVES_COUNT_CUSTOM,
 //for completion new moves have to be defined in:  move_descriptions.inc,  move_names.h, & battle_anim_scripts.s
-// also need actual move data in battle_moves.h
+// also need actual move data in moves_info.h
 //* consolidated move name & move description files into move_info.h
 
 

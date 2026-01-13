@@ -1555,9 +1555,9 @@ static void AnimIceBallParticle(struct Sprite *sprite)
 void AnimTask_GetRolloutCounter(u8 taskId)
 {
     u8 arg = gBattleAnimArgs[0];
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_ROLLOUT)
+    if (gMovesInfo[gCurrentMove].effect == EFFECT_ROLLOUT)
         gBattleAnimArgs[arg] = gAnimDisableStructPtr->rolloutTimerStartValue - gAnimDisableStructPtr->rolloutTimer - 1;
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_SNOWBALL)
+    if (gMovesInfo[gCurrentMove].effect == EFFECT_SNOWBALL)
     {
         if (gDynamicBasePower == 45)
             gBattleAnimArgs[arg] = 0;

@@ -13299,7 +13299,7 @@ bool8 CanSurviveInstantKOWithSturdy(u8 battler)
 {
     if (GetBattlerAbility(battler) == ABILITY_STURDY
     && gBattleMons[battler].hp >= (gBattleMons[battler].maxHP / 4)//think need to change this, without an indicator Im' just recreating the in a pinch problem
-    && gBattleMoves[gCurrentMove].effect != EFFECT_HEALING_WISH //better to change it to when hp becomes red?
+    && gMovesInfo[gCurrentMove].effect != EFFECT_HEALING_WISH //better to change it to when hp becomes red?
     && !gBattleMons[battler].volatiles.sturdyhungon)
     {
         return TRUE;
@@ -13353,7 +13353,7 @@ bool8 ShouldCacophonyBoostAccuracy(u16 move)
 {
 
 
-    if (gBattleMoves[move].split == SPLIT_STATUS && gSpecialStatuses[gBattlerAttacker].Cacophonyboosted
+    if (gMovesInfo[move].split == SPLIT_STATUS && gSpecialStatuses[gBattlerAttacker].Cacophonyboosted
     &&  (move == MOVE_METAL_SOUND
     || move == MOVE_SCREECH))
         return TRUE;

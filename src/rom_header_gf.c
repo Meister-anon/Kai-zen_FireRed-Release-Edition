@@ -65,7 +65,7 @@ struct GFRomHeader
     const u8 (* abilityNames)[];
     const u8 * const * abilityDescriptions;
     const struct Item * items;
-    const struct BattleMove * moves;
+    const struct MoveInfo * moves;
     const struct CompressedSpriteSheet * ballGfx;
     const struct CompressedSpritePalette * ballPalettes;
     //u32 gcnLinkFlagsOffset; //removd for space saving
@@ -150,7 +150,7 @@ static const struct GFRomHeader sGFRomHeader = {
     //.abilityNames = gAbilityNames,
     //.abilityDescriptions = gAbilityDescriptionPointers,  //moved to gAbilitiesInfo
     .items = gItems,    //has inteliscence on it but it should be fine?
-    .moves = gBattleMoves,
+    .moves = gMovesInfo,
     .ballGfx = gBallSpriteSheets,
     .ballPalettes = gBallSpritePalettes,
     //.gcnLinkFlagsOffset = offsetof(struct SaveBlock2, gcnLinkFlags),

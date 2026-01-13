@@ -1550,7 +1550,7 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage)
     u16 holdEffect = GetBattlerHoldEffect(battlerAtk, TRUE);
 
     //populate default type, go through assignment and return what would be changed type
-    *typeStorage = gBattleMoves[move].type;
+    *typeStorage = gMovesInfo[move].type;
 
     if (move == MOVE_STRUGGLE || move == MOVE_BIDE)
         return;
@@ -1560,12 +1560,12 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage)
     gSpecialStatuses[battlerAtk].gemBoost = FALSE;
 
     
-    if (gBattleMoves[move].effect == EFFECT_CHANGE_TYPE_ON_ITEM) //not fling
+    if (gMovesInfo[move].effect == EFFECT_CHANGE_TYPE_ON_ITEM) //not fling
     {
-        if (holdEffect == gBattleMoves[move].argument)
+        if (holdEffect == gMovesInfo[move].argument)
             *typeStorage = ItemId_GetSecondaryId(gBattleMons[battlerAtk].item);
     }
-    else if (gBattleMoves[move].effect == EFFECT_REVELATION_DANCE)
+    else if (gMovesInfo[move].effect == EFFECT_REVELATION_DANCE)
     {
         if (gBattleMons[battlerAtk].type1 != TYPE_MYSTERY)
             *typeStorage = gBattleMons[battlerAtk].type1;
@@ -1574,12 +1574,12 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage)
         else if (gBattleMons[battlerAtk].type3 != TYPE_MYSTERY)
             *typeStorage = gBattleMons[battlerAtk].type3;
     }
-    else if (gBattleMoves[move].effect == EFFECT_NATURAL_GIFT)
+    else if (gMovesInfo[move].effect == EFFECT_NATURAL_GIFT)
     {
         if (ItemId_GetPocket(gBattleMons[battlerAtk].item) == POCKET_BERRIES)
             *typeStorage = gNaturalGiftTable[ITEM_TO_BERRY(gBattleMons[battlerAtk].item)].type;
     }
-    else if (gBattleMoves[move].effect == EFFECT_TERRAIN_PULSE)
+    else if (gMovesInfo[move].effect == EFFECT_TERRAIN_PULSE)
     {
         if (IsBattlerTerrainAffected(battlerAtk, STATUS_FIELD_TERRAIN_ANY))
         {
@@ -1639,11 +1639,11 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage)
     {
         *typeStorage = TYPE_ICE;
     }
-    else if (gBattleMoves[move].type == TYPE_NORMAL
+    else if (gMovesInfo[move].type == TYPE_NORMAL
              && move != MOVE_HIDDEN_POWER    //can remove effects for hidden ower and weather ball can just use hit, and do everything w move name 
              && move != MOVE_WEATHER_BALL    //as effects are never reused, i.e only for those specific moves
-             && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
-             && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
+             && gMovesInfo[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
+             && gMovesInfo[move].effect != EFFECT_NATURAL_GIFT
              && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))
                  || (attackerAbility == ABILITY_REFRIGERATE && (ateType = TYPE_ICE))
                  || (attackerAbility == ABILITY_AERILATE && (ateType = TYPE_FLYING))
@@ -1653,11 +1653,11 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage)
         *typeStorage = ateType; //above should do type change already, dmg boosts are already in pokemon.c
         gBattleStruct->ateBoost[battlerAtk] = 1;
     }
-    else if (gBattleMoves[move].type == TYPE_SOUND
+    else if (gMovesInfo[move].type == TYPE_SOUND
              && move != MOVE_HIDDEN_POWER
              && move != MOVE_WEATHER_BALL
-             && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
-             && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
+             && gMovesInfo[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
+             && gMovesInfo[move].effect != EFFECT_NATURAL_GIFT
              && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
     {
         *typeStorage = ateType; //above should do type change already, dmg boosts are already in pokemon.c
@@ -1665,8 +1665,8 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage)
     }
     else if ((move != MOVE_HIDDEN_POWER
              && move != MOVE_WEATHER_BALL
-             && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM)
-             && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
+             && gMovesInfo[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM)
+             && gMovesInfo[move].effect != EFFECT_NATURAL_GIFT
              && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
     {                                                   //without stab, so not worth
         *typeStorage = TYPE_NORMAL;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
@@ -1677,7 +1677,7 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage)
     {
         *typeStorage = TYPE_WATER;
     }
-    else if (gBattleMoves[move].type == TYPE_WATER
+    else if (gMovesInfo[move].type == TYPE_WATER
         && attackerAbility == ABILITY_LIQUID_SOUL)
     {
         *typeStorage = TYPE_GHOST;
@@ -1719,7 +1719,7 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
     u16 holdEffect = GetBattlerHoldEffect(battlerAtk, TRUE);
 
     //populate default type, go through assignment and return what would be changed type
-    moveType = gBattleMoves[move].type;
+    moveType = gMovesInfo[move].type;
 
     if (move == MOVE_STRUGGLE || move == MOVE_BIDE)
         return moveType;
@@ -1729,12 +1729,12 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
     gSpecialStatuses[battlerAtk].gemBoost = FALSE;
 
     
-    if (gBattleMoves[move].effect == EFFECT_CHANGE_TYPE_ON_ITEM) //not fling
+    if (gMovesInfo[move].effect == EFFECT_CHANGE_TYPE_ON_ITEM) //not fling
     {
-        if (holdEffect == gBattleMoves[move].argument)
+        if (holdEffect == gMovesInfo[move].argument)
             moveType = ItemId_GetSecondaryId(gBattleMons[battlerAtk].item);
     }
-    else if (gBattleMoves[move].effect == EFFECT_REVELATION_DANCE)
+    else if (gMovesInfo[move].effect == EFFECT_REVELATION_DANCE)
     {
         if (gBattleMons[battlerAtk].type1 != TYPE_MYSTERY)
             moveType = gBattleMons[battlerAtk].type1;
@@ -1743,12 +1743,12 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
         else if (gBattleMons[battlerAtk].type3 != TYPE_MYSTERY)
             moveType = gBattleMons[battlerAtk].type3;
     }
-    else if (gBattleMoves[move].effect == EFFECT_NATURAL_GIFT)
+    else if (gMovesInfo[move].effect == EFFECT_NATURAL_GIFT)
     {
         if (ItemId_GetPocket(gBattleMons[battlerAtk].item) == POCKET_BERRIES)
             moveType = gNaturalGiftTable[ITEM_TO_BERRY(gBattleMons[battlerAtk].item)].type;
     }
-    else if (gBattleMoves[move].effect == EFFECT_TERRAIN_PULSE)
+    else if (gMovesInfo[move].effect == EFFECT_TERRAIN_PULSE)
     {
         if (IsBattlerTerrainAffected(battlerAtk, STATUS_FIELD_TERRAIN_ANY))
         {
@@ -1810,11 +1810,11 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
         moveType = TYPE_ICE;
     }
     */
-    else if (gBattleMoves[move].type == TYPE_NORMAL
+    else if (gMovesInfo[move].type == TYPE_NORMAL
              && move != MOVE_HIDDEN_POWER
              && move != MOVE_WEATHER_BALL
-             && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
-             && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
+             && gMovesInfo[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
+             && gMovesInfo[move].effect != EFFECT_NATURAL_GIFT
              && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))
                  || (attackerAbility == ABILITY_REFRIGERATE && (ateType = TYPE_ICE))
                  || (attackerAbility == ABILITY_AERILATE && (ateType = TYPE_FLYING))
@@ -1824,11 +1824,11 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
         moveType = ateType; //above should do type change already, dmg boosts are already in pokemon.c
 
     }
-    else if (gBattleMoves[move].type == TYPE_SOUND
+    else if (gMovesInfo[move].type == TYPE_SOUND
              && move != MOVE_HIDDEN_POWER
              && move != MOVE_WEATHER_BALL
-             && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
-             && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
+             && gMovesInfo[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
+             && gMovesInfo[move].effect != EFFECT_NATURAL_GIFT
              && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
     {
         moveType = ateType; //above should do type change already, dmg boosts are already in pokemon.c
@@ -1836,8 +1836,8 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
     }
     else if ((move != MOVE_HIDDEN_POWER
              && move != MOVE_WEATHER_BALL //note was before changed type calc, 
-             && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM)
-             && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
+             && gMovesInfo[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM)
+             && gMovesInfo[move].effect != EFFECT_NATURAL_GIFT
              && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
     {                                                   //without stab, so not worth
         moveType = TYPE_NORMAL;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
@@ -1848,7 +1848,7 @@ u8 ReturnMoveType(u32 move, u32 battlerAtk)
     {
         moveType = TYPE_WATER;
     }
-    else if (gBattleMoves[move].type == TYPE_WATER
+    else if (gMovesInfo[move].type == TYPE_WATER
         && attackerAbility == ABILITY_LIQUID_SOUL)
     {
         moveType = TYPE_GHOST;
@@ -2967,7 +2967,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
             for (j = 0; j < MAX_MON_MOVES; ++j)
             {
                 SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
-                SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+                SetMonData(&party[i], MON_DATA_PP1 + j, &gMovesInfo[partyData[i].moves[j]].pp);
 
                 if (partyData[i].moves[0] == MOVE_NONE) //hopefully this'll do what I want. set to default moves, if mon has none set
                     GiveMonInitialMoveset(&party[i]);   //it works!!
@@ -3740,7 +3740,7 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
     struct DisableStruct disableStructCopy = gDisableStructs[battler];
 
     ClearIllusionMon(battler);
-    if (gBattleMoves[gCurrentMove].effect != EFFECT_BATON_PASS)
+    if (gMovesInfo[gCurrentMove].effect != EFFECT_BATON_PASS)
     {
         for (i = 0; i < NUM_BATTLE_STATS; ++i)
             gBattleMons[battler].statStages[i] = DEFAULT_STAT_STAGE; //6 is 0 so this resets to normal levels
@@ -3755,7 +3755,7 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
             }
         }//exclude STATUS2_SWITCH_LOCKED from here so user can switch out and still lock enemy
     }
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_BATON_PASS) //added yawn to baton pass effects with change to activation should work
+    if (gMovesInfo[gCurrentMove].effect == EFFECT_BATON_PASS) //added yawn to baton pass effects with change to activation should work
     {
         //believe need add status4 swarm to this, as well as certain disable structs? //vsonic
         //hmm actually no, if can escape then I'm not trapped so it shouldn't transfer
@@ -3827,7 +3827,7 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
 
     memset(&gDisableStructs[battler], 0, sizeof(struct DisableStruct)); //clear disable struct
     
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_BATON_PASS)
+    if (gMovesInfo[gCurrentMove].effect == EFFECT_BATON_PASS)
     {
         gDisableStructs[battler].substituteHP = disableStructCopy.substituteHP;
         gDisableStructs[battler].battlerWithSureHit = disableStructCopy.battlerWithSureHit;
@@ -6452,7 +6452,7 @@ static void HandleAction_UseMove(void)
     // choose target - need look into may not need this anymore
     side = GetBattlerSide(gBattlerAttacker) ^ BIT_SIDE; //comparing getmovetarget logic appears almost identical, far as checks
     if (gSideTimers[side].followmeTimer != 0
-     && gBattleMoves[gCurrentMove].target == TARGET_SELECTED
+     && gMovesInfo[gCurrentMove].target == TARGET_SELECTED
      && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gSideTimers[side].followmeTarget)
      && gBattleMons[gSideTimers[side].followmeTarget].hp != 0)
     {
@@ -6460,7 +6460,7 @@ static void HandleAction_UseMove(void)
     }
     
     else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
-          && gBattleMoves[gChosenMove].target & TARGET_RANDOM)
+          && gMovesInfo[gChosenMove].target & TARGET_RANDOM)
     {
         if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
         {
@@ -6947,7 +6947,7 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
 
     /*if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_TERA
         && GetBattlerTeraType(gBattlerAttacker) == TYPE_STELLAR
-        && gBattleMoves[gCurrentMove].split != SPLIT_STATUS
+        && gMovesInfo[gCurrentMove].split != SPLIT_STATUS
         && IsTypeStellarBoosted(gBattlerAttacker, moveType))
     {
         ExpendTypeStellarBoost(gBattlerAttacker, moveType);
@@ -7029,7 +7029,7 @@ s32 GetChosenMovePriority(u32 battler, u32 ability) //made u8 (in test build)
 s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
 {
     s32 priority = 0;
-    u16 power = gDynamicBasePower != 0 ? gDynamicBasePower : gBattleMoves[move].power;
+    u16 power = gDynamicBasePower != 0 ? gDynamicBasePower : gMovesInfo[move].power;
     u8 moveType;
 
 
@@ -7052,7 +7052,7 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
     {
     
  
-        //if gBattleMoves[move].flags == FLAG_DMG_2X_IN_AIR & target is STATUS3_ON_AIR increment priority (gStatuses3[battler] & STATUS3_SKY_DROPPED)
+        //if gMovesInfo[move].flags == FLAG_DMG_2X_IN_AIR & target is STATUS3_ON_AIR increment priority (gStatuses3[battler] & STATUS3_SKY_DROPPED)
         //why in the world did I change this hmm ok yeah makes sense at first glance,
         //but not every wind move hits in air, is this a good idea to do?
         //think won't do this, moves are already rare, and not thought of as good
@@ -7091,7 +7091,7 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
             gProtectStructs[battler].pranksterElevated = TRUE; //setup equivalent for gale wings and triage so cna be checked by queenly majesty
             priority++; //and one for omnipotent aide as well
         }
-        else if (gBattleMoves[move].effect == EFFECT_GRASSY_GLIDE && IsBattlerTerrainAffected(battler, STATUS_FIELD_GRASSY_TERRAIN))
+        else if (gMovesInfo[move].effect == EFFECT_GRASSY_GLIDE && IsBattlerTerrainAffected(battler, STATUS_FIELD_GRASSY_TERRAIN))
         {
             priority++;
         }
@@ -7131,7 +7131,7 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
         //I might need to just exclude variable power moves from the list hmm
         //ok works better I guess
         //ok gbattlemovepower  is set in damagecalc, 
-        //its NOT the same things as gbattlemoves[move].power
+        //its NOT the same things as gMovesInfo[move].power
         //gbattlemovepower stores either base power or gdynamicbasepower and is augmented in calbasedamage 
         //function in pokemon.c
         //huh didn't reallize I never fixed this-fixed now

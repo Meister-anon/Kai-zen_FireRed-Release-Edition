@@ -12044,8 +12044,8 @@ as well as the effect of increasing trap duration
 * the point of high crit is, it'd give a chance to overcome the negative, crit would double damage
 * so you do normal move damage. plan to use in doubles with nuisance, lets them use stronger moves
 * kind of a opposite to serene grace, think can do like this  
-* if (!(gBattleMoves[move].flags & FLAG_HIGH_CRIT))
-* gBattleMoves[move].flags |= FLAG_HIGH_CRIT
+* if (!(gMovesInfo[move].flags & FLAG_HIGH_CRIT))
+* gMovesInfo[move].flags |= FLAG_HIGH_CRIT
 * - DONE
 * 
 * 

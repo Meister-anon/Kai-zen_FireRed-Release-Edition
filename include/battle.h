@@ -1044,7 +1044,7 @@ extern struct BattleStruct *gBattleStruct;
     if (gBattleStruct->dynamicMoveType)                                 \
         typeArg = gBattleStruct->dynamicMoveType;                       \
     else                                                                \
-        typeArg = gBattleMoves[move].type;                              \
+        typeArg = gMovesInfo[move].type;                              \
 }
 
 //leave else set to 0, as first argument should always be true, 
@@ -1057,8 +1057,8 @@ extern struct BattleStruct *gBattleStruct;
 //change don't want to worry bout changing secondary type
 #define GET_MOVE_ARGUMENT(move, typeArg)                                   \
 {                                                                          \
-    if (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)               \
-        typeArg = gBattleMoves[move].argument;                             \
+    if (gMovesInfo[move].effect == EFFECT_TWO_TYPED_MOVE)               \
+        typeArg = gMovesInfo[move].argument;                             \
 }
 
 //#define IS_TYPE_PHYSICAL(moveType)(moveType < TYPE_MYSTERY)
@@ -1544,7 +1544,7 @@ static inline void SetHealAmount(u32 battler, u32 value)
 
 static inline u32 GetMoveBaseType(u32 move)
 {
-    return gBattleMoves[move].type;
+    return gMovesInfo[move].type;
 }
 
 static inline bool32 IsBattlerAtMaxHp(u32 battler)
@@ -1639,7 +1639,7 @@ static inline bool32 IsFogOnField(void)
 //as EE does this better
 static inline bool32 TrySkipMoveResultChecks(u16 move)
 {
-    return (gBattleMoves[move].power == 0
+    return (gMovesInfo[move].power == 0
     || GetMoveEffect(move) == EFFECT_FIXED_PERCENT_DAMAGE
     || GetMoveEffect(move) == EFFECT_FIXED_HP_DAMAGE);
 }

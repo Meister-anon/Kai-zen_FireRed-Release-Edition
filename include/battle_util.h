@@ -624,9 +624,9 @@ enum {
 //i.e burn up etc.
 //understand now, burn up should fail if user is not type fire
 //under that condition it shouldn't thaw
-#define THAW_CONDITION(move, battler) ((gBattleMoves[move].effect == EFFECT_BURN_HIT) || (gBattleStruct->dynamicMoveType == TYPE_FIRE || gBattleMoves[move].type == TYPE_FIRE) || (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE && gBattleMoves[move].argument == TYPE_FIRE) || (gBattleMoves[move].effect == EFFECT_LOSETYPE_HIT && gBattleMoves[move].argument == TYPE_FIRE && IS_BATTLER_OF_TYPE(battler, TYPE_FIRE)))
+#define THAW_CONDITION(move, battler) ((gMovesInfo[move].effect == EFFECT_BURN_HIT) || (gBattleStruct->dynamicMoveType == TYPE_FIRE || gMovesInfo[move].type == TYPE_FIRE) || (gMovesInfo[move].effect == EFFECT_TWO_TYPED_MOVE && gMovesInfo[move].argument == TYPE_FIRE) || (gMovesInfo[move].effect == EFFECT_LOSETYPE_HIT && gMovesInfo[move].argument == TYPE_FIRE && IS_BATTLER_OF_TYPE(battler, TYPE_FIRE)))
 
-//#define THAW_CONDITION(move) ((move == MOVE_SCALD) || (((gBattleMoves[move].type == TYPE_FIRE) || (gBattleMoves[move].argument == TYPE_FIRE)) && (gBattleMoves[move].power >= 60 || gDynamicBasePower >= 60)))
+//#define THAW_CONDITION(move) ((move == MOVE_SCALD) || (((gMovesInfo[move].type == TYPE_FIRE) || (gMovesInfo[move].argument == TYPE_FIRE)) && (gMovesInfo[move].power >= 60 || gDynamicBasePower >= 60)))
 
 #define HEALING_EFFECT ((EFFECT_RESTORE_HP || EFFECT_REST || EFFECT_MORNING_SUN || EFFECT_MOONLIGHT || EFFECT_SYNTHESIS || EFFECT_HEAL_PULSE || EFFECT_HEALING_WISH || EFFECT_ROOST || EFFECT_SWALLOW || EFFECT_WISH || EFFECT_SOFTBOILED || EFFECT_ABSORB))
 

@@ -881,7 +881,7 @@ static const u8 *TM_Case_PrependFontToFit(u8 *nameBuffer, u16 move)
     // Hmm? FRLG has < while Ruby/Emerald has <=
     for (i = 0; i < MOVE_NAME_LENGTH; i++)
     {
-        nameBuffer[i] = gBattleMoves[SanitizeMoveId(move)].name[i];
+        nameBuffer[i] = gMovesInfo[SanitizeMoveId(move)].name[i];
 
         if (nameBuffer[i] == EOS)
             break;
@@ -1806,24 +1806,24 @@ static void TMCase_MoveCursor_UpdatePrintedTMInfo(u16 itemId)
     else
     {
         move = ItemIdToBattleMoveId(itemId);
-        BlitMoveInfoIcon(5, gBattleMoves[move].type + 1, 0, 0);
-        if (gBattleMoves[move].power < 2)
+        BlitMoveInfoIcon(5, gMovesInfo[move].type + 1, 0, 0);
+        if (gMovesInfo[move].power < 2)
             str = gText_ThreeHyphens;
         else
         {
-            ConvertIntToDecimalStringN(gStringVar1, gBattleMoves[move].power, STR_CONV_MODE_RIGHT_ALIGN, 3);
+            ConvertIntToDecimalStringN(gStringVar1, gMovesInfo[move].power, STR_CONV_MODE_RIGHT_ALIGN, 3);
             str = gStringVar1;
         }
         AddTextPrinterParameterized_ColorByIndex(5, 3, str, 7, 12, 0, 0, 0xFF, 3);
-        if (gBattleMoves[move].accuracy == 0)
+        if (gMovesInfo[move].accuracy == 0)
             str = gText_ThreeHyphens;
         else
         {
-            ConvertIntToDecimalStringN(gStringVar1, gBattleMoves[move].accuracy, STR_CONV_MODE_RIGHT_ALIGN, 3);
+            ConvertIntToDecimalStringN(gStringVar1, gMovesInfo[move].accuracy, STR_CONV_MODE_RIGHT_ALIGN, 3);
             str = gStringVar1;
         }
         AddTextPrinterParameterized_ColorByIndex(5, 3, str, 7, 24, 0, 0, 0xFF, 3);
-        ConvertIntToDecimalStringN(gStringVar1, gBattleMoves[move].pp, STR_CONV_MODE_RIGHT_ALIGN, 3);
+        ConvertIntToDecimalStringN(gStringVar1, gMovesInfo[move].pp, STR_CONV_MODE_RIGHT_ALIGN, 3);
         AddTextPrinterParameterized_ColorByIndex(5, 3, gStringVar1, 7, 36, 0, 0, 0xFF, 3);
         CopyWindowToVram(5, COPYWIN_GFX);
     }
@@ -1897,7 +1897,7 @@ static u8 CreateTMSprite(u16 itemId)
     else
     {
         SetTMSpriteAnim(&gSprites[spriteId], tmCat); //or not, did expansion so not usign bit field but still worked as is?
-        TintTMSpriteByType(gBattleMoves[ItemIdToBattleMoveId(itemId)].type);
+        TintTMSpriteByType(gMovesInfo[ItemIdToBattleMoveId(itemId)].type);
         UpdateTMSpritePosition(&gSprites[spriteId], tmIdx);
         return spriteId;
     }
@@ -1966,7 +1966,7 @@ static void SpriteCB_MoveTMSpriteInCase(struct Sprite * sprite) //vsonic
             if (sprite->sItemId != ITEM_NONE)
             {
                 sprite->sState++;
-                TintTMSpriteByType(gBattleMoves[ItemIdToBattleMoveId(sprite->sItemId)].type);
+                TintTMSpriteByType(gMovesInfo[ItemIdToBattleMoveId(sprite->sItemId)].type);
                 SetTMSpriteAnim(sprite, tmCat);
                 UpdateTMSpritePosition(sprite, tmIdx);
             }
@@ -2014,7 +2014,7 @@ static void LoadTMTypePalettes(void) //would need item and type values
 {
     struct SpritePalette spritePalette;
     //u16 itemId = BagGetItemIdByPocketPosition(POCKET_TM_CASE, sTMCaseStaticResources.scrollOffset + sTMCaseStaticResources.selectedRow);
-    //u8 type = gBattleMoves[ItemIdToBattleMoveId(itemId)].type;
+    //u8 type = gMovesInfo[ItemIdToBattleMoveId(itemId)].type;
 
     sTMSpritePaletteBuffer = Alloc(0x200 * sizeof(u16)); //alloc is end of offset, each is last start offset is 0x100, ends at 0x110 so 0x10 + last offset listed in type offset array
     LZDecompressWram(gTMCaseDiscTypes1_Pal, sTMSpritePaletteBuffer); // Decompress the first 16
