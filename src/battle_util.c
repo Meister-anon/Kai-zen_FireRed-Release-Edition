@@ -10415,7 +10415,7 @@ static inline void MulByTypeEffectiveness(struct BattleContext *ctx, uq4_12_t *m
     //since I've added and remove no immunities from these types
     //functions effectively the same in base
     //still need update ability and move descriptions
-    else if (/*(ctx->moveType == TYPE_FIGHTING || ctx->moveType == TYPE_NORMAL) &&*/ defType == TYPE_GHOST && gBattleMons[ctx->battlerDef].volatiles.foresight && mod == UQ_4_12(0.0))
+    else if (/*(ctx->moveType == TYPE_FIGHTING || ctx->moveType == TYPE_NORMAL) &&*/ defType == TYPE_GHOST && gBattleMons[ctx->battlerDef].volatiles.foresight && mod == NO_EFFECT)
     {
         mod = UQ_4_12(1.0);
     }
@@ -10423,16 +10423,23 @@ static inline void MulByTypeEffectiveness(struct BattleContext *ctx, uq4_12_t *m
         && (ctx->abilityAtk == ABILITY_SCRAPPY || ctx->abilityAtk == ABILITY_MINDS_EYE
         || (ctx->abilityAtk == ABILITY_PHANTOM_TOUCH && IsMoveMakingContact(ctx->battlerAtk, ctx->battlerDef, ctx->abilityAtk, ctx->holdEffectAtk, ctx->move))
         )
-        && mod == UQ_4_12(0.0))
+        && mod == NO_EFFECT)
     {
         mod = UQ_4_12(1.0);
         if (ctx->updateFlags)
             RecordAbilityBattle(ctx->battlerAtk, ctx->abilityAtk);
     }
 
-    if (/*ctx->moveType == TYPE_PSYCHIC &&*/ defType == TYPE_DARK && gBattleMons[ctx->battlerDef].volatiles.miracleEye && mod == UQ_4_12(0.0))
+    if (/*ctx->moveType == TYPE_PSYCHIC &&*/ defType == TYPE_DARK && gBattleMons[ctx->battlerDef].volatiles.miracleEye && mod == NO_EFFECT)
         mod = UQ_4_12(1.0);
-    
+
+    if (ctx->moveType == TYPE_FIGHTING && IsAirborneType(defType) && IsBattlerGrounded(ctx->battlerDef) && mod == NOT_VERY_EFFECTIVE)
+        mod = UQ_4_12(1.0);
+
+    //make exclusive for flying type as for wind would remove its only weakness
+    if (ctx->moveType == TYPE_ELECTRIC && defType == TYPE_FLYING && IsBattlerGrounded(ctx->battlerDef) && mod == NOT_VERY_EFFECTIVE)
+        mod = UQ_4_12(1.0);
+
     //believe is things like freeze dry
     if (GetMoveEffect(ctx->move) == EFFECT_SUPER_EFFECTIVE_ON_ARG && defType == GetMoveArgType(ctx->move) && !ctx->isAnticipation)
         mod = SUPER_EFFECTIVE;
@@ -10440,7 +10447,7 @@ static inline void MulByTypeEffectiveness(struct BattleContext *ctx, uq4_12_t *m
     /*if (ctx->moveType == TYPE_GROUND && IsAirborneType(defType) && IsBattlerGrounded(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef) && mod == UQ_4_12(0.0))
         mod = UQ_4_12(1.0);*/
     if (ctx->moveType == TYPE_STELLAR && GetActiveGimmick(ctx->battlerDef) == GIMMICK_TERA)
-        mod = UQ_4_12(2.0);
+        mod = SUPER_EFFECTIVE;
 
     // WEATHER_STRONG_WINDS weakens Super Effective moves against Flying-type Pokémon
     //now including wind type so effect will reduce dif types for each
@@ -10452,7 +10459,7 @@ static inline void MulByTypeEffectiveness(struct BattleContext *ctx, uq4_12_t *m
 
     if (gSpecialStatuses[ctx->battlerDef].distortedTypeMatchups || (mod > UQ_4_12(0.0) && ShouldTeraShellDistortTypeMatchups(ctx->move, ctx->battlerDef, ctx->abilityDef)))
     {
-        mod = UQ_4_12(0.5);
+        mod = NOT_VERY_EFFECTIVE;
         if (ctx->updateFlags)
         {
             RecordAbilityBattle(ctx->battlerDef, ctx->abilityDef);

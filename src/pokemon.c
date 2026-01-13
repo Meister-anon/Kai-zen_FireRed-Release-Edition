@@ -2547,7 +2547,7 @@ static const u8 sFiller = _("");
 //so just have a separate item for this
 //think will use the wind orb thing from
 //mage of aerovous thing
-static const u8 sHoldEffectToType[][2] = 
+/*static const u8 sHoldEffectToType[][2] = 
 {
     {HOLD_EFFECT_BUG_POWER, TYPE_BUG},
     {HOLD_EFFECT_STEEL_POWER, TYPE_STEEL},
@@ -2570,6 +2570,7 @@ static const u8 sHoldEffectToType[][2] =
     {HOLD_EFFECT_WIND_POWER, TYPE_WIND},
     {HOLD_EFFECT_SOUND_POWER, TYPE_SOUND},
 };//apparently these aren't for gems? but for stat boost items i.e rock power twisted spoon, nevermelt ice etc.
+*/
 
 const struct SpriteTemplate gSpriteTemplates_Battlers[] = 
 {
