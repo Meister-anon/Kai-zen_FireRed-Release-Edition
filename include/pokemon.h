@@ -4,6 +4,7 @@
 #include "global.h"
 #include "sprite.h"
 #include "move.h"
+#include "data.h"
 #include "constants/pokemon.h"
 #include "constants/battle.h"
 #include "pokemon_storage_system.h"
@@ -1175,7 +1176,6 @@ const struct AbilityLearnset *GetSpeciesTeachableAbilities(u16 species);
 const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species);
 const u16 *GetSpeciesTeachableLearnset(u16 species);
 const struct Evolution *GetSpeciesEvolutions(u16 species);
-u16 SanitizeSpeciesId(u16 species);
 //new functions for file reorg based on EE
 u8 GetFormType(u16 species); //set mostly for dex changes
 struct ToneData *GetCryIdBySpecies(u16 species, bool8 reverse); //added for cry table rehash
@@ -1198,5 +1198,59 @@ u8 GetNatureFromPersonality(u32 personality);
 u8 SendMonToPC(struct Pokemon* mon);
 void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon);
 void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species); //made attempt get inversion move set change worknig 
+
+static inline enum Ability SanitizeAbilityId(enum Ability ability)
+{
+    if (ability >= ABILITIES_COUNT)
+        return ABILITY_NONE;
+    else
+        return ability;
+}
+
+static inline u16 SanitizeSpeciesId(u16 species)
+{
+    if (species >= NUM_SPECIES)
+        return SPECIES_NONE;
+    else
+        return species;
+}
+
+
+
+static inline void CopySpeciesNameToBuff(u8 *nameBuff, u32 species)
+{
+    s32 i;
+
+    // Hmm? FRLG has < while Ruby/Emerald has <=
+    for (i = 0; i < POKEMON_NAME_LENGTH; i++)
+    {
+        nameBuff[i] = gBaseStats[SanitizeSpeciesId(species)].speciesName[i];
+
+        if (nameBuff[i] == EOS)
+            break;
+    }
+
+    nameBuff[i] = EOS;
+
+}
+
+
+static inline void CopyAbilityNameToBuff(u8 *nameBuff, enum Ability ability)
+{
+    u32 i;
+
+    // Hmm? FRLG has < while Ruby/Emerald has <=
+    for (i = 0; i < ABILITY_NAME_LENGTH; i++)
+    {
+
+        nameBuff[i] = gAbilitiesInfo[SanitizeAbilityId(ability)].name[i];
+
+        if (nameBuff[i] == EOS)
+            break;
+    }
+
+    nameBuff[i] = EOS;
+
+}
 
 #endif // GUARD_POKEMON_H

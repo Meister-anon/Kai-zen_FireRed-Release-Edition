@@ -762,13 +762,6 @@ void TrySetObtainedItemQuestLogEvent(u16 itemId)
     }
 }
 
-u16 SanitizeItemId(u16 itemId)
-{
-    if (itemId >= ITEM_N_A)
-        return ITEM_NONE;
-    return itemId;
-}
-
 
 //not sure if this works? for tms
 //this was the issue bad attmpt pass const value without memory allocation
@@ -797,10 +790,8 @@ const u8 *ItemId_GetName(u8 *nameBuffer, u16 itemId)
         {
             for (i = 0; i < ITEM_NAME_LENGTH; i++)
             {
-                if (itemId >= ITEMS_COUNT)
-                    nameBuffer[i] = gItems[SanitizeItemId(0)].name[i];
-                else
-                    nameBuffer[i] = gItems[SanitizeItemId(itemId)].name[i];
+
+                nameBuffer[i] = gItems[SanitizeItemId(itemId)].name[i];
 
                 if (nameBuffer[i] == EOS)
                     break;

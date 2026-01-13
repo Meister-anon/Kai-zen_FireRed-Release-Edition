@@ -106,6 +106,31 @@ void ApplyNewEncryptionKeyToBagItems_(u32 newKey);
 bool8 CheckHasAtLeastOneBerry(void);
 bool32 IsHoldEffectChoice(enum HoldEffect holdEffect);
 
-u16 SanitizeItemId(u16 itemId);
+static inline u16 SanitizeItemId(u16 itemId)
+{
+    if (itemId >= ITEM_N_A)
+        return ITEM_NONE;
+
+    return itemId;
+}
+
+static inline void CopyItemNameToBuff(u8 *nameBuff, u16 item)
+{
+    s32 i;
+
+
+    // Hmm? FRLG has < while Ruby/Emerald has <=
+    for (i = 0; i < ITEM_NAME_LENGTH; i++)
+    {
+
+        nameBuff[i] = gItems[SanitizeItemId(item)].name[i];
+
+        if (nameBuff[i] == EOS)
+            break;
+    }//changed to greater or equal as realized items count doesn't have anentry either
+
+    nameBuff[i] = EOS;
+
+}
 
 #endif // GUARD_ITEM_H

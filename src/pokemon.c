@@ -4,7 +4,6 @@
 #include "gflib.h"
 #include "random.h"
 #include "text.h"
-#include "data.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "item.h"
@@ -8452,25 +8451,7 @@ bool8 IsPokemonStorageFull(void)
 
 void GetAbilityName(u8 *namebuffer, u16 ability)
 {
-    u32 i;
-
-    for (i = 0; i < ABILITY_NAME_LENGTH; i++)
-    {
-        if (ability > ABILITIES_COUNT)
-            namebuffer[i] = gAbilitiesInfo[ABILITY_NONE].name[i];
-        else
-            namebuffer[i] = gAbilitiesInfo[ability].name[i];
-
-        //if (&gAbilityNames[ability][i] == NULL)
-        //    break;
-
-        if (namebuffer[i] == EOS)
-            break;
-    }
-
-    
-    //buffer = name;
-    namebuffer[i] = EOS;
+    CopyAbilityNameToBuff(namebuffer, ability);
    //if should cap species
    //does simple Char replacement, no buffers/placeholders necessary
    //this way cap species char will never trigger, if works for scripts should be able to remove all and save space
@@ -8486,21 +8467,7 @@ void GetAbilityName(u8 *namebuffer, u16 ability)
 //note clean up function later
 void GetSpeciesName(u8 *name, u16 species)
 {
-    s32 i;
-
-        // Hmm? FRLG has < while Ruby/Emerald has <=
-        for (i = 0; i < POKEMON_NAME_LENGTH; i++)
-        {
-            if (species > NUM_SPECIES)
-                name[i] = gBaseStats[0].speciesName[i]; //species name 0 doesn't exist, so what would happen if try to display it?
-            else
-                name[i] = gBaseStats[species].speciesName[i]; //changed took logic from moves, made speciesname 0 "-"
-
-            if (name[i] == EOS)//potentially need change use of sanitizespeciesId? though it works for other things,... leave as is
-                break;
-        }
-
-    name[i] = EOS;
+    CopySpeciesNameToBuff(name, species);
    //if should cap species
    //does simple Char replacement, no buffers/placeholders necessary
    //this way cap species char will never trigger, if works for scripts should be able to remove all and save space
@@ -8513,21 +8480,8 @@ void GetSpeciesName(u8 *name, u16 species)
 
 void GetMoveName(u8 *name, u16 move)
 {
-    s32 i;
 
-        // Hmm? FRLG has < while Ruby/Emerald has <=
-        for (i = 0; i < MOVE_NAME_LENGTH; i++)
-        {
-            if (move > MOVES_COUNT)
-                name[i] = gMoveNames[0][i];
-            else
-                name[i] = gMoveNames[move][i];
-
-            if (name[i] == EOS)
-                break;
-        }
-
-    name[i] = EOS;
+    CopyMoveNameToBuff(name, move);
     
    //if should cap species
    //does simple Char replacement, no buffers/placeholders necessary
@@ -8541,23 +8495,8 @@ void GetMoveName(u8 *name, u16 move)
 
 void GetItemName(u8 *name, u16 item)
 {
-    s32 i;
-    //u16 pocket = ItemId_GetPocket(item); careful where I put item could be referenced outside pocket
-    //u8 *end;
-
-        // Hmm? FRLG has < while Ruby/Emerald has <=
-        for (i = 0; i < ITEM_NAME_LENGTH; i++)
-        {
-            if (item >= ITEMS_COUNT)
-                name[i] = gItems[SanitizeItemId(0)].name[i];
-            else
-                name[i] = gItems[SanitizeItemId(item)].name[i];
-
-            if (name[i] == EOS)
-                break;
-        }//changed to greater or equal as realized items count doesn't have anentry either
-
-    name[i] = EOS;
+    
+    CopyItemNameToBuff(name, item);
     //end = name;
    //if should cap species
    //does simple Char replacement, no buffers/placeholders necessary
@@ -11308,14 +11247,6 @@ bool8 TryIncrementMonLevel(struct Pokemon *mon)
     }
 }
 
-
-u16 SanitizeSpeciesId(u16 species)
-{
-    if (species > NUM_SPECIES)
-        return SPECIES_NONE;
-    else
-        return species;
-}
 
 const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species)
 {

@@ -825,23 +825,9 @@ static void InitTMCaseListMenuItems(void)
 //cut is still printed first
 static const u8 *TM_Case_AppendFontToFit(u8 *nameBuffer, u16 move)
 {
-    s32 i;
 
 
-        // Hmm? FRLG has < while Ruby/Emerald has <=
-        for (i = 0; i < MOVE_NAME_LENGTH; i++)
-        {
-            if (move > MOVES_COUNT)
-                nameBuffer[i] = gMoveNames[0][i];
-            else
-                nameBuffer[i] = gMoveNames[move][i];
-
-            if (nameBuffer[i] == EOS)
-                break;
-        }
-
-    nameBuffer[i] = EOS;
-    
+    CopyMoveNameToBuff(nameBuffer, move);
    
     if (ShouldCapitalizeMoves())
         CapializeString(nameBuffer); 

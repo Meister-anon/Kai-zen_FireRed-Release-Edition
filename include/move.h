@@ -7,6 +7,7 @@
 #include "constants/battle_move_effects.h"
 #include "constants/battle_string_ids.h"
 #include "constants/moves.h"
+#include "characters.h"
 #include "strings.h"
 
 // For defining EFFECT_HIT etc. with battle TV scores and flags etc.
@@ -189,7 +190,7 @@ struct BattleMove
 extern const struct BattleMove gBattleMoves[];
 extern const struct BattleMoveEffect gBattleMoveEffects[];
 
-static inline u32 SanitizeMoveId(u32 moveId)
+static inline enum Move SanitizeMoveId(enum Move moveId)
 {
     if (moveId >= MOVES_COUNT)
         return MOVE_NONE;
@@ -197,7 +198,7 @@ static inline u32 SanitizeMoveId(u32 moveId)
         return moveId;
 }
 
-static inline u32 SanitizeMoveEffect(u32 moveEffect)
+static inline enum BattleMoveEffects SanitizeMoveEffect(enum BattleMoveEffects moveEffect)
 {
     if (moveEffect >= NUM_BATTLE_MOVE_EFFECTS)
         return EFFECT_PLACEHOLDER;
@@ -205,12 +206,30 @@ static inline u32 SanitizeMoveEffect(u32 moveEffect)
         return moveEffect;
 }
 
-static inline const u8 *GetMoveName_(u32 moveId)
+//broke movename cap may not use
+static inline const u8 *GetMoveName_(enum Move moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].name;
 }
 
-static inline const u8 *GetMoveDescription(u32 moveId)
+static inline void CopyMoveNameToBuff(u8 *nameBuff, u32 moveId)
+{
+    s32 i;
+
+    // Hmm? FRLG has < while Ruby/Emerald has <=
+    for (i = 0; i < MOVE_NAME_LENGTH; i++)
+    {
+        nameBuff[i] = gBattleMoves[SanitizeMoveId(moveId)].name[i];
+
+        if (nameBuff[i] == EOS)
+            break;
+    }
+
+    nameBuff[i] = EOS;
+
+}
+
+static inline const u8 *GetMoveDescription(enum Move moveId)
 {
     moveId = SanitizeMoveId(moveId);
     if (gBattleMoves[moveId].effect == EFFECT_PLACEHOLDER)
