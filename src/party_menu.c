@@ -1740,8 +1740,6 @@ static void DisplayGaveHeldItemMessage(struct Pokemon *mon, u16 item, bool8 keep
     else
         ItemUse_SetQuestLogEvent(QL_EVENT_GAVE_HELD_ITEM_BAG, mon, item, 0xFFFF);
     GetMonNickname(mon, gStringVar1);
-    if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
     CopyItemName(item, gStringVar2);
     StringExpandPlaceholders(gStringVar4, gText_PkmnWasGivenItem);
     DisplayPartyMenuMessage(gStringVar4, keepOpen);
@@ -1752,8 +1750,6 @@ static void DisplayTookHeldItemMessage(struct Pokemon *mon, u16 item, bool8 keep
 {
     ItemUse_SetQuestLogEvent(QL_EVENT_TOOK_HELD_ITEM, mon, item, 0xFFFF);
     GetMonNickname(mon, gStringVar1);
-    if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
     CopyItemName(item, gStringVar2);
     StringExpandPlaceholders(gStringVar4, gText_ReceivedItemFromPkmn);
     DisplayPartyMenuMessage(gStringVar4, keepOpen);
@@ -1763,8 +1759,6 @@ static void DisplayTookHeldItemMessage(struct Pokemon *mon, u16 item, bool8 keep
 static void DisplayAlreadyHoldingItemSwitchMessage(struct Pokemon *mon, u16 item, bool8 keepOpen)
 {
     GetMonNickname(mon, gStringVar1);
-    if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
     CopyItemName(item, gStringVar2);
     StringExpandPlaceholders(gStringVar4, gText_PkmnAlreadyHoldingItemSwitch);
     DisplayPartyMenuMessage(gStringVar4, keepOpen);
@@ -2538,8 +2532,6 @@ static void DisplayPartyPokemonNickname(struct Pokemon *mon, struct PartyMenuBox
         if (drawMenuBoxOrText == DRAW_MENU_BOX_AND_TEXT)
             menuBox->infoRects->blitFunc(menuBox->windowId, menuBox->infoRects->dimensions[0] >> 3, menuBox->infoRects->dimensions[1] >> 3, menuBox->infoRects->dimensions[2] >> 3, menuBox->infoRects->dimensions[3] >> 3, FALSE);
         GetMonNickname(mon, nickname);
-        if (StringCompare(gBaseStats[species].speciesName, nickname) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(nickname, species);
         DisplayPartyPokemonBarDetail(menuBox->windowId, nickname, 0, menuBox->infoRects->dimensions);
     }
 }
@@ -2578,8 +2570,6 @@ static void DisplayPartyPokemonGenderNidoranCheck(struct Pokemon *mon, struct Pa
     if (drawMenuBoxOrText == DRAW_MENU_BOX_AND_TEXT)
         menuBox->infoRects->blitFunc(menuBox->windowId, menuBox->infoRects->dimensions[8] >> 3, (menuBox->infoRects->dimensions[9] >> 3) + 1, menuBox->infoRects->dimensions[10] >> 3, menuBox->infoRects->dimensions[11] >> 3, FALSE);
     GetMonNickname(mon, nickname);
-    if (StringCompare(gBaseStats[species].speciesName, nickname) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(nickname, species);
     DisplayPartyPokemonGender(GetMonGender(mon), species, nickname, menuBox);
 }
 
@@ -3908,9 +3898,6 @@ static void CreateSelectionWindow(void)
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
 
     GetMonNickname(mon, gStringVar1);
-    if (StringCompare(gBaseStats[species].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, species);
-
     PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
     SetPartyMonSelectionActions(gPlayerParty, gPartyMenu.slotId, GetPartyMenuActionsType(mon));
     DisplaySelectionWindow(SELECTWINDOW_ACTIONS);
@@ -4569,9 +4556,6 @@ static void CursorCB_TakeItem(u8 taskId)
     {
     case 0: // Not holding item
         GetMonNickname(mon, gStringVar1);
-        if (StringCompare(gBaseStats[species].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, species);
-
         StringExpandPlaceholders(gStringVar4, gText_PkmnNotHolding);
         DisplayPartyMenuMessage(gStringVar4, TRUE);
         break;
@@ -5469,8 +5453,6 @@ void ItemUseCB_PokeBall(u8 taskId, TaskFunc func)
         gPartyMenuUseExitCallback = FALSE;
             
         GetMonNickname(mon, gStringVar1);
-        if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/
-            GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
         StringExpandPlaceholders(gStringVar4, gText_MonAlreadyInBall);
         DisplayPartyMenuMessage(gStringVar4, TRUE);
         ScheduleBgCopyTilemapToVram(2);
@@ -5489,8 +5471,6 @@ static void ItemUseCB_PokeBallStep(u8 taskId, UNUSED TaskFunc func)
     SetMonData(mon, MON_DATA_POKEBALL, &gSpecialVar_ItemId);
 
     GetMonNickname(mon, gStringVar1);
-    if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
     StringExpandPlaceholders(gStringVar4, gText_PokemonSwappedPokeBall);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
     ScheduleBgCopyTilemapToVram(2);
@@ -5591,9 +5571,7 @@ void ItemUseCB_MedicineStep(u8 taskId, TaskFunc func)
     }
     else
     {
-        GetMonNickname(mon, gStringVar1);
-        if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
+        GetMonNickname(mon, gStringVar1);    
         GetMedicineItemEffectMessage(item);
         DisplayPartyMenuMessage(gStringVar4, TRUE);
         ScheduleBgCopyTilemapToVram(2);
@@ -5604,8 +5582,6 @@ void ItemUseCB_MedicineStep(u8 taskId, TaskFunc func)
 static void Task_DisplayHPRestoredMessage(u8 taskId)
 {
     GetMonNickname(&gPlayerParty[gPartyMenu.slotId], gStringVar1);
-    if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[gPartyMenu.slotId],MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(&gPlayerParty[gPartyMenu.slotId],MON_DATA_SPECIES));
     StringExpandPlaceholders(gStringVar4, gText_PkmnHPRestoredByVar2);
     DisplayPartyMenuMessage(gStringVar4, FALSE);
     ScheduleBgCopyTilemapToVram(2);
@@ -5665,9 +5641,6 @@ void Task_AbilityCapsule(u8 taskId) //important seemed easy enough so ported now
         }
         gPartyMenuUseExitCallback = TRUE;
         GetMonNickname(&gPlayerParty[tMonId], gStringVar1);
-        if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[tMonId],MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(&gPlayerParty[tMonId],MON_DATA_SPECIES));
-
         StringCopy(gStringVar2, gAbilitiesInfo[GetAbilityBySpecies(tSpecies, tAbilityNum, &gPlayerParty[tMonId])].name); //sme as top can get from above
         StringExpandPlaceholders(gStringVar4, askText);
         PlaySE(SE_SELECT);
@@ -6085,8 +6058,6 @@ void ItemUseCB_TMHM(u8 taskId, UNUSED TaskFunc func)
     move = &gPartyMenu.data1;
     item = gSpecialVar_ItemId;
     GetMonNickname(mon, gStringVar1);
-    if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
     move[0] = ItemIdToBattleMoveId(item);
     GetMoveName(gStringVar2, move[0]);
     move[1] = 0;
@@ -6129,8 +6100,6 @@ static void Task_LearnedMove(u8 taskId) //tm learn move  /or just move learn in 
 
     }
     GetMonNickname(mon, gStringVar1);
-    if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
     GetMoveName(gStringVar2, move[0]);
     StringExpandPlaceholders(gStringVar4, gText_PkmnLearnedMove3);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
@@ -6236,8 +6205,6 @@ static void Task_ReplaceMoveWithTMHM(u8 taskId)
 
     ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, mon, gSpecialVar_ItemId, move);
     GetMonNickname(mon, gStringVar1);
-    if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
     GetMoveName(gStringVar2, move);
     RemoveMonPPBonus(mon, moveIdx);
     SetMonMoveSlot(mon, gPartyMenu.data1, moveIdx);
@@ -6250,8 +6217,6 @@ static void DisplayPartyMenuForgotMoveMessage(u8 taskId)
     u16 move = GetMonData(mon, MON_DATA_MOVE1 + GetMoveSlotToReplace());
 
     GetMonNickname(mon, gStringVar1);
-    if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
     GetMoveName(gStringVar2, move);
     DisplayLearnMoveMessage(gText_12PoofForgotMove);
     gTasks[taskId].func = Task_PartyMenuReplaceMove;
@@ -6334,9 +6299,7 @@ static void Task_HandleConfirmLearningMoveYesNoInput(u8 taskId)
         PlaySE(SE_SELECT);
         // fallthrough
     case 1: //no
-        GetMonNickname(mon, gStringVar1);
-        if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
+        GetMonNickname(mon, gStringVar1);    
         GetMoveName(gStringVar2, gPartyMenu.data1);
         DisplayLearnMoveMessage(gText_PkmnNeedsToReplaceMove);
         gTasks[taskId].func = Task_ReplaceMoveYesNo;
@@ -6351,9 +6314,7 @@ static void Task_HandleStopLearningMoveYesNoInput(u8 taskId)
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {
     case 0:
-        GetMonNickname(mon, gStringVar1);
-        if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
+        GetMonNickname(mon, gStringVar1);    
         GetMoveName(gStringVar2, gPartyMenu.data1);
         StringExpandPlaceholders(gStringVar4, gText_MoveNotLearned);
         DisplayPartyMenuMessage(gStringVar4, TRUE);
@@ -6373,8 +6334,6 @@ static void Task_HandleStopLearningMoveYesNoInput(u8 taskId)
         // fallthrough
     case 1:
         GetMonNickname(mon, gStringVar1);
-        if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
         GetMoveName(gStringVar2, gPartyMenu.data1);
         DisplayLearnMoveMessage(gText_PkmnNeedsToReplaceMove);
         gTasks[taskId].func = Task_ReplaceMoveYesNo;
@@ -6430,8 +6389,6 @@ static void ItemUseCB_RareCandyStep(u8 taskId, UNUSED TaskFunc func)
     UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
     RemoveBagItem(gSpecialVar_ItemId, 1);
     GetMonNickname(mon, gStringVar1);
-    if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
     level = GetMonData(mon, MON_DATA_LEVEL);
     ConvertIntToDecimalStringN(gStringVar2, level, STR_CONV_MODE_LEFT_ALIGN, 3);
     StringExpandPlaceholders(gStringVar4, gText_PkmnElevatedToLvVar2);
@@ -6560,8 +6517,6 @@ static void PartyMenuTryEvolution(u8 taskId)
 static void DisplayMonNeedsToReplaceMove(u8 taskId)
 {
     GetMonNickname(&gPlayerParty[gPartyMenu.slotId], gStringVar1);
-    if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[gPartyMenu.slotId],MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(&gPlayerParty[gPartyMenu.slotId],MON_DATA_SPECIES));
     GetMoveName(gStringVar2, gMoveToLearn);
     StringExpandPlaceholders(gStringVar4, gText_PkmnNeedsToReplaceMove);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
@@ -6573,8 +6528,6 @@ static void DisplayMonNeedsToReplaceMove(u8 taskId)
 static void DisplayMonLearnedMove(u8 taskId, u16 move)
 {
     GetMonNickname(&gPlayerParty[gPartyMenu.slotId], gStringVar1);
-    if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[gPartyMenu.slotId],MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(&gPlayerParty[gPartyMenu.slotId],MON_DATA_SPECIES));
     GetMoveName(gStringVar2, move);
     StringExpandPlaceholders(gStringVar4, gText_PkmnLearnedMove3);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
@@ -6662,8 +6615,6 @@ static void Task_SacredAshLoop(u8 taskId)
 static void Task_SacredAshDisplayHPRestored(u8 taskId)
 {
     GetMonNickname(&gPlayerParty[gPartyMenu.slotId], gStringVar1);
-    if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[gPartyMenu.slotId],MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(&gPlayerParty[gPartyMenu.slotId],MON_DATA_SPECIES));
     StringExpandPlaceholders(gStringVar4, gText_PkmnHPRestoredByVar2);
     DisplayPartyMenuMessage(gStringVar4, FALSE);
     ScheduleBgCopyTilemapToVram(2);
@@ -6803,9 +6754,7 @@ static void TryTutorSelectedMon(u8 taskId)
     {
         mon = &gPlayerParty[gPartyMenu.slotId];
         move = &gPartyMenu.data1;
-        GetMonNickname(mon, gStringVar1);
-        if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
+        GetMonNickname(mon, gStringVar1);    
         gPartyMenu.data1 = GetTutorMove(gSpecialVar_0x8005);
         GetMoveName(gStringVar2, gPartyMenu.data1);
         move[1] = 2;
@@ -7354,8 +7303,6 @@ static bool8 TrySwitchInPokemon(void)
     if (GetMonData(&gPlayerParty[slot], MON_DATA_HP) == 0)
     {
         GetMonNickname(&gPlayerParty[slot], gStringVar1);
-        if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[slot],MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(&gPlayerParty[slot],MON_DATA_SPECIES));
         StringExpandPlaceholders(gStringVar4, gText_PkmnHasNoEnergy);
         return FALSE;
     }
@@ -7364,8 +7311,6 @@ static bool8 TrySwitchInPokemon(void)
         if (GetBattlerSide(i) == B_SIDE_PLAYER && GetPartyIdFromBattleSlot(slot) == gBattlerPartyIndexes[i])
         {
             GetMonNickname(&gPlayerParty[slot], gStringVar1);
-            if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[slot],MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-            GetSpeciesName(gStringVar1, GetMonData(&gPlayerParty[slot],MON_DATA_SPECIES));
             StringExpandPlaceholders(gStringVar4, gText_PkmnAlreadyInBattle);
             return FALSE;
         }
@@ -7378,8 +7323,6 @@ static bool8 TrySwitchInPokemon(void)
     if (GetPartyIdFromBattleSlot(slot) == gBattleStruct->playerPartyIdx)
     {
         GetMonNickname(&gPlayerParty[slot], gStringVar1);
-        if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[slot],MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(&gPlayerParty[slot],MON_DATA_SPECIES));
         StringExpandPlaceholders(gStringVar4, gText_PkmnAlreadySelected);
         return FALSE;
     }
@@ -7393,8 +7336,6 @@ static bool8 TrySwitchInPokemon(void)
         u8 currBattler = gBattlerInMenuId;
 
         GetMonNickname(&gPlayerParty[GetPartyIdFromBattlePartyId(gBattlerPartyIndexes[currBattler])], gStringVar1);
-        if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[GetPartyIdFromBattlePartyId(gBattlerPartyIndexes[currBattler])],MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
-        GetSpeciesName(gStringVar1, GetMonData(&gPlayerParty[GetPartyIdFromBattlePartyId(gBattlerPartyIndexes[currBattler])],MON_DATA_SPECIES));
         StringExpandPlaceholders(gStringVar4, gText_PkmnCantSwitchOut);
         return FALSE;
     }
