@@ -135,8 +135,9 @@ enum __attribute__((packed)) Type
     TYPE_DRAGON = 17,
     TYPE_DARK = 18,
     TYPE_FAIRY = 19,
-    TYPE_SOUND = 20,
-    TYPE_STELLAR = 21,
+    TYPE_WIND = 20,
+    TYPE_SOUND = 21,
+    TYPE_STELLAR = 22,
     NUMBER_OF_MON_TYPES
 };
 

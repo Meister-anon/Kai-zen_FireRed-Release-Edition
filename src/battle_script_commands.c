@@ -1821,8 +1821,10 @@ static inline bool32 TryStrongWindsWeakenAttack(u32 battlerDef, enum Type moveTy
     if (gBattleWeather & WEATHER_STRONG_WINDS && HasWeatherEffect())
     {
         if (GetMoveCategory(gCurrentMove) != DAMAGE_CATEGORY_STATUS
-         && IS_BATTLER_OF_TYPE(battlerDef, TYPE_FLYING)
-         && gTypeEffectivenessTable[moveType][TYPE_FLYING] >= SUPER_EFFECTIVE
+         && ((IS_BATTLER_OF_TYPE(battlerDef, TYPE_FLYING)
+         && gTypeEffectivenessTable[moveType][TYPE_FLYING] >= SUPER_EFFECTIVE)
+         || (IS_BATTLER_OF_TYPE(battlerDef, TYPE_WIND)
+         && gTypeEffectivenessTable[moveType][TYPE_WIND] >= SUPER_EFFECTIVE))
          && !gBattleStruct->printedStrongWindsWeakenedAttack)
         {
             gBattleStruct->printedStrongWindsWeakenedAttack = TRUE;
@@ -16234,7 +16236,8 @@ void BS_HandleEscapePrevention(void)
     || GetBattlerAbility(battler) == ABILITY_HANDS_OF_FATE
     || (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battler, TYPE_GHOST, FALSE)
     && gBattleMons[battler].species != SPECIES_SPIRITOMB)
-    || (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker,battler, TYPE_FLYING, FALSE)
+    || ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker,battler, TYPE_FLYING, FALSE)
+    || DoesBattlerGetTypeBasedAffinity(gBattlerAttacker,battler, TYPE_WIND, FALSE))
     && !IsFlyingTypeBattlerUnableToFly(battler))
     )
     {

@@ -1644,6 +1644,40 @@ static inline bool32 TrySkipMoveResultChecks(u16 move)
     || GetMoveEffect(move) == EFFECT_FIXED_HP_DAMAGE);
 }
 
+static inline bool32 IsAirborneType(enum Type type)
+{
+    if (type == TYPE_FLYING
+    || type == TYPE_WIND)
+        return TRUE;
+
+    return FALSE;
+}
+
+static inline bool32 IsbattlerDivergentTypeOfMove(u32 battler, enum Type moveType)
+{
+    if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING)
+    && moveType == TYPE_WIND)
+        return TRUE;
+
+    /*if (IS_BATTLER_ANY_TYPE(battler, TYPE_GROUND, TYPE_ROCK)
+    && (moveType == TYPE_ROCK
+    || moveType == TYPE_GROUD))
+        return TRUE;
+    */
+
+   return FALSE;
+    
+}
+
+static inline bool32 DoesBattlerGetStabOnMove(u32 battler, enum Type moveType)
+{
+    if (IS_BATTLER_OF_TYPE(battler, moveType)
+    || IsbattlerDivergentTypeOfMove(battler, moveType))
+        return TRUE;
+
+    return FALSE;
+}
+
 
 //unsure if works, so not yet using
 //compiler error so guess is wrong

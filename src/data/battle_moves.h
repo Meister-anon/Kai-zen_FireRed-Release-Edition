@@ -367,7 +367,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .slicingMove = TRUE,
         .enhancedCritrate = TRUE,
         .damagesAirborneDoubleDamage = TRUE,
-        .argument = { .storedValue = TYPE_FLYING },
+        .argument = { .storedValue = TYPE_WIND },
         //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -443,7 +443,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .description = COMPOUND_MOVE_STRING("Strikes the foe\nwith a gust of wind\nwhipped up by\nwings."),
         .effect = EFFECT_HIT,  //does nothing just goes to hit, can change to hit
         .power = 40,
-        .type = TYPE_FLYING,
+        .type = TYPE_WIND,
         .accuracy = 100,
         .pp = 35,
         .target = TARGET_SELECTED,
@@ -4609,7 +4609,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .description = COMPOUND_MOVE_STRING("A vortex of air is\nshot at the foe./nIt has a high chance\nto lower SP. DEF."),
     .effect = EFFECT_HIT,
     .power = 100,
-    .type = TYPE_FLYING,
+    .type = TYPE_WIND,
     .accuracy = 95,
     .pp = 5,
     .target = TARGET_SELECTED,
@@ -8002,7 +8002,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .power = 55,
         #endif
         .effect = EFFECT_HIT, //think drop back to 55
-        .type = TYPE_FLYING,
+        .type = TYPE_WIND,
         .accuracy = 100,
         .pp = 25,
         .target = TARGET_BOTH,
@@ -9311,7 +9311,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #endif
         .effect = EFFECT_TAILWIND,
         .power = 0,
-        .type = TYPE_FLYING,
+        .type = TYPE_WIND,
         .accuracy = 0,
         .target = TARGET_USER,
         .priority = 0,//think affect is too strong to be given priority, same as rest
@@ -10198,7 +10198,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             #endif
         .effect = EFFECT_HIT,
         .power = 65,
-        .type = TYPE_FLYING,
+        .type = TYPE_WIND,
         .accuracy = 95,
         .target = TARGET_SELECTED,
         .priority = 0,
@@ -13568,7 +13568,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
         .power = 120,
         .effect = EFFECT_HIT, //does confusion
-        .type = TYPE_FLYING,
+        .type = TYPE_WIND,
         .accuracy = 80,
         .pp = 10,
         .target = TARGET_SELECTED,
@@ -19202,7 +19202,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .pp = 5,
         #endif
         .effect = EFFECT_HIT,//EFFECT_HIT, //put freeze back on this
-        .type = TYPE_FLYING, //is balanced w my freeze changes
+        .type = TYPE_WIND, //is balanced w my freeze changes
         .accuracy = 85,
         .target = TARGET_BOTH,
         .priority = 0,

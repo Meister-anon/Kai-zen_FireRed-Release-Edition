@@ -3781,8 +3781,10 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
             case MOVE_FLY:
             {
                 //should prevent learnable hms from showing in  list until you have the badge to use them(working)
+                //less restrictive condition to give more flying options
                 if (ShouldDisplayHMFieldMove(j)
-                && (CanSpeciesLearnTMHMmove(species, sFieldMoves[j]) || IsFloatingSpecies(species) || IsMonType(&mons[slotId], TYPE_FLYING))
+                && (CanSpeciesLearnTMHMmove(species, sFieldMoves[j]) || IsFloatingSpecies(species) || IsMonType(&mons[slotId], TYPE_FLYING)
+                || IsMonType(&mons[slotId], TYPE_WIND))
                 && sPartyMenuInternal->numActions <= 5) 
                     AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, j + MENU_FIELD_MOVES);
             }

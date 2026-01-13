@@ -7781,7 +7781,8 @@ static bool32 IsBattlerGroundedInverseCheck(u32 battler, enum Ability ability, e
     if (IsFloatingSpecies(species))//used if as breakline, as else if only reads if everything above it is false
         grounded = FALSE; //nice new version of floating setup greatly cleanns up this function
 
-    else if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battler, TYPE_FLYING, FALSE)
+    else if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battler, TYPE_FLYING, FALSE)
+    || DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battler, TYPE_WIND, FALSE))
      && holdEffect == HOLD_EFFECT_FLOAT_STONE)
         grounded = FALSE;
     //for setting the sript to play think can do it in atk49 moveend
@@ -8054,7 +8055,7 @@ const struct TypePower gNaturalGiftTable[] =
     [ITEM_TO_BERRY(ITEM_CHOPLE_BERRY)] = {TYPE_FIGHTING, 80},
     [ITEM_TO_BERRY(ITEM_KEBIA_BERRY)] = {TYPE_POISON, 80},
     [ITEM_TO_BERRY(ITEM_SHUCA_BERRY)] = {TYPE_GROUND, 80},
-    [ITEM_TO_BERRY(ITEM_COBA_BERRY)] = {TYPE_FLYING, 80},
+    [ITEM_TO_BERRY(ITEM_COBA_BERRY)] = {TYPE_WIND, 80},
     [ITEM_TO_BERRY(ITEM_PAYAPA_BERRY)] = {TYPE_PSYCHIC, 80},
     [ITEM_TO_BERRY(ITEM_TANGA_BERRY)] = {TYPE_BUG, 80},
     [ITEM_TO_BERRY(ITEM_CHARTI_BERRY)] = {TYPE_ROCK, 80},
@@ -9376,7 +9377,7 @@ static inline uq4_12_t GetParentalBondModifier(u32 battlerAtk)
 //since include joat etc decide rename function was GetSameTypeAttackBonusModifier
 static inline uq4_12_t GetTypeBasedBonusModifier(struct DamageContext *ctx)
 {
-    u8 SecondarymoveType = GetMoveEffect(ctx->move) == EFFECT_TWO_TYPED_MOVE ? GetMoveStoredValue(ctx->move) : TYPE_NONE;
+    enum Type SecondarymoveType = GetMoveEffect(ctx->move) == EFFECT_TWO_TYPED_MOVE ? GetMoveStoredValue(ctx->move) : TYPE_NONE;
 
     //if its just returning neutral do I need these at all here?
     //yeah it needs to return something cuz multiplies result
@@ -9390,12 +9391,12 @@ static inline uq4_12_t GetTypeBasedBonusModifier(struct DamageContext *ctx)
     || (ctx->moveType == TYPE_SOUND && !IS_BATTLER_OF_TYPE(ctx->battlerAtk, TYPE_NORMAL)))
         return UQ_4_12(1.0);
 
-    else if (gBattleStruct->pledgeMove && IS_BATTLER_OF_TYPE(BATTLE_PARTNER(ctx->battlerAtk), ctx->moveType))
+    else if (gBattleStruct->pledgeMove && DoesBattlerGetStabOnMove(BATTLE_PARTNER(ctx->battlerAtk), ctx->moveType))
         return (ctx->abilityAtk == ABILITY_ADAPTABILITY) ? ADAPTABILITY_MULTIPLIER : SAME_TYPE_MULTIPLIER;
 
     //normal stab, applied for two typed moves  as well
-    else if (IS_BATTLER_OF_TYPE(ctx->battlerAtk, ctx->moveType)
-    || IS_BATTLER_OF_TYPE(ctx->battlerAtk, SecondarymoveType))
+    else if (DoesBattlerGetStabOnMove(ctx->battlerAtk, ctx->moveType)
+    || DoesBattlerGetStabOnMove(ctx->battlerAtk, SecondarymoveType))
         return (ctx->abilityAtk == ABILITY_ADAPTABILITY) ? ADAPTABILITY_MULTIPLIER : SAME_TYPE_MULTIPLIER;
     
     //ability psuedo stab effects
@@ -10435,15 +10436,16 @@ static inline void MulByTypeEffectiveness(struct BattleContext *ctx, uq4_12_t *m
     //believe is things like freeze dry
     if (GetMoveEffect(ctx->move) == EFFECT_SUPER_EFFECTIVE_ON_ARG && defType == GetMoveArgType(ctx->move) && !ctx->isAnticipation)
         mod = SUPER_EFFECTIVE;
-    if (ctx->moveType == TYPE_GROUND && defType == TYPE_FLYING && IsBattlerGrounded(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef) && mod == UQ_4_12(0.0))
+    if (ctx->moveType == TYPE_GROUND && IsAirborneType(defType) && IsBattlerGrounded(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef) && mod == UQ_4_12(0.0))
         mod = UQ_4_12(1.0);
     if (ctx->moveType == TYPE_STELLAR && GetActiveGimmick(ctx->battlerDef) == GIMMICK_TERA)
         mod = UQ_4_12(2.0);
 
     // WEATHER_STRONG_WINDS weakens Super Effective moves against Flying-type Pokémon
+    //now including wind type so effect will reduce dif types for each
     if (ctx->weather & WEATHER_STRONG_WINDS && !ctx->isAnticipation)
     {
-        if (defType == TYPE_FLYING && mod >= SUPER_EFFECTIVE)
+        if (IsAirborneType(defType) && mod >= SUPER_EFFECTIVE)
             mod = UQ_4_12(1.0);
     }
 
@@ -12051,6 +12053,8 @@ bool32 MoveIsAffectedBySheerForce(u32 move)
     return FALSE;
 }
 
+//not using this but adjust logic
+//need also well actually change this to is floating
 bool8 CanMonParticipateInSkyBattle(struct Pokemon *mon)
 {
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
@@ -12062,12 +12066,14 @@ bool8 CanMonParticipateInSkyBattle(struct Pokemon *mon)
 
     if (monIsValidAndNotEgg)
     {
-        if ((hasLevitateAbility || isFlyingType) && !IsMonBannedFromSkyBattles(species))
+        if (IsFloatingSpecies(species) && !IsMonBannedFromSkyBattles(species))
             return TRUE;
     }
     return FALSE;
 }
 
+//huh weird pokemon already has short list
+//of mon that couldn't fly
 bool8 IsMonBannedFromSkyBattles(u16 species)
 {
     switch (species)
@@ -12850,7 +12856,8 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, enum Ability atkA
     #define FLYING_TYPE_BONUS
         if (IsBattlerGrounded(battlerAtk)
         && !IsBattlerGrounded(battlerDef) //make function for below
-        && (DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_FLYING, FALSE))
+        && (DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_FLYING, FALSE)
+        || DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_WIND, FALSE))
         && atkAbility != ABILITY_KEEN_EYE
         && atkAbility != ABILITY_MINDS_EYE
         && atkAbility != ABILITY_APOTHEOSCENT

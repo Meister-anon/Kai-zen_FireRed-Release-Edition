@@ -218,6 +218,8 @@ if it would otherwise be 0/NONE except in the case of ability.
 //logic for flying types will be, if bird, or if majorly attacks from the air
 //w lugia as example for rare cases dragon type can stand in for flying part of identity,  as dragons are rulers of land and sky (and sea for water dragons)
 
+//w added wind type split off some features from flying can define characteristics here
+
 //put thematic logic for all types, helps with type changes as well as keeping consistent
 /*
     Normal: Animal type thing that are just normal land mamals/animals
@@ -236,6 +238,7 @@ if it would otherwise be 0/NONE except in the case of ability.
     ???: Eldritch/Ancient type, creatures beyond normal comprehension, or that the conventional type scheme can't fully grasp.
     Fight: Trained Human type,  extensively physically trained but like normal lacks extra traits, typically human-like egg group, 
     Psychic: counterpart-to fighting, extensively mentally trained, has extra normal powers similar to fairy except source is the mind.
+    Wind: masterfully controls wind can be wind elemental. usually hyper mobile mostly special counterpart to flying
 */
 
 //important note, with logic for normal as stated above, there are many
@@ -6016,7 +6019,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sJumpluffLevelUpLearnset,
         .tmhmLearnset = sJumpluffTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//doesnt get flying moves its mosty flying just cuz its always in air
+    //doesn't really have control
 
     [SPECIES_AIPOM] =
     {
@@ -7663,7 +7667,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 85, 75, 115, 115, 100),
-        MON_TYPES(TYPE_ELECTRIC, TYPE_FLYING), //its apparently able to fly too lol thanks pokemon ranger lmao
+        MON_TYPES(TYPE_ELECTRIC, TYPE_WIND), //its apparently able to fly too lol thanks pokemon ranger lmao
         .catchRate = 3, //add thing about flying to raikou dex entry race across continents
         .expYield = 261, //by land or on backs of clouds something idk
         //.evYield_Speed = 2,
@@ -20810,7 +20814,7 @@ const struct BaseStats gBaseStats[] =
         125,
         80
         ),
-        MON_TYPES(TYPE_FLYING, TYPE_FLYING),
+        MON_TYPES(TYPE_WIND),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Attack = 3,
@@ -45602,7 +45606,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(66, 67, 67, 112, 105, 87),
-        MON_TYPES(TYPE_ELECTRIC, TYPE_FLYING),
+        MON_TYPES(TYPE_ELECTRIC, TYPE_WIND), //considered keep flying but controls wind so works
         .catchRate = 45,
         .expYield = 182,
         //.evYield_Speed = 1,
@@ -46660,7 +46664,7 @@ const struct BaseStats gBaseStats[] =
         110,
         90
         ),
-        MON_TYPES(TYPE_FLYING, TYPE_FLYING),
+        MON_TYPES(TYPE_WIND),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Attack = 3,

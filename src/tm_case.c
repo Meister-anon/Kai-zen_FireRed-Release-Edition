@@ -503,6 +503,8 @@ static const struct SpriteTemplate sTMSpriteTemplate = {
 
 //each type pallete is 16 bytes, 
 //so anything added would increase by 0x10
+//idk if this is still used can't sell tms
+//and redid tm case w featurebranch
 static const u16 sTMSpritePaletteOffsetByType[] = { // fairy addition need do, need do sound as well
     [TYPE_NORMAL]   = 0x000,
     [TYPE_FIRE]     = 0x010,
@@ -521,7 +523,8 @@ static const u16 sTMSpritePaletteOffsetByType[] = { // fairy addition need do, n
     [TYPE_STEEL]    = 0x0e0,
     [TYPE_DARK]     = 0x0f0,
     [TYPE_DRAGON]   = 0x100,
-    [TYPE_FAIRY]    = 0X110   //works
+    [TYPE_FAIRY]    = 0X110,   //works
+    [TYPE_WIND]     = 0X120
 };
 
 void InitTMCase(u8 type, void (* exitCallback)(void), bool8 allowSelectClose)
