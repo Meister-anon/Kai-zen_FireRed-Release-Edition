@@ -27,7 +27,7 @@ struct MonCoords
 //extern const u8 gSpeciesNames[][POKEMON_NAME_LENGTH + 1];
 //extern const u8 gSpeciesNamesUpperCase[][POKEMON_NAME_LENGTH + 1];
 
-extern const u8 gMoveNames[][MOVE_NAME_LENGTH + 1];   //had data file issues think can't use a define for this have to write out number for some reason
+//extern const u8 gMoveNames[][MOVE_NAME_LENGTH + 1];   //had data file issues think can't use a define for this have to write out number for some reason
 //extern const u8 gLowerMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1]; //if I use lowercase moves replace instances of above name w this one
 //extern const u8 *const gMoveDescriptionPointers[MOVES_COUNT];
 //extern const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT];

@@ -207,6 +207,7 @@ static inline enum BattleMoveEffects SanitizeMoveEffect(enum BattleMoveEffects m
 }
 
 //broke movename cap may not use
+//ok useful in some places that don't go to cap like debug menu
 static inline const u8 *GetMoveName_(enum Move moveId)
 {
     return gBattleMoves[SanitizeMoveId(moveId)].name;

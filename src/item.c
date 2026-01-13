@@ -901,12 +901,11 @@ const u8 * ItemId_GetDescription(u16 itemId)
 
     if (IsTMHM(itemId))
     {
-       u16 moveId = ItemId_GetSecondaryId(itemId);
+       enum Move moveId = ItemId_GetSecondaryId(itemId);
        return GetMoveDescription(moveId);
     }
         
-    else
-        return gItems[itemId].description;
+    return gItems[itemId].description;
 }
 
 bool8 itemid_is_unique(u16 itemId)

@@ -878,20 +878,16 @@ static const u8 *TM_Case_PrependFontToFit(u8 *nameBuffer, u16 move)
     s32 i;
 
 
-        // Hmm? FRLG has < while Ruby/Emerald has <=
-        for (i = 0; i < MOVE_NAME_LENGTH; i++)
-        {
-            if (move > MOVES_COUNT)
-                nameBuffer[i] = gMoveNames[0][i];
-            else
-                nameBuffer[i] = gMoveNames[move][i];
+    // Hmm? FRLG has < while Ruby/Emerald has <=
+    for (i = 0; i < MOVE_NAME_LENGTH; i++)
+    {
+        nameBuffer[i] = gBattleMoves[SanitizeMoveId(move)].name[i];
 
-            if (nameBuffer[i] == EOS)
-                break;
-        }
+        if (nameBuffer[i] == EOS)
+            break;
+    }
 
     nameBuffer[i] = EOS;
-    
    
     if (ShouldCapitalizeMoves())
         CapializeString(nameBuffer); 

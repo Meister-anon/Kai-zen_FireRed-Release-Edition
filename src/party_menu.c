@@ -5856,7 +5856,6 @@ static void ShowMoveSelectWindow(u8 slot)
         AddTextPrinterParameterized(windowId,
                                     fontId,
                                     gStringVar3,
-                                    //gMoveNames[move],
                                     GetFontAttribute(fontId, FONTATTR_MAX_LETTER_WIDTH) + GetFontAttribute(fontId, FONTATTR_LETTER_SPACING),
                                     (i * 16) + 2,
                                     TEXT_SKIP_DRAW,
@@ -5963,7 +5962,6 @@ static void ItemUseCB_RestorePP(u8 taskId, UNUSED TaskFunc func)
     PlaySE(SE_USE_ITEM);
     RemoveBagItem(gSpecialVar_ItemId, 1);
     move = GetMonData(mon, gPartyMenu.data1 + MON_DATA_MOVE1);
-    //StringCopy(gStringVar1, gMoveNames[move]);
     GetMoveName(gStringVar1, move);
     GetMedicineItemEffectMessage(gSpecialVar_ItemId);
     DisplayPartyMenuMessage(gStringVar4, 1);
@@ -5995,7 +5993,6 @@ static void TryUsePPItem(u8 taskId)
         PlaySE(SE_USE_ITEM);
         RemoveBagItem(item, 1);
         move = GetMonData(mon, MON_DATA_MOVE1 + *moveSlot);
-        //StringCopy(gStringVar1, gMoveNames[move]);
         GetMoveName(gStringVar1, move);
         GetMedicineItemEffectMessage(item);
         DisplayPartyMenuMessage(gStringVar4, TRUE);
@@ -6091,7 +6088,6 @@ void ItemUseCB_TMHM(u8 taskId, UNUSED TaskFunc func)
     if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
     move[0] = ItemIdToBattleMoveId(item);
-    //StringCopy(gStringVar2, gMoveNames[move[0]]);
     GetMoveName(gStringVar2, move[0]);
     move[1] = 0;
     switch (CanMonLearnTMTutor(mon, item, 0))
@@ -6135,7 +6131,6 @@ static void Task_LearnedMove(u8 taskId) //tm learn move  /or just move learn in 
     GetMonNickname(mon, gStringVar1);
     if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
-    //StringCopy(gStringVar2, gMoveNames[move[0]]);
     GetMoveName(gStringVar2, move[0]);
     StringExpandPlaceholders(gStringVar4, gText_PkmnLearnedMove3);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
@@ -6243,7 +6238,6 @@ static void Task_ReplaceMoveWithTMHM(u8 taskId)
     GetMonNickname(mon, gStringVar1);
     if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
-    //StringCopy(gStringVar2, gMoveNames[move]);
     GetMoveName(gStringVar2, move);
     RemoveMonPPBonus(mon, moveIdx);
     SetMonMoveSlot(mon, gPartyMenu.data1, moveIdx);
@@ -6258,7 +6252,6 @@ static void DisplayPartyMenuForgotMoveMessage(u8 taskId)
     GetMonNickname(mon, gStringVar1);
     if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
-    //StringCopy(gStringVar2, gMoveNames[move]);
     GetMoveName(gStringVar2, move);
     DisplayLearnMoveMessage(gText_12PoofForgotMove);
     gTasks[taskId].func = Task_PartyMenuReplaceMove;
@@ -6281,7 +6274,6 @@ static void Task_PartyMenuReplaceMove(u8 taskId)
 
 static void StopLearningMovePrompt(u8 taskId)
 {
-    //StringCopy(gStringVar2, gMoveNames[gPartyMenu.data1]);
     GetMoveName(gStringVar2, gPartyMenu.data1);
     StringExpandPlaceholders(gStringVar4, gText_StopLearningMove2);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
@@ -6294,7 +6286,6 @@ static void ConfirmForgetMovePrompt(u8 taskId)
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
     u16 move = GetMonData(mon, MON_DATA_MOVE1 + GetMoveSlotToReplace());
 
-    //StringCopy(gStringVar3, gMoveNames[move]);
     GetMoveName(gStringVar3, move);
     StringExpandPlaceholders(gStringVar4, gText_ConfirmLearnMove);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
@@ -6346,7 +6337,6 @@ static void Task_HandleConfirmLearningMoveYesNoInput(u8 taskId)
         GetMonNickname(mon, gStringVar1);
         if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
-        //StringCopy(gStringVar2, gMoveNames[gPartyMenu.data1]);
         GetMoveName(gStringVar2, gPartyMenu.data1);
         DisplayLearnMoveMessage(gText_PkmnNeedsToReplaceMove);
         gTasks[taskId].func = Task_ReplaceMoveYesNo;
@@ -6364,7 +6354,6 @@ static void Task_HandleStopLearningMoveYesNoInput(u8 taskId)
         GetMonNickname(mon, gStringVar1);
         if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
-        //StringCopy(gStringVar2, gMoveNames[gPartyMenu.data1]);
         GetMoveName(gStringVar2, gPartyMenu.data1);
         StringExpandPlaceholders(gStringVar4, gText_MoveNotLearned);
         DisplayPartyMenuMessage(gStringVar4, TRUE);
@@ -6386,7 +6375,6 @@ static void Task_HandleStopLearningMoveYesNoInput(u8 taskId)
         GetMonNickname(mon, gStringVar1);
         if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
-       // StringCopy(gStringVar2, gMoveNames[gPartyMenu.data1]);
         GetMoveName(gStringVar2, gPartyMenu.data1);
         DisplayLearnMoveMessage(gText_PkmnNeedsToReplaceMove);
         gTasks[taskId].func = Task_ReplaceMoveYesNo;
@@ -6574,7 +6562,6 @@ static void DisplayMonNeedsToReplaceMove(u8 taskId)
     GetMonNickname(&gPlayerParty[gPartyMenu.slotId], gStringVar1);
     if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[gPartyMenu.slotId],MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(gStringVar1, GetMonData(&gPlayerParty[gPartyMenu.slotId],MON_DATA_SPECIES));
-    //StringCopy(gStringVar2, gMoveNames[gMoveToLearn]);
     GetMoveName(gStringVar2, gMoveToLearn);
     StringExpandPlaceholders(gStringVar4, gText_PkmnNeedsToReplaceMove);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
@@ -6588,7 +6575,6 @@ static void DisplayMonLearnedMove(u8 taskId, u16 move)
     GetMonNickname(&gPlayerParty[gPartyMenu.slotId], gStringVar1);
     if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[gPartyMenu.slotId],MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(gStringVar1, GetMonData(&gPlayerParty[gPartyMenu.slotId],MON_DATA_SPECIES));
-    //StringCopy(gStringVar2, gMoveNames[move]);
     GetMoveName(gStringVar2, move);
     StringExpandPlaceholders(gStringVar4, gText_PkmnLearnedMove3);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
@@ -6821,7 +6807,6 @@ static void TryTutorSelectedMon(u8 taskId)
         if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
         gPartyMenu.data1 = GetTutorMove(gSpecialVar_0x8005);
-        //StringCopy(gStringVar2, gMoveNames[gPartyMenu.data1]);
         GetMoveName(gStringVar2, gPartyMenu.data1);
         move[1] = 2;
         switch (CanMonLearnTMTutor(mon, 0, gSpecialVar_0x8005))

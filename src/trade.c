@@ -2230,8 +2230,7 @@ static void BuildMovesString(u8 *movesString, u8 whichParty, u8 whichMon)
         {
             if (moves[i] != MOVE_NONE)
             {
-                GetMoveName(gStringVar3,moves[i]);
-                //StringAppend(movesString, gMoveNames[moves[i]]);
+                GetMoveName(gStringVar3, moves[i]);
                 StringAppend(movesString, gStringVar3);
             }
 

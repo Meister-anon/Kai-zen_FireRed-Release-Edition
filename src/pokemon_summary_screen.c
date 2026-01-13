@@ -2826,7 +2826,7 @@ static void BufferMonMoves(void)
 
 #define GetRightAlignXpos_NDigits(a, b) ((6 * (a)) - StringLength((b)) * 6)
 
-static void BufferMonMoveI(u8 i)//think this is the menu/function I need has move index and pp ony one in file that uses gMoveNames //transform need change
+static void BufferMonMoveI(u8 i)//think this is the menu/function I need has move index and pp //transform need change
 {
     u32 powerBits;
     u32 hiddenpower,power;    
@@ -2929,8 +2929,7 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
     
 
     sMonSummaryScreen->numMoves++;
-    //StringCopy(sMonSummaryScreen->summary.moveNameStrBufs[i], gMoveNames[sMonSummaryScreen->moveIds[i]]);
-    GetMoveName(sMonSummaryScreen->summary.moveNameStrBufs[i],sMonSummaryScreen->moveIds[i]);
+    GetMoveName(sMonSummaryScreen->summary.moveNameStrBufs[i], sMonSummaryScreen->moveIds[i]);
 
     if (i >= 4 && sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE)//assume it would only be greater than 4 if its a new move that is being learned when you already have 4
     {

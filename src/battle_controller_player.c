@@ -1602,7 +1602,6 @@ static void MoveSelectionDisplayMoveNames(u32 battler)//relevant
         MoveSelectionDestroyCursorAt(i);
         StringCopy(gDisplayedStringBattle, gText_MoveInterfaceDynamicColors);   //shadow/ font shading
         GetMoveName(gStringVar1, moveInfo->moves[i]);
-        //StringAppend(gDisplayedStringBattle, gMoveNames[moveInfo->moves[i]]);
         StringAppend(gDisplayedStringBattle, gStringVar1);
         BattlePutTextOnWindow(gDisplayedStringBattle, i + 3); //not sure how this works with move slots and coordinate
         if (moveInfo->moves[i] != MOVE_NONE)

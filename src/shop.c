@@ -626,6 +626,7 @@ static void BuyMenuPrintPriceInList(u8 windowId, s32 item, u8 y)
     }
 }
 
+//unsure if still need pretty sure made impossible to sell?
 static void LoadTmHmNameInMart(s32 item)
 {
     if (item != INDEX_CANCEL)
@@ -634,8 +635,7 @@ static void LoadTmHmNameInMart(s32 item)
         StringCopy(gStringVar4, gOtherText_UnkF9_08_Clear_01);
         StringAppend(gStringVar4, gStringVar1);
         BuyMenuPrint(6, 0, gStringVar4, 0, 0, 0, 0, TEXT_SKIP_DRAW, 1);
-        //StringCopy(gStringVar4, gMoveNames[ItemIdToBattleMoveId(item)]);
-        GetMoveName(gStringVar4,ItemIdToBattleMoveId(item));
+        GetMoveName(gStringVar4, ItemIdToBattleMoveId(item));
         BuyMenuPrint(6, 2, gStringVar4, 0, 0x10, 0, 0, 0, 1);
     }
     else

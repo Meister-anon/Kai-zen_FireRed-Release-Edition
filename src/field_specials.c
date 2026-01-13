@@ -2864,7 +2864,6 @@ bool8 BufferTMHMMoveName(void)
     //if right should mean if tm or hm
     if ((GetTMHMNumberandCategory(gSpecialVar_0x8004) & 0xFF00) >> 8)
     {
-        //StringCopy(gStringVar1, gMoveNames[ItemIdToBattleMoveId(gSpecialVar_0x8004)]);
         GetMoveName(gStringVar1, ItemIdToBattleMoveId(gSpecialVar_0x8004));
         return TRUE;
     }
@@ -3069,7 +3068,6 @@ bool8 CapeBrinkGetMoveToTeachLeadPokemon(void)
         return FALSE;
     if (tutorMonId == 0)
     {
-        //StringCopy(gStringVar2, gMoveNames[MOVE_FRENZY_PLANT]);
         GetMoveName(gStringVar2, MOVE_FRENZY_PLANT);
         gSpecialVar_0x8005 = MOVETUTOR_FRENZY_PLANT;
         if (FlagGet(FLAG_TUTOR_FRENZY_PLANT) == TRUE)
@@ -3077,7 +3075,6 @@ bool8 CapeBrinkGetMoveToTeachLeadPokemon(void)
     }
     else if (tutorMonId == 1)
     {
-        //StringCopy(gStringVar2, gMoveNames[MOVE_BLAST_BURN]);
         GetMoveName(gStringVar2, MOVE_BLAST_BURN);
         gSpecialVar_0x8005 = MOVETUTOR_BLAST_BURN;
         if (FlagGet(FLAG_TUTOR_BLAST_BURN) == TRUE)
@@ -3085,7 +3082,6 @@ bool8 CapeBrinkGetMoveToTeachLeadPokemon(void)
     }
     else
     {
-        //StringCopy(gStringVar2, gMoveNames[MOVE_HYDRO_CANNON]);
         GetMoveName(gStringVar2, MOVE_HYDRO_CANNON);
         gSpecialVar_0x8005 = MOVETUTOR_HYDRO_CANNON;
         if (FlagGet(FLAG_TUTOR_HYDRO_CANNON) == TRUE)

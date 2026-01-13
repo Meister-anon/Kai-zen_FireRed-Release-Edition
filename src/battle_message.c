@@ -2553,7 +2553,6 @@ void BufferStringBattle(u32 battler, u16 stringId)
         if (sBattleMsgDataPtr->currentMove >= MOVES_COUNT)
             StringCopy(gBattleTextBuff2, sATypeMove_Table[*(&gBattleStruct->stringMoveType)]);
         else
-            //StringCopy(gBattleTextBuff2, gMoveNames[sBattleMsgDataPtr->currentMove]);
             GetMoveName(gBattleTextBuff2, sBattleMsgDataPtr->currentMove);
 
         ChooseTypeOfMoveUsedString(gBattleTextBuff2);
@@ -3422,7 +3421,6 @@ static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst)
         case B_BUFF_MOVE: // move name
             GetMoveName(gStringVar3, T1_READ_16(&src[srcId + 1]));
             StringAppend(dst, gStringVar3);
-            //StringAppend(dst, gMoveNames[T1_READ_16(&src[srcId + 1])]);
             srcId += 3;
             break;
         case B_BUFF_TYPE: // type name

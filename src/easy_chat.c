@@ -165,12 +165,10 @@ static const u8 *GetEasyChatWord(u8 groupId, u16 index)
     {
     case EC_GROUP_POKEMON:
     case EC_GROUP_POKEMON_2:
-        //return gBaseStats[index].speciesName;
         GetSpeciesName(gStringVar4, index);
         return gStringVar4;
     case EC_GROUP_MOVE_1:
     case EC_GROUP_MOVE_2:
-        //return gMoveNames[index];
         GetMoveName(gStringVar4, index);
         return gStringVar4;
     default:

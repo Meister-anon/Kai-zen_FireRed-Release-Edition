@@ -537,13 +537,8 @@ static void ItemPc_MoveCursorFunc(s32 itemIndex, bool8 onInit, struct ListMenu *
                 
                 //ok so this seems to be for a tm placed in player pc item storage, which never happens
                 //wich is why it was so hard to identify what was happening
-                //if (ShouldCapitalizeMoves()) 
                 GetMoveName(gStringVar4, ItemIdToBattleMoveId(itemId));
-                    //desc = gMoveNames[ItemIdToBattleMoveId(itemId)];
                     desc = gStringVar4; //ok works perfect don't need to use both lists
-                //else
-                    //desc = gLowerMoveNames[ItemIdToBattleMoveId(itemId)];
-                    //desc = gMoveDescriptionPointers[ItemIdToBattleMoveId(itemId)];
             }
             else
                 desc = ItemId_GetDescription(itemId);

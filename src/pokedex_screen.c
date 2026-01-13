@@ -8427,7 +8427,7 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
                 StringExpandPlaceholders(gStringVar4, sText_EVO_ITEM_HOLD_NIGHT );
                 break;
             case EVO_MOVE:
-                StringCopy(gStringVar2, gMoveNames[evolutions[i].param]);
+                StringCopy(gStringVar2, GetMoveName_(evolutions[i].param));
                 StringExpandPlaceholders(gStringVar4, sText_EVO_MOVE );
                 break;
             case EVO_MOVE_TYPE:

@@ -907,12 +907,10 @@ static const u16 *BufferQuestLogText_UsedItem(const u16 *eventData)
         break;
     case POCKET_TM_CASE:
         QuestLog_GetSpeciesName(r5[1], gStringVar1, 0);
-        //StringCopy(gStringVar2, gMoveNames[ItemIdToBattleMoveId(r5[0])]);
-        GetMoveName(gStringVar2,ItemIdToBattleMoveId(r5[0]));
+        GetMoveName(gStringVar2, ItemIdToBattleMoveId(r5[0]));
         if (r5[2] != 0xFFFF)
         {
-            //StringCopy(gStringVar3, gMoveNames[r5[2]]);
-            GetMoveName(gStringVar3,r5[2]);
+            GetMoveName(gStringVar3, r5[2]);
             if (Isitem_HM(r5[0]))
                 StringExpandPlaceholders(gStringVar4, gText_QuestLog_MonReplacedMoveWithHM);
             else

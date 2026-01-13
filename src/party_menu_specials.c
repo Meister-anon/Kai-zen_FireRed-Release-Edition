@@ -62,13 +62,8 @@ void BufferMoveDeleterNicknameAndMove(void)
 {
     struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
     u16 move = GetMonData(mon, MON_DATA_MOVE1 + gSpecialVar_0x8005);
-    u16 species = GetMonData(mon, MON_DATA_SPECIES);
 
     GetMonNickname(mon, gStringVar1);
-    if (StringCompare(gBaseStats[species].speciesName, gStringVar1) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
-                GetSpeciesName(gStringVar1, species);
-
-    //StringCopy(gStringVar2, gMoveNames[move]);
     GetMoveName(gStringVar2, move);
 }
 
