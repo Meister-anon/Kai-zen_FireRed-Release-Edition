@@ -62,6 +62,13 @@ extern const u16 gCriticalHitChance[];	//made global, so can run in ai file
 
 extern void (* const gBattleScriptingCommandsTable[])(void);
 
+u8 GetCatchingBattler(void);
+bool32 ProteanTryChangeType(u32 battler, enum Ability ability, enum Move move, enum Type moveType);
+u8 GetFirstFaintedPartyIndex(u8 battlerId);
+void SaveBattlerTarget(u32 battler);
+void SaveBattlerAttacker(u32 battler);
+bool32 CanBurnHitThaw(enum Move move);
+
 
 
 #endif // GUARD_BATTLE_SCRIPT_COMMANDS_H

@@ -91,3 +91,20 @@ SINGLE_BATTLE_TEST("Sleep Talk can use moves while choiced into Sleep Talk")
         ANIMATION(ANIM_TYPE_MOVE, MOVE_TACKLE);
     }
 }
+
+DOUBLE_BATTLE_TEST("Sleep Talk called move target will be random")
+{
+    PASSES_RANDOMLY(1, 2, RNG_RANDOM_TARGET);
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Status1(STATUS1_SLEEP); Moves(MOVE_SLEEP_TALK, MOVE_POUND, MOVE_FLY, MOVE_DIG); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WYNAUT);
+    } WHEN {
+        TURN { MOVE(playerLeft, MOVE_SLEEP_TALK); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SLEEP_TALK, playerLeft);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_POUND, playerLeft);
+        HP_BAR(opponentRight);
+    }
+}

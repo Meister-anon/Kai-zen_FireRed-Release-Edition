@@ -94,8 +94,8 @@ SINGLE_BATTLE_TEST("Semi-invulnerable moves make the user semi-invulnerable turn
             ANIMATION(ANIM_TYPE_MOVE, move, player);
 
         // Aerial Ace cannot miss unless the target is semi-invulnerable
-        MESSAGE("Foe Wobbuffet used Aerial Ace!");
-        MESSAGE("Foe Wobbuffet's attack missed!");
+        MESSAGE("The opposing Wobbuffet used Aerial Ace!");
+        MESSAGE("Wobbuffet avoided the attack!");
         // Attack turn
         switch (move)
         {

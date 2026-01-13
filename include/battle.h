@@ -416,8 +416,9 @@ struct SpecialStatus
     u8 switchInItemDone : 1;
     u8 gemBoost : 1;
     u8 switchInAbilityDone : 1;
-    u8 damagedMons : 4; // Mons that have been damaged directly by using a move, includes substitute. //NOW THAT have added can prob use to update catchexp function/macro?
-    u8 gemParam;
+    u8 unused : 4; // Mons that have been damaged directly by using a move, includes substitute. //NOW THAT have added can prob use to update catchexp function/macro?
+    
+    
 
     u8 dancerUsedMove : 1;
     u8 dancerOriginalTarget : 3; //original target of user to execute chosen move after ability ends
@@ -426,6 +427,7 @@ struct SpecialStatus
     u8 stenchRemoved : 1;    // Set as VARIOUS_TRY_END_STENCH  both exclusive to gastro acid?
     u8 Lostresolve:1; //for ability -tweaked as for pressure and iron will, moved here as realize makes more sense as special status
     
+    //will prob not use these dmg values
     s32 dmg;
     s32 physicalDmg; //does it make sense to have this twice? have version in protect structs too?
     s32 specialDmg;
@@ -438,15 +440,18 @@ struct SpecialStatus
     u8 multiHitOn : 1; //think is a state chech, seems most used with parental bond
     u8 Cacophonyboosted:1; //need make function for and add to battle_main
     u8 preHitAbilityDone:1;
-    u8 padding:2;
+    u8 distortedTypeMatchups:1;
+    u8 teraShellAbilityDone:1;
     
     u8 firstFuturesightHits:1;
     u8 secondFuturesightHits:1;
     u8 returnedBallMove : 1;    //equiv dancerUsedMove
     u8 BallFetchOriginalTarget : 3;//original target of user to execute chosen move after ability ends //equiv dancerOriginalTarget
-    u8 paddSpace:2;
+    u8 damagedByAttack:1;
+    u8 criticalHit:1;
 
-    u8 EmptyBlock:8;    
+    u8 gemParam:7;
+    u8 blank:1;   
     u8 field12;
     u8 field13;//check moody case for switchin line something something = 2
 };
@@ -864,6 +869,7 @@ struct EventStates
     enum FaintedActions faintedAction:8;
     enum BattlerId faintedActionBattler:4;
     enum MoveSuccessOrder atkCanceler:8;
+    enum BattlerId atkCancelerBattler:4;
     enum BattleIntroStates battleIntro:8;
     enum SwitchInEvents switchIn:8;
     u32 battlerSwitchIn:8; // SwitchInFirstEventBlock, SwitchInSecondEventBlock
@@ -877,6 +883,9 @@ struct EventStates
 //they all have timers so just make them free chip damage at the cost
 //of investing in weaker move
 //cleared at start of battle
+//vsonic important really need go over this
+//pretty sure A LOT of this is outdated or unneeded
+//and also just horribly optimized <<<<<<
 struct BattleStruct //fill in unused fields when porting
 {
     struct BattlerState battlerState[MAX_BATTLERS_COUNT];
@@ -963,8 +972,10 @@ struct BattleStruct //fill in unused fields when porting
     u8 hpScale;
     u16 savedBattleTypeFlags;
     void (*savedCallback)(void);
-    u8 synchronizeMoveEffect;
+    u16 synchronizeMoveEffect;
     u8 multiplayerId;
+    u8 unableToUseMove:1; // for the current action only, to check if the battler failed to act at end turn use the DisableStruct member
+    u8 unused:7;
     u8 atkCancellerTracker;//almost feels like I should turn these party wide things into their own struct at this point
     //u16 usedHeldItems[MAX_BATTLERS_COUNT]; //original value below is emerald expansion changed version,  
     //u16 usedHeldItems[PARTY_SIZE][NUM_BATTLE_SIDES]; //check may need adjust harvest recycle w setup for 2nd held slot // For each party member and side. For harvest, recycle  //think I"m setup to use this? adjusted all values now
@@ -1023,6 +1034,37 @@ struct BattleStruct //fill in unused fields when porting
         struct MultiBattlePokemonTx multiBattleMons[3];
     } multiBuffer;
     u8 padding_1E4[0x18];
+
+    //new vlaues =need figure where to put etc.
+    /*s32 battlerExpReward;
+    u16 prevTurnSpecies[MAX_BATTLERS_COUNT]; // Stores species the AI has in play at start of turn
+    s16 passiveHpUpdate[MAX_BATTLERS_COUNT]; // non-move damage and healing
+    s16 moveDamage[MAX_BATTLERS_COUNT];
+    u16 moveResultFlags[MAX_BATTLERS_COUNT];
+    enum CalcDamageState noResultString[MAX_BATTLERS_COUNT];
+    u8 doneDoublesSpreadHit:1;
+    u8 calculatedDamageDone:1;
+    u8 calculatedSpreadMoveAccuracy:1;
+    u8 printedStrongWindsWeakenedAttack:1;
+    u8 numSpreadTargets:3;
+    u8 moldBreakerActive:1;
+    //think may not need 2 below
+    struct MessageStatus slideMessageStatus;
+    u8 trainerSlideSpriteIds[MAX_BATTLERS_COUNT];
+    u8 hazardsQueue[NUM_BATTLE_SIDES][HAZARDS_MAX_COUNT];
+    u8 numHazards[NUM_BATTLE_SIDES];
+    u8 hazardsCounter:4; // Counter for applying hazard on switch in
+    enum SubmoveState submoveAnnouncement:2;
+    u8 tryDestinyBond:1;
+    u8 tryGrudge:1;
+    u16 flingItem;
+    u8 incrementEchoedVoice:1;
+    u8 echoedVoiceCounter:3;
+    u8 preAttackAnimPlayed:1;
+    u8 padding4:1;
+    u8 magicCoatActive:1;
+    u8 magicBounceActive:1;
+    u8 moveBouncer;*/
 }; // size == 0x200 bytes
 
 extern struct BattleStruct *gBattleStruct;
@@ -1064,8 +1106,8 @@ extern struct BattleStruct *gBattleStruct;
 //#define IS_TYPE_PHYSICAL(moveType)(moveType < TYPE_MYSTERY)
 //#define IS_TYPE_SPECIAL(moveType)(moveType > TYPE_MYSTERY)
 
-#define IS_MOVE_PHYSICAL(move)(GetBattleMoveSplit(move) == SPLIT_PHYSICAL)
-#define IS_MOVE_SPECIAL(move)(GetBattleMoveSplit(move) == SPLIT_SPECIAL)
+#define IS_MOVE_PHYSICAL(move)(GetBattleMoveSplit(move) == DAMAGE_CATEGORY_PHYSICAL)
+#define IS_MOVE_SPECIAL(move)(GetBattleMoveSplit(move) == DAMAGE_CATEGORY_SPECIAL)
 #define BATTLER_MAX_HP(battlerId)(gBattleMons[battlerId].hp == gBattleMons[battlerId].maxHP)
 #define TARGET_TURN_DAMAGED ((gSpecialStatuses[gBattlerTarget].physicalDmg != 0 || gSpecialStatuses[gBattlerTarget].specialDmg != 0))
 //#define IS_BATTLER_OF_TYPE(battlerId, type)((gBattleMons[battlerId].type1 == type || gBattleMons[battlerId].type2 == type || gBattleMons[battlerId].type3 == type))
@@ -1487,20 +1529,6 @@ static inline bool32 IsDoubleBattle(void)
 static inline bool32 IsSpreadMove(u32 moveTarget)
 {
     return IsDoubleBattle() && (moveTarget == TARGET_BOTH || moveTarget == TARGET_FOES_AND_ALLY);
-}
-
-static inline bool32 IsDoubleSpreadMove(void)
-{
-    return gBattleStruct->numSpreadTargets > 1
-        && !(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)
-        && IsSpreadMove(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove));
-}
-
-static inline bool32 IsBattlerInvalidForSpreadMove(u32 battlerAtk, u32 battlerDef, u32 moveTarget)
-{
-    return battlerDef == battlerAtk
-        || !IsBattlerAlive(battlerDef)
-        || (battlerDef == BATTLE_PARTNER(battlerAtk) && (moveTarget == TARGET_BOTH));
 }
 
 static inline u32 GetChosenMoveFromPosition(u32 battler)

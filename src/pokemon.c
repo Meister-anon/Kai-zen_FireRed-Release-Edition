@@ -4612,8 +4612,8 @@ void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCate
 {
 
     u32 sideStatus = gSideStatuses[GetBattlerSide(battlerDef)];
-    bool32 lightScreen = (sideStatus & SIDE_STATUS_LIGHTSCREEN) && DamageCategory == SPLIT_SPECIAL;
-    bool32 reflect = (sideStatus & SIDE_STATUS_REFLECT) && DamageCategory == SPLIT_PHYSICAL;
+    bool32 lightScreen = (sideStatus & SIDE_STATUS_LIGHTSCREEN) && DamageCategory == DAMAGE_CATEGORY_SPECIAL;
+    bool32 reflect = (sideStatus & SIDE_STATUS_REFLECT) && DamageCategory == DAMAGE_CATEGORY_PHYSICAL;
     bool32 auroraVeil = sideStatus & SIDE_STATUS_AURORA_VEIL;
 
     //thinkm will remove the confusion exclusion, as idea is screen is put
@@ -4653,7 +4653,7 @@ void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCate
 //nvm there are some abilities/effects that are specifically meant to be defense stat boosters
 #define OffensiveModifer(value)                                 \
 {                                                               \
-    if (MoveDamageCategory == SPLIT_PHYSICAL){ attack = max((value * attack) / 100, 1); }        \
+    if (MoveDamageCategory == DAMAGE_CATEGORY_PHYSICAL){ attack = max((value * attack) / 100, 1); }        \
     else {spAttack = max((value * spAttack) / 100, 1);}                 \
 }
 #define DefenseModifer(value)                                   \
@@ -5492,7 +5492,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     case ABILITY_FLARE_BOOST:
         if ((gBattleMons[battlerIdAtk].status1 & STATUS1_BURN
         || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdAtk, TYPE_FIRE, FALSE) && attackerHoldEffect == HOLD_EFFECT_FLAME_ORB))
-            && (MoveDamageCategory == SPLIT_SPECIAL) //!usesDefStat //IS_MOVE_SPECIAL(move))
+            && (MoveDamageCategory == DAMAGE_CATEGORY_SPECIAL) //!usesDefStat //IS_MOVE_SPECIAL(move))
            )
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         //MulModifier(&modifier, UQ_4_12(1.5));
@@ -5500,7 +5500,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     case ABILITY_TOXIC_BOOST:
         if ((gBattleMons[battlerIdAtk].status1 & STATUS1_PSN_ANY || IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN_ANY)
         || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdAtk, TYPE_POISON, FALSE) && attackerHoldEffect == HOLD_EFFECT_TOXIC_ORB)) 
-            && (MoveDamageCategory == SPLIT_PHYSICAL)
+            && (MoveDamageCategory == DAMAGE_CATEGORY_PHYSICAL)
            )
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         //MulModifier(&modifier, UQ_4_12(1.5));
@@ -6219,7 +6219,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     
     //to make sure take in all effects realize need to put at end 
     //of all stat changes
-    if (MoveDamageCategory == SPLIT_PHYSICAL)
+    if (MoveDamageCategory == DAMAGE_CATEGORY_PHYSICAL)
     {   
         StatMod_Stat = STAT_ATK;
         Offensive_Stat = attack;

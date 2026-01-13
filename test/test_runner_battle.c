@@ -2019,7 +2019,10 @@ s32 MoveGetTarget(s32 battlerId, u32 moveId, struct MoveContext *ctx, u32 source
 
             target = BATTLE_OPPOSITE(battlerId);
         }
-        else if (move->target == TARGET_USER)
+        else if (moveTarget == TARGET_USER 
+              || moveTarget == TARGET_ALL_BATTLERS 
+              || moveTarget == TARGET_FIELD 
+              || moveTarget == TARGET_USER_AND_ALLY)
         {
             target = battlerId;
         }

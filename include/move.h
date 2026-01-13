@@ -72,23 +72,44 @@ enum ProtectMethod
     PROTECT_FENCE,
 };
 
+enum TerrainGroundCheck
+{
+    GROUND_CHECK_NONE,
+    GROUND_CHECK_USER,
+    GROUND_CHECK_TARGET,
+};
+
+//consolidation for floating dmg effects
+//save space so can do explosion change
+enum AirborneDmgCheck
+{
+    NEUTRAL_DAMAGE,
+    CANT_DAMAGE_FLOATING,
+    DAMAGES_AIRBORNE,
+    DOUBLE_DAMAGE_AIRBORNE,
+};
+
 //reworking struct start w flags 
 //hmm well when I bring the flag in it'll be everything 
 //at once...
 //I'll work on this over time, first can do flags
 //then can figure out the rest as I go
+//struct is now fully utulitized
+//only has space in union without increasing
 struct MoveInfo
 {
     const u8 *name; //move name length 16 chars + 1
     const u8 *description; //approx 20 chars per line 5 lines
     enum BattleMoveEffects effect;
-    u16 target;
-    u8 power; //max 255
-    enum Type type;
-    u8 accuracy;
+    enum Type type:5;     // Up to 32
+    enum DamageCategory category:2;
+    u16 power:9;    // up to 511
+    // end of word
+    u16 accuracy:7;
+    u16 target:9;
     u8 pp;
     s8 priority;
-    u8 split;
+    // end of word
     // Flags
     bool32 makesContact:1;
     bool32 ignoresProtect:1;
@@ -110,9 +131,11 @@ struct MoveInfo
     bool32 ignoresTargetDefenseEvasionStages:1;
     bool32 damagesUnderground:1;   //auto doubles dmg 
     bool32 damagesUnderwater:1;
-    bool32 damagesAirborne:1;
+    u32 airborneDmgState:2; //consolidates airborne floating stuff values set from AirborneDmgCheck
+    /*bool32 damagesAirborne:1; //ok think best I can do to get byte back is combine these into a 2 bit state check
     bool32 damagesAirborneDoubleDamage:1;
     bool32 cantdamageFloating:1; //no longer needs was just thousand arrows - ignoreTypeIfFlyingAndUngrounded
+    */
     bool32 thawsUser:1; //^ replaced above for new ground affecting mechanic - look for other types than ground to apply too
     bool32 ignoresSubstitute:1;//oh thawsUser is a different thing nvm
     bool32 forcePressure:1; //(for self-targeted moves that are affected by Pressure) //idk how this makes sense yet
@@ -123,15 +146,14 @@ struct MoveInfo
     bool32 meFirstBanned:1;
     bool32 mimicBanned:1;
     bool32 metronomeBanned:1;
-    // end of word
-
     bool32 copycatBanned:1;
+    // end of word -correct u32 ends here
+
     bool32 assistBanned:1; // Matches same moves as copycatBanned + semi-invulnerable moves and Mirror Coat.
     bool32 sleepTalkBanned:1;
     bool32 instructBanned:1;
     bool32 encoreBanned:1;
     bool32 parentalBondBanned:1;
-    bool32 padding:1; //removed  skybattle stuff just use for reckless -realized didnt need move effect can just put on effect itself
     bool32 sketchBanned:1; //would use for monotype as well
     bool32 headbuttMove:1;
     //Other
@@ -141,24 +163,46 @@ struct MoveInfo
     bool32 alwaysHitsInHailSnow:1;
     bool32 alwaysHitsInRain:1;
     bool32 accuracy50InSun:1;
-    u32 numAdditionalEffects:2; // limited to 3 - don't want to get too crazy
+    u32 numAdditionalEffects:3; // limited to 7 //was 3 expansion raised to 7 for some reason - don't want to get too crazy
     u32 strikeCount:4; // Max 15 hits. Defaults to 1 if not set. May apply its effect on each hit.
     u32 multiTaskBanned:1; // remove need for multitask exclude 
-    u32 explosiveMove:1; //simplify logic for moves/effects that do defense stripping just explosion likes
-    u32 variableMultihit:1; //replace effect multihit
+    //u32 explosiveMove:1; //simplify logic for moves/effects that do defense stripping just explosion likes
+    u32 variableMultihit:1; //replace effect multihit // Takes precedence over strikeCount
     bool32 ignoresRedirection:1;
     bool32 typelessDmg:1; //replace for move power not 0, needed to do stab and typeless dmg default logic for typeless is set type mystery
-    u32 padding:6; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
+    //u32 padding:8; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
+    struct {
+            u32 sacrificedHpPercentage:7;
+            u32 failsIfNotEnoughHp:1;
+        } explosionEffects; //want to use for explosion stuff but cant fit in union cuz terrain boost change
     // end of word
     union {
         struct {
             u16 stringId;
-            u16 status;
+            union {
+                u16 status;
+                u16 weather;
+            };
         } twoTurnAttack;
+        struct {
+            u16 species;
+            u16 power:9;
+            u16 numOfHits:7;
+        } speciesPowerOverride;
         struct {
             u16 typeCheck;
             u16 powerMultiplier;
         } typeBasedPowerBoost;
+        struct {
+            u16 damagePercent:12;
+            u16 damageCategories:4; // bit field
+        } reflectDamage; //the space of all unions is taking 4 bytes this is 2 but guess is fine would just be blank?
+        struct {
+            u16 terrain;
+            u16 percent:13;
+            enum TerrainGroundCheck groundCheck:2;
+            u16 hitsBothFoes:1;
+        } terrainBoost;
         u32 protectMethod;
         u32 status;
         u32 moveProperty;
@@ -166,8 +210,8 @@ struct MoveInfo
         u32 storedValue; //think use this for general storage type ebility etc. rename storedValue
         u32 fixedDamage;
         u32 damagePercentage;
-        u32 absorbPercentage;
-        u32 sacrificedHpPercentage; //decide use for hp loss for self destruct mind blown may filter into curse as well
+        u32 absorbPercentage;//if sacrifice hp percent is just for curse can do without it, just wrap into explosion rework
+        //u32 sacrificedHpPercentage; //decide use for hp loss for self destruct mind blown may filter into curse as well
         u32 nonVolatileStatus; //looking at plasma fists which can go use effect_hit then go to other move effect
     } argument; //think may not need recoilType at all
     //unions are weird can't be bit field but can have bit fields within them,
@@ -252,12 +296,12 @@ static inline u32 GetBaseMoveType(u32 moveId)
 //then would have something for what offense stat effect comes out of?
 static inline u32 GetMoveCategory(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].split;
+    return gMovesInfo[SanitizeMoveId(moveId)].category;
 }
 
 static inline bool32 IsBattleMoveStatus(u32 moveId)
 {
-    return GetMoveCategory(moveId) == SPLIT_STATUS;
+    return GetMoveCategory(moveId) == DAMAGE_CATEGORY_STATUS;
 }
 
 static inline u32 GetMovePower(u32 moveId)
@@ -437,20 +481,26 @@ static inline bool32 MoveDamagesUnderWater(u32 moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].damagesUnderwater;
 }
 
+//consolidatres floating dmg airborne and 2x airborne into 1
+static inline u32 GetAirborneDmgState(enum Move moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].airborneDmgState;
+}
+
 static inline bool32 MoveDamagesAirborne(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].damagesAirborne;
+    return GetAirborneDmgState(moveId) == DAMAGES_AIRBORNE;
 }
 
 static inline bool32 MoveDamagesAirborneDoubleDamage(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].damagesAirborneDoubleDamage;
+    return GetAirborneDmgState(moveId) == DOUBLE_DAMAGE_AIRBORNE;
 }
 
 static inline bool32 MoveCanDamageAirborne(u32 moveId)
 {
-    return (gMovesInfo[moveId].damagesAirborne == TRUE
-    || gMovesInfo[moveId].damagesAirborneDoubleDamage == TRUE);
+    return (MoveDamagesAirborne(moveId)
+    || MoveDamagesAirborneDoubleDamage(moveId));
 }
 
 //for most part is category without a distinction
@@ -460,7 +510,7 @@ static inline bool32 MoveCanDamageAirborne(u32 moveId)
 //this should now be main distinction of whether moves can hit floating types
 static inline bool32 MoveCantDamageFloatingTargets(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].cantdamageFloating;
+    return GetAirborneDmgState(moveId) == CANT_DAMAGE_FLOATING;
 }
 
 //update this to be more inline w 
@@ -636,10 +686,24 @@ static inline u32 GetMoveAbsorbPercentage(u32 moveId)
     return gMovesInfo[moveId].argument.absorbPercentage;
 }
 
+//both below effects need interact with sturdy
+//still todo, get hp percentage
+//if should survive w sturdy set hp to 1 instead of 0
 static inline u32 GetHpPercentagetoSacrifice(u32 moveId)
 {
     moveId = SanitizeMoveId(moveId);
-    return gMovesInfo[moveId].argument.sacrificedHpPercentage;
+    return gMovesInfo[moveId].explosionEffects.sacrificedHpPercentage;
+}
+
+//if has sturdy and would fail because hp below threshold
+//make move go off anyway just take out sturdy mon
+//sturdy blocks ko effects above certain hp threshold
+//well explosion specifically is hp threshold
+//think everything lese just works
+static inline bool32 DoesExplosionFailIfBelowHpThreshold(u32 moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    return gMovesInfo[moveId].explosionEffects.failsIfNotEnoughHp;
 }
 
 static inline u32 GetMoveNonVolatileStatus(u32 move)
@@ -664,22 +728,22 @@ static inline u32 GetMoveDamagePercentage(u32 moveId)
 static inline u16 GetTypeBasedBoostTypeCheck(enum Move moveId)
 {
     moveId = SanitizeMoveId(moveId);
-    assertf(gMovesInfo[moveId].effect == EFFECT_TARGET_TYPE_DAMAGE, "not a type boosted move: %S", GetMoveName(moveId));
+    assertf(gMovesInfo[moveId].effect == EFFECT_TARGET_TYPE_DAMAGE, "not a type boosted move: %S", GetMoveName_(moveId));
     return gMovesInfo[moveId].argument.typeBasedPowerBoost.typeCheck;
 }
 
 static inline uq4_12_t GetTypeBasedBoostMultiplier(enum Move moveId)
 {
     moveId = SanitizeMoveId(moveId);
-    assertf(gMovesInfo[moveId].effect == EFFECT_TARGET_TYPE_DAMAGE, "not a type boosted move: %S", GetMoveName(moveId));
+    assertf(gMovesInfo[moveId].effect == EFFECT_TARGET_TYPE_DAMAGE, "not a type boosted move: %S", GetMoveName_(moveId));
     return PercentToUQ4_12(gMovesInfo[moveId].argument.typeBasedPowerBoost.powerMultiplier);
 }
 
 //don't need assert cuz not part of union
 static inline bool32 MoveDoesTypelessDmg(enum Move moveId)
 {
-    moveId = SanitizeMoveId(moveId)
-    return gMovesInfo[moveId].typelessDmg = TRUE;
+    moveId = SanitizeMoveId(moveId);
+    return gMovesInfo[moveId].typelessDmg == TRUE;
 }
 
 
@@ -729,10 +793,12 @@ static inline bool32 IsOHKOmoveEffect(u32 moveId)
             || GetMoveEffect(moveId) == EFFECT_OHKO);
 }
 
+//prob need setup asserts especially for this
+//but point is explosion effects will always sacrifice hp
 static inline bool32 IsExplosionMove(u32 moveId)
 {
     moveId = SanitizeMoveId(moveId);
-    return gMovesInfo[moveId].explosiveMove;
+    return gMovesInfo[moveId].explosionEffects.sacrificedHpPercentage != 0;
 }
 
 static inline bool32 MoveEffectDoesRecoil(enum BattleMoveEffects moveEffect)

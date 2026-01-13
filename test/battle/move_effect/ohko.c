@@ -9,10 +9,9 @@ ASSUMPTIONS
 SINGLE_BATTLE_TEST("Sheer Cold doesn't affect Ice-type Pokémon")
 {
     GIVEN {
-        ASSUME(B_SHEER_COLD_IMMUNITY >= GEN_7);
-        ASSUME(gSpeciesInfo[SPECIES_GLALIE].types[0] == TYPE_ICE);
-        PLAYER(SPECIES_WYNAUT);
-        OPPONENT(SPECIES_GLALIE);
+        ASSUME(GetItemHoldEffect(ITEM_FOCUS_SASH) == HOLD_EFFECT_FOCUS_SASH);
+        PLAYER(SPECIES_MACHAMP) { Ability(ABILITY_NO_GUARD); }
+        OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
         TURN { MOVE(player, MOVE_SHEER_COLD); }
     } SCENE {

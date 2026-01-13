@@ -849,28 +849,17 @@ enum TypeSideHazard
 #define MAX_DRAGON_RAGE_COUNTER 5
 
 // Flags describing move's result
-#define MOVE_RESULT_MISSED             (1 << 0)
-#define MOVE_RESULT_SUPER_EFFECTIVE    (1 << 1)
-#define MOVE_RESULT_NOT_VERY_EFFECTIVE (1 << 2)
-#define MOVE_RESULT_DOESNT_AFFECT_FOE  (1 << 3)
-#define MOVE_RESULT_ONE_HIT_KO         (1 << 4)
-#define MOVE_RESULT_FAILED             (1 << 5)
-#define MOVE_RESULT_FOE_ENDURED        (1 << 6)
-#define MOVE_RESULT_FOE_HUNG_ON        (1 << 7)
-
-#define MOVE_RESULT_NO_EFFECT          (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE | MOVE_RESULT_FAILED)
-
-// Battle Weather as enum
-#define ENUM_WEATHER_NONE			      0
-#define ENUM_WEATHER_RAIN		          1
-#define ENUM_WEATHER_SUN	              2
-#define ENUM_WEATHER_SANDSTORM			  3
-#define ENUM_WEATHER_HAIL				  4
-#define ENUM_WEATHER_SUN_PRIMAL           5
-#define ENUM_WEATHER_RAIN_PRIMAL          6
-#define ENUM_WEATHER_STRONG_WINDS         7
-#define ENUM_WEATHER_MOON                 8
-#define ENUM_WEATHER_ACID_RAIN            9
+#define MOVE_RESULT_MISSED                (1 << 0)
+#define MOVE_RESULT_SUPER_EFFECTIVE       (1 << 1)
+#define MOVE_RESULT_NOT_VERY_EFFECTIVE    (1 << 2)
+#define MOVE_RESULT_DOESNT_AFFECT_FOE     (1 << 3)
+#define MOVE_RESULT_ONE_HIT_KO            (1 << 4)
+#define MOVE_RESULT_FAILED                (1 << 5)
+#define MOVE_RESULT_FOE_ENDURED           (1 << 6)
+#define MOVE_RESULT_FOE_HUNG_ON           (1 << 7)
+#define MOVE_RESULT_STURDIED              (1 << 8)
+#define MOVE_RESULT_AVOIDED_ATTACK        (MOVE_RESULT_MISSED | MOVE_RESULT_FAILED)
+#define MOVE_RESULT_NO_EFFECT             (MOVE_RESULT_MISSED | MOVE_RESULT_FAILED | MOVE_RESULT_DOESNT_AFFECT_FOE)
 
 enum BattleWeather
 {
@@ -1134,6 +1123,12 @@ enum __attribute__((packed)) MoveEffect
 #define B_TEXT_FLAG_NPC_CONTEXT_FONT    (1 << 6)
 #define B_TEXT_FLAG_WINDOW_CLEAR        (1 << 7)
 
+// Flag for BattlePutTextOnWindow. Never set
+#define B_WIN_COPYTOVRAM (1 << 7)
+
+// Indicator for the party summary bar to display an empty slot.
+#define HP_EMPTY_SLOT 0xFFFF
+
 enum MoveTarget
 {
     TARGET_NONE,
@@ -1145,7 +1140,7 @@ enum MoveTarget
     TARGET_BOTH,
     TARGET_USER,
     TARGET_ALLY,
-    TARGET_USER_AND_ALLY, // TODO: No functionality yet but would be used for howl in the future
+    TARGET_USER_AND_ALLY,
     TARGET_USER_OR_ALLY, // Acupressure
     TARGET_FOES_AND_ALLY,
     TARGET_FIELD, // Moves that target the field, e.g. Rain Dance

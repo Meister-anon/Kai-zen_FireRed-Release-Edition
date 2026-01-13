@@ -6947,7 +6947,7 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
 
     /*if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_TERA
         && GetBattlerTeraType(gBattlerAttacker) == TYPE_STELLAR
-        && gMovesInfo[gCurrentMove].split != SPLIT_STATUS
+        && gMovesInfo[gCurrentMove].category != DAMAGE_CATEGORY_STATUS
         && IsTypeStellarBoosted(gBattlerAttacker, moveType))
     {
         ExpendTypeStellarBoost(gBattlerAttacker, moveType);
@@ -7170,7 +7170,7 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
 
         else if (ability == ABILITY_LONG_REACH
             && !MoveMakesContact(move)
-            && IsPhysicalMove(battler, move) == SPLIT_PHYSICAL)
+            && IsPhysicalMove(battler, move))
         {
             gProtectStructs[battler].LongReachElevated = TRUE;
             priority++;

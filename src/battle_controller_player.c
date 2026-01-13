@@ -584,9 +584,31 @@ static void TryShowAsTarget(u32 battler)
     }
 }
 
+static bool32 CanSelectBattler(enum MoveTarget target)
+{
+    switch (target)
+    {
+    case TARGET_RANDOM:
+    case TARGET_BOTH:
+    case TARGET_DEPENDS:
+    case TARGET_FOES_AND_ALLY:
+    case TARGET_OPPONENTS_FIELD:
+    case TARGET_USER:
+    case TARGET_ALLY:
+    case TARGET_USER_OR_ALLY:
+    case TARGET_USER_AND_ALLY:
+        return TRUE;
+    default:
+        break;
+    }
+
+    return FALSE;
+}
+
 //believe will have to go over and rework
 //very diff from emerald setup
 //compare later
+//vsonic important unsure if right
 void HandleInputChooseMove(u32 battler)    //test new targetting setup
 {
     u16 moveTarget;
@@ -609,7 +631,11 @@ void HandleInputChooseMove(u32 battler)    //test new targetting setup
     {                                                                   //but it doesn't effect that, it just looks weird naturally with speed up on...
                                       //so all I need to do is, add a block for select user, so it doesn't go directly to use move, that will do from this function
 
+        enum MoveTarget moveTarget = GetBattlerMoveTargetType(battler, moveInfo->moves[gMoveSelectionCursor[battler]]);
+        bool32 isUserOrAlly = moveTarget == TARGET_USER || moveTarget == TARGET_USER_OR_ALLY || moveTarget == TARGET_USER_AND_ALLY;
+
         PlaySE(SE_SELECT);
+
         if (moveInfo->moves[gMoveSelectionCursor[battler]] == MOVE_CURSE)
         {
             if (moveInfo->monType1 != TYPE_GHOST && moveInfo->monType2 != TYPE_GHOST && moveInfo->monType3 != TYPE_GHOST
@@ -623,7 +649,7 @@ void HandleInputChooseMove(u32 battler)    //test new targetting setup
             moveTarget = gMovesInfo[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
         }
 
-        if (moveTarget & TARGET_USER)
+        if (isUserOrAlly)
             gMultiUsePlayerCursor = battler;
         else
             gMultiUsePlayerCursor = GetOpposingSideBattler(battler); //seems these had nothign to do with it, effect is after use moveo, not at choose move
@@ -631,7 +657,7 @@ void HandleInputChooseMove(u32 battler)    //test new targetting setup
         //think
         if (gMain.inBattle && !(gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_ROTATION | BATTLE_TYPE_TWO_OPPONENTS)))//(!gBattleResources->bufferA[battler][1]) // not a double battle  //why did they use buffer for this instead of actually using a check for double battle?
         {
-            if (moveTarget & TARGET_USER_OR_SELECTED)// && !gBattleResources->bufferA[battler][2])
+            if (moveTarget == (TARGET_USER | TARGET_SELECTED))// && !gBattleResources->bufferA[battler][2])
                 canSelectTarget = 1;
         }
         else if (gMain.inBattle && (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_ROTATION | BATTLE_TYPE_TWO_OPPONENTS)))// double battle - specifically need adjust in here
@@ -644,7 +670,7 @@ void HandleInputChooseMove(u32 battler)    //test new targetting setup
             {
                 canSelectTarget = 0;
             }
-            else if (!(moveTarget & (TARGET_USER | TARGET_USER_OR_SELECTED)) && CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_ACTIVE, battler) <= 1)
+            else if (!(moveTarget == (TARGET_USER | TARGET_SELECTED)) && CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_ACTIVE, battler) <= 1)
             {
                 gMultiUsePlayerCursor = GetDefaultMoveTarget(battler);
                 canSelectTarget = 0;
@@ -665,7 +691,7 @@ void HandleInputChooseMove(u32 battler)    //test new targetting setup
                     TryShowAsTarget(gMultiUsePlayerCursor); //issue doesn't stop blinking
                     canSelectTarget = 1; //ok seems to work now
                 }
-                else
+                else if (IsSpreadMove(moveTarget) || moveTarget == TARGET_OPPONENTS_FIELD || moveTarget == TARGET_USER_AND_ALLY)
                 {
                     TryShowAsTarget(gMultiUsePlayerCursor);
                     TryShowAsTarget(BATTLE_PARTNER(gMultiUsePlayerCursor));
@@ -2729,7 +2755,46 @@ static void PlayerHandleChooseAction(u32 battler)
     ActionSelectionCreateCursorAt(gActionSelectionCursor[battler], 0);
     PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, battler, gBattlerPartyIndexes[battler]);
     BattleStringExpandPlaceholdersToDisplayedString(gText_WhatWillPkmnDo);
-    BattlePutTextOnWindow(gDisplayedStringBattle, 1);
+
+    if (B_SHOW_PARTNER_TARGET && gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && IsBattlerAlive(B_POSITION_PLAYER_RIGHT))
+    {
+        StringCopy(gStringVar1, COMPOUND_STRING("Partner will use:\n"));
+        enum Move move = GetChosenMoveFromPosition(B_POSITION_PLAYER_RIGHT);
+        StringAppend(gStringVar1, GetMoveName(move));
+        enum MoveTarget moveTarget = GetBattlerMoveTargetType(B_POSITION_PLAYER_RIGHT, move);
+        if (moveTarget == TARGET_SELECTED || moveTarget == TARGET_SMART)
+        {
+            if (gAiBattleData->chosenTarget[B_POSITION_PLAYER_RIGHT] == B_POSITION_OPPONENT_LEFT)
+                StringAppend(gStringVar1, COMPOUND_STRING(" -{UP_ARROW}"));
+            else if (gAiBattleData->chosenTarget[B_POSITION_PLAYER_RIGHT] == B_POSITION_OPPONENT_RIGHT)
+                StringAppend(gStringVar1, COMPOUND_STRING(" {UP_ARROW}-"));
+            else if (gAiBattleData->chosenTarget[B_POSITION_PLAYER_RIGHT] == B_POSITION_PLAYER_LEFT)
+                StringAppend(gStringVar1, COMPOUND_STRING(" {DOWN_ARROW}-"));
+            else if (gAiBattleData->chosenTarget[B_POSITION_PLAYER_RIGHT] == B_POSITION_PLAYER_RIGHT)
+                StringAppend(gStringVar1, COMPOUND_STRING(" -{DOWN_ARROW}"));
+        }
+        else if (moveTarget == TARGET_USER_AND_ALLY)
+        {
+            StringAppend(gStringVar1, COMPOUND_STRING(" {DOWN_ARROW}{DOWN_ARROW}"));
+        }
+        else if (moveTarget == TARGET_BOTH)
+        {
+            StringAppend(gStringVar1, COMPOUND_STRING(" {UP_ARROW}{UP_ARROW}"));
+        }
+        else if (moveTarget == TARGET_FOES_AND_ALLY)
+        {
+            StringAppend(gStringVar1, COMPOUND_STRING(" {V_D_ARROW}{UP_ARROW}"));
+        }
+        else if (moveTarget == TARGET_ALL_BATTLERS || moveTarget == TARGET_FIELD)
+        {
+            StringAppend(gStringVar1, COMPOUND_STRING(" {V_D_ARROW}{V_D_ARROW}"));
+        }
+        BattlePutTextOnWindow(gStringVar1, B_WIN_ACTION_PROMPT);
+    }
+    else
+    {
+        BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_ACTION_PROMPT);
+    }
 }
 
 static void PlayerHandleUnknownYesNoBox(u32 battler)
