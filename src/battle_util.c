@@ -10436,8 +10436,9 @@ static inline void MulByTypeEffectiveness(struct BattleContext *ctx, uq4_12_t *m
     //believe is things like freeze dry
     if (GetMoveEffect(ctx->move) == EFFECT_SUPER_EFFECTIVE_ON_ARG && defType == GetMoveArgType(ctx->move) && !ctx->isAnticipation)
         mod = SUPER_EFFECTIVE;
-    if (ctx->moveType == TYPE_GROUND && IsAirborneType(defType) && IsBattlerGrounded(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef) && mod == UQ_4_12(0.0))
-        mod = UQ_4_12(1.0);
+    //pretty sure don't need with other groud change
+    /*if (ctx->moveType == TYPE_GROUND && IsAirborneType(defType) && IsBattlerGrounded(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef) && mod == UQ_4_12(0.0))
+        mod = UQ_4_12(1.0);*/
     if (ctx->moveType == TYPE_STELLAR && GetActiveGimmick(ctx->battlerDef) == GIMMICK_TERA)
         mod = UQ_4_12(2.0);
 
@@ -10549,7 +10550,8 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct BattleCont
             modifier = UQ_4_12(0.0);
     }
     else if (IsFloatingTargetImmunetoGroundBasedMoves(ctx->battlerAtk, ctx->battlerDef, ctx->move) 
-    && !IsBattlerGroundedInverseCheck(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef, INVERSE_BATTLE, ctx->isAnticipation) && !(MoveIgnoresTypeIfFlyingAndUngrounded(ctx->move)))
+    && !IsBattlerGroundedInverseCheck(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef, INVERSE_BATTLE, ctx->isAnticipation) 
+    && !(MoveIgnoresTypeIfFlyingAndUngrounded(ctx->move)))
     {
         modifier = UQ_4_12(0.0);
         
