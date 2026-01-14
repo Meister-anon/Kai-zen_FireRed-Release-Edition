@@ -757,6 +757,8 @@ enum SemiInvulnerableExclusion
 #define HITMARKER_FAINTED2(battler)     HITMARKER_FAINTED(battler)	//removed hitmarker semi invul underground etc. can't go up to fainted2 value
 #define HITMARKER_STRING_PRINTED        (1 << 29) //extra from emerald in case need
 
+//thought didnt need w side timer existing
+//but guess could use timer 0 w status set for permanent effects
 // Per-side statuses that affect an entire party
 #define SIDE_STATUS_REFLECT					(1 << 0)
 #define SIDE_STATUS_LIGHTSCREEN				(1 << 1)

@@ -3942,20 +3942,25 @@ void SetMoveEffect(u32 battlerAtk, u32 effectBattler, enum MoveEffect moveEffect
                 break;
             }
         }
+    }
         break;
     case MOVE_EFFECT_BREAK_SCREEN:
-        if (B_BRICK_BREAK >= GEN_4)
+        //unsure of use case for this
+        //user set screens only time can think would want to remove
+        //is if enemy had court change mon, even then very niche
+        /*if (B_BRICK_BREAK >= GEN_4)
         	i = GetBattlerSide(gBattlerTarget); // From Gen 4 onwards, Brick Break can remove screens on the user's side if used on an ally
-        else
+        else*/
         	i = GetBattlerSide(gBattlerAttacker) ^ BIT_SIDE;
 
         if (gSideStatuses[i] & SIDE_STATUS_SCREEN_ANY)
         {
             bool32 failed;
 
-            if (B_BRICK_BREAK >= GEN_5)
+            //brick break worked even on mon immune to move
+            /*if (B_BRICK_BREAK >= GEN_5)
             	failed = gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT;
-            else
+            else*/
             	failed = FALSE;
 
         	if (!failed)

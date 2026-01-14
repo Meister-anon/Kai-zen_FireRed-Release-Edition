@@ -173,7 +173,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_CALM_MIND,
     EFFECT_DRAGON_DANCE,
     EFFECT_CAMOUFLAGE,
-    EFFECT_PLEDGE,
+    EFFECT_PLEDGE, //snipe shot is in both ability redirect and follow me redirect pledge is only in follow me which is side affecting so I guess pledge is excluded from ability redirect more so because of quirks of its effect then? so guess I should either find a way to tell if a pledge move is combined and allow absorption if it isnt or change it so it excludes both redirections either or hmm think I like makin it another redirect exclusion better specially as is multi type
     EFFECT_FLING,
     EFFECT_NATURAL_GIFT,
     EFFECT_POWER_BASED_ON_TARGET_HP,

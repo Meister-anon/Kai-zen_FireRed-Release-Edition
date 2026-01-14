@@ -2242,6 +2242,11 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectHit,
         .battleTvScore = 3,
     },//these two don't have type immunity unlike brick break so keep an eye on
+    //reason for separating out effect was to avoid 
+    //invalidating brick break but think with 
+    //how different distribution is and with limited pp
+    //of submission and differences of effect
+    //think I can safely have use same effect
 
     [EFFECT_SNOWESCAPE] =
     {
