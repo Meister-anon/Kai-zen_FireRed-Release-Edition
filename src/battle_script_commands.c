@@ -1219,6 +1219,7 @@ static void Cmd_attackcanceler(void)
     }*/
    //how does this work now, it removed couter effect
    //which was handled in damage calc or somethinng now?
+    //need keep
     if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove)
      && (moveEffect != EFFECT_CURSE || IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST))
      && (!gBattleMoveEffects[moveEffect].twoTurnEffect || (gBattleMons[gBattlerAttacker].volatiles.multipleTurns)))
@@ -1305,9 +1306,6 @@ static void Cmd_setchargingturn(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
-<<<<<<< HEAD
-static bool32 JumpIfMoveAffectedByProtect(enum Move move, u32 battler, u32 shouldJump, const u8 *failInstr)
-=======
 static bool32 ShouldSkipAccuracyCalcPastFirstHit(u32 battlerAtk, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, u32 moveEffect)
 {
     if (gSpecialStatuses[battlerAtk].parentalBondState == PARENTAL_BOND_2ND_HIT)
@@ -1326,7 +1324,6 @@ static bool32 ShouldSkipAccuracyCalcPastFirstHit(u32 battlerAtk, enum Ability ab
 }
 
 static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u8 *failInstr)
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 {
     enum Ability abilityAtk = GetBattlerAbility(gBattlerAttacker);
     enum HoldEffect holdEffectAtk = GetBattlerHoldEffect(gBattlerAttacker);
@@ -1336,62 +1333,7 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
      || IsMaxMove(gCurrentMove)
      || IsZMove(gCurrentMove))
     {
-<<<<<<< HEAD
-        gBattleStruct->moveResultFlags[battler] |= MOVE_RESULT_MISSED;
-        if (shouldJump)
-            JumpIfMoveFailed(7, move, GetBattleMoveType(move), failInstr);
-    }
-    return affected;
-}
-
-static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u8 *failInstr, enum Move move)
-{
-    if (move == ACC_CURR_MOVE)
-        move = gCurrentMove;
-
-    if (move == NO_ACC_CALC_CHECK_LOCK_ON)
-    {
-        if (gBattleMons[gBattlerTarget].volatiles.lockOn && gBattleMons[gBattlerTarget].volatiles.battlerWithSureHit == gBattlerAttacker)
-        {
-            gBattlescriptCurrInstr = nextInstr;
-        }
-        else if (IsSemiInvulnerable(gBattlerTarget, CHECK_ALL))
-        {
-            if (gBattlerTarget != BATTLE_PARTNER(gBattlerAttacker))
-            {
-                gBattleStruct->moveResultFlags[gBattlerTarget] |= MOVE_RESULT_MISSED;
-                gBattleStruct->missStringId[gBattlerTarget] = gBattleCommunication[MISS_TYPE] = B_MSG_AVOIDED_ATK;
-            }
-            gBattlescriptCurrInstr = failInstr;
-        }
-        else if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove))
-        {
-            gBattleStruct->moveResultFlags[gBattlerTarget] |= MOVE_RESULT_MISSED;
-            gBattleStruct->missStringId[gBattlerTarget] = gBattleCommunication[MISS_TYPE] = B_MSG_PROTECTED;
-            gLastLandedMoves[gBattlerTarget] = 0;
-            gLastHitByType[gBattlerTarget] = 0;
-            gBattlescriptCurrInstr = failInstr;
-        }
-        else
-        {
-            gBattlescriptCurrInstr = nextInstr;
-        }
-
-        /*if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_DYNAMAX)
-        {
-            if (gProtectStructs[gBattlerTarget].protected == PROTECT_MAX_GUARD)
-                gBattlescriptCurrInstr = nextInstr;
-            else
-                TryHandleAbilityAbsorbMove(gBattlerAttacker,
-                                     gBattlerTarget,
-                                     GetBattlerAbility(gBattlerTarget),
-                                     gCurrentMove,
-                                     GetBattleMoveType(gCurrentMove),
-                                     RUN_SCRIPT);
-        }*/
-=======
         gBattlescriptCurrInstr = nextInstr;
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
         return;
     }
 
@@ -1467,97 +1409,7 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
     }
     else
     {
-<<<<<<< HEAD
-        u32 battlerDef,
-            numTargets = 0,
-            numMisses = 0,
-            moveType = GetBattleMoveType(move),
-            moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, move);
-        bool32 calcSpreadMove = IsSpreadMove(moveTarget) && !IsBattleMoveStatus(move);
-
-        for (battlerDef = 0; battlerDef < gBattlersCount; battlerDef++)
-        {
-            if (gBattleStruct->calculatedSpreadMoveAccuracy)
-                break;
-
-            if ((!calcSpreadMove && battlerDef != gBattlerTarget)
-             || IsBattlerInvalidForSpreadMove(gBattlerAttacker, battlerDef, moveTarget)
-             || gBattleStruct->noResultString[battlerDef] == WILL_FAIL)
-                continue;
-
-            numTargets++;
-            enum Ability abilityDef = GetBattlerAbility(battlerDef);
-            if (JumpIfMoveAffectedByProtect(move, battlerDef, FALSE, failInstr)
-             || CanMoveSkipAccuracyCalc(gBattlerAttacker, battlerDef, abilityAtk, abilityDef, move, RUN_SCRIPT))
-                continue;
-
-            u32 holdEffectDef = GetBattlerHoldEffect(battlerDef);
-            u32 accuracy = GetTotalAccuracy(gBattlerAttacker,
-                                            battlerDef,
-                                            move,
-                                            abilityAtk,
-                                            abilityDef,
-                                            holdEffectAtk,
-                                            holdEffectDef);
-
-            if (!RandomPercentage(RNG_ACCURACY, accuracy))
-            {
-                gBattleStruct->moveResultFlags[battlerDef] = MOVE_RESULT_MISSED;
-                gBattleStruct->missStringId[battlerDef] = gBattleCommunication[MISS_TYPE] = B_MSG_MISSED;
-                numMisses++;
-
-                if (holdEffectAtk == HOLD_EFFECT_BLUNDER_POLICY)
-                    gBattleStruct->blunderPolicy = TRUE;    // Only activates from missing through acc/evasion checks
-
-                if (moveTarget == TARGET_SMART
-                    && !IsAffectedByFollowMe(gBattlerAttacker, GetBattlerSide(battlerDef), gCurrentMove)
-                    && !recalcDragonDarts // So we don't jump back and forth between targets
-                    && CanTargetPartner(gBattlerAttacker, battlerDef)
-                    && !TargetFullyImmuneToCurrMove(gBattlerAttacker, BATTLE_PARTNER(battlerDef)))
-                {
-                    // Smart target to partner if miss
-                    numMisses = 0; // Other dart might hit
-                    gBattlerTarget = BATTLE_PARTNER(battlerDef);
-                    AccuracyCheck(TRUE, nextInstr, failInstr, move);
-                    return;
-                }
-
-                //believe same as my thing power 0 becomes typeless
-                //unsure how acc check type calc effects things
-                if (GetMovePower(move) != 0)
-                {
-                    struct BattleContext ctx = {0};
-                    ctx.battlerAtk = gBattlerAttacker;
-                    ctx.battlerDef = battlerDef;
-                    ctx.move = move;
-                    ctx.chosenMove = gChosenMove;
-                    ctx.moveType = moveType;
-                    ctx.updateFlags = TRUE;
-                    ctx.abilityAtk = abilityAtk;
-                    ctx.abilityDef = abilityDef;
-                    ctx.holdEffectAtk = holdEffectAtk;
-                    ctx.holdEffectDef = holdEffectDef;
-
-                    CalcTypeEffectivenessMultiplier(&ctx);
-                }
-            }
-        }
-
-        if (numTargets == numMisses)
-        {
-            gBattleStruct->battlerState[gBattlerAttacker].stompingTantrumTimer = 2;
-        }
-
-        if (gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_MISSED)
-            gBattleStruct->moveResultFlags[gBattlerTarget] = MOVE_RESULT_MISSED;
-
-        if (calcSpreadMove)
-            gBattleStruct->calculatedSpreadMoveAccuracy = TRUE;
-
-        JumpIfMoveFailed(7, move, moveType, failInstr);
-=======
         gBattlescriptCurrInstr = nextInstr;
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
     }
 }
 
