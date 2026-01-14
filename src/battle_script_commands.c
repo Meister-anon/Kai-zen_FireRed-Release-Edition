@@ -1061,96 +1061,8 @@ static void Cmd_attackcanceler(void)
     if (AtkCanceler_MoveSuccessOrder() != MOVE_STEP_SUCCESS)
         return;
 
-<<<<<<< HEAD
-    if (gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_OFF
-     && ctx.abilityAtk == ABILITY_PARENTAL_BOND
-     && IsMoveAffectedByParentalBond(gCurrentMove, gBattlerAttacker)
-     && !(gAbsentBattlerFlags & (1u << gBattlerTarget))
-     && GetActiveGimmick(gBattlerAttacker) != GIMMICK_Z_MOVE)
-    {
-        gSpecialStatuses[gBattlerAttacker].parentalBondState = PARENTAL_BOND_1ST_HIT;
-        gMultiHitCounter = 2;
-        PREPARE_BYTE_NUMBER_BUFFER(gBattleScripting.multihitString, 1, 0)
-        return;
-    }
 
-    if (CanAbilityBlockMove(
-            ctx.battlerAtk,
-            ctx.battlerDef,
-            ctx.abilityAtk,
-            ctx.abilityDef,
-            ctx.move,
-            RUN_SCRIPT))
-        return;
-
-    //a bit confusing but think is attempt to absorb 
-    //move effect on basis is most likely electric?
-    //shouldn't this just be here in general? 
-    //rather...oh right I don't want it in atk canceler
-    //specifically cuz I want the move animation to play out I think?
-    //hmm since this only does status moves is fine to me
-    //thought had issue w type and needed to read 2nd move type
-    //but this is for end step and two typed effect would already make it fail
-    //so inconsequential there
-    //double check my lightning rod etc. setup may remove this
-    if (GetMoveNonVolatileStatus(ctx.move) == MOVE_EFFECT_PARALYSIS)
-    {
-        if (TryHandleAbilityAbsorbMove(
-                ctx.battlerAtk,
-                ctx.battlerDef,
-                ctx.abilityDef,
-                ctx.move,
-                GetBattleMoveType(ctx.move),
-                RUN_SCRIPT))
-            return;
-    }
-
-    if (IsPowderMoveBlocked(&ctx))
-        return;
-
-    // Check if no available target present on the field or if Sky Battles ban the move
-    if ((NoTargetPresent(gBattlerAttacker, gCurrentMove)
-        && (!gBattleMoveEffects[moveEffect].twoTurnEffect || (gBattleMons[gBattlerAttacker].volatiles.multipleTurns)))
-        || (IsMoveNotAllowedInSkyBattles(gCurrentMove)))
-    {
-        gBattleStruct->noTargetPresent = TRUE;
-
-        if (moveEffect == EFFECT_FLING) // Edge case for removing a mon's item when there is no target available after using Fling.
-            gBattlescriptCurrInstr = BattleScript_FlingFailConsumeItem;
-        else
-            gBattlescriptCurrInstr = BattleScript_ButItFailed;
-
-        if (!gBattleMoveEffects[moveEffect].twoTurnEffect || (gBattleMons[gBattlerAttacker].volatiles.multipleTurns))
-            CancelMultiTurnMoves(gBattlerAttacker, SKY_DROP_ATTACKCANCELER_CHECK);
-        return;
-    }
-
-    u32 isBounceable = MoveCanBeBouncedBack(gCurrentMove);
-    bool32 bounceActive = (gProtectStructs[gBattlerTarget].bounceMove && IsBattlerAlive(gBattlerTarget));
-
-    if (!bounceActive
-        && !gBattleStruct->bouncedMoveIsUsed
-        && isBounceable
-        && GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove) == TARGET_OPPONENTS_FIELD)
-    {
-        u32 partner = BATTLE_PARTNER(gBattlerTarget);
-
-        if (partner < gBattlersCount
-            && GetBattlerSide(partner) == GetBattlerSide(gBattlerTarget)
-            && gProtectStructs[partner].bounceMove
-            && IsBattlerAlive(partner))
-        {
-            gBattlerTarget = partner;
-            bounceActive = TRUE;
-        }
-    }
-
-    if (bounceActive
-        && isBounceable
-        && !gBattleStruct->bouncedMoveIsUsed)
-=======
     if (gBattleStruct->magicBounceActive && !gBattleStruct->bouncedMoveIsUsed)
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
     {
         gBattleStruct->bouncedMoveIsUsed = TRUE;
         gBattleStruct->magicBounceActive = FALSE;
@@ -1173,19 +1085,6 @@ static void Cmd_attackcanceler(void)
     // I don't have better ideas right now though that would make sure nothing else breaks
     if (ShouldSkipToMoveEnd())
     {
-<<<<<<< HEAD
-        //the fuck does this config and not mean?
-        //ok if don't want to use config just remove that part
-        //wrong this is about preventing snatch from stealing snatched moves
-        //which I want it to do to remove config I need remove entire line
-        //what it does is handle 2 separate conditions
-        //1 the move has not been snatched it succeeds
-        //2 it succeeds if config is lowered
-        //which would allow it to bypass condition 1
-        //smh
-        if ((gProtectStructs[gBattlerByTurnOrder[i]].stealMove)
-            && MoveCanBeSnatched(gCurrentMove))
-=======
         gBattlescriptCurrInstr = BattleScript_MoveEnd;
         return;
     }
@@ -1197,7 +1096,6 @@ static void Cmd_attackcanceler(void)
             continue;
 
         if (B_SNATCH < GEN_5 || !gBattleStruct->snatchedMoveIsUsed)
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
         {
             gProtectStructs[gBattlerByTurnOrder[i]].stealMove = FALSE;
             gBattleStruct->snatchedMoveIsUsed = TRUE;
@@ -1207,18 +1105,8 @@ static void Cmd_attackcanceler(void)
         }
     }
 
-<<<<<<< HEAD
-    /*if (gSpecialStatuses[gBattlerTarget].abilityRedirected)
-    {
-        gSpecialStatuses[gBattlerTarget].abilityRedirected = FALSE;
-        BattleScriptCall(BattleScript_TookAttack);
-    }
-    else if (gBattleStruct->unableToUseMove) // skip touching Protect/Beak Blast when failing to move
-    {
-        gBattlescriptCurrInstr = cmd->nextInstr;
-    }*/
-   //how does this work now, it removed couter effect
-   //which was handled in damage calc or somethinng now?
+    //need verify if still works with other changes -vsonic
+    //also for some reason missed changse from top of file
     //need keep
     if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove)
      && (moveEffect != EFFECT_CURSE || IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST))
@@ -1264,33 +1152,6 @@ static void Cmd_attackcanceler(void)
     {
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
-}
-
-//look into how absorb is used with this vsonic
-static void JumpIfMoveFailed(u32 adder, enum Move move, enum Type moveType, const u8 *failInstr)
-{
-    if (gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
-    {
-        gLastLandedMoves[gBattlerTarget] = 0;
-        gLastHitByType[gBattlerTarget] = 0;
-        gBattlescriptCurrInstr = failInstr;
-        return;
-    }
-    else
-    {
-        if (TryHandleAbilityAbsorbMove(gBattlerAttacker,
-                                 gBattlerTarget,
-                                 GetBattlerAbility(gBattlerTarget),
-                                 move,
-                                 moveType,
-                                 RUN_SCRIPT))
-            return;
-    }
-
-    gBattlescriptCurrInstr += adder;
-=======
-    gBattlescriptCurrInstr = cmd->nextInstr;
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 }
 
 static void Cmd_setchargingturn(void)
@@ -2304,18 +2165,10 @@ static void Cmd_resultmessage(void)
         {
             gMultiHitCounter = 0;
             *moveResultFlags &= ~MOVE_RESULT_MISSED;
-<<<<<<< HEAD
             //BattleScriptCall(BattleScript_MultiHitPrintStrings);
             //return;
         }//change this now multi hit continues after miss
-
-        if (gBattleStruct->missStringId[gBattlerTarget] > B_MSG_AVOIDED_ATK) // Wonder Guard or Levitate
-=======
-            BattleScriptCall(BattleScript_MultiHitPrintStrings);
-            return;
-        }
         else
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
         {
             gBattleCommunication[MSG_DISPLAY] = 1;
             stringId = STRINGID_ATTACKMISSED;
@@ -4097,8 +3950,6 @@ void SetMoveEffect(u32 battler, u32 effectBattler, enum MoveEffect moveEffect, c
             }
         }
         break;
-<<<<<<< HEAD
-=======
     case MOVE_EFFECT_BREAK_SCREEN:
         if (B_BRICK_BREAK >= GEN_4)
         	i = GetBattlerSide(gBattlerTarget); // From Gen 4 onwards, Brick Break can remove screens on the user's side if used on an ally
@@ -4184,8 +4035,6 @@ void SetMoveEffect(u32 battler, u32 effectBattler, enum MoveEffect moveEffect, c
         }
         break;
 
-
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
     }
         default:
             break;

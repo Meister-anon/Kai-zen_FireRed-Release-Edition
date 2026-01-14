@@ -1031,6 +1031,11 @@ enum __attribute__((packed)) MoveEffect
     MOVE_EFFECT_LIGHT_SCREEN, //end lets go
     MOVE_EFFECT_SALT_CURE,
     MOVE_EFFECT_EERIE_SPELL,
+    //zmove and lets go move effects
+    MOVE_EFFECT_AROMATHERAPY,
+    // Move effects that happen before the move hits. Set in SetPreAttackMoveEffect
+    MOVE_EFFECT_BREAK_SCREEN,
+    MOVE_EFFECT_STEAL_STATS,
     //custom effects
     MOVE_EFFECT_INFESTATION, //bug status
     MOVE_EFFECT_SWITCH_LOCKED, //need this to set status and timer can remove effect
@@ -1042,8 +1047,7 @@ enum __attribute__((packed)) MoveEffect
     MOVE_EFFECT_SHADOW_STRIKE, //for 2nd mega gren siganture handled in move end multi hit set stat boost status
     MOVE_EFFECT_DEF_CAT_MINUS_1, //drop defense stat based on move category specific for moves that have variable split
     MOVE_EFFECT_DEF_CAT_MINUS_2,
-    //zmove and lets go move effects
-    MOVE_EFFECT_AROMATHERAPY,
+    
     NUM_MOVE_EFFECTS
 };
 

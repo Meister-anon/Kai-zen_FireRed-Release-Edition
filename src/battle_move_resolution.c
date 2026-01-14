@@ -169,6 +169,7 @@ static enum MoveEndResult MoveEnd_Absorb(void)
         {
             s32 healAmount = (gBattleStruct->moveDamage[gBattlerTarget] * GetMoveAbsorbPercentage(gCurrentMove) / 100);
             healAmount = GetDrainedBigRootHp(gBattlerAttacker, healAmount);
+            healAmount = MistyTerrainHealBoost(gBattlerAttacker, healAmount);
             if ((moveEffect == EFFECT_DREAM_EATER && GetConfig(CONFIG_DREAM_EATER_LIQUID_OOZE) < GEN_5)
                 || GetBattlerAbility(gBattlerTarget) != ABILITY_LIQUID_OOZE)
             {
