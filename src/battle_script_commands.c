@@ -1198,6 +1198,13 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
         return;
     }
 
+    //hope right vsonic - tired cant' think
+    if (!IsMultiHitMove(gCurrentMove))
+        gBattleStruct->battlerState[gBattlerAttacker].numMisses = 0;
+
+    else if (!CanMultiTask(abilityAtk, gCurrentMove))
+        gBattleStruct->battlerState[gBattlerAttacker].numMisses = 0;
+
     u32 numTargets = 0, numMisses = 0;
     enum MoveTarget moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove);
     bool32 calcSpreadMove = IsSpreadMove(moveTarget);
@@ -1232,7 +1239,7 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
         {
             gBattleStruct->moveResultFlags[battlerDef] = MOVE_RESULT_MISSED;
             gBattleCommunication[MISS_TYPE] = B_MSG_MISSED;
-            numMisses++;
+            gBattleStruct->battlerState[gBattlerAttacker].numMisses++;
 
             if (holdEffectAtk == HOLD_EFFECT_BLUNDER_POLICY)
                 gBattleStruct->blunderPolicy = TRUE;    // Only activates from missing through acc/evasion checks
@@ -1244,7 +1251,7 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
                 && !IsBattlerUnaffectedByMove(BATTLE_PARTNER(battlerDef)))
             {
                 // Smart target to partner if miss
-                numMisses = 0; // Other dart might hit
+                gBattleStruct->battlerState[gBattlerAttacker].numMisses = 0; // Other dart might hit
                 gBattlerTarget = BATTLE_PARTNER(battlerDef);
                 AccuracyCheck(TRUE, nextInstr, failInstr);
                 return;
@@ -1252,7 +1259,7 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
         }
     }
 
-    if (numTargets == numMisses)
+    if (numTargets == gBattleStruct->battlerState[gBattlerAttacker].numMisses)
     {
         SetOrClearRageVolatile();
         gBattleStruct->battlerState[gBattlerAttacker].stompingTantrumTimer = 2;
@@ -1266,7 +1273,15 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
         gBattleStruct->moveResultFlags[gBattlerTarget] = MOVE_RESULT_MISSED;
         gLastLandedMoves[gBattlerTarget] = 0;
         gLastHitByType[gBattlerTarget] = 0;
-        gBattlescriptCurrInstr = failInstr;
+        
+
+        if (gMultiHitCounter)
+            gBattlescriptCurrInstr = nextInstr;
+        else
+        {
+            gBattlescriptCurrInstr = failInstr;
+            gBattleStruct->battlerState[gBattlerAttacker].numMisses = 0;
+        }
     }
     else
     {
@@ -4189,6 +4204,19 @@ static void Cmd_clearvolatile(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+bool8 CanMultiTask(enum Ability abilityAtk, enum Move move) //works, but now I need to negate the jump, because it will still attack multiple times otherwise  done!
+{
+
+    if (abilityAtk == ABILITY_MULTI_TASK
+    && !IsBattleMoveStatus(move)
+    && !IsMoveMultiTaskBanned(move))
+    {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
 static void Cmd_tryfaintmon(void)
 {
     CMD_ARGS(u8 battler, bool8 isSpikes, const u8 *instr);
@@ -4340,31 +4368,25 @@ static void Cmd_jumpbasedonability(void)
 
         if (GetBattlerAbility(battler) == ability)
         {
-            if (ability == ABILITY_MULTI_TASK)
+            switch (ability)
             {
-                if (CanMultiTask(battler, gCurrentMove)) //seems to be workign now, but some move animations dont show still investigating
-                {
-                    hasAbility = TRUE; //if shouldn't multitask will fail to jump to portion that gives moves multi hit effect
-                } //only used in, low kick script, and non multihit scripts
-                else
-                    hasAbility = FALSE;
-            }
-            else if (ability == ABILITY_CACOPHONY)
-            {
+                case ABILITY_MULTI_TASK:
+                if (CanMultiTask(ability, gCurrentMove))
+                    hasAbility = TRUE;//if shouldn't multitask will fail to jump to portion that gives moves multi hit effect
+                break;
+                case ABILITY_CACOPHONY:
                 if (IsSoundMove(gCurrentMove))
                     hasAbility = TRUE;
-                else
-                    hasAbility = FALSE;
-            }
-            else if (ability == ABILITY_STURDY) //can't figure to make more specific correctly so just leaving
-            {
+                break;
+                case ABILITY_STURDY:
                 if (IsBattlerAlive(battler))//mayu change to alive and above hp threshold? vsonic
                     hasAbility = TRUE; //all ohko moves miss so if curr mvoe is effect ohko otherwise survives suicide moves if above quarter hp && gBattleMons[battler].hp >= (gBattleMons[battler].maxHP / 4
-                else
-                    hasAbility = FALSE;
+                break;
+                default:
+                    hasAbility = TRUE;
+                break;
             }
-            else
-                hasAbility = TRUE;
+            
         }
         break;
     case BS_ATTACKER_SIDE:

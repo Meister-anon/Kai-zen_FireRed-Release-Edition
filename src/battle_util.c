@@ -3575,11 +3575,16 @@ static void SetPossibleNewSmartTarget(u32 move)
         gBattlerTarget = partner;
 }
 
+//won't need whole separate script for effects
+//can just adjust acc checks etc.
+//so if multihit can just continue through a miss until dec hits 0
+// vsonic need add back accuracy logic and multi task logic
 static enum MoveCanceler CancelerMultihitMoves(struct BattleContext *ctx)
 {
     SetPossibleNewSmartTarget(ctx->move);
 
-    if (IsBattlerUnaffectedByMove(gBattlerTarget)) // Dragon Darts can still hit partner
+    // Dragon Darts can still hit partner
+    if (gBattleStruct->moveResultFlags[gBattlerTarget] & (MOVE_RESULT_FAILED | MOVE_RESULT_DOESNT_AFFECT_FOE))
     {
         gMultiHitCounter = 0;
     }

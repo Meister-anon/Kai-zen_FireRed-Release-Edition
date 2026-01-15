@@ -827,7 +827,8 @@ struct BattlerState
     u16 isFirstTurn:2;
     u16 protectSuccessiveFail:1; //if fails successive use
     u16 protectTurnOrderFail:1; //if fails because moved last in turn
-    u16 padding:10;
+    u16 numMisses:4; //added just for multihit result bring actually can use bool
+    u16 padding:6;//prob remove successfail stuff
 };
 
 struct PartyState

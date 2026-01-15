@@ -814,7 +814,7 @@ static enum MoveEndResult MoveEnd_MultihitMove(void)
 {
     enum MoveEndResult result = MOVEEND_STEP_CONTINUE;
 
-    if (!IsBattlerUnaffectedByMove(gBattlerTarget)
+    if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & (MOVE_RESULT_FAILED | MOVE_RESULT_DOESNT_AFFECT_FOE)) 
      && !gBattleStruct->unableToUseMove
      && gMultiHitCounter)
     {
@@ -823,7 +823,12 @@ static enum MoveEndResult MoveEnd_MultihitMove(void)
         if (!IsBattlerAlive(gBattlerTarget) && target != TARGET_SMART)
             gMultiHitCounter = 0;
 
-        gBattleScripting.multihitString[4]++;
+        if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_MISSED))
+            gBattleScripting.multihitString[4]++;
+        else if (gMultiHitCounter)
+            gBattleStruct->moveResultFlags[gBattlerTarget] = 0;
+            //hopefully clear only if miss should clear miss each hit and allow restrike
+
         if (gMultiHitCounter == 0)
         {
             if (MoveHasAdditionalEffect(gCurrentMove, MOVE_EFFECT_SCALE_SHOT) && !NoAliveMonsForEitherParty())
@@ -831,6 +836,7 @@ static enum MoveEndResult MoveEnd_MultihitMove(void)
             else
                 BattleScriptCall(BattleScript_MultiHitPrintStrings);
             result = MOVEEND_STEP_RUN_SCRIPT;
+            gBattleStruct->battlerState[gBattlerAttacker].numMisses = 0;
         }
         else
         {
@@ -843,6 +849,7 @@ static enum MoveEndResult MoveEnd_MultihitMove(void)
 
             enum BattleMoveEffects chosenEffect = GetMoveEffect(gChosenMove);
 
+            //if can attack
             if (gBattleMons[gBattlerAttacker].hp
              && gBattleMons[gBattlerTarget].hp
              && (IsUsableWhileAsleepEffect(chosenEffect) || !(gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP))
