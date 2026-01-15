@@ -27,7 +27,6 @@ enum ResultOption
 {
     CHECK_TRIGGER, // Check the function without running scripts / setting any flags.
     AI_CHECK,  // Check the function without running scripts / setting any flags. Same as CHECK_TRIGGER but only used when additional data has to be fetched during ai calcs
-<<<<<<< HEAD
     RUN_SCRIPT, // Used during actual combat where a script has to be run / flags need to be set
 };
 
@@ -38,10 +37,6 @@ enum MoveAbsorbed
     MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY,
     MOVE_ABSORBED_BY_BOOST_FLASH_FIRE,
 };//add new effect for pheonix ability that combines fields w stat cleanse
-=======
-    RUN_SCRIPT,
-};
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 
 enum FieldEffectCases
 {
@@ -300,6 +295,17 @@ enum MoveCanceler
 
 extern const struct TypePower gNaturalGiftTable[];
 
+// Lowest and highest percentages used for damage roll calculations
+#define DMG_ROLL_PERCENT_LO 85
+#define DMG_ROLL_PERCENT_HI 100
+
+// Crit chance exceptions
+#define CRITICAL_HIT_BLOCKED -1
+#define CRITICAL_HIT_ALWAYS  -2
+
+extern const u8 *const gPlayCryanims[];
+
+
 struct BattleContext
 {
     u32 battlerAtk:3;
@@ -365,37 +371,6 @@ enum EjectPackTiming
     OTHER,
 };
 
-<<<<<<< HEAD
-#define ITEMEFFECT_ON_SWITCH_IN                 0x0
-#define ITEMEFFECT_NORMAL                       0x1
-#define ITEMEFFECT_MOVE_END                     0x3
-#define ITEMEFFECT_KINGSROCK          0x4		//removed shell bell from this effect and renamed to just kingsrock
-#define ITEMEFFECT_TARGET                       0x5
-#define ITEMEFFECT_ORBS                         0x6
-#define ITEMEFFECT_LIFEORB_SHELLBELL            0x7		
-#define ITEMEFFECT_USE_LAST_ITEM                0x8
-
-
-#define BS_GET_TARGET                   0
-#define BS_GET_ATTACKER                 1
-#define BS_GET_EFFECT_BANK              2
-#define BS_GET_SCRIPTING_BANK           10
-#define BS_GET_PLAYER1                  11
-#define BS_GET_OPPONENT1                12
-#define BS_GET_PLAYER2                  13
-#define BS_GET_OPPONENT2                14
-
-// Lowest and highest percentages used for damage roll calculations
-#define DMG_ROLL_PERCENT_LO 85
-#define DMG_ROLL_PERCENT_HI 100
-
-// Crit chance exceptions
-#define CRITICAL_HIT_BLOCKED -1
-#define CRITICAL_HIT_ALWAYS  -2
-
-extern const u8 *const gPlayCryanims[];
-
-=======
 void HandleAction_ThrowBall(void);
 uq4_12_t CalcTypeEffectivenessMultiplierHelper(enum Move move, enum Type moveType, u32 battlerAtk, u32 battlerDef, enum Ability abilityAtk, enum Ability abilityDef, bool32 recordAbilities);
 u32 GetCurrentBattleWeather(void);
@@ -417,7 +392,6 @@ void HandleAction_WallyBallThrow(void);
 void HandleAction_TryFinish(void);
 void HandleAction_NothingIsFainted(void);
 void HandleAction_ActionFinished(void);
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 u8 GetBattlerForBattleScript(u8 caseId);
 
 u32 GetFuryCutterAccuracy(u32 battlerAtk, u32 move);
@@ -443,11 +417,9 @@ bool32 AreAllMovesUnusable(u32 battler);
 u8 GetImprisonedMovesCount(u8 battlerId, u16 move);
 u8 DoFieldEndTurnEffects(void);
 s32 GetDrainedBigRootHp(u32 battler, s32 hp);
-<<<<<<< HEAD
 s32 MistyTerrainHealBoost(u32 battler, s32 healamount);
 u8 DoBattlerEndTurnEffects(void);
 bool32 HandleWishPerishSongOnTurnEnd(void);
-bool8 HandleFaintedMonActions(void);
 void ClearRageStatuses(u8 battler);
 u8 AtkCanceller_UnableToUseMove(void);
 u8 AtkCanceller_UnableToUseMove2(void);
@@ -456,15 +428,14 @@ bool8 IsFlyingTypeBattlerUnableToFly(u32 battler); //battle specific variant
 bool8 CanFlyingTypeRecoverFromSmackDown(u32 battler); //for use w ascension timer prob rename later vsonic
 bool8 IsBattlerGrounded(u8 battlerId);
 bool8 IsFloatingTargetImmunetoGroundBasedMoves(u8 battler_atk, u8 battler_def, u16 move);
-bool8 HasNoMonsToSwitch(u8 battler, u8 partyIdBattlerOn1, u8 partyIdBattlerOn2);
-bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility);
 u8 CastformDataTypeChange(u8 battler);
 u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 moveArg);
-=======
+
+//EE stuff
 bool32 IsAbilityAndRecord(u32 battler, enum Ability battlerAbility, enum Ability abilityToCheck);
 u32 DoEndTurnEffects(void);
 bool32 HandleFaintedMonActions(void);
-void TryClearRageAndFuryCutter(void);
+void TryClearRageAndFuryCutter(void); //THINK NOT using
 enum MoveCanceler AtkCanceler_MoveSuccessOrder(void);
 bool32 HasNoMonsToSwitch(u32 battler, u8 partyIdBattlerOn1, u8 partyIdBattlerOn2);
 bool32 TryChangeBattleWeather(u32 battler, u32 battleWeatherId, u32 ability);
@@ -491,7 +462,8 @@ u32 IsAbilityPreventingEscape(u32 battler);
 bool32 IsBattlerProtected(struct BattleContext *ctx);
 u32 GetProtectType(enum ProtectMethod method);
 bool32 CanBattlerEscape(u32 battler); // no ability check
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
+//from EE
+
 void BattleScriptExecute(const u8 *BS_ptr);
 void BattleScriptPushCursorAndCallback(const u8 *BS_ptr);
 u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn);
@@ -506,7 +478,6 @@ u32 GetBattleMoveSplit(u32 moveId);
 u32 GetBattleMoveDamageCategory(u32 attackerId, u16 move);
 bool8 IsBattlerAlive(u8 battlerId);
 bool8 IsBlackFogNotOnField(void);
-u32 GetBattlerAbility(u32 battler);
 u32 GetBattlerWeight(u8 battlerId);
 u32 GetFlingPowerFromItemId(u32 itemId);
 //u16 GetPrimalReversionSpecies(u16 preEvoSpecies, u16 heldItemId);
@@ -699,7 +670,7 @@ bool8 ShouldCacophonyBoostAccuracy(u16 move);
 bool8 ShouldCacophonyBoostEffectChance(u16 move);
 bool8 ShouldCacophonyElevateMoveEffect(u16 move);
 void CacophonyElevateMoveEffect(void);
-u8 GetMoveType(u32 moveType, u32 btlAttacker);
+//u8 GetMoveType(u32 moveType, u32 btlAttacker); //review how was used
 void GetBattlerTypes(u32 battler, bool32 ignoreTera, u32 types[/*static*/ 3]); //according to mcgriffin static check should work w my compiler version but doesn't.. advised remove static for now
 u32 GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera);
 u32 CountBattlerStatIncreases(u32 battler, bool32 countEvasionAcc);

@@ -287,7 +287,7 @@ static inline u32 GetMoveEffect(u32 moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].effect;
 }
 
-static inline u32 GetBaseMoveType(u32 moveId)
+static inline u32 GetMoveType(u32 moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].type;
 }//vsonic renamed from GetMoveType
