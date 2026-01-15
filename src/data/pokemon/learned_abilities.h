@@ -2530,6 +2530,8 @@ static const struct AbilityLearnset sDarmanitanAbilityLearnset[] = {
 static const struct AbilityLearnset sMaractusAbilityLearnset[] = {
     ABILITY_DESERT_DWELLER,
     ABILITY_TOUGH_SPINES,
+    ABILITY_CHLOROPHYLL,
+    ABILITY_GRASS_PELT,
     ABILITY_SET_END
 };
 
