@@ -3170,6 +3170,8 @@ static enum MoveCanceler CancelerCharging(struct BattleContext *ctx)
 
     enum MoveCanceler step = MOVE_STEP_SUCCESS;
 
+    //think need tweak this added fly to CanTwoTurnMoveFireThisTurn
+    //but w condition think won't execute how I want
     if (gBattleMons[ctx->battlerAtk].volatiles.multipleTurns) // Second turn
     {
     	gBattleScripting.animTurn = 1;
@@ -3588,11 +3590,11 @@ static enum MoveCanceler CancelerMultihitMoves(struct BattleContext *ctx)
     {
         gMultiHitCounter = 0;
     }
-    else if (IsVariableMultiHitMove(ctx->move) || CanMultiTask(&ctx))
+    else if (IsVariableMultiHitMove(ctx->move) || CanMultiTask(ctx->abilityAtk, ctx->move))
     {
         enum Ability ability = ctx->abilityAtk;
 
-        if (ability == ABILITY_SKILL_LINK || ability == ABILITY_MULTI_TASK)
+        if (ability == ABILITY_SKILL_LINK || (ability == ABILITY_MULTI_TASK && IsVariableMultiHitMove(ctx->move)))
         {
             gMultiHitCounter = 5;
         }
@@ -3664,58 +3666,6 @@ static enum MoveCanceler CancelerMultihitMoves(struct BattleContext *ctx)
     return MOVE_STEP_SUCCESS;
 }
 
-<<<<<<< HEAD
-//vsonic unsure how TryHandleAbilityAbsorbMove works here
-//idk if the type reads what I want it to do review later
-static enum MoveCanceler CancelerMultiTargetMoves(struct BattleContext *ctx)
-{
-    u32 moveTarget = GetBattlerMoveTargetType(ctx->battlerAtk, ctx->move);
-    enum Ability abilityAtk = ctx->abilityAtk;
-
-    if (IsSpreadMove(moveTarget))
-    {
-        for (u32 battlerDef = 0; battlerDef < gBattlersCount; battlerDef++)
-        {
-            if (gBattleStruct->bouncedMoveIsUsed && !IsOnPlayerSide(battlerDef))
-                continue;
-
-            enum Ability abilityDef = GetBattlerAbility(battlerDef);
-
-            if (ctx->battlerAtk == battlerDef
-             || !IsBattlerAlive(battlerDef)
-             || (GetMoveEffect(ctx->move) == EFFECT_SYNCHRONOISE && !DoBattlersShareType(ctx->battlerAtk, battlerDef))
-             || (moveTarget == TARGET_BOTH && ctx->battlerAtk == BATTLE_PARTNER(battlerDef))
-             || IsBattlerProtected(ctx->battlerAtk, battlerDef, ctx->move)) // Missing Invulnerable check
-            {
-                gBattleStruct->moveResultFlags[battlerDef] = MOVE_RESULT_NO_EFFECT;
-                gBattleStruct->noResultString[battlerDef] = WILL_FAIL;
-            }
-            else if (CanAbilityBlockMove(ctx->battlerAtk, battlerDef, abilityAtk, abilityDef, ctx->move, CHECK_TRIGGER))
-            {
-                gBattleStruct->moveResultFlags[battlerDef] = 0;
-                gBattleStruct->noResultString[battlerDef] = WILL_FAIL;
-            }
-            else if (TryHandleAbilityAbsorbMove(ctx->battlerAtk, battlerDef, abilityDef, ctx->move, GetBattleMoveType(gCurrentMove), CHECK_TRIGGER))
-            {
-                gBattleStruct->moveResultFlags[battlerDef] = 0;
-                gBattleStruct->noResultString[battlerDef] = CHECK_ACCURACY;
-            }
-            else
-            {
-                CalcTypeEffectivenessMultiplierHelper(ctx->move, GetBattleMoveType(ctx->move), ctx->battlerAtk, battlerDef, abilityAtk, abilityDef, TRUE); // Sets moveResultFlags
-                gBattleStruct->noResultString[battlerDef] = CAN_DAMAGE;
-            }
-        }
-        if (moveTarget == TARGET_BOTH)
-            gBattleStruct->numSpreadTargets = CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_BATTLER_SIDE, ctx->battlerAtk);
-        else
-            gBattleStruct->numSpreadTargets = CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_BATTLER, ctx->battlerAtk);
-    }
-    return MOVE_STEP_SUCCESS;
-}
-
-=======
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 static enum MoveCanceler (*const sMoveSuccessOrderCancelers[])(struct BattleContext *ctx) =
 {
     [CANCELER_CLEAR_FLAGS] = CancelerClearFlags,
@@ -4179,16 +4129,61 @@ void ChooseStatBoostAnimation(u32 battler)
 #undef ANIM_STAT_ACC
 #undef ANIM_STAT_EVASION
 
-<<<<<<< HEAD
-bool32 CanAbilityBlockMove(u32 battlerAtk, u32 battlerDef, enum Ability abilityAtk, enum Ability abilityDef, u32 move, enum FunctionCallOption option)
-=======
+//effect was separated canabilityblock move handled non absorb abilities
+//bullet proof soudproof good as gold
+//and tryhandleabsorb was my logic for absorb abilities
+//think best case is set that again split off between the two
+//recreate canabilityblock move using ctx and put that in 
+//canmovebeblockedbytarget replace instances of abilityblockmove
+//with that and pair w tryhandleabsorbmove
+//as returns true false think will revert name change
+//back to canabilityasbrobmove
+bool32 CanAbilityBlockMove(struct BattleContext *ctx)
+{
+    const u8 *battleScript = NULL;
+
+    switch (ctx->abilityDef)
+    {
+        case ABILITY_SOUNDPROOF:
+        if (IsSoundMove(ctx->move))
+            battleScript = BattleScript_SoundproofProtected;
+        break;
+    case ABILITY_BULLETPROOF:
+        if (IsBallisticMove(ctx->move))
+            battleScript = BattleScript_SoundproofProtected;
+        break;
+    case ABILITY_GOOD_AS_GOLD:
+        if (IsBattleMoveStatus(ctx->move))
+        {
+            enum MoveTarget target = GetBattlerMoveTargetType(ctx->battlerAtk, ctx->move);
+            if (target != TARGET_OPPONENTS_FIELD && target != TARGET_ALL_BATTLERS)
+                battleScript = BattleScript_GoodAsGoldActivates;
+        }
+        break;
+    default:
+        break;
+    }
+
+    if (battleScript == NULL)
+        return FALSE;
+
+    if (ctx->runScript)
+    {
+        gLastUsedAbility = ctx->abilityDef;
+        gBattleScripting.battler = gBattlerAbility = ctx->battlerDef;
+        BattleScriptCall(battleScript);
+    }
+
+    return TRUE;
+}
+
+//use separtely with CanAbilityAbsorbMove
 bool32 CanMoveBeBlockedByTarget(struct BattleContext *ctx, s32 movePriority)
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 {
     return CanPsychicTerrainProtectTarget(ctx, movePriority)
         || CanTargetBlockPranksterMove(ctx, movePriority)
         || IsPowderMoveBlocked(ctx)
-        || CanAbilityAbsorbMove(ctx);
+        || CanAbilityBlockMove(ctx);
 }
 
 bool32 CanPsychicTerrainProtectTarget(struct BattleContext *ctx, s32 movePriority)
@@ -4237,7 +4232,6 @@ static bool32 IsPowderMoveBlocked(struct BattleContext *ctx)
     return TRUE;
 }
 
-<<<<<<< HEAD
 //may rename to draw in or redirect
 //oh this is specifically does battler have ability
 //that can draw in and absorb move type
@@ -4315,7 +4309,6 @@ bool32 CanAbilityAbsorbMoveType(u32 battlerDef, enum Type mainMoveType, enum Typ
 //but if targetted directly they still absorb it!!)
 //#define CAN_ABILITY_ABSORB_MOVE(battler) if (gBattleMons[battler].status1 == 0 && !gBattleMons[battler].volatiles.rechargeTimer && !(gBattleMons[battler].status2 & PREOCCUPIED_STATUS) && !(gStatuses3[battler] & STAUS3_VULNERABLE) && !(gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4)) can_absorb = TRUE;
 
-
 //think may make simpler
 //just need add absorb prevention  preceding switch
 //ok logic is still done separately in GetBattleMoveTarget function
@@ -4323,27 +4316,21 @@ bool32 CanAbilityAbsorbMoveType(u32 battlerDef, enum Type mainMoveType, enum Typ
 //looks like I'll need to still use my massive unweidly logic for that...
 //I removed the special status in my version can't remember why tho...
 //HandleMoveTargetRedirection also relevant
+//point of remove is ability redirected special status
+//is so move anim actually plays instead of just skip it
 //this function does full absorption effect including script logic
 //consider rename to attempt absorb move should be final step of trio
 //adjust macro and rename function that's it
 //pr in coming to address targetting for these etc.
 //keep an eye on vsonic
-bool32 TryHandleAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, enum Ability abilityDef, u32 move, enum Type moveType, enum FunctionCallOption option)
-=======
 bool32 CanAbilityAbsorbMove(struct BattleContext *ctx)
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 {
     const u8 *battleScript = NULL;
-<<<<<<< HEAD
-    enum Stat statId = 0;
-    u32 statAmount = 1;
-    enum MoveTarget target = GetBattlerMoveTargetType(battlerAtk, move);
-    bool32 validTarget = (target != TARGET_ALL_BATTLERS && target != TARGET_FIELD);
-    bool32 targetUserOrField = (target == TARGET_USER || target == TARGET_FIELD);
+
     bool32 can_absorb = FALSE;
 
     //do below only if can absorb is true
-    if (GetMoveEffect(move) != EFFECT_TWO_TYPED_MOVE)
+    if (GetMoveEffect(ctx->move) != EFFECT_TWO_TYPED_MOVE)
         can_absorb = TRUE;
 
     //double check work as I plan my version
@@ -4357,240 +4344,95 @@ bool32 CanAbilityAbsorbMove(struct BattleContext *ctx)
     //as an option to prevent move redirection.
     //i.e can't see attack coming as well so can't get ahead of it
 
-    //think 
     if (can_absorb)
     {
-        switch (abilityDef)
+        switch (ctx->abilityDef)
         {
 
         case ABILITY_RISING_PHOENIX:
-            if (moveType == TYPE_FIRE && validTarget)
-                effect = MOVE_ABSORBED_BY_RISING_PHOENIX_ABILITY; //do heal and status cleanse & reset dropped stats to default
-            break;
+            if (ctx->moveType == TYPE_FIRE)
+                //effect = MOVE_ABSORBED_BY_RISING_PHOENIX_ABILITY;
+            break;//do heal and status cleanse & reset dropped stats to default
         case ABILITY_VOLT_DASH:
         case ABILITY_VOLT_ABSORB:
-            if (moveType == TYPE_ELECTRIC && validTarget)
-                effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
+            if (ctx->moveType == TYPE_ELECTRIC)
+                battleScript = AbsorbedByDrainHpAbility(ctx->battlerDef);
             break;
         case ABILITY_WATER_ABSORB:
         case ABILITY_DRY_SKIN:
-            if (moveType == TYPE_WATER)
-                effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
+            if (ctx->moveType == TYPE_WATER)
+                battleScript = AbsorbedByDrainHpAbility(ctx->battlerDef);
             break;
         case ABILITY_GLACIAL_ICE:
-            if (moveType == TYPE_ICE)
-                effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
+            if (ctx->moveType == TYPE_ICE)
+                battleScript = AbsorbedByDrainHpAbility(ctx->battlerDef);
             break;
         case ABILITY_EROSION:
-            if (moveType == TYPE_ROCK)
-                effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
+            if (ctx->moveType == TYPE_ROCK)
+                battleScript = AbsorbedByDrainHpAbility(ctx->battlerDef);
             break;
         case ABILITY_EARTH_EATER:
-            if (moveType == TYPE_GROUND)
-                effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
+            if (ctx->moveType == TYPE_GROUND)
+                battleScript = AbsorbedByDrainHpAbility(ctx->battlerDef);
+            break;
+        case ABILITY_NEW_MOON:
+            if (IsMoonbasedMove(move))
+                battleScript = AbsorbedByDrainHpAbility(ctx->battlerDef);
             break;
         case ABILITY_MOTOR_DRIVE:
-            if (moveType == TYPE_ELECTRIC && validTarget)
-            {
-                effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
-                statId = STAT_SPEED;
-            }
+            if (ctx->moveType == TYPE_ELECTRIC)
+                battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_SPEED, 1);
             break;
         case ABILITY_TERAVOLT:
         case ABILITY_LIGHTNING_ROD:
-            if (moveType == TYPE_ELECTRIC && validTarget)
-            {
-                effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
-                statId = STAT_SPATK;
-            }//in EE lightning rod only has all battlers check not field check no idea why waiting on response
+            if (ctx->moveType == TYPE_ELECTRIC)
+                battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_SPATK, 1);
             break;
         case ABILITY_PLASMA_OVERDRIVE:
-            if (moveType == TYPE_ELECTRIC && validTarget)
-            {
-                effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
-                statId = STAT_SPATK;
-            }
-            else if (moveType == TYPE_FIRE)
-                effect = MOVE_ABSORBED_BY_BOOST_FLASH_FIRE;
+            if (ctx->moveType == TYPE_ELECTRIC)
+                battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_SPATK, 1);
+            else if (ctx->moveType == TYPE_FIRE)
+                battleScript = AbsorbedByFlashFire(ctx->battlerDef);
             break;
         case ABILITY_STORM_DRAIN:
-            if (moveType == TYPE_WATER)
-            {
-                effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
-                statId = STAT_SPATK;
-            }
+            if (ctx->moveType == TYPE_WATER)
+                battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_SPATK, 1);
             break;
         case ABILITY_SAP_SIPPER:
-            if (moveType == TYPE_GRASS)
-            {
-                effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
-                statId = STAT_ATK;
-            }
+            if (ctx->moveType == TYPE_GRASS)
+                battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_ATK, 1);
             break;
         case ABILITY_JEWEL_METABOLISM:
-            if (moveType == TYPE_ROCK)
-            {
-                effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
-                statId = STAT_DEF;
-            }
+            if (ctx->moveType == TYPE_ROCK)
+                battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_DEF, 1);
             break;
         case ABILITY_WELL_BAKED_BODY:
-            if (moveType == TYPE_FIRE)
-            {
-                effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
-                statAmount = 2;
-                statId = STAT_DEF;
-            }
+            if (ctx->moveType == TYPE_FIRE)
+                battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_DEF, 2);
             break;
         case ABILITY_GALEFORCE:
-            if (IsWindMove(move) && !targetUserOrField)
-            {
-                effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
-                statId = STAT_SPATK;
-            }
+            if (IsWindMove(move))
+                battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_SPATK, 1);
             break;
         case ABILITY_DUST_DEVIL:
         case ABILITY_WIND_RIDER:
-            if (IsWindMove(move) && !targetUserOrField)
-            {
-                effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
-                statId = STAT_ATK;
-            }
-            break;//EE moves weather moves to target_field instead of user, I would need to add field exclusion to user as well
-        case ABILITY_NEW_MOON:
-            if (IsMoonbasedMove(move))
-                effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
+            if (IsWindMove(move))
+                battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_ATK, 1);//EE moves weather moves to target_field instead of user, I would need to add field exclusion to user as well
             break;
         case ABILITY_LAVA_FISSURE:
         case ABILITY_TURBOBLAZE:
         case ABILITY_FLASH_FIRE:
-            if (moveType == TYPE_FIRE)
-                effect = MOVE_ABSORBED_BY_BOOST_FLASH_FIRE;
+            if (ctx->moveType == TYPE_FIRE)
+                battleScript = AbsorbedByFlashFire(ctx->battlerDef);
             break;
+        default:
+        break;
         }
     }
-
-    if (effect == MOVE_ABSORBED_BY_NO_ABILITY || option != RUN_SCRIPT)
-        return effect;
-
-    switch (effect)
-    {
-=======
-
-    switch (ctx->abilityDef)
-    {
-    case ABILITY_VOLT_ABSORB:
-        if (ctx->moveType == TYPE_ELECTRIC)
-            battleScript = AbsorbedByDrainHpAbility(ctx->battlerDef);
-        break;
-    case ABILITY_WATER_ABSORB:
-    case ABILITY_DRY_SKIN:
-        if (ctx->moveType == TYPE_WATER)
-            battleScript = AbsorbedByDrainHpAbility(ctx->battlerDef);
-        break;
-    case ABILITY_EARTH_EATER:
-        if (ctx->moveType == TYPE_GROUND)
-            battleScript = AbsorbedByDrainHpAbility(ctx->battlerDef);
-        break;
-    case ABILITY_MOTOR_DRIVE:
-        if (ctx->moveType == TYPE_ELECTRIC)
-            battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_SPEED, 1);
-        break;
-    case ABILITY_LIGHTNING_ROD:
-        if (GetConfig(CONFIG_REDIRECT_ABILITY_IMMUNITY) >= GEN_5 && ctx->moveType == TYPE_ELECTRIC)
-            battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_SPATK, 1);
-        break;
-    case ABILITY_STORM_DRAIN:
-        if (GetConfig(CONFIG_REDIRECT_ABILITY_IMMUNITY) >= GEN_5 && ctx->moveType == TYPE_WATER)
-            battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_SPATK, 1);
-        break;
-    case ABILITY_SAP_SIPPER:
-        if (ctx->moveType == TYPE_GRASS)
-            battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_ATK, 1);
-        break;
-    case ABILITY_WELL_BAKED_BODY:
-        if (ctx->moveType == TYPE_FIRE)
-            battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_DEF, 2);
-        break;
-    case ABILITY_WIND_RIDER:
-        if (IsWindMove(ctx->move))
-            battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_ATK, 1);
-        break;
-    case ABILITY_FLASH_FIRE:
-        if (ctx->moveType == TYPE_FIRE && (B_FLASH_FIRE_FROZEN >= GEN_5 || !(gBattleMons[ctx->battlerDef].status1 & STATUS1_FREEZE)))
-            battleScript = AbsorbedByFlashFire(ctx->battlerDef);
-        break;
-    case ABILITY_SOUNDPROOF:
-        if (IsSoundMove(ctx->move))
-            battleScript = BattleScript_SoundproofProtected;
-        break;
-    case ABILITY_BULLETPROOF:
-        if (IsBallisticMove(ctx->move))
-            battleScript = BattleScript_SoundproofProtected;
-        break;
-    case ABILITY_GOOD_AS_GOLD:
-        if (IsBattleMoveStatus(ctx->move))
-        {
-            enum MoveTarget target = GetBattlerMoveTargetType(ctx->battlerAtk, ctx->move);
-            if (target != TARGET_OPPONENTS_FIELD && target != TARGET_ALL_BATTLERS)
-                battleScript = BattleScript_GoodAsGoldActivates;
-        }
-        break;
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
-    default:
-        break;
-    }
+    
 
     if (battleScript == NULL)
         return FALSE;
-<<<<<<< HEAD
-    case MOVE_ABSORBED_BY_DRAIN_HP_ABILITY:
-        gBattleStruct->pledgeMove = FALSE; // vsonic think may change remove status filter, its stil element
-        if (IsBattlerAtMaxHp(battlerDef) || (gBattleMons[battlerDef].volatiles.healBlock)
-        //|| IsBattleMoveStatus(move)
-        )
-        {
-            battleScript = BattleScript_MonMadeMoveUseless;
-        }
-        else
-        {
-            battleScript = BattleScript_MoveHPDrain;
-            SetHealAmount(battlerDef, GetNonDynamaxMaxHP(battlerDef) / 4);
-        }
-        break;
-    case MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY:
-        gBattleStruct->pledgeMove = FALSE;
-        if (!CompareStat(battlerDef, statId, MAX_STAT_STAGE, CMP_LESS_THAN, abilityDef)
-        //|| IsBattleMoveStatus(move)
-        )
-        {
-            battleScript = BattleScript_MonMadeMoveUseless;
-        }
-        else
-        {
-            battleScript = BattleScript_MoveStatDrain;
-            SET_STATCHANGER(statId, statAmount, FALSE);
-            //if (B_ABSORBING_ABILITY_STRING < GEN_5)
-                PREPARE_STAT_BUFFER(gBattleTextBuff1, statId);
-        }
-        break;
-    case MOVE_ABSORBED_BY_BOOST_FLASH_FIRE:
-        gBattleStruct->pledgeMove = FALSE;
-        if (!gBattleMons[battlerDef].volatiles.flashFireBoosted)
-        {
-            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_BOOST;
-            battleScript = BattleScript_FlashFireBoost;
-            gBattleMons[battlerDef].volatiles.flashFireBoosted = TRUE;
-        }
-        else
-        {
-            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_NO_BOOST;
-            battleScript = BattleScript_FlashFireBoost;
-        }
-        break;
-    }
-=======
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 
     if (ctx->runScript)
     {
@@ -4604,7 +4446,7 @@ bool32 CanAbilityAbsorbMove(struct BattleContext *ctx)
 
 const u8 *AbsorbedByDrainHpAbility(u32 battlerDef)
 {
-    if (IsBattlerAtMaxHp(battlerDef) || (B_HEAL_BLOCKING >= GEN_5 && gBattleMons[battlerDef].volatiles.healBlock))
+    if (IsBattlerAtMaxHp(battlerDef) || gBattleMons[battlerDef].volatiles.healBlock)
     {
         return BattleScript_MonMadeMoveUseless;
     }
@@ -6255,13 +6097,9 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
                 effect++;
             }
             break;
-<<<<<<< HEAD
+
         case ABILITY_INNARDS_OUT: //effect reworked need check if future logic still makes sense vsonic
-            if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
-=======
-        case ABILITY_INNARDS_OUT:
             if (!IsBattlerUnaffectedByMove(gBattlerTarget)
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
              && !IsBattlerAlive(gBattlerTarget)
              && IsBattlerAlive(gBattlerAttacker))
             {
@@ -8179,11 +8017,7 @@ static inline bool32 IsSideProtected(u32 battler, enum ProtectMethod method)
         || gProtectStructs[BATTLE_PARTNER(battler)].protected == method;
 }
 
-<<<<<<< HEAD
-bool32 IsBattlerProtected(u32 battlerAtk, u32 battlerDef, u32 move)
-=======
 bool32 IsBattlerProtected(struct BattleContext *ctx)
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 {
     if (gProtectStructs[ctx->battlerDef].protected == PROTECT_NONE
      && gProtectStructs[BATTLE_PARTNER(ctx->battlerDef)].protected == PROTECT_NONE)
@@ -8234,6 +8068,8 @@ bool32 IsBattlerProtected(struct BattleContext *ctx)
         isProtected = TRUE;
     else if (IsSideProtected(ctx->battlerDef, PROTECT_MAT_BLOCK) && !IsBattleMoveStatus(ctx->move))
         isProtected = TRUE;
+    else if (gProtectStructs[ctx->battlerDef].protected == PROTECT_FENCE)
+        isProtected = TRUE;
     else
         isProtected = FALSE;
 
@@ -8247,11 +8083,13 @@ u32 GetProtectType(enum ProtectMethod method)
     case PROTECT_NONE:
         return PROTECT_TYPE_NONE;
     case PROTECT_NORMAL:
+    case PROTECT_SHIELD_BASH: //unsure but putting here
     case PROTECT_SPIKY_SHIELD:
     case PROTECT_KINGS_SHIELD:
     case PROTECT_BANEFUL_BUNKER:
     case PROTECT_BURNING_BULWARK:
     case PROTECT_OBSTRUCT:
+    case PROTECT_FENCE:
     case PROTECT_SILK_TRAP:
     case PROTECT_MAX_GUARD:
         return PROTECT_TYPE_SINGLE;
@@ -11322,13 +11160,8 @@ uq4_12_t GetOverworldTypeEffectiveness(struct Pokemon *mon, enum Type moveType)
     if (type2 != type1)
         MulByTypeEffectiveness(&ctx, &modifier, type2);
 
-<<<<<<< HEAD
-    if ((modifier <= UQ_4_12(1.0) && abilityDef == ABILITY_WONDER_GUARD)
-     || TryHandleAbilityAbsorbMove(0, 0, abilityDef, MOVE_NONE, moveType, CHECK_TRIGGER))
-=======
     if ((modifier <= UQ_4_12(1.0) && ctx.abilityDef == ABILITY_WONDER_GUARD)
      || CanAbilityAbsorbMove(&ctx))
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
         modifier = UQ_4_12(0.0);
 
     return modifier;
@@ -12863,7 +12696,8 @@ enum Type GetBattleMoveType(u32 move)
         if (gBattleStruct->dynamicMoveType)
             return gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;
 
-        enum BattleMoveEffects effect = GetMoveEffect(move);
+        //value removed was just for typeless set
+        //enum BattleMoveEffects effect = GetMoveEffect(move);
     }
     return GetMoveType(move);
 }
@@ -13047,14 +12881,8 @@ void UpdateStallMons(void)
      || target == TARGET_SELECTED
      || target == TARGET_SMART)
     {
-<<<<<<< HEAD
-        enum Type moveType = GetBattleMoveType(gCurrentMove); //  Probably doesn't handle dynamic move types right now
-        enum Ability abilityAtk = GetBattlerAbility(gBattlerAttacker);
-        enum Ability abilityDef = GetBattlerAbility(gBattlerTarget);
-        if (TryHandleAbilityAbsorbMove(gBattlerAttacker, gBattlerTarget, abilityDef, gCurrentMove, moveType, CHECK_TRIGGER))
-=======
-        if (CanMoveBeBlockedByTarget(&ctx, GetChosenMovePriority(ctx.battlerAtk, ctx.abilityAtk)))
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
+        if (CanMoveBeBlockedByTarget(&ctx, GetChosenMovePriority(ctx.battlerAtk, ctx.abilityAtk))
+        || CanAbilityAbsorbMove(&ctx))
         {
             gAiBattleData->playerStallMons[gBattlerPartyIndexes[gBattlerTarget]]++;
         }
@@ -14374,6 +14202,33 @@ bool32 TryActivateHeatTrance(u32 battler)  //change mind better to do 2 function
 
     
 }
+
+//can't use before use move battle controller is done
+//because called move & gcurrent move aren't set until its used
+//need execute as part of bs (??)
+//not same as EE version of function prob rename later
+//rn only using for charge status
+//got removed unsure if still need
+/*u8 GetMoveType(u32 moveType, u32 btlAttacker)
+{
+    u16 move; //move should be current move unless move that calls move than instead is calledmove
+    u8 Type, moveArgument;
+
+    move = gCalledMove == 0 ? gCurrentMove : gCalledMove;
+    moveArgument = 0xFE;
+    SetTypeBeforeUsingMove(move, btlAttacker, &Type);
+    //GET_MOVE_TYPE(move, Type); //need add argument type, for two type move
+
+    if (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)
+        moveArgument = gBattleMoves[move].argument;
+    
+    if ((Type || moveArgument) == moveType)
+        return Type;
+    else
+        return 0xFF; //return this if not find type to avoid issue w type none
+
+
+}*/
 
 #define FIXATION_EFFECTS
 //present form useless plan rework
