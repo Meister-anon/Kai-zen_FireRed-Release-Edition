@@ -1215,6 +1215,14 @@ static inline u16 SanitizeSpeciesId(u16 species)
         return species;
 }
 
+//Type boosted by hunger switch form and type of aura wheel
+static inline enum Type GetHungerSwitchType(struct BattleContext *ctx)
+{
+    if (GET_BASE_SPECIES_ID(gBattleMons[ctx->battlerAtk].species) == SPECIES_MORPEKO_FULL_BELLY
+    && ctx->abilityAtk == ABILITY_HUNGER_SWITCH)
+        return (gBattleMons[ctx->battlerAtk].species == SPECIES_MORPEKO_FULL_BELLY ? TYPE_ELECTRIC : TYPE_DARK;)
+}
+
 
 
 static inline void CopySpeciesNameToBuff(u8 *nameBuff, u32 species)

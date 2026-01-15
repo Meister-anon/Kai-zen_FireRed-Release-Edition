@@ -842,7 +842,8 @@ struct PartyState
     u32 timesGotHit:5;
     u32 changedSpecies:11; // For forms when multiple mons can change into the same pokemon.
     u32 sentOut:1;
-    u32 padding:9;
+    u32 numPhysHits:2; //using for ice face to count hits taken till reset, realize need putin party to prevent abuse
+    u32 padding:7;
     u32 knockedOffItem; //was knock from wishfutureknock struct
     u16 usedHeldItem;//check may need adjust harvest recycle w setup for 2nd held slot
     u16 usedSingleUseAbility; //for abilities that activate once per battle - my addition //not bool stores ability too

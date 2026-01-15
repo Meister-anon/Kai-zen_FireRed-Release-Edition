@@ -23,6 +23,25 @@ and go over all the flags I added/previously may have updated i.e pulse moves pu
 
 and add the member if necessary
 
+plan quality of life make function getname from personality
+use for quality of life of infatuation that way can still
+print name avoid issue of wrong mon
+
+
+add tera but didn't really want to set it
+think exclude to new game plus or hard
+like better of being in hard mode
+so a real reason to have game feel new
+
+for new game plus can replace mom exp share
+give with tera ring give
+and show mon tera on sum screen following that
+show in main window like w status just on
+opposite side or somethiing
+
+could set smart wild mon in extra modes
+and have them activate tera in some cases
+
 IMPORTANT note for later
 for randomizer consisder setup restricted runs
 rather than have to remake all encouters

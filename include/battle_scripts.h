@@ -1230,6 +1230,7 @@ extern const u8 BattleScript_SupremeOverlordActivates[];
 extern const u8 BattleScript_CostarActivates[];
 extern const u8 BattleScript_ZeroToHeroActivates[];
 extern const u8 BattleScript_CommanderActivates[];
+extern const u8 BattleScript_BatteryActivates[]; //in progress battery rework vikavolt
 extern const u8 BattleScript_HospitalityActivates[];
 extern const u8 BattleScript_ToxicDebrisActivates[];
 extern const u8 BattleScript_EarthEaterActivates[];

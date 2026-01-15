@@ -29417,10 +29417,10 @@ const struct BaseStats gBaseStats[] =
          STATS(
         75,
         80,
-        110,
+        90,
         50,
         65,
-        90
+        130
         ),
         MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 60,
@@ -29442,7 +29442,18 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sEiscueLevelUpLearnset,
         .tmhmLearnset = sEiscueTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//didnt realize changed stats with form this thing sucks
+    //ok change ice face to take 2 hits instead of one
+    //and buff stats of no ice form so its usable
+    //not broken cuz mon has little to no offense capability
+    //plan make niche utility mon you build a win con around
+    //similar to shedinja
+    //may need some value to keep track of num hits taken
+    //idk figure out
+    //also no idea why the heck they even bothered giving it defense
+    //when the ability fully blocks physical hits
+    //and immediately changes form its such a troll smh
+    //ok fixed stats may need to remove belly drum from it
 
     [SPECIES_INDEEDEE_MALE] =
     {
@@ -29515,6 +29526,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMorpekoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //give fence and dark swamp
 
     [SPECIES_CUFANT] =
     {
@@ -51062,9 +51074,9 @@ const struct BaseStats gBaseStats[] =
         75,
         80,
         70,
-        130,
+        110,
         65,
-        50
+        90
         ),
         MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 60,

@@ -2282,10 +2282,12 @@ static const struct AbilityLearnset sSamurottAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sPatratAbilityLearnset[] = {
+    ABILITY_EARLY_BIRD,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sWatchogAbilityLearnset[] = {
+    ABILITY_EARLY_BIRD,
     ABILITY_SET_END
 };//gain pluck to synergize cheek pouch
 
