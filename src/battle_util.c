@@ -3612,12 +3612,10 @@ static enum MoveCanceler CancelerMultihitMoves(struct BattleContext *ctx)
     }
     else if (GetMoveStrikeCount(ctx->move) > 1)
     {
-        if (GetMoveEffect(ctx->move) == EFFECT_POPULATION_BOMB && ability != ABILITY_SKILL_LINK)
+        if (GetMoveEffect(ctx->move) == EFFECT_POPULATION_BOMB && GetBattlerHoldEffect(ctx->battlerAtk) == HOLD_EFFECT_LOADED_DICE)
         {
-            if (GetBattlerHoldEffect(ctx->battlerAtk) == HOLD_EFFECT_LOADED_DICE)
-                gMultiHitCounter = RandomUniform(RNG_LOADED_DICE, 4, 10);
-            else
-                gMultiHitCounter = RandomUniform(RNG_LOADED_DICE, 1, 10);
+            gMultiHitCounter = RandomUniform(RNG_LOADED_DICE, 4, 10);
+
         }
         else
         {
