@@ -36,7 +36,9 @@ enum MoveAbsorbed
     MOVE_ABSORBED_BY_DRAIN_HP_ABILITY,
     MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY,
     MOVE_ABSORBED_BY_BOOST_FLASH_FIRE,
+    MOVE_ABSORBED_BY_RISING_PHOENIX_ABILITY,
 };//add new effect for pheonix ability that combines fields w stat cleanse
+//pretty sure not using just need setup pheonix effect first
 
 enum FieldEffectCases
 {
@@ -187,7 +189,7 @@ static inline void SetSingleUseAbilityValues(u32 battler, enum Ability ability)
 static inline bool32 CanBattlerAbilityDrawInMove(u32 battlerDef)
 {
     if (gBattleMons[battlerDef].status1 == 0 
-    && !gDisableStructs[battlerDef].rechargeTimer 
+    && !gBattleMons[battlerDef].volatiles.rechargeTimer 
     && !(gBattleMons[battlerDef].status2 & PREOCCUPIED_STATUS) 
     && !(gStatuses3[battlerDef] & STAUS3_VULNERABLE) 
     && !(gBattleMons[battlerDef].status4 & ITS_A_TRAP_STATUS4))

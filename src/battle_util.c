@@ -436,7 +436,7 @@ ok need 3 splits
 and 3 does incomming move bypass absorb immunity - rejects dual type move takes damage
 
 //issue right now is seems EE just uses 1 function for all parts
-except redirection TryHandleAbilityAbsorbMove
+except redirection TryHandleAbilityAbsorbMove - was CanAbilityAbsorbMove
 
 //checked my base code and I excluded 
 //non elemental effects from redirect
@@ -444,6 +444,7 @@ except redirection TryHandleAbilityAbsorbMove
 didn't jump in front which I guess works for me
 make it just an elemntal thing I guess
 */
+//static in EE
 bool32 HandleMoveTargetRedirection(void)
 {
     u32 redirectorOrderNum = MAX_BATTLERS_COUNT;
@@ -475,8 +476,6 @@ bool32 HandleMoveTargetRedirection(void)
         return TRUE;
     }
 
-<<<<<<< HEAD
-    
     //my change added exceptions so mon even with an absorb ability
     //may be unable to absorb effect
     //the question is if I should change condition to absorb capabiltiy
@@ -506,26 +505,19 @@ bool32 HandleMoveTargetRedirection(void)
     //move of absorbable type 
     //not targetting a mon with absorb ability
     //note is meant to redirect from a mon that is unable to absorb effect
-    else if (IsDoubleBattle()
-           && gSideTimers[side].followmeTimer == 0
-           && (!IsBattleMoveStatus(gCurrentMove) || (moveTarget != TARGET_USER && moveTarget != TARGET_ALL_BATTLERS && moveTarget != TARGET_FIELD))
-           && !CanAbilityAbsorbMoveType(gBattleStruct->moveTarget[gBattlerAttacker], moveType, SecondarymoveType)
-           //&& ((ability != ABILITY_LIGHTNING_ROD && moveType == TYPE_ELECTRIC)
-           // || (ability != ABILITY_STORM_DRAIN && moveType == TYPE_WATER))
-            )
-=======
-    enum Type moveType = GetBattleMoveType(gCurrentMove);
-    enum Ability ability = GetBattlerAbility(gBattleStruct->moveTarget[gBattlerAttacker]);
-    bool32 currTargetCantAbsorb = ((ability != ABILITY_LIGHTNING_ROD && moveType == TYPE_ELECTRIC)
-                                || (ability != ABILITY_STORM_DRAIN && moveType == TYPE_WATER));
+    u16 defbattler = gBattleStruct->moveTarget[gBattlerAttacker];
+    bool32 currTargetCantAbsorb = CanAbilityAbsorbMoveType(defbattler, moveType, SecondarymoveType) ? FALSE : TRUE;
 
+    //previous versoion of effect
+    //had block to ignore status moves
+    //removed believe leave only two typed moves
+    //to escape absorption
     if (currTargetCantAbsorb
      && IsDoubleBattle()
      && gSideTimers[side].followmeTimer == 0
      && moveTarget != TARGET_USER
      && moveTarget != TARGET_ALL_BATTLERS
      && moveTarget != TARGET_FIELD)
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
     {
         // Find first battler that redirects the move (in turn order)
         enum Ability abilityAtk = GetBattlerAbility(gBattlerAttacker);
@@ -3160,29 +3152,6 @@ static enum MoveCanceler CancelerExplosion(struct BattleContext *ctx)
     return MOVE_STEP_SUCCESS;
 }
 
-<<<<<<< HEAD
-//think instead of multihit effect
-//can just put into move struct value
-//ismultihit move and have the separation be
-//on if move uses strikecount
-//change here would simply be go to canceler only if multihit move
-//and in here, set strike count logic first
-//then just use an else for everything else
-//i.e is fixedmultihit  can say if has strike count
-//oh dont need function can just use getstrikecout as below
-//think will just replae effect multi hit 
-//don't need include moves w strike count
-//just use isvariablemultihit
-//believe should also allow for more freedom
-//within category
-//won't need whole separate script for effects
-//can just adjust acc checks etc.
-//so if multihit can just continue through a miss until dec hits 0
-//done - vsonic
-static enum MoveCanceler CancelerMultihitMoves(struct BattleContext *ctx)
-{
-    if (IsVariableMultiHitMove(ctx->move))
-=======
 static bool32 CanTwoTurnMoveFireThisTurn(struct BattleContext *ctx)
 {
     if ((gBattleMoveEffects[GetMoveEffect(ctx->move)].semiInvulnerableEffect
@@ -3614,12 +3583,11 @@ static enum MoveCanceler CancelerMultihitMoves(struct BattleContext *ctx)
     {
         gMultiHitCounter = 0;
     }
-    else if (IsVariableMultiHitMove(ctx->move))
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
+    else if (IsVariableMultiHitMove(ctx->move) || CanMultiTask(&ctx))
     {
         enum Ability ability = ctx->abilityAtk;
 
-        if (ability == ABILITY_SKILL_LINK)
+        if (ability == ABILITY_SKILL_LINK || ability == ABILITY_MULTI_TASK)
         {
             gMultiHitCounter = 5;
         }
@@ -3637,9 +3605,12 @@ static enum MoveCanceler CancelerMultihitMoves(struct BattleContext *ctx)
     }
     else if (GetMoveStrikeCount(ctx->move) > 1)
     {
-        if (GetMoveEffect(ctx->move) == EFFECT_POPULATION_BOMB && GetBattlerHoldEffect(ctx->battlerAtk) == HOLD_EFFECT_LOADED_DICE)
+        if (GetMoveEffect(ctx->move) == EFFECT_POPULATION_BOMB && ability != ABILITY_SKILL_LINK)
         {
-            gMultiHitCounter = RandomUniform(RNG_LOADED_DICE, 4, 10);
+            if (GetBattlerHoldEffect(ctx->battlerAtk) == HOLD_EFFECT_LOADED_DICE)
+                gMultiHitCounter = RandomUniform(RNG_LOADED_DICE, 4, 10);
+            else
+                gMultiHitCounter = RandomUniform(RNG_LOADED_DICE, 1, 10);
         }
         else
         {
@@ -12848,14 +12819,13 @@ bool32 CanTargetPartner(u32 battlerAtk, u32 battlerDef)
          && IsBattlerAlive(BATTLE_PARTNER(battlerDef))
          && battlerDef != BATTLE_PARTNER(battlerAtk));
 }
-
-bool32 IsBattlerUnaffectedByMove(u32 battler)
+/*
+static inline bool32 DoesBattlerHaveAbilityImmunity(u32 battlerAtk, u32 battlerDef, enum Type moveType)
 {
-<<<<<<< HEAD
     enum Ability abilityDef = GetBattlerAbility(battlerDef);
 
-    return CanAbilityBlockMove(battlerAtk, battlerDef, GetBattlerAbility(battlerAtk), abilityDef, gCurrentMove, CHECK_TRIGGER)
-        || TryHandleAbilityAbsorbMove(battlerAtk, battlerDef, abilityDef, gCurrentMove, moveType, CHECK_TRIGGER);
+    return (CanAbilityBlockMove(battlerAtk, battlerDef, GetBattlerAbility(battlerAtk), abilityDef, gCurrentMove, CHECK_TRIGGER)
+        || TryHandleAbilityAbsorbMove(battlerAtk, battlerDef, abilityDef, gCurrentMove, moveType, CHECK_TRIGGER));
 }
 
 bool32 TargetFullyImmuneToCurrMove(u32 battlerAtk, u32 battlerDef)
@@ -12865,9 +12835,11 @@ bool32 TargetFullyImmuneToCurrMove(u32 battlerAtk, u32 battlerDef)
          || IsBattlerProtected(battlerAtk, battlerDef, gCurrentMove)
          || !BreaksThroughSemiInvulnerablity(battlerDef, gCurrentMove)
          || DoesBattlerHaveAbilityImmunity(battlerAtk, battlerDef, moveType));
-=======
+}*/
+
+bool32 IsBattlerUnaffectedByMove(u32 battler)
+{
     return gBattleStruct->moveResultFlags[battler] & MOVE_RESULT_NO_EFFECT;
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 }
 
 //for beatup think what I did was give stab
