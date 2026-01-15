@@ -2674,7 +2674,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_ARMOR_TAIL] =
     {
         .name = _("Armor Tail"),
-        .description = COMPOUND_STRING sDazzlingDescription,
+        .description = COMPOUND_STRING ("Blocks boosted priority moves\nfor itself and allies."),
         .aiRating = 5,
         .breakable = TRUE,
     },
