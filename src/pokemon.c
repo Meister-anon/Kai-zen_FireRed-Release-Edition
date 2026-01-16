@@ -6082,6 +6082,15 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         && gMovesInfo[move].effect == EFFECT_SOLAR_BEAM)
             OffensiveModifer(50);
 
+        //may go through and separate these into
+        //weather buffs and weather debuffs
+        //makes easier to handle castform cloud nine stuff
+        //user is immue to debuffs if castform
+        //side is immune to debuffs if has cloud nine
+
+        //and weather buffs are negated if target
+        //has cloud nine
+        //do that on update when setup for EE files
 
         //rain
         if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_RAIN_ANY))
