@@ -872,7 +872,8 @@ const u8 gText_WinEarnsPrizeMoney[] = _("OAK: Hm! Excellent!\pIf you win, you ea
 const u8 gText_HowDissapointing[] = _("OAK: Hm…\nHow disappointing…\pIf you win, you earn prize money,\nand your POKéMON grow.\pBut if you lose, {B_PLAYER_NAME}, you end\nup paying prize money…\pHowever, since you had no warning\nthis time, I'll pay for you.\pBut things won't be this way once\nyou step outside these doors.\pThat's why you must strengthen your\nPOKéMON by battling wild POKéMON.\p");
 
 
-
+//need add rest of EE stuff and then put into order I want
+//replace all static strings with compounds
 //this is array must match order of values in battle_string_ids.h to be properly defined
 const u8 *const gBattleStringsTable[] = {
     [STRINGID_TRAINER1LOSETEXT]              = sText_Trainer1LoseText,
@@ -2219,7 +2220,7 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
 >>>>>>> bb41e5622c (Refactor move target failure (#8696))
     [STRINGID_SNOWCONTINUES]                        = COMPOUND_STRING("Snow continues to fall."), //not in gen 5+ (lol)
     [STRINGID_SNOWSTOPPED]                          = COMPOUND_STRING("The snow stopped."),
-    [STRINGID_FOG_BEGINS]                           = COMPOUND_STRING("A thick Fog rolled in!"),
+    [STRINGID_FOG_ROLLED_IN]                           = COMPOUND_STRING("A thick fog rolled in!"),
     [STRINGID_FOGISDEEP]                            = COMPOUND_STRING("The fog is deep…"),
     [STRINGID_FOGLIFTED]                            = COMPOUND_STRING("The fog lifted."),
 
@@ -2307,7 +2308,7 @@ const u16 gMoveWeatherChangeStringIds[] = {
     [B_MSG_STARTED_SNOW]      = STRINGID_STARTEDSNOW,
     [B_MSG_STARTED_MOONLIGHT] = STRINGID_MOONLIGHT_SHINING_BRIGHT,
     [B_MSG_STARTED_ACID_RAIN] = STRINGID_ACIDRAIN_FALLS,
-    [B_MSG_STARTED_FOG]       = STRINGID_FOG_BEGINS,
+    [B_MSG_STARTED_FOG]       = STRINGID_FOG_ROLLED_IN,
 };
 
 const u16 gWeatherTurnStringIds[] =
@@ -3155,6 +3156,16 @@ const u16 gDamageNonTypesDmgStringIds[] =
     [B_MSG_HURT_BY_ROCKS_THROWN] = STRINGID_PKMNHURTBYROCKSTHROWN,
 };
 
+//already has blew away a
+//different beceause one effects your side
+//other effects opposing side
+//but unsure why need specific string in first place
+//especially when multiple effects can be set
+//its not gonna print a separate message 
+//for each obstacle type
+//might as well just generalize it
+//blew away obstacles from (your) opposing field
+//check if correct vsonic
 const u16 gDefogHazardsStringIds[] =
 {
     [HAZARDS_SPIKES] = STRINGID_SPIKESDISAPPEAREDFROMTEAM,
@@ -3665,7 +3676,7 @@ void BufferStringBattle(u32 battler, u16 stringId)
         }
         break;
     default: // load a string from the table
-        if (stringId > BATTLESTRINGS_COUNT)
+        if (stringId >= STRINGID_COUNT)
         {
             gDisplayedStringBattle[0] = EOS;
             return;

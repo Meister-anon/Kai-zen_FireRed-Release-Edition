@@ -29421,8 +29421,8 @@ const struct BaseStats gBaseStats[] =
         60,
         65,
         130
-        ),
-        MON_TYPES(TYPE_ICE, TYPE_ICE),
+        ), //need test potentially put atk back to 80 but think leave as is
+        MON_TYPES(TYPE_ICE, TYPE_ICE),//plan think I can turn this into ice version of incineroar
         .catchRate = 60,
         .expYield = 165,
         //.evYield_Defense = 2,
