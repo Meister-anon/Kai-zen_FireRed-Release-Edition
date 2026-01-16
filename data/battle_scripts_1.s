@@ -6497,6 +6497,7 @@ BattleScript_CommanderEnd:
 	restoreattacker
 	return
 
+@put everywhere that matters just need string updates vsonic important
 BattleScript_BatteryActivates::
 	pause B_WAIT_TIME_SHORT
 	call BattleScript_AbilityPopUpScripting
