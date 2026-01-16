@@ -295,6 +295,36 @@ enum MoveCanceler
     MOVE_STEP_FAILURE, // Move failed, jump to script that handles the failure
 };
 
+static const u8 gSpeedDiffPowerTable[] = {40, 60, 80, 120, 150};
+static const u8 gHeatCrashPowerTable[] = {40, 40, 60, 80, 100, 120};
+//won't need trump card see if still use other two
+static const u8 gTrumpCardPowerTable[] = {200, 80, 60, 50, 40};
+
+//raising the left numbers higher, will let you do more damage from higher percent hp
+static const u8 gFlailHpScaleToPowerTable[] =
+{
+    4, 200,
+    12, 150,
+    19, 100,
+    25, 80,
+    32, 40,
+    68, 20
+};
+
+static const u16 gWeightToDamageTable[] =
+{
+    50, 40,
+    200, 60,    //geodude is here
+    500, 75,
+    1000, 85,  //graveler is here
+    2400, 100,  //onix is here  //snorlax is double this
+    10000, 120,
+    0xFFFF, 0xFFFF
+};
+
+// percent in UQ_4_12 format
+extern const uq4_12_t gPercentToModifier[101];
+
 extern const struct TypePower gNaturalGiftTable[];
 
 // Lowest and highest percentages used for damage roll calculations
@@ -475,7 +505,6 @@ u8 GetBattleMoveTarget(u16 move, u8 setTarget);
 u32 SetRandomTarget(u32 battlerId);
 bool32 IsAffectedByFollowMe(u32 battlerAtk, u32 defSide, u32 move);
 u8 IsMonDisobedient(void);
-//bool32 SetIllusionMon(struct Pokemon *mon, u32 battlerId);
 u32 GetBattleMoveSplit(u32 moveId);
 u32 GetBattleMoveDamageCategory(u32 attackerId, u16 move);
 bool8 IsBattlerAlive(u8 battlerId);
@@ -487,12 +516,9 @@ u32 GetFlingPowerFromItemId(u32 itemId);
 //u16 GetWishMegaEvolutionSpecies(u16 preEvoSpecies, u16 moveId1, u16 moveId2, u16 moveId3, u16 moveId4);
 bool32 CanMegaEvolve(u32 battler);  //updated from ee new version
 //void UndoMegaEvolution(u32 monId);  no longer used
-bool32 IsBattlerAffectedByHazards(u32 battler, bool32 toxicSpikes);
 void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut);
 bool32 DoBattlersShareType(u32 battler1, u32 battler2);
-<<<<<<< HEAD
 bool32 CanBattlerEscape(u32 battler);
-bool32 IsHealBlockPreventingMove(u32 battler, u32 move);
 u32 IsAbilityPreventingEscape(u32 battlerId);
 u32 IsAbilityOnFieldExcept(u32 battlerId, u32 ability);
 u32 IsAbilityOnField(u32 ability); 
@@ -504,15 +530,10 @@ u32 GetBattlerHoldEffectInternal(u32 battler, bool32 checkNegating, bool32 check
 u32 GetBattlerHoldEffectParam(u8 battlerId, u32 itemId);
 bool32 CanBattlerAvoidContactEffects(u32 battlerAtk, u32 battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, u32 move);
 bool8 IsMoveMakingContact(u16 move, u8 battlerAtk); //made bool8 since its just a true false return
-bool8 CanBattlerGetOrLoseItem(u8 battlerId, u16 itemId); //same as above
-struct Pokemon *GetIllusionMonPtr(u32 battlerId);
-void ClearIllusionMon(u32 battlerId);
-bool32 SetIllusionMon(struct Pokemon *mon, u32 battlerId);
 u32 IsAbilityOnSide(u32 battlerId, u32 ability);
 u32 IsAbilityOnOpposingSide(u32 battlerId, u32 ability);
 u32 DoesSideHaveAbility(u32 battlerId, u32 ability); // //adapted abilityonside function that doesn't use getbattlerability
 bool8 DoesBattlerHaveSureHitAbility(u8 battlerId);
-bool32 CanFling(u8 battlerId);
 bool32 IsRolePlayBannedAbilityAtk(u16 ability);  //looping array kept 32
 bool32 IsRolePlayBannedAbility(u16 ability);
 bool32 IsSkillSwapBannedAbility(u16 ability);
@@ -522,22 +543,13 @@ bool32 IsMoldBreakerAffectedAbility(u16 ability); //new addition to clean up get
 bool32 IsEntrainmentBannedAbilityAttacker(u16 ability);
 bool32 IsEntrainmentTargetOrSimpleBeamBannedAbility(u16 ability);
 bool8 IsMoveCounterAttack(u16 move); 
-bool32 CanSleep(u8 battlerId);
-bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget);
-bool32 CanBePoisoned(u8 PoisonUser, u8 PoisonTarget); //actually needs to be different from type
-bool32 CanBeBurned(u8 battlerId);
-bool32 CanBeParalyzed(u8 battlerId);
+
 bool32 CanBeParalyzedViaAbility(u8 battlerId);
-bool32 CanBeFrozen(u8 battlerId);
 bool32 CanThaw(u32 move, u32 battler); //always use gcurrentmove hope work, need rewrite for modern update
-bool32 CanBeConfused(u8 battlerId);
 bool32 CanBattlerHeal(u8 battlerId); //simplify heal check
 bool32 CanTeleport(u8 battlerId); //new teleport logic
-bool32 HasEnoughHpToEatBerry(u8 battlerId, u32 hpFraction, u16 itemId);
 bool32 ShouldPranksterBoostedMoveFail(u16 move, u8 battlerwithPrankster, u8 battlerDef, bool32 checkTarget);
 bool32 IsMoonbasedMove(u16 move); //in prep for lunar power etc.
-bool32 CompareStat(u8 battlerId, u8 statId, u8 cmpTo, u8 cmpKind);
-bool32 IsBattlerWeatherAffected(u8 battlerId, u32 weatherFlags);
 u16 GetUsedHeldItem(u8 battler);
 bool32 TryRoomService(u8 battlerId);
 bool32 TestSheerForceFlag(u8 battler, u16 move);
@@ -550,13 +562,10 @@ u32 ApplyModifier(uq4_12_t modifier, u32 val);
 bool32 UnnerveOn(u32 battlerId, u32 itemId);
 bool32 ShouldIgnoreBattlerHeldItem(u32 battler); //combine klutz mega primal logic for ignoring item, basis for mega form upgrade
 void TryRestoreStolenItems(void);
-void TrySaveExchangedItem(u8 battlerId, u16 stolenItem);
 bool32 CanActivateTimeControl(u32 battler);
 bool32 TryActivateBattlePoisonHeal(u32 battler);   //replaced normal poisonheal checks, allows use for poison types
 bool32 TryActivateHeatTrance(u32 battler);
 uq4_12_t CalcTypeEffectivenessMultiplier(u16 move, u8 moveType, u8 battlerAtk, u8 battlerDef, bool32 recordAbilities);
-u32 GetBattlerMoveTargetType(u8 battlerId, u16 move); //need port these two fully
-bool32 CanTargetBattler(u8 battlerAtk, u8 battlerDef, u16 move);
 u16 GetTypeModifier(u8 atkType, u8 defType);
 u32 GetMoveSlot(u16 *moves, u32 move); //added w battle ai port
 //u16 CalcPartyMonTypeEffectivenessMultiplier(u16 move, u16 speciesDef, u16 abilityDef);  ported in case, but pretty sure I have no use for this, as these are just for reading battlre data and running dmg calc predictions
@@ -564,7 +573,7 @@ s32 CalculateMoveDamageAndEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef, 
 //learned defined need be on one line, this should be logic for thawing i.e remove frozen status
 //removed fire fang restriction, any heat transafer is good enough
 
-=======
+//EE stuff
 bool32 CanBattlerGetOrLoseItem(u32 fromBattler, u32 battler, u16 itemId);
 u32 GetBattlerVisualSpecies(u32 battler);
 bool32 TryClearIllusion(u32 battler, enum Ability ability);
@@ -614,7 +623,6 @@ bool32 CanTargetPartner(u32 battlerAtk, u32 battlerDef);
 bool32 IsBattlerUnaffectedByMove(u32 battler);
 bool32 MoodyCantRaiseStat(u32 stat);
 bool32 MoodyCantLowerStat(u32 stat);
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 bool32 IsPsychicTerrainAffected(u32 battler, enum Ability ability, enum HoldEffect holdEffect, u32 fieldStatuses);
 bool32 IsMistyTerrainAffected(u32 battler, enum Ability ability, enum HoldEffect holdEffect, u32 fieldStatuses);
 bool32 IsGrassyTerrainAffected(u32 battler, enum Ability ability, enum HoldEffect holdEffect, u32 fieldStatuses);
@@ -624,6 +632,7 @@ bool32 IsBattlerTerrainAffected(u32 battler, enum Ability ability, enum HoldEffe
 u32 GetHighestStatId(u32 battler);
 u32 GetParadoxHighestStatId(u32 battler);
 u32 GetParadoxBoostedStatId(u32 battler);
+//end of EE stuff
 
 <<<<<<< HEAD
 //new custom function, for storing ability timers by battler, 
@@ -673,8 +682,6 @@ bool8 ShouldCacophonyBoostEffectChance(u16 move);
 bool8 ShouldCacophonyElevateMoveEffect(u16 move);
 void CacophonyElevateMoveEffect(void);
 //u8 GetMoveType(u32 moveType, u32 btlAttacker); //review how was used
-void GetBattlerTypes(u32 battler, bool32 ignoreTera, u32 types[/*static*/ 3]); //according to mcgriffin static check should work w my compiler version but doesn't.. advised remove static for now
-u32 GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera);
 u32 CountBattlerStatIncreases(u32 battler, bool32 countEvasionAcc);
 bool32 CheckBattlerHpThreshold(u32 battler, u8 Comparison, u8 percentHp);
 bool32 IsMoldBreakerTypeAbilityActive(u32 battler, u32 ability);
@@ -702,14 +709,6 @@ bool32 HasWeatherEffect(void); //meant to replace macro for Weather_has_effect
 bool8 CanActivateForewarnAnticipation(u8 battler);
 bool8 IsFixationMoveEffect(u16 move); //SETUP FOR new category of move inspired by legends arceus
 
-enum {
-    OBEYS,
-    DISOBEYS_LOAFS,
-    DISOBEYS_HITS_SELF,
-    DISOBEYS_FALL_ASLEEP,
-    DISOBEYS_WHILE_ASLEEP,
-    DISOBEYS_RANDOM_MOVE,
-};
 
 //rewokr make easier,
 //all fire type or fire argument if two turned effect
@@ -727,36 +726,8 @@ enum {
 
 #define HEALING_EFFECT ((EFFECT_RESTORE_HP || EFFECT_REST || EFFECT_MORNING_SUN || EFFECT_MOONLIGHT || EFFECT_SYNTHESIS || EFFECT_HEAL_PULSE || EFFECT_HEALING_WISH || EFFECT_ROOST || EFFECT_SWALLOW || EFFECT_WISH || EFFECT_SOFTBOILED || EFFECT_ABSORB))
 
-static const u8 gSpeedDiffPowerTable[] = {40, 60, 80, 120, 150};
-static const u8 gHeatCrashPowerTable[] = {40, 40, 60, 80, 100, 120};
-static const u8 gTrumpCardPowerTable[] = {200, 80, 60, 50, 40};
 
-//raising the left numbers higher, will let you do more damage from higher percent hp
-static const u8 gFlailHpScaleToPowerTable[] =
-{
-    4, 200,
-    12, 150,
-    19, 100,
-    25, 80,
-    32, 40,
-    68, 20
-};
 
-static const u16 gWeightToDamageTable[] =
-{
-    50, 40,
-    200, 60,    //geodude is here
-    500, 75,
-    1000, 85,  //graveler is here
-    2400, 100,  //onix is here  //snorlax is double this
-    10000, 120,
-    0xFFFF, 0xFFFF
-};
-
-// percent in UQ_4_12 format
-extern const uq4_12_t gPercentToModifier[101];
-
-u32 DoEndTurnEffects(void);
 =======
 bool32 CanBeSlept(u32 battlerAtk, u32 battlerDef, enum Ability abilityDef, enum SleepClauseBlock isBlockedBySleepClause);
 bool32 CanBePoisoned(u32 battlerAtk, u32 battlerDef, enum Ability abilityAtk, enum Ability abilityDef);
@@ -778,7 +749,7 @@ bool32 AreBattlersOfOppositeGender(u32 battler1, u32 battler2);
 bool32 AreBattlersOfSameGender(u32 battler1, u32 battler2);
 u32 CalcSecondaryEffectChance(u32 battler, enum Ability battlerAbility, const struct AdditionalEffect *additionalEffect);
 bool32 MoveEffectIsGuaranteed(u32 battler, enum Ability battlerAbility, const struct AdditionalEffect *additionalEffect);
-void GetBattlerTypes(u32 battler, bool32 ignoreTera, enum Type types[static 3]);
+void GetBattlerTypes(u32 battler, bool32 ignoreTera, enum Type types[/*static*/ 3]);//think just remove static part and can use without reworkign base stat types
 enum Type GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera);
 bool8 CanMonParticipateInSkyBattle(struct Pokemon *mon);
 void RemoveBattlerType(u32 battler, enum Type type);

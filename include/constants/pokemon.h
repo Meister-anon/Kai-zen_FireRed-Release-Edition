@@ -162,44 +162,51 @@ enum __attribute__((packed)) Type
 #define EGG_GROUPS_PER_MON      2
 
 // Pokemon natures
-#define NATURE_HARDY 0
-#define NATURE_LONELY 1
-#define NATURE_BRAVE 2
-#define NATURE_ADAMANT 3
-#define NATURE_NAUGHTY 4
-#define NATURE_BOLD 5
-#define NATURE_DOCILE 6
-#define NATURE_RELAXED 7
-#define NATURE_IMPISH 8
-#define NATURE_LAX 9
-#define NATURE_TIMID 10
-#define NATURE_HASTY 11
-#define NATURE_SERIOUS 12
-#define NATURE_JOLLY 13
-#define NATURE_NAIVE 14
-#define NATURE_MODEST 15
-#define NATURE_MILD 16
-#define NATURE_QUIET 17
-#define NATURE_BASHFUL 18
-#define NATURE_RASH 19
-#define NATURE_CALM 20
-#define NATURE_GENTLE 21
-#define NATURE_SASSY 22
-#define NATURE_CAREFUL 23
-#define NATURE_QUIRKY 24
-#define NUM_NATURES 25
+#define NATURE_HARDY    0 // Neutral
+#define NATURE_LONELY   1 // +Atk -Def
+#define NATURE_BRAVE    2 // +Atk -Speed
+#define NATURE_ADAMANT  3 // +Atk -SpAtk
+#define NATURE_NAUGHTY  4 // +Atk -SpDef
+#define NATURE_BOLD     5 // +Def -Atk
+#define NATURE_DOCILE   6 // Neutral
+#define NATURE_RELAXED  7 // +Def -Speed
+#define NATURE_IMPISH   8 // +Def -SpAtk
+#define NATURE_LAX      9 // +Def -SpDef
+#define NATURE_TIMID    10 // +Speed -Atk
+#define NATURE_HASTY    11 // +Speed -Def
+#define NATURE_SERIOUS  12 // Neutral
+#define NATURE_JOLLY    13 // +Speed -SpAtk
+#define NATURE_NAIVE    14 // +Speed - SpDef
+#define NATURE_MODEST   15 // +SpAtk -Atk
+#define NATURE_MILD     16 // +SpAtk -Def
+#define NATURE_QUIET    17 // +SpAtk -Speed
+#define NATURE_BASHFUL  18 // Neutral
+#define NATURE_RASH     19 // +SpAtk -SpDef
+#define NATURE_CALM     20 // +SpDef -Atk
+#define NATURE_GENTLE   21 // +SpDef -Def
+#define NATURE_SASSY    22 // +SpDef -Speed
+#define NATURE_CAREFUL  23 // +SpDef -SpAtk
+#define NATURE_QUIRKY   24 // Neutral
+#define NUM_NATURES     25
+
+#define NATURE_RANDOM            NUM_NATURES
+#define NATURE_MAY_SYNCHRONIZE   NUM_NATURES + 1
 
 // Pokemon Stats
-#define STAT_HP 0
-#define STAT_ATK 1
-#define STAT_DEF 2
-#define STAT_SPEED 3
-#define STAT_SPATK 4
-#define STAT_SPDEF 5
-#define STAT_ACC 6 // only in battles
-#define STAT_EVASION 7 // only in battles
+// Pokémon Stats
+enum __attribute__((packed)) Stat
+{
+    STAT_HP,
+    STAT_ATK,
+    STAT_DEF,
+    STAT_SPEED,
+    STAT_SPATK,
+    STAT_SPDEF,
+    NUM_STATS,
+    STAT_ACC = NUM_STATS, // Only in battles.
+    STAT_EVASION,         // Only in battles.
+};
 
-#define NUM_STATS 6
 #define NUM_NATURE_STATS (NUM_STATS - 1) // excludes HP
 #define NUM_BATTLE_STATS (NUM_STATS + 2) // includes Accuracy and Evasion
 
@@ -239,9 +246,12 @@ enum __attribute__((packed)) Type
 #define PLAYER_HAS_ONE_USABLE_MON               0x2
 
 
-#define OT_ID_RANDOM_NO_SHINY 2 //this is what makes all trainers have no shiny mon, lot of shinies are ugly so may keep as is?
-#define OT_ID_PRESET 1
-#define OT_ID_PLAYER_ID 0
+enum OtIdMethod
+{
+    OT_ID_PLAYER_ID,
+    OT_ID_PRESET,
+    OT_ID_RANDOM_NO_SHINY
+}; //this makes random trainers have no shiny mon
 
 #define MON_GIVEN_TO_PARTY      0x0
 #define MON_GIVEN_TO_PC         0x1
@@ -276,7 +286,7 @@ enum __attribute__((packed)) Type
 #define MIN_FIXED_IVS 20	//minimum value I plan to use for trainer assignment, is used for gym leaders  [replaced IV Mask]
 #define USE_RANDOM_IVS (MAX_PER_STAT_IVS + 1)	//makes createmon function use random data for ivs, just like wild mon	can override fixed value for trainer party
 #define MAX_PER_STAT_EVS 360 //had changd to 564 insane	//prviously 255 //recently learned amount of stat able to add to total stat w evs is about same as an bst increase so this is insane
-#define MAX_TOTAL_EVS 788 //may lower 738 612 also isnt bad mix of new per stat and old per stat	//previosly 510
+#define MAX_TOTAL_EVS 788 //may lower 612 also isnt bad mix of new per stat and old per stat	//previosly 510
 #define EV_ITEM_BOOSTER_LIMIT 250	//how many evs can be gained from ev boost items, previously 100  each one apparently ads 10 evs? every 4 is 1 stat point
 //consider raising to new per stat cap, don't want to make it to easy to get the boosted evs, I want people to actually train their mon.
 #define FRIENDSHIP_EVO_LIMITER 85
@@ -360,6 +370,16 @@ enum GrowthRate
 #define EVO_MODE_ITEM_CHECK 3 // If an Everstone is being held, still want to show that the stone *could* be used on that Pokémon to evolve
 
 // Split defines.
+//not sure how to handle these rn
+//using damage category now
+//but considering how moves work
+//moves can be physical or special
+//based on what side of defense it hits enemy on
+//but then there's also if it uses
+//attackers phys or special attack stat
+//and then there are special moves
+//that use other stats to determine offense from
+//just wondering how to conceptualize that
 #define SPLIT_PHYSICAL  0x0
 #define SPLIT_SPECIAL   0x1
 #define SPLIT_STATUS    0x2
@@ -367,6 +387,11 @@ enum GrowthRate
 //rather than ave no mon has more than 2 stages
 #define MAX_EVO_STAGES 2 //buffer so players can evolve after removing from box
 
+enum ShinyMode {
+    SHINY_MODE_ALWAYS,
+    SHINY_MODE_RANDOM,
+    SHINY_MODE_NEVER
+};//adding idk what for rn
 
 #define MON_PIC_WIDTH 64
 #define MON_PIC_HEIGHT 64
