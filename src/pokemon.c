@@ -6095,11 +6095,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                     break;
                 }
 
-                if (abilityAtk == ABILITY_LIQUID_SOUL
+                if (abilityAtk == ABILITY_OCEAN_MEMORY
                     && gBattleMoves[move].type == TYPE_WATER)  //hopefully checks if move was orginally water and will boost damage in rain even when ghost type
                 {
                     OffensiveModifer(150);
-                }
+                }//oh I just straight up had the wrong ability here
+                //this should be ocean memory
         }
 
         //acid rain
