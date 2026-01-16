@@ -13805,7 +13805,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_GLACIATE] =
     {
         .name = COMPOUND_STRING("Glaciate"),
-        .description = COMPOUND_MOVE_STRING("Blows very cold air\nat the foes.\nLowers their Speed."),
+        .description = COMPOUND_MOVE_STRING("Blows sub-zero air\nat the foes.\nMay freeze targets."),
         .effect = EFFECT_HIT,
         .power = 65,
         .type = TYPE_ICE,
@@ -13815,8 +13815,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
         .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
-            .chance = 100,
+            .moveEffect = MOVE_EFFECT_FREEZE,
+            .chance = 30,
         }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
@@ -13824,6 +13824,15 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Glaciate,
     },
+    //kyurem signature is basically just icy wind slighty stronger
+    //since animation is freezing solid will just make freezing move
+    //give highest freeze odds
+    //highest is 30 will do 20 instead
+    //not too bad given my redone freeze will just turn into 
+    //frostbite on switch
+    //hmm chance to freeze with chance lower speed if frozen
+    //idk think being able ot freeze and then drop speed as well
+    //is too much maybe
 
     [MOVE_BOLT_STRIKE] =
     {

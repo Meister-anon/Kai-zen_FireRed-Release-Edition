@@ -17860,18 +17860,23 @@ static const struct LevelUpMove sStonjournerLevelUpLearnset[] = {
 static const struct LevelUpMove sEiscueLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_POWDER_SNOW)
     LEVEL_UP_MOVE( 1, MOVE_TACKLE)
+    LEVEL_UP_MOVE( 5, MOVE_ICICLE_SPEAR)
     LEVEL_UP_MOVE( 6, MOVE_MIST)
+    LEVEL_UP_MOVE( 10, MOVE_DEFOG) //vsonic keep this or replace w haze
     LEVEL_UP_MOVE(12, MOVE_WEATHER_BALL)
     LEVEL_UP_MOVE(18, MOVE_ICY_WIND)
     LEVEL_UP_MOVE(24, MOVE_HEADBUTT)
+    LEVEL_UP_MOVE(26, MOVE_HAIL)
     LEVEL_UP_MOVE(30, MOVE_AMNESIA)
     LEVEL_UP_MOVE(36, MOVE_FREEZE_DRY)
-    LEVEL_UP_MOVE(42, MOVE_HAIL)
-    LEVEL_UP_MOVE(48, MOVE_AURORA_VEIL)
+    LEVEL_UP_MOVE(42, MOVE_CHILLY_RECEPTION)
+    LEVEL_UP_MOVE(46, MOVE_ICE_SPINNER)
+    LEVEL_UP_MOVE(50, MOVE_AURORA_VEIL)
     LEVEL_UP_MOVE(54, MOVE_SURF)
     LEVEL_UP_MOVE(60, MOVE_BLIZZARD)
     LEVEL_UP_END
 };
+//don't give healing effect
 
 static const struct LevelUpMove sIndeedeeLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_STORED_POWER)

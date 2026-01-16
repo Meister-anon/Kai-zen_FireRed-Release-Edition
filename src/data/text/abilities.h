@@ -506,7 +506,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Prevents item theft.\nAbsorbs foe's item on contact."),
         .aiRating = 3,
         .breakable = TRUE,
-    },
+    },//not like magician foes item is just lost
 
     [ABILITY_SHED_SKIN] =
     {
