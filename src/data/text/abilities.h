@@ -794,8 +794,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_NO_GUARD] =
     {
         .name = _("No Guard"),
-        .description = COMPOUND_ABILITY_STRING("Ensures that all moves used by\nand against the user hit."),
-        .aiRating = 8,//vsonic need add guard mode change
+        .description = COMPOUND_ABILITY_STRING("Can't guard but bypasses foe guard mode.\nAll attacks used by/against the user hit."),
+        .aiRating = 8,
     },
 
     [ABILITY_STALL] =
