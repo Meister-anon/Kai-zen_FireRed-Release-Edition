@@ -6501,7 +6501,7 @@ BattleScript_CommanderEnd:
 BattleScript_BatteryActivates::
 	pause B_WAIT_TIME_SHORT
 	call BattleScript_AbilityPopUpScripting
-	printstring STRINGID_COMMANDERACTIVATES
+	printstring STRINGID_BATTERYCONSUMED
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_BatteryAtkIncrease:
 	setstatchanger STAT_ATK, 1, FALSE

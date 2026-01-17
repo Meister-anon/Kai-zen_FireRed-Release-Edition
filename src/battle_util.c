@@ -6800,7 +6800,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
                 BattleScriptCall(BattleScript_BatteryActivates);
                 effect++;
             }//smaller boost than commander think need change so base effect stops working?
-            break;
+            break;//think done
         case ABILITY_HOSPITALITY:
             if (shouldAbilityTrigger
              && IsDoubleBattle()
