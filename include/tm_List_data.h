@@ -286,6 +286,8 @@ power up punch
 MOVE_BREAKING_SWIPE
 leech seed - think want this to -  mostly just for phione
 steel surge
+zen headbutt
+iron head mis gen 9 tms
 */
 
 //should add stomping tantrum? see its a tm in gen 9
