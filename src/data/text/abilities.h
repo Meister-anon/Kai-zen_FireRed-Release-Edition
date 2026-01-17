@@ -1104,7 +1104,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_NO_GUARD] =
     {
         .name = _("No Guard"),
-        .description = sNoGuardDescription,
+        .description = COMPOUND_ABILITY_STRING("Can't guard but bypasses foe guard mode.\nAll attacks used by/against the user hit."),
         .aiRating = 8,
     },
 

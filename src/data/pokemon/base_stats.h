@@ -29247,13 +29247,13 @@ const struct BaseStats gBaseStats[] =
         70,
         60
         ),
-        MON_TYPES(TYPE_NORMAL, TYPE_FIGHTING),
+        MON_TYPES(TYPE_FAIRY, TYPE_FIGHTING), //decide change type give diff niche
         .catchRate = 45,
         .expYield = 165,
         //.evYield_Attack = 2,
         //.evYield_SpDefense = 1,
-        .genderRatio = MON_GENDERLESS,
-        .eggCycles = 25,
+        .genderRatio = MON_GENDERLESS,//found out this thing is apparently horrible
+        .eggCycles = 25,//and outclassed by sawk, ironically sawk still counters this
         .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FAIRY,
