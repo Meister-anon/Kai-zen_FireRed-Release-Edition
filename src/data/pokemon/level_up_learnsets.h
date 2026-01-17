@@ -17776,22 +17776,37 @@ static const struct LevelUpMove sAlcremieLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sFalinksLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_ZEN_HEADBUTT)
+    LEVEL_UP_MOVE( 1, MOVE_HORN_LEECH)
+    LEVEL_UP_MOVE( 1, MOVE_SMART_STRIKE)
+    LEVEL_UP_MOVE( 1, MOVE_BEAT_UP)
+    LEVEL_UP_MOVE( 1, MOVE_CRAFTY_SHIELD)
     LEVEL_UP_MOVE( 1, MOVE_TACKLE)
     LEVEL_UP_MOVE( 1, MOVE_PROTECT)
     LEVEL_UP_MOVE( 5, MOVE_ROCK_SMASH)
     LEVEL_UP_MOVE(10, MOVE_FOCUS_ENERGY)
-    LEVEL_UP_MOVE(15, MOVE_HEADBUTT)
+    LEVEL_UP_MOVE(15, MOVE_HORN_ATTACK)
     LEVEL_UP_MOVE(20, MOVE_BULK_UP)
     LEVEL_UP_MOVE(25, MOVE_ENDURE)
-    LEVEL_UP_MOVE(30, MOVE_REVERSAL)
-    LEVEL_UP_MOVE(35, MOVE_FIRST_IMPRESSION)
+    LEVEL_UP_MOVE(27, MOVE_HEADBUTT)
+    LEVEL_UP_MOVE(30, MOVE_FIRST_IMPRESSION)
+    LEVEL_UP_MOVE(32, MOVE_REVERSAL)
+    LEVEL_UP_MOVE(35, MOVE_SPIRIT_BREAK)
     LEVEL_UP_MOVE(40, MOVE_NO_RETREAT)
     LEVEL_UP_MOVE(45, MOVE_IRON_DEFENSE)
     LEVEL_UP_MOVE(50, MOVE_CLOSE_COMBAT)
     LEVEL_UP_MOVE(55, MOVE_MEGAHORN)
     LEVEL_UP_MOVE(60, MOVE_COUNTER)
+    LEVEL_UP_MOVE(65, MOVE_MAGICAL_TORQUE)
     LEVEL_UP_END
 };
+//consider give beat up
+//MOVE_HORN_LEECH
+//smart strike
+//sounds weird but is a horn move
+//making fairy potentially crafty shield
+//need phsy fairy stab dont want play rough
+
 
 static const struct LevelUpMove sPincurchinLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_PECK)
