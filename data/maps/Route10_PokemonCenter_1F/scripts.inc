@@ -62,7 +62,7 @@ Route10_PokemonCenter_1F_EventScript_Aide:: @ 816FC65
 	compare VAR_RESULT, FALSE
 	goto_if_eq Aide_EventScript_NoRoomForItem
 	giveitem ITEM_FLOAT_STONE, 3
-	giveitem_msg Route10_PokemonCenter_1F_Text_ReceivedEverstoneFromAide, ITEM_FLOAT_STONE, 3
+	giveitem_msg Route10_PokemonCenter_1F_Text_ReceivedFloatstoneFromAide, ITEM_FLOAT_STONE, 3
 	setflag FLAG_GOT_FLOAT_STONE_FROM_OAKS_AIDE
 	msgbox Route10_PokemonCenter_1F_Text_ExplainFloatstone
 	release
