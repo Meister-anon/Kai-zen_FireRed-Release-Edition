@@ -3,6 +3,66 @@
 
 #include "global.h"
 
+#define REMATCHES_COUNT 5
+
+struct RematchTrainer
+{
+    u16 trainerIds[REMATCHES_COUNT];
+    u16 mapGroup;
+    u16 mapNum;
+};
+
+/*
+the layout of the first byte can be confusing here
+isDoubleBattle is the least lsb. msb is in the mode.
+*/
+typedef union PACKED TrainerBattleParameter
+{
+    struct PACKED _TrainerBattleParameter
+    {
+        u8 isDoubleBattle:1;
+        u8 isRematch:1;
+        u8 playMusicA:1;
+        u8 playMusicB:1;
+        u8 mode:4; //battle mode singles doubles etc.
+        u8 objEventLocalIdA;
+        u16 opponentA;
+        u8 *introTextA;
+        u8 *defeatTextA;
+        u8 *battleScriptRetAddrA;
+        u8 objEventLocalIdB;
+        u16 opponentB;
+        u8 *introTextB;
+        u8 *defeatTextB;
+        u8 *battleScriptRetAddrB;
+        u8 *victoryText;
+        u8 *cannotBattleText;
+    } params;
+    u8 data[sizeof(struct _TrainerBattleParameter)];
+} TrainerBattleParameter;
+
+//rework see if can setup dynamic rematch
+//can give every trainer mon 6 mon
+//major mon and just use party size and limited scaling
+//to simulate new teams
+//for rematch can randomize team position 
+//to potentially bring in new mon
+//will need to make new fields to make sure 
+//my lvl cap stuff isn't broken
+//give every trainer an initial party size field
+//so it can expand over time
+//that way can use base party size so lvl cap stays consistent
+//with base game
+//ok looked into this is not trainer struct
+//need to put my change there not here idk how will use for now
+extern const struct RematchTrainer gRematchTable[50];
+
+extern TrainerBattleParameter gTrainerBattleParameter;
+extern u16 gPartnerTrainerId;
+
+#define TRAINER_BATTLE_PARAM gTrainerBattleParameter.params
+
+
 void StartWildBattle(void);
 void StartRoamerBattle(void);
 void StartOldManTutorialBattle(void);

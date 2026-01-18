@@ -185,6 +185,7 @@ struct Trainer
     /*0x1C*/ u32 aiFlags;
     /*0x18*/ u8 padding; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
     /*0x20*/ u8 partySize;
+             u8 initialPartysize; //default party size before changes my field
     /*0x24*/ const struct TrainerMonPartyData *party;
 };//unsure what this should be exactly pointer or no?
 
