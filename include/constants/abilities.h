@@ -140,7 +140,7 @@ enum Ability
  ABILITY_DEFIANT = 129,
  ABILITY_DEFEATIST = 130,
  ABILITY_CURSED_BODY = 131,
- ABILITY_HEALER = 132,
+ ABILITY_HEALER = 132,  //x bell change, odds too low for comp use change to 50% or whatever shedskin is
  ABILITY_FRIEND_GUARD = 133,
  ABILITY_WEAK_ARMOR = 134,
  ABILITY_HEAVY_METAL = 135, //potentially boost power of steel type moves?
@@ -193,7 +193,7 @@ enum Ability
  ABILITY_GALE_WINGS = 178,
  ABILITY_MEGA_LAUNCHER = 179,
  ABILITY_GRASS_PELT = 180,
- ABILITY_SYMBIOSIS = 181,
+ ABILITY_SYMBIOSIS = 181,   //x  bell rec bad item w secondary item slot change to store copy of ally item and pass if consumed ile knock out protection and doesnt take up users item slot
  ABILITY_TOUGH_CLAWS = 182,
  ABILITY_PIXILATE = 183,
  ABILITY_GOOEY = 184,

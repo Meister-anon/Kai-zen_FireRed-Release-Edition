@@ -76,15 +76,16 @@
 #define B_MSG_SWITCHIN_SCREENCLEANER    12
 #define B_MSG_SWITCHIN_ASONE            13
 #define B_MSG_SWITCHIN_CURIOUS_MEDICINE 14
-#define B_MSG_SWITCHIN_PASTEL_VEIL      15
-#define B_MSG_SWITCHIN_CORRUPTION       16
-#define B_MSG_SWITCHIN_STENCH			17
-#define B_MSG_SWITCHIN_NEUTRALIZING_GAS 18
-#define B_MSG_SWITCHIN_IMMUTABLE_WIND 19
-#define B_MSG_SWITCHIN_BANDIT			20
-#define B_MSG_SWITCHIN_FLUORESCENT      21
-#define B_MSG_SWITCHIN_WONDERGUARD      22
-#define B_MSG_SWITCHIN_SUPERSWEET_SYRUP 23
+#define B_MSG_SWITCHIN_SYMBIOSIS        15
+#define B_MSG_SWITCHIN_PASTEL_VEIL      16
+#define B_MSG_SWITCHIN_CORRUPTION       17
+#define B_MSG_SWITCHIN_STENCH			18
+#define B_MSG_SWITCHIN_NEUTRALIZING_GAS 19
+#define B_MSG_SWITCHIN_IMMUTABLE_WIND   20
+#define B_MSG_SWITCHIN_BANDIT			21
+#define B_MSG_SWITCHIN_FLUORESCENT      22
+#define B_MSG_SWITCHIN_WONDERGUARD      23
+#define B_MSG_SWITCHIN_SUPERSWEET_SYRUP 24
 
 // gMentalHerbCureStringIds
 #define B_MSG_MENTALHERBCURE_INFATUATION       0
@@ -907,7 +908,8 @@ enum __attribute__((packed)) WrappedStringID
 #define STRINGID_PKMNCAMETOITSSENSES                725
 #define STRINGID_PKMNRETURNEDTOAIR                  726
 #define STRINGID_PKMNINLOVE                         727 
-#define STRINGID_NA                                 728 //entreed to avoid extra copy paste
+#define STRINGID_SYMBIOSIS_SWITCH_IN                728
+#define STRINGID_NA                                 729 //entreed to avoid extra copy paste
 
 #define BATTLESTRINGS_COUNT     STRINGID_NA - 1
 

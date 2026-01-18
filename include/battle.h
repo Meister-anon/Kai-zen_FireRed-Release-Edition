@@ -1511,6 +1511,17 @@ static inline bool32 IsBattlerAlly(u32 battlerAtk, u32 battlerDef)
     return GetBattlerSide(battlerAtk) == GetBattlerSide(battlerDef);
 }
 
+static inline u32 GetSecondaryItemSlotItem(u32 battler)
+{
+  return gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)];
+}
+
+static inline void SetBattlerSecondaryItemSlot(u32 battler, u32 item)
+{
+    gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = item;
+}
+
+
 //No wind affinity ability so just checks wind type
 static inline bool32 HasFlyingWindAffinity(u32 battleratk, u32 battlerdef)
 {

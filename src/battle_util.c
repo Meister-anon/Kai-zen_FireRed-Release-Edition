@@ -6909,6 +6909,23 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     }
                 }
                 break;
+            case ABILITY_SYMBIOSIS:
+                if (!gSpecialStatuses[battler].switchInAbilityDone
+                && IsBattlerAlive(BATTLE_PARTNER(battler)))
+                {
+                    u32 ally = BATTLE_PARTNER(battler);
+                    if (gBattleMons[ally].item
+                    && !GetSecondaryItemSlotItem(battler))
+                    {
+                        SetBattlerSecondaryItemSlot(battler, gBattleMons[ally].item);
+                        PREPARE_ITEM_BUFFER(gBattleTextBuff1, gBattleMons[ally].item);
+                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_SYMBIOSIS;
+                        gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                        BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
+                        ++effect;
+                    }//should work just need to determine if I want to always reset based on ally                    
+                }//or keep whatever is already stored which would allow passing whatever item I want
+                break;//vsonic
             case ABILITY_DARK_AURA:
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -7499,7 +7516,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     gBattleScripting.battler = BATTLE_PARTNER(battler);
                     if (IsBattlerAlive(gBattleScripting.battler)
                         && gBattleMons[gBattleScripting.battler].status1 & STATUS1_ANY
-                        && (Random() % 100) < 30)
+                        && (Random() % 100) < 40) //test vsonic
                     {
                         if (gBattleMons[BATTLE_PARTNER(battler)].hp < gBattleMons[BATTLE_PARTNER(battler)].maxHP)
                         {

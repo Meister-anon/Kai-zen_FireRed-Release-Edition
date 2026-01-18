@@ -6330,6 +6330,23 @@ static void BestowItem(u32 battlerAtk, u32 battlerDef)
     gDisableStructs[battlerDef].unburdenActive = FALSE;
 }
 
+//attacker is partner sending item
+static void SymbiosisPassItem(u32 battlerAtk, u32 battlerDef)
+{
+    
+    gLastUsedItem = GetSecondaryItemSlotItem(battlerAtk);
+
+    SetBattlerSecondaryItemSlot(battlerAtk, ITEM_NONE);
+    /*BtlController_EmitSetMonData(battlerAtk, BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[battlerAtk].item), &gBattleMons[battlerAtk].item);
+    MarkBattlerForControllerExec(battlerAtk);
+    CheckSetUnburden(battlerAtk);*/
+
+    gBattleMons[battlerDef].item = gLastUsedItem;
+    BtlController_EmitSetMonData(battlerDef, BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[battlerDef].item), &gBattleMons[battlerDef].item);
+    MarkBattlerForControllerExec(battlerDef);
+    gDisableStructs[battlerDef].unburdenActive = FALSE;
+}
+
 #define SYMBIOSIS_CHECK(battler, ally)                                                                                               \
     GetBattlerAbility(ally) == ABILITY_SYMBIOSIS                   \
     && gBattleMons[battler].item == ITEM_NONE                      \
@@ -6339,6 +6356,26 @@ static void BestowItem(u32 battlerAtk, u32 battlerDef)
     && gBattleMons[battler].hp != 0                                \
     && gBattleMons[ally].hp != 0
 
+bool32 TryTriggerSymbiosis(u32 battler, u32 ally)
+{
+    return GetBattlerAbility(ally) == ABILITY_SYMBIOSIS
+        && gBattleMons[battler].item == ITEM_NONE
+        && GetSecondaryItemSlotItem(ally) != ITEM_NONE
+        && CanBattlerGetOrLoseItem(battler,gBattleMons[ally].item)
+        && CanBattlerGetOrLoseItem(ally, gBattleMons[ally].item)
+        && IsBattlerAlive(battler)
+        && IsBattlerAlive(ally);
+}
+
+//planned for this to be knock off counter
+//still working out how I want it to work
+//either only stores item if symbiosis mon isn't
+//already storing an item in secondary item slot,
+//or replace whatever is there with current ally item
+//and just replace when used or when not holding an item
+//would have to have 2 diff effects
+//on consume or if knocked off pass item on switch in
+//like I said still working out idea
 // Called by Cmd_removeitem. itemId represents the item that was removed, not being given.
 static bool32 TrySymbiosis(u32 battler, u32 itemId)
 {
@@ -6349,9 +6386,9 @@ static bool32 TrySymbiosis(u32 battler, u32 itemId)
         && !(gSpecialStatuses[battler].gemBoost)
         && gCurrentMove != MOVE_FLING //Fling and damage-reducing berries are handled separately.
         && !gSpecialStatuses[battler].berryReduced
-        && SYMBIOSIS_CHECK(battler, BATTLE_PARTNER(battler)))
+        && TryTriggerSymbiosis(battler, BATTLE_PARTNER(battler)))
     {
-        BestowItem(BATTLE_PARTNER(battler), battler);
+        SymbiosisPassItem(BATTLE_PARTNER(battler), battler);
         gLastUsedAbility = gBattleMons[BATTLE_PARTNER(battler)].ability;
         gBattleScripting.battler = gBattlerAbility = BATTLE_PARTNER(battler);
         gBattlerAttacker = battler;
