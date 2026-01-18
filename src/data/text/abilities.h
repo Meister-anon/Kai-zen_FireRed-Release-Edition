@@ -317,7 +317,7 @@ static const u8 sPhantomTouchDescription[] = _("Contact moves ignore the immunit
 //*note if ability text extends over the line i.e more than 40 chars on a line,
 //even if max is below total limit causes a overflow glitch, that corrupts summary screen data
 
-const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
+const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 {
     [ABILITY_NONE] =
     {
@@ -3540,13 +3540,13 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Secret Arts"),
         .description = COMPOUND_ABILITY_STRING("Ignores target guard mode. Contact moves\nup to 75 power also evade protection."),
         .aiRating = 5,
-    }
+    },
 
     [ABILITY_MIRACLE_POWER] =
     {
         .name = _("Miracle Power"),
         .description = COMPOUND_ABILITY_STRING("Psychic attacks ignore dark immunity.\nPhysical moves use Special offense stat."),
         .aiRating = 6,
-    }
+    },
 };
 
