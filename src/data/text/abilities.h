@@ -215,7 +215,7 @@ static const u8 sDancerDescription[] = _("Dances along with others.\nUses Dance 
 static const u8 sBatteryDescription[] = _("Boosts ally's Sp. Atk."); //vsonic think idea was turn this into vikavolt version of tatsugiri dondozo effect
 static const u8 sFluffyDescription[] = _("Takes increased damage from FIRE moves.\nTakes reduced damage from contact moves.");
 static const u8 sSoulHeartDescription[] = _("KOs raise Sp. Atk.");
-static const u8 sReceiverDescription[] = _("Copies ally's ability.");
+static const u8 sReceiverDescription[] = _("Copies defeated ally's ability.");
 static const u8 sBeastBoostDescription[] = _("KOs boost the Pokémon's best stat.");
 static const u8 sRKSSystemDescription[] = _("Memories change its type.");
 static const u8 sElectricSurgeDescription[] = _("Field becomes Electric. Ups Elec. moves\nand prevents grounded from sleeping.");
@@ -2084,7 +2084,10 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 0,
         .cantBeCopied = TRUE,
         .cantBeTraced = TRUE,
-    },
+    },//not extremely useful but not much can do to buff
+    //requires ally to faint and until that happens
+    //effectively doesn't have an ability also has low distribution
+    //strength of ability relies on relative strength of mon beforehand
 
     [ABILITY_BEAST_BOOST] =
     {
