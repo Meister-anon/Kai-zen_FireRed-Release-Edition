@@ -68,10 +68,24 @@
 #define B_DEF_NAME 0x39
 #define B_DEF_TEAM1 0x3A // Your/The opposing
 #define B_DEF_TEAM2 0x3B // your/the opposing
-#define B_ACTIVE_NAME 0x3C
+#define B_DEF_PARTNER_NAME = 0x3C //idk why EE didn't use 3D
+// 3C - preiously gActiveBattler
+// 3D - preiously gActiveBattler without Illusion Check
+#define B_ATK_NAME_WITH_PREFIX2 = 0x3E
+#define B_DEF_NAME_WITH_PREFIX2 = 0x3F
+#define B_EFF_NAME_WITH_PREFIX2 = 0x40
+#define B_SCR_NAME_WITH_PREFIX2 = 0x41
+#define B_TRAINER1_NAME_WITH_CLASS = 0x42
+#define B_TRAINER2_NAME_WITH_CLASS = 0x43
+#define B_PARTNER_NAME_WITH_CLASS = 0x44
+#define B_ATK_TRAINER_NAME_WITH_CLASS = 0x45
+#define B_EFF_TEAM1 = 0x46
+#define B_EFF_TEAM2 = 0x47
+
+/*#define B_ACTIVE_NAME 0x3C
 #define B_ACTIVE_NAME2 0x3D // no Illusion check
 #define B_ATK_ITEM 0x3E  //added for single use belch set attacker item
-
+*/
 // for B_TXT_BUFF1, B_TXT_BUFF2 and B_TXT_BUFF3
 
 #define B_BUFF_STRING                   0
