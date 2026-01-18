@@ -18551,7 +18551,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_OVERCOAT, ABILITY_MAGIC_GUARD},
-        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_NONE},
+        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_MIRACLE_POWER},
         //.bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -18586,7 +18586,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_OVERCOAT, ABILITY_MAGIC_GUARD},
-        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_NONE},
+        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_MIRACLE_POWER},
         //.bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -18595,7 +18595,9 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sReuniclusLevelUpLearnset,
         .tmhmLearnset = sReuniclusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//decided make new ability miracle power combines miracle eye
+    //and tweak of muscle magic makes physical attacks use special atk stat
+    //doesn't make them special or non contact  as a slight debuff
 
     [SPECIES_DUCKLETT] =
     {

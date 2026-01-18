@@ -2625,14 +2625,17 @@ static const struct AbilityLearnset sGothitelleAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSolosisAbilityLearnset[] = {
+    ABILITY_TELEPATHY,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sDuosionAbilityLearnset[] = {
+    ABILITY_TELEPATHY,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sReuniclusAbilityLearnset[] = {
+    ABILITY_TELEPATHY,
     ABILITY_SET_END
 };
 

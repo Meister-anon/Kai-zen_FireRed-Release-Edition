@@ -4594,7 +4594,10 @@ bool8 IsPhysicalMove(u32 attackerId, u16 move)
     spDefense = spDefense * gStatStageRatios[gBattleMons[gBattlerTarget].statStages[STAT_SPDEF]][0];
     spDefense = spDefense / gStatStageRatios[gBattleMons[gBattlerTarget].statStages[STAT_SPDEF]][1];
 
-    if (gBattleMoves[move].effect == EFFECT_PSYSHOCK 
+    if (GetBattlerAbility(attackerId) == ABILITY_MIRACLE_POWER)
+        return FALSE;
+    
+    else if (gBattleMoves[move].effect == EFFECT_PSYSHOCK 
     || GetBattlerAbility(attackerId) == ABILITY_MUSCLE_MAGIC     
     || ((move == MOVE_HIDDEN_POWER || move == MOVE_TRI_ATTACK) && attack > spAttack)
     || ((move == MOVE_HIDDEN_POWER || move == MOVE_TRI_ATTACK) && attack == spAttack && defense < spDefense) //works cuz hp is single target

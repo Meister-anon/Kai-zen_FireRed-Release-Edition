@@ -12745,7 +12745,10 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     }
     
     //other misc effects
-    if (moveType == TYPE_PSYCHIC && defType == TYPE_DARK && gStatuses3[battlerDef] & STATUS3_MIRACLE_EYED && mod == UQ_4_12(0.0))
+    if (moveType == TYPE_PSYCHIC && defType == TYPE_DARK 
+    && (gStatuses3[battlerDef] & STATUS3_MIRACLE_EYED 
+    || GetBattlerAbility(battlerAtk) == ABILITY_MIRACLE_POWER)
+    && mod == UQ_4_12(0.0))
         mod = UQ_4_12(1.0);
     //had to write out whole thing as realized, function logic would break type chart/other things
     //think this may be obsolete, from when doin typed status moves, it would work for hard mode tho I guess

@@ -3541,5 +3541,12 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Ignores target guard mode. Contact moves\nup to 75 power also evade protection."),
         .aiRating = 5,
     }
+
+    [ABILITY_MIRACLE_POWER] =
+    {
+        .name = _("Miracle Power"),
+        .description = COMPOUND_ABILITY_STRING("Psychic attacks ignore dark immunity.\nPhysical moves use Special offense stat."),
+        .aiRating = 6,
+    }
 };
 
