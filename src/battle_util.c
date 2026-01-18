@@ -5122,6 +5122,8 @@ bool8 IsFlyingTypeBattlerUnableToFly(u32 battler)
    
     if (IsFloatingSpecies(species))
         return FALSE;
+    else if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_FLOAT_STONE)
+        return FALSE;
     else
         return TRUE;
 
@@ -5170,8 +5172,7 @@ bool8 IsBattlerGrounded(u8 battlerId)
     if (IsFloatingSpecies(species))//used if as breakline, as else if only reads if everything above it is false
         grounded = FALSE; //nice new version of floating setup greatly cleanns up this function
 
-    else if ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerId, TYPE_FLYING, FALSE)
-    || DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, battlerId, TYPE_WIND, FALSE))
+    else if (HasFlyingWindAffinity(gBattlerAttacker, battlerId)
      && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_FLOAT_STONE)
         grounded = FALSE;
     //for setting the sript to play think can do it in atk49 moveend
@@ -5671,8 +5672,6 @@ u8 CastformDataTypeChange(u8 battler)
 
 static const u16 sForbiddenHoldEffects[] =
 {
-    HOLD_EFFECT_EXP_SHARE,
-    HOLD_EFFECT_PREVENT_EVOLVE,
     HOLD_EFFECT_UP_GRADE,
     HOLD_EFFECT_ADAMANT_ORB,
     HOLD_EFFECT_LUSTROUS_ORB,

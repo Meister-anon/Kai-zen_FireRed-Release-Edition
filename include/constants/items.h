@@ -968,7 +968,8 @@
 #define ITEM_SAFARI_BALL_2 568 //for safari expansion get around safari zone ball scripts
 #define ITEM_TM_MOONDANCE 569
 #define ITEM_TM_ACID_RAIN 570
-#define ITEM_N_A 571 
+#define ITEM_FLOAT_STONE 571
+#define ITEM_N_A 572 
 // keep this as last item value, needs be +1 last defined item value   emerald stuff needs to be a separate value, otherwise seems to make duplicate error// keep this as last item value, needs be +1 last defined item value   emerald stuff needs to be a separate value, otherwise seems to make duplicate error
 #define ITEMS_COUNT ITEM_N_A + 1
 #define ITEM_FIELD_ARROW ITEM_N_A//field arrow isn't defined as an item, it just end of item_menu_icons.c list

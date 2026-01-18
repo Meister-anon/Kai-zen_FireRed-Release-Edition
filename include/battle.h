@@ -1511,6 +1511,16 @@ static inline bool32 IsBattlerAlly(u32 battlerAtk, u32 battlerDef)
     return GetBattlerSide(battlerAtk) == GetBattlerSide(battlerDef);
 }
 
+//No wind affinity ability so just checks wind type
+static inline bool32 HasFlyingWindAffinity(u32 battleratk, u32 battlerdef)
+{
+    if (DoesBattlerGetTypeBasedAffinity(battleratk, battlerdef, TYPE_FLYING, FALSE)
+    || DoesBattlerGetTypeBasedAffinity(battleratk, battlerdef, TYPE_WIND, FALSE))
+        return TRUE;
+
+    return FALSE;
+}
+
 static inline bool32 IsAirborneType(u8 type)
 {
     if (type == TYPE_FLYING
@@ -1520,9 +1530,11 @@ static inline bool32 IsAirborneType(u8 type)
     return FALSE;
 }
 
-static inline bool32 IsbattlerDivergentTypeOfMove(u32 battler, u8 moveType)
+//should I change this to use affinity and make affinity of flying
+//yeah works for me
+static inline bool32 IsbattlerDivergentTypeOfMove(u32 battleratk, u32 battlerdef, u8 moveType)
 {
-    if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING)
+    if (DoesBattlerGetTypeBasedAffinity(battleratk, battlerdef, TYPE_FLYING, FALSE)
     && moveType == TYPE_WIND)
         return TRUE;
 
@@ -1536,10 +1548,10 @@ static inline bool32 IsbattlerDivergentTypeOfMove(u32 battler, u8 moveType)
     
 }
 
-static inline bool32 DoesBattlerGetStabOnMove(u32 battler, u8 moveType)
+static inline bool32 DoesBattlerGetStabOnMove(u32 battleratk, u32 battlerdef, u8 moveType)
 {
-    if (IS_BATTLER_OF_TYPE(battler, moveType)
-    || IsbattlerDivergentTypeOfMove(battler, moveType))
+    if (IS_BATTLER_OF_TYPE(battleratk, moveType)
+    || IsbattlerDivergentTypeOfMove(battleratk, battlerdef, moveType))
         return TRUE;
 
     return FALSE;

@@ -29,12 +29,25 @@ Route10_PokemonCenter_1F_EventScript_Youngster:: @ 816FC5C
 	msgbox Route10_PokemonCenter_1F_Text_HeardGhostsHauntLavender, MSGBOX_NPC
 	end
 
+@now that eviolite and everstone dont stop evo
+@replace these make purchasable from daycare npcs
+@this is by the power plant maybe give modern items
+@could do assault vest and some berries
+@dont give everstone is after daycare would already have
+@think save eviolite for later daycare 
+@or could just make really expensive like 15k
+@yeah think thats better vsonic important
+@HOLD_EFFECT_AIR_BALLOON
+@HOLD_EFFECT_FOCUS_SASH
+@HOLD_EFFECT_FLOAT_STONE
+@potential things to give here thinking use to introduce
+@changed effect
 Route10_PokemonCenter_1F_EventScript_Aide:: @ 816FC65
 	lock
 	faceplayer
 	call Route10_PokemonCenter_1F_EventScript_GetAideRequestInfo
-	goto_if_set FLAG_GOT_EVERSTONE_FROM_OAKS_AIDE, Route10_PokemonCenter_1F_EventScript_AlreadyGotEverstone
-	msgbox Route10_PokemonCenter_1F_Text_GiveEverstoneIfCaught20Mons, MSGBOX_YESNO
+	goto_if_set FLAG_GOT_FLOAT_STONE_FROM_OAKS_AIDE, Route10_PokemonCenter_1F_EventScript_AlreadyGotFloatstone
+	msgbox Route10_PokemonCenter_1F_Text_GiveFloatstoneIfCaught20Mons, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Aide_EventScript_DeclineCheckMons
 	setvar VAR_0x8004, 0
@@ -44,23 +57,23 @@ Route10_PokemonCenter_1F_EventScript_Aide:: @ 816FC65
 	compare VAR_0x8006, REQUIRED_OWNED_MONS
 	goto_if_lt Aide_EventScript_HaventCaughtEnough
 	msgbox Route10_PokemonCenter_1F_Text_GreatHereYouGo
-	checkitemspace ITEM_EVERSTONE, 3
-	checkitemspace ITEM_EVIOLITE, 3
+	@checkitemspace ITEM_EVERSTONE, 3
+	checkitemspace ITEM_FLOAT_STONE, 3
 	compare VAR_RESULT, FALSE
 	goto_if_eq Aide_EventScript_NoRoomForItem
-	giveitem ITEM_EVIOLITE, 3
-	giveitem_msg Route10_PokemonCenter_1F_Text_ReceivedEverstoneFromAide, ITEM_EVERSTONE, 3
-	setflag FLAG_GOT_EVERSTONE_FROM_OAKS_AIDE
-	msgbox Route10_PokemonCenter_1F_Text_ExplainEverstone
+	giveitem ITEM_FLOAT_STONE, 3
+	giveitem_msg Route10_PokemonCenter_1F_Text_ReceivedEverstoneFromAide, ITEM_FLOAT_STONE, 3
+	setflag FLAG_GOT_FLOAT_STONE_FROM_OAKS_AIDE
+	msgbox Route10_PokemonCenter_1F_Text_ExplainFloatstone
 	release
 	end
 
-Route10_PokemonCenter_1F_EventScript_AlreadyGotEverstone:: @ 816FCE7
-	msgbox Route10_PokemonCenter_1F_Text_ExplainEverstone
+Route10_PokemonCenter_1F_EventScript_AlreadyGotFloatstone:: @ 816FCE7
+	msgbox Route10_PokemonCenter_1F_Text_ExplainFloatstone
 	release
 	end
 
 Route10_PokemonCenter_1F_EventScript_GetAideRequestInfo:: @ 816FCF1
 	getnumberstring 0, REQUIRED_OWNED_MONS
-	getitemname 1, ITEM_EVERSTONE
+	getitemname 1, ITEM_FLOAT_STONE
 	return

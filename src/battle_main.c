@@ -6663,8 +6663,7 @@ bool8 TryRunFromBattle(u32 battler)
     //and its not switching its just run away
     //only relevant for player or for roaming battles
     //so think just gravity and iron ball
-    else if ((IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) 
-    || IS_BATTLER_OF_TYPE(battler, TYPE_WIND))
+    else if (IS_BATTLER_ANY_TYPE(battler, TYPE_FLYING, TYPE_WIND)
     && gBattleMons[battler].ability != ABILITY_AVIATOR
     && !IsFlyingTypeBattlerUnableToFly(battler))
     {

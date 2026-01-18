@@ -26,7 +26,7 @@
 #define HOLD_EFFECT_EVASION_UP     22
 #define HOLD_EFFECT_RESTORE_STATS  23
 #define HOLD_EFFECT_MACHO_BRACE    24  //post ev change, make general training tool, will add to every stat rather than being targetted ads about +30 bst to all.
-#define HOLD_EFFECT_EXP_SHARE      25
+#define HOLD_EFFECT_EXP_SHARE      25   //unused
 #define HOLD_EFFECT_QUICK_CLAW     26
 #define HOLD_EFFECT_HAPPINESS_UP   27
 #define HOLD_EFFECT_MENTAL_HERB    28
@@ -39,7 +39,7 @@
 #define HOLD_EFFECT_DEEP_SEA_TOOTH 35
 #define HOLD_EFFECT_DEEP_SEA_SCALE 36
 #define HOLD_EFFECT_CAN_ALWAYS_RUN 37
-#define HOLD_EFFECT_PREVENT_EVOLVE 38
+#define HOLD_EFFECT_PREVENT_EVOLVE 38   //unused
 #define HOLD_EFFECT_FOCUS_BAND     39
 #define HOLD_EFFECT_LUCKY_EGG      40
 #define HOLD_EFFECT_SCOPE_LENS     41

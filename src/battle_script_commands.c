@@ -3095,9 +3095,10 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
         } //for psuedo terra could instead use arceus plates for this,  rather than changing type
         //holding them will make judgement take on the type of plate, and boost dmg by 25%
 
-        else if (IS_BATTLER_OF_TYPE(attacker, moveType)
+        else if ((IS_BATTLER_OF_TYPE(attacker, moveType)
             || (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE
                 && IS_BATTLER_OF_TYPE(attacker, argument)))
+            || IsbattlerDivergentTypeOfMove(attacker, defender, moveType))
         {
             if (GetBattlerAbility(attacker) == ABILITY_ADAPTABILITY)
             {
@@ -8617,7 +8618,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     //otherwise the non grounded check at the start is enough wait but what about ability based item removal... ok need make function for this
                     //vsonic flying make specific function for check if flying mon should rise up again
                     //unsure if or what should message be for ascensiontimer ends
-                    if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerTarget, TYPE_FLYING, FALSE)
+                    if (HasFlyingWindAffinity(gBattlerAttacker, gBattlerTarget)
                     && CanFlyingTypeRecoverFromSmackDown(gBattlerTarget)) 
                         gDisableStructs[gBattlerAttacker].AscensionTimer = 3;  
                     effect = TRUE;
@@ -8634,7 +8635,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
                     gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR);
                     //Nox fixed other bug think want put ability back within function just use two battlers and type as arguments
-                    if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerTarget, TYPE_FLYING, FALSE)
+                    if (HasFlyingWindAffinity(gBattlerAttacker, gBattlerTarget)
                     && CanFlyingTypeRecoverFromSmackDown(gBattlerTarget))
                         gDisableStructs[gBattlerAttacker].AscensionTimer = 3;
                     effect = TRUE;
