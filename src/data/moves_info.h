@@ -3052,8 +3052,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_MIRROR_MOVE] =
     {
         .name = COMPOUND_STRING("Mirror Move"),
-        .description = COMPOUND_MOVE_STRING("The user counters\nthe move last used\nby the foe with the\nsame move."),
-        .effect = EFFECT_MIRROR_MOVE,
+        .description = COMPOUND_MOVE_STRING("The user copies the\nmove last used by\nthe foe for the\nrest of the battle."),
+        .effect = EFFECT_MIMIC,
         .power = 0,
         .type = TYPE_FLYING,
         .accuracy = 0,
