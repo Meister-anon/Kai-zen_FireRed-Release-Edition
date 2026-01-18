@@ -218,6 +218,16 @@ if it would otherwise be 0/NONE except in the case of ability.
 //logic for flying types will be, if bird, or if majorly attacks from the air
 //w lugia as example for rare cases dragon type can stand in for flying part of identity,  as dragons are rulers of land and sky (and sea for water dragons)
 
+// *note for moves flying type birds are meant to be cunning
+//so for more flying moves have them be like dark surprising cunning effects
+//birds also can be playful so fast sharp aegile but also cunning effects for moves
+
+//idea wind move trap effect
+//may not do damage idea is makes target ungrounded
+//and prevents them from using ground moves
+//or more accurately groud based moves since can't make contact w ground
+//vsonic think can use whirlwind animation
+
 //w added wind type split off some features from flying can define characteristics here
 
 //put thematic logic for all types, helps with type changes as well as keeping consistent

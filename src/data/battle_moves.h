@@ -2872,7 +2872,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_MIRROR_MOVE] =
     {
-        .effect = EFFECT_MIRROR_MOVE,
+        .effect = EFFECT_MIMIC,
         .power = 0,
         .type = TYPE_FLYING,
         .accuracy = 0,
@@ -2896,6 +2896,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     }, //idea birds ability to parrot/copy, move kinda sucks , but is a bit better with my normal type change, as would always get psudo stab if mon is normal
     //speaking just for spearow/fearow rn
      //plan replace mirror move until switched out fainted or battle ends
+     //oh this is just better mimic interesting
     
 
     [MOVE_SELF_DESTRUCT] =
