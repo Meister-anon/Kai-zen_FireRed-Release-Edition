@@ -956,6 +956,20 @@ struct SpeciesGraphicInfo
 //believe still need this for daycare, review again and figure how to remove evo_cap, treid quickly stil had isue so reverted
 #define EVOS_PER_MON 16 // set to 16 in case I need the shedinja byte change fix
 
+//decided like idea of keeping evo levels high/where they were
+//pokemon treats power and evolution as a function of bonds
+//so makes sense that even if a pokemon was strong it would need 
+//time together to unlock power of evolution
+//could also be a balane thing the wild evo level is high
+//or a mon could be presented late in game
+//and be a counter to a fight but not be able to
+//get it up to lvl before lvl cap ex elite four
+//so you either have to use it un evolved
+//or breed it and raise that mon up,
+//where it would evolve much lower
+//like the idea of incentivizing breeding
+//spending time training a mon
+//idk if could make the most of this mechanic tho
 //lvl gain needed for different evo thresholds
 #define QUICK_EVO       5
 #define LOW_EFFORT      10
