@@ -12456,6 +12456,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sEmpoleonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //swift swim makes sense for penguin also fast on ice so could give slush rush
     //WITH steel offering new weaknesses there's an reason to use eviolite prinplup instead
     //tossing lightning rod as an option allows this to play differently and have a separate niche
 

@@ -1779,16 +1779,19 @@ static const struct AbilityLearnset sInfernapeAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sPiplupAbilityLearnset[] = {
+    ABILITY_SLUSH_RUSH,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sPrinplupAbilityLearnset[] = {
     ABILITY_PIERCING_HORN,
+    ABILITY_SLUSH_RUSH,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sEmpoleonAbilityLearnset[] = {
     ABILITY_PIERCING_HORN,
+    ABILITY_SLUSH_RUSH,
     ABILITY_FILTER,
     ABILITY_SET_END
 };
