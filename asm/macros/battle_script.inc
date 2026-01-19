@@ -185,6 +185,11 @@
 	callnative BS_JumpToStatSpecificChecksForIntimidateLike
 	.endm
 
+	.macro tryactivatereceiver battler:req
+	callnative BS_TryActivateReceiver
+	.byte \battler
+	.endm
+
 	.macro onfieldAbilityJump battler:req, ability:req, jumpCondition:req, jumpInstr:req
 	callnative BS_AbilityJumpBasedOnField
 	.byte \battler
@@ -1781,10 +1786,6 @@
 
 	.macro tryactivatebeastboost battler:req
 	various \battler, VARIOUS_TRY_ACTIVATE_BEAST_BOOST
-	.endm
-
-	.macro tryactivatereceiver battler:req
-	various \battler, VARIOUS_TRY_ACTIVATE_RECEIVER
 	.endm
 
 	.macro tryactivatesoulheart

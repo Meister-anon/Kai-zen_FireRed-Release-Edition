@@ -14284,6 +14284,17 @@ bool8 CanActivateForewarnAnticipation(u8 battler)
 
 }
 
+void TryResetAbilityReceiver(u32 battler)
+{
+    if ((gBattleMons[battler].ability == ABILITY_RECEIVER
+    || gBattleMons[battler].ability == ABILITY_POWER_OF_ALCHEMY)
+    && GetSingledUseAbilityValue(battler))
+    {
+        gBattleMons[battler].ability = GetSingledUseAbilityValue(battler);
+    }
+
+}
+
 //syntax gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPEED;
 void SetAbilityStatGraphic(u8 StatVal1, u8 StatChange1, u8 StatVal2, u8 StatChange2)
 {

@@ -1521,6 +1521,15 @@ static inline void SetBattlerSecondaryItemSlot(u32 battler, u32 item)
     gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = item;
 }
 
+static inline enum Ability GetSingledUseAbilityValue(u32 battler)
+{
+   return gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)];
+}
+
+static inline void SetSingledUseAbilityValue(u32 battler, u32 abilityId)
+{
+    gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = abilityId;
+}
 
 //No wind affinity ability so just checks wind type
 static inline bool32 HasFlyingWindAffinity(u32 battleratk, u32 battlerdef)

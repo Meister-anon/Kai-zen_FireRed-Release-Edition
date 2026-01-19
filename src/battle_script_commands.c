@@ -9686,6 +9686,8 @@ static void atk4D_switchindataupdate(void)  //important, think can use THIS to m
         gBattleMons[battler].type2 = gBaseStats[applied_species].type2;
         gBattleMons[battler].type3 = TYPE_MYSTERY;
         gBattleMons[battler].ability = GetAbilityBySpecies(applied_species, gBattleMons[battler].abilityNum, &party[gBattlerPartyIndexes[battler]]);
+        TryResetAbilityReceiver(battler); //rework for receiver and power of alchemy
+
         // check knocked off item
         i = GetBattlerSide(battler);
         if (gWishFutureKnock.knockedOffMons[i] & (1u << gBattlerPartyIndexes[battler]))
@@ -14709,6 +14711,31 @@ void BS_TryActivateResoluteMoveEnd(void)
             gBattlescriptCurrInstr = BattleScript_ResoluteActivatesOnMoveEndTarget;
             return; 
         }
+    }
+}
+
+//unsure if ability target right
+//but assume passes tests
+void BS_TryActivateReceiver(void)
+{
+    NATIVE_ARGS(u8 battler);
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    gBattlerAbility = BATTLE_PARTNER(battler);
+    u32 partnerAbility = GetBattlerAbility(gBattlerAbility);
+    if (IsBattlerAlive(gBattlerAbility)
+        && (partnerAbility == ABILITY_RECEIVER || partnerAbility == ABILITY_POWER_OF_ALCHEMY)
+        && GetBattlerHoldEffectIgnoreAbility(battler, TRUE) != HOLD_EFFECT_ABILITY_SHIELD
+        && !gAbilitiesInfo[gBattleMons[battler].ability].cantBeCopied)
+    {
+        //hopefully is right
+        SetSingledUseAbilityValue(gBattlerTarget, gBattleMons[battler].ability);
+        gBattleScripting.battler = battler;
+        BattleScriptPush(cmd->nextInstr);
+        gBattlescriptCurrInstr = BattleScript_ReceiverActivates;
+    }
+    else
+    {
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
