@@ -2663,7 +2663,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Costar"),
         .description = COMPOUND_ABILITY_STRING("Copies ally's stat changes."),
         .aiRating = 5,
-    },
+    },//vsonic see about more mon to give this to
 
     [ABILITY_TOXIC_DEBRIS] =
     {

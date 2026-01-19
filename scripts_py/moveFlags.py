@@ -119,7 +119,7 @@ put .split rest of line \n dict value for move id
 '''
 
 #'''
-infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/battle_moves.h', 'r')
+infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/moves_info.h', 'r')
 lines = infile.readlines()
 #to avoid looping dict use reg to pull file moveid in brackets
 #can use get function to compare against dict keys
@@ -161,7 +161,7 @@ for line in lines:
     
 infile.close()
     
-outfile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/battle_moves.h', 'w')
+outfile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/moves_info.h', 'w')
 outfile.writelines(newlines)
 outfile.close()
 #'''

@@ -213,7 +213,7 @@
 #define EFFECT_POISON_TAIL 209 //put placeholder back here incase its needed
 #define EFFECT_WATER_SPORT 210 //feel stupid poison_tail wasn't even an effect FP
 #define EFFECT_CALM_MIND 211
-#define EFFECT_DRAGON_DANCE 212 // ok EFFECT_POISON_TAIL is an effect based on battle_moves.h
+#define EFFECT_DRAGON_DANCE 212 // ok EFFECT_POISON_TAIL is an effect based on moves_info.h
 #define EFFECT_CAMOUFLAGE 213 //but isn't in emerald list o effects...ok got it that was a cfru thing
 /*   figured it out poison_tail was an effect in gen3 but changed in pokeemerald so that's prop why its replaced with placeholder
 #define EFFECT_HEAL_PULSE 214

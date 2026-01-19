@@ -6173,7 +6173,7 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
 
     
 
-    //for these to work must be placed in .effect member of battle_moves.h they aren't used in argument,
+    //for these to work must be placed in .effect member of moves_info.h they aren't used in argument,
     //these are the main effects of the move
     //I could set it to gbattlescripting.moveeffect and it'd work for both but I don't want that.
     //this is a restriction for the sake of structure.

@@ -65,7 +65,7 @@ also of note "if you remove check viability it will never use a status move"
     //be the corresponding item necesssary to enter form
 
 Need split off extra changes to other branches
-leaving only the battle_moves.h flag related changes 
+leaving only the moves_info.h flag related changes 
 was new_battle_update_branch  delete deprecated remotes as well
 
 so plan finish flag related changes i.e update to no longer use flag
@@ -74,7 +74,7 @@ after that I can depreciate the branch and merge or cherry pick over
 the stuff needed for flags leaving everything else to go to 
 another branch to continue work.
 
-update battle_moves.h file flags to EE standard
+update moves_info.h file flags to EE standard
 end goal remove .flags field
 much better filtering and will eventually update
 name and move description and animation field to move blocks

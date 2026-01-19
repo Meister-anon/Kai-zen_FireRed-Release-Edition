@@ -96,7 +96,7 @@ static bool32 CheckTypeBySpecies(u16 species, u8 type); //made for field poiso t
 
 static void SetMonMoveSlot_KeepPP(struct Pokemon *mon, u16 move, u8 slot); //port from EE
 
-#include "data/battle_moves.h"
+#include "data/moves_info.h"
 
 // Used in an unreferenced function in RS.
 // Unreferenced here and in Emerald.

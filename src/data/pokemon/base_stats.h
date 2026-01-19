@@ -14568,7 +14568,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 123, 67, 95, 95, 85),
-        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
+        MON_TYPES(TYPE_ELECTRIC, TYPE_NORMAL),
         .catchRate = 30,
         .expYield = 243,
         //.evYield_Attack = 3,
@@ -14599,7 +14599,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 95, 67, 83, 125, 95),
-        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
+        MON_TYPES(TYPE_FIRE, TYPE_POISON),
         .catchRate = 30,
         .expYield = 243,
         //.evYield_SpAttack = 3,
@@ -14623,6 +14623,20 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMagmortarTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//to differentiate think best I can do is ability changes?
+    //consideirng dark type addition, doesnt fully make sense
+    //being on volcano poison makes more sense but bad for balance becomes 4x groud
+    //otherwise synergizes well w fire resists would give an immunity
+    //and several quad resists
+    //hard sell but I THINK I get more out of poison then dark,
+    //few special dark moves and wouldn't want to give dark swamp
+    //it resists most of dark's weaknesses but overall that's just 
+    //weakening my own resists for little benefit
+    //best I could get out of it is stab dark pulse but I could just give
+    //myself dark pulse anyway
+    //Gave mega launcher because canon hands
+    //its main issue was  lack of defense *and speed
+    //so think increasing resistances is best bet 
+    //to give this  a new chance
 
     [SPECIES_TOGEKISS] =
     {

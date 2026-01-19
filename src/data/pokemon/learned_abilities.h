@@ -2122,6 +2122,7 @@ static const struct AbilityLearnset sElectivireAbilityLearnset[] = {
 
 static const struct AbilityLearnset sMagmortarAbilityLearnset[] = {
     ABILITY_AFTERMATH,
+    ABILITY_MEGA_LAUNCHER,
     ABILITY_SET_END
 };
 

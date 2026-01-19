@@ -6289,6 +6289,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_SPECIAL,
         .windMove = TRUE,
+        .pulseMove = TRUE,
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 10,
@@ -9579,7 +9580,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_AURA_SPHERE] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .power = 80,
+            .power = 85,
         #else
             .power = 90,
         #endif
@@ -9598,7 +9599,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_AuraSphere,
-    },
+    },//think wil buff back as one of few rare fighting special options
+    //at least 5 points to make equal to shadow ball 
 
     [MOVE_ROCK_POLISH] =
     {
