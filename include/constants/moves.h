@@ -928,6 +928,7 @@ enum Move {
  MOVE_FOG_HORN = 886, //name pending summons calls forth deep fog
  MOVE_SHADOW_STRIKE = 887, //mega gren z signature multi hit, does dragon darts and boost evasion = 2, stages till turn end for clones
  MOVE_FENCE = 888, //new dark protect that steals attacker item
+ MOVE_CONTRALTO = 889,
 
  MOVES_COUNT_CUSTOM,
 

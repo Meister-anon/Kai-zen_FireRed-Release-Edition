@@ -7202,7 +7202,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .effect = EFFECT_YAWN,
         .power = 0,
         .type = TYPE_NORMAL,
-        .accuracy = 85,
+        .accuracy = 0,
         .pp = 10,
         .target = TARGET_SELECTED,
         .priority = 1,
@@ -7215,6 +7215,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Yawn,
     },
+    //decide don't use my custom version of effect is broken
 
     [MOVE_KNOCK_OFF] =
     {
@@ -21927,5 +21928,32 @@ use wonder gaurd logic to determine its super effective
     },//name is funny double entendre
     //fence meaning a means of protection
     //and fance meaning a person who receives stolen goods
+
+    [MOVE_CONTRALTO] =
+    {
+        .name = COMPOUND_STRING("Contralto"),
+        .description = COMPOUND_MOVE_STRING("A calming aria that\nmakes all who hear\nit become drowsy."),
+        .effect = EFFECT_YAWN, //giving effects that immobalize priority are too broken
+        .power = 0,
+        .type = TYPE_SOUND,
+        .accuracy = 80,
+        .pp = 15,
+        .target = TARGET_FOES_AND_ALLY,
+        .priority = 0, //since this keeps opponent from attacking will keep base priority / also because of high accuracy and good distributnion
+        .category = DAMAGE_CATEGORY_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_SING,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Sing,
+        
+    },
+    //new version of sing give jigglypuff line
+    //make it a move jiggly could learn but wiggly gets on evo
+    //idea singer voice get deeper w age
 
 };
