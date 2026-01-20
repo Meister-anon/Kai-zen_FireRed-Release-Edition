@@ -929,11 +929,9 @@ enum Move {
 // also need actual move data in moves_info.h
 //* consolidated move name & move description files into move_info.h
 
-#define LAST_MOVE_INDEX     MOVE_NA - 1
 
-#define MOVES_COUNT_GEN8 (LAST_MOVE_INDEX + 1) //changed so define auto updates
-
-#define MOVES_COUNT MOVES_COUNT_GEN8
+//not using rn
+#define LAST_MOVE_INDEX MOVES_COUNT
 
 #define Z_MOVES_START   (MOVES_COUNT + 1) //NEEDED so z move don't start on NA
 
@@ -985,7 +983,6 @@ enum Move {
 #define MOVE_UNAVAILABLE 0xFFFF
 
 
-//#define LAST_MOVE_INDEX     MOVE_COCOON
 
 //#define MOVES_COUNT 357
 
