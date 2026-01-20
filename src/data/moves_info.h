@@ -1202,7 +1202,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SING] =
     {
-        .effect = EFFECT_SLEEP, //giving effects that immobalize priority are too broken
+        .effect = EFFECT_YAWN, //giving effects that immobalize priority are too broken
         .power = 0,
         .type = TYPE_SOUND,
         .accuracy = 80,
@@ -3614,10 +3614,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_SPORE] =
 {
-    .effect = EFFECT_SLEEP,
+    .effect = EFFECT_YAWN,
     .power = 0,
     .type = TYPE_GRASS,
-    .accuracy = 95,
+    .accuracy = 100,
     .pp = 15,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
