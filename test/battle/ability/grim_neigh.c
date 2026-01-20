@@ -7,7 +7,7 @@ DOUBLE_BATTLE_TEST("Grim Neigh raises Sp. Attack by one stage after directly cau
     PARAMETRIZE { species = SPECIES_SPECTRIER;            ability = ABILITY_GRIM_NEIGH;          abilityPopUp = ABILITY_GRIM_NEIGH; }
     PARAMETRIZE { species = SPECIES_CALYREX_SHADOW_RIDER; ability = ABILITY_AS_ONE_SHADOW_RIDER; abilityPopUp = ABILITY_GRIM_NEIGH; }
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_DISCHARGE].target == MOVE_TARGET_FOES_AND_ALLY);
+        ASSUME(gMovesInfo[MOVE_DISCHARGE].target == TARGET_FOES_AND_ALLY);
         PLAYER(species) { Ability(ability); }
         PLAYER(SPECIES_SNORUNT) { HP(1); }
         OPPONENT(SPECIES_GLALIE) { HP(1); }
@@ -82,7 +82,7 @@ DOUBLE_BATTLE_TEST("Grim Neigh does not increase damage done by the same move th
 
     KNOWN_FAILING; // Requires simultaneous damage implementation
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_DISCHARGE].target == MOVE_TARGET_FOES_AND_ALLY);
+        ASSUME(gMovesInfo[MOVE_DISCHARGE].target == TARGET_FOES_AND_ALLY);
         PLAYER(species) { Ability(ability); }
         PLAYER(SPECIES_ABRA) { HP(1); }
         OPPONENT(SPECIES_GLALIE);

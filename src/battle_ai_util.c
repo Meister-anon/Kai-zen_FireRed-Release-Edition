@@ -1506,7 +1506,7 @@ u32 AI_GetBattlerMoveTargetType(u8 battlerId, u16 move)
     u32 target;
 
     if (gBattleMoves[move].effect == EFFECT_EXPANDING_FORCE && AI_IsTerrainAffected(battlerId, STATUS_FIELD_PSYCHIC_TERRAIN))
-        return MOVE_TARGET_BOTH;
+        return TARGET_BOTH;
     else
         return gBattleMoves[move].target;
 }
@@ -2249,7 +2249,7 @@ bool32 HasMoveWithLowAccuracy(u8 battlerAtk, u8 battlerDef, u8 accCheck, bool32 
             if (ignoreStatus && IsBattleMoveStatus(moves[i]))
                 continue;
             else if ((!IsBattleMoveStatus(moves[i]) && gBattleMoves[moves[i]].accuracy == 0)
-              || AI_GetBattlerMoveTargetType(battlerAtk, moves[i]) & (MOVE_TARGET_USER | MOVE_TARGET_OPPONENTS_FIELD))
+              || AI_GetBattlerMoveTargetType(battlerAtk, moves[i]) & (TARGET_USER | TARGET_OPPONENTS_FIELD))
                 continue;
 
             if (AI_GetMoveAccuracy(battlerAtk, battlerDef, moves[i]) <= accCheck)

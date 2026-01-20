@@ -135,7 +135,7 @@ SINGLE_BATTLE_TEST("Prankster is blocked by Quick Guard in Gen5+")
 DOUBLE_BATTLE_TEST("Prankster-affected moves that target all Pokémon are successful regardless of the presence of Dark-type Pokémon")
 {
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_CAPTIVATE].target == MOVE_TARGET_BOTH);
+        ASSUME(gMovesInfo[MOVE_CAPTIVATE].target == TARGET_BOTH);
         PLAYER(SPECIES_ILLUMISE) { Ability(ABILITY_PRANKSTER); }
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_UMBREON);

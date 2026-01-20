@@ -711,7 +711,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     //GET_MOVE_TYPE(move, moveType);
 
     // check non-user target
-    if (!(moveTarget & MOVE_TARGET_USER))
+    if (!(moveTarget & TARGET_USER))
     {
         // handle negative checks on non-user target
         // check powder moves
@@ -927,7 +927,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                         RETURN_SCORE_MINUS(20);
                     break;
                 case ABILITY_MAGIC_BOUNCE:
-                    if (MoveCanBeBouncedBack(move) && moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY | MOVE_TARGET_OPPONENTS_FIELD))
+                    if (MoveCanBeBouncedBack(move) && moveTarget & (TARGET_BOTH | TARGET_FOES_AND_ALLY | TARGET_OPPONENTS_FIELD))
                         RETURN_SCORE_MINUS(20);
                     break;
                 case ABILITY_SWEET_VEIL:
@@ -948,7 +948,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     break;
                 case ABILITY_DUST_DEVIL:
                 case ABILITY_WIND_RIDER:
-                if (IsWindMove(move) && !(GetBattlerMoveTargetType(battlerAtk, move) & MOVE_TARGET_USER))
+                if (IsWindMove(move) && !(GetBattlerMoveTargetType(battlerAtk, move) & TARGET_USER))
                     RETURN_SCORE_MINUS(20);
                     break;
                 case ABILITY_DAZZLING:
@@ -965,7 +965,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         if (AI_DATA->abilities[battlerAtk] == ABILITY_PRANKSTER 
         && DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_DARK, TRUE)
         && IsBattleMoveStatus(move)
-        && !(moveTarget & (MOVE_TARGET_OPPONENTS_FIELD | MOVE_TARGET_USER)))
+        && !(moveTarget & (TARGET_OPPONENTS_FIELD | TARGET_USER)))
             RETURN_SCORE_MINUS(10);
       //  #endif
 
@@ -986,7 +986,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         {
             RETURN_SCORE_MINUS(20);
         }
-    } // end check MOVE_TARGET_USER
+    } // end check TARGET_USER
 
 // the following checks apply to any target (including user)
 
@@ -2610,12 +2610,12 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 }
                 else
                 {
-                    if (AI_GetBattlerMoveTargetType(battlerDef, instructedMove) & (MOVE_TARGET_SELECTED
-                                                             | MOVE_TARGET_DEPENDS
-                                                             | MOVE_TARGET_RANDOM
-                                                             | MOVE_TARGET_BOTH
-                                                             | MOVE_TARGET_FOES_AND_ALLY
-                                                             | MOVE_TARGET_OPPONENTS_FIELD)
+                    if (AI_GetBattlerMoveTargetType(battlerDef, instructedMove) & (TARGET_SELECTED
+                                                             | TARGET_DEPENDS
+                                                             | TARGET_RANDOM
+                                                             | TARGET_BOTH
+                                                             | TARGET_FOES_AND_ALLY
+                                                             | TARGET_OPPONENTS_FIELD)
                       && instructedMove != MOVE_MIND_BLOWN && instructedMove != MOVE_STEEL_BEAM)
                         score -= 10; //Don't force the enemy to attack you again unless it can kill itself with Mind Blown
                     else if (instructedMove != MOVE_MIND_BLOWN)
@@ -2837,7 +2837,7 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     if (IsAttackBoostMoveEffect(effect))
                         score -= 3;
                     // encourage moves hitting multiple opponents
-                    if (!IsBattleMoveStatus(move) && (moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY)))
+                    if (!IsBattleMoveStatus(move) && (moveTarget & (TARGET_BOTH | TARGET_FOES_AND_ALLY)))
                         score += 3;
                 }
             }
@@ -2917,7 +2917,7 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         if (GetMoveDamageResult(move) == MOVE_POWER_DISCOURAGED)
         {
             // partner ability checks
-            if (!partnerProtecting && moveTarget != MOVE_TARGET_BOTH && !DoesBattlerIgnoreAbilityChecks(AI_DATA->abilities[battlerAtk], move))
+            if (!partnerProtecting && moveTarget != TARGET_BOTH && !DoesBattlerIgnoreAbilityChecks(AI_DATA->abilities[battlerAtk], move))
             {
                 switch (atkPartnerAbility)
                 {
@@ -3149,7 +3149,7 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
 
                     if (instructedMove != MOVE_NONE
                       && !IsBattleMoveStatus(instructedMove)
-                      && (AI_GetBattlerMoveTargetType(battlerAtkPartner, instructedMove) & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY))) // Use instruct on multi-target moves
+                      && (AI_GetBattlerMoveTargetType(battlerAtkPartner, instructedMove) & (TARGET_BOTH | TARGET_FOES_AND_ALLY))) // Use instruct on multi-target moves
                     {
                         RETURN_SCORE_PLUS(1);
                     }
@@ -4001,24 +4001,24 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 ProtectChecks(battlerAtk, battlerDef, move, predictedMove, &score);
             break;
         case MOVE_WIDE_GUARD:
-            if (predictedMove != MOVE_NONE && AI_GetBattlerMoveTargetType(battlerDef, predictedMove) & (MOVE_TARGET_FOES_AND_ALLY | MOVE_TARGET_BOTH))
+            if (predictedMove != MOVE_NONE && AI_GetBattlerMoveTargetType(battlerDef, predictedMove) & (TARGET_FOES_AND_ALLY | TARGET_BOTH))
             {
                 ProtectChecks(battlerAtk, battlerDef, move, predictedMove, &score);
             }
-            else if (isDoubleBattle && AI_GetBattlerMoveTargetType(BATTLE_PARTNER(battlerAtk), AI_DATA->partnerMove) & MOVE_TARGET_FOES_AND_ALLY)
+            else if (isDoubleBattle && AI_GetBattlerMoveTargetType(BATTLE_PARTNER(battlerAtk), AI_DATA->partnerMove) & TARGET_FOES_AND_ALLY)
             {
                 if (AI_DATA->abilities[battlerAtk] != ABILITY_TELEPATHY)
                   ProtectChecks(battlerAtk, battlerDef, move, predictedMove, &score);
             }
             break;
         case MOVE_CRAFTY_SHIELD:
-            if (predictedMove != MOVE_NONE && IsBattleMoveStatus(predictedMove) && !(AI_GetBattlerMoveTargetType(battlerDef, predictedMove) & MOVE_TARGET_USER))
+            if (predictedMove != MOVE_NONE && IsBattleMoveStatus(predictedMove) && !(AI_GetBattlerMoveTargetType(battlerDef, predictedMove) & TARGET_USER))
                 ProtectChecks(battlerAtk, battlerDef, move, predictedMove, &score);
             break;
 
         case MOVE_MAT_BLOCK:
             if (gDisableStructs[battlerAtk].isFirstTurn && predictedMove != MOVE_NONE
-              && !IsBattleMoveStatus(predictedMove) && !(AI_GetBattlerMoveTargetType(battlerDef, predictedMove) & MOVE_TARGET_USER))
+              && !IsBattleMoveStatus(predictedMove) && !(AI_GetBattlerMoveTargetType(battlerDef, predictedMove) & TARGET_USER))
                 ProtectChecks(battlerAtk, battlerDef, move, predictedMove, &score);
             break;
         case MOVE_KINGS_SHIELD:
@@ -4470,7 +4470,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             score += 10;
         break;
     case EFFECT_MAGIC_COAT:
-        if (IsBattleMoveStatus(predictedMove) && AI_GetBattlerMoveTargetType(battlerDef, predictedMove) & (MOVE_TARGET_SELECTED | MOVE_TARGET_OPPONENTS_FIELD | MOVE_TARGET_BOTH))
+        if (IsBattleMoveStatus(predictedMove) && AI_GetBattlerMoveTargetType(battlerDef, predictedMove) & (TARGET_SELECTED | TARGET_OPPONENTS_FIELD | TARGET_BOTH))
             score += 3;
         break;
     case EFFECT_RECYCLE:

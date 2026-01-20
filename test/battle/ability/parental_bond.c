@@ -55,9 +55,9 @@ SINGLE_BATTLE_TEST("Parental Bond converts multi-target moves into a two-strike 
 
     GIVEN {
         ASSUME(gMovesInfo[MOVE_EARTHQUAKE].strikeCount < 2);
-        ASSUME(gMovesInfo[MOVE_EARTHQUAKE].target == MOVE_TARGET_FOES_AND_ALLY);
+        ASSUME(gMovesInfo[MOVE_EARTHQUAKE].target == TARGET_FOES_AND_ALLY);
         ASSUME(gMovesInfo[MOVE_ICY_WIND].strikeCount < 2);
-        ASSUME(gMovesInfo[MOVE_ICY_WIND].target == MOVE_TARGET_BOTH);
+        ASSUME(gMovesInfo[MOVE_ICY_WIND].target == TARGET_BOTH);
         PLAYER(SPECIES_KANGASKHAN) { Item(ITEM_KANGASKHANITE); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
@@ -79,7 +79,7 @@ DOUBLE_BATTLE_TEST("Parental Bond does not convert multi-target moves into a two
 {
     GIVEN {
         ASSUME(gMovesInfo[MOVE_EARTHQUAKE].strikeCount < 2);
-        ASSUME(gMovesInfo[MOVE_EARTHQUAKE].target == MOVE_TARGET_FOES_AND_ALLY);
+        ASSUME(gMovesInfo[MOVE_EARTHQUAKE].target == TARGET_FOES_AND_ALLY);
         ASSUME(gSpeciesInfo[SPECIES_PIDGEY].types[1] == TYPE_FLYING);
         PLAYER(SPECIES_KANGASKHAN) { Item(ITEM_KANGASKHANITE); }
         PLAYER(SPECIES_PIDGEY);

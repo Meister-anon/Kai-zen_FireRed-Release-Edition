@@ -6429,7 +6429,7 @@ static void HandleAction_UseMove(void)
     // choose target - need look into may not need this anymore
     side = GetBattlerSide(gBattlerAttacker) ^ BIT_SIDE; //comparing getmovetarget logic appears almost identical, far as checks
     if (gSideTimers[side].followmeTimer != 0
-     && gBattleMoves[gCurrentMove].target == MOVE_TARGET_SELECTED
+     && gBattleMoves[gCurrentMove].target == TARGET_SELECTED
      && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gSideTimers[side].followmeTarget)
      && gBattleMons[gSideTimers[side].followmeTarget].hp != 0)
     {
@@ -6437,7 +6437,7 @@ static void HandleAction_UseMove(void)
     }
     
     else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
-          && gBattleMoves[gChosenMove].target & MOVE_TARGET_RANDOM)
+          && gBattleMoves[gChosenMove].target & TARGET_RANDOM)
     {
         if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
         {

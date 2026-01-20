@@ -6598,7 +6598,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         ApplyScreenModifier(battlerIdAtk, battlerIdDef, move, MoveDamageCategory, damage);
 
-     //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2) // this is spread move cut
+     //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2) // this is spread move cut
         //    damage /= 2; //target 0x8 is target both    
         //this removes the split damage from double target moves ...just remove the line you idiot
         if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE))
@@ -6610,7 +6610,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
             //modern game changed to a 25% drop average damage 
             //is lower in my game so guess safe to make this a little stronger
-            if (gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerIdAtk) >= 2)
+            if (gBattleMoves[move].target == TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerIdAtk) >= 2)
                 damage = (2 * damage) / 3;
         }
 

@@ -4054,15 +4054,15 @@ void SetMoveTypePaletteInMoveSelection_Doubles(u32 battler, u16 move, u8 moveTyp
     const u16 *palPtr = gMoveTypePal;
     u8 var; //hopefully I understood this correctly
     
-    if (gBattleMoves[move].target == MOVE_TARGET_USER
-    || gBattleMoves[move].target == MOVE_TARGET_OPPONENTS_FIELD
+    if (gBattleMoves[move].target == TARGET_USER
+    || gBattleMoves[move].target == TARGET_OPPONENTS_FIELD
     || !IsDisplayTypeEffectivenessOn())
         var = 0;
-    else if (gBattleMoves[move].target == MOVE_TARGET_BOTH 
-    || gBattleMoves[move].target == MOVE_TARGET_ALL_BATTLERS
-    || gBattleMoves[move].target == MOVE_TARGET_FOES_AND_ALLY)
+    else if (gBattleMoves[move].target == TARGET_BOTH 
+    || gBattleMoves[move].target == TARGET_ALL_BATTLERS
+    || gBattleMoves[move].target == TARGET_FOES_AND_ALLY)
         var = max(GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)), GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT)));
-    else if (gBattleMoves[move].target == MOVE_TARGET_RANDOM)
+    else if (gBattleMoves[move].target == TARGET_RANDOM)
     {
         if (Random() & 1)
             var = GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerPosition(B_POSITION_OPPONENT_LEFT));
@@ -4138,8 +4138,8 @@ u8 GetTypeEffectivenessState_Singles(u32 battler, u16 move, u8 moveType) //for s
     }
     //else
     //    return 0;
-    if (gBattleMoves[move].target == MOVE_TARGET_USER
-    || gBattleMoves[move].target == MOVE_TARGET_OPPONENTS_FIELD
+    if (gBattleMoves[move].target == TARGET_USER
+    || gBattleMoves[move].target == TARGET_OPPONENTS_FIELD
     || !IsDisplayTypeEffectivenessOn())
         return 0; //initially forgot this part for self target moves
 

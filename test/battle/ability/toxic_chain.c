@@ -52,7 +52,7 @@ DOUBLE_BATTLE_TEST("Toxic Chain can inflict bad poison on both foes")
 {
     GIVEN {
         ASSUME(gMovesInfo[MOVE_RAZOR_LEAF].category != DAMAGE_CATEGORY_STATUS);
-        ASSUME(gMovesInfo[MOVE_RAZOR_LEAF].target == MOVE_TARGET_BOTH);
+        ASSUME(gMovesInfo[MOVE_RAZOR_LEAF].target == TARGET_BOTH);
         ASSUME(gMovesInfo[MOVE_RAZOR_LEAF].power > 0);
         PLAYER(SPECIES_OKIDOGI) { Ability(ABILITY_TOXIC_CHAIN); }
         PLAYER(SPECIES_WOBBUFFET);

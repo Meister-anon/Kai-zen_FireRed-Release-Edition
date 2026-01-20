@@ -1722,7 +1722,7 @@ static bool8 IsBattlerProtectedFromAttack(u8 battlerAtk, u8 battlerDef, u16 move
     else if (gBattleMoves[move].effect == MOVE_EFFECT_FEINT)
         return FALSE;
     else if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_WIDE_GUARD
-        && GetBattlerMoveTargetType(battlerAtk, move) & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY))
+        && GetBattlerMoveTargetType(battlerAtk, move) & (TARGET_BOTH | TARGET_FOES_AND_ALLY))
         return TRUE;
     else if (gProtectStructs[battlerDef].banefulBunkered)
         return TRUE;
@@ -2018,7 +2018,7 @@ static void atk01_accuracycheck(void)
                 gBattleStruct->blunderPolicy = TRUE;    // Only activates from missing through acc/evasion checks
 
             if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
-                && (gBattleMoves[move].target == MOVE_TARGET_BOTH || gBattleMoves[move].target == MOVE_TARGET_FOES_AND_ALLY))
+                && (gBattleMoves[move].target == TARGET_BOTH || gBattleMoves[move].target == TARGET_FOES_AND_ALLY))
                 gBattleCommunication[MISS_TYPE] = B_MSG_AVOIDED_ATK;
             else
                 gBattleCommunication[MISS_TYPE] = B_MSG_MISSED;
@@ -2144,7 +2144,7 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
             }
 
             if (IsDoubleBattle() &&
-                (moveTarget == MOVE_TARGET_BOTH || moveTarget == MOVE_TARGET_FOES_AND_ALLY))
+                (moveTarget == TARGET_BOTH || moveTarget == TARGET_FOES_AND_ALLY))
                 gBattleCommunication[MISS_TYPE] = B_MSG_AVOIDED_ATK;
             else
                 gBattleCommunication[MISS_TYPE] = B_MSG_MISSED;
@@ -2198,13 +2198,13 @@ static void atk03_ppreduce(void)
         {
             switch (gBattleMoves[gCurrentMove].target)//realize needs to add here as well as the util.c to make hi pressure work?
             {
-            case MOVE_TARGET_FOES_AND_ALLY:
+            case TARGET_FOES_AND_ALLY:
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_ON_FIELD, gBattlerAttacker, ABILITY_PRESSURE, 0, 0);
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_ON_FIELD, gBattlerAttacker, ABILITY_HI_PRESSURE, 0, 0);
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_ON_FIELD, gBattlerAttacker, ABILITY_HI_PRESSURE, 0, 0);
                 break;
-            case MOVE_TARGET_BOTH:
-            case MOVE_TARGET_OPPONENTS_FIELD:
+            case TARGET_BOTH:
+            case TARGET_OPPONENTS_FIELD:
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_OTHER_SIDE, gBattlerAttacker, ABILITY_PRESSURE, 0, 0);
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_OTHER_SIDE, gBattlerAttacker, ABILITY_HI_PRESSURE, 0, 0);
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_OTHER_SIDE, gBattlerAttacker, ABILITY_HI_PRESSURE, 0, 0);
@@ -3666,9 +3666,9 @@ static void atk09_attackanimation(void)
         }
         else
         {
-            if ((gBattleMoves[gCurrentMove].target & MOVE_TARGET_BOTH
-                || gBattleMoves[gCurrentMove].target & MOVE_TARGET_FOES_AND_ALLY
-                || gBattleMoves[gCurrentMove].target & MOVE_TARGET_DEPENDS)
+            if ((gBattleMoves[gCurrentMove].target & TARGET_BOTH
+                || gBattleMoves[gCurrentMove].target & TARGET_FOES_AND_ALLY
+                || gBattleMoves[gCurrentMove].target & TARGET_DEPENDS)
              && gBattleScripting.animTargetsHit)  //believe this is play animation once, rather than again for each target hit
             { //also that above line is why powdersnow didn't work, it was a dual target move, and I believe animtargetshit was set on first pass, so it executed this after
                 gBattlescriptCurrInstr = cmd->nextInstr;
@@ -4520,12 +4520,12 @@ bool8 IsMoveAffectedByParentalBond(u16 move, u8 battlerId)
             switch (GetBattlerMoveTargetType(battlerId, move))
             {
                 // Both foes are alive, spread move strikes once
-            case MOVE_TARGET_BOTH:
+            case TARGET_BOTH:
                 if (CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerId) >= 2)
                     return FALSE;
                 break;
                 // Either both foes or one foe and its ally are alive; spread move strikes once
-            case MOVE_TARGET_FOES_AND_ALLY:
+            case TARGET_FOES_AND_ALLY:
                 if (CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_ATTACKER, battlerId) >= 2)
                     return FALSE;
                 break;
@@ -8245,7 +8245,7 @@ static u32 GetNextTarget(u32 moveTarget, bool32 excludeCurrent)
             && !(excludeCurrent && battler == gBattlerTarget)
             && IsBattlerAlive(battler)
             && !(gBattleStruct->targetsDone[gBattlerAttacker] & (1u << battler))
-            && (GetBattlerSide(battler) != GetBattlerSide(gBattlerAttacker) || moveTarget == MOVE_TARGET_FOES_AND_ALLY))
+            && (GetBattlerSide(battler) != GetBattlerSide(gBattlerAttacker) || moveTarget == TARGET_FOES_AND_ALLY))
             break;
     }
     return battler;
@@ -8844,7 +8844,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             if (!(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)
              && gBattleTypeFlags & BATTLE_TYPE_DOUBLE
              && !gProtectStructs[gBattlerAttacker].chargingTurn
-             && gBattleMoves[gCurrentMove].target == MOVE_TARGET_BOTH
+             && gBattleMoves[gCurrentMove].target == TARGET_BOTH
              && !(gHitMarker & HITMARKER_NO_ATTACKSTRING))
             {
                 u8 battlerId = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gBattlerTarget)));
@@ -9255,8 +9255,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             if (!(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)
                 && gBattleTypeFlags & BATTLE_TYPE_DOUBLE
                 && !gProtectStructs[gBattlerAttacker].chargingTurn
-                && (moveTarget == MOVE_TARGET_BOTH
-                    || moveTarget == MOVE_TARGET_FOES_AND_ALLY)
+                && (moveTarget == TARGET_BOTH
+                    || moveTarget == TARGET_FOES_AND_ALLY)
                 && !(gHitMarker & HITMARKER_NO_ATTACKSTRING))
             {
                 u32 nextTarget = GetNextTarget(moveTarget, FALSE);
@@ -10465,7 +10465,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
             //don't use dodge pokeball effect when trapped, and add slight increase to catch chance, I think make it less than status chance but make it inclusive
             //so they stack
 
-        if (gBattleMons[battlerDef].status1 & STATUS1_SLEEP) { //.target = MOVE_TARGET_SELECTED, 
+        if (gBattleMons[battlerDef].status1 & STATUS1_SLEEP) { //.target = TARGET_SELECTED, 
             if (DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_PSYCHIC, FALSE)) //important chek this think have function for type checking
                 calc = (calc * 105) / 100; // to take advantage of these buffs I want to have a button to display real move accuracy in battle. maybe L
             else
