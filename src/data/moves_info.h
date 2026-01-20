@@ -1202,13 +1202,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SING] =
     {
-        .effect = EFFECT_YAWN, //giving effects that immobalize priority are too broken
+        .effect = EFFECT_SLEEP, //giving effects that immobalize priority are too broken
         .power = 0,
         .type = TYPE_SOUND,
         .accuracy = 80,
         .pp = 15,
         .secondaryEffectChance = 0, //droped acc will attempt buff
-        .target = TARGET_FOES_AND_ALLY,
+        .target = TARGET_SELECTED,
         .priority = 0, //since this keeps opponent from attacking will keep base priority / also because of high accuracy and good distributnion
         .split = SPLIT_STATUS,
        //.argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
@@ -1242,6 +1242,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //making ally affected requires extra steps and caution
     //its either that or single target effect
     //and with cacophony becomes max sleep turn effect
+    //realize can't do my reworked yawn effect
+    //its extremely broken when the mon falls asleep at start of next turn
+    //I essentially made force switch effect that can be cycled
+    //without enemy getting an attack off
+    //so yawn is another effect that breaks
+    //if made even slightly better
+
+    
 
     [MOVE_SUPERSONIC] =
     {
@@ -3630,10 +3638,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_SPORE] =
 {
-    .effect = EFFECT_YAWN,
+    .effect = EFFECT_SLEEP,
     .power = 0,
     .type = TYPE_GRASS,
-    .accuracy = 100,
+    .accuracy = 95,
     .pp = 15,
     .secondaryEffectChance = 0,
     .target = TARGET_SELECTED,
@@ -3653,6 +3661,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 //when the issue is just amoongus, who's so bulky it just doesn't have to worry,
 //so best thing I can do is just, and I do mean just, to lower its accuracy
 //at most lower to 90
+//yawn skips acc check if I just give this yawn
+//it'd just make it worse yawn
+//I could make all powder moves fail in rain
+//or less acc in rain as rec by Chief
+//sandstorm would already reduce acc off its base effect
+//will just leave how I had it I guess
 
 [MOVE_FLASH] =
 {
@@ -6875,7 +6889,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_YAWN,
         .power = 0,
         .type = TYPE_NORMAL,
-        .accuracy = 85,
+        .accuracy = 0,
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = TARGET_SELECTED,
@@ -6891,6 +6905,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     },//will replaec other sleep effects w yawn
     //but think this will be only effet given priority
     //as would be worst one
+    //vsonic IMPORTANT keep base version of effect
+    //don't use custom version that in mind reset acc
+    //unsure if keep priority only diff
+    //is if mon can be taken out before it gets off
+    //should be fine I think, just makes it 
+    //more usbale by more mon
 
     [MOVE_KNOCK_OFF] =
     {
@@ -20770,4 +20790,25 @@ use wonder gaurd logic to determine its super effective
     },
     //made 60 bp to continue trend of oddly broken dark moves category
 
+    [MOVE_CONTRALTO] =
+    {
+        .effect = EFFECT_YAWN, //giving effects that immobalize priority are too broken
+        .power = 0,
+        .type = TYPE_SOUND,
+        .accuracy = 80,
+        .pp = 15,
+        .secondaryEffectChance = 0, //droped acc will attempt buff
+        .target = TARGET_FOES_AND_ALLY,
+        .priority = 0, //since this keeps opponent from attacking will keep base priority / also because of high accuracy and good distributnion
+        .split = SPLIT_STATUS,
+       //.argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+        .ignoresSubstitute = TRUE,
+        .magicCoatAffected = TRUE,
+        .soundMove = TRUE,
+        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+        //.contestCategory = CONTEST_CATEGORY_CUTE,
+        //.contestComboStarterId = COMBO_STARTER_SING,
+        //.contestComboMoves = {0},
+        //.battleAnimScript = gBattleAnimMove_Sing,
+    },
 };
