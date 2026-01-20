@@ -5063,9 +5063,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     //may change to 125, half of guts
     if (abilityAtk == ABILITY_DEFIANT && attacker->status1 & STATUS1_ANY)
-        attack = (130 * attack) / 100;
+        attack = (125 * attack) / 100;
     if (abilityAtk == ABILITY_COMPETITIVE && attacker->status1 & STATUS1_ANY)
-        spAttack = (130 * spAttack) / 100;  //CUT Back to 130, because it already has stat raise component
+        spAttack = (125 * spAttack) / 100;  //CUT Back to 130, because it already has stat raise component
     if (abilityAtk == ABILITY_PLUS 
     && (ABILITY_ON_FIELD2(ABILITY_MINUS)
     || IsTypeOnField(battlerIdAtk,TYPE_ELECTRIC)))
@@ -5083,7 +5083,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         defense = (125 * defense) / 100;
         spDefense = (125 * spDefense) / 100;
     }   
-    if (GetBattlerAbility(battlerIdDef) == ABILITY_MARVEL_SCALE && defender->status1 & STATUS1_ANY)
+    if ((GetBattlerAbility(battlerIdDef) == ABILITY_MARVEL_SCALE && defender->status1 & STATUS1_ANY)
+    || (abilityDef == ABILITY_WATER_COMPACTION && IsBattlerWeatherAffected(battlerIdDef, WEATHER_ALL_RAIN)))
         defense = (150 * defense) / 100;
     if (moveType == TYPE_ELECTRIC && (sideStatus & SIDE_STATUS_MUDSPORT)) //sidestatus means target side status, checked from bs_commands.c damagecalc function
         gBattleMovePower /= 2;
