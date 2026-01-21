@@ -5641,6 +5641,19 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //max power for return is 102,
     //makes sense for frustration to be higher
     //as requires more setup
+    //-foud notes were in battle_main
+    //taking status dmg lowers friendship
+    //which could synergize with flame orb sets
+    //could keep return the same but make frustration
+    //just that, a move that requires a build up
+    //of frustration with trainer
+    //to get max power so no longer linked 
+    //w friendship itself think make like rage
+    //keep counter of effects triggered
+    //that would drop friendship
+    //using bitter items, fainting
+    //turns of taking status dmg and not being healed etc.
+    //went on tangent but point is
 
     [MOVE_SAFEGUARD] =
     {

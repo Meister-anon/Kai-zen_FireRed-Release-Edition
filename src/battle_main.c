@@ -6254,21 +6254,7 @@ static void TryEvolvePokemon(void) //want battle evolution for player and oppone
                 //so dynamically adjusted mid battle
                 //i.e use items on mon faint other mon
                 //lvl up etc.  and of course things that drop friendship
-                //as well use bitter flavor items
-                //could rework friendship moves
-                //so frustration could actually be useful?
-                //taking status dmg lowers friendship
-                //which could synergize with flame orb sets
-                //could keep return the same but make frustration
-                //just that, a move that requires a build up
-                //of frustration with trainer
-                //to get max power so no longer linked 
-                //w friendship itself think make like rage
-                //keep counter of effects triggered
-                //that would drop friendship
-                //using bitter items, fainting
-                //turns of taking status dmg and not being healed etc.
-                //went on tangent but point is
+                //as well use bitter flavor items              
                 //using fainting to block evo is big effect
                 //but luckily will be mitigated by
                 //getting mid battle evos working
