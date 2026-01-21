@@ -5625,6 +5625,22 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {0},
         //.battleAnimScript = gBattleAnimMove_Frustration,
     },
+    //idk where my notes for this are but plan rework effect to actually be useful
+    //doesn't rely on base friendhsip anymore instead
+    //have base power based on amount of 
+    //friendship dropping effects it goes through in battle
+    //so this would be like rage fist effect stays even for duration of switch
+    //maintained for entire battle.
+    //so its a specific strategy that you have to plan for
+    //i.e eating friendship dropping things bitter berries
+    //getting statused and not being healed
+    //being statused and each turn of taking status dmg without being healed
+    //fainting (revival blessing strats)
+    //think will cap at 150 bp have message 
+    //for max frustration pokemon's frustration has reached its zenith
+    //max power for return is 102,
+    //makes sense for frustration to be higher
+    //as requires more setup
 
     [MOVE_SAFEGUARD] =
     {
