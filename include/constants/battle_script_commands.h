@@ -281,7 +281,7 @@ enum BattleScriptOpcode
 #define sB_ANIM_ARG2 gBattleScripting + 0x11			//u8 animArg2; 1 byte 0x11
 //I also moved triple kick power to functions so could remove?
 #define sMULTIHIT_EFFECT gBattleScripting + 0x12		//u16 multihitMoveEffect; 2 byte 0x16 0x17	 //stores move effect for multihit moves, like twineedle uses it to store poison
-#define sMOVEEND_STATE gBattleScripting + 0x14			//u8 atk49_state; 1 byte 0x14
+#define sMOVEEND_STATE gBattleScripting + 0x14			//u8 moveendState;; 1 byte 0x14
 #define sBATTLER_WITH_ABILITY gBattleScripting + 0x15	//enum BattlerId battlerWithAbility; 1 byte 0x15
 #define sSTATCHANGEID gBattleScripting + 0x16           //statChangeId new value for dynamic stat set, this stat id will be passed to statchanger stat argument
 #define sBATTLER gBattleScripting + 0x17				//enum BattlerId battler; 1 byte 0x1c
@@ -586,74 +586,26 @@ enum SetMoveEffectFlags
     EFFECT_CERTAIN    = (1 << 1),
 };
 
-// cases for Cmd_moveend - Order matters!
-/*enum MoveEndEffects
+enum FaintBlockStates
 {
-    MOVEEND_SET_VALUES,
-    MOVEEND_PROTECT_LIKE_EFFECT,
-    MOVEEND_GRUDGE,
-    MOVEEND_DESTINY_BOND,
-    MOVEEND_ABSORB,
-    MOVEEND_RAGE,
-    MOVEEND_DRAGON_RAGE,
-    MOVEEND_ROOST, //needed for end turn print string after set effect
-    MOVEEND_SYNCHRONIZE_TARGET,
-    MOVEEND_ABILITIES,
-    MOVEEND_ABILITIES_ATTACKER,
-    MOVEEND_STATUS_IMMUNITY_ABILITIES, // TODO: Do berries come before????
-    MOVEEND_SYNCHRONIZE_ATTACKER,
-    MOVEEND_ATTACKER_INVISIBLE,
-    MOVEEND_ATTACKER_VISIBLE,
-    MOVEEND_TARGET_VISIBLE,
-    MOVEEND_GROUND_TARGET,
-    MOVEEND_SEMI_INVULNERABLE_INTERRUPT,
-    MOVEEND_ITEM_EFFECTS_TARGET,
-    MOVEEND_ITEM_EFFECTS_ATTACKER_1,
-    MOVEEND_SYMBIOSIS,
-    MOVEEND_SUBSTITUTE,
-    MOVEEND_SKY_DROP_CONFUSE,
-    MOVEEND_UPDATE_LAST_MOVES,
-    MOVEEND_MIRROR_MOVE,
-    MOVEEND_DEFROST,
-    MOVEEND_NEXT_TARGET, // Everything up until here is handled for each strike of a spread move
-    MOVEEND_HP_THRESHHOLD_ITEMS_TARGET, // Activation only during a multi hit move / ability (Parental Bond)
-    MOVEEND_MULTIHIT_MOVE, //still unsure if I need and what does may use just for parental bond or dragon darts
-    MOVEEND_MOVE_BLOCK,
-    MOVEEND_ITEM_EFFECTS_ATTACKER_2,
-    MOVEEND_ABILITY_BLOCK, //seems magician handled here, also moxie likes and battle bond
-    MOVEEND_SHEER_FORCE, // If move is Sheer Force affected, skip to Hit Escape + One
-    MOVEEND_COLOR_CHANGE, // Color Change / Berserk / Anger Shell //w my rework color change would be removed from this vsonic
-    MOVEEND_KEE_MARANGA_HP_THRESHOLD_ITEM_TARGET,
-    MOVEEND_RED_CARD,
-    MOVEEND_EJECT_BUTTON,
-    MOVEEND_LIFE_ORB_SHELL_BELL,
-    MOVEEND_FORM_CHANGE, //form change after using move mega ray, for things like this think need update my idea of form change need revert party mon if in mega form and not sent out yet think of as transferring mega energy
-    MOVEEND_EMERGENCY_EXIT, // need tweak to integrate with my changed version
-    MOVEEND_EJECT_PACK,
-    MOVEEND_HIT_ESCAPE,
-    MOVEEND_ITEMS_EFFECTS_ALL,
-    MOVEEND_WHITE_HERB,
-    MOVEEND_OPPORTUNIST,
-    MOVEEND_MIRROR_HERB,
-    MOVEEND_PICKPOCKET,
-    MOVEEND_THIRD_MOVE_BLOCK,
-    MOVEEND_CHANGED_ITEMS,
-    MOVEEND_SAME_MOVE_TURNS, //previouslyd dealt w metronome and parental bond
-    MOVEEND_CLEAR_BITS,
-    MOVEEND_DANCER,
-    MOVEEND_FETCH_BALL,
-    MOVEEND_PURSUIT_NEXT_ACTION,
-    MOVEEND_COUNT,
+    FAINT_BLOCK_FINAL_GAMBIT,
+    FAINT_BLOCK_CHECK_TARGET_FAINTED, // Exits if target is not fainted
+    FAINT_BLOCK_END_NEUTRALIZING_GAS,
+    // Destiny Bond and Grudge are tested first, but Faint Target's script plays first
+    FAINT_BLOCK_TRY_DESTINY_BOND,
+    FAINT_BLOCK_TRY_GRUDGE,
+    FAINT_BLOCK_FAINT_TARGET,
+    FAINT_BLOCK_DO_DESTINY_BOND,
+    FAINT_BLOCK_DO_GRUDGE,
+    FAINT_BLOCK_COUNT,
+};
 
-    // This guarantees a correct jump if new moveends are added directly after MOVEEND_HIT_ESCAPE
-    MOVEEND_JUMP_TO_HIT_ESCAPE_PLUS_ONE = (MOVEEND_HIT_ESCAPE + 1),
-};*/
-
-// switch cases
-#define B_SWITCH_NORMAL     0
-#define B_SWITCH_HIT        1   // dragon tail, circle throw
-#define B_SWITCH_RED_CARD   2
-
+enum SwitchInCases
+{
+    B_SWITCH_NORMAL,
+    B_SWITCH_HIT, // dragon tail, circle throw
+    B_SWITCH_RED_CARD,
+};
 enum StatusTrigger
 {
     TRIGGER_ON_MOVE,

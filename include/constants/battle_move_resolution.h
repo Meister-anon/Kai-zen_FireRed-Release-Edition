@@ -1,13 +1,6 @@
 #ifndef GUARD_CONSTANTS_BATTLE_MOVE_RESOLUTION_H
 #define GUARD_CONSTANTS_BATTLE_MOVE_RESOLUTION_H
 
-enum MoveEndResult
-{
-    MOVEEND_STEP_CONTINUE,
-    MOVEEND_STEP_RUN_SCRIPT,
-    MOVEEND_STEP_BREAK,
-};
-
 enum Obedience
 {
     OBEYS,
@@ -26,7 +19,7 @@ enum CancelerResult
     CANCELER_RESULT_FAILURE, // Move failed, jump to script that handles the failure
 };
 
-enum MoveSuccessOrder
+enum CancelerState
 {
     CANCELER_STANCE_CHANGE_1,
     CANCELER_CLEAR_FLAGS,
@@ -74,6 +67,14 @@ enum MoveSuccessOrder
     CANCELER_END,
 };
 
+enum MoveEndResult
+{
+    MOVEEND_RESULT_CONTINUE,
+    MOVEEND_RESULT_RUN_SCRIPT,
+    MOVEEND_RESULT_BREAK,
+};
+
+
 // cases for Cmd_moveend - Order matters!
 enum MoveEndState
 {
@@ -109,10 +110,10 @@ enum MoveEndState
     MOVEEND_ITEM_EFFECTS_ATTACKER_2,
     MOVEEND_ABILITY_EFFECT_FOES_FAINTED, //was MOVEEND_ABILITY_BLOCK // Moxie-like abilities / Battle Bond / Magician
     MOVEEND_SHEER_FORCE, // If move is Sheer Force affected, skip to Hit Escape + One
+    MOVEEND_SHELL_TRAP,
     MOVEEND_COLOR_CHANGE, // Color Change / Berserk / Anger Shell //need move color change out w rework would go further up
     MOVEEND_KEE_MARANGA_HP_THRESHOLD_ITEM_TARGET,
-    MOVEEND_RED_CARD,
-    MOVEEND_EJECT_BUTTON,
+    MOVEEND_CARD_BUTTON,
     MOVEEND_LIFE_ORB_SHELL_BELL,
     MOVEEND_FORM_CHANGE, //form change after using move mega ray, for things like this think need update my idea of form change need revert party mon if in mega form and not sent out yet think of as transferring mega energy
     MOVEEND_EMERGENCY_EXIT, // need tweak to integrate with my changed version

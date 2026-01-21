@@ -61,7 +61,7 @@ enum EndTurnResolutionOrder
 // Block that handles effects for each individual battler on the field (eg residual damage)
 enum FirstEventBlock
 {
-    FIRST_EVENT_BLOCK_GMAX_MOVE_RESIDUAL, // Needs to be split
+    //FIRST_EVENT_BLOCK_GMAX_MOVE_RESIDUAL, // Needs to be split
     FIRST_EVENT_BLOCK_SEA_OF_FIRE_DAMAGE,
     FIRST_EVENT_BLOCK_THRASH, // Thrash isn't handled here in vanilla but for now it is that best place for it.
     FIRST_EVENT_BLOCK_GRASSY_TERRAIN_HEAL,

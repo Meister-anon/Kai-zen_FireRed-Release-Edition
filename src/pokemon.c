@@ -4639,7 +4639,7 @@ void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u
 
     if (reflect || lightScreen || auroraVeil)
     {
-        if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerAtk) >= 2)
+        if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE) && CountAliveMonsInBattle(BATTLE_ALIVE_OPPOSING_SIDE, battlerAtk) >= 2)
             damage = (2 * damage) / 3;
         else
             damage /= 2;
@@ -6433,7 +6433,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
            )
         {
-            //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
+            //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_OPPOSING_SIDE) == 2)
                // damage = 2 * (damage / 3); //believe what's happening here is it lowers the effectiveness of reflect for doubles 
            // else //to balance the decreased amount of damage double damaging moves do.
             //    damage /= 2;
@@ -6589,7 +6589,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
            )
         {
-            //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
+            //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_OPPOSING_SIDE) == 2)
             //    damage = 2 * (damage / 3);    //looks strange, but screens blocked less damage instead of more for doubles, 
             //else         //because there was already logic that cut dmg for moves that hit multiple targets
                 damage /= 2;
@@ -6621,7 +6621,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         ApplyScreenModifier(battlerIdAtk, battlerIdDef, move, MoveDamageCategory, damage);
 
-     //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gMovesInfo[move].target == TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2) // this is spread move cut
+     //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gMovesInfo[move].target == TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_OPPOSING_SIDE) == 2) // this is spread move cut
         //    damage /= 2; //target 0x8 is target both    
         //this removes the split damage from double target moves ...just remove the line you idiot
         if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRIPLE))
@@ -6633,7 +6633,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
             //modern game changed to a 25% drop average damage 
             //is lower in my game so guess safe to make this a little stronger
-            if (gMovesInfo[move].target == TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerIdAtk) >= 2)
+            if (gMovesInfo[move].target == TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_OPPOSING_SIDE, battlerIdAtk) >= 2)
                 damage = (2 * damage) / 3;
         }
 
@@ -6683,14 +6683,14 @@ u8 CountAliveMonsInBattle(u8 caseId, enum BattlerId battler)
 
     switch (caseId)
     {
-    case BATTLE_ALIVE_EXCEPT_ACTIVE:
+    case BATTLE_ALIVE_EXCEPT_BATTLER:
         for (i = 0; i < 4; i++)
         {
             if (i != battler && !(gAbsentBattlerFlags & (1u << i)))
                 retVal++;
         }
         break;
-    case BATTLE_ALIVE_ATK_SIDE:
+    case BATTLE_ALIVE_EXCEPT_BATTLER_SIDE:
         battlerSide = GetBattlerSide(battler);
         for (i = 0; i < MAX_BATTLERS_COUNT; i++)
         {
@@ -6698,7 +6698,7 @@ u8 CountAliveMonsInBattle(u8 caseId, enum BattlerId battler)
                 retVal++;
         }
         break;//think aka Battler_ALIVE_SIDE
-    case BATTLE_ALIVE_DEF_SIDE:
+    case BATTLE_ALIVE_OPPOSING_SIDE:
         for (i = 0; i < MAX_BATTLERS_COUNT; i++)
         {
             if (i != battler && i != BATTLE_PARTNER(battler) && !(gAbsentBattlerFlags & (1u << i)))

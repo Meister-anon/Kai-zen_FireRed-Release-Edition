@@ -5,13 +5,12 @@
 // should they be included here or included individually by every file?
 #include "constants/battle_end_turn.h"
 #include "constants/battle_switch_in.h"
+//#include "global.h"
 #include "constants/abilities.h"
 #include "constants/battle.h"
 #include "constants/battle_move_resolution.h"
-#include "global.h"
-#include "constants/battle.h"
-#include "constants/hold_effects.h"
 #include "constants/form_change_types.h"
+#include "constants/hold_effects.h"
 #include "constants/battle_move_effects.h"
 #include "battle_util.h"
 #include "battle_script_commands.h"
@@ -768,7 +767,7 @@ struct EventStates
     enum FirstTurnEventsStates beforeFirstTurn:8;
     enum FaintedActions faintedAction:8;
     enum BattlerId faintedActionBattler:4;
-    enum MoveSuccessOrder atkCanceler:8;
+    enum CancelerState atkCanceler:8;
     enum BattlerId atkCancelerBattler:4;
     enum BattleIntroStates battleIntro:8;
     enum SwitchInEvents switchIn:8;
@@ -1260,7 +1259,7 @@ struct BattleScripting  //remember expanding this costs ewram
     u8 animArg1;
     u8 animArg2;
     u16 multihitMoveEffect;
-    u8 atk49_state; //move end
+    u8 moveendState;; //move end
     enum BattlerId battlerWithAbility;
     u8 statChangeId; //new for dynamic stat set, this stat id will be passed to statchanger
     enum BattlerId battler;

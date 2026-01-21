@@ -670,7 +670,7 @@ void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setu
             {
                 canSelectTarget = 0;
             }
-            else if (!(moveTarget == (TARGET_USER | TARGET_SELECTED)) && CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_ACTIVE, battler) <= 1)
+            else if (!(moveTarget == (TARGET_USER | TARGET_SELECTED)) && CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_BATTLER, battler) <= 1)
             {
                 gMultiUsePlayerCursor = GetDefaultMoveTarget(battler);
                 canSelectTarget = 0;

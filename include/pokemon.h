@@ -1129,10 +1129,6 @@ u16 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
 u16 GetFormChangeTargetSpeciesBoxMon(struct Pokemon *mon, u16 method, u32 arg);//still works same just adjusted for getablilitybyspecies change
 bool8 DoesSpeciesHaveCosmeticForms(u16 species);
 
-#define BATTLE_ALIVE_EXCEPT_ACTIVE  0
-#define BATTLE_ALIVE_ATK_SIDE       1
-#define BATTLE_ALIVE_DEF_SIDE       2
-
 u8 CountAliveMonsInBattle(u8 caseId, enum BattlerId battler);
 
 u8 GetDefaultMoveTarget(enum BattlerId battler);

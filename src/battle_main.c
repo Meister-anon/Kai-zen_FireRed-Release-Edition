@@ -4597,7 +4597,7 @@ static void TryDoEventsBeforeFirstTurn(void)
         *(&gBattleStruct->turnEffectsBattlerId) = 0;
         *(&gBattleStruct->wishPerishSongState) = 0;
         *(&gBattleStruct->wishPerishSongBattlerId) = 0;
-        gBattleScripting.atk49_state = 0;
+        gBattleScripting.moveendState; = 0;
         gBattleStruct->faintedActionsState = 0;
         gBattleStruct->turnCountersTracker = 0;
         gMoveResultFlags = 0;
@@ -4623,7 +4623,7 @@ static void HandleEndTurn_ContinueBattle(void)
             gBattleMons[i].volatiles.flinched = FALSE;
             //if ((gBattleMons[i].status1 & STATUS1_SLEEP) && (gBattleMons[i].volatiles.multipleTurns))
             if ((gBattleMons[i].status1 & STATUS1_SLEEP)) //pretty sure no reason not to just make it auto run on sleep
-                CancelMultiTurnMoves(i);
+                CancelMultiTurnMoves(i, SKY_DROP_IGNORE);
 
             //was stupid didn't need second loop
             if ((gBattleMons[i].ability == ABILITY_FOREWARN || gBattleMons[i].ability == ABILITY_ANTICIPATION)
@@ -4691,7 +4691,7 @@ void BattleTurnPassed(void) //after all moves used
     gHitMarker &= ~(HITMARKER_PASSIVE_DAMAGE);
     gBattleScripting.animTurn = 0;
     gBattleScripting.animTargetsHit = 0;
-    gBattleScripting.atk49_state = 0;
+    gBattleScripting.moveendState; = 0;
     gBattleMoveDamage = 0;
     gStoredHp = 0;
     gMoveResultFlags = 0;
@@ -7156,7 +7156,7 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
     gLastHitByType[gBattlerAttacker] = 0;//actually all I need to do is add that extra function call, for switch in
     gBattleStruct->dynamicMoveType = 0;//and then add STATUS3_INTIMIDATE_POKES filter to existing break condition and it should work perfect
     gDynamicBasePower = 0;//if target is on opposite side and visible and not already intimidated it will activate otherwise it'll skip/do nothing!! need test
-    gBattleScripting.atk49_state = 0;
+    gBattleScripting.moveendState; = 0;
     gBattleCommunication[MOVE_EFFECT_BYTE] = 0;
     gBattleCommunication[ACTIONS_CONFIRMED_COUNT] = 0;
     gBattleScripting.multihitMoveEffect = 0;

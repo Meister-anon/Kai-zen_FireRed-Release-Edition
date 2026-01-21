@@ -1074,7 +1074,7 @@ static void Cmd_attackcanceler(void)
         return;
     }
 
-    if (AtkCanceler_MoveSuccessOrder() != MOVE_STEP_SUCCESS)
+    if (DoAttackCanceler() != CANCELER_RESULT_SUCCESS)
         return;
 
 
@@ -5799,10 +5799,10 @@ static void Cmd_moveend(void)
 
     enum MoveEndResult result = DoMoveEnd(cmd->endMode, cmd->endState);
 
-    if (result == MOVEEND_STEP_BREAK)
+    if (result == MOVEEND_RESULT_BREAK)
         return;
 
-    if (gBattleScripting.moveendState == MOVEEND_COUNT && result == MOVEEND_STEP_CONTINUE)
+    if (gBattleScripting.moveendState == MOVEEND_COUNT && result == MOVEEND_RESULT_CONTINUE)
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
@@ -7042,7 +7042,7 @@ static void Cmd_futuresighttargetfailure(void)
     CMD_ARGS(const u8 *failInstr);
 
     // Just do CancelerTargetFailure
-    if (!DONE_TARGET_FAILURE && AtkCanceler_MoveSuccessOrder() != MOVE_STEP_SUCCESS)
+    if (!DONE_TARGET_FAILURE && DoAttackCanceler() != CANCELER_RESULT_SUCCESS)
         return;
 
     if (IsBattlerUnaffectedByMove(gBattlerTarget))
@@ -7050,6 +7050,7 @@ static void Cmd_futuresighttargetfailure(void)
     else
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
+#undef DONE_TARGET_FAILURE
 
 static u32 GetPossibleNextTarget(void)
 {

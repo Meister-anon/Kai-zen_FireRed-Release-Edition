@@ -397,14 +397,22 @@ enum ShinyMode {
 #define MON_PIC_HEIGHT 64
 #define MON_PIC_SIZE (MON_PIC_WIDTH * MON_PIC_HEIGHT / 2)
 
+/*
+// Most Pokémon have 2 frames (a default and an alternate for their animation).
+// There are 4 exceptions:
+// - Deoxys has 2 frames, 1 for each form
+// - Spinda has 1 frame, presumably to avoid the work of animating its spots
+// - Unown has 1 frame, presumably to avoid the work of animating all 28 of its forms
+#define MAX_MON_PIC_FRAMES 2
+*/
 //not really using just defined
+//No idea why this is 4 guess just for buffer?
 #define MAX_MON_PIC_FRAMES 4
 
 //use with CountAliveMonsInBattle
-#define BATTLE_ALIVE_EXCEPT_ACTIVE   0
-#define BATTLE_ALIVE_ATK_SIDE        1
-#define BATTLE_ALIVE_DEF_SIDE        2
-#define BATTLE_ALIVE_EXCEPT_ATTACKER 3
+#define BATTLE_ALIVE_EXCEPT_BATTLER      0
+#define BATTLE_ALIVE_EXCEPT_BATTLER_SIDE 1
+#define BATTLE_ALIVE_OPPOSING_SIDE       2
 
 // used by ShouldIgnoreDeoxysForm
 #define DEOXYS_CHECK_BATTLE_SPRITE      1

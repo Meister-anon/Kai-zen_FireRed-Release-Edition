@@ -1008,12 +1008,13 @@ enum CommanderType
 //largest value is u16 so think struct
 //alligns to 2?
 
-
+//update from EE most no longer used
+//go over update later  vsonic
 // Not really sure what a "hitmarker" is.
 #define HITMARKER_WAKE_UP_CLEAR         (1 << 4)	//// Cleared when waking up. Never set or checked.
 #define HITMARKER_SKIP_DMG_TRACK        (1 << 5)
 #define HITMARKER_DESTINYBOND           (1 << 6)
-#define HITMARKER_NO_ANIMATIONS         (1 << 7)
+#define HITMARKER_NO_ANIMATIONS         (1 << 7) // set from battleSceneOff. Never changed during battle
 #define HITMARKER_IGNORE_SUBSTITUTE     (1 << 8)
 #define HITMARKER_NO_ATTACKSTRING       (1 << 9)
 #define HITMARKER_ATTACKSTRING_PRINTED  (1 << 10)
@@ -1023,6 +1024,7 @@ enum CommanderType
 #define HITMARKER_SYNCHRONIZE_EFFECT    (1 << 14)
 #define HITMARKER_RUN                   (1 << 15)
 #define HITMARKER_IGNORE_DISGUISE       (1 << 16)
+#define HITMARKER_DISABLE_ANIMATION     (1 << 17)   // disable animations during battle scripts, e.g. for Bug Bite
 //#define HITMARKER_IGNORE_ON_AIR         0x00010000 //remove later
 //#define HITMARKER_IGNORE_UNDERGROUND    0x00020000 //remove later
 //#define HITMARKER_IGNORE_UNDERWATER     0x00040000 //remove later

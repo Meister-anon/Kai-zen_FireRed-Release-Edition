@@ -301,7 +301,7 @@ static bool32 HandleEndTurnFirstEventBlock(enum BattlerId battler)
 
     switch (gBattleStruct->eventState.endTurnBlock)
     {
-    case FIRST_EVENT_BLOCK_GMAX_MOVE_RESIDUAL: // TODO: Has to be split into 3 statuses and needs a queue
+    /*case FIRST_EVENT_BLOCK_GMAX_MOVE_RESIDUAL: // TODO: Has to be split into 3 statuses and needs a queue
         side = GetBattlerSide(battler);
         if (gSideStatuses[side] & SIDE_STATUS_DAMAGE_NON_TYPES)
         {
@@ -315,7 +315,7 @@ static bool32 HandleEndTurnFirstEventBlock(enum BattlerId battler)
             }
         }
         gBattleStruct->eventState.endTurnBlock++;
-        break;
+        break;*/
     case FIRST_EVENT_BLOCK_SEA_OF_FIRE_DAMAGE:
         if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_SEA_OF_FIRE)
         {
