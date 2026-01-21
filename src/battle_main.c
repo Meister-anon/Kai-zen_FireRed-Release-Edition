@@ -409,7 +409,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_WIND] =     {______,    ______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  ______,   ______,   X(1.55),   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,     ______,   ______}, // wind
 
-       /*sound*/      {______,    ______,   ______,   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,    ______,   ______,      ______,   ______}, // sound
+    [TYPE_SOUND] =    {______,    ______,   ______,   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,    ______,   ______,      ______,   ______}, // sound
 };//                     None      normal     fight    flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water    grass    electric   psychic    ice      dragon      dark      fairy        wind       sound
 
 #undef X
