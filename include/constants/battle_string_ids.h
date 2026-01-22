@@ -300,6 +300,12 @@ enum DamagingWeatherStringID
 #define UNPACK_BATTLE_STRING_ENUMS(_enum, ...) _enum,
 #define UNPACK_BATTLE_STRING_VALUES(_enum, _txtstring, ...) [_enum] = COMPOUND_STRING _txtstring,
 
+//plan for definitinons is take battlemessage table as is
+//then format to match
+//what I need is to identify what string overlap
+//between FR and EE I'll need to take what I have 
+//since I've changed some strings as well
+//start w that think want take fr specific strings at front
 enum StringID
 {
  //hard code ids actual text strings below this - make no string additions below this
@@ -307,6 +313,7 @@ enum StringID
     STRINGID_COUNT
 
 };
+
 
 
 //ok think use this as template for how I want order in battle_message.c to be
@@ -686,7 +693,7 @@ enum StringID
      STRINGID_MONHEARINGFLUTEAWOKE,
      STRINGID_PKMNSXCALLEDDOWNHAIL,
      STRINGID_POKEMONBLOCKEDBALL,
-     STRINGID_TRAINER2CLASS,
+     STRINGID_TRAINER2CLASS, //will need take ee as that combined class and name  to one string
     STRINGID_TRAINER2NAME,
     STRINGID_PLAYERWHITEDOUT,
     STRINGID_MONTOOSCAREDTOMOVE,
