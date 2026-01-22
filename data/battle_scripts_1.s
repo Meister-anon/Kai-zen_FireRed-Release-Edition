@@ -7143,9 +7143,11 @@ BattleScript_NoItemSteal::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
+@TEXT of string was identical unsure if was always
+@verified from EE both existed and were always identical
 BattleScript_AbilityCuredStatus::
 	call BattleScript_AbilityPopUp
-	printstring STRINGID_PKMNSXCUREDITSYPROBLEM
+	printstring STRINGID_PKMNSXCUREDYPROBLEM
 	waitmessage B_WAIT_TIME_LONG
 	updatestatusicon BS_SCRIPTING
 	return
