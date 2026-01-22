@@ -650,8 +650,8 @@ void BerryCrush_CreateBerrySprites(struct BerryCrushGame * game, struct BerryCru
         spritesManager->berrySprites[i] = &gSprites[spriteId];
         spritesManager->berrySprites[i]->oam.priority = 3;
         spritesManager->berrySprites[i]->affineAnimPaused = TRUE;
-        spritesManager->berrySprites[i]->pos1.x = spritesManager->seatCoords[i]->unk8 + 120;
-        spritesManager->berrySprites[i]->pos1.y = -16;
+        spritesManager->berrySprites[i]->x = spritesManager->seatCoords[i]->unk8 + 120;
+        spritesManager->berrySprites[i]->y = -16;
         data = spritesManager->berrySprites[i]->data;
         var5 = 512;
         data[1] = var5;
@@ -667,7 +667,7 @@ void BerryCrush_CreateBerrySprites(struct BerryCrushGame * game, struct BerryCru
         var6 = var5 + 32;
         var6 = var6 / 2;
         var1 = MathUtil_Div16Shift(7, 0x3F80, var6);
-        data[0] = (u16)spritesManager->berrySprites[i]->pos1.x * 128;
+        data[0] = (u16)spritesManager->berrySprites[i]->x * 128;
         data[3] = MathUtil_Div16Shift(7, var0, var1);
         var1 = MathUtil_Mul16Shift(7, var1, 85);
         data[4] = 0;
@@ -683,21 +683,21 @@ void SpriteCB_DropBerryIntoCrusher(struct Sprite * sprite)
     s16 *data = sprite->data;
 
     data[1] += data[2];
-    sprite->pos2.y += data[1] >> 8;
+    sprite->y2 += data[1] >> 8;
     if (data[7] & 0x8000)
     {
         sprite->data[0] += data[3];
         data[4] += data[5];
-        sprite->pos2.x = Sin(data[4] >> 7, data[6]);
+        sprite->x2 = Sin(data[4] >> 7, data[6]);
         if ((data[7] & 0x8000) && (data[4] >> 7) > 126)
         {
-            sprite->pos2.x = 0;
+            sprite->x2 = 0;
             data[7] &= 0x7FFF;
         }
     }
 
-    sprite->pos1.x = data[0] >> 7;
-    if (sprite->pos1.y + sprite->pos2.y >= (data[7] & 0x7FFF))
+    sprite->x = data[0] >> 7;
+    if (sprite->y + sprite->y2 >= (data[7] & 0x7FFF))
     {
         sprite->callback = SpriteCallbackDummy;
         FreeSpriteOamMatrix(sprite);
@@ -738,8 +738,8 @@ void sub_814DC5C(struct BerryCrushGame * game, struct BerryCrushGame_138 * manag
 
             manager->impactSprites[i]->invisible = FALSE;
             manager->impactSprites[i]->animPaused = FALSE;
-            manager->impactSprites[i]->pos2.x = gUnknown_846F2D0[(var % 4) - 1][0];
-            manager->impactSprites[i]->pos2.y = gUnknown_846F2D0[(var % 4) - 1][1];
+            manager->impactSprites[i]->x2 = gUnknown_846F2D0[(var % 4) - 1][0];
+            manager->impactSprites[i]->y2 = gUnknown_846F2D0[(var % 4) - 1][1];
         }
     }
 
@@ -756,10 +756,10 @@ void sub_814DC5C(struct BerryCrushGame * game, struct BerryCrushGame_138 * manag
             if (manager->sparkleSprites[i]->invisible)
             {
                 manager->sparkleSprites[i]->callback = sub_814F0D8;
-                manager->sparkleSprites[i]->pos1.x = gUnknown_846F2D6[i][0] + 120;
-                manager->sparkleSprites[i]->pos1.y = gUnknown_846F2D6[i][1] + 136 - (var * 4);
-                manager->sparkleSprites[i]->pos2.x = gUnknown_846F2D6[i][0] + (gUnknown_846F2D6[i][0] / (var2 * 4));
-                manager->sparkleSprites[i]->pos2.y = gUnknown_846F2D6[i][1];
+                manager->sparkleSprites[i]->x = gUnknown_846F2D6[i][0] + 120;
+                manager->sparkleSprites[i]->y = gUnknown_846F2D6[i][1] + 136 - (var * 4);
+                manager->sparkleSprites[i]->x2 = gUnknown_846F2D6[i][0] + (gUnknown_846F2D6[i][0] / (var2 * 4));
+                manager->sparkleSprites[i]->y2 = gUnknown_846F2D6[i][1];
                 if (var4E->data.unk02_1)
                     StartSpriteAnim(manager->sparkleSprites[i], 1);
                 else
@@ -1334,8 +1334,8 @@ static void sub_814EFFC(struct Sprite * sprite)
 
     for (; r1 < NELEMS(sprite->data); ++r1)
         sprite->data[r1] = 0;
-    sprite->pos2.x = 0;
-    sprite->pos2.y = 0;
+    sprite->x2 = 0;
+    sprite->y2 = 0;
     sprite->invisible = TRUE;
     sprite->animPaused = TRUE;
     sprite->callback = r5;
@@ -1346,20 +1346,20 @@ static void sub_814F044(struct Sprite * sprite)
     s16 *r4 = sprite->data;
 
     r4[1] += r4[2];
-    sprite->pos2.y += r4[1] >> 8;
+    sprite->y2 += r4[1] >> 8;
     if (r4[7] & 0x8000)
     {
         sprite->data[0] += r4[3];
         r4[4] += r4[5];
-        sprite->pos2.x = Sin(r4[4] >> 7, r4[6]);
+        sprite->x2 = Sin(r4[4] >> 7, r4[6]);
         if (r4[7] & 0x8000 && r4[4] >> 7 > 126)
         {
-            sprite->pos2.x = 0;
+            sprite->x2 = 0;
             r4[7] &= 0x7FFF;
         }
     }
-    sprite->pos1.x = r4[0] >> 7;
-    if (sprite->pos1.y + sprite->pos2.y > (r4[7] & 0x7FFF))
+    sprite->x = r4[0] >> 7;
+    if (sprite->y + sprite->y2 > (r4[7] & 0x7FFF))
         sprite->callback = sub_814EFFC;
 }
 
@@ -1374,17 +1374,17 @@ static void sub_814F0D8(struct Sprite * sprite)
     r7[1] = r2;
     r7[2] = 32;
     r7[7] = 168;
-    r4 = sprite->pos2.x * 128;
-    r5 = MathUtil_Div16Shift(7, (168 - sprite->pos1.y) << 7, (r2 + 32) >> 1);
-    sprite->data[0] = sprite->pos1.x << 7;
+    r4 = sprite->x2 * 128;
+    r5 = MathUtil_Div16Shift(7, (168 - sprite->y) << 7, (r2 + 32) >> 1);
+    sprite->data[0] = sprite->x << 7;
     r7[3] = MathUtil_Div16Shift(7, r4, r5);
     r2 = MathUtil_Mul16Shift(7, r5, 85);
     r7[4] = r8;
     r7[5] = MathUtil_Div16Shift(7, 0x3F80, r2);
-    r7[6] = sprite->pos2.x / 4;
+    r7[6] = sprite->x2 / 4;
     r7[7] |= 0x8000;
-    sprite->pos2.y = r8;
-    sprite->pos2.x = r8;
+    sprite->y2 = r8;
+    sprite->x2 = r8;
     sprite->callback = sub_814F044;
     sprite->animPaused = FALSE;
     sprite->invisible = FALSE;

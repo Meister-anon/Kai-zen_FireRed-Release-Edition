@@ -902,20 +902,20 @@ static void SetItemIconPosition(u8 id, u8 cursorArea, u8 cursorPos)
     case CURSOR_AREA_IN_BOX:
         row = cursorPos % IN_BOX_COLUMNS;
         column = cursorPos / IN_BOX_COLUMNS;
-        gPSSData->itemIconSprites[id].sprite->pos1.x = (24 * row) + 112;
-        gPSSData->itemIconSprites[id].sprite->pos1.y = (24 * column) + 56;
+        gPSSData->itemIconSprites[id].sprite->x = (24 * row) + 112;
+        gPSSData->itemIconSprites[id].sprite->y = (24 * column) + 56;
         gPSSData->itemIconSprites[id].sprite->oam.priority = 2;
         break;
     case CURSOR_AREA_IN_PARTY:
         if (cursorPos == 0)
         {
-            gPSSData->itemIconSprites[id].sprite->pos1.x = 116;
-            gPSSData->itemIconSprites[id].sprite->pos1.y = 76;
+            gPSSData->itemIconSprites[id].sprite->x = 116;
+            gPSSData->itemIconSprites[id].sprite->y = 76;
         }
         else
         {
-            gPSSData->itemIconSprites[id].sprite->pos1.x = 164;
-            gPSSData->itemIconSprites[id].sprite->pos1.y = 24 * (cursorPos - 1) + 28;
+            gPSSData->itemIconSprites[id].sprite->x = 164;
+            gPSSData->itemIconSprites[id].sprite->y = 24 * (cursorPos - 1) + 28;
         }
         gPSSData->itemIconSprites[id].sprite->oam.priority = 1;
         break;
@@ -1096,8 +1096,8 @@ static void sub_8096958(struct Sprite *sprite)
     switch (sprite->data[0])
     {
     case 0:
-        sprite->data[1] = sprite->pos1.x << 4;
-        sprite->data[2] = sprite->pos1.y << 4;
+        sprite->data[1] = sprite->x << 4;
+        sprite->data[2] = sprite->y << 4;
         sprite->data[3] = 10;
         sprite->data[4] = 21;
         sprite->data[5] = 0;
@@ -1105,8 +1105,8 @@ static void sub_8096958(struct Sprite *sprite)
     case 1:
         sprite->data[1] -= sprite->data[3];
         sprite->data[2] -= sprite->data[4];
-        sprite->pos1.x = sprite->data[1] >> 4;
-        sprite->pos1.y = sprite->data[2] >> 4;
+        sprite->x = sprite->data[1] >> 4;
+        sprite->y = sprite->data[2] >> 4;
         if (++sprite->data[5] > 11)
             sprite->callback = sub_80969BC;
         break;
@@ -1115,8 +1115,8 @@ static void sub_8096958(struct Sprite *sprite)
 
 static void sub_80969BC(struct Sprite *sprite)
 {
-    sprite->pos1.x = gPSSData->field_CB4->pos1.x + 4;
-    sprite->pos1.y = gPSSData->field_CB4->pos1.y + gPSSData->field_CB4->pos2.y + 8;
+    sprite->x = gPSSData->field_CB4->x + 4;
+    sprite->y = gPSSData->field_CB4->y + gPSSData->field_CB4->y2 + 8;
     sprite->oam.priority = gPSSData->field_CB4->oam.priority;
 }
 
@@ -1125,8 +1125,8 @@ static void sub_80969F4(struct Sprite *sprite)
     switch (sprite->data[0])
     {
     case 0:
-        sprite->data[1] = sprite->pos1.x << 4;
-        sprite->data[2] = sprite->pos1.y << 4;
+        sprite->data[1] = sprite->x << 4;
+        sprite->data[2] = sprite->y << 4;
         sprite->data[3] = 10;
         sprite->data[4] = 21;
         sprite->data[5] = 0;
@@ -1134,8 +1134,8 @@ static void sub_80969F4(struct Sprite *sprite)
     case 1:
         sprite->data[1] += sprite->data[3];
         sprite->data[2] += sprite->data[4];
-        sprite->pos1.x = sprite->data[1] >> 4;
-        sprite->pos1.y = sprite->data[2] >> 4;
+        sprite->x = sprite->data[1] >> 4;
+        sprite->y = sprite->data[2] >> 4;
         if (++sprite->data[5] > 11)
         {
             SetItemIconPosition(sub_80962A8(sprite), sprite->data[6], sprite->data[7]);
@@ -1150,8 +1150,8 @@ static void sub_8096A74(struct Sprite *sprite)
     switch (sprite->data[0])
     {
     case 0:
-        sprite->data[1] = sprite->pos1.x << 4;
-        sprite->data[2] = sprite->pos1.y << 4;
+        sprite->data[1] = sprite->x << 4;
+        sprite->data[2] = sprite->y << 4;
         sprite->data[3] = 10;
         sprite->data[4] = 21;
         sprite->data[5] = 0;
@@ -1159,13 +1159,13 @@ static void sub_8096A74(struct Sprite *sprite)
     case 1:
         sprite->data[1] -= sprite->data[3];
         sprite->data[2] -= sprite->data[4];
-        sprite->pos1.x = sprite->data[1] >> 4;
-        sprite->pos1.y = sprite->data[2] >> 4;
-        sprite->pos2.x = gSineTable[sprite->data[5] * 8] >> 4;
+        sprite->x = sprite->data[1] >> 4;
+        sprite->y = sprite->data[2] >> 4;
+        sprite->x2 = gSineTable[sprite->data[5] * 8] >> 4;
         if (++sprite->data[5] > 11)
         {
             SetItemIconPosition(sub_80962A8(sprite), sprite->data[6], sprite->data[7]);
-            sprite->pos2.x = 0;
+            sprite->x2 = 0;
             sprite->callback = sub_80969BC;
         }
         break;
@@ -1177,8 +1177,8 @@ static void sub_8096B10(struct Sprite *sprite)
     switch (sprite->data[0])
     {
     case 0:
-        sprite->data[1] = sprite->pos1.x << 4;
-        sprite->data[2] = sprite->pos1.y << 4;
+        sprite->data[1] = sprite->x << 4;
+        sprite->data[2] = sprite->y << 4;
         sprite->data[3] = 10;
         sprite->data[4] = 21;
         sprite->data[5] = 0;
@@ -1186,14 +1186,14 @@ static void sub_8096B10(struct Sprite *sprite)
     case 1:
         sprite->data[1] += sprite->data[3];
         sprite->data[2] += sprite->data[4];
-        sprite->pos1.x = sprite->data[1] >> 4;
-        sprite->pos1.y = sprite->data[2] >> 4;
-        sprite->pos2.x = -(gSineTable[sprite->data[5] * 8] >> 4);
+        sprite->x = sprite->data[1] >> 4;
+        sprite->y = sprite->data[2] >> 4;
+        sprite->x2 = -(gSineTable[sprite->data[5] * 8] >> 4);
         if (++sprite->data[5] > 11)
         {
             SetItemIconPosition(sub_80962A8(sprite), sprite->data[6], sprite->data[7]);
             sprite->callback = SpriteCallbackDummy;
-            sprite->pos2.x = 0;
+            sprite->x2 = 0;
         }
         break;
     }
@@ -1201,8 +1201,8 @@ static void sub_8096B10(struct Sprite *sprite)
 
 static void sub_8096BAC(struct Sprite *sprite)
 {
-    sprite->pos1.y -= 8;
-    if (sprite->pos1.y + sprite->pos2.y < -16)
+    sprite->y -= 8;
+    if (sprite->y + sprite->y2 < -16)
     {
         sprite->callback = SpriteCallbackDummy;
         SetItemIconActive(sub_80962A8(sprite), FALSE);
