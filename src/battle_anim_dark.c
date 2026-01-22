@@ -369,17 +369,17 @@ static void AnimUnusedBagSteal_Step(struct Sprite *sprite)
 {
     sprite->data[3] += sprite->data[1];
     sprite->data[4] += sprite->data[2];
-    sprite->pos2.x = sprite->data[3] >> 8;
-    sprite->pos2.y = sprite->data[4] >> 8;
+    sprite->x2 = sprite->data[3] >> 8;
+    sprite->y2 = sprite->data[4] >> 8;
     if (sprite->data[7] == 0)
     {
         sprite->data[3] += sprite->data[1];
         sprite->data[4] += sprite->data[2];
-        sprite->pos2.x = sprite->data[3] >> 8;
-        sprite->pos2.y = sprite->data[4] >> 8;
+        sprite->x2 = sprite->data[3] >> 8;
+        sprite->y2 = sprite->data[4] >> 8;
         --sprite->data[0];
     }
-    sprite->pos2.y += Sin(sprite->data[5], sprite->data[6]);
+    sprite->y2 += Sin(sprite->data[5], sprite->data[6]);
     sprite->data[5] = (sprite->data[5] + 3) & 0xFF;
     if (sprite->data[5] > 0x7F)
     {
@@ -393,8 +393,8 @@ static void AnimUnusedBagSteal_Step(struct Sprite *sprite)
 
 void AnimBite(struct Sprite *sprite)
 {
-    sprite->pos1.x += gBattleAnimArgs[0];
-    sprite->pos1.y += gBattleAnimArgs[1];
+    sprite->x += gBattleAnimArgs[0];
+    sprite->y += gBattleAnimArgs[1];
     StartSpriteAffineAnim(sprite, gBattleAnimArgs[2]);
     sprite->data[0] = gBattleAnimArgs[3];
     sprite->data[1] = gBattleAnimArgs[4];
@@ -406,8 +406,8 @@ static void AnimBite_Step1(struct Sprite *sprite)
 {
     sprite->data[4] += sprite->data[0];
     sprite->data[5] += sprite->data[1];
-    sprite->pos2.x = sprite->data[4] >> 8;
-    sprite->pos2.y = sprite->data[5] >> 8;
+    sprite->x2 = sprite->data[4] >> 8;
+    sprite->y2 = sprite->data[5] >> 8;
     if (++sprite->data[3] == sprite->data[2])
         sprite->callback = AnimBite_Step2;
 }
@@ -416,8 +416,8 @@ static void AnimBite_Step2(struct Sprite *sprite)
 {
     sprite->data[4] -= sprite->data[0];
     sprite->data[5] -= sprite->data[1];
-    sprite->pos2.x = sprite->data[4] >> 8;
-    sprite->pos2.y = sprite->data[5] >> 8;
+    sprite->x2 = sprite->data[4] >> 8;
+    sprite->y2 = sprite->data[5] >> 8;
     if (--sprite->data[3] == 0)
         DestroySpriteAndMatrix(sprite);
 }
@@ -436,29 +436,29 @@ void AnimTearDrop(struct Sprite *sprite)
     switch (gBattleAnimArgs[1])
     {
     case 0:
-        sprite->pos1.x = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_RIGHT) - 8;
-        sprite->pos1.y = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_TOP) + 8;
+        sprite->x = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_RIGHT) - 8;
+        sprite->y = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_TOP) + 8;
         break;
     case 1:
-        sprite->pos1.x = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_RIGHT) - 14;
-        sprite->pos1.y = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_TOP) + 16;
+        sprite->x = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_RIGHT) - 14;
+        sprite->y = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_TOP) + 16;
         break;
     case 2:
-        sprite->pos1.x = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_LEFT) + 8;
-        sprite->pos1.y = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_TOP) + 8;
+        sprite->x = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_LEFT) + 8;
+        sprite->y = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_TOP) + 8;
         StartSpriteAffineAnim(sprite, 1);
         xOffset = -20;
         break;
     case 3:
-        sprite->pos1.x = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_LEFT) + 14;
-        sprite->pos1.y = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_TOP) + 16;
+        sprite->x = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_LEFT) + 14;
+        sprite->y = GetBattlerSpriteCoordAttr(battler, BATTLER_COORD_ATTR_TOP) + 16;
         StartSpriteAffineAnim(sprite, 1);
         xOffset = -20;
         break;
     }
     sprite->data[0] = 32;
-    sprite->data[2] = sprite->pos1.x + xOffset;
-    sprite->data[4] = sprite->pos1.y + 12;
+    sprite->data[2] = sprite->x + xOffset;
+    sprite->data[4] = sprite->y + 12;
     sprite->data[5] = -12;
     InitAnimArcTranslation(sprite);
     sprite->callback = AnimTearDrop_Step;
@@ -834,8 +834,8 @@ void sub_80B8664(u8 taskId)
 
 void AnimClawSlash(struct Sprite *sprite)
 {
-    sprite->pos1.x += gBattleAnimArgs[0];
-    sprite->pos1.y += gBattleAnimArgs[1];
+    sprite->x += gBattleAnimArgs[0];
+    sprite->y += gBattleAnimArgs[1];
     StartSpriteAnim(sprite, gBattleAnimArgs[2]);
     sprite->callback = RunStoredCallbackWhenAnimEnds;
     StoreSpriteCallbackInData6(sprite, DestroyAnimSprite);
@@ -891,8 +891,8 @@ void AnimTask_MetallicShine(u8 taskId) //think will do the same for ghost absorb
     AnimLoadCompressedBgTilemap(animBg.bgId, gMetalShineTilemap);
     AnimLoadCompressedBgGfx(animBg.bgId, gMetalShineGfx, animBg.tilesOffset);
     LoadCompressedPalette(gMetalShinePalette, animBg.paletteId * 16, 32);
-    gBattle_BG1_X = -gSprites[spriteId].pos1.x + 96;
-    gBattle_BG1_Y = -gSprites[spriteId].pos1.y + 32;
+    gBattle_BG1_X = -gSprites[spriteId].x + 96;
+    gBattle_BG1_Y = -gSprites[spriteId].y + 32;
     paletteNum = 16 + gSprites[spriteId].oam.paletteNum;
     if (gBattleAnimArgs[1] == 0)
         SetGreyscaleOrOriginalPalette(paletteNum, FALSE);

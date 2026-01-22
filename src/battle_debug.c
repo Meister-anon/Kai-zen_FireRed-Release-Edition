@@ -900,8 +900,8 @@ static void Task_DebugMenuProcessInput(u8 taskId)
             if (data->modifyArrows.currentDigit != (data->modifyArrows.maxDigits - 1))
             {
                 data->modifyArrows.currentDigit++;
-                gSprites[data->modifyArrows.arrowSpriteId[0]].pos2.x += 6;
-                gSprites[data->modifyArrows.arrowSpriteId[1]].pos2.x += 6;
+                gSprites[data->modifyArrows.arrowSpriteId[0]].x2 += 6;
+                gSprites[data->modifyArrows.arrowSpriteId[1]].x2 += 6;
             }
         }
         else if (JOY_NEW(DPAD_LEFT))
@@ -909,8 +909,8 @@ static void Task_DebugMenuProcessInput(u8 taskId)
             if (data->modifyArrows.currentDigit != 0)
             {
                 data->modifyArrows.currentDigit--;
-                gSprites[data->modifyArrows.arrowSpriteId[0]].pos2.x -= 6;
-                gSprites[data->modifyArrows.arrowSpriteId[1]].pos2.x -= 6;
+                gSprites[data->modifyArrows.arrowSpriteId[0]].x2 -= 6;
+                gSprites[data->modifyArrows.arrowSpriteId[1]].x2 -= 6;
             }
         }
         else if (JOY_NEW(DPAD_UP))

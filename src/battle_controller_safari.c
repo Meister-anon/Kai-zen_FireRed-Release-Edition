@@ -346,7 +346,7 @@ static void SafariHandleDrawTrainerPic(u32 battler)
                                                      (8 - gTrainerBackPicCoords[gSaveBlock2Ptr->playerGender].size) * 4 + 80,
                                                      30);
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
-    gSprites[gBattlerSpriteIds[battler]].pos2.x = DISPLAY_WIDTH;
+    gSprites[gBattlerSpriteIds[battler]].x2 = DISPLAY_WIDTH;
     gSprites[gBattlerSpriteIds[battler]].data[0] = -2;
     gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_TrainerSlideIn;
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy;

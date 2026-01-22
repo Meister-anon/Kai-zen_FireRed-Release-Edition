@@ -223,7 +223,7 @@ static void PlayerBufferRunCommand(u32 battler)
 
 static void CompleteOnBattlerSpritePosX_0(u32 battler)
 {
-    if (gSprites[gBattlerSpriteIds[battler]].pos2.x == 0)
+    if (gSprites[gBattlerSpriteIds[battler]].x2 == 0)
         PlayerBufferExecCompleted(battler);
 }
 
@@ -1422,15 +1422,15 @@ static void Task_CreateLevelUpVerticalStripes(u8 taskId)
             {
                 data[14] = gBattle_BG1_X;
                 data[13] = gBattle_BG1_Y;
-                gBattle_BG1_X = -(sprite->pos1.x + sprite->pos2.x) + 32;
-                gBattle_BG1_Y = -(sprite->pos1.y + sprite->pos2.y) + 32;
+                gBattle_BG1_X = -(sprite->x + sprite->x2) + 32;
+                gBattle_BG1_Y = -(sprite->y + sprite->y2) + 32;
             }
             else
             {
                 data[14] = gBattle_BG2_X;
                 data[13] = gBattle_BG2_Y;
-                gBattle_BG2_X = -(sprite->pos1.x + sprite->pos2.x) + 32;
-                gBattle_BG2_Y = -(sprite->pos1.y + sprite->pos2.y) + 32;
+                gBattle_BG2_X = -(sprite->x + sprite->x2) + 32;
+                gBattle_BG2_Y = -(sprite->y + sprite->y2) + 32;
             }
             ++data[15];
         }
@@ -1447,8 +1447,8 @@ static void Task_CreateLevelUpVerticalStripes(u8 taskId)
     case 2:
         PlaySE(SE_RS_SHOP);
         if (IsMonGettingExpSentOut())
-            CreateLevelUpVerticalSpritesTask(sprite->pos1.x + sprite->pos2.x,
-                        sprite->pos1.y + sprite->pos2.y,
+            CreateLevelUpVerticalSpritesTask(sprite->x + sprite->x2,
+                        sprite->y + sprite->y2,
                         10000,
                         10000,
                         1,
@@ -1488,7 +1488,7 @@ static void Task_CreateLevelUpVerticalStripes(u8 taskId)
 
 static void FreeMonSpriteAfterFaintAnim(u32 battler)
 {
-    if (gSprites[gBattlerSpriteIds[battler]].pos1.y + gSprites[gBattlerSpriteIds[battler]].pos2.y > DISPLAY_HEIGHT)
+    if (gSprites[gBattlerSpriteIds[battler]].y + gSprites[gBattlerSpriteIds[battler]].y2 > DISPLAY_HEIGHT)
     {
         FreeOamMatrix(gSprites[gBattlerSpriteIds[battler]].oam.matrixNum);
         DestroySprite(&gSprites[gBattlerSpriteIds[battler]]);
@@ -2505,7 +2505,7 @@ static void PlayerHandleDrawTrainerPic(u32 battler)
                                                      (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80,
                                                      GetBattlerSpriteSubpriority(battler));
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
-    gSprites[gBattlerSpriteIds[battler]].pos2.x = DISPLAY_WIDTH;
+    gSprites[gBattlerSpriteIds[battler]].x2 = DISPLAY_WIDTH;
     gSprites[gBattlerSpriteIds[battler]].data[0] = -2;
     gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_TrainerSlideIn;
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy;
@@ -2535,7 +2535,7 @@ static void PlayerHandleTrainerSlide(u32 battler)
                                                      (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80,
                                                      30);
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
-    gSprites[gBattlerSpriteIds[battler]].pos2.x = -96;
+    gSprites[gBattlerSpriteIds[battler]].x2 = -96;
     gSprites[gBattlerSpriteIds[battler]].data[0] = 2;
     gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_TrainerSlideIn;
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy2;
@@ -2546,7 +2546,7 @@ static void PlayerHandleTrainerSlideBack(u32 battler)
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[battler]]);
     gSprites[gBattlerSpriteIds[battler]].data[0] = 50;
     gSprites[gBattlerSpriteIds[battler]].data[2] = -40;
-    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].pos1.y;
+    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].y;
     gSprites[gBattlerSpriteIds[battler]].callback = StartAnimLinearTranslation;
     StoreSpriteCallbackInData6(&gSprites[gBattlerSpriteIds[battler]], SpriteCallbackDummy);
     StartSpriteAnim(&gSprites[gBattlerSpriteIds[battler]], 1);
@@ -3045,7 +3045,7 @@ static void PlayerHandleIntroTrainerBallThrow(u32 battler)
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[battler]]);
     gSprites[gBattlerSpriteIds[battler]].data[0] = 50;
     gSprites[gBattlerSpriteIds[battler]].data[2] = -40;
-    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].pos1.y;
+    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].y;
     gSprites[gBattlerSpriteIds[battler]].callback = PlayerThrowBall_StartAnimLinearTranslation;
     gSprites[gBattlerSpriteIds[battler]].data[5] = battler;
     StoreSpriteCallbackInData6(&gSprites[gBattlerSpriteIds[battler]], SpriteCB_FreePlayerSpriteLoadMonSprite);

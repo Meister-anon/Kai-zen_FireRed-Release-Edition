@@ -599,7 +599,7 @@ static void DestroyExpTaskAndCompleteOnInactiveTextPrinter(u8 taskId)
 
 static void FreeMonSpriteAfterFaintAnim(u32 battler)
 {
-    if (gSprites[gBattlerSpriteIds[battler]].pos1.y + gSprites[gBattlerSpriteIds[battler]].pos2.y > DISPLAY_HEIGHT)
+    if (gSprites[gBattlerSpriteIds[battler]].y + gSprites[gBattlerSpriteIds[battler]].y2 > DISPLAY_HEIGHT)
     {
         FreeOamMatrix(gSprites[gBattlerSpriteIds[battler]].oam.matrixNum);
         DestroySprite(&gSprites[gBattlerSpriteIds[battler]]);
@@ -1572,7 +1572,7 @@ static void OakOldManHandleDrawTrainerPic(u32 battler)
                                                          30);
     }
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
-    gSprites[gBattlerSpriteIds[battler]].pos2.x = DISPLAY_WIDTH;
+    gSprites[gBattlerSpriteIds[battler]].x2 = DISPLAY_WIDTH;
     gSprites[gBattlerSpriteIds[battler]].data[0] = -2;
     gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_TrainerSlideIn;
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy;
@@ -1599,7 +1599,7 @@ static void OakOldManHandleTrainerSlide(u32 battler)
                                                          30);
     }
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
-    gSprites[gBattlerSpriteIds[battler]].pos2.x = -96;
+    gSprites[gBattlerSpriteIds[battler]].x2 = -96;
     gSprites[gBattlerSpriteIds[battler]].data[0] = 2;
     gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_TrainerSlideIn;
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy2;
@@ -2082,7 +2082,7 @@ static void OakOldManHandleIntroTrainerBallThrow(u32 battler)
         SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[battler]]);
         gSprites[gBattlerSpriteIds[battler]].data[0] = 50;
         gSprites[gBattlerSpriteIds[battler]].data[2] = -40;
-        gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].pos1.y;
+        gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].y;
         gSprites[gBattlerSpriteIds[battler]].callback = StartAnimLinearTranslation;
         gSprites[gBattlerSpriteIds[battler]].data[5] = battler;
         StoreSpriteCallbackInData6(&gSprites[gBattlerSpriteIds[battler]], SpriteCB_FreePlayerSpriteLoadMonSprite);

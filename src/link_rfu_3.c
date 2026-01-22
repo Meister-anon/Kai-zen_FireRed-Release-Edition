@@ -761,8 +761,8 @@ void UpdateWirelessStatusIndicatorSprite(void)
             sprite->data[3]++;
         }
         gMain.oamBuffer[125] = sWirelessStatusIndicatorOamData;
-        gMain.oamBuffer[125].x = sprite->pos1.x + sprite->centerToCornerVecX;
-        gMain.oamBuffer[125].y = sprite->pos1.y + sprite->centerToCornerVecY;
+        gMain.oamBuffer[125].x = sprite->x + sprite->centerToCornerVecX;
+        gMain.oamBuffer[125].y = sprite->y + sprite->centerToCornerVecY;
         gMain.oamBuffer[125].paletteNum = sprite->oam.paletteNum;
         gMain.oamBuffer[125].tileNum = sprite->data[6] + sprite->anims[sprite->data[2]][sprite->data[4]].frame.imageValue;
         CpuCopy16(gMain.oamBuffer + 125, (struct OamData *)OAM + 125, sizeof(struct OamData));

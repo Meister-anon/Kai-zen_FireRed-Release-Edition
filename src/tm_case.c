@@ -1916,7 +1916,7 @@ static void UpdateTMSpritePosition(struct Sprite * sprite, u16 tmIdx) //vsonic
     {
         x = 0x1B;
         y = 0x28;
-        sprite->pos2.y = 0x10; //still need check but believe will need adjust both these y values, up(lower) to account for changed graphic
+        sprite->y2 = 0x10; //still need check but believe will need adjust both these y values, up(lower) to account for changed graphic
     }
     else
     {
@@ -1924,8 +1924,8 @@ static void UpdateTMSpritePosition(struct Sprite * sprite, u16 tmIdx) //vsonic
         x = DISC_BASE_X - Q_24_8_TO_INT(Q_24_8(14 * tmIdx) / (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES));
         y = DISC_BASE_Y + Q_24_8_TO_INT(Q_24_8(8 * tmIdx) / (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES));
     }
-    sprite->pos1.x = x;
-    sprite->pos1.y = y; //0x16 value was 2E
+    sprite->x = x;
+    sprite->y = y; //0x16 value was 2E
 }//changed tmIdx to u16 think shouldn't cause any issue, value stored there isn't changing.
 
 #define sItemId  data[0]
@@ -1947,7 +1947,7 @@ static void SpriteCB_MoveTMSpriteInCase(struct Sprite * sprite) //vsonic
     {
     case 0:
         // Lower old disc back into case
-        if (sprite->pos2.y >= 10)   //is meant to be distance but my value uses 10, default is 20
+        if (sprite->y2 >= 10)   //is meant to be distance but my value uses 10, default is 20
         {
             // Old disc is hidden, set up new disc
             if (sprite->sItemId != ITEM_NONE)
@@ -1962,14 +1962,14 @@ static void SpriteCB_MoveTMSpriteInCase(struct Sprite * sprite) //vsonic
         }
         else
         {
-            sprite->pos2.y += DISC_Y_MOVE;
+            sprite->y2 += DISC_Y_MOVE;
         }
         break;
     case 1:
-        if (sprite->pos2.y <= 0)
+        if (sprite->y2 <= 0)
             sprite->callback = SpriteCallbackDummy;
         else
-            sprite->pos2.y -= DISC_Y_MOVE;
+            sprite->y2 -= DISC_Y_MOVE;
     }
 }
 

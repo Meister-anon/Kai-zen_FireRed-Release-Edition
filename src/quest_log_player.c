@@ -126,8 +126,8 @@ static void sub_81505C4(u8 taskId)
                 else
                     sub_81507BC(objectEvent, GetPlayerAvatarGraphicsIdByStateId(2));
                 ObjectEventTurn(objectEvent, objectEvent->movementDirection);
-                sprite->pos2.x = 0;
-                sprite->pos2.y = 0;
+                sprite->x2 = 0;
+                sprite->y2 = 0;
                 UnlockPlayerFieldControls();
                 DestroyTask(taskId);
             }
