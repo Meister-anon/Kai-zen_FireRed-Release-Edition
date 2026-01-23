@@ -306,6 +306,17 @@ enum DamagingWeatherStringID
     F(STRINGID_STOPLEARNINGMOVE,                                        ("{PAUSE 32}Stop learning\n{B_BUFF2}?"))\
     F(STRINGID_DIDNOTLEARNMOVE,                                        ("{B_BUFF1} did not learn\n{B_BUFF2}.\p"))\
     F(STRINGID_PKMNLEARNEDMOVE2,                                        ("{B_ATK_NAME_WITH_PREFIX} learned\n{B_BUFF1}!"))\
+    F(STRINGID_TRAINER2CLASS,                              ("{B_TRAINER2_CLASS}"))\
+    F(STRINGID_TRAINER2NAME,                              ("{B_TRAINER2_NAME}"))\
+    F(STRINGID_PLAYERWHITEDOUT,                              ("{B_PLAYER_NAME} whited out!{PAUSE_UNTIL_PRESS}"))\
+    F(STRINGID_MONTOOSCAREDTOMOVE,                              ("{B_ATK_NAME_WITH_PREFIX} is too scared to move!"))\
+    F(STRINGID_GHOSTGETOUTGETOUT,                              ("GHOST: Get out…… Get out……"))\
+    F(STRINGID_SILPHSCOPEUNVEILED,                              ("SILPH SCOPE unveiled the GHOST's\nidentity!"))\
+    F(STRINGID_GHOSTWASMAROWAK,                              ("The GHOST was MAROWAK!\p\n"))\
+    F(STRINGID_TRAINER1MON1COMEBACK,                              ("{B_TRAINER1_NAME}: {B_OPPONENT_MON1_NAME}, come back!"))\
+    F(STRINGID_TRAINER1WINTEXT,                              ("{B_TRAINER1_WIN_TEXT}"))\
+    F(STRINGID_TRAINER1MON2COMEBACK,                              ("{B_TRAINER1_NAME}: {B_OPPONENT_MON2_NAME}, come back!"))\
+    F(STRINGID_TRAINER1MON1AND2COMEBACK,                              ("{B_TRAINER1_NAME}: {B_OPPONENT_MON1_NAME} and\n{B_OPPONENT_MON2_NAME}, come back!"))\
     F(STRINGID_ATTACKMISSED,                                        ("{B_ATK_NAME_WITH_PREFIX}'s\nattack missed!"))\
     F(STRINGID_PKMNPROTECTEDITSELF,                                        ("{B_DEF_NAME_WITH_PREFIX}\nprotected itself!"))\
     F(STRINGID_STATSWONTINCREASE2,                                        ("{B_ATK_NAME_WITH_PREFIX}'s stats won't\ngo any higher!"))\
@@ -1011,7 +1022,7 @@ enum DamagingWeatherStringID
     F(STRINGID_PKMNSWARMED,                                        ("{B_DEF_NAME_WITH_PREFIX} was trapped\nin a swirling Swarm!"))\
     F(STRINGID_PKMNCAMETOITSSENSES,                                        ("{B_SCR_ACTIVE_NAME_WITH_PREFIX} came to its senses!"))\
     F(STRINGID_PKMNRETURNEDTOAIR,                                        ("{B_ATK_NAME_WITH_PREFIX} returned to the air!"))\
-    F(STRINGID_TWOENEMIESDEFEATED,                                         ("You defeated {B_TRAINER1_NAME_WITH_CLASS} and {B_TRAINER2_NAME_WITH_CLASS}!\p"))\
+/*EE*/    F(STRINGID_TWOENEMIESDEFEATED,                                         ("You defeated {B_TRAINER1_NAME_WITH_CLASS} and {B_TRAINER2_NAME_WITH_CLASS}!\p"))\
     F(STRINGID_TRAINER2LOSETEXT,                                         ("{B_TRAINER2_LOSE_TEXT}"))\
     F(STRINGID_PKMNINCAPABLEOFPOWER,                                         ("{B_ATK_NAME_WITH_PREFIX} appears incapable of using its power!"))\
     F(STRINGID_GLINTAPPEARSINEYE,                                         ("A glint appears in {B_SCR_NAME_WITH_PREFIX2}'s eyes!"))\
