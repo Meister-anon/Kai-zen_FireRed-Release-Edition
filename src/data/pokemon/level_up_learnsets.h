@@ -4121,12 +4121,14 @@ static const struct LevelUpMove sUrsaringLevelUpLearnset[] = {
     LEVEL_UP_MOVE(25, MOVE_FEINT_ATTACK)
     LEVEL_UP_MOVE(29, MOVE_SLASH)
     LEVEL_UP_MOVE(36, MOVE_SCARY_FACE)
+    LEVEL_UP_MOVE(38, MOVE_FURY_CUTTER)
     LEVEL_UP_MOVE(40, MOVE_REST)
     LEVEL_UP_MOVE(43, MOVE_SNORE)
     LEVEL_UP_MOVE(49, MOVE_THRASH)
     LEVEL_UP_MOVE(57, MOVE_HAMMER_ARM)
     LEVEL_UP_END
 };
+//added fury cutter from pokemon horizons show
 
 static const struct LevelUpMove sSlugmaLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_YAWN)
