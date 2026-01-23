@@ -43,8 +43,10 @@ for line in lines:
         #actually re.sub is better 
         if d := re.compile(r'(sText.*)\,').search(line):
             Id = d.group(1)
-            string = stringDict[Id]
-            line = re.sub(Id, "COMPOUND_STRING" + string, line)
+            if Id in stringDict:
+                string = stringDict[Id]
+                #line = re.sub(Id, 'COMPOUND_STRING' + string, line)
+                line = line.replace(Id, 'COMPOUND_STRING' + string)
 
     new_lines.append(line)
 infile.close()
