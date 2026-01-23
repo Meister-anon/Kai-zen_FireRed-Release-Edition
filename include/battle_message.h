@@ -27,14 +27,14 @@
 #define B_DEF_NAME_WITH_PREFIX 0x10
 #define B_EFF_NAME_WITH_PREFIX 0x11 // EFF = short for gEffectBank
 //#define B_ACTIVE_NAME_WITH_PREFIX 0x12 - removed
-#define B_SCR_ACTIVE_NAME_WITH_PREFIX 0x13
+#define B_SCR_NAME_WITH_PREFIX 0x13 //scripting.battler
 #define B_CURRENT_MOVE 0x14
 #define B_LAST_MOVE 0x15
 #define B_LAST_ITEM 0x16
 #define B_LAST_ABILITY 0x17
 #define B_ATK_ABILITY 0x18
 #define B_DEF_ABILITY 0x19
-#define B_SCR_ACTIVE_ABILITY 0x1A
+#define B_SCR_ABILITY 0x1A
 #define B_EFF_ABILITY 0x1B
 #define B_TRAINER1_CLASS 0x1C
 #define B_TRAINER1_NAME 0x1D
@@ -68,9 +68,10 @@
 #define B_DEF_NAME 0x39
 #define B_DEF_TEAM1 0x3A // Your/The opposing
 #define B_DEF_TEAM2 0x3B // your/the opposing
-#define B_ACTIVE_NAME 0x3C
-#define B_ACTIVE_NAME2 0x3D // no Illusion check
+#define B_DEF_PARTNER_NAME 0x3C
+//#define B_ACTIVE_NAME2 0x3D // no Illusion check
 #define B_ATK_ITEM 0x3E  //added for single use belch set attacker item
+
 
 // for B_TXT_BUFF1, B_TXT_BUFF2 and B_TXT_BUFF3
 
@@ -232,7 +233,7 @@ struct BattleMsgData
     u8 textBuffs[3][TEXT_BUFF_ARRAY_COUNT];
 };
 
-void BufferStringBattle(u32 battler, u16 stringID);
+void BufferStringBattle(u32 battler, enum StringID stringID);
 u32 BattleStringExpandPlaceholdersToDisplayedString(const u8 *src);
 u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst);
 void BattleHandleAddTextPrinter(const u8 *text, u8 arg1);

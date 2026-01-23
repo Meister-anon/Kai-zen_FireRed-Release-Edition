@@ -2453,7 +2453,7 @@ BattleScript_EffectSteelSurge:
 	setsteelsurge BattleScript_ButItFailed
 	attackanimation
 	waitanimation
-	printstring STRINGID_POINTEDSTEELSURROUNDS
+	printstring STRINGID_SHARPSTEELFLOATS
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
@@ -2587,12 +2587,12 @@ BattleScript_StealthRockAbsorb_Endturn::
 	end2
 
 BattleScript_SteelSpearsAbsorbed::
-	printstring STRINGID_STEELSURGE_ABSORBED
+	printstring STRINGID_SHARPSTEEL_ABSORBED
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 
 BattleScript_SteelSpearsAbsorbed_Endturn::
-	printstring STRINGID_STEELSURGE_ABSORBED
+	printstring STRINGID_SHARPSTEEL_ABSORBED
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end2
 
@@ -7803,7 +7803,7 @@ BattleScript_StealthRockFree::
 	return
 
 BattleScript_SteelSurgeFree::
-	printstring STRINGID_PKMNBLEWAWAYSTEELSURGE
+	printstring STRINGID_PKMNBLEWAWAYSHARPSTEEL
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 
@@ -9733,7 +9733,7 @@ BattleScript_AttackWeakenedByStrongWinds::
 
 BattleScript_SnowWarningActivates::
 	pause B_WAIT_TIME_SHORT	
-	printstring STRINGID_SNOWWARNINGHAIL
+	printstring STRINGID_CRYOSTORMHAIL
 	waitstate
 	playanimation BS_BATTLER_0, B_ANIM_HAIL_CONTINUES, NULL
 	call BattleScript_HandleWeatherFormChanges
@@ -10894,7 +10894,7 @@ BattleScript_SynchronizeActivates::
 	return
 
 BattleScript_AbilityCuredStatus::
-	printstring STRINGID_PKMNSXCUREDITSYPROBLEM
+	printstring STRINGID_PKMNSXCUREDYPROBLEM
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
 	return
