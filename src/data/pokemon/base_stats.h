@@ -17327,10 +17327,10 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        45,
+        50,
         65,
         99,
-        67,
+        47,
         40,
         89
         ),
@@ -17346,7 +17346,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_POISON_POINT, ABILITY_SWARM},
-        .abilityHidden = {ABILITY_SPEED_BOOST, ABILITY_QUICK_FEET},
+        .abilityHidden = {ABILITY_SPEED_BOOST, ABILITY_SLOW_START}, //looks crazy but w my buffs will be utility wall
         //.bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
