@@ -7148,7 +7148,7 @@ BattleScript_NoItemSteal::
 BattleScript_AbilityCuredStatus::
 	call BattleScript_AbilityPopUp
 	printstring STRINGID_PKMNSXCUREDYPROBLEM
-	waitmessage B_WAIT_TIME_LONG
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
 	return
 
