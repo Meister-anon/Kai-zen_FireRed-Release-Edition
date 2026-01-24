@@ -1701,9 +1701,20 @@ static inline bool32 IsbattlerDivergentTypeOfMove(u32 battler, enum Type moveTyp
     && moveType == TYPE_WIND)
         return TRUE;
 
-    /*if (IS_BATTLER_ANY_TYPE(battler, TYPE_GROUND, TYPE_ROCK)
-    && (moveType == TYPE_ROCK
-    || moveType == TYPE_GROUD))
+    //could work but problem with this is 
+    //ground and rock aren't cut from same thing
+    //fear would diminish reason to use rock
+    //wind is very rare also they are better defensively
+    //you'd prefer to be wind type
+    //so better for flying to get the boost
+    //here ground is better defensively while rock has
+    //i think better offense options for its moves
+    //despite its moves being worse (before) cuz acc
+    //also of note there are no flying wind types but
+    //there are many ground rock types
+    //so this would also invalidate them
+    /*if (IS_BATTLER_OF_TYPE(battler, TYPE_GROUND)
+    && moveType == TYPE_ROCK)
         return TRUE;
     */
 
