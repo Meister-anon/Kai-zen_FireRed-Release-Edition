@@ -39219,10 +39219,6 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Hydrapple,
         .iconPalIndex = 5,
         //FOOTPRINT(Hydrapple)
-       
-        .safariZoneFleeRate = 50,
-        .abilityLearnset = sHydrappleAbilityLearnset,
-        .levelUpLearnset = sHydrappleLevelUpLearnset,
         */
         .safariZoneFleeRate = 50,
         .abilityLearnset = sHydrappleAbilityLearnset,
