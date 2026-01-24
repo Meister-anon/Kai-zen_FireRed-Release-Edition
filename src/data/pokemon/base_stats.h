@@ -51866,6 +51866,9 @@ const struct BaseStats gBaseStats[] =
     },
     //get ability payload boosts power of ballistic moves
     //gets moves of them as level up
+    //meant ot be bumble and bomber bumbler maybe better but is that a dating app
+    //maybe just do bomberBee like butterfree? and bee drill
+    //moslty payload type moves mostly steel
 
     [SPECIES_FAEDENTIN] =
     {
