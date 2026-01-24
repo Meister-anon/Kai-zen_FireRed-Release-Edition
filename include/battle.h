@@ -1543,7 +1543,9 @@ static inline u32 GetChosenMoveFromPosition(u32 battler)
 //rename later with new understanding of what these do
 //makes sense to break through ground miss
 //so slight overlap w moldbreaker stuff
-static inline bool32 DoesBattlerAbilityBypassAcc(enum Ability ability)
+//really need to rename this
+//isSureHitAbility maybe idk somehtiing better
+static inline bool32 IsSureHitAbility(enum Ability ability)
 {
     return (ability == ABILITY_NO_GUARD || ability == ABILITY_COMPASS)
 }

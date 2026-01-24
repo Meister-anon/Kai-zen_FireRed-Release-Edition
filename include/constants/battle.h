@@ -453,7 +453,7 @@
 #define B_ENCORE_TIMER       4
 #define B_PERISH_SONG_TIMER  3
 #define B_TAUNT_TIMER        5
-#define B_SLOW_START_TIMER   5
+#define B_SLOW_START_TIMER   5 //remove this later
 #define B_EMBARGO_TIMER      5
 #define B_MAGNET_RISE_TIMER  5
 #define B_TELEKINESIS_TIMER  3
@@ -465,6 +465,12 @@
 #define B_TORMENT_TIMER      3
 #define B_DESTINY_BOND       2  //Don't Change -value of 2 needed for gen 7 config to block successive use of Destiny Bond
 #define B_ROOST_TIMER        4
+
+
+//Ability Timers
+#define SLOW_START_TIMER 3
+#define WONDER_GUARD_TIMER 5
+#define SPECTRE_TIMER 2
 
 enum VolatileFlags
 {

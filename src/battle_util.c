@@ -5036,7 +5036,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
     return effect;
 }
 
-u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ability, u32 move, bool32 shouldAbilityTrigger)
+u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ability, enum Move move, bool32 shouldAbilityTrigger)
 {
     u32 effect = 0;
     enum Type moveType = 0;
@@ -6142,8 +6142,8 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
                 if (i < sleep
                  && IsBattlerAlive(gBattlerAttacker)
                  && !gBattleStruct->unableToUseMove
-                 && IsBattlerTurnDamaged(gBattlerTarget)
-                 && CanBeSlept(gBattlerTarget, gBattlerAttacker, abilityAtk, NOT_BLOCKED_BY_SLEEP_CLAUSE)
+                 && IsBattlerTurnDamaged(gBattlerTarget) //already checked powder checks so no ability should prevent
+                 && CanBeSlept(gBattlerTarget, gBattlerAttacker, ABILITY_NONE, abilityAtk, NOT_BLOCKED_BY_SLEEP_CLAUSE)
                  && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, abilityAtk, holdEffectAtk, move))
                 {
                     if (IsSleepClauseEnabled())
@@ -7019,7 +7019,7 @@ enum Ability GetBattlerAbility(u32 battler)
     return GetBattlerAbilityInternal(battler, FALSE, FALSE);
 }
 
-u32 GetBattlerAbilityInternal(u32 battler, u32 ignoreMoldBreaker, u32 noAbilityShield)
+u32 GetBattlerAbilityInternal(u32 battler, bool32 ignoreMoldBreaker, bool32 noAbilityShield)
 {
     bool32 hasAbilityShield = !noAbilityShield && GetBattlerHoldEffectIgnoreAbility(battler) == HOLD_EFFECT_ABILITY_SHIELD;
     bool32 abilityCantBeSuppressed = gAbilitiesInfo[gBattleMons[battler].ability].cantBeSuppressed;
@@ -7050,6 +7050,84 @@ u32 GetBattlerAbilityInternal(u32 battler, u32 ignoreMoldBreaker, u32 noAbilityS
         return ABILITY_NONE;
 
     return gBattleMons[battler].ability;
+}
+
+//make new chategory of ability that gives mon the same bonuses as being of said type
+//ex ice types can't be frozen, and not hurt by hail, and get hail bonus
+//poison types can't be poisened, immune to poison moves(maybe)
+//bug dont get confused,
+//electric cant be paralyzed by electric moves
+//normal gets joat
+//think will keep this separted from type chart relations
+//need to be considerate of how I use this, as may not want ability to give ALL characteristcs
+//ex toadstool nymph just gives fairy stab
+//while sixth sense isn't exactly linked directly to bug, but gives the bug type immunity to confusion selfhit
+//but I do like the idea of making mon linked w a type without needing them to specifically be the type
+//ex could give tepig line fire affinity, and make like toadstool nymph where it gives fire stab
+//now if I have separate abilities that give different varying degrees of affinity/or different effects
+//I could add an abilityEffect to this function u16, so I could specify the ability I'm looking for
+//but that would break the battle script changes for jumpiftypeaffinity
+//hmm actually that wouldn't even work for this either, hmm no it would work
+//would be battler type factor abilityeffect
+//would auto go to only the type case I'm looking for,
+//than would be, is battler type or ability == abilityeffect
+//wouldn't see the specific abilities that affect it here within function
+//but logic would work
+//anyway need give more thought to establish how I'll do this
+//could make separate function for most of repo for specificying the ability that shuold get effect
+//than just keep this for bs, with the abilities that get the full set of affinities
+//TypeAffinityCheck - will be for type and specific ability
+//changed but realized target doesnt work as some case are offense affinity user i.e curse and sure hit poison
+//removing ai check with addition of ctx struct can get what  need from that
+//don't think can use ctx as argument tho
+#define NEW_ABILITY_CATEGORY //-use only for things that don't affect type chart relations
+bool8 DoesBattlerGetTypeBasedAffinity(enum Ability atkAbility, u32 battlerToCheck, enum Ability battlerAbility, u8 typeFactor)
+{
+    //extra protection for effects that check partner 
+    //takes place before attacks so think should be fine without alive check?
+    if (atkAbility == ABILITY_MOLD_BREAKER)
+        return FALSE;
+
+    switch(typeFactor)
+    {
+        case TYPE_FLYING:
+        {
+            return (IS_BATTLER_OF_TYPE(battlerToCheck, typeFactor) || battlerAbility == ABILITY_AVIATOR);
+                
+        }
+        break;
+        case TYPE_FIRE:
+        {
+            return (IS_BATTLER_OF_TYPE(battlerToCheck, typeFactor) || battlerAbility == ABILITY_TORCHSOUL);
+                
+        }
+        break;
+        case TYPE_BUG:
+        {
+            return (IS_BATTLER_OF_TYPE(battlerToCheck, typeFactor) || battlerAbility == ABILITY_APOTHEOSCENT);
+                   
+        }
+        break;
+        case TYPE_POISON:
+        {
+            return (IS_BATTLER_OF_TYPE(battlerToCheck, typeFactor) || battlerAbility == ABILITY_GRUNGE);
+                   
+        }
+        break;
+        case TYPE_FAIRY:
+        {
+            return (IS_BATTLER_OF_TYPE(battlerToCheck, typeFactor) || battlerAbility == ABILITY_TOADSTOOL_NYMPH);
+                
+        }//toadstool nymph is just to give stab on fairy moves
+        break;
+        default:
+        {
+            return (IS_BATTLER_OF_TYPE(battlerToCheck, typeFactor));
+                
+        }
+
+    }
+
 }
 
 u32 IsAbilityOnSide(u32 battler, enum Ability ability)
@@ -7087,6 +7165,19 @@ u32 IsAbilityOnFieldExcept(u32 battler, enum Ability ability)
     for (i = 0; i < gBattlersCount; i++)
     {
         if (i != battler && IsBattlerAlive(i) && GetBattlerAbility(i) == ability)
+            return i + 1;
+    }
+
+    return 0;
+}
+
+u32 IsTypeOnFieldExcept(u32 battler, enum Type type)
+{
+    u32 i;
+
+    for (i = 0; i < gBattlersCount; i++)
+    {
+        if (i != battler && IsBattlerAlive(i) && IS_BATTLER_OF_TYPE(i) == type)
             return i + 1;
     }
 
@@ -7318,7 +7409,7 @@ u32 GetParadoxBoostedStatId(u32 battler)
 //will need to redo all well no
 //just need to slot in my use of abilityaffinity
 //vsonic
-bool32 CanBeSlept(u32 battlerAtk, u32 battlerDef, enum Ability abilityDef, enum SleepClauseBlock isBlockedBySleepClause)
+bool32 CanBeSlept(u32 battlerAtk, u32 battlerDef, enum Ability abilityAtk, enum Ability abilityDef, enum SleepClauseBlock isBlockedBySleepClause)
 {
     if (IsSleepClauseActiveForSide(GetBattlerSide(battlerDef)) && isBlockedBySleepClause != NOT_BLOCKED_BY_SLEEP_CLAUSE)
         return FALSE;
@@ -7327,10 +7418,16 @@ bool32 CanBeSlept(u32 battlerAtk, u32 battlerDef, enum Ability abilityDef, enum 
         gBattleStruct->sleepClauseNotBlocked = TRUE;
 
     bool32 effect = FALSE;
+
+    //atk ability would matter for my set
+    //because mold breaker ignoring affinities
+    //think just make inline to check if ability moldbreaker
+    //if yes return moldbreaker otherwise ability_none
+    //in cansetnonvola just add check for IsMoldBreakerTypeAbility
     if (CanSetNonVolatileStatus(
             battlerAtk,
             battlerDef,
-            ABILITY_NONE, // attacker ability does not matter
+            abilityAtk, // attacker ability does not matter
             abilityDef,
             MOVE_EFFECT_SLEEP, // also covers yawn
             CHECK_TRIGGER))
@@ -7886,8 +7983,8 @@ u8 GetAttackerObedienceForAction()
     {
         obedienceLevel = levelReferenced - obedienceLevel;
 
-        calc = ((rnd >> 16) & 255);
-        if (calc < obedienceLevel && CanBeSlept(gBattlerAttacker, gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), NOT_BLOCKED_BY_SLEEP_CLAUSE))
+        calc = ((rnd >> 16) & 255); //mechanic so ability shouldn't prevent or interact w this
+        if (calc < obedienceLevel && CanBeSlept(gBattlerAttacker, gBattlerAttacker, ABILITY_NONE, GetBattlerAbility(gBattlerAttacker), NOT_BLOCKED_BY_SLEEP_CLAUSE))
         {
             // try putting asleep
             int i;
@@ -11011,11 +11108,8 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct BattleCont
     //need test hopefully works right
     //meant to allow no gurad to bypass ground miss
     //since they can already hit through semi invulnerable
-    else if (IsFloatingTargetImmunetoGroundBasedMoves(ctx->battlerAtk, ctx->battlerDef, ctx->move) 
+    else if (IsFloatingTargetImmunetoGroundBasedMoves(ctx->battlerDef, ctx->abilityAtk, ctx->abilityDef, ctx->move) 
     && !IsBattlerGroundedInverseCheck(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef, INVERSE_BATTLE, ctx->isAnticipation) 
-    && !(MoveIgnoresTypeIfFlyingAndUngrounded(ctx->move))
-    && !DoesBattlerAbilityBypassAcc(ctx->abilityAtk)
-    && !DoesBattlerAbilityBypassAcc(ctx->abilityDef)
     )
     {
         modifier = UQ_4_12(0.0);
@@ -11830,9 +11924,11 @@ u32 TryImmunityAbilityHealStatus(u32 battler)
             effect = 1;
         }
         break;
+    case ABILITY_FEMME_FATALE:
     case ABILITY_OBLIVIOUS:
         if (gBattleMons[battler].volatiles.infatuation)
             effect = 3;
+        //add torment to this double check oblivious effect
         else if (GetConfig(CONFIG_OBLIVIOUS_TAUNT) >= GEN_6 && gBattleMons[battler].volatiles.tauntTimer != 0)
             effect = 4;
         break;
@@ -12173,6 +12269,21 @@ bool32 IsBattlerAffectedByHazards(u32 battler, enum HoldEffect holdEffect, bool3
         RecordItemEffectBattle(battler, holdEffect);
     }
     return ret;
+}
+
+//active sleep effects not yawn
+//not powder sleep.
+//hypnosis effects set max sleep turns
+bool32 ShouldActivateFugue(u32 battleratk, u32 battlerdef, enum Ability abilityAtk)
+{
+    if (battleratk == battlerdef)
+        return FALSE;
+
+    if (IsBattlerAlive(battleratk)
+    && abilityAtk == ABILITY_FUGUE)
+        return TRUE;
+
+    return FALSE;
 }
 
 bool32 IsSheerForceAffected(u16 move, enum Ability ability)
@@ -13205,7 +13316,7 @@ bool32 CanMoveSkipAccuracyCalc(u32 battlerAtk, u32 battlerDef, enum Ability abil
         effect = TRUE;
     }
     // If the attacker has the ability No Guard and they aren't targeting a Pokemon involved in a Sky Drop with the move Sky Drop, move hits.
-    else if (DoesBattlerAbilityBypassAcc(abilityAtk)
+    else if (IsSureHitAbility(abilityAtk)
           && gBattleMons[battlerDef].volatiles.semiInvulnerable != STATE_COMMANDER
           && (moveEffect != EFFECT_SKY_DROP || gBattleStruct->skyDropTargets[battlerDef] == SKY_DROP_NO_TARGET))
     {
@@ -13213,7 +13324,7 @@ bool32 CanMoveSkipAccuracyCalc(u32 battlerAtk, u32 battlerDef, enum Ability abil
         ability = abilityAtk;
     }
     // If the target has the ability No Guard and they aren't involved in a Sky Drop or the current move isn't Sky Drop, move hits.
-    else if (DoesBattlerAbilityBypassAcc(abilityDef)
+    else if (IsSureHitAbility(abilityDef)
           && (moveEffect != EFFECT_SKY_DROP || gBattleStruct->skyDropTargets[battlerDef] == SKY_DROP_NO_TARGET))
     {
         effect = TRUE;
@@ -13520,7 +13631,7 @@ bool32 BreaksThroughSemiInvulnerablity(u32 battlerAtk, u32 battlerDef, enum Abil
     {
         if (CanMoveSkipAccuracyCheck(battlerAtk, move))
             return TRUE;
-        if (DoesBattlerAbilityBypassAcc(abilityAtk) || DoesBattlerAbilityBypassAcc(abilityDef))
+        if (IsSureHitAbility(abilityAtk) || IsSureHitAbility(abilityDef))
             return TRUE;
         if (gBattleMons[battlerDef].volatiles.lockOn && gBattleMons[battlerDef].volatiles.battlerWithSureHit == battlerAtk)
             return TRUE;
@@ -13784,14 +13895,23 @@ bool8 CanSurviveInstantKOWithSturdy(u8 battler)
 //for some reason wasn't tracking propery
 //for type effect display w mold breaker
 //but making movetype an argument fixed issue
-bool8 IsFloatingTargetImmunetoGroundBasedMoves(u8 battler_atk, u8 battler_def, u16 move)
+bool8 IsFloatingTargetImmunetoGroundBasedMoves(u32 battler_def, enum Ability abilityAtk, enum Ability abilityDef, u16 move)
 {
 
-
+    //is a bit confusing no guard hits semi invulnerable
+    //but invulnerabilities are ignored
+    //in my thing ground vs flying technically isn't an immunity
+    //but a mechanic ok it makes sense logically
+    //if it can hit through semi invulnerablility
+    //even flying high in the air it should hit this
+    //but is a major balance inflection point
+    //making too many mon with these abilities
+    //would break flying types
     if (MoveCantDamageFloatingTargets(move) && !IsBattlerGrounded(battler_def))
     {
 
-        if (GetBattlerAbility(battler_atk) == ABILITY_MOLD_BREAKER)
+        if ((abilityAtk == ABILITY_MOLD_BREAKER)
+        || (IsSureHitAbility(abilityAtk) || IsSureHitAbility(abilityDef)))
             return FALSE;
         else
             return TRUE;

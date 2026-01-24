@@ -143,15 +143,16 @@ static inline bool32 PreventsRedirection(u32 battlerAtk, u32 move)
     return FALSE;
 }
 
+//should be fine constants included in file used in
 static inline u32 GetAbilityTimer(enum Ability ability)
 {
     switch (ability)
     {
         case ABILITY_SLOW_START:
-            return 3;
+            return SLOW_START_TIMER;
         break;
         case ABILITY_WONDER_GUARD:
-            return 4; //might use 5
+            return WONDER_GUARD_TIMER; //might use 5
         break;//review effect base version of use is clear weaknesses then switch in shedinja to sweep untouchable
         //need remember what changes I made along w timer is it immune to weather and hazards?
         //consider adjust timer to what makes sense for vgc average length 
@@ -159,7 +160,7 @@ static inline u32 GetAbilityTimer(enum Ability ability)
         //which technically is the goal, just want to make sure the value is still there
         
         case ABILITY_SPECTRE:
-            return 2;
+            return SPECTRE_TIMER;
         break; //causes memory corruption to rear its head, I give up
         //I'm gonna just swap to modern fix everything as it builds and pray to GOD 
         //I find the damned source of the issue
@@ -458,10 +459,8 @@ u8 AtkCanceller_UnableToUseMove2(void);
 bool8 IsFloatingSpecies(u16 species);
 bool8 IsFlyingTypeBattlerUnableToFly(u32 battler); //battle specific variant
 bool8 CanFlyingTypeRecoverFromSmackDown(u32 battler); //for use w ascension timer prob rename later vsonic
-bool8 IsBattlerGrounded(u8 battlerId);
-bool8 IsFloatingTargetImmunetoGroundBasedMoves(u8 battler_atk, u8 battler_def, u16 move);
-u8 CastformDataTypeChange(u8 battler);
-u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 moveArg);
+bool32 IsBattlerGrounded(u32 battler, enum Ability ability, enum HoldEffect holdEffect);
+bool8 IsFloatingTargetImmunetoGroundBasedMoves(u32 battler_def, enum Ability abilityAtk, enum Ability abilityDef, u16 move);
 
 //EE stuff
 bool32 IsAbilityAndRecord(u32 battler, enum Ability battlerAbility, enum Ability abilityToCheck);
@@ -634,32 +633,7 @@ u32 GetParadoxHighestStatId(u32 battler);
 u32 GetParadoxBoostedStatId(u32 battler);
 //end of EE stuff
 
-<<<<<<< HEAD
-//new custom function, for storing ability timers by battler, 
-//instead of in disable struct so lasts all battle
-//keeps from being reset on switch/faint
-u8 GetAbilityTimer(u16 ability);
-//reworked function to include moldbreaker negate for cleaner use
-bool8 DoesBattlerGetTypeBasedAffinity(u32 attacker, u32 battler, u8 typeFactor, bool32 checkAI); //for new category of abiility, replace sipmle checks for isbattler type
-u8 ShouldActivateBindingBand(void); //function made for attempt setup pre healthbar drop activation
-
-u8 ShouldAbilityAbsorb(u16 move); //ATTEMPT workaroud for absorb abilty/lightning rod targetting
-
-bool32 TryRemoveScreens(u8 battler); //made non-static to use with brick break too
-
-bool32 TestMoveFlags(u16 move, u32 flag);
-
-void SetAtkCancellerForCalledMove(void);
-
-//two custom functions for ability absorb along w new macro should do what I need
-bool32 CanAbilityAbsorb(u8 MoveUser, u8 AbilityUser, u8 MoveType);
-bool32 DoesBattlerAbilityAbsorbMoveType(u8 moveTarget, u8 MoveType);
-u8 CanMovebeRedirected(void); //for adjusting absorb ability targetting
-
-bool8 CanSurviveInstantKOWithSturdy(u8 battler); //for sturdy conditions 
-
-s32 CountUsablePartyMons(u32 battlerId);
-
+//Custom FR stuff
 bool8 CanActivateExpShare(void);
 bool8 CanActivateExpNull(void);
 //condition for using Exp items
@@ -669,67 +643,89 @@ u32 IsPersonalityOnSide(u32 battlerId, u32 MonPid);
 u32 IsMonOnOpposingSide(u32 battlerId, u32 MonPid);
 u32 GetBattlerFromPersonality(u32 MonPid);
 
-bool8 IsBattlerUnderProtectEffect(u8 battler);
-void ClearMoldBreakerSetStatus(u8 battler);
-
-bool32 ShouldActivateFugue(u32 battleratk, u32 battlerdef);
-bool32 ShouldActivateObliviousLike(u32 battler); //oblivious femme fatale ability block was constalty resetting cuz didn't have top condition
-
 //cacophony based functions - also affects perish song, bypasses walls and protection
 //and sets sleep and confusion effects to max duration on status set
 bool8 ShouldCacophonyBoostAccuracy(u16 move);
 bool8 ShouldCacophonyBoostEffectChance(u16 move);
 bool8 ShouldCacophonyElevateMoveEffect(u16 move);
 void CacophonyElevateMoveEffect(void);
-//u8 GetMoveType(u32 moveType, u32 btlAttacker); //review how was used
-u32 CountBattlerStatIncreases(u32 battler, bool32 countEvasionAcc);
-bool32 CheckBattlerHpThreshold(u32 battler, u8 Comparison, u8 percentHp);
-bool32 IsMoldBreakerTypeAbilityActive(u32 battler, u32 ability);
-bool32 IsNeutralizingGasTypeAbilityActive(u32 battler, u32 ability); //attempt simplify getbattlerability logic
 
-//added from EE for form change update (not planning to use for transform/ditto)
-bool32 TryBattleFormChange(u8 battlerId, u16 method); //actualy doesn't work on transformed mon, just returns false
-bool32 DoesSpeciesUseHoldItemToChangeForm(u16 species, u16 heldItemId);
-bool32 CanBattlerFormChange(u8 battlerId, u16 method);
-u16 GetBattleFormChangeTargetSpecies(u8 battlerId, u16 method);
-bool32 IsBattlerMegaEvolved(u8 battlerId);
-bool32 IsBattlerPrimalReverted(u8 battlerId);
-bool32 IsBattlerUltraBeast(u8 battlerId);
-bool32 IsSpeciesUltraBeast(u16 species);
+//reworked function to include moldbreaker negate for cleaner use
+bool8 DoesBattlerGetTypeBasedAffinity(enum Ability atkAbility, u32 battlerToCheck, enum Ability battlerAbility, u8 typeFactor); //for new category of abiility, replace sipmle checks for isbattler type
+//was still tweaking unsure if keep
+u8 ShouldActivateBindingBand(void); //function made for attempt setup pre healthbar drop activation
 
-bool8 IscurrentMonOnFieldAtPos(struct Pokemon *mon, u8 position); //check mon is field/well checks battler side not entire field just a check for if mon is in battle vs party
 //checks for type other than user
 //added for new idea plus/minus buff 
-u32 IsTypeOnField(u32 battlerId, u8 type); 
-s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fixedBasePower,
-    bool32 isCrit, bool32 randomFactor, bool32 updateFlags, u16 typeEffectivenessModifier);
+u32 IsTypeOnFieldExcept(u32 battler, enum Type type); 
 
 
-bool32 HasWeatherEffect(void); //meant to replace macro for Weather_has_effect
+bool32 ShouldActivateFugue(u32 battleratk, u32 battlerdef, enum Ability abilityAtk);
+
+bool8 CanSurviveInstantKOWithSturdy(u8 battler); //for sturdy conditions 
+
 bool8 CanActivateForewarnAnticipation(u8 battler);
 bool8 IsFixationMoveEffect(u16 move); //SETUP FOR new category of move inspired by legends arceus
 
+//think should be ok, maybe using uq12 is more accurate and may
+//use later but for the most part is same as how hp checks are already run
+//ex. simplifies checks for in a pinch i.e half hp etc.
+//has minute innacuracies
+//think best I can do is get max and curr hp and thresholdhp
+//all in uq format
+//and calculate off of that
+//that'd be best way to deal with it
+//since any rounding would round correctly for all
+//rather than needing actual hp to match rounded value
+//main issue is just when need find exact equal
+//uq(1) could be max hp  percent could just be percenttouq
+//think could just use uq numbers actually
+//isu32 is bigg enough to hold
+//vsonic important should work long as DON'T use w dynamax hp
+//may need specifically use getnondynamaxed hp function?
+static inline bool32 CheckBattlerHpThreshold(u32 battler, u8 Comparison, u8 percentHp)
+{
+    uq4_12_t maxHp = UQ_4_12(gBattleMons[battler].maxHP);
+    uq4_12_t currHp = UQ_4_12(gBattleMons[battler].hp);
+    uq4_12_t hpThreshold = uq4_12_multiply(maxHp, PercentToUQ4_12(percentHp));
+    
+    switch (Comparison)
+    {
+        case LESS_THAN:
+            return (currHp < hpThreshold);
+        break;
+        case GREATER_THAN:
+            return (currHp > hpThreshold);
+        break;
+        case EQUAL_TO:
+            return (currHp == hpThreshold);
+        break;
+        case NOT_EQUAL:
+            return (currHp != hpThreshold);
+        break;
+        case LESS_THAN_OR_EQUAL:
+            return (currHp <= hpThreshold);
+        break;
+        case GREATER_THAN_OR_EQUAL:
+            return (currHp >= hpThreshold);
+        break;
+    }
 
-//rewokr make easier,
-//all fire type or fire argument if two turned effect
-//or has effect burn hit
-//remove power condition
-//use dynamic type so hidden power etc. can also work
-//compare against emerald/research
-//according to EE it has some special logic for fire type removal moves
-//i.e burn up etc.
-//understand now, burn up should fail if user is not type fire
-//under that condition it shouldn't thaw
-#define THAW_CONDITION(move, battler) ((gMovesInfo[move].effect == EFFECT_BURN_HIT) || (gBattleStruct->dynamicMoveType == TYPE_FIRE || gMovesInfo[move].type == TYPE_FIRE) || (gMovesInfo[move].effect == EFFECT_TWO_TYPED_MOVE && gMovesInfo[move].argument == TYPE_FIRE) || (gMovesInfo[move].effect == EFFECT_LOSETYPE_HIT && gMovesInfo[move].argument == TYPE_FIRE && IS_BATTLER_OF_TYPE(battler, TYPE_FIRE)))
+    return FALSE;
+}
 
-//#define THAW_CONDITION(move) ((move == MOVE_SCALD) || (((gMovesInfo[move].type == TYPE_FIRE) || (gMovesInfo[move].argument == TYPE_FIRE)) && (gMovesInfo[move].power >= 60 || gDynamicBasePower >= 60)))
-
-#define HEALING_EFFECT ((EFFECT_RESTORE_HP || EFFECT_REST || EFFECT_MORNING_SUN || EFFECT_MOONLIGHT || EFFECT_SYNTHESIS || EFFECT_HEAL_PULSE || EFFECT_HEALING_WISH || EFFECT_ROOST || EFFECT_SWALLOW || EFFECT_WISH || EFFECT_SOFTBOILED || EFFECT_ABSORB))
-
-
-
-=======
-bool32 CanBeSlept(u32 battlerAtk, u32 battlerDef, enum Ability abilityDef, enum SleepClauseBlock isBlockedBySleepClause);
+/*//used in battle_main unsure if  still need
+u8 ShouldAbilityAbsorb(u16 move); //ATTEMPT workaroud for absorb abilty/lightning rod targetting
+//two custom functions for ability absorb along w new macro should do what I need
+bool32 CanAbilityAbsorb(u8 MoveUser, u8 AbilityUser, u8 MoveType);
+bool32 DoesBattlerAbilityAbsorbMoveType(u8 moveTarget, u8 MoveType);
+u8 CanMovebeRedirected(void); //for adjusting absorb ability targetting
+bool8 IscurrentMonOnFieldAtPos(struct Pokemon *mon, u8 position); //check mon is field/well checks battler side not entire field just a check for if mon is in battle vs party
+bool32 HasWeatherEffect(void); //meant to replace macro for Weather_has_effect
+void ClearMoldBreakerSetStatus(u8 battler); //plan for moldbreaker affinity bypass
+*/
+//will remove sleep clause
+bool32 CanBeSlept(u32 battlerAtk, u32 battlerDef, enum Ability abilityAtk, enum Ability abilityDef, enum SleepClauseBlock isBlockedBySleepClause);
 bool32 CanBePoisoned(u32 battlerAtk, u32 battlerDef, enum Ability abilityAtk, enum Ability abilityDef);
 bool32 CanBeBurned(u32 battlerAtk, u32 battlerDef, enum Ability ability);
 bool32 CanBeParalyzed(u32 battlerAtk, u32 battlerDef, enum Ability abilityDef);
@@ -809,6 +805,5 @@ void TryUpdateEvolutionTracker(u32 evolutionCondition, u32 upAmount, enum Move u
 bool32 CanUseMoveConsecutively(u32 battler);
 void TryResetConsecutiveUseCounter(u32 battler);
 void SetOrClearRageVolatile(void);
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 
 #endif // GUARD_BATTLE_UTIL_H

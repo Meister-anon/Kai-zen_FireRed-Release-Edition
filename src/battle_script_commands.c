@@ -3848,8 +3848,8 @@ void SetMoveEffect(u32 battlerAtk, u32 effectBattler, enum MoveEffect moveEffect
         break;
     case MOVE_EFFECT_YAWN_FOE:
         if (gBattleMons[gBattlerTarget].volatiles.yawn == 0
-            && CanBeSlept(gBattlerTarget, gBattlerTarget, abilities[gBattlerTarget], BLOCKED_BY_SLEEP_CLAUSE)
-            && RandomPercentage(RNG_G_MAX_SNOOZE, 50))
+            && CanBeSlept(gBattlerTarget, gBattlerTarget, abilities[gBattlerAttacker], abilities[gBattlerTarget], BLOCKED_BY_SLEEP_CLAUSE)
+            && RandomPercentage(RNG_G_MAX_SNOOZE, 50))//ability shouldn't matter but storing ayway
         {
             gBattleMons[gBattlerTarget].volatiles.yawn = 2;
             BattleScriptPush(battleScript);
@@ -13937,7 +13937,7 @@ static void TrySetPoison(const u8 *nextInstr, const u8 *failInstr)
 
 static void TrySetSleep(const u8 *nextInstr, const u8 *failInstr)
 {
-    if (CanBeSlept(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerTarget), BLOCKED_BY_SLEEP_CLAUSE))
+    if (CanBeSlept(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerAbility(gBattlerTarget), BLOCKED_BY_SLEEP_CLAUSE))
         SetNonVolatileStatus(gBattlerTarget, MOVE_EFFECT_SLEEP, nextInstr, TRIGGER_ON_MOVE);
     else
         gBattlescriptCurrInstr = failInstr;
@@ -15147,7 +15147,7 @@ void BS_TryPsychoShift(void)
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = 3;
     }
-    else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP) && CanBeSlept(gBattlerAttacker, gBattlerTarget, targetAbility, BLOCKED_BY_SLEEP_CLAUSE))
+    else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP) && CanBeSlept(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), targetAbility, BLOCKED_BY_SLEEP_CLAUSE))
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = 4;
     }

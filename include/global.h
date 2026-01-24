@@ -231,7 +231,6 @@ static inline uq4_12_t uq4_12_multiply(uq4_12_t a, uq4_12_t b)
 {
     u32 product = (u32) a * b;
     return (product + UQ_4_12_ROUND) >> UQ_4_12_SHIFT;
-    //return (product) >> UQ_4_12_SHIFT;
 }
 
 //my addition
