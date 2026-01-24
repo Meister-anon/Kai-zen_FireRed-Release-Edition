@@ -11007,32 +11007,28 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct BattleCont
         if (ctx->move == MOVE_GLARE && DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->battlerDef, TYPE_GHOST, FALSE))
             modifier = UQ_4_12(0.0);
     }
+
+    //need test hopefully works right
+    //meant to allow no gurad to bypass ground miss
+    //since they can already hit through semi invulnerable
     else if (IsFloatingTargetImmunetoGroundBasedMoves(ctx->battlerAtk, ctx->battlerDef, ctx->move) 
     && !IsBattlerGroundedInverseCheck(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef, INVERSE_BATTLE, ctx->isAnticipation) 
-    && !(MoveIgnoresTypeIfFlyingAndUngrounded(ctx->move)))
+    && !(MoveIgnoresTypeIfFlyingAndUngrounded(ctx->move))
+    && !DoesBattlerAbilityBypassAcc(ctx->abilityAtk)
+    && !DoesBattlerAbilityBypassAcc(ctx->abilityDef)
+    )
     {
         modifier = UQ_4_12(0.0);
         
         if (ctx->updateFlags /*&& ctx->abilityDef == ABILITY_LEVITATE*/)
         {
             gBattleStruct->moveResultFlags[ctx->battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
-<<<<<<< HEAD
             //gLastUsedAbility = ABILITY_LEVITATE;
             gLastLandedMoves[ctx->battlerDef] = 0;
             gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_GROUND_MISS;
             //RecordAbilityBattle(ctx->battlerDef, ABILITY_LEVITATE);
         }//think is right
         
-=======
-            gLastUsedAbility = ABILITY_LEVITATE;
-            ctx->abilityBlocked = TRUE;
-            RecordAbilityBattle(ctx->battlerDef, ABILITY_LEVITATE);
-        }
-        else if (ctx->holdEffectDef == HOLD_EFFECT_AIR_BALLOON)
-        {
-            ctx->airBalloonBlocked = TRUE;
-        }
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
     }
     else if (GetMoveEffect(ctx->move) == EFFECT_SHEER_COLD 
     && DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->battlerDef, TYPE_ICE, FALSE))
@@ -13192,38 +13188,24 @@ void RemoveHazardFromField(u32 side, enum Hazards hazardType)
     }
 }
 
-<<<<<<< HEAD
 //believe done
 //may need add argument if this is used in ai
 //for affinity check function to know if it should use ai version
 bool32 CanMoveSkipAccuracyCalc(u32 battlerAtk, u32 battlerDef, enum Ability abilityAtk, enum Ability abilityDef, u32 move, enum FunctionCallOption option)
-=======
-static bool32 CanToxicSkipAccuracyCheck(u32 battlerAtk, u32 move)
-{
-    if (GetConfig(CONFIG_TOXIC_NEVER_MISS) < GEN_6)
-        return FALSE;
-    return move == MOVE_TOXIC && IS_BATTLER_OF_TYPE(battlerAtk, TYPE_POISON);
-}
-
-bool32 CanMoveSkipAccuracyCalc(u32 battlerAtk, u32 battlerDef, enum Ability abilityAtk, enum Ability abilityDef, enum Move move, enum ResultOption option)
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 {
     bool32 effect = FALSE;
     enum Ability ability = ABILITY_NONE;
     enum BattleMoveEffects moveEffect = GetMoveEffect(move);
+    u32 nonVolatileStatus = GetMoveNonVolatileStatus(move);
 
     if ((gBattleMons[battlerDef].volatiles.lockOn && gBattleMons[battlerDef].volatiles.battlerWithSureHit == battlerAtk)
-<<<<<<< HEAD
      || (nonVolatileStatus == MOVE_EFFECT_TOXIC && DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_POISON, FALSE))
-=======
-     || CanToxicSkipAccuracyCheck(battlerAtk, move)
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
      || gBattleMons[battlerDef].volatiles.glaiveRush)
     {
         effect = TRUE;
     }
     // If the attacker has the ability No Guard and they aren't targeting a Pokemon involved in a Sky Drop with the move Sky Drop, move hits.
-    else if ((abilityAtk == ABILITY_NO_GUARD || abilityAtk == ABILITY_COMPASS)
+    else if (DoesBattlerAbilityBypassAcc(abilityAtk)
           && gBattleMons[battlerDef].volatiles.semiInvulnerable != STATE_COMMANDER
           && (moveEffect != EFFECT_SKY_DROP || gBattleStruct->skyDropTargets[battlerDef] == SKY_DROP_NO_TARGET))
     {
@@ -13231,7 +13213,7 @@ bool32 CanMoveSkipAccuracyCalc(u32 battlerAtk, u32 battlerDef, enum Ability abil
         ability = abilityAtk;
     }
     // If the target has the ability No Guard and they aren't involved in a Sky Drop or the current move isn't Sky Drop, move hits.
-    else if ((abilityDef == ABILITY_NO_GUARD || abilityDef == ABILITY_COMPASS)
+    else if (DoesBattlerAbilityBypassAcc(abilityDef)
           && (moveEffect != EFFECT_SKY_DROP || gBattleStruct->skyDropTargets[battlerDef] == SKY_DROP_NO_TARGET))
     {
         effect = TRUE;
@@ -13249,31 +13231,14 @@ bool32 CanMoveSkipAccuracyCalc(u32 battlerAtk, u32 battlerDef, enum Ability abil
     {
         effect = TRUE;
     }
-    else if (GetActiveGimmick(battlerAtk) == GIMMICK_Z_MOVE && !IsSemiInvulnerable(battlerDef, CHECK_ALL))
+    /*else if (GetActiveGimmick(battlerAtk) == GIMMICK_Z_MOVE && !IsSemiInvulnerable(battlerDef, CHECK_ALL))
     {
         effect = TRUE;
-    }
-<<<<<<< HEAD
-    else if (!BreaksThroughSemiInvulnerablity(battlerDef, move))
-    {
-        if (option == RUN_SCRIPT)
-        {
-            gBattleStruct->moveResultFlags[battlerDef] |= MOVE_RESULT_MISSED;
-            effect = TRUE;
-        }
-        else
-        {
-            effect = FALSE;
-        }
-    }
+    }*/
+
     //believe should be simpler way to do what I want? vsonic
     else if (gBattleMons[battlerDef].statStages[STAT_EVASION] > DEFAULT_STAT_STAGE
      && MoveSureHitEvasionBoostedTargets(move))
-=======
-    else if (B_MINIMIZE_DMG_ACC >= GEN_6
-     && gBattleMons[battlerDef].volatiles.minimize
-     && MoveIncreasesPowerToMinimizedTargets(move))
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
     {
         effect = TRUE;
     }
@@ -13545,19 +13510,17 @@ bool32 IsSemiInvulnerable(u32 battler, enum SemiInvulnerableExclusion excludeCom
     return gBattleMons[battler].volatiles.semiInvulnerable != STATE_NONE;
 }
 
-<<<<<<< HEAD
-bool32 BreaksThroughSemiInvulnerablity(u32 battler, u32 move)
-=======
+//lil weird but uses ability argument for efficiency,
+//passing argument from original call rather than recalling function
 bool32 BreaksThroughSemiInvulnerablity(u32 battlerAtk, u32 battlerDef, enum Ability abilityAtk, enum Ability abilityDef, enum Move move)
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 {
     enum SemiInvulnerableState state = gBattleMons[battlerDef].volatiles.semiInvulnerable;
 
     if (state != STATE_COMMANDER)
     {
-        if (CanToxicSkipAccuracyCheck(battlerAtk, move))
+        if (CanMoveSkipAccuracyCheck(battlerAtk, move))
             return TRUE;
-        if (abilityAtk == ABILITY_NO_GUARD || abilityDef == ABILITY_NO_GUARD)
+        if (DoesBattlerAbilityBypassAcc(abilityAtk) || DoesBattlerAbilityBypassAcc(abilityDef))
             return TRUE;
         if (gBattleMons[battlerDef].volatiles.lockOn && gBattleMons[battlerDef].volatiles.battlerWithSureHit == battlerAtk)
             return TRUE;
@@ -13577,6 +13540,7 @@ bool32 BreaksThroughSemiInvulnerablity(u32 battlerAtk, u32 battlerDef, enum Abil
     case STATE_COMMANDER:
         return GetMoveEffect(move) == EFFECT_TRANSFORM;
     case STATE_NONE:
+    case SEMI_INVULNERABLE_COUNT:
         return TRUE;
     }
 
@@ -13610,17 +13574,9 @@ static bool32 IsOpposingSideEmpty(u32 battler)
 //VSONIC add affinity check
 bool32 IsAffectedByPowderMove(u32 battler, u32 ability, enum HoldEffect holdEffect)
 {
-<<<<<<< HEAD
     if ((ability == ABILITY_OVERCOAT)
-        || (IS_BATTLER_OF_TYPE(battler, TYPE_GRASS))
+        || DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GRASS, FALSE)
         || holdEffect == HOLD_EFFECT_SAFETY_GOGGLES)
-=======
-    if (GetConfig(CONFIG_POWDER_OVERCOAT) >= GEN_6 && ability == ABILITY_OVERCOAT)
-        return FALSE;
-    if (GetConfig(CONFIG_POWDER_GRASS) >= GEN_6 && IS_BATTLER_OF_TYPE(battler, TYPE_GRASS))
-        return FALSE;
-    if (holdEffect == HOLD_EFFECT_SAFETY_GOGGLES)
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
         return FALSE;
     return TRUE;
 }
@@ -14030,24 +13986,6 @@ bool32 IsAnyTargetAffected(void)
     return FALSE;
 }
 
-<<<<<<< HEAD
-//think not using
-=======
-bool32 IsDoubleSpreadMove(void)
-{
-    return gBattleStruct->numSpreadTargets > 1
-        && !gBattleStruct->unableToUseMove
-        && IsSpreadMove(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove));
-}
-
-bool32 IsBattlerInvalidForSpreadMove(u32 battlerAtk, u32 battlerDef)
-{
-    return battlerDef == battlerAtk
-        || !IsBattlerAlive(battlerDef)
-        || IsBattlerUnaffectedByMove(battlerDef);
-}
-
->>>>>>> bb41e5622c (Refactor move target failure (#8696))
 bool32 IsAllowedToUseBag(void)
 {
     switch(VarGet(B_VAR_NO_BAG_USE))
@@ -14458,8 +14396,6 @@ void TryUpdateEvolutionTracker(u32 evolutionCondition, u32 upAmount, u16 usedMov
         }
     }
 }
-<<<<<<< HEAD
-=======
 
 static const u16 sProtectSuccessRates[] =
 {
@@ -14516,4 +14452,3 @@ void SetOrClearRageVolatile(void)
         gBattleMons[gBattlerAttacker].volatiles.rage = FALSE;
 }
 
->>>>>>> bb41e5622c (Refactor move target failure (#8696))

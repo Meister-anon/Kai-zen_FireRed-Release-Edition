@@ -1539,6 +1539,15 @@ static inline u32 GetChosenMoveFromPosition(u32 battler)
     return gBattleMons[battler].moves[gBattleStruct->chosenMovePositions[battler]];
 }
 
+//these are abilities that hit through semiinvul and skip acc check
+//rename later with new understanding of what these do
+//makes sense to break through ground miss
+//so slight overlap w moldbreaker stuff
+static inline bool32 DoesBattlerAbilityBypassAcc(enum Ability ability)
+{
+    return (ability == ABILITY_NO_GUARD || ability == ABILITY_COMPASS)
+}
+
 //wanted to replace value w max() check
 //but realized value is signed type
 //and would break negative values
