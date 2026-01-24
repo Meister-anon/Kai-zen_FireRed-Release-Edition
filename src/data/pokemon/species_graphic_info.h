@@ -3,10 +3,6 @@
 #define FRONT_PIC(sprite)                    \
         .frontPic = gMonFrontPic_## sprite                 
 
-#define FRONT_PIC_FEMALE(sprite, width, height)             \
-        .frontPicFemale = gMonFrontPic_## sprite##F,        \
-        .frontPicSizeFemale = MON_COORDS_SIZE(width, height)
-
 #define BACK_PIC(sprite)                     \
         .backPic = gMonBackPic_## sprite                  
 
@@ -26,7 +22,13 @@
         .iconSprite = gMonIcon_## sprite,                   \
         .iconPalIndex = palId
 
-
+#define PIC_DATA_ICON_INDEX_FEMALE(sprite, palId) \
+        .frontPic = gMonFrontPic_## sprite##F,                 \
+        .backPic = gMonBackPic_## sprite##F,                   \
+        .palette = gMonPalette_## sprite,                      \
+        .shinyPalette = gMonShinyPalette_## sprite,      \
+        .iconSprite = gMonIcon_## sprite##F,                   \
+        .iconPalIndex = palId
 
 #define PALETTES(pal)                                       \
         .palette = gMonPalette_## pal,                      \

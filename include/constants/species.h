@@ -3473,6 +3473,20 @@ just because I saw the form*/
 #define F_PALDEAN_FORM (1 << 4)	//For pokemon opal Cefira region forms
 #define SPECIES_FLAG_MEGA_FORM     (1 << 5)	//to denote mega? may not need, idk, ned for EE funtions
 #define FLAG_LEGENDARY_POKEMON (1 << 6)  //replaced //consolidate w megga?
+//may be able to remove this to put ultra beasts flag back
+//think can just put in form logic find species return form type
+//and just make value for cosmetic form
+//would change form species tables to struct
+//store form type just like form change tables
+//actually think can use to remove species from base stats
+//add form species to base stats
+//check if species is cosmetic type in form table
+//if so can pull all data from base version
+//and can pull graphic data from that file since
+//I separated them works perfectly
+//then just reorder species to accout
+//cosmetic forms would go at end of species
+//put all species that would require base stats entry first
 #define F_HAS_COSMETIC_FORMS (1 << 7) //unown viillion pika caps to cut down on unneccesary space in base stats with identical stat/ability mon cant use for mon that evolve need check but think can setup for mon that evolve into cosmetic forms that don't evolve again maushold basculegion etc.
 //would need add exclusions for cosplay pikachu and its forms, 
 //if do this will need make gender ratio but will just keep that as is, still 

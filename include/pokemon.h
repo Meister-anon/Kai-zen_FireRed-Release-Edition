@@ -908,8 +908,23 @@ struct FormChange {
     u16 param3; //new adition from emerald logic
 }; //may change based on how I use forms
 
+enum FormInfo
+{
+    BASE_FORM_SPECIES,
+    COSMETIC_FORM,
+    MEGA_EVO,
+    PRIMAL_FORM,
+    REGIONAL_VARIANT,
+    GENDER_FORM, //gender forms with material differences
+    FORM_NONE   //for FORM_SPECIES_END
+};
 
+struct FormSpecies {
+    u16 Species;
+    enum FormInfo FormType;
+};
 //replaces front_pic_table back_pic_table front_pic_coordinates back_pic_coordinates pokemon_icon.c arrays palette_table  & shiny_palette_table
+//think add frontpic back pic female for variants
 struct SpeciesGraphicInfo 
 {
 
