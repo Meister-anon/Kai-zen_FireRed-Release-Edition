@@ -390,7 +390,7 @@ const u16 *const gFormSpeciesIdTables[] =
 
     // Basculin
     [SPECIES_BASCULIN_BLUE_STRIPED] = sBasculinFormSpeciesIdTable,
-    [SPECIES_BASCULIN_WHITE_STRIPED] = sBasculinFormSpeciesIdTable,
+    [SPECIES_BASCULIN_HISUIAN] = sBasculinFormSpeciesIdTable,
     // Darmanitan
     [SPECIES_DARMANITAN_ZEN_MODE] = sDarmanitanFormSpeciesIdTable,
     [SPECIES_DARMANITAN_ZEN_MODE_GALARIAN] = sDarmanitanFormSpeciesIdTable,

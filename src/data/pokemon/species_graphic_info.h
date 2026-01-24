@@ -11571,7 +11571,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       .cryData = CRY_INFO(Cry_Basculin),
       .cryData_Reverse = CRY_INFO_REVERSE(Cry_Basculin),
 }, //BasculinBlueStriped,
-[SPECIES_BASCULIN_WHITE_STRIPED] = 
+[SPECIES_BASCULIN_HISUIAN] = 
     {  
       FRONT_COORD(0x45, 13),
       BACK_COORD(0x86, 16),

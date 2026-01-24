@@ -169,7 +169,7 @@ static const u16 sEarlyRtBirds[] = {
 static const u16 sBasculinForms[] = {
     SPECIES_BASCULIN_RED_STRIPED,
     SPECIES_BASCULIN_BLUE_STRIPED,
-    SPECIES_BASCULIN_WHITE_STRIPED
+    SPECIES_BASCULIN_HISUIAN
 };
 
 static const u16 sSquawkabillyForms[] = {

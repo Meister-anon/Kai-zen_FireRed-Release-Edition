@@ -46384,7 +46384,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_BASCULIN_WHITE_STRIPED] =
+    [SPECIES_BASCULIN_HISUIAN] =
     {
         .speciesName = _("Basculin"),
  

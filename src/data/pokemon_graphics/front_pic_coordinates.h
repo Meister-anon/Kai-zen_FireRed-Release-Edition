@@ -5460,7 +5460,7 @@ const struct MonCoords gMonFrontPicCoords[] =
         .size = 0x45,
         .y_offset = 13,
     },
-    [SPECIES_BASCULIN_WHITE_STRIPED] =
+    [SPECIES_BASCULIN_HISUIAN] =
     {
         .size = 0x45,
         .y_offset = 13,
