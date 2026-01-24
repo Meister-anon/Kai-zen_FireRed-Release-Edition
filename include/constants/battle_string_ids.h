@@ -1,16 +1,18 @@
 #ifndef GUARD_BATTLE_STRING_IDS_H
 #define GUARD_BATTLE_STRING_IDS_H
 
-//actually did I remove the need for this
-#define BATTLESTRINGS_ID_ADDER  12 // all battlestrings have its ID + 12, because first 5 are reserved
-
-#define STRINGID_INTROMSG       0
-#define STRINGID_INTROSENDOUT   1
-#define STRINGID_RETURNMON      2
-#define STRINGID_SWITCHINMON    3
-#define STRINGID_USEDMOVE       4
-#define STRINGID_BATTLEEND      5
-#define STRINGID_TRAINERSLIDE   6
+//no longer used idk why was used in first place
+//didn't seem to be necessary
+//#define BATTLESTRINGS_ID_ADDER  12 // all battlestrings have its ID + 12, because first 5 are reserved
+//realized issue were within table to not false match
+//string table values just need put as values
+//table would never reach not a problem
+#define STRINGID_INTROMSG   0xFFF9
+#define STRINGID_INTROSENDOUT   0xFFFA
+#define STRINGID_RETURNMON  0xFFFB
+#define STRINGID_SWITCHINMON    0xFFFC
+#define STRINGID_USEDMOVE   0xFFFD
+#define STRINGID_BATTLEEND  0xFFFE
 
 //Damaging weather ids 
 //for gBattleCommunication
@@ -282,14 +284,9 @@ enum DamagingWeatherStringID
 #define B_MSG_TURN1_METEOR_BEAM    12
 #define B_MSG_TURN1_COLD_FRONT     13
 
-//#define NUM_TRAPPING_MOVES 10
+//end turn name scripts need to use B_ATK_NAME_WITH_PREFIX,  scr_active name or anything else causes issues
 
-//read battle_message.c  gbattlestringstable from line STRINGID_PKMNGREWTOLV
-//copy stringId  and string within parenthesis excluding compound_string
-
-//may put definiion in battle_message.c file
-//simpler to have all the buff stuff searchable
-
+// todo: make some of those names less vague: attacker/target vs pkmn, etc.
 /* Battle String values
  * To create stringIds and assign text at same time
  *  Enum,                                                   txtstring */
@@ -1159,12 +1156,11 @@ enum DamagingWeatherStringID
 #define UNPACK_BATTLE_STRING_ENUMS(_enum, ...) _enum,
 #define UNPACK_BATTLE_STRING_VALUES(_enum, _txtstring, ...) [_enum] = COMPOUND_STRING _txtstring,
 
-//plan for definitinons is take battlemessage table as is
-//then format to match
-//what I need is to identify what string overlap
-//between FR and EE I'll need to take what I have 
-//since I've changed some strings as well
-//start w that think want take fr specific strings at front
+//refactor based on volatiles table
+//define stringIds and make string togther
+//full table has all FR and EE battleStrings
+//all missing is new placeholders
+//ex trainer1_name_with_class etc.
 enum StringID
 {
  //hard code ids actual text strings below this - make no string additions below this
