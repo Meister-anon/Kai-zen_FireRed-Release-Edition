@@ -243,7 +243,7 @@ static u8 sub_8078178(u8 battlerId, bool8 b)
     u8 i;
 
     LoadCompressedSpriteSheetUsingHeap(&gBattleAnimPicTable[GET_TRUE_SPRITE_INDEX(ANIM_TAG_CIRCLE_IMPACT)]);
-    LoadCompressedSpritePaletteUsingHeap(&gBattleAnimPaletteTable[GET_TRUE_SPRITE_INDEX(ANIM_TAG_CIRCLE_IMPACT)]);
+    LoadSpritePalette(&gBattleAnimPaletteTable[GET_TRUE_SPRITE_INDEX(ANIM_TAG_CIRCLE_IMPACT)]);
     gTasks[taskId].data[0] = battlerId;
     if (b)
     {

@@ -5,7 +5,7 @@
 static void SmokescreenImpact_Callback(struct Sprite * sprite);
 
 extern const struct CompressedSpriteSheet gSmokescreenImpactSpriteSheet;
-extern const struct CompressedSpritePalette gSmokescreenImpactSpritePalette;
+extern const struct SpritePalette gSmokescreenImpactSpritePalette;
 extern const struct SpriteTemplate gSmokescreenImpactSpriteTemplate;
 
 u8 SmokescreenImpact(s16 x, s16 y, u8 a3)
@@ -17,7 +17,7 @@ u8 SmokescreenImpact(s16 x, s16 y, u8 a3)
     if (GetSpriteTileStartByTag(gSmokescreenImpactSpriteSheet.tag) == 0xFFFF)
     {
         LoadCompressedSpriteSheetUsingHeap(&gSmokescreenImpactSpriteSheet);
-        LoadCompressedSpritePaletteUsingHeap(&gSmokescreenImpactSpritePalette);
+        LoadSpritePalette(&gSmokescreenImpactSpritePalette);
     }
 
     mainSpriteId = CreateInvisibleSpriteWithCallback(SmokescreenImpact_Callback);

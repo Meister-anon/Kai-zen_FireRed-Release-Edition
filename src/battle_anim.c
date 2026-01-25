@@ -1541,7 +1541,7 @@ const struct CompressedSpriteSheet gBattleAnimPicTable[] =
     {gBattleAnimSpriteGfx_TatsugiriStretchy, 0x200, ANIM_TAG_TATSUGIRI_STRETCHY},*/
 };
 
-const struct CompressedSpritePalette gBattleAnimPaletteTable[] =
+const struct SpritePalette gBattleAnimPaletteTable[] =
 {
     {gBattleAnimSpritePal_Bone, ANIM_TAG_BONE},
     {gBattleAnimSpritePal_Spark, ANIM_TAG_SPARK},
@@ -2956,7 +2956,7 @@ static void ScriptCmd_loadspritegfx(void)
     sBattleAnimScriptPtr++;
     index = T1_READ_16(sBattleAnimScriptPtr);
     LoadCompressedSpriteSheetUsingHeap(&gBattleAnimPicTable[GET_TRUE_SPRITE_INDEX(index)]);
-    LoadCompressedSpritePaletteUsingHeap(&gBattleAnimPaletteTable[GET_TRUE_SPRITE_INDEX(index)]);
+    LoadSpritePalette(&gBattleAnimPaletteTable[GET_TRUE_SPRITE_INDEX(index)]);
     sBattleAnimScriptPtr += 2;
     AddSpriteIndex(GET_TRUE_SPRITE_INDEX(index));
     sAnimFramesToWait = 1;
@@ -3978,7 +3978,7 @@ static void LoadMoveBg(u16 bgId)//function doesn't use gdecompbuffer in FR for s
 {
     LZDecompressVram(gBattleAnimBackgroundTable[bgId].tilemap, (void *)(BG_SCREEN_ADDR(26)));
     LZDecompressVram(gBattleAnimBackgroundTable[bgId].image, (void *)(BG_CHAR_ADDR(2)));
-    LoadCompressedPalette(gBattleAnimBackgroundTable[bgId].palette, 32, 32);
+    LoadPalette(gBattleAnimBackgroundTable[bgId].palette, 32, 32);
 }
 
 static void LoadDefaultBg(void)

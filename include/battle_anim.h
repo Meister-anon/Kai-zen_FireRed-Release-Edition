@@ -147,7 +147,7 @@ extern const struct OamData gOamData_AffineDouble_ObjBlend_8x32;
 extern const struct OamData gOamData_AffineDouble_ObjBlend_16x32;
 extern const struct OamData gOamData_AffineDouble_ObjBlend_32x64;
 extern const struct CompressedSpriteSheet gBattleAnimPicTable[];
-extern const struct CompressedSpritePalette gBattleAnimPaletteTable[];
+extern const struct SpritePalette gBattleAnimPaletteTable[];
 void MoveBattlerSpriteToBG(u8 battlerId, u8);
 void ResetBattleAnimBg(u8);
 void ClearBattleAnimationVars(void);

@@ -518,29 +518,29 @@ static void StatsChangeAnimation_Step2(u8 taskId)
     switch (sAnimStatsChangeData->aAnimStatId)
     {
     case STAT_ANIM_PAL_ATK:
-        LoadCompressedPalette(gStatAnim_Attack_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
+        LoadPalette(gStatAnim_Attack_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
     case STAT_ANIM_PAL_DEF:
-        LoadCompressedPalette(gStatAnim_Defense_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
+        LoadPalette(gStatAnim_Defense_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
     case STAT_ANIM_PAL_ACC:
-        LoadCompressedPalette(gStatAnim_Accuracy_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
+        LoadPalette(gStatAnim_Accuracy_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
     case STAT_ANIM_PAL_SPEED:
-        LoadCompressedPalette(gStatAnim_Speed_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
+        LoadPalette(gStatAnim_Speed_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
     case STAT_ANIM_PAL_EVASION:
-        LoadCompressedPalette(gStatAnim_Evasion_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
+        LoadPalette(gStatAnim_Evasion_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
     case STAT_ANIM_PAL_SPATK:
-        LoadCompressedPalette(gStatAnim_SpAttack_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
+        LoadPalette(gStatAnim_SpAttack_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
     case STAT_ANIM_PAL_SPDEF:
-        LoadCompressedPalette(gStatAnim_SpDefense_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
+        LoadPalette(gStatAnim_SpDefense_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
     default:
  // case STAT_ANIM_PAL_MULTIPLE:
-        LoadCompressedPalette(gStatAnim_Multiple_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
+        LoadPalette(gStatAnim_Multiple_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
     }
 
@@ -846,7 +846,7 @@ void sub_80BBA20(u8 taskId, s32 unused, u16 arg2, u8 battler1, u8 arg4, u8 arg5,
     if (IsContest())
         RelocateBattleBgPal(animBgData.paletteId, animBgData.bgTilemap, 0, 0);
     AnimLoadCompressedBgGfx(animBgData.bgId, gfx, animBgData.tilesOffset);
-    LoadCompressedPalette(palette, animBgData.paletteId * 16, 32);
+    LoadPalette(palette, animBgData.paletteId * 16, 32);
     gBattle_BG1_X = 0;
     gBattle_BG1_Y = 0;
     gTasks[taskId].data[1] = arg2;

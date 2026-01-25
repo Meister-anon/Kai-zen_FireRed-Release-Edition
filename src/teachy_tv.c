@@ -528,7 +528,7 @@ static void TeachyTvLoadGraphic(void)
     DecompressAndCopyTileDataToVram(1, gUnknown_8E86240, 0, 0, 0);
     LZDecompressWram(gUnknown_8E86BE8, sResources->buffer1);
     LZDecompressWram(gUnknown_8E86D6C, sResources->buffer4);
-    LoadCompressedPalette(gUnknown_8E86F98, 0, 0x80);
+    LoadPalette(gUnknown_8E86F98, 0, 0x80);
     LoadPalette(&src, 0, sizeof(src));
     LoadSpritePalette(&gUnknown_83A5348);
     TeachyTvLoadBg3Map(sResources->buffer3);

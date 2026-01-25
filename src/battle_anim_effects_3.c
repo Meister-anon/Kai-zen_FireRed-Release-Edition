@@ -2510,7 +2510,7 @@ void AnimTask_MorningSunLightBeam(u8 taskId)
         GetBattleAnimBg1Data(&animBg);
         AnimLoadCompressedBgTilemap(animBg.bgId, gBattleAnim_MorningSunTilemap);
         AnimLoadCompressedBgGfx(animBg.bgId, gBattleAnim_MorningSunGfx, animBg.tilesOffset);
-        LoadCompressedPalette(gBattleAnim_MorningSunPal, animBg.paletteId * 16, 32);
+        LoadPalette(gBattleAnim_MorningSunPal, animBg.paletteId * 16, 32);
         if (IsContest())
         {
             RelocateBattleBgPal(animBg.paletteId, animBg.bgTilemap, 0, 0);
@@ -2690,7 +2690,7 @@ void AnimTask_DoomDesireLightBeam(u8 taskId)
         GetBattleAnimBg1Data(&animBg);
         AnimLoadCompressedBgTilemap(animBg.bgId, gBattleAnim_MorningSunTilemap);
         AnimLoadCompressedBgGfx(animBg.bgId, gBattleAnim_MorningSunGfx, animBg.tilesOffset);
-        LoadCompressedPalette(gBattleAnim_MorningSunPal, animBg.paletteId * 16, 32);
+        LoadPalette(gBattleAnim_MorningSunPal, animBg.paletteId * 16, 32);
                 
         if (IsContest())
         {

@@ -495,12 +495,12 @@ void DecompressTrainerFrontPic(u16 frontPicId, u8 battlerId)
     sheet.size = gTrainerFrontPicTable[frontPicId].size;
     sheet.tag = gTrainerFrontPicTable[frontPicId].tag;
     LoadSpriteSheet(&sheet);
-    LoadCompressedSpritePaletteUsingHeap(&gTrainerFrontPicPaletteTable[frontPicId]);
+    LoadSpritePalette(&gTrainerFrontPicPaletteTable[frontPicId]);
 }
 
 void DecompressTrainerBackPalette(u16 index, u8 palette)
 {
-    LoadCompressedPalette(gTrainerBackPicPaletteTable[index].data, (palette + 16) * 16, 0x20);
+    LoadPalette(gTrainerBackPicPaletteTable[index].data, (palette + 16) * 16, 0x20);
 }
 
 void BattleGfxSfxDummy3(u8 a1)
@@ -844,7 +844,7 @@ void BattleLoadSubstituteOrMonSpriteGfx(u8 battlerId, bool8 loadMonSprite)
             DmaCopy32Defvars(3, (*ptr)[0], (*ptr)[i], 0x800);
         }
         palOffset = (battlerId * 16) + 0x100;
-        LoadCompressedPalette(gSubstituteDollPal, palOffset, 32);
+        LoadPalette(gSubstituteDollPal, palOffset, 32);
     }
     else
     {

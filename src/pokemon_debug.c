@@ -77,7 +77,7 @@ static const struct OamData sOamData_Arrow =
 };
 
 static const u32 sArrowSheet_Gfx[] = INCBIN_U32("graphics/interface/arrow_sheet.4bpp.lz");
-static const u32 sArrowSheet_Pal[] = INCBIN_U32("graphics/interface/arrow_sheet.gbapal.lz");
+static const u16 sArrowSheet_Pal[] = INCBIN_U16("graphics/interface/arrow_sheet.gbapal");
 
 static const struct CompressedSpriteSheet sSpriteSheet_Arrows =
 {
@@ -86,7 +86,7 @@ static const struct CompressedSpriteSheet sSpriteSheet_Arrows =
     .tag = TILE_TAG_ARROWS,
 };
 
-static const struct CompressedSpritePalette sSpritePalette_Arrow =
+static const struct SpritePalette sSpritePalette_Arrow =
 {
     sArrowSheet_Pal, PAL_TAG_ARROWS
 };
@@ -422,7 +422,7 @@ static void SetArrowInvisibility(struct PokemonDebugMenu *data)
 
 static void SetUpModifyArrows(struct PokemonDebugMenu *data)
 {
-    LoadCompressedSpritePalette(&sSpritePalette_Arrow);
+    LoadSpritePalette(&sSpritePalette_Arrow);
     LoadCompressedSpriteSheet(&sSpriteSheet_Arrows);
     data->modifyArrows.arrowSpriteId[0] = CreateSprite(&sSpriteTemplate_Arrow, MODIFY_DIGITS_ARROW_X, MODIFY_DIGITS_ARROW1_Y, 0);
     data->modifyArrows.arrowSpriteId[1] = CreateSprite(&sSpriteTemplate_Arrow, MODIFY_DIGITS_ARROW_X, MODIFY_DIGITS_ARROW2_Y, 0);
@@ -442,7 +442,7 @@ static void SetUpModifyArrows(struct PokemonDebugMenu *data)
 
 static void SetUpOptionArrows(struct PokemonDebugMenu *data)
 {
-    LoadCompressedSpritePalette(&sSpritePalette_Arrow);
+    LoadSpritePalette(&sSpritePalette_Arrow);
     LoadCompressedSpriteSheet(&sSpriteSheet_Arrows);
     data->optionArrows.arrowSpriteId[0] = CreateSprite(&sSpriteTemplate_Arrow, OPTIONS_ARROW_1_X, OPTIONS_ARROW_Y, 0);
     StartSpriteAnim(&gSprites[data->optionArrows.arrowSpriteId[0]], ARROW_RIGHT);
@@ -454,7 +454,7 @@ static void SetUpOptionArrows(struct PokemonDebugMenu *data)
 
 static void SetUpYPosModifyArrows(struct PokemonDebugMenu *data)
 {
-    LoadCompressedSpritePalette(&sSpritePalette_Arrow);
+    LoadSpritePalette(&sSpritePalette_Arrow);
     LoadCompressedSpriteSheet(&sSpriteSheet_Arrows);
     data->yPosModifyArrows.arrowSpriteId[0] = CreateSprite(&sSpriteTemplate_Arrow, OPTIONS_ARROW_1_X, OPTIONS_ARROW_Y, 0);
     StartSpriteAnim(&gSprites[data->yPosModifyArrows.arrowSpriteId[0]], ARROW_RIGHT);
@@ -579,7 +579,7 @@ static void BattleLoadOpponentMonSpriteGfxCustom(u16 species, bool8 isShiny, u8 
     }
 
     //buffer = Alloc(sizeof(lzPaletteData) * 2);
-    LoadCompressedPalette(lzPaletteData, paletteOffset, 0x20);
+    LoadPalette(lzPaletteData, paletteOffset, 0x20);
 
     /*LZDecompressWram(lzPaletteData, buffer);
     LoadPalette(buffer, paletteOffset, 0x20);
@@ -712,7 +712,7 @@ static void LoadBattleBg(u8 battleBgType, u8 battleTerrain)
             LZDecompressVram(sBattleTerrainTable[battleTerrain].tilemap, (void*)(BG_SCREEN_ADDR(26)));
             //else
             //LZDecompressVram(sBattleTerrainTable[battleTerrain].tilemap2, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainTable[battleTerrain].palette, 0x20, 0x60);
+            LoadPalette(sBattleTerrainTable[battleTerrain].palette, 0x20, 0x60);
             break;
         case MAP_BATTLE_SCENE_LINK:
             LZDecompressVram(sBattleTerrainTiles_Building, (void*)(BG_CHAR_ADDR(2)));
@@ -720,7 +720,7 @@ static void LoadBattleBg(u8 battleBgType, u8 battleTerrain)
             LZDecompressVram(sBattleTerrainTilemap_Building, (void*)(BG_SCREEN_ADDR(26)));
             //else
             //LZDecompressVram(sBattleTerrainTilemap_Building_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Link, 0x20, 0x60);
+            LoadPalette(sBattleTerrainPalette_Link, 0x20, 0x60);
             break;
         case MAP_BATTLE_SCENE_GYM:
             LZDecompressVram(sBattleTerrainTiles_Building, (void*)(BG_CHAR_ADDR(2)));
@@ -728,7 +728,7 @@ static void LoadBattleBg(u8 battleBgType, u8 battleTerrain)
             LZDecompressVram(sBattleTerrainTilemap_Building, (void*)(BG_SCREEN_ADDR(26)));
             //else
             //LZDecompressVram(sBattleTerrainTilemap_Building_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Gym, 0x20, 0x60);
+            LoadPalette(sBattleTerrainPalette_Gym, 0x20, 0x60);
             break;
         case MAP_BATTLE_SCENE_LEADER:
             LZDecompressVram(sBattleTerrainTiles_Building, (void*)(BG_CHAR_ADDR(2)));
@@ -736,7 +736,7 @@ static void LoadBattleBg(u8 battleBgType, u8 battleTerrain)
             LZDecompressVram(sBattleTerrainTilemap_Building, (void*)(BG_SCREEN_ADDR(26)));
             //else
             //LZDecompressVram(sBattleTerrainTilemap_Building_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Leader, 0x20, 0x60);
+            LoadPalette(sBattleTerrainPalette_Leader, 0x20, 0x60);
             break;
         case MAP_BATTLE_SCENE_INDOOR_2:
             LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
@@ -744,7 +744,7 @@ static void LoadBattleBg(u8 battleBgType, u8 battleTerrain)
             LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
             //else
             //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Indoor2, 0x20, 0x60);
+            LoadPalette(sBattleTerrainPalette_Indoor2, 0x20, 0x60);
             break;
         case MAP_BATTLE_SCENE_INDOOR_1:
             LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
@@ -752,7 +752,7 @@ static void LoadBattleBg(u8 battleBgType, u8 battleTerrain)
             LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
             //else
             //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Indoor1, 0x20, 0x60);
+            LoadPalette(sBattleTerrainPalette_Indoor1, 0x20, 0x60);
             break;
         case MAP_BATTLE_SCENE_LORELEI:
             LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
@@ -760,7 +760,7 @@ static void LoadBattleBg(u8 battleBgType, u8 battleTerrain)
             LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
             //else
             //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Lorelei, 0x20, 0x60);
+            LoadPalette(sBattleTerrainPalette_Lorelei, 0x20, 0x60);
             break;
         case MAP_BATTLE_SCENE_BRUNO:
             LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
@@ -768,7 +768,7 @@ static void LoadBattleBg(u8 battleBgType, u8 battleTerrain)
             LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
             //else
             //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Bruno, 0x20, 0x60);
+            LoadPalette(sBattleTerrainPalette_Bruno, 0x20, 0x60);
             break;
         case MAP_BATTLE_SCENE_AGATHA:
             LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
@@ -776,7 +776,7 @@ static void LoadBattleBg(u8 battleBgType, u8 battleTerrain)
             LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
             //else
             //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Agatha, 0x20, 0x60);
+            LoadPalette(sBattleTerrainPalette_Agatha, 0x20, 0x60);
             break;
         case MAP_BATTLE_SCENE_LANCE:
             LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
@@ -784,7 +784,7 @@ static void LoadBattleBg(u8 battleBgType, u8 battleTerrain)
             LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
             //else
             //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Lance, 0x20, 0x60);
+            LoadPalette(sBattleTerrainPalette_Lance, 0x20, 0x60);
             break;
         case MAP_BATTLE_SCENE_CHAMPION:
             LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
@@ -792,7 +792,7 @@ static void LoadBattleBg(u8 battleBgType, u8 battleTerrain)
             LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
             //else
             //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Champion, 0x20, 0x60);
+            LoadPalette(sBattleTerrainPalette_Champion, 0x20, 0x60);
             break;
     }
 }
@@ -1029,7 +1029,7 @@ void CB2_Debug_Pokemon(void)
 
             //Palettes
             palette = GetMonSpritePalStructCustom(species, data->isShiny);
-            LoadCompressedSpritePaletteWithTag(palette, species);
+            LoadSpritePaletteWithTag(palette, species);
 
             //Front
             battlerPos = B_POSITION_OPPONENT_LEFT;
@@ -1526,7 +1526,7 @@ static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
 
     //Palettes
     palette = GetMonSpritePalStructCustom(species, data->isShiny);
-    LoadCompressedSpritePaletteWithTag(palette, species);
+    LoadSpritePaletteWithTag(palette, species);
 
     //Front
     HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[1], species, 0x0);
@@ -1564,7 +1564,7 @@ static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
     gSprites[data->iconspriteId].oam.priority = 0;
 
     //Modify Arrows
-    LoadCompressedSpritePalette(&sSpritePalette_Arrow);
+    LoadSpritePalette(&sSpritePalette_Arrow);
     LoadCompressedSpriteSheet(&sSpriteSheet_Arrows);
     data->modifyArrows.arrowSpriteId[0] = CreateSprite(&sSpriteTemplate_Arrow, MODIFY_DIGITS_ARROW_X + (data->modifyArrows.currentDigit * 6), MODIFY_DIGITS_ARROW1_Y, 0);
     data->modifyArrows.arrowSpriteId[1] = CreateSprite(&sSpriteTemplate_Arrow, MODIFY_DIGITS_ARROW_X + (data->modifyArrows.currentDigit * 6), MODIFY_DIGITS_ARROW2_Y, 0);
@@ -1572,13 +1572,13 @@ static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
     StartSpriteAnim(&gSprites[data->modifyArrows.arrowSpriteId[1]], ARROW_UP);
 
     //Option Arrow
-    LoadCompressedSpritePalette(&sSpritePalette_Arrow);
+    LoadSpritePalette(&sSpritePalette_Arrow);
     LoadCompressedSpriteSheet(&sSpriteSheet_Arrows);
     data->optionArrows.arrowSpriteId[0] = CreateSprite(&sSpriteTemplate_Arrow, OPTIONS_ARROW_1_X, OPTIONS_ARROW_Y + data->optionArrows.currentDigit * 12, 0);
     StartSpriteAnim(&gSprites[data->optionArrows.arrowSpriteId[0]], ARROW_RIGHT);
 
     //Y Pos Modify Arrow
-    LoadCompressedSpritePalette(&sSpritePalette_Arrow);
+    LoadSpritePalette(&sSpritePalette_Arrow);
     LoadCompressedSpriteSheet(&sSpriteSheet_Arrows);
     data->yPosModifyArrows.arrowSpriteId[0] = CreateSprite(&sSpriteTemplate_Arrow, OPTIONS_ARROW_1_X, OPTIONS_ARROW_Y + data->yPosModifyArrows.currentDigit * 12, 0);
     StartSpriteAnim(&gSprites[data->yPosModifyArrows.arrowSpriteId[0]], ARROW_RIGHT);

@@ -142,7 +142,7 @@ const struct CompressedSpriteSheet gBallParticleSpritesheets[] =
     [BALL_PREMIER] = {gBattleAnimSpriteGfx_Particles, 0x100, TAG_PARTICLES_PREMIERBALL},
 };
 
-const struct CompressedSpritePalette gBallParticlePalettes[] =
+const struct SpritePalette gBallParticlePalettes[] =
 {
     [BALL_POKE]    = {gBattleAnimSpritePal_CircleImpact, TAG_PARTICLES_POKEBALL},
     [BALL_GREAT]   = {gBattleAnimSpritePal_CircleImpact, TAG_PARTICLES_GREATBALL},
@@ -450,7 +450,7 @@ UNUSED void AnimTask_UnusedLevelUpHealthBox(u8 taskId)
     GetBattleAnimBg1Data(&animBgData);
     AnimLoadCompressedBgTilemap(animBgData.bgId, gUnknown_D2EC24_Tilemap);
     AnimLoadCompressedBgGfx(animBgData.bgId, gUnknown_D2EC24_Gfx, animBgData.tilesOffset);
-    LoadCompressedPalette(gCureBubblesPal, animBgData.paletteId << 4, 32);
+    LoadPalette(gCureBubblesPal, animBgData.paletteId << 4, 32);
     gBattle_BG1_X = -gSprites[spriteId3].x + 32;
     gBattle_BG1_Y = -gSprites[spriteId3].y - 32;
     gTasks[taskId].data[1] = 640;
@@ -1451,7 +1451,7 @@ static void LoadBallParticleGfx(u8 ballId)
     if (GetSpriteTileStartByTag(gBallParticleSpritesheets[ballId].tag) == 0xFFFF)
     {
         LoadCompressedSpriteSheetUsingHeap(&gBallParticleSpritesheets[ballId]);
-        LoadCompressedSpritePaletteUsingHeap(&gBallParticlePalettes[ballId]);
+        LoadSpritePalette(&gBallParticlePalettes[ballId]);
     }
 }
 
@@ -2088,7 +2088,7 @@ void TryShinyAnimation(u8 battler, struct Pokemon *mon)
             if (GetSpriteTileStartByTag(ANIM_TAG_GOLD_STARS) == 0xFFFF)
             {
                 LoadCompressedSpriteSheetUsingHeap(&gBattleAnimPicTable[ANIM_TAG_GOLD_STARS - ANIM_SPRITES_START]);
-                LoadCompressedSpritePaletteUsingHeap(&gBattleAnimPaletteTable[ANIM_TAG_GOLD_STARS - ANIM_SPRITES_START]);
+                LoadSpritePalette(&gBattleAnimPaletteTable[ANIM_TAG_GOLD_STARS - ANIM_SPRITES_START]);
             }
 
             taskId1 = CreateTask(AnimTask_ShinySparkles, 10);
@@ -2229,7 +2229,7 @@ void AnimTask_LoadBaitGfx(u8 taskId)
     UNUSED u8 paletteIndex;
 
     LoadCompressedSpriteSheetUsingHeap(&gBattleAnimPicTable[ANIM_TAG_SAFARI_BAIT - ANIM_SPRITES_START]);
-    LoadCompressedSpritePaletteUsingHeap(&gBattleAnimPaletteTable[ANIM_TAG_SAFARI_BAIT - ANIM_SPRITES_START]);
+    LoadSpritePalette(&gBattleAnimPaletteTable[ANIM_TAG_SAFARI_BAIT - ANIM_SPRITES_START]);
     paletteIndex = IndexOfSpritePaletteTag(ANIM_TAG_SAFARI_BAIT);
     DestroyAnimVisualTask(taskId);
 }

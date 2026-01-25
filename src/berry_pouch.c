@@ -401,7 +401,7 @@ static const struct CompressedSpriteSheet sBerryPouchSpriteSheet = {
     gBerryPouchSpriteTiles, 0x800, 100
 };
 
-static const struct CompressedSpritePalette sBerryPouchSpritePal = {
+static const struct SpritePalette sBerryPouchSpritePal = {
     gBerryPouchSpritePalette, 100
 };
 
@@ -618,9 +618,9 @@ static bool8 BerryPouchLoadGfx(void)
         }
         break;
     case 2:
-        LoadCompressedPalette(gBerryPouchBgPals, 0, 0x60);
+        LoadPalette(gBerryPouchBgPals, 0, 0x60);
         if (gSaveBlock2Ptr->playerGender != MALE)
-            LoadCompressedPalette(gBerryPouchBgPal0FemaleOverride, 0, 0x20);
+            LoadPalette(gBerryPouchBgPal0FemaleOverride, 0, 0x20);
         sResources->data[0]++;
         break;
     case 3:
@@ -628,7 +628,7 @@ static bool8 BerryPouchLoadGfx(void)
         sResources->data[0]++;
         break;
     default:
-        LoadCompressedSpritePalette(&sBerryPouchSpritePal);
+        LoadSpritePalette(&sBerryPouchSpritePal);
         sResources->data[0] = 0;
         return TRUE;
     }

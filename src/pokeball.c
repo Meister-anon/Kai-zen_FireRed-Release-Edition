@@ -76,7 +76,7 @@ const struct CompressedSpriteSheet gBallSpriteSheets[POKEBALL_COUNT] =
     {gInterfaceGfx_PremierBall, 384, GFX_TAG_PREMIER_BALL},
 };
 
-const struct CompressedSpritePalette gBallSpritePalettes[POKEBALL_COUNT] =
+const struct SpritePalette gBallSpritePalettes[POKEBALL_COUNT] =
 {
     {gInterfacePal_PokeBall,    GFX_TAG_POKE_BALL},
     {gInterfacePal_GreatBall,   GFX_TAG_GREAT_BALL},
@@ -1028,7 +1028,7 @@ void CreatePokeballSpriteToReleaseMon(u8 monSpriteId, u8 battlerId, u8 x, u8 y, 
     u8 spriteId;
 
     LoadCompressedSpriteSheetUsingHeap(&gBallSpriteSheets[0]);
-    LoadCompressedSpritePaletteUsingHeap(&gBallSpritePalettes[0]);
+    LoadSpritePalette(&gBallSpritePalettes[0]);
     spriteId = CreateSprite(&gBallSpriteTemplates[0], x, y, subpriortiy);
     gSprites[spriteId].data[0] = monSpriteId;
     gSprites[spriteId].data[5] = gSprites[monSpriteId].x;
@@ -1127,7 +1127,7 @@ u8 CreateTradePokeballSprite(u8 a, u8 b, u8 x, u8 y, u8 oamPriority, u8 subPrior
     u8 spriteId;
 
     LoadCompressedSpriteSheetUsingHeap(&gBallSpriteSheets[0]);
-    LoadCompressedSpritePaletteUsingHeap(&gBallSpritePalettes[0]);
+    LoadSpritePalette(&gBallSpritePalettes[0]);
     spriteId = CreateSprite(&gBallSpriteTemplates[0], x, y, subPriority);
     gSprites[spriteId].data[0] = a;
     gSprites[spriteId].data[1] = g;
@@ -1279,7 +1279,7 @@ void LoadBallGfx(u8 ballId)
     if (GetSpriteTileStartByTag(gBallSpriteSheets[ballId].tag) == SPRITE_INVALID_TAG)
     {
         LoadCompressedSpriteSheetUsingHeap(&gBallSpriteSheets[ballId]);
-        LoadCompressedSpritePaletteUsingHeap(&gBallSpritePalettes[ballId]);
+        LoadSpritePalette(&gBallSpritePalettes[ballId]);
     }
     
     switch (ballId)

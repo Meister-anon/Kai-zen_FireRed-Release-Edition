@@ -691,7 +691,7 @@ static bool8 AllocPartyMenuBgGfx(void)
         }
         break;
     case 2:
-        LoadCompressedPalette(gPartyMenuBg_Pal, 0, 0x160);
+        LoadPalette(gPartyMenuBg_Pal, 0, 0x160);
         CpuCopy16(gPlttBufferUnfaded, sPartyMenuInternal->palBuffer, 0x160);
         ++sPartyMenuInternal->data[0];
         break;
@@ -3280,7 +3280,7 @@ static void LoadPartyMenuPokeballGfx(void)
 {
     LoadCompressedSpriteSheet(&sSpriteSheet_MenuPokeball);
     LoadCompressedSpriteSheet(&sSpriteSheet_MenuPokeballSmall);
-    LoadCompressedSpritePalette(&sSpritePalette_MenuPokeball);
+    LoadSpritePalette(&sSpritePalette_MenuPokeball);
 }
 
 static void CreatePartyMonStatusSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox)
@@ -3593,7 +3593,7 @@ static void UpdatePartyMonExpstateGfx(u8 expState, struct PartyMenuBox *menuBox)
 void LoadPartyMenuAilmentGfx(void)
 {
     LoadCompressedSpriteSheet(&sSpriteSheet_StatusIcons);
-    LoadCompressedSpritePalette(&sSpritePalette_StatusIcons);
+    LoadSpritePalette(&sSpritePalette_StatusIcons);
 }
 
 static void SetPartyMonSelectionActions(struct Pokemon *mons, u8 slotId, u8 action)

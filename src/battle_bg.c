@@ -376,7 +376,7 @@ const struct WindowTemplate sStandardBattleWindowTemplates[] = {
 DUMMY_WIN_TEMPLATE
 };
 
-const u32 sBattleTerrainPalette_Grass[] = INCBIN_U32("graphics/battle/unk_8248400.gbapal.lz");
+const u16 sBattleTerrainPalette_Grass[] = INCBIN_U16("graphics/battle/unk_8248400.gbapal");
 const u32 sBattleTerrainTiles_Grass[] = INCBIN_U32("graphics/battle/unk_824844C.4bpp.lz");
 const u32 sBattleTerrainTilemap_Grass[] = INCBIN_U32("graphics/battle/Grass_Terrain.bin.lz");
 const u32 sBattleTerrainTilemap_Grass_Doubles[] = INCBIN_U32("graphics/battle/Grass_Terrain_Doubles.bin.lz");
@@ -384,7 +384,7 @@ const u32 sBattleTerrainTilemap_Grass_Doubles[] = INCBIN_U32("graphics/battle/Gr
 const u32 sBattleTerrainAnimTiles_Grass[] = INCBIN_U32("graphics/battle/unk_8248C68.4bpp.lz");
 const u32 sBattleTerrainAnimTilemap_Grass[] = INCBIN_U32("graphics/battle/unk_8248F58.bin.lz");
 
-const u32 sBattleTerrainPalette_LongGrass[] = INCBIN_U32("graphics/battle/unk_8249074.gbapal.lz");
+const u16 sBattleTerrainPalette_LongGrass[] = INCBIN_U16("graphics/battle/unk_8249074.gbapal");
 const u32 sBattleTerrainTiles_LongGrass[] = INCBIN_U32("graphics/battle/unk_82490C4.4bpp.lz");
 const u32 sBattleTerrainTilemap_LongGrass[] = INCBIN_U32("graphics/battle/LongGrass_Terrain.bin.lz");
 const u32 sBattleTerrainTilemap_LongGrass_Doubles[] = INCBIN_U32("graphics/battle/LongGrass_Terrain_Doubles.bin.lz");
@@ -392,7 +392,7 @@ const u32 sBattleTerrainTilemap_LongGrass_Doubles[] = INCBIN_U32("graphics/battl
 const u32 sBattleTerrainAnimTiles_LongGrass[] = INCBIN_U32("graphics/battle/unk_82498DC.4bpp.lz");
 const u32 sBattleTerrainAnimTilemap_LongGrass[] = INCBIN_U32("graphics/battle/unk_8249E10.bin.lz");
 
-const u32 sBattleTerrainPalette_Sand[] = INCBIN_U32("graphics/battle/unk_8249F98.gbapal.lz");
+const u16 sBattleTerrainPalette_Sand[] = INCBIN_U16("graphics/battle/unk_8249F98.gbapal");
 const u32 sBattleTerrainTiles_Sand[] = INCBIN_U32("graphics/battle/unk_8249FE4.4bpp.lz");
 const u32 sBattleTerrainTilemap_Sand[] = INCBIN_U32("graphics/battle/Sand_Terrain.bin.lz");
 const u32 sBattleTerrainTilemap_Sand_Doubles[] = INCBIN_U32("graphics/battle/Sand_Terrain_Doubles.bin.lz");
@@ -400,7 +400,7 @@ const u32 sBattleTerrainTilemap_Sand_Doubles[] = INCBIN_U32("graphics/battle/San
 const u32 sBattleTerrainAnimTiles_Sand[] = INCBIN_U32("graphics/battle/unk_824A618.4bpp.lz");
 const u32 sBattleTerrainAnimTilemap_Sand[] = INCBIN_U32("graphics/battle/unk_824A844.bin.lz");
 
-const u32 sBattleTerrainPalette_Underwater[] = INCBIN_U32("graphics/battle/unk_824A940.gbapal.lz");
+const u16 sBattleTerrainPalette_Underwater[] = INCBIN_U16("graphics/battle/unk_824A940.gbapal");
 const u32 sBattleTerrainTiles_Underwater[] = INCBIN_U32("graphics/battle/unk_824A990.4bpp.lz");
 const u32 sBattleTerrainTilemap_Underwater[] = INCBIN_U32("graphics/battle/Underwater_Terrain.bin.lz");
 const u32 sBattleTerrainTilemap_Underwater_Doubles[] = INCBIN_U32("graphics/battle/Underwater_Terrain_Doubles.bin.lz");
@@ -408,7 +408,7 @@ const u32 sBattleTerrainTilemap_Underwater_Doubles[] = INCBIN_U32("graphics/batt
 const u32 sBattleTerrainAnimTiles_Underwater[] = INCBIN_U32("graphics/battle/unk_824AF70.4bpp.lz");
 const u32 sBattleTerrainAnimTilemap_Underwater[] = INCBIN_U32("graphics/battle/unk_824B0DC.bin.lz");
 
-const u32 sBattleTerrainPalette_Water[] = INCBIN_U32("graphics/battle/unk_824B19C.gbapal.lz");
+const u16 sBattleTerrainPalette_Water[] = INCBIN_U16("graphics/battle/unk_824B19C.gbapal");
 const u32 sBattleTerrainTiles_Water[] = INCBIN_U32("graphics/battle/unk_824B1EC.4bpp.lz");
 const u32 sBattleTerrainTilemap_Water[] = INCBIN_U32("graphics/battle/Water_Terrain.bin.lz");
 const u32 sBattleTerrainTilemap_Water_Doubles[] = INCBIN_U32("graphics/battle/Water_Terrain_Doubles.bin.lz");
@@ -416,7 +416,7 @@ const u32 sBattleTerrainTilemap_Water_Doubles[] = INCBIN_U32("graphics/battle/Wa
 const u32 sBattleTerrainAnimTiles_Water[] = INCBIN_U32("graphics/battle/unk_824B8A8.4bpp.lz");
 const u32 sBattleTerrainAnimTilemap_Water[] = INCBIN_U32("graphics/battle/unk_824BBE0.bin.lz");
 
-const u32 sBattleTerrainPalette_Pond[] = INCBIN_U32("graphics/battle/unk_824BCE0.gbapal.lz");
+const u16 sBattleTerrainPalette_Pond[] = INCBIN_U16("graphics/battle/unk_824BCE0.gbapal");
 const u32 sBattleTerrainTiles_Pond[] = INCBIN_U32("graphics/battle/unk_824BD38.4bpp.lz");
 const u32 sBattleTerrainTilemap_Pond[] = INCBIN_U32("graphics/battle/Pond_Terrain.bin.lz");
 const u32 sBattleTerrainTilemap_Pond_Doubles[] = INCBIN_U32("graphics/battle/Pond_Terrain_Doubles.bin.lz");
@@ -424,7 +424,7 @@ const u32 sBattleTerrainTilemap_Pond_Doubles[] = INCBIN_U32("graphics/battle/Pon
 const u32 sBattleTerrainAnimTiles_Pond[] = INCBIN_U32("graphics/battle/unk_824C314.4bpp.lz");
 const u32 sBattleTerrainAnimTilemap_Pond[] = INCBIN_U32("graphics/battle/unk_824C520.bin.lz");
 
-const u32 sBattleTerrainPalette_Mountain[] = INCBIN_U32("graphics/battle/unk_824C5D8.gbapal.lz");
+const u16 sBattleTerrainPalette_Mountain[] = INCBIN_U16("graphics/battle/unk_824C5D8.gbapal");
 const u32 sBattleTerrainTiles_Mountain[] = INCBIN_U32("graphics/battle/unk_824C624.4bpp.lz");
 const u32 sBattleTerrainTilemap_Mountain[] = INCBIN_U32("graphics/battle/Mountain_Terrain.bin.lz");
 const u32 sBattleTerrainTilemap_Mountain_Doubles[] = INCBIN_U32("graphics/battle/Mountain_Terrain_Doubles.bin.lz");
@@ -432,7 +432,7 @@ const u32 sBattleTerrainTilemap_Mountain_Doubles[] = INCBIN_U32("graphics/battle
 const u32 sBattleTerrainAnimTiles_Mountain[] = INCBIN_U32("graphics/battle/unk_824CBF8.4bpp.lz");
 const u32 sBattleTerrainAnimTilemap_Mountain[] = INCBIN_U32("graphics/battle/unk_824CEC8.bin.lz");
 
-const u32 sBattleTerrainPalette_Cave[] = INCBIN_U32("graphics/battle/unk_824CF98.gbapal.lz");
+const u16 sBattleTerrainPalette_Cave[] = INCBIN_U16("graphics/battle/unk_824CF98.gbapal");
 const u32 sBattleTerrainTiles_Cave[] = INCBIN_U32("graphics/battle/unk_824CFEC.4bpp.lz");
 const u32 sBattleTerrainTilemap_Cave[] = INCBIN_U32("graphics/battle/Cave_Terrain.bin.lz");
 const u32 sBattleTerrainTilemap_Cave_Doubles[] = INCBIN_U32("graphics/battle/Cave_Terrain_Doubles.bin.lz");
@@ -440,7 +440,7 @@ const u32 sBattleTerrainTilemap_Cave_Doubles[] = INCBIN_U32("graphics/battle/Cav
 const u32 sBattleTerrainAnimTiles_Cave[] = INCBIN_U32("graphics/battle/unk_824D6B8.4bpp.lz");
 const u32 sBattleTerrainAnimTilemap_Cave[] = INCBIN_U32("graphics/battle/unk_824DC98.bin.lz");
 
-const u32 sBattleTerrainPalette_Building[] = INCBIN_U32("graphics/battle/unk_824DDF0.gbapal.lz");
+const u16 sBattleTerrainPalette_Building[] = INCBIN_U16("graphics/battle/unk_824DDF0.gbapal");
 const u32 sBattleTerrainTiles_Building[] = INCBIN_U32("graphics/battle/unk_824DE34.4bpp.lz");
 const u32 sBattleTerrainTilemap_Building[] = INCBIN_U32("graphics/battle/Building_Terrain.bin.lz");
 const u32 sBattleTerrainTilemap_Building_Doubles[] = INCBIN_U32("graphics/battle/Building_Terrain_Doubles.bin.lz");
@@ -448,17 +448,17 @@ const u32 sBattleTerrainTilemap_Building_Doubles[] = INCBIN_U32("graphics/battle
 const u32 sBattleTerrainAnimTiles_Building[] = INCBIN_U32("graphics/battle/unk_824E410.4bpp.lz");
 const u32 sBattleTerrainAnimTilemap_Building[] = INCBIN_U32("graphics/battle/unk_824E490.bin.lz");
 
-const u32 sBattleTerrainPalette_Link[] = INCBIN_U32("graphics/battle/unk_824E528.gbapal.lz");
-const u32 sBattleTerrainPalette_Gym[] = INCBIN_U32("graphics/battle/unk_824E56C.gbapal.lz");
-const u32 sBattleTerrainPalette_Leader[] = INCBIN_U32("graphics/battle/unk_824E5B8.gbapal.lz");
-const u32 sBattleTerrainPalette_Indoor2[] = INCBIN_U32("graphics/battle/unk_824E604.gbapal.lz");
-const u32 sBattleTerrainPalette_Indoor1[] = INCBIN_U32("graphics/battle/unk_824E650.gbapal.lz");
-const u32 sBattleTerrainPalette_Lorelei[] = INCBIN_U32("graphics/battle/unk_824E6A4.gbapal.lz");
-const u32 sBattleTerrainPalette_Bruno[] = INCBIN_U32("graphics/battle/unk_824E6F0.gbapal.lz");
-const u32 sBattleTerrainPalette_Agatha[] = INCBIN_U32("graphics/battle/unk_824E740.gbapal.lz");
-const u32 sBattleTerrainPalette_Lance[] = INCBIN_U32("graphics/battle/unk_824E78C.gbapal.lz");
-const u32 sBattleTerrainPalette_Champion[] = INCBIN_U32("graphics/battle/unk_824E7DC.gbapal.lz");
-const u32 sBattleTerrainPalette_Plain[] = INCBIN_U32("graphics/battle/unk_824E81C.gbapal.lz");
+const u16 sBattleTerrainPalette_Link[] = INCBIN_U16("graphics/battle/unk_824E528.gbapal");
+const u16 sBattleTerrainPalette_Gym[] = INCBIN_U16("graphics/battle/unk_824E56C.gbapal");
+const u16 sBattleTerrainPalette_Leader[] = INCBIN_U16("graphics/battle/unk_824E5B8.gbapal");
+const u16 sBattleTerrainPalette_Indoor2[] = INCBIN_U16("graphics/battle/unk_824E604.gbapal");
+const u16 sBattleTerrainPalette_Indoor1[] = INCBIN_U16("graphics/battle/unk_824E650.gbapal");
+const u16 sBattleTerrainPalette_Lorelei[] = INCBIN_U16("graphics/battle/unk_824E6A4.gbapal");
+const u16 sBattleTerrainPalette_Bruno[] = INCBIN_U16("graphics/battle/unk_824E6F0.gbapal");
+const u16 sBattleTerrainPalette_Agatha[] = INCBIN_U16("graphics/battle/unk_824E740.gbapal");
+const u16 sBattleTerrainPalette_Lance[] = INCBIN_U16("graphics/battle/unk_824E78C.gbapal");
+const u16 sBattleTerrainPalette_Champion[] = INCBIN_U16("graphics/battle/unk_824E7DC.gbapal");
+const u16 sBattleTerrainPalette_Plain[] = INCBIN_U16("graphics/battle/unk_824E81C.gbapal");
 const u32 sBattleTerrainTiles_Indoor[] = INCBIN_U32("graphics/battle/unk_824E858.4bpp.lz");
 const u32 sBattleTerrainTilemap_Indoor[] = INCBIN_U32("graphics/battle/Indoor_Terrain.bin.lz");
 const u32 sBattleTerrainTilemap_Indoor_Doubles[] = INCBIN_U32("graphics/battle/Indoor_Terrain_Doubles.bin.lz");
@@ -698,7 +698,7 @@ static void LoadBattleTerrainGfx(u16 terrain)
         LZDecompressVram(sBattleTerrainTable[terrain].tilemap, (void*)BG_SCREEN_ADDR(26));
     else
         LZDecompressVram(sBattleTerrainTable[terrain].tilemap2, (void*)BG_SCREEN_ADDR(26));
-    LoadCompressedPalette(sBattleTerrainTable[terrain].palette, 0x20, 0x60);
+    LoadPalette(sBattleTerrainTable[terrain].palette, 0x20, 0x60);
 }
 
 static void LoadBattleTerrainEntryGfx(u16 terrain)
@@ -765,7 +765,7 @@ void LoadBattleTextboxAndBackground(void)
     LZDecompressVram(gBattleInterface_Textbox_Gfx, (void *)BG_CHAR_ADDR(0));
     CopyToBgTilemapBuffer(0, gBattleInterface_Textbox_Tilemap, 0, 0x000);
     CopyBgTilemapBufferToVram(0);
-    LoadCompressedPalette(gBattleInterface_Textbox_Pal, 0x00, 0x40);
+    LoadPalette(gBattleInterface_Textbox_Pal, 0x00, 0x40);
     LoadBattleMenuWindowGfx();
     DrawMainBattleBackground();
 }
@@ -1031,7 +1031,7 @@ void DrawBattleEntryBackground(void)
     {
         LZDecompressVram(gFile_graphics_battle_transitions_vs_frame_sheet, (void*)(BG_CHAR_ADDR(1)));
         LZDecompressVram(gVsLettersGfx, (void*)(VRAM + 0x10000));
-        LoadCompressedPalette(gFile_graphics_battle_transitions_vs_frame_palette, 0x60, 0x20);
+        LoadPalette(gFile_graphics_battle_transitions_vs_frame_palette, 0x60, 0x20);
         SetBgAttribute(1, BG_ATTR_SCREENSIZE, 1);
         SetGpuReg(REG_OFFSET_BG1CNT, BGCNT_PRIORITY(0) | BGCNT_CHARBASE(1) | BGCNT_16COLOR | BGCNT_SCREENBASE(28) | BGCNT_TXT512x256);
         CopyToBgTilemapBuffer(1, gFile_graphics_battle_transitions_vs_frame_tilemap, 0, 0);
@@ -1136,7 +1136,7 @@ bool8 LoadChosenBattleElement(u8 caseId)
         CopyBgTilemapBufferToVram(0);
         break;
     case 2:
-        LoadCompressedPalette(gBattleInterface_Textbox_Pal, 0x00, 0x40);
+        LoadPalette(gBattleInterface_Textbox_Pal, 0x00, 0x40);
         break;
     case 3:
         battleScene = GetBattleTerrainOverride();
@@ -1148,7 +1148,7 @@ bool8 LoadChosenBattleElement(u8 caseId)
         break;
     case 5:
         battleScene = GetBattleTerrainOverride();
-        LoadCompressedPalette(sBattleTerrainTable[battleScene].palette, 0x20, 0x60);
+        LoadPalette(sBattleTerrainTable[battleScene].palette, 0x20, 0x60);
         break;
     case 6:
         LoadBattleMenuWindowGfx();

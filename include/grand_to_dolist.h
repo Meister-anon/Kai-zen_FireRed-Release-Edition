@@ -310,7 +310,7 @@ But it's only for enemy mons, to do the same with the player you would just swap
 //NOTE-:
 //.4bpp name and gbapal graphic define names have to match to be able to build pal from png     /ex below use "eviolite" as name
 //const u32 gItemIcon_Eviolite[] = INCBIN_U32("graphics/items/icons/eviolite.4bpp.lz");
-//const u32 gItemIconPalette_Eviolite[] = INCBIN_U32("graphics/items/icon_palettes/eviolite.gbapal.lz");
+//const u16 gItemIconPalette_Eviolite[] = INCBIN_U16("graphics/items/icon_palettes/eviolite.gbapal");
 
 //redid base stats field need properly fill macros then remove stat fields
 //setup basestattotl function like kurausukun said, need proplery setup item grahpic swap for eviolite

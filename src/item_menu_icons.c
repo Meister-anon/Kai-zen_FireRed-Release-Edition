@@ -80,7 +80,7 @@ const struct CompressedSpriteSheet gSpriteSheet_Satchel = {
     100
 };
 
-const struct CompressedSpritePalette gSpritePalette_BagOrSatchel = {
+const struct SpritePalette gSpritePalette_BagOrSatchel = {
     gUnknown_8E84560,
     100
 };
@@ -130,7 +130,7 @@ const struct CompressedSpriteSheet gBagSwapSpriteSheet = {
     101
 };
 
-const struct CompressedSpritePalette gBagSwapSpritePalette = {
+const struct SpritePalette gBagSwapSpritePalette = {
     gFile_graphics_interface_bag_swap_palette,
     101
 };
@@ -175,7 +175,7 @@ static const struct SpriteTemplate sSpriteTemplate_ItemIcon = {
 /* //ported in advance
 static void LoadBerryGfx(u8 berryId)
 {
-    struct CompressedSpritePalette pal;
+    struct SpritePalette pal;
     struct SpriteSheet sheet;
     u8 *srcBuffer;
     u8 *dstBuffer;
@@ -192,7 +192,7 @@ static void LoadBerryGfx(u8 berryId)
     srcBuffer = AllocZeroed(0x1000);
     dstBuffer = AllocZeroed(0x1000);
 
-    LoadCompressedSpritePalette(&pal);
+    LoadSpritePalette(&pal);
     LZDecompressWram(sBerryPicTable[berryId].tiles, srcBuffer);
     ArrangeBerryGfx(srcBuffer, dstBuffer);
     sheet.tag = TAG_BERRY_PIC_GFX;
@@ -970,7 +970,7 @@ u8 AddItemIconObject(u16 tilesTag, u16 paletteTag, u16 itemId)
 {
     struct SpriteTemplate template;
     struct SpriteSheet spriteSheet;
-    struct CompressedSpritePalette spritePalette;
+    struct SpritePalette spritePalette;
     u8 spriteId;
 
     if (!TryAllocItemIconTilesBuffers())
@@ -985,7 +985,7 @@ u8 AddItemIconObject(u16 tilesTag, u16 paletteTag, u16 itemId)
 
     spritePalette.data = GetItemIconGfxPtr(itemId, 1);
     spritePalette.tag = paletteTag;
-    LoadCompressedSpritePalette(&spritePalette);
+    LoadSpritePalette(&spritePalette);
 
     CpuCopy16(&sSpriteTemplate_ItemIcon, &template, sizeof(struct SpriteTemplate));
     template.tileTag = tilesTag;
@@ -1002,7 +1002,7 @@ u8 AddItemIconObjectWithCustomObjectTemplate(const struct SpriteTemplate * origT
 {
     struct SpriteTemplate template;
     struct SpriteSheet spriteSheet;
-    struct CompressedSpritePalette spritePalette;
+    struct SpritePalette spritePalette;
     u8 spriteId;
 
     if (!TryAllocItemIconTilesBuffers())
@@ -1017,7 +1017,7 @@ u8 AddItemIconObjectWithCustomObjectTemplate(const struct SpriteTemplate * origT
 
     spritePalette.data = GetItemIconGfxPtr(itemId, 1);
     spritePalette.tag = paletteTag;
-    LoadCompressedSpritePalette(&spritePalette);
+    LoadSpritePalette(&spritePalette);
 
     CpuCopy16(origTemplate, &template, sizeof(struct SpriteTemplate));
     template.tileTag = tilesTag;

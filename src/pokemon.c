@@ -12460,7 +12460,7 @@ const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny)
 }
 
 //bottom 2 no longer used
-/*const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon)
+/*const struct SpritePalette *GetMonSpritePalStruct(struct Pokemon *mon)
 {
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);

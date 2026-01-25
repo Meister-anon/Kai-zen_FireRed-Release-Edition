@@ -31,7 +31,7 @@
 #include "constants/songs.h"
 
 
-extern const struct CompressedSpritePalette gTrainerFrontPicPaletteTable[];
+extern const struct SpritePalette gTrainerFrontPicPaletteTable[];
 extern const struct CompressedSpriteSheet gTrainerFrontPicTable[];
 
 #define subsprite_table(ptr) {.subsprites = ptr, .subspriteCount = (sizeof ptr) / (sizeof(struct Subsprite))}
@@ -576,7 +576,7 @@ u8 CreateTrainerSprite(u8 trainerSpriteID, s16 x, s16 y, u8 subpriority, u8 *buf
         buffer = Alloc(TRAINER_PIC_SIZE + PLTT_SIZEOF(16));
         alloced = TRUE;
     }
-    LoadCompressedSpritePaletteOverrideBuffer(&gTrainerFrontPicPaletteTable[trainerSpriteID], buffer);
+    LoadSpritePaletteOverrideBuffer(&gTrainerFrontPicPaletteTable[trainerSpriteID], buffer);
     LoadCompressedSpriteSheetOverrideBuffer(&gTrainerFrontPicTable[trainerSpriteID], buffer);
     if (alloced)
         Free(buffer);
@@ -594,7 +594,7 @@ u8 CreateTrainerSprite(u8 trainerSpriteID, s16 x, s16 y, u8 subpriority, u8 *buf
 static void LoadTrainerGfx_TrainerCard(u8 gender, u16 palOffset, u8 *dest)
 {
     LZDecompressVram(gTrainerFrontPicTable[gender].data, dest);
-    LoadCompressedPalette(gTrainerFrontPicPaletteTable[gender].data, palOffset, 0x20);
+    LoadPalette(gTrainerFrontPicPaletteTable[gender].data, palOffset, 0x20);
 }
 
 static u8 AddNewGameBirchObject(s16 x, s16 y, u8 subpriority)

@@ -62,7 +62,7 @@ static const struct OamData sOamData_Arrow =
 };
 
 static const u32 sArrowSheet_Gfx[] = INCBIN_U32("graphics/interface/arrow_sheet.4bpp.lz");
-static const u32 sArrowSheet_Pal[] = INCBIN_U32("graphics/interface/arrow_sheet.gbapal.lz");
+static const u16 sArrowSheet_Pal[] = INCBIN_U16("graphics/interface/arrow_sheet.gbapal");
 
 static const struct CompressedSpriteSheet sSpriteSheet_Arrows =
 {
@@ -71,7 +71,7 @@ static const struct CompressedSpriteSheet sSpriteSheet_Arrows =
     .tag = TILE_TAG_ARROWS,
 };
 
-static const struct CompressedSpritePalette sSpritePalette_Arrow =
+static const struct SpritePalette sSpritePalette_Arrow =
 {
     sArrowSheet_Pal, PAL_TAG_ARROWS
 };
@@ -1433,7 +1433,7 @@ static u8 GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus, 
 
 static void SetUpModifyArrows(struct BattleDebugMenu *data)
 {
-    LoadCompressedSpritePalette(&sSpritePalette_Arrow);
+    LoadSpritePalette(&sSpritePalette_Arrow);
     LoadCompressedSpriteSheet(&sSpriteSheet_Arrows);
     data->modifyArrows.arrowSpriteId[0] = CreateSprite(&sSpriteTemplate_Arrow, 207, 12, 0);
     data->modifyArrows.arrowSpriteId[1] = CreateSprite(&sSpriteTemplate_Arrow, 207, 36, 0);

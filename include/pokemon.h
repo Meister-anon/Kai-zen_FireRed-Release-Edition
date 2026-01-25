@@ -926,9 +926,9 @@ void PlayMapChosenOrBattleBGM(u16 songId);
 const u32 *GetMonSpritePal(struct Pokemon *mon);
 const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, bool32 isShiny, u32 personality);
 const u32 *GetMonSpritePalOfSpecies(struct Pokemon *mon, u16 species); //use mon for shiny retrieves set species, use for evolution scene mostly
-//const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon);
+//const struct SpritePalette *GetMonSpritePalStruct(struct Pokemon *mon);
 
-//const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
+//const struct SpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
 //replaced previous
 const u32 *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
 bool8 IsPokeSpriteNotFlipped(u16 species);

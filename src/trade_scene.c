@@ -784,9 +784,9 @@ static void LoadTradeMonPic(u8 whichParty, u8 action)
             HandleLoadSpecialPokePic_DontHandleDeoxys(TRUE, gMonSpritesGfxPtr->sprites[whichParty * 2 + 1], species, personality);
 
         if (box_mon == NULL)
-            LoadCompressedSpritePaletteWithTag(GetMonSpritePalFromSpecies(species, IsMonShiny(mon)), species);
+            LoadSpritePaletteWithTag(GetMonSpritePalFromSpecies(species, IsMonShiny(mon)), species);
         else
-            LoadCompressedSpritePaletteWithTag(GetMonSpritePalFromSpecies(species, IsBoxMonShiny(box_mon)), species);
+            LoadSpritePaletteWithTag(GetMonSpritePalFromSpecies(species, IsBoxMonShiny(box_mon)), species);
         sTradeData->tradeSpecies[whichParty] = species;
         sTradeData->monPersonalities[whichParty] = personality;
         break;
@@ -969,13 +969,13 @@ static void TradeAnimInit_LoadGfx(void)
     DecompressAndLoadBgGfxUsingHeap(0, gBattleInterface_Textbox_Gfx, 0, 0, 0);
     LZDecompressWram(gBattleInterface_Textbox_Tilemap, buffer);
     CopyToBgTilemapBuffer(0, buffer, BG_SCREEN_SIZE, 0);
-    LoadCompressedPalette(gBattleInterface_Textbox_Pal, 0x000, 0x20);
+    LoadPalette(gBattleInterface_Textbox_Pal, 0x000, 0x20);
     InitWindows(gUnknown_826D1BC);
     // ... and doing the same load again
     DecompressAndLoadBgGfxUsingHeap(0, gBattleInterface_Textbox_Gfx, 0, 0, 0);
     LZDecompressWram(gBattleInterface_Textbox_Tilemap, buffer);
     CopyToBgTilemapBuffer(0, buffer, BG_SCREEN_SIZE, 0);
-    LoadCompressedPalette(gBattleInterface_Textbox_Pal, 0x000, 0x20);
+    LoadPalette(gBattleInterface_Textbox_Pal, 0x000, 0x20);
 
     Free(buffer);
 }

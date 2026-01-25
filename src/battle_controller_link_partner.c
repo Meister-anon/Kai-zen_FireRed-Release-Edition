@@ -1501,7 +1501,7 @@ static void LinkPartnerHandleIntroTrainerBallThrow(u32 battler)
         trainerPicId = gLinkPlayers[GetBattlerMultiplayerId(battler)].gender;
     }
 
-    LoadCompressedPalette(gTrainerBackPicPaletteTable[trainerPicId].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
+    LoadPalette(gTrainerBackPicPaletteTable[trainerPicId].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
 
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = paletteNum;
 

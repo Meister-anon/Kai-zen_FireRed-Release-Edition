@@ -1843,7 +1843,7 @@ static void PokedudeHandleIntroTrainerBallThrow(u32 battler)
     StoreSpriteCallbackInData6(&gSprites[gBattlerSpriteIds[battler]], SpriteCB_FreePlayerSpriteLoadMonSprite);
     StartSpriteAnim(&gSprites[gBattlerSpriteIds[battler]], 1);
     paletteNum = AllocSpritePalette(0xD6F8);
-    LoadCompressedPalette(gTrainerBackPicPaletteTable[BACK_PIC_POKEDUDE].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
+    LoadPalette(gTrainerBackPicPaletteTable[BACK_PIC_POKEDUDE].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = paletteNum;
     taskId = CreateTask(Task_StartSendOutAnim, 5);
     gTasks[taskId].data[0] = battler;

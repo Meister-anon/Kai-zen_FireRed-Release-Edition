@@ -1886,7 +1886,7 @@ static void CreateNidoranFSprite(u8 taskId)
     u8 spriteId;
 
     HandleLoadSpecialPokePic_DontHandleDeoxys(TRUE, OakSpeechNidoranFGetBuffer(0), SPECIES_NIDORAN_F, 0);
-    LoadCompressedSpritePaletteWithTag(gSpeciesGraphics[SPECIES_NIDORAN_F].palette, SPECIES_NIDORAN_F);
+    LoadSpritePaletteWithTag(gSpeciesGraphics[SPECIES_NIDORAN_F].palette, SPECIES_NIDORAN_F);
     SetMultiuseSpriteTemplateToPokemon(SPECIES_NIDORAN_F, 0);
     spriteId = CreateSprite(&gMultiuseSpriteTemplate, 0x60, 0x60, 1);
     gSprites[spriteId].callback = SpriteCallbackDummy;
