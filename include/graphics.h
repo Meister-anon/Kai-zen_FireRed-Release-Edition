@@ -8440,7 +8440,7 @@ extern const u16 gFile_graphics_items_icon_palettes_return_to_field_arrow_palett
 // battle_anim_utility_funcs
 extern const u32 gFile_graphics_battle_anims_masks_curse_sheet[];
 extern const u32 gFile_graphics_battle_anims_masks_curse_tilemap[];
-extern const u32 gBattleStatMask_Gfx[];
+extern const u32 gStatAnim_Gfx[];
 extern const u16 gStatAnim_Defense_Pal[];
 extern const u16 gStatAnim_Attack_Pal[];
 extern const u16 gStatAnim_Accuracy_Pal[];
