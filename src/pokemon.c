@@ -10631,7 +10631,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
     //thank goodness only one of these
     if (targetSpecies == SPECIES_JELLICENT)
     {
-        bool32 gender = GetMonGender(&mon) == MON_FEMALE;
+        bool32 gender = GetMonGender(mon) == MON_FEMALE;
         targetSpecies = CheckGenderForms(targetSpecies, gender);
     }
 

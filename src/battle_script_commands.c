@@ -16774,7 +16774,7 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
             {
                 while (found_species == 0xffff)
                 {
-                    i = Random() % BASE_SPECIES_COUNT;
+                    i = Random() % NUM_BASE_SPECIES;
                     if (IS_SPECIES_OF_TYPE(i, FoundType)
                     && gBaseStats[i].flags != FLAG_LEGENDARY_POKEMON
                     && !IsSpeciesUltraBeast(i))
