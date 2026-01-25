@@ -710,7 +710,7 @@ static void LoadBattleTerrainEntryGfx(u16 terrain)
     LZDecompressVram(sBattleTerrainTable[terrain].entryTilemap, (void*)BG_SCREEN_ADDR(28));
 }
 
-UNUSED void GetBattleTerrainGfxPtrs(u8 terrain, const u32 **tilesPtr, const u32 **mapPtr, const u32 **palPtr)
+UNUSED void GetBattleTerrainGfxPtrs(u8 terrain, const u32 **tilesPtr, const u32 **mapPtr, const u16 **palPtr)
 {
     if (terrain > 9)
         terrain = 9;

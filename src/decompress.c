@@ -91,34 +91,6 @@ u32 LoadCompressedSpriteSheetByTemplate(const struct SpriteTemplate *template, s
     return ret;
 }
 
-u32 LoadCompressedSpritePalette(const struct SpritePalette *src)
-{
-    return LoadSpritePaletteWithTag(src->data, src->tag);
-}
-
-u32 LoadSpritePaletteWithTag(const u32 *pal, u16 tag) //vsonic
-{
-    u32 index;
-    struct SpritePalette dest;
-    void *buffer = malloc_and_decompress(pal, NULL);
-
-    dest.data = buffer;
-    dest.tag = tag;
-    index = LoadSpritePalette(&dest);
-    Free(buffer);
-    return index;
-}
-
-void LoadCompressedSpritePaletteOverrideBuffer(const struct SpritePalette *a, void *buffer)
-{
-    struct SpritePalette dest;
-
-    LZ77UnCompWram(a->data, buffer);
-    dest.data = buffer;
-    dest.tag = a->tag;
-    LoadSpritePalette(&dest);
-}
-
 //void DecompressPicFromTable(const struct CompressedSpriteSheet *src, void *buffer)
 //in EE function only handles trainer pics not pokemon, so think don't use this for oak battle
 //ok replaced every instance its used w pokemon w handle pokepic

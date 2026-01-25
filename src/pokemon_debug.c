@@ -539,7 +539,7 @@ static void UpdateBattlerValue(struct PokemonDebugMenu *data)
 }
 
 //Sprite functions
-static const u32 *GetMonSpritePalStructCustom(u16 species, bool8 isShiny)
+static const u16 *GetMonSpritePalStructCustom(u16 species, bool8 isShiny)
 {
     if (isShiny)
     {
@@ -960,7 +960,7 @@ void CB2_Debug_Pokemon(void)
     u8 taskId;
     const void *src;
     void *dst;
-    const u32 *palette;
+    const u16 *palette;
     struct PokemonDebugMenu *data;
     u16 species;
     s16 offset_y;
@@ -1499,7 +1499,7 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
 
 static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
 {
-    const u32 *palette;
+    const u16 *palette;
     u16 species = data->currentmonId;
     s16 offset_y;
     u8 front_x = sBattlerCoords[0][1].x;

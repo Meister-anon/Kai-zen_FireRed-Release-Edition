@@ -12403,7 +12403,7 @@ void PlayMapChosenOrBattleBGM(u16 songId)
 
 
 //front and back use same pal so better to just say sprite pal
-const u32 *GetMonSpritePal(struct Pokemon *mon)
+const u16 *GetMonSpritePal(struct Pokemon *mon)
 {
     
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
@@ -12413,7 +12413,7 @@ const u32 *GetMonSpritePal(struct Pokemon *mon)
 }
 
 //needed for specific things where species wasn't current species, like evo screen etc.
-const u32 *GetMonSpritePalOfSpecies(struct Pokemon *mon, u16 species)
+const u16 *GetMonSpritePalOfSpecies(struct Pokemon *mon, u16 species)
 {
     
     //u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
@@ -12423,7 +12423,7 @@ const u32 *GetMonSpritePalOfSpecies(struct Pokemon *mon, u16 species)
     return GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality);
 }
 
-const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, bool32 isShiny, u32 personality)
+const u16 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, bool32 isShiny, u32 personality)
 {
     /*u32 shinyValue;
 
@@ -12439,7 +12439,7 @@ const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, bool32 isShiny,
 
 }
 
-const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny)
+const u16 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny)
 {
     //species = SanitizeSpeciesId(species);
 
@@ -12469,7 +12469,7 @@ const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny)
 }*/
 
 //repurpose can use this -presently not used
-const u32 *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality)
+const u16 *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality)
 {
     bool32 isShiny = IsShinyOtIdPersonality(otId,personality);
 

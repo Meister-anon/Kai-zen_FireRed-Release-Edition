@@ -965,7 +965,7 @@ static void apply_map_tileset_palette(struct Tileset const *tileset, u16 destOff
         }
         else
         {
-            LoadPalette((const u32 *)tileset->palettes, destOffset, size);
+            LoadPalette((const u16 *)tileset->palettes, destOffset, size);
             ApplyGlobalTintToPaletteEntries(destOffset, size >> 1);
         }
     }
