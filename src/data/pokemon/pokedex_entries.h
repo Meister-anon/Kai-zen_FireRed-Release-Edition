@@ -14194,7 +14194,7 @@ const struct FormdexEntries gFormdexEntries[] =
             "cold."),
     },
 
-    [NATIONAL_DEX_BASCULIN_WHITE_STRIPED] =
+    [NATIONAL_DEX_BASCULIN_HISUIAN] =
     {
         //.categoryName = _("Love-Hate"),
         .description = COMPOUND_STRING(

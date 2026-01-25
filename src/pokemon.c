@@ -1735,7 +1735,7 @@ SPECIES_TO_NATIONAL(PECHARUNT),  //
 
     SPECIES_TO_NATIONAL(DECIDUEYE_HISUIAN), // - 1] = NATIONAL_DEX_DECIDUEYE,
 
-    SPECIES_TO_NATIONAL(BASCULIN_WHITE_STRIPED), //HISUIAN FORM
+    SPECIES_TO_NATIONAL(BASCULIN_HISUIAN), //HISUIAN FORM
     // Cosplay Pikachu
     //SPECIES_TO_NATIONAL(PIKACHU_COSPLAY), // - 1] = NATIONAL_DEX_PIKACHU,
     SPECIES_TO_NATIONAL(PIKACHU_ROCK_STAR), // - 1] = NATIONAL_DEX_PIKACHU,
@@ -13120,17 +13120,24 @@ void *OakSpeechNidoranFGetBuffer(u8 bufferId)
 
 //returns id in table of last form, i.e base is 0, has 2 forms, 1 & 2 before hit 
 //form species end, will return 2 as last form in the species table
-u8 GetFinalFormSpeciesId(u16 formSpeciesId) //rather than this can just do with macro, made macro hope work
+//used in dex need test
+u32 GetFinalFormSpeciesId(u16 formSpeciesId) //rather than this can just do with macro, made macro hope work
 {
-    u8 targetFormId = 0;
+    u32 targetFormId = 0;
 
+    //does size of do same effect
+    //i.e sizeof gFormSpeciesIdTables[formSpeciesId]
+    //yeah it does
+    
     if (gFormSpeciesIdTables[formSpeciesId] != NULL)
     {
-        for (targetFormId = 0; gFormSpeciesIdTables[formSpeciesId][targetFormId] != FORM_SPECIES_END; targetFormId++)
+        for (targetFormId = 0; gFormSpeciesIdTables[formSpeciesId][targetFormId].Species != FORM_SPECIES_END; targetFormId++)
         {
     
         }
     }
+   // return ARRAY_COUNT(gFormSpeciesIdTables[formSpeciesId]); 
+    //didnt seem to work returning array count
     return targetFormId - 1; //since it still increments think need - 1 to ensure its last value before end
 }//worked
 
@@ -13138,7 +13145,7 @@ u8 GetFinalFormSpeciesId(u16 formSpeciesId) //rather than this can just do with 
 u16 GetFormSpeciesId(u16 speciesId, u8 formId)
 {
     if (gFormSpeciesIdTables[speciesId] != NULL)
-        return gFormSpeciesIdTables[speciesId][formId];
+        return gFormSpeciesIdTables[speciesId][formId].Species;
     else
         return speciesId; //no forms exist so return species
 }
@@ -13151,15 +13158,17 @@ u16 GetBaseFormSpecies(u16 speciesId)
 //would return what form id it is given the species, so would need both this and above for table comparisons
 //start with this function, to get formId of dex species, then substitute taht into GetFormSpeciesId, use targetId + 1 
 //if == 0xffff can know not to put right arrow, can make new function from the two, call, islastformId  return true false
-u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId) 
+u32 GetFormIdFromFormSpeciesId(u16 formSpeciesId) 
 {
-    u8 targetFormId = 0;
+    //is entry of table
+    u32 targetFormId = 0;
+    const struct FormSpecies *formSpeciesData = gFormSpeciesIdTables[formSpeciesId];
 
-    if (gFormSpeciesIdTables[formSpeciesId] != NULL)
+    if (formSpeciesData != NULL)
     {
-        for (targetFormId = 0; gFormSpeciesIdTables[formSpeciesId][targetFormId] != FORM_SPECIES_END; targetFormId++)
+        for (targetFormId = 0; formSpeciesData[targetFormId].Species != FORM_SPECIES_END; targetFormId++)
         {
-            if (formSpeciesId == gFormSpeciesIdTables[formSpeciesId][targetFormId])
+            if (formSpeciesId == formSpeciesData[targetFormId].Species)
                 break;
         }
     }

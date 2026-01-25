@@ -1052,13 +1052,22 @@ enum Species
  SPECIES_TERAPAGOS = SPECIES_TERAPAGOS_NORMAL,
 
  SPECIES_PECHARUNT = 1025,
+ FORMS_START = SPECIES_PECHARUNT,
  NUM_BASE_SPECIES,
  //put mon that need base stats below this
- FORMS_START = NUM_BASE_SPECIES,  
  };
 
-#define FORMS_START NUM_BASE_SPECIES  //because gen 9 stuff need change value
 #define BASE_SPECIES_COUNT NUM_BASE_SPECIES - 1 //made so has constant for dex page
+
+//checked ee its not 30 gender forms
+//its actually 100...
+//also of note gender form may through off dex form display
+//to make work display both gender forms as two pics on main page
+//so doesnt scroll for form
+//idea load diff page if has gender forms
+//move image slightly over and load both
+//male on right loaded normally
+//and female on left flipped to face toward male
 
 //tested upgrading this doesn't take more ewram luckily
 //this isn't what's breaking new game  screen, so assume its nat dex stuff
@@ -2963,7 +2972,7 @@ enum Species
 #define NATIONAL_DEX_GOODRA_HISUIAN               NATIONAL_SPECIES_COUNT + 104
 #define NATIONAL_DEX_AVALUGG_HISUIAN              NATIONAL_SPECIES_COUNT + 105
 #define NATIONAL_DEX_DECIDUEYE_HISUIAN            NATIONAL_SPECIES_COUNT + 106
-#define NATIONAL_DEX_BASCULIN_WHITE_STRIPED       NATIONAL_SPECIES_COUNT + 107
+#define NATIONAL_DEX_BASCULIN_HISUIAN             NATIONAL_SPECIES_COUNT + 107
 //Cefirian Forms //reserved for Pokemon Opal variant mon - prob skip this, or save for alt branch just for me
 
 // Misc Forms

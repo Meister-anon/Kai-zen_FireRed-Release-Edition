@@ -1,4 +1,4 @@
-const u16 *const gFormSpeciesIdTables[] =
+const struct FormSpecies *const gFormSpeciesIdTables[] =
 {
     [SPECIES_VENUSAUR] = sVenusaurFormSpeciesIdTable,
     [SPECIES_CHARIZARD] = sCharizardFormSpeciesIdTable,

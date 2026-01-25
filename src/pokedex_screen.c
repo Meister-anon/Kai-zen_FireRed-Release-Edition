@@ -7760,13 +7760,7 @@ static void Task_HandleEvolutionScreenInput(u8 taskId)
                 //sPokedexListItem->owned  = GetSetPokedexFlag(dexNum, FLAG_GET_CAUGHT);
                 
 
-                /*#ifdef POKEMON_EXPANSION
-                    if (gFormSpeciesIdTables[targetSpecies] != NULL)
-                        sPokedexScreenData->formSpecies = targetSpecies;
-                    else
-                        sPokedexScreenData->formSpecies = 0;
-                #endif
-                */
+
             
 
             

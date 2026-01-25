@@ -985,7 +985,7 @@ extern const u8 gFacilityClassToPicIndex[];
 extern const u8 gFacilityClassToTrainerClass[];
 extern const struct SpriteTemplate gSpriteTemplates_Battlers[];
 extern const u8 gPPUpGetMask[];
-extern const u16 *const gFormSpeciesIdTables[]; //needs include cosmetic so cant use numspecies
+extern const struct FormSpecies *const gFormSpeciesIdTables[]; //needs include cosmetic so cant use numspecies
 extern const struct FormChange *const gFormChangeTablePointers[NUM_SPECIES];
 
 
@@ -1161,8 +1161,8 @@ void OakSpeechNidoranFFreeResources(void);
 void *OakSpeechNidoranFGetBuffer(u8 bufferId);
 u16 GetBaseFormSpecies(u16 speciesId);
 u16 GetFormSpeciesId(u16 speciesId, u8 formId);
-u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
-u8 GetFinalFormSpeciesId(u16 formSpeciesId); //added for dex changes to read forms
+u32 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
+u32 GetFinalFormSpeciesId(u16 formSpeciesId); //added for dex changes to read forms
 u16 GetBaseStatTotal(u16 species);
 u16 GetIndividualBaseStatValue(u16 species, u8 statIndex); //pull base stat for selected stat //mostly used for settin up new ev caps logic
 u16 GetGlobalStatTotal(struct Pokemon *mon); //takes stats from evs + bst //for use as limiter
