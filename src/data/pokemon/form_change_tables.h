@@ -489,7 +489,7 @@ static const struct FormChange sMimikyuFormChangeTable[] = {
 };
 
 static const struct FormChange sMiniorRedFormChangeTable[] = {
-    {FORM_CHANGE_BATTLE_HP_PERCENT, SPECIES_MINIOR,          ABILITY_SHIELDS_DOWN, HP_HIGHER_THAN,   50},
+    {FORM_CHANGE_BATTLE_HP_PERCENT, SPECIES_MINIOR_METEOR_RED,          ABILITY_SHIELDS_DOWN, HP_HIGHER_THAN,   50},
     {FORM_CHANGE_BATTLE_HP_PERCENT, SPECIES_MINIOR_CORE_RED, ABILITY_SHIELDS_DOWN, HP_LOWER_EQ_THAN, 50},
     {FORM_CHANGE_BATTLE_SWITCH,     SPECIES_MINIOR_CORE_RED},
     {FORM_CHANGE_FAINT,             SPECIES_MINIOR_CORE_RED},
@@ -573,6 +573,7 @@ static const struct FormChange sMorpekoFormChangeTable[] = {
 //but should be ok, I set status1 any
 //but in practice shouldn't transform if asleep,
 //or fully frozen
+//may change just do stat boost rather than graphic
 static const struct FormChange sLokixFormChangeTable[] = {
     {FORM_CHANGE_BATTLE_HP_PERCENT, SPECIES_LOKIX_SHOWDOWN_MODE,   ABILITY_RESOLUTE, HP_LOWER_EQ_THAN, 50},
     {FORM_CHANGE_BATTLE_STATUS,     SPECIES_LOKIX_SHOWDOWN_MODE,   ABILITY_RESOLUTE, STATUS1, STATUS1_ANY},

@@ -24,6 +24,14 @@ will also need update species file to enum
 check how national dex values are used 
 see if need match to species if need to can just py
 
+looked into more better to not put formspecies onto base stats
+if keep pointer can have entry from any species
+if put in base stats only base species would get to table
+so what I need to do is add gender form species 
+make species into enum w gender form at start of cosmetics
+bring in graphics add species to formspecies pointer table
+and formspecies table file then can run script
+
 or regex sub  to do national_dex_ v  = species_ v
 
 enum FormInfo
