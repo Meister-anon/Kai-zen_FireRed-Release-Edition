@@ -1032,8 +1032,13 @@ static const struct FormSpecies sSilvallyFormSpeciesIdTable[] = {
     {FORM_SPECIES_END, FORM_NONE},
 };
 
+//worry minior might mess up plan for base stat overhaul
+//plan remove all species that are cosmetic from base stat
+//and just pull their base stat using their base form 
+//but here base form would be meteor red but I'd need
+//pull info from core red based on hp unsure how would go rn
 static const struct FormSpecies sMiniorFormSpeciesIdTable[] = {
-    SPECIES_MINIOR,
+    SPECIES_MINIOR_METEOR_RED,
     SPECIES_MINIOR_METEOR_ORANGE,
     SPECIES_MINIOR_METEOR_YELLOW,
     SPECIES_MINIOR_METEOR_GREEN,

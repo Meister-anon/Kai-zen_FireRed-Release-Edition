@@ -19086,9 +19086,10 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sFrillishAbilityLearnset,
         .levelUpLearnset = sFrillishLevelUpLearnset,
         .tmhmLearnset = sFrillishTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, AVERAGE_EFFORT), 0, SPECIES_JELLICENT_MALE}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, AVERAGE_EFFORT), 0, SPECIES_JELLICENT}), //Should hopefully blank these for now without issue
         //.flags = F_HAS_COSMETIC_FORMS,
     }, //water with tentacruel //cant make cosmetic, because of weird exclusion this is only cosmetic that evolves rather than being an end species
+    //think I can make it work as cosmetic
 
     [SPECIES_JELLICENT_MALE] =
     {

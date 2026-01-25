@@ -10081,8 +10081,9 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
     u8 holdEffect;
     u8 basePriority,EvoPriority;
     u16 currentMap;
-    u16 NUM_EVOS_CAP = (gBaseStats[SanitizeSpeciesId(species)].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
-    const struct Evolution *evolutions = GetSpeciesEvolutions(species);
+    u16 NUM_EVOS_CAP = (gBaseStats[SanitizeSpeciesId(GetBaseFormSpecies(species))].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
+    //think attempt wrap into sanitizespeciesId to simplify check
+    const struct Evolution *evolutions = GetSpeciesEvolutions(GetBaseFormSpecies(species)); //moslty does nothing needed for frillish female
     const struct Evolution *evoShelmet = GetSpeciesEvolutions(SPECIES_SHELMET);
     const struct Evolution *evoKarrablast = GetSpeciesEvolutions(SPECIES_KARRABLAST);
 
@@ -10624,6 +10625,14 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
             }
         }
         break;
+    }
+
+    //to attempt handle cosmetic evo
+    //thank goodness only one of these
+    if (targetSpecies == SPECIES_JELLICENT)
+    {
+        bool32 gender = GetMonGender(&mon) == MON_FEMALE;
+        targetSpecies = CheckGenderForms(targetSpecies, gender);
     }
 
     return targetSpecies;
