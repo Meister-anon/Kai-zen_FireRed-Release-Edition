@@ -4146,7 +4146,7 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //important can use thi
     const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
     u16 generatedSpecies;
 
-    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+    if (GetFormTypeFromFormSpeciesId(species) == COSMETIC_FORM)
       generatedSpecies = GetFormSpeciesId(species, 0);
     else
         generatedSpecies = species;
@@ -4204,7 +4204,7 @@ void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: Asparagu
     const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
     u16 generatedSpecies;
 
-    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+    if (GetFormTypeFromFormSpeciesId(species) == COSMETIC_FORM)
         generatedSpecies = GetFormSpeciesId(species, 0);
     else
         generatedSpecies = species;
@@ -4267,7 +4267,7 @@ void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species) //Credit
     const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
     u16 generatedSpecies;
 
-    if (gBaseStats[GetFormSpeciesId(Species, 0)].flags == F_HAS_COSMETIC_FORMS)
+    if (GetFormTypeFromFormSpeciesId(Species) == COSMETIC_FORM)
         generatedSpecies = GetFormSpeciesId(Species, 0);
     else
         generatedSpecies = Species;
@@ -11377,7 +11377,7 @@ const u16 *GetSpeciesTeachableLearnset(u16 species)
     //can exclude mon that aren't cosmetic changes
     //just make cosmetics default to base learnsets
     //nvm more work than its worth
-    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+    if (GetFormTypeFromFormSpeciesId(species) == COSMETIC_FORM)
       generatedSpecies = GetFormSpeciesId(species, 0);
     else
         generatedSpecies = species;
@@ -11453,14 +11453,15 @@ u16 GetSpeciesPreEvolution(u16 species, u32 LoopTarget) //so I feel like I'm not
     return SPECIES_NONE;
 }
 
-bool8 DoesSpeciesHaveCosmeticForms(u16 species)
+bool32 DoesSpeciesHaveCosmeticForms(u16 species)
 {
-    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
-        return TRUE;
-    return FALSE;
+    return DoesSpeciesHaveFormType(species, COSMETIC_FORM);
 }
 
-
+bool32 IsSpeciesCosmeticForm(u16 species)
+{
+    return GetFormTypeFromFormSpeciesId(species) == COSMETIC_FORM;
+}
   /*realized item conditions for use aren't working correclty
   I need to check teh entire evo path not just the next evo.
   So I need to use my final evo function, I made in field_specials for starter selection
@@ -13150,11 +13151,38 @@ u16 GetFormSpeciesId(u16 speciesId, u8 formId)
         return speciesId; //no forms exist so return species
 }
 
+u8 GetSpeciesFormType(u16 speciesId, u8 formId)
+{
+    if (gFormSpeciesIdTables[speciesId] != NULL)
+        return gFormSpeciesIdTables[speciesId][formId].FormType;
+    else
+        return FORM_NONE; //safety but shouldn't happen
+}
+
 u16 GetBaseFormSpecies(u16 speciesId)
 {
     return GetFormSpeciesId(speciesId, 0);
 }
 
+bool32 DoesSpeciesHaveFormType(u16 formSpeciesId, u8 formType) 
+{
+    //is entry of table
+    u32 targetFormId = 0;
+    const struct FormSpecies *formSpeciesData = gFormSpeciesIdTables[formSpeciesId];
+
+    if (formSpeciesData != NULL)
+    {
+        for (targetFormId = 0; formSpeciesData[targetFormId].Species != FORM_SPECIES_END; targetFormId++)
+        {
+            if (formType == formSpeciesData[targetFormId].FormType)
+                return TRUE;
+        }
+    }
+    return FALSE;
+    
+}
+
+//returns what entry in table it is
 //would return what form id it is given the species, so would need both this and above for table comparisons
 //start with this function, to get formId of dex species, then substitute taht into GetFormSpeciesId, use targetId + 1 
 //if == 0xffff can know not to put right arrow, can make new function from the two, call, islastformId  return true false
@@ -13169,10 +13197,29 @@ u32 GetFormIdFromFormSpeciesId(u16 formSpeciesId)
         for (targetFormId = 0; formSpeciesData[targetFormId].Species != FORM_SPECIES_END; targetFormId++)
         {
             if (formSpeciesId == formSpeciesData[targetFormId].Species)
-                break;
+                return targetFormId;
         }
+        
     }
-    return targetFormId;
+    return FORM_NONE; //should realistically never happen
+}
+
+u32 GetFormTypeFromFormSpeciesId(u16 formSpeciesId) 
+{
+    //is entry of table
+    u32 targetFormType = 0;
+    const struct FormSpecies *formSpeciesData = gFormSpeciesIdTables[formSpeciesId];
+
+    if (formSpeciesData != NULL)
+    {
+        for (targetFormType = 0; formSpeciesData[targetFormType].FormType != FORM_NONE; targetFormType++)
+        {
+            if (formSpeciesId == formSpeciesData[targetFormType].Species)
+                return formSpeciesData[targetFormType].FormType;
+        }
+        
+    }
+    return FORM_NONE; //should realistically never happen
 }
 
 u16 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg)

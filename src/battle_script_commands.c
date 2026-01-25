@@ -9670,17 +9670,23 @@ static void atk4D_switchindataupdate(void)  //important, think can use THIS to m
         //turns everything into species 0, normal type
         //I was putting it above definition of activebattler so poplated w nothing
 
-        if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
-        applied_species = GetFormSpeciesId(species, 0);
+        if (IsSpeciesCosmeticForm(species))
+            applied_species = GetFormSpeciesId(species, 0);
         else
             applied_species = species;
 
-        if (species == SPECIES_PIKACHU_ROCK_STAR
+        //don't need this now that can check exactly
+        //for cosmetic species
+        //think understand EE it treats 
+        //cosmetic gender forms as if they are a separate species
+        //using a mask value,
+        //I'm actually making them separate species value
+        /*if (species == SPECIES_PIKACHU_ROCK_STAR
         || species == SPECIES_PIKACHU_BELLE
         || species == SPECIES_PIKACHU_POP_STAR
         || species == SPECIES_PIKACHU_PH_D
         || species == SPECIES_PIKACHU_LIBRE)
-            applied_species = species;
+            applied_species = species;*/
 
         gBattleMons[battler].type1 = gBaseStats[applied_species].type1;
         gBattleMons[battler].type2 = gBaseStats[applied_species].type2;
@@ -16774,10 +16780,11 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
             {
                 while (found_species == 0xffff)
                 {
+                    //vsonic think should be ok hard to test
                     i = Random() % NUM_BASE_SPECIES;
                     if (IS_SPECIES_OF_TYPE(i, FoundType)
-                    && gBaseStats[i].flags != FLAG_LEGENDARY_POKEMON
-                    && !IsSpeciesUltraBeast(i))
+                    && !(gBaseStats[i].flags & FLAG_LEGENDARY_POKEMON)
+                    && !(gBaseStats[i].flags & SPECIES_FLAG_ULTRA_BEAST))
                     {
                         //do 2nd check for if species passes bst limiter
                         if (GetBaseStatTotal(i) <= baseStatLimit)

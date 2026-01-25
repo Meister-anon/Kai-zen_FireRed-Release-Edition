@@ -12327,35 +12327,10 @@ bool32 IsBattlerPrimalReverted(u8 battlerId)
 //use for beast ball multiplier
 bool32 IsBattlerUltraBeast(u8 battlerId)
 {
-    u16 species = gBattleMons[battlerId].species;
-
-    return IsSpeciesUltraBeast(species);
-}
-
-bool32 IsSpeciesUltraBeast(u16 species)
-{
-    switch (species)
-    {
-
-        case SPECIES_BLACEPHALON:
-        case SPECIES_STAKATAKA:
-        case SPECIES_NAGANADEL:
-        case SPECIES_POIPOLE:
-        case SPECIES_NECROZMA_ULTRA:
-        case SPECIES_NECROZMA_DAWN_WINGS:
-        case SPECIES_NECROZMA_DUSK_MANE:
-        case SPECIES_NECROZMA:
-        case SPECIES_GUZZLORD:
-        case SPECIES_KARTANA:
-        case SPECIES_CELESTEELA:
-        case SPECIES_XURKITREE:
-        case SPECIES_PHEROMOSA:
-        case SPECIES_BUZZWOLE:
-        case SPECIES_NIHILEGO:
-            return TRUE;
-        default:
-            return FALSE;
-    }
+    // While Transform does copy stats and visuals, it shouldn't be counted as true Primal Revesion.
+    if (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)
+        return FALSE;
+    return (gBaseStats[gBattleMons[battlerId].species].flags & SPECIES_FLAG_ULTRA_BEAST);
 }
 
 

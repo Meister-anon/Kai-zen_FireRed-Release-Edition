@@ -1028,7 +1028,8 @@ bool32 TryFormChange(u32 monId, u32 side, u16 method);
 u16 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
 u16 GetFormChangeTargetSpeciesBoxMon(struct Pokemon *mon, u16 method, u32 arg);//still works same just adjusted for getablilitybyspecies change
 bool32 DoesSpeciesHaveFormChangeMethod(u16 species, u16 method);
-bool8 DoesSpeciesHaveCosmeticForms(u16 species);
+bool32 DoesSpeciesHaveCosmeticForms(u16 species);
+bool32 IsSpeciesCosmeticForm(u16 species);
 
 #define BATTLE_ALIVE_EXCEPT_ACTIVE  0
 #define BATTLE_ALIVE_ATK_SIDE       1
@@ -1161,8 +1162,11 @@ void OakSpeechNidoranFFreeResources(void);
 void *OakSpeechNidoranFGetBuffer(u8 bufferId);
 u16 GetBaseFormSpecies(u16 speciesId);
 u16 GetFormSpeciesId(u16 speciesId, u8 formId);
+u8 GetSpeciesFormType(u16 speciesId, u8 formId);
 u32 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
+u32 GetFormTypeFromFormSpeciesId(u16 formSpeciesId);
 u32 GetFinalFormSpeciesId(u16 formSpeciesId); //added for dex changes to read forms
+bool32 DoesSpeciesHaveFormType(u16 formSpeciesId, u8 formType); //general function replaces flag check for cosmetic form
 u16 GetBaseStatTotal(u16 species);
 u16 GetIndividualBaseStatValue(u16 species, u8 statIndex); //pull base stat for selected stat //mostly used for settin up new ev caps logic
 u16 GetGlobalStatTotal(struct Pokemon *mon); //takes stats from evs + bst //for use as limiter

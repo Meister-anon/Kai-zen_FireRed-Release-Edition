@@ -3505,7 +3505,7 @@ just because I saw the form*/
 //then just reorder species to accout
 //cosmetic forms would go at end of species
 //put all species that would require base stats entry first
-#define F_HAS_COSMETIC_FORMS (1 << 7) //unown viillion pika caps to cut down on unneccesary space in base stats with identical stat/ability mon cant use for mon that evolve need check but think can setup for mon that evolve into cosmetic forms that don't evolve again maushold basculegion etc.
+#define SPECIES_FLAG_ULTRA_BEAST (1 << 7) //unown viillion pika caps to cut down on unneccesary space in base stats with identical stat/ability mon cant use for mon that evolve need check but think can setup for mon that evolve into cosmetic forms that don't evolve again maushold basculegion etc.
 //would need add exclusions for cosplay pikachu and its forms, 
 //if do this will need make gender ratio but will just keep that as is, still 
 //saves a good deal of space
