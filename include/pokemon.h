@@ -916,6 +916,7 @@ enum FormInfo
     PRIMAL_FORM,
     REGIONAL_VARIANT,
     GENDER_FORM, //gender forms with material differences
+    ALT_FORM, //specific things not mega like zen mode or hangry mode etc.
     FORM_NONE   //for FORM_SPECIES_END
 };
 
