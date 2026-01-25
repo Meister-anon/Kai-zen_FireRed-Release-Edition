@@ -147,6 +147,7 @@ void ApplyWeatherGammaShiftToPal(u8 paletteIndex);
 void StartWeather(void);
 void ResumePausedWeather(void);
 void FadeSelectedPals(u8 mode, s8 delay, u32 selectedPalettes);
+void FadeScreenHardware(u32 mode, s32 delay);
 
 extern const u16 gCloudsWeatherPalette[];
 extern const u16 gSandstormWeatherPalette[];

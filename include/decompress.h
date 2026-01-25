@@ -11,17 +11,13 @@
 void LZDecompressWram(const void *src, void *dest);
 void LZDecompressVram(const void *src, void *dest);
 
+//  Default Decompression functions are below here
 u32 IsLZ77Data(const void *ptr, u32 minSize, u32 maxSize);
 
 u32 LoadCompressedSpriteSheet(const struct CompressedSpriteSheet *src);
 u32 LoadCompressedSpriteSheetOverrideBuffer(const struct CompressedSpriteSheet *src, void *buffer);
 u32 LoadCompressedSpriteSheetByTemplate(const struct SpriteTemplate *template, s32 offset);
 bool8 LoadCompressedSpriteSheetUsingHeap(const struct CompressedSpriteSheet* src);
-
-u32 LoadCompressedSpritePalette(const struct SpritePalette *src);
-u32 LoadSpritePaletteWithTag(const u32 *pal, u16 tag);
-void LoadCompressedSpritePaletteOverrideBuffer(const struct SpritePalette *a, void *buffer);
-bool8 LoadCompressedSpritePaletteUsingHeap(const struct SpritePalette *src);
 
 void DecompressPicFromTable(const struct CompressedSpriteSheet *src, void* buffer, s32 species);
 void DecompressPicFromTable_2(const struct CompressedSpriteSheet *src, void* buffer, s32 species);
