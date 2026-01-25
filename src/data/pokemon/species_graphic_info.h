@@ -22,12 +22,14 @@
         .iconSprite = gMonIcon_## sprite,                   \
         .iconPalIndex = palId
 
+//only 2 unique icon sprites will just leave off
+//total 30 gender diff mon
 #define PIC_DATA_ICON_INDEX_FEMALE(sprite, palId) \
         .frontPic = gMonFrontPic_## sprite##F,                 \
         .backPic = gMonBackPic_## sprite##F,                   \
         .palette = gMonPalette_## sprite,                      \
         .shinyPalette = gMonShinyPalette_## sprite,      \
-        .iconSprite = gMonIcon_## sprite##F,                   \
+        .iconSprite = gMonIcon_## sprite,                   \
         .iconPalIndex = palId
 
 #define PALETTES(pal)                                       \
