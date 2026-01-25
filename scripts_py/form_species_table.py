@@ -74,6 +74,9 @@ for line in lines:
             line = line.replace(speciesId, r'{' + speciesId +', PRIMAL_FORM}')
         elif Alola.search(line) or Gal.search(line) or Hisu.search(line) or Pal.search(line):
             line = line.replace(speciesId, r'{' + speciesId +', REGIONAL_VARIANT}')
+        elif re.compile(r'FORM_SPECIES_END').search(line):
+            newlines.append(line)
+            continue
         else:
             line = line.replace(speciesId, r'{' + speciesId +', COSMETIC_FORM}')
 
