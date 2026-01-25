@@ -4,6 +4,8 @@ import os
 from pathlib import Path
 
 #script by hedara
+#took a second to understand but script
+#must be run from main folder of decomp to work
 if not os.path.exists("Makefile"):
     print("Please run this script from your root folder.")
     quit()
