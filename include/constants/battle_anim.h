@@ -454,7 +454,6 @@
 #define SOUND_PAN_TARGET    63
 
 // move background ids
-// move background ids
 #define BG_NONE 0 // the same as BG_DARK but is unused
 #define BG_DARK 1
 #define BG_GHOST 2
@@ -485,11 +484,11 @@
 #define BG_MAGMA_STORM 27
 #define BG_GIGA_IMPACT_OPPONENT 28
 #define BG_GIGA_IMPACT_PLAYER 29
-#define BG_GIGA_IMPACT_CONTEST 30
+#define BG_GIGA_IMPACT_CONTESTS 30
 #define BG_TRICK_ROOM 31
 #define BG_ROCK_WRECKER 32
-#define BG_SPACIAL_REND_ON_OPPONENT 33
-#define BG_SPACIAL_REND_ON_PLAYER 34
+#define BG_SPACIAL_REND_OPPONENT 33
+#define BG_SPACIAL_REND_PLAYER 34
 #define BG_DARK_VOID 35
 #define BG_WATER 36
 #define BG_NIGHTMARE 37
@@ -500,7 +499,7 @@
 #define BG_POISON 42
 #define BG_AEROBLAST 43
 #define BG_HURRICANE 44
-#define BG_ELECTRIC_TERRAIN 45  //ugly see bout finding better option
+#define BG_ELECTRIC_TERRAIN 45 //ugly see about better version
 #define BG_GRASSY_TERRAIN 46
 #define BG_MISTY_TERRAIN 47
 #define BG_PSYCHIC_TERRAIN 48
@@ -523,7 +522,7 @@
 #define BG_BLOOM_DOOM 65
 #define BG_SHATTERED_PSYCHE 66
 #define BG_TWINKLE_TACKLE 67
-#define BG_BLACKHOLE_ECLIPSE 68
+#define BG_BLACK_HOLE_ECLIPSE 68
 #define BG_SOULSTEALING_7STAR_STRIKE 69
 #define BG_MALICIOUS_MOONSAULT 70
 #define BG_CLANGOROUS_SOULBLAZE 71
@@ -539,6 +538,7 @@
 #define BG_RAINBOW_PLAYER 81
 #define BG_RAINBOW_OPPONENT 82
 #define BG_SWAMP 83
+#define BG_COUNT 84
 
 
 #define B_ANIM_CONSTANTS
@@ -671,50 +671,6 @@
 #define ANIM_WEATHER_HAIL 4
 #define ANIM_WEATHER_SNOW 5
 #define ANIM_WEATHER_FOG 6
-
-// Battle mon back animations.
-#define BACK_ANIM_NONE                         0x00
-#define BACK_ANIM_H_SLIDE_QUICK                0x01
-#define BACK_ANIM_H_SLIDE                      0x02
-#define BACK_ANIM_H_SLIDE_WITH_V_COMPRESS_1    0x03
-#define BACK_ANIM_H_SLIDE_WITH_V_COMPRESS_2    0x04
-#define BACK_ANIM_SHRINK_GROW_1                0x05
-#define BACK_ANIM_GROW_1                       0x06
-#define BACK_ANIM_CIRCLE_MOVE_COUNTERCLOCKWISE 0x07
-#define BACK_ANIM_HORIZONTAL_SHAKE             0x08
-#define BACK_ANIM_VERTICAL_SHAKE               0x09
-#define BACK_ANIM_V_SHAKE_WITH_H_SLIDE         0x0a
-#define BACK_ANIM_VERTICAL_STRETCH             0x0b
-#define BACK_ANIM_HORIZONTAL_STRETCH           0x0c
-#define BACK_ANIM_GROW_2                       0x0d
-#define BACK_ANIM_V_SHAKE_WITH_PAUSE           0x0e
-#define BACK_ANIM_CIRCLE_MOVE_CLOCKWISE        0x0f
-#define BACK_ANIM_CONCAVE_DOWN_ARC_SWAY_SMALL  0x10
-#define BACK_ANIM_CONCAVE_DOWN_ARC_SWAY_LARGE  0x11
-#define BACK_ANIM_CONCAVE_UP_ARC_SWAY_LARGE    0x12
-#define BACK_ANIM_DIP_RIGHT_SIDE               0x13
-#define BACK_ANIM_SHRINK_GROW_2                0x14
-#define BACK_ANIM_JOLT_RIGHT                   0x15
-#define BACK_ANIM_FLASH_YELLOW_WITH_SHAKE      0x16
-#define BACK_ANIM_FADE_RED_WITH_SHAKE          0x17
-#define BACK_ANIM_FADE_GREEN_WITH_SHAKE        0x18
-#define BACK_ANIM_FADE_BLUE_WITH_SHAKE         0x19
-
-//ALL below ported from emerald incase I need
-// mon pal blend
-#define ANIM_PAL_BG             0x1
-#define ANIM_PAL_ATK            0x2
-#define ANIM_PAL_DEF            0x4
-#define ANIM_PAL_ATK_PARTNER    0x8
-#define ANIM_PAL_DEF_PARTNER    0x10
-#define ANIM_PAL_ALL            0x1f
-#define ANIM_PAL_BG_4           0x20
-#define ANIM_PAL_BG_5           0x40
-#define ANIM_PAL_ALL_BATTLERS   0x780
-#define ANIM_PAL_PLAYER1        0x80
-#define ANIM_PAL_PLAYER2        0x100
-#define ANIM_PAL_OPPONENT1      0x200
-#define ANIM_PAL_OPPONENT2      0x400
 
 // horseshoe/fist frames
 #define ANIM_RIGHT_FIST  0
