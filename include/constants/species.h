@@ -1055,6 +1055,7 @@ enum Species
  FORMS_START = SPECIES_PECHARUNT,
  NUM_BASE_SPECIES,
  //put mon that need base stats below this
+  //SPECIES_VENUSAUR_MEGA            =    FORMS_START + 1,
  };
 
 #define BASE_SPECIES_COUNT NUM_BASE_SPECIES - 1 //made so has constant for dex page
