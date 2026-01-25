@@ -596,7 +596,7 @@
 #define SPECIES_ESCAVALIER 589
 #define SPECIES_FOONGUS 590
 #define SPECIES_AMOONGUSS 591
-#define SPECIES_FRILLISH_MALE 592
+#define SPECIES_FRILLISH 592
 #define SPECIES_JELLICENT_MALE 593
 #define SPECIES_ALOMOMOLA 594
 #define SPECIES_JOLTIK 595
@@ -781,6 +781,7 @@
 #define SPECIES_TYPE_NULL 772
 #define SPECIES_SILVALLY 773
 #define SPECIES_MINIOR 774
+#define SPECIES_MINIOR_METEOR_RED SPECIES_MINIOR
 #define SPECIES_KOMALA 775
 #define SPECIES_TURTONATOR 776
 #define SPECIES_TOGEDEMARU 777
@@ -1610,16 +1611,17 @@
 //but end logic cosmetics will need to be removed from num species
 //but doing so will save on space but physically via being able to exclude from base stats
 //and on ewram though not to as large a degree as base stats
-
+//used for encounter both gender forms
+//may not need think EE has better way to do it - vsonic
 #define GENDER_FORMS_START      NUM_SPECIES
 
 #define SPECIES_UNFEZANT        GENDER_FORMS_START + 1
 #define SPECIES_PYROAR          GENDER_FORMS_START + 2
-#define SPECIES_MEOWSTIC        GENDER_FORMS_START + 3
+#define SPECIES_MEOWSTIC        GENDER_FORMS_START + 3 //cosmetic
 #define SPECIES_INDEEDEE        GENDER_FORMS_START + 4
-#define SPECIES_BASCULEGION     GENDER_FORMS_START + 5
+#define SPECIES_BASCULEGION     GENDER_FORMS_START + 5 // cosmetic
 #define SPECIES_OINKOLOGNE      GENDER_FORMS_START + 6 
-#define SPECIES_FRILLISH        GENDER_FORMS_START + 7
+#define SPECIES_FRILLISH_FORMS        GENDER_FORMS_START + 7 //cosmetic that evolves
 #define SPECIES_JELLICENT       GENDER_FORMS_START + 8
 #define GENDER_FORMS_END        SPECIES_JELLICENT
 //would need add frillish and jellicent to this, 
