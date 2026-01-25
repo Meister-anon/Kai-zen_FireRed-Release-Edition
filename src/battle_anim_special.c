@@ -45,7 +45,7 @@ COMMON_DATA u16 gMonShrinkDelta = 0;
 COMMON_DATA u16 gMonShrinkDistance = 0;
 
 // Function Declarations
-static void AnimTask_UnusedLevelUpHealthBox_Step(u8);
+static void AnimTask_HealthBoxLevelUpCanEvolve_Step(u8);
 static void AnimTask_FlashHealthboxOnLevelUp_Step(u8);
 static void AnimTask_ThrowBall_WaitAnimObjComplete(u8);
 static void SpriteCB_ThrowBall_Init(struct Sprite *);
@@ -413,8 +413,8 @@ const struct SpriteTemplate gSafariRockTemplate =
     .callback = SpriteCB_SafariBaitOrRock_Init,
 };
 
-// Functions
-UNUSED void AnimTask_UnusedLevelUpHealthBox(u8 taskId)
+// Functions -rename this is the stuff used for evo level up
+void AnimTask_HealthBoxLevelUpCanEvolve(u8 taskId)
 {
     struct BattleAnimBgData animBgData;
     u8 healthBoxSpriteId;
@@ -448,18 +448,18 @@ UNUSED void AnimTask_UnusedLevelUpHealthBox(u8 taskId)
     gSprites[spriteId3].callback = SpriteCallbackDummy;
     gSprites[spriteId4].callback = SpriteCallbackDummy;
     GetBattleAnimBg1Data(&animBgData);
-    AnimLoadCompressedBgTilemap(animBgData.bgId, gUnknown_D2EC24_Tilemap);
-    AnimLoadCompressedBgGfx(animBgData.bgId, gUnknown_D2EC24_Gfx, animBgData.tilesOffset);
+    AnimLoadCompressedBgTilemap(animBgData.bgId, UnusedLevelupAnimationTilemap);
+    AnimLoadCompressedBgGfx(animBgData.bgId, UnusedLevelupAnimationGfx, animBgData.tilesOffset);
     LoadPalette(gCureBubblesPal, animBgData.paletteId << 4, 32);
     gBattle_BG1_X = -gSprites[spriteId3].x + 32;
     gBattle_BG1_Y = -gSprites[spriteId3].y - 32;
     gTasks[taskId].data[1] = 640;
     gTasks[taskId].data[0] = spriteId3;
     gTasks[taskId].data[2] = spriteId4;
-    gTasks[taskId].func = AnimTask_UnusedLevelUpHealthBox_Step;
+    gTasks[taskId].func = AnimTask_HealthBoxLevelUpCanEvolve_Step;
 }
 
-static void AnimTask_UnusedLevelUpHealthBox_Step(u8 taskId)
+static void AnimTask_HealthBoxLevelUpCanEvolve_Step(u8 taskId)
 {
     u8 spriteId1, spriteId2;
     u8 battler;

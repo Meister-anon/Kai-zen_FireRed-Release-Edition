@@ -151,7 +151,7 @@ gBattleAnimSpecial_LevelUpEvolve:
 	delay 1 @ Wait for the exp noise to end so the charge can actually play.
 	playsewithpan SE_M_MEGA_KICK, 0
 	createvisualtask AnimTask_FlashHealthboxOnLevelUp, 5, 1, 5
-	createvisualtask AnimTask_UnusedLevelUpHealthBox, 5, 0
+	createvisualtask AnimTask_HealthBoxLevelUpCanEvolve, 5, 0
 	waitforvisualfinish
 	createvisualtask AnimTask_FreeHealthboxPalsForLevelUp, 2
 	end
