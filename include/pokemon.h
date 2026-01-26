@@ -776,7 +776,7 @@ extern struct PokemonStorage* gPokemonStoragePtr;
 extern const u32 gExperienceTables[][MAX_LEVEL + 1];
 extern const u8 gFacilityClassToPicIndex[];
 extern const u8 gFacilityClassToTrainerClass[];
-extern const struct SpriteTemplate gSpriteTemplates_Battlers[];
+extern const struct SpriteTemplate gBattlerSpriteTemplates[];
 extern const u8 gPPUpGetMask[];
 extern const u16 *const gFormSpeciesIdTables[]; //needs include cosmetic so cant use numspecies
 extern const struct FormChange *const gFormChangeTablePointers[NUM_SPECIES];

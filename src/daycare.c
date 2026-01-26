@@ -2852,7 +2852,7 @@ static u8 EggHatchCreateMonSprite(u8 a0, u8 switchID, u8 pokeID, u16* speciesLoc
     case 0:
     {
         u32 pid = GetMonData(mon, MON_DATA_PERSONALITY);
-        HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[(a0 * 2) + 1], species, pid);
+        HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->spritesGfx[(a0 * 2) + 1], species, pid);
         LoadSpritePaletteWithTag(GetMonSpritePal(mon), species);
         *speciesLoc = species;
     }
@@ -3411,7 +3411,7 @@ static u8 EggHatchCreateMonSprite_FromPc(u8 a0, u8 switchID, u16* speciesLoc)
     case 0:
     {
         u32 pid = GetBoxMonData(mon, MON_DATA_PERSONALITY);
-        HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[(a0 * 2) + 1], species, pid);
+        HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->spritesGfx[(a0 * 2) + 1], species, pid);
         LoadSpritePaletteWithTag(GetMonSpritePal(&pkmn), species);
         *speciesLoc = species;
     }

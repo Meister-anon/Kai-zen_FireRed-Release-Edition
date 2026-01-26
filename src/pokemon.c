@@ -2563,7 +2563,7 @@ static const u8 sHoldEffectToType[][2] =
     {HOLD_EFFECT_SOUND_POWER, TYPE_SOUND},
 };//apparently these aren't for gems? but for stat boost items i.e rock power twisted spoon, nevermelt ice etc.
 
-const struct SpriteTemplate gSpriteTemplates_Battlers[] = 
+const struct SpriteTemplate gBattlerSpriteTemplates[] = 
 {
     [B_POSITION_PLAYER_LEFT] = {
         .tileTag = SPRITE_INVALID_TAG,
@@ -7123,7 +7123,7 @@ void SetMultiuseSpriteTemplateToPokemon(u16 speciesTag, u8 battlerPosition)
             if (battlerPosition >= MAX_BATTLERS_COUNT)
                 battlerPosition = 0;
 
-            gMultiuseSpriteTemplate = gSpriteTemplates_Battlers[battlerPosition];
+            gMultiuseSpriteTemplate = gBattlerSpriteTemplates[battlerPosition];
         }
     }
     gMultiuseSpriteTemplate.paletteTag = speciesTag;
@@ -7143,7 +7143,7 @@ void SetMultiuseSpriteTemplateToTrainerBack(u16 trainerSpriteId, u8 battlerPosit
         if (gMonSpritesGfxPtr != NULL)
             gMultiuseSpriteTemplate = gMonSpritesGfxPtr->templates[battlerPosition];
         else
-            gMultiuseSpriteTemplate = gSpriteTemplates_Battlers[battlerPosition];
+            gMultiuseSpriteTemplate = gBattlerSpriteTemplates[battlerPosition];
         gMultiuseSpriteTemplate.anims = gTrainerFrontAnimsPtrTable[trainerSpriteId];
     }
 }
@@ -10700,8 +10700,8 @@ u16 SpeciesToCryId(u16 species) //not used anymore changed to emerald logic
 static void DrawSpindaSpotsUnused(u16 species, u32 personality, u8 *dest)
 {
     if (species == SPECIES_SPINDA
-        && dest != gMonSpritesGfxPtr->sprites[0]
-        && dest != gMonSpritesGfxPtr->sprites[2])
+        && dest != gMonSpritesGfxPtr->spritesGfx[0]
+        && dest != gMonSpritesGfxPtr->spritesGfx[2])
         DRAW_SPINDA_SPOTS;
 }
 
@@ -12844,7 +12844,7 @@ static void OakSpeechNidoranFSetupTemplate(struct OakSpeechNidoranFStruct *struc
     {
         for (i = 0; i < (s8)structPtr->spriteCount; ++i)
         {
-            structPtr->templates[i] = gSpriteTemplates_Battlers[i];
+            structPtr->templates[i] = gBattlerSpriteTemplates[i];
             for (j = 0; j < structPtr->frameCount; ++j)
                 structPtr->frameImages[i * structPtr->frameCount + j].data = &structPtr->bufferPtrs[i][j * 0x800];
             structPtr->templates[i].images = &structPtr->frameImages[i * structPtr->frameCount];
@@ -12852,7 +12852,7 @@ static void OakSpeechNidoranFSetupTemplate(struct OakSpeechNidoranFStruct *struc
     }
     else
     {
-        const struct SpriteTemplate *template = &gSpriteTemplates_Battlers[battlePosition];
+        const struct SpriteTemplate *template = &gBattlerSpriteTemplates[battlePosition];
         
         structPtr->templates[0] = *template;
         for (j = 0; j < structPtr->frameCount; ++j)

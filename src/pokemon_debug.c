@@ -945,7 +945,7 @@ void CB2_Debug_Pokemon(void)
 
             //Front
             battlerPos = B_POSITION_OPPONENT_LEFT;
-            HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[battlerPos], species, 0x0);
+            HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->spritesGfx[battlerPos], species, 0x0);
             data->isShiny = FALSE;
             BattleLoadOpponentMonSpriteGfxCustom(species, data->isShiny, 1);
             SetMultiuseSpriteTemplateToPokemon(species, battlerPos);
@@ -965,7 +965,7 @@ void CB2_Debug_Pokemon(void)
 
             //Back
             battlerPos = B_POSITION_PLAYER_RIGHT;
-            HandleLoadSpecialPokePic(FALSE, gMonSpritesGfxPtr->sprites[battlerPos], species, 0x0);
+            HandleLoadSpecialPokePic(FALSE, gMonSpritesGfxPtr->spritesGfx[battlerPos], species, 0x0);
             BattleLoadOpponentMonSpriteGfxCustom(species, data->isShiny, 4);
             SetMultiuseSpriteTemplateToPokemon(species, battlerPos);
             gMultiuseSpriteTemplate.paletteTag = species;
@@ -1441,7 +1441,7 @@ static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
     LoadSpritePaletteWithTag(palette, species);
 
     //Front
-    HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[1], species, 0x0);
+    HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->spritesGfx[1], species, 0x0);
     BattleLoadOpponentMonSpriteGfxCustom(species, data->isShiny, 1);
     SetMultiuseSpriteTemplateToPokemon(species, 1);
     gMultiuseSpriteTemplate.paletteTag = species;
@@ -1459,7 +1459,7 @@ static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
     LoadAndCreateEnemyShadowSpriteCustom(data, species);
 
     //Back
-    HandleLoadSpecialPokePic(FALSE, gMonSpritesGfxPtr->sprites[2], species, 0x0);
+    HandleLoadSpecialPokePic(FALSE, gMonSpritesGfxPtr->spritesGfx[2], species, 0x0);
     BattleLoadOpponentMonSpriteGfxCustom(species, data->isShiny, 5);
     SetMultiuseSpriteTemplateToPokemon(species, 2);
     offset_y = gSpeciesGraphics[species].backPicYOffset;
