@@ -4425,13 +4425,13 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
 [MOVE_NIGHTMARE] =
 {
         .name = COMPOUND_STRING("Nightmare"),
-        .description = COMPOUND_MOVE_STRING("A sleeping foe is\nshown a nightmare\nthat inflicts some\ndamage every turn."),
+        .description = COMPOUND_MOVE_STRING("A sleeping foe is\nshown a nightmare\nthat inflicts some\ndamage every turn.\nLowering its offense\nfor the duration."),
     #if B_UPDATED_MOVE_DATA >= GEN_4
         .accuracy = 100,
     #else
         .accuracy = 0,
     #endif
-    .effect = EFFECT_NIGHTMARE,
+    .effect = EFFECT_NIGHTMARE,//saw smithplays vid made small buffs
     .power = 0,
     .type = TYPE_GHOST,
     .pp = 15,

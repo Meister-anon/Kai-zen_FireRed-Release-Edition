@@ -9453,6 +9453,13 @@ static inline u32 CalcAttackStat(struct BattleContext *ctx)
     if (ctx->isSelfInflicted)
         return uq4_12_multiply_by_int_half_down(ApplyOffensiveBadgeBoost(modifier, battlerAtk, move), atkStat);
 
+    //nightmare - offense stat 15% drop
+    //idea just to give it a niche outside dream eater
+    //rn works well to cut new sleep heal effect
+    //now is also good to counter sleep talk strats
+    if (gBattleMons[battlerAtk].volatiles.nightmare)
+        modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.85));
+    
     // attacker's abilities
     switch (ctx->abilityAtk)
     {
