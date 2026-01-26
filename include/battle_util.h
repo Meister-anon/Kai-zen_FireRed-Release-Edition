@@ -55,7 +55,8 @@
 #define ABILITY_ON_FIELD(abilityId)(AbilityBattleEffects(ABILITYEFFECT_CHECK_ON_FIELD, 0, abilityId, 0, 0))
 #define ABILITY_ON_FIELD2(abilityId)(AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, abilityId, 0, 0))
 
-#define IS_WHOLE_SIDE_ALIVE(battler)((IsBattlerAlive(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))))
+#define IS_WHOLE_SIDE_ALIVE(battler)    ((IsBattlerAlive(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))))
+#define IS_ALIVE_AND_PRESENT(battler)   (IsBattlerAlive(battler) && IsBattlerSpritePresent(battler))
 
 // For the first argument of ItemBattleEffects, to deteremine which block of item effects to try
 enum ItemCaseId
@@ -278,8 +279,8 @@ bool8 ShouldCacophonyBoostAccuracy(u16 move);
 bool8 ShouldCacophonyBoostEffectChance(u16 move);
 bool8 ShouldCacophonyElevateMoveEffect(u16 move);
 void CacophonyElevateMoveEffect(void);
-u8 GetMoveType(u32 moveType, u32 btlAttacker);
-u32 GetBattleMoveType(u32 move); //not really using rn, mostly just for anim script update
+enum Type GetMoveType(u32 moveType, u32 btlAttacker);
+enum Type GetBattleMoveType(u32 move); //not really using rn, mostly just for anim script update
 void GetBattlerTypes(u32 battler, bool32 ignoreTera, u32 types[/*static*/ 3]); //according to mcgriffin static check should work w my compiler version but doesn't.. advised remove static for now
 u32 GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera);
 u32 CountBattlerStatIncreases(u32 battler, bool32 countEvasionAcc);

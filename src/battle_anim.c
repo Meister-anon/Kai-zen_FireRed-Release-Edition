@@ -11,6 +11,7 @@
 #include "battle_bg.h"
 #include "decompress.h"
 #include "graphics.h"
+#include "menu.h"
 #include "m4a.h"
 #include "palette.h"
 #include "pokemon.h"

@@ -11,6 +11,12 @@
 #define TRAINER_PIC_WIDTH 64
 #define TRAINER_PIC_HEIGHT 64
 #define TRAINER_PIC_SIZE (TRAINER_PIC_WIDTH * TRAINER_PIC_HEIGHT / 2)
+
+enum {
+    BATTLER_AFFINE_NORMAL,
+    BATTLER_AFFINE_EMERGE,
+    BATTLER_AFFINE_RETURN,
+};
 struct MonCoords
 {
     // This would use a bitfield, but some function

@@ -14406,7 +14406,7 @@ bool32 TryActivateHeatTrance(u32 battler)  //change mind better to do 2 function
 //need execute as part of bs (??)
 //not same as EE version of function prob rename later
 //rn only using for charge status
-u8 GetMoveType(u32 moveType, u32 btlAttacker)
+enum Type GetMoveType(u32 moveType, u32 btlAttacker)
 {
     u16 move; //move should be current move unless move that calls move than instead is calledmove
     u8 Type, moveArgument;
@@ -14422,12 +14422,12 @@ u8 GetMoveType(u32 moveType, u32 btlAttacker)
     if ((Type || moveArgument) == moveType)
         return Type;
     else
-        return 0xFF; //return this if not find type to avoid issue w type none
+        return TYPE_NONE; //return this if not find type to avoid issue w type none
 
 
 }
 
-u32 GetBattleMoveType(u32 move)
+enum Type GetBattleMoveType(u32 move)
 {
     if (gMain.inBattle && gBattleStruct->dynamicMoveType)
         return gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;

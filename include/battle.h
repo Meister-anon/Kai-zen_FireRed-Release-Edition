@@ -1284,7 +1284,7 @@ struct MonSpritesGfx
     u8 field_F4[0x80]; // unused
     u8 *barFontGfx;
     void *field_178; // freed but never allocated
-    u16 *multiUseBuffer;
+    u16 *buffer;
 };
 
 struct PokedudeBattlerState
@@ -1355,9 +1355,11 @@ extern u32 gBattleControllerExecFlags;
 extern u8 gActionSelectionCursor[MAX_BATTLERS_COUNT];
 extern void (*gPreBattleCallback1)(void);
 extern bool8 gDoingBattleAnim;
+extern u32 gTransformedPersonalities[MAX_BATTLERS_COUNT];
+extern bool8 gTransformedShininess[MAX_BATTLERS_COUNT];
 extern struct PokedudeBattlerState *gPokedudeBattlerStates[MAX_BATTLERS_COUNT];
-extern u8 *gBattleAnimMons_BgTilesBuffer;
-extern u8 *gBattleAnimMons_BgTilemapBuffer;
+extern u8 *gBattleAnimBgTileBuffer;
+extern u8 *gBattleAnimBgTilemapBuffer;
 extern void (*gBattleMainFunc)(void);
 extern u8 gMoveSelectionCursor[MAX_BATTLERS_COUNT];
 extern u8 gSavedPartyCount;
@@ -1412,6 +1414,12 @@ extern u8 gChosenActionByBattler[MAX_BATTLERS_COUNT];
 extern u8 gBattleEnvironment;
 extern struct MultiBattlePokemonTx gMultiPartnerParty[3];
 extern u16 gRandomTurnNumber;
+
+
+static inline bool32 IsDoubleBattle(void)
+{
+    return gBattleTypeFlags & BATTLE_TYPE_DOUBLE;
+}
 
 static inline u32 GetBattlerPosition(u32 battler)
 {

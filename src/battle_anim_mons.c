@@ -101,14 +101,14 @@ u8 GetBattlerSpriteCoord(u8 battler, u8 coordType)
     case BATTLER_COORD_Y_PIC_OFFSET:
     case BATTLER_COORD_Y_PIC_OFFSET_DEFAULT:
     default:
-        if (IsContest())
+        /*if (IsContest())
         {
             if (gContestResources->moveAnim->hasTargetAnim)
                 species = gContestResources->moveAnim->targetSpecies;
             else
                 species = gContestResources->moveAnim->species;
         }
-        else
+        else*/
         {
             mon = GetBattlerMon(battler);
             illusionMon = GetIllusionMonPtr(battler);
@@ -137,7 +137,7 @@ u8 GetBattlerYDelta(u8 battler, u16 species)
     u8 ret;
     species = SanitizeSpeciesId(species);
 
-    if (IsContest())
+    /*if (IsContest())
     {
         if (species == SPECIES_UNOWN)
         {
@@ -148,7 +148,7 @@ u8 GetBattlerYDelta(u8 battler, u16 species)
             species = GetUnownSpeciesId(personality);
         }
     }
-    else
+    else*/
     {
         if (species == SPECIES_UNOWN)
         {
@@ -162,9 +162,9 @@ u8 GetBattlerYDelta(u8 battler, u16 species)
     }
 
     if (IsOnPlayerSide(battler) || IsContest())
-        ret = gSpeciesInfo[species].backPicYOffset;
+        ret = gSpeciesGraphics[species].backPicYOffset;
     else
-        ret = gSpeciesInfo[species].frontPicYOffset;
+        ret = gSpeciesGraphics[species].frontPicYOffset;
     return ret;
 }
 
@@ -176,7 +176,7 @@ u8 GetBattlerElevation(u8 battler, u16 species)
         if (!IsContest())
         {
             species = SanitizeSpeciesId(species);
-            ret = gSpeciesInfo[species].enemyMonElevation;
+            ret = gSpeciesGraphics[species].enemyMonElevation;
         }
     }
     return ret;
@@ -214,14 +214,14 @@ u8 GetBattlerSpriteCoord2(u8 battler, u8 coordType)
 
     if (coordType == BATTLER_COORD_Y_PIC_OFFSET || coordType == BATTLER_COORD_Y_PIC_OFFSET_DEFAULT)
     {
-        if (IsContest())
+        /*if (IsContest())
         {
             if (gContestResources->moveAnim->hasTargetAnim)
                 species = gContestResources->moveAnim->targetSpecies;
             else
                 species = gContestResources->moveAnim->species;
         }
-        else
+        else*/
         {
             spriteInfo = gBattleSpritesDataPtr->battlerData;
             if (!spriteInfo[battler].transformSpecies)
@@ -1868,12 +1868,12 @@ static u16 GetBattlerYDeltaFromSpriteId(u8 spriteId)
     {
         if (gBattlerSpriteIds[i] == spriteId)
         {
-            if (IsContest())
+            /*if (IsContest())
             {
                 species = gContestResources->moveAnim->species;
-                return gSpeciesInfo[species].backPicYOffset;
+                return gSpeciesGraphics[species].backPicYOffset;
             }
-            else
+            else*/
             {
                 spriteInfo = gBattleSpritesDataPtr->battlerData;
                 if (!spriteInfo[battler].transformSpecies)
@@ -1882,9 +1882,9 @@ static u16 GetBattlerYDeltaFromSpriteId(u8 spriteId)
                     species = spriteInfo[battler].transformSpecies;
 
                 if (IsOnPlayerSide(i))
-                    return gSpeciesInfo[species].backPicYOffset;
+                    return gSpeciesGraphics[species].backPicYOffset;
                 else
-                    return gSpeciesInfo[species].frontPicYOffset;
+                    return gSpeciesGraphics[species].frontPicYOffset;
             }
         }
     }
@@ -2040,7 +2040,7 @@ u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 id, s16
     u16 palette = AllocSpritePalette(sSpriteTemplates_MoveEffectMons[id].paletteTag);
 
     if (gMonSpritesGfxPtr != NULL && gMonSpritesGfxPtr->buffer == NULL)
-        gMonSpritesGfxPtr->buffer = AllocZeroed(MON_PIC_SIZE * MAX_MON_PIC_FRAMES);
+        gMonSpritesGfxPtr->buffer = AllocZeroed(0x2054); //vsonic not sure how works
     if (!isBackpic)
     {
         LoadPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), OBJ_PLTT_ID(palette), PLTT_SIZE_4BPP);
@@ -2062,15 +2062,15 @@ u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 id, s16
     FREE_AND_SET_NULL(gMonSpritesGfxPtr->buffer);
 
     if (!isBackpic)
-        spriteId = CreateSprite(&sSpriteTemplates_MoveEffectMons[id], x, y + gSpeciesInfo[species].frontPicYOffset, subpriority);
+        spriteId = CreateSprite(&sSpriteTemplates_MoveEffectMons[id], x, y + gSpeciesGraphics[species].frontPicYOffset, subpriority);
     else
-        spriteId = CreateSprite(&sSpriteTemplates_MoveEffectMons[id], x, y + gSpeciesInfo[species].backPicYOffset, subpriority);
+        spriteId = CreateSprite(&sSpriteTemplates_MoveEffectMons[id], x, y + gSpeciesGraphics[species].backPicYOffset, subpriority);
 
-    if (IsContest())
+    /*if (IsContest())
     {
         gSprites[spriteId].affineAnims = gAffineAnims_BattleSpriteContest;
         StartSpriteAffineAnim(&gSprites[spriteId], BATTLER_AFFINE_NORMAL);
-    }
+    }*/
     return spriteId;
 }
 
@@ -2088,7 +2088,7 @@ s16 GetBattlerSpriteCoordAttr(u8 battler, u8 attr)
     u8 y_offset;
     struct BattleSpriteInfo *spriteInfo;
 
-    if (IsContest())
+    /*if (IsContest())
     {
         if (gContestResources->moveAnim->hasTargetAnim)
         {
@@ -2103,10 +2103,10 @@ s16 GetBattlerSpriteCoordAttr(u8 battler, u8 attr)
         species = SanitizeSpeciesId(species);
         if (species == SPECIES_UNOWN)
             species = GetUnownSpeciesId(personality);
-        size = gSpeciesInfo[species].backPicSize;
-        y_offset = gSpeciesInfo[species].backPicYOffset;
+        size = gSpeciesGraphics[species].backCoordSize;
+        y_offset = gSpeciesGraphics[species].backPicYOffset;
     }
-    else
+    else*/
     {
         struct Pokemon *mon = GetBattlerMon(battler);
 
@@ -2128,25 +2128,25 @@ s16 GetBattlerSpriteCoordAttr(u8 battler, u8 attr)
 
         if (IsOnPlayerSide(battler))
         {
-        #if P_GENDER_DIFFERENCES
-            if (gSpeciesInfo[species].backPicFemale != NULL && IsPersonalityFemale(species, personality))
-                size = gSpeciesInfo[species].backPicSizeFemale;
+        /*#if P_GENDER_DIFFERENCES
+            if (gSpeciesGraphics[species].backPicFemale != NULL && IsPersonalityFemale(species, personality))
+                size = gSpeciesGraphics[species].backPicSizeFemale;
             else
-        #endif
-                size = gSpeciesInfo[species].backPicSize;
+        #endif*/
+                size = gSpeciesGraphics[species].backCoordSize;
 
-            y_offset = gSpeciesInfo[species].backPicYOffset;
+            y_offset = gSpeciesGraphics[species].backPicYOffset;
         }
         else
         {
-        #if P_GENDER_DIFFERENCES
-            if (gSpeciesInfo[species].frontPicFemale != NULL && IsPersonalityFemale(species, personality))
-                size = gSpeciesInfo[species].frontPicSizeFemale;
+        /*#if P_GENDER_DIFFERENCES
+            if (gSpeciesGraphics[species].frontPicFemale != NULL && IsPersonalityFemale(species, personality))
+                size = gSpeciesGraphics[species].frontPicSizeFemale;
             else
-        #endif
-                size = gSpeciesInfo[species].frontPicSize;
+        #endif*/
+                size = gSpeciesGraphics[species].frontCoordSize;
 
-            y_offset = gSpeciesInfo[species].frontPicYOffset;
+            y_offset = gSpeciesGraphics[species].frontPicYOffset;
         }
     }
 

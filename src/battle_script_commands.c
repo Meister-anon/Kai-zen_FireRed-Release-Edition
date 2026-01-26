@@ -18944,7 +18944,7 @@ static void atkCB_setcharge(void)
 static void atkCC_callterrainattack(void) // nature power
 {
     gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
-    gCurrentMove = GetNaturePowerMove();//sNaturePowerMoves[gBattleTerrain];
+    gCurrentMove = GetNaturePowerMove();
     gBattlerTarget = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
     SetAtkCancellerForCalledMove();
     BattleScriptPush(gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect]);

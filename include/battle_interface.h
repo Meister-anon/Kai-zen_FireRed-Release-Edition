@@ -4,10 +4,18 @@
 #include "global.h"
 #include "battle_controllers.h"
 
+enum BattleCoordTypes
+{
+    BATTLE_COORDS_SINGLES,
+    BATTLE_COORDS_DOUBLES,
+    BATTLE_COORDS_COUNT,
+};
+
 enum
 {
     HP_CURRENT,
-    HP_MAX
+    HP_MAX,
+    HP_BOTH //from EE idk what for
 };
 
 enum
