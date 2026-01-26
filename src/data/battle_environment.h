@@ -87,6 +87,9 @@ const u32 gBattleEnvironmentTiles_Indoor[] = INCBIN_U32("graphics/battle/unk_824
 const u32 gBattleEnvironmentTilemap_Indoor[] = INCBIN_U32("graphics/battle/Indoor_Terrain.bin.lz");
 const u32 gBattleEnvironmentTilemap_Indoor_Doubles[] = INCBIN_U32("graphics/battle/Indoor_Terrain_Doubles.bin.lz");
 
+//still todo add graphics specific to EE
+//in src/data/graphics/battle_environment.h
+
 //file takes values that were in battle_bg.c previously
 //need add doubles to this
 #define ENVIRONMENT_BACKGROUND(background)                      \
