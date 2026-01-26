@@ -44,6 +44,12 @@ struct BattleAnimBackground
     const u32 *tilemap;
 };
 
+struct BattleAnimation
+{
+    struct CompressedSpriteSheet pic;
+    struct SpritePalette palette;
+};
+
 #define ANIM_ARGS_COUNT 8
 
 // Linear Translation

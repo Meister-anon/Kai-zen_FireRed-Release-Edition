@@ -1006,6 +1006,21 @@ const struct OamData gOamData_AffineDouble_ObjBlend_32x64 =
     .paletteNum = 0,
 };
 
+
+#define B_NEW_SWORD_PARTICLE FALSE
+#define B_NEW_LEECH_SEED_PARTICLE FALSE
+#define B_NEW_MORNING_SUN_STAR_PARTICLE FALSE
+#define B_NEW_BATON_PASS_BALL_PARTICLE FALSE
+#define B_NEW_CURSE_NAIL_PARTICLE FALSE
+#define B_NEW_MEAN_LOOK_PARTICLE FALSE
+#define B_NEW_FLY_BUBBLE_PARTICLE FALSE
+#define B_NEW_SPIKES_PARTICLE FALSE
+#define B_NEW_TEETH_PARTICLE FALSE
+#define B_NEW_IMPACT_PALETTE FALSE
+#define B_NEW_LEAF_PARTICLE FALSE
+#define B_NEW_ROCKS_PARTICLE FALSE
+#define B_NEW_HORN_ATTACK_PARTICLE FALSE
+
 #define BATTLE_ANIMATION(AnimTag, Gfx, GfxSize, Pal) \
     [GET_TRUE_SPRITE_INDEX(AnimTag)] =               \
     {                                                \
@@ -1044,7 +1059,7 @@ const struct BattleAnimation gBattleAnimTable[ANIM_TAG_COUNT] =
     BATTLE_ANIMATION(ANIM_TAG_HIT_DUPLICATE, gBattleAnimSpriteGfx_HitDuplicate, 0x0A00, gBattleAnimSpritePal_HitDuplicate),
     BATTLE_ANIMATION(ANIM_TAG_LEER, gBattleAnimSpriteGfx_Leer, 0x0A00, gBattleAnimSpritePal_Leer),
     BATTLE_ANIMATION(ANIM_TAG_BLUE_BURST, gBattleAnimSpriteGfx_BlueBurst, 0x0A00, gBattleAnimSpritePal_BlueBurst),
-    BATTLE_ANIMATION(ANIM_TAG_SMALL_EMBER, B_NEW_EMBER_PARTICLES == TRUE ? gBattleAnimSpriteGfx_NewEmbers : gBattleAnimSpriteGfx_SmallEmber, 0x0A00, B_NEW_EMBER_PARTICLES == TRUE ? gBattleAnimSpritePal_NewEmbers : gBattleAnimSpritePal_SmallEmber),
+    BATTLE_ANIMATION(ANIM_TAG_SMALL_EMBER, gBattleAnimSpriteGfx_SmallEmber, 0x0A00, gBattleAnimSpritePal_SmallEmber),
     BATTLE_ANIMATION(ANIM_TAG_GRAY_SMOKE, gBattleAnimSpriteGfx_GraySmoke, 0x0A00, gBattleAnimSpritePal_GraySmoke),
     BATTLE_ANIMATION(ANIM_TAG_BLUE_STAR, gBattleAnimSpriteGfx_BlueStar, 0x0E00, gBattleAnimSpritePal_BlueStar),
     BATTLE_ANIMATION(ANIM_TAG_BUBBLE_BURST, gBattleAnimSpriteGfx_BubbleBurst, 0x0380, gBattleAnimSpritePal_BubbleBurst),
@@ -1135,7 +1150,7 @@ const struct BattleAnimation gBattleAnimTable[ANIM_TAG_COUNT] =
     BATTLE_ANIMATION(ANIM_TAG_WATER_COLUMN, gBattleAnimSpriteGfx_WaterColumn, 0x0400, gBattleAnimSpritePal_WaterColumn),
     BATTLE_ANIMATION(ANIM_TAG_MUD_UNK, gBattleAnimSpriteGfx_MudUnk, 0x0200, gBattleAnimSpritePal_MudUnk),
     BATTLE_ANIMATION(ANIM_TAG_RAIN_DROPS, gBattleAnimSpriteGfx_RainDrops, 0x0700, gBattleAnimSpritePal_RainDrops),
-    BATTLE_ANIMATION(ANIM_TAG_FURY_SWIPES, gBattleAnimSpriteGfx_FurySwipes, 0x0800, gBattleAnimSpritePal_FurySwipes),
+    BATTLE_ANIMATION(ANIM_TAG_ACID_RAIN_DROPS, gBattleAnimSpriteGfx_AcidRainDrops, 0x0800, gBattleAnimSpritePal_AcidRainDrops),
     BATTLE_ANIMATION(ANIM_TAG_VINE_2, gBattleAnimSpriteGfx_Vine2, 0x0a00, gBattleAnimSpritePal_Vine2),
     BATTLE_ANIMATION(ANIM_TAG_TEETH, gBattleAnimSpriteGfx_Teeth, 0x0600, gBattleAnimSpritePal_Teeth),
     BATTLE_ANIMATION(ANIM_TAG_BONE_2, gBattleAnimSpriteGfx_Bone2, 0x0800, gBattleAnimSpritePal_Bone2),
@@ -1162,7 +1177,7 @@ const struct BattleAnimation gBattleAnimTable[ANIM_TAG_COUNT] =
     BATTLE_ANIMATION(ANIM_TAG_RAINBOW_RINGS, gBattleAnimSpriteGfx_RainbowRings, 0x00c0, gBattleAnimSpritePal_RainbowRings),
     BATTLE_ANIMATION(ANIM_TAG_ICE_CRYSTALS, gBattleAnimSpriteGfx_IceCrystals, 0x01c0, gBattleAnimSpritePal_IceCrystals),
     BATTLE_ANIMATION(ANIM_TAG_ICE_SPIKES, gBattleAnimSpriteGfx_IceSpikes, 0x0100, gBattleAnimSpritePal_IceCrystals),
-    BATTLE_ANIMATION(ANIM_TAG_HANDS_AND_FEET, B_NEW_HANDS_FEET_PARTICLE == TRUE ? gBattleAnimSpriteGfx_NewHandsAndFeet : gBattleAnimSpriteGfx_HandsAndFeet, 0x0800, B_NEW_HANDS_FEET_PARTICLE == TRUE ? gBattleAnimSpritePal_NewHandsAndFeet : gBattleAnimSpritePal_HandsAndFeet),
+    BATTLE_ANIMATION(ANIM_TAG_HANDS_AND_FEET, gBattleAnimSpriteGfx_HandsAndFeet, 0x0800, gBattleAnimSpritePal_HandsAndFeet),
     BATTLE_ANIMATION(ANIM_TAG_MIST_CLOUD, gBattleAnimSpriteGfx_MistCloud, 0x0200, gBattleAnimSpritePal_MistCloud),
     BATTLE_ANIMATION(ANIM_TAG_CLAMP, gBattleAnimSpriteGfx_Clamp, 0x0800, gBattleAnimSpritePal_SharpTeeth),
     BATTLE_ANIMATION(ANIM_TAG_BUBBLE, gBattleAnimSpriteGfx_Bubble, 0x0180, gBattleAnimSpritePal_RainDrops),
@@ -1288,7 +1303,7 @@ const struct BattleAnimation gBattleAnimTable[ANIM_TAG_COUNT] =
     BATTLE_ANIMATION(ANIM_TAG_GREEN_SPIKE, gBattleAnimSpriteGfx_GreenSpike, 0x0080, gBattleAnimSpritePal_GreenSpike),
     BATTLE_ANIMATION(ANIM_TAG_WHITE_CIRCLE_OF_LIGHT, gBattleAnimSpriteGfx_CircleOfLight, 0x0800, gBattleAnimSpritePal_WhiteCircleOfLight),
     BATTLE_ANIMATION(ANIM_TAG_GLOWY_BLUE_ORB, gBattleAnimSpriteGfx_GlowyRedOrb, 0x0020, gBattleAnimSpritePal_GlowyBlueOrb),
-    BATTLE_ANIMATION(ANIM_TAG_POKEBLOCK, gBattleAnimSpriteGfx_Pokeblock, 0x0080, gBattleAnimSpritePal_Pokeblock),
+    BATTLE_ANIMATION(ANIM_TAG_SAFARI_BAIT, gBattleAnimSpriteGfx_SafariBait, 0x0080, gBattleAnimSpritePal_SafariBait),
     BATTLE_ANIMATION(ANIM_TAG_WHITE_FEATHER, gBattleAnimSpriteGfx_WhiteFeather, 0x0400, gBattleAnimSpritePal_WhiteFeather),
     BATTLE_ANIMATION(ANIM_TAG_SPARKLE_6, gBattleAnimSpriteGfx_Sparkle6, 0x0080, gBattleAnimSpritePal_Sparkle6),
     BATTLE_ANIMATION(ANIM_TAG_SPLASH, gBattleAnimSpriteGfx_Splash, 0x0800, gBattleAnimSpritePal_Splash),
