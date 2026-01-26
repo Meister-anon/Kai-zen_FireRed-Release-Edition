@@ -2,7 +2,7 @@
 #define GUARD_TEXT_H
 
 #include "global.h"
-#include "characters.h"
+#include "constants/characters.h"
 /*
 #define CHAR_SPACE             0x00
 #define CHAR_A_GRAVE           0x01
