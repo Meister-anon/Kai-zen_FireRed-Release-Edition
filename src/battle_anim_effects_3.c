@@ -2352,7 +2352,7 @@ void AnimTask_HideSwapSprite(u8 taskId)
         dest = animBg.bgTiles;
         CpuCopy32(src, dest, MON_PIC_SIZE);
         LoadBgTiles(1, animBg.bgTiles, 0x800, animBg.tilesOffset);
-        if (IsContest())
+        /*if (IsContest())
         {
             if (IsSpeciesNotUnown(gContestResources->moveAnim->species) != IsSpeciesNotUnown(gContestResources->moveAnim->targetSpecies))
             {
@@ -2382,7 +2382,7 @@ void AnimTask_HideSwapSprite(u8 taskId)
                 gSprites[gBattlerSpriteIds[gBattleAnimAttacker]].affineAnims = gAffineAnims_BattleSpriteOpponentSide;
 
             StartSpriteAffineAnim(&gSprites[gBattlerSpriteIds[gBattleAnimAttacker]], BATTLER_AFFINE_NORMAL);
-        }
+        }*/
 
         gTasks[taskId].data[0]++;
         break;
@@ -2466,7 +2466,7 @@ void AnimTask_TransformMon(u8 taskId)
         dest = animBg.bgTiles;
         CpuCopy32(src, dest, MON_PIC_SIZE);
         LoadBgTiles(1, animBg.bgTiles, 0x800, animBg.tilesOffset);
-        if (IsContest())
+        /*if (IsContest())
         {
             if (IsSpeciesNotUnown(gContestResources->moveAnim->species) != IsSpeciesNotUnown(gContestResources->moveAnim->targetSpecies))
             {
@@ -2496,7 +2496,7 @@ void AnimTask_TransformMon(u8 taskId)
                 gSprites[gBattlerSpriteIds[gBattleAnimAttacker]].affineAnims = gAffineAnims_BattleSpriteOpponentSide;
 
             StartSpriteAffineAnim(&gSprites[gBattlerSpriteIds[gBattleAnimAttacker]], BATTLER_AFFINE_NORMAL);
-        }
+        }*/
 
         gTasks[taskId].data[0]++;
         break;
@@ -3358,7 +3358,7 @@ void AnimTask_RolePlaySilhouette(u8 taskId)
     s16 coord1, coord2;
 
     GetAnimBattlerSpriteId(ANIM_ATTACKER);
-    if (IsContest())
+    /*if (IsContest())
     {
         isBackPic = TRUE;
         personality = gContestResources->moveAnim->targetPersonality;
@@ -3366,7 +3366,7 @@ void AnimTask_RolePlaySilhouette(u8 taskId)
         species = gContestResources->moveAnim->targetSpecies;
         xOffset = 20;
     }
-    else
+    else*/
     {
         struct Pokemon *mon = GetBattlerMon(gBattleAnimTarget);
         if (!IsOnPlayerSide(gBattleAnimAttacker))
@@ -3374,7 +3374,7 @@ void AnimTask_RolePlaySilhouette(u8 taskId)
         else
             isBackPic = TRUE;
         personality = GetMonData(mon, MON_DATA_PERSONALITY);
-        isShiny = GetMonData(mon, MON_DATA_IS_SHINY);
+        isShiny = IsMonShiny(mon);
         if (gBattleSpritesDataPtr->battlerData[gBattleAnimTarget].transformSpecies == SPECIES_NONE)
             species = GetMonData(mon, MON_DATA_SPECIES);
         else
@@ -5241,7 +5241,7 @@ void AnimTask_SnatchOpposingMonMove(u8 taskId)
         }
         break;
     case 1:
-        if (IsContest())
+        /*if (IsContest())
         {
             personality = gContestResources->moveAnim->personality;
             isShiny = gContestResources->moveAnim->isShiny;
@@ -5250,11 +5250,11 @@ void AnimTask_SnatchOpposingMonMove(u8 taskId)
             isBackPic = FALSE;
             x = -32;
         }
-        else
+        else*/
         {
             struct Pokemon *mon = GetBattlerMon(gBattleAnimAttacker);
             personality = GetMonData(mon, MON_DATA_PERSONALITY);
-            isShiny = GetMonData(mon, MON_DATA_IS_SHINY);
+            isShiny = IsMonShiny(mon);
             if (gBattleSpritesDataPtr->battlerData[gBattleAnimAttacker].transformSpecies == SPECIES_NONE)
                 species = GetMonData(mon, MON_DATA_SPECIES);
             else

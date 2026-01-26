@@ -927,9 +927,9 @@ void AnimTask_MetallicShine(u8 taskId)
         }
     }
 
-    if (IsContest())
+    /*if (IsContest())
         species = gContestResources->moveAnim->species;
-    else
+    else*/
         species = GetMonData(GetBattlerMon(gBattleAnimAttacker), MON_DATA_SPECIES);
 
     spriteId = GetAnimBattlerSpriteId(ANIM_ATTACKER);
