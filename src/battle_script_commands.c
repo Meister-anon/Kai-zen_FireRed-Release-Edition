@@ -24,6 +24,7 @@
 #include "battle.h"
 #include "battle_message.h"
 #include "battle_anim.h"
+#include "battle_environment.h"
 #include "battle_ai_main.h"
 #include "battle_ai_util.h"
 #include "battle_scripts.h"
@@ -1200,21 +1201,8 @@ static const u16 sMultiTaskExcludedEffects[] =
 /*static const u16 sBlockedMoves[] =
 {};*/
 
-//remember to change logic and buff the weak ones vsonic
-static const u16 sNaturePowerMoves[] =
-{
-    [BATTLE_TERRAIN_GRASS] = MOVE_STUN_SPORE,
-    [BATTLE_TERRAIN_LONG_GRASS] = MOVE_RAZOR_LEAF,
-    [BATTLE_TERRAIN_SAND] = MOVE_EARTHQUAKE,
-    [BATTLE_TERRAIN_UNDERWATER] = MOVE_HYDRO_PUMP,
-    [BATTLE_TERRAIN_WATER] = MOVE_SURF,
-    [BATTLE_TERRAIN_POND] = MOVE_BUBBLE_BEAM,
-    [BATTLE_TERRAIN_MOUNTAIN] = MOVE_ROCK_SLIDE,
-    [BATTLE_TERRAIN_CAVE] = MOVE_SHADOW_BALL,
-    [BATTLE_TERRAIN_BUILDING] = MOVE_SWIFT,
-    [BATTLE_TERRAIN_PLAIN] = MOVE_SWIFT
-};
 
+//think is special equivalent of secret power?
 u16 GetNaturePowerMove(void)
 {
     if (gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN)
@@ -1225,9 +1213,9 @@ u16 GetNaturePowerMove(void)
         return MOVE_ENERGY_BALL;
     else if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN)
         return MOVE_PSYCHIC;
-    else if (sNaturePowerMoves == MOVE_NONE)
+    else if (gBattleEnvironmentInfo[gBattleEnvironment].naturePower == MOVE_NONE)
         return MOVE_TRI_ATTACK;
-    return sNaturePowerMoves[gBattleTerrain];
+    return gBattleEnvironmentInfo[gBattleEnvironment].naturePower;
 }
 
 
@@ -19707,30 +19695,30 @@ static void atkE3_jumpifhasnohp(void)
 
 static void atkE4_getsecretpowereffect(void)
 {
-    switch (gBattleTerrain)
+    switch (gBattleEnvironment)
     {
-    case BATTLE_TERRAIN_GRASS:
+    case BATTLE_ENVIRONMENT_GRASS:
         gBattleScripting.moveEffect = MOVE_EFFECT_POISON;
         break;
-    case BATTLE_TERRAIN_LONG_GRASS:
+    case BATTLE_ENVIRONMENT_LONG_GRASS:
         gBattleScripting.moveEffect = MOVE_EFFECT_SLEEP;
         break;
-    case BATTLE_TERRAIN_SAND:
+    case BATTLE_ENVIRONMENT_SAND:
         gBattleScripting.moveEffect = MOVE_EFFECT_ACC_MINUS_1;
         break;
-    case BATTLE_TERRAIN_UNDERWATER:
+    case BATTLE_ENVIRONMENT_UNDERWATER:
         gBattleScripting.moveEffect = MOVE_EFFECT_DEF_MINUS_1;
         break;
-    case BATTLE_TERRAIN_WATER:
+    case BATTLE_ENVIRONMENT_WATER:
         gBattleScripting.moveEffect = MOVE_EFFECT_ATK_MINUS_1;
         break;
-    case BATTLE_TERRAIN_POND:
+    case BATTLE_ENVIRONMENT_POND:
         gBattleScripting.moveEffect = MOVE_EFFECT_SPD_MINUS_1;
         break;
-    case BATTLE_TERRAIN_MOUNTAIN:
+    case BATTLE_ENVIRONMENT_MOUNTAIN:
         gBattleScripting.moveEffect = MOVE_EFFECT_CONFUSION;
         break;
-    case BATTLE_TERRAIN_CAVE:
+    case BATTLE_ENVIRONMENT_CAVE:
         gBattleScripting.moveEffect = MOVE_EFFECT_FLINCH;
         break;
     default:
@@ -19943,17 +19931,17 @@ static void HandleScriptMegaPrimalBurst(u32 caseId, u32 battler, u32 type)
 //same as below
 bool32 CanCamouflage(u8 battlerId)
 {
-    if (IS_BATTLER_OF_TYPE(battlerId, sTerrainToType[gBattleTerrain]))
+    if (IS_BATTLER_OF_TYPE(battlerId, sTerrainToType[gBattleEnvironment]))
         return FALSE;
     return TRUE;
 }
 
 static void atkEB_settypetoterrain(void)
 {
-    if (!IS_BATTLER_OF_TYPE(gBattlerAttacker, sTerrainToType[gBattleTerrain]))
+    if (!IS_BATTLER_OF_TYPE(gBattlerAttacker, sTerrainToType[gBattleEnvironment]))
     {
-        SET_BATTLER_TYPE(gBattlerAttacker, sTerrainToType[gBattleTerrain]);
-        PREPARE_TYPE_BUFFER(gBattleTextBuff1, sTerrainToType[gBattleTerrain]);
+        SET_BATTLER_TYPE(gBattlerAttacker, sTerrainToType[gBattleEnvironment]);
+        PREPARE_TYPE_BUFFER(gBattleTextBuff1, sTerrainToType[gBattleEnvironment]);
         gBattlescriptCurrInstr += 5;
     }
     else
@@ -20088,9 +20076,9 @@ static void atkEF_handleballthrow(void) //important changed
                     break;
                 case ITEM_DIVE_BALL: //later gens also workedfor fishing surfing mon, for that filter based on battle bg
                     if (GetCurrentMapType() == MAP_TYPE_UNDERWATER
-                    || gBattleTerrain == BATTLE_TERRAIN_UNDERWATER
-                    || gBattleTerrain == BATTLE_TERRAIN_WATER
-                    || gBattleTerrain == BATTLE_TERRAIN_POND) //ok think this should work, idk way EE used ewram to set this
+                    || gBattleEnvironment == BATTLE_ENVIRONMENT_UNDERWATER
+                    || gBattleEnvironment == BATTLE_ENVIRONMENT_WATER
+                    || gBattleEnvironment == BATTLE_ENVIRONMENT_POND) //ok think this should work, idk way EE used ewram to set this
                         ballMultiplier = 35;
                     else
                         ballMultiplier = 10;

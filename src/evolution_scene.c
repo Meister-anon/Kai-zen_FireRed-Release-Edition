@@ -228,7 +228,7 @@ void EvolutionScene(struct Pokemon* mon, u16 speciesToEvolve, bool8 canStopEvo, 
     gBattle_BG3_X = 256;
     gBattle_BG3_Y = 0;
 
-    gBattleTerrain = BATTLE_TERRAIN_PLAIN;
+    gBattleEnvironment = BATTLE_ENVIRONMENT_PLAIN;
 
     InitBattleBgsVideo();
     LoadBattleTextboxAndBackground();
@@ -343,7 +343,7 @@ static void CB2_EvolutionSceneLoadGraphics(void)
     gBattle_BG3_X = 256;
     gBattle_BG3_Y = 0;
 
-    gBattleTerrain = BATTLE_TERRAIN_PLAIN;
+    gBattleEnvironment = BATTLE_ENVIRONMENT_PLAIN;
 
     InitBattleBgsVideo();
     LoadBattleTextboxAndBackground();

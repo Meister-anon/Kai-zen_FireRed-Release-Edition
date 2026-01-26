@@ -12750,7 +12750,7 @@ goto METATILE_TYPES //of interest coud be behavrio fro recognizing grahpics as e
 
 goto TERRAIN_DEFINES
 goto FIELD_ENDTURN  //battle_util.c  includes weather & terrain decrement //still to do     vsonic
-goto BATTLE_TERRAIN //Battle Terrain, NOT TERRAIN effect, is the entire battle field, including part battler sits on, can use to make terrain effect
+goto BATTLE_ENVIRONMENT //Battle Terrain, NOT TERRAIN effect, is the entire battle field, including part battler sits on, can use to make terrain effect
 goto BATTLE_SETUP_TERRAIN   //sets battle terrain from metatile/environment
 /*
 * New terrain notes

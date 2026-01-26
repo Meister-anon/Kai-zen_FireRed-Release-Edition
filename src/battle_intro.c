@@ -19,16 +19,16 @@ static void BattleIntroSlide3(u8 taskId);
 
 static const TaskFunc sBattleIntroSlideFuncs[] =
 {
-    BattleIntroSlide1, // BATTLE_TERRAIN_GRASS
-    BattleIntroSlide1, // BATTLE_TERRAIN_LONG_GRASS
-    BattleIntroSlide2, // BATTLE_TERRAIN_SAND
-    BattleIntroSlide2, // BATTLE_TERRAIN_UNDERWATER
-    BattleIntroSlide2, // BATTLE_TERRAIN_WATER
-    BattleIntroSlide1, // BATTLE_TERRAIN_POND
-    BattleIntroSlide1, // BATTLE_TERRAIN_MOUNTAIN
-    BattleIntroSlide1, // BATTLE_TERRAIN_CAVE
-    BattleIntroSlide3, // BATTLE_TERRAIN_BUILDING
-    BattleIntroSlide3, // BATTLE_TERRAIN_PLAIN
+    BattleIntroSlide1, // BATTLE_ENVIRONMENT_GRASS
+    BattleIntroSlide1, // BATTLE_ENVIRONMENT_LONG_GRASS
+    BattleIntroSlide2, // BATTLE_ENVIRONMENT_SAND
+    BattleIntroSlide2, // BATTLE_ENVIRONMENT_UNDERWATER
+    BattleIntroSlide2, // BATTLE_ENVIRONMENT_WATER
+    BattleIntroSlide1, // BATTLE_ENVIRONMENT_POND
+    BattleIntroSlide1, // BATTLE_ENVIRONMENT_MOUNTAIN
+    BattleIntroSlide1, // BATTLE_ENVIRONMENT_CAVE
+    BattleIntroSlide3, // BATTLE_ENVIRONMENT_BUILDING
+    BattleIntroSlide3, // BATTLE_ENVIRONMENT_PLAIN
 };
 
 void SetAnimBgAttribute(u8 bgId, u8 attributeId, u8 value)
@@ -100,9 +100,15 @@ void HandleIntroSlide(u8 terrain)
     {
         taskId = CreateTask(BattleIntroSlideLink, 0);
     }*/
-    if ((gBattleTypeFlags & BATTLE_TYPE_KYOGRE_GROUDON) && gGameVersion != VERSION_RUBY)
+   //vsonic check version
+    if (gBattleTypeFlags & BATTLE_TYPE_KYOGRE)
     {
-        terrain = BATTLE_TERRAIN_UNDERWATER;
+        terrain = BATTLE_ENVIRONMENT_UNDERWATER;
+        taskId = CreateTask(BattleIntroSlide2, 0);
+    }
+    else if (gBattleTypeFlags & BATTLE_TYPE_GROUDON)
+    {
+        terrain = BATTLE_ENVIRONMENT_CAVE;
         taskId = CreateTask(BattleIntroSlide2, 0);
     }
     else

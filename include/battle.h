@@ -79,17 +79,17 @@
 #define MAX_TRAINER_ITEMS 4
 
 
-#define MOVE_TARGET_SELECTED            0
-#define MOVE_TARGET_DEPENDS             (1 << 0)
-#define MOVE_TARGET_USER_OR_SELECTED    (1 << 1)
-#define MOVE_TARGET_RANDOM              (1 << 2)
-#define MOVE_TARGET_BOTH                (1 << 3)
-#define MOVE_TARGET_USER                (1 << 4)
-#define MOVE_TARGET_FOES_AND_ALLY       (1 << 5)
-#define MOVE_TARGET_OPPONENTS_FIELD     (1 << 6)
-#define MOVE_TARGET_ALLY                (1 << 7)
-#define MOVE_TARGET_ALL_BATTLERS        (MOVE_TARGET_FOES_AND_ALLY | MOVE_TARGET_USER)  //use untl setup like emerald, taken from MOVE_ROTOTILLER
-//#define MOVE_TARGET_ALL_BATTLERS        ((1 << 8) | MOVE_TARGET_USER)  can use when setup correctly
+#define TARGET_SELECTED            0
+#define TARGET_DEPENDS             (1 << 0)
+#define TARGET_USER_OR_SELECTED    (1 << 1)
+#define TARGET_RANDOM              (1 << 2)
+#define TARGET_BOTH                (1 << 3)
+#define TARGET_USER                (1 << 4)
+#define TARGET_FOES_AND_ALLY       (1 << 5)
+#define TARGET_OPPONENTS_FIELD     (1 << 6)
+#define TARGET_ALLY                (1 << 7)
+#define TARGET_ALL_BATTLERS        (TARGET_FOES_AND_ALLY | TARGET_USER)  //use untl setup like emerald, taken from MOVE_ROTOTILLER
+//#define TARGET_ALL_BATTLERS        ((1 << 8) | TARGET_USER)  can use when setup correctly
 
 // For the second argument of GetBattleMoveTarget, when no target override is needed
 #define NO_TARGET_OVERRIDE 0
@@ -606,7 +606,7 @@ extern u8 gBattlerTarget;
 extern u8 gAbsentBattlerFlags;
 
 extern struct BattlePokemon gBattleMons[MAX_BATTLERS_COUNT];
-
+extern u8 gBattlerSpriteIds[MAX_BATTLERS_COUNT];
 /*struct UsedMoves
 {
     u16 moves[MAX_BATTLERS_COUNT];
@@ -1409,7 +1409,7 @@ extern u16 gLastResultingMoves[MAX_BATTLERS_COUNT];
 extern u16 gLastPrintedMoves[MAX_BATTLERS_COUNT];
 extern u8 gActionsByTurnOrder[MAX_BATTLERS_COUNT];
 extern u8 gChosenActionByBattler[MAX_BATTLERS_COUNT];
-extern u8 gBattleTerrain;
+extern u8 gBattleEnvironment;
 extern struct MultiBattlePokemonTx gMultiPartnerParty[3];
 extern u16 gRandomTurnNumber;
 

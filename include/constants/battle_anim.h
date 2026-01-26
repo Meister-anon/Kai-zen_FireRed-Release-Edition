@@ -686,7 +686,10 @@
 #define ANIM_WEATHER_SANDSTORM 3
 #define ANIM_WEATHER_HAIL 4
 #define ANIM_WEATHER_SNOW 5
-#define ANIM_WEATHER_FOG 6
+#define ANIM_WEATHER_MOON 6
+#define ANIM_WEATHER_ACID_RAIN 7
+#define ANIM_WEATHER_FOG 8
+
 
 // horseshoe/fist frames
 #define ANIM_RIGHT_FIST  0

@@ -4,6 +4,7 @@
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_bg.h"
+#include "battle_environment.h"
 #include "battle_gfx_sfx_util.h"
 #include "bg.h"
 #include "constants/rgb.h"
@@ -243,16 +244,16 @@ const u8 gBattleBackgroundNames[][30] =
 };
 const u8 gBattleBackgroundTerrainNames[][26] =
 {
-    [BATTLE_TERRAIN_GRASS]      = _("NORMAL - GRASS           "),
-    [BATTLE_TERRAIN_LONG_GRASS] = _("NORMAL - LONG GRASS      "),
-    [BATTLE_TERRAIN_SAND]       = _("NORMAL - SAND            "),
-    [BATTLE_TERRAIN_UNDERWATER] = _("NORMAL - UNDERWATER      "),
-    [BATTLE_TERRAIN_WATER]      = _("NORMAL - WATER           "),
-    [BATTLE_TERRAIN_POND]       = _("NORMAL - POND            "),
-    [BATTLE_TERRAIN_MOUNTAIN]   = _("NORMAL - MOUNTAIN        "),
-    [BATTLE_TERRAIN_CAVE]       = _("NORMAL - CAVE            "),
-    [BATTLE_TERRAIN_BUILDING]   = _("NORMAL - BUILDING        "),
-    [BATTLE_TERRAIN_PLAIN]      = _("NORMAL - PLAIN           "),
+    [BATTLE_ENVIRONMENT_GRASS]      = _("NORMAL - GRASS           "),
+    [BATTLE_ENVIRONMENT_LONG_GRASS] = _("NORMAL - LONG GRASS      "),
+    [BATTLE_ENVIRONMENT_SAND]       = _("NORMAL - SAND            "),
+    [BATTLE_ENVIRONMENT_UNDERWATER] = _("NORMAL - UNDERWATER      "),
+    [BATTLE_ENVIRONMENT_WATER]      = _("NORMAL - WATER           "),
+    [BATTLE_ENVIRONMENT_POND]       = _("NORMAL - POND            "),
+    [BATTLE_ENVIRONMENT_MOUNTAIN]   = _("NORMAL - MOUNTAIN        "),
+    [BATTLE_ENVIRONMENT_CAVE]       = _("NORMAL - CAVE            "),
+    [BATTLE_ENVIRONMENT_BUILDING]   = _("NORMAL - BUILDING        "),
+    [BATTLE_ENVIRONMENT_PLAIN]      = _("NORMAL - PLAIN           "),
 };
 //Function declarations
 static void PrintDigitChars(struct PokemonDebugMenu *data);
@@ -697,114 +698,27 @@ static void DrawFootprintCustom(u8 windowId, u16 species) //not using
     CopyToWindowPixelBuffer(windowId, footprint, sizeof(footprint), 0);
 }
 
+//Background positions
+#define BACKGROUND_1_CHAR_BASE  1
+#define BACKGROUND_1_MAP_BASE  28
+#define BACKGROUND_3_CHAR_BASE  2
+#define BACKGROUND_3_MAP_BASE  26
+
 //Battle background functions
-static void LoadBattleBg(u8 battleBgType, u8 battleTerrain)
+static void LoadBattleBg(u8 battleEnvironment)
 {
 
-    switch (battleBgType)
-    {
-        default:
-        case MAP_BATTLE_SCENE_NORMAL:
-            LZDecompressVram(sBattleTerrainTable[battleTerrain].tileset, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTable[battleTerrain].tilemap, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTable[battleTerrain].tilemap2, (void*)(BG_SCREEN_ADDR(26)));
-            LoadPalette(sBattleTerrainTable[battleTerrain].palette, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_LINK:
-            LZDecompressVram(sBattleTerrainTiles_Building, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Building, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Building_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadPalette(sBattleTerrainPalette_Link, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_GYM:
-            LZDecompressVram(sBattleTerrainTiles_Building, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Building, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Building_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadPalette(sBattleTerrainPalette_Gym, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_LEADER:
-            LZDecompressVram(sBattleTerrainTiles_Building, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Building, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Building_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadPalette(sBattleTerrainPalette_Leader, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_INDOOR_2:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadPalette(sBattleTerrainPalette_Indoor2, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_INDOOR_1:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadPalette(sBattleTerrainPalette_Indoor1, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_LORELEI:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadPalette(sBattleTerrainPalette_Lorelei, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_BRUNO:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadPalette(sBattleTerrainPalette_Bruno, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_AGATHA:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadPalette(sBattleTerrainPalette_Agatha, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_LANCE:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadPalette(sBattleTerrainPalette_Lance, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_CHAMPION:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadPalette(sBattleTerrainPalette_Champion, 0x20, 0x60);
-            break;
-    }
+    LZDecompressVram(gBattleEnvironmentInfo[battleEnvironment].background.tileset, (void *)(BG_CHAR_ADDR(BACKGROUND_3_CHAR_BASE)));
+    LZDecompressVram(gBattleEnvironmentInfo[battleEnvironment].background.tilemap, (void *)(BG_SCREEN_ADDR(BACKGROUND_3_MAP_BASE)));
+    LoadPalette(gBattleEnvironmentInfo[battleEnvironment].background.palette, BG_PLTT_ID(2), 3 * PLTT_SIZE_4BPP);
 }
 static void PrintBattleBgName(u8 taskId)
 {
     struct PokemonDebugMenu *data = GetStructPtr(taskId);
-    u8 fontId = 0;
-    u8 text[30+1];
-
-    if (data->battleBgType == 0)
-        StringCopy(text, gBattleBackgroundTerrainNames[data->battleTerrain]);
-    else
-        StringCopy(text, gBattleBackgroundNames[data->battleBgType]);
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, 0, 0, 0, NULL);
+    u8 fontId = FONT_SMALL;
+    //think don't need copied from spritevisualizer
+    //FillWindowPixelRect(WIN_BOTTOM_RIGHT, PIXEL_FILL(0), 0, 24, 80, gFonts[fontId].maxLetterHeight);
+    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, gBattleEnvironmentInfo[data->battleTerrain].name, 0, 0, 0, NULL);
 }
 static void UpdateBattleBg(u8 taskId, bool8 increment)
 {
@@ -814,14 +728,14 @@ static void UpdateBattleBg(u8 taskId, bool8 increment)
     {
         if (increment)
         {
-            if (data->battleTerrain == BATTLE_TERRAIN_PLAIN)
+            if (data->battleTerrain == BATTLE_ENVIRONMENT_PLAIN)
                 data->battleBgType += 1;
             else
                 data->battleTerrain += 1;
         }
         else
         {
-            if (data->battleTerrain == BATTLE_TERRAIN_GRASS)
+            if (data->battleTerrain == BATTLE_ENVIRONMENT_GRASS)
             {
                 data->battleBgType = MAP_BATTLE_SCENE_CHAMPION;
             }
@@ -838,7 +752,7 @@ static void UpdateBattleBg(u8 taskId, bool8 increment)
         else
         {
             data->battleBgType = MAP_BATTLE_SCENE_NORMAL;
-            data->battleTerrain = BATTLE_TERRAIN_PLAIN;
+            data->battleTerrain = BATTLE_ENVIRONMENT_PLAIN;
         }
     }
     else if (data->battleBgType == MAP_BATTLE_SCENE_CHAMPION)
@@ -846,7 +760,7 @@ static void UpdateBattleBg(u8 taskId, bool8 increment)
         if (increment)
         {
             data->battleBgType = MAP_BATTLE_SCENE_NORMAL;
-            data->battleTerrain = BATTLE_TERRAIN_GRASS;
+            data->battleTerrain = BATTLE_ENVIRONMENT_GRASS;
         }
         else
             data->battleBgType -= 1;
@@ -861,7 +775,7 @@ static void UpdateBattleBg(u8 taskId, bool8 increment)
 
     PrintBattleBgName(taskId);
 
-    LoadBattleBg(data->battleBgType, data->battleTerrain);
+    LoadBattleBg(data->battleTerrain);
 }
 
 // *******************************
@@ -993,7 +907,7 @@ void CB2_Debug_Pokemon(void)
 
             FillBgTilemapBufferRect(0, 0, 0, 0, 32, 20, 15);
             InitBgsFromTemplates(0, sBgTemplates, ARRAY_COUNT(sBgTemplates));
-            LoadBattleBg(0, BATTLE_TERRAIN_GRASS);
+            LoadBattleBg(BATTLE_ENVIRONMENT_GRASS);
 
             gMain.state++;
             break;

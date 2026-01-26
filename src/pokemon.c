@@ -13135,8 +13135,8 @@ u16 GetFormChangeTargetSpeciesBoxMon(struct Pokemon *mon, u16 method, u32 arg)
                     if (heldItem == formChanges[i].param1 || formChanges[i].param1 == ITEM_NONE)
                         targetSpecies = formChanges[i].targetSpecies;
                     break;
-                case FORM_CHANGE_END_BATTLE_TERRAIN:
-                    if (gBattleTerrain == formChanges[i].param1)
+                case FORM_CHANGE_END_BATTLE_ENVIRONMENT:
+                    if (gBattleEnvironment == formChanges[i].param1)
                         targetSpecies = formChanges[i].targetSpecies;
                     break;
                 case FORM_CHANGE_WITHDRAW:

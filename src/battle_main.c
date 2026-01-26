@@ -135,7 +135,7 @@ EWRAM_DATA u8 gBattleTextBuff2[TEXT_BUFF_ARRAY_COUNT] = {0};
 EWRAM_DATA u8 gBattleTextBuff3[TEXT_BUFF_ARRAY_COUNT] = {0};
 //static EWRAM_DATA u32 gUnknown_2022AE8[25] = {0}; //zsonic  //GriffinR came through again,  thought this was unused but removing is what broke brocks battle. because battle text was using it as overflow
 EWRAM_DATA u32 gBattleTypeFlags = 0;
-EWRAM_DATA u8 gBattleTerrain = 0;
+EWRAM_DATA u8 gBattleEnvironment = 0;
 EWRAM_DATA struct MultiBattlePokemonTx gMultiPartnerParty[3] = {0};
 EWRAM_DATA u8 *gBattleAnimMons_BgTilesBuffer = NULL;
 EWRAM_DATA u8 *gBattleAnimMons_BgTilemapBuffer = NULL;
@@ -1175,7 +1175,7 @@ static void CB2_InitBattleInternal(void)
     gBattle_BG2_Y = 0;
     gBattle_BG3_X = 0;
     gBattle_BG3_Y = 0;
-    gBattleTerrain = BattleSetup_GetTerrainId();
+    gBattleEnvironment = BattleSetup_GetTerrainId();
     InitBattleBgsVideo();
     LoadBattleTextboxAndBackground();
     ResetSpriteData();
@@ -4954,7 +4954,7 @@ static void BattleIntroPrepareBackgroundSlide(void)
     if (gBattleControllerExecFlags == 0)
     {
         battler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-        BtlController_EmitIntroSlide(battler, BUFFER_A, gBattleTerrain);
+        BtlController_EmitIntroSlide(battler, BUFFER_A, gBattleEnvironment);
         MarkBattlerForControllerExec(battler);
         gBattleMainFunc = BattleIntroDrawTrainersOrMonsSprites;
         gBattleCommunication[MULTIUSE_STATE] = 0;
@@ -6956,7 +6956,7 @@ static void HandleEndTurn_FinishBattle(void)
             bool8 changedForm = FALSE;
             // Appeared in battle and didn't faint
             if ((gBattleStruct->appearedInBattle & (1u << i)) && GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) != 0)
-                changedForm = TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_END_BATTLE_TERRAIN);
+                changedForm = TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_END_BATTLE_ENVIRONMENT);
             if (!changedForm)
                 changedForm = TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_END_BATTLE);
 
