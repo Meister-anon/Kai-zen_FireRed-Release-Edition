@@ -3,7 +3,7 @@
 #include "battle.h"
 #include "battle_anim.h"
 #include "bg.h"
-#include "contest.h"
+//#include "contest.h"
 #include "data.h"
 #include "decompress.h"
 #include "dma3.h"

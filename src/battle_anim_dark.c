@@ -1,6 +1,6 @@
 #include "global.h"
 #include "battle_anim.h"
-#include "contest.h"
+//#include "contest.h"
 #include "gpu_regs.h"
 #include "graphics.h"
 #include "palette.h"

@@ -5,6 +5,7 @@
 #include "gba/gba.h"
 #include "constants/rgb.h"
 #include <string.h>
+#include "assertf.h"
 #include "metaprogram.h"
 #include "constants/global.h"
 #include "constants/flags.h"
