@@ -869,6 +869,101 @@ void SetBattlerSpriteAffineMode(u8 affineMode)
     }
 }
 
+#define tBattlerId   data[0]
+#define tSpriteSide  data[1]
+#define tBaseTileNum data[2]
+
+#define SPRITE_SIDE_LEFT    0
+#define SPRITE_SIDE_RIGHT   1
+
+void CreateEnemyShadowSprite(u32 battler)
+{
+    if (B_ENEMY_MON_SHADOW_STYLE >= GEN_4 && P_GBA_STYLE_SPECIES_GFX == FALSE)
+    {
+        u16 species = GetBattlerVisualSpecies(battler);
+        u8 size = gSpeciesInfo[species].enemyShadowSize;
+
+        gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdPrimary = CreateSprite(&gSpriteTemplate_EnemyShadow,
+                                                                                             GetBattlerSpriteCoord(battler, BATTLER_COORD_X),
+                                                                                             GetBattlerSpriteCoord(battler, BATTLER_COORD_Y),
+                                                                                             0xC8);
+        if (gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdPrimary < MAX_SPRITES)
+        {
+            struct Sprite *sprite = &gSprites[gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdPrimary];
+            sprite->tBattlerId = battler;
+            sprite->tSpriteSide = SPRITE_SIDE_LEFT;
+            sprite->tBaseTileNum = sprite->oam.tileNum;
+            sprite->oam.tileNum = sprite->tBaseTileNum + (8 * size);
+            sprite->invisible = TRUE;
+        }
+
+        gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdSecondary = CreateSprite(&gSpriteTemplate_EnemyShadow,
+                                                                                               GetBattlerSpriteCoord(battler, BATTLER_COORD_X),
+                                                                                               GetBattlerSpriteCoord(battler, BATTLER_COORD_Y),
+                                                                                               0xC8);
+        if (gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdSecondary < MAX_SPRITES)
+        {
+            struct Sprite *sprite = &gSprites[gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdSecondary];
+            sprite->tBattlerId = battler;
+            sprite->tSpriteSide = SPRITE_SIDE_RIGHT;
+            sprite->tBaseTileNum = sprite->oam.tileNum + 4;
+            sprite->oam.tileNum = sprite->tBaseTileNum + (8 * size);
+            sprite->invisible = TRUE;
+        }
+    }
+    else
+    {
+        gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdPrimary = CreateSprite(&gSpriteTemplate_EnemyShadow,
+                                                                                             GetBattlerSpriteCoord(battler, BATTLER_COORD_X),
+                                                                                             GetBattlerSpriteCoord(battler, BATTLER_COORD_Y) + 29,
+                                                                                             0xC8);
+        if (gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdPrimary < MAX_SPRITES)
+        {
+            struct Sprite *sprite = &gSprites[gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdPrimary];
+            sprite->tBattlerId = battler;
+            sprite->tBaseTileNum = sprite->oam.tileNum;
+            sprite->invisible = TRUE;
+        }
+    }
+}
+
+void LoadAndCreateEnemyShadowSprites(void)
+{
+    u8 battler;
+    u32 i;
+
+    if (B_ENEMY_MON_SHADOW_STYLE >= GEN_4 && P_GBA_STYLE_SPECIES_GFX == FALSE)
+    {
+        LoadCompressedSpriteSheet(&gSpriteSheet_EnemyShadowsSized);
+
+        // initialize shadow sprite ids
+        for (i = 0; i < gBattlersCount; i++)
+        {
+            gBattleSpritesDataPtr->healthBoxesData[i].shadowSpriteIdPrimary = MAX_SPRITES;
+            gBattleSpritesDataPtr->healthBoxesData[i].shadowSpriteIdSecondary = MAX_SPRITES;
+        }
+    }
+    else
+    {
+        LoadCompressedSpriteSheet(&gSpriteSheet_EnemyShadow);
+
+        // initialize shadow sprite ids
+        for (i = 0; i < gBattlersCount; i++)
+        {
+            gBattleSpritesDataPtr->healthBoxesData[i].shadowSpriteIdPrimary = MAX_SPRITES;
+        }
+    }
+
+    battler = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
+    CreateEnemyShadowSprite(battler);
+
+    if (IsDoubleBattle())
+    {
+        battler = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
+        CreateEnemyShadowSprite(battler);
+    }
+}
+
 void LoadAndCreateEnemyShadowSprites(void)
 {
     u8 battlerId;
@@ -1013,8 +1108,6 @@ void FreeMonSpritesGfx(void)
         return;
     if (gMonSpritesGfxPtr->buffer != NULL)
         FREE_AND_SET_NULL(gMonSpritesGfxPtr->buffer);
-    if (gMonSpritesGfxPtr->field_178 != NULL)
-        FREE_AND_SET_NULL(gMonSpritesGfxPtr->field_178);
     FREE_AND_SET_NULL(gMonSpritesGfxPtr->barFontGfx);
     FREE_AND_SET_NULL(gMonSpritesGfxPtr->firstDecompressed);
     gMonSpritesGfxPtr->sprites[0] = NULL;
