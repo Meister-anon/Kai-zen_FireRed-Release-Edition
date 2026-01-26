@@ -3688,7 +3688,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .name = COMPOUND_STRING("Sky Attack"),
         .description = COMPOUND_MOVE_STRING("The user flies high\nto charge energy\nthe 1st turn, then\nattacks in the 2nd\nwith heightend crit.\nThe foe may flinch."),
 
-    .effect = EFFECT_SEMI_INVULNERABLE, //wait rather than a charge move why don't I make it a literal flying attack?
+    .effect = EFFECT_FLY, //wait rather than a charge move why don't I make it a literal flying attack?
     .power = 140,   //could make this the upgrade to fly and be an actually good semi-invulnerable move
     .type = TYPE_FLYING,
     .accuracy = 100, //raised accuracy cant have charge a turn and still miss smh
