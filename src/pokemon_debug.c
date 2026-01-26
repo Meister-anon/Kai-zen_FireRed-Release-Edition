@@ -557,6 +557,9 @@ static const u16 *GetMonSpritePalStructCustom(u16 species, bool8 isShiny)
     }
 }
 
+//with plan add gender forms which may have
+//change this but if sep species wont need paletteF or aything
+//worst case replace w function for get pallete
 static void BattleLoadOpponentMonSpriteGfxCustom(u16 species, bool8 isShiny, u8 battlerId) //vsonic
 {
     const void *lzPaletteData;
