@@ -562,32 +562,27 @@ static const u16 *GetMonSpritePalStructCustom(u16 species, bool8 isShiny)
 //worst case replace w function for get pallete
 static void BattleLoadOpponentMonSpriteGfxCustom(u16 species, bool8 isShiny, u8 battlerId) //vsonic
 {
-    const void *lzPaletteData;
-    void *buffer;
-    u16 paletteOffset = 0x100 + battlerId * 16;
+    const u16 *palette = GetMonSpritePalFromSpecies(species, isShiny);
+    u16 paletteOffset = OBJ_PLTT_ID(battlerId);
 
     if (isShiny)
     {
         if (gSpeciesGraphics[species].shinyPalette != NULL)
-            lzPaletteData =  gSpeciesGraphics[species].shinyPalette;
+            palette =  gSpeciesGraphics[species].shinyPalette;
         else
-            lzPaletteData =  gSpeciesGraphics[SPECIES_NONE].shinyPalette;
+            palette =  gSpeciesGraphics[SPECIES_NONE].shinyPalette;
     }
     else
     {
         if (gSpeciesGraphics[species].palette != NULL)
-            lzPaletteData =  gSpeciesGraphics[species].palette;
+            palette =  gSpeciesGraphics[species].palette;
         else
-            lzPaletteData =  gSpeciesGraphics[SPECIES_NONE].palette;
+            palette =  gSpeciesGraphics[SPECIES_NONE].palette;
     }
 
-    //buffer = Alloc(sizeof(lzPaletteData) * 2);
-    LoadPalette(lzPaletteData, paletteOffset, 0x20);
+    LoadPalette(palette, paletteOffset, 0x20);
 
-    /*LZDecompressWram(lzPaletteData, buffer);
-    LoadPalette(buffer, paletteOffset, 0x20);
-    LoadPalette(buffer, 0x80 + battlerId * 16, 0x20);
-    Free(buffer);*/
+
 }
 
 static void SetConstSpriteValues(struct PokemonDebugMenu *data)
