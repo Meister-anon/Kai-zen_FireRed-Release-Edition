@@ -63,7 +63,8 @@ extern u16 ALIGNED(4) gPlttBufferUnfaded[PLTT_BUFFER_SIZE];
 extern u16 ALIGNED(4) gPlttBufferFaded[PLTT_BUFFER_SIZE];
 
 
-void LoadPalette(const void *src, u16 offset, u16 size);
+void LoadPalette(const void *src, u32 offset, u32 size);
+void LoadPaletteFast(const void *src, u32 offset, u32 size);
 void FillPalette(u16 value, u16 offset, u16 size);
 void TransferPlttBuffer(void);
 u8 UpdatePaletteFade(void);
