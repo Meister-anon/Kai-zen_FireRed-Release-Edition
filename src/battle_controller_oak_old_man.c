@@ -617,7 +617,7 @@ static void PrintOakText_ForPetesSake(u32 battler)
     case 0:
         if (!gPaletteFade.active)
         {
-            DoLoadHealthboxPalsForLevelUp(&gBattleStruct->simulatedInputState[1], &gBattleStruct->simulatedInputState[3], GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT));
+            LoadHealthboxPalsForLevelUp(&gBattleStruct->simulatedInputState[1], &gBattleStruct->simulatedInputState[3], GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT));
             BeginNormalPaletteFade(0xFFFFFF7E,
                                    4,
                                    0,
@@ -796,7 +796,7 @@ static void PrintOakText_KeepAnEyeOnHP(u32 battler)
     case 0:
         if (!gPaletteFade.active)
         {
-            DoLoadHealthboxPalsForLevelUp(&gBattleStruct->simulatedInputState[1], &gBattleStruct->simulatedInputState[3], battler);
+            LoadHealthboxPalsForLevelUp(&gBattleStruct->simulatedInputState[1], &gBattleStruct->simulatedInputState[3], battler);
             BeginNormalPaletteFade(0xFFFFFF7E,
                                    4,
                                    0,

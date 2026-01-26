@@ -2573,7 +2573,7 @@ static void PokedudeAction_PrintMessageWithHealthboxPals(u32 battler)
     case 0:
         if (!gPaletteFade.active)
         {
-            DoLoadHealthboxPalsForLevelUp(&gBattleStruct->pdHealthboxPal2,
+            LoadHealthboxPalsForLevelUp(&gBattleStruct->pdHealthboxPal2,
                                           &gBattleStruct->pdHealthboxPal1,
                                           GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
             BeginNormalPaletteFade(0xFFFFFF7F, 4, 0, 8, RGB_BLACK);

@@ -519,7 +519,7 @@ static void AnimTask_HealthBoxLevelUpCanEvolve_Step(u8 taskId)
     }
 }
 
-void DoLoadHealthboxPalsForLevelUp(u8 *paletteId1, u8 *paletteId2, u8 battler)
+void LoadHealthboxPalsForLevelUp(u8 *paletteId1, u8 *paletteId2, u8 battler)
 {
     u8 healthBoxSpriteId;
     u8 spriteId1, spriteId2;
@@ -530,10 +530,10 @@ void DoLoadHealthboxPalsForLevelUp(u8 *paletteId1, u8 *paletteId2, u8 battler)
     spriteId2 = gSprites[healthBoxSpriteId].data[5];
     *paletteId1 = AllocSpritePalette(TAG_HEALTHBOX_PALS_1);
     *paletteId2 = AllocSpritePalette(TAG_HEALTHBOX_PALS_2);
-    offset1 = (gSprites[healthBoxSpriteId].oam.paletteNum * 16) + 0x100;
-    offset2 = (gSprites[spriteId2].oam.paletteNum * 16) + 0x100;
-    LoadPalette(&gPlttBufferUnfaded[offset1], *paletteId1 * 16 + 0x100, 0x20);
-    LoadPalette(&gPlttBufferUnfaded[offset2], *paletteId2 * 16 + 0x100, 0x20);
+    offset1 = OBJ_PLTT_ID(gSprites[healthBoxSpriteId].oam.paletteNum);
+    offset2 = OBJ_PLTT_ID(gSprites[spriteId2].oam.paletteNum);
+    LoadPalette(&gPlttBufferUnfaded[offset1], OBJ_PLTT_ID(*paletteId1), PLTT_SIZE_4BPP);
+    LoadPalette(&gPlttBufferUnfaded[offset2], OBJ_PLTT_ID(*paletteId2), PLTT_SIZE_4BPP);
     gSprites[healthBoxSpriteId].oam.paletteNum = *paletteId1;
     gSprites[spriteId1].oam.paletteNum = *paletteId1;
     gSprites[spriteId2].oam.paletteNum = *paletteId2;
@@ -543,7 +543,7 @@ void AnimTask_LoadHealthboxPalsForLevelUp(u8 taskId)
 {
     u8 paletteId1, paletteId2;
     
-    DoLoadHealthboxPalsForLevelUp(&paletteId1, &paletteId2, gBattleAnimAttacker);
+    LoadHealthboxPalsForLevelUp(&paletteId1, &paletteId2, gBattleAnimAttacker);
     DestroyAnimVisualTask(taskId);
 }
 

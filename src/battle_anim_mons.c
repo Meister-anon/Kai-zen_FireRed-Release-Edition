@@ -92,11 +92,15 @@ static const u8 sCastformBackSpriteYCoords[] =
     0, // HAIL
 };
 
-static const struct SpriteTemplate gUnknown_83AE054[] =
+// Placeholders for Pokémon sprites to be created for a move animation effect (e.g. Role Play / Snatch)
+#define TAG_MOVE_EFFECT_MON_1 55125
+#define TAG_MOVE_EFFECT_MON_2 55126
+
+static const struct SpriteTemplate sSpriteTemplates_MoveEffectMons[] =
 {
     {
-        .tileTag = 0xD755,
-        .paletteTag = 0xD755,
+        .tileTag = TAG_MOVE_EFFECT_MON_1,
+        .paletteTag = TAG_MOVE_EFFECT_MON_1,
         .oam = &gOamData_AffineNormal_ObjNormal_64x64,
         .anims = gDummySpriteAnimTable,
         .images = NULL,
@@ -104,8 +108,8 @@ static const struct SpriteTemplate gUnknown_83AE054[] =
         .callback = SpriteCallbackDummy,
     },
     {
-        .tileTag = 0xD756,
-        .paletteTag = 0xD756,
+        .tileTag = TAG_MOVE_EFFECT_MON_2,
+        .paletteTag = TAG_MOVE_EFFECT_MON_2,
         .oam = &gOamData_AffineNormal_ObjNormal_64x64,
         .anims = gDummySpriteAnimTable,
         .images = NULL,
@@ -114,10 +118,10 @@ static const struct SpriteTemplate gUnknown_83AE054[] =
     }
 };
 
-static const struct SpriteSheet gUnknown_83AE084[] =
+static const struct SpriteSheet sSpriteSheets_MoveEffectMons[] =
 {
-    { gMiscBlank_Gfx, 0x800, 0xD755 },
-    { gMiscBlank_Gfx, 0x800, 0xD756 },
+    { gMiscBlank_Gfx, MON_PIC_SIZE, TAG_MOVE_EFFECT_MON_1 },
+    { gMiscBlank_Gfx, MON_PIC_SIZE, TAG_MOVE_EFFECT_MON_2 },
 };
 
 u8 GetBattlerSpriteCoord(u8 battlerId, u8 coordType)
@@ -1950,18 +1954,26 @@ u8 GetBattlerSpriteBGPriorityRank(u8 battlerId)
 
 //EE version
 //u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 id, s16 x, s16 y, u8 subpriority, u32 personality, bool8 isShiny, u32 battlerId);
-u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 a3, s16 x, s16 y, u8 subpriority, u32 personality, bool8 isShiny, u32 battlerId, u32 a10)
+u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 id, s16 x, s16 y, u8 subpriority, u32 personality, bool8 isShiny, u32 battlerId)
 {
     u8 spriteId;
-    u16 sheet = LoadSpriteSheet(&gUnknown_83AE084[a3]);
-    u16 palette = AllocSpritePalette(gUnknown_83AE054[a3].paletteTag);
+    u16 sheet = LoadSpriteSheet(&sSpriteSheets_MoveEffectMons[id]);
+    u16 palette = AllocSpritePalette(sSpriteTemplates_MoveEffectMons[id].paletteTag);
 
+    //double check after update but pretty sure
+    //buff here is MUCH larger than needs to be
+    //assuming it should just be MON_PIC_SIZE
     if (gMonSpritesGfxPtr != NULL && gMonSpritesGfxPtr->multiUseBuffer == NULL)
         gMonSpritesGfxPtr->multiUseBuffer = AllocZeroed(0x2000);
+    
+    //weird best I can tell a10
+    //is only used in battle_anim_effects3
+    //and only for distinguishing between snatch or roleplay
+    //but they both go to same thing here...
     if (!isBackpic)
     {        
         LoadPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), (palette * 0x10) + 0x100, 0x20);
-        if (a10 == 1 || ShouldIgnoreDeoxysForm(5, battlerId) == 1 || gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies != 0)
+        if (ShouldIgnoreDeoxysForm(5, battlerId) == 1 || gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies != 0)
             LoadSpecialPokePic_DontHandleDeoxys(
                                                 gMonSpritesGfxPtr->multiUseBuffer,
                                                 species,
@@ -1977,7 +1989,7 @@ u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 a3, s16
     else
     {
         LoadPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), (palette * 0x10) + 0x100, 0x20);
-        if (a10 == 1 || ShouldIgnoreDeoxysForm(5, battlerId) == 1 || gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies != 0)
+        if (ShouldIgnoreDeoxysForm(5, battlerId) == 1 || gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies != 0)
             LoadSpecialPokePic_DontHandleDeoxys(
                                                 gMonSpritesGfxPtr->multiUseBuffer,
                                                 species,
@@ -1993,9 +2005,9 @@ u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 a3, s16
     RequestDma3Copy(gMonSpritesGfxPtr->multiUseBuffer, (void *)(OBJ_VRAM0 + (sheet * 0x20)), 0x800, 1);
     FREE_AND_SET_NULL(gMonSpritesGfxPtr->multiUseBuffer);
     if (!isBackpic)
-        spriteId = CreateSprite(&gUnknown_83AE054[a3], x, y + gSpeciesGraphics[species].frontPicYOffset, subpriority);
+        spriteId = CreateSprite(&sSpriteTemplates_MoveEffectMons[id], x, y + gSpeciesGraphics[species].frontPicYOffset, subpriority);
     else
-        spriteId = CreateSprite(&gUnknown_83AE054[a3], x, y + gSpeciesGraphics[species].backPicYOffset, subpriority);
+        spriteId = CreateSprite(&sSpriteTemplates_MoveEffectMons[id], x, y + gSpeciesGraphics[species].backPicYOffset, subpriority);
     return spriteId;
 }
 

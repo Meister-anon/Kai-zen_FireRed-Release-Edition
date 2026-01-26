@@ -9605,7 +9605,7 @@ extern const u32 gBattleAnimSpriteGfx_SubstituteBack[]; //attempt use new sub ba
 // ice
 extern const u8 gWeatherFogHorizontalTiles[];
 extern const u32 gBattleAnimFogTilemap[];
-extern const u16 ALIGNED(4) gDefaultWeatherSpritePalette[];
+extern const u16 ALIGNED(4) gFogPalette[];
 
 // party_menu
 extern const u32 gPartyMenuPokeball_Gfx[];

@@ -376,7 +376,7 @@ void TryShinyAnimation(u8 battler, struct Pokemon *mon);
 u8 ItemIdToBallId(u16 itemId);
 u8 LaunchBallStarsTask(u8 x, u8 y, u8 priority, u8 subpriority, u8 ballId);
 u8 LaunchBallFadeMonTask(bool8 unFadeLater, u8 battlerId, u32 arg2, u8 ballId);
-void DoLoadHealthboxPalsForLevelUp(u8 *, u8 *, u8 battlerId);
+void LoadHealthboxPalsForLevelUp(u8 *, u8 *, u8 battlerId);
 void DoFreeHealthboxPalsForLevelUp(u8 batterId);
 
 enum
@@ -519,7 +519,7 @@ u8 GetBattlerSpriteBGPriority(u8 battlerId);
 // Returns 2 if player left or opp right
 // Returns 1 if player right or opp left
 u8 GetBattlerSpriteBGPriorityRank(u8 battlerId);
-u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 a3, s16 x, s16 y, u8 subpriority, u32 personality, bool8 isShiny, u32 battlerId, u32 a10);
+u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 id, s16 x, s16 y, u8 subpriority, u32 personality, bool8 isShiny, u32 battlerId);
 void DestroySpriteAndFreeResources_(struct Sprite *sprite);
 s16 GetBattlerSpriteCoordAttr(u8 battlerId, u8 attr);
 void SetAverageBattlerPositions(u8 battlerId, bool8 respectMonPicOffsets, s16 *x, s16 *y);

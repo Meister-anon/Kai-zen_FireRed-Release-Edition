@@ -136,8 +136,8 @@ static const u8 ALIGNED(2) sBasePaletteGammaTypes[32] = {
     GAMMA_NORMAL,
 };
 
-//in emerald this is gfogpalette?
-const u16 ALIGNED(4) gDefaultWeatherSpritePalette[] = INCBIN_U16("graphics/field_effects/unk_83C2CE0.gbapal");
+//in was gFogPalette took Em name is gfogpalette?
+const u16 ALIGNED(4) gFogPalette[] = INCBIN_U16("graphics/field_effects/unk_83C2CE0.gbapal");
 const u16 gCloudsWeatherPalette[] = INCBIN_U16("graphics/weather/cloud.gbapal");
 const u16 gSandstormWeatherPalette[] = INCBIN_U16("graphics/weather/sandstorm.gbapal");
 const u8 gWeatherFogDiagonalTiles[] = INCBIN_U8("graphics/weather/fog_diagonal.4bpp");
@@ -156,7 +156,7 @@ void StartWeather(void)
     if (!FuncIsActiveTask(Task_WeatherMain))
     {
         u8 index = AllocSpritePalette(0x1200);
-        CpuCopy32(gDefaultWeatherSpritePalette, &gPlttBufferUnfaded[0x100 + index * 16], 32);
+        CpuCopy32(gFogPalette, &gPlttBufferUnfaded[0x100 + index * 16], 32);
         ApplyGlobalFieldPaletteTint(index);
         BuildGammaShiftTables();
         gWeatherPtr->altGammaSpritePalIndex = index;
