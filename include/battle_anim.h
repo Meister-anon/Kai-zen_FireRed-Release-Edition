@@ -2,6 +2,7 @@
 #define GUARD_BATTLE_ANIM_H
 
 #include "battle.h"
+#include "data.h"
 #include "constants/battle.h"
 #include "constants/battle_anim.h"
 #include "task.h"
