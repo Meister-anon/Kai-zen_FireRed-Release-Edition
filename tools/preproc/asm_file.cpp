@@ -26,7 +26,7 @@
 #include "char_util.h"
 #include "utf8.h"
 #include "string_parser.h"
-#include "../../include/characters.h"  //using text.h for now as this file not defined
+#include "../../include/constants/characters.h"  //using text.h for now as this file not defined
 //#include "../../include/text.h" //forgot made changes moved important parts so can use above
 #include "io.h"
 
