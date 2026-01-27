@@ -19,7 +19,7 @@
 
 extern const struct OamData gOamData_AffineNormal_ObjNormal_64x64;
 
-static void AnimTranslateLinear_WithFollowup_SetCornerVecX(struct Sprite *sprite);
+//static void AnimTranslateLinear_WithFollowup_SetCornerVecX(struct Sprite *sprite);
 static void AnimFastTranslateLinearWaitEnd(struct Sprite *sprite);
 static void AnimThrowProjectile_Step(struct Sprite *sprite);
 static void AnimBattlerTrace(struct Sprite *sprite);
@@ -1032,14 +1032,14 @@ void StartAnimLinearTranslation(struct Sprite *sprite)
     sprite->callback(sprite);
 }
 
-static void UNUSED StartAnimLinearTranslation_SetCornerVecX(struct Sprite *sprite)
+/*static void UNUSED StartAnimLinearTranslation_SetCornerVecX(struct Sprite *sprite)
 {
     sprite->data[1] = sprite->x;
     sprite->data[3] = sprite->y;
     InitAnimLinearTranslation(sprite);
     sprite->callback = AnimTranslateLinear_WithFollowup_SetCornerVecX;
     sprite->callback(sprite);
-}
+}*/
 
 bool8 AnimTranslateLinear(struct Sprite *sprite)
 {
@@ -1078,12 +1078,12 @@ void AnimTranslateLinear_WithFollowup(struct Sprite *sprite)
 }
 
 // Functionally unused
-static void AnimTranslateLinear_WithFollowup_SetCornerVecX(struct Sprite *sprite)
+/*static void AnimTranslateLinear_WithFollowup_SetCornerVecX(struct Sprite *sprite)
 {
     AnimSetCenterToCornerVecX(sprite);
     if (AnimTranslateLinear(sprite))
         SetCallbackToStoredInData6(sprite);
-}
+}*/
 
 void InitAnimLinearTranslationWithSpeed(struct Sprite *sprite)
 {
