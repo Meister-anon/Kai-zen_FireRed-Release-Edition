@@ -13,7 +13,6 @@ static void CB2_ReshowBattleScreenAfterMenu(void);
 static void CB2_ReshowBattleScreenAfterCatch(void); //custom for pc access post catch just need not reupdate hidden mon i.e faint/caught
 static void ReshowBattleScreen_TurnOnDisplay(void);
 static bool8 LoadBattlerSpriteGfx(u8 battlerId);
-static void CreateBattlerSprite(u8 battlerId);
 static void CreateHealthboxSprite(u8 battlerId);
 static bool8 ShouldHideBattlerSprite(u8 battlerId);
 static bool8 ShouldHideHealthboxSprite(u8 battlerId);
@@ -318,7 +317,7 @@ static bool8 ShouldHideHealthboxSprite(u8 battlerId)
     return FALSE;
 }
 
-static void CreateBattlerSprite(u8 battler)
+void CreateBattlerSprite(u32 battler)
 {
     if (battler < gBattlersCount)
     {
