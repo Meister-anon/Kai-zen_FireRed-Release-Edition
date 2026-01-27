@@ -10217,7 +10217,7 @@ extern const u16 gUnknown_8E9C418[];
 extern const u16 gDexScreen_TopMenuIconPals_AtoZ[];
 extern const u16 gDexScreen_TopMenuIconTiles_AtoZ[];
 
-// battle terrain
+// battle environment
 
 extern const u16 gBattleEnvironmentPalette_Grass[] ; //= INCBIN_U16("graphics/battle/unk_8248400.gbapal");
 extern const u32 gBattleEnvironmentTiles_Grass[] ; //= INCBIN_U32("graphics/battle/unk_824844C.4bpp.lz");
@@ -10306,4 +10306,24 @@ extern const u32 gBattleEnvironmentTiles_Indoor[] ; //= INCBIN_U32("graphics/bat
 extern const u32 gBattleEnvironmentTilemap_Indoor[] ; //= INCBIN_U32("graphics/battle/Indoor_Terrain.bin.lz");
 extern const u32 gBattleEnvironmentTilemap_Indoor_Doubles[] ; //= INCBIN_U32("graphics/battle/Indoor_Terrain_Doubles.bin.lz");
 
+//EE values
+extern const u16 gBattleEnvironmentPalette_Frontier[];
+extern const u32 gBattleEnvironmentTiles_Stadium[];
+extern const u32 gBattleEnvironmentTilemap_Stadium[];
+extern const u32 gBattleEnvironmentTiles_Rayquaza[];
+extern const u32 gBattleEnvironmentTilemap_Rayquaza[];
+extern const u32 gBattleEnvironmentAnimTiles_Rayquaza[];
+extern const u32 gBattleEnvironmentAnimTilemap_Rayquaza[];
+extern const u16 gBattleEnvironmentPalette_Rayquaza[];
+extern const u16 gBattleEnvironmentPalette_Kyogre[];
+extern const u16 gBattleEnvironmentPalette_Groudon[];
+extern const u16 gBattleEnvironmentPalette_BuildingGym[];
+extern const u16 gBattleEnvironmentPalette_BuildingLeader[];
+extern const u16 gBattleEnvironmentPalette_StadiumAqua[];
+extern const u16 gBattleEnvironmentPalette_StadiumMagma[];
+extern const u16 gBattleEnvironmentPalette_StadiumSidney[];
+extern const u16 gBattleEnvironmentPalette_StadiumPhoebe[];
+extern const u16 gBattleEnvironmentPalette_StadiumGlacia[];
+extern const u16 gBattleEnvironmentPalette_StadiumDrake[];
+extern const u16 gBattleEnvironmentPalette_StadiumWallace[];
 #endif //GUARD_GRAPHICS_H

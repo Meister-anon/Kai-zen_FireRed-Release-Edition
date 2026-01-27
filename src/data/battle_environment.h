@@ -87,8 +87,18 @@ const u32 gBattleEnvironmentTiles_Indoor[] = INCBIN_U32("graphics/battle/unk_824
 const u32 gBattleEnvironmentTilemap_Indoor[] = INCBIN_U32("graphics/battle/Indoor_Terrain.bin.lz");
 const u32 gBattleEnvironmentTilemap_Indoor_Doubles[] = INCBIN_U32("graphics/battle/Indoor_Terrain_Doubles.bin.lz");
 
+//unsure but believe EE values are same as what values I had
+//but Expansion adjusted graphics so more accessible.
+//no longer in garbeled tile format
+//test later but believe can just take those values
+//and use my tilemap for doubles potentially make more
+//for new graphics would be nice to be able to automate
+//since I created them from the default source anyway
+//vsonic important
+
 //still todo add graphics specific to EE
 //in src/data/graphics/battle_environment.h
+const u16 gBattleEnvironmentPalette_Frontier[] = INCBIN_U16("graphics/battle_environment/stadium/battle_frontier.gbapal"); // this is also used for link battles
 
 //file takes values that were in battle_bg.c previously
 //need add doubles to this
@@ -96,7 +106,7 @@ const u32 gBattleEnvironmentTilemap_Indoor_Doubles[] = INCBIN_U32("graphics/batt
 {                                                               \
     .tileset = gBattleEnvironmentTiles_##background,            \
     .tilemap = gBattleEnvironmentTilemap_##background,          \
-    .tilemap2 = gBattleEnvironmentTilemap_##background_Doubles, \
+    .tilemap2 = gBattleEnvironmentTilemap_##background##_Doubles, \
     .entryTileset = gBattleEnvironmentAnimTiles_##background,   \
     .entryTilemap = gBattleEnvironmentAnimTilemap_##background, \
     .palette = gBattleEnvironmentPalette_##background,          \
@@ -105,34 +115,30 @@ const u32 gBattleEnvironmentTilemap_Indoor_Doubles[] = INCBIN_U32("graphics/batt
 #define ENVINRONMENT_TILEMAP_INFO(background)                   \
 {                                                               \
     .tilemap = gBattleEnvironmentTilemap_##background,          \
-    .tilemap2 = gBattleEnvironmentTilemap_##background_Doubles, \
+    .tilemap2 = gBattleEnvironmentTilemap_##background##_Doubles, \
 }
 
 #define DEFAULT_CAMOUFLAGE_BLEND RGB_WHITE
 
 // Cave values. Used for BATTLE_ENVIRONMENT_CAVE as well as BATTLE_ENVIRONMENT_GROUDON and BATTLE_ENVIRONMENT_KYOGRE
-#if B_NATURE_POWER_MOVES >= GEN_6
+//power gem is cool but most mon in caves are rock ground or fighting
+//so defaulting to a rock move would make it useless in caves
+/*#if B_NATURE_POWER_MOVES >= GEN_6
     #define CAVE_NATURE_POWER MOVE_POWER_GEM
-#elif B_NATURE_POWER_MOVES >= GEN_4
-    #define CAVE_NATURE_POWER MOVE_ROCK_SLIDE
-#else
-    #define CAVE_NATURE_POWER MOVE_SHADOW_BALL
-#endif
-#define CAVE_SECRET_POWER_ANIMATION B_SECRET_POWER_ANIMATION >= GEN_4 ? gBattleAnimMove_RockThrow : gBattleAnimMove_Bite
+#else*/
+#define CAVE_NATURE_POWER MOVE_SHADOW_BALL
+//#endif
+
+#define CAVE_SECRET_POWER_ANIMATION gBattleAnimMove_RockThrow
 #define CAVE_SECRET_POWER_EFFECT    MOVE_EFFECT_FLINCH
 #define CAVE_CAMOUFLAGE_TYPE        TYPE_ROCK
 #define CAVE_CAMOUFLAGE_BLEND       RGB(14, 9, 3)
 #define CAVE_BATTLE_INTRO_SLIDE     BattleIntroSlide1
 
 // Building values. Used for BATTLE_ENVIRONMENT_BUILDING as well as the environments that come from the vanilla MAP_BATTLE_SCENEs: BATTLE_ENVIRONMENT_PLAIN, BATTLE_ENVIRONMENT_FRONTIER, BATTLE_ENVIRONMENT_GYM, BATTLE_ENVIRONMENT_LEADER, BATTLE_ENVIRONMENT_MAGMA, BATTLE_ENVIRONMENT_AQUA, BATTLE_ENVIRONMENT_SIDNEY, BATTLE_ENVIRONMENT_PHOEBE, BATTLE_ENVIRONMENT_GLACIA, BATTLE_ENVIRONMENT_DRAKE, BATTLE_ENVIRONMENT_CHAMPION
-#define BUILDING_NATURE_POWER        B_NATURE_POWER_MOVES >= GEN_4 ? MOVE_TRI_ATTACK : MOVE_SWIFT
-#if B_SECRET_POWER_ANIMATION >= GEN_7
-    #define BUILDING_SECRET_POWER_ANIMATION gBattleAnimMove_SpitUp
-#elif B_SECRET_POWER_ANIMATION >= GEN_4
-    #define BUILDING_SECRET_POWER_ANIMATION gBattleAnimMove_BodySlam
-#else
-    #define BUILDING_SECRET_POWER_ANIMATION gBattleAnimMove_Strength
-#endif
+//mostly same as plain so use plain move
+#define BUILDING_NATURE_POWER        MOVE_HYPER_VOICE
+#define BUILDING_SECRET_POWER_ANIMATION gBattleAnimMove_Strength
 #define BUILDING_SECRET_POWER_EFFECT MOVE_EFFECT_PARALYSIS
 #define BUILDING_CAMOUFLAGE_TYPE     TYPE_NORMAL
 #define BUILDING_CAMOUFLAGE_BLEND    RGB_WHITE
@@ -140,24 +146,17 @@ const u32 gBattleEnvironmentTilemap_Indoor_Doubles[] = INCBIN_U32("graphics/batt
 
 // Plain values. USED for BATTLE_ENVIRONMENT_PLAIN as well as BATTLE_ENVIRONMENT_RAYQUAZA
 // (BATTLE_ENVIRONMENT_SKY_PILLAR wasn't introduced until Gen6, so Sky Pillar's roof counts as a Route which uses Plain)
-#if B_NATURE_POWER_MOVES >= GEN_6
-    #define PLAIN_NATURE_POWER MOVE_TRI_ATTACK
-#elif B_NATURE_POWER_MOVES >= GEN_4
-    #define PLAIN_NATURE_POWER MOVE_EARTHQUAKE
-#else
-    #define PLAIN_NATURE_POWER MOVE_SWIFT
-#endif
-#if B_SECRET_POWER_ANIMATION >= GEN_7
-    #define PLAIN_SECRET_POWER_ANIMATION gBattleAnimMove_SpitUp
-#elif B_SECRET_POWER_ANIMATION == GEN_6
-    #define PLAIN_SECRET_POWER_ANIMATION gBattleAnimMove_BodySlam
-#elif B_SECRET_POWER_ANIMATION >= GEN_4
-    #define PLAIN_SECRET_POWER_ANIMATION gBattleAnimMove_MudSlap
-#else
-    #define PLAIN_SECRET_POWER_ANIMATION gBattleAnimMove_Slam
-#endif
-#define PLAIN_SECRET_POWER_EFFECT (B_SECRET_POWER_EFFECT == GEN_4 || B_SECRET_POWER_EFFECT == GEN_5) ? MOVE_EFFECT_ACC_MINUS_1 : MOVE_EFFECT_PARALYSIS
-#define PLAIN_CAMOUFLAGE_TYPE     (B_CAMOUFLAGE_TYPES == GEN_4 || B_CAMOUFLAGE_TYPES == GEN_5) ? TYPE_GROUND : TYPE_NORMAL
+//for this think tri attack is better as swift
+//will be a tm everyone can use
+//hmm but its no longer explicitly special...
+//ok changed mind no longer normal type 
+//but will use hyper voice -still best used by normal types
+//normal type special moves are EXTREMELY limited
+//#if B_NATURE_POWER_MOVES >= GEN_6
+#define PLAIN_NATURE_POWER MOVE_HYPER_VOICE
+#define PLAIN_SECRET_POWER_ANIMATION gBattleAnimMove_Slam
+#define PLAIN_SECRET_POWER_EFFECT MOVE_EFFECT_PARALYSIS
+#define PLAIN_CAMOUFLAGE_TYPE     TYPE_NORMAL
 #define PLAIN_CAMOUFLAGE_BLEND    RGB_WHITE
 #define PLAIN_BATTLE_INTRO_SLIDE  BattleIntroSlide3
 
@@ -169,32 +168,35 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
     [BATTLE_ENVIRONMENT_GRASS] =
     {
         .name = _("Grass"),
-    #if B_NATURE_POWER_MOVES >= GEN_6
-        .naturePower = MOVE_ENERGY_BALL,
-    #elif B_NATURE_POWER_MOVES >= GEN_4
+    //#if B_NATURE_POWER_MOVES >= GEN_6
+        .naturePower = MOVE_MEGA_DRAIN,
+    /*#elif B_NATURE_POWER_MOVES >= GEN_4
         .naturePower = MOVE_SEED_BOMB,
     #else
         .naturePower = MOVE_STUN_SPORE,
-    #endif
+    #endif*/
         .secretPowerAnimation = gBattleAnimMove_NeedleArm,
         .secretPowerEffect = MOVE_EFFECT_POISON,
         .camouflageType = TYPE_GRASS,
         .camouflageBlend = RGB(12, 24, 2),
-        .background = ENVIRONMENT_BACKGROUND(TallGrass),
+        .background = ENVIRONMENT_BACKGROUND(Grass),
         .battleIntroSlide = BattleIntroSlide1,
-    },
+    },//idea is nature power is special equiv to secretpower
+    //but stun spore is just much more valuable than energy ball..
+    //maybe replace w MOVE_GIGA_DRAIN MOVE_MEGA_DRAIN
+    //MOVE_LEAF_TORNADO isnt a bad option either
 
     [BATTLE_ENVIRONMENT_LONG_GRASS] =
     {
         .name = _("Long Grass"),
-    #if B_NATURE_POWER_MOVES >= GEN_6
-        .naturePower = MOVE_ENERGY_BALL,
-    #elif B_NATURE_POWER_MOVES >= GEN_4
+    //#if B_NATURE_POWER_MOVES >= GEN_6
+        .naturePower = MOVE_LEAF_TORNADO,
+    /*#elif B_NATURE_POWER_MOVES >= GEN_4
         .naturePower = MOVE_SEED_BOMB,
     #else
         .naturePower = MOVE_RAZOR_LEAF,
-    #endif
-        .secretPowerAnimation = B_SECRET_POWER_ANIMATION >= GEN_4 ? gBattleAnimMove_NeedleArm : gBattleAnimMove_MagicalLeaf,
+    #endif*/
+        .secretPowerAnimation = gBattleAnimMove_MagicalLeaf,
         .secretPowerEffect = MOVE_EFFECT_SLEEP,
         .camouflageType = TYPE_GRASS,
         .camouflageBlend = RGB(0, 15, 2),
@@ -246,7 +248,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
         .secretPowerEffect = B_SECRET_POWER_EFFECT >= GEN_4 ? MOVE_EFFECT_ATK_MINUS_1 : MOVE_EFFECT_SPD_MINUS_1,
         .camouflageType = TYPE_WATER,
         .camouflageBlend = RGB(11, 22, 31),
-        .background = ENVIRONMENT_BACKGROUND(PondWater),
+        .background = ENVIRONMENT_BACKGROUND(Pond),
         .battleIntroSlide = BattleIntroSlide1,
     },
 
@@ -270,7 +272,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
     #endif
         .camouflageType = B_CAMOUFLAGE_TYPES >= GEN_5 ? TYPE_GROUND : TYPE_ROCK,
         .camouflageBlend = RGB(22, 16, 10),
-        .background = ENVIRONMENT_BACKGROUND(Rock),
+        .background = ENVIRONMENT_BACKGROUND(Mountain),
         .battleIntroSlide = BattleIntroSlide1,
     },
 
@@ -678,7 +680,8 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
             .palette = gBattleEnvironmentPalette_Kyogre,
         },
         .battleIntroSlide = CAVE_BATTLE_INTRO_SLIDE,
-    },
+    },//meant to be used in cave canonically
+    //mon rest in origin cave
 
     [BATTLE_ENVIRONMENT_RAYQUAZA] =
     {

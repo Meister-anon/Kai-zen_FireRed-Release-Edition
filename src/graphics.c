@@ -1473,7 +1473,7 @@ const u16 gFile_graphics_battle_transitions_vs_frame_palette[] = INCBIN_U16("gra
 
 const u32 gVsLettersGfx[] = INCBIN_U32("graphics/battle_transitions/vs.4bpp.lz");
 
-#include "data/graphics/battle_terrain.h"
+#include "data/graphics/battle_environment.h"
 
 
 
