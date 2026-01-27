@@ -769,7 +769,7 @@ static void BtlController_EmitPause(u32 battler, u32 bufferId, u8 toWait, void *
     PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, toWait * 3 + 2);
 }
 
-void BtlController_EmitMoveAnimation(u32 battler, u32 bufferId, u16 move, u8 turnOfMove, u16 movePower, s32 dmg, u8 friendship, struct DisableStruct *disableStructPtr, u8 multihit)
+void BtlController_EmitMoveAnimation(u32 battler, u32 bufferId, u16 move, u8 turnOfMove, u16 movePower, s32 dmg, u8 friendship, u8 multihit)
 {
     gBattleResources->transferBuffer[0] = CONTROLLER_MOVEANIMATION;
     gBattleResources->transferBuffer[1] = move;
@@ -795,8 +795,15 @@ void BtlController_EmitMoveAnimation(u32 battler, u32 bufferId, u16 move, u8 tur
     }
     gBattleResources->transferBuffer[14] = 0;
     gBattleResources->transferBuffer[15] = 0;
-    memcpy(&gBattleResources->transferBuffer[16], disableStructPtr, sizeof(struct DisableStruct));
-    PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 16 + sizeof(struct DisableStruct));
+    struct LinkBattleAnim anim = {0};
+    anim.isTransformedMonShiny = gBattleMons[battler].volatiles.isTransformedMonShiny;
+    anim.transformedMonPID  = gBattleMons[battler].volatiles.transformedMonPID;
+    anim.rolloutTimer  = gBattleMons[battler].volatiles.rolloutTimer;
+    anim.furyCutterCounter  = gBattleMons[battler].volatiles.furyCutterCounter;
+    anim.syrupBombIsShiny = gBattleMons[battler].volatiles.syrupBombIsShiny;
+    anim.isTransformedMonShiny = gBattleMons[battler].volatiles.isTransformedMonShiny;
+    memcpy(&gBattleResources->transferBuffer[16], &anim, sizeof(struct LinkBattleAnim));
+    PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 16 + sizeof(struct LinkBattleAnim));
 }
 
 void BtlController_EmitPrintString(u32 battler, u32 bufferId, u16 stringID)
@@ -1156,8 +1163,16 @@ void BtlController_EmitBattleAnimation(u32 battler, u32 bufferId, u8 animationId
     gBattleResources->transferBuffer[1] = animationId;
     gBattleResources->transferBuffer[2] = argument;
     gBattleResources->transferBuffer[3] = (argument & 0xFF00) >> 8;
-    memcpy(&gBattleResources->transferBuffer[4], disableStructPtr, sizeof(struct DisableStruct));
-    PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 4 + sizeof(struct DisableStruct));
+    
+    struct LinkBattleAnim anim = {0};
+    anim.isTransformedMonShiny = gBattleMons[battler].volatiles.isTransformedMonShiny;
+    anim.transformedMonPID  = gBattleMons[battler].volatiles.transformedMonPID;
+    anim.rolloutTimer  = gBattleMons[battler].volatiles.rolloutTimer;
+    anim.furyCutterCounter  = gBattleMons[battler].volatiles.furyCutterCounter;
+    anim.syrupBombIsShiny = gBattleMons[battler].volatiles.syrupBombIsShiny;
+    anim.isTransformedMonShiny = gBattleMons[battler].volatiles.isTransformedMonShiny;
+    memcpy(&gBattleResources->transferBuffer[4], &anim, sizeof(struct LinkBattleAnim));
+    PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 4 + sizeof(struct LinkBattleAnim));
 }
 
 // mode is a LINK_STANDBY_* constant
