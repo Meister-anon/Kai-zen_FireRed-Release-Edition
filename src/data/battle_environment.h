@@ -791,8 +791,8 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
     {
         .name = _("Puddle"),
         .naturePower = MOVE_MUD_BOMB,
-        .secretPowerAnimation = B_SECRET_POWER_ANIMATION >= GEN_5 ? gBattleAnimMove_MudShot : gBattleAnimMove_MudSlap,
-        .secretPowerEffect = B_SECRET_POWER_EFFECT >= GEN_5 ? MOVE_EFFECT_SPD_MINUS_1 : MOVE_EFFECT_ACC_MINUS_1,
+        .secretPowerAnimation = gBattleAnimMove_MudSlap,
+        .secretPowerEffect = MOVE_EFFECT_ACC_MINUS_1,
         .camouflageType = TYPE_GROUND,
         .camouflageBlend = DEFAULT_CAMOUFLAGE_BLEND,
     },
@@ -820,13 +820,13 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
     [BATTLE_ENVIRONMENT_SNOW] =
     {
         .name = _("Snow"),
-    #if B_NATURE_POWER_MOVES >= GEN_7
+    /*#if B_NATURE_POWER_MOVES >= GEN_7
         .naturePower = MOVE_ICE_BEAM,
-    #elif B_NATURE_POWER_MOVES == GEN_6
+    #elif B_NATURE_POWER_MOVES == GEN_6*/
         .naturePower = MOVE_FROST_BREATH,
-    #else
+    /*#else
         .naturePower = MOVE_BLIZZARD,
-    #endif
+    #endif*/
         .secretPowerAnimation = B_SECRET_POWER_ANIMATION >= GEN_7 ? gBattleAnimMove_IceShard : gBattleAnimMove_Avalanche,
         .secretPowerEffect = MOVE_EFFECT_FREEZE,
         .camouflageType = TYPE_ICE,
@@ -835,16 +835,19 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
     //blizzard would be better since terrain would alsmot
     //always be in a place that's snowing/hail
     //depends on how good I want nature power to be
+    //if snow is less cold than ice environment
+    //frost breath makes sense you can see your breath
+    //while ice is freeze dry as that's frozen water
 
     [BATTLE_ENVIRONMENT_ICE] =
     {
         .name = _("Ice"),
-        .naturePower = MOVE_ICE_BEAM,
-        .secretPowerAnimation = gBattleAnimMove_IceShard,
+        .naturePower = MOVE_FREEZE_DRY,
+        .secretPowerAnimation = gBattleAnimMove_SheerCold,
         .secretPowerEffect = MOVE_EFFECT_FREEZE,
         .camouflageType = TYPE_ICE,
         .camouflageBlend = DEFAULT_CAMOUFLAGE_BLEND,
-    },
+    },//unsure when these would come up maybe ice cave?
 
     [BATTLE_ENVIRONMENT_VOLCANO] =
     {
