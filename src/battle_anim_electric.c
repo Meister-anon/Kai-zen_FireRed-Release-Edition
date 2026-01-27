@@ -1,5 +1,6 @@
 #include "global.h"
 #include "battle_anim.h"
+#include "random.h"
 #include "constants/rgb.h"
 #include "trig.h"
 #include "constants/songs.h"
