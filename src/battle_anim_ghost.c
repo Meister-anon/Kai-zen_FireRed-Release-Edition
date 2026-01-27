@@ -2,7 +2,7 @@
 #include "battle.h"
 #include "battle_anim.h"
 #include "gpu_regs.h"
-#include "item_icon.h"
+//#include "item_icon.h"
 #include "palette.h"
 #include "constants/rgb.h"
 #include "scanline_effect.h"
