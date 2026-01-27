@@ -5626,20 +5626,21 @@ static void AnimRecycle_Step(struct Sprite *sprite)
     }
 }
 
+//idk why this checks these but added safety goggles check to this
 void AnimTask_GetWeather(u8 taskId)
 {
-    bool32 utilityUmbrellaAffected = GetBattlerHoldEffect(gBattleAnimAttacker) == HOLD_EFFECT_UTILITY_UMBRELLA;
+    bool32 safetyGogglesAffeccted = GetBattlerHoldEffect(gBattleAnimAttacker) == HOLD_EFFECT_SAFETY_GOGGLES;
 
     gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_NONE;
     if (gWeatherMoveAnim & WEATHER_SUN && !utilityUmbrellaAffected)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_SUN;
     else if (gWeatherMoveAnim & WEATHER_RAIN && !utilityUmbrellaAffected)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_RAIN;
-    else if (gWeatherMoveAnim & WEATHER_SANDSTORM)
+    else if (gWeatherMoveAnim & WEATHER_SANDSTORM && !safetyGogglesAffeccted)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_SANDSTORM;
-    else if (gWeatherMoveAnim & WEATHER_HAIL)
+    else if (gWeatherMoveAnim & WEATHER_HAIL && !safetyGogglesAffeccted)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_HAIL;
-    else if (gWeatherMoveAnim & WEATHER_SNOW)
+    else if (gWeatherMoveAnim & WEATHER_SNOW && !safetyGogglesAffeccted)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_SNOW;
     else if (gWeatherMoveAnim & WEATHER_MOON_ANY && !utilityUmbrellaAffected)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_MOON;
