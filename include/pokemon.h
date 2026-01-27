@@ -5,6 +5,7 @@
 #include "sprite.h"
 #include "move.h"
 #include "constants/pokemon.h"
+#include "pokemon_icon.h"
 #include "pokemon_storage_system.h"
 
 #define GET_BASE_SPECIES_ID(speciesId) (GetFormSpeciesId(speciesId, 0))
