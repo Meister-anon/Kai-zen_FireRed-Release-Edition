@@ -6287,7 +6287,7 @@ static void AnimMoonlightSparkle_Step(struct Sprite *sprite)
 
 void AnimTask_MoonlightEndFade(u8 taskId)
 {
-    int a = GetBattlePalettesMask(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE) & 0xFFFF;
+    int a = GetBattlePalettesMaskForBackground() & 0xFFFF;
     int b;
     int c;
     int d;

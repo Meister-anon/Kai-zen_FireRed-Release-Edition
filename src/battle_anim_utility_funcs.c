@@ -669,7 +669,7 @@ void AnimTask_Flash(u8 taskId)
 
     sub_80BB790(selectedPalettes, 0);
     gTasks[taskId].data[14] = selectedPalettes >> 16;
-    selectedPalettes = SelectBattleAnimSpriteAndBgPalettes(1, 0, 0, 0, 0, 0, 0) & 0xFFFF;
+    selectedPalettes = GetBattlePalettesMaskForBackground() & 0xFFFF;
     sub_80BB790(selectedPalettes, 0xFFFF);
     gTasks[taskId].data[15] = selectedPalettes;
     gTasks[taskId].data[0] = 0;
@@ -941,7 +941,7 @@ void AnimTask_CopyPalUnfadedToBackup(u8 taskId)
     s32 paletteIndex = 0;
 
     if (gBattleAnimArgs[0] == 0)
-        for (selectedPalettes = SelectBattleAnimSpriteAndBgPalettes(1, 0, 0, 0, 0, 0, 0);
+        for (selectedPalettes = GetBattlePalettesMaskForBackground();
              (selectedPalettes & 1) == 0;
              ++paletteIndex)
             selectedPalettes >>= 1;
@@ -959,7 +959,7 @@ void AnimTask_CopyPalUnfadedFromBackup(u8 taskId)
     s32 paletteIndex = 0;
 
     if (gBattleAnimArgs[0] == 0)
-        for (selectedPalettes = SelectBattleAnimSpriteAndBgPalettes(1, 0, 0, 0, 0, 0, 0);
+        for (selectedPalettes = GetBattlePalettesMaskForBackground();
              (selectedPalettes & 1) == 0;
              ++paletteIndex)
             selectedPalettes >>= 1;
@@ -977,7 +977,7 @@ void AnimTask_CopyPalFadedToUnfaded(u8 taskId)
     s32 paletteIndex = 0;
 
     if (gBattleAnimArgs[0] == 0)
-        for (selectedPalettes = SelectBattleAnimSpriteAndBgPalettes(1, 0, 0, 0, 0, 0, 0);
+        for (selectedPalettes = GetBattlePalettesMaskForBackground();
              (selectedPalettes & 1) == 0;
              ++paletteIndex)
             selectedPalettes >>= 1;

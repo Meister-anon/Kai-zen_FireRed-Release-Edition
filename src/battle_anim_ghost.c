@@ -1046,7 +1046,7 @@ static void AnimTask_CurseStretchingBlackBg_Step1(u8 taskId)
         right = DISPLAY_WIDTH;
         top = 0;
         bottom = 112;
-        selectedPalettes = GetBattlePalettesMask(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
+        selectedPalettes = GetBattlePalettesMaskForBackground();
         BeginNormalPaletteFade(selectedPalettes, 0, 16, 16, RGB_BLACK);
         gTasks[taskId].func = AnimTask_CurseStretchingBlackBg_Step2;
     }

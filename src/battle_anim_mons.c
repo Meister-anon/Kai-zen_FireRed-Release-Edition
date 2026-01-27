@@ -1332,6 +1332,23 @@ void SetGrayscaleOrOriginalPalette(u16 paletteNum, bool8 restoreOriginalColor)
     }
 }
 
+//90% of use of GetBattlePalettesMask
+//only uses first argument so made simplified function
+//to replace those instances
+u32 GetBattlePalettesMaskForBackground(void)
+{
+    u32 selectedPalettes = 0;
+
+
+    if (!IsContest())
+        selectedPalettes = 0xe; // Palettes 1, 2, and 3
+    else
+        selectedPalettes = 1 << GetBattleBgPaletteNum();
+    
+    return selectedPalettes;
+}
+
+
 u32 GetBattlePalettesMask(bool8 battleBackground, bool8 attacker, bool8 target, bool8 attackerPartner, bool8 targetPartner, bool8 anim1, bool8 anim2)
 {
     u32 selectedPalettes = 0;

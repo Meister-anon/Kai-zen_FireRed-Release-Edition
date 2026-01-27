@@ -3057,7 +3057,7 @@ static void AnimTask_FakeOut_Step2(u8 taskId)
     {
         gTasks[taskId].data[11] = 0x88;
         SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG3 | BLDCNT_EFFECT_LIGHTEN);
-        BlendPalettes(GetBattlePalettesMask(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE), 16, RGB_WHITE);
+        BlendPalettes(GetBattlePalettesMaskForBackground(), 16, RGB_WHITE);
     }
     else if (gTasks[taskId].data[10] > 4)
     {
