@@ -136,7 +136,7 @@
 #define ANIM_TAG_SHOCK_2                    (ANIM_SPRITES_START + 124) // unused
 #define ANIM_TAG_CLOSING_EYE_2              (ANIM_SPRITES_START + 125) // unused
 #define ANIM_TAG_METAL_BALL                 (ANIM_SPRITES_START + 126) // unused
-#define ANIM_TAG_MONSTER_DOLL               (ANIM_SPRITES_START + 127) // unused
+#define ANIM_TAG_MONSTER_DOLL               (ANIM_SPRITES_START + 127) // unused is substitude doll but is handled other ways not via anim
 #define ANIM_TAG_WHIRLWIND                  (ANIM_SPRITES_START + 128) // unused
 #define ANIM_TAG_WHIRLWIND_2                (ANIM_SPRITES_START + 129) // unused
 #define ANIM_TAG_EXPLOSION_4                (ANIM_SPRITES_START + 130) // unused

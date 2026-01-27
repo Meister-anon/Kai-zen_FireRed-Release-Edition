@@ -1357,7 +1357,7 @@ extern u16 gIntroSlideFlags;
 extern u8 gBattlerPositions[MAX_BATTLERS_COUNT];
 extern u8 gHealthboxSpriteIds[MAX_BATTLERS_COUNT];
 extern u8 gBattleOutcome;  //no idea why I had removed this
-extern u8 gBattleMonForms[MAX_BATTLERS_COUNT];
+extern u8 gBattleMonForms[MAX_BATTLERS_COUNT]; //vsonic important not used in EE
 extern void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(u32 battler);
 extern u32 gBattleControllerExecFlags;
 extern u8 gActionSelectionCursor[MAX_BATTLERS_COUNT];

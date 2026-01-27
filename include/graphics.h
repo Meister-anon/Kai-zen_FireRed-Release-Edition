@@ -8580,6 +8580,7 @@ extern const u32 gBattleAnimSpriteGfx_Shock2[];
 extern const u32 gBattleAnimSpriteGfx_ClosingEye2[];
 extern const u32 gBattleAnimSpriteGfx_MetalBall[];
 extern const u32 gBattleAnimSpriteGfx_MonsterDoll[];
+extern const u32 gBattleAnimSpriteGfx_MonsterDoll_Legacy[];
 extern const u32 gBattleAnimSpriteGfx_Whirlwind[];
 extern const u32 gBattleAnimSpriteGfx_Whirlwind2[];
 extern const u32 gBattleAnimSpriteGfx_Explosion4[];
@@ -9085,6 +9086,7 @@ extern const u16 gBattleAnimSpritePal_Shock2[];
 extern const u16 gBattleAnimSpritePal_ClosingEye2[];
 extern const u16 gBattleAnimSpritePal_MetalBall[];
 extern const u16 gBattleAnimSpritePal_MonsterDoll[];
+extern const u16 gBattleAnimSpritePal_MonsterDoll_Legacy[];
 extern const u16 gBattleAnimSpritePal_Whirlwind[];
 extern const u16 gBattleAnimSpritePal_Explosion4[];
 extern const u16 gBattleAnimSpritePal_Tongue[];
@@ -9596,13 +9598,15 @@ extern const u32 gHealthboxDoublesPlayerGfx[];
 extern const u32 gHealthboxDoublesOpponentGfx[];
 extern const u32 gHealthboxSafariGfx[];
 extern const u32 gBlankGfxCompressed[];
-extern const u32 gInterfaceGfx_HPNumbers[];
+extern const u32 gBattleInterfaceGfx_BattleBar[];
 extern const u32 gGhostFrontPic[];
 extern const u16 gGhostPalette[];
-extern const u32 gSubstituteDollGfx[];
-extern const u32 gSubstituteDollTilemap[];
-extern const u16 gSubstituteDollPal[];
+extern const u32 gBattleAnimSpriteGfx_SubstituteBack_Legacy[]; //gen 3 style
+extern const u32 gBattleAnimSpriteGfx_Substitute_Legacy[];
+extern const u16 gBattleAnimSpritePal_Substitute_Legacy[];
 extern const u32 gBattleAnimSpriteGfx_SubstituteBack[]; //attempt use new sub back sprite
+extern const u32 gBattleAnimSpriteGfx_Substitute[];
+extern const u16 gBattleAnimSpritePal_Substitute[];
 
 // ice
 extern const u8 gWeatherFogHorizontalTiles[];
