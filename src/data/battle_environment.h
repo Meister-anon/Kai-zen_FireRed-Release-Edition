@@ -160,6 +160,61 @@ const u16 gBattleEnvironmentPalette_Frontier[] = INCBIN_U16("graphics/battle_env
 #define PLAIN_CAMOUFLAGE_BLEND    RGB_WHITE
 #define PLAIN_BATTLE_INTRO_SLIDE  BattleIntroSlide3
 
+//came up w cool idea missed opportunity for normal gym
+//shows versatility of normal type
+//gym w different environments pretty much
+//diff tiles on floor around trainers
+//and build battles around diff type
+//secret power nature power
+//ex a water leak around trainer
+//so the floor aroud him is pond tiles
+
+//trainers would use that but gym leader would just
+//have good coverage and normal type moves
+//to show her own power
+
+//vsonic important maybe can use for normal type fake gym
+//like saffron has w fighting
+//already had plan for bug type fake gym by erika
+//question is where to put normal
+//the other two have natural link or cohabitation
+//i.e psychic beats fight
+//and bugs help plants grow nuture soil
+
+//kind of like putting in veridian idea
+//used to be a normal gym until THAT man came to town
+//now all I have is this
+
+//hmm since giovanni obviously wont be aroud for gym rematch post game
+//that's actually perfect in the end he/she gets the gym back
+//and refits it to show the versatility and resilience 
+//of normal types
+
+//...wait resilient versatile opposes giovanni and team rocket...
+//GREEN!! that's perfect I can bring her in!
+//vsonic important ok have green be in viridian
+//as former gym leader
+//commission slightly older model to use for her
+//will need walking sprites hmm can take mom sprite
+//got from shiny and attempt retrofit it
+
+//once you defeat giovanni and he dissappears from gym
+//can have green run up look around and say 
+//its true they really are gone!
+//player you did it, I wish I could have had my shot
+//but thank you for saving viridian city and my gym
+
+//maybe have her just say THAT man on first meeting,
+//but mention that she invesetigated adn found he's from team rocket
+//but no one listened to her people thought she was sore loser or something
+// then say she'll get stronger and take back her gym
+
+//will be good introduction to team rocket
+//without actually seeing what they're about yet
+
+//idk maybe not mention team rocket yet think further on
+//look into greens team from veevolt videos
+
 //nature power moves are all special now, is 
 //special equivalent of secret power
 //replaces sBattleTerrainTable need update that for pokemon_debug file
@@ -207,8 +262,8 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
     [BATTLE_ENVIRONMENT_SAND] =
     {
         .name = _("Sand"),
-        .naturePower = B_NATURE_POWER_MOVES >= GEN_6 ? MOVE_EARTH_POWER : MOVE_EARTHQUAKE,
-        .secretPowerAnimation = B_SECRET_POWER_ANIMATION >= GEN_4 ? gBattleAnimMove_MudSlap : gBattleAnimMove_MudShot,
+        .naturePower = MOVE_EARTH_POWER,
+        .secretPowerAnimation = gBattleAnimMove_MudShot,
         .secretPowerEffect = MOVE_EFFECT_ACC_MINUS_1,
         .camouflageType = TYPE_GROUND,
         .camouflageBlend = RGB(30, 24, 11),
@@ -220,8 +275,8 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
     {
         .name = _("Underwater"),
         .naturePower = MOVE_HYDRO_PUMP,
-        .secretPowerAnimation = B_SECRET_POWER_ANIMATION >= GEN_6 ? gBattleAnimMove_WaterPulse : gBattleAnimMove_Waterfall,
-        .secretPowerEffect = B_SECRET_POWER_EFFECT >= GEN_6 ? MOVE_EFFECT_ATK_MINUS_1 : MOVE_EFFECT_DEF_MINUS_1,
+        .secretPowerAnimation = gBattleAnimMove_WaterPulse,
+        .secretPowerEffect = MOVE_EFFECT_DEF_MINUS_1,
         .camouflageType = TYPE_WATER,
         .camouflageBlend = RGB(0, 0, 18),
         .background = ENVIRONMENT_BACKGROUND(Underwater),
@@ -231,8 +286,8 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
     [BATTLE_ENVIRONMENT_WATER] =
     {
         .name = _("Water"),
-        .naturePower = B_NATURE_POWER_MOVES >= GEN_4 ? MOVE_HYDRO_PUMP : MOVE_SURF,
-        .secretPowerAnimation = B_SECRET_POWER_ANIMATION >= GEN_4 ? gBattleAnimMove_WaterPulse : gBattleAnimMove_Surf,
+        .naturePower = MOVE_SCALD, //to keep single target like rest of effects scald removed form distro so shold be fun
+        .secretPowerAnimation = gBattleAnimMove_Surf,
         .secretPowerEffect = MOVE_EFFECT_ATK_MINUS_1,
         .camouflageType = TYPE_WATER,
         .camouflageBlend = RGB(11, 22, 31),
@@ -243,9 +298,9 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
     [BATTLE_ENVIRONMENT_POND] =
     {
         .name = _("Pond"),
-        .naturePower = B_NATURE_POWER_MOVES >= GEN_4 ? MOVE_HYDRO_PUMP : MOVE_BUBBLE_BEAM,
-        .secretPowerAnimation = B_SECRET_POWER_ANIMATION >= GEN_4 ? gBattleAnimMove_WaterPulse : gBattleAnimMove_BubbleBeam,
-        .secretPowerEffect = B_SECRET_POWER_EFFECT >= GEN_4 ? MOVE_EFFECT_ATK_MINUS_1 : MOVE_EFFECT_SPD_MINUS_1,
+        .naturePower = MOVE_BUBBLE_BEAM,
+        .secretPowerAnimation = gBattleAnimMove_BubbleBeam,
+        .secretPowerEffect = MOVE_EFFECT_ATK_MINUS_1,
         .camouflageType = TYPE_WATER,
         .camouflageBlend = RGB(11, 22, 31),
         .background = ENVIRONMENT_BACKGROUND(Pond),
@@ -255,22 +310,22 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
     [BATTLE_ENVIRONMENT_MOUNTAIN] =
     {
         .name = _("Mountain"),
-    #if B_NATURE_POWER_MOVES >= GEN_6
-        .naturePower = MOVE_EARTH_POWER,
-    #elif B_NATURE_POWER_MOVES >= GEN_5
+    //#if B_NATURE_POWER_MOVES >= GEN_6
+        .naturePower = MOVE_ANCIENT_POWER, //changed to reperesent rock as sand does earth 
+    /*#elif B_NATURE_POWER_MOVES >= GEN_5
         .naturePower = MOVE_EARTHQUAKE,
     #else
         .naturePower = MOVE_ROCK_SLIDE,
-    #endif
-        .secretPowerAnimation = B_SECRET_POWER_ANIMATION >= GEN_5 ? gBattleAnimMove_MudSlap : gBattleAnimMove_RockThrow,
-    #if B_SECRET_POWER_EFFECT >= GEN_5
+    #endif*/
+        .secretPowerAnimation = gBattleAnimMove_RockThrow,
+    /*#if B_SECRET_POWER_EFFECT >= GEN_5
         .secretPowerEffect = MOVE_EFFECT_ACC_MINUS_1,
     #elif B_SECRET_POWER_EFFECT == GEN_4
         .secretPowerEffect = MOVE_EFFECT_FLINCH,
-    #else
-        .secretPowerEffect = MOVE_EFFECT_CONFUSION,
-    #endif
-        .camouflageType = B_CAMOUFLAGE_TYPES >= GEN_5 ? TYPE_GROUND : TYPE_ROCK,
+    #else*/
+        .secretPowerEffect = MOVE_EFFECT_CONFUSION, //like idea like getting concked over the head w a rock
+    //#endif
+        .camouflageType = TYPE_ROCK,
         .camouflageBlend = RGB(22, 16, 10),
         .background = ENVIRONMENT_BACKGROUND(Mountain),
         .battleIntroSlide = BattleIntroSlide1,
