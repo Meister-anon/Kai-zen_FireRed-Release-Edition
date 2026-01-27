@@ -9240,8 +9240,8 @@ extern const u16 gBattleAnimSpritePal_StealthRock[];
 extern const u16 gBattleAnimSpritePal_PoisonJab[];
 
 // battle anim task
-extern const u32 UnusedLevelupAnimationGfx[];
-extern const u32 UnusedLevelupAnimationTilemap[];
+extern const u32 SpecialLevelupAnimationGfx[];
+extern const u32 SpecialLevelupAnimationTilemap[];
 extern const u32 gCureBubblesGfx[];
 extern const u16 gCureBubblesPal[];
 extern const u32 gCureBubblesTilemap[];
