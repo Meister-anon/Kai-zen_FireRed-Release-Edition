@@ -7664,9 +7664,10 @@ void CoreEnforcerLoadBeamTarget(struct Sprite *sprite)
                     +  GetBattlerSpriteCoord(BATTLE_PARTNER(gBattleAnimTarget), BATTLER_COORD_Y_PIC_OFFSET)) / 2;
 }
 
+//AddItemIconObject seems tobe fr version of AddItemIconSprite
 void AnimTask_CreateBestowItem(u8 taskId)
 {
-    u8 iconSpriteId = AddItemIconSprite(ANIM_TAG_ITEM_BAG, ANIM_TAG_ITEM_BAG, gLastUsedItem);
+    u8 iconSpriteId = AddItemIconObject(ANIM_TAG_ITEM_BAG, ANIM_TAG_ITEM_BAG, gLastUsedItem);
 
     if (iconSpriteId != MAX_SPRITES)
     {
@@ -7701,8 +7702,8 @@ void AnimTask_PurpleFlamesOnTarget(u8 taskId)
 
 void AnimTask_TechnoBlast(u8 taskId)
 {
-    if (GetItemHoldEffect(gBattleMons[gBattleAnimAttacker].item) == HOLD_EFFECT_DRIVE)
-        gBattleAnimArgs[0] = GetItemSecondaryId(gBattleMons[gBattleAnimAttacker].item);
+    if (ItemId_GetHoldEffect(gBattleMons[gBattleAnimAttacker].item) == HOLD_EFFECT_DRIVE)
+        gBattleAnimArgs[0] = ItemId_GetSecondaryId(gBattleMons[gBattleAnimAttacker].item);
     else
         gBattleAnimArgs[0] = 0;
     DestroyAnimVisualTask(taskId);
