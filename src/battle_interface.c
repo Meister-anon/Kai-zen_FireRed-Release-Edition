@@ -443,18 +443,16 @@ static const struct SpriteTemplate sStatusSummaryBallsSpriteTemplates[] = {
 
 // This function is here to cover a specific case - one player's mon in a 2 vs 1 double battle. In this scenario - display singles layout.
 // The same goes for a 2 vs 1 where opponent has only one pokemon.
-u32 WhichBattleCoords(u32 battlerId) // 0 - singles, 1 - doubles
+enum BattleCoordTypes GetBattlerCoordsIndex(u32 battler)
 {
-    if (GetBattlerPosition(battlerId) == B_POSITION_PLAYER_LEFT
-        && gPlayerPartyCount == 1
-        && !(gBattleTypeFlags & BATTLE_TYPE_MULTI))
-        return 0;
-    else if (GetBattlerPosition(battlerId) == B_POSITION_OPPONENT_LEFT
-             && gEnemyPartyCount == 1
-             && !(gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS))
-        return 0;
+    if (GetBattlerPosition(battler) == B_POSITION_PLAYER_LEFT && gPlayerPartyCount == 1 && !(gBattleTypeFlags & BATTLE_TYPE_MULTI))
+        return BATTLE_COORDS_SINGLES;
+    else if (GetBattlerPosition(battler) == B_POSITION_OPPONENT_LEFT && gEnemyPartyCount == 1 && !(gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS))
+        return BATTLE_COORDS_SINGLES;
+    else if (IsDoubleBattle())
+        return BATTLE_COORDS_DOUBLES;
     else
-        return IsDoubleBattle();
+        return BATTLE_COORDS_SINGLES;
 }
 
 static void sub_8047B0C(s16 number, u16 *dest, bool8 unk)
@@ -1615,7 +1613,7 @@ void UpdateNickInHealthbox(u8 healthboxSpriteId, struct Pokemon *mon)
     {
         TextIntoHealthboxObject((void *)(OBJ_VRAM0 + 0x40 + spriteTileNum), windowTileData, 6);
         ptr = (void *)(OBJ_VRAM0);
-        if (!WhichBattleCoords(gSprites[healthboxSpriteId].sBattlerId))
+        if (!GetBattlerCoordsIndex(gSprites[healthboxSpriteId].sBattlerId))
             ptr += spriteTileNum + 0x800;
         else
             ptr += spriteTileNum + 0x400;
