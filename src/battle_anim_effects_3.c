@@ -4946,11 +4946,11 @@ void AnimTask_MonToSubstitute(u8 taskId)
     else
     {
         LoadBattleMonGfxAndAnimate(gBattleAnimAttacker, FALSE, spriteId);
-        if (IsContest())
+        /*if (IsContest())
         {
             gSprites[gBattlerSpriteIds[gBattleAnimAttacker]].affineAnims = gAffineAnims_BattleSpriteContest;
             StartSpriteAffineAnim(&gSprites[gBattlerSpriteIds[gBattleAnimAttacker]], BATTLER_AFFINE_NORMAL);
-        }
+        }*/
 
         for (i = 0; i < NUM_TASK_DATA; i++)
             gTasks[taskId].data[i] = 0;
@@ -5641,9 +5641,9 @@ void AnimTask_GetWeather(u8 taskId)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_HAIL;
     else if (gWeatherMoveAnim & WEATHER_SNOW)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_SNOW;
-    else if (gWeatherMoveAnim & WEATHER_MOON_ANY)
+    else if (gWeatherMoveAnim & WEATHER_MOON_ANY && !utilityUmbrellaAffected)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_MOON;
-    else if (gWeatherMoveAnim & WEATHER_ACID_RAIN_ANY)
+    else if (gWeatherMoveAnim & WEATHER_ACID_RAIN_ANY && !utilityUmbrellaAffected)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_ACID_RAIN;
     else if (gWeatherMoveAnim & WEATHER_FOG)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_FOG;
