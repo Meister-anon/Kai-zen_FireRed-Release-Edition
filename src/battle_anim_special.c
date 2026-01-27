@@ -552,8 +552,8 @@ void AnimTask_HealthBoxLevelUpCanEvolve(u8 taskId)
     gSprites[spriteId3].callback = SpriteCallbackDummy;
     gSprites[spriteId4].callback = SpriteCallbackDummy;
     GetBattleAnimBg1Data(&animBgData);
-    AnimLoadCompressedBgTilemap(animBgData.bgId, UnusedLevelupAnimationTilemap);
-    AnimLoadCompressedBgGfx(animBgData.bgId, UnusedLevelupAnimationGfx, animBgData.tilesOffset);
+    AnimLoadCompressedBgTilemap(animBgData.bgId, SpecialLevelupAnimationTilemap);
+    AnimLoadCompressedBgGfx(animBgData.bgId, SpecialLevelupAnimationGfx, animBgData.tilesOffset);
     LoadPalette(gCureBubblesPal, animBgData.paletteId << 4, 32);
     gBattle_BG1_X = -gSprites[spriteId3].x + 32;
     gBattle_BG1_Y = -gSprites[spriteId3].y - 32;
