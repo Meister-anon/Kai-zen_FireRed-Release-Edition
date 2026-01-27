@@ -493,8 +493,25 @@ enum Ball_Ids
     BALL_TIMER,
     BALL_LUXURY,
     BALL_PREMIER,
+    BALL_HEAL,
+    BALL_DUSK,
+    BALL_QUICK,
+    BALL_LEVEL,
+    BALL_LURE,
+    BALL_MOON,
+    BALL_FRIEND,
+    BALL_LOVE,
+    BALL_FAST,
+    BALL_HEAVY,
+    BALL_DREAM,
+    BALL_STRANGE,
+    BALL_SPORT,
+    BALL_PARK,
+    BALL_BEAST,
+    BALL_CHERISH,
     POKEBALL_COUNT
 };
+
 
 enum Comparison_Operators_Constants
 {
