@@ -46,19 +46,19 @@
 
 
 
-gBattleAnimMove_OverMaxPower:
-gBattleAnimMove_Shimon:
-gBattleAnimMove_FinalFlight:
-gBattleAnimMove_PlasmaRailgun:
-gBattleAnimMove_BoltBeam:
-gBattleAnimMove_Backstab:
-gBattleAnimMove_Pounce:
-gBattleAnimMove_Cheapshot:
+gBattleAnimMove_OverMaxPower::
+gBattleAnimMove_Shimon::
+gBattleAnimMove_FinalFlight::
+gBattleAnimMove_PlasmaRailgun::
+gBattleAnimMove_BoltBeam::
+gBattleAnimMove_Backstab::
+gBattleAnimMove_Pounce::
+gBattleAnimMove_Cheapshot::
 gBattleAnimMove_ColdFront::
 gBattleAnimMove_ShockingMalice::
 gBattleAnimMove_BruteForce::
-gBattleAnimMove_TrenchRun:
-gBattleAnimMove_ArcticRake:
+gBattleAnimMove_TrenchRun::
+gBattleAnimMove_ArcticRake::
 gBattleAnimMove_Monotype::
 	end @to do:
 
