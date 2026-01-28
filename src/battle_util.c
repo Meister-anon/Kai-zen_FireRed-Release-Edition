@@ -10975,7 +10975,7 @@ static inline void MulByTypeEffectiveness(struct BattleContext *ctx, uq4_12_t *m
         mod = UQ_4_12(1.0);
     }
     else if (/*(ctx->moveType == TYPE_FIGHTING || ctx->moveType == TYPE_NORMAL) &&*/ defType == TYPE_GHOST
-        && (ctx->abilityAtk == ABILITY_SCRAPPY || ctx->abilityAtk == ABILITY_MINDS_EYE
+        && (ctx->abilityAtk == ABILITY_SCRAPPY || ctx->abilityAtk == ABILITY_MINDS_EYE || ctx->abilityAtk == ABILITY_REIKI
         || (ctx->abilityAtk == ABILITY_PHANTOM_TOUCH && IsMoveMakingContact(ctx->battlerAtk, ctx->battlerDef, ctx->abilityAtk, ctx->holdEffectAtk, ctx->move))
         )
         && mod == NO_EFFECT)

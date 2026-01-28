@@ -2400,6 +2400,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .breakable = TRUE,
     },//not mix of scrappy is just foresight
     //...oh its keen eye scrappy o.0
+    //giving base scrappy not updated effects as ability and mon with it are already op
 
     [ABILITY_EMBODY_ASPECT_TEAL_MASK] =
     {
@@ -3241,6 +3242,15 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Secret Arts"),
         .description = COMPOUND_ABILITY_STRING("Ignores target guard mode. Contact moves\nup to 75 power also evade protection."),
         .aiRating = 5,
-    }
+    },
+
+    [ABILITY_REIKI] = 
+    {
+        .name = _("Reiki"),
+        .description = COMPOUND_ABILITY_STRING("Prevents Flinch, Crit, and Intimidation.\nIgnores the immunities of GHOST types."),
+        .aiRating = 7,
+        .breakable = TRUE,
+    }.//inner focus + scrappy for mega mewtwo x idea
+    //perfect fusion of mental and physical energy
 };
 

@@ -443,7 +443,7 @@ ABILITIES_COUNT_GEN8 = 269,
  ABILITY_FUGUE = 404,   //wow this being = 404, is so appropriate lmao, malamar new signature ability confusion & sleep always max turns
  ABILITY_CRYOSTORM = 405, //for separating hail ability from snow ability
  ABILITY_SECRET_ARTS = 406, //shadow mega greninja ability part no guard part unseen fist to break protect and guard
-
+ ABILITY_REIKI = 407, //mega mewtwo x ability inner focus + scrappy
 ABILITIES_COUNT_CUSTOM,
 
  ABILITIES_COUNT = ABILITIES_COUNT_CUSTOM //   ability count is last ability number +, since we have to count ability,

@@ -1642,6 +1642,7 @@ static inline bool32 DoesTargetAbilityBlockCrit(u32 battlerAtk, u32 battlerDef, 
         || abilityDef == ABILITY_SHELL_ARMOR
         || (abilityDef == ABILITY_MAGMA_ARMOR && IsPhysicalMove(battlerAtk, move)) //removed physical move macro for function consolidating effects
         || abilityDef == ABILITY_INNER_FOCUS
+        || abilityDef == ABILITY_REIKI
         || (abilityDef == ABILITY_TANGLED_FEET && gBattleMons[battlerDef].volatiles.confusionTurns)
         || abilityDef == ABILITY_GRASS_PELT);
 

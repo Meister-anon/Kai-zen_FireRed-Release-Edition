@@ -2924,15 +2924,16 @@ void SetMoveEffect(u32 battlerAtk, u32 effectBattler, enum MoveEffect moveEffect
         }
         break;
     case MOVE_EFFECT_FLINCH:
-        if (abilities[effectBattler] == ABILITY_INNER_FOCUS)//Note this how it effects stench
+        if (abilities[effectBattler] == ABILITY_INNER_FOCUS
+        || abilities[effectBattler] == ABILITY_REIKI)//Note this how it effects stench
         {
             // Inner Focus ALWAYS prevents flinching but only activates
             // on a move that's supposed to flinch, like Fake Out
             if (primary || certain)
             {
-                gLastUsedAbility = ABILITY_INNER_FOCUS;
+                gLastUsedAbility = abilities[effectBattler];
                 gBattlerAbility = gEffectBattler;
-                RecordAbilityBattle(gEffectBattler, ABILITY_INNER_FOCUS);
+                RecordAbilityBattle(gEffectBattler, gLastUsedAbility);
                 BattleScriptPush(battleScript);
                 gBattlescriptCurrInstr = BattleScript_FlinchPrevention;
             }
@@ -14117,8 +14118,13 @@ void BS_JumpIfIntimidateAbilityPrevented(void)
     {
     case ABILITY_INNER_FOCUS:
     case ABILITY_SCRAPPY:
+    case ABILITY_REIKI:
     case ABILITY_OWN_TEMPO:
     case ABILITY_OBLIVIOUS:
+    case ABILITY_UNAWARE:
+    case ABILITY_TROJAN_SWORD:
+    case ABILITY_FEMME_FATALE:
+    case ABILITY_QUEENLY_MAJESTY:    
         if (GetConfig(CONFIG_UPDATED_INTIMIDATE) >= GEN_8)
         {
             hasAbility = TRUE;
