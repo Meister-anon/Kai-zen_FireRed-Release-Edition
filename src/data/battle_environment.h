@@ -118,6 +118,13 @@ const u16 gBattleEnvironmentPalette_Frontier[] = INCBIN_U16("graphics/battle_env
     .tilemap2 = gBattleEnvironmentTilemap_##background##_Doubles, \
 }
 
+//em backgrouds don't have doubles rn
+//simplification to make them work for now
+#define ENVINRONMENT_TILEMAP_INFO_EM(background)                   \
+{                                                               \
+    .tilemap = gBattleEnvironmentTilemap_##background,          \
+}
+
 #define DEFAULT_CAMOUFLAGE_BLEND RGB_WHITE
 
 // Cave values. Used for BATTLE_ENVIRONMENT_CAVE as well as BATTLE_ENVIRONMENT_GROUDON and BATTLE_ENVIRONMENT_KYOGRE
@@ -565,7 +572,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
         .background =
         {
             .tileset = gBattleEnvironmentTiles_Building,
-            .tilemap = ENVINRONMENT_TILEMAP_INFO(Building),
+            .tilemap = ENVINRONMENT_TILEMAP_INFO_EM(Building),
             .entryTileset = gBattleEnvironmentAnimTiles_Building,
             .entryTilemap = gBattleEnvironmentAnimTilemap_Building,
             .palette = gBattleEnvironmentPalette_Frontier,
@@ -583,7 +590,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
         .background =
         {
             .tileset = gBattleEnvironmentTiles_Stadium,
-            ENVINRONMENT_TILEMAP_INFO(Stadium),
+            ENVINRONMENT_TILEMAP_INFO_EM(Stadium),
             .entryTileset = gBattleEnvironmentAnimTiles_Building,
             .entryTilemap = gBattleEnvironmentAnimTilemap_Building,
             .palette = gBattleEnvironmentPalette_StadiumMagma,
@@ -601,7 +608,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
         .background =
         {
             .tileset = gBattleEnvironmentTiles_Stadium,
-            ENVINRONMENT_TILEMAP_INFO(Stadium),
+            ENVINRONMENT_TILEMAP_INFO_EM(Stadium),
             .entryTileset = gBattleEnvironmentAnimTiles_Building,
             .entryTilemap = gBattleEnvironmentAnimTilemap_Building,
             .palette = gBattleEnvironmentPalette_StadiumAqua,
@@ -619,7 +626,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
         .background =
         {
             .tileset = gBattleEnvironmentTiles_Stadium,
-            ENVINRONMENT_TILEMAP_INFO(Stadium),
+            ENVINRONMENT_TILEMAP_INFO_EM(Stadium),
             .entryTileset = gBattleEnvironmentAnimTiles_Building,
             .entryTilemap = gBattleEnvironmentAnimTilemap_Building,
             .palette = gBattleEnvironmentPalette_StadiumSidney,
@@ -637,7 +644,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
         .background =
         {
             .tileset = gBattleEnvironmentTiles_Stadium,
-            ENVINRONMENT_TILEMAP_INFO(Stadium),
+            ENVINRONMENT_TILEMAP_INFO_EM(Stadium),
             .entryTileset = gBattleEnvironmentAnimTiles_Building,
             .entryTilemap = gBattleEnvironmentAnimTilemap_Building,
             .palette = gBattleEnvironmentPalette_StadiumPhoebe,
@@ -655,7 +662,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
         .background =
         {
             .tileset = gBattleEnvironmentTiles_Stadium,
-            ENVINRONMENT_TILEMAP_INFO(Stadium),
+            ENVINRONMENT_TILEMAP_INFO_EM(Stadium),
             .entryTileset = gBattleEnvironmentAnimTiles_Building,
             .entryTilemap = gBattleEnvironmentAnimTilemap_Building,
             .palette = gBattleEnvironmentPalette_StadiumGlacia,
@@ -673,7 +680,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
         .background =
         {
             .tileset = gBattleEnvironmentTiles_Stadium,
-            ENVINRONMENT_TILEMAP_INFO(Stadium),
+            ENVINRONMENT_TILEMAP_INFO_EM(Stadium),
             .entryTileset = gBattleEnvironmentAnimTiles_Building,
             .entryTilemap = gBattleEnvironmentAnimTilemap_Building,
             .palette = gBattleEnvironmentPalette_StadiumDrake,
@@ -691,7 +698,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
         .background =
         {
             .tileset = gBattleEnvironmentTiles_Stadium,
-            ENVINRONMENT_TILEMAP_INFO(Stadium),
+            ENVINRONMENT_TILEMAP_INFO_EM(Stadium),
             .entryTileset = gBattleEnvironmentAnimTiles_Building,
             .entryTilemap = gBattleEnvironmentAnimTilemap_Building,
             .palette = gBattleEnvironmentPalette_StadiumWallace,
@@ -710,7 +717,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
         .background =
         {
             .tileset = gBattleEnvironmentTiles_Cave,
-            ENVINRONMENT_TILEMAP_INFO(Cave),
+            ENVINRONMENT_TILEMAP_INFO_EM(Cave),
             .entryTileset = gBattleEnvironmentAnimTiles_Cave,
             .entryTilemap = gBattleEnvironmentAnimTilemap_Cave,
             .palette = gBattleEnvironmentPalette_Groudon,
@@ -729,7 +736,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
         .background =
         {
             .tileset = gBattleEnvironmentTiles_Water,
-            ENVINRONMENT_TILEMAP_INFO(Water),
+            ENVINRONMENT_TILEMAP_INFO_EM(Water),
             .entryTileset = gBattleEnvironmentAnimTiles_Underwater,
             .entryTilemap = gBattleEnvironmentAnimTilemap_Underwater,
             .palette = gBattleEnvironmentPalette_Kyogre,
@@ -749,7 +756,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
         .background =
         {
             .tileset = gBattleEnvironmentTiles_Rayquaza,
-            ENVINRONMENT_TILEMAP_INFO(Rayquaza),
+            ENVINRONMENT_TILEMAP_INFO_EM(Rayquaza),
             .entryTileset = gBattleEnvironmentAnimTiles_Rayquaza,
             .entryTilemap = gBattleEnvironmentAnimTilemap_Rayquaza,
             .palette = gBattleEnvironmentPalette_Rayquaza,
@@ -827,10 +834,10 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
     /*#else
         .naturePower = MOVE_BLIZZARD,
     #endif*/
-        .secretPowerAnimation = B_SECRET_POWER_ANIMATION >= GEN_7 ? gBattleAnimMove_IceShard : gBattleAnimMove_Avalanche,
+        .secretPowerAnimation = gBattleAnimMove_Avalanche,//B_SECRET_POWER_ANIMATION >= GEN_7 ? gBattleAnimMove_IceShard : gBattleAnimMove_Avalanche,
         .secretPowerEffect = MOVE_EFFECT_FREEZE,
         .camouflageType = TYPE_ICE,
-        .camouflageBlend = DEFAULT_CAMOUFLAGE_BLEND,
+        .camouflageBlend = DEFAULT_CAMOUFLAGE_BLEND,//idk which animation I want check later vsonic
     },//unsure what want nature power to be
     //blizzard would be better since terrain would alsmot
     //always be in a place that's snowing/hail
