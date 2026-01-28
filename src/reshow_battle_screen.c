@@ -8,6 +8,7 @@
 #include "battle_interface.h"
 #include "battle_anim.h"
 #include "battle_controllers.h"
+#include "reshow_battle_screen.h"
 
 static void CB2_ReshowBattleScreenAfterMenu(void);
 static void CB2_ReshowBattleScreenAfterCatch(void); //custom for pc access post catch just need not reupdate hidden mon i.e faint/caught
