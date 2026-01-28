@@ -31481,24 +31481,6 @@ gBattleAnimStatus_Infestation::
 	clearmonbg ANIM_DEF_PARTNER
 	end
 
-gBattleAnimGeneral_CastformChange:: @ 81D5B88
-	createvisualtask AnimTask_IsMonInvisible, 2, 
-	jumpargeq 7, 1, CastformChangeSkipAnim
-	goto CastformChangeContinue
-
-CastformChangeContinue:: @ 81D5B9C
-	monbg ANIM_ATTACKER
-	playsewithpan SE_M_TELEPORT, 192
-	waitplaysewithpan SE_M_MINIMIZE, 192, 48
-	createvisualtask AnimTask_TransformMon, 2, 1
-	waitforvisualfinish
-	clearmonbg ANIM_ATTACKER
-	end
-
-CastformChangeSkipAnim:: @ 81D5BB4
-	createvisualtask AnimTask_CastformGfxChange, 2, 1
-	end
-
 gBattleAnimGeneral_StatsChange:: @ 81D5BBE
 	createvisualtask AnimTask_StatsChange, 5, 
 	waitforvisualfinish
