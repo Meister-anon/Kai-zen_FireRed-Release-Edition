@@ -4186,6 +4186,9 @@ void SpriteCB_FaintOpponentMon(struct Sprite *sprite)
     {
         yOffset = gMonFrontPicCoords[species].y_offset;
     }*/
+   //using this func usually only in battle_anim_mons
+   //because identical logic and because not storing
+   //data in base stats i.e species_info
     yOffset = GetBattlerYDelta(battler, species);
 
     sprite->data[3] = 8 - yOffset / 8;

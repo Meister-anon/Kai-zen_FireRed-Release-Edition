@@ -89,6 +89,8 @@ extern u16 gAnimBattlerSpecies[MAX_BATTLERS_COUNT];
 extern u8 gAnimCustomPanning;
 extern u16 gAnimMoveIndex;
 
+u8 GetBattlerYDelta(u8 battlerId, u16 species);
+
 void ClearBattleAnimationVars(void);
 void DoMoveAnim(enum Move move);
 void LaunchBattleAnimation(u32 animType, u32 animId);
