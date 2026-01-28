@@ -9,7 +9,7 @@ enum BattleScriptOpcode
     B_SCR_OP_ACCURACYCHECK,
     B_SCR_OP_PRINTATTACKSTRING,
     B_SCR_OP_PRINTSELECTIONSTRINGFROMTABLE,
-    B_SCR_OP_UNUSED_0X4, //was critcalc since moves to dmgcalc
+    B_SCR_OP_SETCRITPROTECT, //was critcalc since moves to dmgcalc
     B_SCR_OP_DAMAGECALC,
     B_SCR_OP_TYPECALC,
     B_SCR_OP_ADJUSTDAMAGE,

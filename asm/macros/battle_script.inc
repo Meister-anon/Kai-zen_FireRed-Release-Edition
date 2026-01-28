@@ -17,8 +17,9 @@
 	.4byte \ptr
 	.endm
 
-	.macro unused_0x4
-	.byte B_SCR_OP_UNUSED_0X4
+	.macro setcritprotect battler:req
+	.byte B_SCR_OP_SETCRITPROTECT
+	.byte \battler
 	.endm
 
 	.macro damagecalc

@@ -338,7 +338,7 @@ static void Cmd_attackcanceler(void);
 static void Cmd_accuracycheck(void);
 static void Cmd_printattackstring(void);
 static void Cmd_printselectionstringfromtable(void);
-static void Cmd_unused_0x4(void);
+static void Cmd_setcritprotect(void);
 static void Cmd_damagecalc(void);
 static void Cmd_typecalc(void);
 static void Cmd_adjustdamage(void);
@@ -597,7 +597,7 @@ void (*const gBattleScriptingCommandsTable[])(void) =
     [B_SCR_OP_ACCURACYCHECK]                         = Cmd_accuracycheck,
     [B_SCR_OP_PRINTATTACKSTRING]                     = Cmd_printattackstring,
     [B_SCR_OP_PRINTSELECTIONSTRINGFROMTABLE]         = Cmd_printselectionstringfromtable,
-    [B_SCR_OP_UNUSED_0X4]                            = Cmd_unused_0x4,
+    [B_SCR_OP_SETCRITPROTECT]                        = Cmd_setcritprotect,
     [B_SCR_OP_DAMAGECALC]                            = Cmd_damagecalc,
     [B_SCR_OP_TYPECALC]                              = Cmd_typecalc,
     [B_SCR_OP_ADJUSTDAMAGE]                          = Cmd_adjustdamage,
@@ -1343,11 +1343,16 @@ static void Cmd_printselectionstringfromtable(void)
     }
 }
 
-// Calculations have been moved to cmd_damagecalc. Please remove the macro from scripts
-// Will be set to unused next cycle
-static void Cmd_unused_0x4(void)
+//blocks crit for turn duration
+//initially just for defense curl gave to withdraw
+//as same effect
+static void Cmd_setcritprotect(void)
 {
-    CMD_ARGS();
+    CMD_ARGS(u8 battler);
+
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+
+    gProtectStructs[battler].blockcrit = TRUE;
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
