@@ -31030,7 +31030,7 @@ gBattleAnimMove_SonicBoom::
 	splitbgprio_foes 1
 	setalpha 12, 8
 	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0, 24, 6, 4, 4
-	createvisualtask AnimTask_CloneBattlerSpriteWithBlend, 2, 0, 4, 7, 10
+	createvisualtask AnimTask_TraceMonBlended, 2, 0, 4, 7, 10
 	playsewithpan SE_M_DOUBLE_TEAM, 192
 	delay 12
 	playsewithpan SE_M_DOUBLE_TEAM, 192
@@ -31470,13 +31470,13 @@ gBattleAnimStatus_Infestation::
 	loadspritegfx ANIM_TAG_SMALL_BUBBLES @circle particles
 	monbg ANIM_DEF_PARTNER
 	splitbgprio ANIM_TARGET
-	createvisualtask AnimTask_BlendBattleAnimPal, 10, ANIM_PAL_DEF, 0x2, 0x0, 0x9, 0x7320
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_TARGET, 0x2, 0x0, 0x9, 0x7320
 	createvisualtask AnimTask_ShakeMon, 0x2, 0x5, ANIM_TARGET, 0x3, 0x0, 0x4f, 0x1
 	loopsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER, 0x0, 30
 	call InfestationVortex
 	call InfestationVortex
 	waitforvisualfinish
-	createvisualtask AnimTask_BlendBattleAnimPal, 0xA, 0x5, ANIM_PAL_DEF, 0x2, 0x9, 0x0, 0x7320
+	createvisualtask AnimTask_BlendBattleAnimPal, 0xA, 0x5, F_PAL_TARGET, 0x2, 0x9, 0x0, 0x7320
 	waitforvisualfinish
 	clearmonbg ANIM_DEF_PARTNER
 	end

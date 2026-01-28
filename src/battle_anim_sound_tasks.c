@@ -237,6 +237,15 @@ void SoundTask_PlayNormalCry(u8 taskId)
     gTasks[taskId].func = SoundTask_WaitForCry;
 }
 
+//vsonic not gonna use but just including
+//need readd illusion stuff later
+void SoundTask_PlayDynamaxCry(u8 taskId)
+{
+    u16 species = /*(GetIllusionMonSpecies(gBattleAnimAttacker) != SPECIES_NONE) ? GetIllusionMonSpecies(gBattleAnimAttacker) :*/ gAnimBattlerSpecies[gBattleAnimAttacker];
+    PlayCry_ByMode(species, BattleAnimAdjustPanning(SOUND_PAN_ATTACKER), CRY_MODE_DYNAMAX);
+    gTasks[taskId].func = SoundTask_WaitForCry;
+}
+
 void SoundTask_PlayCryWithEcho(u8 taskId)
 {
     u16 species;
