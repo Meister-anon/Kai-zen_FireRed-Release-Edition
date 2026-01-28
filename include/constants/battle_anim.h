@@ -500,7 +500,7 @@
 #define BG_POISON 42
 #define BG_AEROBLAST 43
 #define BG_HURRICANE 44
-#define BG_ELECTRIC_TERRAIN 45 //ugly see about better version
+#define BG_ELECTRIC_TERRAIN 45
 #define BG_GRASSY_TERRAIN 46
 #define BG_MISTY_TERRAIN 47
 #define BG_PSYCHIC_TERRAIN 48

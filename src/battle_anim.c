@@ -1688,6 +1688,8 @@ void LoadMoveBg(u16 bgId)
 //or my own version of the terrain graphic that is more subtle
 //maybe just change whitespace color keep everything else same
 //vsonic
+//looked into graphics they have new terrain graphics
+//that are MUCH better I see no problem using those
 static void LoadDefaultBg(void)
 {
     /*if (IsContest())
