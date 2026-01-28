@@ -9487,6 +9487,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSkittyTMHMLearnset,
         .evolutions = EVOLUTION({EVO_FRIENDSHIP, FILL, 0, SPECIES_DELCATTY}), //Should hopefully blank these for now without issue
     },//higher hp isn't meant to denote bulk, but a high vitality/zest for life/energy
+    //considering change to normal fairy and make evo fairy ghost
+    //weigh if better, since normal ghost is no longer 0 weaknesses
+    //also normal was important for its balance
 
     [SPECIES_DELCATTY] =
     {
