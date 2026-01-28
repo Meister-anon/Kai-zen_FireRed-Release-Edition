@@ -1102,7 +1102,7 @@ const u32 gPartyMenuHpBar_Gfx[] = INCBIN_U32("graphics/interface/party_menu_hpba
 const u32 gInterfaceGfx_UnusedWindow[] = INCBIN_U32("graphics/battle_interface/unused_window.4bpp.lz");
 const u16 gInterfacePal_UnusedWindow[] = INCBIN_U16("graphics/battle_interface/unused_window.gbapal");
 
-const u32 gInterfaceGfx_HPNumbers[] = INCBIN_U32("graphics/interface/hp_numbers.4bpp.lz");
+const u32 gBattleInterfaceGfx_BattleBar[] = INCBIN_U32("graphics/interface/hp_numbers.4bpp.lz");
 
 
 

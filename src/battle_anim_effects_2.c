@@ -237,6 +237,8 @@ const struct SpriteTemplate gSwordsDanceBladeSpriteTemplate =
     .callback = AnimSwordsDanceBlade,
 };
 
+//sonic screech renamed from sonic boom
+//keeping template name for merge
 const struct SpriteTemplate gSonicBoomSpriteTemplate =
 {
     .tileTag = ANIM_TAG_AIR_WAVE,

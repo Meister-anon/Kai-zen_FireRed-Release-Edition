@@ -295,12 +295,13 @@ struct Backup
     u8 vram[32 * 20 * sizeof(u16) + TILE_SIZE_4BPP + 4 * sizeof(sGlyphs1BPP)];
 };
 
+//turned off for now til update ld_script make file etc. vsonic important
 /* Blue Screen of Death style screen that displays the error message and
  * hijacks the main loop until the start button is pressed. */
 void AssertfCrashScreen(const void *return1, const char *fmt, ...)
 {
     // Backup and override hardware state.
-    struct Backup *backup = NULL;
+    /*struct Backup *backup = NULL;
 
     // Allocate on heap if possible.
     if (!backup)
@@ -398,5 +399,5 @@ void AssertfCrashScreen(const void *return1, const char *fmt, ...)
     REG_IME = backup->ime;
 
     if (backup->onHeap)
-        Free(backup);
+        Free(backup);*/
 }

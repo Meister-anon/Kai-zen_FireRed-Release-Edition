@@ -842,7 +842,7 @@ gBattleAnimMove_SonicScreech::
 	end
 SonicScreechProjectile:
 	playsewithpan SE_M_RAZOR_WIND2, SOUND_PAN_ATTACKER
-	createsprite gSonicScreechSpriteTemplate, ANIM_TARGET, 2, 16, 0, 0, 0, 15
+	createsprite gSonicBoomSpriteTemplate, ANIM_TARGET, 2, 16, 0, 0, 0, 15
 	delay 4
 	return
 SonicScreechHit:
@@ -7316,11 +7316,12 @@ SpiderWebThread:
 	delay 1
 	return
 
+@not using but keep here for now
 @gBattleAnimMove_RazorWind::
 @	choosetwoturnanim RazorWindSetUp, RazorWindUnleash
-@RazorWindEnd:
-@	waitforvisualfinish
-@	end
+RazorWindEnd:
+	waitforvisualfinish
+	end
 
 RazorWindSetUp:
 	loadspritegfx ANIM_TAG_GUST
@@ -7353,7 +7354,8 @@ gBattleAnimMove_RazorWind::
 	waitforvisualfinish
 	clearmonbg ANIM_TARGET
 	blendoff
-	goto RazorWindEnd
+	waitforvisualfinish
+	end
 
 gBattleAnimMove_Disable::
 	loadspritegfx ANIM_TAG_SPARKLE_4
@@ -11602,7 +11604,7 @@ SetGigaImpactPlayerBG:
 	fadetobg BG_GIGA_IMPACT_PLAYER
 	goto GigaImpactContinuity
 SetGigaImpactContestsBG:
-	fadetobg BG_GIGA_IMPACT_CONTEST
+	fadetobg BG_GIGA_IMPACT_CONTESTS
 	goto GigaImpactContinuity
 GigaImpactContinuity:
 	playsewithpan SE_M_TAKE_DOWN, SOUND_PAN_ATTACKER
@@ -13358,7 +13360,7 @@ gBattleAnimMove_SpacialRend::
 	delay 2
 	createsprite gSpacialRendBladesTemplate, ANIM_ATTACKER, 3, 0, 0, 0x38, 12
 	waitforvisualfinish
-	fadetobgfromset BG_SPACIAL_REND_ON_OPPONENT BG_SPACIAL_REND_ON_PLAYER BG_SPACIAL_REND_ON_OPPONENT
+	fadetobgfromset BG_SPACIAL_REND_OPPONENT BG_SPACIAL_REND_PLAYER BG_SPACIAL_REND_OPPONENT
 	waitbgfadein
 	loopsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET, 3, 5
 	createsprite gSpacialRendBladesTemplate2, ANIM_TARGET, 1, 0, 10, SOUND_PAN_ATTACKER, 0xb0, 0x28
@@ -15554,6 +15556,8 @@ gBattleAnimMove_WorkUp::
 	waitforvisualfinish
 	end
 
+@attempt test this in doubles
+@see how it looks
 gBattleAnimMove_Electroweb::
 	loadspritegfx ANIM_TAG_SPIDER_WEB
 	loadspritegfx ANIM_TAG_WEB_THREAD
@@ -24061,7 +24065,7 @@ gBattleAnimMove_Eternabeam::
 	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_HYDRO_PUMP, 0, 12, 12, RGB(31, 4, 10)    @Pinkish Red
 	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_ROUND_SHADOW, 0, 13, 13, RGB(31, 4, 10)  @Pinkish Red
 	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_EXPLOSION, 0, 12, 12, RGB(11, 1, 22)
-	fadetobgfromset BG_SPACIAL_REND_ON_OPPONENT BG_SPACIAL_REND_ON_PLAYER BG_SPACIAL_REND_ON_OPPONENT
+	fadetobgfromset BG_SPACIAL_REND_OPPONENT BG_SPACIAL_REND_PLAYER BG_SPACIAL_REND_OPPONENT
 	playsewithpan SE_M_FLY, SOUND_PAN_ATTACKER
 	invisible ANIM_ATTACKER
 	createsprite gDevastatingDrakeDrakeUpSpriteTemplate, ANIM_ATTACKER, 2, 0, 0, 0x04E0, 36, 21, 1, ANIM_ATTACKER
@@ -28180,7 +28184,7 @@ FickleBeamRegular:
 	end
 FickleBeamIntense:
 	loadspritegfx ANIM_TAG_ORBS
-	fadetobgfromset BG_SPACIAL_REND_ON_OPPONENT BG_SPACIAL_REND_ON_PLAYER BG_SPACIAL_REND_ON_OPPONENT
+	fadetobgfromset BG_SPACIAL_REND_OPPONENT BG_SPACIAL_REND_PLAYER BG_SPACIAL_REND_OPPONENT
 	waitbgfadein
 	delay 10
 	playsewithpan SE_M_HYPER_BEAM, SOUND_PAN_ATTACKER
@@ -31288,6 +31292,25 @@ ElectricityEffectNoSound:
 	createsprite gElectricitySpriteTemplate, ANIM_TARGET, 2, -20, 15, 5, 1
 	return
 
+ElectricityEffect_OnTargets:
+	playsewithpan SE_M_THUNDERBOLT2, SOUND_PAN_TARGET
+	createspriteontargets gElectricitySpriteTemplate, ANIM_TARGET, 2, 4, 5, 0, 5, 0, ANIM_TARGET
+	delay 2
+	createspriteontargets gElectricitySpriteTemplate, ANIM_TARGET, 2, 4, -5, 10, 5, 1, ANIM_TARGET
+	delay 2
+	createspriteontargets gElectricitySpriteTemplate, ANIM_TARGET, 2, 4, 15, 20, 5, 2, ANIM_TARGET
+	delay 2
+	createspriteontargets gElectricitySpriteTemplate, ANIM_TARGET, 2, 4, -15, -10, 5, 0, ANIM_TARGET
+	delay 2
+	createspriteontargets gElectricitySpriteTemplate, ANIM_TARGET, 2, 4, 25, 0, 5, 1, ANIM_TARGET
+	delay 2
+	createspriteontargets gElectricitySpriteTemplate, ANIM_TARGET, 2, 4, -8, 8, 5, 2, ANIM_TARGET
+	delay 2
+	createspriteontargets gElectricitySpriteTemplate, ANIM_TARGET, 2, 4, 2, -8, 5, 0, ANIM_TARGET
+	delay 2
+	createspriteontargets gElectricitySpriteTemplate, ANIM_TARGET, 2, 4, -20, 15, 5, 1, ANIM_TARGET
+	return
+
 ConfusionEffect:: @ 81D595F
 	loopsewithpan SE_M_DIZZY_PUNCH, SOUND_PAN_TARGET, 13, 6
 	createsprite gConfusionDuckSpriteTemplate, ANIM_TARGET, 2, 0, -15, 0, 3, 90
@@ -31333,29 +31356,26 @@ UnsetSkyBg:: @ 81D59FF
 	waitbgfadein
 	return
 
-SetSolarbeamBg:: @ 81D5A07
-	createvisualtask AnimTask_IsContest, 2, 
-	jumpargeq 7, 1, SetSolarbeamBgContest
-	createvisualtask AnimTask_IsTargetPlayerSide, 2, 
-	jumpargeq 7, 0, SetSolarbeamBgOpponent
-	goto SetSolarbeamBgPlayer
-SetSolarbeamBgContinue:: @ 81D5A2A
+SetSolarBeamBg:
+	createvisualtask AnimTask_IsContest, 2
+	jumprettrue SetSolarBeamBgContest
+	createvisualtask AnimTask_IsTargetPlayerSide, 2
+	jumpretfalse SetSolarBeamBgOpponent
+	goto SetSolarBeamBgPlayer
+SetSolarBeamBgContinue:
 	waitbgfadein
 	return
+SetSolarBeamBgContest:
+	fadetobg BG_SOLAR_BEAM_CONTESTS
+	goto SetSolarBeamBgContinue
+SetSolarBeamBgPlayer:
+	fadetobg BG_SOLAR_BEAM_PLAYER
+	goto SetSolarBeamBgContinue
+SetSolarBeamBgOpponent:
+	fadetobg BG_SOLAR_BEAM_OPPONENT
+	goto SetSolarBeamBgContinue
 
-SetSolarbeamBgContest:: @ 81D5A2C
-	fadetobg BG_SOLARBEAM_CONTESTS
-	goto SetSolarbeamBgContinue
-
-SetSolarbeamBgPlayer:: @ 81D5A33
-	fadetobg BG_SOLARBEAM_PLAYER
-	goto SetSolarbeamBgContinue
-
-SetSolarbeamBgOpponent:: @ 81D5A3A
-	fadetobg BG_SOLARBEAM_OPPONENT
-	goto SetSolarbeamBgContinue
-
-UnsetSolarbeamBg:: @ 81D5A41
+UnsetSolarBeamBg:
 	restorebg
 	waitbgfadein
 	return
@@ -31759,18 +31779,26 @@ gBattleAnimGeneral_HangedOn:: @ 81D5F42
 	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 0, 0, 0, 15
 	end
 
+@only one diff from using move for some reason
+@question why that is and if I need to do 
+@for acid rain if I plan to make overworld weather
+@all I know is its used in pledge effect rainbow
 gBattleAnimGeneral_Rain:: @ 81D5F8F
+		call RainDrops
+	end
+
+RainDrops:
 	loadspritegfx ANIM_TAG_RAIN_DROPS
-	playsewithpan SE_M_RAIN_DANCE, 192
-	createvisualtask AnimTask_BlendBattleAnimPal, 10, 1 | (0xF << 7), 2, 0, 4, RGB_BLACK
+	playsewithpan SE_M_RAIN_DANCE, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, (F_PAL_BG | F_PAL_BATTLERS_2), 2, 0, 4, RGB_BLACK
 	waitforvisualfinish
 	createvisualtask AnimTask_CreateRaindrops, 2, 0, 3, 60
 	createvisualtask AnimTask_CreateRaindrops, 2, 0, 3, 60
 	delay 50
 	waitforvisualfinish
-	createvisualtask AnimTask_BlendBattleAnimPal, 10, 1 | (0xF << 7), 2, 4, 0, RGB_BLACK
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, (F_PAL_BG | F_PAL_BATTLERS_2), 2, 4, 0, RGB_BLACK
 	waitforvisualfinish
-	end
+	return
 
 gBattleAnimGeneral_AcidRain:: @ 81D5F8F
 	goto gBattleAnimMove_AcidRain
