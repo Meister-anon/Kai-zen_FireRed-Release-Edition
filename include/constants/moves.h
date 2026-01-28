@@ -980,7 +980,11 @@ enum Move {
     MOVE_SOUL_STEALING_7_STAR_STRIKE,
     LAST_Z_MOVE = MOVE_SOUL_STEALING_7_STAR_STRIKE,
     MOVES_COUNT_Z,
+    MOVES_COUNT_ALL = MOVES_COUNT_Z
 };
+//not using z move unsure if need that to be move count all
+//it prob should or could be lower but functionally is same
+//within volatile struct
 
 
 // Used for checks for moves affected by Disable, Mimic, etc.

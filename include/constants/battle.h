@@ -511,6 +511,13 @@ enum BattleSide
 #define WONDER_GUARD_TIMER 5
 #define SPECTRE_TIMER 2
 
+#define MAX_INGRAIN_AQUA_RING_TURNS    6 //turns healing effect stacks
+#define MAX_TOXIC_TURNS 16
+#define MAX_CONFUSION_TURNS 5
+#define MAX_SLEEP_TURNS 5
+#define MAX_RAGE_BOOST_COUNTER 5
+#define MAX_DRAGON_RAGE_COUNTER 5
+
 enum VolatileFlags
 {
     V_BATON_PASSABLE = (1 << 0),
@@ -889,12 +896,7 @@ enum TypeSideHazard
 #define STATUS_FIELD_TERRAIN_ANY              (STATUS_FIELD_SCORCHED_TERRAIN | STATUS_FIELD_FLOODED_TERRAIN | STATUS_FIELD_OCEAN_TERRAIN | STATUS_FIELD_GRASSY_TERRAIN | STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_PSYCHIC_TERRAIN)
 #define PERMANENT_TERRAIN   0     //use timer value 0 so never decrements
 #define PERMANENT_WEATHER   0       //same as terrain
-#define MAX_INGRAIN_AQUA_RING_TURNS    6 //turns healing effect stacks
-#define MAX_TOXIC_TURNS 16
-#define MAX_CONFUSION_TURNS 5
-#define MAX_SLEEP_TURNS 5
-#define MAX_RAGE_BOOST_COUNTER 5
-#define MAX_DRAGON_RAGE_COUNTER 5
+
 
 // Flags describing move's result
 #define MOVE_RESULT_MISSED                (1 << 0)
