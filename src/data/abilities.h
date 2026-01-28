@@ -1922,6 +1922,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("If hit, spits prey caught in its mouth."),
         .aiRating = 3,
         .cantBeCopied = TRUE,
+        .cantBeSwapped = TRUE,
         .cantBeSuppressed = TRUE,
         .cantBeOverwritten = TRUE,
         .failsOnImposter = TRUE,

@@ -5,6 +5,7 @@
 #include "sprite.h"
 #include "move.h"
 #include "data.h"
+#include "battle.h"
 #include "constants/pokemon.h"
 #include "constants/battle.h"
 #include "pokemon_icon.h"
@@ -958,8 +959,28 @@ struct FormChange {
     u16 targetSpecies;
     u16 param1;
     u16 param2;
-    u16 param3; //new adition from emerald logic
-}; //may change based on how I use forms
+    u16 param3;
+    u16 param4;
+};
+
+struct FormChangeContext
+{
+    enum FormChanges method:16;
+    u16 currentSpecies;
+    u16 partyItemUsed;
+    u16 multichoiceSelection;
+    u16 heldItem;
+    u16 ability;
+    u16 learnedMove;
+    u32 status;
+    u16 moves[MAX_MON_MOVES];
+    u16 hp;
+    u16 maxHP;
+    u32 gmaxFactor:1;
+    enum Type teraType;
+    u32 level:7;
+    u32 padding:8;
+};
 
 
 //replaces front_pic_table back_pic_table front_pic_coordinates back_pic_coordinates pokemon_icon.c arrays palette_table  & shiny_palette_table
@@ -1328,5 +1349,71 @@ static inline void CopyAbilityNameToBuff(u8 *nameBuff, enum Ability ability)
     nameBuff[i] = EOS;
 
 }
+
+//is meant to hold unique form condition activation
+//since form change table refactor is a bit restrictive
+//want a better name
+static inline bool32 TryActivateUniqueFormChangeCondition(struct FormChangeContext *ctx)
+{
+    switch (ctx->ability)
+    {
+        case ABILITY_GULP_MISSILE:
+            return CanActivateGulpMissle(gCurrentMove);
+        break;
+    }
+}
+
+//stuff from EE form change port
+const u8 *GetTrainerPartnerName(void);
+void BattleAnimateFrontSprite(struct Sprite *sprite, u16 species, bool8 noCry, u8 panMode);
+void DoMonFrontSpriteAnimation(struct Sprite *sprite, u16 species, bool8 noCry, u8 panModeAnimFlag);
+void PokemonSummaryDoMonAnimation(struct Sprite *sprite, u16 species, bool8 oneFrame);
+void StopPokemonAnimationDelayTask(void);
+void BattleAnimateBackSprite(struct Sprite *sprite, u16 species);
+u8 GetOpposingLinkMultiBattlerId(bool8 rightSide, u8 multiplayerId);
+enum TrainerPicID FacilityClassToPicIndex(u16 facilityClass);
+enum TrainerPicID PlayerGenderToFrontTrainerPicId(enum Gender playerGender);
+void HandleSetPokedexFlag(enum NationalDexOrder nationalNum, u8 caseId, u32 personality);
+void HandleSetPokedexFlagFromMon(struct Pokemon *mon, u32 caseId);
+//bool8 HasTwoFramesAnimation(u16 species);
+struct MonSpritesGfxManager *CreateMonSpritesGfxManager(u8 managerId, u8 mode);
+void DestroyMonSpritesGfxManager(u8 managerId);
+u8 *MonSpritesGfxManager_GetSpritePtr(u8 managerId, u8 spriteNum);
+u16 GetFormSpeciesId(u16 speciesId, u8 formId);
+u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
+u32 GetFormChangeTargetSpecies_Internal(struct FormChangeContext ctx);
+bool32 DoesSpeciesHaveFormChangeMethod(u16 species, enum FormChanges method);
+u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove);
+void RemoveIVIndexFromList(u8 *ivs, u8 selectedIv);
+void TrySpecialOverworldEvo(void);
+bool32 SpeciesHasGenderDifferences(u16 species);
+bool32 TryFormChange(struct Pokemon *mon, enum FormChanges method);
+bool32 TryBoxMonFormChange(struct BoxPokemon *boxMon, enum FormChanges method);
+void TryToSetBattleFormChangeMoves(struct Pokemon *mon, enum FormChanges method);
+u32 GetMonFriendshipScore(struct Pokemon *pokemon);
+u32 GetMonAffectionHearts(struct Pokemon *pokemon);
+void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality);
+u8 CalculatePartyCount(struct Pokemon *party);
+u16 SanitizeSpeciesId(u16 species);
+bool32 IsSpeciesEnabled(u16 species);
+enum PokemonCry GetCryIdBySpecies(u16 species);
+u16 GetSpeciesPreEvolution(u16 species);
+void HealPokemon(struct Pokemon *mon);
+void HealBoxPokemon(struct BoxPokemon *boxMon);
+void UpdateDaysPassedSinceFormChange(u16 days);
+void TrySetDayLimitToFormChange(struct Pokemon *mon);
+enum Type CheckDynamicMoveType(struct Pokemon *mon, enum Move move, enum BattlerId battler, enum MonState state);
+uq4_12_t GetDynamaxLevelHPMultiplier(u32 dynamaxLevel, bool32 inverseMultiplier);
+u32 GetRegionalFormByRegion(u32 species, u32 region);
+bool32 IsSpeciesForeignRegionalForm(u32 species, u32 currentRegion);
+enum Type GetTeraTypeFromPersonality(struct Pokemon *mon);
+bool8 ShouldSkipFriendshipChange(void);
+struct Pokemon *GetSavedPlayerPartyMon(u32 index);
+u8 *GetSavedPlayerPartyCount(void);
+void SavePlayerPartyMon(u32 index, struct Pokemon *mon);
+bool32 IsSpeciesOfType(u32 species, enum Type type);
+struct BoxPokemon *GetSelectedBoxMonFromPcOrParty(void);
+u32 GiveScriptedMonToPlayer(struct Pokemon *mon, u8 slot);
+void ChangePokemonNicknameWithCallback(void (*callback)(void));
 
 #endif // GUARD_POKEMON_H

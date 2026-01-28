@@ -12748,7 +12748,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MIMIKYU_BUSTED] = 
     {  
       FRONT_COORD(0x45, 12),
-      BACK_COORD(0x77, 15),
+      BACK_COORD(0x77, 7), //change 7 if set new busted image from EE - need test vsonic
       PIC_DATA_ICON_INDEX(MimikyuBusted, 3),
       .enemyMonElevation = 0,
       .cryData = CRY_INFO(Cry_Mimikyu),

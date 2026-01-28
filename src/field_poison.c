@@ -134,7 +134,11 @@ s32 DoPoisonFieldEffect(void) //now heals poison heal pokemon outside of battle
         else if (GetMonData(pokemon, MON_DATA_SANITY_HAS_SPECIES) && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN) //normal poison checks
         {
             if (hp == 0 || --hp == 0)
+            {
+                //w my form change plan may remove this
+                TryFormChange(&gPlayerParty[i], FORM_CHANGE_FAINT);
                 numFainted++;
+            }
             numPoisoned++;
         }
         SetMonData(pokemon, MON_DATA_HP, &hp);        

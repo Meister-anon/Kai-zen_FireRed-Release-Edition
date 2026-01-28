@@ -24,10 +24,14 @@ void HandleBattleWindow(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, u8 flags);
 u8 GetBattlerTurnOrderNum(enum BattlerId battlerId);
 void BufferMoveToLearnIntoBattleTextBuff2(void);
 void HazardClearNoMessage(enum BattlerId battler);
-bool32 DoesSubstituteBlockMove(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move);
-bool32 DoesDisguiseBlockMove(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move);
 bool32 NoAliveMonsForEitherParty(void);
+
+bool8 UproarWakeUpCheck(enum BattlerId battler);
+bool32 DoesSubstituteBlockMove(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move);
+bool32 DoesDisguiseBlockMove(enum BattlerId battler, enum Move move);
+bool32 DoesIceFaceBlockMove(enum BattlerId battler, enum Move move);
 bool32 CanUseLastResort(enum BattlerId battlerId);
+
 bool32 IsTelekinesisBannedSpecies(u16 species);
 u32 IsFlowerVeilProtected(enum BattlerId battler);
 u32 IsLeafGuardProtected(enum BattlerId battler);

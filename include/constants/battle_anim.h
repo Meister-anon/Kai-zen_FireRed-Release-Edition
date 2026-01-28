@@ -608,9 +608,11 @@
 #define B_ANIM_POWER_CONSTRUCT          0x3D
 #define B_ANIM_SWAP_TO_SUBSTITUTE       0x3E
 #define B_ANIM_SWAP_FROM_SUBSTITUTE     0x3F
+#define B_ANIM_FORM_CHANGE_INSTANT      0x40 //need add these to rest of anim stuff
+#define B_ANIM_FORM_CHANGE_DISGUISE     0x41
 
 
-#define NUM_B_ANIMS_GENERAL 0x40
+#define NUM_B_ANIMS_GENERAL 0x42
 
 // special animations table
 #define B_ANIM_LVL_UP                   0x0
@@ -717,6 +719,7 @@ enum SpeciesGfxChange
 {
     SPECIES_GFX_CHANGE_TRANSFORM,
     SPECIES_GFX_CHANGE_FORM_CHANGE,
+    SPECIES_GFX_CHANGE_FORM_CHANGE_INSTANT,
     SPECIES_GFX_CHANGE_ILLUSION_OFF,
 };
 

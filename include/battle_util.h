@@ -50,7 +50,6 @@ enum FieldEffectCases
 
 enum AbilityEffect
 {
-    ABILITYEFFECT_ON_SWITCHIN,
     ABILITYEFFECT_ENDTURN,
     ABILITYEFFECT_MOVE_END_ATTACKER,
     ABILITYEFFECT_PRE_HIT_REACT, // new effect for color change
@@ -59,6 +58,7 @@ enum AbilityEffect
     ABILITYEFFECT_IMMUNITY,
     ABILITYEFFECT_SYNCHRONIZE,
     ABILITYEFFECT_ATK_SYNCHRONIZE,
+    ABILITYEFFECT_FORM_CHANGE_ON_HIT,
     ABILITYEFFECT_MOVE_END_OTHER,
     ABILITYEFFECT_MOVE_END_FOES_FAINTED, // Moxie-like abilities / Battle Bond / Magician
 
@@ -66,6 +66,8 @@ enum AbilityEffect
     ABILITYEFFECT_TERA_SHIFT,
     ABILITYEFFECT_NEUTRALIZINGGAS,
     ABILITYEFFECT_UNNERVE,
+    ABILITYEFFECT_ON_SWITCHIN,
+    ABILITYEFFECT_SWITCH_IN_FORM_CHANGE,
     ABILITYEFFECT_COMMANDER, // Commander / Hospitality / Costar
     ABILITYEFFECT_ON_WEATHER,
     ABILITYEFFECT_ON_TERRAIN,
@@ -433,21 +435,55 @@ void BattleScriptPushCursorAndCallback(const u8 *BS_ptr);
 u32 ItemBattleEffects(enum ItemCaseId caseID, enum BattlerId battler, bool32 moveTurn);
 void ClearDestinyBondGrudge(enum BattlerId battlerId);
 void HandleAction_RunBattleScript(void);
-u8 GetBattleMoveTarget(u16 move, u8 setTarget);
-u32 SetRandomTarget(enum BattlerId battlerId);
-u8 IsMonDisobedient(void);
+
+/*u8 IsMonDisobedient(void);
 u32 GetBattleMoveSplit(u32 moveId);
-u32 GetBattleMoveDamageCategory(u32 attackerId, u16 move);
+u32 GetBattleMoveDamageCategory(u32 attackerId, u16 move);*/
 bool8 IsBattlerAlive(enum BattlerId battlerId);
-bool8 IsBlackFogNotOnField(void);
-u32 GetBattlerWeight(enum BattlerId battlerId);
 u32 GetFlingPowerFromItemId(u32 itemId);
 //u16 GetPrimalReversionSpecies(u16 preEvoSpecies, u16 heldItemId);
 //u16 GetMegaEvolutionSpecies(u16 preEvoSpecies, u16 heldItemId);
 //u16 GetWishMegaEvolutionSpecies(u16 preEvoSpecies, u16 moveId1, u16 moveId2, u16 moveId3, u16 moveId4);
-bool32 CanMegaEvolve(enum BattlerId battler);  //updated from ee new version
 //void UndoMegaEvolution(u32 monId);  no longer used
-void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut);
+
+u32 SetRandomTarget(enum BattlerId battlerAtk);
+u32 GetBattleMoveTarget(enum Move move, enum MoveTarget moveTarget);
+enum Obedience GetAttackerObedienceForAction(void);
+enum HoldEffect GetBattlerHoldEffect(enum BattlerId battler);
+enum HoldEffect GetBattlerHoldEffectIgnoreAbility(enum BattlerId battler);
+enum HoldEffect GetBattlerHoldEffectIgnoreNegation(enum BattlerId battler);
+enum HoldEffect GetBattlerHoldEffectInternal(enum BattlerId battler, enum Ability ability);
+u32 GetBattlerHoldEffectParam(enum BattlerId battler);
+bool32 CanBattlerAvoidContactEffects(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, enum Move move);
+bool32 IsMoveMakingContact(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, enum Move move);
+bool32 IsBattlerGrounded(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect);
+u32 GetMoveSlot(u16 *moves, enum Move move);
+u32 GetBattlerWeight(enum BattlerId battler);
+s32 CalcCritChanceStage(struct BattleContext *ctx);
+s32 CalcCritChanceStageGen1(struct BattleContext *ctx);
+s32 CalculateMoveDamage(struct BattleContext *ctx);
+s32 CalculateMoveDamageVars(struct BattleContext *ctx);
+s32 DoFixedDamageMoveCalc(struct BattleContext *ctx);
+s32 ApplyModifiersAfterDmgRoll(struct BattleContext *ctx, s32 dmg);
+uq4_12_t CalcTypeEffectivenessMultiplier(struct BattleContext *ctx);
+uq4_12_t CalcPartyMonTypeEffectivenessMultiplier(enum Move move, u16 speciesDef, enum Ability abilityDef);
+uq4_12_t GetTypeModifier(enum Type atkType, enum Type defType);
+uq4_12_t GetOverworldTypeEffectiveness(struct Pokemon *mon, enum Type moveType);
+void UpdateMoveResultFlags(uq4_12_t modifier, u16 *resultFlags);
+s32 GetStealthHazardDamage(enum TypeSideHazard hazardType, enum BattlerId battler);
+s32 GetStealthHazardDamageByTypesAndHP(enum TypeSideHazard hazardType, enum Type type1, enum Type type2, u32 maxHp);
+bool32 CanMegaEvolve(enum BattlerId battler);
+bool32 CanUltraBurst(enum BattlerId battler);
+void ActivateMegaEvolution(enum BattlerId battler);
+void ActivateUltraBurst(enum BattlerId battler);
+bool32 IsBattlerMegaEvolved(enum BattlerId battler);
+bool32 IsBattlerPrimalReverted(enum BattlerId battler);
+bool32 IsBattlerUltraBursted(enum BattlerId battler);
+u32 GetBattleFormChangeTargetSpecies(enum BattlerId battler, enum FormChanges method, enum Ability ability);
+bool32 TryRevertPartyMonFormChange(u32 partyIndex);
+bool32 TryBattleFormChange(enum BattlerId battler, enum FormChanges method, enum Ability ability);
+//From EE
+
 bool32 DoBattlersShareType(enum BattlerId battler1, enum BattlerId battler2);
 bool32 CanBattlerEscape(enum BattlerId battler);
 u32 IsAbilityPreventingEscape(enum BattlerId battlerId);

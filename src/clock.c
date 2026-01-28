@@ -70,3 +70,23 @@ static void UpdatePerDay(struct Time *localTime)
 //         }
 //     }
 // }
+void FormChangeTimeUpdate()
+{
+    s32 i;
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        TryFormChange(&gPlayerParty[i], FORM_CHANGE_TIME_OF_DAY);
+    }
+}
+
+/*static void ReturnFromStartWallClock(void)
+{
+    InitTimeBasedEvents();
+    SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
+}
+
+void StartWallClock(void)
+{
+    SetMainCallback2(CB2_StartWallClock);
+    gMain.savedCallback = ReturnFromStartWallClock;
+}*/

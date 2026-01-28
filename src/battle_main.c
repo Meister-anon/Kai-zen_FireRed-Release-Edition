@@ -1239,7 +1239,19 @@ static void CB2_InitBattleInternal(void)
     }
     gMain.inBattle = TRUE;
     for (i = 0; i < PARTY_SIZE; ++i)
+    {
         AdjustFriendship(&gPlayerParty[i], FRIENDSHIP_EVENT_LEAGUE_BATTLE);
+
+        // Apply party-wide start-of-battle form changes for both sides.
+        TryFormChange(&gPlayerParty[i], FORM_CHANGE_BEGIN_BATTLE);
+        TryFormChange(&gEnemyParty[i], FORM_CHANGE_BEGIN_BATTLE);
+    }
+
+    #if TESTING
+    gPlayerPartyCount = CalculatePartyCount(gPlayerParty);
+    gEnemyPartyCount = CalculatePartyCount(gEnemyParty);
+    #endif
+
     gBattleCommunication[MULTIUSE_STATE] = 0;
 }
 //believe this is summary screen during battle 
@@ -4053,7 +4065,7 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
     gBattleMons[battler].type3 = TYPE_MYSTERY;
 
     //Ai_UpdateFaintData(battler);
-    TryBattleFormChange(battler, FORM_CHANGE_FAINT); //replaced undomegaevolution
+    TryBattleFormChange(battler, FORM_CHANGE_FAINT, GetBattlerAbility(battler)); //replaced undomegaevolution
 
     //UndoFormChange(gBattlerPartyIndexes[battler], GET_BATTLER_SIDE(battler), FALSE); //vsonic some logic still to do
     /*if (GetBattlerSide(battler) == B_SIDE_PLAYER)

@@ -49,7 +49,7 @@ that way it'll create a workflow of building until you fix strings to find all t
 #abilityLine_Limit 41
 
 #/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/text/move_info.h
-#/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/text/abilities.h
+#/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/abilities.h
 #/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/pokemon/pokedex_text_fr.h
 import re
 
@@ -137,7 +137,7 @@ infile.close()
 
 
 
-infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/text/abilities.h', 'r')
+infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/abilities.h', 'r')
 lines = infile.readlines()
 #index = 0
 lineId = 0
