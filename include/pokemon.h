@@ -1235,7 +1235,7 @@ static inline enum Type GetHungerSwitchType(struct BattleContext *ctx)
 {
     if (GET_BASE_SPECIES_ID(gBattleMons[ctx->battlerAtk].species) == SPECIES_MORPEKO_FULL_BELLY
     && ctx->abilityAtk == ABILITY_HUNGER_SWITCH)
-        return (gBattleMons[ctx->battlerAtk].species == SPECIES_MORPEKO_FULL_BELLY ? TYPE_ELECTRIC : TYPE_DARK;)
+        return (gBattleMons[ctx->battlerAtk].species == SPECIES_MORPEKO_FULL_BELLY ? TYPE_ELECTRIC : TYPE_DARK);
 }
 
 

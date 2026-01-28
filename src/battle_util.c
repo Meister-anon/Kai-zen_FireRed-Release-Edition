@@ -1148,6 +1148,13 @@ static inline uq4_12_t PercentToUQ4_12AddOne(u32 percent)
     return uq4_12_add(UQ_4_12(1.0), PercentToUQ4_12(percent));
 }
 
+static inline uq4_12_t GetTypeBasedBoostMultiplier(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    assertf(gMovesInfo[moveId].effect == EFFECT_TARGET_TYPE_DAMAGE, "not a type boosted move: %S", GetMoveName_(moveId));
+    return PercentToUQ4_12(gMovesInfo[moveId].argument.typeBasedPowerBoost.powerMultiplier);
+}
+
 u8 GetBattlerForBattleScript(u8 caseId)
 {
     u8 ret = 0;

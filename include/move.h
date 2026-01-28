@@ -742,12 +742,6 @@ static inline u16 GetTypeBasedBoostTypeCheck(enum Move moveId)
     return gMovesInfo[moveId].argument.typeBasedPowerBoost.typeCheck;
 }
 
-static inline uq4_12_t GetTypeBasedBoostMultiplier(enum Move moveId)
-{
-    moveId = SanitizeMoveId(moveId);
-    assertf(gMovesInfo[moveId].effect == EFFECT_TARGET_TYPE_DAMAGE, "not a type boosted move: %S", GetMoveName_(moveId));
-    return PercentToUQ4_12(gMovesInfo[moveId].argument.typeBasedPowerBoost.powerMultiplier);
-}
 
 //don't need assert cuz not part of union
 static inline bool32 MoveDoesTypelessDmg(enum Move moveId)
