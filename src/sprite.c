@@ -157,6 +157,7 @@ static const u8 sCenterToCornerVecTable[3][4][2] =
     },
 };
 
+//think can leave off pos2 stuff since was 0
 static const struct Sprite sDummySprite =
 {
     .oam = DUMMY_OAM_DATA,
@@ -166,8 +167,10 @@ static const struct Sprite sDummySprite =
     .template = &gDummySpriteTemplate,
     .subspriteTables = NULL,
     .callback = SpriteCallbackDummy,
-    .pos1 = { 304, 160 },
-    .pos2 = {   0,   0 },
+    .x = 304,
+    .y = 160,
+    //.pos1 = { 304, 160 },
+    //.pos2 = {   0,   0 },
     .centerToCornerVecX = 0,
     .centerToCornerVecY = 0,
     .animNum = 0,
