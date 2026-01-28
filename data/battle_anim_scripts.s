@@ -32048,13 +32048,6 @@ gBattleAnimGeneral_SafariReaction:: @ 81D63DC
 
 gBattleAnimGeneral_IllusionOff::
 	monbg ANIM_TARGET
-	createvisualtask AnimTask_TransformMon, 2, 0, 1
-	waitforvisualfinish
-	clearmonbg ANIM_TARGET
-	end
-
-gBattleAnimGeneral_IllusionOff::
-	monbg ANIM_TARGET
 	createvisualtask AnimTask_TransformMon, 2, SPECIES_GFX_CHANGE_ILLUSION_OFF
 	waitforvisualfinish
 	clearmonbg ANIM_TARGET
