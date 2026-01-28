@@ -935,7 +935,7 @@ static void LoadItemIconGfx(u8 id, const u32 *itemTiles, const u16 *itemPal)
     CpuFastFill(0, gPSSData->itemIconBuffer, 0x200);
     LZ77UnCompWram(itemTiles, gPSSData->PSS_tileBuffer);
     for (i = 0; i < 3; i++)
-        CpuFastCopy(gPSSData->PSS_tileBuffer[i * 0x60], gPSSData->itemIconBuffer[i * 0x80], 0x60);
+        CpuFastCopy(&gPSSData->PSS_tileBuffer[i * 0x60], &gPSSData->itemIconBuffer[i * 0x80], 0x60);
 
     CpuFastCopy(gPSSData->itemIconBuffer, gPSSData->itemIconSprites[id].tiles, 0x200);
     LoadPalette(itemPal, gPSSData->itemIconSprites[id].palIndex, PLTT_SIZE_4BPP);
