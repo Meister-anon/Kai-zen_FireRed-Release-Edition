@@ -140,11 +140,11 @@ static void CB2_ReshowBattleScreenAfterMenu(void)
             --gBattleScripting.reshowMainState;
         break;
     case 9:
-        if (!LoadBattlerSpriteGfx(2))
+        if (!LoadBattlerSpriteGfx(B_POSITION_PLAYER_RIGHT))
             --gBattleScripting.reshowMainState;
         break;
     case 10:
-        if (!LoadBattlerSpriteGfx(3))
+        if (!LoadBattlerSpriteGfx(B_POSITION_OPPONENT_RIGHT))
             --gBattleScripting.reshowMainState;
         break;
     case 11:
@@ -154,10 +154,10 @@ static void CB2_ReshowBattleScreenAfterMenu(void)
         CreateBattlerSprite(B_POSITION_OPPONENT_LEFT);
         break;
     case 13:
-        CreateBattlerSprite(2);
+        CreateBattlerSprite(B_POSITION_PLAYER_RIGHT);
         break;
     case 14:
-        CreateBattlerSprite(3);
+        CreateBattlerSprite(B_POSITION_OPPONENT_RIGHT);
         break;
     case 15:
         CreateHealthboxSprite(B_POSITION_PLAYER_LEFT);
@@ -166,10 +166,10 @@ static void CB2_ReshowBattleScreenAfterMenu(void)
         CreateHealthboxSprite(B_POSITION_OPPONENT_LEFT);
         break;
     case 17:
-        CreateHealthboxSprite(2);
+        CreateHealthboxSprite(B_POSITION_PLAYER_RIGHT);
         break;
     case 18:
-        CreateHealthboxSprite(3);
+        CreateHealthboxSprite(B_POSITION_OPPONENT_RIGHT);
         break;
     case 19:
         LoadAndCreateEnemyShadowSprites();
