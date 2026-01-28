@@ -12,6 +12,9 @@
 #include "constants/battle_anim.h"
 #include "constants/rgb.h"
 
+//not using rn but think can add to gSpeciesGraphics
+//and use exclusively for summary screen where it won't
+//affect battle speed etc.
 /*
     This file handles the movements of the Pokémon intro animations.
 
@@ -470,9 +473,9 @@ static void SetPosForRotation(struct Sprite *sprite, u16 index, s16 amplitudeX, 
 
 enum BackAnim GetSpeciesBackAnimSet(u16 species)
 {
-    if (gSpeciesInfo[species].backAnimId != BACK_ANIM_NONE)
+    /*if (gSpeciesInfo[species].backAnimId != BACK_ANIM_NONE)
         return gSpeciesInfo[species].backAnimId - 1;
-    else
+    else*/
         return BACK_ANIM_NONE;
 }
 
@@ -526,11 +529,14 @@ static void Task_HandleMonAnimation(u8 taskId)
         // Task_HandleMonAnimation handles more than just KO animations,
         // but if the counter is non-zero then only KO animations are running.
         // This assumption is not checked.
-        if (gBattleStruct->battlerKOAnimsRunning > 0)
-            gBattleStruct->battlerKOAnimsRunning--;
+        /*if (gBattleStruct->battlerKOAnimsRunning > 0)
+            gBattleStruct->battlerKOAnimsRunning--;*/
         DestroyTask(taskId);
     }
-}
+}//ko animation is repeat of send out animation just on ko'ing a foe
+//good in 3d bad in 2d
+//believe won't need as only planning to 
+//use animations in summary screen
 
 void LaunchAnimationTaskForFrontSprite(struct Sprite *sprite, enum AnimFunctionIDs frontAnimId)
 {
@@ -560,7 +566,7 @@ void LaunchAnimationTaskForBackSprite(struct Sprite *sprite, enum BackAnim backA
     nature = GetNature(GetBattlerMon(battler));
 
     // * 3 below because each back anim has 3 variants depending on nature
-    animId = 3 * backAnimSet + gNaturesInfo[nature].backAnim;
+    //animId = 3 * backAnimSet + gNaturesInfo[nature].backAnim;
     gTasks[taskId].tAnimId = sBackAnimationIds[animId];
 }
 
@@ -674,8 +680,8 @@ static void ResetSpriteAfterAnim(struct Sprite *sprite)
     {
         // FIX: Reset these back to normal after they were changed so Poké Ball catch/release
         // animations without a screen transition in between don't break
-        sprite->affineAnims = gAffineAnims_BattleSpriteOpponentSide;
-    }
+        //sprite->affineAnims = gAffineAnims_BattleSpriteOpponentSide;
+    }//leave off for now deal with on contest or later update vsonic
 #endif // BUGFIX
 }
 
