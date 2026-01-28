@@ -419,6 +419,7 @@ extern const union AffineAnimCmd *const gAffineAnims_Bubble[];
 void AnimGhostStatusSprite(struct Sprite *sprite);
 void AnimShadowBall(struct Sprite *sprite);
 void AnimTask_GrudgeFlames_Step(u8 taskId);
+void AnimTask_GhostGetOut(u8 taskId);
 extern const union AffineAnimCmd *const gAffineAnims_ShadowBall[];
 extern const union AnimCmd *const gAnims_GrudgeFlame[];
 
