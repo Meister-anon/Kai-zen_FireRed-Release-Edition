@@ -112,18 +112,17 @@ const u16 gBattleEnvironmentPalette_Frontier[] = INCBIN_U16("graphics/battle_env
     .palette = gBattleEnvironmentPalette_##background,          \
 }
 
+//was stupid the comma at end was what broke macro smh
+//since using extra comma at end of macro
 #define ENVINRONMENT_TILEMAP_INFO(background)                   \
-{                                                               \
     .tilemap = gBattleEnvironmentTilemap_##background,          \
-    .tilemap2 = gBattleEnvironmentTilemap_##background##_Doubles, \
-}
+    .tilemap2 = gBattleEnvironmentTilemap_##background##_Doubles 
 
 //em backgrouds don't have doubles rn
 //simplification to make them work for now
 #define ENVINRONMENT_TILEMAP_INFO_EM(background)                   \
-{                                                               \
     .tilemap = gBattleEnvironmentTilemap_##background,          \
-}
+    .tilemap2 = gBattleEnvironmentTilemap_##background
 
 #define DEFAULT_CAMOUFLAGE_BLEND RGB_WHITE
 
@@ -572,7 +571,7 @@ const struct BattleEnvironment gBattleEnvironmentInfo[BATTLE_ENVIRONMENT_COUNT] 
         .background =
         {
             .tileset = gBattleEnvironmentTiles_Building,
-            .tilemap = ENVINRONMENT_TILEMAP_INFO_EM(Building),
+            ENVINRONMENT_TILEMAP_INFO_EM(Building),
             .entryTileset = gBattleEnvironmentAnimTiles_Building,
             .entryTilemap = gBattleEnvironmentAnimTilemap_Building,
             .palette = gBattleEnvironmentPalette_Frontier,
