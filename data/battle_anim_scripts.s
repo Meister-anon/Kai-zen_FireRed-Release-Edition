@@ -3685,7 +3685,7 @@ gBattleAnimMove_Camouflage::
 	createvisualtask AnimTask_SetCamouflageBlend, 5, F_PAL_ATTACKER, 3, 0, 14
 	delay 16
 	createvisualtask AnimTask_AttackerFadeToInvisible, 2, 4
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	waitforvisualfinish
 	delay 8
 	createvisualtask AnimTask_SetCamouflageBlend, 5, F_PAL_ATTACKER, 0, 0, 0
@@ -4971,7 +4971,7 @@ gBattleAnimMove_FeintAttack::
 	fadetobg BG_DARK
 	waitbgfadein
 	delay 0
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, ANIM_ATTACKER, 18, 6, 1, 3
 	createvisualtask AnimTask_AttackerFadeToInvisible, 2, 1
 	waitforvisualfinish
@@ -11911,7 +11911,7 @@ gBattleAnimMove_ShadowSneak::
 	monbg ANIM_ATTACKER
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_BG, 1, 0, 7, RGB_BLACK
 	waitforvisualfinish
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, ANIM_ATTACKER, 18, 6, 1, 3
 	createvisualtask AnimTask_AttackerFadeToInvisible, 0x2, 0x1
 	waitforvisualfinish
@@ -13648,7 +13648,7 @@ ShadowForceWaitEnd:
 	end
 ShadowForcePrep:
 	monbg ANIM_ATTACKER
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, F_PAL_BG, 3, 0, 16, RGB_BLACK
 	createvisualtask AnimTask_SetGrayscaleOrOriginalPal, 5, ANIM_TARGET, FALSE
 	createvisualtask AnimTask_SetGrayscaleOrOriginalPal, 5, ANIM_ATTACKER, FALSE
@@ -17421,7 +17421,7 @@ PhantomForcePrep:
 	fadetobg BG_GHOST
 	waitbgfadein
 	delay 0
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, ANIM_ATTACKER, 18, 6, 1, 3
 	createvisualtask AnimTask_AttackerFadeToInvisible, 2, 1
 	waitforvisualfinish
@@ -18341,7 +18341,7 @@ gBattleAnimMove_HyperspaceHole::
 	loadspritegfx ANIM_TAG_POISON_BUBBLE @Poison Colour
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_BG, 1, 0, 16, RGB_WHITE
 	waitforvisualfinish
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	invisible ANIM_ATTACKER
 	delay 1
 	visible ANIM_ATTACKER
@@ -23982,7 +23982,7 @@ gBattleAnimMove_FalseSurrender::
 	fadetobg BG_DARK
 	waitbgfadein
 	delay 0
-	playsewithpan SE_M_FAINT_ATTACK, 0xc0
+	playsewithpan SE_M_FEINT_ATTACK, 0xc0
 	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, ANIM_ATTACKER, 18, 6, 1, 3
 	createvisualtask AnimTask_AttackerFadeToInvisible, 0x2, 0x1
 	waitforvisualfinish
@@ -24650,7 +24650,7 @@ gBattleAnimMove_SkitterSmack::
 	loadspritegfx ANIM_TAG_RAZOR_LEAF
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_BG, 1, 0, 16, RGB_WHITE
 	waitforvisualfinish
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	invisible ANIM_ATTACKER
 	delay 1
 	visible ANIM_ATTACKER
@@ -24801,7 +24801,7 @@ gBattleAnimMove_Poltergeist::
 	playsewithpan SE_M_DETECT, SOUND_PAN_ATTACKER
 	waitforvisualfinish
 	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, F_PAL_ATTACKER, 0, 16, 0, RGB_BLACK
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	delay 1
 	createvisualtask AnimTask_DestinyBondWhiteShadow, 0x5, 0x0, 0x24
 	delay 48
@@ -36794,17 +36794,17 @@ gBattleAnimMove_LetsSnuggleForever::
 	setarg 0x7 0x0 @;Clear arg 7 so task works properly in Link battles
 	createvisualtask AnimTask_SnatchOpposingMonMove, 0x2
 	delay 16
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	waitforvisualfinish
 	setarg 0x7 0x0 @;Clear arg 7 so task works properly in Link battles
 	createvisualtask AnimTask_SnatchOpposingMonMove, 0x2
 	delay 16
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	waitforvisualfinish
 	setarg 0x7 0x0 		@;Clear arg 7 so task works properly in Link battles
 	createvisualtask AnimTask_SnatchOpposingMonMove, 0x2
 	delay 16
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	createvisualtask AnimTask_ShakeMon, 5, ANIM_TARGET, 0, 2, 50, 1
 	call LetsSnuggleForeverTears
 	delay 8
