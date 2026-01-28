@@ -136,10 +136,12 @@ EWRAM_DATA u8 gBattleTextBuff2[TEXT_BUFF_ARRAY_COUNT] = {0};
 EWRAM_DATA u8 gBattleTextBuff3[TEXT_BUFF_ARRAY_COUNT] = {0};
 //static EWRAM_DATA u32 gUnknown_2022AE8[25] = {0}; //zsonic  //GriffinR came through again,  thought this was unused but removing is what broke brocks battle. because battle text was using it as overflow
 EWRAM_DATA u32 gBattleTypeFlags = 0;
-EWRAM_DATA u8 gBattleTerrain = 0;
+EWRAM_DATA u8 gBattleEnvironment = 0;
 EWRAM_DATA struct MultiBattlePokemonTx gMultiPartnerParty[3] = {0};
-EWRAM_DATA u8 *gBattleAnimMons_BgTilesBuffer = NULL;
-EWRAM_DATA u8 *gBattleAnimMons_BgTilemapBuffer = NULL;
+EWRAM_DATA u8 *gBattleAnimBgTileBuffer = NULL;
+EWRAM_DATA u8 *gBattleAnimBgTilemapBuffer = NULL;
+EWRAM_DATA u32 gTransformedPersonalities[MAX_BATTLERS_COUNT] = {0};
+EWRAM_DATA bool8 gTransformedShininess[MAX_BATTLERS_COUNT] = {0};
 static EWRAM_DATA u16 *sUnknownDebugSpriteDataBuffer = NULL;
 EWRAM_DATA u8 gBattlerAbility = 0;  //didn't want to port but its required since its the main thing used with ability popups
 EWRAM_DATA u32 gBattleControllerExecFlags = 0;
@@ -180,6 +182,7 @@ EWRAM_DATA u16 gLastPrintedMoves[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gLastMoves[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gLastLandedMoves[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gLastHitByType[MAX_BATTLERS_COUNT] = {0};    //may need to add last hit by move for fly cancel?
+EWRAM_DATA u16 gLastUsedMoveType[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gLastResultingMoves[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gLockedMoves[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gLastUsedMove = 0; //still unsure if I need to add this or can just use gLastResultingMoves which seems to be equivalent
@@ -859,46 +862,55 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("NORMAL"),
         .isHiddenPowerType = FALSE,
+        .tmhmSpritePalOffset = 0x000,
     },
         [TYPE_FIGHTING] =
     {
         .name = _("FIGHT"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x090,
     },
         [TYPE_FLYING] =
     {
         .name = _("FLYING"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x080,
     },
         [TYPE_POISON] =
     {
         .name = _("POISON"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x0c0,
     },
         [TYPE_GROUND] =
     {
         .name = _("GROUND"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x060,
     },
         [TYPE_ROCK] =
     {
         .name = _("ROCK"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x050,
     },
         [TYPE_BUG] =
     {
         .name = _("BUG"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x0b0,
     },
         [TYPE_GHOST] =
     {
         .name = _("GHOST"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x0a0,
     },
         [TYPE_STEEL] =
     {
         .name = _("STEEL"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x0e0,
     },
         [TYPE_MYSTERY] =
     {
@@ -909,46 +921,55 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("FIRE"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x010,
     },
         [TYPE_WATER] =
     {
         .name = _("WATER"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x020,
     },
         [TYPE_GRASS] =
     {
         .name = _("GRASS"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x030,
     },
         [TYPE_ELECTRIC] =
     {
         .name = _("ELECTR"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x040,
     },
         [TYPE_PSYCHIC] =
     {
         .name = _("PSYCHC"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x0d0,
     },
         [TYPE_ICE] =
     {
         .name = _("ICE"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x070,
     },
         [TYPE_DRAGON] =
     {
         .name = _("DRAGON"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x100,
     },
         [TYPE_DARK] =
     {
         .name = _("DARK"),
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x0f0,
     },
         [TYPE_FAIRY] =
     {
         .name = _("FAIRY"), //fairy addition
         .isHiddenPowerType = TRUE,
+        .tmhmSpritePalOffset = 0x110,
     },
         [TYPE_WIND] =
     {
@@ -959,6 +980,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("SOUND"),
         .isHiddenPowerType = FALSE,
+        .tmhmSpritePalOffset = 0x120, //believe still to do
     },
 };
 //uses same type order as list_menu.c so this fairy is 12, but my actuall fairy type
@@ -1199,7 +1221,7 @@ static void CB2_InitBattleInternal(void)
     gBattle_BG2_Y = 0;
     gBattle_BG3_X = 0;
     gBattle_BG3_Y = 0;
-    gBattleTerrain = BattleSetup_GetTerrainId();
+    gBattleEnvironment = BattleSetup_GetTerrainId();
     InitBattleBgsVideo();
     LoadBattleTextboxAndBackground();
     ResetSpriteData();
@@ -3015,9 +3037,9 @@ void SpriteCB_VsLetterDummy(struct Sprite *sprite)
 static void SpriteCB_VsLetter(struct Sprite *sprite)
 {
     if (sprite->data[0] != 0)
-        sprite->pos1.x = sprite->data[1] + ((sprite->data[2] & 0xFF00) >> 8);
+        sprite->x = sprite->data[1] + ((sprite->data[2] & 0xFF00) >> 8);
     else
-        sprite->pos1.x = sprite->data[1] - ((sprite->data[2] & 0xFF00) >> 8);
+        sprite->x = sprite->data[1] - ((sprite->data[2] & 0xFF00) >> 8);
     sprite->data[2] += 0x180;
     if (sprite->affineAnimEnded)
     {
@@ -3110,7 +3132,7 @@ void CB2_InitEndLinkBattle(void)
     gBattle_BG3_X = 0;
     gBattle_BG3_Y = 0;
     InitBattleBgsVideo();
-    LoadCompressedPalette(gBattleInterface_Textbox_Pal, 0, 64);
+    LoadPalette(gBattleInterface_Textbox_Pal, 0, 64);
     LoadBattleMenuWindowGfx();
     ResetSpriteData();
     ResetTasks();
@@ -3230,8 +3252,8 @@ static void SpriteCB_MoveWildMonToRight(struct Sprite *sprite)
 {
     if ((gIntroSlideFlags & 1) == 0)
     {
-        sprite->pos2.x += 2;
-        if (sprite->pos2.x == 0)
+        sprite->x2 += 2;
+        if (sprite->x2 == 0)
         {
             sprite->callback = SpriteCB_WildMonShowHealthbox;
             PlayCry_Normal(sprite->data[2], 25);
@@ -3319,6 +3341,9 @@ void SpriteCB_FaintOpponentMon(struct Sprite *sprite)
     {
         yOffset = gMonFrontPicCoords[species].y_offset;
     }*/
+   //using this func usually only in battle_anim_mons
+   //because identical logic and because not storing
+   //data in base stats i.e species_info
     yOffset = GetBattlerYDelta(battler, species);
 
     sprite->data[3] = 8 - yOffset / 8;
@@ -3333,7 +3358,7 @@ static void SpriteCB_AnimFaintOpponent(struct Sprite *sprite)
     if (--sprite->data[4] == 0)
     {
         sprite->data[4] = 2;
-        sprite->pos2.y += 8; // Move the sprite down.
+        sprite->y2 += 8; // Move the sprite down.
         if (--sprite->data[3] < 0)
         {
             FreeSpriteOamMatrix(sprite);
@@ -3341,7 +3366,7 @@ static void SpriteCB_AnimFaintOpponent(struct Sprite *sprite)
         }
         else // Erase bottom part of the sprite to create a smooth illusion of mon falling down.
         {
-            u8 *dst = (u8 *)gMonSpritesGfxPtr->sprites[GetBattlerPosition(sprite->sBattler)] + (gBattleMonForms[sprite->sBattler] << 11) + (sprite->data[3] << 8);
+            u8 *dst = (u8 *)gMonSpritesGfxPtr->spritesGfx[GetBattlerPosition(sprite->sBattler)] + (gBattleMonForms[sprite->sBattler] << 11) + (sprite->data[3] << 8);
 
             for (i = 0; i < 0x100; ++i)
                 *(dst++) = 0;
@@ -3383,8 +3408,8 @@ static void oac_poke_ally_(struct Sprite *sprite)
 {
     if (!(gIntroSlideFlags & 1))
     {
-        sprite->pos2.x -= 2;
-        if (sprite->pos2.x == 0)
+        sprite->x2 -= 2;
+        if (sprite->x2 == 0)
         {
             sprite->callback = SpriteCallbackDummy3;
             sprite->data[1] = 0;
@@ -3405,8 +3430,8 @@ void SpriteCB_FaintSlideAnim(struct Sprite *sprite)
 {
     if (!(gIntroSlideFlags & 1))
     {
-        sprite->pos2.x += sprite->data[1];
-        sprite->pos2.y += sprite->data[2];
+        sprite->x2 += sprite->data[1];
+        sprite->y2 += sprite->data[2];
     }
 }
 
@@ -3452,8 +3477,8 @@ void DoBounceEffect(u8 battler, u8 which, s8 delta, s8 amplitude)
     gSprites[invisibleSpriteId].sAmplitude = amplitude;
     gSprites[invisibleSpriteId].sBouncerSpriteId = bouncerSpriteId;
     gSprites[invisibleSpriteId].sWhich = which;
-    gSprites[bouncerSpriteId].pos2.x = 0;
-    gSprites[bouncerSpriteId].pos2.y = 0;
+    gSprites[bouncerSpriteId].x2 = 0;
+    gSprites[bouncerSpriteId].y2 = 0;
 }
 
 void EndBounceEffect(u8 battler, u8 which)
@@ -3478,8 +3503,8 @@ void EndBounceEffect(u8 battler, u8 which)
         DestroySprite(&gSprites[gBattleSpritesDataPtr->healthBoxesData[battler].battlerBounceSpriteId]);
         gBattleSpritesDataPtr->healthBoxesData[battler].battlerIsBouncing = 0;
     }
-    gSprites[bouncerSpriteId].pos2.x = 0;
-    gSprites[bouncerSpriteId].pos2.y = 0;
+    gSprites[bouncerSpriteId].x2 = 0;
+    gSprites[bouncerSpriteId].y2 = 0;
 }
 
 static void SpriteCB_BounceEffect(struct Sprite *sprite)
@@ -3491,7 +3516,7 @@ static void SpriteCB_BounceEffect(struct Sprite *sprite)
         index = sprite->sSinIndex;
     else
         index = sprite->sSinIndex;
-    gSprites[bouncerSpriteId].pos2.y = Sin(index, sprite->sAmplitude) + sprite->sAmplitude;
+    gSprites[bouncerSpriteId].y2 = Sin(index, sprite->sAmplitude) + sprite->sAmplitude;
     sprite->sSinIndex = (sprite->sSinIndex + sprite->sDelta) & 0xFF;
 }
 
@@ -4104,7 +4129,7 @@ static void BattleIntroPrepareBackgroundSlide(void)
     if (gBattleControllerExecFlags == 0)
     {
         battler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-        BtlController_EmitIntroSlide(battler, B_COMM_TO_CONTROLLER, gBattleTerrain);
+        BtlController_EmitIntroSlide(battler, B_COMM_TO_CONTROLLER, gBattleEnvironment);
         MarkBattlerForControllerExec(battler);
         gBattleMainFunc = BattleIntroDrawTrainersOrMonsSprites;
         gBattleCommunication[MULTIUSE_STATE] = 0;
@@ -6117,7 +6142,7 @@ static void HandleEndTurn_FinishBattle(void)
             bool8 changedForm = FALSE;
             // Appeared in battle and didn't faint
             if ((gBattleStruct->appearedInBattle & (1u << i)) && GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) != 0)
-                changedForm = TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_END_BATTLE_TERRAIN);
+                changedForm = TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_END_BATTLE_ENVIRONMENT);
             if (!changedForm)
                 changedForm = TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_END_BATTLE);
 

@@ -1843,6 +1843,12 @@ u32 CheckMoveLimitations(u32 battler, u8 unusableMoves, u16 check)
         // Imprison
         else if (check & MOVE_LIMITATION_IMPRISON && GetImprisonedMovesCount(battler, move))
             unusableMoves |= 1u << i;
+        // Bind
+        /*
+            if (gDisableStructs[battler].bindTurns && gDisableStructs[battler].bindedMove != MOVE_NONE)
+            if (gDisableStructs[battler].bindedMove != move) //checking existing moves for locked move, if bind move is move none ex. switch all moves are unusable?
+            unusableMoves |= (1u << i); //adds moves to unusable list
+        *///vsonic
         // Encore
         else if (check & MOVE_LIMITATION_ENCORE && gBattleMons[battler].volatiles.encoreTimer && gBattleMons[battler].volatiles.encoredMove != move)
             unusableMoves |= 1u << i;
@@ -14302,7 +14308,7 @@ bool32 TryActivateHeatTrance(u32 battler)  //change mind better to do 2 function
 //not same as EE version of function prob rename later
 //rn only using for charge status
 //got removed unsure if still need
-/*u8 GetMoveType(u32 moveType, u32 btlAttacker)
+/*enum Type GetMoveType(u32 moveType, u32 btlAttacker)
 {
     u16 move; //move should be current move unless move that calls move than instead is calledmove
     u8 Type, moveArgument;
@@ -14318,10 +14324,18 @@ bool32 TryActivateHeatTrance(u32 battler)  //change mind better to do 2 function
     if ((Type || moveArgument) == moveType)
         return Type;
     else
-        return 0xFF; //return this if not find type to avoid issue w type none
+        return TYPE_NONE; //return this if not find type to avoid issue w type none
 
 
 }*/
+
+enum Type GetBattleMoveType(u32 move)
+{
+    if (gMain.inBattle && gBattleStruct->dynamicMoveType)
+        return gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;
+
+    return gBattleMoves[move].type;
+}
 
 #define FIXATION_EFFECTS
 //present form useless plan rework
@@ -14577,5 +14591,15 @@ void SetOrClearRageVolatile(void)
         gBattleMons[gBattlerAttacker].volatiles.rage = TRUE;
     else
         gBattleMons[gBattlerAttacker].volatiles.rage = FALSE;
+}
+
+//initialsetup was turn off rage but keep counter
+//unsure if still want that
+void ClearRageStatuses(u8 battler) //remove rage if  move used other than rage, changed so just don't call this
+{
+    //gDisableStructs[gBattlerAttacker].rageCounter = 0;  don't reset counter so keep power boosts, 
+    //gBattleMons[battler].status2 &= ~(STATUS2_RAGE);
+    gBattleMons[battler].volatiles.rage = FALSE;
+    gBattleMons[battler].volatiles.rageCounter = 0;
 }
 

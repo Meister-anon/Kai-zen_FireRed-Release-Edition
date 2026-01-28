@@ -138,7 +138,7 @@
 	.byte \pan
 	.endm
 
-	.macro panse_1B id, pan_start, pan_end, step, delay
+	.macro panse id, pan_start, pan_end, step, delay
 	.byte 0x1B
 	.2byte \id
 	.byte \pan_start
@@ -187,12 +187,12 @@
 	.4byte \addr
 	.endm
 
-	.macro monbg_22 unk
+	.macro monbg_static unk
 	.byte 0x22
 	.byte \unk
 	.endm
 
-	.macro clearmonbg_23 unk
+	.macro clearmonbg_static unk
 	.byte 0x23
 	.byte \unk
 	.endm
@@ -209,7 +209,7 @@
 	.byte \c
 	.endm
 
-	.macro panse_26 id, pan_start, pan_end, step, delay
+	.macro panse_adjustnone id, pan_start, pan_end, step, delay
 	.byte 0x26
 	.2byte \id
 	.byte \pan_start
@@ -218,7 +218,7 @@
 	.byte \delay
 	.endm
 
-	.macro panse_27 id, pan_start, pan_end, step, delay
+	.macro panse_adjustall id, pan_start, pan_end, step, delay
 	.byte 0x27
 	.2byte \id
 	.byte \pan_start
@@ -227,16 +227,16 @@
 	.byte \delay
 	.endm
 
-	.macro monbgprio_28 unk
+	.macro splitbgprio unk
 	.byte 0x28
 	.byte \unk
 	.endm
 
-	.macro monbgprio_29
+	.macro splitbgprio_all
 	.byte 0x29
 	.endm
 
-	.macro monbgprio_2A unk
+	.macro splitbgprio_foes unk
 	.byte 0x2A
 	.byte \unk
 	.endm
@@ -251,12 +251,12 @@
 	.byte \side
 	.endm
 
-	.macro doublebattle_2D unk
+	.macro teamattack_moveback unk
 	.byte 0x2D
 	.byte \unk
 	.endm
 
-	.macro doublebattle_2E unk
+	.macro teamattack_movefwd unk
 	.byte 0x2E
 	.byte \unk
 	.endm

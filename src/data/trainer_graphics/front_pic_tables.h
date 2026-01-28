@@ -302,7 +302,7 @@ const struct CompressedSpriteSheet gTrainerFrontPicTable[] =
     TRAINER_SPRITE(PAINTER, gTrainerFrontPic_Painter, 0x800),
 };
 
-const struct CompressedSpritePalette gTrainerFrontPicPaletteTable[] =
+const struct SpritePalette gTrainerFrontPicPaletteTable[] =
 {
     TRAINER_PAL(AQUA_LEADER_ARCHIE, gTrainerPalette_AquaLeaderArchie),
     TRAINER_PAL(AQUA_GRUNT_M, gTrainerPalette_AquaGruntM),

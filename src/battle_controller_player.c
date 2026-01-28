@@ -223,7 +223,7 @@ static void PlayerBufferRunCommand(u32 battler)
 
 static void CompleteOnBattlerSpritePosX_0(u32 battler)
 {
-    if (gSprites[gBattlerSpriteIds[battler]].pos2.x == 0)
+    if (gSprites[gBattlerSpriteIds[battler]].x2 == 0)
         PlayerBufferExecCompleted(battler);
 }
 
@@ -1448,15 +1448,15 @@ static void Task_CreateLevelUpVerticalStripes(u8 taskId)
             {
                 data[14] = gBattle_BG1_X;
                 data[13] = gBattle_BG1_Y;
-                gBattle_BG1_X = -(sprite->pos1.x + sprite->pos2.x) + 32;
-                gBattle_BG1_Y = -(sprite->pos1.y + sprite->pos2.y) + 32;
+                gBattle_BG1_X = -(sprite->x + sprite->x2) + 32;
+                gBattle_BG1_Y = -(sprite->y + sprite->y2) + 32;
             }
             else
             {
                 data[14] = gBattle_BG2_X;
                 data[13] = gBattle_BG2_Y;
-                gBattle_BG2_X = -(sprite->pos1.x + sprite->pos2.x) + 32;
-                gBattle_BG2_Y = -(sprite->pos1.y + sprite->pos2.y) + 32;
+                gBattle_BG2_X = -(sprite->x + sprite->x2) + 32;
+                gBattle_BG2_Y = -(sprite->y + sprite->y2) + 32;
             }
             ++data[15];
         }
@@ -1466,15 +1466,15 @@ static void Task_CreateLevelUpVerticalStripes(u8 taskId)
             u32 battlerIdAlt = battler;
             bool32 v6Alt = isOnBg2;
 
-            MoveBattlerSpriteToBG(battlerIdAlt, v6Alt);
+            MoveBattlerSpriteToBG(battlerIdAlt, v6Alt, FALSE);
         }
         ++data[15];
         break;
     case 2:
         PlaySE(SE_RS_SHOP);
         if (IsMonGettingExpSentOut())
-            CreateLevelUpVerticalSpritesTask(sprite->pos1.x + sprite->pos2.x,
-                        sprite->pos1.y + sprite->pos2.y,
+            CreateLevelUpVerticalSpritesTask(sprite->x + sprite->x2,
+                        sprite->y + sprite->y2,
                         10000,
                         10000,
                         1,
@@ -1514,7 +1514,7 @@ static void Task_CreateLevelUpVerticalStripes(u8 taskId)
 
 static void FreeMonSpriteAfterFaintAnim(u32 battler)
 {
-    if (gSprites[gBattlerSpriteIds[battler]].pos1.y + gSprites[gBattlerSpriteIds[battler]].pos2.y > DISPLAY_HEIGHT)
+    if (gSprites[gBattlerSpriteIds[battler]].y + gSprites[gBattlerSpriteIds[battler]].y2 > DISPLAY_HEIGHT)
     {
         FreeOamMatrix(gSprites[gBattlerSpriteIds[battler]].oam.matrixNum);
         DestroySprite(&gSprites[gBattlerSpriteIds[battler]]);
@@ -2417,7 +2417,7 @@ static void PlayerHandleSetRawMonData(u32 battler)
 
 static void PlayerHandleLoadMonSprite(u32 battler)
 {
-    BattleLoadPlayerMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
+    BattleLoadMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpritePosX_0;
 }
@@ -2426,7 +2426,7 @@ static void PlayerHandleSwitchInAnim(u32 battler)
 {
     ClearTemporarySpeciesSpriteData(battler, gBattleResources->bufferA[battler][2]);
     gBattlerPartyIndexes[battler] = gBattleResources->bufferA[battler][1];
-    BattleLoadPlayerMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
+    BattleLoadMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
     gActionSelectionCursor[battler] = 0;
     gMoveSelectionCursor[battler] = 0;
     StartSendOutAnim(battler, gBattleResources->bufferA[battler][2]);
@@ -2530,7 +2530,7 @@ static void PlayerHandleDrawTrainerPic(u32 battler)
                                                      (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80,
                                                      GetBattlerSpriteSubpriority(battler));
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
-    gSprites[gBattlerSpriteIds[battler]].pos2.x = DISPLAY_WIDTH;
+    gSprites[gBattlerSpriteIds[battler]].x2 = DISPLAY_WIDTH;
     gSprites[gBattlerSpriteIds[battler]].data[0] = -2;
     gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_TrainerSlideIn;
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy;
@@ -2560,7 +2560,7 @@ static void PlayerHandleTrainerSlide(u32 battler)
                                                      (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80,
                                                      30);
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
-    gSprites[gBattlerSpriteIds[battler]].pos2.x = -96;
+    gSprites[gBattlerSpriteIds[battler]].x2 = -96;
     gSprites[gBattlerSpriteIds[battler]].data[0] = 2;
     gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_TrainerSlideIn;
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy2;
@@ -2571,7 +2571,7 @@ static void PlayerHandleTrainerSlideBack(u32 battler)
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[battler]]);
     gSprites[gBattlerSpriteIds[battler]].data[0] = 50;
     gSprites[gBattlerSpriteIds[battler]].data[2] = -40;
-    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].pos1.y;
+    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].y;
     gSprites[gBattlerSpriteIds[battler]].callback = StartAnimLinearTranslation;
     StoreSpriteCallbackInData6(&gSprites[gBattlerSpriteIds[battler]], SpriteCallbackDummy);
     StartSpriteAnim(&gSprites[gBattlerSpriteIds[battler]], 1);
@@ -2647,7 +2647,7 @@ static void PlayerHandleMoveAnimation(u32 battler)
         gAnimMoveDmg = gBattleResources->bufferA[battler][6] | (gBattleResources->bufferA[battler][7] << 8) | (gBattleResources->bufferA[battler][8] << 16) | (gBattleResources->bufferA[battler][9] << 24);
         gAnimFriendship = gBattleResources->bufferA[battler][10];
         gWeatherMoveAnim = gBattleResources->bufferA[battler][12] | (gBattleResources->bufferA[battler][13] << 8);
-        gAnimDisableStructPtr = (struct DisableStruct *)&gBattleResources->bufferA[battler][16];
+        gAnimDisableStructPtr = (struct LinkBattleAnim *)&gBattleResources->bufferA[battler][16];
         //gTransformedPersonalities[battler] = gAnimDisableStructPtr->transformedMonPersonality;
         if (IsMoveWithoutAnimation(move, gAnimMoveTurn)) // Always returns FALSE.
         {
@@ -3109,13 +3109,13 @@ static void PlayerHandleIntroTrainerBallThrow(u32 battler)
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[battler]]);
     gSprites[gBattlerSpriteIds[battler]].data[0] = 50;
     gSprites[gBattlerSpriteIds[battler]].data[2] = -40;
-    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].pos1.y;
-    gSprites[gBattlerSpriteIds[battler]].callback = PlayerThrowBall_StartAnimLinearTranslation;
+    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].y;
+    gSprites[gBattlerSpriteIds[battler]].callback = StartAnimLinearTranslation;
     gSprites[gBattlerSpriteIds[battler]].data[5] = battler;
     StoreSpriteCallbackInData6(&gSprites[gBattlerSpriteIds[battler]], SpriteCB_FreePlayerSpriteLoadMonSprite);
     StartSpriteAnim(&gSprites[gBattlerSpriteIds[battler]], 1);
     paletteNum = AllocSpritePalette(0xD6F8);
-    LoadCompressedPalette(gTrainerBackPicPaletteTable[gSaveBlock2Ptr->playerGender].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
+    LoadPalette(gTrainerBackPicPaletteTable[gSaveBlock2Ptr->playerGender].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = paletteNum;
     taskId = CreateTask(Task_StartSendOutAnim, 5);
     gTasks[taskId].data[0] = battler;
@@ -3132,7 +3132,7 @@ void SpriteCB_FreePlayerSpriteLoadMonSprite(struct Sprite *sprite)
     FreeSpriteOamMatrix(sprite);
     FreeSpritePaletteByTag(GetSpritePaletteTagByPaletteNum(sprite->oam.paletteNum));
     DestroySprite(sprite);
-    BattleLoadPlayerMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
+    BattleLoadMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
     StartSpriteAnim(&gSprites[gBattlerSpriteIds[battler]], 0);
 }
 
@@ -3157,7 +3157,7 @@ static void Task_StartSendOutAnim(u8 taskId)
             StartSendOutAnim(battler, FALSE);
 
             gBattleResources->bufferA[battlerPartner][1] = gBattlerPartyIndexes[battlerPartner];
-            BattleLoadPlayerMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battlerPartner]], battlerPartner);
+            BattleLoadMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battlerPartner]], battlerPartner);
             StartSendOutAnim(battlerPartner, FALSE);
         }
         gBattlerControllerFuncs[battler] = Intro_TryShinyAnimShowHealthbox;
@@ -3221,6 +3221,9 @@ static void PlayerHandleBattleAnimation(u32 battler)
     {
         u8 animationId = gBattleResources->bufferA[battler][1];
         u16 argument = gBattleResources->bufferA[battler][2] | (gBattleResources->bufferA[battler][3] << 8);
+
+        gAnimDisableStructPtr = (struct LinkBattleAnim *)&gBattleResources->bufferA[battler][4];
+
 
         if (TryHandleLaunchBattleTableAnimation(battler, battler, battler, animationId, argument))
             PlayerBufferExecCompleted(battler);

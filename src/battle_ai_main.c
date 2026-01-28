@@ -3315,7 +3315,7 @@ static s32 AI_DoubleBattle(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             ADJUST_SCORE(-5);
         else if (atkPartnerHoldEffect == HOLD_EFFECT_SCOPE_LENS
               || IS_BATTLER_OF_TYPE(battlerAtkPartner, TYPE_DRAGON)
-              || GetMoveCriticalHitStage(aiData->partnerMove) > 0
+              || IsEnhancedCritMove(aiData->partnerMove)
               || HasMoveWithCriticalHitChance(battlerAtkPartner))
             ADJUST_SCORE(GOOD_EFFECT);
         break;
@@ -3768,7 +3768,8 @@ static s32 AI_DoubleBattle(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 break;
             case EFFECT_BEAT_UP:
                 if (atkPartnerAbility == ABILITY_JUSTIFIED
-                  && moveType == TYPE_DARK
+                  && (moveType == TYPE_DARK
+                  || moveType == TYPE_GHOST)
                   && !DoesBattlerIgnoreAbilityChecks(battlerAtk, aiData->abilities[battlerAtk], move)
                   && !IsBattleMoveStatus(move)
                   && HasMoveWithCategory(battlerAtkPartner, DAMAGE_CATEGORY_PHYSICAL)
@@ -4630,7 +4631,7 @@ static s32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move, stru
         if (aiData->abilities[battlerAtk] == ABILITY_SUPER_LUCK
          || aiData->abilities[battlerAtk] == ABILITY_SNIPER
          || aiData->holdEffects[battlerAtk] == HOLD_EFFECT_SCOPE_LENS
-         || HasMoveWithFlag(battlerAtk, GetMoveCriticalHitStage))
+         || HasMoveWithFlag(battlerAtk, IsEnhancedCritMove))//vsonic believe add dark deal here
             ADJUST_SCORE(GOOD_EFFECT);
         break;
     case EFFECT_CONFUSE:
@@ -4781,7 +4782,7 @@ static s32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move, stru
         if (predictedMove == MOVE_UNAVAILABLE)
             predictedMove = MOVE_NONE;
         enum ProtectMethod protectMethod = GetMoveProtectMethod(move);
-        switch (protectMethod)
+        switch (protectMethod) //need add new protects and shield bash by endure
         {
         case PROTECT_QUICK_GUARD:
             if (predictedMove != MOVE_NONE && GetMovePriority(predictedMove) > 0)
@@ -5097,7 +5098,7 @@ static s32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move, stru
             u32 predictedMoveOnPartner = aiData->lastUsedMove[BATTLE_PARTNER(battlerAtk)];
             if (predictedMoveOnPartner != MOVE_NONE && !IsBattleMoveStatus(predictedMoveOnPartner))
                 ADJUST_SCORE(GOOD_EFFECT);
-        }
+        }//may have to update for if known enemy has ignore redirection move vsonic
         break;
     case EFFECT_CHARGE:
         if (HasDamagingMoveOfType(battlerAtk, TYPE_ELECTRIC))
@@ -6240,6 +6241,9 @@ static s32 AI_CheckViability(u32 battlerAtk, u32 battlerDef, u32 move, s32 score
 // Effects that are encouraged on the first turn of battle
 static s32 AI_ForceSetupFirstTurn(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
 {
+    u32 abilityAtk = AI_DATA->abilities[battlerAtk];
+    u32 abilityDef = AI_DATA->abilities[battlerDef];
+
     if (IsTargetingPartner(battlerAtk, battlerDef)
       || gBattleResults.battleTurnCounter != 0)
         return score;
@@ -6357,7 +6361,7 @@ static s32 AI_Risky(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     if (IsTargetingPartner(battlerAtk, battlerDef))
         return score;
 
-    if (GetMoveCriticalHitStage(move) > 0)
+    if (IsEnhancedCritMove(move))
         ADJUST_SCORE(DECENT_EFFECT);
 
     if (IsExplosionMove(move))

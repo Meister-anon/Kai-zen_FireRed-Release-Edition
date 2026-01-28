@@ -4,10 +4,19 @@
 #include "global.h"
 #include "battle_controllers.h"
 
+// used for sBattlerCoords and sBattlerHealthboxCoords
+enum BattleCoordTypes
+{
+    BATTLE_COORDS_SINGLES,
+    BATTLE_COORDS_DOUBLES,
+    BATTLE_COORDS_COUNT,
+};
+
 enum
 {
     HP_CURRENT,
-    HP_MAX
+    HP_MAX,
+    HP_BOTH //from EE idk what for
 };
 
 enum
@@ -73,7 +82,7 @@ enum
     HEALTHBOX_SAFARI_BALLS_TEXT
 };
 
-u32 WhichBattleCoords(u32 battlerId);
+enum BattleCoordTypes GetBattlerCoordsIndex(u32 battler);
 void Task_HidePartyStatusSummary(u8 taskId);
 u8 CreateBattlerHealthboxSprites(u8 battlerId);
 u8 CreateSafariPlayerHealthboxSprites(void);

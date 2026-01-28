@@ -247,7 +247,7 @@ static void Intro_ShowHealthbox(u32 battler)
 
 static void WaitForMonAnimAfterLoad(u32 battler)
 {
-    if (gSprites[gBattlerSpriteIds[battler]].animEnded && gSprites[gBattlerSpriteIds[battler]].pos2.x == 0)
+    if (gSprites[gBattlerSpriteIds[battler]].animEnded && gSprites[gBattlerSpriteIds[battler]].x2 == 0)
         LinkPartnerBufferExecCompleted(battler);
 }
 
@@ -270,7 +270,7 @@ static void CompleteOnHealthbarDone(u32 battler)
 
 static void FreeMonSpriteAfterFaintAnim(u32 battler)
 {
-    if (gSprites[gBattlerSpriteIds[battler]].pos1.y + gSprites[gBattlerSpriteIds[battler]].pos2.y > DISPLAY_HEIGHT)
+    if (gSprites[gBattlerSpriteIds[battler]].y + gSprites[gBattlerSpriteIds[battler]].y2 > DISPLAY_HEIGHT)
     {
         FreeOamMatrix(gSprites[gBattlerSpriteIds[battler]].oam.matrixNum);
         DestroySprite(&gSprites[gBattlerSpriteIds[battler]]);
@@ -980,7 +980,7 @@ static void LinkPartnerHandleLoadMonSprite(u32 battler)
 {
     u16 species;
 
-    BattleLoadPlayerMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
+    BattleLoadMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
     species = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_SPECIES);
     SetMultiuseSpriteTemplateToPokemon(species, GetBattlerPosition(battler));
 
@@ -988,7 +988,7 @@ static void LinkPartnerHandleLoadMonSprite(u32 battler)
                                                      GetBattlerSpriteCoord(battler, BATTLER_COORD_X_2),
                                                      GetBattlerSpriteDefault_Y(battler),
                                                      GetBattlerSpriteSubpriority(battler));
-    gSprites[gBattlerSpriteIds[battler]].pos2.x = -DISPLAY_WIDTH;
+    gSprites[gBattlerSpriteIds[battler]].x2 = -DISPLAY_WIDTH;
     gSprites[gBattlerSpriteIds[battler]].data[0] = battler;
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
     StartSpriteAnim(&gSprites[gBattlerSpriteIds[battler]], gBattleMonForms[battler]);
@@ -999,7 +999,7 @@ static void LinkPartnerHandleSwitchInAnim(u32 battler)
 {
     ClearTemporarySpeciesSpriteData(battler, gBattleResources->bufferA[battler][2]);
     gBattlerPartyIndexes[battler] = gBattleResources->bufferA[battler][1];
-    BattleLoadPlayerMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
+    BattleLoadMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
     StartSendOutAnim(battler, gBattleResources->bufferA[battler][2]);
     gBattlerControllerFuncs[battler] = SwitchIn_TryShinyAnim;
 }
@@ -1093,7 +1093,7 @@ static void LinkPartnerHandleDrawTrainerPic(u32 battler)
     gBattlerSpriteIds[battler] = CreateSprite(&gMultiuseSpriteTemplate, xPos, (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80, GetBattlerSpriteSubpriority(battler));
 
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
-    gSprites[gBattlerSpriteIds[battler]].pos2.x = DISPLAY_WIDTH;
+    gSprites[gBattlerSpriteIds[battler]].x2 = DISPLAY_WIDTH;
     gSprites[gBattlerSpriteIds[battler]].sSpeedX = -2;
     gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_TrainerSlideIn;
 
@@ -1112,7 +1112,7 @@ static void LinkPartnerHandleTrainerSlideBack(u32 battler)
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[battler]]);
     gSprites[gBattlerSpriteIds[battler]].data[0] = 35;
     gSprites[gBattlerSpriteIds[battler]].data[2] = -40;
-    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].pos1.y;
+    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].y;
     gSprites[gBattlerSpriteIds[battler]].callback = StartAnimLinearTranslation;
     StoreSpriteCallbackInData6(&gSprites[gBattlerSpriteIds[battler]], SpriteCallbackDummy);
     gBattlerControllerFuncs[battler] = FreeTrainerSpriteAfterSlide;
@@ -1178,7 +1178,7 @@ static void LinkPartnerHandleMoveAnimation(u32 battler)
         gAnimMoveDmg = gBattleResources->bufferA[battler][6] | (gBattleResources->bufferA[battler][7] << 8) | (gBattleResources->bufferA[battler][8] << 16) | (gBattleResources->bufferA[battler][9] << 24);
         gAnimFriendship = gBattleResources->bufferA[battler][10];
         gWeatherMoveAnim = gBattleResources->bufferA[battler][12] | (gBattleResources->bufferA[battler][13] << 8);
-        gAnimDisableStructPtr = (struct DisableStruct *)&gBattleResources->bufferA[battler][16];
+        gAnimDisableStructPtr = (struct LinkBattleAnim *)&gBattleResources->bufferA[battler][16];
         //gTransformedPersonalities[battler] = gAnimDisableStructPtr->transformedMonPersonality;
         if (IsMoveWithoutAnimation(move, gAnimMoveTurn)) // always returns FALSE
         {
@@ -1482,7 +1482,7 @@ static void LinkPartnerHandleIntroTrainerBallThrow(u32 battler)
 
     gSprites[gBattlerSpriteIds[battler]].data[0] = 50;
     gSprites[gBattlerSpriteIds[battler]].data[2] = -40;
-    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].pos1.y;
+    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].y;
     gSprites[gBattlerSpriteIds[battler]].callback = StartAnimLinearTranslation;
     gSprites[gBattlerSpriteIds[battler]].data[5] = battler;
 
@@ -1501,7 +1501,7 @@ static void LinkPartnerHandleIntroTrainerBallThrow(u32 battler)
         trainerPicId = gLinkPlayers[GetBattlerMultiplayerId(battler)].gender;
     }
 
-    LoadCompressedPalette(gTrainerBackPicPaletteTable[trainerPicId].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
+    LoadPalette(gTrainerBackPicPaletteTable[trainerPicId].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
 
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = paletteNum;
 
@@ -1539,7 +1539,7 @@ static void Task_StartSendOutAnim(u8 taskId)
 
             battlerPartner = BATTLE_PARTNER(battler);
             gBattleResources->bufferA[battlerPartner][1] = gBattlerPartyIndexes[battlerPartner];
-            BattleLoadPlayerMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battlerPartner]], battlerPartner);
+            BattleLoadMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battlerPartner]], battlerPartner);
             StartSendOutAnim(battlerPartner, FALSE);
         }
         gBattlerControllerFuncs[battler] = Intro_ShowHealthbox;
@@ -1604,6 +1604,8 @@ static void LinkPartnerHandleBattleAnimation(u32 battler)
         u8 animationId = gBattleResources->bufferA[battler][1];
         u16 argument = gBattleResources->bufferA[battler][2] | (gBattleResources->bufferA[battler][3] << 8);
 
+        gAnimDisableStructPtr = (struct LinkBattleAnim *)&gBattleResources->bufferA[battler][4];
+        
         if (TryHandleLaunchBattleTableAnimation(battler, battler, battler, animationId, argument))
             LinkPartnerBufferExecCompleted(battler);
         else

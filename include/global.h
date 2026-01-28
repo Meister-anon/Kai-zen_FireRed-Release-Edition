@@ -5,6 +5,7 @@
 #include "gba/gba.h"
 #include "constants/rgb.h"
 #include <string.h>
+#include "assertf.h" //need ld_script updates not working yet
 #include "metaprogram.h"
 #include "constants/global.h"
 #include "constants/flags.h"
@@ -370,6 +371,8 @@ extern u8 gUnknownStringVar[]; //new buffer seems fine? haven't printed yet but 
 #define COMPOUND_ABILITY_STRING(str) (COMPOUND_STRING_SIZE_LIMIT(str, ABILITY_DESCRIPTION_LENGTH + 1))
 
 //same for trainer names in trainers.h before can use need check all name values for repeats, replace replace w static string
+//was for shinydragonhunter space saving rec but ee has more options now
+//would be good but may not need doin
 #define COMPOUND_TRAINER_NAME_STRING(str) (const u8[TRAINER_NAME_LENGTH + 1]) _(str)
 
 
@@ -479,8 +482,25 @@ enum Ball_Ids
     BALL_TIMER,
     BALL_LUXURY,
     BALL_PREMIER,
+    BALL_HEAL,
+    BALL_DUSK,
+    BALL_QUICK,
+    BALL_LEVEL,
+    BALL_LURE,
+    BALL_MOON,
+    BALL_FRIEND,
+    BALL_LOVE,
+    BALL_FAST,
+    BALL_HEAVY,
+    BALL_DREAM,
+    BALL_STRANGE,
+    BALL_SPORT,
+    BALL_PARK,
+    BALL_BEAST,
+    BALL_CHERISH,
     POKEBALL_COUNT
 };
+
 
 enum Comparison_Operators_Constants
 {

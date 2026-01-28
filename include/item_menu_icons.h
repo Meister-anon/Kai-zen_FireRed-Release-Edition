@@ -5,10 +5,10 @@
 
 extern const struct CompressedSpriteSheet gSpriteSheet_Backpack;
 extern const struct CompressedSpriteSheet gSpriteSheet_Satchel;
-extern const struct CompressedSpritePalette gSpritePalette_BagOrSatchel;
+extern const struct SpritePalette gSpritePalette_BagOrSatchel;
 
 extern const struct CompressedSpriteSheet gBagSwapSpriteSheet;
-extern const struct CompressedSpritePalette gBagSwapSpritePalette;
+extern const struct SpritePalette gBagSwapSpritePalette;
 
 void ResetItemMenuIconState(void);
 void ItemMenuIcons_CreateInsertIndicatorBarHidden(void);

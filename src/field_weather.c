@@ -136,8 +136,8 @@ static const u8 ALIGNED(2) sBasePaletteGammaTypes[32] = {
     GAMMA_NORMAL,
 };
 
-//in emerald this is gfogpalette?
-const u16 ALIGNED(4) gDefaultWeatherSpritePalette[] = INCBIN_U16("graphics/field_effects/unk_83C2CE0.gbapal");
+//in was gFogPalette took Em name is gfogpalette?
+const u16 ALIGNED(4) gFogPalette[] = INCBIN_U16("graphics/field_effects/unk_83C2CE0.gbapal");
 const u16 gCloudsWeatherPalette[] = INCBIN_U16("graphics/weather/cloud.gbapal");
 const u16 gSandstormWeatherPalette[] = INCBIN_U16("graphics/weather/sandstorm.gbapal");
 const u8 gWeatherFogDiagonalTiles[] = INCBIN_U8("graphics/weather/fog_diagonal.4bpp");
@@ -156,7 +156,7 @@ void StartWeather(void)
     if (!FuncIsActiveTask(Task_WeatherMain))
     {
         u8 index = AllocSpritePalette(0x1200);
-        CpuCopy32(gDefaultWeatherSpritePalette, &gPlttBufferUnfaded[0x100 + index * 16], 32);
+        CpuCopy32(gFogPalette, &gPlttBufferUnfaded[0x100 + index * 16], 32);
         ApplyGlobalFieldPaletteTint(index);
         BuildGammaShiftTables();
         gWeatherPtr->altGammaSpritePalIndex = index;
@@ -906,6 +906,34 @@ void FadeSelectedPals(u8 mode, s8 delay, u32 selectedPalettes)
     }
 }
 
+// fades screen using BLDY
+// Note: This enables blending in all windows;
+// These bits may need to be disabled later
+// (i.e if blending lighting effects using WINOBJ)
+void FadeScreenHardware(u32 mode, s32 delay)
+{
+    u32 bldCnt = GetGpuReg(REG_OFFSET_BLDCNT) & BLDCNT_TGT2_ALL;
+    bldCnt |= BLDCNT_TGT1_ALL;
+    // enable blend in all windows
+    SetGpuRegBits(REG_OFFSET_WININ, WININ_WIN0_CLR | WININ_WIN1_CLR);
+    SetGpuRegBits(REG_OFFSET_WINOUT, WINOUT_WIN01_CLR);
+
+    switch (mode)
+    {
+    case FADE_FROM_BLACK:
+        BeginHardwarePaletteFade(bldCnt | BLDCNT_EFFECT_DARKEN, delay, 16, 0, TRUE);
+        break;
+    case FADE_TO_BLACK:
+        BeginHardwarePaletteFade(bldCnt | BLDCNT_EFFECT_DARKEN, delay, 0, 16, FALSE);
+        break;
+    case FADE_FROM_WHITE:
+        BeginHardwarePaletteFade(bldCnt | BLDCNT_EFFECT_LIGHTEN, delay, 16, 0, TRUE);
+        break;
+    case FADE_TO_WHITE:
+        BeginHardwarePaletteFade(bldCnt | BLDCNT_EFFECT_LIGHTEN, delay, 0, 16, FALSE);
+        break;
+    }
+}
 
 bool8 IsWeatherNotFadingIn(void)
 {

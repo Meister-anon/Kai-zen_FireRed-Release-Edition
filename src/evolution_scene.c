@@ -228,7 +228,7 @@ void EvolutionScene(struct Pokemon* mon, u16 speciesToEvolve, bool8 canStopEvo, 
     gBattle_BG3_X = 256;
     gBattle_BG3_Y = 0;
 
-    gBattleTerrain = BATTLE_TERRAIN_PLAIN;
+    gBattleEnvironment = BATTLE_ENVIRONMENT_PLAIN;
 
     InitBattleBgsVideo();
     LoadBattleTextboxAndBackground();
@@ -255,13 +255,13 @@ void EvolutionScene(struct Pokemon* mon, u16 speciesToEvolve, bool8 canStopEvo, 
     trainerId = GetMonData(mon, MON_DATA_OT_ID);
     personality = GetMonData(mon, MON_DATA_PERSONALITY);
     HandleLoadSpecialPokePic_DontHandleDeoxys(TRUE,
-                                            gMonSpritesGfxPtr->sprites[1],
+                                            gMonSpritesGfxPtr->spritesGfx[1],
                                             currSpecies, personality);
     /*DecompressPicFromTable(&gMonFrontPicTable[currSpecies],
-                             gMonSpritesGfxPtr->sprites[1],
+                             gMonSpritesGfxPtr->spritesGfx[1],
                              currSpecies);*/
                              //GetMonSpritePal(mon)
-    LoadCompressedPalette(GetMonSpritePalOfSpecies(mon,currSpecies), 0x110, 0x20);
+    LoadPalette(GetMonSpritePalOfSpecies(mon,currSpecies), 0x110, 0x20);
 
     SetMultiuseSpriteTemplateToPokemon(currSpecies, 1);
     gMultiuseSpriteTemplate.affineAnims = gDummySpriteAffineAnimTable;
@@ -273,12 +273,12 @@ void EvolutionScene(struct Pokemon* mon, u16 speciesToEvolve, bool8 canStopEvo, 
 
     // postEvo sprite
     HandleLoadSpecialPokePic_DontHandleDeoxys(TRUE,
-                                            gMonSpritesGfxPtr->sprites[3],
+                                            gMonSpritesGfxPtr->spritesGfx[3],
                                             speciesToEvolve, personality);
     /*DecompressPicFromTable(&gMonFrontPicTable[speciesToEvolve],
-                             gMonSpritesGfxPtr->sprites[3],
+                             gMonSpritesGfxPtr->spritesGfx[3],
                              speciesToEvolve);*/
-    LoadCompressedPalette(GetMonSpritePalOfSpecies(mon,speciesToEvolve), 0x120, 0x20);
+    LoadPalette(GetMonSpritePalOfSpecies(mon,speciesToEvolve), 0x120, 0x20);
 
     SetMultiuseSpriteTemplateToPokemon(speciesToEvolve, 3);
     gMultiuseSpriteTemplate.affineAnims = gDummySpriteAffineAnimTable;
@@ -343,7 +343,7 @@ static void CB2_EvolutionSceneLoadGraphics(void)
     gBattle_BG3_X = 256;
     gBattle_BG3_Y = 0;
 
-    gBattleTerrain = BATTLE_TERRAIN_PLAIN;
+    gBattleEnvironment = BATTLE_ENVIRONMENT_PLAIN;
 
     InitBattleBgsVideo();
     LoadBattleTextboxAndBackground();
@@ -352,13 +352,13 @@ static void CB2_EvolutionSceneLoadGraphics(void)
     gReservedSpritePaletteCount = 4;
 
     HandleLoadSpecialPokePic_DontHandleDeoxys(TRUE,
-                                            gMonSpritesGfxPtr->sprites[3],
+                                            gMonSpritesGfxPtr->spritesGfx[3],
                                             postEvoSpecies, personality);
     /*DecompressPicFromTable(&gMonFrontPicTable[postEvoSpecies],
-                             gMonSpritesGfxPtr->sprites[3],
+                             gMonSpritesGfxPtr->spritesGfx[3],
                              postEvoSpecies);*/
 
-    LoadCompressedPalette(GetMonSpritePalOfSpecies(Mon, postEvoSpecies), 0x120, 0x20);
+    LoadPalette(GetMonSpritePalOfSpecies(Mon, postEvoSpecies), 0x120, 0x20);
 
     SetMultiuseSpriteTemplateToPokemon(postEvoSpecies, 3);
     gMultiuseSpriteTemplate.affineAnims = gDummySpriteAffineAnimTable;
@@ -425,12 +425,12 @@ static void CB2_TradeEvolutionSceneLoadGraphics(void)
             u32 trainerId = GetMonData(Mon, MON_DATA_OT_ID);
             u32 personality = GetMonData(Mon, MON_DATA_PERSONALITY);
             HandleLoadSpecialPokePic_DontHandleDeoxys(TRUE,
-                                            gMonSpritesGfxPtr->sprites[3],
+                                            gMonSpritesGfxPtr->spritesGfx[3],
                                             postEvoSpecies, personality);
             /*DecompressPicFromTable(&gMonFrontPicTable[postEvoSpecies],
-                                     gMonSpritesGfxPtr->sprites[3],
+                                     gMonSpritesGfxPtr->spritesGfx[3],
                                      postEvoSpecies);*/
-            LoadCompressedPalette(GetMonSpritePalOfSpecies(Mon, postEvoSpecies), 0x120, 0x20);
+            LoadPalette(GetMonSpritePalOfSpecies(Mon, postEvoSpecies), 0x120, 0x20);
             gMain.state++;
         }
         break;
@@ -500,14 +500,14 @@ void TradeEvolutionScene(struct Pokemon* mon, u16 speciesToEvolve, u8 preEvoSpri
     sEvoStructPtr->preEvoSpriteId = preEvoSpriteId;
 
     HandleLoadSpecialPokePic_DontHandleDeoxys(TRUE,
-                                            gMonSpritesGfxPtr->sprites[1],
+                                            gMonSpritesGfxPtr->spritesGfx[1],
                                             speciesToEvolve, personality);
 
     /*DecompressPicFromTable(&gMonFrontPicTable[speciesToEvolve],
-                            gMonSpritesGfxPtr->sprites[1],
+                            gMonSpritesGfxPtr->spritesGfx[1],
                             speciesToEvolve);*/
 
-    LoadCompressedPalette(GetMonSpritePalOfSpecies(mon, speciesToEvolve), 0x120, 0x20);
+    LoadPalette(GetMonSpritePalOfSpecies(mon, speciesToEvolve), 0x120, 0x20);
 
     SetMultiuseSpriteTemplateToPokemon(speciesToEvolve, 1);
     gMultiuseSpriteTemplate.affineAnims = gDummySpriteAffineAnimTable;

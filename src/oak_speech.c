@@ -1185,7 +1185,7 @@ static void Task_OakSpeech16(u8 taskId) //new beginnning of rename loop
     {
         if (data[0] < 24)
         {
-            gSprites[data[4]].pos1.y--;
+            gSprites[data[4]].y--;
             
         }
         data[0]--;
@@ -1886,7 +1886,7 @@ static void CreateNidoranFSprite(u8 taskId)
     u8 spriteId;
 
     HandleLoadSpecialPokePic_DontHandleDeoxys(TRUE, OakSpeechNidoranFGetBuffer(0), SPECIES_NIDORAN_F, 0);
-    LoadCompressedSpritePaletteWithTag(gSpeciesGraphics[SPECIES_NIDORAN_F].palette, SPECIES_NIDORAN_F);
+    LoadSpritePaletteWithTag(gSpeciesGraphics[SPECIES_NIDORAN_F].palette, SPECIES_NIDORAN_F);
     SetMultiuseSpriteTemplateToPokemon(SPECIES_NIDORAN_F, 0);
     spriteId = CreateSprite(&gMultiuseSpriteTemplate, 0x60, 0x60, 1);
     gSprites[spriteId].callback = SpriteCallbackDummy;
@@ -1897,7 +1897,7 @@ static void CreateNidoranFSprite(u8 taskId)
 
 static void SpriteCB_PikaSync(struct Sprite * sprite)
 {
-    sprite->pos2.y = gSprites[sprite->data[0]].animCmdIndex;
+    sprite->y2 = gSprites[sprite->data[0]].animCmdIndex;
 }
 
 static void CreatePikaOrGrassPlatformSpriteAndLinkToCurrentTask(u8 taskId, u8 state)

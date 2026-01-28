@@ -11,6 +11,7 @@
 youtube mentions:
 Pchal, WolfeyVGC  ZenmodeYT JPR Woop aka PokemonWoop Rigamarole SacredAlmighty
 x_bell TheChiptide smithplays
+veevolt and thunderzolt - for manga info teams
 
 //Show Type Effectiveness In Battle w Option Menu Toggle
 // by devolov  & PokemonCrazy

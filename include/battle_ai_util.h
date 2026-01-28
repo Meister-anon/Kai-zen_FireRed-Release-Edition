@@ -241,6 +241,8 @@ bool32 IsSubstituteEffect(enum BattleMoveEffects effect);
 bool32 IsSelfSacrificeEffect(u32 move);
 u32 GetAIExplosionChanceFromHP(u32 hpPercent);
 
+bool32 HasMoveWithFlag(u32 battler, MoveFlag getFlag);
+
 // status checks
 bool32 AI_CanBeConfused(u32 battlerAtk, u32 battlerDef, u32 move, enum Ability ability);
 bool32 IsBattlerIncapacitated(u32 battler, enum Ability ability);

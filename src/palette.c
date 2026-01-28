@@ -80,17 +80,21 @@ static const u8 sRoundedDownGrayscaleMap[] =
     31, 31
 };
 
-void LoadCompressedPalette(const u32 *src, u16 offset, u16 size)
+
+void LoadPalette(const void *src, u32 offset, u32 size)
 {
-    LZDecompressWram(src, gPaletteDecompressionBuffer);
-    CpuCopy16(gPaletteDecompressionBuffer, gPlttBufferUnfaded + offset, size);
-    CpuCopy16(gPaletteDecompressionBuffer, gPlttBufferFaded + offset, size);
+    CpuCopy16(src, &gPlttBufferUnfaded[offset], size);
+    CpuCopy16(src, &gPlttBufferFaded[offset], size);
 }
 
-void LoadPalette(const void *src, u16 offset, u16 size)
+// Drop in replacement for LoadPalette, uses CpuFastCopy, size must be 0 % 32
+void LoadPaletteFast(const void *src, u32 offset, u32 size)
 {
-    CpuCopy16(src, gPlttBufferUnfaded + offset, size);
-    CpuCopy16(src, gPlttBufferFaded + offset, size);
+    if ((u32)src & 3) // In case palette is not 4 byte aligned
+        return LoadPalette(src, offset, size);
+    CpuFastCopy(src, &gPlttBufferUnfaded[offset], size);
+    // Copying from EWRAM->EWRAM is faster than ROM->EWRAM
+    CpuFastCopy(&gPlttBufferUnfaded[offset], &gPlttBufferFaded[offset], size);
 }
 
 void FillPalette(u16 value, u16 offset, u16 size)
@@ -788,6 +792,8 @@ static bool8 IsSoftwarePaletteFadeFinishing(void)
         return FALSE;
     }
 }
+
+#define DEFAULT_LIGHT_COLOR RGB2GBA(248, 224, 120)
 
 void BlendPalettes(u32 selectedPalettes, u8 coeff, u16 color)
 {

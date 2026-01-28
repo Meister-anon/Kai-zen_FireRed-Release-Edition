@@ -468,7 +468,7 @@ struct PokemonStorageSystemData
     /* 0cd2 */ u8 field_CD6;
     /* 0cd3 */ u8 field_CD7;
     /* 0cd4 */ u8 field_CD8[2];
-    /* 0cd8 */ const u32 *cursorMonPalette;
+    /* 0cd8 */ const u16 *cursorMonPalette;
     /* 0cdc */ u32 cursorMonPersonality;
     /* 0ce0 */ u16 cursorMonSpecies;
     /* 0ce2 */ u16 cursorMonItem;
@@ -681,6 +681,6 @@ void SetBoxMonIconObjMode(u8 cursorPos, u8 objMode);
 void SetPartyMonIconObjMode(u8 cursorPos, u8 objMode);
 
 const u32 *GetItemIconPic(u16 itemId);
-const u32 *GetItemIconPalette(u16 itemId);
+const u16 *GetItemIconPalette(u16 itemId);
 
 #endif //GUARD_POKEMON_STORAGE_SYSTEM_INTERNAL_H

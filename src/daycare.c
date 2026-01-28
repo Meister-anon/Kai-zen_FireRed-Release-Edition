@@ -2862,8 +2862,8 @@ static u8 EggHatchCreateMonSprite(u8 a0, u8 switchID, u8 pokeID, u16* speciesLoc
     case 0:
     {
         u32 pid = GetMonData(mon, MON_DATA_PERSONALITY);
-        HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[(a0 * 2) + 1], species, pid);
-        LoadCompressedSpritePaletteWithTag(GetMonSpritePal(mon), species);
+        HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->spritesGfx[(a0 * 2) + 1], species, pid);
+        LoadSpritePaletteWithTag(GetMonSpritePal(mon), species);
         *speciesLoc = species;
     }
         break;
@@ -2949,7 +2949,7 @@ static void CB2_EggHatch_0(void)
     case 2:
         DecompressAndLoadBgGfxUsingHeap(0, gBattleInterface_Textbox_Gfx, 0, 0, 0);
         CopyToBgTilemapBuffer(0, gBattleInterface_Textbox_Tilemap, 0, 0);
-        LoadCompressedPalette(gBattleInterface_Textbox_Pal, 0, 0x20);
+        LoadPalette(gBattleInterface_Textbox_Pal, 0, 0x20);
         gMain.state++;
         break;
     case 3:
@@ -3197,7 +3197,7 @@ static void CB2_EggHatch_InParty_Phase_0(void)
     case 2:
         DecompressAndLoadBgGfxUsingHeap(0, gBattleInterface_Textbox_Gfx, 0, 0, 0);
         CopyToBgTilemapBuffer(0, gBattleInterface_Textbox_Tilemap, 0, 0);
-        LoadCompressedPalette(gBattleInterface_Textbox_Pal, 0, 0x20);
+        LoadPalette(gBattleInterface_Textbox_Pal, 0, 0x20);
         gMain.state++;
         break;
     case 3:
@@ -3421,8 +3421,8 @@ static u8 EggHatchCreateMonSprite_FromPc(u8 a0, u8 switchID, u16* speciesLoc)
     case 0:
     {
         u32 pid = GetBoxMonData(mon, MON_DATA_PERSONALITY);
-        HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[(a0 * 2) + 1], species, pid);
-        LoadCompressedSpritePaletteWithTag(GetMonSpritePal(&pkmn), species);
+        HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->spritesGfx[(a0 * 2) + 1], species, pid);
+        LoadSpritePaletteWithTag(GetMonSpritePal(&pkmn), species);
         *speciesLoc = species;
     }
         break;
@@ -3572,7 +3572,7 @@ static void CB2_EggHatch_FromPc_Phase_0(void)
     case 2:
         DecompressAndLoadBgGfxUsingHeap(0, gBattleInterface_Textbox_Gfx, 0, 0, 0);
         CopyToBgTilemapBuffer(0, gBattleInterface_Textbox_Tilemap, 0, 0);
-        LoadCompressedPalette(gBattleInterface_Textbox_Pal, 0, 0x20);
+        LoadPalette(gBattleInterface_Textbox_Pal, 0, 0x20);
         gMain.state++;
         break;
     case 3:
@@ -3751,7 +3751,7 @@ static void SpriteCB_Egg_0(struct Sprite* sprite)
     else
     {
         sprite->data[1] = (sprite->data[1] + 20) & 0xFF;
-        sprite->pos2.x = Sin(sprite->data[1], 1);
+        sprite->x2 = Sin(sprite->data[1], 1);
         if (sprite->data[0] == 15)
         {
             PlaySE(SE_BALL);
@@ -3774,7 +3774,7 @@ static void SpriteCB_Egg_1(struct Sprite* sprite)
         else
         {
             sprite->data[1] = (sprite->data[1] + 20) & 0xFF;
-            sprite->pos2.x = Sin(sprite->data[1], 2);
+            sprite->x2 = Sin(sprite->data[1], 2);
             if (sprite->data[0] == 15)
             {
                 PlaySE(SE_BALL);
@@ -3805,13 +3805,13 @@ static void SpriteCB_Egg_2(struct Sprite* sprite)
             sprite->callback = SpriteCB_Egg_3;
             sprite->data[0] = 0;
             species = GetMonData(&gPlayerParty[sEggHatchData->eggPartyID], MON_DATA_SPECIES);
-            gSprites[sEggHatchData->pokeSpriteID].pos2.x = 0;
-            gSprites[sEggHatchData->pokeSpriteID].pos2.y = gSpeciesGraphics[species].frontPicYOffset; //was field1, just taking a guess
+            gSprites[sEggHatchData->pokeSpriteID].x2 = 0;
+            gSprites[sEggHatchData->pokeSpriteID].y2 = gSpeciesGraphics[species].frontPicYOffset; //was field1, just taking a guess
         }
         else
         {
             sprite->data[1] = (sprite->data[1] + 20) & 0xFF;
-            sprite->pos2.x = Sin(sprite->data[1], 2);
+            sprite->x2 = Sin(sprite->data[1], 2);
             if (sprite->data[0] == 15)
             {
                 PlaySE(SE_BALL);
@@ -3864,7 +3864,7 @@ static void SpriteCB_Egg_5(struct Sprite* sprite)
     if (sprite->data[0] == 8)
         BeginNormalPaletteFade(PALETTES_ALL, -1, 0x10, 0, 0xFFFF);
     if (sprite->data[0] <= 9)
-        gSprites[sEggHatchData->pokeSpriteID].pos1.y -= 1;
+        gSprites[sEggHatchData->pokeSpriteID].y -= 1;
     if (sprite->data[0] > 40)
         sprite->callback = SpriteCallbackDummy;
     sprite->data[0]++;
@@ -3875,12 +3875,12 @@ static void SpriteCB_EggShard(struct Sprite* sprite)
     sprite->data[4] += sprite->data[1];
     sprite->data[5] += sprite->data[2];
 
-    sprite->pos2.x = sprite->data[4] / 256;
-    sprite->pos2.y = sprite->data[5] / 256;
+    sprite->x2 = sprite->data[4] / 256;
+    sprite->y2 = sprite->data[5] / 256;
 
     sprite->data[2] += sprite->data[3];
 
-    if (sprite->pos1.y + sprite->pos2.y > sprite->pos1.y + 20 && sprite->data[2] > 0)
+    if (sprite->y + sprite->y2 > sprite->y + 20 && sprite->data[2] > 0)
         DestroySprite(sprite);
 }
 

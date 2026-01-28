@@ -4,6 +4,7 @@
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_bg.h"
+#include "battle_environment.h"
 #include "battle_gfx_sfx_util.h"
 #include "bg.h"
 #include "constants/rgb.h"
@@ -77,7 +78,7 @@ static const struct OamData sOamData_Arrow =
 };
 
 static const u32 sArrowSheet_Gfx[] = INCBIN_U32("graphics/interface/arrow_sheet.4bpp.lz");
-static const u32 sArrowSheet_Pal[] = INCBIN_U32("graphics/interface/arrow_sheet.gbapal.lz");
+static const u16 sArrowSheet_Pal[] = INCBIN_U16("graphics/interface/arrow_sheet.gbapal");
 
 static const struct CompressedSpriteSheet sSpriteSheet_Arrows =
 {
@@ -86,7 +87,7 @@ static const struct CompressedSpriteSheet sSpriteSheet_Arrows =
     .tag = TILE_TAG_ARROWS,
 };
 
-static const struct CompressedSpritePalette sSpritePalette_Arrow =
+static const struct SpritePalette sSpritePalette_Arrow =
 {
     sArrowSheet_Pal, PAL_TAG_ARROWS
 };
@@ -243,16 +244,16 @@ const u8 gBattleBackgroundNames[][30] =
 };
 const u8 gBattleBackgroundTerrainNames[][26] =
 {
-    [BATTLE_TERRAIN_GRASS]      = _("NORMAL - GRASS           "),
-    [BATTLE_TERRAIN_LONG_GRASS] = _("NORMAL - LONG GRASS      "),
-    [BATTLE_TERRAIN_SAND]       = _("NORMAL - SAND            "),
-    [BATTLE_TERRAIN_UNDERWATER] = _("NORMAL - UNDERWATER      "),
-    [BATTLE_TERRAIN_WATER]      = _("NORMAL - WATER           "),
-    [BATTLE_TERRAIN_POND]       = _("NORMAL - POND            "),
-    [BATTLE_TERRAIN_MOUNTAIN]   = _("NORMAL - MOUNTAIN        "),
-    [BATTLE_TERRAIN_CAVE]       = _("NORMAL - CAVE            "),
-    [BATTLE_TERRAIN_BUILDING]   = _("NORMAL - BUILDING        "),
-    [BATTLE_TERRAIN_PLAIN]      = _("NORMAL - PLAIN           "),
+    [BATTLE_ENVIRONMENT_GRASS]      = _("NORMAL - GRASS           "),
+    [BATTLE_ENVIRONMENT_LONG_GRASS] = _("NORMAL - LONG GRASS      "),
+    [BATTLE_ENVIRONMENT_SAND]       = _("NORMAL - SAND            "),
+    [BATTLE_ENVIRONMENT_UNDERWATER] = _("NORMAL - UNDERWATER      "),
+    [BATTLE_ENVIRONMENT_WATER]      = _("NORMAL - WATER           "),
+    [BATTLE_ENVIRONMENT_POND]       = _("NORMAL - POND            "),
+    [BATTLE_ENVIRONMENT_MOUNTAIN]   = _("NORMAL - MOUNTAIN        "),
+    [BATTLE_ENVIRONMENT_CAVE]       = _("NORMAL - CAVE            "),
+    [BATTLE_ENVIRONMENT_BUILDING]   = _("NORMAL - BUILDING        "),
+    [BATTLE_ENVIRONMENT_PLAIN]      = _("NORMAL - PLAIN           "),
 };
 //Function declarations
 static void PrintDigitChars(struct PokemonDebugMenu *data);
@@ -422,7 +423,7 @@ static void SetArrowInvisibility(struct PokemonDebugMenu *data)
 
 static void SetUpModifyArrows(struct PokemonDebugMenu *data)
 {
-    LoadCompressedSpritePalette(&sSpritePalette_Arrow);
+    LoadSpritePalette(&sSpritePalette_Arrow);
     LoadCompressedSpriteSheet(&sSpriteSheet_Arrows);
     data->modifyArrows.arrowSpriteId[0] = CreateSprite(&sSpriteTemplate_Arrow, MODIFY_DIGITS_ARROW_X, MODIFY_DIGITS_ARROW1_Y, 0);
     data->modifyArrows.arrowSpriteId[1] = CreateSprite(&sSpriteTemplate_Arrow, MODIFY_DIGITS_ARROW_X, MODIFY_DIGITS_ARROW2_Y, 0);
@@ -442,7 +443,7 @@ static void SetUpModifyArrows(struct PokemonDebugMenu *data)
 
 static void SetUpOptionArrows(struct PokemonDebugMenu *data)
 {
-    LoadCompressedSpritePalette(&sSpritePalette_Arrow);
+    LoadSpritePalette(&sSpritePalette_Arrow);
     LoadCompressedSpriteSheet(&sSpriteSheet_Arrows);
     data->optionArrows.arrowSpriteId[0] = CreateSprite(&sSpriteTemplate_Arrow, OPTIONS_ARROW_1_X, OPTIONS_ARROW_Y, 0);
     StartSpriteAnim(&gSprites[data->optionArrows.arrowSpriteId[0]], ARROW_RIGHT);
@@ -454,7 +455,7 @@ static void SetUpOptionArrows(struct PokemonDebugMenu *data)
 
 static void SetUpYPosModifyArrows(struct PokemonDebugMenu *data)
 {
-    LoadCompressedSpritePalette(&sSpritePalette_Arrow);
+    LoadSpritePalette(&sSpritePalette_Arrow);
     LoadCompressedSpriteSheet(&sSpriteSheet_Arrows);
     data->yPosModifyArrows.arrowSpriteId[0] = CreateSprite(&sSpriteTemplate_Arrow, OPTIONS_ARROW_1_X, OPTIONS_ARROW_Y, 0);
     StartSpriteAnim(&gSprites[data->yPosModifyArrows.arrowSpriteId[0]], ARROW_RIGHT);
@@ -539,7 +540,7 @@ static void UpdateBattlerValue(struct PokemonDebugMenu *data)
 }
 
 //Sprite functions
-static const u32 *GetMonSpritePalStructCustom(u16 species, bool8 isShiny)
+static const u16 *GetMonSpritePalStructCustom(u16 species, bool8 isShiny)
 {
     if (isShiny)
     {
@@ -557,34 +558,32 @@ static const u32 *GetMonSpritePalStructCustom(u16 species, bool8 isShiny)
     }
 }
 
+//with plan add gender forms which may have
+//change this but if sep species wont need paletteF or aything
+//worst case replace w function for get pallete
 static void BattleLoadOpponentMonSpriteGfxCustom(u16 species, bool8 isShiny, u8 battlerId) //vsonic
 {
-    const void *lzPaletteData;
-    void *buffer;
-    u16 paletteOffset = 0x100 + battlerId * 16;
+    const u16 *palette = GetMonSpritePalFromSpecies(species, isShiny);
+    u16 paletteOffset = OBJ_PLTT_ID(battlerId);
 
     if (isShiny)
     {
         if (gSpeciesGraphics[species].shinyPalette != NULL)
-            lzPaletteData =  gSpeciesGraphics[species].shinyPalette;
+            palette =  gSpeciesGraphics[species].shinyPalette;
         else
-            lzPaletteData =  gSpeciesGraphics[SPECIES_NONE].shinyPalette;
+            palette =  gSpeciesGraphics[SPECIES_NONE].shinyPalette;
     }
     else
     {
         if (gSpeciesGraphics[species].palette != NULL)
-            lzPaletteData =  gSpeciesGraphics[species].palette;
+            palette =  gSpeciesGraphics[species].palette;
         else
-            lzPaletteData =  gSpeciesGraphics[SPECIES_NONE].palette;
+            palette =  gSpeciesGraphics[SPECIES_NONE].palette;
     }
 
-    //buffer = Alloc(sizeof(lzPaletteData) * 2);
-    LoadCompressedPalette(lzPaletteData, paletteOffset, 0x20);
+    LoadPalette(palette, paletteOffset, 0x20);
 
-    /*LZDecompressWram(lzPaletteData, buffer);
-    LoadPalette(buffer, paletteOffset, 0x20);
-    LoadPalette(buffer, 0x80 + battlerId * 16, 0x20);
-    Free(buffer);*/
+
 }
 
 static void SetConstSpriteValues(struct PokemonDebugMenu *data)
@@ -636,8 +635,8 @@ static void SpriteCB_EnemyShadowCustom(struct Sprite *shadowSprite)
     u8 frontSpriteId = shadowSprite->data[0];
     struct Sprite *battlerSprite = &gSprites[frontSpriteId];
 
-    shadowSprite->pos1.x = battlerSprite->pos1.x;
-    shadowSprite->pos2.x = battlerSprite->pos2.x;
+    shadowSprite->x = battlerSprite->x;
+    shadowSprite->x2 = battlerSprite->x2;
 }
 
 static void LoadAndCreateEnemyShadowSpriteCustom(struct PokemonDebugMenu *data, u16 species)
@@ -699,114 +698,27 @@ static void DrawFootprintCustom(u8 windowId, u16 species) //not using
     CopyToWindowPixelBuffer(windowId, footprint, sizeof(footprint), 0);
 }
 
+//Background positions
+#define BACKGROUND_1_CHAR_BASE  1
+#define BACKGROUND_1_MAP_BASE  28
+#define BACKGROUND_3_CHAR_BASE  2
+#define BACKGROUND_3_MAP_BASE  26
+
 //Battle background functions
-static void LoadBattleBg(u8 battleBgType, u8 battleTerrain)
+static void LoadBattleBg(u8 battleEnvironment)
 {
 
-    switch (battleBgType)
-    {
-        default:
-        case MAP_BATTLE_SCENE_NORMAL:
-            LZDecompressVram(sBattleTerrainTable[battleTerrain].tileset, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTable[battleTerrain].tilemap, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTable[battleTerrain].tilemap2, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainTable[battleTerrain].palette, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_LINK:
-            LZDecompressVram(sBattleTerrainTiles_Building, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Building, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Building_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Link, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_GYM:
-            LZDecompressVram(sBattleTerrainTiles_Building, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Building, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Building_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Gym, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_LEADER:
-            LZDecompressVram(sBattleTerrainTiles_Building, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Building, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Building_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Leader, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_INDOOR_2:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Indoor2, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_INDOOR_1:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Indoor1, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_LORELEI:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Lorelei, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_BRUNO:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Bruno, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_AGATHA:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Agatha, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_LANCE:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Lance, 0x20, 0x60);
-            break;
-        case MAP_BATTLE_SCENE_CHAMPION:
-            LZDecompressVram(sBattleTerrainTiles_Indoor, (void*)(BG_CHAR_ADDR(2)));
-            //if (!IsDoubleBattle())
-            LZDecompressVram(sBattleTerrainTilemap_Indoor, (void*)(BG_SCREEN_ADDR(26)));
-            //else
-            //LZDecompressVram(sBattleTerrainTilemap_Indoor_Doubles, (void*)(BG_SCREEN_ADDR(26)));
-            LoadCompressedPalette(sBattleTerrainPalette_Champion, 0x20, 0x60);
-            break;
-    }
+    LZDecompressVram(gBattleEnvironmentInfo[battleEnvironment].background.tileset, (void *)(BG_CHAR_ADDR(BACKGROUND_3_CHAR_BASE)));
+    LZDecompressVram(gBattleEnvironmentInfo[battleEnvironment].background.tilemap, (void *)(BG_SCREEN_ADDR(BACKGROUND_3_MAP_BASE)));
+    LoadPalette(gBattleEnvironmentInfo[battleEnvironment].background.palette, BG_PLTT_ID(2), 3 * PLTT_SIZE_4BPP);
 }
 static void PrintBattleBgName(u8 taskId)
 {
     struct PokemonDebugMenu *data = GetStructPtr(taskId);
-    u8 fontId = 0;
-    u8 text[30+1];
-
-    if (data->battleBgType == 0)
-        StringCopy(text, gBattleBackgroundTerrainNames[data->battleTerrain]);
-    else
-        StringCopy(text, gBattleBackgroundNames[data->battleBgType]);
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, 0, 0, 0, NULL);
+    u8 fontId = FONT_SMALL;
+    //think don't need copied from spritevisualizer
+    //FillWindowPixelRect(WIN_BOTTOM_RIGHT, PIXEL_FILL(0), 0, 24, 80, gFonts[fontId].maxLetterHeight);
+    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, gBattleEnvironmentInfo[data->battleTerrain].name, 0, 0, 0, NULL);
 }
 static void UpdateBattleBg(u8 taskId, bool8 increment)
 {
@@ -816,14 +728,14 @@ static void UpdateBattleBg(u8 taskId, bool8 increment)
     {
         if (increment)
         {
-            if (data->battleTerrain == BATTLE_TERRAIN_PLAIN)
+            if (data->battleTerrain == BATTLE_ENVIRONMENT_PLAIN)
                 data->battleBgType += 1;
             else
                 data->battleTerrain += 1;
         }
         else
         {
-            if (data->battleTerrain == BATTLE_TERRAIN_GRASS)
+            if (data->battleTerrain == BATTLE_ENVIRONMENT_GRASS)
             {
                 data->battleBgType = MAP_BATTLE_SCENE_CHAMPION;
             }
@@ -840,7 +752,7 @@ static void UpdateBattleBg(u8 taskId, bool8 increment)
         else
         {
             data->battleBgType = MAP_BATTLE_SCENE_NORMAL;
-            data->battleTerrain = BATTLE_TERRAIN_PLAIN;
+            data->battleTerrain = BATTLE_ENVIRONMENT_PLAIN;
         }
     }
     else if (data->battleBgType == MAP_BATTLE_SCENE_CHAMPION)
@@ -848,7 +760,7 @@ static void UpdateBattleBg(u8 taskId, bool8 increment)
         if (increment)
         {
             data->battleBgType = MAP_BATTLE_SCENE_NORMAL;
-            data->battleTerrain = BATTLE_TERRAIN_GRASS;
+            data->battleTerrain = BATTLE_ENVIRONMENT_GRASS;
         }
         else
             data->battleBgType -= 1;
@@ -863,7 +775,7 @@ static void UpdateBattleBg(u8 taskId, bool8 increment)
 
     PrintBattleBgName(taskId);
 
-    LoadBattleBg(data->battleBgType, data->battleTerrain);
+    LoadBattleBg(data->battleTerrain);
 }
 
 // *******************************
@@ -960,7 +872,7 @@ void CB2_Debug_Pokemon(void)
     u8 taskId;
     const void *src;
     void *dst;
-    const u32 *palette;
+    const u16 *palette;
     struct PokemonDebugMenu *data;
     u16 species;
     s16 offset_y;
@@ -995,7 +907,7 @@ void CB2_Debug_Pokemon(void)
 
             FillBgTilemapBufferRect(0, 0, 0, 0, 32, 20, 15);
             InitBgsFromTemplates(0, sBgTemplates, ARRAY_COUNT(sBgTemplates));
-            LoadBattleBg(0, BATTLE_TERRAIN_GRASS);
+            LoadBattleBg(BATTLE_ENVIRONMENT_GRASS);
 
             gMain.state++;
             break;
@@ -1029,11 +941,11 @@ void CB2_Debug_Pokemon(void)
 
             //Palettes
             palette = GetMonSpritePalStructCustom(species, data->isShiny);
-            LoadCompressedSpritePaletteWithTag(palette, species);
+            LoadSpritePaletteWithTag(palette, species);
 
             //Front
             battlerPos = B_POSITION_OPPONENT_LEFT;
-            HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[battlerPos], species, 0x0);
+            HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->spritesGfx[battlerPos], species, 0x0);
             data->isShiny = FALSE;
             BattleLoadOpponentMonSpriteGfxCustom(species, data->isShiny, 1);
             SetMultiuseSpriteTemplateToPokemon(species, battlerPos);
@@ -1053,7 +965,7 @@ void CB2_Debug_Pokemon(void)
 
             //Back
             battlerPos = B_POSITION_PLAYER_RIGHT;
-            HandleLoadSpecialPokePic(FALSE, gMonSpritesGfxPtr->sprites[battlerPos], species, 0x0);
+            HandleLoadSpecialPokePic(FALSE, gMonSpritesGfxPtr->spritesGfx[battlerPos], species, 0x0);
             BattleLoadOpponentMonSpriteGfxCustom(species, data->isShiny, 4);
             SetMultiuseSpriteTemplateToPokemon(species, battlerPos);
             gMultiuseSpriteTemplate.paletteTag = species;
@@ -1149,9 +1061,9 @@ static void ApplyOffsetSpriteValues(struct PokemonDebugMenu *data)
 {
     u16 species = data->currentmonId;
     //Back
-    gSprites[data->backspriteId].pos1.y = DEBUG_MON_BACK_Y + gSpeciesGraphics[species].backPicYOffset + data->offsetsSpriteValues.offset_back_picCoords;
+    gSprites[data->backspriteId].y = DEBUG_MON_BACK_Y + gSpeciesGraphics[species].backPicYOffset + data->offsetsSpriteValues.offset_back_picCoords;
     //Front
-    gSprites[data->frontspriteId].pos1.y = GetBattlerSpriteFinal_YCustom(species, data->offsetsSpriteValues.offset_front_picCoords, data->offsetsSpriteValues.offset_front_elevation);
+    gSprites[data->frontspriteId].y = GetBattlerSpriteFinal_YCustom(species, data->offsetsSpriteValues.offset_front_picCoords, data->offsetsSpriteValues.offset_front_elevation);
 
     if (data->currentSubmenu == MonPic_Coord_Menu)
         UpdateShadowSpriteInvisible(data);
@@ -1202,7 +1114,7 @@ static void UpdateSubmenuTwoOptionValue(u8 taskId, bool8 increment)
                 offset -= 1;
         }
         data->offsetsSpriteValues.offset_back_picCoords = offset;
-        gSprites[data->backspriteId].pos1.y = DEBUG_MON_BACK_Y + gSpeciesGraphics[species].backPicYOffset + offset;
+        gSprites[data->backspriteId].y = DEBUG_MON_BACK_Y + gSpeciesGraphics[species].backPicYOffset + offset;
         break;
     case 1: //Front picCoords
         offset = data->offsetsSpriteValues.offset_front_picCoords;
@@ -1222,7 +1134,7 @@ static void UpdateSubmenuTwoOptionValue(u8 taskId, bool8 increment)
         }
         data->offsetsSpriteValues.offset_front_picCoords = offset;
         y = GetBattlerSpriteFinal_YCustom(species, offset, data->offsetsSpriteValues.offset_front_elevation);
-        gSprites[data->frontspriteId].pos1.y = y;
+        gSprites[data->frontspriteId].y = y;
         break;
     case 2: //Front elevation
         offset = data->offsetsSpriteValues.offset_front_elevation;
@@ -1242,7 +1154,7 @@ static void UpdateSubmenuTwoOptionValue(u8 taskId, bool8 increment)
         }
         data->offsetsSpriteValues.offset_front_elevation = offset;
         y = GetBattlerSpriteFinal_YCustom(species, data->offsetsSpriteValues.offset_front_picCoords, offset);
-        gSprites[data->frontspriteId].pos1.y = y;
+        gSprites[data->frontspriteId].y = y;
         UpdateShadowSpriteInvisible(data);
         break;
     }
@@ -1367,8 +1279,8 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
             if (data->modifyArrows.currentDigit != 0)
             {
                 data->modifyArrows.currentDigit--;
-                gSprites[data->modifyArrows.arrowSpriteId[0]].pos2.x -= 6;
-                gSprites[data->modifyArrows.arrowSpriteId[1]].pos2.x -= 6;
+                gSprites[data->modifyArrows.arrowSpriteId[0]].x2 -= 6;
+                gSprites[data->modifyArrows.arrowSpriteId[1]].x2 -= 6;
             }
         }
         else if (JOY_NEW(DPAD_RIGHT))
@@ -1376,8 +1288,8 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
             if (data->modifyArrows.currentDigit != (data->modifyArrows.maxDigits - 1))
             {
                 data->modifyArrows.currentDigit++;
-                gSprites[data->modifyArrows.arrowSpriteId[0]].pos2.x += 6;
-                gSprites[data->modifyArrows.arrowSpriteId[1]].pos2.x += 6;
+                gSprites[data->modifyArrows.arrowSpriteId[0]].x2 += 6;
+                gSprites[data->modifyArrows.arrowSpriteId[1]].x2 += 6;
             }
         }
 
@@ -1400,7 +1312,7 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
             {
                 data->submenuYpos[1] = 2;
                 data->optionArrows.currentDigit = data->submenuYpos[1];
-                gSprites[data->optionArrows.arrowSpriteId[0]].pos1.y = OPTIONS_ARROW_Y + data->optionArrows.currentDigit * 12;
+                gSprites[data->optionArrows.arrowSpriteId[0]].y = OPTIONS_ARROW_Y + data->optionArrows.currentDigit * 12;
             }
             SetArrowInvisibility(data);
             PrintInstructionsOnWindow(data);
@@ -1440,7 +1352,7 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
                 data->submenuYpos[2] = 0;
 
             data->yPosModifyArrows.currentDigit = data->submenuYpos[2];
-            gSprites[data->yPosModifyArrows.arrowSpriteId[0]].pos1.y = OPTIONS_ARROW_Y + data->yPosModifyArrows.currentDigit * 12;
+            gSprites[data->yPosModifyArrows.arrowSpriteId[0]].y = OPTIONS_ARROW_Y + data->yPosModifyArrows.currentDigit * 12;
         }
         else if (JOY_NEW(DPAD_UP))
         {
@@ -1450,7 +1362,7 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
                 data->submenuYpos[2] -= 1;
 
             data->yPosModifyArrows.currentDigit = data->submenuYpos[2];
-            gSprites[data->yPosModifyArrows.arrowSpriteId[0]].pos1.y = OPTIONS_ARROW_Y + data->yPosModifyArrows.currentDigit * 12;
+            gSprites[data->yPosModifyArrows.arrowSpriteId[0]].y = OPTIONS_ARROW_Y + data->yPosModifyArrows.currentDigit * 12;
         }
         else if (JOY_NEW(DPAD_LEFT))
         {
@@ -1499,7 +1411,7 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
 
 static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
 {
-    const u32 *palette;
+    const u16 *palette;
     u16 species = data->currentmonId;
     s16 offset_y;
     u8 front_x = sBattlerCoords[0][1].x;
@@ -1526,10 +1438,10 @@ static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
 
     //Palettes
     palette = GetMonSpritePalStructCustom(species, data->isShiny);
-    LoadCompressedSpritePaletteWithTag(palette, species);
+    LoadSpritePaletteWithTag(palette, species);
 
     //Front
-    HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[1], species, 0x0);
+    HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->spritesGfx[1], species, 0x0);
     BattleLoadOpponentMonSpriteGfxCustom(species, data->isShiny, 1);
     SetMultiuseSpriteTemplateToPokemon(species, 1);
     gMultiuseSpriteTemplate.paletteTag = species;
@@ -1547,7 +1459,7 @@ static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
     LoadAndCreateEnemyShadowSpriteCustom(data, species);
 
     //Back
-    HandleLoadSpecialPokePic(FALSE, gMonSpritesGfxPtr->sprites[2], species, 0x0);
+    HandleLoadSpecialPokePic(FALSE, gMonSpritesGfxPtr->spritesGfx[2], species, 0x0);
     BattleLoadOpponentMonSpriteGfxCustom(species, data->isShiny, 5);
     SetMultiuseSpriteTemplateToPokemon(species, 2);
     offset_y = gSpeciesGraphics[species].backPicYOffset;
@@ -1564,7 +1476,7 @@ static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
     gSprites[data->iconspriteId].oam.priority = 0;
 
     //Modify Arrows
-    LoadCompressedSpritePalette(&sSpritePalette_Arrow);
+    LoadSpritePalette(&sSpritePalette_Arrow);
     LoadCompressedSpriteSheet(&sSpriteSheet_Arrows);
     data->modifyArrows.arrowSpriteId[0] = CreateSprite(&sSpriteTemplate_Arrow, MODIFY_DIGITS_ARROW_X + (data->modifyArrows.currentDigit * 6), MODIFY_DIGITS_ARROW1_Y, 0);
     data->modifyArrows.arrowSpriteId[1] = CreateSprite(&sSpriteTemplate_Arrow, MODIFY_DIGITS_ARROW_X + (data->modifyArrows.currentDigit * 6), MODIFY_DIGITS_ARROW2_Y, 0);
@@ -1572,13 +1484,13 @@ static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
     StartSpriteAnim(&gSprites[data->modifyArrows.arrowSpriteId[1]], ARROW_UP);
 
     //Option Arrow
-    LoadCompressedSpritePalette(&sSpritePalette_Arrow);
+    LoadSpritePalette(&sSpritePalette_Arrow);
     LoadCompressedSpriteSheet(&sSpriteSheet_Arrows);
     data->optionArrows.arrowSpriteId[0] = CreateSprite(&sSpriteTemplate_Arrow, OPTIONS_ARROW_1_X, OPTIONS_ARROW_Y + data->optionArrows.currentDigit * 12, 0);
     StartSpriteAnim(&gSprites[data->optionArrows.arrowSpriteId[0]], ARROW_RIGHT);
 
     //Y Pos Modify Arrow
-    LoadCompressedSpritePalette(&sSpritePalette_Arrow);
+    LoadSpritePalette(&sSpritePalette_Arrow);
     LoadCompressedSpriteSheet(&sSpriteSheet_Arrows);
     data->yPosModifyArrows.arrowSpriteId[0] = CreateSprite(&sSpriteTemplate_Arrow, OPTIONS_ARROW_1_X, OPTIONS_ARROW_Y + data->yPosModifyArrows.currentDigit * 12, 0);
     StartSpriteAnim(&gSprites[data->yPosModifyArrows.arrowSpriteId[0]], ARROW_RIGHT);

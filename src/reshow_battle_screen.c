@@ -8,12 +8,12 @@
 #include "battle_interface.h"
 #include "battle_anim.h"
 #include "battle_controllers.h"
+#include "reshow_battle_screen.h"
 
 static void CB2_ReshowBattleScreenAfterMenu(void);
 static void CB2_ReshowBattleScreenAfterCatch(void); //custom for pc access post catch just need not reupdate hidden mon i.e faint/caught
 static void ReshowBattleScreen_TurnOnDisplay(void);
 static bool8 LoadBattlerSpriteGfx(u8 battlerId);
-static void CreateBattlerSprite(u8 battlerId);
 static void CreateHealthboxSprite(u8 battlerId);
 static bool8 ShouldHideBattlerSprite(u8 battlerId);
 static bool8 ShouldHideHealthboxSprite(u8 battlerId);
@@ -141,11 +141,11 @@ static void CB2_ReshowBattleScreenAfterMenu(void)
             --gBattleScripting.reshowMainState;
         break;
     case 9:
-        if (!LoadBattlerSpriteGfx(2))
+        if (!LoadBattlerSpriteGfx(B_POSITION_PLAYER_RIGHT))
             --gBattleScripting.reshowMainState;
         break;
     case 10:
-        if (!LoadBattlerSpriteGfx(3))
+        if (!LoadBattlerSpriteGfx(B_POSITION_OPPONENT_RIGHT))
             --gBattleScripting.reshowMainState;
         break;
     case 11:
@@ -155,10 +155,10 @@ static void CB2_ReshowBattleScreenAfterMenu(void)
         CreateBattlerSprite(B_POSITION_OPPONENT_LEFT);
         break;
     case 13:
-        CreateBattlerSprite(2);
+        CreateBattlerSprite(B_POSITION_PLAYER_RIGHT);
         break;
     case 14:
-        CreateBattlerSprite(3);
+        CreateBattlerSprite(B_POSITION_OPPONENT_RIGHT);
         break;
     case 15:
         CreateHealthboxSprite(B_POSITION_PLAYER_LEFT);
@@ -167,10 +167,10 @@ static void CB2_ReshowBattleScreenAfterMenu(void)
         CreateHealthboxSprite(B_POSITION_OPPONENT_LEFT);
         break;
     case 17:
-        CreateHealthboxSprite(2);
+        CreateHealthboxSprite(B_POSITION_PLAYER_RIGHT);
         break;
     case 18:
-        CreateHealthboxSprite(3);
+        CreateHealthboxSprite(B_POSITION_OPPONENT_RIGHT);
         break;
     case 19:
         LoadAndCreateEnemyShadowSprites();
@@ -258,6 +258,8 @@ static void CB2_ReshowBattleScreenAfterCatch(void)
     ++gBattleScripting.reshowMainState;
 }
 
+//idk diff but this is used
+//in place of ClearBattleBgCntBaseBlocks
 static void ReshowBattleScreen_TurnOnDisplay(void)
 {
     EnableInterrupts(INTR_FLAG_VBLANK);
@@ -282,7 +284,7 @@ static bool8 LoadBattlerSpriteGfx(u8 battler)
             if (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))
                 DecompressGhostFrontPic(&gEnemyParty[gBattlerPartyIndexes[battler]], battler);
             else if (!gBattleSpritesDataPtr->battlerData[battler].behindSubstitute)
-                BattleLoadOpponentMonSpriteGfx(&gEnemyParty[gBattlerPartyIndexes[battler]], battler);
+                BattleLoadMonSpriteGfx(&gEnemyParty[gBattlerPartyIndexes[battler]], battler);
             else
                 BattleLoadSubstituteOrMonSpriteGfx(battler, FALSE);
         }
@@ -291,7 +293,7 @@ static bool8 LoadBattlerSpriteGfx(u8 battler)
         else if (gBattleTypeFlags & BATTLE_TYPE_OLD_MAN_TUTORIAL && battler == B_POSITION_PLAYER_LEFT) // Should be checking position, not battler.
             DecompressTrainerBackPalette(BACK_PIC_OLDMAN, battler);
         else if (!gBattleSpritesDataPtr->battlerData[battler].behindSubstitute)
-            BattleLoadPlayerMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
+            BattleLoadMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
         else
             BattleLoadSubstituteOrMonSpriteGfx(battler, FALSE);
         gBattleScripting.reshowHelperState = 0;
@@ -318,7 +320,7 @@ static bool8 ShouldHideHealthboxSprite(u8 battlerId)
     return FALSE;
 }
 
-static void CreateBattlerSprite(u8 battler)
+void CreateBattlerSprite(u32 battler)
 {
     if (battler < gBattlersCount)
     {

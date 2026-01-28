@@ -1,5 +1,6 @@
 #include "constants/battle_script_commands.h"
 #include "constants/battle.h"
+#include "battle_anim_scripts.h"
 #include "constants/battle_string_ids.h"
 //EE uses .battleAnimScript = gBattleAnimMove_Struggle,
 //instead I want to set pointer table

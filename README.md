@@ -57,6 +57,27 @@ guess look for mon that match part water part restrcited type
 make new weather into Tms think give in early game
 best way for player to get idea of new effects
 
+NOTE**(
+    for terrastilizing several normal effects are now sound
+    lowing reason to terra normal
+    so to counter for terrastilizing normal type
+    have it increase joat boost
+    i.e if pokemon was normal and terras normal boost joat
+
+    typically the boost recieved is doubled 1.5 becomes 2x
+
+    if I double joat it becomes 1.34  where stab is 1.35
+
+    simplest way to get bonus is base multiplier x 2 - 1
+
+    so for normal going terra normal you'd have
+    both doubled stab bonus on normal moves
+
+    and essentially fake stab on EVERY other type
+)
+
+and add the member if necessary
+
 want contests since I enjoyed them so for now keeping contest data just
 commented out
 at completion can remove w regex replace
@@ -187,3 +208,5 @@ to be reintroduced,
     transform as soon as hit field.
 
     and no longer require holding mega stone to transform
+
+    Merging in Battle anim branch to test:

@@ -11,6 +11,12 @@
 #define TRAINER_PIC_WIDTH 64
 #define TRAINER_PIC_HEIGHT 64
 #define TRAINER_PIC_SIZE (TRAINER_PIC_WIDTH * TRAINER_PIC_HEIGHT / 2)
+
+enum {
+    BATTLER_AFFINE_NORMAL,
+    BATTLER_AFFINE_EMERGE,
+    BATTLER_AFFINE_RETURN,
+};
 struct MonCoords
 {
     // This would use a bitfield, but some function
@@ -45,24 +51,24 @@ extern const u8 gTrainerClassNames[][13];
 //extern const struct CompressedSpriteSheet gMonFrontPicTable[];
 //extern const struct MonCoords gMonBackPicCoords[];
 //extern const struct CompressedSpriteSheet gMonBackPicTable[];
-//extern const struct CompressedSpritePalette gMonPaletteTable[];
-//extern const struct CompressedSpritePalette gMonShinyPaletteTable[];
+//extern const struct SpritePalette gMonPaletteTable[];
+//extern const struct SpritePalette gMonShinyPaletteTable[];
 extern const struct SpeciesGraphicInfo gSpeciesGraphics[];
 extern const union AnimCmd *const *const gTrainerFrontAnimsPtrTable[];
 extern const struct MonCoords gTrainerFrontPicCoords[];
 extern const struct CompressedSpriteSheet gTrainerFrontPicTable[];
-extern const struct CompressedSpritePalette gTrainerFrontPicPaletteTable[];
+extern const struct SpritePalette gTrainerFrontPicPaletteTable[];
 extern const union AnimCmd *const *const gTrainerBackAnimsPtrTable[];
 extern const struct MonCoords gTrainerBackPicCoords[];
-extern const struct CompressedSpritePalette gTrainerBackPicPaletteTable[];
+extern const struct SpritePalette gTrainerBackPicPaletteTable[];
 
 extern const struct CompressedSpriteSheet gSpriteSheet_EnemyShadow;
 extern const struct SpriteTemplate gSpriteTemplate_EnemyShadow;
 
 //extern const u8 gEnemyMonElevation[NUM_SPECIES];
 
-extern const u8 *const gBattleAnims_General[];
-extern const u8 *const gBattleAnims_Special[];
+//extern const u8 *const gBattleAnims_General[];
+//extern const u8 *const gBattleAnims_Special[];
 
 extern const struct OamData gUnknown_824F010;
 extern const struct OamData gUnknown_824F018;

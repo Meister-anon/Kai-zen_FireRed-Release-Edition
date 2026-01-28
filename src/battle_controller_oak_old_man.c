@@ -599,7 +599,7 @@ static void DestroyExpTaskAndCompleteOnInactiveTextPrinter(u8 taskId)
 
 static void FreeMonSpriteAfterFaintAnim(u32 battler)
 {
-    if (gSprites[gBattlerSpriteIds[battler]].pos1.y + gSprites[gBattlerSpriteIds[battler]].pos2.y > DISPLAY_HEIGHT)
+    if (gSprites[gBattlerSpriteIds[battler]].y + gSprites[gBattlerSpriteIds[battler]].y2 > DISPLAY_HEIGHT)
     {
         FreeOamMatrix(gSprites[gBattlerSpriteIds[battler]].oam.matrixNum);
         DestroySprite(&gSprites[gBattlerSpriteIds[battler]]);
@@ -617,7 +617,7 @@ static void PrintOakText_ForPetesSake(u32 battler)
     case 0:
         if (!gPaletteFade.active)
         {
-            DoLoadHealthboxPalsForLevelUp(&gBattleStruct->simulatedInputState[1], &gBattleStruct->simulatedInputState[3], GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT));
+            LoadHealthboxPalsForLevelUp(&gBattleStruct->simulatedInputState[1], &gBattleStruct->simulatedInputState[3], GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT));
             BeginNormalPaletteFade(0xFFFFFF7E,
                                    4,
                                    0,
@@ -796,7 +796,7 @@ static void PrintOakText_KeepAnEyeOnHP(u32 battler)
     case 0:
         if (!gPaletteFade.active)
         {
-            DoLoadHealthboxPalsForLevelUp(&gBattleStruct->simulatedInputState[1], &gBattleStruct->simulatedInputState[3], battler);
+            LoadHealthboxPalsForLevelUp(&gBattleStruct->simulatedInputState[1], &gBattleStruct->simulatedInputState[3], battler);
             BeginNormalPaletteFade(0xFFFFFF7E,
                                    4,
                                    0,
@@ -1572,7 +1572,7 @@ static void OakOldManHandleDrawTrainerPic(u32 battler)
                                                          30);
     }
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
-    gSprites[gBattlerSpriteIds[battler]].pos2.x = DISPLAY_WIDTH;
+    gSprites[gBattlerSpriteIds[battler]].x2 = DISPLAY_WIDTH;
     gSprites[gBattlerSpriteIds[battler]].data[0] = -2;
     gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_TrainerSlideIn;
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy;
@@ -1599,7 +1599,7 @@ static void OakOldManHandleTrainerSlide(u32 battler)
                                                          30);
     }
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
-    gSprites[gBattlerSpriteIds[battler]].pos2.x = -96;
+    gSprites[gBattlerSpriteIds[battler]].x2 = -96;
     gSprites[gBattlerSpriteIds[battler]].data[0] = 2;
     gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_TrainerSlideIn;
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy2;
@@ -1670,7 +1670,7 @@ static void OakOldManHandleMoveAnimation(u32 battler)
     gAnimMoveDmg = gBattleResources->bufferA[battler][6] | (gBattleResources->bufferA[battler][7] << 8) | (gBattleResources->bufferA[battler][8] << 16) | (gBattleResources->bufferA[battler][9] << 24);
     gAnimFriendship = gBattleResources->bufferA[battler][10];
     gWeatherMoveAnim = gBattleResources->bufferA[battler][12] | (gBattleResources->bufferA[battler][13] << 8);
-    gAnimDisableStructPtr = (struct DisableStruct *)&gBattleResources->bufferA[battler][16];
+    gAnimDisableStructPtr = (struct LinkBattleAnim *)&gBattleResources->bufferA[battler][16];
     //gTransformedPersonalities[battler] = gAnimDisableStructPtr->transformedMonPersonality;
     if (IsMoveWithoutAnimation(move, gAnimMoveTurn)) // always returns FALSE
     {
@@ -2082,13 +2082,13 @@ static void OakOldManHandleIntroTrainerBallThrow(u32 battler)
         SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[battler]]);
         gSprites[gBattlerSpriteIds[battler]].data[0] = 50;
         gSprites[gBattlerSpriteIds[battler]].data[2] = -40;
-        gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].pos1.y;
+        gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].y;
         gSprites[gBattlerSpriteIds[battler]].callback = StartAnimLinearTranslation;
         gSprites[gBattlerSpriteIds[battler]].data[5] = battler;
         StoreSpriteCallbackInData6(&gSprites[gBattlerSpriteIds[battler]], SpriteCB_FreePlayerSpriteLoadMonSprite);
         StartSpriteAnim(&gSprites[gBattlerSpriteIds[battler]], 1);
         paletteNum = AllocSpritePalette(0xD6F8);
-        LoadCompressedPalette(gTrainerBackPicPaletteTable[gSaveBlock2Ptr->playerGender].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
+        LoadPalette(gTrainerBackPicPaletteTable[gSaveBlock2Ptr->playerGender].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
         gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = paletteNum;
         taskId = CreateTask(Task_StartSendOutAnim, 5);
         gTasks[taskId].data[0] = battler;
@@ -2185,6 +2185,8 @@ static void OakOldManHandleBattleAnimation(u32 battler)
     u8 animationId = gBattleResources->bufferA[battler][1];
     u16 argument = gBattleResources->bufferA[battler][2] | (gBattleResources->bufferA[battler][3] << 8);
 
+        gAnimDisableStructPtr = (struct LinkBattleAnim *)&gBattleResources->bufferA[battler][4];
+        
     if (TryHandleLaunchBattleTableAnimation(battler, battler, battler, animationId, argument))
         OakOldManBufferExecCompleted(battler);
     else

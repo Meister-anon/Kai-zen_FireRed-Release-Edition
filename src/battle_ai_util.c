@@ -7,7 +7,7 @@
 #include "battle_ai_util.h"
 #include "battle_ai_main.h"
 #include "battle_controllers.h"
-#include "battle_factory.h"
+//#include "battle_factory.h"
 #include "battle_setup.h"
 #include "event_data.h"
 #include "data.h"
@@ -22,6 +22,7 @@
 #include "constants/battle_move_effects.h"
 #include "constants/moves.h"
 #include "constants/items.h"
+#include "config/ai.h"
 
 static u32 GetAIEffectGroup(enum BattleMoveEffects effect);
 static u32 GetAIEffectGroupFromMove(u32 battler, u32 move);

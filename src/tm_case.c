@@ -1,5 +1,6 @@
 #include "global.h"
 #include "gflib.h"
+#include "battle_main.h"
 #include "decompress.h"
 #include "graphics.h"
 #include "task.h"
@@ -501,32 +502,6 @@ static const struct SpriteTemplate sTMSpriteTemplate = {
     SpriteCallbackDummy
 };
 
-//each type pallete is 16 bytes, 
-//so anything added would increase by 0x10
-//idk if this is still used can't sell tms
-//and redid tm case w featurebranch
-static const u16 sTMSpritePaletteOffsetByType[] = { // fairy addition need do, need do sound as well
-    [TYPE_NORMAL]   = 0x000,
-    [TYPE_FIRE]     = 0x010,
-    [TYPE_WATER]    = 0x020,
-    [TYPE_GRASS]    = 0x030,
-    [TYPE_ELECTRIC] = 0x040,
-    [TYPE_ROCK]     = 0x050,
-    [TYPE_GROUND]   = 0x060,
-    [TYPE_ICE]      = 0x070,
-    [TYPE_FLYING]   = 0x080,
-    [TYPE_FIGHTING] = 0x090,
-    [TYPE_GHOST]    = 0x0a0,
-    [TYPE_BUG]      = 0x0b0,
-    [TYPE_POISON]   = 0x0c0,
-    [TYPE_PSYCHIC]  = 0x0d0,
-    [TYPE_STEEL]    = 0x0e0,
-    [TYPE_DARK]     = 0x0f0,
-    [TYPE_DRAGON]   = 0x100,
-    [TYPE_FAIRY]    = 0X110,   //works
-    [TYPE_WIND]     = 0X120
-};
-
 void InitTMCase(u8 type, void (* exitCallback)(void), bool8 allowSelectClose)
 {
     ResetBufferPointers_NoFree();
@@ -731,9 +706,9 @@ static bool8 HandleLoadTMCaseGraphicsAndPalettes(void)
         break;
     case 3:
         if (gSaveBlock2Ptr->playerGender == MALE)
-            LoadCompressedPalette(gUnknown_8E84CB0, 0, 0x80);
+            LoadPalette(gUnknown_8E84CB0, 0, 0x80);
         else
-            LoadCompressedPalette(gUnknown_8E84D20, 0, 0x80);
+            LoadPalette(gUnknown_8E84D20, 0, 0x80);
         sTMCaseDynamicResources->seqId++;
         break;
     case 4:
@@ -1915,7 +1890,7 @@ static void SetTMSpriteAnim(struct Sprite * sprite, u8 mode)
 static void TintTMSpriteByType(u8 type) //don't get this type here is worthless all that matters is offset?
 {
     u8 palIndex = IndexOfSpritePaletteTag(TM_CASE_TM_TAG) << 4;
-    LoadPalette(sTMSpritePaletteBuffer + sTMSpritePaletteOffsetByType[type], OBJ_PLTT_OFFSET  | palIndex, 0x20);
+    LoadPalette(sTMSpritePaletteBuffer + gTypesInfo[type].tmhmSpritePalOffset, OBJ_PLTT_OFFSET  | palIndex, 0x20);
     if (sTMCaseStaticResources.tmCaseMenuType == 4)     //The 0x100 that was here had nothing to do w offset replaced w constant to make clearer
     {
         BlendPalettes(1 << (0x10 + palIndex), 4, RGB_BLACK);
@@ -1929,7 +1904,7 @@ static void UpdateTMSpritePosition(struct Sprite * sprite, u16 tmIdx) //vsonic
     {
         x = 0x1B;
         y = 0x28;
-        sprite->pos2.y = 0x10; //still need check but believe will need adjust both these y values, up(lower) to account for changed graphic
+        sprite->y2 = 0x10; //still need check but believe will need adjust both these y values, up(lower) to account for changed graphic
     }
     else
     {
@@ -1937,8 +1912,8 @@ static void UpdateTMSpritePosition(struct Sprite * sprite, u16 tmIdx) //vsonic
         x = DISC_BASE_X - Q_24_8_TO_INT(Q_24_8(14 * tmIdx) / (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES));
         y = DISC_BASE_Y + Q_24_8_TO_INT(Q_24_8(8 * tmIdx) / (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES));
     }
-    sprite->pos1.x = x;
-    sprite->pos1.y = y; //0x16 value was 2E
+    sprite->x = x;
+    sprite->y = y; //0x16 value was 2E
 }//changed tmIdx to u16 think shouldn't cause any issue, value stored there isn't changing.
 
 #define sItemId  data[0]
@@ -1960,7 +1935,7 @@ static void SpriteCB_MoveTMSpriteInCase(struct Sprite * sprite) //vsonic
     {
     case 0:
         // Lower old disc back into case
-        if (sprite->pos2.y >= 10)   //is meant to be distance but my value uses 10, default is 20
+        if (sprite->y2 >= 10)   //is meant to be distance but my value uses 10, default is 20
         {
             // Old disc is hidden, set up new disc
             if (sprite->sItemId != ITEM_NONE)
@@ -1975,14 +1950,14 @@ static void SpriteCB_MoveTMSpriteInCase(struct Sprite * sprite) //vsonic
         }
         else
         {
-            sprite->pos2.y += DISC_Y_MOVE;
+            sprite->y2 += DISC_Y_MOVE;
         }
         break;
     case 1:
-        if (sprite->pos2.y <= 0)
+        if (sprite->y2 <= 0)
             sprite->callback = SpriteCallbackDummy;
         else
-            sprite->pos2.y -= DISC_Y_MOVE;
+            sprite->y2 -= DISC_Y_MOVE;
     }
 }
 

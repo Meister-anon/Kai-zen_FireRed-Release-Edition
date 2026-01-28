@@ -7,7 +7,7 @@ extern const struct CompressedSpriteSheet gMonFrontPicTable[];
 extern const struct CompressedSpriteSheet gMonBackPicTable[];
 extern const struct CompressedSpriteSheet gTrainerFrontPicTable[];
 extern const struct CompressedSpriteSheet gTrainerBackPicTable[];
-extern const struct CompressedSpritePalette gTrainerFrontPicPaletteTable[];
+extern const struct SpritePalette gTrainerFrontPicPaletteTable[];
 extern const union AnimCmd *const gSpriteAnimTable_82349BC[];
 extern const union AnimCmd *const *const gTrainerFrontAnimsPtrTable[];
 
@@ -96,12 +96,12 @@ void LoadPicPaletteByTagOrSlot(u16 species, bool8 isShiny, u32 personality, u8 p
         if (paletteTag == TAG_NONE)
         {
             sCreatingSpriteTemplate.paletteTag = TAG_NONE;
-            LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), 0x100 + paletteSlot * 0x10, 0x20);
+            LoadPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), 0x100 + paletteSlot * 0x10, 0x20);
         }
         else
         {
             sCreatingSpriteTemplate.paletteTag = paletteTag;
-            LoadCompressedSpritePaletteWithTag(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), species);
+            LoadSpritePaletteWithTag(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), species);
         }
     }
     else
@@ -109,12 +109,12 @@ void LoadPicPaletteByTagOrSlot(u16 species, bool8 isShiny, u32 personality, u8 p
         if (paletteTag == TAG_NONE)
         {
             sCreatingSpriteTemplate.paletteTag = TAG_NONE;
-            LoadCompressedPalette(gTrainerFrontPicPaletteTable[species].data, 0x100 + paletteSlot * 0x10, 0x20);
+            LoadPalette(gTrainerFrontPicPaletteTable[species].data, 0x100 + paletteSlot * 0x10, 0x20);
         }
         else
         {
             sCreatingSpriteTemplate.paletteTag = paletteTag;
-            LoadCompressedSpritePalette(&gTrainerFrontPicPaletteTable[species]);
+            LoadSpritePalette(&gTrainerFrontPicPaletteTable[species]);
         }
     }
 }
@@ -122,9 +122,9 @@ void LoadPicPaletteByTagOrSlot(u16 species, bool8 isShiny, u32 personality, u8 p
 void LoadPicPaletteBySlot(u16 species, bool8 isShiny, u32 personality, u8 paletteSlot, bool8 isTrainer)
 {
     if (!isTrainer)
-        LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), paletteSlot * 0x10, 0x20);
+        LoadPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), paletteSlot * 0x10, 0x20);
     else
-        LoadCompressedPalette(gTrainerFrontPicPaletteTable[species].data, paletteSlot * 0x10, 0x20);
+        LoadPalette(gTrainerFrontPicPaletteTable[species].data, paletteSlot * 0x10, 0x20);
 }
 
 void AssignSpriteAnimsTable(bool8 isTrainer)

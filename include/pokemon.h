@@ -7,6 +7,7 @@
 #include "data.h"
 #include "constants/pokemon.h"
 #include "constants/battle.h"
+#include "pokemon_icon.h"
 #include "pokemon_storage_system.h"
 
 #define GET_BASE_SPECIES_ID(speciesId) (GetFormSpeciesId(speciesId, 0))
@@ -932,8 +933,8 @@ struct SpeciesGraphicInfo
  /* 0x50 */ const u32 *backPic;
  /* 0x76 */ //u16 backPicSize; // The dimensions of this drawn pixel area.
 
- /* 0x58 */ const u32 *palette;
- /* 0x60 */ const u32 *shinyPalette;
+ /* 0x58 */ const u16 *palette;
+ /* 0x60 */ const u16 *shinyPalette;
 
  /* 0x68 */ const u8 *iconSprite;
 
@@ -994,7 +995,7 @@ extern struct PokemonStorage* gPokemonStoragePtr;
 extern const u32 gExperienceTables[][MAX_LEVEL + 1];
 extern const u8 gFacilityClassToPicIndex[];
 extern const u8 gFacilityClassToTrainerClass[];
-extern const struct SpriteTemplate gSpriteTemplates_Battlers[];
+extern const struct SpriteTemplate gBattlerSpriteTemplates[];
 extern const u8 gPPUpGetMask[];
 extern const u16 *const gFormSpeciesIdTables[]; //needs include cosmetic so cant use numspecies
 extern const struct FormChange *const gFormChangeTablePointers[NUM_SPECIES];
@@ -1141,14 +1142,14 @@ u16 SpeciesToPokedexNum(u16 species);
 void ClearBattleMonForms(void);
 void PlayBattleBGM(void);
 void PlayMapChosenOrBattleBGM(u16 songId);
-const u32 *GetMonSpritePal(struct Pokemon *mon);
-const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, bool32 isShiny, u32 personality);
-const u32 *GetMonSpritePalOfSpecies(struct Pokemon *mon, u16 species); //use mon for shiny retrieves set species, use for evolution scene mostly
-//const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon);
+const u16 *GetMonSpritePal(struct Pokemon *mon);
+const u16 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, bool32 isShiny, u32 personality);
+const u16 *GetMonSpritePalOfSpecies(struct Pokemon *mon, u16 species); //use mon for shiny retrieves set species, use for evolution scene mostly
+//const struct SpritePalette *GetMonSpritePalStruct(struct Pokemon *mon);
 
-//const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
+//const struct SpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
 //replaced previous
-const u32 *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
+const u16 *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
 bool8 IsPokeSpriteNotFlipped(u16 species);
 s8 GetMonFlavorRelation(struct Pokemon *mon, u8 flavor);//replaces below
 bool8 IsTradedMon(struct Pokemon *mon);
@@ -1200,7 +1201,7 @@ bool8 IsBoxMonShiny(struct BoxPokemon *mon);
 bool8 IsShinyOtIdPersonality(u32 otId, u32 personality);
 bool8 IsMonNuzlockeDead(struct Pokemon *mon);
 bool8 IsBoxMonNuzlockeDead(struct BoxPokemon *mon);
-const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny);
+const u16 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny);
 
 void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst);
 bool8 IsPokemonStorageFull(void); //for set egg to pc by default

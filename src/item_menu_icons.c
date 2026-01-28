@@ -80,7 +80,7 @@ const struct CompressedSpriteSheet gSpriteSheet_Satchel = {
     100
 };
 
-const struct CompressedSpritePalette gSpritePalette_BagOrSatchel = {
+const struct SpritePalette gSpritePalette_BagOrSatchel = {
     gUnknown_8E84560,
     100
 };
@@ -130,7 +130,7 @@ const struct CompressedSpriteSheet gBagSwapSpriteSheet = {
     101
 };
 
-const struct CompressedSpritePalette gBagSwapSpritePalette = {
+const struct SpritePalette gBagSwapSpritePalette = {
     gFile_graphics_interface_bag_swap_palette,
     101
 };
@@ -175,7 +175,7 @@ static const struct SpriteTemplate sSpriteTemplate_ItemIcon = {
 /* //ported in advance
 static void LoadBerryGfx(u8 berryId)
 {
-    struct CompressedSpritePalette pal;
+    struct SpritePalette pal;
     struct SpriteSheet sheet;
     u8 *srcBuffer;
     u8 *dstBuffer;
@@ -192,7 +192,7 @@ static void LoadBerryGfx(u8 berryId)
     srcBuffer = AllocZeroed(0x1000);
     dstBuffer = AllocZeroed(0x1000);
 
-    LoadCompressedSpritePalette(&pal);
+    LoadSpritePalette(&pal);
     LZDecompressWram(sBerryPicTable[berryId].tiles, srcBuffer);
     ArrangeBerryGfx(srcBuffer, dstBuffer);
     sheet.tag = TAG_BERRY_PIC_GFX;
@@ -860,15 +860,15 @@ void CreateBagOrSatchelSprite(u8 animNum)
 void sub_8098528(u8 animNum)
 {
     struct Sprite * sprite = &gSprites[sItemMenuIconSpriteIds[0]];
-    sprite->pos2.y = -5;
+    sprite->y2 = -5;
     sprite->callback = sub_8098560;
     StartSpriteAnim(sprite, animNum);
 }
 
 static void sub_8098560(struct Sprite * sprite)
 {
-    if (sprite->pos2.y != 0)
-        sprite->pos2.y++;
+    if (sprite->y2 != 0)
+        sprite->y2++;
     else
         sprite->callback = SpriteCallbackDummy;
 }
@@ -933,8 +933,8 @@ void ItemMenuIcons_MoveInsertIndicatorBar(s16 x, u16 y)
 
     for (i = 0; i < 9; i++)
     {
-        gSprites[ptr[i]].pos2.x = x;
-        gSprites[ptr[i]].pos1.y = y + 7;
+        gSprites[ptr[i]].x2 = x;
+        gSprites[ptr[i]].y = y + 7;
    }
 }
 
@@ -970,7 +970,7 @@ u8 AddItemIconObject(u16 tilesTag, u16 paletteTag, u16 itemId)
 {
     struct SpriteTemplate template;
     struct SpriteSheet spriteSheet;
-    struct CompressedSpritePalette spritePalette;
+    struct SpritePalette spritePalette;
     u8 spriteId;
 
     if (!TryAllocItemIconTilesBuffers())
@@ -985,7 +985,7 @@ u8 AddItemIconObject(u16 tilesTag, u16 paletteTag, u16 itemId)
 
     spritePalette.data = GetItemIconGfxPtr(itemId, 1);
     spritePalette.tag = paletteTag;
-    LoadCompressedSpritePalette(&spritePalette);
+    LoadSpritePalette(&spritePalette);
 
     CpuCopy16(&sSpriteTemplate_ItemIcon, &template, sizeof(struct SpriteTemplate));
     template.tileTag = tilesTag;
@@ -1002,7 +1002,7 @@ u8 AddItemIconObjectWithCustomObjectTemplate(const struct SpriteTemplate * origT
 {
     struct SpriteTemplate template;
     struct SpriteSheet spriteSheet;
-    struct CompressedSpritePalette spritePalette;
+    struct SpritePalette spritePalette;
     u8 spriteId;
 
     if (!TryAllocItemIconTilesBuffers())
@@ -1017,7 +1017,7 @@ u8 AddItemIconObjectWithCustomObjectTemplate(const struct SpriteTemplate * origT
 
     spritePalette.data = GetItemIconGfxPtr(itemId, 1);
     spritePalette.tag = paletteTag;
-    LoadCompressedSpritePalette(&spritePalette);
+    LoadSpritePalette(&spritePalette);
 
     CpuCopy16(origTemplate, &template, sizeof(struct SpriteTemplate));
     template.tileTag = tilesTag;
@@ -1043,8 +1043,8 @@ void CreateItemMenuIcon(u16 itemId, u8 idx)
         if (spriteId != MAX_SPRITES)
         {
             ptr[idx] = spriteId;
-            gSprites[spriteId].pos2.x = 24;
-            gSprites[spriteId].pos2.y = 140;
+            gSprites[spriteId].x2 = 24;
+            gSprites[spriteId].y2 = 140;
        }
    }
 }
@@ -1090,8 +1090,8 @@ void sub_80989A0(u16 itemId, u8 idx)
         if (spriteId != MAX_SPRITES)
         {
             ptr[idx] = spriteId;
-            gSprites[spriteId].pos2.x = 24;
-            gSprites[spriteId].pos2.y = 147;
+            gSprites[spriteId].x2 = 24;
+            gSprites[spriteId].y2 = 147;
        }
    }
 }

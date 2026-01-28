@@ -24,18 +24,48 @@
  *   +---------------------------+
  */
 
-#define MAX_BATTLERS_COUNT  4
+
+
+enum BattlerPosition
+{
+    B_POSITION_PLAYER_LEFT,
+    B_POSITION_OPPONENT_LEFT,
+    B_POSITION_PLAYER_RIGHT,
+    B_POSITION_OPPONENT_RIGHT,
+    MAX_POSITION_COUNT,
+    B_POSITION_ABSENT = 0xFF,
+};
+/*
+#define B_POSITION_PLAYER_LEFT        0
+#define B_POSITION_OPPONENT_LEFT      1	//read from back of enemy, oponent left is right from player view
+#define B_POSITION_PLAYER_RIGHT       2
+#define B_POSITION_OPPONENT_RIGHT     3	//read from back of enemy, oponent right is left from player view
+*/
+
+//battler positions for gbattlerpostions
+enum BattlerId
+{
+    B_BATTLER_0,
+    B_BATTLER_1, //read from back of enemy, oponent left is right from player view
+    B_BATTLER_2,
+    B_BATTLER_3, //read from back of enemy, oponent right is left from player view
+    MAX_BATTLERS_COUNT,
+};
 //reportedely takes ewram?
 //test if can hold 6 for triple battles w my ewram removal
 //supposedly doesn't build for EE
 //tested value 6, I have plenty of room left, nice
 //for me the increase requires about 1-1.3% ewram
 
- //battler positions for gbattlerpostions
-#define B_POSITION_PLAYER_LEFT        0
-#define B_POSITION_OPPONENT_LEFT      1	//read from back of enemy, oponent left is right from player view
-#define B_POSITION_PLAYER_RIGHT       2
-#define B_POSITION_OPPONENT_RIGHT     3	//read from back of enemy, oponent right is left from player view
+enum __attribute__((packed)) BattleTrainer
+{
+    B_TRAINER_0,
+    B_TRAINER_1,
+    B_TRAINER_2,
+    B_TRAINER_3,
+    MAX_BATTLE_TRAINERS,
+};
+
 
 //could read battle_position_none 
 //but believe this is more readable as id is used more oft than position
@@ -45,9 +75,17 @@
 #define BATTLE_OPPOSITE(id) ((id) ^ 1)
 #define BATTLE_PARTNER(id) ((id) ^ 2)
 
-#define B_SIDE_PLAYER     0
-#define B_SIDE_OPPONENT   1
-#define NUM_BATTLE_SIDES  2
+// Left and right are determined by how they're referred to in tests and everywhere else.
+// Left is battlers 0 and 1, right 2 and 3; if you assume the battler referencing them is south, left is to the northeast and right to the northwest.
+#define LEFT_FOE(battler) ((BATTLE_OPPOSITE(battler)) & BIT_SIDE)
+#define RIGHT_FOE(battler) (((BATTLE_OPPOSITE(battler)) & BIT_SIDE) | BIT_FLANK)
+
+enum BattleSide
+{
+    B_SIDE_PLAYER = 0,
+    B_SIDE_OPPONENT = 1,
+    NUM_BATTLE_SIDES = 2,
+};
 
 #define B_FLANK_LEFT 0
 #define B_FLANK_RIGHT 1
@@ -69,7 +107,7 @@
 #define BATTLE_TYPE_OLD_MAN_TUTORIAL (1 << 9) //checked and can move all others, without issue, trainer battle type is only one that uses u8 value all else is u32
 #define BATTLE_TYPE_ROAMER           (1 << 10)
 #define BATTLE_TYPE_EREADER_TRAINER  (1 << 11)	//remove this, so I can replace it.
-#define BATTLE_TYPE_KYOGRE_GROUDON   (1 << 12)
+#define BATTLE_TYPE_KYOGRE_GROUDON   (1 << 12) //Idk WHy have this already split off into individual flag for each
 #define BATTLE_TYPE_LEGENDARY        (1 << 13) //with planned legendary fight change can't resuse value, hmm actually I can as it works by combining flgas, i.e  //BATTLE_TYPE_GHOST | BATTLE_TYPE_GHOST_UNVEILED  essentially what I plan do w master so its fine
 #define BATTLE_TYPE_GHOST_UNVEILED   (1 << 13) // Re-use of BATTLE_TYPE_LEGENDARY, when combined with BATTLE_TYPE_GHOST
 #define BATTLE_TYPE_SAFARI           (1 << 14) //no using regi can replace this //replaced w safari
@@ -99,6 +137,7 @@
 
 #define WILD_DOUBLE_BATTLE ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_TRAINER))))
 #define BATTLE_TWO_VS_ONE_OPPONENT ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gTrainerBattleOpponent_B == 0xFFFF))
+#define BATTLE_TYPE_MORE_THAN_TWO_BATTLERS  (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_MULTI | BATTLE_TYPE_INGAME_PARTNER | BATTLE_TYPE_TWO_OPPONENTS)
 #define BATTLE_TYPE_HAS_AI          (BATTLE_TYPE_TRAINER | BATTLE_TYPE_FIRST_BATTLE | BATTLE_TYPE_SAFARI | BATTLE_TYPE_ROAMER | BATTLE_TYPE_INGAME_PARTNER)
 
 
@@ -732,6 +771,24 @@ enum SemiInvulnerableExclusion
     EXCLUDE_COMMANDER,
 };
 
+enum SemiInvulnerableState
+{
+    STATE_NONE,
+    STATE_UNDERGROUND,
+    STATE_UNDERWATER,
+    STATE_ON_AIR,
+    STATE_PHANTOM_FORCE,
+    STATE_SKY_DROP,
+    STATE_COMMANDER,
+    SEMI_INVULNERABLE_COUNT,
+};
+
+enum SemiInvulnerableExclusion
+{
+    CHECK_ALL,
+    EXCLUDE_COMMANDER,
+};
+
 // Not really sure what a "hitmarker" is.
 #define HITMARKER_WAKE_UP_CLEAR         (1 << 4)	//// Cleared when waking up. Never set or checked.
 #define HITMARKER_SKIP_DMG_TRACK        (1 << 5)
@@ -1060,31 +1117,6 @@ enum __attribute__((packed)) MoveEffect
 };
 
 #define MOVE_EFFECT_CONTINUE            0x8000
-
-// Battle terrain defines for gBattleTerrain.
-#define BATTLE_TERRAIN_GRASS        0
-#define BATTLE_TERRAIN_LONG_GRASS   1
-#define BATTLE_TERRAIN_SAND         2
-#define BATTLE_TERRAIN_UNDERWATER   3
-#define BATTLE_TERRAIN_WATER        4
-#define BATTLE_TERRAIN_POND         5
-#define BATTLE_TERRAIN_MOUNTAIN     6
-#define BATTLE_TERRAIN_CAVE         7
-#define BATTLE_TERRAIN_BUILDING     8
-#define BATTLE_TERRAIN_PLAIN        9
-#define BATTLE_TERRAIN_LINK        10
-#define BATTLE_TERRAIN_GYM         11
-#define BATTLE_TERRAIN_LEADER      12
-#define BATTLE_TERRAIN_INDOOR_2    13
-#define BATTLE_TERRAIN_INDOOR_1    14
-#define BATTLE_TERRAIN_LORELEI     15
-#define BATTLE_TERRAIN_BRUNO       16
-#define BATTLE_TERRAIN_AGATHA      17
-#define BATTLE_TERRAIN_LANCE       18
-#define BATTLE_TERRAIN_CHAMPION    19
-
-//from EE not fully match as has emerald stuff
-//ported need work on later vsonic
 // Battle environment defines for gBattleEnvironment.
 enum BattleEnvironments
 {
@@ -1098,20 +1130,29 @@ enum BattleEnvironments
     BATTLE_ENVIRONMENT_CAVE,
     BATTLE_ENVIRONMENT_BUILDING,
     BATTLE_ENVIRONMENT_PLAIN,
-    BATTLE_ENVIRONMENT_FRONTIER,
+    BATTLE_ENVIRONMENT_LINK,    
     BATTLE_ENVIRONMENT_GYM,
     BATTLE_ENVIRONMENT_LEADER,
+    BATTLE_ENVIRONMENT_INDOOR_2,
+    BATTLE_ENVIRONMENT_INDOOR_1,
+    BATTLE_ENVIRONMENT_LORELEI,
+    BATTLE_ENVIRONMENT_BRUNO,
+    BATTLE_ENVIRONMENT_AGATHA,
+    BATTLE_ENVIRONMENT_LANCE,
+    BATTLE_ENVIRONMENT_CHAMPION,
+    //Em values
+    BATTLE_ENVIRONMENT_FRONTIER,
     BATTLE_ENVIRONMENT_MAGMA,
     BATTLE_ENVIRONMENT_AQUA,
     BATTLE_ENVIRONMENT_SIDNEY,
     BATTLE_ENVIRONMENT_PHOEBE,
     BATTLE_ENVIRONMENT_GLACIA,
     BATTLE_ENVIRONMENT_DRAKE,
-    BATTLE_ENVIRONMENT_CHAMPION,
+    BATTLE_ENVIRONMENT_CHAMPION_EM,
     BATTLE_ENVIRONMENT_GROUDON,
     BATTLE_ENVIRONMENT_KYOGRE,
     BATTLE_ENVIRONMENT_RAYQUAZA,
-    // New battle environments are used for Secret Power and Nature Power but not fully implemented.
+    // New battle environments are used for Secret Power but not fully implemented.
     BATTLE_ENVIRONMENT_SOARING,
     BATTLE_ENVIRONMENT_SKY_PILLAR,
     BATTLE_ENVIRONMENT_BURIAL_GROUND,
@@ -1126,6 +1167,7 @@ enum BattleEnvironments
     BATTLE_ENVIRONMENT_ULTRA_SPACE,
     BATTLE_ENVIRONMENT_COUNT,
 };
+
 
 // Return value for IsRunningFromBattleImpossible. 
 #define BATTLE_RUN_SUCCESS        0

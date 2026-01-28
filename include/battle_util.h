@@ -427,6 +427,7 @@ void HandleAction_NothingIsFainted(void);
 void HandleAction_ActionFinished(void);
 u8 GetBattlerForBattleScript(u8 caseId);
 
+//still more things to go over here maybe>?
 u32 GetFuryCutterAccuracy(u32 battlerAtk, u32 move);
 void PressurePPLose(u8 target, u8 attacker, u16 move);
 void PressurePPLoseOnUsingImprison(u8 attacker);

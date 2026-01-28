@@ -2687,6 +2687,15 @@ u16 GetUnownLetterByPersonality(u32 personality)
         return (((personality & 0x3000000) >> 18) | ((personality & 0x30000) >> 12) | ((personality & 0x300) >> 6) | (personality & 0x3)) % 0x1C;
 }
 
+u32 GetUnownSpeciesId(u32 personality)
+{
+    u16 unownLetter = GetUnownLetterByPersonality(personality);
+
+    if (unownLetter == 0)
+        return SPECIES_UNOWN;
+    return unownLetter + SPECIES_UNOWN_B - 1;
+}
+
 u16 MailSpeciesToIconSpecies(u16 species)
 {
     u16 value;

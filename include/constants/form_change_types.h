@@ -66,7 +66,7 @@
 
 // Form change that activates at the end of a battle based on the terrain if it participated in the battle and hasn't fainted. Takes priority over FORM_CHANGE_END_BATTLE.
 // param1: battle terrain to check.
-#define FORM_CHANGE_END_BATTLE_TERRAIN          8
+#define FORM_CHANGE_END_BATTLE_ENVIRONMENT          8
 
 // Form change that activates when the Pokémon is switched out in battle.
 // - No parameters.

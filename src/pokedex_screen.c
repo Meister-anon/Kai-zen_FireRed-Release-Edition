@@ -2432,7 +2432,7 @@ static void Task_DexScreen_CategorySubmenu(u8 taskId)
                 else
                     sPokedexScreenData->sEvoScreenData.menuPos += 1;
 
-                gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId].pos1.y = base_y + base_y_offset * sPokedexScreenData->sEvoScreenData.menuPos;
+                gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId].y = base_y + base_y_offset * sPokedexScreenData->sEvoScreenData.menuPos;
                 targetSpecies = sPokedexScreenData->sEvoScreenData.targetSpecies[sPokedexScreenData->sEvoScreenData.menuPos];
                 UpdateStatBars(sPokedexScreenData->sEvoScreenData.targetSpecies[sPokedexScreenData->sEvoScreenData.menuPos]);
                 //sPokedexScreenData->sEvoScreenData.menuPos = pos; //store end position
@@ -2444,7 +2444,7 @@ static void Task_DexScreen_CategorySubmenu(u8 taskId)
                 else
                     sPokedexScreenData->sEvoScreenData.menuPos -= 1;
 
-                gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId].pos1.y = base_y + base_y_offset * sPokedexScreenData->sEvoScreenData.menuPos;
+                gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId].y = base_y + base_y_offset * sPokedexScreenData->sEvoScreenData.menuPos;
                 targetSpecies = sPokedexScreenData->sEvoScreenData.targetSpecies[sPokedexScreenData->sEvoScreenData.menuPos];
                 UpdateStatBars(sPokedexScreenData->sEvoScreenData.targetSpecies[sPokedexScreenData->sEvoScreenData.menuPos]);
             }
@@ -3324,7 +3324,7 @@ static void Task_DexScreen_ShowMonPage(u8 taskId)//think task show dex entry fro
                 else
                     sPokedexScreenData->sEvoScreenData.menuPos += 1;
 
-                gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId].pos1.y = base_y + base_y_offset * sPokedexScreenData->sEvoScreenData.menuPos;
+                gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId].y = base_y + base_y_offset * sPokedexScreenData->sEvoScreenData.menuPos;
                 targetSpecies = sPokedexScreenData->sEvoScreenData.targetSpecies[sPokedexScreenData->sEvoScreenData.menuPos];
                 UpdateStatBars(sPokedexScreenData->sEvoScreenData.targetSpecies[sPokedexScreenData->sEvoScreenData.menuPos]);
                 //sPokedexScreenData->sEvoScreenData.menuPos = pos; //store end position
@@ -3336,7 +3336,7 @@ static void Task_DexScreen_ShowMonPage(u8 taskId)//think task show dex entry fro
                 else
                     sPokedexScreenData->sEvoScreenData.menuPos -= 1;
 
-                gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId].pos1.y = base_y + base_y_offset * sPokedexScreenData->sEvoScreenData.menuPos;
+                gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId].y = base_y + base_y_offset * sPokedexScreenData->sEvoScreenData.menuPos;
                 targetSpecies = sPokedexScreenData->sEvoScreenData.targetSpecies[sPokedexScreenData->sEvoScreenData.menuPos];
                 UpdateStatBars(sPokedexScreenData->sEvoScreenData.targetSpecies[sPokedexScreenData->sEvoScreenData.menuPos]);
             }
@@ -5627,7 +5627,7 @@ u8 DexScreen_DrawMonAreaPage(void)
         gSprites[sPokedexScreenData->windowIds[14]].oam.affineMode = ST_OAM_AFFINE_NORMAL;
         gSprites[sPokedexScreenData->windowIds[14]].oam.matrixNum = 2;
         gSprites[sPokedexScreenData->windowIds[14]].oam.priority = 1;
-        gSprites[sPokedexScreenData->windowIds[14]].pos2.y = gPokedexEntries[speciesId].pokemonOffset; //this is elevation of mon pic
+        gSprites[sPokedexScreenData->windowIds[14]].y2 = gPokedexEntries[speciesId].pokemonOffset; //this is elevation of mon pic
         if (sPokedexScreenData->dexSpecies == SPECIES_MEWTWO_MEGA_Y)
             monScale = gPokedexEntries[SpeciesToNationalPokedexNum(SPECIES_MEW)].pokemonScale;
         SetOamMatrix(2, monScale, 0, 0, monScale);
@@ -5637,7 +5637,7 @@ u8 DexScreen_DrawMonAreaPage(void)
         gSprites[sPokedexScreenData->windowIds[15]].oam.affineMode = ST_OAM_AFFINE_NORMAL;
         gSprites[sPokedexScreenData->windowIds[15]].oam.matrixNum = 1;
         gSprites[sPokedexScreenData->windowIds[15]].oam.priority = 1;
-        gSprites[sPokedexScreenData->windowIds[15]].pos2.y = gPokedexEntries[speciesId].trainerOffset;
+        gSprites[sPokedexScreenData->windowIds[15]].y2 = gPokedexEntries[speciesId].trainerOffset;
         SetOamMatrix(1, gPokedexEntries[speciesId].trainerScale, 0, 0, gPokedexEntries[speciesId].trainerScale);
     }
     else
@@ -7724,7 +7724,7 @@ static void Task_HandleEvolutionScreenInput(u8 taskId)
                 else
                     sPokedexScreenData->sEvoScreenData.menuPos += 1;
 
-                gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId].pos1.y = base_y + base_y_offset * sPokedexScreenData->sEvoScreenData.menuPos;
+                gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId].y = base_y + base_y_offset * sPokedexScreenData->sEvoScreenData.menuPos;
                 //sPokedexScreenData->sEvoScreenData.menuPos = pos; //store end position
             }
             else if (JOY_NEW(DPAD_UP))
@@ -7734,7 +7734,7 @@ static void Task_HandleEvolutionScreenInput(u8 taskId)
                 else
                     sPokedexScreenData->sEvoScreenData.menuPos -= 1;
 
-                gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId].pos1.y = base_y + base_y_offset * sPokedexScreenData->sEvoScreenData.menuPos;
+                gSprites[sPokedexScreenData->sEvoScreenData.arrowSpriteId].y = base_y + base_y_offset * sPokedexScreenData->sEvoScreenData.menuPos;
             }
         }
 

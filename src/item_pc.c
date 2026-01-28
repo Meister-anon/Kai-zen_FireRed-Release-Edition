@@ -52,7 +52,7 @@ static EWRAM_DATA struct ItemPcStaticResources sListMenuState = {};
 static EWRAM_DATA u8 sSubmenuWindowIds[3] = {};
 
 extern const struct CompressedSpriteSheet gBagSwapSpriteSheet;
-extern const struct CompressedSpritePalette gBagSwapSpritePalette;
+extern const struct SpritePalette gBagSwapSpritePalette;
 
 static void ItemPc_RunSetup(void);
 static bool8 ItemPc_DoGfxSetup(void);
@@ -443,7 +443,7 @@ static bool8 ItemPc_LoadGraphics(void)
         }
         break;
     case 2:
-        LoadCompressedPalette(gItemPcBgPals, 0x00, 0x60);
+        LoadPalette(gItemPcBgPals, 0x00, 0x60);
         sStateDataPtr->data[0]++;
         break;
     case 3:
@@ -451,7 +451,7 @@ static bool8 ItemPc_LoadGraphics(void)
         sStateDataPtr->data[0]++;
         break;
     default:
-        LoadCompressedSpritePalette(&gBagSwapSpritePalette);
+        LoadSpritePalette(&gBagSwapSpritePalette);
         sStateDataPtr->data[0] = 0;
         return TRUE;
     }

@@ -6,6 +6,7 @@
 #include "battle_anim_scripts.h"
 #include "battle_ai_main.h"
 #include "battle_ai_util.h"
+#include "battle_gimmick.h"
 #include "battle_scripts.h"
 #include "battle_switch_in.h"
 #include "battle_environment.h"
@@ -47,32 +48,32 @@
 #include "pokemon_summary_screen.h"
 #include "new_menu_helpers.h"
 #include "pokenav.h"
-#include "menu_specialized.h"
+//#include "menu_specialized.h"
 #include "data.h"
-#include "generational_changes.h"
+//#include "generational_changes.h"
 #include "move.h"
 #include "constants/abilities.h"
 #include "constants/battle_anim.h"
 #include "constants/battle_move_effects.h"
 #include "constants/battle_string_ids.h"
-#include "constants/battle_partner.h"
+//#include "constants/battle_partner.h"
 #include "constants/items.h"
 #include "constants/item_effects.h"
 #include "constants/moves.h"
 #include "constants/party_menu.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
-#include "constants/trainer_slide.h"
+//#include "constants/trainer_slide.h"
 #include "constants/trainers.h"
 #include "test/battle.h"
 #include "battle_util.h"
 #include "constants/pokemon.h"
-#include "config/battle.h"
+//#include "config/battle.h"
 #include "data/battle_move_effects.h"
 #include "test/battle.h"
-#include "follower_npc.h"
+//#include "follower_npc.h"
 #include "load_save.h"
-#include "test/test_runner_battle.h"
+//#include "test/test_runner_battle.h"
 
 // table to avoid ugly powing on gba (courtesy of doesnt)
 // this returns (i^2.5)/4
@@ -930,8 +931,9 @@ static const struct SpriteTemplate sSpriteTemplate_MonIconOnLvlUpBanner =
 
 const u16 gProtectSuccessRates[] = {USHRT_MAX, USHRT_MAX / 2, USHRT_MAX / 4, USHRT_MAX / 8};
 
-#define _ 0
-
+/*#define _ 0
+//not using this version of pickup but could be useful vsonic
+//to add new items to list for my version
 static const struct PickupItem sPickupTable[] =
 {//   Item                      1+  11+  21+  31+  41+  51+  61+  71+  81+  91+   Levels
     { ITEM_POTION,          {  35,   _,   _,   _,   _,   _,   _,   _,   _,   _, } },
@@ -967,6 +969,19 @@ static const struct PickupItem sPickupTable[] =
 };
 
 #undef _
+*/
+
+//if I add more balls may need to adjust this also see how it links to each ball
+//ok think this is problem with ball reorder need to change this,
+//yup this was it, vsonic
+static const u8 sBallCatchBonuses[] =
+{
+    [BALL_POKE]     =  10,
+    [BALL_GREAT]    =  15,
+    [BALL_ULTRA]    =  20,
+    [BALL_LUXURY]   =  10,
+    [BALL_PREMIER]  =  10,   
+};
 
 bool32 ProteanTryChangeType(u32 battler, enum Ability ability, enum Move move, enum Type moveType)
 {
@@ -8530,6 +8545,8 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, enum Stat statId, union St
 
     if (statValue <= -1) // Stat decrease.
     {
+        //these are set of exclusions that prevenet stat drop
+        //afterwards it attempts to do stat change
         enum BattleMoveEffects effect = GetMoveEffect(gCurrentMove);
         if (gSideTimers[GetBattlerSide(battler)].mistTimer
             && !flags.certain && effect != EFFECT_CURSE
@@ -11683,9 +11700,9 @@ static void Cmd_handleballthrow(void)
                     break;
                 case ITEM_DIVE_BALL: //later gens also workedfor fishing surfing mon, for that filter based on battle bg
                     if (GetCurrentMapType() == MAP_TYPE_UNDERWATER
-                    || gBattleTerrain == BATTLE_TERRAIN_UNDERWATER
-                    || gBattleTerrain == BATTLE_TERRAIN_WATER
-                    || gBattleTerrain == BATTLE_TERRAIN_POND) //ok think this should work, idk way EE used ewram to set this
+                    || gBattleEnvironment == BATTLE_ENVIRONMENT_UNDERWATER
+                    || gBattleEnvironment == BATTLE_ENVIRONMENT_WATER
+                    || gBattleEnvironment == BATTLE_ENVIRONMENT_POND) //ok think this should work, idk way EE used ewram to set this
                         ballMultiplier = 35;
                     else
                         ballMultiplier = 10;
@@ -16197,6 +16214,7 @@ void BS_JumpToStatSpecificChecksForIntimidateLike(void)
 
 //was when planned for multiple abilities to go through
 //this script so this was to specifically exclude intimdiate likes
+//with EM ability script oh this is replacing check for ability intimidate
 void BS_JumpifAttackerAbilitySkipsIntimidateChecks(void)
 {
     NATIVE_ARGS(const u8 *jumpInstr);
@@ -16214,13 +16232,14 @@ void BS_JumpifAttackerAbilitySkipsIntimidateChecks(void)
     }
 }
 
-//for yawn change
+//for yawn change \\oh this is just yawn clearing rage
 void BS_JumpandClearRage(void)
 {
      NATIVE_ARGS(const u8 *jumpInstr);
 
-    if (gBattleMons[gBattlerTarget].status2 & STATUS2_RAGE) 
+    if (gBattleMons[gBattlerTarget].volatiles.rage) 
     {   
+
         ClearRageStatuses(gBattlerTarget); //clear message adding to script
         gBattlescriptCurrInstr = cmd->jumpInstr;
     }

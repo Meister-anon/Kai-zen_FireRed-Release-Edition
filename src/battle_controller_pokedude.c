@@ -231,7 +231,7 @@ static void CompleteOnBattlerSpriteCallbackDummy(u32 battler)
 static void CompleteOnBattlerSpritePosX_0(u32 battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].animEnded == TRUE
-        && gSprites[gBattlerSpriteIds[battler]].pos2.x == 0)
+        && gSprites[gBattlerSpriteIds[battler]].x2 == 0)
     {
         if (!gBattleSpritesDataPtr->healthBoxesData[battler].triedShinyMonAnim)
         {
@@ -581,7 +581,7 @@ static void FreeMonSpriteAfterFaintAnim(u32 battler)
 {
     if (GetBattlerSide(battler) == B_SIDE_PLAYER)
     {
-        if (gSprites[gBattlerSpriteIds[battler]].pos1.y + gSprites[gBattlerSpriteIds[battler]].pos2.y > DISPLAY_HEIGHT)
+        if (gSprites[gBattlerSpriteIds[battler]].y + gSprites[gBattlerSpriteIds[battler]].y2 > DISPLAY_HEIGHT)
         {
             FreeOamMatrix(gSprites[gBattlerSpriteIds[battler]].oam.matrixNum);
             DestroySprite(&gSprites[gBattlerSpriteIds[battler]]);
@@ -1274,14 +1274,14 @@ static void PokedudeHandleLoadMonSprite(u32 battler)
     u32 y;
     u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_SPECIES);
 
-    BattleLoadOpponentMonSpriteGfx(&gEnemyParty[gBattlerPartyIndexes[battler]], battler);
+    BattleLoadMonSpriteGfx(&gEnemyParty[gBattlerPartyIndexes[battler]], battler);
     y = GetBattlerSpriteDefault_Y(battler);
     SetMultiuseSpriteTemplateToPokemon(species, GetBattlerPosition(battler));
     gBattlerSpriteIds[battler] = CreateSprite(&gMultiuseSpriteTemplate,
                                                      GetBattlerSpriteCoord(battler, BATTLER_COORD_X_2),
                                                      y,
                                                      GetBattlerSpriteSubpriority(battler));
-    gSprites[gBattlerSpriteIds[battler]].pos2.x = -DISPLAY_WIDTH;
+    gSprites[gBattlerSpriteIds[battler]].x2 = -DISPLAY_WIDTH;
     gSprites[gBattlerSpriteIds[battler]].data[0] = battler;
     gSprites[gBattlerSpriteIds[battler]].data[2] = species;
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
@@ -1295,7 +1295,7 @@ static void PokedudeHandleSwitchInAnim(u32 battler)
 {
     ClearTemporarySpeciesSpriteData(battler, gBattleResources->bufferA[battler][2]);
     gBattlerPartyIndexes[battler] = gBattleResources->bufferA[battler][1];
-    BattleLoadPlayerMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
+    BattleLoadMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
     gActionSelectionCursor[battler] = 0;
     gMoveSelectionCursor[battler] = 0;
     StartSendOutAnim(battler);
@@ -1328,7 +1328,7 @@ static void PokedudeHandleDrawTrainerPic(u32 battler)
                                                          80,
                                                          (8 - gTrainerBackPicCoords[BACK_PIC_POKEDUDE].size) * 4 + 80,
                                                          30);
-        gSprites[gBattlerSpriteIds[battler]].pos2.x = DISPLAY_WIDTH;
+        gSprites[gBattlerSpriteIds[battler]].x2 = DISPLAY_WIDTH;
         gSprites[gBattlerSpriteIds[battler]].data[0] = -2;
         gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
         gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_TrainerSlideIn;
@@ -1342,7 +1342,7 @@ static void PokedudeHandleDrawTrainerPic(u32 battler)
                                                          176,
                                                          (8 - gTrainerFrontPicCoords[tranerPicid].size) * 4 + 40,
                                                          GetBattlerSpriteSubpriority(battler));
-        gSprites[gBattlerSpriteIds[battler]].pos2.x = -DISPLAY_WIDTH;
+        gSprites[gBattlerSpriteIds[battler]].x2 = -DISPLAY_WIDTH;
         gSprites[gBattlerSpriteIds[battler]].data[0] = 2;
         gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = IndexOfSpritePaletteTag(gTrainerFrontPicPaletteTable[tranerPicid].tag);
         gSprites[gBattlerSpriteIds[battler]].data[5] = gSprites[gBattlerSpriteIds[battler]].oam.tileNum;
@@ -1362,7 +1362,7 @@ static void PokedudeHandleTrainerSlide(u32 battler)
                                                      (8 - gTrainerBackPicCoords[BACK_PIC_POKEDUDE].size) * 4 + 80,
                                                      30);
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
-    gSprites[gBattlerSpriteIds[battler]].pos2.x = -96;
+    gSprites[gBattlerSpriteIds[battler]].x2 = -96;
     gSprites[gBattlerSpriteIds[battler]].data[0] = 2;
     gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_TrainerSlideIn;
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy2;
@@ -1441,7 +1441,7 @@ static void PokedudeHandleMoveAnimation(u32 battler)
     gAnimMoveDmg = gBattleResources->bufferA[battler][6] | (gBattleResources->bufferA[battler][7] << 8) | (gBattleResources->bufferA[battler][8] << 16) | (gBattleResources->bufferA[battler][9] << 24);
     gAnimFriendship = gBattleResources->bufferA[battler][10];
     gWeatherMoveAnim = gBattleResources->bufferA[battler][12] | (gBattleResources->bufferA[battler][13] << 8);
-    gAnimDisableStructPtr = (struct DisableStruct *)&gBattleResources->bufferA[battler][16];
+    gAnimDisableStructPtr = (struct LinkBattleAnim *)&gBattleResources->bufferA[battler][16];
     //gTransformedPersonalities[battler] = gAnimDisableStructPtr->transformedMonPersonality;
     if (IsMoveWithoutAnimation(move, gAnimMoveTurn)) // always returns FALSE
     {
@@ -1837,13 +1837,13 @@ static void PokedudeHandleIntroTrainerBallThrow(u32 battler)
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[battler]]);
     gSprites[gBattlerSpriteIds[battler]].data[0] = 50;
     gSprites[gBattlerSpriteIds[battler]].data[2] = -40;
-    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].pos1.y;
+    gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].y;
     gSprites[gBattlerSpriteIds[battler]].callback = StartAnimLinearTranslation;
     gSprites[gBattlerSpriteIds[battler]].data[5] = battler;
     StoreSpriteCallbackInData6(&gSprites[gBattlerSpriteIds[battler]], SpriteCB_FreePlayerSpriteLoadMonSprite);
     StartSpriteAnim(&gSprites[gBattlerSpriteIds[battler]], 1);
     paletteNum = AllocSpritePalette(0xD6F8);
-    LoadCompressedPalette(gTrainerBackPicPaletteTable[BACK_PIC_POKEDUDE].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
+    LoadPalette(gTrainerBackPicPaletteTable[BACK_PIC_POKEDUDE].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
     gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = paletteNum;
     taskId = CreateTask(Task_StartSendOutAnim, 5);
     gTasks[taskId].data[0] = battler;
@@ -1933,6 +1933,8 @@ static void PokedudeHandleBattleAnimation(u32 battler)
     u8 animationId = gBattleResources->bufferA[battler][1];
     u16 argument = gBattleResources->bufferA[battler][2] | (gBattleResources->bufferA[battler][3] << 8);
 
+    gAnimDisableStructPtr = (struct LinkBattleAnim *)&gBattleResources->bufferA[battler][4];
+        
     if (TryHandleLaunchBattleTableAnimation(battler, battler, battler, animationId, argument))
         PokedudeBufferExecCompleted(battler);
     else
@@ -2573,7 +2575,7 @@ static void PokedudeAction_PrintMessageWithHealthboxPals(u32 battler)
     case 0:
         if (!gPaletteFade.active)
         {
-            DoLoadHealthboxPalsForLevelUp(&gBattleStruct->pdHealthboxPal2,
+            LoadHealthboxPalsForLevelUp(&gBattleStruct->pdHealthboxPal2,
                                           &gBattleStruct->pdHealthboxPal1,
                                           GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
             BeginNormalPaletteFade(0xFFFFFF7F, 4, 0, 8, RGB_BLACK);

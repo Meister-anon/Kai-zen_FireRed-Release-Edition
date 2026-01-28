@@ -310,7 +310,7 @@ But it's only for enemy mons, to do the same with the player you would just swap
 //NOTE-:
 //.4bpp name and gbapal graphic define names have to match to be able to build pal from png     /ex below use "eviolite" as name
 //const u32 gItemIcon_Eviolite[] = INCBIN_U32("graphics/items/icons/eviolite.4bpp.lz");
-//const u32 gItemIconPalette_Eviolite[] = INCBIN_U32("graphics/items/icon_palettes/eviolite.gbapal.lz");
+//const u16 gItemIconPalette_Eviolite[] = INCBIN_U16("graphics/items/icon_palettes/eviolite.gbapal");
 
 //redid base stats field need properly fill macros then remove stat fields
 //setup basestattotl function like kurausukun said, need proplery setup item grahpic swap for eviolite
@@ -2185,6 +2185,34 @@ goto SCRIPT_DELAY //function for delay in event scripts set to new option when p
 goto NEW_DEX_USE_NOTES //new big idea for more dex utility - more realism, make like show, look at battle bag callback, restrict movement for in battle
 goto FONT_INFO //setup specifics of how diff fonts are displayed
 /*
+
+  2025/12/16
+  believe found issue w pokeabbie speed up
+  but only issue I'm coming into right now,  is that
+  anims that use scanline effects
+  to distort sprites are what breaks it.
+
+  Moves go off fine, no crashing, but the effect is no longer smooth,
+  and the sprite typically gets split up.
+
+   scanline effects is the one that makes
+  the sprite wavy.
+
+  AnimTask_ExtrasensoryDistortion
+  &
+  AnimTask_DragonDanceWaver
+  
+  but another conclusion I drew is the higher speed ups 
+  seem to exxaggerate the movements so idk
+  maybe adding protections in the task itself
+  to make smaller movements at higher speed
+
+  look into same thing did w pause and delay
+  divide values by speed buff to make smaller increments
+  to accout for the exxagerated movement.
+
+  functions are very opaque I have no idea
+  what the hell these things are doing
 
   issue with nicknames mon with nicknames aren't having their name said
   because of how I did the name storing, need fix
@@ -12804,7 +12832,7 @@ goto METATILE_TYPES //of interest coud be behavrio fro recognizing grahpics as e
 
 goto TERRAIN_DEFINES
 goto FIELD_ENDTURN  //battle_util.c  includes weather & terrain decrement //still to do     vsonic
-goto BATTLE_TERRAIN //Battle Terrain, NOT TERRAIN effect, is the entire battle field, including part battler sits on, can use to make terrain effect
+goto BATTLE_ENVIRONMENT //Battle Terrain, NOT TERRAIN effect, is the entire battle field, including part battler sits on, can use to make terrain effect
 goto BATTLE_SETUP_TERRAIN   //sets battle terrain from metatile/environment
 /*
 * New terrain notes
