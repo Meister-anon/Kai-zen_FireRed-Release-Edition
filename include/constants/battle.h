@@ -761,7 +761,7 @@ enum SemiInvulnerableState
     STATE_ON_AIR,
     STATE_PHANTOM_FORCE,
     STATE_SKY_DROP,
-    STATE_COMMANDER,
+    STATE_COMMANDER, //unsure if need make separate one for battery, functionally the same
     SEMI_INVULNERABLE_COUNT,
 };
 
@@ -771,23 +771,6 @@ enum SemiInvulnerableExclusion
     EXCLUDE_COMMANDER,
 };
 
-enum SemiInvulnerableState
-{
-    STATE_NONE,
-    STATE_UNDERGROUND,
-    STATE_UNDERWATER,
-    STATE_ON_AIR,
-    STATE_PHANTOM_FORCE,
-    STATE_SKY_DROP,
-    STATE_COMMANDER,
-    SEMI_INVULNERABLE_COUNT,
-};
-
-enum SemiInvulnerableExclusion
-{
-    CHECK_ALL,
-    EXCLUDE_COMMANDER,
-};
 
 // Not really sure what a "hitmarker" is.
 #define HITMARKER_WAKE_UP_CLEAR         (1 << 4)	//// Cleared when waking up. Never set or checked.

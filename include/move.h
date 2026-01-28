@@ -7,7 +7,7 @@
 #include "constants/battle_move_effects.h"
 #include "constants/battle_string_ids.h"
 #include "constants/moves.h"
-#include "characters.h"
+#include "constants/characters.h"
 #include "strings.h"
 
 // For defining EFFECT_HIT etc. with battle TV scores and flags etc.
@@ -22,6 +22,10 @@ struct __attribute__((packed, aligned(2))) BattleMoveEffect
     u16 recoilEffect:1; //for new pre hit ability effect, keep an eye out for effects that go to same battlescript where condition should be TRUE
     u16 padding:8;
 };
+//having effect recoil and also labelling the effect as a recoil effect
+//seems unnecessarily redundent it already has recoil move effect on it as well
+//shouldn't having additional effect recoil be enough?
+//idk need go over my logic for this, cut down where I can
 //w new battle refactors believe no longer need acc check after atk string
 //as all done in atk canceler so no longer relevant
 
@@ -223,6 +227,12 @@ struct MoveInfo
 
     // primary/secondary effects
     const struct AdditionalEffect *additionalEffects;
+    // contest parameters
+    /*u8 contestEffect;
+    u8 contestCategory:3;
+    u8 contestComboStarterId;
+    u8 contestComboMoves[MAX_COMBO_MOVES];*/
+    const u8 *battleAnimScript;
 };//without u32 flags, type overflowed with added moves
 //argument is for extra effects other than secondary effect
 //vsonic important seems ignoresKingsRock value isn't necessary
@@ -772,7 +782,7 @@ static inline u32 GetMoveContestComboStarter(u32 moveId)
 static inline u32 GetMoveContestComboMoves(u32 moveId, u32 comboMove)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].contestComboMoves[comboMove];
-}
+}*/
 
 static inline const u8 *GetMoveAnimationScript(u32 moveId)
 {
@@ -783,7 +793,7 @@ static inline const u8 *GetMoveAnimationScript(u32 moveId)
         return gMovesInfo[MOVE_NONE].battleAnimScript;
     }
     return gMovesInfo[moveId].battleAnimScript;
-}*/
+}
 
 static inline bool32 IsOHKOmoveEffect(u32 moveId)
 {
