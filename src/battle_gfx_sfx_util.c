@@ -592,7 +592,7 @@ bool8 BattleLoadAllHealthBoxesGfx(u8 state)
 
 void LoadBattleBarGfx(u8 unused)
 {
-    DecompressDataWithHeaderWram(gBattleInterfaceGfx_BattleBar, gMonSpritesGfxPtr->barFontGfx);
+    LZDecompressWram(gBattleInterfaceGfx_BattleBar, gMonSpritesGfxPtr->barFontGfx);
 }
 
 bool8 BattleInitAllSprites(u8 *state1, u8 *battler)
@@ -813,7 +813,7 @@ void BattleLoadSubstituteOrMonSpriteGfx(u8 battler, bool8 loadMonSprite)
 
         if (IsContest() || IsOnPlayerSide(battler))//use new graphic
         { 
-            DecompressDataWithHeaderVram(gBattleAnimSpriteGfx_SubstituteBack, gMonSpritesGfxPtr->spritesGfx[position]);
+            LZDecompressVram(gBattleAnimSpriteGfx_SubstituteBack, gMonSpritesGfxPtr->spritesGfx[position]);
             for (i = 1; i < 4; i++)
             {
                 Dma3CopyLarge32_(gMonSpritesGfxPtr->spritesGfx[position], &gMonSpritesGfxPtr->spritesGfx[position][MON_PIC_SIZE * i], MON_PIC_SIZE);
@@ -824,7 +824,7 @@ void BattleLoadSubstituteOrMonSpriteGfx(u8 battler, bool8 loadMonSprite)
         }
         else if (!IsOnPlayerSide(battler))//use legacy graphic
         {    
-            DecompressDataWithHeaderVram(gBattleAnimSpriteGfx_Substitute_Legacy, gMonSpritesGfxPtr->spritesGfx[position]);
+            LZDecompressVram(gBattleAnimSpriteGfx_Substitute_Legacy, gMonSpritesGfxPtr->spritesGfx[position]);
             for (i = 1; i < 4; i++)
             {
                 Dma3CopyLarge32_(gMonSpritesGfxPtr->spritesGfx[position], &gMonSpritesGfxPtr->spritesGfx[position][MON_PIC_SIZE * i], MON_PIC_SIZE);

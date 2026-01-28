@@ -257,6 +257,8 @@ static void CB2_ReshowBattleScreenAfterCatch(void)
     ++gBattleScripting.reshowMainState;
 }
 
+//idk diff but this is used
+//in place of ClearBattleBgCntBaseBlocks
 static void ReshowBattleScreen_TurnOnDisplay(void)
 {
     EnableInterrupts(INTR_FLAG_VBLANK);

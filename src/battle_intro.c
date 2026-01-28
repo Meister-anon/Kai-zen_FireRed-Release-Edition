@@ -39,32 +39,32 @@ void SetAnimBgAttribute(u8 bgId, u8 attributeId, u8 value)
         switch (attributeId)
         {
         case BG_ANIM_SCREEN_SIZE:
-            ((struct BgCnt *)&sBgCnt)->screenSize = value;
+            ((vBgCnt *)&sBgCnt)->screenSize = value;
             break;
         case BG_ANIM_AREA_OVERFLOW_MODE:
-            ((struct BgCnt *)&sBgCnt)->areaOverflowMode = value;
+            ((vBgCnt *)&sBgCnt)->areaOverflowMode = value;
             break;
         case BG_ANIM_MOSAIC:
-            ((struct BgCnt *)&sBgCnt)->mosaic = value;
+            ((vBgCnt *)&sBgCnt)->mosaic = value;
             break;
         case BG_ANIM_CHAR_BASE_BLOCK:
-            ((struct BgCnt *)&sBgCnt)->charBaseBlock = value;
+            ((vBgCnt *)&sBgCnt)->charBaseBlock = value;
             break;
         case BG_ANIM_PRIORITY:
-            ((struct BgCnt *)&sBgCnt)->priority = value;
+            ((vBgCnt *)&sBgCnt)->priority = value;
             break;
         case BG_ANIM_PALETTES_MODE:
-            ((struct BgCnt *)&sBgCnt)->palettes = value;
+            ((vBgCnt *)&sBgCnt)->palettes = value;
             break;
         case BG_ANIM_SCREEN_BASE_BLOCK:
-            ((struct BgCnt *)&sBgCnt)->screenBaseBlock = value;
+            ((vBgCnt *)&sBgCnt)->screenBaseBlock = value;
             break;
         }
         SetGpuReg(gBattleAnimRegOffsBgCnt[bgId], sBgCnt);
     }
 }
 
-s32 GetAnimBgAttribute(u8 bgId, u8 attributeId)
+int GetAnimBgAttribute(u8 bgId, u8 attributeId)
 {
     u16 bgCnt;
 
@@ -74,19 +74,19 @@ s32 GetAnimBgAttribute(u8 bgId, u8 attributeId)
         switch (attributeId)
         {
         case BG_ANIM_SCREEN_SIZE:
-            return ((struct BgCnt *)&bgCnt)->screenSize;
+            return ((vBgCnt *)&bgCnt)->screenSize;
         case BG_ANIM_AREA_OVERFLOW_MODE:
-            return ((struct BgCnt *)&bgCnt)->areaOverflowMode;
+            return ((vBgCnt *)&bgCnt)->areaOverflowMode;
         case BG_ANIM_MOSAIC:
-            return ((struct BgCnt *)&bgCnt)->mosaic;
+            return ((vBgCnt *)&bgCnt)->mosaic;
         case BG_ANIM_CHAR_BASE_BLOCK:
-            return ((struct BgCnt *)&bgCnt)->charBaseBlock;
+            return ((vBgCnt *)&bgCnt)->charBaseBlock;
         case BG_ANIM_PRIORITY:
-            return ((struct BgCnt *)&bgCnt)->priority;
+            return ((vBgCnt *)&bgCnt)->priority;
         case BG_ANIM_PALETTES_MODE:
-            return ((struct BgCnt *)&bgCnt)->palettes;
+            return ((vBgCnt *)&bgCnt)->palettes;
         case BG_ANIM_SCREEN_BASE_BLOCK:
-            return ((struct BgCnt *)&bgCnt)->screenBaseBlock;
+            return ((vBgCnt *)&bgCnt)->screenBaseBlock;
         }
     }
     return 0;

@@ -257,13 +257,13 @@ void AnimTask_DrawFallingWhiteLinesOnAttacker(u8 taskId)
     SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG1 | BLDCNT_TGT2_ALL | BLDCNT_EFFECT_BLEND);
     SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(8, 12));
     bg1Cnt = GetGpuReg(REG_OFFSET_BG1CNT);
-    ((struct BgCnt *)&bg1Cnt)->priority = 0;
-    ((struct BgCnt *)&bg1Cnt)->screenSize = 0;
+    ((vBgCnt *)&bg1Cnt)->priority = 0;
+    ((vBgCnt *)&bg1Cnt)->screenSize = 0;
     SetGpuReg(REG_OFFSET_BG1CNT, bg1Cnt);
 
     if (!IsContest())
     {
-        ((struct BgCnt *)&bg1Cnt)->charBaseBlock = 1;
+        ((vBgCnt *)&bg1Cnt)->charBaseBlock = 1;
         SetGpuReg(REG_OFFSET_BG1CNT, bg1Cnt);
     }
 
@@ -275,7 +275,7 @@ void AnimTask_DrawFallingWhiteLinesOnAttacker(u8 taskId)
             if (IsBattlerSpriteVisible(BATTLE_PARTNER(gBattleAnimAttacker)) == TRUE)
             {
                 gSprites[gBattlerSpriteIds[BATTLE_PARTNER(gBattleAnimAttacker)]].oam.priority -= 1;
-                ((struct BgCnt *)&bg1Cnt)->priority = 1;
+                ((vBgCnt *)&bg1Cnt)->priority = 1;
                 SetGpuReg(REG_OFFSET_BG1CNT, bg1Cnt);
                 var0 = 1;
             }
@@ -325,7 +325,7 @@ static void AnimTask_DrawFallingWhiteLinesOnAttacker_Step(u8 taskId)
             if (!IsContest())
             {
                 bg1Cnt = GetGpuReg(REG_OFFSET_BG1CNT);
-                ((struct BgCnt *)&bg1Cnt)->charBaseBlock = 0;
+                ((vBgCnt *)&bg1Cnt)->charBaseBlock = 0;
                 SetGpuReg(REG_OFFSET_BG1CNT, bg1Cnt);
             }
 
