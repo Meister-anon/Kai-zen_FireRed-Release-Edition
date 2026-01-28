@@ -10065,14 +10065,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .name = COMPOUND_STRING("Aura Sphere"),
         .description = COMPOUND_MOVE_STRING("Attacks with an aura\nblast that cannot\nbe evaded."),
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .power = 80,
+            .power = 100,
         #else
             .power = 90,
         #endif
         .effect = EFFECT_HIT,
-        .type = TYPE_FIGHTING,
+        .type = TYPE_FIGHTING,//buffed as one of few special fighting moves
         .accuracy = 0,
-        .pp = 20,
+        .pp = 15,
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
