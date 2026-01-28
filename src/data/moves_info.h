@@ -88,7 +88,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .mirrorMoveBanned = TRUE,
         .sketchBanned = TRUE,
         .assistBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_None,
+        .battleAnimScript = gBattleAnimMove_None,
     },
 
     [MOVE_POUND] =
@@ -108,7 +108,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_POUND,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Pound,
+        .battleAnimScript = gBattleAnimMove_Pound,
     },
 
     [MOVE_KARATE_CHOP] =
@@ -129,7 +129,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
-        //.battleAnimScript = gBattleAnimMove_KarateChop,
+        .battleAnimScript = gBattleAnimMove_KarateChop,
     },
 
     [MOVE_DOUBLE_SLAP] =
@@ -151,7 +151,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_POUND},
-        //.battleAnimScript = gBattleAnimMove_DoubleSlap,
+        .battleAnimScript = gBattleAnimMove_DoubleSlap,
     },
 
     [MOVE_COMET_PUNCH] =
@@ -174,7 +174,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_CometPunch,
+        .battleAnimScript = gBattleAnimMove_CometPunch,
     }, //gave priority
 
     [MOVE_MEGA_PUNCH] =
@@ -195,7 +195,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_MIND_READER},
-        //.battleAnimScript = gBattleAnimMove_MegaPunch,
+        .battleAnimScript = gBattleAnimMove_MegaPunch,
     },
 
     [MOVE_PAY_DAY] =
@@ -217,7 +217,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PayDay,
+        .battleAnimScript = gBattleAnimMove_PayDay,
     },
 
     [MOVE_FIRE_PUNCH] =
@@ -242,7 +242,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_FIRE_PUNCH,
         //.contestComboMoves = {COMBO_STARTER_ICE_PUNCH, COMBO_STARTER_SUNNY_DAY, COMBO_STARTER_THUNDER_PUNCH},
-        //.battleAnimScript = gBattleAnimMove_FirePunch,
+        .battleAnimScript = gBattleAnimMove_FirePunch,
     },
 
     [MOVE_ICE_PUNCH] =
@@ -267,7 +267,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_ICE_PUNCH,
         //.contestComboMoves = {COMBO_STARTER_FIRE_PUNCH, COMBO_STARTER_THUNDER_PUNCH},
-        //.battleAnimScript = gBattleAnimMove_IcePunch,
+        .battleAnimScript = gBattleAnimMove_IcePunch,
     },
 
     [MOVE_THUNDER_PUNCH] =
@@ -292,7 +292,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_THUNDER_PUNCH,
         //.contestComboMoves = {COMBO_STARTER_CHARGE, COMBO_STARTER_FIRE_PUNCH, COMBO_STARTER_ICE_PUNCH},
-        //.battleAnimScript = gBattleAnimMove_ThunderPunch,
+        .battleAnimScript = gBattleAnimMove_ThunderPunch,
     },
 
     [MOVE_SCRATCH] =
@@ -312,7 +312,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_SCRATCH,
         //.contestComboMoves = {COMBO_STARTER_LEER},
-        //.battleAnimScript = gBattleAnimMove_Scratch,
+        .battleAnimScript = gBattleAnimMove_Scratch,
     },
 
     [MOVE_VICE_GRIP] =
@@ -347,7 +347,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_VICE_GRIP},
-        //.battleAnimScript = gBattleAnimMove_Guillotine,
+        .battleAnimScript = gBattleAnimMove_Guillotine,
     },
 
     [MOVE_RAZOR_WIND] =
@@ -373,7 +373,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RazorWind,
+        .battleAnimScript = gBattleAnimMove_RazorWind,
     },
     //think will give to more flying types
     //ok new schema for two typed moves
@@ -408,7 +408,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_SWORDS_DANCE,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SwordsDance,
+        .battleAnimScript = gBattleAnimMove_SwordsDance,
     },
 
     [MOVE_CUT] =
@@ -429,7 +429,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Cut,
+        .battleAnimScript = gBattleAnimMove_Cut,
         .argument.typeBasedPowerBoost = {
         .typeCheck = TYPE_GRASS,
         .powerMultiplier = 300}, //power x multiplier / 10 basically is just times 3...
@@ -456,7 +456,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Gust,
+        .battleAnimScript = gBattleAnimMove_Gust,
     }, //blunt wind damage
 
     [MOVE_WING_ATTACK] =
@@ -478,7 +478,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_WingAttack,
+        .battleAnimScript = gBattleAnimMove_WingAttack,
     },
     //turn into precision attack
 
@@ -510,7 +510,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Whirlwind,
+        .battleAnimScript = gBattleAnimMove_Whirlwind,
     },
     //these effects seem worthless, but are exactly what you wish
     //you had when an enemy gets stat buffed on you.
@@ -557,7 +557,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Fly,
+        .battleAnimScript = gBattleAnimMove_Fly,
     },
     //if take time to aim decide to add high crit
     //with other effects can make bp 80 to be on line with other effects
@@ -620,7 +620,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_VICE_GRIP},
-        //.battleAnimScript = gBattleAnimMove_Bind,
+        .battleAnimScript = gBattleAnimMove_Bind,
     }, //idae from bug, but making this do encore so attack and enemy cant change moves while trapped
 
     [MOVE_SLAM] =
@@ -640,7 +640,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_POUND},
-        //.battleAnimScript = gBattleAnimMove_Slam,
+        .battleAnimScript = gBattleAnimMove_Slam,
     },//think will turn this into upgrade of tackle keep 95 acc
     //equiv beam move now separate from body slam
     //vsonic important 15 bp inrease so coulda kinda stay where it is in movesets
@@ -677,7 +677,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        //.battleAnimScript = gBattleAnimMove_VineWhip,
+        .battleAnimScript = gBattleAnimMove_VineWhip,
     },//leafage pretty much takes teh job of his,
     //but can make unique if I change it to a flinch hit?
     //believe would be pretty much only grass move that has that effect
@@ -705,7 +705,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_LEER},
-        //.battleAnimScript = gBattleAnimMove_Stomp,
+        .battleAnimScript = gBattleAnimMove_Stomp,
     },
 
     [MOVE_DOUBLE_KICK] =
@@ -728,7 +728,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DoubleKick,
+        .battleAnimScript = gBattleAnimMove_DoubleKick,
     },
 
     [MOVE_MEGA_KICK] =
@@ -749,7 +749,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_MIND_READER},
-        //.battleAnimScript = gBattleAnimMove_MegaKick,
+        .battleAnimScript = gBattleAnimMove_MegaKick,
     },
 
     [MOVE_JUMP_KICK] =
@@ -779,7 +779,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_MIND_READER},
-        //.battleAnimScript = gBattleAnimMove_JumpKick,
+        .battleAnimScript = gBattleAnimMove_JumpKick,
     },
 
     [MOVE_ROLLING_KICK] =
@@ -805,7 +805,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RollingKick,
+        .battleAnimScript = gBattleAnimMove_RollingKick,
     },
     //think move isn't bad but barely any mon get it
     //machop only by breeding,
@@ -829,7 +829,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_SAND_ATTACK,
         //.contestComboMoves = {COMBO_STARTER_MUD_SLAP, COMBO_STARTER_SANDSTORM},
-        //.battleAnimScript = gBattleAnimMove_SandAttack,
+        .battleAnimScript = gBattleAnimMove_SandAttack,
     },
 
     [MOVE_HEADBUTT] =
@@ -854,7 +854,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
-        //.battleAnimScript = gBattleAnimMove_Headbutt,
+        .battleAnimScript = gBattleAnimMove_Headbutt,
     },
 
     [MOVE_HORN_ATTACK] =
@@ -875,7 +875,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_HORN_ATTACK,
         //.contestComboMoves = {COMBO_STARTER_LEER},
-        //.battleAnimScript = gBattleAnimMove_HornAttack,
+        .battleAnimScript = gBattleAnimMove_HornAttack,
     },
 
     [MOVE_FURY_ATTACK] =
@@ -899,7 +899,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HORN_ATTACK, COMBO_STARTER_PECK},
-        //.battleAnimScript = gBattleAnimMove_FuryAttack,
+        .battleAnimScript = gBattleAnimMove_FuryAttack,
     },//since hit is with horn or beak i.e head
 
     [MOVE_HORN_DRILL] =
@@ -920,7 +920,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HORN_ATTACK},
-        //.battleAnimScript = gBattleAnimMove_HornDrill,
+        .battleAnimScript = gBattleAnimMove_HornDrill,
     },
 
     [MOVE_TACKLE] =
@@ -948,7 +948,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_DEFENSE_CURL, COMBO_STARTER_HARDEN, COMBO_STARTER_LEER},
-        //.battleAnimScript = gBattleAnimMove_Tackle,
+        .battleAnimScript = gBattleAnimMove_Tackle,
     },
 
     [MOVE_BODY_SLAM] =
@@ -976,7 +976,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BodySlam,
+        .battleAnimScript = gBattleAnimMove_BodySlam,
     },
 
     [MOVE_WRAP] =
@@ -1004,7 +1004,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Wrap,
+        .battleAnimScript = gBattleAnimMove_Wrap,
     },
 
     [MOVE_TAKE_DOWN] =
@@ -1028,7 +1028,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_HARDEN},
-        //.battleAnimScript = gBattleAnimMove_TakeDown,
+        .battleAnimScript = gBattleAnimMove_TakeDown,
     },
 
     [MOVE_THRASH] =
@@ -1059,7 +1059,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAGE},
-        //.battleAnimScript = gBattleAnimMove_Thrash,
+        .battleAnimScript = gBattleAnimMove_Thrash,
     },
 
     [MOVE_DOUBLE_EDGE] =
@@ -1083,7 +1083,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_HARDEN},
-        //.battleAnimScript = gBattleAnimMove_DoubleEdge,
+        .battleAnimScript = gBattleAnimMove_DoubleEdge,
     },
 
     [MOVE_TAIL_WHIP] =
@@ -1103,7 +1103,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARM},
-        //.battleAnimScript = gBattleAnimMove_TailWhip,
+        .battleAnimScript = gBattleAnimMove_TailWhip,
     },
 
     [MOVE_POISON_STING] =
@@ -1126,7 +1126,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PoisonSting,
+        .battleAnimScript = gBattleAnimMove_PoisonSting,
     },
 
     [MOVE_TWINEEDLE] =
@@ -1155,7 +1155,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Twineedle,
+        .battleAnimScript = gBattleAnimMove_Twineedle,
     },
 
     [MOVE_PIN_MISSILE] =
@@ -1185,7 +1185,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PinMissile,
+        .battleAnimScript = gBattleAnimMove_PinMissile,
     },
 
     [MOVE_LEER] =
@@ -1205,7 +1205,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_LEER,
         //.contestComboMoves = {COMBO_STARTER_RAGE, COMBO_STARTER_SCARY_FACE},
-        //.battleAnimScript = gBattleAnimMove_Leer,
+        .battleAnimScript = gBattleAnimMove_Leer,
     },
 
     [MOVE_BITE] =
@@ -1230,7 +1230,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_LEER, COMBO_STARTER_SCARY_FACE},
-        //.battleAnimScript = gBattleAnimMove_Bite,
+        .battleAnimScript = gBattleAnimMove_Bite,
     },
 
     [MOVE_GROWL] =
@@ -1252,7 +1252,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARM},
-        //.battleAnimScript = gBattleAnimMove_Growl,
+        .battleAnimScript = gBattleAnimMove_Growl,
     },
 
     [MOVE_ROAR] =
@@ -1283,7 +1283,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Roar,
+        .battleAnimScript = gBattleAnimMove_Roar,
     }, //cacophony boost could make this do dmage percent hp
     //may do like prankster make field cacophony boosted
 
@@ -1307,7 +1307,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_SING,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Sing,
+        .battleAnimScript = gBattleAnimMove_Sing,
     },//accuracy buff based on anime logic, and raririty
     //part of me things this should be side target i.e both 
     //since sing in lore puts everyone to sleep, but with that 
@@ -1334,7 +1334,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Supersonic,
+        .battleAnimScript = gBattleAnimMove_Supersonic,
     },
 
     //BREAK
@@ -1358,7 +1358,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SonicBoom,
+        .battleAnimScript = gBattleAnimMove_SonicBoom,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 10,
@@ -1390,7 +1390,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Disable,
+        .battleAnimScript = gBattleAnimMove_Disable,
     },
 
     [MOVE_ACID] =
@@ -1413,7 +1413,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Acid,
+        .battleAnimScript = gBattleAnimMove_Acid,
     },
 
     [MOVE_EMBER] =
@@ -1436,7 +1436,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_Ember,
+        .battleAnimScript = gBattleAnimMove_Ember,
     },
 
     [MOVE_FLAMETHROWER] =
@@ -1460,7 +1460,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_Flamethrower,
+        .battleAnimScript = gBattleAnimMove_Flamethrower,
     },//Think flamethrower is too common to be a knock down move, then again good for boosting fire type back up?
 
     [MOVE_MIST] =
@@ -1482,7 +1482,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Mist,
+        .battleAnimScript = gBattleAnimMove_Mist,
     },
 
     [MOVE_WATER_GUN] =
@@ -1501,7 +1501,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_MUD_SPORT, COMBO_STARTER_RAIN_DANCE, COMBO_STARTER_WATER_SPORT},
-        //.battleAnimScript = gBattleAnimMove_WaterGun,
+        .battleAnimScript = gBattleAnimMove_WaterGun,
     },
 
     [MOVE_HYDRO_PUMP] =
@@ -1521,7 +1521,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_HydroPump,
+        .battleAnimScript = gBattleAnimMove_HydroPump,
     },
 
     [MOVE_SURF] =
@@ -1541,7 +1541,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_SURF,
         //.contestComboMoves = {COMBO_STARTER_DIVE, COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Surf,
+        .battleAnimScript = gBattleAnimMove_Surf,
     },//revert for balance
     //realize otherwise everyone just clicks surf
 
@@ -1571,7 +1571,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL},
-        //.battleAnimScript = gBattleAnimMove_IceBeam,
+        .battleAnimScript = gBattleAnimMove_IceBeam,
     },//yeah no, idk wtf I was thinking, not giving ice a flying knock outside of blizzard
 
     [MOVE_BLIZZARD] =
@@ -1597,7 +1597,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL, COMBO_STARTER_POWDER_SNOW},
-        //.battleAnimScript = gBattleAnimMove_Blizzard,
+        .battleAnimScript = gBattleAnimMove_Blizzard,
     },
 
     [MOVE_PSYBEAM] =
@@ -1620,7 +1620,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
-        //.battleAnimScript = gBattleAnimMove_Psybeam,
+        .battleAnimScript = gBattleAnimMove_Psybeam,
     },
 
     [MOVE_BUBBLE_BEAM] =
@@ -1643,7 +1643,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_BubbleBeam,
+        .battleAnimScript = gBattleAnimMove_BubbleBeam,
     },
 
     [MOVE_AURORA_BEAM] =
@@ -1666,7 +1666,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL},
-        //.battleAnimScript = gBattleAnimMove_AuroraBeam,
+        .battleAnimScript = gBattleAnimMove_AuroraBeam,
     },
 
     [MOVE_HYPER_BEAM] =
@@ -1689,7 +1689,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HyperBeam,
+        .battleAnimScript = gBattleAnimMove_HyperBeam,
     },
 
     [MOVE_PECK] =
@@ -1709,7 +1709,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_PECK,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Peck,
+        .battleAnimScript = gBattleAnimMove_Peck,
     },
 
     [MOVE_DRILL_PECK] =
@@ -1730,7 +1730,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_PECK},
-        //.battleAnimScript = gBattleAnimMove_DrillPeck,
+        .battleAnimScript = gBattleAnimMove_DrillPeck,
     },
     //saw comment on rigamarolled vid I like make drill peck break screens
     //drill enemy weak spot
@@ -1765,7 +1765,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_MIND_READER},
-        //.battleAnimScript = gBattleAnimMove_Submission,
+        .battleAnimScript = gBattleAnimMove_Submission,
     },
     //was at some point strongest fighting move, think will change to ultimate fighting technique
     //does recoil but breaks through protect essentially same effect as raging bull
@@ -1795,7 +1795,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LowKick,
+        .battleAnimScript = gBattleAnimMove_LowKick,
     },
 
     [MOVE_COUNTER] =
@@ -1821,7 +1821,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_TAUNT},
-        //.battleAnimScript = gBattleAnimMove_Counter,
+        .battleAnimScript = gBattleAnimMove_Counter,
     },
 
     [MOVE_SEISMIC_TOSS] =
@@ -1842,7 +1842,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FAKE_OUT},
-        //.battleAnimScript = gBattleAnimMove_SeismicToss,
+        .battleAnimScript = gBattleAnimMove_SeismicToss,
     },
 
     [MOVE_STRENGTH] =
@@ -1867,7 +1867,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Strength,
+        .battleAnimScript = gBattleAnimMove_Strength,
     },
 
     [MOVE_ABSORB] =
@@ -1892,7 +1892,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        //.battleAnimScript = gBattleAnimMove_Absorb,
+        .battleAnimScript = gBattleAnimMove_Absorb,
     },
 
     [MOVE_MEGA_DRAIN] =
@@ -1917,7 +1917,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        //.battleAnimScript = gBattleAnimMove_MegaDrain,
+        .battleAnimScript = gBattleAnimMove_MegaDrain,
     },
 
     [MOVE_LEECH_SEED] =
@@ -1937,7 +1937,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_LEECH_SEED,
         //.contestComboMoves = {COMBO_STARTER_GROWTH, COMBO_STARTER_WORRY_SEED},
-        //.battleAnimScript = gBattleAnimMove_LeechSeed,
+        .battleAnimScript = gBattleAnimMove_LeechSeed,
     },
 
     [MOVE_GROWTH] =
@@ -1963,7 +1963,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_GROWTH,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Growth,
+        .battleAnimScript = gBattleAnimMove_Growth,
     },
 
     [MOVE_RAZOR_LEAF] =
@@ -1984,7 +1984,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        //.battleAnimScript = gBattleAnimMove_RazorLeaf,
+        .battleAnimScript = gBattleAnimMove_RazorLeaf,
     },
 
     [MOVE_SOLAR_BEAM] =
@@ -2007,7 +2007,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH, COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_SolarBeam,
+        .battleAnimScript = gBattleAnimMove_SolarBeam,
     },
 
     [MOVE_POISON_POWDER] =
@@ -2029,7 +2029,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SWEET_SCENT},
-        //.battleAnimScript = gBattleAnimMove_PoisonPowder,
+        .battleAnimScript = gBattleAnimMove_PoisonPowder,
     },
 
     [MOVE_STUN_SPORE] =
@@ -2051,7 +2051,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SWEET_SCENT},
-        //.battleAnimScript = gBattleAnimMove_StunSpore,
+        .battleAnimScript = gBattleAnimMove_StunSpore,
     },
 
     [MOVE_SLEEP_POWDER] =
@@ -2073,7 +2073,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SWEET_SCENT},
-        //.battleAnimScript = gBattleAnimMove_SleepPowder,
+        .battleAnimScript = gBattleAnimMove_SleepPowder,
     },
 
     [MOVE_PETAL_DANCE] =
@@ -2108,7 +2108,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        //.battleAnimScript = gBattleAnimMove_PetalDance,
+        .battleAnimScript = gBattleAnimMove_PetalDance,
     },
 
     [MOVE_STRING_SHOT] =
@@ -2132,7 +2132,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_STRING_SHOT,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_StringShot,
+        .battleAnimScript = gBattleAnimMove_StringShot,
     },
 
     [MOVE_DRAGON_RAGE] =
@@ -2157,7 +2157,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_DRAGON_RAGE,
         //.contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RUSH, COMBO_STARTER_DRAGON_TAIL},
-        //.battleAnimScript = gBattleAnimMove_DragonRage,
+        .battleAnimScript = gBattleAnimMove_DragonRage,
     },
     //new idea potentially turn dragon rage
     //into special class of fixation effect
@@ -2196,7 +2196,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_FireSpin,
+        .battleAnimScript = gBattleAnimMove_FireSpin,
     },
 
     [MOVE_THUNDER_SHOCK] =
@@ -2219,7 +2219,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARGE},
-        //.battleAnimScript = gBattleAnimMove_ThunderShock,
+        .battleAnimScript = gBattleAnimMove_ThunderShock,
     },
 
     [MOVE_THUNDERBOLT] =
@@ -2244,7 +2244,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARGE},
-        //.battleAnimScript = gBattleAnimMove_Thunderbolt,
+        .battleAnimScript = gBattleAnimMove_Thunderbolt,
     },
     //used many times to hit flying enemies guess can give hits flying?
     //if I give a good variety of moves this effect its good for ground types
@@ -2271,7 +2271,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARGE},
-        //.battleAnimScript = gBattleAnimMove_ThunderWave,
+        .battleAnimScript = gBattleAnimMove_ThunderWave,
     },
 
     [MOVE_THUNDER] =
@@ -2297,7 +2297,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARGE, COMBO_STARTER_LOCK_ON, COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Thunder,
+        .battleAnimScript = gBattleAnimMove_Thunder,
     },
     //since has conditional perfect acc makes sense to drop power some
 
@@ -2318,7 +2318,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_ROCK_THROW,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RockThrow,
+        .battleAnimScript = gBattleAnimMove_RockThrow,
     },  //now that can hit in air, may give to more fighting types; 
     ////also since its not easy to hit flying target change accuraacy against in air targets
     //don't like that as a standard, just slightly lowered Accuracy instead, since making standardized effect
@@ -2341,7 +2341,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_EARTHQUAKE,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Earthquake,
+        .battleAnimScript = gBattleAnimMove_Earthquake,
     },//remove target foes adn ally, from most things as it doesn't make sense, keep for explosion etc.
 
     [MOVE_FISSURE] =
@@ -2363,7 +2363,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_EARTHQUAKE},
-        //.battleAnimScript = gBattleAnimMove_Fissure,
+        .battleAnimScript = gBattleAnimMove_Fissure,
     },
 
     [MOVE_DIG] =
@@ -2393,7 +2393,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Dig,
+        .battleAnimScript = gBattleAnimMove_Dig,
     },//if current move make grounded
     //since have to deal with floating immunity
     //think will let dig be only move to keep full pp
@@ -2420,7 +2420,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_TOXIC,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Toxic,
+        .battleAnimScript = gBattleAnimMove_Toxic,
     },
 
     [MOVE_CONFUSION] =
@@ -2443,7 +2443,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_CONFUSION,
         //.contestComboMoves = {COMBO_STARTER_CALM_MIND, COMBO_STARTER_KINESIS, COMBO_STARTER_PSYCHIC},
-        //.battleAnimScript = gBattleAnimMove_Confusion,
+        .battleAnimScript = gBattleAnimMove_Confusion,
     },
 
     [MOVE_PSYCHIC] =
@@ -2467,7 +2467,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_PSYCHIC,
         //.contestComboMoves = {COMBO_STARTER_CALM_MIND, COMBO_STARTER_CONFUSION, COMBO_STARTER_KINESIS},
-        //.battleAnimScript = gBattleAnimMove_Psychic,
+        .battleAnimScript = gBattleAnimMove_Psychic,
     },
 
     [MOVE_HYPNOSIS] =
@@ -2488,7 +2488,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_HYPNOSIS,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Hypnosis,
+        .battleAnimScript = gBattleAnimMove_Hypnosis,
     },//unsure if acc is too high
     //with lack of type immunity and compound eyes
     //acc boost items in mind
@@ -2513,7 +2513,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
-        //.battleAnimScript = gBattleAnimMove_Meditate,
+        .battleAnimScript = gBattleAnimMove_Meditate,
     },
 
     [MOVE_AGILITY] =
@@ -2535,7 +2535,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_DOUBLE_TEAM},
-        //.battleAnimScript = gBattleAnimMove_Agility,
+        .battleAnimScript = gBattleAnimMove_Agility,
     },
 
     [MOVE_QUICK_ATTACK] =
@@ -2555,7 +2555,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_DOUBLE_TEAM},
-        //.battleAnimScript = gBattleAnimMove_QuickAttack,
+        .battleAnimScript = gBattleAnimMove_QuickAttack,
     },
 
     [MOVE_RAGE] =
@@ -2582,7 +2582,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_RAGE,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Rage,
+        .battleAnimScript = gBattleAnimMove_Rage,
     },//I feel like this could be a good tm?
     //boosts atk when hit
     //boosts power when use move
@@ -2605,7 +2605,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CONFUSION, COMBO_STARTER_DOUBLE_TEAM, COMBO_STARTER_KINESIS, COMBO_STARTER_PSYCHIC},
-        //.battleAnimScript = gBattleAnimMove_Teleport,
+        .battleAnimScript = gBattleAnimMove_Teleport,
     }, //fully updated to modern effect
     //consider make neutral priority so more psychic types
     //can use effect slow mon wouldn't be affected
@@ -2634,7 +2634,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_NightShade,
+        .battleAnimScript = gBattleAnimMove_NightShade,
     },
 
     [MOVE_MIMIC] =
@@ -2661,7 +2661,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Mimic,
+        .battleAnimScript = gBattleAnimMove_Mimic,
     },//keep effect of lasting til end of battle not modern effect to last only until switch
 
     [MOVE_SCREECH] =
@@ -2683,7 +2683,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Screech,
+        .battleAnimScript = gBattleAnimMove_Screech,
     },
 
     [MOVE_DOUBLE_TEAM] =
@@ -2705,7 +2705,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_DOUBLE_TEAM,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DoubleTeam,
+        .battleAnimScript = gBattleAnimMove_DoubleTeam,
     },
 
     [MOVE_RECOVER] =
@@ -2732,7 +2732,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Recover,
+        .battleAnimScript = gBattleAnimMove_Recover,
     },
 
     [MOVE_HARDEN] =
@@ -2754,7 +2754,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_HARDEN,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Harden,
+        .battleAnimScript = gBattleAnimMove_Harden,
     },
 
     [MOVE_MINIMIZE] =
@@ -2780,7 +2780,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Minimize,
+        .battleAnimScript = gBattleAnimMove_Minimize,
     },
 
     [MOVE_SMOKESCREEN] =
@@ -2800,7 +2800,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SMOG},
-        //.battleAnimScript = gBattleAnimMove_Smokescreen,
+        .battleAnimScript = gBattleAnimMove_Smokescreen,
     },
 
     [MOVE_CONFUSE_RAY] =
@@ -2820,7 +2820,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ConfuseRay,
+        .battleAnimScript = gBattleAnimMove_ConfuseRay,
     },
 
     [MOVE_WITHDRAW] =
@@ -2846,7 +2846,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Withdraw,
+        .battleAnimScript = gBattleAnimMove_Withdraw,
     },//reduced pp to 25 for new effects w pp max
     //can get original pp
 
@@ -2873,7 +2873,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_DEFENSE_CURL,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DefenseCurl,
+        .battleAnimScript = gBattleAnimMove_DefenseCurl,
     },
 
     [MOVE_BARRIER] =
@@ -2899,7 +2899,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Barrier,
+        .battleAnimScript = gBattleAnimMove_Barrier,
     },
 
     [MOVE_LIGHT_SCREEN] =
@@ -2921,7 +2921,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
-        //.battleAnimScript = gBattleAnimMove_LightScreen,
+        .battleAnimScript = gBattleAnimMove_LightScreen,
     },
 
     [MOVE_HAZE] =
@@ -2943,7 +2943,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL},
-        //.battleAnimScript = gBattleAnimMove_Haze,
+        .battleAnimScript = gBattleAnimMove_Haze,
     },//black fog, setup but never put command in sript, now is in need test ...breaks game
     //fixed, full effect isn't working. , for now commented out mist command
 
@@ -2966,7 +2966,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
-        //.battleAnimScript = gBattleAnimMove_Reflect,
+        .battleAnimScript = gBattleAnimMove_Reflect,
     },
 
     [MOVE_FOCUS_ENERGY] =
@@ -2989,7 +2989,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_FOCUS_ENERGY,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FocusEnergy,
+        .battleAnimScript = gBattleAnimMove_FocusEnergy,
     },
 
     [MOVE_BIDE] =
@@ -3019,7 +3019,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Bide,
+        .battleAnimScript = gBattleAnimMove_Bide,
     },// made typeless dmg, and buffed revenge damage priority & slight damage buff to account for loss of stab
 
     [MOVE_METRONOME] =
@@ -3047,7 +3047,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Metronome,
+        .battleAnimScript = gBattleAnimMove_Metronome,
     },
 
     [MOVE_MIRROR_MOVE] =
@@ -3073,7 +3073,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MirrorMove,
+        .battleAnimScript = gBattleAnimMove_MirrorMove,
     }, //idea birds ability to parrot/copy, move kinda sucks , but is a bit better with my normal type change, as would always get psudo stab if mon is normal
     //speaking just for spearow/fearow rn
      //plan replace mirror move until switched out fainted or battle ends
@@ -3100,7 +3100,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SelfDestruct,
+        .battleAnimScript = gBattleAnimMove_SelfDestruct,
     },//will drop power since added back defense fall,
     //but keep above misty explosion as is normal type
     //hmm couple put self destruct at 140, below hyper beams
@@ -3141,7 +3141,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SOFT_BOILED},
-        //.battleAnimScript = gBattleAnimMove_EggBomb,
+        .battleAnimScript = gBattleAnimMove_EggBomb,
     },
 
     [MOVE_AURORA_VEIL] =
@@ -3163,7 +3163,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL},
-        //.battleAnimScript = gBattleAnimMove_AuroraVeil,
+        .battleAnimScript = gBattleAnimMove_AuroraVeil,
     },//should I set this back to prio 0?
     //I feel like I should it requires hail/snow setting
     //but multiple mon can do so with snowarning
@@ -3197,7 +3197,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_SMOG,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Smog,
+        .battleAnimScript = gBattleAnimMove_Smog,
     },
 
     [MOVE_SLUDGE] =
@@ -3220,7 +3220,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_SLUDGE,
         //.contestComboMoves = {COMBO_STARTER_SLUDGE_BOMB},
-        //.battleAnimScript = gBattleAnimMove_Sludge,
+        .battleAnimScript = gBattleAnimMove_Sludge,
     },
 
     [MOVE_BONE_CLUB] =
@@ -3243,7 +3243,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_BONE_CLUB,
         //.contestComboMoves = {COMBO_STARTER_BONEMERANG, COMBO_STARTER_BONE_RUSH, COMBO_STARTER_SHADOW_BONE},
-        //.battleAnimScript = gBattleAnimMove_BoneClub,
+        .battleAnimScript = gBattleAnimMove_BoneClub,
     },
 
     [MOVE_FIRE_BLAST] =
@@ -3268,7 +3268,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_FireBlast,
+        .battleAnimScript = gBattleAnimMove_FireBlast,
     },
 
     [MOVE_WATERFALL] =
@@ -3292,7 +3292,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Waterfall,
+        .battleAnimScript = gBattleAnimMove_Waterfall,
     },
 
     [MOVE_CLAMP] =
@@ -3325,7 +3325,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Clamp,
+        .battleAnimScript = gBattleAnimMove_Clamp,
     },//I'd like to also add a flinch chance to this if I can, maybe with argument?
     //need to use argumenttomoveeffect  command to make use of arguments    uses   VARIOUS_ARGUMENT_TO_MOVE_EFFECT
     //also uses VARIOUS_ARGUMENT_STATUS_EFFECT to transfer effect into status still using secondaryeffectchance
@@ -3347,7 +3347,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Swift,
+        .battleAnimScript = gBattleAnimMove_Swift,
 },
 //potentially make this tutor move rather than tm
 
@@ -3383,7 +3383,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SkullBash,
+        .battleAnimScript = gBattleAnimMove_SkullBash,
 },
 
 [MOVE_SPIKE_CANNON] =
@@ -3405,7 +3405,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SpikeCannon,
+        .battleAnimScript = gBattleAnimMove_SpikeCannon,
 },
 
 [MOVE_CONSTRICT] =
@@ -3429,7 +3429,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Constrict,
+        .battleAnimScript = gBattleAnimMove_Constrict,
 },
 
 [MOVE_AMNESIA] =
@@ -3451,7 +3451,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Amnesia,
+        .battleAnimScript = gBattleAnimMove_Amnesia,
 },
 
 [MOVE_KINESIS] =
@@ -3474,7 +3474,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_KINESIS,
         //.contestComboMoves = {COMBO_STARTER_CONFUSION, COMBO_STARTER_PSYCHIC},
-        //.battleAnimScript = gBattleAnimMove_Kinesis,
+        .battleAnimScript = gBattleAnimMove_Kinesis,
 },
 
 [MOVE_SOFT_BOILED] =
@@ -3497,7 +3497,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_SOFT_BOILED,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SoftBoiled,
+        .battleAnimScript = gBattleAnimMove_SoftBoiled,
 },
 
 [MOVE_HI_JUMP_KICK] =
@@ -3552,7 +3552,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_LEER},
-        //.battleAnimScript = gBattleAnimMove_Glare,
+        .battleAnimScript = gBattleAnimMove_Glare,
 },
 
 [MOVE_DREAM_EATER] =
@@ -3573,7 +3573,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CALM_MIND, COMBO_STARTER_HYPNOSIS},
-        //.battleAnimScript = gBattleAnimMove_DreamEater,
+        .battleAnimScript = gBattleAnimMove_DreamEater,
 },
 
 [MOVE_POISON_GAS] =
@@ -3602,7 +3602,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PoisonGas,
+        .battleAnimScript = gBattleAnimMove_PoisonGas,
 },
 
 [MOVE_BARRAGE] =
@@ -3624,7 +3624,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //.contestCategory = CONTEST_CATEGORY_TOUGH,
     //.contestComboStarterId = 0,
     //.contestComboMoves = {0},
-    //.battleAnimScript = gBattleAnimMove_Barrage,
+    .battleAnimScript = gBattleAnimMove_Barrage,
     .additionalEffects = ADDITIONAL_EFFECTS({
         .moveEffect = MOVE_EFFECT_DEF_CAT_MINUS_1, //should i make new effect that'll swap def 
         .chance = 15, //to drop based on dmg category? since it could be special?
@@ -3658,7 +3658,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LeechLife,
+        .battleAnimScript = gBattleAnimMove_LeechLife,
      // restores 75% HP instead of 50% HP
      //removed infest chance to boost healing, to compete with mega drain
 }, //check balance
@@ -3681,7 +3681,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LovelyKiss,
+        .battleAnimScript = gBattleAnimMove_LovelyKiss,
 },
 
 [MOVE_SKY_ATTACK] =
@@ -3710,7 +3710,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SkyAttack,
+        .battleAnimScript = gBattleAnimMove_SkyAttack,
 }, //DO SOMething with this, thinking raise evasiveness one or two stages, may lower power since hitting both
 //it stil needs to be strongest flying move though and brave bird is base 120 no charge 
 //ok alraedy added a 2 stage evasion boost to this, done on the charging turn
@@ -3755,7 +3755,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Transform,
+        .battleAnimScript = gBattleAnimMove_Transform,
 },
 
 [MOVE_BUBBLE] =
@@ -3782,7 +3782,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Bubble,
+        .battleAnimScript = gBattleAnimMove_Bubble,
 },
 //bubbles are slow, changed acc to give water gun back a niche
 
@@ -3808,7 +3808,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DizzyPunch,
+        .battleAnimScript = gBattleAnimMove_DizzyPunch,
 },
 
 [MOVE_SPORE] =
@@ -3830,7 +3830,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Spore,
+        .battleAnimScript = gBattleAnimMove_Spore,
 },//keep an eye on -vsonic
 //talked w chief making negative priority does nothing for the problem,
 //just make it hard/impossible for faster mon to use the move,
@@ -3860,7 +3860,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Flash,
+        .battleAnimScript = gBattleAnimMove_Flash,
 },//later test flinch chance to see if too much
 
 [MOVE_PSYWAVE] =
@@ -3883,7 +3883,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
-        //.battleAnimScript = gBattleAnimMove_Psywave,
+        .battleAnimScript = gBattleAnimMove_Psywave,
 },
 
 [MOVE_SPLASH] =
@@ -3905,7 +3905,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Splash,
+        .battleAnimScript = gBattleAnimMove_Splash,
 },//vsonic important check make sure no issue
 
 [MOVE_ACID_ARMOR] =
@@ -3931,7 +3931,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AcidArmor,
+        .battleAnimScript = gBattleAnimMove_AcidArmor,
 },
 
 [MOVE_CRABHAMMER] =
@@ -3961,7 +3961,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE, COMBO_STARTER_SWORDS_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Crabhammer,
+        .battleAnimScript = gBattleAnimMove_Crabhammer,
 },
 
 [MOVE_EXPLOSION] =
@@ -3985,7 +3985,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Explosion,
+        .battleAnimScript = gBattleAnimMove_Explosion,
 },//gen 1 power 170 consider drop and rework self destruct
 //cut distribution may boost power up slighty
 //if need give reason to use over self destruct
@@ -4019,7 +4019,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //.contestCategory = CONTEST_CATEGORY_TOUGH,
     //.contestComboStarterId = 0,
     //.contestComboMoves = {COMBO_STARTER_SCRATCH},
-    //.battleAnimScript = gBattleAnimMove_FurySwipes,
+    .battleAnimScript = gBattleAnimMove_FurySwipes,
 },
 
 [MOVE_BONEMERANG] =
@@ -4041,7 +4041,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //.contestCategory = CONTEST_CATEGORY_TOUGH,
     //.contestComboStarterId = COMBO_STARTER_BONEMERANG,
     //.contestComboMoves = {COMBO_STARTER_BONE_CLUB, COMBO_STARTER_BONE_RUSH, COMBO_STARTER_SHADOW_BONE},
-    //.battleAnimScript = gBattleAnimMove_Bonemerang,
+    .battleAnimScript = gBattleAnimMove_Bonemerang,
 },
 
 [MOVE_REST] =
@@ -4064,7 +4064,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_REST,
         //.contestComboMoves = {COMBO_STARTER_BELLY_DRUM, COMBO_STARTER_CHARM, COMBO_STARTER_YAWN},
-        //.battleAnimScript = gBattleAnimMove_Rest,
+        .battleAnimScript = gBattleAnimMove_Rest,
 },
 
 [MOVE_ROCK_SLIDE] =
@@ -4087,7 +4087,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_ROCK_THROW},
-        //.battleAnimScript = gBattleAnimMove_RockSlide,
+        .battleAnimScript = gBattleAnimMove_RockSlide,
 },//may set back to 90, and 30 w onix buffs makes onix best rock slide user
 //a significant buff for it... yeah think I will
 //effect is good enough that the accuracy  isn't strange
@@ -4114,7 +4114,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HyperFang,
+        .battleAnimScript = gBattleAnimMove_HyperFang,
 },
 
 [MOVE_SHARPEN] =
@@ -4136,7 +4136,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Sharpen,
+        .battleAnimScript = gBattleAnimMove_Sharpen,
 },
 
 [MOVE_CONVERSION] =
@@ -4161,7 +4161,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Conversion,
+        .battleAnimScript = gBattleAnimMove_Conversion,
 },
 
 [MOVE_TRI_ATTACK] =
@@ -4184,7 +4184,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_LOCK_ON},
-        //.battleAnimScript = gBattleAnimMove_TriAttack,
+        .battleAnimScript = gBattleAnimMove_TriAttack,
 },
 
 [MOVE_SUPER_FANG] =
@@ -4206,7 +4206,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SCARY_FACE},
-        //.battleAnimScript = gBattleAnimMove_SuperFang,
+        .battleAnimScript = gBattleAnimMove_SuperFang,
 },
 
 [MOVE_SLASH] =
@@ -4228,7 +4228,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SCRATCH, COMBO_STARTER_SWORDS_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Slash,
+        .battleAnimScript = gBattleAnimMove_Slash,
 },
 
 [MOVE_SUBSTITUTE] =
@@ -4250,7 +4250,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Substitute,
+        .battleAnimScript = gBattleAnimMove_Substitute,
 },
 
 [MOVE_STRUGGLE] =
@@ -4283,7 +4283,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
                 .moveEffect = MOVE_EFFECT_MED_RECOIL,
                 .self = TRUE,
             }),
-        //.battleAnimScript = gBattleAnimMove_Struggle,
+        .battleAnimScript = gBattleAnimMove_Struggle,
 },
 
 [MOVE_SKETCH] =
@@ -4313,7 +4313,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Sketch,
+        .battleAnimScript = gBattleAnimMove_Sketch,
 },
 
 [MOVE_TRIPLE_KICK] =
@@ -4336,7 +4336,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
-        //.battleAnimScript = gBattleAnimMove_TripleKick,
+        .battleAnimScript = gBattleAnimMove_TripleKick,
 },
 
 [MOVE_THIEF] =
@@ -4365,7 +4365,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Thief,
+        .battleAnimScript = gBattleAnimMove_Thief,
 },
 
 [MOVE_SPIDER_WEB] =
@@ -4388,7 +4388,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_STRING_SHOT},
-        //.battleAnimScript = gBattleAnimMove_SpiderWeb,
+        .battleAnimScript = gBattleAnimMove_SpiderWeb,
 },
 //taken over by swarm/infestation and sticky web
 //spider webs to my knowledge have effect of paralyzing those stuck in it?
@@ -4420,7 +4420,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_MIND_READER,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MindReader,
+        .battleAnimScript = gBattleAnimMove_MindReader,
 },
 
 [MOVE_NIGHTMARE] =
@@ -4443,7 +4443,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Nightmare,
+        .battleAnimScript = gBattleAnimMove_Nightmare,
 },
 
 [MOVE_FLAME_WHEEL] =
@@ -4475,7 +4475,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_FlameWheel,
+        .battleAnimScript = gBattleAnimMove_FlameWheel,
 },
 //rebalanced effect for this max is 2
 //effect inspired by legends arceus fixated status
@@ -4532,7 +4532,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_REST},
-        //.battleAnimScript = gBattleAnimMove_Snore,
+        .battleAnimScript = gBattleAnimMove_Snore,
 }, 
 //redid script put flinch in move argument not on snore script itself
 //should make a good tm?
@@ -4562,7 +4562,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_CURSE,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Curse,
+        .battleAnimScript = gBattleAnimMove_Curse,
 },
 
 [MOVE_FLAIL] =
@@ -4582,7 +4582,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_ENDURE},
-        //.battleAnimScript = gBattleAnimMove_Flail,
+        .battleAnimScript = gBattleAnimMove_Flail,
 },
 
 [MOVE_CONVERSION_2] =
@@ -4604,7 +4604,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Conversion2,
+        .battleAnimScript = gBattleAnimMove_Conversion2,
 },//now same as conversion 1, so reuse effect, just does type 2 instead
 
 [MOVE_AEROBLAST] =
@@ -4628,7 +4628,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Aeroblast,
+        .battleAnimScript = gBattleAnimMove_Aeroblast,
 },
 //w sp def drop consider may remove high crit?
 //would make it more balanced and allow me to spread its distribution
@@ -4664,7 +4664,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_CottonSpore,
+        .battleAnimScript = gBattleAnimMove_CottonSpore,
 },
 
 [MOVE_REVERSAL] =
@@ -4684,7 +4684,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_ENDURE},
-        //.battleAnimScript = gBattleAnimMove_Reversal,
+        .battleAnimScript = gBattleAnimMove_Reversal,
 },
 
 [MOVE_SPITE] =
@@ -4708,7 +4708,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CURSE},
-        //.battleAnimScript = gBattleAnimMove_Spite,
+        .battleAnimScript = gBattleAnimMove_Spite,
 },//keep as is ,relies on move beign used
 
 [MOVE_POWDER_SNOW] =
@@ -4731,7 +4731,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_POWDER_SNOW,
         //.contestComboMoves = {COMBO_STARTER_HAIL},
-        //.battleAnimScript = gBattleAnimMove_PowderSnow,
+        .battleAnimScript = gBattleAnimMove_PowderSnow,
 },
 
 [MOVE_PROTECT] =
@@ -4754,7 +4754,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HARDEN},
-        //.battleAnimScript = gBattleAnimMove_Protect,
+        .battleAnimScript = gBattleAnimMove_Protect,
 },
 
 [MOVE_MACH_PUNCH] =
@@ -4775,7 +4775,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MachPunch,
+        .battleAnimScript = gBattleAnimMove_MachPunch,
 },
 
 [MOVE_SCARY_FACE] =
@@ -4799,7 +4799,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_SCARY_FACE,
         //.contestComboMoves = {COMBO_STARTER_LEER, COMBO_STARTER_RAGE},
-        //.battleAnimScript = gBattleAnimMove_ScaryFace,
+        .battleAnimScript = gBattleAnimMove_ScaryFace,
 },
 
 [MOVE_FEINT_ATTACK] =
@@ -4822,7 +4822,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FAKE_OUT, COMBO_STARTER_LEER, COMBO_STARTER_POUND},
-        //.battleAnimScript = gBattleAnimMove_FeintAttack,
+        .battleAnimScript = gBattleAnimMove_FeintAttack,
 },
 
 [MOVE_SWEET_KISS] =
@@ -4846,7 +4846,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARM},
-        //.battleAnimScript = gBattleAnimMove_SweetKiss,
+        .battleAnimScript = gBattleAnimMove_SweetKiss,
 },
 //don't understand why this has 75 acc when confuse ray is 100
 //I guess only reason is its paired with lovely kiss which is 
@@ -4874,7 +4874,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_BELLY_DRUM,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BellyDrum,
+        .battleAnimScript = gBattleAnimMove_BellyDrum,
 },//ok decide its better this goes last better chance of surviving the turn
 //rather than using it first and having chance get killed now you use it last
 //and have a chance of wasting the turn if the opponent drops you to half
@@ -4903,7 +4903,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_SLUDGE_BOMB,
         //.contestComboMoves = {COMBO_STARTER_SLUDGE},
-        //.battleAnimScript = gBattleAnimMove_SludgeBomb,
+        .battleAnimScript = gBattleAnimMove_SludgeBomb,
 },
 
 [MOVE_MUD_SLAP] =
@@ -4926,7 +4926,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_MUD_SLAP,
         //.contestComboMoves = {COMBO_STARTER_MUD_SPORT, COMBO_STARTER_SAND_ATTACK, COMBO_STARTER_SANDSTORM},
-        //.battleAnimScript = gBattleAnimMove_MudSlap,
+        .battleAnimScript = gBattleAnimMove_MudSlap,
 },
 
 [MOVE_OCTAZOOKA] =
@@ -4950,7 +4950,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_LOCK_ON, COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Octazooka,
+        .battleAnimScript = gBattleAnimMove_Octazooka,
 },
 
 [MOVE_SPIKES] =
@@ -4976,7 +4976,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Spikes,
+        .battleAnimScript = gBattleAnimMove_Spikes,
 },
 
 [MOVE_ZAP_CANNON] =
@@ -5004,7 +5004,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARGE, COMBO_STARTER_LOCK_ON},
-        //.battleAnimScript = gBattleAnimMove_ZapCannon,
+        .battleAnimScript = gBattleAnimMove_ZapCannon,
 },
 
 [MOVE_FORESIGHT] =
@@ -5025,7 +5025,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Foresight,
+        .battleAnimScript = gBattleAnimMove_Foresight,
 },
 
 [MOVE_DESTINY_BOND] =
@@ -5050,7 +5050,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CURSE, COMBO_STARTER_ENDURE, COMBO_STARTER_MEAN_LOOK},
-        //.battleAnimScript = gBattleAnimMove_DestinyBond,
+        .battleAnimScript = gBattleAnimMove_DestinyBond,
 },
 
 [MOVE_PERISH_SONG] =
@@ -5073,7 +5073,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_MEAN_LOOK, COMBO_STARTER_SING},
-        //.battleAnimScript = gBattleAnimMove_PerishSong,
+        .battleAnimScript = gBattleAnimMove_PerishSong,
 },//need test, attempt set cacophony perish song to set lower timer for opposing side
 
 [MOVE_ICY_WIND] =
@@ -5098,7 +5098,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL},
-        //.battleAnimScript = gBattleAnimMove_IcyWind,
+        .battleAnimScript = gBattleAnimMove_IcyWind,
 },
 
 [MOVE_DETECT] =
@@ -5123,7 +5123,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_TAUNT},
-        //.battleAnimScript = gBattleAnimMove_Detect,
+        .battleAnimScript = gBattleAnimMove_Detect,
 },
 
 [MOVE_BONE_RUSH] =
@@ -5148,7 +5148,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_BONE_RUSH,
         //.contestComboMoves = {COMBO_STARTER_BONE_CLUB, COMBO_STARTER_BONEMERANG, COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_SHADOW_BONE},
-        //.battleAnimScript = gBattleAnimMove_BoneRush,
+        .battleAnimScript = gBattleAnimMove_BoneRush,
 },
 
 [MOVE_LOCK_ON] =
@@ -5171,7 +5171,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_LOCK_ON,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LockOn,
+        .battleAnimScript = gBattleAnimMove_LockOn,
 },
 
 [MOVE_OUTRAGE] =
@@ -5199,7 +5199,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Outrage,
+        .battleAnimScript = gBattleAnimMove_Outrage,
 },
 
 [MOVE_SANDSTORM] =
@@ -5221,7 +5221,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_SANDSTORM,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Sandstorm,
+        .battleAnimScript = gBattleAnimMove_Sandstorm,
 },//would ironically work just like abilities whicher mon is slower if both set weather gest the priority for setting weather
 
 [MOVE_GIGA_DRAIN] =
@@ -5250,7 +5250,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        //.battleAnimScript = gBattleAnimMove_GigaDrain,
+        .battleAnimScript = gBattleAnimMove_GigaDrain,
 },//actually think 95 is too much power for a healing move
 //did need better grass moves but going to 95 power was too much
 
@@ -5279,7 +5279,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_ENDURE,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Endure,
+        .battleAnimScript = gBattleAnimMove_Endure,
     },
 
     [MOVE_CHARM] =
@@ -5303,7 +5303,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_CHARM,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Charm,
+        .battleAnimScript = gBattleAnimMove_Charm,
     },
 
     [MOVE_ROLLOUT] =
@@ -5326,7 +5326,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_DEFENSE_CURL, COMBO_STARTER_HARDEN},
-        //.battleAnimScript = gBattleAnimMove_Rollout,
+        .battleAnimScript = gBattleAnimMove_Rollout,
     },
 
     [MOVE_FALSE_SWIPE] =
@@ -5347,7 +5347,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
-        //.battleAnimScript = gBattleAnimMove_FalseSwipe,
+        .battleAnimScript = gBattleAnimMove_FalseSwipe,
     },
 
     [MOVE_SWAGGER] =
@@ -5371,7 +5371,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Swagger,
+        .battleAnimScript = gBattleAnimMove_Swagger,
     },
 
     [MOVE_MILK_DRINK] =
@@ -5394,7 +5394,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MilkDrink,
+        .battleAnimScript = gBattleAnimMove_MilkDrink,
     },
 
     [MOVE_SPARK] =
@@ -5418,7 +5418,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARGE},
-        //.battleAnimScript = gBattleAnimMove_Spark,
+        .battleAnimScript = gBattleAnimMove_Spark,
     },
 
     [MOVE_FURY_CUTTER] =
@@ -5441,7 +5441,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
-        //.battleAnimScript = gBattleAnimMove_FuryCutter,
+        .battleAnimScript = gBattleAnimMove_FuryCutter,
     }, 
 
     [MOVE_STEEL_WING] =
@@ -5466,7 +5466,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SteelWing,
+        .battleAnimScript = gBattleAnimMove_SteelWing,
     },
 
     [MOVE_MEAN_LOOK] =
@@ -5490,7 +5490,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_MEAN_LOOK,
         //.contestComboMoves = {COMBO_STARTER_CURSE},
-        //.battleAnimScript = gBattleAnimMove_MeanLook,
+        .battleAnimScript = gBattleAnimMove_MeanLook,
     },
 
     [MOVE_ATTRACT] =
@@ -5511,7 +5511,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Attract,
+        .battleAnimScript = gBattleAnimMove_Attract,
     },
 
     [MOVE_SLEEP_TALK] =
@@ -5539,7 +5539,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_REST},
-        //.battleAnimScript = gBattleAnimMove_SleepTalk,
+        .battleAnimScript = gBattleAnimMove_SleepTalk,
     },
 
     [MOVE_HEAL_BELL] =
@@ -5563,7 +5563,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_HEAL_BELL,
         //.contestComboMoves = {COMBO_STARTER_LUCKY_CHANT},
-        //.battleAnimScript = gBattleAnimMove_HealBell,
+        .battleAnimScript = gBattleAnimMove_HealBell,
     },
 
     [MOVE_RETURN] =
@@ -5583,7 +5583,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Return,
+        .battleAnimScript = gBattleAnimMove_Return,
     },
 
     [MOVE_PRESENT] =
@@ -5603,7 +5603,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Present,
+        .battleAnimScript = gBattleAnimMove_Present,
     },
     //vsonic important think need update kins rock with dmg logic to make sure doesn't activate on heal?
 
@@ -5624,7 +5624,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Frustration,
+        .battleAnimScript = gBattleAnimMove_Frustration,
     },
     //idk where my notes for this are but plan rework effect to actually be useful
     //doesn't rely on base friendhsip anymore instead
@@ -5675,7 +5675,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Safeguard,
+        .battleAnimScript = gBattleAnimMove_Safeguard,
     },
 
     [MOVE_PAIN_SPLIT] =
@@ -5695,7 +5695,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_ENDURE},
-        //.battleAnimScript = gBattleAnimMove_PainSplit,
+        .battleAnimScript = gBattleAnimMove_PainSplit,
     },//changed mostly spidops in mind, its not broken since its an average 
     //rather than flat cutting enemy hp in half
     //hmm what if I made this ignore protect
@@ -5722,7 +5722,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_SacredFire,
+        .battleAnimScript = gBattleAnimMove_SacredFire,
     },
 
     [MOVE_MAGNITUDE] =
@@ -5744,7 +5744,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Magnitude,
+        .battleAnimScript = gBattleAnimMove_Magnitude,
     },
     //w script changes unsureright sript, need change branch
     //and go back to check this and earthquake
@@ -5772,7 +5772,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_MIND_READER},
-        //.battleAnimScript = gBattleAnimMove_DynamicPunch,
+        .battleAnimScript = gBattleAnimMove_DynamicPunch,
     },
 
     [MOVE_MEGAHORN] =
@@ -5802,7 +5802,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Megahorn,
+        .battleAnimScript = gBattleAnimMove_Megahorn,
     },
     //most mon that get it are slow so can keep at 10pp
 
@@ -5826,7 +5826,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_DRAGON_BREATH,
         //.contestComboMoves = {COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_RUSH, COMBO_STARTER_DRAGON_TAIL},
-        //.battleAnimScript = gBattleAnimMove_DragonBreath,
+        .battleAnimScript = gBattleAnimMove_DragonBreath,
     },
 
     [MOVE_BATON_PASS] =
@@ -5847,7 +5847,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BatonPass,
+        .battleAnimScript = gBattleAnimMove_BatonPass,
     }, //what happens if the user is trapper/has escape prevention? if also blocks then even better
     //seems sometimes you want slower baton pass so guess keep this as is
 
@@ -5873,7 +5873,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Encore,
+        .battleAnimScript = gBattleAnimMove_Encore,
     },//added to priority boosted list since makes easie to use
 
     [MOVE_PURSUIT] =
@@ -5893,7 +5893,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Pursuit,
+        .battleAnimScript = gBattleAnimMove_Pursuit,
     }, //boosted to 60 compare to assurance, make sense as assurance previously was also base 50
     //decide do middle ground make bp 50 change boost to 1.5 rather than 2
     // so a 5bp drop at max but good deal stronger overall
@@ -5931,7 +5931,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RapidSpin,
+        .battleAnimScript = gBattleAnimMove_RapidSpin,
     },//need redo this script, make go to hit from atkcancel or atkstring, consider  using emerald additional effect implementation
     //should work same but potentially cut down on redundent scripts made. would not need new effect for everyone just to assign the move effect
     //if it was that simple ex. rather than needing a rapid spin effect to set moveeffect rapid spin, 
@@ -5958,7 +5958,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_SWEET_SCENT,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SweetScent,
+        .battleAnimScript = gBattleAnimMove_SweetScent,
     },
 
     [MOVE_IRON_TAIL] =
@@ -5982,7 +5982,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_IronTail,
+        .battleAnimScript = gBattleAnimMove_IronTail,
     },//for some reason defense lower affected self??
     //issue is all stat down hit, working on fixnig
 
@@ -6008,7 +6008,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_METAL_SOUND},
-        //.battleAnimScript = gBattleAnimMove_MetalClaw,
+        .battleAnimScript = gBattleAnimMove_MetalClaw,
     },//ok but THIS worked correctly?? not sure if it played correct animation, was green expected tobe red
     //they use same flags so may be effect stat setting affect issue not issue w flag
 
@@ -6029,7 +6029,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FAKE_OUT},
-        //.battleAnimScript = gBattleAnimMove_VitalThrow,
+        .battleAnimScript = gBattleAnimMove_VitalThrow,
     },
 
     [MOVE_MORNING_SUN] =
@@ -6052,7 +6052,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_MorningSun,
+        .battleAnimScript = gBattleAnimMove_MorningSun,
     },//buffed recovery movs to standard base 10, more optimal for player, harder to deal with in opponet
     //but has options in heal block, and pp drop effects
 
@@ -6076,7 +6076,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_Synthesis,
+        .battleAnimScript = gBattleAnimMove_Synthesis,
     },
 
     [MOVE_MOONLIGHT] =
@@ -6103,7 +6103,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_Moonlight,
+        .battleAnimScript = gBattleAnimMove_Moonlight,
     },
 
     [MOVE_HIDDEN_POWER] =
@@ -6122,7 +6122,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HiddenPower,
+        .battleAnimScript = gBattleAnimMove_HiddenPower,
     },
 
     [MOVE_CROSS_CHOP] =
@@ -6143,7 +6143,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
-        //.battleAnimScript = gBattleAnimMove_CrossChop,
+        .battleAnimScript = gBattleAnimMove_CrossChop,
     },
 
     [MOVE_TWISTER] =
@@ -6168,7 +6168,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Twister,
+        .battleAnimScript = gBattleAnimMove_Twister,
     },
 
     [MOVE_RAIN_DANCE] =
@@ -6189,7 +6189,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_RAIN_DANCE,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RainDance,
+        .battleAnimScript = gBattleAnimMove_RainDance,
     },//has dance in name but not categorized as dance move
     //as there is no point in it working with Dancer ability
     //as if used after move was already used it would just fail
@@ -6212,7 +6212,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_SUNNY_DAY,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SunnyDay,
+        .battleAnimScript = gBattleAnimMove_SunnyDay,
     },
 
     [MOVE_CRUNCH] =
@@ -6237,7 +6237,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SCARY_FACE},
-        //.battleAnimScript = gBattleAnimMove_Crunch,
+        .battleAnimScript = gBattleAnimMove_Crunch,
     },
 
     [MOVE_MIRROR_COAT] =
@@ -6261,7 +6261,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_TAUNT},
-        //.battleAnimScript = gBattleAnimMove_MirrorCoat,
+        .battleAnimScript = gBattleAnimMove_MirrorCoat,
     },
 
     [MOVE_PSYCH_UP] =
@@ -6283,7 +6283,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PsychUp,
+        .battleAnimScript = gBattleAnimMove_PsychUp,
     },
 
     [MOVE_EXTREME_SPEED] =
@@ -6307,7 +6307,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ExtremeSpeed,
+        .battleAnimScript = gBattleAnimMove_ExtremeSpeed,
     },
 
     [MOVE_ANCIENT_POWER] =
@@ -6332,7 +6332,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AncientPower,
+        .battleAnimScript = gBattleAnimMove_AncientPower,
     },
 
     [MOVE_SHADOW_BALL] =
@@ -6356,7 +6356,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ShadowBall,
+        .battleAnimScript = gBattleAnimMove_ShadowBall,
     },//again feel is too common to do flying knock, think intead put on ominous wind?
 
     [MOVE_FUTURE_SIGHT] =
@@ -6389,7 +6389,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CALM_MIND, COMBO_STARTER_CONFUSION, COMBO_STARTER_KINESIS, COMBO_STARTER_PSYCHIC},
-        //.battleAnimScript = gBattleAnimMove_FutureSight,
+        .battleAnimScript = gBattleAnimMove_FutureSight,
     },
 
     [MOVE_ROCK_SMASH] =
@@ -6420,7 +6420,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RockSmash,
+        .battleAnimScript = gBattleAnimMove_RockSmash,
     }, //Redid the seutp for this to make more flexible and easier to use for binary edits argument chance is multiplier
     //gets divided by  10,  so value of 20 is 2x dmg, binary cant do extra effects though, had to use call if in script to make defense drop work- test
     //same as how I did function for hidden power make conditions to augment damage
@@ -6447,7 +6447,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Whirlpool,
+        .battleAnimScript = gBattleAnimMove_Whirlpool,
     },
 
     [MOVE_BEAT_UP] =
@@ -6469,7 +6469,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BeatUp,
+        .battleAnimScript = gBattleAnimMove_BeatUp,
     },//makes sense to be a contact move, but no way to make work right with contact effects
     //consider if should set variable multihit technically correct
     //but it ranges from 1-6 vsonic
@@ -6500,7 +6500,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_FAKE_OUT,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FakeOut,
+        .battleAnimScript = gBattleAnimMove_FakeOut,
     },
 
     [MOVE_UPROAR] =
@@ -6532,7 +6532,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Uproar,
+        .battleAnimScript = gBattleAnimMove_Uproar,
     },
 
     [MOVE_STOCKPILE] =
@@ -6558,7 +6558,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_STOCKPILE,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Stockpile,
+        .battleAnimScript = gBattleAnimMove_Stockpile,
     },
     //keep 3 stage effect but allow 2 uses 
     //of companion move before charge goes away
@@ -6592,7 +6592,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_STOCKPILE},
-        //.battleAnimScript = gBattleAnimMove_SpitUp,
+        .battleAnimScript = gBattleAnimMove_SpitUp,
     },
 
     [MOVE_SWALLOW] =
@@ -6615,7 +6615,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_STOCKPILE},
-        //.battleAnimScript = gBattleAnimMove_Swallow,
+        .battleAnimScript = gBattleAnimMove_Swallow,
     },
 
     [MOVE_HEAT_WAVE] =
@@ -6640,7 +6640,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_HeatWave,
+        .battleAnimScript = gBattleAnimMove_HeatWave,
     },
 
     [MOVE_HAIL] =
@@ -6661,7 +6661,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_HAIL,
         //.contestComboMoves = {0},
-        //.battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_SNOW) ? gBattleAnimMove_Snowscape : gBattleAnimMove_Hail,
+        .battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_SNOW) ? gBattleAnimMove_Snowscape : gBattleAnimMove_Hail,
     },
 
     [MOVE_TORMENT] =
@@ -6684,7 +6684,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Torment,
+        .battleAnimScript = gBattleAnimMove_Torment,
     },
 
     [MOVE_FLATTER] =
@@ -6704,7 +6704,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARM},
-        //.battleAnimScript = gBattleAnimMove_Flatter,
+        .battleAnimScript = gBattleAnimMove_Flatter,
     },
     //hmm has no downside could change, either also raise attack,
     //so takes more damage if hit themselves,
@@ -6735,7 +6735,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_WillOWisp,
+        .battleAnimScript = gBattleAnimMove_WillOWisp,
     },//should I drop priority on thsi?
     //I did for flash freeze but that's incompaciating,
     //that logic works keep all incompacitating moves at 0
@@ -6758,7 +6758,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Memento,
+        .battleAnimScript = gBattleAnimMove_Memento,
     },//should bypass acc hit semi invul double check it still does that
     //good deal of mon can learn both fast and slow
     //think I'll just make a negativepriority move,
@@ -6781,7 +6781,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Facade,
+        .battleAnimScript = gBattleAnimMove_Facade,
     },
 
     [MOVE_FOCUS_PUNCH] =
@@ -6810,7 +6810,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
-        //.battleAnimScript = gBattleAnimMove_FocusPunch,
+        .battleAnimScript = gBattleAnimMove_FocusPunch,
     },
 
     [MOVE_SMELLING_SALTS] =
@@ -6838,7 +6838,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SmellingSalts,
+        .battleAnimScript = gBattleAnimMove_SmellingSalts,
     },
     //very low distribution, removes desirable effect
     //requires setup that nearly no mon with move can provide alone
@@ -6872,7 +6872,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FollowMe,
+        .battleAnimScript = gBattleAnimMove_FollowMe,
     },
 
     [MOVE_NATURE_POWER] =
@@ -6898,7 +6898,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_NaturePower,
+        .battleAnimScript = gBattleAnimMove_NaturePower,
     },//buffing add more powerful moves & make flying move condition side status tail wind to be mor accssible //vsonic
 
     [MOVE_CHARGE] =
@@ -6920,7 +6920,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_CHARGE,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Charge,
+        .battleAnimScript = gBattleAnimMove_Charge,
     },//see if this works attempt do same effect from unbreakable ties
     //idk what was going on with this, but don't need argument
     //better to just do stat change in script itself
@@ -6948,7 +6948,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_TAUNT,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Taunt,
+        .battleAnimScript = gBattleAnimMove_Taunt,
     },
 
     [MOVE_HELPING_HAND] =
@@ -6977,7 +6977,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HelpingHand,
+        .battleAnimScript = gBattleAnimMove_HelpingHand,
     },
 
     [MOVE_TRICK] =
@@ -6999,7 +6999,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Trick,
+        .battleAnimScript = gBattleAnimMove_Trick,
     },//item swap
 
     [MOVE_ROLE_PLAY] =
@@ -7021,7 +7021,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RolePlay,
+        .battleAnimScript = gBattleAnimMove_RolePlay,
     }, //copies target ability
 
     [MOVE_WISH] =
@@ -7047,7 +7047,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Wish,
+        .battleAnimScript = gBattleAnimMove_Wish,
     },
 
     [MOVE_ASSIST] =
@@ -7075,7 +7075,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Assist,
+        .battleAnimScript = gBattleAnimMove_Assist,
     },
 
     [MOVE_INGRAIN] =
@@ -7097,7 +7097,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Ingrain,
+        .battleAnimScript = gBattleAnimMove_Ingrain,
     },
 
     [MOVE_SUPERPOWER] =
@@ -7122,7 +7122,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_LOCK_ON, COMBO_STARTER_MIND_READER},
-        //.battleAnimScript = gBattleAnimMove_Superpower,
+        .battleAnimScript = gBattleAnimMove_Superpower,
     }, //yeah this is low recoil, double edge is medium recoil 33%
     //could reset back, but only reason to keep as is
     //would be contrary strats which only spinda could do
@@ -7153,7 +7153,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MagicCoat,
+        .battleAnimScript = gBattleAnimMove_MagicCoat,
     },//removed priority move becomes 3 turn effect
 
     [MOVE_RECYCLE] =
@@ -7178,7 +7178,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Recycle,
+        .battleAnimScript = gBattleAnimMove_Recycle,
     },
 
     [MOVE_REVENGE] =
@@ -7198,7 +7198,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_REVENGE,
         //.contestComboMoves = {COMBO_STARTER_PAYBACK},
-        //.battleAnimScript = gBattleAnimMove_Revenge,
+        .battleAnimScript = gBattleAnimMove_Revenge,
     },
 
     [MOVE_BRICK_BREAK] =
@@ -7222,7 +7222,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
-        //.battleAnimScript = gBattleAnimMove_BrickBreak,
+        .battleAnimScript = gBattleAnimMove_BrickBreak,
     },
 
     [MOVE_YAWN] =
@@ -7243,7 +7243,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_YAWN,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Yawn,
+        .battleAnimScript = gBattleAnimMove_Yawn,
     },
     //decide don't use my custom version of effect is broken
 
@@ -7268,7 +7268,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FAKE_OUT},
-        //.battleAnimScript = gBattleAnimMove_KnockOff,
+        .battleAnimScript = gBattleAnimMove_KnockOff,
     },//took riggamarolled idea remove dmg boost
 
 
@@ -7291,7 +7291,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_ENDURE},
-        //.battleAnimScript = gBattleAnimMove_Endeavor,
+        .battleAnimScript = gBattleAnimMove_Endeavor,
     },
 
     [MOVE_ERUPTION] =
@@ -7310,7 +7310,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_EARTHQUAKE, COMBO_STARTER_ENDURE, COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_Eruption,
+        .battleAnimScript = gBattleAnimMove_Eruption,
     },
 
     [MOVE_SKILL_SWAP] =
@@ -7330,7 +7330,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SkillSwap,
+        .battleAnimScript = gBattleAnimMove_SkillSwap,
     },//ability swap
 
     [MOVE_IMPRISON] =
@@ -7357,7 +7357,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Imprison,
+        .battleAnimScript = gBattleAnimMove_Imprison,
     }, //seals opponent move if shared by user
     //thought about raising to plus 2 priority but since you want slower mon 
     //to operate in trick room a fast mon with imprison should still counter them
@@ -7382,7 +7382,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SING, COMBO_STARTER_WATER_SPORT},
-        //.battleAnimScript = gBattleAnimMove_Refresh,
+        .battleAnimScript = gBattleAnimMove_Refresh,
     },
 
     [MOVE_GRUDGE] =
@@ -7404,7 +7404,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CURSE},
-        //.battleAnimScript = gBattleAnimMove_Grudge,
+        .battleAnimScript = gBattleAnimMove_Grudge,
     },
     //change effect instead of reduce last move to 0
     //cut all pp in half
@@ -7430,7 +7430,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Snatch,
+        .battleAnimScript = gBattleAnimMove_Snatch,
     },
 
     [MOVE_SECRET_POWER] =
@@ -7453,7 +7453,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SecretPower,
+        .battleAnimScript = gBattleAnimMove_SecretPower,
     },
 
     [MOVE_DIVE] =
@@ -7482,7 +7482,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_DIVE,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE, COMBO_STARTER_SURF},
-        //.battleAnimScript = gBattleAnimMove_Dive,
+        .battleAnimScript = gBattleAnimMove_Dive,
     },
 
     [MOVE_ARM_THRUST] =
@@ -7504,7 +7504,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FAKE_OUT, COMBO_STARTER_FOCUS_ENERGY},
-        //.battleAnimScript = gBattleAnimMove_ArmThrust,
+        .battleAnimScript = gBattleAnimMove_ArmThrust,
     },
 
     [MOVE_CAMOUFLAGE] =
@@ -7526,7 +7526,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Camouflage,
+        .battleAnimScript = gBattleAnimMove_Camouflage,
     }, //change type based on bg environment
 
     [MOVE_TAIL_GLOW] =
@@ -7552,7 +7552,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_TailGlow,
+        .battleAnimScript = gBattleAnimMove_TailGlow,
     },
 
     [MOVE_LUSTER_PURGE] =
@@ -7575,7 +7575,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
-        //.battleAnimScript = gBattleAnimMove_LusterPurge,
+        .battleAnimScript = gBattleAnimMove_LusterPurge,
     },
 
     [MOVE_MIST_BALL] =
@@ -7599,7 +7599,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
-        //.battleAnimScript = gBattleAnimMove_MistBall,
+        .battleAnimScript = gBattleAnimMove_MistBall,
     },//somehow always thought this was a fairy move but it was psychic
 
     [MOVE_FEATHER_DANCE] =
@@ -7620,7 +7620,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FeatherDance,
+        .battleAnimScript = gBattleAnimMove_FeatherDance,
     },
 
     [MOVE_TEETER_DANCE] =
@@ -7643,7 +7643,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_TeeterDance,
+        .battleAnimScript = gBattleAnimMove_TeeterDance,
     },//think pair well w telepathy see if /make sure telepathy counts for this
     //and not just damaging moves
     //vsonic
@@ -7671,7 +7671,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_BlazeKick,
+        .battleAnimScript = gBattleAnimMove_BlazeKick,
     },
 
     [MOVE_MUD_SPORT] =
@@ -7692,7 +7692,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_MUD_SPORT,
         //.contestComboMoves = {COMBO_STARTER_MUD_SLAP, COMBO_STARTER_SANDSTORM, COMBO_STARTER_WATER_SPORT},
-        //.battleAnimScript = gBattleAnimMove_MudSport,
+        .battleAnimScript = gBattleAnimMove_MudSport,
     },
 
     [MOVE_ICE_BALL] =
@@ -7716,7 +7716,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL},
-        //.battleAnimScript = gBattleAnimMove_IceBall,
+        .battleAnimScript = gBattleAnimMove_IceBall,
     },
 
     [MOVE_NEEDLE_ARM] =
@@ -7743,7 +7743,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_NeedleArm,
+        .battleAnimScript = gBattleAnimMove_NeedleArm,
     }, //equivalent to punching moves/ mega punch
 
     [MOVE_SLACK_OFF] =
@@ -7766,7 +7766,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SlackOff,
+        .battleAnimScript = gBattleAnimMove_SlackOff,
     }, //could make tm, but then no one would use rest
 
     [MOVE_HYPER_VOICE] =
@@ -7791,7 +7791,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HyperVoice,
+        .battleAnimScript = gBattleAnimMove_HyperVoice,
     }, //didn't realize changing moves to sound would exclude from normal transformation abilities like pixelate etc.
     //could make sound type included in those abilities, but will be a trade off, since sound moves have their own effectiveness?
     //yeah go ahead and do that, would be a small trade off to the ability, - done, but just for pixilate idea fairy singing
@@ -7825,7 +7825,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .contestCategory = CONTEST_CATEGORY_SMART,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},*/
-        //.battleAnimScript = gBattleAnimMove_PoisonFang,
+        .battleAnimScript = gBattleAnimMove_PoisonFang,
     }, //potentially lower this? since I changed poison this is technically even easier to set toxic with
     //should I give this small flinch chance? since is biting move, would give 10%
 
@@ -7850,7 +7850,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
-        //.battleAnimScript = gBattleAnimMove_CrushClaw,
+        .battleAnimScript = gBattleAnimMove_CrushClaw,
     },
 
     [MOVE_BLAST_BURN] =
@@ -7874,7 +7874,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_BlastBurn,
+        .battleAnimScript = gBattleAnimMove_BlastBurn,
     },
 
     [MOVE_HYDRO_CANNON] =
@@ -7898,7 +7898,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_HydroCannon,
+        .battleAnimScript = gBattleAnimMove_HydroCannon,
     },
 
     [MOVE_METEOR_MASH] =
@@ -7929,7 +7929,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MeteorMash,
+        .battleAnimScript = gBattleAnimMove_MeteorMash,
     },
 
     [MOVE_SPOOK] =
@@ -7957,7 +7957,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Astonish,
+        .battleAnimScript = gBattleAnimMove_Astonish,
     },
     //previously astonish
     //added to sound list after realized was based on voice
@@ -7982,7 +7982,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL, COMBO_STARTER_RAIN_DANCE, COMBO_STARTER_SANDSTORM, COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_WeatherBall,
+        .battleAnimScript = gBattleAnimMove_WeatherBall,
     },
     //think fine to buff this up to 60, almost no one gets it
     //plus the required setup, mostly just for mega pidgeot buff
@@ -8007,7 +8007,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Aromatherapy,
+        .battleAnimScript = gBattleAnimMove_Aromatherapy,
     },
 
     [MOVE_FAKE_TEARS] =
@@ -8027,7 +8027,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FakeTears,
+        .battleAnimScript = gBattleAnimMove_FakeTears,
     },
 
     [MOVE_AIR_CUTTER] =
@@ -8054,7 +8054,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AirCutter,
+        .battleAnimScript = gBattleAnimMove_AirCutter,
     },
     //unique point is it can't miss/100% accurate
     //hmm actually think will make this special aerial ace
@@ -8087,7 +8087,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_Overheat,
+        .battleAnimScript = gBattleAnimMove_Overheat,
     },//think may still change this to a low recoil move
     //just to boost back up fire type offense
 
@@ -8109,7 +8109,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_OdorSleuth,
+        .battleAnimScript = gBattleAnimMove_OdorSleuth,
     },
 
     [MOVE_ROCK_TOMB] =
@@ -8138,7 +8138,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_ROCK_THROW},
-        //.battleAnimScript = gBattleAnimMove_RockTomb,
+        .battleAnimScript = gBattleAnimMove_RockTomb,
     },
 
     [MOVE_SILVER_WIND] =
@@ -8168,7 +8168,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SilverWind,
+        .battleAnimScript = gBattleAnimMove_SilverWind,
     },
 
     [MOVE_METAL_SOUND] =
@@ -8190,7 +8190,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_METAL_SOUND,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MetalSound,
+        .battleAnimScript = gBattleAnimMove_MetalSound,
     },//cacophony boost drop 3 // think too much instead boost accuracy to 100
 
     [MOVE_GRASS_WHISTLE] =
@@ -8213,7 +8213,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GrassWhistle,
+        .battleAnimScript = gBattleAnimMove_GrassWhistle,
     }, //equal acc to sleep powder
     //lower acc than spore and sleep powder already exists
     //only reason to use thisi is to have a sleep move that can also hit grass types?
@@ -8238,7 +8238,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Tickle,
+        .battleAnimScript = gBattleAnimMove_Tickle,
     },
 
     [MOVE_COSMIC_POWER] =
@@ -8260,7 +8260,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_CosmicPower,
+        .battleAnimScript = gBattleAnimMove_CosmicPower,
     },
 
     [MOVE_WATER_SPOUT] =
@@ -8279,7 +8279,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_WaterSpout,
+        .battleAnimScript = gBattleAnimMove_WaterSpout,
     },
 
     [MOVE_SIGNAL_BEAM] =
@@ -8306,7 +8306,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SignalBeam,
+        .battleAnimScript = gBattleAnimMove_SignalBeam,
     },
 
     [MOVE_SHADOW_PUNCH] =
@@ -8327,7 +8327,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ShadowPunch,
+        .battleAnimScript = gBattleAnimMove_ShadowPunch,
     },
 
     [MOVE_EXTRASENSORY] =
@@ -8352,7 +8352,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Extrasensory,
+        .battleAnimScript = gBattleAnimMove_Extrasensory,
     },
 
     [MOVE_SKY_UPPERCUT] =
@@ -8374,7 +8374,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
-        //.battleAnimScript = gBattleAnimMove_SkyUppercut,
+        .battleAnimScript = gBattleAnimMove_SkyUppercut,
     },
 
     [MOVE_SAND_TOMB] =
@@ -8404,7 +8404,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SANDSTORM},
-        //.battleAnimScript = gBattleAnimMove_SandTomb,
+        .battleAnimScript = gBattleAnimMove_SandTomb,
     },//clamp = flinch sand tomb = lower accuracy for duration whirlpool = lower speed for duration etc.
     //for sky attack argumenttomoveeffect script command went before hitfromacccheck so before dmg & animation stuff
     //sky attack won't work for tis its 2 battlescripts intead of one, instead think emulate relic song
@@ -8427,7 +8427,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL, COMBO_STARTER_MIND_READER},
-        //.battleAnimScript = gBattleAnimMove_SheerCold,
+        .battleAnimScript = gBattleAnimMove_SheerCold,
     },
 
     [MOVE_MUDDY_WATER] =
@@ -8453,7 +8453,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_MuddyWater,
+        .battleAnimScript = gBattleAnimMove_MuddyWater,
        .argument = { .storedValue = TYPE_GROUND },
     },//think want to make into two typed move, make custom effect so can set accuracy drop in bs would drop power to compensate
     //thinking water//ground bp 65, would still be strong as most things weak to water are also weak to ground
@@ -8484,7 +8484,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        //.battleAnimScript = gBattleAnimMove_BulletSeed,
+        .battleAnimScript = gBattleAnimMove_BulletSeed,
     },
 
     [MOVE_AERIAL_ACE] =
@@ -8505,7 +8505,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AerialAce,
+        .battleAnimScript = gBattleAnimMove_AerialAce,
     },
     //potentially make this speed up hit nah already made flying speed boost 
     //just need to give it more spread
@@ -8532,7 +8532,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_IcicleSpear,
+        .battleAnimScript = gBattleAnimMove_IcicleSpear,
     },
 
     [MOVE_IRON_DEFENSE] =
@@ -8554,7 +8554,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_IronDefense,
+        .battleAnimScript = gBattleAnimMove_IronDefense,
     },
 
     [MOVE_BLOCK] =
@@ -8578,7 +8578,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Block,
+        .battleAnimScript = gBattleAnimMove_Block,
     },
 
     [MOVE_HOWL] =
@@ -8601,7 +8601,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Howl,
+        .battleAnimScript = gBattleAnimMove_Howl,
     },
 
     [MOVE_DRAGON_CLAW] =
@@ -8622,7 +8622,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_RUSH, COMBO_STARTER_DRAGON_TAIL},
-        //.battleAnimScript = gBattleAnimMove_DragonClaw,
+        .battleAnimScript = gBattleAnimMove_DragonClaw,
     },
 
     [MOVE_FRENZY_PLANT] =
@@ -8645,7 +8645,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        //.battleAnimScript = gBattleAnimMove_FrenzyPlant,
+        .battleAnimScript = gBattleAnimMove_FrenzyPlant,
     },
 
     [MOVE_BULK_UP] =
@@ -8667,7 +8667,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BulkUp,
+        .battleAnimScript = gBattleAnimMove_BulkUp,
     },
 
     [MOVE_BOUNCE] =
@@ -8697,7 +8697,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Bounce,
+        .battleAnimScript = gBattleAnimMove_Bounce,
     },
     //buffed acc so can work as alt option to floaty fall
     //make both into tms
@@ -8723,7 +8723,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SANDSTORM},
-        //.battleAnimScript = gBattleAnimMove_MudShot,
+        .battleAnimScript = gBattleAnimMove_MudShot,
     }, //ranged attack so potentially set dmg airborne
     
 
@@ -8749,7 +8749,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PoisonTail,
+        .battleAnimScript = gBattleAnimMove_PoisonTail,
     },
 
     [MOVE_COVET] =
@@ -8784,7 +8784,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Covet,
+        .battleAnimScript = gBattleAnimMove_Covet,
     },
 
     [MOVE_VOLT_TACKLE] =
@@ -8812,7 +8812,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_VoltTackle,
+        .battleAnimScript = gBattleAnimMove_VoltTackle,
     },
 
     [MOVE_MAGICAL_LEAF] =
@@ -8831,7 +8831,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        //.battleAnimScript = gBattleAnimMove_MagicalLeaf,
+        .battleAnimScript = gBattleAnimMove_MagicalLeaf,
     },
 
     [MOVE_WATER_SPORT] =
@@ -8852,7 +8852,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_WATER_SPORT,
         //.contestComboMoves = {COMBO_STARTER_MUD_SPORT, COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_WaterSport,
+        .battleAnimScript = gBattleAnimMove_WaterSport,
     },
 
     [MOVE_CALM_MIND] =
@@ -8874,7 +8874,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_CALM_MIND,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_CalmMind,
+        .battleAnimScript = gBattleAnimMove_CalmMind,
     },
 
     [MOVE_LEAF_BLADE] =
@@ -8900,7 +8900,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LeafBlade,
+        .battleAnimScript = gBattleAnimMove_LeafBlade,
     },
 
     [MOVE_DRAGON_DANCE] =
@@ -8923,7 +8923,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_DRAGON_DANCE,
         //.contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_RUSH, COMBO_STARTER_DRAGON_TAIL},
-        //.battleAnimScript = gBattleAnimMove_DragonDance,
+        .battleAnimScript = gBattleAnimMove_DragonDance,
     },
 
     [MOVE_ROCK_BLAST] =
@@ -8952,7 +8952,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RockBlast,
+        .battleAnimScript = gBattleAnimMove_RockBlast,
     }, //give to sandshrew
     //considering if should downgrade to just dmg in air, fly is rare
     //but doubling damage effectively turns this into explosion,
@@ -8978,7 +8978,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARGE},
-        //.battleAnimScript = gBattleAnimMove_ShockWave,
+        .battleAnimScript = gBattleAnimMove_ShockWave,
     },
 
     [MOVE_WATER_PULSE] =
@@ -9002,7 +9002,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_WaterPulse,
+        .battleAnimScript = gBattleAnimMove_WaterPulse,
     },
 
     [MOVE_DOOM_DESIRE] =
@@ -9029,7 +9029,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DoomDesire,
+        .battleAnimScript = gBattleAnimMove_DoomDesire,
     },
 
     [MOVE_PSYCHO_BOOST] =
@@ -9052,7 +9052,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
-        //.battleAnimScript = gBattleAnimMove_PsychoBoost,
+        .battleAnimScript = gBattleAnimMove_PsychoBoost,
     },
 
     [MOVE_ROOST] =
@@ -9075,7 +9075,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_BRAVE_BIRD},
-        //.battleAnimScript = gBattleAnimMove_Roost,
+        .battleAnimScript = gBattleAnimMove_Roost,
     },//with new change don't want to give this priority boost
     //as move now does end turn healing, hmm or does it not heal on
     //turn its used...ok yeah it doesn't end turn heal on that turn
@@ -9098,7 +9098,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Gravity,
+        .battleAnimScript = gBattleAnimMove_Gravity,
     },
 
     [MOVE_MIRACLE_EYE] =
@@ -9119,7 +9119,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MiracleEye,
+        .battleAnimScript = gBattleAnimMove_MiracleEye,
     },//removes type immunity, i.e psychic can hit dark
     //make change effect to work like EFFECT_TARGET_TYPE_DAMAGE
     //can put in same place and have argument be type it removes immunity
@@ -9157,7 +9157,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_WakeUpSlap,
+        .battleAnimScript = gBattleAnimMove_WakeUpSlap,
     },
     //this is balanced better by my given status changes
 
@@ -9183,7 +9183,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
-        //.battleAnimScript = gBattleAnimMove_HammerArm,
+        .battleAnimScript = gBattleAnimMove_HammerArm,
     },
 
     [MOVE_GYRO_BALL] =
@@ -9204,7 +9204,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GyroBall,
+        .battleAnimScript = gBattleAnimMove_GyroBall,
     },
 
     [MOVE_HEALING_WISH] =
@@ -9230,7 +9230,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HealingWish,
+        .battleAnimScript = gBattleAnimMove_HealingWish,
     },//vsonic important look into modern affect in EE
     //as it suposedly changes when mon gets switched in I assume to prevent switch in dmg
     //seem if could work for this and momento, if not keep negative priority
@@ -9251,7 +9251,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Brine,
+        .battleAnimScript = gBattleAnimMove_Brine,
     },
     //slight buff to make more competitively viable
 
@@ -9271,7 +9271,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_NaturalGift,
+        .battleAnimScript = gBattleAnimMove_NaturalGift,
     },
     //also effect wasn't setup...
     //changed to no longer remove item on use
@@ -9311,7 +9311,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Feint,
+        .battleAnimScript = gBattleAnimMove_Feint,
     }, //hits and removes protect likes, decided to make fighting, as a counter part to brick break
 
     [MOVE_PLUCK] =
@@ -9334,7 +9334,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Pluck,
+        .battleAnimScript = gBattleAnimMove_Pluck,
     },
     //sharpness/crit doesn't make sense overall it alrady does all it needs to.
 
@@ -9362,7 +9362,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Tailwind,
+        .battleAnimScript = gBattleAnimMove_Tailwind,
     },//vsonic important
 
     [MOVE_ACUPRESSURE] =
@@ -9386,7 +9386,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Acupressure,
+        .battleAnimScript = gBattleAnimMove_Acupressure,
     },
 
     [MOVE_METAL_BURST] =
@@ -9409,7 +9409,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_METAL_SOUND},
-        //.battleAnimScript = gBattleAnimMove_MetalBurst,
+        .battleAnimScript = gBattleAnimMove_MetalBurst,
     }, //think this couter move
 
     [MOVE_U_TURN] =
@@ -9429,7 +9429,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_UTurn,
+        .battleAnimScript = gBattleAnimMove_UTurn,
         
     },//too good, and too wide spread to have infestation,
     //want to be mostly on bugs, w a rare mon being able to get access that isn't bug type
@@ -9455,7 +9455,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_MIND_READER},
-        //.battleAnimScript = gBattleAnimMove_CloseCombat,
+        .battleAnimScript = gBattleAnimMove_CloseCombat,
     }, //remove iron fist flag, as want to emphasize superpower instead
 
     [MOVE_PAYBACK] =
@@ -9475,7 +9475,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_PAYBACK,
         //.contestComboMoves = {COMBO_STARTER_REVENGE},
-        //.battleAnimScript = gBattleAnimMove_Payback,
+        .battleAnimScript = gBattleAnimMove_Payback,
     },
     //check effect see how will use,
     //as effect changed w gens
@@ -9510,7 +9510,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_PAYBACK, COMBO_STARTER_REVENGE},
-        //.battleAnimScript = gBattleAnimMove_Assurance,
+        .battleAnimScript = gBattleAnimMove_Assurance,
     },
 
     [MOVE_EMBARGO] =
@@ -9533,7 +9533,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Embargo,
+        .battleAnimScript = gBattleAnimMove_Embargo,
     },
 
     [MOVE_FLING] =
@@ -9553,7 +9553,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Fling,
+        .battleAnimScript = gBattleAnimMove_Fling,
     },
 
     [MOVE_PSYCHO_SHIFT] =
@@ -9576,7 +9576,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PsychoShift,
+        .battleAnimScript = gBattleAnimMove_PsychoShift,
     },//curses status1 and afflicts them to target
 
     [MOVE_TRUMP_CARD] =
@@ -9596,7 +9596,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_TrumpCard,
+        .battleAnimScript = gBattleAnimMove_TrumpCard,
     },
 
     [MOVE_HEAL_BLOCK] =
@@ -9619,7 +9619,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HealBlock,
+        .battleAnimScript = gBattleAnimMove_HealBlock,
     }, //make heal block stop potions etc.e simple enough just add clause to itemuse function i think
     //so healing items can't be used if target status is heal block
     //make sure to set as team/side wide status
@@ -9642,7 +9642,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_WringOut,
+        .battleAnimScript = gBattleAnimMove_WringOut,
         .argument = {.damagePercentage = 120},
     },
     //doublne check this think w power 0 it'll do typeless damage?
@@ -9670,7 +9670,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PowerTrick,
+        .battleAnimScript = gBattleAnimMove_PowerTrick,
     },
 
     [MOVE_GASTRO_ACID] =
@@ -9690,7 +9690,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GastroAcid,
+        .battleAnimScript = gBattleAnimMove_GastroAcid,
     },
 
     [MOVE_LUCKY_CHANT] =
@@ -9715,7 +9715,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_LUCKY_CHANT,
         //.contestComboMoves = {COMBO_STARTER_HEAL_BELL},
-        //.battleAnimScript = gBattleAnimMove_LuckyChant,
+        .battleAnimScript = gBattleAnimMove_LuckyChant,
     },
 
     [MOVE_ME_FIRST] =
@@ -9744,7 +9744,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MeFirst,
+        .battleAnimScript = gBattleAnimMove_MeFirst,
     },
 
     [MOVE_COPYCAT] =
@@ -9772,7 +9772,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Copycat,
+        .battleAnimScript = gBattleAnimMove_Copycat,
     },
 
     [MOVE_POWER_SWAP] =
@@ -9792,7 +9792,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PowerSwap,
+        .battleAnimScript = gBattleAnimMove_PowerSwap,
     },
 
     [MOVE_GUARD_SWAP] =
@@ -9812,7 +9812,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GuardSwap,
+        .battleAnimScript = gBattleAnimMove_GuardSwap,
     },
 
     [MOVE_PUNISHMENT] =
@@ -9832,7 +9832,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Punishment,
+        .battleAnimScript = gBattleAnimMove_Punishment,
     },
 
     [MOVE_LAST_RESORT] =
@@ -9856,7 +9856,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LastResort,
+        .battleAnimScript = gBattleAnimMove_LastResort,
     },
 
     [MOVE_WORRY_SEED] =
@@ -9877,7 +9877,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_WORRY_SEED,
         //.contestComboMoves = {COMBO_STARTER_LEECH_SEED},
-        //.battleAnimScript = gBattleAnimMove_WorrySeed,
+        .battleAnimScript = gBattleAnimMove_WorrySeed,
     },//makes target ability insomnia
     //for some reason this broke game?
     //or it breaks starter battle
@@ -9902,7 +9902,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SuckerPunch,
+        .battleAnimScript = gBattleAnimMove_SuckerPunch,
     },//remove pp increase on things like megsa
     //pp stalling is the only way to stay alive
     //as I saw playing unbreakable ties
@@ -9933,7 +9933,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ToxicSpikes,
+        .battleAnimScript = gBattleAnimMove_ToxicSpikes,
     },
 
     [MOVE_HEART_SWAP] =
@@ -9953,7 +9953,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HeartSwap,
+        .battleAnimScript = gBattleAnimMove_HeartSwap,
     },//swap stat stages
 
     [MOVE_AQUA_RING] =
@@ -9978,7 +9978,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AquaRing,
+        .battleAnimScript = gBattleAnimMove_AquaRing,
     },
 
     [MOVE_MAGNET_RISE] =
@@ -10004,7 +10004,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MagnetRise,
+        .battleAnimScript = gBattleAnimMove_MagnetRise,
     },
     //makes float
 
@@ -10034,7 +10034,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_FlareBlitz,
+        .battleAnimScript = gBattleAnimMove_FlareBlitz,
     },
 
     [MOVE_FORCE_PALM] =
@@ -10058,7 +10058,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ForcePalm,
+        .battleAnimScript = gBattleAnimMove_ForcePalm,
     },
 
     [MOVE_AURA_SPHERE] =
@@ -10083,7 +10083,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AuraSphere,
+        .battleAnimScript = gBattleAnimMove_AuraSphere,
     },
 
     [MOVE_ROCK_POLISH] =
@@ -10105,7 +10105,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RockPolish,
+        .battleAnimScript = gBattleAnimMove_RockPolish,
     },
 
     [MOVE_POISON_JAB] =
@@ -10130,7 +10130,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PoisonJab,
+        .battleAnimScript = gBattleAnimMove_PoisonJab,
     },
 
     [MOVE_DARK_PULSE] =
@@ -10154,7 +10154,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DarkPulse,
+        .battleAnimScript = gBattleAnimMove_DarkPulse,
     },
     //think will buff this to give better dark special options
     //...this may be broken eh cut distribution to mostly dark types
@@ -10179,7 +10179,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_NightSlash,
+        .battleAnimScript = gBattleAnimMove_NightSlash,
     },
 
     [MOVE_AQUA_TAIL] =
@@ -10199,7 +10199,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_AquaTail,
+        .battleAnimScript = gBattleAnimMove_AquaTail,
     },
 
     [MOVE_SEED_BOMB] =
@@ -10220,7 +10220,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SeedBomb,
+        .battleAnimScript = gBattleAnimMove_SeedBomb,
     },
 
     [MOVE_AIR_SLASH] =
@@ -10252,7 +10252,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AirSlash,
+        .battleAnimScript = gBattleAnimMove_AirSlash,
     },
     //think will drop power on this by 10
 
@@ -10279,7 +10279,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
-        //.battleAnimScript = gBattleAnimMove_XScissor,
+        .battleAnimScript = gBattleAnimMove_XScissor,
     },
 
     [MOVE_BUG_BUZZ] =
@@ -10308,7 +10308,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BugBuzz,
+        .battleAnimScript = gBattleAnimMove_BugBuzz,
     },
     //potentially lower power back down
     //since I want bug to be a utility type
@@ -10335,7 +10335,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DragonPulse,
+        .battleAnimScript = gBattleAnimMove_DragonPulse,
     },//vsonic seems animation for this not right?
 
     [MOVE_DRAGON_RUSH] =
@@ -10361,7 +10361,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_DRAGON_RUSH,
         //.contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_TAIL},
-        //.battleAnimScript = gBattleAnimMove_DragonRush,
+        .battleAnimScript = gBattleAnimMove_DragonRush,
     },//slight power buff to compete w draco meteor
 
     [MOVE_POWER_GEM] =
@@ -10385,7 +10385,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PowerGem,
+        .battleAnimScript = gBattleAnimMove_PowerGem,
     },
     //turned into psychic
     //maybe should make base 95? doesn't have other effect
@@ -10414,7 +10414,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
-        //.battleAnimScript = gBattleAnimMove_DrainPunch,
+        .battleAnimScript = gBattleAnimMove_DrainPunch,
     },
 
     [MOVE_VACUUM_WAVE] =
@@ -10433,7 +10433,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_VacuumWave,
+        .battleAnimScript = gBattleAnimMove_VacuumWave,
     },
 
     [MOVE_FOCUS_BLAST] =
@@ -10457,7 +10457,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
-        //.battleAnimScript = gBattleAnimMove_FocusBlast,
+        .battleAnimScript = gBattleAnimMove_FocusBlast,
     },
 
     [MOVE_ENERGY_BALL] =
@@ -10485,7 +10485,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        //.battleAnimScript = gBattleAnimMove_EnergyBall,
+        .battleAnimScript = gBattleAnimMove_EnergyBall,
     },
 
     [MOVE_BRAVE_BIRD] =
@@ -10509,7 +10509,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_BRAVE_BIRD,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BraveBird,
+        .battleAnimScript = gBattleAnimMove_BraveBird,
     },
     //think leave crit off this, just let recoil rework be the buff
 
@@ -10535,7 +10535,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_EarthPower,
+        .battleAnimScript = gBattleAnimMove_EarthPower,
     },
 
     [MOVE_SWITCHEROO] =
@@ -10557,7 +10557,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Switcheroo,
+        .battleAnimScript = gBattleAnimMove_Switcheroo,
     }, //teach this
     //swaps items
 
@@ -10582,7 +10582,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GigaImpact,
+        .battleAnimScript = gBattleAnimMove_GigaImpact,
     },
 
     [MOVE_NASTY_PLOT] =
@@ -10604,7 +10604,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_NastyPlot,
+        .battleAnimScript = gBattleAnimMove_NastyPlot,
     },
 
     [MOVE_BULLET_PUNCH] =
@@ -10625,7 +10625,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BulletPunch,
+        .battleAnimScript = gBattleAnimMove_BulletPunch,
     },
 
     [MOVE_AVALANCHE] =
@@ -10645,7 +10645,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Avalanche,
+        .battleAnimScript = gBattleAnimMove_Avalanche,
     },
 
     [MOVE_ICE_SHARD] =
@@ -10664,7 +10664,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_IceShard,
+        .battleAnimScript = gBattleAnimMove_IceShard,
     },
 
     [MOVE_SHADOW_CLAW] =
@@ -10685,7 +10685,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ShadowClaw,
+        .battleAnimScript = gBattleAnimMove_ShadowClaw,
     },
 
     [MOVE_THUNDER_FANG] =
@@ -10780,7 +10780,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ShadowSneak,
+        .battleAnimScript = gBattleAnimMove_ShadowSneak,
     },
 
     [MOVE_MUD_BOMB] =
@@ -10805,7 +10805,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MudBomb,
+        .battleAnimScript = gBattleAnimMove_MudBomb,
     },
     
 
@@ -10827,7 +10827,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PsychoCut,
+        .battleAnimScript = gBattleAnimMove_PsychoCut,
     },
 
     [MOVE_ZEN_HEADBUTT] =
@@ -10852,7 +10852,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ZenHeadbutt,
+        .battleAnimScript = gBattleAnimMove_ZenHeadbutt,
     },
 
     [MOVE_MIRROR_SHOT] =
@@ -10875,7 +10875,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MirrorShot,
+        .battleAnimScript = gBattleAnimMove_MirrorShot,
     },
 
     [MOVE_FLASH_CANNON] =
@@ -10900,7 +10900,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FlashCannon,
+        .battleAnimScript = gBattleAnimMove_FlashCannon,
     }, //makes sense compared to aura sphere description, similar.
     //change mostly for a blastoise buff
 
@@ -10925,7 +10925,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RockClimb,
+        .battleAnimScript = gBattleAnimMove_RockClimb,
     },
 
     [MOVE_DEFOG] =
@@ -10949,7 +10949,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Defog,
+        .battleAnimScript = gBattleAnimMove_Defog,
     },
 
     [MOVE_TRICK_ROOM] =
@@ -10969,7 +10969,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_TrickRoom,
+        .battleAnimScript = gBattleAnimMove_TrickRoom,
     },
 
     [MOVE_DRACO_METEOR] =
@@ -10996,7 +10996,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DracoMeteor,
+        .battleAnimScript = gBattleAnimMove_DracoMeteor,
     },
 
     [MOVE_DISCHARGE] =
@@ -11019,7 +11019,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARGE},
-        //.battleAnimScript = gBattleAnimMove_Discharge,
+        .battleAnimScript = gBattleAnimMove_Discharge,
     },
 
     [MOVE_LAVA_PLUME] =
@@ -11042,7 +11042,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_LavaPlume,
+        .battleAnimScript = gBattleAnimMove_LavaPlume,
     },
 
     [MOVE_LEAF_STORM] =
@@ -11069,7 +11069,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LeafStorm,
+        .battleAnimScript = gBattleAnimMove_LeafStorm,
     },
 
     [MOVE_POWER_WHIP] =
@@ -11090,7 +11090,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        //.battleAnimScript = gBattleAnimMove_PowerWhip,
+        .battleAnimScript = gBattleAnimMove_PowerWhip,
     }, //add to tangela learnset
 
     [MOVE_ROCK_WRECKER] =
@@ -11114,7 +11114,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RockWrecker,
+        .battleAnimScript = gBattleAnimMove_RockWrecker,
     },
 
     [MOVE_CROSS_POISON] =
@@ -11140,7 +11140,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_CrossPoison,
+        .battleAnimScript = gBattleAnimMove_CrossPoison,
     },
 
     [MOVE_GUNK_SHOT] =
@@ -11167,7 +11167,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GunkShot,
+        .battleAnimScript = gBattleAnimMove_GunkShot,
     },
 
     [MOVE_IRON_HEAD] =
@@ -11193,7 +11193,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_IronHead,
+        .battleAnimScript = gBattleAnimMove_IronHead,
     },
     //idk why I dropped acc of this so much
     //most steel types are slow so even w high flinch chance not too crazy
@@ -11215,7 +11215,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MagnetBomb,
+        .battleAnimScript = gBattleAnimMove_MagnetBomb,
     },
 
     [MOVE_STONE_EDGE] =
@@ -11236,7 +11236,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_StoneEdge,
+        .battleAnimScript = gBattleAnimMove_StoneEdge,
     },
     //there are very few rock moves
     //should I increase accuracy of this?
@@ -11263,7 +11263,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARM},
-        //.battleAnimScript = gBattleAnimMove_Captivate,
+        .battleAnimScript = gBattleAnimMove_Captivate,
     },//lower stats if opposite gender
 
     [MOVE_STEALTH_ROCK] =
@@ -11289,7 +11289,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_StealthRock,
+        .battleAnimScript = gBattleAnimMove_StealthRock,
     },//check for how I adjusted stealth rock think I rebalanced it?
     //think if I don't want traps to auto be set in every match
     //I shouldn't give them priority, with ttk changes
@@ -11317,7 +11317,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GrassKnot,
+        .battleAnimScript = gBattleAnimMove_GrassKnot,
     },
 
     [MOVE_CHATTER] =
@@ -11360,7 +11360,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Chatter,
+        .battleAnimScript = gBattleAnimMove_Chatter,
     }, //did I intend this to eb a gauranteed confuse?
     //for this and other foncuse will use cacophonyboosted special status to allow to confuse bugs etc.
     //nvm that would be hell to setup just make confuse mon that otherwise block confuse
@@ -11387,7 +11387,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Judgment,
+        .battleAnimScript = gBattleAnimMove_Judgment,
         //forgot changed to no longer need plate
     }, //thinik add message passed judgement def can no longer escape!
     //vsonic  //actually too strong, since this thing is already hella op
@@ -11426,7 +11426,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BugBite,
+        .battleAnimScript = gBattleAnimMove_BugBite,
     },
 
     [MOVE_CHARGE_BEAM] =
@@ -11450,7 +11450,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARGE},
-        //.battleAnimScript = gBattleAnimMove_ChargeBeam,
+        .battleAnimScript = gBattleAnimMove_ChargeBeam,
     },
 
     [MOVE_WOOD_HAMMER] =
@@ -11474,7 +11474,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_WoodHammer,
+        .battleAnimScript = gBattleAnimMove_WoodHammer,
     },
 
     [MOVE_AQUA_JET] =
@@ -11494,7 +11494,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_AquaJet,
+        .battleAnimScript = gBattleAnimMove_AquaJet,
     },
 
     [MOVE_ATTACK_ORDER] =
@@ -11519,7 +11519,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_ATTACK_ORDER,
         //.contestComboMoves = {COMBO_STARTER_DEFEND_ORDER, COMBO_STARTER_HEAL_ORDER},
-        //.battleAnimScript = gBattleAnimMove_AttackOrder,
+        .battleAnimScript = gBattleAnimMove_AttackOrder,
     },
 
     [MOVE_DEFEND_ORDER] =
@@ -11541,7 +11541,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_DEFEND_ORDER,
         //.contestComboMoves = {COMBO_STARTER_ATTACK_ORDER, COMBO_STARTER_HEAL_ORDER},
-        //.battleAnimScript = gBattleAnimMove_DefendOrder,
+        .battleAnimScript = gBattleAnimMove_DefendOrder,
     },
 
     [MOVE_HEAL_ORDER] =
@@ -11564,7 +11564,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_HEAL_ORDER,
         //.contestComboMoves = {COMBO_STARTER_ATTACK_ORDER, COMBO_STARTER_DEFEND_ORDER},
-        //.battleAnimScript = gBattleAnimMove_HealOrder,
+        .battleAnimScript = gBattleAnimMove_HealOrder,
     },
 
     [MOVE_HEAD_SMASH] =
@@ -11589,7 +11589,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HeadSmash,
+        .battleAnimScript = gBattleAnimMove_HeadSmash,
     },//consider raising accuracy vsonic double edge has triple pp and is 100% accurate
     //did boost acc from 85 to 90
     //think will go to 95 has heavy recoil and half the pp of most double edge likes
@@ -11614,7 +11614,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DoubleHit,
+        .battleAnimScript = gBattleAnimMove_DoubleHit,
     },
 
     [MOVE_ROAR_OF_TIME] =
@@ -11637,7 +11637,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RoarOfTime,
+        .battleAnimScript = gBattleAnimMove_RoarOfTime,
     },
 
     [MOVE_SPACIAL_REND] =
@@ -11657,7 +11657,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SpacialRend,
+        .battleAnimScript = gBattleAnimMove_SpacialRend,
     },
 
     [MOVE_LUNAR_DANCE] =
@@ -11684,7 +11684,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LunarDance,
+        .battleAnimScript = gBattleAnimMove_LunarDance,
     },
 
     [MOVE_CRUSH_GRIP] =
@@ -11705,7 +11705,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_CrushGrip,
+        .battleAnimScript = gBattleAnimMove_CrushGrip,
         .argument = {.damagePercentage = 150},
     },
     //may make this power 0 so it ignores type calc
@@ -11733,7 +11733,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_MagmaStorm,
+        .battleAnimScript = gBattleAnimMove_MagmaStorm,
     },
 
     [MOVE_DARK_VOID] =
@@ -11756,7 +11756,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DarkVoid,
+        .battleAnimScript = gBattleAnimMove_DarkVoid,
     },//instead of dropping accuracy just keep from being sketched by smeargle -_-
 
     [MOVE_SEED_FLARE] =
@@ -11779,7 +11779,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SeedFlare,
+        .battleAnimScript = gBattleAnimMove_SeedFlare,
     },
 
     [MOVE_OMINOUS_WIND] =
@@ -11805,7 +11805,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_OminousWind,
+        .battleAnimScript = gBattleAnimMove_OminousWind,
     },
 
     [MOVE_SHADOW_FORCE] =
@@ -11835,7 +11835,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ShadowForce,
+        .battleAnimScript = gBattleAnimMove_ShadowForce,
     },
     //like phantom force this also ignores and removes protect
     //difference is this is giratina exclusive think can give prio boost
@@ -11862,7 +11862,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HoneClaws,
+        .battleAnimScript = gBattleAnimMove_HoneClaws,
     },
 
     [MOVE_WIDE_GUARD] =
@@ -11886,7 +11886,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_WideGuard,
+        .battleAnimScript = gBattleAnimMove_WideGuard,
     },
     //vsonic potentialy add to more rock types
 
@@ -11907,7 +11907,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GuardSplit,
+        .battleAnimScript = gBattleAnimMove_GuardSplit,
     },
 
     [MOVE_POWER_SPLIT] =
@@ -11927,7 +11927,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PowerSplit,
+        .battleAnimScript = gBattleAnimMove_PowerSplit,
     },
 
     [MOVE_WONDER_ROOM] =
@@ -11951,7 +11951,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_WonderRoom,
+        .battleAnimScript = gBattleAnimMove_WonderRoom,
     },//swap defense sp defense of all
 
     [MOVE_PSYSHOCK] =
@@ -11970,7 +11970,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Psyshock,
+        .battleAnimScript = gBattleAnimMove_Psyshock,
     },
 
     [MOVE_VENOSHOCK] =
@@ -11990,7 +11990,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_TOXIC},
-        //.battleAnimScript = gBattleAnimMove_Venoshock,
+        .battleAnimScript = gBattleAnimMove_Venoshock,
     },
 
     [MOVE_AUTOTOMIZE] =
@@ -12012,7 +12012,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Autotomize,
+        .battleAnimScript = gBattleAnimMove_Autotomize,
     },
 
     [MOVE_RAGE_POWDER] =
@@ -12041,7 +12041,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RagePowder,
+        .battleAnimScript = gBattleAnimMove_RagePowder,
     },
 
     [MOVE_TELEKINESIS] =
@@ -12062,7 +12062,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Telekinesis,
+        .battleAnimScript = gBattleAnimMove_Telekinesis,
     },
 
     [MOVE_MAGIC_ROOM] =
@@ -12086,7 +12086,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MagicRoom,
+        .battleAnimScript = gBattleAnimMove_MagicRoom,
     },//blocks all item use on field,
     //with my embargo change this is kinda obsolete
 
@@ -12107,7 +12107,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SmackDown,
+        .battleAnimScript = gBattleAnimMove_SmackDown,
     }, //now that moved smackdown effect to flag, no longer need effect, repalce with hit,
 
     [MOVE_STORM_THROW] =
@@ -12132,7 +12132,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_StormThrow,
+        .battleAnimScript = gBattleAnimMove_StormThrow,
     },
     //would be better if there were any fighting mon that
     //got sniper but its almost exclusively water types hmm
@@ -12165,7 +12165,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FlameBurst,
+        .battleAnimScript = gBattleAnimMove_FlameBurst,
     },
     //may need to revise battle script to actually set adjacent burn effect
     //vsonic
@@ -12190,7 +12190,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SludgeWave,
+        .battleAnimScript = gBattleAnimMove_SludgeWave,
     },
 
     [MOVE_QUIVER_DANCE] =
@@ -12213,7 +12213,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_QuiverDance,
+        .battleAnimScript = gBattleAnimMove_QuiverDance,
     },
 
     [MOVE_HEAVY_SLAM] =
@@ -12234,7 +12234,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HeavySlam,
+        .battleAnimScript = gBattleAnimMove_HeavySlam,
     },
 
     [MOVE_SYNCHRONOISE] =
@@ -12258,7 +12258,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Synchronoise,
+        .battleAnimScript = gBattleAnimMove_Synchronoise,
     },
     //set effect to ignore resist
     //and give stab
@@ -12280,7 +12280,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ElectroBall,
+        .battleAnimScript = gBattleAnimMove_ElectroBall,
          .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
@@ -12311,7 +12311,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Soak,
+        .battleAnimScript = gBattleAnimMove_Soak,
     }, //set type to water
 
     [MOVE_FLAME_CHARGE] =
@@ -12336,7 +12336,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FlameCharge,
+        .battleAnimScript = gBattleAnimMove_FlameCharge,
     },
 
     [MOVE_COIL] =
@@ -12358,7 +12358,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Coil,
+        .battleAnimScript = gBattleAnimMove_Coil,
     },
 
     [MOVE_LOW_SWEEP] =
@@ -12387,7 +12387,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LowSweep,
+        .battleAnimScript = gBattleAnimMove_LowSweep,
     },
 
     [MOVE_ACID_SPRAY] =
@@ -12411,7 +12411,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AcidSpray,
+        .battleAnimScript = gBattleAnimMove_AcidSpray,
     },
 
     [MOVE_FOUL_PLAY] =
@@ -12431,7 +12431,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FoulPlay,
+        .battleAnimScript = gBattleAnimMove_FoulPlay,
     },
 
     [MOVE_SIMPLE_BEAM] =
@@ -12452,7 +12452,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SimpleBeam,
+        .battleAnimScript = gBattleAnimMove_SimpleBeam,
     },//set target ability to simple - doubles stat changes
 
     [MOVE_ENTRAINMENT] =
@@ -12472,7 +12472,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Entrainment,
+        .battleAnimScript = gBattleAnimMove_Entrainment,
     },//makes target ability same as user
     //look into move, this seems like a good tm?
     //vsonic important
@@ -12497,7 +12497,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AfterYou,
+        .battleAnimScript = gBattleAnimMove_AfterYou,
     },//makes target move after user, only useful for doubles+
     //this will be a huge change, before would be used to speed up slower mon
     //but now would function like helping hand, where I boost their priority to the top
@@ -12523,7 +12523,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Round,
+        .battleAnimScript = gBattleAnimMove_Round,
     },
 
     [MOVE_ECHOED_VOICE] =
@@ -12548,7 +12548,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_EchoedVoice,
+        .battleAnimScript = gBattleAnimMove_EchoedVoice,
     },
 
     [MOVE_CHIP_AWAY] =
@@ -12569,7 +12569,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ChipAway,
+        .battleAnimScript = gBattleAnimMove_ChipAway,
     },//think change to unique effect, ignores changes to def stat and evasion stat of target
     //would like make special veriant for normal 
     //ahh seems effect was never set...
@@ -12594,7 +12594,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ClearSmog,
+        .battleAnimScript = gBattleAnimMove_ClearSmog,
     },
 
     [MOVE_STORED_POWER] =
@@ -12613,7 +12613,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_StoredPower,
+        .battleAnimScript = gBattleAnimMove_StoredPower,
     },//potentially use with moody mon
 
     [MOVE_QUICK_GUARD] =
@@ -12637,7 +12637,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_QuickGuard,
+        .battleAnimScript = gBattleAnimMove_QuickGuard,
     },//make sure this is using correct effect and doesn't have decreasing odds each use
     //check how works as meant to stop all priority moves - works
     //sets sidestatus  on move not effect
@@ -12664,7 +12664,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AllySwitch,
+        .battleAnimScript = gBattleAnimMove_AllySwitch,
     },
 
     [MOVE_SCALD] =
@@ -12688,7 +12688,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_SCALD,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Scald,
+        .battleAnimScript = gBattleAnimMove_Scald,
     },
 
     [MOVE_SHELL_SMASH] =
@@ -12710,7 +12710,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ShellSmash,
+        .battleAnimScript = gBattleAnimMove_ShellSmash,
     },//alrigth every mon that learns this is slow, so will just make negative priority
 
     [MOVE_HEAL_PULSE] =
@@ -12733,7 +12733,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HealPulse,
+        .battleAnimScript = gBattleAnimMove_HealPulse,
     },
     //give blastoise heal pulse
     //heal pulse is meant to have long rage,
@@ -12760,7 +12760,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_TOXIC},
-        //.battleAnimScript = gBattleAnimMove_Hex,
+        .battleAnimScript = gBattleAnimMove_Hex,
     },
 
     [MOVE_SKY_DROP] =
@@ -12788,7 +12788,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SkyDrop,
+        .battleAnimScript = gBattleAnimMove_SkyDrop,
     },//vsonic never tested if works
 
     [MOVE_SHIFT_GEAR] =
@@ -12810,7 +12810,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ShiftGear,
+        .battleAnimScript = gBattleAnimMove_ShiftGear,
     },
 
     [MOVE_CIRCLE_THROW] =
@@ -12832,7 +12832,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_CircleThrow,
+        .battleAnimScript = gBattleAnimMove_CircleThrow,
     },
 
     [MOVE_INCINERATE] =
@@ -12858,7 +12858,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Incinerate,
+        .battleAnimScript = gBattleAnimMove_Incinerate,
     },
 
     [MOVE_QUASH] =
@@ -12878,7 +12878,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Quash,
+        .battleAnimScript = gBattleAnimMove_Quash,
     },
     //opposite of after you, makes target act last
     //like after you this is a massive buff
@@ -12903,7 +12903,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Acrobatics,
+        .battleAnimScript = gBattleAnimMove_Acrobatics,
     },
     //ground dwelling mon can use and its used a lot to hit flying 
     //or other enemies that need to be attacked in unique ways so make hit floating
@@ -12926,7 +12926,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ReflectType,
+        .battleAnimScript = gBattleAnimMove_ReflectType,
     },//is just conversion, but with greater access
     //copies target's type(s)
 
@@ -12947,7 +12947,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Retaliate,
+        .battleAnimScript = gBattleAnimMove_Retaliate,
     },
 
     [MOVE_FINAL_GAMBIT] =
@@ -12968,7 +12968,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FinalGambit,
+        .battleAnimScript = gBattleAnimMove_FinalGambit,
     },
     //fixed dmg effect doesnt need typeless
 
@@ -12996,7 +12996,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Bestow,
+        .battleAnimScript = gBattleAnimMove_Bestow,
     },//gives held item to target
     //this I feel should probably keep where it is?
     //just because it seems like something where strategies are already locked in and very specific
@@ -13022,7 +13022,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Inferno,
+        .battleAnimScript = gBattleAnimMove_Inferno,
     },
 
     [MOVE_WATER_PLEDGE] =
@@ -13046,7 +13046,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_WaterPledge,
+        .battleAnimScript = gBattleAnimMove_WaterPledge,
     },
 
     [MOVE_FIRE_PLEDGE] =
@@ -13070,7 +13070,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FirePledge,
+        .battleAnimScript = gBattleAnimMove_FirePledge,
     },
 
     [MOVE_GRASS_PLEDGE] =
@@ -13094,7 +13094,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GrassPledge,
+        .battleAnimScript = gBattleAnimMove_GrassPledge,
     },
 
     [MOVE_VOLT_SWITCH] =
@@ -13113,7 +13113,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_VoltSwitch,
+        .battleAnimScript = gBattleAnimMove_VoltSwitch,
     },
 
     [MOVE_STRUGGLE_BUG] =
@@ -13144,7 +13144,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_StruggleBug,
+        .battleAnimScript = gBattleAnimMove_StruggleBug,
     }, //hm so is this guaranteed both?if so its VERY good now, yup looks like it
     //put this exclusively in pre evo bug learnset not full evo
     //ex caterpie, not kakuna and butterfree
@@ -13176,7 +13176,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Bulldoze,
+        .battleAnimScript = gBattleAnimMove_Bulldoze,
     },
     //gave underground boost but otherwise change targetting to make it more accessible version of earthquake
 
@@ -13201,7 +13201,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FrostBreath,
+        .battleAnimScript = gBattleAnimMove_FrostBreath,
     },//add to more learnsets
     //almost better than blizzard, difference is no acc boost in hail
 
@@ -13224,7 +13224,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_DRAGON_TAIL,
         //.contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_RUSH},
-        //.battleAnimScript = gBattleAnimMove_DragonTail,
+        .battleAnimScript = gBattleAnimMove_DragonTail,
     },
 
     [MOVE_WORK_UP] =
@@ -13246,7 +13246,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_WorkUp,
+        .battleAnimScript = gBattleAnimMove_WorkUp,
     },
 
     [MOVE_ELECTROWEB] =
@@ -13269,7 +13269,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Electroweb,
+        .battleAnimScript = gBattleAnimMove_Electroweb,
     },
 
     [MOVE_WILD_CHARGE] =
@@ -13297,7 +13297,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_WildCharge,
+        .battleAnimScript = gBattleAnimMove_WildCharge,
     },
     //attempts buff, less recoil and paralysis chance
     //matches Legend Arceus effect
@@ -13320,7 +13320,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DrillRun,
+        .battleAnimScript = gBattleAnimMove_DrillRun,
     },
 
     [MOVE_DUAL_STRIKE] =
@@ -13342,7 +13342,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DualChop,
+        .battleAnimScript = gBattleAnimMove_DualChop,
     },//renamed dual chop
 
     [MOVE_HEART_STAMP] =
@@ -13366,7 +13366,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HeartStamp,
+        .battleAnimScript = gBattleAnimMove_HeartStamp,
     },
 
     [MOVE_HORN_LEECH] =
@@ -13389,7 +13389,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HornLeech,
+        .battleAnimScript = gBattleAnimMove_HornLeech,
     },
 
     [MOVE_SACRED_SWORD] =
@@ -13415,7 +13415,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SacredSword,
+        .battleAnimScript = gBattleAnimMove_SacredSword,
     },
 
     [MOVE_RAZOR_SHELL] =
@@ -13440,7 +13440,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RazorShell,
+        .battleAnimScript = gBattleAnimMove_RazorShell,
     },
 
     [MOVE_HEAT_CRASH] =
@@ -13464,7 +13464,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HeatCrash,
+        .battleAnimScript = gBattleAnimMove_HeatCrash,
     },
 
     [MOVE_LEAF_TORNADO] =
@@ -13487,7 +13487,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LeafTornado,
+        .battleAnimScript = gBattleAnimMove_LeafTornado,
     },
 
     [MOVE_STEAMROLLER] =
@@ -13516,7 +13516,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Steamroller,
+        .battleAnimScript = gBattleAnimMove_Steamroller,
     },
 
     [MOVE_COTTON_GUARD] =
@@ -13538,7 +13538,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_CottonGuard,
+        .battleAnimScript = gBattleAnimMove_CottonGuard,
     },
 
     [MOVE_NIGHT_DAZE] =
@@ -13561,7 +13561,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_NightDaze,
+        .battleAnimScript = gBattleAnimMove_NightDaze,
     },
 
     [MOVE_PSYSTRIKE] =
@@ -13580,7 +13580,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Psystrike,
+        .battleAnimScript = gBattleAnimMove_Psystrike,
     },//mewtwo signature
 
     [MOVE_TAIL_SLAP] =
@@ -13602,7 +13602,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_TailSlap,
+        .battleAnimScript = gBattleAnimMove_TailSlap,
     },
 
     [MOVE_HURRICANE] =
@@ -13631,7 +13631,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Hurricane,
+        .battleAnimScript = gBattleAnimMove_Hurricane,
     },
     //may change to more literal translation 
     //'Windstorm' cutting wind attack
@@ -13662,7 +13662,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HeadCharge,
+        .battleAnimScript = gBattleAnimMove_HeadCharge,
     },
 
     [MOVE_GEAR_GRIND] =
@@ -13684,7 +13684,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GearGrind,
+        .battleAnimScript = gBattleAnimMove_GearGrind,
     },
 
     [MOVE_SEARING_SHOT] =
@@ -13708,7 +13708,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SearingShot,
+        .battleAnimScript = gBattleAnimMove_SearingShot,
     },
 
     [MOVE_TECHNO_BLAST] =
@@ -13733,7 +13733,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_TechnoBlast,
+        .battleAnimScript = gBattleAnimMove_TechnoBlast,
     },
     //may give move property so can distinguish between the moves
     //of shared effect
@@ -13810,7 +13810,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RelicSong,
+        .battleAnimScript = gBattleAnimMove_RelicSong,
     },//test this, replaced use of argumenttostatus
 
     [MOVE_SECRET_SWORD] =
@@ -13831,7 +13831,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SecretSword,
+        .battleAnimScript = gBattleAnimMove_SecretSword,
     },
 
     [MOVE_GLACIATE] =
@@ -13854,7 +13854,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Glaciate,
+        .battleAnimScript = gBattleAnimMove_Glaciate,
     },
     //kyurem signature is basically just icy wind slighty stronger
     //since animation is freezing solid will just make freezing move
@@ -13887,7 +13887,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BoltStrike,
+        .battleAnimScript = gBattleAnimMove_BoltStrike,
     },
     //zekrom special move
 
@@ -13911,7 +13911,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BlueFlare,
+        .battleAnimScript = gBattleAnimMove_BlueFlare,
     },//may need buff this and below,
     //signature of reshiram and zeckrom, kinda underwhelming
     //for signature moves is just slightly better thunder and fireblast
@@ -13938,7 +13938,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FieryDance,
+        .battleAnimScript = gBattleAnimMove_FieryDance,
     },
 
     [MOVE_FREEZE_SHOCK] =
@@ -13965,7 +13965,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FreezeShock,
+        .battleAnimScript = gBattleAnimMove_FreezeShock,
        .argument = { .storedValue = TYPE_ELECTRIC },
     },//maintained paralysis chance
 
@@ -13993,7 +13993,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_IceBurn,
+        .battleAnimScript = gBattleAnimMove_IceBurn,
        .argument = { .storedValue = TYPE_FIRE },
     },//will still burn
     //think these are just kyurem black/white moves
@@ -14021,7 +14021,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Snarl,
+        .battleAnimScript = gBattleAnimMove_Snarl,
     },
 
     [MOVE_ICICLE_CRASH] =
@@ -14044,7 +14044,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_IcicleCrash,
+        .battleAnimScript = gBattleAnimMove_IcicleCrash,
     },
 
     [MOVE_V_CREATE] =
@@ -14069,7 +14069,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_VCreate,
+        .battleAnimScript = gBattleAnimMove_VCreate,
     },
 
     [MOVE_FUSION_FLARE] =
@@ -14089,7 +14089,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FusionFlare,
+        .battleAnimScript = gBattleAnimMove_FusionFlare,
     },
 
     [MOVE_FUSION_BOLT] =
@@ -14108,7 +14108,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FusionBolt,
+        .battleAnimScript = gBattleAnimMove_FusionBolt,
     },
 
     [MOVE_FLYING_PRESS] =
@@ -14139,7 +14139,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FlyingPress,
+        .battleAnimScript = gBattleAnimMove_FlyingPress,
     },
     //this move is actually just horrendous, the types don't compliment each other at all
     //best I could do is intead turn this into a two turn semi invul
@@ -14171,7 +14171,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MatBlock,
+        .battleAnimScript = gBattleAnimMove_MatBlock,
     },//only works first turn mon is in, doesn't block status moves
     //big buff for the move, but its only learned by throh and greninja
     //and greninja is already faster than most, 
@@ -14204,7 +14204,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Belch,
+        .battleAnimScript = gBattleAnimMove_Belch,
     },
 
     [MOVE_ROTOTILLER] =
@@ -14225,7 +14225,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Rototiller,
+        .battleAnimScript = gBattleAnimMove_Rototiller,
     },//confusing name but pretty much just means plow/till the land to enrich it
     //boost offense stats for all grass mon on field
     //plan give to some horse/cow mon as they were used to plow the soil
@@ -14250,7 +14250,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_StickyWeb,
+        .battleAnimScript = gBattleAnimMove_StickyWeb,
     },
     //stiky web doesn't cause dmg,
     //and is on thought to be "weakest" type
@@ -14281,7 +14281,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FellStinger,
+        .battleAnimScript = gBattleAnimMove_FellStinger,
          .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_INFESTATION,
             .chance = 35,
@@ -14316,7 +14316,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PhantomForce,
+        .battleAnimScript = gBattleAnimMove_PhantomForce,
     },
     //difference of having feint effect with ignoreProtect
     //is that not only will it hit through
@@ -14341,7 +14341,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_TrickOrTreat,
+        .battleAnimScript = gBattleAnimMove_TrickOrTreat,
     },
 
     [MOVE_NOBLE_ROAR] =
@@ -14363,7 +14363,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_NobleRoar,
+        .battleAnimScript = gBattleAnimMove_NobleRoar,
     },
     //pyroar line signature, drops atk/sp atk
 
@@ -14385,7 +14385,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_IonDeluge,
+        .battleAnimScript = gBattleAnimMove_IonDeluge,
     },
 
     [MOVE_PARABOLIC_CHARGE] =
@@ -14410,7 +14410,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ParabolicCharge,
+        .battleAnimScript = gBattleAnimMove_ParabolicCharge,
     },//heliolisk signature potentially spread around
     //too good to not have drawback
     //with more types resisting electric is ironically easier to use
@@ -14433,7 +14433,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ForestsCurse,
+        .battleAnimScript = gBattleAnimMove_ForestsCurse,
     },
 
     [MOVE_PETAL_BLIZZARD] =
@@ -14453,7 +14453,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PetalBlizzard,
+        .battleAnimScript = gBattleAnimMove_PetalBlizzard,
     },
 
     [MOVE_FREEZE_DRY] =
@@ -14477,7 +14477,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FreezeDry,
+        .battleAnimScript = gBattleAnimMove_FreezeDry,
     },//add to more learnsets
 
     [MOVE_DISARMING_VOICE] =
@@ -14502,7 +14502,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DisarmingVoice,
+        .battleAnimScript = gBattleAnimMove_DisarmingVoice,
     }, //doesn't make sense for this to have confusion despite being sound move as its quite
     //don't know what to do with this far as cacophony since I don't have dmg boost it would do nothing to this
     //could make boost damaage? just for this kinda stuff, but I prefer for it to not do damage
@@ -14527,7 +14527,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PartingShot,
+        .battleAnimScript = gBattleAnimMove_PartingShot,
     },//lower offense stats then switch
     //consider if this priority shold go back down
 
@@ -14552,7 +14552,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_TopsyTurvy,
+        .battleAnimScript = gBattleAnimMove_TopsyTurvy,
     },//reverse target stat change
 
     [MOVE_DRAINING_KISS] =
@@ -14574,7 +14574,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DrainingKiss,
+        .battleAnimScript = gBattleAnimMove_DrainingKiss,
     },
 
     [MOVE_CRAFTY_SHIELD] =
@@ -14597,7 +14597,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_CraftyShield,
+        .battleAnimScript = gBattleAnimMove_CraftyShield,
     },
 
     [MOVE_FLOWER_SHIELD] =
@@ -14618,7 +14618,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FlowerShield,
+        .battleAnimScript = gBattleAnimMove_FlowerShield,
     },//boost defense of all grass types
 
     [MOVE_GRASSY_TERRAIN] =
@@ -14639,7 +14639,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_GRASSY_TERRAIN,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GrassyTerrain,
+        .battleAnimScript = gBattleAnimMove_GrassyTerrain,
     },//same thing as weather moves, gives some impact back to the moves
 
     [MOVE_MISTY_TERRAIN] =
@@ -14660,7 +14660,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_MISTY_TERRAIN,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MistyTerrain,
+        .battleAnimScript = gBattleAnimMove_MistyTerrain,
     },
 
     [MOVE_ELECTRIFY] =
@@ -14679,7 +14679,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Electrify,
+        .battleAnimScript = gBattleAnimMove_Electrify,
     },//make target move electric
     //would be good for galvanize replacement 
     //if could get on psychic type w telepathy
@@ -14707,7 +14707,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PlayRough,
+        .battleAnimScript = gBattleAnimMove_PlayRough,
     },
 
     [MOVE_FAIRY_WIND] =
@@ -14728,7 +14728,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FairyWind,
+        .battleAnimScript = gBattleAnimMove_FairyWind,
     },
 
     [MOVE_MOONBLAST] =
@@ -14751,7 +14751,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Moonblast,
+        .battleAnimScript = gBattleAnimMove_Moonblast,
     },
     //off x bell flutter main rebalance
     //decided rework moonblast into a shadowball like
@@ -14778,7 +14778,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Boomburst,
+        .battleAnimScript = gBattleAnimMove_Boomburst,
     },
 
     [MOVE_FAIRY_LOCK] =
@@ -14799,7 +14799,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FairyLock,
+        .battleAnimScript = gBattleAnimMove_FairyLock,
     },//klefki signature prevents all mon on field excpet ghosts
     //from being able to switch or flee next turn
 
@@ -14826,7 +14826,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_KingsShield,
+        .battleAnimScript = gBattleAnimMove_KingsShield,
     },
 
     [MOVE_PLAY_NICE] =
@@ -14848,7 +14848,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PlayNice,
+        .battleAnimScript = gBattleAnimMove_PlayNice,
     },
 
     [MOVE_CONFIDE] =
@@ -14871,7 +14871,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Confide,
+        .battleAnimScript = gBattleAnimMove_Confide,
     },
 
     [MOVE_DIAMOND_STORM] =
@@ -14897,7 +14897,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DiamondStorm,
+        .battleAnimScript = gBattleAnimMove_DiamondStorm,
     },
 
     [MOVE_STEAM_ERUPTION] =
@@ -14922,7 +14922,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SCALD},
-        //.battleAnimScript = gBattleAnimMove_SteamEruption,
+        .battleAnimScript = gBattleAnimMove_SteamEruption,
     },
 
     [MOVE_HYPERSPACE_HOLE] =
@@ -14947,7 +14947,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_HYPERSPACE_HOLE,
         //.contestComboMoves = {COMBO_STARTER_HYPERSPACE_FURY},
-        //.battleAnimScript = gBattleAnimMove_HyperspaceHole,
+        .battleAnimScript = gBattleAnimMove_HyperspaceHole,
     },
 
     [MOVE_WATER_SHURIKEN] =
@@ -14968,7 +14968,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_WaterShuriken,
+        .battleAnimScript = gBattleAnimMove_WaterShuriken,
     },
 
     [MOVE_MYSTICAL_FIRE] =
@@ -14995,7 +14995,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MysticalFire,
+        .battleAnimScript = gBattleAnimMove_MysticalFire,
     },
 
     [MOVE_SPIKE_SHIELD] =
@@ -15020,7 +15020,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SpikyShield,
+        .battleAnimScript = gBattleAnimMove_SpikyShield,
     },
 
     [MOVE_AROMATIC_MIST] =
@@ -15042,7 +15042,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AromaticMist,
+        .battleAnimScript = gBattleAnimMove_AromaticMist,
     }, //teach bellowsom etc.
     //vsonic important
     //buff sp def of an ally
@@ -15064,7 +15064,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_EerieImpulse,
+        .battleAnimScript = gBattleAnimMove_EerieImpulse,
     },
 
     [MOVE_VENOM_DRENCH] =
@@ -15084,7 +15084,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_TOXIC},
-        //.battleAnimScript = gBattleAnimMove_VenomDrench,
+        .battleAnimScript = gBattleAnimMove_VenomDrench,
     },//lower stats of all poisoned target  atk/spatk & speed
 
     [MOVE_POWDER] =
@@ -15105,7 +15105,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Powder,
+        .battleAnimScript = gBattleAnimMove_Powder,
     },//this move is crazy its a fire type counter, spread to more mon, but make it make sense dustox vespiqueen butterfree etc
 
     [MOVE_GEOMANCY] =
@@ -15127,7 +15127,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Geomancy,
+        .battleAnimScript = gBattleAnimMove_Geomancy,
     },//xerneas signature charge turn then buff stats
     //seems like it sucks but xerneas is bulky and power herb exists
 
@@ -15151,7 +15151,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MagneticFlux,
+        .battleAnimScript = gBattleAnimMove_MagneticFlux,
     },
     //raise defense stats of user and ally if ability plus or minus
 
@@ -15173,7 +15173,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HappyHour,
+        .battleAnimScript = gBattleAnimMove_HappyHour,
     },//huh this is meant to double money post battle
     //stacks with amulet coin/luck incense and also doubles payday /make it rain returns
 
@@ -15195,7 +15195,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_ELECTRIC_TERRAIN,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ElectricTerrain,
+        .battleAnimScript = gBattleAnimMove_ElectricTerrain,
     },
 
     [MOVE_DAZZLING_GLEAM] =
@@ -15214,7 +15214,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DazzlingGleam,
+        .battleAnimScript = gBattleAnimMove_DazzlingGleam,
     },
 
     [MOVE_CELEBRATE] =
@@ -15241,7 +15241,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Celebrate,
+        .battleAnimScript = gBattleAnimMove_Celebrate,
     },
 
     [MOVE_HOLD_HANDS] =
@@ -15268,7 +15268,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HoldHands,
+        .battleAnimScript = gBattleAnimMove_HoldHands,
     },//buff two different strings, /normal string when does nothing "ally was happy"
     // when rolls effect  "ally got excited! all stats went up" then set all stats go up
 
@@ -15289,7 +15289,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BabyDollEyes,
+        .battleAnimScript = gBattleAnimMove_BabyDollEyes,
     },//think make this a plus 2 to preserve effect?
 
     [MOVE_NUZZLE] =
@@ -15313,7 +15313,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Nuzzle,
+        .battleAnimScript = gBattleAnimMove_Nuzzle,
     },
 
     [MOVE_HOLD_BACK] =
@@ -15337,7 +15337,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HoldBack,
+        .battleAnimScript = gBattleAnimMove_HoldBack,
     }, //make early level move for more professional style fighting mon i.e hitmon chan lee, hariyama sawk medicham
     //add for tyrogue machop vsonic
 
@@ -15385,7 +15385,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PowerUpPunch,
+        .battleAnimScript = gBattleAnimMove_PowerUpPunch,
     },
     //...why did I boost this moves power???
     //lowered pp to balance
@@ -15413,7 +15413,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_OblivionWing,
+        .battleAnimScript = gBattleAnimMove_OblivionWing,
     },
 
     [MOVE_THOUSAND_ARROWS] =
@@ -15434,7 +15434,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_THOUSAND_ARROWS,
         //.contestComboMoves = {COMBO_STARTER_THOUSAND_WAVES},
-        //.battleAnimScript = gBattleAnimMove_ThousandArrows,
+        .battleAnimScript = gBattleAnimMove_ThousandArrows,
     },
 
     [MOVE_THOUSAND_WAVES] =
@@ -15459,7 +15459,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_THOUSAND_WAVES,
         //.contestComboMoves = {COMBO_STARTER_THOUSAND_ARROWS},
-        //.battleAnimScript = gBattleAnimMove_ThousandWaves,
+        .battleAnimScript = gBattleAnimMove_ThousandWaves,
     },//this move specifically says prevent escape isn't an additoinal effect so 
     //not sheer force affected
 
@@ -15480,7 +15480,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LandsWrath,
+        .battleAnimScript = gBattleAnimMove_LandsWrath,
     },//need to differentiate from thousand waves
     //gonna make small logic leap say the beams of light are what does dmg so can hit floating
     //the trap effect will be what makes people decide if they want this or thousand waves
@@ -15502,7 +15502,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
                 .self = TRUE,
             }),
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_LightOfRuin,
+        .battleAnimScript = gBattleAnimMove_LightOfRuin,
     },
 
     [MOVE_ORIGIN_PULSE] =
@@ -15523,7 +15523,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_OriginPulse,
+        .battleAnimScript = gBattleAnimMove_OriginPulse,
     },
 
     [MOVE_PRECIPICE_BLADES] =
@@ -15544,7 +15544,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PrecipiceBlades,
+        .battleAnimScript = gBattleAnimMove_PrecipiceBlades,
     },//Groudon Unique ability,  made flg dmg in air as in show move is shown to blast up from the ocean floor,
     //high into the air... and other games describe it as being able to hit far away targets
     //want make standard clone of this move
@@ -15575,7 +15575,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DragonAscent,
+        .battleAnimScript = gBattleAnimMove_DragonAscent,
     },//change from flying to dragon type, give out to more mon,
     // as physical draco meteor
 
@@ -15604,7 +15604,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_HYPERSPACE_FURY,
         //.contestComboMoves = {COMBO_STARTER_HYPERSPACE_HOLE},
-        //.battleAnimScript = gBattleAnimMove_HyperspaceFury,
+        .battleAnimScript = gBattleAnimMove_HyperspaceFury,
     },
 
     [MOVE_SHORE_UP] =
@@ -15627,7 +15627,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SANDSTORM},
-        //.battleAnimScript = gBattleAnimMove_ShoreUp,
+        .battleAnimScript = gBattleAnimMove_ShoreUp,
     },
 
     [MOVE_FIRST_IMPRESSION] =
@@ -15652,7 +15652,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FirstImpression,
+        .battleAnimScript = gBattleAnimMove_FirstImpression,
     },
     //MOVE IS already really good, may remove fakeout effect
     //oh it doesn't flinch fakeout effect is just 1st turn effect
@@ -15680,7 +15680,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BanefulBunker,
+        .battleAnimScript = gBattleAnimMove_BanefulBunker,
     },
 
     [MOVE_SPIRIT_SHACKLE] =
@@ -15703,7 +15703,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SpiritShackle,
+        .battleAnimScript = gBattleAnimMove_SpiritShackle,
     },//think may buff to be high crit,  since signature move and weakned ghost offensively
     //need test this, w long reach this becomes quite strong
     //hmm actually rather than high crit I think I would like to give this
@@ -15739,7 +15739,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DarkestLariat,
+        .battleAnimScript = gBattleAnimMove_DarkestLariat,
     },
 
     [MOVE_SPARKLING_ARIA] =
@@ -15765,7 +15765,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SCALD},
-        //.battleAnimScript = gBattleAnimMove_SparklingAria,
+        .battleAnimScript = gBattleAnimMove_SparklingAria,
     }, //like disarming voice can't do much with this with cacophony and I guess that's fine?
     //ended up buffing disarming voice
 
@@ -15791,7 +15791,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL},
-        //.battleAnimScript = gBattleAnimMove_IceHammer,
+        .battleAnimScript = gBattleAnimMove_IceHammer,
     },
 
     [MOVE_FLORAL_HEALING] =
@@ -15814,7 +15814,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FloralHealing,
+        .battleAnimScript = gBattleAnimMove_FloralHealing,
     },//vsonic important need add logic to heal pulse various command
 
     [MOVE_HIGH_HORSEPOWER] =
@@ -15834,7 +15834,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_HighHorsepower,
+        .battleAnimScript = gBattleAnimMove_HighHorsepower,
     },
 
     [MOVE_STRENGTH_SAP] =
@@ -15855,7 +15855,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_StrengthSap,
+        .battleAnimScript = gBattleAnimMove_StrengthSap,
     }, //want to make all healing effects snatchable,  will help cutdown on stall
     //lower target attack recover by same amount as effective attack before stat drop
 
@@ -15881,7 +15881,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_SolarBlade,
+        .battleAnimScript = gBattleAnimMove_SolarBlade,
     },
 
     [MOVE_LEAFAGE] =
@@ -15900,7 +15900,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        //.battleAnimScript = gBattleAnimMove_Leafage,
+        .battleAnimScript = gBattleAnimMove_Leafage,
     },
 
     [MOVE_SPOTLIGHT] =
@@ -15924,7 +15924,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Spotlight,
+        .battleAnimScript = gBattleAnimMove_Spotlight,
     },
 
     [MOVE_TOXIC_THREAD] =
@@ -15944,7 +15944,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_TOXIC},
-        //.battleAnimScript = gBattleAnimMove_ToxicThread,
+        .battleAnimScript = gBattleAnimMove_ToxicThread,
     },//supposed to poison and drop speed but still drops speed even if can't poison
     //but with my changes to make status moves follow type calc that no longer works
     //consider whether to reinstate the effect, would be an exception to my rule if so
@@ -15968,7 +15968,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LaserFocus,
+        .battleAnimScript = gBattleAnimMove_LaserFocus,
     },
     //if can crit next attack will crit
 
@@ -15992,7 +15992,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GearUp,
+        .battleAnimScript = gBattleAnimMove_GearUp,
     },
     //same as magnetic flux but for offense stats
 
@@ -16017,7 +16017,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ThroatChop,
+        .battleAnimScript = gBattleAnimMove_ThroatChop,
     },
 
     [MOVE_POLLEN_PUFF] =
@@ -16037,7 +16037,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PollenPuff,
+        .battleAnimScript = gBattleAnimMove_PollenPuff,
     },
 
     [MOVE_ANCHOR_SHOT] =
@@ -16061,7 +16061,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AnchorShot,
+        .battleAnimScript = gBattleAnimMove_AnchorShot,
     },
 
     [MOVE_PSYCHIC_TERRAIN] =
@@ -16082,7 +16082,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_PSYCHIC_TERRAIN,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PsychicTerrain,
+        .battleAnimScript = gBattleAnimMove_PsychicTerrain,
     },
 
     [MOVE_LUNGE] =
@@ -16110,7 +16110,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Lunge,
+        .battleAnimScript = gBattleAnimMove_Lunge,
     },
 
     [MOVE_FIRE_LASH] =
@@ -16135,7 +16135,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        //.battleAnimScript = gBattleAnimMove_FireLash,
+        .battleAnimScript = gBattleAnimMove_FireLash,
     },//decide make this the fire flying hit not flamethrower
 
     [MOVE_POWER_TRIP] =
@@ -16155,7 +16155,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PowerTrip,
+        .battleAnimScript = gBattleAnimMove_PowerTrip,
     },
 
     [MOVE_BURN_OUT] =
@@ -16194,7 +16194,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SpeedSwap,
+        .battleAnimScript = gBattleAnimMove_SpeedSwap,
     },
 
     [MOVE_SMART_STRIKE] =
@@ -16215,7 +16215,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SmartStrike,
+        .battleAnimScript = gBattleAnimMove_SmartStrike,
     },
 
     [MOVE_PURIFY] =
@@ -16237,7 +16237,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Purify,
+        .battleAnimScript = gBattleAnimMove_Purify,
     },
     //if target has status1 cure status then heals user
 
@@ -16258,7 +16258,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_RevelationDance,
+        .battleAnimScript = gBattleAnimMove_RevelationDance,
     },
 
     [MOVE_CORE_ENFORCER] =
@@ -16280,7 +16280,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_CoreEnforcer,
+        .battleAnimScript = gBattleAnimMove_CoreEnforcer,
     },
 
     [MOVE_TROP_KICK] =
@@ -16305,7 +16305,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_TropKick,
+        .battleAnimScript = gBattleAnimMove_TropKick,
     },
 
     [MOVE_INSTRUCT] =
@@ -16328,7 +16328,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Instruct,
+        .battleAnimScript = gBattleAnimMove_Instruct,
     },
 
     [MOVE_BEAK_BLAST] =
@@ -16355,7 +16355,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BeakBlast,
+        .battleAnimScript = gBattleAnimMove_BeakBlast,
     },
     //burns on contact and charge phase ignores attackcanceler
     //attack cancel doesn't trigger until attack at negative priority
@@ -16388,7 +16388,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ClangingScales,
+        .battleAnimScript = gBattleAnimMove_ClangingScales,
     },
 
     [MOVE_DRAGON_HAMMER] =
@@ -16408,7 +16408,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_RUSH, COMBO_STARTER_DRAGON_TAIL},
-        //.battleAnimScript = gBattleAnimMove_DragonHammer,
+        .battleAnimScript = gBattleAnimMove_DragonHammer,
     },
 
     [MOVE_BRUTAL_SWING] =
@@ -16432,7 +16432,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BrutalSwing,
+        .battleAnimScript = gBattleAnimMove_BrutalSwing,
     },
 
     [MOVE_LICK] =
@@ -16460,7 +16460,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Lick,
+        .battleAnimScript = gBattleAnimMove_Lick,
     },
 
     [MOVE_SHELL_TRAP] =
@@ -16486,7 +16486,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ShellTrap,
+        .battleAnimScript = gBattleAnimMove_ShellTrap,
     },
 
     [MOVE_FLEUR_CANNON] =
@@ -16510,7 +16510,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FleurCannon,
+        .battleAnimScript = gBattleAnimMove_FleurCannon,
     },
 
     [MOVE_PSYCHIC_FANGS] =
@@ -16539,7 +16539,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PsychicFangs,
+        .battleAnimScript = gBattleAnimMove_PsychicFangs,
     },// kept at power 75, added flinch and effect chance boosted to level of bite
 
     [MOVE_STOMPING_TANTRUM] =
@@ -16559,7 +16559,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_StompingTantrum,
+        .battleAnimScript = gBattleAnimMove_StompingTantrum,
     },
 
     [MOVE_SHADOW_BONE] =
@@ -16582,7 +16582,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_SHADOW_BONE,
         //.contestComboMoves = {COMBO_STARTER_BONE_CLUB, COMBO_STARTER_BONEMERANG, COMBO_STARTER_BONE_RUSH},
-        //.battleAnimScript = gBattleAnimMove_ShadowBone,
+        .battleAnimScript = gBattleAnimMove_ShadowBone,
     },
 
     [MOVE_ACCELEROCK] =
@@ -16602,7 +16602,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Accelerock,
+        .battleAnimScript = gBattleAnimMove_Accelerock,
     },//made equivalent of extreme speed rather than quick attack, es is base 80,but most mon that learn it aren't normal, so this equivalent dmg w stab in mind
 
     [MOVE_LIQUIDATION] =
@@ -16626,7 +16626,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Liquidation,
+        .battleAnimScript = gBattleAnimMove_Liquidation,
     },
 
     [MOVE_PRISMATIC_LASER] =
@@ -16649,7 +16649,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PrismaticLaser,
+        .battleAnimScript = gBattleAnimMove_PrismaticLaser,
     },
 
     [MOVE_SPECTRAL_THIEF] =
@@ -16675,7 +16675,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SpectralThief,
+        .battleAnimScript = gBattleAnimMove_SpectralThief,
     },
 
     [MOVE_SUNSTEEL_STRIKE] =
@@ -16697,7 +16697,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SunsteelStrike,
+        .battleAnimScript = gBattleAnimMove_SunsteelStrike,
     },
 
     [MOVE_MOONGEIST_BEAM] =
@@ -16718,7 +16718,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MoongeistBeam,
+        .battleAnimScript = gBattleAnimMove_MoongeistBeam,
     },
 
     [MOVE_TEARFUL_LOOK] =
@@ -16739,7 +16739,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_TearfulLook,
+        .battleAnimScript = gBattleAnimMove_TearfulLook,
     },
 
     [MOVE_ZING_ZAP] =
@@ -16763,7 +16763,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARGE},
-        //.battleAnimScript = gBattleAnimMove_ZingZap,
+        .battleAnimScript = gBattleAnimMove_ZingZap,
     },//had lowered but think will put at ame level as bite?
     //eh screw it will keep unnerfed as electric rock slide
 
@@ -16786,7 +16786,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_NaturesMadness,
+        .battleAnimScript = gBattleAnimMove_NaturesMadness,
     },
 
     [MOVE_MULTI_ATTACK] =
@@ -16811,7 +16811,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MultiAttack,
+        .battleAnimScript = gBattleAnimMove_MultiAttack,
     }, //unsure if want to give free super like arceus
     //is meant to be a failed copy
 
@@ -16836,7 +16836,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MindBlown,
+        .battleAnimScript = gBattleAnimMove_MindBlown,
     },//work todo
     //move custs half the user's hp rather than doing recoil
     //so there's never a reason to use this move,
@@ -16871,7 +16871,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ION_DELUGE,
         }),
-        //.battleAnimScript = gBattleAnimMove_PlasmaFists,
+        .battleAnimScript = gBattleAnimMove_PlasmaFists,
     },//want anim to be trailing blue lightning effect, like wing attack does for tornado  rebalanced, inspired by zera unite move, raw plasma will seek out a target 
 
     [MOVE_PHOTON_GEYSER] =
@@ -16892,7 +16892,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PhotonGeyser,
+        .battleAnimScript = gBattleAnimMove_PhotonGeyser,
     },//has a function for doesn't need to do in bs, meaning this can just go to hit
     //ok adjusted now goes to hit, should still adjust split
 
@@ -16915,7 +16915,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_EVS_PLUS_1,
             .self = TRUE,
         }),
-        //.battleAnimScript = gBattleAnimMove_ZippyZap,
+        .battleAnimScript = gBattleAnimMove_ZippyZap,
     },
 
     [MOVE_SPLISHY_SPLASH] =
@@ -16936,7 +16936,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
         }),
-        //.battleAnimScript = gBattleAnimMove_SplishySplash,
+        .battleAnimScript = gBattleAnimMove_SplishySplash,
        
     },
 
@@ -16960,7 +16960,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .chance = 20,
             .sheerForceOverride = TRUE,
         }),
-        //.battleAnimScript = gBattleAnimMove_FloatyFall,
+        .battleAnimScript = gBattleAnimMove_FloatyFall,
     },
     //hmm unique pika exclusive but think I may actualy give this 
     //to gyarados as solid physical move outside of bounce
@@ -16982,7 +16982,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_PikaPapow,
+        .battleAnimScript = gBattleAnimMove_PikaPapow,
     },
 
     [MOVE_BOUNCY_BUBBLE] =
@@ -17000,7 +17000,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .argument = { .absorbPercentage = 100 },
         .metronomeBanned = TRUE,
         .healingMove = TRUE,
-        //.battleAnimScript = gBattleAnimMove_BouncyBubble,
+        .battleAnimScript = gBattleAnimMove_BouncyBubble,
     },
 
     [MOVE_BUZZY_BUZZ] =
@@ -17019,7 +17019,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PARALYSIS,
         }),
-        //.battleAnimScript = gBattleAnimMove_BuzzyBuzz,
+        .battleAnimScript = gBattleAnimMove_BuzzyBuzz,
     },
 
     [MOVE_SIZZLY_SLIDE] =
@@ -17040,7 +17040,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BURN,
         }),
-        //.battleAnimScript = gBattleAnimMove_SizzlySlide,
+        .battleAnimScript = gBattleAnimMove_SizzlySlide,
     },
 
     [MOVE_GLITZY_GLOW] =
@@ -17064,7 +17064,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_LIGHT_SCREEN,
         }),
-        //.battleAnimScript = gBattleAnimMove_GlitzyGlow,
+        .battleAnimScript = gBattleAnimMove_GlitzyGlow,
     },
 
     [MOVE_BADDY_BAD] =
@@ -17088,7 +17088,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_REFLECT,
         }),
-        //.battleAnimScript = gBattleAnimMove_BaddyBad,
+        .battleAnimScript = gBattleAnimMove_BaddyBad,
     },
 
     [MOVE_SAPPY_SEED] =
@@ -17114,7 +17114,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_LEECH_SEED,
         }),
-        //.battleAnimScript = gBattleAnimMove_SappySeed,
+        .battleAnimScript = gBattleAnimMove_SappySeed,
     },
 
     [MOVE_FREEZY_FROST] =
@@ -17139,7 +17139,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_HAZE,
         }),
-        //.battleAnimScript = gBattleAnimMove_FreezyFrost,
+        .battleAnimScript = gBattleAnimMove_FreezyFrost,
     },
 
     [MOVE_SPARKLY_SWIRL] =
@@ -17164,7 +17164,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_AROMATHERAPY,
         }),
-        //.battleAnimScript = gBattleAnimMove_SparklySwirl,
+        .battleAnimScript = gBattleAnimMove_SparklySwirl,
     },
 
     [MOVE_VEEVEE_VOLLEY] =
@@ -17184,7 +17184,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_VeeveeVolley,
+        .battleAnimScript = gBattleAnimMove_VeeveeVolley,
     },
 
     [MOVE_DOUBLE_IRON_BASH] =
@@ -17214,7 +17214,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DoubleIronBash,
+        .battleAnimScript = gBattleAnimMove_DoubleIronBash,
     },
 
     [MOVE_DYNAMAX_CANNON] =
@@ -17242,7 +17242,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DynamaxCannon,
+        .battleAnimScript = gBattleAnimMove_DynamaxCannon,
     },
 
     [MOVE_SNIPE_SHOT] =
@@ -17263,7 +17263,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SnipeShot,
+        .battleAnimScript = gBattleAnimMove_SnipeShot,
     },
 
     [MOVE_JAW_LOCK] =
@@ -17287,7 +17287,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_JawLock,
+        .battleAnimScript = gBattleAnimMove_JawLock,
     },
     //vsonic think give move to feraligator
 
@@ -17310,7 +17310,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_StuffCheeks,
+        .battleAnimScript = gBattleAnimMove_StuffCheeks,
     },//eat berry  boost defense activate effect
 
     [MOVE_NO_RETREAT] =
@@ -17332,7 +17332,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_NoRetreat,
+        .battleAnimScript = gBattleAnimMove_NoRetreat,
     },//buffs all stats prevents retreat/flee/escape
 
     [MOVE_TAR_SHOT] =
@@ -17352,7 +17352,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_TarShot,
+        .battleAnimScript = gBattleAnimMove_TarShot,
     },
     //lower speed increase fire dmg dealt to target
 
@@ -17375,7 +17375,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MagicPowder,
+        .battleAnimScript = gBattleAnimMove_MagicPowder,
     },
 
     [MOVE_DRAGON_DARTS] =
@@ -17397,7 +17397,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DragonDarts,
+        .battleAnimScript = gBattleAnimMove_DragonDarts,
     }, //simplest thing is make normal hit, but make target both, unless it would hit twice if single target?
 
     [MOVE_TEATIME] =
@@ -17419,7 +17419,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Teatime,
+        .battleAnimScript = gBattleAnimMove_Teatime,
     },
 
     [MOVE_OCTOLOCK] =
@@ -17438,7 +17438,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Octolock,
+        .battleAnimScript = gBattleAnimMove_Octolock,
     },//prevent escape switch lower defense stats each end turn
 
     [MOVE_BOLT_BEAK] =
@@ -17458,7 +17458,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BoltBeak,
+        .battleAnimScript = gBattleAnimMove_BoltBeak,
     },
 
     [MOVE_FISHIOUS_REND] =
@@ -17479,7 +17479,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FishiousRend,
+        .battleAnimScript = gBattleAnimMove_FishiousRend,
     },
 
     [MOVE_COURT_CHANGE] =
@@ -17499,7 +17499,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_CourtChange,
+        .battleAnimScript = gBattleAnimMove_CourtChange,
     },//make activebattle effects swap sides
 
     [MOVE_CLANGOROUS_SOUL] =
@@ -17524,7 +17524,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ClangorousSoul,
+        .battleAnimScript = gBattleAnimMove_ClangorousSoul,
     },//might be set but test
 
     [MOVE_BODY_PRESS] =
@@ -17545,7 +17545,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BodyPress,
+        .battleAnimScript = gBattleAnimMove_BodyPress,
     },
 
     [MOVE_DECORATE] =
@@ -17567,7 +17567,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Decorate,
+        .battleAnimScript = gBattleAnimMove_Decorate,
     },
 
     [MOVE_DRUM_BEATING] =
@@ -17591,7 +17591,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DrumBeating,
+        .battleAnimScript = gBattleAnimMove_DrumBeating,
     },
 
     //notes from bulbapedia
@@ -17627,7 +17627,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SnapTrap,
+        .battleAnimScript = gBattleAnimMove_SnapTrap,
     },
 
 
@@ -17654,7 +17654,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_PyroBall,
+        .battleAnimScript = gBattleAnimMove_PyroBall,
     },
 
     [MOVE_BEHEMOTH_BLADE] =
@@ -17679,7 +17679,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BehemothBlade,
+        .battleAnimScript = gBattleAnimMove_BehemothBlade,
     },//if add an extra effect could add power boost based on weight
     //setup, remmeber to rename later, behemoth burst effect or something
     //40% power boost
@@ -17705,7 +17705,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BehemothBash,
+        .battleAnimScript = gBattleAnimMove_BehemothBash,
     },
 
     [MOVE_AURA_WHEEL] =
@@ -17730,7 +17730,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AuraWheel,
+        .battleAnimScript = gBattleAnimMove_AuraWheel,
     },
 
     [MOVE_BREAKING_SWIPE] =
@@ -17755,7 +17755,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BreakingSwipe,
+        .battleAnimScript = gBattleAnimMove_BreakingSwipe,
     },
 
     [MOVE_BRANCH_POKE] =
@@ -17780,7 +17780,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BranchPoke,
+        .battleAnimScript = gBattleAnimMove_BranchPoke,
     },
 
     [MOVE_OVERDRIVE] =
@@ -17806,7 +17806,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Overdrive,
+        .battleAnimScript = gBattleAnimMove_Overdrive,
     },
 
     [MOVE_APPLE_ACID] =
@@ -17830,7 +17830,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AppleAcid,
+        .battleAnimScript = gBattleAnimMove_AppleAcid,
     },
 
     [MOVE_GRAV_APPLE] =
@@ -17854,7 +17854,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GravApple,
+        .battleAnimScript = gBattleAnimMove_GravApple,
     },
     //think also give to bombirdier as entire thing is dropping 
     //things on people
@@ -17881,7 +17881,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SpiritBreak,
+        .battleAnimScript = gBattleAnimMove_SpiritBreak,
     },
 
     [MOVE_STRANGE_STEAM] =
@@ -17905,7 +17905,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_StrangeSteam,
+        .battleAnimScript = gBattleAnimMove_StrangeSteam,
     },
 
     [MOVE_LIFE_DEW] =
@@ -17930,7 +17930,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LifeDew,
+        .battleAnimScript = gBattleAnimMove_LifeDew,
     },
     //restore hp of user and ally 25% of max
 
@@ -17955,7 +17955,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Obstruct,
+        .battleAnimScript = gBattleAnimMove_Obstruct,
     },
 
     [MOVE_FALSE_SURRENDER] =
@@ -17976,7 +17976,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FalseSurrender,
+        .battleAnimScript = gBattleAnimMove_FalseSurrender,
     },
 
     [MOVE_METEOR_ASSAULT] =
@@ -18001,7 +18001,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MeteorAssault,
+        .battleAnimScript = gBattleAnimMove_MeteorAssault,
     },
 
     [MOVE_ETERNABEAM] =
@@ -18025,7 +18025,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Eternabeam,
+        .battleAnimScript = gBattleAnimMove_Eternabeam,
     },
 
     [MOVE_STEEL_BEAM] =
@@ -18049,7 +18049,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SteelBeam,
+        .battleAnimScript = gBattleAnimMove_SteelBeam,
     },//give to empoleon since it lacks steel moves
     //test may lower to med recoil
     //looked into different from reg recoil
@@ -18083,7 +18083,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_PSYCHIC_TERRAIN},
-        //.battleAnimScript = gBattleAnimMove_ExpandingForce,
+        .battleAnimScript = gBattleAnimMove_ExpandingForce,
     },
 
     [MOVE_STEEL_ROLLER] =
@@ -18103,7 +18103,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SteelRoller,
+        .battleAnimScript = gBattleAnimMove_SteelRoller,
     },
     //change to base power 90, 
     //becomes 130 only if terrain is up
@@ -18127,7 +18127,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ScaleShot,
+        .battleAnimScript = gBattleAnimMove_ScaleShot,
     }, //shold be able to do with bs, just add check for effect or move  and lower defense if found move/effet or potentially put in move end?
     //yeah doing with moveed,  all have to do is set statchangers in function, (like moody) and use if no move result no effect
 
@@ -18154,7 +18154,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MeteorBeam,
+        .battleAnimScript = gBattleAnimMove_MeteorBeam,
     },//similar to skull bash but boosts sp atk
     //and seems it has effect that once charge starts
     //effect will continue until it executes even if flinches or otherwise
@@ -18185,7 +18185,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ShellSideArm,
+        .battleAnimScript = gBattleAnimMove_ShellSideArm,
     },
 
     [MOVE_MISTY_EXPLOSION] =
@@ -18213,7 +18213,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_MISTY_TERRAIN},
-        //.battleAnimScript = gBattleAnimMove_MistyExplosion,
+        .battleAnimScript = gBattleAnimMove_MistyExplosion,
     }, 
     //need also remember that this gets boosted further by terrain
     //buffed was given explosion effect defense stat drop (will drop sp def)
@@ -18240,7 +18240,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GRASSY_TERRAIN},
-        //.battleAnimScript = gBattleAnimMove_GrassyGlide,
+        .battleAnimScript = gBattleAnimMove_GrassyGlide,
     },
 
     [MOVE_RISING_VOLTAGE] =
@@ -18259,7 +18259,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_ELECTRIC_TERRAIN},
-        //.battleAnimScript = gBattleAnimMove_RisingVoltage,
+        .battleAnimScript = gBattleAnimMove_RisingVoltage,
     },
     //I really need to get this file together
     //if I had descriptions here I'd know what this was
@@ -18282,7 +18282,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_ELECTRIC_TERRAIN, COMBO_STARTER_MISTY_TERRAIN, COMBO_STARTER_GRASSY_TERRAIN, COMBO_STARTER_PSYCHIC_TERRAIN},
-        //.battleAnimScript = gBattleAnimMove_TerrainPulse,
+        .battleAnimScript = gBattleAnimMove_TerrainPulse,
     },
 
     [MOVE_SKITTER_SMACK] =
@@ -18310,7 +18310,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SkitterSmack,
+        .battleAnimScript = gBattleAnimMove_SkitterSmack,
     },//think argument defaults to 0, point is to add 
     //when I get it working w teh proper animation, and have all bug moves a 10% chance to infest
     //think will rework this to priority move,
@@ -18340,7 +18340,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_BurningJealousy,
+        .battleAnimScript = gBattleAnimMove_BurningJealousy,
     },//think make - priorty move if on a fast mon not usefl
     //potentially give to reshiram
     //unsure if should make electric variant for zekrom?
@@ -18368,7 +18368,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_LashOut,
+        .battleAnimScript = gBattleAnimMove_LashOut,
     },
 
     [MOVE_POLTERGEIST] =
@@ -18387,7 +18387,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Poltergeist,
+        .battleAnimScript = gBattleAnimMove_Poltergeist,
     },
 
     [MOVE_CORROSIVE_GAS] =
@@ -18407,7 +18407,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_CorrosiveGas,
+        .battleAnimScript = gBattleAnimMove_CorrosiveGas,
     },
 
     [MOVE_COACHING] =
@@ -18429,7 +18429,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Coaching,
+        .battleAnimScript = gBattleAnimMove_Coaching,
     },//boost ally atk def
 
     [MOVE_FLIP_TURN] =
@@ -18449,7 +18449,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FlipTurn,
+        .battleAnimScript = gBattleAnimMove_FlipTurn,
     },
 
     [MOVE_TRIPLE_AXEL] =
@@ -18472,7 +18472,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_TripleAxel,
+        .battleAnimScript = gBattleAnimMove_TripleAxel,
     },
 
     [MOVE_DUAL_WINGBEAT] =
@@ -18494,7 +18494,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DualWingbeat,
+        .battleAnimScript = gBattleAnimMove_DualWingbeat,
     },
     //kinda want to buff but its fine, being double  hit is its own good point
 
@@ -18519,7 +18519,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ScorchingSands,
+        .battleAnimScript = gBattleAnimMove_ScorchingSands,
     },
     //attacks by tossing sand so not exactly ground locked I guess
 
@@ -18544,7 +18544,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_JungleHealing,
+        .battleAnimScript = gBattleAnimMove_JungleHealing,
     },//effect should be heal quarter max hp user and ally
     //but jungle healing also cures status 1
 
@@ -18567,7 +18567,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_WickedBlow,
+        .battleAnimScript = gBattleAnimMove_WickedBlow,
     },
 
     [MOVE_SURGING_STRIKES] =
@@ -18591,7 +18591,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SurgingStrikes,
+        .battleAnimScript = gBattleAnimMove_SurgingStrikes,
     }, //rebalanced these 2 for og crit
     //on advice from Chief, changing from full crit to defense pen, will ignore either 25% or 35% of defense
     //in exchange can't crit
@@ -18620,7 +18620,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ThunderCage,
+        .battleAnimScript = gBattleAnimMove_ThunderCage,
     },
     //gave effect trap damage can paralyze, working on
 
@@ -18641,7 +18641,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DragonEnergy,
+        .battleAnimScript = gBattleAnimMove_DragonEnergy,
     },
 
     [MOVE_FREEZING_GLARE] =
@@ -18665,7 +18665,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FreezingGlare,
+        .battleAnimScript = gBattleAnimMove_FreezingGlare,
     },
 
     [MOVE_FIERY_WRATH] =
@@ -18689,7 +18689,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_FieryWrath,
+        .battleAnimScript = gBattleAnimMove_FieryWrath,
     },
 
     [MOVE_THUNDEROUS_KICK] =
@@ -18715,7 +18715,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ThunderousKick,
+        .battleAnimScript = gBattleAnimMove_ThunderousKick,
     },
 
     [MOVE_GLACIAL_LANCE] =
@@ -18739,7 +18739,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_GlacialLance,
+        .battleAnimScript = gBattleAnimMove_GlacialLance,
     },
 
     [MOVE_ASTRAL_BARRAGE] =
@@ -18763,7 +18763,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AstralBarrage,
+        .battleAnimScript = gBattleAnimMove_AstralBarrage,
     },
 
     [MOVE_EERIE_SPELL] =
@@ -18789,7 +18789,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_EERIE_SPELL,
             .chance = 100,
         }),
-        //.battleAnimScript = gBattleAnimMove_EerieSpell,
+        .battleAnimScript = gBattleAnimMove_EerieSpell,
     },//ok checked double checked japanese translation and there's no reason for this move to be a sound move. its just a dark magic spell
     //idk maybe need something like generates sound in enemies head that curses them -vsonic
     //vsonic set to new spite effect maybe?
@@ -18816,7 +18816,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_DIRE_CLAW,
             .chance = 37, //was 50 took 13% away for bad luck number
         }),
-        //.battleAnimScript = gBattleAnimMove_DireClaw,
+        .battleAnimScript = gBattleAnimMove_DireClaw,
     },
 
     [MOVE_PSYSHIELD_BASH] =
@@ -18837,7 +18837,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .self = TRUE,
             .chance = 100,
         }),
-        //.battleAnimScript = gBattleAnimMove_PsyshieldBash,
+        .battleAnimScript = gBattleAnimMove_PsyshieldBash,
     },
 
     [MOVE_POWER_SHIFT] =
@@ -18856,7 +18856,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_PowerShift,
+        .battleAnimScript = gBattleAnimMove_PowerShift,
     },
 
     [MOVE_STONE_AXE] =
@@ -18876,7 +18876,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .sheerForceOverride = TRUE,
         }),
-        //.battleAnimScript = gBattleAnimMove_StoneAxe,
+        .battleAnimScript = gBattleAnimMove_StoneAxe,
     }, //need test
     //low power no reason to have such low acc
     //especially when stealth rocks don't stack
@@ -18909,7 +18909,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_ATTRACT,
             .chance = 50,            
         }),
-        //.battleAnimScript = gBattleAnimMove_SpringtideStorm,
+        .battleAnimScript = gBattleAnimMove_SpringtideStorm,
     },
     //potential rebalance don't do in rain
     //drop power make utility effect since attraction is good now
@@ -18934,7 +18934,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .self = TRUE,
             .chance = 100,
         }),
-        //.battleAnimScript = gBattleAnimMove_MysticalPower,
+        .battleAnimScript = gBattleAnimMove_MysticalPower,
     },
     //changing from sp atk up hit
     //May change, signature of lake spirits LA affect was boost offense stats or defense stats whichever was higher
@@ -18967,7 +18967,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_THRASH,
             .self = TRUE,
         }),
-        //.battleAnimScript = gBattleAnimMove_RagingFury,
+        .battleAnimScript = gBattleAnimMove_RagingFury,
     },
 
     [MOVE_WAVE_CRASH] =
@@ -18991,7 +18991,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
                 .self = TRUE,
             }),
         .makesContact = TRUE,
-        //.battleAnimScript = gBattleAnimMove_WaveCrash,
+        .battleAnimScript = gBattleAnimMove_WaveCrash,
     },//so they turned it from wter take down to water double edge, but the recoil is still less
     //*idea rampage plus recoil, potentially no confusion,  -vsonic
 
@@ -19015,7 +19015,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
                 .moveEffect = MOVE_EFFECT_HEAVY_RECOIL,
                 .self = TRUE,
             }),
-        //.battleAnimScript = gBattleAnimMove_Chloroblast,
+        .battleAnimScript = gBattleAnimMove_Chloroblast,
     },
 
     [MOVE_MOUNTAIN_GALE] =
@@ -19034,7 +19034,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 30,
         }),
-        //.battleAnimScript = gBattleAnimMove_MountainGale,
+        .battleAnimScript = gBattleAnimMove_MountainGale,
     },
     //buffed since only given to avalug
     //turns into ice rock slide
@@ -19056,7 +19056,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .snatchAffected = TRUE,
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_VictoryDance,
+        .battleAnimScript = gBattleAnimMove_VictoryDance,
     },//boost atk def & speed
 
     [MOVE_HEADLONG_RUSH] =
@@ -19082,7 +19082,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_DEF_SPDEF_DOWN,
             .self = TRUE,
         }),
-        //.battleAnimScript = gBattleAnimMove_HeadlongRush,
+        .battleAnimScript = gBattleAnimMove_HeadlongRush,
     },
     //note gets iron fist boost cuz name is sumo term, rush forward while thrusting fists/open palms forwward to attack
     //not overheat effect, supposed to lower def & sp def
@@ -19107,7 +19107,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 50,
         }),
-        //.battleAnimScript = gBattleAnimMove_BarbBarrage,
+        .battleAnimScript = gBattleAnimMove_BarbBarrage,
     },
     //double damage if target poisoned, and set poison
 
@@ -19135,7 +19135,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .chance = 100,
         }),
        .argument = { .storedValue = TYPE_FLYING },
-        //.battleAnimScript = gBattleAnimMove_EsperWing,
+        .battleAnimScript = gBattleAnimMove_EsperWing,
     },//vsonic want to make this two typed psychic flying
 
     [MOVE_BITTER_MALICE] =
@@ -19159,7 +19159,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_FROSTBITE,
             .chance = 30,
         }),
-        //.battleAnimScript = gBattleAnimMove_BitterMalice,
+        .battleAnimScript = gBattleAnimMove_BitterMalice,
     },//vsonic - make bitter malilce its own effect atk/spatkdown hit
     //use BattleScript_EffectNobleRoar  as template
     //ok change mind what i'll do is keep power at 60
@@ -19186,7 +19186,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .snatchAffected = TRUE,
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_Shelter,
+        .battleAnimScript = gBattleAnimMove_Shelter,
     },
 
     [MOVE_TRIPLE_ARROWS] =
@@ -19230,7 +19230,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 30,
         }),
-        //.battleAnimScript = gBattleAnimMove_InfernalParade,
+        .battleAnimScript = gBattleAnimMove_InfernalParade,
     },
     //hex + burn chance
 
@@ -19251,7 +19251,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .sheerForceOverride = TRUE,
         }),
-        //.battleAnimScript = gBattleAnimMove_CeaselessEdge,
+        .battleAnimScript = gBattleAnimMove_CeaselessEdge,
     },
     //sets spikes
     //lower acc than stone axe because not dark, and effect stacks
@@ -19279,7 +19279,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 20,
         }),
-        //.battleAnimScript = gBattleAnimMove_BleakwindStorm,
+        .battleAnimScript = gBattleAnimMove_BleakwindStorm,
     },//signature move of therian tornadus, make form different mon so can only learn this
     //move in therian form, guess will need make a replacement like rotom,
     //so move changes to something else when in incarnate form, and reverts to this when changed to therian
@@ -19309,7 +19309,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 20,
         }),
-        //.battleAnimScript = gBattleAnimMove_WildboltStorm,
+        .battleAnimScript = gBattleAnimMove_WildboltStorm,
     },
 
     [MOVE_SANDSEAR_STORM] =
@@ -19335,7 +19335,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 20,
         }),
-        //.battleAnimScript = gBattleAnimMove_SandsearStorm,
+        .battleAnimScript = gBattleAnimMove_SandsearStorm,
     },//dmg in air was only used here because is ground type move but reworked effect
     //effects of these 3 storm moves
     //are supposed to be perfect acc in rain 
@@ -19358,7 +19358,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         .healingMove = TRUE,
-        //.battleAnimScript = gBattleAnimMove_LunarBlessing,
+        .battleAnimScript = gBattleAnimMove_LunarBlessing,
     },//restore 25% max hp user and allies plus remove status 1
     //essentially jungle healing
     //to make it its own thing may buff to 33%? //no don't buff sheesh
@@ -19378,7 +19378,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .snatchAffected = TRUE,
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_TakeHeart,
+        .battleAnimScript = gBattleAnimMove_TakeHeart,
     },
     //cures ALL status conditions (make custom list of negative ones to remove)
     //then reaises atk and def  at end turn for 4 turns
@@ -19402,7 +19402,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_TERA_BLAST,
             .self = TRUE,
         }),
-        //.battleAnimScript = gBattleAnimMove_TeraBlast,
+        .battleAnimScript = gBattleAnimMove_TeraBlast,
     },
 
     [MOVE_SILK_TRAP] =
@@ -19421,7 +19421,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_SilkTrap,
+        .battleAnimScript = gBattleAnimMove_SilkTrap,
     },
 
     [MOVE_AXE_KICK] =
@@ -19443,7 +19443,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 30,
         }),
-        //.battleAnimScript = gBattleAnimMove_AxeKick,
+        .battleAnimScript = gBattleAnimMove_AxeKick,
     },
 
     [MOVE_LAST_RESPECTS] =
@@ -19459,7 +19459,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         //.metronomeBanned = TRUE, // Only since it isnt implemented yet
-         //.battleAnimScript = gBattleAnimMove_LastRespects,
+         .battleAnimScript = gBattleAnimMove_LastRespects,
     },
 
     [MOVE_LUMINA_CRASH] =
@@ -19478,7 +19478,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_2,
             .chance = 100,
         }),
-        //.battleAnimScript = gBattleAnimMove_LuminaCrash,
+        .battleAnimScript = gBattleAnimMove_LuminaCrash,
     },
 
     [MOVE_ORDER_UP] =
@@ -19500,7 +19500,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .self = TRUE,
             .chance = 100,
         }),
-        //.battleAnimScript = gBattleAnimMove_OrderUp,
+        .battleAnimScript = gBattleAnimMove_OrderUp,
     },
     //I never saw anyone use anything but the attack boosting tatsugiri
     //maybe should adjust stat gain its speed stat is so low base 35 
@@ -19532,7 +19532,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .makesContact = TRUE,
         .punchingMove = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_JetPunch,
+        .battleAnimScript = gBattleAnimMove_JetPunch,
         // The datamine master sheet mentions uncopiable by Metronome but that sounds odd? not yet implemented
     },
 
@@ -19550,7 +19550,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_STATUS,
         .magicCoatAffected = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_SpicyExtract,
+        .battleAnimScript = gBattleAnimMove_SpicyExtract,
         // The datamine master sheet mentions uncopiable by Metronome but that sounds odd? not yet implemented
     },
     //should make scovillian amazing but it never gets used
@@ -19573,7 +19573,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_SPD_MINUS_2,
             .self = TRUE,
         }),
-        //.battleAnimScript = gBattleAnimMove_SpinOut,
+        .battleAnimScript = gBattleAnimMove_SpinOut,
     },
 
     [MOVE_POPULATION_BOMB] =
@@ -19593,7 +19593,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .metronomeBanned = TRUE,
         .strikeCount = 10,
         .multiTaskBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_PopulationBomb,
+        .battleAnimScript = gBattleAnimMove_PopulationBomb,
         //Supposedly uncallable by Metronome? (if so, needs implementation)
         //The master sheet mentions a "slicing" flag but I'm not sure what it refers to
     },
@@ -19611,7 +19611,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
-        //.battleAnimScript = gBattleAnimMove_IceSpinner,
+        .battleAnimScript = gBattleAnimMove_IceSpinner,
     },
 
     [MOVE_GLAIVE_RUSH] =
@@ -19631,7 +19631,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_GLAIVE_RUSH,
             .self = TRUE,
         }),
-        //.battleAnimScript = gBattleAnimMove_GlaiveRush,
+        .battleAnimScript = gBattleAnimMove_GlaiveRush,
     },
 
     [MOVE_REVIVAL_BLESSING] =
@@ -19651,7 +19651,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .metronomeBanned = TRUE,
         .healingMove = TRUE,
         .sketchBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_RevivalBlessing,
+        .battleAnimScript = gBattleAnimMove_RevivalBlessing,
         // Uncallable by Metronome (to be implemented)
     },//move revives a selected fainted mon to 50% hp
     //doesn't cost user their life, also is meant to be excluded from PP up effects
@@ -19674,7 +19674,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_SALT_CURE,
             .chance = 100,
         }),
-        //.battleAnimScript = gBattleAnimMove_SaltCure,
+        .battleAnimScript = gBattleAnimMove_SaltCure,
         // Supposedly uncallable by Metronome, but dubious
     },
     //should  be status2, but isn't passed by baton pass
@@ -19694,7 +19694,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .makesContact = TRUE,
         .strikeCount = 3,
         .multiTaskBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_TripleDive,
+        .battleAnimScript = gBattleAnimMove_TripleDive,
     },
 
     [MOVE_MORTAL_SPIN] =
@@ -19715,7 +19715,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 100,
         }),
-        //.battleAnimScript = gBattleAnimMove_MortalSpin,
+        .battleAnimScript = gBattleAnimMove_MortalSpin,
     },
 
     [MOVE_DOODLE] =
@@ -19733,7 +19733,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_Doodle,
+        .battleAnimScript = gBattleAnimMove_Doodle,
         // Supposedly uncallable by Metronome (unimplemented)
     },
     //changes ability of user and ally to that of target
@@ -19756,7 +19756,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .mirrorMoveBanned = TRUE,
         .metronomeBanned = TRUE,
         .argument = { .sacrificedHpPercentage = 50 },
-        //.battleAnimScript = gBattleAnimMove_FilletAway,
+        .battleAnimScript = gBattleAnimMove_FilletAway,
         // Supposedly uncallable by Metronome (unimplemented)
     },
     //takes half hp (belly drum) but raises atk sp atk and speed 2 stages
@@ -19777,7 +19777,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .slicingMove = TRUE,
-        //.battleAnimScript = gBattleAnimMove_KowtowCleave,
+        .battleAnimScript = gBattleAnimMove_KowtowCleave,
         // Needs a "slicing" flag (not sure what it refers to)
     },
 
@@ -19794,7 +19794,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .alwaysCriticalHit = TRUE,
-        //.battleAnimScript = gBattleAnimMove_FlowerTrick,
+        .battleAnimScript = gBattleAnimMove_FlowerTrick,
     },
 
     [MOVE_TORCH_SONG] =
@@ -19816,7 +19816,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .self = TRUE,
             .chance = 100,
         }),
-        //.battleAnimScript = gBattleAnimMove_TorchSong,
+        .battleAnimScript = gBattleAnimMove_TorchSong,
     },
 
     [MOVE_AQUA_STEP] =
@@ -19838,7 +19838,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .self = TRUE,
             .chance = 100,
         }),
-        //.battleAnimScript = gBattleAnimMove_AquaStep,
+        .battleAnimScript = gBattleAnimMove_AquaStep,
     },
 
     [MOVE_RAGING_BULL] =
@@ -19860,7 +19860,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
         .ignoresProtect = TRUE, //needs effect makes still touch protect like
-        //.battleAnimScript = gBattleAnimMove_RagingBull,
+        .battleAnimScript = gBattleAnimMove_RagingBull,
     },
     //change type based on tauros form,
     //since I changed tauros form may need change move type of first form
@@ -19914,7 +19914,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .argument = { .damagePercentage = 50 },
         .metronomeBanned = TRUE,
         .multiTaskBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_Ruination,
+        .battleAnimScript = gBattleAnimMove_Ruination,
         // Uncallable by Metronome (to be implemented)
     },
 
@@ -19932,7 +19932,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_CollisionCourse,
+        .battleAnimScript = gBattleAnimMove_CollisionCourse,
         // Uncallable by Metronome (to be implemented)
     },
 
@@ -19950,7 +19950,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_SPECIAL,
         .makesContact = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_ElectroDrift,
+        .battleAnimScript = gBattleAnimMove_ElectroDrift,
         // Uncallable by Metronome (to be implemented)
     },
 
@@ -19969,7 +19969,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_ShedTail,
+        .battleAnimScript = gBattleAnimMove_ShedTail,
         // Uncallable by Metronome (to be implemented)
         // Supposedly unsnatchable?
     },
@@ -19992,7 +19992,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_ChillyReception,
+        .battleAnimScript = gBattleAnimMove_ChillyReception,
         // Supposedly uncallable by Metronome? (to be implemented)
     },
     //tells bad joke then switches out, sets hail/snow 5 turns as if used move hail
@@ -20017,7 +20017,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_TidyUp,
+        .battleAnimScript = gBattleAnimMove_TidyUp,
         // Supposedly uncallable by Metronome? (to be implemented)
         // Supposedly unsnatchable?
     },
@@ -20039,7 +20039,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,
-        //.battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_HAIL) ? gBattleAnimMove_Hail : gBattleAnimMove_Snowscape,
+        .battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_HAIL) ? gBattleAnimMove_Hail : gBattleAnimMove_Snowscape,
         // Currently an exact copy of Hail until we figure out what to do with it
     },
     //ok new idea, change to name icescape well might keep, as a pun for snow escape
@@ -20079,7 +20079,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .chance = 100,
         }),
-        //.battleAnimScript = gBattleAnimMove_Pounce,
+        .battleAnimScript = gBattleAnimMove_Pounce,
     },
     //renamed from pounce
 
@@ -20102,7 +20102,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .self = TRUE,
             .chance = 100,
         }),
-        //.battleAnimScript = gBattleAnimMove_Trailblaze,
+        .battleAnimScript = gBattleAnimMove_Trailblaze,
     },
 
     [MOVE_CHILLING_WATER] =
@@ -20126,7 +20126,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_FROSTBITE,
             .chance = 30,
         }), //potentially drop to 20
-        //.battleAnimScript = gBattleAnimMove_ChillingWater,
+        .battleAnimScript = gBattleAnimMove_ChillingWater,
         //well is scald but since doesnt drop stat should be coool
     },
 
@@ -20145,7 +20145,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .makesContact = TRUE,
         .ignoresProtect = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_HyperDrill,
+        .battleAnimScript = gBattleAnimMove_HyperDrill,
     },
 
     [MOVE_TWIN_BEAM] =
@@ -20163,7 +20163,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .strikeCount = 2,
         .multiTaskBanned = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_TwinBeam,
+        .battleAnimScript = gBattleAnimMove_TwinBeam,
     },
 
     [MOVE_RAGE_FIST] =
@@ -20181,7 +20181,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .makesContact = TRUE,
         .punchingMove = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_RageFist,
+        .battleAnimScript = gBattleAnimMove_RageFist,
     },//change annihalape evo to perform rage fist at max rage
     //rather than needing a new field I can set a flag like I do w region sand
 
@@ -20202,7 +20202,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_DEF_SPDEF_DOWN,
             .self = TRUE,
         }),
-        //.battleAnimScript = gBattleAnimMove_ArmorCannon,
+        .battleAnimScript = gBattleAnimMove_ArmorCannon,
     },
 
     [MOVE_BITTER_BLADE] =
@@ -20221,7 +20221,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .makesContact = TRUE,
         .slicingMove = TRUE,
         .healingMove = TRUE,
-        //.battleAnimScript = gBattleAnimMove_BitterBlade,
+        .battleAnimScript = gBattleAnimMove_BitterBlade,
     },
 
     [MOVE_GIGATON_HAMMER] =
@@ -20237,7 +20237,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .cantUseTwice = TRUE,
-        //.battleAnimScript = gBattleAnimMove_GigatonHammer,
+        .battleAnimScript = gBattleAnimMove_GigatonHammer,
     },
     //move cant be used in succession, but not a recharge move.
     //(seems game freak realized how useless they were)
@@ -20264,7 +20264,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .makesContact = TRUE,
         .meFirstBanned = TRUE,
         .metronomeBanned = TRUE,
-        //.battleAnimScript = gBattleAnimMove_Comeuppance,
+        .battleAnimScript = gBattleAnimMove_Comeuppance,
     },
 
     [MOVE_AQUA_CUTTER] =
@@ -20281,7 +20281,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .enhancedCritrate = TRUE,
         .slicingMove = TRUE,
-        //.battleAnimScript = gBattleAnimMove_AquaCutter,
+        .battleAnimScript = gBattleAnimMove_AquaCutter,
         // Needs the "slicing" flag
     },//doesn't actually make contact
 
@@ -20311,7 +20311,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_BURN,
             .chance = 30,
         }),
-        //.battleAnimScript = gBattleAnimMove_BlazingTorque,
+        .battleAnimScript = gBattleAnimMove_BlazingTorque,
     },//think make these revaroom move tutor moves
     //if the gen 1 truck is in the game put an npc by it
 
@@ -20341,7 +20341,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_SLEEP,
             .chance = 10,
         }),
-        //.battleAnimScript = gBattleAnimMove_WickedTorque,
+        .battleAnimScript = gBattleAnimMove_WickedTorque,
     },//check update fo EE should have ability set move effect without needing new effect
 
     [MOVE_NOXIOUS_TORQUE] =
@@ -20370,7 +20370,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_POISON,
             .chance = 30,
         }),
-        //.battleAnimScript = gBattleAnimMove_NoxiousTorque,
+        .battleAnimScript = gBattleAnimMove_NoxiousTorque,
     },
 
     [MOVE_COMBAT_TORQUE] =
@@ -20399,7 +20399,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_PARALYSIS,
             .chance = 30,
         }),
-        //.battleAnimScript = gBattleAnimMove_CombatTorque,
+        .battleAnimScript = gBattleAnimMove_CombatTorque,
     },
     //may give to mega mewtwo x
 
@@ -20429,7 +20429,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_CONFUSION,
             .chance = 30,
         }),
-        //.battleAnimScript = gBattleAnimMove_MagicalTorque,
+        .battleAnimScript = gBattleAnimMove_MagicalTorque,
     },
     //boosted up as pretty much only physical fairy move of strength
 
@@ -20948,7 +20948,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Sketch,
+        .battleAnimScript = gBattleAnimMove_Sketch,
     },
 
     [MOVE_FLASH_FREEZE] =
@@ -20969,7 +20969,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL},
-        //.battleAnimScript = gBattleAnimMove_FlashFreeze,
+        .battleAnimScript = gBattleAnimMove_FlashFreeze,
     },//lowered to 10 pp, since imobilizing status have lower pp to other similar variant moves
     //vsonic important keep an eye on
 
@@ -20996,7 +20996,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = COMBO_STARTER_CURSE,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DryadsCurse,
+        .battleAnimScript = gBattleAnimMove_DryadsCurse,
     },//DOES ghost curse effect to last damaged sacrificin stats instead of health
     //give to bug fairy and grass types   def give shiinotic, maybe sudowoodo
     //since I'm applying affect to mon that hit me last I have to take damage
@@ -21031,7 +21031,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ShieldBash,
+        .battleAnimScript = gBattleAnimMove_ShieldBash,
     }, //vsonic when stable test new moves if work can then add new post gen3 learnsets in
     //decide want to give to chespin line as well
     /*so I'm thinking of putting it up to 70% since it's mostly as a scout like you said,
@@ -21069,7 +21069,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_UTurn,
+        .battleAnimScript = gBattleAnimMove_UTurn,
     },
 
     [MOVE_DIVE_BOMB] =
@@ -21089,7 +21089,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_UTurn,
+        .battleAnimScript = gBattleAnimMove_UTurn,
     },
 
     [MOVE_NETTLE_WHIP] =
@@ -21115,7 +21115,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        //.battleAnimScript = gBattleAnimMove_VineWhip,
+        .battleAnimScript = gBattleAnimMove_VineWhip,
     },//GRASS types will be immune to this status condition, potentially make its own effect, then can do grass status exclusion with bs command
     //think give to mostly grass/poison types
     //since effect is essentially poison
@@ -21294,7 +21294,7 @@ use wonder gaurd logic to determine its super effective
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
         }),
-        //.battleAnimScript = gBattleAnimMove_DoubleShock,
+        .battleAnimScript = gBattleAnimMove_DoubleShock,
     },//making all losetype 150 because changing effect to last entire battle not just until switch out, also keeping move as my version was special
 
     [MOVE_POUNCE] =
@@ -21318,7 +21318,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Pounce,
+        .battleAnimScript = gBattleAnimMove_Pounce,
     },//normal or dark type  thought up with luxray line in mind and zenmodeYT  
     //keeping normal
 
@@ -21340,7 +21340,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_CheapShot,
+        .battleAnimScript = gBattleAnimMove_CheapShot,
     },//made for crabominable line but can give to machamp as well
 
 
@@ -21367,7 +21367,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL},
-        //.battleAnimScript = gBattleAnimMove_Snowball,
+        .battleAnimScript = gBattleAnimMove_Snowball,
     }, //still need get animatino how I want to change sprite size with ppower
     //3 stage effect diff power like ice ball want change anim based on power
     //rather than defense curl think want
@@ -21390,7 +21390,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_TrenchRun,
+        .battleAnimScript = gBattleAnimMove_TrenchRun,
     },
     //maybe just drop effect evasion boosting is annoying
     //this is better double team plus runs counter to flying affinity buff
@@ -21417,7 +21417,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_DEFENSE_CURL},
-        //.battleAnimScript = gBattleAnimMove_SpinDash,
+        .battleAnimScript = gBattleAnimMove_SpinDash,
     },//uses rollout animation
     //why didn't I make this damage in air?
     //hmm I guess because it requries a launching pad?
@@ -21442,7 +21442,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ArcticRake,
+        .battleAnimScript = gBattleAnimMove_ArcticRake,
     }, //alt slash wnat use shadow claw animation, two claws one white one black slashing enemy
     //think get move at 35 or so?
     //think was mostly for sneasal
@@ -21469,7 +21469,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ConversionZ,
+        .battleAnimScript = gBattleAnimMove_ConversionZ,
     },
 
     [MOVE_SOLAR_FLARE] =
@@ -21493,7 +21493,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SolarFlare,
+        .battleAnimScript = gBattleAnimMove_SolarFlare,
     },//think may keep priority at 0,
     //flinch chance is low but as it hits both
     //still a good idea to lower
@@ -21528,7 +21528,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_MUDSLIDE,
         //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        //.battleAnimScript = gBattleAnimMove_Mudslide,
+        .battleAnimScript = gBattleAnimMove_Mudslide,
     },
     //think I need drop this to acc 90
     //otherwise not much reason to use earth power
@@ -21556,7 +21556,7 @@ use wonder gaurd logic to determine its super effective
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         .argument = { .storedValue = ABILITY_HEAT_TRANCE },
-        //.battleAnimScript = gBattleAnimMove_SpiceTrade,
+        .battleAnimScript = gBattleAnimMove_SpiceTrade,
     },//didn't realize but didn't need make a new effect for
     //this is just what worry seed etc. does
     /*
@@ -21587,7 +21587,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_DOUBLE_TEAM},
-        //.battleAnimScript = gBattleAnimMove_Agility,
+        .battleAnimScript = gBattleAnimMove_Agility,
     },
     //temp animation accupressure
     //capsakid can learn this
@@ -21618,7 +21618,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_SteelSurge,
+        .battleAnimScript = gBattleAnimMove_SteelSurge,
     },
     //turned g max move into regualr move
     //still give to copperajah
@@ -21711,7 +21711,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_HARDEN},
-        //.battleAnimScript = gBattleAnimMove_BruteForce,
+        .battleAnimScript = gBattleAnimMove_BruteForce,
     },
     //super power clone
 
@@ -21736,7 +21736,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_ShockingMalice,
+        .battleAnimScript = gBattleAnimMove_ShockingMalice,
     },
     //burning jealousy clone
     //may not be that big of a deal but think never give to thunderous
@@ -21767,7 +21767,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_MOONDANCE,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_MoonDance,
+        .battleAnimScript = gBattleAnimMove_MoonDance,
     },
     //EFFECT_MOONDANCE //intentional spelling don't add space
 
@@ -21789,7 +21789,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = COMBO_STARTER_ACID_RAIN,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_AcidRain,
+        .battleAnimScript = gBattleAnimMove_AcidRain,
     },
     
     [MOVE_COLD_FRONT] =
@@ -21811,7 +21811,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_HAIL},
-        //.battleAnimScript = gBattleAnimMove_ColdFront,
+        .battleAnimScript = gBattleAnimMove_ColdFront,
     },
     //will be ice move that fires in one turn
     //if in hail
@@ -21871,7 +21871,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_HAIL,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Snowscape
+        .battleAnimScript = gBattleAnimMove_Snowscape
     },
     //snowday replaces original snowscape
 
@@ -21893,7 +21893,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = COMBO_STARTER_HAIL,
         //.contestComboMoves = {0},
-        //.battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_SNOW) ? gBattleAnimMove_Snowscape : gBattleAnimMove_Hail,
+        .battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_SNOW) ? gBattleAnimMove_Snowscape : gBattleAnimMove_Hail,
     },
 
     //name pending
@@ -21927,7 +21927,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_DragonDarts,
+        .battleAnimScript = gBattleAnimMove_DragonDarts,
     },
     //for anim do double team animation and then something like
     //beatup
@@ -21954,7 +21954,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_TAUNT},
-        //.battleAnimScript = gBattleAnimMove_Detect,
+        .battleAnimScript = gBattleAnimMove_Detect,
     },//name is funny double entendre
     //fence meaning a means of protection
     //and fance meaning a person who receives stolen goods
@@ -21979,7 +21979,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = COMBO_STARTER_SING,
         //.contestComboMoves = {0},
-        //.battleAnimScript = gBattleAnimMove_Sing,
+        .battleAnimScript = gBattleAnimMove_Sing,
         
     },
     //new version of sing give jigglypuff line
