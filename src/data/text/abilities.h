@@ -212,6 +212,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("“Super effective” hits.\nIgnores most other damage for 4 turns."),
         .aiRating = 10,
         .breakable = TRUE,
+        .isSingleUse = TRUE,
+        .timer = WONDER_GUARD_TIMER,
     },
 
     [ABILITY_FEMME_FATALE] =
@@ -854,6 +856,9 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Anticipation"),
         .description = COMPOUND_ABILITY_STRING("Senses danger via instinct or nature.\nEnables the Pokémon to avoid danger once"),
         .aiRating = 5,
+        .isSingleUse = TRUE,
+        .timer = 1,
+        .numAllowedInParty = 1,
     },
 
     [ABILITY_FOREWARN] =
@@ -861,6 +866,9 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Forewarn"),
         .description = COMPOUND_ABILITY_STRING("Predicts a foe's move with psychic power.\nAvoids an attack from said foe once."),
         .aiRating = 5,
+        .isSingleUse = TRUE,
+        .timer = 1,
+        .numAllowedInParty = 1,
     },
 
     [ABILITY_UNAWARE] =
@@ -892,6 +900,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Takes a while to get going.\nClears all ailments upon power awakening."),
         .aiRating = -2,
         .breakable = TRUE,
+        .isSingleUse = TRUE,
+        .timer = SLOW_START_TIMER,
     },
 
     [ABILITY_SCRAPPY] =
@@ -2883,6 +2893,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Spectre"),
         .description = COMPOUND_ABILITY_STRING("A speeding Blur!\nBoosts Evasion on Switch-in."),
         .aiRating = 0,
+        .isSingleUse = TRUE,
+        .timer = SPECTRE_TIMER,
     },
     
     [ABILITY_AURA_OF_LIGHT] =

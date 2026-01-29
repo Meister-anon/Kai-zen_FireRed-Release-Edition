@@ -748,7 +748,7 @@ struct PartyState
     u16 usedSingleUseAbility; //for abilities that activate once per battle - my addition //not bool stores ability too
     u8 ToxicTurnCounter:5; //MAX_TOXIC_TURNS 16 //change make toxic dmg tracked not reset on switch
     u8 SleepTimer:3; //MAX_SLEEP_TURNS 5
-    u8 SingleUseAbilityTimers; //rn just for slow start / wonder guard
+    u8 CachedAbilityTimers; //rn just for slow start / wonder guard
     u16 SecondaryItemSlot;//for pickpocket and magician store taken item if already holding item
 
 };//taken from EE may be able to use for 

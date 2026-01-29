@@ -244,6 +244,8 @@ struct MoveInfo
 extern const struct MoveInfo gMovesInfo[];
 extern const struct BattleMoveEffect gBattleMoveEffects[];
 
+uq4_12_t GetTypeBasedBoostMultiplier(enum Move moveId);
+
 static inline enum Move SanitizeMoveId(enum Move moveId)
 {
     if (moveId >= MOVES_COUNT)

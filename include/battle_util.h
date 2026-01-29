@@ -146,7 +146,7 @@ static inline bool32 PreventsRedirection(u32 battlerAtk, u32 move)
 //should be fine constants included in file used in
 static inline u32 GetAbilityTimer(enum Ability ability)
 {
-    switch (ability)
+    /*switch (ability)
     {
         case ABILITY_SLOW_START:
             return SLOW_START_TIMER;
@@ -168,13 +168,14 @@ static inline u32 GetAbilityTimer(enum Ability ability)
         //linked w this at least
         //still need test make sure effects still work, (believe they should)
 
-    }
+    }*/
+    return gAbilitiesInfo[ability].timer;
 }
 
 //missing include
 static inline void SetSingleUseAbilityValues(u32 battler, enum Ability ability)
 {
-    GetBattlerPartyState(battler)->SingleUseAbilityTimers = GetAbilityTimer(ability);
+    GetBattlerPartyState(battler)->CachedAbilityTimers = GetAbilityTimer(ability);
     GetBattlerPartyState(battler)->usedSingleUseAbility = ability;
 }
 
@@ -715,6 +716,14 @@ static inline bool32 CheckBattlerHpThreshold(u32 battler, u8 Comparison, u8 perc
     return FALSE;
 }
 
+static inline bool32 CanActivateHpBasedAbility(u32 battler)
+{
+    enum Ability ability = GetBattlerAbility(battler);
+    u8 comparisonOperator = gAbilitiesInfo[ability].basedOnHp.comparison;
+    u8 percent = gAbilitiesInfo[ability].basedOnHp.percentHp;
+
+    return CheckBattlerHpThreshold(battler, comparisonOperator, percent);
+}
 /*//used in battle_main unsure if  still need
 u8 ShouldAbilityAbsorb(u16 move); //ATTEMPT workaroud for absorb abilty/lightning rod targetting
 //two custom functions for ability absorb along w new macro should do what I need

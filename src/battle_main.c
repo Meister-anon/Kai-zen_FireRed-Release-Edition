@@ -3689,8 +3689,8 @@ static void BattleStartClearSetData(void)
         gBattleStruct->usedSingleUseAbility[i][B_SIDE_PLAYER] = FALSE;
         gBattleStruct->usedSingleUseAbility[i][B_SIDE_OPPONENT] = FALSE;
         
-        gBattleStruct->SingleUseAbilityTimers[i][B_SIDE_PLAYER] = FALSE;
-        gBattleStruct->SingleUseAbilityTimers[i][B_SIDE_OPPONENT] = FALSE;
+        gBattleStruct->CachedAbilityTimers[i][B_SIDE_PLAYER] = FALSE;
+        gBattleStruct->CachedAbilityTimers[i][B_SIDE_OPPONENT] = FALSE;
 
         
         gBattleStruct->ToxicTurnCounter[i][B_SIDE_PLAYER] = 0;
@@ -5151,7 +5151,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
         speed = (speed * 150) / 100;
     else if (ability == ABILITY_SURGE_SURFER && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
         speed *= 2;
-    else if (ability == ABILITY_SLOW_START && gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] != 0)
+    else if (ability == ABILITY_SLOW_START && gBattleStruct->CachedAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] != 0)
         speed /= 2;
 
     else if (ability == ABILITY_DEFEATIST && gDisableStructs[battler].defeatistActivated)

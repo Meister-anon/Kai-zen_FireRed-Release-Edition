@@ -1148,7 +1148,7 @@ static inline uq4_12_t PercentToUQ4_12AddOne(u32 percent)
     return uq4_12_add(UQ_4_12(1.0), PercentToUQ4_12(percent));
 }
 
-static inline uq4_12_t GetTypeBasedBoostMultiplier(enum Move moveId)
+uq4_12_t GetTypeBasedBoostMultiplier(enum Move moveId)
 {
     moveId = SanitizeMoveId(moveId);
     assertf(gMovesInfo[moveId].effect == EFFECT_TARGET_TYPE_DAMAGE, "not a type boosted move: %S", GetMoveName_(moveId));
@@ -5796,7 +5796,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
                 gBattleMons[gBattlerAttacker].volatiles.truantCounter ^= 1;
                 break;
             case ABILITY_SLOW_START:
-                if (GetBattlerPartyState(battler)->SingleUseAbilityTimers > 0 && --GetBattlerPartyState(battler)->SingleUseAbilityTimers == 0)
+                if (GetBattlerPartyState(battler)->CachedAbilityTimers > 0 && --GetBattlerPartyState(battler)->CachedAbilityTimers == 0)
                 {
                     BattleScriptExecute(BattleScript_SlowStartEnds);
                     effect++;
@@ -9482,7 +9482,7 @@ static inline u32 CalcAttackStat(struct BattleContext *ctx)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(2.0));
         break;
     case ABILITY_SLOW_START:
-        if (GetBattlerPartyState(battlerAtk)->SingleUseAbilityTimers > 0)
+        if (GetBattlerPartyState(battlerAtk)->CachedAbilityTimers > 0)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.5));
         break;
     case ABILITY_SOLAR_POWER:

@@ -139,7 +139,47 @@ struct AbilityInfo
     u8 cantBeOverwritten:1; // cannot be overwritten by Entrainment, Worry Seed or Simple Beam (but can be by Mummy) - same as cantBeSuppressed except for Truant
     u8 breakable:1; // can be bypassed by Mold Breaker and clones
     u8 failsOnImposter:1; // doesn't work on an Imposter mon; when can we actually use this?
+    u8 padding:1;
+    struct {
+    u16 percentHp:7; //make function get ability hp threshold take value use percenttohp
+    u16 comparison:3; //use Comparison_Operators_Constants use as argument for CheckBattlerHpThreshold to get result
+    }basedOnHp;
+    u16 numAllowedInParty:2; //restriction
+    u16 isSingleUse:1;//every single use has a timer not every timer is singleUse
+    u16 timer:3;//using timer here rather than a volatile meant to represent a timer that isn't reset on switch
 };
+//ok think can set usedsingleuse ability on switch
+//if ability has no timer? hmm most all have timers tho
+//yeah they all have timers
+//ok so they all have timers will setusedsingleuse ability
+//only if timer is expended
+//original point was to prevent timers from resetting in first place
+//was a fix for slow start
+//make functions for should set SingleUseAbilityTimer
+//hmm actually think will rename party effect to just keep track
+//of party member ability timer
+//that way can make effects with timer that aren't single use
+//but that obviously I wouldn't want to be able to be abused by switching
+//ex diff of having an ability that stat boosts for 3 turns on switch in
+//and having the 3 turns be counted concurrently
+//vs constantly reset
+//the former is more balanced.
+//ok renamed partydata field, will be used to store all abilityTimers
+//but when timer ends if ability is singleuse stores
+//ability to usedSingleUseAbility field 
+//would prevent ability from reactivating, but if somehow
+//another ability was passed or given wouldnt affect its activation
+//which is what I want
+
+//basedonHp will be value from 0-100 which would be bit 7
+//isRestricted or Restriction would be num mon restricted to think making bit 2 is fine but most values would be 1 0 is no restriction
+//isSingleUse can just be a Bool
+//think last thing need from there is a
+//the timer max rn is 5 plan use 1 for forewarn anticipation
+//so bit 3 should cover that well enough
+//so turn bit field into a u32 should cover everything
+//leave raiting out as is signed
+
 //talked with Alex logic is mostly if involves a form or something that would cause bug if transferred
 //can't be copied swapped or traced, 
 //for skill swap wonder guard idea make move end effect if curr move effect skill swap etc.
