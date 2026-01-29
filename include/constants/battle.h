@@ -921,6 +921,153 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     //would be after first restricted check
     //since this is checking 2 diff abilities not just
     //if ability itself is on list
+
+    //idea entire ability refactor
+    //put activation conditions within ability struct
+    //would simply abilitybattle effects
+    //should be able to trunctate it greatly
+    //as all the category stuff would be on the ability itself
+    //would only need to keep as far as telling order things should
+    //activate in, is essentially 
+    //same thing as move effect refactor but for abilities
+    //would have canabilityactivate function
+    //if there is no criteria or it meets the criteria 
+    //ability should activate
+    //ex contact abilities could be {contact, attacker}
+    //or {contact, target}
+    //things like defeatist or schooling could have hp threshold activation
+    //some things would need structs some things may not fit in union
+    //so lot of thought would have to go into this
+    //to ensure I'm no tlimiting creativity
+    //ex hp threshold as a union seem fine,
+    //but things like schooling also have a lvl component
+    //and they can't both be in a union as only one can activate
+    //need study move struct
+    //and only benefit is efficiency or hopefully simpler pipeline
+    //rather than having to constantly write sme code effects over and over
+    //if can't fit things in union would just cause
+    //massive bloat of having to add new values for ablitystruct
+    //rather than just writing a function
+
+    //with how I have it set I guess
+    //nothign is stopping from writing ability itself
+    //since I will still need ability category logic
+    //to know where to put ability actiation order
+    //so can write fields by hand hmm but would require act condition 
+    //beingin function so no still has potential bloat
+    //and requires one system
+    //that said the move effect system works
+    //but that is also augmented by additional effects field
+    //that is entirely separate and can be coded separately
+    //nothing for it until I get into it I guess
+    //but main concern is cover all existing effects
+    //while leaving room for creation of new ones
+    //for the most part without compromising ability to make new 
+    //effects without having to add values outside of union
+    //thus adding to struct size, I THINK just making new unions
+    //should be fine?
+    //ok but how do I read the write effect from union?
+    //I know that's why things had unique effect ids
+    //I can't use ability for that so think
+    //I'd need activation effect outside of union
+    //to tell it which condition to read?
+    //ex would need field for contact based activation
+    //then contact union would be contactwithAttacker
+    //contactByAttacker and from that could descern what effect is
+    //would need target argument as well
+    //potentially can use move target stuff for that
+    //i.e trace would be random target
+    //intimidate could be both etc.
+    //but need that to also make sense with the 
+    //target refactor that was just done for abilities
+    //so look into that first to make sure all good
+    //oh that's a different thing 
+    //specifically move target not this
+    //this idea is the ability targets a foe or ally
+    //ex steely spirit which powers up user and allies 
+    //steel moves
+    //ok so I'd need to make an effect field
+    //for ability category that way could fit in abilityeffect functions
+    //wouldn't lose existing order that way as its on ability itself
+    //something thigs would tweak or be put together
+    //like contact effects from removal of need to separate
+    //whether is on contact with or contact by
+    //ok so for example static would have
+    //ablityEffect Move End
+    //but also be a contact effect
+    //now I could go further and set status to be set here
+    //but the point wasn't to do entire effect
+    //but be able to consolidate the activation condition
+    //
+    /*
+    if (IsBattlerAlive(gBattlerTarget)
+    && !gBattleStruct->unableToUseMove
+    && CanBePoisoned(gBattlerAttacker, gBattlerTarget, gLastUsedAbility, GetBattlerAbility(gBattlerTarget))
+    && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker), move)
+    && IsBattlerTurnDamaged(gBattlerTarget) // Need to actually hit the target
+    && RandomPercentage(RNG_POISON_TOUCH, 30)
+    */
+
+   //so if I stop there I need to filter type of move end effect
+   //if its contact then I'd need set if its contactwithAttacker
+   //or contactByAttacker
+   //but if I also set a status argument 
+   //then I can handle the canbestatused argument as well
+
+   //point is pre define activation condition
+   //so can handle condition together in 
+   //CanAbilityActivate funtion
+
+   //hmm may not be worth doing, if I make new effect
+   //would still need to add it to all those functions
+   //and blocks,
+   //so for the most part not worth doing
+   //but think stil useful from perspective of my original point
+   //can handle specific field categories
+   //to simplify their use
+   //ex timers, single use and restricted abilities
+   //believe can also handle hp thresholds like that
+   //ok so union 32 or u16
+   //struct for comparison condition and then value of hp percent
+   //value that would be translated into percent so for example
+   //galewings could be handled {greater or equal, 50}
+   //to get that to work would need to add
+   //hp based activation as a field
+   //basedOnHP
+   //and I think I can do contact abiltiy as well
+   //really like idea of simplifying them into one
+   //so make field onContact or ContactEffect
+   //then can setup contactwithAttacker
+   //or contactByAttacker as union boolean field
+   //make enum for contact effects with those two
+   //would be contact type field
+   //can use function to set values of who should
+   //attacker/user and target/receiver of contact effect
+   //similar to affectsUser logic
+   //can make function to check contactType
+   //and do if else logic
+   //correct values for conditions
+   //i.e attacker defender and set the battler
+   //oppposite based on contactType of ability
+   //but if done with union that would break
+   //if I needed an ability that had both effects
+   //of hp based activation and contact effects
+   //so instead better to make bitfield
+   //and just eat the cost in the abilitystruct
+   //to not lose functionality
+   //if its that simple don't need separate branch as well
+    
+    //hmm think this is more or less same issue of coding
+    //vs game engine that just simplifies actions
+    //that said idk why these things don't have both versions
+    //any effect that is programmed is written in code somewhere
+    //there should just be an advanced option that allows
+    //coders to go in and add functionality themselves
+    //and non programmers can just use the ui elements to edit
+    //it sounds simple so idk why it isn't that way
+    //orther than just control, if the source code is available
+    //theoretically people could just strip it all out and get the beneift
+    //but that still seems dumb
     
     u8 forewarnedBattler;
     u8 AnticipationForewornIsDone;    //for storing move from anticipation ability, may remove to make room for fixation logic
