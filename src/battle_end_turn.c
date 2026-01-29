@@ -955,6 +955,9 @@ static bool32 HandleEndTurnRoost(u32 battler)
     return effect;
 }
 
+//majority of side status timer stuff goes here
+//so can move effects that were removed from volatile
+//and put in side timers here i.e heal block embargo etc.
 static bool32 HandleEndTurnSecondEventBlock(u32 battler)
 {
     bool32 effect = FALSE;

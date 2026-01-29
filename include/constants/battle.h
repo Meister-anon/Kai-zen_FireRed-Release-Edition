@@ -503,7 +503,7 @@ enum BattleSide
 #define B_SYRUP_BOMB_TIMER   3
 #define B_TORMENT_TIMER      3
 #define B_DESTINY_BOND       2  //Don't Change -value of 2 needed for gen 7 config to block successive use of Destiny Bond
-#define B_ROOST_TIMER        4
+#define B_ROOST_TIMER        4  //pretty sure I added but double check mathes my effect
 
 
 //Ability Timers
@@ -517,6 +517,7 @@ enum BattleSide
 #define MAX_SLEEP_TURNS 5
 #define MAX_RAGE_BOOST_COUNTER 5
 #define MAX_DRAGON_RAGE_COUNTER 5
+#define MAX_OCTOLOCK_TURNS 4
 
 enum VolatileFlags
 {
@@ -656,6 +657,7 @@ infatuation again
     F(VOLATILE_IMPRISON,                    imprison,                      (u32, 1)) \
     F(VOLATILE_GRUDGE,                      grudge,                        (u32, 1)) \
     F(VOLATILE_GASTRO_ACID,                 gastroAcid,                    (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_EMBARGO                      Freespace,                     (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_SMACK_DOWN,                  smackDown,                     (u32, 1)) \
     F(VOLATILE_TELEKINESIS,                 telekinesis,                   (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_MIRACLE_EYE,                 miracleEye,                    (u32, 1)) \
@@ -706,7 +708,7 @@ infatuation again
     F(VOLATILE_MIMICKED_MOVES,              mimickedMoves,                 (u32, MAX_BITS(MAX_MON_MOVES))) \
     F(VOLATILE_RECHARGE_TIMER,              rechargeTimer,                 (u32, 1)) \
     F(VOLATILE_AUTOTOMIZE_COUNT,            autotomizeCount,               (u32, UINT8_MAX)) \
-    F(VOLATILE_SLOW_START_TIMER,            slowStartTimer,                (u32, B_SLOW_START_TIMER + 1)) \
+    F(VOLATILE_OCTOLOCK_COUNTER,            octolockCounter,               (u32, MAX_OCTOLOCK_TURNS + 1)) \
     F(VOLATILE_MAGNET_RISE_TIMER,           magnetRiseTimer,               (u32, B_MAGNET_RISE_TIMER + 1)) \
     F(VOLATILE_TELEKINESIS_TIMER,           telekinesisTimer,              (u32, B_TELEKINESIS_TIMER + 1)) \
     F(VOLATILE_TAUNT_TIMER,                 tauntTimer,                    (u32, B_TAUNT_TIMER + 1)) \
@@ -777,6 +779,185 @@ enum SemiInvulnerableExclusion
     CHECK_ALL,
     EXCLUDE_COMMANDER,
 };
+
+//vsonic important remmber bit fields can store max 2^bit value
+//ex bit 3  :3 is 2^3 = 8 can store 8 values between 0-7
+//vsonic important disablestruct no longer exists
+//set in volatiles and volatiles is in battlemon
+//remove value that already exist on the list then copy over the line
+//to regex to fit it in,
+//wha will do is make an enum from the existing name fix by hand later
+// and handle the type after
+struct DisableStruct    //reset only on switch and faint, -defeatist needs to be here - not necessarily..
+{
+
+    u16 transformedViaAbility; //story ability if used ability to transform, for properly showing shininess of sprite
+
+    //counter here just for note
+    //hmm maybe I can just use gmultihitcounter instead?
+    //yeah should work since effect wasn't multi hit before
+    //wasn't even really noticed but this move had effect
+    //where the animation would flip each attack
+    //as if attack was truly successive and coming from diff directions
+    /*0x10*/ u8 furyCutterCounter;  //apparently still need for anim task in anim_effects_2  //for some reason task is broken not switching hits
+             u16 furyCutterAccDrop; //need for acc drop to keep value 
+
+            //look into what this was again
+             u8 caughtMon : 1; //group  //idk what for using now for pc caught setup, since clears on switch shouldn't cause issues?
+             
+             u8 EmergencyExitTimer:1;
+             u8 FrozenTurns:2; //group  //made w sleep timer and stockpile together in mind
+    /*0x18*/ u8 truantCounter : 1;
+    /*0x18*/ u8 sleepCounter : 1; //copy of truant counter used for sleep heal may need copy switch hack as well hmm
+    /*0x18*/ u8 truantSwitchInHack : 1; // unused? 
+    /*0x18*/ 
+    //u8 toxicTurn; //wit change to statusnig will need move aqua ring ingrain and toxic turn counters to differnet way
+    u8 ingrainTurn;
+    u8 aquaringTurn;//vsonic think can prob use in place of aquaring rooted status just use value timer 0
+
+    //is trap effect like wrap etc. other effects persist on switch
+    //but idea is physically wrapped around target
+    //but that doesn't matter as much since can be used on multiple targes
+    //but effect is drop defense stats each turn of effect
+    //so kinda op hmm a lock is meant to lockdown someones method of attack
+    //which I guess is also reason for why it drops defenses as they can't
+    //move to protect themselves
+    //ok think what I can do to make this work (for graploct)
+    //is make it differ from other wrap effects i.e
+    //this one requires staying in, but to facilitate that
+    //it lowers physical attack of trapped foe just like
+    // the other traps have an effect for the duration of lowering speed
+    //and as counter balance when freed defenes get reset back to normal
+    //also need prevent from multi set so I need
+    //both an octolock status AND an octolock timer
+    //ah I see the problem this move doesn't have a timer
+    //it just lasts until user switches or dies...
+    //that's crazy, on a better pokemon this would be broken
+    //ok so will need a timer AND a turn counter for this effect smh
+    //well no maybe could just use timer can store max octolock turn count value
+    //and subtract actual timer on effect end from max value to determine 
+    //how far stats fell and how much they should be offset by
+    //meaning I'd just need a status and a timer
+    //anyway I'm thinking make value 4 turn move so at max
+    //stats fall 3 stages
+    //but then again getting a 3 strage drop even if for one turn is a lot
+    //heck 2 stages is a lot maybe drop stats every 2 turns?
+    //so you get the attack drop for duration
+    //and defeses drop on first turn end
+    //then on 3rd turn end it falls to 2 stage defense drop
+    //which would last for a single turn and then end and get reset...
+    //no combined with trapping on field that's still to much
+    //main issue is ttk dropping defenses so much means a guaranteed kill
+    //ok think just need a full rework, swap effect to offenses instead
+    //doesn't fully make sense but it effecting sp def didn't make sense either -_-
+    //ok so we have a 4 turn effect that drops offense stats each turn
+    //yeah that's too much as well just do uhh first phase of rework
+    //stats will drop every 2 turns, giving 1 turn
+    //of the double drop before effect ends and everything resets
+    //4 turns seems good
+    //stat drop would occur at end of first turn
+    //and be in effect for turn count 1 and 2
+    //and end of second turn would set stat ot 2 stage drop
+    //so for reset I just get timer if less than 2 raise stats 1 stage
+    //else raise stats 2 stages
+    //will change octoloc to counter not timer since goes up to 4
+    //ALRIGHT DONE was able to replace slow start timer w effect I need
+    //u8 octolock : 1; 
+
+    //similar to roost plan was fly low
+    //but becomes harder to track
+    //so becomes grouded but gets a 2 stage evasion boost
+    //doesn't "fully" make sense as still flying above ground
+    //so an earthquake or fissure shouldn't effect it
+    //but necessary extrapolation for balance
+    //point is its on the same lane as pokemon that float
+    //but can't fly and so are still hit by ground effects
+    //ex geodude
+    u8 trenchRunTimer; //timer for trench run, 4 turns end turn decrement
+    //kept here for note
+    //u8 environmentTrapTurns;   //turn counter for environment traps fire spin whirlpool sandtomb magma storm
+    
+    //keep here for now is single use ability
+    //but need make sure effect works right
+    //only should work first turn but don't want to just work on any battler
+    //if the battler switches first turn excepting foreworn which beleive
+    //is stil tied to a specific move it shouldn't still work
+    //pretty much only worry is if that switch turn would still be 
+    //within timeframe of effect it shouldn't be but want to make sure
+    //if I link it ot battler first turn a switched mon would still 
+    //be caught in effect so may instad need to make hard timer
+    //both are single use abilities could just give them timer value of 1
+    //and that would work just fine
+    //well they are a bit different singleu use is about activation
+    //meaning ability activates once and has once timer
+    //to prevent reactivation
+    //forewarna and anticipation are different
+    //they are broken if an entire team used just that
+    //even with each mon only allowed one use of it
+    //so plan for that is ability itself can only be
+    //activated once per battle regardless of if more mon have it
+    //think add new ability struct field for abilities
+    //can put timer field on abilities
+    //as well if the ability is singleActivation
+    //or singleUse need better names
+    //but point is if ability is singleUse
+    //it can activate setusedsingleuseability from that
+    //rather than me needing to keep a list of them
+    //and pull timer from that as well
+    //now for abilities that can only be active for one mon on team
+    //can call those RestrcitedAbilities
+    //can set a count for how many mon ability is restricted to
+    //if it is restricted at all
+    //i.e field isRestrictedAbility = 1  = 2  etc
+    //but for 4 party things like battle towers
+    //would want value to be 1 for every ability regardless
+    //would need add usedRestrictedAbility to partyState check
+    //same as us single use stores ability id
+    //forewarn and anticipation are linked
+    //so think best I can do is make function specific for them
+    //canactivateforewornantipcation 
+    //and it'd check if party member had already
+    //used antipcation or forewarn as their restricted
+    //would be after first restricted check
+    //since this is checking 2 diff abilities not just
+    //if ability itself is on list
+    
+    u8 forewarnedBattler;
+    u8 AnticipationForewornIsDone;    //for storing move from anticipation ability, may remove to make room for fixation logic
+    u8 ActivatedWeightedGi:1; //should make 1 bit, bitfied
+    u8 SwitchBinding:2;
+    u8 ConfusionTurns:3; //if correct above should be 3 turns
+    u8 sturdyhungon:1; //to surivive full hp ko effect one time /destiny bond, explosion, perish song, final gambit etc.
+    u8 trappedinStickyweb:1; //needed trigger for mon trapped in sticky web and can't switch
+    
+    u8 rechargeTimer:1; //would use 1, just need change decrement condition
+    u8 uproarTurns:2;   //2-5 turns //updated effect is 3 turns
+    u8 rampageMoveTurns:2; //for replace lock confuse turns, is how long rampge move last, should be 2-3 turns?
+    u8 StatusSetViaMoldBreaker:1;
+    u8 fixationTurns:2;   //to track that fixation move is being repeated max value 3?
+    u16 fixatedMove; //was forewarnmove replaced for Fixation status
+    u8 hasSwitchinActivated; //use for switch in end turn check //rn just for zacian zamazenta effetcts, triggered on switch in activate/end in endturn
+    u8 timecontrolAbilityTimer:2; //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
+    u8 TrapSetViaMoldBreaker:1;
+    u8 EmergencyExitWimpoutActive:1; //replace use of RESOURCE_FLAG_EMERGENCY_EXIT //facepalm I never actually replaced this
+    u8 flashFireBoosted:1; //
+    u8 unburdenActive:1; //replace resource flag
+    u8 neutralizingGas:1; //used for battler with effect so think also need for immutable wind even if is clone different enough
+    //this throws off by 1 creates 1 byte paddspace
+    u8 immutableWind:1;
+    u8 AscensionTimer:2; //time for flying types to recover from smack down 3 turns
+    u8 DragonrageCounter:3; //set to max at 5 increase when gets hit make dragon rage move effect & status set in end turn
+    u8 futureValues:2;
+    u8 paddSpace:8;
+    /*0x1A*/ u8 unk1A[2]; //don't think this is used
+}; //think I may not actually need roost start value, long as I have timer
+//need look up padding and bitwise to understand how these work so i'm doing it correctly
+//if I don't have proper padding it won't be faster/save space, and could actually slow it down instead
+//vsonic
+
+//largest value is u16 so think struct
+//alligns to 2?
+extern struct DisableStruct gDisableStructs[MAX_BATTLERS_COUNT];
 
 
 // Not really sure what a "hitmarker" is.

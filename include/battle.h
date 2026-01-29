@@ -212,115 +212,7 @@ extern const struct Trainer gTrainers[];
 #define RESOURCE_FLAG_NEUTRALIZING_GAS 16 //works by doubling previous
 */
 
-//vsonic important remmber bit fields can store max 2^bit value
-//ex bit 3  :3 is 2^3 = 8 can store 8 values between 0-7
-//vsonic important disablestruct no longer exists
-//set in volatiles and volatiles is in battlemon
-struct DisableStruct    //reset only on switch and faint, -defeatist needs to be here - not necessarily..
-{
-    /*0x00*/ //u32 transformedMonPersonality; //src of gTransformedPersonalities
-    /*0x04*/ u16 disabledMove;
-    /*0x06*/ u16 encoredMove;
-    u16 transformedViaAbility; //story ability if used ability to transform, for properly showing shininess of sprite
-    s8 stockpileDef;    //vsonic still to setup
-    s8 stockpileSpDef;
-    s8 stockpileBeforeDef;
-    s8 stockpileBeforeSpDef;
-    /*0x0A*/ u8 substituteHP;
-    /*0x0B*/ u8 disableTimer : 4;
-    /*0x0C*/ u8 encoreTimer : 4;
-    /*0x0E*/ u8 encoredMovePos;
-    /*0x0F*/ u8 perishSongTimer : 4;
-             u8 tauntTimer : 4;
-    /*0x11*/ u8 rolloutTimer : 4;
-    /*0x11*/ u8 rolloutTimerStartValue : 4;//nmv using em logic so can remove this //this one is relevant as its used to decide the animation/power, tell it how many turns have elapsed
-    /*0x10*/ u8 furyCutterCounter;  //apparently still need for anim task in anim_effects_2  //for some reason task is broken not switching hits
-             u16 furyCutterAccDrop; //need for acc drop to keep value 
-    
-    /*0x13*/ 
-    /*0x14*/ u8 battlerPreventingEscape;
-    /*0x15*/ u8 battlerWithSureHit;
-    /*0x16*/ u8 isFirstTurn:2; //group
-             u8 caughtMon : 1; //group  //idk what for using now for pc caught setup, since clears on switch shouldn't cause issues?
-             u8 EmergencyExitTimer:1;
-             u8 FrozenTurns:2; //group  //made w sleep timer and stockpile together in mind
-             u8 stockpileCounter:2; //group
-    /*0x17*/ u8 unk17;
-    /*0x18*/ u8 truantCounter : 1;
-    /*0x18*/ u8 sleepCounter : 1;
-             u8 YawnTimer:1;//for update yawn
-    /*0x18*/ u8 truantSwitchInHack : 1; // unused? 
-    /*0x18*/ 
-    /*0x18*/ u8 mimickedMoves : 4;
-    //u8 toxicTurn; //wit change to statusnig will need move aqua ring ingrain and toxic turn counters to differnet way
-    u8 ingrainTurn;
-    u8 aquaringTurn;
-    u8 rageCounter;
-    u8 autotomizeCount;
-    u8 noRetreat : 1;
-    u8 tarShot : 1;
-    u8 octolock : 1;
-    u8 defeatistActivated : 1;      // moved here, keep defeatist hp drop from reactivating
-    u8 usedMoves : 4; //have iondelug in field timers already
-    //u8 slowStartTimer;  //move to singleuseabilitytimer
-    //u8 embargoTimer; moved to gsidetimers
-    u8 magnetRiseTimer;
-    u8 telekinesisTimer;
-    u8 laserFocusTimer;
-    u8 throatChopTimer;
-    u8 trenchRunTimer; //timer for trench run, 4 turns end turn decrement
-    u8 RoostTimer; // to set random % 4 effect after use roost setup iondelluge the same remove random make constant
-    u8 wrapTurns;  //turn counter for wrap 
-    u8 bindTurns;  // turn counter for bind
-    u8 clampTurns;
-    u8 swarmTurns;
-    u8 snaptrapTurns;
-    u8 thundercageTurns;
-    u8 environmentTrapTurns;   //turn counter for environment traps fire spin whirlpool sandtomb magma storm
-    u8 bideTimer;
-    u8 protectUses; //had to move for allgnment vsonic
-    u8 bindMovepos; //stored pos of bind move   //double check I'm actually using
-    u16 bindedMove; //move bind locks you to
-    u8 inthralled;
-    u8 inthrallTimer;
-    u16 inthralledMove;
-    u8 forewarnedBattler;
-    u8 AnticipationForewornIsDone;    //for storing move from anticipation ability, may remove to make room for fixation logic
-    u8 ActivatedWeightedGi:1; //should make 1 bit, bitfied
-    u8 SwitchBinding:2;
-    u8 ConfusionTurns:3; //if correct above should be 3 turns
-    u8 sturdyhungon:1; //to surivive full hp ko effect one time /destiny bond, explosion, perish song, final gambit etc.
-    u8 trappedinStickyweb:1; //needed trigger for mon trapped in sticky web and can't switch
-    
-    u8 rechargeTimer:1; //would use 1, just need change decrement condition
-    u8 uproarTurns:2;   //2-5 turns //updated effect is 3 turns
-    u8 rampageMoveTurns:2; //for replace lock confuse turns, is how long rampge move last, should be 2-3 turns?
-    u8 StatusSetViaMoldBreaker:1;
-    u8 fixationTurns:2;   //to track that fixation move is being repeated max value 3?
-    u16 fixatedMove; //was forewarnmove replaced for Fixation status
-    u8 hasSwitchinActivated; //use for switch in end turn check //rn just for zacian zamazenta effetcts, triggered on switch in activate/end in endturn
-    u8 timecontrolAbilityTimer:2; //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
-    u8 TrapSetViaMoldBreaker:1;
-    u8 EmergencyExitWimpoutActive:1; //replace use of RESOURCE_FLAG_EMERGENCY_EXIT //facepalm I never actually replaced this
-    u8 flashFireBoosted:1; //
-    u8 unburdenActive:1; //replace resource flag
-    u8 neutralizingGas:1; //used for battler with effect so think also need for immutable wind even if is clone different enough
-    //this throws off by 1 creates 1 byte paddspace
-    u8 immutableWind:1;
-    u8 AscensionTimer:2; //time for flying types to recover from smack down 3 turns
-    u8 DragonrageCounter:3; //set to max at 5 increase when gets hit make dragon rage move effect & status set in end turn
-    u8 futureValues:2;
-    u8 paddSpace:8;
-    //u8 RoostTimerStartValue;  //remove for now until I get 
-    /*0x1A*/ u8 unk1A[2]; //don't think this is used
-}; //think I may not actually need roost start value, long as I have timer
-//need look up padding and bitwise to understand how these work so i'm doing it correctly
-//if I don't have proper padding it won't be faster/save space, and could actually slow it down instead
-//vsonic
 
-//largest value is u16 so think struct
-//alligns to 2?
-extern struct DisableStruct gDisableStructs[MAX_BATTLERS_COUNT];
 
 // gets cleared at end turn, via TurnValuesCleanUp function
 struct ProtectStruct    
@@ -807,7 +699,7 @@ struct BattlerState
 {
     u8 targetsDone[MAX_BATTLERS_COUNT];
 
-    u32 commandingDondozo:1;
+    u32 commandingDondozo:1; //will rename since battery work samme just say commandingAlly or somehting
     u32 focusPunchBattlers:1;
     u32 multipleSwitchInBattlers:1;
     u32 alreadyStatusedMoveAttempt:1; // For example when using Thunder Wave on an already paralyzed Pokémon.
@@ -820,7 +712,7 @@ struct BattlerState
     u32 usedMicleBerry:1;
     u32 pursuitTarget:1;
     u32 stompingTantrumTimer:2;
-    u32 canPickupItem:1;
+    u32 canPickupItem:1; //with my reworked effect prob don't need this prob don't even need for honey gather ...but why is it a battler effet...rather than party
     u32 ateBoost:1;
     u32 wasAboveHalfHp:1; // For Berserk, Emergency Exit, Wimp Out and Anger Shell.
     u32 commanderSpecies:11;
@@ -831,11 +723,12 @@ struct BattlerState
     u16 switchIn:1;
     u16 fainted:1;
     u16 isFirstTurn:2;
-    u16 protectSuccessiveFail:1; //if fails successive use
+    u16 protectSuccessiveFail:1; //if fails successive use //think I made may return space
     u16 protectTurnOrderFail:1; //if fails because moved last in turn
     u16 numMisses:4; //added just for multihit result bring actually can use bool
     u16 padding:6;//prob remove successfail stuff
 };
+//shouldn't caught mon also be in here?
 
 struct PartyState
 {
@@ -845,7 +738,7 @@ struct PartyState
     u32 battleBondBoost:1;
     u32 transformZeroToHero:1;
     u32 supersweetSyrup:1;
-    u32 timesGotHit:5;
+    u32 timesGotHit:5; //check think this for evo stuff if so may remove
     u32 changedSpecies:11; // For forms when multiple mons can change into the same pokemon.
     u32 sentOut:1;
     u32 numPhysHits:2; //using for ice face to count hits taken till reset, realize need putin party to prevent abuse
