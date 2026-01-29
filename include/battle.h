@@ -1,11 +1,16 @@
 #ifndef GUARD_BATTLE_H
 #define GUARD_BATTLE_H
-
+// should they be included here or included individually by every file?
+#include "constants/battle_end_turn.h"
+#include "constants/battle_switch_in.h"
+#include "constants/abilities.h"
+#include "constants/battle.h"
+#include "constants/battle_move_resolution.h"
 #include <limits.h>
-#include "global.h"
+//#include "global.h"
 #include "constants/battle.h"
 #include "constants/form_change_types.h"
-//#include "constants/battle_move_effects.h"
+#include "constants/battle_move_effects.h"
 #include "battle_util.h"
 #include "battle_script_commands.h"
 #include "battle_main.h"
@@ -1647,7 +1652,7 @@ static inline u32 GetChosenMoveFromPosition(u32 battler)
 //isSureHitAbility maybe idk somehtiing better
 static inline bool32 IsSureHitAbility(enum Ability ability)
 {
-    return (ability == ABILITY_NO_GUARD || ability == ABILITY_COMPASS)
+    return (ability == ABILITY_NO_GUARD || ability == ABILITY_COMPASS);
 }
 
 //wanted to replace value w max() check
