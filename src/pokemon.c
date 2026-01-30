@@ -2869,6 +2869,14 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     else
         personality = Random32();
 
+    //believe shouldn't be a problem for correctly representing gender
+    //or personality based forms
+    //extremely small chance of gender being wrong
+    //because of changing from 0 to 1
+    //far as can tell only in the case
+    //gender ratio is 1 percent and otherwise would
+    //have rolled a personality value of 0
+    personality = max(personality, 1); //protection for infatuation ensure personality not 0
     SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
     
     nature = SetNature(boxMon);
@@ -3226,7 +3234,6 @@ void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV,
 
 
     personality = Random32();
-    personality = max(personality, 1);
 
     //potential worry is this would also change the guy that gives magikarp
     //by mt moon but honestly that would be even better lol

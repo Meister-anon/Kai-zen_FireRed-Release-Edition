@@ -2761,7 +2761,6 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
             for (j = 0; gBaseStats[species].speciesName[j] != EOS; ++j)
                 nameHash += gBaseStats[species].speciesName[j];
             personalityValue += nameHash << 8;
-            personalityValue = max(personalityValue, 1);
             fixedIV = partyData[i].iv;
             if (fixedIV > MAX_PER_STAT_IVS)
                 fixedIV = MAX_PER_STAT_IVS;

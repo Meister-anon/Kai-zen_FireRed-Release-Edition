@@ -303,7 +303,6 @@ static void GenerateWildMon(u16 species, u8 level, u8 slot)
     {
         chamber = gSaveBlock1Ptr->location.mapNum - MAP_NUM(SEVEN_ISLAND_TANOBY_RUINS_MONEAN_CHAMBER);
         personality = GenerateUnownPersonalityByLetter(sUnownLetterSlots[chamber][slot]);
-        personality = max(personality, 1); //protection for infatuation ensure personality not 0
         CreateMon(&gEnemyParty[0], species, level, USE_RANDOM_IVS, TRUE, personality, FALSE, 0);
     }
 }//ok now I understand how this works, since unown are all the same, it doesn't actually change species
