@@ -303,7 +303,7 @@ static bool8 LoadBattlerSpriteGfx(u8 battler)
 
 static bool8 ShouldHideBattlerSprite(u8 battlerId)
 {
-    if (gDisableStructs[battlerId].caughtMon)
+    if (gBattleMons[battlerId].volatiles.caughtMon)
         return TRUE;
     return FALSE;
 }
@@ -313,7 +313,7 @@ static bool8 ShouldHideBattlerSprite(u8 battlerId)
 //battle partner not caught I guess?
 static bool8 ShouldHideHealthboxSprite(u8 battlerId)
 {
-    if (gDisableStructs[battlerId].caughtMon
+    if (gBattleMons[battlerId].volatiles.caughtMon
     && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     && !gDisableStructs[BATTLE_PARTNER(battlerId)].caughtMon)
         return TRUE;

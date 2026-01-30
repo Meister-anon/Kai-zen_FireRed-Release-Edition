@@ -888,10 +888,10 @@ static void HandleMoveSwitching(u32 battler)
             i = moveInfo->maxPp[gMoveSelectionCursor[battler]];
             moveInfo->maxPp[gMoveSelectionCursor[battler]] = moveInfo->maxPp[gMultiUsePlayerCursor];
             moveInfo->maxPp[gMultiUsePlayerCursor] = i;
-            if (gDisableStructs[battler].mimickedMoves & (1u << gMoveSelectionCursor[battler]))
+            if (gBattleMons[battler].volatiles.mimickedMoves & (1u << gMoveSelectionCursor[battler]))
             {
-                gDisableStructs[battler].mimickedMoves &= (~(1u << gMoveSelectionCursor[battler]));
-                gDisableStructs[battler].mimickedMoves |= (1u << gMultiUsePlayerCursor);
+                gBattleMons[battler].volatiles.mimickedMoves &= (~(1u << gMoveSelectionCursor[battler]));
+                gBattleMons[battler].volatiles.mimickedMoves |= (1u << gMultiUsePlayerCursor);
             }
             MoveSelectionDisplayMoveNames(battler);
             for (i = 0; i < MAX_MON_MOVES; ++i)

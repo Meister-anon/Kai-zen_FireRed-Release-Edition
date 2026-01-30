@@ -4698,7 +4698,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //offense stat that should be used based on above movedamagecategory
     u32 Offensive_Stat;
     u32 weight, hpFraction, speed_Value; 
-    u32 dragonPower = gDisableStructs[battlerIdAtk].DragonrageCounter * 10; //5 to 50
+    u32 dragonPower = gBattleMons[battlerIdAtk].volatiles.DragonrageCounter * 10; //5 to 50
 
     if (!powerOverride)
         gBattleMovePower = gMovesInfo[move].power;
@@ -5148,7 +5148,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
         case EFFECT_FIXATION:
         {
-            gBattleMovePower = gBattleMovePower + (gMovesInfo[move].secondaryEffectChance * gDisableStructs[gBattlerAttacker].fixationTurns);
+            gBattleMovePower = gBattleMovePower + (gMovesInfo[move].secondaryEffectChance * gBattleMons[gBattlerAttacker].volatiles.fixationTurns);
         }
         break;
         case EFFECT_PLEDGE: //need set this up
@@ -5168,12 +5168,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (GetBattlerTurnOrderNum(battlerIdAtk) > GetBattlerTurnOrderNum(battlerIdDef)
             //&& gLastMoves[battlerIdDef] != MOVE_NONE
             //&& !IsBattleMoveStatus(gLastMoves[battlerIdDef])
-            &&  gDisableStructs[battlerIdDef].isFirstTurn != 2) //this is fine becuase turnvaluescleanup decrements it before first turn of battle, so its only 2 at switch in
+            &&  gBattleStruct->battlerState[battlerIdDef].isFirstTurn != 2) //this is fine becuase turnvaluescleanup decrements it before first turn of battle, so its only 2 at switch in
             gBattleMovePower *= 2;
         break;
         case EFFECT_BOLT_BEAK:
         if (GetBattlerTurnOrderNum(battlerIdAtk) < GetBattlerTurnOrderNum(battlerIdDef)
-            || gDisableStructs[battlerIdDef].isFirstTurn == 2)
+            || gBattleStruct->battlerState[battlerIdDef].isFirstTurn == 2)
             gBattleMovePower *= 2;
         break;
     case EFFECT_ROUND:
@@ -5358,7 +5358,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }
         break;
     case EFFECT_SPIT_UP:
-        gBattleMovePower = 100 * gDisableStructs[battlerIdAtk].stockpileCounter;
+        gBattleMovePower = 100 * gBattleMons[battlerIdAtk].volatiles.stockpileCounter;
         break;
     case EFFECT_RETURN:
         gBattleMovePower = 10 * (gBattleMons[gBattlerAttacker].friendship) / 25; //new friendship change makes return initially weaker and scale up slower
@@ -5390,7 +5390,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             // had to move to accuracy function battlescript was below the accuracy check if done here
             //this command is below acc check so if I get here hit is guaranteed success
             //so increment here is fine
-            ++gDisableStructs[gBattlerAttacker].furyCutterCounter;
+            ++gBattleMons[gBattlerAttacker].volatiles.furyCutterCounter;
         }
         break;
         case EFFECT_PSYWAVE:
@@ -5583,13 +5583,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
     case ABILITY_TOOLS_OF_THE_TRADE:
         
-        if (gDisableStructs[battlerIdDef].isFirstTurn == 2) // just switched in
+        if (gBattleStruct->battlerState[battlerIdDef].isFirstTurn == 2) // just switched in
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         
         else if (GetBattlerTurnOrderNum(battlerIdAtk) == gBattlersCount - 1 && move != MOVE_FUTURE_SIGHT && move != MOVE_DOOM_DESIRE)
             gBattleMovePower = (gBattleMovePower * 120 / 100);
 
-        else if (gDisableStructs[battlerIdDef].isFirstTurn == 1 && gSideTimers[defSide].retaliateTimer == 1)
+        else if (gBattleStruct->battlerState[battlerIdDef].isFirstTurn == 1 && gSideTimers[defSide].retaliateTimer == 1)
             gBattleMovePower = (gBattleMovePower * 125 / 100);
 
         if (!CanBattlerEscape(battlerIdDef))
@@ -5607,10 +5607,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //MulModifier(&modifier, UQ_4_12(1.5));
         break;
     case ABILITY_STAKEOUT:
-        if (gDisableStructs[battlerIdDef].isFirstTurn == 2) // just switched in
+        if (gBattleStruct->battlerState[battlerIdDef].isFirstTurn == 2) // just switched in
             gBattleMovePower *= 2;
         
-        else if (gDisableStructs[battlerIdDef].isFirstTurn == 1 && gSideTimers[defSide].retaliateTimer == 1)
+        else if (gBattleStruct->battlerState[battlerIdDef].isFirstTurn == 1 && gSideTimers[defSide].retaliateTimer == 1)
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         break;
     case ABILITY_MEGA_LAUNCHER:
@@ -6215,7 +6215,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     You will need more heat to get your fire started in the cold.*/  //logic for why fire dmg cut in hail/
 
     // flash fire triggered
-    if ((gDisableStructs[battlerIdAtk].flashFireBoosted) && moveType == TYPE_FIRE)
+    if ((gBattleMons[battlerIdAtk].volatiles.flashFireBoosted) && moveType == TYPE_FIRE)
         OffensiveModifer(150);
          //how does this work, do I need to move it, or does it auto boost all damage?
                                         //it boosts all because its not in physical or special formula 
@@ -9131,7 +9131,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                     SetMonData(mon, MON_DATA_PP1 + r5, &data);
                                     if (gMain.inBattle
                                         && battleMonId != 4 && !(gBattleMons[battleMonId].status2 & STATUS2_TRANSFORMED)
-                                        && !(gDisableStructs[battleMonId].mimickedMoves & (1u << r5)))
+                                        && !(gBattleMons[battleMonId].volatiles.mimickedMoves & (1u << r5)))
                                         gBattleMons[battleMonId].pp[r5] = data;
                                     retVal = FALSE;
                                 }
@@ -9156,7 +9156,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 SetMonData(mon, MON_DATA_PP1 + moveIndex, &data);
                                 if (gMain.inBattle
                                     && battleMonId != 4 && !(gBattleMons[battleMonId].status2 & STATUS2_TRANSFORMED)
-                                    && !(gDisableStructs[battleMonId].mimickedMoves & (1u << moveIndex)))
+                                    && !(gBattleMons[battleMonId].volatiles.mimickedMoves & (1u << moveIndex)))
                                     gBattleMons[battleMonId].pp[moveIndex] = data;
                                 retVal = FALSE;
                             }

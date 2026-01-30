@@ -2485,7 +2485,7 @@ u32 GetBattlerTurnOrderNum(u32 battler)
         RecordItemEffectBattle(battlerStealer, GetItemHoldEffect(gLastUsedItem));
         gBattleMons[battlerStealer].item = gLastUsedItem;
 
-        gDisableStructs[battlerStealer].unburdenActive = FALSE;
+        gBattleMons[battlerStealer].volatiles.unburdenActive = FALSE;
         BtlController_EmitSetMonData(battlerStealer, B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
         MarkBattlerForControllerExec(battlerStealer);
     }
@@ -2558,7 +2558,7 @@ void StealTargetItem(u8 battlerStealer, u8 itemBattler)
             */
 
             //this means lose unburden boost as you're gaining an item
-            gDisableStructs[battlerStealer].unburdenActive = FALSE;
+            gBattleMons[battlerStealer].volatiles.unburdenActive = FALSE;
             TrySaveExchangedItem(itemBattler, gLastUsedItem); //if player loses item it tries to save it
 
         }
@@ -2578,7 +2578,7 @@ void StealTargetItem(u8 battlerStealer, u8 itemBattler)
             */
 
             //this means lose unburden boost as you're gaining an item
-            gDisableStructs[battlerStealer].unburdenActive = FALSE;
+            gBattleMons[battlerStealer].volatiles.unburdenActive = FALSE;
             TrySaveExchangedItem(itemBattler, gLastUsedItem); //if player loses item it tries to save it
 
         }
@@ -2600,7 +2600,7 @@ void StealTargetItem(u8 battlerStealer, u8 itemBattler)
             */
 
             //this means lose unburden boost as you're gaining an item
-            gDisableStructs[battlerStealer].unburdenActive = FALSE;
+            gBattleMons[battlerStealer].volatiles.unburdenActive = FALSE;
             TrySaveExchangedItem(itemBattler, gLastUsedItem); //if player loses item it tries to save it
 
         }
@@ -11756,11 +11756,11 @@ static void Cmd_handleballthrow(void)
                 
             odds = (catchRate * ballMultiplier / 10) * (gBattleMons[gBattlerTarget].maxHP * 3 - gBattleMons[gBattlerTarget].hp * 2) / (3 * gBattleMons[gBattlerTarget].maxHP);
             
-            if ((gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP || gDisableStructs[gBattlerTarget].FrozenTurns != 0)) //juset realiszed I could stack statsus bonsu by including status 2, since right now rules exclude status 1 overlap
+            if ((gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP || gBattleMons[gBattlerTarget].volatiles.FrozenTurns != 0)) //juset realiszed I could stack statsus bonsu by including status 2, since right now rules exclude status 1 overlap
                 odds *= 2;
             if (gBattleMons[gBattlerTarget].status1 & (STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON))
                 odds = (odds * 15) / 10;
-            if (gBattleMons[gBattlerTarget].status1 & STATUS1_FREEZE && gDisableStructs[gBattlerTarget].FrozenTurns == 0)
+            if (gBattleMons[gBattlerTarget].status1 & STATUS1_FREEZE && gBattleMons[gBattlerTarget].volatiles.FrozenTurns == 0)
                 odds = (odds * 15) / 10;
 
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_CONFUSION)    //add ifs for status 2 to stack on top of status 1 liek here //include recharge, infatuation, nightmare, curse, & escape prevention & wrap etc
@@ -11778,9 +11778,9 @@ static void Cmd_handleballthrow(void)
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_INFESTATION)    //add ifs for status 2 to stack on top of status 1 liek here //include recharge, infatuation, nightmare, curse, & escape prevention & wrap etc
                 odds += (odds / 10); 
             if ((gBattleMons[gBattlerTarget].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
-            || gDisableStructs[gBattlerTarget].trappedinStickyweb)
+            || gBattleMons[gBattlerTarget].volatiles.trappedinStickyweb)
                 odds += (odds / 10);
-            if (gDisableStructs[gBattlerTarget].rechargeTimer)
+            if (gBattleMons[gBattlerTarget].volatiles.rechargeTimer)
                 odds += (odds / 4);
 
             if (gLastUsedItem != ITEM_SAFARI_BALL)
@@ -11801,7 +11801,7 @@ static void Cmd_handleballthrow(void)
                 && gBattleResults.playerMonWasDamaged == TRUE) // mon caught  //successful capture
             {
                 //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
-                gDisableStructs[gBattlerTarget].caughtMon = TRUE;
+                gBattleMons[gBattlerTarget].volatiles.caughtMon = TRUE;
                 BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
                 //think may need remove this when setup double catch
                 TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
@@ -11816,7 +11816,7 @@ static void Cmd_handleballthrow(void)
             else if ((odds > 254) || (gLastUsedItem == ITEM_MASTER_BALL)) // mon caught  //successful capture
             {
                 //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
-                gDisableStructs[gBattlerTarget].caughtMon = TRUE;
+                gBattleMons[gBattlerTarget].volatiles.caughtMon = TRUE;
                 BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
                 TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
                 MarkBattlerForControllerExec(gBattlerAttacker);
@@ -11842,7 +11842,7 @@ static void Cmd_handleballthrow(void)
                 if (shakes == BALL_3_SHAKES_SUCCESS && gBattleResults.playerMonWasDamaged == TRUE) // mon caught, copy of the code above
                 {
                     //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
-                    gDisableStructs[gBattlerTarget].caughtMon = TRUE;
+                    gBattleMons[gBattlerTarget].volatiles.caughtMon = TRUE;
                     BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
                     TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
                     MarkBattlerForControllerExec(gBattlerAttacker);
@@ -11856,7 +11856,7 @@ static void Cmd_handleballthrow(void)
                 else if (shakes == BALL_3_SHAKES_SUCCESS) // mon caught, copy of the code above
                 {
                     //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
-                    gDisableStructs[gBattlerTarget].caughtMon = TRUE;
+                    gBattleMons[gBattlerTarget].volatiles.caughtMon = TRUE;
                     BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
                     TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);  //form change fix for mon caught i.e disguise etc.
                     MarkBattlerForControllerExec(gBattlerAttacker);
@@ -16083,7 +16083,7 @@ void BS_TryActivateResoluteMoveEnd(void)
     {
         //if incapacitated skip formchange
         if ((gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP)
-        || (gDisableStructs[gBattlerTarget].FrozenTurns != 0))
+        || (gBattleMons[gBattlerTarget].volatiles.FrozenTurns != 0))
             return;
         else
         {
@@ -16104,7 +16104,7 @@ void BS_TryActivateTimeControl(void)
     if (CanActivateTimeControl(gBattlerAttacker)
     && IsTwoTurnsMove(gCurrentMove))//need add two turnmoves list here
     {
-        gDisableStructs[gBattlerAttacker].timecontrolAbilityTimer = 2;
+        gBattleMons[gBattlerAttacker].volatiles.timecontrolAbilityTimer = 2;
         gBattlescriptCurrInstr = cmd->jumpInstr;
     }
     

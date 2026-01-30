@@ -1852,8 +1852,8 @@ u32 CheckMoveLimitations(u32 battler, u8 unusableMoves, u16 check)
             unusableMoves |= 1u << i;
         // Bind
         /*
-            if (gDisableStructs[battler].bindTurns && gDisableStructs[battler].bindedMove != MOVE_NONE)
-            if (gDisableStructs[battler].bindedMove != move) //checking existing moves for locked move, if bind move is move none ex. switch all moves are unusable?
+            if (gBattleMons[battler].volatiles.bindTurns && gBattleMons[battler].volatiles.bindedMove != MOVE_NONE)
+            if (gBattleMons[battler].volatiles.bindedMove != move) //checking existing moves for locked move, if bind move is move none ex. switch all moves are unusable?
             unusableMoves |= (1u << i); //adds moves to unusable list
         *///vsonic
         // Encore
@@ -14599,7 +14599,7 @@ void SetOrClearRageVolatile(void)
 //unsure if still want that
 void ClearRageStatuses(u8 battler) //remove rage if  move used other than rage, changed so just don't call this
 {
-    //gDisableStructs[gBattlerAttacker].rageCounter = 0;  don't reset counter so keep power boosts, 
+    //gBattleMons[gBattlerAttacker].volatiles.rageCounter = 0;  don't reset counter so keep power boosts, 
     //gBattleMons[battler].status2 &= ~(STATUS2_RAGE);
     gBattleMons[battler].volatiles.rage = FALSE;
     gBattleMons[battler].volatiles.rageCounter = 0;

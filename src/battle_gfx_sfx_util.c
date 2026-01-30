@@ -440,7 +440,7 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, u32 battler)
     
     //ok made this new value and replaced ability check as 
     //transform changes ability  works
-    if (gDisableStructs[battler].transformedViaAbility == ABILITY_INVERSION)
+    if (gBattleMons[battler].volatiles.transformedViaAbility == ABILITY_INVERSION)
     {
         isShiny = IsMonShiny(mon);
         currentPersonality = monsPersonality;
@@ -781,7 +781,7 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, u8 notTransform)
         paletteOffset = OBJ_PLTT_ID(battlerAtk);
 
         //as not transforming into target, should use own shiny value
-        if (gDisableStructs[battlerAtk].transformedViaAbility == ABILITY_INVERSION)
+        if (gBattleMons[battlerAtk].volatiles.transformedViaAbility == ABILITY_INVERSION)
         {
             isShiny = IsMonShiny(&PartyMon);
             personalityValue = GetMonData(&PartyMon, MON_DATA_PERSONALITY);

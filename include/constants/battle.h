@@ -959,7 +959,6 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
 
 //largest value is u16 so think struct
 //alligns to 2?
-extern struct DisableStruct gDisableStructs[MAX_BATTLERS_COUNT];
 
 
 // Not really sure what a "hitmarker" is.

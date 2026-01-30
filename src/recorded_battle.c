@@ -409,7 +409,7 @@ void RecordedBattle_CheckMovesetChanges(u8 mode)
                         movePp.moves[j] = gBattleMons[battlerId].moves[moveSlots[j]];
                         movePp.currentPp[j] = gBattleMons[battlerId].pp[moveSlots[j]];
                         movePp.maxPp[j] = ppBonuses[moveSlots[j]];
-                        mimickedMoveSlots[j] = (gDisableStructs[battlerId].mimickedMoves & (1u << j)) >> j;
+                        mimickedMoveSlots[j] = (gBattleMons[battlerId].volatiles.mimickedMoves & (1u << j)) >> j;
                     }
                     for (j = 0; j < MAX_MON_MOVES; j++)
                     {
@@ -417,11 +417,11 @@ void RecordedBattle_CheckMovesetChanges(u8 mode)
                         gBattleMons[battlerId].pp[j] = movePp.currentPp[j];
                     }
                     gBattleMons[battlerId].ppBonuses = 0;
-                    gDisableStructs[battlerId].mimickedMoves = 0;
+                    gBattleMons[battlerId].volatiles.mimickedMoves = 0;
                     for (j = 0; j < MAX_MON_MOVES; j++)
                     {
                         gBattleMons[battlerId].ppBonuses |= movePp.maxPp[j] << (j << 1);
-                        gDisableStructs[battlerId].mimickedMoves |= mimickedMoveSlots[j] << j;
+                        gBattleMons[battlerId].volatiles.mimickedMoves |= mimickedMoveSlots[j] << j;
                     }
 
                     if (!(gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED))

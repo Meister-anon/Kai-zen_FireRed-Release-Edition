@@ -3588,7 +3588,7 @@ static void BattleStartClearSetData(void)
     for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
     {
         gStatuses3[i] = 0;
-        gDisableStructs[i].isFirstTurn = 2; //believe is switching in? based on emerald comment    //vsonic
+        gBattleStruct->battlerState[i].isFirstTurn = 2; //believe is switching in? based on emerald comment    //vsonic
         gLastMoves[i] = MOVE_NONE;
         gLastLandedMoves[i] = MOVE_NONE;
         gLastHitByType[i] = 0;
@@ -3762,7 +3762,7 @@ static void BattleStartClearSetData(void)
 void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
 {
     s32 i;
-    struct DisableStruct disableStructCopy = gDisableStructs[battler];
+    struct DisableStruct disableStructCopy = gBattleMons[battler].volatiles;
 
     ClearIllusionMon(battler);
     if (gMovesInfo[gCurrentMove].effect != EFFECT_BATON_PASS)
@@ -3771,12 +3771,12 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
             gBattleMons[battler].statStages[i] = DEFAULT_STAT_STAGE; //6 is 0 so this resets to normal levels
         for (i = 0; i < gBattlersCount; ++i)
         {
-            if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == battler)
+            if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gBattleMons[i].volatiles.battlerPreventingEscape == battler)
                 gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION; //if mon blocking escape switches, removes escape prevention status from target
-            if ((gStatuses3[i] & STATUS3_ALWAYS_HITS) && gDisableStructs[i].battlerWithSureHit == battler)
+            if ((gStatuses3[i] & STATUS3_ALWAYS_HITS) && gBattleMons[i].volatiles.battlerWithSureHit == battler)
             {
                 gStatuses3[i] &= ~STATUS3_ALWAYS_HITS;
-                gDisableStructs[i].battlerWithSureHit = 0;
+                gBattleMons[i].volatiles.battlerWithSureHit = 0;
             }
         }//exclude STATUS2_SWITCH_LOCKED from here so user can switch out and still lock enemy
     }
@@ -3792,7 +3792,7 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
         {
             if (GetBattlerSide(battler) != GetBattlerSide(i)
              && (gStatuses3[i] & STATUS3_ALWAYS_HITS) != 0
-             && (gDisableStructs[i].battlerWithSureHit == battler))
+             && (gBattleMons[i].volatiles.battlerWithSureHit == battler))
             {
                 gStatuses3[i] &= ~(STATUS3_ALWAYS_HITS);
                 gStatuses3[i] |= 0x10;
@@ -3809,13 +3809,13 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
         
         //think should remove trap timers as well since mon switched out it can escape
         //ex. ghost or flying 
-        gDisableStructs[battler].environmentTrapTurns = 0;
-        gDisableStructs[battler].wrapTurns = 0;
-        gDisableStructs[battler].bindTurns = 0;
-        gDisableStructs[battler].clampTurns = 0;
-        gDisableStructs[battler].swarmTurns = 0;
-        gDisableStructs[battler].snaptrapTurns = 0;
-        gDisableStructs[battler].thundercageTurns = 0;
+        gBattleMons[battler].volatiles.environmentTrapTurns = 0;
+        gBattleMons[battler].volatiles.wrapTurns = 0;
+        gBattleMons[battler].volatiles.bindTurns = 0;
+        gBattleMons[battler].volatiles.clampTurns = 0;
+        gBattleMons[battler].volatiles.swarmTurns = 0;
+        gBattleMons[battler].volatiles.snaptrapTurns = 0;
+        gBattleMons[battler].volatiles.thundercageTurns = 0;
 
         //activebattler is mon switching, i is looping all battlers for effects
         //that should be cleared when user switches out
@@ -3850,18 +3850,18 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
     gActionSelectionCursor[battler] = 0;
     gMoveSelectionCursor[battler] = 0;
 
-    memset(&gDisableStructs[battler], 0, sizeof(struct DisableStruct)); //clear disable struct
+    memset(&gBattleMons[battler].volatiles, 0, sizeof(struct DisableStruct)); //clear disable struct
     
     if (gMovesInfo[gCurrentMove].effect == EFFECT_BATON_PASS)
     {
-        gDisableStructs[battler].substituteHP = disableStructCopy.substituteHP;
-        gDisableStructs[battler].battlerWithSureHit = disableStructCopy.battlerWithSureHit;
-        gDisableStructs[battler].perishSongTimer = disableStructCopy.perishSongTimer;
-        gDisableStructs[battler].SwitchBinding = disableStructCopy.SwitchBinding;
-        gDisableStructs[battler].battlerPreventingEscape = disableStructCopy.battlerPreventingEscape;
+        gBattleMons[battler].volatiles.substituteHP = disableStructCopy.substituteHP;
+        gBattleMons[battler].volatiles.battlerWithSureHit = disableStructCopy.battlerWithSureHit;
+        gBattleMons[battler].volatiles.perishSongTimer = disableStructCopy.perishSongTimer;
+        gBattleMons[battler].volatiles.SwitchBinding = disableStructCopy.SwitchBinding;
+        gBattleMons[battler].volatiles.battlerPreventingEscape = disableStructCopy.battlerPreventingEscape;
     }
     gMoveResultFlags = 0;
-    gDisableStructs[battler].isFirstTurn = 2; // turn of switch in
+    gBattleStruct->battlerState[battler].isFirstTurn = 2; // turn of switch in
     gLastMoves[battler] = MOVE_NONE;
     gLastLandedMoves[battler] = MOVE_NONE;
     gLastHitByType[battler] = 0;
@@ -3927,7 +3927,7 @@ const u8* FaintClearSetData(u32 battler) //see about make status1 not fade wen f
     for (i = 0; i < gBattlersCount; ++i) //trap etc removal on faint
     {
         //also exclude STATUS2_SWITCH_LOCKED from this, so effect persists
-        if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == battler)
+        if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gBattleMons[i].volatiles.battlerPreventingEscape == battler)
             gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;
         
         if (gBattleMons[i].volatiles.infatuation
@@ -3941,18 +3941,18 @@ const u8* FaintClearSetData(u32 battler) //see about make status1 not fade wen f
         //actually should still clear timers but just dont link it
         //to the setter dying, but the trapped mon...
     }
-    gDisableStructs[battler].environmentTrapTurns = 0;
-    gDisableStructs[battler].wrapTurns = 0;
-    gDisableStructs[battler].bindTurns = 0;
-    gDisableStructs[battler].clampTurns = 0;
-    gDisableStructs[battler].swarmTurns = 0;
-    gDisableStructs[battler].snaptrapTurns = 0;
-    gDisableStructs[battler].thundercageTurns = 0;
+    gBattleMons[battler].volatiles.environmentTrapTurns = 0;
+    gBattleMons[battler].volatiles.wrapTurns = 0;
+    gBattleMons[battler].volatiles.bindTurns = 0;
+    gBattleMons[battler].volatiles.clampTurns = 0;
+    gBattleMons[battler].volatiles.swarmTurns = 0;
+    gBattleMons[battler].volatiles.snaptrapTurns = 0;
+    gBattleMons[battler].volatiles.thundercageTurns = 0;
 
     gActionSelectionCursor[battler] = 0;
     gMoveSelectionCursor[battler] = 0;
     
-    memset(&gDisableStructs[battler], 0, sizeof(struct DisableStruct));
+    memset(&gBattleStruct->battlerState[battler], 0, sizeof(struct DisableStruct));
 
     gProtectStructs[battler].protected = FALSE;
     gProtectStructs[battler].endured = FALSE;
@@ -3992,7 +3992,7 @@ const u8* FaintClearSetData(u32 battler) //see about make status1 not fade wen f
     gProtectStructs[battler].statRaised = FALSE;
     gProtectStructs[battler].statFell = FALSE;
 
-    gDisableStructs[battler].isFirstTurn = 2;
+    gBattleStruct->battlerState[battler].isFirstTurn = 2;
 
     gLastMoves[battler] = MOVE_NONE;
     gLastLandedMoves[battler] = MOVE_NONE;
@@ -4074,7 +4074,7 @@ const u8* FaintClearSetData(u32 battler) //see about make status1 not fade wen f
                     || gBattleMons[otherSkyDropper].status2 & STATUS2_CONFUSION
                     || IsBattlerTerrainAffected(otherSkyDropper, STATUS_FIELD_MISTY_TERRAIN)))
                 {
-                    gDisableStructs[otherSkyDropper].ConfusionTurns = ((Random()% 4) + 2);
+                    gBattleMons[otherSkyDropper].volatiles.ConfusionTurns = ((Random()% 4) + 2);
                     gBattlerAttacker = otherSkyDropper;
                     result = BattleScript_ThrashConfuses;
                 }
@@ -4587,9 +4587,9 @@ static void HandleEndTurn_ContinueBattle(void)
                 //coment below makes effect end on turn end rather than when attack is successfully used
                 if (/*gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[j]][GetBattlerSide(i)] == TRUE 
                 && */(gBattleMons[i].ability == ABILITY_FOREWARN || gBattleMons[i].ability == ABILITY_ANTICIPATION)
-                && !gDisableStructs[i].AnticipationForewornIsDone)
+                && !gBattleMons[i].volatiles.AnticipationForewornIsDone)
                 {
-                    gDisableStructs[i].AnticipationForewornIsDone = TRUE;  //to clear out effects at endturn properly
+                    gBattleMons[i].volatiles.AnticipationForewornIsDone = TRUE;  //to clear out effects at endturn properly
                     //...I forgot how battlepartyindex works AGAIN
                     //will this work correctly for my needs or will it not properly
                     //track only for said party/side
@@ -4702,7 +4702,7 @@ u8 IsRunningFromBattleImpossible(u32 battler) // equal to emerald is ability pre
      || (gBattleTypeFlags & BATTLE_TYPE_LINK)
      || (GetBattlerAbility(battler) == ABILITY_RUN_AWAY) //
      || (GetBattlerAbility(battler) == ABILITY_DEFEATIST //
-         && gDisableStructs[battler].defeatistActivated) //
+         && gBattleMons[battler].volatiles.defeatistActivated) //
      || holdEffect == HOLD_EFFECT_SHED_SHELL
      || (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))) //added cuz issue created with adding shadow tag to gastly
         return BATTLE_RUN_SUCCESS;
@@ -4829,7 +4829,7 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     //of not skipping player choice if need recharge
                     //should allow player choose action, good it works perfectly
                     if (gBattleMons[battler].status2 & STATUS2_MULTIPLETURNS)
-                    // || gDisableStructs[battler].rechargeTimer)
+                    // || gBattleMons[battler].volatiles.rechargeTimer)
                     {
                         gChosenActionByBattler[battler] = B_ACTION_USE_MOVE; //skip to use move
                         gBattleCommunication[battler] = STATE_WAIT_ACTION_CONFIRMED_STANDBY;
@@ -4861,18 +4861,18 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                         *(gBattleStruct->moveTarget + battler) = gBattleResources->bufferB[battler][3];
                         return;
                     }
-                    else if (gDisableStructs[battler].encoredMove != MOVE_NONE)
+                    else if (gBattleMons[battler].volatiles.encoredMove != MOVE_NONE)
                     {
-                        gChosenMoveByBattler[battler] = gDisableStructs[battler].encoredMove;
-                        *(gBattleStruct->chosenMovePositions + battler) = gDisableStructs[battler].encoredMovePos;
+                        gChosenMoveByBattler[battler] = gBattleMons[battler].volatiles.encoredMove;
+                        *(gBattleStruct->chosenMovePositions + battler) = gBattleMons[battler].volatiles.encoredMovePos;
                         gBattleCommunication[battler] = STATE_WAIT_ACTION_CONFIRMED_STANDBY;
                         return;
                     }
-                    //else if (gDisableStructs[battler].bindedMove != MOVE_NONE) //ok now undersetand these are fail conditinons nvm was wrong...
-                    else if (gBattleMons[battler].status4 & STATUS4_BIND)// && (gDisableStructs[battler].bindedMove != MOVE_NONE)) //conditions shuold be more or less on same level don' tknow why this one fails
+                    //else if (gBattleMons[battler].volatiles.bindedMove != MOVE_NONE) //ok now undersetand these are fail conditinons nvm was wrong...
+                    else if (gBattleMons[battler].status4 & STATUS4_BIND)// && (gBattleMons[battler].volatiles.bindedMove != MOVE_NONE)) //conditions shuold be more or less on same level don' tknow why this one fails
                     {
-                        gChosenMoveByBattler[battler] = gDisableStructs[battler].bindedMove;
-                        *(gBattleStruct->chosenMovePositions + battler) = gDisableStructs[battler].bindMovepos; //without this fainted logic works??
+                        gChosenMoveByBattler[battler] = gBattleMons[battler].volatiles.bindedMove;
+                        *(gBattleStruct->chosenMovePositions + battler) = gBattleMons[battler].volatiles.bindMovepos; //without this fainted logic works??
                         gBattleCommunication[battler] = STATE_WAIT_ACTION_CONFIRMED_STANDBY;
                         return;
                     }  //working
@@ -5154,7 +5154,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
     else if (ability == ABILITY_SLOW_START && gBattleStruct->CachedAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] != 0)
         speed /= 2;
 
-    else if (ability == ABILITY_DEFEATIST && gDisableStructs[battler].defeatistActivated)
+    else if (ability == ABILITY_DEFEATIST && gBattleMons[battler].volatiles.defeatistActivated)
         speed *= 2;
 
     //think want to change how this works, point is to raise speed like getting serious,
@@ -5168,12 +5168,12 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
     //ok middle ground will set disable struct, so it resets on faint or switch
     else if (ability == ABILITY_WEIGHTED_GI)
     { 
-        if (gBattleMons[battler].hp <= (gBattleMons[battler].maxHP / 2) && !gDisableStructs[battler].ActivatedWeightedGi)
-            gDisableStructs[battler].ActivatedWeightedGi = TRUE;
+        if (gBattleMons[battler].hp <= (gBattleMons[battler].maxHP / 2) && !gBattleMons[battler].volatiles.ActivatedWeightedGi)
+            gBattleMons[battler].volatiles.ActivatedWeightedGi = TRUE;
          //   gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = TRUE; 
 
         //if (gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] == TRUE)
-        if (gDisableStructs[battler].ActivatedWeightedGi)
+        if (gBattleMons[battler].volatiles.ActivatedWeightedGi)
             speed *= 2; //speed = (speed * 150) / 100; unsure which stick with
     }
 
@@ -5245,7 +5245,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
     // various effects
     if (gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_TAILWIND)
         speed *= 2;
-    if (gDisableStructs[battler].unburdenActive)
+    if (gBattleMons[battler].volatiles.unburdenActive)
         speed *= 2;
     if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GRASS, FALSE) && (gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_WATERSPORT)) //give to more grass types
         speed = (speed * 150) / 100; //should prob make grass specific text string, i.e x became revitalized  //vsonic important
@@ -5279,7 +5279,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
         || (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_FLYING, FALSE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler))
         || (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_WIND, FALSE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler)))
         {
-            if (gDisableStructs[battler].TrapSetViaMoldBreaker)
+            if (gBattleMons[battler].volatiles.TrapSetViaMoldBreaker)
                 speed /= 2;
         }//unsure why but inclusion of above struct value seems to also trigger bug...
         else
@@ -5646,31 +5646,31 @@ static void TurnValuesCleanUp(bool8 var0) //resets protect structs specific disb
             
             memset(&gProtectStructs[i], 0, sizeof(struct ProtectStruct));
 
-            if (gDisableStructs[i].isFirstTurn) //starts at 2, think this decrements so its no longer switch in?
-                --gDisableStructs[i].isFirstTurn;
+            if (gBattleStruct->battlerState[i].isFirstTurn) //starts at 2, think this decrements so its no longer switch in?
+                --gBattleStruct->battlerState[i].isFirstTurn;
 
             gBattleStruct->battlerState[i].protectSuccessiveFail = FALSE;
             gBattleStruct->battlerState[i].protectTurnOrderFail = FALSE;
 
             //if (!(gBattleMons[i].status2 & STATUS2_LOCK_CONFUSE))
-            //    gDisableStructs[i].rampageMoveTurns = 0;
+            //    gBattleMons[i].volatiles.rampageMoveTurns = 0;
             
             //confusing but pretty sure even without my change
             //by default this was never used to clear the effect it got cleared in atk canceler?
-           /*if (gDisableStructs[i].rechargeTimer)
+           /*if (gBattleMons[i].volatiles.rechargeTimer)
             {
-                --gDisableStructs[i].rechargeTimer;
+                --gBattleMons[i].volatiles.rechargeTimer;
                 
             }
             else
             {
-                if (gDisableStructs[i].rechargeTimer == 0)
+                if (gBattleMons[i].volatiles.rechargeTimer == 0)
                     gBattleMons[i].status2 &= ~(STATUS2_RECHARGE);
             }*/
            //removed recharge logic just leaving to be handled in atk canceler
                 
         }
-        if (gDisableStructs[i].substituteHP == 0)
+        if (gBattleMons[i].volatiles.substituteHP == 0)
             gBattleMons[i].status2 &= ~(STATUS2_SUBSTITUTE);
 
     }
@@ -5713,7 +5713,7 @@ static void CheckFocusPunch_ClearVarsBeforeTurnStarts(void)
             ++gBattleStruct->focusPunchBattlerId;
             if (gChosenMoveByBattler[battler] == MOVE_FOCUS_PUNCH
              && !(gBattleMons[battler].status1 & STATUS1_SLEEP)
-             && !(gDisableStructs[gBattlerAttacker].truantCounter)
+             && !(gBattleMons[gBattlerAttacker].volatiles.truantCounter)
              && !(gProtectStructs[battler].noValidMoves))
             {
                 BattleScriptExecute(BattleScript_FocusPunchSetUp);
@@ -5728,7 +5728,7 @@ static void CheckFocusPunch_ClearVarsBeforeTurnStarts(void)
              //&& gChosenMoveByBattler[battler] != MOVE_FOCUS_PUNCH   // quick claw message doesn't need to activate here
              && (gProtectStructs[battler].usedCustapBerry || gProtectStructs[battler].quickDraw)
              && !(gBattleMons[battler].status1 & STATUS1_SLEEP)
-             && !(gDisableStructs[gBattlerAttacker].truantCounter)
+             && !(gBattleMons[gBattlerAttacker].volatiles.truantCounter)
              && !(gProtectStructs[battler].noValidMoves))
             {
                 if (gProtectStructs[battler].usedCustapBerry)
@@ -6393,37 +6393,37 @@ static void HandleAction_UseMove(void)
         gHitMarker |= HITMARKER_NO_PPDEDUCT;
         *(gBattleStruct->moveTarget + gBattlerAttacker) = GetBattleMoveTarget(MOVE_STRUGGLE, NO_TARGET_OVERRIDE);
     }
-    else if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS || gDisableStructs[gBattlerAttacker].rechargeTimer)
+    else if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS || gBattleMons[gBattlerAttacker].volatiles.rechargeTimer)
     {
         gCurrentMove = gChosenMove = gLockedMoves[gBattlerAttacker];
     }
-    //else if (gDisableStructs[gBattlerAttacker].bindedMove != MOVE_NONE
-    //    && gDisableStructs[gBattlerAttacker].bindedMove == gBattleMons[gBattlerAttacker].moves[gDisableStructs[gBattlerAttacker].bindMovepos])  //should always be true cuz bs com logic
-    else if (gDisableStructs[gBattlerAttacker].bindTurns && gDisableStructs[gBattlerAttacker].bindedMove != MOVE_NONE) //move should already be set I think
+    //else if (gBattleMons[gBattlerAttacker].volatiles.bindedMove != MOVE_NONE
+    //    && gBattleMons[gBattlerAttacker].volatiles.bindedMove == gBattleMons[gBattlerAttacker].moves[gBattleMons[gBattlerAttacker].volatiles.bindMovepos])  //should always be true cuz bs com logic
+    else if (gBattleMons[gBattlerAttacker].volatiles.bindTurns && gBattleMons[gBattlerAttacker].volatiles.bindedMove != MOVE_NONE) //move should already be set I think
     {
-        gCurrentMove = gChosenMove = gDisableStructs[gBattlerAttacker].bindedMove;  //bind move
+        gCurrentMove = gChosenMove = gBattleMons[gBattlerAttacker].volatiles.bindedMove;  //bind move
         if (gCurrentMove != MOVE_STRUGGLE)
-        gCurrMovePos = gChosenMovePos = gDisableStructs[gBattlerAttacker].bindMovepos;
+        gCurrMovePos = gChosenMovePos = gBattleMons[gBattlerAttacker].volatiles.bindMovepos;
         *(gBattleStruct->moveTarget + gBattlerAttacker) = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
         //fixed bind not working on first move
     }
     // encore forces you to use the same move
-    else if (gDisableStructs[gBattlerAttacker].encoredMove != MOVE_NONE
-          && gDisableStructs[gBattlerAttacker].encoredMove == gBattleMons[gBattlerAttacker].moves[gDisableStructs[gBattlerAttacker].encoredMovePos])
+    else if (gBattleMons[gBattlerAttacker].volatiles.encoredMove != MOVE_NONE
+          && gBattleMons[gBattlerAttacker].volatiles.encoredMove == gBattleMons[gBattlerAttacker].moves[gBattleMons[gBattlerAttacker].volatiles.encoredMovePos])
     {
-        gCurrentMove = gChosenMove = gDisableStructs[gBattlerAttacker].encoredMove;
-        gCurrMovePos = gChosenMovePos = gDisableStructs[gBattlerAttacker].encoredMovePos;
+        gCurrentMove = gChosenMove = gBattleMons[gBattlerAttacker].volatiles.encoredMove;
+        gCurrMovePos = gChosenMovePos = gBattleMons[gBattlerAttacker].volatiles.encoredMovePos;
         *(gBattleStruct->moveTarget + gBattlerAttacker) = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
     }
     // check if the encored move wasn't overwritten
-    else if (gDisableStructs[gBattlerAttacker].encoredMove != MOVE_NONE
-          && gDisableStructs[gBattlerAttacker].encoredMove != gBattleMons[gBattlerAttacker].moves[gDisableStructs[gBattlerAttacker].encoredMovePos])
+    else if (gBattleMons[gBattlerAttacker].volatiles.encoredMove != MOVE_NONE
+          && gBattleMons[gBattlerAttacker].volatiles.encoredMove != gBattleMons[gBattlerAttacker].moves[gBattleMons[gBattlerAttacker].volatiles.encoredMovePos])
     {
-        gCurrMovePos = gChosenMovePos = gDisableStructs[gBattlerAttacker].encoredMovePos;
+        gCurrMovePos = gChosenMovePos = gBattleMons[gBattlerAttacker].volatiles.encoredMovePos;
         gCurrentMove = gChosenMove = gBattleMons[gBattlerAttacker].moves[gCurrMovePos];
-        gDisableStructs[gBattlerAttacker].encoredMove = MOVE_NONE;
-        gDisableStructs[gBattlerAttacker].encoredMovePos = 0;
-        gDisableStructs[gBattlerAttacker].encoreTimer = 0;
+        gBattleMons[gBattlerAttacker].volatiles.encoredMove = MOVE_NONE;
+        gBattleMons[gBattlerAttacker].volatiles.encoredMovePos = 0;
+        gBattleMons[gBattlerAttacker].volatiles.encoreTimer = 0;
         *(gBattleStruct->moveTarget + gBattlerAttacker) = GetBattleMoveTarget(gCurrentMove, NO_TARGET_OVERRIDE);
     }
     else if (gBattleMons[gBattlerAttacker].moves[gCurrMovePos] != gChosenMoveByBattler[gBattlerAttacker]) //force sets move to curr move if chosen move doesnt match
@@ -6672,10 +6672,10 @@ bool8 TryRunFromBattle(u32 battler)
     }
 
     else if (((gBattleMons[battler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED)))
-    && gDisableStructs[battler].TrapSetViaMoldBreaker)
+    && gBattleMons[battler].volatiles.TrapSetViaMoldBreaker)
         return FALSE;
 
-    else if (gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4 && gDisableStructs[battler].TrapSetViaMoldBreaker)
+    else if (gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4 && gBattleMons[battler].volatiles.TrapSetViaMoldBreaker)
         return FALSE;
 
     else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GHOST, FALSE) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
@@ -6683,7 +6683,7 @@ bool8 TryRunFromBattle(u32 battler)
         ++effect;
     }//vsonic if add ability that gives ghost type affinity keep isbattlertype and add below same as aviator
     
-    else if (gDisableStructs[battler].trappedinStickyweb)
+    else if (gBattleMons[battler].volatiles.trappedinStickyweb)
         return FALSE;
 
     //with ability flag check, can use affinity here
@@ -6710,7 +6710,7 @@ bool8 TryRunFromBattle(u32 battler)
         ++effect;
     }
     else if (gBattleMons[battler].ability == ABILITY_DEFEATIST
-        && gDisableStructs[battler].defeatistActivated)
+        && gBattleMons[battler].volatiles.defeatistActivated)
     {
         gLastUsedAbility = ABILITY_DEFEATIST;
         gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
@@ -7191,8 +7191,8 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
         //still has some good use while not being potentially broken?
         //but getting priority on contact moves is also realy nice, and would just make them good
 
-        else if (gDisableStructs[battler].EmergencyExitTimer == 0
-        && gDisableStructs[battler].EmergencyExitWimpoutActive
+        else if (gBattleMons[battler].volatiles.EmergencyExitTimer == 0
+        && gBattleMons[battler].volatiles.EmergencyExitWimpoutActive
         && GetBattlerAbility(battler) == ABILITY_EMERGENCY_EXIT) 
         {   
             priority = 9;
@@ -7200,7 +7200,7 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
 
 
         else if (gBattleMons[battler].status2 & STATUS2_BIDE
-            && gDisableStructs[battler].bideTimer == 0) //think had to remove check for move bide, since that's not set until atk canceler
+            && gBattleMons[battler].volatiles.bideTimer == 0) //think had to remove check for move bide, since that's not set until atk canceler
         {
             priority = 3; //if works, second attack will go before most priority moves /that did it works now
         }    

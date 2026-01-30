@@ -1851,7 +1851,7 @@ If the Pokémon affected by Encore runs out of PP for the affected move, the eff
   logic in HandleEndTurn_ContinueBattle  that sets them to unavailable not only makes them single use,
   it makes them single use for ANYONE not just that mon, for the duration of the battle.
   so if you send out an anticipation/forewarn mon on turn 2, the text would play but the ability would never cancel the move.
-  gDisableStructs[i].forewarnedMove = MOVE_UNAVAILABLE;
+  gBattleMons[i].volatiles.forewarnedMove = MOVE_UNAVAILABLE;
   because this ties it to the position of the battler NOT the specific mon itself *FACEPALM
   no checks or anything just auto settting it to unavailable smh
 
@@ -12109,7 +12109,7 @@ as well as the effect of increasing trap duration
 * just do a check similar to intimidate where it changes a variables value when the effect triggers
 * 
 * 
-* gDisableStructs[battler].isFirstTurn == 2  is logic for mon switchig in, can use for switchin reactivation condition
+* gBattleMons[battler].volatiles.isFirstTurn == 2  is logic for mon switchig in, can use for switchin reactivation condition
 * 
 * //buff willl make strong so need a counter, make intimidate*switchin* fail if status 1    -also added dark exclusion and a couple other ability exclusions as buffs for those i.e oblivious unaware etc.
         // or if confused, if confusion success is same oddds as confusion success attack,
@@ -13425,7 +13425,7 @@ goto EVOLUTION_LOGIC
 * some kind of text message, (takes place in end turn, that hp fell.) then set emergency exit status, in same place as nuisance add priority boost for status
 * last thing is figuring how to make it wait till end of next move to switch out, maybe set argument of next move to hit escape?
 *  also since I want this to be an attack thing, think may setup like taunt where can't select a non damaging move during status
-*.gDisableStructs[gBattlerTarget].tauntTimer = 2 - guess could do this
+*.gBattleMons[gBattlerTarget].volatiles.tauntTimer = 2 - guess could do this
 * 
 * [total effect, if atk less than stage 6 set to 6, (same logic from crit effect), growl,  raise attack stat, set status1 0 to clear, remove confusion infatuation
 * set emergency exit status]

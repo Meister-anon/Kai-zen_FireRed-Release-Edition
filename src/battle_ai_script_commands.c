@@ -1725,7 +1725,7 @@ static void Cmd_if_any_move_disabled_or_encored(void)
 
     if (sAIScriptPtr[2] == 0)
     {
-        if (gDisableStructs[battlerId].disabledMove == MOVE_NONE)
+        if (gBattleMons[battlerId].volatiles.disabledMove == MOVE_NONE)
             sAIScriptPtr += 7;
         else
             sAIScriptPtr = T1_READ_PTR(sAIScriptPtr + 3);
@@ -1736,7 +1736,7 @@ static void Cmd_if_any_move_disabled_or_encored(void)
     }
     else
     {
-        if (gDisableStructs[battlerId].encoredMove != MOVE_NONE)
+        if (gBattleMons[battlerId].volatiles.encoredMove != MOVE_NONE)
             sAIScriptPtr = T1_READ_PTR(sAIScriptPtr + 3);
         else
             sAIScriptPtr += 7;
@@ -1748,13 +1748,13 @@ static void Cmd_if_curr_move_disabled_or_encored(void)
     switch (sAIScriptPtr[1])
     {
     case 0:
-        if (gDisableStructs[gActiveBattler].disabledMove == AI_THINKING_STRUCT->moveConsidered)
+        if (gBattleMons[gActiveBattler].volatiles.disabledMove == AI_THINKING_STRUCT->moveConsidered)
             sAIScriptPtr = T1_READ_PTR(sAIScriptPtr + 2);
         else
             sAIScriptPtr += 6;
         break;
     case 1:
-        if (gDisableStructs[gActiveBattler].encoredMove == AI_THINKING_STRUCT->moveConsidered)
+        if (gBattleMons[gActiveBattler].volatiles.encoredMove == AI_THINKING_STRUCT->moveConsidered)
             sAIScriptPtr = T1_READ_PTR(sAIScriptPtr + 2);
         else
             sAIScriptPtr += 6;
@@ -1844,7 +1844,7 @@ static void Cmd_is_first_turn_for(void)
     else
         battlerId = gBattlerTarget;
 
-    AI_THINKING_STRUCT->funcResult = gDisableStructs[battlerId].isFirstTurn;
+    AI_THINKING_STRUCT->funcResult = gBattleStruct->battlerState[battlerId].isFirstTurn;
 
     sAIScriptPtr += 2;
 }
@@ -1858,7 +1858,7 @@ static void Cmd_get_stockpile_count(void)
     else
         battlerId = gBattlerTarget;
 
-    AI_THINKING_STRUCT->funcResult = gDisableStructs[battlerId].stockpileCounter;
+    AI_THINKING_STRUCT->funcResult = gBattleMons[battlerId].volatiles.stockpileCounter;
 
     sAIScriptPtr += 2;
 }
@@ -1913,7 +1913,7 @@ static void Cmd_get_protect_count(void)
     else
         battlerId = gBattlerTarget;
 
-    AI_THINKING_STRUCT->funcResult = gDisableStructs[battlerId].protectUses;
+    AI_THINKING_STRUCT->funcResult = gBattleMons[battlerId].volatiles.protectUses;
 
     sAIScriptPtr += 2;
 }
@@ -1992,7 +1992,7 @@ static void Cmd_if_level_compare(void)
 
 static void Cmd_if_target_taunted(void)
 {
-    if (gDisableStructs[gBattlerTarget].tauntTimer != 0)
+    if (gBattleMons[gBattlerTarget].volatiles.tauntTimer != 0)
         sAIScriptPtr = T1_READ_PTR(sAIScriptPtr + 1);
     else
         sAIScriptPtr += 5;
@@ -2000,7 +2000,7 @@ static void Cmd_if_target_taunted(void)
 
 static void Cmd_if_target_not_taunted(void)
 {
-    if (gDisableStructs[gBattlerTarget].tauntTimer == 0)
+    if (gBattleMons[gBattlerTarget].volatiles.tauntTimer == 0)
         sAIScriptPtr = T1_READ_PTR(sAIScriptPtr + 1);
     else
         sAIScriptPtr += 5;
