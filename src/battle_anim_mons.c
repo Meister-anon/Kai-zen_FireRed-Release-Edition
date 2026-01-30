@@ -129,6 +129,7 @@ u8 GetBattlerSpriteCoord(u8 battler, u8 coordType)
     return retVal;
 }
 
+#define  SPRITE_COORDINATE_AND_ELEVATION_LOGIC //checck above as well
 u8 GetBattlerYDelta(u8 battler, u16 species)
 {
     u32 personality;
@@ -152,7 +153,7 @@ u8 GetBattlerYDelta(u8 battler, u16 species)
         if (species == SPECIES_UNOWN)
         {
             spriteInfo = gBattleSpritesDataPtr->battlerData;
-            if (!spriteInfo[battler].transformSpecies)
+            if (!spriteInfo[battler].transformSpecies || gBattleMons[battler].volatiles.inversionTransformed)
                 personality = GetMonData(GetBattlerMon(battler), MON_DATA_PERSONALITY);
             else
                 personality = gTransformedPersonalities[battler];
@@ -2127,6 +2128,8 @@ s16 GetBattlerSpriteCoordAttr(u8 battler, u8 attr)
         else
         {
             species = spriteInfo[battler].transformSpecies;
+            if (gBattleMons[battler].volatiles.inversionTransformed)
+                personality = GetMonData(mon, MON_DATA_PERSONALITY);
             personality = gTransformedPersonalities[battler];
         }
 

@@ -9436,6 +9436,7 @@ static void Cmd_setfocusenergy(void)
 //may be able to do hp update stuff better
 //since should have dynamax logic for properly updating hp changes
 //also believe not using transform target personality
+//put inversionTransformed set true here logic is on master of comparison branch
 static void Cmd_transformdataexecution(void)
 {
     CMD_ARGS();

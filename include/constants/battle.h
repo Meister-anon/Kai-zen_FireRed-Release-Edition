@@ -629,7 +629,7 @@ infatuation again
     F(VOLATILE_WRAPPED,                     wrapped,                       (u32, 1)) \
     F(VOLATILE_POWDER,                      powder,                        (u32, 1)) \
     F(VOLATILE_TWOTURN_INTERRUPT,           twoturnInterupt,               (u32, 1)) \
-    F(VOLATILE_UNUSED,                      padding,                       (u32, 1)) \
+    F(VOLATILE_INVERSION_TRAMSFORM,         inversionTransformed,          (u32, 1)) \
     F(VOLATILE_DEFENSE_CURL,                defenseCurl,                   (u32, 1)) \
     F(VOLATILE_TRANSFORMED,                 transformed,                   (u32, 1)) \
     F(VOLATILE_RAGE,                        rage,                          (u32, 1)) \
@@ -792,8 +792,11 @@ enum SemiInvulnerableExclusion
 // and handle the type after
 struct DisableStruct    //reset only on switch and faint, -defeatist needs to be here - not necessarily..
 {
-
-    u16 transformedViaAbility; //story ability if used ability to transform, for properly showing shininess of sprite
+    //only stores inversion see if need or
+    //other value can suffice rn thinking
+    //just do enum instead fo ability store
+    //just do bool was able to fit into existing space of table
+    //u16 transformedViaAbility; //story ability if used ability to transform, for properly showing shininess of sprite
 
     //counter here just for note
     //hmm maybe I can just use gmultihitcounter instead?
