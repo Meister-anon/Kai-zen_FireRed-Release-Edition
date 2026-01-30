@@ -504,7 +504,12 @@ enum BattleSide
 #define B_TORMENT_TIMER      3
 #define B_DESTINY_BOND       2  //Don't Change -value of 2 needed for gen 7 config to block successive use of Destiny Bond
 #define B_ROOST_TIMER        4  //pretty sure I added but double check mathes my effect
-
+#define B_TRENCH_RUN_TIMER   4
+#define B_FREEZE_TURNS       3 //should mean 2 turns of freeze solid
+#define B_SWITCH_BIND_TURNS  2 //should be target stuck in for one turn after use make sure remove when == 0
+#define B_FIXATION_TURNS     3 //to track that fixation move is being repeated max value 3?
+#define B_TIME_CONTROL_TIMER 2 //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
+#define B_ASCENSION_TIMER    3 //for flying type recover from smack down think shoud be 2 turns in effect? //counter balance and unique effect of type
 
 //Ability Timers
 #define SLOW_START_TIMER 3
@@ -548,7 +553,7 @@ enum VolatileFlags
  the formula for volatile max value to bit field translation is log2
 
  If there's n values (e.g. 0 to 2 inclusive is n=3) then you need ceiling(log2(n)) bits. 
- If your calculator doesn't have log2 you can do log(n) / log(2).
+ If your calculator doesn't have log2 you can do log(n+1) / log(2).
 
 e.g. in Python:
 >>> import math
@@ -609,11 +614,13 @@ just things dealing with absorb logic and I guess
 infatuation again
 */
 
+//infatuation stores Pid to correctly catch mon shold be infatuated with
+
 /* Volatile status ailments
  * These are removed after exiting the battle or switching
  *  Enum,                                   Type                           Type, max value, flags */
 #define VOLATILE_DEFINITIONS(F) \
-    F(VOLATILE_INFATUATION,                 infatuation,                   (u32, UINT32_MAX)) \
+    F(VOLATILE_INFATUATION,                 infatuatuatedwithMon,          (u32, UINT32_MAX)) \
     F(VOLATILE_CONFUSION,                   confusionTurns,                (u32, B_CONFUSION_TURNS + 1), V_BATON_PASSABLE) \
     F(VOLATILE_INFESTATION,                 infested,                      (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_FLINCHED,                    flinched,                      (u32, 1)) \
@@ -622,7 +629,6 @@ infatuation again
     F(VOLATILE_EMERGENCY_EXIT,              emergencyExit,                 (u32, 1)) \
     F(VOLATILE_TORMENT,                     torment,                       (u32, 1)) \
     F(VOLATILE_BIDE,                        bideTurns,                     (u32, B_BIDE_TURNS)) \
-    F(VOLATILE_SWITCH_LOCKED,               switchlocked,                  (u32, 2 + 1), V_BATON_PASSABLE) \
     F(VOLATILE_RAMPAGE_TURNS,               rampageTurns,                  (u32, B_RAMPAGE_TURNS)) \
     F(VOLATILE_DRAGON_RAGE_COUNTER,         dragonrageCounter,             (u32, MAX_DRAGON_RAGE_COUNTER), V_BATON_PASSABLE) \
     F(VOLATILE_MULTIPLETURNS,               multipleTurns,                 (u32, 1)) \
@@ -657,7 +663,7 @@ infatuation again
     F(VOLATILE_IMPRISON,                    imprison,                      (u32, 1)) \
     F(VOLATILE_GRUDGE,                      grudge,                        (u32, 1)) \
     F(VOLATILE_GASTRO_ACID,                 gastroAcid,                    (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_EMBARGO                      Freespace,                     (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_STURDY_HUNG_ON,              sturdyhungon,                  (u32, 1))  \
     F(VOLATILE_SMACK_DOWN,                  smackDown,                     (u32, 1)) \
     F(VOLATILE_TELEKINESIS,                 telekinesis,                   (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_MIRACLE_EYE,                 miracleEye,                    (u32, 1)) \
@@ -697,9 +703,9 @@ infatuation again
     F(VOLATILE_RAGE_COUNTER,                rageCounter,                   (u32, MAX_RAGE_BOOST_COUNTER)) \
     F(VOLATILE_SUBSTITUTE_HP,               substituteHP,                  (u32, UINT8_MAX)) \
     F(VOLATILE_ENCORED_MOVE_POS,            encoredMovePos,                (u32, MAX_BITS(MAX_MON_MOVES))) \
-    F(VOLATILE_DISABLE_TIMER,               disableTimer,                  (u32, B_DISABLE_TIMER + 1)) \
-    F(VOLATILE_ENCORE_TIMER,                encoreTimer,                   (u32, B_ENCORE_TIMER + 1)) \
-    F(VOLATILE_PERISH_SONG_TIMER,           perishSongTimer,               (u32, B_PERISH_SONG_TIMER + 1)) \
+    F(VOLATILE_DISABLE_TIMER,               disableTimer,                  (u32, B_DISABLE_TIMER)) \
+    F(VOLATILE_ENCORE_TIMER,                encoreTimer,                   (u32, B_ENCORE_TIMER)) \
+    F(VOLATILE_PERISH_SONG_TIMER,           perishSongTimer,               (u32, B_PERISH_SONG_TIMER)) \
     F(VOLATILE_ROLLOUT_TIMER,               rolloutTimer,                  (u32, UINT8_MAX)) \
     F(VOLATILE_FURY_CUTTER_COUNTER,         furyCutterCounter,             (u32, UINT8_MAX)) \
     F(VOLATILE_METRONOME_ITEM_COUNTER,      metronomeItemCounter,          (u32, UINT8_MAX)) \
@@ -708,21 +714,21 @@ infatuation again
     F(VOLATILE_MIMICKED_MOVES,              mimickedMoves,                 (u32, MAX_BITS(MAX_MON_MOVES))) \
     F(VOLATILE_RECHARGE_TIMER,              rechargeTimer,                 (u32, 2)) \
     F(VOLATILE_AUTOTOMIZE_COUNT,            autotomizeCount,               (u32, UINT8_MAX)) \
-    F(VOLATILE_OCTOLOCK_COUNTER,            octolockCounter,               (u32, MAX_OCTOLOCK_TURNS + 1)) \
-    F(VOLATILE_MAGNET_RISE_TIMER,           magnetRiseTimer,               (u32, B_MAGNET_RISE_TIMER + 1)) \
-    F(VOLATILE_TELEKINESIS_TIMER,           telekinesisTimer,              (u32, B_TELEKINESIS_TIMER + 1)) \
-    F(VOLATILE_TAUNT_TIMER,                 tauntTimer,                    (u32, B_TAUNT_TIMER + 1)) \
-    F(VOLATILE_TORMENT_TIMER,               tormentTimer,                  (u32, B_TORMENT_TIMER + 1)) \
-    F(VOLATILE_LASER_FOCUS_TIMER,           laserFocusTimer,               (u32, B_LASER_FOCUS_TIMER + 1)) \
-    F(VOLATILE_THROAT_CHOP_TIMER,           throatChopTimer,               (u32, B_THROAT_CHOP_TIMER + 1)) \
-    F(VOLATILE_WRAP_TURNS,                  wrapTurns,                     (u32, B_WRAP_TURNS + 1)) \
-    F(VOLATILE_BIND_TURNS,                  bindTurns,                     (u32, B_WRAP_TURNS + 1)) \
-    F(VOLATILE_CLAMP_TURNS,                 clampTurns,                    (u32, B_WRAP_TURNS + 1)) \
-    F(VOLATILE_SWARM_TURNS,                 swarmTurns,                    (u32, B_WRAP_TURNS + 1)) \
-    F(VOLATILE_SNAPTRAP_TURNS,              snaptrapTurns,                 (u32, B_WRAP_TURNS + 1)) \
-    F(VOLATILE_THUNDERCAGE_TURNS,           thundercageTurns,              (u32, B_WRAP_TURNS + 1)) \
-    F(VOLATILE_ENVIRONMENTRAP_TURNS,        environmentTrapTurns,          (u32, B_WRAP_TURNS + 1)) \
-    F(VOLATILE_SYRUP_BOMB_TIMER,            syrupBombTimer,                (u32, B_SYRUP_BOMB_TIMER + 1)) \
+    F(VOLATILE_OCTOLOCK_COUNTER,            octolockCounter,               (u32, MAX_OCTOLOCK_TURNS)) \
+    F(VOLATILE_MAGNET_RISE_TIMER,           magnetRiseTimer,               (u32, B_MAGNET_RISE_TIMER)) \
+    F(VOLATILE_TELEKINESIS_TIMER,           telekinesisTimer,              (u32, B_TELEKINESIS_TIMER)) \
+    F(VOLATILE_TAUNT_TIMER,                 tauntTimer,                    (u32, B_TAUNT_TIMER)) \
+    F(VOLATILE_TORMENT_TIMER,               tormentTimer,                  (u32, B_TORMENT_TIMER)) \
+    F(VOLATILE_LASER_FOCUS_TIMER,           laserFocusTimer,               (u32, B_LASER_FOCUS_TIMER)) \
+    F(VOLATILE_THROAT_CHOP_TIMER,           throatChopTimer,               (u32, B_THROAT_CHOP_TIMER)) \
+    F(VOLATILE_WRAP_TURNS,                  wrapTurns,                     (u32, B_WRAP_TURNS)) \
+    F(VOLATILE_BIND_TURNS,                  bindTurns,                     (u32, B_WRAP_TURNS)) \
+    F(VOLATILE_CLAMP_TURNS,                 clampTurns,                    (u32, B_WRAP_TURNS)) \
+    F(VOLATILE_SWARM_TURNS,                 swarmTurns,                    (u32, B_WRAP_TURNS)) \
+    F(VOLATILE_SNAPTRAP_TURNS,              snaptrapTurns,                 (u32, B_WRAP_TURNS)) \
+    F(VOLATILE_THUNDERCAGE_TURNS,           thundercageTurns,              (u32, B_WRAP_TURNS)) \
+    F(VOLATILE_ENVIRONMENTRAP_TURNS,        environmentTrapTurns,          (u32, B_WRAP_TURNS)) \
+    F(VOLATILE_SYRUP_BOMB_TIMER,            syrupBombTimer,                (u32, B_SYRUP_BOMB_TIMER)) \
     F(VOLATILE_USED_MOVES,                  usedMoves,                     (u32, MAX_BITS(MAX_MON_MOVES))) \
     F(VOLATILE_TRUANT_COUNTER,              truantCounter,                 (u32, 1)) \
     F(VOLATILE_TRUANT_SWITCH_IN_HACK,       truantSwitchInHack,            (u32, 1)) \
@@ -737,7 +743,7 @@ infatuation again
     F(VOLATILE_FLASH_FIRE_BOOSTED,          flashFireBoosted,              (u32, 1)) \
     F(VOLATILE_BOOSTER_ENERGY_ACTIVATED,    boosterEnergyActivated,        (u32, 1)) \
     F(VOLATILE_OVERWRITTEN_ABILITY,         overwrittenAbility,            (u32, ABILITIES_COUNT)) \
-    F(VOLATILE_ROOST_TIMER,                 roostTimer,                    (u32, B_ROOST_TIMER + 1)) \
+    F(VOLATILE_ROOST_TIMER,                 roostTimer,                    (u32, B_ROOST_TIMER)) \
     F(VOLATILE_UNBURDEN_ACTIVE,             unburdenActive,                (u32, 1)) \
     F(VOLATILE_NEUTRALIZING_GAS,            neutralizingGas,               (u32, 1)) \
     F(VOLATILE_IMMUTABLE_WIND,              immutableWind,                 (u32, 1)) \
@@ -747,7 +753,25 @@ infatuation again
     F(VOLATILE_TRY_EJECT_PACK,              tryEjectPack,                  (u32, 1)) \
     F(VOLATILE_OCTOLOCKED_BY,               octolockedBy,                  (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT))) \
     F(VOLATILE_PARADOX_BOOSTED_STAT,        paradoxBoostedStat,            (u32, NUM_STATS)) \
-    F(VOLATILE_UNABLE_TO_USE_MOVE,          unableToUseMove,               (u32, 1))
+    F(VOLATILE_UNABLE_TO_USE_MOVE,          unableToUseMove,               (u32, 1))    \
+    F(VOLATILE_CAUGHT_MON,                  caughtMon,                     (u32, 1))  \
+    F(VOLATILE_EMERGENCYEXIT_TIMER,         emergencyExitTimer,            (u32, 1))  \
+    F(VOLATILE_TRENCH_RUN_TIMER,            trenchRunTimer,                (u32, B_TRENCH_RUN_TIMER))  \
+    F(VOLATILE_FROZEN_TURNS,                frozenTurns,                   (u32, 2))  \
+    F(VOLATILE_SLEEP_COUNTER,               sleepCounter,                  (u32, 1))  \
+    F(VOLATILE_SLEEPCOUNT_SWITCH_IN_HACK,   sleepCountSwitchInHack,        (u32, 1))  \
+    F(VOLATILE_FOREWARNED_BATTLER,          forewarnedBattler,             (u32, enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT)))  \
+    F(VOLATILE_ANTICIPATIONFOREWARN_DONE,   anticipationForewornIsDone,    (u32, 1))  \
+    F(VOLATILE_ACTIVATED_WEIGHTED_GI,       activatedWeightedGi,           (u32, 1))  \
+    F(VOLATILE_SWITCHBIND_TIMER,            switchBindtimer,               (u32, B_SWITCH_BIND_TURNS), V_BATON_PASSABLE)  \
+    F(VOLATILE_TRAPPED_IN_STICKY_WEB,       trappedinStickyweb,            (u32, 1))  \
+    F(VOLATILE_STATUSED_VIA_MOLDBREAKER,    statusedViaMoldBreaker,        (u32, 1))  \
+    F(VOLATILE_FIXATION_TURNS,              fixationTurns,                 (u32, B_FIXATION_TURNS))  \
+    F(VOLATILE_FIXATED_MOVE,                fixatedMove,                   (u32, MOVES_COUNT_ALL))  \
+    F(VOLATILE_FIRSTURN_ABILITY_CHECK,      isFirstTurnAbilityActive,      (u32, 1))  \
+    F(VOLATILE_TIME_CONTROL,                timecontrolAbilityTimer,       (u32, B_TIME_CONTROL_TIMER))  \
+    F(VOLATILE_TRAPPED_VIA_MOLDBREAKER,     trapSetViaMoldBreaker,         (u32, 1))  \
+    F(VOLATILE_ASCENSION_TIMER,             ascensionTimer,                (u32, B_ASCENSION_TIMER))  \
 
 
 /* Use within a macro to get the maximum allowed value for a volatile. Requires _typeMaxValue as input. */
@@ -790,8 +814,9 @@ enum SemiInvulnerableExclusion
 //to regex to fit it in,
 //wha will do is make an enum from the existing name fix by hand later
 // and handle the type after
-struct DisableStruct    //reset only on switch and faint, -defeatist needs to be here - not necessarily..
-{
+//finished adding all values just need update volatile name
+//optimization will come later
+
     //only stores inversion see if need or
     //other value can suffice rn thinking
     //just do enum instead fo ability store
@@ -804,16 +829,16 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     //wasn't even really noticed but this move had effect
     //where the animation would flip each attack
     //as if attack was truly successive and coming from diff directions
-    /*0x10*/ u8 furyCutterCounter;  //apparently still need for anim task in anim_effects_2  //for some reason task is broken not switching hits
+    /*0x10*/ //u8 furyCutterCounter;  //apparently still need for anim task in anim_effects_2  //for some reason task is broken not switching hits
 
             //look into what this was again
-             u8 caughtMon : 1; //group  //idk what for using now for pc caught setup, since clears on switch shouldn't cause issues?
-             
-             u8 EmergencyExitTimer:1;
-             u8 FrozenTurns:2; //group  //made w sleep timer and stockpile together in mind
-    /*0x18*/ u8 truantCounter : 1;
-    /*0x18*/ u8 sleepCounter : 1; //copy of truant counter used for sleep heal may need copy switch hack as well hmm
-    /*0x18*/ u8 truantSwitchInHack : 1; // unused? 
+             //u8 caughtMon : 1; //group  //idk what for using now for pc caught setup, since clears on switch shouldn't cause issues?
+             ///u8 caughtMon : 1;
+             //u8 EmergencyExitTimer:1;
+             //u8 FrozenTurns:2; //group  //made w sleep timer and stockpile together in mind
+             //u8 truantCounter : 1;
+             //u8 sleepCounter : 1; //copy of truant counter used for sleep heal may need copy switch hack as well hmm
+             //u8 truantSwitchInHack : 1; // unused? 
     /*0x18*/ 
     //u8 toxicTurn; //wit change to statusnig will need move aqua ring ingrain and toxic turn counters to differnet way
 
@@ -875,7 +900,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     //point is its on the same lane as pokemon that float
     //but can't fly and so are still hit by ground effects
     //ex geodude
-    u8 trenchRunTimer; //timer for trench run, 4 turns end turn decrement
+    //u8 trenchRunTimer:3; //timer for trench run, 4 turns end turn decrement
     //kept here for note
     //u8 environmentTrapTurns;   //turn counter for environment traps fire spin whirlpool sandtomb magma storm
     
@@ -939,23 +964,23 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     //theoretically people could just strip it all out and get the beneift
     //but that still seems dumb
     
-    u8 forewarnedBattler;
-    u8 AnticipationForewornIsDone;    //for storing move from anticipation ability, may remove to make room for fixation logic
-    u8 ActivatedWeightedGi:1; //should make 1 bit, bitfied
-    u8 SwitchBinding:2;
-    u8 sturdyhungon:1; //to surivive full hp ko effect one time /destiny bond, perish song, final gambit etc.
-    u8 trappedinStickyweb:1; //needed trigger for mon trapped in sticky web and can't switch
+    //u8 forewarnedBattler;
+    //u8 AnticipationForewornIsDone;    //for storing move from anticipation ability, may remove to make room for fixation logic
+    //u8 ActivatedWeightedGi:1; //should make 1 bit, bitfied
+    //u8 SwitchBinding:2;
+    //u8 sturdyhungon:1; //to surivive full hp ko effect one time /destiny bond, perish song, final gambit etc.
+    //u8 trappedinStickyweb:1; //needed trigger for mon trapped in sticky web and can't switch
     
-    u8 StatusSetViaMoldBreaker:1;
-    u8 fixationTurns:2;   //to track that fixation move is being repeated max value 3?
-    u16 fixatedMove; //was forewarnmove replaced for Fixation status
-    u8 hasSwitchinActivated; //use for switch in end turn check //rn just for zacian zamazenta effetcts, triggered on switch in activate/end in endturn
-    u8 timecontrolAbilityTimer:2; //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
-    u8 TrapSetViaMoldBreaker:1;
-    u8 AscensionTimer:2; //time for flying types to recover from smack down 3 turns
+    //u8 StatusSetViaMoldBreaker:1;
+    //u8 fixationTurns:2;   //to track that fixation move is being repeated max value 3?
+    //u16 fixatedMove; //was forewarnmove replaced for Fixation status
+    //u8 hasSwitchinActivated; //use for switch in end turn check //rn just for zacian zamazenta effetcts, triggered on switch in activate/end in endturn
+    //u8 timecontrolAbilityTimer:2; //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
+    //u8 TrapSetViaMoldBreaker:1;
+    //u8 AscensionTimer:2; //time for flying types to recover from smack down 3 turns
 
-    /*0x1A*/ u8 unk1A[2]; //don't think this is used
-}; //think I may not actually need roost start value, long as I have timer
+    /*0x1A*/ //u8 unk1A[2]; //don't think this is used
+ //think I may not actually need roost start value, long as I have timer
 //need look up padding and bitwise to understand how these work so i'm doing it correctly
 //if I don't have proper padding it won't be faster/save space, and could actually slow it down instead
 //vsonic
