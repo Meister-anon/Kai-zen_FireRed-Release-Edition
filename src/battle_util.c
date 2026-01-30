@@ -1336,7 +1336,7 @@ const u8 *CancelMultiTurnMoves(u32 battler, enum SkyDropState skyDropState)
         result = CheckSkyDropState(battler, skyDropState);
 
     gBattleMons[battler].volatiles.rolloutTimer = 0;
-    gBattleMons[battler].volatiles.furyCutterCounter = 0;
+    //gBattleMons[battler].volatiles.furyCutterCounter = 0;
 
     return result;
 }
@@ -7759,7 +7759,7 @@ bool32 HasEnoughHpToEatBerry(u32 battler, enum Ability ability, u32 hpFraction, 
 //vsonic believe don't need furycutter here
 void ClearVariousBattlerFlags(u32 battler)
 {
-    gBattleMons[battler].volatiles.furyCutterCounter = 0;
+    //gBattleMons[battler].volatiles.furyCutterCounter = 0;
     gBattleMons[battler].volatiles.destinyBond = 0;
     gBattleMons[battler].volatiles.glaiveRush = FALSE;
     gBattleMons[battler].volatiles.grudge = FALSE;
@@ -8018,46 +8018,41 @@ u8 GetAttackerObedienceForAction()
 //put fury cutter logic together
 //returns move acc if not move
 //vsonic
-u32 GetFuryCutterAccuracy(u32 battlerAtk, u32 move)
+u32 GetFuryCutterAccuracy(u32 move)
 {
-    u32 i;
+    u32 i, furyCutterAccDrop;
+    
     if (move == MOVE_FURY_CUTTER) { //still not quite right, doesn't display right message for things like wonderguard
 
         //Logic for altering animation used in battle_anim_effects_2
-        /*if (gBattleMons[battlerAtk].volatiles.furyCutterCounter == gMultiTask)
-            gBattleMons[battlerAtk].volatiles.furyCutterCounter = 0;
-        
-        if (gBattleMons[battlerAtk].volatiles.furyCutterCounter != gMultiTask)  //increment until reach 5
-            ++gBattleMons[battlerAtk].volatiles.furyCutterCounter; //removing to test that it isn't incrementing twice. (it was)
-        */
 
         //acc drop effect
-        gBattleMons[battlerAtk].volatiles.furyCutterAccDrop = GetMoveAccuracy(move);
+        furyCutterAccDrop = GetMoveAccuracy(move);
 
         for (i = 0; i <= gBattleMons[battlerAtk].volatiles.furyCutterCounter; ++i) { //triggers on second hit, so i = 1 - current num hits, i =3 on4th hit
             
             if (i == 2) //should be 3rd hit
             {
-                gBattleMons[battlerAtk].volatiles.furyCutterAccDrop = 90; //set 3rd hit to 95, 4th hit remains the same, set main acc to 100, to ensure first 2 hits land
+                furyCutterAccDrop = 90; //set 3rd hit to 95, 4th hit remains the same, set main acc to 100, to ensure first 2 hits land
             }
             
             //need to lower this much more
             if (i >= 3) //makes only trigger onlast 4th/5th hit, to slightly lower chance of landing 4th hit if you rolled it
             {
-                gBattleMons[battlerAtk].volatiles.furyCutterAccDrop -= (i * 2); //think this should be good
-                gBattleMons[battlerAtk].volatiles.furyCutterAccDrop *= 92; //so far is working to stop the move,
-                gBattleMons[battlerAtk].volatiles.furyCutterAccDrop /= 100;
+                furyCutterAccDrop -= (i * 2); //think this should be good
+                furyCutterAccDrop *= 92; //so far is working to stop the move,
+                furyCutterAccDrop /= 100;
             }  //makes 4th hit have 85 accuracy - lower now
             //if (i == 3) 
             //{/
-            //   gBattleMons[battlerAtk].volatiles.furyCutterAccDrop -= 16; //weighting for last 2 hits, only need to do for one i value as its all passed to next
+            //   furyCutterAccDrop -= 16; //weighting for last 2 hits, only need to do for one i value as its all passed to next
             //}
-            //gBattleMons[battlerAtk].volatiles.furyCutterAccDrop *= 95; //so far is working to stop the move,
-            //gBattleMons[battlerAtk].volatiles.furyCutterAccDrop /= 100;  //may replace with just moveAcc  still don't know why not working
+            //furyCutterAccDrop *= 95; //so far is working to stop the move,
+            //furyCutterAccDrop /= 100;  //may replace with just moveAcc  still don't know why not working
             
         } //seems still overperforming potentially drop above 7 to a 8 or 9? or drop to third hit ni stead of 4th? by changing == 3 to ==2 ?  check later vsonic
 
-        return gBattleMons[battlerAtk].volatiles.furyCutterAccDrop;
+        return furyCutterAccDrop;
     } 
     else    
         return GetMoveAccuracy(move);
@@ -8666,12 +8661,12 @@ static inline u32 CalcRolloutBasePower(u32 battlerAtk, u32 basePower)
     return basePower;
 }
 
-//not using
+
 static inline u32 CalcFuryCutterBasePower(u32 battlerAtk, u32 basePower)
 {
     for (u32 i = 0; i < gBattleMons[battlerAtk].volatiles.furyCutterCounter; i++)
-        basePower *= 2;
-    return min(basePower, 160); // The duration to reach 160 depends on a gen
+        basePower += 10;
+    return basePower;
 }
 
 static inline u32 CalcTerrainBoostedPower(struct BattleContext *ctx, u32 basePower)
@@ -8775,10 +8770,10 @@ static inline u32 CalcMoveBasePower(struct BattleContext *ctx)
         break;
     case EFFECT_FRUSTRATION:
         basePower = 10 * (MAX_FRIENDSHIP - gBattleMons[battlerAtk].friendship) / 25;
-        break;
-    /*case EFFECT_FURY_CUTTER:
+        break;//reworking will use frustrationCounter
+    case EFFECT_FURY_CUTTER:
         basePower = CalcFuryCutterBasePower(battlerAtk, basePower);
-        break;*/
+        break;
     case EFFECT_ROLLOUT:
         basePower = CalcRolloutBasePower(battlerAtk, basePower);
         break;
@@ -13428,7 +13423,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, enum Ability atkA
 
     //should work gets acc check if fury cutter
     //otherwise just sets normal move acc
-    moveAcc = GetFuryCutterAccuracy(battlerAtk, move);
+    moveAcc = GetFuryCutterAccuracy(move);
 
     //cacophony boost
         if (ShouldCacophonyBoostAccuracy(move))

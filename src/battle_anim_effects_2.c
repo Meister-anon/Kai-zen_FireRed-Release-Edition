@@ -3766,12 +3766,20 @@ static void AnimGuardRing(struct Sprite *sprite)
     StoreSpriteCallbackInData6(sprite, DestroyAnimSprite);
 }
 
+//think change to (strike count minus multihitcounter) & 1
+//should have same effect
 void AnimTask_IsFuryCutterHitRight(u8 taskId)
 {
-    gBattleAnimArgs[ARG_RET_ID] = gAnimDisableStructPtr->furyCutterCounter & 1;
+    //gBattleAnimArgs[ARG_RET_ID] = gAnimDisableStructPtr->furyCutterCounter & 1;
+    gBattleAnimArgs[ARG_RET_ID] = (GetMoveStrikeCount(MOVE_FURY_CUTTER) - gMultiHitCounter) & 1;
     DestroyAnimVisualTask(taskId);
 }
 
+//returns some different effect to make hit seem stronger
+//need find number of seccessive hits...
+//not sure how to get working vsonic
+//ok what I could do is keep counter just for this
+//reset to 0 on miss, increase for each successive hit
 void AnimTask_GetFuryCutterHitCount(u8 taskId)
 {
     gBattleAnimArgs[ARG_RET_ID] = gAnimDisableStructPtr->furyCutterCounter;

@@ -1,5 +1,6 @@
 #include "global.h"
 #include "battle.h"
+#include "battle_anim.h"
 #include "battle_hold_effects.h"
 #include "battle_ai_util.h"
 #include "battle_util.h"
@@ -813,6 +814,7 @@ static enum MoveEndResult MoveEnd_HpThresholdItemsTarget(void)
 static enum MoveEndResult MoveEnd_MultihitMove(void)
 {
     enum MoveEndResult result = MOVEEND_STEP_CONTINUE;
+    bool32 FuryCut = gCurrentMove == MOVE_FURY_CUTTER;
 
     if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & (MOVE_RESULT_FAILED | MOVE_RESULT_DOESNT_AFFECT_FOE)) 
      && !gBattleStruct->unableToUseMove
@@ -823,11 +825,20 @@ static enum MoveEndResult MoveEnd_MultihitMove(void)
         if (!IsBattlerAlive(gBattlerTarget) && target != TARGET_SMART)
             gMultiHitCounter = 0;
 
+        //should be if didn't miss
         if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_MISSED))
+        {
+            if (FuryCut)
+                gBattleMons[gBattlerAttacker].volatiles.furyCutterCounter++;
             gBattleScripting.multihitString[4]++;
+        }
+        //should be if miss and can continue
         else if (gMultiHitCounter)
+        {
+            if (FuryCut)
+                gBattleMons[gBattlerAttacker].volatiles.furyCutterCounter = 0;
             gBattleStruct->moveResultFlags[gBattlerTarget] = 0;
-            //hopefully clear only if miss should clear miss each hit and allow restrike
+        }    //hopefully clear only if miss should clear miss each hit and allow restrike
 
         if (gMultiHitCounter == 0)
         {
@@ -835,6 +846,7 @@ static enum MoveEndResult MoveEnd_MultihitMove(void)
                 BattleScriptCall(BattleScript_ScaleShot);
             else
                 BattleScriptCall(BattleScript_MultiHitPrintStrings);
+            gBattleMons[gBattlerAttacker].volatiles.furyCutterCounter = 0;
             result = MOVEEND_STEP_RUN_SCRIPT;
             gBattleStruct->battlerState[gBattlerAttacker].numMisses = 0;
         }
@@ -1904,12 +1916,6 @@ static void SetSameMoveTurnValues(u32 moveEffect)
 
     switch (moveEffect)
     {
-    case EFFECT_FURY_CUTTER:
-        if (increment && gBattleMons[gBattlerAttacker].volatiles.furyCutterCounter < 5)
-            gBattleMons[gBattlerAttacker].volatiles.furyCutterCounter++;
-        else
-            gBattleMons[gBattlerAttacker].volatiles.furyCutterCounter = 0;
-        break;
     case EFFECT_ROLLOUT:
         if (increment && ++gBattleMons[gBattlerAttacker].volatiles.rolloutTimer < 5)
         {
@@ -1928,7 +1934,6 @@ static void SetSameMoveTurnValues(u32 moveEffect)
         break;
     default: // not consecutive
         gBattleMons[gBattlerAttacker].volatiles.rolloutTimer = 0;
-        gBattleMons[gBattlerAttacker].volatiles.furyCutterCounter = 0;
         break;
     }
 

@@ -706,7 +706,7 @@ infatuation again
     F(VOLATILE_BATTLER_PREVENTING_ESCAPE,   battlerPreventingEscape,       (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT))) \
     F(VOLATILE_BATTLER_WITH_SURE_HIT,       battlerWithSureHit,            (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT))) \
     F(VOLATILE_MIMICKED_MOVES,              mimickedMoves,                 (u32, MAX_BITS(MAX_MON_MOVES))) \
-    F(VOLATILE_RECHARGE_TIMER,              rechargeTimer,                 (u32, 1)) \
+    F(VOLATILE_RECHARGE_TIMER,              rechargeTimer,                 (u32, 2)) \
     F(VOLATILE_AUTOTOMIZE_COUNT,            autotomizeCount,               (u32, UINT8_MAX)) \
     F(VOLATILE_OCTOLOCK_COUNTER,            octolockCounter,               (u32, MAX_OCTOLOCK_TURNS + 1)) \
     F(VOLATILE_MAGNET_RISE_TIMER,           magnetRiseTimer,               (u32, B_MAGNET_RISE_TIMER + 1)) \
@@ -733,13 +733,14 @@ infatuation again
     F(VOLATILE_WEATHER_ABILITY_DONE,        weatherAbilityDone,            (u32, 1)) \
     F(VOLATILE_TERRAIN_ABILITY_DONE,        terrainAbilityDone,            (u32, 1)) \
     F(VOLATILE_SYRUP_BOMB_IS_SHINY,         syrupBombIsShiny,              (u32, 1)) \
-    F(VOLATILE_USED_PROTEAN_LIBERO,         usedProteanLibero,             (u32, 1)) \
+    F(VOLATILE_EMERGENCY_WIMPOUT_ACTIVE,    EmergencyExitWimpoutActive,    (u32, 1)) \
     F(VOLATILE_FLASH_FIRE_BOOSTED,          flashFireBoosted,              (u32, 1)) \
     F(VOLATILE_BOOSTER_ENERGY_ACTIVATED,    boosterEnergyActivated,        (u32, 1)) \
     F(VOLATILE_OVERWRITTEN_ABILITY,         overwrittenAbility,            (u32, ABILITIES_COUNT)) \
     F(VOLATILE_ROOST_TIMER,                 roostTimer,                    (u32, B_ROOST_TIMER + 1)) \
     F(VOLATILE_UNBURDEN_ACTIVE,             unburdenActive,                (u32, 1)) \
     F(VOLATILE_NEUTRALIZING_GAS,            neutralizingGas,               (u32, 1)) \
+    F(VOLATILE_IMMUTABLE_WIND,              immutableWind,                 (u32, 1)) \
     F(VOLATILE_TRIGGER_ICE_FACE,            triggerIceFace,                (u32, 1)) \
     F(VOLATILE_UNNERVE_ACTIVATED,           unnerveActivated,              (u32, 1)) \
     F(VOLATILE_ENDURED,                     endured,                       (u32, 1)) \
@@ -761,6 +762,7 @@ enum Volatile
     VOLATILE_DEFINITIONS(UNPACK_VOLATILE_ENUMS)
     /* Expands to VOLATILE_CONFUSION, VOLATILE_FLINCHED, etc. */
 };
+//NOTE REMOVED libero protean check for EmergencyExitWimpoutActive
 
 enum SemiInvulnerableState
 {
@@ -800,7 +802,6 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     //where the animation would flip each attack
     //as if attack was truly successive and coming from diff directions
     /*0x10*/ u8 furyCutterCounter;  //apparently still need for anim task in anim_effects_2  //for some reason task is broken not switching hits
-             u16 furyCutterAccDrop; //need for acc drop to keep value 
 
             //look into what this was again
              u8 caughtMon : 1; //group  //idk what for using now for pc caught setup, since clears on switch shouldn't cause issues?
@@ -812,8 +813,6 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     /*0x18*/ u8 truantSwitchInHack : 1; // unused? 
     /*0x18*/ 
     //u8 toxicTurn; //wit change to statusnig will need move aqua ring ingrain and toxic turn counters to differnet way
-    u8 ingrainTurn;
-    u8 aquaringTurn;//vsonic think can prob use in place of aquaring rooted status just use value timer 0
 
     //is trap effect like wrap etc. other effects persist on switch
     //but idea is physically wrapped around target
@@ -864,7 +863,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     //ALRIGHT DONE was able to replace slow start timer w effect I need
     //u8 octolock : 1; 
 
-    //similar to roost plan was fly low
+        //similar to roost plan was fly low
     //but becomes harder to track
     //so becomes grouded but gets a 2 stage evasion boost
     //doesn't "fully" make sense as still flying above ground
@@ -877,6 +876,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     //kept here for note
     //u8 environmentTrapTurns;   //turn counter for environment traps fire spin whirlpool sandtomb magma storm
     
+
     //keep here for now is single use ability
     //but need make sure effect works right
     //only should work first turn but don't want to just work on any battler
@@ -922,140 +922,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     //since this is checking 2 diff abilities not just
     //if ability itself is on list
 
-    //idea entire ability refactor
-    //put activation conditions within ability struct
-    //would simply abilitybattle effects
-    //should be able to trunctate it greatly
-    //as all the category stuff would be on the ability itself
-    //would only need to keep as far as telling order things should
-    //activate in, is essentially 
-    //same thing as move effect refactor but for abilities
-    //would have canabilityactivate function
-    //if there is no criteria or it meets the criteria 
-    //ability should activate
-    //ex contact abilities could be {contact, attacker}
-    //or {contact, target}
-    //things like defeatist or schooling could have hp threshold activation
-    //some things would need structs some things may not fit in union
-    //so lot of thought would have to go into this
-    //to ensure I'm no tlimiting creativity
-    //ex hp threshold as a union seem fine,
-    //but things like schooling also have a lvl component
-    //and they can't both be in a union as only one can activate
-    //need study move struct
-    //and only benefit is efficiency or hopefully simpler pipeline
-    //rather than having to constantly write sme code effects over and over
-    //if can't fit things in union would just cause
-    //massive bloat of having to add new values for ablitystruct
-    //rather than just writing a function
-
-    //with how I have it set I guess
-    //nothign is stopping from writing ability itself
-    //since I will still need ability category logic
-    //to know where to put ability actiation order
-    //so can write fields by hand hmm but would require act condition 
-    //beingin function so no still has potential bloat
-    //and requires one system
-    //that said the move effect system works
-    //but that is also augmented by additional effects field
-    //that is entirely separate and can be coded separately
-    //nothing for it until I get into it I guess
-    //but main concern is cover all existing effects
-    //while leaving room for creation of new ones
-    //for the most part without compromising ability to make new 
-    //effects without having to add values outside of union
-    //thus adding to struct size, I THINK just making new unions
-    //should be fine?
-    //ok but how do I read the write effect from union?
-    //I know that's why things had unique effect ids
-    //I can't use ability for that so think
-    //I'd need activation effect outside of union
-    //to tell it which condition to read?
-    //ex would need field for contact based activation
-    //then contact union would be contactwithAttacker
-    //contactByAttacker and from that could descern what effect is
-    //would need target argument as well
-    //potentially can use move target stuff for that
-    //i.e trace would be random target
-    //intimidate could be both etc.
-    //but need that to also make sense with the 
-    //target refactor that was just done for abilities
-    //so look into that first to make sure all good
-    //oh that's a different thing 
-    //specifically move target not this
-    //this idea is the ability targets a foe or ally
-    //ex steely spirit which powers up user and allies 
-    //steel moves
-    //ok so I'd need to make an effect field
-    //for ability category that way could fit in abilityeffect functions
-    //wouldn't lose existing order that way as its on ability itself
-    //something thigs would tweak or be put together
-    //like contact effects from removal of need to separate
-    //whether is on contact with or contact by
-    //ok so for example static would have
-    //ablityEffect Move End
-    //but also be a contact effect
-    //now I could go further and set status to be set here
-    //but the point wasn't to do entire effect
-    //but be able to consolidate the activation condition
-    //
-    /*
-    if (IsBattlerAlive(gBattlerTarget)
-    && !gBattleStruct->unableToUseMove
-    && CanBePoisoned(gBattlerAttacker, gBattlerTarget, gLastUsedAbility, GetBattlerAbility(gBattlerTarget))
-    && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker), move)
-    && IsBattlerTurnDamaged(gBattlerTarget) // Need to actually hit the target
-    && RandomPercentage(RNG_POISON_TOUCH, 30)
-    */
-
-   //so if I stop there I need to filter type of move end effect
-   //if its contact then I'd need set if its contactwithAttacker
-   //or contactByAttacker
-   //but if I also set a status argument 
-   //then I can handle the canbestatused argument as well
-
-   //point is pre define activation condition
-   //so can handle condition together in 
-   //CanAbilityActivate funtion
-
-   //hmm may not be worth doing, if I make new effect
-   //would still need to add it to all those functions
-   //and blocks,
-   //so for the most part not worth doing
-   //but think stil useful from perspective of my original point
-   //can handle specific field categories
-   //to simplify their use
-   //ex timers, single use and restricted abilities
-   //believe can also handle hp thresholds like that
-   //ok so union 32 or u16
-   //struct for comparison condition and then value of hp percent
-   //value that would be translated into percent so for example
-   //galewings could be handled {greater or equal, 50}
-   //to get that to work would need to add
-   //hp based activation as a field
-   //basedOnHP
-   //and I think I can do contact abiltiy as well
-   //really like idea of simplifying them into one
-   //so make field onContact or ContactEffect
-   //then can setup contactwithAttacker
-   //or contactByAttacker as union boolean field
-   //make enum for contact effects with those two
-   //would be contact type field
-   //can use function to set values of who should
-   //attacker/user and target/receiver of contact effect
-   //similar to affectsUser logic
-   //can make function to check contactType
-   //and do if else logic
-   //correct values for conditions
-   //i.e attacker defender and set the battler
-   //oppposite based on contactType of ability
-   //but if done with union that would break
-   //if I needed an ability that had both effects
-   //of hp based activation and contact effects
-   //so instead better to make bitfield
-   //and just eat the cost in the abilitystruct
-   //to not lose functionality
-   //if its that simple don't need separate branch as well
+    
     
     //hmm think this is more or less same issue of coding
     //vs game engine that just simplifies actions
@@ -1073,29 +940,17 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 AnticipationForewornIsDone;    //for storing move from anticipation ability, may remove to make room for fixation logic
     u8 ActivatedWeightedGi:1; //should make 1 bit, bitfied
     u8 SwitchBinding:2;
-    u8 ConfusionTurns:3; //if correct above should be 3 turns
-    u8 sturdyhungon:1; //to surivive full hp ko effect one time /destiny bond, explosion, perish song, final gambit etc.
+    u8 sturdyhungon:1; //to surivive full hp ko effect one time /destiny bond, perish song, final gambit etc.
     u8 trappedinStickyweb:1; //needed trigger for mon trapped in sticky web and can't switch
     
-    u8 rechargeTimer:1; //would use 1, just need change decrement condition
-    u8 uproarTurns:2;   //2-5 turns //updated effect is 3 turns
-    u8 rampageMoveTurns:2; //for replace lock confuse turns, is how long rampge move last, should be 2-3 turns?
     u8 StatusSetViaMoldBreaker:1;
     u8 fixationTurns:2;   //to track that fixation move is being repeated max value 3?
     u16 fixatedMove; //was forewarnmove replaced for Fixation status
     u8 hasSwitchinActivated; //use for switch in end turn check //rn just for zacian zamazenta effetcts, triggered on switch in activate/end in endturn
     u8 timecontrolAbilityTimer:2; //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
     u8 TrapSetViaMoldBreaker:1;
-    u8 EmergencyExitWimpoutActive:1; //replace use of RESOURCE_FLAG_EMERGENCY_EXIT //facepalm I never actually replaced this
-    u8 flashFireBoosted:1; //
-    u8 unburdenActive:1; //replace resource flag
-    u8 neutralizingGas:1; //used for battler with effect so think also need for immutable wind even if is clone different enough
-    //this throws off by 1 creates 1 byte paddspace
-    u8 immutableWind:1;
     u8 AscensionTimer:2; //time for flying types to recover from smack down 3 turns
-    u8 DragonrageCounter:3; //set to max at 5 increase when gets hit make dragon rage move effect & status set in end turn
-    u8 futureValues:2;
-    u8 paddSpace:8;
+
     /*0x1A*/ u8 unk1A[2]; //don't think this is used
 }; //think I may not actually need roost start value, long as I have timer
 //need look up padding and bitwise to understand how these work so i'm doing it correctly

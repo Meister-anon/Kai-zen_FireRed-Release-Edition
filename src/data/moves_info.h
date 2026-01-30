@@ -17432,7 +17432,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .accuracy = 100,
         .pp = 15,
         .target = TARGET_SELECTED,
-        .priority = 1,
+        .priority = 0,
         .category = DAMAGE_CATEGORY_STATUS,
         //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -17440,6 +17440,18 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_Octolock,
     },//prevent escape switch lower defense stats each end turn
+    //rebalancing and increasing distribution
+    //not work like wrap, users has to stay on field to work
+    //and it lowers foes offense stats every 2 turns
+    //think with change may revert priority boost
+    //since is strong effect
+    //yeah just go ahead and do it
+    //plan to increase to other octopus mon
+    //besides graploct
+    //i.e octillery and tentacool line
+    //but not the divergent form
+    //as toadscool are more legs for running
+    //than tentacles
 
     [MOVE_BOLT_BEAK] =
     {

@@ -5376,8 +5376,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
             //ok believe wcan replace all instance of this subtraction check
             //with furycuttercount, that way both acc and dmg would reset
-            //on a miss
-            for (i = 0; i < gDisableStructs[gBattlerAttacker].furyCutterCounter; ++i) //...changed this and damage multiplier actually works -_-
+            //on a miss 
+            for (i = 0; i < gBattleMons[gBattlerAttacker].volatiles.furyCutterCounter; ++i) //...changed this and damage multiplier actually works -_-
             {                 
                 gBattleMovePower += 10;  //rebalance, raise base power to 15, change to additive boost, higher scale on early hits slightly lower on end
                                                 //new rebalance
