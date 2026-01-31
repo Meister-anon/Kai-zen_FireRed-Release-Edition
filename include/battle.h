@@ -1746,6 +1746,7 @@ static inline bool32 IsBattlerHindered(enum BattlerId battler)
     || gBattleMons[battler].volatiles.bide
     || gBattleMons[battler].volatiles.switchBindtimer
     || gBattleMons[battler].volatiles.escapePrevention
+    || gBattleMons[battler].volatiles.octolock
     || gBattleMons[battler].volatiles.rooted
     || gBattleMons[battler].volatiles.yawn
     || IsBattlerTrappedViaMove(battler))
