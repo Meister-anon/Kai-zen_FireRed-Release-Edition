@@ -4035,7 +4035,7 @@ void RevertTransformedHP(u8 battlerId)
     currentHP = GetMonData(&party[gBattlerPartyIndexes[battlerId]], MON_DATA_HP, NULL);
     currMaxHP = gBattleMons[battlerId].maxHP;
 
-    if (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)
+    if (gBattleMons[battlerId].volatiles.transformed)
     {
         if (currMaxHP != GetMonData(&party[gBattlerPartyIndexes[battlerId]], MON_DATA_MAX_HP, NULL))
         {
@@ -9136,7 +9136,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                     }
                                     SetMonData(mon, MON_DATA_PP1 + r5, &data);
                                     if (gMain.inBattle
-                                        && battleMonId != 4 && !(gBattleMons[battleMonId].status2 & STATUS2_TRANSFORMED)
+                                        && battleMonId != 4 && !(gBattleMons[battleMonId].volatiles.transformed)
                                         && !(gBattleMons[battleMonId].volatiles.mimickedMoves & (1u << r5)))
                                         gBattleMons[battleMonId].pp[r5] = data;
                                     retVal = FALSE;
@@ -9161,7 +9161,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 }
                                 SetMonData(mon, MON_DATA_PP1 + moveIndex, &data);
                                 if (gMain.inBattle
-                                    && battleMonId != 4 && !(gBattleMons[battleMonId].status2 & STATUS2_TRANSFORMED)
+                                    && battleMonId != 4 && !(gBattleMons[battleMonId].volatiles.transformed)
                                     && !(gBattleMons[battleMonId].volatiles.mimickedMoves & (1u << moveIndex)))
                                     gBattleMons[battleMonId].pp[moveIndex] = data;
                                 retVal = FALSE;

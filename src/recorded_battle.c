@@ -424,7 +424,7 @@ void RecordedBattle_CheckMovesetChanges(u8 mode)
                         gBattleMons[battlerId].volatiles.mimickedMoves |= mimickedMoveSlots[j] << j;
                     }
 
-                    if (!(gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED))
+                    if (!(gBattleMons[battlerId].volatiles.transformed))
                     {
                         for (j = 0; j < MAX_MON_MOVES; j++)
                             ppBonuses[j] = (GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerId]], MON_DATA_PP_BONUSES, NULL) & ((3 << (j << 1)))) >> (j << 1);
