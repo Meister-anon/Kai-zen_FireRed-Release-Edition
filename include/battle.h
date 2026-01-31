@@ -59,7 +59,7 @@
 
 // Used to exclude moves learned temporarily by Transform or Mimic
 #define MOVE_IS_PERMANENT(battler, moveSlot)                        \
-   (!(gBattleMons[battler].status2 & STATUS2_TRANSFORMED)           \
+   (!(gBattleMons[battler].volatiles.transformed)           \
  && !(gBattleMons[battler].volatiles.mimickedMoves & (1u << moveSlot)))
 
 #define B_ACTION_USE_MOVE                  0
@@ -314,7 +314,8 @@ struct SpecialStatus
     u8 switchInItemDone : 1;
     u8 gemBoost : 1;
     u8 switchInAbilityDone : 1;
-    u8 unused : 4; // Mons that have been damaged directly by using a move, includes substitute. //NOW THAT have added can prob use to update catchexp function/macro?
+    u8 semiInvulInterupt:1; //takes place of STATUS2_TWOTURN_INTERRUPT status makes more sense here want clear at end of action
+    u8 unused : 3; // Mons that have been damaged directly by using a move, includes substitute. //NOW THAT have added can prob use to update catchexp function/macro?
     
     
 
@@ -1696,7 +1697,44 @@ static inline bool32 IsFogOnField(void)
     return (HasWeatherEffect() && gBattleWeather & WEATHER_FOG);
 }
 
+//consolidation of trap effects
+//can use for speed drop clause
+//just realized why is octolock not counter?
+//other than not doing endturn dmg and not having set duration
+//its effectively the same?
+//hmm octo lock doesn't even do dmg at all its a status move
+//so if I put here it'd be a neutral priority 
+//effect that drops both attack stats in end turn
+//traps foe on field indefinitely and also 
+//cuts speed in half o.0
+//well actually my version has definite turns now
+//it lasts 4 turns and unlike others
+//user must stay on field for continue effect
+//quite strong but think manageable
+//actually no its annoying but I think
+//I need to leave octolock off this for balance
+//best I could do otherwise is put in separate category
+//i.e toss into ability trap category
+//which is much smaller speed drop
+//either way should count for ability absorb prevention
+//thankfully that will be sep function so can add in there
+static inline bool32 IsBattlerTrappedViaMove(enum BattlerId battler)
+{
+    if (gBattleMons[battler].volatiles.bind
+    || gBattleMons[battler].volatiles.clamp
+    || gBattleMons[battler].volatiles.swarm
+    || gBattleMons[battler].volatiles.wrapped
+    || gBattleMons[battler].volatiles.thundercage
+    || gBattleMons[battler].volatiles.snaptrap
+    || gBattleMons[battler].volatiles.firespin
+    || gBattleMons[battler].volatiles.whirlpool
+    || gBattleMons[battler].volatiles.sandtomb
+    || gBattleMons[battler].volatiles.magmaStorm
+    )
+        return TRUE;
 
+    return FALSE;
+}
 
 //vsonic important
 //using for print result message

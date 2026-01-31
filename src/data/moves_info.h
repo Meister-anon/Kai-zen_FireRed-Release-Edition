@@ -17425,7 +17425,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_OCTOLOCK] =
     {
         .name = COMPOUND_STRING("Octolock"),
-        .description = COMPOUND_MOVE_STRING("Traps the foe in\na tight hold.\nTheir Defense Stats\nfall each turn."),
+        .description = COMPOUND_MOVE_STRING("Traps the foe in\na tight hold.\nTheir Attack Stats\nfall every 2 turns."),
         .effect = EFFECT_OCTOLOCK,
         .power = 0,
         .type = TYPE_FIGHTING,

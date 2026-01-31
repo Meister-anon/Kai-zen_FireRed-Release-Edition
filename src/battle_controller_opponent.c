@@ -1526,7 +1526,7 @@ static void OpponentHandleHealthBarUpdate(u32 battler)
     LoadBattleBarGfx(0);
     hpVal = (gBattleResources->bufferA[battler][3] << 8) | gBattleResources->bufferA[battler][2];
 
-    if (gBattleMons[battler].status2 & STATUS2_TRANSFORMED)
+    if (gBattleMons[battler].volatiles.transformed)
         maxHP = gBattleMons[battler].maxHP;
 
 

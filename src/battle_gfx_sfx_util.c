@@ -255,18 +255,20 @@ as to why that works, status 1 can probably never overlap, i.e. a pokemon cannot
 //far as recognizing the status itself, only in whether it can oveerlap/hold more than one status,
 //so for now change all to and, so its ready, if I decide to do multi status
 
-void InitAndLaunchChosenStatusAnimation(u32 battler, bool8 isStatus2, u32 status)
+void InitAndLaunchChosenStatusAnimation(u32 battler, bool32 isVolatile, u32 status)
 {
     gBattleSpritesDataPtr->healthBoxesData[battler].statusAnimActive = 1;
-    if (!isStatus2)
+    if (!isVolatile)
     {
         if (status == STATUS1_FREEZE)
             LaunchStatusAnimation(battler, B_ANIM_STATUS_FRZ);
-        else if (status == STATUS1_POISON || status & STATUS1_TOXIC_POISON)
+        else if (status == STATUS1_FROSTBITE)
+            LaunchStatusAnimation(battler, B_ANIM_STATUS_FRB);
+        else if (status == STATUS1_POISON || status == STATUS1_TOXIC_POISON) //EE uses status & STATUS1_TOXIC_POISON
             LaunchStatusAnimation(battler, B_ANIM_STATUS_PSN);
         else if (status == STATUS1_BURN)
             LaunchStatusAnimation(battler, B_ANIM_STATUS_BRN);
-        else if (status & STATUS1_SLEEP)
+        else if (status == STATUS1_SLEEP)
             LaunchStatusAnimation(battler, B_ANIM_STATUS_SLP);
         else if (status == STATUS1_PARALYSIS)
             LaunchStatusAnimation(battler, B_ANIM_STATUS_PRZ);
@@ -275,18 +277,18 @@ void InitAndLaunchChosenStatusAnimation(u32 battler, bool8 isStatus2, u32 status
     }
     else
     {
-        if (status & STATUS2_INFATUATION)
+        if (status == VOLATILE_INFATUATION)
             LaunchStatusAnimation(battler, B_ANIM_STATUS_INFATUATION);
-        else if (status & STATUS2_CONFUSION)
+        else if (status == VOLATILE_CONFUSION)
             LaunchStatusAnimation(battler, B_ANIM_STATUS_CONFUSION);
-        else if (status & STATUS2_CURSED)
+        else if (status == VOLATILE_CURSED)
             LaunchStatusAnimation(battler, B_ANIM_STATUS_CURSED);
-        else if (status & STATUS2_NIGHTMARE)
+        else if (status == VOLATILE_NIGHTMARE)
             LaunchStatusAnimation(battler, B_ANIM_STATUS_NIGHTMARE);
-        else if (status & STATUS2_INFESTATION)
+        else if (status == VOLATILE_INFESTATION)
             LaunchStatusAnimation(battler, B_ANIM_STATUS_INFESTED);
-        else if (status & STATUS2_WRAPPED)
-            LaunchStatusAnimation(battler, B_ANIM_STATUS_WRAPPED); // this animation doesn't actually exist
+        //else if (status == STATUS2_WRAPPED)
+        //    LaunchStatusAnimation(battler, B_ANIM_STATUS_WRAPPED); // this animation doesn't actually exist
         else // no animation
             gBattleSpritesDataPtr->healthBoxesData[battler].statusAnimActive = 0;
     }

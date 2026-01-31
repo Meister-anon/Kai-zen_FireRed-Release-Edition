@@ -192,9 +192,9 @@ static inline bool32 CanBattlerAbilityDrawInMove(u32 battlerDef)
 {
     if (gBattleMons[battlerDef].status1 == 0 
     && !gBattleMons[battlerDef].volatiles.rechargeTimer 
-    && !(gBattleMons[battlerDef].status2 & PREOCCUPIED_STATUS) 
+    && !(gBattleMons[battlerDef].status2 & PREOCCUPIED_STATUS)//wrap logic w recharge and trap function movement restricted 
     && !(gStatuses3[battlerDef] & STAUS3_VULNERABLE) 
-    && !(gBattleMons[battlerDef].status4 & ITS_A_TRAP_STATUS4))
+    && !IsBattlerTrappedViaMove(battlerDef))
         return TRUE;
     
     return FALSE;
@@ -716,13 +716,24 @@ static inline bool32 CheckBattlerHpThreshold(u32 battler, u8 Comparison, u8 perc
     return FALSE;
 }
 
+//note believe should add assert later
+//to catch use of abilities that aren't hp dependent
+//made rework order
+//using getbattler for ability would return false posiitve
+//on assert if suppressed so better to use flat battler ability
+//then don't return hp check
+//can instaed use that as bool condition
+//to return getbattlerability != none
 static inline bool32 CanActivateHpBasedAbility(u32 battler)
 {
-    enum Ability ability = GetBattlerAbility(battler);
+    enum Ability ability = gBattleMons[battler].ability;
     u8 comparisonOperator = gAbilitiesInfo[ability].basedOnHp.comparison;
     u8 percent = gAbilitiesInfo[ability].basedOnHp.percentHp;
 
-    return CheckBattlerHpThreshold(battler, comparisonOperator, percent);
+    if (CheckBattlerHpThreshold(battler, comparisonOperator, percent))
+       return GetBattlerAbility(battler) != ABILITY_NONE;
+
+    return FALSE;
 }
 /*//used in battle_main unsure if  still need
 u8 ShouldAbilityAbsorb(u16 move); //ATTEMPT workaroud for absorb abilty/lightning rod targetting

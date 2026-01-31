@@ -239,14 +239,13 @@ enum BattleSide
 #define STATUS1_NONE             0
 //#define STATUS1_SLEEP            (1 << 0 | 1 << 1 | 1 << 2) // First 3 bits (Number of turns to sleep)
 //#define STATUS1_SLEEP_TURN(num)  ((num) << 0) // Just for readability (or if rearranging statuses)
-#define STATUS1_PLACEHOLDER		 (1 << 0) //planned bug status  //changed mind trouble w healthbox and or balance make status 2/4
+#define STATUS1_FROSTBITE		 (1 << 0) //planned bug status  //changed mind trouble w healthbox and or balance make status 2/4
 #define STATUS1_SLEEP            (1 << 1)
 #define STATUS1_POISON           (1 << 2)
 #define STATUS1_BURN             (1 << 3)
 #define STATUS1_FREEZE           (1 << 4)
 #define STATUS1_PARALYSIS        (1 << 5)
 #define STATUS1_TOXIC_POISON     (1 << 6)
-#define STATUS1_FROSTBITE        (1 << 7)	//
 //#define STATUS1_TOXIC_COUNTER    (1 << 8 | 1 << 9 | 1 << 10 | 1 << 11)
 //#define STATUS1_TOXIC_TURN(num)  ((num) << 10)//redid toxic, put at original value, moved others
 //decide remove spirit lock  - since I made a turn counter value realized dont need turn status at all?
@@ -301,6 +300,8 @@ enum BattleSide
 //#define STATUS1_ENVIRONMENT_TRAP (STATUS1_FIRE_SPIN || STATUS1_WHIRLPOOL || STATUS1_SAND_TOMB || STATUS1_MAGMA_STORM)
 
 //#define ITS_A_TRAP_STATUS1 (STATUS1_SNAP_TRAP || STATUS1_FIRE_SPIN || STATUS1_CLAMP || STATUS1_WHIRLPOOL || STATUS1_SAND_TOMB || STATUS1_MAGMA_STORM || STATUS1_SWARM || STATUS1_WRAPPED)
+
+//all status2 and 4 done can remove
 
 // Volatile status ailments
 // These are removed after exiting the battle or switching out
@@ -460,7 +461,6 @@ enum BattleSide
 //#define ITS_A_TRAP_STATUS_2 (STATUS2_WRAPPED | STATUS4_FIRE_SPIN | STATUS4_CLAMP | STATUS4_WHIRLPOOL | STATUS4_SAND_TOMB | STATUS4_INFESTATION)
 
 //temp just the status4 stuff		//OK so status4 not currently used in battle? its not in BattlePokemon struct need add and investigate
-#define ITS_A_TRAP_STATUS4 (STATUS4_BIND | STATUS4_FIRE_SPIN | STATUS4_CLAMP | STATUS4_WHIRLPOOL | STATUS4_SAND_TOMB | STATUS4_MAGMA_STORM | STATUS4_SWARM | STATUS4_SNAP_TRAP | STATUS4_THUNDER_CAGE)
 
 //compare w my own stuff to adjust
 //potentially remove things that
@@ -654,7 +654,7 @@ infatuation again
     F(VOLATILE_STICKY_SYRUPED_BY,           stickySyrupedBy,               (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT))) \
     F(VOLATILE_GLAIVE_RUSH,                 glaiveRush,                    (u32, 1)) \
     F(VOLATILE_LOCK_ON,                     lockOn,                        (u32, 2), V_BATON_PASSABLE) \
-    F(VOLATILE_LEECH_SEED,                  leechSeed,                     (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT)), V_BATON_PASSABLE) \
+    F(VOLATILE_LEECH_SEED,/*store user pos*/leechSeed,                     (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT)), V_BATON_PASSABLE) \
     F(VOLATILE_PERISH_SONG,                 perishSong,                    (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_FIXATED,                     fixated,                       (u32, 1)) \
     F(VOLATILE_CHARGE_TIMER,                chargeTimer,                   (u32, 3)) \
@@ -671,7 +671,7 @@ infatuation again
     F(VOLATILE_AQUA_RING,                   aquaRing,                      (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_LASER_FOCUS,                 laserFocus,                    (u32, 1)) \
     F(VOLATILE_POWER_TRICK,                 powerTrick,                    (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_BIND,                        bind,                          (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_BIND,/*unsure bataonpass*/   bind,                          (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_FIRE_SPIN,                   firespin,                      (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_CLAMP,                       clamp,                         (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_WHIRLPOOL,                   whirlpool,                     (u32, 1), V_BATON_PASSABLE) \
@@ -698,8 +698,8 @@ infatuation again
     F(VOLATILE_STOCKPILE_SP_DEF,            stockpileSpDef,                (u32, MAX_STAT_STAGE)) \
     F(VOLATILE_STOCKPILE_BEFORE_DEF,        stockpileBeforeDef,            (u32, MAX_STAT_STAGE)) \
     F(VOLATILE_STOCKPILE_BEFORE_SP_DEF,     stockpileBeforeSpDef,          (u32, MAX_STAT_STAGE)) \
-    F(VOLATILE_INGRAIN_TURN,                ingrainTurn,                   (u32, MAX_INGRAIN_AQUA_RING_TURNS)) \
-    F(VOLATILE_AQUA_RING_TURN,              aquaringTurn,                  (u32, MAX_INGRAIN_AQUA_RING_TURNS)) \
+    F(VOLATILE_INGRAIN_TURN,                ingrainTurn,                   (u32, MAX_INGRAIN_AQUA_RING_TURNS), V_BATON_PASSABLE) \
+    F(VOLATILE_AQUA_RING_TURN,              aquaringTurn,                  (u32, MAX_INGRAIN_AQUA_RING_TURNS), V_BATON_PASSABLE) \
     F(VOLATILE_RAGE_COUNTER,                rageCounter,                   (u32, MAX_RAGE_BOOST_COUNTER)) \
     F(VOLATILE_SUBSTITUTE_HP,               substituteHP,                  (u32, UINT8_MAX)) \
     F(VOLATILE_ENCORED_MOVE_POS,            encoredMovePos,                (u32, MAX_BITS(MAX_MON_MOVES))) \

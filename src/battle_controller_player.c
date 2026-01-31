@@ -909,7 +909,7 @@ static void HandleMoveSwitching(u32 battler)
                 gBattleMons[battler].moves[i] = moveInfo->moves[i];
                 gBattleMons[battler].pp[i] = moveInfo->currentPp[i];
             }
-            if (!(gBattleMons[battler].status2 & STATUS2_TRANSFORMED))
+            if (!(gBattleMons[battler].volatiles.transformed))
             {
                 for (i = 0; i < MAX_MON_MOVES; ++i)
                 {
@@ -1292,7 +1292,7 @@ static void Task_GiveExpToMon(u8 taskId)//important note for later will need to 
         if (currExp + gainedExp >= nextLvlExp)  //lvl up
         {
             SetMonData(mon, MON_DATA_EXP, &nextLvlExp);
-            if (gBattleMons[battler].status2 & STATUS2_TRANSFORMED)
+            if (gBattleMons[battler].volatiles.transformed)
                 TransformedMonLvlUpStatCalc(mon);
             else
                 CalculateMonStats(mon);
@@ -1365,7 +1365,7 @@ static void Task_GiveExpWithExpBar(u8 taskId)
             if (currExp + gainedExp >= expOnNextLvl)
             {
                 SetMonData(&gPlayerParty[monId], MON_DATA_EXP, &expOnNextLvl);
-                if (gBattleMons[battler].status2 & STATUS2_TRANSFORMED)
+                if (gBattleMons[battler].volatiles.transformed)
                     TransformedMonLvlUpStatCalc(&gPlayerParty[monId]);
                 else
                     CalculateMonStats(&gPlayerParty[monId]);
@@ -2884,7 +2884,7 @@ static void PlayerHandleHealthBarUpdate(u32 battler)
     LoadBattleBarGfx(0);
     hpVal = gBattleResources->bufferA[battler][2] | (gBattleResources->bufferA[battler][3] << 8);
     
-    if (gBattleMons[battler].status2 & STATUS2_TRANSFORMED)
+    if (gBattleMons[battler].volatiles.transformed)
         maxHP = gBattleMons[battler].maxHP;
 
     if (hpVal != INSTANT_HP_BAR_DROP)

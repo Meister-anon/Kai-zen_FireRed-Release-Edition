@@ -1141,7 +1141,7 @@ DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Terror traps both opponents")
         MESSAGE("Foe Wobbuffet can't escape now!");
         MESSAGE("Foe Wobbuffet can't escape now!");
     } THEN { // Can't find good way to test trapping
-        EXPECT(opponentLeft->status2 & STATUS2_ESCAPE_PREVENTION);
+        EXPECT(opponentLeft->volatiles.escapePrevention);
     }
 }
 

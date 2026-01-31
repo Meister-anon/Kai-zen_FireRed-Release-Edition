@@ -809,7 +809,7 @@ static void DisplayPartyPokemonData(u8 slot)
     }
     else
     {   
-        //if (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)
+        //if (gBattleMons[battlerId].volatiles.transformed)
         sPartyMenuBoxes[slot].infoRects->blitFunc(sPartyMenuBoxes[slot].windowId, 0, 0, 0, 0, FALSE);
         DisplayPartyPokemonNickname(&gPlayerParty[slot], &sPartyMenuBoxes[slot], 0);
         DisplayPartyPokemonLevelCheck(&gPlayerParty[slot], &sPartyMenuBoxes[slot], 0);

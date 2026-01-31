@@ -11768,7 +11768,7 @@ static void Cmd_handleballthrow(void)
                 odds += (odds / 10);  //TO increase catch chance by 10%,
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_WRAPPED)
                 odds += (odds / 5);
-            else if (gBattleMons[gBattlerTarget].status4 & ITS_A_TRAP_STATUS4)//(STATUS4_BIND | STATUS4_FIRE_SPIN | STATUS4_CLAMP | STATUS4_WHIRLPOOL | STATUS4_SAND_TOMB | STATUS4_MAGMA_STORM | STATUS4_SWARM | STATUS4_SNAP_TRAP))
+            else if (IsBattlerTrappedViaMove(gBattlerTarget))//(STATUS4_BIND | STATUS4_FIRE_SPIN | STATUS4_CLAMP | STATUS4_WHIRLPOOL | STATUS4_SAND_TOMB | STATUS4_MAGMA_STORM | STATUS4_SWARM | STATUS4_SNAP_TRAP))
                 odds += (odds / 5);
             if (gBattleMons[gBattlerTarget].volatiles.infatuatedwithMon)
                 odds += (odds / 2);
@@ -11778,7 +11778,8 @@ static void Cmd_handleballthrow(void)
                 odds += (odds / 10);
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_INFESTATION)    //add ifs for status 2 to stack on top of status 1 liek here //include recharge, infatuation, nightmare, curse, & escape prevention & wrap etc
                 odds += (odds / 10); 
-            if ((gBattleMons[gBattlerTarget].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
+            if (gBattleMons[gBattlerTarget].volatiles.escapePrevention
+            || gBattleMons[gBattlerTarget].volatiles.switchBindtimer
             || gBattleMons[gBattlerTarget].volatiles.trappedinStickyweb)
                 odds += (odds / 10);
             if (gBattleMons[gBattlerTarget].volatiles.rechargeTimer)

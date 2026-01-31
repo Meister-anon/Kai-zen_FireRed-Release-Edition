@@ -4320,7 +4320,6 @@ bool32 CanAbilityAbsorbMoveType(u32 battlerDef, enum Type mainMoveType, enum Typ
 //-worked for separatng targetting, last check is if I status the absorb mon, will it prevent them from swapping the targetting
 //-nice it works perfectly!! if absorb mon is statused according to conditoin, they can't "jump in front of" the attack,
 //but if targetted directly they still absorb it!!)
-//#define CAN_ABILITY_ABSORB_MOVE(battler) if (gBattleMons[battler].status1 == 0 && !gBattleMons[battler].volatiles.rechargeTimer && !(gBattleMons[battler].status2 & PREOCCUPIED_STATUS) && !(gStatuses3[battler] & STAUS3_VULNERABLE) && !(gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4)) can_absorb = TRUE;
 
 //think may make simpler
 //just need add absorb prevention  preceding switch
@@ -7223,6 +7222,9 @@ u32 IsAbilityPreventingEscape(u32 battler)
     return 0;
 }
 
+//run from battle not switch
+//need add flying type to this
+//well add back my custom work
 bool32 CanBattlerEscape(u32 battler) // no ability check
 {
     if (gBattleStruct->battlerState[battler].commanderSpecies != SPECIES_NONE)
@@ -13555,8 +13557,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, enum Ability atkA
             calc = (calc * 140) / 100;
     if ((gBattleMons[battlerDef].volatiles.confusionTurns) && defAbility != ABILITY_TANGLED_FEET)
             calc = (calc * 120) / 100;
-    if (gBattleMons[battlerDef].status2 & STATUS2_WRAPPED
-    || gBattleMons[battlerDef].status4 & ITS_A_TRAP_STATUS4)
+    if (IsBattlerTrappedViaMove(battlerDef))
                 calc = (calc * 115) / 100;//  should still select normally before hand, but it just change when executed.
     if (gBattleMons[battlerDef].status1 & STATUS1_SLEEP) { //.target = MOVE_TARGET_SELECTED, 
         if (DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_PSYCHIC, FALSE)) //important chek this think have function for type checking

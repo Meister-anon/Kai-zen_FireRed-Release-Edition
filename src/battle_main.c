@@ -3758,6 +3758,9 @@ static void BattleStartClearSetData(void)
 }
 
 #define CLEARDATA_ON_SWITCH
+//have a lot of important stuff in file
+//thikn will attempt build without fully replacing file
+//so can test diff of ee stuff and mine
 void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
 {
     s32 i;
@@ -3770,8 +3773,8 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
             gBattleMons[battler].statStages[i] = DEFAULT_STAT_STAGE; //6 is 0 so this resets to normal levels
         for (i = 0; i < gBattlersCount; ++i)
         {
-            if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gBattleMons[i].volatiles.battlerPreventingEscape == battler)
-                gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION; //if mon blocking escape switches, removes escape prevention status from target
+            if ((gBattleMons[i].volatiles.escapePrevention) && gBattleMons[i].volatiles.battlerPreventingEscape == battler)
+                gBattleMons[i].volatiles.escapePrevention = FALSE; //if mon blocking escape switches, removes escape prevention status from target
             if ((gStatuses3[i] & STATUS3_ALWAYS_HITS) && gBattleMons[i].volatiles.battlerWithSureHit == battler)
             {
                 gStatuses3[i] &= ~STATUS3_ALWAYS_HITS;
@@ -3932,8 +3935,8 @@ const u8* FaintClearSetData(u32 battler) //see about make status1 not fade wen f
     for (i = 0; i < gBattlersCount; ++i) //trap etc removal on faint
     {
         //also exclude STATUS2_SWITCH_LOCKED from this, so effect persists
-        if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gBattleMons[i].volatiles.battlerPreventingEscape == battler)
-            gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;
+        if ((gBattleMons[i].volatiles.escapePrevention) && gBattleMons[i].volatiles.battlerPreventingEscape == battler)
+            gBattleMons[i].volatiles.escapePrevention = FALSE;
         
         if (InfatuatedWithBattler(battler, i))
         {
@@ -4097,7 +4100,7 @@ const u8* FaintClearSetData(u32 battler) //see about make status1 not fade wen f
         party = &gPlayerParty[gBattlerPartyIndexes[battler]];
 
     //removed transformatino line as status2 would alraedy be removed  fron fainted
-    //if (gBattleMons[battler].status2 & STATUS2_TRANSFORMED)
+    //if (gBattleMons[battler].volatiles.transformed)
         CalculateMonStats(party); //to reset stats to normal  
 
     return result;
@@ -5239,7 +5242,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
         speed = (speed * 150) / 100;
     else if (holdEffect == HOLD_EFFECT_CHOICE_SCARF)
         speed = (speed * 150) / 100;
-    else if (holdEffect == HOLD_EFFECT_QUICK_POWDER && gBattleMons[battler].species == SPECIES_DITTO /*&& !(gBattleMons[battler].status2 & STATUS2_TRANSFORMED)*/)
+    else if (holdEffect == HOLD_EFFECT_QUICK_POWDER && gBattleMons[battler].species == SPECIES_DITTO /*&& !(gBattleMons[battler].volatiles.transformed)*/)
         speed *= 2; //fix so keep speed boost even when transformed
 
     // various effects
@@ -5263,13 +5266,10 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
        )
         speed /= 2;
 
-    //trap effects  gBattleMons[battlerAtk].status4 & ITS_A_TRAP_STATUS4  potentially make all drop speed, on top of new effects //vsonic
     //ok decided roll these all together, but make exclusion for ghost and flying type
     //as both should be able to escape
     //excluding spiritomb and several flying types that can't fly
-    if ((gBattleMons[battler].status2 & STATUS2_WRAPPED
-    || gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4)
-   )
+    if (IsBattlerTrappedViaMove(battler))
     {
         //decide want to make flyig type also a species exclusion since even if knocked down
         //flyig tuype can still just get up and fly away
@@ -5279,7 +5279,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
         || (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_FLYING, FALSE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler))
         || (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_WIND, FALSE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler)))
         {
-            if (gBattleMons[battler].volatiles.TrapSetViaMoldBreaker)
+            if (gBattleMons[battler].volatiles.trapSetViaMoldBreaker)
                 speed /= 2;
         }//unsure why but inclusion of above struct value seems to also trigger bug...
         else
@@ -6554,7 +6554,7 @@ static void HandleAction_Switch(void) //actual switch code
     else
         party = &gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]];
 
-    if (gBattleMons[gBattlerAttacker].status2 & STATUS2_TRANSFORMED) //*warning dont mess w this stuff, transform uses custom logic
+    if (gBattleMons[gBattlerAttacker].volatiles.transformed) //*warning dont mess w this stuff, transform uses custom logic
     {
 
         RevertTransformedHP(gBattlerAttacker);
@@ -6671,12 +6671,19 @@ bool8 TryRunFromBattle(u32 battler)
             ++effect;
     }
 
-    else if (((gBattleMons[battler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED)))
-    && gBattleMons[battler].volatiles.TrapSetViaMoldBreaker)
+    else if ((gBattleMons[battler].volatiles.escapePrevention
+    || gBattleMons[battler].volatiles.switchBindtimer
+    || gBattleMons[battler].volatiles.noRetreat
+    || IsBattlerTrappedViaMove(battler))
+    && gBattleMons[battler].volatiles.trapSetViaMoldBreaker)
         return FALSE;
 
-    else if (gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4 && gBattleMons[battler].volatiles.TrapSetViaMoldBreaker)
-        return FALSE;
+    //replace w battler trapped
+    //need to look at escape prevent trap
+    //speed effect to see what is included
+    //does mean liook switch bind count?
+    //I know wrap does ok only wrap counts for trap speed drop
+
 
     else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GHOST, FALSE) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
     {
