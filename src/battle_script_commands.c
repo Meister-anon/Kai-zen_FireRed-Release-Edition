@@ -11761,7 +11761,7 @@ static void Cmd_handleballthrow(void)
                 odds *= 2;
             if (gBattleMons[gBattlerTarget].status1 & (STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON))
                 odds = (odds * 15) / 10;
-            if (gBattleMons[gBattlerTarget].status1 & STATUS1_FREEZE && gBattleMons[gBattlerTarget].volatiles.frozenTurns == 0)
+            if (gBattleMons[gBattlerTarget].status1 & STATUS1_FROSTBITE )
                 odds = (odds * 15) / 10;
 
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_CONFUSION)    //add ifs for status 2 to stack on top of status 1 liek here //include recharge, infatuation, nightmare, curse, & escape prevention & wrap etc
