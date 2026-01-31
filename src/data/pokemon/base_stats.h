@@ -30453,7 +30453,7 @@ const struct BaseStats gBaseStats[] =
         .expYield = 179,
         //.evYield_Attack = 1,
         //.evYield_Speed = 1,
-        .genderRatio = PERCENT_FEMALE(MON_FEMALE),
+        .genderRatio = MON_FEMALE,
         .eggCycles = 20,
         .friendship = 10,
         .growthRate = GROWTH_MEDIUM_SLOW,
@@ -43275,7 +43275,7 @@ const struct BaseStats gBaseStats[] =
             .expYield = 86,
             //.evYield_Speed = 1,
             //.itemRare = ITEM_QUICK_CLAW,
-            .genderRatio = PERCENT_FEMALE(50),
+            .genderRatio = MON_FEMALE,
             .eggCycles = 20,
             .friendship = 10,
             .growthRate = GROWTH_MEDIUM_SLOW,
@@ -43290,8 +43290,8 @@ const struct BaseStats gBaseStats[] =
             .abilityLearnset = sSneaselHisuianAbilityLearnset,
             .levelUpLearnset = sSneaselHisuianLevelUpLearnset,
             .tmhmLearnset = sSneaselHisuianTMHMLearnset,
-            .evolutions = EVOLUTION({EVO_ITEM_FEMALE, ITEM_RAZOR_CLAW, 0, SPECIES_SNEASLER},
-                    {EVO_LEVEL_FEMALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_SNEASLER}), //Should hopefully blank these for now without issue
+            .evolutions = EVOLUTION({EVO_ITEM, ITEM_RAZOR_CLAW, 0, SPECIES_SNEASLER},
+                    {EVO_LEVEL, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_SNEASLER}), //Should hopefully blank these for now without issue
             .flags = F_HISUIAN_FORM,
         },
 

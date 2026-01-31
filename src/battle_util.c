@@ -13425,8 +13425,12 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, enum Ability atkA
     moveAcc = GetFuryCutterAccuracy(move);
 
     //cacophony boost
-        if (ShouldCacophonyBoostAccuracy(move))
-            moveAcc = 100;
+    if (ShouldCacophonyBoostAccuracy(move))
+        moveAcc = 100;
+
+    if (IsBattlerWeatherAffected(battlerAtk, WEATHER_INCLEMENT)
+    && move == MOVE_SPORE)
+        moveAcc = 85;
             
     // Check Thunder and Hurricane on sunny weather.
     if (IsBattlerWeatherAffected(battlerDef, WEATHER_SUN_ANY) && MoveHas50AccuracyInSun(move))

@@ -1414,6 +1414,7 @@ static const struct AbilityLearnset sVibravaAbilityLearnset[] = {
 
 static const struct AbilityLearnset sFlygonAbilityLearnset[] = {
     ABILITY_SAND_STREAM,
+    ABILITY_OVERCOAT,
     ABILITY_SET_END
 };
 

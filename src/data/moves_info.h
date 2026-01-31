@@ -3331,1931 +3331,1931 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //also uses VARIOUS_ARGUMENT_STATUS_EFFECT to transfer effect into status still using secondaryeffectchance
     //so need to decouple trap effect from secondaryeffect  think can do by using make certain
 
-[MOVE_SWIFT] =
-{
+    [MOVE_SWIFT] =
+    {
         .name = COMPOUND_STRING("Swift"),
         .description = COMPOUND_MOVE_STRING("Star-shaped rays\nthat never miss are\nfired at all foes in\nbattle."),
-    .effect = EFFECT_HIT,
-    .power = 60,
-    .type = TYPE_NORMAL,
-    .accuracy = 0,
-    .pp = 20,
-    .target = TARGET_BOTH,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Swift,
-},
-//potentially make this tutor move rather than tm
+        .effect = EFFECT_HIT,
+        .power = 60,
+        .type = TYPE_NORMAL,
+        .accuracy = 0,
+        .pp = 20,
+        .target = TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+            //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+            //.contestCategory = CONTEST_CATEGORY_COOL,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Swift,
+    },
+    //potentially make this tutor move rather than tm
 
-[MOVE_SKULL_BASH] =
-{
+    [MOVE_SKULL_BASH] =
+    {
         .name = COMPOUND_STRING("Skull Bash"),
         .description = COMPOUND_MOVE_STRING("The user raises its\nDEFENSE in the 1st\nturn, then attacks\nin the 2nd turn."),
-    #if B_UPDATED_MOVE_DATA >= GEN_6
-        .power = 130,
-        .pp = 10,
-    #else
-        .power = 100,
-        .pp = 15,
-    #endif
-    .effect = EFFECT_TWO_TURNS_ATTACK,
-    .type = TYPE_NORMAL,
-    .accuracy = 100,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-    .makesContact = TRUE,
-    .headbuttMove = TRUE,
-    .sleepTalkBanned = TRUE,
-    .instructBanned = TRUE,
-    .multiTaskBanned = TRUE,
-    .argument.twoTurnAttack = { .stringId = STRINGID_PKMNLOWEREDHEAD },
-    .additionalEffects = ADDITIONAL_EFFECTS({
-        .moveEffect = MOVE_EFFECT_DEF_PLUS_1,
-        .self = TRUE,
-        .onChargeTurnOnly = TRUE,
-    }),
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_SkullBash,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_6
+            .power = 130,
+            .pp = 10,
+        #else
+            .power = 100,
+            .pp = 15,
+        #endif
+        .effect = EFFECT_TWO_TURNS_ATTACK,
+        .type = TYPE_NORMAL,
+        .accuracy = 100,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .headbuttMove = TRUE,
+        .sleepTalkBanned = TRUE,
+        .instructBanned = TRUE,
+        .multiTaskBanned = TRUE,
+        .argument.twoTurnAttack = { .stringId = STRINGID_PKMNLOWEREDHEAD },
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_PLUS_1,
+            .self = TRUE,
+            .onChargeTurnOnly = TRUE,
+        }),
+            //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_SkullBash,
+    },
 
-[MOVE_SPIKE_CANNON] =
-{
+    [MOVE_SPIKE_CANNON] =
+    {
         .name = COMPOUND_STRING("Spike Cannon"),
         .description = COMPOUND_MOVE_STRING("Sharp spikes are\nfired at the foe to\nstrike two to five\ntimes."),
-    .effect = EFFECT_HIT,
-    .power = 20,
-    .type = TYPE_ROCK,
-    .accuracy = 100, //was buffed is only 100 acc multi move
-    .pp = 15,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-    .multiTaskBanned = TRUE,
-    .variableMultihit = TRUE,
-    .airborneDmgState = DAMAGES_AIRBORNE,
-        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_SpikeCannon,
-},
+        .effect = EFFECT_HIT,
+        .power = 20,
+        .type = TYPE_ROCK,
+        .accuracy = 100, //was buffed is only 100 acc multi move
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .multiTaskBanned = TRUE,
+        .variableMultihit = TRUE,
+        .airborneDmgState = DAMAGES_AIRBORNE,
+            //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+            //.contestCategory = CONTEST_CATEGORY_COOL,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_SpikeCannon,
+    },
 
-[MOVE_CONSTRICT] =
-{
+    [MOVE_CONSTRICT] =
+    {
         .name = COMPOUND_STRING("Constrict"),
         .description = COMPOUND_MOVE_STRING("The foe is attacked\nwith long tentacles\nor vines. It also\nlowers SPEED."),
-    .effect = EFFECT_HIT,
-    .power = 10,
-    .type = TYPE_NORMAL,
-    .accuracy = 100,
-    .pp = 35,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
-            .chance = 100,
-        }),
-        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Constrict,
-},
+        .effect = EFFECT_HIT,
+        .power = 10,
+        .type = TYPE_NORMAL,
+        .accuracy = 100,
+        .pp = 35,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+                .chance = 100,
+            }),
+            //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Constrict,
+    },
 
-[MOVE_AMNESIA] =
-{
+    [MOVE_AMNESIA] =
+    {
         .name = COMPOUND_STRING("Amnesia"),
         .description = COMPOUND_MOVE_STRING("Forgets about\nsomething and\nsharply raises\nSP. DEF."),
-    .effect = EFFECT_SPECIAL_DEFENSE_UP_2,
-    .power = 0,
-    .type = TYPE_PSYCHIC,
-    .accuracy = 0,
-    .pp = 20,
-    .target = TARGET_USER,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .snatchAffected = TRUE,
-        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
-        //.contestCategory = CONTEST_CATEGORY_CUTE,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Amnesia,
-},
+        .effect = EFFECT_SPECIAL_DEFENSE_UP_2,
+        .power = 0,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 0,
+        .pp = 20,
+        .target = TARGET_USER,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .ignoresProtect = TRUE,
+            .mirrorMoveBanned = TRUE,
+            .snatchAffected = TRUE,
+            //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+            //.contestCategory = CONTEST_CATEGORY_CUTE,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Amnesia,
+    },
 
-[MOVE_KINESIS] =
-{
+    [MOVE_KINESIS] =
+    {
         .name = COMPOUND_STRING("Kinesis"),
         .description = COMPOUND_MOVE_STRING("The user distracts\nthe foe by bending\na spoon. It may\nlower accuracy."),
-    #if B_UPDATED_MOVE_DATA >= GEN_4
-    #else
-    #endif
-    .effect = EFFECT_ACCURACY_DOWN,
-    .power = 0,
-    .type = TYPE_PSYCHIC,
-    .accuracy = 100,
-    .pp = 15,
-    .target = TARGET_SELECTED,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .magicCoatAffected = TRUE,
-        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = COMBO_STARTER_KINESIS,
-        //.contestComboMoves = {COMBO_STARTER_CONFUSION, COMBO_STARTER_PSYCHIC},
-        .battleAnimScript = gBattleAnimMove_Kinesis,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #else
+        #endif
+        .effect = EFFECT_ACCURACY_DOWN,
+        .power = 0,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 100,
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .magicCoatAffected = TRUE,
+            //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = COMBO_STARTER_KINESIS,
+            //.contestComboMoves = {COMBO_STARTER_CONFUSION, COMBO_STARTER_PSYCHIC},
+            .battleAnimScript = gBattleAnimMove_Kinesis,
+    },
 
-[MOVE_SOFT_BOILED] =
-{
+    [MOVE_SOFT_BOILED] =
+    {
         .name = COMPOUND_STRING("Soft-Boiled"),
         .description = COMPOUND_MOVE_STRING("Heals the user by\nup to a third its\nfull HP.\nOutside of battle\nIt can be used\nto heal an ally."),
-    .effect = EFFECT_SOFTBOILED, 
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .accuracy = 100,
-    .pp = 10,
-    .target = TARGET_USER,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .healingMove = TRUE,
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .snatchAffected = TRUE,
-        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = COMBO_STARTER_SOFT_BOILED,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_SoftBoiled,
-},
+        .effect = EFFECT_SOFTBOILED, 
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 100,
+        .pp = 10,
+        .target = TARGET_USER,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .healingMove = TRUE,
+            .ignoresProtect = TRUE,
+            .mirrorMoveBanned = TRUE,
+            .snatchAffected = TRUE,
+            //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+            //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+            //.contestComboStarterId = COMBO_STARTER_SOFT_BOILED,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_SoftBoiled,
+    },
 
-[MOVE_HI_JUMP_KICK] =
-{
+    [MOVE_HI_JUMP_KICK] =
+    {
         .name = COMPOUND_STRING("Flying Knee Kick"), //High Jump Kick
         .description = COMPOUND_MOVE_STRING("A strong jumping\nknee kick. If it\nmisses, the user is\nhurt."),
-    #if B_UPDATED_MOVE_DATA >= GEN_5
-        .power = 130,
-        .pp = 10,
-    #elif B_UPDATED_MOVE_DATA == GEN_4
-        .power = 100,
-        .pp = 20,
-    #else
-        .power = 85,
-        .pp = 20,
-    #endif
-    .effect = EFFECT_RECOIL_IF_MISS,
-    .type = TYPE_FIGHTING,
-    .accuracy = 90,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-    .makesContact = TRUE,
-    .kickingMove = TRUE,
-    .airborneDmgState = DOUBLE_DAMAGE_AIRBORNE,
-    .gravityBanned = TRUE,
-},
-//since is jumping kick game hit in air, and since is resisted by flying and risks recoil
-//made 2x
+        #if B_UPDATED_MOVE_DATA >= GEN_5
+            .power = 130,
+            .pp = 10,
+        #elif B_UPDATED_MOVE_DATA == GEN_4
+            .power = 100,
+            .pp = 20,
+        #else
+            .power = 85,
+            .pp = 20,
+        #endif
+        .effect = EFFECT_RECOIL_IF_MISS,
+        .type = TYPE_FIGHTING,
+        .accuracy = 90,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .kickingMove = TRUE,
+        .airborneDmgState = DOUBLE_DAMAGE_AIRBORNE,
+        .gravityBanned = TRUE,
+    },
+    //since is jumping kick game hit in air, and since is resisted by flying and risks recoil
+    //made 2x
 
-[MOVE_GLARE] =
-{
+    [MOVE_GLARE] =
+    {
         .name = COMPOUND_STRING("Glare"),
         .description = COMPOUND_MOVE_STRING("The user intimidates\nthe foe with a leer\nshocking the foe\ninto paralysis."),
-    #if B_UPDATED_MOVE_DATA >= GEN_6
-        .accuracy = 100,
-    #elif B_UPDATED_MOVE_DATA == GEN_5
-        .accuracy = 90,
-    #else
-        .accuracy = 75,
-    #endif
-    .effect = EFFECT_NON_VOLATILE_STATUS,
-    .power = 0,
-    .type = TYPE_DARK,
-    .pp = 30,
-    .target = TARGET_SELECTED,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .argument = { .nonVolatileStatus = MOVE_EFFECT_PARALYSIS },
-        .magicCoatAffected = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_LEER},
-        .battleAnimScript = gBattleAnimMove_Glare,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_6
+            .accuracy = 100,
+        #elif B_UPDATED_MOVE_DATA == GEN_5
+            .accuracy = 90,
+        #else
+            .accuracy = 75,
+        #endif
+        .effect = EFFECT_NON_VOLATILE_STATUS,
+        .power = 0,
+        .type = TYPE_DARK,
+        .pp = 30,
+        .target = TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .argument = { .nonVolatileStatus = MOVE_EFFECT_PARALYSIS },
+            .magicCoatAffected = TRUE,
+            //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_LEER},
+            .battleAnimScript = gBattleAnimMove_Glare,
+    },
 
-[MOVE_DREAM_EATER] =
-{
+    [MOVE_DREAM_EATER] =
+    {
         .name = COMPOUND_STRING("Dream Eater"),
         .description = COMPOUND_MOVE_STRING("Absorbs half the\ndamage it inflicted\non a sleeping foe\nto restore HP."),
-    .effect = EFFECT_DREAM_EATER,
-    .power = 100,
-    .type = TYPE_PSYCHIC,
-    .accuracy = 100,
-    .pp = 15,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-        .healingMove = TRUE,
-        .ignoresSubstitute = TRUE,
-        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_CALM_MIND, COMBO_STARTER_HYPNOSIS},
-        .battleAnimScript = gBattleAnimMove_DreamEater,
-},
+        .effect = EFFECT_DREAM_EATER,
+        .power = 100,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 100,
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+            .healingMove = TRUE,
+            .ignoresSubstitute = TRUE,
+            //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_CALM_MIND, COMBO_STARTER_HYPNOSIS},
+            .battleAnimScript = gBattleAnimMove_DreamEater,
+    },
 
-[MOVE_POISON_GAS] =
-{
+    [MOVE_POISON_GAS] =
+    {
         .name = COMPOUND_STRING("Poison Gas"),
         .description = COMPOUND_MOVE_STRING("The foe is sprayed\nwith a cloud of\ntoxic gas that may\npoison them."),
-    #if B_UPDATED_MOVE_DATA >= GEN_6
-        .accuracy = 90,
-        .target = TARGET_BOTH,
-    #elif B_UPDATED_MOVE_DATA == GEN_5
-        .accuracy = 80,
-        .target = TARGET_BOTH,
-    #else
-        .accuracy = 55,
-        .target = TARGET_SELECTED,
-    #endif
-    .effect = EFFECT_NON_VOLATILE_STATUS,
-    .power = 0,
-    .type = TYPE_POISON,
-    .pp = 40,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .argument = { .nonVolatileStatus = MOVE_EFFECT_POISON },
-        .magicCoatAffected = TRUE,
-        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_PoisonGas,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_6
+            .accuracy = 90,
+            .target = TARGET_BOTH,
+        #elif B_UPDATED_MOVE_DATA == GEN_5
+            .accuracy = 80,
+            .target = TARGET_BOTH,
+        #else
+            .accuracy = 55,
+            .target = TARGET_SELECTED,
+        #endif
+        .effect = EFFECT_NON_VOLATILE_STATUS,
+        .power = 0,
+        .type = TYPE_POISON,
+        .pp = 40,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .argument = { .nonVolatileStatus = MOVE_EFFECT_POISON },
+            .magicCoatAffected = TRUE,
+            //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_PoisonGas,
+    },
 
-[MOVE_BARRAGE] =
-{
+    [MOVE_BARRAGE] =
+    {
         .name = COMPOUND_STRING("Barrage"),
         .description = COMPOUND_MOVE_STRING("A Multi-hit attack\nwhere Round objects\nare hurled at foes.\nDoes physical damage\nusing highest ATK.\nMay lower Defense."),
-    .effect = EFFECT_STAT_BASED_SPLIT,//Forgot also gave this dmg swap based on stats
-    .power = 15,
-    .type = TYPE_NORMAL, //idea is uses psychic energy to pick up and throw
-    .accuracy = 95, //objects at the enemy with force
-    .pp = 20,   //ok think what can do is make into psyshock hits defense but uses special
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-    .multiTaskBanned = TRUE,
-    .ballisticMove = TRUE,
-    .variableMultihit = TRUE,
-    //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
-    //.contestCategory = CONTEST_CATEGORY_TOUGH,
-    //.contestComboStarterId = 0,
-    //.contestComboMoves = {0},
-    .battleAnimScript = gBattleAnimMove_Barrage,
-    .additionalEffects = ADDITIONAL_EFFECTS({
-        .moveEffect = MOVE_EFFECT_DEF_CAT_MINUS_1, //should i make new effect that'll swap def 
-        .chance = 15, //to drop based on dmg category? since it could be special?
-    }),
-}, //exegcuttor line siganture , test may make 100 acc,  balance acc w effect chance
-//could be normal cuz just objects
-//could be psychic cuz covered in psychic energy
-//ok decided will leave normal as leaves room open for 
-//making multi type from the other abilities
-//i.e galvanize aerialate pixilate refrigerate
-//decide change was exeggcute signature so they would use psychic ability to throw stuff
-//will make this use highest offense stat
-//but still hit defense as throwing objects
+        .effect = EFFECT_STAT_BASED_SPLIT,//Forgot also gave this dmg swap based on stats
+        .power = 15,
+        .type = TYPE_NORMAL, //idea is uses psychic energy to pick up and throw
+        .accuracy = 95, //objects at the enemy with force
+        .pp = 20,   //ok think what can do is make into psyshock hits defense but uses special
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .multiTaskBanned = TRUE,
+        .ballisticMove = TRUE,
+        .variableMultihit = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_Barrage,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_CAT_MINUS_1, //should i make new effect that'll swap def 
+            .chance = 15, //to drop based on dmg category? since it could be special?
+        }),
+    }, //exegcuttor line siganture , test may make 100 acc,  balance acc w effect chance
+    //could be normal cuz just objects
+    //could be psychic cuz covered in psychic energy
+    //ok decided will leave normal as leaves room open for 
+    //making multi type from the other abilities
+    //i.e galvanize aerialate pixilate refrigerate
+    //decide change was exeggcute signature so they would use psychic ability to throw stuff
+    //will make this use highest offense stat
+    //but still hit defense as throwing objects
 
-[MOVE_LEECH_LIFE] =
-{
+    [MOVE_LEECH_LIFE] =
+    {
         .name = COMPOUND_STRING("Leech Life"),
         .description = COMPOUND_MOVE_STRING("An attack that\nabsorbs all the\ndamage it inflicted\nto restore HP."),
-    .effect = EFFECT_ABSORB,
-    .power = 42,
-    .type = TYPE_BUG,
-    .accuracy = 100,
-    .pp = 15,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .argument = { .absorbPercentage = 100 },
-        .makesContact = TRUE,
-        .healingMove = TRUE,
-        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_LeechLife,
-     // restores 75% HP instead of 50% HP
-     //removed infest chance to boost healing, to compete with mega drain
-}, //check balance
+        .effect = EFFECT_ABSORB,
+        .power = 42,
+        .type = TYPE_BUG,
+        .accuracy = 100,
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .argument = { .absorbPercentage = 100 },
+            .makesContact = TRUE,
+            .healingMove = TRUE,
+            //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_LeechLife,
+        // restores 75% HP instead of 50% HP
+        //removed infest chance to boost healing, to compete with mega drain
+    }, //check balance
 
-[MOVE_LOVELY_KISS] =
-{
+    [MOVE_LOVELY_KISS] =
+    {
         .name = COMPOUND_STRING("Lovely Kiss"),
         .description = COMPOUND_MOVE_STRING("The user forces a\nkiss on the foe\nwith a scary face\nthat induces sleep."),
-    .effect = EFFECT_NON_VOLATILE_STATUS,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .accuracy = 75,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 0, //since this keeps opponent from attacking will keep base priority
-    .category = DAMAGE_CATEGORY_STATUS,
-        .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
-        .magicCoatAffected = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_LovelyKiss,
-},
+        .effect = EFFECT_NON_VOLATILE_STATUS,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 75,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0, //since this keeps opponent from attacking will keep base priority
+        .category = DAMAGE_CATEGORY_STATUS,
+            .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+            .magicCoatAffected = TRUE,
+            //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+            //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_LovelyKiss,
+    },
 
-[MOVE_SKY_ATTACK] =
-{
+    [MOVE_SKY_ATTACK] =
+    {
         .name = COMPOUND_STRING("Sky Attack"),
         .description = COMPOUND_MOVE_STRING("The user flies high\nto charge energy\nthe 1st turn, then\nattacks in the 2nd\nwith heightend crit.\nThe foe may flinch."),
 
-    .effect = EFFECT_FLY, //wait rather than a charge move why don't I make it a literal flying attack?
-    .power = 140,   //could make this the upgrade to fly and be an actually good semi-invulnerable move
-    .type = TYPE_FLYING,
-    .accuracy = 100, //raised accuracy cant have charge a turn and still miss smh
-    .pp = 10,
-    .target = TARGET_SELECTED,//could do took to the air then end turn effect glowing w energy strnig?
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .enhancedCritrate = TRUE,
-        .sleepTalkBanned = TRUE,
-        .instructBanned = TRUE,
-        .multiTaskBanned = TRUE,
-        .argument.twoTurnAttack = { .stringId = B_UPDATED_MOVE_DATA >= GEN_4 ? STRINGID_CLOAKEDINAHARSHLIGHT : STRINGID_PKMNISGLOWING, .status = STATE_ON_AIR },
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_FLINCH,
-            .chance = 30,
-        }),
-        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_SkyAttack,
-}, //DO SOMething with this, thinking raise evasiveness one or two stages, may lower power since hitting both
-//it stil needs to be strongest flying move though and brave bird is base 120 no charge 
-//ok alraedy added a 2 stage evasion boost to this, done on the charging turn
-//with change to flying types the evasion boost on this is exemplary of the type
-//as the strongest move potentially lower to 1 stage evasion boost
-//vsonic don't want the move to be too free, that its spammable
-//review revise remove evasion boost as flying types now already get that
-//instead leave it up to strategizing i.e force target follow me stuff like that
-//to ensure can survive to do damage - done removed stat boost
-//decided will change to 2 turn into teh air semi invulnerable move
-//double benefit will remove knocked down status when takes to the air
-//gives reason for moves that do damage in air
-//the semi invul moves and the effects that can hit them in that state
-//almost never come up
-//ok need make end turn effect so can display charging message
-//ah see power her also works on invul moves like dig dive fly
-//cool than changing to semi invlunerable it wouldn't lose
-//power herb option
-//all done just need end turn strign now done fixed
+        .effect = EFFECT_FLY, //wait rather than a charge move why don't I make it a literal flying attack?
+        .power = 140,   //could make this the upgrade to fly and be an actually good semi-invulnerable move
+        .type = TYPE_FLYING,
+        .accuracy = 100, //raised accuracy cant have charge a turn and still miss smh
+        .pp = 10,
+        .target = TARGET_SELECTED,//could do took to the air then end turn effect glowing w energy strnig?
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .enhancedCritrate = TRUE,
+            .sleepTalkBanned = TRUE,
+            .instructBanned = TRUE,
+            .multiTaskBanned = TRUE,
+            .argument.twoTurnAttack = { .stringId = B_UPDATED_MOVE_DATA >= GEN_4 ? STRINGID_CLOAKEDINAHARSHLIGHT : STRINGID_PKMNISGLOWING, .status = STATE_ON_AIR },
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_FLINCH,
+                .chance = 30,
+            }),
+            //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+            //.contestCategory = CONTEST_CATEGORY_COOL,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_SkyAttack,
+    }, //DO SOMething with this, thinking raise evasiveness one or two stages, may lower power since hitting both
+    //it stil needs to be strongest flying move though and brave bird is base 120 no charge 
+    //ok alraedy added a 2 stage evasion boost to this, done on the charging turn
+    //with change to flying types the evasion boost on this is exemplary of the type
+    //as the strongest move potentially lower to 1 stage evasion boost
+    //vsonic don't want the move to be too free, that its spammable
+    //review revise remove evasion boost as flying types now already get that
+    //instead leave it up to strategizing i.e force target follow me stuff like that
+    //to ensure can survive to do damage - done removed stat boost
+    //decided will change to 2 turn into teh air semi invulnerable move
+    //double benefit will remove knocked down status when takes to the air
+    //gives reason for moves that do damage in air
+    //the semi invul moves and the effects that can hit them in that state
+    //almost never come up
+    //ok need make end turn effect so can display charging message
+    //ah see power her also works on invul moves like dig dive fly
+    //cool than changing to semi invlunerable it wouldn't lose
+    //power herb option
+    //all done just need end turn strign now done fixed
 
-[MOVE_TRANSFORM] =
-{
+    [MOVE_TRANSFORM] =
+    {
         .name = COMPOUND_STRING("Transform"),
         .description = COMPOUND_MOVE_STRING("The user transforms\ninto a copy of the\nfoe with even the\nsame move set.\nKeeps EVs and nature"),
-    .effect = EFFECT_TRANSFORM,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .accuracy = 0,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 2,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .mimicBanned = TRUE,
-        .metronomeBanned = TRUE,
-        .copycatBanned = TRUE,
-        .instructBanned = TRUE,
-        .encoreBanned = TRUE,
-        .assistBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Transform,
-},
+        .effect = EFFECT_TRANSFORM,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 0,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 2,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .ignoresProtect = TRUE,
+            .mirrorMoveBanned = TRUE,
+            .mimicBanned = TRUE,
+            .metronomeBanned = TRUE,
+            .copycatBanned = TRUE,
+            .instructBanned = TRUE,
+            .encoreBanned = TRUE,
+            .assistBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Transform,
+    },
 
-[MOVE_BUBBLE] =
-{
+    [MOVE_BUBBLE] =
+    {
         .name = COMPOUND_STRING("Bubble"),
         .description = COMPOUND_MOVE_STRING("A spray of bubbles\nhits the foe.\nThat lowers the\nfoe's SPEED stat."),
-    /*#if B_UPDATED_MOVE_DATA >= GEN_6
-        .power = 40,
-    #else*/
-        .power = 20,
-    //#endif
-    .effect = EFFECT_HIT,
-    .type = TYPE_WATER,
-    .accuracy = 95,
-    .pp = 30,
-    .target = TARGET_BOTH,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
-            .chance = 100,
-        }),
-        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
-        //.contestCategory = CONTEST_CATEGORY_CUTE,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
-        .battleAnimScript = gBattleAnimMove_Bubble,
-},
-//bubbles are slow, changed acc to give water gun back a niche
+        /*#if B_UPDATED_MOVE_DATA >= GEN_6
+            .power = 40,
+        #else*/
+            .power = 20,
+        //#endif
+        .effect = EFFECT_HIT,
+        .type = TYPE_WATER,
+        .accuracy = 95,
+        .pp = 30,
+        .target = TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+                .chance = 100,
+            }),
+            //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+            //.contestCategory = CONTEST_CATEGORY_CUTE,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+            .battleAnimScript = gBattleAnimMove_Bubble,
+    },
+    //bubbles are slow, changed acc to give water gun back a niche
 
-[MOVE_DIZZY_PUNCH] =
-{
+    [MOVE_DIZZY_PUNCH] =
+    {
         .name = COMPOUND_STRING("Dizzy Punch"),
         .description = COMPOUND_MOVE_STRING("The foe is hit with\na rhythmic punch\nthat may leave it\nconfused."),
-    .effect = EFFECT_HIT,
-    .power = 70,
-    .type = TYPE_NORMAL,
-    .accuracy = 100,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        .punchingMove = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_CONFUSION,
-            .chance = 20,
-        }),
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_DizzyPunch,
-},
+        .effect = EFFECT_HIT,
+        .power = 70,
+        .type = TYPE_NORMAL,
+        .accuracy = 100,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            .punchingMove = TRUE,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_CONFUSION,
+                .chance = 20,
+            }),
+            //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+            //.contestCategory = CONTEST_CATEGORY_COOL,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_DizzyPunch,
+    },
 
-[MOVE_SPORE] =
-{
+    [MOVE_SPORE] =
+    {
         .name = COMPOUND_STRING("Spore"),
-        .description = COMPOUND_MOVE_STRING("The user scatters\nbursts of fine\nspores that induce\nsleep."),
-    .effect = EFFECT_NON_VOLATILE_STATUS,
-    .power = 0,
-    .type = TYPE_GRASS,
-    .accuracy = 95,
-    .pp = 15,
-    .target = TARGET_SELECTED,
-    .priority = 0, 
-    .category = DAMAGE_CATEGORY_STATUS,
-        .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
-        .magicCoatAffected = TRUE,
-        .powderMove = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Spore,
-},//keep an eye on -vsonic
-//talked w chief making negative priority does nothing for the problem,
-//just make it hard/impossible for faster mon to use the move,
-//when the issue is just amoongus, who's so bulky it just doesn't have to worry,
-//so best thing I can do is just, and I do mean just, to lower its accuracy
-//at most lower to 90
+        .description = COMPOUND_MOVE_STRING("The user scatters\nbursts of fine\nspores that induce\nsleep.\nAccuracy is lowered\nin inclement weather"),
+        .effect = EFFECT_NON_VOLATILE_STATUS,
+        .power = 0,
+        .type = TYPE_GRASS,
+        .accuracy = 95,
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 0, 
+        .category = DAMAGE_CATEGORY_STATUS,
+            .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+            .magicCoatAffected = TRUE,
+            .powderMove = TRUE,
+            //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+            //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Spore,
+    },//keep an eye on -vsonic
+    //talked w chief making negative priority does nothing for the problem,
+    //just make it hard/impossible for faster mon to use the move,
+    //when the issue is just amoongus, who's so bulky it just doesn't have to worry,
+    //so best thing I can do is just, and I do mean just, to lower its accuracy
+    //at most lower to 90
 
-[MOVE_FLASH] =
-{
+    [MOVE_FLASH] =
+    {
         .name = COMPOUND_STRING("Flash"),
         .description = COMPOUND_MOVE_STRING("A blast of light\nthat cuts the foe's\naccuracy.\nMay make the\nfoe flinch.\nIt illuminates caves"),
-    //since I'm strengthening effect I may lowered accuracy from 100
-    .accuracy = 85,
-    .effect = EFFECT_ACCURACY_DOWN, //lower acc guaranteed and flinch chance
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .pp = 20,
-    .target = TARGET_SELECTED,
-    .priority = 1, //since is an hm I guess I could allow this?
-    .category = DAMAGE_CATEGORY_STATUS,
-        .magicCoatAffected = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_FLINCH,
-            .chance = 30,
-        }),
-        //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Flash,
-},//later test flinch chance to see if too much
+        //since I'm strengthening effect I may lowered accuracy from 100
+        .accuracy = 85,
+        .effect = EFFECT_ACCURACY_DOWN, //lower acc guaranteed and flinch chance
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .pp = 20,
+        .target = TARGET_SELECTED,
+        .priority = 1, //since is an hm I guess I could allow this?
+        .category = DAMAGE_CATEGORY_STATUS,
+            .magicCoatAffected = TRUE,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_FLINCH,
+                .chance = 30,
+            }),
+            //.contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
+            //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Flash,
+    },//later test flinch chance to see if too much
 
-[MOVE_PSYWAVE] =
-{
+    [MOVE_PSYWAVE] =
+    {
         .name = COMPOUND_STRING("Psywave"),
         .description = COMPOUND_MOVE_STRING("The foe is attacked\nwith an odd, hot\nenergy wave that\nignores resistances\nand varies in power"),
-    #if B_UPDATED_MOVE_DATA >= GEN_6
-        .accuracy = 100,
-    #else
-        .accuracy = 80,
-    #endif
-    .effect = EFFECT_PSYWAVE, //ignores resistance
-    .power = 1, //since typeless think should have made this power 0 but forgot
-    .type = TYPE_PSYCHIC, //change power as no longer typeless
-    .pp = 15,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
-        .battleAnimScript = gBattleAnimMove_Psywave,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_6
+            .accuracy = 100,
+        #else
+            .accuracy = 80,
+        #endif
+        .effect = EFFECT_PSYWAVE, //ignores resistance
+        .power = 1, //since typeless think should have made this power 0 but forgot
+        .type = TYPE_PSYCHIC, //change power as no longer typeless
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+            //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
+            .battleAnimScript = gBattleAnimMove_Psywave,
+    },
 
-[MOVE_SPLASH] =
-{
+    [MOVE_SPLASH] =
+    {
         .name = COMPOUND_STRING("Splash"),
         .description = COMPOUND_MOVE_STRING("The user just flops\nand splashes around\nwithout having any\neffect."),
-    .effect = EFFECT_DO_NOTHING,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .accuracy = 0,
-    .pp = 40,
-    .target = TARGET_USER,
-    .priority = 3,
-    .category = DAMAGE_CATEGORY_STATUS, //think change to physical
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .gravityBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
-        //.contestCategory = CONTEST_CATEGORY_CUTE,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Splash,
-},//vsonic important check make sure no issue
+        .effect = EFFECT_DO_NOTHING,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 0,
+        .pp = 40,
+        .target = TARGET_USER,
+        .priority = 3,
+        .category = DAMAGE_CATEGORY_STATUS, //think change to physical
+            .ignoresProtect = TRUE,
+            .mirrorMoveBanned = TRUE,
+            .gravityBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+            //.contestCategory = CONTEST_CATEGORY_CUTE,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Splash,
+    },//vsonic important check make sure no issue
 
-[MOVE_ACID_ARMOR] =
-{
+    [MOVE_ACID_ARMOR] =
+    {
         .name = COMPOUND_STRING("Acid Armor"),
         .description = COMPOUND_MOVE_STRING("The user alters its\ncells to liquefy\nitself and sharply\nraise DEFENSE."),
-    #if B_UPDATED_MOVE_DATA >= GEN_6
-        .pp = 20,
-    #else
-        .pp = 40,
-    #endif
-    .effect = EFFECT_DEFENSE_UP_2,
-    .power = 0,
-    .type = TYPE_POISON,
-    .accuracy = 0,
-    .target = TARGET_USER,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .snatchAffected = TRUE,
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_AcidArmor,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_6
+            .pp = 20,
+        #else
+            .pp = 40,
+        #endif
+        .effect = EFFECT_DEFENSE_UP_2,
+        .power = 0,
+        .type = TYPE_POISON,
+        .accuracy = 0,
+        .target = TARGET_USER,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .snatchAffected = TRUE,
+            .ignoresProtect = TRUE,
+            .mirrorMoveBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_AcidArmor,
+    },
 
-[MOVE_CRABHAMMER] =
-{
+    [MOVE_CRABHAMMER] =
+    {
         .name = COMPOUND_STRING("Crabhammer"),
         .description = COMPOUND_MOVE_STRING("A large pincer is\nused to hammer the\nfoe. It has a high\ncritical-hit ratio."),
-    #if B_UPDATED_MOVE_DATA >= GEN_6
-        .power = 100,
-        .accuracy = 90,
-    #elif B_UPDATED_MOVE_DATA == GEN_5
-        .power = 90,
-        .accuracy = 90,
-    #else
-        .power = 90,
-        .accuracy = 85,
-    #endif
-    .effect = EFFECT_HIT,
-    .type = TYPE_WATER,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        .punchingMove = TRUE,
-        .enhancedCritrate = TRUE, //oh right think put crit on this to try making krabby better
-        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE, COMBO_STARTER_SWORDS_DANCE},
-        .battleAnimScript = gBattleAnimMove_Crabhammer,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_6
+            .power = 100,
+            .accuracy = 90,
+        #elif B_UPDATED_MOVE_DATA == GEN_5
+            .power = 90,
+            .accuracy = 90,
+        #else
+            .power = 90,
+            .accuracy = 85,
+        #endif
+        .effect = EFFECT_HIT,
+        .type = TYPE_WATER,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            .punchingMove = TRUE,
+            .enhancedCritrate = TRUE, //oh right think put crit on this to try making krabby better
+            //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_RAIN_DANCE, COMBO_STARTER_SWORDS_DANCE},
+            .battleAnimScript = gBattleAnimMove_Crabhammer,
+    },
 
-[MOVE_EXPLOSION] =
-{
+    [MOVE_EXPLOSION] =
+    {
         .name = COMPOUND_STRING("Explosion"),
         .description = COMPOUND_MOVE_STRING("The user explodes\nto inflict terrible\ndamage even while\nfainting itself."),
-    .effect = EFFECT_HIT,
-    .power = 170,//250,
-    .type = TYPE_NORMAL,
-    .accuracy = 100,
-    .pp = 5,
-    .target = TARGET_FOES_AND_ALLY,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .parentalBondBanned = TRUE,
-        .multiTaskBanned = TRUE,
-        .dampBanned = TRUE,
-        .ballisticMove = TRUE,
-        .explosionEffects = { .sacrificedHpPercentage = 100, .failsIfNotEnoughHp = FALSE},
-        //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Explosion,
-},//gen 1 power 170 consider drop and rework self destruct
-//cut distribution may boost power up slighty
-//if need give reason to use over self destruct
-//well a difference I could make is
-//self destruct and mind blown would fail
-//if didn't have enoough hp to activate it
-//i.e they die before it goes off.
-//leaving explosion as the pre-eminent boom.
-//think that's good, requires a bit of planning and forethought
-//vsonic
-//sturdy mon could survive 
-//making them best bomb users as well
+        .effect = EFFECT_HIT,
+        .power = 170,//250,
+        .type = TYPE_NORMAL,
+        .accuracy = 100,
+        .pp = 5,
+        .target = TARGET_FOES_AND_ALLY,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .parentalBondBanned = TRUE,
+            .multiTaskBanned = TRUE,
+            .dampBanned = TRUE,
+            .ballisticMove = TRUE,
+            .explosionEffects = { .sacrificedHpPercentage = 100, .failsIfNotEnoughHp = FALSE},
+            //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
+            //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Explosion,
+    },//gen 1 power 170 consider drop and rework self destruct
+    //cut distribution may boost power up slighty
+    //if need give reason to use over self destruct
+    //well a difference I could make is
+    //self destruct and mind blown would fail
+    //if didn't have enoough hp to activate it
+    //i.e they die before it goes off.
+    //leaving explosion as the pre-eminent boom.
+    //think that's good, requires a bit of planning and forethought
+    //vsonic
+    //sturdy mon could survive 
+    //making them best bomb users as well
 
-[MOVE_FURY_SWIPES] =
-{
+    [MOVE_FURY_SWIPES] =
+    {
         .name = COMPOUND_STRING("Fury Swipes"),
         .description = COMPOUND_MOVE_STRING("The foe is raked\nwith sharp claws or\nscythes two to five\ntimes.\nIt has a high\ncritical-hit ratio."),
-    .effect = EFFECT_HIT,
-    .power = 15,
-    .type = TYPE_NORMAL,
-    .accuracy = 90,
-    .pp = 15,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-    .makesContact = TRUE,
-    .multiTaskBanned = TRUE,
-    .enhancedCritrate = TRUE,
-    .variableMultihit = TRUE,
-    //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
-    //.contestCategory = CONTEST_CATEGORY_TOUGH,
-    //.contestComboStarterId = 0,
-    //.contestComboMoves = {COMBO_STARTER_SCRATCH},
-    .battleAnimScript = gBattleAnimMove_FurySwipes,
-},
+        .effect = EFFECT_HIT,
+        .power = 15,
+        .type = TYPE_NORMAL,
+        .accuracy = 90,
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .multiTaskBanned = TRUE,
+        .enhancedCritrate = TRUE,
+        .variableMultihit = TRUE,
+        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SCRATCH},
+        .battleAnimScript = gBattleAnimMove_FurySwipes,
+    },
 
-[MOVE_BONEMERANG] =
-{
+    [MOVE_BONEMERANG] =
+    {
         .name = COMPOUND_STRING("Bonemerang"),
         .description = COMPOUND_MOVE_STRING("The user throws a\nbone that hits the\nfoe once, then once\nagain on return."),
-    .effect = EFFECT_HIT,
-    .power = 50,
-    .type = TYPE_GROUND,
-    .accuracy = 90,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-    .airborneDmgState = DAMAGES_AIRBORNE,
-    .strikeCount = 2,
-    .multiTaskBanned = TRUE,
-    //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
-    //.contestCategory = CONTEST_CATEGORY_TOUGH,
-    //.contestComboStarterId = COMBO_STARTER_BONEMERANG,
-    //.contestComboMoves = {COMBO_STARTER_BONE_CLUB, COMBO_STARTER_BONE_RUSH, COMBO_STARTER_SHADOW_BONE},
-    .battleAnimScript = gBattleAnimMove_Bonemerang,
-},
-
-[MOVE_REST] =
-{
-        .name = COMPOUND_STRING("Rest"),
-        .description = COMPOUND_MOVE_STRING("The user sleeps for\ntwo turns to fully\nrestore HP and heal\nany status problem."),
-    .effect = EFFECT_REST,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .accuracy = 0,
-    .pp = 10,
-    .target = TARGET_USER,
-    .priority = 0, //since is full hp don't think I can boost,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .snatchAffected = TRUE,
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .healingMove = TRUE,
-        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
-        //.contestCategory = CONTEST_CATEGORY_CUTE,
-        //.contestComboStarterId = COMBO_STARTER_REST,
-        //.contestComboMoves = {COMBO_STARTER_BELLY_DRUM, COMBO_STARTER_CHARM, COMBO_STARTER_YAWN},
-        .battleAnimScript = gBattleAnimMove_Rest,
-},
-
-[MOVE_ROCK_SLIDE] =
-{
-        .name = COMPOUND_STRING("Rock Slide"),
-        .description = COMPOUND_MOVE_STRING("Large boulders are\nhurled at the foe.\nIt may make the\nfoe flinch."),
-    .effect = EFFECT_HIT,
-    .power = 75,
-    .type = TYPE_ROCK,
-    .accuracy = 90,
-    .pp = 10,
-    .target = TARGET_BOTH,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_FLINCH,
-            .chance = 30,
-        }),
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_ROCK_THROW},
-        .battleAnimScript = gBattleAnimMove_RockSlide,
-},//may set back to 90, and 30 w onix buffs makes onix best rock slide user
-//a significant buff for it... yeah think I will
-//effect is good enough that the accuracy  isn't strange
-
-[MOVE_HYPER_FANG] =
-{
-        .name = COMPOUND_STRING("Hyper Fang"),
-        .description = COMPOUND_MOVE_STRING("The foe is attacked\nwith sharp fangs.\nIt may make the\nfoe flinch."),
-    .effect = EFFECT_HIT,
-    .power = 95,
-    .type = TYPE_NORMAL,
-    .accuracy = 90,
-    .pp = 15,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        .bitingMove = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_FLINCH,
-            .chance = 10,
-        }),
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_HyperFang,
-},
-
-[MOVE_SHARPEN] =
-{
-        .name = COMPOUND_STRING("Sharpen"),
-        .description = COMPOUND_MOVE_STRING("The user reduces\nits polygon count\nto sharpen edges\nand raise ATTACK."),
-    .effect = EFFECT_ATTACK_UP,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .accuracy = 0,
-    .pp = 30,
-    .target = TARGET_USER,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .snatchAffected = TRUE,
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
-        //.contestCategory = CONTEST_CATEGORY_CUTE,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Sharpen,
-},
-
-[MOVE_CONVERSION] =
-{
-        .name = COMPOUND_STRING("Conversion"),
-        .description = COMPOUND_MOVE_STRING("The user changes its\nprimary type to\nmatch the type of\nits first move."),
-    #if B_UPDATED_MOVE_DATA >= GEN_5
-    #else
-    #endif
-    .effect = EFFECT_CONVERSION,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .accuracy = 0,
-    .pp = 30,
-    .target = TARGET_USER,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .snatchAffected = TRUE,
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Conversion,
-},
-
-[MOVE_TRI_ATTACK] =
-{
-        .name = COMPOUND_STRING("Tri Attack"),
-        .description = COMPOUND_MOVE_STRING("A simultaneous\n3-beam attack that\nmay paralyze, burn,\nor freeze the foe.\nSplit is based on\nhighest Attack stat."),
-    .effect = EFFECT_STAT_BASED_SPLIT,
-    .power = 80,
-    .type = TYPE_NORMAL,
-    .accuracy = 100,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_TRI_ATTACK,
-            .chance = 20,
-        }),
-        //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_LOCK_ON},
-        .battleAnimScript = gBattleAnimMove_TriAttack,
-},
-
-[MOVE_SUPER_FANG] =
-{
-        .name = COMPOUND_STRING("Super Fang"),
-        .description = COMPOUND_MOVE_STRING("The user attacks\nwith sharp fangs\nand halves the\nfoe's HP."),
-    .effect = EFFECT_FIXED_PERCENT_DAMAGE,
-    .power = 1,
-    .type = TYPE_NORMAL,
-    .accuracy = 90,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .argument = { .damagePercentage = 50 },
-        .makesContact = TRUE,
-        .multiTaskBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_SCARY_FACE},
-        .battleAnimScript = gBattleAnimMove_SuperFang,
-},
-
-[MOVE_SLASH] =
-{
-        .name = COMPOUND_STRING("Slash"),
-        .description = COMPOUND_MOVE_STRING("The foe is slashed\nwith claws, etc.\nIt has a high\ncritical-hit ratio."),
-    .effect = EFFECT_HIT,
-    .power = 75,
-    .type = TYPE_NORMAL,
-    .accuracy = 95,
-    .pp = 20,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        .slicingMove = TRUE,
-        .enhancedCritrate = TRUE,
-        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_SCRATCH, COMBO_STARTER_SWORDS_DANCE},
-        .battleAnimScript = gBattleAnimMove_Slash,
-},
-
-[MOVE_SUBSTITUTE] =
-{
-        .name = COMPOUND_STRING("Substitute"),
-        .description = COMPOUND_MOVE_STRING("The user creates a\ndecoy using one-\nquarter of its full\nHP."),
-    .effect = EFFECT_SUBSTITUTE,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .accuracy = 95,
-    .pp = 10,
-    .target = TARGET_USER,
-    .priority = 0, //would like to do but worry makes it too risk free? same as rest
-    .category = DAMAGE_CATEGORY_STATUS,
-        .snatchAffected = TRUE,
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Substitute,
-},
-
-[MOVE_STRUGGLE] =
-{
-        .name = COMPOUND_STRING("Struggle"),
-        .description = COMPOUND_MOVE_STRING("An attack that is\nused only if there\nis no PP. It also\nhurts the user."),
-    #if B_UPDATED_MOVE_DATA >= GEN_4
-        .accuracy = 0,
-    #else
-        .accuracy = 100,
-    #endif
-    .effect = EFFECT_RECOIL, //w my change struggle is far less punishing, potentially swap effect for EFECT_MED_RECOIL
-    .power = 50,
-    .type = TYPE_NORMAL,//tested seems fine at boosted recoil
-    .pp = 1,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        .meFirstBanned = TRUE,
-        .mimicBanned = TRUE,
-        .metronomeBanned = TRUE,
-        .sleepTalkBanned = TRUE,
-        .copycatBanned = TRUE,
-        .instructBanned = TRUE,
-        .encoreBanned = TRUE,
-        .assistBanned = TRUE,
-        .sketchBanned = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-                .moveEffect = MOVE_EFFECT_MED_RECOIL,
-                .self = TRUE,
-            }),
-        .battleAnimScript = gBattleAnimMove_Struggle,
-},
-
-[MOVE_SKETCH] =
-{
-        .name = COMPOUND_STRING("Sketch"),
-        .description = COMPOUND_MOVE_STRING("The user temporarily\ncopies the move\nlast used by the foe"),
-    .effect = EFFECT_SKETCH,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .accuracy = 0,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .ignoresProtect = TRUE,
-        .ignoresSubstitute = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .mimicBanned = TRUE,
-        .metronomeBanned = TRUE,
-        .copycatBanned = TRUE,
-        .sleepTalkBanned = TRUE,
-        .instructBanned = TRUE,
-        .encoreBanned = TRUE,
-        .assistBanned = TRUE,
-        .sketchBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONE,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Sketch,
-},
-
-[MOVE_TRIPLE_KICK] =
-{
-        .name = COMPOUND_STRING("Triple Kick"),
-        .description = COMPOUND_MOVE_STRING("A 3-kick attack\nthat becomes more\npowerful with each\nsuccessive hit."),
-    .effect = EFFECT_TRIPLE_KICK,   //changing triple kick effect, handling like gen 2 with dmg multiple, will be done in dmg calc command, 
-    .power = 15,
-    .type = TYPE_FIGHTING,
-    .accuracy = 90,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        .kickingMove = TRUE,
-        .strikeCount = 3,
+        .effect = EFFECT_HIT,
+        .power = 50,
+        .type = TYPE_GROUND,
+        .accuracy = 90,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .airborneDmgState = DAMAGES_AIRBORNE,
+        .strikeCount = 2,
         .multiTaskBanned = TRUE,
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
-        .battleAnimScript = gBattleAnimMove_TripleKick,
-},
+        //.contestCategory = CONTEST_CATEGORY_TOUGH,
+        //.contestComboStarterId = COMBO_STARTER_BONEMERANG,
+        //.contestComboMoves = {COMBO_STARTER_BONE_CLUB, COMBO_STARTER_BONE_RUSH, COMBO_STARTER_SHADOW_BONE},
+        .battleAnimScript = gBattleAnimMove_Bonemerang,
+    },
 
-[MOVE_THIEF] =
-{
+    [MOVE_REST] =
+    {
+        .name = COMPOUND_STRING("Rest"),
+        .description = COMPOUND_MOVE_STRING("The user sleeps for\ntwo turns to fully\nrestore HP and heal\nany status problem."),
+        .effect = EFFECT_REST,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 0,
+        .pp = 10,
+        .target = TARGET_USER,
+        .priority = 0, //since is full hp don't think I can boost,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .snatchAffected = TRUE,
+            .ignoresProtect = TRUE,
+            .mirrorMoveBanned = TRUE,
+            .healingMove = TRUE,
+            //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+            //.contestCategory = CONTEST_CATEGORY_CUTE,
+            //.contestComboStarterId = COMBO_STARTER_REST,
+            //.contestComboMoves = {COMBO_STARTER_BELLY_DRUM, COMBO_STARTER_CHARM, COMBO_STARTER_YAWN},
+            .battleAnimScript = gBattleAnimMove_Rest,
+    },
+
+    [MOVE_ROCK_SLIDE] =
+    {
+        .name = COMPOUND_STRING("Rock Slide"),
+        .description = COMPOUND_MOVE_STRING("Large boulders are\nhurled at the foe.\nIt may make the\nfoe flinch."),
+        .effect = EFFECT_HIT,
+        .power = 75,
+        .type = TYPE_ROCK,
+        .accuracy = 90,
+        .pp = 10,
+        .target = TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_FLINCH,
+                .chance = 30,
+            }),
+            //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_ROCK_THROW},
+            .battleAnimScript = gBattleAnimMove_RockSlide,
+    },//may set back to 90, and 30 w onix buffs makes onix best rock slide user
+    //a significant buff for it... yeah think I will
+    //effect is good enough that the accuracy  isn't strange
+
+    [MOVE_HYPER_FANG] =
+    {
+        .name = COMPOUND_STRING("Hyper Fang"),
+        .description = COMPOUND_MOVE_STRING("The foe is attacked\nwith sharp fangs.\nIt may make the\nfoe flinch."),
+        .effect = EFFECT_HIT,
+        .power = 95,
+        .type = TYPE_NORMAL,
+        .accuracy = 90,
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            .bitingMove = TRUE,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_FLINCH,
+                .chance = 10,
+            }),
+            //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+            //.contestCategory = CONTEST_CATEGORY_COOL,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_HyperFang,
+    },
+
+    [MOVE_SHARPEN] =
+    {
+        .name = COMPOUND_STRING("Sharpen"),
+        .description = COMPOUND_MOVE_STRING("The user reduces\nits polygon count\nto sharpen edges\nand raise ATTACK."),
+        .effect = EFFECT_ATTACK_UP,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 0,
+        .pp = 30,
+        .target = TARGET_USER,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .snatchAffected = TRUE,
+            .ignoresProtect = TRUE,
+            .mirrorMoveBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+            //.contestCategory = CONTEST_CATEGORY_CUTE,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Sharpen,
+    },
+
+    [MOVE_CONVERSION] =
+    {
+        .name = COMPOUND_STRING("Conversion"),
+        .description = COMPOUND_MOVE_STRING("The user changes its\nprimary type to\nmatch the type of\nits first move."),
+        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #else
+        #endif
+        .effect = EFFECT_CONVERSION,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 0,
+        .pp = 30,
+        .target = TARGET_USER,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .snatchAffected = TRUE,
+            .ignoresProtect = TRUE,
+            .mirrorMoveBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+            //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Conversion,
+    },
+
+    [MOVE_TRI_ATTACK] =
+    {
+        .name = COMPOUND_STRING("Tri Attack"),
+        .description = COMPOUND_MOVE_STRING("A simultaneous\n3-beam attack that\nmay paralyze, burn,\nor freeze the foe.\nSplit is based on\nhighest Attack stat."),
+        .effect = EFFECT_STAT_BASED_SPLIT,
+        .power = 80,
+        .type = TYPE_NORMAL,
+        .accuracy = 100,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_TRI_ATTACK,
+                .chance = 20,
+            }),
+            //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+            //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_LOCK_ON},
+            .battleAnimScript = gBattleAnimMove_TriAttack,
+    },
+
+    [MOVE_SUPER_FANG] =
+    {
+        .name = COMPOUND_STRING("Super Fang"),
+        .description = COMPOUND_MOVE_STRING("The user attacks\nwith sharp fangs\nand halves the\nfoe's HP."),
+        .effect = EFFECT_FIXED_PERCENT_DAMAGE,
+        .power = 1,
+        .type = TYPE_NORMAL,
+        .accuracy = 90,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .argument = { .damagePercentage = 50 },
+            .makesContact = TRUE,
+            .multiTaskBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_SCARY_FACE},
+            .battleAnimScript = gBattleAnimMove_SuperFang,
+    },
+
+    [MOVE_SLASH] =
+    {
+        .name = COMPOUND_STRING("Slash"),
+        .description = COMPOUND_MOVE_STRING("The foe is slashed\nwith claws, etc.\nIt has a high\ncritical-hit ratio."),
+        .effect = EFFECT_HIT,
+        .power = 75,
+        .type = TYPE_NORMAL,
+        .accuracy = 95,
+        .pp = 20,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            .slicingMove = TRUE,
+            .enhancedCritrate = TRUE,
+            //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+            //.contestCategory = CONTEST_CATEGORY_COOL,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_SCRATCH, COMBO_STARTER_SWORDS_DANCE},
+            .battleAnimScript = gBattleAnimMove_Slash,
+    },
+
+    [MOVE_SUBSTITUTE] =
+    {
+        .name = COMPOUND_STRING("Substitute"),
+        .description = COMPOUND_MOVE_STRING("The user creates a\ndecoy using one-\nquarter of its full\nHP."),
+        .effect = EFFECT_SUBSTITUTE,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 95,
+        .pp = 10,
+        .target = TARGET_USER,
+        .priority = 0, //would like to do but worry makes it too risk free? same as rest
+        .category = DAMAGE_CATEGORY_STATUS,
+            .snatchAffected = TRUE,
+            .ignoresProtect = TRUE,
+            .mirrorMoveBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Substitute,
+    },
+
+    [MOVE_STRUGGLE] =
+    {
+        .name = COMPOUND_STRING("Struggle"),
+        .description = COMPOUND_MOVE_STRING("An attack that is\nused only if there\nis no PP. It also\nhurts the user."),
+        #if B_UPDATED_MOVE_DATA >= GEN_4
+            .accuracy = 0,
+        #else
+            .accuracy = 100,
+        #endif
+        .effect = EFFECT_RECOIL, //w my change struggle is far less punishing, potentially swap effect for EFECT_MED_RECOIL
+        .power = 50,
+        .type = TYPE_NORMAL,//tested seems fine at boosted recoil
+        .pp = 1,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            .meFirstBanned = TRUE,
+            .mimicBanned = TRUE,
+            .metronomeBanned = TRUE,
+            .sleepTalkBanned = TRUE,
+            .copycatBanned = TRUE,
+            .instructBanned = TRUE,
+            .encoreBanned = TRUE,
+            .assistBanned = TRUE,
+            .sketchBanned = TRUE,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                    .moveEffect = MOVE_EFFECT_MED_RECOIL,
+                    .self = TRUE,
+                }),
+            .battleAnimScript = gBattleAnimMove_Struggle,
+    },
+
+    [MOVE_SKETCH] =
+    {
+        .name = COMPOUND_STRING("Sketch"),
+        .description = COMPOUND_MOVE_STRING("The user temporarily\ncopies the move\nlast used by the foe"),
+        .effect = EFFECT_SKETCH,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 0,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .ignoresProtect = TRUE,
+            .ignoresSubstitute = TRUE,
+            .mirrorMoveBanned = TRUE,
+            .mimicBanned = TRUE,
+            .metronomeBanned = TRUE,
+            .copycatBanned = TRUE,
+            .sleepTalkBanned = TRUE,
+            .instructBanned = TRUE,
+            .encoreBanned = TRUE,
+            .assistBanned = TRUE,
+            .sketchBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONE,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Sketch,
+    },
+
+    [MOVE_TRIPLE_KICK] =
+    {
+        .name = COMPOUND_STRING("Triple Kick"),
+        .description = COMPOUND_MOVE_STRING("A 3-kick attack\nthat becomes more\npowerful with each\nsuccessive hit."),
+        .effect = EFFECT_TRIPLE_KICK,   //changing triple kick effect, handling like gen 2 with dmg multiple, will be done in dmg calc command, 
+        .power = 15,
+        .type = TYPE_FIGHTING,
+        .accuracy = 90,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            .kickingMove = TRUE,
+            .strikeCount = 3,
+            .multiTaskBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+            //.contestCategory = CONTEST_CATEGORY_COOL,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+            .battleAnimScript = gBattleAnimMove_TripleKick,
+    },
+
+    [MOVE_THIEF] =
+    {
         .name = COMPOUND_STRING("Thief"),
         .description = COMPOUND_MOVE_STRING("An attack that may\ntake the foe's held\nitem if the user\nisn't holding one."),
-    #if B_UPDATED_MOVE_DATA >= GEN_6
-        .power = 60,
-        .pp = 25,
-    #else
-        .power = 40,
-        .pp = 10,
-    #endif
-    .effect = EFFECT_STEAL_ITEM,
-    .type = TYPE_DARK,
-    .accuracy = 95,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        .meFirstBanned = TRUE,
-        .metronomeBanned = TRUE,
-        .copycatBanned = TRUE,
-        .assistBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Thief,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_6
+            .power = 60,
+            .pp = 25,
+        #else
+            .power = 40,
+            .pp = 10,
+        #endif
+        .effect = EFFECT_STEAL_ITEM,
+        .type = TYPE_DARK,
+        .accuracy = 95,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            .meFirstBanned = TRUE,
+            .metronomeBanned = TRUE,
+            .copycatBanned = TRUE,
+            .assistBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_APPEAL_AS_GOOD_AS_PREV_ONES,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Thief,
+    },
 
-[MOVE_SPIDER_WEB] =
-{
+    [MOVE_SPIDER_WEB] =
+    {
         .name = COMPOUND_STRING("Spider Web"),
         .description = COMPOUND_MOVE_STRING("Ensnares the foe\nwith sticky string\ncoated in toxins\nparalyzing them."),
 
-    .effect = EFFECT_NON_VOLATILE_STATUS,
-    .power = 0,
-    .type = TYPE_BUG,
-    .accuracy = 0,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .ignoresProtect = TRUE,
-        .magicCoatAffected = TRUE,
-        .argument = { .nonVolatileStatus = MOVE_EFFECT_PARALYSIS },
-        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_STRING_SHOT},
-        .battleAnimScript = gBattleAnimMove_SpiderWeb,
-},
-//taken over by swarm/infestation and sticky web
-//spider webs to my knowledge have effect of paralyzing those stuck in it?
-//yup found some spiders lace web in neurotoxin that can paralyze those stuck in it
-//for them to eat later
-//so rework this into bug move that paralyzes
-//even better as would work on electric types
-//since no good mon get this think am safe to leave it sure hit
-//thunder wave was nerfed becuause of high access and 
-//it being on legendary mon
+        .effect = EFFECT_NON_VOLATILE_STATUS,
+        .power = 0,
+        .type = TYPE_BUG,
+        .accuracy = 0,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .ignoresProtect = TRUE,
+            .magicCoatAffected = TRUE,
+            .argument = { .nonVolatileStatus = MOVE_EFFECT_PARALYSIS },
+            //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_STRING_SHOT},
+            .battleAnimScript = gBattleAnimMove_SpiderWeb,
+    },
+    //taken over by swarm/infestation and sticky web
+    //spider webs to my knowledge have effect of paralyzing those stuck in it?
+    //yup found some spiders lace web in neurotoxin that can paralyze those stuck in it
+    //for them to eat later
+    //so rework this into bug move that paralyzes
+    //even better as would work on electric types
+    //since no good mon get this think am safe to leave it sure hit
+    //thunder wave was nerfed becuause of high access and 
+    //it being on legendary mon
 
-[MOVE_MIND_READER] =
-{
+    [MOVE_MIND_READER] =
+    {
         .name = COMPOUND_STRING("Mind Reader"),
         .description = COMPOUND_MOVE_STRING("The user predicts\nthe foe's action to\nensure its next\nattack hits."),
-    #if B_UPDATED_MOVE_DATA >= GEN_4
-        .accuracy = 0,
-    #else
-        .accuracy = 100,
-    #endif
-    .effect = EFFECT_LOCK_ON,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .pp = 5,
-    .target = TARGET_SELECTED,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = COMBO_STARTER_MIND_READER,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_MindReader,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_4
+            .accuracy = 0,
+        #else
+            .accuracy = 100,
+        #endif
+        .effect = EFFECT_LOCK_ON,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .pp = 5,
+        .target = TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = COMBO_STARTER_MIND_READER,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_MindReader,
+    },
 
-[MOVE_NIGHTMARE] =
-{
+    [MOVE_NIGHTMARE] =
+    {
         .name = COMPOUND_STRING("Nightmare"),
         .description = COMPOUND_MOVE_STRING("A sleeping foe is\nshown a nightmare\nthat inflicts some\ndamage every turn.\nLowering its offense\nfor the duration."),
-    #if B_UPDATED_MOVE_DATA >= GEN_4
-        .accuracy = 100,
-    #else
-        .accuracy = 0,
-    #endif
-    .effect = EFFECT_NIGHTMARE,//saw smithplays vid made small buffs
-    .power = 0,
-    .type = TYPE_GHOST,
-    .pp = 15,
-    .target = TARGET_SELECTED,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Nightmare,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_4
+            .accuracy = 100,
+        #else
+            .accuracy = 0,
+        #endif
+        .effect = EFFECT_NIGHTMARE,//saw smithplays vid made small buffs
+        .power = 0,
+        .type = TYPE_GHOST,
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Nightmare,
+    },
 
-[MOVE_FLAME_WHEEL] =
-{
+    [MOVE_FLAME_WHEEL] =
+    {
         .name = COMPOUND_STRING("Flame Wheel"),
         .description = COMPOUND_MOVE_STRING("The user makes a\nfiery charge at the\nfoe that may burn.\nUser gets fixated\nincreasing power\non use, maxes at 3."), //changed requires 2 additioanl uses to max power instead of 3, i.e 3 uses total
-    .effect = EFFECT_FIXATION,//think for this set fixation turns based on number times used it, increment in attack canceler
-    .power = 60,
-    .type = TYPE_FIRE,//change back to 60 base power 2 turn fixation
-    .accuracy = 100,
-    .pp = 25,
-    .target = TARGET_SELECTED,//note since effect is in atk canceler completely ignores acc need for move to actually land
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        .thawsUser = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_BURN,
-            .chance = 10,
-        },
-        {
-            .moveEffect = MOVE_EFFECT_DMG_FIXATION,
-            .self = TRUE,
-        }),
-        .argument = {.fixedDamage = 15},
-        //think wanna do something like improved condition
-        //w repeated use can't be starteled or can't lose heart something
-        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING, 
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
-        .battleAnimScript = gBattleAnimMove_FlameWheel,
-},
-//rebalanced effect for this max is 2
-//effect inspired by legends arceus fixated status
-//incrases move power with repeated use
-//plan have this as category of effect no idea about more moves
-//core principle user fixates on move gets better with repeated use
-//in some way.
-//not always dmg, just it becomes improved in some way over time
-//dmg, acc, or some other additional benefit
-//vsonic Important
-//could do with move effect
-//set base effect as Fixation
-//then use additional effects to set category of fixation? 
-//then again that would take up an effect when
-//I could easily put that in effect
-//but for sake of balance that would be 
-//a lot to put on something to have 2 full slots
-//in addition to an effect that is good/gets better w use
-//decided generalize effect set category w move effect and self
-//then have move effect set volatile status specifically 
-//based on category so can filter in the fixation canceler
-//ok technically don't need effect fixation it'd just be hit
-//but will have same balane issue instead
-//keep effect_fixation and have that be the requirement
-//for using fixation move effects the move has to be a fixation move
-//the effect requirement is both thematic and for balance
+        .effect = EFFECT_FIXATION,//think for this set fixation turns based on number times used it, increment in attack canceler
+        .power = 60,
+        .type = TYPE_FIRE,//change back to 60 base power 2 turn fixation
+        .accuracy = 100,
+        .pp = 25,
+        .target = TARGET_SELECTED,//note since effect is in atk canceler completely ignores acc need for move to actually land
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            .thawsUser = TRUE,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_BURN,
+                .chance = 10,
+            },
+            {
+                .moveEffect = MOVE_EFFECT_DMG_FIXATION,
+                .self = TRUE,
+            }),
+            .argument = {.fixedDamage = 15},
+            //think wanna do something like improved condition
+            //w repeated use can't be starteled or can't lose heart something
+            //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING, 
+            //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+            .battleAnimScript = gBattleAnimMove_FlameWheel,
+    },
+    //rebalanced effect for this max is 2
+    //effect inspired by legends arceus fixated status
+    //incrases move power with repeated use
+    //plan have this as category of effect no idea about more moves
+    //core principle user fixates on move gets better with repeated use
+    //in some way.
+    //not always dmg, just it becomes improved in some way over time
+    //dmg, acc, or some other additional benefit
+    //vsonic Important
+    //could do with move effect
+    //set base effect as Fixation
+    //then use additional effects to set category of fixation? 
+    //then again that would take up an effect when
+    //I could easily put that in effect
+    //but for sake of balance that would be 
+    //a lot to put on something to have 2 full slots
+    //in addition to an effect that is good/gets better w use
+    //decided generalize effect set category w move effect and self
+    //then have move effect set volatile status specifically 
+    //based on category so can filter in the fixation canceler
+    //ok technically don't need effect fixation it'd just be hit
+    //but will have same balane issue instead
+    //keep effect_fixation and have that be the requirement
+    //for using fixation move effects the move has to be a fixation move
+    //the effect requirement is both thematic and for balance
 
-[MOVE_SNORE] =
-{
+    [MOVE_SNORE] =
+    {
         .name = COMPOUND_STRING("Snore"),
         .description = COMPOUND_MOVE_STRING("An attack that can\nbe used only while\nasleep. It may\ncause flinching."),
-    #if B_UPDATED_MOVE_DATA >= GEN_6
-        .power = 75,
-    #elif B_UPDATED_MOVE_DATA == GEN_5
-        .power = 40,
-    #else
-        .power = 40,
-    #endif
-    .effect = EFFECT_SNORE,
-    .type = TYPE_SOUND,
-    .accuracy = 100,
-    .pp = 15,
-    .target = TARGET_BOTH,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-        .ignoresSubstitute = TRUE,
-        .soundMove = TRUE,
-        .metronomeBanned = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_FLINCH,
-            .chance = 30,
-        }),
-        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
-        //.contestCategory = CONTEST_CATEGORY_CUTE,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_REST},
-        .battleAnimScript = gBattleAnimMove_Snore,
-}, 
-//redid script put flinch in move argument not on snore script itself
-//should make a good tm?
-//does flinch so no cacophony boost,hmm well I could screw it
-//check what mon get snore, since changed to both may need drop strength?
-//ok so only fast mon that learns snore is Dedenne,
-//so I guess its fine?
+        #if B_UPDATED_MOVE_DATA >= GEN_6
+            .power = 75,
+        #elif B_UPDATED_MOVE_DATA == GEN_5
+            .power = 40,
+        #else
+            .power = 40,
+        #endif
+        .effect = EFFECT_SNORE,
+        .type = TYPE_SOUND,
+        .accuracy = 100,
+        .pp = 15,
+        .target = TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+            .ignoresSubstitute = TRUE,
+            .soundMove = TRUE,
+            .metronomeBanned = TRUE,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_FLINCH,
+                .chance = 30,
+            }),
+            //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+            //.contestCategory = CONTEST_CATEGORY_CUTE,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_REST},
+            .battleAnimScript = gBattleAnimMove_Snore,
+    }, 
+    //redid script put flinch in move argument not on snore script itself
+    //should make a good tm?
+    //does flinch so no cacophony boost,hmm well I could screw it
+    //check what mon get snore, since changed to both may need drop strength?
+    //ok so only fast mon that learns snore is Dedenne,
+    //so I guess its fine?
 
-[MOVE_CURSE] =
-{
+    [MOVE_CURSE] =
+    {
         .name = COMPOUND_STRING("Curse"),
         .description = COMPOUND_MOVE_STRING("A move that works\ndifferently for the\nGHOST-type and all\nthe other types."),
 
-    .type = TYPE_MYSTERY,
-    .effect = EFFECT_CURSE,
-    .power = 0,
-    .accuracy = 0,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .ignoresProtect = TRUE,
-        .ignoresSubstitute = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .argument = { .sacrificedHpPercentage = 50 }, //for ghost curse
-        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = COMBO_STARTER_CURSE,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Curse,
-},
+        .type = TYPE_MYSTERY,
+        .effect = EFFECT_CURSE,
+        .power = 0,
+        .accuracy = 0,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .ignoresProtect = TRUE,
+            .ignoresSubstitute = TRUE,
+            .mirrorMoveBanned = TRUE,
+            .argument = { .sacrificedHpPercentage = 50 }, //for ghost curse
+            //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = COMBO_STARTER_CURSE,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Curse,
+    },
 
-[MOVE_FLAIL] =
-{
+    [MOVE_FLAIL] =
+    {
         .name = COMPOUND_STRING("Flail"),
         .description = COMPOUND_MOVE_STRING("A desperate attack\nthat becomes more\npowerful the less\nHP the user has."),
-    .effect = EFFECT_FLAIL,
-    .power = 1,
-    .type = TYPE_NORMAL,
-    .accuracy = 100,
-    .pp = 15,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
-        //.contestCategory = CONTEST_CATEGORY_CUTE,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_ENDURE},
-        .battleAnimScript = gBattleAnimMove_Flail,
-},
+        .effect = EFFECT_FLAIL,
+        .power = 1,
+        .type = TYPE_NORMAL,
+        .accuracy = 100,
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+            //.contestCategory = CONTEST_CATEGORY_CUTE,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_ENDURE},
+            .battleAnimScript = gBattleAnimMove_Flail,
+    },
 
-[MOVE_CONVERSION_2] =
-{
+    [MOVE_CONVERSION_2] =
+    {
         .name = COMPOUND_STRING("Conversion 2"),
         .description = COMPOUND_MOVE_STRING("The user changes its\nsecondary type to\nmatch the type of\nits first move."),
-    .effect = EFFECT_CONVERSION,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .accuracy = 0,
-    .pp = 30,
-    .target = TARGET_SELECTED,
-    .priority = 1, //can change priority when finish new effect so not based on last move hit by
-    .category = DAMAGE_CATEGORY_STATUS,
-        .ignoresProtect = TRUE,
-        .ignoresSubstitute = TRUE,
-        .mirrorMoveBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Conversion2,
-},//now same as conversion 1, so reuse effect, just does type 2 instead
+        .effect = EFFECT_CONVERSION,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 0,
+        .pp = 30,
+        .target = TARGET_SELECTED,
+        .priority = 1, //can change priority when finish new effect so not based on last move hit by
+        .category = DAMAGE_CATEGORY_STATUS,
+            .ignoresProtect = TRUE,
+            .ignoresSubstitute = TRUE,
+            .mirrorMoveBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+            //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Conversion2,
+    },//now same as conversion 1, so reuse effect, just does type 2 instead
 
-[MOVE_AEROBLAST] =
-{
+    [MOVE_AEROBLAST] =
+    {
         .name = COMPOUND_STRING("Aeroblast"),
         .description = COMPOUND_MOVE_STRING("A vortex of air is\nshot at the foe.\nIt has a high chance\nto lower SP. DEF."),
-    .effect = EFFECT_HIT,
-    .power = 100,
-    .type = TYPE_WIND,
-    .accuracy = 95,
-    .pp = 5,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-    .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
-            .chance = 50,
-        }),
-        .windMove = TRUE,
-        //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Aeroblast,
-},
-//w sp def drop consider may remove high crit?
-//would make it more balanced and allow me to spread its distribution
-//giving more flying mon a good special option other than hurricane
-//think just make this a tm
-//think put in same place get lugia
-//after lugia fight, lugia drops tm in its place
-//vsonic
+        .effect = EFFECT_HIT,
+        .power = 100,
+        .type = TYPE_WIND,
+        .accuracy = 95,
+        .pp = 5,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+                .chance = 50,
+            }),
+            .windMove = TRUE,
+            //.contestEffect = CONTEST_EFFECT_AFFECTED_BY_PREV_APPEAL,
+            //.contestCategory = CONTEST_CATEGORY_COOL,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Aeroblast,
+    },
+    //w sp def drop consider may remove high crit?
+    //would make it more balanced and allow me to spread its distribution
+    //giving more flying mon a good special option other than hurricane
+    //think just make this a tm
+    //think put in same place get lugia
+    //after lugia fight, lugia drops tm in its place
+    //vsonic
 
-[MOVE_COTTON_SPORE] =
-{
+    [MOVE_COTTON_SPORE] =
+    {
         .name = COMPOUND_STRING("Cotton Spore"),
         .description = COMPOUND_MOVE_STRING("Cotton-like spores\ncling to the foe,\nsharply reducing\nits SPEED stat."),
-    #if B_UPDATED_MOVE_DATA >= GEN_6
-        .accuracy = 100,
-        .target = TARGET_BOTH,
-    #elif B_UPDATED_MOVE_DATA == GEN_5
-        .accuracy = 100,
-        .target = TARGET_SELECTED,
-    #else
-        .accuracy = 85,
-        .target = TARGET_SELECTED,
-    #endif
-    .effect = EFFECT_SPEED_DOWN_2,
-    .power = 0,
-    .type = TYPE_GRASS,
-    .pp = 40,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .magicCoatAffected = TRUE,
-        .powderMove = TRUE,
-        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_CottonSpore,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_6
+            .accuracy = 100,
+            .target = TARGET_BOTH,
+        #elif B_UPDATED_MOVE_DATA == GEN_5
+            .accuracy = 100,
+            .target = TARGET_SELECTED,
+        #else
+            .accuracy = 85,
+            .target = TARGET_SELECTED,
+        #endif
+        .effect = EFFECT_SPEED_DOWN_2,
+        .power = 0,
+        .type = TYPE_GRASS,
+        .pp = 40,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .magicCoatAffected = TRUE,
+            .powderMove = TRUE,
+            //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+            //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_CottonSpore,
+    },
 
-[MOVE_REVERSAL] =
-{
+    [MOVE_REVERSAL] =
+    {
         .name = COMPOUND_STRING("Reversal"),
         .description = COMPOUND_MOVE_STRING("An all-out attack\nthat becomes more\npowerful the less\nHP the user has."),
-    .effect = EFFECT_FLAIL,
-    .power = 1,
-    .type = TYPE_FIGHTING,
-    .accuracy = 100,
-    .pp = 15,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_ENDURE},
-        .battleAnimScript = gBattleAnimMove_Reversal,
-},
+        .effect = EFFECT_FLAIL,
+        .power = 1,
+        .type = TYPE_FIGHTING,
+        .accuracy = 100,
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            //.contestEffect = CONTEST_EFFECT_BETTER_IF_LAST,
+            //.contestCategory = CONTEST_CATEGORY_COOL,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_ENDURE},
+            .battleAnimScript = gBattleAnimMove_Reversal,
+    },
 
-[MOVE_SPITE] =
-{
+    [MOVE_SPITE] =
+    {
         .name = COMPOUND_STRING("Spite"),
         .description = COMPOUND_MOVE_STRING("A move that cuts\nvarying PP from the\nmove last used by\nthe foe."),
-    #if B_UPDATED_MOVE_DATA >= GEN_5
-    #else
-    #endif
-    .effect = EFFECT_SPITE,
-    .power = 0,
-    .type = TYPE_GHOST,
-    .accuracy = 100,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .magicCoatAffected = TRUE,
-        .ignoresSubstitute = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_CURSE},
-        .battleAnimScript = gBattleAnimMove_Spite,
-},//keep as is ,relies on move beign used
+        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #else
+        #endif
+        .effect = EFFECT_SPITE,
+        .power = 0,
+        .type = TYPE_GHOST,
+        .accuracy = 100,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .magicCoatAffected = TRUE,
+            .ignoresSubstitute = TRUE,
+            //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_LATER,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_CURSE},
+            .battleAnimScript = gBattleAnimMove_Spite,
+    },//keep as is ,relies on move beign used
 
-[MOVE_POWDER_SNOW] =
-{
+    [MOVE_POWDER_SNOW] =
+    {
         .name = COMPOUND_STRING("Powder Snow"),
         .description = COMPOUND_MOVE_STRING("Blasts the foe with\na snowy gust.\nIt may cause\nfreezing."),
-    .effect = EFFECT_HIT,
-    .power = 40,
-    .type = TYPE_ICE,
-    .accuracy = 100,
-    .pp = 25,
-    .target = TARGET_BOTH,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_FREEZE,
-            .chance = 10,
-        }),
-        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = COMBO_STARTER_POWDER_SNOW,
-        //.contestComboMoves = {COMBO_STARTER_HAIL},
-        .battleAnimScript = gBattleAnimMove_PowderSnow,
-},
+        .effect = EFFECT_HIT,
+        .power = 40,
+        .type = TYPE_ICE,
+        .accuracy = 100,
+        .pp = 25,
+        .target = TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_FREEZE,
+                .chance = 10,
+            }),
+            //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+            //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+            //.contestComboStarterId = COMBO_STARTER_POWDER_SNOW,
+            //.contestComboMoves = {COMBO_STARTER_HAIL},
+            .battleAnimScript = gBattleAnimMove_PowderSnow,
+    },
 
-[MOVE_PROTECT] =
-{
+    [MOVE_PROTECT] =
+    {
         .name = COMPOUND_STRING("Protect"),
         .description = COMPOUND_MOVE_STRING("Enables the user to\nevade all attacks.\nIt may fail if used\nin succession."),
-    .priority = 4,
-    .effect = EFFECT_PROTECT,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .accuracy = 0,
-    .pp = 10,
-    .target = TARGET_USER,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .argument = { .protectMethod = PROTECT_NORMAL },
-        .metronomeBanned = TRUE,
-        .copycatBanned = TRUE,
-        .assistBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
-        //.contestCategory = CONTEST_CATEGORY_CUTE,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_HARDEN},
-        .battleAnimScript = gBattleAnimMove_Protect,
-},
+        .priority = 4,
+        .effect = EFFECT_PROTECT,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 0,
+        .pp = 10,
+        .target = TARGET_USER,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .argument = { .protectMethod = PROTECT_NORMAL },
+            .metronomeBanned = TRUE,
+            .copycatBanned = TRUE,
+            .assistBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+            //.contestCategory = CONTEST_CATEGORY_CUTE,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_HARDEN},
+            .battleAnimScript = gBattleAnimMove_Protect,
+    },
 
-[MOVE_MACH_PUNCH] =
-{
+    [MOVE_MACH_PUNCH] =
+    {
         .name = COMPOUND_STRING("Mach Punch"),
         .description = COMPOUND_MOVE_STRING("A punch thrown at\nblinding speed.\nIt is certain to\nstrike first."),
-    .effect = EFFECT_HIT,
-    .power = 40,
-    .type = TYPE_FIGHTING,
-    .accuracy = 100,
-    .pp = 30,
-    .target = TARGET_SELECTED,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        .punchingMove = TRUE,
-        //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_MachPunch,
-},
+        .effect = EFFECT_HIT,
+        .power = 40,
+        .type = TYPE_FIGHTING,
+        .accuracy = 100,
+        .pp = 30,
+        .target = TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            .punchingMove = TRUE,
+            //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+            //.contestCategory = CONTEST_CATEGORY_COOL,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_MachPunch,
+    },
 
-[MOVE_SCARY_FACE] =
-{
+    [MOVE_SCARY_FACE] =
+    {
         .name = COMPOUND_STRING("Scary Face"),
         .description = COMPOUND_MOVE_STRING("Frightens the foe\nwith a scary face\nto sharply reduce\nits SPEED."),
-    #if B_UPDATED_MOVE_DATA >= GEN_5
-        .accuracy = 100,
-    #else
-        .accuracy = 90,
-    #endif
-    .effect = EFFECT_SPEED_DOWN_2,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .magicCoatAffected = TRUE,
-        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = COMBO_STARTER_SCARY_FACE,
-        //.contestComboMoves = {COMBO_STARTER_LEER, COMBO_STARTER_RAGE},
-        .battleAnimScript = gBattleAnimMove_ScaryFace,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_5
+            .accuracy = 100,
+        #else
+            .accuracy = 90,
+        #endif
+        .effect = EFFECT_SPEED_DOWN_2,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .magicCoatAffected = TRUE,
+            //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = COMBO_STARTER_SCARY_FACE,
+            //.contestComboMoves = {COMBO_STARTER_LEER, COMBO_STARTER_RAGE},
+            .battleAnimScript = gBattleAnimMove_ScaryFace,
+    },
 
-[MOVE_FEINT_ATTACK] =
-{
+    [MOVE_FEINT_ATTACK] =
+    {
         .name = COMPOUND_STRING("Feint Attack"),
         .description = COMPOUND_MOVE_STRING("The user draws up\nclose to the foe\ndisarmingly, then\nhits without fail."),
-    #if B_UPDATED_MOVE_DATA >= GEN_4
-    #else
-    #endif
-    .effect = EFFECT_HIT,
-    .power = 60,
-    .type = TYPE_DARK,
-    .accuracy = 0,
-    .pp = 20,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_FAKE_OUT, COMBO_STARTER_LEER, COMBO_STARTER_POUND},
-        .battleAnimScript = gBattleAnimMove_FeintAttack,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #else
+        #endif
+        .effect = EFFECT_HIT,
+        .power = 60,
+        .type = TYPE_DARK,
+        .accuracy = 0,
+        .pp = 20,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            //.contestEffect = CONTEST_EFFECT_BETTER_IF_FIRST,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_FAKE_OUT, COMBO_STARTER_LEER, COMBO_STARTER_POUND},
+            .battleAnimScript = gBattleAnimMove_FeintAttack,
+    },
 
-[MOVE_SWEET_KISS] =
-{
+    [MOVE_SWEET_KISS] =
+    {
         .name = COMPOUND_STRING("Sweet Kiss"),
         .description = COMPOUND_MOVE_STRING("The user kisses\nthe foe with sweet\ncuteness that\ncauses confusion."),
-    #if B_UPDATED_MOVE_DATA >= GEN_6
-        .type = TYPE_FAIRY,
-    #else
-        .type = TYPE_NORMAL,
-    #endif
-    .effect = EFFECT_CONFUSE,
-    .power = 0,
-    .accuracy = 85,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .magicCoatAffected = TRUE,
-        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
-        //.contestCategory = CONTEST_CATEGORY_CUTE,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_CHARM},
-        .battleAnimScript = gBattleAnimMove_SweetKiss,
-},
-//don't understand why this has 75 acc when confuse ray is 100
-//I guess only reason is its paired with lovely kiss which is 
-//a sleep move
-//already shares naming convention and animation
-//I can buff its acc and it can still function as paired move
+        #if B_UPDATED_MOVE_DATA >= GEN_6
+            .type = TYPE_FAIRY,
+        #else
+            .type = TYPE_NORMAL,
+        #endif
+        .effect = EFFECT_CONFUSE,
+        .power = 0,
+        .accuracy = 85,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .magicCoatAffected = TRUE,
+            //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+            //.contestCategory = CONTEST_CATEGORY_CUTE,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_CHARM},
+            .battleAnimScript = gBattleAnimMove_SweetKiss,
+    },
+    //don't understand why this has 75 acc when confuse ray is 100
+    //I guess only reason is its paired with lovely kiss which is 
+    //a sleep move
+    //already shares naming convention and animation
+    //I can buff its acc and it can still function as paired move
 
-[MOVE_BELLY_DRUM] =
-{
+    [MOVE_BELLY_DRUM] =
+    {
         .name = COMPOUND_STRING("Belly Drum"),
         .description = COMPOUND_MOVE_STRING("The user maximizes\nits ATTACK stat at\nthe cost of half\nits max HP."),
-    .effect = EFFECT_BELLY_DRUM, //huh could actually make this the sacrifice health effect
-    .power = 0,
-    .type = TYPE_NORMAL, //nah needs unique effect for ai checks,
-    .accuracy = 0, //could make general script tho, sacrifice health boost stat etc.
-    .pp = 10,
-    .target = TARGET_USER,
-    .priority = 0, //unsure bout this can't tell if its an advantage or disadvantage for the move to go first
-    .category = DAMAGE_CATEGORY_STATUS,
-        .snatchAffected = TRUE,
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .argument = { .sacrificedHpPercentage = 50 },
-        //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
-        //.contestCategory = CONTEST_CATEGORY_CUTE,
-        //.contestComboStarterId = COMBO_STARTER_BELLY_DRUM,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_BellyDrum,
-},//ok decide its better this goes last better chance of surviving the turn
-//rather than using it first and having chance get killed now you use it last
-//and have a chance of wasting the turn if the opponent drops you to half
-//alternately keep; at 0 or plus one and allow a healer to go after,
-//or the move that lets target attack twice
-//could use rest w sleep talk, or go directly into an attack
+        .effect = EFFECT_BELLY_DRUM, //huh could actually make this the sacrifice health effect
+        .power = 0,
+        .type = TYPE_NORMAL, //nah needs unique effect for ai checks,
+        .accuracy = 0, //could make general script tho, sacrifice health boost stat etc.
+        .pp = 10,
+        .target = TARGET_USER,
+        .priority = 0, //unsure bout this can't tell if its an advantage or disadvantage for the move to go first
+        .category = DAMAGE_CATEGORY_STATUS,
+            .snatchAffected = TRUE,
+            .ignoresProtect = TRUE,
+            .mirrorMoveBanned = TRUE,
+            .argument = { .sacrificedHpPercentage = 50 },
+            //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
+            //.contestCategory = CONTEST_CATEGORY_CUTE,
+            //.contestComboStarterId = COMBO_STARTER_BELLY_DRUM,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_BellyDrum,
+    },//ok decide its better this goes last better chance of surviving the turn
+    //rather than using it first and having chance get killed now you use it last
+    //and have a chance of wasting the turn if the opponent drops you to half
+    //alternately keep; at 0 or plus one and allow a healer to go after,
+    //or the move that lets target attack twice
+    //could use rest w sleep talk, or go directly into an attack
 
-[MOVE_SLUDGE_BOMB] =
-{
+    [MOVE_SLUDGE_BOMB] =
+    {
         .name = COMPOUND_STRING("Sludge Bomb"),
         .description = COMPOUND_MOVE_STRING("Filthy sludge is\nhurled at the foe.\nIt may poison the\ntarget."),
-    .effect = EFFECT_HIT,
-    .power = 90,
-    .type = TYPE_POISON,
-    .accuracy = 100,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-        .ballisticMove = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_POISON,
-            .chance = 30,
-        }),
-        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = COMBO_STARTER_SLUDGE_BOMB,
-        //.contestComboMoves = {COMBO_STARTER_SLUDGE},
-        .battleAnimScript = gBattleAnimMove_SludgeBomb,
-},
+        .effect = EFFECT_HIT,
+        .power = 90,
+        .type = TYPE_POISON,
+        .accuracy = 100,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+            .ballisticMove = TRUE,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_POISON,
+                .chance = 30,
+            }),
+            //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = COMBO_STARTER_SLUDGE_BOMB,
+            //.contestComboMoves = {COMBO_STARTER_SLUDGE},
+            .battleAnimScript = gBattleAnimMove_SludgeBomb,
+    },
 
-[MOVE_MUD_SLAP] =
-{
+    [MOVE_MUD_SLAP] =
+    {
         .name = COMPOUND_STRING("Mud-Slap"),
         .description = COMPOUND_MOVE_STRING("Mud is hurled in\nthe foe's face to\ninflict damage and\nlower its accuracy."),
-    .effect = EFFECT_HIT,
-    .power = 30,
-    .type = TYPE_GROUND,
-    .accuracy = 100,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
-            .chance = 100,
-        }),
-        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
-        //.contestCategory = CONTEST_CATEGORY_CUTE,
-        //.contestComboStarterId = COMBO_STARTER_MUD_SLAP,
-        //.contestComboMoves = {COMBO_STARTER_MUD_SPORT, COMBO_STARTER_SAND_ATTACK, COMBO_STARTER_SANDSTORM},
-        .battleAnimScript = gBattleAnimMove_MudSlap,
-},
+        .effect = EFFECT_HIT,
+        .power = 30,
+        .type = TYPE_GROUND,
+        .accuracy = 100,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
+                .chance = 100,
+            }),
+            //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+            //.contestCategory = CONTEST_CATEGORY_CUTE,
+            //.contestComboStarterId = COMBO_STARTER_MUD_SLAP,
+            //.contestComboMoves = {COMBO_STARTER_MUD_SPORT, COMBO_STARTER_SAND_ATTACK, COMBO_STARTER_SANDSTORM},
+            .battleAnimScript = gBattleAnimMove_MudSlap,
+    },
 
-[MOVE_OCTAZOOKA] =
-{
+    [MOVE_OCTAZOOKA] =
+    {
         .name = COMPOUND_STRING("Octazooka"),
         .description = COMPOUND_MOVE_STRING("Ink is blasted in\nthe foe's face or\neyes to damage and\nlower accuracy."),
-    .effect = EFFECT_HIT,
-    .power = 85,
-    .type = TYPE_WATER,
-    .accuracy = 85,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-        .ballisticMove = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
-            .chance = 50,
-        }),
-        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_LOCK_ON, COMBO_STARTER_RAIN_DANCE},
-        .battleAnimScript = gBattleAnimMove_Octazooka,
-},
+        .effect = EFFECT_HIT,
+        .power = 85,
+        .type = TYPE_WATER,
+        .accuracy = 85,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+            .ballisticMove = TRUE,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_ACC_MINUS_1,
+                .chance = 50,
+            }),
+            //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_LOCK_ON, COMBO_STARTER_RAIN_DANCE},
+            .battleAnimScript = gBattleAnimMove_Octazooka,
+    },
 
-[MOVE_SPIKES] =
-{
+    [MOVE_SPIKES] =
+    {
         .name = COMPOUND_STRING("Spikes"),
         .description = COMPOUND_MOVE_STRING("A trap of spikes is\nlaid around the\nfoe's party to hurt\nfoes switching in."),
-    #if B_UPDATED_MOVE_DATA >= GEN_5
-    #else
-    #endif
-    .effect = EFFECT_SPIKES,
-    .power = 0,
-    .type = TYPE_GROUND,
-    .accuracy = 0,
-    .pp = 20,
-    .target = TARGET_OPPONENTS_FIELD,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .magicCoatAffected = TRUE,
-        .forcePressure = TRUE,
-        //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Spikes,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #else
+        #endif
+        .effect = EFFECT_SPIKES,
+        .power = 0,
+        .type = TYPE_GROUND,
+        .accuracy = 0,
+        .pp = 20,
+        .target = TARGET_OPPONENTS_FIELD,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .ignoresProtect = TRUE,
+            .mirrorMoveBanned = TRUE,
+            .magicCoatAffected = TRUE,
+            .forcePressure = TRUE,
+            //.contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Spikes,
+    },
 
-[MOVE_ZAP_CANNON] =
-{
+    [MOVE_ZAP_CANNON] =
+    {
         .name = COMPOUND_STRING("Zap Cannon"),
         .description = COMPOUND_MOVE_STRING("An electric blast is\nfired like a cannon\nto inflict damage\nand paralyze."),
-    #if B_UPDATED_MOVE_DATA >= GEN_4
-        .power = 80,
-    #else
-        .power = 100,
-    #endif
-    .effect = EFFECT_HIT,
-    .type = TYPE_ELECTRIC,
-    .accuracy = 90,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-        .ballisticMove = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_PARALYSIS,
-            .chance = 100,
-        }),
-        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_CHARGE, COMBO_STARTER_LOCK_ON},
-        .battleAnimScript = gBattleAnimMove_ZapCannon,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_4
+            .power = 80,
+        #else
+            .power = 100,
+        #endif
+        .effect = EFFECT_HIT,
+        .type = TYPE_ELECTRIC,
+        .accuracy = 90,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+            .ballisticMove = TRUE,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_PARALYSIS,
+                .chance = 100,
+            }),
+            //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+            //.contestCategory = CONTEST_CATEGORY_COOL,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_CHARGE, COMBO_STARTER_LOCK_ON},
+            .battleAnimScript = gBattleAnimMove_ZapCannon,
+    },
 
-[MOVE_FORESIGHT] =
-{
+    [MOVE_FORESIGHT] =
+    {
         .name = COMPOUND_STRING("Foresight"),
         .description = COMPOUND_MOVE_STRING("Completely negates\nthe immunities of\nGHOST types. Also\nnegates boosts to\ntarget's evasion."),//put foresight odor sleuth together
-    .accuracy = 0,
-    .effect = EFFECT_FORESIGHT,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .pp = 40,
-    .target = TARGET_SELECTED,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-    .magicCoatAffected = TRUE,
-    .ignoresSubstitute = TRUE,
-        //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Foresight,
-},
+        .accuracy = 0,
+        .effect = EFFECT_FORESIGHT,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .pp = 40,
+        .target = TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .magicCoatAffected = TRUE,
+        .ignoresSubstitute = TRUE,
+            //.contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Foresight,
+    },
 
-[MOVE_DESTINY_BOND] =
-{
+    [MOVE_DESTINY_BOND] =
+    {
         .name = COMPOUND_STRING("Destiny Bond"),
         .description = COMPOUND_MOVE_STRING("If the user faints,\nthe foe delivering\nthe final hit also\nfaints."),
-    .effect = EFFECT_DESTINY_BOND,
-    .power = 0,
-    .type = TYPE_GHOST,
-    .accuracy = 0,
-    .pp = 5,
-    .target = TARGET_USER,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .ignoresProtect = TRUE,
-        .ignoresSubstitute = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .metronomeBanned = TRUE,
-        .copycatBanned = TRUE,
-        .assistBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_CURSE, COMBO_STARTER_ENDURE, COMBO_STARTER_MEAN_LOOK},
-        .battleAnimScript = gBattleAnimMove_DestinyBond,
-},
+        .effect = EFFECT_DESTINY_BOND,
+        .power = 0,
+        .type = TYPE_GHOST,
+        .accuracy = 0,
+        .pp = 5,
+        .target = TARGET_USER,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .ignoresProtect = TRUE,
+            .ignoresSubstitute = TRUE,
+            .mirrorMoveBanned = TRUE,
+            .metronomeBanned = TRUE,
+            .copycatBanned = TRUE,
+            .assistBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_CURSE, COMBO_STARTER_ENDURE, COMBO_STARTER_MEAN_LOOK},
+            .battleAnimScript = gBattleAnimMove_DestinyBond,
+    },
 
-[MOVE_PERISH_SONG] =
-{
+    [MOVE_PERISH_SONG] =
+    {
         .name = COMPOUND_STRING("Perish Song"),
         .description = COMPOUND_MOVE_STRING("Any battler that\nhears this faints\nin three turns\nunless it switches."),
-    .effect = EFFECT_PERISH_SONG,
-    .power = 0,
-    .type = TYPE_SOUND,
-    .accuracy = 0,
-    .pp = 5,
-    .target = TARGET_USER,
-    .priority = 1, //keep an eye on, but good for increasing moves pressure without overall being oppressive
-    .category = DAMAGE_CATEGORY_STATUS,
-        .ignoresProtect = TRUE,
-        .ignoresSubstitute = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .soundMove = TRUE,
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_MEAN_LOOK, COMBO_STARTER_SING},
-        .battleAnimScript = gBattleAnimMove_PerishSong,
-},//need test, attempt set cacophony perish song to set lower timer for opposing side
+        .effect = EFFECT_PERISH_SONG,
+        .power = 0,
+        .type = TYPE_SOUND,
+        .accuracy = 0,
+        .pp = 5,
+        .target = TARGET_USER,
+        .priority = 1, //keep an eye on, but good for increasing moves pressure without overall being oppressive
+        .category = DAMAGE_CATEGORY_STATUS,
+            .ignoresProtect = TRUE,
+            .ignoresSubstitute = TRUE,
+            .mirrorMoveBanned = TRUE,
+            .soundMove = TRUE,
+            //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+            //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_MEAN_LOOK, COMBO_STARTER_SING},
+            .battleAnimScript = gBattleAnimMove_PerishSong,
+    },//need test, attempt set cacophony perish song to set lower timer for opposing side
 
-[MOVE_ICY_WIND] =
-{
+    [MOVE_ICY_WIND] =
+    {
         .name = COMPOUND_STRING("Icy Wind"),
         .description = COMPOUND_MOVE_STRING("A chilling wind is\nused to attack.\nIt also lowers the\nSPEED stat."),
-    .effect = EFFECT_HIT,
-    .power = 55,
-    .type = TYPE_ICE,
-    .accuracy = 95,
-    .pp = 15,
-    .target = TARGET_BOTH,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-        .windMove = TRUE,
-        .airborneDmgState = DAMAGES_AIRBORNE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
-            .chance = 100,
-        }),
-        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
-        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_HAIL},
-        .battleAnimScript = gBattleAnimMove_IcyWind,
-},
+        .effect = EFFECT_HIT,
+        .power = 55,
+        .type = TYPE_ICE,
+        .accuracy = 95,
+        .pp = 15,
+        .target = TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+            .windMove = TRUE,
+            .airborneDmgState = DAMAGES_AIRBORNE,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+                .chance = 100,
+            }),
+            //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
+            //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_HAIL},
+            .battleAnimScript = gBattleAnimMove_IcyWind,
+    },
 
-[MOVE_DETECT] =
-{
+    [MOVE_DETECT] =
+    {
         .name = COMPOUND_STRING("Detect"),
         .description = COMPOUND_MOVE_STRING("Enables the user to\nevade all attacks.\nIt may fail if used\nin succession."),
-    .priority = 4,
-    .effect = EFFECT_PROTECT,
-    .power = 0,
-    .type = TYPE_FIGHTING,
-    .accuracy = 0,
-    .pp = 5,
-    .target = TARGET_USER,
-    .category = DAMAGE_CATEGORY_STATUS,
-        .argument = { .protectMethod = PROTECT_NORMAL },
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .metronomeBanned = TRUE,
-        .copycatBanned = TRUE,
-        .assistBanned = TRUE,
-        //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_TAUNT},
-        .battleAnimScript = gBattleAnimMove_Detect,
-},
+        .priority = 4,
+        .effect = EFFECT_PROTECT,
+        .power = 0,
+        .type = TYPE_FIGHTING,
+        .accuracy = 0,
+        .pp = 5,
+        .target = TARGET_USER,
+        .category = DAMAGE_CATEGORY_STATUS,
+            .argument = { .protectMethod = PROTECT_NORMAL },
+            .ignoresProtect = TRUE,
+            .mirrorMoveBanned = TRUE,
+            .metronomeBanned = TRUE,
+            .copycatBanned = TRUE,
+            .assistBanned = TRUE,
+            //.contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+            //.contestCategory = CONTEST_CATEGORY_COOL,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_TAUNT},
+            .battleAnimScript = gBattleAnimMove_Detect,
+    },
 
-[MOVE_BONE_RUSH] =
-{
+    [MOVE_BONE_RUSH] =
+    {
         .name = COMPOUND_STRING("Bone Rush"),
         .description = COMPOUND_MOVE_STRING("The user strikes\nthe foe with a bone\nin hand two to five\ntimes."),
-    #if B_UPDATED_MOVE_DATA >= GEN_5
-        .accuracy = 90,
-    #else
-        .accuracy = 80,
-    #endif
-    .effect = EFFECT_HIT,
-    .power = 28,
-    .type = TYPE_GROUND,
-    .pp = 10,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-    .multiTaskBanned = TRUE,
-    .variableMultihit = TRUE,
-        //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = COMBO_STARTER_BONE_RUSH,
-        //.contestComboMoves = {COMBO_STARTER_BONE_CLUB, COMBO_STARTER_BONEMERANG, COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_SHADOW_BONE},
-        .battleAnimScript = gBattleAnimMove_BoneRush,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_5
+            .accuracy = 90,
+        #else
+            .accuracy = 80,
+        #endif
+        .effect = EFFECT_HIT,
+        .power = 28,
+        .type = TYPE_GROUND,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .multiTaskBanned = TRUE,
+        .variableMultihit = TRUE,
+            //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = COMBO_STARTER_BONE_RUSH,
+            //.contestComboMoves = {COMBO_STARTER_BONE_CLUB, COMBO_STARTER_BONEMERANG, COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_SHADOW_BONE},
+            .battleAnimScript = gBattleAnimMove_BoneRush,
+    },
 
-[MOVE_LOCK_ON] =
-{
+    [MOVE_LOCK_ON] =
+    {
         .name = COMPOUND_STRING("Lock-On"),
         .description = COMPOUND_MOVE_STRING("The user locks on\nto the foe, making\nthe next move sure\nto hit."),
-    #if B_UPDATED_MOVE_DATA >= GEN_4
-        .accuracy = 0,
-    #else
-        .accuracy = 100,
-    #endif
-    .effect = EFFECT_LOCK_ON,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .pp = 5,
-    .target = TARGET_SELECTED,
-    .priority = 1,
-    .category = DAMAGE_CATEGORY_STATUS,
-        //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = COMBO_STARTER_LOCK_ON,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_LockOn,
-},
+        #if B_UPDATED_MOVE_DATA >= GEN_4
+            .accuracy = 0,
+        #else
+            .accuracy = 100,
+        #endif
+        .effect = EFFECT_LOCK_ON,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .pp = 5,
+        .target = TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+            //.contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = COMBO_STARTER_LOCK_ON,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_LockOn,
+    },
 
-[MOVE_OUTRAGE] =
-{
+    [MOVE_OUTRAGE] =
+    {
         .name = COMPOUND_STRING("Outrage"),
         .description = COMPOUND_MOVE_STRING("The user thrashes\nabout for two to\nthree turns, then\nbecomes confused."),
 
 
-    .power = 120,
-    .pp = 15,
-    .effect = EFFECT_HIT,
-    .type = TYPE_DRAGON,
-    .accuracy = 100,
-    .target = TARGET_RANDOM,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
-        .instructBanned = TRUE,
-        .multiTaskBanned = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_THRASH,
-            .self = TRUE,
-        }),
-        //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
-        //.contestCategory = CONTEST_CATEGORY_COOL,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Outrage,
-},
+        .power = 120,
+        .pp = 15,
+        .effect = EFFECT_HIT,
+        .type = TYPE_DRAGON,
+        .accuracy = 100,
+        .target = TARGET_RANDOM,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+            .makesContact = TRUE,
+            .instructBanned = TRUE,
+            .multiTaskBanned = TRUE,
+            .additionalEffects = ADDITIONAL_EFFECTS({
+                .moveEffect = MOVE_EFFECT_THRASH,
+                .self = TRUE,
+            }),
+            //.contestEffect = CONTEST_EFFECT_JAMS_OTHERS_BUT_MISS_ONE_TURN,
+            //.contestCategory = CONTEST_CATEGORY_COOL,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Outrage,
+    },
 
-[MOVE_SANDSTORM] =
-{
+    [MOVE_SANDSTORM] =
+    {
         .name = COMPOUND_STRING("Sandstorm"),
         .description = COMPOUND_MOVE_STRING("A 5-turn sandstorm\nthat damages all\ntypes except ROCK,\nGROUND, and STEEL.\nBoost SP. DEF of\nGROUND and ROCK mon."),
-    .effect = EFFECT_SANDSTORM,
-    .power = 0,
-    .type = TYPE_ROCK,
-    .accuracy = 0,
-    .pp = 5,
-    .target = TARGET_USER,
-    .priority = 1, //thought about it decided going first is good for move gives needed utility back to moves
-    .category = DAMAGE_CATEGORY_STATUS, //has wider  distribution than abilities and with priority gives reason to use the move
-        .ignoresProtect = TRUE,
-        .mirrorMoveBanned = TRUE,
-        .windMove = TRUE,
-        //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
-        //.contestCategory = CONTEST_CATEGORY_TOUGH,
-        //.contestComboStarterId = COMBO_STARTER_SANDSTORM,
-        //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Sandstorm,
-},//would ironically work just like abilities whicher mon is slower if both set weather gest the priority for setting weather
+        .effect = EFFECT_SANDSTORM,
+        .power = 0,
+        .type = TYPE_ROCK,
+        .accuracy = 0,
+        .pp = 5,
+        .target = TARGET_USER,
+        .priority = 1, //thought about it decided going first is good for move gives needed utility back to moves
+        .category = DAMAGE_CATEGORY_STATUS, //has wider  distribution than abilities and with priority gives reason to use the move
+            .ignoresProtect = TRUE,
+            .mirrorMoveBanned = TRUE,
+            .windMove = TRUE,
+            //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
+            //.contestCategory = CONTEST_CATEGORY_TOUGH,
+            //.contestComboStarterId = COMBO_STARTER_SANDSTORM,
+            //.contestComboMoves = {0},
+            .battleAnimScript = gBattleAnimMove_Sandstorm,
+    },//would ironically work just like abilities whicher mon is slower if both set weather gest the priority for setting weather
 
-[MOVE_GIGA_DRAIN] =
-{
+    [MOVE_GIGA_DRAIN] =
+    {
         .name = COMPOUND_STRING("Giga Drain"),
         .description = COMPOUND_MOVE_STRING("A harsh attack that\nabsorbs half the\ndamage it inflicted\nto restore HP."),
-    #if B_UPDATED_MOVE_DATA >= GEN_5
-        .power = 85,
-        .pp = 15,
-    #elif B_UPDATED_MOVE_DATA == GEN_4
-        .power = 60,
-        .pp = 10,
-    #else
-        .power = 60,
-        .pp = 5,
-    #endif
-    .effect = EFFECT_ABSORB,
-    .type = TYPE_GRASS,
-    .accuracy = 100,
-    .target = TARGET_SELECTED,
-    .priority = 0,
-    .category = DAMAGE_CATEGORY_SPECIAL,
-        .argument = { .absorbPercentage = 50 },
-        .healingMove = TRUE,
-        //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
-        //.contestCategory = CONTEST_CATEGORY_SMART,
-        //.contestComboStarterId = 0,
-        //.contestComboMoves = {COMBO_STARTER_GROWTH},
-        .battleAnimScript = gBattleAnimMove_GigaDrain,
-},//actually think 95 is too much power for a healing move
-//did need better grass moves but going to 95 power was too much
+        #if B_UPDATED_MOVE_DATA >= GEN_5
+            .power = 85,
+            .pp = 15,
+        #elif B_UPDATED_MOVE_DATA == GEN_4
+            .power = 60,
+            .pp = 10,
+        #else
+            .power = 60,
+            .pp = 5,
+        #endif
+        .effect = EFFECT_ABSORB,
+        .type = TYPE_GRASS,
+        .accuracy = 100,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+            .argument = { .absorbPercentage = 50 },
+            .healingMove = TRUE,
+            //.contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+            //.contestCategory = CONTEST_CATEGORY_SMART,
+            //.contestComboStarterId = 0,
+            //.contestComboMoves = {COMBO_STARTER_GROWTH},
+            .battleAnimScript = gBattleAnimMove_GigaDrain,
+    },//actually think 95 is too much power for a healing move
+    //did need better grass moves but going to 95 power was too much
 
-[MOVE_ENDURE] =
-{
+    [MOVE_ENDURE] =
+    {
         .name = COMPOUND_STRING("Endure"),
         .description = COMPOUND_MOVE_STRING("The user endures\nany hit with 1 HP\nleft. It may fail if\nused in succession."),   //prefer keeping at priority 3 hmm point of making +4 is to survive fake out.. ok i'll do it
     #if B_UPDATED_MOVE_DATA >= GEN_5
