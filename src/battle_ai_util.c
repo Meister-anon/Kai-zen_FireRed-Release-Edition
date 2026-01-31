@@ -3693,7 +3693,7 @@ bool32 AI_CanGiveFrostbite(u32 battlerAtk, u32 battlerDef, enum Ability defAbili
 
 bool32 AI_CanBeInfatuated(u32 battlerAtk, u32 battlerDef, enum Ability defAbility)
 {
-    if (gBattleMons[battlerDef].volatiles.infatuation
+    if (gBattleMons[battlerDef].volatiles.infatuatedwithMon
       || gAiLogicData->effectiveness[battlerAtk][battlerDef][gAiThinkingStruct->movesetIndex] == UQ_4_12(0.0)
       || defAbility == ABILITY_OBLIVIOUS
       || !AreBattlersOfOppositeGender(battlerAtk, battlerDef)
@@ -3714,7 +3714,7 @@ u32 ShouldTryToFlinch(u32 battlerAtk, u32 battlerDef, enum Ability atkAbility, e
     }
     else if ((atkAbility == ABILITY_SERENE_GRACE
       || gBattleMons[battlerDef].status1 & STATUS1_PARALYSIS
-      || gBattleMons[battlerDef].volatiles.infatuation
+      || IsMonInfatuatedWithOnOpposingSide(battlerDef)
       || gBattleMons[battlerDef].volatiles.confusionTurns > 0)
       || ((AI_IsFaster(battlerAtk, battlerDef, move, predictedMoveSpeedCheck, CONSIDER_PRIORITY)) && CanTargetFaintAi(battlerDef, battlerAtk)))
     {
@@ -5014,7 +5014,7 @@ void IncreaseParalyzeScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score)
         if ((defSpeed >= atkSpeed && defSpeed / 2 < atkSpeed) // You'll go first after paralyzing foe
           || IsPowerBasedOnStatus(battlerAtk, EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_PARALYSIS)
           || (HasMoveWithMoveEffectExcept(battlerAtk, MOVE_EFFECT_FLINCH, EFFECT_FIRST_TURN_ONLY)) // filter out Fake Out
-          || gBattleMons[battlerDef].volatiles.infatuation
+          || IsMonInfatuatedWithOnOpposingSide(battlerDef)
           || gBattleMons[battlerDef].volatiles.confusionTurns > 0)
             ADJUST_SCORE_PTR(GOOD_EFFECT);
         else
@@ -5065,7 +5065,7 @@ void IncreaseConfusionScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score
       && gAiLogicData->holdEffects[battlerDef] != HOLD_EFFECT_CURE_STATUS)
     {
         if (gBattleMons[battlerDef].status1 & STATUS1_PARALYSIS
-          || gBattleMons[battlerDef].volatiles.infatuation
+          || IsMonInfatuatedWithOnOpposingSide(battlerDef)
           || (gAiLogicData->abilities[battlerAtk] == ABILITY_SERENE_GRACE && HasMoveWithMoveEffectExcept(battlerAtk, MOVE_EFFECT_FLINCH, EFFECT_FIRST_TURN_ONLY)))
             ADJUST_SCORE_PTR(GOOD_EFFECT);
         else

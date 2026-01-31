@@ -417,9 +417,9 @@ static enum ItemEffect TryMentalHerb(u32 battler)
     enum ItemEffect effect = ITEM_NO_EFFECT;
 
     // Check infatuation
-    if (gBattleMons[battler].volatiles.infatuation)
+    if (gBattleMons[battler].volatiles.infatuatedwithMon)
     {
-        gBattleMons[battler].volatiles.infatuation = 0;
+        gBattleMons[battler].volatiles.infatuatedwithMon = 0;
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_MENTALHERBCURE_INFATUATION;
         StringCopy(gBattleTextBuff1, gStatusConditionString_LoveJpn);
         effect = ITEM_EFFECT_OTHER;

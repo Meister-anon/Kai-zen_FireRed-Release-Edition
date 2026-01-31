@@ -3605,7 +3605,7 @@ static void BattleStartClearSetData(void)
         gBattleStruct->skyDropTargets[i] = BATTLE_ID_NONE;
         gBattleStruct->seedSetterBattleId[i] = BATTLE_ID_NONE;
         //since is battlemons not battlestruct may not need here
-        gBattleMons[i].volatiles.infatuation = FALSE;
+        gBattleMons[i].volatiles.infatuatedwithMon = FALSE;
         gBattleStruct->overwrittenAbilities[i] = ABILITY_NONE;
         // Record HP of each battler
         gBattleStruct->hpBefore[i] = gBattleMons[i].hp;
@@ -3684,6 +3684,7 @@ static void BattleStartClearSetData(void)
         gBattleStruct->usedHeldItems[i][B_SIDE_PLAYER] = FALSE;
         gBattleStruct->usedHeldItems[i][B_SIDE_OPPONENT] = FALSE;
 
+        //need update this unsure how to swap order of bracket
         gBattleStruct->partyState[B_SIDE_PLAYER][i].usedSingleUseAbility = FALSE;
         gBattleStruct->partyState[B_SIDE_OPPONENT][i].usedSingleUseAbility = FALSE;
         
@@ -3806,6 +3807,12 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
         gStatuses3[battler] = 0; //guess so but seems I misunderstood switch clear it clears data when they switch into battle not switching out
         
         //think should remove trap timers as well since mon switched out it can escape
+        //thought I removed this?
+        //well would be pretty bad for balance I guess?
+        //its good enough that traps can be layered
+        //hmm yeah that in itself can be a strat
+        //if need switch trap mon have another mon layer a trap
+        //to keep enemy trapped
         //ex. ghost or flying 
         gBattleMons[battler].volatiles.environmentTrapTurns = 0;
         gBattleMons[battler].volatiles.wrapTurns = 0;
@@ -3824,7 +3831,7 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
         //look to wrapped by logic for example, use that as battlerId and check hold effect vsonic
         //should be simple change to trappedby  and use for all traps
         gBattleStruct->seedSetterBattleId[battler] = BATTLE_ID_NONE;
-        gBattleMons[battler].volatiles.infatuation = FALSE;
+        gBattleMons[battler].volatiles.infatuatedwithMon = FALSE;
     }
 
     // is this something that removes wrap, and infatuation if the mon that caused the effect is switched out? yes
@@ -3836,7 +3843,7 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
     /*for (i = 0; i < gBattlersCount; ++i)
     {
 
-        if (gBattleMons[i].status2 & STATUS2_INFATUATION
+        if (gBattleMons[i].volatiles.infatuatedwithMon
         && gBattleStruct->infatuatedwithBattleId[i] == battler)
         {
             gBattleMons[i].status2 &= ~(STATUS2_INFATUATION);
@@ -3928,10 +3935,9 @@ const u8* FaintClearSetData(u32 battler) //see about make status1 not fade wen f
         if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gBattleMons[i].volatiles.battlerPreventingEscape == battler)
             gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;
         
-        if (gBattleMons[i].volatiles.infatuation
-        && GetBattlerFromPersonality(gBattleMons[i].volatiles.infatuation) == battler)
+        if (InfatuatedWithBattler(battler, i))
         {
-            gBattleMons[i].volatiles.infatuation = FALSE;
+            gBattleMons[i].volatiles.infatuatedwithMon = FALSE;
         }
         
         

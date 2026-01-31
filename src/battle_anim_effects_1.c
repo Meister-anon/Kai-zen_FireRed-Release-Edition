@@ -6631,7 +6631,13 @@ static void TrySwapWishBattlerIds(u32 battlerAtk, u32 battlerPartner)
         SWAP(gBattleStruct->wish[battlerAtk].partyId, gBattleStruct->wish[battlerPartner].partyId, temp);
 }
 
-static void TrySwapAttractBattlerIds(u32 battlerAtk, u32 battlerPartner)
+//idk what this is feel like I don't need it
+//given my changes?
+//oh nvm this is allyswitch stuff
+//but ok I think still true I don't need this 
+//w my changes, base game it was linked to battleId
+//now its directly tied to mon
+/*static void TrySwapAttractBattlerIds(u32 battlerAtk, u32 battlerPartner)
 {
     u32 attractedTo;
 
@@ -6640,7 +6646,8 @@ static void TrySwapAttractBattlerIds(u32 battlerAtk, u32 battlerPartner)
     // if another battler is infatuated with one of us, change to other battler
     for (u32 i = 0; i < gBattlersCount; i++)
     {
-        if (i == battlerAtk || i == battlerPartner || !gBattleMons[i].volatiles.infatuation)
+        if (i == battlerAtk || i == battlerPartner 
+        || !gBattleMons[i].volatiles.infatuation)
             continue;
 
         attractedTo = INFATUATED_WITH(i);
@@ -6655,7 +6662,7 @@ static void TrySwapAttractBattlerIds(u32 battlerAtk, u32 battlerPartner)
             break;
         }
     }
-}
+}*/
 
 static void SwapBattlerMoveData(u32 battler1, u32 battler2)
 {
@@ -6727,7 +6734,7 @@ static void AnimTask_AllySwitchDataSwap(u8 taskId)
     TrySwapSkyDropTargets(battlerAtk, battlerPartner);
     TrySwapStickyWebBattlerId(battlerAtk, battlerPartner);
     TrySwapWishBattlerIds(battlerAtk, battlerPartner);
-    TrySwapAttractBattlerIds(battlerAtk, battlerPartner);
+    //TrySwapAttractBattlerIds(battlerAtk, battlerPartner);
 
     // For Snipe Shot and abilities Stalwart/Propeller Tail - keep the original target.
     for (i = 0; i < gBattlersCount; i++)

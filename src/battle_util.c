@@ -2539,11 +2539,11 @@ static enum MoveCanceler CancelerParalyzed(struct BattleContext *ctx)
 
 static enum MoveCanceler CancelerInfatuation(struct BattleContext *ctx)
 {
-    if (gBattleMons[ctx->battlerAtk].volatiles.infatuation)
+    if (gBattleMons[ctx->battlerAtk].volatiles.infatuatedwithMon)
     {
-        if (IsMonOnOpposingSide(ctx->battlerAtk, gBattleMons[ctx->battlerAtk].volatiles.infatuation))
+        if (IsMonOnOpposingSide(ctx->battlerAtk, gBattleMons[ctx->battlerAtk].volatiles.infatuatedwithMon))
         {
-            gBattleScripting.battler = GetBattlerFromPersonality(gBattleMons[ctx->battlerAtk].volatiles.infatuation);
+            gBattleScripting.battler = GetBattlerFromPersonality(gBattleMons[ctx->battlerAtk].volatiles.infatuatedwithMon);
             
             if (ctx->battlerDef == gBattleScripting.battler)
             {
@@ -6237,13 +6237,13 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
              && IsBattlerTurnDamaged(gBattlerTarget)
              && IsBattlerAlive(gBattlerTarget)
              && (B_ABILITY_TRIGGER_CHANCE >= GEN_4 ? RandomPercentage(RNG_CUTE_CHARM, 30) : RandomChance(RNG_CUTE_CHARM, 1, 3))
-             && !(gBattleMons[gBattlerAttacker].volatiles.infatuation)
+             && !(gBattleMons[gBattlerAttacker].volatiles.infatuatedwithMon)
              && AreBattlersOfOppositeGender(gBattlerAttacker, gBattlerTarget)
              && !IsAbilityAndRecord(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), ABILITY_OBLIVIOUS)
              && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker), move)
              && !IsAbilityOnSide(gBattlerAttacker, ABILITY_AROMA_VEIL))
             {
-                gBattleMons[gBattlerAttacker].volatiles.infatuation = INFATUATED_WITH(gBattlerTarget);
+                gBattleMons[gBattlerAttacker].volatiles.infatuatedwithMon = GetBattlerPersonality(gBattlerTarget);
                 BattleScriptCall(BattleScript_CuteCharmActivates);
                 effect++;
             }
@@ -10081,8 +10081,7 @@ static inline uq4_12_t GetBurnOrFrostBiteModifier(struct DamageContext *ctx)
 static inline uq4_12_t GetInfatuationModifier(struct DamageContext *ctx)
 {
 
-    if (gBattleMons[ctx->battlerAtk].volatiles.infatuation
-    && IsMonOnOpposingSide(ctx->battlerAtk, gBattleMons[ctx->battlerAtk].volatiles.infatuation))
+    if (IsMonInfatuatedWithOnOpposingSide(ctx->battlerAtk))
         return UQ_4_12(0.75);
         
     
@@ -11941,7 +11940,7 @@ u32 TryImmunityAbilityHealStatus(u32 battler)
         break;
     case ABILITY_FEMME_FATALE:
     case ABILITY_OBLIVIOUS:
-        if (gBattleMons[battler].volatiles.infatuation)
+        if (gBattleMons[battler].volatiles.infatuatedwithMon)
             effect = 3;
         //add torment to this double check oblivious effect
         else if (GetConfig(CONFIG_OBLIVIOUS_TAUNT) >= GEN_6 && gBattleMons[battler].volatiles.tauntTimer != 0)
@@ -11962,7 +11961,7 @@ u32 TryImmunityAbilityHealStatus(u32 battler)
             BattleScriptCall(BattleScript_AbilityCuredStatus);
             break;
         case 3: // get rid of infatuation
-            gBattleMons[battler].volatiles.infatuation = 0;
+            gBattleMons[battler].volatiles.infatuatedwithMon = 0;
             BattleScriptCall(BattleScript_AbilityCuredStatus);
             break;
         case 4: // get rid of taunt
@@ -13207,15 +13206,15 @@ bool32 ItemHealMonVolatile(u32 battler, u16 itemId)
     const u8 *effect = GetItemEffect(itemId);
     if (effect[3] & ITEM3_STATUS_ALL)
     {
-        statusChanged = (gBattleMons[battler].volatiles.infatuation || gBattleMons[battler].volatiles.confusionTurns > 0 || gBattleMons[battler].volatiles.infiniteConfusion);
-        gBattleMons[battler].volatiles.infatuation = 0;
+        statusChanged = (gBattleMons[battler].volatiles.infatuatedwithMon || gBattleMons[battler].volatiles.confusionTurns > 0 || gBattleMons[battler].volatiles.infiniteConfusion);
+        gBattleMons[battler].volatiles.infatuatedwithMon = 0;
         gBattleMons[battler].volatiles.confusionTurns = 0;
         gBattleMons[battler].volatiles.infiniteConfusion = FALSE;
     }
     else if (effect[0] & ITEM0_INFATUATION)
     {
-        statusChanged = !!gBattleMons[battler].volatiles.infatuation;
-        gBattleMons[battler].volatiles.infatuation = 0;
+        statusChanged = !!gBattleMons[battler].volatiles.infatuatedwithMon;
+        gBattleMons[battler].volatiles.infatuatedwithMon = 0;
     }
     else if (effect[3] & ITEM3_CONFUSION)
     {
@@ -13548,7 +13547,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, enum Ability atkA
     }
 
     //status based Acc effects
-    if (gBattleMons[battlerDef].status2 & STATUS2_INFATUATION) //need to figure out how to lower evasion to go along with these accuracy boosts.
+    if (gBattleMons[battlerDef].volatiles.infatuatedwithMon) //need to figure out how to lower evasion to go along with these accuracy boosts.
             calc = (calc * 140) / 100;
     if ((gBattleMons[battlerDef].volatiles.confusionTurns) && defAbility != ABILITY_TANGLED_FEET)
             calc = (calc * 120) / 100;

@@ -792,11 +792,12 @@ static bool32 ShouldSwitchIfBadlyStatused(u32 battler)
         }
 
         // Infatuation
-        if (gBattleMons[battler].volatiles.infatuation
+        if (IsMonInfatuatedWithOnOpposingSide(battler)
             && !AiExpectsToFaintPlayer(battler)
             && gAiLogicData->mostSuitableMonId[battler] != PARTY_SIZE
             && RandomPercentage(RNG_AI_SWITCH_INFATUATION, GetSwitchChance(SHOULD_SWITCH_INFATUATION)))
             return SetSwitchinAndSwitch(battler, PARTY_SIZE);
+            //need setup infatuated and battle in love with on field vsonic
     }
 
     return FALSE;

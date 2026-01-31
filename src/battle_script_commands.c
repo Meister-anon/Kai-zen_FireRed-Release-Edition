@@ -9324,14 +9324,14 @@ static void Cmd_tryinfatuating(void)
     }
     else
     {
-        if (gBattleMons[gBattlerTarget].volatiles.infatuation
+        if (gBattleMons[gBattlerTarget].volatiles.infatuatedwithMon
             || !AreBattlersOfOppositeGender(gBattlerAttacker, gBattlerTarget))
         {
             gBattlescriptCurrInstr = cmd->failInstr;
         }
         else
         {
-            gBattleMons[gBattlerTarget].volatiles.infatuation = GetBattlerPersonality(gBattlerAttacker);
+            gBattleMons[gBattlerTarget].volatiles.infatuatedwithMon = GetBattlerPersonality(gBattlerAttacker);
             gBattlescriptCurrInstr = cmd->nextInstr;
         }
     }
@@ -11770,7 +11770,7 @@ static void Cmd_handleballthrow(void)
                 odds += (odds / 5);
             else if (gBattleMons[gBattlerTarget].status4 & ITS_A_TRAP_STATUS4)//(STATUS4_BIND | STATUS4_FIRE_SPIN | STATUS4_CLAMP | STATUS4_WHIRLPOOL | STATUS4_SAND_TOMB | STATUS4_MAGMA_STORM | STATUS4_SWARM | STATUS4_SNAP_TRAP))
                 odds += (odds / 5);
-            if (gBattleMons[gBattlerTarget].status2 & STATUS2_INFATUATION)
+            if (gBattleMons[gBattlerTarget].volatiles.infatuatedwithMon)
                 odds += (odds / 2);
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_NIGHTMARE)
                 odds += (odds / 8);
@@ -14028,12 +14028,12 @@ void BS_TrySetInfatuation(void)
 {
     NATIVE_ARGS(const u8 *failInstr);
 
-    if (!gBattleMons[gBattlerTarget].volatiles.infatuation
+    if (!gBattleMons[gBattlerTarget].volatiles.infatuatedwithMon
         && gBattleMons[gBattlerTarget].ability != ABILITY_OBLIVIOUS
         && !IsAbilityOnSide(gBattlerTarget, ABILITY_AROMA_VEIL)
         && AreBattlersOfOppositeGender(gBattlerAttacker, gBattlerTarget))
     {
-        gBattleMons[gBattlerTarget].volatiles.infatuation = GetBattlerPersonality(gBattlerAttacker);
+        gBattleMons[gBattlerTarget].volatiles.infatuatedwithMon = GetBattlerPersonality(gBattlerAttacker);
         gBattleCommunication[MULTIUSE_STATE] = 2;
         gEffectBattler = gBattlerTarget;
         gBattlescriptCurrInstr = cmd->nextInstr;

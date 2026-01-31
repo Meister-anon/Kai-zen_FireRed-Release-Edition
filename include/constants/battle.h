@@ -620,7 +620,7 @@ infatuation again
  * These are removed after exiting the battle or switching
  *  Enum,                                   Type                           Type, max value, flags */
 #define VOLATILE_DEFINITIONS(F) \
-    F(VOLATILE_INFATUATION,                 infatuatuatedwithMon,          (u32, UINT32_MAX)) \
+    F(VOLATILE_INFATUATION,                 infatuatedwithMon,             (u32, UINT32_MAX)) \
     F(VOLATILE_CONFUSION,                   confusionTurns,                (u32, B_CONFUSION_TURNS + 1), V_BATON_PASSABLE) \
     F(VOLATILE_INFESTATION,                 infested,                      (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_FLINCHED,                    flinched,                      (u32, 1)) \

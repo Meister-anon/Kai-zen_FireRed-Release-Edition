@@ -1527,6 +1527,28 @@ static inline struct PartyState *GetBattlerPartyState(enum BattlerId battler)
     return &gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]];
 }
 
+static inline bool32 InfatuatedWithBattler(enum BattlerId battler, enum BattlerId battlerInLove)
+{
+    if (gBattleMons[battlerInLove].volatiles.infatuatedwithMon)
+        return (GetBattlerPersonality(battler) == gBattleMons[battlerInLove].volatiles.infatuatedwithMon);
+
+    return FALSE;
+}
+//need setup check if mon in love with is on opposing side at all
+
+//battler should be one with infatuation status
+static inline bool32 IsMonInfatuatedWithOnOpposingSide(enum BattlerId battler)
+{
+    
+    if (!gBattleMons[battler].volatiles.infatuatedwithMon)
+        return FALSE;
+    
+    if (IsMonOnOpposingSide(battler, gBattleMons[battler].volatiles.infatuatedwithMon))
+        return TRUE;
+
+    return FALSE;
+}
+
 static inline bool32 IsDoubleBattle(void)
 {
     return !!(gBattleTypeFlags & BATTLE_TYPE_MORE_THAN_TWO_BATTLERS);

@@ -6649,8 +6649,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //should ensure infatuation only blocks attack, on mon infatuated with
     //ok updated pretty sure infatuation gets cured soon as infatuated battler 
     //is off the field so status infatuation shuld be all I need for this
-    if (gBattleMons[battlerIdAtk].volatiles.infatuation
-    && IsMonOnOpposingSide(battlerIdAtk, gBattleMons[battlerIdAtk].volatiles.infatuation))
+    if (IsMonInfatuatedWithOnOpposingSide(battlerIdAtk))
         damage = max((damage * 75) / 100, 1);
 
 
@@ -8805,9 +8804,9 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
         // status healing effects
         case 0:
             if ((itemEffect[cmdIndex] & ITEM0_INFATUATION)
-                && gMain.inBattle && battleMonId != 4 && (gBattleMons[battleMonId].status2 & STATUS2_INFATUATION))
+                && gMain.inBattle && battleMonId != 4 && (gBattleMons[battleMonId].volatiles.infatuatedwithMon))
             {
-                gBattleMons[battleMonId].volatiles.infatuation = FALSE;
+                gBattleMons[battleMonId].volatiles.infatuatedwithMon = FALSE;
                 retVal = FALSE;
             }
             if ((itemEffect[cmdIndex] & ITEM0_HIGH_CRIT)
@@ -9446,7 +9445,7 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
             if (itemEffect[cmdIndex] & ITEM0_INFATUATION
              && gMain.inBattle
              && battlerId != 4
-             && gBattleMons[battlerId].status2 & STATUS2_INFATUATION)
+             && gBattleMons[battlerId].volatiles.infatuatedwithMon)
                 retVal = FALSE;
             if (itemEffect[cmdIndex] & ITEM0_HIGH_CRIT
              && !(gBattleMons[gBattlerInMenuId].status2 & STATUS2_FOCUS_ENERGY))

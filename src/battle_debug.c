@@ -1277,20 +1277,20 @@ static void UpdateBattlerValue(struct BattleDebugMenu *data)
             //idk if this conditional is quite right, just for singles
             if (IsBattlerAlive(BATTLE_OPPOSITE(data->battlerId)))
             {    
-                gBattleMons[data->battlerId].volatiles.infatuation = GetBattlerPersonality(BATTLE_OPPOSITE(data->battlerId));
+                gBattleMons[data->battlerId].volatiles.infatuatedwithMon = GetBattlerPersonality(BATTLE_OPPOSITE(data->battlerId));
                 //gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATION;
                 //gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_OPPOSITE(data->battlerId);
             }
             else
             {
-                gBattleMons[data->battlerId].volatiles.infatuation = GetBattlerPersonality(BATTLE_PARTNER(BATTLE_OPPOSITE(data->battlerId)));
+                gBattleMons[data->battlerId].volatiles.infatuatedwithMon = GetBattlerPersonality(BATTLE_PARTNER(BATTLE_OPPOSITE(data->battlerId)));
                //gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATION;
                //gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_PARTNER(BATTLE_OPPOSITE(data->battlerId));
             }
         }
         else
         {
-            gBattleMons[data->battlerId].volatiles.infatuation = FALSE;
+            gBattleMons[data->battlerId].volatiles.infatuatedwithMon = FALSE;
         }
         break;
     case VAR_SLEEP_TIMER:
@@ -1567,7 +1567,7 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
             data->modifyArrows.maxDigits = 1;
             data->modifyArrows.modifiedValPtr = NULL;
             data->modifyArrows.typeOfVal = VAR_IN_LOVE;
-            data->modifyArrows.currValue = (gBattleMons[data->battlerId].status2 & STATUS2_INFATUATION) != 0;
+            data->modifyArrows.currValue = (gBattleMons[data->battlerId].volatiles.infatuatedwithMon) != 0;
         }
         else if (data->currentSecondaryListItemId == VARIOUS_SLEEP_TIMER)
         {

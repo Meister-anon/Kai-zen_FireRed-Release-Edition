@@ -1777,7 +1777,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-10);
             if (HasDamagingMove(battlerDef) && !(gBattleMons[battlerAtk].volatiles.substitute
              || IsBattlerIncapacitated(battlerDef, abilityDef)
-             || gBattleMons[battlerDef].volatiles.infatuation
+             || InfatuatedWithBattler(battlerAtk, battlerDef)
              || gBattleMons[battlerDef].volatiles.confusionTurns))
                 ADJUST_SCORE(-10);
             if (HasMoveWithEffect(battlerAtk, EFFECT_SUBSTITUTE) && !gBattleMons[battlerAtk].volatiles.substitute)
@@ -1785,9 +1785,15 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             if (HasNonVolatileMoveEffect(battlerAtk, MOVE_EFFECT_SLEEP) && ! (gBattleMons[battlerDef].status1 & STATUS1_SLEEP))
                 ADJUST_SCORE(-10);
             break;
+            //vsonic unsure if should use battler infatuation or side infatuation check
+            //need understand point of effect here
+            //if its incpacitation I need battler, 
+            //but it restrcits effect when previousy ai would effect whole side
+            //I may be able to use side based on idea of lowering dmg
+            //but think it needs to be target can't attack i.e they can't hit back
         case EFFECT_REFLECT_DAMAGE:
             if (IsBattlerIncapacitated(battlerDef, aiData->abilities[battlerDef])
-            || gBattleMons[battlerDef].volatiles.infatuation
+            || InfatuatedWithBattler(battlerAtk, battlerDef)
             || gBattleMons[battlerDef].volatiles.confusionTurns > 0)
                 ADJUST_SCORE(-1);
             if ((predictedMove == MOVE_NONE || GetBattleMoveCategory(predictedMove) == DAMAGE_CATEGORY_STATUS
@@ -4261,8 +4267,12 @@ static s32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move, stru
     }
 
     // check status move preference
+    //vsonic should this matter thought 
+    //status moves go through even if effectivenes none
+    //oh it does but it sets it to mod 1 so this is
+    //the cases it would actually fail
     if (gAiThinkingStruct->aiFlags[battlerAtk] & AI_FLAG_PREFER_STATUS_MOVES && IsBattleMoveStatus(move) && effectiveness != UQ_4_12(0.0))
-        ADJUST_SCORE(10);
+        ADJUST_SCORE(PERFECT_EFFECT);
 
     // don't get baited into encore
     if (gBattleMoveEffects[moveEffect].encourageEncore
@@ -4279,7 +4289,7 @@ static s32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move, stru
 
     // check thawing moves
     if (gBattleMons[battlerAtk].status1 & STATUS1_ICY_ANY && MoveThawsUser(move))
-        ADJUST_SCORE(10);
+        ADJUST_SCORE(PERFECT_EFFECT);
 
     // check burn / frostbite
     if (gAiThinkingStruct->aiFlags[battlerAtk] & AI_FLAG_SMART_SWITCHING && aiData->abilities[battlerAtk] == ABILITY_NATURAL_CURE)
@@ -6863,12 +6873,12 @@ static s32 AI_PredictSwitch(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         if (gAiThinkingStruct->aiFlags[battlerAtk] & AI_FLAG_CHECK_BAD_MOVE)
         {
             if (aiData->abilities[battlerDef] == ABILITY_WONDER_GUARD && effectiveness < UQ_4_12(2.0))
-                ADJUST_SCORE(10);
+                ADJUST_SCORE(PERFECT_EFFECT);
             if (HasDamagingMove(battlerDef) && !(gBattleMons[battlerAtk].volatiles.substitute
              || IsBattlerIncapacitated(battlerDef, aiData->abilities[battlerDef])
-             || gBattleMons[battlerDef].volatiles.infatuation
+             || InfatuatedWithBattler(battlerAtk, battlerDef)
              || gBattleMons[battlerDef].volatiles.confusionTurns > 0))
-                ADJUST_SCORE(10);
+                ADJUST_SCORE(PERFECT_EFFECT);
         }
         break;
 
