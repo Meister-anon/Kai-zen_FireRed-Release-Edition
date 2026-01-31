@@ -191,10 +191,7 @@ static inline void SetSingleUseAbilityValues(u32 battler, enum Ability ability)
 static inline bool32 CanBattlerAbilityDrawInMove(u32 battlerDef)
 {
     if (gBattleMons[battlerDef].status1 == 0 
-    && !gBattleMons[battlerDef].volatiles.rechargeTimer 
-    && !(gBattleMons[battlerDef].status2 & PREOCCUPIED_STATUS)//wrap logic w recharge and trap function movement restricted 
-    && !(gStatuses3[battlerDef] & STAUS3_VULNERABLE) 
-    && !IsBattlerTrappedViaMove(battlerDef))
+    && !IsBattlerHindered(battlerDef))
         return TRUE;
     
     return FALSE;

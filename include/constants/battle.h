@@ -371,7 +371,6 @@ enum BattleSide
 //it activates typically after attacked,
 //and is removed on attack so it would never really be noticed
 //STATUS2_SWITCH_LOCKED unsure if should add think should
-#define PREOCCUPIED_STATUS (STATUS2_CONFUSION | STATUS2_BIDE | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED)
 
 // Seems like per-battler statuses. Not quite sure how to categorize these
 //#define STATUS3_SKY_DROPPED             0x1 // Target of Sky Drop

@@ -7130,7 +7130,10 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
         //when heal pass is setup, rest would be the only way to have this mon heal itself
         //with sleep change. also sitrus berry seems potentially best item?
         //oh right, leftoveres exists lol vsonic
-        else if ((ability == ABILITY_OMNIPOTENT_AIDE) && CAN_ABILITY_ABSORB(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))
+        //vsonic unsure still planning to use ability absorb as condition for this
+        //since is basicly triage and that doesnt need it
+        else if ((ability == ABILITY_OMNIPOTENT_AIDE) 
+        && CanBattlerAbilityDrawInMove(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))
         && IsHealingMove(move))
         {
 

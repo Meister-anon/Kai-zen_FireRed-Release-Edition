@@ -1736,6 +1736,24 @@ static inline bool32 IsBattlerTrappedViaMove(enum BattlerId battler)
     return FALSE;
 }
 
+//could add sky drop but relatively sure 
+//that should already be covered in effect
+//is replacement for preocupied status macro
+static inline bool32 IsBattlerHindered(enum BattlerId battler)
+{
+    if (gBattleMons[battler].volatiles.rechargeTimer
+    || gBattleMons[battler].volatiles.confusionTurns
+    || gBattleMons[battler].volatiles.bide
+    || gBattleMons[battler].volatiles.switchBindtimer
+    || gBattleMons[battler].volatiles.escapePrevention
+    || gBattleMons[battler].volatiles.rooted
+    || gBattleMons[battler].volatiles.yawn
+    || IsBattlerTrappedViaMove(battler))
+        return TRUE;
+
+    return FALSE;
+}
+
 //vsonic important
 //using for print result message
 //and effectiveness sound
