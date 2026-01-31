@@ -1305,7 +1305,7 @@ static void UpdateBattlerValue(struct BattleDebugMenu *data)
         break;
     case VAR_FREEZE_TIMER:
         if (data->modifyArrows.currValue)
-            gDisableStructs[data->battlerId].FrozenTurns = data->modifyArrows.currValue;
+            gBattleMons[data->battlerId].volatiles.frozenTurns = data->modifyArrows.currValue;
         break;
     
     case VAR_TOXIC_COUNTER:
@@ -1556,9 +1556,9 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
             data->modifyArrows.minValue = 0;
             data->modifyArrows.maxValue = 255;
             data->modifyArrows.maxDigits = 3;
-            data->modifyArrows.modifiedValPtr = &gDisableStructs[data->battlerId].substituteHP;
+            data->modifyArrows.modifiedValPtr = gBattleMons[data->battlerId].volatiles.substituteHP;
             data->modifyArrows.typeOfVal = VAR_SUBSTITUTE;
-            data->modifyArrows.currValue = gDisableStructs[data->battlerId].substituteHP;
+            data->modifyArrows.currValue = gBattleMons[data->battlerId].volatiles.substituteHP;
         }
         else if (data->currentSecondaryListItemId == VARIOUS_IN_LOVE)
         {
@@ -1585,7 +1585,7 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
             data->modifyArrows.maxDigits = 1;
             data->modifyArrows.modifiedValPtr = NULL;
             data->modifyArrows.typeOfVal = VAR_FREEZE_TIMER;
-            data->modifyArrows.currValue = gDisableStructs[data->battlerId].FrozenTurns;
+            data->modifyArrows.currValue = gBattleMons[data->battlerId].volatiles.frozenTurns;
         }
         else if (data->currentSecondaryListItemId == VARIOUS_TOXIC_COUNTER)
         {

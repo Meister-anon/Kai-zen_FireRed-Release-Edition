@@ -315,7 +315,7 @@ static bool8 ShouldHideHealthboxSprite(u8 battlerId)
 {
     if (gBattleMons[battlerId].volatiles.caughtMon
     && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
-    && !gDisableStructs[BATTLE_PARTNER(battlerId)].caughtMon)
+    && !gBattleMons[BATTLE_PARTNER(battlerId)].volatiles.caughtMon)
         return TRUE;
     return FALSE;
 }

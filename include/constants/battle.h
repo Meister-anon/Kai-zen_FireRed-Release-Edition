@@ -771,6 +771,7 @@ infatuation again
     F(VOLATILE_FIRSTURN_ABILITY_CHECK,      isFirstTurnAbilityActive,      (u32, 1))  \
     F(VOLATILE_TIME_CONTROL,                timecontrolAbilityTimer,       (u32, B_TIME_CONTROL_TIMER))  \
     F(VOLATILE_TRAPPED_VIA_MOLDBREAKER,     trapSetViaMoldBreaker,         (u32, 1))  \
+    F(VOLATILE_BIDE_STATUS,                 bide,                          (u32, 1))  \
     F(VOLATILE_ASCENSION_TIMER,             ascensionTimer,                (u32, B_ASCENSION_TIMER))  \
 
 
@@ -835,7 +836,7 @@ enum SemiInvulnerableExclusion
              //u8 caughtMon : 1; //group  //idk what for using now for pc caught setup, since clears on switch shouldn't cause issues?
              ///u8 caughtMon : 1;
              //u8 EmergencyExitTimer:1;
-             //u8 FrozenTurns:2; //group  //made w sleep timer and stockpile together in mind
+             //u8 frozenTurns:2; //group  //made w sleep timer and stockpile together in mind
              //u8 truantCounter : 1;
              //u8 sleepCounter : 1; //copy of truant counter used for sleep heal may need copy switch hack as well hmm
              //u8 truantSwitchInHack : 1; // unused? 

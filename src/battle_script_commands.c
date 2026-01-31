@@ -11757,11 +11757,11 @@ static void Cmd_handleballthrow(void)
                 
             odds = (catchRate * ballMultiplier / 10) * (gBattleMons[gBattlerTarget].maxHP * 3 - gBattleMons[gBattlerTarget].hp * 2) / (3 * gBattleMons[gBattlerTarget].maxHP);
             
-            if ((gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP || gBattleMons[gBattlerTarget].volatiles.FrozenTurns != 0)) //juset realiszed I could stack statsus bonsu by including status 2, since right now rules exclude status 1 overlap
+            if ((gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP || gBattleMons[gBattlerTarget].volatiles.frozenTurns != 0)) //juset realiszed I could stack statsus bonsu by including status 2, since right now rules exclude status 1 overlap
                 odds *= 2;
             if (gBattleMons[gBattlerTarget].status1 & (STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON))
                 odds = (odds * 15) / 10;
-            if (gBattleMons[gBattlerTarget].status1 & STATUS1_FREEZE && gBattleMons[gBattlerTarget].volatiles.FrozenTurns == 0)
+            if (gBattleMons[gBattlerTarget].status1 & STATUS1_FREEZE && gBattleMons[gBattlerTarget].volatiles.frozenTurns == 0)
                 odds = (odds * 15) / 10;
 
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_CONFUSION)    //add ifs for status 2 to stack on top of status 1 liek here //include recharge, infatuation, nightmare, curse, & escape prevention & wrap etc
@@ -16084,7 +16084,7 @@ void BS_TryActivateResoluteMoveEnd(void)
     {
         //if incapacitated skip formchange
         if ((gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP)
-        || (gBattleMons[gBattlerTarget].volatiles.FrozenTurns != 0))
+        || (gBattleMons[gBattlerTarget].volatiles.frozenTurns != 0))
             return;
         else
         {

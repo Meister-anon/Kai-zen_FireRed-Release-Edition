@@ -8356,7 +8356,7 @@ static bool32 IsBattlerGroundedInverseCheck(u32 battler, enum Ability ability, e
     if (gBattleMons[battler].status1 & STATUS1_INCAPACITATED) 
         grounded = TRUE;
 
-    //if (gBattleMons[battler].volatiles.FrozenTurns != 0) //frozen solid since adding frostbite can explicilty set as freeze
+    //if (gBattleMons[battler].volatiles.frozenTurns != 0) //frozen solid since adding frostbite can explicilty set as freeze
     //    grounded = TRUE;
     //added status excemptions to replace lose of synergy with 
     //ability removal/swap effects/moldbreaker likes
@@ -14358,15 +14358,16 @@ bool8 IsFixationMoveEffect(u16 move)
 bool8 CanActivateForewarnAnticipation(u8 battler)
 {
     u32 i;
-    u8 side = GetBattlerSide(battler);
 
     for (i = 0; i < PARTY_SIZE; i++)
     {
-        if (gBattleStruct->usedSingleUseAbility[i][side] == ABILITY_ANTICIPATION
-        || gBattleStruct->usedSingleUseAbility[i][side] == ABILITY_FOREWARN)
+        if (GetBattlerPartyState(i)->usedSingleUseAbility == ABILITY_ANTICIPATION
+        || GetBattlerPartyState(i)->usedSingleUseAbility == ABILITY_FOREWARN)
             break;
     }
 
+    //can activate only if none has used it i party
+    //so i is party size means that's true
     return (i == PARTY_SIZE);
 
 }

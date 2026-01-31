@@ -1522,6 +1522,11 @@ static inline struct Pokemon *GetBattlerParty(u32 battlerId)
     return GetSideParty(GetBattlerSide(battlerId));
 }
 
+static inline struct PartyState *GetBattlerPartyState(enum BattlerId battler)
+{
+    return &gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]];
+}
+
 static inline bool32 IsDoubleBattle(void)
 {
     return !!(gBattleTypeFlags & BATTLE_TYPE_MORE_THAN_TWO_BATTLERS);

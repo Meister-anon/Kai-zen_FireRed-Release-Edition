@@ -1856,7 +1856,7 @@ If the Pokémon affected by Encore runs out of PP for the affected move, the eff
   no checks or anything just auto settting it to unavailable smh
 
   DOUBLE chek this, 
-  gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = TRUE;
+  GetBattlerPartyState(gBattlerPartyIndexes[battler])->usedSingleUseAbility = TRUE;
   this line should prevent mon ability from retriggering for duration of battle. I think it stores proper place even post switch
   test with mimikyu see if works remove species check, to test only this factor alone
   if works for that, can use for forwarn etc. if needbe
@@ -8015,7 +8015,7 @@ July 2024
     think can use this gBattlerPartyIndexes[gActiveBattler]
 
     ok looks like won't need ot make something new
-    can use gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)]
+    can use GetBattlerPartyState(gBattlerPartyIndexes[battler])->usedSingleUseAbility
     technically it doesn't just hold a true false
     if I change it to a u32 I can make it store personality
     //will prob need change field
@@ -11103,7 +11103,7 @@ that way you don't need to keep flying aruond to different places looking for th
 
     slightly tweaked ai logic to use split rather than type for phys special stuff as well,  not 100 on if it works but it should
 
-    //since FrozenTurns uses gDisableStructs it'll be cleared when battle ends/new battle starts
+    //since frozenTurns uses gDisableStructs it'll be cleared when battle ends/new battle starts
     this works if still frozen at battle end so not frozen solid on next battle makes more sense, but you'll still be frozen, just suffer end turn dmg until healed
 
     //potentially use moonlight, move animation and day/night shift for battle to make lunar weather condition

@@ -196,7 +196,6 @@ EWRAM_DATA u32 gSideStatuses[NUM_BATTLE_SIDES] = {0};
 EWRAM_DATA struct SideTimer gSideTimers[NUM_BATTLE_SIDES] = {0};
 //removed put into volatile struct in battlepokemon
 //EWRAM_DATA u32 gStatuses3[MAX_BATTLERS_COUNT] = {0};
-EWRAM_DATA struct DisableStruct gDisableStructs[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gPauseCounterBattle = 0;
 EWRAM_DATA u16 gPaydayMoney = 0;
 EWRAM_DATA u16 gRandomTurnNumber = 0;
@@ -3685,8 +3684,8 @@ static void BattleStartClearSetData(void)
         gBattleStruct->usedHeldItems[i][B_SIDE_PLAYER] = FALSE;
         gBattleStruct->usedHeldItems[i][B_SIDE_OPPONENT] = FALSE;
 
-        gBattleStruct->usedSingleUseAbility[i][B_SIDE_PLAYER] = FALSE;
-        gBattleStruct->usedSingleUseAbility[i][B_SIDE_OPPONENT] = FALSE;
+        gBattleStruct->partyState[B_SIDE_PLAYER][i].usedSingleUseAbility = FALSE;
+        gBattleStruct->partyState[B_SIDE_OPPONENT][i].usedSingleUseAbility = FALSE;
         
         gBattleStruct->CachedAbilityTimers[i][B_SIDE_PLAYER] = FALSE;
         gBattleStruct->CachedAbilityTimers[i][B_SIDE_OPPONENT] = FALSE;
@@ -4580,21 +4579,19 @@ static void HandleEndTurn_ContinueBattle(void)
             if ((gBattleMons[i].status1 & STATUS1_SLEEP)) //pretty sure no reason not to just make it auto run on sleep
                 CancelMultiTurnMoves(i);
 
-            //end turn forewarn anticipation comppletion
-            for (j = 0; j < gBattlersCount; ++j) //w battle party index i just need battler not party id and it'll track properly for everyting else
+            //was stupid didn't need second loop
+            if ((gBattleMons[i].ability == ABILITY_FOREWARN || gBattleMons[i].ability == ABILITY_ANTICIPATION)
+            && !gBattleMons[i].volatiles.anticipationForewornIsDone)
             {
-                //coment below makes effect end on turn end rather than when attack is successfully used
-                if (/*gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[j]][GetBattlerSide(i)] == TRUE 
-                && */(gBattleMons[i].ability == ABILITY_FOREWARN || gBattleMons[i].ability == ABILITY_ANTICIPATION)
-                && !gBattleMons[i].volatiles.AnticipationForewornIsDone)
-                {
-                    gBattleMons[i].volatiles.AnticipationForewornIsDone = TRUE;  //to clear out effects at endturn properly
-                    //...I forgot how battlepartyindex works AGAIN
-                    //will this work correctly for my needs or will it not properly
-                    //track only for said party/side
-                    gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[j]][GetBattlerSide(i)] = gBattleMons[i].ability;
-                }
-            }//attempted fix, hopefully doesn't lag to hell. - no lag, fix not quite there yet, or if rihgt, not fully explored
+                gBattleMons[i].volatiles.anticipationForewornIsDone = TRUE;  //to clear out effects at endturn properly
+                //...I forgot how battlepartyindex works AGAIN
+                //will this work correctly for my needs or will it not properly
+                //track only for said party/side
+                GetBattlerPartyState(i)->usedSingleUseAbility = gBattleMons[i].ability;
+            }
+
+            //end turn forewarn anticipation comppletion
+            //attempted fix, hopefully doesn't lag to hell. - no lag, fix not quite there yet, or if rihgt, not fully explored
             //actyally this might do it, long as this in right place, this would set the side as haing used ability,
             //then whatever mon with these two abilities that goes out, would have themselves set as being unable to use it
             //no matter what battle position, because it loops all of them
@@ -5169,9 +5166,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
     { 
         if (gBattleMons[battler].hp <= (gBattleMons[battler].maxHP / 2) && !gBattleMons[battler].volatiles.ActivatedWeightedGi)
             gBattleMons[battler].volatiles.ActivatedWeightedGi = TRUE;
-         //   gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = TRUE; 
 
-        //if (gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] == TRUE)
         if (gBattleMons[battler].volatiles.ActivatedWeightedGi)
             speed *= 2; //speed = (speed * 150) / 100; unsure which stick with
     }
@@ -5846,7 +5841,7 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
             if (gBattleMons[battlers[i]].volatiles.bindTurns) //conditions shuold be more or less on same level don' tknow why this one fails
             {
                 //shold handle switch in bind case, to make use random move
-                if (gDisableStructs[battlers[i]].bindedMove == MOVE_NONE) //ok this just isn't workingand I don't know why
+                if (gBattleMons[battlers[i]].volatiles.bindedMove == MOVE_NONE) //ok this just isn't workingand I don't know why
                 {
                     u8 numMoves;
                     u8 movePos;
@@ -5854,10 +5849,10 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
                                         if (gBattleMons[battlers[i]].moves[numMoves] == MOVE_NONE)
                                             break;
                     movePos = Random() % numMoves;
-                    gDisableStructs[battlers[i]].bindedMove = gBattleMons[battlers[i]].moves[movePos];
-                    gDisableStructs[battlers[i]].bindMovepos = movePos;
+                    gBattleMons[battlers[i]].bindedMove = gBattleMons[battlers[i]].moves[movePos].volatiles;
+                    gBattleMons[battlers[i]].volatiles.bindMovepos = movePos;
                 
-                    switch (gDisableStructs[battlers[i]].bindedMove)
+                    switch (gBattleMons[battlers[i]].volatiles.bindedMove)
                     {
                         case MOVE_ENCORE:
                         case MOVE_TRANSFORM:
@@ -5865,19 +5860,19 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
                         case MOVE_SKETCH:
                         case MOVE_SLEEP_TALK:
                         case MOVE_MIRROR_MOVE:
-                        gDisableStructs[battlers[i]].bindedMove = MOVE_STRUGGLE;
+                        gBattleMons[battlers[i]].volatiles.bindedMove = MOVE_STRUGGLE;
                         break;
                     }
                     
-                    gChosenMoveByBattler[battlers[i]] = gDisableStructs[battlers[i]].bindedMove;
-                    *(gBattleStruct->chosenMovePositions + battlers[i]) = gDisableStructs[battlers[i]].bindMovepos; //without this fainted logic works??
+                    gChosenMoveByBattler[battlers[i]] = gBattleMons[battlers[i]].volatiles.bindedMove;
+                    *(gBattleStruct->chosenMovePositions + battlers[i]) = gBattleMons[battlers[i]].volatiles.bindMovepos; //without this fainted logic works??
                     
                     return TRUE;
                 }
             }
             if (//!(gBattleStruct->focusPunchBattlers & (1u << battlers[i]))
                  !(gBattleMons[battlers[i]].status1 & STATUS1_SLEEP)
-                && !(gDisableStructs[battlers[i]].truantCounter)
+                && !(gBattleMons[battlers[i]].volatiles.truantCounter)
                 && !(gProtectStructs[battlers[i]].noValidMoves))
             {
                 //gBattleStruct->focusPunchBattlers |= (1u << battlers[i]);
@@ -7190,7 +7185,7 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
         //still has some good use while not being potentially broken?
         //but getting priority on contact moves is also realy nice, and would just make them good
 
-        else if (gBattleMons[battler].volatiles.EmergencyExitTimer == 0
+        else if (gBattleMons[battler].volatiles.emergencyExitTimer == 0
         && gBattleMons[battler].volatiles.EmergencyExitWimpoutActive
         && GetBattlerAbility(battler) == ABILITY_EMERGENCY_EXIT) 
         {   
@@ -7198,8 +7193,8 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
         }//should ensure goes first, and will allow to be excluded from effects that otherwise block priority
 
 
-        else if (gBattleMons[battler].status2 & STATUS2_BIDE
-            && gBattleMons[battler].volatiles.bideTimer == 0) //think had to remove check for move bide, since that's not set until atk canceler
+        else if (gBattleMons[battler].volatiles.bide
+            && gBattleMons[battler].volatiles.bideTurns == 0) //think had to remove check for move bide, since that's not set until atk canceler
         {
             priority = 3; //if works, second attack will go before most priority moves /that did it works now
         }    
