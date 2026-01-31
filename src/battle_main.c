@@ -5254,17 +5254,7 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler)
         speed = (speed * 150) / 100; //should prob make grass specific text string, i.e x became revitalized  //vsonic important
         //put in moveendI guess moveend sport, just to display string vsonic
 
-    // paralysis drop - changing this, new gens do 50%
-    //and think I like keeping this weaker to make
-    //other speed control more viable
-    if ((gBattleMons[battler].status1 & STATUS1_PARALYSIS)
-        && (ability != ABILITY_QUICK_FEET
-            && ability != ABILITY_TANGLED_FEET
-            && ability != ABILITY_AVIATOR
-            && ability != ABILITY_RUN_AWAY
-            )
-       )
-        speed /= 2;
+    
 
     //ok decided roll these all together, but make exclusion for ghost and flying type
     //as both should be able to escape
@@ -5285,9 +5275,30 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler)
         else
             speed /= 2; //cut speed by half, which is the same as 2 stat stage drops & guess it makes more sense to cut 
 
+        //effect will come out to an additional 10% drop
+        //very small if trapped and paralyzed
+        //speed will fall to 40% rather than 25%
+        if ((gBattleMons[battler].status1 & STATUS1_PARALYSIS)
+        && (ability != ABILITY_QUICK_FEET
+        && ability != ABILITY_TANGLED_FEET
+        && ability != ABILITY_AVIATOR
+        && ability != ABILITY_RUN_AWAY))
+                speed = (speed * 80) / 100;
     }
     //traps inconjunction with paralysis 
     //gives old paralysis effect of 25% speed drop
+
+     // paralysis drop - changing this, new gens do 50%
+    //and think I like keeping this weaker to make
+    //other speed control more viable
+    //paralysis without trap to mitigate effects
+    //will have lessened effect for both stacking
+    else if ((gBattleMons[battler].status1 & STATUS1_PARALYSIS)
+    && (ability != ABILITY_QUICK_FEET
+    && ability != ABILITY_TANGLED_FEET
+    && ability != ABILITY_AVIATOR
+    && ability != ABILITY_RUN_AWAY))
+        speed /= 2;
 
     return speed;
 }
