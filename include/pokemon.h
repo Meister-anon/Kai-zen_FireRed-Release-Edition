@@ -705,8 +705,8 @@ struct BaseStats  // had to adjust struct order to match paste value from base_s
  /* 0x15 */ u8 eggGroup2;
             u8 catchRate;
             u8 safariZoneFleeRate;
- /* 0x16 */ u16 abilities[2]; //[partysize] is 6 values, so this is ability 1 and ability 2, doesn't include hidden //this means 2 states, 0 & 1
- /* 0x1B */ u16 abilityHidden[2]; //need to make sure ability num can be 2, then set that as hidden ability
+ /* 0x16 */ enum Ability abilities[2]; //[partysize] is 6 values, so this is ability 1 and ability 2, doesn't include hidden //this means 2 states, 0 & 1
+ /* 0x1B */ enum Ability abilityHidden[2]; //need to make sure ability num can be 2, then set that as hidden ability
  /* 0x1D */ //u16 bodyColor : 7; //ok bodyColor is leftover of emerald is literally just an pokedex filter option that doesn't exist in fr, but is here for sake of trading to those games
             // Flags
             u16 noFlip : 1;  //represents if sprite is flipped in summary screen and trade screen, normal is the pc sprite
