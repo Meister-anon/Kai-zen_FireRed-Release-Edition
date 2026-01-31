@@ -27,7 +27,7 @@ struct PlayerInfo
     u32 trainerId;
     u8 name[PLAYER_NAME_LENGTH + 1];
     u8 gender;
-    u16 battlerId;
+    enum BattlerId battlerId;
     u16 language;
 };
 
@@ -148,13 +148,13 @@ void RecordedBattle_SetTrainerInfo(void)
     }
 }
 
-void RecordedBattle_SetBattlerAction(u8 battlerId, u8 action)
+void RecordedBattle_SetBattlerAction(enum BattlerId battlerId, u8 action)
 {
     if (sBattlerRecordSizes[battlerId] < BATTLER_RECORD_SIZE && sRecordMode != B_RECORD_MODE_PLAYBACK)
         sBattleRecords[battlerId][sBattlerRecordSizes[battlerId]++] = action;
 }
 
-void RecordedBattle_ClearBattlerAction(u8 battlerId, u8 bytesToClear)
+void RecordedBattle_ClearBattlerAction(enum BattlerId battlerId, u8 bytesToClear)
 {
     s32 i;
 
@@ -167,7 +167,7 @@ void RecordedBattle_ClearBattlerAction(u8 battlerId, u8 bytesToClear)
     }
 }
 
-u8 RecordedBattle_GetBattlerAction(u32 actionType, u8 battlerId)
+u8 RecordedBattle_GetBattlerAction(u32 actionType, enum BattlerId battlerId)
 {
     if (gTestRunnerEnabled)
         TestRunner_Battle_CheckBattleRecordActionType(battlerId, sBattlerRecordSizes[battlerId], actionType);
@@ -228,7 +228,7 @@ void RecordedBattle_RecordAllBattlerData(u8 *src)
     {
         for (size = *src; size != 0;)
         {
-            u8 battlerId = GetNextRecordedDataByte(src, &idx, &size);
+            enum BattlerId battlerId = GetNextRecordedDataByte(src, &idx, &size);
             u8 numActions = GetNextRecordedDataByte(src, &idx, &size);
 
             for (i = 0; i < numActions; i++)
@@ -330,7 +330,7 @@ u8 GetTextSpeedInRecordedBattle(void)
     return sTextSpeed;
 }
 
-void RecordedBattle_CopyBattlerMoves(u32 battler)
+void RecordedBattle_CopyBattlerMoves(enum BattlerId battler)
 {
     s32 i;
 

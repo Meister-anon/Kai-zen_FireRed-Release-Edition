@@ -133,10 +133,10 @@ struct BattleDebugModifyArrows
 
 struct BattleDebugMenu
 {
-    u8 battlerId:2;
+    enum BattlerId battlerId:2;
     u8 aiBattlerId:2;
 
-    u8 battlerWindowId;
+    enum BattlerId battlerWindowId;
 
     u8 mainListWindowId;
     u8 mainListTaskId;
@@ -240,7 +240,7 @@ enum
 
 // Static Declarations
 static const u8 *GetHoldEffectName(u16 holdEffect);
-//static bool32 IsBattlerAlive(u32 battler);
+//static bool32 IsBattlerAlive(enum BattlerId battler);
 
 // const rom data
 static const u8 sText_HP[] = _("HP");
@@ -687,7 +687,7 @@ static const u16 sBgColor[] = {RGB_WHITE};
 static void Task_DebugMenuFadeOut(u8 taskId);
 static void Task_DebugMenuProcessInput(u8 taskId);
 static void Task_DebugMenuFadeIn(u8 taskId);
-static void PrintOnBattlerWindow(u8 windowId, u8 battlerId);
+static void PrintOnBattlerWindow(u8 windowId, enum BattlerId battlerId);
 static void UpdateWindowsOnChangedBattler(struct BattleDebugMenu *data);
 static void CreateSecondaryListMenu(struct BattleDebugMenu *data);
 static void PrintSecondaryEntries(struct BattleDebugMenu *data);
@@ -952,7 +952,7 @@ static void Task_DebugMenuFadeOut(u8 taskId)
     }
 }
 
-static void PrintOnBattlerWindow(u8 windowId, u8 battlerId)
+static void PrintOnBattlerWindow(u8 windowId, enum BattlerId battlerId)
 {
     u8 text[POKEMON_NAME_LENGTH + 10];
 
@@ -1881,7 +1881,7 @@ static const u8 *GetHoldEffectName(u16 holdEffect)
     return sHoldEffectNames[holdEffect];
 }
 
-/*static bool32 IsBattlerAlive(u32 battler)
+/*static bool32 IsBattlerAlive(enum BattlerId battler)
 {
     if (gBattleMons[battler].hp == 0)
         return FALSE;

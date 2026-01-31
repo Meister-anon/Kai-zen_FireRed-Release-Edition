@@ -23,76 +23,76 @@
 #include "constants/moves.h"
 #include "constants/songs.h"
 
-static void OpponentHandleGetMonData(u32 battler);
-static void OpponentHandleGetRawMonData(u32 battler);
-static void OpponentHandleSetMonData(u32 battler);
-static void OpponentHandleSetRawMonData(u32 battler);
-static void OpponentHandleLoadMonSprite(u32 battler);
-static void OpponentHandleSwitchInAnim(u32 battler);
-static void OpponentHandleReturnMonToBall(u32 battler);
-static void OpponentHandleDrawTrainerPic(u32 battler);
-static void OpponentHandleTrainerSlide(u32 battler);
-static void OpponentHandleTrainerSlideBack(u32 battler);
-static void OpponentHandleFaintAnimation(u32 battler);
-static void OpponentHandlePaletteFade(u32 battler);
-static void OpponentHandleSuccessBallThrowAnim(u32 battler);
-static void OpponentHandleBallThrowAnim(u32 battler);
-static void OpponentHandlePause(u32 battler);
-static void OpponentHandleMoveAnimation(u32 battler);
-static void OpponentHandlePrintString(u32 battler);
-static void OpponentHandlePrintSelectionString(u32 battler);
-static void OpponentHandleChooseAction(u32 battler);
-static void OpponentHandleUnknownYesNoBox(u32 battler);
-static void OpponentHandleChooseMove(u32 battler);
-static void OpponentHandleChooseItem(u32 battler);
-static void OpponentHandleChoosePokemon(u32 battler);
-static void OpponentHandleCmd23(u32 battler);
-static void OpponentHandleHealthBarUpdate(u32 battler);
-static void OpponentHandleExpUpdate(u32 battler);
-static void OpponentHandleStatusIconUpdate(u32 battler);
-static void OpponentHandleStatusAnimation(u32 battler);
-static void OpponentHandleStatusXor(u32 battler);
-static void OpponentHandleDataTransfer(u32 battler);
-static void OpponentHandleDMA3Transfer(u32 battler);
-static void OpponentHandlePlayBGM(u32 battler);
-static void OpponentHandleCmd32(u32 battler);
-static void OpponentHandleTwoReturnValues(u32 battler);
-static void OpponentHandleChosenMonReturnValue(u32 battler);
-static void OpponentHandleOneReturnValue(u32 battler);
-static void OpponentHandleOneReturnValue_Duplicate(u32 battler);
-static void OpponentHandleCmd37(u32 battler);
-static void OpponentHandleCmd38(u32 battler);
-static void OpponentHandleCmd39(u32 battler);
-static void OpponentHandleCmd40(u32 battler);
-static void OpponentHandleHitAnimation(u32 battler);
-static void OpponentHandleCmd42(u32 battler);
-static void OpponentHandlePlaySE(u32 battler);
-static void OpponentHandlePlayFanfare(u32 battler);
-static void OpponentHandleFaintingCry(u32 battler);
-static void OpponentHandleIntroSlide(u32 battler);
-static void OpponentHandleIntroTrainerBallThrow(u32 battler);
-static void OpponentHandleDrawPartyStatusSummary(u32 battler);
-static void OpponentHandleHidePartyStatusSummary(u32 battler);
-static void OpponentHandleEndBounceEffect(u32 battler);
-static void OpponentHandleSpriteInvisibility(u32 battler);
-static void OpponentHandleBattleAnimation(u32 battler);
-static void OpponentHandleLinkStandbyMsg(u32 battler);
-static void OpponentHandleResetActionMoveSelection(u32 battler);
-static void OpponentHandleCmd55(u32 battler);
-static void OpponentCmdEnd(u32 battler);
+static void OpponentHandleGetMonData(enum BattlerId battler);
+static void OpponentHandleGetRawMonData(enum BattlerId battler);
+static void OpponentHandleSetMonData(enum BattlerId battler);
+static void OpponentHandleSetRawMonData(enum BattlerId battler);
+static void OpponentHandleLoadMonSprite(enum BattlerId battler);
+static void OpponentHandleSwitchInAnim(enum BattlerId battler);
+static void OpponentHandleReturnMonToBall(enum BattlerId battler);
+static void OpponentHandleDrawTrainerPic(enum BattlerId battler);
+static void OpponentHandleTrainerSlide(enum BattlerId battler);
+static void OpponentHandleTrainerSlideBack(enum BattlerId battler);
+static void OpponentHandleFaintAnimation(enum BattlerId battler);
+static void OpponentHandlePaletteFade(enum BattlerId battler);
+static void OpponentHandleSuccessBallThrowAnim(enum BattlerId battler);
+static void OpponentHandleBallThrowAnim(enum BattlerId battler);
+static void OpponentHandlePause(enum BattlerId battler);
+static void OpponentHandleMoveAnimation(enum BattlerId battler);
+static void OpponentHandlePrintString(enum BattlerId battler);
+static void OpponentHandlePrintSelectionString(enum BattlerId battler);
+static void OpponentHandleChooseAction(enum BattlerId battler);
+static void OpponentHandleUnknownYesNoBox(enum BattlerId battler);
+static void OpponentHandleChooseMove(enum BattlerId battler);
+static void OpponentHandleChooseItem(enum BattlerId battler);
+static void OpponentHandleChoosePokemon(enum BattlerId battler);
+static void OpponentHandleCmd23(enum BattlerId battler);
+static void OpponentHandleHealthBarUpdate(enum BattlerId battler);
+static void OpponentHandleExpUpdate(enum BattlerId battler);
+static void OpponentHandleStatusIconUpdate(enum BattlerId battler);
+static void OpponentHandleStatusAnimation(enum BattlerId battler);
+static void OpponentHandleStatusXor(enum BattlerId battler);
+static void OpponentHandleDataTransfer(enum BattlerId battler);
+static void OpponentHandleDMA3Transfer(enum BattlerId battler);
+static void OpponentHandlePlayBGM(enum BattlerId battler);
+static void OpponentHandleCmd32(enum BattlerId battler);
+static void OpponentHandleTwoReturnValues(enum BattlerId battler);
+static void OpponentHandleChosenMonReturnValue(enum BattlerId battler);
+static void OpponentHandleOneReturnValue(enum BattlerId battler);
+static void OpponentHandleOneReturnValue_Duplicate(enum BattlerId battler);
+static void OpponentHandleCmd37(enum BattlerId battler);
+static void OpponentHandleCmd38(enum BattlerId battler);
+static void OpponentHandleCmd39(enum BattlerId battler);
+static void OpponentHandleCmd40(enum BattlerId battler);
+static void OpponentHandleHitAnimation(enum BattlerId battler);
+static void OpponentHandleCmd42(enum BattlerId battler);
+static void OpponentHandlePlaySE(enum BattlerId battler);
+static void OpponentHandlePlayFanfare(enum BattlerId battler);
+static void OpponentHandleFaintingCry(enum BattlerId battler);
+static void OpponentHandleIntroSlide(enum BattlerId battler);
+static void OpponentHandleIntroTrainerBallThrow(enum BattlerId battler);
+static void OpponentHandleDrawPartyStatusSummary(enum BattlerId battler);
+static void OpponentHandleHidePartyStatusSummary(enum BattlerId battler);
+static void OpponentHandleEndBounceEffect(enum BattlerId battler);
+static void OpponentHandleSpriteInvisibility(enum BattlerId battler);
+static void OpponentHandleBattleAnimation(enum BattlerId battler);
+static void OpponentHandleLinkStandbyMsg(enum BattlerId battler);
+static void OpponentHandleResetActionMoveSelection(enum BattlerId battler);
+static void OpponentHandleCmd55(enum BattlerId battler);
+static void OpponentCmdEnd(enum BattlerId battler);
 
-static void OpponentBufferRunCommand(u32 battler);
-static u32 GetOpponentMonData(u32 battler, u8 monId, u8 *dst);
-static void SetOpponentMonData(u32 battler, u8 monId);
-static void DoSwitchOutAnimation(u32 battler);
-static void OpponentDoMoveAnimation(u32 battler);
-static void SwitchIn_HandleSoundAndEnd(u32 battler);
-static void StartSendOutAnim(u8 battlerId, bool8 dontClearSubstituteBit);
+static void OpponentBufferRunCommand(enum BattlerId battler);
+static u32 GetOpponentMonData(enum BattlerId battler, u8 monId, u8 *dst);
+static void SetOpponentMonData(enum BattlerId battler, u8 monId);
+static void DoSwitchOutAnimation(enum BattlerId battler);
+static void OpponentDoMoveAnimation(enum BattlerId battler);
+static void SwitchIn_HandleSoundAndEnd(enum BattlerId battler);
+static void StartSendOutAnim(enum BattlerId battlerId, bool8 dontClearSubstituteBit);
 static void Task_StartSendOutAnim(u8 taskId);
 static void SpriteCB_FreeOpponentSprite(struct Sprite *sprite);
-static void EndDrawPartyStatusSummary(u32 battler);
+static void EndDrawPartyStatusSummary(enum BattlerId battler);
 
-static void (*const sOpponentBufferCommands[CONTROLLER_CMDS_COUNT])(u32 battler) =
+static void (*const sOpponentBufferCommands[CONTROLLER_CMDS_COUNT])(enum BattlerId battler) =
 {
     [CONTROLLER_GETMONDATA]               = OpponentHandleGetMonData,
     [CONTROLLER_GETRAWMONDATA]            = OpponentHandleGetRawMonData,
@@ -156,16 +156,16 @@ static void (*const sOpponentBufferCommands[CONTROLLER_CMDS_COUNT])(u32 battler)
 // not used
 static const u8 gUnknown_8250B18[] = { 0xB0, 0xB0, 0xC8, 0x98, 0x28, 0x28, 0x28, 0x20 };
 
-static void OpponentDummy(u32 battler)
+static void OpponentDummy(enum BattlerId battler)
 {
 }
 
-void SetControllerToOpponent(u32 battler)
+void SetControllerToOpponent(enum BattlerId battler)
 {
     gBattlerControllerFuncs[battler] = OpponentBufferRunCommand;
 }
 
-static void OpponentBufferRunCommand(u32 battler)
+static void OpponentBufferRunCommand(enum BattlerId battler)
 {
     if (gBattleControllerExecFlags & (1u << battler))
     {
@@ -176,19 +176,19 @@ static void OpponentBufferRunCommand(u32 battler)
     }
 }
 
-static void CompleteOnBattlerSpriteCallbackDummy(u32 battler)
+static void CompleteOnBattlerSpriteCallbackDummy(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].callback == SpriteCallbackDummy)
         OpponentBufferExecCompleted(battler);
 }
 
-static void CompleteOnBattlerSpriteCallbackDummy2(u32 battler)
+static void CompleteOnBattlerSpriteCallbackDummy2(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].callback == SpriteCallbackDummy)
         OpponentBufferExecCompleted(battler);
 }
 
-static void FreeTrainerSpriteAfterSlide(u32 battler)
+static void FreeTrainerSpriteAfterSlide(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].callback == SpriteCallbackDummy)
     {
@@ -200,7 +200,7 @@ static void FreeTrainerSpriteAfterSlide(u32 battler)
     }
 }
 
-static void Intro_DelayAndEnd(u32 battler)
+static void Intro_DelayAndEnd(enum BattlerId battler)
 {
     if (--gBattleSpritesDataPtr->healthBoxesData[battler].introEndDelay == (u8)-1)
     {
@@ -209,7 +209,7 @@ static void Intro_DelayAndEnd(u32 battler)
     }
 }
 
-static void Intro_WaitForShinyAnimAndHealthbox(u32 battler)
+static void Intro_WaitForShinyAnimAndHealthbox(enum BattlerId battler)
 {
     bool8 var = FALSE;
 
@@ -242,7 +242,7 @@ static void Intro_WaitForShinyAnimAndHealthbox(u32 battler)
     }
 }
 
-static void Intro_TryShinyAnimShowHealthbox(u32 battler)
+static void Intro_TryShinyAnimShowHealthbox(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].triedShinyMonAnim && !gBattleSpritesDataPtr->healthBoxesData[battler].ballAnimActive)
         TryShinyAnimation(battler, &gEnemyParty[gBattlerPartyIndexes[battler]]);
@@ -272,7 +272,7 @@ static void Intro_TryShinyAnimShowHealthbox(u32 battler)
     }
 }
 
-static void TryShinyAnimAfterMonAnim(u32 battler)
+static void TryShinyAnimAfterMonAnim(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].animEnded == TRUE
      && gSprites[gBattlerSpriteIds[battler]].x2 == 0)
@@ -292,7 +292,7 @@ static void TryShinyAnimAfterMonAnim(u32 battler)
     }
 }
 
-static void CompleteOnHealthbarDone(u32 battler)
+static void CompleteOnHealthbarDone(enum BattlerId battler)
 {
     s16 hpValue = MoveBattleBar(battler, gHealthboxSpriteIds[battler], HEALTH_BAR, 0);
     
@@ -315,7 +315,7 @@ static void CompleteOnHealthbarDone(u32 battler)
     }
 }
 
-static void HideHealthboxAfterMonFaint(u32 battler)
+static void HideHealthboxAfterMonFaint(enum BattlerId battler)
 {
     if (!gSprites[gBattlerSpriteIds[battler]].inUse)
     {
@@ -324,7 +324,7 @@ static void HideHealthboxAfterMonFaint(u32 battler)
     }
 }
 
-static void FreeMonSpriteAfterSwitchOutAnim(u32 battler)
+static void FreeMonSpriteAfterSwitchOutAnim(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].specialAnimActive)
     {
@@ -336,13 +336,13 @@ static void FreeMonSpriteAfterSwitchOutAnim(u32 battler)
     }
 }
 
-static void CompleteOnInactiveTextPrinter(u32 battler)
+static void CompleteOnInactiveTextPrinter(enum BattlerId battler)
 {
     if (!IsTextPrinterActive(0))
         OpponentBufferExecCompleted(battler);
 }
 
-static void DoHitAnimBlinkSpriteEffect(u32 battler)
+static void DoHitAnimBlinkSpriteEffect(enum BattlerId battler)
 {
     u8 spriteId = gBattlerSpriteIds[battler];
 
@@ -361,7 +361,7 @@ static void DoHitAnimBlinkSpriteEffect(u32 battler)
     }
 }
 
-static void SwitchIn_ShowSubstitute(u32 battler)
+static void SwitchIn_ShowSubstitute(enum BattlerId battler)
 {
     if (gSprites[gHealthboxSpriteIds[battler]].callback == SpriteCallbackDummy)
     {
@@ -371,7 +371,7 @@ static void SwitchIn_ShowSubstitute(u32 battler)
     }
 }
 
-static void SwitchIn_HandleSoundAndEnd(u32 battler)
+static void SwitchIn_HandleSoundAndEnd(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].specialAnimActive && !IsCryPlayingOrClearCrySongs())
     {
@@ -380,7 +380,7 @@ static void SwitchIn_HandleSoundAndEnd(u32 battler)
     }
 }
 
-static void SwitchIn_ShowHealthbox(u32 battler)
+static void SwitchIn_ShowHealthbox(enum BattlerId battler)
 {
     if (gBattleSpritesDataPtr->healthBoxesData[battler].finishedShinyMonAnim)
     {
@@ -397,7 +397,7 @@ static void SwitchIn_ShowHealthbox(u32 battler)
     }
 }
 
-static void SwitchIn_TryShinyAnim(u32 battler)
+static void SwitchIn_TryShinyAnim(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].triedShinyMonAnim && !gBattleSpritesDataPtr->healthBoxesData[battler].ballAnimActive)
         TryShinyAnimation(battler, &gEnemyParty[gBattlerPartyIndexes[battler]]);
@@ -410,25 +410,25 @@ static void SwitchIn_TryShinyAnim(u32 battler)
     }
 }
 
-static void CompleteOnFinishedStatusAnimation(u32 battler)
+static void CompleteOnFinishedStatusAnimation(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].statusAnimActive)
         OpponentBufferExecCompleted(battler);
 }
 
-static void CompleteOnFinishedBattleAnimation(u32 battler)
+static void CompleteOnFinishedBattleAnimation(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].animFromTableActive)
         OpponentBufferExecCompleted(battler);
 }
 
-void OpponentBufferExecCompleted(u32 battler)
+void OpponentBufferExecCompleted(enum BattlerId battler)
 {
     gBattlerControllerFuncs[battler] = OpponentBufferRunCommand;
     gBattleControllerExecFlags &= ~(1u << battler);
 }
 
-static void OpponentHandleGetMonData(u32 battler) //vsonic IMPORTANT prob need update this  for triple battles
+static void OpponentHandleGetMonData(enum BattlerId battler) //vsonic IMPORTANT prob need update this  for triple battles
 {
     u8 monData[sizeof(struct Pokemon) * 2 + 56]; // this allows to get full data of two pokemon, trying to get more will result in overwriting data
     u32 size = 0;
@@ -453,7 +453,7 @@ static void OpponentHandleGetMonData(u32 battler) //vsonic IMPORTANT prob need u
     OpponentBufferExecCompleted(battler);
 }
 
-static u32 GetOpponentMonData(u32 battler, u8 monId, u8 *dst)
+static u32 GetOpponentMonData(enum BattlerId battler, u8 monId, u8 *dst)
 {
     struct BattlePokemon battleMon;
     struct MovePpInfo moveData;
@@ -756,7 +756,7 @@ static u32 GetOpponentMonData(u32 battler, u8 monId, u8 *dst)
     return size;
 }
 
-static void OpponentHandleGetRawMonData(u32 battler)
+static void OpponentHandleGetRawMonData(enum BattlerId battler)
 {
     struct BattlePokemon battleMon;
     u8 *src = (u8 *)&gEnemyParty[gBattlerPartyIndexes[battler]] + gBattleResources->bufferA[battler][1];
@@ -769,7 +769,7 @@ static void OpponentHandleGetRawMonData(u32 battler)
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleSetMonData(u32 battler)
+static void OpponentHandleSetMonData(enum BattlerId battler)
 {
     u8 monToCheck;
     u8 i;
@@ -791,7 +791,7 @@ static void OpponentHandleSetMonData(u32 battler)
     OpponentBufferExecCompleted(battler);
 }
 
-static void SetOpponentMonData(u32 battler, u8 monId)
+static void SetOpponentMonData(enum BattlerId battler, u8 monId)
 {
     struct BattlePokemon *battlePokemon = (struct BattlePokemon *)&gBattleResources->bufferA[battler][3];
     struct MovePpInfo *moveData = (struct MovePpInfo *)&gBattleResources->bufferA[battler][3];
@@ -1004,7 +1004,7 @@ static void SetOpponentMonData(u32 battler, u8 monId)
     }
 }
 
-static void OpponentHandleSetRawMonData(u32 battler)
+static void OpponentHandleSetRawMonData(enum BattlerId battler)
 {
     u8 *dst = (u8 *)&gEnemyParty[gBattlerPartyIndexes[battler]] + gBattleResources->bufferA[battler][1];
     u8 i;
@@ -1014,7 +1014,7 @@ static void OpponentHandleSetRawMonData(u32 battler)
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleLoadMonSprite(u32 battler)
+static void OpponentHandleLoadMonSprite(enum BattlerId battler)
 {
     u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_SPECIES);
     u32 y;
@@ -1046,7 +1046,7 @@ static void OpponentHandleLoadMonSprite(u32 battler)
     gBattlerControllerFuncs[battler] = TryShinyAnimAfterMonAnim;
 }
 
-static void OpponentHandleSwitchInAnim(u32 battler)
+static void OpponentHandleSwitchInAnim(enum BattlerId battler)
 {
     *(gBattleStruct->monToSwitchIntoId + battler) = 6;
     gBattlerPartyIndexes[battler] = gBattleResources->bufferA[battler][1];
@@ -1054,7 +1054,7 @@ static void OpponentHandleSwitchInAnim(u32 battler)
     gBattlerControllerFuncs[battler] = SwitchIn_TryShinyAnim;
 }
 
-static void StartSendOutAnim(u8 battlerId, bool8 dontClearSubstituteBit)
+static void StartSendOutAnim(enum BattlerId battlerId, bool8 dontClearSubstituteBit)
 {
     u16 species;
 
@@ -1078,7 +1078,7 @@ static void StartSendOutAnim(u8 battlerId, bool8 dontClearSubstituteBit)
     gSprites[gBattleControllerData[battlerId]].data[0] = DoPokeballSendOutAnimation(battlerId, 0, POKEBALL_OPPONENT_SENDOUT);
 }
 
-static void OpponentHandleReturnMonToBall(u32 battler)
+static void OpponentHandleReturnMonToBall(enum BattlerId battler)
 {
     if (!gBattleResources->bufferA[battler][1])
     {
@@ -1095,7 +1095,7 @@ static void OpponentHandleReturnMonToBall(u32 battler)
     }
 }
 
-static void DoSwitchOutAnimation(u32 battler)
+static void DoSwitchOutAnimation(enum BattlerId battler)
 {
     switch (gBattleSpritesDataPtr->healthBoxesData[battler].animationState)
     {
@@ -1115,7 +1115,7 @@ static void DoSwitchOutAnimation(u32 battler)
     }
 }
 
-static void OpponentHandleDrawTrainerPic(u32 battler)
+static void OpponentHandleDrawTrainerPic(enum BattlerId battler)
 {
     u32 trainerPicId;
     u8 trainercoordinate;
@@ -1151,7 +1151,7 @@ static void OpponentHandleDrawTrainerPic(u32 battler)
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy;
 }
 
-static void OpponentHandleTrainerSlide(u32 battler)
+static void OpponentHandleTrainerSlide(enum BattlerId battler)
 {
     u32 trainerPicId;
     u8 trainercoordinate;
@@ -1188,7 +1188,7 @@ static void OpponentHandleTrainerSlide(u32 battler)
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy2;
 }
 
-static void OpponentHandleTrainerSlideBack(u32 battler)
+static void OpponentHandleTrainerSlideBack(enum BattlerId battler)
 {
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[battler]]);
     gSprites[gBattlerSpriteIds[battler]].data[0] = 35;
@@ -1199,7 +1199,7 @@ static void OpponentHandleTrainerSlideBack(u32 battler)
     gBattlerControllerFuncs[battler] = FreeTrainerSpriteAfterSlide;
 }
 
-static void OpponentHandleFaintAnimation(u32 battler)
+static void OpponentHandleFaintAnimation(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].animationState)
     {
@@ -1219,27 +1219,27 @@ static void OpponentHandleFaintAnimation(u32 battler)
     }
 }
 
-static void OpponentHandlePaletteFade(u32 battler)
+static void OpponentHandlePaletteFade(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleSuccessBallThrowAnim(u32 battler)
+static void OpponentHandleSuccessBallThrowAnim(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleBallThrowAnim(u32 battler)
+static void OpponentHandleBallThrowAnim(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandlePause(u32 battler)
+static void OpponentHandlePause(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleMoveAnimation(u32 battler)
+static void OpponentHandleMoveAnimation(enum BattlerId battler)
 {
     if (!IsBattleSEPlaying(battler))
     {
@@ -1264,7 +1264,7 @@ static void OpponentHandleMoveAnimation(u32 battler)
     }
 }
 
-static void OpponentDoMoveAnimation(u32 battler)
+static void OpponentDoMoveAnimation(enum BattlerId battler)
 {
     u16 move = gBattleResources->bufferA[battler][1] | (gBattleResources->bufferA[battler][2] << 8);
     u8 multihit = gBattleResources->bufferA[battler][11];
@@ -1315,7 +1315,7 @@ static void OpponentDoMoveAnimation(u32 battler)
 
 //vsonic important for some reason THIS
 //controls the text the player sees upon losing, not the other file
-static void OpponentHandlePrintString(u32 battler)
+static void OpponentHandlePrintString(enum BattlerId battler)
 {
     u16 *stringId;
 
@@ -1342,23 +1342,23 @@ static void OpponentHandlePrintString(u32 battler)
     gBattlerControllerFuncs[battler] = CompleteOnInactiveTextPrinter;
 }
 
-static void OpponentHandlePrintSelectionString(u32 battler)
+static void OpponentHandlePrintSelectionString(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleChooseAction(u32 battler)
+static void OpponentHandleChooseAction(enum BattlerId battler)
 {
     AI_TrySwitchOrUseItem(battler);
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleUnknownYesNoBox(u32 battler)
+static void OpponentHandleUnknownYesNoBox(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleChooseMove(u32 battler)
+static void OpponentHandleChooseMove(enum BattlerId battler)
 {
     u8 chosenMoveId;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
@@ -1464,13 +1464,13 @@ static void OpponentHandleChooseMove(u32 battler)
     }
 }
 
-static void OpponentHandleChooseItem(u32 battler)
+static void OpponentHandleChooseItem(enum BattlerId battler)
 {
     BtlController_EmitOneReturnValue(battler, B_COMM_TO_ENGINE, gBattleStruct->chosenItem[battler]);
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleChoosePokemon(u32 battler)
+static void OpponentHandleChoosePokemon(enum BattlerId battler)
 {
     s32 chosenMonId;
 
@@ -1512,12 +1512,12 @@ static void OpponentHandleChoosePokemon(u32 battler)
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleCmd23(u32 battler)
+static void OpponentHandleCmd23(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleHealthBarUpdate(u32 battler)
+static void OpponentHandleHealthBarUpdate(enum BattlerId battler)
 {
     s16 hpVal;
     u32 maxHP = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_MAX_HP);
@@ -1552,16 +1552,16 @@ static void OpponentHandleHealthBarUpdate(u32 battler)
     gBattlerControllerFuncs[battler] = CompleteOnHealthbarDone;
 }
 
-static void OpponentHandleExpUpdate(u32 battler)
+static void OpponentHandleExpUpdate(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleStatusIconUpdate(u32 battler)
+static void OpponentHandleStatusIconUpdate(enum BattlerId battler)
 {
     if (!IsBattleSEPlaying(battler))
     {
-        u8 battlerId;
+        enum BattlerId battlerId;
 
         UpdateHealthboxAttribute(gHealthboxSpriteIds[battler], &gEnemyParty[gBattlerPartyIndexes[battler]], HEALTHBOX_STATUS_ICON);
         battlerId = battler;
@@ -1570,7 +1570,7 @@ static void OpponentHandleStatusIconUpdate(u32 battler)
     }
 }
 
-static void OpponentHandleStatusAnimation(u32 battler)
+static void OpponentHandleStatusAnimation(enum BattlerId battler)
 {
     if (!IsBattleSEPlaying(battler))
     {
@@ -1580,76 +1580,76 @@ static void OpponentHandleStatusAnimation(u32 battler)
     }
 }
 
-static void OpponentHandleStatusXor(u32 battler)
+static void OpponentHandleStatusXor(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleDataTransfer(u32 battler)
+static void OpponentHandleDataTransfer(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleDMA3Transfer(u32 battler)
+static void OpponentHandleDMA3Transfer(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandlePlayBGM(u32 battler)
+static void OpponentHandlePlayBGM(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleCmd32(u32 battler)
+static void OpponentHandleCmd32(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleTwoReturnValues(u32 battler)
+static void OpponentHandleTwoReturnValues(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleChosenMonReturnValue(u32 battler)
+static void OpponentHandleChosenMonReturnValue(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleOneReturnValue(u32 battler)
+static void OpponentHandleOneReturnValue(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleOneReturnValue_Duplicate(u32 battler)
+static void OpponentHandleOneReturnValue_Duplicate(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleCmd37(u32 battler)
+static void OpponentHandleCmd37(enum BattlerId battler)
 {
     gUnusedControllerStruct.unk = 0;
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleCmd38(u32 battler)
+static void OpponentHandleCmd38(enum BattlerId battler)
 {
     gUnusedControllerStruct.unk = gBattleResources->bufferA[battler][1];
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleCmd39(u32 battler)
+static void OpponentHandleCmd39(enum BattlerId battler)
 {
     gUnusedControllerStruct.flag = 0;
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleCmd40(u32 battler)
+static void OpponentHandleCmd40(enum BattlerId battler)
 {
     gUnusedControllerStruct.flag ^= 1;
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleHitAnimation(u32 battler)
+static void OpponentHandleHitAnimation(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].invisible == TRUE)
     {
@@ -1664,12 +1664,12 @@ static void OpponentHandleHitAnimation(u32 battler)
     }
 }
 
-static void OpponentHandleCmd42(u32 battler)
+static void OpponentHandleCmd42(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandlePlaySE(u32 battler)
+static void OpponentHandlePlaySE(enum BattlerId battler)
 {
     s8 pan;
 
@@ -1681,13 +1681,13 @@ static void OpponentHandlePlaySE(u32 battler)
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandlePlayFanfare(u32 battler)
+static void OpponentHandlePlayFanfare(enum BattlerId battler)
 {
     PlayFanfare(gBattleResources->bufferA[battler][1] | (gBattleResources->bufferA[battler][2] << 8));
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleFaintingCry(u32 battler)
+static void OpponentHandleFaintingCry(enum BattlerId battler)
 {
     u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_SPECIES);
 
@@ -1695,14 +1695,14 @@ static void OpponentHandleFaintingCry(u32 battler)
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleIntroSlide(u32 battler)
+static void OpponentHandleIntroSlide(enum BattlerId battler)
 {
     HandleIntroSlide(gBattleResources->bufferA[battler][1]);
     gIntroSlideFlags |= 1;
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleIntroTrainerBallThrow(u32 battler)
+static void OpponentHandleIntroTrainerBallThrow(enum BattlerId battler)
 {
     u8 paletteNum;
     u8 taskId;
@@ -1731,7 +1731,7 @@ static void SpriteCB_FreeOpponentSprite(struct Sprite *sprite)
 
 static void Task_StartSendOutAnim(u8 taskId)
 {
-    u8 battler = gTasks[taskId].data[0];
+    enum BattlerId battler = gTasks[taskId].data[0];
     if (!IsDoubleBattle() || (gBattleTypeFlags & BATTLE_TYPE_MULTI))
     {
         gBattleResources->bufferA[battler][1] = gBattlerPartyIndexes[battler];
@@ -1739,7 +1739,7 @@ static void Task_StartSendOutAnim(u8 taskId)
     }
     else
     {
-        u8 battlerPartner = BATTLE_PARTNER(battler);
+        enum BattlerId battlerPartner = BATTLE_PARTNER(battler);
         gBattleResources->bufferA[battler][1] = gBattlerPartyIndexes[battler];
         StartSendOutAnim(battler, FALSE);
 
@@ -1750,7 +1750,7 @@ static void Task_StartSendOutAnim(u8 taskId)
     DestroyTask(taskId);
 }
 
-static void OpponentHandleDrawPartyStatusSummary(u32 battler)
+static void OpponentHandleDrawPartyStatusSummary(enum BattlerId battler)
 {
     if (gBattleResources->bufferA[battler][1] && GetBattlerSide(battler) == B_SIDE_PLAYER)
     {
@@ -1782,7 +1782,7 @@ static void OpponentHandleDrawPartyStatusSummary(u32 battler)
     }
 }
 
-static void EndDrawPartyStatusSummary(u32 battler)
+static void EndDrawPartyStatusSummary(enum BattlerId battler)
 {
     if (gBattleSpritesDataPtr->healthBoxesData[battler].partyStatusDelayTimer++ > 0x5C)
     {
@@ -1791,19 +1791,19 @@ static void EndDrawPartyStatusSummary(u32 battler)
     }
 }
 
-static void OpponentHandleHidePartyStatusSummary(u32 battler)
+static void OpponentHandleHidePartyStatusSummary(enum BattlerId battler)
 {
     if (gBattleSpritesDataPtr->healthBoxesData[battler].partyStatusSummaryShown)
         gTasks[gBattlerStatusSummaryTaskId[battler]].func = Task_HidePartyStatusSummary;
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleEndBounceEffect(u32 battler)
+static void OpponentHandleEndBounceEffect(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleSpriteInvisibility(u32 battler)
+static void OpponentHandleSpriteInvisibility(enum BattlerId battler)
 {
     if (IsBattlerSpritePresent(battler))
     {
@@ -1813,7 +1813,7 @@ static void OpponentHandleSpriteInvisibility(u32 battler)
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleBattleAnimation(u32 battler)
+static void OpponentHandleBattleAnimation(enum BattlerId battler)
 {
     if (!IsBattleSEPlaying(battler))
     {
@@ -1829,17 +1829,17 @@ static void OpponentHandleBattleAnimation(u32 battler)
     }
 }
 
-static void OpponentHandleLinkStandbyMsg(u32 battler)
+static void OpponentHandleLinkStandbyMsg(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleResetActionMoveSelection(u32 battler)
+static void OpponentHandleResetActionMoveSelection(enum BattlerId battler)
 {
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentHandleCmd55(u32 battler)
+static void OpponentHandleCmd55(enum BattlerId battler)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_LINK && !(gBattleTypeFlags & BATTLE_TYPE_IS_MASTER))
     {
@@ -1850,6 +1850,6 @@ static void OpponentHandleCmd55(u32 battler)
     OpponentBufferExecCompleted(battler);
 }
 
-static void OpponentCmdEnd(u32 battler)
+static void OpponentCmdEnd(enum BattlerId battler)
 {
 }

@@ -282,9 +282,9 @@ enum BattleScriptOpcode
 //I also moved triple kick power to functions so could remove?
 #define sMULTIHIT_EFFECT gBattleScripting + 0x12		//u16 multihitMoveEffect; 2 byte 0x16 0x17	 //stores move effect for multihit moves, like twineedle uses it to store poison
 #define sMOVEEND_STATE gBattleScripting + 0x14			//u8 atk49_state; 1 byte 0x14
-#define sBATTLER_WITH_ABILITY gBattleScripting + 0x15	//u8 battlerWithAbility; 1 byte 0x15
+#define sBATTLER_WITH_ABILITY gBattleScripting + 0x15	//enum BattlerId battlerWithAbility; 1 byte 0x15
 #define sSTATCHANGEID gBattleScripting + 0x16           //statChangeId new value for dynamic stat set, this stat id will be passed to statchanger stat argument
-#define sBATTLER gBattleScripting + 0x17				//u8 battler; 1 byte 0x1c
+#define sBATTLER gBattleScripting + 0x17				//enum BattlerId battler; 1 byte 0x1c
 #define sB_ANIM_TURN gBattleScripting + 0x18			//u8 animTurn; 1 byte 0x1d
 #define sB_ANIM_TARGETS_HIT gBattleScripting + 0x19		//u8 animTargetsHit; 1 byte 0x1e
 #define sSTATCHANGER gBattleScripting + 0x1A			//u8 statChanger; 1 byte 0x1f

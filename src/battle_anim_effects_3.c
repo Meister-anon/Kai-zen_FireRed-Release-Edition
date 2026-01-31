@@ -2396,12 +2396,12 @@ void AnimTask_HideSwapSprite(u8 taskId)
 
 void AnimTask_HideOpponentShadows(u8 taskId)
 {
-    u32 battlerLeft = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
+    enum BattlerId battlerLeft = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
     gSprites[gBattleSpritesDataPtr->healthBoxesData[battlerLeft].shadowSpriteIdPrimary].callback = SpriteCB_SetInvisible;
     gSprites[gBattleSpritesDataPtr->healthBoxesData[battlerLeft].shadowSpriteIdSecondary].callback = SpriteCB_SetInvisible;
     if (IsDoubleBattle())
     {
-        u32 battlerRight = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
+        enum BattlerId battlerRight = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
         gSprites[gBattleSpritesDataPtr->healthBoxesData[battlerRight].shadowSpriteIdPrimary].callback = SpriteCB_SetInvisible;
         gSprites[gBattleSpritesDataPtr->healthBoxesData[battlerRight].shadowSpriteIdSecondary].callback = SpriteCB_SetInvisible;
     }
@@ -2410,11 +2410,11 @@ void AnimTask_HideOpponentShadows(u8 taskId)
 
 void AnimTask_SetOpponentShadowCallbacks(u8 taskId)
 {
-    u32 battlerLeft = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
+    enum BattlerId battlerLeft = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
     SetBattlerShadowSpriteCallback(battlerLeft, gBattleMons[battlerLeft].species);
     if (IsDoubleBattle())
     {
-        u32 battlerRight = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
+        enum BattlerId battlerRight = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
         SetBattlerShadowSpriteCallback(battlerRight, gBattleMons[battlerRight].species);
     }
     DestroyAnimVisualTask(taskId);
@@ -3434,7 +3434,7 @@ static void AnimTask_RolePlaySilhouette_Step2(u8 taskId)
 // arg 0: which battler
 void AnimTask_AcidArmor(u8 taskId)
 {
-    u8 battler;
+    enum BattlerId battler;
     u16 bgX, bgY;
     s16 y, i;
     struct ScanlineEffectParams scanlineParams;
@@ -3880,7 +3880,7 @@ void AnimTask_SlideMonForFocusBand(u8 taskId)
 // arg 1: num squishes
 void AnimTask_SquishAndSweatDroplets(u8 taskId)
 {
-    u8 battler;
+    enum BattlerId battler;
     struct Task *task = &gTasks[taskId];
 
     if (!gBattleAnimArgs[1])
@@ -4370,7 +4370,7 @@ static void AnimTask_BarrageBall_Step(u8 taskId)
 // arg 2: num squishes
 static void AnimSmellingSaltsHand(struct Sprite *sprite)
 {
-    u8 battler;
+    enum BattlerId battler;
 
     if (gBattleAnimArgs[0] == ANIM_ATTACKER)
         battler = gBattleAnimAttacker;

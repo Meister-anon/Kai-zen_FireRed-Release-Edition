@@ -88,34 +88,34 @@ void SpriteCB_HideAsMoveTarget(struct Sprite *sprite);
 void SpriteCB_AllyMon(struct Sprite *sprite);
 void SpriteCB_SetToDummy3(struct Sprite *sprite);
 void SpriteCB_FaintSlideAnim(struct Sprite *sprite);
-void DoBounceEffect(u8 battler, u8 which, s8 delta, s8 amplitude);
-void EndBounceEffect(u8 battler, u8 which);
+void DoBounceEffect(enum BattlerId battler, u8 which, s8 delta, s8 amplitude);
+void EndBounceEffect(enum BattlerId battler, u8 which);
 void SpriteCB_PlayerThrowInit(struct Sprite *sprite);
 void UpdatePlayerPosInThrowAnim(struct Sprite *sprite);
 void BattleDummy(void);
 void BeginBattleIntro(void);
-void SwitchInClearSetData(u32 battler);
-const u8* FaintClearSetData(u32 battler);
+void SwitchInClearSetData(enum BattlerId battler);
+const u8* FaintClearSetData(enum BattlerId battler);
 void BattleTurnPassed(void);
-u8 IsRunningFromBattleImpossible(u32 battler);
-void UpdatePartyOwnerOnSwitch_NonMulti(u8 battler);
+u8 IsRunningFromBattleImpossible(enum BattlerId battler);
+void UpdatePartyOwnerOnSwitch_NonMulti(enum BattlerId battler);
 void SwapTurnOrder(u8 id1, u8 id2);
-u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves);
-void SortBattlersBySpeed(u8 *battlers, bool8 slowToFast);
-u32 GetBattlerTotalSpeedStat(u32 battler);
+u8 GetWhoStrikesFirst(enum BattlerId battler1, enum BattlerId battler2, bool8 ignoreChosenMoves);
+void SortBattlersBySpeed(enum BattlerId *battlers, bool8 slowToFast);
+u32 GetBattlerTotalSpeedStat(enum BattlerId battler);
 void RunBattleScriptCommands_PopCallbacksStack(void);
 void RunBattleScriptCommands(void);
-bool8 TryRunFromBattle(u32 battler);
-s32 GetChosenMovePriority(u32 battler, u32 ability);
-s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move);
-bool8 IsPriorityElevatedviaAbility(u32 battler); //new thing to track moves w boosted priority from abilities for queenly majesty
+bool8 TryRunFromBattle(enum BattlerId battler);
+s32 GetChosenMovePriority(enum BattlerId battler, u32 ability);
+s32 GetBattleMovePriority(enum BattlerId battler, u32 ability, u32 move);
+bool8 IsPriorityElevatedviaAbility(enum BattlerId battler); //new thing to track moves w boosted priority from abilities for queenly majesty
 bool8 IsRivalBattle(u16 trainerNum);
 bool32 IsWildMonSmart(void);
-void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage);
-u8 ReturnMoveType(u32 move, u32 battlerAtk); //atempt copy of settype function but using return value of move type so can display stuff in sum screen
+void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage);
+u8 ReturnMoveType(u32 move, enum BattlerId battlerAtk); //atempt copy of settype function but using return value of move type so can display stuff in sum screen
 
 void SetJudgmentTypeString(u8 type); //make global since had move effect to battle_script_commands.c
 
-void TryResetProtectUseCounter(u32 battler);
+void TryResetProtectUseCounter(enum BattlerId battler);
 
 #endif // GUARD_BATTLE_MAIN_H

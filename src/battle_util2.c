@@ -61,7 +61,7 @@ void FreeBattleResources(void)
     }
 }
 
-void AdjustFriendshipOnBattleFaint(u8 battlerId)
+void AdjustFriendshipOnBattleFaint(enum BattlerId battlerId)
 {
     u8 opposingBattlerId, opposingBattlerId2;
 

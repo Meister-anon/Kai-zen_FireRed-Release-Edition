@@ -563,7 +563,7 @@ bool32 CanEvolve(u32 species);
 u8 GetLevelFromMonExp(struct Pokemon *mon);
 u16 ModifyStatByNature(u8 nature, u16 stat, u8 statIndex);//made global for bs command level up calc
 u8 GetMonHiddenPowerType(struct Pokemon *mon); //simplified call
-u8 GetBattlerHiddenPowerType(u8 battler);
+u8 GetBattlerHiddenPowerType(enum BattlerId battler);
 void SetHiddenPowerType(struct BoxPokemon *mon);
 
 struct PokemonStorage
@@ -1059,7 +1059,7 @@ void CalculateMonStats(struct Pokemon *mon);
 void TransformedMonLvlUpStatCalc(struct Pokemon *mon); //only for when a mon levels up while transformed, excludes setmon currhp
 void TransformedMonHP(struct Pokemon *mon, u16 TransformAbility, u16 TransformedSpecies);
 void TransformedMonStats(struct Pokemon *mon, u16 TransformAbility, u16 TransformedSpecies);
-void RevertTransformedHP(u8 battlerId);
+void RevertTransformedHP(enum BattlerId battlerId);
 void GiveMonInitialMoveset(struct Pokemon *mon);
 void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon);   //moved these defins here so could use in battle_main
 void BoxMonToMon(struct BoxPokemon *src, struct Pokemon *dest);
@@ -1071,7 +1071,7 @@ void SetBattleMonMoveSlot(struct BattlePokemon *mon, u16 move, u8 slot);
 u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove);
 u16 MonTryLearningEvoMove(struct Pokemon *mon, bool8 firstMove); //changing to use 0, with normal call forces level 0 learnig on each level up, so makeing separate
 void DeleteFirstMoveAndGiveMoveToMon(struct Pokemon *mon, u16 move);
-s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u32 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef);
+s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u32 sideStatus, u16 powerOverride, u8 typeOverride, enum BattlerId battlerIdAtk, enum BattlerId battlerIdDef);
 u8 GetWeatherBallType(u16 move);
 //sidestatus meant to hold gsidestatus but forgot I had to upgrade that to u32 *facepalm
 
@@ -1087,14 +1087,14 @@ bool8 DoesSpeciesHaveCosmeticForms(u16 species);
 #define BATTLE_ALIVE_ATK_SIDE       1
 #define BATTLE_ALIVE_DEF_SIDE       2
 
-u8 CountAliveMonsInBattle(u8 caseId, u32 battler);
+u8 CountAliveMonsInBattle(u8 caseId, enum BattlerId battler);
 
-u8 GetDefaultMoveTarget(u32 battler);
+u8 GetDefaultMoveTarget(enum BattlerId battler);
 u8 GetMonGender(struct Pokemon *mon);
 u8 GetBoxMonGender(struct BoxPokemon *boxMon);
 u8 GetGenderFromSpeciesAndPersonality(u16 species, u32 personality);
-void SetMultiuseSpriteTemplateToPokemon(u16 speciesTag, u8 battlerPosition);
-void SetMultiuseSpriteTemplateToTrainerBack(u16 trainerSpriteId, u8 battlerPosition);
+void SetMultiuseSpriteTemplateToPokemon(u16 speciesTag, enum BattlerId battlerPosition);
+void SetMultiuseSpriteTemplateToTrainerBack(u16 trainerSpriteId, enum BattlerId battlerPosition);
 
 // These are full type signatures for GetMonData() and GetBoxMonData(),
 // but they are not used since some code erroneously omits the third arg.
@@ -1136,7 +1136,7 @@ void RemoveBattleMonPPBonus(struct BattlePokemon *mon, u8 moveIndex);
 bool8 ExecuteTableBasedItemEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex);
 bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex);
 bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex, bool8 usedByAI);
-u8 GetItemEffectParamOffset(u32 battler, u16 itemId, u8 effectByte, u8 effectBit);
+u8 GetItemEffectParamOffset(enum BattlerId battler, u16 itemId, u8 effectByte, u8 effectBit);
 const u8 *Battle_PrintStatBoosterEffectMessage(u16 itemId);
 u8 GetNature(struct Pokemon *mon);
 u8 SetNature(struct BoxPokemon *mon);
@@ -1203,7 +1203,7 @@ void SetWildMonHeldItem(void);
 u8 *GetTrainerPartnerName(void);
 u8 GetPlayerPartyHighestLevel(void);
 u16 FacilityClassToPicIndex(u16 facilityClass);
-bool8 ShouldIgnoreDeoxysForm(u8 caseId, u8 battlerId);
+bool8 ShouldIgnoreDeoxysForm(u8 caseId, enum BattlerId battlerId);
 void SetDeoxysStats(void);
 u16 GetUnionRoomTrainerPic(void);
 u16 GetUnionRoomTrainerClass(void);
@@ -1225,8 +1225,8 @@ bool8 IsMegaSpecies(u16 species); //mostly use for cry alter
 s16 atk_diff(void);
 s16 spatk_diff(void); //put here, used for hidden power change split
 bool8 IsPhysicalMove(u32 attackerId, u16 move); //new function consolidating effects for if move is physical or not
-void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCategory, s32 damage);
-void ApplyMovePowerModifiers(u8 battlerAtk, u16 move, u16 power);
+void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u16 move, u8 DamageCategory, s32 damage);
+void ApplyMovePowerModifiers(enum BattlerId battlerAtk, u16 move, u16 power);
 
 const struct AbilityLearnset *GetSpeciesTeachableAbilities(u16 species);
 const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species);

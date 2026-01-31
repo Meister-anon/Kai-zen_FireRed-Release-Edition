@@ -44,9 +44,9 @@
 #define STAT_STAGE(battler, stat) (gBattleMons[battler].statStages[stat - 1])
 
 // Function Declarations
-static void ZMoveSelectionDisplayPpNumber(u32 battler);
+static void ZMoveSelectionDisplayPpNumber(enum BattlerId battler);
 static void ZMoveSelectionDisplayPower(u16 move, u16 zMove);
-static void ZMoveSelectionDisplayMoveType(u16 zMove, u32 battler);
+static void ZMoveSelectionDisplayMoveType(u16 zMove, enum BattlerId battler);
 
 // Const Data
 static const struct SignatureZMove sSignatureZMoves[] =
@@ -110,7 +110,7 @@ bool32 IsZMove(u32 move)
     return move >= FIRST_Z_MOVE && move <= LAST_Z_MOVE;
 }
 
-bool32 CanUseZMove(u32 battler)
+bool32 CanUseZMove(enum BattlerId battler)
 {
     enum HoldEffect holdEffect = GetBattlerHoldEffectIgnoreNegation(battler);
 
@@ -140,7 +140,7 @@ bool32 CanUseZMove(u32 battler)
     return TRUE;
 }
 
-u32 GetUsableZMove(u32 battler, u32 move)
+u32 GetUsableZMove(enum BattlerId battler, u32 move)
 {
     u32 item = gBattleMons[battler].item;
     enum HoldEffect holdEffect = GetBattlerHoldEffectIgnoreNegation(battler);
@@ -158,12 +158,12 @@ u32 GetUsableZMove(u32 battler, u32 move)
     return MOVE_NONE;
 }
 
-void ActivateZMove(u32 battler)
+void ActivateZMove(enum BattlerId battler)
 {
     SetActiveGimmick(battler, GIMMICK_Z_MOVE);
 }
 
-bool32 IsViableZMove(u32 battler, u32 move)
+bool32 IsViableZMove(enum BattlerId battler, u32 move)
 {
     u32 item;
     enum HoldEffect holdEffect = GetBattlerHoldEffectIgnoreNegation(battler);
@@ -201,7 +201,7 @@ bool32 IsViableZMove(u32 battler, u32 move)
     return FALSE;
 }
 
-void AssignUsableZMoves(u32 battler, u16 *moves)
+void AssignUsableZMoves(enum BattlerId battler, u16 *moves)
 {
     u32 i;
     gBattleStruct->zmove.possibleZMoves[battler] = 0;
@@ -212,7 +212,7 @@ void AssignUsableZMoves(u32 battler, u16 *moves)
     }
 }
 
-bool32 TryChangeZTrigger(u32 battler, u32 moveIndex)
+bool32 TryChangeZTrigger(enum BattlerId battler, u32 moveIndex)
 {
     bool32 viableZMove = (gBattleStruct->zmove.possibleZMoves[battler] & (1u << moveIndex)) != 0;
 
@@ -257,7 +257,7 @@ u32 GetTypeBasedZMove(u32 move)
     return gTypesInfo[moveType].zMove;
 }
 
-bool32 MoveSelectionDisplayZMove(u16 zmove, u32 battler)
+bool32 MoveSelectionDisplayZMove(u16 zmove, enum BattlerId battler)
 {
     u32 i;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
@@ -401,7 +401,7 @@ static void ZMoveSelectionDisplayPower(u16 move, u16 zMove)
     }
 }
 
-static void ZMoveSelectionDisplayPpNumber(u32 battler)
+static void ZMoveSelectionDisplayPpNumber(enum BattlerId battler)
 {
     u8 *txtPtr;
 
@@ -415,7 +415,7 @@ static void ZMoveSelectionDisplayPpNumber(u32 battler)
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_PP_REMAINING);
 }
 
-static void ZMoveSelectionDisplayMoveType(u16 zMove, u32 battler)
+static void ZMoveSelectionDisplayMoveType(u16 zMove, enum BattlerId battler)
 {
     u8 *txtPtr, *end;
     enum Type zMoveType = GetBattleMoveType(zMove);

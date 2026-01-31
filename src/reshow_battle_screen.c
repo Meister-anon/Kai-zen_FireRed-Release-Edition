@@ -13,10 +13,10 @@
 static void CB2_ReshowBattleScreenAfterMenu(void);
 static void CB2_ReshowBattleScreenAfterCatch(void); //custom for pc access post catch just need not reupdate hidden mon i.e faint/caught
 static void ReshowBattleScreen_TurnOnDisplay(void);
-static bool8 LoadBattlerSpriteGfx(u8 battlerId);
-static void CreateHealthboxSprite(u8 battlerId);
-static bool8 ShouldHideBattlerSprite(u8 battlerId);
-static bool8 ShouldHideHealthboxSprite(u8 battlerId);
+static bool8 LoadBattlerSpriteGfx(enum BattlerId battlerId);
+static void CreateHealthboxSprite(enum BattlerId battlerId);
+static bool8 ShouldHideBattlerSprite(enum BattlerId battlerId);
+static bool8 ShouldHideHealthboxSprite(enum BattlerId battlerId);
 
 void ReshowBattleScreenDummy(void)
 {
@@ -275,7 +275,7 @@ static void ReshowBattleScreen_TurnOnDisplay(void)
     SetGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_OBJ_1D_MAP | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_OBJWIN_ON);
 }
 
-static bool8 LoadBattlerSpriteGfx(u8 battler)
+static bool8 LoadBattlerSpriteGfx(enum BattlerId battler)
 {
     if (battler < gBattlersCount)
     {
@@ -301,7 +301,7 @@ static bool8 LoadBattlerSpriteGfx(u8 battler)
     return TRUE;
 }
 
-static bool8 ShouldHideBattlerSprite(u8 battlerId)
+static bool8 ShouldHideBattlerSprite(enum BattlerId battlerId)
 {
     if (gBattleMons[battlerId].volatiles.caughtMon)
         return TRUE;
@@ -311,7 +311,7 @@ static bool8 ShouldHideBattlerSprite(u8 battlerId)
 //realize this should need to change, only want to hide
 //box for single mon in doubles so add trigger for
 //battle partner not caught I guess?
-static bool8 ShouldHideHealthboxSprite(u8 battlerId)
+static bool8 ShouldHideHealthboxSprite(enum BattlerId battlerId)
 {
     if (gBattleMons[battlerId].volatiles.caughtMon
     && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
@@ -320,7 +320,7 @@ static bool8 ShouldHideHealthboxSprite(u8 battlerId)
     return FALSE;
 }
 
-void CreateBattlerSprite(u32 battler)
+void CreateBattlerSprite(enum BattlerId battler)
 {
     if (battler < gBattlersCount)
     {
@@ -385,7 +385,7 @@ void CreateBattlerSprite(u32 battler)
     }
 }
 
-static void CreateHealthboxSprite(u8 battler)
+static void CreateHealthboxSprite(enum BattlerId battler)
 {
     if (battler < gBattlersCount)
     {

@@ -561,7 +561,7 @@ static const u16 *GetMonSpritePalStructCustom(u16 species, bool8 isShiny)
 //with plan add gender forms which may have
 //change this but if sep species wont need paletteF or aything
 //worst case replace w function for get pallete
-static void BattleLoadOpponentMonSpriteGfxCustom(u16 species, bool8 isShiny, u8 battlerId) //vsonic
+static void BattleLoadOpponentMonSpriteGfxCustom(u16 species, bool8 isShiny, enum BattlerId battlerId) //vsonic
 {
     const u16 *palette = GetMonSpritePalFromSpecies(species, isShiny);
     u16 paletteOffset = OBJ_PLTT_ID(battlerId);
@@ -878,7 +878,7 @@ void CB2_Debug_Pokemon(void)
     s16 offset_y;
     u8 front_x = sBattlerCoords[0][1].x;
     u8 front_y;
-    u8 battlerPos;
+    enum BattlerId battlerPos;
 
     DebugPrintf("switch case: %d", gMain.state);
 

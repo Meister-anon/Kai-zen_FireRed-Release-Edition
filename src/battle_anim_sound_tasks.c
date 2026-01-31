@@ -121,7 +121,7 @@ static void SoundTask_LoopSEAdjustPanning_Step(u8 taskId)
 void SoundTask_PlayCryHighPitch(u8 taskId)
 {
     u16 species = SPECIES_NONE;
-    u8 battlerId;
+    enum BattlerId battlerId;
     s8 pan = BattleAnimAdjustPanning(SOUND_PAN_ATTACKER);
 
     // Get wanted battler.
@@ -152,7 +152,7 @@ void SoundTask_PlayCryHighPitch(u8 taskId)
 void SoundTask_PlayDoubleCry(u8 taskId)
 {
     u16 species = SPECIES_NONE;
-    u8 battlerId;
+    enum BattlerId battlerId;
     s8 pan = BattleAnimAdjustPanning(SOUND_PAN_ATTACKER);
         
     // Get wanted battler.

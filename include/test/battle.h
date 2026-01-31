@@ -538,7 +538,7 @@ enum
 
 struct QueuedAbilityEvent
 {
-    u8 battlerId;
+    enum BattlerId battlerId;
     u16 ability;
 };
 
@@ -555,14 +555,14 @@ enum { EXP_EVENT_NEW_EXP, EXP_EVENT_DELTA_EXP };
 
 struct QueuedHPEvent
 {
-    u32 battlerId:3;
+    enum BattlerId battlerId:3;
     u32 type:1;
     u32 address:28;
 };
 
 struct QueuedExpEvent
 {
-    u32 battlerId:3;
+    enum BattlerId battlerId:3;
     u32 type:1;
     u32 address:28;
 };
@@ -574,7 +574,7 @@ struct QueuedMessageEvent
 
 struct QueuedStatusEvent
 {
-    u32 battlerId:3;
+    enum BattlerId battlerId:3;
     u32 mask:29;
 };
 
@@ -672,8 +672,8 @@ struct BattleTestData
     bool8 logAI:1;
 
     struct RecordedBattleSave recordedBattle;
-    u8 battleRecordTypes[MAX_BATTLERS_COUNT][BATTLER_RECORD_SIZE];
-    u8 battleRecordSourceLineOffsets[MAX_BATTLERS_COUNT][BATTLER_RECORD_SIZE];
+    enum BattlerId battleRecordTypes[MAX_BATTLERS_COUNT][BATTLER_RECORD_SIZE];
+    enum BattlerId battleRecordSourceLineOffsets[MAX_BATTLERS_COUNT][BATTLER_RECORD_SIZE];
     u16 recordIndexes[MAX_BATTLERS_COUNT];
     struct BattlerTurn battleRecordTurns[MAX_TURNS][MAX_BATTLERS_COUNT];
     u8 lastActionTurn;
@@ -694,7 +694,7 @@ struct BattleTestData
 
 struct BattleTestRunnerState
 {
-    u8 battlersCount;
+    enum BattlerId battlersCount;
     bool8 forceMoveAnim;
     u16 parametersCount; // Valid only in BattleTest_Setup.
     u16 parameters;

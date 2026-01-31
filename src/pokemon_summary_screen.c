@@ -1327,7 +1327,7 @@ void ShowMoveInfoForSelectedMove(struct Pokemon *party, u8 partyMember, u8 lastI
 
 void ShowSummaryScreenSelectMoveFromBattle(struct Pokemon *party, u8 partyMember, u8 lastIdx, MainCallback savedCallback, u8 mode)
 {
-    u32 battler = gLastViewedMonIndex;
+    enum BattlerId battler = gLastViewedMonIndex;
     sMonSummaryScreen = AllocZeroed(sizeof(struct PokemonSummaryScreenData));
     sMonSkillsPrinterXpos = AllocZeroed(sizeof(struct Struct203B144));
 

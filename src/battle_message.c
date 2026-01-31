@@ -1371,7 +1371,7 @@ static const u16 sGrammarMoveUsedTable[] = {
     MOVE_NONE
 };
 
-void BufferStringBattle(u32 battler, enum StringID stringId)
+void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
 {
     s32 i;
     const u8 *stringPtr = NULL;
@@ -1632,7 +1632,7 @@ u32 BattleStringExpandPlaceholdersToDisplayedString(const u8 *src)
     BattleStringExpandPlaceholders(src, gDisplayedStringBattle);
 }
 
-static const u8 *BattleStringGetOpponentNameByTrainerId(u16 trainerId, u8 *text, u8 multiplayerId, u8 battlerId)
+static const u8 *BattleStringGetOpponentNameByTrainerId(u16 trainerId, u8 *text, u8 multiplayerId, enum BattlerId battlerId)
 {
     const u8 *toCpy;
 
@@ -1694,7 +1694,7 @@ static const u8 *BattleStringGetOpponentClassByTrainerId(u16 trainerId)
     return toCpy;
 }
 
-static const u8 *BattleStringGetOpponentName(u8 *text, u8 multiplayerId, u8 battlerId)
+static const u8 *BattleStringGetOpponentName(u8 *text, u8 multiplayerId, enum BattlerId battlerId)
 {
     const u8 *toCpy;
 
@@ -1714,7 +1714,7 @@ static const u8 *BattleStringGetOpponentName(u8 *text, u8 multiplayerId, u8 batt
     return toCpy;
 }
 
-static const u8 *BattleStringGetPlayerName(u8 *text, u8 battlerId)
+static const u8 *BattleStringGetPlayerName(u8 *text, enum BattlerId battlerId)
 {
     const u8 *toCpy;
 
@@ -1746,7 +1746,7 @@ static const u8 *BattleStringGetPlayerName(u8 *text, u8 battlerId)
     return toCpy;
 }
 
-static const u8 *BattleStringGetTrainerName(u8 *text, u8 multiplayerId, u8 battlerId)
+static const u8 *BattleStringGetTrainerName(u8 *text, u8 multiplayerId, enum BattlerId battlerId)
 {
     if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
         return BattleStringGetPlayerName(text, battlerId);
@@ -1784,7 +1784,7 @@ static const u8* TryGetStatusString(u8 *src) //important
     return NULL;
 }
 
-static void GetBattlerNick(u32 battlerId, u8 *dst)
+static void GetBattlerNick(enum BattlerId battlerId, u8 *dst)
 {
     struct Pokemon *mon, *illusionMon;
     u16 species;
@@ -3012,7 +3012,7 @@ bool8 BattleStringShouldBeColored(u16 stringId)
     return FALSE;
 }
 
-void SetPpNumbersPaletteInMoveSelection(u32 battler)
+void SetPpNumbersPaletteInMoveSelection(enum BattlerId battler)
 {
     struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
     const u16 *palPtr = gPPTextPalette;
@@ -3026,7 +3026,7 @@ void SetPpNumbersPaletteInMoveSelection(u32 battler)
     CpuCopy16(&gPlttBufferUnfaded[91], &gPlttBufferFaded[91], sizeof(u16));
 }
 
-void SetMoveTypePaletteInMoveSelection_Singles(u32 battler, u16 move, u8 moveType)
+void SetMoveTypePaletteInMoveSelection_Singles(enum BattlerId battler, u16 move, u8 moveType)
 {
     struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct*)(&gBattleResources->bufferA[battler][4]);
     const u16 *palPtr = gMoveTypePal;
@@ -3067,7 +3067,7 @@ void SetMoveTypePaletteInMoveSelection_Singles(u32 battler, u16 move, u8 moveTyp
 //last thing believe need try take into account is move target random, 
 //not sure will work for now
 //for some reason doubles check isn't working?
-void SetMoveTypePaletteInMoveSelection_Doubles(u32 battler, u16 move, u8 moveType)
+void SetMoveTypePaletteInMoveSelection_Doubles(enum BattlerId battler, u16 move, u8 moveType)
 {
     struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct*)(&gBattleResources->bufferA[battler][4]);
     const u16 *palPtr = gMoveTypePal;
@@ -3149,7 +3149,7 @@ u8 GetCurrentPpToMaxPpState(u8 currentPp, u8 maxPp)
 }//used with color palette 3 is normal font color
 //1 is  yellow, 2 is red  //correspondes to value in palette
 
-u8 GetTypeEffectivenessState_Singles(u32 battler, u16 move, u8 moveType) //for singles
+u8 GetTypeEffectivenessState_Singles(enum BattlerId battler, u16 move, u8 moveType) //for singles
 {
     if (!IsDoubleBattle()) //oddly gbattlertarget is same as attacker at this point without this
     {    gBattlerTarget = (GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerPosition(battler))));

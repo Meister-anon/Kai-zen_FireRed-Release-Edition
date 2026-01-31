@@ -82,26 +82,26 @@ enum
     HEALTHBOX_SAFARI_BALLS_TEXT
 };
 
-enum BattleCoordTypes GetBattlerCoordsIndex(u32 battler);
+enum BattleCoordTypes GetBattlerCoordsIndex(enum BattlerId battler);
 void Task_HidePartyStatusSummary(u8 taskId);
-u8 CreateBattlerHealthboxSprites(u8 battlerId);
+u8 CreateBattlerHealthboxSprites(enum BattlerId battlerId);
 u8 CreateSafariPlayerHealthboxSprites(void);
-void SetBattleBarStruct(u8 battlerId, u8 healthboxSpriteId, s32 maxVal, s32 currVal, s32 receivedValue);
+void SetBattleBarStruct(enum BattlerId battlerId, u8 healthboxSpriteId, s32 maxVal, s32 currVal, s32 receivedValue);
 void SetHealthboxSpriteInvisible(u8 healthboxSpriteId);
 void SetHealthboxSpriteVisible(u8 healthboxSpriteId);
 void DestoryHealthboxSprite(u8 healthboxSpriteId);
 void DummyBattleInterfaceFunc(u8 healthboxSpriteId, bool8 isDoubleBattleBankOnly);
 void UpdateOamPriorityInAllHealthboxes(u8 priority);
-void InitBattlerHealthboxCoords(u8 battlerId);
+void InitBattlerHealthboxCoords(enum BattlerId battlerId);
 void UpdateHpTextInHealthbox(u8 healthboxSpriteId, s16 value, u8 maxOrCurrent);
 void SwapHpBarsWithHpText(void);
-u8 CreatePartyStatusSummarySprites(u8 battlerId, struct HpAndStatus *partyInfo, u8 isSwitchingMons, bool8 isBattleStart);
+u8 CreatePartyStatusSummarySprites(enum BattlerId battlerId, struct HpAndStatus *partyInfo, u8 isSwitchingMons, bool8 isBattleStart);
 void UpdateHealthboxAttribute(u8 healthboxSpriteId, struct Pokemon *mon, u8 elementId);
 u8 GetScaledHPFraction(s16 hp, s16 maxhp, u8 scale);
 u8 GetHPBarLevel(s16 hp, s16 maxhp);
 void UpdateNickInHealthbox(u8 spriteId, struct Pokemon *mon);
 void TryAddPokeballIconToHealthbox(u8 spriteId, u8);
-s32 MoveBattleBar(u8 battler, u8 healthboxSpriteId, u8 whichBar, u8 arg3);
+s32 MoveBattleBar(enum BattlerId battler, u8 healthboxSpriteId, u8 whichBar, u8 arg3);
 void UpdateLeftNoOfBallsTextOnHealthbox(u8 healthboxSpriteId); //better safari update setup
 
 #endif // GUARD_BATTLE_INTERFACE_H

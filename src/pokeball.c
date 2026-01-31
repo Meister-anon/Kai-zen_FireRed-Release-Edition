@@ -48,7 +48,7 @@ static void SpriteCB_PlayerMonSendOut_2(struct Sprite *sprite);
 static void SpriteCB_ReleaseMon2FromBall(struct Sprite *sprite);
 static void SpriteCB_OpponentMonSendOut(struct Sprite *sprite);
 static u8 LaunchBallStarsTaskForPokeball(u8 x, u8 y, u8 kindOfStars, u8 d);
-static u8 LaunchBallFadeMonTaskForPokeball(bool8 unFadeLater, u8 battlerId, u32 arg2);
+static u8 LaunchBallFadeMonTaskForPokeball(bool8 unFadeLater, enum BattlerId battlerId, u32 arg2);
 static void SpriteCB_PokeballReleaseMon(struct Sprite *sprite);
 static void SpriteCB_ReleasedMonFlyOut(struct Sprite *sprite);
 static void SpriteCB_TradePokeball(struct Sprite *sprite);
@@ -57,7 +57,7 @@ static void sub_804BD6C(struct Sprite *sprite);
 static void sub_804BE24(struct Sprite *sprite);
 static void sub_804BE48(struct Sprite *sprite);
 static void SpriteCB_HitAnimHealthoxEffect(struct Sprite *sprite);
-static u16 GetBattlerPokeballItemId(u8 battlerId);
+static u16 GetBattlerPokeballItemId(enum BattlerId battlerId);
 
 // Data
 const struct CompressedSpriteSheet gBallSpriteSheets[POKEBALL_COUNT] =
@@ -324,7 +324,7 @@ const struct SpriteTemplate gBallSpriteTemplates[POKEBALL_COUNT] =
 #define sBattler         data[6]
 
 // Functions
-u8 DoPokeballSendOutAnimation(u32 battler, s16 pan, u8 kindOfThrow)
+u8 DoPokeballSendOutAnimation(enum BattlerId battler, s16 pan, u8 kindOfThrow)
 {
     u8 taskId;
     
@@ -342,7 +342,7 @@ u8 DoPokeballSendOutAnimation(u32 battler, s16 pan, u8 kindOfThrow)
 static void Task_DoPokeballSendOutAnim(u8 taskId)
 {
     u16 throwCaseId;
-    u8 battlerId;
+    enum BattlerId battlerId;
     u16 itemId, ballId;
     u8 ballSpriteId;
     bool8 notSendOut = FALSE;
@@ -749,7 +749,7 @@ static void Task_PlayCryWhenReleasedFromBall(u8 taskId)
 
 static void SpriteCB_ReleaseMonFromBall(struct Sprite *sprite)
 {
-    u8 battlerId = sprite->sBattler;
+    enum BattlerId battlerId = sprite->sBattler;
     u32 ballId;
 
     StartSpriteAnim(sprite, 1);
@@ -833,7 +833,7 @@ static void sub_804B484(struct Sprite *sprite)
 static void HandleBallAnimEnd(struct Sprite *sprite)
 {
     bool8 affineAnimEnded = FALSE;
-    u8 battlerId = sprite->sBattler;
+    enum BattlerId battlerId = sprite->sBattler;
 
     gSprites[gBattlerSpriteIds[battlerId]].invisible = FALSE;
     if (sprite->animEnded)
@@ -873,7 +873,7 @@ static void HandleBallAnimEnd(struct Sprite *sprite)
 
 static void SpriteCB_BallThrow_CaptureMon(struct Sprite *sprite)
 {
-    u8 battlerId = sprite->sBattler;
+    enum BattlerId battlerId = sprite->sBattler;
 
     sprite->data[4]++;
     if (sprite->data[4] == 40)
@@ -1007,7 +1007,7 @@ static u8 LaunchBallStarsTaskForPokeball(u8 x, u8 y, u8 kindOfStars, u8 d)
     return LaunchBallStarsTask(x, y, kindOfStars, d, BALL_POKE);
 }
 
-static u8 LaunchBallFadeMonTaskForPokeball(bool8 unFadeLater, u8 battlerId, u32 arg2)
+static u8 LaunchBallFadeMonTaskForPokeball(bool8 unFadeLater, enum BattlerId battlerId, u32 arg2)
 {
     return LaunchBallFadeMonTask(unFadeLater, battlerId, arg2, BALL_POKE);
 }
@@ -1023,7 +1023,7 @@ static u8 LaunchBallFadeMonTaskForPokeball(bool8 unFadeLater, u8 battlerId, u32 
 #define sTrigIdx     data[7]
 
 // Pokeball in Oak intro, and when receiving via trade
-void CreatePokeballSpriteToReleaseMon(u8 monSpriteId, u8 battlerId, u8 x, u8 y, u8 oamPriority, u8 subpriortiy, u8 g, u32 h)
+void CreatePokeballSpriteToReleaseMon(u8 monSpriteId, enum BattlerId battlerId, u8 x, u8 y, u8 oamPriority, u8 subpriortiy, u8 g, u32 h)
 {
     u8 spriteId;
 
@@ -1050,7 +1050,7 @@ static void SpriteCB_PokeballReleaseMon(struct Sprite *sprite)
     {
         u8 r5;
         u8 r7 = sprite->data[0];
-        u8 battlerId = sprite->data[2];
+        enum BattlerId battlerId = sprite->data[2];
         u32 r4 = (u16)sprite->data[3] | ((u16)sprite->data[4] << 16);
 
         if (sprite->subpriority != 0)
@@ -1207,7 +1207,7 @@ void DestroySpriteAndFreeResources2(struct Sprite *sprite)
     DestroySpriteAndFreeResources(sprite);
 }
 
-void StartHealthboxSlideIn(u8 battlerId)
+void StartHealthboxSlideIn(enum BattlerId battlerId)
 {
     struct Sprite *healthboxSprite = &gSprites[gHealthboxSpriteIds[battlerId]];
 
@@ -1247,7 +1247,7 @@ static void sub_804BE48(struct Sprite *sprite)
         sprite->callback = SpriteCallbackDummy;
 }
 
-void DoHitAnimHealthboxEffect(u8 battlerId)
+void DoHitAnimHealthboxEffect(enum BattlerId battlerId)
 {
     u8 spriteId;
 
@@ -1301,7 +1301,7 @@ void FreeBallGfx(u8 ballId)
     FreeSpritePaletteByTag(gBallSpritePalettes[ballId].tag);
 }
 
-static u16 GetBattlerPokeballItemId(u8 battlerId)
+static u16 GetBattlerPokeballItemId(enum BattlerId battlerId)
 {
     if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
         return GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerId]], MON_DATA_POKEBALL);

@@ -13,76 +13,76 @@
 #include "constants/battle_anim.h"
 #include "constants/songs.h"
 
-static void LinkPartnerHandleGetMonData(u32 battler);
-static void LinkPartnerHandleGetRawMonData(u32 battler);
-static void LinkPartnerHandleSetMonData(u32 battler);
-static void LinkPartnerHandleSetRawMonData(u32 battler);
-static void LinkPartnerHandleLoadMonSprite(u32 battler);
-static void LinkPartnerHandleSwitchInAnim(u32 battler);
-static void LinkPartnerHandleReturnMonToBall(u32 battler);
-static void LinkPartnerHandleDrawTrainerPic(u32 battler);
-static void LinkPartnerHandleTrainerSlide(u32 battler);
-static void LinkPartnerHandleTrainerSlideBack(u32 battler);
-static void LinkPartnerHandleFaintAnimation(u32 battler);
-static void LinkPartnerHandlePaletteFade(u32 battler);
-static void LinkPartnerHandleSuccessBallThrowAnim(u32 battler);
-static void LinkPartnerHandleBallThrowAnim(u32 battler);
-static void LinkPartnerHandlePause(u32 battler);
-static void LinkPartnerHandleMoveAnimation(u32 battler);
-static void LinkPartnerHandlePrintString(u32 battler);
-static void LinkPartnerHandlePrintSelectionString(u32 battler);
-static void LinkPartnerHandleChooseAction(u32 battler);
-static void LinkPartnerHandleUnknownYesNoBox(u32 battler);
-static void LinkPartnerHandleChooseMove(u32 battler);
-static void LinkPartnerHandleChooseItem(u32 battler);
-static void LinkPartnerHandleChoosePokemon(u32 battler);
-static void LinkPartnerHandleCmd23(u32 battler);
-static void LinkPartnerHandleHealthBarUpdate(u32 battler);
-static void LinkPartnerHandleExpUpdate(u32 battler);
-static void LinkPartnerHandleStatusIconUpdate(u32 battler);
-static void LinkPartnerHandleStatusAnimation(u32 battler);
-static void LinkPartnerHandleStatusXor(u32 battler);
-static void LinkPartnerHandleDataTransfer(u32 battler);
-static void LinkPartnerHandleDMA3Transfer(u32 battler);
-static void LinkPartnerHandlePlayBGM(u32 battler);
-static void LinkPartnerHandleCmd32(u32 battler);
-static void LinkPartnerHandleTwoReturnValues(u32 battler);
-static void LinkPartnerHandleChosenMonReturnValue(u32 battler);
-static void LinkPartnerHandleOneReturnValue(u32 battler);
-static void LinkPartnerHandleOneReturnValue_Duplicate(u32 battler);
-static void LinkPartnerHandleClearUnkVar(u32 battler);
-static void LinkPartnerHandleSetUnkVar(u32 battler);
-static void LinkPartnerHandleClearUnkFlag(u32 battler);
-static void LinkPartnerHandleToggleUnkFlag(u32 battler);
-static void LinkPartnerHandleHitAnimation(u32 battler);
-static void LinkPartnerHandleCantSwitch(u32 battler);
-static void LinkPartnerHandlePlaySE(u32 battler);
-static void LinkPartnerHandlePlayFanfare(u32 battler);
-static void LinkPartnerHandleFaintingCry(u32 battler);
-static void LinkPartnerHandleIntroSlide(u32 battler);
-static void LinkPartnerHandleIntroTrainerBallThrow(u32 battler);
-static void LinkPartnerHandleDrawPartyStatusSummary(u32 battler);
-static void LinkPartnerHandleHidePartyStatusSummary(u32 battler);
-static void LinkPartnerHandleEndBounceEffect(u32 battler);
-static void LinkPartnerHandleSpriteInvisibility(u32 battler);
-static void LinkPartnerHandleBattleAnimation(u32 battler);
-static void LinkPartnerHandleLinkStandbyMsg(u32 battler);
-static void LinkPartnerHandleResetActionMoveSelection(u32 battler);
-static void LinkPartnerHandleEndLinkBattle(u32 battler);
-static void LinkPartnerCmdEnd(u32 battler);
+static void LinkPartnerHandleGetMonData(enum BattlerId battler);
+static void LinkPartnerHandleGetRawMonData(enum BattlerId battler);
+static void LinkPartnerHandleSetMonData(enum BattlerId battler);
+static void LinkPartnerHandleSetRawMonData(enum BattlerId battler);
+static void LinkPartnerHandleLoadMonSprite(enum BattlerId battler);
+static void LinkPartnerHandleSwitchInAnim(enum BattlerId battler);
+static void LinkPartnerHandleReturnMonToBall(enum BattlerId battler);
+static void LinkPartnerHandleDrawTrainerPic(enum BattlerId battler);
+static void LinkPartnerHandleTrainerSlide(enum BattlerId battler);
+static void LinkPartnerHandleTrainerSlideBack(enum BattlerId battler);
+static void LinkPartnerHandleFaintAnimation(enum BattlerId battler);
+static void LinkPartnerHandlePaletteFade(enum BattlerId battler);
+static void LinkPartnerHandleSuccessBallThrowAnim(enum BattlerId battler);
+static void LinkPartnerHandleBallThrowAnim(enum BattlerId battler);
+static void LinkPartnerHandlePause(enum BattlerId battler);
+static void LinkPartnerHandleMoveAnimation(enum BattlerId battler);
+static void LinkPartnerHandlePrintString(enum BattlerId battler);
+static void LinkPartnerHandlePrintSelectionString(enum BattlerId battler);
+static void LinkPartnerHandleChooseAction(enum BattlerId battler);
+static void LinkPartnerHandleUnknownYesNoBox(enum BattlerId battler);
+static void LinkPartnerHandleChooseMove(enum BattlerId battler);
+static void LinkPartnerHandleChooseItem(enum BattlerId battler);
+static void LinkPartnerHandleChoosePokemon(enum BattlerId battler);
+static void LinkPartnerHandleCmd23(enum BattlerId battler);
+static void LinkPartnerHandleHealthBarUpdate(enum BattlerId battler);
+static void LinkPartnerHandleExpUpdate(enum BattlerId battler);
+static void LinkPartnerHandleStatusIconUpdate(enum BattlerId battler);
+static void LinkPartnerHandleStatusAnimation(enum BattlerId battler);
+static void LinkPartnerHandleStatusXor(enum BattlerId battler);
+static void LinkPartnerHandleDataTransfer(enum BattlerId battler);
+static void LinkPartnerHandleDMA3Transfer(enum BattlerId battler);
+static void LinkPartnerHandlePlayBGM(enum BattlerId battler);
+static void LinkPartnerHandleCmd32(enum BattlerId battler);
+static void LinkPartnerHandleTwoReturnValues(enum BattlerId battler);
+static void LinkPartnerHandleChosenMonReturnValue(enum BattlerId battler);
+static void LinkPartnerHandleOneReturnValue(enum BattlerId battler);
+static void LinkPartnerHandleOneReturnValue_Duplicate(enum BattlerId battler);
+static void LinkPartnerHandleClearUnkVar(enum BattlerId battler);
+static void LinkPartnerHandleSetUnkVar(enum BattlerId battler);
+static void LinkPartnerHandleClearUnkFlag(enum BattlerId battler);
+static void LinkPartnerHandleToggleUnkFlag(enum BattlerId battler);
+static void LinkPartnerHandleHitAnimation(enum BattlerId battler);
+static void LinkPartnerHandleCantSwitch(enum BattlerId battler);
+static void LinkPartnerHandlePlaySE(enum BattlerId battler);
+static void LinkPartnerHandlePlayFanfare(enum BattlerId battler);
+static void LinkPartnerHandleFaintingCry(enum BattlerId battler);
+static void LinkPartnerHandleIntroSlide(enum BattlerId battler);
+static void LinkPartnerHandleIntroTrainerBallThrow(enum BattlerId battler);
+static void LinkPartnerHandleDrawPartyStatusSummary(enum BattlerId battler);
+static void LinkPartnerHandleHidePartyStatusSummary(enum BattlerId battler);
+static void LinkPartnerHandleEndBounceEffect(enum BattlerId battler);
+static void LinkPartnerHandleSpriteInvisibility(enum BattlerId battler);
+static void LinkPartnerHandleBattleAnimation(enum BattlerId battler);
+static void LinkPartnerHandleLinkStandbyMsg(enum BattlerId battler);
+static void LinkPartnerHandleResetActionMoveSelection(enum BattlerId battler);
+static void LinkPartnerHandleEndLinkBattle(enum BattlerId battler);
+static void LinkPartnerCmdEnd(enum BattlerId battler);
 
-static void LinkPartnerBufferRunCommand(u32 battler);
-static void LinkPartnerBufferExecCompleted(u32 battler);
-static void SwitchIn_WaitAndEnd(u32 battler);
-static u32 CopyLinkPartnerMonData(u32 battler, u8 monId, u8 *dst);
-static void SetLinkPartnerMonData(u32 battler, u8 monId);
-static void StartSendOutAnim(u8 battlerId, bool8 dontClearSubstituteBit);
-static void DoSwitchOutAnimation(u32 battler);
-static void LinkPartnerDoMoveAnimation(u32 battler);
+static void LinkPartnerBufferRunCommand(enum BattlerId battler);
+static void LinkPartnerBufferExecCompleted(enum BattlerId battler);
+static void SwitchIn_WaitAndEnd(enum BattlerId battler);
+static u32 CopyLinkPartnerMonData(enum BattlerId battler, u8 monId, u8 *dst);
+static void SetLinkPartnerMonData(enum BattlerId battler, u8 monId);
+static void StartSendOutAnim(enum BattlerId battlerId, bool8 dontClearSubstituteBit);
+static void DoSwitchOutAnimation(enum BattlerId battler);
+static void LinkPartnerDoMoveAnimation(enum BattlerId battler);
 static void Task_StartSendOutAnim(u8 taskId);
-static void EndDrawPartyStatusSummary(u32 battler);
+static void EndDrawPartyStatusSummary(enum BattlerId battler);
 
-static void (*const sLinkPartnerBufferCommands[CONTROLLER_CMDS_COUNT])(u32 battler) =
+static void (*const sLinkPartnerBufferCommands[CONTROLLER_CMDS_COUNT])(enum BattlerId battler) =
 {
     LinkPartnerHandleGetMonData,
     LinkPartnerHandleGetRawMonData,
@@ -143,16 +143,16 @@ static void (*const sLinkPartnerBufferCommands[CONTROLLER_CMDS_COUNT])(u32 battl
     LinkPartnerCmdEnd
 };
 
-static void LinkPartnerDummy(u32 battler)
+static void LinkPartnerDummy(enum BattlerId battler)
 {
 }
 
-void SetControllerToLinkPartner(u32 battler)
+void SetControllerToLinkPartner(enum BattlerId battler)
 {
     gBattlerControllerFuncs[battler] = LinkPartnerBufferRunCommand;
 }
 
-static void LinkPartnerBufferRunCommand(u32 battler)
+static void LinkPartnerBufferRunCommand(enum BattlerId battler)
 {
     if (gBattleControllerExecFlags & (1u << battler))
     {
@@ -163,13 +163,13 @@ static void LinkPartnerBufferRunCommand(u32 battler)
     }
 }
 
-static void CompleteOnBattlerSpriteCallbackDummy(u32 battler)
+static void CompleteOnBattlerSpriteCallbackDummy(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].callback == SpriteCallbackDummy)
         LinkPartnerBufferExecCompleted(battler);
 }
 
-static void FreeTrainerSpriteAfterSlide(u32 battler)
+static void FreeTrainerSpriteAfterSlide(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].callback == SpriteCallbackDummy)
     {
@@ -180,7 +180,7 @@ static void FreeTrainerSpriteAfterSlide(u32 battler)
     }
 }
 
-static void Intro_DelayAndEnd(u32 battler)
+static void Intro_DelayAndEnd(enum BattlerId battler)
 {
     if (--gBattleSpritesDataPtr->healthBoxesData[battler].introEndDelay == (u8)-1)
     {
@@ -189,7 +189,7 @@ static void Intro_DelayAndEnd(u32 battler)
     }
 }
 
-static void Intro_WaitForHealthbox(u32 battler)
+static void Intro_WaitForHealthbox(enum BattlerId battler)
 {
     bool32 finished = FALSE;
 
@@ -212,7 +212,7 @@ static void Intro_WaitForHealthbox(u32 battler)
     }
 }
 
-static void Intro_ShowHealthbox(u32 battler)
+static void Intro_ShowHealthbox(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].ballAnimActive
         && !gBattleSpritesDataPtr->healthBoxesData[BATTLE_PARTNER(battler)].ballAnimActive
@@ -245,13 +245,13 @@ static void Intro_ShowHealthbox(u32 battler)
     }
 }
 
-static void WaitForMonAnimAfterLoad(u32 battler)
+static void WaitForMonAnimAfterLoad(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].animEnded && gSprites[gBattlerSpriteIds[battler]].x2 == 0)
         LinkPartnerBufferExecCompleted(battler);
 }
 
-static void CompleteOnHealthbarDone(u32 battler)
+static void CompleteOnHealthbarDone(enum BattlerId battler)
 {
     s16 hpValue = MoveBattleBar(battler, gHealthboxSpriteIds[battler], HEALTH_BAR, 0);
 
@@ -268,7 +268,7 @@ static void CompleteOnHealthbarDone(u32 battler)
     }
 }
 
-static void FreeMonSpriteAfterFaintAnim(u32 battler)
+static void FreeMonSpriteAfterFaintAnim(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].y + gSprites[gBattlerSpriteIds[battler]].y2 > DISPLAY_HEIGHT)
     {
@@ -279,7 +279,7 @@ static void FreeMonSpriteAfterFaintAnim(u32 battler)
     }
 }
 
-static void FreeMonSpriteAfterSwitchOutAnim(u32 battler)
+static void FreeMonSpriteAfterSwitchOutAnim(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].specialAnimActive)
     {
@@ -290,13 +290,13 @@ static void FreeMonSpriteAfterSwitchOutAnim(u32 battler)
     }
 }
 
-static void CompleteOnInactiveTextPrinter(u32 battler)
+static void CompleteOnInactiveTextPrinter(enum BattlerId battler)
 {
     if (!IsTextPrinterActive(B_WIN_MSG))
         LinkPartnerBufferExecCompleted(battler);
 }
 
-static void DoHitAnimBlinkSpriteEffect(u32 battler)
+static void DoHitAnimBlinkSpriteEffect(enum BattlerId battler)
 {
     u8 spriteId = gBattlerSpriteIds[battler];
 
@@ -315,7 +315,7 @@ static void DoHitAnimBlinkSpriteEffect(u32 battler)
     }
 }
 
-static void SwitchIn_ShowSubstitute(u32 battler)
+static void SwitchIn_ShowSubstitute(enum BattlerId battler)
 {
     if (gSprites[gHealthboxSpriteIds[battler]].callback == SpriteCallbackDummy)
     {
@@ -326,7 +326,7 @@ static void SwitchIn_ShowSubstitute(u32 battler)
     }
 }
 
-static void SwitchIn_WaitAndEnd(u32 battler)
+static void SwitchIn_WaitAndEnd(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].specialAnimActive)
     {
@@ -334,7 +334,7 @@ static void SwitchIn_WaitAndEnd(u32 battler)
     }
 }
 
-static void SwitchIn_ShowHealthbox(u32 battler)
+static void SwitchIn_ShowHealthbox(enum BattlerId battler)
 {
     if (gBattleSpritesDataPtr->healthBoxesData[battler].finishedShinyMonAnim)
     {
@@ -354,7 +354,7 @@ static void SwitchIn_ShowHealthbox(u32 battler)
     }
 }
 
-static void SwitchIn_TryShinyAnim(u32 battler)
+static void SwitchIn_TryShinyAnim(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].triedShinyMonAnim
         && !gBattleSpritesDataPtr->healthBoxesData[battler].ballAnimActive)
@@ -370,7 +370,7 @@ static void SwitchIn_TryShinyAnim(u32 battler)
     }
 }
 
-static void LinkPartnerBufferExecCompleted(u32 battler)
+static void LinkPartnerBufferExecCompleted(enum BattlerId battler)
 {
     gBattlerControllerFuncs[battler] = LinkPartnerBufferRunCommand;
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)
@@ -386,19 +386,19 @@ static void LinkPartnerBufferExecCompleted(u32 battler)
     }
 }
 
-static void CompleteOnFinishedStatusAnimation(u32 battler)
+static void CompleteOnFinishedStatusAnimation(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].statusAnimActive)
         LinkPartnerBufferExecCompleted(battler);
 }
 
-static void CompleteOnFinishedBattleAnimation(u32 battler)
+static void CompleteOnFinishedBattleAnimation(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].animFromTableActive)
         LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleGetMonData(u32 battler)
+static void LinkPartnerHandleGetMonData(enum BattlerId battler)
 {
     u8 monData[sizeof(struct Pokemon) * 2 + 56]; // this allows to get full data of two pokemon, trying to get more will result in overwriting data
     u32 size = 0;
@@ -423,7 +423,7 @@ static void LinkPartnerHandleGetMonData(u32 battler)
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static u32 CopyLinkPartnerMonData(u32 battler, u8 monId, u8 *dst)
+static u32 CopyLinkPartnerMonData(enum BattlerId battler, u8 monId, u8 *dst)
 {
     struct BattlePokemon battleMon;
     struct MovePpInfo moveData;
@@ -726,12 +726,12 @@ static u32 CopyLinkPartnerMonData(u32 battler, u8 monId, u8 *dst)
     return size;
 }
 
-static void LinkPartnerHandleGetRawMonData(u32 battler)
+static void LinkPartnerHandleGetRawMonData(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleSetMonData(u32 battler)
+static void LinkPartnerHandleSetMonData(enum BattlerId battler)
 {
     u8 monToCheck;
     u8 i;
@@ -753,7 +753,7 @@ static void LinkPartnerHandleSetMonData(u32 battler)
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void SetLinkPartnerMonData(u32 battler, u8 monId)
+static void SetLinkPartnerMonData(enum BattlerId battler, u8 monId)
 {
     struct BattlePokemon *battlePokemon = (struct BattlePokemon *)&gBattleResources->bufferA[battler][3];
     struct MovePpInfo *moveData = (struct MovePpInfo *)&gBattleResources->bufferA[battler][3];
@@ -965,7 +965,7 @@ static void SetLinkPartnerMonData(u32 battler, u8 monId)
     HandleLowHpMusicChange(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
 }
 
-static void LinkPartnerHandleSetRawMonData(u32 battler)
+static void LinkPartnerHandleSetRawMonData(enum BattlerId battler)
 {
     u8 *dst = (u8 *)&gPlayerParty[gBattlerPartyIndexes[battler]] + gBattleResources->bufferA[battler][1];
     u8 i;
@@ -976,7 +976,7 @@ static void LinkPartnerHandleSetRawMonData(u32 battler)
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleLoadMonSprite(u32 battler)
+static void LinkPartnerHandleLoadMonSprite(enum BattlerId battler)
 {
     u16 species;
 
@@ -995,7 +995,7 @@ static void LinkPartnerHandleLoadMonSprite(u32 battler)
     gBattlerControllerFuncs[battler] = WaitForMonAnimAfterLoad;
 }
 
-static void LinkPartnerHandleSwitchInAnim(u32 battler)
+static void LinkPartnerHandleSwitchInAnim(enum BattlerId battler)
 {
     ClearTemporarySpeciesSpriteData(battler, gBattleResources->bufferA[battler][2]);
     gBattlerPartyIndexes[battler] = gBattleResources->bufferA[battler][1];
@@ -1004,7 +1004,7 @@ static void LinkPartnerHandleSwitchInAnim(u32 battler)
     gBattlerControllerFuncs[battler] = SwitchIn_TryShinyAnim;
 }
 
-static void StartSendOutAnim(u8 battlerId, bool8 dontClearSubstituteBit)
+static void StartSendOutAnim(enum BattlerId battlerId, bool8 dontClearSubstituteBit)
 {
     u16 species;
 
@@ -1028,7 +1028,7 @@ static void StartSendOutAnim(u8 battlerId, bool8 dontClearSubstituteBit)
     gSprites[gBattleControllerData[battlerId]].data[0] = DoPokeballSendOutAnimation(battlerId, 0, POKEBALL_PLAYER_SENDOUT);
 }
 
-static void LinkPartnerHandleReturnMonToBall(u32 battler)
+static void LinkPartnerHandleReturnMonToBall(enum BattlerId battler)
 {
     if (gBattleResources->bufferA[battler][1] == 0)
     {
@@ -1044,7 +1044,7 @@ static void LinkPartnerHandleReturnMonToBall(u32 battler)
     }
 }
 
-static void DoSwitchOutAnimation(u32 battler)
+static void DoSwitchOutAnimation(enum BattlerId battler)
 {
     switch (gBattleSpritesDataPtr->healthBoxesData[battler].animationState)
     {
@@ -1067,7 +1067,7 @@ static void DoSwitchOutAnimation(u32 battler)
 
 #define sSpeedX data[0]
 
-static void LinkPartnerHandleDrawTrainerPic(u32 battler)
+static void LinkPartnerHandleDrawTrainerPic(enum BattlerId battler)
 {
     s16 xPos;
     u32 trainerPicId;
@@ -1102,12 +1102,12 @@ static void LinkPartnerHandleDrawTrainerPic(u32 battler)
 
 #undef sSpeedX
 
-static void LinkPartnerHandleTrainerSlide(u32 battler)
+static void LinkPartnerHandleTrainerSlide(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleTrainerSlideBack(u32 battler)
+static void LinkPartnerHandleTrainerSlideBack(enum BattlerId battler)
 {
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[battler]]);
     gSprites[gBattlerSpriteIds[battler]].data[0] = 35;
@@ -1121,7 +1121,7 @@ static void LinkPartnerHandleTrainerSlideBack(u32 battler)
 #define sSpeedX data[1]
 #define sSpeedY data[2]
 
-static void LinkPartnerHandleFaintAnimation(u32 battler)
+static void LinkPartnerHandleFaintAnimation(enum BattlerId battler)
 {
     if (gBattleSpritesDataPtr->healthBoxesData[battler].animationState == 0)
     {
@@ -1147,27 +1147,27 @@ static void LinkPartnerHandleFaintAnimation(u32 battler)
 #undef sSpeedX
 #undef sSpeedY
 
-static void LinkPartnerHandlePaletteFade(u32 battler)
+static void LinkPartnerHandlePaletteFade(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleSuccessBallThrowAnim(u32 battler)
+static void LinkPartnerHandleSuccessBallThrowAnim(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleBallThrowAnim(u32 battler)
+static void LinkPartnerHandleBallThrowAnim(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandlePause(u32 battler)
+static void LinkPartnerHandlePause(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleMoveAnimation(u32 battler)
+static void LinkPartnerHandleMoveAnimation(enum BattlerId battler)
 {
     if (!IsBattleSEPlaying(battler))
     {
@@ -1192,7 +1192,7 @@ static void LinkPartnerHandleMoveAnimation(u32 battler)
     }
 }
 
-static void LinkPartnerDoMoveAnimation(u32 battler)
+static void LinkPartnerDoMoveAnimation(enum BattlerId battler)
 {
     u16 move = gBattleResources->bufferA[battler][1] | (gBattleResources->bufferA[battler][2] << 8);
     u8 multihit = gBattleResources->bufferA[battler][11];
@@ -1241,7 +1241,7 @@ static void LinkPartnerDoMoveAnimation(u32 battler)
     }
 }
 
-static void LinkPartnerHandlePrintString(u32 battler)
+static void LinkPartnerHandlePrintString(enum BattlerId battler)
 {
     u16 *stringId;
 
@@ -1256,42 +1256,42 @@ static void LinkPartnerHandlePrintString(u32 battler)
     gBattlerControllerFuncs[battler] = CompleteOnInactiveTextPrinter;
 }
 
-static void LinkPartnerHandlePrintSelectionString(u32 battler)
+static void LinkPartnerHandlePrintSelectionString(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleChooseAction(u32 battler)
+static void LinkPartnerHandleChooseAction(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleUnknownYesNoBox(u32 battler)
+static void LinkPartnerHandleUnknownYesNoBox(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleChooseMove(u32 battler)
+static void LinkPartnerHandleChooseMove(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleChooseItem(u32 battler)
+static void LinkPartnerHandleChooseItem(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleChoosePokemon(u32 battler)
+static void LinkPartnerHandleChoosePokemon(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleCmd23(u32 battler)
+static void LinkPartnerHandleCmd23(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleHealthBarUpdate(u32 battler)
+static void LinkPartnerHandleHealthBarUpdate(enum BattlerId battler)
 {
     s16 hpVal;
 
@@ -1321,16 +1321,16 @@ static void LinkPartnerHandleHealthBarUpdate(u32 battler)
     gBattlerControllerFuncs[battler] = CompleteOnHealthbarDone;
 }
 
-static void LinkPartnerHandleExpUpdate(u32 battler)
+static void LinkPartnerHandleExpUpdate(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleStatusIconUpdate(u32 battler)
+static void LinkPartnerHandleStatusIconUpdate(enum BattlerId battler)
 {
     if (!IsBattleSEPlaying(battler))
     {
-        u8 battlerId;
+        enum BattlerId battlerId;
 
         UpdateHealthboxAttribute(gHealthboxSpriteIds[battler], &gPlayerParty[gBattlerPartyIndexes[battler]], HEALTHBOX_STATUS_ICON);
         battlerId = battler;
@@ -1339,7 +1339,7 @@ static void LinkPartnerHandleStatusIconUpdate(u32 battler)
     }
 }
 
-static void LinkPartnerHandleStatusAnimation(u32 battler)
+static void LinkPartnerHandleStatusAnimation(enum BattlerId battler)
 {
     if (!IsBattleSEPlaying(battler))
     {
@@ -1349,76 +1349,76 @@ static void LinkPartnerHandleStatusAnimation(u32 battler)
     }
 }
 
-static void LinkPartnerHandleStatusXor(u32 battler)
+static void LinkPartnerHandleStatusXor(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleDataTransfer(u32 battler)
+static void LinkPartnerHandleDataTransfer(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleDMA3Transfer(u32 battler)
+static void LinkPartnerHandleDMA3Transfer(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandlePlayBGM(u32 battler)
+static void LinkPartnerHandlePlayBGM(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleCmd32(u32 battler)
+static void LinkPartnerHandleCmd32(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleTwoReturnValues(u32 battler)
+static void LinkPartnerHandleTwoReturnValues(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleChosenMonReturnValue(u32 battler)
+static void LinkPartnerHandleChosenMonReturnValue(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleOneReturnValue(u32 battler)
+static void LinkPartnerHandleOneReturnValue(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleOneReturnValue_Duplicate(u32 battler)
+static void LinkPartnerHandleOneReturnValue_Duplicate(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleClearUnkVar(u32 battler)
+static void LinkPartnerHandleClearUnkVar(enum BattlerId battler)
 {
     gUnusedControllerStruct.unk = 0;
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleSetUnkVar(u32 battler)
+static void LinkPartnerHandleSetUnkVar(enum BattlerId battler)
 {
     gUnusedControllerStruct.unk = gBattleResources->bufferA[battler][1];
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleClearUnkFlag(u32 battler)
+static void LinkPartnerHandleClearUnkFlag(enum BattlerId battler)
 {
     gUnusedControllerStruct.flag = 0;
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleToggleUnkFlag(u32 battler)
+static void LinkPartnerHandleToggleUnkFlag(enum BattlerId battler)
 {
     gUnusedControllerStruct.flag ^= 1;
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleHitAnimation(u32 battler)
+static void LinkPartnerHandleHitAnimation(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].invisible == TRUE)
     {
@@ -1433,12 +1433,12 @@ static void LinkPartnerHandleHitAnimation(u32 battler)
     }
 }
 
-static void LinkPartnerHandleCantSwitch(u32 battler)
+static void LinkPartnerHandleCantSwitch(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandlePlaySE(u32 battler)
+static void LinkPartnerHandlePlaySE(enum BattlerId battler)
 {
     s8 pan;
 
@@ -1451,13 +1451,13 @@ static void LinkPartnerHandlePlaySE(u32 battler)
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandlePlayFanfare(u32 battler)
+static void LinkPartnerHandlePlayFanfare(enum BattlerId battler)
 {
     PlayFanfare(gBattleResources->bufferA[battler][1] | (gBattleResources->bufferA[battler][2] << 8));
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleFaintingCry(u32 battler)
+static void LinkPartnerHandleFaintingCry(enum BattlerId battler)
 {
     u16 species = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_SPECIES);
 
@@ -1465,14 +1465,14 @@ static void LinkPartnerHandleFaintingCry(u32 battler)
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleIntroSlide(u32 battler)
+static void LinkPartnerHandleIntroSlide(enum BattlerId battler)
 {
     HandleIntroSlide(gBattleResources->bufferA[battler][1]);
     gIntroSlideFlags |= 1;
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleIntroTrainerBallThrow(u32 battler)
+static void LinkPartnerHandleIntroTrainerBallThrow(enum BattlerId battler)
 {
     u8 paletteNum;
     u8 taskId;
@@ -1523,7 +1523,7 @@ static void Task_StartSendOutAnim(u8 taskId)
     }
     else
     {
-        u32 battler = gTasks[taskId].data[0];
+        enum BattlerId battler = gTasks[taskId].data[0];
 
         if (!IsDoubleBattle() || (gBattleTypeFlags & BATTLE_TYPE_MULTI))
         {
@@ -1532,7 +1532,7 @@ static void Task_StartSendOutAnim(u8 taskId)
         }
         else
         {
-            u32 battlerPartner;
+            enum BattlerId battlerPartner;
 
             gBattleResources->bufferA[battler][1] = gBattlerPartyIndexes[battler];
             StartSendOutAnim(battler, FALSE);
@@ -1547,7 +1547,7 @@ static void Task_StartSendOutAnim(u8 taskId)
     }
 }
 
-static void LinkPartnerHandleDrawPartyStatusSummary(u32 battler)
+static void LinkPartnerHandleDrawPartyStatusSummary(enum BattlerId battler)
 {
     if (gBattleResources->bufferA[battler][1] != 0 && GetBattlerSide(battler) == B_SIDE_PLAYER)
     {
@@ -1566,7 +1566,7 @@ static void LinkPartnerHandleDrawPartyStatusSummary(u32 battler)
     }
 }
 
-static void EndDrawPartyStatusSummary(u32 battler)
+static void EndDrawPartyStatusSummary(enum BattlerId battler)
 {
     if (gBattleSpritesDataPtr->healthBoxesData[battler].partyStatusDelayTimer++ > 92)
     {
@@ -1575,19 +1575,19 @@ static void EndDrawPartyStatusSummary(u32 battler)
     }
 }
 
-static void LinkPartnerHandleHidePartyStatusSummary(u32 battler)
+static void LinkPartnerHandleHidePartyStatusSummary(enum BattlerId battler)
 {
     if (gBattleSpritesDataPtr->healthBoxesData[battler].partyStatusSummaryShown)
         gTasks[gBattlerStatusSummaryTaskId[battler]].func = Task_HidePartyStatusSummary;
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleEndBounceEffect(u32 battler)
+static void LinkPartnerHandleEndBounceEffect(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleSpriteInvisibility(u32 battler)
+static void LinkPartnerHandleSpriteInvisibility(enum BattlerId battler)
 {
     if (IsBattlerSpritePresent(battler))
     {
@@ -1597,7 +1597,7 @@ static void LinkPartnerHandleSpriteInvisibility(u32 battler)
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleBattleAnimation(u32 battler)
+static void LinkPartnerHandleBattleAnimation(enum BattlerId battler)
 {
     if (!IsBattleSEPlaying(battler))
     {
@@ -1613,17 +1613,17 @@ static void LinkPartnerHandleBattleAnimation(u32 battler)
     }
 }
 
-static void LinkPartnerHandleLinkStandbyMsg(u32 battler)
+static void LinkPartnerHandleLinkStandbyMsg(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleResetActionMoveSelection(u32 battler)
+static void LinkPartnerHandleResetActionMoveSelection(enum BattlerId battler)
 {
     LinkPartnerBufferExecCompleted(battler);
 }
 
-static void LinkPartnerHandleEndLinkBattle(u32 battler)
+static void LinkPartnerHandleEndLinkBattle(enum BattlerId battler)
 {
     gBattleOutcome = gBattleResources->bufferA[battler][1];
     FadeOutMapMusic(5);
@@ -1632,6 +1632,6 @@ static void LinkPartnerHandleEndLinkBattle(u32 battler)
     gBattlerControllerFuncs[battler] = SetBattleEndCallbacks; //not sure why had removed
 }
 
-static void LinkPartnerCmdEnd(u32 battler)
+static void LinkPartnerCmdEnd(enum BattlerId battler)
 {
 }

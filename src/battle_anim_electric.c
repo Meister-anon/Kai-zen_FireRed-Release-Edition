@@ -646,7 +646,7 @@ static void AnimCirclingElectricShock(struct Sprite *sprite)
 // arg 6: increase battler sprite priority by 1
 void AnimSparkElectricity(struct Sprite *sprite)
 {
-    u8 battler;
+    enum BattlerId battler;
     u32 matrixNum;
     s16 sineVal;
 
@@ -760,7 +760,7 @@ static void AnimThunderboltOrb(struct Sprite *sprite)
 
 void AnimSparkElectricityFlashing(struct Sprite *sprite)
 {
-    u8 battler;
+    enum BattlerId battler;
 
     sprite->data[0] = gBattleAnimArgs[3];
     if (gBattleAnimArgs[7] & 0x8000)

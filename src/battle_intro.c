@@ -488,7 +488,7 @@ void DrawBattlerOnBg(int bgId, u8 x, u8 y, enum BattlerPosition battlerPosition,
 }
 
 // not used
-static void sub_80BCFCC(u8 arg0, u8 arg1, u8 battlerPosition, u8 arg3, u8 arg4, u16 arg5, u8 arg6, u8 arg7)
+static void sub_80BCFCC(u8 arg0, u8 arg1, enum BattlerId battlerPosition, u8 arg3, u8 arg4, u16 arg5, u8 arg6, u8 arg7)
 {
     s32 i, j, offset;
 

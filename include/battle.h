@@ -54,7 +54,7 @@
 // The arguments can be accessed as cmd->failInstr and cmd->move.
 // gBattlescriptCurrInstr = cmd->nextInstr; advances to the next instruction.
 #define CMD_ARGS(...) const struct __attribute__((packed)) { u8 opcode; RECURSIVELY(R_FOR_EACH(APPEND_SEMICOLON, __VA_ARGS__)) const u8 nextInstr[0]; } *const cmd UNUSED = (const void *)gBattlescriptCurrInstr
-#define VARIOUS_ARGS(...) CMD_ARGS(u8 battler, u8 id, ##__VA_ARGS__)
+#define VARIOUS_ARGS(...) CMD_ARGS(enum BattlerId battler, u8 id, ##__VA_ARGS__)
 #define NATIVE_ARGS(...) CMD_ARGS(void (*func)(void), ##__VA_ARGS__)
 
 // Used to exclude moves learned temporarily by Transform or Mimic
@@ -625,7 +625,7 @@ struct MegaEvolutionData //could change to altered/elevated/termporary state str
     u8 primalRevertedPartyIds[2]; // As flags using gBitTable;
     u16 primalRevertedSpecies[MAX_BATTLERS_COUNT];
     u16 playerPrimalRevertedSpecies;
-    u8 battlerId;
+    enum BattlerId battlerId;
     bool8 playerSelect;
     u8 triggerSpriteId;
     bool8 isWishMegaEvo:1;
@@ -685,7 +685,7 @@ struct FutureSight
     u16 move;
     u16 counter:5;
     u16 counter2:5;
-    u16 battlerIndex:3;
+    enum BattlerId battlerIndex:3;
     u16 partyIndex:3;
 };
 
@@ -774,7 +774,7 @@ struct EventStates
     enum BattlerId atkCancelerBattler:4;
     enum BattleIntroStates battleIntro:8;
     enum SwitchInEvents switchIn:8;
-    u32 battlerSwitchIn:8; // SwitchInFirstEventBlock, SwitchInSecondEventBlock
+    enum BattlerId battlerSwitchIn:8; // SwitchInFirstEventBlock, SwitchInSecondEventBlock
     u32 moveEndBlock:8;
 };
 
@@ -811,7 +811,7 @@ struct BattleStruct //fill in unused fields when porting
     u8 seedSetterBattleId[MAX_BATTLERS_COUNT]; //scrapped previous entry was wrappedby think can use store leechseed battler, instead of weird attacker swap logic?, if works gains +2 spaces in status3
     u8 infatuatedwithBattleId[MAX_BATTLERS_COUNT];
     u8 sentInPokes;
-    u8 battlerPreventingSwitchout;
+    enum BattlerId battlerPreventingSwitchout;
     u8 moneyMultiplier;
     u8 moneyMultiplierMove : 1;
     u8 overworldWeatherDone:1;
@@ -826,9 +826,9 @@ struct BattleStruct //fill in unused fields when porting
     u16 expValue;
     u8 scriptPartyIdx; // for printing the nickname
     bool8 selectionScriptFinished[MAX_BATTLERS_COUNT];
-    u8 battlerPartyIndexes[MAX_BATTLERS_COUNT];
+    enum BattlerId battlerPartyIndexes[MAX_BATTLERS_COUNT];
     u8 monToSwitchIntoId[MAX_BATTLERS_COUNT];
-    u8 battlerPartyOrders[MAX_BATTLERS_COUNT][3];
+    enum BattlerId battlerPartyOrders[MAX_BATTLERS_COUNT][3];
     u8 caughtMonNick[POKEMON_NAME_LENGTH + 1];
     //u8 caughtMonNick[POKEMON_NAME_LENGTH + 1][2]; //think this will work for catching multiple mon i.e doubles
     struct MegaEvolutionData mega;
@@ -1091,9 +1091,9 @@ struct BattleScripting  //remember expanding this costs ewram
     u8 animArg2;
     u16 multihitMoveEffect;
     u8 atk49_state; //move end
-    u8 battlerWithAbility;
+    enum BattlerId battlerWithAbility;
     u8 statChangeId; //new for dynamic stat set, this stat id will be passed to statchanger
-    u8 battler;
+    enum BattlerId battler;
     u8 animTurn;
     u8 animTargetsHit;
     u8 statChanger;
@@ -1268,7 +1268,7 @@ struct BattleHealthboxInfo
 {
     u8 partyStatusSummaryShown:1;
     u8 healthboxIsBouncing:1;
-    u8 battlerIsBouncing:1;
+    enum BattlerId battlerIsBouncing:1;
     u8 ballAnimActive:1; // 0x8
     u8 statusAnimActive:1; // x10
     u8 animFromTableActive:1; // x20
@@ -1280,7 +1280,7 @@ struct BattleHealthboxInfo
     u8 waitForCry:1;
     u8 healthboxSlideInStarted:1;
     u8 healthboxBounceSpriteId;
-    u8 battlerBounceSpriteId;
+    enum BattlerId battlerBounceSpriteId;
     u8 animationState;
     u8 partyStatusDelayTimer;
     u8 matrixNum;
@@ -1392,7 +1392,7 @@ extern u8 gBattlerPositions[MAX_BATTLERS_COUNT];
 extern u8 gHealthboxSpriteIds[MAX_BATTLERS_COUNT];
 extern u8 gBattleOutcome;  //no idea why I had removed this
 extern u8 gBattleMonForms[MAX_BATTLERS_COUNT]; //vsonic important not used in EE
-extern void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(u32 battler);
+extern void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(enum BattlerId battler);
 extern u32 gBattleControllerExecFlags;
 extern u8 gActionSelectionCursor[MAX_BATTLERS_COUNT];
 extern void (*gPreBattleCallback1)(void);
@@ -1460,14 +1460,14 @@ extern u16 gRandomTurnNumber;
 
 extern const u16 gProtectSuccessRates[NUM_PROTECT_ODDS];
 
-static inline u32 GetBattlerPosition(u32 battler)
+static inline u32 GetBattlerPosition(enum BattlerId battler)
 {
     return gBattlerPositions[battler];
 }
 
 static inline u32 GetBattlerAtPosition(u32 position)
 {
-    u32 battler;
+    enum BattlerId battler;
     for (battler = 0; battler < gBattlersCount; battler++)
     {
         if (GetBattlerPosition(battler) == position)
@@ -1476,37 +1476,37 @@ static inline u32 GetBattlerAtPosition(u32 position)
     return battler;
 }
 
-static inline u32 GetPartnerBattler(u32 battler)
+static inline u32 GetPartnerBattler(enum BattlerId battler)
 {
     return GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)));
 }
 
-static inline u32 GetOppositeBattler(u32 battler)
+static inline u32 GetOppositeBattler(enum BattlerId battler)
 {
     return GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerPosition(battler)));
 }
 
-static inline u32 GetBattlerSide(u32 battler)
+static inline u32 GetBattlerSide(enum BattlerId battler)
 {
     return GetBattlerPosition(battler) & BIT_SIDE;
 }
 
-static inline u32 IsOnPlayerSide(u32 battler)
+static inline u32 IsOnPlayerSide(enum BattlerId battler)
 {
     return GetBattlerSide(battler) == B_SIDE_PLAYER;
 }
 
-static inline bool32 IsBattlerAlly(u32 battlerAtk, u32 battlerDef)
+static inline bool32 IsBattlerAlly(enum BattlerId battlerAtk, enum BattlerId battlerDef)
 {
     return GetBattlerSide(battlerAtk) == GetBattlerSide(battlerDef);
 }
 
-static inline u32 GetOpposingSideBattler(u32 battler)
+static inline u32 GetOpposingSideBattler(enum BattlerId battler)
 {
     return GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerSide(battler)));
 }
 
-static inline struct Pokemon* GetBattlerMon(u32 battler)
+static inline struct Pokemon* GetBattlerMon(enum BattlerId battler)
 {
     u32 index = gBattlerPartyIndexes[battler];
     return !IsOnPlayerSide(battler) ? &gEnemyParty[index] : &gPlayerParty[index];
@@ -1518,7 +1518,7 @@ static inline struct Pokemon *GetSideParty(u32 side)
     return side == B_SIDE_PLAYER ? gPlayerParty : gEnemyParty;
 }
 
-static inline struct Pokemon *GetBattlerParty(u32 battlerId)
+static inline struct Pokemon *GetBattlerParty(enum BattlerId battlerId)
 {
     return GetSideParty(GetBattlerSide(battlerId));
 }
@@ -1560,7 +1560,7 @@ static inline bool32 IsSpreadMove(u32 moveTarget)
     return IsDoubleBattle() && (moveTarget == TARGET_BOTH || moveTarget == TARGET_FOES_AND_ALLY);
 }
 
-static inline u32 GetChosenMoveFromPosition(u32 battler)
+static inline u32 GetChosenMoveFromPosition(enum BattlerId battler)
 {
     return gBattleMons[battler].moves[gBattleStruct->chosenMovePositions[battler]];
 }
@@ -1591,13 +1591,13 @@ static inline bool32 IsSureHitAbility(enum Ability ability)
 //do my anti heal effect,
 //hmm conversly I could just include battler ability on field check
 //and do and make it skip the negative 1 hmm ok!
-static inline void SetPassiveDamageAmount(u32 battler, u32 value)
+static inline void SetPassiveDamageAmount(enum BattlerId battler, u32 value)
 {
     value = max(value, 1);
     gBattleStruct->passiveHpUpdate[battler] = value;
 }
 
-static inline void SetHealAmount(u32 battler, u32 value)
+static inline void SetHealAmount(enum BattlerId battler, u32 value)
 {
     value = max(value, 1);
     gBattleStruct->passiveHpUpdate[battler] = value;
@@ -1615,17 +1615,17 @@ static inline u32 GetMoveBaseType(u32 move)
     return gMovesInfo[move].type;
 }
 
-static inline bool32 IsBattlerAtMaxHp(u32 battler)
+static inline bool32 IsBattlerAtMaxHp(enum BattlerId battler)
 {
     return gBattleMons[battler].hp == gBattleMons[battler].maxHP;
 }
 
-static inline bool32 IsBattlerAboveHalfHP(u32 battler)
+static inline bool32 IsBattlerAboveHalfHP(enum BattlerId battler)
 {
     return gBattleMons[battler].hp > (gBattleMons[battler].maxHP / 2);
 }
 
-static inline bool32 DoesProtectFail(u32 battler)
+static inline bool32 DoesProtectFail(enum BattlerId battler)
 {
     return (gBattleStruct->battlerState[battler].protectSuccessiveFail
     || gBattleStruct->battlerState[battler].protectTurnOrderFail);
@@ -1661,7 +1661,7 @@ static inline u32 CanActivateGulpMissle(u32 move)
 }
 
 
-static inline bool32 DoesTargetAbilityBlockCrit(u32 battlerAtk, u32 battlerDef, u32 move, enum Ability abilityDef)
+static inline bool32 DoesTargetAbilityBlockCrit(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move, enum Ability abilityDef)
 {
 
      return (abilityDef == ABILITY_BATTLE_ARMOR
@@ -1777,7 +1777,7 @@ static inline bool32 IsAirborneType(enum Type type)
     return FALSE;
 }
 
-static inline bool32 IsbattlerDivergentTypeOfMove(u32 battler, enum Type moveType)
+static inline bool32 IsbattlerDivergentTypeOfMove(enum BattlerId battler, enum Type moveType)
 {
     if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING)
     && moveType == TYPE_WIND)
@@ -1804,7 +1804,7 @@ static inline bool32 IsbattlerDivergentTypeOfMove(u32 battler, enum Type moveTyp
     
 }
 
-static inline bool32 DoesBattlerGetStabOnMove(u32 battler, enum Type moveType)
+static inline bool32 DoesBattlerGetStabOnMove(enum BattlerId battler, enum Type moveType)
 {
     if (IS_BATTLER_OF_TYPE(battler, moveType)
     || IsbattlerDivergentTypeOfMove(battler, moveType))
@@ -1819,7 +1819,7 @@ static inline bool32 DoesBattlerGetStabOnMove(u32 battler, enum Type moveType)
 //remove pointer logic for u32 maybe fine now
 //if works can prob use to cleanup infatuation stuff
 //idk if personality can be zero need find out
-static inline u32 GetBattlerPersonality(u32 battler)
+static inline u32 GetBattlerPersonality(enum BattlerId battler)
 {
     u32 index = gBattlerPartyIndexes[battler];
     return !IsOnPlayerSide(battler) ? GetMonData(&gEnemyParty[index], MON_DATA_PERSONALITY, NULL) : GetMonData(&gPlayerParty[index], MON_DATA_PERSONALITY, NULL);

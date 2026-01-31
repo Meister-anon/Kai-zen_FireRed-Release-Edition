@@ -246,18 +246,18 @@ struct BattleMsgData
     u8 textBuffs[3][TEXT_BUFF_ARRAY_COUNT];
 };
 
-void BufferStringBattle(u32 battler, enum StringID stringID);
+void BufferStringBattle(enum BattlerId battler, enum StringID stringID);
 u32 BattleStringExpandPlaceholdersToDisplayedString(const u8 *src);
 u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst);
 void BattleHandleAddTextPrinter(const u8 *text, u8 arg1);
-void SetPpNumbersPaletteInMoveSelection(u32 battler);
+void SetPpNumbersPaletteInMoveSelection(enum BattlerId battler);
 u8 GetCurrentPpToMaxPpState(u8 currentPp, u8 maxPp);
 void BattlePutTextOnWindow(const u8* text, u8 windowId_flags);
 bool8 BattleStringShouldBeColored(u16);
 
-void SetMoveTypePaletteInMoveSelection_Singles(u32 battler, u16 move, u8 moveType); //adapted from PP version
-u8 GetTypeEffectivenessState_Singles(u32 battler, u16 move, u8 moveType);
-void SetMoveTypePaletteInMoveSelection_Doubles(u32 battler, u16 move, u8 moveType); //sets target id for color
+void SetMoveTypePaletteInMoveSelection_Singles(enum BattlerId battler, u16 move, u8 moveType); //adapted from PP version
+u8 GetTypeEffectivenessState_Singles(enum BattlerId battler, u16 move, u8 moveType);
+void SetMoveTypePaletteInMoveSelection_Doubles(enum BattlerId battler, u16 move, u8 moveType); //sets target id for color
 u8 GetTypeEffectivenessState_Doubles(u16 move, u8 moveType, u8 targetId);
 extern struct BattleMsgData *gBattleMsgDataPtr;
 

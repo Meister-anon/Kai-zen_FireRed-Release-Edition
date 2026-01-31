@@ -5211,7 +5211,7 @@ goto WEATHER_CONFIG_STUFFF //weather logic
     checked EE believe I need to reaple all instances of
     cmd->battler to get probper battler from battlescript
 
-    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
     add surf speed up change to misty text as she gives surf
     -done
@@ -12771,7 +12771,7 @@ goto TYPE_MODIFIER_ADJUSTMENTS //place for special case logic that overwrites no
 * change mudsport and watersport to be terrain clears, will still do 
 * normal move effects but they will also clear terrain *idea from Sigel - 
 * 
-* change terrain function elements TryChangeBattleTerrain(u32 battler, u32 statusFlag, u8 *timer)
+* change terrain function elements TryChangeBattleTerrain(enum BattlerId battler, u32 statusFlag, u8 *timer)
 * to work like changeweather function replace timer pointer with true false for viaAbility - NULL doesn't need doing just adjust end turn terrain for abilities
 * 
 * so I can setup logic for terrain surge abilities  potentially make certain side wide type moves terrain clears as well

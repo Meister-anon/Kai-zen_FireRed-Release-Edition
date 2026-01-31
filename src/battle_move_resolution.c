@@ -16,7 +16,7 @@ static void ValidateBattlers(void);
 static u32 GetOriginallyUsedMove(u32 chosenMove);
 static void SetSameMoveTurnValues(u32 moveEffect);
 static void TryClearChargeVolatile(u32 moveType);
-static inline bool32 IsBattlerUsingBeakBlast(u32 battler);
+static inline bool32 IsBattlerUsingBeakBlast(enum BattlerId battler);
 
 // Attackcanceler
 
@@ -270,7 +270,7 @@ static enum MoveEndResult MoveEnd_StatusImmunityAbilities(void)
 {
     enum MoveEndResult result = MOVEEND_STEP_CONTINUE;
 
-    for (u32 battler = 0; battler < gBattlersCount; battler++)
+    for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
     {
         if (AbilityBattleEffects(ABILITYEFFECT_IMMUNITY, battler, 0, 0, TRUE))
             result = MOVEEND_STEP_RUN_SCRIPT;
@@ -375,7 +375,7 @@ static enum MoveEndResult MoveEnd_Symbiosis(void)
 {
     enum MoveEndResult result = MOVEEND_STEP_CONTINUE;
 
-    for (u32 battler = 0; battler < gBattlersCount; battler++)
+    for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
     {
         if ((gSpecialStatuses[battler].berryReduced
               || (GetConfig(CONFIG_SYMBIOSIS_GEMS) >= GEN_7 && gSpecialStatuses[battler].gemBoost))
@@ -550,7 +550,7 @@ static enum MoveEndResult MoveEnd_SkyDropConfuse(void)
 {
     enum MoveEndResult result = MOVEEND_STEP_CONTINUE;
 
-    for (u32 battler = 0; battler < gBattlersCount; battler++)
+    for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
     {
         if (gBattleStruct->skyDropTargets[battler] == SKY_DROP_RELEASED_TARGET)
         {
@@ -1187,7 +1187,7 @@ static enum MoveEndResult MoveEnd_ColorChange(void)
 {
     while (gBattleStruct->eventState.moveEndBattler < gBattlersCount)
     {
-        u32 battler = gBattleStruct->eventState.moveEndBattler++;
+        enum BattlerId battler = gBattleStruct->eventState.moveEndBattler++;
         if (battler == gBattlerAttacker)
             continue;
         if (AbilityBattleEffects(ABILITYEFFECT_COLOR_CHANGE, battler, GetBattlerAbility(battler), 0, TRUE))
@@ -1203,7 +1203,7 @@ static enum MoveEndResult MoveEnd_KeeMarangaHpThresholdItemTarget(void)
 {
     while (gBattleStruct->eventState.moveEndBattler < gBattlersCount)
     {
-        u32 battlerDef = gBattleStruct->eventState.moveEndBattler++;
+        enum BattlerId battlerDef = gBattleStruct->eventState.moveEndBattler++;
         if (battlerDef == gBattlerAttacker)
             continue;
         enum HoldEffect holdEffect = GetBattlerHoldEffect(battlerDef);
@@ -1237,12 +1237,12 @@ static enum MoveEndResult MoveEnd_RedCard(void)
 
     // Since we check if battler was damaged, we don't need to check move result.
     // In fact, doing so actually prevents multi-target moves from activating red card properly
-    u8 battlers[4] = {0, 1, 2, 3};
+    enum BattlerId battlers[4] = {0, 1, 2, 3};
     SortBattlersBySpeed(battlers, FALSE);
 
     for (u32 i = 0; i < gBattlersCount; i++)
     {
-        u32 battler = battlers[i];
+        enum BattlerId battler = battlers[i];
         // Search for fastest hit pokemon with a red card
         // Attacker is the one to be switched out, battler is one with red card
         if (redCardBattlers & (1u << battler)
@@ -1277,7 +1277,7 @@ static enum MoveEndResult MoveEnd_RedCard(void)
     return result;
 }
 
-static inline bool32 CanEjectButtonTrigger(u32 battlerAtk, u32 battlerDef, enum BattleMoveEffects moveEffect)
+static inline bool32 CanEjectButtonTrigger(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum BattleMoveEffects moveEffect)
 {
     if (GetBattlerHoldEffect(battlerDef) == HOLD_EFFECT_EJECT_BUTTON
      && battlerAtk != battlerDef
@@ -1315,13 +1315,13 @@ static enum MoveEndResult MoveEnd_EjectButton(void)
     for (u32 i = 0; i < gBattlersCount; i++)
         gBattleMons[i].volatiles.tryEjectPack = FALSE;
 
-    u8 battlers[4] = {0, 1, 2, 3};
+    enum BattlerId battlers[4] = {0, 1, 2, 3};
     if (numEjectButtonBattlers > 1)
         SortBattlersBySpeed(battlers, FALSE);
 
     for (u32 i = 0; i < gBattlersCount; i++)
     {
-        u32 battler = battlers[i];
+        enum BattlerId battler = battlers[i];
 
         if (!(ejectButtonBattlers & 1u << battler))
             continue;
@@ -1393,13 +1393,13 @@ static enum MoveEndResult MoveEnd_EmergencyExit(void)
     for (u32 i = 0; i < gBattlersCount; i++)
         gBattleMons[i].volatiles.tryEjectPack = FALSE;
 
-    u8 battlers[4] = {0, 1, 2, 3};
+    enum BattlerId battlers[4] = {0, 1, 2, 3};
     if (numEmergencyExitBattlers > 1)
         SortBattlersBySpeed(battlers, FALSE);
 
     for (u32 i = 0; i < gBattlersCount; i++)
     {
-        u32 battler = battlers[i];
+        enum BattlerId battler = battlers[i];
 
         if (!(emergencyExitBattlers & 1u << battler))
             continue;
@@ -1417,7 +1417,7 @@ static enum MoveEndResult MoveEnd_EmergencyExit(void)
     return result;
 }
 
-static inline bool32 CanEjectPackTrigger(u32 battlerAtk, u32 battlerDef, enum BattleMoveEffects moveEffect)
+static inline bool32 CanEjectPackTrigger(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum BattleMoveEffects moveEffect)
 {
     if (gBattleMons[battlerDef].volatiles.tryEjectPack
      && GetBattlerHoldEffect(battlerDef) == HOLD_EFFECT_EJECT_PACK
@@ -1452,7 +1452,7 @@ static enum MoveEndResult MoveEnd_EjectPack(void)
         return result;
     }
 
-    u8 battlers[4] = {0, 1, 2, 3};
+    enum BattlerId battlers[4] = {0, 1, 2, 3};
     if (numEjectPackBattlers > 1)
         SortBattlersBySpeed(battlers, FALSE);
 
@@ -1461,7 +1461,7 @@ static enum MoveEndResult MoveEnd_EjectPack(void)
 
     for (u32 i = 0; i < gBattlersCount; i++)
     {
-        u32 battler = battlers[i];
+        enum BattlerId battler = battlers[i];
 
         if (!(ejectPackBattlers & 1u << battler))
             continue;
@@ -1501,7 +1501,7 @@ static enum MoveEndResult MoveEnd_ItemsEffectsAll(void)
 {
     while (gBattleStruct->eventState.moveEndBattler < gBattlersCount)
     {
-        u32 battler = gBattleStruct->eventState.moveEndBattler++;
+        enum BattlerId battler = gBattleStruct->eventState.moveEndBattler++;
         enum HoldEffect holdEffect = GetBattlerHoldEffect(battler);
         if (ItemBattleEffects(battler, 0, holdEffect, IsOnStatusChangeActivation)
          || ItemBattleEffects(battler, 0, holdEffect, IsOnHpThresholdActivation))
@@ -1517,7 +1517,7 @@ static enum MoveEndResult MoveEnd_WhiteHerb(void)
 {
     while (gBattleStruct->eventState.moveEndBattler < gBattlersCount)
     {
-        u32 battler = gBattleStruct->eventState.moveEndBattler++;
+        enum BattlerId battler = gBattleStruct->eventState.moveEndBattler++;
         if (!IsBattlerAlive(battler))
             continue;
 
@@ -1534,7 +1534,7 @@ static enum MoveEndResult MoveEnd_Opportunist(void)
 {
     while (gBattleStruct->eventState.moveEndBattler < gBattlersCount)
     {
-        u32 battler = gBattleStruct->eventState.moveEndBattler++;
+        enum BattlerId battler = gBattleStruct->eventState.moveEndBattler++;
         if (!IsBattlerAlive(battler))
             continue;
         if (AbilityBattleEffects(ABILITYEFFECT_OPPORTUNIST, battler, GetBattlerAbility(battler), 0, TRUE))
@@ -1550,7 +1550,7 @@ static enum MoveEndResult MoveEnd_MirrorHerb(void)
 {
     while (gBattleStruct->eventState.moveEndBattler < gBattlersCount)
     {
-        u32 battler = gBattleStruct->eventState.moveEndBattler++;
+        enum BattlerId battler = gBattleStruct->eventState.moveEndBattler++;
         if (!IsBattlerAlive(battler))
             continue;
 
@@ -1573,11 +1573,11 @@ static enum MoveEndResult MoveEnd_Pickpocket(void)
       && IsMoveMakingContact(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker), gCurrentMove) // Pickpocket requires contact
       && !IsBattlerUnaffectedByMove(gBattlerTarget)) // Obviously attack needs to have worked
     {
-        u8 battlers[4] = {0, 1, 2, 3};
+        enum BattlerId battlers[4] = {0, 1, 2, 3};
         SortBattlersBySpeed(battlers, FALSE); // Pickpocket activates for fastest mon without item
         for (u32 i = 0; i < gBattlersCount; i++)
         {
-            u8 battler = battlers[i];
+            enum BattlerId battler = battlers[i];
             // Attacker is mon who made contact, battler is mon with pickpocket
             if (battler != gBattlerAttacker                                                     // Cannot pickpocket yourself
               && GetBattlerAbility(battler) == ABILITY_PICKPOCKET                               // Target must have pickpocket ability
@@ -1660,7 +1660,7 @@ static enum MoveEndResult MoveEnd_ThirdMoveBlock(void)
 
 static enum MoveEndResult MoveEnd_ChangedItems(void)
 {
-    for (u32 battler = 0; battler < gBattlersCount; battler++)
+    for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
     {
         if (gBattleStruct->changedItems[battler] != ITEM_NONE)
         {
@@ -1749,7 +1749,7 @@ static enum MoveEndResult MoveEnd_Dancer(void)
 
     if (IsDanceMove(gCurrentMove) && !gBattleStruct->snatchedMoveIsUsed)
     {
-        u32 battler, nextDancer = 0;
+        enum BattlerId battler, nextDancer = 0;
         bool32 hasDancerTriggered = FALSE;
 
         for (battler = 0; battler < gBattlersCount; battler++)
@@ -1951,14 +1951,14 @@ static void TryClearChargeVolatile(u32 moveType)
     if (moveType == TYPE_ELECTRIC && gBattleMons[gBattlerAttacker].volatiles.chargeTimer == 1)
         gBattleMons[gBattlerAttacker].volatiles.chargeTimer = 0;
 
-    for (u32 battler = 0; battler < gBattlersCount; battler++)
+    for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
     {
         if (gBattleMons[battler].volatiles.chargeTimer == 2) // Has been set this turn by move
             gBattleMons[battler].volatiles.chargeTimer--;
     }
 }
 
-static inline bool32 IsBattlerUsingBeakBlast(u32 battler)
+static inline bool32 IsBattlerUsingBeakBlast(enum BattlerId battler)
 {
     if (gChosenActionByBattler[battler] != B_ACTION_USE_MOVE)
         return FALSE;

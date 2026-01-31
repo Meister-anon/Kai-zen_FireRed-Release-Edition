@@ -273,7 +273,7 @@ COMMON_DATA u8 gParticipatedInBattle = 0;
 COMMON_DATA u8 gHealthboxSpriteIds[MAX_BATTLERS_COUNT] = {0};
 COMMON_DATA u8 gMultiUsePlayerCursor = 0;
 COMMON_DATA u8 gNumberOfMovesToChoose = 0;
-COMMON_DATA void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(u32 battler) = {0};
+COMMON_DATA void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(enum BattlerId battler) = {0};
 COMMON_DATA u8 gBattleControllerData[MAX_BATTLERS_COUNT] = {0}; // Used by the battle controllers to store misc sprite/task IDs for each battler
 
 static const struct ScanlineEffectParams sIntroScanlineParams16Bit =
@@ -1441,7 +1441,7 @@ static void SetAllPlayersBerryData(void)
     {
         s32 numPlayers;
         struct BattleEnigmaBerry *src;
-        u8 battlerId;
+        enum BattlerId battlerId;
 
         if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
         {
@@ -1565,7 +1565,7 @@ void SetJudgmentTypeString(u8 type) //if type is normal skip the jugment string 
 //is set gBattleStruct->dynamicMoveType as typestorage argument
 //think don't need get_move_type macro before use
 //as this function is what sets value of dynamicMoveType to begin with
-void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage)
+void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage)
 {
     u32 ateType, attackerAbility;
     u16 holdEffect = GetBattlerHoldEffect(battlerAtk, TRUE);
@@ -1733,7 +1733,7 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk, u8 *typeStorage)
 //could change this make use function argument to instead of actually setting dynamic type,
 //would be able to use to test what type will be, could be used everywhere
 //without needing to worry about actually setting the type
-u8 ReturnMoveType(u32 move, u32 battlerAtk) 
+u8 ReturnMoveType(u32 move, enum BattlerId battlerAtk) 
 {
     s32 typeBits;
     u32 moveType, ateType, attackerAbility;
@@ -3303,7 +3303,7 @@ static void SpriteCB_Unused_8011E28_Step(struct Sprite *sprite)
 
 void SpriteCB_FaintOpponentMon(struct Sprite *sprite)
 {
-    u8 battler = sprite->sBattler;
+    enum BattlerId battler = sprite->sBattler;
     u16 species;
     u8 yOffset;
 
@@ -3439,7 +3439,7 @@ void SpriteCB_FaintSlideAnim(struct Sprite *sprite)
 #define sBouncerSpriteId    data[3]
 #define sWhich              data[4]
 
-void DoBounceEffect(u8 battler, u8 which, s8 delta, s8 amplitude)
+void DoBounceEffect(enum BattlerId battler, u8 which, s8 delta, s8 amplitude)
 {
     u8 invisibleSpriteId;
     u8 bouncerSpriteId;
@@ -3479,7 +3479,7 @@ void DoBounceEffect(u8 battler, u8 which, s8 delta, s8 amplitude)
     gSprites[bouncerSpriteId].y2 = 0;
 }
 
-void EndBounceEffect(u8 battler, u8 which)
+void EndBounceEffect(enum BattlerId battler, u8 which)
 {
     u8 bouncerSpriteId;
 
@@ -3563,7 +3563,7 @@ bool8 InBattleRunningActions() //just used for battle scene off w speed up
 
 static void BattleMainCB1(void)
 {
-    u32 battler;
+    enum BattlerId battler;
     gBattleMainFunc();
     for (battler = 0; battler < gBattlersCount; ++battler)
         gBattlerControllerFuncs[battler](battler);
@@ -3761,7 +3761,7 @@ static void BattleStartClearSetData(void)
 //have a lot of important stuff in file
 //thikn will attempt build without fully replacing file
 //so can test diff of ee stuff and mine
-void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
+void SwitchInClearSetData(enum BattlerId battler) //handles what gets reset on switchout
 {
     s32 i;
     struct DisableStruct disableStructCopy = gBattleMons[battler].volatiles;
@@ -3916,11 +3916,11 @@ void SwitchInClearSetData(u32 battler) //handles what gets reset on switchout
 }
 
 #define CLEARDATA_ON_FAINT
-const u8* FaintClearSetData(u32 battler) //see about make status1 not fade wen faint?
+const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not fade wen faint?
 {
     s32 i;
     const u8 *result = NULL;
-    u8 battlerSide = GetBattlerSide(battler);
+    enum BattlerId battlerSide = GetBattlerSide(battler);
     struct Pokemon *party;
 
     for (i = 0; i < NUM_BATTLE_STATS; ++i)
@@ -4108,7 +4108,7 @@ const u8* FaintClearSetData(u32 battler) //see about make status1 not fade wen f
 
 static void BattleIntroGetMonsData(void)
 {
-    u32 battler;
+    enum BattlerId battler;
     switch (gBattleCommunication[MULTIUSE_STATE])
     {
     case 0:
@@ -4132,7 +4132,7 @@ static void BattleIntroGetMonsData(void)
 
 static void BattleIntroPrepareBackgroundSlide(void)
 {
-    u32 battler;
+    enum BattlerId battler;
     if (gBattleControllerExecFlags == 0)
     {
         battler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
@@ -4154,7 +4154,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
 {
     u8 *ptr;
     s32 i;
-    u32 battler;
+    enum BattlerId battler;
     
 
     if (!gBattleControllerExecFlags)
@@ -4247,7 +4247,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
 static void BattleIntroDrawPartySummaryScreens(void)
 {
     s32 i;
-    u32 battler;
+    enum BattlerId battler;
     struct HpAndStatus hpStatus[PARTY_SIZE];
 
     if (!gBattleControllerExecFlags)
@@ -4317,7 +4317,7 @@ static void BattleIntroDrawPartySummaryScreens(void)
 
 static void BattleIntroPrintTrainerWantsToBattle(void)
 {
-    u32 battler;
+    enum BattlerId battler;
     if (!gBattleControllerExecFlags)
     {
         battler = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
@@ -4351,7 +4351,7 @@ static void BattleIntroPrintOpponentSendsOut(void)
 
 static void BattleIntroOpponentSendsOutMonAnimation(void)
 {
-    u32 battler;
+    enum BattlerId battler;
     if (!gBattleControllerExecFlags)
     {
         for (battler = 0; battler < gBattlersCount; ++battler)
@@ -4373,7 +4373,7 @@ static void BattleIntroOpponentSendsOutMonAnimation(void)
 
 static void BattleIntroRecordMonsToDex(void)
 {
-    u32 battler;
+    enum BattlerId battler;
     if (!gBattleControllerExecFlags)
     {
         for (battler = 0; battler < gBattlersCount; ++battler)
@@ -4435,7 +4435,7 @@ static void BattleIntroPlayerSendsOutMonAnimation(void)
 // not used
 static void UNUSED Unused_AutoProgressToSwitchInAnims(void)
 {
-    u32 battler;
+    enum BattlerId battler;
     if (!gBattleControllerExecFlags)
     {
         for (battler = 0; battler < gBattlersCount; ++battler)
@@ -4684,7 +4684,7 @@ void BattleTurnPassed(void) //after all moves used
 }
 
 #define RUN_LOGIC_PT1 //realized this isn't same as being able to switch need set that up
-u8 IsRunningFromBattleImpossible(u32 battler) // equal to emerald is ability preventing escape  put logic in here.
+u8 IsRunningFromBattleImpossible(enum BattlerId battler) // equal to emerald is ability preventing escape  put logic in here.
 {
     u8 holdEffect;
     u32 i;
@@ -4753,7 +4753,7 @@ u8 IsRunningFromBattleImpossible(u32 battler) // equal to emerald is ability pre
     return BATTLE_RUN_SUCCESS;
 }
 
-void UpdatePartyOwnerOnSwitch_NonMulti(u8 battler)
+void UpdatePartyOwnerOnSwitch_NonMulti(enum BattlerId battler)
 {
     s32 i;
     u8 r4, r1;
@@ -5127,7 +5127,7 @@ void SwapTurnOrder(u8 id1, u8 id2)
     SWAP(gBattlerByTurnOrder[id1], gBattlerByTurnOrder[id2], temp);
 }
 
-u32 GetBattlerTotalSpeedStat(u32 battler)
+u32 GetBattlerTotalSpeedStat(enum BattlerId battler)
 {
     u32 speed = gBattleMons[battler].speed; //activebattler /attacker
     u32 targetspeed = gBattleMons[gBattlerTarget].speed; //may work may not, for now use ability on opposing field
@@ -5297,7 +5297,7 @@ u32 GetBattlerTotalSpeedStat(u32 battler)
 //-personal note, need update getbattlertotalspeedstat  from getwhostriksfirst, or just use that
 //these loop all battlers, getwhotrikesfirst only uses 2, so prob need to adapat that function to use just 1 battler
 //argument and loop gbattlerscount
-void SortBattlersBySpeed(u8 *battlers, bool8 slowToFast)
+void SortBattlersBySpeed(enum BattlerId *battlers, bool8 slowToFast)
 {
     int i, j, currSpeed, currBattler;
     u16 speeds[4] = {0};
@@ -5340,7 +5340,7 @@ void SortBattlersBySpeed(u8 *battlers, bool8 slowToFast)
 //DONE, 
 //also //realized it only holds 2 battlers, so how does it work for doubles?
 //could be reads one side ata time, need check 
-u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves) 
+u8 GetWhoStrikesFirst(enum BattlerId battler1, enum BattlerId battler2, bool8 ignoreChosenMoves) 
 {
     u8 strikesFirst = 0;
     u32 speedBattler1 = 0, speedBattler2 = 0;
@@ -5599,8 +5599,8 @@ static void SetActionsAndBattlersTurnOrder(void)
             {
                 for (j = i + 1; j < gBattlersCount; ++j)
                 {
-                    u8 battler1 = gBattlerByTurnOrder[i];
-                    u8 battler2 = gBattlerByTurnOrder[j];
+                    enum BattlerId battler1 = gBattlerByTurnOrder[i];
+                    enum BattlerId battler2 = gBattlerByTurnOrder[j];
 
                     if (gActionsByTurnOrder[i] != B_ACTION_USE_ITEM
                      && gActionsByTurnOrder[j] != B_ACTION_USE_ITEM
@@ -5703,7 +5703,7 @@ static void SpecialStatusesClear(void) //intimidatedmon is a special status so t
 
 static void CheckFocusPunch_ClearVarsBeforeTurnStarts(void)
 {
-    u32 battler;
+    enum BattlerId battler;
 
     if (!(gHitMarker & HITMARKER_RUN))
     {
@@ -5837,7 +5837,7 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
     if (!(gHitMarker & HITMARKER_RUN))
     {
         u32 i;
-        u8 battlers[MAX_BATTLERS_COUNT];
+        enum BattlerId battlers[MAX_BATTLERS_COUNT];
 
         //PopulateArrayWithBattlers(battlers);
         SortBattlersBySpeed(battlers, FALSE);
@@ -5915,8 +5915,8 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
     {
         for (j = i + 1; j < gBattlersCount; j++)
         {
-            u32 battler1 = gBattlerByTurnOrder[i];
-            u32 battler2 = gBattlerByTurnOrder[j];
+            enum BattlerId battler1 = gBattlerByTurnOrder[i];
+            enum BattlerId battler2 = gBattlerByTurnOrder[j];
 
             if (gActionsByTurnOrder[i] == B_ACTION_USE_MOVE
                 && gActionsByTurnOrder[j] == B_ACTION_USE_MOVE)
@@ -6231,7 +6231,7 @@ static void FreeResetData_ReturnToOvOrDoEvolutions(void) //  this causes end bat
 }
 
 
-void TryResetProtectUseCounter(u32 battler)
+void TryResetProtectUseCounter(enum BattlerId battler)
 {
     u32 lastMove = gLastResultingMoves[battler];
     if (lastMove == MOVE_UNAVAILABLE)
@@ -6647,7 +6647,7 @@ static void HandleAction_UseItem(void)
 
 
 #define RUN_LOGIC_PT2 //feels like run logic is all over the place potentially clean up later
-bool8 TryRunFromBattle(u32 battler)
+bool8 TryRunFromBattle(enum BattlerId battler)
 {
     bool8 effect = FALSE;
     u8 holdEffect;
@@ -6997,8 +6997,8 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
         {
             for (j = i + 1; j < gBattlersCount; j++)
             {
-                u32 battler1 = gBattlerByTurnOrder[i];
-                u32 battler2 = gBattlerByTurnOrder[j];
+                enum BattlerId battler1 = gBattlerByTurnOrder[i];
+                enum BattlerId battler2 = gBattlerByTurnOrder[j];
 
                 if (gProtectStructs[battler1].quash || gProtectStructs[battler2].quash
                     || gProtectStructs[battler1].shellTrap || gProtectStructs[battler2].shellTrap)
@@ -7022,7 +7022,7 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
 }
 
 #define PRIORITY_EFFECTS
-s32 GetChosenMovePriority(u32 battler, u32 ability) //made u8 (in test build)
+s32 GetChosenMovePriority(enum BattlerId battler, u32 ability) //made u8 (in test build)
 {
     u16 move;
     gProtectStructs[battler].pranksterElevated = FALSE;
@@ -7043,7 +7043,7 @@ s32 GetChosenMovePriority(u32 battler, u32 ability) //made u8 (in test build)
 
 //updated w my custom logic and dropped lagging tail change
 //idea was dumb
-s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
+s32 GetBattleMovePriority(enum BattlerId battler, u32 ability, u32 move)
 {
     s32 priority = 0;
     u16 power = gDynamicBasePower != 0 ? gDynamicBasePower : gMovesInfo[move].power;
@@ -7220,7 +7220,7 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
 }
 
 
-bool8 IsPriorityElevatedviaAbility(u32 battler)
+bool8 IsPriorityElevatedviaAbility(enum BattlerId battler)
 {
     if (gProtectStructs[battler].pranksterElevated
     || gProtectStructs[battler].galewingsElevated

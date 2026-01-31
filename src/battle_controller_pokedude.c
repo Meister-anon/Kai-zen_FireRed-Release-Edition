@@ -27,7 +27,7 @@ struct PokedudeTextScriptHeader
     u8 btlcmd;
     u8 side;
     u16 stringid;
-    void (*callback)(u32 battler);
+    void (*callback)(enum BattlerId battler);
 };
 
 struct PokedudeBattlePartyInfo
@@ -40,88 +40,88 @@ struct PokedudeBattlePartyInfo
     u8 gender;
 };
 
-static void PokedudeHandleGetMonData(u32 battler);
-static void PokedudeHandleGetRawMonData(u32 battler);
-static void PokedudeHandleSetMonData(u32 battler);
-static void PokedudeHandleSetRawMonData(u32 battler);
-static void PokedudeHandleLoadMonSprite(u32 battler);
-static void PokedudeHandleSwitchInAnim(u32 battler);
-static void PokedudeHandleReturnMonToBall(u32 battler);
-static void PokedudeHandleDrawTrainerPic(u32 battler);
-static void PokedudeHandleTrainerSlide(u32 battler);
-static void PokedudeHandleTrainerSlideBack(u32 battler);
-static void PokedudeHandleFaintAnimation(u32 battler);
-static void PokedudeHandlePaletteFade(u32 battler);
-static void PokedudeHandleSuccessBallThrowAnim(u32 battler);
-static void PokedudeHandleBallThrowAnim(u32 battler);
-static void PokedudeHandlePause(u32 battler);
-static void PokedudeHandleMoveAnimation(u32 battler);
-static void PokedudeHandlePrintString(u32 battler);
-static void PokedudeHandlePrintSelectionString(u32 battler);
-static void PokedudeHandleChooseAction(u32 battler);
-static void PokedudeHandleUnknownYesNoBox(u32 battler);
-static void PokedudeHandleChooseMove(u32 battler);
-static void PokedudeHandleChooseItem(u32 battler);
-static void PokedudeHandleChoosePokemon(u32 battler);
-static void PokedudeHandleCmd23(u32 battler);
-static void PokedudeHandleHealthBarUpdate(u32 battler);
-static void PokedudeHandleExpUpdate(u32 battler);
-static void PokedudeHandleStatusIconUpdate(u32 battler);
-static void PokedudeHandleStatusAnimation(u32 battler);
-static void PokedudeHandleStatusXor(u32 battler);
-static void PokedudeHandleDataTransfer(u32 battler);
-static void PokedudeHandleDMA3Transfer(u32 battler);
-static void PokedudeHandlePlayBGM(u32 battler);
-static void PokedudeHandleCmd32(u32 battler);
-static void PokedudeHandleTwoReturnValues(u32 battler);
-static void PokedudeHandleChosenMonReturnValue(u32 battler);
-static void PokedudeHandleOneReturnValue(u32 battler);
-static void PokedudeHandleOneReturnValue_Duplicate(u32 battler);
-static void PokedudeHandleCmd37(u32 battler);
-static void PokedudeHandleCmd38(u32 battler);
-static void PokedudeHandleCmd39(u32 battler);
-static void PokedudeHandleCmd40(u32 battler);
-static void PokedudeHandleHitAnimation(u32 battler);
-static void PokedudeHandleCmd42(u32 battler);
-static void PokedudeHandlePlaySE(u32 battler);
-static void PokedudeHandlePlayFanfare(u32 battler);
-static void PokedudeHandleFaintingCry(u32 battler);
-static void PokedudeHandleIntroSlide(u32 battler);
-static void PokedudeHandleIntroTrainerBallThrow(u32 battler);
-static void PokedudeHandleDrawPartyStatusSummary(u32 battler);
-static void PokedudeHandleHidePartyStatusSummary(u32 battler);
-static void PokedudeHandleEndBounceEffect(u32 battler);
-static void PokedudeHandleSpriteInvisibility(u32 battler);
-static void PokedudeHandleBattleAnimation(u32 battler);
-static void PokedudeHandleLinkStandbyMsg(u32 battler);
-static void PokedudeHandleResetActionMoveSelection(u32 battler);
-static void PokedudeHandleCmd55(u32 battler);
-static void PokedudeCmdEnd(u32 battler);
+static void PokedudeHandleGetMonData(enum BattlerId battler);
+static void PokedudeHandleGetRawMonData(enum BattlerId battler);
+static void PokedudeHandleSetMonData(enum BattlerId battler);
+static void PokedudeHandleSetRawMonData(enum BattlerId battler);
+static void PokedudeHandleLoadMonSprite(enum BattlerId battler);
+static void PokedudeHandleSwitchInAnim(enum BattlerId battler);
+static void PokedudeHandleReturnMonToBall(enum BattlerId battler);
+static void PokedudeHandleDrawTrainerPic(enum BattlerId battler);
+static void PokedudeHandleTrainerSlide(enum BattlerId battler);
+static void PokedudeHandleTrainerSlideBack(enum BattlerId battler);
+static void PokedudeHandleFaintAnimation(enum BattlerId battler);
+static void PokedudeHandlePaletteFade(enum BattlerId battler);
+static void PokedudeHandleSuccessBallThrowAnim(enum BattlerId battler);
+static void PokedudeHandleBallThrowAnim(enum BattlerId battler);
+static void PokedudeHandlePause(enum BattlerId battler);
+static void PokedudeHandleMoveAnimation(enum BattlerId battler);
+static void PokedudeHandlePrintString(enum BattlerId battler);
+static void PokedudeHandlePrintSelectionString(enum BattlerId battler);
+static void PokedudeHandleChooseAction(enum BattlerId battler);
+static void PokedudeHandleUnknownYesNoBox(enum BattlerId battler);
+static void PokedudeHandleChooseMove(enum BattlerId battler);
+static void PokedudeHandleChooseItem(enum BattlerId battler);
+static void PokedudeHandleChoosePokemon(enum BattlerId battler);
+static void PokedudeHandleCmd23(enum BattlerId battler);
+static void PokedudeHandleHealthBarUpdate(enum BattlerId battler);
+static void PokedudeHandleExpUpdate(enum BattlerId battler);
+static void PokedudeHandleStatusIconUpdate(enum BattlerId battler);
+static void PokedudeHandleStatusAnimation(enum BattlerId battler);
+static void PokedudeHandleStatusXor(enum BattlerId battler);
+static void PokedudeHandleDataTransfer(enum BattlerId battler);
+static void PokedudeHandleDMA3Transfer(enum BattlerId battler);
+static void PokedudeHandlePlayBGM(enum BattlerId battler);
+static void PokedudeHandleCmd32(enum BattlerId battler);
+static void PokedudeHandleTwoReturnValues(enum BattlerId battler);
+static void PokedudeHandleChosenMonReturnValue(enum BattlerId battler);
+static void PokedudeHandleOneReturnValue(enum BattlerId battler);
+static void PokedudeHandleOneReturnValue_Duplicate(enum BattlerId battler);
+static void PokedudeHandleCmd37(enum BattlerId battler);
+static void PokedudeHandleCmd38(enum BattlerId battler);
+static void PokedudeHandleCmd39(enum BattlerId battler);
+static void PokedudeHandleCmd40(enum BattlerId battler);
+static void PokedudeHandleHitAnimation(enum BattlerId battler);
+static void PokedudeHandleCmd42(enum BattlerId battler);
+static void PokedudeHandlePlaySE(enum BattlerId battler);
+static void PokedudeHandlePlayFanfare(enum BattlerId battler);
+static void PokedudeHandleFaintingCry(enum BattlerId battler);
+static void PokedudeHandleIntroSlide(enum BattlerId battler);
+static void PokedudeHandleIntroTrainerBallThrow(enum BattlerId battler);
+static void PokedudeHandleDrawPartyStatusSummary(enum BattlerId battler);
+static void PokedudeHandleHidePartyStatusSummary(enum BattlerId battler);
+static void PokedudeHandleEndBounceEffect(enum BattlerId battler);
+static void PokedudeHandleSpriteInvisibility(enum BattlerId battler);
+static void PokedudeHandleBattleAnimation(enum BattlerId battler);
+static void PokedudeHandleLinkStandbyMsg(enum BattlerId battler);
+static void PokedudeHandleResetActionMoveSelection(enum BattlerId battler);
+static void PokedudeHandleCmd55(enum BattlerId battler);
+static void PokedudeCmdEnd(enum BattlerId battler);
 
-static void PokedudeAction_PrintVoiceoverMessage(u32 battler);
-static void PokedudeAction_PrintMessageWithHealthboxPals(u32 battler);
-static void PokedudeBufferExecCompleted(u32 battler);
-static void PokedudeSimulateInputChooseAction(u32 battler);
-static void PokedudeBufferRunCommand(u32 battler);
-static bool8 HandlePokedudeVoiceoverEtc(u32 battler);
-static void PokedudeSimulateInputChooseMove(u32 battler);
-static void WaitForMonSelection(u32 battler);
-static void CompleteWhenChoseItem(u32 battler);
-static void Intro_WaitForShinyAnimAndHealthbox(u32 battler);
+static void PokedudeAction_PrintVoiceoverMessage(enum BattlerId battler);
+static void PokedudeAction_PrintMessageWithHealthboxPals(enum BattlerId battler);
+static void PokedudeBufferExecCompleted(enum BattlerId battler);
+static void PokedudeSimulateInputChooseAction(enum BattlerId battler);
+static void PokedudeBufferRunCommand(enum BattlerId battler);
+static bool8 HandlePokedudeVoiceoverEtc(enum BattlerId battler);
+static void PokedudeSimulateInputChooseMove(enum BattlerId battler);
+static void WaitForMonSelection(enum BattlerId battler);
+static void CompleteWhenChoseItem(enum BattlerId battler);
+static void Intro_WaitForShinyAnimAndHealthbox(enum BattlerId battler);
 static void Task_LaunchLvlUpAnim(u8 taskId);
 static void DestroyExpTaskAndCompleteOnInactiveTextPrinter(u8 taskId);
-static void CompleteOnInactiveTextPrinter2(u32 battler);
+static void CompleteOnInactiveTextPrinter2(enum BattlerId battler);
 static void Task_PrepareToGiveExpWithExpBar(u8 taskId);
 static void Task_GiveExpWithExpBar(u8 taskId);
 static void Task_UpdateLvlInHealthbox(u8 taskId);
-static u32 CopyPokedudeMonData(u32 battler, u8 monId, u8 *dst);
-static void SetPokedudeMonData(u32 battler, u8 monId);
-static void StartSendOutAnim(u8 battlerId);
-static void PokedudeDoMoveAnimation(u32 battler);
+static u32 CopyPokedudeMonData(enum BattlerId battler, u8 monId, u8 *dst);
+static void SetPokedudeMonData(enum BattlerId battler, u8 monId);
+static void StartSendOutAnim(enum BattlerId battlerId);
+static void PokedudeDoMoveAnimation(enum BattlerId battler);
 static void Task_StartSendOutAnim(u8 taskId);
 static const u8 *GetPokedudeText(void);
 
-static void (*const sPokedudeBufferCommands[CONTROLLER_CMDS_COUNT])(u32 battler) =
+static void (*const sPokedudeBufferCommands[CONTROLLER_CMDS_COUNT])(enum BattlerId battler) =
 {
     [CONTROLLER_GETMONDATA]               = PokedudeHandleGetMonData,
     [CONTROLLER_GETRAWMONDATA]            = PokedudeHandleGetRawMonData,
@@ -190,18 +190,18 @@ static const u8 gUnknown_8479000[] = { 0x48, 0x48, 0x0, 0x5a, 0x50, 0x50, 0x50, 
 #define pdScriptNum      simulatedInputState[2]
 #define pdMessageNo      simulatedInputState[3]
 
-static void PokedudeDummy(u32 battler)
+static void PokedudeDummy(enum BattlerId battler)
 {
 }
 
-void SetControllerToPokedude(u32 battler)
+void SetControllerToPokedude(enum BattlerId battler)
 {
     gBattlerControllerFuncs[battler] = PokedudeBufferRunCommand;
     *(&gBattleStruct->pdScriptNum) = gSpecialVar_0x8004;
     gBattleStruct->pdMessageNo = 0;
 }
 
-static void PokedudeBufferRunCommand(u32 battler)
+static void PokedudeBufferRunCommand(enum BattlerId battler)
 {
     if (gBattleControllerExecFlags & (1u << battler))
     {
@@ -217,18 +217,18 @@ static void PokedudeBufferRunCommand(u32 battler)
     }
 }
 
-static void HandleInputChooseAction(u32 battler)
+static void HandleInputChooseAction(enum BattlerId battler)
 {
     PokedudeSimulateInputChooseAction(battler);
 }
 
-static void CompleteOnBattlerSpriteCallbackDummy(u32 battler)
+static void CompleteOnBattlerSpriteCallbackDummy(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].callback == SpriteCallbackDummy)
         PokedudeBufferExecCompleted(battler);
 }
 
-static void CompleteOnBattlerSpritePosX_0(u32 battler)
+static void CompleteOnBattlerSpritePosX_0(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].animEnded == TRUE
         && gSprites[gBattlerSpriteIds[battler]].x2 == 0)
@@ -248,13 +248,13 @@ static void CompleteOnBattlerSpritePosX_0(u32 battler)
     }
 }
 
-static void CompleteOnInactiveTextPrinter(u32 battler)
+static void CompleteOnInactiveTextPrinter(enum BattlerId battler)
 {
     if (!IsTextPrinterActive(0))
         PokedudeBufferExecCompleted(battler);
 }
 
-static void Pokedude_SetBattleEndCallbacks(u32 battler)
+static void Pokedude_SetBattleEndCallbacks(enum BattlerId battler)
 {
     if (!gPaletteFade.active)
     {
@@ -264,7 +264,7 @@ static void Pokedude_SetBattleEndCallbacks(u32 battler)
     }
 }
 
-static void SwitchIn_HandleSoundAndEnd(u32 battler)
+static void SwitchIn_HandleSoundAndEnd(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].specialAnimActive)
     {
@@ -274,7 +274,7 @@ static void SwitchIn_HandleSoundAndEnd(u32 battler)
     }
 }
 
-static void SwitchIn_CleanShinyAnimShowSubstitute(u32 battler)
+static void SwitchIn_CleanShinyAnimShowSubstitute(enum BattlerId battler)
 {
     if (gSprites[gHealthboxSpriteIds[battler]].callback == SpriteCallbackDummy
         && gBattleSpritesDataPtr->healthBoxesData[battler].finishedShinyMonAnim)
@@ -289,7 +289,7 @@ static void SwitchIn_CleanShinyAnimShowSubstitute(u32 battler)
     }
 }
 
-static void SwitchIn_TryShinyAnimShowHealthbox(u32 battler)
+static void SwitchIn_TryShinyAnimShowHealthbox(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].triedShinyMonAnim
         && !gBattleSpritesDataPtr->healthBoxesData[battler].ballAnimActive)
@@ -308,13 +308,13 @@ static void SwitchIn_TryShinyAnimShowHealthbox(u32 battler)
     }
 }
 
-static void CompleteOnSpecialAnimDone(u32 battler)
+static void CompleteOnSpecialAnimDone(enum BattlerId battler)
 {
     if (!gDoingBattleAnim)
         PokedudeBufferExecCompleted(battler);
 }
 
-static void Intro_DelayAndEnd(u32 battler)
+static void Intro_DelayAndEnd(enum BattlerId battler)
 {
     if (--gBattleSpritesDataPtr->healthBoxesData[battler].introEndDelay == 255)
     {
@@ -323,12 +323,12 @@ static void Intro_DelayAndEnd(u32 battler)
     }
 }
 
-static void PokedudeHandleInputChooseMove(u32 battler)
+static void PokedudeHandleInputChooseMove(enum BattlerId battler)
 {
     PokedudeSimulateInputChooseMove(battler);
 }
 
-static void OpenPartyMenuToChooseMon(u32 battler)
+static void OpenPartyMenuToChooseMon(enum BattlerId battler)
 {
     if (!gPaletteFade.active)
     {
@@ -339,7 +339,7 @@ static void OpenPartyMenuToChooseMon(u32 battler)
     }
 }
 
-static void WaitForMonSelection(u32 battler)
+static void WaitForMonSelection(enum BattlerId battler)
 {
     if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
     {
@@ -351,7 +351,7 @@ static void WaitForMonSelection(u32 battler)
     }
 }
 
-static void OpenBagAndChooseItem(u32 battler)
+static void OpenBagAndChooseItem(enum BattlerId battler)
 {
     u8 callbackId;
 
@@ -374,7 +374,7 @@ static void OpenBagAndChooseItem(u32 battler)
     }
 }
 
-static void CompleteWhenChoseItem(u32 battler)
+static void CompleteWhenChoseItem(enum BattlerId battler)
 {
     if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
     {
@@ -383,7 +383,7 @@ static void CompleteWhenChoseItem(u32 battler)
     }
 }
 
-static void Intro_TryShinyAnimShowHealthbox(u32 battler)
+static void Intro_TryShinyAnimShowHealthbox(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].triedShinyMonAnim
         && !gBattleSpritesDataPtr->healthBoxesData[battler].ballAnimActive)
@@ -413,7 +413,7 @@ static void Intro_TryShinyAnimShowHealthbox(u32 battler)
     }
 }
 
-static void Intro_WaitForShinyAnimAndHealthbox(u32 battler)
+static void Intro_WaitForShinyAnimAndHealthbox(enum BattlerId battler)
 {
     bool32 r4 = FALSE;
 
@@ -438,7 +438,7 @@ static void Intro_WaitForShinyAnimAndHealthbox(u32 battler)
 static void Task_GiveExpToMon(u8 taskId)
 {
     u32 monId = (u8)gTasks[taskId].tExpTask_monId;
-    u8 battler = gTasks[taskId].tExpTask_battler;
+    enum BattlerId battler = gTasks[taskId].tExpTask_battler;
     s32 gainedExp = GetTaskExpValue(taskId);
 
     if (IsDoubleBattle() == TRUE || monId != gBattlerPartyIndexes[battler]) // Give exp without moving the expbar.
@@ -479,7 +479,7 @@ static void Task_PrepareToGiveExpWithExpBar(u8 taskId)
 {
     u8 monIndex = gTasks[taskId].tExpTask_monId;
     s32 gainedExp = GetTaskExpValue(taskId);
-    u8 battlerId = gTasks[taskId].tExpTask_battler;
+    enum BattlerId battlerId = gTasks[taskId].tExpTask_battler;
     struct Pokemon *mon = &gPlayerParty[monIndex];
     u8 level = GetMonData(mon, MON_DATA_LEVEL);
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
@@ -504,7 +504,7 @@ static void Task_GiveExpWithExpBar(u8 taskId)
     {
         u8 monId = gTasks[taskId].tExpTask_monId;
         s32 gainedExp = GetTaskExpValue(taskId);
-        u8 battler = gTasks[taskId].tExpTask_battler;
+        enum BattlerId battler = gTasks[taskId].tExpTask_battler;
         s32 newExpPoints;
 
         newExpPoints = MoveBattleBar(battler, gHealthboxSpriteIds[battler], EXP_BAR, 0);
@@ -542,7 +542,7 @@ static void Task_GiveExpWithExpBar(u8 taskId)
 
 static void Task_LaunchLvlUpAnim(u8 taskId)
 {
-    u8 battlerId = gTasks[taskId].tExpTask_battler;
+    enum BattlerId battlerId = gTasks[taskId].tExpTask_battler;
     u8 monIndex = gTasks[taskId].tExpTask_monId;
 
     if (IsDoubleBattle() == TRUE && monIndex == gBattlerPartyIndexes[battlerId ^ BIT_FLANK])
@@ -553,7 +553,7 @@ static void Task_LaunchLvlUpAnim(u8 taskId)
 
 static void Task_UpdateLvlInHealthbox(u8 taskId)
 {
-    u8 battlerId = gTasks[taskId].tExpTask_battler;
+    enum BattlerId battlerId = gTasks[taskId].tExpTask_battler;
 
     if (!gBattleSpritesDataPtr->healthBoxesData[battlerId].specialAnimActive)
     {
@@ -570,14 +570,14 @@ static void Task_UpdateLvlInHealthbox(u8 taskId)
 
 static void DestroyExpTaskAndCompleteOnInactiveTextPrinter(u8 taskId)
 {
-    u8 battlerId;
+    enum BattlerId battlerId;
 
     battlerId = gTasks[taskId].tExpTask_battler;
     gBattlerControllerFuncs[battlerId] = CompleteOnInactiveTextPrinter2;
     DestroyTask(taskId);
 }
 
-static void FreeMonSpriteAfterFaintAnim(u32 battler)
+static void FreeMonSpriteAfterFaintAnim(enum BattlerId battler)
 {
     if (GetBattlerSide(battler) == B_SIDE_PLAYER)
     {
@@ -599,7 +599,7 @@ static void FreeMonSpriteAfterFaintAnim(u32 battler)
     }
 }
 
-static void CompleteOnHealthbarDone(u32 battler)
+static void CompleteOnHealthbarDone(enum BattlerId battler)
 {
     s16 hpValue = MoveBattleBar(battler, gHealthboxSpriteIds[battler], HEALTH_BAR, 0);
 
@@ -615,13 +615,13 @@ static void CompleteOnHealthbarDone(u32 battler)
     }
 }
 
-static void CompleteOnInactiveTextPrinter2(u32 battler)
+static void CompleteOnInactiveTextPrinter2(enum BattlerId battler)
 {
     if (!IsTextPrinterActive(0))
         PokedudeBufferExecCompleted(battler);
 }
 
-static void DoHitAnimBlinkSpriteEffect(u32 battler)
+static void DoHitAnimBlinkSpriteEffect(enum BattlerId battler)
 {
     u8 spriteId = gBattlerSpriteIds[battler];
 
@@ -640,7 +640,7 @@ static void DoHitAnimBlinkSpriteEffect(u32 battler)
     }
 }
 
-static void DoSwitchOutAnimation(u32 battler)
+static void DoSwitchOutAnimation(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].specialAnimActive)
     {
@@ -651,25 +651,25 @@ static void DoSwitchOutAnimation(u32 battler)
     }
 }
 
-static void CompleteOnBattlerSpriteCallbackDummy2(u32 battler)
+static void CompleteOnBattlerSpriteCallbackDummy2(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].callback == SpriteCallbackDummy)
         PokedudeBufferExecCompleted(battler);
 }
 
-static void CompleteOnFinishedBattleAnimation(u32 battler)
+static void CompleteOnFinishedBattleAnimation(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].animFromTableActive)
         PokedudeBufferExecCompleted(battler);
 }
 
-static void CompleteOnFinishedStatusAnimation(u32 battler)
+static void CompleteOnFinishedStatusAnimation(enum BattlerId battler)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[battler].statusAnimActive)
         PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeBufferExecCompleted(u32 battler)
+static void PokedudeBufferExecCompleted(enum BattlerId battler)
 {
     gBattlerControllerFuncs[battler] = PokedudeBufferRunCommand;
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)
@@ -685,7 +685,7 @@ static void PokedudeBufferExecCompleted(u32 battler)
     }
 }
 
-static void PokedudeHandleGetMonData(u32 battler)
+static void PokedudeHandleGetMonData(enum BattlerId battler)
 {
     u8 monData[sizeof(struct Pokemon) * 2 + 56]; // this allows to get full data of two pokemon, trying to get more will result in overwriting data
     u32 size = 0;
@@ -710,7 +710,7 @@ static void PokedudeHandleGetMonData(u32 battler)
     PokedudeBufferExecCompleted(battler);
 }
 
-static u32 CopyPokedudeMonData(u32 battler, u8 monId, u8 *dst)
+static u32 CopyPokedudeMonData(enum BattlerId battler, u8 monId, u8 *dst)
 {
     struct BattlePokemon battleMon;
     struct MovePpInfo moveData;
@@ -1018,12 +1018,12 @@ static u32 CopyPokedudeMonData(u32 battler, u8 monId, u8 *dst)
     return size;
 }
 
-static void PokedudeHandleGetRawMonData(u32 battler)
+static void PokedudeHandleGetRawMonData(enum BattlerId battler)
 {
     PlayerHandleGetRawMonData(battler);
 }
 
-static void PokedudeHandleSetMonData(u32 battler)
+static void PokedudeHandleSetMonData(enum BattlerId battler)
 {
     u8 monToCheck;
     u8 i;
@@ -1045,7 +1045,7 @@ static void PokedudeHandleSetMonData(u32 battler)
     PokedudeBufferExecCompleted(battler);
 }
 
-static void SetPokedudeMonData(u32 battler, u8 monId)
+static void SetPokedudeMonData(enum BattlerId battler, u8 monId)
 {
     struct BattlePokemon *battlePokemon = (struct BattlePokemon *)&gBattleResources->bufferA[battler][3];
     struct MovePpInfo *moveData = (struct MovePpInfo *)&gBattleResources->bufferA[battler][3];
@@ -1264,12 +1264,12 @@ static void SetPokedudeMonData(u32 battler, u8 monId)
     HandleLowHpMusicChange(&gPlayerParty[gBattlerPartyIndexes[battler]], battler);
 }
 
-static void PokedudeHandleSetRawMonData(u32 battler)
+static void PokedudeHandleSetRawMonData(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleLoadMonSprite(u32 battler)
+static void PokedudeHandleLoadMonSprite(enum BattlerId battler)
 {
     u32 y;
     u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_SPECIES);
@@ -1291,7 +1291,7 @@ static void PokedudeHandleLoadMonSprite(u32 battler)
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleSwitchInAnim(u32 battler)
+static void PokedudeHandleSwitchInAnim(enum BattlerId battler)
 {
     ClearTemporarySpeciesSpriteData(battler, gBattleResources->bufferA[battler][2]);
     gBattlerPartyIndexes[battler] = gBattleResources->bufferA[battler][1];
@@ -1302,7 +1302,7 @@ static void PokedudeHandleSwitchInAnim(u32 battler)
     gBattlerControllerFuncs[battler] = SwitchIn_TryShinyAnimShowHealthbox;
 }
 
-static void PokedudeHandleReturnMonToBall(u32 battler)
+static void PokedudeHandleReturnMonToBall(enum BattlerId battler)
 {
     if (gBattleResources->bufferA[battler][1] == 0)
     {
@@ -1318,7 +1318,7 @@ static void PokedudeHandleReturnMonToBall(u32 battler)
     }
 }
 
-static void PokedudeHandleDrawTrainerPic(u32 battler)
+static void PokedudeHandleDrawTrainerPic(enum BattlerId battler)
 {
     if (GetBattlerSide(battler) == B_SIDE_PLAYER)
     {
@@ -1353,7 +1353,7 @@ static void PokedudeHandleDrawTrainerPic(u32 battler)
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy;
 }
 
-static void PokedudeHandleTrainerSlide(u32 battler)
+static void PokedudeHandleTrainerSlide(enum BattlerId battler)
 {
     DecompressTrainerBackPalette(BACK_PIC_POKEDUDE, battler);
     SetMultiuseSpriteTemplateToTrainerBack(BACK_PIC_POKEDUDE, GetBattlerPosition(battler));
@@ -1368,12 +1368,12 @@ static void PokedudeHandleTrainerSlide(u32 battler)
     gBattlerControllerFuncs[battler] = CompleteOnBattlerSpriteCallbackDummy2;
 }
 
-static void PokedudeHandleTrainerSlideBack(u32 battler)
+static void PokedudeHandleTrainerSlideBack(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleFaintAnimation(u32 battler)
+static void PokedudeHandleFaintAnimation(enum BattlerId battler)
 {
     if (gBattleSpritesDataPtr->healthBoxesData[battler].animationState == 0)
     {
@@ -1404,12 +1404,12 @@ static void PokedudeHandleFaintAnimation(u32 battler)
     }
 }
 
-static void PokedudeHandlePaletteFade(u32 battler)
+static void PokedudeHandlePaletteFade(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleSuccessBallThrowAnim(u32 battler)
+static void PokedudeHandleSuccessBallThrowAnim(enum BattlerId battler)
 {
     gBattleSpritesDataPtr->animationData->ballThrowCaseId = BALL_3_SHAKES_SUCCESS;
     gDoingBattleAnim = TRUE;
@@ -1417,7 +1417,7 @@ static void PokedudeHandleSuccessBallThrowAnim(u32 battler)
     gBattlerControllerFuncs[battler] = CompleteOnSpecialAnimDone;
 }
 
-static void PokedudeHandleBallThrowAnim(u32 battler)
+static void PokedudeHandleBallThrowAnim(enum BattlerId battler)
 {
     u8 ballThrowCaseId = gBattleResources->bufferA[battler][1];
 
@@ -1427,12 +1427,12 @@ static void PokedudeHandleBallThrowAnim(u32 battler)
     gBattlerControllerFuncs[battler] = CompleteOnSpecialAnimDone;
 }
 
-static void PokedudeHandlePause(u32 battler)
+static void PokedudeHandlePause(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleMoveAnimation(u32 battler)
+static void PokedudeHandleMoveAnimation(enum BattlerId battler)
 {
     u16 move = gBattleResources->bufferA[battler][1] | (gBattleResources->bufferA[battler][2] << 8);
 
@@ -1454,7 +1454,7 @@ static void PokedudeHandleMoveAnimation(u32 battler)
     }
 }
 
-static void PokedudeDoMoveAnimation(u32 battler)
+static void PokedudeDoMoveAnimation(enum BattlerId battler)
 {
     u16 move = gBattleResources->bufferA[battler][1] | (gBattleResources->bufferA[battler][2] << 8);
 
@@ -1495,7 +1495,7 @@ static void PokedudeDoMoveAnimation(u32 battler)
     }
 }
 
-static void PokedudeHandlePrintString(u32 battler)
+static void PokedudeHandlePrintString(enum BattlerId battler)
 {
     u16 *stringId;
 
@@ -1510,7 +1510,7 @@ static void PokedudeHandlePrintString(u32 battler)
     gBattlerControllerFuncs[battler] = CompleteOnInactiveTextPrinter;
 }
 
-static void PokedudeHandlePrintSelectionString(u32 battler)
+static void PokedudeHandlePrintSelectionString(enum BattlerId battler)
 {
     if (GetBattlerSide(battler) == B_SIDE_PLAYER)
         PokedudeHandlePrintString(battler);
@@ -1518,7 +1518,7 @@ static void PokedudeHandlePrintSelectionString(u32 battler)
         PokedudeBufferExecCompleted(battler);
 }
 
-static void HandleChooseActionAfterDma3(u32 battler)
+static void HandleChooseActionAfterDma3(enum BattlerId battler)
 {
     if (!IsDma3ManagerBusyWithBgCopy())
     {
@@ -1528,7 +1528,7 @@ static void HandleChooseActionAfterDma3(u32 battler)
     }
 }
 
-static void PokedudeHandleChooseAction(u32 battler)
+static void PokedudeHandleChooseAction(enum BattlerId battler)
 {
     s32 i;
 
@@ -1551,12 +1551,12 @@ static void PokedudeHandleChooseAction(u32 battler)
     }
 }
 
-static void PokedudeHandleUnknownYesNoBox(u32 battler)
+static void PokedudeHandleUnknownYesNoBox(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleChooseMoveAfterDma3(u32 battler)
+static void PokedudeHandleChooseMoveAfterDma3(enum BattlerId battler)
 {
     if (!IsDma3ManagerBusyWithBgCopy())
     {
@@ -1566,7 +1566,7 @@ static void PokedudeHandleChooseMoveAfterDma3(u32 battler)
     }
 }
 
-static void PokedudeHandleChooseMove(u32 battler)
+static void PokedudeHandleChooseMove(enum BattlerId battler)
 {
     if (GetBattlerSide(battler) == B_SIDE_PLAYER)
     {
@@ -1579,7 +1579,7 @@ static void PokedudeHandleChooseMove(u32 battler)
     }
 }
 
-static void PokedudeHandleChooseItem(u32 battler)
+static void PokedudeHandleChooseItem(enum BattlerId battler)
 {
     s32 i;
 
@@ -1592,7 +1592,7 @@ static void PokedudeHandleChooseItem(u32 battler)
 
 //previously used *(&gBattleStruct->battlerPreventingSwitchout) = (IsAbilityPreventingEscape(battler) - 1);
 //unsure what correct vsonic important
-static void PokedudeHandleChoosePokemon(u32 battler)
+static void PokedudeHandleChoosePokemon(enum BattlerId battler)
 {
     s32 i;
 
@@ -1608,12 +1608,12 @@ static void PokedudeHandleChoosePokemon(u32 battler)
     gBattlerInMenuId = battler;
 }
 
-static void PokedudeHandleCmd23(u32 battler)
+static void PokedudeHandleCmd23(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleHealthBarUpdate(u32 battler)
+static void PokedudeHandleHealthBarUpdate(enum BattlerId battler)
 {
     s16 hpVal;
     struct Pokemon *mon;
@@ -1649,7 +1649,7 @@ static void PokedudeHandleHealthBarUpdate(u32 battler)
     gBattlerControllerFuncs[battler] = CompleteOnHealthbarDone;
 }
 
-static void PokedudeHandleExpUpdate(u32 battler)
+static void PokedudeHandleExpUpdate(enum BattlerId battler)
 {
     u8 monId = gBattleResources->bufferA[battler][1];
 
@@ -1674,11 +1674,11 @@ static void PokedudeHandleExpUpdate(u32 battler)
     }
 }
 
-static void PokedudeHandleStatusIconUpdate(u32 battler)
+static void PokedudeHandleStatusIconUpdate(enum BattlerId battler)
 {
     if (!IsBattleSEPlaying(battler))
     {
-        u8 battlerId;
+        enum BattlerId battlerId;
         struct Pokemon *mon;
 
         if (GetBattlerSide(battler) == B_SIDE_PLAYER)
@@ -1692,7 +1692,7 @@ static void PokedudeHandleStatusIconUpdate(u32 battler)
     }
 }
 
-static void PokedudeHandleStatusAnimation(u32 battler)
+static void PokedudeHandleStatusAnimation(enum BattlerId battler)
 {
     if (!IsBattleSEPlaying(battler))
     {
@@ -1702,7 +1702,7 @@ static void PokedudeHandleStatusAnimation(u32 battler)
     }
 }
 
-static void PokedudeHandleStatusXor(u32 battler)
+static void PokedudeHandleStatusXor(enum BattlerId battler)
 {
     struct Pokemon *mon;
     u8 val;
@@ -1716,67 +1716,67 @@ static void PokedudeHandleStatusXor(u32 battler)
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleDataTransfer(u32 battler)
+static void PokedudeHandleDataTransfer(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleDMA3Transfer(u32 battler)
+static void PokedudeHandleDMA3Transfer(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandlePlayBGM(u32 battler)
+static void PokedudeHandlePlayBGM(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleCmd32(u32 battler)
+static void PokedudeHandleCmd32(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleTwoReturnValues(u32 battler)
+static void PokedudeHandleTwoReturnValues(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleChosenMonReturnValue(u32 battler)
+static void PokedudeHandleChosenMonReturnValue(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleOneReturnValue(u32 battler)
+static void PokedudeHandleOneReturnValue(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleOneReturnValue_Duplicate(u32 battler)
+static void PokedudeHandleOneReturnValue_Duplicate(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleCmd37(u32 battler)
+static void PokedudeHandleCmd37(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleCmd38(u32 battler)
+static void PokedudeHandleCmd38(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleCmd39(u32 battler)
+static void PokedudeHandleCmd39(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleCmd40(u32 battler)
+static void PokedudeHandleCmd40(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleHitAnimation(u32 battler)
+static void PokedudeHandleHitAnimation(enum BattlerId battler)
 {
     if (gSprites[gBattlerSpriteIds[battler]].invisible == TRUE)
     {
@@ -1791,24 +1791,24 @@ static void PokedudeHandleHitAnimation(u32 battler)
     }
 }
 
-static void PokedudeHandleCmd42(u32 battler)
+static void PokedudeHandleCmd42(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandlePlaySE(u32 battler)
+static void PokedudeHandlePlaySE(enum BattlerId battler)
 {
     PlaySE(gBattleResources->bufferA[battler][1] | (gBattleResources->bufferA[battler][2] << 8));
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandlePlayFanfare(u32 battler)
+static void PokedudeHandlePlayFanfare(enum BattlerId battler)
 {
     PlayFanfare(gBattleResources->bufferA[battler][1] | (gBattleResources->bufferA[battler][2] << 8));
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleFaintingCry(u32 battler)
+static void PokedudeHandleFaintingCry(enum BattlerId battler)
 {
     struct Pokemon *mon;
     u16 species;
@@ -1822,14 +1822,14 @@ static void PokedudeHandleFaintingCry(u32 battler)
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleIntroSlide(u32 battler)
+static void PokedudeHandleIntroSlide(enum BattlerId battler)
 {
     HandleIntroSlide(gBattleResources->bufferA[battler][1]);
     gIntroSlideFlags |= 1;
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleIntroTrainerBallThrow(u32 battler)
+static void PokedudeHandleIntroTrainerBallThrow(enum BattlerId battler)
 {
     u8 paletteNum;
     u8 taskId;
@@ -1853,7 +1853,7 @@ static void PokedudeHandleIntroTrainerBallThrow(u32 battler)
     gBattlerControllerFuncs[battler] = PokedudeDummy;
 }
 
-static void StartSendOutAnim(u8 battlerId)
+static void StartSendOutAnim(enum BattlerId battlerId)
 {
     u16 species;
 
@@ -1884,7 +1884,7 @@ static void Task_StartSendOutAnim(u8 taskId)
     }
     else
     {
-        u8 battler = gTasks[taskId].data[0];
+        enum BattlerId battler = gTasks[taskId].data[0];
         gBattleResources->bufferA[battler][1] = gBattlerPartyIndexes[battler];
         StartSendOutAnim(battler);
 
@@ -1893,7 +1893,7 @@ static void Task_StartSendOutAnim(u8 taskId)
     }
 }
 
-static void PokedudeHandleDrawPartyStatusSummary(u32 battler)
+static void PokedudeHandleDrawPartyStatusSummary(enum BattlerId battler)
 {
     if (gBattleResources->bufferA[battler][1] != 0
         && GetBattlerSide(battler) == B_SIDE_PLAYER)
@@ -1911,24 +1911,24 @@ static void PokedudeHandleDrawPartyStatusSummary(u32 battler)
     }
 }
 
-static void PokedudeHandleHidePartyStatusSummary(u32 battler)
+static void PokedudeHandleHidePartyStatusSummary(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleEndBounceEffect(u32 battler)
+static void PokedudeHandleEndBounceEffect(enum BattlerId battler)
 {
     EndBounceEffect(battler, BOUNCE_HEALTHBOX);
     EndBounceEffect(battler, BOUNCE_MON);
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleSpriteInvisibility(u32 battler)
+static void PokedudeHandleSpriteInvisibility(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleBattleAnimation(u32 battler)
+static void PokedudeHandleBattleAnimation(enum BattlerId battler)
 {
     u8 animationId = gBattleResources->bufferA[battler][1];
     u16 argument = gBattleResources->bufferA[battler][2] | (gBattleResources->bufferA[battler][3] << 8);
@@ -1941,7 +1941,7 @@ static void PokedudeHandleBattleAnimation(u32 battler)
         gBattlerControllerFuncs[battler] = CompleteOnFinishedBattleAnimation;
 }
 
-static void PokedudeHandleLinkStandbyMsg(u32 battler)
+static void PokedudeHandleLinkStandbyMsg(enum BattlerId battler)
 {
     switch (gBattleResources->bufferA[battler][1])
     {
@@ -1956,12 +1956,12 @@ static void PokedudeHandleLinkStandbyMsg(u32 battler)
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleResetActionMoveSelection(u32 battler)
+static void PokedudeHandleResetActionMoveSelection(enum BattlerId battler)
 {
     PokedudeBufferExecCompleted(battler);
 }
 
-static void PokedudeHandleCmd55(u32 battler)
+static void PokedudeHandleCmd55(enum BattlerId battler)
 {
     gBattleOutcome = gBattleResources->bufferA[battler][1];
     FadeOutMapMusic(5);
@@ -1971,7 +1971,7 @@ static void PokedudeHandleCmd55(u32 battler)
         gBattlerControllerFuncs[battler] = Pokedude_SetBattleEndCallbacks;
 }
 
-static void PokedudeCmdEnd(u32 battler)
+static void PokedudeCmdEnd(enum BattlerId battler)
 {
 }
 
@@ -2411,7 +2411,7 @@ static const struct PokedudeBattlePartyInfo *const sPokedudeBattlePartyPointers[
 
 COMMON_DATA struct PokedudeBattlerState *gPokedudeBattlerStates[MAX_BATTLERS_COUNT] = {0};
 
-static void PokedudeSimulateInputChooseAction(u32 battler)
+static void PokedudeSimulateInputChooseAction(enum BattlerId battler)
 {
     const struct PokedudeInputScript *script_p = sInputScripts_ChooseAction[gBattleStruct->pdScriptNum];
 
@@ -2459,7 +2459,7 @@ static void PokedudeSimulateInputChooseAction(u32 battler)
     }
 }
 
-static void PokedudeSimulateInputChooseMove(u32 battler)
+static void PokedudeSimulateInputChooseMove(enum BattlerId battler)
 {
     const struct PokedudeInputScript *script_p = sInputScripts_ChooseMove[gBattleStruct->pdScriptNum];
 
@@ -2490,7 +2490,7 @@ static void PokedudeSimulateInputChooseMove(u32 battler)
     }
 }
 
-static bool8 HandlePokedudeVoiceoverEtc(u32 battler)
+static bool8 HandlePokedudeVoiceoverEtc(enum BattlerId battler)
 {
     const struct PokedudeTextScriptHeader *header_p = sPokedudeTextScripts[gBattleStruct->pdScriptNum];
     const u16 * bstringid_p = (const u16 *)&gBattleResources->bufferA[battler][2];
@@ -2513,13 +2513,13 @@ static bool8 HandlePokedudeVoiceoverEtc(u32 battler)
     return TRUE;
 }
 
-static void ReturnFromPokedudeAction(u32 battler)
+static void ReturnFromPokedudeAction(enum BattlerId battler)
 {
     gPokedudeBattlerStates[battler]->timer = 0;
     gBattlerControllerFuncs[battler] = PokedudeBufferRunCommand;
 }
 
-static void PokedudeAction_PrintVoiceoverMessage(u32 battler)
+static void PokedudeAction_PrintVoiceoverMessage(enum BattlerId battler)
 {
     switch (gPokedudeBattlerStates[battler]->timer)
     {
@@ -2568,7 +2568,7 @@ static void PokedudeAction_PrintVoiceoverMessage(u32 battler)
     }
 }
 
-static void PokedudeAction_PrintMessageWithHealthboxPals(u32 battler)
+static void PokedudeAction_PrintMessageWithHealthboxPals(enum BattlerId battler)
 {
     switch (gPokedudeBattlerStates[battler]->timer)
     {

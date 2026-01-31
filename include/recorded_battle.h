@@ -34,7 +34,7 @@ struct RecordedBattleSave
     u16 easyChatSpeech[EASY_CHAT_BATTLE_WORDS_COUNT];
     u8 recordMixFriendLanguage;
     u8 apprenticeLanguage;
-    u8 battleRecord[MAX_BATTLERS_COUNT][BATTLER_RECORD_SIZE];
+    enum BattlerId battleRecord[MAX_BATTLERS_COUNT][BATTLER_RECORD_SIZE];
     u32 checksum;
 };
 
@@ -60,9 +60,9 @@ extern u8 gRecordedBattleMultiplayerId;
 
 void RecordedBattle_Init(u8 mode);
 void RecordedBattle_SetTrainerInfo(void);
-void RecordedBattle_SetBattlerAction(u8 battlerId, u8 action);
-void RecordedBattle_ClearBattlerAction(u8 battlerId, u8 bytesToClear);
-u8 RecordedBattle_GetBattlerAction(u32 actionType, u8 battlerId);
+void RecordedBattle_SetBattlerAction(enum BattlerId battlerId, u8 action);
+void RecordedBattle_ClearBattlerAction(enum BattlerId battlerId, u8 bytesToClear);
+u8 RecordedBattle_GetBattlerAction(u32 actionType, enum BattlerId battlerId);
 u8 RecordedBattle_BufferNewBattlerData(u8 *dst);
 void RecordedBattle_RecordAllBattlerData(u8 *data);
 bool32 MoveRecordedBattleToSaveData(void);
@@ -74,7 +74,7 @@ void RecordedBattle_SetFrontierPassFlagFromHword(u16 flags);
 u8 RecordedBattle_GetFrontierPassFlag(void);
 u8 GetBattleSceneInRecordedBattle(void);
 u8 GetTextSpeedInRecordedBattle(void);
-void RecordedBattle_CopyBattlerMoves(u32 battler);
+void RecordedBattle_CopyBattlerMoves(enum BattlerId battler);
 void RecordedBattle_CheckMovesetChanges(u8 mode);
 u32 GetAiScriptsInRecordedBattle(void);
 void RecordedBattle_SetPlaybackFinished(void);

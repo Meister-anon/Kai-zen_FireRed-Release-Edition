@@ -15,8 +15,8 @@
 
 struct AnimStatsChangeData
 {
-    u8 battler1;
-    u8 battler2;
+    enum BattlerId battler1;
+    enum BattlerId battler2;
     bool8 hidBattler2;
     s16 data[8];
     u16 species;
@@ -53,7 +53,7 @@ void AnimTask_BlendBattleAnimPal(u8 taskId)
 
 void AnimTask_BlendBattleAnimPalExclude(u8 taskId)
 {
-    u8 battler;
+    enum BattlerId battler;
     u32 selectedPalettes;
     u8 animBattlers[2];
 
@@ -429,7 +429,7 @@ static void StatsChangeAnimation_Step2(u8 taskId)
 {
     struct BattleAnimBgData animBgData;
     u8 spriteId, spriteId2;
-    u8 battlerSpriteId;
+    enum BattlerId battlerSpriteId;
 
     spriteId2 = 0;
     battlerSpriteId = gBattlerSpriteIds[sAnimStatsChangeData->battler1];
@@ -673,7 +673,7 @@ static void SetPalettesToColor(u32 selectedPalettes, u16 color)
 
 void AnimTask_BlendNonAttackerPalettes(u8 taskId)
 {
-    u32 battler;
+    enum BattlerId battler;
     int j;
     u32 selectedPalettes = 0;
 
@@ -751,7 +751,7 @@ void AnimTask_GetTargetIsAttackerPartner(u8 taskId)
 // For hiding or subsequently revealing all other battlers
 void AnimTask_SetAllNonAttackersInvisiblity(u8 taskId)
 {
-    u16 battler;
+    enum BattlerId battler;
 
     for (battler = 0; battler < MAX_BATTLERS_COUNT; battler++)
     {
@@ -762,13 +762,13 @@ void AnimTask_SetAllNonAttackersInvisiblity(u8 taskId)
     DestroyAnimVisualTask(taskId);
 }
 
-void StartMonScrollingBgMask(u8 taskId, int UNUSED unused, u16 scrollSpeed, u8 battler, bool8 includePartner, u8 numFadeSteps, u8 fadeStepDelay, u8 duration, const u32 *gfx, const u32 *tilemap, const u16 *palette)
+void StartMonScrollingBgMask(u8 taskId, int UNUSED unused, u16 scrollSpeed, enum BattlerId battler, bool8 includePartner, u8 numFadeSteps, u8 fadeStepDelay, u8 duration, const u32 *gfx, const u32 *tilemap, const u16 *palette)
 {
     u16 species;
     u8 spriteId, spriteId2;
     u32 bg1Cnt;
     struct BattleAnimBgData animBgData;
-    u8 battler2;
+    enum BattlerId battler2;
 
     spriteId2 = 0;
     battler2 = BATTLE_PARTNER(battler);
@@ -1069,7 +1069,7 @@ void AnimTask_CanBattlerSwitch(u8 taskId)
 
 void AnimTask_SetInvisible(u8 taskId)
 {
-    u32 battlerId = GetAnimBattlerId(gBattleAnimArgs[0]);
+    enum BattlerId battlerId = GetAnimBattlerId(gBattleAnimArgs[0]);
     u32 spriteId = gBattlerSpriteIds[battlerId];
 
     gSprites[spriteId].invisible = gBattleSpritesDataPtr->battlerData[battlerId].invisible = gBattleAnimArgs[1];

@@ -587,10 +587,10 @@ static void ScriptCmd_unloadspritegfx(void)
     ClearSpriteIndex(GET_TRUE_SPRITE_INDEX(index));
 }
 
-static u8 GetBattleAnimMoveTargets(u8 battlerArgIndex, u8 *targets)
+static u8 GetBattleAnimMoveTargets(enum BattlerId battlerArgIndex, u8 *targets)
 {
     u8 numTargets = 0;
-    u32 battlerAnimId = gBattleAnimArgs[battlerArgIndex];   // ANIM_xx input
+    enum BattlerId battlerAnimId = gBattleAnimArgs[battlerArgIndex];   // ANIM_xx input
     u32 i;
     u32 ignoredTgt = gBattlerAttacker;
     u32 target = GetBattlerMoveTargetType(gBattleAnimAttacker, gAnimMoveIndex);
@@ -703,7 +703,7 @@ static void ScriptCmd_createsprite(void)
      }
 }
 
-static void CreateSpriteOnTargets(const struct SpriteTemplate *template, u8 argVar, u8 battlerArgIndex, u8 argsCount, bool32 overwriteAnimTgt)
+static void CreateSpriteOnTargets(const struct SpriteTemplate *template, u8 argVar, enum BattlerId battlerArgIndex, u8 argsCount, bool32 overwriteAnimTgt)
 {
     u32 i, battler;
     u8 targets[MAX_BATTLERS_COUNT];
@@ -744,7 +744,7 @@ static void ScriptCmd_createspriteontargets_onpos(void)
     const struct SpriteTemplate *template;
     u8 argVar;
     u8 argsCount;
-    u8 battlerArgIndex;
+    enum BattlerId battlerArgIndex;
 
     sBattleAnimScriptPtr++;
     template = (const struct SpriteTemplate *)(T2_READ_32(sBattleAnimScriptPtr));
@@ -768,7 +768,7 @@ static void ScriptCmd_createspriteontargets(void)
     const struct SpriteTemplate *template;
     u8 argVar;
     u8 argsCount;
-    u8 battlerArgIndex;
+    enum BattlerId battlerArgIndex;
 
     sBattleAnimScriptPtr++;
     template = (const struct SpriteTemplate *)(T2_READ_32(sBattleAnimScriptPtr));
@@ -822,7 +822,7 @@ static void ScriptCmd_createvisualtaskontargets(void)
     u8 taskPriority;
     u8 taskId;
     u8 numArgs;
-    u8 battlerArgIndex; // index in gBattleAnimArgs that has the battlerId
+    enum BattlerId battlerArgIndex; // index in gBattleAnimArgs that has the battlerId
     s32 i;
     u8 targets[MAX_BATTLERS_COUNT] = {0};
 
@@ -1021,7 +1021,7 @@ static void Task_InitUpdateMonBg(u8 taskId)
     u8 updateTaskId;
 
     s16 *data = gTasks[taskId].data;
-    u8 battlerSpriteId = gBattlerSpriteIds[tBattlerId];
+    enum BattlerId battlerSpriteId = gBattlerSpriteIds[tBattlerId];
     gSprites[battlerSpriteId].invisible = TRUE;
 
     if (!tActive)
@@ -1056,7 +1056,7 @@ static void ScriptCmd_monbg(void)
 {
     bool8 toBG_2;
     u8 taskId;
-    u8 battler;
+    enum BattlerId battler;
     u8 animBattler;
 
     sBattleAnimScriptPtr++;
@@ -1128,7 +1128,7 @@ u8 GetAnimBattlerId(u8 wantedBattler)
     }
 }
 
-bool8 IsBattlerSpriteVisible(u8 battler)
+bool8 IsBattlerSpriteVisible(enum BattlerId battler)
 {
     if (IsContest())
     {
@@ -1147,10 +1147,10 @@ bool8 IsBattlerSpriteVisible(u8 battler)
     return FALSE;
 }
 
-void MoveBattlerSpriteToBG(u8 battler, bool8 toBG_2, bool8 setSpriteInvisible)
+void MoveBattlerSpriteToBG(enum BattlerId battler, bool8 toBG_2, bool8 setSpriteInvisible)
 {
     struct BattleAnimBgData animBg;
-    u8 battlerSpriteId;
+    enum BattlerId battlerSpriteId;
 
     if (!toBG_2)
     {
@@ -1334,7 +1334,7 @@ static void Task_UpdateMonBg(u8 taskId)
 static void ScriptCmd_clearmonbg(void)
 {
     u8 animBattlerId;
-    u8 battler;
+    enum BattlerId battler;
     u8 taskId;
 
     sBattleAnimScriptPtr++;
@@ -1396,7 +1396,7 @@ static void Task_ClearMonBg(u8 taskId)
 static void ScriptCmd_monbg_static(void)
 {
     bool8 toBG_2;
-    u8 battler;
+    enum BattlerId battler;
     u8 animBattlerId;
 
     sBattleAnimScriptPtr++;
@@ -1442,7 +1442,7 @@ static void ScriptCmd_monbg_static(void)
 static void ScriptCmd_clearmonbg_static(void)
 {
     u8 animBattlerId;
-    u8 battler;
+    enum BattlerId battler;
     u8 taskId;
 
     sBattleAnimScriptPtr++;
@@ -1478,7 +1478,7 @@ static void Task_ClearMonBgStatic(u8 taskId)
     if (gTasks[taskId].data[1] != 1)
     {
         bool8 toBG_2;
-        u8 battler = gTasks[taskId].data[2];
+        enum BattlerId battler = gTasks[taskId].data[2];
         enum BattlerPosition position = GetBattlerPosition(battler);
         if (position == B_POSITION_OPPONENT_LEFT || position == B_POSITION_PLAYER_RIGHT || IsContest())
             toBG_2 = FALSE;
@@ -2174,7 +2174,7 @@ static void ScriptCmd_jumpifcontest(void)
 static void ScriptCmd_splitbgprio(void)
 {
     u8 wantedBattler;
-    u8 battler;
+    enum BattlerId battler;
     enum BattlerPosition battlerPosition;
 
     wantedBattler = sBattleAnimScriptPtr[1];
@@ -2208,7 +2208,7 @@ static void ScriptCmd_splitbgprio_foes(void)
 {
     u8 wantedBattler;
     enum BattlerPosition battlerPosition;
-    u8 battler;
+    enum BattlerId battler;
 
     wantedBattler = sBattleAnimScriptPtr[1];
     sBattleAnimScriptPtr += 2;

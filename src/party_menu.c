@@ -379,7 +379,7 @@ static void Task_ValidateChosenHalfParty(u8 taskId);
 static bool8 HasPartySlotAlreadyBeenSelected(u8 slot);
 static void Task_ContinueChoosingHalfParty(u8 taskId);
 static void BufferBattlePartyOrder(u8 *partyBattleOrder, u8 flankId);
-static void BufferBattlePartyOrderBySide(u8 *partyBattleOrder, u8 flankId, u8 battlerId);
+static void BufferBattlePartyOrderBySide(u8 *partyBattleOrder, u8 flankId, enum BattlerId battlerId);
 static void Task_InitMultiPartnerPartySlideIn(u8 taskId);
 static void Task_WaitAfterMultiPartnerPartySlideIn(u8 taskId);
 static void SlideMultiPartyMenuBoxSpritesOneStep(u8 taskId);
@@ -7406,13 +7406,13 @@ static void BufferBattlePartyOrder(u8 *partyBattleOrder, u8 flankId)
         partyBattleOrder[i] = (partyIds[0 + (i * 2)] << 4) | partyIds[1 + (i * 2)];
 }
 
-void BufferBattlePartyCurrentOrderBySide(u8 battlerId, u8 flankId)
+void BufferBattlePartyCurrentOrderBySide(enum BattlerId battlerId, u8 flankId)
 {
     BufferBattlePartyOrderBySide(gBattleStruct->battlerPartyOrders[battlerId], flankId, battlerId);
 }
 
 // when GetBattlerSide(battlerId) == B_SIDE_PLAYER, this function is identical the one above
-static void BufferBattlePartyOrderBySide(u8 *partyBattleOrder, u8 flankId, u8 battlerId)
+static void BufferBattlePartyOrderBySide(u8 *partyBattleOrder, u8 flankId, enum BattlerId battlerId)
 {
     u8 partyIndexes[PARTY_SIZE];
     s32 i, j;
@@ -7476,7 +7476,7 @@ static void BufferBattlePartyOrderBySide(u8 *partyBattleOrder, u8 flankId, u8 ba
         partyBattleOrder[i] = (partyIndexes[0 + (i * 2)] << 4) | partyIndexes[1 + (i * 2)];
 }
 
-void SwitchPartyOrderLinkMulti(u8 battlerId, u8 slot, u8 slot2)
+void SwitchPartyOrderLinkMulti(enum BattlerId battlerId, u8 slot, u8 slot2)
 {
     u8 partyIds[PARTY_SIZE];
     u8 tempSlot = 0;

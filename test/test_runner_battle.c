@@ -51,8 +51,8 @@ STATIC_ASSERT(sizeof(struct BattleTestRunnerState) <= sizeof(sBackupMapData), sB
 static void CB2_BattleTest_NextParameter(void);
 static void CB2_BattleTest_NextTrial(void);
 static void PushBattlerAction(u32 sourceLine, s32 battlerId, u32 actionType, u32 byte);
-static void PrintAiMoveLog(u32 battlerId, u32 moveSlot, u32 moveId, s32 totalScore);
-static void ClearAiLog(u32 battlerId);
+static void PrintAiMoveLog(enum BattlerId battlerId, u32 moveSlot, u32 moveId, s32 totalScore);
+static void ClearAiLog(enum BattlerId battlerId);
 static const char *BattlerIdentifier(s32 battlerId);
 
 NAKED static void InvokeSingleTestFunctionWithStack(void *results, u32 i, struct BattlePokemon *player, struct BattlePokemon *opponent, SingleBattleTestFunction function, void *stack)
@@ -355,7 +355,7 @@ u32 RandomUniform(enum RandomTag tag, u32 lo, u32 hi)
 
     if (gCurrentTurnActionNumber < gBattlersCount)
     {
-        u32 battlerId = gBattlerByTurnOrder[gCurrentTurnActionNumber];
+        enum BattlerId battlerId = gBattlerByTurnOrder[gCurrentTurnActionNumber];
         turn = &DATA.battleRecordTurns[gBattleResults.battleTurnCounter][battlerId];
         if (turn && turn->rng.tag == tag)
             return turn->rng.value;
@@ -387,7 +387,7 @@ u32 RandomUniformExcept(enum RandomTag tag, u32 lo, u32 hi, bool32 (*reject)(u32
 
     if (gCurrentTurnActionNumber < gBattlersCount)
     {
-        u32 battlerId = gBattlerByTurnOrder[gCurrentTurnActionNumber];
+        enum BattlerId battlerId = gBattlerByTurnOrder[gCurrentTurnActionNumber];
         turn = &DATA.battleRecordTurns[gBattleResults.battleTurnCounter][battlerId];
         if (turn && turn->rng.tag == tag)
         {
@@ -439,7 +439,7 @@ u32 RandomWeightedArray(enum RandomTag tag, u32 sum, u32 n, const u8 *weights)
 
     if (gCurrentTurnActionNumber < gBattlersCount)
     {
-        u32 battlerId = gBattlerByTurnOrder[gCurrentTurnActionNumber];
+        enum BattlerId battlerId = gBattlerByTurnOrder[gCurrentTurnActionNumber];
         turn = &DATA.battleRecordTurns[gBattleResults.battleTurnCounter][battlerId];
         if (turn && turn->rng.tag == tag)
             return turn->rng.value;
@@ -502,7 +502,7 @@ const void *RandomElementArray(enum RandomTag tag, const void *array, size_t siz
 
     if (gCurrentTurnActionNumber < gBattlersCount)
     {
-        u32 battlerId = gBattlerByTurnOrder[gCurrentTurnActionNumber];
+        enum BattlerId battlerId = gBattlerByTurnOrder[gCurrentTurnActionNumber];
         turn = &DATA.battleRecordTurns[gBattleResults.battleTurnCounter][battlerId];
         if (turn && turn->rng.tag == tag)
         {
@@ -535,7 +535,7 @@ const void *RandomElementArray(enum RandomTag tag, const void *array, size_t siz
     return (const u8 *)array + size * index;
 }
 
-static s32 TryAbilityPopUp(s32 i, s32 n, u32 battlerId, u32 ability)
+static s32 TryAbilityPopUp(s32 i, s32 n, enum BattlerId battlerId, u32 ability)
 {
     struct QueuedAbilityEvent *event;
     s32 iMax = i + n;
@@ -553,7 +553,7 @@ static s32 TryAbilityPopUp(s32 i, s32 n, u32 battlerId, u32 ability)
     return -1;
 }
 
-void TestRunner_Battle_RecordAbilityPopUp(u32 battlerId, u32 ability)
+void TestRunner_Battle_RecordAbilityPopUp(enum BattlerId battlerId, u32 ability)
 {
     s32 queuedEvent;
     s32 match;
@@ -659,7 +659,7 @@ void TestRunner_Battle_RecordAnimation(u32 animType, u32 animId)
     }
 }
 
-static s32 TryHP(s32 i, s32 n, u32 battlerId, u32 oldHP, u32 newHP)
+static s32 TryHP(s32 i, s32 n, enum BattlerId battlerId, u32 oldHP, u32 newHP)
 {
     struct QueuedHPEvent *event;
     s32 iMax = i + n;
@@ -706,7 +706,7 @@ static s32 TryHP(s32 i, s32 n, u32 battlerId, u32 oldHP, u32 newHP)
     return -1;
 }
 
-void TestRunner_Battle_RecordHP(u32 battlerId, u32 oldHP, u32 newHP)
+void TestRunner_Battle_RecordHP(enum BattlerId battlerId, u32 oldHP, u32 newHP)
 {
     s32 queuedEvent;
     s32 match;
@@ -756,7 +756,7 @@ static const char *const sBattleActionNames[] =
     [B_ACTION_SWITCH] = "SWITCH",
 };
 
-static u32 CountAiExpectMoves(struct ExpectedAIAction *expectedAction, u32 battlerId, bool32 printLog)
+static u32 CountAiExpectMoves(struct ExpectedAIAction *expectedAction, enum BattlerId battlerId, bool32 printLog)
 {
     u32 i, countExpected = 0;
     for (i = 0; i < MAX_MON_MOVES; i++)
@@ -771,7 +771,7 @@ static u32 CountAiExpectMoves(struct ExpectedAIAction *expectedAction, u32 battl
     return countExpected;
 }
 
-void TestRunner_Battle_CheckChosenMove(u32 battlerId, u32 moveId, u32 target)
+void TestRunner_Battle_CheckChosenMove(enum BattlerId battlerId, u32 moveId, u32 target)
 {
     const char *filename = gTestRunnerState.test->filename;
     u32 id = DATA.aiActionsPlayed[battlerId];
@@ -840,7 +840,7 @@ void TestRunner_Battle_CheckChosenMove(u32 battlerId, u32 moveId, u32 target)
     DATA.aiActionsPlayed[battlerId]++;
 }
 
-void TestRunner_Battle_CheckSwitch(u32 battlerId, u32 partyIndex)
+void TestRunner_Battle_CheckSwitch(enum BattlerId battlerId, u32 partyIndex)
 {
     const char *filename = gTestRunnerState.test->filename;
     u32 id = DATA.aiActionsPlayed[battlerId];
@@ -860,7 +860,7 @@ void TestRunner_Battle_CheckSwitch(u32 battlerId, u32 partyIndex)
     DATA.aiActionsPlayed[battlerId]++;
 }
 
-void TestRunner_Battle_InvalidNoHPMon(u32 battlerId, u32 partyIndex)
+void TestRunner_Battle_InvalidNoHPMon(enum BattlerId battlerId, u32 partyIndex)
 {
     Test_ExitWithResult(TEST_RESULT_INVALID, SourceLine(0), ":L%s: INVALID: %s trying to send out a mon(id: %d) with 0 HP.",
                         gTestRunnerState.test->filename, BattlerIdentifier(battlerId), gBattlerPartyIndexes[battlerId]);
@@ -890,7 +890,7 @@ static const char *const sCmpToStringTable[] =
     [CMP_GREATER_THAN] = "GT",
 };
 
-static void CheckIfMaxScoreEqualExpectMove(u32 battlerId, s32 target, struct ExpectedAIAction *aiAction, const char *filename)
+static void CheckIfMaxScoreEqualExpectMove(enum BattlerId battlerId, s32 target, struct ExpectedAIAction *aiAction, const char *filename)
 {
     u32 i;
     s32 *scores = gBattleStruct->aiFinalScore[battlerId][target];
@@ -927,7 +927,7 @@ static void CheckIfMaxScoreEqualExpectMove(u32 battlerId, s32 target, struct Exp
     }
 }
 
-static void PrintAiMoveLog(u32 battlerId, u32 moveSlot, u32 moveId, s32 totalScore)
+static void PrintAiMoveLog(enum BattlerId battlerId, u32 moveSlot, u32 moveId, s32 totalScore)
 {
     s32 i, scoreFromLogs = 0;
 
@@ -969,7 +969,7 @@ static void PrintAiMoveLog(u32 battlerId, u32 moveSlot, u32 moveId, s32 totalSco
     Test_MgbaPrintf("Total: %d\n", totalScore);
 }
 
-static void ClearAiLog(u32 battlerId)
+static void ClearAiLog(enum BattlerId battlerId)
 {
     u32 i, j;
     for (i = 0; i < MAX_MON_MOVES; i++)
@@ -981,7 +981,7 @@ static void ClearAiLog(u32 battlerId)
     DATA.aiLogPrintedForMove[battlerId] = 0;
 }
 
-void TestRunner_Battle_CheckAiMoveScores(u32 battlerId)
+void TestRunner_Battle_CheckAiMoveScores(enum BattlerId battlerId)
 {
     s32 i;
     struct ExpectedAIAction *aiAction;
@@ -1041,7 +1041,7 @@ void TestRunner_Battle_CheckAiMoveScores(u32 battlerId)
     }
 }
 
-static s32 TryExp(s32 i, s32 n, u32 battlerId, u32 oldExp, u32 newExp)
+static s32 TryExp(s32 i, s32 n, enum BattlerId battlerId, u32 oldExp, u32 newExp)
 {
     struct QueuedExpEvent *event;
     s32 iMax = i + n;
@@ -1088,7 +1088,7 @@ static s32 TryExp(s32 i, s32 n, u32 battlerId, u32 oldExp, u32 newExp)
     return -1;
 }
 
-void TestRunner_Battle_RecordExp(u32 battlerId, u32 oldExp, u32 newExp)
+void TestRunner_Battle_RecordExp(enum BattlerId battlerId, u32 oldExp, u32 newExp)
 {
     s32 queuedEvent;
     s32 match;
@@ -1220,7 +1220,7 @@ void TestRunner_Battle_RecordMessage(const u8 *string)
     }
 }
 
-static s32 TryStatus(s32 i, s32 n, u32 battlerId, u32 status1)
+static s32 TryStatus(s32 i, s32 n, enum BattlerId battlerId, u32 status1)
 {
     struct QueuedStatusEvent *event;
     s32 iMax = i + n;
@@ -1242,7 +1242,7 @@ static s32 TryStatus(s32 i, s32 n, u32 battlerId, u32 status1)
     return -1;
 }
 
-void TestRunner_Battle_RecordStatus1(u32 battlerId, u32 status1)
+void TestRunner_Battle_RecordStatus1(enum BattlerId battlerId, u32 status1)
 {
     s32 queuedEvent;
     s32 match;
@@ -1856,7 +1856,7 @@ static void PushBattlerAction(u32 sourceLine, s32 battlerId, u32 actionType, u32
     DATA.recordedBattle.battleRecord[battlerId][recordIndex] = byte;
 }
 
-void TestRunner_Battle_CheckBattleRecordActionType(u32 battlerId, u32 recordIndex, u32 actionType)
+void TestRunner_Battle_CheckBattleRecordActionType(enum BattlerId battlerId, u32 recordIndex, u32 actionType)
 {
     // An illegal move choice will cause the battle to request a new
     // move slot and target. This detects the move slot.
@@ -2228,7 +2228,7 @@ void ExpectSendOut(u32 sourceLine, struct BattlePokemon *battler, u32 partyIndex
     DATA.expectedAiActionIndex[battlerId]++;
 }
 
-s32 GetAiMoveTargetForScoreCompare(u32 battlerId, u32 moveId, struct MoveContext *ctx, u32 sourceLine)
+s32 GetAiMoveTargetForScoreCompare(enum BattlerId battlerId, u32 moveId, struct MoveContext *ctx, u32 sourceLine)
 {
     s32 target;
 
@@ -2676,7 +2676,7 @@ u32 TestRunner_Battle_GetChosenGimmick(u32 side, u32 partyIndex)
 
 // TODO: Consider storing the last successful i and searching from i+1
 // to improve performance.
-struct AILogLine *GetLogLine(u32 battlerId, u32 moveIndex)
+struct AILogLine *GetLogLine(enum BattlerId battlerId, u32 moveIndex)
 {
     s32 i;
 
@@ -2693,7 +2693,7 @@ struct AILogLine *GetLogLine(u32 battlerId, u32 moveIndex)
     return NULL;
 }
 
-void TestRunner_Battle_AILogScore(const char *file, u32 line, u32 battlerId, u32 moveIndex, s32 score, bool32 setScore)
+void TestRunner_Battle_AILogScore(const char *file, u32 line, enum BattlerId battlerId, u32 moveIndex, s32 score, bool32 setScore)
 {
     struct AILogLine *log;
 
@@ -2706,12 +2706,12 @@ void TestRunner_Battle_AILogScore(const char *file, u32 line, u32 battlerId, u32
     log->set = setScore;
 }
 
-void TestRunner_Battle_AISetScore(const char *file, u32 line, u32 battlerId, u32 moveIndex, s32 score)
+void TestRunner_Battle_AISetScore(const char *file, u32 line, enum BattlerId battlerId, u32 moveIndex, s32 score)
 {
     TestRunner_Battle_AILogScore(file, line, battlerId, moveIndex, score, TRUE);
 }
 
-void TestRunner_Battle_AIAdjustScore(const char *file, u32 line, u32 battlerId, u32 moveIndex, s32 score)
+void TestRunner_Battle_AIAdjustScore(const char *file, u32 line, enum BattlerId battlerId, u32 moveIndex, s32 score)
 {
     TestRunner_Battle_AILogScore(file, line, battlerId, moveIndex, score, FALSE);
 }

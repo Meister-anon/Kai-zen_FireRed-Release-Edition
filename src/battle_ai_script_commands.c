@@ -475,7 +475,7 @@ static void RecordLastUsedMoveByTarget(void)
 }
 
 // not used
-static void ClearBattlerMoveHistory(u8 battlerId)
+static void ClearBattlerMoveHistory(enum BattlerId battlerId)
 {
     s32 i;
 
@@ -483,7 +483,7 @@ static void ClearBattlerMoveHistory(u8 battlerId)
         BATTLE_HISTORY->usedMoves[battlerId / 2][i] = MOVE_NONE;
 }
 
-void RecordKnownMove(u8 battlerId, u32 move)    //file equals battle_ai_util.c in emerald
+void RecordKnownMove(enum BattlerId battlerId, u32 move)    //file equals battle_ai_util.c in emerald
 {
     s32 i;
     for (i = 0; i < MAX_MON_MOVES; i++)
@@ -498,13 +498,13 @@ void RecordKnownMove(u8 battlerId, u32 move)    //file equals battle_ai_util.c i
     }
 }
 
-void RecordAbilityBattle(u8 battlerId, u16 abilityId)
+void RecordAbilityBattle(enum BattlerId battlerId, u16 abilityId)
 {
     if (GetBattlerSide(battlerId) == 0)
         BATTLE_HISTORY->abilities[GET_BATTLER_SIDE(battlerId)] = abilityId;
 }
 
-void RecordLastUsedMoveBy(u32 battlerId, u32 move)
+void RecordLastUsedMoveBy(enum BattlerId battlerId, u32 move)
 {
     u8* index = &BATTLE_HISTORY->moveHistoryIndex[battlerId];
 
@@ -513,7 +513,7 @@ void RecordLastUsedMoveBy(u32 battlerId, u32 move)
     BATTLE_HISTORY->moveHistory[battlerId][*index] = move;
 }
 
-void RecordItemEffectBattle(u8 battlerId, u8 itemEffect)
+void RecordItemEffectBattle(enum BattlerId battlerId, u8 itemEffect)
 {
     if (GetBattlerSide(battlerId) == 0)
         BATTLE_HISTORY->itemEffects[GET_BATTLER_SIDE(battlerId)] = itemEffect;
@@ -563,7 +563,7 @@ static void Cmd_score(void)
 
 static void Cmd_if_hp_less_than(void)
 {
-    u16 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -578,7 +578,7 @@ static void Cmd_if_hp_less_than(void)
 
 static void Cmd_if_hp_more_than(void)
 {
-    u16 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -593,7 +593,7 @@ static void Cmd_if_hp_more_than(void)
 
 static void Cmd_if_hp_equal(void)
 {
-    u16 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -608,7 +608,7 @@ static void Cmd_if_hp_equal(void)
 
 static void Cmd_if_hp_not_equal(void)
 {
-    u16 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -623,7 +623,7 @@ static void Cmd_if_hp_not_equal(void)
 
 static void Cmd_if_status(void)
 {
-    u16 battlerId;
+    enum BattlerId battlerId;
     u32 status;
 
     if (sAIScriptPtr[1] == AI_USER)
@@ -641,7 +641,7 @@ static void Cmd_if_status(void)
 
 static void Cmd_if_not_status(void)
 {
-    u16 battlerId;
+    enum BattlerId battlerId;
     u32 status;
 
     if (sAIScriptPtr[1] == AI_USER)
@@ -659,7 +659,7 @@ static void Cmd_if_not_status(void)
 
 static void Cmd_if_status2(void)
 {
-    u16 battlerId;
+    enum BattlerId battlerId;
     u32 status;
 
     if (sAIScriptPtr[1] == AI_USER)
@@ -677,7 +677,7 @@ static void Cmd_if_status2(void)
 
 static void Cmd_if_not_status2(void)
 {
-    u16 battlerId;
+    enum BattlerId battlerId;
     u32 status;
 
     if (sAIScriptPtr[1] == AI_USER)
@@ -695,7 +695,7 @@ static void Cmd_if_not_status2(void)
 
 static void Cmd_if_status3(void)
 {
-    u16 battlerId;
+    enum BattlerId battlerId;
     u32 status;
 
     if (sAIScriptPtr[1] == AI_USER)
@@ -713,7 +713,7 @@ static void Cmd_if_status3(void)
 
 static void Cmd_if_not_status3(void)
 {
-    u16 battlerId;
+    enum BattlerId battlerId;
     u32 status;
 
     if (sAIScriptPtr[1] == AI_USER)
@@ -731,7 +731,7 @@ static void Cmd_if_not_status3(void)
 
 static void Cmd_if_side_affecting(void)
 {
-    u16 battlerId;
+    enum BattlerId battlerId;
     u32 side, status;
 
     if (sAIScriptPtr[1] == AI_USER)
@@ -750,7 +750,7 @@ static void Cmd_if_side_affecting(void)
 
 static void Cmd_if_not_side_affecting(void)
 {
-    u16 battlerId;
+    enum BattlerId battlerId;
     u32 side, status;
 
     if (sAIScriptPtr[1] == AI_USER)
@@ -1106,7 +1106,7 @@ static void Cmd_nullsub_2B(void)
 {
 }
 
-s32 CountUsablePartyMons(u8 battlerId)
+s32 CountUsablePartyMons(enum BattlerId battlerId)
 {
     s32 battlerOnField1, battlerOnField2, i, ret;
     struct Pokemon* party;
@@ -1144,8 +1144,8 @@ s32 CountUsablePartyMons(u8 battlerId)
 
 static void Cmd_count_alive_pokemon(void)
 {
-    u8 battlerId;
-    u8 battlerOnField1, battlerOnField2;
+    enum BattlerId battlerId;
+    enum BattlerId battlerOnField1, battlerOnField2;
     struct Pokemon *party;
     s32 i;
 
@@ -1202,7 +1202,7 @@ static void Cmd_get_considered_move_effect(void)
 
 static void Cmd_get_ability(void)
 {
-    u8 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -1352,7 +1352,7 @@ static void Cmd_if_status_in_party(void)
     struct Pokemon *partyPtr;
     int i;
     u32 statusToCompareTo;
-    // u8 battlerId
+    // enum BattlerId battlerId
 
     // for whatever reason, game freak put the party pointer into 2 variables instead of 1
     // it's possible at some point the switch encompassed the whole function and used each respective variable creating largely duplicate code.
@@ -1405,7 +1405,7 @@ static void Cmd_if_status_not_in_party(void)
     struct Pokemon *partyPtr;
     int i;
     u32 statusToCompareTo;
-    //u8 battlerId
+    //enum BattlerId battlerId
 
     switch (sAIScriptPtr[1])
     {
@@ -1474,7 +1474,7 @@ static void Cmd_if_not_effect(void)
 
 static void Cmd_if_stat_level_less_than(void)
 {
-    u32 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -1489,7 +1489,7 @@ static void Cmd_if_stat_level_less_than(void)
 
 static void Cmd_if_stat_level_more_than(void)
 {
-    u32 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -1504,7 +1504,7 @@ static void Cmd_if_stat_level_more_than(void)
 
 static void Cmd_if_stat_level_equal(void)
 {
-    u32 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -1519,7 +1519,7 @@ static void Cmd_if_stat_level_equal(void)
 
 static void Cmd_if_stat_level_not_equal(void)
 {
-    u32 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -1716,7 +1716,7 @@ static void Cmd_if_doesnt_have_move_with_effect(void)
 
 static void Cmd_if_any_move_disabled_or_encored(void)
 {
-    u8 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -1802,7 +1802,7 @@ static void Cmd_watch(void)
 
 static void Cmd_get_hold_effect(void)
 {
-    u8 battlerId;
+    enum BattlerId battlerId;
     u16 side;
 
     if (sAIScriptPtr[1] == AI_USER)
@@ -1823,7 +1823,7 @@ static void Cmd_get_hold_effect(void)
 
 static void Cmd_get_gender(void)
 {
-    u8 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -1837,7 +1837,7 @@ static void Cmd_get_gender(void)
 
 static void Cmd_is_first_turn_for(void)
 {
-    u8 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -1851,7 +1851,7 @@ static void Cmd_is_first_turn_for(void)
 
 static void Cmd_get_stockpile_count(void)
 {
-    u8 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -1872,7 +1872,7 @@ static void Cmd_is_double_battle(void)
 
 static void Cmd_get_used_held_item(void)
 {
-    u8 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;
@@ -1906,7 +1906,7 @@ static void Cmd_get_move_effect_from_result(void)
 
 static void Cmd_get_protect_count(void)
 {
-    u8 battlerId;
+    enum BattlerId battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
         battlerId = gBattlerAttacker;

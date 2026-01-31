@@ -75,7 +75,7 @@ static const struct SpriteSheet sSpriteSheets_MoveEffectMons[] =
     { gMiscBlank_Gfx, MON_PIC_SIZE, TAG_MOVE_EFFECT_MON_2, },
 };
 
-u8 GetBattlerSpriteCoord(u8 battler, u8 coordType)
+u8 GetBattlerSpriteCoord(enum BattlerId battler, u8 coordType)
 {
     u8 retVal;
     u16 species;
@@ -130,7 +130,7 @@ u8 GetBattlerSpriteCoord(u8 battler, u8 coordType)
 }
 
 #define  SPRITE_COORDINATE_AND_ELEVATION_LOGIC //checck above as well
-u8 GetBattlerYDelta(u8 battler, u16 species)
+u8 GetBattlerYDelta(enum BattlerId battler, u16 species)
 {
     u32 personality;
     struct BattleSpriteInfo *spriteInfo;
@@ -168,7 +168,7 @@ u8 GetBattlerYDelta(u8 battler, u16 species)
     return ret;
 }
 
-u8 GetBattlerElevation(u8 battler, u16 species)
+u8 GetBattlerElevation(enum BattlerId battler, u16 species)
 {
     u8 ret = 0;
     if (!IsOnPlayerSide(battler))
@@ -182,7 +182,7 @@ u8 GetBattlerElevation(u8 battler, u16 species)
     return ret;
 }
 
-u8 GetBattlerSpriteFinal_Y(u8 battler, u16 species, bool8 a3)
+u8 GetBattlerSpriteFinal_Y(enum BattlerId battler, u16 species, bool8 a3)
 {
     u16 offset;
     u8 y;
@@ -207,7 +207,7 @@ u8 GetBattlerSpriteFinal_Y(u8 battler, u16 species, bool8 a3)
     return y;
 }
 
-u8 GetBattlerSpriteCoord2(u8 battler, u8 coordType)
+u8 GetBattlerSpriteCoord2(enum BattlerId battler, u8 coordType)
 {
     u16 species;
     struct BattleSpriteInfo *spriteInfo;
@@ -240,12 +240,12 @@ u8 GetBattlerSpriteCoord2(u8 battler, u8 coordType)
     }
 }
 
-u8 GetBattlerSpriteDefault_Y(u8 battler)
+u8 GetBattlerSpriteDefault_Y(enum BattlerId battler)
 {
     return GetBattlerSpriteCoord(battler, BATTLER_COORD_Y_PIC_OFFSET_DEFAULT);
 }
 
-u8 GetSubstituteSpriteDefault_Y(u8 battler)
+u8 GetSubstituteSpriteDefault_Y(enum BattlerId battler)
 {
     u16 y;
     if (!IsOnPlayerSide(battler))
@@ -255,7 +255,7 @@ u8 GetSubstituteSpriteDefault_Y(u8 battler)
     return y;
 }
 
-u8 GetGhostSpriteDefault_Y(u8 battler)
+u8 GetGhostSpriteDefault_Y(enum BattlerId battler)
 {
     if (GetBattlerSide(battler) != B_SIDE_OPPONENT)
         return GetBattlerSpriteCoord(battler, BATTLER_COORD_Y_PIC_OFFSET_DEFAULT);
@@ -263,7 +263,7 @@ u8 GetGhostSpriteDefault_Y(u8 battler)
         return GetBattlerSpriteCoord(battler, BATTLER_COORD_Y);
 }
 
-u8 GetBattlerYCoordWithElevation(u8 battler)
+u8 GetBattlerYCoordWithElevation(enum BattlerId battler)
 {
     u16 species;
     u8 y;
@@ -797,7 +797,7 @@ void InitSpritePosToAnimBothTargets(struct Sprite *sprite, bool8 respectMonPicOf
 
 bool32 InitSpritePosToAnimBattler(u32 animBattlerId, struct Sprite *sprite, bool8 respectMonPicOffsets)
 {
-    u32 battler = GetAnimBattlerId(animBattlerId);
+    enum BattlerId battler = GetAnimBattlerId(animBattlerId);
     if (GetAnimBattlerSpriteId(animBattlerId) == 0xFF || !IsBattlerSpriteVisible(battler))
     {
         DestroyAnimSprite(sprite);
@@ -819,7 +819,7 @@ bool32 InitSpritePosToAnimBattler(u32 animBattlerId, struct Sprite *sprite, bool
     return TRUE;
 }
 
-bool8 IsBattlerSpritePresent(u8 battler)
+bool8 IsBattlerSpritePresent(enum BattlerId battler)
 {
     if (IsContest())
     {
@@ -897,7 +897,7 @@ void GetBattleAnimBgData(struct BattleAnimBgData *out, u32 bgId)
     }
 }
 
-void GetBgDataForTransform(struct BattleAnimBgData *out, u8 battler)
+void GetBgDataForTransform(struct BattleAnimBgData *out, enum BattlerId battler)
 {
     out->bgTiles = gBattleAnimBgTileBuffer;
     out->bgTilemap = (u16 *)gBattleAnimBgTilemapBuffer;
@@ -1219,7 +1219,7 @@ static bool8 ShouldRotScaleSpeciesBeFlipped(void)
 
 void PrepareBattlerSpriteForRotScale(u8 spriteId, u8 objMode)
 {
-    u8 battler = gSprites[spriteId].data[0];
+    enum BattlerId battler = gSprites[spriteId].data[0];
 
     if (IsContest() || IsBattlerSpriteVisible(battler))
         gSprites[spriteId].invisible = FALSE;
@@ -1444,7 +1444,7 @@ u32 GetBattleMonSpritePalettesMask(u8 playerLeft, u8 playerRight, u8 opponentLef
     return selectedPalettes;
 }
 
-u8 GetSpritePalIdxByBattler(u8 battler)
+u8 GetSpritePalIdxByBattler(enum BattlerId battler)
 {
     return battler;
 }
@@ -1558,7 +1558,7 @@ static void AnimThrowProjectile_Step(struct Sprite *sprite)
 void AnimTravelDiagonally(struct Sprite *sprite)
 {
     bool8 respectOffsets;
-    u8 battler, coordType;
+    enum BattlerId battler, coordType;
 
     if (!gBattleAnimArgs[6])
     {
@@ -1869,7 +1869,7 @@ void SetBattlerSpriteYOffsetFromOtherYScale(u8 spriteId, u8 otherSpriteId)
 static u16 GetBattlerYDeltaFromSpriteId(u8 spriteId)
 {
     struct BattleSpriteInfo *spriteInfo;
-    u8 battler = gSprites[spriteId].data[0];
+    enum BattlerId battler = gSprites[spriteId].data[0];
     u16 species;
     u16 i;
 
@@ -1988,7 +1988,7 @@ void InitPrioritiesForVisibleBattlers(void)
     }
 }
 
-u8 GetBattlerSpriteSubpriority(u8 battler)
+u8 GetBattlerSpriteSubpriority(enum BattlerId battler)
 {
     enum BattlerPosition position;
     u8 subpriority;
@@ -2016,7 +2016,7 @@ u8 GetBattlerSpriteSubpriority(u8 battler)
     return subpriority;
 }
 
-u8 GetBattlerSpriteBGPriority(u8 battler)
+u8 GetBattlerSpriteBGPriority(enum BattlerId battler)
 {
     enum BattlerPosition position = GetBattlerPosition(battler);
 
@@ -2028,7 +2028,7 @@ u8 GetBattlerSpriteBGPriority(u8 battler)
         return GetAnimBgAttribute(1, BG_ANIM_PRIORITY);
 }
 
-u8 GetBattlerSpriteBGPriorityRank(u8 battler)
+u8 GetBattlerSpriteBGPriorityRank(enum BattlerId battler)
 {
     if (!IsContest())
     {
@@ -2042,7 +2042,7 @@ u8 GetBattlerSpriteBGPriorityRank(u8 battler)
 }
 
 // Create Pokémon sprite to be used for a move animation effect (e.g. Role Play / Snatch)
-u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 id, s16 x, s16 y, u8 subpriority, u32 personality, bool8 isShiny, u32 battler)
+u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 id, s16 x, s16 y, u8 subpriority, u32 personality, bool8 isShiny, enum BattlerId battler)
 {
     u8 spriteId;
     u16 sheet = LoadSpriteSheet(&sSpriteSheets_MoveEffectMons[id]);
@@ -2088,7 +2088,7 @@ void DestroySpriteAndFreeResources_(struct Sprite *sprite)
     DestroySpriteAndFreeResources(sprite);
 }
 
-s16 GetBattlerSpriteCoordAttr(u8 battler, u8 attr)
+s16 GetBattlerSpriteCoordAttr(enum BattlerId battler, u8 attr)
 {
     u16 species;
     u32 personality;
@@ -2183,7 +2183,7 @@ s16 GetBattlerSpriteCoordAttr(u8 battler, u8 attr)
     }
 }
 
-void SetAverageBattlerPositions(u8 battler, bool8 respectMonPicOffsets, s16 *x, s16 *y)
+void SetAverageBattlerPositions(enum BattlerId battler, bool8 respectMonPicOffsets, s16 *x, s16 *y)
 {
     u8 xCoordType, yCoordType;
     s16 battlerX, battlerY;
@@ -2217,7 +2217,7 @@ void SetAverageBattlerPositions(u8 battler, bool8 respectMonPicOffsets, s16 *x, 
     *y = (battlerY + partnerY) / 2;
 }
 
-void SetToPartnerPositions(u8 battler, bool8 respectMonPicOffsets, s16 *x, s16 *y)
+void SetToPartnerPositions(enum BattlerId battler, bool8 respectMonPicOffsets, s16 *x, s16 *y)
 {
     u8 xCoordType, yCoordType;
     s16 returnX, returnY;

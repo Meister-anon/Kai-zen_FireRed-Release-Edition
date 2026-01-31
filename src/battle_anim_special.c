@@ -522,7 +522,7 @@ void AnimTask_HealthBoxLevelUpCanEvolve(u8 taskId)
 {
     struct BattleAnimBgData animBgData;
     u8 healthBoxSpriteId;
-    u8 battler;
+    enum BattlerId battler;
     u8 spriteId1, spriteId2, spriteId3, spriteId4;
 
     battler = gBattleAnimAttacker;
@@ -566,7 +566,7 @@ void AnimTask_HealthBoxLevelUpCanEvolve(u8 taskId)
 static void AnimTask_HealthBoxLevelUpCanEvolve_Step(u8 taskId)
 {
     u8 spriteId1, spriteId2;
-    u8 battler;
+    enum BattlerId battler;
 
     battler = gBattleAnimAttacker;
     gTasks[taskId].data[13] += gTasks[taskId].data[1];
@@ -623,7 +623,7 @@ static void AnimTask_HealthBoxLevelUpCanEvolve_Step(u8 taskId)
     }
 }
 
-void LoadHealthboxPalsForLevelUp(u8 *paletteId1, u8 *paletteId2, u8 battler)
+void LoadHealthboxPalsForLevelUp(u8 *paletteId1, u8 *paletteId2, enum BattlerId battler)
 {
     u8 healthBoxSpriteId;
     u8 spriteId1, spriteId2;
@@ -651,7 +651,7 @@ void AnimTask_LoadHealthboxPalsForLevelUp(u8 taskId)
     DestroyAnimVisualTask(taskId);
 }
 
-void DoFreeHealthboxPalsForLevelUp(u8 battler)
+void DoFreeHealthboxPalsForLevelUp(enum BattlerId battler)
 {
     u8 healthBoxSpriteId;
     u8 spriteId1, spriteId2;
@@ -1998,7 +1998,7 @@ static void DestroyBallOpenAnimationParticle(struct Sprite *sprite)
     }
 }
 
-u8 LaunchBallFadeMonTask(bool8 unfadeLater, u8 battler, u32 selectedPalettes, u8 ballId)
+u8 LaunchBallFadeMonTask(bool8 unfadeLater, enum BattlerId battler, u32 selectedPalettes, u8 ballId)
 {
     u8 taskId;
 
@@ -2184,7 +2184,7 @@ void AnimTask_TargetToEffectBattler(u8 taskId)
 #define sPhase  data[1] // For encircling stars
 #define sTimer  data[1] // For diagnoal stars
 
-void TryShinyAnimation(u8 battler, struct Pokemon *mon)
+void TryShinyAnimation(enum BattlerId battler, struct Pokemon *mon)
 {
     bool8 isShiny = IsMonShiny(mon);
     u8 taskCirc, taskDgnl;
@@ -2220,7 +2220,7 @@ void TryShinyAnimation(u8 battler, struct Pokemon *mon)
 
 static void AnimTask_ShinySparkles(u8 taskId)
 {
-    u8 battler;
+    enum BattlerId battler;
     u8 x, y;
     u8 spriteId;
     u16 counter;
@@ -2291,7 +2291,7 @@ static void AnimTask_ShinySparkles(u8 taskId)
 
 static void AnimTask_ShinySparkles_WaitSparkles(u8 taskId)
 {
-    u8 battler;
+    enum BattlerId battler;
 
     if (gTasks[taskId].data[12] == FALSE)
     {

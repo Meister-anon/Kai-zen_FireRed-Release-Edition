@@ -4022,7 +4022,7 @@ somehow its using transformed hp not the reversion hp
 for the hp update, but also the in battle healthbox isn't updating
 other than that all stat gain on level up box is correct
 */
-void RevertTransformedHP(u8 battlerId)
+void RevertTransformedHP(enum BattlerId battlerId)
 {
     s32 currentHP, currMaxHP;
     struct Pokemon *party;
@@ -4615,7 +4615,7 @@ bool8 IsPhysicalMove(u32 attackerId, u16 move)
 }
 
 //figure out how to do for ai, check EE
-void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCategory, s32 damage)
+void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u16 move, u8 DamageCategory, s32 damage)
 {
 
     u32 sideStatus = gSideStatuses[GetBattlerSide(battlerDef)];
@@ -4674,7 +4674,7 @@ void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCate
 // seems this is the equivalent of emerald's CalcDefenseStat function
 // actually can put calcmovebasepower aft mod in here too, to set up those abilities.
 //used in damagecalc command and for selfhit dmg for confusion/disobedience
-s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u32 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef)
+s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u32 sideStatus, u16 powerOverride, u8 typeOverride, enum BattlerId battlerIdAtk, enum BattlerId battlerIdDef)
 {
     u32 i;
     u32 percentBoost;
@@ -6661,17 +6661,17 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     return damage + 2;
 }
 
-void ApplyMovePowerModifiers(u8 battlerAtk, u16 move, u16 power)
+void ApplyMovePowerModifiers(enum BattlerId battlerAtk, u16 move, u16 power)
 {
     if (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_DARK_DEAL)
         if (power > 80)
             power /= 2;
 }
 
-u8 CountAliveMonsInBattle(u8 caseId, u32 battler)
+u8 CountAliveMonsInBattle(u8 caseId, enum BattlerId battler)
 {
     u32 i;
-    u32 battlerSide;
+    enum BattlerId battlerSide;
     u8 retVal = 0;
 
     switch (caseId)
@@ -6703,7 +6703,7 @@ u8 CountAliveMonsInBattle(u8 caseId, u32 battler)
     return retVal;
 }
 
-u8 GetDefaultMoveTarget(u32 battler)
+u8 GetDefaultMoveTarget(enum BattlerId battler)
 {
     u8 opposing = BATTLE_OPPOSITE(GetBattlerPosition(battler) & BIT_SIDE);
 
@@ -7094,7 +7094,7 @@ u8 GetWeatherBallType(u16 move)
 
 
 //check if gem type set works vsonic
-u8 GetBattlerHiddenPowerType(u8 battler)
+u8 GetBattlerHiddenPowerType(enum BattlerId battler)
 {
     
     u8 side = GetBattlerSide(battler);    
@@ -7146,7 +7146,7 @@ void SetHiddenPowerType(struct BoxPokemon *mon)
         SetBoxMonData(mon, MON_DATA_HIDDEN_POWER_TYPE, &storedType);
 }
 
-void SetMultiuseSpriteTemplateToPokemon(u16 speciesTag, u8 battlerPosition)
+void SetMultiuseSpriteTemplateToPokemon(u16 speciesTag, enum BattlerId battlerPosition)
 {
     if (gMonSpritesGfxPtr != NULL)
     {
@@ -7176,7 +7176,7 @@ void SetMultiuseSpriteTemplateToPokemon(u16 speciesTag, u8 battlerPosition)
     gMultiuseSpriteTemplate.anims = gSpriteAnimTable_82349BC;
 }
 
-void SetMultiuseSpriteTemplateToTrainerBack(u16 trainerSpriteId, u8 battlerPosition)
+void SetMultiuseSpriteTemplateToTrainerBack(u16 trainerSpriteId, enum BattlerId battlerPosition)
 {
     gMultiuseSpriteTemplate.paletteTag = trainerSpriteId;
     if (battlerPosition == B_POSITION_PLAYER_LEFT || battlerPosition == B_POSITION_PLAYER_RIGHT)
@@ -8657,7 +8657,7 @@ void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst)
 }
 
 //wait nvm this function is only used in item_use function... below this
-static void CopyPlayerPartyMonToBattleData(u8 battlerId, u8 partyIndex) //function brokeninto several smaller functions in emerald
+static void CopyPlayerPartyMonToBattleData(enum BattlerId battlerId, u8 partyIndex) //function brokeninto several smaller functions in emerald
 {
     u16 *hpSwitchout;
     s32 i;
@@ -9376,7 +9376,7 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
     u32 i;
     s32 sp18 = 0;
     u8 holdEffect;
-    u8 battlerId = 4;
+    enum BattlerId battlerId = 4;
     u16 heldItem;
     u8 curEffect;
     u32 curMoveId;
@@ -9674,7 +9674,7 @@ static bool8 PartyMonHasStatus(struct Pokemon *mon, u32 unused, u32 healMask, u8
         return FALSE;
 }
 
-u8 GetItemEffectParamOffset(u32 battler, u16 itemId, u8 effectByte, u8 effectBit)
+u8 GetItemEffectParamOffset(enum BattlerId battler, u16 itemId, u8 effectByte, u8 effectBit)
 {
     const u8 *temp;
     const u8 *itemEffect;
@@ -12649,7 +12649,7 @@ u16 FacilityClassToPicIndex(u16 facilityClass)
     return gFacilityClassToPicIndex[facilityClass];
 }
 
-bool8 ShouldIgnoreDeoxysForm(u8 caseId, u8 battlerId) //may need to remove this?
+bool8 ShouldIgnoreDeoxysForm(u8 caseId, enum BattlerId battlerId) //may need to remove this?
 {
     switch (caseId)
     {
@@ -12828,7 +12828,7 @@ void HandleSetPokedexFlag(u16 nationalNum, u8 caseId, u32 personality)
     }
 }
 
-bool8 CheckBattleTypeGhost(struct Pokemon *mon, u8 battlerId)
+bool8 CheckBattleTypeGhost(struct Pokemon *mon, enum BattlerId battlerId)
 {
     u8 buffer[POKEMON_NAME_LENGTH + 1];
 
