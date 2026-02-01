@@ -7144,7 +7144,8 @@ s32 GetBattleMovePriority(enum BattlerId battler, u32 ability, u32 move)
         //vsonic unsure still planning to use ability absorb as condition for this
         //since is basicly triage and that doesnt need it
         else if ((ability == ABILITY_OMNIPOTENT_AIDE) 
-        && CanBattlerAbilityDrawInMove(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))
+        //&& CanBattlerAbilityDrawInMove(battler)
+        && IsBattlerAlive(BATTLE_PARTNER(battler))
         && IsHealingMove(move))
         {
 
