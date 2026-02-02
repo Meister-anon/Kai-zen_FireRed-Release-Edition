@@ -25,10 +25,19 @@ static inline bool32 IsBattlerUsingBeakBlast(enum BattlerId battler);
 // ----
 
 // Move End
-
+//think may be all I need for turn dmg
+//as dmg should never be negative belive
+//heal effects all go to passiveHpUpdate instead
+//confirmed yup that is the case
+//so this should cover everything
+//I just need set 0 at battle start
+//and in end turn 
+//putting value in protectstruct
+//accouts for both of those
 static enum MoveEndResult MoveEnd_SetValues(void)
 {
     gBattleScripting.savedDmg += gBattleStruct->moveDamage[gBattlerTarget];
+    gProtectStructs[gBattlerTarget].turnDmg += gBattleStruct->moveDamage[gBattlerTarget];
     gBattleStruct->eventState.moveEndBattler = 0;
     gBattleStruct->eventState.moveEndBlock = 0;
     gBattleScripting.moveendState++;

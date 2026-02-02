@@ -3876,6 +3876,7 @@ void SwitchInClearSetData(enum BattlerId battler, struct Volatiles *volatilesCop
     gLastResultingMoves[battler] = MOVE_NONE;
     gLastPrintedMoves[battler] = MOVE_NONE;
     gLastHitBy[battler] = 0xFF;
+    gProtectStructs[battler].turnDmg = 0; //unsure if needed but adding
     gBattleStruct->sameMoveTurns[battler] = 0;
     gBattleStruct->lastTakenMove[battler] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][0] = 0;
@@ -3954,6 +3955,7 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
     gBattleMons[battler].volatiles.swarmTurns = 0;
     gBattleMons[battler].volatiles.snaptrapTurns = 0;
     gBattleMons[battler].volatiles.thundercageTurns = 0;
+    gBattleMons[battler].volatiles.octolockCounter = 0;
 
     gActionSelectionCursor[battler] = 0;
     gMoveSelectionCursor[battler] = 0;
@@ -3975,6 +3977,7 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
     gProtectStructs[battler].targetNotAffected = FALSE;
     gProtectStructs[battler].chargingTurn = FALSE;
     gProtectStructs[battler].fleeFlag = 0;
+    gProtectStructs[battler].turnDmg = 0;
     gProtectStructs[battler].usedImprisonedMove = FALSE;
     gProtectStructs[battler].loveImmobility = FALSE;
     gProtectStructs[battler].obstructed = FALSE;

@@ -246,10 +246,12 @@ struct ProtectStruct
              /* field_3 */
              u32 field3 : 8;//field 3 because bit field 3,  this fills u32
 
-             u32 physicalDmg;
-             u32 specialDmg;
-             u8 physicalBattlerId;
-             u8 specialBattlerId;
+             u16 physicalDmg;
+             u16 specialDmg;
+             u16 turnDmg; //handled differently from above but is general field for now only used in focus punch
+             u16 physicalBattlerId:3;//u8 bitfield in EE
+             u16 specialBattlerId:3;
+             u16 spaceBar:10;
 
 
              u32 blockcrit : 1; //rn just giving to defense curl
@@ -327,11 +329,11 @@ struct SpecialStatus
     u8 Lostresolve:1; //for ability -tweaked as for pressure and iron will, moved here as realize makes more sense as special status
     
     //will prob not use these dmg values
-    s32 dmg;
+    /*s32 dmg;
     s32 physicalDmg; //does it make sense to have this twice? have version in protect structs too?
-    s32 specialDmg;
+    s32 specialDmg; //no it doesnt and it isn't used in EE
     u8 physicalBattlerId;
-    u8 specialBattlerId;
+    u8 specialBattlerId;*/
     u8 changedStatsBattlerId; // Battler that was responsible for the latest stat change. Can be self. 
     //emergency exit works as special status, just need to set it in attack cancelr 
     u8 EmergencyExit : 1; //logic mix truant pursuit/escape hit, setup like truant trigger on end turn that hp met theshold,raise attack then make attack first & set moveeffect escape hit so it leaves after attacking. WILL USE for both wimpout and Emergency exit just use ability check for logic change
@@ -716,7 +718,7 @@ struct BattlerState
     u32 canPickupItem:1; //with my reworked effect prob don't need this prob don't even need for honey gather ...but why is it a battler effet...rather than party
     u32 ateBoost:1;
     u32 wasAboveHalfHp:1; // For Berserk, Emergency Exit, Wimp Out and Anger Shell.
-    u32 commanderSpecies:11;
+    u32 freespace:11; //realize since I want for full turn best put turn dmg in protectstructs
     u32 selectionScriptFinished:1;
     u32 lastMoveTarget:3; // The last target on which each mon used a move, for the sake of Instruct
     // End of Word
@@ -730,7 +732,7 @@ struct BattlerState
     u16 commanderType:3;
     u16 padding:3;//prob remove successfail stuff
 };
-//shouldn't caught mon also be in here?
+//shouldn't caught mon also be in here? -believe is custom I added
 
 struct PartyState
 {
@@ -1776,6 +1778,15 @@ static inline bool32 IsAirborneType(enum Type type)
         return TRUE;
 
     return FALSE;
+}
+
+//ok should now be rather than not taking dmg
+//before attack goes off.
+//it'll fail if you take more than a threshold of dmg
+//at current level is 1/4th i.e 25% of maxhp
+static inline bool32 CanFocusPunchSucceed(enum BattlerId battler)
+{
+    return gProtectStructs[battler].turnDmg < (gBattleMons[battler].maxHP / 4);
 }
 
 static inline bool32 IsbattlerDivergentTypeOfMove(enum BattlerId battler, enum Type moveType)

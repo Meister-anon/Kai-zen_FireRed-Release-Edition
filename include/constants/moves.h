@@ -929,6 +929,7 @@ enum Move {
  MOVE_SHADOW_STRIKE = 887, //mega gren z signature multi hit, does dragon darts and boost evasion = 2, stages till turn end for clones
  MOVE_FENCE = 888, //new dark protect that steals attacker item
  MOVE_CONTRALTO = 889,
+ MOVE_FOCUS_STRIKE = 890, //technically not custom, is just original focus punch reowrked to not restricted to punching
 
  MOVES_COUNT_CUSTOM,
 

@@ -892,6 +892,13 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 7,
     },//not using but curious why score is so high
     //I guess impressive if can sucessfully get move off
+    //idea based on horizons anime make it an hp threshold
+    // focusRange or something long as dmg taken
+    //is less than 25% max hp focus won't be broken
+    //and will be able to execute the move - done
+    //may set effect back idk
+    //could just make new effect to be a fighting type
+    //recharge move
 
     [EFFECT_DOUBLE_POWER_ON_ARG_STATUS] =
     {

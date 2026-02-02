@@ -21997,4 +21997,33 @@ use wonder gaurd logic to determine its super effective
     //make it a move jiggly could learn but wiggly gets on evo
     //idea singer voice get deeper w age
 
+    [MOVE_FOCUS_STRIKE] =
+    {
+        .name = COMPOUND_STRING("Focus Strike"),
+        .description = COMPOUND_STRING("Powerful attack, moves last.\nThe user flinches if hit."),
+        .effect = EFFECT_FOCUS_PUNCH,
+        .power = 150,
+        .type = TYPE_FIGHTING,
+        .accuracy = 100,
+        .pp = 20,
+        .target = TARGET_SELECTED,
+        .priority = -3,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .punchingMove = TRUE,
+        .kickingMove = TRUE, //can be either
+        .meFirstBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .instructBanned = TRUE,
+        .assistBanned = TRUE,
+        /*.contestEffect = C_UPDATED_MOVE_EFFECTS >= GEN_6 ? CONTEST_EFFECT_BETTER_IF_LAST : CONTEST_EFFECT_NEXT_APPEAL_LATER,
+        .contestCategory = CONTEST_CATEGORY_TOUGH,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},*/
+        .battleAnimScript = gBattleAnimMove_FocusPunch, //want this to use punch and kick animation so guess closecombat?
+        //.validApprenticeMove = TRUE,
+    },
+
 };

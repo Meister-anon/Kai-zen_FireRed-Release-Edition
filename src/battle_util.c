@@ -2369,17 +2369,16 @@ static enum MoveCanceler CancelerTruant(struct BattleContext *ctx)
     return MOVE_STEP_SUCCESS;
 }
 
-//no longer using focus punch effect
-/*static enum MoveCanceler CancelerFocus(struct BattleContext *ctx)
+//changed to work off hp threshold
+static enum MoveCanceler CancelerFocus(struct BattleContext *ctx)
 {
-    u32 focusPunchFailureConfig = GetConfig(CONFIG_FOCUS_PUNCH_FAILURE);
 
     // In Gens 3-4, only check if is using Focus Punch.
     // In Gens 5-6, only check if the chosen move is Focus Punch.
     // In Gens 7+, check if chose and is using Focus Punch.
-    if ((gProtectStructs[ctx->battlerAtk].physicalDmg || gProtectStructs[ctx->battlerAtk].specialDmg)
-     && (focusPunchFailureConfig < GEN_5 || GetMoveEffect(gChosenMoveByBattler[ctx->battlerAtk]) == EFFECT_FOCUS_PUNCH)
-     && (focusPunchFailureConfig == GEN_5 || focusPunchFailureConfig == GEN_6 || GetMoveEffect(ctx->move) == EFFECT_FOCUS_PUNCH)
+    if (!CanFocusPunchSucceed(ctx->battlerAtk)
+     && (GetMoveEffect(gChosenMoveByBattler[ctx->battlerAtk]) == EFFECT_FOCUS_PUNCH)
+     && (GetMoveEffect(ctx->move) == EFFECT_FOCUS_PUNCH)
      && !gProtectStructs[ctx->battlerAtk].survivedOHKO)
     {
         CancelMultiTurnMoves(ctx->battlerAtk, SKY_DROP_ATTACKCANCELER_CHECK);
@@ -2389,19 +2388,6 @@ static enum MoveCanceler CancelerTruant(struct BattleContext *ctx)
     return MOVE_STEP_SUCCESS;
 }
 
-static enum MoveCanceler CancelerFocusPreGen5(struct BattleContext *ctx)
-{
-    if (GetConfig(CONFIG_FOCUS_PUNCH_FAILURE) < GEN_5)
-        return CancelerFocus(ctx);
-    return MOVE_STEP_SUCCESS;
-}
-
-static enum MoveCanceler CancelerFocusGen5(struct BattleContext *ctx)
-{
-    if (GetConfig(CONFIG_FOCUS_PUNCH_FAILURE) >= GEN_5)
-        return CancelerFocus(ctx);
-    return MOVE_STEP_SUCCESS;
-}*/
 
 static enum MoveCanceler CancelerFlinch(struct BattleContext *ctx)
 {
@@ -3690,7 +3676,7 @@ static enum MoveCanceler (*const sMoveSuccessOrderCancelers[])(struct BattleCont
     [CANCELER_OBEDIENCE] = CancelerObedience,
     [CANCELER_POWER_POINTS] = CancelerPowerPoints,
     [CANCELER_TRUANT] = CancelerTruant,
-    [CANCELER_FOCUS_GEN5] = CancelerFocusGen5,
+    [CANCELER_FOCUS_GEN5] = CancelerFocus,
     [CANCELER_FLINCH] = CancelerFlinch,
     [CANCELER_DISABLED] = CancelerDisabled,
     [CANCELER_VOLATILE_BLOCKED] = CancelerVolatileBlocked,
@@ -3709,8 +3695,6 @@ static enum MoveCanceler (*const sMoveSuccessOrderCancelers[])(struct BattleCont
     [CANCELER_PPDEDUCTION] = CancelerPPDeduction,
     [CANCELER_SKY_BATTLE] = CancelerSkyBattle,
     [CANCELER_WEATHER_PRIMAL] = CancelerWeatherPrimal,
-    //is focus punch won't be using
-    //[CANCELER_FOCUS_PRE_GEN5] = CancelerFocusPreGen5,
     [CANCELER_MOVE_FAILURE] = CancelerMoveFailure,
     [CANCELER_POWDER_STATUS] = CancelerPowderStatus,
     [CANCELER_PRIORITY_BLOCK] = CancelerPriorityBlock,
@@ -9221,7 +9205,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
     {
         switch (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)))
         {
-                    case ABILITY_BATTERY:
+        case ABILITY_BATTERY:
             if (IsBattleMoveSpecial(move)
             && !gBattleStruct->battlerState[BATTLE_PARTNER(battlerAtk)].commandingPartner)
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
