@@ -672,15 +672,15 @@ renamed semi invulnerable Interupt
     F(VOLATILE_AQUA_RING,                   aquaRing,                      (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_LASER_FOCUS,                 laserFocus,                    (u32, 1)) \
     F(VOLATILE_POWER_TRICK,                 powerTrick,                    (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_BIND,/*unsure bataonpass*/   bind,                          (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_FIRE_SPIN,                   firespin,                      (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_CLAMP,                       clamp,                         (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_WHIRLPOOL,                   whirlpool,                     (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_SAND_TOMB,                   sandtomb,                      (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_MAGMA_STORM,                 magmaStorm,                    (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_SWARM,                       swarm,                         (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_SNAP_TRAP,                   snaptrap,                      (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_THUNDER_CAGE,                thundercage,                   (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_BIND,/*wont bataonpass*/     bind,                          (u32, 1)) \
+    F(VOLATILE_FIRE_SPIN,                   firespin,                      (u32, 1)) \
+    F(VOLATILE_CLAMP,                       clamp,                         (u32, 1)) \
+    F(VOLATILE_WHIRLPOOL,                   whirlpool,                     (u32, 1)) \
+    F(VOLATILE_SAND_TOMB,                   sandtomb,                      (u32, 1)) \
+    F(VOLATILE_MAGMA_STORM,                 magmaStorm,                    (u32, 1)) \
+    F(VOLATILE_SWARM,                       swarm,                         (u32, 1)) \
+    F(VOLATILE_SNAP_TRAP,                   snaptrap,                      (u32, 1)) \
+    F(VOLATILE_THUNDER_CAGE,                thundercage,                   (u32, 1)) \
     F(VOLATILE_NO_RETREAT,                  noRetreat,                     (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_VESSEL_OF_RUIN,              vesselOfRuin,                  (u32, 1)) \
     F(VOLATILE_SWORD_OF_RUIN,               swordOfRuin,                   (u32, 1)) \
