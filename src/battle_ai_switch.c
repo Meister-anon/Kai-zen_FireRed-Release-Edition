@@ -1208,11 +1208,11 @@ static bool32 CanBattlerConsiderSwitch(enum BattlerId battler)
         return FALSE;
     if (gBattleMons[battler].volatiles.escapePrevention)
         return FALSE;
-    if (gBattleMons[battler].volatiles.root)
+    if (gBattleMons[battler].volatiles.rooted)
         return FALSE;
     if (IsAbilityPreventingEscape(battler))
         return FALSE;
-    if (gBattleStruct->battlerState[battler].commanderSpecies)
+    if (gBattleStruct->battlerState[battler].commanderType)
         return FALSE;
     if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
         return FALSE;

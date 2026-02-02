@@ -700,7 +700,7 @@ struct BattlerState
 {
     u8 targetsDone[MAX_BATTLERS_COUNT];
 
-    u32 commandingDondozo:1; //will rename since battery work samme just say commandingAlly or somehting
+    u32 commandingPartner:1; //will rename since battery work samme just say commandingAlly or somehting
     u32 focusPunchBattlers:1;
     u32 multipleSwitchInBattlers:1;
     u32 alreadyStatusedMoveAttempt:1; // For example when using Thunder Wave on an already paralyzed Pokémon.
@@ -727,7 +727,8 @@ struct BattlerState
     u16 protectSuccessiveFail:1; //if fails successive use //think I made may return space
     u16 protectTurnOrderFail:1; //if fails because moved last in turn
     u16 numMisses:4; //added just for multihit result bring actually can use bool
-    u16 padding:6;//prob remove successfail stuff
+    u16 commanderType:3;
+    u16 padding:3;//prob remove successfail stuff
 };
 //shouldn't caught mon also be in here?
 
@@ -1812,6 +1813,28 @@ static inline bool32 DoesBattlerGetStabOnMove(enum BattlerId battler, enum Type 
 
     return FALSE;
 }
+
+static inline u32 GetCommanderType(u16 species)
+{
+    switch (species)
+    {
+    case SPECIES_TATSUGIRI_CURLY:
+        return COMMANDER_TATSU_CURLY;
+        break;
+    case SPECIES_TATSUGIRI_DROOPY:
+        return COMMANDER_TATSU_DROOPY;
+        break;
+    case SPECIES_TATSUGIRI_STRETCHY:
+        return COMMANDER_TATSU_STRETCHY;
+        break;
+    case SPECIES_CHARJABUG:
+        return COMMANDER_CHARJABUG;
+    default:
+        return COMMANDER_NONE;
+        break;
+    }
+}
+
 
 
 //unsure if works, so not yet using

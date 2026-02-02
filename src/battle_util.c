@@ -623,7 +623,7 @@ void HandleAction_UseMove(void)
 
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     if (gAbsentBattlerFlags & 1u << gBattlerAttacker
-     || gBattleStruct->battlerState[gBattlerAttacker].commandingDondozo
+     || gBattleStruct->battlerState[gBattlerAttacker].commandingPartner
      || !IsBattlerAlive(gBattlerAttacker))
     {
         gCurrentActionFuncId = B_ACTION_FINISHED;
@@ -6778,14 +6778,14 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         case ABILITY_COMMANDER:
             if (IsBattlerAlive(partner)
              && IsBattlerAlive(battler)
-             && gBattleStruct->battlerState[partner].commanderSpecies == SPECIES_NONE
+             && gBattleStruct->battlerState[partner].commanderType == COMMANDER_NONE
              && gBattleMons[partner].species == SPECIES_DONDOZO
              && GET_BASE_SPECIES_ID(GetMonData(GetBattlerMon(battler), MON_DATA_SPECIES)) == SPECIES_TATSUGIRI)
             {
                 SaveBattlerAttacker(gBattlerAttacker);
                 gBattlerAttacker = partner;
-                gBattleStruct->battlerState[battler].commandingDondozo = TRUE;
-                gBattleStruct->battlerState[partner].commanderSpecies = gBattleMons[battler].species;
+                gBattleStruct->battlerState[battler].commandingPartner = TRUE;
+                gBattleStruct->battlerState[partner].commanderType = GetCommanderType(gBattleMons[battler].species);
                 gBattleMons[battler].volatiles.semiInvulnerable = STATE_COMMANDER;
                 if (gBattleMons[battler].volatiles.confusionTurns > 0 && !gBattleMons[battler].volatiles.infiniteConfusion)
                     gBattleMons[battler].volatiles.confusionTurns--;
@@ -6798,14 +6798,14 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         case ABILITY_BATTERY:
             if (IsBattlerAlive(partner)
              && IsBattlerAlive(battler)
-             && gBattleStruct->battlerState[partner].commanderSpecies == SPECIES_NONE
+             && gBattleStruct->battlerState[partner].commanderType == COMMANDER_NONE
              && gBattleMons[partner].species == SPECIES_VIKAVOLT
              && GET_BASE_SPECIES_ID(GetMonData(GetBattlerMon(battler), MON_DATA_SPECIES)) == SPECIES_CHARJABUG)
             {
                 SaveBattlerAttacker(gBattlerAttacker);
                 gBattlerAttacker = partner;
-                gBattleStruct->battlerState[battler].commandingDondozo = TRUE;
-                gBattleStruct->battlerState[partner].commanderSpecies = gBattleMons[battler].species;
+                gBattleStruct->battlerState[battler].commandingPartner = TRUE;
+                gBattleStruct->battlerState[partner].commanderType = GetCommanderType(gBattleMons[battler].species);
                 gBattleMons[battler].volatiles.semiInvulnerable = STATE_COMMANDER;
                 if (gBattleMons[battler].volatiles.confusionTurns > 0 && !gBattleMons[battler].volatiles.infiniteConfusion)
                     gBattleMons[battler].volatiles.confusionTurns--;
@@ -7225,9 +7225,11 @@ u32 IsAbilityPreventingEscape(enum BattlerId battler)
 //run from battle not switch
 //need add flying type to this
 //well add back my custom work
+//seems weird battler can't run from wild battle if in commander state
+//but apparently is default
 bool32 CanBattlerEscape(enum BattlerId battler) // no ability check
 {
-    if (gBattleStruct->battlerState[battler].commanderSpecies != SPECIES_NONE)
+    if (gBattleStruct->battlerState[battler].commanderType != COMMANDER_NONE)
         return FALSE;
     else if (B_GHOSTS_ESCAPE >= GEN_6 && IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
         return TRUE;
@@ -7235,7 +7237,7 @@ bool32 CanBattlerEscape(enum BattlerId battler) // no ability check
         return FALSE;
     else if (gBattleMons[battler].volatiles.wrapped)
         return FALSE;
-    else if (gBattleMons[battler].volatiles.root)
+    else if (gBattleMons[battler].volatiles.rooted)
         return FALSE;
     else if (gFieldStatuses & STATUS_FIELD_FAIRY_LOCK)
         return FALSE;
@@ -8306,7 +8308,7 @@ static bool32 IsBattlerGroundedInverseCheck(enum BattlerId battler, enum Ability
         return TRUE;
     if (gFieldStatuses & STATUS_FIELD_GRAVITY && isAnticipation == FALSE)
         return TRUE;
-    if (B_ROOTED_GROUNDING >= GEN_4 && gBattleMons[battler].volatiles.root)
+    if (B_ROOTED_GROUNDING >= GEN_4 && gBattleMons[battler].volatiles.rooted)
         return TRUE;
     if (gBattleMons[battler].volatiles.smackDown)
         return TRUE;
@@ -9219,10 +9221,9 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
     {
         switch (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)))
         {
-            //hopefully works unsure how atker stuff works here
-        case ABILITY_BATTERY:
+                    case ABILITY_BATTERY:
             if (IsBattleMoveSpecial(move)
-            && !gBattleStruct->battlerState[battlerAtk].commandingDondozo)
+            && !gBattleStruct->battlerState[BATTLE_PARTNER(battlerAtk)].commandingPartner)
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
             break;
         case ABILITY_POWER_SPOT:

@@ -490,7 +490,7 @@ bool32 IsBattlerTrapped(enum BattlerId battlerAtk, enum BattlerId battlerDef)
         return TRUE;
     if (gBattleMons[battlerDef].volatiles.semiInvulnerable == STATE_SKY_DROP)
         return TRUE;
-    if (gBattleMons[battlerDef].volatiles.root)
+    if (gBattleMons[battlerDef].volatiles.rooted)
         return TRUE;
     if (gFieldStatuses & STATUS_FIELD_FAIRY_LOCK)
         return TRUE;
@@ -640,7 +640,7 @@ bool32 IsDamageMoveUnusable(struct BattleContext *ctx)
 
     if (ctx->typeEffectivenessModifier == UQ_4_12(0.0))
         return TRUE;
-    if (gBattleStruct->battlerState[ctx->battlerDef].commandingDondozo)
+    if (gBattleStruct->battlerState[ctx->battlerDef].commandingPartner)
         return TRUE;
 
     // aiData->abilities does not check for Mold Breaker since it happens during combat so it needs to be done manually
@@ -2416,7 +2416,7 @@ u32 IncreaseStatDownScore(enum BattlerId battlerAtk, enum BattlerId battlerDef, 
             tempScore += WEAK_EFFECT;
         if (gBattleMons[battlerDef].volatiles.leechSeed)
             tempScore += WEAK_EFFECT;
-        if (gBattleMons[battlerDef].volatiles.root)
+        if (gBattleMons[battlerDef].volatiles.rooted)
             tempScore += WEAK_EFFECT;
         if (gBattleMons[battlerDef].volatiles.cursed)
             tempScore += WEAK_EFFECT;

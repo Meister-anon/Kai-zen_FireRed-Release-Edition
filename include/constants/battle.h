@@ -808,6 +808,16 @@ enum SemiInvulnerableExclusion
     EXCLUDE_COMMANDER,
 };
 
+enum CommanderType
+{
+    COMMANDER_NONE,
+    COMMANDER_TATSU_CURLY,
+    COMMANDER_TATSU_DROOPY,
+    COMMANDER_TATSU_STRETCHY,
+    COMMANDER_CHARJABUG,
+};
+//addittion to remove need for commanderspecies
+
 //vsonic important remmber bit fields can store max 2^bit value
 //ex bit 3  :3 is 2^3 = 8 can store 8 values between 0-7
 //vsonic important disablestruct no longer exists

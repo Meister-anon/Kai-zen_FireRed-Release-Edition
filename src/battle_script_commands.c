@@ -2885,7 +2885,7 @@ void SetMoveEffect(enum BattlerId battlerAtk, u32 effectBattler, enum MoveEffect
         moveEffect = MOVE_EFFECT_NONE;
     else if (!primary
           && IsSheerForceAffected(gCurrentMove, abilities[battlerAtk])
-          && !(moveEffect == MOVE_EFFECT_ORDER_UP && gBattleStruct->battlerState[gBattlerAttacker].commanderSpecies != SPECIES_NONE))
+          && !(moveEffect == MOVE_EFFECT_ORDER_UP && gBattleStruct->battlerState[gBattlerAttacker].commanderType != COMMANDER_NONE))
         moveEffect = MOVE_EFFECT_NONE;
     else if (!IsBattlerAlive(gEffectBattler) && !activateAfterFaint)
         moveEffect = MOVE_EFFECT_NONE;
@@ -3519,15 +3519,15 @@ void SetMoveEffect(enum BattlerId battlerAtk, u32 effectBattler, enum MoveEffect
         {
             enum Stat stat = 0;
             bool32 commanderAffected = TRUE;
-            switch (gBattleStruct->battlerState[gEffectBattler].commanderSpecies)
+            switch (gBattleStruct->battlerState[gEffectBattler].commanderType)
             {
-            case SPECIES_TATSUGIRI_CURLY:
+            case COMMANDER_TATSU_CURLY:
                 stat = STAT_ATK;
                 break;
-            case SPECIES_TATSUGIRI_DROOPY:
+            case COMMANDER_TATSU_DROOPY:
                 stat = STAT_DEF;
                 break;
-            case SPECIES_TATSUGIRI_STRETCHY:
+            case COMMANDER_TATSU_STRETCHY:
                 stat = STAT_SPEED;
                 break;
             default:
@@ -12283,7 +12283,7 @@ static void Cmd_settelekinesis(void)
     CMD_ARGS(const u8 *failInstr);
 
     if (gBattleMons[gBattlerTarget].volatiles.telekinesis
-        || gBattleMons[gBattlerTarget].volatiles.root
+        || gBattleMons[gBattlerTarget].volatiles.rooted
         || gBattleMons[gBattlerTarget].volatiles.smackDown
         || gFieldStatuses & STATUS_FIELD_GRAVITY
         || IsTelekinesisBannedSpecies(gBattleMons[gBattlerTarget].species))
@@ -13770,7 +13770,7 @@ void BS_JumpIfCommanderActive(void)
 {
     NATIVE_ARGS(const u8 *jumpInstr);
 
-    if (gBattleStruct->battlerState[gBattlerTarget].commanderSpecies != SPECIES_NONE)
+    if (gBattleStruct->battlerState[gBattlerTarget].commanderType != COMMANDER_NONE)
         gBattlescriptCurrInstr = cmd->jumpInstr;
     else if (gBattleMons[gBattlerTarget].volatiles.semiInvulnerable == STATE_COMMANDER)
         gBattlescriptCurrInstr = cmd->jumpInstr;

@@ -410,13 +410,14 @@ static bool32 HandleEndTurnAquaRing(enum BattlerId battler)
     return effect;
 }
 
+//vsonic important need update for ingrainturns boost
 static bool32 HandleEndTurnIngrain(enum BattlerId battler)
 {
     bool32 effect = FALSE;
 
     gBattleStruct->eventState.endTurnBattler++;
 
-    if (gBattleMons[battler].volatiles.root
+    if (gBattleMons[battler].volatiles.rooted
      && !gBattleMons[battler].volatiles.healBlock
      && !IsBattlerAtMaxHp(battler)
      && IsBattlerAlive(battler))

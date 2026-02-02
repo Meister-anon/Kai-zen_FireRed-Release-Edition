@@ -1177,7 +1177,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
     if (IsTwoTurnNotSemiInvulnerableMove(battlerAtk, move) && CanTargetFaintAi(battlerDef, battlerAtk))
         RETURN_SCORE_MINUS(10);
 
-    if (gBattleStruct->battlerState[battlerDef].commandingDondozo)
+    if (gBattleStruct->battlerState[battlerDef].commandingPartner)
         RETURN_SCORE_MINUS(20);
 
     // Don't setup into expected Focus Punch.
@@ -2077,7 +2077,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
                   || gBattleMons[battlerAtk].volatiles.powerTrick
                   || gBattleMons[battlerAtk].volatiles.magnetRise
                   || gBattleMons[battlerAtk].volatiles.aquaRing
-                  || gBattleMons[battlerAtk].volatiles.root
+                  || gBattleMons[battlerAtk].volatiles.rooted
                   || AnyStatIsRaised(battlerAtk))
                 break;
             else
@@ -2183,7 +2183,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_INGRAIN:
-            if (gBattleMons[battlerAtk].volatiles.root)
+            if (gBattleMons[battlerAtk].volatiles.rooted)
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_AQUA_RING:
@@ -2816,7 +2816,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
             break;
         case EFFECT_TELEKINESIS:
             if (gBattleMons[battlerDef].volatiles.telekinesis
-             || gBattleMons[battlerDef].volatiles.root
+             || gBattleMons[battlerDef].volatiles.rooted
              || gBattleMons[battlerDef].volatiles.smackDown
              || gFieldStatuses & STATUS_FIELD_GRAVITY
              || aiData->holdEffects[battlerDef] == HOLD_EFFECT_IRON_BALL
@@ -2962,7 +2962,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
               || gBattleMons[battlerAtk].volatiles.magnetRiseTimer > 0
               || aiData->holdEffects[battlerAtk] == HOLD_EFFECT_IRON_BALL
               || gBattleMons[battlerAtk].volatiles.smackDown
-              || gBattleMons[battlerAtk].volatiles.root
+              || gBattleMons[battlerAtk].volatiles.rooted
               || gBattleMons[battlerAtk].volatiles.magnetRise
               || !AI_IsBattlerGrounded(battlerAtk))
                 ADJUST_SCORE(-10);
@@ -4704,7 +4704,7 @@ static s32 AI_CalcMoveEffectScore(enum BattlerId battlerAtk, enum BattlerId batt
           || gBattleMons[battlerAtk].volatiles.powerTrick
           || gBattleMons[battlerAtk].volatiles.magnetRise
           || gBattleMons[battlerAtk].volatiles.aquaRing
-          || gBattleMons[battlerAtk].volatiles.root
+          || gBattleMons[battlerAtk].volatiles.rooted
           || AnyStatIsRaised(battlerAtk)))
             ADJUST_SCORE(BEST_EFFECT);
         break;
@@ -6505,7 +6505,7 @@ static s32 AI_PreferBatonPass(enum BattlerId battlerAtk, enum BattlerId battlerD
     switch (effect)
     {
     case EFFECT_INGRAIN:
-        if (!gBattleMons[battlerAtk].volatiles.root)
+        if (!gBattleMons[battlerAtk].volatiles.rooted)
             ADJUST_SCORE(DECENT_EFFECT);
         break;
     case EFFECT_AQUA_RING:
@@ -6519,7 +6519,7 @@ static s32 AI_PreferBatonPass(enum BattlerId battlerAtk, enum BattlerId battlerD
             ADJUST_SCORE(DECENT_EFFECT);
         break;
     case EFFECT_BATON_PASS:
-        if (gBattleMons[battlerAtk].volatiles.root || gBattleMons[battlerAtk].volatiles.aquaRing)
+        if (gBattleMons[battlerAtk].volatiles.rooted || gBattleMons[battlerAtk].volatiles.aquaRing)
             ADJUST_SCORE(DECENT_EFFECT);
         if (gBattleMons[battlerAtk].volatiles.leechSeed)
             ADJUST_SCORE(-3);

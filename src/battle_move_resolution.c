@@ -165,7 +165,7 @@ static enum MoveEndResult MoveEnd_Absorb(void)
     case EFFECT_DREAM_EATER:
         if (!gBattleMons[gBattlerAttacker].volatiles.healBlock
          && gBattleStruct->moveDamage[gBattlerTarget] > 0
-         && IsBattlerTurnDamaged(gBattlerTarget)
+         && IsBattlerTurnDamaged(gBattlerTarget) //this may not be necesssary, waiting on confirm from Alex
          && IsBattlerAlive(gBattlerAttacker))
         {
             s32 healAmount = (gBattleStruct->moveDamage[gBattlerTarget] * GetMoveAbsorbPercentage(gCurrentMove) / 100);
@@ -988,7 +988,7 @@ static enum MoveEndResult MoveEnd_MoveBlock(void)
             {
                 BattleScriptCall(BattleScript_AbilityPreventsPhasingOutRet);
             }
-            else if (gBattleMons[gBattlerTarget].volatiles.root)
+            else if (gBattleMons[gBattlerTarget].volatiles.rooted)
             {
                 BattleScriptCall(BattleScript_PrintMonIsRootedRet);
             }
@@ -1258,7 +1258,7 @@ static enum MoveEndResult MoveEnd_RedCard(void)
             gBattleScripting.battler = battler;
             gEffectBattler = gBattlerAttacker;
             BattleScriptPushCursor();
-            if (gBattleStruct->battlerState[gBattlerAttacker].commanderSpecies != SPECIES_NONE
+            if (gBattleStruct->battlerState[gBattlerAttacker].commanderType != COMMANDER_NONE
              || GetBattlerAbility(gBattlerAttacker) == ABILITY_GUARD_DOG
              || GetActiveGimmick(gBattlerAttacker) == GIMMICK_DYNAMAX)
                 gBattlescriptCurrInstr = BattleScript_RedCardActivationNoSwitch;
@@ -1727,10 +1727,10 @@ static enum MoveEndResult MoveEnd_ClearBits(void)
         gBattleStruct->battlerState[gBattlerAttacker].targetsDone[i] = FALSE;
         gBattleMons[i].volatiles.tryEjectPack = FALSE;
 
-        if (gBattleStruct->battlerState[i].commanderSpecies != SPECIES_NONE && !IsBattlerAlive(i))
+        if (gBattleStruct->battlerState[i].commanderType != COMMANDER_NONE && !IsBattlerAlive(i))
         {
             u32 partner = BATTLE_PARTNER(i);
-            gBattleStruct->battlerState[i].commanderSpecies = SPECIES_NONE;
+            gBattleStruct->battlerState[i].commanderType = COMMANDER_NONE;
             if (IsBattlerAlive(partner))
                 gBattleMons[partner].volatiles.semiInvulnerable = STATE_NONE;
         }

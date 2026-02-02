@@ -8365,15 +8365,15 @@ const union AffineAnimCmd* const gSpriteAffineAnimTable_MegaSymbol[] =
 //since making battery into commander like look into this vsonic
 void AnimTask_GetCommanderType(u8 taskId)
 {
-    switch (gBattleStruct->battlerState[gEffectBattler].commanderSpecies)
+    switch (gBattleStruct->battlerState[gEffectBattler].commanderType)
     {
-    case SPECIES_TATSUGIRI_CURLY:
+    case COMMANDER_TATSU_CURLY:
         gBattleAnimArgs[ARG_RET_ID] = ANIM_ORDER_UP_CURLY;
         break;
-    case SPECIES_TATSUGIRI_DROOPY:
+    case COMMANDER_TATSU_DROOPY:
         gBattleAnimArgs[ARG_RET_ID] = ANIM_ORDER_UP_DROOPY;
         break;
-    case SPECIES_TATSUGIRI_STRETCHY:
+    case COMMANDER_TATSU_STRETCHY:
         gBattleAnimArgs[ARG_RET_ID] = ANIM_ORDER_UP_STRETCHY;
         break;
     default:

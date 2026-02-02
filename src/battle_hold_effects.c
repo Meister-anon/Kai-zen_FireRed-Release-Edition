@@ -517,6 +517,9 @@ static enum ItemEffect DamagedStatBoostBerryEffect(enum BattlerId battlerDef, en
     return effect;
 }
 
+//think use of savedDmg here accounts for recoil
+//nvm its dmage done in general, since shell bell is based on user dmg
+//it can be recoil but its not exclusively
 static enum ItemEffect TryShellBell(enum BattlerId battlerAtk)
 {
     enum ItemEffect effect = ITEM_NO_EFFECT;
