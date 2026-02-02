@@ -11764,19 +11764,19 @@ static void Cmd_handleballthrow(void)
             if (gBattleMons[gBattlerTarget].status1 & STATUS1_FROSTBITE )
                 odds = (odds * 15) / 10;
 
-            if (gBattleMons[gBattlerTarget].status2 & STATUS2_CONFUSION)    //add ifs for status 2 to stack on top of status 1 liek here //include recharge, infatuation, nightmare, curse, & escape prevention & wrap etc
+            if (gBattleMons[gBattlerTarget].volatiles.confusionTurns)    //add ifs for status 2 to stack on top of status 1 liek here //include recharge, infatuation, nightmare, curse, & escape prevention & wrap etc
                 odds += (odds / 10);  //TO increase catch chance by 10%,
-            if (gBattleMons[gBattlerTarget].status2 & STATUS2_WRAPPED)
+            if (gBattleMons[gBattlerTarget].volatiles.wrapped)
                 odds += (odds / 5);
-            else if (IsBattlerTrappedViaMove(gBattlerTarget))//(STATUS4_BIND | STATUS4_FIRE_SPIN | STATUS4_CLAMP | STATUS4_WHIRLPOOL | STATUS4_SAND_TOMB | STATUS4_MAGMA_STORM | STATUS4_SWARM | STATUS4_SNAP_TRAP))
+            else if (IsBattlerTrappedViaMove(gBattlerTarget))
                 odds += (odds / 5);
             if (gBattleMons[gBattlerTarget].volatiles.infatuatedwithMon)
                 odds += (odds / 2);
-            if (gBattleMons[gBattlerTarget].status2 & STATUS2_NIGHTMARE)
+            if (gBattleMons[gBattlerTarget].volatiles.nightmare)
                 odds += (odds / 8);
-            if (gBattleMons[gBattlerTarget].status2 & STATUS2_CURSED)
+            if (gBattleMons[gBattlerTarget].volatiles.cursed)
                 odds += (odds / 10);
-            if (gBattleMons[gBattlerTarget].status2 & STATUS2_INFESTATION)    //add ifs for status 2 to stack on top of status 1 liek here //include recharge, infatuation, nightmare, curse, & escape prevention & wrap etc
+            if (gBattleMons[gBattlerTarget].volatiles.infested)    //add ifs for status 2 to stack on top of status 1 liek here //include recharge, infatuation, nightmare, curse, & escape prevention & wrap etc
                 odds += (odds / 10); 
             if (gBattleMons[gBattlerTarget].volatiles.escapePrevention
             || gBattleMons[gBattlerTarget].volatiles.switchBindtimer

@@ -8382,9 +8382,9 @@ static bool32 IsBattlerGroundedInverseCheck(enum BattlerId battler, enum Ability
         grounded = TRUE;
     
 
-    if ((gStatuses3[battler] & STATUS3_TELEKINESIS))
+    if ((gBattleMons[battler].volatiles.telekinesis))
         grounded = FALSE;
-    if ((gStatuses3[battler] & STATUS3_MAGNET_RISE))
+    if ((gBattleMons[battler].volatiles.magnetRise))
         grounded = FALSE;
     
     if ((holdEffect == HOLD_EFFECT_AIR_BALLOON))
@@ -8394,11 +8394,11 @@ static bool32 IsBattlerGroundedInverseCheck(enum BattlerId battler, enum Ability
     //ancticipation is only able to read it in gen 4 for type calc vsonic
     if (gFieldStatuses & STATUS_FIELD_GRAVITY && isAnticipation == FALSE)
         grounded = TRUE;
-    if (gStatuses3[battler] & STATUS3_ROOTED)
+    if (gBattleMons[battler].volatiles.rooted)
         grounded = TRUE;
     //oh might be wrong in origial smack down superscedes magnet rise
     //and telekinesis apparently
-    if (gStatuses3[battler] & STATUS3_SMACKED_DOWN)
+    if (gBattleMons[battler].volatiles.smackDown)
         grounded = TRUE;
     
     
@@ -8408,7 +8408,7 @@ static bool32 IsBattlerGroundedInverseCheck(enum BattlerId battler, enum Ability
     //doesn't matter much other than smacking down targets
     //in mid flight still think may not need
     //as triggering on air status already clears smackdown
-    //if ((gStatuses3[battler] & STATUS3_ON_AIR))
+    //if ((gBattleMons[battler].volatiles.semiInvulnerable == STATE_ON_AIR))
     //    grounded = FALSE;
 
     //while makes sense they never "fixed" this so I guess
@@ -8416,7 +8416,7 @@ static bool32 IsBattlerGroundedInverseCheck(enum BattlerId battler, enum Ability
     //but then again is better for ground type to work,
     //and not working flies in face of water version of effect
     //that works as expected this doesn't
-    if (gStatuses3[battler] & STATUS3_UNDERGROUND)
+    if (gBattleMons[battler].volatiles.semiInvulnerable == STATE_UNDERGROUND)
         grounded = TRUE;
     
     return grounded;
@@ -9858,7 +9858,7 @@ static inline u32 CalcDefenseStat(struct BattleContext *ctx)
         modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.7));
         //spDefense = (170 * spDefense) / 100; 
 
-    if (gBattleMons[battlerDef].status2 & STATUS2_INFESTATION) //liked the idea of creating a bug status effect, change  move infestaion to swarm, atked by biting swarm!          
+    if (gBattleMons[battlerDef].volatiles.infested) //liked the idea of creating a bug status effect, change  move infestaion to swarm, atked by biting swarm!          
     {
             //67% is 1 stage drop
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.67));
@@ -13509,7 +13509,7 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 m
             calc = (calc * 90) / 100; // new 10% sandstorm loss (extra effect given since hail got extra stuff) changed to 5%, changed back given mudsport changes
 
         //trap effect,
-        if (((gBattleMons[battlerAtk].status4 & STATUS4_SAND_TOMB)
+        if (((gBattleMons[battlerAtk].volatiles.sandtomb)
        )
         && !(MoveSureHitEvasionBoostedTargets(gCurrentMove))
         && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_ROCK, FALSE)
@@ -14605,7 +14605,7 @@ void SetOrClearRageVolatile(void)
 void ClearRageStatuses(enum BattlerId battler) //remove rage if  move used other than rage, changed so just don't call this
 {
     //gBattleMons[gBattlerAttacker].volatiles.rageCounter = 0;  don't reset counter so keep power boosts, 
-    //gBattleMons[battler].status2 &= ~(STATUS2_RAGE);
+    //gBattleMons[battler].volatiles.rage = FALSE);
     gBattleMons[battler].volatiles.rage = FALSE;
     gBattleMons[battler].volatiles.rageCounter = 0;
 }

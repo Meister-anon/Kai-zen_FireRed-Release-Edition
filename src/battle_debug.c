@@ -184,8 +184,8 @@ enum
     LIST_ITEM_STATS,
     LIST_ITEM_STAT_STAGES,
     LIST_ITEM_STATUS1,
-    LIST_ITEM_STATUS2,
-    LIST_ITEM_STATUS3,
+    //LIST_ITEM_STATUS2,
+    //LIST_ITEM_STATUS3,
     LIST_ITEM_SIDE_STATUS,
     LIST_ITEM_AI,
     LIST_ITEM_VARIOUS,
@@ -262,6 +262,7 @@ static const u8 sText_SecondaryItem[] = _("2nd Item");
 static const u8 sText_SideStatus[] = _("Side Status");
 static const u8 sText_MaxHp[] = _("HP Max");
 static const u8 sText_CurrHp[] = _("HP Current");
+static const u8 sText_Frostbite[] = _("frostbite");
 static const u8 sText_Freeze[] = _("freeze");
 static const u8 sText_Infested[] = _("infested");
 static const u8 sText_ToxicPoison[] = _("toxic poison");
@@ -319,8 +320,10 @@ static const u8 sText_InLove[] = _("In Love");
 
 static const u8 sText_EmptyString[] = _("");
 
+//need add frostbite to htis
 static const struct BitfieldInfo sStatus1Bitfield[] =
 {
+    {/*Frost*/ 1, 0},
     {/*Sleep*/ 1, 1}, //without sleep timer may not work
     {/*Poison*/ 1, 2},
     {/*Burn*/ 1, 3},
@@ -434,8 +437,8 @@ static const struct ListMenuItem sMainListItems[] =
     {sText_Stats, LIST_ITEM_STATS},
     {sText_StatStages, LIST_ITEM_STAT_STAGES},
     {sText_Status1, LIST_ITEM_STATUS1},
-    {sText_Status2, LIST_ITEM_STATUS2},
-    {sText_Status3, LIST_ITEM_STATUS3},
+    //{sText_Status2, LIST_ITEM_STATUS2},
+    //{sText_Status3, LIST_ITEM_STATUS3},
     {sText_SideStatus, LIST_ITEM_SIDE_STATUS},
     {sText_AI, LIST_ITEM_AI},
     {sText_Various, LIST_ITEM_VARIOUS},
@@ -478,18 +481,19 @@ static const struct ListMenuItem sStatsListItems[] =
 
 static const struct ListMenuItem sStatus1ListItems[] =
 {
-    {gText_Sleep, 0},
-    {gText_Poison, 1},
-    {gText_Burn, 2},
-    {sText_Freeze, 3},
-    {gText_Paralysis, 4},
-    {sText_ToxicPoison, 5},
-    {sText_Infested, 6},
-    {sText_SetTimers, 7},
+    {sText_Frostbite, 0},
+    {gText_Sleep, 1},
+    {gText_Poison, 2},
+    {gText_Burn, 3},
+    {sText_Freeze, 4},
+    {gText_Paralysis, 5},
+    {sText_ToxicPoison, 6},
+    {sText_Infested, 7},
+    {sText_SetTimers, 8},
 };
 
 //must match order of bit field
-static const struct ListMenuItem sStatus2ListItems[] =
+/*static const struct ListMenuItem sStatus2ListItems[] =
 {
     {gText_Confusion, 0},
     {sText_Flinch, 1},
@@ -521,7 +525,7 @@ static const struct ListMenuItem sStatus3ListItems[] =
     {sText_Yawned, 4},
     {sText_Imprisoned, 5},
     {sText_NoCrit, 6},
-};
+};*/
 
 static const struct ListMenuItem sSideStatusListItems[] =
 {
@@ -1028,7 +1032,7 @@ static void CreateSecondaryListMenu(struct BattleDebugMenu *data)
         itemsCount = ARRAY_COUNT(sStatus1ListItems);
         data->bitfield = sStatus1Bitfield;
         break;
-    case LIST_ITEM_STATUS2:
+    /*case LIST_ITEM_STATUS2:
         listTemplate.items = sStatus2ListItems;
         itemsCount = ARRAY_COUNT(sStatus2ListItems);
         data->bitfield = sStatus2Bitfield;
@@ -1038,7 +1042,7 @@ static void CreateSecondaryListMenu(struct BattleDebugMenu *data)
         listTemplate.items = sStatus3ListItems;
         itemsCount = ARRAY_COUNT(sStatus3ListItems);
         data->bitfield = sStatus3Bitfield;
-        break;
+        break;*/
     case LIST_ITEM_AI:
         listTemplate.items = sAIListItems;
         itemsCount = ARRAY_COUNT(sAIListItems);
@@ -1262,12 +1266,12 @@ static void UpdateBattlerValue(struct BattleDebugMenu *data)
         *(u8 *)(data->modifyArrows.modifiedValPtr) = data->modifyArrows.currValue;
         if (*(u8 *)(data->modifyArrows.modifiedValPtr) == 0)
         {
-            gBattleMons[data->battlerId].status2 &= ~STATUS2_SUBSTITUTE;
+            gBattleMons[data->battlerId].volatiles.substitute = FALSE;
             gBattleSpritesDataPtr->battlerData[data->battlerId].behindSubstitute = 0;
         }
         else
         {
-            gBattleMons[data->battlerId].status2 |= STATUS2_SUBSTITUTE;
+            gBattleMons[data->battlerId].volatiles.substitute = TRUE;
             gBattleSpritesDataPtr->battlerData[data->battlerId].behindSubstitute = 1;
         }
         break;
@@ -1278,14 +1282,12 @@ static void UpdateBattlerValue(struct BattleDebugMenu *data)
             if (IsBattlerAlive(BATTLE_OPPOSITE(data->battlerId)))
             {    
                 gBattleMons[data->battlerId].volatiles.infatuatedwithMon = GetBattlerPersonality(BATTLE_OPPOSITE(data->battlerId));
-                //gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATION;
-                //gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_OPPOSITE(data->battlerId);
+
             }
             else
             {
                 gBattleMons[data->battlerId].volatiles.infatuatedwithMon = GetBattlerPersonality(BATTLE_PARTNER(BATTLE_OPPOSITE(data->battlerId)));
-               //gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATION;
-               //gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_PARTNER(BATTLE_OPPOSITE(data->battlerId));
+
             }
         }
         else
@@ -1592,9 +1594,9 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
             data->modifyArrows.minValue = 0;
             data->modifyArrows.maxValue = 15;
             data->modifyArrows.maxDigits = 2;  
-            data->modifyArrows.modifiedValPtr = &gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)];
+            data->modifyArrows.modifiedValPtr = GetBattlerPartyState(data->battlerId)->ToxicTurnCounter;
             data->modifyArrows.typeOfVal = VAR_TOXIC_COUNTER;
-            data->modifyArrows.currValue = gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)];
+            data->modifyArrows.currValue = GetBattlerPartyState(data->battlerId)->ToxicTurnCounter;
         }
         break;//will need else if conditionals for specific effects handled differently below status that don't follow bit field logic/for adding timers
     case LIST_ITEM_STATUS1:
@@ -1602,7 +1604,7 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
         data->modifyArrows.currValue = GetBitfieldValue(gBattleMons[data->battlerId].status1, data->bitfield[data->currentSecondaryListItemId].currBit, data->bitfield[data->currentSecondaryListItemId].bitsCount);
         data->modifyArrows.typeOfVal = VAL_BITFIELD_32;
         goto CASE_ITEM_STATUS;
-    case LIST_ITEM_STATUS2:
+    /*case LIST_ITEM_STATUS2:
         data->modifyArrows.modifiedValPtr = &gBattleMons[data->battlerId].status2;
         data->modifyArrows.currValue = GetBitfieldValue(gBattleMons[data->battlerId].status2, data->bitfield[data->currentSecondaryListItemId].currBit, data->bitfield[data->currentSecondaryListItemId].bitsCount);
         data->modifyArrows.typeOfVal = VAL_BITFIELD_32;
@@ -1611,7 +1613,7 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
         data->modifyArrows.modifiedValPtr = &gStatuses3[data->battlerId];
         data->modifyArrows.currValue = GetBitfieldValue(gStatuses3[data->battlerId], data->bitfield[data->currentSecondaryListItemId].currBit, data->bitfield[data->currentSecondaryListItemId].bitsCount);
         data->modifyArrows.typeOfVal = VAL_BITFIELD_32;
-        goto CASE_ITEM_STATUS;
+        goto CASE_ITEM_STATUS;*/
     case LIST_ITEM_AI:
         data->modifyArrows.modifiedValPtr = &gBattleResources->ai->aiFlags;
         data->modifyArrows.currValue = GetBitfieldValue(gBattleResources->ai->aiFlags, data->bitfield[data->currentSecondaryListItemId].currBit, data->bitfield[data->currentSecondaryListItemId].bitsCount);

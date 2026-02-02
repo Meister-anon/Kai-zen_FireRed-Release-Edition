@@ -19689,7 +19689,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .battleAnimScript = gBattleAnimMove_SaltCure,
         // Supposedly uncallable by Metronome, but dubious
     },
-    //should  be status2, but isn't passed by baton pass
 
     [MOVE_TRIPLE_DIVE] =
     {

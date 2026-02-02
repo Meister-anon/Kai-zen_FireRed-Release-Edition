@@ -611,6 +611,9 @@ will need to back port some of the more recent changes
 I made here to EE's upcoming mostly
 just things dealing with absorb logic and I guess
 infatuation again
+
+moved twoturn interupt to special status
+renamed semi invulnerable Interupt
 */
 
 //infatuation stores Pid to correctly catch mon shold be infatuated with
@@ -633,7 +636,6 @@ infatuation again
     F(VOLATILE_MULTIPLETURNS,               multipleTurns,                 (u32, 1)) \
     F(VOLATILE_WRAPPED,                     wrapped,                       (u32, 1)) \
     F(VOLATILE_POWDER,                      powder,                        (u32, 1)) \
-    F(VOLATILE_TWOTURN_INTERRUPT,           twoturnInterupt,               (u32, 1)) \
     F(VOLATILE_INVERSION_TRAMSFORM,         inversionTransformed,          (u32, 1)) \
     F(VOLATILE_DEFENSE_CURL,                defenseCurl,                   (u32, 1)) \
     F(VOLATILE_TRANSFORMED,                 transformed,                   (u32, 1)) \

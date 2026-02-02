@@ -4705,7 +4705,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //offense stat that should be used based on above movedamagecategory
     u32 Offensive_Stat;
     u32 weight, hpFraction, speed_Value; 
-    u32 dragonPower = gBattleMons[battlerIdAtk].volatiles.DragonrageCounter * 10; //5 to 50
+    u32 dragonPower = gBattleMons[battlerIdAtk].volatiles.dragonrageCounter * 10; //5 to 50
 
     if (!powerOverride)
         gBattleMovePower = gMovesInfo[move].power;
@@ -4860,7 +4860,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (gSpecialStatuses[battlerIdAtk].Lostresolve)
         gBattleMovePower = (gBattleMovePower * 75) / 100; //fix for iron will, pressure, hi pressure affect
     
-    if (gBattleMons[battlerIdAtk].status2 & STATUS2_DRAGON_RAGE
+    if (gBattleMons[battlerIdAtk].volatiles.dragonrage
     && moveType == TYPE_DRAGON)
     {
         gBattleMovePower = (gBattleMovePower * (dragonPower + 100)) / 100;
@@ -6227,11 +6227,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
          //how does this work, do I need to move it, or does it auto boost all damage?
                                         //it boosts all because its not in physical or special formula 
 
-    if (MoveDamagesUnderground(move) && gStatuses3[battlerIdDef] & STATUS3_UNDERGROUND)
+    if (MoveDamagesUnderground(move) && gBattleMons[battlerIdDef].volatiles.semiInvulnerable == STATE_UNDERGROUND)
         OffensiveModifer(200);
-    if (MoveDamagesUnderWater(move) && gStatuses3[battlerIdDef] & STATUS3_UNDERWATER)
+    if (MoveDamagesUnderWater(move) && gBattleMons[battlerIdDef].volatiles.semiInvulnerable == STATE_UNDERWATER)
         OffensiveModifer(200);
-    if (MoveDamagesAirborneDoubleDamage(move) && gStatuses3[battlerIdDef] & STATUS3_ON_AIR)
+    if (MoveDamagesAirborneDoubleDamage(move) && gBattleMons[battlerIdDef].volatiles.semiInvulnerable == STATE_ON_AIR)
         OffensiveModifer(200);
     
     //to make sure take in all effects realize need to put at end 
@@ -6331,7 +6331,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //anything below that does MORE damage than the base formula
 
         //trap effects & bug status def drop
-        if ((gBattleMons[battlerIdDef].status2 & STATUS2_INFESTATION) //this is bug status
+        if ((gBattleMons[battlerIdDef].volatiles.infested) //this is bug status
            ) //liked the idea of creating a bug status effect, change  move infestaion to swarm, atked by biting swarm!
             //then make infested/infestation the bug status, the extra effect of swarm would be setting the infestation status
         {
@@ -8652,8 +8652,7 @@ void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst)
     for (i = 0; i < NUM_BATTLE_STATS; i++)
         dst->statStages[i] = DEFAULT_STAT_STAGE;
 
-    dst->status2 = 0;
-    dst->status4 = 0;
+    memset(&dst->volatiles, 0, sizeof(struct Volatiles));
 }
 
 //wait nvm this function is only used in item_use function... below this
@@ -8707,8 +8706,7 @@ static void CopyPlayerPartyMonToBattleData(enum BattlerId battlerId, u8 partyInd
     for (i = 0; i < 8; i++)
         gBattleMons[battlerId].statStages[i] = 6;   //vsonic  on switch resets stat stage to normal
 
-    gBattleMons[battlerId].status2 = 0; //clears status 2 on switch, no mention of status3 or status 4
-    gBattleMons[battlerId].status4 = 0; 
+
     UpdateSentPokesToOpponentValue(battlerId); //check if status 3 and status4 are being zeroes out properly if not they could be assigning garbage data
     ClearTemporarySpeciesSpriteData(battlerId, FALSE);  //and that coudl be reason for glitch? as most status4 stuff are the new traps
 }
@@ -8810,9 +8808,9 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                 retVal = FALSE;
             }
             if ((itemEffect[cmdIndex] & ITEM0_HIGH_CRIT)
-             && !(gBattleMons[gBattlerInMenuId].status2 & STATUS2_FOCUS_ENERGY))
+             && !(gBattleMons[gBattlerInMenuId].volatiles.focusEnergy))
             {
-                gBattleMons[gBattlerInMenuId].status2 |= STATUS2_FOCUS_ENERGY;
+                gBattleMons[gBattlerInMenuId].volatiles.focusEnergy = TRUE;
                 retVal = FALSE;
             }
             if ((itemEffect[cmdIndex] & ITEM0_X_ATTACK)
@@ -8921,7 +8919,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
              && HealStatusConditions(mon, partyIndex, STATUS1_SLEEP, battleMonId) == 0)
             {
                 if (battleMonId != 4)
-                    gBattleMons[battleMonId].status2 &= ~STATUS2_NIGHTMARE;
+                    gBattleMons[battleMonId].volatiles.nightmare = FALSE;
                 retVal = FALSE;
             }
             if ((itemEffect[cmdIndex] & ITEM3_POISON) && HealStatusConditions(mon, partyIndex, STATUS1_PSN_ANY, battleMonId) == 0)
@@ -8933,9 +8931,9 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
             if ((itemEffect[cmdIndex] & ITEM3_PARALYSIS) && HealStatusConditions(mon, partyIndex, STATUS1_PARALYSIS, battleMonId) == 0)
                 retVal = FALSE;
             if ((itemEffect[cmdIndex] & ITEM3_CONFUSION)  // heal confusion
-             && gMain.inBattle && battleMonId != 4 && (gBattleMons[battleMonId].status2 & STATUS2_CONFUSION))
+             && gMain.inBattle && battleMonId != 4 && (gBattleMons[battleMonId].volatiles.confusionTurns))
             {
-                gBattleMons[battleMonId].status2 &= ~STATUS2_CONFUSION;
+                gBattleMons[battleMonId].volatiles.confusionTurns = FALSE;
                 retVal = FALSE;
             }
             break;
@@ -9448,7 +9446,7 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
              && gBattleMons[battlerId].volatiles.infatuatedwithMon)
                 retVal = FALSE;
             if (itemEffect[cmdIndex] & ITEM0_HIGH_CRIT
-             && !(gBattleMons[gBattlerInMenuId].status2 & STATUS2_FOCUS_ENERGY))
+             && !(gBattleMons[gBattlerInMenuId].volatiles.focusEnergy))
                 retVal = FALSE;
             if ((itemEffect[cmdIndex] & ITEM0_X_ATTACK)
              && gBattleMons[gBattlerInMenuId].statStages[STAT_ATK] < 12)
@@ -9507,7 +9505,7 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
             if ((itemEffect[cmdIndex] & ITEM3_PARALYSIS) && PartyMonHasStatus(mon, partyIndex, STATUS1_PARALYSIS, battlerId))
                 retVal = FALSE;
             if (itemEffect[cmdIndex] & ITEM3_CONFUSION // heal confusion
-             && gMain.inBattle && battlerId != 4 && (gBattleMons[battlerId].status2 & STATUS2_CONFUSION))
+             && gMain.inBattle && battlerId != 4 && (gBattleMons[battlerId].volatiles.confusionTurns))
                 retVal = FALSE;
             break;
         

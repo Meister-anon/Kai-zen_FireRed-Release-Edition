@@ -94,7 +94,7 @@ void SpriteCB_PlayerThrowInit(struct Sprite *sprite);
 void UpdatePlayerPosInThrowAnim(struct Sprite *sprite);
 void BattleDummy(void);
 void BeginBattleIntro(void);
-void SwitchInClearSetData(enum BattlerId battler);
+void SwitchInClearSetData(enum BattlerId battler, struct Volatiles *volatilesCopy);
 const u8* FaintClearSetData(enum BattlerId battler);
 void BattleTurnPassed(void);
 u8 IsRunningFromBattleImpossible(enum BattlerId battler);
