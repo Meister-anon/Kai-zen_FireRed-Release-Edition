@@ -2275,7 +2275,12 @@ static void Cmd_resultmessage(void)
                 else
                     stringId = STRINGID_SUPEREFFECTIVE;
             }
-            else if (!gMultiHitCounter)  // Don't print effectiveness on each hit in a multi hit attack
+            //with multihit being able to miss
+            //want be first landed hit
+            //and last hit of multihitcounter
+            //not just last hit which is what this would do
+            //Don't print effectiveness on each hit in a multi hit attack
+           else if (!gMultiHitCounter || ((gMultiHitCounter && !gSpecialStatuses[gBattlerAttacker].multiHitOn) && (gMultiHitCounter != 2 && GetMoveStrikeCount(gCurrentMove) != 2))) 
             {
                 stringId = STRINGID_SUPEREFFECTIVE;
             }
@@ -2285,8 +2290,8 @@ static void Cmd_resultmessage(void)
                 TryInitializeTrainerSlidePlayerLandsFirstSuperEffectiveHit(BATTLE_PARTNER(gBattlerTarget));
             break;
         case MOVE_RESULT_NOT_VERY_EFFECTIVE:
-            if (CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12_TO_INT((UQ_4_12(1.55) * UQ_4_12(0.5)) + UQ_4_12_ROUND))
-                    stringId = 0; //should keep effect remove message, keep not very effective sound
+            if (CalcTypeEffectivenessMultiplier(gCurrentMove, GetBattleMoveType(gCurrentMove), gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12_TO_INT((UQ_4_12(1.55) * UQ_4_12(0.5)) + UQ_4_12_ROUND))
+                    stringId = 0; //should keep effect remove message, keep not very effective sound //test correctly keeps type
             if (IsDoubleSpreadMove())
             {
                 if (ShouldPrintTwoFoesMessage(MOVE_RESULT_NOT_VERY_EFFECTIVE))
@@ -2296,7 +2301,11 @@ static void Cmd_resultmessage(void)
                 else
                     stringId = STRINGID_NOTVERYEFFECTIVE; // Needs a string
             }
-            else if (!gMultiHitCounter)
+            // not perfect but should be good enough
+            //would print for first hit if doesn't miss 
+            //and last hit
+            //added extra precaution for 2 hit effects
+            else if (!gMultiHitCounter || ((gMultiHitCounter && !gSpecialStatuses[gBattlerAttacker].multiHitOn) && (gMultiHitCounter != 2 && GetMoveStrikeCount(gCurrentMove) != 2))) 
             {
                 stringId = STRINGID_NOTVERYEFFECTIVE;
             }
