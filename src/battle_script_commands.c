@@ -1236,7 +1236,10 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
     //should prob be 1 check not two?
     //well could prob replace w multihiton ironically
     if (!gSpecialStatuses[gBattlerAttacker].multiHitOn)
+{    
         gBattleStruct->battlerState[gBattlerAttacker].numMisses = 0;
+gBattleStruct->battlerState[gBattlerAttacker].successfulHits = 0;
+    }
 
     
     u32 numTargets = 0;
@@ -1291,9 +1294,19 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
                 return;
             }
         }
+        else
+            gBattleStruct->battlerState[gBattlerAttacker].successfulHit = TRUE;
     }
 
-    if (numTargets == gBattleStruct->battlerState[gBattlerAttacker].numMisses)
+    //rework given multihit miss refactor
+    //if not true means move missed all targets
+    //oh they changed script accuracy check is after attack cancler
+    //meaning multihitcounter is already set and can be used here lol
+    //ok think makes sense to use for multihitcouter is 1 or 0
+    //1 is last hit and if I measure it would miss above
+    //then that means all hits failed
+    if (numTargets != 0 && !gBattleStruct->battlerState[gBattlerAttacker].successfulHit
+    && gMultiHitCounter <= 1)
     {
         SetOrClearRageVolatile();
         gBattleStruct->battlerState[gBattlerAttacker].stompingTantrumTimer = 2;

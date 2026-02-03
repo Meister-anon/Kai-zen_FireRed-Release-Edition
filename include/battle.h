@@ -719,8 +719,9 @@ struct BattlerState
     u16 protectSuccessiveFail:1; //if fails successive use //think I made may return space
     u16 protectTurnOrderFail:1; //if fails because moved last in turn
     u16 numMisses:3; //added just for multihit result bring actually can use bool, wrong was missing logic, but could lower 1 bit as don't need accout for pop bomb
+    u16 successfulHit:1; //needed for stomping tantrum with multihit miss change instad of count miss use to count success if none set stompingtantrum
     u16 commanderType:3;
-    u16 padding:4;//prob remove successfail stuff
+    u16 padding:3;//prob remove successfail stuff
 };
 //shouldn't caught mon also be in here? -believe is custom I added
 
