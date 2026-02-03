@@ -1194,7 +1194,7 @@ static bool32 ShouldSkipAccuracyCalcPastFirstHit(enum BattlerId battlerAtk, enum
     if (gSpecialStatuses[battlerAtk].parentalBondState == PARENTAL_BOND_2ND_HIT)
         return TRUE;
 
-//is first hit
+    //is first hit
     if (!gSpecialStatuses[battlerAtk].multiHitOn)
         return FALSE;
 
@@ -1236,9 +1236,9 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
     //should prob be 1 check not two?
     //well could prob replace w multihiton ironically
     if (!gSpecialStatuses[gBattlerAttacker].multiHitOn)
-{    
+    {    
         gBattleStruct->battlerState[gBattlerAttacker].numMisses = 0;
-gBattleStruct->battlerState[gBattlerAttacker].successfulHits = 0;
+        gBattleStruct->battlerState[gBattlerAttacker].successfulHits = 0;
     }
 
     
@@ -2243,7 +2243,7 @@ static void Cmd_resultmessage(void)
         gBattleMons[gBattlerTarget].volatiles.triggerIceFace = FALSE;
         if (GetBattlerPartyState(gBattlerTarget)->changedSpecies == SPECIES_NONE)
             GetBattlerPartyState(gBattlerTarget)->changedSpecies = gBattleMons[gBattlerTarget].species;
-        gBattleMons[gBattlerTarget].species = SPECIES_EISCUE_NOICE;
+        gBattleMons[gBattlerTarget].species = SPECIES_EISCUE_NOICE_FACE;
         gBattleScripting.battler = gBattlerTarget; // For STRINGID_PKMNTRANSFORMED
         BattleScriptCall(BattleScript_IceFaceNullsDamage);
         return;
