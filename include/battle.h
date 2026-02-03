@@ -331,7 +331,7 @@ struct SpecialStatus
     //emergency exit works as special status, just need to set it in attack cancelr 
     u8 EmergencyExit : 1; //logic mix truant pursuit/escape hit, setup like truant trigger on end turn that hp met theshold,raise attack then make attack first & set moveeffect escape hit so it leaves after attacking. WILL USE for both wimpout and Emergency exit just use ability check for logic change
     u8 parentalBondState : 2; // 0/1/2 is used, max is 0-3
-    u8 multiHitOn : 1; //think is a state chech, seems most used with parental bond
+    u8 multiHitOn : 1; //think is a state chech, replace effect multihit it checks if move is passed 1 hit and doing a multihit process
     u8 Cacophonyboosted:1; //need make function for and add to battle_main
     u8 preHitAbilityDone:1;
     u8 distortedTypeMatchups:1;
@@ -718,9 +718,9 @@ struct BattlerState
     u16 isFirstTurn:2;
     u16 protectSuccessiveFail:1; //if fails successive use //think I made may return space
     u16 protectTurnOrderFail:1; //if fails because moved last in turn
-    u16 numMisses:4; //added just for multihit result bring actually can use bool
+    u16 numMisses:3; //added just for multihit result bring actually can use bool, wrong was missing logic, but could lower 1 bit as don't need accout for pop bomb
     u16 commanderType:3;
-    u16 padding:3;//prob remove successfail stuff
+    u16 padding:4;//prob remove successfail stuff
 };
 //shouldn't caught mon also be in here? -believe is custom I added
 

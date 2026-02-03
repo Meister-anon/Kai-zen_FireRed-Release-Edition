@@ -5402,7 +5402,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
         .battleAnimScript = gBattleAnimMove_FuryCutter,
-    }, 
+    }, //do NOT give to mon w skill link
 
     [MOVE_STEEL_WING] =
     {

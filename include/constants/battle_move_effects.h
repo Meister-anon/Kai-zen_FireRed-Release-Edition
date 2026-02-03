@@ -99,7 +99,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_ENDURE,
     EFFECT_ROLLOUT,
     EFFECT_SWAGGER,
-    EFFECT_FURY_CUTTER,
+    EFFECT_FURY_CUTTER, //do NOT give to mon w skill link
     EFFECT_ATTRACT,
     EFFECT_RETURN,
     EFFECT_PRESENT,

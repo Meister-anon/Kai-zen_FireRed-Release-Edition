@@ -1182,18 +1182,37 @@ static void Cmd_setchargingturn(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+//differes from EE logic as multihit moves can miss
+//its only skill link that makes them bypass acc check
+//and strike count effects are a separate class
+//that keeps the effect of bypassing acc checks
+//mostly because they're usually only 2 hits
+//population bomb getting excluded from that is a lucky
+//happenstance.
 static bool32 ShouldSkipAccuracyCalcPastFirstHit(enum BattlerId battlerAtk, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, u32 moveEffect)
 {
     if (gSpecialStatuses[battlerAtk].parentalBondState == PARENTAL_BOND_2ND_HIT)
         return TRUE;
 
+//is first hit
     if (!gSpecialStatuses[battlerAtk].multiHitOn)
         return FALSE;
 
-    if (moveEffect == EFFECT_TRIPLE_KICK || moveEffect == EFFECT_POPULATION_BOMB)
+    //skill link-like effects
+    if (abilityAtk == ABILITY_SKILL_LINK || holdEffectAtk == HOLD_EFFECT_LOADED_DICE)
+        return TRUE;
+
+    //note VERY important to not give any skill link mon
+    //access to fury cutter...
+    //loaded dice can at least be knocked off
+    if (moveEffect == EFFECT_TRIPLE_KICK || moveEffect == EFFECT_POPULATION_BOMB
+    || moveEffect == EFFECT_FURY_CUTTER)
         return FALSE;
 
-    if (abilityAtk == ABILITY_SKILL_LINK || holdEffectAtk == HOLD_EFFECT_LOADED_DICE)
+    //below are main diffs from EE
+    //only strike count moves that pass exemption
+    //should skip acc check not all multihit
+    if (GetMoveStrikeCount(gCurrentMove))
         return TRUE;
 
     return FALSE;
@@ -1214,13 +1233,13 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
     }
 
     //hope right vsonic - tired cant' think
-    if (!IsMultiHitMove(gCurrentMove))
+    //should prob be 1 check not two?
+    //well could prob replace w multihiton ironically
+    if (!gSpecialStatuses[gBattlerAttacker].multiHitOn)
         gBattleStruct->battlerState[gBattlerAttacker].numMisses = 0;
 
-    else if (!CanMultiTask(abilityAtk, gCurrentMove))
-        gBattleStruct->battlerState[gBattlerAttacker].numMisses = 0;
-
-    u32 numTargets = 0, numMisses = 0;
+    
+    u32 numTargets = 0;
     enum MoveTarget moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove);
     bool32 calcSpreadMove = IsSpreadMove(moveTarget);
 
@@ -2219,14 +2238,23 @@ static void Cmd_resultmessage(void)
 
     if (*moveResultFlags & MOVE_RESULT_MISSED && !(*moveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE))
     {
-        if (gMultiHitCounter && gMultiHitCounter < GetMoveStrikeCount(gCurrentMove))
+
+        //below condition means multihit not 0
+        //and not first strike of fixed strike effect
+        //so only works for a multistrike effect that actually could miss
+        //ok got confirmation result message comes BEFORE moveend stuff
+        //so this is exclusively catching just the strike count effects
+        //that don't bypass acc check after first hit
+        //so I just have to exclude fury cutter from this
+        if (gMultiHitCounter && gMultiHitCounter < GetMoveStrikeCount(gCurrentMove)
+        && GetMoveEffect(gCurrentMove) != EFFECT_FURY_CUTTER)
         {
             gMultiHitCounter = 0;
             *moveResultFlags &= ~MOVE_RESULT_MISSED;
-            //BattleScriptCall(BattleScript_MultiHitPrintStrings);
-            //return;
-        }//change this now multi hit continues after miss
-        else
+            BattleScriptCall(BattleScript_MultiHitPrintStrings);
+            return;
+        }
+        else if (gBattleStruct->battlerState[gBattlerAttacker].numMisses <= 1)
         {
             gBattleCommunication[MSG_DISPLAY] = 1;
             stringId = STRINGID_ATTACKMISSED;
