@@ -18441,6 +18441,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
+        .kickingMove = TRUE,
         .strikeCount = 3,
         .multiTaskBanned = TRUE,
         .metronomeBanned = TRUE,
@@ -18455,6 +18456,20 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //made small tweak to rebalance ability unseen fist, so signature moves can still be used w ability
     //plan only allow moves below power 75 to slip through protect
     //makes it more of a chip ability somewhat
+    //since not broken now kind of like idea of 
+    //making these a set of teachable moves for hitmonlee
+    //and hitmonchan, both get surging strikes as it can be kicks and punches
+    //but only hitmonchan gets wicked blow
+    //would have to learn via daycare
+    //think have learnset page be specific caught mon only page
+    //that shows up before area page
+    //added incentive to actually catch mon
+    //for simplicity consider just load page as it is
+    //in hgss dex? since area page is white anyway
+    //think just change colors a bit since white w bright red
+    //is jarring vsonic important maybe dark purple?
+    //hmm ok either keep on tan screen to avoid flashing people
+    //or do like area screen review and decide later.
 
     [MOVE_THUNDER_CAGE] =
     {
