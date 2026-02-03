@@ -3907,8 +3907,7 @@ void SwitchInClearSetData(enum BattlerId battler, struct Volatiles *volatilesCop
 
 
     // Reset damage to prevent things like red card activating if the switched-in mon is holding it
-    gSpecialStatuses[battler].physicalDmg = 0;
-    gSpecialStatuses[battler].specialDmg = 0;
+    gSpecialStatuses[battler].damagedByAttack = FALSE;
 
     gBattleStruct->overwrittenAbilities[battler] = ABILITY_NONE;
 

@@ -290,51 +290,44 @@ struct ProtectStruct
 extern struct ProtectStruct gProtectStructs[MAX_BATTLERS_COUNT];
 
 //gets cleared at end turn - actual think gets cleard at action end? yeah its action end
+// Cleared at the start of HandleAction_ActionFinishedstruct 
 struct SpecialStatus    
 {
-    u8 statLowered : 1;             // 0x1
-    //u8 lightningRodRedirected : 1;  // 0x2    //removed to save ew ram  just do in the code
-    //u8 stormDrainRedirected : 1;  // 0x2
-    u8 tigerMomAttacked : 1;  // 0x2 //need to add redirects here for lightning rod/storm drain esque abilities unless I code it different
-    u8 restoredBattlerSprite : 1;    // 0x4
-    u8 intimidatedMon : 1;          // 0x8
-    u8 tigeredMon : 1;          // 0x8  extra set incase using intimidatedmon prevents using both at once
-    u8 traced : 1;                  // 0x10
+
+    u8 statLowered : 1;
+    u8 restoredBattlerSprite : 1;
+    u8 instructedChosenTarget:3;
+    u8 mindBlownRecoil: 1;                  // 0x10
     u8 ppNotAffectedByPressure : 1;
     u8 faintedHasReplacement : 1;
 
     u8 field1[3]; //think this is counted different rather than a portion of 1 byte its 3 full bytes
 
-    u8 focusBanded : 1;
-    u8 focusSashed : 1;
-    u8 sturdied : 1;
-    u8 afterYou:1;
-    u8 berryReduced : 1;
-    u8 instructedChosenTarget : 3;
+    
+    
 
     u8 rototillerAffected : 1;  // to be affected by rototiller    
     u8 switchInItemDone : 1;
-    u8 gemBoost : 1;
     u8 switchInAbilityDone : 1;
     u8 semiInvulInterupt:1; //takes place of STATUS2_TWOTURN_INTERRUPT status makes more sense here want clear at end of action
-    u8 unused : 3; // Mons that have been damaged directly by using a move, includes substitute. //NOW THAT have added can prob use to update catchexp function/macro?
+    u8 afterYou:1;
+    u8 berryReduced : 1;
+    u8 unused : 2; // Mons that have been damaged directly by using a move, includes substitute. //NOW THAT have added can prob use to update catchexp function/macro?
     
-    
-
     u8 dancerUsedMove : 1;
     u8 dancerOriginalTarget : 3; //original target of user to execute chosen move after ability ends
+    u8 returnedBallMove : 1;    //equiv dancerUsedMove
+    u8 BallFetchOriginalTarget : 3;//original target of user to execute chosen move after ability ends //equiv dancerOriginalTarget
+
     u8 immutableWindRemoved : 1;   // See Cmd_switchineffects - not used in EE
     u8 neutralizingGasRemoved : 1;    // See VARIOUS_TRY_END_NEUTRALIZING_GAS
     u8 stenchRemoved : 1;    // Set as VARIOUS_TRY_END_STENCH  both exclusive to gastro acid?
     u8 Lostresolve:1; //for ability -tweaked as for pressure and iron will, moved here as realize makes more sense as special status
-    
-    //will prob not use these dmg values
-    /*s32 dmg;
-    s32 physicalDmg; //does it make sense to have this twice? have version in protect structs too?
-    s32 specialDmg; //no it doesnt and it isn't used in EE
-    u8 physicalBattlerId;
-    u8 specialBattlerId;*/
-    u8 changedStatsBattlerId; // Battler that was responsible for the latest stat change. Can be self. 
+    u8 firstFuturesightHits:1;
+    u8 secondFuturesightHits:1;
+    u8 damagedByAttack:1;
+    u8 criticalHit:1;
+
     //emergency exit works as special status, just need to set it in attack cancelr 
     u8 EmergencyExit : 1; //logic mix truant pursuit/escape hit, setup like truant trigger on end turn that hp met theshold,raise attack then make attack first & set moveeffect escape hit so it leaves after attacking. WILL USE for both wimpout and Emergency exit just use ability check for logic change
     u8 parentalBondState : 2; // 0/1/2 is used, max is 0-3
@@ -344,18 +337,15 @@ struct SpecialStatus
     u8 distortedTypeMatchups:1;
     u8 teraShellAbilityDone:1;
     
-    u8 firstFuturesightHits:1;
-    u8 secondFuturesightHits:1;
-    u8 returnedBallMove : 1;    //equiv dancerUsedMove
-    u8 BallFetchOriginalTarget : 3;//original target of user to execute chosen move after ability ends //equiv dancerOriginalTarget
-    u8 damagedByAttack:1;
-    u8 criticalHit:1;
-
+    
+    u8 changedStatsBattlerId; // Battler that was responsible for the latest stat change. Can be self. 
     u8 gemParam:7;
-    u8 blank:1;   
+    u8 gemBoost:1;   
     u8 field12;
     u8 field13;//check moody case for switchin line something something = 2
 };
+
+
 
 extern struct SpecialStatus gSpecialStatuses[MAX_BATTLERS_COUNT];
 
@@ -1014,7 +1004,7 @@ extern struct BattleStruct *gBattleStruct;
 #define IS_MOVE_PHYSICAL(move)(GetBattleMoveSplit(move) == DAMAGE_CATEGORY_PHYSICAL)
 #define IS_MOVE_SPECIAL(move)(GetBattleMoveSplit(move) == DAMAGE_CATEGORY_SPECIAL)
 #define BATTLER_MAX_HP(battlerId)(gBattleMons[battlerId].hp == gBattleMons[battlerId].maxHP)
-#define TARGET_TURN_DAMAGED ((gSpecialStatuses[gBattlerTarget].physicalDmg != 0 || gSpecialStatuses[gBattlerTarget].specialDmg != 0))
+#define TARGET_TURN_DAMAGED ((gProtectStructs[gBattlerTarget].physicalDmg != 0 || gProtectStructs[gBattlerTarget].specialDmg != 0))
 //#define IS_BATTLER_OF_TYPE(battlerId, type)((gBattleMons[battlerId].type1 == type || gBattleMons[battlerId].type2 == type || gBattleMons[battlerId].type3 == type))
 #define IS_SPECIES_OF_TYPE(species, type)((gBaseStats[species].type1 == type || gBaseStats[species].type2 == type))
 
