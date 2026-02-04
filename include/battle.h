@@ -635,7 +635,7 @@ struct Illusion
     struct Pokemon *mon;
 };
 
-struct StolenItem
+struct RemovedItem //struct LostItem
 {
     u16 originalItem : 15;
     u16 stolen : 1;
@@ -759,7 +759,7 @@ struct EventStates
     enum EndTurnResolutionOrder endTurn:8;
     u32 endTurnBlock:8; // FirstEventBlock, SecondEventBlock, ThirdEventBlock
     enum BattlerId endTurnBattler:4;
-    u32 arenaTurn:8;
+    u32 arenaTurn:8; //battle fronteir stuff not using but keep
     enum BattleSide battlerSide:4;
     enum BattlerId moveEndBattler:4;
     enum FirstTurnEventsStates beforeFirstTurn:8;
@@ -902,7 +902,7 @@ struct BattleStruct //fill in unused fields when porting
     bool8 spriteIgnore0Hp;
     u8 field_182; //look into this
     u8 quickClawBattlerId;
-    struct StolenItem itemStolen[PARTY_SIZE];  // Player's team that had items stolen (two bytes per party member)
+    struct RemovedItem itemLost[NUM_BATTLE_SIDES][PARTY_SIZE];  // Player's team that had items stolen (two bytes per party member)
     u8 blunderPolicy : 1; // should blunder policy activate
     u8 swapDamageCategory:1; // Photon Geyser, Shell Side Arm, Light That Burns the Sky
     u8 sameMoveTurns[MAX_BATTLERS_COUNT]; // For Metronome, number of times the same moves has been SUCCESFULLY used.
@@ -928,7 +928,7 @@ struct BattleStruct //fill in unused fields when porting
     // align 4
     union {
         struct LinkPartnerHeader linkPartnerHeader;
-        struct MultiBattlePokemonTx multiBattleMons[3];
+        struct MultiPartnerMenuPokemon multiBattleMons[3];
     } multiBuffer;
     u8 padding_1E4[0x18];
 
@@ -1449,7 +1449,7 @@ extern u16 gLastPrintedMoves[MAX_BATTLERS_COUNT];
 extern u8 gActionsByTurnOrder[MAX_BATTLERS_COUNT];
 extern u8 gChosenActionByBattler[MAX_BATTLERS_COUNT];
 extern u8 gBattleEnvironment;
-extern struct MultiBattlePokemonTx gMultiPartnerParty[3];
+extern struct MultiPartnerMenuPokemon gMultiPartnerParty[3];
 extern u16 gRandomTurnNumber;
 
 extern const u16 gProtectSuccessRates[NUM_PROTECT_ODDS];
