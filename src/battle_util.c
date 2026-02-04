@@ -29,7 +29,6 @@
 #include "trig.h"
 #include "trainer_slide.h"
 #include "window.h"
-#include "battle_message.h"
 #include "battle_ai_main.h"
 #include "battle_ai_util.h"
 #include "event_data.h"
@@ -9452,8 +9451,18 @@ static inline u32 CalcAttackStat(struct BattleContext *ctx)
     //idea just to give it a niche outside dream eater
     //rn works well to cut new sleep heal effect
     //now is also good to counter sleep talk strats
+    //dropped more this 15% is essentially nothing
     if (gBattleMons[battlerAtk].volatiles.nightmare)
-        modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.85));
+        modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.80));
+
+    //equates to a 1 stage then 2 stage drop
+    if (gBattleMons[battlerAtk].volatiles.octolock)
+    {
+        if (gBattleMons[battlerAtk].volatiles.octolockCounter == 1)
+            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.67));
+        else if (gBattleMons[battlerAtk].volatiles.octolockCounter == 3)
+            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.50));
+    }
     
     // attacker's abilities
     switch (ctx->abilityAtk)

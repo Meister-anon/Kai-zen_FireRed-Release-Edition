@@ -17,6 +17,7 @@
 #include "battle_ai_switch.h"
 #include "battle_gfx_sfx_util.h"
 #include "battle_util2.h"
+#include "battle_message.h"
 #include "battle_bg.h"
 #include "window.h" //need this for build modern to work for battle window ui
 
@@ -1567,6 +1568,15 @@ static inline u32 GetChosenMoveFromPosition(enum BattlerId battler)
 static inline bool32 IsSureHitAbility(enum Ability ability)
 {
     return (ability == ABILITY_NO_GUARD || ability == ABILITY_COMPASS);
+}
+
+static inline void ClearOctolockValues(enum BattlerId battler)
+{
+    gBattleMons[battler].volatiles.octolock = FALSE;
+    gBattleMons[battler].volatiles.octolockedBy = 0;
+    gBattleMons[battler].volatiles.octolockCounter = 0;
+    gBattleMons[battler].volatiles.escapePrevention = FALSE;
+    gBattleMons[battler].volatiles.battlerPreventingEscape = 0;
 }
 
 //wanted to replace value w max() check

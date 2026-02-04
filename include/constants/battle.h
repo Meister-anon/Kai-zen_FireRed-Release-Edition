@@ -818,6 +818,12 @@ enum CommanderType
 };
 //addittion to remove need for commanderspecies
 
+//for volatiles that end with (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT)))
+//can turn them off by just setting 0, that would techically set to attacker
+//but they are typically paired witih some other condition to be read
+//so when that is also off it doesn't matter and it won't b read
+//ex battlerpreventingescape paired with status escapeprevention
+
 //vsonic important remmber bit fields can store max 2^bit value
 //ex bit 3  :3 is 2^3 = 8 can store 8 values between 0-7
 //vsonic important disablestruct no longer exists

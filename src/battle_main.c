@@ -3837,6 +3837,14 @@ void SwitchInClearSetData(enum BattlerId battler, struct Volatiles *volatilesCop
         gBattleMons[battler].volatiles.infatuatedwithMon = FALSE;
     }
 
+    for (enum BattlerId i = 0; i < gBattlersCount; i++)
+    {
+        if (gBattleMons[i].volatiles.syrupBomb && gBattleMons[i].volatiles.stickySyrupedBy == battler)
+            gBattleMons[i].volatiles.syrupBomb = FALSE;
+        if (gBattleMons[i].volatiles.octolock && gBattleMons[i].volatiles.octolockedBy == battler)
+            gBattleMons[i].volatiles.octolock = FALSE;
+    }
+
     // is this something that removes wrap, and infatuation if the mon that caused the effect is switched out? yes
     //forgot I planned steup for suction cup and certain held item to make traps persist
     //battler is one switchign so believe what does is
@@ -3918,12 +3926,11 @@ void SwitchInClearSetData(enum BattlerId battler, struct Volatiles *volatilesCop
 #define CLEARDATA_ON_FAINT
 const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not fade wen faint?
 {
-    s32 i;
     const u8 *result = NULL;
     enum BattlerId battlerSide = GetBattlerSide(battler);
     struct Pokemon *party;
 
-    for (i = 0; i < NUM_BATTLE_STATS; ++i)
+    for (enum Stat i = 0; i < NUM_BATTLE_STATS; ++i)
         gBattleMons[battler].statStages[i] = 6;
 
     
@@ -3931,7 +3938,7 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
     //activebattler is mon fainting, i is looping all battlers for effects
     //that should be cleared when user faints
 
-    for (i = 0; i < gBattlersCount; ++i) //trap etc removal on faint
+    for (enum BattlerId i = 0; i < gBattlersCount; ++i) //trap etc removal on faint
     {
         //also exclude STATUS2_SWITCH_LOCKED from this, so effect persists
         if ((gBattleMons[i].volatiles.escapePrevention) && gBattleMons[i].volatiles.battlerPreventingEscape == battler)
@@ -3942,6 +3949,10 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
             gBattleMons[i].volatiles.infatuatedwithMon = FALSE;
         }
         
+        if (gBattleMons[i].volatiles.octolock && gBattleMons[i].volatiles.octolockedBy == battler)
+        {
+            gBattleMons[i].volatiles.octolock = FALSE;
+        }
         
         //cleared trap timers too hard to track w rework
         //actually should still clear timers but just dont link it
@@ -3954,7 +3965,6 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
     gBattleMons[battler].volatiles.swarmTurns = 0;
     gBattleMons[battler].volatiles.snaptrapTurns = 0;
     gBattleMons[battler].volatiles.thundercageTurns = 0;
-    gBattleMons[battler].volatiles.octolockCounter = 0;
 
     gActionSelectionCursor[battler] = 0;
     gMoveSelectionCursor[battler] = 0;
@@ -4020,7 +4030,7 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
     gBattleStruct->pursuitSwitchByMove = FALSE; //not used by EE? anymore
     gBattleStruct->pursuitStoredSwitch = 0;
 
-    for (i = 0; i < ARRAY_COUNT(gSideTimers); i++)
+    for (u32 i = 0; i < ARRAY_COUNT(gSideTimers); i++)
     {
         // User of sticky web fainted, so reset the stored battler ID
         if (gSideTimers[i].stickyWebBattlerId == battler)
@@ -4030,7 +4040,7 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
         //looking at this can do same for forewarn/anticipation, if ability wasn't triggered but stored mon fainted,
         // reset the abiity check and let it pick another mon
 
-    for (i = 0; i < gBattlersCount; i++)
+    for (enum BattlerId i = 0; i < gBattlersCount; i++)
     {
         if (i != battler && GetBattlerSide(i) != battlerSide)
             gBattleStruct->lastTakenMove[i] = MOVE_NONE;

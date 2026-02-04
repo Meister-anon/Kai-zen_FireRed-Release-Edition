@@ -668,11 +668,41 @@ static bool32 HandleEndTurnOctolock(enum BattlerId battler)
 
     if (gBattleMons[battler].volatiles.octolock)
     {
-        gBattlerTarget = battler;
-        gBattlerAttacker = gBattleMons[battler].volatiles.battlerPreventingEscape;
-        BattleScriptExecute(BattleScript_OctolockEndTurn);
+
+        gBattleMons[battler].volatiles.octolockCounter++;
+
+        if (gBattleMons[battler].volatiles.octolockCounter == 1
+        || gBattleMons[battler].volatiles.octolockCounter == 3)
+        {
+            gBattlerTarget = battler;
+            gBattlerAttacker = gBattleMons[battler].volatiles.battlerPreventingEscape;
+            
+            if (gBattleMons[battler].volatiles.octolockCounter == 1)
+                PREPARE_STRING_BUFFER(gBattleTextBuff1, STRINGID_EMPTYSTRING3);
+            else if (gBattleMons[battler].volatiles.octolockCounter == 3)
+                PREPARE_STRING_BUFFER(gBattleTextBuff1, STRINGID_STATSHARPLY);
+            BattleScriptExecute(BattleScript_OctolockEndTurn);
+        }
+        
+        //remove all values set by octolock
+        //and then go to script that would reverse stat drops
+        //and in battler switch and faint in battle_main
+        //need also add bs calls that would do same
+        //but go to script that reverses stats based on
+        //octolock counter at time if less than 3 raise stats by 1
+        //other wise raise by 2
+        //realize difficulty of setting end turn stat decrement properly
+        //will instead do stat modifier not actual stat drop
+        //just make equivalent to 1 and 2 stage drop
+        if (gBattleMons[battler].volatiles.octolockCounter == MAX_OCTOLOCK_TURNS)
+        {
+            gBattlerTarget = battler;
+            ClearOctolockValues(gBattlerTarget);
+            BattleScriptExecute(BattleScript_OctolockEnds);
+        }
         effect = TRUE;
     }
+    
 
     return effect;
 }

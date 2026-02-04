@@ -16,7 +16,6 @@
 #include "battle_gfx_sfx_util.h"
 #include "battle_controllers.h"
 #include "evolution_scene.h"
-#include "battle_message.h"
 #include "battle_util.h"
 #include "link.h"
 #include "cry_defines.h" //unsure if this needs to be here, but it works so I guess leave it?

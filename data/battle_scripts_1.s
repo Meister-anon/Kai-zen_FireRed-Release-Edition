@@ -635,16 +635,13 @@ BattleScript_EffectOctolock::
 	goto BattleScript_MoveEnd
 
 BattleScript_OctolockEndTurn::
-	setstatchanger STAT_DEF, 1, TRUE
-	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR | STAT_CHANGE_NOT_PROTECT_AFFECTED, BattleScript_OctolockTryLowerSpDef, BIT_SPDEF
-	printfromtable gStatDownStringIds
+	printstring STRINGID_OCTOLOCK_WEAKENS_FOE
 	waitmessage B_WAIT_TIME_LONG
-BattleScript_OctolockTryLowerSpDef:
-	setstatchanger STAT_SPDEF, 1, TRUE
-	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR | STAT_CHANGE_NOT_PROTECT_AFFECTED, BattleScript_OctlockTurnDmgEnd
-	printfromtable gStatDownStringIds
+	end2
+
+BattleScript_OctolockEnds::
+	printstring STRINGID_OCTOLOCK_ENDS
 	waitmessage B_WAIT_TIME_LONG
-BattleScript_OctlockTurnDmgEnd:
 	end2
 
 BattleScript_EffectPoltergeist::
