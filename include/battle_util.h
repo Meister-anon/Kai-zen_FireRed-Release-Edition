@@ -175,7 +175,7 @@ static inline u32 GetAbilityTimer(enum Ability ability)
 //missing include
 static inline void SetSingleUseAbilityValues(enum BattlerId battler, enum Ability ability)
 {
-    GetBattlerPartyState(battler)->CachedAbilityTimers = GetAbilityTimer(ability);
+    GetBattlerPartyState(battler)->cachedAbilityTimers = GetAbilityTimer(ability);
     GetBattlerPartyState(battler)->usedSingleUseAbility = ability;
 }
 

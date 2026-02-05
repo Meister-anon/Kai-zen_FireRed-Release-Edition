@@ -5575,7 +5575,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }//note w attraction change an ability that boosts damage against opposite gender would be good
         break;//no idea what I could call said thing, would make it a 30% incrase to still have effect not just neutralize infatuation? maybe
     case ABILITY_SLOW_START:
-        if (gBattleStruct->CachedAbilityTimers[gBattlerPartyIndexes[battlerIdAtk]][GetBattlerSide(battlerIdAtk)] != 0)
+        if (GetBattlerPartyState(battlerIdAtk)->cachedAbilityTimers)
             OffensiveModifer(50);
     case ABILITY_NORMALIZE:
         if (gBattleStruct->ateBoost[battlerIdAtk])//    if receives altl type damage boost?
@@ -5918,7 +5918,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             OffensiveModifer(50);   //should be able to safely use as condition already states def stat is false
         break;
     case ABILITY_SLOW_START:
-        if (GetBattlerPartyState(battlerIdDef)->CachedAbilityTimers[gBattlerPartyIndexes[battlerIdDef]][GetBattlerSide(battlerIdDef)] != 0)    //was gonna add crit excluion clause but it seems abilities don't have that, only the moves
+        if (GetBattlerPartyState(battlerIdDef)->cachedAbilityTimers)    //was gonna add crit excluion clause but it seems abilities don't have that, only the moves
             OffensiveModifer(67); //so that's an extra bonus of having damage reduction via ability     may do 4 turn timer with 75% damage reduction instead of 50% @ 2 turns
         break;//yeah like that idea a lot more , that's most likley way to powerful... doing 3 turn timer at 50%, regi has high hp and def changed to 1/3rd cut
     case ABILITY_GRASS_PELT:

@@ -2557,12 +2557,12 @@ void StealTargetItem(enum BattlerId battlerStealer, u8 itemBattler)
     
     gLastUsedItem = gBattleMons[itemBattler].item;
 
-    if (gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[itemBattler]][GetBattlerSide(itemBattler)] == ITEM_NONE)
+    if (GetBattlerPartyState(itemBattler)->SecondaryItemSlot == ITEM_NONE)
         gBattleMons[itemBattler].item = ITEM_NONE;
     else
     {    
-        gBattleMons[itemBattler].item = gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[itemBattler]][GetBattlerSide(itemBattler)];
-        gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[itemBattler]][GetBattlerSide(itemBattler)] = ITEM_NONE;
+        gBattleMons[itemBattler].item = GetBattlerPartyState(itemBattler)->SecondaryItemSlot;
+        GetBattlerPartyState(itemBattler)->SecondaryItemSlot = ITEM_NONE;
     }//if mon stolen frmo has secondary item their held item is replaced w secondary item slot
 
     //unsure if this is correct if has secondary item
@@ -2592,7 +2592,7 @@ void StealTargetItem(enum BattlerId battlerStealer, u8 itemBattler)
     //Ability base item steal
     if ((GetBattlerAbility(battlerStealer) == ABILITY_PICKPOCKET
     || GetBattlerAbility(battlerStealer) == ABILITY_MAGICIAN)
-    && gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battlerStealer]][GetBattlerSide(battlerStealer)] == ITEM_NONE)
+    && GetBattlerPartyState(battlerStealer)->SecondaryItemSlot == ITEM_NONE)
     {
         if (gBattleMons[battlerStealer].item == ITEM_NONE)
         {
@@ -2617,7 +2617,7 @@ void StealTargetItem(enum BattlerId battlerStealer, u8 itemBattler)
         {
             //this is for ai I think, not sure if correct
             RecordItemEffectBattle(battlerStealer, ItemId_GetHoldEffect(gLastUsedItem));
-            gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battlerStealer]][GetBattlerSide(battlerStealer)] = gLastUsedItem;
+            GetBattlerPartyState(battlerStealer)->SecondaryItemSlot = gLastUsedItem;
 
             /*BtlController_EmitSetMonData(B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
             MarkBattlerForControllerExec(battlerStealer);*/
@@ -2700,12 +2700,12 @@ bool32 TryKnockOffBattleScript(u32 loseitembattler, u32 EffectUser, u16 moveEffe
 
             gLastUsedItem = gBattleMons[loseitembattler].item;
 
-            if (gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[loseitembattler]][GetBattlerSide(loseitembattler)] == ITEM_NONE)
+            if (GetBattlerPartyState(loseitembattler)->SecondaryItemSlot == ITEM_NONE)
                 gBattleMons[loseitembattler].item = ITEM_NONE;
             else
             {    
-                gBattleMons[loseitembattler].item = gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[loseitembattler]][GetBattlerSide(loseitembattler)];
-                gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[loseitembattler]][GetBattlerSide(loseitembattler)] = ITEM_NONE;
+                gBattleMons[loseitembattler].item = GetBattlerPartyState(loseitembattler)->SecondaryItemSlot;
+                GetBattlerPartyState(loseitembattler)->SecondaryItemSlot = ITEM_NONE;
             }
             if (gBattleMons[loseitembattler].ability != ABILITY_GORILLA_TACTICS)
                 gBattleStruct->choicedMove[loseitembattler] = MOVE_NONE;

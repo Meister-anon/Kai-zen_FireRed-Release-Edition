@@ -3676,19 +3676,19 @@ static void BattleStartClearSetData(void)
     //}
     for (i = 0; i < PARTY_SIZE; i++) //had to move after change define for usedHeldItem hope works... vsonic    //seems to be working?
     {
-        gBattleStruct->usedHeldItems[i][B_SIDE_PLAYER] = FALSE;
-        gBattleStruct->usedHeldItems[i][B_SIDE_OPPONENT] = FALSE;
+        gBattleStruct->partyState[B_SIDE_PLAYER][i].usedHeldItem = FALSE;
+        gBattleStruct->partyState[B_SIDE_OPPONENT][i].usedHeldItem = FALSE;
 
         //need update this unsure how to swap order of bracket
         gBattleStruct->partyState[B_SIDE_PLAYER][i].usedSingleUseAbility = FALSE;
         gBattleStruct->partyState[B_SIDE_OPPONENT][i].usedSingleUseAbility = FALSE;
         
-        gBattleStruct->CachedAbilityTimers[i][B_SIDE_PLAYER] = FALSE;
-        gBattleStruct->CachedAbilityTimers[i][B_SIDE_OPPONENT] = FALSE;
+        gBattleStruct->partyState[B_SIDE_PLAYER][i].cachedAbilityTimers = FALSE;
+        gBattleStruct->partyState[B_SIDE_OPPONENT][i].cachedAbilityTimers = FALSE;
 
         
-        gBattleStruct->ToxicTurnCounter[i][B_SIDE_PLAYER] = 0;
-        gBattleStruct->ToxicTurnCounter[i][B_SIDE_OPPONENT] = 0;
+        gBattleStruct->partyState[B_SIDE_PLAYER][i].ToxicTurnCounter = 0;
+        gBattleStruct->partyState[B_SIDE_OPPONENT][i].ToxicTurnCounter = 0;
 
         //think best I can do is just set to 2 without filter
         //wont do anything if not statused
@@ -3698,16 +3698,17 @@ static void BattleStartClearSetData(void)
         
         //if asleep at start of battle get 1 turn of inaction before wake
         //will heal after first turn as well, so not as bad.
-        gBattleStruct->SleepTimer[i][B_SIDE_PLAYER] = 2;
-        gBattleStruct->SleepTimer[i][B_SIDE_OPPONENT] = 2;
+        //ok can put this i
+        gBattleStruct->partyState[B_SIDE_PLAYER][i].SleepTimer = 2;
+        gBattleStruct->partyState[B_SIDE_OPPONENT][i].SleepTimer = 2;
 
-        gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER] = ITEM_NONE;
-        gBattleStruct->SecondaryItemSlot[i][B_SIDE_OPPONENT] = ITEM_NONE;
+        gBattleStruct->partyState[B_SIDE_PLAYER][i].SecondaryItemSlot = ITEM_NONE;
+        gBattleStruct->partyState[B_SIDE_OPPONENT][i].SecondaryItemSlot = ITEM_NONE;
 
-        gBattleStruct->itemStolen[i].originalItem = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
+        gBattleStruct->itemLost[B_SIDE_PLAYER][i].originalItem = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
 
-        //gBattleStruct->allowedToChangeFormInWeather[i][B_SIDE_PLAYER] = FALSE;
-        //gBattleStruct->allowedToChangeFormInWeather[i][B_SIDE_OPPONENT] = FALSE;
+        //gBattleStruct->allowedToChangeFormInWeather[B_SIDE_PLAYER][i] = FALSE;
+        //gBattleStruct->allowedToChangeFormInWeather[B_SIDE_OPPONENT][i] = FALSE;
     }
     //*(gBattleStruct->AI_monToSwitchIntoId + 0) = PARTY_SIZE;
     //*(gBattleStruct->AI_monToSwitchIntoId + 1) = PARTY_SIZE;
@@ -5166,7 +5167,7 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler)
         speed = (speed * 150) / 100;
     else if (ability == ABILITY_SURGE_SURFER && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
         speed *= 2;
-    else if (ability == ABILITY_SLOW_START && gBattleStruct->CachedAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] != 0)
+    else if (ability == ABILITY_SLOW_START && GetBattlerPartyState(battler)->cachedAbilityTimers != 0)
         speed /= 2;
 
     else if (ability == ABILITY_DEFEATIST && gBattleMons[battler].volatiles.defeatistActivated)
@@ -6096,18 +6097,18 @@ static void HandleEndTurn_FinishBattle(void)
 
     for (i = 0; i < PARTY_SIZE; i++) //seems to work
     {    
-        if (gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER] == ITEM_NONE)
+        if (gBattleStruct->partyState[B_SIDE_PLAYER][i].SecondaryItemSlot == ITEM_NONE)
             continue;
 
-        if (gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER] != ITEM_NONE)
+        if (gBattleStruct->partyState[B_SIDE_PLAYER][i].SecondaryItemSlot != ITEM_NONE)
             {
                 
                 if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_OLD_MAN_TUTORIAL | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_LINK)))
                 {
                     freedomFlag = TRUE;
-                    AddBagItem(gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER], 1);
+                    AddBagItem(gBattleStruct->partyState[B_SIDE_PLAYER][i].SecondaryItemSlot, 1);
                 }
-                gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER] = ITEM_NONE;
+                gBattleStruct->partyState[B_SIDE_PLAYER][i].SecondaryItemSlot = ITEM_NONE;
             }
     }
     if (freedomFlag)

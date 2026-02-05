@@ -5778,7 +5778,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 gBattleMons[gBattlerAttacker].volatiles.truantCounter ^= 1;
                 break;
             case ABILITY_SLOW_START:
-                if (GetBattlerPartyState(battler)->CachedAbilityTimers > 0 && --GetBattlerPartyState(battler)->CachedAbilityTimers == 0)
+                if (GetBattlerPartyState(battler)->cachedAbilityTimers > 0 && --GetBattlerPartyState(battler)->cachedAbilityTimers == 0)
                 {
                     BattleScriptExecute(BattleScript_SlowStartEnds);
                     effect++;
@@ -9473,7 +9473,7 @@ static inline u32 CalcAttackStat(struct BattleContext *ctx)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(2.0));
         break;
     case ABILITY_SLOW_START:
-        if (GetBattlerPartyState(battlerAtk)->CachedAbilityTimers > 0)
+        if (GetBattlerPartyState(battlerAtk)->cachedAbilityTimers > 0)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.5));
         break;
     case ABILITY_SOLAR_POWER:

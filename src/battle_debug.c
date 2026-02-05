@@ -1141,7 +1141,7 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
         AddTextPrinter(&printer, 0, NULL);
         break;
     case LIST_ITEM_SECONDARY_ITEM:
-        PadString(ItemId_GetName(text, gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)]), text);
+        PadString(ItemId_GetName(text, GetBattlerPartyState(data->battlerId)->SecondaryItemSlot), text);
         printer.currentY = printer.y = sSecondaryListTemplate.upText_Y;
         AddTextPrinter(&printer, 0, NULL);
         break;
@@ -1298,7 +1298,7 @@ static void UpdateBattlerValue(struct BattleDebugMenu *data)
     case VAR_SLEEP_TIMER:
         if (data->modifyArrows.currValue)
         {
-            gBattleStruct->SleepTimer[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)] = data->modifyArrows.currValue;
+            GetBattlerPartyState(data->battlerId)->SleepTimer = data->modifyArrows.currValue;
         }
         else
         {
@@ -1312,7 +1312,7 @@ static void UpdateBattlerValue(struct BattleDebugMenu *data)
     
     case VAR_TOXIC_COUNTER:
         if (data->modifyArrows.currValue)
-            gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)] = data->modifyArrows.currValue;
+            GetBattlerPartyState(data->battlerId)->ToxicTurnCounter = data->modifyArrows.currValue;
         break;
     }
     data->battlerWasChanged[data->battlerId] = TRUE;
@@ -1490,9 +1490,9 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
         data->modifyArrows.minValue = 0;
         data->modifyArrows.maxValue = ITEMS_COUNT - 1;
         data->modifyArrows.maxDigits = 3;
-        data->modifyArrows.modifiedValPtr = &gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)];
+        data->modifyArrows.modifiedValPtr = &GetBattlerPartyState(data->battlerId)->SecondaryItemSlot;
         data->modifyArrows.typeOfVal = VAL_U16;
-        data->modifyArrows.currValue = gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)];
+        data->modifyArrows.currValue = GetBattlerPartyState(data->battlerId)->SecondaryItemSlot;
         break;
     case LIST_ITEM_TYPES:
         data->modifyArrows.minValue = 0;
@@ -1578,7 +1578,7 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
             data->modifyArrows.maxDigits = 1;
             data->modifyArrows.modifiedValPtr = NULL;
             data->modifyArrows.typeOfVal = VAR_SLEEP_TIMER;
-            data->modifyArrows.currValue = gBattleStruct->SleepTimer[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)];
+            data->modifyArrows.currValue = GetBattlerPartyState(data->battlerId)->SleepTimer;
         }
         else if (data->currentSecondaryListItemId == VARIOUS_FREEZE_TIMER)
         {
