@@ -208,7 +208,7 @@ void InitAnimFastLinearTranslationWithSpeedAndPos(struct Sprite *sprite);
 void TryShinyAnimation(enum BattlerId battler, struct Pokemon *mon);
 u8 ItemIdToBallId(u16 itemId);
 u8 LaunchBallStarsTask(u8 x, u8 y, u8 priority, u8 subpriority, u8 ballId);
-u8 LaunchBallFadeMonTask(bool8 unFadeLater, enum BattlerId battlerId, u32 arg2, u8 ballId);
+//u8 LaunchBallFadeMonTask(bool8 unFadeLater, enum BattlerId battlerId, u32 arg2, u8 ballId);
 void LoadHealthboxPalsForLevelUp(u8 *, u8 *, enum BattlerId battlerId);
 void DoFreeHealthboxPalsForLevelUp(u8 batterId);
 

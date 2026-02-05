@@ -2,6 +2,7 @@
 #define GUARD_BATTLE_UTIL_H
 
 #include "global.h"
+#include "constants/hold_effects.h"
 
 #define MOVE_LIMITATION_ZEROMOVE                (1 << 0)
 #define MOVE_LIMITATION_PP                      (1 << 1)
@@ -326,6 +327,8 @@ enum EjectPackTiming
     OTHER,
 };
 
+bool32 CheckBattlerHpThreshold(enum BattlerId battler, u8 Comparison, u8 percentHp);
+
 void HandleAction_ThrowBall(void);
 uq4_12_t CalcTypeEffectivenessMultiplierHelper(enum Move move, enum Type moveType, enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum Ability abilityDef, bool32 recordAbilities);
 u32 GetCurrentBattleWeather(void);
@@ -425,7 +428,6 @@ void ClearDestinyBondGrudge(enum BattlerId battlerId);
 void HandleAction_RunBattleScript(void);
 u8 GetBattleMoveTarget(u16 move, u8 setTarget);
 u32 SetRandomTarget(enum BattlerId battlerId);
-bool32 IsAffectedByFollowMe(enum BattlerId battlerAtk, u32 defSide, u32 move);
 u8 IsMonDisobedient(void);
 u32 GetBattleMoveSplit(u32 moveId);
 u32 GetBattleMoveDamageCategory(u32 attackerId, u16 move);
@@ -442,9 +444,6 @@ void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut);
 bool32 DoBattlersShareType(enum BattlerId battler1, enum BattlerId battler2);
 bool32 CanBattlerEscape(enum BattlerId battler);
 u32 IsAbilityPreventingEscape(enum BattlerId battlerId);
-u32 IsAbilityOnFieldExcept(enum BattlerId battlerId, u32 ability);
-u32 IsAbilityOnField(u32 ability); 
-bool32 IsBattlerProtected(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move);
 u32 GetProtectType(enum ProtectMethod method);
 u32 GetBattlerHoldEffect(enum BattlerId battler, bool32 checkNegating);
 u32 GetBattlerHoldEffectIgnoreAbility(enum BattlerId battler, bool32 checkNegating);
@@ -452,8 +451,6 @@ u32 GetBattlerHoldEffectInternal(enum BattlerId battler, bool32 checkNegating, b
 u32 GetBattlerHoldEffectParam(enum BattlerId battlerId, u32 itemId);
 bool32 CanBattlerAvoidContactEffects(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, u32 move);
 bool8 IsMoveMakingContact(u16 move, enum BattlerId battlerAtk); //made bool8 since its just a true false return
-u32 IsAbilityOnSide(enum BattlerId battlerId, u32 ability);
-u32 IsAbilityOnOpposingSide(enum BattlerId battlerId, u32 ability);
 u32 DoesSideHaveAbility(enum BattlerId battlerId, u32 ability); // //adapted abilityonside function that doesn't use getbattlerability
 bool8 DoesBattlerHaveSureHitAbility(enum BattlerId battlerId);
 bool32 IsRolePlayBannedAbilityAtk(u16 ability);  //looping array kept 32
@@ -590,72 +587,6 @@ bool8 CanSurviveInstantKOWithSturdy(enum BattlerId battler); //for sturdy condit
 bool8 CanActivateForewarnAnticipation(enum BattlerId battler);
 bool8 IsFixationMoveEffect(u16 move); //SETUP FOR new category of move inspired by legends arceus
 
-//think should be ok, maybe using uq12 is more accurate and may
-//use later but for the most part is same as how hp checks are already run
-//ex. simplifies checks for in a pinch i.e half hp etc.
-//has minute innacuracies
-//think best I can do is get max and curr hp and thresholdhp
-//all in uq format
-//and calculate off of that
-//that'd be best way to deal with it
-//since any rounding would round correctly for all
-//rather than needing actual hp to match rounded value
-//main issue is just when need find exact equal
-//uq(1) could be max hp  percent could just be percenttouq
-//think could just use uq numbers actually
-//isu32 is bigg enough to hold
-//vsonic important should work long as DON'T use w dynamax hp
-//may need specifically use getnondynamaxed hp function?
-static inline bool32 CheckBattlerHpThreshold(enum BattlerId battler, u8 Comparison, u8 percentHp)
-{
-    uq4_12_t maxHp = UQ_4_12(gBattleMons[battler].maxHP);
-    uq4_12_t currHp = UQ_4_12(gBattleMons[battler].hp);
-    uq4_12_t hpThreshold = uq4_12_multiply(maxHp, PercentToUQ4_12(percentHp));
-    
-    switch (Comparison)
-    {
-        case LESS_THAN:
-            return (currHp < hpThreshold);
-        break;
-        case GREATER_THAN:
-            return (currHp > hpThreshold);
-        break;
-        case EQUAL_TO:
-            return (currHp == hpThreshold);
-        break;
-        case NOT_EQUAL:
-            return (currHp != hpThreshold);
-        break;
-        case LESS_THAN_OR_EQUAL:
-            return (currHp <= hpThreshold);
-        break;
-        case GREATER_THAN_OR_EQUAL:
-            return (currHp >= hpThreshold);
-        break;
-    }
-
-    return FALSE;
-}
-
-//note believe should add assert later
-//to catch use of abilities that aren't hp dependent
-//made rework order
-//using getbattler for ability would return false posiitve
-//on assert if suppressed so better to use flat battler ability
-//then don't return hp check
-//can instaed use that as bool condition
-//to return getbattlerability != none
-static inline bool32 CanActivateHpBasedAbility(enum BattlerId battler)
-{
-    enum Ability ability = gBattleMons[battler].ability;
-    u8 comparisonOperator = gAbilitiesInfo[ability].basedOnHp.comparison;
-    u8 percent = gAbilitiesInfo[ability].basedOnHp.percentHp;
-
-    if (CheckBattlerHpThreshold(battler, comparisonOperator, percent))
-       return GetBattlerAbility(battler) != ABILITY_NONE;
-
-    return FALSE;
-}
 /*//used in battle_main unsure if  still need
 u8 ShouldAbilityAbsorb(u16 move); //ATTEMPT workaroud for absorb abilty/lightning rod targetting
 //two custom functions for ability absorb along w new macro should do what I need

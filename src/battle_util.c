@@ -1224,6 +1224,53 @@ static void UNUSED MarkAllBattlersForControllerExec(void)
     }
 }
 
+//think should be ok, maybe using uq12 is more accurate and may
+//use later but for the most part is same as how hp checks are already run
+//ex. simplifies checks for in a pinch i.e half hp etc.
+//has minute innacuracies
+//think best I can do is get max and curr hp and thresholdhp
+//all in uq format
+//and calculate off of that
+//that'd be best way to deal with it
+//since any rounding would round correctly for all
+//rather than needing actual hp to match rounded value
+//main issue is just when need find exact equal
+//uq(1) could be max hp  percent could just be percenttouq
+//think could just use uq numbers actually
+//isu32 is bigg enough to hold
+//vsonic important should work long as DON'T use w dynamax hp
+//may need specifically use getnondynamaxed hp function?
+bool32 CheckBattlerHpThreshold(enum BattlerId battler, u8 Comparison, u8 percentHp)
+{
+    uq4_12_t maxHp = UQ_4_12(gBattleMons[battler].maxHP);
+    uq4_12_t currHp = UQ_4_12(gBattleMons[battler].hp);
+    uq4_12_t hpThreshold = uq4_12_multiply(maxHp, PercentToUQ4_12(percentHp));
+    
+    switch (Comparison)
+    {
+        case LESS_THAN:
+            return (currHp < hpThreshold);
+        break;
+        case GREATER_THAN:
+            return (currHp > hpThreshold);
+        break;
+        case EQUAL_TO:
+            return (currHp == hpThreshold);
+        break;
+        case NOT_EQUAL:
+            return (currHp != hpThreshold);
+        break;
+        case LESS_THAN_OR_EQUAL:
+            return (currHp <= hpThreshold);
+        break;
+        case GREATER_THAN_OR_EQUAL:
+            return (currHp >= hpThreshold);
+        break;
+    }
+
+    return FALSE;
+}
+
 bool32 IsBattlerMarkedForControllerExec(enum BattlerId battler)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)

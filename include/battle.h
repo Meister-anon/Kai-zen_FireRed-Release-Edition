@@ -2067,6 +2067,8 @@ static inline u32 GetAbilityTimer(enum Ability ability)
     return gAbilitiesInfo[ability].timer;
 }
 
+
+
 //missing include
 static inline void SetSingleUseAbilityValues(enum BattlerId battler, enum Ability ability)
 {
@@ -2074,6 +2076,27 @@ static inline void SetSingleUseAbilityValues(enum BattlerId battler, enum Abilit
     gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]].usedSingleUseAbility = ability;
 }
 
+
+
+//note believe should add assert later
+//to catch use of abilities that aren't hp dependent
+//made rework order
+//using getbattler for ability would return false posiitve
+//on assert if suppressed so better to use flat battler ability
+//then don't return hp check
+//can instaed use that as bool condition
+//to return getbattlerability != none
+static inline bool32 CanActivateHpBasedAbility(enum BattlerId battler)
+{
+    enum Ability ability = gBattleMons[battler].ability;
+    u8 comparisonOperator = gAbilitiesInfo[ability].basedOnHp.comparison;
+    u8 percent = gAbilitiesInfo[ability].basedOnHp.percentHp;
+
+    if (CheckBattlerHpThreshold(battler, comparisonOperator, percent))
+       return GetBattlerAbility(battler) != ABILITY_NONE;
+
+    return FALSE;
+}
 //ok fog already blocks redirection from above
 //with far more reliable exclusions
 //don't want/need too many blocks here

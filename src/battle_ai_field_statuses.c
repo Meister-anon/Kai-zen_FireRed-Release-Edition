@@ -6,7 +6,7 @@
 #include "battle_ai_field_statuses.h"
 #include "battle_ai_util.h"
 #include "battle_ai_main.h"
-#include "battle_factory.h"
+//#include "battle_factory.h"
 #include "battle_setup.h"
 #include "event_data.h"
 #include "data.h"
@@ -19,6 +19,7 @@
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
 #include "constants/battle_move_effects.h"
+#include "constants/hold_effects.h"
 #include "constants/moves.h"
 #include "constants/items.h"
 
