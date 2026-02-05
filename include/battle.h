@@ -1666,6 +1666,11 @@ static inline struct Pokemon *GetBattlerParty(enum BattlerId battlerId)
     return GetSideParty(GetBattlerSide(battlerId));
 }
 
+//unsure but believe can only use when is pointing or assigning value 
+//based on pointing to data
+//means for when assigning hard constatn value I think will have to
+//write out entire value,
+//need adjust make sure all values match
 static inline struct PartyState *GetBattlerPartyState(enum BattlerId battler)
 {
     return &gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]];

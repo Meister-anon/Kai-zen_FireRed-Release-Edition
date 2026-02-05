@@ -175,8 +175,8 @@ static inline u32 GetAbilityTimer(enum Ability ability)
 //missing include
 static inline void SetSingleUseAbilityValues(enum BattlerId battler, enum Ability ability)
 {
-    GetBattlerPartyState(battler)->cachedAbilityTimers = GetAbilityTimer(ability);
-    GetBattlerPartyState(battler)->usedSingleUseAbility = ability;
+    gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]].cachedAbilityTimers = GetAbilityTimer(ability);
+    gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]].usedSingleUseAbility = ability;
 }
 
 //ok fog already blocks redirection from above
