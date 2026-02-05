@@ -1271,11 +1271,15 @@ static inline u16 SanitizeSpeciesId(u16 species)
 }
 
 //Type boosted by hunger switch form and type of aura wheel
-static inline enum Type GetHungerSwitchType(struct BattleContext *ctx)
+//I want to use context for this but arguemnt itself 
+//should just be battler and ability
+//and should be fine since just reading data not changing it
+//use species of atk battler
+static inline enum Type GetHungerSwitchType(u16 species, enum Ability abilityAtk)
 {
-    if (GET_BASE_SPECIES_ID(gBattleMons[ctx->battlerAtk].species) == SPECIES_MORPEKO_FULL_BELLY
-    && ctx->abilityAtk == ABILITY_HUNGER_SWITCH)
-        return (gBattleMons[ctx->battlerAtk].species == SPECIES_MORPEKO_FULL_BELLY ? TYPE_ELECTRIC : TYPE_DARK);
+    if (GET_BASE_SPECIES_ID(species) == SPECIES_MORPEKO_FULL_BELLY
+    && abilityAtk == ABILITY_HUNGER_SWITCH)
+        return (species == SPECIES_MORPEKO_FULL_BELLY ? TYPE_ELECTRIC : TYPE_DARK);
 }
 
 
