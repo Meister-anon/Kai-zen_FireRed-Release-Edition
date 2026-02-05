@@ -741,7 +741,7 @@ struct PartyState
     u32 sentOut:1; //^w form species change my not use that, but may take que from for setup
     u32 numPhysHits:2; //using for ice face to count hits taken till reset, realize need putin party to prevent abuse
     u32 isKnockedOff:1;
-    u32 padding:6;
+    u32 padding:6;//need tweak singleuseability secondaryitemslot and heldItem use as swap order of side and battlerId
     //end byte
     //u32 knockedOffItem; //was isKnockedOff
     
