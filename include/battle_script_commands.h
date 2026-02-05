@@ -46,7 +46,6 @@ s32 AI_CalcDmgFormula(u8 attacker, u8 defender);
 u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move, u32 atkAbility, u32 defAbility, u32 atkHoldEffect, u32 defHoldEffect);
 bool32 IsStallActive(enum BattlerId battler); //new checks for ability stall
 bool8 CanMultiTask(enum Ability abilityAtk, enum Move move);
-bool8 DoesTargetAbilityBlockCrit(u8 Targetbattler);
 bool32 TryKnockOffBattleScript(u32 loseitembattler, u32 EffectUser, u16 moveEffect);
 u8 CanMoveHitSwitchingTarget(u16 move);
 u8 IsExemptFromPursuit(enum BattlerId battler); //for blocking effect without needing separate battlescript

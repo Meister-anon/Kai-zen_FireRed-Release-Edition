@@ -117,85 +117,9 @@ enum AbilityEffect
 #define IS_WHOLE_SIDE_ALIVE(battler)((IsBattlerAlive(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))))
 #define IS_ALIVE_AND_PRESENT(battler)   (IsBattlerAlive(battler) && IsBattlerSpritePresent(battler))
 
-//unsure how pledge move work with this
-//has some interaction w redirection
-//first mon in combo sets target
-//but second mon is responsible for actual attack
-//checked bulbapedia seems sky drop is immune to redirection
-//via follow me or rage powder and since no ability presently exists
-//that draws in specifically flying moves that's all that could effect it
-//but I feel safe in excluding it from redirection based on that
-//think will make function and add as move characteristic
-//with that think will remove snipe_shot effect
-//as presently affect was only for redirection there
-//sky drop keeps effect but still replaced in function
-static inline bool32 PreventsRedirection(enum BattlerId battlerAtk, u32 move)
-{
-    enum Ability ability = GetBattlerAbility(battlerAtk);
 
-    if (IsFogOnField()
-    || DoesMovePreventRedirection(move)
-    || IsAbilityAndRecord(battlerAtk, ability, ABILITY_PROPELLER_TAIL)
-    || IsAbilityAndRecord(battlerAtk, ability, ABILITY_STALWART)
-    )
-        return TRUE;
-    
-    return FALSE;
-}
 
-//should be fine constants included in file used in
-static inline u32 GetAbilityTimer(enum Ability ability)
-{
-    /*switch (ability)
-    {
-        case ABILITY_SLOW_START:
-            return SLOW_START_TIMER;
-        break;
-        case ABILITY_WONDER_GUARD:
-            return WONDER_GUARD_TIMER; //might use 5
-        break;//review effect base version of use is clear weaknesses then switch in shedinja to sweep untouchable
-        //need remember what changes I made along w timer is it immune to weather and hazards?
-        //consider adjust timer to what makes sense for vgc average length 
-        //believe my change makes it both easier and harder to use shedinja
-        //which technically is the goal, just want to make sure the value is still there
-        
-        case ABILITY_SPECTRE:
-            return SPECTRE_TIMER;
-        break; //causes memory corruption to rear its head, I give up
-        //I'm gonna just swap to modern fix everything as it builds and pray to GOD 
-        //I find the damned source of the issue
-        //awesome fixes from building modern was able to address memory corruption
-        //linked w this at least
-        //still need test make sure effects still work, (believe they should)
 
-    }*/
-    return gAbilitiesInfo[ability].timer;
-}
-
-//missing include
-static inline void SetSingleUseAbilityValues(enum BattlerId battler, enum Ability ability)
-{
-    gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]].cachedAbilityTimers = GetAbilityTimer(ability);
-    gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]].usedSingleUseAbility = ability;
-}
-
-//ok fog already blocks redirection from above
-//with far more reliable exclusions
-//don't want/need too many blocks here
-//think just want to cut down preoccupied status
-//think lock to confusion wrap and bide
-//think will leave status 1 as main block
-//will leave lightning rod with advantage still
-//which is good, if paralysis is main status to set
-//it'll mostly be excluded for lightning rod mon
-static inline bool32 CanBattlerAbilityDrawInMove(enum BattlerId battlerDef)
-{
-    if (gBattleMons[battlerDef].status1 == 0 
-    && !IsBattlerHindered(battlerDef))
-        return TRUE;
-    
-    return FALSE;
-}
 
 // For the first argument of ItemBattleEffects, to deteremine which block of item effects to try
 enum ItemCaseId

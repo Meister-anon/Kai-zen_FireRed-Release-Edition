@@ -12697,7 +12697,7 @@ bool8 IsMonBannedFromSkyBattles(u16 species)
     }
 }
 
-void GetBattlerTypes(enum BattlerId battler, bool32 ignoreTera, enum Type types[static 3])
+void GetBattlerTypes(enum BattlerId battler, bool32 ignoreTera, enum Type types[/*static*/ 3])
 {
     // Terastallization.
     bool32 isTera = GetActiveGimmick(battler) == GIMMICK_TERA;
@@ -12711,9 +12711,9 @@ void GetBattlerTypes(enum BattlerId battler, bool32 ignoreTera, enum Type types[
         }
     }
 
-    types[0] = gBattleMons[battler].types[0];
-    types[1] = gBattleMons[battler].types[1];
-    types[2] = gBattleMons[battler].types[2];
+    types[0] = gBattleMons[battler].type1;
+    types[1] = gBattleMons[battler].type2;
+    types[2] = gBattleMons[battler].type3;
 
 
 }
