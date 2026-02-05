@@ -728,23 +728,28 @@ struct BattlerState
 
 struct PartyState
 {
-    u32 intrepidSwordBoost:1;
-    u32 dauntlessShieldBoost:1;
+    //Ah right I didn't make this once per battle
+    //u32 intrepidSwordBoost:1; //may not need these two can prob wrap in single use ability use
+    //u32 dauntlessShieldBoost:1; //yeah that's essentially what these do
+    u32 freespace:2;
     u32 ateBerry:1;
     u32 battleBondBoost:1;
     u32 transformZeroToHero:1;
     u32 supersweetSyrup:1;
     u32 timesGotHit:5; //check think this for evo stuff if so may remove
     u32 changedSpecies:11; // For forms when multiple mons can change into the same pokemon.
-    u32 sentOut:1;
+    u32 sentOut:1; //^w form species change my not use that, but may take que from for setup
     u32 numPhysHits:2; //using for ice face to count hits taken till reset, realize need putin party to prevent abuse
-    u32 padding:7;
-    u32 knockedOffItem; //was knock from wishfutureknock struct
-    u16 usedHeldItem;//check may need adjust harvest recycle w setup for 2nd held slot
-    u16 usedSingleUseAbility; //for abilities that activate once per battle - my addition //not bool stores ability too
+    u32 isKnockedOff:1;
+    u32 padding:6;
+    //end byte
+    //u32 knockedOffItem; //was isKnockedOff
+    
     u8 ToxicTurnCounter:5; //MAX_TOXIC_TURNS 16 //change make toxic dmg tracked not reset on switch
     u8 SleepTimer:3; //MAX_SLEEP_TURNS 5
     u8 CachedAbilityTimers; //rn just for slow start / wonder guard
+    u16 usedHeldItem;//check may need adjust harvest recycle w setup for 2nd held slot
+    u16 usedSingleUseAbility; //for abilities that activate once per battle - my addition //not bool stores ability too
     u16 SecondaryItemSlot;//for pickpocket and magician store taken item if already holding item
 
 };//taken from EE may be able to use for 
@@ -779,7 +784,7 @@ struct EventStates
 //plus that already makes sense for the environment traps
 //they all have timers so just make them free chip damage at the cost
 //of investing in weaker move
-//cleared at start of battle
+// Cleared at the beginning of the battle. Fields need to be cleared when needed manually otherwise.
 //vsonic important really need go over this
 //pretty sure A LOT of this is outdated or unneeded
 //and also just horribly optimized <<<<<<<
@@ -788,7 +793,7 @@ struct BattleStruct //fill in unused fields when porting
     struct BattlerState battlerState[MAX_BATTLERS_COUNT];
     struct PartyState partyState[NUM_BATTLE_SIDES][PARTY_SIZE];
     struct EventStates eventState;
-    struct WeatherEffects weatherEffects[MAX_BATTLERS_COUNT];
+    struct WeatherEffects weatherEffects; //couldn't find in EE cuz forgot I made to combine forecast change w new weather refactor
     struct FutureSight futureSight[MAX_BATTLERS_COUNT];
     struct Wish wish[MAX_BATTLERS_COUNT];
     u8 turnEffectsTracker;
