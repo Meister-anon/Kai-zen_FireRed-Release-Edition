@@ -788,7 +788,7 @@ struct EventStates
 //vsonic important really need go over this
 //pretty sure A LOT of this is outdated or unneeded
 //and also just horribly optimized <<<<<<<
-struct BattleStruct //fill in unused fields when porting
+/*struct BattleStruct //fill in unused fields when porting
 {
     struct BattlerState battlerState[MAX_BATTLERS_COUNT];
     struct PartyState partyState[NUM_BATTLE_SIDES][PARTY_SIZE];
@@ -796,20 +796,13 @@ struct BattleStruct //fill in unused fields when porting
     struct WeatherEffects weatherEffects; //couldn't find in EE cuz forgot I made to combine forecast change w new weather refactor
     struct FutureSight futureSight[MAX_BATTLERS_COUNT];
     struct Wish wish[MAX_BATTLERS_COUNT];
-    u8 turnEffectsTracker;
-    u8 turnEffectsBattlerId;
     u8 debugBattler;
-    u8 turnCountersTracker; //wrapped move is no longer used, still needfigure how to adjust wrappedby tho
+    //wrapped move is no longer used, still needfigure how to adjust wrappedby tho
     //u16 wrappedMove[MAX_BATTLERS_COUNT]; // Leftover from Ruby's ewram access. /u16 because epanded move ids  //no longer need the * 2 forgot I redid these
     u16 moveTarget[MAX_BATTLERS_COUNT]; //checked is u16 in emerald, and fixed missed replacement of wrappedMove logic
-    u16 assistPossibleMoves[PARTY_SIZE * MAX_MON_MOVES]; // 6 mons, each of them knowing 4 moves
     u8 expGetterMonId;
-    u8 targetsDone[MAX_BATTLERS_COUNT]; // Each battler as a bit.
     bool8 debugAISet;
     u8 wildVictorySong;//yeah decide move to pokemon struct but will use party size set true false to indicate which battler set effect
-    u8 dynamicMoveType;//thinkbest I can do for wrappyby is move to battlepokemon struct so auto linked to targetmon, than can use maxbattlers to store a value for each battler, but auto default to 0xFF at battle start switch in
-    u8 seedSetterBattleId[MAX_BATTLERS_COUNT]; //scrapped previous entry was wrappedby think can use store leechseed battler, instead of weird attacker swap logic?, if works gains +2 spaces in status3
-    u8 infatuatedwithBattleId[MAX_BATTLERS_COUNT];
     u8 sentInPokes;
     enum BattlerId battlerPreventingSwitchout;
     u8 moneyMultiplier;
@@ -817,7 +810,7 @@ struct BattleStruct //fill in unused fields when porting
     u8 overworldWeatherDone:1;
     u8 terrainDone:1; //realistically run attempts almost never get into double digits
     u8 runTries:4;//used for boosting run success odds based on number attempts//could shrink and link with moneymultipliermove
-    u8 bypassMoldBreakerChecks:1; // for ABILITYEFFECT_IMMUNITY
+    
     u8 savedTurnActionNumber;
     u8 switchInAbilitiesCounter;
     u8 faintedActionsState;
@@ -904,7 +897,7 @@ struct BattleStruct //fill in unused fields when porting
     bool8 anyMonHasTransformed; // Only used in battle_tv.c
     u16 tracedAbility[MAX_BATTLERS_COUNT]; //didn't really need to port, but prob can use it to show current ability in menu summary screen //important
     u16 hpBefore[MAX_BATTLERS_COUNT]; // Hp of battlers before using a move. For Berserk
-    bool8 spriteIgnore0Hp;
+    bool8 spriteIgnore0Hp;//vsonic look into
     u8 field_182; //look into this
     u8 quickClawBattlerId;
     struct RemovedItem itemLost[NUM_BATTLE_SIDES][PARTY_SIZE];  // Player's team that had items stolen (two bytes per party member)
@@ -937,8 +930,159 @@ struct BattleStruct //fill in unused fields when porting
     } multiBuffer;
     u8 padding_1E4[0x18];
 
-    //new vlaues =need figure where to put etc.
-    /*s32 battlerExpReward;
+    
+}; // size == 0x200 bytes
+*/
+
+
+struct BattleStruct
+{
+    struct BattlerState battlerState[MAX_BATTLERS_COUNT];
+    struct PartyState partyState[NUM_BATTLE_SIDES][PARTY_SIZE];
+    struct EventStates eventState;
+    struct WeatherEffects weatherEffects; //couldn't find in EE cuz forgot I made to combine forecast change w new weather refactor
+    struct FutureSight futureSight[MAX_BATTLERS_COUNT];
+    struct Wish wish[MAX_BATTLERS_COUNT];
+    u16 moveTarget[MAX_BATTLERS_COUNT];
+    u32 expShareExpValue;
+    u32 expValue;
+    u8 weatherDuration;
+    u8 expGettersOrder[PARTY_SIZE]; // First battlers which were sent out, then via exp-share
+    u8 expGetterMonId;
+    u8 expOrderId:3;
+    u8 expGetterBattlerId:2;
+    //may use or just make exp was shared message
+    u8 teamGotExpMsgPrinted:1; // The 'Rest of your team got msg' has been printed.
+    u8 givenExpMons; // Bits for enemy party's pokemon that gave exp to player's party.
+    u8 expSentInMons; // As bits for player party mons - not including exp share mons.
+    u8 wildVictorySong;
+    enum Type dynamicMoveType;
+    enum BattlerId battlerPreventingSwitchout;
+    u8 moneyMultiplier:6;
+    u8 moneyMultiplierItem:1;
+    u8 moneyMultiplierMove:1;
+    u8 savedTurnActionNumber;
+    u8 scriptPartyIdx; // for printing the nickname
+    u8 battlerPartyIndexes[MAX_BATTLERS_COUNT];
+    u8 monToSwitchIntoId[MAX_BATTLERS_COUNT];
+    u8 battlerPartyOrders[MAX_BATTLERS_COUNT][PARTY_SIZE / 2];
+    u8 runTries;
+    u8 caughtMonNick[POKEMON_NAME_LENGTH + 1];
+    u8 safariGoNearCounter;
+    u8 safariPkblThrowCounter;
+    u8 safariEscapeFactor;
+    u8 safariCatchFactor;
+    u8 linkBattleVsSpriteId_V; // The letter "V"
+    u8 linkBattleVsSpriteId_S; // The letter "S"
+    u8 chosenMovePositions[MAX_BATTLERS_COUNT];
+    u8 stateIdAfterSelScript[MAX_BATTLERS_COUNT];
+    u8 prevSelectedPartySlot;
+    u8 stringMoveType;
+    //not using
+    u8 palaceFlags; // First 4 bits are "is <= 50% HP and not asleep" for each battler, last 4 bits are selected moves to pass to AI
+    u8 field_93; // related to choosing pokemon? //doesn't exist in FR not used at all
+    u8 wallyBattleState;
+    u8 wallyMovesState;
+    u8 wallyWaitFrames;
+    u8 wallyMoveFrames;
+    //end of not used
+    u16 lastTakenMove[MAX_BATTLERS_COUNT]; // Last move that a battler was hit with.
+    u32 savedBattleTypeFlags;
+    u16 abilityPreventingSwitchout;
+    u8 hpScale;
+    u16 synchronizeMoveEffect;
+    //not using
+    u8 anyMonHasTransformed:1; // Only used in battle_tv.c
+    u8 sleepClauseNotBlocked:1;
+    u8 isSkyBattle:1;
+    //end of not using
+    u8 unableToUseMove:1; // for the current action only, to check if the battler failed to act at end turn use the DisableStruct member
+    u8 bypassMoldBreakerChecks:1; // for ABILITYEFFECT_IMMUNITY
+    u8 shouldPrintPreHitAbilityText:1;
+    u8 unused:2;
+    void (*savedCallback)(void);
+    u16 chosenItem[MAX_BATTLERS_COUNT];
+    u16 choicedMove[MAX_BATTLERS_COUNT];
+    u16 changedItems[MAX_BATTLERS_COUNT];
+    u8 switchInBattlerCounter; //replaces switchInItemsCounter and switch in abilitiescounter
+    u16 lastTakenMoveFrom[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT]; // a 2-D array [target][attacker]
+    union {
+        struct LinkBattlerHeader linkBattlerHeader;
+        struct BattleVideo battleVideo; //is truct MultiPartnerMenuPokemon multiBattleMons[3] in FR
+    } multiBuffer;
+    u8 battlerKOAnimsRunning:3; //think animation on faint foe, not using vsonic
+    //also plan not use dont want ability pop ups
+    u8 friskedAbility:1; // If identifies two mons, show the ability pop-up only once.
+    u8 fickleBeamBoosted:1;
+    u8 poisonPuppeteerConfusion:1;
+    u8 toxicChainPriority:1; // If Toxic Chain will trigger on target, all other non volatiles will be blocked
+    u8 battlersSorted:1; // To avoid unnessasery computation
+    //review feature may not use
+    struct BattleTvMovePoints tvMovePoints;
+    struct BattleTv tv;
+    u8 AI_monToSwitchIntoId[MAX_BATTLERS_COUNT];
+    //fronteir stuff not using
+    s8 arenaMindPoints[NUM_BATTLE_SIDES];
+    s8 arenaSkillPoints[NUM_BATTLE_SIDES];
+    u16 arenaStartHp[NUM_BATTLE_SIDES];
+    u8 arenaLostPlayerMons; // Bits for party member, lost as in referee's decision, not by fainting.
+    u8 arenaLostOpponentMons;
+    //end not using
+    u8 debugBattler;
+    u8 magnitudeBasePower;
+    u8 presentBasePower;
+    u8 savedBattlerTarget[5];
+    u8 savedBattlerAttacker[5];
+    u8 savedTargetCount:4;
+    u8 savedAttackerCount:4;
+    //prob not using
+    u8 abilityPopUpSpriteIds[MAX_BATTLERS_COUNT][NUM_BATTLE_SIDES];    // two per battler
+    struct ZMoveData zmove;
+    struct DynamaxData dynamax;
+    struct BattleGimmickData gimmick;
+    //unsure bout this
+    const u8 *trainerSlideMsg;
+    u8 stolenStats[NUM_BATTLE_STATS]; // hp byte is used for which stats to raise, other inform about by how many stages
+    enum Ability tracedAbility[MAX_BATTLERS_COUNT];
+    struct Illusion illusion[MAX_BATTLERS_COUNT];
+    enum BattlerId soulheartBattlerId;
+    enum BattlerId friskedBattler; // Frisk needs to identify 2 battlers in double battles.
+    enum BattlerId quickClawBattlerId;
+    struct RemovedItem itemLost[NUM_BATTLE_SIDES][PARTY_SIZE];  // Pokemon that had items consumed or stolen (two bytes per party member per side)
+    u8 blunderPolicy:1; // should blunder policy activate
+    u8 swapDamageCategory:1; // Photon Geyser, Shell Side Arm, Light That Burns the Sky
+    u8 bouncedMoveIsUsed:1; //^believe end of values I already ported
+    u8 snatchedMoveIsUsed:1;
+    u8 descriptionSubmenu:1; // For Move Description window in move selection screen
+    u8 ackBallUseBtn:1; // Used for the last used ball feature
+    u8 ballSwapped:1; // Used for the last used ball feature
+    u8 throwingPokeBall:1;
+    u8 ballSpriteIds[2];    // item gfx, window gfx
+    u8 moveInfoSpriteId; // move info, window gfx
+    u8 skyDropTargets[MAX_BATTLERS_COUNT]; // For Sky Drop, to account for if multiple Pokemon use Sky Drop in a double battle.
+    // When using a move which hits multiple opponents which is then bounced by a target, we need to make sure, the move hits both opponents, the one with bounce, and the one without.
+    u16 beatUpSpecies[PARTY_SIZE]; // Species for Gen5+ Beat Up, otherwise party indexes
+    u8 attackerBeforeBounce:2;
+    u8 beatUpSlot:3;
+    u8 pledgeMove:1;
+    u8 effectsBeforeUsingMoveDone:1; // Mega Evo and Focus Punch/Shell Trap effects.
+    u8 padding3:1;
+    u8 itemPartyIndex[MAX_BATTLERS_COUNT];
+    u8 itemMoveIndex[MAX_BATTLERS_COUNT];
+    s32 aiDelayTimer; // Counts number of frames AI takes to choose an action.
+    s32 aiDelayFrames; // Number of frames it took to choose an action.
+    s32 aiDelayCycles; // Number of cycles it took to choose an action.
+    u8 supremeOverlordCounter[MAX_BATTLERS_COUNT];
+    u8 shellSideArmCategory[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT];
+    u8 speedTieBreaks; // MAX_BATTLERS_COUNT! values.
+    enum DamageCategory categoryOverride:8; // for Z-Moves and Max Moves
+    u32 stellarBoostFlags[NUM_BATTLE_SIDES]; // stored as a bitfield of flags for all types for each side
+    u8 monCausingSleepClause[NUM_BATTLE_SIDES]; // Stores which pokemon on a given side is causing Sleep Clause to be active as the mon's index in the party
+    u16 opponentMonCanTera:6;
+    u16 opponentMonCanDynamax:6;
+    u16 additionalEffectsCounter:4; // A counter for the additionalEffects applied by the current move in Cmd_setadditionaleffects
+    u8 pursuitStoredSwitch; // Stored id for the Pursuit target's switch
+    s32 battlerExpReward;
     u16 prevTurnSpecies[MAX_BATTLERS_COUNT]; // Stores species the AI has in play at start of turn
     s16 passiveHpUpdate[MAX_BATTLERS_COUNT]; // non-move damage and healing
     s16 moveDamage[MAX_BATTLERS_COUNT];
@@ -950,9 +1094,9 @@ struct BattleStruct //fill in unused fields when porting
     u8 printedStrongWindsWeakenedAttack:1;
     u8 numSpreadTargets:3;
     u8 moldBreakerActive:1;
-    //think may not need 2 below
     struct MessageStatus slideMessageStatus;
     u8 trainerSlideSpriteIds[MAX_BATTLERS_COUNT];
+    //unsure if need above 2
     u8 hazardsQueue[NUM_BATTLE_SIDES][HAZARDS_MAX_COUNT];
     u8 numHazards[NUM_BATTLE_SIDES];
     u8 hazardsCounter:4; // Counter for applying hazard on switch in
@@ -966,10 +1110,10 @@ struct BattleStruct //fill in unused fields when porting
     u8 padding4:1;
     u8 magicCoatActive:1;
     u8 magicBounceActive:1;
-    u8 moveBouncer;*/
-}; // size == 0x200 bytes
-
+    u8 moveBouncer;
+};
 extern struct BattleStruct *gBattleStruct;
+
 
 #define F_DYNAMIC_TYPE_1 (1 << 6)
 #define F_DYNAMIC_TYPE_2 (1 << 7)
