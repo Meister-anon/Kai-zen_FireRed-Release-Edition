@@ -761,7 +761,7 @@ renamed semi invulnerable Interupt
     F(VOLATILE_FROZEN_TURNS,                frozenTurns,                   (u32, 2))  \
     F(VOLATILE_SLEEP_COUNTER,               sleepCounter,                  (u32, 1))  \
     F(VOLATILE_SLEEPCOUNT_SWITCH_IN_HACK,   sleepCountSwitchInHack,        (u32, 1))  \
-    F(VOLATILE_FOREWARNED_BATTLER,          forewarnedBattler,             (u32, enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT)))  \
+    F(VOLATILE_FOREWARNED_BATTLER,          forewarnedBattler,             (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT)))  \
     F(VOLATILE_ANTICIPATIONFOREWARN_DONE,   anticipationForewornIsDone,    (u32, 1))  \
     F(VOLATILE_ACTIVATED_WEIGHTED_GI,       activatedWeightedGi,           (u32, 1))  \
     F(VOLATILE_SWITCHBIND_TIMER,            switchBindtimer,               (u32, B_SWITCH_BIND_TURNS), V_BATON_PASSABLE)  \
