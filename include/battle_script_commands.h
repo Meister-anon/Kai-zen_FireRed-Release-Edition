@@ -43,7 +43,6 @@ s32 AICalcCritChance(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 m
 u16 GetNaturePowerMove(void);
 s8 GetInverseCritChance(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move);
 s32 AI_CalcDmgFormula(u8 attacker, u8 defender);
-u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move, u32 atkAbility, u32 defAbility, u32 atkHoldEffect, u32 defHoldEffect);
 bool32 IsStallActive(enum BattlerId battler); //new checks for ability stall
 bool8 CanMultiTask(enum Ability abilityAtk, enum Move move);
 bool32 TryKnockOffBattleScript(u32 loseitembattler, u32 EffectUser, u16 moveEffect);

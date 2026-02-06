@@ -3245,9 +3245,13 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_FUGUE] =
     {
         .name = _("Fugue"),
-        .description = COMPOUND_ABILITY_STRING("Makes sleep and confusion more effective\nagainst targets. Always max turns."),
+        .description = COMPOUND_ABILITY_STRING("Makes sleep and confusion more effective\nConfuse max turns sleep is more accurate"),
         .aiRating = 4,
     },
+    //think change this, making sleep two consistent makes it predictible
+    //and easy to immediately reset
+    //change to boost acc of sleep effects
+    //i.e turn hypnosis into spore for this mon only
 
     [ABILITY_SECRET_ARTS] =
     {

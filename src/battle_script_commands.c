@@ -11290,6 +11290,8 @@ static void Cmd_trysetvolatile(void)
     else
     {
         SetMonVolatile(battler, cmd->_volatile, TRUE);
+        //can set custom effects here
+        //battler is target
         switch (cmd->_volatile)
         {
         case VOLATILE_MAGNET_RISE:
@@ -11297,6 +11299,12 @@ static void Cmd_trysetvolatile(void)
             break;
         case VOLATILE_LASER_FOCUS:
             gBattleMons[battler].volatiles.laserFocusTimer = B_LASER_FOCUS_TIMER;
+            break;
+        case VOLATILE_CONFUSION:
+        {
+            if (FugueCausesConfusion(gBattlerAttacker, battler, GetBattlerAbility(gBattlerAttacker), gCurrentMove))
+                gBattleMons[battler].volatiles.confusionTurns = MAX_CONFUSION_TURNS;
+        }
             break;
         default:
             break;

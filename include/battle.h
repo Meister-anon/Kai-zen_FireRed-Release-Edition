@@ -2076,7 +2076,50 @@ static inline void SetSingleUseAbilityValues(enum BattlerId battler, enum Abilit
     gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]].usedSingleUseAbility = ability;
 }
 
+enum FugueStates
+{
+    FUGUE_FAILS,
+    FUGUE_SLEEP_MODE,
+    FUGUE_CONFUSION
+};
 
+//active sleep effects not yawn
+//not powder sleep.
+static inline u32 ShouldActivateFugue(enum BattlerId battleratk, enum BattlerId battlerdef, enum Ability abilityAtk, enum Move move)
+{
+    if (battleratk == battlerdef)
+        return FALSE;
+
+    //intention has fugue, sleep effect logic, or confuse effect logic
+    //sleep is meant to exclude things like yawn and powder
+    //to specifically be hypnosis effects
+    if (IsBattlerAlive(battleratk) && abilityAtk == ABILITY_FUGUE)
+    {
+        if (GetMoveEffect(move) == EFFECT_NON_VOLATILE_STATUS
+        && GetMoveNonVolatileStatus(move) == MOVE_EFFECT_SLEEP
+        && !IsPowderMove(move))
+            return FUGUE_SLEEP_MODE;
+
+        else if (GetMoveEffect(move) == EFFECT_CONFUSE
+        || GetMoveAdditionalEffectById(move, 0)->moveEffect == MOVE_EFFECT_CONFUSION
+        || GetMoveAdditionalEffectById(move, 1)->moveEffect == MOVE_EFFECT_CONFUSION)
+            return FUGUE_CONFUSION;
+    }
+    
+
+    return FALSE;
+}
+
+//attempt simplify readability as won't different version for diff places
+static inline bool32 FugueActivatesSleep(enum BattlerId battleratk, enum BattlerId battlerdef, enum Ability abilityAtk, enum Move move)
+{
+    return ShouldActivateFugue(battleratk, battlerdef, abilityAtk, move) == FUGUE_SLEEP_MODE;
+}
+
+static inline bool32 FugueCausesConfusion(enum BattlerId battleratk, enum BattlerId battlerdef, enum Ability abilityAtk, enum Move move)
+{
+    return ShouldActivateFugue(battleratk, battlerdef, abilityAtk, move) == FUGUE_CONFUSION;
+}
 
 //note believe should add assert later
 //to catch use of abilities that aren't hp dependent

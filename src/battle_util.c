@@ -12328,20 +12328,6 @@ bool32 IsBattlerAffectedByHazards(enum BattlerId battler, enum HoldEffect holdEf
     return ret;
 }
 
-//active sleep effects not yawn
-//not powder sleep.
-//hypnosis effects set max sleep turns
-bool32 ShouldActivateFugue(enum BattlerId battleratk, enum BattlerId battlerdef, enum Ability abilityAtk)
-{
-    if (battleratk == battlerdef)
-        return FALSE;
-
-    if (IsBattlerAlive(battleratk)
-    && abilityAtk == ABILITY_FUGUE)
-        return TRUE;
-
-    return FALSE;
-}
 
 bool32 IsSheerForceAffected(u16 move, enum Ability ability)
 {
@@ -13488,6 +13474,10 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 m
         && !IsBattleMoveStatus(move)
         && moveAcc != 0)
             moveAcc = 100;
+    
+    if (FugueActivatesSleep(battlerAtk, battlerDef, atkAbility, move)
+    && moveAcc < 95 && moveAcc != 0)
+        moveAcc = 95;
 
     calc = gAccuracyStageRatios[buff].dividend * moveAcc;
     calc /= gAccuracyStageRatios[buff].divisor;

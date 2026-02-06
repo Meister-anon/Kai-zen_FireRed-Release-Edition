@@ -580,7 +580,6 @@ u8 ShouldActivateBindingBand(void); //function made for attempt setup pre health
 u32 IsTypeOnFieldExcept(enum BattlerId battler, enum Type type); 
 
 
-bool32 ShouldActivateFugue(enum BattlerId battleratk, enum BattlerId battlerdef, enum Ability abilityAtk);
 
 bool8 CanSurviveInstantKOWithSturdy(enum BattlerId battler); //for sturdy conditions 
 
