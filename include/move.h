@@ -638,6 +638,69 @@ static inline u32 GetMoveTwoTurnAttackWeather(u32 moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].argument.twoTurnAttack.status;
 }
 
+static inline u32 GetMoveSpeciesPowerOverride_Species(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    //assertf(gMovesInfo[moveId].effect == EFFECT_SPECIES_POWER_OVERRIDE, "not a species power override move: %S", GetMoveName(moveId));
+    return gMovesInfo[SanitizeMoveId(moveId)].argument.speciesPowerOverride.species;
+}
+
+static inline u32 GetMoveSpeciesPowerOverride_Power(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    //assertf(gMovesInfo[moveId].effect == EFFECT_SPECIES_POWER_OVERRIDE, "not a species power override move: %S", GetMoveName(moveId));
+    return gMovesInfo[SanitizeMoveId(moveId)].argument.speciesPowerOverride.power;
+}
+
+static inline u32 GetMoveSpeciesPowerOverride_NumOfHits(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    //assertf(gMovesInfo[moveId].effect == EFFECT_SPECIES_POWER_OVERRIDE, "not a species power override move: %S", GetMoveName(moveId));
+    return gMovesInfo[SanitizeMoveId(moveId)].argument.speciesPowerOverride.numOfHits;
+}
+
+static inline u32 GetMoveReflectDamage_DamagePercent(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    //assertf(gMovesInfo[moveId].effect == EFFECT_REFLECT_DAMAGE, "not a damage reflection move: %S", GetMoveName(moveId));
+    return gMovesInfo[SanitizeMoveId(moveId)].argument.reflectDamage.damagePercent;
+}
+
+static inline u32 GetMoveReflectDamage_DamageCategories(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    //assertf(gMovesInfo[moveId].effect == EFFECT_REFLECT_DAMAGE, "not a damage reflection move: %S", GetMoveName(moveId));
+    return gMovesInfo[SanitizeMoveId(moveId)].argument.reflectDamage.damageCategories;
+}
+
+static inline u32 GetMoveTerrainBoost_Terrain(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    //assertf(gMovesInfo[moveId].effect == EFFECT_TERRAIN_BOOST, "not a terrain boosted move: %S", GetMoveName(moveId));
+    return gMovesInfo[moveId].argument.terrainBoost.terrain;
+}
+
+static inline u32 GetMoveTerrainBoost_Percent(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    //assertf(gMovesInfo[moveId].effect == EFFECT_TERRAIN_BOOST, "not a terrain boosted move: %S", GetMoveName(moveId));
+    return gMovesInfo[moveId].argument.terrainBoost.percent;
+}
+
+static inline u32 GetMoveTerrainBoost_GroundCheck(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    //assertf(gMovesInfo[moveId].effect == EFFECT_TERRAIN_BOOST, "not a terrain boosted move: %S", GetMoveName(moveId));
+    return gMovesInfo[moveId].argument.terrainBoost.groundCheck;
+}
+
+static inline bool32 GetMoveTerrainBoost_HitsBothFoes(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    //assertf(gMovesInfo[moveId].effect == EFFECT_TERRAIN_BOOST, "not a terrain boosted move: %S", GetMoveName(moveId));
+    return gMovesInfo[moveId].argument.terrainBoost.hitsBothFoes;
+}
+
 static inline enum ProtectMethod GetMoveProtectMethod(u32 moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].argument.protectMethod;
@@ -740,7 +803,7 @@ static inline u32 GetMoveDamagePercentage(u32 moveId)
 static inline u16 GetTypeBasedBoostTypeCheck(enum Move moveId)
 {
     moveId = SanitizeMoveId(moveId);
-    assertf(gMovesInfo[moveId].effect == EFFECT_TARGET_TYPE_DAMAGE, "not a type boosted move: %S", GetMoveName_(moveId));
+    //assertf(gMovesInfo[moveId].effect == EFFECT_TARGET_TYPE_DAMAGE, "not a type boosted move: %S", GetMoveName_(moveId));
     return gMovesInfo[moveId].argument.typeBasedPowerBoost.typeCheck;
 }
 
