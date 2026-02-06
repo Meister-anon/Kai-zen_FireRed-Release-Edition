@@ -1278,8 +1278,8 @@ static void BufferPartyVsScreenHealth_AtStart(void)
     s32 i;
 
     BUFFER_PARTY_VS_SCREEN_STATUS(gPlayerParty, flags, i);
-    gBattleStruct->multiBuffer.linkPartnerHeader.vsScreenHealthFlagsLo = flags;
-    *(&gBattleStruct->multiBuffer.linkPartnerHeader.vsScreenHealthFlagsHi) = flags >> 8;
+    gBattleStruct->multiBuffer.linkBattlerHeader.vsScreenHealthFlagsLo = flags;
+    *(&gBattleStruct->multiBuffer.linkBattlerHeader.vsScreenHealthFlagsHi) = flags >> 8;
 }
 
 
@@ -1362,7 +1362,7 @@ static void SetPlayerBerryDataInBattleStruct(void)
 {
     s32 i;
     struct BattleStruct *battleStruct = gBattleStruct;
-    struct BattleEnigmaBerry *battleBerry = &battleStruct->multiBuffer.linkPartnerHeader.battleEnigmaBerry;
+    struct BattleEnigmaBerry *battleBerry = &battleStruct->multiBuffer.linkBattlerHeader.battleEnigmaBerry;
 
     if (IsEnigmaBerryValid() == TRUE)
     {
@@ -1972,11 +1972,11 @@ static void CB2_HandleStartBattle(void)
                 if (IsLinkTaskFinished())
                 {
                     // 0x201
-                    *(&gBattleStruct->multiBuffer.linkPartnerHeader.versionSignatureLo) = 1;
-                    *(&gBattleStruct->multiBuffer.linkPartnerHeader.versionSignatureHi) = 2;
+                    *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureLo) = 1;
+                    *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureHi) = 2;
                     BufferPartyVsScreenHealth_AtStart();
                     SetPlayerBerryDataInBattleStruct();
-                    SendBlock(bitmask_all_link_players_but_self(), &gBattleStruct->multiBuffer.linkPartnerHeader, sizeof(gBattleStruct->multiBuffer.linkPartnerHeader));
+                    SendBlock(bitmask_all_link_players_but_self(), &gBattleStruct->multiBuffer.linkBattlerHeader, sizeof(gBattleStruct->multiBuffer.linkBattlerHeader));
                     gBattleCommunication[MULTIUSE_STATE] = 2;
                 }
                 if (gWirelessCommType != 0)
@@ -2002,7 +2002,7 @@ static void CB2_HandleStartBattle(void)
             gTasks[taskId].data[1] = 270;
             gTasks[taskId].data[2] = 90;
             gTasks[taskId].data[5] = 0;
-            gTasks[taskId].data[3] = gBattleStruct->multiBuffer.linkPartnerHeader.vsScreenHealthFlagsLo | (gBattleStruct->multiBuffer.linkPartnerHeader.vsScreenHealthFlagsHi << 8);
+            gTasks[taskId].data[3] = gBattleStruct->multiBuffer.linkBattlerHeader.vsScreenHealthFlagsLo | (gBattleStruct->multiBuffer.linkBattlerHeader.vsScreenHealthFlagsHi << 8);
             gTasks[taskId].data[4] = gBlockRecvBuffer[enemyMultiplayerId][1];
             SetDeoxysStats();
             ++gBattleCommunication[MULTIUSE_STATE];
@@ -2228,11 +2228,11 @@ static void CB2_HandleStartMultiBattle(void)
             if (IsLinkTaskFinished())
             {
                 // 0x201
-                *(&gBattleStruct->multiBuffer.linkPartnerHeader.versionSignatureLo) = 1;
-                *(&gBattleStruct->multiBuffer.linkPartnerHeader.versionSignatureHi) = 2;
+                *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureLo) = 1;
+                *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureHi) = 2;
                 BufferPartyVsScreenHealth_AtStart();
                 SetPlayerBerryDataInBattleStruct();
-                SendBlock(bitmask_all_link_players_but_self(), &gBattleStruct->multiBuffer.linkPartnerHeader, sizeof(gBattleStruct->multiBuffer.linkPartnerHeader));
+                SendBlock(bitmask_all_link_players_but_self(), &gBattleStruct->multiBuffer.linkBattlerHeader, sizeof(gBattleStruct->multiBuffer.linkBattlerHeader));
                 ++gBattleCommunication[MULTIUSE_STATE];
             }
             if (gWirelessCommType)

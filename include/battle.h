@@ -599,7 +599,7 @@ struct BattleResults
 
 extern struct BattleResults gBattleResults;
 
-struct LinkPartnerHeader
+struct LinkBattlerHeader
 {
     u8 versionSignatureLo;
     u8 versionSignatureHi;
@@ -635,10 +635,42 @@ struct Illusion
     struct Pokemon *mon;
 };
 
+struct ZMoveData
+{
+    u8 viable:1;   // current move can become a z move
+    u8 viewing:1;  // if player is viewing the z move name instead of regular moves
+    u8 healReplacement:6;
+    u8 possibleZMoves[MAX_BATTLERS_COUNT];
+    u16 baseMoves[MAX_BATTLERS_COUNT];
+};
+
+struct DynamaxData
+{
+    u16 dynamaxTurns[MAX_BATTLERS_COUNT];
+    u16 baseMoves[MAX_BATTLERS_COUNT]; // base move of Max Move
+    u16 lastUsedBaseMove;
+};
+
+struct BattleGimmickData
+{
+    u8 usableGimmick[MAX_BATTLERS_COUNT];                // first usable gimmick that can be selected for each battler
+    bool8 playerSelect;                                  // used to toggle trigger and update battle UI
+    u8 triggerSpriteId;
+    u8 indicatorSpriteId[MAX_BATTLERS_COUNT];
+    u8 toActivate;                                       // stores whether a battler should transform at start of turn as bitfield
+    u8 activeGimmick[NUM_BATTLE_SIDES][PARTY_SIZE];      // stores the active gimmick for each party member
+    bool8 activated[MAX_BATTLERS_COUNT][GIMMICKS_COUNT]; // stores whether a trainer has used gimmick
+};
+
 struct RemovedItem //struct LostItem
 {
     u16 originalItem : 15;
     u16 stolen : 1;
+};
+
+struct BattleVideo {
+    u32 battleTypeFlags;
+    rng_value_t rngSeed;
 };
 
 struct StatFractions
@@ -925,7 +957,7 @@ struct EventStates
     //bool8 slowstartDone[MAX_BATTLERS_COUNT]; don't need this, also go over these structs as well like I did pokemon.h
     // align 4
     union {
-        struct LinkPartnerHeader linkPartnerHeader;
+        struct LinkBattlerHeader linkBattlerHeader;
         struct MultiPartnerMenuPokemon multiBattleMons[3];
     } multiBuffer;
     u8 padding_1E4[0x18];
@@ -1009,7 +1041,7 @@ struct BattleStruct
     union {
         struct LinkBattlerHeader linkBattlerHeader;
         struct BattleVideo battleVideo; //is truct MultiPartnerMenuPokemon multiBattleMons[3] in FR
-    } multiBuffer;
+    } multiBuffer; //ok see in EM above is moved to battle_main instead of here it has an equivalent
     u8 battlerKOAnimsRunning:3; //think animation on faint foe, not using vsonic
     //also plan not use dont want ability pop ups
     u8 friskedAbility:1; // If identifies two mons, show the ability pop-up only once.
@@ -1018,8 +1050,8 @@ struct BattleStruct
     u8 toxicChainPriority:1; // If Toxic Chain will trigger on target, all other non volatiles will be blocked
     u8 battlersSorted:1; // To avoid unnessasery computation
     //review feature may not use
-    struct BattleTvMovePoints tvMovePoints;
-    struct BattleTv tv;
+    //struct BattleTvMovePoints tvMovePoints; //keeping off for now
+    //struct BattleTv tv;
     u8 AI_monToSwitchIntoId[MAX_BATTLERS_COUNT];
     //fronteir stuff not using
     s8 arenaMindPoints[NUM_BATTLE_SIDES];

@@ -307,6 +307,13 @@ struct BattleCalcValues
     enum HoldEffect holdEffects[MAX_BATTLERS_COUNT];
 };
 
+//not using
+enum SleepClauseBlock
+{
+    NOT_BLOCKED_BY_SLEEP_CLAUSE,
+    BLOCKED_BY_SLEEP_CLAUSE,
+};
+
 enum SkyDropState
 {
     SKY_DROP_IGNORE,
@@ -531,6 +538,7 @@ bool32 CanTargetBattler(enum BattlerId battlerAtk, enum BattlerId battlerDef, en
 u32 GetNextTarget(u32 moveTarget, bool32 excludeCurrent);
 void CopyMonLevelAndBaseStatsToBattleMon(enum BattlerId battler, struct Pokemon *mon);
 void CopyMonAbilityAndTypesToBattleMon(enum BattlerId battler, struct Pokemon *mon);
+//EE function for recalc stats this used in place of transform logic for recalcs outside of transform and ditto
 void RecalcBattlerStats(enum BattlerId battler, struct Pokemon *mon, bool32 isDynamaxing);
 bool32 IsGen6ExpShareEnabled(void);
 bool32 MoveHasAdditionalEffect(enum Move move, enum MoveEffect moveEffect);

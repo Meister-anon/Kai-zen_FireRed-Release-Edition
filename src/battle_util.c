@@ -12910,10 +12910,10 @@ bool32 IsSleepClauseActiveForSide(enum BattlerId battlerSide)
 
 bool32 IsSleepClauseEnabled()
 {
-    if (B_SLEEP_CLAUSE)
+    /*if (B_SLEEP_CLAUSE)
         return TRUE;
     if (FlagGet(B_FLAG_SLEEP_CLAUSE))
-        return TRUE;
+        return TRUE;*/
     return FALSE;
 }
 
@@ -13849,9 +13849,9 @@ static u32 GetAssistMove(void)
     return move;
 }
 
-u32 GetNaturePowerMove(enum BattlerId battler)
+enum Move GetNaturePowerMove(enum BattlerId battler)
 {
-    u32 move = gBattleEnvironmentInfo[gBattleEnvironment].naturePower;
+    enum Move move = gBattleEnvironmentInfo[gBattleEnvironment].naturePower;
     if (gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN)
         move = MOVE_MOONBLAST;
     else if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)

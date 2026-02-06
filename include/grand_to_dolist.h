@@ -8922,7 +8922,7 @@ Exceptions:
  singleUseAbilities
 
  ex. battlesruct assignment
- *(&gBattleStruct->multiBuffer.linkPartnerHeader.versionSignatureLo) = 1;
+ *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureLo) = 1;
  gBattleStruct->multiplayerId = playerMultiplayerId;
  gBattleStruct->dynamicMoveType = TYPE_FAIRY; 
  gBattleStruct->lastTakenMoveFrom[i][2] = MOVE_NONE;

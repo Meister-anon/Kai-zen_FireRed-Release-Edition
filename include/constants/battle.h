@@ -1545,4 +1545,30 @@ enum StartingStatus
     STARTING_STATUS_DEFINITIONS(UNPACK_STARTING_STATUS_ENUMS)
 };
 
+enum SlideMsgStates
+{
+    PRINT_SLIDE_MESSAGE,
+    RESTORE_BATTLER_SLIDE_CONTROL,
+};
+
+enum MonState
+{
+    MON_IN_BATTLE,
+    MON_OUTSIDE_BATTLE,
+};
+
+enum __attribute__((packed)) CalcDamageState
+{
+    CAN_DAMAGE,
+    WILL_FAIL,
+    CHECK_ACCURACY,
+};
+
+enum SubmoveState
+{
+    SUBMOVE_NO_EFFECT,
+    SUBMOVE_SUCCESS,
+    SUBMOVE_FAILURE,
+};
+
 #endif // GUARD_CONSTANTS_BATTLE_H

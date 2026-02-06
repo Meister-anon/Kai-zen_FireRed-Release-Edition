@@ -12,7 +12,6 @@
 #define WINDOW_x80              0x80
 
 void SetMoveEffect(enum BattlerId battler, u32 effectBattler, bool32 primary, bool32 certain);
-u32 GetMoveTwoTurnAttackStringId(u16 move); //script chooser set values for charge turn of two turn moves
 bool8 UproarWakeUpCheck(enum BattlerId battlerId);
 u8 AI_TypeCalc(u16 move, u16 targetSpecies, u16 targetAbility);	//return value is u8 so function can stay u8, even if all elements aren't
 u8 TypeCalc(u16 move, u8 attacker, u8 defender);
@@ -38,9 +37,7 @@ bool32 TryResetBattlerStatChanges(enum BattlerId battler);
 bool32 CanCamouflage(enum BattlerId battlerId);
 void StealTargetItem(enum BattlerId battlerStealer, enum BattlerId battlerItem);
 bool32 CanStealItem(enum BattlerId battlerStealing, enum BattlerId battlerItem, u16 item);
-bool32 ProteanTryChangeType(enum BattlerId battler, u32 ability, u32 move, u32 moveType);
 s32 AICalcCritChance(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move, bool32 recordAbility);
-u16 GetNaturePowerMove(void);
 s8 GetInverseCritChance(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move);
 s32 AI_CalcDmgFormula(u8 attacker, u8 defender);
 bool32 IsStallActive(enum BattlerId battler); //new checks for ability stall
@@ -50,7 +47,6 @@ u8 CanMoveHitSwitchingTarget(u16 move);
 u8 IsExemptFromPursuit(enum BattlerId battler); //for blocking effect without needing separate battlescript
 bool8 IsMoveAffectedByParentalBond(u16 move, enum BattlerId battlerId);
 //EE function for recalc stats this used in place of transform logic for recalcs outside of transform and ditto
-void RecalcBattlerStats(enum BattlerId battler, struct Pokemon *mon);
 void CopyMonLevelAndBaseStatsToBattleMon(enum BattlerId battler, struct Pokemon *mon);
 void CopyMonAbilityAndTypesToBattleMon(enum BattlerId battler, struct Pokemon *mon);
 
