@@ -12,9 +12,10 @@ enum MoveEndResult
 enum MoveEndState
 {
     MOVEEND_SET_VALUES,
-    MOVEEND_PROTECT_LIKE_EFFECT,
+    MOVEEND_PROTECT_LIKE_EFFECT, //think new color change would go after this?
     MOVEEND_ABSORB,
     MOVEEND_RAGE,
+    MOVEEND_DRAGON_RAGE,
     MOVEEND_SYNCHRONIZE_TARGET,
     MOVEEND_ABILITIES,
     MOVEEND_ABILITIES_ATTACKER,
@@ -23,6 +24,8 @@ enum MoveEndState
     MOVEEND_ATTACKER_INVISIBLE,
     MOVEEND_ATTACKER_VISIBLE,
     MOVEEND_TARGET_VISIBLE,
+    MOVEEND_GROUND_TARGET,
+    MOVEEND_SEMI_INVULNERABLE_INTERRUPT,
     MOVEEND_ITEM_EFFECTS_TARGET,
     MOVEEND_ITEM_EFFECTS_ATTACKER_1,
     MOVEEND_SYMBIOSIS,
@@ -30,22 +33,22 @@ enum MoveEndState
     MOVEEND_FAINT_BLOCK,
     MOVEEND_SKY_DROP_CONFUSE,
     MOVEEND_UPDATE_LAST_MOVES,
-    MOVEEND_MIRROR_MOVE,
+    MOVEEND_MIRROR_MOVE, //may remove as changed to emulate mimic
     MOVEEND_DEFROST,
     MOVEEND_NEXT_TARGET, // Everything up until here is handled for each strike of a spread move
     MOVEEND_HP_THRESHOLD_ITEMS_TARGET, // Activation only during a multi hit move / ability (Parental Bond)
     MOVEEND_MULTIHIT_MOVE,
     MOVEEND_MOVE_BLOCK,
     MOVEEND_ITEM_EFFECTS_ATTACKER_2,
-    MOVEEND_ABILITY_EFFECT_FOES_FAINTED, // Moxie-like abilities / Battle Bond / Magician
+    MOVEEND_ABILITY_EFFECT_FOES_FAINTED, //was MOVEEND_ABILITY_BLOCK // Moxie-like abilities / Battle Bond / Magician
     MOVEEND_SHEER_FORCE, // If move is Sheer Force affected, skip to Hit Escape + One
-    MOVEEND_COLOR_CHANGE, // Color Change / Berserk / Anger Shell
+    MOVEEND_COLOR_CHANGE, // Color Change / Berserk / Anger Shell //need move color change out w rework would go further up
     MOVEEND_KEE_MARANGA_HP_THRESHOLD_ITEM_TARGET,
     MOVEEND_RED_CARD,
     MOVEEND_EJECT_BUTTON,
     MOVEEND_LIFE_ORB_SHELL_BELL,
-    MOVEEND_FORM_CHANGE,
-    MOVEEND_EMERGENCY_EXIT,
+    MOVEEND_FORM_CHANGE, //form change after using move mega ray, for things like this think need update my idea of form change need revert party mon if in mega form and not sent out yet think of as transferring mega energy
+    MOVEEND_EMERGENCY_EXIT, // need tweak to integrate with my changed version
     MOVEEND_EJECT_PACK,
     MOVEEND_HIT_ESCAPE,
     MOVEEND_ITEMS_EFFECTS_ALL,
@@ -57,6 +60,7 @@ enum MoveEndState
     MOVEEND_CHANGED_ITEMS,
     MOVEEND_CLEAR_BITS,
     MOVEEND_DANCER,
+    MOVEEND_FETCH_BALL,
     MOVEEND_PURSUIT_NEXT_ACTION,
     MOVEEND_COUNT,
 

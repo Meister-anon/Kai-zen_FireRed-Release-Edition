@@ -587,7 +587,7 @@ enum SetMoveEffectFlags
 };
 
 // cases for Cmd_moveend - Order matters!
-enum MoveEndEffects
+/*enum MoveEndEffects
 {
     MOVEEND_SET_VALUES,
     MOVEEND_PROTECT_LIKE_EFFECT,
@@ -638,7 +638,7 @@ enum MoveEndEffects
     MOVEEND_PICKPOCKET,
     MOVEEND_THIRD_MOVE_BLOCK,
     MOVEEND_CHANGED_ITEMS,
-    MOVEEND_SAME_MOVE_TURNS,
+    MOVEEND_SAME_MOVE_TURNS, //previouslyd dealt w metronome and parental bond
     MOVEEND_CLEAR_BITS,
     MOVEEND_DANCER,
     MOVEEND_FETCH_BALL,
@@ -647,7 +647,7 @@ enum MoveEndEffects
 
     // This guarantees a correct jump if new moveends are added directly after MOVEEND_HIT_ESCAPE
     MOVEEND_JUMP_TO_HIT_ESCAPE_PLUS_ONE = (MOVEEND_HIT_ESCAPE + 1),
-};
+};*/
 
 // switch cases
 #define B_SWITCH_NORMAL     0
