@@ -7378,6 +7378,7 @@ goto WEATHER_CONFIG_STUFFF //weather logic
   //note forgot to add freeze logic for status grounding, 
 
 */
+goto VOLATILE_SET
 goto Storage_SystemCallbacks  //has how pc moves to summ screen and tracks index
 goto ADD_MOVE_CAT_ICONS //for move split etc.
 goto GROUPED_SPECIES_FILE //for planned new species set setup, enum must match order of arrays bottom of grouped_species_tables.h

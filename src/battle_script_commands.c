@@ -11277,6 +11277,7 @@ static void Cmd_setstealthrock(void)
     }
 }
 
+#define VOLATILE_SET
 static void Cmd_trysetvolatile(void)
 {
     CMD_ARGS(enum BattlerId battler, u8 _volatile, const u8 *failInstr);
