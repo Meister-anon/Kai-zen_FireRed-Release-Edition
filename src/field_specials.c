@@ -574,7 +574,7 @@ static void Task_ShakeScreen(u8 taskId)
 static void Task_EndScreenShake(u8 taskId)
 {
     DestroyTask(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
 }
 
 #undef tYtrans
@@ -1150,7 +1150,7 @@ static void Task_ElevatorShake(u8 taskId)
         {
             PlaySE(SE_DING_DONG);
             DestroyTask(taskId);
-            EnableBothScriptContexts();
+            ScriptContext_Enable();
             InstallCameraPanAheadCallback();
         }
     }
@@ -1499,7 +1499,7 @@ static void Task_ListMenuHandleInput(u8 taskId)
         {
             Task_ListMenuRemoveScrollIndicatorArrowPair(taskId);
             task->func = Task_SuspendListMenu;
-            EnableBothScriptContexts();
+            ScriptContext_Enable();
         }
         break;
     }
@@ -1517,7 +1517,7 @@ static void Task_DestroyListMenu(u8 taskId)
     CopyWindowToVram(task->data[13], COPYWIN_GFX);
     RemoveWindow(task->data[13]);
     DestroyTask(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
 }
 
 static void Task_SuspendListMenu(u8 taskId)
@@ -1537,7 +1537,7 @@ void ReturnToListMenu(void)
 {
     u8 taskId = FindTaskIdByFunc(Task_SuspendListMenu);
     if (taskId == 0xFF)
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
     else
         gTasks[taskId].data[6]++;
 }
@@ -3197,7 +3197,7 @@ static void Task_DoDeoxysTriangleInteraction(u8 taskId)
     if (FlagGet(FLAG_SYS_DEOXYS_AWAKENED) == TRUE)
     {
         gSpecialVar_Result = 3;
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
         DestroyTask(taskId);
     }
     else
@@ -3216,7 +3216,7 @@ static void Task_DoDeoxysTriangleInteraction(u8 taskId)
         {
             FlagSet(FLAG_SYS_DEOXYS_AWAKENED);
             gSpecialVar_Result = 2;
-            EnableBothScriptContexts();
+            ScriptContext_Enable();
             DestroyTask(taskId);
         }
         else
@@ -3258,7 +3258,7 @@ static void Task_WaitDeoxysFieldEffect(u8 taskId)
 {
     if (!FieldEffectActiveListContains(FLDEFF_MOVE_DEOXYS_ROCK))
     {
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
         DestroyTask(taskId);
     }
 }

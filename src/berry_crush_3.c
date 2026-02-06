@@ -1111,7 +1111,7 @@ static void Task_ShowBerryCrushRankings(u8 taskId)
         ClearWindowTilemap(data[1]);
         RemoveWindow(data[1]);
         DestroyTask(taskId);
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
         ScriptContext2_Disable();
         data[0] = 0;
         return;

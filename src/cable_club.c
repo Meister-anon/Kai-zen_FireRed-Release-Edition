@@ -405,7 +405,7 @@ static void Task_Linkup_6a(u8 taskId)
             if (gLinkType == LINKTYPE_BERRY_BLENDER_SETUP)
                 *UnusedVarNeededToMatch += 0;
             DestroyLinkPlayerCountDisplayWindow(gTasks[taskId].data[5]);
-            EnableBothScriptContexts();
+            ScriptContext_Enable();
             DestroyTask(taskId);
         }
         else
@@ -421,7 +421,7 @@ static void Task_Linkup_7(u8 taskId)
     if (!gReceivedRemoteLinkPlayers)
     {
         DestroyLinkPlayerCountDisplayWindow(gTasks[taskId].data[5]);
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
         RemoveWindow(gTasks[taskId].data[5]);
         DestroyTask(taskId);
     }
@@ -432,7 +432,7 @@ static void Task_Linkup_Canceled(u8 taskId)
     gSpecialVar_Result = 5;
     DestroyLinkPlayerCountDisplayWindow(gTasks[taskId].data[5]);
     HideFieldMessageBox();
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
     DestroyTask(taskId);
 }
 
@@ -441,7 +441,7 @@ static void Task_Linkup_ErroredOut(u8 taskId)
     gSpecialVar_Result = 6;
     DestroyLinkPlayerCountDisplayWindow(gTasks[taskId].data[5]);
     HideFieldMessageBox();
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
     DestroyTask(taskId);
 }
 
@@ -808,7 +808,7 @@ static void Task_EnterCableClubSeat(u8 taskId)
         sub_8057F48();
         sub_80F771C(TRUE);
         DestroyTask(taskId);
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
         break;
     }
 }
@@ -817,7 +817,7 @@ static void CreateEnterCableClubSeatTaskWithFollowupFunc(TaskFunc followUpFunc)
 {
     u8 taskId = CreateTask(Task_EnterCableClubSeat, 80);
     SetTaskFuncWithFollowupFunc(taskId, Task_EnterCableClubSeat, followUpFunc);
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
 }
 
 static void Task_StartWiredCableClubTrade(u8 taskId)
@@ -900,7 +900,7 @@ static void CreateTask_StartWiredCableClubTrade(void)
 void StartWiredCableClubTrade(void)
 {
     CreateTask_StartWiredCableClubTrade();
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
 }
 
 void EnterColosseumPlayerSpot(void)
@@ -915,7 +915,7 @@ void EnterColosseumPlayerSpot(void)
 static void Debug_CreateTaskEnterCableClubSeat(void)
 {
     CreateTask(Task_EnterCableClubSeat, 80);
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
 }
 /*
 void Script_ShowLinkTrainerCard(void)
@@ -953,7 +953,7 @@ static void sub_8081AE4(u8 taskId)
 {
     if (!gReceivedRemoteLinkPlayers)
     {
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
         DestroyTask(taskId);
     }
 }

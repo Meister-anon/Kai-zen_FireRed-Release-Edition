@@ -247,7 +247,7 @@ static const u16 sWhiteOutMoneyLossBadgeFlagIDs[] = {
 
 static void DoWhiteOut(void)
 {
-    ScriptContext2_RunNewScript(EventScript_ResetEliteFourEnd);
+    RunScriptImmediately(EventScript_ResetEliteFourEnd);
     RemoveMoney(&gSaveBlock1Ptr->money, ComputeWhiteOutMoneyLoss());
     HealPlayerParty();
     Overworld_ResetStateAfterWhitingOut();
@@ -1461,7 +1461,7 @@ void CB1_Overworld(void)
 
 static void OverworldBasic(void)
 {
-    ScriptContext2_RunScript();
+    ScriptContext_RunScript();
     RunTasks();
     AnimateSprites();
     CameraUpdate();
@@ -1529,7 +1529,7 @@ void CB2_NewGame(void)
     NewGameInitData();
     ResetInitialPlayerAvatarState();
     PlayTimeCounter_Start();
-    ScriptContext1_Init();
+    ScriptContext_Init();
     UnlockPlayerFieldControls();
     gFieldCallback = FieldCB_WarpExitFadeFromBlack;
     gFieldCallback2 = NULL;
@@ -1550,7 +1550,7 @@ void CB2_WhiteOut(void)
         ResetSafariZoneFlag_();
         DoWhiteOut();
         SetInitialPlayerAvatarStateWithDirection(DIR_NORTH);
-        ScriptContext1_Init();
+        ScriptContext_Init();
         UnlockPlayerFieldControls();
         gFieldCallback = FieldCB_RushInjuredPokemonToCenter;
         val = 0;
@@ -1565,7 +1565,7 @@ void CB2_WhiteOut(void)
 void CB2_LoadMap(void)
 {
     FieldClearVBlankHBlankCallbacks();
-    ScriptContext1_Init();
+    ScriptContext_Init();
     UnlockPlayerFieldControls();
     SetMainCallback1(NULL);
     SetMainCallback2(CB2_DoChangeMap);
@@ -1645,7 +1645,7 @@ void CB2_ReturnToFieldFromMultiplayer(void)
     else
         gFieldCallback = FieldCB_ReturnToFieldCableLink;
 
-    ScriptContext1_Init();
+    ScriptContext_Init();
     UnlockPlayerFieldControls();
     CB2_ReturnToField();
 }
@@ -1696,7 +1696,7 @@ void CB2_ContinueSavedGame(void)
     Overworld_ResetStateOnContinue();
     InitMapFromSavedGame();
     PlayTimeCounter_Start();
-    ScriptContext1_Init();
+    ScriptContext_Init();
     UnlockPlayerFieldControls();
     gFieldCallback2 = NULL;
     gUnknown_2031DE0 = TRUE;
@@ -1770,7 +1770,7 @@ static bool32 map_loading_iteration_3(u8 *state)
     {
     case 0:
         InitOverworldBgs();
-        ScriptContext1_Init();
+        ScriptContext_Init();
         UnlockPlayerFieldControls();
         (*state)++;
         break;
@@ -2208,7 +2208,7 @@ void CB2_SetUpOverworldForQLPlaybackWithWarpExit(void)
 {
     FieldClearVBlankHBlankCallbacks();
     gGlobalFieldTintMode = 1;
-    ScriptContext1_Init();
+    ScriptContext_Init();
     UnlockPlayerFieldControls();
     SetMainCallback1(NULL);
     SetMainCallback2(CB2_DoChangeMap);
@@ -2220,7 +2220,7 @@ void CB2_SetUpOverworldForQLPlayback(void)
     FieldClearVBlankHBlankCallbacks();
     gGlobalFieldTintMode = 1;
     LoadSaveblockMapHeader();
-    ScriptContext1_Init();
+    ScriptContext_Init();
     UnlockPlayerFieldControls();
     SetMainCallback1(NULL);
     SetMainCallback2(CB2_LoadMapForQLPlayback);
@@ -2328,7 +2328,7 @@ void CB2_EnterFieldFromQuestLog(void)
     Overworld_ResetStateOnContinue();
     InitMapFromSavedGame();
     PlayTimeCounter_Start();
-    ScriptContext1_Init();
+    ScriptContext_Init();
     gUnknown_2031DE0 = TRUE;
     if (UseContinueGameWarp() == TRUE)
     {
@@ -2399,7 +2399,7 @@ static bool32 SetUpScrollSceneForCredits(u8 *state, u8 unused)
         sCreditsOverworld_CmdLength = sCreditsOverworld_Script[sCreditsOverworld_CmdIndex].unk_4;
         WarpIntoMap();
         gPaletteFade.bufferTransferDisabled = TRUE;
-        ScriptContext1_Init();
+        ScriptContext_Init();
         UnlockPlayerFieldControls();
         SetMainCallback1(NULL);
         gFieldCallback2 = FieldCB2_Credits_WaitFade;
@@ -2966,7 +2966,7 @@ static u16 KeyInterCB_WaitForPlayersToExit(u32 keyOrPlayerId)
     if (AreAllPlayersInTradingState(PLAYER_TRADING_STATE_EXITING_ROOM) == TRUE)
     {
         return 0;
-      //ScriptContext1_SetupScript(CableClub_EventScript_DoLinkRoomExit);
+      //ScriptContext_SetupScript(CableClub_EventScript_DoLinkRoomExit);
         SetKeyInterceptCallback(KeyInterCB_SendNothing);
     }
     return LINK_KEY_CODE_EMPTY;
@@ -3157,28 +3157,28 @@ static void InitLinkRoomStartMenuScript(void)
 static void sub_80581DC(const u8 *script)
 {
     PlaySE(SE_SELECT);
-    ScriptContext1_SetupScript(script);
+    ScriptContext_SetupScript(script);
     LockPlayerFieldControls();
 }
 
 static void CreateConfirmLeaveTradeRoomPrompt(void)
 {
     PlaySE(SE_WIN_OPEN);
-    ScriptContext1_SetupScript(TradeCenter_ConfirmLeaveRoom);
+    ScriptContext_SetupScript(TradeCenter_ConfirmLeaveRoom);
     LockPlayerFieldControls();
 }
 
 static void InitMenuBasedScript(const u8 *script)
 {
     PlaySE(SE_SELECT);
-    ScriptContext1_SetupScript(script);
+    ScriptContext_SetupScript(script);
     LockPlayerFieldControls();
 }
 
 static void sub_8058230(void)
 {
     return;
-  //ScriptContext1_SetupScript(TradeCenter_TerminateLink);
+  //ScriptContext_SetupScript(TradeCenter_TerminateLink);
     LockPlayerFieldControls();
 }
 

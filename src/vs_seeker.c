@@ -621,7 +621,7 @@ static void Task_ResetObjectsRematchWantedState(u8 taskId)
     {
         DestroyTask(taskId);
         StopPlayerAvatar();
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
     }
 }
 

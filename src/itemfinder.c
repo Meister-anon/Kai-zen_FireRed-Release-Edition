@@ -500,7 +500,7 @@ static void Task_ItemfinderUnderfootDigUpItem(u8 taskId)
 {
     DestroyArrowAndStarTiles();
     DestroyTask(taskId);
-    ScriptContext1_SetupScript(EventScript_ItemfinderDigUpUnderfootItem);
+    ScriptContext_SetupScript(EventScript_ItemfinderDigUpUnderfootItem);
     LockPlayerFieldControls();
 }
 

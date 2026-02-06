@@ -183,7 +183,7 @@ bool8 FldEff_UseCutOnGrass(void)
 static void FieldCallback_CutTree(void)
 {
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
-    ScriptContext1_SetupScript(EventScript_FldEffCut);
+    ScriptContext_SetupScript(EventScript_FldEffCut);
 }
 
 bool8 FldEff_UseCutOnTree(void)
@@ -303,5 +303,5 @@ static void FieldMoveCallback_CutTree(void)
 {
     PlaySE(SE_M_CUT);
     FieldEffectActiveListRemove(FLDEFF_USE_CUT_ON_TREE);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
 }

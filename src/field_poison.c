@@ -81,7 +81,7 @@ static void Task_TryFieldPoisonWhiteOut(u8 taskId)
             gSpecialVar_Result = TRUE;
         else
             gSpecialVar_Result = FALSE;
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
         DestroyTask(taskId);
         break;
     }
@@ -90,7 +90,7 @@ static void Task_TryFieldPoisonWhiteOut(u8 taskId)
 void TryFieldPoisonWhiteOut(void)
 {
     CreateTask(Task_TryFieldPoisonWhiteOut, 80);
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
 }
 
 static bool32 TryActivateFieldPoisonHeal(struct Pokemon *mon) //putting inside the loop so doesn't need a loop...I think

@@ -154,7 +154,7 @@ static void sub_807EF7C(u8 taskId)
 {
     if (!FuncIsActiveTask(UpdateFlashLevelEffect))
     {
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
         DestroyTask(taskId);
     }
 }
@@ -221,7 +221,7 @@ static void Task_EnableScriptAfterMusicFade(u8 taskId)
     if (BGMusicStopped() == TRUE)
     {
         DestroyTask(taskId);
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
     }
 }
 
@@ -435,14 +435,14 @@ static void Task_RushInjuredPokemonToCenter(u8 taskId)
         if (FieldFadeTransitionBackgroundEffectIsFinished() == TRUE)
         {
             DestroyTask(taskId);
-            ScriptContext1_SetupScript(EventScript_AfterWhiteOutHeal);
+            ScriptContext_SetupScript(EventScript_AfterWhiteOutHeal);
         }
         break;
     case 6:
         if (FieldFadeTransitionBackgroundEffectIsFinished() == TRUE)
         {
             DestroyTask(taskId);
-            ScriptContext1_SetupScript(EventScript_AfterWhiteOutMomHeal);
+            ScriptContext_SetupScript(EventScript_AfterWhiteOutMomHeal);
         }
         break;
     }

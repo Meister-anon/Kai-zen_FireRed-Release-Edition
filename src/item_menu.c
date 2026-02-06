@@ -2076,7 +2076,7 @@ bool8 UseRegisteredKeyItemOnField(void)
         }
         gSaveBlock1Ptr->registeredItem = ITEM_NONE;
     }
-    ScriptContext1_SetupScript(EventScript_BagItemCanBeRegistered);
+    ScriptContext_SetupScript(EventScript_BagItemCanBeRegistered);
     return TRUE;
 }
 

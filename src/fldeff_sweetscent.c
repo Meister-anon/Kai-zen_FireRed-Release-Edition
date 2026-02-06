@@ -123,7 +123,7 @@ static void FailSweetScentEncounter(u8 taskId)
         CpuFastCopy(GetPalBufferPtr(taskId), gPlttBufferUnfaded, PLTT_SIZE);
         SetWeatherPalStateIdle();
         //Free(gUnknown_203AAB0);
-        ScriptContext1_SetupScript(EventScript_FailSweetScent);
+        ScriptContext_SetupScript(EventScript_FailSweetScent);
         FreeDestroyTask(taskId);
     }
 }

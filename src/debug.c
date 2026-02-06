@@ -932,13 +932,13 @@ static void Debug_DestroyMenu_Full_Script(u8 taskId, const u8 *script)
     Debug_DestroyMenu_Full(taskId);
     LockPlayerFieldControls();
     FreezeObjectEvents();
-    ScriptContext1_SetupScript(script);
+    ScriptContext_SetupScript(script);
 }
 
 static void DebugAction_Cancel(u8 taskId)
 {
     Debug_DestroyMenu_Full(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
 }
 
 static void DebugAction_DestroyExtraWindow(u8 taskId)
@@ -951,7 +951,7 @@ static void DebugAction_DestroyExtraWindow(u8 taskId)
 
     DestroyListMenuTask(gTasks[taskId].tMenuTaskId, NULL, NULL);
     DestroyTask(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
     UnfreezeObjectEvents();
 }
 
@@ -972,7 +972,7 @@ static void DebugAction_DestroySpecialWindow(u8 taskId)
     //never assigned
     //DestroyListMenuTask(gTasks[taskId].tMenuTaskId, NULL, NULL);
     DestroyTask(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
     UnfreezeObjectEvents();
 }
 
@@ -1191,7 +1191,7 @@ static void DebugTask_HandleMenuInput_Main(u8 taskId)
     {
         PlaySE(SE_SELECT);
         Debug_DestroyMenu_Full(taskId);
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
     }
 }
 
@@ -1685,7 +1685,7 @@ static void DebugAction_Util_CheckROMSpace(u8 taskId)
 {
     Debug_DestroyMenu_Full(taskId);
     LockPlayerFieldControls();
-    ScriptContext1_SetupScript(Debug_CheckROMSpace);
+    ScriptContext_SetupScript(Debug_CheckROMSpace);
 }
 static u16 Debug_GetAbilityBySpecies(u16 species, u8 abilityNum) 
 {
@@ -1863,7 +1863,7 @@ static void DebugAction_Util_Player_Gender(u8 taskId)
     else
         gSaveBlock2Ptr->playerGender = MALE;
     Debug_DestroyMenu_Full(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
 }
 
 static void DebugAction_Util_Player_Id(u8 taskId)
@@ -1871,7 +1871,7 @@ static void DebugAction_Util_Player_Id(u8 taskId)
     u32 trainerId = ((Random() << 16) | Random());
     SetTrainerId(trainerId, gSaveBlock2Ptr->playerTrainerId);
     Debug_DestroyMenu_Full(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
 }
 
 static void DebugAction_Util_CheatStart(u8 taskId)
@@ -2307,7 +2307,7 @@ static void DebugAction_FlagsVars_PokedexFlags_All(u8 taskId)
         GetSetPokedexFlag(i + 1, FLAG_SET_SEEN);
     }
     Debug_DestroyMenu_Full(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
 }
 
 static void DebugAction_FlagsVars_PokedexFlags_Reset(u8 taskId)
@@ -2345,7 +2345,7 @@ static void DebugAction_FlagsVars_PokedexFlags_Reset(u8 taskId)
         }
     }
     Debug_DestroyMenu_Full(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
 }
 
 static void DebugAction_FlagsVars_SwitchDex(u8 taskId)
@@ -2725,7 +2725,7 @@ static void DebugAction_Give_AllTMs(u8 taskId)
 
 
     Debug_DestroyMenu_Full(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
 }
 
 //Pokemon
@@ -3577,7 +3577,7 @@ static void DebugAction_Fill_PCBoxes_Fast(u8 taskId) //Credit: Sierraffinity
     // Set flag for user convenience
     FlagSet(FLAG_SYS_POKEMON_GET);
     Debug_DestroyMenu_Full(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
 }
 
 static void DebugAction_Fill_PCBoxes_Slow(u8 taskId)
@@ -4273,7 +4273,7 @@ static void DebugAction_PartyBoxes_HealParty(u8 taskId)
 {
     PlaySE(SE_USE_ITEM);
     HealPlayerParty();
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
     Debug_DestroyMenu_Full(taskId);
 }
 
@@ -4291,7 +4291,7 @@ static void DebugAction_PartyBoxes_PoisonMons(u8 taskId)
         }
     }
     PlaySE(SE_FIELD_POISON);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
     Debug_DestroyMenu_Full(taskId);
 }
 
@@ -4299,7 +4299,7 @@ static void DebugAction_PartyBoxes_ClearBoxes(u8 taskId)
 {
     ResetPokemonStorageSystem();
     Debug_DestroyMenu_Full(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
 }
 
 #endif //DEBUG_OVERWORLD_MENU == TRUE

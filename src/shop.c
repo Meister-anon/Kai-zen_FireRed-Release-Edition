@@ -1144,7 +1144,7 @@ void CreatePokemartMenu(const u16 *itemsForSale)
 {    
     SetShopItemsForSale(itemsForSale);
     CreateShopMenu(MART_TYPE_REGULAR);
-    SetShopMenuCallback(EnableBothScriptContexts);
+    SetShopMenuCallback(ScriptContext_Enable);
     DebugFunc_PrintShopMenuHistoryBeforeClearMaybe();
     memset(&gShopMenuHistory, 0, sizeof(gShopMenuHistory));
     gShopMenuHistory[0].unk8 = gMapHeader.regionMapSectionId;
@@ -1155,13 +1155,13 @@ void CreateDecorationShop1Menu(const u16 *itemsForSale)
 {
     SetShopItemsForSale(itemsForSale);
     CreateShopMenu(MART_TYPE_DECOR);
-    SetShopMenuCallback(EnableBothScriptContexts);
+    SetShopMenuCallback(ScriptContext_Enable);
 }
 
 void CreateDecorationShop2Menu(const u16 *itemsForSale)
 {
     SetShopItemsForSale(itemsForSale);
     CreateShopMenu(MART_TYPE_DECOR2);
-    SetShopMenuCallback(EnableBothScriptContexts);
+    SetShopMenuCallback(ScriptContext_Enable);
 }
 

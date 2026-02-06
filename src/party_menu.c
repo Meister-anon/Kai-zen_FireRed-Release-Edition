@@ -7713,6 +7713,6 @@ static void Task_PartyMenuWaitForFade(u8 taskId)
     {
         DestroyTask(taskId);
         UnlockPlayerFieldControls();
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
     }
 }

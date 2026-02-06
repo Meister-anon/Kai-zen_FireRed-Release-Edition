@@ -148,7 +148,7 @@ static void task0A_asap_script_env_2_enable_and_set_ctx_running(u8 taskId)
     if (FieldFadeTransitionBackgroundEffectIsFinished() == TRUE)
     {
         DestroyTask(taskId);
-        EnableBothScriptContexts();
+        ScriptContext_Enable();
     }
 }
 

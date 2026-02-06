@@ -13,6 +13,8 @@ struct ScriptContext
     u8 stackDepth;
     u8 mode;
     u8 comparisonResult;
+    bool8 breakOnTrainerBattle:1;
+    bool8 waitAfterCallNative:1;
     u8 (*nativePtr)(void);
     const u8 *scriptPtr;
     const u8 *stack[20];
@@ -34,18 +36,20 @@ void ScriptJump(struct ScriptContext *ctx, const u8 *ptr);
 void ScriptCall(struct ScriptContext *ctx, const u8 *ptr);
 void ScriptReturn(struct ScriptContext *ctx);
 u16 ScriptReadHalfword(struct ScriptContext *ctx);
+u16 ScriptPeekHalfword(struct ScriptContext *ctx);
 u32 ScriptReadWord(struct ScriptContext *ctx);
+u32 ScriptPeekWord(struct ScriptContext *ctx);
 void LockPlayerFieldControls(void);
 void UnlockPlayerFieldControls(void);
 bool8 ArePlayerFieldControlsLocked(void);
-void ScriptContext1_Init(void);
-bool8 ScriptContext1_IsScriptSetUp(void);
-bool8 ScriptContext2_RunScript(void);
+void ScriptContext_Init(void);
+bool8 ScriptContext_IsScriptSetUp(void);
+bool8 ScriptContext_RunScript(void);
 void LockForFieldEffect(void);
-void ScriptContext1_SetupScript(const u8 *ptr);
-void ScriptContext1_Stop(void);
-void EnableBothScriptContexts(void);
-void ScriptContext2_RunNewScript(const u8 *ptr);
+void ScriptContext_SetupScript(const u8 *ptr);
+void ScriptContext_Stop(void);
+void ScriptContext_Enable(void);
+void RunScriptImmediately(const u8 *ptr);
 u8 *mapheader_get_tagged_pointer(u8 tag);
 void mapheader_run_script_by_tag(u8 tag);
 u8 *mapheader_get_first_match_from_tagged_ptr_list(u8 tag);
@@ -83,5 +87,54 @@ bool8 IsMsgBoxWalkawayDisabled(void);
 
 extern const u8 *gRAMScriptPtr;
 extern u8 gWalkAwayFromSignInhibitTimer;
+
+
+/* Script effects analysis.
+ *
+ * 'RunScriptImmediatelyUntilEffect' executes a script until it reaches
+ * the first command which calls 'Script_RequestEffects' with an
+ * effect in 'effects' in which case it returns 'TRUE' and stores the
+ * current state in 'ctx'; or until it reaches an 'end'/'return' in
+ * which case it returns 'FALSE'.
+ *
+ * 'Script_HasNoEffect' wraps 'RunScriptImmediatelyUntilEffect' and
+ * returns 'TRUE' if the script exits without an effect on the save or
+ * the hardware, or 'FALSE' if it would have an effect (the effect is
+ * not performed).
+ *
+ * Commands, natives, and specials which call 'Script_RequestEffects'
+ * must be explicitly tagged with 'requests_effects=1', and must call
+ * the function before any of those effects occur. An untagged function
+ * could cause any effect, so execution is stopped to be safe. If the
+ * code has no effects it must call 'Script_RequestEffects(SCREFF_V1)'
+ * to note that explicitly.
+ *
+ * Regular variables are in the save (so should use 'SCREFF_SAVE'), but
+ * special variables are not in the save, so 'Script_RequestWriteVar' is
+ * provided to only request the 'SCREFF_SAVE' effect for a non-special
+ * variable.
+ *
+ * The 'effects' parameter to 'RunScriptImmediatelyUntilEffect' and
+ * 'Script_RequestEffects' must be the bitwise or of an effects version
+ * (currently 'SCREFF_V1') and any number of effects. For example
+ * 'Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE)'. */
+
+enum // effects
+{
+    SCREFF_SAVE = 1 << 0,          // writes to the save.
+    SCREFF_HARDWARE = 1 << 1,      // writes to a hardware register.
+    SCREFF_TRAINERBATTLE = 1 << 2, // 'trainerbattle' command.
+};
+
+#define SCREFF_ANY (SCREFF_SAVE | SCREFF_HARDWARE | SCREFF_TRAINERBATTLE)
+
+enum // effects versions
+{
+    SCREFF_V1 = 0xFFFFFFF8,
+};
+
+//DONT' know what for don't yet have sruct for this
+//as focusin gon building
+//appears will need update scripts smh
 
 #endif // GUARD_SCRIPT_H

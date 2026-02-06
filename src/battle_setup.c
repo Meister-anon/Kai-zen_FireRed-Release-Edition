@@ -809,7 +809,7 @@ void ConfigureAndSetUpOneTrainerBattle(u8 trainerEventObjId, const u8 *trainerSc
     gSelectedObjectEvent = trainerEventObjId;
     gSpecialVar_LastTalked = gObjectEvents[trainerEventObjId].localId;
     BattleSetup_ConfigureTrainerBattle(trainerScript + 1);
-    ScriptContext1_SetupScript(EventScript_DoTrainerBattleFromApproach);
+    ScriptContext_SetupScript(EventScript_DoTrainerBattleFromApproach);
     LockPlayerFieldControls();
 }
 
@@ -887,7 +887,7 @@ void ClearTrainerFlag(u16 trainerId)
     else
         DoTrainerBattle();
 
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
 }*/
 
 void StartTrainerBattle(void)
@@ -897,7 +897,7 @@ void StartTrainerBattle(void)
         gBattleTypeFlags |= BATTLE_TYPE_FIRST_BATTLE; //vsonic IMPORTANT this where set first battle flag in firered
     gMain.savedCallback = CB2_EndTrainerBattle;
     DoTrainerBattle();
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
 }
 
 static void CB2_EndTrainerBattle(void)
@@ -973,7 +973,7 @@ void StartRematchBattle(void)
     gBattleTypeFlags = BATTLE_TYPE_TRAINER;
     gMain.savedCallback = CB2_EndRematchBattle;
     DoTrainerBattle();
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
 }
 
 void ShowTrainerIntroSpeech(void)

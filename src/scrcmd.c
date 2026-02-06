@@ -123,7 +123,7 @@ bool8 ScrCmd_callnative(struct ScriptContext * ctx)
 
 bool8 ScrCmd_waitstate(struct ScriptContext * ctx)
 {
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
     return TRUE;
 }
 
@@ -609,7 +609,7 @@ bool8 ScrCmd_setworldmapflag(struct ScriptContext * ctx)
 bool8 ScrCmd_animateflash(struct ScriptContext * ctx)
 {
     AnimateFlash(ScriptReadByte(ctx));
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
     return TRUE;
 }
 
@@ -1486,7 +1486,7 @@ bool8 ScrCmd_yesnobox(struct ScriptContext * ctx)
 
     if (ScriptMenu_YesNo(left, top) == TRUE)
     {
-        ScriptContext1_Stop();
+        ScriptContext_Stop();
         return TRUE;
     }
     else
@@ -1504,7 +1504,7 @@ bool8 ScrCmd_multichoice(struct ScriptContext * ctx)
 
     if (ScriptMenu_Multichoice(left, top, multichoiceId, ignoreBPress) == TRUE)
     {
-        ScriptContext1_Stop();
+        ScriptContext_Stop();
         return TRUE;
     }
     else
@@ -1523,7 +1523,7 @@ bool8 ScrCmd_multichoicedefault(struct ScriptContext * ctx)
 
     if (ScriptMenu_MultichoiceWithDefault(left, top, multichoiceId, ignoreBPress, defaultChoice) == TRUE)
     {
-        ScriptContext1_Stop();
+        ScriptContext_Stop();
         return TRUE;
     }
     else
@@ -1553,7 +1553,7 @@ bool8 ScrCmd_multichoicegrid(struct ScriptContext * ctx)
 
     if (ScriptMenu_MultichoiceGrid(left, top, multichoiceId, ignoreBPress, numColumns) == TRUE)
     {
-        ScriptContext1_Stop();
+        ScriptContext_Stop();
         return TRUE;
     }
     else
@@ -1582,7 +1582,7 @@ bool8 ScrCmd_drawboxtext(struct ScriptContext * ctx)
 
     /*if (Multichoice(left, top, multichoiceId, ignoreBPress) == TRUE)
     {
-        ScriptContext1_Stop();
+        ScriptContext_Stop();
         return TRUE;
     }*/
     return FALSE;
@@ -1619,7 +1619,7 @@ bool8 ScrCmd_showcontestwinner(struct ScriptContext * ctx)
     if (v1)
         sub_812FDA8(v1);
     ShowContestWinner();
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
     return TRUE;
      */
 
@@ -2180,7 +2180,7 @@ bool8 ScrCmd_setwildbattle(struct ScriptContext * ctx)
 bool8 ScrCmd_dowildbattle(struct ScriptContext * ctx)
 {
     StartScriptedWildBattle();
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
     return TRUE;
 }
 
@@ -2386,7 +2386,7 @@ bool8 ScrCmd_pokemart(struct ScriptContext * ctx)
     const void *ptr = (void *)ScriptReadWord(ctx);
 
     CreatePokemartMenu(ptr);
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
     return TRUE;
 }
 
@@ -2399,7 +2399,7 @@ bool8 ScrCmd_pokemart2(void)
     const u16 *ptr = gMartItemIndexesbyGymBadge[GetNumBadges()];
 
     CreatePokemartMenu(ptr);
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
     return TRUE;
 }
 
@@ -2408,7 +2408,7 @@ bool8 ScrCmd_pokemartdecoration(struct ScriptContext * ctx)
     const void *ptr = (void *)ScriptReadWord(ctx);
 
     CreateDecorationShop1Menu(ptr);
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
     return TRUE;
 }
 
@@ -2417,7 +2417,7 @@ bool8 ScrCmd_pokemartdecoration2(struct ScriptContext * ctx)
     const void *ptr = (void *)ScriptReadWord(ctx);
 
     CreateDecorationShop2Menu(ptr);
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
     return TRUE;
 }
 
@@ -2426,7 +2426,7 @@ bool8 ScrCmd_playslotmachine(struct ScriptContext * ctx)
     u8 slotMachineIndex = VarGet(ScriptReadHalfword(ctx));
 
     PlaySlotMachine(slotMachineIndex, CB2_ReturnToFieldContinueScriptPlayMapMusic);
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
     return TRUE;
 }
 
@@ -2454,7 +2454,7 @@ bool8 ScrCmd_getpricereduction(struct ScriptContext * ctx)
 bool8 ScrCmd_choosecontestmon(struct ScriptContext * ctx)
 {
 //    sub_81B9404();
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
     return TRUE;
 }
 
@@ -2462,7 +2462,7 @@ bool8 ScrCmd_choosecontestmon(struct ScriptContext * ctx)
 bool8 ScrCmd_startcontest(struct ScriptContext * ctx)
 {
 //    sub_80F840C();
-//    ScriptContext1_Stop();
+//    ScriptContext_Stop();
 //    return TRUE;
     return FALSE;
 }
@@ -2470,7 +2470,7 @@ bool8 ScrCmd_startcontest(struct ScriptContext * ctx)
 bool8 ScrCmd_showcontestresults(struct ScriptContext * ctx)
 {
 //    sub_80F8484();
-//    ScriptContext1_Stop();
+//    ScriptContext_Stop();
 //    return TRUE;
     return FALSE;
 }
@@ -2478,7 +2478,7 @@ bool8 ScrCmd_showcontestresults(struct ScriptContext * ctx)
 bool8 ScrCmd_contestlinktransfer(struct ScriptContext * ctx)
 {
 //    sub_80F84C4(gSpecialVar_ContestCategory);
-//    ScriptContext1_Stop();
+//    ScriptContext_Stop();
 //    return TRUE;
     return FALSE;
 }
@@ -2744,7 +2744,7 @@ bool8 ScrCmd_addelevmenuitem(struct ScriptContext * ctx)
 bool8 ScrCmd_showelevmenu(struct ScriptContext * ctx)
 {
     /*ScriptShowElevatorMenu();
-    ScriptContext1_Stop();
+    ScriptContext_Stop();
     return TRUE;*/
     return FALSE;
 }

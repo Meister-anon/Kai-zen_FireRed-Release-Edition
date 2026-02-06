@@ -109,7 +109,7 @@ bool8 UpdateBadOnionCounter(void)
         VarSet(VAR_TRAINER_REPEL_STEP_COUNT, steps);
         if (steps == 0)
         {
-            ScriptContext1_SetupScript(EventScript_BwTrainerRepelWoreOff); //replace with own script   EventScript_BwTrainerRepelWoreOff
+            ScriptContext_SetupScript(EventScript_BwTrainerRepelWoreOff); //replace with own script   EventScript_BwTrainerRepelWoreOff
             return TRUE;
         }
     }
@@ -602,7 +602,7 @@ void EndTrainerApproach(void)
 static void Task_DestroyTrainerApproachTask(u8 taskId)
 {
     DestroyTask(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
 }
 
 // Trainer See Excl Mark Field Effect

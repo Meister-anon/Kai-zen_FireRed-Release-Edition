@@ -663,7 +663,7 @@ static bool8 StartMenuPcCallback(void)
     CloseStartMenu();
     FreezeObjectEvents();
     gIsMobilePC = TRUE;
-    ScriptContext1_SetupScript(EventScript_PC);
+    ScriptContext_SetupScript(EventScript_PC);
     return TRUE;
 }
 
@@ -780,7 +780,7 @@ static void task50_save_game(u8 taskId)
         break;
     }
     DestroyTask(taskId);
-    EnableBothScriptContexts();
+    ScriptContext_Enable();
     //RestoreHelpContext();
 }
 

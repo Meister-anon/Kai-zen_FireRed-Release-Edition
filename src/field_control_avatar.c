@@ -146,7 +146,7 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
     u8 tileTransitionState = gPlayerAvatar.tileTransitionState;
     bool8 forcedMove = MetatileBehavior_IsForcedMovementTile(GetPlayerCurMetatileBehavior());
 
-    if (!ScriptContext1_IsScriptSetUp() && IsQuestLogInputDpad() == TRUE)
+    if (!ScriptContext_IsScriptSetUp() && IsQuestLogInputDpad() == TRUE)
     {
         QuestLogOverrideJoyVars(input, &newKeys, &heldKeys);
     }
@@ -366,7 +366,7 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
 
 void FieldInput_HandleCancelSignpost(struct FieldInput * input)
 {
-    if (ScriptContext1_IsScriptSetUp() == TRUE)
+    if (ScriptContext_IsScriptSetUp() == TRUE)
     {
         if (gWalkAwayFromSignInhibitTimer != 0)
             gWalkAwayFromSignInhibitTimer--;
@@ -384,12 +384,12 @@ void FieldInput_HandleCancelSignpost(struct FieldInput * input)
                     RegisterQuestLogInput(QL_INPUT_LEFT);
                 else if (input->dpadDirection == DIR_EAST)
                     RegisterQuestLogInput(QL_INPUT_RIGHT);
-                ScriptContext1_SetupScript(EventScript_CancelMessageBox);
+                ScriptContext_SetupScript(EventScript_CancelMessageBox);
                 LockPlayerFieldControls();
             }
             else if (input->pressedStartButton)
             {
-                ScriptContext1_SetupScript(EventScript_CancelMessageBox);
+                ScriptContext_SetupScript(EventScript_CancelMessageBox);
                 LockPlayerFieldControls();
                 if (!FuncIsActiveTask(Task_QuestLogPlayback_OpenStartMenu))
                     CreateTask(Task_QuestLogPlayback_OpenStartMenu, 8);
@@ -456,7 +456,7 @@ static bool8 TryStartInteractionScript(struct MapPosition *position, u16 metatil
         && script != EventScript_PC)
         PlaySE(SE_SELECT);
 
-    ScriptContext1_SetupScript(script);
+    ScriptContext_SetupScript(script);
     return TRUE;
 }
 
@@ -718,7 +718,7 @@ static bool8 TryStartCoordEventScript(struct MapPosition *position)
 
     if (script == NULL)
         return FALSE;
-    ScriptContext1_SetupScript(script);
+    ScriptContext_SetupScript(script);
     return TRUE;
 }
 
@@ -768,7 +768,7 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
     {
         /*if (UpdateVsSeekerStepCounter() == TRUE)
         {
-            ScriptContext1_SetupScript(EventScript_VsSeekerChargingDone);
+            ScriptContext_SetupScript(EventScript_VsSeekerChargingDone);
             return TRUE;
         }
         else */
@@ -788,14 +788,14 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
         
         if (UpdatePoisonStepCounter() == TRUE)
         {
-            ScriptContext1_SetupScript(EventScript_FieldPoison);
+            ScriptContext_SetupScript(EventScript_FieldPoison);
             return TRUE;
         }//below is else if to prevent occuring at same time
 
         else if (ShouldEggHatch())
         {
             IncrementGameStat(GAME_STAT_HATCHED_EGGS);
-            ScriptContext1_SetupScript(EventScript_EggHatch);
+            ScriptContext_SetupScript(EventScript_EggHatch);
             return TRUE;
         }
     }
@@ -1007,7 +1007,7 @@ static void UpdatePickupCounter(void)
             else
                 ShowFieldMessage(gText_MonPickedUpItem);
 
-            ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
+            ScriptContext_SetupScript(EventScript_DelayedCancelMessageBox);
             PickupStateCheck++;
         break;
         case LOOP_FROM_ASSIGNMENT:
@@ -1070,7 +1070,7 @@ static void UpdateHoneyGatherCounter(void)
             LockForFieldEffect();
 
             ShowFieldMessage(gText_MonGatheredHoney);
-            ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
+            ScriptContext_SetupScript(EventScript_DelayedCancelMessageBox);
         }
         else if (AddBagItem(ITEM_HONEY, 1) == TRUE)
         {
@@ -1079,7 +1079,7 @@ static void UpdateHoneyGatherCounter(void)
             LockForFieldEffect();
 
             ShowFieldMessage(gText_MonGatheredHoney);
-            ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
+            ScriptContext_SetupScript(EventScript_DelayedCancelMessageBox);
 
         }
         
@@ -1180,7 +1180,7 @@ void SetRockSmashItemReward(void)
         LockForFieldEffect();
 
         ShowFieldMessage(gText_RockSmashFoundItem);
-        ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
+        ScriptContext_SetupScript(EventScript_DelayedCancelMessageBox);
     }
 }
 
@@ -1259,7 +1259,7 @@ static u8 GetFacingSignpostType(u16 metatileBehavior, u8 playerDirection)
 static void SetUpWalkIntoSignScript(const u8 *script, u8 playerDirection)
 {
     gSpecialVar_Facing = playerDirection;
-    ScriptContext1_SetupScript(script);
+    ScriptContext_SetupScript(script);
     SetWalkingIntoSignVars();
     MsgSetSignPost();
 }
@@ -1341,7 +1341,7 @@ static bool8 TryStartWarpEventScript(struct MapPosition *position, u16 metatileB
         if (MetatileBehavior_IsFallWarp(metatileBehavior) == TRUE)
         {
             ResetInitialPlayerAvatarState();
-            ScriptContext1_SetupScript(EventScript_1C1361);
+            ScriptContext_SetupScript(EventScript_1C1361);
             return TRUE;
         }
         DoWarp();
@@ -1485,7 +1485,7 @@ static const u8 *TryRunCoordEventScript(struct CoordEvent *coordEvent)
         }
         if (coordEvent->trigger == 0)
         {
-            ScriptContext2_RunNewScript(coordEvent->script);
+            RunScriptImmediately(coordEvent->script);
             return NULL;
         }
         if (VarGet(coordEvent->trigger) == (u8)coordEvent->index)
@@ -1538,7 +1538,7 @@ void HandleBoulderActivateVictoryRoadSwitch(u16 x, u16 y)
             if (events[i].x + 7 == x && events[i].y + 7 == y)
             {
                 QuestLog_CutRecording();
-                ScriptContext1_SetupScript(events[i].script);
+                ScriptContext_SetupScript(events[i].script);
                 LockPlayerFieldControls();
             }
         }

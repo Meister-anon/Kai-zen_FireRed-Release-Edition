@@ -8,6 +8,7 @@
 #define SCRIPT_STACK_SIZE 20
 
 
+
 extern void ResetContextNpcTextColor(void); // field_specials
 extern u16 CalcCRC16WithTable(u8 *data, int length); // util
 extern bool32 ValidateReceivedWonderCard(void); // mevent
@@ -19,15 +20,21 @@ enum
     SCRIPT_MODE_NATIVE,
 };
 
+enum {
+    CONTEXT_RUNNING,
+    CONTEXT_WAITING,
+    CONTEXT_SHUTDOWN,
+};
+
 EWRAM_DATA u8 gWalkAwayFromSignInhibitTimer = 0;
 EWRAM_DATA const u8 *gRAMScriptPtr = NULL;
 
 // iwram bss
-static u8 sScriptContext1Status;
+static u8 sGlobalScriptContextStatus;
 static u32 sUnusedVariable1;
-static struct ScriptContext sScriptContext1;
+static struct ScriptContext sGlobalScriptContext;
 static u32 sUnusedVariable2;
-static struct ScriptContext sScriptContext2;
+static struct ScriptContext sImmediateScriptContext;
 static bool8 sLockFieldControls;
 static u8 sMsgBoxWalkawayDisabled;
 static u8 sMsgBoxIsCancelable;
@@ -179,12 +186,28 @@ u16 ScriptReadHalfword(struct ScriptContext *ctx)
     return value;
 }
 
+u16 ScriptPeekHalfword(struct ScriptContext *ctx)
+{
+    u16 value = *(ctx->scriptPtr);
+    value |= *(ctx->scriptPtr + 1) << 8;
+    return value;
+}
+
 u32 ScriptReadWord(struct ScriptContext *ctx)
 {
     u32 value0 = *(ctx->scriptPtr++);
     u32 value1 = *(ctx->scriptPtr++);
     u32 value2 = *(ctx->scriptPtr++);
     u32 value3 = *(ctx->scriptPtr++);
+    return (((((value3 << 8) + value2) << 8) + value1) << 8) + value0;
+}
+
+u32 ScriptPeekWord(struct ScriptContext *ctx)
+{
+    u32 value0 = *(ctx->scriptPtr);
+    u32 value1 = *(ctx->scriptPtr + 1);
+    u32 value2 = *(ctx->scriptPtr + 2);
+    u32 value3 = *(ctx->scriptPtr + 3);
     return (((((value3 << 8) + value2) << 8) + value1) << 8) + value0;
 }
 
@@ -294,38 +317,47 @@ void ResetFacingNpcOrSignPostVars(void)
     MsgSetNotSignPost();
 }
 
-bool8 ScriptContext1_IsScriptSetUp(void)
+// The ScriptContext_* functions work with the primary script context,
+// which yields control back to native code should the script make a wait call.
+
+// Checks if the global script context is able to be run right now.
+bool8 ScriptContext_IsScriptSetUp(void)
 {
-    if (sScriptContext1Status == 0)
+    if (sGlobalScriptContextStatus == CONTEXT_RUNNING)
         return TRUE;
     else
         return FALSE;
 }
 
-void ScriptContext1_Init(void)
+// Re-initializes the global script context to zero.
+void ScriptContext_Init(void)
 {
-    InitScriptContext(&sScriptContext1, gScriptCmdTable, gScriptCmdTableEnd);
-    sScriptContext1Status = 2;
+    InitScriptContext(&sGlobalScriptContext, gScriptCmdTable, gScriptCmdTableEnd);
+    sGlobalScriptContextStatus = CONTEXT_SHUTDOWN;
 }
 
-bool8 ScriptContext2_RunScript(void)
+// Runs the script until the script makes a wait* call, then returns true if
+// there's more script to run, or false if the script has hit the end.
+// This function also returns false if the context is finished
+// or waiting (after a call to _Stop)
+bool8 ScriptContext_RunScript(void)
 {
-    if (sScriptContext1Status == 2)
-        return 0;
+    if (sGlobalScriptContextStatus == CONTEXT_SHUTDOWN)
+        return FALSE;
 
-    if (sScriptContext1Status == 1)
-        return 0;
+    if (sGlobalScriptContextStatus == CONTEXT_WAITING)
+        return FALSE;
 
     LockPlayerFieldControls();
 
-    if (!RunScriptCommand(&sScriptContext1))
+    if (!RunScriptCommand(&sGlobalScriptContext))
     {
-        sScriptContext1Status = 2;
+        sGlobalScriptContextStatus = CONTEXT_SHUTDOWN;
         UnlockPlayerFieldControls();
-        return 0;
+        return FALSE;
     }
 
-    return 1;
+    return TRUE;
 }
 
 void LockForFieldEffect(void)
@@ -334,33 +366,38 @@ void LockForFieldEffect(void)
     LockPlayerFieldControls();
 }
 
-void ScriptContext1_SetupScript(const u8 *ptr)
+// Sets up a new script in the global context and enables the context
+void ScriptContext_SetupScript(const u8 *ptr)
 {
     ClearMsgBoxCancelableState();
     EnableMsgBoxWalkaway();
     ClearQuestLogInputIsDpadFlag();
-    InitScriptContext(&sScriptContext1, gScriptCmdTable, gScriptCmdTableEnd);
-    SetupBytecodeScript(&sScriptContext1, ptr);
+    InitScriptContext(&sGlobalScriptContext, gScriptCmdTable, gScriptCmdTableEnd);
+    SetupBytecodeScript(&sGlobalScriptContext, ptr);
     LockPlayerFieldControls();
-    sScriptContext1Status = 0;
+    sGlobalScriptContextStatus = 0;
 }
 
-void ScriptContext1_Stop(void)
+// Puts the script into waiting mode; usually called from a wait* script command.
+void ScriptContext_Stop(void)
 {
-    sScriptContext1Status = 1;
+    sGlobalScriptContextStatus = 1;
 }
 
-void EnableBothScriptContexts(void)
+void ScriptContext_Enable(void)
 {
-    sScriptContext1Status = 0;
+    sGlobalScriptContextStatus = CONTEXT_RUNNING;
     LockPlayerFieldControls();
 }
 
-void ScriptContext2_RunNewScript(const u8 *ptr)
+// Sets up and runs a script in its own context immediately. The script will be
+// finished when this function returns. Used mainly by all of the map header
+// scripts (except the frame table scripts).
+void RunScriptImmediately(const u8 *ptr)
 {
-    InitScriptContext(&sScriptContext2, &gScriptCmdTable, &gScriptCmdTableEnd);
-    SetupBytecodeScript(&sScriptContext2, ptr);
-    while (RunScriptCommand(&sScriptContext2) == TRUE);
+    InitScriptContext(&sImmediateScriptContext, &gScriptCmdTable, &gScriptCmdTableEnd);
+    SetupBytecodeScript(&sImmediateScriptContext, ptr);
+    while (RunScriptCommand(&sImmediateScriptContext) == TRUE);
 }
 
 u8 *mapheader_get_tagged_pointer(u8 tag)
@@ -387,7 +424,7 @@ void mapheader_run_script_by_tag(u8 tag)
 {
     u8 *ptr = mapheader_get_tagged_pointer(tag);
     if (ptr != NULL)
-        ScriptContext2_RunNewScript(ptr);
+        RunScriptImmediately(ptr);
 }
 
 u8 *mapheader_get_first_match_from_tagged_ptr_list(u8 tag)
@@ -450,7 +487,7 @@ bool8 TryRunOnFrameMapScript(void)
     if (!ptr)
         return 0;
 
-    ScriptContext1_SetupScript(ptr);
+    ScriptContext_SetupScript(ptr);
     return 1;
 }
 
@@ -458,7 +495,7 @@ void TryRunOnWarpIntoMapScript(void)
 {
     u8 *ptr = mapheader_get_first_match_from_tagged_ptr_list(4);
     if (ptr)
-        ScriptContext2_RunNewScript(ptr);
+        RunScriptImmediately(ptr);
 }
 
 u32 CalculateRamScriptChecksum(void)

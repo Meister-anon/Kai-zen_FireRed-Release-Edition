@@ -2362,7 +2362,7 @@ static void Task_ShowDodrioBerryPickingRecords(u8 taskId)
         {
             RemoveWindow(data[1]);
             DestroyTask(taskId);
-            EnableBothScriptContexts();
+            ScriptContext_Enable();
         }
         break;
     }

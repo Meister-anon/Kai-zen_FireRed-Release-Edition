@@ -433,7 +433,7 @@ static void Task_PokemonStorageSystemPC(u8 taskId)
             ClearStdWindowAndFrame(0, TRUE);
             ClearStdWindowAndFrame(task->tWindowId, TRUE);
             UnlockPlayerFieldControls();    //unlocks me
-            EnableBothScriptContexts();     //...locks me again
+            ScriptContext_Enable();     //...locks me again
             DestroyTask(taskId);//believe thsi is end of task, or one of them, so from here would end pss and go back to main pc menu
             break;*/
         default:    //these trigger on outside of pc menu,  think this is what I was looking for but this is for pressing A I want pressing B.
@@ -443,7 +443,7 @@ static void Task_PokemonStorageSystemPC(u8 taskId)
                 ClearStdWindowAndFrame(0, TRUE);
                 ClearStdWindowAndFrame(task->tWindowId, TRUE);
                 UnlockPlayerFieldControls();    //unlocks me
-                EnableBothScriptContexts();     //...locks me again
+                ScriptContext_Enable();     //...locks me again
                 DestroyTask(taskId);//believe thsi is end of task, or one of them, so from here would end pss and go back to main pc menu
                 break;
             }

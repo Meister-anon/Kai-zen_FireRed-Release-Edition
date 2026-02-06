@@ -185,7 +185,7 @@ void NewGameInitData(void)
     SetAllRenewableItemFlags();
     //SetDefaultOptions();
     WarpToPlayersRoom();
-    ScriptContext2_RunNewScript(EventScript_ResetAllMapFlags); //clears most all flags, if Imake a new one and don't add here, it'll stay
+    RunScriptImmediately(EventScript_ResetAllMapFlags); //clears most all flags, if Imake a new one and don't add here, it'll stay
     StringCopy(gSaveBlock1Ptr->rivalName, rivalName);
     ResetTrainerTowerResults();
     SetTextCapFlags(); //sets cap but keeps game options from main save
