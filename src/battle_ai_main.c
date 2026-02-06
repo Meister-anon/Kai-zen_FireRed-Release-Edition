@@ -7092,7 +7092,7 @@ static s32 AI_DynamicFunc(enum BattlerId battlerAtk, enum BattlerId battlerDef, 
 
 void ScriptSetDynamicAiFunc(struct ScriptContext *ctx)
 {
-    Script_RequestEffects(SCREFF_V1);
+    //Script_RequestEffects(SCREFF_V1);
 
     AiScoreFunc func = (AiScoreFunc)ScriptReadWord(ctx);
     sDynamicAiFunc = func;
@@ -7100,7 +7100,7 @@ void ScriptSetDynamicAiFunc(struct ScriptContext *ctx)
 
 void ScriptSetDynamicAiSwitchFunc(struct ScriptContext *ctx)
 {
-    Script_RequestEffects(SCREFF_V1);
+    //Script_RequestEffects(SCREFF_V1);
 
     AiSwitchFunc func = (AiSwitchFunc)ScriptReadWord(ctx);
     gDynamicAiSwitchFunc = func;
