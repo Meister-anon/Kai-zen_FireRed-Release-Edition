@@ -7137,7 +7137,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Skarmory"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 80, 140, 70, 40, 70),
+         STATS(65, 80, 140, 70, 27, 83),
         MON_TYPES(TYPE_STEEL, TYPE_FLYING),
         .catchRate = 25,
         .expYield = 163,
@@ -7149,7 +7149,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
-        .abilities = {ABILITY_KEEN_EYE, ABILITY_STURDY},
+        .abilities = {ABILITY_SHARPNESS, ABILITY_STURDY},
         .abilityHidden = {ABILITY_LIGHTNING_ROD, ABILITY_STORM_BREAK},
         //.bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
@@ -7166,6 +7166,19 @@ const struct BaseStats gBaseStats[] =
     //hmm nah I'll leave off lightning rod, doesn't REALLY make sense 
     //I think its still find/goood without it? but its so much more interesting...
     //ok I'll drop weak armor, it learns agility thats' fine enough
+    //sturdy and storm break are good to help it get out from
+    //under corviknight feel like it does need stat buffs tho somehow
+    //not a rework but more adjustment to current standard
+    //considering difference of skarmory to corviknight
+    //is it would have more versatility
+    //give mirror move if it doesn't already have it
+    //hmm w type changes even boosting its defense
+    //would be mostly meaningless since it now has
+    //common special weakness in psychic and electric
+    //lightning rod covers one
+    //think dropping keen eye to extra deck
+    //unsure if should add sharpness or stamina here though
+    //oh sharpenss is 50% yeah that would be the biggest change
 
     [SPECIES_HOUNDOUR] =
     {
@@ -27547,7 +27560,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_HI_PRESSURE, ABILITY_UNNERVE}, //potentially change to hi_pressure
-        .abilityHidden = {ABILITY_MIRROR_ARMOR, ABILITY_SHARPNESS},
+        .abilityHidden = {ABILITY_MIRROR_ARMOR, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -27558,6 +27571,8 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//w steel change felt need to buff so gave hi pressure
     //plus unnerve already is enough overlap w base ability
+    //think want remove sharpness from this to make skarmory more unique
+    //can give sharpness to its mega form
 
     [SPECIES_BLIPBUG] =
     {
