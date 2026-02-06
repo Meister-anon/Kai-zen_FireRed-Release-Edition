@@ -1567,8 +1567,6 @@ extern const u8 BattleScript_EffectVictoryDance[];
 extern const u8 BattleScript_EffectTeatime[];
 extern const u8 BattleScript_EffectShellTrap[];
 extern const u8 BattleScript_EffectRevivalBlessing[];
-extern const u8 BattleScript_EffectSnow[];
-extern const u8 BattleScript_EffectFog[];
 extern const u8 BattleScript_EffectTakeHeart[];
 extern const u8 BattleScript_EffectCorrosiveGas[];
 extern const u8 BattleScript_MoveEffectSaltCure[];

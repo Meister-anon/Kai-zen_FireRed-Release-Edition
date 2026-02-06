@@ -21699,7 +21699,7 @@ use wonder gaurd logic to determine its super effective
     {
         .name = COMPOUND_STRING("Snow Day"),
         .description = COMPOUND_MOVE_STRING("Summons a snowstorm\nlasting five turns.\nSlightly cuts Fire\nand slightly Ups Ice\ntype Defenses."),
-        .effect = EFFECT_SNOW_DAY,
+        .effect = EFFECT_WEATHER,
         .power = 0,
         .type = TYPE_ICE,
         .accuracy = 0,
