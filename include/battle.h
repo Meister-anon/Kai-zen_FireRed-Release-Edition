@@ -9,6 +9,7 @@
 #include <limits.h>
 //#include "global.h"
 #include "constants/battle.h"
+#include "constants/hold_effects.h"
 #include "constants/form_change_types.h"
 #include "constants/battle_move_effects.h"
 #include "battle_util.h"
@@ -19,6 +20,11 @@
 #include "battle_util2.h"
 #include "battle_message.h"
 #include "battle_bg.h"
+//#include "battle_dynamax.h"
+#include "battle_terastal.h"
+#include "battle_gimmick.h"
+#include "move.h"
+#include "random.h"
 #include "window.h" //need this for build modern to work for battle window ui
 
 /*
@@ -1197,7 +1203,7 @@ extern struct BattleStruct *gBattleStruct;
  * times with one type because it shares the 'GetBattlerTypes' result. */
 #define _IS_BATTLER_ANY_TYPE(battlerId, ignoreTera, ...) \
     ({ \
-        u32 types[3]; \
+        enum Type types[3]; \
         GetBattlerTypes(battlerId, ignoreTera, types); \
         RECURSIVELY(R_FOR_EACH(_IS_BATTLER_ANY_TYPE_HELPER, __VA_ARGS__)) FALSE; \
     })
@@ -1212,7 +1218,7 @@ extern struct BattleStruct *gBattleStruct;
 
 #define IS_BATTLER_TYPELESS(battlerId) \
     ({ \
-        u32 types[3]; \
+        enum Type types[3]; \
         GetBattlerTypes(battlerId, FALSE, types); \
         types[0] == TYPE_MYSTERY && types[1] == TYPE_MYSTERY && types[2] == TYPE_MYSTERY; \
     })
@@ -1444,7 +1450,7 @@ struct BattleHealthboxInfo
 {
     u8 partyStatusSummaryShown:1;
     u8 healthboxIsBouncing:1;
-    enum BattlerId battlerIsBouncing:1;
+    u8 battlerIsBouncing:1;
     u8 ballAnimActive:1; // 0x8
     u8 statusAnimActive:1; // x10
     u8 animFromTableActive:1; // x20
