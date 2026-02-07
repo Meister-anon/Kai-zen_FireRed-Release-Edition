@@ -3547,10 +3547,10 @@ void SetMoveEffect(enum BattlerId battlerAtk, u32 effectBattler, enum MoveEffect
             BattleScriptPush(battleScript);
             gBattlescriptCurrInstr = BattleScript_AromaVeilProtectsRet;
         }
-        else if (!gBattleMons[gEffectBattler].volatiles.healBlock)
+        else if (!gSideStatuses[GetBattlerSide(gEffectBattler)] & SIDE_STATUS_HEAL_BLOCK)
         {
-            gBattleMons[gEffectBattler].volatiles.healBlock = TRUE;
-            gBattleMons[gEffectBattler].volatiles.healBlockTimer = 2;
+            gSideStatuses[GetBattlerSide(gEffectBattler)] |= SIDE_STATUS_HEAL_BLOCK;
+            gSideTimers[GetBattlerSide(gEffectBattler)].healBlockTimer = 2;
             BattleScriptPush(battleScript);
             gBattlescriptCurrInstr = BattleScript_EffectPsychicNoise;
         }//vsonic replace w side status
@@ -7143,7 +7143,7 @@ static bool32 TryCheekPouch(enum BattlerId battler, u32 itemId, const u8 *nextIn
 {
     if (GetItemPocket(itemId) == POCKET_BERRIES
         && GetBattlerAbility(battler) == ABILITY_CHEEK_POUCH
-        && !gBattleMons[battler].volatiles.healBlock
+        && !gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_HEAL_BLOCK
         && GetBattlerPartyState(battler)->ateBerry
         && !IsBattlerAtMaxHp(battler))
     {
@@ -11041,7 +11041,7 @@ static void Cmd_trywish(void)
 {
     CMD_ARGS(const u8 *failInstr);
 
-    if (gBattleMons[gBattlerTarget].volatiles.healBlock)
+    if (gSideStatuses[GetBattlerSide(gBattlerTarget)] & SIDE_STATUS_HEAL_BLOCK)
     {
         gBattlescriptCurrInstr = cmd->failInstr;
     }

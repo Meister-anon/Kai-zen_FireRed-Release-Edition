@@ -1590,7 +1590,7 @@ static bool32 IsGravityPreventingMove(enum Move move)
 
 bool32 IsHealBlockPreventingMove(enum BattlerId battler, enum Move move)
 {
-    if (!gBattleMons[battler].volatiles.healBlock)
+    if (!(gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_HEAL_BLOCK))
         return FALSE;
 
     return IsHealingMove(move);
@@ -2484,10 +2484,11 @@ static enum MoveCanceler CancelerDisabled(struct BattleContext *ctx)
 //remove volatile from it...oh no this isn't for healblock
 //so just remove healblock from this entirely to its own function
 //vsonic will need research what do z moves do against healblock
+//nah just leave here
 static enum MoveCanceler CancelerVolatileBlocked(struct BattleContext *ctx)
 {
     if (GetActiveGimmick(ctx->battlerAtk) != GIMMICK_Z_MOVE
-     && gBattleMons[ctx->battlerAtk].volatiles.healBlock
+     && gSideStatuses[GetBattlerSide(ctx->battlerAtk)] & SIDE_STATUS_HEAL_BLOCK
      && IsHealBlockPreventingMove(ctx->battlerAtk, ctx->move))
     {
         gBattleScripting.battler = ctx->battlerAtk;
@@ -4511,7 +4512,7 @@ bool32 CanAbilityAbsorbMove(struct BattleContext *ctx)
 
 const u8 *AbsorbedByDrainHpAbility(enum BattlerId battlerDef)
 {
-    if (IsBattlerAtMaxHp(battlerDef) || gBattleMons[battlerDef].volatiles.healBlock)
+    if (IsBattlerAtMaxHp(battlerDef) || gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_HEAL_BLOCK)
     {
         return BattleScript_MonMadeMoveUseless;
     }
@@ -5745,7 +5746,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                  && !IsBattlerAtMaxHp(battler)
                  && gBattleMons[battler].volatiles.semiInvulnerable != STATE_UNDERGROUND
                  && gBattleMons[battler].volatiles.semiInvulnerable != STATE_UNDERWATER
-                 && !gBattleMons[battler].volatiles.healBlock)
+                 && !gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_HEAL_BLOCK)
                 {
                     BattleScriptExecute(BattleScript_IceBodyHeal);
                     SetHealAmount(battler, GetNonDynamaxMaxHP(battler) / 16);
@@ -6896,7 +6897,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         case ABILITY_HOSPITALITY:
             if (shouldAbilityTrigger
              && IsDoubleBattle()
-             && !gBattleMons[partner].volatiles.healBlock
+             && !gSideStatuses[GetBattlerSide(partner)] & SIDE_STATUS_HEAL_BLOCK
              && gBattleMons[partner].hp < gBattleMons[partner].maxHP
              && IsBattlerAlive(partner))
             {
@@ -12513,7 +12514,7 @@ bool32 CanTargetBattler(enum BattlerId battlerAtk, enum BattlerId battlerDef, u1
 {
     if (GetMoveEffect(move) == EFFECT_HIT_ENEMY_HEAL_ALLY
     &&  IsBattlerAlly(battlerAtk, battlerDef)
-    &&  gBattleMons[battlerAtk].volatiles.healBlock)
+    &&  gSideStatuses[GetBattlerSide(battlerAtk)] & SIDE_STATUS_HEAL_BLOCK)
         return FALSE;   // Pokémon affected by Heal Block cannot target allies with Pollen Puff
     if (IsBattlerAlly(battlerAtk, battlerDef) && (GetActiveGimmick(battlerAtk) == GIMMICK_DYNAMAX
                                                || IsGimmickSelected(battlerAtk, GIMMICK_DYNAMAX)))
@@ -14203,68 +14204,6 @@ bool32 IsAnyTargetAffected(void)
     return FALSE;
 }
 
-bool32 IsAllowedToUseBag(void)
-{
-    switch(VarGet(B_VAR_NO_BAG_USE))
-    {
-    case NO_BAG_RESTRICTION:
-        return TRUE;
-    case NO_BAG_AGAINST_TRAINER: //True in wild battle; False in trainer battle
-        return (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER));
-    case NO_BAG_IN_BATTLE:
-        return FALSE;
-    default:
-        return TRUE; // Undefined Behavior
-    }
-}
-
-//since plan make heal block ability affect/antiheal
-//and there are moves that do single target healblock
-//think best idea to make function for healblockaffected
-//to consolidate said effects
-// vsonic
-bool32 CanBattlerHeal(enum BattlerId battlerId)
-{
-    if (IsBattlerAlive(battlerId))
-    {
-
-        if (IsBattlerAtMaxHp(battlerId) 
-        || (gBattleMons[battlerId].volatiles.healBlock))
-            return FALSE;
-        
-        return TRUE;
-    }
-    
-    return FALSE;
-}
-
-//unsure if using, have singlueuseability logic
-//can rely on
-bool32 IsMimikyuDisguised(enum BattlerId battler)
-{
-    return gBattleMons[battler].species == SPECIES_MIMIKYU_DISGUISED
-        || gBattleMons[battler].species == SPECIES_MIMIKYU_TOTEM_DISGUISED;
-}
-
-ructs[battler].flashFireBoosted = FALSE;
-        break;
-    case ABILITY_VESSEL_OF_RUIN:
-        gBattleMons[battler].volatiles.vesselOfRuin = FALSE;    //SP ATK
-        break;
-    case ABILITY_TABLETS_OF_RUIN:
-        gBattleMons[battler].volatiles.tabletsOfRuin = FALSE;   //SPEED
-        break;
-    case ABILITY_SWORD_OF_RUIN:
-        gBattleMons[battler].volatiles.swordOfRuin = FALSE; //DEF
-        break;
-    case ABILITY_BEADS_OF_RUIN:
-        gBattleMons[battler].volatiles.beadsOfRuin = FALSE; //SP DEF
-        break;
-    default:
-       break;
-    }
-}
-
 bool32 IsAnyTargetTurnDamaged(enum BattlerId battlerAtk)
 {
     for (enum BattlerId battlerDef = 0; battlerDef < gBattlersCount; battlerDef++)
@@ -14304,7 +14243,7 @@ bool32 CanBattlerHeal(enum BattlerId battlerId)
     {
 
         if (IsBattlerAtMaxHp(battlerId) 
-        || (gBattleMons[battlerId].volatiles.healBlock))
+        || (gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_HEAL_BLOCK))
             return FALSE;
         
         return TRUE;

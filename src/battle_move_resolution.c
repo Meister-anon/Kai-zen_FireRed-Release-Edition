@@ -172,7 +172,7 @@ static enum MoveEndResult MoveEnd_Absorb(void)
     {
     case EFFECT_ABSORB:
     case EFFECT_DREAM_EATER:
-        if (!gBattleMons[gBattlerAttacker].volatiles.healBlock
+        if (!(gSideStatuses[GetBattlerSide(gBattlerAttacker)] & SIDE_STATUS_HEAL_BLOCK)
          && gBattleStruct->moveDamage[gBattlerTarget] > 0
          && IsBattlerTurnDamaged(gBattlerTarget) //this may not be necesssary, waiting on confirm from Alex
          && IsBattlerAlive(gBattlerAttacker))

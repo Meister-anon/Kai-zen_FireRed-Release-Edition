@@ -3928,7 +3928,7 @@ bool32 ShouldAbsorb(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 mo
         healAmount = 1;
     if (healAmount + currHP > maxHP)
         healAmount = maxHP - currHP;
-    if (gBattleMons[battlerAtk].volatiles.healBlock)
+    if (gSideStatuses[GetBattlerSide(battlerAtk)] & SIDE_STATUS_HEAL_BLOCK)
         healAmount = 0;
 
     if (gAiLogicData->abilities[battlerDef] == ABILITY_LIQUID_OOZE)
@@ -3952,7 +3952,7 @@ bool32 ShouldRecover(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 m
     bool32 aiIsFaster = AI_IsFaster(battlerAtk, battlerDef, move, predictedMoveSpeedCheck, CONSIDER_PRIORITY);
     if (healAmount + currHP > maxHP)
         healAmount = maxHP - currHP;
-    if (gBattleMons[battlerAtk].volatiles.healBlock)
+    if (gSideStatuses[GetBattlerSide(battlerAtk)] & SIDE_STATUS_HEAL_BLOCK)
         healAmount = 0;
 
     if (IsBattlerAtMaxHp(battlerAtk))

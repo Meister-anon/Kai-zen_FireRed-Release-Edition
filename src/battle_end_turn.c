@@ -274,7 +274,7 @@ static bool32 HandleEndTurnWish(enum BattlerId battler)
             wishHeal = GetNonDynamaxMaxHP(battler) / 2;
 
         SetHealAmount(battler, wishHeal);
-        if (gBattleMons[battler].volatiles.healBlock)
+        if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_HEAL_BLOCK)
             BattleScriptExecute(BattleScript_WishButHealBlocked);
         else if (gBattleMons[battler].hp == gBattleMons[battler].maxHP)
             BattleScriptExecute(BattleScript_WishButFullHp);
@@ -353,7 +353,7 @@ static bool32 HandleEndTurnFirstEventBlock(enum BattlerId battler)
     case FIRST_EVENT_BLOCK_GRASSY_TERRAIN_HEAL:
         if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN
          && !IsBattlerAtMaxHp(battler)
-         && !gBattleMons[battler].volatiles.healBlock
+         && !gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_HEAL_BLOCK
          && !IsSemiInvulnerable(battler, CHECK_ALL)
          && IsBattlerGrounded(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler)))
         {
@@ -398,7 +398,7 @@ static bool32 HandleEndTurnAquaRing(enum BattlerId battler)
     gBattleStruct->eventState.endTurnBattler++;
 
     if (gBattleMons[battler].volatiles.aquaRing
-     && !gBattleMons[battler].volatiles.healBlock
+     && !gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_HEAL_BLOCK
      && !IsBattlerAtMaxHp(battler)
      && IsBattlerAlive(battler))
     {
@@ -418,7 +418,7 @@ static bool32 HandleEndTurnIngrain(enum BattlerId battler)
     gBattleStruct->eventState.endTurnBattler++;
 
     if (gBattleMons[battler].volatiles.rooted
-     && !gBattleMons[battler].volatiles.healBlock
+     && !gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_HEAL_BLOCK
      && !IsBattlerAtMaxHp(battler)
      && IsBattlerAlive(battler))
     {
@@ -453,7 +453,7 @@ static bool32 HandleEndTurnLeechSeed(enum BattlerId battler)
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_LEECH_SEED_OOZE;
             BattleScriptExecute(BattleScript_LeechSeedTurnDrainLiquidOoze);
         }
-        else if (gBattleMons[gBattlerTarget].volatiles.healBlock)
+        else if (gSideStatuses[GetBattlerSide(gBattlerTarget)] & SIDE_STATUS_HEAL_BLOCK)
         {
             BattleScriptExecute(BattleScript_LeechSeedTurnDrainHealBlock);
         }
@@ -484,7 +484,7 @@ static bool32 HandleEndTurnPoison(enum BattlerId battler)
     {
         if (ability == ABILITY_POISON_HEAL)
         {
-            if (!IsBattlerAtMaxHp(battler) && !gBattleMons[battler].volatiles.healBlock)
+            if (!IsBattlerAtMaxHp(battler) && !gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_HEAL_BLOCK)
             {
                 SetHealAmount(battler, GetNonDynamaxMaxHP(battler) / 8);
                 BattleScriptExecute(BattleScript_PoisonHealActivates);
