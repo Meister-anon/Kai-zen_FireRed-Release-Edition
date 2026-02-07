@@ -337,7 +337,7 @@ static s32 CalcBeatUpDamage(struct BattleContext *ctx)
     return dmg;
 }
 
-static enum DamageCategory GetReflectDamageMoveDamageCategory(enum BattlerId battler, u32 move)
+static enum DamageCategory GetReflectDamageMoveDamageCategory(enum BattlerId battler, enum Move move)
 {
     u32 damageCategories = GetMoveReflectDamage_DamageCategories(move);
 
@@ -353,7 +353,7 @@ static enum DamageCategory GetReflectDamageMoveDamageCategory(enum BattlerId bat
         return DAMAGE_CATEGORY_PHYSICAL;
 }
 
-static bool32 ShouldTeraShellDistortTypeMatchups(u32 move, enum BattlerId battlerDef, enum Ability abilityDef)
+static bool32 ShouldTeraShellDistortTypeMatchups(enum Move move, enum BattlerId battlerDef, enum Ability abilityDef)
 {
     if (!gSpecialStatuses[battlerDef].distortedTypeMatchups
      && gBattleMons[battlerDef].species == SPECIES_TERAPAGOS_TERASTAL
@@ -409,7 +409,7 @@ static bool32 IsUnnerveAbilityOnOpposingSide(enum BattlerId battler)
     return FALSE;
 }
 
-static inline bool32 IsDragonDartsSecondHit(enum BattlerId battlerAtk, u32 move)
+static inline bool32 IsDragonDartsSecondHit(enum BattlerId battlerAtk, enum Move move)
 {
     if (GetBattlerMoveTargetType(battlerAtk, move) != TARGET_SMART)
         return FALSE;
@@ -423,7 +423,7 @@ static inline bool32 IsDragonDartsSecondHit(enum BattlerId battlerAtk, u32 move)
 //may change effects and ability checks
 //into single canberedirected
 //or cannotberedirected check
-bool32 IsAffectedByFollowMe(enum BattlerId battlerAtk, u32 defSide, u32 move)
+bool32 IsAffectedByFollowMe(enum BattlerId battlerAtk, u32 defSide, enum Move move)
 {
     enum Ability ability = GetBattlerAbility(battlerAtk);
     enum BattleMoveEffects effect = GetMoveEffect(move);
@@ -470,12 +470,10 @@ bool32 HandleMoveTargetRedirection(void)
     u32 redirectorOrderNum = MAX_BATTLERS_COUNT;
     enum MoveTarget moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove);
     enum Type moveType = GetBattleMoveType(gCurrentMove);
-    enum Type SecondarymoveType = TYPE_NONE;
+    enum Type SecondarymoveType = GetTwoTypedMove2ndType(gCurrentMove);
     enum BattleMoveEffects moveEffect = GetMoveEffect(gCurrentMove);
     u32 side = BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker));
 
-    if (GetMoveEffect(gCurrentMove) == EFFECT_TWO_TYPED_MOVE)
-        SecondarymoveType = GetTwoTypedMove2ndType(gCurrentMove);
 
     if (moveEffect == EFFECT_REFLECT_DAMAGE)
     {
@@ -1582,7 +1580,7 @@ void BattleScriptPop(void)
         gBattlescriptCurrInstr = gBattleResources->battleScriptsStack->ptr[--gBattleResources->battleScriptsStack->size];
 }
 
-static bool32 IsGravityPreventingMove(u32 move)
+static bool32 IsGravityPreventingMove(enum Move move)
 {
     if (!(gFieldStatuses & STATUS_FIELD_GRAVITY))
         return FALSE;
@@ -1590,7 +1588,7 @@ static bool32 IsGravityPreventingMove(u32 move)
     return IsMoveGravityBanned(move);
 }
 
-bool32 IsHealBlockPreventingMove(enum BattlerId battler, u32 move)
+bool32 IsHealBlockPreventingMove(enum BattlerId battler, enum Move move)
 {
     if (!gBattleMons[battler].volatiles.healBlock)
         return FALSE;
@@ -1598,7 +1596,7 @@ bool32 IsHealBlockPreventingMove(enum BattlerId battler, u32 move)
     return IsHealingMove(move);
 }
 
-bool32 IsBelchPreventingMove(enum BattlerId battler, u32 move)
+bool32 IsBelchPreventingMove(enum BattlerId battler, enum Move move)
 {
     if (GetMoveEffect(move) != EFFECT_BELCH)
         return FALSE;
@@ -1623,7 +1621,7 @@ u32 TrySetCantSelectMoveBattleScript(enum BattlerId battler)
 {
     u32 limitations = 0;
     u8 moveId = gBattleResources->bufferB[battler][2] & ~RET_GIMMICK;
-    u32 move = gBattleMons[battler].moves[moveId];
+    enum Move move = gBattleMons[battler].moves[moveId];
     enum HoldEffect holdEffect = GetBattlerHoldEffect(battler);
     u16 *choicedMove = &gBattleStruct->choicedMove[battler];
     enum BattleMoveEffects moveEffect = GetMoveEffect(move);
@@ -1884,7 +1882,7 @@ u32 TrySetCantSelectMoveBattleScript(enum BattlerId battler)
 
 u32 CheckMoveLimitations(enum BattlerId battler, u8 unusableMoves, u16 check)
 {
-    u32 move;
+    enum Move move;
     enum BattleMoveEffects moveEffect;
     enum HoldEffect holdEffect = GetBattlerHoldEffect(battler);
     u16 *choicedMove = &gBattleStruct->choicedMove[battler];
@@ -2211,7 +2209,7 @@ static inline bool32 TryFormChangeBeforeMove(void)
     return TRUE;
 }
 
-static inline bool32 TryActivatePowderStatus(u32 move)
+static inline bool32 TryActivatePowderStatus(enum Move move)
 {
     u32 partnerMove = GetChosenMoveFromPosition(BATTLE_PARTNER(gBattlerAttacker));
     if (!gBattleMons[gBattlerAttacker].volatiles.powder)
@@ -3288,7 +3286,7 @@ static enum MoveCanceler CancelerCharging(struct BattleContext *ctx)
     return step;
 }
 
-static bool32 NoTargetPresent(enum BattlerId battler, u32 move, u32 moveTarget)
+static bool32 NoTargetPresent(enum BattlerId battler, enum Move move, u32 moveTarget)
 {
     switch (moveTarget)
     {
@@ -3464,7 +3462,7 @@ static bool32 (*const sShouldCheckTargetMoveFailure[])(enum BattlerId battlerAtk
     [TARGET_ALL_BATTLERS] = IsTargetingAllBattlers,
 };
 
-static bool32 ShouldCheckTargetMoveFailure(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move, u32 moveTarget)
+static bool32 ShouldCheckTargetMoveFailure(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move, u32 moveTarget)
 {
     // For Bounced moves
     if (IsBattlerUnaffectedByMove(battlerDef))
@@ -3632,7 +3630,7 @@ static bool32 IsMoveParentalBondAffected(struct BattleContext *ctx)
     return TRUE;
 }
 
-static void SetPossibleNewSmartTarget(u32 move)
+static void SetPossibleNewSmartTarget(enum Move move)
 {
     if (!IsBattlerUnaffectedByMove(gBattlerTarget)
      || !CanTargetPartner(gBattlerAttacker, gBattlerTarget)
@@ -7878,11 +7876,11 @@ u32 SetRandomTarget(enum BattlerId battlerAtk)
     return target;
 }
 
-u32 GetBattleMoveTarget(u32 move, enum MoveTarget moveTarget)
+u32 GetBattleMoveTarget(enum Move move, enum MoveTarget moveTarget)
 {
     u32 targetBattler = 0;
     u32 side;
-    enum Type SecondarymoveType = TYPE_NONE;
+    enum Type SecondarymoveType = GetTwoTypedMove2ndType(move);
     enum Type moveType = GetBattleMoveType(move);
 
     if (moveTarget == TARGET_NONE)
@@ -7905,8 +7903,6 @@ u32 GetBattleMoveTarget(u32 move, enum MoveTarget moveTarget)
 
             targetBattler = SetRandomTarget(gBattlerAttacker);
             
-            if (GetMoveEffect(move) == EFFECT_TWO_TYPED_MOVE)
-                SecondarymoveType = GetTwoTypedMove2ndType(move);
             
             //vsonic review this see if makes sense
             //make sure am not missing case that if I'm attacking ally
@@ -8102,7 +8098,7 @@ u8 GetAttackerObedienceForAction()
 //put fury cutter logic together
 //returns move acc if not move
 //vsonic
-u32 GetFuryCutterAccuracy(u32 move)
+u32 GetFuryCutterAccuracy(enum Move move)
 {
     u32 i, furyCutterAccDrop;
     
@@ -8186,7 +8182,7 @@ u32 GetBattlerHoldEffectParam(enum BattlerId battler)
         return GetItemHoldEffectParam(gBattleMons[battler].item);
 }
 
-bool32 CanBattlerAvoidContactEffects(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, u32 move)
+bool32 CanBattlerAvoidContactEffects(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, enum Move move)
 {
     if (holdEffectAtk == HOLD_EFFECT_PROTECTIVE_PADS)
     {
@@ -8197,7 +8193,7 @@ bool32 CanBattlerAvoidContactEffects(enum BattlerId battlerAtk, enum BattlerId b
     return !IsMoveMakingContact(battlerAtk, battlerDef, abilityAtk, holdEffectAtk, move);
 }
 
-bool32 IsMoveMakingContact(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, u32 move)
+bool32 IsMoveMakingContact(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, enum Move move)
 {
     if (!(MoveMakesContact(move) || (GetMoveEffect(move) == EFFECT_SHELL_SIDE_ARM
                                   && gBattleStruct->shellSideArmCategory[battlerAtk][battlerDef] == DAMAGE_CATEGORY_PHYSICAL)))
@@ -8509,7 +8505,7 @@ bool32 IsBattlerGrounded(enum BattlerId battler, enum Ability ability, enum Hold
     return IsBattlerGroundedInverseCheck(battler, ability, holdEffect, NOT_INVERSE_BATTLE, FALSE);
 }
 
-u32 GetMoveSlot(u16 *moves, u32 move)
+u32 GetMoveSlot(u16 *moves, enum Move move)
 {
     u32 i;
 
@@ -8597,7 +8593,7 @@ u32 GetMoveTargetCount(struct BattleContext *ctx)
 {
     enum BattlerId battlerAtk = ctx->battlerAtk;
     enum BattlerId battlerDef = ctx->battlerDef;
-    u32 move = ctx->move;
+    enum Move move = ctx->move;
 
     switch (GetBattlerMoveTargetType(battlerAtk, move))
     {
@@ -8815,7 +8811,7 @@ static inline u32 CalcMoveBasePower(struct BattleContext *ctx)
 {
     enum BattlerId battlerAtk = ctx->battlerAtk;
     enum BattlerId battlerDef = ctx->battlerDef;
-    u32 move = ctx->move;
+    enum Move move = ctx->move;
 
     u32 i;
     u32 basePower = GetMovePower(move);
@@ -9078,7 +9074,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
     u32 basePower = CalcMoveBasePower(ctx);
     enum BattlerId battlerAtk = ctx->battlerAtk;
     enum BattlerId battlerDef = ctx->battlerDef;
-    u32 move = ctx->move;
+    enum Move move = ctx->move;
     enum Type moveType = ctx->moveType;
     enum BattleMoveEffects moveEffect = GetMoveEffect(move);
 
@@ -9449,7 +9445,7 @@ static bool32 IsRuinStatusActive(u32 fieldEffect)
     return FALSE;
 }
 
-static inline uq4_12_t ApplyOffensiveBadgeBoost(uq4_12_t modifier, enum BattlerId battler, u32 move)
+static inline uq4_12_t ApplyOffensiveBadgeBoost(uq4_12_t modifier, enum BattlerId battler, enum Move move)
 {
     if (ShouldGetStatBadgeBoost(B_FLAG_BADGE_BOOST_ATTACK, battler) && IsBattleMovePhysical(move))
         modifier = uq4_12_multiply_half_down(modifier, GetBadgeBoostModifier());
@@ -9458,7 +9454,7 @@ static inline uq4_12_t ApplyOffensiveBadgeBoost(uq4_12_t modifier, enum BattlerI
     return modifier;
 }
 
-static inline uq4_12_t ApplyDefensiveBadgeBoost(uq4_12_t modifier, enum BattlerId battler, u32 move)
+static inline uq4_12_t ApplyDefensiveBadgeBoost(uq4_12_t modifier, enum BattlerId battler, enum Move move)
 {
     if (ShouldGetStatBadgeBoost(B_FLAG_BADGE_BOOST_DEFENSE, battler) && IsBattleMovePhysical(move))
         modifier = uq4_12_multiply_half_down(modifier, GetBadgeBoostModifier());
@@ -9475,7 +9471,7 @@ static inline u32 CalcAttackStat(struct BattleContext *ctx)
     u16 atkBaseSpeciesId;
     enum BattlerId battlerAtk = ctx->battlerAtk;
     enum BattlerId battlerDef = ctx->battlerDef;
-    u32 move = ctx->move;
+    enum Move move = ctx->move;
     enum Type moveType = ctx->moveType;
     enum BattleMoveEffects moveEffect = GetMoveEffect(move);
     bool32 FogNegates = IsFogOnField();
@@ -9794,7 +9790,7 @@ static inline u32 CalcDefenseStat(struct BattleContext *ctx)
     uq4_12_t modifier;
     enum BattlerId battlerAtk = ctx->battlerAtk;
     enum BattlerId battlerDef = ctx->battlerDef;
-    u32 move = ctx->move;
+    enum Move move = ctx->move;
     enum BattleMoveEffects moveEffect = GetMoveEffect(move);
 
     def = gBattleMons[battlerDef].defense;
@@ -10034,7 +10030,7 @@ static inline uq4_12_t GetParentalBondModifier(enum BattlerId battlerAtk)
 //since include joat etc decide rename function was GetSameTypeAttackBonusModifier
 static inline uq4_12_t GetTypeBasedBonusModifier(struct DamageContext *ctx)
 {
-    enum Type SecondarymoveType = GetMoveEffect(ctx->move) == EFFECT_TWO_TYPED_MOVE ? GetMoveStoredValue(ctx->move) : TYPE_NONE;
+    enum Type SecondarymoveType = GetTwoTypedMove2ndType(ctx->move);
 
     //if its just returning neutral do I need these at all here?
     //yeah it needs to return something cuz multiplies result
@@ -10228,28 +10224,28 @@ static inline uq4_12_t GetProtectBreakModifiers(struct DamageContext *ctx)
     return UQ_4_12(1.0);
 }
 
-static inline uq4_12_t GetMinimizeModifier(u32 move, enum BattlerId battlerDef)
+static inline uq4_12_t GetMinimizeModifier(enum Move move, enum BattlerId battlerDef)
 {
     if (MoveIncreasesPowerToMinimizedTargets(move) && gBattleMons[battlerDef].volatiles.minimize)
         return UQ_4_12(2.0);
     return UQ_4_12(1.0);
 }
 
-static inline uq4_12_t GetUndergroundModifier(u32 move, enum BattlerId battlerDef)
+static inline uq4_12_t GetUndergroundModifier(enum Move move, enum BattlerId battlerDef)
 {
     if (MoveDamagesUnderground(move) && gBattleMons[battlerDef].volatiles.semiInvulnerable == STATE_UNDERGROUND)
         return UQ_4_12(2.0);
     return UQ_4_12(1.0);
 }
 
-static inline uq4_12_t GetDiveModifier(u32 move, enum BattlerId battlerDef)
+static inline uq4_12_t GetDiveModifier(enum Move move, enum BattlerId battlerDef)
 {
     if (MoveDamagesUnderWater(move) && gBattleMons[battlerDef].volatiles.semiInvulnerable == STATE_UNDERWATER)
         return UQ_4_12(2.0);
     return UQ_4_12(1.0);
 }
 
-static inline uq4_12_t GetAirborneModifier(u32 move, enum BattlerId battlerDef)
+static inline uq4_12_t GetAirborneModifier(enum Move move, enum BattlerId battlerDef)
 {
     if (MoveDamagesAirborneDoubleDamage(move) && gBattleMons[battlerDef].volatiles.semiInvulnerable == STATE_ON_AIR)
         return UQ_4_12(2.0);
@@ -10280,7 +10276,7 @@ static inline uq4_12_t GetScreensModifier(struct BattleContext *ctx)
     return UQ_4_12(1.0);
 }
 
-static inline uq4_12_t GetCollisionCourseElectroDriftModifier(u32 move, uq4_12_t typeEffectivenessModifier)
+static inline uq4_12_t GetCollisionCourseElectroDriftModifier(enum Move move, uq4_12_t typeEffectivenessModifier)
 {
     if (GetMoveEffect(move) == EFFECT_COLLISION_COURSE && typeEffectivenessModifier >= UQ_4_12(2.0))
         return UQ_4_12(1.3333);
@@ -10737,7 +10733,7 @@ static inline s32 DoFutureSightAttackDamageCalcVars(struct BattleContext *ctx)
     u32 targetFinalDefense;
     enum BattlerId battlerAtk = ctx->battlerAtk;
     enum BattlerId battlerDef = ctx->battlerDef;
-    u32 move = ctx->move;
+    enum Move move = ctx->move;
     enum Type moveType = ctx->moveType;
 
     struct Pokemon *party = GetBattlerParty(battlerAtk);
@@ -10788,7 +10784,7 @@ static inline s32 DoFutureSightAttackDamageCalc(struct BattleContext *ctx)
     return DoFutureSightAttackDamageCalcVars(ctx);
 }
 
-bool32 IsFutureSightAttackerInParty(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move)
+bool32 IsFutureSightAttackerInParty(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move)
 {
     if (GetMoveEffect(move) != EFFECT_FUTURE_SIGHT)
         return FALSE;
@@ -11134,7 +11130,7 @@ static inline void MulByTypeEffectiveness(struct BattleContext *ctx, uq4_12_t *m
         *modifier = uq4_12_multiply(*modifier, arceus_mod);
 }
 
-static inline void TryNoticeIllusionInTypeEffectiveness(u32 move, enum Type moveType, enum BattlerId battlerAtk, enum BattlerId battlerDef, uq4_12_t resultingModifier, u32 illusionSpecies)
+static inline void TryNoticeIllusionInTypeEffectiveness(enum Move move, enum Type moveType, enum BattlerId battlerAtk, enum BattlerId battlerDef, uq4_12_t resultingModifier, u32 illusionSpecies)
 {
     // Check if the type effectiveness would've been different if the pokemon really had the types as the disguise.
     uq4_12_t presumedModifier = UQ_4_12(1.0);
@@ -12096,7 +12092,7 @@ bool32 ShouldGetStatBadgeBoost(u16 badgeFlag, enum BattlerId battler)
     return FALSE;
 }
 
-static enum DamageCategory SwapMoveDamageCategory(u32 move)
+static enum DamageCategory SwapMoveDamageCategory(enum Move move)
 {
     if (GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL)
         return DAMAGE_CATEGORY_SPECIAL;
@@ -12108,7 +12104,7 @@ static enum DamageCategory SwapMoveDamageCategory(u32 move)
     can be removed but a lot of function arguments (battlerAtk and battlerDef) have to be added for this, about 50+.
     This is potentially a good change because it is less likely to cause bugs in the future.
 */
-enum DamageCategory GetBattleMoveCategory(u32 move)
+enum DamageCategory GetBattleMoveCategory(enum Move move)
 {
     if (gMain.inBattle)
     {
@@ -12126,7 +12122,7 @@ enum DamageCategory GetBattleMoveCategory(u32 move)
     return GetMoveCategory(move);
 }
 
-void SetDynamicMoveCategory(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move)
+void SetDynamicMoveCategory(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move)
 {
     switch (GetMoveEffect(move))
     {
@@ -12492,14 +12488,14 @@ bool32 IsBattlerWeatherAffected(enum BattlerId battler, u32 weatherFlags)
     return FALSE;
 }
 
-static u32 CanBattlerHitBothFoesInTerrain(enum BattlerId battler, u32 move, enum BattleMoveEffects effect)
+static u32 CanBattlerHitBothFoesInTerrain(enum BattlerId battler, enum Move move, enum BattleMoveEffects effect)
 {
     return effect == EFFECT_TERRAIN_BOOST
         && GetMoveTerrainBoost_HitsBothFoes(move)
         && IsBattlerTerrainAffected(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler), gFieldStatuses, GetMoveTerrainBoost_Terrain(move));
 }
 
-u32 GetBattlerMoveTargetType(enum BattlerId battler, u32 move)
+u32 GetBattlerMoveTargetType(enum BattlerId battler, enum Move move)
 {
     enum BattleMoveEffects effect = GetMoveEffect(move);
     if (effect == EFFECT_CURSE && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
@@ -12656,7 +12652,7 @@ bool32 IsGen6ExpShareEnabled(void)
 }
 
 
-bool32 MoveHasAdditionalEffect(u32 move, u32 moveEffect)
+bool32 MoveHasAdditionalEffect(enum Move move, u32 moveEffect)
 {
     u32 i;
     u32 numAdditionalEffects = GetMoveAdditionalEffectCount(move);
@@ -12669,7 +12665,7 @@ bool32 MoveHasAdditionalEffect(u32 move, u32 moveEffect)
     return FALSE;
 }
 
-bool32 MoveHasAdditionalEffectWithChance(u32 move, u32 moveEffect, u32 chance)
+bool32 MoveHasAdditionalEffectWithChance(enum Move move, u32 moveEffect, u32 chance)
 {
     u32 i;
     u32 numAdditionalEffects = GetMoveAdditionalEffectCount(move);
@@ -12682,7 +12678,7 @@ bool32 MoveHasAdditionalEffectWithChance(u32 move, u32 moveEffect, u32 chance)
     return FALSE;
 }
 
-bool32 MoveHasAdditionalEffectSelf(u32 move, u32 moveEffect)
+bool32 MoveHasAdditionalEffectSelf(enum Move move, u32 moveEffect)
 {
     u32 i;
     u32 numAdditionalEffects = GetMoveAdditionalEffectCount(move);
@@ -12695,12 +12691,12 @@ bool32 MoveHasAdditionalEffectSelf(u32 move, u32 moveEffect)
     return FALSE;
 }
 
-bool32 IsMoveEffectRemoveSpeciesType(u32 move, u32 moveEffect, u32 argument)
+bool32 IsMoveEffectRemoveSpeciesType(enum Move move, u32 moveEffect, u32 argument)
 {
     return (MoveHasAdditionalEffectSelf(move, moveEffect) && GetMoveArgType(move) == argument);
 }
 
-bool32 MoveHasChargeTurnAdditionalEffect(u32 move)
+bool32 MoveHasChargeTurnAdditionalEffect(enum Move move)
 {
     u32 i;
     u32 numAdditionalEffects = GetMoveAdditionalEffectCount(move);
@@ -12712,7 +12708,7 @@ bool32 MoveHasChargeTurnAdditionalEffect(u32 move)
     return FALSE;
 }
 
-bool32 MoveIsAffectedBySheerForce(u32 move)
+bool32 MoveIsAffectedBySheerForce(enum Move move)
 {
     u32 i;
     u32 numAdditionalEffects = GetMoveAdditionalEffectCount(move);
@@ -12917,7 +12913,7 @@ bool32 IsBattlerUnaffectedByMove(enum BattlerId battler)
 //it works for what EE wants but for me I'll just make a flag
 //to set typeless dmg without overwriting type
 //vsonic
-enum Type GetBattleMoveType(u32 move)
+enum Type GetBattleMoveType(enum Move move)
 {
     if (gMain.inBattle)
     {
@@ -13395,7 +13391,7 @@ void RemoveHazardFromField(u32 side, enum Hazards hazardType)
 //believe done
 //may need add argument if this is used in ai
 //for affinity check function to know if it should use ai version
-bool32 CanMoveSkipAccuracyCalc(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum Ability abilityDef, u32 move, enum FunctionCallOption option)
+bool32 CanMoveSkipAccuracyCalc(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum Ability abilityDef, enum Move move, enum FunctionCallOption option)
 {
     bool32 effect = FALSE;
     enum Ability ability = ABILITY_NONE;
@@ -13468,7 +13464,7 @@ bool32 CanMoveSkipAccuracyCalc(enum BattlerId battlerAtk, enum BattlerId battler
     return effect;
 }
 
-u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move, enum Ability atkAbility, enum Ability defAbility, enum HoldEffect atkHoldEffect, enum HoldEffect defHoldEffect)
+u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move, enum Ability atkAbility, enum Ability defAbility, enum HoldEffect atkHoldEffect, enum HoldEffect defHoldEffect)
 {
     u32 calc, moveAcc;
     s8 buff, accStage, evasionStage;
@@ -13821,7 +13817,7 @@ static u32 GetMirrorMoveMove(void)
     return move;
 }
 
-static bool32 InvalidMetronomeMove(u32 move)
+static bool32 InvalidMetronomeMove(enum Move move)
 {
     return GetMoveEffect(move) == EFFECT_PLACEHOLDER
         || IsMoveMetronomeBanned(move);
@@ -13829,7 +13825,7 @@ static bool32 InvalidMetronomeMove(u32 move)
 
 static u32 GetMetronomeMove(void)
 {
-    u32 move = MOVE_NONE;
+    enum Move move = MOVE_NONE;
 
 #if B_METRONOME_MOVES >= GEN_9
     u32 moveCount = MOVES_COUNT_GEN9;
@@ -13861,7 +13857,7 @@ static u32 GetMetronomeMove(void)
 //Should make it a bit more predictable slightly...
 static u32 GetAssistMove(void)
 {
-    u32 move = MOVE_NONE;
+    enum Move move = MOVE_NONE;
     s32 chooseableMovesNo = 0;
     struct Pokemon *party;
     u16 *validMoves = Alloc(sizeof(u16) * PARTY_SIZE * MAX_MON_MOVES);
@@ -13881,7 +13877,7 @@ static u32 GetAssistMove(void)
 
             for (u32 moveId = 0; moveId < MAX_MON_MOVES; moveId++)
             {
-                u16 move = GetMonData(&party[monId], MON_DATA_MOVE1 + moveId);
+                enum Move move = GetMonData(&party[monId], MON_DATA_MOVE1 + moveId);
 
                 if (IsMoveAssistBanned(move))
                     continue;
@@ -13918,7 +13914,7 @@ enum Move GetNaturePowerMove(enum BattlerId battler)
 
 static u32 GetSleepTalkMove(void)
 {
-    u32 move = MOVE_NONE;
+    enum Move move = MOVE_NONE;
 
     u32 i, unusableMovesBits = 0, movePosition;
 
@@ -13963,7 +13959,7 @@ static u32 GetCopyCatMove(void)
 
 static u32 GetMeFirstMove(void)
 {
-    u32 move = GetChosenMoveFromPosition(gBattlerTarget);
+    enum Move move = GetChosenMoveFromPosition(gBattlerTarget);
 
     if (IsBattleMoveStatus(move)
      || IsMoveMeFirstBanned(move)
@@ -14416,7 +14412,7 @@ bool32 TryActivateHeatTrance(enum BattlerId battler)  //change mind better to do
 
 }*/
 
-enum Type GetBattleMoveType(u32 move)
+enum Type GetBattleMoveType(enum Move move)
 {
     if (gMain.inBattle && gBattleStruct->dynamicMoveType)
         return gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;
