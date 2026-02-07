@@ -21741,7 +21741,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
-        .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
+        .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_TOXIC_WING},
         //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -21755,6 +21755,10 @@ const struct BaseStats gBaseStats[] =
     //swapping friend guard for protean, it has many different forms so it changes with its environemnt
     //so makes sense
     //...ok so apparently friend guard IS good on this thing for some reason -_-
+    //based on dex entry ABILITY_TOXIC_WING makes sense for this
+    //w plan to change other forms work
+    //tho other form data doesn't match this
+    //its not gonna be a problem -vsonic
 
     [SPECIES_LITLEO] =
     {

@@ -2997,6 +2997,8 @@ static const struct AbilityLearnset sSpewpaAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sVivillonAbilityLearnset[] = {
+    ABILITY_PROTEAN,
+    ABILITY_COLOR_CHANGE,
     ABILITY_SET_END
 };
 
