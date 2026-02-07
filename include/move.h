@@ -306,6 +306,12 @@ static inline u32 GetMoveType(enum Move moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].type;
 }//vsonic renamed from GetMoveType
 
+/*
+static inline u32 GetMoveBaseType(u32 move)
+{
+    return gMovesInfo[SanitizeMoveId(move)].type;
+}*/
+
 //think wanted to separate split and category damagecategory would be what defense stat move hits
 //then would have something for what offense stat effect comes out of?
 static inline u32 GetMoveCategory(enum Move moveId)

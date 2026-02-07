@@ -1814,13 +1814,6 @@ static inline void SetHealAmount(enum BattlerId battler, u32 value)
         gBattleStruct->passiveHpUpdate[battler] *= -1;
 }
 
-
-
-static inline u32 GetMoveBaseType(u32 move)
-{
-    return gMovesInfo[move].type;
-}
-
 static inline bool32 IsBattlerAtMaxHp(enum BattlerId battler)
 {
     return gBattleMons[battler].hp == gBattleMons[battler].maxHP;
@@ -1863,7 +1856,7 @@ static inline enum Ability AbilityPreventsRecoilDmg(enum Ability ability)
 //but would like synergy with rain
 static inline u32 CanActivateGulpMissle(u32 move)
 {
-    return (gBattleMovePower >= 80 && GetMoveBaseType(move) == TYPE_WATER);
+    return (gBattleMovePower >= 80 && GetMoveType(move) == TYPE_WATER);
 }
 
 

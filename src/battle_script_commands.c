@@ -13462,12 +13462,15 @@ void BS_TryTidyUp(void)
     }
 }
 
+//idk why here unused in EE
+//sigh upcoming from last week JUST changed this that's why *facepalm
+//ok now need pull branch form change fixes
 void BS_TryGulpMissile(void)
 {
     NATIVE_ARGS();
 
     if ((gBattleMons[gBattlerAttacker].species == SPECIES_CRAMORANT)
-     && (gCurrentMove == MOVE_DIVE)
+     && CanActivateGulpMissle(gCurrentMove)
      && GetBattlerAbility(gBattlerAttacker) == ABILITY_GULP_MISSILE
      && TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_HP_PERCENT))
     {
