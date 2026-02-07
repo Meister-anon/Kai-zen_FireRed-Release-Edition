@@ -11664,7 +11664,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_WATER_2,
         .abilities = {ABILITY_STURDY, ABILITY_ROCK_HEAD},
-        .abilityHidden = {ABILITY_ROUGH_SKIN, ABILITY_NONE},
+        .abilityHidden = {ABILITY_ROUGH_SKIN, ABILITY_THICK_FAT},
         //.bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -11673,7 +11673,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRelicanthLevelUpLearnset,
         .tmhmLearnset = sRelicanthTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//added extra ability based on dex entry want somethiing unique but 
+    //couldn't identify something
 
     [SPECIES_LUVDISC] =
     {
