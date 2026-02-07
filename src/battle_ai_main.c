@@ -6704,6 +6704,18 @@ static s32 AI_PowerfulStatus(enum BattlerId battlerAtk, enum BattlerId battlerDe
             if (IsWeatherActive(WEATHER_ICY_ANY | WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
                 ADJUST_SCORE(POWERFUL_STATUS_MOVE);
             break;
+        case BATTLE_WEATHER_MOONLIGHT:
+            if (IsWeatherActive(WEATHER_MOON | WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
+                ADJUST_SCORE(POWERFUL_STATUS_MOVE);
+            break;
+        case BATTLE_WEATHER_ACID_RAIN:
+            if (IsWeatherActive(WEATHER_ACID_RAIN | WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
+                ADJUST_SCORE(POWERFUL_STATUS_MOVE);
+            break;
+        case BATTLE_WEATHER_FOG:
+            if (IsWeatherActive(WEATHER_FOG | WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
+                ADJUST_SCORE(POWERFUL_STATUS_MOVE);
+            break;
         }
     default:
         break;
