@@ -8150,7 +8150,8 @@ enum HoldEffect GetBattlerHoldEffectIgnoreAbility(enum BattlerId battler)
 
 enum HoldEffect GetBattlerHoldEffectInternal(enum BattlerId battler, u32 ability)
 {
-    if (gBattleMons[battler].volatiles.embargo)
+    
+    if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_EMBARGO)
         return HOLD_EFFECT_NONE;
     if (gFieldStatuses & STATUS_FIELD_MAGIC_ROOM)
         return HOLD_EFFECT_NONE;
@@ -12224,7 +12225,7 @@ bool32 CanFling(enum BattlerId battlerAtk, enum BattlerId battlerDef)
     if (item == ITEM_NONE
       || (GetBattlerAbility(battlerAtk) == ABILITY_KLUTZ)
       || gFieldStatuses & STATUS_FIELD_MAGIC_ROOM
-      || gBattleMons[battlerAtk].volatiles.embargo
+      || (gSideStatuses[GetBattlerSide(battlerAtk)] & SIDE_STATUS_EMBARGO)
       || GetFlingPowerFromItemId(item) == 0
       || !CanBattlerGetOrLoseItem(battlerAtk, battlerDef, item))
         return FALSE;

@@ -851,7 +851,7 @@ static bool32 HandleEndTurnTelekinesis(enum BattlerId battler)
     return effect;
 }
 
-static bool32 HandleEndTurnHealBlock(enum BattlerId battler)
+/*static bool32 HandleEndTurnHealBlock(enum BattlerId battler)
 {
     bool32 effect = FALSE;
 
@@ -883,7 +883,7 @@ static bool32 HandleEndTurnEmbargo(enum BattlerId battler)
     }
 
     return effect;
-}
+}*/
 
 static bool32 HandleEndTurnYawn(enum BattlerId battler)
 {
@@ -989,6 +989,7 @@ static bool32 HandleEndTurnRoost(enum BattlerId battler)
 //majority of side status timer stuff goes here
 //so can move effects that were removed from volatile
 //and put in side timers here i.e heal block embargo etc.
+//actually all side status goes here, will need to add magic coat here as well
 static bool32 HandleEndTurnSecondEventBlock(enum BattlerId battler)
 {
     bool32 effect = FALSE;
@@ -1017,6 +1018,18 @@ static bool32 HandleEndTurnSecondEventBlock(enum BattlerId battler)
             BattleScriptExecute(BattleScript_SideStatusWoreOff);
             gBattleCommunication[MULTISTRING_CHOOSER] = side;
             PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_LIGHT_SCREEN);
+            effect = TRUE;
+        }
+        gBattleStruct->eventState.endTurnBlock++;
+        break;
+    case SECOND_EVENT_BLOCK_MAGIC_COAT:
+        if (gSideTimers[side].magicTimer > 0 && --gSideTimers[side].magicTimer == 0)
+        {
+            gBattlerAttacker = GetBattlerSideForMessage(side);
+            gSideStatuses[side] &= ~SIDE_STATUS_MAGIC_COAT;
+            BattleScriptExecute(BattleScript_SideStatusWoreOff);
+            gBattleCommunication[MULTISTRING_CHOOSER] = side;
+            PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_MAGIC_COAT);
             effect = TRUE;
         }
         gBattleStruct->eventState.endTurnBlock++;
@@ -1059,6 +1072,30 @@ static bool32 HandleEndTurnSecondEventBlock(enum BattlerId battler)
             gBattlerAttacker = GetBattlerSideForMessage(side);
             gSideStatuses[side] &= ~SIDE_STATUS_LUCKY_CHANT;
             BattleScriptExecute(BattleScript_LuckyChantEnds);
+            effect = TRUE;
+        }
+        gBattleStruct->eventState.endTurnBlock++;
+        break;
+    case SECOND_EVENT_BLOCK_HEAL_BLOCK:
+        if (gSideTimers[side].healBlockTimer > 0 && --gSideTimers[side].healBlockTimer == 0)
+        {
+            gBattlerAttacker = GetBattlerSideForMessage(side);
+            gSideStatuses[side] &= ~SIDE_STATUS_HEAL_BLOCK;
+            BattleScriptExecute(BattleScript_SideStatusWoreOff);
+            gBattleCommunication[MULTISTRING_CHOOSER] = side;
+            PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_HEAL_BLOCK);
+            effect = TRUE;
+        }
+        gBattleStruct->eventState.endTurnBlock++;
+        break;
+    case SECOND_EVENT_BLOCK_EMBARGO:
+        if (gSideTimers[side].embargoTimer > 0 && --gSideTimers[side].embargoTimer == 0)
+        {
+            gBattlerAttacker = GetBattlerSideForMessage(side);
+            gSideStatuses[side] &= ~SIDE_STATUS_EMBARGO;
+            BattleScriptExecute(BattleScript_SideStatusWoreOff);
+            gBattleCommunication[MULTISTRING_CHOOSER] = side;
+            PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_EMBARGO);
             effect = TRUE;
         }
         gBattleStruct->eventState.endTurnBlock++;
@@ -1491,8 +1528,8 @@ static bool32 (*const sEndTurnEffectHandlers[])(enum BattlerId battler) =
     [ENDTURN_DISABLE] = HandleEndTurnDisable,
     [ENDTURN_MAGNET_RISE] = HandleEndTurnMagnetRise,
     [ENDTURN_TELEKINESIS] = HandleEndTurnTelekinesis,
-    [ENDTURN_HEAL_BLOCK] = HandleEndTurnHealBlock,
-    [ENDTURN_EMBARGO] = HandleEndTurnEmbargo,
+    //[ENDTURN_HEAL_BLOCK] = HandleEndTurnHealBlock,
+    //[ENDTURN_EMBARGO] = HandleEndTurnEmbargo,
     [ENDTURN_YAWN] = HandleEndTurnYawn,
     [ENDTURN_PERISH_SONG] = HandleEndTurnPerishSong,
     [ENDTURN_ROOST] = HandleEndTurnRoost,

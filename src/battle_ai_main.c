@@ -2776,7 +2776,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
             break;
         case EFFECT_EMBARGO:
             if (!IsBattlerItemEnabled(battlerAtk)
-              || gBattleMons[battlerDef].volatiles.embargo
+              || (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_EMBARGO)
               || PartnerMoveIsSameAsAttacker(BATTLE_PARTNER(battlerAtk), battlerDef, move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
             break;

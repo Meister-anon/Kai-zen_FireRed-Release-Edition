@@ -40,7 +40,7 @@ bool32 ShouldUseItem(enum BattlerId battler)
        || gBattleMons[battler].volatiles.semiInvulnerable == STATE_SKY_DROP)
         return FALSE;
 
-    if (gBattleMons[battler].volatiles.embargo)
+    if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_EMBARGO)
         return FALSE;
 
     if (AiExpectsToFaintPlayer(battler))

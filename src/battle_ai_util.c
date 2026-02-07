@@ -1857,7 +1857,7 @@ enum HoldEffect AI_DecideHoldEffectForTurn(enum BattlerId battlerId)
     if (gAiThinkingStruct->aiFlags[battlerId] & AI_FLAG_NEGATE_UNAWARE)
         return holdEffect;
 
-    if (gBattleMons[battlerId].volatiles.embargo)
+    if (gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_EMBARGO)
         return HOLD_EFFECT_NONE;
     if (gFieldStatuses & STATUS_FIELD_MAGIC_ROOM)
         return HOLD_EFFECT_NONE;
@@ -5727,7 +5727,7 @@ bool32 IsBattlerItemEnabled(enum BattlerId battler)
         return TRUE;
     if (gFieldStatuses & STATUS_FIELD_MAGIC_ROOM)
         return FALSE;
-    if (gBattleMons[battler].volatiles.embargo)
+    if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_EMBARGO)
         return FALSE;
     if (gBattleMons[battler].ability == ABILITY_KLUTZ && !gBattleMons[battler].volatiles.gastroAcid)
         return FALSE;
