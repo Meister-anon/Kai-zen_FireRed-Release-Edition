@@ -1347,7 +1347,7 @@
 #define FLAG_0x81B                                                  (SYS_FLAGS + 0x1B)
 #define FLAG_0x81C                                                  (SYS_FLAGS + 0x1C)
 #define FLAG_0x81D                                                  (SYS_FLAGS + 0x1D)
-#define FLAG_0x81E                                                  (SYS_FLAGS + 0x1E)
+#define B_FLAG_AI_VS_AI_BATTLE                                      (SYS_FLAGS + 0x1E)
 #define FLAG_INVERSE_BATTLE                                         (SYS_FLAGS + 0x1F) //ported not yet used
 
 // Permanent system flags

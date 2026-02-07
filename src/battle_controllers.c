@@ -29,6 +29,11 @@ static void SetBattlePartyIds(void);
 //static void Task_HandleSendLinkBuffersData(u8 taskId);
 //static void Task_HandleCopyReceivedLinkBuffersData(u8 taskId);
 
+bool32 IsAiVsAiBattle(void)
+{
+    return (B_FLAG_AI_VS_AI_BATTLE && FlagGet(B_FLAG_AI_VS_AI_BATTLE));
+}
+
 void HandleLinkBattleSetup(void)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)

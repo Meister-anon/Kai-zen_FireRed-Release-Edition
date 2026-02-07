@@ -229,7 +229,7 @@ u8 GetBattleSpeedOption(void);
 
 //void TryReceiveLinkBattleData(void);
 //void PrepareBufferDataTransferLink(enum BattlerId battler, u32 bufferId, u16 size, u8 *data);
-
+bool32 IsAiVsAiBattle(void);
 // emitters
 void BtlController_EmitGetMonData(enum BattlerId battler, u32 bufferId, u8 requestId, u8 monToCheck);
 void BtlController_EmitSetMonData(enum BattlerId battler, u32 bufferId, u8 requestId, u8 monToCheck, u8 bytes, void *data);
