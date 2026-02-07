@@ -28,6 +28,19 @@
 #define BELOW 2
 #define RIGHT 3
 
+#include "config/ai.h"
+#include "config/debug.h"
+#include "config/overworld.h"
+/*#include "config/pokemon.h"
+#include "config/summary_screen.h"
+#include "config/dexnav.h"
+#include "config/follower_npc.h"
+#include "config/general.h"
+#include "config/item.h"
+#include "config/battle.h"
+#include "config/caps.h"
+#include "config/contest.h"
+*/
 #define WILD_ENCOUNTER_MAX_LEVEL_RANGE 15 //more stuff for enconter rework
 
 #define ITEM_NAME_LENGTH 18
