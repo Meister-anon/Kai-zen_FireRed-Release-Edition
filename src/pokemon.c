@@ -10405,7 +10405,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
             case EVO_LEVEL_RAIN:
                 j = GetCurrentWeather(); //need add acid rain to thi
                 if  (IsMonPastEvolutionLevel(mon, i)
-                && (j == OVERWORLD_WEATHER_RAIN || j == WEATHER_RAIN_THUNDERSTORM || j == WEATHER_DOWNPOUR
+                && (j == OVERWORLD_WEATHER_RAIN || j == OVERWORLD_WEATHER_RAIN_THUNDERSTORM || j == OVERWORLD_WEATHER_DOWNPOUR
                 || j == OVERWORLD_WEATHER_ACID_RAIN))
                     {
                         EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));

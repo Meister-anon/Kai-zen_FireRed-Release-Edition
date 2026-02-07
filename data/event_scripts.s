@@ -1331,7 +1331,7 @@ EventScript_BufferPutAwayPocketBerryPouch:: @ 81A8EC0
 
 EventScript_TryDarkenRuins:: @ 81A925E
 	goto_if_set FLAG_SYS_UNLOCKED_TANOBY_RUINS, EventScript_Return
-	setweather WEATHER_SHADE
+	setweather OVERWORLD_WEATHER_SHADE
 	doweather
 	return
 

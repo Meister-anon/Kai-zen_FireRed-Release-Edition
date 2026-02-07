@@ -1747,25 +1747,25 @@ static u16 Debug_GetAbilityBySpecies(u16 species, u8 abilityNum)
 //prob good to have the constant
 //even if I toggle it within rain thunderstorm 
 //being set
-static const u8 sWeatherNames[22][24] = {
-    [WEATHER_NONE]               = _("NONE"),
-    [WEATHER_SUNNY_CLOUDS]       = _("SUNNY CLOUDS"),
-    [WEATHER_SUNNY]              = _("SUNNY"),
+static const u8 sWeatherNames[NUM_OVERWORLD_WEATHER][24] = {
+    [OVERWORLD_WEATHER_NONE]               = _("NONE"),
+    [OVERWORLD_WEATHER_SUNNY_CLOUDS]       = _("SUNNY CLOUDS"),
+    [OVERWORLD_WEATHER_SUNNY]              = _("SUNNY"),
     [OVERWORLD_WEATHER_RAIN]     = _("RAIN"),
-    [WEATHER_SNOW]               = _("SNOW"),
-    [WEATHER_RAIN_THUNDERSTORM]  = _("RAIN THUNDERSTORM"),
-    [WEATHER_FOG_HORIZONTAL]     = _("FOG HORIZONTAL"),
-    [WEATHER_VOLCANIC_ASH]       = _("VOLCANIC ASH"),
-    [WEATHER_SANDSTORM]          = _("SANDSTORM"),
-    [WEATHER_FOG_DIAGONAL]       = _("FOG DIAGONAL"),
-    [WEATHER_UNDERWATER]         = _("UNDERWATER"),
-    [WEATHER_SHADE]              = _("SHADE"),
-    [WEATHER_DROUGHT]            = _("DROUGHT"),
-    [WEATHER_DOWNPOUR]           = _("DOWNPOUR"),
-    [WEATHER_UNDERWATER_BUBBLES] = _("UNDERWATER BUBBLES"),
+    [OVERWORLD_WEATHER_SNOW]     = _("SNOW"),
+    [OVERWORLD_WEATHER_RAIN_THUNDERSTORM]  = _("RAIN THUNDERSTORM"),
+    [OVERWORLD_WEATHER_FOG_HORIZONTAL]     = _("FOG HORIZONTAL"),
+    [OVERWORLD_WEATHER_VOLCANIC_ASH]       = _("VOLCANIC ASH"),
+    [OVERWORLD_WEATHER_SANDSTORM]          = _("SANDSTORM"),
+    [OVERWORLD_WEATHER_FOG_DIAGONAL]       = _("FOG DIAGONAL"),
+    [OVERWORLD_WEATHER_UNDERWATER]         = _("UNDERWATER"),
+    [OVERWORLD_WEATHER_SHADE]              = _("SHADE"),
+    [OVERWORLD_WEATHER_DROUGHT]            = _("DROUGHT"),
+    [OVERWORLD_WEATHER_DOWNPOUR]           = _("DOWNPOUR"),
+    [OVERWORLD_WEATHER_UNDERWATER_BUBBLES] = _("UNDERWATER BUBBLES"),
     //[WEATHER_ABNORMAL]           = _("ABNORMAL(NOT WORKING)"),
-    [WEATHER_ROUTE119_CYCLE]     = _("ROUTE119 CYCLE"),
-    [WEATHER_ROUTE123_CYCLE]     = _("ROUTE123 CYCLE"),
+    [OVERWORLD_WEATHER_ROUTE119_CYCLE]     = _("ROUTE119 CYCLE"),
+    [OVERWORLD_WEATHER_ROUTE123_CYCLE]     = _("ROUTE123 CYCLE"),
     [OVERWORLD_WEATHER_ACID_RAIN] = _("ACID RAIN"),
 };
 static const u8 sDebugText_WeatherNotDefined[] = _("NOT DEFINED!!!");
@@ -1805,14 +1805,14 @@ static void DebugAction_Util_Weather_SelectId(u8 taskId)
         if (JOY_NEW(DPAD_UP))
         {
             gTasks[taskId].tInput += sPowersOfTen[gTasks[taskId].tDigit];
-            if (gTasks[taskId].tInput > WEATHER_ROUTE123_CYCLE)
-                gTasks[taskId].tInput = WEATHER_ROUTE123_CYCLE;
+            if (gTasks[taskId].tInput > OVERWORLD_WEATHER_ROUTE123_CYCLE)
+                gTasks[taskId].tInput = OVERWORLD_WEATHER_ROUTE123_CYCLE;
         }
         if (JOY_NEW(DPAD_DOWN))
         {
             gTasks[taskId].tInput -= sPowersOfTen[gTasks[taskId].tDigit];
-            if (gTasks[taskId].tInput < WEATHER_NONE)
-                gTasks[taskId].tInput = WEATHER_NONE;
+            if (gTasks[taskId].tInput < OVERWORLD_WEATHER_NONE)
+                gTasks[taskId].tInput = OVERWORLD_WEATHER_NONE;
         }
         if (JOY_NEW(DPAD_LEFT))
         {

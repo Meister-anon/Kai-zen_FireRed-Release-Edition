@@ -71,22 +71,22 @@ struct Weather *const gWeatherPtr = &sWeather;
 //ok this should make it much easier to identify 
 #define WEATHER_CONFIG_STUFFF
 static const struct WeatherCallbacks sWeatherFuncs[] = {
-   [WEATHER_NONE] = {None_Init, None_Main, None_Init, None_Finish},
-   [WEATHER_SUNNY_CLOUDS] = {Clouds_InitVars, Clouds_Main, Clouds_InitAll, Clouds_Finish},
-   [WEATHER_SUNNY] = {Sunny_InitVars, Sunny_Main, Sunny_InitAll, Sunny_Finish},
+   [OVERWORLD_WEATHER_NONE] = {None_Init, None_Main, None_Init, None_Finish},
+   [OVERWORLD_WEATHER_SUNNY_CLOUDS] = {Clouds_InitVars, Clouds_Main, Clouds_InitAll, Clouds_Finish},
+   [OVERWORLD_WEATHER_SUNNY] = {Sunny_InitVars, Sunny_Main, Sunny_InitAll, Sunny_Finish},
    [OVERWORLD_WEATHER_RAIN] = {Rain_InitVars, Rain_Main, Rain_InitAll, Rain_Finish},
-   [WEATHER_SNOW] = {Snow_InitVars, Snow_Main, Snow_InitAll, Snow_Finish},
-   [WEATHER_RAIN_THUNDERSTORM] = {Thunderstorm_InitVars, Thunderstorm_Main, Thunderstorm_InitAll, Thunderstorm_Finish},
-   [WEATHER_FOG_HORIZONTAL] = {FogHorizontal_InitVars, FogHorizontal_Main, FogHorizontal_InitAll, FogHorizontal_Finish},
-   [WEATHER_DARKFOG_HORIZONTAL] = {FogHorizontal_InitVars, FogHorizontal_Main, FogHorizontal_InitAll, FogHorizontal_Finish}, //this was issue for new weather, with value change it defaulted to ash
-   [WEATHER_VOLCANIC_ASH] = {Ash_InitVars, Ash_Main, Ash_InitAll, Ash_Finish},
-   [WEATHER_SANDSTORM] = {Sandstorm_InitVars, Sandstorm_Main, Sandstorm_InitAll, Sandstorm_Finish},
-   [WEATHER_FOG_DIAGONAL] = {FogDiagonal_InitVars, FogDiagonal_Main, FogDiagonal_InitAll, FogDiagonal_Finish},
-   [WEATHER_UNDERWATER] = {FogHorizontal_InitVars, FogHorizontal_Main, FogHorizontal_InitAll, FogHorizontal_Finish},
-   [WEATHER_SHADE] = {Shade_InitVars, Shade_Main, Shade_InitAll, Shade_Finish},
-   [WEATHER_DROUGHT] = {Drought_InitVars, Drought_Main, Drought_InitAll, Drought_Finish},
-   [WEATHER_DOWNPOUR] = {Downpour_InitVars, Thunderstorm_Main, Downpour_InitAll, Thunderstorm_Finish},
-   [WEATHER_UNDERWATER_BUBBLES] = {Bubbles_InitVars, Bubbles_Main, Bubbles_InitAll, Bubbles_Finish},
+   [OVERWORLD_WEATHER_SNOW] = {Snow_InitVars, Snow_Main, Snow_InitAll, Snow_Finish},
+   [OVERWORLD_WEATHER_RAIN_THUNDERSTORM] = {Thunderstorm_InitVars, Thunderstorm_Main, Thunderstorm_InitAll, Thunderstorm_Finish},
+   [OVERWORLD_WEATHER_FOG_HORIZONTAL] = {FogHorizontal_InitVars, FogHorizontal_Main, FogHorizontal_InitAll, FogHorizontal_Finish},
+   [OVERWORLD_WEATHER_DARKFOG_HORIZONTAL] = {FogHorizontal_InitVars, FogHorizontal_Main, FogHorizontal_InitAll, FogHorizontal_Finish}, //this was issue for new weather, with value change it defaulted to ash
+   [OVERWORLD_WEATHER_VOLCANIC_ASH] = {Ash_InitVars, Ash_Main, Ash_InitAll, Ash_Finish},
+   [OVERWORLD_WEATHER_SANDSTORM] = {Sandstorm_InitVars, Sandstorm_Main, Sandstorm_InitAll, Sandstorm_Finish},
+   [OVERWORLD_WEATHER_FOG_DIAGONAL] = {FogDiagonal_InitVars, FogDiagonal_Main, FogDiagonal_InitAll, FogDiagonal_Finish},
+   [OVERWORLD_WEATHER_UNDERWATER] = {FogHorizontal_InitVars, FogHorizontal_Main, FogHorizontal_InitAll, FogHorizontal_Finish},
+   [OVERWORLD_WEATHER_SHADE] = {Shade_InitVars, Shade_Main, Shade_InitAll, Shade_Finish},
+   [OVERWORLD_WEATHER_DROUGHT] = {Drought_InitVars, Drought_Main, Drought_InitAll, Drought_Finish},
+   [OVERWORLD_WEATHER_DOWNPOUR] = {Downpour_InitVars, Thunderstorm_Main, Downpour_InitAll, Thunderstorm_Finish},
+   [OVERWORLD_WEATHER_UNDERWATER_BUBBLES] = {Bubbles_InitVars, Bubbles_Main, Bubbles_InitAll, Bubbles_Finish},
    [OVERWORLD_WEATHER_ACID_RAIN] = {Downpour_InitVars, Rain_Main, Rain_InitAll, Rain_Finish},
 };//vsonic IMPORTANT
 
@@ -173,7 +173,7 @@ void StartWeather(void)
         gWeatherPtr->bubblesSpritesCreated = FALSE;
         gWeatherPtr->lightenedFogSpritePalsCount = 0;
         Weather_SetBlendCoeffs(16, 0);
-        gWeatherPtr->currWeather = WEATHER_NONE;
+        gWeatherPtr->currWeather = OVERWORLD_WEATHER_NONE;
         gWeatherPtr->palProcessingState = WEATHER_PAL_STATE_IDLE;
         gWeatherPtr->readyForInit = FALSE;
         gWeatherPtr->weatherChangeComplete = TRUE;
@@ -183,7 +183,7 @@ void StartWeather(void)
 
 void SetNextWeather(u8 weather)
 {
-    if (weather != OVERWORLD_WEATHER_RAIN && weather != WEATHER_RAIN_THUNDERSTORM && weather != WEATHER_DOWNPOUR)
+    if (weather != OVERWORLD_WEATHER_RAIN && weather != OVERWORLD_WEATHER_RAIN_THUNDERSTORM && weather != OVERWORLD_WEATHER_DOWNPOUR)
     {
         PlayRainStoppingSoundEffect();
     }
@@ -210,23 +210,23 @@ void SetNextWeather(u8 weather)
             if (fogIdx < 15) {
                 fogPalettes &= ~(1 << fogIdx); // remove fog sprites from blend bits
             }
-            if (gWeatherPtr->nextWeather == WEATHER_FOG_HORIZONTAL)
+            if (gWeatherPtr->nextWeather == OVERWORLD_WEATHER_FOG_HORIZONTAL)
                 BlendPalettesGradually(fogPalettes, 11, 3, 7, RGB_WHITEALPHA, 0, 0);  //all but last sprite pal
-            else if (gWeatherPtr->currWeather == WEATHER_FOG_HORIZONTAL)
+            else if (gWeatherPtr->currWeather == OVERWORLD_WEATHER_FOG_HORIZONTAL)
                 BlendPalettesGradually(fogPalettes, 11, 7, 0, RGB_WHITEALPHA, 0, 0);  //undo fog pal blend
-            if (gWeatherPtr->nextWeather == WEATHER_DARKFOG_HORIZONTAL)
+            if (gWeatherPtr->nextWeather == OVERWORLD_WEATHER_DARKFOG_HORIZONTAL)
                 BlendPalettesGradually(fogPalettes, 7, 3, 9, RGB_WHITEALPHA, 0, 0);  //blend first 10 sprite palette slots
-            else if (gWeatherPtr->nextWeather != gWeatherPtr->currWeather && gWeatherPtr->currWeather == WEATHER_DARKFOG_HORIZONTAL)
+            else if (gWeatherPtr->nextWeather != gWeatherPtr->currWeather && gWeatherPtr->currWeather == OVERWORLD_WEATHER_DARKFOG_HORIZONTAL)
                 BlendPalettesGradually(fogPalettes, 7, 9, 0, RGB_WHITEALPHA, 0, 0);  //undo fog pal blend
         #else
-            if (gWeatherPtr->nextWeather == WEATHER_FOG_HORIZONTAL)
+            if (gWeatherPtr->nextWeather == OVERWORLD_WEATHER_FOG_HORIZONTAL)
                 BlendPalettesGradually(0x3FF0000, 11, 3, 7, RGB_WHITEALPHA, 0, 0);  //blend first 10 sprite palette slots
-            else if (gWeatherPtr->nextWeather != gWeatherPtr->currWeather && gWeatherPtr->currWeather == WEATHER_FOG_HORIZONTAL)
+            else if (gWeatherPtr->nextWeather != gWeatherPtr->currWeather && gWeatherPtr->currWeather == OVERWORLD_WEATHER_FOG_HORIZONTAL)
                 BlendPalettesGradually(0x3FF0000, 11, 7, 0, RGB_WHITEALPHA, 0, 0);  //undo fog pal blend
 
-            if (gWeatherPtr->nextWeather == WEATHER_DARKFOG_HORIZONTAL)
+            if (gWeatherPtr->nextWeather == OVERWORLD_WEATHER_DARKFOG_HORIZONTAL)
                 BlendPalettesGradually(0x3FF0000, 7, 3, 9, RGB_WHITEALPHA, 0, 0);  //blend first 10 sprite palette slots
-            else if (gWeatherPtr->nextWeather != gWeatherPtr->currWeather && gWeatherPtr->currWeather == WEATHER_DARKFOG_HORIZONTAL)
+            else if (gWeatherPtr->nextWeather != gWeatherPtr->currWeather && gWeatherPtr->currWeather == OVERWORLD_WEATHER_DARKFOG_HORIZONTAL)
                 BlendPalettesGradually(0x3FF0000, 7, 9, 0, RGB_WHITEALPHA, 0, 0);  //undo fog pal blend
         #endif
     }
@@ -400,17 +400,17 @@ static void FadeInScreenWithWeather(void)
     switch (gWeatherPtr->currWeather)
     {
     case OVERWORLD_WEATHER_RAIN:
-    case WEATHER_RAIN_THUNDERSTORM:
-    case WEATHER_DOWNPOUR:
-    case WEATHER_SNOW:
-    case WEATHER_SHADE:
+    case OVERWORLD_WEATHER_RAIN_THUNDERSTORM:
+    case OVERWORLD_WEATHER_DOWNPOUR:
+    case OVERWORLD_WEATHER_SNOW:
+    case OVERWORLD_WEATHER_SHADE:
         if (FadeInScreen_RainShowShade() == FALSE)
         {
             gWeatherPtr->gammaIndex = 3;
             gWeatherPtr->palProcessingState = WEATHER_PAL_STATE_IDLE;
         }
         break;
-    case WEATHER_DROUGHT:
+    case OVERWORLD_WEATHER_DROUGHT:
         if (FadeInScreen_Drought() == FALSE)
         {
             //believe negative gamma makes thingsbrighter?
@@ -418,24 +418,24 @@ static void FadeInScreenWithWeather(void)
             gWeatherPtr->palProcessingState = WEATHER_PAL_STATE_IDLE;
         }
         break;
-    case WEATHER_FOG_HORIZONTAL:
+    case OVERWORLD_WEATHER_FOG_HORIZONTAL:
         if (FadeInScreen_FogHorizontal() == FALSE)
         {
             gWeatherPtr->gammaIndex = 0;
             gWeatherPtr->palProcessingState = WEATHER_PAL_STATE_IDLE;
         }
         break;
-    case WEATHER_DARKFOG_HORIZONTAL:
+    case OVERWORLD_WEATHER_DARKFOG_HORIZONTAL:
         if (FadeInScreen_FogHorizontal() == FALSE)
         {
             gWeatherPtr->gammaIndex = 0;
             gWeatherPtr->palProcessingState = WEATHER_PAL_STATE_IDLE;
         }
         break;
-    case WEATHER_VOLCANIC_ASH:
-    case WEATHER_SANDSTORM:
-    case WEATHER_FOG_DIAGONAL:
-    case WEATHER_UNDERWATER:
+    case OVERWORLD_WEATHER_VOLCANIC_ASH:
+    case OVERWORLD_WEATHER_SANDSTORM:
+    case OVERWORLD_WEATHER_FOG_DIAGONAL:
+    case OVERWORLD_WEATHER_UNDERWATER:
     default:
         if (!gPaletteFade.active)
         {
@@ -799,13 +799,13 @@ void FadeScreen(u8 mode, s8 delay)
     switch (gWeatherPtr->currWeather)
     {
     case OVERWORLD_WEATHER_RAIN:
-    case WEATHER_RAIN_THUNDERSTORM:
-    case WEATHER_DOWNPOUR:
-    case WEATHER_SNOW:
-    case WEATHER_FOG_HORIZONTAL:
-    case WEATHER_DARKFOG_HORIZONTAL:
-    case WEATHER_SHADE:
-    case WEATHER_DROUGHT:
+    case OVERWORLD_WEATHER_RAIN_THUNDERSTORM:
+    case OVERWORLD_WEATHER_DOWNPOUR:
+    case OVERWORLD_WEATHER_SNOW:
+    case OVERWORLD_WEATHER_FOG_HORIZONTAL:
+    case OVERWORLD_WEATHER_DARKFOG_HORIZONTAL:
+    case OVERWORLD_WEATHER_SHADE:
+    case OVERWORLD_WEATHER_DROUGHT:
         useWeatherPal = TRUE;
         break;
     default:
@@ -868,13 +868,13 @@ void FadeSelectedPals(u8 mode, s8 delay, u32 selectedPalettes)
     switch (gWeatherPtr->currWeather)
     {
     case OVERWORLD_WEATHER_RAIN:
-    case WEATHER_RAIN_THUNDERSTORM:
-    case WEATHER_DOWNPOUR:
-    case WEATHER_SNOW:
-    case WEATHER_FOG_HORIZONTAL:
-    case WEATHER_DARKFOG_HORIZONTAL:
-    case WEATHER_SHADE:
-    case WEATHER_DROUGHT:
+    case OVERWORLD_WEATHER_RAIN_THUNDERSTORM:
+    case OVERWORLD_WEATHER_DOWNPOUR:
+    case OVERWORLD_WEATHER_SNOW:
+    case OVERWORLD_WEATHER_FOG_HORIZONTAL:
+    case OVERWORLD_WEATHER_DARKFOG_HORIZONTAL:
+    case OVERWORLD_WEATHER_SHADE:
+    case OVERWORLD_WEATHER_DROUGHT:
         useWeatherPal = TRUE;
         break;
     default:
@@ -950,7 +950,7 @@ void UpdateSpritePaletteWithWeather(u8 spritePaletteIndex)
     case WEATHER_PAL_STATE_SCREEN_FADING_IN:
         if (gWeatherPtr->unknown_6CA != 0)
         {
-            if (gWeatherPtr->currWeather == WEATHER_FOG_HORIZONTAL || gWeatherPtr->currWeather == WEATHER_DARKFOG_HORIZONTAL)
+            if (gWeatherPtr->currWeather == OVERWORLD_WEATHER_FOG_HORIZONTAL || gWeatherPtr->currWeather == OVERWORLD_WEATHER_DARKFOG_HORIZONTAL)
                 MarkFogSpritePalToLighten(paletteIndex);
             paletteIndex *= 16;
             for (i = 0; i < 16; i++)
@@ -965,11 +965,11 @@ void UpdateSpritePaletteWithWeather(u8 spritePaletteIndex)
         // WEATHER_PAL_STATE_CHANGING_WEATHER
         // WEATHER_PAL_STATE_CHANGING_IDLE
     default:
-        if (gWeatherPtr->currWeather != WEATHER_FOG_HORIZONTAL && gWeatherPtr->currWeather != WEATHER_DARKFOG_HORIZONTAL) 
+        if (gWeatherPtr->currWeather != OVERWORLD_WEATHER_FOG_HORIZONTAL && gWeatherPtr->currWeather != OVERWORLD_WEATHER_DARKFOG_HORIZONTAL) 
         {
             ApplyGammaShift(paletteIndex, 1, gWeatherPtr->gammaIndex);
         }
-        else if (gWeatherPtr->currWeather == WEATHER_FOG_HORIZONTAL || gWeatherPtr->currWeather == WEATHER_DARKFOG_HORIZONTAL)
+        else if (gWeatherPtr->currWeather == OVERWORLD_WEATHER_FOG_HORIZONTAL || gWeatherPtr->currWeather == OVERWORLD_WEATHER_DARKFOG_HORIZONTAL)
         {
             paletteIndex *= 16;
             BlendPalette(paletteIndex, 16, 12, RGB(28, 31, 28));
@@ -1137,39 +1137,39 @@ bool8 Weather_UpdateBlend(void)
     return FALSE;
 }
 
-static void sub_807AF00(u8 a) //seems not used? so can ignore for WEATHER_DARKFOG_HORIZONTAL / or at least for now
+static void sub_807AF00(u8 a) //seems not used? so can ignore for OVERWORLD_WEATHER_DARKFOG_HORIZONTAL / or at least for now
 {
     switch (a)
     {
     case 1:
-        SetWeather(WEATHER_SUNNY_CLOUDS);
+        SetWeather(OVERWORLD_WEATHER_SUNNY_CLOUDS);
         break;
     case 2:
-        SetWeather(WEATHER_SUNNY);
+        SetWeather(OVERWORLD_WEATHER_SUNNY);
         break;
     case 3:
         SetWeather(OVERWORLD_WEATHER_RAIN);
         break;
     case 4:
-        SetWeather(WEATHER_SNOW);
+        SetWeather(OVERWORLD_WEATHER_SNOW);
         break;
     case 5:
-        SetWeather(WEATHER_RAIN_THUNDERSTORM);
+        SetWeather(OVERWORLD_WEATHER_RAIN_THUNDERSTORM);
         break;
     case 6:
-        SetWeather(WEATHER_FOG_HORIZONTAL);
+        SetWeather(OVERWORLD_WEATHER_FOG_HORIZONTAL);
         break;
     case 7:
-        SetWeather(WEATHER_FOG_DIAGONAL);
+        SetWeather(OVERWORLD_WEATHER_FOG_DIAGONAL);
         break;
     case 8:
-        SetWeather(WEATHER_VOLCANIC_ASH);
+        SetWeather(OVERWORLD_WEATHER_VOLCANIC_ASH);
         break;
     case 9:
-        SetWeather(WEATHER_SANDSTORM);
+        SetWeather(OVERWORLD_WEATHER_SANDSTORM);
         break;
     case 10:
-        SetWeather(WEATHER_SHADE);
+        SetWeather(OVERWORLD_WEATHER_SHADE);
         break;
     }
 }
@@ -1254,10 +1254,10 @@ void sub_807B0C4(u16 *palbuf, u16 *unused, u32 size)
     switch (gWeatherPtr->currWeather)
     {
     case OVERWORLD_WEATHER_RAIN:
-    case WEATHER_SNOW:
-    case WEATHER_RAIN_THUNDERSTORM:
-    case WEATHER_SHADE:
-    case WEATHER_DOWNPOUR:
+    case OVERWORLD_WEATHER_SNOW:
+    case OVERWORLD_WEATHER_RAIN_THUNDERSTORM:
+    case OVERWORLD_WEATHER_SHADE:
+    case OVERWORLD_WEATHER_DOWNPOUR:
         sub_8045314(palbuf, RGB_BLACK, 3, size);
         break;
     }

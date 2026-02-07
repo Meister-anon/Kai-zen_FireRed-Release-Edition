@@ -5003,7 +5003,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
     case FIELD_EFFECT_OVERWORLD_TERRAIN:   // terrain starting from overworld weather
         if (B_THUNDERSTORM_TERRAIN == TRUE
          && !(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
-         && GetCurrentWeather() == WEATHER_RAIN_THUNDERSTORM)
+         && GetCurrentWeather() == OVERWORLD_WEATHER_RAIN_THUNDERSTORM)
         {
             // overworld weather started rain, so just do electric terrain anim
             gFieldStatuses = STATUS_FIELD_ELECTRIC_TERRAIN;
@@ -5013,7 +5013,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
             effect = TRUE;
         }
         /*else if (B_OVERWORLD_FOG >= GEN_8
-              && (GetCurrentWeather() == WEATHER_FOG_HORIZONTAL || GetCurrentWeather() == WEATHER_FOG_DIAGONAL)
+              && (GetCurrentWeather() == OVERWORLD_WEATHER_FOG_HORIZONTAL || GetCurrentWeather() == OVERWORLD_WEATHER_FOG_DIAGONAL)
               && !(gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN))
         {
             gFieldStatuses = STATUS_FIELD_MISTY_TERRAIN;
@@ -5030,8 +5030,8 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
             switch (GetCurrentWeather())
             {
             case OVERWORLD_WEATHER_RAIN:
-            case WEATHER_RAIN_THUNDERSTORM:
-            case WEATHER_DOWNPOUR:
+            case OVERWORLD_WEATHER_RAIN_THUNDERSTORM:
+            case OVERWORLD_WEATHER_DOWNPOUR:
                 if (!(gBattleWeather & WEATHER_RAIN))
                 {
                     gBattleWeather = WEATHER_RAIN_NORMAL;
@@ -5047,7 +5047,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                     effect = TRUE;
                 }
                 break;
-            case WEATHER_SANDSTORM:
+            case OVERWORLD_WEATHER_SANDSTORM:
                 if (!(gBattleWeather & WEATHER_SANDSTORM))
                 {
                     gBattleWeather = WEATHER_SANDSTORM;
@@ -5055,7 +5055,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                     effect = TRUE;
                 }
                 break;
-            case WEATHER_DROUGHT:
+            case OVERWORLD_WEATHER_DROUGHT:
                 if (!(gBattleWeather & WEATHER_SUN))
                 {
                     gBattleWeather = WEATHER_SUN_NORMAL;
@@ -5063,7 +5063,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                     effect = TRUE;
                 }
                 break;
-            case WEATHER_SNOW:
+            case OVERWORLD_WEATHER_SNOW:
                 if (!(gBattleWeather & WEATHER_ICY_ANY))
                 {
                     if (B_OVERWORLD_SNOW >= GEN_9)
@@ -5079,9 +5079,9 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                     effect = TRUE;
                 }
                 break;
-            case WEATHER_FOG_DIAGONAL:
-            case WEATHER_FOG_HORIZONTAL:
-            case WEATHER_DARKFOG_HORIZONTAL:
+            case OVERWORLD_WEATHER_FOG_DIAGONAL:
+            case OVERWORLD_WEATHER_FOG_HORIZONTAL:
+            case OVERWORLD_WEATHER_DARKFOG_HORIZONTAL:
                 if (!(gBattleWeather & WEATHER_FOG))
                 {
                     gBattleWeather = WEATHER_FOG;

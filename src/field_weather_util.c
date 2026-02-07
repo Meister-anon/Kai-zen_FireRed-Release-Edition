@@ -36,10 +36,10 @@ void SetSav1WeatherFromCurrMapHeader(void)
     u8 oldWeather = gSaveBlock1Ptr->weather;
     gSaveBlock1Ptr->weather = TranslateWeatherNum(gMapHeader.weather);
 
-    if ((gSaveBlock1Ptr->weather == WEATHER_DARKFOG_HORIZONTAL)
+    if ((gSaveBlock1Ptr->weather == OVERWORLD_WEATHER_DARKFOG_HORIZONTAL)
     && (gMapHeader.regionMapSectionId == MAPSEC_POKEMON_TOWER)
     && !FlagGet(FLAG_RESCUED_MR_FUJI))
-        gSaveBlock1Ptr->weather = WEATHER_FOG_HORIZONTAL;
+        gSaveBlock1Ptr->weather = OVERWORLD_WEATHER_FOG_HORIZONTAL;
     
     UpdateRainCounter(gSaveBlock1Ptr->weather, oldWeather);
 }
@@ -74,42 +74,43 @@ void ResumePausedWeather(void)
 //but could use to calc weather patterns
 //based on location i.e climate based on region
 static const u8 sWeatherCycleRoute119[] = {
-    WEATHER_SUNNY,
+    OVERWORLD_WEATHER_SUNNY,
     OVERWORLD_WEATHER_RAIN,
-    WEATHER_RAIN_THUNDERSTORM,
+    OVERWORLD_WEATHER_RAIN_THUNDERSTORM,
     OVERWORLD_WEATHER_RAIN,
 };
 
 static const u8 sWeatherCycleRoute123[] = {
-    WEATHER_SUNNY,
-    WEATHER_SUNNY,
+    OVERWORLD_WEATHER_SUNNY,
+    OVERWORLD_WEATHER_SUNNY,
     OVERWORLD_WEATHER_RAIN,
-    WEATHER_SUNNY,
+    OVERWORLD_WEATHER_SUNNY,
 };
 
+//NEED ADd other weathers
 static u8 TranslateWeatherNum(u8 weather)
 {
     switch (weather)
     {
-    case WEATHER_NONE:               return WEATHER_NONE;
-    case WEATHER_SUNNY_CLOUDS:       return WEATHER_SUNNY_CLOUDS;
-    case WEATHER_SUNNY:              return WEATHER_SUNNY;
-    case OVERWORLD_WEATHER_RAIN:     return OVERWORLD_WEATHER_RAIN;
-    case WEATHER_SNOW:               return WEATHER_SNOW;
-    case WEATHER_RAIN_THUNDERSTORM:  return WEATHER_RAIN_THUNDERSTORM;
-    case WEATHER_FOG_HORIZONTAL:     return WEATHER_FOG_HORIZONTAL;
-    case WEATHER_DARKFOG_HORIZONTAL: return WEATHER_DARKFOG_HORIZONTAL;
-    case WEATHER_VOLCANIC_ASH:       return WEATHER_VOLCANIC_ASH;
-    case WEATHER_SANDSTORM:          return WEATHER_SANDSTORM;
-    case WEATHER_FOG_DIAGONAL:       return WEATHER_FOG_DIAGONAL;
-    case WEATHER_UNDERWATER:         return WEATHER_UNDERWATER;
-    case WEATHER_SHADE:              return WEATHER_SHADE;
-    case WEATHER_DROUGHT:            return WEATHER_DROUGHT;
-    case WEATHER_DOWNPOUR:           return WEATHER_DOWNPOUR;
-    case WEATHER_UNDERWATER_BUBBLES: return WEATHER_UNDERWATER_BUBBLES;
-    case WEATHER_ROUTE119_CYCLE:     return sWeatherCycleRoute119[gSaveBlock1Ptr->weatherCycleStage];
-    case WEATHER_ROUTE123_CYCLE:     return sWeatherCycleRoute123[gSaveBlock1Ptr->weatherCycleStage];
-    default:                         return WEATHER_NONE;
+    case OVERWORLD_WEATHER_NONE:               return OVERWORLD_WEATHER_NONE;
+    case OVERWORLD_WEATHER_SUNNY_CLOUDS:       return OVERWORLD_WEATHER_SUNNY_CLOUDS;
+    case OVERWORLD_WEATHER_SUNNY:              return OVERWORLD_WEATHER_SUNNY;
+    case OVERWORLD_WEATHER_RAIN:            return OVERWORLD_WEATHER_RAIN;
+    case OVERWORLD_WEATHER_SNOW:             return OVERWORLD_WEATHER_SNOW;
+    case OVERWORLD_WEATHER_RAIN_THUNDERSTORM:  return OVERWORLD_WEATHER_RAIN_THUNDERSTORM;
+    case OVERWORLD_WEATHER_FOG_HORIZONTAL:     return OVERWORLD_WEATHER_FOG_HORIZONTAL;
+    case OVERWORLD_WEATHER_DARKFOG_HORIZONTAL: return OVERWORLD_WEATHER_DARKFOG_HORIZONTAL;
+    case OVERWORLD_WEATHER_VOLCANIC_ASH:       return OVERWORLD_WEATHER_VOLCANIC_ASH;
+    case OVERWORLD_WEATHER_SANDSTORM:        return OVERWORLD_WEATHER_SANDSTORM;
+    case OVERWORLD_WEATHER_FOG_DIAGONAL:       return OVERWORLD_WEATHER_FOG_DIAGONAL;
+    case OVERWORLD_WEATHER_UNDERWATER:         return OVERWORLD_WEATHER_UNDERWATER;
+    case OVERWORLD_WEATHER_SHADE:              return OVERWORLD_WEATHER_SHADE;
+    case OVERWORLD_WEATHER_DROUGHT:            return OVERWORLD_WEATHER_DROUGHT;
+    case OVERWORLD_WEATHER_DOWNPOUR:           return OVERWORLD_WEATHER_DOWNPOUR;
+    case OVERWORLD_WEATHER_UNDERWATER_BUBBLES: return OVERWORLD_WEATHER_UNDERWATER_BUBBLES;
+    case OVERWORLD_WEATHER_ROUTE119_CYCLE:     return sWeatherCycleRoute119[gSaveBlock1Ptr->weatherCycleStage];
+    case OVERWORLD_WEATHER_ROUTE123_CYCLE:     return sWeatherCycleRoute123[gSaveBlock1Ptr->weatherCycleStage];
+    default:                         return OVERWORLD_WEATHER_NONE;
     }
 }
 
@@ -123,7 +124,7 @@ void UpdateWeatherPerDay(u16 increment)
 static void UpdateRainCounter(u8 newWeather, u8 oldWeather)
 {
     if (newWeather != oldWeather
-        && (newWeather == OVERWORLD_WEATHER_RAIN || newWeather == WEATHER_RAIN_THUNDERSTORM
+        && (newWeather == OVERWORLD_WEATHER_RAIN || newWeather == OVERWORLD_WEATHER_RAIN_THUNDERSTORM
         || newWeather == OVERWORLD_WEATHER_ACID_RAIN))
         IncrementGameStat(GAME_STAT_GOT_RAINED_ON);
 }

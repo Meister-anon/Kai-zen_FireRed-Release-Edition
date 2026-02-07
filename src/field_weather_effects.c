@@ -14,7 +14,7 @@
 #include "palette.h"
 
 //------------------------------------------------------------------------------
-// WEATHER_SUNNY_CLOUDS
+// OVERWORLD_WEATHER_SUNNY_CLOUDS
 //------------------------------------------------------------------------------
 
 static void CreateCloudSprites(void);
@@ -204,7 +204,7 @@ static void UpdateCloudSprite(struct Sprite *sprite)
 }
 
 //------------------------------------------------------------------------------
-// WEATHER_DROUGHT
+// OVERWORLD_WEATHER_DROUGHT
 //------------------------------------------------------------------------------
 
 static void UpdateDroughtBlend(u8);
@@ -484,8 +484,8 @@ bool8 Rain_Finish(void)
     {
     case 0:
         if (gWeatherPtr->nextWeather == OVERWORLD_WEATHER_RAIN
-            || gWeatherPtr->nextWeather == WEATHER_RAIN_THUNDERSTORM
-            || gWeatherPtr->nextWeather == WEATHER_DOWNPOUR)
+            || gWeatherPtr->nextWeather == OVERWORLD_WEATHER_RAIN_THUNDERSTORM
+            || gWeatherPtr->nextWeather == OVERWORLD_WEATHER_DOWNPOUR)
         {
             gWeatherPtr->finishStep = 0xFF;
             return FALSE;
@@ -724,7 +724,7 @@ static void DestroyRainSprites(void)
 #undef tWaiting
 
 //------------------------------------------------------------------------------
-// Snow
+// OVERWORLD_WEATHER_SNOW
 //------------------------------------------------------------------------------
 
 static void UpdateSnowflakeSprite(struct Sprite *);
@@ -970,7 +970,7 @@ static void UpdateSnowflakeSprite(struct Sprite *sprite)
 #undef tDeltaY2
 
 //------------------------------------------------------------------------------
-// WEATHER_RAIN_THUNDERSTORM
+// OVERWORLD_WEATHER_RAIN_THUNDERSTORM
 //------------------------------------------------------------------------------
 
 void Thunderstorm_InitVars(void)
@@ -996,7 +996,7 @@ void Thunderstorm_InitAll(void)
 }
 
 //------------------------------------------------------------------------------
-// WEATHER_DOWNPOUR
+// OVERWORLD_WEATHER_DOWNPOUR
 //------------------------------------------------------------------------------
 
 static void UpdateThunderSound(void);
@@ -1141,8 +1141,8 @@ bool8 Thunderstorm_Finish(void)
         if (gWeatherPtr->unknown_6EA)
         {
             if (gWeatherPtr->nextWeather == OVERWORLD_WEATHER_RAIN
-                || gWeatherPtr->nextWeather == WEATHER_RAIN_THUNDERSTORM
-                || gWeatherPtr->nextWeather == WEATHER_DOWNPOUR)
+                || gWeatherPtr->nextWeather == OVERWORLD_WEATHER_RAIN_THUNDERSTORM
+                || gWeatherPtr->nextWeather == OVERWORLD_WEATHER_DOWNPOUR)
                 return FALSE;
 
             gWeatherPtr->targetRainSpriteCount = 0;
@@ -1197,7 +1197,7 @@ static void UpdateThunderSound(void)
 }
 
 //------------------------------------------------------------------------------
-// WEATHER_FOG_HORIZONTAL and WEATHER_UNDERWATER
+// OVERWORLD_WEATHER_FOG_HORIZONTAL and OVERWORLD_WEATHER_UNDERWATER
 //------------------------------------------------------------------------------
 
 // unused data
@@ -1320,13 +1320,13 @@ void FogHorizontal_Main(void)
     {
     case 0:
         CreateFogHorizontalSprites();
-        if (gWeatherPtr->currWeather == WEATHER_DARKFOG_HORIZONTAL) //can't make match same layer, w/o significant tile changes so instead make new weather effect for dark fog
+        if (gWeatherPtr->currWeather == OVERWORLD_WEATHER_DARKFOG_HORIZONTAL) //can't make match same layer, w/o significant tile changes so instead make new weather effect for dark fog
             Weather_SetTargetBlendCoeffs(7, 9, 3); //is first value opacity? seems higher value means thicker effect?
             //Weather_SetTargetBlendCoeffs(12, 6, 3);  vsonic like how this looks, opacity (1st value) 9 is also good hmm  prefer 9 6 3
             //2nd value appears to be akin to brightness, don't understand 3rd value / want to use explicitly for pokemon tower, use other values for norm fog
             //think 9 11 3, for norm fog potentially higher opacity for deep fog? still haven't figured how to get weather to cover character sprites
             //want to use dark fog for pokemon tower, thean change to normal fog after clear evil spirits
-        else if (gWeatherPtr->currWeather == WEATHER_FOG_HORIZONTAL) //can't make match same layer, w/o significant tile changes so instead make new weather effect for dark fog
+        else if (gWeatherPtr->currWeather == OVERWORLD_WEATHER_FOG_HORIZONTAL) //can't make match same layer, w/o significant tile changes so instead make new weather effect for dark fog
             Weather_SetTargetBlendCoeffs(11, 7, 3);//9, 7, 3        //6, 10, 3
         else
             Weather_SetTargetBlendCoeffs(4, 16, 0);
@@ -1439,7 +1439,7 @@ static void DestroyFogHorizontalSprites(void)
 #undef tSpriteColumn
 
 //------------------------------------------------------------------------------
-// WEATHER_VOLCANIC_ASH
+// OVERWORLD_WEATHER_VOLCANIC_ASH
 //------------------------------------------------------------------------------
 
 static void LoadAshSpriteSheet(void);
@@ -1644,7 +1644,7 @@ static void UpdateAshSprite(struct Sprite *sprite)
 #undef tSpriteRow
 
 //------------------------------------------------------------------------------
-// WEATHER_FOG_DIAGONAL
+// OVERWORLD_WEATHER_FOG_DIAGONAL
 //------------------------------------------------------------------------------
 
 static void UpdateFogDiagonalMovement(void);
@@ -1847,7 +1847,7 @@ static void UpdateFogDiagonalSprite(struct Sprite *sprite)
 #undef tSpriteRow
 
 //------------------------------------------------------------------------------
-// WEATHER_SANDSTORM
+// OVERWORLD_WEATHER_SANDSTORM
 //------------------------------------------------------------------------------
 
 static void UpdateSandstormWaveIndex(void);
@@ -2150,7 +2150,7 @@ static void UpdateSandstormSwirlSprite(struct Sprite *sprite)
 #undef tEntranceDelay
 
 //------------------------------------------------------------------------------
-// WEATHER_SHADE
+// OVERWORLD_WEATHER_SHADE
 //------------------------------------------------------------------------------
 
 void Shade_InitVars(void)
@@ -2175,7 +2175,7 @@ bool8 Shade_Finish(void)
 }
 
 //------------------------------------------------------------------------------
-// WEATHER_UNDERWATER_BUBBLES
+// OVERWORLD_WEATHER_UNDERWATER_BUBBLES
 //------------------------------------------------------------------------------
 
 static void CreateBubbleSprite(u16);
