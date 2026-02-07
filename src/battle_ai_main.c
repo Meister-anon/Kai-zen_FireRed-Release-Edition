@@ -2319,7 +2319,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
         case EFFECT_METRONOME:
             break;
 
-        case EFFECT_CONVERSION_2:
+        case EFFECT_CONVERSION_Z:
             //TODO
             break;
         case EFFECT_LOCK_ON:
@@ -6493,7 +6493,7 @@ static s32 AI_HPAware(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 
             case EFFECT_REFLECT:
             case EFFECT_MIST:
             case EFFECT_FOCUS_ENERGY:
-            case EFFECT_CONVERSION_2:
+            case EFFECT_CONVERSION_Z:
             case EFFECT_SAFEGUARD:
             case EFFECT_BELLY_DRUM:
             case EFFECT_FILLET_AWAY:
@@ -6519,7 +6519,7 @@ static s32 AI_HPAware(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 
             case EFFECT_MIST:
             case EFFECT_FOCUS_ENERGY:
             case EFFECT_RAGE:
-            case EFFECT_CONVERSION_2:
+            case EFFECT_CONVERSION_Z:
             case EFFECT_LOCK_ON:
             case EFFECT_SAFEGUARD:
             case EFFECT_BELLY_DRUM:

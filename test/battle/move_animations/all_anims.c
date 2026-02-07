@@ -133,7 +133,6 @@ static bool32 TargetHasToMove(u32 move) // Opponent needs to hit the player firs
     enum BattleMoveEffects effect = GetMoveEffect(move);
     if (effect == EFFECT_REFLECT_DAMAGE
      || effect == EFFECT_MIRROR_MOVE
-     || effect == EFFECT_CONVERSION_2
      || effect == EFFECT_COPYCAT
      || effect == EFFECT_SUCKER_PUNCH
      || effect == EFFECT_INSTRUCT
