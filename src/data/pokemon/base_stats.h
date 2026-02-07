@@ -22224,7 +22224,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
-        .floating = TRUE,
+        .floating = FALSE,
         .safariZoneFleeRate = 50,
         .abilityLearnset = sHonedgeAbilityLearnset,
         .levelUpLearnset = sHonedgeLevelUpLearnset,
@@ -22259,7 +22259,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
-        .floating = TRUE,
+        .floating = FALSE,
         .safariZoneFleeRate = 50,
         .abilityLearnset = sDoubladeAbilityLearnset,
         .levelUpLearnset = sDoubladeLevelUpLearnset,
@@ -22295,13 +22295,14 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
-        .floating = TRUE,
+        .floating = FALSE,
         .safariZoneFleeRate = 50,
         .abilityLearnset = sAegislashAbilityLearnset,
         .levelUpLearnset = sAegislashLevelUpLearnset,
         .tmhmLearnset = sAegislashTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //adjusted floating logic as seems only hovers slightly over ground not flying
 
     [SPECIES_SPRITZEE] =
     {
