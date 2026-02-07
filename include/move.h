@@ -735,15 +735,15 @@ static inline u32 GetMoveOverwriteAbility(enum Move moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].argument.overwriteAbility;
 }
 
+static inline u32 GetMoveArgType(enum Move moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].argument.typeArg;
+}
+
 //will want to add assert effect is not two tyuped move
 static inline u32 GetTwoTypedMove2ndType(enum Move moveId)
 {
    return GetMoveEffect(moveId) == EFFECT_TWO_TYPED_MOVE ? GetMoveArgType(moveId) : TYPE_NONE;
-}
-
-static inline u32 GetMoveArgType(enum Move moveId)
-{
-    return gMovesInfo[SanitizeMoveId(moveId)].argument.typeArg;
 }
 
 static inline u32 GetMoveFixedDamage(enum Move moveId)

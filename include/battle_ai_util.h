@@ -219,7 +219,6 @@ bool32 ShouldClearWeather(enum BattlerId battler, u32 weather);
 bool32 ShouldSetFieldStatus(enum BattlerId battler, u32 fieldStatus);
 bool32 ShouldClearFieldStatus(enum BattlerId battler, u32 fieldStatus);
 bool32 HasSleepMoveWithLowAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef);
-bool32 IsHealingMove(u32 move);
 bool32 HasHealingEffect(enum BattlerId battler);
 bool32 IsTrappingMove(u32 move);
 bool32 HasTrappingMoveEffect(enum BattlerId battler);
