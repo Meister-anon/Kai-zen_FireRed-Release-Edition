@@ -192,7 +192,7 @@ SINGLE_BATTLE_TEST("Strong winds block weather-setting moves")
     } SCENE {
         NOT ANIMATION(ANIM_TYPE_MOVE, move, opponent);
     } THEN {
-        EXPECT(gBattleWeather & B_WEATHER_STRONG_WINDS);
+        EXPECT(gBattleWeather & WEATHER_STRONG_WINDS);
     }
 }
 
@@ -213,7 +213,7 @@ SINGLE_BATTLE_TEST("Strong winds prevent other weather abilities")
     } SCENE {
         ABILITY_POPUP(opponent, ability);
     } THEN {
-        EXPECT(gBattleWeather & B_WEATHER_STRONG_WINDS);
+        EXPECT(gBattleWeather & WEATHER_STRONG_WINDS);
     }
 }
 
@@ -229,7 +229,7 @@ SINGLE_BATTLE_TEST("Strong winds can be replaced by Desolate Land")
         ABILITY_POPUP(opponent, ABILITY_DESOLATE_LAND);
         MESSAGE("The sunlight turned extremely harsh!");
     } THEN {
-        EXPECT(gBattleWeather & B_WEATHER_SUN_PRIMAL);
+        EXPECT(gBattleWeather & WEATHER_SUN_PRIMAL);
     }
 }
 
@@ -245,6 +245,6 @@ SINGLE_BATTLE_TEST("Strong winds can be replaced by Primordial Sea")
         ABILITY_POPUP(opponent, ABILITY_PRIMORDIAL_SEA);
         MESSAGE("A heavy rain began to fall!");
     } THEN {
-        EXPECT(gBattleWeather & B_WEATHER_RAIN_PRIMAL);
+        EXPECT(gBattleWeather & WEATHER_RAIN_PRIMAL);
     }
 }

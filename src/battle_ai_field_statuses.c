@@ -65,7 +65,7 @@ static bool32 HasBattlerTerrainBoostMove(enum BattlerId battler, u32 terrain)
 
 bool32 WeatherChecker(enum BattlerId battler, u32 weather, enum FieldEffectOutcome desiredResult)
 {
-    if (IsWeatherActive(B_WEATHER_PRIMAL_ANY) != WEATHER_INACTIVE)
+    if (IsWeatherActive(WEATHER_PRIMAL_ANY) != WEATHER_INACTIVE)
         return (FIELD_EFFECT_BLOCKED == desiredResult);
 
     enum FieldEffectOutcome result = FIELD_EFFECT_NEUTRAL;
@@ -78,20 +78,20 @@ bool32 WeatherChecker(enum BattlerId battler, u32 weather, enum FieldEffectOutco
 
     for (enum BattlerId battlerIndex = 0; battlerIndex < battlersOnSide; battlerIndex++)
     {
-        if (weather & B_WEATHER_RAIN)
+        if (weather & WEATHER_RAIN)
             result = BenefitsFromRain(battler);
-        else if (weather & B_WEATHER_SUN)
+        else if (weather & WEATHER_SUN)
             result = BenefitsFromSun(battler);
-        else if (weather & B_WEATHER_SANDSTORM)
+        else if (weather & WEATHER_SANDSTORM)
             result = BenefitsFromSandstorm(battler);
-        else if (weather & B_WEATHER_ICY_ANY)
+        else if (weather & WEATHER_ICY_ANY)
             result = BenefitsFromHailOrSnow(battler, weather);
 
         battler = BATTLE_PARTNER(battler);
 
         if (result != FIELD_EFFECT_NEUTRAL)
         {
-            if (weather & B_WEATHER_DAMAGING_ANY && battlerIndex == 0 && battlersOnSide == 2)
+            if (weather & WEATHER_DAMAGING_ANY && battlerIndex == 0 && battlersOnSide == 2)
                 firstResult = result;
         }
     }
@@ -147,25 +147,25 @@ static bool32 DoesAbilityBenefitFromWeather(enum Ability ability, u32 weather)
     switch (ability)
     {
     case ABILITY_FORECAST:
-        return (weather & (B_WEATHER_RAIN | B_WEATHER_SUN | B_WEATHER_ICY_ANY));
+        return (weather & (WEATHER_RAIN | WEATHER_SUN | WEATHER_ICY_ANY));
     case ABILITY_MAGIC_GUARD:
     case ABILITY_OVERCOAT:
-        return (weather & B_WEATHER_DAMAGING_ANY);
+        return (weather & WEATHER_DAMAGING_ANY);
     case ABILITY_SAND_FORCE:
     case ABILITY_SAND_RUSH:
     case ABILITY_SAND_VEIL:
-        return (weather & B_WEATHER_SANDSTORM);
+        return (weather & WEATHER_SANDSTORM);
     case ABILITY_ICE_BODY:
     case ABILITY_ICE_FACE:
     case ABILITY_SNOW_CLOAK:
-        return (weather & B_WEATHER_ICY_ANY);
+        return (weather & WEATHER_ICY_ANY);
     case ABILITY_SLUSH_RUSH:
-        return (weather & B_WEATHER_SNOW);
+        return (weather & WEATHER_SNOW);
     case ABILITY_DRY_SKIN:
     case ABILITY_HYDRATION:
     case ABILITY_RAIN_DISH:
     case ABILITY_SWIFT_SWIM:
-        return (weather & B_WEATHER_RAIN);
+        return (weather & WEATHER_RAIN);
     case ABILITY_CHLOROPHYLL:
     case ABILITY_FLOWER_GIFT:
     case ABILITY_HARVEST:
@@ -173,7 +173,7 @@ static bool32 DoesAbilityBenefitFromWeather(enum Ability ability, u32 weather)
     case ABILITY_ORICHALCUM_PULSE:
     case ABILITY_PROTOSYNTHESIS:
     case ABILITY_SOLAR_POWER:
-        return (weather & B_WEATHER_SUN);
+        return (weather & WEATHER_SUN);
     default:
         break;
     }
@@ -243,7 +243,7 @@ static enum FieldEffectOutcome BenefitsFromSun(enum BattlerId battler)
             return FIELD_EFFECT_NEUTRAL;
     }
 
-    if (DoesAbilityBenefitFromWeather(ability, B_WEATHER_SUN)
+    if (DoesAbilityBenefitFromWeather(ability, WEATHER_SUN)
     || HasLightSensitiveMove(battler)
     || HasDamagingMoveOfType(battler, TYPE_FIRE)
     || HasMoveWithEffect(battler, EFFECT_HYDRO_STEAM))
@@ -260,7 +260,7 @@ static enum FieldEffectOutcome BenefitsFromSun(enum BattlerId battler)
 // Sandstorm
 static enum FieldEffectOutcome BenefitsFromSandstorm(enum BattlerId battler)
 {
-    if (DoesAbilityBenefitFromWeather(gAiLogicData->abilities[battler], B_WEATHER_SANDSTORM)
+    if (DoesAbilityBenefitFromWeather(gAiLogicData->abilities[battler], WEATHER_SANDSTORM)
      || IS_BATTLER_OF_TYPE(battler, TYPE_ROCK))
         return FIELD_EFFECT_POSITIVE;
 
@@ -268,7 +268,7 @@ static enum FieldEffectOutcome BenefitsFromSandstorm(enum BattlerId battler)
     {
         if (!(IS_BATTLER_ANY_TYPE(LEFT_FOE(battler), TYPE_ROCK, TYPE_GROUND, TYPE_STEEL))
          || gAiLogicData->holdEffects[LEFT_FOE(battler)] == HOLD_EFFECT_SAFETY_GOGGLES
-         || DoesAbilityBenefitFromWeather(gAiLogicData->abilities[LEFT_FOE(battler)], B_WEATHER_SANDSTORM))
+         || DoesAbilityBenefitFromWeather(gAiLogicData->abilities[LEFT_FOE(battler)], WEATHER_SANDSTORM))
             return FIELD_EFFECT_POSITIVE;
         else
             return FIELD_EFFECT_NEUTRAL;
@@ -286,7 +286,7 @@ static enum FieldEffectOutcome BenefitsFromHailOrSnow(enum BattlerId battler, u3
      || HasBattlerSideMoveWithEffect(battler, EFFECT_AURORA_VEIL))
         return FIELD_EFFECT_POSITIVE;
 
-    if ((weather & B_WEATHER_DAMAGING_ANY) && gAiLogicData->holdEffects[battler] != HOLD_EFFECT_SAFETY_GOGGLES)
+    if ((weather & WEATHER_DAMAGING_ANY) && gAiLogicData->holdEffects[battler] != HOLD_EFFECT_SAFETY_GOGGLES)
         return FIELD_EFFECT_NEGATIVE;
 
     if (HasLightSensitiveMove(battler))
@@ -304,7 +304,7 @@ static enum FieldEffectOutcome BenefitsFromRain(enum BattlerId battler)
     if (gAiLogicData->holdEffects[battler] == HOLD_EFFECT_UTILITY_UMBRELLA)
         return FIELD_EFFECT_NEUTRAL;
 
-    if (DoesAbilityBenefitFromWeather(gAiLogicData->abilities[battler], B_WEATHER_RAIN)
+    if (DoesAbilityBenefitFromWeather(gAiLogicData->abilities[battler], WEATHER_RAIN)
       || HasMoveWithFlag(battler, MoveAlwaysHitsInRain)
       || HasDamagingMoveOfType(battler, TYPE_WATER))
         return FIELD_EFFECT_POSITIVE;
@@ -521,7 +521,7 @@ s32 CalcWeatherScore(u32 battlerAtk, u32 battlerDef, u32 move, struct AiLogicDat
     switch (GetMoveWeatherType(move))
     {
     case BATTLE_WEATHER_RAIN:
-        if (ShouldSetWeather(battlerAtk, B_WEATHER_RAIN))
+        if (ShouldSetWeather(battlerAtk, WEATHER_RAIN))
         {
             score += DECENT_EFFECT;
 
@@ -539,7 +539,7 @@ s32 CalcWeatherScore(u32 battlerAtk, u32 battlerDef, u32 move, struct AiLogicDat
         }
         break;
     case BATTLE_WEATHER_SUN:
-        if (ShouldSetWeather(battlerAtk, B_WEATHER_SUN))
+        if (ShouldSetWeather(battlerAtk, WEATHER_SUN))
         {
             score += DECENT_EFFECT;
 
@@ -554,7 +554,7 @@ s32 CalcWeatherScore(u32 battlerAtk, u32 battlerDef, u32 move, struct AiLogicDat
         }
         break;
     case BATTLE_WEATHER_SANDSTORM:
-        if (ShouldSetWeather(battlerAtk, B_WEATHER_SANDSTORM))
+        if (ShouldSetWeather(battlerAtk, WEATHER_SANDSTORM))
         {
             score += DECENT_EFFECT;
 
@@ -569,7 +569,7 @@ s32 CalcWeatherScore(u32 battlerAtk, u32 battlerDef, u32 move, struct AiLogicDat
         }
         break;
     case BATTLE_WEATHER_HAIL:
-        if (ShouldSetWeather(battlerAtk, B_WEATHER_HAIL))
+        if (ShouldSetWeather(battlerAtk, WEATHER_HAIL))
         {
             score += DECENT_EFFECT;
 
@@ -586,7 +586,7 @@ s32 CalcWeatherScore(u32 battlerAtk, u32 battlerDef, u32 move, struct AiLogicDat
         }
         break;
     case BATTLE_WEATHER_SNOW:
-        if (ShouldSetWeather(battlerAtk, B_WEATHER_SNOW))
+        if (ShouldSetWeather(battlerAtk, WEATHER_SNOW))
         {
             score += DECENT_EFFECT;
 

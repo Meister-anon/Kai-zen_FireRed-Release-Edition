@@ -88,7 +88,7 @@ SINGLE_BATTLE_TEST("Primordial Sea blocks weather-setting moves")
     } SCENE {
         NOT ANIMATION(ANIM_TYPE_MOVE, move, opponent);
     } THEN {
-        EXPECT(gBattleWeather & B_WEATHER_RAIN_PRIMAL);
+        EXPECT(gBattleWeather & WEATHER_RAIN_PRIMAL);
     }
 }
 
@@ -109,7 +109,7 @@ SINGLE_BATTLE_TEST("Primordial Sea prevents other weather abilities")
     } SCENE {
         ABILITY_POPUP(opponent, ability);
     } THEN {
-        EXPECT(gBattleWeather & B_WEATHER_RAIN_PRIMAL);
+        EXPECT(gBattleWeather & WEATHER_RAIN_PRIMAL);
     }
 }
 
@@ -125,7 +125,7 @@ SINGLE_BATTLE_TEST("Primordial Sea can be replaced by Delta Stream")
         ABILITY_POPUP(opponent, ABILITY_DELTA_STREAM);
         MESSAGE("Mysterious strong winds are protecting Flying-type Pokémon!");
     } THEN {
-        EXPECT(gBattleWeather & B_WEATHER_STRONG_WINDS);
+        EXPECT(gBattleWeather & WEATHER_STRONG_WINDS);
     }
 }
 
@@ -141,6 +141,6 @@ SINGLE_BATTLE_TEST("Primordial Sea can be replaced by Desolate Land")
         ABILITY_POPUP(opponent, ABILITY_DESOLATE_LAND);
         MESSAGE("The sunlight turned extremely harsh!");
     } THEN {
-        EXPECT(gBattleWeather & B_WEATHER_SUN_PRIMAL);
+        EXPECT(gBattleWeather & WEATHER_SUN_PRIMAL);
     }
 }

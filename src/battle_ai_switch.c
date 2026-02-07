@@ -823,8 +823,8 @@ static bool32 GetHitEscapeTransformState(enum BattlerId battlerAtk, u32 move)
         return FALSE;
 
     moveType = GetBattleMoveType(move);
-    if ((moveType == TYPE_WATER && (AI_GetWeather() & B_WEATHER_SUN_PRIMAL))
-     || (moveType == TYPE_FIRE && (AI_GetWeather() & B_WEATHER_RAIN_PRIMAL)))
+    if ((moveType == TYPE_WATER && (AI_GetWeather() & WEATHER_SUN_PRIMAL))
+     || (moveType == TYPE_FIRE && (AI_GetWeather() & WEATHER_RAIN_PRIMAL)))
         return FALSE;
 
     struct BattleContext ctx = {0};
@@ -1496,7 +1496,7 @@ static s32 GetSwitchinWeatherImpact(enum BattlerId battler)
         // Damage
         if (holdEffect != HOLD_EFFECT_SAFETY_GOGGLES && ability != ABILITY_MAGIC_GUARD && ability != ABILITY_OVERCOAT)
         {
-            if ((gBattleWeather & B_WEATHER_HAIL)
+            if ((gBattleWeather & WEATHER_HAIL)
              && IS_BATTLER_OF_TYPE(battler, TYPE_ICE)
              && ability != ABILITY_SNOW_CLOAK && ability != ABILITY_ICE_BODY)
             {
@@ -1504,7 +1504,7 @@ static s32 GetSwitchinWeatherImpact(enum BattlerId battler)
                 if (weatherImpact == 0)
                     weatherImpact = 1;
             }
-            else if ((gBattleWeather & B_WEATHER_SANDSTORM)
+            else if ((gBattleWeather & WEATHER_SANDSTORM)
                 && IS_BATTLER_ANY_TYPE(battler, TYPE_ROCK, TYPE_GROUND, TYPE_STEEL)
                 && ability != ABILITY_SAND_VEIL && ability != ABILITY_SAND_RUSH && ability != ABILITY_SAND_FORCE)
             {
@@ -1513,7 +1513,7 @@ static s32 GetSwitchinWeatherImpact(enum BattlerId battler)
                     weatherImpact = 1;
             }
         }
-        if ((gBattleWeather & B_WEATHER_SUN) && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA
+        if ((gBattleWeather & WEATHER_SUN) && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA
          && (ability == ABILITY_SOLAR_POWER || ability == ABILITY_DRY_SKIN))
         {
             weatherImpact = maxHP / 8;
@@ -1522,7 +1522,7 @@ static s32 GetSwitchinWeatherImpact(enum BattlerId battler)
         }
 
         // Healing
-        if (gBattleWeather & B_WEATHER_RAIN && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
+        if (gBattleWeather & WEATHER_RAIN && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
         {
             if (ability == ABILITY_DRY_SKIN)
             {
@@ -1537,7 +1537,7 @@ static s32 GetSwitchinWeatherImpact(enum BattlerId battler)
                     weatherImpact = -1;
             }
         }
-        if (((gBattleWeather & B_WEATHER_HAIL) || (gBattleWeather & B_WEATHER_SNOW)) && ability == ABILITY_ICE_BODY)
+        if (((gBattleWeather & WEATHER_HAIL) || (gBattleWeather & WEATHER_SNOW)) && ability == ABILITY_ICE_BODY)
         {
             weatherImpact = -(maxHP / 16);
             if (weatherImpact == 0)

@@ -1305,7 +1305,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
                 RETURN_SCORE_MINUS(10);
             break;
         case ABILITY_LEAF_GUARD:
-            if ((AI_GetWeather() & B_WEATHER_SUN)
+            if ((AI_GetWeather() & WEATHER_SUN)
               && aiData->holdEffects[battlerDef] != HOLD_EFFECT_UTILITY_UMBRELLA
               && IsNonVolatileStatusMove(move))
                 RETURN_SCORE_MINUS(10);
@@ -1798,7 +1798,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
         case EFFECT_AURORA_VEIL:
             if (gSideStatuses[GetBattlerSide(battlerAtk)] & SIDE_STATUS_AURORA_VEIL
              || (HasPartner(battlerAtk) && AreMovesEquivalent(battlerAtk, BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
-             || !(weather & (B_WEATHER_ICY_ANY)))
+             || !(weather & (WEATHER_ICY_ANY)))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_SHEER_COLD:
@@ -2005,20 +2005,20 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
             switch (GetMoveWeatherType(move))
             {
             case BATTLE_WEATHER_RAIN:
-                if (weather & (B_WEATHER_RAIN | B_WEATHER_PRIMAL_ANY))
+                if (weather & (WEATHER_RAIN | WEATHER_PRIMAL_ANY))
                     ADJUST_SCORE(-8);
                 break;
             case BATTLE_WEATHER_SUN:
-                if (weather & (B_WEATHER_SUN | B_WEATHER_PRIMAL_ANY))
+                if (weather & (WEATHER_SUN | WEATHER_PRIMAL_ANY))
                     ADJUST_SCORE(-8);
                 break;
             case BATTLE_WEATHER_SANDSTORM:
-                if (weather & (B_WEATHER_SANDSTORM | B_WEATHER_PRIMAL_ANY))
+                if (weather & (WEATHER_SANDSTORM | WEATHER_PRIMAL_ANY))
                     ADJUST_SCORE(-8);
                 break;
             case BATTLE_WEATHER_HAIL:
             case BATTLE_WEATHER_SNOW:
-                if (weather & (B_WEATHER_ICY_ANY | B_WEATHER_PRIMAL_ANY))
+                if (weather & (WEATHER_ICY_ANY | WEATHER_PRIMAL_ANY))
                     ADJUST_SCORE(-8);
                 break;
             }
@@ -2060,7 +2060,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
         case EFFECT_WEATHER_AND_SWITCH:
             if (CountUsablePartyMons(battlerAtk) == 0)
                 ADJUST_SCORE(-10);
-            else if (weather & (B_WEATHER_ICY_ANY | B_WEATHER_PRIMAL_ANY)
+            else if (weather & (WEATHER_ICY_ANY | WEATHER_PRIMAL_ANY)
              || (HasPartner(battlerAtk) && AreMovesEquivalent(battlerAtk, BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)))
                 ADJUST_SCORE(-8);
             break;
@@ -2263,7 +2263,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
                 ADJUST_SCORE(-10);
             else if (aiData->hpPercents[battlerAtk] >= 90)
                 ADJUST_SCORE(-9); //No point in healing, but should at least do it if nothing better
-            else if ((AI_GetWeather() & (B_WEATHER_LOW_LIGHT)))
+            else if ((AI_GetWeather() & (WEATHER_LOW_LIGHT)))
                 ADJUST_SCORE(-3);
             break;
         case EFFECT_LIFE_DEW:
@@ -3083,7 +3083,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
         // Don't use user-target moves ie. Swords Dance, with exceptions
         if ((moveTarget == TARGET_USER)
         && moveEffect != EFFECT_DESTINY_BOND && moveEffect != EFFECT_WISH && moveEffect != EFFECT_HEALING_WISH
-        && !(moveEffect == EFFECT_AURORA_VEIL && (AI_GetWeather() & B_WEATHER_ICY_ANY)))
+        && !(moveEffect == EFFECT_AURORA_VEIL && (AI_GetWeather() & WEATHER_ICY_ANY)))
             ADJUST_SCORE(-30);
         // Don't use a status move if the mon is the last one in the party, has no good switchin, or is trapped
         else if (GetBattleMoveCategory(move) == DAMAGE_CATEGORY_STATUS
@@ -4593,7 +4593,7 @@ static s32 AI_CalcMoveEffectScore(enum BattlerId battlerAtk, enum BattlerId batt
               || HasUsableWhileAsleepMove(battlerAtk)
               || aiData->abilities[battlerAtk] == ABILITY_SHED_SKIN
               || aiData->abilities[battlerAtk] == ABILITY_EARLY_BIRD
-              || (AI_GetWeather() & B_WEATHER_RAIN && gBattleStruct->weatherDuration != 1 && aiData->abilities[battlerAtk] == ABILITY_HYDRATION && aiData->holdEffects[battlerAtk] != HOLD_EFFECT_UTILITY_UMBRELLA))
+              || (AI_GetWeather() & WEATHER_RAIN && gBattleStruct->weatherDuration != 1 && aiData->abilities[battlerAtk] == ABILITY_HYDRATION && aiData->holdEffects[battlerAtk] != HOLD_EFFECT_UTILITY_UMBRELLA))
                 ADJUST_SCORE(GOOD_EFFECT);
         }
         break;
@@ -5056,12 +5056,12 @@ static s32 AI_CalcMoveEffectScore(enum BattlerId battlerAtk, enum BattlerId batt
                 switch (aiData->abilities[battlerDef])
                 {
                 case ABILITY_SWIFT_SWIM:
-                    if (AI_GetWeather() & B_WEATHER_RAIN)
+                    if (AI_GetWeather() & WEATHER_RAIN)
                         ADJUST_SCORE(DECENT_EFFECT); // Slow 'em down
                     break;
                 case ABILITY_CHLOROPHYLL:
                 case ABILITY_FLOWER_GIFT:
-                    if (AI_GetWeather() & B_WEATHER_SUN)
+                    if (AI_GetWeather() & WEATHER_SUN)
                         ADJUST_SCORE(DECENT_EFFECT); // Slow 'em down
                     break;
                 default:
@@ -5620,7 +5620,7 @@ static s32 AI_CalcMoveEffectScore(enum BattlerId battlerAtk, enum BattlerId batt
             ADJUST_SCORE(GOOD_EFFECT);
         break;
     case EFFECT_SHORE_UP:
-        if ((AI_GetWeather() & B_WEATHER_SANDSTORM) && ShouldRecover(battlerAtk, battlerDef, move, 67))
+        if ((AI_GetWeather() & WEATHER_SANDSTORM) && ShouldRecover(battlerAtk, battlerDef, move, 67))
             ADJUST_SCORE(DECENT_EFFECT);
         else if (ShouldRecover(battlerAtk, battlerDef, move, 50))
             ADJUST_SCORE(DECENT_EFFECT);
@@ -6012,27 +6012,27 @@ static s32 AI_CalcAdditionalEffectScore(enum BattlerId battlerAtk, enum BattlerI
                     ADJUST_SCORE(DECENT_EFFECT);
                 break;
             case MOVE_EFFECT_SUN:
-                if (ShouldSetWeather(battlerAtk, B_WEATHER_SUN))
+                if (ShouldSetWeather(battlerAtk, WEATHER_SUN))
                     ADJUST_SCORE(DECENT_EFFECT);
-                if (ShouldClearWeather(battlerAtk, B_WEATHER_SUN))
+                if (ShouldClearWeather(battlerAtk, WEATHER_SUN))
                     ADJUST_SCORE(BAD_EFFECT);
                 break;
             case MOVE_EFFECT_RAIN:
-                if (ShouldSetWeather(battlerAtk, B_WEATHER_RAIN))
+                if (ShouldSetWeather(battlerAtk, WEATHER_RAIN))
                     ADJUST_SCORE(DECENT_EFFECT);
-                if (ShouldClearWeather(battlerAtk, B_WEATHER_RAIN))
+                if (ShouldClearWeather(battlerAtk, WEATHER_RAIN))
                     ADJUST_SCORE(BAD_EFFECT);
                 break;
             case MOVE_EFFECT_SANDSTORM:
-                if (ShouldSetWeather(battlerAtk, B_WEATHER_SANDSTORM))
+                if (ShouldSetWeather(battlerAtk, WEATHER_SANDSTORM))
                     ADJUST_SCORE(DECENT_EFFECT);
-                if (ShouldClearWeather(battlerAtk, B_WEATHER_SANDSTORM))
+                if (ShouldClearWeather(battlerAtk, WEATHER_SANDSTORM))
                     ADJUST_SCORE(BAD_EFFECT);
                 break;
             case MOVE_EFFECT_HAIL:
-                if (ShouldSetWeather(battlerAtk, B_WEATHER_HAIL))
+                if (ShouldSetWeather(battlerAtk, WEATHER_HAIL))
                     ADJUST_SCORE(DECENT_EFFECT);
-                if (ShouldClearWeather(battlerAtk, B_WEATHER_HAIL))
+                if (ShouldClearWeather(battlerAtk, WEATHER_HAIL))
                     ADJUST_SCORE(BAD_EFFECT);
                 break;
             case MOVE_EFFECT_MISTY_TERRAIN:
@@ -6688,20 +6688,20 @@ static s32 AI_PowerfulStatus(enum BattlerId battlerAtk, enum BattlerId battlerDe
         switch (GetMoveWeatherType(move))
         {
         case BATTLE_WEATHER_RAIN:
-            if (IsWeatherActive(B_WEATHER_RAIN | B_WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
+            if (IsWeatherActive(WEATHER_RAIN | WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
                 ADJUST_SCORE(POWERFUL_STATUS_MOVE);
             break;
         case BATTLE_WEATHER_SUN:
-            if (IsWeatherActive(B_WEATHER_SUN | B_WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
+            if (IsWeatherActive(WEATHER_SUN | WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
                 ADJUST_SCORE(POWERFUL_STATUS_MOVE);
             break;
         case BATTLE_WEATHER_SANDSTORM:
-            if (IsWeatherActive(B_WEATHER_SANDSTORM | B_WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
+            if (IsWeatherActive(WEATHER_SANDSTORM | WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
                 ADJUST_SCORE(POWERFUL_STATUS_MOVE);
             break;
         case BATTLE_WEATHER_HAIL:
         case BATTLE_WEATHER_SNOW:
-            if (IsWeatherActive(B_WEATHER_ICY_ANY | B_WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
+            if (IsWeatherActive(WEATHER_ICY_ANY | WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
                 ADJUST_SCORE(POWERFUL_STATUS_MOVE);
             break;
         }

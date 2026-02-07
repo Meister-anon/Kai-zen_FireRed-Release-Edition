@@ -674,9 +674,9 @@ bool32 IsDamageMoveUnusable(struct BattleContext *ctx)
 
     if (HasWeatherEffect())
     {
-        if (ctx->weather & B_WEATHER_SUN_PRIMAL && ctx->moveType == TYPE_WATER)
+        if (ctx->weather & WEATHER_SUN_PRIMAL && ctx->moveType == TYPE_WATER)
             return TRUE;
-        if (ctx->weather & B_WEATHER_RAIN_PRIMAL && ctx->moveType == TYPE_FIRE)
+        if (ctx->weather & WEATHER_RAIN_PRIMAL && ctx->moveType == TYPE_FIRE)
             return TRUE;
     }
 
@@ -1892,10 +1892,10 @@ static inline bool32 AI_WeatherHasEffect(void)
 
 u32 AI_GetWeather(void)
 {
-    if (gBattleWeather == B_WEATHER_NONE)
-        return B_WEATHER_NONE;
+    if (gBattleWeather == WEATHER_NONE)
+        return WEATHER_NONE;
     if (!AI_WeatherHasEffect())
-        return B_WEATHER_NONE;
+        return WEATHER_NONE;
     return gBattleWeather;
 }
 
@@ -1904,23 +1904,23 @@ u32 AI_GetSwitchinWeather(enum BattlerId battler)
     enum Ability ability = gBattleMons[battler].ability;
     // Forced weather behaviour
     if (!AI_WeatherHasEffect())
-        return B_WEATHER_NONE;
+        return WEATHER_NONE;
     if (ability == ABILITY_CLOUD_NINE || ability == ABILITY_AIR_LOCK)
-        return B_WEATHER_NONE;
-    if (gBattleWeather & B_WEATHER_PRIMAL_ANY)
+        return WEATHER_NONE;
+    if (gBattleWeather & WEATHER_PRIMAL_ANY)
         return gBattleWeather;
 
     // Switchin will introduce new weather
     switch(ability)
     {
     case ABILITY_DRIZZLE:
-        return B_WEATHER_RAIN_NORMAL;
+        return WEATHER_RAIN_NORMAL;
     case ABILITY_DROUGHT:
-        return B_WEATHER_SUN_NORMAL;
+        return WEATHER_SUN_NORMAL;
     case ABILITY_SAND_STREAM:
-        return B_WEATHER_SANDSTORM;
+        return WEATHER_SANDSTORM;
     case ABILITY_SNOW_WARNING:
-        return GetConfig(CONFIG_SNOW_WARNING) >= GEN_9 ? B_WEATHER_SNOW : B_WEATHER_HAIL;
+        return GetConfig(CONFIG_SNOW_WARNING) >= GEN_9 ? WEATHER_SNOW : WEATHER_HAIL;
     default:
         return gBattleWeather;
     }
@@ -3341,7 +3341,7 @@ static u32 GetWeatherDamage(enum BattlerId battlerId)
     if (!weather)
         return 0;
 
-    if (weather & B_WEATHER_SANDSTORM)
+    if (weather & WEATHER_SANDSTORM)
     {
         if (BattlerAffectedBySandstorm(battlerId, ability)
           && gBattleMons[battlerId].volatiles.semiInvulnerable != STATE_UNDERGROUND
@@ -3353,7 +3353,7 @@ static u32 GetWeatherDamage(enum BattlerId battlerId)
                 damage = 1;
         }
     }
-    if ((weather & B_WEATHER_HAIL) && ability != ABILITY_ICE_BODY)
+    if ((weather & WEATHER_HAIL) && ability != ABILITY_ICE_BODY)
     {
         if (BattlerAffectedByHail(battlerId, ability)
           && gBattleMons[battlerId].volatiles.semiInvulnerable != STATE_UNDERGROUND
@@ -3974,7 +3974,7 @@ bool32 ShouldSetScreen(enum BattlerId battlerAtk, enum BattlerId battlerDef, enu
     {
     case EFFECT_AURORA_VEIL:
         // Use only in Hail and only if AI doesn't already have Reflect, Light Screen or Aurora Veil itself active.
-        if ((AI_GetWeather() & (B_WEATHER_ICY_ANY))
+        if ((AI_GetWeather() & (WEATHER_ICY_ANY))
             && !(gSideStatuses[atkSide] & (SIDE_STATUS_REFLECT | SIDE_STATUS_LIGHTSCREEN | SIDE_STATUS_AURORA_VEIL)))
             return TRUE;
         break;
