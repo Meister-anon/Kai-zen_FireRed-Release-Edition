@@ -5058,7 +5058,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (abilityAtk == ABILITY_HUSTLE)
         attack = (150 * attack) / 100;
     if (abilityAtk == ABILITY_SOLAR_POWER
-    && IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY)
+    && IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN)
     && GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
         spAttack = (150 * spAttack) / 100;
     if (abilityAtk == ABILITY_USURPER && attacker->status1 & STATUS1_ANY)
@@ -5461,7 +5461,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     // sandstorm sp.def boost for rock types  // decided to add this for ground types as well,
     if ((DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdDef, TYPE_ROCK, FALSE) 
     || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdDef, TYPE_GROUND, FALSE)))
-        && IsBattlerWeatherAffected(battlerIdDef, WEATHER_SANDSTORM_ANY) && abilityAtk != ABILITY_CLOUD_NINE)     
+        && IsBattlerWeatherAffected(battlerIdDef, WEATHER_SANDSTORM) && abilityAtk != ABILITY_CLOUD_NINE)     
         spDefense = (150 * spDefense) / 100;
 
     // hail sp.def & def boost for ice types  // still deciding if I want a 50% defense boost or a 25% boost to def & sp def
@@ -5504,7 +5504,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //MulModifier(&modifier, UQ_4_12(1.5));
         break;
     case ABILITY_TOXIC_BOOST:
-        if ((gBattleMons[battlerIdAtk].status1 & STATUS1_PSN_ANY || IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN_ANY)
+        if ((gBattleMons[battlerIdAtk].status1 & STATUS1_PSN_ANY || IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN)
         || (DoesBattlerGetTypeBasedAffinity(battlerIdAtk, battlerIdAtk, TYPE_POISON, FALSE) && attackerHoldEffect == HOLD_EFFECT_TOXIC_ORB)) 
             && (MoveDamageCategory == DAMAGE_CATEGORY_PHYSICAL)
            )
@@ -5556,7 +5556,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;//may drop this to 20%
     case ABILITY_SAND_FORCE:
         if ((moveType == TYPE_STEEL || moveType == TYPE_ROCK || moveType == TYPE_GROUND)
-            && IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SANDSTORM_ANY)
+            && IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SANDSTORM)
             && GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
             gBattleMovePower = (gBattleMovePower * 130 / 100);
         //MulModifier(&modifier, UQ_4_12(1.3));
@@ -5720,10 +5720,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         OffensiveModifer(150);
         break;
     case ABILITY_FLUORESCENCE: //if cloud nine blocks sun based fire boost makes sense to block this too
-        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY) && GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN) && GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
             spAttack = (175 * spAttack) / 100;
     case ABILITY_FLOWER_GIFT:   //flower gift is supposd to be what makes cherrim transform along w sunlight
-        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY)
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN)
         && GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE) //split ability bonus between different attack/target functions
         {
             attack = (150 * attack) / 100;
@@ -5734,7 +5734,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower = (gBattleMovePower * 150 / 100);   //current preference
         break;
     case ABILITY_PROTOSYNTHESIS:
-        if /*(*/(IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY) && GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
+        if /*(*/(IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN) && GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
         //||  booster energy)
         {
             if (attackerhighestStat == STAT_ATK)
@@ -5754,7 +5754,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }
         break;
     case ABILITY_ORICHALCUM_PULSE:
-        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY) 
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN) 
         && GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE) ////same as other works even with umbrella
             attack = (133 * attack) / 100;
         break;
@@ -5793,7 +5793,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 //MulModifier(&modifier, UQ_4_12(1.5));
             break;
         case ABILITY_FLOWER_GIFT:
-            if (IsBattlerWeatherAffected(BATTLE_PARTNER(battlerIdAtk), WEATHER_SUN_ANY)
+            if (IsBattlerWeatherAffected(BATTLE_PARTNER(battlerIdAtk), WEATHER_SUN)
             && GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
             {
                 attack = (150 * attack) / 100;
@@ -5929,7 +5929,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }//decided buff a bit more since hard to use, and include confusion in reduction
         break;//idea mon coverd in grass terrain makes it grow fuller so a vest of protection
     case ABILITY_FLOWER_GIFT:
-        if (IsBattlerWeatherAffected(battlerIdDef, WEATHER_SUN_ANY) && abilityAtk != ABILITY_CLOUD_NINE)
+        if (IsBattlerWeatherAffected(battlerIdDef, WEATHER_SUN) && abilityAtk != ABILITY_CLOUD_NINE)
             spDefense = (150 * spDefense) / 100;
         break;
     
@@ -5955,7 +5955,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             OffensiveModifer(50);
         break;
     case ABILITY_PROTOSYNTHESIS:
-        if /*(*/(IsBattlerWeatherAffected(battlerIdDef, WEATHER_SUN_ANY) && abilityAtk != ABILITY_CLOUD_NINE)
+        if /*(*/(IsBattlerWeatherAffected(battlerIdDef, WEATHER_SUN) && abilityAtk != ABILITY_CLOUD_NINE)
         //||  booster energy)
         {
             if (defenderhighestStat == STAT_DEF)
@@ -5978,7 +5978,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         attack = (67 * attack) / 100; //equivalent one stat stage drop
         break;
     case ABILITY_LUNAR_POWER:
-        if (IsBattlerWeatherAffected(battlerIdDef, WEATHER_MOON_ANY)
+        if (IsBattlerWeatherAffected(battlerIdDef, WEATHER_MOON)
         && abilityAtk != ABILITY_CLOUD_NINE)
             spDefense = (150 * spDefense) / 100;
         break;
@@ -5995,7 +5995,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             //gBattleMoveDamage = (gBattleMoveDamage * 75 / 100);
             break;
         case ABILITY_FLOWER_GIFT:
-            if (IsBattlerWeatherAffected(BATTLE_PARTNER(battlerIdDef), WEATHER_SUN_ANY)
+            if (IsBattlerWeatherAffected(BATTLE_PARTNER(battlerIdDef), WEATHER_SUN)
             && abilityAtk != ABILITY_CLOUD_NINE)
             {
                 spDefense = (150 * spDefense) / 100;
@@ -6074,9 +6074,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //weather buffs and weather debuffs
         //feel would be simpler to manage
         //black fog check has already been added to weatheraffected funcion directly
+        //Cloud nine on side ignores negative weather effects 
+        //so full power solar beam doesnt effect charge
         if ((abilityAtk == ABILITY_FLUORESCENCE   
         || DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))     
-        && !IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY)//
+        && !IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN)//
         && gMovesInfo[move].effect == EFFECT_SOLAR_BEAM)
         {
             OffensiveModifer(100);
@@ -6099,7 +6101,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //do that on update when setup for EE files
 
         //rain
-        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_RAIN_ANY))
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_RAIN))
         {
 
                 switch (moveType)
@@ -6144,7 +6146,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         
 
         // sunny
-        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY))
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN))
         {
 
             switch (moveType)
@@ -7069,11 +7071,11 @@ u8 GetWeatherBallType(u16 move)
     //fog is already normal lol
     if (HasWeatherEffect())
     {
-        if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
+        if (gBattleWeather & WEATHER_RAIN) //TEST TO MAKE SURE WORKS - works
             return TYPE_WATER;
         else if (gBattleWeather & WEATHER_SANDSTORM)
             return TYPE_ROCK;
-        else if (gBattleWeather & WEATHER_SUN_ANY)
+        else if (gBattleWeather & WEATHER_SUN)
             return TYPE_FIRE;
         else if (gBattleWeather & WEATHER_MOON)
             return TYPE_FAIRY;

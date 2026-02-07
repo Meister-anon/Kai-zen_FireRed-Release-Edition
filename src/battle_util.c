@@ -9074,6 +9074,8 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
 {
     u32 holdEffectParamAtk;
     u32 basePower = CalcMoveBasePower(ctx);
+    bool32 FluorescenceActive == (ctx->abilityAtk == ABILITY_FLUORESCENCE);
+    bool32 CloudNineOnSide == (DoesSideHaveAbility(ctx->battlerAtk, ABILITY_CLOUD_NINE));
     enum BattlerId battlerAtk = ctx->battlerAtk;
     enum BattlerId battlerDef = ctx->battlerDef;
     enum Move move = ctx->move;
@@ -9105,7 +9107,8 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
         break;//vsonic look into this think reworked retaliate
     case EFFECT_SOLAR_BEAM:
         if (IsBattlerWeatherAffected(battlerAtk, WEATHER_LOW_LIGHT)
-            && ctx->abilityAtk != ABILITY_FLUORESCENCE)
+            && !FluorescenceActive
+            && !CloudNineOnSide)
             modifier = uq4_12_multiply(modifier, UQ_4_12(0.5));
         break;
     case EFFECT_STOMPING_TANTRUM:
@@ -10077,9 +10080,16 @@ static inline uq4_12_t GetTypeBasedBonusModifier(struct DamageContext *ctx)
 //vsonic
 static uq4_12_t GetWeatherDamageModifier(struct BattleContext *ctx)
 {
+
+    bool32 CloudNineAffected == (ctx->abilityDef == ABILITY_CLOUD_NINE);
+    bool32 CloudNineOnSide == (DoesSideHaveAbility(ctx->battlerAtk, ABILITY_CLOUD_NINE));
+    bool32 AtkCastform == (GetBaseFormSpecies(gBattleMons[ctx->battlerAtk].species) == SPECIES_CASTFORM);
+    bool32 OceanMemoryActive == (ctx->abilityAtk == ABILITY_OCEAN_MEMORY && GetMoveType(ctx->move) == TYPE_WATER);
+
     if (ctx->weather == WEATHER_NONE)
         return UQ_4_12(1.0);
-    if (GetMoveEffect(ctx->move) == EFFECT_HYDRO_STEAM && (ctx->weather & WEATHER_SUN) && ctx->holdEffectAtk != HOLD_EFFECT_UTILITY_UMBRELLA)
+    if (GetMoveEffect(ctx->move) == EFFECT_HYDRO_STEAM && (ctx->weather & WEATHER_SUN) && ctx->holdEffectAtk != HOLD_EFFECT_UTILITY_UMBRELLA
+    && !CloudNineAffected)
         return UQ_4_12(1.5);
 
     //this is weather dmg modifiers
@@ -10099,35 +10109,53 @@ static uq4_12_t GetWeatherDamageModifier(struct BattleContext *ctx)
     && ctx->weather & WEATHER_ICE_SAND)
         return UQ_4_12(1.0);
 
-    if (ctx->weather & WEATHER_RAIN_ANY)
+    if (ctx->weather & WEATHER_RAIN)
     {
+        //default wasn't affected by cloudnine
+        //think will make that change tho
+        //doesn't block ability entire effect
+        if (OceanMemoryActive && !CloudNineAffected)
+            return UQ_4_12(1.5);
+
         if (ctx->moveType != TYPE_FIRE && ctx->moveType != TYPE_WATER)
             return UQ_4_12(1.0);
-        return (ctx->moveType == TYPE_FIRE) ? UQ_4_12(0.5) : UQ_4_12(1.5);
+        else if (ctx->moveType == TYPE_WATER)
+        {
+            return (!CloudNineAffected) ? UQ_4_12(1.5) : UQ_4_12(1.0);
+        }
+
+        return (!AtkCastform && !CloudNineOnSide) ? UQ_4_12(0.5) : UQ_4_12(1.0);
     }
     if (ctx->weather & WEATHER_ACID_RAIN) //FIRE WATER
     {
         if (ctx->moveType != TYPE_FIRE && ctx->moveType != TYPE_WATER)
             return UQ_4_12(1.0);
-        return (ctx->moveType == TYPE_FIRE) ? UQ_4_12(0.5) : UQ_4_12(1.5);
+
+        return (!CloudNineAffected) ? UQ_4_12(1.3) : UQ_4_12(1.0);
     }
-    if (ctx->weather & WEATHER_SUN_ANY)
+    if (ctx->weather & WEATHER_SUN)
     {
-        if (ctx->moveType != TYPE_FIRE && ctx->moveType != TYPE_WATER)
+        if (ctx->moveType != TYPE_FIRE && ctx->moveType != TYPE_WATER
+        && ctx->moveType !- TYPE_ICE)
             return UQ_4_12(1.0);
-        return (ctx->moveType == TYPE_WATER) ? UQ_4_12(0.5) : UQ_4_12(1.5);
+        else if (ctx->moveType == TYPE_FIRE)
+        {
+            return (!CloudNineAffected) ? UQ_4_12(1.5) : UQ_4_12(1.0);
+        }
+        
+        return (!AtkCastform && !CloudNineOnSide) ? UQ_4_12(0.5) : UQ_4_12(1.0);
     }
     if (ctx->weather & WEATHER_MOON) //water fairy
     {
-        if (ctx->moveType != TYPE_FIRE && ctx->moveType != TYPE_WATER)
+        if (ctx->moveType != TYPE_WATER && ctx->moveType != TYPE_FAIRY)
             return UQ_4_12(1.0);
-        return (ctx->moveType == TYPE_WATER) ? UQ_4_12(0.5) : UQ_4_12(1.5);
+        return (!CloudNineAffected) ? UQ_4_12(1.3) : UQ_4_12(1.0);
     }
     if (ctx->weather & WEATHER_ICY_ANY) //fire drop
     {
-        if (ctx->moveType != TYPE_FIRE && ctx->moveType != TYPE_WATER)
+        if (ctx->moveType != TYPE_FIRE)
             return UQ_4_12(1.0);
-        return (ctx->moveType == TYPE_WATER) ? UQ_4_12(0.5) : UQ_4_12(1.5);
+        return (!AtkCastform && !CloudNineOnSide) ? UQ_4_12(0.8) : UQ_4_12(1.0);
     }
     return UQ_4_12(1.0);
 }
@@ -12480,7 +12508,7 @@ bool32 IsBattlerWeatherAffected(enum BattlerId battler, u32 weatherFlags)
     {
         // given weather is active -> check if its sun, rain against utility umbrella (since only 1 weather can be active at once)
         //umbrella covers moonlight cuz parasoul
-        if (gBattleWeather & (WEATHER_SUN_ANY | WEATHER_RAIN_ANY | WEATHER_MOON | WEATHER_ACID_RAIN) && GetBattlerHoldEffect(battler) == HOLD_EFFECT_UTILITY_UMBRELLA)
+        if (gBattleWeather & (WEATHER_SUN | WEATHER_RAIN | WEATHER_MOON | WEATHER_ACID_RAIN) && GetBattlerHoldEffect(battler) == HOLD_EFFECT_UTILITY_UMBRELLA)
             return FALSE; // utility umbrella blocks sun, rain effects
         else if (gBattleWeather & (WEATHER_ICY_ANY | WEATHER_SANDSTORM) && GetBattlerHoldEffect(battler) == HOLD_EFFECT_SAFETY_GOGGLES)
             return FALSE; //major upgrade to safety goggles, blocks hail and sandstorm effects, useful dealing sandstorm acc drop
@@ -13449,9 +13477,12 @@ bool32 CanMoveSkipAccuracyCalc(enum BattlerId battlerAtk, enum BattlerId battler
         effect = TRUE;
     }
 
+    //think will change to use weather all to include acid rain
+    //no this isn't just thunder affects hurricane etc.
+    //ok nvm the nvm acid rain CAN occur in thunderstorms
     if (!effect && HasWeatherEffect())
     {
-        if (MoveAlwaysHitsInRain(move) && IsBattlerWeatherAffected(battlerDef, WEATHER_RAIN_ANY))
+        if (MoveAlwaysHitsInRain(move) && IsBattlerWeatherAffected(battlerDef, WEATHER_RAIN_ALL))
             effect = TRUE;
         else if (MoveAlwaysHitsInHailSnow(move) && IsBattlerWeatherAffected(battlerDef, WEATHER_ICY_ANY))
             effect = TRUE;
@@ -13510,7 +13541,7 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
         moveAcc = 85;
             
     // Check Thunder and Hurricane on sunny weather.
-    if (IsBattlerWeatherAffected(battlerDef, WEATHER_SUN_ANY) && MoveHas50AccuracyInSun(move))
+    if (IsBattlerWeatherAffected(battlerDef, WEATHER_SUN) && MoveHas65AccuracyInSun(move))
         moveAcc = 65; //made slightly more forgiving
     // Check Wonder Skin.
     if ((defAbility == ABILITY_WONDER_SKIN
@@ -14270,7 +14301,7 @@ bool32 TryActivateBattlePoisonHeal(enum BattlerId battler)  //change mind better
 
         if (gBattleMons[battler].status1 & STATUS1_POISON
             || gBattleMons[battler].status1 & STATUS1_TOXIC_POISON
-            || IsBattlerWeatherAffected(battler, WEATHER_ACID_RAIN_ANY))
+            || IsBattlerWeatherAffected(battler, WEATHER_ACID_RAIN))
         {
             return TRUE;
         }
@@ -14303,7 +14334,7 @@ bool32 TryActivateHeatTrance(enum BattlerId battler)  //change mind better to do
     {
 
         if (gBattleMons[battler].status1 & STATUS1_BURN
-            || IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY) //may keep?
+            || IsBattlerWeatherAffected(battler, WEATHER_SUN) //may keep?
             )
         {
             return TRUE;

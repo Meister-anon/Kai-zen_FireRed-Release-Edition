@@ -249,7 +249,9 @@ static enum FieldEffectOutcome BenefitsFromSun(enum BattlerId battler)
     || HasMoveWithEffect(battler, EFFECT_HYDRO_STEAM))
         return FIELD_EFFECT_POSITIVE;
 
-    if (HasMoveWithFlag(battler, MoveHas50AccuracyInSun) || HasDamagingMoveOfType(battler, TYPE_WATER) || gAiLogicData->abilities[battler] == ABILITY_DRY_SKIN)
+    //vsonic need review this given changes fluorescence etc.
+    //unsure if dry skin still drops hp in sun need review
+    if (HasMoveWithFlag(battler, MoveHas65AccuracyInSun) || HasDamagingMoveOfType(battler, TYPE_WATER) || gAiLogicData->abilities[battler] == ABILITY_DRY_SKIN)
         return FIELD_EFFECT_NEGATIVE;
 
     return FIELD_EFFECT_NEUTRAL;
@@ -547,7 +549,7 @@ s32 CalcWeatherScore(u32 battlerAtk, u32 battlerDef, u32 move, struct AiLogicDat
                 score += WEAK_EFFECT;
             if (HasDamagingMoveOfType(battlerDef, TYPE_WATER) || HasDamagingMoveOfType(BATTLE_PARTNER(battlerDef), TYPE_WATER))
                 score += WEAK_EFFECT;
-            if (HasMoveWithFlag(battlerDef, MoveHas50AccuracyInSun) || HasMoveWithFlag(BATTLE_PARTNER(battlerDef), MoveHas50AccuracyInSun))
+            if (HasMoveWithFlag(battlerDef, MoveHas65AccuracyInSun) || HasMoveWithFlag(BATTLE_PARTNER(battlerDef), MoveHas65AccuracyInSun))
                 score += WEAK_EFFECT;
         }
         break;

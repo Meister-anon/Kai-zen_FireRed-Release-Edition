@@ -2910,13 +2910,13 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
     }     
          /*else if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (HasWeatherEffect()))
     {
-         if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
+         if (gBattleWeather & WEATHER_RAIN) //TEST TO MAKE SURE WORKS - works
             sMonSummaryScreen->moveTypes[i] = TYPE_WATER;
-        else if (gBattleWeather & WEATHER_SANDSTORM_ANY)
+        else if (gBattleWeather & WEATHER_SANDSTORM)
             sMonSummaryScreen->moveTypes[i] = TYPE_ROCK;
-        else if (gBattleWeather & WEATHER_SUN_ANY)
+        else if (gBattleWeather & WEATHER_SUN)
             sMonSummaryScreen->moveTypes[i] = TYPE_FIRE;
-        else if (gBattleWeather & WEATHER_HAIL_ANY)
+        else if (gBattleWeather & WEATHER_HAIL)
             sMonSummaryScreen->moveTypes[i] = TYPE_ICE;
         else
             sMonSummaryScreen->moveTypes[i] = TYPE_NORMAL;

@@ -166,7 +166,7 @@ struct MoveInfo
     bool32 dampBanned:1;    //Damp blocks move
     bool32 alwaysHitsInHailSnow:1;
     bool32 alwaysHitsInRain:1;
-    bool32 accuracy50InSun:1;
+    bool32 accuracy65InSun:1;
     u32 numAdditionalEffects:3; // limited to 7 //was 3 expansion raised to 7 for some reason - don't want to get too crazy
     u32 strikeCount:4; // Max 15 hits. Defaults to 1 if not set. May apply its effect on each hit.
     u32 multiTaskBanned:1; // remove need for multitask exclude 
@@ -554,9 +554,11 @@ static inline bool32 MoveAlwaysHitsInRain(enum Move moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].alwaysHitsInRain;
 }
 
-static inline bool32 MoveHas50AccuracyInSun(enum Move moveId)
+//changed to 65 not 50
+//w my acc reworks didn't want something that low
+static inline bool32 MoveHas65AccuracyInSun(enum Move moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].accuracy50InSun;
+    return gMovesInfo[SanitizeMoveId(moveId)].accuracy65InSun;
 }
 
 static inline bool32 MoveAlwaysHitsInHailSnow(enum Move moveId)

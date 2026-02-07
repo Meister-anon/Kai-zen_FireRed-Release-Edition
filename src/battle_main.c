@@ -5148,15 +5148,15 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler)
     u32 highestStat = GetHighestStatId(battler);  //3was for protosynthesis will use for ultranerozma move instead i think
 
     // weather abilities
-    if (ability == ABILITY_SWIFT_SWIM && IsBattlerWeatherAffected(battler, WEATHER_RAIN_ANY))
+    if (ability == ABILITY_SWIFT_SWIM && IsBattlerWeatherAffected(battler, WEATHER_RAIN))
         speed *= 2;
-    else if (ability == ABILITY_CHLOROPHYLL && IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY))
+    else if (ability == ABILITY_CHLOROPHYLL && IsBattlerWeatherAffected(battler, WEATHER_SUN))
         speed *= 2;
-    else if (ability == ABILITY_SAND_RUSH && IsBattlerWeatherAffected(battler, WEATHER_SANDSTORM_ANY))
+    else if (ability == ABILITY_SAND_RUSH && IsBattlerWeatherAffected(battler, WEATHER_SANDSTORM))
         speed *= 2;
     else if (ability == ABILITY_SLUSH_RUSH && IsBattlerWeatherAffected(battler, WEATHER_HAIL))
         speed *= 2;
-    else if (ability == ABILITY_FLUORESCENCE && IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY))
+    else if (ability == ABILITY_FLUORESCENCE && IsBattlerWeatherAffected(battler, WEATHER_SUN))
         speed = (speed * 150) / 100;
 
 
@@ -5217,7 +5217,7 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler)
         speed = (speed * 80) / 100; //buff for all of category, magnet pull, arena trap, shadow tag  /equivalent to 1 stage drop
     
     //gen 9 //-protosynthesis requires gen9 item Booster Energy to be complete accurate
-    else if (ability == ABILITY_PROTOSYNTHESIS && IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY) && highestStat == STAT_SPEED)
+    else if (ability == ABILITY_PROTOSYNTHESIS && IsBattlerWeatherAffected(battler, WEATHER_SUN) && highestStat == STAT_SPEED)
         speed = (speed * 150) / 100;
     else if (ability == ABILITY_QUARK_DRIVE && IsBattlerTerrainAffected(battler, STATUS_FIELD_ELECTRIC_TERRAIN) && highestStat == STAT_SPEED)
         speed = (speed * 150) / 100;

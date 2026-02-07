@@ -1444,11 +1444,11 @@ extern u16 gBattleWeather;
 
 static void Cmd_get_weather(void)
 {
-    if (gBattleWeather & WEATHER_RAIN_ANY)
+    if (gBattleWeather & WEATHER_RAIN)
         AI_THINKING_STRUCT->funcResult = WEATHER_TYPE_RAIN;
-    if (gBattleWeather & WEATHER_SANDSTORM_ANY)
+    if (gBattleWeather & WEATHER_SANDSTORM)
         AI_THINKING_STRUCT->funcResult = WEATHER_TYPE_SANDSTORM;
-    if (gBattleWeather & WEATHER_SUN_ANY)
+    if (gBattleWeather & WEATHER_SUN)
         AI_THINKING_STRUCT->funcResult = WEATHER_TYPE_SUNNY;
     if (gBattleWeather & WEATHER_HAIL)
         AI_THINKING_STRUCT->funcResult = WEATHER_TYPE_HAIL;
