@@ -18676,6 +18676,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSwannaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //change shiny form pal base off black swan
 
     [SPECIES_VANILLITE] =
     {
