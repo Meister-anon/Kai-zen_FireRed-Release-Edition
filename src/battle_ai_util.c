@@ -2712,7 +2712,7 @@ bool32 HasMoveWithCriticalHitChance(enum BattlerId battlerId)
     for (u32 moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
     {
         if (moves[moveIndex] != MOVE_NONE && moves[moveIndex] != MOVE_UNAVAILABLE
-            && GetMoveCriticalHitStage(moves[moveIndex]) > 0)
+            && IsEnhancedCritMove(moves[moveIndex]) > 0)
             return TRUE;
     }
 

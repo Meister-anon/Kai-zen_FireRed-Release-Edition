@@ -10874,7 +10874,7 @@ s32 CalcCritChanceStage(struct BattleContext *ctx)
     {
         critChance  = (gBattleMons[ctx->battlerAtk].volatiles.focusEnergy != 0 ? 2 : 0)
                     + (gBattleMons[ctx->battlerAtk].volatiles.dragonCheer != 0 ? 1 : 0)
-                    + GetMoveCriticalHitStage(ctx->move)
+                    + IsEnhancedCritMove(ctx->move)
                     + GetHoldEffectCritChanceIncrease(ctx->battlerAtk, ctx->holdEffectAtk)
                     + (ctx->abilityAtk == ABILITY_SUPER_LUCK ? 1 : 0)
                     + gBattleMons[ctx->battlerAtk].volatiles.bonusCritStages;
@@ -10907,7 +10907,7 @@ s32 CalcCritChanceStage(struct BattleContext *ctx)
 s32 CalcCritChanceStageGen1(struct BattleContext *ctx)
 {
     s32 critChance = 0;
-    s32 moveCritStage = GetMoveCriticalHitStage(ctx->move);
+    s32 moveCritStage = IsEnhancedCritMove(ctx->move);
     s32 bonusCritStage = gBattleMons[ctx->battlerAtk].volatiles.bonusCritStages; // G-Max Chi Strike
     u32 holdEffectCritStage = GetHoldEffectCritChanceIncrease(ctx->battlerAtk, ctx->holdEffectAtk);
     u16 baseSpeed = GetSpeciesBaseSpeed(gBattleMons[ctx->battlerAtk].species);
