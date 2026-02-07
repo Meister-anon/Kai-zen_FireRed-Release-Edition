@@ -70,17 +70,20 @@ void ResumePausedWeather(void)
     SetCurrentAndNextWeather(weather);
 }
 
+//NOT USED in FR
+//but could use to calc weather patterns
+//based on location i.e climate based on region
 static const u8 sWeatherCycleRoute119[] = {
     WEATHER_SUNNY,
-    WEATHER_RAIN,
+    OVERWORLD_WEATHER_RAIN,
     WEATHER_RAIN_THUNDERSTORM,
-    WEATHER_RAIN,
+    OVERWORLD_WEATHER_RAIN,
 };
 
 static const u8 sWeatherCycleRoute123[] = {
     WEATHER_SUNNY,
     WEATHER_SUNNY,
-    WEATHER_RAIN,
+    OVERWORLD_WEATHER_RAIN,
     WEATHER_SUNNY,
 };
 
@@ -91,7 +94,7 @@ static u8 TranslateWeatherNum(u8 weather)
     case WEATHER_NONE:               return WEATHER_NONE;
     case WEATHER_SUNNY_CLOUDS:       return WEATHER_SUNNY_CLOUDS;
     case WEATHER_SUNNY:              return WEATHER_SUNNY;
-    case WEATHER_RAIN:               return WEATHER_RAIN;
+    case OVERWORLD_WEATHER_RAIN:     return OVERWORLD_WEATHER_RAIN;
     case WEATHER_SNOW:               return WEATHER_SNOW;
     case WEATHER_RAIN_THUNDERSTORM:  return WEATHER_RAIN_THUNDERSTORM;
     case WEATHER_FOG_HORIZONTAL:     return WEATHER_FOG_HORIZONTAL;
@@ -120,6 +123,7 @@ void UpdateWeatherPerDay(u16 increment)
 static void UpdateRainCounter(u8 newWeather, u8 oldWeather)
 {
     if (newWeather != oldWeather
-        && (newWeather == WEATHER_RAIN || newWeather == WEATHER_RAIN_THUNDERSTORM))
+        && (newWeather == OVERWORLD_WEATHER_RAIN || newWeather == WEATHER_RAIN_THUNDERSTORM
+        || newWeather == OVERWORLD_WEATHER_ACID_RAIN))
         IncrementGameStat(GAME_STAT_GOT_RAINED_ON);
 }

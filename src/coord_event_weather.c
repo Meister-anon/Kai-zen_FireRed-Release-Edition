@@ -22,7 +22,7 @@ static struct {
 } const sWeatherCoordEventFuncs[] = {
     {WEATHER_SUNNY_CLOUDS,          WeatherCoordEvent_SunnyClouds     },
     {WEATHER_SUNNY,                 WeatherCoordEvent_Sunny           },
-    {WEATHER_RAIN,                  WeatherCoordEvent_Rain            },
+    {OVERWORLD_WEATHER_RAIN,        WeatherCoordEvent_Rain            },
     {WEATHER_SNOW,                  WeatherCoordEvent_Snow            },
     {WEATHER_RAIN_THUNDERSTORM,     WeatherCoordEvent_RainThunderstorm},
     {WEATHER_FOG_HORIZONTAL,        WeatherCoordEvent_FogHorizontal   },

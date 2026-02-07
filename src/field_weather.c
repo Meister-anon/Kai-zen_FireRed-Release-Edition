@@ -74,7 +74,7 @@ static const struct WeatherCallbacks sWeatherFuncs[] = {
    [WEATHER_NONE] = {None_Init, None_Main, None_Init, None_Finish},
    [WEATHER_SUNNY_CLOUDS] = {Clouds_InitVars, Clouds_Main, Clouds_InitAll, Clouds_Finish},
    [WEATHER_SUNNY] = {Sunny_InitVars, Sunny_Main, Sunny_InitAll, Sunny_Finish},
-   [WEATHER_RAIN] = {Rain_InitVars, Rain_Main, Rain_InitAll, Rain_Finish},
+   [OVERWORLD_WEATHER_RAIN] = {Rain_InitVars, Rain_Main, Rain_InitAll, Rain_Finish},
    [WEATHER_SNOW] = {Snow_InitVars, Snow_Main, Snow_InitAll, Snow_Finish},
    [WEATHER_RAIN_THUNDERSTORM] = {Thunderstorm_InitVars, Thunderstorm_Main, Thunderstorm_InitAll, Thunderstorm_Finish},
    [WEATHER_FOG_HORIZONTAL] = {FogHorizontal_InitVars, FogHorizontal_Main, FogHorizontal_InitAll, FogHorizontal_Finish},
@@ -87,7 +87,7 @@ static const struct WeatherCallbacks sWeatherFuncs[] = {
    [WEATHER_DROUGHT] = {Drought_InitVars, Drought_Main, Drought_InitAll, Drought_Finish},
    [WEATHER_DOWNPOUR] = {Downpour_InitVars, Thunderstorm_Main, Downpour_InitAll, Thunderstorm_Finish},
    [WEATHER_UNDERWATER_BUBBLES] = {Bubbles_InitVars, Bubbles_Main, Bubbles_InitAll, Bubbles_Finish},
-   [WEATHER_ACID_RAIN] = {Downpour_InitVars, Rain_Main, Rain_InitAll, Rain_Finish},
+   [OVERWORLD_WEATHER_ACID_RAIN] = {Downpour_InitVars, Rain_Main, Rain_InitAll, Rain_Finish},
 };//vsonic IMPORTANT
 
 static void (*const sWeatherPalStateFuncs[])(void) = {
@@ -183,7 +183,7 @@ void StartWeather(void)
 
 void SetNextWeather(u8 weather)
 {
-    if (weather != WEATHER_RAIN && weather != WEATHER_RAIN_THUNDERSTORM && weather != WEATHER_DOWNPOUR)
+    if (weather != OVERWORLD_WEATHER_RAIN && weather != WEATHER_RAIN_THUNDERSTORM && weather != WEATHER_DOWNPOUR)
     {
         PlayRainStoppingSoundEffect();
     }
@@ -399,7 +399,7 @@ static void FadeInScreenWithWeather(void)
 
     switch (gWeatherPtr->currWeather)
     {
-    case WEATHER_RAIN:
+    case OVERWORLD_WEATHER_RAIN:
     case WEATHER_RAIN_THUNDERSTORM:
     case WEATHER_DOWNPOUR:
     case WEATHER_SNOW:
@@ -798,7 +798,7 @@ void FadeScreen(u8 mode, s8 delay)
 
     switch (gWeatherPtr->currWeather)
     {
-    case WEATHER_RAIN:
+    case OVERWORLD_WEATHER_RAIN:
     case WEATHER_RAIN_THUNDERSTORM:
     case WEATHER_DOWNPOUR:
     case WEATHER_SNOW:
@@ -867,7 +867,7 @@ void FadeSelectedPals(u8 mode, s8 delay, u32 selectedPalettes)
 
     switch (gWeatherPtr->currWeather)
     {
-    case WEATHER_RAIN:
+    case OVERWORLD_WEATHER_RAIN:
     case WEATHER_RAIN_THUNDERSTORM:
     case WEATHER_DOWNPOUR:
     case WEATHER_SNOW:
@@ -1148,7 +1148,7 @@ static void sub_807AF00(u8 a) //seems not used? so can ignore for WEATHER_DARKFO
         SetWeather(WEATHER_SUNNY);
         break;
     case 3:
-        SetWeather(WEATHER_RAIN);
+        SetWeather(OVERWORLD_WEATHER_RAIN);
         break;
     case 4:
         SetWeather(WEATHER_SNOW);
@@ -1253,7 +1253,7 @@ void sub_807B0C4(u16 *palbuf, u16 *unused, u32 size)
 {
     switch (gWeatherPtr->currWeather)
     {
-    case WEATHER_RAIN:
+    case OVERWORLD_WEATHER_RAIN:
     case WEATHER_SNOW:
     case WEATHER_RAIN_THUNDERSTORM:
     case WEATHER_SHADE:

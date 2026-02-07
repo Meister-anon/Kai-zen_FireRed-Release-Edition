@@ -5029,7 +5029,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
         {
             switch (GetCurrentWeather())
             {
-            case WEATHER_RAIN:
+            case OVERWORLD_WEATHER_RAIN:
             case WEATHER_RAIN_THUNDERSTORM:
             case WEATHER_DOWNPOUR:
                 if (!(gBattleWeather & WEATHER_RAIN))
@@ -5039,7 +5039,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                     effect = TRUE;
                 }
                 break;
-            case WEATHER_ACID_RAIN:
+            case OVERWORLD_WEATHER_ACID_RAIN:
                 if (!(gBattleWeather & WEATHER_ACID_RAIN))
                 {
                     gBattleWeather = WEATHER_ACID_RAIN;

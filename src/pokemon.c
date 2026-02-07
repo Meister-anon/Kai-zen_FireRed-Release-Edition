@@ -10403,9 +10403,10 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
                 }//want them both to evolve at the same time since one evolving would keep the other from evolving otherwise
                 break;//make sure karrablast and shelmet are catchable above the level at which they evolve, i.e above lvl 20
             case EVO_LEVEL_RAIN:
-                j = GetCurrentWeather();
+                j = GetCurrentWeather(); //need add acid rain to thi
                 if  (IsMonPastEvolutionLevel(mon, i)
-                && (j == WEATHER_RAIN || j == WEATHER_RAIN_THUNDERSTORM || j == WEATHER_DOWNPOUR))
+                && (j == OVERWORLD_WEATHER_RAIN || j == WEATHER_RAIN_THUNDERSTORM || j == WEATHER_DOWNPOUR
+                || j == OVERWORLD_WEATHER_ACID_RAIN))
                     {
                         EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
                         targetSpecies = evolutions[i].targetSpecies;

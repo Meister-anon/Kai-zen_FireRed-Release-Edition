@@ -329,7 +329,7 @@ static void UpdateDroughtBlend(u8 taskId)
 #undef tWinRange
 
 //------------------------------------------------------------------------------
-// WEATHER_RAIN
+// OVERWORLD_WEATHER_RAIN
 //------------------------------------------------------------------------------
 
 static void LoadRainSpriteSheet(void);
@@ -483,7 +483,7 @@ bool8 Rain_Finish(void)
     switch (gWeatherPtr->finishStep)
     {
     case 0:
-        if (gWeatherPtr->nextWeather == WEATHER_RAIN
+        if (gWeatherPtr->nextWeather == OVERWORLD_WEATHER_RAIN
             || gWeatherPtr->nextWeather == WEATHER_RAIN_THUNDERSTORM
             || gWeatherPtr->nextWeather == WEATHER_DOWNPOUR)
         {
@@ -1127,6 +1127,7 @@ void Thunderstorm_Main(void)
     }
 }
 
+//idk what does would want acid rain thunderstorm tho
 bool8 Thunderstorm_Finish(void)
 {
     switch (gWeatherPtr->finishStep)
@@ -1139,7 +1140,7 @@ bool8 Thunderstorm_Finish(void)
         Thunderstorm_Main();
         if (gWeatherPtr->unknown_6EA)
         {
-            if (gWeatherPtr->nextWeather == WEATHER_RAIN
+            if (gWeatherPtr->nextWeather == OVERWORLD_WEATHER_RAIN
                 || gWeatherPtr->nextWeather == WEATHER_RAIN_THUNDERSTORM
                 || gWeatherPtr->nextWeather == WEATHER_DOWNPOUR)
                 return FALSE;

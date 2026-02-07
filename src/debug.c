@@ -1740,11 +1740,18 @@ static u16 Debug_GetAbilityBySpecies(u16 species, u8 abilityNum)
         return gLastUsedAbility;
 }
 
+//still need setup acid rain stuff
+//plus acid rain thunderstorm variant
+//unsure if want acid thundestorm its own thing
+//or a toggle within rain thunderstorm
+//prob good to have the constant
+//even if I toggle it within rain thunderstorm 
+//being set
 static const u8 sWeatherNames[22][24] = {
     [WEATHER_NONE]               = _("NONE"),
     [WEATHER_SUNNY_CLOUDS]       = _("SUNNY CLOUDS"),
     [WEATHER_SUNNY]              = _("SUNNY"),
-    [WEATHER_RAIN]               = _("RAIN"),
+    [OVERWORLD_WEATHER_RAIN]     = _("RAIN"),
     [WEATHER_SNOW]               = _("SNOW"),
     [WEATHER_RAIN_THUNDERSTORM]  = _("RAIN THUNDERSTORM"),
     [WEATHER_FOG_HORIZONTAL]     = _("FOG HORIZONTAL"),
@@ -1759,6 +1766,7 @@ static const u8 sWeatherNames[22][24] = {
     //[WEATHER_ABNORMAL]           = _("ABNORMAL(NOT WORKING)"),
     [WEATHER_ROUTE119_CYCLE]     = _("ROUTE119 CYCLE"),
     [WEATHER_ROUTE123_CYCLE]     = _("ROUTE123 CYCLE"),
+    [OVERWORLD_WEATHER_ACID_RAIN] = _("ACID RAIN"),
 };
 static const u8 sDebugText_WeatherNotDefined[] = _("NOT DEFINED!!!");
 static void DebugAction_Util_Weather(u8 taskId)

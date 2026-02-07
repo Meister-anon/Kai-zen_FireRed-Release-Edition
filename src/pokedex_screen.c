@@ -8449,7 +8449,6 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
                 StringExpandPlaceholders(gStringVar4, sText_EVO_ITEM_FEMALE );
                 break;
             case EVO_LEVEL_RAIN: //this also needs level parm
-                //if (j == WEATHER_RAIN || j == WEATHER_RAIN_THUNDERSTORM || j == WEATHER_DOWNPOUR)
                 ConvertIntToDecimalStringN(gStringVar3, ((evolutions[i].param & 0xFF00) >> 8), STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS);
                 ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param & 0xFF, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); //level
                 StringExpandPlaceholders(gStringVar4, sText_EVO_LEVEL_RAIN);

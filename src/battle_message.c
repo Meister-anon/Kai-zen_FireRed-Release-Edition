@@ -985,7 +985,7 @@ const u16 gWeatherStartsStringIds[] =
     [WEATHER_NONE]               = STRINGID_ITISRAINING,
     [WEATHER_SUNNY_CLOUDS]       = STRINGID_ITISRAINING,
     [WEATHER_SUNNY]              = STRINGID_ITISRAINING,
-    [WEATHER_RAIN]               = STRINGID_ITISRAINING,
+    [OVERWORLD_WEATHER_RAIN]               = STRINGID_ITISRAINING,
     [WEATHER_SNOW]               = (B_OVERWORLD_SNOW >= GEN_9 ? STRINGID_ITISSNOWING : STRINGID_ITISHAILING),
     [WEATHER_RAIN_THUNDERSTORM]  = STRINGID_ITISRAINING,
     [WEATHER_FOG_HORIZONTAL]     = STRINGID_FOGISDEEP,
@@ -998,7 +998,8 @@ const u16 gWeatherStartsStringIds[] =
     [WEATHER_DOWNPOUR]           = STRINGID_ITISRAINING,
     [WEATHER_UNDERWATER_BUBBLES] = STRINGID_ITISRAINING,
     [WEATHER_ABNORMAL]           = STRINGID_ITISRAINING
-};
+};//ABNORMAL not used think was groudon & kyogre weather?
+//need add acid rain stuff
 
 const u16 gTerrainStartsStringIds[] =
 {
