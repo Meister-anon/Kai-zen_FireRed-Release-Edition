@@ -237,7 +237,7 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     [BATTLE_WEATHER_FOG] =
     {
         .flag = WEATHER_FOG,
-        .rock = HOLD_EFFECT_NONE,
+        .rock = HOLD_EFFECT_NONE, //dry ice? smoky rock idk may keep nothing
         .abilityStartMessage = B_MSG_STARTED_DRIZZLE, // Placeholder
         .moveStartMessage = B_MSG_STARTED_RAIN, // Placeholder
         .endMessage = B_MSG_WEATHER_END_FOG,
