@@ -2098,6 +2098,43 @@ static inline u32 GetAbilityTimer(enum Ability ability)
     return gAbilitiesInfo[ability].timer;
 }
 
+//isu32 is bigg enough to hold
+//vsonic important should work long as DON'T use w dynamax hp
+//may need specifically use getnondynamaxed hp function?
+//found better check, from hp check in formchangetargetspecies function
+static inline bool32 CheckBattlerHpThreshold(enum BattlerId battler, u8 Comparison, u8 percentHp)
+{
+    u32 maxHp = (gBattleMons[battler].maxHP);
+    u32 currHp = (gBattleMons[battler].hp);
+    // We multiply by 100 to make sure that integer division doesn't mess with the health check.
+    u32 hpCheck = (currHp * 100 * 100) / maxHp;
+    u32 hpThreshold = percentHp * 100;
+
+    
+    switch (Comparison)
+    {
+        case LESS_THAN:
+            return (currHp < hpThreshold);
+        break;
+        case GREATER_THAN:
+            return (currHp > hpThreshold);
+        break;
+        case EQUAL_TO:
+            return (currHp == hpThreshold);
+        break;
+        case NOT_EQUAL:
+            return (currHp != hpThreshold);
+        break;
+        case LESS_THAN_OR_EQUAL:
+            return (currHp <= hpThreshold);
+        break;
+        case GREATER_THAN_OR_EQUAL:
+            return (currHp >= hpThreshold);
+        break;
+    }
+
+    return FALSE;
+}
 
 
 //missing include

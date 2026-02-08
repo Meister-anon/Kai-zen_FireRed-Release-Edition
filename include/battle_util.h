@@ -336,8 +336,6 @@ enum EjectPackTiming
     OTHER,
 };
 
-bool32 CheckBattlerHpThreshold(enum BattlerId battler, u8 Comparison, u8 percentHp);
-
 void HandleAction_ThrowBall(void);
 uq4_12_t CalcTypeEffectivenessMultiplierHelper(enum Move move, enum Type moveType, enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum Ability abilityDef, bool32 recordAbilities);
 u32 GetCurrentBattleWeather(void);
