@@ -649,7 +649,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_VINE_WHIP] =
     {
         .name = COMPOUND_STRING("Vine Whip"),
-        .description = COMPOUND_MOVE_STRING("The foe is struck\nwith slender, whip-\nlike vines."),
+        .description = COMPOUND_MOVE_STRING("The foe is struck\nwith slender, whip-\nlike vines.\nIt may make the\nfoe flinch."),
         #if B_UPDATED_MOVE_DATA >= GEN_6
             .power = 45,
             .pp = 25,
