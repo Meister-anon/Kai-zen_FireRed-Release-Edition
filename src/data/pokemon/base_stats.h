@@ -1005,7 +1005,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sPikachuTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, 0, SPECIES_RAICHU},
                                 {EVO_ITEM_FORM, ITEM_THUNDER_STONE, F_ALOLAN_FORM, SPECIES_RAICHU_ALOLAN}), //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS,// exclude as not planning to use/add pika caps, but if you did would use this flag, and exclude cosplay forms
+        .hasCosmeticForms = TRUE,// exclude as not planning to use/add pika caps, but if you did would use this flag, and exclude cosplay forms
     }, //figure hwo to do evo/ evo method use 2nd param check flag, 
 
     [SPECIES_RAICHU] =
@@ -4662,7 +4662,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sArticunoLevelUpLearnset,
         .tmhmLearnset = sArticunoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//think give rest if doesn't have it
     //potentially drop refrigerate? snow cloak w flyign type buff
     //would be pretty insane
@@ -4695,7 +4695,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZapdosLevelUpLearnset,
         .tmhmLearnset = sZapdosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//based on JPRPokeTrainer98 youtube vid replace pressure for most legendaries, keep for mewtwo 
     //static would actually be really good w new change
     //Dropped motor drive for static
@@ -4733,7 +4733,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMoltresLevelUpLearnset,
         .tmhmLearnset = sMoltresTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//new abilities based on JPRPokeTrainer98 youtube vid,  volcanic healing or pheonix or primal fire, fire type volt absorb but combine w flame body effect
     //but with a higher chance to burn,  maybe call it primordial flame/fire  also works as a status cleanse/field cleanse, make status cleanse not field cleanse
     //hit by fire heals status effects  phoenixification ?  phoenix riser  riser phoenix? lol rising phoenix
@@ -4856,7 +4856,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMewtwoLevelUpLearnset,
         .tmhmLearnset = sMewtwoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//ok so mewtwo is apparently worst legendary thanks to power creep
     //so I guess making float is fine?
     //wouldn't protect from precipice blades but every little bit helps I guess
@@ -4894,7 +4894,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMewLevelUpLearnset,
         .tmhmLearnset = sMewTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//buff to give realm of excellence as mewtwo is more offenseive whille mew was always about avoiding fights/defense
     //readjusted stats to be in line w mewtwo
 
@@ -6377,7 +6377,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sUnownLevelUpLearnset,
         .tmhmLearnset = sUnownTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS,
+        .hasCosmeticForms = TRUE,
     },//perhaps give unown special move based on letter?
     //similar to metronome but can pull up a move starting with their  letter
     //would greatly vary baed on letter maybe just new ability?
@@ -7701,7 +7701,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRaikouLevelUpLearnset,
         .tmhmLearnset = sRaikouTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     }, //think I'll change volt and water absorb
     //to work like lightning rod where the element is auto drawn in
 
@@ -7780,7 +7780,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sEnteiLevelUpLearnset,
         .tmhmLearnset = sEnteiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_SUICUNE] =
@@ -7810,7 +7810,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSuicuneLevelUpLearnset,
         .tmhmLearnset = sSuicuneTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_LARVITAR] =
@@ -7922,7 +7922,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sLugiaLevelUpLearnset,
         .tmhmLearnset = sLugiaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
     //hmm w type changes this is perfect, psychic covers fairy weakness
     //and ability change covers Ice
@@ -7955,7 +7955,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sHoOhLevelUpLearnset,
         .tmhmLearnset = sHoOhTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//didn't exactly want storm break on these 2 but made too much sense,
     //beleive bought are none to clear weather or affect weather in some way
 
@@ -7986,7 +7986,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCelebiLevelUpLearnset,
         .tmhmLearnset = sCelebiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     }, //Can make fairy type now that dual weakness is not so punishing
     //well fairy is immune to dragon,  grass is immune to fairy
     //w type changes its actually better as grass psychic
@@ -11100,7 +11100,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCastformLevelUpLearnset,
         .tmhmLearnset = sCastformTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS, //may be able to do with this, since not changing species
+        .hasCosmeticForms = TRUE, //may be able to do with this, since not changing species
         //and type setting is done within a function anyway
     },//body color changes see what that is used for
     //technically makes sense as cosmetic
@@ -11908,7 +11908,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRegirockLevelUpLearnset,
         .tmhmLearnset = sRegirockTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_REGICE] =
@@ -11937,7 +11937,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRegiceLevelUpLearnset,
         .tmhmLearnset = sRegiceTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     }, 
 
     [SPECIES_REGISTEEL] =
@@ -11967,7 +11967,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRegisteelLevelUpLearnset,
         .tmhmLearnset = sRegisteelTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_LATIAS] =
@@ -11996,7 +11996,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sLatiasLevelUpLearnset,
         .tmhmLearnset = sLatiasTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//delve into their ability to turn invisible
     //start battle with +1 evasion so they are just harder to hit without needing a setup
     //red spector blue spector?Spectre  or spectrum blend?  that works, just make it a switch in ability that would increase evasiveness, so they can effectively start boosted +1 potentially +2
@@ -12040,7 +12040,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sLatiosLevelUpLearnset,
         .tmhmLearnset = sLatiosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
     //rebalance spectre evasion not fun, setup like zacian zamazenta abilities
     //base game version not my version, where it'll be only once per battle
@@ -12073,7 +12073,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sKyogreLevelUpLearnset,
         .tmhmLearnset = sKyogreTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_GROUDON] =
@@ -12102,7 +12102,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGroudonLevelUpLearnset,
         .tmhmLearnset = sGroudonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//now that it exists give solar blade instead
 
     [SPECIES_RAYQUAZA] =
@@ -12132,7 +12132,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRayquazaLevelUpLearnset,
         .tmhmLearnset = sRayquazaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_JIRACHI] =
@@ -12163,7 +12163,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sJirachiLevelUpLearnset,
         .tmhmLearnset = sJirachiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_DEOXYS] =
@@ -12194,7 +12194,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDeoxysLevelUpLearnset,
         .tmhmLearnset = sDeoxysTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_TURTWIG] =
@@ -13299,7 +13299,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sShellosLevelUpLearnset,
         .tmhmLearnset = sShellosTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, AVERAGE_EFFORT), 0, SPECIES_GASTRODON}), //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS, //again only change is bodycolor 
+        .hasCosmeticForms = TRUE, //again only change is bodycolor 
     },
 
     [SPECIES_GASTRODON] =
@@ -13328,7 +13328,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGastrodonLevelUpLearnset,
         .tmhmLearnset = sGastrodonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS, //same as above
+        .hasCosmeticForms = TRUE, //same as above
     },
 
     [SPECIES_AMBIPOM] =
@@ -15038,7 +15038,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sUxieLevelUpLearnset, //ability doens't work
         .tmhmLearnset = sUxieTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//knowledge/ memoery mon  can seal a move when they attack. the enemy
     //temporarily lose effect to use a move  think I'll make it only work on one move
     //and have it read the enemy move pool and create logic to attempt to pick the most
@@ -15082,7 +15082,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMespritLevelUpLearnset,
         .tmhmLearnset = sMespritTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//empath, emotion pokemon, give efffect of synchronize but also make attaker feel a portion of my pain
     //so attacker takes a percent of damage dealt 20% 25% something like that or maybe 15% //change call this empathic curse
     //as plan to make new synchronize buff its own ability & call that empath as realized its a mirror armor/corvinight copy/hybrid and I DON'T want that going on umbreon ...
@@ -15116,7 +15116,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sAzelfLevelUpLearnset,
         .tmhmLearnset = sAzelfTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//iron will, will pokemon, paralysis effect, a chance to make opponent lose will to attack facing this mon.
     //in double battles use trace targeetting logic, so it randomly affects one target rather than both as that would be broken
     //well idk I could just link it to targeetting this mon with an attack, so even in doubles it'll just 
@@ -15155,7 +15155,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDialgaLevelUpLearnset,
         .tmhmLearnset = sDialgaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
     //actually nvm dialga is way too good for anything besides pressure
     //it literally has 0 weaknesses except fighting, its not even weak to ground anymore
@@ -15194,7 +15194,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sPalkiaLevelUpLearnset,
         .tmhmLearnset = sPalkiaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//based on JPRPokeTrainer98 youtube vid ability space control, tweaked. 
     //in doubles make all non contact attacks multi target target both in doubles, target all in triple/rotation
     //target select if gcurrentmove has flag contact move change targetting to either n=both or enemy fiekd
@@ -15236,7 +15236,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sHeatranLevelUpLearnset,
         .tmhmLearnset = sHeatranTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//need to finish idea of lava fissure
     //scorch effect is similar to x/y combo move effect
     //vsonic
@@ -15268,7 +15268,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRegigigasLevelUpLearnset,
         .tmhmLearnset = sRegigigasTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//intersting with typing able to use mystery as an attack type via rage
     //few mon to be able to get passed color change that way
     //could give rage in a boss battle?
@@ -15299,7 +15299,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGiratinaLevelUpLearnset,
         .tmhmLearnset = sGiratinaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
     //making healing move for viability
     //as meant to be a defensive mon
@@ -15330,7 +15330,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCresseliaLevelUpLearnset,
         .tmhmLearnset = sCresseliaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//lunar spirit/aura/veil  prevents allies/self from falling asleep,  counter to darkai also reduces dark type damage by 50%
     //removes that 4x dark weakness I gave it, sheesh
     //like suicine ability heal should also work on switch in for anyone already asleep
@@ -15403,7 +15403,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sManaphyLevelUpLearnset,
         .tmhmLearnset = sManaphyTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_DARKRAI] =
@@ -15432,7 +15432,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDarkraiLevelUpLearnset,
         .tmhmLearnset = sDarkraiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//haven't set despair effect yet      
     //vsonic important
 
@@ -15463,7 +15463,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sShayminLevelUpLearnset,
         .tmhmLearnset = sShayminTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_ARCEUS] =
@@ -15491,7 +15491,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sArceusLevelUpLearnset,
         .tmhmLearnset = sArceusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS | FLAG_LEGENDARY_POKEMON, //if just about type change could potentially setup like castform
+        .hasCosmeticForms = TRUE,
+        .isLegendaryOrMythical = TRUE //if just about type change could potentially setup like castform
     },//nothing should ne higher normally - just finished readjust and wow its actually perfect
     //all thes have been brought down and the highest legendarys are just slightly above arceus
     //while its still clearly better in every way
@@ -15530,7 +15531,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sVictiniLevelUpLearnset,
         .tmhmLearnset = sVictiniTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_SNIVY] =
@@ -18842,7 +18843,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDeerlingLevelUpLearnset,
         .tmhmLearnset = sDeerlingTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(34, AVERAGE_EFFORT), 0, SPECIES_SAWSBUCK}), //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS, //again body color is only difference
+        .hasCosmeticForms = TRUE, //again body color is only difference
     },
 
     [SPECIES_SAWSBUCK] =
@@ -18878,7 +18879,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSawsbuckLevelUpLearnset,
         .tmhmLearnset = sSawsbuckTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS, //only body color changes
+        .hasCosmeticForms = TRUE, //only body color changes
     },
 
     [SPECIES_EMOLGA] =
@@ -19095,7 +19096,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sFrillishLevelUpLearnset,
         .tmhmLearnset = sFrillishTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, AVERAGE_EFFORT), 0, SPECIES_JELLICENT_MALE}), //Should hopefully blank these for now without issue
-        //.flags = F_HAS_COSMETIC_FORMS,
+        //.hasCosmeticForms = TRUE,
     }, //water with tentacruel //cant make cosmetic, because of weird exclusion this is only cosmetic that evolves rather than being an end species
 
     [SPECIES_JELLICENT_MALE] =
@@ -19131,7 +19132,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sJellicentLevelUpLearnset,
         .tmhmLearnset = sJellicentTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        //.flags = F_HAS_COSMETIC_FORMS,
+        //.hasCosmeticForms = TRUE,
     },
 
     [SPECIES_ALOMOMOLA] =
@@ -20762,7 +20763,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCobalionLevelUpLearnset,
         .tmhmLearnset = sCobalionTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//needs better moves
     //iron will pokemon, so gave more hp i.e will unbreakable more stamina
     //decied give back speed drop atk some since 4x resist dark can more easily
@@ -20803,7 +20804,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTerrakionLevelUpLearnset,
         .tmhmLearnset = sTerrakionTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_VIRIZION] =
@@ -20839,7 +20840,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sVirizionLevelUpLearnset,//opposite of stall boost damage if moves first
         .tmhmLearnset = sVirizionTMHMLearnset,//stikes swiftly and decisively boost damage if strikes before target
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_TORNADUS_INCARNATE] =
@@ -20875,7 +20876,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTornadusLevelUpLearnset,
         .tmhmLearnset = sTornadusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_THUNDURUS_INCARNATE] =
@@ -20911,7 +20912,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sThundurusLevelUpLearnset,
         .tmhmLearnset = sThundurusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_RESHIRAM] =
@@ -20947,7 +20948,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sReshiramLevelUpLearnset,
         .tmhmLearnset = sReshiramTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_ZEKROM] =
@@ -20983,7 +20984,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZekromLevelUpLearnset,
         .tmhmLearnset = sZekromTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
     //zekrom needs better moves,
     //think give drain punch?
@@ -21021,7 +21022,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sLandorusLevelUpLearnset,
         .tmhmLearnset = sLandorusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_KYUREM] =
@@ -21059,7 +21060,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sKyuremLevelUpLearnset,
         .tmhmLearnset = sKyuremTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//absolute zero, turns all water type attacks into ice type attacks field wide, think also change type effect like ecosystem eto resist ice - DONE
 
     [SPECIES_KELDEO] =
@@ -21095,7 +21096,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sKeldeoLevelUpLearnset,
         .tmhmLearnset = sKeldeoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_MELOETTA] =
@@ -21135,6 +21136,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMeloettaLevelUpLearnset,
         .tmhmLearnset = sMeloettaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_GENESECT] =
@@ -21172,7 +21174,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGenesectLevelUpLearnset,
         .tmhmLearnset = sGenesectTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS | FLAG_LEGENDARY_POKEMON,
+        .hasCosmeticForms = TRUE,
+        .isLegendaryOrMythical = TRUE
     },
 
     [SPECIES_CHESPIN] =
@@ -21775,7 +21778,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sVivillonLevelUpLearnset,
         .tmhmLearnset = sVivillonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS,
+        .hasCosmeticForms = TRUE,
     },//to differentiate from butterfree and because its defenses are shite,
     //swapping friend guard for protean, it has many different forms so it changes with its environemnt
     //so makes sense
@@ -21892,7 +21895,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sFlabebeLevelUpLearnset,
         .tmhmLearnset = sFlabebeTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(19, AVERAGE_EFFORT), 0, SPECIES_FLOETTE}), //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS,
+        .hasCosmeticForms = TRUE,
     },
 
     [SPECIES_FLOETTE] =
@@ -21928,7 +21931,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sFloetteLevelUpLearnset,
         .tmhmLearnset = sFloetteTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_SHINY_STONE, 0, SPECIES_FLORGES}), //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS,
+        .hasCosmeticForms = TRUE,
     },
 
     [SPECIES_FLORGES] =
@@ -21964,7 +21967,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sFlorgesLevelUpLearnset,
         .tmhmLearnset = sFlorgesTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS,
+        .hasCosmeticForms = TRUE,
     },
 
     [SPECIES_SKIDDO] =
@@ -22148,7 +22151,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sFurfrouLevelUpLearnset,
         .tmhmLearnset = sFurfrouTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS, //setup like oinkologne etc. and pyroar actually no
+        .hasCosmeticForms = TRUE, //setup like oinkologne etc. and pyroar actually no
         //there's no reason to want one actually yes, if ever need a scripted form for someone
         //and want them to have base form don't want it generating a different thing each battle
         //unlike gender form can just use base form for gender ratio
@@ -23629,7 +23632,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sXerneasLevelUpLearnset,
         .tmhmLearnset = sXerneasTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_YVELTAL] =
@@ -23665,7 +23668,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sYveltalLevelUpLearnset,
         .tmhmLearnset = sYveltalTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_ZYGARDE_10] =
@@ -23701,7 +23704,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZygardeLevelUpLearnset,
         .tmhmLearnset = sZygardeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//finally adjusted species value so base form is 10,
     //and power construct isn't a separate species
 
@@ -23739,7 +23742,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDiancieLevelUpLearnset,
         .tmhmLearnset = sDiancieTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_HOOPA] =
@@ -23775,7 +23778,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sHoopaLevelUpLearnset,
         .tmhmLearnset = sHoopaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_VOLCANION] =
@@ -25729,7 +25732,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTypeNullLevelUpLearnset,
         .tmhmLearnset = sTypeNullTMHMLearnset,
         .evolutions = EVOLUTION({EVO_FRIENDSHIP, FILL, 0, SPECIES_SILVALLY}), //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_SILVALLY] =
@@ -25765,7 +25768,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSilvallyLevelUpLearnset,
         .tmhmLearnset = sSilvallyTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS | FLAG_LEGENDARY_POKEMON, //see if can setup like castform
+        .hasCosmeticForms = TRUE,
+        .isLegendaryOrMythical = TRUE //see if can setup like castform
     },
 
     [SPECIES_MINIOR] =
@@ -25803,7 +25807,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMiniorLevelUpLearnset,
         .tmhmLearnset = sMiniorTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        //.flags = F_HAS_COSMETIC_FORMS, for simplicity leave off for now changes species w function in util
+        //.hasCosmeticForms = TRUE, for simplicity leave off for now changes species w function in util
     },//this is minior meteor red, need meteor core as its own species
     //this will need specific logic to work w ddex changes
 
@@ -25962,7 +25966,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMimikyuLevelUpLearnset,
         .tmhmLearnset = sMimikyuTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS, //should work?
+        .hasCosmeticForms = TRUE, //should work?
     },
 
     [SPECIES_BRUXISH] =
@@ -26221,7 +26225,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTapuKokoLevelUpLearnset,
         .tmhmLearnset = sTapuKokoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_TAPU_LELE] =
@@ -26257,7 +26261,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTapuLeleLevelUpLearnset,
         .tmhmLearnset = sTapuLeleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_TAPU_BULU] =
@@ -26293,7 +26297,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTapuBuluLevelUpLearnset,
         .tmhmLearnset = sTapuBuluTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     }, //worst one, needs better moves doesn't get any fairy moves,
     //give MOVE_MAGICAL_TORQUE,  MOVE_PLAY_ROUGH, maybe MOVE_FAIRY_LOCK
     //and MOVE_SPIKE_SHIELD potentially also MOVE_SPIRIT_BREAK
@@ -26335,7 +26339,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTapuFiniLevelUpLearnset,
         .tmhmLearnset = sTapuFiniTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_COSMOG] =
@@ -26371,7 +26375,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCosmogLevelUpLearnset,
         .tmhmLearnset = sCosmogTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(43, AVERAGE_EFFORT), 0, SPECIES_COSMOEM}), //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_COSMOEM] =
@@ -26409,7 +26413,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sCosmoemTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_DAY, RELATIVE_EVO(53, MEDIUM_EFFORT), 0, SPECIES_SOLGALEO},
                                        {EVO_LEVEL_NIGHT, RELATIVE_EVO(53, MEDIUM_EFFORT), 0, SPECIES_LUNALA}), //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_SOLGALEO] =
@@ -26445,7 +26449,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSolgaleoLevelUpLearnset,
         .tmhmLearnset = sSolgaleoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
     //idk what to add to this ability wise
 
@@ -26482,7 +26486,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sLunalaLevelUpLearnset,
         .tmhmLearnset = sLunalaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_NIHILEGO] =
@@ -26518,7 +26522,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sNihilegoLevelUpLearnset,
         .tmhmLearnset = sNihilegoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        
+        .isUltraBeast = TRUE,
     },
 
     [SPECIES_BUZZWOLE] =
@@ -26555,7 +26559,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sBuzzwoleLevelUpLearnset,
         .tmhmLearnset = sBuzzwoleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        
+        .isUltraBeast = TRUE,
     },
 
     [SPECIES_PHEROMOSA] =
@@ -26591,7 +26595,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sPheromosaLevelUpLearnset,
         .tmhmLearnset = sPheromosaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        
+        .isUltraBeast = TRUE,
     },
 
     [SPECIES_XURKITREE] =
@@ -26627,7 +26631,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sXurkitreeLevelUpLearnset,
         .tmhmLearnset = sXurkitreeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        
+        .isUltraBeast = TRUE,
     },
 
     [SPECIES_CELESTEELA] =
@@ -26665,7 +26669,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCelesteelaLevelUpLearnset,
         .tmhmLearnset = sCelesteelaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        
+        .isUltraBeast = TRUE,
     },
 
     [SPECIES_KARTANA] =
@@ -26701,7 +26705,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sKartanaLevelUpLearnset,
         .tmhmLearnset = sKartanaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        
+        .isUltraBeast = TRUE,
     },
 
     [SPECIES_GUZZLORD] =
@@ -26737,7 +26741,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGuzzlordLevelUpLearnset,
         .tmhmLearnset = sGuzzlordTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        
+        .isUltraBeast = TRUE,
     },//apparently guzzlord is bad?
     //guess the quad fairy weakness?
     //anyway corruption is still in concept phase
@@ -26778,7 +26782,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sNecrozmaLevelUpLearnset,
         .tmhmLearnset = sNecrozmaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//light devour(er) add on to prism armor, any light based move used by enemy is canceled and heals necrozma instead,also gets healing in harsh sunlight
     //moves solar beam, synthesis, moonlight, morning sun, etc. sunny day too.  Do like sound just setup a flag for it, or just do am effect search for enemy move
     //put im attack cancelor
@@ -26816,7 +26820,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMagearnaLevelUpLearnset,
         .tmhmLearnset = sMagearnaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_MARSHADOW] =
@@ -26853,7 +26857,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMarshadowLevelUpLearnset,
         .tmhmLearnset = sMarshadowTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_POIPOLE] =
@@ -26889,7 +26893,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sPoipoleLevelUpLearnset,
         .tmhmLearnset = sPoipoleTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, MEDIUM_EFFORT), 0, SPECIES_STEENEE}), //Should hopefully blank these for now without issue
-        
+        .isUltraBeast = TRUE,
     },//changed evo, base was lvl 1 move was a progression locked evo til move tutor/relearner
 
     [SPECIES_NAGANADEL] =
@@ -26925,7 +26929,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sNaganadelLevelUpLearnset,
         .tmhmLearnset = sNaganadelTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        
+        .isUltraBeast = TRUE,
     },
 
     [SPECIES_STAKATAKA] =
@@ -26961,7 +26965,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sStakatakaLevelUpLearnset,
         .tmhmLearnset = sStakatakaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        
+        .isUltraBeast = TRUE,
     },
 
     [SPECIES_BLACEPHALON] =
@@ -26997,7 +27001,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sBlacephalonLevelUpLearnset,
         .tmhmLearnset = sBlacephalonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        
+        .isUltraBeast = TRUE,
     },
 
     [SPECIES_ZERAORA] =
@@ -27033,7 +27037,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZeraoraLevelUpLearnset,
         .tmhmLearnset = sZeraoraTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_MELTAN] =
@@ -27069,7 +27073,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMeltanLevelUpLearnset,
         .tmhmLearnset = sMeltanTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(49, HIGH_EFFORT), 0, SPECIES_MELMETAL}), //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_MELMETAL] =
@@ -27105,7 +27109,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMelmetalLevelUpLearnset,
         .tmhmLearnset = sMelmetalTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_GROOKEY] =
@@ -28406,7 +28410,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCramorantLevelUpLearnset,
         .tmhmLearnset = sCramorantTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS,
+        .hasCosmeticForms = TRUE,
     },//rework ability condition think just use water move above 80 base power?
 
     [SPECIES_ARROKUDA] =
@@ -29273,7 +29277,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sAlcremieLevelUpLearnset,
         .tmhmLearnset = sAlcremieTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HAS_COSMETIC_FORMS,
+        .hasCosmeticForms = TRUE,
     },//method will be friendhship evo, but target species will be shifted using personality to get form I want
 
     [SPECIES_FALINKS] =
@@ -29964,7 +29968,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZacianLevelUpLearnset,
         .tmhmLearnset = sZacianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_ZAMAZENTA] =
@@ -29999,7 +30003,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZamazentaLevelUpLearnset,
         .tmhmLearnset = sZamazentaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_ETERNATUS] =
@@ -30035,7 +30039,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sEternatusLevelUpLearnset,
         .tmhmLearnset = sEternatusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     }, //since it absorbs things to grow get stronger maybe boosts def spdef?
 
     [SPECIES_KUBFU] =
@@ -30072,7 +30076,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sKubfuTMHMLearnset,
         .evolutions = EVOLUTION({EVO_MAPSEC, MAPSEC_SEAFOAM_ISLANDS, 0, SPECIES_URSHIFU_RAPID_STRIKE_STYLE},
                                        {EVO_MAPSEC, MAPSEC_CERULEAN_CAVE, 0, SPECIES_URSHIFU_SINGLE_STRIKE_STYLE}), //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//need item scroll of water / scroll of darkness
     //for now could make mapsec evo, thinking cerulean cave & seafoam island or navel rock
     //but navel rock doesn't hvae encounters
@@ -30119,7 +30123,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sUrshifuSingleStrikeStyleLevelUpLearnset,
         .tmhmLearnset = sUrshifuSingleStrikeStyleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_ZARUDE] =
@@ -30155,7 +30159,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZarudeLevelUpLearnset,
         .tmhmLearnset = sZarudeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_REGIELEKI] =
@@ -30191,7 +30195,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRegielekiLevelUpLearnset,
         .tmhmLearnset = sRegielekiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//nothing better ever be faster than this thing smh
 
     [SPECIES_REGIDRAGO] =
@@ -30227,7 +30231,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRegidragoLevelUpLearnset,
         .tmhmLearnset = sRegidragoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_GLASTRIER] =
@@ -30263,7 +30267,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGlastrierLevelUpLearnset,
         .tmhmLearnset = sGlastrierTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     }, //note setup ability so it plays the cry before the stat boost -done
 
     [SPECIES_SPECTRIER] =
@@ -30299,7 +30303,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSpectrierLevelUpLearnset,
         .tmhmLearnset = sSpectrierTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//note setup ability so it plays the cry before the stat boost  /DONE
 
     [SPECIES_CALYREX] =
@@ -30335,7 +30339,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCalyrexLevelUpLearnset,
         .tmhmLearnset = sCalyrexTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//need to add below mon to species_to_national dex in pokemon.c
 
     [SPECIES_WYRDEER] =
@@ -30585,7 +30589,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sEnamorusLevelUpLearnset,
         .tmhmLearnset = sEnamorusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
     //wrong ability here real abilit is cute charm
     //still not great but since is love themed pokemon
@@ -35852,7 +35856,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTatsugiriLevelUpLearnset,
         .tmhmLearnset = sTatsugiriTMHMLearnset,
         //.formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
-        .flags = F_HAS_COSMETIC_FORMS,
+        .hasCosmeticForms = TRUE,
     },
 
     [SPECIES_TATSUGIRI_DROOPY] =
@@ -36412,6 +36416,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sGreatTuskAbilityLearnset,
         .levelUpLearnset = sGreatTuskLevelUpLearnset,
         .tmhmLearnset = sGreatTuskTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_GREAT_TUSK
 //needs S/V tms to be good, endeavor ice spinner body slam heavy slam etc
@@ -36480,6 +36485,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sScreamTailAbilityLearnset,
         .levelUpLearnset = sScreamTailLevelUpLearnset,
         .tmhmLearnset = sScreamTailTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_SCREAM_TAIL
 
@@ -36546,6 +36552,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sBruteBonnetAbilityLearnset,
         .levelUpLearnset = sBruteBonnetLevelUpLearnset,
         .tmhmLearnset = sBruteBonnetTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_BRUTE_BONNET
 
@@ -36614,6 +36621,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sFlutterManeAbilityLearnset,
         .levelUpLearnset = sFlutterManeLevelUpLearnset,
         .tmhmLearnset = sFlutterManeTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_FLUTTER_MANE
 
@@ -36679,6 +36687,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sSlitherWingAbilityLearnset,
         .levelUpLearnset = sSlitherWingLevelUpLearnset,
         .tmhmLearnset = sSlitherWingTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_SLITHER_WING
 
@@ -36745,6 +36754,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sSandyShocksAbilityLearnset,
         .levelUpLearnset = sSandyShocksLevelUpLearnset,
         .tmhmLearnset = sSandyShocksTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_SANDY_SHOCKS
 
@@ -36811,6 +36821,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sIronTreadsAbilityLearnset,
         .levelUpLearnset = sIronTreadsLevelUpLearnset,
         .tmhmLearnset = sIronTreadsTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_IRON_TREADS
 
@@ -36877,6 +36888,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sIronBundleAbilityLearnset,
         .levelUpLearnset = sIronBundleLevelUpLearnset,
         .tmhmLearnset = sIronBundleTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_IRON_BUNDLE
 
@@ -36943,6 +36955,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sIronHandsAbilityLearnset,
         .levelUpLearnset = sIronHandsLevelUpLearnset,
         .tmhmLearnset = sIronHandsTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_IRON_HANDS
 //biggest issues were intimidate incineroar,
@@ -37018,6 +37031,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sIronJugulisAbilityLearnset,
         .levelUpLearnset = sIronJugulisLevelUpLearnset,
         .tmhmLearnset = sIronJugulisTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_IRON_JUGULIS
 
@@ -37084,6 +37098,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sIronMothAbilityLearnset,
         .levelUpLearnset = sIronMothLevelUpLearnset,
         .tmhmLearnset = sIronMothTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_IRON_MOTH
 
@@ -37150,6 +37165,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sIronThornsAbilityLearnset,
         .levelUpLearnset = sIronThornsLevelUpLearnset,
         .tmhmLearnset = sIronThornsTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_IRON_THORNS
 
@@ -37603,7 +37619,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sWoChienAbilityLearnset,
         .levelUpLearnset = sWoChienLevelUpLearnset,
         .tmhmLearnset = sWoChienTMHMLearnset,
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 //#endif //P_FAMILY_WO_CHIEN
 
@@ -37670,7 +37686,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sChienPaoAbilityLearnset,
         .levelUpLearnset = sChienPaoLevelUpLearnset,
         .tmhmLearnset = sChienPaoTMHMLearnset,
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 //#endif //P_FAMILY_CHIEN_PAO
 
@@ -37737,7 +37753,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sTingLuAbilityLearnset,
         .levelUpLearnset = sTingLuLevelUpLearnset,
         .tmhmLearnset = sTingLuTMHMLearnset,
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 //#endif //P_FAMILY_TING_LU
 
@@ -37804,7 +37820,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sChiYuAbilityLearnset,
         .levelUpLearnset = sChiYuLevelUpLearnset,
         .tmhmLearnset = sChiYuTMHMLearnset,
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 //#endif //P_FAMILY_CHI_YU
 
@@ -37871,6 +37887,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sRoaringMoonAbilityLearnset,
         .levelUpLearnset = sRoaringMoonLevelUpLearnset,
         .tmhmLearnset = sRoaringMoonTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_ROARING_MOON
 
@@ -37936,6 +37953,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sIronValiantAbilityLearnset,
         .levelUpLearnset = sIronValiantLevelUpLearnset,
         .tmhmLearnset = sIronValiantTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_IRON_VALIANT
 
@@ -38003,7 +38021,8 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sKoraidonAbilityLearnset,
         .levelUpLearnset = sKoraidonLevelUpLearnset,
         .tmhmLearnset = sKoraidonTMHMLearnset,
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_KORAIDON
 
@@ -38071,7 +38090,8 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sMiraidonAbilityLearnset,
         .levelUpLearnset = sMiraidonLevelUpLearnset,
         .tmhmLearnset = sMiraidonTMHMLearnset,
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_MIRAIDON
 
@@ -38141,7 +38161,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTaurosPaldeanCombatBreedLevelUpLearnset,
         .tmhmLearnset = sTaurosPaldeanCombatBreedTMHMLearnset,
       //  .formSpeciesIdTable = sTaurosFormSpeciesIdTable,
-        .flags = F_PALDEAN_FORM,
+        .isPaldeanForm = TRUE,
     },
 
     [SPECIES_TAUROS_PALDEAN_BLAZE_BREED] =
@@ -38206,7 +38226,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sTaurosPaldeanBlazeBreedAbilityLearnset,
         .levelUpLearnset = sTaurosPaldeanBlazeBreedLevelUpLearnset,
         .tmhmLearnset = sTaurosPaldeanBlazeBreedTMHMLearnset,
-        .flags = F_PALDEAN_FORM,
+        .isPaldeanForm = TRUE,
     },
 
     [SPECIES_TAUROS_PALDEAN_AQUA_BREED] =
@@ -38271,7 +38291,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sTaurosPaldeanAquaBreedAbilityLearnset,
         .levelUpLearnset = sTaurosPaldeanAquaBreedLevelUpLearnset,
         .tmhmLearnset = sTaurosPaldeanAquaBreedTMHMLearnset,
-        .flags = F_PALDEAN_FORM,
+        .isPaldeanForm = TRUE,
     },
 
     [SPECIES_WOOPER_PALDEAN] =
@@ -38337,7 +38357,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sWooperPaldeanAbilityLearnset,
         .levelUpLearnset = sWooperPaldeanLevelUpLearnset,
         .tmhmLearnset = sWooperPaldeanTMHMLearnset,
-        .flags = F_PALDEAN_FORM,
+        .isPaldeanForm = TRUE,
     },
 
 //#if p_fAMILY_WALKING_WAKE
@@ -38402,6 +38422,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sWalkingWakeAbilityLearnset,
         .levelUpLearnset = sWalkingWakeLevelUpLearnset,
         .tmhmLearnset = sWalkingWakeTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_WALKING_WAKE
 
@@ -38468,6 +38489,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sIronLeavesAbilityLearnset,
         .levelUpLearnset = sIronLeavesLevelUpLearnset,
         .tmhmLearnset = sIronLeavesTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_IRON_LEAVES
 //ok found falseswipegaming vid and virizion iron leaves
@@ -38852,7 +38874,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sOkidogiAbilityLearnset,
         .levelUpLearnset = sOkidogiLevelUpLearnset,
         .tmhmLearnset = sOkidogiTMHMLearnset,
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 //#endif //P_FAMILY_OKIDOGI
 
@@ -38926,7 +38948,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sMunkidoriAbilityLearnset,
         .levelUpLearnset = sMunkidoriLevelUpLearnset,
         .tmhmLearnset = sMunkidoriTMHMLearnset,
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 //#endif //P_FAMILY_MUNKIDORI
 
@@ -38993,7 +39015,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sFezandipitiAbilityLearnset,
         .levelUpLearnset = sFezandipitiLevelUpLearnset,
         .tmhmLearnset = sFezandipitiTMHMLearnset,
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
     //vsonic
     //god these stats suck horribly
@@ -39067,7 +39089,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sOgerponTMHMLearnset,                                 \
         /*.formSpeciesIdTable = sOgerponFormSpeciesIdTable,   */                            \
         /*.formChangeTable = sOgerponFormChangeTable,      */                               \
-        .flags = FLAG_LEGENDARY_POKEMON,                                                       \
+        .isLegendaryOrMythical = TRUE,                                                       \
     }
 
     [SPECIES_OGERPON_TEAL_MASK]             = OGERPON_SPECIES_INFO(TealMask,        TYPE_GRASS, ABILITY_DEFIANT,              1),
@@ -39139,7 +39161,7 @@ const struct BaseStats gBaseStats[] =
         .safariZoneFleeRate = 50,
         .abilityLearnset = sUrsalunaBloodmoonAbilityLearnset,
         .levelUpLearnset = sUrsalunaBloodmoonLevelUpLearnset,
-        .flags = F_PALDEAN_FORM, //adding back for now
+        .isPaldeanForm = TRUE, //adding back for now
         .tmhmLearnset = sUrsalunaBloodmoonTMHMLearnset,
       //  .formSpeciesIdTable = sUrsalunaFormSpeciesIdTable,
     },//thought about making an evo, think will give an item
@@ -39339,6 +39361,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sGougingFireAbilityLearnset,
         .levelUpLearnset = sGougingFireLevelUpLearnset,
         .tmhmLearnset = sGougingFireTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_GOUGING_FIRE
 
@@ -39405,6 +39428,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sRagingBoltAbilityLearnset,
         .levelUpLearnset = sRagingBoltLevelUpLearnset,
         .tmhmLearnset = sRagingBoltTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_RAGING_BOLT
 
@@ -39470,6 +39494,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sIronBoulderAbilityLearnset,
         .levelUpLearnset = sIronBoulderLevelUpLearnset,
         .tmhmLearnset = sIronBoulderTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_IRON_BOULDER
 //apparently not very good, not many phsyical psychic moves
@@ -39543,6 +39568,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sIronCrownAbilityLearnset,
         .levelUpLearnset = sIronCrownLevelUpLearnset,
         .tmhmLearnset = sIronCrownTMHMLearnset,
+        .isParadox = TRUE,
     },
 //#endif //P_FAMILY_IRON_CROWN
 
@@ -39611,7 +39637,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sTerapagosTMHMLearnset,
         //.formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
         //.formChangeTable = sTerapagosFormChangeTable,
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_TERAPAGOS_TERASTAL] =
@@ -39679,7 +39705,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sTerapagosTMHMLearnset,
         //.formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
         //.formChangeTable = sTerapagosFormChangeTable,
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_TERAPAGOS_STELLAR] =
@@ -39746,7 +39772,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sTerapagosTMHMLearnset,
         //.formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
         //.formChangeTable = sTerapagosFormChangeTable,
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },//since stellar type is a bad version of my own normal buffs I'll just scrap it
     //will only allow stellar form for terapagos and treat it like shadow pokemon,
     //where it keeps a permanent stellar tera blast that is super to everything
@@ -39819,7 +39845,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sPecharuntAbilityLearnset,
         .levelUpLearnset = sPecharuntLevelUpLearnset,
         .tmhmLearnset = sPecharuntTMHMLearnset,
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 ////#endif //P_FAMILY_PECHARUNT
     
@@ -39862,7 +39888,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sVenusaurLevelUpLearnset,
         .tmhmLearnset = sVenusaurTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = SPECIES_FLAG_MEGA_FORM,
+        .isMegaEvolution = TRUE,
     },
 
     //mix atk sp atk
@@ -39899,7 +39925,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCharizardLevelUpLearnset,
         .tmhmLearnset = sCharizardTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = SPECIES_FLAG_MEGA_FORM,
+        .isMegaEvolution = TRUE,
     },
 
     //full pooled in sp atk  
@@ -39936,7 +39962,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCharizardLevelUpLearnset,
         .tmhmLearnset = sCharizardTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_BLASTOISE_MEGA] =
@@ -39972,7 +39998,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sBlastoiseLevelUpLearnset,
         .tmhmLearnset = sBlastoiseTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_BEEDRILL_MEGA] =
@@ -40010,7 +40036,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sBeedrillLevelUpLearnset,
         .tmhmLearnset = sBeedrillTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },//crazy to say but at this point ABILITY_POISONED_LEGACY,
     //may be a better ability here than  adaptability
     //hmm poisoned legacy would allow it to do flat super effective
@@ -40055,7 +40081,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sPidgeotLevelUpLearnset,
         .tmhmLearnset = sPidgeotTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_ALAKAZAM_MEGA] =
@@ -40092,7 +40118,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sAlakazamLevelUpLearnset,
         .tmhmLearnset = sAlakazamTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },//redistribute stats bsed on wolfey worst mega video
     //dropped sp atk some given psychic surge
 
@@ -40130,7 +40156,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSlowbroLevelUpLearnset,
         .tmhmLearnset = sSlowbroTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_GENGAR_MEGA] =
@@ -40166,7 +40192,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGengarLevelUpLearnset,
         .tmhmLearnset = sGengarTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_KANGASKHAN_MEGA] =
@@ -40202,7 +40228,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sKangaskhanLevelUpLearnset,
         .tmhmLearnset = sKangaskhanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_PINSIR_MEGA] =
@@ -40238,7 +40264,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sPinsirLevelUpLearnset,
         .tmhmLearnset = sPinsirTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_GYARADOS_MEGA] =
@@ -40274,7 +40300,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGyaradosLevelUpLearnset,
         .tmhmLearnset = sGyaradosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
     //though water doesn't really block anything, since doesn't resist Ice anymore,
     //potentially just make dragon dark?
@@ -40318,7 +40344,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sAerodactylLevelUpLearnset,
         .tmhmLearnset = sAerodactylTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     //focus on physical attack, most stats remain same
@@ -40354,7 +40380,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMewtwoLevelUpLearnset,
         .tmhmLearnset = sMewtwoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },//weighted gi is cool, giving inner focus would prob be better for meta/competitive
     //since its against ubers
     //give more moves, mostly needs fighting moves/
@@ -40401,7 +40427,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMewtwoLevelUpLearnset,
         .tmhmLearnset = sMewtwoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
     //Maybe instead of insomnia give early bird and with the buff have it be another 
     //case of ironically beign better than full blocking status
@@ -40441,7 +40467,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sAmpharosLevelUpLearnset,
         .tmhmLearnset = sAmpharosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
     //seems mold breaker would get through redirection via lightning rod,
     //so may be good to keep with addition of more redirection effects
@@ -40481,7 +40507,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSteelixLevelUpLearnset,
         .tmhmLearnset = sSteelixTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_SCIZOR_MEGA] =
@@ -40517,7 +40543,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sScizorLevelUpLearnset,
         .tmhmLearnset = sScizorTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_HERACROSS_MEGA] =
@@ -40553,7 +40579,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sHeracrossLevelUpLearnset,
         .tmhmLearnset = sHeracrossTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_HOUNDOOM_MEGA] =
@@ -40589,7 +40615,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sHoundoomLevelUpLearnset,
         .tmhmLearnset = sHoundoomTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     //use this as standard for mon already psuedoes put in middle ground +50
@@ -40626,7 +40652,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTyranitarLevelUpLearnset,
         .tmhmLearnset = sTyranitarTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_SCEPTILE_MEGA] =
@@ -40662,7 +40688,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSceptileLevelUpLearnset,
         .tmhmLearnset = sSceptileTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM, //there's little reason to pair this with water or flying type
+       .isMegaEvolution = TRUE, //there's little reason to pair this with water or flying type
     }, //give sceptile flamethrower incinerate & fire blast (incinerate is for technician)
     //with steel gaining electric weakness pairing w this w lightning rod would be pretty nice actually
     //consider putting lighting rod back in place of regenerator
@@ -40700,7 +40726,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sBlazikenLevelUpLearnset,
         .tmhmLearnset = sBlazikenTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     }, //potentially drop defenses
 
     [SPECIES_SWAMPERT_MEGA] =
@@ -40736,7 +40762,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSwampertLevelUpLearnset,
         .tmhmLearnset = sSwampertTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_GARDEVOIR_MEGA] =
@@ -40772,7 +40798,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGardevoirLevelUpLearnset,
         .tmhmLearnset = sGardevoirTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_SABLEYE_MEGA] =
@@ -40809,7 +40835,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSableyeLevelUpLearnset,
         .tmhmLearnset = sSableyeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     //because of defensive typing and its ability will keep stats here sub 600
@@ -40848,7 +40874,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMawileLevelUpLearnset,
         .tmhmLearnset = sMawileTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_AGGRON_MEGA] =
@@ -40885,7 +40911,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sAggronLevelUpLearnset,
         .tmhmLearnset = sAggronTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },//potentially drop hp to 100 if too strong
     //give support moves
     //gets body press so can do damage plus w new mechanic change
@@ -40926,7 +40952,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMedichamLevelUpLearnset,
         .tmhmLearnset = sMedichamTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_MANECTRIC_MEGA] =
@@ -40962,7 +40988,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sManectricLevelUpLearnset,
         .tmhmLearnset = sManectricTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     //since has bad moves think can get away with higher attack
@@ -41001,7 +41027,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSharpedoLevelUpLearnset,
         .tmhmLearnset = sSharpedoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_CAMERUPT_MEGA] =
@@ -41038,7 +41064,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCameruptLevelUpLearnset, //doesn't really have many moves that would beenfit from sheerforce except burn moves
         .tmhmLearnset = sCameruptTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
     //I think removing the 4x weakness is better than boost its dmg
 
@@ -41075,7 +41101,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sAltariaLevelUpLearnset,
         .tmhmLearnset = sAltariaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_BANETTE_MEGA] =
@@ -41112,7 +41138,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sBanetteLevelUpLearnset,
         .tmhmLearnset = sBanetteTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },//give memento, w prankster and have +1 memento
     //ah forget made -1 so its just neutral but with slow speed
     //think may make memento neutral?
@@ -41152,7 +41178,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sAbsolLevelUpLearnset,
         .tmhmLearnset = sAbsolTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },//change magic bounce to reflect intimidate back to attacker
     //w joat being normal allows to function as split attacker
     //but need to remember future sight skips joat as well as stab
@@ -41190,7 +41216,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGlalieLevelUpLearnset,
         .tmhmLearnset = sGlalieTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     //think this is best i can do
@@ -41228,7 +41254,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSalamenceLevelUpLearnset,
         .tmhmLearnset = sSalamenceTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_METAGROSS_MEGA] =
@@ -41265,7 +41291,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMetagrossLevelUpLearnset,
         .tmhmLearnset = sMetagrossTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_LATIAS_MEGA] =
@@ -41301,7 +41327,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sLatiasLevelUpLearnset,
         .tmhmLearnset = sLatiasTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },//ok since these have different stats...need different looks, thinking something like gallantmon or imperialdraman?
     //with how the previous theme is used as the head or something like that
     //apparently they aren't a fusion tho?
@@ -41340,7 +41366,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sLatiosLevelUpLearnset,
         .tmhmLearnset = sLatiosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_LOPUNNY_MEGA] =
@@ -41376,7 +41402,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sLopunnyLevelUpLearnset,
         .tmhmLearnset = sLopunnyTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_GARCHOMP_MEGA] =
@@ -41412,7 +41438,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGarchompLevelUpLearnset,
         .tmhmLearnset = sGarchompTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     }, //ugly don't want to use
     //ok w rework am somehwat more interested in it,
     //idea inspired by wolfeyvgc vid on worst mega
@@ -41456,7 +41482,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sLucarioLevelUpLearnset,
         .tmhmLearnset = sLucarioTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_ABOMASNOW_MEGA] =
@@ -41494,7 +41520,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sAbomasnowLevelUpLearnset,
         .tmhmLearnset = sAbomasnowTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_GALLADE_MEGA] =
@@ -41530,7 +41556,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGalladeLevelUpLearnset,
         .tmhmLearnset = sGalladeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_AUDINO_MEGA] =
@@ -41568,7 +41594,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sAudinoLevelUpLearnset,
         .tmhmLearnset = sAudinoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     [SPECIES_DIANCIE_MEGA] =
@@ -41605,7 +41631,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDiancieLevelUpLearnset,
         .tmhmLearnset = sDiancieTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     },
 
     //holy shit this is the already nerfed version o.0
@@ -41643,7 +41669,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRayquazaLevelUpLearnset,
         .tmhmLearnset = sRayquazaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .flags = SPECIES_FLAG_MEGA_FORM,
+       .isMegaEvolution = TRUE,
     }, //need bring this down in/primal readjust
 
     [SPECIES_KYOGRE_PRIMAL] =
@@ -41679,7 +41705,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sKyogreLevelUpLearnset,
         .tmhmLearnset = sKyogreTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = SPECIES_FLAG_PRIMAL_REVERSION,
+        .isLegendaryOrMythical = TRUE,
+        .isPrimalReversion = TRUE,
     },
 
     [SPECIES_GROUDON_PRIMAL] =
@@ -41715,7 +41742,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGroudonLevelUpLearnset,
         .tmhmLearnset = sGroudonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = SPECIES_FLAG_PRIMAL_REVERSION | FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
+        .isPrimalReversion = TRUE,
     },
 
     [SPECIES_RATTATA_ALOLAN] =
@@ -41752,7 +41780,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRattataAlolanLevelUpLearnset,
         .tmhmLearnset = sRattataAlolanTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_NIGHT, RELATIVE_EVO(20, AVERAGE_EFFORT), 0, SPECIES_RATICATE_ALOLAN}), //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },
 
     [SPECIES_RATICATE_ALOLAN] =
@@ -41789,7 +41817,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRaticateAlolanLevelUpLearnset,
         .tmhmLearnset = sRaticateAlolanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },
 
     [SPECIES_RAICHU_ALOLAN] =
@@ -41825,7 +41853,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRaichuAlolanLevelUpLearnset,
         .tmhmLearnset = sRaichuAlolanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },//give move electrify
 
     [SPECIES_SANDSHREW_ALOLAN] =
@@ -41864,7 +41892,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSandshrewAlolanLevelUpLearnset,
         .tmhmLearnset = sSandshrewAlolanTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_ICE_STONE, 0, SPECIES_SANDSLASH_ALOLAN}), //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },
 
     [SPECIES_SANDSLASH_ALOLAN] =
@@ -41900,7 +41928,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSandslashAlolanLevelUpLearnset,
         .tmhmLearnset = sSandslashAlolanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },
 
     [SPECIES_VULPIX_ALOLAN] =
@@ -41939,7 +41967,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sVulpixAlolanLevelUpLearnset,
         .tmhmLearnset = sVulpixAlolanTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_ICE_STONE, 0, SPECIES_NINETALES_ALOLAN}), //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },
 
     [SPECIES_NINETALES_ALOLAN] =
@@ -41976,7 +42004,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sNinetalesAlolanLevelUpLearnset,
         .tmhmLearnset = sNinetalesAlolanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },
 
     [SPECIES_DIGLETT_ALOLAN] =
@@ -42013,7 +42041,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDiglettAlolanLevelUpLearnset,
         .tmhmLearnset = sDiglettAlolanTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, AVERAGE_EFFORT), 0, SPECIES_DUGTRIO_ALOLAN}), //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },
 
     [SPECIES_DUGTRIO_ALOLAN] =
@@ -42050,7 +42078,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDugtrioAlolanLevelUpLearnset,
         .tmhmLearnset = sDugtrioAlolanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },
 
     [SPECIES_MEOWTH_ALOLAN] =
@@ -42087,7 +42115,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMeowthAlolanLevelUpLearnset,
         .tmhmLearnset = sMeowthAlolanTMHMLearnset,
         .evolutions = EVOLUTION({EVO_FRIENDSHIP, FILL, 0, SPECIES_PERSIAN_ALOLAN}), //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },//why did I give this stall?
     //replaced stall, is now more akin to alt of base line w super luck
     //made friendship evo cuz is pampered
@@ -42126,7 +42154,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sPersianAlolanLevelUpLearnset,
         .tmhmLearnset = sPersianAlolanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     }, //change up sprite face vsonic
 
     [SPECIES_GEODUDE_ALOLAN] =
@@ -42165,7 +42193,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGeodudeAlolanLevelUpLearnset,
         .tmhmLearnset = sGeodudeAlolanTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(25, AVERAGE_EFFORT), 0, SPECIES_GRAVELER_ALOLAN}), //Should hopefully blank these for now without issue                            //but on the other hand most steel are electric too, so it'd be neutral, while rock is weak to steel.. 
-        .flags = F_ALOLAN_FORM,                 //oh but made electric resist, so it'd just be a neutral hit, hmm check how many steel are also electric to see value
+        .isAlolanForm = TRUE,                 //oh but made electric resist, so it'd just be a neutral hit, hmm check how many steel are also electric to see value
     },//checked steel and they are rare, many are psuedos so its not a type you'd ecounter much, many resist electric, good against metagross, but still a very specific thing
     //ok electric explosion is cool, buuut galvanize is only good here because its so bad -_-
     //it gets no good physical electric moves so its better to makes normal move electric
@@ -42210,7 +42238,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGravelerAlolanLevelUpLearnset,
         .tmhmLearnset = sGravelerAlolanTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, LOW_EFFORT), 0, SPECIES_GOLEM_ALOLAN}), //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },//plan can tkae off muscle magic but when introduce item
     //that allows set any ability, which would allow people to set muscle magic themselves,
     //and they'd feel smart for doing so, since it has so many good special moves!
@@ -42252,7 +42280,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGolemAlolanLevelUpLearnset,
         .tmhmLearnset = sGolemAlolanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },//w type change and buffs can actually run magnet pull
     //keeping as is but realize don't really need galvanize can just use ion deluge
     //make sure learns it
@@ -42286,7 +42314,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGrimerAlolanLevelUpLearnset,
         .tmhmLearnset = sGrimerAlolanTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, AVERAGE_EFFORT), 0, SPECIES_MUK_ALOLAN}), //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },
 
     [SPECIES_MUK_ALOLAN] =
@@ -42316,7 +42344,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMukAlolanLevelUpLearnset,
         .tmhmLearnset = sMukAlolanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },
 
     [SPECIES_EXEGGUTOR_ALOLAN] =
@@ -42345,7 +42373,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sExeggutorAlolanLevelUpLearnset,
         .tmhmLearnset = sExeggutorAlolanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     },
     //with long reach it can operate as the only slow mon
     //that doesn't require trick room to operate
@@ -42376,7 +42404,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMarowakAlolanLevelUpLearnset,
         .tmhmLearnset = sMarowakAlolanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_ALOLAN_FORM,
+        .isAlolanForm = TRUE,
     }, //can keep phantom touch to just normal marowak, makes more sense since this version turned the ghost into a flame that's always with them
     //for this one boosted sp akt
     //OK why did I boost its sp atk its still unusable?
@@ -42414,7 +42442,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMeowthGalarianLevelUpLearnset,
         .tmhmLearnset = sMeowthGalarianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(28, AVERAGE_EFFORT), 0, SPECIES_PERRSERKER}), //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
 
     [SPECIES_PONYTA_GALARIAN] =
@@ -42450,7 +42478,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sPonytaGalarianLevelUpLearnset,
         .tmhmLearnset = sPonytaGalarianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(35, MEDIUM_EFFORT), 0, SPECIES_RAPIDASH_GALARIAN}), //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
 
     [SPECIES_RAPIDASH_GALARIAN] =
@@ -42486,7 +42514,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sRapidashGalarianLevelUpLearnset,
         .tmhmLearnset = sRapidashGalarianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
 
     [SPECIES_SLOWPOKE_GALARIAN] =
@@ -42525,7 +42553,7 @@ const struct BaseStats gBaseStats[] =
                                        {EVO_MOVE_TYPE_ATK_LT_DEF, TYPE_POISON, 0, SPECIES_SLOWKING_GALARIAN}), //Should hopefully blank these for now without issue
         /*.evolutions = EVOLUTION({EVO_ITEM, ITEM_GALARICA_CUFF, 0, SPECIES_SLOWBRO_GALARIAN},
                                 {EVO_ITEM, ITEM_GALARICA_WREATH, 0, SPECIES_SLOWKING_GALARIAN}),*/
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },//need come up with something for this, did, only move option is tm toxic
     //. It evolves into either Slowbro when exposed to a Galarica Cuff 
     //or Slowking when exposed to a Galarica Wreath. 
@@ -42564,7 +42592,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSlowbroGalarianLevelUpLearnset,
         .tmhmLearnset = sSlowbroGalarianTMHMLearnset,
          //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
 
     //uses much bigger stalk/leek cant fly so will be grouded
@@ -42602,7 +42630,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sFarfetchdGalarianLevelUpLearnset,
         .tmhmLearnset = sFarfetchdGalarianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, ABOVE_AVERAGE_EFFORT), 0, SPECIES_SIRFETCHD}), //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
 
     [SPECIES_WEEZING_GALARIAN] =
@@ -42641,7 +42669,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sWeezingGalarianLevelUpLearnset,
         .tmhmLearnset = sWeezingGalarianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
 
     [SPECIES_MR_MIME_GALARIAN] =
@@ -42677,7 +42705,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMrMimeGalarianLevelUpLearnset,
         .tmhmLearnset = sMrMimeGalarianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(42, AVERAGE_EFFORT), 0, SPECIES_MR_RIME}), //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
 
     [SPECIES_ARTICUNO_GALARIAN] =
@@ -42713,7 +42741,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sArticunoGalarianLevelUpLearnset,
         .tmhmLearnset = sArticunoGalarianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM | FLAG_LEGENDARY_POKEMON,
+        .isGalarianForm = TRUE,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_ZAPDOS_GALARIAN] =
@@ -42749,7 +42778,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZapdosGalarianLevelUpLearnset,
         .tmhmLearnset = sZapdosGalarianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM | FLAG_LEGENDARY_POKEMON,
+        .isGalarianForm = TRUE,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_MOLTRES_GALARIAN] =
@@ -42785,7 +42815,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMoltresGalarianLevelUpLearnset,
         .tmhmLearnset = sMoltresGalarianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM | FLAG_LEGENDARY_POKEMON,
+        .isGalarianForm = TRUE,
+        .isLegendaryOrMythical = TRUE,
     }, //lacks special dark moves, as they pretty much don't exist outside of its unique move
 
     [SPECIES_SLOWKING_GALARIAN] =
@@ -42821,7 +42852,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSlowkingGalarianLevelUpLearnset,
         .tmhmLearnset = sSlowkingGalarianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
 
     [SPECIES_CORSOLA_GALARIAN] =
@@ -42858,7 +42889,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCorsolaGalarianLevelUpLearnset,
         .tmhmLearnset = sCorsolaGalarianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, AVERAGE_EFFORT), 0, SPECIES_CURSOLA}), //Should hopefully blank these for now without issue    // for ancient pokemon or fosill mon that previoiusly dwelled in water
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     }, //gave this line liquid ooze to double up on absorb damage from ghost tweak :)
 
     [SPECIES_ZIGZAGOON_GALARIAN] =
@@ -42894,7 +42925,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZigzagoonGalarianLevelUpLearnset,
         .tmhmLearnset = sZigzagoonGalarianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(20, AVERAGE_EFFORT), 0, SPECIES_LINOONE_GALARIAN}), //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
 
     [SPECIES_LINOONE_GALARIAN] =
@@ -42930,7 +42961,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sLinooneGalarianLevelUpLearnset,
         .tmhmLearnset = sLinooneGalarianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_NIGHT, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_OBSTAGOON}), //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
 
     [SPECIES_DARUMAKA_GALARIAN] =
@@ -42966,7 +42997,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDarumakaGalarianLevelUpLearnset,
         .tmhmLearnset = sDarumakaGalarianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_ICE_STONE, 0, SPECIES_DARMANITAN_GALARIAN}), //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
 
     [SPECIES_DARMANITAN_GALARIAN] =
@@ -43002,7 +43033,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDarmanitanGalarianLevelUpLearnset,
         .tmhmLearnset = sDarmanitanGalarianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
 
     [SPECIES_YAMASK_GALARIAN] =
@@ -43038,7 +43069,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sYamaskGalarianLevelUpLearnset,
         .tmhmLearnset = sYamaskGalarianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(34, AVERAGE_EFFORT), 0, SPECIES_RUNERIGUS}), //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
 
     [SPECIES_STUNFISK_GALARIAN] =
@@ -43074,7 +43105,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sStunfiskGalarianLevelUpLearnset,
         .tmhmLearnset = sStunfiskGalarianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },
     //of note only this mon has mimicry as an ability 
     //and it seems to  be a detriment it has no purpose
@@ -43118,7 +43149,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGrowlitheHisuianLevelUpLearnset,
         .tmhmLearnset = sGrowlitheHisuianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_FIRE_STONE, 0, SPECIES_ARCANINE_HISUIAN}), //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
         },
 
     [SPECIES_ARCANINE_HISUIAN] =
@@ -43154,7 +43185,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sArcanineHisuianLevelUpLearnset,
         .tmhmLearnset = sArcanineHisuianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
         },
 
     [SPECIES_VOLTORB_HISUIAN] =
@@ -43190,7 +43221,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sVoltorbHisuianLevelUpLearnset,
         .tmhmLearnset = sVoltorbHisuianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_LEAF_STONE, 0, SPECIES_ELECTRODE_HISUIAN}), //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
         },
 
     [SPECIES_ELECTRODE_HISUIAN] =
@@ -43226,7 +43257,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sElectrodeHisuianLevelUpLearnset,
         .tmhmLearnset = sElectrodeHisuianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
         },
 
     [SPECIES_TYPHLOSION_HISUIAN] =
@@ -43262,7 +43293,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTyphlosionHisuianLevelUpLearnset,
         .tmhmLearnset = sTyphlosionHisuianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
     },
 
     [SPECIES_QWILFISH_HISUIAN] =
@@ -43299,7 +43330,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sQwilfishHisuianLevelUpLearnset,
         .tmhmLearnset = sQwilfishHisuianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_MOVE, MOVE_BARB_BARRAGE, 0, SPECIES_OVERQWIL}), //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
     },//barb barrage and several other LEgends moves aren't complete far as animation/effect, but are defined
 
     [SPECIES_SNEASEL_HISUIAN] =
@@ -43337,7 +43368,7 @@ const struct BaseStats gBaseStats[] =
             .tmhmLearnset = sSneaselHisuianTMHMLearnset,
             .evolutions = EVOLUTION({EVO_ITEM, ITEM_RAZOR_CLAW, 0, SPECIES_SNEASLER},
                     {EVO_LEVEL, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_SNEASLER}), //Should hopefully blank these for now without issue
-            .flags = F_HISUIAN_FORM,
+            .isHisuianForm = TRUE,
         },
 
 //////#if P_GEN_5_POKEMON == TRUE
@@ -43374,7 +43405,7 @@ const struct BaseStats gBaseStats[] =
             .levelUpLearnset = sSamurottHisuianLevelUpLearnset,
             .tmhmLearnset = sSamurottHisuianTMHMLearnset,
             .evolutions = NULL, //Should hopefully blank these for now without issue
-            .flags = F_HISUIAN_FORM,
+            .isHisuianForm = TRUE,
         },//go over hisuian/dlc mon make sure have proper hidden abilities,
         //this and prob others were still default to base form
 
@@ -43412,7 +43443,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sLilligantHisuianLevelUpLearnset,
         .tmhmLearnset = sLilligantHisuianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
         },
 
     [SPECIES_ZORUA_HISUIAN] =
@@ -43448,7 +43479,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZoruaHisuianLevelUpLearnset,
         .tmhmLearnset = sZoruaHisuianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, AVERAGE_EFFORT), 0, SPECIES_ZOROARK_HISUIAN}), //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
         },
 
     [SPECIES_ZOROARK_HISUIAN] =
@@ -43484,7 +43515,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZoroarkHisuianLevelUpLearnset,
         .tmhmLearnset = sZoroarkHisuianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
         },
 
     [SPECIES_BRAVIARY_HISUIAN] =
@@ -43520,7 +43551,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sBraviaryHisuianLevelUpLearnset,
         .tmhmLearnset = sBraviaryHisuianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
         },
 //// #endif
 
@@ -43559,7 +43590,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSliggooHisuianLevelUpLearnset,
         .tmhmLearnset = sSliggooHisuianTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_RAIN, RELATIVE_EVO(50, AVERAGE_EFFORT), 0, SPECIES_GOODRA_HISUIAN}), //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
         },
 
     [SPECIES_GOODRA_HISUIAN] =
@@ -43595,7 +43626,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGoodraHisuianLevelUpLearnset,
         .tmhmLearnset = sGoodraHisuianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
         },
         //note need go over pla mon abilities are also off double check stats as well
 
@@ -43632,7 +43663,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sAvaluggHisuianLevelUpLearnset,
         .tmhmLearnset = sAvaluggHisuianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
         },
 //// #endif
 
@@ -43670,7 +43701,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDecidueyeHisuianLevelUpLearnset,
         .tmhmLearnset = sDecidueyeHisuianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
         },
 
     [SPECIES_PIKACHU_COSPLAY] =
@@ -46435,7 +46466,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sBasculinTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_BASCULEGION_MALE},
                                        {EVO_LEVEL_FEMALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_BASCULEGION_FEMALE}), //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+        .isHisuianForm = TRUE,
     },//hisuian form, but other than being only one to evolve seems identical?
     //Only White-Striped Basculin can have the Ability Rattled. They also learn Uproar at level 40 instead of Final Gambit
     // like the other forms and can evolve into Basculegion.
@@ -46494,7 +46525,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDarmanitanGalarianLevelUpLearnset,
         .tmhmLearnset = sDarmanitanGalarianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_GALARIAN_FORM,
+        .isGalarianForm = TRUE,
     },//hmm pretty sure ability should only be zen mode for these forms?
 
     [SPECIES_DEERLING_SUMMER] =
@@ -46740,6 +46771,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTornadusLevelUpLearnset,
         .tmhmLearnset = sTornadusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     },//gen 9 wind rider , Aerilate, serene grace, mold breaker, wonder skin
     //or unique neutralizing wind,  neutralizing gas clone potentially wrapped in aerialate
     //or stronger version of wonder skin where it can't be hit by status moves?
@@ -46778,6 +46810,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sThundurusLevelUpLearnset,
         .tmhmLearnset = sThundurusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     },//VOlt Dash or something  volt absorb with speed boost, since mean to be fast and every at once
 
     [SPECIES_LANDORUS_THERIAN] =
@@ -46812,6 +46845,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sLandorusLevelUpLearnset,
         .tmhmLearnset = sLandorusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     },//give flying move, think aeroblast that's it
 
     [SPECIES_ENAMORUS_THERIAN] =
@@ -46847,7 +46881,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sEnamorusLevelUpLearnset,
         .tmhmLearnset = sEnamorusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        //.flags = SPECIES_FLAG_LEGENDARY, don't need
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_KYUREM_WHITE] =
@@ -46883,6 +46917,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sKyuremWhiteLevelUpLearnset,
         .tmhmLearnset = sKyuremTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     },//lookiknto this may prob need specific tmhm set for black/white form  vsonic
 
     [SPECIES_KYUREM_BLACK] =
@@ -46918,6 +46953,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sKyuremBlackLevelUpLearnset,
         .tmhmLearnset = sKyuremTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_KELDEO_RESOLUTE] =
@@ -46953,6 +46989,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sKeldeoLevelUpLearnset,
         .tmhmLearnset = sKeldeoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_MELOETTA_PIROUETTE] =
@@ -46992,6 +47029,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMeloettaLevelUpLearnset,
         .tmhmLearnset = sMeloettaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_GENESECT_DOUSE_DRIVE] =
@@ -50525,6 +50563,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sNecrozmaLevelUpLearnset,
         .tmhmLearnset = sNecrozmaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     }, //the typesa are different should these have different forms,
     //don't they also have unique moves for each form? no unique move
     //but look into it, ultra was already strong but is it good without moves that get its typing?
@@ -50562,6 +50601,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sNecrozmaLevelUpLearnset,
         .tmhmLearnset = sNecrozmaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     },
     //stat distribution doesn't work
     //its pretty much completely outshined by just base lunala
@@ -50617,6 +50657,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sNecrozmaLevelUpLearnset,
         .tmhmLearnset = sNecrozmaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isUltraBurst = TRUE,
     },
 
     [SPECIES_MAGEARNA_ORIGINAL_COLOR] =
@@ -50652,6 +50693,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMagearnaLevelUpLearnset,
         .tmhmLearnset = sMagearnaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_CRAMORANT_GULPING] =
@@ -51248,7 +51290,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZacianLevelUpLearnset,
         .tmhmLearnset = sZacianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_ZAMAZENTA_CROWNED_SHIELD] =
@@ -51284,7 +51326,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZamazentaLevelUpLearnset,
         .tmhmLearnset = sZamazentaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_ETERNATUS_ETERNAMAX] =
@@ -51320,7 +51362,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sEternatusLevelUpLearnset,
         .tmhmLearnset = sEternatusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = SPECIES_FLAG_PRIMAL_REVERSION,
+        .isLegendaryOrMythical = TRUE,
+        .isPrimalReversion = TRUE,
     },
     //think turn this into a mega-like
     //or a type of reversion
@@ -51364,7 +51407,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sUrshifuRapidStrikeStyleLevelUpLearnset,
         .tmhmLearnset = sUrshifuRapidStrikeStyleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_ZARUDE_DADA] =
@@ -51400,6 +51443,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sZarudeLevelUpLearnset,
         .tmhmLearnset = sZarudeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     },
 
     [SPECIES_CALYREX_ICE_RIDER] =
@@ -51435,6 +51479,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCalyrexIceRiderLevelUpLearnset,
         .tmhmLearnset = sCalyrexIceRiderTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     },//note setup ability so it plays the cry of glastrier before the stat boost
     
     [SPECIES_CALYREX_SHADOW_RIDER] =
@@ -51470,6 +51515,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCalyrexShadowRiderLevelUpLearnset,
         .tmhmLearnset = sCalyrexShadowRiderTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isLegendaryOrMythical = TRUE,
     },//note setup ability so it plays the cry of spectrier before the stat boost IMPORTANT - DONE
 
     [SPECIES_BASCULEGION_FEMALE] =
@@ -51610,7 +51656,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTorterraLevelUpLearnset,
         .tmhmLearnset = sTorterraTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = SPECIES_FLAG_MEGA_FORM,
+        .isMegaEvolution = TRUE,
     },//Biome Pokemon
     //think dont give water moves, just plan hidden power water?
     //that or could use weather ball
@@ -51647,7 +51693,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMarowakLevelUpLearnset,
         .tmhmLearnset = sMarowakTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = SPECIES_FLAG_MEGA_FORM,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_SNORLAX_MEGA] = 
@@ -51678,7 +51724,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSnorlaxLevelUpLearnset,
         .tmhmLearnset = sSnorlaxTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = SPECIES_FLAG_MEGA_FORM,
+        .isMegaEvolution = TRUE,
     },//plan graphic buddhist wheel of life/existence
     //mega form for snorlax give comatose and boost sp atk.
     //should let fire off snore without needing to be full asleep
@@ -51722,7 +51768,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGreninjaLevelUpLearnset,
         .tmhmLearnset = sGreninjaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = SPECIES_FLAG_MEGA_FORM,
+        .isMegaEvolution = TRUE,
     },
     //leave ash gren as itself just treat like a mega
     //make unique form
@@ -52128,7 +52174,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sReshiramLevelUpLearnset,
         .tmhmLearnset = sReshiramTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
     //false original dragon, fusion of reshram and zekrom
 
@@ -52167,7 +52213,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sKyuremLevelUpLearnset,
         .tmhmLearnset = sKyuremTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = FLAG_LEGENDARY_POKEMON,
+        .isLegendaryOrMythical = TRUE,
     },
     //true form of original dragon
 
