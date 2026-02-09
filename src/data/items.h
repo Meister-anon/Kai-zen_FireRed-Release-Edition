@@ -9883,7 +9883,7 @@ const struct ItemInfo gItems[] =
       .secondaryId =  MOVE_ACID_RAIN,
       //"moveId" "BrickBreak"
     },
-    [ITEM_N_A] =
+    [ITEMS_COUNT] =
     {
       .name = _("????????"),
       .itemId = ITEM_NONE,

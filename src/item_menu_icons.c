@@ -1063,8 +1063,8 @@ void DestroyItemMenuIcon(u8 idx)
 #define ITEM_ICON_SETTING
 const void * GetItemIconGfxPtr(u16 itemId, u8 attrId) //ok w new eviolite function change can't use this so make new equivalent
 {
-    if (itemId > ITEM_N_A) //think this equation is what was messing up my field arrow,
-        itemId = ITEM_NONE; //because it was listed grater than ITEM_N_A
+    if (itemId > ITEMS_COUNT) //think this equation is what was messing up my field arrow,
+        itemId = ITEM_NONE; //because it was listed grater than ITEMS_COUNT
     //if ((itemId == ITEM_EVIOLITE) && !CanEvioliteActivate(GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES))) //ok dont need loop for everything think this 
     //    itemId = ITEM_EVIOLITE_FAIL; //doesn't change item, just changes effect of function / com
  
