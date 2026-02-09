@@ -13232,6 +13232,10 @@ u32 GetFormChangeTargetSpecies_Internal(struct FormChangeContext ctx)
             if (ctx.partyItemUsed == formChanges[i].param1
              && ctx.multichoiceSelection == formChanges[i].param2)
             {
+                if (formChanges[i].param3
+                && formChanges[i].param3 != ctx.ability)
+                    break;
+                
                 targetSpecies = formChanges[i].targetSpecies;
             }
             break;

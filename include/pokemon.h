@@ -982,6 +982,32 @@ struct FormChangeContext
     u32 padding:8;
 };
 
+enum FusionExtraMoveHandling
+{
+    FORGET_EXTRA_MOVES,
+    SWAP_EXTRA_MOVES_KYUREM_WHITE,
+    SWAP_EXTRA_MOVES_KYUREM_BLACK
+};
+
+struct Fusion
+{
+    u16 fusionStorageIndex;
+    u16 itemId;
+    u16 targetSpecies1;
+    u16 targetSpecies2;
+    u16 fusingIntoMon;
+    u16 fusionMove;
+    enum FusionExtraMoveHandling extraMoveHandling;
+};
+//looking at this it seems it has most 
+//of the logic I want for my form change already
+//stores all relevant data of the fusion mon
+//until needed for reversion
+//so can prob just use that
+//for what I have planned
+
+extern const struct Fusion *const gFusionTablePointers[NUM_SPECIES];
+
 
 //replaces front_pic_table back_pic_table front_pic_coordinates back_pic_coordinates pokemon_icon.c arrays palette_table  & shiny_palette_table
 struct SpeciesGraphicInfo 

@@ -8,11 +8,19 @@ enum FormChangeBattleHPPercentArguments
     HP_LOWER_EQ_THAN,
 };
 // FORM_CHANGE_MOVE param2 Arguments
-#define WHEN_LEARNED    0
-#define WHEN_FORGOTTEN  1
+enum FormChangeMoveArguments
+{
+    WHEN_LEARNED,
+    WHEN_FORGOTTEN,
+};
 // FORM_CHANGE_ITEM_USE param2 Arguments
-#define DAY    1
-#define NIGHT  2
+enum FormChangeItemUseArguments
+{
+    DAY = 1,
+    NIGHT,
+};
+
+#define FUSION_TERMINATOR                       0xFF
 
 //a bit premature as w new status rework incoming
 //will have to change all these...
@@ -92,7 +100,7 @@ enum FormChanges
     // - HP_HIGHER_THAN if the form triggers when the current HP is higher than the specified threshold.
     // - HP_LOWER_EQ_THAN if the form triggers when the current HP is lower or equal than the specified threshold.
     // param3: HP percentage threshold.
-    // param4: Move used. - custom effect activation set move_none 
+    // param4: Move used. - custom effect activation if set move_none 
     //i.e not a fixed move but a category
     FORM_CHANGE_BATTLE_HP_PERCENT_DURING_MOVE,
     // Form change that activates when the mon has the defined item.
@@ -131,7 +139,8 @@ enum FormChanges
    
     FORM_CHANGE_TIME_OF_DAY,
     // Form change that depends on a multichoice (e.g. Rotom Catalog).
-    // param1: multichoice list (starting at 0).
+    // param1: item to use
+    // param2: multichoice list (starting at 0).
     FORM_CHANGE_ITEM_USE_MULTICHOICE,
     // Form change that activates when inflicted with a specific status
     // param1: status

@@ -15356,6 +15356,17 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sPhioneTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //think make phione more special mon
+    //since only mon to exist from egg of genderless mon
+    //stats aren't unique already made it able to learn moves like mew
+    //think will also have it be unique genetic anomally
+    //only mon capable of breeding genderless mon,
+    //make it a way to get shiny legendaries
+    //have breeding have same odds to create shiny as
+    //in wild (or lower) hold shiny charm to increase
+    //take pokemmo breeding logic  can breed for shiny first
+    //then when have 2 can guarantee shiny, so can then breed for 
+    //ivs etc.
 
     [SPECIES_MANAPHY] =
     {
