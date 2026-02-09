@@ -12381,7 +12381,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .power = 0,
         .type = TYPE_NORMAL,
         .accuracy = 0,
-        .pp = 15,
+        //.pp = 15,
+        .pp = 5, //pp w priority boost
         .target = TARGET_SELECTED,
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
@@ -12396,6 +12397,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     },//makes target move after user, only useful for doubles+
     //this will be a huge change, before would be used to speed up slower mon
     //but now would function like helping hand, where I boost their priority to the top
+    //vsonic unsure if will make neutral priority or not
+    //at neutral its used fast or slow for trick room
+    //with priority it doesnt need to worry bout either
 
     [MOVE_ROUND] =
     {
@@ -12759,7 +12763,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .power = 0,
         .type = TYPE_DARK,
         .accuracy = 100,
-        .pp = 15,
+        //.pp = 15,
+        .pp = 5, //pp w priority boost
         .target = TARGET_SELECTED,
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,

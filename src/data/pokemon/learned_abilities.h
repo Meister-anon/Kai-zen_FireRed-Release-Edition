@@ -1771,8 +1771,13 @@ static const struct AbilityLearnset sMonfernoAbilityLearnset[] = {
 
 static const struct AbilityLearnset sInfernapeAbilityLearnset[] = {
     ABILITY_GORILLA_TACTICS,
+    ABILITY_MINDS_EYE,
+    ABILITY_INFILTRATOR,
+    ABILITY_REGENERATOR,
     ABILITY_SET_END
 };
+//added somes abilities just to infernape
+//based on wukong skills
 
 static const struct AbilityLearnset sPiplupAbilityLearnset[] = {
     ABILITY_SET_END

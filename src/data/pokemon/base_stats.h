@@ -6328,7 +6328,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 60, 60, 85, 85, 85),
-        MON_TYPES(TYPE_GHOST, TYPE_FAIRY),
+        MON_TYPES(TYPE_GHOST),
         .catchRate = 45,
         .expYield = 87,
         //.evYield_SpDefense = 1,
@@ -12305,8 +12305,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_BLAZE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_IRON_FIST, ABILITY_NONE},
+        .abilities = {ABILITY_BLAZE, ABILITY_IRON_FIST},
+        .abilityHidden = {ABILITY_JUSTIFIED, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -12334,8 +12334,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_BLAZE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_IRON_FIST, ABILITY_NONE},
+        .abilities = {ABILITY_BLAZE, ABILITY_IRON_FIST},
+        .abilityHidden = {ABILITY_JUSTIFIED, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -12364,8 +12364,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_BLAZE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_IRON_FIST, ABILITY_NONE},
+        .abilities = {ABILITY_BLAZE, ABILITY_IRON_FIST},
+        .abilityHidden = {ABILITY_JUSTIFIED, ABILITY_ILLUSION},
         //.bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -12374,7 +12374,10 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sInfernapeLevelUpLearnset,
         .tmhmLearnset = sInfernapeTMHMLearnset,
         .evolutions = NULL,
-    },
+    },//wukong rebel so gave defiant plus mon needs buffs
+    //wukong has illusory transformation skills
+    //consider give illusion?
+    //Decided justified over defiant
 
     [SPECIES_PIPLUP] =
     {
@@ -13475,7 +13478,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(66, 66, 66, 105, 105, 105),
-        MON_TYPES(TYPE_GHOST, TYPE_FAIRY),
+        MON_TYPES(TYPE_GHOST, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 173,
         //.evYield_SpAttack = 1,
@@ -13497,6 +13500,13 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMismagiusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //Magical species makes sense to be fairy
+    //but to further differentiate between
+    //paradox think change type to psychic
+    //hmm but that would give 4x weakness to ghost
+    //but covers fairy weakness and removes steel weakness
+    //gives bug dark weakness, but
+    //gives flying steel resist
 
     [SPECIES_HONCHKROW] =
     {
@@ -18043,13 +18053,15 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
-        .floating = TRUE,  //anime shows it able to walk and float
+        .floating = FALSE,  //anime shows it able to walk and float
         .safariZoneFleeRate = 50,
         .abilityLearnset = sCofagrigusAbilityLearnset,
         .levelUpLearnset = sCofagrigusLevelUpLearnset,
         .tmhmLearnset = sCofagrigusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//is confusing think want non floating idea
+    //float if in battle you would float but it can attack without moving
+    //and worry about invalidate runniergus
 
     [SPECIES_TIRTOUGA] =
     {
