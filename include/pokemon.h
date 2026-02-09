@@ -1005,6 +1005,9 @@ struct Fusion
 //until needed for reversion
 //so can prob just use that
 //for what I have planned
+//fusion stuff fails if party full
+//prompts to remove mon first
+//so that's fine with my mobile pc setup is easy
 
 extern const struct Fusion *const gFusionTablePointers[NUM_SPECIES];
 

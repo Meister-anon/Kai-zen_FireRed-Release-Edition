@@ -5,7 +5,7 @@
 
 typedef void (*ItemUseFunc)(u8);
 
-struct Item
+struct ItemInfo
 {
     u8 name[ITEM_NAME_LENGTH];
     u16 itemId;
@@ -43,7 +43,7 @@ enum {
     ITEM_TYPE_BAG_MENU, // No exit callback, stays in bag menu
 };
 
-extern const struct Item gItems[];
+extern const struct ItemInfo gItems[];
 extern struct BagPocket gBagPockets[];
 
 //exists in EE don't have definition for
