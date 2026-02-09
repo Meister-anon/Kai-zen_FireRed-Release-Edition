@@ -1739,6 +1739,7 @@ enum __attribute__((packed)) Item
     //attempt use py script to update this
     //copy previous value increment each line that digit , is found
     //if works should be able to sub and just update by deleting these
+    //-50 for all below values
     ITEM_TM51 = 632,
     ITEM_TM52 = 633,
     ITEM_TM53 = 634,

@@ -12421,6 +12421,9 @@ bool32 IsBattlerWeatherAffected(enum BattlerId battler, u32 weatherFlags)
         //umbrella covers moonlight cuz parasoul
         if (gBattleWeather & (WEATHER_SUN | WEATHER_RAIN | WEATHER_MOON | WEATHER_ACID_RAIN) && GetBattlerHoldEffect(battler) == HOLD_EFFECT_UTILITY_UMBRELLA)
             return FALSE; // utility umbrella blocks sun, rain effects
+        //usually wouldn't be good this is literally only good because of my custom effects
+        //otherwise does nothing as apparently safety goggles already prevented
+        //hail and sandstorm dmg
         else if (gBattleWeather & (WEATHER_ICY_ANY | WEATHER_SANDSTORM) && GetBattlerHoldEffect(battler) == HOLD_EFFECT_SAFETY_GOGGLES)
             return FALSE; //major upgrade to safety goggles, blocks hail and sandstorm effects, useful dealing sandstorm acc drop
 
