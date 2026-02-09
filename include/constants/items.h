@@ -4,6 +4,20 @@
 //auto aligned with a question mark icon & palette.   actually imma leave it for now, since I plan to fill those placeholders in.
 
 //actually I think this file just needs to match the items.json //yup confirmed
+//believe none of these notes matter
+//planning replace item list w EE values for add enum Item
+//just need check all fr items exist in EE
+//think make pyscript w given list
+//read item list from EE
+//if search in array is in EE list
+//remove from FR array and then print at end
+//will show remaining items would need to add back
+//can do that using template of attempt2.py
+//following that update my item struct for whatever
+//stuff from EE I still need want
+//and see about integrating tm list data with
+//items.h file make it add new tms item data at end of list
+//in format of struct
 #define ITEM_NONE 0
 #define ITEM_POKE_BALL 1
 #define ITEM_GREAT_BALL 2
@@ -18,20 +32,6 @@
 #define ITEM_LUXURY_BALL 11
 #define ITEM_PREMIER_BALL 12
 
-// Note: If moving ball IDs around, updating FIRST_BALL/LAST_BALL is not sufficient
-//       Several places expect the ball IDs to be first and contiguous (e.g. MON_DATA_POKEBALL)
-//       If adding new balls, it's easiest to insert them after the last ball and increment the below IDs
-//    this is needed because ball effects rely on secondaryId set in item slot, each on is unique to the ball
-//I made some adjustments I belive the only thing
-//keeping me to puttin all new pokeballs together is
-//some type limit stuff? some places use u8 I would need to change,
-//other than that think just need keep secondary id in sequence,
-// and ensure all special balls come after master ball, according to my current setup
-//it is nice to have them all together, visually, just annoying to reorder list
-
-#define FIRST_BALL ITEM_POKE_BALL
-#define LAST_BALL  ITEM_PREMIER_BALL
-#define BALL_COUNT LAST_BALL - FIRST_BALL
 
 #define ITEM_POTION 13
 #define ITEM_ANTIDOTE 14
