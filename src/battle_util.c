@@ -9298,14 +9298,14 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
     // attacker's hold effect
     switch (ctx->holdEffectAtk)
     {
-    case HOLD_EFFECT_MUSCLE_BAND:
+    /*case HOLD_EFFECT_MUSCLE_BAND:
         if (IsBattleMovePhysical(move))
             modifier = uq4_12_multiply(modifier, uq4_12_add(UQ_4_12(1.0), PercentToUQ4_12_Floored(holdEffectParamAtk)));
         break;
     case HOLD_EFFECT_WISE_GLASSES:
         if (IsBattleMoveSpecial(move))
             modifier = uq4_12_multiply(modifier, uq4_12_add(UQ_4_12(1.0), PercentToUQ4_12_Floored(holdEffectParamAtk)));
-        break;
+        break;*/
     case HOLD_EFFECT_LUSTROUS_ORB:
         if (GET_BASE_SPECIES_ID(gBattleMons[battlerAtk].species) == SPECIES_PALKIA && (moveType == TYPE_WATER || moveType == TYPE_DRAGON))
             modifier = uq4_12_multiply(modifier, holdEffectModifier);
@@ -9944,7 +9944,8 @@ static inline s32 CalculateBaseDamage(enum BattlerId battlerAtk, u32 power, u32 
 
 }
 
-static inline uq4_12_t GetTargetDamageModifier(struct DamageContext *ctx)
+//vsonic check this
+static inline uq4_12_t GetTargetDamageModifier(struct BattleContext *ctx)
 {
     if (IsDoubleBattle())
 	{
@@ -9965,7 +9966,7 @@ static inline uq4_12_t GetParentalBondModifier(enum BattlerId battlerAtk)
 
 //ok NOW think should be good unsure if I need add bide as well? vsonic
 //since include joat etc decide rename function was GetSameTypeAttackBonusModifier
-static inline uq4_12_t GetTypeBasedBonusModifier(struct DamageContext *ctx)
+static inline uq4_12_t GetTypeBasedBonusModifier(struct BattleContext *ctx)
 {
     enum Type SecondarymoveType = GetTwoTypedMove2ndType(ctx->move);
 
@@ -10096,7 +10097,7 @@ static uq4_12_t GetWeatherDamageModifier(struct BattleContext *ctx)
 //put infatuation drop here rename function to status modifiers
 //actually no will make another one to put after this
 //so its its own thing
-static inline uq4_12_t GetBurnOrFrostBiteModifier(struct DamageContext *ctx)
+static inline uq4_12_t GetBurnOrFrostBiteModifier(struct BattleContext *ctx)
 {
     enum BattleMoveEffects moveEffect = GetMoveEffect(ctx->move);
 
@@ -10129,7 +10130,7 @@ static inline uq4_12_t GetBurnOrFrostBiteModifier(struct DamageContext *ctx)
 //made its on thing and moved further down
 //to avoid getting truncated with other multipliers applying
 //should hopefully be more in line with intention.
-static inline uq4_12_t GetInfatuationModifier(struct DamageContext *ctx)
+static inline uq4_12_t GetInfatuationModifier(struct BattleContext *ctx)
 {
 
     if (IsMonInfatuatedWithOnOpposingSide(ctx->battlerAtk))
@@ -10163,7 +10164,7 @@ static inline uq4_12_t GetGlaiveRushModifier(enum BattlerId battlerDef)
 //so better to just leave to a few moves that bypass alltogether
 //was GetZMaxMoveAgainstProtectionModifier
 //may keep z move implementation just not use it
-static inline uq4_12_t GetProtectBreakModifiers(struct DamageContext *ctx)
+static inline uq4_12_t GetProtectBreakModifiers(struct BattleContext *ctx)
 {
     u32 protected = gProtectStructs[ctx->battlerDef].protected;
     
@@ -10476,10 +10477,40 @@ static bool32 DoesMoveUseCryInBattleAnim(u16 move)
 
 }
 
+//need test
+static inline s32 ApplyMuscleWiseAdditiveBoosts(struct BattleContext *ctx, s32 Dmg)
+{
+    //still deciding do 5% or 10%
+    //uq4_12_t multiplier = UQ_4_12(0.05);
+    uq4_12_t multiplier = UQ_4_12(0.1);
+    uq4_12_t modifier = UQ_4_12(0.0); //ensure no garbage data
+    u32 atkStat;
+
+
+    switch (ctx->holdEffectAtk)
+    {
+    case HOLD_EFFECT_MUSCLE_BAND:
+        if (IsBattleMovePhysical(ctx->move))
+        {
+            atkStat = gBattleMons[ctx->battlerAtk].attack;
+            modifier = uq4_12_multiply_by_int_half_down(multiplier, atkStat);
+        }
+        break;
+    case HOLD_EFFECT_WISE_GLASSES:
+        if (IsBattleMoveSpecial(ctx->move))
+        {
+            atkStat = gBattleMons[ctx->battlerAtk].spAttack;
+            modifier = uq4_12_multiply_by_int_half_down(multiplier, atkStat);
+        }
+        break;
+    }
+    return Dmg += modifier;
+}
+
 //idk where this applies but need to adjust this
 //to get my update for cry to play on high roll or crit
 //may need make new ewram value to store that it should do so
-static inline s32 DoMoveDamageCalcVars(struct DamageContext *ctx)
+static inline s32 DoMoveDamageCalcVars(struct BattleContext *ctx)
 {
     s32 dmg;
     u32 userFinalAttack;
@@ -10517,14 +10548,21 @@ static inline s32 DoMoveDamageCalcVars(struct DamageContext *ctx)
     {
         if (dmg == 0)
             dmg = 1;
-        return dmg;
-    }
+        return ApplyMuscleWiseAdditiveBoosts(ctx, dmg);
+    }//unsure think just for ai
+    //oh only time see random false is for self hit
+    //if effect of muslc band stuff is too strong
+    //can put here as drawback effects
+    //nah I want that in general
+    //should already be strong as works w fixed dmg moves as well
+    //think may need check adjust self hit dmg/moves to ensure
+    //are effected by either not just only muscle band
 
     dmg = ApplyModifiersAfterDmgRoll(ctx, dmg);
 
     if (dmg == 0)
         dmg = 1;
-    return dmg;
+    return ApplyMuscleWiseAdditiveBoosts(ctx, dmg);
 }
 
 s32 ApplyModifiersAfterDmgRoll(struct BattleContext *ctx, s32 dmg)
@@ -10665,7 +10703,7 @@ s32 DoFixedDamageMoveCalc(struct BattleContext *ctx)
     if (dmg == 0)
         dmg = 1;
 
-    return dmg;
+    return ApplyMuscleWiseAdditiveBoosts(ctx, dmg);
 }
 
 //if is fixed move skip calcvar function
