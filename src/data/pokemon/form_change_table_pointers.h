@@ -210,8 +210,8 @@ const struct FormChange *const gFormChangeTablePointers[NUM_SPECIES] =
     [SPECIES_MINIOR_CORE_YELLOW] = sMiniorYellowFormChangeTable,
 
     [SPECIES_CRAMORANT] = sCramorantFormChangeTable,
-    [SPECIES_CRAMORANT_GULPING] = sCramorantFormChangeTable,
-    [SPECIES_CRAMORANT_GORGING] = sCramorantFormChangeTable,
+    [SPECIES_CRAMORANT_GULPING] = sCramorantGulpingFormChangeTable,
+    [SPECIES_CRAMORANT_GORGING] = sCramorantGorgingFormChangeTable,
     [SPECIES_EISCUE_ICE_FACE] = sEiscueFormChangeTable,
     [SPECIES_EISCUE_NOICE_FACE] = sEiscueFormChangeTable,
     [SPECIES_MORPEKO_FULL_BELLY] = sMorpekoFormChangeTable,

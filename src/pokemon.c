@@ -13297,9 +13297,9 @@ u32 GetFormChangeTargetSpecies_Internal(struct FormChangeContext ctx)
             {
                 //reworked can set to none for custom activation logic
                 //if not none make fail if currentmove doesnt match value
-                if (formChanges[i].param4
-                && gCurrentMove != formChanges[i].param4)
-                    break;
+                if (formChanges[i].param4)
+                    if (gCurrentMove != formChanges[i].param4)
+                        break;
 
                 //can simplify this into a function
                 //take param1 return true false on 
