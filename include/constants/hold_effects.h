@@ -66,9 +66,9 @@ enum __attribute__((packed)) HoldEffect
     HOLD_EFFECT_EXPERT_BELT,
     HOLD_EFFECT_LIFE_ORB,
     HOLD_EFFECT_METRONOME,
-    HOLD_EFFECT_MUSCLE_BAND,
+    HOLD_EFFECT_MUSCLE_BAND, //add 10% atk stat to final dmg of physical moves also effects self hit
     HOLD_EFFECT_WIDE_LENS,
-    HOLD_EFFECT_WISE_GLASSES,
+    HOLD_EFFECT_WISE_GLASSES, //add 10% atk stat to final dmg of special moves
     HOLD_EFFECT_ZOOM_LENS,
     HOLD_EFFECT_LAGGING_TAIL,
     HOLD_EFFECT_FOCUS_SASH,
