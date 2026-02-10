@@ -884,13 +884,13 @@ enum __attribute__((packed)) Item
     ITEM_SCANNER = 687,
     ITEM_STORAGE_KEY = 688,
     ITEM_KEY_TO_ROOM_1 = 689,
-    ITEM_RM_1_KEY = ITEM_KEY_TO_ROOM_1, // Pre-Gen VI name
+    ITEM_ROOM_1_KEY = ITEM_KEY_TO_ROOM_1, // Pre-Gen VI name
     ITEM_KEY_TO_ROOM_2 = 690,
-    ITEM_RM_2_KEY = ITEM_KEY_TO_ROOM_2, // Pre-Gen VI name
+    ITEM_ROOM_2_KEY = ITEM_KEY_TO_ROOM_2, // Pre-Gen VI name
     ITEM_KEY_TO_ROOM_4 = 691,
-    ITEM_RM_4_KEY = ITEM_KEY_TO_ROOM_4, // Pre-Gen VI name
+    ITEM_ROOM_4_KEY = ITEM_KEY_TO_ROOM_4, // Pre-Gen VI name
     ITEM_KEY_TO_ROOM_6 = 692,
-    ITEM_RM_6_KEY = ITEM_KEY_TO_ROOM_6, // Pre-Gen VI name
+    ITEM_ROOM_6_KEY = ITEM_KEY_TO_ROOM_6, // Pre-Gen VI name
     ITEM_METEORITE = 693,
     ITEM_MAGMA_EMBLEM = 694,
     ITEM_CONTEST_PASS = 695,
@@ -1046,7 +1046,7 @@ enum __attribute__((packed)) Item
     ITEM_PALDEAN_SAND, 
     ITEM_BAD_ONION,
     ITEM_SCENT_CASE, //potentially USE TM CASE grahpic for holding region scent vials
-
+    ITEM_OMNI_BOX,
     //tm expansion on end
     //ideallly put new items above this
     //and have these print in from tm_list
@@ -1170,6 +1170,8 @@ enum __attribute__((packed)) Item
     ITEM_TM159,
     ITEM_TM160,
     ITEM_TM161,
+    ITEM_HM09, //missed attempt fix later
+    
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,
@@ -1209,8 +1211,8 @@ enum __attribute__((packed)) Item
 //ok what those do is decide if an item gets used i.e if it triggers its effect
 //pokemonitemusenoeffect tells under what condition using an item will trigger
 //"it wont have an effect" text
-#define IS_POKEMON_ITEM(item) ((item) > ITEM_PREMIER_BALL && (item) <= ITEM_DRAGON_SCALE)
-#define IS_POKEMON_ITEM2(item) ((item) > ITEM_MEGA_BRACELET && (item) < ITEM_SEA_INCENSE)
+//#define IS_POKEMON_ITEM(item) ((item) > ITEM_PREMIER_BALL && (item) <= ITEM_DRAGON_SCALE)
+//#define IS_POKEMON_ITEM2(item) ((item) > ITEM_MEGA_BRACELET && (item) < ITEM_SEA_INCENSE)
 //BECAUSE of this need to add mega stones in somewhere before to cutoff.
 // or copy function for define and create a new range, for IS_POKEMON_ITEM2
 //that way I can just add on to end. but before N_A

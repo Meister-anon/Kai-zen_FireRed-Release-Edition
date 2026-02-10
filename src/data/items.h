@@ -9447,23 +9447,7 @@ const struct ItemInfo gItems[] =
       .battleUseFunc = NULL,
       .secondaryId =  0
     },
-    [ITEM_MEGA_BRACELET] =
-    {
-      .name = _("Mega Bracelet"),
-      .itemId = ITEM_MEGA_BRACELET,
-      .price =  0,
-      .holdEffect = HOLD_EFFECT_NONE,
-      .holdEffectParam =  0,
-     .description = gItemDescription_ITEM_MEGA_BRACELET,
-//      "description":  gItemDescription_ITEM_NONE
-      .importance = 1,
-      .exitsBagOnUse = 0,
-      .pocket = POCKET_KEY_ITEMS,
-      .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = FieldUseFunc_OakStopsYou,
-      .battleUseFunc = NULL,
-      .secondaryId =  0
-    },//already have mega ring don't need this
+
     [ITEM_UP_GRADE] =
     {
       .name = _("Up-Grade"),

@@ -301,7 +301,7 @@ static inline u32 GetMoveEffect(enum Move moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].effect;
 }
 
-static inline u32 GetMoveType(enum Move moveId)
+static inline enum Type GetMoveType(enum Move moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].type;
 }//vsonic renamed from GetMoveType

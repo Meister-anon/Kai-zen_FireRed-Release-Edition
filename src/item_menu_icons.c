@@ -558,7 +558,7 @@ static const void *const sItemIconGfxPtrs[][2] = {
     // Return to field arrow
     [ITEM_FIELD_ARROW] = {gFile_graphics_items_icons_return_to_field_arrow_sheet, gFile_graphics_items_icon_palettes_return_to_field_arrow_palette},
     // New items
-     /*   [ITEM_WIDE_LENS] = {gItemIcon_WideLens, gItemIconPalette_WideLens},
+    [ITEM_WIDE_LENS] = {gItemIcon_WideLens, gItemIconPalette_WideLens},
     [ITEM_MUSCLE_BAND] = {gItemIcon_MuscleBand, gItemIconPalette_MuscleBand},
     [ITEM_WISE_GLASSES] = {gItemIcon_WiseGlasses, gItemIconPalette_WiseGlasses},
     [ITEM_EXPERT_BELT] = {gItemIcon_ExpertBelt, gItemIconPalette_ExpertBelt},
@@ -605,11 +605,11 @@ static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_DREAD_PLATE] = {gItemIcon_DreadPlate, gItemIconPalette_DreadPlate},
     [ITEM_IRON_PLATE] = {gItemIcon_IronPlate, gItemIconPalette_IronPlate},
     [ITEM_HONEY] = {gItemIcon_Honey, gItemIconPalette_Honey},
-    [ITEM_OLD_GATEAU] = {gItemIcon_OldGateau, gItemIconPalette_OldGateau},*/
+    [ITEM_OLD_GATEAU] = {gItemIcon_OldGateau, gItemIconPalette_OldGateau},
     [ITEM_DAWN_STONE] = {gItemIcon_DawnStone, gItemIconPalette_DawnStone},
     [ITEM_DUSK_STONE] = {gItemIcon_DuskStone, gItemIconPalette_DuskStone},
     [ITEM_SHINY_STONE] = {gItemIcon_ShinyStone, gItemIconPalette_ShinyStone},
-      /*  [ITEM_RED_APRICORN] = {gItemIcon_RedApricorn, gItemIconPalette_RedApricorn},
+    [ITEM_RED_APRICORN] = {gItemIcon_RedApricorn, gItemIconPalette_RedApricorn},
     [ITEM_BLUE_APRICORN] = {gItemIcon_BlueApricorn, gItemIconPalette_BlueApricorn},
     [ITEM_YELLOW_APRICORN] = {gItemIcon_YellowApricorn, gItemIconPalette_YellowApricorn},
     [ITEM_GREEN_APRICORN] = {gItemIcon_GreenApricorn, gItemIconPalette_GreenApricorn},
@@ -637,7 +637,7 @@ static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_MICLE_BERRY] = {gItemIcon_MicleBerry, gItemIconPalette_MicleBerry},
     [ITEM_CUSTAP_BERRY] = {gItemIcon_CustapBerry, gItemIconPalette_CustapBerry},
     [ITEM_JABOCA_BERRY] = {gItemIcon_JabocaBerry, gItemIconPalette_JabocaBerry},
-    [ITEM_ROWAP_BERRY] = {gItemIcon_RowapBerry, gItemIconPalette_RowapBerry},*/
+    [ITEM_ROWAP_BERRY] = {gItemIcon_RowapBerry, gItemIconPalette_RowapBerry},
     [ITEM_OVAL_STONE] = {gItemIcon_OvalStone, gItemIconPalette_OvalStone},
     [ITEM_PROTECTOR] = {gItemIcon_Protector, gItemIconPalette_Protector},
     [ITEM_ELECTIRIZER] = {gItemIcon_Electirizer, gItemIconPalette_Electirizer},
@@ -645,14 +645,14 @@ static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_DUBIOUS_DISC] = {gItemIcon_DubiousDisc, gItemIconPalette_DubiousDisc},
     [ITEM_REAPER_CLOTH] = {gItemIcon_ReaperCloth, gItemIconPalette_ReaperCloth},
     [ITEM_RAZOR_CLAW] = {gItemIcon_RazorClaw, gItemIconPalette_RazorClaw},
-      //  [ITEM_RAZOR_FANG] = {gItemIcon_RazorFang, gItemIconPalette_RazorFang},
+    [ITEM_RAZOR_FANG] = {gItemIcon_RazorFang, gItemIconPalette_RazorFang},
     [ITEM_POWER_BRACER] = {gItemIcon_PowerBracer, gItemIconPalette_PowerBracer},
     [ITEM_POWER_BELT] = {gItemIcon_PowerBelt, gItemIconPalette_PowerBelt},
     [ITEM_POWER_LENS] = {gItemIcon_PowerLens, gItemIconPalette_PowerLens},
     [ITEM_POWER_BAND] = {gItemIcon_PowerBand, gItemIconPalette_PowerBand},
     [ITEM_POWER_ANKLET] = {gItemIcon_PowerAnklet, gItemIconPalette_PowerAnklet},
     [ITEM_POWER_WEIGHT] = {gItemIcon_PowerWeight, gItemIconPalette_PowerWeight},
-     /*   [ITEM_ODD_INCENSE] = {gItemIcon_OddIncense, gItemIconPalette_OddIncense},
+    [ITEM_ODD_INCENSE] = {gItemIcon_OddIncense, gItemIconPalette_OddIncense},
     [ITEM_ROCK_INCENSE] = {gItemIcon_RockIncense, gItemIconPalette_RockIncense},
     [ITEM_FULL_INCENSE] = {gItemIcon_FullIncense, gItemIconPalette_FullIncense},
     [ITEM_WAVE_INCENSE] = {gItemIcon_WaveIncense, gItemIconPalette_WaveIncense},
@@ -660,13 +660,13 @@ static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_LUCK_INCENSE] = {gItemIcon_LuckIncense, gItemIconPalette_LuckIncense},
     [ITEM_PURE_INCENSE] = {gItemIcon_PureIncense, gItemIconPalette_PureIncense},
     [ITEM_ODD_KEYSTONE] = {gItemIcon_OddKeystone, gItemIconPalette_OddKeystone},
-    [ITEM_GRACIDEA] = {gItemIcon_Gracidea, gItemIconPalette_Gracidea},*/
+    [ITEM_GRACIDEA] = {gItemIcon_Gracidea, gItemIconPalette_Gracidea},
     [ITEM_ARMOR_FOSSIL] = {gItemIcon_ArmorFossil, gItemIconPalette_ArmorFossil},
     [ITEM_SKULL_FOSSIL] = {gItemIcon_SkullFossil, gItemIconPalette_SkullFossil},
     // Gen 5 Items
-     [ITEM_EVIOLITE] = {gItemIcon_Eviolite, gItemIconPalette_Eviolite},
-     [ITEM_EVIOLITE_FAIL] = {gItemIcon_EvioliteFailed, gItemIconPalette_EvioliteFailed}, //special versionn for eviolite change
-    /*[ITEM_FLOAT_STONE] = {gItemIcon_FloatStone, gItemIconPalette_FloatStone},
+    [ITEM_EVIOLITE] = {gItemIcon_Eviolite, gItemIconPalette_Eviolite},
+    [ITEM_EVIOLITE_FAIL] = {gItemIcon_EvioliteFailed, gItemIconPalette_EvioliteFailed}, //special versionn for eviolite change
+    [ITEM_FLOAT_STONE] = {gItemIcon_FloatStone, gItemIconPalette_FloatStone},
     [ITEM_BINDING_BAND] = {gItemIcon_BindingBand, gItemIconPalette_BindingBand},
     [ITEM_DOUSE_DRIVE] = {gItemIcon_DouseDrive, gItemIconPalette_DouseDrive},
     [ITEM_SHOCK_DRIVE] = {gItemIcon_ShockDrive, gItemIconPalette_ShockDrive},
@@ -690,18 +690,18 @@ static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_STEEL_GEM] = {gItemIcon_SteelGem, gItemIconPalette_SteelGem},
     [ITEM_NORMAL_GEM] = {gItemIcon_NormalGem, gItemIconPalette_NormalGem},
     [ITEM_FAIRY_GEM] = {gItemIcon_FairyGem, gItemIconPalette_FairyGem},
-    [ITEM_SWEET_HEART] = {gItemIcon_SweetHeart, gItemIconPalette_SweetHeart},*/
+    [ITEM_SWEET_HEART] = {gItemIcon_SweetHeart, gItemIconPalette_SweetHeart},
     [ITEM_PRISM_SCALE] = {gItemIcon_PrismScale, gItemIconPalette_PrismScale},
-      /*  [ITEM_ROCKY_HELMET] = {gItemIcon_RockyHelmet, gItemIconPalette_RockyHelmet},
+    [ITEM_ROCKY_HELMET] = {gItemIcon_RockyHelmet, gItemIconPalette_RockyHelmet},
     [ITEM_AIR_BALLOON] = {gItemIcon_AirBalloon, gItemIconPalette_AirBalloon},
     [ITEM_RED_CARD] = {gItemIcon_RedCard, gItemIconPalette_RedCard},
     [ITEM_RING_TARGET] = {gItemIcon_RingTarget, gItemIconPalette_RingTarget},
     [ITEM_EJECT_BUTTON] = {gItemIcon_EjectButton, gItemIconPalette_EjectButton},
     [ITEM_ABSORB_BULB] = {gItemIcon_AbsorbBulb, gItemIconPalette_AbsorbBulb},
-    [ITEM_CELL_BATTERY] = {gItemIcon_CellBattery, gItemIconPalette_CellBattery},*/
+    [ITEM_CELL_BATTERY] = {gItemIcon_CellBattery, gItemIconPalette_CellBattery},
     [ITEM_COVER_FOSSIL] = {gItemIcon_CoverFossil, gItemIconPalette_CoverFossil},
     [ITEM_PLUME_FOSSIL] = {gItemIcon_PlumeFossil, gItemIconPalette_PlumeFossil},
-      /*  [ITEM_HEALTH_WING] = {gItemIcon_HealthWing, gItemIconPalette_HealthWing},
+    [ITEM_HEALTH_WING] = {gItemIcon_HealthWing, gItemIconPalette_HealthWing},
     [ITEM_MUSCLE_WING] = {gItemIcon_MuscleWing, gItemIconPalette_MuscleWing},
     [ITEM_RESIST_WING] = {gItemIcon_ResistWing, gItemIconPalette_ResistWing},
     [ITEM_GENIUS_WING] = {gItemIcon_GeniusWing, gItemIconPalette_GeniusWing},
@@ -761,29 +761,29 @@ static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_LOPUNNITE] = {gItemIcon_Lopunnite, gItemIconPalette_Lopunnite},
     [ITEM_SALAMENCITE] = {gItemIcon_Salamencite, gItemIconPalette_Salamencite},
     [ITEM_BEEDRILLITE] = {gItemIcon_Beedrillite, gItemIconPalette_Beedrillite},
-    [ITEM_MEGA_BRACELET] = {gItemIcon_MegaBracelet, gItemIconPalette_MegaBracelet},*/
+    [ITEM_MEGA_RING] = {gItemIcon_MegaBracelet, gItemIconPalette_MegaBracelet},
     [ITEM_ABILITY_CAPSULE] = {gItemIcon_AbilityCapsule, gItemIconPalette_AbilityCapsule},
-      /*  [ITEM_ROSELI_BERRY] = {gItemIcon_RoseliBerry, gItemIconPalette_RoseliBerry},
+    [ITEM_ROSELI_BERRY] = {gItemIcon_RoseliBerry, gItemIconPalette_RoseliBerry},
     [ITEM_KEE_BERRY] = {gItemIcon_KeeBerry, gItemIconPalette_KeeBerry},
-    [ITEM_MARANGA_BERRY] = {gItemIcon_MarangaBerry, gItemIconPalette_MarangaBerry},*/
+    [ITEM_MARANGA_BERRY] = {gItemIcon_MarangaBerry, gItemIconPalette_MarangaBerry},
     [ITEM_WHIPPED_DREAM] = {gItemIcon_WhippedDream, gItemIconPalette_WhippedDream},
     [ITEM_SACHET] = {gItemIcon_Sachet, gItemIconPalette_Sachet},
-      /*  [ITEM_LUMINOUS_MOSS] = {gItemIcon_LuminousMoss, gItemIconPalette_LuminousMoss},
+    [ITEM_LUMINOUS_MOSS] = {gItemIcon_LuminousMoss, gItemIconPalette_LuminousMoss},
     [ITEM_SNOWBALL] = {gItemIcon_Snowball, gItemIconPalette_Snowball},
-    [ITEM_WEAKNESS_POLICY] = {gItemIcon_WeaknessPolicy, gItemIconPalette_WeaknessPolicy},*/
+    [ITEM_WEAKNESS_POLICY] = {gItemIcon_WeaknessPolicy, gItemIconPalette_WeaknessPolicy},
     [ITEM_JAW_FOSSIL] = {gItemIcon_JawFossil, gItemIconPalette_JawFossil},
     [ITEM_SAIL_FOSSIL] = {gItemIcon_SailFossil, gItemIconPalette_SailFossil},
     // Gen 7 Items
-       /* [ITEM_PROTECTIVE_PADS] = {gItemIcon_ProtectivePads, gItemIconPalette_ProtectivePads},
+    [ITEM_PROTECTIVE_PADS] = {gItemIcon_ProtectivePads, gItemIconPalette_ProtectivePads},
     [ITEM_TERRAIN_EXTENDER] = {gItemIcon_TerrainExtender, gItemIconPalette_TerrainExtender},
     [ITEM_ELECTRIC_SEED] = {gItemIcon_ElectricSeed, gItemIconPalette_ElectricSeed},
     [ITEM_GRASSY_SEED] = {gItemIcon_GrassySeed, gItemIconPalette_GrassySeed},
     [ITEM_MISTY_SEED] = {gItemIcon_MistySeed, gItemIconPalette_MistySeed},
     [ITEM_PSYCHIC_SEED] = {gItemIcon_PsychicSeed, gItemIconPalette_PsychicSeed},
     [ITEM_ADRENALINE_ORB] = {gItemIcon_AdrenalineOrb, gItemIconPalette_AdrenalineOrb},
-    [ITEM_BIG_MALASADA] = {gItemIcon_BigMalasada, gItemIconPalette_BigMalasada},*/
+    [ITEM_BIG_MALASADA] = {gItemIcon_BigMalasada, gItemIconPalette_BigMalasada},
     [ITEM_ICE_STONE] = {gItemIcon_IceStone, gItemIconPalette_IceStone},
-    /*[ITEM_RED_NECTAR] = {gItemIcon_RedNectar, gItemIconPalette_RedNectar},
+    [ITEM_RED_NECTAR] = {gItemIcon_RedNectar, gItemIconPalette_RedNectar},
     [ITEM_YELLOW_NECTAR] = {gItemIcon_YellowNectar, gItemIconPalette_YellowNectar},
     [ITEM_PINK_NECTAR] = {gItemIcon_PinkNectar, gItemIconPalette_PinkNectar},
     [ITEM_PURPLE_NECTAR] = {gItemIcon_PurpleNectar, gItemIconPalette_PurpleNectar},
@@ -805,7 +805,7 @@ static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_STEEL_MEMORY] = {gItemIcon_SteelMemory, gItemIconPalette_SteelMemory},
     [ITEM_WATER_MEMORY] = {gItemIcon_WaterMemory, gItemIconPalette_WaterMemory},
     // Z crystals
-    [ITEM_Z_RING] = {gItemIcon_ZRing, gItemIconPalette_ZRing},
+    [ITEM_Z_POWER_RING] = {gItemIcon_ZRing, gItemIconPalette_ZRing},
     [ITEM_NORMALIUM_Z] = {gItemIcon_NormaliumZ, gItemIconPalette_NormaliumZ},
     [ITEM_FIGHTINIUM_Z] = {gItemIcon_FightiniumZ, gItemIconPalette_FightiniumZ},
     [ITEM_FLYINIUM_Z] = {gItemIcon_FlyiniumZ, gItemIconPalette_FlyiniumZ},
@@ -840,7 +840,7 @@ static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_SNORLIUM_Z] = {gItemIcon_SnorliumZ, gItemIconPalette_SnorliumZ},
     [ITEM_SOLGANIUM_Z] = {gItemIcon_SolganiumZ, gItemIconPalette_SolganiumZ},
     [ITEM_TAPUNIUM_Z] = {gItemIcon_TapuniumZ, gItemIconPalette_TapuniumZ},
-    [ITEM_ULTRANECROZIUM_Z] = {gItemIcon_UltranecroziumZ, gItemIconPalette_UltranecroziumZ},*/
+    [ITEM_ULTRANECROZIUM_Z] = {gItemIcon_UltranecroziumZ, gItemIconPalette_UltranecroziumZ},
 };
 
 void ResetItemMenuIconState(void)
@@ -1060,14 +1060,88 @@ void DestroyItemMenuIcon(u8 idx)
    }
 }
 
+    //EE eventually moved to item directly
+    //but for tm hm need those for FR features
+    //think can get around that by having function
+    //return icon based on is tm or hm
+    //tm case and important 0 or 1
+    //then return icon pal based on move type
+static u16 *GetTmHmIconPal(enum Item itemId)
+{
+    switch (GetMoveType(ItemIdToBattleMoveId(itemId)))
+    {
+        case TYPE_NORMAL:
+            return gItemIconPalette_NormalTMHM;
+        case TYPE_FIGHTING:
+            return gItemIconPalette_FightingTMHM;
+        case TYPE_FLYING:
+            return gItemIconPalette_FlyingTMHM;
+        case TYPE_POISON:
+            return gItemIconPalette_PoisonTMHM;
+        case TYPE_GROUND:
+            return gItemIconPalette_GroundTMHM;
+        case TYPE_ROCK:
+            return gItemIconPalette_RockTMHM;
+        case TYPE_BUG:
+            return gItemIconPalette_BugTMHM;
+        case TYPE_GHOST:
+            return gItemIconPalette_GhostTMHM;
+        case TYPE_STEEL:
+            return gItemIconPalette_SteelTMHM;
+        case TYPE_FIRE:
+            return gItemIconPalette_FireTMHM;
+        case TYPE_WATER:
+            return gItemIconPalette_WaterTMHM;
+        case TYPE_GRASS:
+            return gItemIconPalette_GrassTMHM;
+        case TYPE_ELECTRIC:
+            return gItemIconPalette_ElectricTMHM;
+        case TYPE_PSYCHIC:
+            return gItemIconPalette_PsychicTMHM;
+        case TYPE_ICE:
+            return gItemIconPalette_IceTMHM;
+        case TYPE_DRAGON:
+            return gItemIconPalette_DragonTMHM;
+        case TYPE_DARK:
+            return gItemIconPalette_DarkTMHM;
+        case TYPE_FAIRY:
+            return gItemIconPalette_FairyTMHM;
+
+    }
+}
+
+enum atrbId
+{
+    ICON_PIC,
+    ICON_PAL,
+};
+
 #define ITEM_ICON_SETTING
+//attri is 0 or 1 determines if return pic or pal ptr
 const void * GetItemIconGfxPtr(u16 itemId, u8 attrId) //ok w new eviolite function change can't use this so make new equivalent
 {
     if (itemId > ITEMS_COUNT) //think this equation is what was messing up my field arrow,
         itemId = ITEM_NONE; //because it was listed grater than ITEMS_COUNT
-    //if ((itemId == ITEM_EVIOLITE) && !CanEvioliteActivate(GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES))) //ok dont need loop for everything think this 
-    //    itemId = ITEM_EVIOLITE_FAIL; //doesn't change item, just changes effect of function / com
- 
+    
+    //unsure if right?
+    if ((itemId == ITEM_EVIOLITE) && !CanEvioliteActivate(GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES))) //ok dont need loop for everything think this 
+        itemId = ITEM_EVIOLITE_FAIL;
+
+    if (IsTMHM(itemId))
+    {
+        if (attrId == ICON_PAL)
+            return GetTmHmIconPal(itemId);
+
+        if (Isitem_HM(itemId))
+        {
+            return gItemIcon_HM;
+        }    
+        else
+        {
+            return gItemIcon_TM;
+        }
+    }
+
     return sItemIconGfxPtrs[itemId][attrId];
 }//would only need for player side, 
 //still need to figure out how to use this
