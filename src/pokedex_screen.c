@@ -4268,6 +4268,10 @@ static bool8 DexScreen_FlipCategoryPageInDirection(u8 direction)
 
 #define POKEDEX_PAGE_FUNCTIONS
 // Scale from 0 to 6
+//potentially most important dex function
+//builds border around category page
+//creates dividing line and fills white space
+//for dex info to be buffered onto vsonic important
 void DexScreen_DexPageZoomEffectFrame(u8 bg, u8 scale)
 {
     u8 tileLeft, tileTop, width, height;
@@ -4718,7 +4722,7 @@ void DexScreen_PrintMonWeight(u8 windowId, u16 species, u8 x, u8 y)
 //if  in battle set  battleDexUsed = TRUE
 //then when you load mon page, if that's true and not caught, load and set types to display or something
 #define NEW_DEX_USE_NOTES
-void DexScreen_PrintMonStatPage(u8 windowId, u16 species, u8 x, u8 y)
+void DexScreen_PrintMonStatTotal(u8 windowId, u16 species, u8 x, u8 y)
 {
     u16 statTotal;
     const u8 * labelTextTotal;
@@ -5102,7 +5106,7 @@ static u8 DexScreen_DrawMonDexPage(bool8 justRegistered) //should be able to uss
     DexScreen_PrintMonCategory(sPokedexScreenData->windowIds[1], SpeciesVal, 0, 16);
     DexScreen_PrintMonHeight(sPokedexScreenData->windowIds[1], SpeciesVal, 0, 28);
     DexScreen_PrintMonWeight(sPokedexScreenData->windowIds[1], SpeciesVal, 0, 40);
-    DexScreen_PrintMonStatPage(sPokedexScreenData->windowIds[1], SpeciesVal, 75, 28);
+    DexScreen_PrintMonStatTotal(sPokedexScreenData->windowIds[1], SpeciesVal, 75, 28);
     //DexScreen_DrawMonFootprint(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 88, 32);
     PutWindowTilemap(sPokedexScreenData->windowIds[1]);
     CopyWindowToVram(sPokedexScreenData->windowIds[1], COPYWIN_GFX);
