@@ -1197,6 +1197,20 @@ extern struct BattleStruct *gBattleStruct;
 //#define IS_BATTLER_OF_TYPE(battlerId, type)((gBattleMons[battlerId].type1 == type || gBattleMons[battlerId].type2 == type || gBattleMons[battlerId].type3 == type))
 #define IS_SPECIES_OF_TYPE(species, type)((gBaseStats[species].type1 == type || gBaseStats[species].type2 == type))
 
+static inline bool32 IsBattleMovePhysical(enum Move move)
+{
+    return GetBattleMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL;
+}
+
+static inline bool32 IsBattleMoveSpecial(enum Move move)
+{
+    return GetBattleMoveCategory(move) == DAMAGE_CATEGORY_SPECIAL;
+}
+
+static inline bool32 IsBattleMoveStatus(enum Move move)
+{
+    return GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS;
+}
 
 /* Checks if 'battlerId' is any of the types.
  * Passing multiple types is more efficient than calling this multiple

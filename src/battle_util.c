@@ -10557,6 +10557,10 @@ static inline s32 DoMoveDamageCalcVars(struct BattleContext *ctx)
     //should already be strong as works w fixed dmg moves as well
     //think may need check adjust self hit dmg/moves to ensure
     //are effected by either not just only muscle band
+    //nvm bit annoying but no way to do that
+    //confusion already leaned towards only affecting physcal
+    //was entire reason I reworked flatter rather than
+    //just being a sp atk boost
 
     dmg = ApplyModifiersAfterDmgRoll(ctx, dmg);
 
