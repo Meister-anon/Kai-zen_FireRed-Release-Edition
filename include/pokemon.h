@@ -1125,8 +1125,6 @@ u8 GetWeatherBallType(u16 move);
 //sidestatus meant to hold gsidestatus but forgot I had to upgrade that to u32 *facepalm
 
 //recent emerald addditions, change for form change (not planning use for ditto/transform)
-void TryToSetBattleFormChangeMoves(struct Pokemon *mon, u16 method);
-bool32 TryFormChange(u32 monId, u32 side, u16 method);
 u16 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
 u16 GetFormChangeTargetSpeciesBoxMon(struct Pokemon *mon, u16 method, u32 arg);//still works same just adjusted for getablilitybyspecies change
 bool32 DoesSpeciesHaveFormChangeMethod(u16 species, u16 method);
@@ -1258,7 +1256,7 @@ u16 GetUnionRoomTrainerPic(void);
 u16 GetUnionRoomTrainerClass(void);
 void CreateEventLegalEnemyMon(void);
 void HandleSetPokedexFlag(u16 nationalNum, u8 caseId, u32 personality);
-bool8 CheckBattleTypeGhost(struct Pokemon *mon, u8 bank);
+bool8 CheckBattleTypeGhost(struct Pokemon *mon, enum BattlerId battlerId);
 struct OakSpeechNidoranFStruct *OakSpeechNidoranFSetup(u8 battlePosition, bool8 enable);
 void OakSpeechNidoranFFreeResources(void);
 void *OakSpeechNidoranFGetBuffer(u8 bufferId);
@@ -1402,7 +1400,7 @@ void BattleAnimateBackSprite(struct Sprite *sprite, u16 species);
 u8 GetOpposingLinkMultiBattlerId(bool8 rightSide, u8 multiplayerId);
 enum TrainerPicID FacilityClassToPicIndex(u16 facilityClass);
 enum TrainerPicID PlayerGenderToFrontTrainerPicId(enum Gender playerGender);
-void HandleSetPokedexFlag(enum NationalDexOrder nationalNum, u8 caseId, u32 personality);
+//void HandleSetPokedexFlag(enum NationalDexOrder nationalNum, u8 caseId, u32 personality);
 void HandleSetPokedexFlagFromMon(struct Pokemon *mon, u32 caseId);
 //bool8 HasTwoFramesAnimation(u16 species);
 struct MonSpritesGfxManager *CreateMonSpritesGfxManager(u8 managerId, u8 mode);
@@ -1425,7 +1423,6 @@ void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality);
 u8 CalculatePartyCount(struct Pokemon *party);
 u16 SanitizeSpeciesId(u16 species);
 bool32 IsSpeciesEnabled(u16 species);
-enum PokemonCry GetCryIdBySpecies(u16 species);
 u16 GetSpeciesPreEvolution(u16 species);
 void HealPokemon(struct Pokemon *mon);
 void HealBoxPokemon(struct BoxPokemon *boxMon);

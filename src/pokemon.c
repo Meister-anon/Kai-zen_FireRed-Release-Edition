@@ -13787,13 +13787,13 @@ void HealBoxPokemon(struct BoxPokemon *boxMon)
     BoxMonRestorePP(boxMon);
 }
 
-enum PokemonCry GetCryIdBySpecies(u16 species)
+/*enum PokemonCry GetCryIdBySpecies(u16 species)
 {
     species = SanitizeSpeciesId(species);
     if (P_CRIES_ENABLED == FALSE || gSpeciesInfo[species].cryId >= CRY_COUNT || gTestRunnerHeadless)
         return CRY_NONE;
     return gSpeciesInfo[species].cryId;
-}
+}*/
 
 u16 GetSpeciesPreEvolution(u16 species)
 {
