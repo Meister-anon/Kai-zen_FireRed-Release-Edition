@@ -1,6 +1,50 @@
 #include "global.h"
 #include "test/battle.h"
 
+SINGLE_BATTLE_TEST("Gulp Missile: Cramorant cannot change into Gorging Form from Gulping Form")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_BELLY_DRUM) == EFFECT_BELLY_DRUM);
+        PLAYER(SPECIES_CRAMORANT) { HP(240); MaxHP(250); Ability(ABILITY_GULP_MISSILE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { MOVE(player, MOVE_SURF); }
+        TURN { MOVE(player, MOVE_BELLY_DRUM); }
+        TURN { MOVE(player, MOVE_SURF); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SURF, player);
+        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE_INSTANT, player);
+        HP_BAR(opponent);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_BELLY_DRUM, player);
+        HP_BAR(player);
+        NOT ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE_INSTANT, player);
+    } THEN {
+        EXPECT_EQ(player->species, SPECIES_CRAMORANT_GULPING);
+    }
+}
+
+SINGLE_BATTLE_TEST("Gulp Missile: Cramorant cannot change into Gulping Form from Gorging Form")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_RECOVER) == EFFECT_RESTORE_HP);
+        PLAYER(SPECIES_CRAMORANT) { HP(120); MaxHP(250); Ability(ABILITY_GULP_MISSILE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { MOVE(player, MOVE_SURF); }
+        TURN { MOVE(player, MOVE_RECOVER); }
+        TURN { MOVE(player, MOVE_SURF); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SURF, player);
+        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE_INSTANT, player);
+        HP_BAR(opponent);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_RECOVER, player);
+        HP_BAR(player);
+        NOT ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE_INSTANT, player);
+    } THEN {
+        EXPECT_EQ(player->species, SPECIES_CRAMORANT_GORGING);
+    }
+}
+
 SINGLE_BATTLE_TEST("Gulp Missile: If base Cramorant hits target with Surf it transforms into Gulping form if max HP is over 1/2")
 {
     GIVEN {
