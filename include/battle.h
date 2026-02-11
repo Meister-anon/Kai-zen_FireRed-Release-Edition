@@ -1155,10 +1155,23 @@ struct BattleStruct
 };
 extern struct BattleStruct *gBattleStruct;
 
+struct AiBattleData
+{
+    s32 finalScore[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // AI, target, moves to make debugging easier
+    u8 playerStallMons[PARTY_SIZE];
+    u8 chosenMoveIndex[MAX_BATTLERS_COUNT];
+    u8 chosenTarget[MAX_BATTLERS_COUNT];
+    u16 aiUsingGimmick:6;
+    u8 actionFlee:1;
+    u8 choiceWatch:1;
+    u8 padding:6;
+};
 
-#define F_DYNAMIC_TYPE_1 (1 << 6)
-#define F_DYNAMIC_TYPE_2 (1 << 7)
-#define DYNAMIC_TYPE_MASK (F_DYNAMIC_TYPE_1 - 1) //how does this work?
+#define DYNAMIC_TYPE_MASK                 ((1 << 6) - 1)
+#define F_DYNAMIC_TYPE_IGNORE_PHYSICALITY  (1 << 6) // If set, the dynamic type's physicality won't be used for certain move effects.
+#define F_DYNAMIC_TYPE_SET                 (1 << 7) // Set for all dynamic types to distinguish a dynamic type of Normal (0) from no dynamic type.
+//pretty sure no longer necessary now that type none is added
+
 //looking over EE seems this is only necessary for
 //differentiating dynamicmovetype 0 from 0 of type normal
 //but EE also adjusted type define so normal is 1 not 0
@@ -1192,6 +1205,7 @@ extern struct BattleStruct *gBattleStruct;
 
 //#define IS_TYPE_PHYSICAL(moveType)(moveType < TYPE_MYSTERY)
 //#define IS_TYPE_SPECIAL(moveType)(moveType > TYPE_MYSTERY)
+
 
 #define IS_MOVE_PHYSICAL(move)(GetBattleMoveSplit(move) == DAMAGE_CATEGORY_PHYSICAL)
 #define IS_MOVE_SPECIAL(move)(GetBattleMoveSplit(move) == DAMAGE_CATEGORY_SPECIAL)
