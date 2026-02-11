@@ -1655,6 +1655,28 @@ extern u16 gRandomTurnNumber;
 
 extern const u16 gProtectSuccessRates[NUM_PROTECT_ODDS];
 
+static inline bool32 IsBattlerAlive(enum BattlerId battler)
+{
+    if (battler >= gBattlersCount)
+        return FALSE;
+    else if (gBattleMons[battler].hp == 0)
+        return FALSE;
+    else if (gAbsentBattlerFlags & (1u << battler))
+        return FALSE;
+    else
+        return TRUE;
+}
+
+static inline bool32 IsBattlerTurnDamaged(enum BattlerId battler)
+{
+    return gSpecialStatuses[battler].damagedByAttack;
+}
+
+static inline bool32 IsBattlerAtMaxHp(enum BattlerId battler)
+{
+    return gBattleMons[battler].hp == gBattleMons[battler].maxHP;
+}
+
 static inline u32 GetBattlerPosition(enum BattlerId battler)
 {
     return gBattlerPositions[battler];

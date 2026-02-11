@@ -437,7 +437,6 @@ void HandleAction_RunBattleScript(void);
 /*u8 IsMonDisobedient(void);
 u32 GetBattleMoveSplit(u32 moveId);
 u32 GetBattleMoveDamageCategory(u32 attackerId, u16 move);*/
-bool8 IsBattlerAlive(enum BattlerId battlerId);
 u32 GetFlingPowerFromItemId(u32 itemId);
 //u16 GetPrimalReversionSpecies(u16 preEvoSpecies, u16 heldItemId);
 //u16 GetMegaEvolutionSpecies(u16 preEvoSpecies, u16 heldItemId);
