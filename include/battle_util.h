@@ -52,7 +52,7 @@ enum AbilityEffect
 {
     ABILITYEFFECT_ENDTURN,
     ABILITYEFFECT_MOVE_END_ATTACKER,
-    ABILITYEFFECT_PRE_HIT_REACT, // new effect for color change
+    ABILITYEFFECT_PRE_HIT_ACTIVATE, // new effect for color change
     ABILITYEFFECT_COLOR_CHANGE, // Color Change / Berserk / Anger Shell
     ABILITYEFFECT_MOVE_END,
     ABILITYEFFECT_IMMUNITY,

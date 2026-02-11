@@ -1715,7 +1715,7 @@ static inline bool32 TryActivateWeaknessBerry(enum BattlerId battlerDef)
 static void TryActivatePreHitAbilities(enum BattlerId battlerDef)
 {
     if (!gSpecialStatuses[battlerDef].preHitAbilityDone)
-        AbilityBattleEffects(ABILITYEFFECT_PRE_HIT_REACT, battlerDef, 0, 0, 0);
+        AbilityBattleEffects(ABILITYEFFECT_PRE_HIT_ACTIVATE, battlerDef, 0, 0, 0);
 }
 
 static inline bool32 TryPrintPreHitAbilityActivationText(enum BattlerId battlerDef)

@@ -6944,7 +6944,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             break;
         }
         break;
-    case ABILITYEFFECT_PRE_HIT_REACT:
+    case ABILITYEFFECT_PRE_HIT_ACTIVATE:
 
         gLastUsedAbility = GetBattlerAbility(battler);
         switch (gLastUsedAbility)
