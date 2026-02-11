@@ -429,67 +429,90 @@ struct FieldTimer
 
 struct AI_SavedBattleMon
 {
-    u16 ability;
-    u16 moves[MAX_MON_MOVES];
+    enum Ability ability;
+    enum Move moves[MAX_MON_MOVES];
     u16 heldItem;
-    u16 species;
-};
-
-struct AI_ThinkingStruct
-{
-    u8 aiState;
-    u8 movesetIndex;
-    u16 moveConsidered;
-    s8 score[MAX_MON_MOVES];
-    u32 funcResult;
-    u32 aiFlags;
-    u8 aiAction;
-    u8 aiLogicId; //think uses flags to identify what logic function to call (logic functions equivalent to scripts in old setup)
-    struct AI_SavedBattleMon saved[MAX_BATTLERS_COUNT];
-    u8 simulatedRNG[4];
-    bool8 switchMon; // Because all available moves have no/little effect. -NOT DEFAULT
-}; //believe exclude switchMon to preserve default FR behavior, look over give further consideration
-
-struct SimulatedDamage
-{
-    s32 expected;
-    s32 minimum;
-};
-
-struct AiLogicData
-{
-    u16 abilities[MAX_BATTLERS_COUNT];
-    u16 items[MAX_BATTLERS_COUNT];
-    u16 holdEffects[MAX_BATTLERS_COUNT];
-    u8 holdEffectParams[MAX_BATTLERS_COUNT];
-    u16 predictedMoves[MAX_BATTLERS_COUNT];
-    u8 hpPercents[MAX_BATTLERS_COUNT];
-    u16 partnerMove;
-    s32 simulatedDmg[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // attacker, target, moveIndex
-    u8 effectiveness[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // attacker, target, moveIndex
-    u8 moveLimitations[MAX_BATTLERS_COUNT];
+    u16 species:15;
+    u16 saved:1;
+    enum Type types[3];
 };
 
 struct AiPartyMon
 {
     u16 species;
-    u16 item;
-    u16 heldEffect;
-    u16 ability;
-    u16 gender;
+    enum Item item;
+    enum HoldEffect heldEffect;
+    enum Ability ability;
     u16 level;
-    u16 moves[MAX_MON_MOVES];
+    enum Move moves[MAX_MON_MOVES];
     u32 status;
-    bool8 isFainted;
-    bool8 wasSentInBattle;
     u8 switchInCount; // Counts how many times this Pokemon has been sent out or switched into in a battle.
-};//may not need switch-in count since was planning to limit amount of total switches anyway.. hmm
-
-struct AIPartyData // Opposing battlers - party mons.
-{
-    struct AiPartyMon mons[2][PARTY_SIZE]; // 2 parties(player, opponent). Used to save information on opposing party.
-    u8 count[2];
+    u8 gender:2;
+    u8 isFainted:1;
+    u8 wasSentInBattle:1;
+    u8 padding:4;
 };
+
+struct AiPartyData // Opposing battlers - party mons.
+{
+    struct AiPartyMon mons[NUM_BATTLE_SIDES][PARTY_SIZE]; // 2 parties(player, opponent). Used to save information on opposing party.
+    u8 count[NUM_BATTLE_SIDES];
+};
+
+struct SimulatedDamage
+{
+    u16 minimum;
+    u16 median;
+    u16 maximum;
+};
+
+// Ai Data used when deciding which move to use, computed only once before each turn's start.
+struct AiLogicData
+{
+    enum Ability abilities[MAX_BATTLERS_COUNT];
+    enum Item items[MAX_BATTLERS_COUNT];
+    enum HoldEffect holdEffects[MAX_BATTLERS_COUNT];
+    u8 holdEffectParams[MAX_BATTLERS_COUNT];
+    enum Move lastUsedMove[MAX_BATTLERS_COUNT];
+    u8 hpPercents[MAX_BATTLERS_COUNT];
+    enum Move partnerMove;
+    u16 speedStats[MAX_BATTLERS_COUNT]; // Speed stats for all battles, calculated only once, same way as damages
+    struct SimulatedDamage simulatedDmg[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // attacker, target, moveIndex
+    uq4_12_t effectiveness[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // attacker, target, moveIndex
+    u8 moveAccuracy[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // attacker, target, moveIndex
+    u8 moveLimitations[MAX_BATTLERS_COUNT];
+    u8 monToSwitchInId[MAX_BATTLERS_COUNT]; // ID of the mon to switch in.
+    u8 mostSuitableMonId[MAX_BATTLERS_COUNT]; // Stores result of GetMostSuitableMonToSwitchInto, which decides which generic mon the AI would switch into if they decide to switch. This can be overruled by specific mons found in ShouldSwitch; the final resulting mon is stored in AI_monToSwitchIntoId.
+    enum Move predictedMove[MAX_BATTLERS_COUNT];
+    u8 resistBerryAffected[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // Tracks whether currently calc'd move is affected by a resist berry into given target
+
+    // Flags
+    u32 weatherHasEffect:1; // The same as HasWeatherEffect(). Stored here, so it's called only once.
+    u32 ejectButtonSwitch:1; // Tracks whether current switch out was from Eject Button
+    u32 ejectPackSwitch:1; // Tracks whether current switch out was from Eject Pack
+    u32 predictingSwitch:1; // Determines whether AI will use switch predictions this turn or not
+    u32 aiPredictionInProgress:1; // Tracks whether the AI is in the middle of running prediction calculations
+    u32 aiCalcInProgress:1;
+    u32 predictingMove:1; // Determines whether AI will use move predictions this turn or not
+    u32 shouldConsiderExplosion:1; // Determines whether AI should consider explosion moves this turn
+    u32 shouldSwitch:4; // Stores result of ShouldSwitch, which decides whether a mon should be switched out
+    u32 shouldConsiderFinalGambit:1; // Determines whether AI should consider Final Gambit this turn
+    u32 padding2:19;
+};
+
+struct AiThinkingStruct
+{
+    u8 aiState;
+    u8 movesetIndex;
+    u16 moveConsidered;
+    s32 score[MAX_MON_MOVES];
+    u64 aiFlags[MAX_BATTLERS_COUNT];
+    u8 aiAction;
+    u8 aiLogicId;
+    struct AI_SavedBattleMon saved[MAX_BATTLERS_COUNT];
+};
+
+#define AI_MOVE_HISTORY_COUNT 3 //not sure what for at this point
 
 extern u8 gBattlerAbility;
 extern u8 gBattlerTarget;
@@ -503,11 +526,10 @@ extern u8 gBattlerSpriteIds[MAX_BATTLERS_COUNT];
     u16 unknown[MAX_BATTLERS_COUNT];
 };*/
 
-#define AI_MOVE_HISTORY_COUNT 3 //not sure what for at this point
 
 struct BattleHistory
 {
-    u16 abilities[MAX_BATTLERS_COUNT];
+    enum Ability abilities[MAX_BATTLERS_COUNT];
     u8 itemEffects[MAX_BATTLERS_COUNT];
     u16 usedMoves[MAX_BATTLERS_COUNT][MAX_MON_MOVES];
     u16 moveHistory[MAX_BATTLERS_COUNT][AI_MOVE_HISTORY_COUNT]; // 3 last used moves for each battler
@@ -517,16 +539,6 @@ struct BattleHistory
     u16 heldItems[MAX_BATTLERS_COUNT];
 };//dont remember why in last implementation used old struct rather than new version
 //prob to build faster without further changes needed
-
-/*struct BattleHistory
-{
-     u16 usedMoves[2][8]; // 0xFFFF means move not used (confuse self hit, etc)
-     u16 abilities[MAX_BATTLERS_COUNT / 2];
-     u8 itemEffects[MAX_BATTLERS_COUNT / 2];
-     u16 trainerItems[MAX_BATTLERS_COUNT];
-     u8 itemsNo;
-     u16 heldItems[MAX_BATTLERS_COUNT]; //not default added
-};*/
 
 struct BattleScriptsStack
 {
@@ -543,31 +555,22 @@ struct BattleCallbacksStack
 struct StatsArray
 {
     u16 stats[NUM_STATS];
+    u16 level:15;
+    u16 learnMultipleMoves:1;
 };
 
 struct BattleResources
 {
-    //struct SecretBaseRecord *secretBase;
-    //struct ResourceFlags *flags;
+    //struct SecretBase *secretBase;
     struct BattleScriptsStack *battleScriptsStack;
     struct BattleCallbacksStack *battleCallbackStack;
     struct StatsArray *beforeLvlUp;
-    struct AI_ThinkingStruct *ai;
-    struct AiLogicData *aiData;
-    struct AIPartyData *aiParty;
-    struct BattleHistory *battleHistory;
-    u8 transferBuffer[0x100];   //replaces sBattleBuffersTransferData
-    //struct BattleScriptsStack *AI_ScriptsStack; //deprecated no longer used
-    u8 bufferA[MAX_BATTLERS_COUNT][0x200]; //ported seems for megas
+    u8 bufferA[MAX_BATTLERS_COUNT][0x200];
     u8 bufferB[MAX_BATTLERS_COUNT][0x200];//wrong this is equivalent of gbattlebuffers
+    u8 transferBuffer[0x100];
 };
 
-#define AI_THINKING_STRUCT ((struct AI_ThinkingStruct *)(gBattleResources->ai))
-#define AI_DATA ((struct AiLogicData *)(gBattleResources->aiData))
-#define AI_PARTY ((struct AIPartyData *)(gBattleResources->aiParty))
-#define BATTLE_HISTORY ((struct BattleHistory *)(gBattleResources->battleHistory))
 
-extern struct BattleResources *gBattleResources;
 
 struct BattleResults
 {
@@ -1337,93 +1340,6 @@ enum turn_Priority
     SPEED_TIE = 2
 };
 
-// Explicit numbers until frostbite because those shouldn't be shifted
-/*enum __attribute__((packed)) MoveEffect
-{
-    MOVE_EFFECT_NONE = 0,
-    MOVE_EFFECT_SLEEP = 1,
-    MOVE_EFFECT_POISON = 2,
-    MOVE_EFFECT_BURN = 3,
-    MOVE_EFFECT_FREEZE = 4,
-    MOVE_EFFECT_PARALYSIS = 5,
-    MOVE_EFFECT_TOXIC = 6,
-    MOVE_EFFECT_FROSTBITE = 7,  //set freeze without setting timer
-    MOVE_EFFECT_CONFUSION,
-    MOVE_EFFECT_FLINCH,
-    MOVE_EFFECT_TRI_ATTACK,
-    MOVE_EFFECT_UPROAR,
-    MOVE_EFFECT_PAYDAY,
-    MOVE_EFFECT_WRAP,
-    MOVE_EFFECT_ATK_PLUS_1,
-    MOVE_EFFECT_DEF_PLUS_1,
-    MOVE_EFFECT_SPD_PLUS_1,
-    MOVE_EFFECT_SP_ATK_PLUS_1,
-    MOVE_EFFECT_SP_DEF_PLUS_1,
-    MOVE_EFFECT_ACC_PLUS_1,
-    MOVE_EFFECT_EVS_PLUS_1,
-    MOVE_EFFECT_ATK_MINUS_1,
-    MOVE_EFFECT_DEF_MINUS_1,
-    MOVE_EFFECT_SPD_MINUS_1,
-    MOVE_EFFECT_SP_ATK_MINUS_1,
-    MOVE_EFFECT_SP_DEF_MINUS_1,
-    MOVE_EFFECT_ACC_MINUS_1,
-    MOVE_EFFECT_EVS_MINUS_1,
-    MOVE_EFFECT_REMOVE_ARG_TYPE,
-    MOVE_EFFECT_RECHARGE,
-    MOVE_EFFECT_RAGE,
-    MOVE_EFFECT_PREVENT_ESCAPE,
-    MOVE_EFFECT_NIGHTMARE,
-    MOVE_EFFECT_ALL_STATS_UP,
-    MOVE_EFFECT_REMOVE_STATUS,
-    MOVE_EFFECT_ATK_DEF_DOWN,
-    MOVE_EFFECT_ATK_PLUS_2,
-    MOVE_EFFECT_DEF_PLUS_2,
-    MOVE_EFFECT_SPD_PLUS_2,
-    MOVE_EFFECT_SP_ATK_PLUS_2,
-    MOVE_EFFECT_SP_DEF_PLUS_2,
-    MOVE_EFFECT_ACC_PLUS_2,
-    MOVE_EFFECT_EVS_PLUS_2,
-    MOVE_EFFECT_ATK_MINUS_2,
-    MOVE_EFFECT_DEF_MINUS_2,
-    MOVE_EFFECT_SPD_MINUS_2,
-    MOVE_EFFECT_SP_ATK_MINUS_2,
-    MOVE_EFFECT_SP_DEF_MINUS_2,
-    MOVE_EFFECT_ACC_MINUS_2,
-    MOVE_EFFECT_EVS_MINUS_2,
-    MOVE_EFFECT_SCALE_SHOT,
-    MOVE_EFFECT_THRASH,
-    MOVE_EFFECT_DEF_SPDEF_DOWN,
-    MOVE_EFFECT_CLEAR_SMOG,
-    MOVE_EFFECT_FLAME_BURST,
-    MOVE_EFFECT_FEINT,
-    MOVE_EFFECT_V_CREATE,
-    MOVE_EFFECT_HAPPY_HOUR,
-    MOVE_EFFECT_CORE_ENFORCER,
-    MOVE_EFFECT_THROAT_CHOP,
-    MOVE_EFFECT_INCINERATE,
-    MOVE_EFFECT_BUG_BITE,
-    MOVE_EFFECT_LIGHT_RECOIL,
-    MOVE_EFFECT_MED_RECOIL,
-    MOVE_EFFECT_HEAVY_RECOIL,
-    MOVE_EFFECT_RECOIL_IF_MISS,
-    MOVE_EFFECT_TRAP_BOTH,
-    MOVE_EFFECT_ROUND, //last effectI have
-    MOVE_EFFECT_DIRE_CLAW,
-    MOVE_EFFECT_SYRUP_BOMB,
-    MOVE_EFFECT_FLORAL_HEALING,
-    MOVE_EFFECT_SECRET_POWER,
-    MOVE_EFFECT_PSYCHIC_NOISE,
-    MOVE_EFFECT_TERA_BLAST,
-    MOVE_EFFECT_ORDER_UP,
-    MOVE_EFFECT_ION_DELUGE,
-    MOVE_EFFECT_HAZE,
-    MOVE_EFFECT_LEECH_SEED,
-    MOVE_EFFECT_REFLECT,
-    MOVE_EFFECT_LIGHT_SCREEN,
-    MOVE_EFFECT_SALT_CURE,
-    MOVE_EFFECT_EERIE_SPELL,
-    NUM_MOVE_EFFECTS
-};*/
 
 struct BattleSpriteInfo
 {
@@ -1606,6 +1522,12 @@ extern u8 gEffectBattler;
 extern u8 gMultiHitCounter;
 extern u8 gMultiTask;
 extern struct BattleScripting gBattleScripting;
+extern struct StartingStatuses gStartingStatuses;
+extern struct AiBattleData *gAiBattleData;
+extern struct AiThinkingStruct *gAiThinkingStruct;
+extern struct AiLogicData *gAiLogicData;
+extern struct AiPartyData *gAiPartyData;
+extern struct BattleHistory *gBattleHistory;
 extern u8 gBattlerFainted;
 extern u8 gSentPokesToOpponent[2];
 extern const u8 *gBattlescriptCurrInstr;
