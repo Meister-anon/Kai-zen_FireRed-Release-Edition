@@ -6349,6 +6349,17 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 effect++;
             }
             break;
+        case ABILITY_ICE_FACE:
+            if (!gBattleStruct->unableToUseMove
+             && IsBattleMovePhysical(gCurrentMove)
+             && IsBattlerAlive(gBattlerTarget)
+             && !gBattleMons[gBattlerTarget].volatiles.triggerIceFace
+             && gBattleMons[battler].species == GetBaseFormSpecies(gBattleMons[battler].species))
+            {
+                BattleScriptCall(BattleScript_IceFaceTookHit);
+                effect++
+            }
+            break;
         case ABILITY_TOXIC_DEBRIS:
             if (!gBattleStruct->isSkyBattle
              && !gBattleStruct->unableToUseMove
@@ -6444,8 +6455,13 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             if (!IsBattlerAlive(gBattlerAttacker))
                 break;
 
+            //with increased viability may need cut this down
+            //didn't realize was 1/4th max hp
+            //if don't want to adjust to much could change to 1/4th curr hp
+            //so at high hp is about same but gets weaker with time
+            //oh lol there's even a function for that ok nice
             if (!IsAbilityAndRecord(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), ABILITY_MAGIC_GUARD))
-                SetPassiveDamageAmount(gBattlerAttacker, GetNonDynamaxMaxHP(gBattlerAttacker) / 4);
+                SetPassiveDamageAmount(gBattlerAttacker, GetNonDynamaxHP(gBattlerAttacker) / 4);
 
             switch (speciesForm)
             {
@@ -6462,11 +6478,16 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             break;
         case ABILITY_DISGUISE:
             if (GetConfig(CONFIG_DISGUISE_HP_LOSS) >= GEN_8 && ability == ABILITY_DISGUISE)
-                SetPassiveDamageAmount(gBattlerTarget, GetNonDynamaxMaxHP(gBattlerTarget) / 8);
+                //SetPassiveDamageAmount(gBattlerTarget, GetNonDynamaxMaxHP(gBattlerTarget) / 8);
+                SetPassiveDamageAmount(gBattlerTarget, 1);
             BattleScriptCall(BattleScript_BattlerFormChangeDisguise);
             break;
         case ABILITY_ICE_FACE:
-            BattleScriptCall(BattleScript_IceFaceNullsDamage);
+            if (gBattleMons[gBattlerTarget].volatiles.triggerIceFace)
+            {
+                SetPassiveDamageAmount(gBattlerTarget, 1);
+                BattleScriptCall(BattleScript_IceFaceNullsDamage);
+            }
             break;
         default:
             BattleScriptCall(BattleScript_BattlerFormChange);
@@ -6951,21 +6972,51 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         {
         case ABILITY_COLOR_CHANGE:
             if (move != MOVE_STRUGGLE
+            //&& battler != gBattlerAttacker
+            && battler == gBattlerTarget //with add gulp missle here need split battle side
             && IsBattlerAlive(battler)
             && !IsBattleMoveStatus(move)
             && !IS_BATTLER_OF_TYPE(battler, moveType)
             && moveType != TYPE_STELLAR
             && moveType != TYPE_MYSTERY
+            && GetActiveGimmick(battler) != GIMMICK_TERA
             && !gSpecialStatuses[battler].preHitAbilityDone
             )
             {
-                gBattlerAbility = battler; //unsure if need
+                gBattlerAbility = battler; //pretty sure is for abilitypopup
                 gBattleStruct->shouldPrintPreHitAbilityText = TRUE;
                 gSpecialStatuses[battler].preHitAbilityDone = TRUE;
                 SET_BATTLER_TYPE2(battler, moveType);
                 effect++;//affect works but can't yet workout how to get battlescript and ability popup working
             }            
             break;//unsure if this version of effect believe would not be affected by future sight or doom desire
+        case ABILITY_GULP_MISSILE:
+            if (CanActivateGulpMissle(move)
+            && battler == gBattlerAttacker
+            && gBattleMons[battler].species == SPECIES_CRAMORANT
+            && GetActiveGimmick(battler) != GIMMICK_DYNAMAX
+            && !gSpecialStatuses[battler].preHitAbilityDone)
+            {
+                //since want form change to use pre heal hp
+                //attempt to store hp and pass back to passivehp after heal
+                s32 storedHp = gBattleMons[battler].hp;
+                
+
+                if (CanBattlerHeal(battler))
+                {
+                    s32 healAmount = 7; //potentially 6
+                    SetHealAmount(battler, GetNonDynamaxMaxHP(battler) / healAmount);
+                    gBattlerAbility = battler; //pretty sure is for abilitypopup
+                    gBattleStruct->shouldPrintPreHitAbilityText = TRUE;
+                    gSpecialStatuses[battler].preHitAbilityDone = TRUE;
+                    BattleScriptCall(BattleScript_AbilityHpHeal);
+                }
+                SetPassiveDamageAmount(battler, storedHp);
+                effect++;               
+                
+            }
+            break;//think do call basic anim heal here then have print text come in other function
+
         }
     
     }
@@ -11701,7 +11752,7 @@ u32 GetBattleFormChangeTargetSpecies(enum BattlerId battler, enum FormChanges me
         .ability = ability,
         .status = gBattleMons[battler].status1,
         .gmaxFactor = GetMonData(GetBattlerMon(battler), MON_DATA_GIGANTAMAX_FACTOR),
-        .hp = gBattleMons[battler].hp,
+        .hp = ability == ABILITY_GULP_MISSILE ? gBattleStruct->passiveHpUpdate[battler] : gBattleMons[battler].hp,
         .maxHP = gBattleMons[battler].maxHP,
         .teraType = GetBattlerTeraType(battler),
         .level = gBattleMons[battler].level,
@@ -11709,6 +11760,9 @@ u32 GetBattleFormChangeTargetSpecies(enum BattlerId battler, enum FormChanges me
 
     for (u32 i = 0; i < MAX_MON_MOVES; i++)
         ctx.moves[i] = gBattleMons[battler].moves[i];
+
+    if (ability == ABILITY_GULP_MISSILE)
+        gBattleStruct->passiveHpUpdate[battler] = 0;
 
     return GetFormChangeTargetSpecies_Internal(ctx);
 }

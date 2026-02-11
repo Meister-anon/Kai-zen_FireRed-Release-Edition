@@ -450,6 +450,7 @@ extern const u8 BattleScript_BlockedByPrimalWeatherRet[];
 extern const u8 BattleScript_BlockedByPrimalWeatherEnd3[];
 extern const u8 BattleScript_SandSpitActivates[];
 extern const u8 BattleScript_PerishBodyActivates[];
+extern const u8 BattleScript_GulpMissleActivates[]; //for print heal string dove down message etc.
 extern const u8 BattleScript_GulpMissileGulping[];
 extern const u8 BattleScript_GulpMissileGorging[];
 extern const u8 BattleScript_WindPowerActivates[];
@@ -1238,6 +1239,7 @@ extern const u8 BattleScript_ToxicDebrisActivates[];
 extern const u8 BattleScript_EarthEaterActivates[];
 extern const u8 BattleScript_MimicryActivates[];
 extern const u8 BattleScript_IceFaceNullsDamage[];
+extern const u8 BattleScript_IceFaceTookHit[]; //print string don't transform
 extern const u8 BattleScript_BattlerFormChangeWithString[];
 extern const u8 BattleScript_DampPreventsAftermath[];
 extern const u8 BattleScript_HealingWishActivates[];

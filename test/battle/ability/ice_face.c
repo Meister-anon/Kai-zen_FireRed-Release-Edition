@@ -1,6 +1,11 @@
 #include "global.h"
 #include "test/battle.h"
 
+//change to only change if hit 2 times
+//keeps track of hits in party data
+//when condition met sets volatile icefacetriggered
+//that is trigger for transform
+//will also lose 1 hp to get out of focus sash range
 SINGLE_BATTLE_TEST("Ice Face blocks physical moves, changing Eiscue into its Noice Face form")
 {
     GIVEN {

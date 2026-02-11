@@ -1168,6 +1168,9 @@ enum DamagingWeatherStringID
     F(STRINGID_ABILITYSHIELDPROTECTS,                                         ("{B_ATK_NAME_WITH_PREFIX}'s Ability is protected by the effects of its {B_LAST_ITEM}!"))\
     F(STRINGID_OCTOLOCK_WEAKENS_FOE,                                           ("{B_DEF_NAME_WITH_PREFIX} is squeezed by Octolock!\nIt's offenses are {B_BUFF1}weakned!"))\
     F(STRINGID_OCTOLOCK_ENDS,                                           ("{B_DEF_NAME_WITH_PREFIX}'s broke free from the lock!\nIt's Attack and Sp. Atk returned to normal!"))\
+    F(STRINGID_GULP_MISSLE_ACTIVATE,                                   ("{B_ATK_NAME_WITH_PREFIX} dove underwater for a snack!"))\
+    F(STRINGID_PKMNDISGUISEWASBUSTED,                                  ("{B_SCR_NAME_WITH_PREFIX}'s disguise was busted!"))\
+    F(STRINGID_ICE_FACE_TOOK_HIT,                                  ("{B_SCR_NAME_WITH_PREFIX}'s {B_SCR_ABILITY} took the hit!"))\
 
 #define UNPACK_BATTLE_STRING_ENUMS(_enum, ...) _enum,
 #define UNPACK_BATTLE_STRING_VALUES(_enum, _txtstring, ...) [_enum] = COMPOUND_STRING _txtstring,

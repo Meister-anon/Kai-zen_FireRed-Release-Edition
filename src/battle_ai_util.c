@@ -1506,7 +1506,7 @@ bool32 CanEndureHit(enum BattlerId battler, enum BattlerId battlerTarget, u32 mo
         if (IsMimikyuDisguised(battlerTarget))
             return TRUE;
         if (gAiLogicData->abilities[battlerTarget] == ABILITY_ICE_FACE
-            && gBattleMons[battlerTarget].species == SPECIES_EISCUE_ICE && GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL)
+            && gBattleMons[battlerTarget].species == GetBaseFormSpecies(gBattleMons[battlerTarget].species) && GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL)
             return TRUE;
     }
 
@@ -4908,9 +4908,11 @@ bool32 HasHPForDamagingSetup(enum BattlerId battlerAtk, enum BattlerId battlerDe
     if (GetBestDmgFromBattler(battlerDef, battlerAtk, AI_DEFENDING) < ((hpThreshold * gBattleMons[battlerAtk].maxHP) / 100))
         return TRUE;
 
+    //change drops hp by 1 on break w second hit
+    //not big deal but may update this later
     if (bestMoveIsPhysical
      && gAiLogicData->abilities[battlerAtk] == ABILITY_ICE_FACE
-     && gBattleMons[battlerAtk].species == SPECIES_EISCUE_ICE
+     && gBattleMons[battlerAtk].species == GetBaseFormSpecies(gBattleMons[battlerAtk].species)
      && !IsMoldBreakerTypeAbility(battlerDef, gAiLogicData->abilities[battlerDef])) // ice face will absorb the hit, safe to use setup
         return TRUE;
 
@@ -5272,7 +5274,7 @@ bool32 ShouldUseZMove(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 
             return FALSE; // Don't waste a Z-Move busting disguise
         if (gBattleMons[battlerDef].ability == ABILITY_ICE_FACE
             && !MoveIgnoresTargetAbility(zMove)
-            && gBattleMons[battlerDef].species == SPECIES_EISCUE_ICE && IsBattleMovePhysical(chosenMove))
+            && gBattleMons[battlerDef].species == GetBaseFormSpecies(gBattleMons[battlerDef].species) && IsBattleMovePhysical(chosenMove))
             return FALSE; // Don't waste a Z-Move busting Ice Face
 
         dmg = AI_CalcDamageSaveBattlers(chosenMove, battlerAtk, battlerDef, &effectiveness, NO_GIMMICK, NO_GIMMICK);

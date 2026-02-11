@@ -5563,6 +5563,7 @@ BattleScript_BattlerFormChangeFromAfterAnimation::
 	handleformchange BS_SCRIPTING, 1
 	switchinabilities BS_SCRIPTING
 	jumpifability BS_TARGET, ABILITY_DISGUISE, BattleScript_ApplyDisguiseFormChangeHPLoss
+	jumpifability BS_TARGET, ABILITY_ICE_FACE, BattleScript_ApplyDisguiseFormChangeHPLoss
 	return
 
 BattleScript_BattlerFormChangeInstant::
@@ -5611,6 +5612,12 @@ BattleScript_AttackerFormChangeMoveEffect::
 	copybyte sBATTLER, gBattlerAttacker
 	printstring STRINGID_PKMNTRANSFORMED
 	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_IceFaceTookHit::
+	call BattleScript_AbilityPopUp
+	printstring STRINGID_ICE_FACE_TOOK_HIT
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 
 BattleScript_BallFetch::
@@ -6232,10 +6239,50 @@ BattleScript_ReceiverActivates::
 BattleScript_AbilityHpHeal:
 	call BattleScript_AbilityPopUp
 	printstring STRINGID_PKMNSXRESTOREDHPALITTLE2
-	waitmessage B_WAIT_TIME_LONG
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	call BattleScript_HealAnimation
 	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
 	datahpupdate BS_ATTACKER, PASSIVE_HP_UPDATE
 	return
+
+BattleScript_EndTurnAbilityHpHeal::	
+	printstring STRINGID_PKMNSXRESTOREDHPALITTLE2
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	goto BattleScript_HealWithoutMessage
+
+BattleScript_HealWithoutMessage::
+	call BattleScript_HealAnimation
+	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	datahpupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	end3
+
+BattleScript_EndTurnHealWithoutMessage::
+	call BattleScript_HealAnimation
+	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	datahpupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	return
+
+BattleScript_TruantHealing::
+	playanimation BS_ATTACKER, B_ANIM_BASIC_HEAL
+	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	datahpupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	goto BattleSCript_EndTruant
+
+BattleScript_HealAnimation::
+	playanimation BS_ATTACKER, B_ANIM_BASIC_HEAL
+	return
+
+BattleScript_TargetHealAnimation::
+	playanimation BS_TARGET, B_ANIM_BASIC_HEAL
+	return
+
+BattleScript_SleepHealing::
+	printstring STRINGID_WELLRESTED
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	playanimation BS_ATTACKER, B_ANIM_BASIC_HEAL
+	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	datahpupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	end2
 
 BattleScript_RainDishActivates::
 	call BattleScript_AbilityHpHeal
@@ -6810,6 +6857,12 @@ BattleScript_ColorChangeActivates::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
+BattleScript_GulpMissleActivates::
+	call BattleScript_AbilityPopUp
+	printstring STRINGID_GULP_MISSLE_ACTIVATE
+	waitmessage B_WAIT_TIME_LONG
+	return
+
 BattleScript_ProteanActivates::
 	pause B_WAIT_TIME_SHORTEST
 	call BattleScript_AbilityPopUp
@@ -7184,7 +7237,9 @@ BattleScript_MoveUsedLoafingAround::
 	setbyte cMULTISTRING_CHOOSER, B_MSG_INCAPABLE_OF_POWER
 BattleScript_MoveUsedLoafingAroundMsg::
 	printfromtable gInobedientStringIds
-	waitmessage B_WAIT_TIME_LONG
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	jumpifnotfullhp	BS_ATTACKER, BattleScript_TruantHealing
+BattleSCript_EndTruant::
 	moveendto MOVEEND_NEXT_TARGET
 	end
 BattleScript_TruantLoafingAround::

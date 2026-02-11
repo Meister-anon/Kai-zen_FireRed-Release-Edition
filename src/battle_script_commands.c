@@ -1503,7 +1503,8 @@ static void Cmd_adjustdamage(void)
         if (DoesDisguiseBlockMove(battlerDef, gCurrentMove))
             continue;
 
-        if (GetBattlerAbility(battlerDef) == ABILITY_ICE_FACE && IsBattleMovePhysical(gCurrentMove) && gBattleMons[battlerDef].species == SPECIES_EISCUE)
+        if (GetBattlerAbility(battlerDef) == ABILITY_ICE_FACE && IsBattleMovePhysical(gCurrentMove) 
+        && gBattleMons[battlerDef].species == GetBaseFormSpecies(gBattleMons[battlerDef].species))
         {
             // Damage deals typeless 0 HP.
             gBattleStruct->moveResultFlags[battlerDef] &= ~(MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE);
@@ -1617,7 +1618,7 @@ static inline bool32 DoesBattlerNegateDamage(enum BattlerId battler)
         return FALSE;
     if (ability == ABILITY_DISGUISE && IsMimikyuDisguised(battler))
         return TRUE;
-    if (ability == ABILITY_ICE_FACE && species == SPECIES_EISCUE_ICE && GetBattleMoveCategory(gCurrentMove) == DAMAGE_CATEGORY_PHYSICAL)
+    if (ability == ABILITY_ICE_FACE && species == GetBaseFormSpecies(species) && GetBattleMoveCategory(gCurrentMove) == DAMAGE_CATEGORY_PHYSICAL)
         return TRUE;
 
     return FALSE;
@@ -1712,22 +1713,51 @@ static inline bool32 TryActivateWeaknessBerry(enum BattlerId battlerDef)
     return FALSE;
 }
 
-static void TryActivatePreHitAbilities(enum BattlerId battlerDef)
+//since also doin for gulp missle
+static void TryActivatePreHitAbilities(enum BattlerId battler)
 {
-    if (!gSpecialStatuses[battlerDef].preHitAbilityDone)
-        AbilityBattleEffects(ABILITYEFFECT_PRE_HIT_ACTIVATE, battlerDef, 0, 0, 0);
+    if (!gSpecialStatuses[battler].preHitAbilityDone)
+        AbilityBattleEffects(ABILITYEFFECT_PRE_HIT_ACTIVATE, battler, 0, 0, 0);
 }
 
-static inline bool32 TryPrintPreHitAbilityActivationText(enum BattlerId battlerDef)
+//creating similar effect for gulp missle 
+//guess would need to add here
+//weird I gave this a battler argument and never used it.
+//well will use with ability check now I guess
+static inline bool32 TryPrintPreHitAbilityActivationText(enum BattlerId battler)
 {
     u32 moveType = GetBattleMoveType(gCurrentMove);
+    enum Ability ability = GetBattlerAbility(battler);
+    bool32 isAtkSide = battler == gBattlerAttacker; //better separate gulp missle color change
 
     if (gBattleStruct->shouldPrintPreHitAbilityText)
     {
-        PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
-        BattleScriptCall(BattleScript_ColorChangeActivates);
-        gBattleStruct->shouldPrintPreHitAbilityText = FALSE;
-        return TRUE;
+        
+        if (isAtkSide)
+        {
+            switch (ability)
+            {
+                case ABILITY_GULP_MISSILE:
+                    BattleScriptCall(BattleScript_GulpMissleActivates);
+                    gBattleStruct->shouldPrintPreHitAbilityText = FALSE;
+                    return TRUE;
+                break;
+            }
+        }
+        else
+        {
+            switch (ability)
+            {
+                case ABILITY_COLOR_CHANGE:
+                    PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
+                    BattleScriptCall(BattleScript_ColorChangeActivates);
+                    gBattleStruct->shouldPrintPreHitAbilityText = FALSE;
+                    return TRUE;
+                break;
+                
+            }
+        }        
+        
     }    
     return FALSE;
 }
@@ -1753,6 +1783,8 @@ static bool32 ProcessPreAttackAnimationFuncs(void)
         {
             if (IsBattlerInvalidForSpreadMove(gBattlerAttacker, battlerDef))
                 continue;
+            if (TryPrintPreHitAbilityActivationText(gBattlerAttacker))//moved higher since attacker side
+                return TRUE;
             if (TryTeraShellDistortTypeMatchups(battlerDef))
                 return TRUE;
             if (TryPrintPreHitAbilityActivationText(battlerDef)) //put above weakness berry as changes type
@@ -1763,6 +1795,8 @@ static bool32 ProcessPreAttackAnimationFuncs(void)
     }
     else
     {
+        if (TryPrintPreHitAbilityActivationText(gBattlerAttacker))//moved higher since attacker side
+            return TRUE;
         if (TryStrongWindsWeakenAttack(gBattlerTarget, moveType))
             return TRUE;
         if (TryTeraShellDistortTypeMatchups(gBattlerTarget))
@@ -2090,7 +2124,7 @@ static void MoveDamageDataHpUpdate(enum BattlerId battler, u32 scriptBattler, co
             gProtectStructs[battler].physicalBattlerId = gBattlerAttacker;
             gProtectStructs[battler].lastHitBySpecialMove = FALSE;
             if (numPhysicalHits < 3)
-                GetBattlerPartyState(battler)->numPhysHits;++;
+                GetBattlerPartyState(battler)->numPhysHits++;
             
         }
         else // Special move
@@ -11529,7 +11563,7 @@ bool32 DoesDisguiseBlockMove(enum BattlerId battler, enum Move move)
 //for updated effect
 bool32 DoesIceFaceBlockMove(enum BattlerId battler, enum Move move)
 {
-    if (gBattleMons[battler].species != SPECIES_EISCUE_ICE
+    if (gBattleMons[battler].species != GetBaseFormSpecies(gBattleMons[battler].species)
      || gBattleMons[battler].volatiles.transformed
      || !IsBattleMovePhysical(move)
      || !IsAbilityAndRecord(battler, GetBattlerAbility(battler), ABILITY_ICE_FACE))

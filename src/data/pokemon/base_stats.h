@@ -28412,6 +28412,48 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .hasCosmeticForms = TRUE,
     },//rework ability condition think just use water move above 80 base power?
+    //ok need further rework ability effect, even with a more accessible condition
+    //it the mon itself isn't really good,
+    //while the ability is good the mon can't take advantage of it
+    //since it is very flimsy
+    //think what can do is say ok  when using water move
+    //mon goes underwater to get a meal
+    //and returns with an extra catch that it spits at foe
+    //consistent logic but with that I can tie in a healing effect
+    //make unique think what will do is put like color change
+    //will occur before move animation
+    //so move checks go through it heals
+    //print cram went underwater for a meal!
+    //do heal anim then continue move animation
+    //won't need change stats can just lean into ability
+    //so best set would prob be tailwind aqua ring
+    //a water move to activate ability and then
+    //room for one other option
+    //not needing to use surf or dive makes this much better
+    //you'd want an item to keep you alive idk how well it'd work in doubles
+    //but leftovers could be solid pick well shouldn't need it
+    //with aqua ring but guess another option if you don't go aqua ring
+    //don't give aqua ring to slow bro... well I cut slack off heal
+    //so MAYBE its safe need test
+    //just need figure out how much heal I need
+    //its effect can be spammed long as in base cram form
+    //so if didn't take hit shouldn't be able to reactive heal
+    //so its a spammable heal that requires taking dmgs not too bad
+    //average bulk  flimsy on physical side
+    //along with a 4x weakness to electric
+    //it has access to both roost and aqua ring good
+    //ok so its possible to make it work if you heavily invest in it
+    //but it'd leave you with essentially either only a single water move to attack
+    //and leave its ability to do most dmg which for a gimmick isn't that bad
+    //so I'm thinking have ability heal either 1/7 or 1/6 max hp
+    //would be approx 20 hp heal
+    //looked at files should be able to setup now actually
+    //put in ProcessPreAttackAnimationFuncs
+    //For calcing if should get pikachu
+    //use hp before use well may not need it may calc in right order
+    //yeah need store hp before heal, transform commands are in waitanimtion
+    //after attack animation and my logic will trigger before animation plays
+    //done need test later
 
     [SPECIES_ARROKUDA] =
     {
@@ -29506,6 +29548,18 @@ const struct BaseStats gBaseStats[] =
     //when the ability fully blocks physical hits
     //and immediately changes form its such a troll smh
     //ok fixed stats may need to remove belly drum from it
+    //forgot focus sash exists so blocking 2 hits
+    //without hp loss is broken
+    //plus its meant to use w belly drum
+    //will tweak so rather than full block
+    //will drop 1 hp per hit
+    //so focus sash would be there to save it
+    //from special hits
+    //make string pokemon's ability name took the hit!
+    //done drops hp 1 time when effect breaks
+    //while wasn't initial intention now that know was
+    //belly drom mon think will keep atk drop as is
+    //rather than reverting
 
     [SPECIES_INDEEDEE_MALE] =
     {

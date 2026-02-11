@@ -1652,10 +1652,11 @@ static const struct FormChange sEiscueFormChangeTable[] =
     {FORM_CHANGE_BATTLE_WEATHER,                   SPECIES_EISCUE_ICE_FACE,   WEATHER_ICY_ANY, ABILITY_ICE_FACE},
     {FORM_CHANGE_BATTLE_HIT_BY_CONFUSION_SELF_DMG, SPECIES_EISCUE_NOICE_FACE, ABILITY_ICE_FACE},
     {FORM_CHANGE_BATTLE_HIT_BY_MOVE_CATEGORY,      SPECIES_EISCUE_NOICE_FACE, ABILITY_ICE_FACE, DAMAGE_CATEGORY_PHYSICAL},
-    {FORM_CHANGE_FAINT,                            SPECIES_EISCUE_ICE_FACE},
+    //{FORM_CHANGE_FAINT,                            SPECIES_EISCUE_ICE_FACE},
     {FORM_CHANGE_END_BATTLE,                       SPECIES_EISCUE_ICE_FACE},
     {FORM_CHANGE_TERMINATOR},
 };
+//don't want change back to ice form on faint
 
 static const struct FormChange sMorpekoFormChangeTable[] =
 {
