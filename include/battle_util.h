@@ -520,11 +520,8 @@ void TryRestoreStolenItems(void);
 bool32 CanActivateTimeControl(enum BattlerId battler);
 bool32 TryActivateBattlePoisonHeal(enum BattlerId battler);   //replaced normal poisonheal checks, allows use for poison types
 bool32 TryActivateHeatTrance(enum BattlerId battler);
-uq4_12_t CalcTypeEffectivenessMultiplier(u16 move, u8 moveType, enum BattlerId battlerAtk, enum BattlerId battlerDef, bool32 recordAbilities);
-u16 GetTypeModifier(u8 atkType, u8 defType);
-u32 GetMoveSlot(u16 *moves, u32 move); //added w battle ai port
 //u16 CalcPartyMonTypeEffectivenessMultiplier(u16 move, u16 speciesDef, u16 abilityDef);  ported in case, but pretty sure I have no use for this, as these are just for reading battlre data and running dmg calc predictions
-s32 CalculateMoveDamageAndEffectiveness(u16 move, enum BattlerId battlerAtk, enum BattlerId battlerDef, u8 moveType, u16 *typeEffectivenessModifier);
+//s32 CalculateMoveDamageAndEffectiveness(u16 move, enum BattlerId battlerAtk, enum BattlerId battlerDef, u8 moveType, u16 *typeEffectivenessModifier);
 //learned defined need be on one line, this should be logic for thawing i.e remove frozen status
 //removed fire fang restriction, any heat transafer is good enough
 
