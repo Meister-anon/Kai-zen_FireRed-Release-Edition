@@ -1578,7 +1578,7 @@ void SetJudgmentTypeString(u8 type) //if type is normal skip the jugment string 
 void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage)
 {
     u32 ateType, attackerAbility;
-    u16 holdEffect = GetBattlerHoldEffect(battlerAtk, TRUE);
+    u16 holdEffect = GetBattlerHoldEffect(battlerAtk);
 
     //populate default type, go through assignment and return what would be changed type
     *typeStorage = gMovesInfo[move].type;
@@ -1747,7 +1747,7 @@ u8 ReturnMoveType(u32 move, enum BattlerId battlerAtk)
 {
     s32 typeBits;
     u32 moveType, ateType, attackerAbility;
-    u16 holdEffect = GetBattlerHoldEffect(battlerAtk, TRUE);
+    u16 holdEffect = GetBattlerHoldEffect(battlerAtk);
 
     //populate default type, go through assignment and return what would be changed type
     moveType = gMovesInfo[move].type;
@@ -4524,7 +4524,7 @@ static void TryDoEventsBeforeFirstTurn(void)
         for (i = 0; i < gBattlersCount; i++)
         {
             if (CanMegaEvolve(i)
-                && GetBattlerHoldEffect(i, TRUE) == HOLD_EFFECT_PRIMAL_ORB)
+                && GetBattlerHoldEffect(i) == HOLD_EFFECT_PRIMAL_ORB)
             {
                 gBattlerAttacker = i;
                 BattleScriptExecute(BattleScript_PrimalReversion);
@@ -4715,7 +4715,7 @@ u8 IsRunningFromBattleImpossible(enum BattlerId battler) // equal to emerald is 
     if (gBattleMons[battler].item == ITEM_ENIGMA_BERRY)
         holdEffect = gEnigmaBerries[battler].holdEffect;
     else
-        holdEffect = GetBattlerHoldEffect(battler, TRUE);
+        holdEffect = GetBattlerHoldEffect(battler);
     gPotentialItemEffectBattler = battler;
 
 
@@ -5156,7 +5156,7 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler)
     u32 targetspeed = gBattleMons[gBattlerTarget].speed; //may work may not, for now use ability on opposing field
     u32 ability = GetBattlerAbility(battler);
     u32 partnerability = GetBattlerAbility(BATTLE_PARTNER(battler));
-    u32 holdEffect = GetBattlerHoldEffect(battler, TRUE);
+    u32 holdEffect = GetBattlerHoldEffect(battler);
     u32 highestStat = GetHighestStatId(battler);  //3was for protosynthesis will use for ultranerozma move instead i think
 
     // weather abilities
@@ -5388,7 +5388,7 @@ u8 GetWhoStrikesFirst(enum BattlerId battler1, enum BattlerId battler2, bool8 ig
     
     // Battler 1
     speedBattler1 = GetBattlerTotalSpeedStat(battler1);
-    holdEffectBattler1 = GetBattlerHoldEffect(battler1, TRUE);
+    holdEffectBattler1 = GetBattlerHoldEffect(battler1);
     holdEffectParam1 = ItemId_GetHoldEffectParam(gBattleMons[battler1].item);
   
     
@@ -5406,7 +5406,7 @@ u8 GetWhoStrikesFirst(enum BattlerId battler1, enum BattlerId battler2, bool8 ig
     // check second battlerId's speed
     // Battler 2
     speedBattler2 = GetBattlerTotalSpeedStat(battler2);
-    holdEffectBattler2 = GetBattlerHoldEffect(battler2, TRUE);
+    holdEffectBattler2 = GetBattlerHoldEffect(battler2);
     holdEffectParam2 = ItemId_GetHoldEffectParam(gBattleMons[battler2].item);
     
     // Quick Claw
@@ -5771,14 +5771,14 @@ static void CheckFocusPunch_ClearVarsBeforeTurnStarts(void)
                     gLastUsedItem = gBattleMons[battler].item;
                     PREPARE_ITEM_BUFFER(gBattleTextBuff1, gLastUsedItem);
                     GetItemName(gBattleTextBuff1, gLastUsedItem);
-                    if (GetBattlerHoldEffect(battler, FALSE) == HOLD_EFFECT_CUSTAP_BERRY)
+                    if (GetBattlerHoldEffect(battler) == HOLD_EFFECT_CUSTAP_BERRY)
                     {
                         // don't record berry since its gone now
                         BattleScriptExecute(BattleScript_CustapBerryActivation);
                     }
                     else
                     {
-                        RecordItemEffectBattle(battler, GetBattlerHoldEffect(battler, FALSE));
+                        RecordItemEffectBattle(battler, GetBattlerHoldEffect(battler));
                         BattleScriptExecute(BattleScript_QuickClawActivation);
                     }
                 }
@@ -6690,7 +6690,7 @@ bool8 TryRunFromBattle(enum BattlerId battler)
     if (gBattleMons[battler].item == ITEM_ENIGMA_BERRY)
         holdEffect = gEnigmaBerries[battler].holdEffect;
     else
-        holdEffect = GetBattlerHoldEffect(battler, TRUE);
+        holdEffect = GetBattlerHoldEffect(battler);
     gPotentialItemEffectBattler = battler;
     if (holdEffect == HOLD_EFFECT_CAN_ALWAYS_RUN)
     {

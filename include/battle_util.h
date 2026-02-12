@@ -485,11 +485,7 @@ bool32 DoBattlersShareType(enum BattlerId battler1, enum BattlerId battler2);
 bool32 CanBattlerEscape(enum BattlerId battler);
 u32 IsAbilityPreventingEscape(enum BattlerId battlerId);
 u32 GetProtectType(enum ProtectMethod method);
-u32 GetBattlerHoldEffect(enum BattlerId battler, bool32 checkNegating);
-u32 GetBattlerHoldEffectIgnoreAbility(enum BattlerId battler, bool32 checkNegating);
-u32 GetBattlerHoldEffectInternal(enum BattlerId battler, bool32 checkNegating, bool32 checkAbility);
-u32 GetBattlerHoldEffectParam(enum BattlerId battlerId, u32 itemId);
-bool32 CanBattlerAvoidContactEffects(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, u32 move);
+//u32 GetBattlerHoldEffect(enum BattlerId battler, bool32 checkNegating);
 //bool8 IsMoveMakingContact(u16 move, enum BattlerId battlerAtk); //made bool8 since its just a true false return
 u32 DoesSideHaveAbility(enum BattlerId battlerId, u32 ability); // //adapted abilityonside function that doesn't use getbattlerability
 bool8 DoesBattlerHaveSureHitAbility(enum BattlerId battlerId);

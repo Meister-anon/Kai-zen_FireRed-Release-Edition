@@ -4873,7 +4873,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
     else
     {
-        attackerHoldEffect = GetBattlerHoldEffect(battlerIdAtk, TRUE);
+        attackerHoldEffect = GetBattlerHoldEffect(battlerIdAtk);
         attackerHoldEffectParam = ItemId_GetHoldEffectParam(attacker->item);
     }
 
@@ -4884,7 +4884,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
     else
     {
-        defenderHoldEffect = GetBattlerHoldEffect(battlerIdDef, TRUE);
+        defenderHoldEffect = GetBattlerHoldEffect(battlerIdDef);
         defenderHoldEffectParam = ItemId_GetHoldEffectParam(defender->item);
     }
 
@@ -5212,7 +5212,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
          //not sure if the item slot swap happens before this or not? vsonic
         if (gBattleMons[battlerIdAtk].item == ITEM_NONE
             // Edge case, because removal of items happens after damage calculation.
-            || (gSpecialStatuses[battlerIdAtk].gemBoost && GetBattlerHoldEffect(battlerIdAtk, FALSE) == HOLD_EFFECT_GEMS)
+            || (gSpecialStatuses[battlerIdAtk].gemBoost && GetBattlerHoldEffect(battlerIdAtk) == HOLD_EFFECT_GEMS)
             || GetPocketByItemId(gBattleMons[battlerIdAtk].item) == POCKET_KEY_ITEMS) //held items just for transformation/balance ex. megastones primal orbs //vsonic w form change plan this wont be a thing so will rmeove this later
             gBattleMovePower *= 2;
         break;
@@ -7102,7 +7102,7 @@ u8 GetBattlerHiddenPowerType(enum BattlerId battler)
     u8 side = GetBattlerSide(battler);    
     struct Pokemon *party = (side == B_SIDE_PLAYER) ? gPlayerParty : gEnemyParty;
 
-    if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_GEMS)
+    if (GetBattlerHoldEffect(battler) == HOLD_EFFECT_GEMS)
         return ItemId_GetSecondaryId(gBattleMons[battler].item);
     else
         return GetMonData(&party[gBattlerPartyIndexes[battler]], MON_DATA_HIDDEN_POWER_TYPE, NULL);
