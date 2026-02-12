@@ -956,7 +956,7 @@ static void UpdatePickupCounter(void)
 
                     for (k = ITEM_NONE; k != ITEMS_COUNT; k++)
                     {
-                        if (gItems[k].pocket != POCKET_TM_CASE)
+                        if (gItemsInfo[k].pocket != POCKET_TM_CASE)
                             continue;
                         if (ItemIdToBattleMoveId(k) == gTM_Moves[randomTM])
                             break;

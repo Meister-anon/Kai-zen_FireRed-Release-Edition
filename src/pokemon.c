@@ -8788,8 +8788,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
         battleMonId = 4;
     }
     
-    if (gItems[item].fieldUseFunc == FieldUseFunc_OakStopsYou
-    || gItems[item].fieldUseFunc == NULL
+    if (gItemsInfo[item].fieldUseFunc == FieldUseFunc_OakStopsYou
+    || gItemsInfo[item].fieldUseFunc == NULL
     || IsMonNuzlockeDead(mon))
         return TRUE;    //builds so hopefully works
         //ok now get it, was saying don't execute function if NOT oakstopsyou, 
@@ -9434,8 +9434,8 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
         battlerId = 4;
     }
 
-    if (gItems[item].fieldUseFunc == FieldUseFunc_OakStopsYou
-    || gItems[item].fieldUseFunc == NULL
+    if (gItemsInfo[item].fieldUseFunc == FieldUseFunc_OakStopsYou
+    || gItemsInfo[item].fieldUseFunc == NULL
     || (IsMonNuzlockeDead(mon)))
         return TRUE;
         
@@ -11956,7 +11956,7 @@ u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm)
     u16 i;
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     const u16 *teachableLearnset = GetSpeciesTeachableLearnset(species);
-    u16 move = gItems[tm].secondaryId;
+    u16 move = gItemsInfo[tm].secondaryId;
 
     if (species == SPECIES_EGG)
     {

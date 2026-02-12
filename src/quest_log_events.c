@@ -821,9 +821,9 @@ static const u8 *QuestLog_GetItemName(u8 *name, u16 itemId)
     for (i = 0; i < ITEM_NAME_LENGTH; i++)
         {
             if (itemId >= ITEMS_COUNT)
-                name[i] = gItems[SanitizeItemId(0)].name[i];
+                name[i] = gItemsInfo[SanitizeItemId(0)].name[i];
             else
-                name[i] = gItems[SanitizeItemId(itemId)].name[i];
+                name[i] = gItemsInfo[SanitizeItemId(itemId)].name[i];
 
             if (name[i] == EOS)
                 break;

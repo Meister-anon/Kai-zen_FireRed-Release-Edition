@@ -2715,13 +2715,13 @@ static void DebugAction_Give_AllTMs(u8 taskId)
     {
         //skip all items that aren't Tms
         //saves memory/time
-        if (gItems[i].pocket != POCKET_TM_CASE)
+        if (gItemsInfo[i].pocket != POCKET_TM_CASE)
             continue;
 
         if (numTms == NUM_TECHNICAL_MACHINES)
             break;
 
-        if (gItems[i].importance == 0)
+        if (gItemsInfo[i].importance == 0)
         {
             if (!CheckBagHasItem(i, 1))
                 AddBagItem(i, 1);
@@ -3668,7 +3668,7 @@ static void DebugAction_Fill_PocketTMHM(u8 taskId)
     {
         //skip all items that aren't Tms
         //saves memory/time
-        if (gItems[itemId].pocket != POCKET_TM_CASE)
+        if (gItemsInfo[itemId].pocket != POCKET_TM_CASE)
             continue;
 
         if (numTmsHms == NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES)

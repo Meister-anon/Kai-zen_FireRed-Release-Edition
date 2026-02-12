@@ -13,12 +13,13 @@ struct ItemInfo
     u8 holdEffect;
     u8 holdEffectParam;
     const u8 *description;
+    const u8 *effect; //not on items yet
     u8 importance;
     u8 exitsBagOnUse;
     u8 pocket;
     u8 type;    //first glance this seems to just be about how the menu callback works, i.e fadeout etc., will copy emerald setup, value 1 seems ot be from party, other values seem to be use from bag?
     ItemUseFunc fieldUseFunc; //seems only value 1 and 2 have an effect, otherwise just executes a default behavior? idk, seems work diff for pokeballs
-    //u8 battleUsage;     //doesn't exist in emerald, searched seems this is only relevant to firered because its only used for contextmenu i.e help menu, which I've removed
+    u8 battleUsage;     //replaes battleUseFunc in EE
     ItemUseFunc battleUseFunc; //meaning I could remove this to save room for adding fling logic, logic for it is only necessary because json, so just remove and it'll be fine
     u16 secondaryId; //actually battleUsage doesnt seem to have special json rule so maybe not an issue?
     u8 flingPower;
@@ -43,7 +44,7 @@ enum {
     ITEM_TYPE_BAG_MENU, // No exit callback, stays in bag menu
 };
 
-extern const struct ItemInfo gItems[];
+extern const struct ItemInfo gItemsInfo[];
 extern struct BagPocket gBagPockets[];
 
 //exists in EE don't have definition for
@@ -52,6 +53,8 @@ void CopyItemNameHandlePlural(u16 itemId, u8 *string, u32 quantity);
 bool8 IsBagPocketNonEmpty(u8 pocket);
 u16 ItemId_GetId(u16 itemId);   //added here, could use, but most use hold effect, no reason not to...
 u16 ItemId_GetPrice(u16 itemId);
+const u8 *GetItemEffect(enum Item itemId);
+enum EffectItem GetItemBattleUsage(enum Item itemId);
 bool32 ItemId_CopyDescription(u8 *a, u32 itemId, u32 c);
 u8 ItemId_GetImportance(u16 itemId);
 u8 ItemId_GetUnknownValue(u16 itemId);
@@ -123,7 +126,7 @@ static inline void CopyItemNameToBuff(u8 *nameBuff, u16 item)
     for (i = 0; i < ITEM_NAME_LENGTH; i++)
     {
 
-        nameBuff[i] = gItems[SanitizeItemId(item)].name[i];
+        nameBuff[i] = gItemsInfo[SanitizeItemId(item)].name[i];
 
         if (nameBuff[i] == EOS)
             break;

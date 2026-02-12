@@ -1204,6 +1204,24 @@ enum __attribute__((packed)) Item
 #define MAX_PC_ITEM_CAPACITY   999
 #define MAX_BERRY_CAPACITY     999
 
+// Item battle script IDs (need to be non-zero)
+enum EffectItem
+{
+    EFFECT_ITEM_ENIGMA_BERRY_EREADER = 1, // dummy constant
+    EFFECT_ITEM_RESTORE_HP = 1, // needs to be non-zero
+    EFFECT_ITEM_CURE_STATUS,
+    EFFECT_ITEM_HEAL_AND_CURE_STATUS,
+    EFFECT_ITEM_INCREASE_STAT,
+    EFFECT_ITEM_SET_MIST,
+    EFFECT_ITEM_SET_FOCUS_ENERGY,
+    EFFECT_ITEM_ESCAPE,
+    EFFECT_ITEM_THROW_BALL,
+    EFFECT_ITEM_REVIVE,
+    EFFECT_ITEM_RESTORE_PP,
+    EFFECT_ITEM_INCREASE_ALL_STATS,
+    EFFECT_ITEM_USE_POKE_FLUTE,
+};
+
 // Check if the item is one that can be used on a Pokemon.
 //ok seems to be slightly different than what I thought, it doesn't decided if an item has use menu option
 //that's sContextMenuItems_Field, thsi instead is used in getitem effect type

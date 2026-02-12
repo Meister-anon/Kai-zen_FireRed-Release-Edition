@@ -5990,8 +5990,8 @@ void ItemUseCB_PPUp(u8 taskId, UNUSED TaskFunc func)
 //...oh wouldn't need a loop at all.
 u16 ItemIdToBattleMoveId(u16 item)
 {
-    if (gItems[item].pocket == POCKET_TM_CASE)
-       return gItems[item].secondaryId;
+    if (gItemsInfo[item].pocket == POCKET_TM_CASE)
+       return gItemsInfo[item].secondaryId;
 
 }//mt1 -tm1 is 0, so it lines up with the first value in the array
 
@@ -7251,8 +7251,8 @@ enum ItemEffectType GetItemEffectType(u16 item)
     const u8 *itemEffect;
     u32 statusCure;
 
-    if (gItems[item].fieldUseFunc == FieldUseFunc_OakStopsYou
-    || gItems[item].fieldUseFunc == NULL)
+    if (gItemsInfo[item].fieldUseFunc == FieldUseFunc_OakStopsYou
+    || gItemsInfo[item].fieldUseFunc == NULL)
         return ITEM_EFFECT_NONE; //this seems to work?
     //nope wasn't working this was the issue -_-
     //wait no it was the OTHER use of this that broke it??

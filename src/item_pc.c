@@ -487,7 +487,7 @@ static void ItemPc_BuildListMenuTemplate(void) //use after free, needs to use la
 
     for (i = 0; i < sStateDataPtr->nItems; i++)
     {
-        sListMenuItems[i].label = gItems[SanitizeItemId(gSaveBlock1Ptr->pcItems[i].itemId)].name;//itembuff;//ReturnItemNameConst2(gSaveBlock1Ptr->pcItems[i].itemId);
+        sListMenuItems[i].label = gItemsInfo[SanitizeItemId(gSaveBlock1Ptr->pcItems[i].itemId)].name;//itembuff;//ReturnItemNameConst2(gSaveBlock1Ptr->pcItems[i].itemId);
         sListMenuItems[i].index = i;
         
     }

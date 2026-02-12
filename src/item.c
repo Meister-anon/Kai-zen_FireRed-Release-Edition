@@ -4,6 +4,7 @@
 #include "data.h"
 #include "event_data.h"
 #include "item.h"
+#include "item_menu.h"
 #include "item_use.h"
 #include "load_save.h"
 #include "quest_log.h"
@@ -12,6 +13,7 @@
 #include "pokemon.h"
 #include "constants/hold_effects.h"
 #include "constants/items.h"
+#include "constants/item_effects.h"
 #include "constants/maps.h"
 
 EWRAM_DATA struct BagPocket gBagPockets[NUM_BAG_POCKETS] = {};
@@ -777,7 +779,7 @@ const u8 *ItemId_GetName(u8 *nameBuffer, u16 itemId)
     else
         GetTmHm_Name(name, itemId);
 
-    return name;//gItems[SanitizeItemId(itemId)].name;
+    return name;//gItemsInfo[SanitizeItemId(itemId)].name;
 
     free(name);
     */
@@ -791,7 +793,7 @@ const u8 *ItemId_GetName(u8 *nameBuffer, u16 itemId)
             for (i = 0; i < ITEM_NAME_LENGTH; i++)
             {
 
-                nameBuffer[i] = gItems[SanitizeItemId(itemId)].name[i];
+                nameBuffer[i] = gItemsInfo[SanitizeItemId(itemId)].name[i];
 
                 if (nameBuffer[i] == EOS)
                     break;
@@ -877,22 +879,34 @@ const u8 *ItemId_GetName(u8 *nameBuffer, u16 itemId)
 
 u16 itemid_get_Id(u16 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].itemId;
+    return gItemsInfo[SanitizeItemId(itemId)].itemId;
 }
 
 u16 itemid_get_market_price(u16 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].price;
+    return gItemsInfo[SanitizeItemId(itemId)].price;
+}
+
+const u8 *GetItemEffect(enum Item itemId)
+{
+    if (itemId == ITEM_ENIGMA_BERRY_E_READER)
+    #if FREE_ENIGMA_BERRY == FALSE
+        return gSaveBlock1Ptr->enigmaBerry.itemEffect;
+    #else
+        return 0;
+    #endif //FREE_ENIGMA_BERRY
+    else
+        return gItemsInfo[SanitizeItemId(itemId)].effect;
 }
 
 u8 ItemId_GetHoldEffect(u16 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].holdEffect;
+    return gItemsInfo[SanitizeItemId(itemId)].holdEffect;
 }
 
 u8 ItemId_GetHoldEffectParam(u16 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].holdEffectParam;
+    return gItemsInfo[SanitizeItemId(itemId)].holdEffectParam;
 }
 
 const u8 * ItemId_GetDescription(u16 itemId)
@@ -905,52 +919,86 @@ const u8 * ItemId_GetDescription(u16 itemId)
        return GetMoveDescription(moveId);
     }
         
-    return gItems[itemId].description;
+    return gItemsInfo[itemId].description;
 }
 
 bool8 itemid_is_unique(u16 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].importance;
+    return gItemsInfo[SanitizeItemId(itemId)].importance;
 }
 
 u8 itemid_get_x19(u16 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].exitsBagOnUse;
+    return gItemsInfo[SanitizeItemId(itemId)].exitsBagOnUse;
 }
 
 u8 ItemId_GetPocket(u16 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].pocket;
+    return gItemsInfo[SanitizeItemId(itemId)].pocket;
 }
 
 u8 ItemId_GetType(u16 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].type;
+    return gItemsInfo[SanitizeItemId(itemId)].type;
 }
 
 ItemUseFunc ItemId_GetFieldFunc(u16 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].fieldUseFunc;
+    return gItemsInfo[SanitizeItemId(itemId)].fieldUseFunc;
 }
 
 bool8 ItemId_GetBattleUsage(u16 itemId)
 {
-    return 0; //gItems[SanitizeItemId(itemId)].battleUsage;
+    return 0; //gItemsInfo[SanitizeItemId(itemId)].battleUsage;
 }
 
 ItemUseFunc ItemId_GetBattleFunc(u16 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].battleUseFunc;
+    return gItemsInfo[SanitizeItemId(itemId)].battleUseFunc;
+}
+
+//will replace above
+// Returns an item's battle effect script ID.
+//oh nvm just needed includde
+enum EffectItem GetItemBattleUsage(enum Item itemId)
+{
+    enum Item item = SanitizeItemId(itemId);
+    // Handle E-Reader berries.
+    if (item == ITEM_ENIGMA_BERRY_E_READER)
+    {
+        switch (GetItemEffectType(gSpecialVar_ItemId))
+        {
+            case ITEM_EFFECT_X_ITEM:
+                return EFFECT_ITEM_INCREASE_STAT;
+            case ITEM_EFFECT_HEAL_HP:
+                return EFFECT_ITEM_RESTORE_HP;
+            case ITEM_EFFECT_CURE_POISON:
+            case ITEM_EFFECT_CURE_SLEEP:
+            case ITEM_EFFECT_CURE_BURN:
+            case ITEM_EFFECT_CURE_FREEZE_FROSTBITE:
+            case ITEM_EFFECT_CURE_PARALYSIS:
+            case ITEM_EFFECT_CURE_ALL_STATUS:
+            case ITEM_EFFECT_CURE_CONFUSION:
+            case ITEM_EFFECT_CURE_INFATUATION:
+                return EFFECT_ITEM_CURE_STATUS;
+            case ITEM_EFFECT_HEAL_PP:
+                return EFFECT_ITEM_RESTORE_PP;
+            default:
+                return 0;
+        }
+    }
+    else
+        return gItemsInfo[item].battleUsage;
 }
 
 u16 ItemId_GetSecondaryId(u16 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].secondaryId;
+    return gItemsInfo[SanitizeItemId(itemId)].secondaryId;
 }
 
 u32 ItemId_GetFlingPower(u32 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].flingPower;
+    return gItemsInfo[SanitizeItemId(itemId)].flingPower;
 }
 
 bool32 IsHoldEffectChoice(enum HoldEffect holdEffect)
