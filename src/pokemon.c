@@ -5604,7 +5604,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_TOUGH_CLAWS:
-        if (IsMoveMakingContact(move, battlerIdAtk))
+        //if (IsMoveMakingContact(move, battlerIdAtk))
             gBattleMovePower = (gBattleMovePower * 130 / 100);
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
@@ -5859,7 +5859,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             //gBattleMoveDamage = 0;
         break;
     case ABILITY_PICKPOCKET:
-        if (IsMoveMakingContact(move, battlerIdAtk)) //small common sense damage reduction as most mon with this have shit defense,
+        //if (IsMoveMakingContact(move, battlerIdAtk)) //small common sense damage reduction as most mon with this have shit defense,
         {
             //on mon w low defense would b better to cut attacker offense
             //DefenseModifer(133);
@@ -5867,7 +5867,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }
         break;
     case ABILITY_FLUFFY:
-        if (IsMoveMakingContact(move, battlerIdAtk))
+        //if (IsMoveMakingContact(move, battlerIdAtk))
         {
             OffensiveModifer(50);
             //MulModifier(&modifier, UQ_4_12(0.5));
@@ -5882,7 +5882,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;  //tested in w3 schools, checks out, it reads top to bottom with ifs, not like switch breaks, its all inclusive
         //...actually following with else if is what makes it non inclusive...i.e not read the else if vsonic IMPORTANT
     case ABILITY_LIQUID_METAL:
-        if ((IsMoveMakingContact(move, battlerIdAtk)) || usesDefStat)   //regi steel exclusive
+        //if ((IsMoveMakingContact(move, battlerIdAtk)) || usesDefStat)   //regi steel exclusive
         {
             OffensiveModifer(67);
             

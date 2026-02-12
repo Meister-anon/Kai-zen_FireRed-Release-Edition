@@ -1608,11 +1608,6 @@ static inline bool32 IsBattlerTurnDamaged(enum BattlerId battler)
     return gSpecialStatuses[battler].damagedByAttack;
 }
 
-static inline bool32 IsBattlerAtMaxHp(enum BattlerId battler)
-{
-    return gBattleMons[battler].hp == gBattleMons[battler].maxHP;
-}
-
 static inline u32 GetBattlerPosition(enum BattlerId battler)
 {
     return gBattlerPositions[battler];

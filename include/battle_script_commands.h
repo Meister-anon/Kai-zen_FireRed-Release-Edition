@@ -54,7 +54,6 @@ bool8 IsMoveAffectedByParentalBond(u16 move, enum BattlerId battlerId);
 void CopyMonLevelAndBaseStatsToBattleMon(enum BattlerId battler, struct Pokemon *mon);
 void CopyMonAbilityAndTypesToBattleMon(enum BattlerId battler, struct Pokemon *mon);
 
-s32 CalculateMoveDamage(u16 move, enum BattlerId battlerAtk, enum BattlerId battlerDef, u8 moveType, s32 fixedBasePower, bool32 isCrit, bool32 randomFactor, bool32 updateFlags);
 
 extern const u16 gCriticalHitChance[];	//made global, so can run in ai file
 

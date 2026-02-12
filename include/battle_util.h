@@ -490,7 +490,7 @@ u32 GetBattlerHoldEffectIgnoreAbility(enum BattlerId battler, bool32 checkNegati
 u32 GetBattlerHoldEffectInternal(enum BattlerId battler, bool32 checkNegating, bool32 checkAbility);
 u32 GetBattlerHoldEffectParam(enum BattlerId battlerId, u32 itemId);
 bool32 CanBattlerAvoidContactEffects(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, u32 move);
-bool8 IsMoveMakingContact(u16 move, enum BattlerId battlerAtk); //made bool8 since its just a true false return
+//bool8 IsMoveMakingContact(u16 move, enum BattlerId battlerAtk); //made bool8 since its just a true false return
 u32 DoesSideHaveAbility(enum BattlerId battlerId, u32 ability); // //adapted abilityonside function that doesn't use getbattlerability
 bool8 DoesBattlerHaveSureHitAbility(enum BattlerId battlerId);
 bool32 IsRolePlayBannedAbilityAtk(u16 ability);  //looping array kept 32
