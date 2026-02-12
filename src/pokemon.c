@@ -4583,7 +4583,7 @@ bool8 IsMegaSpecies(u16 species)
 //if I need the offense stat of a move
 //than I should instead use GetBattleMoveDamageCategory now
 //this now sets if move is used on physical defense stat
-bool8 IsPhysicalMove(u32 attackerId, u16 move)
+bool8 IsPhysicalMove(u32 attackerId, enum Move move)
 {
     u32 attack = gBattleMons[attackerId].attack;
     u32 spAttack = gBattleMons[attackerId].spAttack;

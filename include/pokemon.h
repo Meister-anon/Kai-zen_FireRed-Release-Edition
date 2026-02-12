@@ -1269,7 +1269,7 @@ bool8 CanEvioliteActivate(u8 target);
 bool8 IsMegaSpecies(u16 species); //mostly use for cry alter
 s16 atk_diff(void);
 s16 spatk_diff(void); //put here, used for hidden power change split
-bool8 IsPhysicalMove(u32 attackerId, u16 move); //new function consolidating effects for if move is physical or not
+bool8 IsPhysicalMove(u32 attackerId, enum Move move); //new function consolidating effects for if move is physical or not
 void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u16 move, u8 DamageCategory, s32 damage);
 void ApplyMovePowerModifiers(enum BattlerId battlerAtk, u16 move, u16 power);
 

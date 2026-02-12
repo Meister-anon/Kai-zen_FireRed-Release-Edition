@@ -24,7 +24,7 @@
 #include "battle_terastal.h"
 #include "battle_gimmick.h"
 #include "move.h"
-#include "random.h"
+#include "random.h" // for rng_value_t
 #include "window.h" //need this for build modern to work for battle window ui
 
 /*
