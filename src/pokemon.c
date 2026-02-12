@@ -4154,7 +4154,7 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //important can use thi
     const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
     u16 generatedSpecies;
 
-    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+    if (gBaseStats[GetFormSpeciesId(species, 0)].hasCosmeticForms)
       generatedSpecies = GetFormSpeciesId(species, 0);
     else
         generatedSpecies = species;
@@ -4212,7 +4212,7 @@ void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: Asparagu
     const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
     u16 generatedSpecies;
 
-    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+    if (gBaseStats[GetFormSpeciesId(species, 0)].hasCosmeticForms)
         generatedSpecies = GetFormSpeciesId(species, 0);
     else
         generatedSpecies = species;
@@ -4275,7 +4275,7 @@ void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species) //Credit
     const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
     u16 generatedSpecies;
 
-    if (gBaseStats[GetFormSpeciesId(Species, 0)].flags == F_HAS_COSMETIC_FORMS)
+    if (gBaseStats[GetFormSpeciesId(Species, 0)].hasCosmeticForms)
         generatedSpecies = GetFormSpeciesId(Species, 0);
     else
         generatedSpecies = Species;
@@ -4571,7 +4571,7 @@ bool8 CanEvioliteActivate(u8 target)
 
 bool8 IsMegaSpecies(u16 species)
 {
-    if (gBaseStats[species].flags == SPECIES_FLAG_MEGA_FORM)
+    if (gBaseStats[species].isMegaEvolution)
         return TRUE;
 
     return FALSE;
@@ -11350,7 +11350,7 @@ const u16 *GetSpeciesTeachableLearnset(u16 species)
     //can exclude mon that aren't cosmetic changes
     //just make cosmetics default to base learnsets
     //nvm more work than its worth
-    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+    if (gBaseStats[GetFormSpeciesId(species, 0)].hasCosmeticForms)
       generatedSpecies = GetFormSpeciesId(species, 0);
     else
         generatedSpecies = species;
@@ -11428,7 +11428,7 @@ u16 GetSpeciesPreEvolution(u16 species, u32 LoopTarget) //so I feel like I'm not
 
 bool8 DoesSpeciesHaveCosmeticForms(u16 species)
 {
-    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+    if (gBaseStats[GetFormSpeciesId(species, 0)].hasCosmeticForms)
         return TRUE;
     return FALSE;
 }
@@ -11713,10 +11713,10 @@ bool8 CheckFormViability(u8 formflags, u16 item)
 
 bool8 IsRegionalVariant(u16 species)
 {
-    if (gBaseStats[SanitizeSpeciesId(species)].flags == F_ALOLAN_FORM 
-    || gBaseStats[SanitizeSpeciesId(species)].flags == F_GALARIAN_FORM
-    || gBaseStats[SanitizeSpeciesId(species)].flags == F_HISUIAN_FORM
-    || gBaseStats[SanitizeSpeciesId(species)].flags == F_PALDEAN_FORM)
+    if (gBaseStats[SanitizeSpeciesId(species)].isAlolanForm 
+    || gBaseStats[SanitizeSpeciesId(species)].isGalarianForm
+    || gBaseStats[SanitizeSpeciesId(species)].isHisuianForm
+    || gBaseStats[SanitizeSpeciesId(species)].isPaldeanForm)
         return TRUE;
 
     return FALSE;
@@ -13801,8 +13801,8 @@ u16 GetSpeciesPreEvolution(u16 species)
 
     for (i = SPECIES_BULBASAUR; i < NUM_SPECIES; i++)
     {
-        if (!IsSpeciesEnabled(i))
-            continue;
+        /*if (!IsSpeciesEnabled(i))
+            continue;*/
 
         const struct Evolution *evolutions = GetSpeciesEvolutions(i);
         if (evolutions == NULL)

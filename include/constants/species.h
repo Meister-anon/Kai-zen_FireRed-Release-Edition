@@ -3489,6 +3489,7 @@ just because I saw the form*/
 #define HOENN_DEX_COUNT 396
 
 // species flags - there's no real reason for flags to use this notation but keeping for now,
+//need keep regional forms, necessary for region sand item form change
 #define SPECIES_FLAG_PRIMAL_REVERSION   (1 << 0) //need for beast ball, needed more for form change logic, moved beast logic to function check
 #define F_ALOLAN_FORM   (1 << 1) //need for form change/breeding
 #define F_GALARIAN_FORM (1 << 2)

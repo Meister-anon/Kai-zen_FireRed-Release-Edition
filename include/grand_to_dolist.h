@@ -6425,7 +6425,7 @@ goto WEATHER_CONFIG_STUFFF //weather logic
     everything should fall into place following that
 
     can use form species table
-    if (gbasestats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+    if (gbasestats[GetFormSpeciesId(species, 0)].hasCosmeticForms)
       appliedSpecies = GetFormSpeciesId(species, 0);
 
     that's all need, would make take base stat data from base form

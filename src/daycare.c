@@ -2782,8 +2782,8 @@ static void AddHatchedMonToParty(u8 id)
 
     if (GetMonData(mon, MON_DATA_SPECIES) > NATIONAL_SPECIES_COUNT
     && !(GetSetPokedexFlag((GetFormSpeciesId(GetMonData(mon, MON_DATA_SPECIES), 0)), FLAG_GET_SEEN))
-    && (gBaseStats[SanitizeSpeciesId(GetMonData(mon, MON_DATA_SPECIES))].flags == SPECIES_FLAG_MEGA_FORM
-    || gBaseStats[SanitizeSpeciesId(GetMonData(mon, MON_DATA_SPECIES))].flags == SPECIES_FLAG_PRIMAL_REVERSION
+    && (gBaseStats[SanitizeSpeciesId(GetMonData(mon, MON_DATA_SPECIES))].isMegaEvolution
+    || gBaseStats[SanitizeSpeciesId(GetMonData(mon, MON_DATA_SPECIES))].isPrimalReversion
     || IsRegionalVariant(GetMonData(mon, MON_DATA_SPECIES))))
     {
         GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(GetMonData(mon, MON_DATA_SPECIES), 0)), FLAG_SET_SEEN);
@@ -3502,8 +3502,8 @@ static void AddHatchedMonToParty_UpdatePcHatchedMon(u8 id)
 
     if (GetBoxMonData(mon, MON_DATA_SPECIES) > NATIONAL_SPECIES_COUNT   
     && !(GetSetPokedexFlag((GetFormSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES), 0)), FLAG_GET_SEEN))
-    && (gBaseStats[SanitizeSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES))].flags == SPECIES_FLAG_MEGA_FORM
-    || gBaseStats[SanitizeSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES))].flags == SPECIES_FLAG_PRIMAL_REVERSION
+    && (gBaseStats[SanitizeSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES))].isMegaEvolution
+    || gBaseStats[SanitizeSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES))].isPrimalReversion
     || IsRegionalVariant(GetBoxMonData(mon, MON_DATA_SPECIES))))
     {
         GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES), 0)), FLAG_SET_SEEN);
