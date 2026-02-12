@@ -369,7 +369,7 @@ void MarkBattlerForControllerExec(enum BattlerId battlerId);
 void MarkBattlerReceivedLinkData(enum BattlerId battlerId);
 const u8* CancelMultiTurnMoves(enum BattlerId battler);
 bool32 WasUnableToUseMove(enum BattlerId battler);
-void PrepareStringBattle(u16 stringId, enum BattlerId battler);
+void PrepareStringBattle(enum StringID stringId, enum BattlerId battler);
 void ResetSentPokesToOpponentValue(void);
 void sub_8017434(enum BattlerId battler);
 void UpdateSentPokesToOpponentValue(enum BattlerId battler);

@@ -134,6 +134,9 @@ void SpriteCB_PlayerThrowInit(struct Sprite *sprite);
 void UpdatePlayerPosInThrowAnim(struct Sprite *sprite);
 void BattleDummy(void);
 void BeginBattleIntro(void);
+
+
+struct Volatiles; //struct pointer arg fix mostly issue of FR includes need overhaul later match EE
 void SwitchInClearSetData(enum BattlerId battler, struct Volatiles *volatilesCopy);
 const u8* FaintClearSetData(enum BattlerId battler);
 void BattleTurnPassed(void);

@@ -1,12 +1,13 @@
 #ifndef GUARD_BATTLE_H
 #define GUARD_BATTLE_H
+
+#include <limits.h>
 // should they be included here or included individually by every file?
 #include "constants/battle_end_turn.h"
 #include "constants/battle_switch_in.h"
 #include "constants/abilities.h"
 #include "constants/battle.h"
 #include "constants/battle_move_resolution.h"
-#include <limits.h>
 #include "global.h"
 #include "constants/battle.h"
 #include "constants/hold_effects.h"
@@ -1821,9 +1822,23 @@ static inline enum Ability AbilityPreventsRecoilDmg(enum Ability ability)
 //not fully sure if want to use movepower or base move power
 //don't want any plain move or prio move to proc ability
 //but would like synergy with rain
+//moved these here to fix include isssue
 static inline u32 CanActivateGulpMissle(u32 move)
 {
     return (gBattleMovePower >= 80 && GetMoveType(move) == TYPE_WATER);
+}
+
+//is meant to hold unique form condition activation
+//since form change table refactor is a bit restrictive
+//want a better name
+static inline bool32 TryActivateUniqueFormChangeCondition(struct FormChangeContext *ctx)
+{
+    switch (ctx->ability)
+    {
+        case ABILITY_GULP_MISSILE:
+            return CanActivateGulpMissle(gCurrentMove);
+        break;
+    }
 }
 
 

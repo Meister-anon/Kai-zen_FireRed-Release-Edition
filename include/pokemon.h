@@ -5,7 +5,7 @@
 #include "sprite.h"
 #include "move.h"
 #include "data.h"
-#include "battle.h"
+#include "constants/form_change_types.h"
 #include "constants/pokemon.h"
 #include "constants/battle.h"
 #include "pokemon_icon.h"
@@ -1375,18 +1375,7 @@ static inline void CopyAbilityNameToBuff(u8 *nameBuff, enum Ability ability)
 
 }
 
-//is meant to hold unique form condition activation
-//since form change table refactor is a bit restrictive
-//want a better name
-static inline bool32 TryActivateUniqueFormChangeCondition(struct FormChangeContext *ctx)
-{
-    switch (ctx->ability)
-    {
-        case ABILITY_GULP_MISSILE:
-            return CanActivateGulpMissle(gCurrentMove);
-        break;
-    }
-}
+
 
 //stuff from EE form change port
 const u8 *GetTrainerPartnerName(void);

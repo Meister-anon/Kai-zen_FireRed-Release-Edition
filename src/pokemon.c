@@ -30,7 +30,6 @@
 #include "field_weather.h"
 #include "pokemon_storage_system_internal.h"
 #include "constants/item_effects.h"
-#include "constants/form_change_types.h"
 #include "constants/pokemon.h"
 #include "constants/songs.h"
 #include "constants/item_effects.h"
@@ -73,8 +72,8 @@ struct OakSpeechNidoranFStruct
 static EWRAM_DATA u8 sLearningMoveTableID = 0;
 EWRAM_DATA u8 gPlayerPartyCount = 0;
 EWRAM_DATA u8 gEnemyPartyCount = 0;
-EWRAM_DATA struct Pokemon gEnemyParty[PARTY_SIZE] = {};
-EWRAM_DATA struct Pokemon gPlayerParty[PARTY_SIZE] = {};
+EWRAM_DATA struct Pokemon gEnemyParty[PARTY_SIZE] = {0};
+EWRAM_DATA struct Pokemon gPlayerParty[PARTY_SIZE] = {0};
 EWRAM_DATA struct SpriteTemplate gMultiuseSpriteTemplate = {0};
 static EWRAM_DATA struct OakSpeechNidoranFStruct *sOakSpeechNidoranResources = NULL;
 

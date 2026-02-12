@@ -3,12 +3,12 @@
 
 #include "config.h"
 #include "gba/gba.h"
-#include "constants/rgb.h"
 #include <string.h>
 #include "assertf.h" //need ld_script updates not working yet
 #include "metaprogram.h"
 #include "constants/global.h"
 #include "constants/flags.h"
+#include "constants/rgb.h"
 #include "constants/vars.h"
 #include "constants/species.h"
 #include "constants/moves.h"
