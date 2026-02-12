@@ -1247,7 +1247,7 @@ void BoxMonRestorePP(struct BoxPokemon *boxMon);
 void SetMonPreventsSwitchingString(void);
 void SetWildMonHeldItem(void);
 
-u8 *GetTrainerPartnerName(void);
+//u8 *GetTrainerPartnerName(void);
 u8 GetPlayerPartyHighestLevel(void);
 u16 FacilityClassToPicIndex(u16 facilityClass);
 bool8 ShouldIgnoreDeoxysForm(u8 caseId, enum BattlerId battlerId);
@@ -1398,8 +1398,8 @@ void PokemonSummaryDoMonAnimation(struct Sprite *sprite, u16 species, bool8 oneF
 void StopPokemonAnimationDelayTask(void);
 void BattleAnimateBackSprite(struct Sprite *sprite, u16 species);
 u8 GetOpposingLinkMultiBattlerId(bool8 rightSide, u8 multiplayerId);
-enum TrainerPicID FacilityClassToPicIndex(u16 facilityClass);
-enum TrainerPicID PlayerGenderToFrontTrainerPicId(enum Gender playerGender);
+//enum TrainerPicID FacilityClassToPicIndex(u16 facilityClass);
+//enum TrainerPicID PlayerGenderToFrontTrainerPicId(enum Gender playerGender);
 //void HandleSetPokedexFlag(enum NationalDexOrder nationalNum, u8 caseId, u32 personality);
 void HandleSetPokedexFlagFromMon(struct Pokemon *mon, u32 caseId);
 //bool8 HasTwoFramesAnimation(u16 species);
@@ -1423,7 +1423,7 @@ void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality);
 u8 CalculatePartyCount(struct Pokemon *party);
 u16 SanitizeSpeciesId(u16 species);
 bool32 IsSpeciesEnabled(u16 species);
-u16 GetSpeciesPreEvolution(u16 species);
+//u16 GetSpeciesPreEvolution(u16 species); check later unsure if will switch from my version
 void HealPokemon(struct Pokemon *mon);
 void HealBoxPokemon(struct BoxPokemon *boxMon);
 void UpdateDaysPassedSinceFormChange(u16 days);

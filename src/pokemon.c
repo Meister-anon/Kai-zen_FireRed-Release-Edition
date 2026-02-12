@@ -12680,7 +12680,7 @@ bool8 IsBoxMonNuzlockeDead(struct BoxPokemon *mon)
     return FALSE;
 }
 
-u8 *GetTrainerPartnerName(void)
+const u8 *GetTrainerPartnerName(void)
 {
     u8 id = GetMultiplayerId();
     return gLinkPlayers[GetBattlerMultiplayerId(gLinkPlayers[id].id ^ 2)].name;
@@ -13795,14 +13795,14 @@ void HealBoxPokemon(struct BoxPokemon *boxMon)
     return gSpeciesInfo[species].cryId;
 }*/
 
-u16 GetSpeciesPreEvolution(u16 species)
+/*u16 GetSpeciesPreEvolution(u16 species)
 {
     int i, j;
 
     for (i = SPECIES_BULBASAUR; i < NUM_SPECIES; i++)
     {
-        /*if (!IsSpeciesEnabled(i))
-            continue;*/
+        //if (!IsSpeciesEnabled(i))
+        //    continue;
 
         const struct Evolution *evolutions = GetSpeciesEvolutions(i);
         if (evolutions == NULL)
@@ -13816,11 +13816,11 @@ u16 GetSpeciesPreEvolution(u16 species)
     }
 
     return SPECIES_NONE;
-}
+}*/
 
 void UpdateDaysPassedSinceFormChange(u16 days)
 {
-    u32 i;
+    /*u32 i;
     for (i = 0; i < PARTY_SIZE; i++)
     {
         struct Pokemon *mon = &gPlayerParty[i];
@@ -13843,7 +13843,7 @@ void UpdateDaysPassedSinceFormChange(u16 days)
 
         if (daysSinceFormChange == 0)
             TryFormChange(mon, FORM_CHANGE_DAYS_PASSED);
-    }
+    }*/
 }
 
 enum Type CheckDynamicMoveType(struct Pokemon *mon, enum Move move, enum BattlerId battler, enum MonState state)
