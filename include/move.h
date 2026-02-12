@@ -319,11 +319,6 @@ static inline u32 GetMoveCategory(enum Move moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].category;
 }
 
-static inline bool32 IsBattleMoveStatus(enum Move moveId)
-{
-    return GetMoveCategory(moveId) == DAMAGE_CATEGORY_STATUS;
-}
-
 static inline u32 GetMovePower(enum Move moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].power;
