@@ -1679,7 +1679,7 @@ static inline struct Pokemon *GetBattlerParty(enum BattlerId battlerId)
 static inline u32 GetBattlerPersonality(enum BattlerId battler)
 {
     u32 index = gBattlerPartyIndexes[battler];
-    return !IsOnPlayerSide(battler) ? GetMonData(&gEnemyParty[index], MON_DATA_PERSONALITY, NULL) : GetMonData(&gPlayerParty[index], MON_DATA_PERSONALITY, NULL);
+    return !IsOnPlayerSide(battler) ? GetMonData(&gEnemyParty[index], MON_DATA_PERSONALITY) : GetMonData(&gPlayerParty[index], MON_DATA_PERSONALITY);
 }
 
 //unsure but believe can only use when is pointing or assigning value 

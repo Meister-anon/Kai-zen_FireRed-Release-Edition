@@ -1127,7 +1127,6 @@ u8 GetWeatherBallType(u16 move);
 //recent emerald addditions, change for form change (not planning use for ditto/transform)
 u16 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
 u16 GetFormChangeTargetSpeciesBoxMon(struct Pokemon *mon, u16 method, u32 arg);//still works same just adjusted for getablilitybyspecies change
-bool32 DoesSpeciesHaveFormChangeMethod(u16 species, u16 method);
 bool8 DoesSpeciesHaveCosmeticForms(u16 species);
 
 #define BATTLE_ALIVE_EXCEPT_ACTIVE  0
