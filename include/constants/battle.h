@@ -1315,7 +1315,6 @@ enum __attribute__((packed)) MoveEffect
     MOVE_EFFECT_SALT_CURE,
     MOVE_EFFECT_EERIE_SPELL,
     //zmove and lets go move effects
-    MOVE_EFFECT_AROMATHERAPY,
 
     //not using added for compile
     // Max move effects happen earlier in the execution chain.

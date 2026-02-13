@@ -1,3 +1,34 @@
+# Compares the ROM to a checksum of the original - only makes sense using when non-modern
+COMPARE     ?= 0
+# Executes the Test Runner System that checks that all mechanics work as expected
+TEST         ?= 0
+# Enables -fanalyzer C flag to analyze in depth potential UBs
+ANALYZE      ?= 0
+# Count unused warnings as errors. Used by RH-Hideout's repo
+UNUSED_ERROR ?= 0
+# Count deprecated warnings as errors. Used by RH-Hideout's repo
+DEPRECATED_ERROR ?= 0
+# Adds -Og and -g flags, which optimize the build for debugging and include debug info respectively
+DEBUG        ?= 0
+# Adds -flto flag, which increases link time but results in a more efficient binary (especially in audio processing)
+LTO          ?= 0
+# Makes an optimized build for release, also enabling NDEBUG macro and disabling other debugging features
+# Enables LTO by default, but can be changed in the config.mk file
+RELEASE      ?= 0
+
+ifeq (compare,$(MAKECMDGOALS))
+  COMPARE := 1
+endif
+ifeq (check,$(MAKECMDGOALS))
+  TEST := 1
+endif
+ifeq (debug,$(MAKECMDGOALS))
+  DEBUG := 1
+endif
+ifneq (,$(filter release tidyrelease,$(MAKECMDGOALS)))
+  RELEASE := 1
+endif
+
 include config.mk
 
 # Default make rule
@@ -84,7 +115,7 @@ INCLUDE_SCANINC_ARGS := $(INCLUDE_DIRS:%=-I %)
 #but what that means is my code is so bad/UB that its being optimized out
 O_LEVEL ?= 2
 
-CPPFLAGS := $(INCLUDE_CPP_ARGS) -Wno-trigraphs -D$(GAME_VERSION) -DREVISION=$(GAME_REVISION) -D$(GAME_LANGUAGE) -DMODERN=$(MODERN)
+CPPFLAGS := $(INCLUDE_CPP_ARGS) -Wno-trigraphs -D$(GAME_VERSION) -DREVISION=$(GAME_REVISION) -D$(GAME_LANGUAGE) -DMODERN=$(MODERN) -DTESTING=$(TEST)
 ifeq ($(MODERN),0)
   CPPFLAGS += -I tools/agbcc/include -I tools/agbcc -nostdinc -undef
   CC1 := tools/agbcc/bin/agbcc$(EXE)
