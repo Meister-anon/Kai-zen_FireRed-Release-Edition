@@ -6144,9 +6144,6 @@ static s32 AI_CheckViability(enum BattlerId battlerAtk, enum BattlerId battlerDe
 // Effects that are encouraged on the first turn of battle
 static s32 AI_ForceSetupFirstTurn(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move, s32 score)
 {
-    u32 abilityAtk = AI_DATA->abilities[battlerAtk];
-    u32 abilityDef = AI_DATA->abilities[battlerDef];
-
     if (IsTargetingPartner(battlerAtk, battlerDef)
       || gBattleResults.battleTurnCounter != 0)
         return score;
