@@ -584,7 +584,7 @@ bool32 MovesWithCategoryUnusable(u32 attacker, u32 target, enum DamageCategory c
 
         if (GetBattleMoveCategory(moves[moveIndex]) == category)
         {
-            SetTypeBeforeUsingMove(moves[moveIndex], attacker);
+            SetTypeBeforeUsingMove(moves[moveIndex], attacker, &gBattleStruct->dynamicMoveType);
             ctx.move = ctx.chosenMove = moves[moveIndex];
             ctx.moveType = GetBattleMoveType(moves[moveIndex]);
 
@@ -926,7 +926,7 @@ struct SimulatedDamage AI_CalcDamage(u32 move, enum BattlerId battlerAtk, enum B
     }
 
     SetDynamicMoveCategory(battlerAtk, battlerDef, move);
-    SetTypeBeforeUsingMove(move, battlerAtk);
+    SetTypeBeforeUsingMove(move, battlerAtk, &gBattleStruct->dynamicMoveType);
 
     // We can set those globals because they are going to get rerolled on attack execution
     gBattleStruct->magnitudeBasePower = 70;
@@ -1411,7 +1411,7 @@ uq4_12_t AI_GetMoveEffectiveness(u32 move, enum BattlerId battlerAtk, enum Battl
     SetBattlerData(battlerDef);
 
     gBattleStruct->dynamicMoveType = 0;
-    SetTypeBeforeUsingMove(move, battlerAtk);
+    SetTypeBeforeUsingMove(move, battlerAtk, &gBattleStruct->dynamicMoveType);
     struct BattleContext ctx = {0};
     ctx.battlerAtk = battlerAtk;
     ctx.battlerDef = battlerDef;

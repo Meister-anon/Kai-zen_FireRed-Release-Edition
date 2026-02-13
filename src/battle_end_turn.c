@@ -248,7 +248,7 @@ static bool32 HandleEndTurnFutureSight(enum BattlerId battler)
         gBattleStruct->eventState.atkCanceler = CANCELER_TARGET_FAILURE;
 
         if (!IsFutureSightAttackerInParty(gBattlerAttacker, gBattlerTarget, gCurrentMove))
-            SetTypeBeforeUsingMove(gCurrentMove, gBattlerAttacker);
+            SetTypeBeforeUsingMove(gCurrentMove, gBattlerAttacker, &gBattleStruct->dynamicMoveType);
 
         BattleScriptExecute(BattleScript_MonTookFutureAttack);
         effect = TRUE;

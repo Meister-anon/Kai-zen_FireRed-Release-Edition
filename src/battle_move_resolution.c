@@ -691,7 +691,7 @@ static enum CancelerResult CancelerPPDeduction(struct BattleContext *ctx)
             gBattleScripting.animTargetsHit = 0;
 
             // Possibly better to just move type setting and redirection to attackcanceler as a new case at this point
-            SetTypeBeforeUsingMove(ctx->move, ctx->battlerAtk);
+            SetTypeBeforeUsingMove(ctx->move, ctx->battlerAtk, &gBattleStruct->dynamicMoveType);
             DetermineTarget(moveTarget, FALSE);
             ClearDamageCalcResults();
             gBattlescriptCurrInstr = GetMoveBattleScript(ctx->move);

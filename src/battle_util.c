@@ -700,7 +700,7 @@ void HandleAction_UseMove(void)
     }
 
     // Set dynamic move type.
-    SetTypeBeforeUsingMove(gChosenMove, gBattlerAttacker);
+    SetTypeBeforeUsingMove(gChosenMove, gBattlerAttacker, &gBattleStruct->dynamicMoveType);
 
     // check Z-Move used
     if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_Z_MOVE && !IsBattleMoveStatus(gCurrentMove) && !IsZMove(gCurrentMove))
@@ -2843,7 +2843,7 @@ static enum MoveCanceler CancelerPPDeduction(struct BattleContext *ctx)
             //vsonic important - pr to address already recieved go over attempt port
             //hm I have ee I can just pull it in actually
             // Possibly better to just move type setting and redirection to attackcanceler as a new case at this point
-            SetTypeBeforeUsingMove(ctx->move, ctx->battlerAtk);
+            SetTypeBeforeUsingMove(ctx->move, ctx->battlerAtk, &gBattleStruct->dynamicMoveType);
             DetermineTarget(moveTarget, FALSE);
             ClearDamageCalcResults();
             gBattlescriptCurrInstr = GetMoveBattleScript(ctx->move);

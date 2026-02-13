@@ -1164,7 +1164,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
     enum Ability abilityDef = aiData->abilities[battlerDef];
     s32 atkPriority = GetBattleMovePriority(battlerAtk, abilityAtk, move);
 
-    SetTypeBeforeUsingMove(move, battlerAtk);
+    SetTypeBeforeUsingMove(move, battlerAtk, &gBattleStruct->dynamicMoveType);
     moveType = GetBattleMoveType(move);
 
     if (IsPowderMove(move) && !IsAffectedByPowderMove(battlerDef, aiData->abilities[battlerDef], aiData->holdEffects[battlerDef]))
@@ -3163,7 +3163,7 @@ static s32 AI_DoubleBattle(enum BattlerId battlerAtk, enum BattlerId battlerDef,
     u32 predictedMove = GetIncomingMove(battlerAtk, battlerDef, gAiLogicData);
     u32 predictedMoveSpeedCheck = GetIncomingMoveSpeedCheck(battlerAtk, battlerDef, gAiLogicData);
 
-    SetTypeBeforeUsingMove(move, battlerAtk);
+    SetTypeBeforeUsingMove(move, battlerAtk, &gBattleStruct->dynamicMoveType);
     moveType = GetBattleMoveType(move);
 
     bool32 hasTwoOpponents = HasTwoOpponents(battlerAtk);
@@ -6423,7 +6423,7 @@ static s32 AI_HPAware(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 
     enum BattleMoveEffects effect = GetMoveEffect(move);
     enum Type moveType = 0;
 
-    SetTypeBeforeUsingMove(move, battlerAtk);
+    SetTypeBeforeUsingMove(move, battlerAtk, &gBattleStruct->dynamicMoveType);
     moveType = GetBattleMoveType(move);
 
     if (IsTargetingPartner(battlerAtk, battlerDef))

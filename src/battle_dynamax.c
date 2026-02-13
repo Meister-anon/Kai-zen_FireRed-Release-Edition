@@ -267,7 +267,7 @@ static enum Move GetTypeBasedMaxMove(enum BattlerId battler, enum Type type)
 enum Move GetMaxMove(enum BattlerId battler, enum Move baseMove)
 {
     enum Type moveType;
-    SetTypeBeforeUsingMove(baseMove, battler);
+    SetTypeBeforeUsingMove(baseMove, battler, &gBattleStruct->dynamicMoveType);
     moveType = GetBattleMoveType(baseMove);
 
     if (baseMove == MOVE_NONE) // for move display
