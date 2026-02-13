@@ -338,9 +338,7 @@ static bool8 ShouldRegisterEvent_HandleBeatStoryTrainer(u16 eventId, const u16 *
     if (eventId == QL_EVENT_DEFEATED_TRAINER)
     {
         u8 trainerClass = gTrainers[*eventData].trainerClass;
-        if (   trainerClass == CLASS_RIVAL
-               || trainerClass == CLASS_RIVAL_2
-               || trainerClass == CLASS_CHAMPION_2
+        if (   IsRivalBattle(*eventData)
                || trainerClass == CLASS_BOSS)
             return FALSE;
         return TRUE;
@@ -1720,9 +1718,7 @@ static const u16 *BufferQuestLogText_DefeatedTrainer(const u16 *eventData)
     GetMapNameGeneric(gStringVar1, r6[0]);
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gStringVar1);
 
-    if (gTrainers[r5[2]].trainerClass == CLASS_RIVAL
-        || gTrainers[r5[2]].trainerClass == CLASS_RIVAL_2
-        || gTrainers[r5[2]].trainerClass == CLASS_CHAMPION_2)
+    if (IsRivalBattle(r5[2]))
         DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, GetExpandedPlaceholder(PLACEHOLDER_ID_RIVAL));
     else
         DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, gTrainers[r5[2]].trainerName);

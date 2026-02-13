@@ -355,7 +355,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_ROXANNE] = {
         
-        .trainerClass = CLASS_LEADER,
+        .trainerClass = CLASS_GYM_LEADER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_FEMALE,
         .trainerPic = TRAINER_PIC_LEADER_ROXANNE,
         .trainerName = _("ROXANNE"),
@@ -368,7 +368,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_BRAWLY] = {
         
-        .trainerClass = CLASS_LEADER,
+        .trainerClass = CLASS_GYM_LEADER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_LEADER_BRAWLY,
         .trainerName = _("BRAWLY"),
@@ -381,7 +381,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_TATE_LIZA] = {
         
-        .trainerClass = CLASS_LEADER,
+        .trainerClass = CLASS_GYM_LEADER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_FEMALE,
         .trainerPic = TRAINER_PIC_LEADER_TATE_AND_LIZA,
         .trainerName = _("TATE&LIZA"),
@@ -1070,7 +1070,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_WATTSON] = {
         
-        .trainerClass = CLASS_LEADER,
+        .trainerClass = CLASS_GYM_LEADER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_LEADER_WATTSON,
         .trainerName = _("WATTSON"),
@@ -1083,7 +1083,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_FLANNERY] = {
         
-        .trainerClass = CLASS_LEADER,
+        .trainerClass = CLASS_GYM_LEADER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_FEMALE,
         .trainerPic = TRAINER_PIC_LEADER_FLANNERY,
         .trainerName = _("FLANNERY"),
@@ -1096,7 +1096,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_NORMAN] = {
         
-        .trainerClass = CLASS_LEADER,
+        .trainerClass = CLASS_GYM_LEADER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_LEADER_NORMAN,
         .trainerName = _("NORMAN"),
@@ -1109,7 +1109,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_WINONA] = {
         
-        .trainerClass = CLASS_LEADER,
+        .trainerClass = CLASS_GYM_LEADER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_FEMALE,
         .trainerPic = TRAINER_PIC_LEADER_WINONA,
         .trainerName = _("WINONA"),
@@ -1122,7 +1122,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_WALLACE] = {
         
-        .trainerClass = CLASS_LEADER,
+        .trainerClass = CLASS_GYM_LEADER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_LEADER_WALLACE,
         .trainerName = _("WALLACE"),
@@ -4554,7 +4554,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_GIOVANNI] = {
         
-        .trainerClass = CLASS_LEADER_2,
+        .trainerClass = CLASS_GYM_LEADER_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_AQUA,
         .trainerPic = TRAINER_PIC_LEADER_GIOVANNI,
         .trainerName = _("GIOVANNI"),
@@ -5386,7 +5386,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_BROCK] = {
         
-        .trainerClass = CLASS_LEADER_2,
+        .trainerClass = CLASS_GYM_LEADER_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_LEADER_BROCK,
         .trainerName = _("BROCK"),
@@ -5399,7 +5399,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_MISTY] = {
         
-        .trainerClass = CLASS_LEADER_2,
+        .trainerClass = CLASS_GYM_LEADER_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_FEMALE | F_TRAINER_FEMALE,
         .trainerPic = TRAINER_PIC_LEADER_MISTY,
         .trainerName = _("MISTY"),
@@ -5412,7 +5412,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_LT_SURGE] = {
         
-        .trainerClass = CLASS_LEADER_2,
+        .trainerClass = CLASS_GYM_LEADER_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_LEADER_LT_SURGE,
         .trainerName = _("LT. SURGE"),
@@ -5425,7 +5425,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_ERIKA] = {
         
-        .trainerClass = CLASS_LEADER_2,
+        .trainerClass = CLASS_GYM_LEADER_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_FEMALE | F_TRAINER_FEMALE,
         .trainerPic = TRAINER_PIC_LEADER_ERIKA,
         .trainerName = _("ERIKA"),
@@ -5438,7 +5438,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_KOGA] = {
         
-        .trainerClass = CLASS_LEADER_2,
+        .trainerClass = CLASS_GYM_LEADER_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_LEADER_KOGA,
         .trainerName = _("KOGA"),
@@ -5451,7 +5451,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_SABRINA] = {
         
-        .trainerClass = CLASS_LEADER_2,
+        .trainerClass = CLASS_GYM_LEADER_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_FEMALE | F_TRAINER_FEMALE,
         .trainerPic = TRAINER_PIC_LEADER_SABRINA,
         .trainerName = _("SABRINA"),
@@ -5464,7 +5464,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_LEADER_BLAINE] = {
         
-        .trainerClass = CLASS_LEADER_2,
+        .trainerClass = CLASS_GYM_LEADER_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_LEADER_BLAINE,
         .trainerName = _("BLAINE"),
@@ -5542,7 +5542,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_RIVAL_SS_ANNE_SQUIRTLE] = {
         
-        .trainerClass = CLASS_RIVAL_2,
+        .trainerClass = CLASS_RIVAL_STAGE_2,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_RIVAL_LATE,
         .trainerName = _("TERRY"),
@@ -5555,7 +5555,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_RIVAL_SS_ANNE_BULBASAUR] = {
         
-        .trainerClass = CLASS_RIVAL_2,
+        .trainerClass = CLASS_RIVAL_STAGE_2,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_RIVAL_LATE,
         .trainerName = _("TERRY"),
@@ -5568,7 +5568,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_RIVAL_SS_ANNE_CHARMANDER] = {
         
-        .trainerClass = CLASS_RIVAL_2,
+        .trainerClass = CLASS_RIVAL_STAGE_2,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_RIVAL_LATE,
         .trainerName = _("TERRY"),
@@ -5581,7 +5581,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_RIVAL_POKENON_TOWER_SQUIRTLE] = {
         
-        .trainerClass = CLASS_RIVAL_2,
+        .trainerClass = CLASS_RIVAL_STAGE_2,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_RIVAL_LATE,
         .trainerName = _("TERRY"),
@@ -5594,7 +5594,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_RIVAL_POKENON_TOWER_BULBASAUR] = {
         
-        .trainerClass = CLASS_RIVAL_2,
+        .trainerClass = CLASS_RIVAL_STAGE_2,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_RIVAL_LATE,
         .trainerName = _("TERRY"),
@@ -5607,7 +5607,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_RIVAL_POKENON_TOWER_CHARMANDER] = {
         
-        .trainerClass = CLASS_RIVAL_2,
+        .trainerClass = CLASS_RIVAL_STAGE_2,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_RIVAL_LATE,
         .trainerName = _("TERRY"),
@@ -5620,7 +5620,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_RIVAL_SILPH_SQUIRTLE] = {
         
-        .trainerClass = CLASS_RIVAL_2,
+        .trainerClass = CLASS_RIVAL_STAGE_3,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_RIVAL_LATE,
         .trainerName = _("TERRY"),
@@ -5633,7 +5633,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_RIVAL_SILPH_BULBASAUR] = {
         
-        .trainerClass = CLASS_RIVAL_2,
+        .trainerClass = CLASS_RIVAL_STAGE_3,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_RIVAL_LATE,
         .trainerName = _("TERRY"),
@@ -5646,7 +5646,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_RIVAL_SILPH_CHARMANDER] = {
         
-        .trainerClass = CLASS_RIVAL_2,
+        .trainerClass = CLASS_RIVAL_STAGE_3,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_RIVAL_LATE,
         .trainerName = _("TERRY"),
@@ -5659,7 +5659,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_RIVAL_ROUTE22_LATE_SQUIRTLE] = {
         
-        .trainerClass = CLASS_RIVAL_2,
+        .trainerClass = CLASS_RIVAL_STAGE_3,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_RIVAL_LATE,
         .trainerName = _("TERRY"),
@@ -5672,7 +5672,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_RIVAL_ROUTE22_LATE_BULBASAUR] = {
         
-        .trainerClass = CLASS_RIVAL_2,
+        .trainerClass = CLASS_RIVAL_STAGE_3,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_RIVAL_LATE,
         .trainerName = _("TERRY"),
@@ -5685,7 +5685,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_RIVAL_ROUTE22_LATE_CHARMANDER] = {
         
-        .trainerClass = CLASS_RIVAL_2,
+        .trainerClass = CLASS_RIVAL_STAGE_3,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_RIVAL_LATE,
         .trainerName = _("TERRY"),
@@ -5698,7 +5698,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_CHAMPION_FIRST_SQUIRTLE] = {
         
-        .trainerClass = CLASS_CHAMPION_2,
+        .trainerClass = CLASS_CHAMPION_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_CHAMPION_RIVAL,
         .trainerName = _("TERRY"),
@@ -5711,7 +5711,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_CHAMPION_FIRST_BULBASAUR] = {
         
-        .trainerClass = CLASS_CHAMPION_2,
+        .trainerClass = CLASS_CHAMPION_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_CHAMPION_RIVAL,
         .trainerName = _("TERRY"),
@@ -5724,7 +5724,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_CHAMPION_FIRST_CHARMANDER] = {
         
-        .trainerClass = CLASS_CHAMPION_2,
+        .trainerClass = CLASS_CHAMPION_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_CHAMPION_RIVAL,
         .trainerName = _("TERRY"),
@@ -9611,7 +9611,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_CHAMPION_REMATCH_SQUIRTLE] = {
         
-        .trainerClass = CLASS_CHAMPION_2,
+        .trainerClass = CLASS_CHAMPION_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_CHAMPION_RIVAL,
         .trainerName = _("TERRY"),
@@ -9624,7 +9624,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_CHAMPION_REMATCH_BULBASAUR] = {
         
-        .trainerClass = CLASS_CHAMPION_2,
+        .trainerClass = CLASS_CHAMPION_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_CHAMPION_RIVAL,
         .trainerName = _("TERRY"),
@@ -9637,7 +9637,7 @@ const struct Trainer gTrainers[] = {
     },
     [TRAINER_CHAMPION_REMATCH_CHARMANDER] = {
         
-        .trainerClass = CLASS_CHAMPION_2,
+        .trainerClass = CLASS_CHAMPION_Fr,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_CHAMPION_RIVAL,
         .trainerName = _("TERRY"),

@@ -610,7 +610,7 @@ static u8 GetTrainerBattleTransition(void)
             return B_TRANSITION_LANCE;
         return B_TRANSITION_BLUE;
     }
-    if (gTrainers[gTrainerBattleOpponent_A].trainerClass == CLASS_CHAMPION_2)
+    if (gTrainers[gTrainerBattleOpponent_A].trainerClass == CLASS_CHAMPION_Fr)
         return B_TRANSITION_BLUE;
     if (gTrainers[gTrainerBattleOpponent_A].battleType == BATTLE_TYPE_DOUBLE) //eventually add on or replace with switch vsonic
         minPartyCount = 2; // double battles always at least have 2 pokemon.

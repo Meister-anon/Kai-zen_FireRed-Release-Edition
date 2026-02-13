@@ -989,12 +989,13 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
 // This is a factor in how much money you get for beating a trainer.
 const struct TrainerMoney gTrainerMoneyTable[] =
 {
-    { CLASS_LEADER_2, 25 },
+    { CLASS_GYM_LEADER_Fr, 25 },
     { CLASS_ELITE_FOUR_2, 25 },
     { CLASS_PKMN_PROF, 25 },
     { CLASS_RIVAL, 4 },
-    { CLASS_RIVAL_2, 9 },
-    { CLASS_CHAMPION_2, 25 },
+    { CLASS_RIVAL_STAGE_2, 9 },
+    { CLASS_RIVAL_STAGE_3, 12 },
+    { CLASS_CHAMPION_Fr, 25 },
     { CLASS_YOUNGSTER_2, 4 },
     { CLASS_BUG_CATCHER_2, 3 },
     { CLASS_HIKER_2, 9 },
@@ -1038,7 +1039,7 @@ const struct TrainerMoney gTrainerMoneyTable[] =
     { CLASS_CRUSH_KIN, 6 },
     { CLASS_SWIMMER_FEMALE_2, 1 },
     { CLASS_PLAYER, 1 },
-    { CLASS_LEADER, 25 },
+    { CLASS_GYM_LEADER, 25 },
     { CLASS_ELITE_FOUR, 25 },
     { CLASS_LASS, 4 },
     { CLASS_YOUNGSTER, 4 },
@@ -2642,10 +2643,17 @@ static void SpriteCB_UnusedDebugSprite_Step(struct Sprite *sprite)
 bool8 IsRivalBattle(u16 trainerNum)
 {
     u8 trainerClass = gTrainers[trainerNum].trainerClass;
-    if (trainerClass == CLASS_RIVAL || trainerClass == CLASS_RIVAL_2 || trainerClass == CLASS_CHAMPION_2)
-        return TRUE;
-    else
-        return FALSE;
+
+    switch (trainerClass)
+    {
+        case CLASS_RIVAL:
+        case CLASS_RIVAL_STAGE_2:
+        case CLASS_RIVAL_STAGE_3:
+        case CLASS_CHAMPION_Fr:
+            return TRUE;
+        default:
+            return FALSE;
+    }
 }
 
 #define TRAINER_PARTY_DATA  //specifically for trainer mon, wild mon data is set in GenerateWildMon
@@ -2667,6 +2675,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
     s32 i, j;
     int l = 0;
     u16 Global_Stat_Total_Limit;
+    u8 trainerClass = gTrainers[trainerNum].trainerClass;
 
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
@@ -2704,16 +2713,14 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
             
             if (IsRivalBattle(trainerNum))
             {
-                if (partyData[i].species == SPECIES_BULBASAUR
-                    || partyData[i].species == SPECIES_SQUIRTLE
-                    || partyData[i].species == SPECIES_CHARMANDER)
+                if (partyData[i].species == SPECIES_RIVAL_STARTER
+                    && trainerClass == CLASS_RIVAL)
                 {
                     species = VarGet(VAR_RIVAL_STARTER);  //Set dynamic starter, to species
                     VarSet(VAR_RIVAL_EVO, 0);   //gaurantees values are different, as species will never be none\ to prime evolution condition
                 }
-                else if (partyData[i].species == SPECIES_IVYSAUR
-                    || partyData[i].species == SPECIES_WARTORTLE
-                    || partyData[i].species == SPECIES_CHARMELEON)
+                else if (partyData[i].species == SPECIES_RIVAL_STARTER
+                    && trainerClass == CLASS_RIVAL_STAGE_2)
                 {
                     if (VarGet(VAR_RIVAL_STARTER) != VarGet(VAR_RIVAL_EVO))
                     {
@@ -2741,9 +2748,9 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                     //in that case make it based on partydatea.species if its charizard be flareon, if venusaur lefeon or jolteon
                     //and vaporeon if blastoise check what mon I put in lists again I may make the eeveelutions have 2 options per starter group
                 }
-                else if (partyData[i].species == SPECIES_VENUSAUR
-                    || partyData[i].species == SPECIES_BLASTOISE
-                    || partyData[i].species == SPECIES_CHARIZARD)
+                else if (partyData[i].species == SPECIES_RIVAL_STARTER
+                    && (trainerClass == CLASS_RIVAL_STAGE_3
+                    || trainerClass == CLASS_CHAMPION_Fr))
                 {
                     if (VarGet(VAR_RIVAL_STARTER) == VarGet(VAR_RIVAL_EVO))
                     {
@@ -6026,8 +6033,8 @@ static void HandleEndTurn_BattleWon(void)
         gBattlescriptCurrInstr = BattleScript_LocalTrainerBattleWon;
         switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
         {
-        case CLASS_LEADER_2:
-        case CLASS_CHAMPION_2:
+        case CLASS_GYM_LEADER_Fr:
+        case CLASS_CHAMPION_Fr:
             PlayBGM(MUS_VICTORY_GYM_LEADER);
             break;
         case CLASS_BOSS:

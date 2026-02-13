@@ -39,10 +39,10 @@ void TrySetQuestLogBattleEvent(void)
         {
             switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
             {
-            case CLASS_LEADER_2:
+            case CLASS_GYM_LEADER_Fr:
                 eventId = QL_EVENT_DEFEATED_GYM_LEADER;
                 break;
-            case CLASS_CHAMPION_2:
+            case CLASS_CHAMPION_Fr:
                 eventId = QL_EVENT_DEFEATED_CHAMPION;
                 break;
             case CLASS_ELITE_FOUR_2:

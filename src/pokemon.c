@@ -12433,16 +12433,17 @@ static u16 GetBattleBGM(void)
     {
         switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
         {
-            case CLASS_CHAMPION_2:
+            case CLASS_CHAMPION_Fr:
                 return MUS_VS_CHAMPION;
-            case CLASS_LEADER_2:
+            case CLASS_GYM_LEADER_Fr:
             case CLASS_ELITE_FOUR_2:
                 return MUS_VS_GYM_LEADER;
             case CLASS_BOSS:
             case CLASS_TEAM_ROCKET:
             case CLASS_COOLTRAINER_2:
             case CLASS_GENTLEMAN_2:
-            case CLASS_RIVAL_2:
+            case CLASS_RIVAL_STAGE_2:
+            case CLASS_RIVAL_STAGE_3:
             default:
                 return MUS_VS_TRAINER;
         }

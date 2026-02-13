@@ -795,12 +795,12 @@ void DrawBattleEntryBackground(void)
         if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
         {
             u8 trainerClass = gTrainers[gTrainerBattleOpponent_A].trainerClass;
-            if (trainerClass == CLASS_LEADER_2)
+            if (trainerClass == CLASS_GYM_LEADER_Fr)
             {
                 LoadBattleTerrainEntryGfx(BATTLE_ENVIRONMENT_BUILDING);
                 return;
             }
-            else if (trainerClass == CLASS_CHAMPION_2)
+            else if (trainerClass == CLASS_CHAMPION_Fr)
             {
                 LoadBattleTerrainEntryGfx(BATTLE_ENVIRONMENT_BUILDING);
                 return;
@@ -832,11 +832,11 @@ static u8 GetBattleEnvironmentOverride(void)
     }
     else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
     {
-        if (gTrainers[gTrainerBattleOpponent_A].trainerClass == CLASS_LEADER_2)
+        if (gTrainers[gTrainerBattleOpponent_A].trainerClass == CLASS_GYM_LEADER_Fr)
         {
             return BATTLE_ENVIRONMENT_LEADER;
         }
-        else if (gTrainers[gTrainerBattleOpponent_A].trainerClass == CLASS_CHAMPION_2)
+        else if (gTrainers[gTrainerBattleOpponent_A].trainerClass == CLASS_CHAMPION_Fr)
         {
             return BATTLE_ENVIRONMENT_CHAMPION;
         }
