@@ -2034,10 +2034,10 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
               || DoesPartnerHaveSameMoveEffect(BATTLE_PARTNER(battlerAtk), battlerDef, move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
             break;
-        case EFFECT_MAGNITUDE:
+        /*case EFFECT_MAGNITUDE:
             if (aiData->abilities[battlerDef] == ABILITY_LEVITATE)
                 ADJUST_SCORE(-10);
-            break;
+            break;*/ //seems to have no effect uhh guess is result of ai overhaul prob won't be able to tell how different
         case EFFECT_PARTING_SHOT:
             if (CountUsablePartyMons(battlerAtk) == 0)
                 ADJUST_SCORE(-10);
@@ -3488,7 +3488,6 @@ static s32 AI_DoubleBattle(enum BattlerId battlerAtk, enum BattlerId battlerDef,
                 }
                 break;
             case ABILITY_EARTH_EATER:
-            case ABILITY_LEVITATE:
                 if (moveType == TYPE_GROUND)
                 {
                     if (moveTarget == TARGET_FOES_AND_ALLY)
