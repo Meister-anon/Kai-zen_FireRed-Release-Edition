@@ -565,10 +565,12 @@ static const struct AbilityLearnset sSeakingAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sStaryuAbilityLearnset[] = {
+    ABILITY_SERENE_GRACE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sStarmieAbilityLearnset[] = {
+    ABILITY_SERENE_GRACE,
     ABILITY_SET_END
 };
 

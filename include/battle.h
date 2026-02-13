@@ -1095,7 +1095,7 @@ struct BattleStruct
     u8 swapDamageCategory:1; // Photon Geyser, Shell Side Arm, Light That Burns the Sky
     u8 bouncedMoveIsUsed:1; //^believe end of values I already ported
     u8 snatchedMoveIsUsed:1;
-    u8 descriptionSubmenu:1; // For Move Description window in move selection screen
+    u8 descriptionSubmenu:1; // For Move Description window in move selection screen //not using made callback instead
     u8 ackBallUseBtn:1; // Used for the last used ball feature
     u8 ballSwapped:1; // Used for the last used ball feature
     u8 throwingPokeBall:1;
@@ -1119,7 +1119,7 @@ struct BattleStruct
     u8 speedTieBreaks; // MAX_BATTLERS_COUNT! values.
     enum DamageCategory categoryOverride:8; // for Z-Moves and Max Moves
     u32 stellarBoostFlags[NUM_BATTLE_SIDES]; // stored as a bitfield of flags for all types for each side
-    u8 monCausingSleepClause[NUM_BATTLE_SIDES]; // Stores which pokemon on a given side is causing Sleep Clause to be active as the mon's index in the party
+    u8 monCausingSleepClause[NUM_BATTLE_SIDES]; // Stores which pokemon on a given side is causing Sleep Clause to be active as the mon's index in the party //not using
     u16 opponentMonCanTera:6;
     u16 opponentMonCanDynamax:6;
     u16 additionalEffectsCounter:4; // A counter for the additionalEffects applied by the current move in Cmd_setadditionaleffects
