@@ -105,21 +105,6 @@
 #define B_FLAG_NO_BAG_USE           0     // If this flag is set, the ability to use the bag in battle is disabled.
 #define B_FLAG_NO_CATCHING          0     // If this flag is set, the ability to catch wild Pok�mon is disabled.
 
-struct Formdata
-{
-    u16 species;
-    u16 FormChangeMoveset[4];
-    u16 evs[6];
-};//to match what player do potentailly need add ability and evs field
-//if change moves reset pp i.e only reset pp if move slot move has changed
-//vsonic
-//attempt simplify call for form info in trainer party
-//unsure how to write this
-//think may need to rework trainer party
-//will need acount for both form change data
-//AND learned abilities
-//idea check list if given ability is not within learned
-//ability list default to random inate ability
 
 
 /*there isn't really much reason to have more structs than just TrainerMonItemCustomMoves, since I've fixed the move error
@@ -147,7 +132,7 @@ the only used values: 20 30 40 50 60 80 90
 so simple as running a ctrl h for  .iv = existing value,
 then just multiply by 31 and divide by 255, to find the replace value
 */
-struct TrainerMonPartyData
+/*struct TrainerMonPartyData
 {
     u16 species;
     u16 heldItem;
@@ -158,7 +143,7 @@ struct TrainerMonPartyData
     u8 lvl;    
     u16 moves[4];
     struct Formdata FormInfo;
-};
+};*/
 
 /*struct TrainerMonFormChangeFullCustom
 {
@@ -185,27 +170,7 @@ struct TrainerMonPartyData
 //which to transform but prob only one has mega stone etc.
 //and I've removed the need for mega stones...
 
-struct Trainer
-{
-    /*0x00*/ //u8 partyFlags; //since unifying trainer party struct don't need flags
-    /*0x00*/ u8 battleType; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
-    /*0x01*/ u8 trainerClass;
-    /*0x02*/ u8 encounterMusic_gender; // last bit is gender
-    /*0x03*/ u8 trainerPic;
-    /*0x04*/ u8 trainerName[12];
-             //const u8 *trainerName;  not implemented but idea for space saving from Josh, use to take place of text strings that get reused i.e rematches or same name ex rocket GRUNT
-    /*0x10*/ u16 items[4];  //don't use 12 for above, I think?  can make limiter in compount string define
-    /*0x1C*/ u32 aiFlags;
-    /*0x18*/ u8 padding; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
-    /*0x20*/ u8 partySize;
-             u8 initialPartysize; //default party size before changes my field
-    /*0x24*/ const struct TrainerMonPartyData *party;
-};//unsure what this should be exactly pointer or no?
 
-extern const struct Trainer gTrainers[];
-
-#define SINGLES      0  //needed rename include was causing issues
-#define DOUBLE        1 //relized this was used as 1 for double value in trainers.h because it lined up with BATTLE_TYPE_DOUBLE for gbattletypeflags, its the actual value, 0 is no flags so just default single I guess
 
 
 

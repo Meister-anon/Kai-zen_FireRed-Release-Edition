@@ -1,3 +1,5 @@
+#include "constants/battle_partner.h"
+
 #ifndef GUARD_CONSTANTS_OPPONENTS_H
 #define GUARD_CONSTANTS_OPPONENTS_H
 

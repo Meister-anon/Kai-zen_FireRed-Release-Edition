@@ -2,6 +2,7 @@
 #define GUARD_DATA_H
 
 #include "global.h"
+#include "opponents.h"
 
 #define SPECIES_SHINY_TAG 500
 #define TRAINER_ENCOUNTER_MUSIC(trainer)((gTrainers[trainer].encounterMusic_gender & 0x7F))
@@ -107,5 +108,219 @@ extern const struct SpriteFrameImage gTrainerBackPicTable_Pokedude[];
 extern const struct SpriteFrameImage gTrainerBackPicTable_OldMan[];
 extern const struct SpriteFrameImage gTrainerBackPicTable_RSBrendan[];
 extern const struct SpriteFrameImage gTrainerBackPicTable_RSMay[];
+
+#define TRAINER_PARTY(partyArray) partyArray, .partySize = ARRAY_COUNT(partyArray)
+
+
+enum TrainerBattleType
+{
+    TRAINER_BATTLE_TYPE_SINGLES,
+    TRAINER_BATTLE_TYPE_DOUBLES,
+};
+
+
+struct Formdata
+{
+    u16 species;
+    u16 FormChangeMoveset[4];
+    u16 evs[6];
+};//to match what player do potentailly need add ability and evs field
+//if change moves reset pp i.e only reset pp if move slot move has changed
+//vsonic
+//attempt simplify call for form info in trainer party
+//unsure how to write this
+//think may need to rework trainer party
+//will need acount for both form change data
+//AND learned abilities
+//idea check list if given ability is not within learned
+//ability list default to random inate ability
+
+
+struct TrainerMonPartyData
+{
+    u16 species;
+    u16 heldItem;
+    u8 abilityNum;
+    u8 padding;
+    u16 evs[6];
+    u8 iv;    
+    u8 lvl;    
+    u16 moves[4];
+    struct Formdata FormInfo;
+};
+
+/*struct TrainerMonFormChangeFullCustom
+{
+    u8 iv;
+    u16 evs[6];
+    u8 lvl;
+    u8 abilityNum;
+    u16 species;
+    u16 heldItem;
+    u16 moves[4];
+    struct Formdata FormInfo;
+};*/
+//need store both form species and form moveset
+//think do with an array instead?
+//FormChangeMoveSet won't be triggered at battle start
+//it'll just be a place I refer to for the moves when it form changes
+//mid battle.
+//thing I'm unsure of is if I can properly trace the mon placement
+//from this?
+//idea is if I have identical species etc.
+//but mon switch, if I can correctly track
+//what moves it would have for form given switching
+//check form change logic in EE to see how it knows 
+//which to transform but prob only one has mega stone etc.
+//and I've removed the need for mega stones...
+
+struct Trainer
+{
+    /*0x00*/ //u8 partyFlags; //since unifying trainer party struct don't need flags
+    /*0x00*/ u8 battleType; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
+    /*0x01*/ u8 trainerClass;
+    /*0x02*/ u8 encounterMusic_gender; // last bit is gender
+    /*0x03*/ u8 trainerPic;
+    /*0x04*/ u8 trainerName[12];
+             //const u8 *trainerName;  not implemented but idea for space saving from Josh, use to take place of text strings that get reused i.e rematches or same name ex rocket GRUNT
+    /*0x10*/ u16 items[4];  //don't use 12 for above, I think?  can make limiter in compount string define
+    /*0x1C*/ u32 aiFlags;
+    /*0x18*/ u8 padding; //with addition fo triple & rotation change this from bool, to just a constant value to represent each battle type
+    /*0x20*/ u8 partySize;
+             u8 initialPartysize; //default party size before changes my field
+    /*0x24*/ const struct TrainerMonPartyData *party;
+    struct StartingStatuses startingStatus; // this trainer starts a battle with a given status. see include/constants/battle.h for values
+};//unsure what this should be exactly pointer or no?
+
+extern const struct Trainer gTrainers[];
+
+static inline bool8 IsPartnerTrainerId(u16 trainerId)
+{
+    if (trainerId >= TRAINER_PARTNER(PARTNER_NONE) && trainerId < TRAINER_PARTNER(PARTNER_COUNT))
+        return TRUE;
+    return FALSE;
+}
+
+static inline u16 SanitizeTrainerId(u16 trainerId)
+{
+    switch (trainerId)
+    {
+    case TRAINER_RECORD_MIXING_FRIEND:
+    case TRAINER_RECORD_MIXING_APPRENTICE:
+    case TRAINER_EREADER:
+    case TRAINER_FRONTIER_BRAIN:
+    case TRAINER_PLAYER:
+    case TRAINER_SECRET_BASE:
+    case TRAINER_LINK_OPPONENT:
+    case TRAINER_UNION_ROOM:
+        return TRAINER_NONE;
+    }
+
+    /*assertf(trainerId < TRAINERS_COUNT || IsPartnerTrainerId(trainerId), "invalid trainer: %d", trainerId)
+    {
+        return TRAINER_NONE;
+    }*/
+
+    return trainerId;
+}
+
+static inline const struct Trainer *GetTrainerStructFromId(u16 trainerId)
+{
+    u32 sanitizedTrainerId = 0;
+    if (gIsDebugBattle) return GetDebugAiTrainer();
+    sanitizedTrainerId = SanitizeTrainerId(trainerId);
+    enum DifficultyLevel difficulty = GetTrainerDifficultyLevel(sanitizedTrainerId);
+
+    if (IsPartnerTrainerId(trainerId))
+        return &gBattlePartners[difficulty][sanitizedTrainerId - TRAINER_PARTNER(PARTNER_NONE)];
+    else
+        return &gTrainers[difficulty][sanitizedTrainerId];
+}
+
+static inline const enum TrainerClassID GetTrainerClassFromId(u16 trainerId)
+{
+    const struct Trainer *trainer = GetTrainerStructFromId(trainerId);
+
+    return trainer->trainerClass;
+}
+
+static inline const u8 *GetTrainerClassNameFromId(u16 trainerId)
+{
+    enum DifficultyLevel difficulty = GetBattlePartnerDifficultyLevel(trainerId);
+
+    if (trainerId > TRAINER_PARTNER(PARTNER_NONE))
+        return gTrainerClasses[gBattlePartners[difficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerClass].name;
+    return gTrainerClasses[GetTrainerClassFromId(trainerId)].name;
+}
+
+static inline const u8 *GetTrainerNameFromId(u16 trainerId)
+{
+    if (trainerId > TRAINER_PARTNER(PARTNER_NONE))
+    {
+        enum DifficultyLevel partnerDifficulty = GetBattlePartnerDifficultyLevel(trainerId);
+        return gBattlePartners[partnerDifficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerName;
+    }
+    return GetTrainerStructFromId(trainerId)->trainerName;
+}
+
+static inline const enum TrainerPicID GetTrainerPicFromId(u16 trainerId)
+{
+    enum DifficultyLevel partnerDifficulty = GetBattlePartnerDifficultyLevel(trainerId);
+
+    if (trainerId > TRAINER_PARTNER(PARTNER_NONE))
+        return gBattlePartners[partnerDifficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerPic;
+
+    return GetTrainerStructFromId(trainerId)->trainerPic;
+}
+
+/*static inline const u8 GetTrainerBackPicFromId(u16 trainerId)
+{
+    enum DifficultyLevel partnerDifficulty = GetBattlePartnerDifficultyLevel(trainerId);
+
+    if (trainerId > TRAINER_PARTNER(PARTNER_NONE))
+        return gBattlePartners[partnerDifficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerBackPic;
+
+    return GetTrainerStructFromId(trainerId)->trainerBackPic;
+}
+*/
+static inline const struct StartingStatuses GetTrainerStartingStatusFromId(u16 trainerId)
+{
+    return GetTrainerStructFromId(trainerId)->startingStatus;
+}
+
+static inline const enum TrainerBattleType GetTrainerBattleType(u16 trainerId)
+{
+    return GetTrainerStructFromId(trainerId)->battleType;
+}
+
+static inline const u8 GetTrainerPartySizeFromId(u16 trainerId)
+{
+    return GetTrainerStructFromId(trainerId)->partySize;
+}
+
+/*static inline const bool32 DoesTrainerHaveMugshot(u16 trainerId)
+{
+    return GetTrainerStructFromId(trainerId)->mugshotColor;
+}
+
+static inline const u8 GetTrainerMugshotColorFromId(u16 trainerId)
+{
+    return GetTrainerStructFromId(trainerId)->mugshotColor;
+}*/
+
+static inline const u16 *GetTrainerItemsFromId(u16 trainerId)
+{
+    return GetTrainerStructFromId(trainerId)->items;
+}
+
+static inline const struct TrainerMon *GetTrainerPartyFromId(u16 trainerId)
+{
+    return GetTrainerStructFromId(trainerId)->party;
+}
+
+static inline const u64 GetTrainerAIFlagsFromId(u16 trainerId)
+{
+    return GetTrainerStructFromId(trainerId)->aiFlags;
+}
 
 #endif // GUARD_DATA_H
