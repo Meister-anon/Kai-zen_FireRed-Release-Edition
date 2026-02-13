@@ -1041,7 +1041,9 @@ enum CommanderType
 //thought didnt need w side timer existing
 //but guess could use timer 0 w status set for permanent effects
 // Per-side statuses that affect an entire party
-#define SIDE_STATUS_REFLECT					(1 << 0)
+//NEED REdo this apparently protect effects and hazards
+//got removed with refactors
+/*#define SIDE_STATUS_REFLECT					(1 << 0)
 #define SIDE_STATUS_LIGHTSCREEN				(1 << 1)
 #define SIDE_STATUS_STICKY_WEB				(1 << 2)
 #define SIDE_STATUS_SPIKES					(1 << 4) //side status fitureattack never used?, guess can remove
@@ -1070,11 +1072,32 @@ enum CommanderType
 #define SIDE_STATUS_STEEL_SURGE_TRIGGERED   (1 << 28)
 #define SIDE_STATUS_RAINBOW                 (1 << 29)
 #define SIDE_STATUS_SEA_OF_FIRE             (1 << 30)
-#define SIDE_STATUS_SWAMP                   (1 << 31)
+#define SIDE_STATUS_SWAMP                   (1 << 31)*/
+
+#define SIDE_STATUS_REFLECT                 (1 << 0)
+#define SIDE_STATUS_LIGHTSCREEN             (1 << 1)
+#define SIDE_STATUS_MAGIC_COAT              (1 << 2)
+#define SIDE_STATUS_SAFEGUARD               (1 << 3)
+#define SIDE_STATUS_MIST                    (1 << 4)
+#define SIDE_STATUS_TAILWIND                (1 << 5)
+#define SIDE_STATUS_AURORA_VEIL             (1 << 6)
+#define SIDE_STATUS_LUCKY_CHANT             (1 << 7)
+#define SIDE_STATUS_HEAL_BLOCK              (1 << 8)
+#define SIDE_STATUS_EMBARGO                 (1 << 9)
+#define SIDE_STATUS_MUDSPORT                (1 << 10)
+#define SIDE_STATUS_WATERSPORT              (1 << 11)
+#define SIDE_STATUS_DAMAGE_NON_TYPES        (1 << 12)
+#define SIDE_STATUS_RAINBOW                 (1 << 13)
+#define SIDE_STATUS_SEA_OF_FIRE             (1 << 14)
+#define SIDE_STATUS_SWAMP                   (1 << 15)
 
 #define SIDE_STATUS_HAZARDS_ANY    (SIDE_STATUS_SPIKES | SIDE_STATUS_STICKY_WEB | SIDE_STATUS_TOXIC_SPIKES | SIDE_STATUS_STEALTH_ROCK | SIDE_STATUS_STEEL_SURGE)
-#define SIDE_STATUS_SCREEN_ANY     (SIDE_STATUS_REFLECT | SIDE_STATUS_LIGHTSCREEN | SIDE_STATUS_AURORA_VEIL)
+#define SIDE_STATUS_SCREEN_ANY     (SIDE_STATUS_REFLECT | SIDE_STATUS_LIGHTSCREEN | SIDE_STATUS_MAGIC_COAT | SIDE_STATUS_AURORA_VEIL)
 #define SIDE_STATUS_PLEDGE_ANY     (SIDE_STATUS_RAINBOW | SIDE_STATUS_SEA_OF_FIRE | SIDE_STATUS_SWAMP)
+
+#define SIDE_STATUS_GOOD_FOG       (SIDE_STATUS_SCREEN_ANY | SIDE_STATUS_SAFEGUARD | SIDE_STATUS_MIST)
+#define SIDE_STATUS_GOOD_COURT     (SIDE_STATUS_GOOD_FOG | SIDE_STATUS_TAILWIND | SIDE_STATUS_LUCKY_CHANT | SIDE_STATUS_RAINBOW)
+#define SIDE_STATUS_BAD_COURT      (SIDE_STATUS_DAMAGE_NON_TYPES | SIDE_STATUS_SEA_OF_FIRE | SIDE_STATUS_SWAMP)
 
 enum Hazards
 {
