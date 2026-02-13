@@ -99,8 +99,8 @@ bool32 ShouldUseItem(enum BattlerId battler)
 
                 enum StatChange statChange = STAT_CHANGE_ATK;
 
-                if (B_X_ITEMS_BUFF >= GEN_7)
-                    statChange = STAT_CHANGE_ATK_2;
+                /*if (B_X_ITEMS_BUFF >= GEN_7)
+                    statChange = STAT_CHANGE_ATK_2;*/
 
                 statChange = statChange + itemEffects[1] - STAT_ATK;
 
