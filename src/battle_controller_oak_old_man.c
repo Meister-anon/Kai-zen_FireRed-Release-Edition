@@ -1732,7 +1732,7 @@ static void OakOldManHandlePrintString(enum BattlerId battler)
     gBattle_BG0_X = 0;
     gBattle_BG0_Y = 0;
     stringId = (u16 *)(&gBattleResources->bufferA[battler][2]);
-    if (gBattleTypeFlags & BATTLE_TYPE_OLD_MAN_TUTORIAL && *stringId == 1)
+    if (gBattleTypeFlags & BATTLE_TYPE_CATCH_TUTORIAL && *stringId == 1)
     {
         OakOldManBufferExecCompleted(battler);
     }

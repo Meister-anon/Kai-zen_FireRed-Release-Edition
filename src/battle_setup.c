@@ -300,7 +300,7 @@ void StartOldManTutorialBattle(void) // teech tv battle interesting wonder if, I
     CreateMaleMon(&gEnemyParty[0], SPECIES_WEEDLE, 5);
     LockPlayerFieldControls();
     gMain.savedCallback = CB2_ReturnToFieldContinueScriptPlayMapMusic;
-    gBattleTypeFlags = BATTLE_TYPE_OLD_MAN_TUTORIAL;
+    gBattleTypeFlags = BATTLE_TYPE_CATCH_TUTORIAL;
     CreateBattleStartTask(B_TRANSITION_SLICE, 0);
 }
 

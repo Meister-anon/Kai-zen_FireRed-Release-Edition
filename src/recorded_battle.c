@@ -453,9 +453,9 @@ void RecordedBattle_CheckMovesetChanges(u8 mode)
     }
 }
 
-u32 GetAiScriptsInRecordedBattle(void)
+u64 GetAiScriptsInRecordedBattle(enum BattlerId battler);
 {
-    return sAI_Scripts;
+    return sAI_Scripts[battler];
 }
 
 // Used to determine when the player is allowed to press B to end a recorded battle's playback

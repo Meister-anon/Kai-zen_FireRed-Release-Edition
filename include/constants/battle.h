@@ -104,7 +104,7 @@ enum BattleSide
 #define BATTLE_TYPE_TRIPLE           (1 << 6)     
 #define BATTLE_TWO_VS_ONE_PLAYER     (1 << 7) //planned but yet to do
 #define BATTLE_TYPE_BATTLE_TOWER     (1 << 8) //last value for u8 size, so if want use this for trainer set in trainers, would need all relevant battle types below this...
-#define BATTLE_TYPE_OLD_MAN_TUTORIAL (1 << 9) //checked and can move all others, without issue, trainer battle type is only one that uses u8 value all else is u32
+#define BATTLE_TYPE_CATCH_TUTORIAL   (1 << 9) //checked and can move all others, without issue, trainer battle type is only one that uses u8 value all else is u32
 #define BATTLE_TYPE_ROAMER           (1 << 10)
 #define BATTLE_TYPE_EREADER_TRAINER  (1 << 11)	//remove this, so I can replace it.
 #define BATTLE_TYPE_KYOGRE_GROUDON   (1 << 12) //Idk WHy have this already split off into individual flag for each
@@ -122,12 +122,13 @@ enum BattleSide
 #define BATTLE_TYPE_TWO_OPPONENTS    (1 << 23)	//carry over from emerald, not fully set here yet but is reason for gTrainerBattleOpponent_B  when 2 trainers approach player
 #define BATTLE_TYPE_RECORDED         (1 << 24)  //also not used, or wont be
 #define BATTLE_TYPE_RECORDED_LINK    (1 << 25)  //added for now, to deal w record battle link additions w test system, can prob remove later vsonic
-#define BATTLE_TYPE_x4000000         (1 << 26)
-#define BATTLE_TYPE_MASTER_BALL      (1 << 27) //ok can remove this and use for master ball
-#define BATTLE_TYPE_GROUDON          (1 << 28)
-#define BATTLE_TYPE_KYOGRE           (1 << 29)
-#define BATTLE_TYPE_RAYQUAZA         (1 << 30)
-#define BATTLE_TYPE_x80000000        (1 << 31)
+#define BATTLE_TYPE_MASTER_BALL      (1 << 26) //ok can remove this and use for master ball
+#define BATTLE_TYPE_GROUDON          (1 << 27)
+#define BATTLE_TYPE_KYOGRE           (1 << 28)
+#define BATTLE_TYPE_RAYQUAZA         (1 << 29)
+
+#define BATTLE_TYPE_SECRET_BASE     (1 << 30) //these two just for defines
+#define BATTLE_TYPE_FRONTIER        (1 << 31)
 
 #define IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(flags) ((flags) & BATTLE_TYPE_GHOST && !((flags) & BATTLE_TYPE_GHOST_UNVEILED))
 #define IS_BATTLE_TYPE_GHOST_WITH_SCOPE(flags) ((flags) & BATTLE_TYPE_GHOST && (flags) & BATTLE_TYPE_GHOST_UNVEILED)

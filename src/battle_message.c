@@ -1434,7 +1434,7 @@ void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
                 stringPtr = sText_WildPkmnAppeared2;
             else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) // interesting, looks like they had something planned for wild double battles
                 stringPtr = sText_TwoWildPkmnAppeared;  //important
-            else if (gBattleTypeFlags & BATTLE_TYPE_OLD_MAN_TUTORIAL)
+            else if (gBattleTypeFlags & BATTLE_TYPE_CATCH_TUTORIAL)
                 stringPtr = sText_WildPkmnAppearedPause;
             else
                 stringPtr = sText_WildPkmnAppeared;

@@ -76,7 +76,7 @@ u8 GetBattleSceneInRecordedBattle(void);
 u8 GetTextSpeedInRecordedBattle(void);
 void RecordedBattle_CopyBattlerMoves(enum BattlerId battler);
 void RecordedBattle_CheckMovesetChanges(u8 mode);
-u32 GetAiScriptsInRecordedBattle(void);
+u64 GetAiScriptsInRecordedBattle(enum BattlerId battler);
 void RecordedBattle_SetPlaybackFinished(void);
 bool8 RecordedBattle_CanStopPlayback(void);
 

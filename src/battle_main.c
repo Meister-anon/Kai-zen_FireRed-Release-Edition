@@ -4237,7 +4237,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
                                        | BATTLE_TYPE_POKEDUDE
                                        | BATTLE_TYPE_LINK
                                        | BATTLE_TYPE_GHOST
-                                       | BATTLE_TYPE_OLD_MAN_TUTORIAL
+                                       | BATTLE_TYPE_CATCH_TUTORIAL
                                        | BATTLE_TYPE_LEGENDARY)))
                     HandleSetPokedexFlag(SpeciesToNationalPokedexNum(gBattleMons[battler].species), FLAG_SET_SEEN, gBattleMons[battler].personality);
             }
@@ -4254,7 +4254,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
                                                 | BATTLE_TYPE_POKEDUDE
                                                 | BATTLE_TYPE_LINK
                                                 | BATTLE_TYPE_GHOST
-                                                | BATTLE_TYPE_OLD_MAN_TUTORIAL
+                                                | BATTLE_TYPE_CATCH_TUTORIAL
                                                 | BATTLE_TYPE_LEGENDARY)))
                     {
                         HandleSetPokedexFlag(SpeciesToNationalPokedexNum(gBattleMons[battler].species), FLAG_SET_SEEN, gBattleMons[battler].personality);
@@ -4412,7 +4412,7 @@ static void BattleIntroRecordMonsToDex(void)
                                    | BATTLE_TYPE_POKEDUDE
                                    | BATTLE_TYPE_LINK
                                    | BATTLE_TYPE_GHOST
-                                   | BATTLE_TYPE_OLD_MAN_TUTORIAL
+                                   | BATTLE_TYPE_CATCH_TUTORIAL
                                    | BATTLE_TYPE_LEGENDARY)))
                 HandleSetPokedexFlag(SpeciesToNationalPokedexNum(gBattleMons[battler].species), FLAG_SET_SEEN, gBattleMons[battler].personality);
         gBattleMainFunc = BattleIntroPrintPlayerSendsOut;
@@ -6122,7 +6122,7 @@ static void HandleEndTurn_FinishBattle(void)
         if (gBattleStruct->partyState[B_SIDE_PLAYER][i].SecondaryItemSlot != ITEM_NONE)
             {
                 
-                if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_OLD_MAN_TUTORIAL | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_LINK)))
+                if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_CATCH_TUTORIAL | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_LINK)))
                 {
                     freedomFlag = TRUE;
                     AddBagItem(gBattleStruct->partyState[B_SIDE_PLAYER][i].SecondaryItemSlot, 1);
@@ -6135,7 +6135,7 @@ static void HandleEndTurn_FinishBattle(void)
 
     if (gCurrentActionFuncId == B_ACTION_TRY_FINISH || gCurrentActionFuncId == B_ACTION_FINISHED)
     {
-        if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_OLD_MAN_TUTORIAL | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_SAFARI | BATTLE_TYPE_FIRST_BATTLE | BATTLE_TYPE_LINK)))
+        if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_CATCH_TUTORIAL | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_SAFARI | BATTLE_TYPE_FIRST_BATTLE | BATTLE_TYPE_LINK)))
         {
             for (battler = 0; battler < gBattlersCount; ++battler)
             {
