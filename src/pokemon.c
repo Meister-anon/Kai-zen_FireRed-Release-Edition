@@ -5002,7 +5002,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         attack *= 2;
     if (attackerHoldEffect == HOLD_EFFECT_METRONOME)
     {
-        percentBoost = min((gBattleStruct->sameMoveTurns[battlerIdAtk] * GetBattlerHoldEffectParam(battlerIdAtk, gBattleMons[battlerIdAtk].item)), 100);
+        percentBoost = min((gBattleMons[battlerIdAtk].volatiles.metronomeItemCounter * GetBattlerHoldEffectParam(battlerIdAtk)), 100);
         {
             gBattleMovePower *= (100 + gPercentToModifier[percentBoost]); //effect buffed late gen make sure right
             gBattleMovePower /= 100;
@@ -5023,7 +5023,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (defenderHoldEffect == HOLD_EFFECT_RESIST_BERRY)
     {
         //need to setup resist berry for wind
-        if (moveType == GetBattlerHoldEffectParam(battlerIdDef, itemDef)
+        if (moveType == GetBattlerHoldEffectParam(battlerIdDef)
             && (moveType == TYPE_NORMAL || moveType == TYPE_SOUND
             || (typeEffectiveness >= UQ_4_12(1.55)))) //excluding type myystery
             //&& !UnnerveOn(battlerIdDef, itemDef))
@@ -5355,10 +5355,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
     break;
     case EFFECT_ECHOED_VOICE:
-        // gBattleStruct->sameMoveTurns incremented in ppreduce
-        if (gBattleStruct->sameMoveTurns[battlerIdAtk] != 0)
+        if (gBattleStruct->echoedVoiceCounter != 0)
         {
-            gBattleMovePower += (gBattleMovePower * gBattleStruct->sameMoveTurns[battlerIdAtk]);
+            gBattleMovePower += (gBattleMovePower * gBattleStruct->echoedVoiceCounter);
             if (gBattleMovePower > 200)
                 gBattleMovePower = 200;
         }

@@ -1734,7 +1734,7 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
     if (holdEffect == HOLD_EFFECT_GEMS
         && *typeStorage == ItemId_GetSecondaryId(gBattleMons[battlerAtk].item))
     {
-        gSpecialStatuses[battlerAtk].gemParam = GetBattlerHoldEffectParam(battlerAtk, gBattleMons[battlerAtk].item);
+        gSpecialStatuses[battlerAtk].gemParam = GetBattlerHoldEffectParam(battlerAtk);
         gSpecialStatuses[battlerAtk].gemBoost = TRUE;
     }
 }
@@ -3898,13 +3898,13 @@ void SwitchInClearSetData(enum BattlerId battler, struct Volatiles *volatilesCop
     gLastPrintedMoves[battler] = MOVE_NONE;
     gLastHitBy[battler] = 0xFF;
     gProtectStructs[battler].turnDmg = 0; //unsure if needed but adding
-    gBattleStruct->sameMoveTurns[battler] = 0;
+    gBattleStruct->echoedVoiceCounter = 0;
     gBattleStruct->lastTakenMove[battler] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][0] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][1] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][2] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][3] = 0;
-    gBattleStruct->lastMoveFailed &= ~((1u << battler));
+    //gBattleStruct->lastMoveFailed &= ~((1u << battler));
 
     for (i = 0; i < ARRAY_COUNT(gSideTimers); i++)
     {
@@ -4032,7 +4032,7 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
     gLastPrintedMoves[battler] = MOVE_NONE;
     gLastHitBy[battler] = 0xFF;
 
-    gBattleStruct->sameMoveTurns[battler] = 0; //hope works since others writ diff in fire red/emerald
+    gBattleStruct->echoedVoiceCounter = 0; //hope works since others writ diff in fire red/emerald
     gBattleStruct->choicedMove[battler] = MOVE_NONE;
     gBattleStruct->lastTakenMove[battler] = MOVE_NONE;
     gBattleStruct->lastTakenMoveFrom[battler][0] = 0;
@@ -4072,7 +4072,7 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
         UndoMegaEvolution(gBattlerPartyIndexes[battler]);*/
 
 
-    gBattleStruct->overwrittenAbilities[battler] = ABILITY_NONE;
+    //gBattleStruct->overwrittenAbilities[battler] = ABILITY_NONE;
 
     // If the fainted mon was involved in a Sky Drop
     if (gBattleStruct->skyDropTargets[battler] != 0xFF)
@@ -4105,7 +4105,7 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
                     || gBattleMons[otherSkyDropper].volatiles.confusionTurns
                     || IsBattlerTerrainAffected(otherSkyDropper, STATUS_FIELD_MISTY_TERRAIN)))
                 {
-                    gBattleMons[otherSkyDropper].volatiles.ConfusionTurns = ((Random()% 4) + 2);
+                    gBattleMons[otherSkyDropper].volatiles.confusionTurns = ((Random()% 4) + 2);
                     gBattlerAttacker = otherSkyDropper;
                     result = BattleScript_ThrashConfuses;
                 }
