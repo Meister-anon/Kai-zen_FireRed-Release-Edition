@@ -2,7 +2,7 @@
 #define GUARD_DATA_H
 
 #include "global.h"
-#include "opponents.h"
+#include "constants/opponents.h"
 
 #define SPECIES_SHINY_TAG 500
 #define TRAINER_ENCOUNTER_MUSIC(trainer)((gTrainers[trainer].encounterMusic_gender & 0x7F))
