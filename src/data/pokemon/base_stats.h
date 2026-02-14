@@ -9832,7 +9832,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 50, 40, 95, 85, 75),
-        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FAIRY),
         .catchRate = 200,
         .expYield = 142,
         //.evYield_Speed = 1,
@@ -9846,7 +9846,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_FAIRY,
         .abilities = {ABILITY_PLUS, ABILITY_LIGHTNING_ROD},
-        .abilityHidden = {ABILITY_VOLT_ABSORB, ABILITY_NONE},
+        .abilityHidden = {ABILITY_VOLT_ABSORB, ABILITY_FRIEND_GUARD},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -9863,7 +9863,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 40, 50, 95, 75, 85),
-        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FAIRY),
         .catchRate = 200,
         .expYield = 142,
         //.evYield_Speed = 1,
@@ -9877,7 +9877,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_FAIRY,
         .abilities = {ABILITY_MINUS, ABILITY_LIGHTNING_ROD},
-        .abilityHidden = {ABILITY_VOLT_ABSORB, ABILITY_NONE},
+        .abilityHidden = {ABILITY_VOLT_ABSORB, ABILITY_FRIEND_GUARD},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -9887,6 +9887,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMinunTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //considering if should make part fairy
+    //would offer great new offensive options
+    //and ghost resist worst thing would be steel weakness
+    //but they are relatively fast and also beat steel
 
     [SPECIES_VOLBEAT] =
     {
