@@ -14,7 +14,7 @@
 #include "trig.h"
 #include "constants/maps.h"
 #include "constants/songs.h"
-#include "constants/trainer_classes.h"
+#include "constants/trainers.h"
 #include "data/battle_environment.h"
 
 #define TAG_VS_LETTERS 10000
@@ -795,12 +795,12 @@ void DrawBattleEntryBackground(void)
         if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
         {
             u8 trainerClass = gTrainers[gTrainerBattleOpponent_A].trainerClass;
-            if (trainerClass == CLASS_GYM_LEADER_Fr)
+            if (trainerClass == CLASS_GYM_LEADER_FRLG)
             {
                 LoadBattleTerrainEntryGfx(BATTLE_ENVIRONMENT_BUILDING);
                 return;
             }
-            else if (trainerClass == CLASS_CHAMPION_Fr)
+            else if (trainerClass == CLASS_CHAMPION_FRLG)
             {
                 LoadBattleTerrainEntryGfx(BATTLE_ENVIRONMENT_BUILDING);
                 return;
@@ -832,11 +832,11 @@ static u8 GetBattleEnvironmentOverride(void)
     }
     else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
     {
-        if (gTrainers[gTrainerBattleOpponent_A].trainerClass == CLASS_GYM_LEADER_Fr)
+        if (gTrainers[gTrainerBattleOpponent_A].trainerClass == CLASS_GYM_LEADER_FRLG)
         {
             return BATTLE_ENVIRONMENT_LEADER;
         }
-        else if (gTrainers[gTrainerBattleOpponent_A].trainerClass == CLASS_CHAMPION_Fr)
+        else if (gTrainers[gTrainerBattleOpponent_A].trainerClass == CLASS_CHAMPION_FRLG)
         {
             return BATTLE_ENVIRONMENT_CHAMPION;
         }

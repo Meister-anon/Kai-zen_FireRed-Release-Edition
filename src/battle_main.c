@@ -48,7 +48,7 @@
 #include "constants/moves.h"
 #include "constants/pokemon.h"
 #include "constants/songs.h"
-#include "constants/trainer_classes.h"
+#include "constants/trainers.h"
 #include "constants/opponents.h" //believe trainerNum, should be same as values for opponents in opponents.h since trainer.h is in same order
 
 //static void SpriteCB_UnusedDebugSprite(struct Sprite *sprite);
@@ -987,114 +987,115 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
 //also needed change value in & pokemon.h
 
 // This is a factor in how much money you get for beating a trainer.
-const struct TrainerMoney gTrainerMoneyTable[] =
+// [TRAINER_CLASS_XYZ] = { _("name"), <money=5>, <ball=BALL_POKE> }
+
+const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT] =
 {
-    { CLASS_GYM_LEADER_Fr, 25 },
-    { CLASS_ELITE_FOUR_2, 25 },
-    { CLASS_PKMN_PROF, 25 },
-    { CLASS_RIVAL, 4 },
-    { CLASS_RIVAL_STAGE_2, 9 },
-    { CLASS_RIVAL_STAGE_3, 12 },
-    { CLASS_CHAMPION_Fr, 25 },
-    { CLASS_YOUNGSTER_2, 4 },
-    { CLASS_BUG_CATCHER_2, 3 },
-    { CLASS_HIKER_2, 9 },
-    { CLASS_BIRD_KEEPER_2, 6 },
-    { CLASS_PICNICKER_2, 5 },
-    { CLASS_SUPER_NERD, 6 },
-    { CLASS_FISHERMAN_2, 9 },
-    { CLASS_TEAM_ROCKET, 8 },
-    { CLASS_LASS_2, 4 },
-    { CLASS_BEAUTY_2, 18 },
-    { CLASS_BLACK_BELT_2, 6 },
-    { CLASS_CUE_BALL, 6 },
-    { CLASS_CHANNELER, 8 },
-    { CLASS_ROCKER, 6 },
-    { CLASS_GENTLEMAN_2, 18 },
-    { CLASS_BURGLAR, 22 },
-    { CLASS_SWIMMER_MALE_2, 1 },
-    { CLASS_ENGINEER, 12 },
-    { CLASS_JUGGLER, 10 },
-    { CLASS_SAILOR_2, 8 },
-    { CLASS_COOLTRAINER_2, 9 },
-    { CLASS_POKEMANIAC_2, 12 },
-    { CLASS_TAMER, 10 },
-    { CLASS_CAMPER_2, 5 },
-    { CLASS_PSYCHIC_2, 5 },
-    { CLASS_BIKER, 5 },
-    { CLASS_GAMBLER, 18 },
-    { CLASS_SCIENTIST, 12 },
-    { CLASS_CRUSH_GIRL, 6 },
-    { CLASS_TUBER_3, 1 },
-    { CLASS_PKMN_BREEDER_2, 7 },
-    { CLASS_PKMN_RANGER_2, 9 },
-    { CLASS_AROMA_LADY_2, 7 },
-    { CLASS_RUIN_MANIAC_2, 12 },
-    { CLASS_LADY_2, 50 },
-    { CLASS_PAINTER, 4 },
-    { CLASS_TWINS_2, 3 },
-    { CLASS_YOUNG_COUPLE_2, 7 },
-    { CLASS_SIS_AND_BRO_2, 1 },
-    { CLASS_COOL_COUPLE, 6 },
-    { CLASS_CRUSH_KIN, 6 },
-    { CLASS_SWIMMER_FEMALE_2, 1 },
-    { CLASS_PLAYER, 1 },
-    { CLASS_GYM_LEADER, 25 },
-    { CLASS_ELITE_FOUR, 25 },
-    { CLASS_LASS, 4 },
-    { CLASS_YOUNGSTER, 4 },
-    { CLASS_PKMN_TRAINER_3, 15 },
-    { CLASS_HIKER, 10 },
-    { CLASS_BEAUTY, 20 },
-    { CLASS_FISHERMAN, 10 },
-    { CLASS_LADY, 50 },
-    { CLASS_TRIATHLETE, 10 },
-    { CLASS_TEAM_AQUA, 5 },
-    { CLASS_TWINS, 3 },
-    { CLASS_SWIMMER_FEMALE, 2 },
-    { CLASS_BUG_CATCHER, 4 },
-    { CLASS_SCHOOL_KID, 5 },
-    { CLASS_RICH_BOY, 50 },
-    { CLASS_SR_AND_JR, 4 },
-    { CLASS_BLACK_BELT, 8 },
-    { CLASS_TUBER, 1 },
-    { CLASS_HEX_MANIAC, 6 },
-    { CLASS_PKMN_BREEDER, 10 },
-    { CLASS_TEAM_MAGMA, 5 },
-    { CLASS_INTERVIEWER, 12 },
-    { CLASS_TUBER_2, 1 },
-    { CLASS_YOUNG_COUPLE, 8 },
-    { CLASS_GUITARIST, 8 },
-    { CLASS_GENTLEMAN, 20 },
-    { CLASS_CHAMPION, 50 },
-    { CLASS_MAGMA_LEADER, 20 },
-    { CLASS_BATTLE_GIRL, 6 },
-    { CLASS_SWIMMER_MALE, 2 },
-    { CLASS_POKEFAN, 20 },
-    { CLASS_EXPERT, 10 },
-    { CLASS_DRAGON_TAMER, 12 },
-    { CLASS_BIRD_KEEPER, 8 },
-    { CLASS_NINJA_BOY, 3 },
-    { CLASS_PARASOL_LADY, 10 },
-    { CLASS_BUG_MANIAC, 15 },
-    { CLASS_SAILOR, 8 },
-    { CLASS_COLLECTOR, 15 },
-    { CLASS_PKMN_RANGER, 12 },
-    { CLASS_MAGMA_ADMIN, 10 },
-    { CLASS_AROMA_LADY, 10 },
-    { CLASS_RUIN_MANIAC, 15 },
-    { CLASS_COOLTRAINER, 12 },
-    { CLASS_POKEMANIAC, 15 },
-    { CLASS_KINDLER, 8 },
-    { CLASS_CAMPER, 4 },
-    { CLASS_PICNICKER, 4 },
-    { CLASS_PSYCHIC, 6 },
-    { CLASS_SIS_AND_BRO, 3 },
-    { CLASS_OLD_COUPLE, 10 },
-    { CLASS_AQUA_ADMIN, 10 },
-    { CLASS_AQUA_LEADER, 20 },
-    { CLASS_BOSS, 25 },
-    { 0xFF, 5 },
+    [CLASS_GYM_LEADER_FRLG] = { _("LEADER"), 25 },
+    [CLASS_ELITE_FOUR_FRLG] = { _("ELITE FOUR"), 25 },
+    [CLASS_PKMN_PROF] = { _("{PKMN} PROF."), 25 },
+    [CLASS_RIVAL] = { _("RIVAL"), 4 },
+    [CLASS_RIVAL_STAGE_2] = { _("RIVAL"), 9 },
+    [CLASS_RIVAL_STAGE_3] = { _("RIVAL"), 12 },
+    [CLASS_CHAMPION_FRLG] = { _("CHAMPION"), 25 },
+    [CLASS_YOUNGSTER_FRLG] = { _("YOUNGSTER"), 4 },
+    [CLASS_BUG_CATCHER_FRLG] = { _("BUG CATCHER"), 3 },
+    [CLASS_HIKER_FRLG] = { _("HIKER"), 9 },
+    [CLASS_BIRD_KEEPER_FRLG] = { _("BIRD KEEPER"), 6 },
+    [CLASS_PICNICKER_FRLG] = { _("PICNICKER"), 5 },
+    [CLASS_SUPER_NERD] = { _("SUPER NERD"), 6 },
+    [CLASS_FISHERMAN_FRLG] = { _("FISHERMAN"), 9 },
+    [CLASS_TEAM_ROCKET] = { _("TEAM ROCKET"), 8 },
+    [CLASS_LASS_FRLG] = { _("LASS"), 4 },
+    [CLASS_BEAUTY_FRLG] = { _("BEAUTY"), 18 },
+    [CLASS_BLACK_BELT_FRLG] = { _("BLACK BELT"), 6 },
+    [CLASS_CUE_BALL] = { _("CUE BALL"), 6 },
+    [CLASS_CHANNELER] = { _("CHANNELER"), 8 },
+    [CLASS_ROCKER] = { _("ROCKER"), 6 },
+    [CLASS_GENTLEMAN_FRLG] = { _("GENTLEMAN"), 18 },
+    [CLASS_BURGLAR] = { _("BURGLAR"), 22 },
+    [CLASS_SWIMMER_MALE_FRLG] = { _("SWIMMER♂"), 1 },
+    [CLASS_ENGINEER] = { _("ENGINEER"), 12 },
+    [CLASS_JUGGLER] = { _("JUGGLER"), 10 },
+    [CLASS_SAILOR_FRLG] = { _("SAILOR"), 8 },
+    [CLASS_COOLTRAINER_FRLG] = { _("COOLTRAINER"), 9 },
+    [CLASS_POKEMANIAC_FRLG] = { _("POKéMANIAC"), 12 },
+    [CLASS_TAMER] = { _("TAMER"), 10 },
+    [CLASS_CAMPER_FRLG] = { _("CAMPER"), 5 },
+    [CLASS_PSYCHIC_FRLG] = { _("PSYCHIC"), 5 },
+    [CLASS_BIKER] = { _("BIKER"), 5 },
+    [CLASS_GAMBLER] = { _("GAMBLER"), 18 },
+    [CLASS_SCIENTIST] = { 12 },
+    [CLASS_CRUSH_GIRL] = { 6 },
+    [CLASS_TUBER_3] = { 1 },
+    [CLASS_PKMN_BREEDER_FRLG] = { 7 },
+    [CLASS_PKMN_RANGER_FRLG] = { 9 },
+    [CLASS_AROMA_LADY_FRLG] = { 7 },
+    [CLASS_RUIN_MANIAC_FRLG] = { 12 },
+    [CLASS_LADY_FRLG] = { 50 },
+    [CLASS_PAINTER] = { 4 },
+    [CLASS_TWINS_FRLG] = { 3 },
+    [CLASS_YOUNG_COUPLE_FRLG] = { 7 },
+    [CLASS_SIS_AND_BRO_FRLG] = { 1 },
+    [CLASS_COOL_COUPLE] = { 6 },
+    [CLASS_CRUSH_KIN] = { 6 },
+    [CLASS_SWIMMER_FEMALE_2] = { 1 },
+    [CLASS_PLAYER] = { 1 },
+    [CLASS_GYM_LEADER] = { 25 },
+    [CLASS_ELITE_FOUR] = { 25 },
+    [CLASS_LASS] = { 4 },
+    [CLASS_YOUNGSTER] = { 4 },
+    [CLASS_PKMN_TRAINER_3] = { 15 },
+    [CLASS_HIKER] = { 10 },
+    [CLASS_BEAUTY] = { 20 },
+    [CLASS_FISHERMAN] = { 10 },
+    [CLASS_LADY] = { 50 },
+    [CLASS_TRIATHLETE] = { 10 },
+    [CLASS_TEAM_AQUA] = { 5 },
+    [CLASS_TWINS] = { 3 },
+    [CLASS_SWIMMER_FEMALE] = { 2 },
+    [CLASS_BUG_CATCHER] = { 4 },
+    [CLASS_SCHOOL_KID] = { 5 },
+    [CLASS_RICH_BOY] = { 50 },
+    [CLASS_SR_AND_JR] = { 4 },
+    [CLASS_BLACK_BELT] = { 8 },
+    [CLASS_TUBER] = { 1 },
+    [CLASS_HEX_MANIAC] = { 6 },
+    [CLASS_PKMN_BREEDER] = { 10 },
+    [CLASS_TEAM_MAGMA] = { 5 },
+    [CLASS_INTERVIEWER] = { 12 },
+    [CLASS_TUBER_2] = { 1 },
+    [CLASS_YOUNG_COUPLE] = { 8 },
+    [CLASS_GUITARIST] = { 8 },
+    [CLASS_GENTLEMAN] = { 20 },
+    [CLASS_CHAMPION] = { 50 },
+    [CLASS_MAGMA_LEADER] = { 20 },
+    [CLASS_BATTLE_GIRL] = { 6 },
+    [CLASS_SWIMMER_MALE] = { 2 },
+    [CLASS_POKEFAN] = { 20 },
+    [CLASS_EXPERT] = { 10 },
+    [CLASS_DRAGON_TAMER] = { 12 },
+    [CLASS_BIRD_KEEPER] = { 8 },
+    [CLASS_NINJA_BOY] = { 3 },
+    [CLASS_PARASOL_LADY] = { 10 },
+    [CLASS_BUG_MANIAC] = { 15 },
+    [CLASS_SAILOR] = { 8 },
+    [CLASS_COLLECTOR] = { 15 },
+    [CLASS_PKMN_RANGER] = { 12 },
+    [CLASS_MAGMA_ADMIN] = { 10 },
+    [CLASS_AROMA_LADY] = { 10 },
+    [CLASS_RUIN_MANIAC] = { 15 },
+    [CLASS_COOLTRAINER] = { 12 },
+    [CLASS_POKEMANIAC] = { 15 },
+    [CLASS_KINDLER] = { 8 },
+    [CLASS_CAMPER] = { 4 },
+    [CLASS_PICNICKER] = { 4 },
+    [CLASS_PSYCHIC] = { 6 },
+    [CLASS_SIS_AND_BRO] = { 3 },
+    [CLASS_OLD_COUPLE] = { 10 },
+    [CLASS_AQUA_ADMIN] = { 10 },
+    [CLASS_AQUA_LEADER] = { 20 },
+    [CLASS_BOSS] = { 25 },
 };
 
 
@@ -2649,7 +2650,7 @@ bool8 IsRivalBattle(u16 trainerNum)
         case CLASS_RIVAL:
         case CLASS_RIVAL_STAGE_2:
         case CLASS_RIVAL_STAGE_3:
-        case CLASS_CHAMPION_Fr:
+        case CLASS_CHAMPION_FRLG:
             return TRUE;
         default:
             return FALSE;
@@ -2750,7 +2751,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                 }
                 else if (partyData[i].species == SPECIES_RIVAL_STARTER
                     && (trainerClass == CLASS_RIVAL_STAGE_3
-                    || trainerClass == CLASS_CHAMPION_Fr))
+                    || trainerClass == CLASS_CHAMPION_FRLG))
                 {
                     if (VarGet(VAR_RIVAL_STARTER) == VarGet(VAR_RIVAL_EVO))
                     {
@@ -6033,15 +6034,15 @@ static void HandleEndTurn_BattleWon(void)
         gBattlescriptCurrInstr = BattleScript_LocalTrainerBattleWon;
         switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
         {
-        case CLASS_GYM_LEADER_Fr:
-        case CLASS_CHAMPION_Fr:
+        case CLASS_GYM_LEADER_FRLG:
+        case CLASS_CHAMPION_FRLG:
             PlayBGM(MUS_VICTORY_GYM_LEADER);
             break;
         case CLASS_BOSS:
         case CLASS_TEAM_ROCKET:
-        case CLASS_COOLTRAINER_2:
-        case CLASS_ELITE_FOUR_2:
-        case CLASS_GENTLEMAN_2:
+        case CLASS_COOLTRAINER_FRLG:
+        case CLASS_ELITE_FOUR_FRLG:
+        case CLASS_GENTLEMAN_FRLG:
         default:
             PlayBGM(MUS_VICTORY_TRAINER);
             break;

@@ -14,7 +14,7 @@
 #include "region_map.h"
 #include "strings.h"
 #include "constants/maps.h"
-#include "constants/trainer_classes.h"
+#include "constants/trainers.h"
 #include "constants/items.h"
 #include "constants/region_map_sections.h"
 

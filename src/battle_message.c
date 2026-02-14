@@ -22,7 +22,7 @@
 #include "random.h"
 #include "constants/moves.h"
 #include "constants/items.h"
-#include "constants/trainer_classes.h"
+#include "constants/trainers.h"
 
 struct BattleWindowText
 {

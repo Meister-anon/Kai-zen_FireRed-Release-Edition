@@ -40,7 +40,7 @@
 #include "constants/pokemon.h"
 #include "constants/songs.h"
 #include "constants/item_effects.h"
-#include "constants/trainer_classes.h"
+#include "constants/trainers.h"
 #include "constants/facility_trainer_classes.h"
 #include "constants/hold_effects.h"
 #include "constants/battle_move_effects.h"
@@ -12440,15 +12440,15 @@ static u16 GetBattleBGM(void)
     {
         switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
         {
-            case CLASS_CHAMPION_Fr:
+            case CLASS_CHAMPION_FRLG:
                 return MUS_VS_CHAMPION;
-            case CLASS_GYM_LEADER_Fr:
-            case CLASS_ELITE_FOUR_2:
+            case CLASS_GYM_LEADER_FRLG:
+            case CLASS_ELITE_FOUR_FRLG:
                 return MUS_VS_GYM_LEADER;
             case CLASS_BOSS:
             case CLASS_TEAM_ROCKET:
-            case CLASS_COOLTRAINER_2:
-            case CLASS_GENTLEMAN_2:
+            case CLASS_COOLTRAINER_FRLG:
+            case CLASS_GENTLEMAN_FRLG:
             case CLASS_RIVAL_STAGE_2:
             case CLASS_RIVAL_STAGE_3:
             default:

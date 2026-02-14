@@ -14,7 +14,7 @@
 #include "constants/songs.h"
 #include "constants/sound.h"
 #include "constants/species.h"
-#include "constants/trainer_classes.h"
+#include "constants/trainers.h"
 #include "constants/vars.h"
 #include "constants/battle.h"
 #include "constants/heal_locations.h"

@@ -194,7 +194,16 @@ struct Trainer
     struct StartingStatuses startingStatus; // this trainer starts a battle with a given status. see include/constants/battle.h for values
 };//unsure what this should be exactly pointer or no?
 
+struct TrainerClass
+{
+    u8 name[13];
+    u8 money;
+    u16 ball;
+};
+
 extern const struct Trainer gTrainers[];
+extern const struct Trainer gBattlePartners[PARTNER_COUNT];
+extern const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT];
 
 static inline bool8 IsPartnerTrainerId(u16 trainerId)
 {
@@ -246,6 +255,24 @@ static inline const enum TrainerClassID GetTrainerClassFromId(u16 trainerId)
     return trainer->trainerClass;
 }
 
+//think not bother with gtrainerClasses
+//isn't storing trainer class is meant to hold data
+//that would shift based on trainer class
+//i.e money recieved from beating them, or is it money lost?
+//think money lost is fixed so yeah money gained,
+//name of traienr class as well as poke ball that
+//class would use
+//hmm actually may be good to use,
+//class id, class name and class pic are all separate files and arrays rn
+//yeah will use, idk what will do with pokeball
+//guess leave blank feels like makes more sense to put that
+//direclty onto trainer party struct than class
+//think my preference would be put on class
+//but weight towards trainer party struct
+//use default class based ball only if nothing set for mon
+//in trainer data
+//anyway got sidetracked default uses gTrainerMoneyTable
+//EE wraps it all into gtrainerclasses
 static inline const u8 *GetTrainerClassNameFromId(u16 trainerId)
 {
     enum DifficultyLevel difficulty = GetBattlePartnerDifficultyLevel(trainerId);

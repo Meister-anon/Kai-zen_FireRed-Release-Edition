@@ -3,12 +3,6 @@
 
 #include "constants/abilities.h"
 
-struct TrainerMoney
-{
-    u8 classId;
-    u8 value;
-};
-
 
 struct TypeInfo
 {
@@ -109,7 +103,6 @@ extern const u8 gStatusConditionString_LoveJpn[8];
 extern const u8 *const gStatusConditionStringsTable[7][2];
 extern const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES]; //type table port
 //extern const u8 gTypeEffectiveness[423]; //normal type array
-extern const struct TrainerMoney gTrainerMoneyTable[];
 
 void CB2_InitBattle(void);
 void BattleMainCB2(void);

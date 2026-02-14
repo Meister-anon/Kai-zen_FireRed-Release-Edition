@@ -5,7 +5,7 @@
 #include "link.h"
 #include "overworld.h"
 #include "quest_log.h"
-#include "constants/trainer_classes.h"
+#include "constants/trainers.h"
 
 struct QuestLogStruct_TrainerBattleRecord
 {
@@ -39,13 +39,13 @@ void TrySetQuestLogBattleEvent(void)
         {
             switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
             {
-            case CLASS_GYM_LEADER_Fr:
+            case CLASS_GYM_LEADER_FRLG:
                 eventId = QL_EVENT_DEFEATED_GYM_LEADER;
                 break;
-            case CLASS_CHAMPION_Fr:
+            case CLASS_CHAMPION_FRLG:
                 eventId = QL_EVENT_DEFEATED_CHAMPION;
                 break;
-            case CLASS_ELITE_FOUR_2:
+            case CLASS_ELITE_FOUR_FRLG:
                 eventId = QL_EVENT_DEFEATED_E4_MEMBER;
                 break;
             default:
