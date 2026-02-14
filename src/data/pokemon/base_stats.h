@@ -11686,7 +11686,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(43, 55, 71, 77, 55, 88),
-        MON_TYPES(TYPE_WATER, TYPE_WATER),
+        MON_TYPES(TYPE_WATER, TYPE_FAIRY),
         .catchRate = 225,
         .expYield = 116,
         //.evYield_Speed = 1,

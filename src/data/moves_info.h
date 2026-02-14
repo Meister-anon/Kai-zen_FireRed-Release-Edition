@@ -9891,6 +9891,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_AquaRing,
     },
+    //test make sure balance isn't too strong
 
     [MOVE_MAGNET_RISE] =
     {
