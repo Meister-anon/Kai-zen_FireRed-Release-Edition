@@ -624,7 +624,7 @@ static void sub_80A19E8(u8 taskId)//believe set repel use from bag
     if (!IsSEPlaying())
     {
         ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, NULL, gSpecialVar_ItemId, 0xFFFF);
-        VarSet(VAR_REPEL_STEP_COUNT, ItemId_GetHoldEffectParam(gSpecialVar_ItemId));
+        VarSet(VAR_REPEL_STEP_COUNT, GetItemHoldEffectParam(gSpecialVar_ItemId));
         VarSet(VAR_LAST_USED_REPEL, gSpecialVar_ItemId);
         sub_80A1A44();
         DisplayItemMessageInBag(taskId, 2, gStringVar4, Task_ReturnToBagFromContextMenu);
@@ -636,7 +636,7 @@ static void use_trainer_repel(u8 taskId)
     if (!IsSEPlaying())
     {
         ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, NULL, gSpecialVar_ItemId, 0xFFFF);
-        VarSet(VAR_TRAINER_REPEL_STEP_COUNT, ItemId_GetHoldEffectParam(gSpecialVar_ItemId));
+        VarSet(VAR_TRAINER_REPEL_STEP_COUNT, GetItemHoldEffectParam(gSpecialVar_ItemId));
         sub_80A1A44();
         DisplayItemMessageInBag(taskId, 2, gStringVar4, Task_ReturnToBagFromContextMenu);
     }

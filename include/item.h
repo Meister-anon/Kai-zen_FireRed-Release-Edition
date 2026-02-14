@@ -72,8 +72,8 @@ bool8 CheckPCHasItem(u16 itemId, u16 count);
 bool8 CheckPcHasSpace(u16 itemId, u16 count);
 bool8 AddPCItem(u16 itemId, u16 count);
 const u8 *ItemId_GetName(u8 *nameBuffer, u16 itemId); //update pput prepend inside
-u8 ItemId_GetHoldEffect(u16 itemId);
-u8 ItemId_GetHoldEffectParam(u16 itemId);
+enum HoldEffect GetItemHoldEffect(enum Item itemId);
+u32 GetItemHoldEffectParam(enum Item itemId);
 const u8 *ItemId_GetDescription(u16 itemId);
 u8 ItemId_GetPocket(u16 itemId);
 u8 ItemId_GetType(u16 itemId);

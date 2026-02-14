@@ -5404,7 +5404,7 @@ u8 GetWhoStrikesFirst(enum BattlerId battler1, enum BattlerId battler2, bool8 ig
     // Battler 1
     speedBattler1 = GetBattlerTotalSpeedStat(battler1);
     holdEffectBattler1 = GetBattlerHoldEffect(battler1);
-    holdEffectParam1 = ItemId_GetHoldEffectParam(gBattleMons[battler1].item);
+    holdEffectParam1 = GetItemHoldEffectParam(gBattleMons[battler1].item);
   
     
     //Quick Claw        //ok works now, but doesnt' have activation animation, and even at 40% odds are still pretty lackluster 60% is slihtly too much  55 feels good
@@ -5422,7 +5422,7 @@ u8 GetWhoStrikesFirst(enum BattlerId battler1, enum BattlerId battler2, bool8 ig
     // Battler 2
     speedBattler2 = GetBattlerTotalSpeedStat(battler2);
     holdEffectBattler2 = GetBattlerHoldEffect(battler2);
-    holdEffectParam2 = ItemId_GetHoldEffectParam(gBattleMons[battler2].item);
+    holdEffectParam2 = GetItemHoldEffectParam(gBattleMons[battler2].item);
     
     // Quick Claw
     if ((holdEffectBattler2 == HOLD_EFFECT_QUICK_CLAW && gRandomTurnNumber < (0xFFFF * holdEffectParam2) / 100)   //buffed param to 45% rathre than 20

@@ -1017,8 +1017,8 @@ static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
 
 
     start = 0;
-    if (ItemId_GetHoldEffect(motherItem) == HOLD_EFFECT_POWER_ITEM &&
-        ItemId_GetHoldEffect(fatherItem) == HOLD_EFFECT_POWER_ITEM)
+    if (GetItemHoldEffect(motherItem) == HOLD_EFFECT_POWER_ITEM &&
+        GetItemHoldEffect(fatherItem) == HOLD_EFFECT_POWER_ITEM)
     {
         whichParent[0] = Random() % DAYCARE_MON_COUNT;
         selectedIvs[0] = ItemId_GetSecondaryId(
@@ -1026,14 +1026,14 @@ static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
         RemoveIVIndexFromList(availableIVs, selectedIvs[0]);
         start++;
     }
-    else if (ItemId_GetHoldEffect(motherItem) == HOLD_EFFECT_POWER_ITEM)
+    else if (GetItemHoldEffect(motherItem) == HOLD_EFFECT_POWER_ITEM)
     {
         whichParent[0] = 0;
         selectedIvs[0] = ItemId_GetSecondaryId(motherItem);
         RemoveIVIndexFromList(availableIVs, selectedIvs[0]);
         start++;
     }
-    else if (ItemId_GetHoldEffect(fatherItem) == HOLD_EFFECT_POWER_ITEM)
+    else if (GetItemHoldEffect(fatherItem) == HOLD_EFFECT_POWER_ITEM)
     {
         whichParent[0] = 1;
         selectedIvs[0] = ItemId_GetSecondaryId(fatherItem);

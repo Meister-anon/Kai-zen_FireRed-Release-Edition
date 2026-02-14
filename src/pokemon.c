@@ -4880,7 +4880,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     else
     {
         attackerHoldEffect = GetBattlerHoldEffect(battlerIdAtk);
-        attackerHoldEffectParam = ItemId_GetHoldEffectParam(attacker->item);
+        attackerHoldEffectParam = GetItemHoldEffectParam(attacker->item);
     }
 
     if (defender->item == ITEM_ENIGMA_BERRY)
@@ -4891,7 +4891,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     else
     {
         defenderHoldEffect = GetBattlerHoldEffect(battlerIdDef);
-        defenderHoldEffectParam = ItemId_GetHoldEffectParam(defender->item);
+        defenderHoldEffectParam = GetItemHoldEffectParam(defender->item);
     }
 
     //flat attack stat not affected by stat stages
@@ -8771,7 +8771,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
     }
     else
     {
-        holdEffect = ItemId_GetHoldEffect(heldItem);
+        holdEffect = GetItemHoldEffect(heldItem);
     }
 
     gPotentialItemEffectBattler = gBattlerInMenuId;
@@ -9418,7 +9418,7 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
     }
     else
     {
-        holdEffect = ItemId_GetHoldEffect(heldItem);
+        holdEffect = GetItemHoldEffect(heldItem);
     }
     gPotentialItemEffectBattler = gBattlerInMenuId;
     if (gMain.inBattle)
@@ -10048,7 +10048,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
     if (heldItem == ITEM_ENIGMA_BERRY)
         holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
     else
-        holdEffect = ItemId_GetHoldEffect(heldItem);
+        holdEffect = GetItemHoldEffect(heldItem);
 
     if ((holdEffect == HOLD_EFFECT_PREVENT_EVOLVE || holdEffect == HOLD_EFFECT_EVIOLITE) && type != EVO_MODE_ITEM_CHECK) //SET eviolite prevent evo
         return 0;
@@ -10847,7 +10847,7 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
     }
     else
     {
-        holdEffect = ItemId_GetHoldEffect(heldItem); //get hold effect for checking for friendship item
+        holdEffect = GetItemHoldEffect(heldItem); //get hold effect for checking for friendship item
     }
 
     if (species && species != SPECIES_EGG)
@@ -10920,7 +10920,7 @@ void AdjustBoxMonFriendship(struct BoxPokemon *mon, u8 event)
     }
     else
     {
-        holdEffect = ItemId_GetHoldEffect(heldItem); //get hold effect for checking for friendship item
+        holdEffect = GetItemHoldEffect(heldItem); //get hold effect for checking for friendship item
     }
 
     if (species && species != SPECIES_EGG)
@@ -11028,7 +11028,7 @@ void MonGainEVs(struct Pokemon *mon) // since this function doesn't use exp, it 
     }
     else
     {
-        holdEffect = ItemId_GetHoldEffect(heldItem);
+        holdEffect = GetItemHoldEffect(heldItem);
     }
     //for entire function, 
     hasHadPokerus = CheckPartyHasHadPokerus(mon, 0);

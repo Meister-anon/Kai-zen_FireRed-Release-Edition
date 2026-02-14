@@ -2618,7 +2618,7 @@ void StealTargetItem(enum BattlerId battlerStealer, u8 itemBattler)
     {
         if (gBattleMons[battlerStealer].item == ITEM_NONE)
         {
-            RecordItemEffectBattle(battlerStealer, ItemId_GetHoldEffect(gLastUsedItem));
+            RecordItemEffectBattle(battlerStealer, GetItemHoldEffect(gLastUsedItem));
             gBattleMons[battlerStealer].item = gLastUsedItem;
 
             BtlController_EmitSetMonData(battlerStealer, B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
@@ -2638,7 +2638,7 @@ void StealTargetItem(enum BattlerId battlerStealer, u8 itemBattler)
         else //held item ability steal
         {
             //this is for ai I think, not sure if correct
-            RecordItemEffectBattle(battlerStealer, ItemId_GetHoldEffect(gLastUsedItem));
+            RecordItemEffectBattle(battlerStealer, GetItemHoldEffect(gLastUsedItem));
             GetBattlerPartyState(battlerStealer)->SecondaryItemSlot = gLastUsedItem;
 
             /*BtlController_EmitSetMonData(B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
@@ -2660,7 +2660,7 @@ void StealTargetItem(enum BattlerId battlerStealer, u8 itemBattler)
 
         if (gBattleMons[battlerStealer].item == ITEM_NONE)
         {
-            RecordItemEffectBattle(battlerStealer, ItemId_GetHoldEffect(gLastUsedItem));
+            RecordItemEffectBattle(battlerStealer, GetItemHoldEffect(gLastUsedItem));
             gBattleMons[battlerStealer].item = gLastUsedItem;
 
             BtlController_EmitSetMonData(battlerStealer, B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gLastUsedItem), &gLastUsedItem); // set attacker item
