@@ -4,18 +4,16 @@
 #include "battle_partner.h"
 #include "battle_frontier.h"
 #include "data.h"
-#include "frontier_util.h"
-#include "difficulty.h"
 #include "string_util.h"
 #include "text.h"
 
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
 
-#include "data/partner_parties.h"
-const struct Trainer gBattlePartners[DIFFICULTY_COUNT][PARTNER_COUNT] =
+//#include "data/partner_parties.h"
+const struct Trainer gBattlePartners[PARTNER_COUNT] =
 {
-#include "data/battle_partners.h"
+//#include "data/battle_partners.h"
 };
 
 #define STEVEN_OTID 61226
@@ -29,7 +27,6 @@ void FillPartnerParty(u16 trainerId)
     u32 otID;
     u8 trainerName[(PLAYER_NAME_LENGTH * 3) + 1];
     s32 ball = -1;
-    enum DifficultyLevel difficulty = GetBattlePartnerDifficultyLevel(trainerId);
     SetFacilityPtrsGetLevel();
 
     if (trainerId > TRAINER_PARTNER(PARTNER_NONE))
@@ -37,10 +34,10 @@ void FillPartnerParty(u16 trainerId)
         for (i = 0; i < 3; i++)
             ZeroMonData(&gPlayerParty[i + 3]);
 
-        for (i = 0; i < 3 && i < gBattlePartners[difficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].partySize; i++)
+        for (i = 0; i < 3 && i < gBattlePartners[trainerId - TRAINER_PARTNER(PARTNER_NONE)].partySize; i++)
         {
-            const struct TrainerMon *partyData = gBattlePartners[difficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].party;
-            const u8 *partnerName = gBattlePartners[difficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerName;
+            const struct TrainerMon *partyData = gBattlePartners[trainerId - TRAINER_PARTNER(PARTNER_NONE)].party;
+            const u8 *partnerName = gBattlePartners[trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerName;
 
             for (k = 0; partnerName[k] != EOS && k < 3; k++)
             {
@@ -111,9 +108,9 @@ void FillPartnerParty(u16 trainerId)
             }
             CalculateMonStats(&gPlayerParty[i + 3]);
 
-            StringCopy(trainerName, gBattlePartners[difficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerName);
+            StringCopy(trainerName, gBattlePartners[trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerName);
             SetMonData(&gPlayerParty[i + 3], MON_DATA_OT_NAME, trainerName);
-            j = gBattlePartners[difficulty][SanitizeTrainerId(trainerId - TRAINER_PARTNER(PARTNER_NONE))].encounterMusic_gender >> 7;
+            j = gBattlePartners[SanitizeTrainerId(trainerId - TRAINER_PARTNER(PARTNER_NONE))].encounterMusic_gender >> 7;
             SetMonData(&gPlayerParty[i + 3], MON_DATA_OT_GENDER, &j);
         }
     }
