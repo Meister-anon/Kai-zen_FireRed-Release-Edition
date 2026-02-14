@@ -22,6 +22,11 @@
 EWRAM_DATA struct BattleBoxMessageDisplay gUnusedControllerStruct = {0};
 //static EWRAM_DATA u8 sBattleBuffersTransferData[0x100] = {0}; //replaced by EE battle resource struct
 
+COMMON_DATA void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(enum BattlerId battler) = {0};
+COMMON_DATA u8 gBattleControllerData[MAX_BATTLERS_COUNT] = {0}; // Used by the battle controllers to store misc sprite/task IDs for each battler
+COMMON_DATA void (*gBattlerControllerEndFuncs[MAX_BATTLERS_COUNT])(enum BattlerId battler) = {0}; // Controller's buffer complete function for each battler
+u8 gBattlerBattleController[MAX_BATTLERS_COUNT] = {0}; // Battle controller for each battler
+
 //static void CreateTasksForSendRecvLinkBuffers(void);
 static void InitLinkBtlControllers(void);
 static void InitSinglePlayerBtlControllers(void);
@@ -32,6 +37,25 @@ static void SetBattlePartyIds(void);
 bool32 IsAiVsAiBattle(void)
 {
     return (B_FLAG_AI_VS_AI_BATTLE && FlagGet(B_FLAG_AI_VS_AI_BATTLE));
+}
+
+bool32 BattlerHasAi(enum BattlerId battlerId)
+{
+    switch (gBattlerBattleController[battlerId])
+    {
+    case BATTLE_CONTROLLER_OPPONENT:
+    case BATTLE_CONTROLLER_PLAYER_PARTNER:
+    case BATTLE_CONTROLLER_SAFARI:
+    //case BATTLE_CONTROLLER_WALLY:
+        return TRUE;
+    default:
+        break;
+    }
+
+    if (IsAiVsAiBattle())
+        return TRUE;
+
+    return FALSE;
 }
 
 void HandleLinkBattleSetup(void)

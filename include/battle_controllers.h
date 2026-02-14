@@ -69,6 +69,88 @@ enum
     REQUEST_TOUGH_RIBBON_BATTLE,
 };
 
+enum BattleController
+{
+    BATTLE_CONTROLLER_NONE,
+    BATTLE_CONTROLLER_PLAYER,
+    BATTLE_CONTROLLER_PLAYER_PARTNER,
+    BATTLE_CONTROLLER_OPPONENT,
+    BATTLE_CONTROLLER_LINK_PARTNER,
+    BATTLE_CONTROLLER_LINK_OPPONENT,
+    BATTLE_CONTROLLER_SAFARI,
+    BATTLE_CONTROLLER_WALLY,
+    BATTLE_CONTROLLER_RECORDED_PLAYER,
+    BATTLE_CONTROLLER_RECORDED_PARTNER,
+    BATTLE_CONTROLLER_RECORDED_OPPONENT,
+    BATTLE_CONTROLLER_OAK_OLD_MAN,
+    BATTLE_CONTROLLERS_COUNT,
+};
+
+// Accessors for gBattleControllerExecFlags.
+//
+// These are provided for documentation purposes, to make the battle
+// controller internals and the link communication internals more
+// legible. Several of these have functions that you should call
+// (e.g. MarkBattlerForControllerExec) instead of using these macros
+// directly.
+
+static inline void MarkBattleControllerActiveOnLocal(enum BattlerId battler)
+{
+    gBattleControllerExecFlags |= (1u << battler);
+}
+
+static inline void MarkBattleControllerIdleOnLocal(enum BattlerId battler)
+{
+    gBattleControllerExecFlags &= ~(1u << battler);
+}
+
+static inline bool32 IsBattleControllerActiveOnLocal(enum BattlerId battler)
+{
+    return gBattleControllerExecFlags & (1u << battler);
+}
+
+static inline void MarkBattleControllerMessageOutboundOverLink(enum BattlerId battler)
+{
+    gBattleControllerExecFlags |= ((1u << battler) << (32 - MAX_BATTLERS_COUNT));
+}
+
+static inline void MarkBattleControllerMessageSynchronizedOverLink(enum BattlerId battler)
+{
+    gBattleControllerExecFlags &= ~((1 << 28) << (battler));
+}
+
+static inline bool32 IsBattleControllerMessageSynchronizedOverLink(enum BattlerId battler)
+{
+    return gBattleControllerExecFlags & (1u << (battler + 28));
+}
+
+static inline void MarkBattleControllerActiveForPlayer(enum BattlerId battler, u32 playerId)
+{
+    gBattleControllerExecFlags |= ((1u << battler) << ((playerId) << 2));
+}
+
+static inline void MarkBattleControllerIdleForPlayer(enum BattlerId battler, u32 playerId)
+{
+    gBattleControllerExecFlags &= ~((1u << battler) << ((playerId) * 4));
+}
+
+static inline bool32 IsBattleControllerActiveForPlayer(enum BattlerId battler, u32 playerId)
+{
+    return gBattleControllerExecFlags & ((1u << battler) << ((playerId) * 4));
+}
+
+// This actually checks if a specific controller is active on any player or if
+// *any* controller is pending sync over link communications, but the macro name
+// can only be so specific before it just gets ridiculous.
+static inline bool32 IsBattleControllerActiveOrPendingSyncAnywhere(enum BattlerId battler)
+{
+   return gBattleControllerExecFlags & (
+                  (1u << battler)
+                | (0xF << 28)
+                | (1u << battler << 4)
+                | (1u << battler << 8)
+                | (1u << battler << 12));
+}
 
 // Special arguments for Battle Controller functions.
 
@@ -117,7 +199,6 @@ enum {
 
 // Special return values in gBattleResources->bufferB from Battle Controller functions.
 #define RET_VALUE_LEVELED_UP   11
-#define RET_MEGA_EVOLUTION (1 << 7)
 #define RET_GIMMICK       (1 << 7)  //believe same as above
 
 struct BattleBoxMessageDisplay
@@ -217,6 +298,11 @@ enum
 };
 
 extern struct BattleBoxMessageDisplay gUnusedControllerStruct; //absolutely NOT unused, without this text doesn't display in battle boxes
+//new funcs
+extern void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(enum BattlerId battler);
+extern void (*gBattlerControllerEndFuncs[MAX_BATTLERS_COUNT])(enum BattlerId battler);
+extern u8 gBattleControllerData[MAX_BATTLERS_COUNT];
+extern u8 gBattlerBattleController[MAX_BATTLERS_COUNT];
 
 // general functions
 //void HandleLinkBattleSetup(void);
@@ -292,6 +378,7 @@ void SetBattleEndCallbacks(enum BattlerId battler);
 void MoveSelectionCreateCursorAt(u8 cursorPos, u8 baseTileNum);
 void MoveSelectionDestroyCursorAt(u8 cursorPos);
 void HandleInputChooseMove(enum BattlerId battler);
+bool32 BattlerHasAi(enum BattlerId battlerId);
 
 // opponent controller
 void SetControllerToOpponent(enum BattlerId battler);
