@@ -293,9 +293,7 @@ const union AnimCmd *const gSpriteAnimTable_82349BC[] =
 
 
 #include "data/trainer_parties.h"
-#include "data/text/trainer_class_names.h"
 #include "data/trainers.h"
 //#include "data/text/species_names.h"
 #include "data/abilities.h"  //so stupid this was the problem AGAIN
-#include "data/text/move_info.h"    //may change to data //consolidation of move data is names & descriptions
 
