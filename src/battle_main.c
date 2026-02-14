@@ -400,7 +400,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_PSYCHIC] =    {______,    ______,   X(1.55),   ______,   X(1.55),  ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   X(0.0),   ______,    ______,   ______}, // psychic
 
-    [TYPE_ICE] =        {______,    ______,   ______,   X(1.55),   ______,   X(1.55),  ______,   X(1.55),   X(0.5),  X(0.5),  ______,    X(0.5),  ______,   X(1.55),   ______,   ______,   X(0.5),   X(1.55),   ______,   ______,    ______,   ______}, // ice
+    [TYPE_ICE] =        {______,    ______,   ______,   X(1.55),   ______,   X(1.55),  ______,   ______,   X(0.5),  X(0.5),  ______,    X(0.5),  ______,   X(1.55),   ______,   ______,   X(0.5),   X(1.55),   ______,   ______,    ______,   ______}, // ice
 
     [TYPE_DRAGON] =     {______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,    X(0.0),   ______,   ______}, // dragon
 
@@ -419,6 +419,13 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 //same offensive properties better defensive properties
 //wind type lose rock and flying weakness
 //is ironically counter type to electric only has 1 weakness
+
+//while makes sense considering make bug neutral to ice again
+//is apparently one of the few good things it already had
+//over grass
+//guess so ice is already so strong offensively and its nto weak defensively now either
+//I think this is just a change for balance I need to make on the same pail as
+//the dark ghost steel type changes
 
 //reverted ghost dark resist - to buff back dark but mainly cuz ghost/steel was nearly unassailable
 //oh wait I forgot the electric and psychic coverage for steel. hmmm
