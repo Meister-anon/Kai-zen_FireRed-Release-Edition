@@ -106,7 +106,7 @@ enum BattleSide
 #define BATTLE_TYPE_BATTLE_TOWER     (1 << 8) //last value for u8 size, so if want use this for trainer set in trainers, would need all relevant battle types below this...
 #define BATTLE_TYPE_CATCH_TUTORIAL   (1 << 9) //checked and can move all others, without issue, trainer battle type is only one that uses u8 value all else is u32
 #define BATTLE_TYPE_ROAMER           (1 << 10)
-#define BATTLE_TYPE_EREADER_TRAINER  (1 << 11)	//remove this, so I can replace it.
+#define BATTLE_TYPE_PALACE  (1 << 11)	//remove this, so I can replace it. //fill for now just to compile
 #define BATTLE_TYPE_KYOGRE_GROUDON   (1 << 12) //Idk WHy have this already split off into individual flag for each
 #define BATTLE_TYPE_LEGENDARY        (1 << 13) //with planned legendary fight change can't resuse value, hmm actually I can as it works by combining flgas, i.e  //BATTLE_TYPE_GHOST | BATTLE_TYPE_GHOST_UNVEILED  essentially what I plan do w master so its fine
 #define BATTLE_TYPE_GHOST_UNVEILED   (1 << 13) // Re-use of BATTLE_TYPE_LEGENDARY, when combined with BATTLE_TYPE_GHOST
