@@ -39,12 +39,6 @@
 #define GET_BATTLER_SIDE(battler)((GetBattlerPosition(battler) & BIT_SIDE))
 #define GET_BATTLER_SIDE2(battler)((GET_BATTLER_POSITION(battler) & BIT_SIDE))
 
-#define TRAINER_OPPONENT_3FE        0x3FE
-#define TRAINER_OPPONENT_C00        0xC00
-#define TRAINER_LINK_OPPONENT       0x800
-#define SECRET_BASE_OPPONENT        0x400 //need remove secret base stuff and help meun again, remove this after
-
-
 // Helper for accessing command arguments and advancing gBattlescriptCurrInstr.
 //
 // For example accuracycheck is defined as:

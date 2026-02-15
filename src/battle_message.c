@@ -1412,7 +1412,7 @@ void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
                 }
                 else
                 {
-                    if (gTrainerBattleOpponent_A == TRAINER_OPPONENT_C00)
+                    if (gTrainerBattleOpponent_A == TRAINER_UNION_ROOM)
                         stringPtr = sText_Trainer1WantsToBattle;
                     else
                         stringPtr = sText_LinkTrainerWantsToBattle;
@@ -1472,7 +1472,7 @@ void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
             {
                 if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
                     stringPtr = sText_Trainer1SentOutPkmn;
-                else if (gTrainerBattleOpponent_A == TRAINER_OPPONENT_C00)
+                else if (gTrainerBattleOpponent_A == TRAINER_UNION_ROOM)
                     stringPtr = sText_Trainer1SentOutPkmn;
                 else
                     stringPtr = sText_LinkTrainerSentOutPkmn;
@@ -1524,7 +1524,7 @@ void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
             {
                 if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
                     stringPtr = sText_LinkTrainerMultiSentOutPkmn;
-                else if (gTrainerBattleOpponent_A == TRAINER_OPPONENT_C00)
+                else if (gTrainerBattleOpponent_A == TRAINER_UNION_ROOM)
                     stringPtr = sText_Trainer1SentOutPkmn2;
                 else
                     stringPtr = sText_LinkTrainerSentOutPkmn2;
@@ -1557,7 +1557,7 @@ void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
                 stringPtr = sText_GotAwaySafely;
             else if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
                 stringPtr = sText_TwoWildFled;
-            else if (gTrainerBattleOpponent_A == TRAINER_OPPONENT_C00)
+            else if (gTrainerBattleOpponent_A == TRAINER_UNION_ROOM)
                 stringPtr = gUnknown_83FE9D4;
             else
                 stringPtr = sText_WildFled;
@@ -1582,7 +1582,7 @@ void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
                     break;
                 }
             }
-            else if (gTrainerBattleOpponent_A == TRAINER_OPPONENT_C00)
+            else if (gTrainerBattleOpponent_A == TRAINER_UNION_ROOM)
             {
                 switch (gBattleTextBuff1[0])
                 {
@@ -2091,9 +2091,9 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize) //logic 
                 toCpy = text;
                 break;
             case B_TRAINER1_CLASS: //B_TRAINER1_CLASS   trainer class name
-                /*if (gTrainerBattleOpponent_A == SECRET_BASE_OPPONENT)
+                /*if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE)
                     toCpy = gTrainerClassNames[GetSecretBaseTrainerNameIndex()];
-                else */if (gTrainerBattleOpponent_A == TRAINER_OPPONENT_C00)
+                else */if (gTrainerBattleOpponent_A == TRAINER_UNION_ROOM)
                     toCpy = gTrainerClassNames[GetUnionRoomTrainerClass()];
                 else if (gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER)
                     toCpy = gTrainerClassNames[GetBattleTowerTrainerClassNameId()];
@@ -2105,14 +2105,14 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize) //logic 
                     toCpy = gTrainerClassNames[gTrainers[gTrainerBattleOpponent_A].trainerClass];
                 break;
             case B_TRAINER1_NAME: //B_TRAINER1_NAME  trainer1 name
-                /*if (gTrainerBattleOpponent_A == SECRET_BASE_OPPONENT)
+                /*if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE)
                 {
                     for (i = 0; i < (s32)NELEMS(gBattleResources->secretBase->trainerName); i++)
                         text[i] = gBattleResources->secretBase->trainerName[i];
                     text[i] = EOS;
                     toCpy = text;
                 }*/
-                if (gTrainerBattleOpponent_A == TRAINER_OPPONENT_C00)
+                if (gTrainerBattleOpponent_A == TRAINER_UNION_ROOM)
                 {
                     toCpy = gLinkPlayers[multiplayerId ^ BIT_SIDE].name;
                 }
