@@ -294,6 +294,12 @@ static inline u32 uq4_12_multiply_by_int_half_up(uq4_12_t modifier, u32 value)
 //ex. MOD(Random(), MAX_MON_MOVES)  but this appears longer not shorter?
 #define MOD(a, n) ((a) % (n))
 
+// Increments 'a' by 1, wrapping back to 0 when it reaches 'n'. If 'n' is a power of two,
+// the wrap is implemented using a bit mask: (a + 1) & (n - 1), which is slightly faster.
+// This is intended to be used when 'n' is known at compile time.
+#define INCREMENT_OR_WRAP(a, n) ((IS_POW_OF_TWO(n)) ? (((a) + 1) & ((n) - 1)) : (((a) + 1) >= (n) ? 0 : ((a) + 1)))
+
+
 // There are many quirks in the source code which have overarching behavioral differences from
 // a number of other files. For example, diploma.c seems to declare rodata before each use while
 // other files declare out of order and must be at the beginning. There are also a number of
@@ -398,8 +404,7 @@ extern u8 gUnknownStringVar[]; //new buffer seems fine? haven't printed yet but 
 // It looks like file.c:line: size of array `id' is negative
 #define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
 
-//add thought need or rtc, bust doesn't xist in FR
-/*#ifndef NDEBUG
+// NOTE: This uses hardware timers 2 and 3; this will not work during active link connections or with the eReader
 static inline void CycleCountStart()
 {
     REG_TM2CNT_H = 0;
@@ -422,8 +427,6 @@ static inline u32 CycleCountEnd()
     // return result
     return REG_TM2CNT_L | (REG_TM3CNT_L << 16u);
 }
-#endif
-*/
 
 struct Coords8
 {
