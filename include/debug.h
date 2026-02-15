@@ -2,6 +2,8 @@
 #define GUARD_DEBUG_H
 
 void Debug_ShowMainMenu(void);
+const u8 *GetWeatherName(u32 weatherId);
+const struct Trainer* GetDebugAiTrainer(void);
 
 void Debug_CallLvlCapMenu(void); //copy for lvl cap seutp
 

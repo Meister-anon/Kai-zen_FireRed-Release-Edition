@@ -1262,3 +1262,40 @@ void sub_807B0C4(u16 *palbuf, u16 *unused, u32 size)
         break;
     }
 }
+
+//still need setup acid rain stuff
+//plus acid rain thunderstorm variant
+//unsure if want acid thundestorm its own thing
+//or a toggle within rain thunderstorm
+//prob good to have the constant
+//even if I toggle it within rain thunderstorm 
+//being set
+static const u8 sWeatherNames[NUM_OVERWORLD_WEATHER][24] = {
+    [OVERWORLD_WEATHER_NONE]               = _("NONE"),
+    [OVERWORLD_WEATHER_SUNNY_CLOUDS]       = _("SUNNY CLOUDS"),
+    [OVERWORLD_WEATHER_SUNNY]              = _("SUNNY"),
+    [OVERWORLD_WEATHER_RAIN]     = _("RAIN"),
+    [OVERWORLD_WEATHER_SNOW]     = _("SNOW"),
+    [OVERWORLD_WEATHER_RAIN_THUNDERSTORM]  = _("RAIN THUNDERSTORM"),
+    [OVERWORLD_WEATHER_FOG_HORIZONTAL]     = _("FOG HORIZONTAL"),
+    [OVERWORLD_WEATHER_VOLCANIC_ASH]       = _("VOLCANIC ASH"),
+    [OVERWORLD_WEATHER_SANDSTORM]          = _("SANDSTORM"),
+    [OVERWORLD_WEATHER_FOG_DIAGONAL]       = _("FOG DIAGONAL"),
+    [OVERWORLD_WEATHER_UNDERWATER]         = _("UNDERWATER"),
+    [OVERWORLD_WEATHER_SHADE]              = _("SHADE"),
+    [OVERWORLD_WEATHER_DROUGHT]            = _("DROUGHT"),
+    [OVERWORLD_WEATHER_DOWNPOUR]           = _("DOWNPOUR"),
+    [OVERWORLD_WEATHER_UNDERWATER_BUBBLES] = _("UNDERWATER BUBBLES"),
+    //[WEATHER_ABNORMAL]           = _("ABNORMAL(NOT WORKING)"),
+    [OVERWORLD_WEATHER_ROUTE119_CYCLE]     = _("ROUTE119 CYCLE"),
+    [OVERWORLD_WEATHER_ROUTE123_CYCLE]     = _("ROUTE123 CYCLE"),
+    [OVERWORLD_WEATHER_ACID_RAIN] = _("ACID RAIN"),
+};
+static const u8 sDebugText_WeatherNotDefined[] = _("NOT DEFINED!!!");
+
+const u8 *GetWeatherName(u32 weatherId)
+{
+    if (sWeatherNames[weatherId][0] != 0)
+        return sWeatherNames[weatherId];
+    return sDebugText_WeatherNotDefined;
+}

@@ -1744,35 +1744,23 @@ static u16 Debug_GetAbilityBySpecies(u16 species, u8 abilityNum)
         return gLastUsedAbility;
 }
 
-//still need setup acid rain stuff
-//plus acid rain thunderstorm variant
-//unsure if want acid thundestorm its own thing
-//or a toggle within rain thunderstorm
-//prob good to have the constant
-//even if I toggle it within rain thunderstorm 
-//being set
-static const u8 sWeatherNames[NUM_OVERWORLD_WEATHER][24] = {
-    [OVERWORLD_WEATHER_NONE]               = _("NONE"),
-    [OVERWORLD_WEATHER_SUNNY_CLOUDS]       = _("SUNNY CLOUDS"),
-    [OVERWORLD_WEATHER_SUNNY]              = _("SUNNY"),
-    [OVERWORLD_WEATHER_RAIN]     = _("RAIN"),
-    [OVERWORLD_WEATHER_SNOW]     = _("SNOW"),
-    [OVERWORLD_WEATHER_RAIN_THUNDERSTORM]  = _("RAIN THUNDERSTORM"),
-    [OVERWORLD_WEATHER_FOG_HORIZONTAL]     = _("FOG HORIZONTAL"),
-    [OVERWORLD_WEATHER_VOLCANIC_ASH]       = _("VOLCANIC ASH"),
-    [OVERWORLD_WEATHER_SANDSTORM]          = _("SANDSTORM"),
-    [OVERWORLD_WEATHER_FOG_DIAGONAL]       = _("FOG DIAGONAL"),
-    [OVERWORLD_WEATHER_UNDERWATER]         = _("UNDERWATER"),
-    [OVERWORLD_WEATHER_SHADE]              = _("SHADE"),
-    [OVERWORLD_WEATHER_DROUGHT]            = _("DROUGHT"),
-    [OVERWORLD_WEATHER_DOWNPOUR]           = _("DOWNPOUR"),
-    [OVERWORLD_WEATHER_UNDERWATER_BUBBLES] = _("UNDERWATER BUBBLES"),
-    //[WEATHER_ABNORMAL]           = _("ABNORMAL(NOT WORKING)"),
-    [OVERWORLD_WEATHER_ROUTE119_CYCLE]     = _("ROUTE119 CYCLE"),
-    [OVERWORLD_WEATHER_ROUTE123_CYCLE]     = _("ROUTE123 CYCLE"),
-    [OVERWORLD_WEATHER_ACID_RAIN] = _("ACID RAIN"),
+enum DebugTrainerIds
+{
+    DEBUG_TRAINER_PLAYER,
+    DEBUG_TRAINER_AI,
+    DEBUG_TRAINERS_COUNT
 };
-static const u8 sDebugText_WeatherNotDefined[] = _("NOT DEFINED!!!");
+
+const struct Trainer sDebugTrainers[DEBUG_TRAINERS_COUNT] =
+{
+//#include "data/debug_trainers.h"
+};
+
+const struct Trainer* GetDebugAiTrainer(void)
+{
+    return &sDebugTrainers[DEBUG_TRAINER_AI];
+}
+
 static void DebugAction_Util_Weather(u8 taskId)
 {
     u8 windowId;
@@ -1790,7 +1778,7 @@ static void DebugAction_Util_Weather(u8 taskId)
     //Display initial ID
     StringCopy(gStringVar2, gText_DigitIndicator[0]);
     ConvertIntToDecimalStringN(gStringVar3, 1, STR_CONV_MODE_LEADING_ZEROS, 2);
-    StringCopyPadded(gStringVar1, sWeatherNames[0], CHAR_SPACE, 30);
+    StringCopyPadded(gStringVar1, GetWeatherName(0), CHAR_SPACE, 30);
     StringExpandPlaceholders(gStringVar4, sDebugText_Util_Weather_ID);
     AddTextPrinterParameterized(windowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
 
@@ -1832,10 +1820,7 @@ static void DebugAction_Util_Weather_SelectId(u8 taskId)
         StringCopy(gStringVar2, gText_DigitIndicator[gTasks[taskId].tDigit]);
         ConvertIntToDecimalStringN(gStringVar3, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, 2);
 
-        if (gTasks[taskId].tInput <= 15 || gTasks[taskId].tInput >= 20)
-            StringCopyPadded(gStringVar1, sWeatherNames[gTasks[taskId].tInput], CHAR_SPACE, 30);
-        else
-            StringCopyPadded(gStringVar1, sDebugText_WeatherNotDefined, CHAR_SPACE, 30);
+        StringCopyPadded(gStringVar1, GetWeatherName(gTasks[taskId].tInput), CHAR_SPACE, 30);
 
         StringExpandPlaceholders(gStringVar4, sDebugText_Util_Weather_ID);
         AddTextPrinterParameterized(gTasks[taskId].tSubWindowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
