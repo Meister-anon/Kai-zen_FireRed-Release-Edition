@@ -66,7 +66,7 @@ SINGLE_BATTLE_TEST("Overcoat blocks Effect Spore's effect (Gen6+)")
     PARAMETRIZE { config = GEN_5; }
     PARAMETRIZE { config = GEN_6; }
     GIVEN {
-        WITH_CONFIG(CONFIG_POWDER_OVERCOAT, config);
+        WITH_CONFIG(POWDER_OVERCOAT, config);
         PLAYER(SPECIES_PINECO) {Ability(ABILITY_OVERCOAT);}
         OPPONENT(SPECIES_SHROOMISH) {Ability(ABILITY_EFFECT_SPORE);}
     } WHEN {

@@ -27,6 +27,7 @@
 #include "move.h"
 #include "random.h" // for rng_value_t
 #include "window.h" //need this for build modern to work for battle window ui
+#include "generational_changes.h"
 
 /*
     Banks are a name given to what could be called a 'battlerId' or 'monControllerId'.

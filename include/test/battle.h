@@ -492,6 +492,7 @@
 #include "random.h"
 #include "recorded_battle.h"
 #include "util.h"
+#include "generational_changes.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
 #include "constants/battle_anim.h"
