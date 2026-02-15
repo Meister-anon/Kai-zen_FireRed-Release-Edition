@@ -285,6 +285,7 @@ static void UpdateLinkAndCallCallbacks(void)
 static void InitMainCallbacks(void)
 {
     gMain.vblankCounter1 = 0;
+    gMain.trainerTowervblankCounter = 0;
     gMain.vblankCounter2 = 0;
     gMain.callback1 = NULL;
     SetMainCallback2(c2_copyright_1);
@@ -460,8 +461,10 @@ static void VBlankIntr(void)
     else if (!gLinkVSyncDisabled)
         LinkVSync();
 
-    if (gMain.vblankCounter1)
-        (*gMain.vblankCounter1)++;
+    gMain.vblankCounter1++;
+
+    if (gMain.trainerTowervblankCounter)
+        (*gMain.trainerTowervblankCounter)++;
 
     if (gMain.vblankCallback)
         gMain.vblankCallback();
@@ -534,14 +537,14 @@ static void WaitForVBlank(void)
         ;
 }
 
-void SetVBlankCounter1Ptr(u32 *ptr)
+void SettrainerTowerVBlankCounterPtr(u32 *ptr)
 {
-    gMain.vblankCounter1 = ptr;
+    gMain.trainerTowervblankCounter = ptr;
 }
 
-void DisableVBlankCounter1(void)
+void DisabletrainerTowerVBlankCounter(void)
 {
-    gMain.vblankCounter1 = NULL;
+    gMain.trainerTowervblankCounter = NULL;
 }
 
 void DoSoftReset(void)

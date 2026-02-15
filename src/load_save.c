@@ -89,7 +89,7 @@ void MoveSaveBlocks_ResetHeap(void)
     hblankCB = gMain.hblankCallback;
     gMain.vblankCallback = NULL;
     gMain.hblankCallback = NULL;
-    gMain.vblankCounter1 = NULL;
+    gMain.trainerTowervblankCounter = NULL;
     
     saveBlock2Copy = (struct SaveBlock2 *)(gHeap);
     saveBlock1Copy = (struct SaveBlock1 *)(gHeap + sizeof(struct SaveBlock2));

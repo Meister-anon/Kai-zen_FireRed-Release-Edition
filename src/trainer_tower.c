@@ -482,7 +482,7 @@ void InitTrainerTowerBattleStruct(void)
     sTrainerTowerOpponent->battleType = CURR_FLOOR.challengeType;
     sTrainerTowerOpponent->facilityClass = CURR_FLOOR.trainers[trainerId].facilityClass;
     sTrainerTowerOpponent->gender = CURR_FLOOR.trainers[trainerId].gender;
-    SetVBlankCounter1Ptr(&TRAINER_TOWER.timer);
+    SettrainerTowerVBlankCounterPtr(&TRAINER_TOWER.timer);
     FreeTrainerTowerDataStruct();
 }
 
@@ -786,7 +786,7 @@ static void StartTrainerTowerChallenge(void)
     else
         TRAINER_TOWER.validated = FALSE;
     TRAINER_TOWER.floorsCleared = 0;
-    SetVBlankCounter1Ptr(&TRAINER_TOWER.timer);
+    SettrainerTowerVBlankCounterPtr(&TRAINER_TOWER.timer);
     TRAINER_TOWER.timer = 0;
     TRAINER_TOWER.spokeToOwner = FALSE;
     TRAINER_TOWER.checkedFinalTime = FALSE;
@@ -794,7 +794,7 @@ static void StartTrainerTowerChallenge(void)
 
 static void GetOwnerState(void)
 {
-    DisableVBlankCounter1();
+    DisabletrainerTowerVBlankCounter();
     gSpecialVar_Result = 0;
 
     if (TRAINER_TOWER.spokeToOwner)
@@ -851,7 +851,7 @@ static void TrainerTowerResumeTimer(void)
         if (TRAINER_TOWER.timer >= TRAINER_TOWER_MAX_TIME)
             TRAINER_TOWER.timer = TRAINER_TOWER_MAX_TIME;
         else
-            SetVBlankCounter1Ptr(&TRAINER_TOWER.timer);
+            SettrainerTowerVBlankCounterPtr(&TRAINER_TOWER.timer);
     }
 }
 
@@ -898,7 +898,7 @@ static void GetCurrentTime(void)
 {
     if (TRAINER_TOWER.timer >= TRAINER_TOWER_MAX_TIME)
     {
-        DisableVBlankCounter1();
+        DisabletrainerTowerVBlankCounter();
         TRAINER_TOWER.timer = TRAINER_TOWER_MAX_TIME;
     }
 

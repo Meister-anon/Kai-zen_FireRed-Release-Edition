@@ -23,8 +23,9 @@ struct Main
 
     /*0x01C*/ vu16 intrCheck;
 
-    /*0x020*/ u32 *vblankCounter1;
-    /*0x024*/ u32 vblankCounter2;
+    /*0x020*/ u32 *trainerTowervblankCounter; //not pointer in EE, also not referenced in save files oh because its a standin for gTrainerHillVBlankCounter which isn't in FR?
+              u32 vblankCounter1; //added but for the most part counter2 does what counter1 does in EE unsure how to use . oh ho vblank2 is still vblank2 inEE used in daycare link stuff etc
+    /*0x024*/ u32 vblankCounter2; //not fully sure but think vblankCounter1 ptr may not have been used?
 
     /*0x028*/ u16 heldKeysRaw;           // held keys without L=A remapping
     /*0x02A*/ u16 newKeysRaw;            // newly pressed keys without L=A remapping
@@ -64,8 +65,8 @@ void InitFlashTimer(void);
 void DoSoftReset(void);
 void ClearPokemonCrySongs(void);
 void RestoreSerialTimer3IntrHandlers(void);
-void SetVBlankCounter1Ptr(u32 *ptr);
-void DisableVBlankCounter1(void);
+void SettrainerTowerVBlankCounterPtr(u32 *ptr);
+void DisabletrainerTowerVBlankCounter(void);
 void StartTimer1(void);
 void SeedRngAndSetTrainerId(void);
 u16 GetGeneratedTrainerIdLower(void);
