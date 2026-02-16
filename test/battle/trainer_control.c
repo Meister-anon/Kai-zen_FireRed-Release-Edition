@@ -145,7 +145,7 @@ static const struct TrainerMon sTestParty2[] =
 static const struct Trainer sTestTrainer2 =
 {
     .trainerName = _("Test2"),
-    .trainerClass = TRAINER_CLASS_BLACK_BELT,
+    .trainerClass = CLASS_BLACK_BELT,
     .party = TRAINER_PARTY(sTestParty2),
 };
 

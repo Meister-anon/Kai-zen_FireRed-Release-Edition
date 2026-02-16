@@ -129,6 +129,7 @@ enum BattleSide
 
 #define BATTLE_TYPE_SECRET_BASE     (1 << 30) //these two just for defines
 #define BATTLE_TYPE_FRONTIER        (1 << 31)
+#define BATTLE_TYPE_ARENA   (BATTLE_TYPE_SECRET_BASE | BATTLE_TYPE_FRONTIER) //bs to find a way to get passed compiler crap
 
 #define IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(flags) ((flags) & BATTLE_TYPE_GHOST && !((flags) & BATTLE_TYPE_GHOST_UNVEILED))
 #define IS_BATTLE_TYPE_GHOST_WITH_SCOPE(flags) ((flags) & BATTLE_TYPE_GHOST && (flags) & BATTLE_TYPE_GHOST_UNVEILED)

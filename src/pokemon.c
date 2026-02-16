@@ -2463,7 +2463,7 @@ static const s8 sNatureStatTable[][5] =
 
 #include "data/pokemon/tmhm_learnsets.h"
 //#include "data/pokemon/tmhm_learnset_pointers.h" //removed as part of consolidation to base stats
-#include "data/pokemon/trainer_class_lookups.h"
+#include "data/pokemon/trainer_class_lookups.h" //is its own thing relating to trainer pic etc.
 //#include "data/pokemon/cry_ids.h"
 #include "data/pokemon/experience_tables.h"
 //#include "data/pokemon/base_stats.h"

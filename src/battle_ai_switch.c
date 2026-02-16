@@ -1193,7 +1193,7 @@ static bool32 ShouldSwitchIfAttackingStatsLowered(enum BattlerId battler)
 bool32 ShouldSwitchDynFuncExample(enum BattlerId battler)
 {
     // Chance to switch if trainer class is Guitarist, perhaps thematic for Jugglers
-    if (GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_GUITARIST
+    if (GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == CLASS_GUITARIST
         && RandomPercentage(RNG_AI_SWITCH_DYN_FUNC, GetSwitchChance(SHOULD_SWITCH_DYN_FUNC)))
     {
         return SetSwitchinAndSwitch(battler, PARTY_SIZE);
