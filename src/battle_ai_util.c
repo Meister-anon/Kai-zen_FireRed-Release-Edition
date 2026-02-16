@@ -2179,7 +2179,7 @@ bool32 ShouldRaiseAnyStat(enum BattlerId battlerAtk, enum BattlerId battlerDef)
         return FALSE;
 
     // Don't increase stats if Yawn'd
-    if (gBattleMons[battlerAtk].volatiles.yawn && CanBeSlept(battlerDef, battlerDef, gAiLogicData->abilities[battlerDef], BLOCKED_BY_SLEEP_CLAUSE))
+    if (gBattleMons[battlerAtk].volatiles.yawn && CanBeSlept(battlerDef, battlerDef, gAiLogicData->abilities[battlerAtk], gAiLogicData->abilities[battlerDef], BLOCKED_BY_SLEEP_CLAUSE))
         return FALSE;
 
     // Don't set up if AI is dead to residual damage from weather
@@ -3513,7 +3513,7 @@ bool32 IsBattlerIncapacitated(enum BattlerId battler, enum Ability ability)
 
 bool32 AI_CanPutToSleep(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability defAbility, u32 move, u32 partnerMove)
 {
-    if (!CanBeSlept(battlerAtk, battlerDef, defAbility, BLOCKED_BY_SLEEP_CLAUSE)
+    if (!CanBeSlept(battlerAtk, battlerDef, gAiLogicData->abilities[battlerAtk], defAbility, BLOCKED_BY_SLEEP_CLAUSE)
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || PartnerMoveEffectIsStatusSameTarget(BATTLE_PARTNER(battlerAtk), battlerDef, partnerMove))   // shouldn't try to sleep mon that partner is trying to make sleep
         return FALSE;
