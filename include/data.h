@@ -74,8 +74,6 @@ extern const u16 gUnknown_8252324[];
 extern const u16 gUnknown_82539D4[];
 
 
-extern const u8 gTrainerClassNames[][13];
-
 //extern const struct MonCoords gMonFrontPicCoords[];
 //extern const struct CompressedSpriteSheet gMonFrontPicTable[];
 //extern const struct MonCoords gMonBackPicCoords[];
@@ -255,6 +253,32 @@ static inline const enum TrainerClassID GetTrainerClassFromId(u16 trainerId)
     const struct Trainer *trainer = GetTrainerStructFromId(trainerId);
 
     return trainer->trainerClass;
+}
+
+//only used for determining friendship gain
+//for league specific battles
+//and since I'm only in kanto
+//even if a leaer from another region was there
+//it wouldn't count towards current league and so should be excluded
+//from this list
+static inline bool32 IsTrainerClassLeagueSignificant(u16 trainerId)
+{
+    enum TrainerClassID Class = GetTrainerClassFromId(trainerId);
+
+    switch (Class)
+    {
+        case CLASS_GYM_LEADER_FRLG:
+        case CLASS_ELITE_FOUR_FRLG:
+        case CLASS_CHAMPION_FRLG:
+        /*case CLASS_GYM_LEADER:
+        case CLASS_ELITE_FOUR:
+        case CLASS_CHAMPION:*/
+            return TRUE;
+        break;
+        default:
+            return FALSE;
+        break;
+    }
 }
 
 //think not bother with gtrainerClasses

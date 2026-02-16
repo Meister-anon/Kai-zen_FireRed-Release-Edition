@@ -10796,11 +10796,6 @@ u16 ModifyStatByNature(u8 nature, u16 stat, u8 statIndex)
     return retVal;
 }
 
-// TODO: Move these to constants/trainers.h
-#define TRAINER_CLASS_ELITE_FOUR     0x54
-#define TRAINER_CLASS_LEADER         0x57
-#define TRAINER_CLASS_CHAMPION       0x5A
-
 #define FRIENDSHIP_FUNCTION
 void AdjustFriendship(struct Pokemon *mon, u8 event)
 {
@@ -10841,9 +10836,7 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
             // Only if it's a trainer battle with league progression significance
             if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
                 return;
-            if (!(gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_LEADER
-                || gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_ELITE_FOUR
-                || gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_CHAMPION))
+            if (!IsTrainerClassLeagueSignificant(gTrainerBattleOpponent_A))
                 return;
         }
 
@@ -10914,9 +10907,7 @@ void AdjustBoxMonFriendship(struct BoxPokemon *mon, u8 event)
             // Only if it's a trainer battle with league progression significance
             if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
                 return;
-            if (!(gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_LEADER
-                || gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_ELITE_FOUR
-                || gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_CHAMPION))
+            if (!IsTrainerClassLeagueSignificant(gTrainerBattleOpponent_A))
                 return;
         }
 

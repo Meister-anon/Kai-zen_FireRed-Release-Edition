@@ -995,7 +995,6 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
 
 // This is a factor in how much money you get for beating a trainer.
 // [TRAINER_CLASS_XYZ] = { _("name"), <money=5>, <ball=BALL_POKE> }
-
 const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT] =
 {
     [CLASS_GYM_LEADER_FRLG] = { _("LEADER"), 25 },
