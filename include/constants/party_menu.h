@@ -1,6 +1,7 @@
 #ifndef GUARD_CONSTANTS_PARTY_MENU_H
 #define GUARD_CONSTANTS_PARTY_MENU_H
 
+#define PC_MON_CHOSEN 0xFE
 //NEEDED to include in event_scripts.s
 //for constant to be recognized
 #define PARTY_NOTHING_CHOSEN 0xFF
