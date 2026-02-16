@@ -1734,6 +1734,12 @@ static inline void SetHealAmount(enum BattlerId battler, u32 value)
         gBattleStruct->passiveHpUpdate[battler] *= -1;
 }
 
+static inline void ClearPartyStateStatusTimers(enum BattlerId battler)
+{
+    GetBattlerPartyState(battler)->ToxicTurnCounter = 0;
+    GetBattlerPartyState(battler)->SleepTimer = 0;
+}
+
 static inline bool32 IsBattlerAtMaxHp(enum BattlerId battler)
 {
     return gBattleMons[battler].hp == gBattleMons[battler].maxHP;
