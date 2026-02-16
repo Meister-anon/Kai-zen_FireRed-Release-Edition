@@ -1699,16 +1699,16 @@ static u16 Debug_GetAbilityBySpecies(u16 species, u8 abilityNum)
     switch (abilityNum)
     {
     case 0:
-        gLastUsedAbility = gBaseStats[species].abilities[ABILITY_SLOT_1];
+        gLastUsedAbility = gSpeciesInfo[species].abilities[ABILITY_SLOT_1];
         break;
     case 1:
-        gLastUsedAbility = gBaseStats[species].abilities[ABILITY_SLOT_2];
+        gLastUsedAbility = gSpeciesInfo[species].abilities[ABILITY_SLOT_2];
         break;
     case 2:
-        gLastUsedAbility = gBaseStats[species].abilityHidden[HIDDEN_ABILITY_SLOT_1];
+        gLastUsedAbility = gSpeciesInfo[species].abilityHidden[HIDDEN_ABILITY_SLOT_1];
         break;
     case 3:
-        gLastUsedAbility = gBaseStats[species].abilityHidden[HIDDEN_ABILITY_SLOT_2];
+        gLastUsedAbility = gSpeciesInfo[species].abilityHidden[HIDDEN_ABILITY_SLOT_2];
         break;
     }
 
@@ -1716,7 +1716,7 @@ static u16 Debug_GetAbilityBySpecies(u16 species, u8 abilityNum)
     {
         for (i = 0; i < NUM_NORMAL_ABILITY_SLOTS && gLastUsedAbility == ABILITY_NONE; i++)
         {
-            gLastUsedAbility = gBaseStats[species].abilities[i];
+            gLastUsedAbility = gSpeciesInfo[species].abilities[i];
         }
     }
 
@@ -1724,7 +1724,7 @@ static u16 Debug_GetAbilityBySpecies(u16 species, u8 abilityNum)
     {
         for (i = 0; i < NUM_HIDDEN_ABILITY_SLOTS && gLastUsedAbility == ABILITY_NONE; i++)
         {
-            gLastUsedAbility = gBaseStats[species].abilityHidden[i];
+            gLastUsedAbility = gSpeciesInfo[species].abilityHidden[i];
         }
     }
 
@@ -1732,7 +1732,7 @@ static u16 Debug_GetAbilityBySpecies(u16 species, u8 abilityNum)
     {
         for (i = 0; i < NUM_NORMAL_ABILITY_SLOTS && gLastUsedAbility == ABILITY_NONE; i++)
         {
-            gLastUsedAbility = gBaseStats[species].abilities[i];
+            gLastUsedAbility = gSpeciesInfo[species].abilities[i];
         }
     }
 

@@ -29,8 +29,8 @@ TEST("Terastallization type defaults to primary or secondary type")
     for (i = 0; i < 128; i++) PARAMETRIZE {}
     CreateMon(&mon, SPECIES_PIDGEY, 100, 0, FALSE, 0, OT_ID_PRESET, 0);
     teraType = GetMonData(&mon, MON_DATA_TERA_TYPE);
-    EXPECT(teraType == gSpeciesInfo[SPECIES_PIDGEY].types[0]
-        || teraType == gSpeciesInfo[SPECIES_PIDGEY].types[1]);
+    EXPECT(teraType == gSpeciesInfo[SPECIES_PIDGEY].type1
+        || teraType == gSpeciesInfo[SPECIES_PIDGEY].type2);
 }
 
 TEST("Terastallization type can be set to any type except TYPE_NONE")
@@ -59,8 +59,8 @@ TEST("Terastallization type is reset to the default types when setting Tera Type
     EXPECT_EQ(teraType, GetMonData(&mon, MON_DATA_TERA_TYPE));
     SetMonData(&mon, MON_DATA_TERA_TYPE, &typeNone);
     typeNone = GetMonData(&mon, MON_DATA_TERA_TYPE);
-    EXPECT(typeNone == gSpeciesInfo[SPECIES_PIDGEY].types[0]
-        || typeNone == gSpeciesInfo[SPECIES_PIDGEY].types[1]);
+    EXPECT(typeNone == gSpeciesInfo[SPECIES_PIDGEY].type1
+        || typeNone == gSpeciesInfo[SPECIES_PIDGEY].type2);
 }
 
 TEST("Shininess independent from PID and OTID")

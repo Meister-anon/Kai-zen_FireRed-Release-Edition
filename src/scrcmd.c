@@ -1688,7 +1688,7 @@ bool8 ScrCmd_bufferspeciesname(struct ScriptContext * ctx)
     u8 stringVarIndex = ScriptReadByte(ctx);
     u16 species = VarGet(ScriptReadHalfword(ctx));
 
-    //StringCopy(sScriptStringVars[stringVarIndex], gBaseStats[species].speciesName);
+    //StringCopy(sScriptStringVars[stringVarIndex], gSpeciesInfo[species].speciesName);
     GetSpeciesName(sScriptStringVars[stringVarIndex], species);
     return FALSE;
 } //if using u16 src for new string copy function doesn't workr, try make gStringVar1 u16
@@ -1699,15 +1699,15 @@ bool8 ScrCmd_bufferspeciestype(struct ScriptContext * ctx)
     u8 stringVarIndex = ScriptReadByte(ctx);
     u16 species = VarGet(ScriptReadHalfword(ctx));
     s32 i;
-    u8 type;// = gBaseStats[species].type1 == gBaseStats[species].type2 ? gBaseStats[species].type1 : gBaseStats[species].type2;
+    u8 type;// = gSpeciesInfo[species].type1 == gSpeciesInfo[species].type2 ? gSpeciesInfo[species].type1 : gSpeciesInfo[species].type2;
     for (i = 0; i < NELEMS(sTypeExceptions); i++) {
         if (species == sTypeExceptions[i])
             break; // break needs to be in loop/ that's what tells it to stop looping
     }
     if (i == NELEMS(sTypeExceptions)) // did not find the species
-        type = gBaseStats[species].type1;
+        type = gSpeciesInfo[species].type1;
     else // found the species
-        type = gBaseStats[species].type2;
+        type = gSpeciesInfo[species].type2;
     
     StringCopy(sScriptStringVars[stringVarIndex], gTypesInfo[type].name);
     return FALSE;
@@ -1727,7 +1727,7 @@ bool8 ScrCmd_bufferleadmonspeciesname(struct ScriptContext * ctx)
     u8 *dest = sScriptStringVars[stringVarIndex];
     u8 partyIndex = GetLeadMonIndex();
     u32 species = GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPECIES, NULL);
-    //StringCopy(dest, gBaseStats[species].speciesName);
+    //StringCopy(dest, gSpeciesInfo[species].speciesName);
     GetSpeciesName(dest, species);
     return FALSE;
 }
@@ -1740,7 +1740,7 @@ bool8 ScrCmd_bufferpartymonnick(struct ScriptContext * ctx)
 
     GetMonData(&gPlayerParty[partyIndex], MON_DATA_NICKNAME, sScriptStringVars[stringVarIndex]);
     
-    if (StringCompare(gBaseStats[species].speciesName, sScriptStringVars[stringVarIndex]) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+    if (StringCompare(gSpeciesInfo[species].speciesName, sScriptStringVars[stringVarIndex]) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
         GetSpeciesName(sScriptStringVars[stringVarIndex], species);
     
     StringGet_Nickname(sScriptStringVars[stringVarIndex]);    

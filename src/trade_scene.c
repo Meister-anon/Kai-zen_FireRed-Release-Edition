@@ -1085,8 +1085,8 @@ static void ReceivedMonSetPokedexFlags(u8 partyIdx)
 
             if (species > NATIONAL_SPECIES_COUNT
             && !(GetSetPokedexFlag((GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
-            && (gBaseStats[SanitizeSpeciesId(species)].isMegaEvolution
-            || gBaseStats[SanitizeSpeciesId(species)].isPrimalReversion
+            && (gSpeciesInfo[SanitizeSpeciesId(species)].isMegaEvolution
+            || gSpeciesInfo[SanitizeSpeciesId(species)].isPrimalReversion
             || IsRegionalVariant(species)))
             {
                 GetSetPokedexFlag(GetFormSpeciesId(species, 0), FLAG_SET_SEEN);
@@ -1106,8 +1106,8 @@ static void ReceivedMonSetPokedexFlags(u8 partyIdx)
 
             if (species > NATIONAL_SPECIES_COUNT
             && !(GetSetPokedexFlag((GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
-            && (gBaseStats[SanitizeSpeciesId(species)].isMegaEvolution
-            || gBaseStats[SanitizeSpeciesId(species)].isPrimalReversion
+            && (gSpeciesInfo[SanitizeSpeciesId(species)].isMegaEvolution
+            || gSpeciesInfo[SanitizeSpeciesId(species)].isPrimalReversion
             || IsRegionalVariant(species)))
             {
                 GetSetPokedexFlag(GetFormSpeciesId(species, 0), FLAG_SET_SEEN);
@@ -2599,7 +2599,7 @@ static void BufferInGameTradeMonName(void)
     GetMonData(&gPlayerParty[gSpecialVar_0x8005], MON_DATA_NICKNAME, nickname);
     StringCopy_Nickname(gStringVar1, nickname);
     GetSpeciesName(gStringVar1, species);
-    StringCopy(gStringVar2, gBaseStats[inGameTrade->species].speciesName);
+    StringCopy(gStringVar2, gSpeciesInfo[inGameTrade->species].speciesName);
     GetSpeciesName(gStringVar2, inGameTrade->species);
 }//ok looks weird but is correct/works
 

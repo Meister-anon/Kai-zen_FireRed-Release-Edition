@@ -396,7 +396,7 @@ static void Task_Hof_InitMonData(u8 taskId)
             sHofMonPtr[0].mon[i].shininess = GetMonData(&gPlayerParty[i], MON_DATA_SHINY_CHECK);
             GetMonData(&gPlayerParty[i], MON_DATA_NICKNAME, nick);
 
-            if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[i], MON_DATA_SPECIES)].speciesName, nick) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+            if (StringCompare(gSpeciesInfo[GetMonData(&gPlayerParty[i], MON_DATA_SPECIES)].speciesName, nick) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
                 GetSpeciesName(nick, GetMonData(&gPlayerParty[i], MON_DATA_SPECIES)); //seems need this?
 
             for (j = 0; j < POKEMON_NAME_LENGTH; j++)

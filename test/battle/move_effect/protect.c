@@ -523,10 +523,10 @@ DOUBLE_BATTLE_TEST("Crafty Shield does not protect against moves that target all
 {
     GIVEN {
         ASSUME(gMovesInfo[MOVE_FLOWER_SHIELD].target == TARGET_ALL_BATTLERS);
-        ASSUME(gSpeciesInfo[SPECIES_TANGELA].types[0] == TYPE_GRASS);
-        ASSUME(gSpeciesInfo[SPECIES_TANGROWTH].types[0] == TYPE_GRASS);
-        ASSUME(gSpeciesInfo[SPECIES_SUNKERN].types[0] == TYPE_GRASS);
-        ASSUME(gSpeciesInfo[SPECIES_SUNFLORA].types[0] == TYPE_GRASS);
+        ASSUME(gSpeciesInfo[SPECIES_TANGELA].type1 == TYPE_GRASS);
+        ASSUME(gSpeciesInfo[SPECIES_TANGROWTH].type1 == TYPE_GRASS);
+        ASSUME(gSpeciesInfo[SPECIES_SUNKERN].type1 == TYPE_GRASS);
+        ASSUME(gSpeciesInfo[SPECIES_SUNFLORA].type1 == TYPE_GRASS);
         PLAYER(SPECIES_TANGELA);
         PLAYER(SPECIES_TANGROWTH);
         OPPONENT(SPECIES_SUNKERN);

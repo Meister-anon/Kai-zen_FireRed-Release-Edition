@@ -1467,7 +1467,7 @@ static bool8 shedinja_maker_maybe(void)
 
                     if (!StringCompareWithoutExtCtrlCodes(name, gJPText_Shedinja))
                     {
-                        SetMonData(mon, MON_DATA_NICKNAME, gBaseStats[SPECIES_SHEDINJA].speciesName);
+                        SetMonData(mon, MON_DATA_NICKNAME, gSpeciesInfo[SPECIES_SHEDINJA].speciesName);
                     }
                 }
             }
@@ -2805,7 +2805,7 @@ int GetUnionRoomTradeMessageId(struct GFtgtGnameSub playerSub, struct GFtgtGname
     }
     else
     {
-        if (gBaseStats[species1].type1 != type && gBaseStats[species1].type2 != type)
+        if (gSpeciesInfo[species1].type1 != type && gSpeciesInfo[species1].type2 != type)
         {
             return 1;
         }

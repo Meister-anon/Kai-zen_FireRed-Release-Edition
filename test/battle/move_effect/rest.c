@@ -74,7 +74,7 @@ SINGLE_BATTLE_TEST("Rest fails if the user is protected by Electric/Misty Terrai
     GIVEN {
         ASSUME(GetMoveEffect(MOVE_ELECTRIC_TERRAIN) == EFFECT_ELECTRIC_TERRAIN);
         ASSUME(GetMoveEffect(MOVE_MISTY_TERRAIN) == EFFECT_MISTY_TERRAIN);
-        ASSUME(GetSpeciesType(SPECIES_WYNAUT, 0) != TYPE_FLYING && GetSpeciesType(SPECIES_WYNAUT, 1) != TYPE_FLYING);
+        ASSUME(GetSpeciesPrimaryType(SPECIES_WYNAUT) != TYPE_FLYING && GetSpeciesSecondaryType(SPECIES_WYNAUT) != TYPE_FLYING);
         PLAYER(SPECIES_WYNAUT) { HP(1); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
@@ -105,7 +105,7 @@ SINGLE_BATTLE_TEST("Rest doesn't fail if the user is protected by Safeguard")
 DOUBLE_BATTLE_TEST("Rest doesn't fail if the user is protected by Flower Veil")
 {
     GIVEN {
-        ASSUME(GetSpeciesType(SPECIES_CHIKORITA, 0) == TYPE_GRASS || GetSpeciesType(SPECIES_CHIKORITA, 1) == TYPE_GRASS);
+        ASSUME(GetSpeciesPrimaryType(SPECIES_CHIKORITA) == TYPE_GRASS || GetSpeciesSecondaryType(SPECIES_CHIKORITA) == TYPE_GRASS);
         PLAYER(SPECIES_CHIKORITA) { HP(1); }
         PLAYER(SPECIES_FLORGES) { Ability(ABILITY_FLOWER_VEIL); }
         OPPONENT(SPECIES_WOBBUFFET);

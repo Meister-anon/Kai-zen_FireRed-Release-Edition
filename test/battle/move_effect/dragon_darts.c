@@ -4,7 +4,7 @@
 ASSUMPTIONS
 {
     ASSUME(gMovesInfo[MOVE_DRAGON_DARTS].effect == EFFECT_DRAGON_DARTS);
-    ASSUME(gSpeciesInfo[SPECIES_CLEFAIRY].types[0] == TYPE_FAIRY || gSpeciesInfo[SPECIES_CLEFAIRY].types[1] == TYPE_FAIRY);
+    ASSUME(gSpeciesInfo[SPECIES_CLEFAIRY].type1 == TYPE_FAIRY || gSpeciesInfo[SPECIES_CLEFAIRY].type2 == TYPE_FAIRY);
 }
 
 SINGLE_BATTLE_TEST("Dragon Darts strikes twice")

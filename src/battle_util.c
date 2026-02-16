@@ -8313,7 +8313,7 @@ bool8 IsFloatingSpecies(u16 species)
 {
     s32 i;
 
-    if (gBaseStats[species].floating)
+    if (gSpeciesInfo[species].floating)
         return TRUE;
 
     return FALSE;
@@ -10804,7 +10804,7 @@ static inline s32 DoFutureSightAttackDamageCalcVars(struct BattleContext *ctx)
     }
 
     // Same type attack bonus
-    if (GetSpeciesType(partyMonSpecies, 0) == moveType || GetSpeciesType(partyMonSpecies, 1) == moveType)
+    if (GetSpeciesPrimaryType(partyMonSpecies) == moveType || GetSpeciesSecondaryType(partyMonSpecies) == moveType)
         DAMAGE_APPLY_MODIFIER(SAME_TYPE_MULTIPLIER);
     else
         DAMAGE_APPLY_MODIFIER(UQ_4_12(1.0));
@@ -11254,9 +11254,9 @@ static inline void TryNoticeIllusionInTypeEffectiveness(enum Move move, enum Typ
     ctx.holdEffectAtk = GetBattlerHoldEffect(battlerAtk);
     ctx.holdEffectDef = GetBattlerHoldEffect(battlerDef);
 
-    MulByTypeEffectiveness(&ctx, &presumedModifier, GetSpeciesType(illusionSpecies, 0));
-    if (GetSpeciesType(illusionSpecies, 1) != GetSpeciesType(illusionSpecies, 0))
-        MulByTypeEffectiveness(&ctx, &presumedModifier, GetSpeciesType(illusionSpecies, 1));
+    MulByTypeEffectiveness(&ctx, &presumedModifier, GetSpeciesPrimaryType(illusionSpecies));
+    if (GetSpeciesPrimaryType(illusionSpecies))
+        MulByTypeEffectiveness(&ctx, &presumedModifier, GetSpeciesSecondaryType(illusionSpecies));
 
     if (presumedModifier != resultingModifier)
         RecordAbilityBattle(ctx.battlerDef, ABILITY_ILLUSION);
@@ -11433,9 +11433,9 @@ uq4_12_t CalcPartyMonTypeEffectivenessMultiplier(u16 move, u16 speciesDef, enum 
         ctx.updateFlags = FALSE;
         ctx.abilityDef = abilityDef;
 
-        MulByTypeEffectiveness(&ctx, &modifier, GetSpeciesType(speciesDef, 0));
-        if (GetSpeciesType(speciesDef, 1) != GetSpeciesType(speciesDef, 0))
-            MulByTypeEffectiveness(&ctx, &modifier, GetSpeciesType(speciesDef, 1));
+        MulByTypeEffectiveness(&ctx, &modifier, GetSpeciesPrimaryType(speciesDef));
+        if (GetSpeciesPrimaryType(speciesDef))
+            MulByTypeEffectiveness(&ctx, &modifier, GetSpeciesSecondaryType(speciesDef));
         //very weird in that this doesnt check hold effects at all
         if (ctx.moveType == TYPE_GROUND && IsFloatingSpecies(speciesDef) && !(gFieldStatuses & STATUS_FIELD_GRAVITY))
             modifier = UQ_4_12(0.0);
@@ -11482,8 +11482,8 @@ uq4_12_t GetOverworldTypeEffectiveness(struct Pokemon *mon, enum Type moveType)
     ctx.updateFlags = FALSE;
 
     u32 speciesDef = GetMonData(mon, MON_DATA_SPECIES);
-    enum Type type1 = GetSpeciesType(speciesDef, 0);
-    enum Type type2 = GetSpeciesType(speciesDef, 1);
+    enum Type type1 = GetSpeciesPrimaryType(speciesDef);
+    enum Type type2 = GetSpeciesSecondaryType(speciesDef);
 
     MulByTypeEffectiveness(&ctx, &modifier, type1);
     if (type2 != type1)
@@ -12601,8 +12601,8 @@ void CopyMonAbilityAndTypesToBattleMon(enum BattlerId battler, struct Pokemon *m
             gBattleMons[battler].ability = TestRunner_Battle_GetForcedAbility(array, partyIndex);
     }
     #endif
-    gBattleMons[battler].types[0] = GetSpeciesType(gBattleMons[battler].species, 0);
-    gBattleMons[battler].types[1] = GetSpeciesType(gBattleMons[battler].species, 1);
+    gBattleMons[battler].types[0] = GetSpeciesPrimaryType(gBattleMons[battler].species);
+    gBattleMons[battler].types[1] = GetSpeciesSecondaryType(gBattleMons[battler].species);
     gBattleMons[battler].types[2] = TYPE_MYSTERY;
 }
 
@@ -12768,7 +12768,7 @@ bool8 CanMonParticipateInSkyBattle(struct Pokemon *mon)
     u16 monAbilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM, NULL);
 
     bool8 hasLevitateAbility = GetSpeciesAbility(species, monAbilityNum) == ABILITY_LEVITATE;
-    bool8 isFlyingType = GetSpeciesType(species, 0) == TYPE_FLYING || GetSpeciesType(species, 1) == TYPE_FLYING;
+    bool8 isFlyingType = GetSpeciesPrimaryType(species) == TYPE_FLYING || GetSpeciesSecondaryType(species) == TYPE_FLYING;
     bool8 monIsValidAndNotEgg = GetMonData(mon, MON_DATA_SANITY_HAS_SPECIES) && !GetMonData(mon, MON_DATA_IS_EGG);
 
     if (monIsValidAndNotEgg)

@@ -6,9 +6,9 @@ ASSUMPTIONS
 {
     ASSUME(GetMoveEffect(MOVE_HAIL) == EFFECT_WEATHER);
     ASSUME(GetMoveWeatherType(MOVE_HAIL) == BATTLE_WEATHER_HAIL);
-    ASSUME(GetSpeciesType(SPECIES_WOBBUFFET, 0) != TYPE_ICE && GetSpeciesType(SPECIES_WOBBUFFET, 1) != TYPE_ICE);
-    ASSUME(GetSpeciesType(SPECIES_WYNAUT, 0) != TYPE_ICE && GetSpeciesType(SPECIES_WYNAUT, 1) != TYPE_ICE);
-    ASSUME(GetSpeciesType(SPECIES_GLALIE, 0) == TYPE_ICE || GetSpeciesType(SPECIES_GLALIE, 1) == TYPE_ICE);
+    ASSUME(GetSpeciesPrimaryType(SPECIES_WOBBUFFET) != TYPE_ICE && GetSpeciesSecondaryType(SPECIES_WOBBUFFET) != TYPE_ICE);
+    ASSUME(GetSpeciesPrimaryType(SPECIES_WYNAUT) != TYPE_ICE && GetSpeciesSecondaryType(SPECIES_WYNAUT) != TYPE_ICE);
+    ASSUME(GetSpeciesPrimaryType(SPECIES_GLALIE) == TYPE_ICE || GetSpeciesSecondaryType(SPECIES_GLALIE) == TYPE_ICE);
 }
 
 SINGLE_BATTLE_TEST("Hail deals 1/16 damage per turn")
@@ -29,7 +29,7 @@ SINGLE_BATTLE_TEST("Hail deals 1/16 damage per turn")
 SINGLE_BATTLE_TEST("Hail damage does not affect Ice-type Pokémon")
 {
     GIVEN {
-        ASSUME(gSpeciesInfo[SPECIES_GLALIE].types[0] == TYPE_ICE);
+        ASSUME(gSpeciesInfo[SPECIES_GLALIE].type1 == TYPE_ICE);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_GLALIE);
     } WHEN {

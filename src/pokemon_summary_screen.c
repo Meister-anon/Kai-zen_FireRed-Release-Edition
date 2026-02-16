@@ -2534,17 +2534,17 @@ static void BufferMonInfo(void) // seems to be PSS_PAGE_INFO or data for it
         }
         else 
         {
-            sMonSummaryScreen->monTypes[0] = gBaseStats[species].type1;
-            sMonSummaryScreen->monTypes[1] = gBaseStats[species].type2;
+            sMonSummaryScreen->monTypes[0] = gSpeciesInfo[species].type1;
+            sMonSummaryScreen->monTypes[1] = gSpeciesInfo[species].type2;
         }
     }
     else
     {
-        sMonSummaryScreen->monTypes[0] = gBaseStats[species].type1;
-        sMonSummaryScreen->monTypes[1] = gBaseStats[species].type2;
+        sMonSummaryScreen->monTypes[0] = gSpeciesInfo[species].type1;
+        sMonSummaryScreen->monTypes[1] = gSpeciesInfo[species].type2;
     }
 
-    if (StringCompare(gBaseStats[dexNum].speciesName, tempStr) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+    if (StringCompare(gSpeciesInfo[dexNum].speciesName, tempStr) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
         GetSpeciesName(tempStr, dexNum);
     //else
     //    GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_NICKNAME, tempStr); //this part is reason info box doesn't update name, its using nickname not speciesnamestr
@@ -2562,7 +2562,7 @@ static void BufferMonInfo(void) // seems to be PSS_PAGE_INFO or data for it
         StringCopy(sMonSummaryScreen->summary.genderSymbolStrBuf, gString_Dummy);
 
     if (dexNum == SPECIES_NIDORAN_M || dexNum == SPECIES_NIDORAN_F)
-        if (StringCompare(sMonSummaryScreen->summary.nicknameStrBuf, gBaseStats[dexNum].speciesName) == IDENTICAL)
+        if (StringCompare(sMonSummaryScreen->summary.nicknameStrBuf, gSpeciesInfo[dexNum].speciesName) == IDENTICAL)
             StringCopy(sMonSummaryScreen->summary.genderSymbolStrBuf, gString_Dummy); //important may use for other gender difference mon
 
     GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_OT_NAME, tempStr);
@@ -2773,7 +2773,7 @@ static void BufferMonSkills(void) // seems to be PSS_PAGE_SKILLS or data for it.
     if (level < 100)
     {
         species = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES);
-        expToNextLevel = gExperienceTables[gBaseStats[species].growthRate][level + 1] - exp;
+        expToNextLevel = gExperienceTables[gSpeciesInfo[species].growthRate][level + 1] - exp;
     }
 
     ConvertIntToDecimalStringN(sMonSummaryScreen->summary.expToNextLevelStrBuf, expToNextLevel, STR_CONV_MODE_LEFT_ALIGN, 7);
@@ -3169,7 +3169,7 @@ static void PrintInfoPage(void)
         u8 hatchMsgIndex;
 
         //says friendship ubt this is actually egg cycle, since egg cycle does not have a mondata value
-        //value is set from SetInitialEggData function in daycare.c  SetMonData(mon, MON_DATA_FRIENDSHIP, &gBaseStats[species].eggCycles);
+        //value is set from SetInitialEggData function in daycare.c  SetMonData(mon, MON_DATA_FRIENDSHIP, &gSpeciesInfo[species].eggCycles);
         eggCycles = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_FRIENDSHIP); 
 
         if (eggCycles <= 5) //ok so for some rason this doesn't work and it instead takes actually egg cycle value rather than friendhsip value when it should be using friendship?
@@ -6174,13 +6174,13 @@ static void UpdateExpBarObjs(void)
     //on menu load from desync of exo bar/level w actual level
     //"seems like the root of the issue is exp and level being desyncd
     //due to how move learning is handled for xp candies"
-    //while(level < MAX_LEVEL && exp > gExperienceTables[gBaseStats[species].growthRate][level + 1])
+    //while(level < MAX_LEVEL && exp > gExperienceTables[gSpeciesInfo[species].growthRate][level + 1])
     //    level++;
 
     if (level < 100)
     {
-        totalExpToNextLevel = gExperienceTables[gBaseStats[species].growthRate][level + 1] - gExperienceTables[gBaseStats[species].growthRate][level];
-        curExpToNextLevel = exp - gExperienceTables[gBaseStats[species].growthRate][level];
+        totalExpToNextLevel = gExperienceTables[gSpeciesInfo[species].growthRate][level + 1] - gExperienceTables[gSpeciesInfo[species].growthRate][level];
+        curExpToNextLevel = exp - gExperienceTables[gSpeciesInfo[species].growthRate][level];
         pointsPerTile = ((totalExpToNextLevel << 2) / 8);
         totalPoints = (curExpToNextLevel << 2);
 

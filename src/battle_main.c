@@ -2781,8 +2781,8 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
             else// for non rival mon
                 species = partyData[i].species;
 
-            for (j = 0; gBaseStats[species].speciesName[j] != EOS; ++j)
-                nameHash += gBaseStats[species].speciesName[j];
+            for (j = 0; gSpeciesInfo[species].speciesName[j] != EOS; ++j)
+                nameHash += gSpeciesInfo[species].speciesName[j];
             personalityValue += nameHash << 8;
             fixedIV = partyData[i].iv;
             if (fixedIV > MAX_PER_STAT_IVS)
@@ -3679,8 +3679,8 @@ static void BattleStartClearSetData(void)
     gBattleStruct->runTries = 0;
     gBattleStruct->safariGoNearCounter = 0;
     gBattleStruct->safariPkblThrowCounter = 0;
-    gBattleStruct->safariCatchFactor = gBaseStats[GetMonData(&gEnemyParty[0], MON_DATA_SPECIES)].catchRate * 100 / 1275;
-    gBattleStruct->safariEscapeFactor = gBaseStats[GetMonData(&gEnemyParty[0], MON_DATA_SPECIES)].safariZoneFleeRate * 100 / 1275;
+    gBattleStruct->safariCatchFactor = gSpeciesInfo[GetMonData(&gEnemyParty[0], MON_DATA_SPECIES)].catchRate * 100 / 1275;
+    gBattleStruct->safariEscapeFactor = gSpeciesInfo[GetMonData(&gEnemyParty[0], MON_DATA_SPECIES)].safariZoneFleeRate * 100 / 1275;
     if (gBattleStruct->safariEscapeFactor <= 1)
         gBattleStruct->safariEscapeFactor = 2;
     gBattleStruct->wildVictorySong = 0;
@@ -4074,8 +4074,8 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
 
         gBattleStruct->lastTakenMoveFrom[i][battler] = 0;
     }
-    gBattleMons[battler].type1 = gBaseStats[gBattleMons[battler].species].type1;
-    gBattleMons[battler].type2 = gBaseStats[gBattleMons[battler].species].type2;
+    gBattleMons[battler].type1 = gSpeciesInfo[gBattleMons[battler].species].type1;
+    gBattleMons[battler].type2 = gSpeciesInfo[gBattleMons[battler].species].type2;
     gBattleMons[battler].type3 = TYPE_MYSTERY;
 
     //Ai_UpdateFaintData(battler);
@@ -4217,8 +4217,8 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
                 ptr = (u8 *)&gBattleMons[battler];
                 for (i = 0; i < sizeof(struct BattlePokemon); ++i)
                     ptr[i] = gBattleResources->bufferB[battler][4 + i];
-                gBattleMons[battler].type1 = gBaseStats[gBattleMons[battler].species].type1;
-                gBattleMons[battler].type2 = gBaseStats[gBattleMons[battler].species].type2;
+                gBattleMons[battler].type1 = gSpeciesInfo[gBattleMons[battler].species].type1;
+                gBattleMons[battler].type2 = gSpeciesInfo[gBattleMons[battler].species].type2;
                 gBattleMons[battler].type3 = TYPE_MYSTERY;
                 gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum, &party[gBattlerPartyIndexes[battler]]);
                 hpOnSwitchout = &gBattleStruct->hpOnSwitchout[GetBattlerSide(battler)];
@@ -7006,7 +7006,7 @@ static void HandleAction_WatchesCarefully(void)
         --gBattleStruct->safariGoNearCounter;
         if (gBattleStruct->safariGoNearCounter == 0)
         {
-            *(&gBattleStruct->safariCatchFactor) = gBaseStats[GetMonData(gEnemyParty, MON_DATA_SPECIES)].catchRate * 100 / 1275;
+            *(&gBattleStruct->safariCatchFactor) = gSpeciesInfo[GetMonData(gEnemyParty, MON_DATA_SPECIES)].catchRate * 100 / 1275;
             gBattleCommunication[MULTISTRING_CHOOSER] = 0;
         }
         else

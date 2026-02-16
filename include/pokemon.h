@@ -674,7 +674,7 @@ struct BattlePokemon
 //I think its just used like a pointer if I don't put something there
 //or set to the struct to 0, in main, it'll just be garbage data
 //so yeah I need to set it myself
-struct BaseStats  // had to adjust struct order to match paste value from base_stats.h
+struct SpeciesInfo  // had to adjust struct order to match paste value from base_stats.h
 {
  /* 0x00 */ u8 baseHP;
  /* 0x01 */ u8 baseAttack;
@@ -1072,7 +1072,7 @@ extern u8 gPlayerPartyCount;
 extern struct Pokemon gPlayerParty[PARTY_SIZE];
 extern u8 gEnemyPartyCount;
 extern struct Pokemon gEnemyParty[PARTY_SIZE];
-extern const struct BaseStats gBaseStats[];
+extern const struct SpeciesInfo gSpeciesInfo[];
 extern const u16 *const gGenderForms[];
 extern const u16 *const gSpeciesGroups[];
 extern const struct SpeciesGraphicInfo gSpeciesGraphics[];
@@ -1273,7 +1273,6 @@ bool8 IsPhysicalMove(u32 attackerId, enum Move move); //new function consolidati
 void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u16 move, u8 DamageCategory, s32 damage);
 void ApplyMovePowerModifiers(enum BattlerId battlerAtk, u16 move, u16 power);
 
-enum Type GetSpeciesType(u16 species, u8 slot);
 enum Ability GetSpeciesAbility(u16 species, u8 slot);
 u32 GetSpeciesBaseHP(u16 species);
 u32 GetSpeciesBaseAttack(u16 species);
@@ -1325,6 +1324,35 @@ static inline u16 SanitizeSpeciesId(u16 species)
         return species;
 }
 
+enum SpeciesType
+{
+    PRIMARY_TYPE,
+    SECONDARY_TYPE,
+};
+
+static inline enum Type GetSpeciesType(u16 species, u8 slot)
+{
+    switch (slot)
+    {
+        case PRIMARY_TYPE:
+            return gSpeciesInfo[SanitizeSpeciesId(species)].type1;
+        break;
+        case SECONDARY_TYPE:
+            return gSpeciesInfo[SanitizeSpeciesId(species)].type2;
+        break;
+    }
+}
+
+static inline enum Type GetSpeciesPrimaryType(u16 species)
+{
+    return GetSpeciesType(species, PRIMARY_TYPE);
+}
+
+static inline enum Type GetSpeciesSecondaryType(u16 species)
+{
+    return GetSpeciesType(species, SECONDARY_TYPE);
+}
+
 //Type boosted by hunger switch form and type of aura wheel
 //I want to use context for this but arguemnt itself 
 //should just be battler and ability
@@ -1346,7 +1374,7 @@ static inline void CopySpeciesNameToBuff(u8 *nameBuff, u32 species)
     // Hmm? FRLG has < while Ruby/Emerald has <=
     for (i = 0; i < POKEMON_NAME_LENGTH; i++)
     {
-        nameBuff[i] = gBaseStats[SanitizeSpeciesId(species)].speciesName[i];
+        nameBuff[i] = gSpeciesInfo[SanitizeSpeciesId(species)].speciesName[i];
 
         if (nameBuff[i] == EOS)
             break;

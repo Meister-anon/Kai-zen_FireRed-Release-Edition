@@ -408,11 +408,11 @@ void SetBattlerData(enum BattlerId battlerId)
         if (illusionSpecies != SPECIES_NONE && ShouldFailForIllusion(illusionSpecies, battlerId))
         {
             // If the battler's type has not been changed, AI assumes the types of the illusion mon.
-            if (gBattleMons[battlerId].types[0] == GetSpeciesType(species, 0)
-                && gBattleMons[battlerId].types[1] == GetSpeciesType(species, 1))
+            if (gBattleMons[battlerId].types[0] == GetSpeciesPrimaryType(species)
+                && gBattleMons[battlerId].types[1] == GetSpeciesSecondaryType(species))
             {
-                gBattleMons[battlerId].types[0] = GetSpeciesType(illusionSpecies, 0);
-                gBattleMons[battlerId].types[1] = GetSpeciesType(illusionSpecies, 1);
+                gBattleMons[battlerId].types[0] = GetSpeciesPrimaryType(illusionSpecies);
+                gBattleMons[battlerId].types[1] = GetSpeciesSecondaryType(illusionSpecies);
             }
             species = illusionSpecies;
         }

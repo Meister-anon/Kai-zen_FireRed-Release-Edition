@@ -50,9 +50,7 @@ bool32 TryKnockOffBattleScript(u32 loseitembattler, u32 EffectUser, u16 moveEffe
 u8 CanMoveHitSwitchingTarget(u16 move);
 u8 IsExemptFromPursuit(enum BattlerId battler); //for blocking effect without needing separate battlescript
 bool8 IsMoveAffectedByParentalBond(u16 move, enum BattlerId battlerId);
-//EE function for recalc stats this used in place of transform logic for recalcs outside of transform and ditto
-void CopyMonLevelAndBaseStatsToBattleMon(enum BattlerId battler, struct Pokemon *mon);
-void CopyMonAbilityAndTypesToBattleMon(enum BattlerId battler, struct Pokemon *mon);
+
 
 
 extern const u16 gCriticalHitChance[];	//made global, so can run in ai file

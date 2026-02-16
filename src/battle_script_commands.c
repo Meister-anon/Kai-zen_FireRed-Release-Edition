@@ -5917,8 +5917,8 @@ static void Cmd_switchindataupdate(void)
         return;
     }
 
-    gBattleMons[battler].types[0] = GetSpeciesType(gBattleMons[battler].species, 0);
-    gBattleMons[battler].types[1] = GetSpeciesType(gBattleMons[battler].species, 1);
+    gBattleMons[battler].types[0] = GetSpeciesPrimaryType(gBattleMons[battler].species);
+    gBattleMons[battler].types[1] = GetSpeciesSecondaryType(gBattleMons[battler].species);
     gBattleMons[battler].types[2] = TYPE_MYSTERY;
     gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
     #if TESTING
@@ -12077,7 +12077,7 @@ static void Cmd_handleballthrow(void)
             if (gLastUsedItem == ITEM_SAFARI_BALL)
                 catchRate = gBattleStruct->safariCatchFactor * 1275 / 100;
             else
-                catchRate = gBaseStats[gBattleMons[gBattlerTarget].species].catchRate;
+                catchRate = gSpeciesInfo[gBattleMons[gBattlerTarget].species].catchRate;
             
             //will change this don't need else can do all w switch, plus
             //works more for my needs

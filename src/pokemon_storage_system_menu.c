@@ -779,7 +779,7 @@ u32 CanBoxMonGainExp(struct BoxPokemon *mon, u16 species) //lvl cap works - didn
     //can use getmondata experience loop level
     //compare actual experience if experience is equal break return level
     //if experience is less, break return level - 1
-    //gExperienceTables[gBaseStats[species].growthRate][level]
+    //gExperienceTables[gSpeciesInfo[species].growthRate][level]
 
     //unlock at cape where Bill is
     if (GetBoxMonData(mon, MON_DATA_BLOCK_BOX_EXP_GAIN))   
@@ -796,17 +796,17 @@ u32 CanBoxMonGainExp(struct BoxPokemon *mon, u16 species) //lvl cap works - didn
     //but would run every step/constantly? should be light
     //I'm hoping to not see impact but I also have to setup rtc
     //to do that as well so worried about stacking detriment.
-    /*if (GetNumberofBadges() < 1 && (experience < gExperienceTables[gBaseStats[species].growthRate][12])) //mostly just for pidgey, shuold be before first badge
+    /*if (GetNumberofBadges() < 1 && (experience < gExperienceTables[gSpeciesInfo[species].growthRate][12])) //mostly just for pidgey, shuold be before first badge
         return experience; //to ensure non  0
      //if num badges <= 6 and mon level <= 41  yes else no
     else if (GetNumberofBadges() <= 6
-    && (experience < gExperienceTables[gBaseStats[species].growthRate][41])) //should freeze box exp gain at lvl 41 until you get sabrina's badge
+    && (experience < gExperienceTables[gSpeciesInfo[species].growthRate][41])) //should freeze box exp gain at lvl 41 until you get sabrina's badge
         return experience;
     else if (GetNumberofBadges() > 6) //think thsi should be fine, game opens up adn you can go to either koga sabrina or blaine
         return experience;  //but can't do erika until after sabrina and rocket stuff
     */
    
-    if (experience < gExperienceTables[gBaseStats[species].growthRate][levelLimit])
+    if (experience < gExperienceTables[gSpeciesInfo[species].growthRate][levelLimit])
         return experience;
     else
         return FALSE;

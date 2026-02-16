@@ -1803,7 +1803,7 @@ static void GetBattlerNick(enum BattlerId battlerId, u8 *dst)
     if (illusionMon != NULL)
         mon = illusionMon;
     GetMonData(mon, MON_DATA_NICKNAME, dst);
-    if (StringCompare(gBaseStats[species].speciesName, dst) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
+    if (StringCompare(gSpeciesInfo[species].speciesName, dst) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(dst, species);
     else
         StringGet_Nickname(dst);
@@ -2455,7 +2455,7 @@ static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst)
                 GetMonData(&gEnemyParty[src[srcId + 2]], MON_DATA_NICKNAME, nickname);
             } //think overflow issue came from this, bellsprout is at 13 w + 6 from this its at 21 above text buffer
             
-            if (StringCompare(gBaseStats[GetMonData(&party[src[srcId + 2]], MON_DATA_SPECIES)].speciesName, nickname) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+            if (StringCompare(gSpeciesInfo[GetMonData(&party[src[srcId + 2]], MON_DATA_SPECIES)].speciesName, nickname) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
                 GetSpeciesName(nickname, GetMonData(&party[src[srcId + 2]], MON_DATA_SPECIES));
             else
                 StringGet_Nickname(nickname);

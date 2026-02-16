@@ -268,7 +268,7 @@ if it would otherwise be 0/NONE except in the case of ability.
 //would be a feature that helps get them online faster and be a benefit unique to breeding
 //which I've wanted to enhance
 
-const struct BaseStats gBaseStats[] =
+const struct SpeciesInfo gSpeciesInfo[] =
 {
 
     //needs evolution and both learnset data to not cause issue

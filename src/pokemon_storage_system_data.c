@@ -1152,7 +1152,7 @@ static void SetCursorMonData(void *pokemon, u8 mode)
 
         //changed, to remove redundancy now replaces nickname field w back slash
         //if no nickname given
-        if (StringCompare(gBaseStats[gPSSData->cursorMonSpecies].speciesName, gPSSData->cursorMonNick) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+        if (StringCompare(gSpeciesInfo[gPSSData->cursorMonSpecies].speciesName, gPSSData->cursorMonNick) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
         {
             StringFill(gPSSData->displayMonNameText, CHAR_SPACE, 8);
             txtPtr = gPSSData->displayMonNameText;

@@ -3245,7 +3245,7 @@ static void Task_RunUnionRoom(u8 taskId)
             }
             else
             {
-                StringCopy(gStringVar1, gBaseStats[GetHostRFUtgtGname()->tradeSpecies].speciesName);
+                StringCopy(gStringVar1, gSpeciesInfo[GetHostRFUtgtGname()->tradeSpecies].speciesName);
                 ConvertIntToDecimalStringN(gStringVar2, GetHostRFUtgtGname()->level, STR_CONV_MODE_LEFT_ALIGN, 3);
                 StringExpandPlaceholders(gStringVar4, gUnknown_8458DBC);
             }
@@ -4347,7 +4347,7 @@ static void TradeBoardPrintItemInfo(u8 windowId, u8 y, struct RfuGameData * gnam
     else
     {
         BlitMoveInfoIcon(windowId, type + 1, 0x44, y);
-        UR_AddTextPrinterParameterized(windowId, 2, gBaseStats[species].speciesName, 0x76, y, colorIdx);
+        UR_AddTextPrinterParameterized(windowId, 2, gSpeciesInfo[species].speciesName, 0x76, y, colorIdx);
         ConvertIntToDecimalStringN(level_t, level, STR_CONV_MODE_LEFT_ALIGN, 3);
         UR_AddTextPrinterParameterized(windowId, 2, level_t, GetStringRightAlignXOffset(2, level_t, 218), y, colorIdx);
     }
@@ -4433,7 +4433,7 @@ static s32 IsRequestedTypeAndSpeciesInPlayerParty(u32 type, u32 species)
         for (i = 0; i < gPlayerPartyCount; i++)
         {
             species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
-            if (gBaseStats[species].type1 == type || gBaseStats[species].type2 == type)
+            if (gSpeciesInfo[species].type1 == type || gSpeciesInfo[species].type2 == type)
             {
                 return UR_TRADE_MATCH;
             }
@@ -4498,13 +4498,13 @@ static s32 GetChatLeaderActionRequestMessage(u8 *dst, u32 gender, u16 *activity_
         break;
     case ACTIVITY_TRADE | IN_UNION_ROOM:
         ConvertIntToDecimalStringN(arg3->activityRequestStrbufs[0], sUnionRoomTrade.playerLevel, STR_CONV_MODE_LEFT_ALIGN, 3);
-        StringCopy(arg3->activityRequestStrbufs[1], gBaseStats[sUnionRoomTrade.playerSpecies].speciesName);
+        StringCopy(arg3->activityRequestStrbufs[1], gSpeciesInfo[sUnionRoomTrade.playerSpecies].speciesName);
         for (i = 0; i < RFU_CHILD_MAX; i++)
         {
             if (gRfuLinkStatus->partner[i].serialNo == 0x0002)
             {
                 ConvertIntToDecimalStringN(arg3->activityRequestStrbufs[2], activity_p[2], STR_CONV_MODE_LEFT_ALIGN, 3);
-                StringCopy(arg3->activityRequestStrbufs[3], gBaseStats[activity_p[1]].speciesName);
+                StringCopy(arg3->activityRequestStrbufs[3], gSpeciesInfo[activity_p[1]].speciesName);
                 species = activity_p[1];
                 break;
             }

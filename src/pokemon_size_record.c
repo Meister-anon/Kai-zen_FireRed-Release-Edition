@@ -204,7 +204,7 @@ static void GetMonSizeRecordInfo(u16 species, u16 *sizeRecord)
     u32 size = GetMonSize(species, *sizeRecord);
 
     FormatMonSizeRecord(gStringVar3, size);
-    StringCopy(gStringVar1, gBaseStats[species].speciesName);
+    StringCopy(gStringVar1, gSpeciesInfo[species].speciesName);
 }
 
 void InitHeracrossSizeRecord(void)

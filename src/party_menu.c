@@ -1667,7 +1667,7 @@ u8 *GetMonNickname(struct Pokemon *mon, u8 *dest)
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
     
     GetMonData(mon, MON_DATA_NICKNAME, dest);
-    if (StringCompare(gBaseStats[species].speciesName, dest) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+    if (StringCompare(gSpeciesInfo[species].speciesName, dest) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
         GetSpeciesName(dest, species); //put here to save effort
     return StringGet_Nickname(dest);
 }
@@ -2579,7 +2579,7 @@ static void DisplayPartyPokemonGender(u8 gender, u16 species, u8 *nickname, stru
 
     if (species == SPECIES_NONE)
         return;
-    if ((species == SPECIES_NIDORAN_M || species == SPECIES_NIDORAN_F) && StringCompare(nickname, gBaseStats[species].speciesName) == IDENTICAL)
+    if ((species == SPECIES_NIDORAN_M || species == SPECIES_NIDORAN_F) && StringCompare(nickname, gSpeciesInfo[species].speciesName) == IDENTICAL)
         return;
     switch (gender)
     {
@@ -5626,9 +5626,9 @@ void Task_AbilityCapsule(u8 taskId) //important seemed easy enough so ported now
     //use field move as example, looop list of base stats abilities, if doesn't equal mons current ability add to list to display
     case 0:
         // Can't use.   -  made new conditional
-        if ((gBaseStats[tSpecies].abilities[0] == gBaseStats[tSpecies].abilities[1] //if both ability slots have same ability
-            //|| gBaseStats[tSpecies].abilities[1] == 0 // if the other slot is ability none
-            && ((gBaseStats[tSpecies].abilityHidden[0] == 0) && (gBaseStats[tSpecies].abilityHidden[1] == 0))) //and no hidden ability
+        if ((gSpeciesInfo[tSpecies].abilities[0] == gSpeciesInfo[tSpecies].abilities[1] //if both ability slots have same ability
+            //|| gSpeciesInfo[tSpecies].abilities[1] == 0 // if the other slot is ability none
+            && ((gSpeciesInfo[tSpecies].abilityHidden[0] == 0) && (gSpeciesInfo[tSpecies].abilityHidden[1] == 0))) //and no hidden ability
             //|| tAbilityNum > 1 // if current ability, is hidden ability
             || !tSpecies) //if species is 0
         {

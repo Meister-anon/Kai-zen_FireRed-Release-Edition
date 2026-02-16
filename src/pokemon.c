@@ -2918,7 +2918,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     checksum = CalculateBoxMonChecksum(boxMon);
     SetBoxMonData(boxMon, MON_DATA_CHECKSUM, &checksum);
     EncryptBoxMon(boxMon);
-    StringCopy(speciesName, gBaseStats[species].speciesName); //think this may do it, already have getspeciesname in battleinterface to cap name stored for healthbox
+    StringCopy(speciesName, gSpeciesInfo[species].speciesName); //think this may do it, already have getspeciesname in battleinterface to cap name stored for healthbox
     //GetSpeciesName(speciesName, species);//need change this, cap works but I don't want to set value to cap, I just want to store lowercase then cap when calling i.e with get
     
     //stores species name, prints species name if no custom nickname   vsonic IMPORTANT
@@ -2926,8 +2926,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetBoxMonData(boxMon, MON_DATA_LANGUAGE, &gGameLanguage);
     SetBoxMonData(boxMon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
     SetBoxMonData(boxMon, MON_DATA_SPECIES, &species);
-    SetBoxMonData(boxMon, MON_DATA_EXP, &gExperienceTables[gBaseStats[species].growthRate][level]);
-    SetBoxMonData(boxMon, MON_DATA_FRIENDSHIP, &gBaseStats[species].friendship);
+    SetBoxMonData(boxMon, MON_DATA_EXP, &gExperienceTables[gSpeciesInfo[species].growthRate][level]);
+    SetBoxMonData(boxMon, MON_DATA_FRIENDSHIP, &gSpeciesInfo[species].friendship);
     value = GetCurrentRegionMapSectionId();
     SetBoxMonData(boxMon, MON_DATA_MET_LOCATION, &value);
     SetBoxMonData(boxMon, MON_DATA_MET_LEVEL, &level);
@@ -3030,17 +3030,17 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetHiddenPowerType(boxMon);
 
     //from what I can see 2nd hidden ability  seems to be the rarest even before adding random boost.   may boost higher
-    /*if (gBaseStats[species].abilityHidden[1]) //will have if at highest i.e = abilityNum, meaniing all all slots are filled, with else ifs below decreasing by 1.
+    /*if (gSpeciesInfo[species].abilityHidden[1]) //will have if at highest i.e = abilityNum, meaniing all all slots are filled, with else ifs below decreasing by 1.
     {
         value = personality & 3; //setup just to have something in here, but this relies on bit math,  think it means if personality value ends in 3,
         SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);// so I'd need to check odds, and if it actually works.
     }
-    else if (gBaseStats[species].abilityHidden[0]) //ok I haven't tested but these should work, previously there was no way for pokemon to have hidden ability in wild
+    else if (gSpeciesInfo[species].abilityHidden[0]) //ok I haven't tested but these should work, previously there was no way for pokemon to have hidden ability in wild
     {
         value = personality & 2; //to make it sufficiently rare, I think I may have to add a random () % n value to the hidden ability clauses, maybe % 10 == 0
         SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
     }
-    else if (gBaseStats[species].abilities[1]) //important if ability slot 1, & is not ability_none, is saying if pokemon has 2 abilities
+    else if (gSpeciesInfo[species].abilities[1]) //important if ability slot 1, & is not ability_none, is saying if pokemon has 2 abilities
     {
         value = personality & 1;    //think this is supposed to be a 0 or 1?
         SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
@@ -3495,7 +3495,7 @@ static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon)
 //not higher than possible investment
 #define CALC_STAT(base, iv, ev, statIndex, field)                               \
 {                                                                               \
-    u8 baseStat = gBaseStats[species].base;                                     \
+    u8 baseStat = gSpeciesInfo[species].base;                                     \
     s32 n = (((2 * baseStat + ((iv * 170) /100) + ev / 4) * level) / 100) + 5;  \
     u8 nature = GetNature(mon);                                                 \
     n = ModifyStatByNature(nature, n, statIndex);                               \
@@ -3535,13 +3535,13 @@ void CalculateMonStats(struct Pokemon *mon)
     
     else if (ability == ABILITY_DISPIRIT_GUARD)
     {
-        s32 n = 2 * gBaseStats[species].baseHP + ((hpIV * 160) / 100) + (hpIV * 2 - ((hpIV * 120) / 100));
+        s32 n = 2 * gSpeciesInfo[species].baseHP + ((hpIV * 160) / 100) + (hpIV * 2 - ((hpIV * 120) / 100));
         newMaxHP = (((n + hpEV / 4) * level) / 100) + level;
     }
 
    else
    {
-        s32 n = 2 * gBaseStats[species].baseHP + ((hpIV * 160) / 100) + (hpIV * 2 - ((hpIV * 180) / 100));
+        s32 n = 2 * gSpeciesInfo[species].baseHP + ((hpIV * 160) / 100) + (hpIV * 2 - ((hpIV * 180) / 100));
         newMaxHP = (((n + hpEV / 4) * level) / 100) + level + 10;
    }
 
@@ -3650,13 +3650,13 @@ void TransformedMonLvlUpStatCalc(struct Pokemon *mon)
     
     else if (ability == ABILITY_DISPIRIT_GUARD)
     {
-        s32 n = 2 * gBaseStats[species].baseHP + ((hpIV * 160) / 100) + (hpIV * 2 - ((hpIV * 120) / 100));
+        s32 n = 2 * gSpeciesInfo[species].baseHP + ((hpIV * 160) / 100) + (hpIV * 2 - ((hpIV * 120) / 100));
         newMaxHP = (((n + hpEV / 4) * level) / 100) + level;
     }
 
    else
    {
-        s32 n = 2 * gBaseStats[species].baseHP + ((hpIV * 160) / 100) + (hpIV * 2 - ((hpIV * 180) / 100));
+        s32 n = 2 * gSpeciesInfo[species].baseHP + ((hpIV * 160) / 100) + (hpIV * 2 - ((hpIV * 180) / 100));
         newMaxHP = (((n + hpEV / 4) * level) / 100) + level + 10;
    }
 
@@ -3793,7 +3793,7 @@ void TryToSetBattleFormChangeMoves(struct Pokemon *mon, u16 method)
 
 #define TRANSFORM_STAT_RECALC(base, iv, ev, statIndex, field)                               \
 {                                                                               \
-    u8 baseStat = gBaseStats[species].base;                                     \
+    u8 baseStat = gSpeciesInfo[species].base;                                     \
     s32 n = (((2 * baseStat + ((iv * 170) /100) + ev / 4) * level) / 100) + 5;  \
     u8 nature = GetNature(mon);                                                 \
     n = ModifyStatByNature(nature, n, statIndex);                               \
@@ -3970,13 +3970,13 @@ void TransformedMonHP(struct Pokemon *mon, u16 TransformAbility, u16 Transformed
 
     else if (TransformAbility == ABILITY_DISPIRIT_GUARD)
     {
-        s32 n = 2 * gBaseStats[species].baseHP + ((hpIV * 160) / 100) + (((hpIV * 200) - 36) / 100);
+        s32 n = 2 * gSpeciesInfo[species].baseHP + ((hpIV * 160) / 100) + (((hpIV * 200) - 36) / 100);
         newMaxHP = (((n + hpEV / 4) * level) / 100) + level;
     }
 
     else
     {
-        s32 n = 2 * gBaseStats[species].baseHP + ((hpIV * 160) / 100) + (((hpIV * 200) - 36) / 100);
+        s32 n = 2 * gSpeciesInfo[species].baseHP + ((hpIV * 160) / 100) + (((hpIV * 200) - 36) / 100);
         newMaxHP = (((n + hpEV / 4) * level) / 100) + level + 10;
     }
 
@@ -4064,7 +4064,7 @@ u8 GetLevelFromMonExp(struct Pokemon *mon)
     u32 exp = GetMonData(mon, MON_DATA_EXP, NULL);
     s32 level = 1;
 
-    while (level <= MAX_LEVEL && gExperienceTables[gBaseStats[species].growthRate][level] <= exp)
+    while (level <= MAX_LEVEL && gExperienceTables[gSpeciesInfo[species].growthRate][level] <= exp)
         level++;
 
     return level - 1;
@@ -4076,7 +4076,7 @@ u8 GetLevelFromBoxMonExp(struct BoxPokemon *boxMon)
     u32 exp = GetBoxMonData(boxMon, MON_DATA_EXP, NULL);
     s32 level = 1;
 
-    while (level <= MAX_LEVEL && gExperienceTables[gBaseStats[species].growthRate][level] <= exp)
+    while (level <= MAX_LEVEL && gExperienceTables[gSpeciesInfo[species].growthRate][level] <= exp)
         level++;
 
     return level - 1;
@@ -4160,7 +4160,7 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //important can use thi
     const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
     u16 generatedSpecies;
 
-    if (gBaseStats[GetFormSpeciesId(species, 0)].hasCosmeticForms)
+    if (gSpeciesInfo[GetFormSpeciesId(species, 0)].hasCosmeticForms)
       generatedSpecies = GetFormSpeciesId(species, 0);
     else
         generatedSpecies = species;
@@ -4218,7 +4218,7 @@ void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: Asparagu
     const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
     u16 generatedSpecies;
 
-    if (gBaseStats[GetFormSpeciesId(species, 0)].hasCosmeticForms)
+    if (gSpeciesInfo[GetFormSpeciesId(species, 0)].hasCosmeticForms)
         generatedSpecies = GetFormSpeciesId(species, 0);
     else
         generatedSpecies = species;
@@ -4281,7 +4281,7 @@ void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species) //Credit
     const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
     u16 generatedSpecies;
 
-    if (gBaseStats[GetFormSpeciesId(Species, 0)].hasCosmeticForms)
+    if (gSpeciesInfo[GetFormSpeciesId(Species, 0)].hasCosmeticForms)
         generatedSpecies = GetFormSpeciesId(Species, 0);
     else
         generatedSpecies = Species;
@@ -4459,11 +4459,11 @@ static void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 mo
 bool32 CanEvolve(u32 species) //default use for eviolite but will also use for new nidoqueen ability
 {
     u32 i;
-    u16 NUM_EVOS_CAP = (gBaseStats[SanitizeSpeciesId(species)].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
+    u16 NUM_EVOS_CAP = (gSpeciesInfo[SanitizeSpeciesId(species)].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
     const struct Evolution *evolutions = GetSpeciesEvolutions(species);
     
 
-    if (gBaseStats[SanitizeSpeciesId(species)].evolutions == NULL)
+    if (gSpeciesInfo[SanitizeSpeciesId(species)].evolutions == NULL)
         return FALSE;
 
     //for (i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
@@ -4498,7 +4498,7 @@ bool32 CanEvolve(u32 species) //default use for eviolite but will also use for n
 //without a bunch of numbers in their face.
 u16 GetBaseStatTotal(u16 species) //now that I have a stat total field can just use that
 {
-    return gBaseStats[species].statTotal;
+    return gSpeciesInfo[species].statTotal;
 } //...so just realized I could make a macro like below for base stats file to calculate base stat total for  the mon directly from the base stat data
 //would add a u16 value to basestat but would be very useful for users, and partially offset by removal of ev yeild field  nope couldn't do that...
 
@@ -4516,7 +4516,7 @@ u16 GetGlobalStatTotal(struct Pokemon *mon)
         evs[i] = GetMonData(mon, MON_DATA_HP_EV + i, NULL);
         totalEVs += evs[i];
     }
-    return (totalEVs / 4) + gBaseStats[species].statTotal;
+    return (totalEVs / 4) + gSpeciesInfo[species].statTotal;
 }
 
 u16 GetIndividualBaseStatValue(u16 species, u8 statIndex)
@@ -4524,22 +4524,22 @@ u16 GetIndividualBaseStatValue(u16 species, u8 statIndex)
     switch(statIndex)
     {
         case STAT_HP:
-            return gBaseStats[species].baseHP;
+            return gSpeciesInfo[species].baseHP;
             break;
         case STAT_ATK:
-            return gBaseStats[species].baseAttack;
+            return gSpeciesInfo[species].baseAttack;
             break;
         case STAT_DEF:
-            return gBaseStats[species].baseDefense;
+            return gSpeciesInfo[species].baseDefense;
             break;
         case STAT_SPEED:
-            return gBaseStats[species].baseSpeed;
+            return gSpeciesInfo[species].baseSpeed;
             break;
         case STAT_SPATK:
-            return gBaseStats[species].baseSpAttack;
+            return gSpeciesInfo[species].baseSpAttack;
             break;
         case STAT_SPDEF:
-            return gBaseStats[species].baseSpDefense;
+            return gSpeciesInfo[species].baseSpDefense;
             break;
         
     }
@@ -4577,7 +4577,7 @@ bool8 CanEvioliteActivate(u8 target)
 
 bool8 IsMegaSpecies(u16 species)
 {
-    if (gBaseStats[species].isMegaEvolution)
+    if (gSpeciesInfo[species].isMegaEvolution)
         return TRUE;
 
     return FALSE;
@@ -7031,15 +7031,15 @@ u8 GetBoxMonGender(struct BoxPokemon *boxMon)
     u16 species = GetBoxMonData(boxMon, MON_DATA_SPECIES, NULL);
     u32 personality = GetBoxMonData(boxMon, MON_DATA_PERSONALITY, NULL);
 
-    switch (gBaseStats[species].genderRatio)
+    switch (gSpeciesInfo[species].genderRatio)
     {
     case MON_MALE:
     case MON_FEMALE:
     case MON_GENDERLESS:
-        return gBaseStats[species].genderRatio;
+        return gSpeciesInfo[species].genderRatio;
     }
 
-    if (gBaseStats[species].genderRatio > (personality & 0xFF))
+    if (gSpeciesInfo[species].genderRatio > (personality & 0xFF))
         return MON_FEMALE;
     else
         return MON_MALE;
@@ -7047,15 +7047,15 @@ u8 GetBoxMonGender(struct BoxPokemon *boxMon)
 
 u8 GetGenderFromSpeciesAndPersonality(u16 species, u32 personality)
 {
-    switch (gBaseStats[species].genderRatio)
+    switch (gSpeciesInfo[species].genderRatio)
     {
     case MON_MALE:
     case MON_FEMALE:
     case MON_GENDERLESS:
-        return gBaseStats[species].genderRatio;
+        return gSpeciesInfo[species].genderRatio;
     }
 
-    if (gBaseStats[species].genderRatio > (personality & 0xFF))
+    if (gSpeciesInfo[species].genderRatio > (personality & 0xFF))
         return MON_FEMALE;
     else
         return MON_MALE;
@@ -8290,16 +8290,16 @@ u16 GetAbilityBySpecies(u16 species, u8 abilityNum, struct Pokemon *mon)
     switch (abilityNum)
     {
     case 0:
-        gLastUsedAbility = gBaseStats[species].abilities[ABILITY_SLOT_1];
+        gLastUsedAbility = gSpeciesInfo[species].abilities[ABILITY_SLOT_1];
         break;
     case 1:
-        gLastUsedAbility = gBaseStats[species].abilities[ABILITY_SLOT_2];
+        gLastUsedAbility = gSpeciesInfo[species].abilities[ABILITY_SLOT_2];
         break;
     case 2:
-        gLastUsedAbility = gBaseStats[species].abilityHidden[HIDDEN_ABILITY_SLOT_1];
+        gLastUsedAbility = gSpeciesInfo[species].abilityHidden[HIDDEN_ABILITY_SLOT_1];
         break;
     case 3:
-        gLastUsedAbility = gBaseStats[species].abilityHidden[HIDDEN_ABILITY_SLOT_2];
+        gLastUsedAbility = gSpeciesInfo[species].abilityHidden[HIDDEN_ABILITY_SLOT_2];
         break;
     }
 
@@ -8307,7 +8307,7 @@ u16 GetAbilityBySpecies(u16 species, u8 abilityNum, struct Pokemon *mon)
     {
         for (i = 0; i < NUM_NORMAL_ABILITY_SLOTS && gLastUsedAbility == ABILITY_NONE; i++)
         {
-            gLastUsedAbility = gBaseStats[species].abilities[i];
+            gLastUsedAbility = gSpeciesInfo[species].abilities[i];
         }
     }
 
@@ -8315,7 +8315,7 @@ u16 GetAbilityBySpecies(u16 species, u8 abilityNum, struct Pokemon *mon)
     {
         for (i = 0; i < NUM_HIDDEN_ABILITY_SLOTS && gLastUsedAbility == ABILITY_NONE; i++)
         {
-            gLastUsedAbility = gBaseStats[species].abilityHidden[i];
+            gLastUsedAbility = gSpeciesInfo[species].abilityHidden[i];
         }
     }
 
@@ -8323,7 +8323,7 @@ u16 GetAbilityBySpecies(u16 species, u8 abilityNum, struct Pokemon *mon)
     {
         for (i = 0; i < NUM_NORMAL_ABILITY_SLOTS && gLastUsedAbility == ABILITY_NONE; i++)
         {
-            gLastUsedAbility = gBaseStats[species].abilities[i];
+            gLastUsedAbility = gSpeciesInfo[species].abilities[i];
         }
     }
 
@@ -8382,9 +8382,9 @@ bool32 IsMonType(struct Pokemon *mon, u8 type)
 
 static bool32 CheckTypeBySpecies(u16 species, u8 type)
 {
-    if (gBaseStats[species].type1 == type)
+    if (gSpeciesInfo[species].type1 == type)
         return TRUE;
-    else if (gBaseStats[species].type2 == type)
+    else if (gSpeciesInfo[species].type2 == type)
         return TRUE;
     else
         return FALSE;
@@ -8637,8 +8637,8 @@ void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst)
     dst->spDefense = GetMonData(src, MON_DATA_SPDEF, NULL);
     dst->abilityNum = GetMonData(src, MON_DATA_ABILITY_NUM, NULL);
     dst->otId = GetMonData(src, MON_DATA_OT_ID, NULL);
-    dst->type1 = gBaseStats[dst->species].type1;
-    dst->type2 = gBaseStats[dst->species].type2;
+    dst->type1 = gSpeciesInfo[dst->species].type1;
+    dst->type2 = gSpeciesInfo[dst->species].type2;
     dst->type3 = TYPE_MYSTERY;
     dst->ability = GetAbilityBySpecies(dst->species, dst->abilityNum, src); //has mon access from above tho still this funciton isn't used
     GetMonData(src, MON_DATA_NICKNAME, nickname);
@@ -8689,8 +8689,8 @@ static void CopyPlayerPartyMonToBattleData(enum BattlerId battlerId, u8 partyInd
     gBattleMons[battlerId].isEgg = GetMonData(&gPlayerParty[partyIndex], MON_DATA_IS_EGG, NULL);
     gBattleMons[battlerId].abilityNum = GetMonData(&gPlayerParty[partyIndex], MON_DATA_ABILITY_NUM, NULL);
     gBattleMons[battlerId].otId = GetMonData(&gPlayerParty[partyIndex], MON_DATA_OT_ID, NULL);
-    gBattleMons[battlerId].type1 = gBaseStats[gBattleMons[battlerId].species].type1;
-    gBattleMons[battlerId].type2 = gBaseStats[gBattleMons[battlerId].species].type2;
+    gBattleMons[battlerId].type1 = gSpeciesInfo[gBattleMons[battlerId].species].type1;
+    gBattleMons[battlerId].type2 = gSpeciesInfo[gBattleMons[battlerId].species].type2;
     gBattleMons[battlerId].ability = GetAbilityBySpecies(gBattleMons[battlerId].species, gBattleMons[battlerId].abilityNum, &gPlayerParty[partyIndex]); //has mon access from sabove
     GetMonData(&gPlayerParty[partyIndex], MON_DATA_NICKNAME, nickname);
     StringCopy_Nickname(gBattleMons[battlerId].nickname, nickname);
@@ -8905,7 +8905,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
             if ((itemEffect[cmdIndex] & ITEM3_LEVEL_UP)  // raise level /rare candy
              && GetMonData(mon, MON_DATA_LEVEL, NULL) != MAX_LEVEL) //+1 is level up replace with n, where n is quantity of itemused
             {
-                data = gExperienceTables[gBaseStats[GetMonData(mon, MON_DATA_SPECIES, NULL)].growthRate][GetMonData(mon, MON_DATA_LEVEL, NULL) + 1];
+                data = gExperienceTables[gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES, NULL)].growthRate][GetMonData(mon, MON_DATA_LEVEL, NULL) + 1];
                 SetMonData(mon, MON_DATA_EXP, &data);
                 CalculateMonStats(mon);
                 retVal = FALSE;
@@ -10005,7 +10005,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
     u8 holdEffect;
     u8 basePriority,EvoPriority;
     u16 currentMap;
-    u16 NUM_EVOS_CAP = (gBaseStats[SanitizeSpeciesId(species)].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
+    u16 NUM_EVOS_CAP = (gSpeciesInfo[SanitizeSpeciesId(species)].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
     const struct Evolution *evolutions = GetSpeciesEvolutions(species);
     const struct Evolution *evoShelmet = GetSpeciesEvolutions(SPECIES_SHELMET);
     const struct Evolution *evoKarrablast = GetSpeciesEvolutions(SPECIES_KARRABLAST);
@@ -10328,8 +10328,8 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
                     //and then compare it against the parameter listed in the table for evo, which will be variable value for type
                 {
                     u16 species = GetMonData(&gPlayerParty[j], MON_DATA_SPECIES, NULL);
-                    if (gBaseStats[species].type1 == evolutions[i].param
-                        || gBaseStats[species].type2 == evolutions[i].param)
+                    if (gSpeciesInfo[species].type1 == evolutions[i].param
+                        || gSpeciesInfo[species].type2 == evolutions[i].param)
                     {
                         EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
                         targetSpecies = evolutions[i].targetSpecies;
@@ -10343,8 +10343,8 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
                     for (j = 0; j < PARTY_SIZE; j++)
                     {
                         u16 species = GetMonData(&gPlayerParty[j], MON_DATA_SPECIES, NULL);
-                        if (gBaseStats[species].type1 == TYPE_DARK
-                            || gBaseStats[species].type2 == TYPE_DARK)
+                        if (gSpeciesInfo[species].type1 == TYPE_DARK
+                            || gSpeciesInfo[species].type2 == TYPE_DARK)
                         {
                             EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
                             targetSpecies = evolutions[i].targetSpecies;
@@ -10359,8 +10359,8 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
                     for (j = 0; j < PARTY_SIZE; j++)//above is dumb I have to evo methods I don't to check for the other species while I"m using this species smh
                     {
                         u16 species = GetMonData(&gPlayerParty[j], MON_DATA_SPECIES, NULL);
-                        if (gBaseStats[species].type1 == TYPE_ELECTRIC
-                            || gBaseStats[species].type2 == TYPE_ELECTRIC)
+                        if (gSpeciesInfo[species].type1 == TYPE_ELECTRIC
+                            || gSpeciesInfo[species].type2 == TYPE_ELECTRIC)
                         {
                             for (k = 0; k < PARTY_SIZE; k++)
                             {
@@ -10381,8 +10381,8 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
                     for (j = 0; j < PARTY_SIZE; j++)
                     {
                         u16 species = GetMonData(&gPlayerParty[j], MON_DATA_SPECIES, NULL);
-                        if (gBaseStats[species].type1 == TYPE_ELECTRIC
-                            || gBaseStats[species].type2 == TYPE_ELECTRIC)
+                        if (gSpeciesInfo[species].type1 == TYPE_ELECTRIC
+                            || gSpeciesInfo[species].type2 == TYPE_ELECTRIC)
                         {
                             for (k = 0; k < PARTY_SIZE; k++)
                             {
@@ -10708,8 +10708,8 @@ void EvolutionRenameMon(struct Pokemon *mon, u16 oldSpecies, u16 newSpecies)
     u8 language;
     GetMonData(mon, MON_DATA_NICKNAME, gStringVar1);
     language = GetMonData(mon, MON_DATA_LANGUAGE, &language);
-    if (language == GAME_LANGUAGE && !StringCompare(gBaseStats[oldSpecies].speciesName, gStringVar1))
-        SetMonData(mon, MON_DATA_NICKNAME, gBaseStats[newSpecies].speciesName);
+    if (language == GAME_LANGUAGE && !StringCompare(gSpeciesInfo[oldSpecies].speciesName, gStringVar1))
+        SetMonData(mon, MON_DATA_NICKNAME, gSpeciesInfo[newSpecies].speciesName);
 }//if current name matches old species name, rename mon?
 
 bool8 GetPlayerFlankId(void)
@@ -11217,9 +11217,9 @@ void PartySpreadPokerus(struct Pokemon *party)
 
 static void SetMonExpWithMaxLevelCheck(struct Pokemon *mon, int species, u8 unused, u32 data)
 {
-    if (data > gExperienceTables[gBaseStats[species].growthRate][100])
+    if (data > gExperienceTables[gSpeciesInfo[species].growthRate][100])
     {
-        data = gExperienceTables[gBaseStats[species].growthRate][100];
+        data = gExperienceTables[gSpeciesInfo[species].growthRate][100];
         SetMonData(mon, MON_DATA_EXP, &data);
     }
 }
@@ -11233,7 +11233,7 @@ bool8 TryIncrementMonLevel(struct Pokemon *mon)
 
     if (level < MAX_LEVEL)
     {
-        if (exp > gExperienceTables[gBaseStats[species].growthRate][newLevel])
+        if (exp > gExperienceTables[gSpeciesInfo[species].growthRate][newLevel])
         {
             SetMonData(mon, MON_DATA_LEVEL, &newLevel);
             SetMonExpWithMaxLevelCheck(mon, species, newLevel, exp);
@@ -11249,10 +11249,7 @@ bool8 TryIncrementMonLevel(struct Pokemon *mon)
     }
 }
 
-enum Type GetSpeciesType(u16 species, u8 slot)
-{
-    return gSpeciesInfo[SanitizeSpeciesId(species)].types[slot];
-}
+
 
 enum Ability GetSpeciesAbility(u16 species, u8 slot)
 {
@@ -11311,31 +11308,31 @@ u32 GetSpeciesBaseStat(u16 species, u32 statIndex)
 
 const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species)
 {
-    const struct LevelUpMove *learnset = gBaseStats[SanitizeSpeciesId(species)].levelUpLearnset;
+    const struct LevelUpMove *learnset = gSpeciesInfo[SanitizeSpeciesId(species)].levelUpLearnset;
     if (learnset == NULL)
-        return gBaseStats[SPECIES_NONE].levelUpLearnset;
+        return gSpeciesInfo[SPECIES_NONE].levelUpLearnset;
     return learnset;
 }
 
 const struct AbilityLearnset *GetSpeciesTeachableAbilities(u16 species)
 {
-    const struct AbilityLearnset *learnset = gBaseStats[SanitizeSpeciesId(species)].abilityLearnset;
+    const struct AbilityLearnset *learnset = gSpeciesInfo[SanitizeSpeciesId(species)].abilityLearnset;
     if (learnset == NULL)
-        return gBaseStats[SPECIES_NONE].abilityLearnset;
+        return gSpeciesInfo[SPECIES_NONE].abilityLearnset;
     return learnset;
 }
 
 //tm learnset my version doesn't include tutor moves
 const u16 *GetSpeciesTeachableLearnset(u16 species)
 {
-    const u16 *learnset;// = gBaseStats[SanitizeSpeciesId(species)].tmhmLearnset;
+    const u16 *learnset;// = gSpeciesInfo[SanitizeSpeciesId(species)].tmhmLearnset;
     u16 generatedSpecies;
 
     //works but more accurate to use on the cosmetic forms themselves than base form
     //can exclude mon that aren't cosmetic changes
     //just make cosmetics default to base learnsets
     //nvm more work than its worth
-    if (gBaseStats[GetFormSpeciesId(species, 0)].hasCosmeticForms)
+    if (gSpeciesInfo[GetFormSpeciesId(species, 0)].hasCosmeticForms)
       generatedSpecies = GetFormSpeciesId(species, 0);
     else
         generatedSpecies = species;
@@ -11347,19 +11344,19 @@ const u16 *GetSpeciesTeachableLearnset(u16 species)
     || species == SPECIES_PIKACHU_LIBRE)
         generatedSpecies = species;
 
-    learnset = gBaseStats[SanitizeSpeciesId(generatedSpecies)].tmhmLearnset;
+    learnset = gSpeciesInfo[SanitizeSpeciesId(generatedSpecies)].tmhmLearnset;
 
 
     if (learnset == NULL)
-        return gBaseStats[SPECIES_NONE].tmhmLearnset;
+        return gSpeciesInfo[SPECIES_NONE].tmhmLearnset;
     return learnset;
 }
 
 const struct Evolution *GetSpeciesEvolutions(u16 species)
 {
-    const struct Evolution *evolutions = gBaseStats[SanitizeSpeciesId(species)].evolutions;
+    const struct Evolution *evolutions = gSpeciesInfo[SanitizeSpeciesId(species)].evolutions;
     if (evolutions == NULL)
-        return gBaseStats[SPECIES_NONE].evolutions;//ok much better can use this split off change
+        return gSpeciesInfo[SPECIES_NONE].evolutions;//ok much better can use this split off change
     return evolutions;
 }
 
@@ -11388,7 +11385,7 @@ const struct Evolution *GetSpeciesEvolutions(u16 species)
 u16 GetSpeciesPreEvolution(u16 species, u32 LoopTarget) //so I feel like I'm not supposed to use i for this? 
 {
     u32 j;
-    u16 NUM_EVOS_CAP = (gBaseStats[SanitizeSpeciesId(species)].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
+    u16 NUM_EVOS_CAP = (gSpeciesInfo[SanitizeSpeciesId(species)].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
 
     //for (i = SPECIES_NONE; i < NUM_SPECIES; i++)     //previous used species_bulbasaur as 1 value, changed in case bulbasaur is not species 1
     //{
@@ -11413,7 +11410,7 @@ u16 GetSpeciesPreEvolution(u16 species, u32 LoopTarget) //so I feel like I'm not
 
 bool8 DoesSpeciesHaveCosmeticForms(u16 species)
 {
-    if (gBaseStats[GetFormSpeciesId(species, 0)].hasCosmeticForms)
+    if (gSpeciesInfo[GetFormSpeciesId(species, 0)].hasCosmeticForms)
         return TRUE;
     return FALSE;
 }
@@ -11576,36 +11573,36 @@ bool8 UseRegionSand(struct Pokemon *mon)
             }//checks first evo
             else
             {
-                if (gBaseStats[evolutions[i].targetSpecies].evolutions != NULL)
+                if (gSpeciesInfo[evolutions[i].targetSpecies].evolutions != NULL)
                 {
 
-                    for (j = 0; gBaseStats[evolutions[i].targetSpecies].evolutions[j].method != EVOLUTIONS_END; j++)
+                    for (j = 0; gSpeciesInfo[evolutions[i].targetSpecies].evolutions[j].method != EVOLUTIONS_END; j++)
                     {
-                        if (IsRegionalVariant(gBaseStats[evolutions[i].targetSpecies].evolutions[j].targetSpecies))
+                        if (IsRegionalVariant(gSpeciesInfo[evolutions[i].targetSpecies].evolutions[j].targetSpecies))
                         {
                             canUse = TRUE;
-                            //formflags += gBaseStats[evolutions[i].targetSpecies].evolutions[j].param2;
+                            //formflags += gSpeciesInfo[evolutions[i].targetSpecies].evolutions[j].param2;
 
-                            switch (gBaseStats[evolutions[i].targetSpecies].evolutions[j].param2)
+                            switch (gSpeciesInfo[evolutions[i].targetSpecies].evolutions[j].param2)
                             {
                                 case F_ALOLAN_FORM:
                                     if (canSetAlolan)
-                                        formflags += gBaseStats[evolutions[i].targetSpecies].evolutions[j].param2;
+                                        formflags += gSpeciesInfo[evolutions[i].targetSpecies].evolutions[j].param2;
                                     canSetAlolan = FALSE;
                                     break;
                                 case F_GALARIAN_FORM:
                                     if (canSetGalarian)
-                                        formflags += gBaseStats[evolutions[i].targetSpecies].evolutions[j].param2;
+                                        formflags += gSpeciesInfo[evolutions[i].targetSpecies].evolutions[j].param2;
                                     canSetGalarian = FALSE;
                                     break;
                                 case F_HISUIAN_FORM:
                                     if (canSetHisuian)
-                                        formflags += gBaseStats[evolutions[i].targetSpecies].evolutions[j].param2;
+                                        formflags += gSpeciesInfo[evolutions[i].targetSpecies].evolutions[j].param2;
                                     canSetHisuian = FALSE;
                                     break;
                                 case F_PALDEAN_FORM:
                                     if (canSetCefirian)
-                                        formflags += gBaseStats[evolutions[i].targetSpecies].evolutions[j].param2;
+                                        formflags += gSpeciesInfo[evolutions[i].targetSpecies].evolutions[j].param2;
                                     canSetCefirian = FALSE;
                                     break;
                             }
@@ -11698,10 +11695,10 @@ bool8 CheckFormViability(u8 formflags, u16 item)
 
 bool8 IsRegionalVariant(u16 species)
 {
-    if (gBaseStats[SanitizeSpeciesId(species)].isAlolanForm 
-    || gBaseStats[SanitizeSpeciesId(species)].isGalarianForm
-    || gBaseStats[SanitizeSpeciesId(species)].isHisuianForm
-    || gBaseStats[SanitizeSpeciesId(species)].isPaldeanForm)
+    if (gSpeciesInfo[SanitizeSpeciesId(species)].isAlolanForm 
+    || gSpeciesInfo[SanitizeSpeciesId(species)].isGalarianForm
+    || gSpeciesInfo[SanitizeSpeciesId(species)].isHisuianForm
+    || gSpeciesInfo[SanitizeSpeciesId(species)].isPaldeanForm)
         return TRUE;
 
     return FALSE;
@@ -11742,7 +11739,7 @@ bool8 IsMonPastEvolutionLevel(struct Pokemon *mon, u32 i)
     u8 level = GetMonData(mon, MON_DATA_LEVEL, NULL);
     u8 hasPreEvo = FALSE;
     const struct Evolution *evolutions = GetSpeciesEvolutions(species);
-    //u16 NUM_EVOS_CAP = (gBaseStats[SanitizeSpeciesId(species)].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
+    //u16 NUM_EVOS_CAP = (gSpeciesInfo[SanitizeSpeciesId(species)].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
 
     if (GetSpeciesPreEvolution(species, i)) //this is the problem - this was still the problem -__-
         hasPreEvo = TRUE; //oh thank god it seems to befixed
@@ -11761,10 +11758,10 @@ bool8 IsMonPastEvolutionLevel(struct Pokemon *mon, u32 i)
 
         /*if (hasPreEvo) //for pre evo use lesser of pre-evo ceiling  or lvl met + pre-evo effort as floor for next evo
         {
-            /*if ((gBaseStats[SanitizeSpeciesId(GetSpeciesPreEvolution(species, i))].evolutions[i].param & 0xFF) <= ((gBaseStats[SanitizeSpeciesId(GetSpeciesPreEvolution(species, i))].evolutions[i].param & 0xFF00 >> 8) + LevelMet))
-                LevelFloor = gBaseStats[SanitizeSpeciesId(GetSpeciesPreEvolution(species, i))].evolutions[i].param & 0xFF;
+            /*if ((gSpeciesInfo[SanitizeSpeciesId(GetSpeciesPreEvolution(species, i))].evolutions[i].param & 0xFF) <= ((gSpeciesInfo[SanitizeSpeciesId(GetSpeciesPreEvolution(species, i))].evolutions[i].param & 0xFF00 >> 8) + LevelMet))
+                LevelFloor = gSpeciesInfo[SanitizeSpeciesId(GetSpeciesPreEvolution(species, i))].evolutions[i].param & 0xFF;
             else
-                LevelFloor = (gBaseStats[SanitizeSpeciesId(GetSpeciesPreEvolution(species, i))].evolutions[i].param & 0xFF00 >> 8) + LevelMet;
+                LevelFloor = (gSpeciesInfo[SanitizeSpeciesId(GetSpeciesPreEvolution(species, i))].evolutions[i].param & 0xFF00 >> 8) + LevelMet;
            //is workable but not accurate,  as taking lesser doesn't actually keep with when it actually evolved
             if (GetMonData(mon, MON_DATA_EVO_LEVEL, NULL) != 0) //believe should work, is set in evo scene task, after evo finish
                 LevelFloor = GetMonData(mon, MON_DATA_EVO_LEVEL, NULL); //this isn't quite right either, I'd have evo level only if I raised mon to evo but if caught at evo I wouldn't
@@ -11788,7 +11785,7 @@ bool8 IsMonPastEvolutionLevel(struct Pokemon *mon, u32 i)
         case EVO_LEVEL:*/
             //if (evolutions[i].param <= level) //remove switch logic so can fit in any case
             
-            //if (gBaseStats[SanitizeSpeciesId(species)].evolutions == NULL)
+            //if (gSpeciesInfo[SanitizeSpeciesId(species)].evolutions == NULL)
             //    EvoCeiling = (evolutions[i].param);
 
             /*    if (EvoCeiling <= level)
@@ -11824,10 +11821,10 @@ bool8 IsSameSpeciesFamily(u16 sourceSpecies, u16 comparisonSpecies)
     u16 ComparisonEggSpecies = GetEggSpecies(comparisonSpecies);
     u16 SourceEggSpecies = GetEggSpecies(sourceSpecies);
 
-    if (StringCompare(gBaseStats[sourceSpecies].speciesName, gBaseStats[comparisonSpecies].speciesName) == IDENTICAL)
+    if (StringCompare(gSpeciesInfo[sourceSpecies].speciesName, gSpeciesInfo[comparisonSpecies].speciesName) == IDENTICAL)
         return TRUE;
 
-    if (StringCompare(gBaseStats[SourceEggSpecies].speciesName, gBaseStats[ComparisonEggSpecies].speciesName) == IDENTICAL)
+    if (StringCompare(gSpeciesInfo[SourceEggSpecies].speciesName, gSpeciesInfo[ComparisonEggSpecies].speciesName) == IDENTICAL)
         return TRUE; //actually using geteggspecies is better than looping through pre evos in this function
     
     //with how egg check works will prob never trigger below logic...
@@ -11836,19 +11833,19 @@ bool8 IsSameSpeciesFamily(u16 sourceSpecies, u16 comparisonSpecies)
     {
         for (i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
         {
-            if (StringCompare(gBaseStats[sourceSpecies].speciesName, gBaseStats[evolutions[i].targetSpecies].speciesName) == IDENTICAL)
+            if (StringCompare(gSpeciesInfo[sourceSpecies].speciesName, gSpeciesInfo[evolutions[i].targetSpecies].speciesName) == IDENTICAL)
             {
                 return TRUE; //for extra caution believe I need to set filter to ensure don't attempt reset same flag
                 
             }//checks first evo
             else
             {
-                if (gBaseStats[evolutions[i].targetSpecies].evolutions != NULL)
+                if (gSpeciesInfo[evolutions[i].targetSpecies].evolutions != NULL)
                 {
 
-                    for (j = 0; gBaseStats[evolutions[i].targetSpecies].evolutions[j].method != EVOLUTIONS_END; j++)
+                    for (j = 0; gSpeciesInfo[evolutions[i].targetSpecies].evolutions[j].method != EVOLUTIONS_END; j++)
                     {
-                        if (StringCompare(gBaseStats[sourceSpecies].speciesName, gBaseStats[gBaseStats[evolutions[i].targetSpecies].evolutions[j].targetSpecies].speciesName) == IDENTICAL)
+                        if (StringCompare(gSpeciesInfo[sourceSpecies].speciesName, gSpeciesInfo[gSpeciesInfo[evolutions[i].targetSpecies].evolutions[j].targetSpecies].speciesName) == IDENTICAL)
                         {
                             return TRUE;
                             
@@ -11875,7 +11872,7 @@ bool8 IsSameSpeciesFamily(u16 sourceSpecies, u16 comparisonSpecies)
 
                 if (SanitizeSpeciesId(evolutions[j].targetSpecies) == comparisonSpecies)
                 {
-                    if (StringCompare(gBaseStats[sourceSpecies].speciesName, gSpeciesNames[k]) == IDENTICAL)
+                    if (StringCompare(gSpeciesInfo[sourceSpecies].speciesName, gSpeciesNames[k]) == IDENTICAL)
                         return TRUE; //breaks loop check pre evo 
 
                     comparisonSpecies = k; //checks pre evo if pre evo dooesn't match, get ready for loop next pre evo
@@ -12025,7 +12022,7 @@ u32 CanSpeciesLearnTMHMmove(u16 species, u16 move) //for this belive replace wit
             {
                     if (move == MOVE_TERA_BLAST && GET_BASE_SPECIES_ID(species) == SPECIES_TERAPAGOS)
                         return FALSE;
-                    if (move == MOVE_ATTRACT && gBaseStats[species].genderRatio == MON_GENDERLESS)
+                    if (move == MOVE_ATTRACT && gSpeciesInfo[species].genderRatio == MON_GENDERLESS)
                         return FALSE;
                     if (GET_BASE_SPECIES_ID(species) == SPECIES_PYUKUMUKU && (move == MOVE_HIDDEN_POWER || move == MOVE_RETURN || move == MOVE_FRUSTRATION))
                         return FALSE;
@@ -12527,7 +12524,7 @@ const u16 *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 
 
 bool8 IsPokeSpriteNotFlipped(u16 species)
 {
-    return gBaseStats[species].noFlip;
+    return gSpeciesInfo[species].noFlip;
 }
 
 #define BERRY_TO_NATURE_RELATION
@@ -12610,18 +12607,18 @@ void SetWildMonHeldItem(void)
     {
         u16 rnd = Random() % 100;
         u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, 0);
-        if (gBaseStats[species].itemCommon == gBaseStats[species].itemRare)
+        if (gSpeciesInfo[species].itemCommon == gSpeciesInfo[species].itemRare)
         {
-            SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].itemCommon);
+            SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gSpeciesInfo[species].itemCommon);
             return;
         }
 
         if (rnd > 44)
         {
             if (rnd <= 94)
-                SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].itemCommon);
+                SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gSpeciesInfo[species].itemCommon);
             else
-                SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].itemRare);
+                SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gSpeciesInfo[species].itemRare);
         }
     }
 }
@@ -13935,8 +13932,8 @@ void SavePlayerPartyMon(u32 index, struct Pokemon *mon)
 
 bool32 IsSpeciesOfType(u32 species, enum Type type)
 {
-    if (gSpeciesInfo[species].types[0] == type
-     || gSpeciesInfo[species].types[1] == type)
+    if (gSpeciesInfo[species].type1 == type
+     || gSpeciesInfo[species].type2 == type)
         return TRUE;
     return FALSE;
 }

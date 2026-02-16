@@ -1960,10 +1960,10 @@ static void ItemPrintFunc_OrderedListMenu(u8 windowId, s32 itemId, u8 y)
     if (caught)
     {
         BlitMoveInfoIcon(sPokedexScreenData->numericalOrderWindowId, MENU_INFO_ICON_CAUGHT, x + 33, y); //pokeball icon //x was 40
-        type1 = gBaseStats[species].type1;
+        type1 = gSpeciesInfo[species].type1;
         BlitMoveInfoIcon(sPokedexScreenData->numericalOrderWindowId, type1 + 1, Type_xValue, y); //4bpp 32 width between these 2 type icons
-        if (type1 != gBaseStats[species].type2)
-            BlitMoveInfoIcon(sPokedexScreenData->numericalOrderWindowId, gBaseStats[species].type2 + 1, Type_xValue + 36, y);
+        if (type1 != gSpeciesInfo[species].type2)
+            BlitMoveInfoIcon(sPokedexScreenData->numericalOrderWindowId, gSpeciesInfo[species].type2 + 1, Type_xValue + 36, y);
     }
 }
 
@@ -4366,8 +4366,8 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
     
     //if mega use base form for catch otherwise use dex species
     if (species > NATIONAL_SPECIES_COUNT
-    && (gBaseStats[SanitizeSpeciesId(species)].isMegaEvolution
-    || gBaseStats[SanitizeSpeciesId(species)].isPrimalReversion))
+    && (gSpeciesInfo[SanitizeSpeciesId(species)].isMegaEvolution
+    || gSpeciesInfo[SanitizeSpeciesId(species)].isPrimalReversion))
     {
         FormSpecies = GetFormSpeciesId(species, 0);
     }
@@ -4492,8 +4492,8 @@ void DexScreen_PrintMonHeight(u8 windowId, u16 species, u8 x, u8 y)
 
 
     if (species > NATIONAL_SPECIES_COUNT
-    && (gBaseStats[SanitizeSpeciesId(species)].isMegaEvolution
-    || gBaseStats[SanitizeSpeciesId(species)].isPrimalReversion))
+    && (gSpeciesInfo[SanitizeSpeciesId(species)].isMegaEvolution
+    || gSpeciesInfo[SanitizeSpeciesId(species)].isPrimalReversion))
     {
         FormSpecies = GetFormSpeciesId(species, 0);
     }
@@ -4585,8 +4585,8 @@ void DexScreen_PrintMonWeight(u8 windowId, u16 species, u8 x, u8 y)
     //make list of exclusions, like I did for pic height
     //just need to exclude the gen 9 form mon
     if (species > NATIONAL_SPECIES_COUNT 
-    && (gBaseStats[SanitizeSpeciesId(species)].isMegaEvolution
-    || gBaseStats[SanitizeSpeciesId(species)].isPrimalReversion))
+    && (gSpeciesInfo[SanitizeSpeciesId(species)].isMegaEvolution
+    || gSpeciesInfo[SanitizeSpeciesId(species)].isPrimalReversion))
     {
         FormSpecies = GetFormSpeciesId(species, 0);
     }
@@ -4796,8 +4796,8 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
 
 
     if (species > NATIONAL_SPECIES_COUNT
-    && (gBaseStats[SanitizeSpeciesId(species)].isMegaEvolution
-    || gBaseStats[SanitizeSpeciesId(species)].isPrimalReversion))
+    && (gSpeciesInfo[SanitizeSpeciesId(species)].isMegaEvolution
+    || gSpeciesInfo[SanitizeSpeciesId(species)].isPrimalReversion))
     {
         FormSpecies = GetFormSpeciesId(species, 0);
     }
@@ -5089,7 +5089,7 @@ static u8 DexScreen_DrawMonDexPage(bool8 justRegistered) //should be able to uss
     //GetSpeciesName(gStringVar1, SpeciesVal);
     //used this over getspeciesname function,
     //to get around cur str limit as not using for health box
-    StringCopy(gStringVar1,gBaseStats[SpeciesVal].speciesName);
+    StringCopy(gStringVar1,gSpeciesInfo[SpeciesVal].speciesName);
     if (ShouldCapitalizeSpecies())
         CapializeString(gStringVar1);
 
@@ -5355,12 +5355,12 @@ static void CreateStatBar(u8 *dst, u32 y, u32 width)
 }
 static const u8 sBaseStatOffsets[] =
 {
-    offsetof(struct BaseStats, baseHP),
-    offsetof(struct BaseStats, baseAttack),
-    offsetof(struct BaseStats, baseDefense),
-    offsetof(struct BaseStats, baseSpAttack),
-    offsetof(struct BaseStats, baseSpDefense),
-    offsetof(struct BaseStats, baseSpeed),
+    offsetof(struct SpeciesInfo, baseHP),
+    offsetof(struct SpeciesInfo, baseAttack),
+    offsetof(struct SpeciesInfo, baseDefense),
+    offsetof(struct SpeciesInfo, baseSpAttack),
+    offsetof(struct SpeciesInfo, baseSpDefense),
+    offsetof(struct SpeciesInfo, baseSpeed),
 };
 static void TryDestroyStatBars(void)
 {
@@ -5404,7 +5404,7 @@ static void CreateStatBars(u32 species)//(struct PokedexListItem *dexMon)
         memcpy(gfx, sStatBarsGfx, sizeof(sStatBarsGfx));
         for (i = 0; i < NUM_STATS; i++)
         {
-            statValue = *((u8*)(&gBaseStats[species]) + sBaseStatOffsets[i]);
+            statValue = *((u8*)(&gSpeciesInfo[species]) + sBaseStatOffsets[i]);
             if (statValue <= 100)
             {
                 width = statValue / 3;
@@ -5489,8 +5489,8 @@ u8 DexScreen_DrawMonAreaPage(void)
 
 
     if (species > NATIONAL_SPECIES_COUNT
-    && (gBaseStats[SanitizeSpeciesId(species)].isMegaEvolution
-    || gBaseStats[SanitizeSpeciesId(species)].isPrimalReversion))
+    && (gSpeciesInfo[SanitizeSpeciesId(species)].isMegaEvolution
+    || gSpeciesInfo[SanitizeSpeciesId(species)].isPrimalReversion))
     {
         FormSpecies = GetFormSpeciesId(species, 0);
     }
@@ -5609,9 +5609,9 @@ u8 DexScreen_DrawMonAreaPage(void)
 
     if (monIsCaught)
     {
-        BlitMoveInfoIcon(sPokedexScreenData->windowIds[12], 1 + gBaseStats[species].type1, 0, 1);
-        if (gBaseStats[species].type1 != gBaseStats[species].type2)
-            BlitMoveInfoIcon(sPokedexScreenData->windowIds[12], 1 + gBaseStats[species].type2, 34, 1);
+        BlitMoveInfoIcon(sPokedexScreenData->windowIds[12], 1 + gSpeciesInfo[species].type1, 0, 1);
+        if (gSpeciesInfo[species].type1 != gSpeciesInfo[species].type2)
+            BlitMoveInfoIcon(sPokedexScreenData->windowIds[12], 1 + gSpeciesInfo[species].type2, 34, 1);
     }
     PutWindowTilemap(sPokedexScreenData->windowIds[12]);
     CopyWindowToVram(sPokedexScreenData->windowIds[12], COPYWIN_GFX);
@@ -5992,8 +5992,8 @@ u8 DexScreen_RegisterMonToPokedex(u16 species) //now has nat dex, need workaroun
 
     if (species > NATIONAL_SPECIES_COUNT
     && !(GetSetPokedexFlag((GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
-    && (gBaseStats[SanitizeSpeciesId(species)].isMegaEvolution
-    || gBaseStats[SanitizeSpeciesId(species)].isPrimalReversion
+    && (gSpeciesInfo[SanitizeSpeciesId(species)].isMegaEvolution
+    || gSpeciesInfo[SanitizeSpeciesId(species)].isPrimalReversion
     || IsRegionalVariant(species)))
     {
         DexScreen_GetSetPokedexFlag(GetFormSpeciesId(species, 0), FLAG_SET_SEEN, TRUE); //if catch form should set base form is seen so can navigate to dex page
@@ -6181,7 +6181,7 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 
                 if (seen) //ok using this fixed it, thiknk issue is keeping same structure between, this function and DexScreen_CreateList_ReturnCount
                 {
-                    sPokedexScreenData->listItems[ndex_num + i].label = gBaseStats[NationalPokedexNumToSpecies(ndex_num + i + 1)].speciesName;
+                    sPokedexScreenData->listItems[ndex_num + i].label = gSpeciesInfo[NationalPokedexNumToSpecies(ndex_num + i + 1)].speciesName;
                 }
                 else
                 {
@@ -6212,7 +6212,7 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 
                 if (seen) //ok using this fixed it, thiknk issue is keeping same structure between, this function and DexScreen_CreateList_ReturnCount
                 {   
-                    sPokedexScreenData->listItems[ndex_num - i].label = gBaseStats[NationalPokedexNumToSpecies(ndex_num - i + 1)].speciesName;
+                    sPokedexScreenData->listItems[ndex_num - i].label = gSpeciesInfo[NationalPokedexNumToSpecies(ndex_num - i + 1)].speciesName;
                 }   
                 else
                 {
@@ -6238,7 +6238,7 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 if (seen)
                 {
                                         
-                    sPokedexScreenData->listItems[ndex_num + i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[j])].speciesName;
+                    sPokedexScreenData->listItems[ndex_num + i].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num + i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[j]);
                     
                     
@@ -6269,7 +6269,7 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 if (seen)
                 {
                     
-                    sPokedexScreenData->listItems[ndex_num - i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[j])].speciesName;
+                    sPokedexScreenData->listItems[ndex_num - i].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num - i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[j]);
                     
                     
@@ -6305,7 +6305,7 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 if (caught)
                 {
                     
-                    sPokedexScreenData->listItems[ndex_num + i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[j])].speciesName;
+                    sPokedexScreenData->listItems[ndex_num + i].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Type[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num + i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[j]);
                     
                     
@@ -6337,7 +6337,7 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 {
                     
 
-                    sPokedexScreenData->listItems[ndex_num - i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[j])].speciesName;
+                    sPokedexScreenData->listItems[ndex_num - i].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Type[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num - i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[j]);
                     
                     
@@ -6372,7 +6372,7 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 if (caught)
                 {
                     
-                    sPokedexScreenData->listItems[ndex_num + i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[j])].speciesName;
+                    sPokedexScreenData->listItems[ndex_num + i].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Weight[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num + i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[j]);
                     
                     
@@ -6403,7 +6403,7 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 if (caught)
                 {
 
-                    sPokedexScreenData->listItems[ndex_num - i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[j])].speciesName;
+                    sPokedexScreenData->listItems[ndex_num - i].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Weight[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num - i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[j]);
                     
                     
@@ -6438,7 +6438,7 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 if (caught)
                 {
                     
-                    sPokedexScreenData->listItems[ndex_num + i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[j])].speciesName;
+                    sPokedexScreenData->listItems[ndex_num + i].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Height[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num + i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[j]);
                     
                     
@@ -6470,7 +6470,7 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 {
                     
 
-                    sPokedexScreenData->listItems[ndex_num - i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[j])].speciesName;
+                    sPokedexScreenData->listItems[ndex_num - i].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Height[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num - i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[j]);
                     
                     
@@ -6507,7 +6507,7 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 if (seen) //ok using this fixed it, thiknk issue is keeping same structure between, this function and DexScreen_CreateList_ReturnCount
                 {   
 
-                    sPokedexScreenData->listItems[ndex_num + i].label = gBaseStats[NationalPokedexNumToSpecies(ndex_num + i + 1)].speciesName;
+                    sPokedexScreenData->listItems[ndex_num + i].label = gSpeciesInfo[NationalPokedexNumToSpecies(ndex_num + i + 1)].speciesName;
                     
                 }   
                 else
@@ -6540,7 +6540,7 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 if (seen) //ok using this fixed it, thiknk issue is keeping same structure between, this function and DexScreen_CreateList_ReturnCount
                 {
 
-                    sPokedexScreenData->listItems[ndex_num - i].label = gBaseStats[NationalPokedexNumToSpecies(ndex_num - i + 1)].speciesName;
+                    sPokedexScreenData->listItems[ndex_num - i].label = gSpeciesInfo[NationalPokedexNumToSpecies(ndex_num - i + 1)].speciesName;
                     
                 }   
                 else
@@ -6591,7 +6591,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
 
                             if (seen)
                             {
-                                sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(j + 1)].speciesName;
+                                sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(j + 1)].speciesName;
                             }   
                             else
                             {
@@ -6616,7 +6616,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                                 //u8 text[20];
                                 //u8 *buffer = AllocZeroed(sizeof(text));
                                 //ReturnSpeciesNameConst(buffer, NationalPokedexNumToSpecies(j + 1));
-                                sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(j + 1)].speciesName;
+                                sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(j + 1)].speciesName;
                                 //free(buffer);
 
                             }
@@ -6645,7 +6645,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                                 //u8 text[20];
                                 //u8 *buffer = AllocZeroed(sizeof(text));
                                 //ReturnSpeciesNameConst(buffer, NationalPokedexNumToSpecies(j + 1));
-                                sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(j + 1)].speciesName;
+                                sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(j + 1)].speciesName;
                                 //free(buffer);
 
                             }
@@ -6707,7 +6707,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         {
                             
 
-                            sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[i])].speciesName;                            
+                            sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[i])].speciesName;                            
                             sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[i]);
 
                             if (j == entryPos) //extra safety buffer, for when returning to list from dex entry, should assign curr index value 
@@ -6744,7 +6744,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                     if (seen) //would be an issue but above condition will arleady cut it off, if numseenis lessthan this condition
                     {
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6772,7 +6772,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                     if (seen)
                     {
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;   
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;   
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6792,7 +6792,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;   
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;   
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6820,7 +6820,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                     if (seen)
                     {
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;   
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;   
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6838,7 +6838,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                     if (seen)
                     {
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;   
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;   
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6888,7 +6888,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                             
                             
                             
-                            sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[i])].speciesName;   
+                            sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Type[i])].speciesName;   
                             sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[i]);
 
                             if (j == entryPos) //extra safety buffer, for when returning to list from dex entry, should assign curr index value 
@@ -6927,7 +6927,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6955,7 +6955,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                     if (caught)
                     {
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6975,7 +6975,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7005,7 +7005,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7025,7 +7025,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7073,7 +7073,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                             
                             
                             
-                            sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[i])].speciesName; 
+                            sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Weight[i])].speciesName; 
                             sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[i]);
 
                             if (j == entryPos) //extra safety buffer, for when returning to list from dex entry, should assign curr index value 
@@ -7112,7 +7112,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName; 
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName; 
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7142,7 +7142,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName;
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7162,7 +7162,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName;
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7192,7 +7192,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName;
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7212,7 +7212,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName;
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7260,7 +7260,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                             
                             
                             
-                            sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[i])].speciesName;
+                            sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Height[i])].speciesName;
                             sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[i]);
 
                             if (j == entryPos) //extra safety buffer, for when returning to list from dex entry, should assign curr index value 
@@ -7299,7 +7299,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7329,7 +7329,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7349,7 +7349,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7379,7 +7379,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7399,7 +7399,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                         
                         
                         
-                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
+                        sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7432,7 +7432,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                                     
                                     
                                     
-                                    sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(j + 1)].speciesName;
+                                    sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(j + 1)].speciesName;
                                     
                                 }
                                 else
@@ -7457,7 +7457,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                                     
                                     
                                     
-                                    sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(j + 1)].speciesName;
+                                    sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(j + 1)].speciesName;
                        
                                 }
                                 else
@@ -7484,7 +7484,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
                                     
                                     
                                     
-                                    sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(j + 1)].speciesName;
+                                    sPokedexScreenData->listItems[j].label = gSpeciesInfo[NationalPokedexNumToSpecies(j + 1)].speciesName;
                              
                                 }
                                 else
@@ -8494,9 +8494,9 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
         if (evolutions[0].method != 0)
         {
             //rough estiate but believe about +5 needed for each additional char?
-            if (StringLength(gBaseStats[targetSpecies].speciesName) <= 8) //think string length removes terminator so need -1 from speciesname value
+            if (StringLength(gSpeciesInfo[targetSpecies].speciesName) <= 8) //think string length removes terminator so need -1 from speciesname value
                 PrintInfoScreenTextSmall(gStringVar4, base_x + depth_x*depth+base_x_offset - 15, base_y + base_y_offset*base_i); //Print actual instructions
-            else if (StringLength(gBaseStats[targetSpecies].speciesName) <= 10)
+            else if (StringLength(gSpeciesInfo[targetSpecies].speciesName) <= 10)
                 PrintInfoScreenTextSmall(gStringVar4, base_x + depth_x*depth+base_x_offset - 5, base_y + base_y_offset*base_i); //Print actual instructions
             else
                 PrintInfoScreenTextSmall(gStringVar4, base_x + depth_x*depth+base_x_offset + 5, base_y + base_y_offset*base_i); //Print actual instructions

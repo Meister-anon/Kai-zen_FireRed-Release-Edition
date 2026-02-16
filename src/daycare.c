@@ -679,9 +679,9 @@ static u16 TakeSelectedPokemonFromDaycare(struct DaycareMon *daycareMon)
         else
         {
             experience += daycareMon->steps;
-            if (experience > gExperienceTables[gBaseStats[species].growthRate][level_Limit])
+            if (experience > gExperienceTables[gSpeciesInfo[species].growthRate][level_Limit])
             {
-                experience -= (experience - gExperienceTables[gBaseStats[species].growthRate][level_Limit]);
+                experience -= (experience - gExperienceTables[gSpeciesInfo[species].growthRate][level_Limit]);
             }
             
         }
@@ -833,7 +833,7 @@ u16 GetEggSpecies(u16 species) //vsonic
 {
     int i, j, k;
     bool8 found;
-    u16 NUM_EVOS_CAP = (gBaseStats[SanitizeSpeciesId(species)].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
+    u16 NUM_EVOS_CAP = (gSpeciesInfo[SanitizeSpeciesId(species)].evolutions == NULL) ? EVOS_PER_MON : EVOLUTIONS_END;
     
 
     // Working backwards up to 5 times seems arbitrary, since the maximum number
@@ -1378,7 +1378,7 @@ static void AlterEggSpeciesWithIncenseItem(u16 *species, struct DayCare *daycare
 //ex zigzagoon and galarian zigzagoon are both zigzagoon.
 //so change species to that of galraian form if either parent held galrian item
 
-//if (StringCompare(gBaseStats[GetMonData(pokemon, MON_DATA_SPECIES, NULL)]].speciesName, gStringVar1) != 0)
+//if (StringCompare(gSpeciesInfo[GetMonData(pokemon, MON_DATA_SPECIES, NULL)]].speciesName, gStringVar1) != 0)
 //this what I use,  first value should be mother species, look for mon that shares name
 //that base stat flag matches the item value to set
 //replace gStringVar1  with target species  
@@ -1479,11 +1479,11 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
         if (IsRegionalVariant(j)) //need this as ran into cosplay forms instead of regionals
         {
             //if mother species has alt form reset species, i..e a species with same name (excluding megas)
-            if (((StringCompare(gBaseStats[j].speciesName, gBaseStats[MotherSpecies].speciesName)) == IDENTICAL)
+            if (((StringCompare(gSpeciesInfo[j].speciesName, gSpeciesInfo[MotherSpecies].speciesName)) == IDENTICAL)
             &&  !IsRegionalVariant(GetMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_SPECIES, NULL))) //and mother species isn't already a variant
             {
-                if ((ItemId_GetSecondaryId(motherItem) == gBaseStats[j].flags)
-                || (ItemId_GetSecondaryId(fatherItem) == gBaseStats[j].flags))
+                if ((ItemId_GetSecondaryId(motherItem) == gSpeciesInfo[j].flags)
+                || (ItemId_GetSecondaryId(fatherItem) == gSpeciesInfo[j].flags))
                 {   
                     eggSpecies = GetEggSpecies(j);
                     break;
@@ -1632,7 +1632,7 @@ void CreateEgg(struct Pokemon *mon, u16 species, bool8 setHotSpringsLocation)
     language = LANGUAGE_JAPANESE;
     SetMonData(mon, MON_DATA_POKEBALL, &ball);
     SetMonData(mon, MON_DATA_NICKNAME, sJapaneseEggNickname);
-    SetMonData(mon, MON_DATA_FRIENDSHIP, &gBaseStats[species].eggCycles); //so this friendship based on egg cycles and friendship is then used for egg steps?
+    SetMonData(mon, MON_DATA_FRIENDSHIP, &gSpeciesInfo[species].eggCycles); //so this friendship based on egg cycles and friendship is then used for egg steps?
     SetMonData(mon, MON_DATA_MET_LEVEL, &metLevel);
     SetMonData(mon, MON_DATA_HATCHED, &hatched);
     SetMonData(mon, MON_DATA_LANGUAGE, &language);
@@ -1727,7 +1727,7 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
     language = LANGUAGE_JAPANESE;
     SetMonData(mon, MON_DATA_POKEBALL, &ball);
     SetMonData(mon, MON_DATA_NICKNAME, sJapaneseEggNickname);
-    SetMonData(mon, MON_DATA_FRIENDSHIP, &gBaseStats[species].eggCycles);
+    SetMonData(mon, MON_DATA_FRIENDSHIP, &gSpeciesInfo[species].eggCycles);
     SetMonData(mon, MON_DATA_MET_LEVEL, &metLevel);
     SetMonData(mon, MON_DATA_HATCHED, &hatched);
     SetMonData(mon, MON_DATA_LANGUAGE, &language);
@@ -1784,7 +1784,7 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
     if (IsRegionalVariant(MotherSpecies)
     && !IsRegionalVariant(GetEggSpecies(MotherSpecies)))
     {
-        data = gBaseStats[MotherSpecies].flags;
+        data = gSpeciesInfo[MotherSpecies].flags;
         SetMonData(mon, MON_DATA_FORM_FLAG, &data);
     } //appears to be working,
 
@@ -1794,7 +1794,7 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
         if (IsRegionalVariant(FatherSpecies)
         && !IsRegionalVariant(MotherSpecies))
         {
-            data = gBaseStats[FatherSpecies].flags;
+            data = gSpeciesInfo[FatherSpecies].flags;
             SetMonData(mon, MON_DATA_FORM_FLAG, &data);
         }
     }//ok this isn't right, for this to work it'd need to check entire evo like regiion sand does
@@ -2235,8 +2235,8 @@ static u8 GetRoute5DaycareCompatibilityScore(struct DayCare *daycare)
         trainerIds[i] = GetBoxMonData(&daycare->route5_daycareMon[i].mon, MON_DATA_OT_ID);
         personality = GetBoxMonData(&daycare->route5_daycareMon[i].mon, MON_DATA_PERSONALITY);
         genders[i] = GetGenderFromSpeciesAndPersonality(species[i], personality);
-        eggGroups[i][0] = gBaseStats[species[i]].eggGroup1;
-        eggGroups[i][1] = gBaseStats[species[i]].eggGroup2;
+        eggGroups[i][0] = gSpeciesInfo[species[i]].eggGroup1;
+        eggGroups[i][1] = gSpeciesInfo[species[i]].eggGroup2;
     }
 
     // check unbreedable egg group
@@ -2319,8 +2319,8 @@ u8 GetDaycareCompatibilityScore(struct DayCare *daycare)
         trainerIds[i] = GetBoxMonData(&daycare->mons[i].mon, MON_DATA_OT_ID);
         personality = GetBoxMonData(&daycare->mons[i].mon, MON_DATA_PERSONALITY);
         genders[i] = GetGenderFromSpeciesAndPersonality(species[i], personality);
-        eggGroups[i][0] = gBaseStats[species[i]].eggGroup1;
-        eggGroups[i][1] = gBaseStats[species[i]].eggGroup2;
+        eggGroups[i][0] = gSpeciesInfo[species[i]].eggGroup1;
+        eggGroups[i][1] = gSpeciesInfo[species[i]].eggGroup2;
     }
 
     // check unbreedable egg group
@@ -2782,8 +2782,8 @@ static void AddHatchedMonToParty(u8 id)
 
     if (GetMonData(mon, MON_DATA_SPECIES) > NATIONAL_SPECIES_COUNT
     && !(GetSetPokedexFlag((GetFormSpeciesId(GetMonData(mon, MON_DATA_SPECIES), 0)), FLAG_GET_SEEN))
-    && (gBaseStats[SanitizeSpeciesId(GetMonData(mon, MON_DATA_SPECIES))].isMegaEvolution
-    || gBaseStats[SanitizeSpeciesId(GetMonData(mon, MON_DATA_SPECIES))].isPrimalReversion
+    && (gSpeciesInfo[SanitizeSpeciesId(GetMonData(mon, MON_DATA_SPECIES))].isMegaEvolution
+    || gSpeciesInfo[SanitizeSpeciesId(GetMonData(mon, MON_DATA_SPECIES))].isPrimalReversion
     || IsRegionalVariant(GetMonData(mon, MON_DATA_SPECIES))))
     {
         GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(GetMonData(mon, MON_DATA_SPECIES), 0)), FLAG_SET_SEEN);
@@ -3502,8 +3502,8 @@ static void AddHatchedMonToParty_UpdatePcHatchedMon(u8 id)
 
     if (GetBoxMonData(mon, MON_DATA_SPECIES) > NATIONAL_SPECIES_COUNT   
     && !(GetSetPokedexFlag((GetFormSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES), 0)), FLAG_GET_SEEN))
-    && (gBaseStats[SanitizeSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES))].isMegaEvolution
-    || gBaseStats[SanitizeSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES))].isPrimalReversion
+    && (gSpeciesInfo[SanitizeSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES))].isMegaEvolution
+    || gSpeciesInfo[SanitizeSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES))].isPrimalReversion
     || IsRegionalVariant(GetBoxMonData(mon, MON_DATA_SPECIES))))
     {
         GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES), 0)), FLAG_SET_SEEN);

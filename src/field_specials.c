@@ -251,7 +251,7 @@ bool8 PlayerHasGrassPokemonInParty(void)
         )
         {
             species = GetMonData(pokemon, MON_DATA_SPECIES);
-            if (gBaseStats[species].type1 == TYPE_GRASS || gBaseStats[species].type2 == TYPE_GRASS)
+            if (gSpeciesInfo[species].type1 == TYPE_GRASS || gSpeciesInfo[species].type2 == TYPE_GRASS)
                 return TRUE;
         }
     }
@@ -1899,7 +1899,7 @@ u16 De_Evolve(u16 targetSpecies)
     for (species = 0; species != FORMS_START; species++)
     {
         const struct Evolution *evo = GetSpeciesEvolutions(species); //changed name to ensure doesn't conflict w below
-        NUM_EVOS_CAP = gBaseStats[SanitizeSpeciesId(species)].evolutions == NULL ? EVOS_PER_MON : EVOLUTIONS_END;
+        NUM_EVOS_CAP = gSpeciesInfo[SanitizeSpeciesId(species)].evolutions == NULL ? EVOS_PER_MON : EVOLUTIONS_END;
         
 
         //for (j = 0; evolutions[j].method != EVOLUTIONS_END; j++)
@@ -1938,10 +1938,10 @@ u16 Init_movelearn_options(u16 targetSpecies)
 u8 CheckSuperEffective(u16 Atk_Species, u16 Target_Species) //is super effective
 {
     u8 passedChecks = 0;
-    u8 Atktype1 = gBaseStats[Atk_Species].type1;
-    u8 Atktype2 = gBaseStats[Atk_Species].type2;
-    u8 targetType1 = gBaseStats[Target_Species].type1;
-    u8 targetType2 = gBaseStats[Target_Species].type2;
+    u8 Atktype1 = gSpeciesInfo[Atk_Species].type1;
+    u8 Atktype2 = gSpeciesInfo[Atk_Species].type2;
+    u8 targetType1 = gSpeciesInfo[Target_Species].type1;
+    u8 targetType2 = gSpeciesInfo[Target_Species].type2;
     uq4_12_t AtkMultiplierType1 = UQ_4_12(1.0);
     uq4_12_t AtkMultiplierType2 = UQ_4_12(1.0);
     uq4_12_t DefenseMultiplierType1 = UQ_4_12(1.0);
@@ -2016,8 +2016,8 @@ u8 ShouldResetRivalStarter(void)
     {
         species = GetFinalEvo(VarGet(VAR_TEMP_8));
         playermon = GetFinalEvo(VarGet(VAR_TEMP_5)); //need change this to get final evo, check createnpctrainer for how to do, or not prob fine without it
-        type1 = gBaseStats[species].type1;
-        type2 = gBaseStats[species].type2;
+        type1 = gSpeciesInfo[species].type1;
+        type2 = gSpeciesInfo[species].type2;
 
         if (species == SPECIES_EEVEE && PlayeStarterSpecies == SPECIES_EEVEE)
             passedChecks = FALSE;
@@ -2026,27 +2026,27 @@ u8 ShouldResetRivalStarter(void)
         else
         {
             //set rival offense values, 
-            MulModifier(&AtkMultiplierType1, (GetTypeModifier(type1, gBaseStats[playermon].type1)));
-              if (gBaseStats[playermon].type1 != gBaseStats[playermon].type2)
-                MulModifier(&AtkMultiplierType1, (GetTypeModifier(type1, gBaseStats[playermon].type2)));
+            MulModifier(&AtkMultiplierType1, (GetTypeModifier(type1, gSpeciesInfo[playermon].type1)));
+              if (gSpeciesInfo[playermon].type1 != gSpeciesInfo[playermon].type2)
+                MulModifier(&AtkMultiplierType1, (GetTypeModifier(type1, gSpeciesInfo[playermon].type2)));
 
             if (type2 != type1)
             {
-                MulModifier(&AtkMultiplierType2, (GetTypeModifier(type2, gBaseStats[playermon].type1)));
-                if (gBaseStats[playermon].type1 != gBaseStats[playermon].type2)
-                    MulModifier(&AtkMultiplierType2, (GetTypeModifier(type2, gBaseStats[playermon].type2)));
+                MulModifier(&AtkMultiplierType2, (GetTypeModifier(type2, gSpeciesInfo[playermon].type1)));
+                if (gSpeciesInfo[playermon].type1 != gSpeciesInfo[playermon].type2)
+                    MulModifier(&AtkMultiplierType2, (GetTypeModifier(type2, gSpeciesInfo[playermon].type2)));
             }
 
             //set rival defense to player type
-            MulModifier(&DefenseMultiplierType1, (GetTypeModifier(gBaseStats[playermon].type1, type1)));
+            MulModifier(&DefenseMultiplierType1, (GetTypeModifier(gSpeciesInfo[playermon].type1, type1)));
               if (type1 != type2)
-                MulModifier(&DefenseMultiplierType1, (GetTypeModifier(gBaseStats[playermon].type1, type2)));
+                MulModifier(&DefenseMultiplierType1, (GetTypeModifier(gSpeciesInfo[playermon].type1, type2)));
 
-            if (gBaseStats[playermon].type2 != gBaseStats[playermon].type1)
+            if (gSpeciesInfo[playermon].type2 != gSpeciesInfo[playermon].type1)
             {
-                MulModifier(&DefenseMultiplierType2, (GetTypeModifier(gBaseStats[playermon].type2, type1)));
+                MulModifier(&DefenseMultiplierType2, (GetTypeModifier(gSpeciesInfo[playermon].type2, type1)));
                 if (type1 != type2)
-                    MulModifier(&DefenseMultiplierType2, (GetTypeModifier(gBaseStats[playermon].type2, type2)));
+                    MulModifier(&DefenseMultiplierType2, (GetTypeModifier(gSpeciesInfo[playermon].type2, type2)));
             }
 
             
@@ -2089,8 +2089,8 @@ u8 ShouldResetRivalStarter(void)
     {
         species = GetFinalEvo(VarGet(VAR_TEMP_9));
         playermon = GetFinalEvo(VarGet(VAR_TEMP_6));
-        type1 = gBaseStats[species].type1;
-        type2 = gBaseStats[species].type2;
+        type1 = gSpeciesInfo[species].type1;
+        type2 = gSpeciesInfo[species].type2;
 
         if (species == SPECIES_EEVEE && PlayeStarterSpecies == SPECIES_EEVEE)
             passedChecks = FALSE;
@@ -2099,27 +2099,27 @@ u8 ShouldResetRivalStarter(void)
         else
         {
             //set rival offense values, 
-            MulModifier(&AtkMultiplierType1, (GetTypeModifier(type1, gBaseStats[playermon].type1)));
-              if (gBaseStats[playermon].type1 != gBaseStats[playermon].type2)
-                MulModifier(&AtkMultiplierType1, (GetTypeModifier(type1, gBaseStats[playermon].type2)));
+            MulModifier(&AtkMultiplierType1, (GetTypeModifier(type1, gSpeciesInfo[playermon].type1)));
+              if (gSpeciesInfo[playermon].type1 != gSpeciesInfo[playermon].type2)
+                MulModifier(&AtkMultiplierType1, (GetTypeModifier(type1, gSpeciesInfo[playermon].type2)));
 
             if (type2 != type1)
             {
-                MulModifier(&AtkMultiplierType2, (GetTypeModifier(type2, gBaseStats[playermon].type1)));
-                if (gBaseStats[playermon].type1 != gBaseStats[playermon].type2)
-                    MulModifier(&AtkMultiplierType2, (GetTypeModifier(type2, gBaseStats[playermon].type2)));
+                MulModifier(&AtkMultiplierType2, (GetTypeModifier(type2, gSpeciesInfo[playermon].type1)));
+                if (gSpeciesInfo[playermon].type1 != gSpeciesInfo[playermon].type2)
+                    MulModifier(&AtkMultiplierType2, (GetTypeModifier(type2, gSpeciesInfo[playermon].type2)));
             }
 
             //set rival defense to player type
-            MulModifier(&DefenseMultiplierType1, (GetTypeModifier(gBaseStats[playermon].type1, type1)));
+            MulModifier(&DefenseMultiplierType1, (GetTypeModifier(gSpeciesInfo[playermon].type1, type1)));
               if (type1 != type2)
-                MulModifier(&DefenseMultiplierType1, (GetTypeModifier(gBaseStats[playermon].type1, type2)));
+                MulModifier(&DefenseMultiplierType1, (GetTypeModifier(gSpeciesInfo[playermon].type1, type2)));
 
-            if (gBaseStats[playermon].type2 != gBaseStats[playermon].type1)
+            if (gSpeciesInfo[playermon].type2 != gSpeciesInfo[playermon].type1)
             {
-                MulModifier(&DefenseMultiplierType2, (GetTypeModifier(gBaseStats[playermon].type2, type1)));
+                MulModifier(&DefenseMultiplierType2, (GetTypeModifier(gSpeciesInfo[playermon].type2, type1)));
                 if (type1 != type2)
-                    MulModifier(&DefenseMultiplierType2, (GetTypeModifier(gBaseStats[playermon].type2, type2)));
+                    MulModifier(&DefenseMultiplierType2, (GetTypeModifier(gSpeciesInfo[playermon].type2, type2)));
             }
 
             //check for if rival starter super against player starter
@@ -2165,8 +2165,8 @@ u8 ShouldResetRivalStarter(void)
     {
         species = GetFinalEvo(VarGet(VAR_TEMP_A));
         playermon = GetFinalEvo(VarGet(VAR_TEMP_7));
-        type1 = gBaseStats[species].type1;
-        type2 = gBaseStats[species].type2;
+        type1 = gSpeciesInfo[species].type1;
+        type2 = gSpeciesInfo[species].type2;
 
         if (species == SPECIES_EEVEE && PlayeStarterSpecies == SPECIES_EEVEE)
             passedChecks = FALSE;
@@ -2175,27 +2175,27 @@ u8 ShouldResetRivalStarter(void)
         else
         {
             //set rival offense values, 
-            MulModifier(&AtkMultiplierType1, (GetTypeModifier(type1, gBaseStats[playermon].type1)));
-              if (gBaseStats[playermon].type1 != gBaseStats[playermon].type2)
-                MulModifier(&AtkMultiplierType1, (GetTypeModifier(type1, gBaseStats[playermon].type2)));
+            MulModifier(&AtkMultiplierType1, (GetTypeModifier(type1, gSpeciesInfo[playermon].type1)));
+              if (gSpeciesInfo[playermon].type1 != gSpeciesInfo[playermon].type2)
+                MulModifier(&AtkMultiplierType1, (GetTypeModifier(type1, gSpeciesInfo[playermon].type2)));
 
             if (type2 != type1)
             {
-                MulModifier(&AtkMultiplierType2, (GetTypeModifier(type2, gBaseStats[playermon].type1)));
-                if (gBaseStats[playermon].type1 != gBaseStats[playermon].type2)
-                    MulModifier(&AtkMultiplierType2, (GetTypeModifier(type2, gBaseStats[playermon].type2)));
+                MulModifier(&AtkMultiplierType2, (GetTypeModifier(type2, gSpeciesInfo[playermon].type1)));
+                if (gSpeciesInfo[playermon].type1 != gSpeciesInfo[playermon].type2)
+                    MulModifier(&AtkMultiplierType2, (GetTypeModifier(type2, gSpeciesInfo[playermon].type2)));
             }
 
             //set rival defense to player type
-            MulModifier(&DefenseMultiplierType1, (GetTypeModifier(gBaseStats[playermon].type1, type1)));
+            MulModifier(&DefenseMultiplierType1, (GetTypeModifier(gSpeciesInfo[playermon].type1, type1)));
               if (type1 != type2)
-                MulModifier(&DefenseMultiplierType1, (GetTypeModifier(gBaseStats[playermon].type1, type2)));
+                MulModifier(&DefenseMultiplierType1, (GetTypeModifier(gSpeciesInfo[playermon].type1, type2)));
 
-            if (gBaseStats[playermon].type2 != gBaseStats[playermon].type1)
+            if (gSpeciesInfo[playermon].type2 != gSpeciesInfo[playermon].type1)
             {
-                MulModifier(&DefenseMultiplierType2, (GetTypeModifier(gBaseStats[playermon].type2, type1)));
+                MulModifier(&DefenseMultiplierType2, (GetTypeModifier(gSpeciesInfo[playermon].type2, type1)));
                 if (type1 != type2)
-                    MulModifier(&DefenseMultiplierType2, (GetTypeModifier(gBaseStats[playermon].type2, type2)));
+                    MulModifier(&DefenseMultiplierType2, (GetTypeModifier(gSpeciesInfo[playermon].type2, type2)));
             }
 
             
@@ -2290,7 +2290,7 @@ static bool8 HasMonBeenRenamed(u8 idx)
     language = GetMonData(pokemon, MON_DATA_LANGUAGE, &language);
     if (language != LANGUAGE_ENGLISH)
         return TRUE;
-    else if (StringCompare(gBaseStats[GetMonData(pokemon, MON_DATA_SPECIES, NULL)].speciesName, gStringVar1) != IDENTICAL)
+    else if (StringCompare(gSpeciesInfo[GetMonData(pokemon, MON_DATA_SPECIES, NULL)].speciesName, gStringVar1) != IDENTICAL)
         return TRUE;
     else
         return FALSE;
@@ -2473,7 +2473,7 @@ bool8 IsMonNicknamed(void)
     {
         species = GetMonData(mon, MON_DATA_SPECIES, NULL);
         
-        if (StringCompare(gBaseStats[species].speciesName, gStringVar1) == IDENTICAL)
+        if (StringCompare(gSpeciesInfo[species].speciesName, gStringVar1) == IDENTICAL)
             return FALSE;
         else
             return TRUE;
@@ -2482,7 +2482,7 @@ bool8 IsMonNicknamed(void)
     {
         species = GetBoxMonData(box_mon, MON_DATA_SPECIES, NULL);
         
-        if (StringCompare(gBaseStats[species].speciesName, gStringVar1) == IDENTICAL)
+        if (StringCompare(gSpeciesInfo[species].speciesName, gStringVar1) == IDENTICAL)
             return FALSE;
         else
             return TRUE;

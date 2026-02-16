@@ -87,8 +87,8 @@ SINGLE_BATTLE_TEST("Hidden Power's type is determined by IVs")
     GIVEN {
         if (hidden) {
             ASSUME(gTypeEffectivenessTable[type][foeType] == UQ_4_12(0.5));                 // Foe's Type resists
-            ASSUME(gSpeciesInfo[foeSpecies].types[0] == gSpeciesInfo[foeSpecies].types[1]); // Foe's pure type
-            ASSUME(gSpeciesInfo[foeSpecies].types[0] == foeType);                           // Foe is the resisted type
+            ASSUME(gSpeciesInfo[foeSpecies].type1 == gSpeciesInfo[foeSpecies].type2); // Foe's pure type
+            ASSUME(gSpeciesInfo[foeSpecies].type1 == foeType);                           // Foe is the resisted type
             PLAYER(SPECIES_DUNSPARCE) { HPIV(hp); AttackIV(atk); DefenseIV(def); SpAttackIV(spAtk); SpDefenseIV(spDef); SpeedIV(speed); }
         } else {
             PLAYER(SPECIES_DUNSPARCE);

@@ -3,7 +3,7 @@
 
 ASSUMPTIONS
 {
-    ASSUME(gSpeciesInfo[SPECIES_UMBREON].types[0] == TYPE_DARK);
+    ASSUME(gSpeciesInfo[SPECIES_UMBREON].type1 == TYPE_DARK);
     ASSUME(gMovesInfo[MOVE_CONFUSE_RAY].category == DAMAGE_CATEGORY_STATUS);
 }
 

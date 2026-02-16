@@ -575,7 +575,7 @@ DOUBLE_BATTLE_TEST("Defog doesn't remove Aurora Veil from the user's side", s16 
     GIVEN {
         ASSUME(GetMoveEffect(MOVE_HAIL) == EFFECT_WEATHER);
         ASSUME(GetMoveWeatherType(MOVE_HAIL) == BATTLE_WEATHER_HAIL);
-        ASSUME(GetSpeciesType(SPECIES_GLALIE, 0) == TYPE_ICE);
+        ASSUME(GetSpeciesPrimaryType(SPECIES_GLALIE) == TYPE_ICE);
         PLAYER(SPECIES_GLALIE) { Speed(4); }
         PLAYER(SPECIES_GLALIE) { Speed(3); }
         OPPONENT(SPECIES_GLALIE) { Speed(2); }
@@ -617,7 +617,7 @@ DOUBLE_BATTLE_TEST("Defog removes Aurora Veil from target's side", s16 damagePhy
     GIVEN {
         ASSUME(GetMoveEffect(MOVE_HAIL) == EFFECT_WEATHER);
         ASSUME(GetMoveWeatherType(MOVE_HAIL) == BATTLE_WEATHER_HAIL);
-        ASSUME(GetSpeciesType(SPECIES_GLALIE, 0) == TYPE_ICE);
+        ASSUME(GetSpeciesPrimaryType(SPECIES_GLALIE) == TYPE_ICE);
         PLAYER(SPECIES_GLALIE) { Speed(4); }
         PLAYER(SPECIES_GLALIE) { Speed(3); }
         OPPONENT(SPECIES_GLALIE) { Speed(2); }
@@ -659,7 +659,7 @@ DOUBLE_BATTLE_TEST("Defog removes everything it can")
         WITH_CONFIG(DEFOG_EFFECT_CLEARING, config);
         ASSUME(GetMoveEffect(MOVE_HAIL) == EFFECT_WEATHER);
         ASSUME(GetMoveWeatherType(MOVE_HAIL) == BATTLE_WEATHER_HAIL);
-        ASSUME(GetSpeciesType(SPECIES_GLALIE, 0) == TYPE_ICE);
+        ASSUME(GetSpeciesPrimaryType(SPECIES_GLALIE) == TYPE_ICE);
         PLAYER(SPECIES_GLALIE) { Speed(4); }
         PLAYER(SPECIES_GLALIE) { Speed(3); }
         PLAYER(SPECIES_GLALIE) { Speed(12); }
