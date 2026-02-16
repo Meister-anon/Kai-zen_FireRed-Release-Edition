@@ -5165,13 +5165,10 @@ void SwapTurnOrder(u8 id1, u8 id2)
     SWAP(gBattlerByTurnOrder[id1], gBattlerByTurnOrder[id2], temp);
 }
 
-u32 GetBattlerTotalSpeedStat(enum BattlerId battler)
+u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect)
 {
     u32 speed = gBattleMons[battler].speed; //activebattler /attacker
-    u32 targetspeed = gBattleMons[gBattlerTarget].speed; //may work may not, for now use ability on opposing field
-    u32 ability = GetBattlerAbility(battler);
-    u32 partnerability = GetBattlerAbility(BATTLE_PARTNER(battler));
-    u32 holdEffect = GetBattlerHoldEffect(battler);
+    enum Ability partnerability = GetBattlerAbility(BATTLE_PARTNER(battler));
     u32 highestStat = GetHighestStatId(battler);  //3was for protosynthesis will use for ultranerozma move instead i think
 
     // weather abilities
@@ -5211,10 +5208,10 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler)
     //ok middle ground will set disable struct, so it resets on faint or switch
     else if (ability == ABILITY_WEIGHTED_GI)
     { 
-        if (gBattleMons[battler].hp <= (gBattleMons[battler].maxHP / 2) && !gBattleMons[battler].volatiles.ActivatedWeightedGi)
-            gBattleMons[battler].volatiles.ActivatedWeightedGi = TRUE;
+        if (gBattleMons[battler].hp <= (gBattleMons[battler].maxHP / 2) && !gBattleMons[battler].volatiles.activatedWeightedGi)
+            gBattleMons[battler].volatiles.activatedWeightedGi = TRUE;
 
-        if (gBattleMons[battler].volatiles.ActivatedWeightedGi)
+        if (gBattleMons[battler].volatiles.activatedWeightedGi)
             speed *= 2; //speed = (speed * 150) / 100; unsure which stick with
     }
 

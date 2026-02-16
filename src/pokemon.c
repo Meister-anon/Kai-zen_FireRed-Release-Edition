@@ -5326,19 +5326,19 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             speed_Value = ARRAY_COUNT(gSpeedDiffPowerTable) - 1;
         gBattleMovePower = gSpeedDiffPowerTable[speed_Value];*/
         //speed shifts by smaller degree than weight so think will have to double this?
-        gBattleMovePower = ((60 * GetBattlerTotalSpeedStat(battlerIdAtk)) / GetBattlerTotalSpeedStat(battlerIdDef)) + 1;
+        gBattleMovePower = ((60 * GetBattlerTotalSpeedStat(battlerIdAtk, abilityAtk, attackerHoldEffect)) / GetBattlerTotalSpeedStat(battlerIdDef, abilityDef, defenderHoldEffect)) + 1;
         if (gBattleMovePower > 150)
             gBattleMovePower = 150;
         if (gBattleMovePower < 40)
             gBattleMovePower = 40;
         break;
     case EFFECT_GYRO_BALL:
-        gBattleMovePower = ((25 * GetBattlerTotalSpeedStat(battlerIdDef)) / GetBattlerTotalSpeedStat(battlerIdAtk)) + 1;
+        gBattleMovePower = ((25 * GetBattlerTotalSpeedStat(battlerIdDef, abilityDef, defenderHoldEffect)) / GetBattlerTotalSpeedStat(battlerIdAtk, abilityAtk, attackerHoldEffect)) + 1;
         if (gBattleMovePower > 150)
             gBattleMovePower = 150;
         break;
     case EFFECT_POWER_BASED_ON_TARGET_HP:
-        gBattleMovePower = (gMovesInfo[move].argumentEffectChance * (gBattleMons[battlerIdDef].hp / gBattleMons[battlerIdDef].maxHP));
+        gBattleMovePower = (gMovesInfo[move].argument.damagePercentage * (gBattleMons[battlerIdDef].hp / gBattleMons[battlerIdDef].maxHP));
         if (gBattleMovePower < 40)
             gBattleMovePower = 40;
         break;

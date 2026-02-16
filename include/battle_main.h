@@ -137,7 +137,7 @@ u8 IsRunningFromBattleImpossible(enum BattlerId battler);
 void UpdatePartyOwnerOnSwitch_NonMulti(enum BattlerId battler);
 void SwapTurnOrder(u8 id1, u8 id2);
 u8 GetWhoStrikesFirst(enum BattlerId battler1, enum BattlerId battler2, bool8 ignoreChosenMoves);
-u32 GetBattlerTotalSpeedStat(enum BattlerId battler);
+u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect);
 void RunBattleScriptCommands_PopCallbacksStack(void);
 void RunBattleScriptCommands(void);
 s32 GetChosenMovePriority(enum BattlerId battler, u32 ability);
