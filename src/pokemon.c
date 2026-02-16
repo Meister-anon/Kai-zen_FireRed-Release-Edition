@@ -7325,43 +7325,18 @@ u32 GetMonData3(struct Pokemon *mon, s32 field, u8 *data)
         ret = mon->maxHP;
         break;
     case MON_DATA_ATK:
-        ret = GetDeoxysStat(mon, STAT_ATK);
-        if (!ret)
-            ret = mon->attack;
-        break;
-    case MON_DATA_DEF:
-        ret = GetDeoxysStat(mon, STAT_DEF);
-        if (!ret)
-            ret = mon->defense;
-        break;
-    case MON_DATA_SPEED:
-        ret = GetDeoxysStat(mon, STAT_SPEED);
-        if (!ret)
-            ret = mon->speed;
-        break;
-    case MON_DATA_SPATK:
-        ret = GetDeoxysStat(mon, STAT_SPATK);
-        if (!ret)
-            ret = mon->spAttack;
-        break;
-    case MON_DATA_SPDEF:
-        ret = GetDeoxysStat(mon, STAT_SPDEF);
-        if (!ret)
-            ret = mon->spDefense;
-        break;
-    case MON_DATA_ATK2:
         ret = mon->attack;
         break;
-    case MON_DATA_DEF2:
+    case MON_DATA_DEF:
         ret = mon->defense;
         break;
-    case MON_DATA_SPEED2:
+    case MON_DATA_SPEED:
         ret = mon->speed;
         break;
-    case MON_DATA_SPATK2:
+    case MON_DATA_SPATK:
         ret = mon->spAttack;
         break;
-    case MON_DATA_SPDEF2:
+    case MON_DATA_SPDEF:
         ret = mon->spDefense;
         break;
     case MON_DATA_EXP_SHARE_STATE:
@@ -7799,23 +7774,18 @@ void SetMonData(struct Pokemon *mon, s32 field, const void *dataArg)
         SET16(mon->maxHP);
         break;
     case MON_DATA_ATK:
-    case MON_DATA_ATK2:
         SET16(mon->attack);
         break;
     case MON_DATA_DEF:
-    case MON_DATA_DEF2:
         SET16(mon->defense);
         break;
     case MON_DATA_SPEED:
-    case MON_DATA_SPEED2:
         SET16(mon->speed);
         break;
     case MON_DATA_SPATK:
-    case MON_DATA_SPATK2:
         SET16(mon->spAttack);
         break;
     case MON_DATA_SPDEF:
-    case MON_DATA_SPDEF2:
         SET16(mon->spDefense);
         break;
     case MON_DATA_EXP_SHARE_STATE:
@@ -12790,6 +12760,7 @@ bool8 ShouldIgnoreDeoxysForm(u8 caseId, enum BattlerId battlerId) //may need to 
     return TRUE;
 }
 
+//facepalm wtf do I still have this????
 static u16 GetDeoxysStat(struct Pokemon *mon, s32 statId)
 {
     s32 ivVal, evVal;
@@ -12804,7 +12775,7 @@ static u16 GetDeoxysStat(struct Pokemon *mon, s32 statId)
     {
         ivVal = GetMonData(mon, MON_DATA_HP_IV + statId, NULL);
         evVal = GetMonData(mon, MON_DATA_HP_EV + statId, NULL);
-        statValue = ((sDeoxysBaseStats[statId] * 2 + ivVal + evVal / 4) * mon->level) / 100 + 5;
+        //statValue = ((sDeoxysBaseStats[statId] * 2 + ivVal + evVal / 4) * mon->level) / 100 + 5;
         nature = GetNature(mon);
         statValue = ModifyStatByNature(nature, statValue, (u8)statId);
     }
