@@ -11481,51 +11481,32 @@ static void Cmd_settypebasedhalvers(void)
 
     bool8 worked = FALSE;
 
+    //not using
     if (!gBattleStruct->isSkyBattle)
     {
         if (GetMoveEffect(gCurrentMove) == EFFECT_MUD_SPORT)
         {
-            if (B_SPORT_TURNS >= GEN_6)
+            
+
+            if (!(gSideStatuses[GetBattlerSide(gBattlerTarget)] & SIDE_STATUS_MUDSPORT))
             {
-                if (!(gFieldStatuses & STATUS_FIELD_MUDSPORT))
-                {
-                    gFieldStatuses |= STATUS_FIELD_MUDSPORT;
-                    gFieldTimers.mudSportTimer = 5;
-                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_ELECTRIC;
-                    worked = TRUE;
-                }
-            }
-            else
-            {
-                if (!gBattleMons[gBattlerAttacker].volatiles.mudSport)
-                {
-                    gBattleMons[gBattlerAttacker].volatiles.mudSport = TRUE;
-                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_ELECTRIC;
-                    worked = TRUE;
-                }
+                gSideStatuses[GetBattlerSide(gBattlerTarget)] |= SIDE_STATUS_MUDSPORT;
+                gSideTimers[GetBattlerSide(gBattlerTarget)].mudSportTimer = 5;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_ELECTRIC;
+                worked = TRUE;
             }
         }
         else // Water Sport
         {
-            if (B_SPORT_TURNS >= GEN_6)
+
+            if (!(gSideStatuses[GetBattlerSide(gBattlerTarget)] & SIDE_STATUS_WATERSPORT))
             {
-                if (!(gFieldStatuses & STATUS_FIELD_WATERSPORT))
-                {
-                    gFieldStatuses |= STATUS_FIELD_WATERSPORT;
-                    gFieldTimers.waterSportTimer = 5;
-                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_FIRE;
-                    worked = TRUE;
-                }
+                gSideStatuses[GetBattlerSide(gBattlerTarget)] |= SIDE_STATUS_WATERSPORT;
+                gSideTimers[GetBattlerSide(gBattlerTarget)].waterSportTimer = 5;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_FIRE;
+                worked = TRUE;
             }
-            else
-            {
-                if (!gBattleMons[gBattlerAttacker].volatiles.waterSport)
-                {
-                    gBattleMons[gBattlerAttacker].volatiles.waterSport = TRUE;
-                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_FIRE;
-                    worked = TRUE;
-                }
-            }
+            
         }
     }
 

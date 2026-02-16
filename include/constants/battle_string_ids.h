@@ -44,11 +44,6 @@
 #define B_MSG_GROUND_MISS  4
 #define B_MSG_ABILITY_TYPE_MISS 5*/
 
-// gProtectLikeUsedStringIds		//need add logic
-#define B_MSG_PROTECTED_ITSELF 0
-#define B_MSG_BRACED_ITSELF    1
-#define B_MSG_PROTECT_FAILED   2
-#define B_MSG_PROTECTED_TEAM   3
 
 // gStatUpStringIds
 #define B_MSG_ATTACKER_STAT_ROSE 0
@@ -274,6 +269,109 @@ enum DamagingWeatherStringID
     B_MSG_SANDSTORM,
     B_MSG_HAIL,
     B_MSG_ACID_RAIN,
+};
+
+// gProtectLikeUsedStringIds
+enum ProtectLikeUsedStringID
+{
+    B_MSG_PROTECTED_ITSELF,
+    B_MSG_BRACED_ITSELF,
+    B_MSG_PROTECTED_TEAM,
+};
+
+// gRestUsedStringIds
+enum RestUsedStringID
+{
+    B_MSG_REST,
+    B_MSG_REST_STATUSED,
+};
+
+// gWokeUpStringIds
+enum WokeUpStringID
+{
+    B_MSG_WOKE_UP,
+    B_MSG_WOKE_UP_UPROAR,
+};
+
+// gUproarAwakeStringIds
+enum UproarAwakeStringID
+{
+    B_MSG_CANT_SLEEP_UPROAR,
+    B_MSG_UPROAR_KEPT_AWAKE,
+};
+
+// gUproarOverTurnStringIds
+enum UproarOverTurnStringID
+{
+    B_MSG_UPROAR_CONTINUES,
+    B_MSG_UPROAR_ENDS,
+};
+
+// gKOFailedStringIds
+enum KOFailedStringID
+{
+    B_MSG_KO_MISS,
+    B_MSG_KO_UNAFFECTED,
+};
+
+// gMistUsedStringIds
+enum MistUsedStringID
+{
+    B_MSG_SET_MIST,
+    B_MSG_MIST_FAILED,
+};
+
+// gFocusEnergyUsedStringIds
+enum FocusEnergyUsedStringID
+{
+    B_MSG_GETTING_PUMPED,
+    B_MSG_FOCUS_ENERGY_FAILED,
+};
+
+// gTransformUsedStringIds
+enum TransformUsedStringID
+{
+    B_MSG_TRANSFORMED,
+    B_MSG_TRANSFORM_FAILED,
+};
+
+// gSubstituteUsedStringIds
+enum SubstituteUsedStringID
+{
+    B_MSG_SET_SUBSTITUTE,
+    B_MSG_SUBSTITUTE_FAILED,
+};
+
+// gPartyStatusHealStringIds
+enum PartyStatusHealStringID
+{
+    B_MSG_BELL,
+    B_MSG_BELL_SOUNDPROOF_ATTACKER,
+    B_MSG_BELL_SOUNDPROOF_PARTNER,
+    B_MSG_BELL_BOTH_SOUNDPROOF,
+    B_MSG_SOOTHING_AROMA,
+};
+
+// gFutureMoveUsedStringIds
+enum FutureMoveUsedStringID
+{
+    B_MSG_FUTURE_SIGHT,
+    B_MSG_DOOM_DESIRE,
+};
+
+// gItemSwapStringIds
+enum ItemSwapStringID
+{
+    B_MSG_ITEM_SWAP_TAKEN,
+    B_MSG_ITEM_SWAP_GIVEN,
+    B_MSG_ITEM_SWAP_BOTH,
+};
+
+// gSportsUsedStringIds
+enum SportsUsedStringID
+{
+    B_MSG_WEAKEN_ELECTRIC,
+    B_MSG_WEAKEN_FIRE,
 };
 
 // gRainContinuesStringIds

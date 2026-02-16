@@ -8751,43 +8751,32 @@ static inline u32 CalcTerrainBoostedPower(struct BattleContext *ctx, u32 basePow
     return basePower;
 }
 
-//vsonic
-static inline u32 IsFieldMudSportAffected(enum Type moveType)
+//vsonic //unsure what to make of this, as added extra effects
+//mud boosts ground rock sp def
+//water boosts grass speed
+//ok this is just for the dmg halving effect
+//may still rename later as should only
+//relate to dmg cut for move type
+static inline u32 IsMudSportAffected(enum Type moveType, enum BattlerId battlerDef)
 {
     if (moveType != TYPE_ELECTRIC)
         return FALSE;
 
-    if (gFieldStatuses & STATUS_FIELD_MUDSPORT)
+    if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_MUDSPORT)
         return TRUE;
 
-    if (B_SPORT_TURNS < GEN_6)
-    {
-        for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
-        {
-            if (gBattleMons[battler].volatiles.mudSport)
-                return TRUE;
-        }
-    }
 
     return FALSE;
 }
 
-static inline u32 IsFieldWaterSportAffected(enum Type moveType)
+static inline u32 IsWaterSportAffected(enum Type moveType, enum BattlerId battlerDef)
 {
     if (moveType != TYPE_FIRE)
         return FALSE;
 
-    if (gFieldStatuses & STATUS_FIELD_WATERSPORT)
+    if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_WATERSPORT)
         return TRUE;
 
-    if (B_SPORT_TURNS < GEN_6)
-    {
-        for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
-        {
-            if (gBattleMons[battler].volatiles.waterSport)
-                return TRUE;
-        }
-    }
 
     return FALSE;
 }
@@ -9131,9 +9120,9 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
         modifier = uq4_12_multiply(modifier, (B_TERRAIN_TYPE_BOOST >= GEN_8 ? UQ_4_12(1.3) : UQ_4_12(1.5)));
     if (IsPsychicTerrainAffected(battlerAtk, ctx->abilityAtk, ctx->holdEffectAtk, ctx->fieldStatuses) && moveType == TYPE_PSYCHIC)
         modifier = uq4_12_multiply(modifier, (B_TERRAIN_TYPE_BOOST >= GEN_8 ? UQ_4_12(1.3) : UQ_4_12(1.5)));
-    if (IsFieldMudSportAffected(ctx->moveType))
+    if (IsMudSportAffected(ctx->moveType, battlerDef))
         modifier = uq4_12_multiply(modifier, UQ_4_12(0.5));
-    if (IsFieldWaterSportAffected(ctx->moveType))
+    if (IsWaterSportAffected(ctx->moveType, battlerDef))
         modifier = uq4_12_multiply(modifier, UQ_4_12(0.5));
 
     if (gBattleMons[battlerAtk].volatiles.dragonrage

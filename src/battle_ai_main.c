@@ -2192,14 +2192,12 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
                 ADJUST_SCORE(-10);    // attacker has no status to transmit
             break;
         case EFFECT_MUD_SPORT:
-            if (gFieldStatuses & STATUS_FIELD_MUDSPORT
-              || gBattleMons[battlerAtk].volatiles.mudSport
+            if (gSideStatuses[GetBattlerSide(battlerAtk)] & SIDE_STATUS_MUDSPORT
               || DoesPartnerHaveSameMoveEffect(BATTLE_PARTNER(battlerAtk), battlerDef, move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_WATER_SPORT:
-            if (gFieldStatuses & STATUS_FIELD_WATERSPORT
-              || gBattleMons[battlerAtk].volatiles.waterSport
+            if (gSideStatuses[GetBattlerSide(battlerAtk)] & SIDE_STATUS_WATERSPORT
               || DoesPartnerHaveSameMoveEffect(BATTLE_PARTNER(battlerAtk), battlerDef, move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
             break;

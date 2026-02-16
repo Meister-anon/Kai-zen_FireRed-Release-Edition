@@ -1139,6 +1139,24 @@ static bool32 HandleEndTurnSecondEventBlock(enum BattlerId battler)
             PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_AURORA_VEIL);
             effect = TRUE;
         }
+        gBattleStruct->eventState.endTurnBlock++;
+        break;
+    case SECOND_EVENT_BLOCK_MUDSPORT: //water mud  mud water?
+        if (gSideTimers[side].mudSportTimer > 0 && --gSideTimers[side].mudSportTimer == 0)
+        {
+            gSideStatuses[side] &= ~SIDE_STATUS_MUDSPORT;
+            BattleScriptExecute(BattleScript_MudSportEnds);
+            effect = TRUE;
+        }
+        gBattleStruct->eventState.endTurnBlock++;
+        break;
+    case SECOND_EVENT_BLOCK_WATERSPORT: //water mud  mud water?
+        if (gSideTimers[side].waterSportTimer > 0 && --gSideTimers[side].waterSportTimer == 0)
+        {
+            gSideStatuses[side] &= ~SIDE_STATUS_WATERSPORT;
+            BattleScriptExecute(BattleScript_WaterSportEnds);
+            effect = TRUE;
+        }//no break or endturnblock increment on last value
         gBattleStruct->eventState.battlerSide++;
         gBattleStruct->eventState.endTurnBlock = 0;
         break;
@@ -1179,7 +1197,8 @@ static bool32 HandleEndTurnGravity(enum BattlerId battler)
     return effect;
 }
 
-static bool32 HandleEndTurnWaterSport(enum BattlerId battler)
+//think remove these two to HandleEndTurnSecondEventBlock
+/*static bool32 HandleEndTurnWaterSport(enum BattlerId battler)
 {
     bool32 effect = FALSE;
 
@@ -1209,7 +1228,7 @@ static bool32 HandleEndTurnMudSport(enum BattlerId battler)
     }
 
     return effect;
-}
+}*/
 
 static bool32 HandleEndTurnWonderRoom(enum BattlerId battler)
 {
@@ -1538,8 +1557,8 @@ static bool32 (*const sEndTurnEffectHandlers[])(enum BattlerId battler) =
     [ENDTURN_SECOND_EVENT_BLOCK] = HandleEndTurnSecondEventBlock,
     [ENDTURN_TRICK_ROOM] = HandleEndTurnTrickRoom,
     [ENDTURN_GRAVITY] = HandleEndTurnGravity,
-    [ENDTURN_WATER_SPORT] = HandleEndTurnWaterSport,
-    [ENDTURN_MUD_SPORT] = HandleEndTurnMudSport,
+    //[ENDTURN_WATER_SPORT] = HandleEndTurnWaterSport,
+    //[ENDTURN_MUD_SPORT] = HandleEndTurnMudSport,
     [ENDTURN_WONDER_ROOM] = HandleEndTurnWonderRoom,
     [ENDTURN_MAGIC_ROOM] = HandleEndTurnMagicRoom,
     [ENDTURN_TERRAIN] = HandleEndTurnTerrain,
