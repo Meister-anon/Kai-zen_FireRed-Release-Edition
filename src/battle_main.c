@@ -2694,7 +2694,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
         for (i = 0; i < gTrainers[trainerNum].partySize; ++i)   //uses i, to loop through trainers entir party 
         {//vsonic
 
-            const struct TrainerMonPartyData *partyData = gTrainers[trainerNum].party;
+            const struct TrainerMon *partyData = gTrainers[trainerNum].party;
 
             if (gTrainers[trainerNum].battleType == BATTLE_TYPE_DOUBLE) //may need change to just not singles, since adding more?
                 personalityValue = 0x80;

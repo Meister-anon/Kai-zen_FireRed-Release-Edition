@@ -127,7 +127,7 @@ the only used values: 20 30 40 50 60 80 90
 so simple as running a ctrl h for  .iv = existing value,
 then just multiply by 31 and divide by 255, to find the replace value
 */
-/*struct TrainerMonPartyData
+/*struct TrainerMon
 {
     u16 species;
     u16 heldItem;
