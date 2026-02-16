@@ -35,7 +35,7 @@ bool32 CanUseLastResort(enum BattlerId battlerId);
 bool32 IsTelekinesisBannedSpecies(u16 species);
 u32 IsFlowerVeilProtected(enum BattlerId battler);
 u32 IsLeafGuardProtected(enum BattlerId battler);
-bool32 IsShieldsDownProtected(enum BattlerId battler);
+bool32 IsShieldsDownProtected(enum BattlerId battler, enum Ability ability);
 u32 IsAbilityStatusProtected(enum BattlerId battler);
 bool32 TryResetBattlerStatChanges(enum BattlerId battler);
 bool32 CanCamouflage(enum BattlerId battlerId);
