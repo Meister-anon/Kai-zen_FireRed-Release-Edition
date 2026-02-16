@@ -77,6 +77,9 @@ SINGLE_BATTLE_TEST("Hidden Power's type is determined by IVs")
     PARAMETRIZE { type = TYPE_DARK;     hidden = TRUE;  foeType = TYPE_DARK;      foeSpecies = SPECIES_UMBREON;   hp = 31; atk = 31; def = 31; spAtk = 31; spDef = 31; speed = 31; }
 
     // Any type after Dark shouldn't be part of Hidden Power officially.
+    //I added fairy to hidden power so I need to change
+    //well I have no idea what this is or how to read it
+    //so I will just have to remove this test all together most likely -_-
     for (j = TYPE_DARK + 1; j < NUMBER_OF_MON_TYPES; j++) {
         PARAMETRIZE { type = j; hidden = FALSE; }
     }
