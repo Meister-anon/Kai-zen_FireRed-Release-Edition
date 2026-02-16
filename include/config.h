@@ -70,11 +70,9 @@
 #define SPECIES_NAME_EXPANSION
 #define NEW_MEGA_FORMS //add data for new megas using gigantimax sprites/forms etc.
 
-#define GEN_9 0
 
 
 
-#define B_SNOW_WARNING FALSE
 
 // ORAS Dowsing Machine
 #define I_ORAS_DOWSING_FLAG         0           // Replace 0 with an unused flag to enable the Dowsing Machine mechanic from ORAS.

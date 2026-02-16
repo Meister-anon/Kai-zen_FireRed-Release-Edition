@@ -278,10 +278,10 @@ enum Move GetMaxMove(enum BattlerId battler, enum Move baseMove)
     {
         return MOVE_STRUGGLE;
     }
-    else if (GetMoveCategory(baseMove) == DAMAGE_CATEGORY_STATUS)
+    /*else if (GetMoveCategory(baseMove) == DAMAGE_CATEGORY_STATUS)
     {
         return MOVE_MAX_GUARD;
-    }
+    }*/
     else
     {
         return GetTypeBasedMaxMove(battler, moveType);

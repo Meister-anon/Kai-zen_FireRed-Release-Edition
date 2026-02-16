@@ -709,11 +709,11 @@ void HandleAction_UseMove(void)
         gCurrentMove = gChosenMove = GetUsableZMove(gBattlerAttacker, gCurrentMove);
     }
     // check Max Move used
-    else if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_DYNAMAX)
+    /*else if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_DYNAMAX)
     {
         gBattleStruct->categoryOverride = GetMoveCategory(gCurrentMove);
         gCurrentMove = gChosenMove = GetMaxMove(gBattlerAttacker, gCurrentMove);
-    }
+    }*/
 
     gBattleStruct->eventState.atkCanceler = 0;
     ClearDamageCalcResults();
@@ -1631,9 +1631,9 @@ u32 TrySetCantSelectMoveBattleScript(enum BattlerId battler)
 
     if (GetActiveGimmick(battler) != GIMMICK_Z_MOVE && gBattleMons[battler].volatiles.tauntTimer != 0 && IsBattleMoveStatus(move))
     {
-        if ((GetActiveGimmick(battler) == GIMMICK_DYNAMAX))
+        /*if ((GetActiveGimmick(battler) == GIMMICK_DYNAMAX))
             gCurrentMove = MOVE_MAX_GUARD;
-        else
+        else*/
             gCurrentMove = move;
         if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
         {
@@ -1771,9 +1771,9 @@ u32 TrySetCantSelectMoveBattleScript(enum BattlerId battler)
     }
     else if (holdEffect == HOLD_EFFECT_ASSAULT_VEST && IsBattleMoveStatus(move) && moveEffect != EFFECT_ME_FIRST)
     {
-        if ((GetActiveGimmick(battler) == GIMMICK_DYNAMAX))
+        /*if ((GetActiveGimmick(battler) == GIMMICK_DYNAMAX))
             gCurrentMove = MOVE_MAX_GUARD;
-        else
+        else*/
             gCurrentMove = move;
         gLastUsedItem = gBattleMons[battler].item;
         if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
