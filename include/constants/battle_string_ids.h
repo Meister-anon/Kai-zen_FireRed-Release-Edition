@@ -32,9 +32,6 @@
 #define B_MSG_FLASH_FIRE_BOOST    0
 #define B_MSG_FLASH_FIRE_NO_BOOST 1
 
-// gUproarOverTurnStringIds
-#define B_MSG_UPROAR_CONTINUES  0
-#define B_MSG_UPROAR_ENDS       1
 
 // gMissStringIds					//need add logic
 /*#define B_MSG_MISSED       0
