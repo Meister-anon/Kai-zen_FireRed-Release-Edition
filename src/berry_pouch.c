@@ -1075,7 +1075,7 @@ static void Task_BerryPouch_Use(u8 taskId)
         else
             ItemId_GetBattleFunc(gSpecialVar_ItemId)(taskId);
     }
-    else if (CalculatePlayerPartyCount() == 0 && ItemId_GetType(gSpecialVar_ItemId) == 1)
+    else if (CalculatePlayerPartyCount() == 0 && GetItemType(gSpecialVar_ItemId) == 1)
         Task_Give_PrintThereIsNoPokemon(taskId);
     else
         ItemId_GetFieldFunc(gSpecialVar_ItemId)(taskId);

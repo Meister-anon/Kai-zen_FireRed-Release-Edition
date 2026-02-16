@@ -530,7 +530,7 @@ static void ItemPc_MoveCursorFunc(s32 itemIndex, bool8 onInit, struct ListMenu *
         {
             itemId = ItemPc_GetItemIdBySlotId(itemIndex);
             CreateItemMenuIcon(itemId, sStateDataPtr->itemMenuIconSlot);
-            if (ItemId_GetPocket(itemId) == POCKET_TM_CASE) //not exactly sure what this is doing
+            if (GetItemPocket(itemId) == POCKET_TM_CASE) //not exactly sure what this is doing
             {
                 //ok believe this is actually give item dialogue in pc
                 //and think this doens't have to do with displaynig move name, but the item description

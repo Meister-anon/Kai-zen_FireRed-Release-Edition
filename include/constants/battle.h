@@ -116,7 +116,7 @@ enum BattleSide
 #define BATTLE_TYPE_WILD_SCRIPTED    (1 << 17)
 #define BATTLE_TYPE_LEGENDARY_FRLG   (1 << 18)  //not sure why this is here? its used in conjunction w flag legendary almost never used by itself?
 #define BATTLE_TYPE_TRAINER_TOWER    (1 << 19)
-#define BATTLE_TYPE_20               (1 << 20)   //this appears to be for link battle?   /renmae to link at some point will eventually remove these 2?
+#define BATTLE_TYPE_LINK_IN_BATTLE   (1 << 20) // Set on battle entry, cleared on exit. Checked rarely
 #define BATTLE_TYPE_MULTI            (1 << 21)   //multi link battle?  swapped these 2 placement, so could use incldues for trainers.h battle type setting
 #define BATTLE_TYPE_INGAME_PARTNER   (1 << 22)
 #define BATTLE_TYPE_TWO_OPPONENTS    (1 << 23)	//carry over from emerald, not fully set here yet but is reason for gTrainerBattleOpponent_B  when 2 trainers approach player
@@ -125,7 +125,7 @@ enum BattleSide
 #define BATTLE_TYPE_MASTER_BALL      (1 << 26) //ok can remove this and use for master ball
 #define BATTLE_TYPE_GROUDON          (1 << 27)
 #define BATTLE_TYPE_KYOGRE           (1 << 28)
-#define BATTLE_TYPE_RAYQUAZA         (1 << 29)
+#define BATTLE_TYPE_EREADER_TRAINER  (1 << 29) //was unused temp replacing to put ereader back for compile only
 
 #define BATTLE_TYPE_SECRET_BASE     (1 << 30) //these two just for defines
 #define BATTLE_TYPE_FRONTIER        (1 << 31)

@@ -75,8 +75,8 @@ const u8 *ItemId_GetName(u8 *nameBuffer, u16 itemId); //update pput prepend insi
 enum HoldEffect GetItemHoldEffect(enum Item itemId);
 u32 GetItemHoldEffectParam(enum Item itemId);
 const u8 *ItemId_GetDescription(u16 itemId);
-u8 ItemId_GetPocket(u16 itemId);
-u8 ItemId_GetType(u16 itemId);
+u8 GetItemPocket(u16 itemId);
+u8 GetItemType(u16 itemId);
 ItemUseFunc ItemId_GetFieldFunc(u16 itemId);
 u8 ItemId_GetBattleUsage(u16 itemId);   //not using now, usnig battlfunc check instead
 ItemUseFunc ItemId_GetBattleFunc(u16 itemId);
@@ -95,7 +95,7 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket);
 u16 BagGetItemIdByPocketPosition(u8 pocketId, u16 itemId);
 u16 BagGetQuantityByPocketPosition(u8 pocketId, u16 itemId);
 u16 BagGetQuantityByItemId(u16 item);
-bool8 itemid_is_unique(u16 itemId);
+bool8 IsItemUnique(u16 itemId);
 void BagPocketCompaction(struct ItemSlot * slots, u8 capacity);
 u16 GetPcItemQuantity(u16 *);
 void SetBagPocketsPointers(void);

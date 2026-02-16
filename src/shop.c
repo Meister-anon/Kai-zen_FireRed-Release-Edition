@@ -240,7 +240,7 @@ static u8 GetMartTypeFromItemList(u32 a0)
     
     for (i = 0; i < gShopData.itemCount && gShopData.itemList[i] != 0; i++)
     {
-        if (ItemId_GetPocket(gShopData.itemList[i]) == POCKET_TM_CASE)
+        if (GetItemPocket(gShopData.itemList[i]) == POCKET_TM_CASE)
             return 1;
     }
     return 0;
@@ -1021,7 +1021,7 @@ static void Task_ReturnToItemListAfterItemPurchase(u8 taskId)
     if (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON))
     {
         PlaySE(SE_SELECT);
-        if ((ItemId_GetPocket(tItemId) == POCKET_POKE_BALLS) && tItemCount > 9 && AddBagItem(ITEM_PREMIER_BALL, tItemCount / 10) == TRUE)
+        if ((GetItemPocket(tItemId) == POCKET_POKE_BALLS) && tItemCount > 9 && AddBagItem(ITEM_PREMIER_BALL, tItemCount / 10) == TRUE)
         {
            if (tItemCount > 19)
             {

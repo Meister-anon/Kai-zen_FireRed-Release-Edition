@@ -728,7 +728,7 @@ static void BagListMenuItemPrintFunc(u8 windowId, s32 itemId, u8 y)
     {
         bagItemId = BagGetItemIdByPocketPosition(gBagMenuState.pocket + 1, itemId);
         bagItemQuantity = BagGetQuantityByPocketPosition(gBagMenuState.pocket + 1, itemId);
-        if (gBagMenuState.pocket != POCKET_KEY_ITEMS - 1 && !itemid_is_unique(bagItemId))
+        if (gBagMenuState.pocket != POCKET_KEY_ITEMS - 1 && !IsItemUnique(bagItemId))
         {
             ConvertIntToDecimalStringN(gStringVar1, bagItemQuantity, STR_CONV_MODE_RIGHT_ALIGN, 3);
             StringExpandPlaceholders(gStringVar4, gText_TimesStrVar1);
@@ -1491,7 +1491,7 @@ static void Task_ItemMenuAction_Use(u8 taskId)
         PutWindowTilemap(0);
         PutWindowTilemap(1);
         ScheduleBgCopyTilemapToVram(0);
-        if (CalculatePlayerPartyCount() == 0 && ItemId_GetType(gSpecialVar_ItemId) == 1)
+        if (CalculatePlayerPartyCount() == 0 && GetItemType(gSpecialVar_ItemId) == 1)
             Task_PrintThereIsNoPokemon(taskId);
         else
             ItemId_GetFieldFunc(gSpecialVar_ItemId)(taskId);
@@ -1627,7 +1627,7 @@ static void Task_ItemMenuAction_Give(u8 taskId)
     CopyWindowToVram(0, COPYWIN_MAP);
     if (!CanWriteMailHere(itemId))
         DisplayItemMessageInBag(taskId, 2, gText_CantWriteMailHere, Task_WaitAButtonAndCloseContextMenu);
-    else if (!itemid_is_unique(itemId) && GetPocketByItemId(itemId) != POCKET_TM_CASE)
+    else if (!IsItemUnique(itemId) && GetPocketByItemId(itemId) != POCKET_TM_CASE)
     {
         if (CalculatePlayerPartyCount() == 0)
         {
@@ -1742,7 +1742,7 @@ static void Task_ItemContext_FieldGive(u8 taskId)
         ItemMenu_SetExitCallback(GoToBerryPouch_Give);
         ItemMenu_StartFadeToExitCallback(taskId);
     }
-    else if (gBagMenuState.pocket != POCKET_KEY_ITEMS - 1 && !itemid_is_unique(itemId))
+    else if (gBagMenuState.pocket != POCKET_KEY_ITEMS - 1 && !IsItemUnique(itemId))
     {
         Bag_BeginCloseWin0Animation();
         gTasks[taskId].func = ItemMenu_StartFadeToExitCallback;
@@ -1786,7 +1786,7 @@ static void Task_ItemContext_PcBoxGive(u8 taskId)
         ItemMenu_SetExitCallback(GoToBerryPouch_PCBox);
         ItemMenu_StartFadeToExitCallback(taskId);
     }
-    else if (gBagMenuState.pocket != POCKET_KEY_ITEMS - 1 && !itemid_is_unique(itemId))
+    else if (gBagMenuState.pocket != POCKET_KEY_ITEMS - 1 && !IsItemUnique(itemId))
     {
         Bag_BeginCloseWin0Animation();
         gTasks[taskId].func = ItemMenu_StartFadeToExitCallback;

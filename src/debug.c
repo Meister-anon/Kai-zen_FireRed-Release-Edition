@@ -2633,7 +2633,7 @@ static void DebugAction_Give_Item_SelectQuantity(u8 taskId)
 
         if (JOY_NEW(DPAD_UP))
         {
-            u32 maxCapacity = (ItemId_GetPocket(itemId) - 1 == POCKET_BERRIES) ? MAX_BERRY_CAPACITY : MAX_BAG_ITEM_CAPACITY;
+            u32 maxCapacity = (GetItemPocket(itemId) - 1 == POCKET_BERRIES) ? MAX_BERRY_CAPACITY : MAX_BAG_ITEM_CAPACITY;
             gTasks[taskId].tInput += sPowersOfTen[gTasks[taskId].tDigit];
             if (gTasks[taskId].tInput > maxCapacity)
                 gTasks[taskId].tInput = maxCapacity;
@@ -3629,7 +3629,7 @@ static void DebugAction_Fill_PocketItems(u8 taskId)
 
     for (itemId = 1; itemId < ITEMS_COUNT; itemId++)
     {
-        if (ItemId_GetPocket(itemId) == POCKET_ITEMS && CheckBagHasSpace(itemId, MAX_BAG_ITEM_CAPACITY))
+        if (GetItemPocket(itemId) == POCKET_ITEMS && CheckBagHasSpace(itemId, MAX_BAG_ITEM_CAPACITY))
             AddBagItem(itemId, MAX_BAG_ITEM_CAPACITY);
     }
 }
@@ -3689,7 +3689,7 @@ static void DebugAction_Fill_PocketKeyItems(u8 taskId)
 
     for (itemId = 1; itemId < ITEMS_COUNT; itemId++)
     {
-        if (ItemId_GetPocket(itemId) == POCKET_KEY_ITEMS && CheckBagHasSpace(itemId, 1))
+        if (GetItemPocket(itemId) == POCKET_KEY_ITEMS && CheckBagHasSpace(itemId, 1))
             AddBagItem(itemId, 1);
     }
 }

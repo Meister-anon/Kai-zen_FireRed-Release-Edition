@@ -12129,7 +12129,7 @@ u32 CanSpeciesLearnTMHMmove(u16 species, u16 move) //for this belive replace wit
 
 u8 IsTMHM(u16 itemId)
 {
-    if (ItemId_GetPocket(itemId) == POCKET_TM_CASE)
+    if (GetItemPocket(itemId) == POCKET_TM_CASE)
         return TRUE;
     return FALSE;
 }
@@ -12143,8 +12143,8 @@ u8 IsTMHM(u16 itemId)
 //for return positive is fine, i.e if (isitem_hm(item))
 u8 Isitem_HM(u16 itemId)
 {
-    if (ItemId_GetPocket(itemId) == POCKET_TM_CASE
-     && itemid_is_unique(itemId))
+    if (GetItemPocket(itemId) == POCKET_TM_CASE
+     && IsItemUnique(itemId))
         return HM_MOVE;
 
     return FALSE;
@@ -12796,7 +12796,7 @@ static u16 GetDeoxysStat(struct Pokemon *mon, s32 statId)
     u16 statValue;
     u8 nature;
 
-    if (gBattleTypeFlags & BATTLE_TYPE_20 || GetMonData(mon, MON_DATA_SPECIES, NULL) != SPECIES_DEOXYS)
+    if (gBattleTypeFlags & BATTLE_TYPE_LINK_IN_BATTLE || GetMonData(mon, MON_DATA_SPECIES, NULL) != SPECIES_DEOXYS)
     {
         return statValue = 0;
     }

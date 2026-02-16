@@ -1806,7 +1806,7 @@ static void BufferBagFullCantTakeItemMessage(u16 itemId)
 {
     const u8 *string;
 
-    switch (ItemId_GetPocket(itemId))
+    switch (GetItemPocket(itemId))
     {
     default:
         string = gStartMenuText_Bag;
@@ -5272,7 +5272,7 @@ static void CB2_DoUseItemAnim(void)
 
 static void CB2_UseItem(void)
 {
-    if (ItemId_GetPocket(gSpecialVar_ItemId) == POCKET_TM_CASE
+    if (GetItemPocket(gSpecialVar_ItemId) == POCKET_TM_CASE
      && PSA_IsCancelDisabled() == TRUE)
     {
         GiveMoveToMon(&gPlayerParty[gPartyMenu.slotId], ItemIdToBattleMoveId(gSpecialVar_ItemId));

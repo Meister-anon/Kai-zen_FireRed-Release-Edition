@@ -124,10 +124,10 @@ bool8 CheckBagHasItem(u16 itemId, u16 count)
     u8 i;
     u8 pocket;
 
-    if (ItemId_GetPocket(itemId) == 0)
+    if (GetItemPocket(itemId) == 0)
         return FALSE;
 
-    pocket = ItemId_GetPocket(itemId) - 1;
+    pocket = GetItemPocket(itemId) - 1;
     // Check for item slots that contain the item
     for (i = 0; i < gBagPockets[pocket].capacity; i++)
     {
@@ -188,10 +188,10 @@ bool8 CheckBagHasSpace(u16 itemId, u16 count)
     u8 i;
     u8 pocket;
 
-    if (ItemId_GetPocket(itemId) == 0)
+    if (GetItemPocket(itemId) == 0)
         return FALSE;
 
-    pocket = ItemId_GetPocket(itemId) - 1;
+    pocket = GetItemPocket(itemId) - 1;
     // Check for item slots that contain the item
     for (i = 0; i < gBagPockets[pocket].capacity; i++)
     {
@@ -264,10 +264,10 @@ bool8 AddBagItem(u16 itemId, u16 count)
     u8 pocket;
     s16 idx; //was base s8 so limited to 128 positive tm case still restricted to 128 not showing all
 
-    if (ItemId_GetPocket(itemId) == 0)
+    if (GetItemPocket(itemId) == 0)
         return FALSE;
 
-    pocket = ItemId_GetPocket(itemId) - 1;
+    pocket = GetItemPocket(itemId) - 1;
     for (i = 0; i < gBagPockets[pocket].capacity; i++)
     {
         if (gBagPockets[pocket].itemSlots[i].itemId == itemId)
@@ -326,13 +326,13 @@ bool8 RemoveBagItem(u16 itemId, u16 count)
     u8 i;
     u8 pocket;
 
-    if (ItemId_GetPocket(itemId) == 0)
+    if (GetItemPocket(itemId) == 0)
         return FALSE;
 
     if (itemId == ITEM_NONE)
         return FALSE;
 
-    pocket = ItemId_GetPocket(itemId) - 1;
+    pocket = GetItemPocket(itemId) - 1;
     // Check for item slots that contain the item
     for (i = 0; i < gBagPockets[pocket].capacity; i++)
     {
@@ -362,7 +362,7 @@ bool8 RemoveBagItem(u16 itemId, u16 count)
 
 u8 GetPocketByItemId(u16 itemId)
 {
-    return ItemId_GetPocket(itemId); // wow such important
+    return GetItemPocket(itemId); // wow such important
 }
 
 void ClearItemSlots(struct ItemSlot * slots, u8 capacity)
@@ -706,7 +706,7 @@ u16 BagGetQuantityByPocketPosition(u8 pocketId, u16 slotId)
 u16 BagGetQuantityByItemId(u16 itemId)
 {
     u16 i;
-    struct BagPocket * pocket = &gBagPockets[ItemId_GetPocket(itemId) - 1];
+    struct BagPocket * pocket = &gBagPockets[GetItemPocket(itemId) - 1];
 
     for (i = 0; i < pocket->capacity; i++)
     {
@@ -922,7 +922,18 @@ const u8 * ItemId_GetDescription(u16 itemId)
     return gItemsInfo[itemId].description;
 }
 
-bool8 itemid_is_unique(u16 itemId)
+//not using only for hoenne flutes
+//and already has a unique field in sort type
+//which can use to filter
+/*u8 GetItemConsumability(enum Item itemId)
+{
+    return !gItemsInfo[SanitizeItemId(itemId)].notConsumed;
+}
+*/
+
+//replae GetItemImportance in EE
+//prefer my name
+bool8 IsItemUnique(u16 itemId)
 {
     return gItemsInfo[SanitizeItemId(itemId)].importance;
 }
@@ -932,12 +943,12 @@ u8 itemid_get_x19(u16 itemId)
     return gItemsInfo[SanitizeItemId(itemId)].exitsBagOnUse;
 }
 
-u8 ItemId_GetPocket(u16 itemId)
+u8 GetItemPocket(u16 itemId)
 {
     return gItemsInfo[SanitizeItemId(itemId)].pocket;
 }
 
-u8 ItemId_GetType(u16 itemId)
+u8 GetItemType(u16 itemId)
 {
     return gItemsInfo[SanitizeItemId(itemId)].type;
 }

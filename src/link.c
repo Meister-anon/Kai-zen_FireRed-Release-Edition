@@ -1374,7 +1374,7 @@ static void LinkCB_WaitAckCommand5FFF(void)
     }
     if (count == linkPlayerCount)
     {
-        gBattleTypeFlags &= ~(BATTLE_TYPE_20 | 0xFFFF0000);
+        gBattleTypeFlags &= ~(BATTLE_TYPE_LINK_IN_BATTLE | 0xFFFF0000);
         gLinkVSyncDisabled = TRUE;
         CloseLink();
         gLinkCallback = NULL;

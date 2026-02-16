@@ -142,7 +142,7 @@ static void SetUpItemUseCallback(u8 taskId)
     if (gSpecialVar_ItemId == ITEM_ENIGMA_BERRY)
         itemType = gTasks[taskId].data[4] - 1; //use item effect?
     else
-        itemType = ItemId_GetType(gSpecialVar_ItemId) - 1; //otherwise use type field
+        itemType = GetItemType(gSpecialVar_ItemId) - 1; //otherwise use type field
     
     if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_BERRIES)
     {
@@ -215,7 +215,7 @@ static void Task_ItemUse_CloseMessageBoxAndReturnToField(u8 taskId)
 
 u8 CheckIfItemIsTMHMOrEvolutionStone(u16 itemId)
 {
-    if (ItemId_GetPocket(itemId) == POCKET_TM_CASE)
+    if (GetItemPocket(itemId) == POCKET_TM_CASE)
         return 1;
     else if (ItemId_GetFieldFunc(itemId) == FieldUseFunc_EvoItem)
         return 2;
@@ -645,8 +645,8 @@ static void use_trainer_repel(u8 taskId)
 static void sub_80A1A44(void)
 {
     RemoveBagItem(gSpecialVar_ItemId, 1);
-    Pocket_CalculateNItemsAndMaxShowed(ItemId_GetPocket(gSpecialVar_ItemId));
-    PocketCalculateInitialCursorPosAndItemsAbove(ItemId_GetPocket(gSpecialVar_ItemId));
+    Pocket_CalculateNItemsAndMaxShowed(GetItemPocket(gSpecialVar_ItemId));
+    PocketCalculateInitialCursorPosAndItemsAbove(GetItemPocket(gSpecialVar_ItemId));
     CopyItemName(gSpecialVar_ItemId, gStringVar2);
     StringExpandPlaceholders(gStringVar4, gUnknown_841658C);
 }

@@ -1616,7 +1616,7 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
     }
     else if (gMovesInfo[move].effect == EFFECT_NATURAL_GIFT)
     {
-        if (ItemId_GetPocket(gBattleMons[battlerAtk].item) == POCKET_BERRIES)
+        if (GetItemPocket(gBattleMons[battlerAtk].item) == POCKET_BERRIES)
             *typeStorage = gNaturalGiftTable[ITEM_TO_BERRY(gBattleMons[battlerAtk].item)].type;
     }
     else if (gMovesInfo[move].effect == EFFECT_TERRAIN_PULSE)
@@ -1785,7 +1785,7 @@ u8 ReturnMoveType(u32 move, enum BattlerId battlerAtk)
     }
     else if (gMovesInfo[move].effect == EFFECT_NATURAL_GIFT)
     {
-        if (ItemId_GetPocket(gBattleMons[battlerAtk].item) == POCKET_BERRIES)
+        if (GetItemPocket(gBattleMons[battlerAtk].item) == POCKET_BERRIES)
             moveType = gNaturalGiftTable[ITEM_TO_BERRY(gBattleMons[battlerAtk].item)].type;
     }
     else if (gMovesInfo[move].effect == EFFECT_TERRAIN_PULSE)
@@ -2094,7 +2094,7 @@ static void CB2_HandleStartBattle(void)
             SetMainCallback2(BattleMainCB2);
             if (gBattleTypeFlags & BATTLE_TYPE_LINK)
             {
-                gBattleTypeFlags |= BATTLE_TYPE_20;
+                gBattleTypeFlags |= BATTLE_TYPE_LINK_IN_BATTLE;
             }
         }
         break;
@@ -2455,7 +2455,7 @@ static void CB2_HandleStartMultiBattle(void)
             gMain.callback1 = BattleMainCB1;
             SetMainCallback2(BattleMainCB2);
             if (gBattleTypeFlags & BATTLE_TYPE_LINK)
-                gBattleTypeFlags |= BATTLE_TYPE_20;
+                gBattleTypeFlags |= BATTLE_TYPE_LINK_IN_BATTLE;
         }
         break;
     case 5:

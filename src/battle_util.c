@@ -989,7 +989,7 @@ void HandleAction_ThrowBall(void)
     gBattle_BG0_X = 0;
     gBattle_BG0_Y = 0;
     gLastUsedItem = gBallToDisplay;
-    if (!GetItemImportance(gLastUsedItem))
+    if (!IsItemUnique(gLastUsedItem))
     	RemoveBagItem(gLastUsedItem, 1);
     gBattlescriptCurrInstr = BattleScript_BallThrow;
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
@@ -1555,7 +1555,7 @@ bool32 IsBelchPreventingMove(enum BattlerId battler, enum Move move)
     if (GetMoveEffect(move) != EFFECT_BELCH)
         return FALSE;
     
-    if (ItemId_GetPocket(gBattleMons[battler].item) == POCKET_BERRIES)
+    if (GetItemPocket(gBattleMons[battler].item) == POCKET_BERRIES)
     {
         if (GetBattlerPartyState(battler)->ateBerry == FALSE)
             PREPARE_ITEM_BUFFER(gBattleTextBuff1, gBattleMons[battler].item);

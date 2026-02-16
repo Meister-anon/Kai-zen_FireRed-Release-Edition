@@ -952,7 +952,7 @@ static void TMCase_ItemPrintFunc(u8 windowId, s32 itemId, u8 y)
 {
     if (itemId != -2) //this seems to be same as itemIndex??
     {
-        if (!itemid_is_unique(BagGetItemIdByPocketPosition(POCKET_TM_CASE, itemId)))
+        if (!IsItemUnique(BagGetItemIdByPocketPosition(POCKET_TM_CASE, itemId)))
         {
             ConvertIntToDecimalStringN(gStringVar1, BagGetQuantityByPocketPosition(POCKET_TM_CASE, itemId), STR_CONV_MODE_RIGHT_ALIGN, 3);
             StringExpandPlaceholders(gStringVar4, gText_TimesStrVar1);
@@ -1218,7 +1218,7 @@ static void Task_SelectTMAction_FromFieldBag(u8 taskId)
     //RemoveWindow(2);
     ScheduleBgCopyTilemapToVram(0); //to hopefully remove window for selected tezxt / worked perfect
     
-    if (itemid_is_unique(gSpecialVar_ItemId)) //should check make sure hm stuff still works with window removal
+    if (IsItemUnique(gSpecialVar_ItemId)) //should check make sure hm stuff still works with window removal
     {
         PlaceHMTileInWindow(2, 0, 2); //for adding HM graphic before NO for hms
         CopyWindowToVram(2, COPYWIN_GFX);
@@ -1347,7 +1347,7 @@ static void Task_SelectTMAction_GiveItemFromParty(u8 taskId)
 {
     s16 * data = gTasks[taskId].data;
 
-    if (!itemid_is_unique(BagGetItemIdByPocketPosition(POCKET_TM_CASE, data[1])))
+    if (!IsItemUnique(BagGetItemIdByPocketPosition(POCKET_TM_CASE, data[1])))
     {
         sTMCaseDynamicResources->savedCallback = CB2_GiveHoldItem;
         Task_BeginFadeOutFromTMCase(taskId);
@@ -1362,7 +1362,7 @@ static void Task_SelectTMAction_GiveItemFromPc(u8 taskId)
 {
     s16 * data = gTasks[taskId].data;
 
-    if (!itemid_is_unique(BagGetItemIdByPocketPosition(POCKET_TM_CASE, data[1])))
+    if (!IsItemUnique(BagGetItemIdByPocketPosition(POCKET_TM_CASE, data[1])))
     {
         sTMCaseDynamicResources->savedCallback = Cb2_ReturnToPSS;
         Task_BeginFadeOutFromTMCase(taskId);

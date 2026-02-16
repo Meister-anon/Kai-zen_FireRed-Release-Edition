@@ -876,7 +876,7 @@ static const u16 *BufferQuestLogText_UsedItem(const u16 *eventData)
 {
     const u16 *r5 = sub_8113E88(QL_EVENT_USED_ITEM, eventData);
 
-    switch (ItemId_GetPocket(r5[0]))
+    switch (GetItemPocket(r5[0]))
     {
     case POCKET_ITEMS:
     case POCKET_POKE_BALLS:
