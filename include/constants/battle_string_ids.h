@@ -21,11 +21,18 @@
 #define B_MSG_ACID_RAIN_ID  2
 
 // gInobedientStringIds
-#define B_MSG_LOAFING            0
-#define B_MSG_WONT_OBEY          1
-#define B_MSG_TURNED_AWAY        2
-#define B_MSG_PRETEND_NOT_NOTICE 3
-#define NUM_DISOBEY_STRINGS         4 // For randomly selecting a disobey string
+enum InobedientStringID
+{
+    B_MSG_LOAFING,
+    B_MSG_WONT_OBEY,
+    B_MSG_TURNED_AWAY,
+    B_MSG_PRETEND_NOT_NOTICE,
+    B_MSG_INCAPABLE_OF_POWER,
+};
+
+// For randomly selecting a disobey string
+// Skips the one used for Battle Palace
+#define NUM_LOAF_STRINGS (B_MSG_PRETEND_NOT_NOTICE + 1)
 
 
 // gFlashFireStringIds
@@ -89,10 +96,6 @@
 #define B_MSG_MENTALHERBCURE_TORMENT           3
 #define B_MSG_MENTALHERBCURE_HEALBLOCK         4
 #define B_MSG_MENTALHERBCURE_DISABLE           5
-
-// gBerryEffectStringIds
-#define B_MSG_CURED_PROBLEM     0
-#define B_MSG_NORMALIZED_STATUS 1
 
 //  gDmgHazardsStringIds
 #define B_MSG_PKMNHURTBYSPIKES 0
@@ -274,6 +277,19 @@ enum ProtectLikeUsedStringID
     B_MSG_PROTECTED_ITSELF,
     B_MSG_BRACED_ITSELF,
     B_MSG_PROTECTED_TEAM,
+};
+
+//gBerryEffectStringIds  - CureStatusBerryEffectStringID in EE
+enum CureStatusBerryEffectStringID
+{
+    B_MSG_CURED_PARALYSIS,
+    B_MSG_CURED_POISON,
+    B_MSG_CURED_BURN,
+    B_MSG_CURED_FREEEZE,
+    B_MSG_CURED_FROSTBITE,
+    B_MSG_CURED_SLEEP,
+    B_MSG_CURED_PROBLEM,
+    B_MSG_NORMALIZED_STATUS,
 };
 
 // gRestUsedStringIds

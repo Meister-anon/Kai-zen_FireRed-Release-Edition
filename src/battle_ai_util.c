@@ -3301,12 +3301,13 @@ static u32 GetPoisonDamage(enum BattlerId battlerId)
     else if (gBattleMons[battlerId].status1 & STATUS1_TOXIC_POISON)
     {
         u32 status1Temp = gBattleMons[battlerId].status1;
+        u8 ToxicTurnCounter = GetBattlerPartyState(battlerId)->ToxicTurnCounter;
         damage = gBattleMons[battlerId].maxHP / 16;
         if (damage == 0)
             damage = 1;
-        if ((status1Temp & STATUS1_TOXIC_COUNTER) != STATUS1_TOXIC_TURN(15)) // not 16 turns
-            status1Temp += STATUS1_TOXIC_TURN(1);
-        damage *= (status1Temp & STATUS1_TOXIC_COUNTER) >> 8;
+        if ((ToxicTurnCounter) != 15) // not 16 turns
+            ToxicTurnCounter++;
+        damage *= ToxicTurnCounter;
     }
     return damage;
 }

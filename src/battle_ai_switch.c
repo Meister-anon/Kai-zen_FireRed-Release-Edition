@@ -767,8 +767,9 @@ static bool32 ShouldSwitchIfBadlyStatused(enum BattlerId battler)
             && !AiExpectsToFaintPlayer(battler)
             && gAiLogicData->mostSuitableMonId[battler] != PARTY_SIZE)
         {
+            u8 ToxicTurnCounter = GetBattlerPartyState(battler)->ToxicTurnCounter;
             //Toxic
-            if (((gBattleMons[battler].status1 & STATUS1_TOXIC_COUNTER) >= STATUS1_TOXIC_TURN(2))
+            if (((ToxicTurnCounter) >= 2)
                 && gBattleMons[battler].hp >= (gBattleMons[battler].maxHP / 3)
                 && gAiLogicData->mostSuitableMonId[battler] != PARTY_SIZE
                 && (hasStatRaised ? RandomPercentage(RNG_AI_SWITCH_BADLY_POISONED, GetSwitchChance(SHOULD_SWITCH_BADLY_POISONED_STATS_RAISED)) : RandomPercentage(RNG_AI_SWITCH_BADLY_POISONED, GetSwitchChance(SHOULD_SWITCH_BADLY_POISONED))))
@@ -1653,12 +1654,13 @@ static u32 GetSwitchinStatusDamage(enum BattlerId battler)
         }
         else if ((status & STATUS1_TOXIC_POISON) && ability != ABILITY_POISON_HEAL)
         {
-            if ((status & STATUS1_TOXIC_COUNTER) != STATUS1_TOXIC_TURN(15)) // not 16 turns
-                gBattleMons[battler].status1 += STATUS1_TOXIC_TURN(1);
+            u8 ToxicTurnCounter = GetBattlerPartyState(battler)->ToxicTurnCounter;
+            if ((ToxicTurnCounter) != 15) // not 16 turns can still increment
+                ToxicTurnCounter++;
             statusDamage = maxHP / 16;
             if (statusDamage == 0)
                 statusDamage = 1;
-            statusDamage *= gBattleMons[battler].status1 & STATUS1_TOXIC_COUNTER >> 8;
+            statusDamage *= ToxicTurnCounter;
         }
     }
 

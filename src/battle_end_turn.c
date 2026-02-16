@@ -493,10 +493,11 @@ static bool32 HandleEndTurnPoison(enum BattlerId battler)
         }
         else if (gBattleMons[battler].status1 & STATUS1_TOXIC_POISON)
         {
+            u8 ToxicTurnCounter = GetBattlerPartyState(battler)->ToxicTurnCounter;
             SetPassiveDamageAmount(battler, GetNonDynamaxMaxHP(battler) / 16);
-            if ((gBattleMons[battler].status1 & STATUS1_TOXIC_COUNTER) != STATUS1_TOXIC_TURN(15)) // not 16 turns
-                gBattleMons[battler].status1 += STATUS1_TOXIC_TURN(1);
-            gBattleStruct->passiveHpUpdate[battler] *= (gBattleMons[battler].status1 & STATUS1_TOXIC_COUNTER) >> 8;
+            if ((ToxicTurnCounter) != 15) // not 16 turns
+                GetBattlerPartyState(battler)->ToxicTurnCounter++;
+            gBattleStruct->passiveHpUpdate[battler] *= GetBattlerPartyState(battler)->ToxicTurnCounter;
             BattleScriptExecute(BattleScript_PoisonTurnDmg);
             effect = TRUE;
         }

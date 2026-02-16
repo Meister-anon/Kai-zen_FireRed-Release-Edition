@@ -1779,6 +1779,11 @@ void Friendship_(u32 sourceLine, u32 friendship)
     SetMonData(DATA.currentMon, MON_DATA_FRIENDSHIP, &friendship);
 }
 
+//GetBattlerPartyState(battler)->ToxicTurnCounter
+//need figure how to get above in this
+//uses mon not battler guess loop batler state
+//check for personality that matches current mon data? //vsonic IMPORTANT
+//for (i = 0; i < STATE->battlersCount; i++)
 void Status1_(u32 sourceLine, u32 status1)
 {
     INVALID_IF(!DATA.currentMon, "Status1 outside of PLAYER/OPPONENT");

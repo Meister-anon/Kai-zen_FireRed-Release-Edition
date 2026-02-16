@@ -12007,7 +12007,7 @@ u32 TryImmunityAbilityHealStatus(enum BattlerId battler)
     {
     case ABILITY_IMMUNITY:
     case ABILITY_PASTEL_VEIL:
-        if (gBattleMons[battler].status1 & (STATUS1_POISON | STATUS1_TOXIC_POISON | STATUS1_TOXIC_COUNTER))
+        if (gBattleMons[battler].status1 & (STATUS1_POISON | STATUS1_TOXIC_POISON))
         {
             StringCopy(gBattleTextBuff1, gStatusConditionString_PoisonJpn);
             effect = 1;
@@ -12069,6 +12069,7 @@ u32 TryImmunityAbilityHealStatus(enum BattlerId battler)
         {
         case 1: // status cleared
             gBattleMons[battler].status1 = 0;
+            ClearPartyStateStatusTimers(battler);
             BattleScriptCall(BattleScript_AbilityCuredStatus);
             break;
         case 2: // get rid of confusion

@@ -677,7 +677,8 @@ static enum ItemEffect TryCurePoison(enum BattlerId battler)
 
     if (gBattleMons[battler].status1 & STATUS1_PSN_ANY)
     {
-        gBattleMons[battler].status1 &= ~(STATUS1_PSN_ANY | STATUS1_TOXIC_COUNTER);
+        gBattleMons[battler].status1 &= ~(STATUS1_PSN_ANY);
+        GetBattlerPartyState(battler)->ToxicTurnCounter = 0;
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_CURED_POISON;
         BattleScriptCall(BattleScript_BerryCureStatusRet);
         effect = ITEM_STATUS_CHANGE;
@@ -732,6 +733,7 @@ static enum ItemEffect TryCureSleep(enum BattlerId battler)
     {
         gBattleMons[battler].status1 &= ~STATUS1_SLEEP;
         gBattleMons[battler].volatiles.nightmare = FALSE;
+        GetBattlerPartyState(battler)->SleepTimer = 0;
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_CURED_SLEEP;
         TryDeactivateSleepClause(GetBattlerSide(battler), gBattlerPartyIndexes[battler]);
         BattleScriptCall(BattleScript_BerryCureStatusRet);
