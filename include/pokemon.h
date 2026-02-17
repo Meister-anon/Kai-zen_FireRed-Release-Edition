@@ -1328,6 +1328,7 @@ enum SpeciesType
 {
     PRIMARY_TYPE,
     SECONDARY_TYPE,
+    NUM_SPECIES_TYPES,
 };
 
 static inline enum Type GetSpeciesType(u16 species, u8 slot)

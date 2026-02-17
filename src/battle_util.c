@@ -11852,18 +11852,20 @@ bool32 TryBattleFormChange(enum BattlerId battler, enum FormChanges method, enum
 bool32 DoBattlersShareType(enum BattlerId battler1, enum BattlerId battler2)
 {
     s32 i;
-    enum Type types1[3], types2[3];
-    GetBattlerTypes(battler1, FALSE, types1);
-    GetBattlerTypes(battler2, FALSE, types2);
+    enum Type battler1types[3], battler2types[3];
+    GetBattlerTypes(battler1, FALSE, battler1types);
+    GetBattlerTypes(battler2, FALSE, battler2types);
 
-    if (types1[2] == TYPE_MYSTERY)
-        types1[2] = types1[0];
-    if (types2[2] == TYPE_MYSTERY)
-        types2[2] = types2[0];
+    if (battler1types[2] == TYPE_MYSTERY)
+        battler1types[2] = battler1types[0];
+
+    if (battler2types[2] == TYPE_MYSTERY)
+        battler2types[2] = battler2types[0];
 
     for (i = 0; i < 3; i++)
     {
-        if (types1[i] == types2[0] || types1[i] == types2[1] || types1[i] == types2[2])
+        if (battler1types[i] == battler2types[0] || battler1types[i] == battler2types[1] 
+        || battler1types[i] == battler2types[2])
             return TRUE;
     }
 
@@ -12815,6 +12817,7 @@ bool8 IsMonBannedFromSkyBattles(u16 species)
     }
 }
 
+//populate given array with battle types
 void GetBattlerTypes(enum BattlerId battler, bool32 ignoreTera, enum Type types[/*static*/ 3])
 {
     // Terastallization.
@@ -12836,6 +12839,9 @@ void GetBattlerTypes(enum BattlerId battler, bool32 ignoreTera, enum Type types[
 
 }
 
+//return filled array of type data
+//used mostly for performing operations based on
+//but not directly affecting battler type
 enum Type GetBattlerType(enum BattlerId battler, u32 typeIndex, bool32 ignoreTera)
 {
     enum Type types[3];
@@ -12843,15 +12849,16 @@ enum Type GetBattlerType(enum BattlerId battler, u32 typeIndex, bool32 ignoreTer
     return types[typeIndex];
 }
 
+//reworked w my type functions
 void RemoveBattlerType(enum BattlerId battler, enum Type type)
 {
     u32 i;
     if (GetActiveGimmick(battler) == GIMMICK_TERA) // don't remove type if Terastallized
         return;
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < NUM_BATTLE_TYPES; i++)
     {
-        if (*(u8 *)(&gBattleMons[battler].types[0] + i) == type)
-            *(u8 *)(&gBattleMons[battler].types[0] + i) = TYPE_MYSTERY;
+        if (GetBattlerTypebySlot(battler, i) == type)
+            SetBattlerTypebySlot(battler, i, TYPE_MYSTERY);
     }
 }
 

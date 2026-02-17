@@ -2166,5 +2166,59 @@ static inline bool32 CanBattlerAbilityDrawInMove(enum BattlerId battlerDef)
     return FALSE;
 }
 
+enum BattleTypes
+{
+    PRIMARY_TYPE,
+    SECONDARY_TYPE,
+    AUXILIARY_TYPE,
+    NUM_BATTLE_TYPES,
+};
+
+static inline enum Type GetBattlerTypebySlot(enum BattlerId battler, enum BattleTypes typeId)
+{
+    switch (typeId)
+    {
+        case PRIMARY_TYPE:
+            return gBattleMons[battler].type1;
+        break;
+        case SECONDARY_TYPE:
+            return gBattleMons[battler].type2;
+        break;
+        case AUXILIARY_TYPE:
+            return gBattleMons[battler].type3;
+        break;
+    }
+}
+
+static inline void SetBattlerTypebySlot(enum BattlerId battler, enum BattleTypes typeId, enum Type typeAssigned)
+{
+    switch (typeId)
+    {
+        case PRIMARY_TYPE:
+            gBattleMons[battler].type1 = typeAssigned;
+        break;
+        case SECONDARY_TYPE:
+            gBattleMons[battler].type2 = typeAssigned;
+        break;
+        case AUXILIARY_TYPE:
+            gBattleMons[battler].type3 = typeAssigned;
+        break;
+    }
+}
+
+static inline enum Type GetBattlerPrimaryType(enum BattlerId battler)
+{
+    return GetBattlerTypebySlot(battler, PRIMARY_TYPE);   
+}
+
+static inline enum Type GetBattlerSecondaryType(enum BattlerId battler)
+{
+    return GetBattlerTypebySlot(battler, SECONDARY_TYPE);   
+}
+
+static inline enum Type GetBattlerAuxiliaryType(enum BattlerId battler)
+{
+    return GetBattlerTypebySlot(battler, AUXILIARY_TYPE);   
+}
 
 #endif // GUARD_BATTLE_H
