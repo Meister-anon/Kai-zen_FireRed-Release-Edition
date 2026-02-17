@@ -987,7 +987,7 @@ struct BattleStruct
     u8 linkBattleVsSpriteId_S; // The letter "S"
     u8 chosenMovePositions[MAX_BATTLERS_COUNT];
     u8 stateIdAfterSelScript[MAX_BATTLERS_COUNT];
-    u8 prevSelectedPartySlot;
+    u8 prevSelectedPartySlot; //stand in for playerPartyIdx
     u8 stringMoveType;
     //not using
     u8 palaceFlags; // First 4 bits are "is <= 50% HP and not asleep" for each battler, last 4 bits are selected moves to pass to AI
@@ -1032,6 +1032,7 @@ struct BattleStruct
     //struct BattleTvMovePoints tvMovePoints; //keeping off for now
     //struct BattleTv tv;
     u8 AI_monToSwitchIntoId[MAX_BATTLERS_COUNT];
+    u8 simulatedInputState[4];  // used by Oak/Old Man/Pokedude controllers, may be able to remove w later controller work
     //fronteir stuff not using
     s8 arenaMindPoints[NUM_BATTLE_SIDES];
     s8 arenaSkillPoints[NUM_BATTLE_SIDES];
