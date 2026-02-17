@@ -3016,8 +3016,7 @@ void SetMoveEffect(enum BattlerId battlerAtk, u32 effectBattler, enum MoveEffect
         }
         break;
     case MOVE_EFFECT_FLINCH:
-        if (abilities[effectBattler] == ABILITY_INNER_FOCUS
-        || abilities[effectBattler] == ABILITY_REIKI)//Note this how it effects stench
+        if (DoesTargetAbilityBlockFlinch(effectBattler, abilities[effectBattler]))//Note this how it effects stench
         {
             // Inner Focus ALWAYS prevents flinching but only activates
             // on a move that's supposed to flinch, like Fake Out

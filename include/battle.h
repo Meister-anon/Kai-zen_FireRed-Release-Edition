@@ -588,12 +588,16 @@ struct MegaEvolutionData //could change to altered/elevated/termporary state str
     bool8 padding:6; //potential terra stuff
 };
 
+enum IllusionState
+{
+    ILLUSION_NOT_SET,
+    ILLUSION_OFF,
+    ILLUSION_ON
+};
+
 struct Illusion
 {
-    u8 on;
-    u8 set;
-    u8 broken;
-    u8 partyId;
+    enum IllusionState state;
     struct Pokemon *mon;
 };
 
@@ -1811,6 +1815,17 @@ static inline bool32 DoesTargetAbilityBlockCrit(enum BattlerId battlerAtk, enum 
         || (abilityDef == ABILITY_TANGLED_FEET && gBattleMons[battlerDef].volatiles.confusionTurns)
         || abilityDef == ABILITY_GRASS_PELT);
 
+}
+
+static inline bool32 DoesTargetAbilityBlockFlinch(enum BattlerId battlerDef, enum  Ability ability)
+{
+    if (ability == ABILITY_REIKI
+    || ability == ABILITY_INNER_FOCUS
+    || (ability == ABILITY_ILLUSION
+    && gBattleStruct->illusion[battlerDef].state == ILLUSION_ON))
+        return TRUE;
+
+    return FALSE;    
 }
 
 

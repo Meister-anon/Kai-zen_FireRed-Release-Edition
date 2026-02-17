@@ -18329,7 +18329,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         60,
         105,
         60,
-        105,
+        130,
         120,
         60
         ),
@@ -43549,7 +43549,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
             55,
             100,
             60,
-            110,
+            135,
             125,
             60
             ),
