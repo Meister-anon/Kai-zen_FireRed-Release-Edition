@@ -177,73 +177,87 @@ then just multiply by 31 and divide by 255, to find the replace value
 struct ProtectStruct    
 {
     /* field_0 */
-             u32 protected:1;
-             u32 endured : 1;
-             u32 noValidMoves : 1;
-             u32 helpingHand : 1;
-             u32 bounceMove : 1;
-             u32 stealMove : 1;
-             u32 flag0Unknown : 1;
-             u32 prlzImmobility : 1;
-             /* field_1 */
-             u32 confusionSelfDmg : 1;  //will instead change ot make random target, and within that if move is non-damaging do normal confusion hit, or use move against self
-             u32 targetNotAffected : 1; //opposite equivalent of targetAffected
-             u32 chargingTurn : 1;
-             u32 fleeFlag : 2; // for RunAway Defeatist and Smoke Ball
-             u32 usedImprisonedMove : 1;
-             u32 loveImmobility : 1;
-             u32 usedDisabledMove : 1;
-             /* field_2 */
-             u32 usedTauntedMove : 1;      // 0x1
-             u32 flag2Unknown : 1;         // 0x2
-             u32 flinchImmobility : 1;     // 0x4
-             u32 notFirstStrike : 1;       // 0x8
-             u32 flag_x10 : 1;           // 0x10
-             u32 flag_x20 : 1;           // 0x20
-             u32 flag_x40 : 1;           // 0x40
-             u32 flag_x80 : 1;           // 0x80
-             /* field_3 */
-             u32 field3 : 8;//field 3 because bit field 3,  this fills u32
+    //may not use or repurpose for my effect idk
+    u32 survivedOHKO:1; // Used to keep track of effects that allow focus punch when surviving moves like Fissure
+    u32 lastHitBySpecialMove : 1;
+    u32 noValidMoves : 1;
+    u32 forcedSwitch : 1;
+    u32 bounceMove : 1;
+    u32 stealMove : 1;
+    u32 flag0Unknown : 1;
+    u32 prlzImmobility : 1;
+    /* field_1 */
+    u32 confusionSelfDmg : 1;  //will instead change ot make random target, and within that if move is non-damaging do normal confusion hit, or use move against self
+    u32 targetNotAffected : 1; //opposite equivalent of targetAffected
+    u32 chargingTurn : 1;
+    u32 fleeFlag : 2; // for RunAway Defeatist and Smoke Ball
+    u32 usedImprisonedMove : 1;
+    u32 loveImmobility : 1;
+    u32 usedDisabledMove : 1;
+    /* field_2 */
+    u32 usedTauntedMove : 1;      // 0x1
+    u32 flag2Unknown : 1;         // 0x2
+    u32 flinchImmobility : 1;     // 0x4
+    u32 notFirstStrike : 1;       // 0x8
+    u32 flag_x10 : 1;           // 0x10
+    u32 flag_x20 : 1;           // 0x20
+    u32 flag_x40 : 1;           // 0x40
+    u32 flag_x80 : 1;           // 0x80
+    /* field_3 */
+    u32 laggingTail:1;
+    u32 eatMirrorHerb:1;
+    u32 activateOpportunist:2; // 2 - to copy stats. 1 - stats copied (do not repeat). 0 - no stats to copy
+    u32 usedAllySwitch:1;
+    u32 lashOutAffected:1;
+    u32 assuranceDoubled:1;
+    u32 myceliumMight:1;
 
-             u16 physicalDmg;
-             u16 specialDmg;
-             u16 turnDmg; //handled differently from above but is general field for now only used in focus punch
-             u16 physicalBattlerId:3;//u8 bitfield in EE
-             u16 specialBattlerId:3;
-             u16 spaceBar:10;
+    u16 physicalDmg;
+    u16 specialDmg;
+    u16 turnDmg; //handled differently from above but is general field for now only used in focus punch
+    u16 physicalBattlerId:3;//u8 bitfield in EE
+    u16 specialBattlerId:3;
+    //num options is max size - 2, as 0 not an option
+    //changed to bit 6 max 62 options - even that is dumb you'll never need 
+    //that many unique protect moves absolute min I'd suggest is bit 5 for 30 options
+    u16 protected:5; // 126 protect options //stores protect method, there's literally only 12 -_-
+    u16 palaceUnableToUseMove:1; //again prob won't use
+    u16 helpingHand:3; //made bitfield cuz meant to stack i guess they used 3 instead of 2 incase of triple battle
+    u16 padding:1;
+
+    u32 blockcrit : 1; //rn just giving to defense curl
+    u32 revengeDoubled:4; //looks weird but appearas was reworked to store battlerId
+    u32 usesBouncedMove : 1;
+    u32 usedHealBlockedMove : 1;
+    u32 usedGravityPreventedMove : 1;
+
+    u32 powderSelfDmg : 1;  //not sure why  I added this I'm not gonna use it? well for someone else I guess. 
+    u32 usedThroatChopPreventedMove : 1;
+    u32 pranksterElevated : 1;
+    u32 galewingsElevated : 1;
+    u32 triageElevated : 1;
+    u32 OmniAideElevated : 1; //omnipotent aide, new fields added to account for queenly majesty w status priority change
+    u32 NuisanceElevated : 1;
+    u32 LightMetalElevated : 1;
+
+    u32 quickDraw : 1;
+    u32 quash : 1;
+    u32 beakBlastCharge : 1; //makes more sense to put thse in special status..
+    u32 usedMicleBerry : 1;
+    u32 usedCustapBerry : 1;    // also quick claw
+    u32 touchedProtectLike : 1;    //EE removed I keep is much more flexible
+    u32 obstructed : 1;
+    u32 disableEjectPack : 1; 
+
+    u32 shellTrap:1; //hopefully doens't add space
+    u32 LongReachElevated:1;//double check but don't think having protect struct is necessary for priority boost but just makes it easier to track?
+    u32 activatedAbilityStatusHealing:1;  //since separated from status need this to filter so doesn't retrigger. //using for both poison heal and heat trance, 
+    u32 statRaised:1;
+    u32 statFell:1;
+    u32 oneTurnStatBoost:3; //stat to boost set from stored value made for mega gren z, meant to be 2 stage boost
+    u16 fieldE; //realized meant to store stat not a bool max stat id is 7 so thankfully fits
 
 
-             u32 blockcrit : 1; //rn just giving to defense curl
-             u32 blankspace : 4; //removed protect stuff in EE so these will be freed
-             u32 usesBouncedMove : 1;
-             u32 usedHealBlockedMove : 1;
-             u32 usedGravityPreventedMove : 1;
-
-             u32 powderSelfDmg : 1;  //not sure why  I added this I'm not gonna use it? well for someone else I guess. 
-             u32 usedThroatChopPreventedMove : 1;
-             u32 pranksterElevated : 1;
-             u32 galewingsElevated : 1;
-             u32 triageElevated : 1;
-             u32 OmniAideElevated : 1; //omnipotent aide, new fields added to account for queenly majesty w status priority change
-             u32 NuisanceElevated : 1;
-             u32 LightMetalElevated : 1;
-
-             u32 quickDraw : 1;
-             u32 quash : 1;
-             u32 beakBlastCharge : 1; //makes more sense to put thse in special status..
-             u32 usedMicleBerry : 1;
-             u32 usedCustapBerry : 1;    // also quick claw
-             u32 touchedProtectLike : 1;
-             u32 obstructed : 1;
-             u32 disableEjectPack : 1; 
-
-             u32 shellTrap:1; //hopefully doens't add space
-             u32 LongReachElevated:1;//double check but don't think having protect struct is necessary for priority boost but just makes it easier to track?
-             u32 activatedAbilityStatusHealing:1;  //since separated from status need this to filter so doesn't retrigger. //using for both poison heal and heat trance, 
-             u32 statRaised:1;
-             u32 statFell:1;
-             u32 oneTurnStatBoost:3; //stat to boost set from stored value made for mega gren z, meant to be 2 stage boost
-             u16 fieldE; //realized meant to store stat not a bool max stat id is 7 so thankfully fits
 };
 
 extern struct ProtectStruct gProtectStructs[MAX_BATTLERS_COUNT];
