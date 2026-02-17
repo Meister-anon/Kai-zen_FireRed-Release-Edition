@@ -179,6 +179,14 @@ static const u16 gWeightToDamageTable[] =
     0xFFFF, 0xFFFF
 };
 
+// for Natural Gift and Fling
+struct TypePower
+{
+    enum Type type:8;
+    u8 power;
+    u16 effect;
+};
+
 // percent in UQ_4_12 format
 extern const uq4_12_t gPercentToModifier[101];
 
@@ -194,13 +202,6 @@ extern const struct TypePower gNaturalGiftTable[];
 
 extern const u8 *const gPlayCryanims[];
 
-// for Natural Gift and Fling
-struct TypePower
-{
-    enum Type type:8;
-    u8 power;
-    u16 effect;
-};
 
 enum ImmunityHealStatusOutcome
 {

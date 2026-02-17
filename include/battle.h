@@ -2194,13 +2194,6 @@ static inline bool32 CanBattlerAbilityDrawInMove(enum BattlerId battlerDef)
     return FALSE;
 }
 
-enum BattleTypes
-{
-    PRIMARY_TYPE,
-    SECONDARY_TYPE,
-    AUXILIARY_TYPE,
-    NUM_BATTLE_TYPES,
-};
 
 static inline enum Type GetBattlerTypebySlot(enum BattlerId battler, enum BattleTypes typeId)
 {

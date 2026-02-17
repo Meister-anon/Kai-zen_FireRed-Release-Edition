@@ -66,6 +66,14 @@ enum __attribute__((packed)) BattleTrainer
     MAX_BATTLE_TRAINERS,
 };
 
+enum BattleTypes
+{
+    PRIMARY_TYPE,
+    SECONDARY_TYPE,
+    AUXILIARY_TYPE,
+    NUM_SPECIES_TYPES = AUXILIARY_TYPE,
+    NUM_BATTLE_TYPES,
+};
 
 //could read battle_position_none 
 //but believe this is more readable as id is used more oft than position
