@@ -208,9 +208,9 @@ void InitAnimFastLinearTranslationWithSpeedAndPos(struct Sprite *sprite);
 void TryShinyAnimation(enum BattlerId battler, struct Pokemon *mon);
 u8 ItemIdToBallId(u16 itemId);
 u8 LaunchBallStarsTask(u8 x, u8 y, u8 priority, u8 subpriority, u8 ballId);
-//u8 LaunchBallFadeMonTask(bool8 unFadeLater, enum BattlerId battlerId, u32 arg2, u8 ballId);
+u8 LaunchBallFadeMonTask(bool8 unfadeLater, enum BattlerId battlerId, u32 selectedPalettes, u8 ballId);
 void LoadHealthboxPalsForLevelUp(u8 *, u8 *, enum BattlerId battlerId);
-void DoFreeHealthboxPalsForLevelUp(u8 batterId);
+void DoFreeHealthboxPalsForLevelUp(enum BattlerId batterId);
 
 enum
 {
@@ -283,7 +283,6 @@ extern const union AffineAnimCmd *const gAffineAnims_SpinningBone[];
 // battle_anim_throw.c
 void TryShinyAnimation(enum BattlerId battler, struct Pokemon *mon);
 u8 AnimateBallOpenParticles(u8 x, u8 y, u8 priority, u8 subpriority, u8 ballId);
-u8 LaunchBallFadeMonTask(bool8 unfadeLater, u8 spritePalNum, u32 selectedPalettes, u8 ballId);
 bool32 IsCriticalCapture(void);
 // battle_anim_utility_funcs.c
 void InitStatsChangeAnimation(u8 taskId);
