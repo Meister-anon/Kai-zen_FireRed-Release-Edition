@@ -784,7 +784,7 @@ struct EventStates
 // Cleared at the beginning of the battle. Fields need to be cleared when needed manually otherwise.
 //vsonic important really need go over this
 //pretty sure A LOT of this is outdated or unneeded
-//and also just horribly optimized <<<<<<<
+//and also just horribly optimized
 /*struct BattleStruct //fill in unused fields when porting
 {
     struct BattlerState battlerState[MAX_BATTLERS_COUNT];
