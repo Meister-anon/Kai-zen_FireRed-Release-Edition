@@ -86,9 +86,9 @@
 #define MON_DATA_KNOWN_MOVES       81
 #define MON_DATA_RIBBON_COUNT      82
 #define MON_DATA_RIBBONS           83
-/*#define MON_DATA_ATK2              84 //FACEPALM the entire reason for the stat2 variants is to exclude the stupid deoxys logic I should have removed long ago
-#define MON_DATA_DEF2              85
-#define MON_DATA_SPEED2            86
+#define MON_DATA_DYNAMAX_LEVEL     84 //not using just need define vsonic
+#define MON_DATA_GIGANTAMAX_FACTOR 85
+/*#define MON_DATA_SPEED2            86
 #define MON_DATA_SPATK2            87
 #define MON_DATA_SPDEF2            88*/
 #define MON_DATA_HATCHED           89   //new value to keep track of egg hatch status - needed for summary screen to properly distinguise mon got via egg

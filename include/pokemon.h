@@ -1156,6 +1156,8 @@ void CopyMon(void *dest, void *src, size_t size);
 u8 GiveMonToPlayer(struct Pokemon *mon);
 u8 CalculatePlayerPartyCount(void);
 u8 CalculateEnemyPartyCount(void);
+//from EE
+u8 CalculateEnemyPartyCountInSide(enum BattlerId battler);
 u8 GetMonsStateToDoubles(void);
 u16 GetAbilityBySpecies(u16 species, bool8 abilityNum, struct Pokemon *mon); //change for taught abilities
 u16 GetMonAbility(struct Pokemon *mon);

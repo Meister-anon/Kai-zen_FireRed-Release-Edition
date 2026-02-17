@@ -20,7 +20,7 @@
 #include "battle_util2.h"
 #include "battle_message.h"
 #include "battle_bg.h"
-//#include "battle_dynamax.h"
+#include "battle_dynamax.h"
 #include "battle_terastal.h"
 #include "battle_gimmick.h"
 #include "move.h"

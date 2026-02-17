@@ -8223,31 +8223,49 @@ u8 SendMonToPC(struct Pokemon* mon)//follows catching/receiving mon, is not same
     return MON_CANT_GIVE;
 }
 
-u8 CalculatePlayerPartyCount(void)
+u8 CalculatePartyCount(struct Pokemon *party)
 {
-    gPlayerPartyCount = 0;
+    u32 partyCount = 0;
 
-    while (gPlayerPartyCount < 6
-        && GetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_SPECIES, NULL) != SPECIES_NONE)
+    while (partyCount < PARTY_SIZE
+        && GetMonData(&party[partyCount], MON_DATA_SPECIES) != SPECIES_NONE)
     {
-        gPlayerPartyCount++;
+        partyCount++;
     }
 
+    return partyCount;
+}
+
+//not defined static in EE but only used in File
+static u8 CalculatePartyCountOfSide(enum BattlerId battler, struct Pokemon *party)
+{
+    s32 partyCount, partySize;
+    GetAIPartyIndexes(battler, &partyCount, &partySize);
+
+    while (partyCount < partySize
+        && GetMonData(&party[partyCount], MON_DATA_SPECIES) != SPECIES_NONE)
+    {
+        partyCount++;
+    }
+
+    return partyCount;
+}
+
+u8 CalculatePlayerPartyCount(void)
+{
+    gPlayerPartyCount = CalculatePartyCount(gPlayerParty);
     return gPlayerPartyCount;
 }
 
-
 u8 CalculateEnemyPartyCount(void)
 {
-    gEnemyPartyCount = 0;
-
-    while (gEnemyPartyCount < 6
-        && GetMonData(&gEnemyParty[gEnemyPartyCount], MON_DATA_SPECIES, NULL) != SPECIES_NONE)
-    {
-        gEnemyPartyCount++;
-    }
-
+    gEnemyPartyCount = CalculatePartyCount(gEnemyParty);
     return gEnemyPartyCount;
+}
+
+u8 CalculateEnemyPartyCountInSide(enum BattlerId battler)
+{
+    return CalculatePartyCountOfSide(battler, gEnemyParty);
 }
 
 u8 GetMonsStateToDoubles(void)
