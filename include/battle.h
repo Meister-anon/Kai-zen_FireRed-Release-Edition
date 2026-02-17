@@ -1293,8 +1293,7 @@ struct BattleScripting  //remember expanding this costs ewram
     u8 savedStatChanger; // For if attempting to change stat two times(ex. Moody)
     u8 savedBattler;  //for now saveBattler not used just using normal sBattler - ported just in case there's issue
 
-    /* u8 illusionNickHack; // To properly display nick in STRINGID_ENEMYABOUTTOSWITCHPKMN.
-     bool8 fixedPopup;   // Force ability popup to stick until manually called back
+    /*bool8 fixedPopup;   // Force ability popup to stick until manually called back
      u16 abilityPopupOverwrite;  //UNCOMMENT if you want these features
      u16 savedMoveEffect; // For moves hitting multiple targets.
      u16 moveEffect;*/
@@ -1304,7 +1303,11 @@ struct BattleScripting  //remember expanding this costs ewram
     s32 savedDmg;   //port feature leaving out for now - added as needed for bs somehow
     u16 savedMoveEffect; // For moves hitting multiple targets.
     u16 moveEffect; //don't change capitalization won't be able to just copy from emerald easily
+    
     u8 stickyWebStatDrop; // To prevent Defiant activating on a Court Change'd Sticky Web
+    u8 illusionNickHack; // To properly display nick in STRINGID_ENEMYABOUTTOSWITCHPKMN.
+    u8 multiplayerId; //apparently EE added on to this
+    u8 fieldEnd; //think can get away without specialTrainerBattleType that's for multi ereader and other special Em stuff
 };
 
 enum

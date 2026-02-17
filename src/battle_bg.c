@@ -551,7 +551,7 @@ static void DrawLinkBattleParticipantPokeballs(u8 taskId, u8 multiplayerId, u8 b
     }
     else
     {
-        if (multiplayerId == gBattleStruct->multiplayerId)
+        if (multiplayerId == gBattleScripting.multiplayerId)
             pokeballStatuses = gTasks[taskId].data[3];
         else
             pokeballStatuses = gTasks[taskId].data[4];
@@ -574,7 +574,7 @@ static void DrawLinkBattleVsScreenOutcomeText(void)
     {
         if (gBattleOutcome == B_OUTCOME_WON)
         {
-            switch (gLinkPlayers[gBattleStruct->multiplayerId].id)
+            switch (gLinkPlayers[gBattleScripting.multiplayerId].id)
             {
             case 0:
                 BattlePutTextOnWindow(gText_Win, 0x16);
@@ -596,7 +596,7 @@ static void DrawLinkBattleVsScreenOutcomeText(void)
         }
         else
         {
-            switch (gLinkPlayers[gBattleStruct->multiplayerId].id)
+            switch (gLinkPlayers[gBattleScripting.multiplayerId].id)
             {
             case 0:
                 BattlePutTextOnWindow(gText_Win, 0x17);
@@ -619,7 +619,7 @@ static void DrawLinkBattleVsScreenOutcomeText(void)
     }
     else if (gBattleOutcome == B_OUTCOME_WON)
     {
-        if (gLinkPlayers[gBattleStruct->multiplayerId].id != 0)
+        if (gLinkPlayers[gBattleScripting.multiplayerId].id != 0)
         {
             BattlePutTextOnWindow(gText_Win, 0x17);
             BattlePutTextOnWindow(gText_Loss, 0x16);
@@ -632,7 +632,7 @@ static void DrawLinkBattleVsScreenOutcomeText(void)
     }
     else
     {
-        if (gLinkPlayers[gBattleStruct->multiplayerId].id != 0)
+        if (gLinkPlayers[gBattleScripting.multiplayerId].id != 0)
         {
             BattlePutTextOnWindow(gText_Win, 0x16);
             BattlePutTextOnWindow(gText_Loss, 0x17);
@@ -684,7 +684,7 @@ void InitLinkBattleVsScreen(u8 taskId)
         }
         else
         {
-            u8 playerId = gBattleStruct->multiplayerId;
+            u8 playerId = gBattleScripting.multiplayerId;
             u8 opponentId = playerId ^ BIT_SIDE;
             u8 opponentId_copy = opponentId;
 

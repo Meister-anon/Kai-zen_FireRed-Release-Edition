@@ -314,6 +314,11 @@ enum BattleScriptOpcode
 #define sSAVED_MOVE_EFFECT gBattleScripting + 0x2C		//u16 savedMoveEffect; 2 byte 0x18 0x19         // savedMoveEffect
 #define sMOVE_EFFECT gBattleScripting + 0x2E			//u16 moveEffect; 2 byte 0x1a 0x1b          // moveEffect   //these really are move effect
 #define sSTICKY_WEB_STAT_DROP (gBattleScripting + 0x30) //u8 stickyWebStatDrop; 1 byte 0x2c  // overrideBerryRequirements
+#define sILLUSION_NICK_HACK          (gBattleScripting + 0x31) // illusionNickHack
+#define sMULTIPLAYER_ID              (gBattleScripting + 0x32) // multiplayerId
+#define sBLANK_FIELD              (gBattleScripting + 0x33) // fieldEnd
+
+
 
 //shifted from hexadecimal as not compatible w battle script for some reason
 // array entries for battle communication

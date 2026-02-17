@@ -2029,8 +2029,8 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize) //logic 
                     {
                         if (!(gBattleTypeFlags & BATTLE_TYPE_MULTI))
                         {
-                            if ((gBattleStruct->multiplayerId != 0 && (gPotentialItemEffectBattler & BIT_SIDE))
-                                || (gBattleStruct->multiplayerId == 0 && !(gPotentialItemEffectBattler & BIT_SIDE)))
+                            if ((gBattleScripting.multiplayerId != 0 && (gPotentialItemEffectBattler & BIT_SIDE))
+                                || (gBattleScripting.multiplayerId == 0 && !(gPotentialItemEffectBattler & BIT_SIDE)))
                             {
                                 StringCopy(text, gEnigmaBerries[gPotentialItemEffectBattler].name);
                                 StringAppend(text, sText_BerrySuffix);
@@ -2043,7 +2043,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize) //logic 
                         }
                         else
                         {
-                            if (gLinkPlayers[gBattleStruct->multiplayerId].id == gPotentialItemEffectBattler)
+                            if (gLinkPlayers[gBattleScripting.multiplayerId].id == gPotentialItemEffectBattler)
                             {
                                 StringCopy(text, gEnigmaBerries[gPotentialItemEffectBattler].name);
                                 StringAppend(text, sText_BerrySuffix);
@@ -2393,6 +2393,28 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize) //logic 
     return dstID;
 }
 
+static void IllusionNickHack(enum BattlerId battler, u32 partyId, u8 *dst)
+{
+    u32 id = PARTY_SIZE;
+    // we know it's gEnemyParty
+    struct Pokemon *mon = &gEnemyParty[partyId], *partnerMon;
+
+    if (GetMonAbility(mon) == ABILITY_ILLUSION)
+    {
+        if (IsBattlerAlive(BATTLE_PARTNER(battler)))
+            partnerMon = GetBattlerMon(BATTLE_PARTNER(battler));
+        else
+            partnerMon = mon;
+
+        id = GetIllusionMonPartyId(gEnemyParty, mon, partnerMon, battler);
+    }
+
+    if (id != PARTY_SIZE)
+        GetMonData(&gEnemyParty[id], MON_DATA_NICKNAME, dst);
+    else
+        GetMonData(mon, MON_DATA_NICKNAME, dst);
+}
+
 static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst)
 {
     u32 srcId = 1;
@@ -2473,7 +2495,26 @@ static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst)
             srcId += 3;
             break;
         case B_BUFF_MON_NICK: // poke nick without prefix   //used in buffers PREPARE_MON_NICK_BUFFER
-            GetBattlerNick(src[srcId + 1], dst);
+            /*GetBattlerNick(src[srcId + 1], dst);
+            srcId += 3;*/
+            if (src[srcId + 2] == gBattlerPartyIndexes[src[srcId + 1]])
+            {
+                GetBattlerNick(src[srcId + 1], dst);
+            }
+            else if (gBattleScripting.illusionNickHack) // for STRINGID_ENEMYABOUTTOSWITCHPKMN
+            {
+                gBattleScripting.illusionNickHack = 0;
+                IllusionNickHack(src[srcId + 1], src[srcId + 2], dst);
+                StringGet_Nickname(dst);
+            }
+            else
+            {
+                if (IsOnPlayerSide(src[srcId + 1]))
+                    GetMonData(&gPlayerParty[src[srcId + 2]], MON_DATA_NICKNAME, dst);
+                else
+                    GetMonData(&gEnemyParty[src[srcId + 2]], MON_DATA_NICKNAME, dst);
+                StringGet_Nickname(dst);
+            }
             srcId += 3;
             break;
         case B_BUFF_NEGATIVE_FLAVOR: // flavor table
@@ -2491,7 +2532,7 @@ static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst)
             {
                 if (hword == ITEM_ENIGMA_BERRY)
                 {
-                    if (gLinkPlayers[gBattleStruct->multiplayerId].id == gPotentialItemEffectBattler)
+                    if (gLinkPlayers[gBattleScripting.multiplayerId].id == gPotentialItemEffectBattler)
                     {
                         StringCopy(dst, gEnigmaBerries[gPotentialItemEffectBattler].name);
                         StringAppend(dst, sText_BerrySuffix);

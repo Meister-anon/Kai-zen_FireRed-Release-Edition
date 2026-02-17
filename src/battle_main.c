@@ -2263,7 +2263,7 @@ static void CB2_HandleStartBattle(void)
     AnimateSprites();
     BuildOamBuffer();
     playerMultiplayerId = GetMultiplayerId();
-    gBattleStruct->multiplayerId = playerMultiplayerId;
+    gBattleScripting.multiplayerId = playerMultiplayerId;
     enemyMultiplayerId = playerMultiplayerId ^ BIT_SIDE;
     switch (gBattleCommunication[MULTIUSE_STATE])
     {
@@ -2446,7 +2446,7 @@ static void CB2_PreInitMultiBattle(void)
     void (**savedCallback)(void);
 
     playerMultiplierId = GetMultiplayerId();
-    gBattleStruct->multiplayerId = playerMultiplierId;
+    gBattleScripting.multiplayerId = playerMultiplierId;
     savedCallback = &gBattleStruct->savedCallback;
     savedBattleTypeFlags = &gBattleStruct->savedBattleTypeFlags;
 
@@ -2519,7 +2519,7 @@ static void CB2_HandleStartMultiBattle(void)
     u8 taskId;
 
     playerMultiplayerId = GetMultiplayerId();
-    gBattleStruct->multiplayerId = playerMultiplayerId;
+    gBattleScripting.multiplayerId = playerMultiplayerId;
     RunTasks();
     AnimateSprites();
     BuildOamBuffer();
@@ -3379,7 +3379,7 @@ static void BufferPartyVsScreenHealth_AtEnd(u8 taskId)
 {
     struct Pokemon *party1 = NULL;
     struct Pokemon *party2 = NULL;
-    u8 multiplayerId = gBattleStruct->multiplayerId;
+    u8 multiplayerId = gBattleScripting.multiplayerId;
     u32 r7;
     s32 i;
 

@@ -143,7 +143,7 @@ void TrySetQuestLogLinkBattleEvent(void)
             }
             for (r3 = 0; r3 < 7; r3++)
             {
-                r5->v1[0][r3] = gLinkPlayers[gBattleStruct->multiplayerId ^ 1].name[r3];
+                r5->v1[0][r3] = gLinkPlayers[gBattleScripting.multiplayerId ^ 1].name[r3];
             }
         }
         SetQuestLogEvent(eventId, (const u16 *)r5);
@@ -155,12 +155,12 @@ static void sub_812C334(s32 * a0, s32 * a1)
 {
     s32 r5;
     s32 _optimized_out = 0;
-    u8 r2 = gLinkPlayers[gBattleStruct->multiplayerId].id ^ 2;
+    u8 r2 = gLinkPlayers[gBattleScripting.multiplayerId].id ^ 2;
     for (r5 = 0; r5 < 4; r5++)
     {
         if (r2 == gLinkPlayers[r5].id)
             a0[0] = r5;
-        else if (r5 != gBattleStruct->multiplayerId)
+        else if (r5 != gBattleScripting.multiplayerId)
             a1[_optimized_out++] = r5;
     }
 } */

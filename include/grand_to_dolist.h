@@ -8923,7 +8923,7 @@ Exceptions:
 
  ex. battlesruct assignment
  *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureLo) = 1;
- gBattleStruct->multiplayerId = playerMultiplayerId;
+ gBattleScripting.multiplayerId = playerMultiplayerId;
  gBattleStruct->dynamicMoveType = TYPE_FAIRY; 
  gBattleStruct->lastTakenMoveFrom[i][2] = MOVE_NONE;
 
