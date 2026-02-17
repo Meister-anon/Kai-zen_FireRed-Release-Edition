@@ -44,6 +44,12 @@ SINGLE_BATTLE_TEST("Retaliate doubles in base power the turn after an ally faint
     }
 }
 
+//retaliate is a counter effect
+//icebeam is only here if frostbite not freeze
+//as otherwise would be frozen solid
+//oh wait no this is talking bout teammate dying to pasive dmg?
+//frostbite does bassive dmg but by default freeze didn't
+//that's something I added
 DOUBLE_BATTLE_TEST("Retaliate works with passive damage")
 {
     s16 damage[2];
@@ -53,9 +59,7 @@ DOUBLE_BATTLE_TEST("Retaliate works with passive damage")
     PARAMETRIZE { move = MOVE_TOXIC; moveTarget = playerLeft; }
     PARAMETRIZE { move = MOVE_POISON_POWDER; moveTarget = playerLeft; }
     PARAMETRIZE { move = MOVE_WILL_O_WISP; moveTarget = playerLeft; }
-    #if B_USE_FROSTBITE == TRUE
-    PARAMETRIZE { move = MOVE_ICE_BEAM; moveTarget = playerLeft; }
-    #endif
+    PARAMETRIZE { move = MOVE_FLASH_FREEZE; moveTarget = playerLeft; }
     PARAMETRIZE { move = MOVE_SANDSTORM; moveTarget = playerLeft; }
     PARAMETRIZE { move = MOVE_HAIL; moveTarget = playerLeft; }
     PARAMETRIZE { move = MOVE_LEECH_SEED; moveTarget = playerLeft; }
@@ -66,9 +70,7 @@ DOUBLE_BATTLE_TEST("Retaliate works with passive damage")
         ASSUME(gMovesInfo[MOVE_TOXIC].effect == EFFECT_TOXIC);
         ASSUME(gMovesInfo[MOVE_POISON_POWDER].effect == EFFECT_POISON);
         ASSUME(gMovesInfo[MOVE_WILL_O_WISP].effect == EFFECT_WILL_O_WISP);
-        #if B_USE_FROSTBITE == TRUE
-        ASSUME(gMovesInfo[MOVE_ICE_BEAM].additionalEffects[0].moveEffect == MOVE_EFFECT_FREEZE_OR_FROSTBITE);
-        #endif
+        ASSUME(gMovesInfo[MOVE_FLASH_FREEZE].additionalEffects[0].moveEffect == MOVE_EFFECT_FREEZE);
 
         ASSUME(GetMoveEffect(MOVE_SANDSTORM) == EFFECT_WEATHER);
         ASSUME(GetMoveWeatherType(MOVE_SANDSTORM) == BATTLE_WEATHER_SANDSTORM);

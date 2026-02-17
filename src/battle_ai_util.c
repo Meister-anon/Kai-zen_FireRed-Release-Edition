@@ -359,6 +359,9 @@ bool32 ShouldRecordStatusMove(u32 move)
     return RandomPercentage(RNG_AI_ASSUME_ALL_STATUS, ASSUME_ALL_STATUS_ODDS) && IsBattleMoveStatus(move);
 }
 
+//this seems far too advanced...
+//most regular players aren't gonna know
+//learnsets and even w speed may not realize
 static bool32 ShouldFailForIllusion(u32 illusionSpecies, enum BattlerId battlerId)
 {
     u32 learnsetMoveIndex;
@@ -385,7 +388,8 @@ static bool32 ShouldFailForIllusion(u32 illusionSpecies, enum BattlerId battlerI
             continue;
 
         // The used move can be learned from Tm/Hm or Move Tutors.
-        if (CanLearnTeachableMove(illusionSpecies, move))
+        //if (CanLearnTeachableMove(illusionSpecies, move))
+        if (CanSpeciesLearnTMHMmove(illusionSpecies, move))
             continue;
 
         // 'Illegal move', AI won't fail for the illusion.
@@ -536,7 +540,7 @@ bool32 IsTruantMonVulnerable(enum BattlerId battlerAI, u32 opposingBattler)
     return FALSE;
 }
 
-bool32 Ai_IsPriorityBlocked(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move, struct AiLogicData *aiData)
+bool32 Ai_IsPriorityBlocked(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move, struct AiLogicData *aiData)
 {
     s32 atkPriority = GetBattleMovePriority(battlerAtk, aiData->abilities[battlerAtk], move);
 
@@ -1170,7 +1174,8 @@ static bool32 AI_IsMoveEffectInPlus(enum BattlerId battlerAtk, enum BattlerId ba
                     if (AI_CanBurn(battlerAtk, battlerDef, abilityDef, BATTLE_PARTNER(battlerAtk), move, MOVE_NONE))
                         return TRUE;
                     break;
-                case MOVE_EFFECT_FREEZE_OR_FROSTBITE:
+                case MOVE_EFFECT_FREEZE:
+                case MOVE_EFFECT_FROSTBITE:
                     if (CanBeFrozen(battlerAtk, battlerDef, abilityDef))
                         return TRUE;
                     break;
@@ -2129,8 +2134,8 @@ bool32 IsMoveRedirectionPrevented(enum BattlerId battlerAtk, u32 move, enum Abil
         return FALSE;
 
     enum BattleMoveEffects effect = GetMoveEffect(move);
-    if (effect == EFFECT_SKY_DROP
-      || effect == EFFECT_SNIPE_SHOT
+    if (IsFogOnField()
+      || DoesMovePreventRedirection(move)
       || atkAbility == ABILITY_PROPELLER_TAIL
       || atkAbility == ABILITY_STALWART)
         return TRUE;
@@ -3268,15 +3273,16 @@ static u32 GetCurseDamage(enum BattlerId battlerId)
     return damage;
 }
 
+//vsonic will need adjust
 static u32 GetTrapDamage(enum BattlerId battler)
 {
     // ai has no knowledge about turns remaining
     u32 damage = 0;
     if (gBattleMons[battler].volatiles.wrapped)
     {
-        if (gAiLogicData->holdEffects[gBattleMons[battler].volatiles.wrappedBy] == HOLD_EFFECT_BINDING_BAND)
+        /*if (gAiLogicData->holdEffects[gBattleMons[battler].volatiles.wrappedBy] == HOLD_EFFECT_BINDING_BAND)
             damage = GetNonDynamaxMaxHP(battler) / (B_BINDING_DAMAGE >= GEN_6 ? 6 : 8);
-        else
+        else*/
             damage = GetNonDynamaxMaxHP(battler) / (B_BINDING_DAMAGE >= GEN_6 ? 8 : 16);
 
         if (damage == 0)
@@ -5124,7 +5130,7 @@ bool32 AI_MoveMakesContact(enum Ability ability, enum HoldEffect holdEffect, u32
 
 bool32 IsConsideringZMove(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move)
 {
-    if (GetMovePower(move) == 0 && GetMoveZEffect(move) == Z_EFFECT_NONE)
+    //if (GetMovePower(move) == 0 && GetMoveZEffect(move) == Z_EFFECT_NONE)
         return FALSE;
 
     return gBattleStruct->gimmick.usableGimmick[battlerAtk] == GIMMICK_Z_MOVE && ShouldUseZMove(battlerAtk, battlerDef, move);
@@ -5179,7 +5185,7 @@ bool32 ShouldUseZMove(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 
 
         if (IsBattleMoveStatus(chosenMove))
         {
-            u8 zEffect = GetMoveZEffect(chosenMove);
+            u8 zEffect = Z_EFFECT_NONE; //GetMoveZEffect(chosenMove);
             enum StatChange statChange = 0;
 
             if (zEffect == Z_EFFECT_CURSE)
@@ -6291,7 +6297,7 @@ void GetAIPartyIndexes(enum BattlerId battler, s32 *firstId, s32 *lastId)
     }
 }
 
-bool32 ShouldInstructPartner(u32 partner, u32 move)
+bool32 ShouldInstructPartner(enum BattlerId partner, enum Move move)
 {
     if (GetMoveEffect(move) == EFFECT_MAX_HP_50_RECOIL && gAiLogicData->abilities[partner] != ABILITY_MAGIC_GUARD)
         return FALSE;

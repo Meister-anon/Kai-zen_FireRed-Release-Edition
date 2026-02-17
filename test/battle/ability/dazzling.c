@@ -174,7 +174,8 @@ SINGLE_BATTLE_TEST("Dazzling, Queenly Majesty and Armor Tail do not block Teatim
     }
 }
 
-SINGLE_BATTLE_TEST("Dazzling, Queenly Majesty and Armor Tail do not block a move's Z-Status effect")
+//not using zmoves
+/*SINGLE_BATTLE_TEST("Dazzling, Queenly Majesty and Armor Tail do not block a move's Z-Status effect")
 {
     u32 species;
     enum Ability ability;
@@ -196,7 +197,7 @@ SINGLE_BATTLE_TEST("Dazzling, Queenly Majesty and Armor Tail do not block a move
         EXPECT_EQ(player->statStages[STAT_DEF], DEFAULT_STAT_STAGE + 1);
         EXPECT_EQ(opponent->statStages[STAT_ATK], DEFAULT_STAT_STAGE);
     }
-}
+}*/
 
 SINGLE_BATTLE_TEST("Mold Breaker ignores Dazzling, Queenly Majesty and Armor Tail")
 {

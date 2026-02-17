@@ -56,7 +56,7 @@ const u16 gEggMoves[] = {
               MOVE_SCARY_FACE,
               MOVE_QUICK_ATTACK,
               MOVE_TRI_ATTACK,
-              MOVE_SPOOK,
+              MOVE_ASTONISH,
               MOVE_SKY_ATTACK),
 
     egg_moves(EKANS,
@@ -64,7 +64,7 @@ const u16 gEggMoves[] = {
               MOVE_SLAM,
               MOVE_SPITE,
               MOVE_BEAT_UP,
-              MOVE_TOXIC_FANG),
+              MOVE_POISON_FANG),
 
     egg_moves(SANDSHREW,
               MOVE_FLAIL,
@@ -296,7 +296,7 @@ const u16 gEggMoves[] = {
               MOVE_PSYWAVE,
               MOVE_PERISH_SONG,
               MOVE_HAZE,
-              MOVE_SPOOK,
+              MOVE_ASTONISH,
               MOVE_WILL_O_WISP,
               MOVE_GRUDGE,
               MOVE_EXPLOSION),
@@ -714,7 +714,7 @@ const u16 gEggMoves[] = {
               MOVE_ROCK_SLIDE,
               MOVE_BITE,
               MOVE_HEADBUTT,
-              MOVE_SPOOK,
+              MOVE_ASTONISH,
               MOVE_CURSE),
 
     egg_moves(GLIGAR,
@@ -739,7 +739,7 @@ const u16 gEggMoves[] = {
               MOVE_HAZE,
               MOVE_BUBBLE_BEAM,
               MOVE_SUPERSONIC,
-              MOVE_SPOOK),
+              MOVE_ASTONISH),
 
     egg_moves(SHUCKLE,
               MOVE_SWEET_SCENT),
@@ -926,8 +926,8 @@ const u16 gEggMoves[] = {
               MOVE_MIRROR_COAT),
 
     egg_moves(POOCHYENA,
-              MOVE_SPOOK,
-              MOVE_TOXIC_FANG,
+              MOVE_ASTONISH,
+              MOVE_POISON_FANG,
               MOVE_COVET,
               MOVE_LEER,
               MOVE_YAWN),
@@ -1146,7 +1146,7 @@ const u16 gEggMoves[] = {
     egg_moves(MAWILE,
               MOVE_SWORDS_DANCE,
               MOVE_FALSE_SWIPE,
-              MOVE_TOXIC_FANG,
+              MOVE_POISON_FANG,
               MOVE_PSYCH_UP,
               MOVE_ANCIENT_POWER,
               MOVE_TICKLE),
@@ -1229,7 +1229,7 @@ const u16 gEggMoves[] = {
               MOVE_DISABLE,
               MOVE_DESTINY_BOND,
               MOVE_FORESIGHT,
-              MOVE_SPOOK,
+              MOVE_ASTONISH,
               MOVE_IMPRISON),
 
     egg_moves(SEVIPER,

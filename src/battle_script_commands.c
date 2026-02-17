@@ -3108,7 +3108,7 @@ void SetMoveEffect(enum BattlerId battlerAtk, u32 effectBattler, enum MoveEffect
             static const u8 sTriAttackEffects[] =
             {
                 MOVE_EFFECT_BURN,
-                MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+                MOVE_EFFECT_FREEZE,
                 MOVE_EFFECT_PARALYSIS
             };
             SetMoveEffect(battlerAtk, effectBattler, RandomElement(RNG_TRI_ATTACK, sTriAttackEffects), battleScript, effectFlags);
@@ -3121,10 +3121,11 @@ void SetMoveEffect(enum BattlerId battlerAtk, u32 effectBattler, enum MoveEffect
         }
         else
         {
+            //need to put in my custom logi again
             SetWrapTurns(gEffectBattler, GetBattlerHoldEffect(gBattlerAttacker));
             gBattleMons[gEffectBattler].volatiles.wrapped = TRUE;
-            gBattleMons[gEffectBattler].volatiles.wrappedMove = gCurrentMove;
-            gBattleMons[gEffectBattler].volatiles.wrappedBy = gBattlerAttacker;
+            //gBattleMons[gEffectBattler].volatiles.wrappedMove = gCurrentMove;
+            //gBattleMons[gEffectBattler].volatiles.wrappedBy = gBattlerAttacker;
             BattleScriptPush(battleScript);
             gBattlescriptCurrInstr = BattleScript_MoveEffectWrap;
         }

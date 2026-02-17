@@ -11341,7 +11341,9 @@ const struct AbilityLearnset *GetSpeciesTeachableAbilities(u16 species)
 }
 
 //tm learnset my version doesn't include tutor moves
-const u16 *GetSpeciesTeachableLearnset(u16 species)
+//plan make teachable list using tmhm list and tutor list
+//but use exclusively for daycare stuff
+const u16 *GetSpeciesTmHmLearnset(u16 species)
 {
     const u16 *learnset;// = gSpeciesInfo[SanitizeSpeciesId(species)].tmhmLearnset;
     u16 generatedSpecies;
@@ -11937,7 +11939,7 @@ u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm)
 {
     u16 i;
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
-    const u16 *teachableLearnset = GetSpeciesTeachableLearnset(species);
+    const u16 *teachableLearnset = GetSpeciesTmHmLearnset(species);
     u16 move = gItemsInfo[tm].secondaryId;
 
     if (species == SPECIES_EGG)
@@ -12023,7 +12025,7 @@ u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm)
 u32 CanSpeciesLearnTMHMmove(u16 species, u16 move) //for this belive replace with loop to check?
 {
     u16 i;
-    const u16 *teachableLearnset = GetSpeciesTeachableLearnset(species);
+    const u16 *teachableLearnset = GetSpeciesTmHmLearnset(species);
 
     if (species == SPECIES_EGG)
     {

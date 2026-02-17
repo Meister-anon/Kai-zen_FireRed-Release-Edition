@@ -103,7 +103,7 @@ enum AirborneDmgCheck
 struct MoveInfo
 {
     const u8 *name; //move name length 16 chars + 1
-    const u8 *description; //approx 20 chars per line 5 lines
+    const u8 *description; //approx 20 chars per line 5 lines  max between 95-100 chars
     enum BattleMoveEffects effect;
     enum Type type:5;     // Up to 32
     enum DamageCategory category:2;

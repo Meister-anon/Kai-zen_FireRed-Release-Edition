@@ -145,6 +145,7 @@ s32 GetBattleMovePriority(enum BattlerId battler, u32 ability, u32 move);
 bool8 IsPriorityElevatedviaAbility(enum BattlerId battler); //new thing to track moves w boosted priority from abilities for queenly majesty
 bool8 IsRivalBattle(u16 trainerNum);
 bool32 IsWildMonSmart(void);
+enum Type GetDynamicMoveType(struct Pokemon *mon, enum Move move, enum BattlerId battler, enum MonState monInBattle);
 void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage);
 u8 ReturnMoveType(u32 move, enum BattlerId battlerAtk); //atempt copy of settype function but using return value of move type so can display stuff in sum screen
 

@@ -4164,7 +4164,7 @@ MOVE_ROCK_SMASH,
 };
 //added more support moves since so fast
 
-// Instead of reading this array for Mew, it checks for exceptions in CanLearnTeachableMove instead.
+// Instead of reading this array for Mew, it checks for exceptions in CanSpeciesLearnTMHMmove instead.
 static const u16 sMewTMHMLearnset[] = {
     TMHM_LEARN_ALL,
     TMHM_LEARNSET_END

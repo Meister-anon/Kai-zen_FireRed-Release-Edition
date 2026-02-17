@@ -3556,7 +3556,7 @@ static const struct TrainerTowerFloor sTrainerTowerFloor_Double_4 = {
 				{
 					.species = SPECIES_CROBAT,
 					.heldItem = ITEM_KINGS_ROCK,
-					.moves = {MOVE_GIGA_DRAIN, MOVE_TOXIC_FANG, MOVE_FLY, MOVE_STEEL_WING},
+					.moves = {MOVE_GIGA_DRAIN, MOVE_POISON_FANG, MOVE_FLY, MOVE_STEEL_WING},
 					.hpEV = 0,
 					.attackEV = 0,
 					.defenseEV = 0,

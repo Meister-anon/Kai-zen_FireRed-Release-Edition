@@ -2002,14 +2002,13 @@ static inline bool32 DoesBattlerGetStabOnMove(enum BattlerId battler, enum Type 
 //with that think will remove snipe_shot effect
 //as presently affect was only for redirection there
 //sky drop keeps effect but still replaced in function
-static inline bool32 PreventsRedirection(enum BattlerId battlerAtk, u32 move)
+static inline bool32 PreventsRedirection(enum BattlerId battlerAtk, u32 move, enum Ability atkAbility)
 {
-    enum Ability ability = GetBattlerAbility(battlerAtk);
 
     if (IsFogOnField()
     || DoesMovePreventRedirection(move)
-    || IsAbilityAndRecord(battlerAtk, ability, ABILITY_PROPELLER_TAIL)
-    || IsAbilityAndRecord(battlerAtk, ability, ABILITY_STALWART)
+    || IsAbilityAndRecord(battlerAtk, atkAbility, ABILITY_PROPELLER_TAIL)
+    || IsAbilityAndRecord(battlerAtk, atkAbility, ABILITY_STALWART)
     )
         return TRUE;
     
@@ -2195,7 +2194,7 @@ static inline bool32 CanBattlerAbilityDrawInMove(enum BattlerId battlerDef)
 }
 
 
-static inline enum Type GetBattlerTypebySlot(enum BattlerId battler, enum BattleTypes typeId)
+static inline enum Type GetBattlerTypebySlot(enum BattlerId battler, enum BattleMonTypes typeId)
 {
     switch (typeId)
     {
@@ -2211,7 +2210,7 @@ static inline enum Type GetBattlerTypebySlot(enum BattlerId battler, enum Battle
     }
 }
 
-static inline void SetBattlerTypebySlot(enum BattlerId battler, enum BattleTypes typeId, enum Type typeAssigned)
+static inline void SetBattlerTypebySlot(enum BattlerId battler, enum BattleMonTypes typeId, enum Type typeAssigned)
 {
     switch (typeId)
     {

@@ -17,6 +17,7 @@
 #include "decompress.h"
 #include "event_data.h"
 #include "evolution_scene.h"
+#include "field_weather.h"
 #include "graphics.h"
 #include "help_system.h"
 #include "item.h"
@@ -1570,6 +1571,301 @@ void SetJudgmentTypeString(u8 type) //if type is normal skip the jugment string 
         break;
     }
     
+}
+
+//prettys sure I made more of my own as well as adjusting pixelate
+enum Type TrySetAteType(enum Move move, enum BattlerId battlerAtk, enum Ability attackerAbility)
+{
+    enum Type ateType = TYPE_NONE;
+
+    switch (GetMoveEffect(move))
+    {
+    case EFFECT_TERA_BLAST:
+        if (GetActiveGimmick(battlerAtk) == GIMMICK_TERA)
+            return ateType;
+        break;
+    case EFFECT_TERA_STARSTORM:
+        if (gBattleMons[battlerAtk].species == SPECIES_TERAPAGOS_STELLAR)
+            return ateType;
+        break;
+    case EFFECT_HIDDEN_POWER:
+    case EFFECT_WEATHER_BALL:
+    case EFFECT_NATURAL_GIFT:
+    case EFFECT_CHANGE_TYPE_ON_ITEM:
+    case EFFECT_REVELATION_DANCE:
+    case EFFECT_TERRAIN_PULSE:
+        return ateType;
+    default:
+        break;
+    }
+
+    switch (attackerAbility)
+    {
+    case ABILITY_PIXILATE:
+        ateType = TYPE_FAIRY;
+        break;
+    case ABILITY_REFRIGERATE:
+        ateType = TYPE_ICE;
+        break;
+    case ABILITY_AERILATE:
+        ateType = TYPE_FLYING;
+        break;
+    case ABILITY_GALVANIZE:
+        ateType = TYPE_ELECTRIC;
+        break;
+    default:
+        ateType = TYPE_NONE;
+        break;
+    }
+
+    return ateType;
+}
+
+//version from EE
+// Returns TYPE_NONE if type doesn't change.
+//think won't use this prefer my version
+//just add onto my version of setmovetype vsonic important
+enum Type GetDynamicMoveType(struct Pokemon *mon, enum Move move, enum BattlerId battler, enum MonState state)
+{
+    enum Type moveType = GetMoveType(move);
+    enum BattleMoveEffects moveEffect = GetMoveEffect(move);
+    u32 species, heldItem;
+    enum Type type1, type2, type3;
+    enum Ability ability;
+    enum HoldEffect holdEffect;
+    enum Gimmick gimmick = GetActiveGimmick(battler);
+
+    if (state == MON_IN_BATTLE)
+    {
+        if (moveEffect == EFFECT_STRUGGLE)
+            return TYPE_MYSTERY;
+
+        species = gBattleMons[battler].species;
+        heldItem = gBattleMons[battler].item;
+        holdEffect = GetBattlerHoldEffect(battler);
+        ability = GetBattlerAbility(battler);
+        type1 = gBattleMons[battler].type1;
+        type2 = gBattleMons[battler].type2;
+        type3 = gBattleMons[battler].type3;
+    }
+    else
+    {
+        species = GetMonData(mon, MON_DATA_SPECIES);
+        heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, 0);
+        holdEffect = GetItemHoldEffect(heldItem);
+        ability = GetMonAbility(mon);
+        type1 = GetSpeciesPrimaryType(species);
+        type2 = GetSpeciesSecondaryType(species);
+        type3 = TYPE_MYSTERY;
+    }
+
+    switch (moveEffect)
+    {
+    case EFFECT_WEATHER_BALL:
+        if (state == MON_IN_BATTLE)
+        {
+            if (HasWeatherEffect())
+            {
+                if (gBattleWeather & WEATHER_RAIN && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
+                    return TYPE_WATER;
+                else if (gBattleWeather & WEATHER_SANDSTORM)
+                    return TYPE_ROCK;
+                else if (gBattleWeather & WEATHER_SUN && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
+                    return TYPE_FIRE;
+                else if (gBattleWeather & WEATHER_ICY_ANY)
+                    return TYPE_ICE;
+                else
+                    return moveType;
+            }
+        }
+        else
+        {
+            switch (gWeatherPtr->currWeather)
+            {
+            case OVERWORLD_WEATHER_DROUGHT:
+                if (holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
+                    return TYPE_FIRE;
+                break;
+            case OVERWORLD_WEATHER_RAIN:
+            case OVERWORLD_WEATHER_RAIN_THUNDERSTORM:
+            case OVERWORLD_WEATHER_DOWNPOUR:
+                if (holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
+                    return TYPE_WATER;
+                break;
+            case OVERWORLD_WEATHER_SNOW:
+                return TYPE_ICE;
+            case OVERWORLD_WEATHER_SANDSTORM:
+                return TYPE_ROCK;
+            }
+            return moveType;
+        }
+        break;
+    case EFFECT_HIDDEN_POWER:
+        {
+            u32 typeBits = 0;
+            if (state == MON_IN_BATTLE)
+            {
+                typeBits = ((gBattleMons[battler].hpIV & 1) << 0)
+                        | ((gBattleMons[battler].attackIV & 1) << 1)
+                        | ((gBattleMons[battler].defenseIV & 1) << 2)
+                        | ((gBattleMons[battler].speedIV & 1) << 3)
+                        | ((gBattleMons[battler].spAttackIV & 1) << 4)
+                        | ((gBattleMons[battler].spDefenseIV & 1) << 5);
+            }
+            else
+            {
+                typeBits = ((GetMonData(mon, MON_DATA_HP_IV) & 1) << 0)
+                        | ((GetMonData(mon, MON_DATA_ATK_IV) & 1) << 1)
+                        | ((GetMonData(mon, MON_DATA_DEF_IV) & 1) << 2)
+                        | ((GetMonData(mon, MON_DATA_SPEED_IV) & 1) << 3)
+                        | ((GetMonData(mon, MON_DATA_SPATK_IV) & 1) << 4)
+                        | ((GetMonData(mon, MON_DATA_SPDEF_IV) & 1) << 5);
+            }
+
+            u32 hpTypes[NUMBER_OF_MON_TYPES] = {0};
+            u32 i, hpTypeCount = 0;
+            for (i = 0; i < NUMBER_OF_MON_TYPES; i++)
+            {
+                if (gTypesInfo[i].isHiddenPowerType)
+                    hpTypes[hpTypeCount++] = i;
+            }
+            moveType = ((hpTypeCount - 1) * typeBits) / 63;
+            return ((hpTypes[moveType] | F_DYNAMIC_TYPE_IGNORE_PHYSICALITY) & 0x3F);
+        }
+        break;
+    case EFFECT_CHANGE_TYPE_ON_ITEM:
+        if (holdEffect == GetMoveEffectArg_HoldEffect(move))
+            return GetItemSecondaryId(heldItem);
+        break;
+    case EFFECT_REVELATION_DANCE:
+        if (gimmick != GIMMICK_Z_MOVE)
+        {
+            enum Type teraType;
+            if (gimmick == GIMMICK_TERA && ((teraType = GetMonData(mon, MON_DATA_TERA_TYPE)) != TYPE_STELLAR))
+                return teraType;
+            //roost no longer removes type so not a factor
+            //hmm well actually I could keep this just to
+            //no nvm roost just means isn't floating so it shuouldn't change it
+            else if (type1 != TYPE_MYSTERY /*&& !(gBattleMons[battler].volatiles.roostActive && type1 == TYPE_FLYING)*/)
+                return type1;
+            else if (type2 != TYPE_MYSTERY)
+                return type2;
+            else if (type3 != TYPE_MYSTERY)
+                return type3;
+            else
+                return TYPE_MYSTERY;
+        }
+        break;
+    case EFFECT_RAGING_BULL:
+        switch (species)
+        {
+        case SPECIES_TAUROS_PALDEAN_COMBAT_BREED:
+        case SPECIES_TAUROS_PALDEAN_BLAZE_BREED:
+        case SPECIES_TAUROS_PALDEAN_AQUA_BREED:
+            return GetSpeciesSecondaryType(species);
+        }
+        break;
+    case EFFECT_IVY_CUDGEL:
+        switch (species)
+        {
+        case SPECIES_OGERPON_WELLSPRING_MASK:
+        case SPECIES_OGERPON_WELLSPRING_MASK_TERA:
+        case SPECIES_OGERPON_HEARTHFLAME_MASK:
+        case SPECIES_OGERPON_HEARTHFLAME_MASK_TERA:
+        case SPECIES_OGERPON_CORNERSTONE_MASK:
+        case SPECIES_OGERPON_CORNERSTONE_MASK_TERA:
+            return GetSpeciesSecondaryType(species);
+        }
+        break;
+    case EFFECT_NATURAL_GIFT:
+        if (GetItemPocket(heldItem) == POCKET_BERRIES)
+            return gNaturalGiftTable[ITEM_TO_BERRY(heldItem)].type;
+        else
+            return moveType;
+    case EFFECT_TERRAIN_PULSE:
+        if (state == MON_IN_BATTLE)
+        {
+            if (IsAnyTerrainAffected(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler), gFieldStatuses))
+            {
+                if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
+                    return TYPE_ELECTRIC;
+                else if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN)
+                    return TYPE_GRASS;
+                else if (gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN)
+                    return TYPE_FAIRY;
+                else if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN)
+                    return TYPE_PSYCHIC;
+                else //failsafe
+                    return moveType;
+            }
+        }
+        else
+        {
+            switch (gWeatherPtr->currWeather)
+            {
+            case OVERWORLD_WEATHER_RAIN_THUNDERSTORM:
+                if (B_THUNDERSTORM_TERRAIN)
+                    return TYPE_ELECTRIC;
+                break;
+            case OVERWORLD_WEATHER_FOG_HORIZONTAL:
+            case OVERWORLD_WEATHER_FOG_DIAGONAL:
+                if (B_OVERWORLD_FOG >= GEN_8)
+                    return TYPE_FAIRY;
+                break;
+            }
+            return moveType;
+        }
+        break;
+    case EFFECT_TERA_BLAST:
+        if (gimmick == GIMMICK_TERA)
+            return GetMonData(mon, MON_DATA_TERA_TYPE);
+        break;
+    case EFFECT_TERA_STARSTORM:
+        if (species == SPECIES_TERAPAGOS_STELLAR)
+            return TYPE_STELLAR;
+        break;
+    case EFFECT_NATURE_POWER:
+        if (state == MON_IN_BATTLE)
+            return GetMoveType(GetNaturePowerMove());
+        break;
+    default:
+        break;
+    }
+
+    if (IsSoundMove(move) && ability == ABILITY_LIQUID_VOICE)
+    {
+        return TYPE_WATER;
+    }
+    else if (moveEffect == EFFECT_AURA_WHEEL
+          && species == SPECIES_MORPEKO_HANGRY
+          && ability != ABILITY_NORMALIZE)
+    {
+        return TYPE_DARK;
+    }
+    else if (moveType == TYPE_NORMAL
+          && ability != ABILITY_NORMALIZE
+          && gimmick != GIMMICK_DYNAMAX
+          && gimmick != GIMMICK_Z_MOVE)
+    {
+        u32 ateType = TrySetAteType(move, battler, ability);
+        if (ateType != TYPE_NONE && state == MON_IN_BATTLE)
+            gBattleStruct->battlerState[battler].ateBoost = TRUE;
+        return ateType;
+    }
+    else if (moveEffect != EFFECT_CHANGE_TYPE_ON_ITEM
+          && moveEffect != EFFECT_TERRAIN_PULSE
+          && moveEffect != EFFECT_NATURAL_GIFT
+          && moveEffect != EFFECT_HIDDEN_POWER
+          && moveEffect != EFFECT_WEATHER_BALL
+          && ability == ABILITY_NORMALIZE
+          && gimmick != GIMMICK_Z_MOVE)
+    {
+        if (state == MON_IN_BATTLE && gimmick != GIMMICK_DYNAMAX)
+            gBattleStruct->battlerState[battler].ateBoost = TRUE;
+        return TYPE_NORMAL;
+    }
+
+    return TYPE_NONE;
 }
 
 #define LOGIC_FOR_MOVETYPE_CHANGE

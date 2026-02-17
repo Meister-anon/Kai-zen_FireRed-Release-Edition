@@ -277,7 +277,7 @@ bool32 MoveSelectionDisplayZMove(u16 zmove, enum BattlerId battler)
 
         if (IsBattleMoveStatus(move))
         {
-            u8 zEffect = GetMoveZEffect(move);
+            u8 zEffect = Z_EFFECT_NONE;//GetMoveZEffect(move);
 
             gDisplayedStringBattle[0] = EOS;
 
@@ -436,7 +436,7 @@ static void ZMoveSelectionDisplayMoveType(u16 zMove, enum BattlerId battler)
 void SetZEffect(void)
 {
     u32 i;
-    u32 effect = GetMoveZEffect(gChosenMove);
+    u32 effect = Z_EFFECT_NONE; //GetMoveZEffect(gChosenMove);
 
     if (effect == Z_EFFECT_CURSE)
     {

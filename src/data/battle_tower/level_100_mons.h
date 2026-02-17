@@ -57,7 +57,7 @@ const struct BattleTowerPokemonTemplate gBattleTowerLevel100Mons[] =
 		.heldItem = BATTLE_TOWER_ITEM_CHESTO_BERRY,
 		.teamFlags = 0x03,
 		.moves = {
-			MOVE_SPOOK,
+			MOVE_ASTONISH,
 			MOVE_GROWL,
 			MOVE_MEGA_DRAIN,
 			MOVE_SURF
@@ -150,7 +150,7 @@ const struct BattleTowerPokemonTemplate gBattleTowerLevel100Mons[] =
 		.moves = {
 			MOVE_VICE_GRIP,
 			MOVE_SWEET_SCENT,
-			MOVE_SPOOK,
+			MOVE_ASTONISH,
 			MOVE_STRENGTH
 		},
 		.evSpread = F_EV_SPREAD_ATTACK,
@@ -1425,7 +1425,7 @@ const struct BattleTowerPokemonTemplate gBattleTowerLevel100Mons[] =
 			MOVE_CRUNCH,
 			MOVE_IRON_DEFENSE,
 			MOVE_FAKE_TEARS,
-			MOVE_TOXIC_FANG
+			MOVE_POISON_FANG
 		},
 		.evSpread = F_EV_SPREAD_SP_ATTACK | F_EV_SPREAD_ATTACK,
 		.nature = NATURE_NAIVE,

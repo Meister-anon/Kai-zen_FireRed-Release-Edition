@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include "constants/field_weather.h"
+#include "constants/weather.h"
 
 struct Weather
 {

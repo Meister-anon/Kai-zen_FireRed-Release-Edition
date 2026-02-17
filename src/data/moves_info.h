@@ -2198,7 +2198,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
 
     [MOVE_THUNDER_SHOCK] =
     {
-        .name = COMPOUND_STRING("ThunderShock"),
+        .name = COMPOUND_STRING("Thunder Shock"),
         .description = COMPOUND_MOVE_STRING("An electric shock\nattack that may\nalso leave the foe\nparalyzed."),
         .effect = EFFECT_HIT,
         .power = 40,
@@ -4692,7 +4692,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
             .additionalEffects = ADDITIONAL_EFFECTS({
-                .moveEffect = MOVE_EFFECT_FREEZE,
+                .moveEffect = MOVE_EFFECT_FROSTBITE,
                 .chance = 10,
             }),
             //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
@@ -4701,6 +4701,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             //.contestComboMoves = {COMBO_STARTER_HAIL},
             .battleAnimScript = gBattleAnimMove_PowderSnow,
     },
+    //hmm I could make this frosbite
+    //leave blizzard as the spread freeze option
+    //makes more sense as an early game option
 
     [MOVE_PROTECT] =
     {
@@ -7727,7 +7730,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //could make sound type included in those abilities, but will be a trade off, since sound moves have their own effectiveness?
     //yeah go ahead and do that, would be a small trade off to the ability, - done, but just for pixilate idea fairy singing
 
-    [MOVE_TOXIC_FANG] =
+    [MOVE_POISON_FANG] =
     {
         .name = COMPOUND_STRING("Toxic Fang"),
         .description = COMPOUND_MOVE_STRING("The foe is bitten\nwith toxic fangs.\nIt may also badly\npoison the foe."),
@@ -7863,7 +7866,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .battleAnimScript = gBattleAnimMove_MeteorMash,
     },
 
-    [MOVE_SPOOK] =
+    [MOVE_ASTONISH] =
     {
         .name = COMPOUND_STRING("Spook"),  //was astonish - fits ghost vibe better
         .description = COMPOUND_MOVE_STRING("The user attacks\nwhile screaming in\na startling manner.\nIt also may make\nthe foe flinch."),

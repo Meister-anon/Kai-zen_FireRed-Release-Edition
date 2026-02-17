@@ -7,7 +7,6 @@
 #include "field_weather_effects.h"
 #include "task.h"
 #include "trig.h"
-#include "constants/field_weather.h"
 #include "constants/weather.h"
 #include "constants/songs.h"
 #include "event_object_movement.h"

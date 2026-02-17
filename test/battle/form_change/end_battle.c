@@ -91,13 +91,13 @@ SINGLE_BATTLE_TEST("Palafin returns to Zero form upon battle end")
 SINGLE_BATTLE_TEST("Shaymin retains Land form if it was frozen or frostbitten in battle")
 {
     GIVEN {
-        ASSUME(MoveHasAdditionalEffect(MOVE_POWDER_SNOW, MOVE_EFFECT_FREEZE_OR_FROSTBITE));
+        ASSUME(MoveHasAdditionalEffect(MOVE_FLASH_FREEZE, MOVE_EFFECT_FREEZE));
         PLAYER(SPECIES_SHAYMIN_SKY);
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { MOVE(opponent, MOVE_POWDER_SNOW); }
+        TURN { MOVE(opponent, MOVE_FLASH_FREEZE); }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_POWDER_SNOW, opponent);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_FLASH_FREEZE, opponent);
         FREEZE_OR_FROSTBURN_STATUS(player, TRUE);
         NOT HP_BAR(player); // Regression caused by Mimikyu form change
         MESSAGE("Shaymin transformed!");

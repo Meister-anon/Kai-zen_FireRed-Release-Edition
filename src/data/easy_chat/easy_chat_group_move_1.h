@@ -7,7 +7,7 @@ static const u16 sEasyChatGroup_Move1[] = {
     MOVE_AIR_CUTTER,
     MOVE_ANCIENT_POWER,
     MOVE_AROMATHERAPY,
-    MOVE_SPOOK,
+    MOVE_ASTONISH,
     MOVE_AURORA_BEAM,
     MOVE_BIDE,
     MOVE_BIND,

@@ -254,7 +254,7 @@ const struct BattleTowerPokemonTemplate gBattleTowerLevel50Mons[] =
 		.moves = {
 			MOVE_PROTECT,
 			MOVE_NIGHT_SHADE,
-			MOVE_SPOOK,
+			MOVE_ASTONISH,
 			MOVE_WILL_O_WISP
 		},
 		.evSpread = F_EV_SPREAD_HP,
@@ -294,7 +294,7 @@ const struct BattleTowerPokemonTemplate gBattleTowerLevel50Mons[] =
 			MOVE_SCREECH,
 			MOVE_GLARE,
 			MOVE_DIG,
-			MOVE_TOXIC_FANG
+			MOVE_POISON_FANG
 		},
 		.evSpread = F_EV_SPREAD_SPEED | F_EV_SPREAD_DEFENSE,
 		.nature = NATURE_HARDY,

@@ -331,7 +331,7 @@ u32 GetIncomingMoveSpeedCheck(enum BattlerId battler, u32 opposingBattler, struc
 bool32 IsNaturalEnemy(u32 speciesAttacker, u32 speciesTarget);
 bool32 AI_OpponentCanFaintAiWithMod(enum BattlerId battler, u32 healAmount);
 void SetBattlerFieldStatusForSwitchin(enum BattlerId battler);
-bool32 ShouldInstructPartner(enum BattlerId battlerDef, u32 move);
+bool32 ShouldInstructPartner(enum BattlerId partner, enum Move move);
 bool32 CanMoveBeBouncedBack(enum BattlerId battler, u32 move);
 
 // Switching and item helpers

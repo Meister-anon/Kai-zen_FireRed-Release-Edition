@@ -86,11 +86,14 @@
 #define MON_DATA_KNOWN_MOVES       81
 #define MON_DATA_RIBBON_COUNT      82
 #define MON_DATA_RIBBONS           83
+//EE additions not setup
 #define MON_DATA_DYNAMAX_LEVEL     84 //not using just need define vsonic
 #define MON_DATA_GIGANTAMAX_FACTOR 85
-/*#define MON_DATA_SPEED2            86
-#define MON_DATA_SPATK2            87
-#define MON_DATA_SPDEF2            88*/
+#define MON_DATA_TERA_TYPE         86
+#define MON_DATA_EVOLUTION_TRACKER 87
+#define MON_DATA_IS_SHADOW         88
+//End EE
+
 #define MON_DATA_HATCHED           89   //new value to keep track of egg hatch status - needed for summary screen to properly distinguise mon got via egg
 #define MON_DATA_FORM_FLAG         90   //new value for helping evo into regional forms
 #define MON_DATA_EVO_LEVEL         91 //new value store level mon evolves at, moslty for keeping relative evo consistent, becomes new floor value if non -zero

@@ -307,12 +307,12 @@ enum Move {
  MOVE_NEEDLE_ARM = 302,
  MOVE_SLACK_OFF = 303,
  MOVE_HYPER_VOICE = 304,
- MOVE_TOXIC_FANG = 305,
+ MOVE_POISON_FANG = 305,
  MOVE_CRUSH_CLAW = 306,
  MOVE_BLAST_BURN = 307,
  MOVE_HYDRO_CANNON = 308,
  MOVE_METEOR_MASH = 309,
- MOVE_SPOOK = 310,  // renamed previously astonish,  to better fit ghost theme
+ MOVE_ASTONISH = 310,  // renamed previously astonish,  to better fit ghost theme
  MOVE_WEATHER_BALL = 311,
  MOVE_AROMATHERAPY = 312,
  MOVE_FAKE_TEARS = 313,

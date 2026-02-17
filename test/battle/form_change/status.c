@@ -7,14 +7,14 @@ SINGLE_BATTLE_TEST("Shaymin-Sky reverts to Shaymin-Land when frozen or frostbitt
 
     PARAMETRIZE { move = MOVE_POWDER_SNOW; }
     PARAMETRIZE { move = MOVE_EMBER; }
-    PARAMETRIZE { move = MOVE_THUNDERSHOCK; }
+    PARAMETRIZE { move = MOVE_THUNDER_SHOCK; }
     PARAMETRIZE { move = MOVE_POISON_STING; }
     PARAMETRIZE { move = MOVE_POISON_FANG; }
 
     GIVEN {
-        ASSUME(MoveHasAdditionalEffect(MOVE_POWDER_SNOW, MOVE_EFFECT_FREEZE_OR_FROSTBITE));
+        ASSUME(MoveHasAdditionalEffect(MOVE_POWDER_SNOW, MOVE_EFFECT_FROSTBITE));
         ASSUME(MoveHasAdditionalEffect(MOVE_EMBER, MOVE_EFFECT_BURN));
-        ASSUME(MoveHasAdditionalEffect(MOVE_THUNDERSHOCK, MOVE_EFFECT_PARALYSIS));
+        ASSUME(MoveHasAdditionalEffect(MOVE_THUNDER_SHOCK, MOVE_EFFECT_PARALYSIS));
         ASSUME(MoveHasAdditionalEffect(MOVE_POISON_STING, MOVE_EFFECT_POISON));
         ASSUME(MoveHasAdditionalEffect(MOVE_POISON_FANG, MOVE_EFFECT_TOXIC));
         PLAYER(SPECIES_SHAYMIN_SKY);

@@ -1286,7 +1286,7 @@ static const u16 sGrammarMoveUsedTable[] = {
     MOVE_INGRAIN,
     MOVE_KNOCK_OFF,
     MOVE_CAMOUFLAGE,
-    MOVE_SPOOK,
+    MOVE_ASTONISH,
     MOVE_ODOR_SLEUTH,
     MOVE_GRASS_WHISTLE,
     MOVE_SHEER_COLD,

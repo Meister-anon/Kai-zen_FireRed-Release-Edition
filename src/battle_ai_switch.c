@@ -1666,7 +1666,7 @@ static u32 GetSwitchinStatusDamage(enum BattlerId battler)
 
     // Apply hypothetical poisoning from Toxic Spikes, which means the first turn of damage already added in GetSwitchinHazardsDamage
     // Do this last to skip one iteration of Poison / Toxic damage, and start counting Toxic damage one turn later.
-    if (tSpikesLayers != 0 && (IS_BATTLER_OF_TYPE(battler, TYPE_POISON)
+    if (tSpikesLayers != 0 && (!IS_BATTLER_OF_TYPE(battler, TYPE_POISON)
         && ability != ABILITY_IMMUNITY && ability != ABILITY_POISON_HEAL
         && status == 0
         && !(heldItemEffect == HOLD_EFFECT_HEAVY_DUTY_BOOTS
@@ -1681,7 +1681,8 @@ static u32 GetSwitchinStatusDamage(enum BattlerId battler)
         if (tSpikesLayers == 2)
         {
             gBattleMons[battler].status1 = STATUS1_TOXIC_POISON; // Assign "hypothetical" status to the switchin candidate so we can get the damage it would take from TSpikes
-            gBattleMons[battler].status1 += STATUS1_TOXIC_TURN(1);
+            //idk what to do with this
+            //gBattleMons[battler].status1 += STATUS1_TOXIC_TURN(1);
         }
     }
     return statusDamage;

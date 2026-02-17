@@ -1281,7 +1281,7 @@ u32 GetSpeciesBaseSpeed(u16 species);
 u32 GetSpeciesBaseStat(u16 species, u32 statIndex);
 const struct AbilityLearnset *GetSpeciesTeachableAbilities(u16 species);
 const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species);
-const u16 *GetSpeciesTeachableLearnset(u16 species);
+const u16 *GetSpeciesTmHmLearnset(u16 species);
 const struct Evolution *GetSpeciesEvolutions(u16 species);
 //new functions for file reorg based on EE
 u8 GetFormType(u16 species); //set mostly for dex changes

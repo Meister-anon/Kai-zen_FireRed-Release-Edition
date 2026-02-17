@@ -5173,7 +5173,7 @@ static const struct TrainerMon sTrainerMons_TeamRocketGrunt13[] = {
         .iv = 0,
         .lvl = 17,
         .species = SPECIES_ZUBAT,
-        .moves = {MOVE_BITE, MOVE_SPOOK, MOVE_SUPERSONIC, MOVE_LEECH_LIFE},
+        .moves = {MOVE_BITE, MOVE_ASTONISH, MOVE_SUPERSONIC, MOVE_LEECH_LIFE},
     },
     {
         .iv = 0,
@@ -5191,7 +5191,7 @@ static const struct TrainerMon sTrainerMons_TeamRocketGrunt13[] = {
         .iv = 0,
         .lvl = 17,
         .species = SPECIES_ZUBAT,
-        .moves = {MOVE_BITE, MOVE_SPOOK, MOVE_SUPERSONIC, MOVE_LEECH_LIFE},
+        .moves = {MOVE_BITE, MOVE_ASTONISH, MOVE_SUPERSONIC, MOVE_LEECH_LIFE},
     },
     {
         .iv = 0,
@@ -5508,7 +5508,7 @@ static const struct TrainerMon sTrainerMons_TeamRocketGrunt32[] = {
         .iv = 0,
         .lvl = 26,
         .species = SPECIES_GOLBAT,
-        .moves = {MOVE_WING_ATTACK, MOVE_BITE, MOVE_SPOOK, MOVE_SUPERSONIC},
+        .moves = {MOVE_WING_ATTACK, MOVE_BITE, MOVE_ASTONISH, MOVE_SUPERSONIC},
     },
 };
 
@@ -6352,7 +6352,7 @@ static const struct TrainerMon sTrainerMons_EliteFourAgatha[] = {
         .lvl = 54,
         .species = SPECIES_GOLBAT,
         .heldItem = ITEM_NONE,
-        .moves = {MOVE_CONFUSE_RAY, MOVE_TOXIC_FANG, MOVE_AIR_CUTTER, MOVE_BITE},
+        .moves = {MOVE_CONFUSE_RAY, MOVE_POISON_FANG, MOVE_AIR_CUTTER, MOVE_BITE},
     },
     {
         .iv = 30,

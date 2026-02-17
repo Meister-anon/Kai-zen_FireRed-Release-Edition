@@ -420,7 +420,7 @@ bool32 IsAffectedByFollowMe(enum BattlerId battlerAtk, u32 defSide, enum Move mo
     //one that's just immune to all redirection
     if (gSideTimers[defSide].followmeTimer == 0
         || (!IsBattlerAlive(gSideTimers[defSide].followmeTarget) && !IsDragonDartsSecondHit(battlerAtk, move))
-        || PreventsRedirection(battlerAtk, move)
+        || PreventsRedirection(battlerAtk, move, ability)
         /*|| effect == EFFECT_SNIPE_SHOT
         || effect == EFFECT_SKY_DROP
         || IsAbilityAndRecord(battlerAtk, ability, ABILITY_PROPELLER_TAIL)
@@ -539,7 +539,7 @@ bool32 HandleMoveTargetRedirection(void)
                 //&& ((ability == ABILITY_LIGHTNING_ROD && moveType == TYPE_ELECTRIC)
                 // || (ability == ABILITY_STORM_DRAIN && moveType == TYPE_WATER))
                 && GetBattlerTurnOrderNum(battler) < redirectorOrderNum
-                && !PreventsRedirection(gBattlerAttacker, gCurrentMove)
+                && !PreventsRedirection(gBattlerAttacker, gCurrentMove, abilityAtk)
                 //&& moveEffect != EFFECT_SNIPE_SHOT
                 //&& moveEffect != EFFECT_PLEDGE
                 //&& !IsAbilityAndRecord(gBattlerAttacker, abilityAtk, ABILITY_PROPELLER_TAIL)
@@ -5915,7 +5915,10 @@ bool32 CanBeFrozen(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ab
         return TRUE;
     return FALSE;
 }
+
 // Unused, technically also redundant because it is just a copy of CanBeFrozen
+//differetn will be used since using both free and frostbite
+//diff will be can't get frostbite will frozen
 bool32 CanGetFrostbite(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityDef)
 {
     if (CanSetNonVolatileStatus(
@@ -5923,7 +5926,7 @@ bool32 CanGetFrostbite(enum BattlerId battlerAtk, enum BattlerId battlerDef, enu
             battlerDef,
             ABILITY_NONE, // attacker ability does not matter
             abilityDef,
-            MOVE_EFFECT_FREEZE_OR_FROSTBITE, // also covers frostbite
+            MOVE_EFFECT_FROSTBITE, // also covers frostbite
             CHECK_TRIGGER))
         return TRUE;
     return FALSE;
@@ -12271,7 +12274,7 @@ bool8 ShouldCacophonyBoostEffectChance(u16 move)
     || move == MOVE_SONIC_SCREECH
     || move == MOVE_SNORE
     || move == MOVE_HYPER_VOICE
-    || move == MOVE_SPOOK
+    || move == MOVE_ASTONISH
     || move == MOVE_BUG_BUZZ
     || move == MOVE_CHATTER
     || move == MOVE_ECHOED_VOICE
