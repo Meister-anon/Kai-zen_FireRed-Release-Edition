@@ -1,6 +1,11 @@
 .
 Branch Goals:
 
+adding battle files will need move type array back to use type1 type2 etc
+use this for regex sub, num replace 0, 1, 2
+(gBattleMons\[\w+\].)types
+(gBattleMons\[\w+\].)types\[0\]
+
 Need split off extra changes to other branches
 leaving only the moves_info.h flag related changes 
 was new_battle_update_branch  delete deprecated remotes as well

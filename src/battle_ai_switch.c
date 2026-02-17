@@ -1825,8 +1825,8 @@ static u32 GetBattlerTypeMatchup(u32 opposingBattler, enum BattlerId battler)
 {
     // Check type matchup
     u32 typeEffectiveness1 = UQ_4_12(1.0), typeEffectiveness2 = UQ_4_12(1.0);
-    enum Type atkType1 = gBattleMons[opposingBattler].types[0], atkType2 = gBattleMons[opposingBattler].types[1];
-    enum Type defType1 = gBattleMons[battler].types[0], defType2 = gBattleMons[battler].types[1];
+    enum Type atkType1 = gBattleMons[opposingBattler].type1, atkType2 = gBattleMons[opposingBattler].type2;
+    enum Type defType1 = gBattleMons[battler].type1, defType2 = gBattleMons[battler].type2;
 
     // Add each independent defensive type matchup together
     typeEffectiveness1 = uq4_12_multiply(typeEffectiveness1, (GetTypeModifier(atkType1, defType1)));

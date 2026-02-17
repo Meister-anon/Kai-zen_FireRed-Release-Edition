@@ -988,8 +988,8 @@ bool32 ProteanTryChangeType(enum BattlerId battler, enum Ability ability, enum M
 {
       if ((ability == ABILITY_PROTEAN || ability == ABILITY_LIBERO)
          && !gBattleMons[gBattlerAttacker].volatiles.usedProteanLibero
-         && (gBattleMons[battler].types[0] != moveType || gBattleMons[battler].types[1] != moveType
-             || (gBattleMons[battler].types[2] != moveType && gBattleMons[battler].types[2] != TYPE_MYSTERY))
+         && (gBattleMons[battler].type1 != moveType || gBattleMons[battler].type2 != moveType
+             || (gBattleMons[battler].type3 != moveType && gBattleMons[battler].type3 != TYPE_MYSTERY))
          && move != MOVE_STRUGGLE
          && GetActiveGimmick(battler) != GIMMICK_TERA)
     {
@@ -5916,9 +5916,9 @@ static void Cmd_switchindataupdate(void)
         return;
     }
 
-    gBattleMons[battler].types[0] = GetSpeciesPrimaryType(gBattleMons[battler].species);
-    gBattleMons[battler].types[1] = GetSpeciesSecondaryType(gBattleMons[battler].species);
-    gBattleMons[battler].types[2] = TYPE_MYSTERY;
+    gBattleMons[battler].type1 = GetSpeciesPrimaryType(gBattleMons[battler].species);
+    gBattleMons[battler].type2 = GetSpeciesSecondaryType(gBattleMons[battler].species);
+    gBattleMons[battler].type3 = TYPE_MYSTERY;
     gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
     #if TESTING
     if (gTestRunnerEnabled)
@@ -13415,30 +13415,30 @@ void BS_TryReflectType(void)
     }
     else if (targetTypes[0] == TYPE_MYSTERY && targetTypes[1] == TYPE_MYSTERY && targetTypes[2] != TYPE_MYSTERY)
     {
-        gBattleMons[gBattlerAttacker].types[0] = TYPE_NORMAL;
-        gBattleMons[gBattlerAttacker].types[1] = TYPE_NORMAL;
-        gBattleMons[gBattlerAttacker].types[2] = targetTypes[2];
+        gBattleMons[gBattlerAttacker].type1 = TYPE_NORMAL;
+        gBattleMons[gBattlerAttacker].type2 = TYPE_NORMAL;
+        gBattleMons[gBattlerAttacker].type3 = targetTypes[2];
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else if (targetTypes[0] == TYPE_MYSTERY && targetTypes[1] != TYPE_MYSTERY)
     {
-        gBattleMons[gBattlerAttacker].types[0] = targetTypes[1];
-        gBattleMons[gBattlerAttacker].types[1] = targetTypes[1];
-        gBattleMons[gBattlerAttacker].types[2] = targetTypes[2];
+        gBattleMons[gBattlerAttacker].type1 = targetTypes[1];
+        gBattleMons[gBattlerAttacker].type2 = targetTypes[1];
+        gBattleMons[gBattlerAttacker].type3 = targetTypes[2];
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else if (targetTypes[0] != TYPE_MYSTERY && targetTypes[1] == TYPE_MYSTERY)
     {
-        gBattleMons[gBattlerAttacker].types[0] = targetTypes[0];
-        gBattleMons[gBattlerAttacker].types[1] = targetTypes[0];
-        gBattleMons[gBattlerAttacker].types[2] = targetTypes[2];
+        gBattleMons[gBattlerAttacker].type1 = targetTypes[0];
+        gBattleMons[gBattlerAttacker].type2 = targetTypes[0];
+        gBattleMons[gBattlerAttacker].type3 = targetTypes[2];
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        gBattleMons[gBattlerAttacker].types[0] = targetTypes[0];
-        gBattleMons[gBattlerAttacker].types[1] = targetTypes[1];
-        gBattleMons[gBattlerAttacker].types[2] = targetTypes[2];
+        gBattleMons[gBattlerAttacker].type1 = targetTypes[0];
+        gBattleMons[gBattlerAttacker].type2 = targetTypes[1];
+        gBattleMons[gBattlerAttacker].type3 = targetTypes[2];
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
@@ -15722,7 +15722,7 @@ void BS_TryThirdType(void)
     }
     else
     {
-        gBattleMons[gBattlerTarget].types[2] = type;
+        gBattleMons[gBattlerTarget].type3 = type;
         PREPARE_TYPE_BUFFER(gBattleTextBuff1, type);
         gBattlescriptCurrInstr = cmd->nextInstr;
     }

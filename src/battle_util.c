@@ -10940,9 +10940,9 @@ void CopyMonAbilityAndTypesToBattleMon(enum BattlerId battler, struct Pokemon *m
             gBattleMons[battler].ability = TestRunner_Battle_GetForcedAbility(array, partyIndex);
     }
     #endif
-    gBattleMons[battler].types[0] = GetSpeciesPrimaryType(gBattleMons[battler].species);
-    gBattleMons[battler].types[1] = GetSpeciesSecondaryType(gBattleMons[battler].species);
-    gBattleMons[battler].types[2] = TYPE_MYSTERY;
+    gBattleMons[battler].type1 = GetSpeciesPrimaryType(gBattleMons[battler].species);
+    gBattleMons[battler].type2 = GetSpeciesSecondaryType(gBattleMons[battler].species);
+    gBattleMons[battler].type3 = TYPE_MYSTERY;
 }
 
 void RecalcBattlerStats(enum BattlerId battler, struct Pokemon *mon, bool32 isDynamaxing)

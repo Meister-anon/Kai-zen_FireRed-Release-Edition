@@ -295,8 +295,8 @@ void SaveBattlerData(enum BattlerId battlerId)
             gAiThinkingStruct->saved[battlerId].moves[moveIndex] = gBattleMons[battlerId].moves[moveIndex];
     }
     // Save and restore types even for AI controlled battlers in case it gets changed during move evaluation process.
-    gAiThinkingStruct->saved[battlerId].types[0] = gBattleMons[battlerId].types[0];
-    gAiThinkingStruct->saved[battlerId].types[1] = gBattleMons[battlerId].types[1];
+    gAiThinkingStruct->saved[battlerId].types[0] = gBattleMons[battlerId].type1;
+    gAiThinkingStruct->saved[battlerId].types[1] = gBattleMons[battlerId].type2;
 }
 
 bool32 ShouldRecordStatusMove(u32 move)
@@ -408,11 +408,11 @@ void SetBattlerData(enum BattlerId battlerId)
         if (illusionSpecies != SPECIES_NONE && ShouldFailForIllusion(illusionSpecies, battlerId))
         {
             // If the battler's type has not been changed, AI assumes the types of the illusion mon.
-            if (gBattleMons[battlerId].types[0] == GetSpeciesPrimaryType(species)
-                && gBattleMons[battlerId].types[1] == GetSpeciesSecondaryType(species))
+            if (gBattleMons[battlerId].type1 == GetSpeciesPrimaryType(species)
+                && gBattleMons[battlerId].type2 == GetSpeciesSecondaryType(species))
             {
-                gBattleMons[battlerId].types[0] = GetSpeciesPrimaryType(illusionSpecies);
-                gBattleMons[battlerId].types[1] = GetSpeciesSecondaryType(illusionSpecies);
+                gBattleMons[battlerId].type1 = GetSpeciesPrimaryType(illusionSpecies);
+                gBattleMons[battlerId].type2 = GetSpeciesSecondaryType(illusionSpecies);
             }
             species = illusionSpecies;
         }
@@ -450,8 +450,8 @@ void RestoreBattlerData(enum BattlerId battlerId)
         for (u32 moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
             gBattleMons[battlerId].moves[moveIndex] = gAiThinkingStruct->saved[battlerId].moves[moveIndex];
     }
-    gBattleMons[battlerId].types[0] = gAiThinkingStruct->saved[battlerId].types[0];
-    gBattleMons[battlerId].types[1] = gAiThinkingStruct->saved[battlerId].types[1];
+    gBattleMons[battlerId].type1 = gAiThinkingStruct->saved[battlerId].types[0];
+    gBattleMons[battlerId].type2 = gAiThinkingStruct->saved[battlerId].types[1];
 }
 
 u32 GetHealthPercentage(enum BattlerId battlerId)
@@ -748,16 +748,16 @@ static inline s32 GetDamageByRollType(s32 dmg, enum DamageRollType rollType)
 
 static inline void AI_StoreBattlerTypes(enum BattlerId battlerAtk, enum Type *types)
 {
-    types[0] = gBattleMons[battlerAtk].types[0];
-    types[1] = gBattleMons[battlerAtk].types[1];
-    types[2] = gBattleMons[battlerAtk].types[2];
+    types[0] = gBattleMons[battlerAtk].type1;
+    types[1] = gBattleMons[battlerAtk].type2;
+    types[2] = gBattleMons[battlerAtk].type3;
 }
 
 static inline void AI_RestoreBattlerTypes(enum BattlerId battlerAtk, enum Type *types)
 {
-    gBattleMons[battlerAtk].types[0] = types[0];
-    gBattleMons[battlerAtk].types[1] = types[1];
-    gBattleMons[battlerAtk].types[2] = types[2];
+    gBattleMons[battlerAtk].type1 = types[0];
+    gBattleMons[battlerAtk].type2 = types[1];
+    gBattleMons[battlerAtk].type3 = types[2];
 }
 
 static inline void CalcDynamicMoveDamage(struct BattleContext *ctx, u16 *medianDamage, u16 *minimumDamage, u16 *maximumDamage)

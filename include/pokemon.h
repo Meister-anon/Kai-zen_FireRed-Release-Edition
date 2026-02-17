@@ -646,10 +646,10 @@ struct BattlePokemon
     /*0x17*/ u32 spDefenseIV:5;
     /*0x17*/ u32 abilityNum:2;
     /*0x18*/ s8 statStages[BATTLE_STATS_NO];
-    /*0x20*/ u16 ability; //this is off throws off rest should be 2 bytes not 1
-    /*0x22*/ u8 type1;
-    /*0x23*/ u8 type2;
-    /*0x24*/ u8 type3; //no space change replaced unknown
+    /*0x20*/ enum Ability ability;
+    /*0x22*/ enum Type type1;
+    /*0x23*/ enum Type type2; //potentially make bitfield to fit 2 bytes can do u16 bit 5 I think - vsonic
+    /*0x24*/ enum Type type3; //no space change replaced unknown
     /*0x25*/ bool8 isShiny:1; //take ismonshiny pass on set battle data put here for alingment idk if can be bitfield
              bool8 isEgg:1;
              u8 padding:6;
