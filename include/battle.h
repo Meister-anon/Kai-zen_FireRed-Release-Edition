@@ -2002,6 +2002,13 @@ static inline bool32 DoesBattlerGetStabOnMove(enum BattlerId battler, enum Type 
 //with that think will remove snipe_shot effect
 //as presently affect was only for redirection there
 //sky drop keeps effect but still replaced in function
+
+//note move redirection effect works a bit dif
+//than fog redirection block
+//idea is these moves always land regardless
+//while fog is, things are obscured
+//so its not possible to body block move for ally
+//important ony for ally switch other effects that swap placement
 static inline bool32 PreventsRedirection(enum BattlerId battlerAtk, u32 move, enum Ability atkAbility)
 {
 

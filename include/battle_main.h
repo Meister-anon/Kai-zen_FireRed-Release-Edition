@@ -135,6 +135,8 @@ const u8* FaintClearSetData(enum BattlerId battler);
 void BattleTurnPassed(void);
 u8 IsRunningFromBattleImpossible(enum BattlerId battler);
 void UpdatePartyOwnerOnSwitch_NonMulti(enum BattlerId battler);
+void SwitchTwoBattlersInParty(enum BattlerId battler, enum BattlerId battler2);
+void SwitchPartyOrder(enum BattlerId battler);
 void SwapTurnOrder(u8 id1, u8 id2);
 u8 GetWhoStrikesFirst(enum BattlerId battler1, enum BattlerId battler2, bool8 ignoreChosenMoves);
 u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect);

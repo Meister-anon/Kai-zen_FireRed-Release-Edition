@@ -2036,6 +2036,9 @@ static inline bool32 CanSwitchinWin1v1(u32 hitsToKOAI, u32 hitsToKOPlayer, bool3
     return FALSE;
 }
 
+//notes from Pawkie status stuff works here by saving it then restoring default values
+//from within this function "battle mons are saved and later restored in GetBestMonIntegrated"
+//for my purposes believe will need to make new field to store my battlestruct partystate stuff
 // This function splits switching behaviour depending on whether the switch is free.
 // Everything runs in the same loop to minimize computation time. This makes it harder to read, but hopefully the comments can guide you!
 static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, enum BattlerId battler, u32 opposingBattler, enum BattlerId battlerIn1, enum BattlerId battlerIn2, enum SwitchType switchType)
@@ -2056,7 +2059,7 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
 
     // Save existing battler data
     struct AiLogicData *savedAiLogicData = AllocSaveAiLogicData();
-    struct BattlePokemon *savedBattleMons = AllocSaveBattleMons();
+    struct BattlePokemon *savedBattleMons = AllocSaveBattleMons(); //looks like this and FreeRestoreBattleMons
 
     // Iterate through mons
     for (u32 monIndex = firstId; monIndex < lastId; monIndex++)

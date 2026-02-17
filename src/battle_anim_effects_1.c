@@ -6737,6 +6737,7 @@ static void AnimTask_AllySwitchDataSwap(u8 taskId)
     //TrySwapAttractBattlerIds(battlerAtk, battlerPartner);
 
     // For Snipe Shot and abilities Stalwart/Propeller Tail - keep the original target.
+    //slighty different effect than fog
     for (i = 0; i < gBattlersCount; i++)
     {
         enum Ability ability = GetBattlerAbility(i);
@@ -6744,7 +6745,7 @@ static void AnimTask_AllySwitchDataSwap(u8 taskId)
         if (!IsBattlerAlly(gBattleStruct->moveTarget[i], battlerAtk))
             continue;
 
-        if (GetMoveEffect(gChosenMoveByBattler[i]) == EFFECT_SNIPE_SHOT || ability == ABILITY_PROPELLER_TAIL || ability == ABILITY_STALWART)
+        if (DoesMovePreventRedirection(gChosenMoveByBattler[i]) || ability == ABILITY_PROPELLER_TAIL || ability == ABILITY_STALWART)
             gBattleStruct->moveTarget[i] ^= BIT_FLANK;
     }
 

@@ -470,6 +470,12 @@ static inline bool32 MoveSureHitEvasionBoostedTargets(enum Move moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].evasiveBreak;
 }
 
+//note move redirection effect works a bit dif
+//than fog redirection block
+//idea is these moves always land regardless
+//while fog is, things are obscured
+//so its not possible to body block move for ally
+//important ony for ally switch other effects that swap placement
 static inline bool32 DoesMovePreventRedirection(enum Move moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].ignoresRedirection;
