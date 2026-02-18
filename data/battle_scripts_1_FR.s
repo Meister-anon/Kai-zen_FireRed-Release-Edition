@@ -763,7 +763,7 @@ BattleScript_FlingMentalHerb:
 	curecertainstatuses BS_TARGET
 	savetarget
 	copybyte gBattlerAttacker, gBattlerTarget
-	playanimation BS_ATTACKER, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printfromtable gMentalHerbCureStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_ATTACKER
@@ -5725,7 +5725,7 @@ BattleScript_GeomancyEnd::
 	goto BattleScript_MoveEnd
 
 BattleScript_PowerHerbActivation:
-	playanimation BS_ATTACKER, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_POWERHERB
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_ATTACKER
@@ -7437,7 +7437,7 @@ BattleScript_WeaknessPolicy::
 	jumpifstat BS_TARGET, CMP_LESS_THAN, STAT_ATK, MAX_STAT_STAGE, BattleScript_WeaknessPolicyAtk
 	jumpifstat BS_TARGET, CMP_EQUAL, STAT_SPATK, MAX_STAT_STAGE, BattleScript_WeaknessPolicyEnd
 BattleScript_WeaknessPolicyAtk:
-	playanimation BS_TARGET, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_TARGET, B_ANIM_HELD_ITEM_EFFECT, NULL
 	waitanimation
 	setbyte sSTAT_ANIM_PLAYED, FALSE
 	playstatchangeanimation BS_TARGET, BIT_ATK | BIT_SPATK, STAT_CHANGE_BY_TWO
@@ -7461,7 +7461,7 @@ BattleScript_TargetItemStatRaise::
 	copybyte sBATTLER, gBattlerTarget
 	statbuffchange BS_TARGET, 0, BattleScript_TargetItemStatRaiseRemoveItemRet
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_TargetItemStatRaiseRemoveItemRet
-	playanimation BS_TARGET, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_TARGET, B_ANIM_HELD_ITEM_EFFECT, NULL
 	waitanimation
 	setgraphicalstatchangevalues
 	playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
@@ -7476,7 +7476,7 @@ BattleScript_AttackerItemStatRaise::
 	copybyte sBATTLER, gBattlerAttacker
 	statbuffchange BS_ATTACKER, 0, BattleScript_AttackerItemStatRaiseRet
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 0x2, BattleScript_AttackerItemStatRaiseRet
-	playanimation BS_ATTACKER, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT, NULL
 	waitanimation
 	setgraphicalstatchangevalues
 	playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
@@ -9458,7 +9458,7 @@ BattleScript_TryAdrenalineOrb:
 	jumpifstat BS_TARGET, CMP_EQUAL, STAT_SPEED, 12, BattleScript_TryAdrenalineOrbRet
 	setstatchanger STAT_SPEED, 1, FALSE
 	statbuffchange BS_TARGET, STAT_CHANGE_NOT_PROTECT_AFFECTED | MOVE_EFFECT_CERTAIN | STAT_CHANGE_ALLOW_PTR, BattleScript_TryAdrenalineOrbRet
-	playanimation BS_TARGET, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_TARGET, B_ANIM_HELD_ITEM_EFFECT, NULL
 	setgraphicalstatchangevalues
 	playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
 	copybyte sBATTLER, gBattlerTarget
@@ -10288,7 +10288,7 @@ BattleScript_EmpathicCurseActivates::
 BattleScript_RockyHelmetActivates::
 	@ don''t play the animation for a fainted mon
 	jumpifabsent BS_TARGET, BattleScript_RockyHelmetActivatesDmg
-	playanimation BS_TARGET, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_TARGET, B_ANIM_HELD_ITEM_EFFECT, NULL
 	waitanimation
 BattleScript_RockyHelmetActivatesDmg:
 	call BattleScript_HurtAttacker
@@ -10570,7 +10570,7 @@ BattleScript_MicleBerryActivateEnd2::
 BattleScript_MicleBerryActivateEnd2_Ripen:
 	@ call BattleScript_AbilityPopUp
 BattleScript_MicleBerryActivateEnd2_Anim:
-	playanimation BS_ATTACKER, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_MICLEBERRYACTIVATES
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_ATTACKER
@@ -10582,7 +10582,7 @@ BattleScript_MicleBerryActivateRet::
 BattleScript_MicleBerryActivateRet_Ripen:
 	@ call BattleScript_AbilityPopUp
 BattleScript_MicleBerryActivateRet_Anim:
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_MICLEBERRYACTIVATES
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_SCRIPTING
@@ -10595,7 +10595,7 @@ BattleScript_JabocaRowapBerryActivate_Ripen:
 	@ call BattleScript_AbilityPopUp
 BattleScript_JabocaRowapBerryActivate_Anim:
 	jumpifabsent BS_TARGET, BattleScript_JabocaRowapBerryActivate_Dmg   @ dont play the animation for a fainted target
-	playanimation BS_TARGET, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_TARGET, B_ANIM_HELD_ITEM_EFFECT, NULL
 	waitanimation
 BattleScript_JabocaRowapBerryActivate_Dmg:
 	call BattleScript_HurtAttacker
@@ -10845,7 +10845,7 @@ BattleScript_StickyBarbTransfer::
 	return
 
 BattleScript_RedCardActivates::
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_REDCARDACTIVATE
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	swapattackerwithtarget
@@ -10984,7 +10984,7 @@ BattleScript_BerryCurePrlzEnd2::
 	end2
 
 BattleScript_BerryCureParRet::
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNSITEMCUREDPARALYSIS
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
@@ -10996,7 +10996,7 @@ BattleScript_BerryCurePsnEnd2::
 	end2
 
 BattleScript_BerryCurePsnRet::
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNSITEMCUREDPOISON
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
@@ -11008,7 +11008,7 @@ BattleScript_BerryCureBrnEnd2::
 	end2
 
 BattleScript_BerryCureBrnRet::
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNSITEMHEALEDBURN
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
@@ -11020,7 +11020,7 @@ BattleScript_BerryCureFrzEnd2::
 	end2
 
 BattleScript_BerryCureFrzRet::
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNSITEMDEFROSTEDIT
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
@@ -11032,7 +11032,7 @@ BattleScript_BerryCureSlpEnd2::
 	end2
 
 BattleScript_BerryCureSlpRet::
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNSITEMWOKEIT
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
@@ -11040,7 +11040,7 @@ BattleScript_BerryCureSlpRet::
 	return
 
 BattleScript_GemActivates::
-	playanimation BS_ATTACKER, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT, NULL
 	waitanimation
 	printstring STRINGID_GEMACTIVATES
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
@@ -11048,7 +11048,7 @@ BattleScript_GemActivates::
 	return
 
 BattleScript_BerryReduceDmg::
-	playanimation BS_TARGET, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_TARGET, B_ANIM_HELD_ITEM_EFFECT, NULL
 	waitanimation
 	printstring STRINGID_TARGETATEITEM
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
@@ -11066,7 +11066,7 @@ BattleScript_BerryCureConfusionEnd2::
 	end2
 
 BattleScript_BerryCureConfusionRet::
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNSITEMSNAPPEDOUT
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_SCRIPTING
@@ -11077,7 +11077,7 @@ BattleScript_BerryCureChosenStatusEnd2::
 	end2
 
 BattleScript_BerryCureChosenStatusRet::
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printfromtable gBerryEffectStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
@@ -11089,14 +11089,14 @@ BattleScript_CleanseTagStatusCure::
 	end2
 
 BattleScript_CleanseTagRet::
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printfromtable gBerryEffectStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
 	return
 
 BattleScript_MentalHerbCureRet::
-	playanimation BS_ATTACKER, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printfromtable gMentalHerbCureStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
@@ -11113,7 +11113,7 @@ BattleScript_WhiteHerbEnd2::
 	end2
 
 BattleScript_WhiteHerbRet::
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNSITEMRESTOREDSTATUS
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_SCRIPTING
@@ -11125,7 +11125,7 @@ BattleScript_BerryConfuseHealRet::
 BattleScript_BerryConfuseHealRet_AbilityPopup:
 	@ call BattleScript_AbilityPopUp
 BattleScript_BerryConfuseHealRet_Anim:
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNSITEMRESTOREDHEALTH
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	orword gHitMarker, HITMARKER_SKIP_DMG_TRACK | HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
@@ -11144,7 +11144,7 @@ BattleScript_ItemHealHP_RemoveItemRet::
 BattleScript_ItemHealHP_RemoveItemRet_AbilityPopUp:
 	@ call BattleScript_AbilityPopUp
 BattleScript_ItemHealHP_RemoveItemRet_Anim:
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNSITEMRESTOREDHEALTH
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	orword gHitMarker, HITMARKER_SKIP_DMG_TRACK | HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
@@ -11159,7 +11159,7 @@ BattleScript_ItemHealHP_RemoveItem::
 BattleScript_ItemHealHP_RemoveItemEnd2_AbilityPopUp:
 	@ call BattleScript_AbilityPopUp
 BattleScript_ItemHealHP_RemoveItemEnd2_Anim:
-	playanimation BS_ATTACKER, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNSITEMRESTOREDHEALTH
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	orword gHitMarker, HITMARKER_SKIP_DMG_TRACK | HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
@@ -11174,7 +11174,7 @@ BattleScript_BerryPPHealRet::
 BattleScript_BerryPPHeal_AbilityPopup:
 	@call BattleScript_AbilityPopUpScripting
 BattleScript_BerryPPHeal_Anim:
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNSITEMRESTOREDPP
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_SCRIPTING
@@ -11194,7 +11194,7 @@ BattleScript_InBattlePickup::
 	end
 
 BattleScript_ItemHealHP_Ret::
-	playanimation BS_ATTACKER, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNSITEMRESTOREDHPALITTLE
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
@@ -11230,7 +11230,7 @@ BattleScript_AirBaloonMsgPop::
 
 BattleScript_QuickClawActivation::
 	flushtextbox
-	playanimation BS_ATTACKER, B_ANIM_ITEM_EFFECT
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT
 	waitanimation
 	printstring STRINGID_CANACTFASTERTHANKSTO
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
@@ -11245,7 +11245,7 @@ BattleScript_QuickDrawActivation::
 
 BattleScript_CustapBerryActivation::
 	flushtextbox
-	playanimation BS_ATTACKER, B_ANIM_ITEM_EFFECT
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT
 	waitanimation
 	printstring STRINGID_CANACTFASTERTHANKSTO
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
@@ -11271,7 +11271,7 @@ BattleScript_HangedOnMsg::
 	return
 
 BattleScript_BerryConfuseHealEnd2::
-	playanimation BS_ATTACKER, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNSITEMRESTOREDHEALTH
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
@@ -11285,7 +11285,7 @@ BattleScript_BerryConfuseHealEnd2::
 	end2
 
 BattleScript_BerryStatRaiseEnd2::
-	playanimation BS_ATTACKER, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT, NULL
 	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, .+4
 	setbyte cMULTISTRING_CHOOSER, 4
 	call BattleScript_StatUp
@@ -11298,7 +11298,7 @@ BattleScript_BerryStatRaiseRet::
 BattleScript_BerryStatRaiseRet_Anim:
 	statbuffchange BS_SCRIPTING, STAT_CHANGE_ALLOW_PTR, BattleScript_BerryStatRaiseRet_End
 	setgraphicalstatchangevalues
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, sB_ANIM_ARG1
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, sB_ANIM_ARG1
 	setbyte cMULTISTRING_CHOOSER, B_MSG_STAT_ROSE_ITEM
 	call BattleScript_StatUp
 	removeitem BS_SCRIPTING
@@ -11306,7 +11306,7 @@ BattleScript_BerryStatRaiseRet_End:
 	return
 
 BattleScript_BerryFocusEnergyEnd2::
-	playanimation BS_ATTACKER, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_PKMNUSEDXTOGETPUMPED
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_ATTACKER
@@ -11322,7 +11322,7 @@ BattleScript_FlushMessageBox::
 
 BattleScript_EjectButtonActivates::
 	makevisible BS_ATTACKER
-	playanimation BS_SCRIPTING, B_ANIM_ITEM_EFFECT, NULL
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, NULL
 	printstring STRINGID_EJECTBUTTONACTIVATE
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_SCRIPTING

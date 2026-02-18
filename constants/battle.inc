@@ -74,7 +74,7 @@
 .equiv B_ANIM_BAIT_THROW,         0x4
 .equiv B_ANIM_ITEM_KNOCKOFF,           0x5
 .equiv B_ANIM_TURN_TRAP,               0x6
-.equiv B_ANIM_ITEM_EFFECT,             0x7
+.equiv B_ANIM_HELD_ITEM_EFFECT,       0x7
 .equiv B_ANIM_SMOKEBALL_ESCAPE,        0x8
 .equiv B_ANIM_HANGED_ON,               0x9
 .equiv B_ANIM_RAIN_CONTINUES,          0xA

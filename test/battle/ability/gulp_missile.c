@@ -1,47 +1,29 @@
 #include "global.h"
 #include "test/battle.h"
 
-SINGLE_BATTLE_TEST("Gulp Missile: Cramorant cannot change into Gorging Form from Gulping Form")
+SINGLE_BATTLE_TEST("Gulp Missile: Cramorant cannot change between Gorging and Gulping Forms")
 {
+    u32 species, hp;
+    enum Move move;
+    PARAMETRIZE { species = SPECIES_CRAMORANT_GULPING; hp = 240; move = MOVE_BELLY_DRUM; }
+    PARAMETRIZE { species = SPECIES_CRAMORANT_GORGING; hp = 120; move = MOVE_RECOVER; }
     GIVEN {
         ASSUME(GetMoveEffect(MOVE_BELLY_DRUM) == EFFECT_BELLY_DRUM);
-        PLAYER(SPECIES_CRAMORANT) { HP(240); MaxHP(250); Ability(ABILITY_GULP_MISSILE); }
+        PLAYER(SPECIES_CRAMORANT) { HP(hp); MaxHP(250); Ability(ABILITY_GULP_MISSILE); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
         TURN { MOVE(player, MOVE_SURF); }
-        TURN { MOVE(player, MOVE_BELLY_DRUM); }
+        TURN { MOVE(player, move); }
         TURN { MOVE(player, MOVE_SURF); }
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_SURF, player);
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE_INSTANT, player);
         HP_BAR(opponent);
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_BELLY_DRUM, player);
+        ANIMATION(ANIM_TYPE_MOVE, move, player);
         HP_BAR(player);
         NOT ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE_INSTANT, player);
     } THEN {
-        EXPECT_EQ(player->species, SPECIES_CRAMORANT_GULPING);
-    }
-}
-
-SINGLE_BATTLE_TEST("Gulp Missile: Cramorant cannot change into Gulping Form from Gorging Form")
-{
-    GIVEN {
-        ASSUME(GetMoveEffect(MOVE_RECOVER) == EFFECT_RESTORE_HP);
-        PLAYER(SPECIES_CRAMORANT) { HP(120); MaxHP(250); Ability(ABILITY_GULP_MISSILE); }
-        OPPONENT(SPECIES_WOBBUFFET);
-    } WHEN {
-        TURN { MOVE(player, MOVE_SURF); }
-        TURN { MOVE(player, MOVE_RECOVER); }
-        TURN { MOVE(player, MOVE_SURF); }
-    } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_SURF, player);
-        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE_INSTANT, player);
-        HP_BAR(opponent);
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_RECOVER, player);
-        HP_BAR(player);
-        NOT ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE_INSTANT, player);
-    } THEN {
-        EXPECT_EQ(player->species, SPECIES_CRAMORANT_GORGING);
+        EXPECT_EQ(player->species, species);
     }
 }
 
@@ -119,7 +101,7 @@ SINGLE_BATTLE_TEST("Gulp Missile: Transformed Cramorant deal 1/4 of damage oppos
         PLAYER(SPECIES_CRAMORANT) { Ability(ABILITY_GULP_MISSILE); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { MOVE(player, MOVE_SURF); MOVE(opponent, MOVE_TACKLE); }
+        TURN { MOVE(player, MOVE_SURF); MOVE(opponent, MOVE_SCRATCH); }
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_SURF, player);
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE_INSTANT, player);
@@ -130,9 +112,10 @@ SINGLE_BATTLE_TEST("Gulp Missile: Transformed Cramorant deal 1/4 of damage oppos
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE_INSTANT, player);
         HP_BAR(opponent, captureDamage: &gulpMissileDamage);
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, opponent);
-        MESSAGE("Foe Wobbuffet's Defense fell!");
+        MESSAGE("The opposing Wobbuffet's Defense fell!");
     } THEN {
         EXPECT_EQ(gulpMissileDamage, opponent->maxHP / 4);
+        EXPECT_EQ(opponent->statStages[STAT_DEF], DEFAULT_STAT_STAGE - 1);
     }
 }
 
@@ -142,7 +125,7 @@ SINGLE_BATTLE_TEST("Gulp Missile: Cramorant in Gorging paralyzes the target if h
         PLAYER(SPECIES_CRAMORANT) { HP(120); MaxHP(250); Ability(ABILITY_GULP_MISSILE); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { MOVE(player, MOVE_SURF); MOVE(opponent, MOVE_TACKLE); }
+        TURN { MOVE(player, MOVE_SURF); MOVE(opponent, MOVE_SCRATCH); }
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_SURF, player);
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE_INSTANT, player);
@@ -164,7 +147,7 @@ SINGLE_BATTLE_TEST("Gulp Missile: triggers even if the user is fainted by opposi
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { MOVE(player, MOVE_SURF); MOVE(opponent, MOVE_TACKLE); SEND_OUT(player, 1); }
+        TURN { MOVE(player, MOVE_SURF); MOVE(opponent, MOVE_SCRATCH); SEND_OUT(player, 1); }
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_SURF, player);
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE_INSTANT, player);
