@@ -1654,6 +1654,7 @@ enum CancelerResult DoAttackCanceler(void)
     while (gBattleStruct->eventState.atkCanceler < CANCELER_END && result == CANCELER_RESULT_SUCCESS)
     {
         result = sMoveSuccessOrderCancelers[gBattleStruct->eventState.atkCanceler](&ctx);
+        gProtectStructs[ctx.battlerAtk].cancelerResult = result;
         if (result != CANCELER_RESULT_PAUSE)
             gBattleStruct->eventState.atkCanceler++;
     }
@@ -2242,13 +2243,27 @@ static enum MoveEndResult MoveEnd_SkyDropConfuse(void)
     return result;
 }
 
+//don't need flinch here
+//flinch status goes to canceler_result_failed
+//which sets unabletouseMove
+//my plan chnage would be make value to store
+//cancelerresult so I could check result failure
+//but since failure sets unabletousemove its just as well
+//to use that.
+//cancelerResult has other uses in other places though
+//what's unconfirmed is if it has uses in the default base
+//as just as here I could just check unabletoUseMove
+//think it may not have a use
+//any other effect that relies on move succeeding
+//could just use was targetdamageed etc.
+//ok I can make this change but seems would only be
+//useful for custom effects
 static enum MoveEndResult MoveEnd_UpdateLastMoves(void)
 {
     if (!IsOnPlayerSide(gBattlerAttacker))
         UpdateStallMons();
 
     if ((gBattleStruct->moveResultFlags[gBattlerTarget] & (MOVE_RESULT_FAILED | MOVE_RESULT_DOESNT_AFFECT_FOE))
-     || gBattleMons[gBattlerAttacker].volatiles.flinched
      || gBattleStruct->pledgeMove == TRUE // Is the battler that uses the first Pledge move in the combo
      || gBattleStruct->unableToUseMove)
         gBattleStruct->battlerState[gBattlerAttacker].stompingTantrumTimer = 2;
@@ -3710,19 +3725,49 @@ static void SetSameMoveTurnValues(u32 moveEffect)
         gBattleMons[gBattlerAttacker].volatiles.metronomeItemCounter = 0;
 }
 
+//need add logic here to prevent clear if didn't actually use move
+//i.e flinch paralyzed slept confused etc.
+//believe sleep and flinch can just check for status
+//as believe status cleared after end turn effects
+//would neeed store if successfully got through atk canceler I think
+//CANCELER_RESULT_SUCCESS does but isn't stored
+//thought using gBattleStruct->unableToUseMove would work
+//but that's only set on failure and both other canceler results
+//would count as non success so I need to store successes only
+//but in research believe found other issue two turn moves go to move end
+//even on charge so I would need to exclude charge effects from this
+//well that's canceler charging I htink
+//ok yeah two turn moves would return canceler result sucess
+//if can attack this turn
+//so storing canceler result would fix issue
+//would work fine for most but explosion damp
+//would trigger failure
+//but should still count for effect
+//as effect still goes off technically
+//it just doesnt effect foe
+//if I wanted to change this could do it so
+//rather than canceling entire effect
+//just set dmg to 0 and continue
+//i.e effect goes through
+//as a success but just skip dmg sets and 
+//do attacker recoil or faint effects vsonic important
+//presently waiting on result about whether charge 
+//fails on two turn move (I think it does well it does in RHH)
 static void TryClearChargeVolatile(u32 moveType)
 {
-    if (B_CHARGE < GEN_9) // Prior to gen9, charge is cleared during the end turn
-        return;
+    //if (B_CHARGE < GEN_9) // Prior to gen9, charge is cleared during the end turn
+    //    return;
 
-    if (moveType == TYPE_ELECTRIC && gBattleMons[gBattlerAttacker].volatiles.chargeTimer == 1)
-        gBattleMons[gBattlerAttacker].volatiles.chargeTimer = 0;
+    if (moveType == TYPE_ELECTRIC && gBattleMons[gBattlerAttacker].volatiles.chargedUp == 1
+    && gProtectStructs[gBattlerAttacker].cancelerResult == CANCELER_RESULT_SUCCESS)
+        gBattleMons[gBattlerAttacker].volatiles.chargedUp = 0;
 
-    for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
+    //old effect for move this effect now unique to ability
+    /*for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
     {
         if (gBattleMons[battler].volatiles.chargeTimer == 2) // Has been set this turn by move
             gBattleMons[battler].volatiles.chargeTimer--;
-    }
+    }*/
 }
 
 static inline bool32 IsBattlerUsingBeakBlast(enum BattlerId battler)

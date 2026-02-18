@@ -185,11 +185,10 @@ struct ProtectStruct
     u32 bounceMove : 1;
     u32 stealMove : 1;
     u32 flag0Unknown : 1;
-    u32 prlzImmobility : 1;
-    /* field_1 */
-    u32 confusionSelfDmg : 1;  //will instead change ot make random target, and within that if move is non-damaging do normal confusion hit, or use move against self
-    u32 targetNotAffected : 1; //opposite equivalent of targetAffected
     u32 chargingTurn : 1;
+    /* field_1 */
+    u32 targetNotAffected : 1; //opposite equivalent of targetAffected
+    u32 cancelerResult:2; //custom store canclerResult mostly for charge to make effect
     u32 fleeFlag : 2; // for RunAway Defeatist and Smoke Ball
     u32 usedImprisonedMove : 1;
     u32 loveImmobility : 1;

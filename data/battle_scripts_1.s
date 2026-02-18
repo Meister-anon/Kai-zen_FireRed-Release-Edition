@@ -2138,7 +2138,7 @@ BattleScript_TryTailwindAbilitiesLoop_WindRider:
 
 BattleScript_TryTailwindAbilitiesLoop_WindPower:
 	call BattleScript_AbilityPopUp
-	setvolatile BS_TARGET, VOLATILE_CHARGE_TIMER, 2
+	setvolatile BS_TARGET, VOLATILE_CHARGED
 	printstring STRINGID_BEINGHITCHARGEDPKMNWITHPOWER
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_TryTailwindAbilitiesLoop_Increment
@@ -3431,9 +3431,9 @@ BattleScript_TrySandstormwindAbilitiesLoop_WindRider:
 @ported attempting update idk what charge timer is, if need 1 or 2
 BattleScript_TrySandstormwindAbilitiesLoop_WindPower:
 	@call BattleScript_AbilityPopUp
-	jumpifvolatile BS_TARGET, VOLATILE_CHARGE_TIMER, BattleScript_TrySandstormwindAbilitiesLoop_Increment
+	jumpifvolatile BS_TARGET, VOLATILE_CHARGED, BattleScript_TrySandstormwindAbilitiesLoop_Increment
 	@setcharge BS_TARGET
-	setvolatile BS_TARGET, VOLATILE_CHARGE_TIMER, 2
+	setvolatile BS_TARGET, VOLATILE_CHARGED
 	printstring STRINGID_BEINGHITCHARGEDPKMNWITHPOWER
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_TrySandstormwindAbilitiesLoop_Increment
@@ -3780,22 +3780,38 @@ BattleScript_EffectFollowMe::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
+@new effect prevent spam,
+@fails if timer set
+@make sp def boost single use
+@todo remove effect removal on flinch sleeep
 BattleScript_EffectCharge::
 	attackcanceler
+	jumpifvolatile BS_ATTACKER, VOLATILE_CHARGE_TIMER, BattleScript_ButItFailed
 	setvolatile BS_ATTACKER, VOLATILE_CHARGE_TIMER, 2
 	attackanimation
 	waitanimation
-.if B_CHARGE_SPDEF_RAISE >= GEN_5
-	setstatchanger STAT_SPDEF, 1, FALSE
+	jumpifvolatile BS_ATTACKER, VOLATILE_MAX_CHARGE, BattleScript_EffectChargeString
+	setvolatile BS_ATTACKER, VOLATILE_MAX_CHARGE
+	setstatchanger STAT_SPDEF, 2, FALSE
 	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_EffectChargeString
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_CHANGE, BattleScript_EffectChargeString
 	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_EffectChargeString:
-.endif
 	printstring STRINGID_PKMNCHARGINGPOWER
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
+
+BattleScript_ChargeMaxedOut::
+	setstatchanger STAT_SPATK, 2, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_PrintChargeMaxString
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_CHANGE, BattleScript_PrintChargeMaxString
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_PrintChargeMaxString:
+	printstring STRINGID_PKMNCHARGEDTOTHEMAX
+	waitmessage B_WAIT_TIME_LONG
+	end2
 
 BattleScript_EffectTaunt::
 	attackcanceler
@@ -5052,7 +5068,7 @@ BattleScript_AngerShellRet:
 
 BattleScript_WindPowerActivates::
 	call BattleScript_AbilityPopUp
-	setvolatile BS_TARGET, VOLATILE_CHARGE_TIMER, 1
+	setvolatile BS_TARGET, VOLATILE_CHARGED
 	printstring STRINGID_BEINGHITCHARGEDPKMNWITHPOWER
 	waitmessage B_WAIT_TIME_LONG
 	return

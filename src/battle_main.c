@@ -4292,7 +4292,7 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
     gActionSelectionCursor[battler] = 0;
     gMoveSelectionCursor[battler] = 0;
     
-    memset(&gBattleStruct->battlerState[battler], 0, sizeof(struct DisableStruct));
+    memset(&gBattleStruct->battlerState[battler], 0, sizeof(struct BattlerState));
 
     gProtectStructs[battler].protected = FALSE;
     gProtectStructs[battler].endured = FALSE;
@@ -4304,8 +4304,6 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
     gProtectStructs[battler].bounceMove = FALSE;
     gProtectStructs[battler].stealMove = FALSE;
     gProtectStructs[battler].flag0Unknown = FALSE;
-    gProtectStructs[battler].prlzImmobility = FALSE;
-    gProtectStructs[battler].confusionSelfDmg = FALSE;
     gProtectStructs[battler].targetNotAffected = FALSE;
     gProtectStructs[battler].chargingTurn = FALSE;
     gProtectStructs[battler].fleeFlag = 0;

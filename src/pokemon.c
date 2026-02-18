@@ -4634,7 +4634,7 @@ void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u
     //so it wouldn't block me punching myself in the face
     //facepalm removing confusion check from here makes it do less dmg which is the oposite ofwhat I wanted
     if (IS_CRIT || GetBattlerAbility(battlerAtk) == ABILITY_INFILTRATOR || (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
-    || gProtectStructs[battlerAtk].confusionSelfDmg)
+    )
         return; //think should be fine would just mean do nothing to damage
 
     if (reflect || lightScreen || auroraVeil)
@@ -5210,7 +5210,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower *= 2;
         break;
         case EFFECT_ASSURANCE:
-        if (gProtectStructs[battlerIdDef].physicalDmg != 0 || gProtectStructs[battlerIdDef].specialDmg != 0 || gProtectStructs[battlerIdDef].confusionSelfDmg)
+        if (gProtectStructs[battlerIdDef].physicalDmg != 0 || gProtectStructs[battlerIdDef].specialDmg != 0)
             gBattleMovePower *= 2;
         break;
         case EFFECT_ACROBATICS:
@@ -5929,7 +5929,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;//yeah like that idea a lot more , that's most likley way to powerful... doing 3 turn timer at 50%, regi has high hp and def changed to 1/3rd cut
     case ABILITY_GRASS_PELT:
         if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN)
-            //&& !gProtectStructs[battlerIdAtk].confusionSelfDmg)
         {
             defense *= 2;
         }//decided buff a bit more since hard to use, and include confusion in reduction
@@ -6429,7 +6428,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         /*if ((sideStatus & SIDE_STATUS_REFLECT) && !IS_CRIT
             && abilityAtk != ABILITY_INFILTRATOR
-            && !gProtectStructs[battlerIdAtk].confusionSelfDmg
             && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && IsSoundMove(move))
            )
         {

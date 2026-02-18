@@ -64,9 +64,6 @@ static bool32 HandleEndTurnVarious(enum BattlerId battler)
         if (gBattleMons[i].volatiles.lockOn > 0)
             gBattleMons[i].volatiles.lockOn--;
 
-        if (B_CHARGE < GEN_9 && gBattleMons[i].volatiles.chargeTimer > 0)
-            gBattleMons[i].volatiles.chargeTimer--;
-
         if (gBattleMons[i].volatiles.laserFocusTimer > 0 && --gBattleMons[i].volatiles.laserFocusTimer == 0)
             gBattleMons[i].volatiles.laserFocus = FALSE;
 
@@ -201,6 +198,29 @@ static bool32 HandleEndTurnEmergencyExit(enum BattlerId battler)
     return effect;
 }
 
+//pattern after wish
+//when timer hits zero print
+//battler charged to the max or is fully charged
+//then give a 2 stage boost
+//think all I need is make end turn string
+//and go to script that boosts sp atk 2 stages
+static bool32 HandleEndTurnCharge(enum BattlerId battler)
+{
+    bool32 effect = FALSE;
+
+    gBattleStruct->eventState.endTurnBattler++;
+
+    if (gBattleMons[battler].volatiles.chargeTimer > 0 
+    && --gBattleMons[battler].volatiles.chargeTimer == 0 
+    && IsBattlerAlive(battler))
+    {
+       
+        BattleScriptExecute(BattleScript_ChargeMaxedOut);
+        effect = TRUE;
+    }
+
+    return effect;
+}
 /*static bool32 HandleEndTurnAffection(enum BattlerId battler)
 {
     bool32 effect = FALSE;
@@ -1526,7 +1546,7 @@ static bool32 (*const sEndTurnEffectHandlers[])(enum BattlerId battler) =
     [ENDTURN_WEATHER] = HandleEndTurnWeather,
     [ENDTURN_WEATHER_DAMAGE] = HandleEndTurnWeatherDamage,
     [ENDTURN_EMERGENCY_EXIT_1] = HandleEndTurnEmergencyExit,
-    //[ENDTURN_AFFECTION] = HandleEndTurnAffection,
+    [ENDTURN_MAX_CHARGE] = HandleEndTurnCharge,
     [ENDTURN_FUTURE_SIGHT] = HandleEndTurnFutureSight,
     [ENDTURN_WISH] = HandleEndTurnWish,
     [ENDTURN_FIRST_EVENT_BLOCK] = HandleEndTurnFirstEventBlock,
