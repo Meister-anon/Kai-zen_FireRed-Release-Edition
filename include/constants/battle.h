@@ -1555,6 +1555,9 @@ enum MoveTarget
     TARGET_ALL_BATTLERS,
 };
 
+//fitting for now not used in EE
+#define TARGET_USER_OR_SELECTED (TARGET_SELECTED | TARGET_USER)
+
 // Constants for Parental Bond
 #define PARENTAL_BOND_1ST_HIT 2
 #define PARENTAL_BOND_2ND_HIT 1

@@ -11,6 +11,11 @@ typedef bool32 (*AiSwitchFunc)(u32);
 #define AI_IS_FASTER   1
 #define AI_IS_SLOWER   -1
 
+#define AI_CHOICE_FLEE 4
+#define AI_CHOICE_WATCH 5
+#define AI_CHOICE_SWITCH 7
+
+
 // for stat increasing / decreasing scores
 enum StatChange
 {

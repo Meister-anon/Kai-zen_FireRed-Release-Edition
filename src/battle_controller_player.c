@@ -529,9 +529,9 @@ static void HandleInputShowEntireFieldTargets(enum BattlerId battler)
     {
         PlaySE(SE_SELECT);
         HideAllTargets();
-        if (gBattleStruct->mega.playerSelect)
+        /*if (gBattleStruct->mega.playerSelect)
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, gMoveSelectionCursor[battler] | RET_MEGA_EVOLUTION | (gMultiUsePlayerCursor << 8));
-        else
+        else*/
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
         //HideMegaTriggerSprite();
         PlayerBufferExecCompleted(battler);
@@ -557,9 +557,9 @@ static void HandleInputShowTargets(enum BattlerId battler)
     {
         PlaySE(SE_SELECT);
         HideShownTargets(battler);
-        if (gBattleStruct->mega.playerSelect)
+        /*if (gBattleStruct->mega.playerSelect)
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, gMoveSelectionCursor[battler] | RET_MEGA_EVOLUTION | (gMultiUsePlayerCursor << 8));
-        else
+        else*/
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
         //HideMegaTriggerSprite();
         //TryHideLastUsedBall();
@@ -711,9 +711,9 @@ void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setu
         {
         case 0:
         default:
-            if (gBattleStruct->mega.playerSelect)
+            /*if (gBattleStruct->mega.playerSelect)
                 BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, gMoveSelectionCursor[battler] | RET_MEGA_EVOLUTION | (gMultiUsePlayerCursor << 8));
-            else
+            else*/
                 BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
             //HideMegaTriggerSprite();
             //TryHideLastUsedBall();
@@ -722,7 +722,7 @@ void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setu
         case 1:
             gBattlerControllerFuncs[battler] = HandleInputChooseTarget;
 
-            if (moveTarget & (TARGET_USER | TARGET_USER_OR_SELECTED))
+            if (moveTarget & (TARGET_USER | TARGET_SELECTED))
                 gMultiUsePlayerCursor = battler;
             else if (gAbsentBattlerFlags & (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)))
                 gMultiUsePlayerCursor = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
@@ -3309,7 +3309,6 @@ static void PreviewDeterminativeMoveTargets(enum BattlerId battler) //determine 
         {
         case TARGET_SELECTED:
         case TARGET_DEPENDS:
-        case TARGET_USER_OR_SELECTED:
         case TARGET_RANDOM:
             bitMask = 0xF0000;
             startY = 0;
