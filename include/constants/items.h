@@ -1044,8 +1044,10 @@ enum __attribute__((packed)) Item
     ITEM_GALAR_SAND,
     ITEM_HISUIAN_SAND,
     ITEM_PALDEAN_SAND, 
+    ITEM_NULL_MEMORY, //for revert to base sylvally
     ITEM_BAD_ONION,
     ITEM_SCENT_CASE, //potentially USE TM CASE grahpic for holding region scent vials
+    ITEM_MEMORY_BOX, //store sylvally memories potentially
     ITEM_OMNI_BOX,
     //tm expansion on end
     //ideallly put new items above this
