@@ -1123,12 +1123,14 @@ struct BattleStruct
     u8 magicCoatActive:1;
     u8 magicBounceActive:1;
     u8 moveBouncer;
-    //add back FR ai stuff to make work
-    s8 aiFinalScore[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // AI, target, moves to make debugging easier
-    u8 aiMoveOrAction[MAX_BATTLERS_COUNT];
-    u8 aiChosenTarget[MAX_BATTLERS_COUNT];//pain but sholdn't have removed ai stuff before I did cntrl and battle main rework smh
+
 };
 extern struct BattleStruct *gBattleStruct;
+//change mind adding back fr ai would also be too expansive
+//might as well upsh through and od battle controler update now...
+//potentially a massively stupid idea but fuck it
+//now that EE has added some FR stuff
+//can prob just take all of that
 
 struct AiBattleData
 {
