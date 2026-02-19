@@ -3753,6 +3753,12 @@ static void SetSameMoveTurnValues(u32 moveEffect)
 //do attacker recoil or faint effects vsonic important
 //presently waiting on result about whether charge 
 //fails on two turn move (I think it does well it does in RHH)
+//also waiting on if wind power should print message even when already charged
+//got tests back from Linathan both abilities play message each time
+//and was correct even on first turn of two turn effect charge is lost
+//my change fixes that tho.
+//still need to account for damp explosion...
+//wait no I don't damp prevents explosion from going off at all *facepalm
 static void TryClearChargeVolatile(u32 moveType)
 {
     //if (B_CHARGE < GEN_9) // Prior to gen9, charge is cleared during the end turn
