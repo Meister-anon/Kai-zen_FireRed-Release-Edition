@@ -3785,6 +3785,7 @@ BattleScript_EffectFollowMe::
 @make sp def boost single use
 @todo remove effect removal on flinch sleeep
 @can be spammed but think making 2x sp def is way too much
+@stupid forgot I made the sp def boost a one time effect
 BattleScript_EffectCharge::
 	attackcanceler
 	jumpifvolatile BS_ATTACKER, VOLATILE_CHARGE_TIMER, BattleScript_ButItFailed
@@ -3793,7 +3794,7 @@ BattleScript_EffectCharge::
 	waitanimation
 	jumpifvolatile BS_ATTACKER, VOLATILE_MAX_CHARGE, BattleScript_EffectChargeString
 	setvolatile BS_ATTACKER, VOLATILE_MAX_CHARGE
-	setstatchanger STAT_SPDEF, 1, FALSE
+	setstatchanger STAT_SPDEF, 2, FALSE
 	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_EffectChargeString
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_CHANGE, BattleScript_EffectChargeString
 	printfromtable gStatUpStringIds
@@ -3803,8 +3804,14 @@ BattleScript_EffectChargeString:
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
+@...two stage boost is insane wtf was I thinking lmao
+@forgot this is a priority move
+@and also plan guard mode so very easy to get off
+@doesnt sound crazy but because its balanced
+@very front loadeed massive gain on first use
+@sort of diminishing return but still useful if plan for it
 BattleScript_ChargeMaxedOut::
-	setstatchanger STAT_SPATK, 2, FALSE
+	setstatchanger STAT_SPATK, 1, FALSE
 	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_PrintChargeMaxString
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_CHANGE, BattleScript_PrintChargeMaxString
 	printfromtable gStatUpStringIds
