@@ -3759,6 +3759,8 @@ static void SetSameMoveTurnValues(u32 moveEffect)
 //my change fixes that tho.
 //still need to account for damp explosion...
 //wait no I don't damp prevents explosion from going off at all *facepalm
+//note if I wanted to fix this but preserve default behavior
+//I'd use cancler sucess or unabletousemove
 static void TryClearChargeVolatile(u32 moveType)
 {
     //if (B_CHARGE < GEN_9) // Prior to gen9, charge is cleared during the end turn
