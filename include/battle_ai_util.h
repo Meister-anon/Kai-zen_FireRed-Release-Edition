@@ -4,6 +4,13 @@
 #include "battle_ai_main.h"
 #include "battle_ai_field_statuses.h"
 
+
+// for AI_WhoStrikesFirst
+#define AI_IS_FASTER   0
+#define AI_IS_SLOWER   1
+
+#define FOE(battler) ((BATTLE_OPPOSITE(battler)) & BIT_SIDE)
+
 // Roll boundaries used by AI when scoring. Doesn't affect actual damage dealt.
 #define MAX_ROLL_PERCENTAGE DMG_ROLL_PERCENT_HI
 #define MIN_ROLL_PERCENTAGE DMG_ROLL_PERCENT_LO

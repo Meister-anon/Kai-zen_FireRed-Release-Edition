@@ -1399,7 +1399,7 @@ static void OpponentHandleChooseMove(enum BattlerId battler)
             // If opponent can mega evolve, do it.
             //redo in form change branch don't won't always frame 1 mega evolve
             if (CanMegaEvolve(battler))
-                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (RET_MEGA_EVOLUTION) | (gBattlerTarget << 8));
+                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (gBattlerTarget << 8));
             else
                 BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (gBattlerTarget << 8));
             break;
@@ -1476,7 +1476,7 @@ static void OpponentHandleChoosePokemon(enum BattlerId battler)
 
     if (*(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1)) == PARTY_SIZE)
     {
-        chosenMonId = GetMostSuitableMonToSwitchInto(battler);
+        chosenMonId = GetMostSuitableMonToSwitchInto(battler, SWITCH_MID_BATTLE_OPTIONAL);
 
         if (chosenMonId == PARTY_SIZE)
         {

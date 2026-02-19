@@ -1122,7 +1122,10 @@ struct BattleStruct
     u8 magicCoatActive:1;
     u8 magicBounceActive:1;
     u8 moveBouncer;
-
+    //ported to work with old ai to compile
+    s8 aiFinalScore[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // AI, target, moves to make debugging easier
+    u8 aiMoveOrAction[MAX_BATTLERS_COUNT];
+    u8 aiChosenTarget[MAX_BATTLERS_COUNT]; //ported these 3 hope ot a problem
 };
 extern struct BattleStruct *gBattleStruct;
 //change mind adding back fr ai would also be too expansive
@@ -1567,6 +1570,12 @@ extern u8 gChosenActionByBattler[MAX_BATTLERS_COUNT];
 extern u8 gBattleEnvironment;
 extern struct MultiPartnerMenuPokemon gMultiPartnerParty[3];
 extern u16 gRandomTurnNumber;
+
+//FR ai stuff
+#define AI_THINKING_STRUCT gAiThinkingStruct
+#define AI_DATA gAiLogicData
+#define AI_PARTY gAiPartyData
+#define BATTLE_HISTORY gBattleHistory
 
 extern const u16 gProtectSuccessRates[NUM_PROTECT_ODDS];
 

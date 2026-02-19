@@ -76,7 +76,7 @@
 #define MOVE_POWER_WEAK		   3 // Significantly lower than best and good.
 
 // AI Flags. Most run specific functions to update score, new flags are used for internal logic in other scripts
-/*#define AI_FLAG_CHECK_BAD_MOVE        (1 << 0)
+#define AI_FLAG_CHECK_BAD_MOVE        (1 << 0)
 #define AI_FLAG_TRY_TO_FAINT          (1 << 1)
 #define AI_FLAG_CHECK_VIABILITY       (1 << 2)
 #define AI_FLAG_SETUP_FIRST_TURN      (1 << 3)
@@ -102,12 +102,12 @@
 #define AI_FLAG_ROAMING               (1 << 29)
 #define AI_FLAG_SAFARI                (1 << 30)
 #define AI_FLAG_FIRST_BATTLE          (1 << 31)
-*/
+
 
 
 // AI Flags. Most run specific functions to update score, new flags are used for internal logic in other scripts
 // See docs/ai_flags.md for more details.
-#define AI_FLAG(x) ((u64)1 << x)
+/*#define AI_FLAG(x) ((u64)1 << x)
 
 #define AI_FLAG_CHECK_BAD_MOVE              AI_FLAG(0)  // AI will avoid using moves that are likely to fail or be ineffective in the current situation.
 #define AI_FLAG_TRY_TO_FAINT                AI_FLAG(1)  // AI will prioritize KOing the player's mon if able.
@@ -157,7 +157,7 @@
 #define AI_FLAG_ROAMING               AI_FLAG(61)
 #define AI_FLAG_SAFARI                AI_FLAG(62)
 #define AI_FLAG_FIRST_BATTLE          AI_FLAG(63)
-
+*/
 #define AI_SCORE_DEFAULT 100 // Default score for all AI moves.
 
 
