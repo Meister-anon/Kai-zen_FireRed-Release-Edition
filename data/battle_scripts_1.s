@@ -3784,6 +3784,7 @@ BattleScript_EffectFollowMe::
 @fails if timer set
 @make sp def boost single use
 @todo remove effect removal on flinch sleeep
+@can be spammed but think making 2x sp def is way too much
 BattleScript_EffectCharge::
 	attackcanceler
 	jumpifvolatile BS_ATTACKER, VOLATILE_CHARGE_TIMER, BattleScript_ButItFailed
@@ -3792,7 +3793,7 @@ BattleScript_EffectCharge::
 	waitanimation
 	jumpifvolatile BS_ATTACKER, VOLATILE_MAX_CHARGE, BattleScript_EffectChargeString
 	setvolatile BS_ATTACKER, VOLATILE_MAX_CHARGE
-	setstatchanger STAT_SPDEF, 2, FALSE
+	setstatchanger STAT_SPDEF, 1, FALSE
 	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_EffectChargeString
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_CHANGE, BattleScript_EffectChargeString
 	printfromtable gStatUpStringIds
