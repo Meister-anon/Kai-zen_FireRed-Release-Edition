@@ -9162,7 +9162,9 @@ static const struct LevelUpMove sTangrowthLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sElectivireLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 0, MOVE_PLASMA_FIST)
     LEVEL_UP_MOVE( 1, MOVE_ELECTRIC_TERRAIN)
+    LEVEL_UP_MOVE( 1, MOVE_CHARGE)
     LEVEL_UP_MOVE( 1, MOVE_ION_DELUGE)
     LEVEL_UP_MOVE( 1, MOVE_FIRE_PUNCH)
     LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK)
