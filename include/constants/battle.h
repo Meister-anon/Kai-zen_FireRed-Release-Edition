@@ -787,6 +787,8 @@ renamed semi invulnerable Interupt
     F(VOLATILE_ASCENSION_TIMER,             ascensionTimer,                (u32, B_ASCENSION_TIMER))  \
     F(VOLATILE_CHARGED,                     chargedUp,                     (u32, 1))  \
     F(VOLATILE_MAX_CHARGE,                  chargeMax,                     (u32, 1))  \
+    F(VOLATILE_STATE_RE_CHARGE,             recharge,                      (u32, 1))  \
+    F(VOLATILE_STATE_CHARGING,              charging,                      (u32, 1))  \
 
 /* Use within a macro to get the maximum allowed value for a volatile. Requires _typeMaxValue as input. */
 #define GET_VOLATILE_MAXIMUM(_typeMaxValue, ...) INVOKE_WITH_B(GET_VOLATILE_MAXIMUM_, _typeMaxValue)

@@ -363,6 +363,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_STATUS_IF_NOT_ARG_TYPE,
     EFFECT_TRENCH_RUN,
     EFFECT_STEEL_SURGE,
+    EFFECT_RECHARGE, //charge boost for healing
     NUM_BATTLE_MOVE_EFFECTS,
 };
 

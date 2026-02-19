@@ -1437,6 +1437,10 @@ extern const u8 BattleScript_EffectFocusPunch[];
 extern const u8 BattleScript_EffectFollowMe[];
 extern const u8 BattleScript_EffectCharge[];
 extern const u8 BattleScript_ChargeMaxedOut[]; //new charge end turn effect
+extern const u8 BattleScript_EffectReCharge[];
+extern const u8 BattleScript_RechargeComplete[];
+extern const u8 BattleScript_RechargedButFullHp[];
+extern const u8 BattleScript_RechargedButHealBlocked[];
 extern const u8 BattleScript_EffectTaunt[];
 extern const u8 BattleScript_EffectHelpingHand[];
 extern const u8 BattleScript_EffectTrick[];

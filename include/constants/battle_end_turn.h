@@ -11,6 +11,7 @@ enum EndTurnResolutionOrder
     ENDTURN_WEATHER_DAMAGE,
     ENDTURN_EMERGENCY_EXIT_1,
     ENDTURN_MAX_CHARGE, //remove affection
+    ENDTURN_RE_CHARGE, //charge based heal for elec types
     ENDTURN_FUTURE_SIGHT,
     ENDTURN_WISH,
     ENDTURN_FIRST_EVENT_BLOCK,

@@ -6852,8 +6852,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
 
     [MOVE_CHARGE] =
     {
-        .name = COMPOUND_STRING("Charge"),
-        .description = COMPOUND_MOVE_STRING("The user charges\npower to boost the\nELECTRIC move it\nuses next.\nIts SP. DEF\nalso raises."),
+        .name = COMPOUND_STRING("Max Charge"),
+        .description = COMPOUND_MOVE_STRING("The user charges\npower to boost its\nSP. ATK next turn.\nIts SP. DEF sharply\nraises on first use."),
         .effect = EFFECT_CHARGE,
         .power = 0,
         .type = TYPE_ELECTRIC,
@@ -21806,5 +21806,26 @@ use wonder gaurd logic to determine its super effective
         .battleAnimScript = gBattleAnimMove_FocusPunch, //want this to use punch and kick animation so guess closecombat?
         //.validApprenticeMove = TRUE,
     },
+
+    [MOVE_RECHARGE] =
+    {
+        .name = COMPOUND_STRING("ReCharge"),
+        .description = COMPOUND_MOVE_STRING("The user charges\npower, revitalizing\nitself on next turn.\nIts SP. DEF\nalso raises."),
+        .effect = EFFECT_RECHARGE,
+        .power = 0,
+        .type = TYPE_ELECTRIC,
+        .accuracy = 100,
+        .pp = 20,
+        .target = TARGET_USER,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .snatchAffected = TRUE,
+        .ignoresProtect = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
+        //.contestCategory = CONTEST_CATEGORY_SMART,
+        //.contestComboStarterId = COMBO_STARTER_CHARGE,
+        //.contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_Charge,
+    },//plan for this to be a tm to mon that can learn charge
 
 };

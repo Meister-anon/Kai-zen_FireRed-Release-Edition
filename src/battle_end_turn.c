@@ -210,12 +210,49 @@ static bool32 HandleEndTurnCharge(enum BattlerId battler)
 
     gBattleStruct->eventState.endTurnBattler++;
 
+    //both effects use chargetimer so need filter
+    if (gBattleMons[battler].volatiles.recharge)
+        return effect;
+
     if (gBattleMons[battler].volatiles.chargeTimer > 0 
     && --gBattleMons[battler].volatiles.chargeTimer == 0 
     && IsBattlerAlive(battler))
     {
-       
+        gBattleMons[battler].volatiles.charging = FALSE;
         BattleScriptExecute(BattleScript_ChargeMaxedOut);
+        effect = TRUE;
+    }
+
+    return effect;
+}
+
+static bool32 HandleEndTurnReCharge(enum BattlerId battler)
+{
+    bool32 effect = FALSE;
+
+    gBattleStruct->eventState.endTurnBattler++;
+
+    if (gBattleMons[battler].volatiles.charging)
+        return effect;
+
+    if (gBattleMons[battler].volatiles.chargeTimer > 0 
+    && --gBattleMons[battler].volatiles.chargeTimer == 0 
+    && IsBattlerAlive(battler))
+    {
+        s32 healAmount = 0;
+
+        healAmount = GetNonDynamaxMaxHP(battler) / 2;
+
+        SetHealAmount(battler, healAmount);
+        gBattleMons[battler].volatiles.recharge = FALSE;
+        
+        if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_HEAL_BLOCK)
+            BattleScriptExecute(BattleScript_RechargedButHealBlocked);
+        else if (gBattleMons[battler].hp == gBattleMons[battler].maxHP)
+            BattleScriptExecute(BattleScript_RechargedButFullHp);
+        else
+            BattleScriptExecute(BattleScript_RechargeComplete);
+
         effect = TRUE;
     }
 
@@ -1547,6 +1584,7 @@ static bool32 (*const sEndTurnEffectHandlers[])(enum BattlerId battler) =
     [ENDTURN_WEATHER_DAMAGE] = HandleEndTurnWeatherDamage,
     [ENDTURN_EMERGENCY_EXIT_1] = HandleEndTurnEmergencyExit,
     [ENDTURN_MAX_CHARGE] = HandleEndTurnCharge,
+    [ENDTURN_RE_CHARGE] = HandleEndTurnReCharge,
     [ENDTURN_FUTURE_SIGHT] = HandleEndTurnFutureSight,
     [ENDTURN_WISH] = HandleEndTurnWish,
     [ENDTURN_FIRST_EVENT_BLOCK] = HandleEndTurnFirstEventBlock,

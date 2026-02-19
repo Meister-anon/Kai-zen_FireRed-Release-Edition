@@ -22133,6 +22133,9 @@ static const struct LevelUpMove sKoraidonLevelUpLearnset[] = {
 };
 //#endif //P_FAMILY_KORAIDON
 
+//thought about removing charge but it already gets
+//calm mind so its competing with that
+//so its actually fine
 //#if P_FAMILY_MIRAIDON
 static const struct LevelUpMove sMiraidonLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_THUNDER_SHOCK)

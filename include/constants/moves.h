@@ -930,6 +930,7 @@ enum Move {
  MOVE_FENCE = 888, //new dark protect that steals attacker item
  MOVE_CONTRALTO = 889,
  MOVE_FOCUS_STRIKE = 890, //technically not custom, is just original focus punch reowrked to not restricted to punching
+ MOVE_RECHARGE = 891,
 
  MOVES_COUNT_CUSTOM,
 

@@ -3786,12 +3786,15 @@ BattleScript_EffectFollowMe::
 @todo remove effect removal on flinch sleeep
 @can be spammed but think making 2x sp def is way too much
 @stupid forgot I made the sp def boost a one time effect
+@use volatile state charging to filter for this
+@and recharging for other move
 BattleScript_EffectCharge::
 	attackcanceler
 	jumpifvolatile BS_ATTACKER, VOLATILE_CHARGE_TIMER, BattleScript_ButItFailed
 	setvolatile BS_ATTACKER, VOLATILE_CHARGE_TIMER, 2
 	attackanimation
 	waitanimation
+	setvolatile BS_ATTACKER, VOLATILE_STATE_CHARGING	
 	jumpifvolatile BS_ATTACKER, VOLATILE_MAX_CHARGE, BattleScript_EffectChargeString
 	setvolatile BS_ATTACKER, VOLATILE_MAX_CHARGE
 	setstatchanger STAT_SPDEF, 2, FALSE
@@ -3818,6 +3821,49 @@ BattleScript_ChargeMaxedOut::
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_PrintChargeMaxString:
 	printstring STRINGID_PKMNCHARGEDTOTHEMAX
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+@healing version of effect
+BattleScript_EffectReCharge::
+	attackcanceler
+	jumpifvolatile BS_ATTACKER, VOLATILE_CHARGE_TIMER, BattleScript_ButItFailed
+	setvolatile BS_ATTACKER, VOLATILE_CHARGE_TIMER, 2
+	attackanimation
+	waitanimation
+	setvolatile BS_ATTACKER, VOLATILE_STATE_RE_CHARGE
+	setstatchanger STAT_SPDEF, 1, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_EffectChargeString
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_CHANGE, BattleScript_EffectChargeString
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_EffectChargeString
+
+@should be able to use attacker rather than target
+@since effect is on user doesn''t involve switch passing
+BattleScript_RechargeComplete::
+	playanimation BS_ATTACKER, B_ANIM_WISH_HEAL
+	printstring STRINGID_PKMRECHARGECOMPLETED
+	waitmessage B_WAIT_TIME_LONG
+	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	datahpupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	printstring STRINGID_PKMNREGAINEDHEALTH
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_RechargedButFullHp::
+	printstring STRINGID_PKMRECHARGECOMPLETED
+	waitmessage B_WAIT_TIME_LONG
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNHPFULL
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_RechargedButHealBlocked::
+	printstring STRINGID_PKMRECHARGECOMPLETED
+	waitmessage B_WAIT_TIME_LONG
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_HEALBLOCKPREVENTSUSAGE
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
