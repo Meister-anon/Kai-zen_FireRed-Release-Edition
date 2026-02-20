@@ -21781,7 +21781,7 @@ use wonder gaurd logic to determine its super effective
     [MOVE_FOCUS_STRIKE] =
     {
         .name = COMPOUND_STRING("Focus Strike"),
-        .description = COMPOUND_STRING("Powerful attack, moves last.\nThe user flinches if hit."),
+        .description = COMPOUND_STRING("Powerful attack, moves last.\nThe user flinches if\nthey take more than\na quarter max Hp dmg"),
         .effect = EFFECT_FOCUS_PUNCH,
         .power = 150,
         .type = TYPE_FIGHTING,
@@ -21806,6 +21806,7 @@ use wonder gaurd logic to determine its super effective
         .battleAnimScript = gBattleAnimMove_FocusPunch, //want this to use punch and kick animation so guess closecombat?
         //.validApprenticeMove = TRUE,
     },
+    //didn't I change this to work off hp threshold
 
     [MOVE_RECHARGE] =
     {

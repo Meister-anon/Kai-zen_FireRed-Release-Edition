@@ -260,14 +260,13 @@ static enum CancelerResult CancelerTruant(struct BattleContext *ctx)
 
 static enum CancelerResult CancelerFocus(struct BattleContext *ctx)
 {
-    u32 focusPunchFailureConfig = GetConfig(FOCUS_PUNCH_FAILURE);
 
     // In Gens 3-4, only check if is using Focus Punch.
     // In Gens 5-6, only check if the chosen move is Focus Punch.
     // In Gens 7+, check if chose and is using Focus Punch.
-    if ((gProtectStructs[ctx->battlerAtk].physicalDmg || gProtectStructs[ctx->battlerAtk].specialDmg)
-     && (focusPunchFailureConfig < GEN_5 || GetMoveEffect(gChosenMoveByBattler[ctx->battlerAtk]) == EFFECT_FOCUS_PUNCH)
-     && (focusPunchFailureConfig == GEN_5 || focusPunchFailureConfig == GEN_6 || GetMoveEffect(ctx->move) == EFFECT_FOCUS_PUNCH)
+    if (!CanFocusPunchSucceed(ctx->battlerAtk)
+     && (GetMoveEffect(gChosenMoveByBattler[ctx->battlerAtk]) == EFFECT_FOCUS_PUNCH)
+     && (GetMoveEffect(ctx->move) == EFFECT_FOCUS_PUNCH)
      && !gProtectStructs[ctx->battlerAtk].survivedOHKO)
     {
         CancelMultiTurnMoves(ctx->battlerAtk, SKY_DROP_ATTACKCANCELER_CHECK);
