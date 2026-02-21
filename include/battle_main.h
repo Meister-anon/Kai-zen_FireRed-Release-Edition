@@ -155,6 +155,16 @@ void SetJudgmentTypeString(u8 type); //make global since had move effect to batt
 
 void TryResetProtectUseCounter(enum BattlerId battler);
 
+static inline bool32 BattleTypeCannotSetDex(void)
+{
+    return ((gBattleTypeFlags & (BATTLE_TYPE_EREADER_TRAINER
+    | BATTLE_TYPE_POKEDUDE
+    | BATTLE_TYPE_LINK
+    | BATTLE_TYPE_GHOST
+    | BATTLE_TYPE_CATCH_TUTORIAL
+    | BATTLE_TYPE_LEGENDARY)));
+}
+
 //EE stuff
 s32 GetWhichBattlerFasterArgs(struct BattleCalcValues *calcValues, bool32 ignoreChosenMoves, u32 speedBattler1, u32 speedBattler2, s32 priority1, s32 priority2);
 s32 GetWhichBattlerFasterOrTies(struct BattleCalcValues *calcValues, bool32 ignoreChosenMoves);

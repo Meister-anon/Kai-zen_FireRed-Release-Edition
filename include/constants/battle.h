@@ -117,7 +117,7 @@ enum BattleSide
 #define BATTLE_TYPE_PALACE  (1 << 11)	//remove this, so I can replace it. //fill for now just to compile
 #define BATTLE_TYPE_KYOGRE_GROUDON   (1 << 12) //Idk WHy have this already split off into individual flag for each
 #define BATTLE_TYPE_LEGENDARY        (1 << 13) //with planned legendary fight change can't resuse value, hmm actually I can as it works by combining flgas, i.e  //BATTLE_TYPE_GHOST | BATTLE_TYPE_GHOST_UNVEILED  essentially what I plan do w master so its fine
-#define BATTLE_TYPE_GHOST_UNVEILED   (1 << 13) // Re-use of BATTLE_TYPE_LEGENDARY, when combined with BATTLE_TYPE_GHOST
+#define BATTLE_TYPE_GHOST_UNVEILED   (1 << 13) // Re-use of BATTLE_TYPE_LEGENDARY, when combined with BATTLE_TYPE_GHOST - weird but this is default
 #define BATTLE_TYPE_SAFARI           (1 << 14) //no using regi can replace this //replaced w safari
 #define BATTLE_TYPE_GHOST            (1 << 15) //check want to setup for if target mon is ghost type and doesnt have silf scope, to put ghosts in underpass at nighttime
 #define BATTLE_TYPE_POKEDUDE         (1 << 16)
@@ -133,11 +133,12 @@ enum BattleSide
 #define BATTLE_TYPE_MASTER_BALL      (1 << 26) //ok can remove this and use for master ball
 #define BATTLE_TYPE_GROUDON          (1 << 27)
 #define BATTLE_TYPE_KYOGRE           (1 << 28)
-#define BATTLE_TYPE_EREADER_TRAINER  (1 << 29) //was unused temp replacing to put ereader back for compile only
+#define BATTLE_TYPE_RECORDED_IS_MASTER  (1 << 29) //was unused temp replacing to put ereader back for compile only
 
 #define BATTLE_TYPE_SECRET_BASE     (1 << 30) //these two just for defines
 #define BATTLE_TYPE_FRONTIER        (1 << 31)
 #define BATTLE_TYPE_ARENA   (BATTLE_TYPE_SECRET_BASE | BATTLE_TYPE_FRONTIER) //bs to find a way to get passed compiler crap
+#define BATTLE_TYPE_EREADER_TRAINER (BATTLE_TYPE_MASTER_BALL | BATTLE_TYPE_RECORDED_LINK)
 #define BATTLE_TYPE_TOWER_LINK_MULTI (BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_FRONTIER) //same as above
 
 #define IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(flags) ((flags) & BATTLE_TYPE_GHOST && !((flags) & BATTLE_TYPE_GHOST_UNVEILED))
