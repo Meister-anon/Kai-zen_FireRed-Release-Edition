@@ -19,6 +19,10 @@ like elite four
 
 can replace BATTLE_TYPE_EREADER_TRAINER
 
+what can do is in battle setup check if is battle type
+that should not be reset and if not than auto set teh 
+reset battle type flag
+
 think what I may want to do is
 set value automatically if not a battle that shouldn't allow retry
 
@@ -30,6 +34,32 @@ i.e  battletype flags |= BATTLE_TYPE_BATTLE_RETRY
 then want split run\give up option ito
 
 retry \ give up
+
+so select run, and then it'll 
+give option to select run or give up
+
+or press L to retry replacing the throw last ball thing
+either or
+
+now need be able to change battle order
+so what will do is open on select battlers screen
+like used for special batltles or contests
+
+think will need make new special but what will be is select Lead mon
+use based on battle type
+so read batle id going into or resetting
+and adjust task based on if single or double
+
+so hit reset fade to black open on party screen
+with select lead mon dialogue
+if single battle will stop you after you select one mon
+if double will stop after select 2 and ask to confirm
+after that go into trainer slide in play music etc.
+
+and select mon will swap placement with mon in those spots
+with those selected
+i.e 1 will swap with mon leading party
+2 will swap with mon in 2nd position pretty simple idea
 
 forgot also had plan for special battle type for legendaries to change
 how master balls are done so they're not so boring
