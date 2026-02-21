@@ -220,6 +220,7 @@ if it would otherwise be 0/NONE except in the case of ability.
 
 //w added wind type split off some features from flying can define characteristics here
 
+//...I never put bug on this list
 //put thematic logic for all types, helps with type changes as well as keeping consistent
 /*
     Normal: Animal type thing that are just normal land mamals/animals
@@ -231,6 +232,7 @@ if it would otherwise be 0/NONE except in the case of ability.
     Poison: Is poisonous in some manner, or otherwise involves trash/waste or contamination/corruption
     Ground: Lives in deserts/underground or has some link to earth element, is distinct from rock.
     Rock:  Hardened ground sturdy and solid
+    Bug:   shoulld be typically very fast (at least by final evo) and versatile (annoying) overall weaker stats, but give it some other way to be useful, evolution big part of bugs, so my legendary evolves
     Steel:  Refined rock forged into steel, made of metal or has some relation to it/metal weapon or control of metal
     Fire: Made of fire, lives near volcano, or able to breathe fire, not exclusive to fire types some qualities also overlap w dragons
     Ice: Lives in tundra/arctic bioms, made up of or able to control ice/cold.
