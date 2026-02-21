@@ -529,11 +529,11 @@ static void HandleInputShowEntireFieldTargets(enum BattlerId battler)
     {
         PlaySE(SE_SELECT);
         HideAllTargets();
-        /*if (gBattleStruct->mega.playerSelect)
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, gMoveSelectionCursor[battler] | RET_MEGA_EVOLUTION | (gMultiUsePlayerCursor << 8));
-        else*/
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
-        //HideMegaTriggerSprite();
+        if (gBattleStruct->gimmick.playerSelect)
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, gMoveSelectionCursor[battler] | RET_GIMMICK | (gMultiUsePlayerCursor << 8));
+        else
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
+        HideGimmickTriggerSprite();
         PlayerBufferExecCompleted(battler);
     }
     else if (gMain.newKeys & B_BUTTON)// || gPlayerDpadHoldFrames > 59)
@@ -557,11 +557,11 @@ static void HandleInputShowTargets(enum BattlerId battler)
     {
         PlaySE(SE_SELECT);
         HideShownTargets(battler);
-        /*if (gBattleStruct->mega.playerSelect)
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, gMoveSelectionCursor[battler] | RET_MEGA_EVOLUTION | (gMultiUsePlayerCursor << 8));
-        else*/
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
-        //HideMegaTriggerSprite();
+        if (gBattleStruct->gimmick.playerSelect)
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, gMoveSelectionCursor[battler] | RET_GIMMICK | (gMultiUsePlayerCursor << 8));
+        else
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
+        HideGimmickTriggerSprite();
         //TryHideLastUsedBall();
         PlayerBufferExecCompleted(battler);
     }
@@ -711,11 +711,11 @@ void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setu
         {
         case 0:
         default:
-            /*if (gBattleStruct->mega.playerSelect)
-                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, gMoveSelectionCursor[battler] | RET_MEGA_EVOLUTION | (gMultiUsePlayerCursor << 8));
-            else*/
+            if (gBattleStruct->gimmick.playerSelect)
+                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, gMoveSelectionCursor[battler] | RET_GIMMICK | (gMultiUsePlayerCursor << 8));
+            else
                 BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
-            //HideMegaTriggerSprite();
+            HideGimmickTriggerSprite();
             //TryHideLastUsedBall();
             PlayerBufferExecCompleted(battler);
             break;

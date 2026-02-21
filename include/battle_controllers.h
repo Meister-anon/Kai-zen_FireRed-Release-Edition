@@ -199,7 +199,7 @@ enum {
 
 // Special return values in gBattleResources->bufferB from Battle Controller functions.
 #define RET_VALUE_LEVELED_UP   11
-#define RET_GIMMICK       (1 << 7)  //believe same as above
+#define RET_GIMMICK       (1 << 7)  //believe same as above //should have replaced ret mega evolution
 
 struct BattleBoxMessageDisplay
 {

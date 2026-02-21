@@ -1360,51 +1360,54 @@ static void OpponentHandleUnknownYesNoBox(enum BattlerId battler)
 
 static void OpponentHandleChooseMove(enum BattlerId battler)
 {
-    u8 chosenMoveId;
+    u32 chosenMoveIndex;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
 
     if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_FIRST_BATTLE | BATTLE_TYPE_SAFARI | BATTLE_TYPE_ROAMER)
     || IsWildMonSmart())
     {
 
-        //BattleAI_SetupAIData_Default();
-        //chosenMoveId = BattleAI_ChooseMoveOrAction();
-
-        chosenMoveId = gBattleStruct->aiMoveOrAction[battler];
-        gBattlerTarget = gBattleStruct->aiChosenTarget[battler];
-
-        switch (chosenMoveId)
+        if (gAiBattleData->actionFlee)
         {
-        case AI_CHOICE_WATCH:
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_SAFARI_WATCH_CAREFULLY, 0);
-            break;
-        case AI_CHOICE_FLEE:
+            gAiBattleData->actionFlee = FALSE;
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_RUN, 0);
-            break;
-        case AI_CHOICE_SWITCH:
-                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, 0xFFFF);
-                break;
-            case 6:
-                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 15, gBattlerTarget);
-        default:
-            if (gMovesInfo[moveInfo->moves[chosenMoveId]].target & (TARGET_SELECTED | TARGET_USER))
+        }
+        else if (gAiBattleData->choiceWatch)
+        {
+            gAiBattleData->choiceWatch = FALSE;
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_SAFARI_WATCH_CAREFULLY, 0);
+        }
+        else
+        {
+            chosenMoveIndex = gAiBattleData->chosenMoveIndex[battler];
+            gBattlerTarget = gAiBattleData->chosenTarget[battler];
+
+            u32 chosenMove = moveInfo->moves[chosenMoveIndex];
+            enum MoveTarget target = GetBattlerMoveTargetType(battler, chosenMove);
+
+            if (target == TARGET_USER || target == TARGET_USER_OR_ALLY)
                 gBattlerTarget = battler;
-            if (gMovesInfo[moveInfo->moves[chosenMoveId]].target & TARGET_BOTH)
+
+            if (target == TARGET_BOTH)
             {
                 gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
                 if (gAbsentBattlerFlags & (1u << gBattlerTarget))
                     gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
             }
-
-            // If opponent can mega evolve, do it.
-            //redo in form change branch don't won't always frame 1 mega evolve
-            if (CanMegaEvolve(battler))
-                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (gBattlerTarget << 8));
+            // If opponent can and should use a gimmick (considering trainer data), do it
+            enum Gimmick usableGimmick = gBattleStruct->gimmick.usableGimmick[battler];
+            if (usableGimmick != GIMMICK_NONE && IsAIUsingGimmick(battler) && !HasTrainerUsedGimmick(battler, usableGimmick))
+            {
+                gBattleStruct->gimmick.toActivate |= 1u << battler;
+                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, (chosenMoveIndex) | (RET_GIMMICK) | (gBattlerTarget << 8));
+            }
             else
-                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (gBattlerTarget << 8));
-            break;
+            {
+                SetAIUsingGimmick(battler, NO_GIMMICK);
+                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, (chosenMoveIndex) | (gBattlerTarget << 8));
+            }
         }
-        OpponentBufferExecCompleted(battler);
+        BtlController_Complete(battler);
     }
     else    // Wild pokemon - use random move
     {
@@ -1413,12 +1416,12 @@ static void OpponentHandleChooseMove(enum BattlerId battler)
 
         do
         {
-            chosenMoveId = Random() & 3;
-            move = moveInfo->moves[chosenMoveId];
+            chosenMoveIndex = Random() & 3;
+            move = moveInfo->moves[chosenMoveIndex];
         }
         while (move == MOVE_NONE);
         if (GetBattlerMoveTargetType(battler, move) & (TARGET_SELECTED | TARGET_USER))
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (battler << 8));
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (battler << 8));
         else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
             {
                 do {
@@ -1450,15 +1453,15 @@ static void OpponentHandleChooseMove(enum BattlerId battler)
                         }
                     }
                     if (isPartnerEnemy && CanTargetBattler(battler, target, move))
-                        BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (GetBattlerAtPosition(BATTLE_PARTNER(battler)) << 8));
+                        BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (GetBattlerAtPosition(BATTLE_PARTNER(battler)) << 8));
                     else
-                        BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (target << 8));
+                        BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (target << 8));
                 }
                 else
-                    BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (target << 8));
+                    BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (target << 8));
             }
         else
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveId) | (GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) << 8));
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) << 8));
 
         OpponentBufferExecCompleted(battler);
     }
