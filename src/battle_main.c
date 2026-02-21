@@ -209,6 +209,14 @@ EWRAM_DATA u16 gExpShareExp = 0;
 EWRAM_DATA struct BattleEnigmaBerry gEnigmaBerries[MAX_BATTLERS_COUNT] = {0}; //onlyused for ereader stuff can remove - is very pervasive
 EWRAM_DATA struct BattleScripting gBattleScripting = {0};
 EWRAM_DATA struct BattleStruct *gBattleStruct = NULL;
+//new additions
+EWRAM_DATA struct StartingStatuses gStartingStatuses = {0};
+EWRAM_DATA struct AiThinkingStruct *gAiThinkingStruct = NULL;
+EWRAM_DATA struct AiLogicData *gAiLogicData = NULL;
+EWRAM_DATA struct AiPartyData *gAiPartyData = NULL;
+EWRAM_DATA struct BattleHistory *gBattleHistory = NULL;
+EWRAM_DATA struct AiBattleData *gAiBattleData = NULL;
+
 EWRAM_DATA u8 *gLinkBattleSendBuffer = NULL;
 EWRAM_DATA u8 *gLinkBattleRecvBuffer = NULL;
 EWRAM_DATA struct BattleResources *gBattleResources = NULL;  //edited includes flags I added i.e flashfire etc. appears only clear on battle start, switch or faint
@@ -2862,6 +2870,7 @@ void FreeRestoreBattleData(void)
     FreeMonSpritesGfx();
     FreeBattleSpritesData();
     FreeBattleResources();
+    ResetDynamicAiFunctions();
 }
 
 void CB2_QuitRecordedBattle(void)
@@ -4238,10 +4247,27 @@ void SwitchInClearSetData(enum BattlerId battler, struct Volatiles *volatilesCop
     // Reset damage to prevent things like red card activating if the switched-in mon is holding it
     gSpecialStatuses[battler].damagedByAttack = FALSE;
 
+    // Reset Eject Button / Eject Pack switch detection
+    gAiLogicData->ejectButtonSwitch = FALSE;
+    gAiLogicData->ejectPackSwitch = FALSE;
+
     gBattleStruct->overwrittenAbilities[battler] = ABILITY_NONE;
 
     // Clear selected party ID so Revival Blessing doesn't get confused.
     gSelectedMonPartyId = PARTY_SIZE;
+
+    // Allow for illegal abilities within tests.
+    #if TESTING
+    if (gTestRunnerEnabled)
+    {
+        enum BattleTrainer trainer = GetBattlerTrainer(battler);
+        u32 partyIndex = gBattlerPartyIndexes[battler];
+        if (TestRunner_Battle_GetForcedAbility(trainer, partyIndex))
+            gBattleMons[battler].ability = TestRunner_Battle_GetForcedAbility(trainer, partyIndex);
+    }
+    #endif // TESTING
+
+    Ai_UpdateSwitchInData(battler);
 }
 
 #define CLEARDATA_ON_FAINT
@@ -4366,11 +4392,11 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
 
         gBattleStruct->lastTakenMoveFrom[i][battler] = 0;
     }
-    gBattleMons[battler].type1 = gSpeciesInfo[gBattleMons[battler].species].type1;
-    gBattleMons[battler].type2 = gSpeciesInfo[gBattleMons[battler].species].type2;
+    gBattleMons[battler].type1 = GetSpeciesPrimaryType(gBattleMons[battler].species);
+    gBattleMons[battler].type2 = GetSpeciesSecondaryType(gBattleMons[battler].species);
     gBattleMons[battler].type3 = TYPE_MYSTERY;
 
-    //Ai_UpdateFaintData(battler);
+    Ai_UpdateFaintData(battler);
     TryBattleFormChange(battler, FORM_CHANGE_FAINT, GetBattlerAbility(battler)); //replaced undomegaevolution
 
     //UndoFormChange(gBattlerPartyIndexes[battler], GET_BATTLER_SIDE(battler), FALSE); //vsonic some logic still to do
@@ -4573,6 +4599,9 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
     }
 }
 
+//seems equiv of DoBattleIntro in EE
+//make sure take that would be excellent for my
+//planned battle reset stuff
 static void BattleIntroDrawPartySummaryScreens(void)
 {
     s32 i;
@@ -4741,8 +4770,12 @@ static void BattleIntroPlayerSendsOutMonAnimation(void)
 
     if (!gBattleControllerExecFlags)
     {
+        gBattleStruct->eventState.beforeFirstTurn = 0;
+            gBattleStruct->switchInBattlerCounter = 0;
+            Ai_InitPartyStruct(); // Save mons party counts, and first 2/4 mons on the battlefield.
         for (battler = 0; battler < gBattlersCount; ++battler)
         {
+            GetBattlerPartyState(battler)->sentOut = TRUE;
             if (GetBattlerPosition(battler) == B_POSITION_PLAYER_LEFT)
             {
                 BtlController_EmitIntroTrainerBallThrow(battler, B_COMM_TO_CONTROLLER);
@@ -4754,9 +4787,9 @@ static void BattleIntroPlayerSendsOutMonAnimation(void)
                 MarkBattlerForControllerExec(battler);
             }
         }
-        gBattleStruct->switchInAbilitiesCounter = 0;
+        /*gBattleStruct->switchInAbilitiesCounter = 0;
         gBattleStruct->switchInItemsCounter = 0;
-        gBattleStruct->overworldWeatherDone = FALSE;
+        gBattleStruct->overworldWeatherDone = FALSE;*/
         gBattleMainFunc = TryDoEventsBeforeFirstTurn;
     }
 }
@@ -4777,7 +4810,7 @@ static void UNUSED Unused_AutoProgressToSwitchInAnims(void)
         }
         gBattleStruct->switchInAbilitiesCounter = 0;
         gBattleStruct->switchInItemsCounter = 0;
-        gBattleStruct->overworldWeatherDone = FALSE;
+        gBattleStruct->overworldWeatherDone = FALSE;*/
         gBattleMainFunc = TryDoEventsBeforeFirstTurn;
     }
 }
@@ -4791,108 +4824,115 @@ static void TryDoEventsBeforeFirstTurn(void)
     s32 i, j;
     u8 effect = 0;
 
-    if (!gBattleControllerExecFlags)
+    if (gBattleControllerExecFlags)
+        return;
+
+    
+    if (gBattleStruct->switchInAbilitiesCounter == 0)
     {
-        
-        if (gBattleStruct->switchInAbilitiesCounter == 0)
-        {
-            for (i = 0; i < gBattlersCount; ++i)
-                gBattlerByTurnOrder[i] = i;
-            for (i = 0; i < gBattlersCount - 1; ++i)
-                for (j = i + 1; j < gBattlersCount; ++j)    //functino is weird, way works if 0 I attack first, 
-                    if (GetWhoStrikesFirst(gBattlerByTurnOrder[i], gBattlerByTurnOrder[j], TRUE) != 0) //which iswhy here it swaps order, 
-                        SwapTurnOrder(i, j);
-        }
-        
-        if (!gBattleStruct->terrainDone && AbilityBattleEffects(0, 0, 0, ABILITYEFFECT_SWITCH_IN_TERRAIN, 0) != 0)
-        {
-            gBattleStruct->terrainDone = TRUE;
-            return;
-        }
-        if (!gBattleStruct->overworldWeatherDone && AbilityBattleEffects(0, 0, 0, ABILITYEFFECT_SWITCH_IN_WEATHER, 0) != 0)
-        {
-            gBattleStruct->overworldWeatherDone = TRUE; //move here cuz I want terrain to trigger first
-            return;
-        }
-        // Totem boosts
-        /*for (i = 0; i < gBattlersCount; i++)
-        {
-            if (gTotemBoosts[i].stats != 0)
-            {
-                gBattlerAttacker = i;
-                BattleScriptExecute(BattleScript_TotemVar);
-                return;
-            }
-        }
-        memset(gTotemBoosts, 0, sizeof(gTotemBoosts));  // erase all totem boosts just to be safe
-        */
-        // Primal Reversion
-        for (i = 0; i < gBattlersCount; i++)
-        {
-            if (CanMegaEvolve(i)
-                && GetBattlerHoldEffect(i) == HOLD_EFFECT_PRIMAL_ORB)
-            {
-                gBattlerAttacker = i;
-                BattleScriptExecute(BattleScript_PrimalReversion);
-                return;
-            }
-        }
-
-        // Check neutralizing gas
-        if (AbilityBattleEffects(ABILITYEFFECT_NEUTRALIZINGGAS, 0, 0, 0, 0) != 0)
-            return;//note removal of levitate will make flying types safer
-        //from poison/weezing, but countred by increasd smackdown learnset and roost change
-
-        // Check all switch in abilities happening from the fastest mon to slowest.
-        while (gBattleStruct->switchInAbilitiesCounter < gBattlersCount) //want to change to work on switchin and when opponent switches pokemon.
-        {
-            if (AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, gBattlerByTurnOrder[gBattleStruct->switchInAbilitiesCounter], 0, 0, 0) != 0)
-                ++effect; //believe this is looping through only switch in abilities, I think long as ability isn't none?
-            ++gBattleStruct->switchInAbilitiesCounter; //intimidate2 isn't referenced anywhere, so I assume its just baked into normal switchin
-            //if I want another category of switchin abilities, pretty sure all I need to do is add it in here above the counter? unless this is all really battle 1st turn
-            //and not firstturn for mon in which case it wouldn't work for my needs..
-            if (effect)//think if effect increments counts as activated so returns and checks next battler?
-                return; //yeah checking mon in battle for if they have switchin abilities, and activates them if they do.
-        } //check pursuit it may be the best way to do this, since it tells when a battler is switching and activates an effect
-        //plan to pattern after spikes instead as that effects side, and only on mon switching in
-        if (AbilityBattleEffects(ABILITYEFFECT_INTIMIDATE1, 0, 0, 0, 0) != 0) //this is battle start intimidate.
-            return;
-        if (AbilityBattleEffects(ABILITYEFFECT_TRACE, 0, 0, 0, 0) != 0)
-            return;
-        // Check all switch in items having effect from the fastest mon to slowest.
-        while (gBattleStruct->switchInItemsCounter < gBattlersCount)
-        {
-            if (ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, gBattlerByTurnOrder[gBattleStruct->switchInItemsCounter], FALSE))
-                ++effect;
-            ++gBattleStruct->switchInItemsCounter;
-            if (effect)
-                return;
-        }
-        for (i = 0; i < gBattlersCount; ++i) // pointless, ruby leftover
-            ;
-        for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
-        {
-            *(gBattleStruct->monToSwitchIntoId + i) = PARTY_SIZE;
-            gChosenActionByBattler[i] = B_ACTION_NONE;
-            gChosenMoveByBattler[i] = MOVE_NONE;
-        }
-        TurnValuesCleanUp(FALSE);
-        SpecialStatusesClear();
-        *(&gAbsentBattlerFlags) = gAbsentBattlerFlags;
-        gBattleMainFunc = HandleTurnActionSelectionState;
-        ResetSentPokesToOpponentValue();
-        for (i = 0; i < BATTLE_COMMUNICATION_ENTRIES_COUNT; ++i)
-            gBattleCommunication[i] = 0;
-        gBattleStruct->eventState.endTurnBlock = 0;
-        gBattleStruct->eventState.endTurnBattler = 0;
-        gBattleScripting.moveendState = 0;
-        gBattleStruct->eventState.faintedAction = 0;
-        gBattleStruct->eventState.endTurn = 0;
-        gRandomTurnNumber = Random();
-
-        //seems EE later replaced this w SetAiLogicDataForTurn
-        GetAiLogicData(); // get assumed abilities, hold effects, etc of all battlers
+        for (i = 0; i < gBattlersCount; ++i)
+            gBattlerByTurnOrder[i] = i;
+        for (i = 0; i < gBattlersCount - 1; ++i)
+            for (j = i + 1; j < gBattlersCount; ++j)    //functino is weird, way works if 0 I attack first, 
+                if (GetWhoStrikesFirst(gBattlerByTurnOrder[i], gBattlerByTurnOrder[j], TRUE) != 0) //which iswhy here it swaps order, 
+                    SwapTurnOrder(i, j);
     }
+    
+    if (!gBattleStruct->terrainDone && AbilityBattleEffects(0, 0, 0, ABILITYEFFECT_SWITCH_IN_TERRAIN, 0) != 0)
+    {
+        gBattleStruct->terrainDone = TRUE;
+        return;
+    }
+    if (!gBattleStruct->overworldWeatherDone && AbilityBattleEffects(0, 0, 0, ABILITYEFFECT_SWITCH_IN_WEATHER, 0) != 0)
+    {
+        gBattleStruct->overworldWeatherDone = TRUE; //move here cuz I want terrain to trigger first
+        return;
+    }
+    // Totem boosts
+    /*for (i = 0; i < gBattlersCount; i++)
+    {
+        if (gTotemBoosts[i].stats != 0)
+        {
+            gBattlerAttacker = i;
+            BattleScriptExecute(BattleScript_TotemVar);
+            return;
+        }
+    }
+    memset(gTotemBoosts, 0, sizeof(gTotemBoosts));  // erase all totem boosts just to be safe
+    */
+    // Primal Reversion
+    for (i = 0; i < gBattlersCount; i++)
+    {
+        if (CanMegaEvolve(i)
+            && GetBattlerHoldEffect(i) == HOLD_EFFECT_PRIMAL_ORB)
+        {
+            gBattlerAttacker = i;
+            BattleScriptExecute(BattleScript_PrimalReversion);
+            return;
+        }
+    }
+
+    // Check neutralizing gas
+    if (AbilityBattleEffects(ABILITYEFFECT_NEUTRALIZINGGAS, 0, 0, 0, 0) != 0)
+        return;//note removal of levitate will make flying types safer
+    //from poison/weezing, but countred by increasd smackdown learnset and roost change
+
+    // Check all switch in abilities happening from the fastest mon to slowest.
+    while (gBattleStruct->switchInAbilitiesCounter < gBattlersCount) //want to change to work on switchin and when opponent switches pokemon.
+    {
+        if (AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, gBattlerByTurnOrder[gBattleStruct->switchInAbilitiesCounter], 0, 0, 0) != 0)
+            ++effect; //believe this is looping through only switch in abilities, I think long as ability isn't none?
+        ++gBattleStruct->switchInAbilitiesCounter; //intimidate2 isn't referenced anywhere, so I assume its just baked into normal switchin
+        //if I want another category of switchin abilities, pretty sure all I need to do is add it in here above the counter? unless this is all really battle 1st turn
+        //and not firstturn for mon in which case it wouldn't work for my needs..
+        if (effect)//think if effect increments counts as activated so returns and checks next battler?
+            return; //yeah checking mon in battle for if they have switchin abilities, and activates them if they do.
+    } //check pursuit it may be the best way to do this, since it tells when a battler is switching and activates an effect
+    //plan to pattern after spikes instead as that effects side, and only on mon switching in
+    if (AbilityBattleEffects(ABILITYEFFECT_INTIMIDATE1, 0, 0, 0, 0) != 0) //this is battle start intimidate.
+        return;
+    if (AbilityBattleEffects(ABILITYEFFECT_TRACE, 0, 0, 0, 0) != 0)
+        return;
+    // Check all switch in items having effect from the fastest mon to slowest.
+    while (gBattleStruct->switchInItemsCounter < gBattlersCount)
+    {
+        if (ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, gBattlerByTurnOrder[gBattleStruct->switchInItemsCounter], FALSE))
+            ++effect;
+        ++gBattleStruct->switchInItemsCounter;
+        if (effect)
+            return;
+    }
+    for (i = 0; i < gBattlersCount; ++i) // pointless, ruby leftover
+        ;
+    for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
+    {
+        *(gBattleStruct->monToSwitchIntoId + i) = PARTY_SIZE;
+        gChosenActionByBattler[i] = B_ACTION_NONE;
+        gChosenMoveByBattler[i] = MOVE_NONE;
+    }
+    TurnValuesCleanUp(FALSE);
+    SpecialStatusesClear();
+    *(&gAbsentBattlerFlags) = gAbsentBattlerFlags;
+    gBattleMainFunc = HandleTurnActionSelectionState;
+    ResetSentPokesToOpponentValue();
+
+
+    for (i = 0; i < BATTLE_COMMUNICATION_ENTRIES_COUNT; ++i)
+        gBattleCommunication[i] = 0;
+
+
+    gBattleStruct->eventState.endTurnBlock = 0;
+    gBattleStruct->eventState.endTurnBattler = 0;
+    gBattleScripting.moveendState = 0;
+    gBattleStruct->eventState.faintedAction = 0;
+    gBattleStruct->eventState.endTurn = 0;
+    gRandomTurnNumber = Random();
+
+    //memset(gQueuedStatBoosts, 0, sizeof(gQueuedStatBoosts));
+    SetShellSideArmCategory();
+    SetAiLogicDataForTurn(gAiLogicData); // get assumed abilities, hold effects, etc of all battlers
+
+    gBattleStruct->eventState.beforeFirstTurn = 0;
 }
 
 static void HandleEndTurn_ContinueBattle(void)
@@ -4998,7 +5038,8 @@ void BattleTurnPassed(void) //after all moves used
         *(gBattleStruct->monToSwitchIntoId + i) = PARTY_SIZE;
 
     *(&gAbsentBattlerFlags) = gAbsentBattlerFlags;
-    GetAiLogicData(); // get assumed abilities, hold effects, etc of all battlers
+    SetShellSideArmCategory();
+    SetAiLogicDataForTurn(gAiLogicData); // get assumed abilities, hold effects, etc of all battlers
     gBattleMainFunc = HandleTurnActionSelectionState;
     gRandomTurnNumber = Random();
 }
@@ -6723,6 +6764,7 @@ static void HandleEndTurn_FinishBattle(void)
 //ok EE removed replaced some checks/use for gLeveldUpInBattle
 //becuse they ported the dumb evo methods from gen8
 //which specifically don't require exp/leveling to trigger
+//don't fully understand but EE uses a return value when return to ow
 static void FreeResetData_ReturnToOvOrDoEvolutions(void) //  this causes end battle, and starts evolutions, need to make one for in battle, 
 { // the way this is setup to work on palettefade causes it to happen one after another, return to overworld causes palette fade the else make evo happen during palette fade.
     if (!gPaletteFade.active)
@@ -6759,6 +6801,7 @@ static void FreeResetData_ReturnToOvOrDoEvolutions(void) //  this causes end bat
         FreeAllWindowBuffers();
         if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
         {
+            ResetDynamicAiFunctions();
             FreeMonSpritesGfx();
             FreeBattleSpritesData();
             FreeBattleResources();
