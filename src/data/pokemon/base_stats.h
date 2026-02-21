@@ -232,7 +232,7 @@ if it would otherwise be 0/NONE except in the case of ability.
     Poison: Is poisonous in some manner, or otherwise involves trash/waste or contamination/corruption
     Ground: Lives in deserts/underground or has some link to earth element, is distinct from rock.
     Rock:  Hardened ground sturdy and solid
-    Bug:   shoulld be typically very fast (at least by final evo) and versatile (annoying) overall weaker stats, but give it some other way to be useful, evolution and growth (stat boosting moves) big part of bugs, so my legendary evolves
+    Bug:   shoulld be typically very fast (at least by final evo, maybe not quite so much as elec) and versatile (annoying) overall weaker stats, but give it some other way to be useful, evolution and growth (stat boosting moves) big part of bugs, so my legendary evolves
     Steel:  Refined rock forged into steel, made of metal or has some relation to it/metal weapon or control of metal
     Fire: Made of fire, lives near volcano, or able to breathe fire, not exclusive to fire types some qualities also overlap w dragons
     Ice: Lives in tundra/arctic bioms, made up of or able to control ice/cold.
