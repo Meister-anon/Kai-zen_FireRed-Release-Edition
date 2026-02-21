@@ -1122,10 +1122,7 @@ struct BattleStruct
     u8 magicCoatActive:1;
     u8 magicBounceActive:1;
     u8 moveBouncer;
-    //ported to work with old ai to compile
-    s8 aiFinalScore[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // AI, target, moves to make debugging easier
-    u8 aiMoveOrAction[MAX_BATTLERS_COUNT];
-    u8 aiChosenTarget[MAX_BATTLERS_COUNT]; //ported these 3 hope ot a problem
+
 };
 extern struct BattleStruct *gBattleStruct;
 //change mind adding back fr ai would also be too expansive
