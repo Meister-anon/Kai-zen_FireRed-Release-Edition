@@ -189,7 +189,6 @@ EWRAM_DATA u16 gLockedMoves[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gLastUsedMove = 0; //still unsure if I need to add this or can just use gLastResultingMoves which seems to be equivalent
 EWRAM_DATA u8 gLastHitBy[MAX_BATTLERS_COUNT] = {0};//ran make with and without above line came to same conclusion so either works  //stores battleId
 EWRAM_DATA u16 gChosenMoveByBattler[MAX_BATTLERS_COUNT] = {0};//rn I'll use existing value to save on ram
-EWRAM_DATA u8 gMoveResultFlags = 0;
 EWRAM_DATA u32 gHitMarker = 0;
 EWRAM_DATA u8 gTakenDmgByBattler[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gSavedPartyCount = 0; //was unused rn am just using to track num party mon before catch for pc access
@@ -4199,7 +4198,6 @@ void SwitchInClearSetData(enum BattlerId battler, struct Volatiles *volatilesCop
         gBattleMons[battler].volatiles.switchBindtimer = volatilesCopy->switchBindtimer;
         gBattleMons[battler].volatiles.battlerPreventingEscape = volatilesCopy->battlerPreventingEscape;
     }
-    gMoveResultFlags = 0;
     gBattleStruct->battlerState[battler].isFirstTurn = 2; // turn of switch in
     gLastMoves[battler] = MOVE_NONE;
     gLastLandedMoves[battler] = MOVE_NONE;
@@ -4885,16 +4883,11 @@ static void TryDoEventsBeforeFirstTurn(void)
         ResetSentPokesToOpponentValue();
         for (i = 0; i < BATTLE_COMMUNICATION_ENTRIES_COUNT; ++i)
             gBattleCommunication[i] = 0;
-        for (i = 0; i < gBattlersCount; ++i)
-            gBattleMons[i].volatiles.flinched = FALSE;
-        *(&gBattleStruct->turnEffectsTracker) = 0;
-        *(&gBattleStruct->turnEffectsBattlerId) = 0;
-        *(&gBattleStruct->wishPerishSongState) = 0;
-        *(&gBattleStruct->wishPerishSongBattlerId) = 0;
-        gBattleScripting.moveendState; = 0;
+        gBattleStruct->eventState.endTurnBlock = 0;
+        gBattleStruct->eventState.endTurnBattler = 0;
+        gBattleScripting.moveendState = 0;
         gBattleStruct->eventState.faintedAction = 0;
-        gBattleStruct->turnCountersTracker = 0;
-        gMoveResultFlags = 0;
+        gBattleStruct->eventState.endTurn = 0;
         gRandomTurnNumber = Random();
 
         //seems EE later replaced this w SetAiLogicDataForTurn
@@ -4948,14 +4941,11 @@ static void HandleEndTurn_ContinueBattle(void)
             //may need add check that indexedd mon is not mimikyu or doe snot have disguise to ensure mon in questino
             //actually used forewarn or anticipation
         }
-        gBattleStruct->turnEffectsTracker = 0;
-        gBattleStruct->turnEffectsBattlerId = 0;
-        gBattleStruct->wishPerishSongState = 0;
-        gBattleStruct->wishPerishSongBattlerId = 0;
-        gBattleStruct->turnCountersTracker = 0;
-        gMoveResultFlags = 0;
+        gBattleStruct->eventState.endTurnBlock = 0;
+        gBattleStruct->eventState.endTurnBattler = 0;
+        gBattleStruct->eventState.endTurn = 0;
         if (VarGet(VAR_LAST_MULTIHIT_RESULT))
-            VarSet(VAR_LAST_MULTIHIT_RESULT, 0);    //clear last result var for multihit at turn end
+            VarSet(VAR_LAST_MULTIHIT_RESULT, 0);    //clear last result var for multihit at turn end //can prob put this in resolution vsonic
     }
 }
 
@@ -4985,10 +4975,9 @@ void BattleTurnPassed(void) //after all moves used
     gHitMarker &= ~(HITMARKER_PASSIVE_DAMAGE);
     gBattleScripting.animTurn = 0;
     gBattleScripting.animTargetsHit = 0;
-    gBattleScripting.moveendState; = 0;
+    gBattleScripting.moveendState = 0;
     gBattleMoveDamage = 0;
     gStoredHp = 0;
-    gMoveResultFlags = 0;
     for (i = 0; i < 5; ++i)
         gBattleCommunication[i] = 0;
     if (gBattleOutcome != 0)
@@ -5669,8 +5658,8 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum 
         //and strengthens type a bit, but need function for flyingmonthatcantfly or something
         //make simpler permanently grounded species could combine nah can't fit in category well
         if ((DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GHOST, FALSE) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
-        || (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_FLYING, FALSE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler))
-        || (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_WIND, FALSE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler)))
+        || (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_FLYING, FALSE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler, ability, holdEffect))
+        || (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_WIND, FALSE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler, ability, holdEffect)))
         {
             if (gBattleMons[battler].volatiles.trapSetViaMoldBreaker)
                 speed /= 2;
@@ -6923,7 +6912,6 @@ static void HandleAction_UseMove(void)
     }
     gCritMultiplier = 1;
     gBattleStruct->atkCancellerTracker = 0;
-    gMoveResultFlags = 0;
     gMultiHitCounter = 0;
     gMultiTask = 0; //add ensure is being cleared damage is weird - this seemed to be the problem
     gBattleCommunication[6] = 0;
@@ -7521,7 +7509,6 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
     
     gCurrentMove = MOVE_NONE; // but it doesn't loop because the function doesn't get called except at battle start and switch i.e switch in abilities
     gBattleMoveDamage = 0;
-    gMoveResultFlags = 0; //so what I need is to change activation condition or add a new activation condtions
     gBattleScripting.animTurn = 0; //that will be on switch in but check opposite field for a mon with intimidate
     gBattleScripting.animTargetsHit = 0;//and reactivate intimidate if mon doesn't have STATUS3_INTIMIDATE_POKES
     gLastLandedMoves[gBattlerAttacker] = 0;

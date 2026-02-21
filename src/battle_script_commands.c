@@ -8189,9 +8189,9 @@ static void Cmd_manipulatedamage(void)
 
     break;  //only used for recoil miss, make define so can use name properly, oh I already did
     case RECOIL_MISS_DMG:
-        if (gMoveResultFlags & MOVE_RESULT_NO_EFFECT) //miss
+        /*if (gMoveResultFlags & MOVE_RESULT_NO_EFFECT) //miss
             gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1);    //dmg for immunity rolled into one command
-        break;
+        */break;
     case DOUBLE_DMG:
         gBattleMoveDamage *= 2;
         break;
