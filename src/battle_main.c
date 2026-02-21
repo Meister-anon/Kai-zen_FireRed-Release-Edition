@@ -979,8 +979,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         [TYPE_WIND] =
     {
         .name = _("WIND"), //flying type readjust
-        .isHiddenPowerType = TRUE,
-    },
+        .isHiddenPowerType = TRUE, //dont really need this offesnsibly same and both types already get stab on either option
+    },//if made change revert addition to hidden power
         [TYPE_SOUND] =
     {
         .name = _("SOUND"),
@@ -1105,7 +1105,8 @@ const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT] =
     [CLASS_BOSS] = { _("BOSS"), 25 },
 };
 
-
+//unsure why but seems EE moved all handle action funcs
+//to battle_util
 static void (*const sTurnActionsFuncsTable[])(void) =
 {
     [B_ACTION_USE_MOVE] = HandleAction_UseMove,
@@ -1890,14 +1891,13 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
     if (move == MOVE_STRUGGLE || move == MOVE_BIDE)
         return;
 
-
-    gBattleStruct->ateBoost[battlerAtk] = 0;
+    gBattleStruct->battlerState[battlerAtk].ateBoost = 0;
     gSpecialStatuses[battlerAtk].gemBoost = FALSE;
 
     
     if (gMovesInfo[move].effect == EFFECT_CHANGE_TYPE_ON_ITEM) //not fling
     {
-        if (holdEffect == gMovesInfo[move].argument)
+        if (holdEffect == gMovesInfo[move].argument.holdEffect)
             *typeStorage = ItemId_GetSecondaryId(gBattleMons[battlerAtk].item);
     }
     else if (gMovesInfo[move].effect == EFFECT_REVELATION_DANCE)
@@ -1986,7 +1986,7 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
                  || (attackerAbility == ABILITY_UNCHAINED_MELODY && (ateType = TYPE_SOUND))))
     {
         *typeStorage = ateType; //above should do type change already, dmg boosts are already in pokemon.c
-        gBattleStruct->ateBoost[battlerAtk] = 1;
+        gBattleStruct->battlerState[battlerAtk].ateBoost = 1;
     }
     else if (gMovesInfo[move].type == TYPE_SOUND
              && move != MOVE_HIDDEN_POWER
@@ -1996,7 +1996,7 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
              && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
     {
         *typeStorage = ateType; //above should do type change already, dmg boosts are already in pokemon.c
-        gBattleStruct->ateBoost[battlerAtk] = 1;
+        gBattleStruct->battlerState[battlerAtk].ateBoost = 1;
     }
     else if ((move != MOVE_HIDDEN_POWER
              && move != MOVE_WEATHER_BALL
@@ -2005,7 +2005,7 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
              && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
     {                                                   //without stab, so not worth
         *typeStorage = TYPE_NORMAL;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
-        gBattleStruct->ateBoost[battlerAtk] = 1;    //actually I can do this with typecalc function and they can keep stab.
+        gBattleStruct->battlerState[battlerAtk].ateBoost = 1;    //actually I can do this with typecalc function and they can keep stab.
     }
     else if (IsSoundMove(move)
              && attackerAbility == ABILITY_LIQUID_VOICE)
@@ -2060,13 +2060,13 @@ u8 ReturnMoveType(u32 move, enum BattlerId battlerAtk)
         return moveType;
 
 
-    gBattleStruct->ateBoost[battlerAtk] = 0;
+    gBattleStruct->battlerState[battlerAtk].ateBoost = 0;
     gSpecialStatuses[battlerAtk].gemBoost = FALSE;
 
     
     if (gMovesInfo[move].effect == EFFECT_CHANGE_TYPE_ON_ITEM) //not fling
     {
-        if (holdEffect == gMovesInfo[move].argument)
+        if (holdEffect == gMovesInfo[move].argument.holdEffect)
             moveType = ItemId_GetSecondaryId(gBattleMons[battlerAtk].item);
     }
     else if (gMovesInfo[move].effect == EFFECT_REVELATION_DANCE)
@@ -4880,7 +4880,7 @@ static void TryDoEventsBeforeFirstTurn(void)
         }
         TurnValuesCleanUp(FALSE);
         SpecialStatusesClear();
-        *(&gBattleStruct->absentBattlerFlags) = gAbsentBattlerFlags;
+        *(&gAbsentBattlerFlags) = gAbsentBattlerFlags;
         gBattleMainFunc = HandleTurnActionSelectionState;
         ResetSentPokesToOpponentValue();
         for (i = 0; i < BATTLE_COMMUNICATION_ENTRIES_COUNT; ++i)
@@ -4892,7 +4892,7 @@ static void TryDoEventsBeforeFirstTurn(void)
         *(&gBattleStruct->wishPerishSongState) = 0;
         *(&gBattleStruct->wishPerishSongBattlerId) = 0;
         gBattleScripting.moveendState; = 0;
-        gBattleStruct->faintedActionsState = 0;
+        gBattleStruct->eventState.faintedAction = 0;
         gBattleStruct->turnCountersTracker = 0;
         gMoveResultFlags = 0;
         gRandomTurnNumber = Random();
@@ -4973,7 +4973,7 @@ void BattleTurnPassed(void) //after all moves used
     }
     if (HandleFaintedMonActions())
         return;
-    gBattleStruct->faintedActionsState = 0;
+    gBattleStruct->eventState.faintedAction = 0;
     if (HandleWishPerishSongOnTurnEnd())
         return;
     //entire protect struct values are cleaned in this function,  (false version only)
@@ -5008,7 +5008,7 @@ void BattleTurnPassed(void) //after all moves used
     for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
         *(gBattleStruct->monToSwitchIntoId + i) = PARTY_SIZE;
 
-    *(&gBattleStruct->absentBattlerFlags) = gAbsentBattlerFlags;
+    *(&gAbsentBattlerFlags) = gAbsentBattlerFlags;
     GetAiLogicData(); // get assumed abilities, hold effects, etc of all battlers
     gBattleMainFunc = HandleTurnActionSelectionState;
     gRandomTurnNumber = Random();
@@ -5185,21 +5185,16 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
         case STATE_TURN_START_RECORD: // Recorded battle related action on start of every turn.
             //RecordedBattle_CopyBattlerMoves(battler); //added back when add recordedbattle files, will need for test system believe
             gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
-
-            // Do AI score computations here so we can use them in AI_TrySwitchOrUseItem
-            if ((gBattleTypeFlags & BATTLE_TYPE_HAS_AI || IsWildMonSmart()) && IsBattlerAIControlled(battler)) {
-                gBattleStruct->aiMoveOrAction[battler] = ComputeBattleAiScores(battler);
-            }
-            //break;
+            ComputeBattlerDecisions(battler); // Do AI score computations here so we can use them in AI_TrySwitchOrUseItem
             // fallthrough
         case STATE_BEFORE_ACTION_CHOSEN: // Choose an action.
             *(gBattleStruct->monToSwitchIntoId + battler) = PARTY_SIZE;
             if (gBattleTypeFlags & BATTLE_TYPE_MULTI
              || (position & BIT_FLANK) == B_FLANK_LEFT
-             || gBattleStruct->absentBattlerFlags & (1u << GetBattlerAtPosition(BATTLE_PARTNER(position)))
+             || gAbsentBattlerFlags & (1u << GetBattlerAtPosition(BATTLE_PARTNER(position)))
              || gBattleCommunication[GetBattlerAtPosition(BATTLE_PARTNER(position))] == STATE_WAIT_ACTION_CONFIRMED) //partner already chose action
             {
-                if (gBattleStruct->absentBattlerFlags & (1u << battler))
+                if (gAbsentBattlerFlags & (1u << battler) || gBattleStruct->battlerState[battler].commandingPartner)
                 {
                     gChosenActionByBattler[battler] = B_ACTION_NOTHING_FAINTED;
                     if (!(gBattleTypeFlags & BATTLE_TYPE_MULTI))
@@ -5228,7 +5223,7 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
             }
             break;
         case STATE_WAIT_ACTION_CHOSEN: // Try to perform an action. //i.e selection from fight,pokemon,item/run
-            if (!(gBattleControllerExecFlags & (((1u << battler)) | (0xF << 28) | ((1u << battler) << 4) | ((1u << battler) << 8) | ((1u << battler) << 0xC))))
+            if (!IsBattleControllerActiveOrPendingSyncAnywhere(battler))
             {
                 //passes selected action, to gchosen for next link in action chain, 
                 //present task identify process to fix bind, then return to dex
@@ -5240,8 +5235,8 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     if (AreAllMovesUnusable(battler))//think was same issue as other place w struggle set
                     {
                         gBattleCommunication[battler] = STATE_SELECTION_SCRIPT;
-                        *(gBattleStruct->selectionScriptFinished + battler) = FALSE;
-                        *(gBattleStruct->stateIdAfterSelScript + battler) = STATE_WAIT_ACTION_CONFIRMED_STANDBY;
+                        gBattleStruct->battlerState[battler].selectionScriptFinished = FALSE;
+                        gBattleStruct->stateIdAfterSelScript[battler] = STATE_WAIT_ACTION_CONFIRMED_STANDBY;
                         *(gBattleStruct->moveTarget + battler) = gBattleResources->bufferB[battler][3];
                         return;
                     }
@@ -5284,8 +5279,8 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     {
                         gSelectionBattleScripts[battler] = BattleScript_ActionSelectionItemsCantBeUsed;
                         gBattleCommunication[battler] = STATE_SELECTION_SCRIPT;
-                        *(gBattleStruct->selectionScriptFinished + battler) = FALSE;
-                        *(gBattleStruct->stateIdAfterSelScript + battler) = STATE_BEFORE_ACTION_CHOSEN;
+                        gBattleStruct->battlerState[battler].selectionScriptFinished = FALSE;
+                        gBattleStruct->stateIdAfterSelScript[battler] = STATE_BEFORE_ACTION_CHOSEN;
                         return;
                     }
                     else
@@ -5318,8 +5313,8 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     {
                         gSelectionBattleScripts[battler] = BattleScript_PrintFullBox;
                         gBattleCommunication[battler] = STATE_SELECTION_SCRIPT;
-                        *(gBattleStruct->selectionScriptFinished + battler) = FALSE;
-                        *(gBattleStruct->stateIdAfterSelScript + battler) = STATE_BEFORE_ACTION_CHOSEN;
+                        gBattleStruct->battlerState[battler].selectionScriptFinished = FALSE;
+                        gBattleStruct->stateIdAfterSelScript[battler] = STATE_BEFORE_ACTION_CHOSEN;
                         return;
                     }
                     break;
@@ -5351,8 +5346,8 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                 {
                     gSelectionBattleScripts[battler] = BattleScript_PrintCantEscapeFromBattle;
                     gBattleCommunication[battler] = STATE_SELECTION_SCRIPT;
-                    *(gBattleStruct->selectionScriptFinished + battler) = FALSE;
-                    *(gBattleStruct->stateIdAfterSelScript + battler) = STATE_BEFORE_ACTION_CHOSEN;
+                    gBattleStruct->battlerState[battler].selectionScriptFinished = FALSE;
+                    gBattleStruct->stateIdAfterSelScript[battler] = STATE_BEFORE_ACTION_CHOSEN;
                     return;
                 }
                 else
@@ -5362,7 +5357,7 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
             }
             break;
         case STATE_WAIT_ACTION_CASE_CHOSEN:
-            if (!(gBattleControllerExecFlags & (((1u << battler)) | (0xF0000000) | ((1u << battler) << 4) | ((1u << battler) << 8) | ((1u << battler) << 0xC))))
+            if (!IsBattleControllerActiveOrPendingSyncAnywhere(battler))
             {
                 switch (gChosenActionByBattler[battler])
                 {
@@ -5380,9 +5375,9 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                         else if (TrySetCantSelectMoveBattleScript(battler)) //if not vali move
                         {
                             gBattleCommunication[battler] = STATE_SELECTION_SCRIPT;
-                            *(gBattleStruct->selectionScriptFinished + battler) = FALSE;
+                            gBattleStruct->battlerState[battler].selectionScriptFinished = FALSE;
                             gBattleResources->bufferB[battler][1] = 0;
-                            *(gBattleStruct->stateIdAfterSelScript + battler) = STATE_WAIT_ACTION_CHOSEN;
+                            gBattleStruct->stateIdAfterSelScript[battler] = STATE_WAIT_ACTION_CHOSEN;
                             return;
                         }
                         else
@@ -5457,11 +5452,11 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
             }
             break;
         case STATE_WAIT_ACTION_CONFIRMED_STANDBY:
-            if (!(gBattleControllerExecFlags & (((1u << battler)) | (0xF0000000) | ((1u << battler) << 4) | ((1u << battler) << 8) | ((1u << battler) << 0xC))))
+            if (!IsBattleControllerActiveOrPendingSyncAnywhere(battler))
             {
                 if (((gBattleTypeFlags & (BATTLE_TYPE_MULTI | BATTLE_TYPE_DOUBLE)) != BATTLE_TYPE_DOUBLE)
                  || (position & BIT_FLANK) != B_FLANK_LEFT
-                 || (*(&gBattleStruct->absentBattlerFlags) & (1u << GetBattlerAtPosition(position ^ BIT_FLANK))))
+                 || (*(&gAbsentBattlerFlags) & (1u << GetBattlerAtPosition(position ^ BIT_FLANK))))
                     BtlController_EmitLinkStandbyMsg(battler, B_COMM_TO_CONTROLLER, 0);
                 else
                     BtlController_EmitLinkStandbyMsg(battler, B_COMM_TO_CONTROLLER, 1);
@@ -5470,27 +5465,59 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
             }
             break;
         case STATE_WAIT_ACTION_CONFIRMED:
-            if (!(gBattleControllerExecFlags & (((1u << battler)) | (0xF0000000) | ((1u << battler) << 4) | ((1u << battler) << 8) | ((1u << battler) << 0xC))))
+            if (!IsBattleControllerActiveOrPendingSyncAnywhere(battler))
                 ++gBattleCommunication[ACTIONS_CONFIRMED_COUNT];
             break;
         case STATE_SELECTION_SCRIPT:
-            if (*(gBattleStruct->selectionScriptFinished + battler))
+            if (gBattleStruct->battlerState[battler].selectionScriptFinished)
             {
-                gBattleCommunication[battler] = *(gBattleStruct->stateIdAfterSelScript + battler);
+                gSelectionBattleScripts[battler] = NULL;
+                gBattleCommunication[battler] = gBattleStruct->stateIdAfterSelScript[battler];
             }
             else
             {
                 gBattlerAttacker = battler;
                 gBattlescriptCurrInstr = gSelectionBattleScripts[battler];
-                if (!(gBattleControllerExecFlags & (((1u << battler)) | (0xF0000000) | ((1u << battler) << 4) | ((1u << battler) << 8) | ((1u << battler) << 0xC))))
+                if (!IsBattleControllerActiveOrPendingSyncAnywhere(battler))
                     gBattleScriptingCommandsTable[gBattlescriptCurrInstr[0]]();
                 gSelectionBattleScripts[battler] = gBattlescriptCurrInstr;
             }
             break;
         case STATE_WAIT_SET_BEFORE_ACTION:
-            if (!(gBattleControllerExecFlags & (((1u << battler)) | (0xF0000000) | ((1u << battler) << 4) | ((1u << battler) << 8) | ((1u << battler) << 0xC))))
+            if (!IsBattleControllerActiveOrPendingSyncAnywhere(battler))
                 gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
             break;
+        /* //in EE only
+        case STATE_SELECTION_SCRIPT_MAY_RUN:
+            if (gBattleStruct->battlerState[battler].selectionScriptFinished)
+            {
+                gSelectionBattleScripts[battler] = NULL;
+                if (gBattleResources->bufferB[battler][1] == B_ACTION_NOTHING_FAINTED)
+                {
+                    gHitMarker |= HITMARKER_RUN;
+                    gChosenActionByBattler[battler] = B_ACTION_RUN;
+                    gBattleCommunication[battler] = STATE_WAIT_ACTION_CONFIRMED_STANDBY;
+                }
+                else
+                {
+                    RecordedBattle_ClearBattlerAction(battler, 1);
+                    gBattleCommunication[battler] = gBattleStruct->stateIdAfterSelScript[battler];
+                }
+            }
+            else
+            {
+                assertf(gSelectionBattleScripts[battler] != NULL, "selection script set to run, but pointer is null");
+                gBattlerAttacker = battler;
+                gBattlescriptCurrInstr = gSelectionBattleScripts[battler];
+                if (!IsBattleControllerActiveOrPendingSyncAnywhere(battler))
+                {
+                    gBattleScriptingCommandsTable[gBattlescriptCurrInstr[0]]();
+                }
+                gSelectionBattleScripts[battler] = gBattlescriptCurrInstr;
+            }
+            break;
+        }
+        */
         }
     }
     // Check if everyone chose actions.
@@ -5686,12 +5713,15 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum 
 //argument and loop gbattlerscount
 void SortBattlersBySpeed(enum BattlerId *battlers, bool8 slowToFast)
 {
-    int i, j, currSpeed, currBattler;
-    u16 speeds[4] = {0};
+    int i, j, currSpeed;
+    enum BattlerId currBattler;
+    u16 speeds[MAX_BATTLERS_COUNT] = {0};
 
     for (i = 0; i < gBattlersCount; i++)
-        speeds[i] = GetBattlerTotalSpeedStat(battlers[i]);
-
+    {
+        enum BattlerId battler = battlers[i];
+        speeds[i] = GetBattlerTotalSpeedStat(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler));
+    }
     for (i = 1; i < gBattlersCount; i++)
     {
         currBattler = battlers[i];
@@ -5740,8 +5770,8 @@ u8 GetWhoStrikesFirst(enum BattlerId battler1, enum BattlerId battler2, bool8 ig
 
     
     // Battler 1
-    speedBattler1 = GetBattlerTotalSpeedStat(battler1);
     holdEffectBattler1 = GetBattlerHoldEffect(battler1);
+    speedBattler1 = GetBattlerTotalSpeedStat(battler1, ability1, holdEffectBattler1);
     holdEffectParam1 = GetItemHoldEffectParam(gBattleMons[battler1].item);
   
     
@@ -5758,8 +5788,8 @@ u8 GetWhoStrikesFirst(enum BattlerId battler1, enum BattlerId battler2, bool8 ig
 
     // check second battlerId's speed
     // Battler 2
-    speedBattler2 = GetBattlerTotalSpeedStat(battler2);
     holdEffectBattler2 = GetBattlerHoldEffect(battler2);
+    speedBattler2 = GetBattlerTotalSpeedStat(battler2, ability2, holdEffectBattler2);
     holdEffectParam2 = GetItemHoldEffectParam(gBattleMons[battler2].item);
     
     // Quick Claw
@@ -6886,7 +6916,7 @@ static void HandleAction_UseMove(void)
     u16 moveTarget; //changing that didn't fix anything, targetting still fails
 
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
-    if (*(&gBattleStruct->absentBattlerFlags) & (1u << gBattlerAttacker))
+    if (*(&gAbsentBattlerFlags) & (1u << gBattlerAttacker))
     {
         gCurrentActionFuncId = B_ACTION_FINISHED;
         return;
@@ -7105,7 +7135,7 @@ static void HandleAction_UseItem(void)
     {
         gBattlescriptCurrInstr = gBattlescriptsForUsingItem[0];
     }
-    else
+    /*else //all this is ai logic and seems to be moved to battle_ai_items.c so prob just remove below
     {
         gBattleScripting.battler = gBattlerAttacker;
         switch (*(gBattleStruct->AI_itemType + (gBattlerAttacker >> 1)))
@@ -7157,7 +7187,7 @@ static void HandleAction_UseItem(void)
         }
 
         gBattlescriptCurrInstr = gBattlescriptsForUsingItem[*(gBattleStruct->AI_itemType + gBattlerAttacker / 2)];
-    }
+    }*/
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 
@@ -7445,7 +7475,7 @@ static void HandleAction_TryFinish(void)
 {
     if (!HandleFaintedMonActions())
     {
-        gBattleStruct->faintedActionsState = 0;
+        gBattleStruct->eventState.faintedAction = 0;
         gCurrentActionFuncId = B_ACTION_FINISHED;
     }
 }

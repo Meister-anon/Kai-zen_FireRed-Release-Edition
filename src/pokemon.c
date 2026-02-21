@@ -5584,7 +5584,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (GetBattlerPartyState(battlerIdAtk)->cachedAbilityTimers)
             OffensiveModifer(50);
     case ABILITY_NORMALIZE:
-        if (gBattleStruct->ateBoost[battlerIdAtk])//    if receives altl type damage boost?
+        if (gBattleStruct->battlerState[battlerIdAtk].ateBoost)//    if receives altl type damage boost?
             gBattleMovePower = (gBattleMovePower * 120 / 100);  //will do neutral to everything, but keeping this line, as also won't get stab, buffed to 130 from 120
         //MulModifier(&modifier, UQ_4_12(1.2));                                 //DROPPED back to 120 as realized way to make neutral while still getting stab
         break;
@@ -5650,27 +5650,27 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
     case ABILITY_FAIRY_MIST:
     case ABILITY_PIXILATE:
-        if (moveType == TYPE_FAIRY && gBattleStruct->ateBoost[battlerIdAtk])
+        if (moveType == TYPE_FAIRY && gBattleStruct->battlerState[battlerIdAtk].ateBoost)
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_REFRIGERATE:
-        if (moveType == TYPE_ICE && gBattleStruct->ateBoost[battlerIdAtk])
+        if (moveType == TYPE_ICE && gBattleStruct->battlerState[battlerIdAtk].ateBoost)
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_AERILATE:
-        if (moveType == TYPE_FLYING && gBattleStruct->ateBoost[battlerIdAtk])
+        if (moveType == TYPE_FLYING && gBattleStruct->battlerState[battlerIdAtk].ateBoost)
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_GALVANIZE:
-        if (moveType == TYPE_ELECTRIC && gBattleStruct->ateBoost[battlerIdAtk])
+        if (moveType == TYPE_ELECTRIC && gBattleStruct->battlerState[battlerIdAtk].ateBoost)
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_UNCHAINED_MELODY:
-        if (moveType == TYPE_SOUND && gBattleStruct->ateBoost[battlerIdAtk])
+        if (moveType == TYPE_SOUND && gBattleStruct->battlerState[battlerIdAtk].ateBoost)
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         break;
     case ABILITY_GRUNGE:
