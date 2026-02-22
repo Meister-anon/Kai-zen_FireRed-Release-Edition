@@ -1316,8 +1316,13 @@ struct BattleScripting  //remember expanding this costs ewram
     u8 stickyWebStatDrop; // To prevent Defiant activating on a Court Change'd Sticky Web
     u8 illusionNickHack; // To properly display nick in STRINGID_ENEMYABOUTTOSWITCHPKMN.
     u8 multiplayerId; //apparently EE added on to this
-    u8 fieldEnd; //think can get away without specialTrainerBattleType that's for multi ereader and other special Em stuff
-};
+    bool8 monCaught;  //believe most of these aren't needed, can be handled with battlescript , they are just different ways of doing things, btu I prefer saving ram.
+    //u8 fieldEnd; //think can get away without specialTrainerBattleType that's for multi ereader and other special Em stuff
+};//added back monCaught just for now
+//curious if should use for battler position so 2 values
+//could make 2 byte array to store battle position of caught mon
+//so knows what position to make invisible
+//vsonic
 
 enum
 {
