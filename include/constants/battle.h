@@ -833,6 +833,12 @@ enum CommanderType
 };
 //addittion to remove need for commanderspecies
 
+enum OctolockCountState
+{
+    PHASE_1 = 1,
+    PHASE_2 = 3,
+};
+
 //for volatiles that end with (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT)))
 //can turn them off by just setting 0, that would techically set to attacker
 //but they are typically paired witih some other condition to be read

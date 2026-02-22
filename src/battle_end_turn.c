@@ -725,11 +725,6 @@ static bool32 HandleEndTurnSaltCure(enum BattlerId battler)
     return effect;
 }
 
-enum OctolockCountState
-{
-    PHASE_1 = 1,
-    PHASE_2 = 3,
-};
 
 static bool32 HandleEndTurnOctolock(enum BattlerId battler)
 {
