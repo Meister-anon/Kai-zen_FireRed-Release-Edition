@@ -657,6 +657,11 @@ static bool32 HandleEndTurnCurse(enum BattlerId battler)
     return effect;
 }
 
+//this doesnt work for me will need go case by case through each status
+//assocaited with a trap make function that returns move based on trap status
+//and use that for arg
+//guess make case block for trap effects just like end turn and canceler stuff
+//vsonic important
 static bool32 HandleEndTurnWrap(enum BattlerId battler)
 {
     bool32 effect = FALSE;
@@ -671,21 +676,23 @@ static bool32 HandleEndTurnWrap(enum BattlerId battler)
             if (IsAbilityAndRecord(battler, GetBattlerAbility(battler), ABILITY_MAGIC_GUARD))
                 return effect;
 
-            gBattleScripting.animArg1 = gBattleMons[battler].volatiles.wrappedMove;
+            /*gBattleScripting.animArg1 = gBattleMons[battler].volatiles.wrappedMove;
             gBattleScripting.animArg2 = gBattleMons[battler].volatiles.wrappedMove >> 8;
-            PREPARE_MOVE_BUFFER(gBattleTextBuff1, gBattleMons[battler].volatiles.wrappedMove);
+            PREPARE_MOVE_BUFFER(gBattleTextBuff1, gBattleMons[battler].volatiles.wrappedMove);*/
             BattleScriptExecute(BattleScript_WrapTurnDmg);
             s32 bindDamage = 0;
-            if (GetBattlerHoldEffect(gBattleMons[battler].volatiles.wrappedBy) == HOLD_EFFECT_BINDING_BAND)
+            //reworking binding band effet for removal of wrapped by
+            /*if (GetBattlerHoldEffect(gBattleMons[battler].volatiles.wrappedBy) == HOLD_EFFECT_BINDING_BAND)
                 bindDamage = GetNonDynamaxMaxHP(battler) / (B_BINDING_DAMAGE >= GEN_6 ? 6 : 8);
-            else
-                bindDamage = GetNonDynamaxMaxHP(battler) / (B_BINDING_DAMAGE >= GEN_6 ? 8 : 16);
+            else*/
+            //beleive changed dmg for ability to have multiple effects active refer to master
+            bindDamage = GetNonDynamaxMaxHP(battler) / (B_BINDING_DAMAGE >= GEN_6 ? 8 : 16);
             SetPassiveDamageAmount(battler, bindDamage);
         }
         else  // broke free
         {
             gBattleMons[battler].volatiles.wrapped = FALSE;
-            PREPARE_MOVE_BUFFER(gBattleTextBuff1, gBattleMons[battler].volatiles.wrappedMove);
+            //PREPARE_MOVE_BUFFER(gBattleTextBuff1, gBattleMons[battler].volatiles.wrappedMove);
             BattleScriptExecute(BattleScript_WrapEnds);
         }
         effect = TRUE;
@@ -718,6 +725,12 @@ static bool32 HandleEndTurnSaltCure(enum BattlerId battler)
     return effect;
 }
 
+enum OctolockCountState
+{
+    PHASE_1 = 1,
+    PHASE_2 = 3,
+};
+
 static bool32 HandleEndTurnOctolock(enum BattlerId battler)
 {
     bool32 effect = FALSE;
@@ -735,10 +748,15 @@ static bool32 HandleEndTurnOctolock(enum BattlerId battler)
             gBattlerTarget = battler;
             gBattlerAttacker = gBattleMons[battler].volatiles.battlerPreventingEscape;
             
-            if (gBattleMons[battler].volatiles.octolockCounter == 1)
-                PREPARE_STRING_BUFFER(gBattleTextBuff1, STRINGID_EMPTYSTRING3);
-            else if (gBattleMons[battler].volatiles.octolockCounter == 3)
-                PREPARE_STRING_BUFFER(gBattleTextBuff1, STRINGID_STATSHARPLY);
+            switch (gBattleMons[battler].volatiles.octolockCounter)
+            {
+                case PHASE_1:
+                    PREPARE_STRING_BUFFER(gBattleTextBuff1, STRINGID_EMPTYSTRING3);
+                break;
+                case PHASE_2:
+                    PREPARE_STRING_BUFFER(gBattleTextBuff1, STRINGID_STATSHARPLY);
+                break;
+            }
             BattleScriptExecute(BattleScript_OctolockEndTurn);
         }
         
