@@ -97,10 +97,16 @@ static const u16 sMiscIndicatorPal[] = INCBIN_U16("graphics/battle_interface/mis
 static const u16 sMegaIndicatorPal[] = INCBIN_U16("graphics/battle_interface/mega_indicator.gbapal");
 static const u16 sTeraIndicatorPal[] = INCBIN_U16("graphics/battle_interface/tera_indicator.gbapal");
 
+//believe need add wind type to this
+//then again would completely invalidate flying as a tera type
+//should wind have extra stipuloation that its something
+//only flying and wind types can become? 
+//somewhat ruins the point
+//Idk why this is like this should just put on type info
 static const u8 *const sTeraIndicatorDataPtrs[] =
 {
-    sNormalIndicatorGfx,
-    sNormalIndicatorGfx,
+    sNormalIndicatorGfx,    //TYPE NONE
+    sNormalIndicatorGfx,    //TYPE NORMAL
     sFightingIndicatorGfx,
     sFlyingIndicatorGfx,
     sPoisonIndicatorGfx,
@@ -109,7 +115,7 @@ static const u8 *const sTeraIndicatorDataPtrs[] =
     sBugIndicatorGfx,
     sGhostIndicatorGfx,
     sSteelIndicatorGfx,
-    sNormalIndicatorGfx,
+    sNormalIndicatorGfx,    //TYPE MYSTERY
     sFireIndicatorGfx,
     sWaterIndicatorGfx,
     sGrassIndicatorGfx,
@@ -119,6 +125,8 @@ static const u8 *const sTeraIndicatorDataPtrs[] =
     sDragonIndicatorGfx,
     sDarkIndicatorGfx,
     sFairyIndicatorGfx,
+    sFlyingIndicatorGfx,    //TYPE WIND
+    sNormalIndicatorGfx,    //TYPE SOUND
     sStellarIndicatorGfx,
 };
 

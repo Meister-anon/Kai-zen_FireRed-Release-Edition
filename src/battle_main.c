@@ -871,123 +871,151 @@ instead keeeping it neutral is a good compromsise and balance in my mind.
 #define TYPE_NAMES
 const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] = 
 {
+    [TYPE_NONE] =
+    {
+        .name = _("NONE"),
+        .isHiddenPowerType = FALSE,
+        .tmhmSpritePalOffset = 0x000,
+        .isTeraType = FALSE,
+    },
+    
     [TYPE_NORMAL] =
     {
         .name = _("NORMAL"),
         .isHiddenPowerType = FALSE,
         .tmhmSpritePalOffset = 0x000,
+        .isTeraType = TRUE,
     },
         [TYPE_FIGHTING] =
     {
         .name = _("FIGHT"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x090,
+        .isTeraType = TRUE,
     },
         [TYPE_FLYING] =
     {
         .name = _("FLYING"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x080,
+        .isTeraType = TRUE,
     },
         [TYPE_POISON] =
     {
         .name = _("POISON"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x0c0,
+        .isTeraType = TRUE,
     },
         [TYPE_GROUND] =
     {
         .name = _("GROUND"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x060,
+        .isTeraType = TRUE,
     },
         [TYPE_ROCK] =
     {
         .name = _("ROCK"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x050,
+        .isTeraType = TRUE,
     },
         [TYPE_BUG] =
     {
         .name = _("BUG"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x0b0,
+        .isTeraType = TRUE,
     },
         [TYPE_GHOST] =
     {
         .name = _("GHOST"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x0a0,
+        .isTeraType = TRUE,
     },
         [TYPE_STEEL] =
     {
         .name = _("STEEL"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x0e0,
+        .isTeraType = TRUE,
     },
         [TYPE_MYSTERY] =
     {
         .name = _("???"),
         .isHiddenPowerType = FALSE,
+        .isTeraType = FALSE,
     },
         [TYPE_FIRE] =
     {
         .name = _("FIRE"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x010,
+        .isTeraType = TRUE,
     },
         [TYPE_WATER] =
     {
         .name = _("WATER"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x020,
+        .isTeraType = TRUE,
     },
         [TYPE_GRASS] =
     {
         .name = _("GRASS"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x030,
+        .isTeraType = TRUE,
     },
         [TYPE_ELECTRIC] =
     {
         .name = _("ELECTR"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x040,
+        .isTeraType = TRUE,
     },
         [TYPE_PSYCHIC] =
     {
         .name = _("PSYCHC"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x0d0,
+        .isTeraType = TRUE,
     },
         [TYPE_ICE] =
     {
         .name = _("ICE"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x070,
+        .isTeraType = TRUE,
     },
         [TYPE_DRAGON] =
     {
         .name = _("DRAGON"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x100,
+        .isTeraType = TRUE,
     },
         [TYPE_DARK] =
     {
         .name = _("DARK"),
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x0f0,
+        .isTeraType = TRUE,
     },
         [TYPE_FAIRY] =
     {
         .name = _("FAIRY"), //fairy addition
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x110,
+        .isTeraType = TRUE,
     },
         [TYPE_WIND] =
     {
         .name = _("WIND"), //flying type readjust
         .isHiddenPowerType = TRUE, //dont really need this offesnsibly same and both types already get stab on either option
+        .isTeraType = TRUE,
     },//if made change revert addition to hidden power
         [TYPE_SOUND] =
     {
