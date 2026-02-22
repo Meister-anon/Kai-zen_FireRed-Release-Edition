@@ -1,4 +1,4 @@
-#include "global.h"
+/*#include "global.h"
 #include "main.h"
 #include "battle.h"
 #include "battle_main.h"
@@ -393,3 +393,4 @@ void CreateFacilityMon(const struct TrainerMon *fmon, u16 level, u8 fixedIV, u32
     SetMonData(dst, MON_DATA_POKEBALL, &ball);
     CalculateMonStats(dst);
 }
+*/
