@@ -143,7 +143,7 @@ struct AbilityInfo
     u8 padding:1;
     struct {
     u16 percentHp:7; //make function get ability hp threshold take value use percenttohp
-    u16 comparison:3; //use Comparison_Operators_Constants use as argument for CheckBattlerHpThreshold to get result
+    u16 comparison:3; //use Comparison_Operator_Constants use as argument for CheckBattlerHpThreshold to get result
     }basedOnHp;
     u16 numAllowedInParty:2; //restriction
     u16 isSingleUse:1;//every single use has a timer not every timer is singleUse

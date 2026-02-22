@@ -502,14 +502,14 @@ enum Ball_Ids
 };
 
 
-enum Comparison_Operators_Constants
+enum Comparison_Operator_Constants
 {
     LESS_THAN,
     GREATER_THAN,
     EQUAL_TO,
-    NOT_EQUAL,
     LESS_THAN_OR_EQUAL,
     GREATER_THAN_OR_EQUAL,
+    NOT_EQUAL,
 };
 //make function and use these to simplify hp checks
 //

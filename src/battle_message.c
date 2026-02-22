@@ -20,6 +20,7 @@
 #include "battle_controllers.h"
 #include "graphics.h"
 #include "random.h"
+#include "trainer_slide.h"
 #include "constants/moves.h"
 #include "constants/items.h"
 #include "constants/trainers.h"

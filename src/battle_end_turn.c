@@ -1470,13 +1470,13 @@ static bool32 HandleEndTurnFormChange(enum BattlerId battler)
         || TryBattleFormChange(battler, FORM_CHANGE_BATTLE_HP_PERCENT_TURN_END, ability))
     {
         gBattleScripting.battler = battler;
-        gBattleScripting.abilityPopupOverwrite = ability; // To prevent the new form's ability from pop up
+        //gBattleScripting.abilityPopupOverwrite = ability; // To prevent the new form's ability from pop up
         if (ability == ABILITY_POWER_CONSTRUCT) // Special animation
             BattleScriptExecute(BattleScript_PowerConstruct);
-        else if (ability == ABILITY_HUNGER_SWITCH)
+        //else if (ability == ABILITY_HUNGER_SWITCH)
             BattleScriptExecute(BattleScript_BattlerFormChangeEnd3NoPopup);
-        else
-            BattleScriptExecute(BattleScript_BattlerFormChangeEnd2); // Generic animation
+        //else
+        //    BattleScriptExecute(BattleScript_BattlerFormChangeEnd2); // Generic animation
         effect = TRUE;
     }
 
@@ -1495,19 +1495,21 @@ static bool32 HandleEndTurnDynamax(enum BattlerId battler)
 
     gBattleStruct->eventState.endTurnBattler++;
 
-    if (GetActiveGimmick(battler) == GIMMICK_DYNAMAX && gBattleStruct->dynamax.dynamaxTurns[battler] > 0 && --gBattleStruct->dynamax.dynamaxTurns[battler] == 0)
+    /*if (GetActiveGimmick(battler) == GIMMICK_DYNAMAX && gBattleStruct->dynamax.dynamaxTurns[battler] > 0 && --gBattleStruct->dynamax.dynamaxTurns[battler] == 0)
     {
         gBattleScripting.battler = battler;
         UndoDynamax(battler);
         BattleScriptExecute(BattleScript_DynamaxEnds);
         effect = TRUE;
-    }
+    }*/
 
     return effect;
 }
 
 static bool32 TryEndTurnTrainerSlide(enum BattlerId battler)
 {
+    return FALSE;
+
     return ((ShouldDoTrainerSlide(battler, TRAINER_SLIDE_LAST_LOW_HP) != TRAINER_SLIDE_TARGET_NONE)
          || (ShouldDoTrainerSlide(battler, TRAINER_SLIDE_LAST_HALF_HP) != TRAINER_SLIDE_TARGET_NONE)
          || (ShouldDoTrainerSlide(battler, TRAINER_SLIDE_PLAYER_LANDS_FIRST_CRITICAL_HIT) != TRAINER_SLIDE_TARGET_NONE)
