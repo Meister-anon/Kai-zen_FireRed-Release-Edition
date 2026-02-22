@@ -1529,7 +1529,7 @@ extern u8 gSentPokesToOpponent[2];
 extern const u8 *gBattlescriptCurrInstr;
 extern const u8 *gSelectionBattleScripts[MAX_BATTLERS_COUNT];
 extern u16 gLastMoves[MAX_BATTLERS_COUNT];
-extern u8 gBattlerByTurnOrder[MAX_BATTLERS_COUNT];
+extern enum BattlerId gBattlerByTurnOrder[MAX_BATTLERS_COUNT];
 extern u8 gBattleCommunication[BATTLE_COMMUNICATION_ENTRIES_COUNT];
 extern u32 gSideStatuses[2];    //upgraded from u16, because of increase in side status flags
 extern u32 gHitMarker;

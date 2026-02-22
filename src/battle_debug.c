@@ -1550,10 +1550,12 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
         }
         else if (data->currentSecondaryListItemId == VARIOUS_SUBSTITUTE_HP)
         {
+            u32 subHp = gBattleMons[data->battlerId].volatiles.substituteHP;
             data->modifyArrows.minValue = 0;
             data->modifyArrows.maxValue = 255;
             data->modifyArrows.maxDigits = 3;
-            data->modifyArrows.modifiedValPtr = gBattleMons[data->battlerId].volatiles.substituteHP;
+            data->modifyArrows.modifiedValPtr = &subHp;
+            gBattleMons[data->battlerId].volatiles.substituteHP = subHp;
             data->modifyArrows.typeOfVal = VAR_SUBSTITUTE;
             data->modifyArrows.currValue = gBattleMons[data->battlerId].volatiles.substituteHP;
         }
@@ -1589,7 +1591,7 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
             data->modifyArrows.minValue = 0;
             data->modifyArrows.maxValue = 15;
             data->modifyArrows.maxDigits = 2;  
-            data->modifyArrows.modifiedValPtr = GetBattlerPartyState(data->battlerId)->ToxicTurnCounter;
+            data->modifyArrows.modifiedValPtr = NULL;
             data->modifyArrows.typeOfVal = VAR_TOXIC_COUNTER;
             data->modifyArrows.currValue = GetBattlerPartyState(data->battlerId)->ToxicTurnCounter;
         }

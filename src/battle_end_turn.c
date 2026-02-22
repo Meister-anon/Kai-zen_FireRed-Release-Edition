@@ -33,7 +33,7 @@ static bool32 HandleEndTurnOrder(enum BattlerId battler)
     gBattleTurnCounter++;
     gBattleStruct->eventState.endTurn++;
 
-    for (u32 i = 0; i < gBattlersCount; i++)
+    for (enum BattlerId i = 0; i < gBattlersCount; i++)
         gBattlerByTurnOrder[i] = i;
     SortBattlersBySpeed(gBattlerByTurnOrder, FALSE);
 
