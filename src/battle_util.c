@@ -10617,7 +10617,8 @@ bool32 CanFling(enum BattlerId battlerAtk, enum BattlerId battlerDef)
 // Useful for effects like pickpocket, eject button, red card, dancer
 void SortBattlersBySpeed(enum BattlerId *battlers, bool32 slowToFast)
 {
-    int i, j, currSpeed, currBattler;
+    int i, j, currSpeed;
+    enum BattlerId currBattler;
     u16 speeds[MAX_BATTLERS_COUNT] = {0};
 
     for (i = 0; i < gBattlersCount; i++)

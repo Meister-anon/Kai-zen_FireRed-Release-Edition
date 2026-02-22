@@ -5744,57 +5744,12 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum 
     return speed;
 }
 
-// Sort an array of battlers by speed
-// Useful for effects like pickpocket, eject button, red card, dancer
-//-personal note, need update getbattlertotalspeedstat  from getwhostriksfirst, or just use that
-//these loop all battlers, getwhotrikesfirst only uses 2, so prob need to adapat that function to use just 1 battler
-//argument and loop gbattlerscount
-void SortBattlersBySpeed(enum BattlerId *battlers, bool8 slowToFast)
-{
-    int i, j, currSpeed;
-    enum BattlerId currBattler;
-    u16 speeds[MAX_BATTLERS_COUNT] = {0};
-
-    for (i = 0; i < gBattlersCount; i++)
-    {
-        enum BattlerId battler = battlers[i];
-        speeds[i] = GetBattlerTotalSpeedStat(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler));
-    }
-    for (i = 1; i < gBattlersCount; i++)
-    {
-        currBattler = battlers[i];
-        currSpeed = speeds[i];
-        j = i - 1;
-
-        if (slowToFast)
-        {
-            while (j >= 0 && speeds[j] > currSpeed)
-            {
-                battlers[j + 1] = battlers[j];
-                speeds[j + 1] = speeds[j];
-                j = j - 1;
-            }
-        }
-        else
-        {
-            while (j >= 0 && speeds[j] < currSpeed)
-            {
-                battlers[j + 1] = battlers[j];
-                speeds[j + 1] = speeds[j];
-                j = j - 1;
-            }
-        }
-
-        battlers[j + 1] = currBattler;
-        speeds[j + 1] = currSpeed;
-    }
-}
-
 //updating to emerald standard, remove speed checks to getbattlertotalspeed intead
 //remove badge boosts, ability checks other than quick draw, and status effects
 //DONE, 
 //also //realized it only holds 2 battlers, so how does it work for doubles?
 //could be reads one side ata time, need check 
+//oh this function just isn't used at all in EE
 u8 GetWhoStrikesFirst(enum BattlerId battler1, enum BattlerId battler2, bool8 ignoreChosenMoves) 
 {
     u8 strikesFirst = 0;
