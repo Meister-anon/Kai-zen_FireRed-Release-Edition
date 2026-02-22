@@ -302,6 +302,63 @@ static void InitLinkBtlControllers(void)
     }
 }
 
+//Vsonic Important
+/*static inline bool32 IsControllerPlayer(enum BattlerId battler)
+{
+    return (gBattlerControllerEndFuncs[battler] == PlayerBufferExecCompleted);
+}
+
+static inline bool32 IsControllerRecordedPlayer(enum BattlerId battler)
+{
+    return (gBattlerControllerEndFuncs[battler] == RecordedPlayerBufferExecCompleted);
+}
+
+static inline bool32 IsControllerRecordedPartner(enum BattlerId battler)
+{
+    return (gBattlerControllerEndFuncs[battler] == RecordedPartnerBufferExecCompleted);
+}
+
+static inline bool32 IsControllerOpponent(enum BattlerId battler)
+{
+    return (gBattlerControllerEndFuncs[battler] == OpponentBufferExecCompleted);
+}
+
+static inline bool32 IsControllerPlayerPartner(enum BattlerId battler)
+{
+    return (gBattlerControllerEndFuncs[battler] == PlayerPartnerBufferExecCompleted);
+}
+
+static inline bool32 IsControllerWally(enum BattlerId battler)
+{
+    return (gBattlerControllerEndFuncs[battler] == WallyBufferExecCompleted);
+}
+
+static inline bool32 IsControllerOakOldMan(u32 battler)
+{
+    return (gBattlerControllerEndFuncs[battler] == OakOldManBufferExecCompleted);
+}
+
+static inline bool32 IsControllerRecordedOpponent(enum BattlerId battler)
+{
+    return (gBattlerControllerEndFuncs[battler] == RecordedOpponentBufferExecCompleted);
+}
+
+static inline bool32 IsControllerLinkOpponent(enum BattlerId battler)
+{
+    return (gBattlerControllerEndFuncs[battler] == LinkOpponentBufferExecCompleted);
+}
+
+static inline bool32 IsControllerLinkPartner(enum BattlerId battler)
+{
+    return (gBattlerControllerEndFuncs[battler] == LinkPartnerBufferExecCompleted);
+}
+
+static inline bool32 IsControllerSafari(enum BattlerId battler)
+{
+    return (gBattlerControllerEndFuncs[battler] == SafariBufferExecCompleted);
+}
+*/
+
 static void SetBattlePartyIds(void)
 {
     s32 i, j;
