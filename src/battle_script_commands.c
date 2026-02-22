@@ -9498,6 +9498,9 @@ static void Cmd_transformdataexecution(void)
         gBattleMons[gBattlerAttacker].volatiles.transformed = TRUE;
         gBattleMons[gBattlerAttacker].volatiles.disabledMove = MOVE_NONE;
         gBattleMons[gBattlerAttacker].volatiles.disableTimer = 0;
+        //think should keep this for persisting form to target
+        //then again like idea of shift my dna to form but keep my personality
+        //rather than just a copy
         //gBattleMons[gBattlerAttacker].volatiles.transformedMonPID = gBattleMons[gBattlerTarget].personality;
 
         /*if (B_TRANSFORM_SHINY >= GEN_4)

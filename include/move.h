@@ -8,7 +8,6 @@
 #include "constants/battle_string_ids.h"
 #include "constants/moves.h"
 #include "constants/characters.h"
-#include "battle.h"
 #include "strings.h"
 
 // For defining EFFECT_HIT etc. with battle TV scores and flags etc.
@@ -847,33 +846,6 @@ static inline  const struct AdditionalEffect *GetMoveRecoilEffect(enum Move move
             return &gMovesInfo[SanitizeMoveId(move)].additionalEffects[i];
     }
     
-}
-
-static inline u32 GetRecoilDmg(enum Move move, s32 Dmg)
-{
-    const struct AdditionalEffect *additionalEffect = GetMoveRecoilEffect(move);
-
-    if (additionalEffect->self)
-    {
-        switch (additionalEffect->moveEffect)
-        {
-            case MOVE_EFFECT_LIGHT_RECOIL:
-                Dmg = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(Dmg / 10,1));
-                Dmg += max(Dmg / 4,1);
-                return Dmg;
-            break;
-            case MOVE_EFFECT_MED_RECOIL:
-                Dmg = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(Dmg / 10,1));
-                Dmg += max((Dmg * 2) / 3,1);
-                return Dmg;
-            break;
-            case MOVE_EFFECT_HEAVY_RECOIL:
-                Dmg = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(Dmg / 10,1));
-                Dmg *= 2;
-                return Dmg;
-            break;
-        }
-    }
 }
 
 /*

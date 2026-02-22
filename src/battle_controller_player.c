@@ -749,9 +749,9 @@ void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setu
     else if (JOY_NEW(B_BUTTON))// || gPlayerDpadHoldFrames > 59)
     {
         PlaySE(SE_SELECT);
-        gBattleStruct->mega.playerSelect = FALSE;
+        gBattleStruct->gimmick.playerSelect = FALSE;
         BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, 0xFFFF);
-        //HideMegaTriggerSprite();
+        HideGimmickTriggerSprite();
         PlayerBufferExecCompleted(battler);
         ResetPaletteFadeControl();
         BeginNormalPaletteFade(0xF0000, 0, 0, 0, RGB_WHITE);
@@ -2756,7 +2756,7 @@ static void PlayerHandleChooseAction(enum BattlerId battler)
     PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, battler, gBattlerPartyIndexes[battler]);
     BattleStringExpandPlaceholdersToDisplayedString(gText_WhatWillPkmnDo);
 
-    if (B_SHOW_PARTNER_TARGET && gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && IsBattlerAlive(B_POSITION_PLAYER_RIGHT))
+    /*if (B_SHOW_PARTNER_TARGET && gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && IsBattlerAlive(B_POSITION_PLAYER_RIGHT))
     {
         StringCopy(gStringVar1, COMPOUND_STRING("Partner will use:\n"));
         enum Move move = GetChosenMoveFromPosition(B_POSITION_PLAYER_RIGHT);
@@ -2791,7 +2791,7 @@ static void PlayerHandleChooseAction(enum BattlerId battler)
         }
         BattlePutTextOnWindow(gStringVar1, B_WIN_ACTION_PROMPT);
     }
-    else
+    else*/
     {
         BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_ACTION_PROMPT);
     }

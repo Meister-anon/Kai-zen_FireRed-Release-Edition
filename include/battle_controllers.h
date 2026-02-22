@@ -362,6 +362,9 @@ void BtlController_EmitEndLinkBattle(enum BattlerId battler, u32 bufferId, u8 ba
 void BtlController_EmitDebugMenu(enum BattlerId battler, u32 bufferId);
 void BtlController_EmitMoveInfo(enum BattlerId battler, u32 bufferId);
 
+void BtlController_Complete(enum BattlerId battler); // Can be used for all the controllers.
+void BtlController_Empty(enum BattlerId battler); // Empty command, does nothing, only completes the execution.
+void BtlController_TerminatorNop(enum BattlerId battler); // Dummy function at the end of the table.
 // player controller
 void BattleControllerDummy(enum BattlerId battler);
 void SetControllerToPlayer(enum BattlerId battler);

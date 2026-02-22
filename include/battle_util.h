@@ -379,7 +379,6 @@ bool32 CanBattlerEscape(enum BattlerId battler); // no ability check
 
 void BattleScriptExecute(const u8 *BS_ptr);
 void BattleScriptPushCursorAndCallback(const u8 *BS_ptr);
-u32 ItemBattleEffects(enum ItemCaseId caseID, enum BattlerId battler, bool32 moveTurn);
 void ClearDestinyBondGrudge(enum BattlerId battlerId);
 void HandleAction_RunBattleScript(void);
 

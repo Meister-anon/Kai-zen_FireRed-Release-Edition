@@ -990,7 +990,7 @@ static enum ItemEffect TrySetMicleBerry(enum BattlerId battler, u32 itemId)
     return effect;
 }
 
-enum ItemEffect ItemBattleEffects(u32 itemBattler, enum BattlerId battler, enum HoldEffect holdEffect, ActivationTiming timing)
+enum ItemEffect ItemBattleEffects(enum BattlerId itemBattler, enum BattlerId battler, enum HoldEffect holdEffect, ActivationTiming timing)
 {
     enum ItemEffect effect = ITEM_NO_EFFECT;
     u32 item;

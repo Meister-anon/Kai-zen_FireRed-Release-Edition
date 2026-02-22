@@ -6,6 +6,7 @@
 #include "battle_util.h"
 #include "battle_controllers.h"
 #include "battle_message.h"
+#include "event_data.h"
 #include "link.h"
 #include "link_rfu.h"
 #include "cable_club.h"
@@ -80,17 +81,15 @@ void SetUpBattleVars(void)
     for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
     {
         gBattlerControllerFuncs[i] = BattleControllerDummy;
-        gBattlerPositions[i] = 0xFF;
+        gBattlerPositions[i] = B_POSITION_ABSENT;
         gActionSelectionCursor[i] = 0;
         gMoveSelectionCursor[i] = 0;
     }
     HandleLinkBattleSetup();
     gBattleControllerExecFlags = 0;
     ClearBattleAnimationVars();
-    ClearBattleMonForms();
-    //BattleAI_SetupItems();//NEED TO SEtu;p to use these two, instead of bottom one
-    //BattleAI_SetupFlags();//currently ai process/infrastrucutre not ready to use these order of things is wrong
-    BattleAI_HandleItemUseBeforeAISetup();//remove this when get process correct
+    BattleAI_SetupItems();//NEED TO SEtu;p to use these two, instead of bottom one
+    BattleAI_SetupFlags();//currently ai process/infrastrucutre not ready to use these order of things is wrong
 }
 
 bool32 IsValidForBattle(struct Pokemon *mon)
@@ -838,7 +837,7 @@ void BtlController_EmitMoveAnimation(enum BattlerId battler, u32 bufferId, u16 m
     gBattleResources->transferBuffer[15] = 0;
     struct LinkBattleAnim anim = {0};
     anim.isTransformedMonShiny = gBattleMons[battler].volatiles.isTransformedMonShiny;
-    anim.transformedMonPID  = gBattleMons[battler].volatiles.transformedMonPID;
+    anim.transformedMonPID  = gBattleMons[battler].personality; //keep my personality
     anim.rolloutTimer  = gBattleMons[battler].volatiles.rolloutTimer;
     anim.furyCutterCounter  = gBattleMons[battler].volatiles.furyCutterCounter;
     anim.syrupBombIsShiny = gBattleMons[battler].volatiles.syrupBombIsShiny;
@@ -1207,7 +1206,7 @@ void BtlController_EmitBattleAnimation(enum BattlerId battler, u32 bufferId, u8 
     
     struct LinkBattleAnim anim = {0};
     anim.isTransformedMonShiny = gBattleMons[battler].volatiles.isTransformedMonShiny;
-    anim.transformedMonPID  = gBattleMons[battler].volatiles.transformedMonPID;
+    anim.transformedMonPID  = gBattleMons[battler].personality;
     anim.rolloutTimer  = gBattleMons[battler].volatiles.rolloutTimer;
     anim.furyCutterCounter  = gBattleMons[battler].volatiles.furyCutterCounter;
     anim.syrupBombIsShiny = gBattleMons[battler].volatiles.syrupBombIsShiny;
@@ -1248,4 +1247,12 @@ void BtlController_EmitMoveInfo(enum BattlerId battler, u32 bufferId)
 {
     gBattleResources->transferBuffer[0] = CONTROLLER_MOVEINFO;
     PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 1);
+}
+
+// Standardized Controller functions
+
+// Can be used for all the controllers.
+void BtlController_Complete(enum BattlerId battler)
+{
+    gBattlerControllerEndFuncs[battler](battler);
 }

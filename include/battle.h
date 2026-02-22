@@ -479,6 +479,7 @@ struct AiThinkingStruct
 
 #define AI_MOVE_HISTORY_COUNT 3 //not sure what for at this point
 
+extern u16 gBattleTurnCounter;
 extern u8 gBattlerAbility;
 extern u8 gBattlerTarget;
 extern u8 gAbsentBattlerFlags;
@@ -1122,6 +1123,7 @@ struct BattleStruct
     u8 magicCoatActive:1;
     u8 magicBounceActive:1;
     u8 moveBouncer;
+    bool8 debugAISet;
 
 };
 extern struct BattleStruct *gBattleStruct;
@@ -2178,6 +2180,33 @@ static inline bool32 FugueCausesConfusion(enum BattlerId battleratk, enum Battle
     return ShouldActivateFugue(battleratk, battlerdef, abilityAtk, move) == FUGUE_CONFUSION;
 }
 
+static inline u32 GetRecoilDmg(enum Move move, s32 Dmg)
+{
+    const struct AdditionalEffect *additionalEffect = GetMoveRecoilEffect(move);
+
+    if (additionalEffect->self)
+    {
+        switch (additionalEffect->moveEffect)
+        {
+            case MOVE_EFFECT_LIGHT_RECOIL:
+                Dmg = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(Dmg / 10,1));
+                Dmg += max(Dmg / 4,1);
+                return Dmg;
+            break;
+            case MOVE_EFFECT_MED_RECOIL:
+                Dmg = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(Dmg / 10,1));
+                Dmg += max((Dmg * 2) / 3,1);
+                return Dmg;
+            break;
+            case MOVE_EFFECT_HEAVY_RECOIL:
+                Dmg = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(Dmg / 10,1));
+                Dmg *= 2;
+                return Dmg;
+            break;
+        }
+    }
+}
+
 //note believe should add assert later
 //to catch use of abilities that aren't hp dependent
 //made rework order
@@ -2261,6 +2290,17 @@ static inline enum Type GetBattlerSecondaryType(enum BattlerId battler)
 static inline enum Type GetBattlerAuxiliaryType(enum BattlerId battler)
 {
     return GetBattlerTypebySlot(battler, AUXILIARY_TYPE);   
+}
+
+//couldn't put in battle_main.h
+static inline bool32 BattleTypeCannotSetDex(void)
+{
+    return ((gBattleTypeFlags & (BATTLE_TYPE_EREADER_TRAINER
+    | BATTLE_TYPE_POKEDUDE
+    | BATTLE_TYPE_LINK
+    | BATTLE_TYPE_GHOST
+    | BATTLE_TYPE_CATCH_TUTORIAL
+    | BATTLE_TYPE_LEGENDARY)));
 }
 
 #endif // GUARD_BATTLE_H

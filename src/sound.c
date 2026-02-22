@@ -32,7 +32,6 @@ static u16 sFanfareCounter;
 // iwram common
 COMMON_DATA bool8 gDisableMusic = 0;
 
-extern u32 gBattleTypeFlags;
 extern struct MusicPlayerInfo gMPlayInfo_BGM;
 extern struct MusicPlayerInfo gMPlayInfo_SE1;
 extern struct MusicPlayerInfo gMPlayInfo_SE2;
