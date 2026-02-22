@@ -554,7 +554,7 @@ static void sub_8047CAC(s16 num1, s16 num2, u16 *dest)
 #define hBar_HealthBoxSpriteId      data[5]
 #define hBar_Data6                  data[6]
 
-u8 CreateBattlerHealthboxSprites(u8 a)
+u8 CreateBattlerHealthboxSprites(enum BattlerId battlerId)
 {
     s16 data6 = 0;
     u8 healthboxLeftSpriteId;
@@ -564,7 +564,7 @@ u8 CreateBattlerHealthboxSprites(u8 a)
 
     if (!IsDoubleBattle())
     {
-        if (GetBattlerSide(a) == B_SIDE_PLAYER)
+        if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
         {
             healthboxLeftSpriteId = CreateSprite(&sHealthboxPlayerSpriteTemplates[0], 240, 160, 1);
             healthboxRightSpriteId = CreateSpriteAtEnd(&sHealthboxPlayerSpriteTemplates[0], 240, 160, 1);
@@ -588,10 +588,10 @@ u8 CreateBattlerHealthboxSprites(u8 a)
     }
     else
     {
-        if (GetBattlerSide(a) == B_SIDE_PLAYER)
+        if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
         {
-            healthboxLeftSpriteId = CreateSprite(&sHealthboxPlayerSpriteTemplates[GetBattlerPosition(a) / 2], 240, 160, 1);
-            healthboxRightSpriteId = CreateSpriteAtEnd(&sHealthboxPlayerSpriteTemplates[GetBattlerPosition(a) / 2], 240, 160, 1);
+            healthboxLeftSpriteId = CreateSprite(&sHealthboxPlayerSpriteTemplates[GetBattlerPosition(battlerId) / 2], 240, 160, 1);
+            healthboxRightSpriteId = CreateSpriteAtEnd(&sHealthboxPlayerSpriteTemplates[GetBattlerPosition(battlerId) / 2], 240, 160, 1);
 
             gSprites[healthboxLeftSpriteId].oam.affineParam = healthboxRightSpriteId;
             gSprites[healthboxRightSpriteId].hBar_HealthBoxSpriteId = healthboxLeftSpriteId;
@@ -601,8 +601,8 @@ u8 CreateBattlerHealthboxSprites(u8 a)
         }
         else
         {
-            healthboxLeftSpriteId = CreateSprite(&sHealthboxOpponentSpriteTemplates[GetBattlerPosition(a) / 2], 240, 160, 1);
-            healthboxRightSpriteId = CreateSpriteAtEnd(&sHealthboxOpponentSpriteTemplates[GetBattlerPosition(a) / 2], 240, 160, 1);
+            healthboxLeftSpriteId = CreateSprite(&sHealthboxOpponentSpriteTemplates[GetBattlerPosition(battlerId) / 2], 240, 160, 1);
+            healthboxRightSpriteId = CreateSpriteAtEnd(&sHealthboxOpponentSpriteTemplates[GetBattlerPosition(battlerId) / 2], 240, 160, 1);
 
             gSprites[healthboxLeftSpriteId].oam.affineParam = healthboxRightSpriteId;
             gSprites[healthboxRightSpriteId].hBar_HealthBoxSpriteId = healthboxLeftSpriteId;
@@ -611,15 +611,15 @@ u8 CreateBattlerHealthboxSprites(u8 a)
             data6 = 2;
         }
     }
-    healthbarSpriteId = CreateSpriteAtEnd(&gUnknown_82602F8[gBattlerPositions[a]], 140, 60, 0);
+    healthbarSpriteId = CreateSpriteAtEnd(&gUnknown_82602F8[gBattlerPositions[battlerId]], 140, 60, 0);
     sprite = &gSprites[healthbarSpriteId];
-    SetSubspriteTables(sprite, &gUnknown_82603C4[GetBattlerSide(a)]);
+    SetSubspriteTables(sprite, &gUnknown_82603C4[GetBattlerSide(battlerId)]);
     sprite->subspriteMode = SUBSPRITES_IGNORE_PRIORITY;
     sprite->oam.priority = 1;
     CpuCopy32(GetHealthboxElementGfxPtr(HEALTHBOX_GFX_1), OBJ_VRAM0 + sprite->oam.tileNum * 32, 64);
 
     gSprites[healthboxLeftSpriteId].hBar_HealthBoxSpriteId = healthbarSpriteId;
-    gSprites[healthboxLeftSpriteId].hBar_Data6 = a;
+    gSprites[healthboxLeftSpriteId].hBar_Data6 = battlerId;
     gSprites[healthboxLeftSpriteId].invisible = TRUE;
     gSprites[healthboxRightSpriteId].invisible = TRUE;
     sprite->data[5] = healthboxLeftSpriteId;
