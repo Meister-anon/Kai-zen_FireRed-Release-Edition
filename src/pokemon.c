@@ -12546,11 +12546,20 @@ bool8 IsPokeSpriteNotFlipped(u16 species)
 }
 
 #define BERRY_TO_NATURE_RELATION
-s8 GetMonFlavorRelation(struct Pokemon *mon, u8 flavor)
+s8 GetMonFlavorRelation(struct Pokemon *mon, enum Flavor flavor)
 {
     u8 nature = GetNature(mon);
-    return gBerryFlavorCompatibilityTable[nature * 5 + flavor];
+    return gBerryFlavorCompatibilityTable[nature * FLAVOR_COUNT + flavor];
 }
+
+//this seems useless?
+//nature can be changed so no reason to rely on personality
+//for it ok not using this
+/*s8 GetFlavorRelationByPersonality(u32 personality, enum Flavor flavor)
+{
+    u8 nature = GetNatureFromPersonality(personality);
+    return gBerryFlavorCompatibilityTable[nature * FLAVOR_COUNT + flavor];
+}*/
 
 bool8 IsTradedMon(struct Pokemon *mon)
 {

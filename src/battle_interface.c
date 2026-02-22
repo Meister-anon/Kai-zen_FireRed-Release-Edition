@@ -741,9 +741,34 @@ void UpdateOamPriorityInAllHealthboxes(u8 priority)
     }
 }
 
+static const s16 sBattlerHealthboxCoords[BATTLE_COORDS_COUNT][MAX_BATTLERS_COUNT][2] =
+{
+    [BATTLE_COORDS_SINGLES] =
+    {
+        [B_POSITION_PLAYER_LEFT]   = { 158, 88 },
+        [B_POSITION_OPPONENT_LEFT] = { 44,  30 },
+    },
+    [BATTLE_COORDS_DOUBLES] =
+    {
+        [B_POSITION_PLAYER_LEFT]    = { 159, 75 },
+        [B_POSITION_PLAYER_RIGHT]   = { 171, 100 },
+        [B_POSITION_OPPONENT_LEFT]  = { 44,  19 },
+        [B_POSITION_OPPONENT_RIGHT] = { 32,  44 },
+    },
+};
+
+void GetBattlerHealthboxCoords(enum BattlerId battler, s16 *x, s16 *y)
+{
+    enum BattlerPosition position = GetBattlerPosition(battler);
+    enum BattleCoordTypes index = GetBattlerCoordsIndex(battler);
+
+    *x = sBattlerHealthboxCoords[index][position][0];
+    *y = sBattlerHealthboxCoords[index][position][1];
+}
+
 void InitBattlerHealthboxCoords(enum BattlerId battler)
 {
-    s16 x = 0, y = 0;
+    /*s16 x = 0, y = 0;
 
     if (!IsDoubleBattle())
     {
@@ -769,8 +794,10 @@ void InitBattlerHealthboxCoords(enum BattlerId battler)
             x = 32, y = 44;
             break;
         }
-    }
+    }*/
+    s16 x, y;
 
+    GetBattlerHealthboxCoords(battler, &x, &y);
     UpdateSpritePos(gHealthboxSpriteIds[battler], x, y);
 }
 

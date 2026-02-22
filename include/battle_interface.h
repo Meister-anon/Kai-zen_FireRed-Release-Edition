@@ -114,6 +114,7 @@ void DestoryHealthboxSprite(u8 healthboxSpriteId);
 void DummyBattleInterfaceFunc(u8 healthboxSpriteId, bool8 isDoubleBattleBankOnly);
 void UpdateOamPriorityInAllHealthboxes(u8 priority);
 void InitBattlerHealthboxCoords(enum BattlerId battlerId);
+void GetBattlerHealthboxCoords(enum BattlerId battler, s16 *x, s16 *y);
 void UpdateHpTextInHealthbox(u8 healthboxSpriteId, s16 value, u8 maxOrCurrent);
 void SwapHpBarsWithHpText(void);
 u8 CreatePartyStatusSummarySprites(enum BattlerId battlerId, struct HpAndStatus *partyInfo, u8 isSwitchingMons, bool8 isBattleStart);

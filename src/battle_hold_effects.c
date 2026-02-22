@@ -134,7 +134,7 @@ static bool32 CanBeInfinitelyConfused(enum BattlerId battler)
     return TRUE;
 }
 
-static enum ItemEffect TryBerserkGene(enum BattlerId battler)
+/*static enum ItemEffect TryBerserkGene(enum BattlerId battler)
 {
     if (CanBeInfinitelyConfused(battler))
         gBattleMons[battler].volatiles.infiniteConfusion = TRUE;
@@ -144,7 +144,7 @@ static enum ItemEffect TryBerserkGene(enum BattlerId battler)
     gBattleScripting.animArg2 = 0;
     BattleScriptCall(BattleScript_BerserkGeneRet);
     return ITEM_STATS_CHANGE;
-}
+}*/
 
 static enum ItemEffect RestoreWhiteHerbStats(enum BattlerId battler, ActivationTiming timing)
 {
@@ -190,7 +190,7 @@ static enum ItemEffect TryKingsRock(enum BattlerId battlerAtk, enum BattlerId ba
 
     if (!IsBattlerAlive(battlerDef)
      || !IsBattlerTurnDamaged(battlerDef)
-     || MoveIgnoresKingsRock(gCurrentMove)
+     //|| MoveIgnoresKingsRock(gCurrentMove)
      || MoveHasAdditionalEffect(gCurrentMove, MOVE_EFFECT_FLINCH))
         return effect;
 
@@ -894,7 +894,7 @@ static enum ItemEffect HealConfuseBerry(enum BattlerId battler, u32 itemId, u32 
         if (ability == ABILITY_RIPEN)
             healAmount *= 2;
         SetHealAmount(battler, healAmount);
-        if (GetFlavorRelationByPersonality(gBattleMons[battler].personality, flavorId) < 0)
+        if (GetMonFlavorRelation(GetBattlerMon(battler), flavorId) < 0)
             BattleScriptCall(BattleScript_BerryConfuseHeal);
         else
             BattleScriptCall(BattleScript_ItemHealHP_RemoveItem);
@@ -1022,9 +1022,9 @@ enum ItemEffect ItemBattleEffects(enum BattlerId itemBattler, enum BattlerId bat
     case HOLD_EFFECT_TERRAIN_SEED:
         effect = TryTerrainSeeds(itemBattler, item);
         break;
-    case HOLD_EFFECT_BERSERK_GENE:
+    /*case HOLD_EFFECT_BERSERK_GENE:
         effect = TryBerserkGene(itemBattler);
-        break;
+        break;*/
     case HOLD_EFFECT_BOOSTER_ENERGY:
         effect = TryBoosterEnergy(itemBattler, GetBattlerAbility(itemBattler));
         break;

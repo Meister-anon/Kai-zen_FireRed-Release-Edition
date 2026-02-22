@@ -454,9 +454,7 @@ bool32 CanTeleport(enum BattlerId battlerId); //new teleport logic
 bool32 ShouldPranksterBoostedMoveFail(u16 move, enum BattlerId battlerwithPrankster, enum BattlerId battlerDef, bool32 checkTarget);
 bool32 IsMoonbasedMove(u16 move); //in prep for lunar power etc.
 u16 GetUsedHeldItem(enum BattlerId battler);
-bool32 TryRoomService(enum BattlerId battlerId);
 bool32 TestSheerForceFlag(enum BattlerId battler, u16 move);
-u8 TryHandleSeed(enum BattlerId battler, u32 terrainFlag, u8 statId, u16 itemId, bool32 execute);
 void TryToRevertMimicry(void);
 void TryToApplyMimicry(enum BattlerId battlerId, bool8 various);
 void RestoreBattlerOriginalTypes(enum BattlerId battlerId);

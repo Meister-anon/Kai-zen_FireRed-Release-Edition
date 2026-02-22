@@ -837,12 +837,13 @@ static inline const struct AdditionalEffect *GetMoveAdditionalEffectById(enum Mo
 //add assert to ensure used only w recoil effect
 static inline  const struct AdditionalEffect *GetMoveRecoilEffect(enum Move move)
 {
-
-    for (u32 i = 0; i < GetMoveAdditionalEffectCount(move); i++)
+    u32 numAdditionalEffects = GetMoveAdditionalEffectCount(move);
+    for (u32 i = 0; i < numAdditionalEffects; i++)
     {
-        if (GetMoveAdditionalEffectById(move, i)->moveEffect == MOVE_EFFECT_LIGHT_RECOIL
-        || GetMoveAdditionalEffectById(move, i)->moveEffect == MOVE_EFFECT_MED_RECOIL
-        || GetMoveAdditionalEffectById(move, i)->moveEffect == MOVE_EFFECT_HEAVY_RECOIL)
+        const struct AdditionalEffect *additionalEffect = GetMoveAdditionalEffectById(move, i);
+        if (additionalEffect->moveEffect == MOVE_EFFECT_LIGHT_RECOIL
+        || additionalEffect->moveEffect == MOVE_EFFECT_MED_RECOIL
+        || additionalEffect->moveEffect == MOVE_EFFECT_HEAVY_RECOIL)
             return &gMovesInfo[SanitizeMoveId(move)].additionalEffects[i];
     }
     

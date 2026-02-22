@@ -1235,14 +1235,13 @@ const u16 *GetMonSpritePalOfSpecies(struct Pokemon *mon, u16 species); //use mon
 //replaced previous
 const u16 *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
 bool8 IsPokeSpriteNotFlipped(u16 species);
-s8 GetMonFlavorRelation(struct Pokemon *mon, u8 flavor);//replaces below
 bool8 IsTradedMon(struct Pokemon *mon);
 bool8 IsOtherTrainer(u32 otId, u8 *otName);
 void MonRestorePP(struct Pokemon *mon);
 void BoxMonRestorePP(struct BoxPokemon *boxMon);
 void SetMonPreventsSwitchingString(void);
 void SetWildMonHeldItem(void);
-
+s8 GetMonFlavorRelation(struct Pokemon *mon, enum Flavor flavor);
 //u8 *GetTrainerPartnerName(void);
 u8 GetPlayerPartyHighestLevel(void);
 u16 FacilityClassToPicIndex(u16 facilityClass);
