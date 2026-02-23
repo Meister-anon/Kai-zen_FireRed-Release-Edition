@@ -801,6 +801,8 @@ void HandleAction_UseItem(void)
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 
+//EE moved to this file
+#define RUN_LOGIC_PT2 //feels like run logic is all over the place potentially clean up later
 bool32 TryRunFromBattle(enum BattlerId battler)
 {
     bool32 effect = FALSE;
@@ -825,7 +827,85 @@ bool32 TryRunFromBattle(enum BattlerId battler)
         gProtectStructs[battler].fleeType = FLEE_ITEM;
         effect++;
     }
-    else if (B_GHOSTS_ESCAPE >= GEN_6 && IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
+    //needs to always be able to trigger or game breaks
+    else if (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))
+    {
+        if (GetBattlerSide(battler) == B_SIDE_PLAYER)
+            ++effect;
+    }
+
+    else if ((gBattleMons[battler].volatiles.escapePrevention
+    || gBattleMons[battler].volatiles.switchBindtimer
+    || gBattleMons[battler].volatiles.noRetreat
+    || IsBattlerTrappedViaMove(battler))
+    && gBattleMons[battler].volatiles.trapSetViaMoldBreaker)
+        return FALSE;
+
+    //replace w battler trapped
+    //need to look at escape prevent trap
+    //speed effect to see what is included
+    //does mean liook switch bind count?
+    //I know wrap does ok only wrap counts for trap speed drop
+
+
+    else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GHOST, FALSE) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
+    {
+        ++effect;
+    }//vsonic if add ability that gives ghost type affinity keep isbattlertype and add below same as aviator
+    
+    else if (gBattleMons[battler].volatiles.trappedinStickyweb)
+        return FALSE;
+
+    //with ability flag check, can use affinity here
+    //Oh nvm I separate it so can have diff msg for ability
+    //ok need to figure this out want to be able to flee
+    //regardless of smack down but hard grouding effects
+    //like iron ball and gravity should still stop it.
+    //don't make too strict if I use grouded logic
+    //it'll block things ghost types would be able to escape under
+    //and its not switching its just run away
+    //only relevant for player or for roaming battles
+    //so think just gravity and iron ball
+    else if ((IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) 
+    || IS_BATTLER_OF_TYPE(battler, TYPE_WIND))
+    && gBattleMons[battler].ability != ABILITY_AVIATOR
+    && !IsFlyingTypeBattlerUnableToFly(battler))
+    {
+        ++effect;
+    }
+    else if (gBattleMons[battler].ability == ABILITY_RUN_AWAY)
+    {
+        gLastUsedAbility = ABILITY_RUN_AWAY;
+        gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
+        ++effect;
+    }
+    else if (gBattleMons[battler].ability == ABILITY_DEFEATIST
+        && gBattleMons[battler].volatiles.defeatistActivated)
+    {
+        gLastUsedAbility = ABILITY_DEFEATIST;
+        gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
+        ++effect;
+    }
+
+    //want to remove species check instead making grounded
+    //but grounded check includes species, oh wait I removed that lol
+    //but is better to use getbattlerability here considering
+    //ability flag check, don't want to activate if ability is suprressed
+    //just specifically this ability isn't suprressable
+    //just more consistent
+    //nvm the nvm some abilities have affects that would be surpressed
+    //but should not effect the escape portion so this is
+    //more appropriate
+    else if (gBattleMons[battler].ability == ABILITY_AVIATOR
+    && !IsFlyingTypeBattlerUnableToFly(battler))
+    {
+        gLastUsedAbility = ABILITY_AVIATOR;
+        gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
+        ++effect;
+    }
+    //end custom logic
+
+    /*else if (B_GHOSTS_ESCAPE >= GEN_6 && IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
     {
         effect++;
     }
@@ -857,21 +937,21 @@ bool32 TryRunFromBattle(enum BattlerId battler)
     else if (CanPlayerForfeitNormalTrainerBattle())
     {
         effect++;
-    }
+    }*/
     else
     {
         u8 runningFromBattler = BATTLE_OPPOSITE(battler);
         if (!IsBattlerAlive(runningFromBattler))
             runningFromBattler |= BIT_FLANK;
 
-        if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)
+        /*if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)
         {
             pyramidMultiplier = GetPyramidRunMultiplier();
             speedVar = (gBattleMons[battler].speed * pyramidMultiplier) / (gBattleMons[runningFromBattler].speed) + (gBattleStruct->runTries * 30);
             if (speedVar > (Random() & 0xFF))
                 effect++;
         }
-        else if (gBattleMons[battler].speed < gBattleMons[runningFromBattler].speed)
+        else */if (gBattleMons[battler].speed < gBattleMons[runningFromBattler].speed)
         {
             speedVar = (gBattleMons[battler].speed * 128) / (gBattleMons[runningFromBattler].speed) + (gBattleStruct->runTries * 30);
             if (speedVar > (Random() & 0xFF))
