@@ -387,6 +387,9 @@ void HandleAction_Run(void);
 void HandleAction_Switch(void);
 void HandleAction_UseMove(void);
 
+bool32 IsLastMonToMove(enum BattlerId battler);
+
+
 /*u8 IsMonDisobedient(void);
 u32 GetBattleMoveSplit(u32 moveId);
 u32 GetBattleMoveDamageCategory(u32 attackerId, u16 move);*/
