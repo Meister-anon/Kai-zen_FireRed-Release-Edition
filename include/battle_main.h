@@ -144,14 +144,13 @@ u8 GetWhoStrikesFirst(enum BattlerId battler1, enum BattlerId battler2, bool8 ig
 u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect);
 void RunBattleScriptCommands_PopCallbacksStack(void);
 void RunBattleScriptCommands(void);
-s32 GetChosenMovePriority(enum BattlerId battler, u32 ability);
-s32 GetBattleMovePriority(enum BattlerId battler, u32 ability, u32 move);
+s32 GetChosenMovePriority(enum BattlerId battler, enum Ability ability);
+s32 GetBattleMovePriority(enum BattlerId battler, enum Ability ability, enum Move move);
 bool8 IsPriorityElevatedviaAbility(enum BattlerId battler); //new thing to track moves w boosted priority from abilities for queenly majesty
 bool8 IsRivalBattle(u16 trainerNum);
 bool32 IsWildMonSmart(void);
 enum Type GetDynamicMoveType(struct Pokemon *mon, enum Move move, enum BattlerId battler, enum MonState monInBattle);
 void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage);
-u8 ReturnMoveType(u32 move, enum BattlerId battlerAtk); //atempt copy of settype function but using return value of move type so can display stuff in sum screen
 
 void SetJudgmentTypeString(u8 type); //make global since had move effect to battle_script_commands.c
 

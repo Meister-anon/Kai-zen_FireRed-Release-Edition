@@ -1918,9 +1918,9 @@ enum Type GetDynamicMoveType(struct Pokemon *mon, enum Move move, enum BattlerId
 //as this function is what sets value of dynamicMoveType to begin with
 void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage)
 {
-    u32 ateType, attackerAbility;
-    u16 holdEffect = GetBattlerHoldEffect(battlerAtk);
-
+    u32 ateType;
+    enum HoldEffect holdEffect = GetBattlerHoldEffect(battlerAtk);
+    enum Ability atkAbility = GetBattlerAbility(battlerAtk);
     //populate default type, go through assignment and return what would be changed type
     *typeStorage = gMovesInfo[move].type;
 
@@ -1952,7 +1952,7 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
     }
     else if (gMovesInfo[move].effect == EFFECT_TERRAIN_PULSE)
     {
-        if (IsBattlerTerrainAffected(battlerAtk, STATUS_FIELD_TERRAIN_ANY))
+        if (IsBattlerTerrainAffected(battlerAtk, atkAbility, holdEffect, gFieldStatuses, STATUS_FIELD_TERRAIN_ANY))
         {
             if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
                 *typeStorage = TYPE_ELECTRIC;
@@ -1982,7 +1982,7 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
             *typeStorage = TYPE_WATER;
     }
 
-    attackerAbility = GetBattlerAbility(battlerAtk);
+    
 
     //don't attempt to put type changes here that happen BEFORE target selction
     //those must be done in typecalc
@@ -2015,11 +2015,11 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
              && move != MOVE_WEATHER_BALL    //as effects are never reused, i.e only for those specific moves
              && gMovesInfo[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
              && gMovesInfo[move].effect != EFFECT_NATURAL_GIFT
-             && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))
-                 || (attackerAbility == ABILITY_REFRIGERATE && (ateType = TYPE_ICE))
-                 || (attackerAbility == ABILITY_AERILATE && (ateType = TYPE_FLYING))
-                 || (attackerAbility == ABILITY_GALVANIZE && (ateType = TYPE_ELECTRIC))
-                 || (attackerAbility == ABILITY_UNCHAINED_MELODY && (ateType = TYPE_SOUND))))
+             && (((atkAbility == ABILITY_PIXILATE || atkAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))
+                 || (atkAbility == ABILITY_REFRIGERATE && (ateType = TYPE_ICE))
+                 || (atkAbility == ABILITY_AERILATE && (ateType = TYPE_FLYING))
+                 || (atkAbility == ABILITY_GALVANIZE && (ateType = TYPE_ELECTRIC))
+                 || (atkAbility == ABILITY_UNCHAINED_MELODY && (ateType = TYPE_SOUND))))
     {
         *typeStorage = ateType; //above should do type change already, dmg boosts are already in pokemon.c
         gBattleStruct->battlerState[battlerAtk].ateBoost = 1;
@@ -2029,7 +2029,7 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
              && move != MOVE_WEATHER_BALL
              && gMovesInfo[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
              && gMovesInfo[move].effect != EFFECT_NATURAL_GIFT
-             && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
+             && (((atkAbility == ABILITY_PIXILATE || atkAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
     {
         *typeStorage = ateType; //above should do type change already, dmg boosts are already in pokemon.c
         gBattleStruct->battlerState[battlerAtk].ateBoost = 1;
@@ -2038,22 +2038,22 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
              && move != MOVE_WEATHER_BALL
              && gMovesInfo[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM)
              && gMovesInfo[move].effect != EFFECT_NATURAL_GIFT
-             && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
+             && atkAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
     {                                                   //without stab, so not worth
         *typeStorage = TYPE_NORMAL;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
         gBattleStruct->battlerState[battlerAtk].ateBoost = 1;    //actually I can do this with typecalc function and they can keep stab.
     }
     else if (IsSoundMove(move)
-             && attackerAbility == ABILITY_LIQUID_VOICE)
+             && atkAbility == ABILITY_LIQUID_VOICE)
     {
         *typeStorage = TYPE_WATER;
     }
     else if (gMovesInfo[move].type == TYPE_WATER
-        && attackerAbility == ABILITY_LIQUID_SOUL)
+        && atkAbility == ABILITY_LIQUID_SOUL)
     {
         *typeStorage = TYPE_GHOST;
     }
-    else if (attackerAbility == ABILITY_WETIKO)//technically should put last, but I like the idea of it hitting everything except hidden power
+    else if (atkAbility == ABILITY_WETIKO)//technically should put last, but I like the idea of it hitting everything except hidden power
     {
         *typeStorage = TYPE_ICE;
     }
@@ -2077,169 +2077,6 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
         gSpecialStatuses[battlerAtk].gemParam = GetBattlerHoldEffectParam(battlerAtk);
         gSpecialStatuses[battlerAtk].gemBoost = TRUE;
     }
-}
-
-//-works perfectly, need make sure keep in track with above function - unsure if properly tracks hidden power?
-//could change this make use function argument to instead of actually setting dynamic type,
-//would be able to use to test what type will be, could be used everywhere
-//without needing to worry about actually setting the type
-u8 ReturnMoveType(u32 move, enum BattlerId battlerAtk) 
-{
-    s32 typeBits;
-    u32 moveType, ateType, attackerAbility;
-    u16 holdEffect = GetBattlerHoldEffect(battlerAtk);
-
-    //populate default type, go through assignment and return what would be changed type
-    moveType = gMovesInfo[move].type;
-
-    if (move == MOVE_STRUGGLE || move == MOVE_BIDE)
-        return moveType;
-
-
-    gBattleStruct->battlerState[battlerAtk].ateBoost = 0;
-    gSpecialStatuses[battlerAtk].gemBoost = FALSE;
-
-    
-    if (gMovesInfo[move].effect == EFFECT_CHANGE_TYPE_ON_ITEM) //not fling
-    {
-        if (holdEffect == gMovesInfo[move].argument.holdEffect)
-            moveType = ItemId_GetSecondaryId(gBattleMons[battlerAtk].item);
-    }
-    else if (gMovesInfo[move].effect == EFFECT_REVELATION_DANCE)
-    {
-        if (gBattleMons[battlerAtk].type1 != TYPE_MYSTERY)
-            moveType = gBattleMons[battlerAtk].type1;
-        else if (gBattleMons[battlerAtk].type2 != TYPE_MYSTERY)
-            moveType = gBattleMons[battlerAtk].type2;
-        else if (gBattleMons[battlerAtk].type3 != TYPE_MYSTERY)
-            moveType = gBattleMons[battlerAtk].type3;
-    }
-    else if (gMovesInfo[move].effect == EFFECT_NATURAL_GIFT)
-    {
-        if (GetItemPocket(gBattleMons[battlerAtk].item) == POCKET_BERRIES)
-            moveType = gNaturalGiftTable[ITEM_TO_BERRY(gBattleMons[battlerAtk].item)].type;
-    }
-    else if (gMovesInfo[move].effect == EFFECT_TERRAIN_PULSE)
-    {
-        if (IsBattlerTerrainAffected(battlerAtk, STATUS_FIELD_TERRAIN_ANY))
-        {
-            if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
-                moveType = TYPE_ELECTRIC;
-            else if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN)
-                moveType = TYPE_GRASS;
-            else if (gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN)
-                moveType = TYPE_FAIRY;
-            else if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN)
-                moveType = TYPE_PSYCHIC;
-            else //failsafe
-                moveType = TYPE_NORMAL;
-        }
-    }
-    else if (move == MOVE_WEATHER_BALL)
-    {
-        moveType = GetWeatherBallType(move);
-    }
-
-    else if (move == MOVE_RAGING_BULL)
-    {
-        if (gBattleMons[battlerAtk].species == SPECIES_TAUROS_PALDEAN_COMBAT_BREED)
-            moveType = TYPE_DARK;
-        else if (gBattleMons[battlerAtk].species == SPECIES_TAUROS_PALDEAN_BLAZE_BREED)
-            moveType = TYPE_FIRE;
-        else if (gBattleMons[battlerAtk].species == SPECIES_TAUROS_PALDEAN_AQUA_BREED)
-            moveType = TYPE_WATER;
-    }
-
-    attackerAbility = GetBattlerAbility(battlerAtk);
-    //GET_MOVE_TYPE(move, moveType);
-
-
-    if (move == MOVE_RAGE) //sets rage type with preference for non normal
-        {
-            if (gBattleMons[battlerAtk].type1 == TYPE_NORMAL 
-            && gBattleMons[battlerAtk].type2 != TYPE_NORMAL)
-                moveType = gBattleMons[battlerAtk].type2;
-            else //sets rage to type 1
-                moveType = gBattleMons[battlerAtk].type1; //need make sure use battlerAtk not gbattlerattacker that causes errors for some reason
-        }
-
-    if ((gFieldStatuses & STATUS_FIELD_ION_DELUGE && moveType == TYPE_NORMAL)//add absolute zero, check if ability on field, like stench then do water chance to ice
-        || gBattleMons[battlerAtk].volatiles.electrified)
-    {
-        moveType = TYPE_ELECTRIC;   //need test if these work without this extra value
-    }
-    else if (IsAbilityOnField(ABILITY_ABSOLUTE_ZERO) && moveType == TYPE_WATER)
-    {
-        moveType = TYPE_ICE;
-    }
-    //since this is meant to return type and this ability is meant to just change type received by enemy
-    //think I should exclude below? least for now
-    //not exactly sure if gbattlertarget would work w this function
-    //may need to add battlerDef argument to store intended target?
-    /*else if (GetBattlerAbility(gBattlerTarget) == ABILITY_CREATION_ENGINE && moveType == TYPE_WATER)
-    {
-        moveType = TYPE_ICE;
-    }
-    */
-    else if (gMovesInfo[move].type == TYPE_NORMAL
-             && move != MOVE_HIDDEN_POWER
-             && move != MOVE_WEATHER_BALL
-             && gMovesInfo[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
-             && gMovesInfo[move].effect != EFFECT_NATURAL_GIFT
-             && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))
-                 || (attackerAbility == ABILITY_REFRIGERATE && (ateType = TYPE_ICE))
-                 || (attackerAbility == ABILITY_AERILATE && (ateType = TYPE_FLYING))
-                 || ((attackerAbility == ABILITY_GALVANIZE) && (ateType = TYPE_ELECTRIC))
-                 || (attackerAbility == ABILITY_UNCHAINED_MELODY && (ateType = TYPE_SOUND))))
-    {
-        moveType = ateType; //above should do type change already, dmg boosts are already in pokemon.c
-
-    }
-    else if (gMovesInfo[move].type == TYPE_SOUND
-             && move != MOVE_HIDDEN_POWER
-             && move != MOVE_WEATHER_BALL
-             && gMovesInfo[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
-             && gMovesInfo[move].effect != EFFECT_NATURAL_GIFT
-             && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
-    {
-        moveType = ateType; //above should do type change already, dmg boosts are already in pokemon.c
-
-    }
-    else if ((move != MOVE_HIDDEN_POWER
-             && move != MOVE_WEATHER_BALL //note was before changed type calc, 
-             && gMovesInfo[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM)
-             && gMovesInfo[move].effect != EFFECT_NATURAL_GIFT
-             && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
-    {                                                   //without stab, so not worth
-        moveType = TYPE_NORMAL;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
-                                                        //actually I can do this with typecalc function and they can keep stab.
-    }
-    else if (IsSoundMove(move)
-             && attackerAbility == ABILITY_LIQUID_VOICE)
-    {
-        moveType = TYPE_WATER;
-    }
-    else if (gMovesInfo[move].type == TYPE_WATER
-        && attackerAbility == ABILITY_LIQUID_SOUL)
-    {
-        moveType = TYPE_GHOST;
-    }
-    else if (attackerAbility == ABILITY_WETIKO)
-    {
-        moveType = TYPE_ICE;
-    }
-    else if (move == MOVE_AURA_WHEEL && gBattleMons[battlerAtk].species == SPECIES_MORPEKO_HANGRY)
-    {
-        moveType = TYPE_DARK;
-    }
-
-    else if (move == MOVE_HIDDEN_POWER)
-    {
-       moveType = GetBattlerHiddenPowerType(battlerAtk); //think works still confused on issue w dynamic type masks
-
-    }
-
-    return moveType;
 }
 
 static void LinkBattleComputeBattleTypeFlags(u8 numPlayers, u8 multiPlayerId)
@@ -4305,13 +4142,17 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
 {
     const u8 *result = NULL;
     enum BattlerId battlerSide = GetBattlerSide(battler);
-    struct Pokemon *party;
+    bool32 keepGastroAcid = gBattleMons[battler].volatiles.gastroAcid;
+    bool32 keepTransformed = gBattleMons[battler].volatiles.transformed;
 
     for (enum Stat i = 0; i < NUM_BATTLE_STATS; ++i)
-        gBattleMons[battler].statStages[i] = 6;
+        gBattleMons[battler].statStages[i] = DEFAULT_STAT_STAGE;
 
     
-
+    
+    memset(&gBattleMons[battler].volatiles, 0, sizeof(struct Volatiles));
+    gBattleMons[battler].volatiles.gastroAcid = keepGastroAcid; // Edge case: Keep Gastro Acid if pokemon's ability can have effect after fainting, for example Innards Out.
+    gBattleMons[battler].volatiles.transformed = keepTransformed; // Edge case: Keep Transformed status to prevent triggering FORM_CHANGE_FAINT on transformed mons.
     //activebattler is mon fainting, i is looping all battlers for effects
     //that should be cleared when user faints
 
@@ -4346,15 +4187,13 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
     gActionSelectionCursor[battler] = 0;
     gMoveSelectionCursor[battler] = 0;
     
-    memset(&gBattleStruct->battlerState[battler], 0, sizeof(struct BattlerState));
+
+    if (GetProtectType(gProtectStructs[battler].protected) == PROTECT_TYPE_SINGLE) // Side type protects expire at the end of the turn
+        gProtectStructs[battler].protected = PROTECT_NONE;
 
     gProtectStructs[battler].protected = FALSE;
-    gProtectStructs[battler].endured = FALSE;
     gProtectStructs[battler].noValidMoves = FALSE;
     gProtectStructs[battler].helpingHand = FALSE;
-    gProtectStructs[battler].spikyShielded = FALSE;
-    gProtectStructs[battler].kingsShielded = FALSE;
-    gProtectStructs[battler].banefulBunkered = FALSE;
     gProtectStructs[battler].bounceMove = FALSE;
     gProtectStructs[battler].stealMove = FALSE;
     gProtectStructs[battler].flag0Unknown = FALSE;
@@ -4365,7 +4204,6 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
     gProtectStructs[battler].usedImprisonedMove = FALSE;
     gProtectStructs[battler].loveImmobility = FALSE;
     gProtectStructs[battler].obstructed = FALSE;
-    gProtectStructs[battler].silkTrapped = FALSE;
     gProtectStructs[battler].usedDisabledMove = FALSE;
     gProtectStructs[battler].usedTauntedMove = FALSE;
     gProtectStructs[battler].flag2Unknown = FALSE;
@@ -4401,9 +4239,18 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
     gBattleStruct->lastTakenMoveFrom[battler][1] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][2] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][3] = 0;
-    gBattleStruct->pursuitTarget = 0;
-    gBattleStruct->pursuitSwitchByMove = FALSE; //not used by EE? anymore
-    gBattleStruct->pursuitStoredSwitch = 0;
+
+    ClearPursuitValuesIfSet(battler);
+
+    if (gBattleStruct->battlerState[battler].commanderType != COMMANDER_NONE)
+    {
+        enum BattlerId partner = BATTLE_PARTNER(battler);
+        if (IsBattlerAlive(partner))
+        {
+            BtlController_EmitSpriteInvisibility(partner, B_COMM_TO_CONTROLLER, FALSE);
+            MarkBattlerForControllerExec(partner);
+        }
+    }
 
     for (u32 i = 0; i < ARRAY_COUNT(gSideTimers); i++)
     {
@@ -4463,9 +4310,10 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
 
                 // If the released mon can be confused, do so.
                 // Don't use CanBeConfused here, since it can cause issues in edge cases.
-                if (!(GetBattlerAbility(otherSkyDropper) == ABILITY_OWN_TEMPO
+                enum Ability ability = GetBattlerAbility(otherSkyDropper);
+                if (!(ability == ABILITY_OWN_TEMPO
                     || gBattleMons[otherSkyDropper].volatiles.confusionTurns
-                    || IsBattlerTerrainAffected(otherSkyDropper, STATUS_FIELD_MISTY_TERRAIN)))
+                    || IsMistyTerrainAffected(otherSkyDropper, ability, GetBattlerHoldEffect(otherSkyDropper), gFieldStatuses)))
                 {
                     gBattleMons[otherSkyDropper].volatiles.confusionTurns = ((Random()% 4) + 2);
                     gBattlerAttacker = otherSkyDropper;
@@ -4480,14 +4328,10 @@ const u8* FaintClearSetData(enum BattlerId battler) //see about make status1 not
     gBattleStruct->zmove.toBeUsed[battler] = MOVE_NONE;
     gBattleStruct->zmove.effect = EFFECT_HIT;*/ //vsonic for latetr
 
-    if (battlerSide == B_SIDE_OPPONENT) //use this instead taken from mega logic
-        party = &gEnemyParty[gBattlerPartyIndexes[battler]];  //mon being transformed
-    else
-        party = &gPlayerParty[gBattlerPartyIndexes[battler]];
 
     //removed transformatino line as status2 would alraedy be removed  fron fainted
-    //if (gBattleMons[battler].volatiles.transformed)
-        CalculateMonStats(party); //to reset stats to normal  
+    if (gBattleMons[battler].volatiles.transformed)
+        CalculateMonStats(GetBattlerMon(battler)); //to reset stats to normal  
 
     return result;
 }
@@ -4542,7 +4386,7 @@ static void DoBattleIntro(void)
                 gBattleMons[battler].type1 = GetSpeciesType(gBattleMons[battler].species, PRIMARY_TYPE);
                 gBattleMons[battler].type2 = GetSpeciesType(gBattleMons[battler].species, SECONDARY_TYPE);
                 gBattleMons[battler].type3 = TYPE_MYSTERY;
-                gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
+                gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum, GetBattlerMon(battler));
                 gBattleStruct->battlerState[battler].hpOnSwitchout = gBattleMons[battler].hp;
                 memset(&gBattleMons[battler].volatiles, 0, sizeof(struct Volatiles));
                 for (i = 0; i < NUM_BATTLE_STATS; i++)
@@ -5677,7 +5521,7 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum 
     //gen 9 //-protosynthesis requires gen9 item Booster Energy to be complete accurate
     else if (ability == ABILITY_PROTOSYNTHESIS && IsBattlerWeatherAffected(battler, WEATHER_SUN) && highestStat == STAT_SPEED)
         speed = (speed * 150) / 100;
-    else if (ability == ABILITY_QUARK_DRIVE && IsBattlerTerrainAffected(battler, STATUS_FIELD_ELECTRIC_TERRAIN) && highestStat == STAT_SPEED)
+    else if (ability == ABILITY_QUARK_DRIVE && IsElectricTerrainAffected(battler, ability, holdEffect, gFieldStatuses) && highestStat == STAT_SPEED)
         speed = (speed * 150) / 100;
 
         // stat stages
@@ -7446,9 +7290,9 @@ static void HandleAction_TryFinish(void)
 }*/
 
 #define PRIORITY_EFFECTS
-s32 GetChosenMovePriority(enum BattlerId battler, u32 ability) //made u8 (in test build)
+s32 GetChosenMovePriority(enum BattlerId battler, enum Ability ability) //made u8 (in test build)
 {
-    u16 move;
+    enum Move move;
     gProtectStructs[battler].pranksterElevated = FALSE;
     gProtectStructs[battler].galewingsElevated = FALSE;
     gProtectStructs[battler].triageElevated = FALSE;
@@ -7467,11 +7311,12 @@ s32 GetChosenMovePriority(enum BattlerId battler, u32 ability) //made u8 (in tes
 
 //updated w my custom logic and dropped lagging tail change
 //idea was dumb
-s32 GetBattleMovePriority(enum BattlerId battler, u32 ability, u32 move)
+s32 GetBattleMovePriority(enum BattlerId battler, enum Ability ability, enum Move move)
 {
     s32 priority = 0;
     u16 power = gDynamicBasePower != 0 ? gDynamicBasePower : gMovesInfo[move].power;
     u8 moveType;
+    enum HoldEffect holdEffect = GetBattlerHoldEffect(battler);
 
 
     priority = GetMovePriority(move);
@@ -7532,7 +7377,7 @@ s32 GetBattleMovePriority(enum BattlerId battler, u32 ability, u32 move)
             gProtectStructs[battler].pranksterElevated = TRUE; //setup equivalent for gale wings and triage so cna be checked by queenly majesty
             priority++; //and one for omnipotent aide as well
         }
-        else if (gMovesInfo[move].effect == EFFECT_GRASSY_GLIDE && IsBattlerTerrainAffected(battler, STATUS_FIELD_GRASSY_TERRAIN))
+        else if (gMovesInfo[move].effect == EFFECT_GRASSY_GLIDE && IsGrassyTerrainAffected(battler, ability, holdEffect, gFieldStatuses))
         {
             priority++;
         }

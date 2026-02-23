@@ -2932,7 +2932,7 @@ static bool32 TryRedCard(enum BattlerId battlerAtk, enum BattlerId redCardBattle
     SaveBattlerAttacker(battlerAtk);
     gBattleScripting.battler = gBattlerTarget = redCardBattler;
     gEffectBattler = battlerAtk;
-    if (gBattleStruct->battlerState[battlerAtk].commanderSpecies != SPECIES_NONE
+    if (gBattleStruct->battlerState[battlerAtk].commanderType != COMMANDER_NONE
      || GetBattlerAbility(battlerAtk) == ABILITY_GUARD_DOG
      || GetActiveGimmick(battlerAtk) == GIMMICK_DYNAMAX)
         BattleScriptCall(BattleScript_RedCardActivationNoSwitch);
