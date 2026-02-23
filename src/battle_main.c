@@ -4713,7 +4713,9 @@ static void DoBattleIntro(void)
 //before first turn for BATTLER, not all battle,
 //so switch in stuff etc. other chekcs for before new mon hits field
 //well not before it hits field, but before turn start i.e move selection
-static void TryDoEventsBeforeFirstTurn(void)
+//swaped for EE version need update battle setup stuff for trainer params
+//can cherry pick unsure how far changes go
+/*static void TryDoEventsBeforeFirstTurn(void)
 {
     s32 i, j;
     u8 effect = 0;
@@ -4742,18 +4744,7 @@ static void TryDoEventsBeforeFirstTurn(void)
         gBattleStruct->overworldWeatherDone = TRUE; //move here cuz I want terrain to trigger first
         return;
     }
-    // Totem boosts
-    /*for (i = 0; i < gBattlersCount; i++)
-    {
-        if (gTotemBoosts[i].stats != 0)
-        {
-            gBattlerAttacker = i;
-            BattleScriptExecute(BattleScript_TotemVar);
-            return;
-        }
-    }
-    memset(gTotemBoosts, 0, sizeof(gTotemBoosts));  // erase all totem boosts just to be safe
-    */
+
     // Primal Reversion
     for (i = 0; i < gBattlersCount; i++)
     {
@@ -4828,6 +4819,153 @@ static void TryDoEventsBeforeFirstTurn(void)
 
     gBattleTurnCounter = 0;
     gBattleStruct->eventState.beforeFirstTurn = 0;
+}*/
+
+static void TryDoEventsBeforeFirstTurn(void)
+{
+    s32 i;
+
+    if (gBattleControllerExecFlags)
+        return;
+
+    switch (gBattleStruct->eventState.beforeFirstTurn)
+    {
+    case FIRST_TURN_EVENTS_START:
+        // Set invalid mons as absent(for example when starting a double battle with only one pokemon).
+        if (!(gBattleTypeFlags & BATTLE_TYPE_SAFARI))
+        {
+            for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
+            {
+                gBattleStruct->monToSwitchIntoId[battler] = PARTY_SIZE; // Included here because switches can happen before during set ups (eg. eject pack)
+                struct Pokemon *mon = GetBattlerMon(battler);
+                if (!IsBattlerAlive(battler) || gBattleMons[battler].species == SPECIES_NONE || GetMonData(mon, MON_DATA_IS_EGG))
+                    gAbsentBattlerFlags |= 1u << battler;
+            }
+        }
+
+        // Allow for illegal abilities within tests.
+        #if TESTING
+        if (gTestRunnerEnabled)
+        {
+            for (enum BattlerId battler = 0; battler < gBattlersCount; ++battler)
+            {
+                enum BattleTrainer trainer = GetBattlerTrainer(battler);
+                u32 partyIndex = gBattlerPartyIndexes[battler];
+                if (TestRunner_Battle_GetForcedAbility(trainer, partyIndex))
+                    gBattleMons[battler].ability = TestRunner_Battle_GetForcedAbility(trainer, partyIndex);
+            }
+        }
+        #endif // TESTING
+
+        gBattleStruct->speedTieBreaks = RandomUniform(RNG_SPEED_TIE, 0, Factorial(MAX_BATTLERS_COUNT) - 1);
+        gBattleTurnCounter = 0;
+        gBattleStruct->eventState.beforeFirstTurn++;
+        break;
+    case FIRST_TURN_EVENTS_OVERWORLD_WEATHER:
+        gBattleStruct->eventState.beforeFirstTurn++;
+        if (TryFieldEffects(FIELD_EFFECT_OVERWORLD_WEATHER))
+            return;
+        break;
+    case FIRST_TURN_EVENTS_TERRAIN:
+        gBattleStruct->eventState.beforeFirstTurn++;
+        if (TryFieldEffects(FIELD_EFFECT_OVERWORLD_TERRAIN))
+            return;
+        break;
+    case FIRST_TURN_EVENTS_STARTING_STATUS:
+        while (TRUE)
+        {
+            if (TryFieldEffects(FIELD_EFFECT_TRAINER_STATUSES))
+                return;
+            break;
+        }
+        gBattleStruct->eventState.beforeFirstTurn++;
+        break;
+    case FIRST_TURN_EVENTS_TOTEM_BOOST:
+        for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
+        {
+            if (gQueuedStatBoosts[battler].stats != 0 && !gProtectStructs[battler].eatMirrorHerb && gProtectStructs[battler].activateOpportunist == 0)
+            {
+                gBattlerAttacker = battler;
+                BattleScriptExecute(BattleScript_TotemVar);
+                return;
+            }
+        }
+        memset(gQueuedStatBoosts, 0, sizeof(gQueuedStatBoosts)); // erase all totem boosts for Mirror Herb and Opportunist
+        gBattleStruct->eventState.beforeFirstTurn++;
+        break;
+    case FIRST_TURN_SWITCH_IN_EVENTS:
+        gBattleStruct->eventState.switchIn = 0;
+        for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
+            gBattleStruct->battlerState[battler].switchIn = TRUE;
+        BattleScriptPushCursorAndCallback(BattleScript_FirstTurnSwitchInEvents);
+        gBattleStruct->eventState.beforeFirstTurn++;
+        break;
+    case FIRST_TURN_FAINTED_BATTLERS:
+        // Handle any Pokemon that fainted from starting hazards before transitioning to action selection
+        if (HandleFaintedMonActions())
+            return;
+        gBattleStruct->eventState.faintedAction = 0;
+        gBattleStruct->eventState.beforeFirstTurn++;
+        break;
+    case FIRST_TURN_EVENTS_TRAINER_SLIDE_A:
+        if (ShouldDoTrainerSlide(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT), TRAINER_SLIDE_BEFORE_FIRST_TURN))
+            BattleScriptExecute(BattleScript_TrainerASlideMsgEnd2);
+        gBattleStruct->eventState.beforeFirstTurn++;
+        break;
+    case FIRST_TURN_EVENTS_TRAINER_SLIDE_B:
+        if (ShouldDoTrainerSlide(GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT), TRAINER_SLIDE_BEFORE_FIRST_TURN))
+        {
+            // Ensures only trainer A slide is played in single-trainer doubles (B == A / B == TRAINER_NONE) and 2v1 multibattles (B == 0xFFFF)
+            if (!((TRAINER_BATTLE_PARAM.opponentB == TRAINER_BATTLE_PARAM.opponentA)
+            || (TRAINER_BATTLE_PARAM.opponentB == TRAINER_NONE)
+            || (TRAINER_BATTLE_PARAM.opponentB == 0xFFFF)))
+            {
+                BattleScriptExecute(BattleScript_TrainerBSlideMsgEnd2);
+            }
+        }
+        gBattleStruct->eventState.beforeFirstTurn++;
+        break;
+    case FIRST_TURN_EVENTS_TRAINER_SLIDE_PARTNER:
+        if (ShouldDoTrainerSlide(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT), TRAINER_SLIDE_BEFORE_FIRST_TURN))
+            BattleScriptExecute(BattleScript_TrainerPartnerSlideMsgEnd2);
+        gBattleStruct->eventState.beforeFirstTurn++;
+        break;
+    case FIRST_TURN_EVENTS_END:
+        for (enum BattlerId battler = 0; battler < MAX_BATTLERS_COUNT; battler++)
+        {
+            gBattleStruct->monToSwitchIntoId[battler] = PARTY_SIZE;
+            gChosenActionByBattler[battler] = B_ACTION_NONE;
+            gChosenMoveByBattler[battler] = MOVE_NONE;
+        }
+        TurnValuesCleanUp(FALSE);
+        memset(&gSpecialStatuses, 0, sizeof(gSpecialStatuses));
+        BattlePutTextOnWindow(gText_EmptyString3, B_WIN_MSG);
+        AssignUsableGimmicks();
+        gBattleMainFunc = HandleTurnActionSelectionState;
+        ResetSentPokesToOpponentValue();
+
+        for (i = 0; i < BATTLE_COMMUNICATION_ENTRIES_COUNT; i++)
+            gBattleCommunication[i] = 0;
+
+        gBattleStruct->eventState.endTurnBlock = 0;
+        gBattleStruct->eventState.endTurnBattler = 0;
+        gBattleScripting.moveendState = 0;
+        gBattleStruct->eventState.faintedAction = 0;
+        gBattleStruct->eventState.endTurn = 0;
+
+        memset(gQueuedStatBoosts, 0, sizeof(gQueuedStatBoosts));
+        SetShellSideArmCategory();
+        SetAiLogicDataForTurn(gAiLogicData); // get assumed abilities, hold effects, etc of all battlers
+
+        /*if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
+        {
+            StopCryAndClearCrySongs();
+            BattleScriptExecute(BattleScript_ArenaTurnBeginning);
+        }*/
+
+        gBattleStruct->eventState.beforeFirstTurn = 0;
+        break;
+    }
 }
 
 static void HandleEndTurn_ContinueBattle(void)
