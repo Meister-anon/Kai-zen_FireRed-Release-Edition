@@ -6157,7 +6157,7 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
                                         if (gBattleMons[battlers[i]].moves[numMoves] == MOVE_NONE)
                                             break;
                     movePos = Random() % numMoves;
-                    gBattleMons[battlers[i]].bindedMove = gBattleMons[battlers[i]].moves[movePos].volatiles;
+                    gBattleMons[battlers[i]].volatiles.bindedMove = gBattleMons[battlers[i]].moves[movePos];
                     gBattleMons[battlers[i]].volatiles.bindMovepos = movePos;
                 
                     switch (gBattleMons[battlers[i]].volatiles.bindedMove)

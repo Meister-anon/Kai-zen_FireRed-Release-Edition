@@ -645,9 +645,17 @@ void HandleAction_UseMove(void)
         gCurrentMove = gChosenMove = MOVE_STRUGGLE;
         gBattleStruct->moveTarget[gBattlerAttacker] = GetBattleMoveTarget(MOVE_STRUGGLE, TARGET_NONE);
     }
-    else if (gBattleMons[gBattlerAttacker].volatiles.multipleTurns || gBattleMons[gBattlerAttacker].volatiles.rechargeTimer > 0)
+    else if (gBattleMons[gBattlerAttacker].volatiles.multipleTurns || gBattleMons[gBattlerAttacker].volatiles.rechargeTimer)
     {
         gCurrentMove = gChosenMove = gLockedMoves[gBattlerAttacker];
+    }
+    else if (gBattleMons[gBattlerAttacker].volatiles.bindTurns && gBattleMons[gBattlerAttacker].volatiles.bindedMove != MOVE_NONE) //move should already be set I think
+    {
+        gCurrentMove = gChosenMove = gBattleMons[gBattlerAttacker].volatiles.bindedMove;  //bind move
+        if (gCurrentMove != MOVE_STRUGGLE)
+        gCurrMovePos = gChosenMovePos = gBattleMons[gBattlerAttacker].volatiles.bindMovepos;
+        gBattleStruct->moveTarget[gBattlerAttacker] = GetBattleMoveTarget(gCurrentMove, TARGET_NONE);
+        //fixed bind not working on first move
     }
     // encore forces you to use the same move
     else if (GetActiveGimmick(gBattlerAttacker) != GIMMICK_Z_MOVE && gBattleMons[gBattlerAttacker].volatiles.encoredMove != MOVE_NONE
