@@ -379,7 +379,7 @@ bool32 CanBattlerEscape(enum BattlerId battler); // no ability check
 
 void BattleScriptExecute(const u8 *BS_ptr);
 void BattleScriptPushCursorAndCallback(const u8 *BS_ptr);
-void ClearDestinyBondGrudge(enum BattlerId battlerId);
+void ClearVariousBattlerFlags(enum BattlerId battler);
 void HandleAction_RunBattleScript(void);
 
 /*u8 IsMonDisobedient(void);

@@ -781,10 +781,20 @@ void HandleAction_Switch(void)
     if (gBattleResults.playerSwitchesCounter < 255)
         gBattleResults.playerSwitchesCounter++;
 
+    //unsure if will still need this
+    if (gBattleMons[gBattlerAttacker].volatiles.transformed) //*warning dont mess w this stuff, transform uses custom logic
+    {
+
+        RevertTransformedHP(gBattlerAttacker);
+   
+        CalculateMonStats(GetBattlerMon(gBattlerAttacker)); //for resetting stats to normal
+    }
+    else
     TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_SWITCH_OUT, GetBattlerAbility(gBattlerAttacker));
 }
 
-void HandleAction_UseItem(void)
+//not setup yet
+/*void HandleAction_UseItem(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
@@ -799,7 +809,7 @@ void HandleAction_UseItem(void)
 
     gBattlescriptCurrInstr = gBattlescriptsForUsingItem[GetItemBattleUsage(gLastUsedItem) - 1];
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
-}
+}*/
 
 //EE moved to this file
 #define RUN_LOGIC_PT2 //feels like run logic is all over the place potentially clean up later
@@ -998,7 +1008,7 @@ void HandleAction_Run(void)
         }
 
         gBattleOutcome |= B_OUTCOME_LINK_BATTLE_RAN;
-        gSaveBlock2Ptr->frontier.disableRecordBattle = TRUE;
+        //gSaveBlock2Ptr->frontier.disableRecordBattle = TRUE;
     }
     else
     {
@@ -1031,16 +1041,16 @@ void HandleAction_Run(void)
     }
 }
 
-void HandleAction_WatchesCarefully(void)
+/*void HandleAction_WatchesCarefully(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
     gBattle_BG0_Y = 0;
     gBattlescriptCurrInstr = gBattlescriptsForSafariActions[0];
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
-}
+}*/
 
-void HandleAction_SafariZoneBallThrow(void)
+/*void HandleAction_SafariZoneBallThrow(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
@@ -1049,8 +1059,9 @@ void HandleAction_SafariZoneBallThrow(void)
     gLastUsedItem = ITEM_SAFARI_BALL;
     gBattlescriptCurrInstr = BattleScript_SafariBallThrow;
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
-}
+}*/
 
+//seem not used
 void HandleAction_ThrowBall(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
@@ -1063,6 +1074,7 @@ void HandleAction_ThrowBall(void)
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 
+//not used
 void HandleAction_ThrowPokeblock(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
@@ -1092,6 +1104,8 @@ void HandleAction_ThrowPokeblock(void)
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 
+//not used believe all part of Em safari
+//not realevant for FR
 void HandleAction_GoNear(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
@@ -1119,15 +1133,15 @@ void HandleAction_GoNear(void)
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 
-void HandleAction_SafariZoneRun(void)
+/*void HandleAction_SafariZoneRun(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     PlaySE(SE_FLEE);
     gCurrentTurnActionNumber = gBattlersCount;
     gBattleOutcome = B_OUTCOME_RAN;
-}
+}*/
 
-void HandleAction_WallyBallThrow(void)
+/*void HandleAction_WallyBallThrow(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
@@ -1138,16 +1152,16 @@ void HandleAction_WallyBallThrow(void)
     gBattlescriptCurrInstr = gBattlescriptsForSafariActions[3];
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
     gActionsByTurnOrder[1] = B_ACTION_FINISHED;
-}
+}*/
 
-void HandleAction_TryFinish(void)
+/*void HandleAction_TryFinish(void)
 {
     if (!HandleFaintedMonActions())
     {
         gBattleStruct->eventState.faintedAction = 0;
         gCurrentActionFuncId = B_ACTION_FINISHED;
     }
-}
+}*/
 
 void HandleAction_NothingIsFainted(void)
 {
@@ -1175,6 +1189,7 @@ void HandleAction_ActionFinished(void)
     gBattleScripting.moveendState = 0;
     gBattleCommunication[3] = 0;
     gBattleCommunication[4] = 0;
+    gBattleScripting.multihitMoveEffect = 0; //need look in to what is again, if still need
     gBattleResources->battleScriptsStack->size = 0;
     gBattleStruct->synchronizeMoveEffect = MOVE_EFFECT_NONE;
 

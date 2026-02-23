@@ -6917,7 +6917,8 @@ void RunBattleScriptCommands(void)
 //not exactly sure when this function triggers?
 //ahh believe is part of choose move process, so 
 //this is before selection or before the move is activated
-static void HandleAction_UseMove(void)
+//believe replaced by EE func in util
+/*static void HandleAction_UseMove(void)
 {
     u32 i, side, moveType, argument;
     u32 moveArgument = 0;
@@ -7070,7 +7071,9 @@ static void HandleAction_UseMove(void)
 
     gBattlescriptCurrInstr = GetMoveBattleScript(gCurrentMove);   //important, link for battle_1.s effects at top to effects from battle_effects.h   vsonic
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
-}//when use move above line will read effect and make it start at specific battlescript as ordered by battle_move_effects
+}
+*/
+//when use move above line will read effect and make it start at specific battlescript as ordered by battle_move_effects
 //but there are also move_effects as named from the /constants/battle.h  this is needlesl confusing
 //plan rename gBattleScriptsForMoveEffects  gBattleScriptsForBattleEffects
 //rename all includes for file battle_move_effects.h to battle_effects.h
@@ -7078,7 +7081,7 @@ static void HandleAction_UseMove(void)
 //then every file where constants/battle is included should also include new battle_move_effects.h constant file
 //finally rename seteffectwithchance command/function  setmoveeffectwithchance  so its clear that is for move effects
 
-static void HandleAction_Switch(void) //actual switch code
+/*static void HandleAction_Switch(void) //actual switch code
 {
     struct Pokemon *party;
 
@@ -7107,23 +7110,23 @@ static void HandleAction_Switch(void) //actual switch code
     else
         party = &gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]];
 
-    if (gBattleMons[gBattlerAttacker].volatiles.transformed) //*warning dont mess w this stuff, transform uses custom logic
+    if (gBattleMons[gBattlerAttacker].volatiles.transformed) //warning dont mess w this stuff, transform uses custom logic
     {
 
         RevertTransformedHP(gBattlerAttacker);
    
-        CalculateMonStats(party); //for resetting stats to normal
+        CalculateMonStats(GetBattlerMon(gBattlerAttacker)); //for resetting stats to normal
     }
     else
         TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_SWITCH);
-}
+}*/
 
 static void HandleAction_UseItem(void)
 {
     gBattlerAttacker = gBattlerTarget = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
     gBattle_BG0_Y = 0;
-    ClearDestinyBondGrudge(gBattlerAttacker);
+    ClearVariousBattlerFlags(gBattlerAttacker);
     gLastUsedItem = gBattleResources->bufferB[gBattlerAttacker][1] | (gBattleResources->bufferB[gBattlerAttacker][2] << 8);
     if (GetPocketByItemId(gLastUsedItem) == POCKET_POKE_BALLS) // is ball
     {
@@ -7200,7 +7203,7 @@ static void HandleAction_UseItem(void)
 
 
 
-static void HandleAction_Run(void)
+/*static void HandleAction_Run(void)
 {
     s32 i;
 
@@ -7230,7 +7233,7 @@ static void HandleAction_Run(void)
         {
             if (!TryRunFromBattle(gBattlerAttacker)) // failed to run away
             {
-                ClearDestinyBondGrudge(gBattlerAttacker);
+                ClearVariousBattlerFlags(gBattlerAttacker);
                 gBattleCommunication[MULTISTRING_CHOOSER] = 3;
                 gBattlescriptCurrInstr = BattleScript_PrintFailedToRunString;
                 gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
@@ -7251,7 +7254,7 @@ static void HandleAction_Run(void)
             }
         }
     }
-}
+}*/
 
 static void HandleAction_WatchesCarefully(void)
 {
@@ -7294,6 +7297,7 @@ static void HandleAction_WatchesCarefully(void)
 //and that its done this way is to do the safari zone decrement *FACEPALM
 //which can be done by just putting btlcntrl decrement inside safari ball throw functions
 //rn I broke decrement because I moved  ball order smh
+//vsonic double check this works
 static void HandleAction_SafariZoneBallThrow(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
@@ -7366,7 +7370,7 @@ static void HandleAction_TryFinish(void)
 }
 
 
-static void HandleAction_NothingIsFainted(void)
+/*static void HandleAction_NothingIsFainted(void)
 {
     ++gCurrentTurnActionNumber;
     gCurrentActionFuncId = gActionsByTurnOrder[gCurrentTurnActionNumber];
@@ -7374,9 +7378,9 @@ static void HandleAction_NothingIsFainted(void)
                     | HITMARKER_NO_PPDEDUCT | HITMARKER_PASSIVE_DAMAGE
                     | HITMARKER_OBEYS | HITMARKER_WAKE_UP_CLEAR | HITMARKER_SYNCHRONIZE_EFFECT
                     | HITMARKER_CHARGING | HITMARKER_NEVER_SET);
-}
+}*/
 
-static void HandleAction_ActionFinished(void) //may be important for intimidate synchronize adn trace changes
+/*static void HandleAction_ActionFinished(void) //may be important for intimidate synchronize adn trace changes
 {
     u32 i, j, moveType;
     bool32 afterYouActive = gSpecialStatuses[gBattlerByTurnOrder[gCurrentTurnActionNumber + 1]].afterYou;
@@ -7389,18 +7393,7 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
                     | HITMARKER_NO_PPDEDUCT | HITMARKER_PASSIVE_DAMAGE
                     | HITMARKER_OBEYS | HITMARKER_WAKE_UP_CLEAR | HITMARKER_SYNCHRONIZE_EFFECT
                     | HITMARKER_CHARGING | HITMARKER_NEVER_SET | HITMARKER_IGNORE_DISGUISE);
-    
-    // check if Stellar type boost should be used up
-    //moveType = GetMoveType(gCurrentMove);
-    //GET_MOVE_TYPE(gCurrentMove, moveType);//EE addition attempt workaround
 
-    /*if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_TERA
-        && GetBattlerTeraType(gBattlerAttacker) == TYPE_STELLAR
-        && gMovesInfo[gCurrentMove].category != DAMAGE_CATEGORY_STATUS
-        && IsTypeStellarBoosted(gBattlerAttacker, moveType))
-    {
-        ExpendTypeStellarBoost(gBattlerAttacker, moveType);
-    }*///put in later revisist vsonic Important
     
     
     
@@ -7412,7 +7405,7 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
     gLastHitByType[gBattlerAttacker] = 0;//actually all I need to do is add that extra function call, for switch in
     gBattleStruct->dynamicMoveType = 0;//and then add STATUS3_INTIMIDATE_POKES filter to existing break condition and it should work perfect
     gDynamicBasePower = 0;//if target is on opposite side and visible and not already intimidated it will activate otherwise it'll skip/do nothing!! need test
-    gBattleScripting.moveendState; = 0;
+    gBattleScripting.moveendState = 0;
     gBattleCommunication[MOVE_EFFECT_BYTE] = 0;
     gBattleCommunication[ACTIONS_CONFIRMED_COUNT] = 0;
     gBattleScripting.multihitMoveEffect = 0;
@@ -7420,7 +7413,7 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
 
     //adding the pledgemove thing here breaks game start...
     //guess because not properly set up yet
-    if (!afterYouActive/* && !gBattleStruct->pledgeMove*/)
+    if (!afterYouActive && !gBattleStruct->pledgeMove)
     {
         // i starts at `gCurrentTurnActionNumber` because we don't want to recalculate turn order for mon that have already
         // taken action. It's been previously increased, which we want in order to not recalculate the turn of the mon that just finished its action
@@ -7450,7 +7443,7 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
             }
         }
     }
-}
+}*/
 
 #define PRIORITY_EFFECTS
 s32 GetChosenMovePriority(enum BattlerId battler, u32 ability) //made u8 (in test build)

@@ -316,6 +316,16 @@ enum CureStatusBerryEffectStringID
     B_MSG_NORMALIZED_STATUS,
 };
 
+// gNoEscapeStringIds
+enum NoEscapeStringID
+{
+    B_MSG_CANT_ESCAPE,
+    B_MSG_DONT_LEAVE_BIRCH,
+    B_MSG_PREVENTS_ESCAPE,
+    B_MSG_CANT_ESCAPE_2,
+    B_MSG_ATTACKER_CANT_ESCAPE,
+};
+
 // gRestUsedStringIds
 enum RestUsedStringID
 {
