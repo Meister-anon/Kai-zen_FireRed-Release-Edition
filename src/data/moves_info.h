@@ -389,7 +389,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Swords Dance"),
         .description = COMPOUND_MOVE_STRING("A frenetic dance of\nfighting. It sharply\nraises the ATTACK\nstat."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .pp = 20,
         #else
             .pp = 30,
@@ -485,7 +485,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Whirlwind"),
         .description = COMPOUND_MOVE_STRING("The foe is made to\nswitch out with an\nally. In the wild,\nthe battle ends."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .accuracy = 0,
             #elif B_UPDATED_MOVE_DATA == GEN_5
             .accuracy = 100,
@@ -532,7 +532,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Fly"),
         .description = COMPOUND_MOVE_STRING("A 2-turn attack when\nnot in Tailwind.\nIt has a high\ncritical-hit ratio.\nUse it to fly\nto any known town."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .power = 80,
         #else
             .power = 70,
@@ -598,7 +598,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Bind"),
         .description = COMPOUND_MOVE_STRING("A long body or\ntentacles are used\nto bind the foe for\ntwo to four turns.\nLocks foe to last\nmove during trap."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .accuracy = 90,
         #else
             .accuracy = 75,
@@ -650,7 +650,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Vine Whip"),
         .description = COMPOUND_MOVE_STRING("The foe is struck\nwith slender, whip-\nlike vines.\nIt may make the\nfoe flinch."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 45,
             .pp = 25,
         #elif B_UPDATED_MOVE_DATA == GEN_4 || B_UPDATED_MOVE_DATA == GEN_5
@@ -755,7 +755,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Dropkick"),
         .description = COMPOUND_MOVE_STRING("The user jumps up\nhigh, then kicks.\nIf it misses, the\nuser hurts itself."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .power = 100,
             .pp = 10,
         #elif B_UPDATED_MOVE_DATA == GEN_4
@@ -926,7 +926,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Tackle"),
         .description = COMPOUND_MOVE_STRING("A physical attack\nin which the user\ncharges, full body,\ninto the foe."),
-        #if B_UPDATED_MOVE_DATA >= GEN_7
+        #if UPDATED_MOVE_DATA <= GEN_7
             .power = 40,
             .accuracy = 95,
         #elif B_UPDATED_MOVE_DATA == GEN_5 || B_UPDATED_MOVE_DATA == GEN_6
@@ -954,7 +954,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Body Slam"),
         .description = COMPOUND_MOVE_STRING("The user drops its\nfull body on the\nfoe. It may leave\nthe foe paralyzed."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             #else
             #endif
         .effect = EFFECT_HIT,
@@ -982,7 +982,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Wrap"),
         .description = COMPOUND_MOVE_STRING("A long body or\nvines are used to\nwrap the foe for\ntwo to four turns.\nSlowing them for\nthe duration."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .accuracy = 90, //need decide if new wrapping moves (ones w base 15 power) should be base 85 or 90 accuracy
         #else   //will make base 90 thse are setup moves really useless if they miss
             .accuracy = 85,
@@ -1034,7 +1034,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Thrash"),
         .description = COMPOUND_MOVE_STRING("The user rampages\nabout for two to\nthree turns, then\nbecomes confused."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .power = 120,
             .pp = 10,
         #else
@@ -1161,7 +1161,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Pin Missile"),
         .description = COMPOUND_MOVE_STRING("Sharp pins are shot\nat the foe and hit\ntwo to five times\nat once."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 25,
             .accuracy = 95,
         #else
@@ -1258,7 +1258,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Roar"),
         .description = COMPOUND_MOVE_STRING("The foe is made to\nswitch out with an\nally. In the wild,\nthe battle ends."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .accuracy = 0,
             #elif B_UPDATED_MOVE_DATA == GEN_5
             .accuracy = 100,
@@ -1369,7 +1369,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Disable"),
         .description = COMPOUND_MOVE_STRING("For a few turns,\nit prevents the foe\nfrom using the move\nit last used."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .accuracy = 85,
             #elif B_UPDATED_MOVE_DATA == GEN_4
             .accuracy = 80,
@@ -1547,7 +1547,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Ice Beam"),
         .description = COMPOUND_MOVE_STRING("The foe is struck\nwith an icy beam.\nIt may freeze the\nfoe solid."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 95,
         #else
             .power = 95,
@@ -1737,7 +1737,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Submission"),
         .description = COMPOUND_MOVE_STRING("The Ultimate FIGHT\nmove. A life-risking\nattack that breaks\nthrough screens and\nprotect. But also\nhurts the user."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .pp = 5,    //lowered pp for higher distribution
         #else
             .pp = 25,
@@ -1872,7 +1872,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Absorb"),
         .description = COMPOUND_MOVE_STRING("An attack that\nabsorbs half the\ndamage it inflicted\nto restore HP."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .pp = 25,
         #else
             .pp = 20,
@@ -1897,7 +1897,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Mega Drain"),
         .description = COMPOUND_MOVE_STRING("A tough attack that\ndrains half the\ndamage it inflicted\nto restore HP."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .pp = 15,
         #else
             .pp = 10,
@@ -1942,7 +1942,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Growth"),
         .description = COMPOUND_MOVE_STRING("The user's body is\nforced to grow,\nraising its ATK\nand SP. ATK stat."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .pp = 20,
         #else
             .pp = 40,
@@ -2077,7 +2077,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Petal Dance"),
         .description = COMPOUND_MOVE_STRING("The user attacks\nwith petals for two\nto three turns,\nthen gets confused."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .power = 120,
             .pp = 10,
         #elif B_UPDATED_MOVE_DATA == GEN_4
@@ -2112,7 +2112,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("String Shot"),
         .description = COMPOUND_MOVE_STRING("The foe is bound\nwith strings shot\nfrom the mouth that\nharshly reduce\nits SPEED."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .effect = EFFECT_SPEED_DOWN_2,
         #else
             .effect = EFFECT_SPEED_DOWN,
@@ -2172,7 +2172,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Fire Spin"),
         .description = COMPOUND_MOVE_STRING("The foe is trapped\nin an intense spiral\nof fire that rages\ntwo to four turns.\nIncreases chance of\nburn during trap."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .power = 30,
             .accuracy = 90,
         #else
@@ -2367,7 +2367,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Dig"),
         .description = COMPOUND_MOVE_STRING("An attack that hits\non the 2nd turn.\nCan also be used\nto exit dungeons."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .power = 80,
         #else
             .power = 60,
@@ -2399,7 +2399,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Toxic"),
         .description = COMPOUND_MOVE_STRING("A move that badly\npoisons the foe.\nIts poison damage\nworsens every turn."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .accuracy = 90,
         #else
             .accuracy = 85,
@@ -2705,7 +2705,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Recover"),
         .description = COMPOUND_MOVE_STRING("A self-healing move\nthat restores HP by\nup to a third of the\nuser's maximum HP."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .pp = 10,
         #else
             .pp = 20,
@@ -2752,7 +2752,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Minimize"),
         .description = COMPOUND_MOVE_STRING("The user compresses\nall the cells in its\nbody to raise its\nevasiveness."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .pp = 10,
         #else
             .pp = 20,
@@ -2868,7 +2868,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Barrier"),
         .description = COMPOUND_MOVE_STRING("The user creates a\nsturdy wall that\nsharply raises its\nDEFENSE stat."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .pp = 20,
         #else
             .pp = 30,
@@ -2979,7 +2979,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Bide"),
         .description = COMPOUND_MOVE_STRING("The user endures\nattacks for two\nturns, then strikes\nback double."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .accuracy = 0,
             .priority = 1,
         #else
@@ -3157,7 +3157,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Smog"),
         .description = COMPOUND_MOVE_STRING("The foe is attacked\nwith exhaust gases.\nIt may also poison\nthe foe."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 35,
         #else
             .power = 20,
@@ -3279,7 +3279,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Clamp"),
         .description = COMPOUND_MOVE_STRING("The foe is clamped\nand squeezed by\nthe user's shell for\ntwo to four turns."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .accuracy = 90,
             .pp = 15,
         #else
@@ -3335,7 +3335,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Skull Bash"),
         .description = COMPOUND_MOVE_STRING("The user raises its\nDEFENSE in the 1st\nturn, then attacks\nin the 2nd turn."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 130,
             .pp = 10,
         #else
@@ -3437,7 +3437,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Kinesis"),
         .description = COMPOUND_MOVE_STRING("The user distracts\nthe foe by bending\na spoon. It may\nlower accuracy."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
         #else
         #endif
         .effect = EFFECT_ACCURACY_DOWN,
@@ -3482,7 +3482,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Flying Knee Kick"), //High Jump Kick
         .description = COMPOUND_MOVE_STRING("A strong jumping\nknee kick. If it\nmisses, the user is\nhurt."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .power = 130,
             .pp = 10,
         #elif B_UPDATED_MOVE_DATA == GEN_4
@@ -3510,7 +3510,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Glare"),
         .description = COMPOUND_MOVE_STRING("The user intimidates\nthe foe with a leer\nshocking the foe\ninto paralysis."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .accuracy = 100,
         #elif B_UPDATED_MOVE_DATA == GEN_5
             .accuracy = 90,
@@ -3558,7 +3558,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Poison Gas"),
         .description = COMPOUND_MOVE_STRING("The foe is sprayed\nwith a cloud of\ntoxic gas that may\npoison them."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .accuracy = 90,
             .target = TARGET_BOTH,
         #elif B_UPDATED_MOVE_DATA == GEN_5
@@ -3679,7 +3679,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .sleepTalkBanned = TRUE,
             .instructBanned = TRUE,
             .multiTaskBanned = TRUE,
-            .argument.twoTurnAttack = { .stringId = B_UPDATED_MOVE_DATA >= GEN_4 ? STRINGID_CLOAKEDINAHARSHLIGHT : STRINGID_PKMNISGLOWING, .status = STATE_ON_AIR },
+            .argument.twoTurnAttack = { .stringId = UPDATED_MOVE_DATA <= GEN_4 ? STRINGID_CLOAKEDINAHARSHLIGHT : STRINGID_PKMNISGLOWING, .status = STATE_ON_AIR },
             .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_FLINCH,
                 .chance = 30,
@@ -3739,7 +3739,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Bubble"),
         .description = COMPOUND_MOVE_STRING("A spray of bubbles\nhits the foe.\nThat lowers the\nfoe's SPEED stat."),
-        /*#if B_UPDATED_MOVE_DATA >= GEN_6
+        /*#if UPDATED_MOVE_DATA <= GEN_6
             .power = 40,
         #else*/
             .power = 20,
@@ -3844,7 +3844,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Psywave"),
         .description = COMPOUND_MOVE_STRING("The foe is attacked\nwith an odd, hot\nenergy wave that\nignores resistances\nand varies in power"),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .accuracy = 100,
         #else
             .accuracy = 80,
@@ -3888,7 +3888,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Acid Armor"),
         .description = COMPOUND_MOVE_STRING("The user alters its\ncells to liquefy\nitself and sharply\nraise DEFENSE."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .pp = 20,
         #else
             .pp = 40,
@@ -3913,7 +3913,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Crabhammer"),
         .description = COMPOUND_MOVE_STRING("A large pincer is\nused to hammer the\nfoe. It has a high\ncritical-hit ratio."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 100,
             .accuracy = 90,
         #elif B_UPDATED_MOVE_DATA == GEN_5
@@ -4116,7 +4116,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Conversion"),
         .description = COMPOUND_MOVE_STRING("The user changes its\nprimary type to\nmatch the type of\nits first move."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
         #else
         #endif
         .effect = EFFECT_CONVERSION,
@@ -4228,7 +4228,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Struggle"),
         .description = COMPOUND_MOVE_STRING("An attack that is\nused only if there\nis no PP. It also\nhurts the user."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .accuracy = 0,
         #else
             .accuracy = 100,
@@ -4313,7 +4313,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Thief"),
         .description = COMPOUND_MOVE_STRING("An attack that may\ntake the foe's held\nitem if the user\nisn't holding one."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 60,
             .pp = 25,
         #else
@@ -4374,7 +4374,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Mind Reader"),
         .description = COMPOUND_MOVE_STRING("The user predicts\nthe foe's action to\nensure its next\nattack hits."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .accuracy = 0,
         #else
             .accuracy = 100,
@@ -4397,7 +4397,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Nightmare"),
         .description = COMPOUND_MOVE_STRING("A sleeping foe is\nshown a nightmare\nthat inflicts some\ndamage every turn.\nLowering its offense\nfor the duration."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .accuracy = 100,
         #else
             .accuracy = 0,
@@ -4477,7 +4477,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Snore"),
         .description = COMPOUND_MOVE_STRING("An attack that can\nbe used only while\nasleep. It may\ncause flinching."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 75,
         #elif B_UPDATED_MOVE_DATA == GEN_5
             .power = 40,
@@ -4610,7 +4610,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Cotton Spore"),
         .description = COMPOUND_MOVE_STRING("Cotton-like spores\ncling to the foe,\nsharply reducing\nits SPEED stat."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .accuracy = 100,
             .target = TARGET_BOTH,
         #elif B_UPDATED_MOVE_DATA == GEN_5
@@ -4659,7 +4659,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Spite"),
         .description = COMPOUND_MOVE_STRING("A move that cuts\nvarying PP from the\nmove last used by\nthe foe."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
         #else
         #endif
         .effect = EFFECT_SPITE,
@@ -4753,7 +4753,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Scary Face"),
         .description = COMPOUND_MOVE_STRING("Frightens the foe\nwith a scary face\nto sharply reduce\nits SPEED."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .accuracy = 100,
         #else
             .accuracy = 90,
@@ -4777,7 +4777,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Feint Attack"),
         .description = COMPOUND_MOVE_STRING("The user draws up\nclose to the foe\ndisarmingly, then\nhits without fail."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
         #else
         #endif
         .effect = EFFECT_HIT,
@@ -4800,7 +4800,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Sweet Kiss"),
         .description = COMPOUND_MOVE_STRING("The user kisses\nthe foe with sweet\ncuteness that\ncauses confusion."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .type = TYPE_FAIRY,
         #else
             .type = TYPE_NORMAL,
@@ -4927,7 +4927,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Spikes"),
         .description = COMPOUND_MOVE_STRING("A trap of spikes is\nlaid around the\nfoe's party to hurt\nfoes switching in."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
         #else
         #endif
         .effect = EFFECT_SPIKES,
@@ -4952,7 +4952,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Zap Cannon"),
         .description = COMPOUND_MOVE_STRING("An electric blast is\nfired like a cannon\nto inflict damage\nand paralyze."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .power = 80,
         #else
             .power = 100,
@@ -5096,7 +5096,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Bone Rush"),
         .description = COMPOUND_MOVE_STRING("The user strikes\nthe foe with a bone\nin hand two to five\ntimes."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .accuracy = 90,
         #else
             .accuracy = 80,
@@ -5121,7 +5121,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Lock-On"),
         .description = COMPOUND_MOVE_STRING("The user locks on\nto the foe, making\nthe next move sure\nto hit."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .accuracy = 0,
         #else
             .accuracy = 100,
@@ -5194,7 +5194,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Giga Drain"),
         .description = COMPOUND_MOVE_STRING("A harsh attack that\nabsorbs half the\ndamage it inflicted\nto restore HP."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .power = 85,
             .pp = 15,
         #elif B_UPDATED_MOVE_DATA == GEN_4
@@ -5224,7 +5224,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Endure"),
         .description = COMPOUND_MOVE_STRING("The user endures\nany hit with 1 HP\nleft. It may fail if\nused in succession."),   //prefer keeping at priority 3 hmm point of making +4 is to survive fake out.. ok i'll do it
-    #if B_UPDATED_MOVE_DATA >= GEN_5
+    #if UPDATED_MOVE_DATA <= GEN_5
         .priority = 4,
     #else
         .priority = 3,
@@ -5251,7 +5251,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Charm"),
         .description = COMPOUND_MOVE_STRING("The foe is charmed\nby the user's cute\nappeals, sharply\ncutting its ATTACK."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .type = TYPE_FAIRY,
         #else
             .type = TYPE_NORMAL,
@@ -5319,7 +5319,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Swagger"),
         .description = COMPOUND_MOVE_STRING("A move that makes\nthe foe confused,\nbut also sharply\nraises its ATTACK."),
-        /*#if B_UPDATED_MOVE_DATA >= GEN_7
+        /*#if UPDATED_MOVE_DATA <= GEN_7
             .accuracy = 0,
         #else*/
             .accuracy = 90,
@@ -5437,7 +5437,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Mean Look"),
         .description = COMPOUND_MOVE_STRING("The foe is fixed\nwith a mean look\nthat prevents it\nfrom escaping."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             #else
             #endif
         .effect = EFFECT_MEAN_LOOK,
@@ -5815,7 +5815,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Encore"),
         .description = COMPOUND_MOVE_STRING("Makes the foe use\nthe move it last\nused repeatedly for\ntwo to six turns."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_ENCORE,
@@ -5868,7 +5868,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Rapid Spin"),
         .description = COMPOUND_MOVE_STRING("An attack that\nfrees the user from\nLEECH SEED and TRAPS\nand raises SPEED."),
-        #if B_UPDATED_MOVE_DATA >= GEN_8
+        #if UPDATED_MOVE_DATA <= GEN_8
             .power = 50,
         #else
             .power = 20,
@@ -5901,7 +5901,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Sweet Scent"),
         .description = COMPOUND_MOVE_STRING("Allures the foe to\nreduce evasiveness.\nIt also attracts\nwild POKéMON."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .effect = EFFECT_EVASION_DOWN_2,
         #else
             .effect = EFFECT_EVASION_DOWN,
@@ -6041,7 +6041,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Moonlight"),
         .description = COMPOUND_MOVE_STRING("Restores the user's\nHP. The amount of\nHP regained varies\nwith the weather."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .type = TYPE_FAIRY,
         #else
             .type = TYPE_NORMAL,
@@ -6245,7 +6245,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("ExtremeSpeed"),
         .description = COMPOUND_MOVE_STRING("A blindingly speedy\ncharge attack that\nalways goes before\nany other."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .priority = 2, //why did I incrase the priority to 3?
         #else
             .priority = 1,
@@ -6318,7 +6318,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Future Sight"),
         .description = COMPOUND_MOVE_STRING("Two turns after\nthis move is used,\nthe foe is attacked\npsychically.\nUser can foresee\nup to two attacks."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6 //actually Ill use this since there are no 120 power psychic moves
+        #if UPDATED_MOVE_DATA <= GEN_6 //actually Ill use this since there are no 120 power psychic moves
             .power = 120,
             .accuracy = 100,
             .pp = 10,
@@ -6350,7 +6350,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Rock Smash"),
         .description = COMPOUND_MOVE_STRING("An attack that may\nalso cut DEFENSE.\nDeals bonus damage\nto rock types.\nIt can also smash\ncracked boulders."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .power = 50,
         #else
             .power = 20,
@@ -6432,8 +6432,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Fake Out"),
         .description = COMPOUND_MOVE_STRING("An attack that hits\nfirst and causes\nflinching. Usable\nonly on 1st turn."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
-            .priority = 3,
+        #if UPDATED_MOVE_DATA <= GEN_5
+            .priority = 2,
             #elif B_UPDATED_MOVE_DATA == GEN_4
             .priority = 1,
             #else
@@ -6455,13 +6455,13 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboStarterId = COMBO_STARTER_FAKE_OUT,
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_FakeOut,
-    },
+    },//lower than upperhand can be beaten by fast ex speed and accel rock
 
     [MOVE_UPROAR] =
     {
         .name = COMPOUND_STRING("Uproar"),
         .description = COMPOUND_MOVE_STRING("The user attacks in\nan uproar that\nprevents sleep for\ntwo to five turns."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .power = 90,
         #else
             .power = 50,
@@ -6493,7 +6493,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Stockpile"),
         .description = COMPOUND_MOVE_STRING("The user charges\nup power for use\nlater. It can be\nused three times."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .pp = 20,
         #else
             .pp = 10,
@@ -6528,7 +6528,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Spit Up"),
         .description = COMPOUND_MOVE_STRING("The power built\nusing STOCKPILE is\nreleased at once\nfor attack."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .power = 1,
         #else
             .power = 100,
@@ -6619,7 +6619,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Torment"),
         .description = COMPOUND_MOVE_STRING("It enrages the foe,\nmaking it incapable\nof using the same\nmove successively."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_TORMENT,
@@ -6668,7 +6668,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Will-o-Wisp"),
         .description = COMPOUND_MOVE_STRING("A sinister, bluish\nwhite flame is shot\nat the foe to\ninflict a burn."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .accuracy = 85,
         #else
             .accuracy = 75,
@@ -6768,7 +6768,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Smelling Salts"),
         .description = COMPOUND_MOVE_STRING("More effective on\na paralyzed foe.\nIncreases by half\nof move power."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 80,
         #else
             .power = 60,
@@ -6878,7 +6878,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Taunt"),
         .description = COMPOUND_MOVE_STRING("The foe is taunted\ninto a rage that\nallows it to use\nonly attack moves."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #elif B_UPDATED_MOVE_DATA == GEN_4
             #else
             #endif
@@ -6903,7 +6903,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Helping Hand"),
         .description = COMPOUND_MOVE_STRING("A move that boosts\nthe power of the\nally's attack in a\nbattle."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .target = TARGET_USER,
         #else
             .target = TARGET_USER,
@@ -6974,7 +6974,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Wish"),
         .description = COMPOUND_MOVE_STRING("A self-healing move\nthat restores half\nthe full HP on the\nnext turn."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_WISH,
@@ -7102,7 +7102,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Recycle"),
         .description = COMPOUND_MOVE_STRING("A move that\nrecycles a used\nitem for use once\nmore."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_RECYCLE,
@@ -7192,7 +7192,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Knock Off"),
         .description = COMPOUND_MOVE_STRING("Knocks down the\nfoe's held item to\nprevent its use\nduring the battle."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 60,
         #else
             .power = 20,
@@ -7278,7 +7278,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Imprison"),
         .description = COMPOUND_MOVE_STRING("Prevents foes from\nusing any move\nthat is also known\nby the user."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_IMPRISON,
@@ -7398,7 +7398,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Dive"),
         .description = COMPOUND_MOVE_STRING("The user dives\nunderwater on the\nfirst turn and\nstrikes next turn.\nThat is also used to\ndive into deep water."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .power = 80,
         #else
             .power = 60,
@@ -7470,7 +7470,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Tail Glow"),
         .description = COMPOUND_MOVE_STRING("The user flashes a\nlight that sharply\nraises its SP. ATK\nstat."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .effect = EFFECT_SPECIAL_ATTACK_UP_3,
         #else
             .effect = EFFECT_SPECIAL_ATTACK_UP_2,
@@ -7563,7 +7563,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Teeter Dance"),
         .description = COMPOUND_MOVE_STRING("A wobbly dance\nthat confuses all\nthe POKéMON in\nbattle."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             #else
             #endif
         .effect = EFFECT_CONFUSE,
@@ -7734,7 +7734,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Toxic Fang"),
         .description = COMPOUND_MOVE_STRING("The foe is bitten\nwith toxic fangs.\nIt may also badly\npoison the foe."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
         #else
         #endif
         .effect = EFFECT_HIT,
@@ -7839,7 +7839,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Meteor Mash"),
         .description = COMPOUND_MOVE_STRING("The foe is hit with\na hard, fast punch.\nIt may also raise\nthe user's ATTACK."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 100,
             .accuracy = 90,
         #else
@@ -7967,7 +7967,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Air Cutter"),
         .description = COMPOUND_MOVE_STRING("The foe is hit with\nrazor-like wind.\nIt has a high\ncritical-hit ratio."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 55,
         #else
             .power = 55,
@@ -7998,7 +7998,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Overheat"),
         .description = COMPOUND_MOVE_STRING("An intense attack\nthat also sharply\nreduces the user's\nSP. ATK stat."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 130,
             #elif B_UPDATED_MOVE_DATA == GEN_4 || B_UPDATED_MOVE_DATA == GEN_5
             .power = 140,
@@ -8049,7 +8049,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Rock Tomb"),
         .description = COMPOUND_MOVE_STRING("Boulders are hurled\nat the foe. It also\nlowers the foe's\nSPEED if it hits."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 60,
             .accuracy = 95,
             .pp = 15,
@@ -8313,7 +8313,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Sand Tomb"),
         .description = COMPOUND_MOVE_STRING("The foe is trapped\ninside a painful\nsandstorm for two\nto four turns.\nLowers their Acc\nfor the duration."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .power = 30,
             .accuracy = 90,
         #else
@@ -8397,7 +8397,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Bullet Seed"),
         .description = COMPOUND_MOVE_STRING("The user shoots\nseeds at the foe.\nTwo to five seeds\nare shot at once."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .power = 25,
         #else
             .power = 10,
@@ -8446,7 +8446,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Icicle Spear"),
         .description = COMPOUND_MOVE_STRING("Sharp icicles are\nfired at the foe.\nIt strikes two to\nfive times."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .power = 25,
         #else
             .power = 10,
@@ -8492,7 +8492,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Block"),
         .description = COMPOUND_MOVE_STRING("The user blocks the\nfoe's way with arms\nspread wide to\nprevent escape."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             #else
             #endif
         .effect = EFFECT_MEAN_LOOK,
@@ -8685,7 +8685,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Covet"),
         .description = COMPOUND_MOVE_STRING("A cutely executed\nattack that also\nsteals the foe's\nhold item."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 60,
             .pp = 25,
             #elif B_UPDATED_MOVE_DATA == GEN_5
@@ -8808,7 +8808,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Leaf Blade"),
         .description = COMPOUND_MOVE_STRING("The foe is slashed\nwith a sharp leaf.\nIt has a high\ncritical-hit ratio."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             .power = 90,
         #else
             .power = 70,
@@ -8856,7 +8856,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Rock Blast"),
         .description = COMPOUND_MOVE_STRING("The user hurls two\nto five hard rocks\nat the foe to\nattack."),
-        #if B_UPDATED_MOVE_DATA >= GEN_7
+        #if UPDATED_MOVE_DATA <= GEN_7
             .accuracy = 90,
             #elif B_UPDATED_MOVE_DATA == GEN_5 || B_UPDATED_MOVE_DATA == GEN_6
             .accuracy = 90,
@@ -8935,7 +8935,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Doom Desire"),
         .description = COMPOUND_MOVE_STRING("A move that attacks\nthe foe with a\nblast of light two\nturns after use."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .power = 140,
             .accuracy = 100,
         #else
@@ -9134,7 +9134,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Healing Wish"),
         .description = COMPOUND_MOVE_STRING("The user faints\nto heal up the\nnext battler."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_HEALING_WISH,
@@ -9208,9 +9208,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Feint"),
         .description = COMPOUND_MOVE_STRING("An attack that\nhits foes using\nmoves like Protect."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 35,
-            #elif B_UPDATED_MOVE_DATA >= GEN_5
+            #elif UPDATED_MOVE_DATA <= GEN_5
             .power = 30,
             #else
             .power = 50,
@@ -9264,7 +9264,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Tailwind"),
         .description = COMPOUND_MOVE_STRING("Whips up a\nturbulent gale\nbehind the user.\nRaises party Speed."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .pp = 15,
         #else
             .pp = 30,
@@ -9290,7 +9290,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Acupressure"),
         .description = COMPOUND_MOVE_STRING("The user sharply\nraises a\nrandom stat."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_ACUPRESSURE,
@@ -9313,7 +9313,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Metal Burst"),
         .description = COMPOUND_MOVE_STRING("After taking a hit\nretaliates with\ngreater power."),
-        #if B_UPDATED_MOVE_DATA >= GEN_4
+        #if UPDATED_MOVE_DATA <= GEN_4
             #else
             #endif
         .effect = EFFECT_REFLECT_DAMAGE,
@@ -9413,7 +9413,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Assurance"),
         .description = COMPOUND_MOVE_STRING("An attack that\ndoubles power if\nthe target has\nalready taken dmg."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 60,
         #else
             .power = 50,
@@ -9437,7 +9437,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Embargo"),
         .description = COMPOUND_MOVE_STRING("Blocks foes team\nfrom using any items\nfor 5 turns."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_EMBARGO,
@@ -9480,7 +9480,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Psycho Shift"),
         .description = COMPOUND_MOVE_STRING("Cures the user\nof any primary\nstatus effects.\nThen transfers them\nonto the foe."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .accuracy = 100,
         #else
             .accuracy = 90,
@@ -9523,7 +9523,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Heal Block"),
         .description = COMPOUND_MOVE_STRING("Prevents foes from\nrecovering HP.\nFor five turns."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_HEAL_BLOCK,
@@ -9572,7 +9572,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Power Trick"),
         .description = COMPOUND_MOVE_STRING("The user swaps\nits Attack and\nDefense stats."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_POWER_TRICK,
@@ -9616,7 +9616,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Lucky Chant"),
         .description = COMPOUND_MOVE_STRING("Prevents foes team\nfrom landing any\ncritical-hits\nfor 5 turns."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_LUCKY_CHANT,
@@ -9755,7 +9755,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Last Resort"),
         .description = COMPOUND_MOVE_STRING("Can only be used\nif every other move\nby the user has\nalready been used."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .power = 140,
         #else
             .power = 130,
@@ -9830,7 +9830,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Toxic Spikes"),
         .description = COMPOUND_MOVE_STRING("Sets spikes that\npoison a foe\nswitching in.\nUsing again will\nbadly poison."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_TOXIC_SPIKES,
@@ -9875,7 +9875,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Aqua Ring"),
         .description = COMPOUND_MOVE_STRING("Forms a veil of\nhealing water\nthat restores HP."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_AQUA_RING,
@@ -9900,7 +9900,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Magnet Rise"),
         .description = COMPOUND_MOVE_STRING("Electromagnetism\ncauses the user\nto levitate.\nAlso gives a slight\nboost to SPEED."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_MAGNET_RISE,
@@ -9979,7 +9979,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Aura Sphere"),
         .description = COMPOUND_MOVE_STRING("Attacks with an aura\nblast that cannot\nbe evaded."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 80,
         #else
             .power = 90,
@@ -10140,7 +10140,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Air Slash"),
         .description = COMPOUND_MOVE_STRING("Attacks with a\nsharpened blade of\ncompressed air.\nIt has a high\ncritical-hit ratio.\nMay cause flinching."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .pp = 10,
             #elif B_UPDATED_MOVE_DATA == GEN_5
             .pp = 20,
@@ -10231,7 +10231,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Dragon Pulse"),
         .description = COMPOUND_MOVE_STRING("Damages the foe\nwith a pulse of\ndraconic aura."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 85,
         #else
             .power = 90,  //unsure if want to reboost power
@@ -10281,7 +10281,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Power Gem"),
         .description = COMPOUND_MOVE_STRING("Attacks with rays\nof light sparkling\nlike diamonds."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 95,
         #else
             .power = 70,
@@ -10377,7 +10377,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Energy Ball"),
         .description = COMPOUND_MOVE_STRING("Draws power from\nnature to attack.\nMay lower Sp. Def."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 90,
         #else
             .power = 80,
@@ -10844,7 +10844,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Defog"),
         .description = COMPOUND_MOVE_STRING("Removes obstacles\nand lowers evasion."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_DEFOG,
@@ -10888,7 +10888,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Draco Meteor"),
         .description = COMPOUND_MOVE_STRING("Enforces Dragons\ndominion over the\nskies to cast comets\ndown onto the foe.\nHarshly lowers the\nfoe's Sp. Atk."), //vsonic check
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 130,
         #else
             .power = 140,
@@ -10961,7 +10961,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Leaf Storm"),
         .description = COMPOUND_MOVE_STRING("Whips up a storm\nof leaves.\nHarshly lowers the\nuser's Sp. Atk."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 130,
         #else
             .power = 140,
@@ -11059,7 +11059,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Gunk Shot"),
         .description = COMPOUND_MOVE_STRING("Shoots filthy trash\nat the foe.\nMay also poison."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .accuracy = 85,
         #else
             .accuracy = 70,
@@ -11182,7 +11182,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Stealth Rock"),
         .description = COMPOUND_MOVE_STRING("Sets floating stones\nthat hurt foes who\nare switching in.\nDamage varies by\ntype effectiveness."), //vsonic
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_STEALTH_ROCK,
@@ -11235,7 +11235,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Chatter"),
         .description = COMPOUND_MOVE_STRING("Attacks with sound\nwaves to cause\nconfusion."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 75,
             #elif B_UPDATED_MOVE_DATA == GEN_5
             .power = 60,
@@ -11259,9 +11259,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .assistBanned = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_CONFUSION,
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .chance = 50,
-        #elif B_UPDATED_MOVE_DATA >= GEN_5
+        #elif UPDATED_MOVE_DATA <= GEN_5
             .chance = 10,
         #else
             .chance = 31,
@@ -11573,7 +11573,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Lunar Dance"),
         .description = COMPOUND_MOVE_STRING("The user faints\nto heal up the\nnext battler."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_HEALING_WISH,//nvm this is different its suppoed to recover pp as well
@@ -11838,7 +11838,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Wonder Room"),
         .description = COMPOUND_MOVE_STRING("Defense and Sp. Def\nstats are swapped\nfor 5 turns."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .priority = 1,
         #else
             .priority = -7,
@@ -11922,7 +11922,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Rage Powder"),
         .description = COMPOUND_MOVE_STRING("Scatters powder that\nforces foes to\ntarget only the user"),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .priority = 2,
         #else
             .priority = 3,
@@ -11971,7 +11971,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Magic Room"),
         .description = COMPOUND_MOVE_STRING("Hold items lose\ntheir effects for\n5 turns."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .priority = 1,
         #else
             .priority = -7,
@@ -12016,7 +12016,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Storm Throw"),
         .description = COMPOUND_MOVE_STRING("The user strikes\nthe target with\na fierce blow.\nThis attack always\nresults in a\ncritical-hit."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 45,
         #else
             .power = 40,
@@ -12142,7 +12142,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Synchro Noise"),
         .description = COMPOUND_MOVE_STRING("An odd shock wave\nthat only damages\nsame-type foes.\nIgnores weakness\nand resistances."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 120,
             .pp = 10,
         #else
@@ -12265,7 +12265,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Low Sweep"),
         .description = COMPOUND_MOVE_STRING("An attack to\nthe foe's legs\nlowering its Speed."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 65,
         #else
             .power = 60,
@@ -12548,7 +12548,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Ally Switch"),
         .description = COMPOUND_MOVE_STRING("The user instantly\nswitches places with\nits partner."),
-        #if B_UPDATED_MOVE_DATA >= GEN_7
+        #if UPDATED_MOVE_DATA <= GEN_7
             .priority = 2,
         #else
             .priority = 1,
@@ -12642,7 +12642,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Hex"),
         .description = COMPOUND_MOVE_STRING("Does double damage\nif the foe\nhas an ailment."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 65,
         #else
             .power = 50,
@@ -12737,7 +12737,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Incinerate"),
         .description = COMPOUND_MOVE_STRING("Burns up Berries\nand Gems preventing\ntheir use."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 60,
         #else
             .power = 30,
@@ -12873,7 +12873,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Bestow"),
         .description = COMPOUND_MOVE_STRING("The user gives\nits held item\nto the foe."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             #else
             #endif
         .effect = EFFECT_BESTOW,
@@ -12926,7 +12926,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Water Pledge"),
         .description = COMPOUND_MOVE_STRING("Attacks with a\ncolumn of water\nMay make a rainbow."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 80,
         #else
             .power = 50,
@@ -12950,7 +12950,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Fire Pledge"),
         .description = COMPOUND_MOVE_STRING("Attacks with a\ncolumn of fire\nMay burn the grass."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 80,
         #else
             .power = 50,
@@ -12974,7 +12974,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Grass Pledge"),
         .description = COMPOUND_MOVE_STRING("Attacks with a\ncolumn of grass\nMay create a swamp."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 80,
         #else
             .power = 50,
@@ -13017,7 +13017,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Struggle Bug"),
         .description = COMPOUND_MOVE_STRING("the user attacks\nthe foe desperately.\nLowers Sp. Atk\nand Infests foe."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 40,
         #else
             .power = 30,
@@ -13081,7 +13081,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Frost Breath"),
         .description = COMPOUND_MOVE_STRING("The user strikes\nthe target with\na fierce blow.\nThis attack always\nresults in a\ncritical-hit."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 55,
         #else
             .power = 40,
@@ -13292,7 +13292,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Sacred Sword"),
         .description = COMPOUND_MOVE_STRING("A reliable attack\nthat ignores changes\nto the foe's defense\nor evasion\nstat stages."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .pp = 15,
         #else
             .pp = 20,
@@ -13343,7 +13343,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Heat Crash"),
         .description = COMPOUND_MOVE_STRING("The user slams its\nbody into the foe.\nThe heavier the user\nis than the target,\nthe greater the\nmove's power."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             #else
             #endif
         .effect = EFFECT_HEAT_CRASH,
@@ -13610,7 +13610,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Techno Blast"),
         .description = COMPOUND_MOVE_STRING("The type varies with\nthe kind of\nDrive held."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 120,
         #else
             .power = 85,
@@ -14010,7 +14010,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Flying Press"),
         .description = COMPOUND_MOVE_STRING("The user dives down\nonto the target from\nthe sky.\nGrounding floating\ntargets, and may\nmake them flinch."),
-        #if B_UPDATED_MOVE_DATA >= GEN_7
+        #if UPDATED_MOVE_DATA <= GEN_7
             .power = 100,
         #else
             .power = 80,
@@ -14155,7 +14155,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Fell Stinger"),
         .description = COMPOUND_MOVE_STRING("If it knocks out a\nfoe the user's\nAttack stat is\nraised."),
-        #if B_UPDATED_MOVE_DATA >= GEN_7
+        #if UPDATED_MOVE_DATA <= GEN_7
             .power = 50,
         #else
             .power = 30,
@@ -14282,7 +14282,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Parabolic Charge"),
         .description = COMPOUND_MOVE_STRING("Damages all adjacent\nPokémon then heals\nfor half the damage."),
-        #if B_UPDATED_MOVE_DATA >= GEN_7
+        #if UPDATED_MOVE_DATA <= GEN_7
             .power = 65,
         #else
             .power = 50,
@@ -14425,7 +14425,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Topsy-Turvy"),
         .description = COMPOUND_MOVE_STRING("Reverses all stat\nchanges that affect\nthe target."),
-        #if B_UPDATED_MOVE_DATA >= GEN_7
+        #if UPDATED_MOVE_DATA <= GEN_7
             .accuracy = 0,
         #else
             .accuracy = 100,
@@ -14860,7 +14860,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Mystical Fire"),
         .description = COMPOUND_MOVE_STRING("Breathes a special,\nhot fire.\nMay lower Sp. Atk."),
-        #if B_UPDATED_MOVE_DATA >= GEN_7
+        #if UPDATED_MOVE_DATA <= GEN_7
             .power = 75,
         #else
             .power = 65,
@@ -16308,7 +16308,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Lick"),
         .description = COMPOUND_MOVE_STRING("The foe is licked\nand hit with a long\ntongue. It may\nalso paralyze."),
-        #if B_UPDATED_MOVE_DATA >= GEN_6
+        #if UPDATED_MOVE_DATA <= GEN_6
             .power = 42,        //thanks for all the fish
         #else
             .power = 20,
@@ -16661,7 +16661,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Multi-Attack"),
         .description = COMPOUND_MOVE_STRING("An attack that\nchanges type with\nthe held Memories."),
-        #if B_UPDATED_MOVE_DATA >= GEN_8
+        #if UPDATED_MOVE_DATA <= GEN_8
             .power = 120,
         #else
             .power = 90,
@@ -16915,7 +16915,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Glitzy Glow"),
         .description = COMPOUND_MOVE_STRING("A telekinetic force\nthat sets\na light screen, wall\nRaising Sp. Def."),
-        #if B_UPDATED_MOVE_DATA >= GEN_8
+        #if UPDATED_MOVE_DATA <= GEN_8
             .power = 80,
             .accuracy = 95,
             #else
@@ -16939,7 +16939,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Baddy Bad"),
         .description = COMPOUND_MOVE_STRING("Throws a tantrum,\nand lashes out.\nThen puts a reflect\nwall, between them\nand the opponent.\nRaising Defense."),
-        #if B_UPDATED_MOVE_DATA >= GEN_8
+        #if UPDATED_MOVE_DATA <= GEN_8
             .power = 80,
             .accuracy = 95,
             #else
@@ -16963,7 +16963,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Sappy Seed"),
         .description = COMPOUND_MOVE_STRING("Giant stalk scatters\nseeds that drain\nHP every turn."),
-        #if B_UPDATED_MOVE_DATA >= GEN_8
+        #if UPDATED_MOVE_DATA <= GEN_8
             .power = 100,
             .accuracy = 90,
             .pp = 10,
@@ -16989,7 +16989,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Freezy Frost"),
         .description = COMPOUND_MOVE_STRING("Crystal from cold\nhaze hits.\nEliminates all\nstat changes."),
-        #if B_UPDATED_MOVE_DATA >= GEN_8
+        #if UPDATED_MOVE_DATA <= GEN_8
             .power = 100,
             .accuracy = 90,
             .pp = 10,
@@ -17014,7 +17014,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Sparkly Swirl"),
         .description = COMPOUND_MOVE_STRING("Wrap foe with\na whirlwind of\nscent.\nHeals party's status"),
-        #if B_UPDATED_MOVE_DATA >= GEN_8
+        #if UPDATED_MOVE_DATA <= GEN_8
             .power = 120,
             .accuracy = 85,
             .pp = 5,
@@ -17039,7 +17039,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Veevee Volley"),
         .description = COMPOUND_MOVE_STRING("Eevee's love boosts\nits power.\nIt never misses."),
-        #if B_UPDATED_MOVE_DATA >= GEN_8
+        #if UPDATED_MOVE_DATA <= GEN_8
             #else
             #endif
         .effect = EFFECT_RETURN,
@@ -18684,7 +18684,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Dire Claw"),
         .description = COMPOUND_MOVE_STRING("High crit. chance.\nMay paralyze, poison\nor put foe to sleep.\nStatus set has a 37%\nchance to occur."),
-        #if B_UPDATED_MOVE_DATA >= GEN_9
+        #if UPDATED_MOVE_DATA <= GEN_9
             .power = 80,
         #else
             .power = 60,
@@ -18770,7 +18770,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Springtide Storm"),
         .description = COMPOUND_MOVE_STRING("The user attacks by\nwrapping opposing\nPokémon in fierce\nwinds brimming with\nlove and hate.\nMay lower Attack."),
-        /*#if B_UPDATED_MOVE_DATA >= GEN_9
+        /*#if UPDATED_MOVE_DATA <= GEN_9
             .power = 100,
         #else*/
             .power = 95,
@@ -18833,7 +18833,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Raging Fury"),
         .description = COMPOUND_MOVE_STRING("The user rampages\naround spewing flame\nfor two to three\nturns. Then it\nbecomes confused."),
-        #if B_UPDATED_MOVE_DATA >= GEN_9
+        #if UPDATED_MOVE_DATA <= GEN_9
             .power = 120,
         #else
             .power = 90,
@@ -18858,7 +18858,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Wave Crash"),
         .description = COMPOUND_MOVE_STRING("The user shrouds\nitself in water and\nthen slams into\nthe foe.\nThis also damages\nthe user a little."), //water double edge
-        #if B_UPDATED_MOVE_DATA >= GEN_9
+        #if UPDATED_MOVE_DATA <= GEN_9
             .power = 120,
         #else
             .power = 75,
@@ -18883,7 +18883,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Chloroblast"),
         .description = COMPOUND_MOVE_STRING("The user launches\namassed chlorophyll\nto damage the foe.\nThis also damages\nthe user quite a lot"),
-        #if B_UPDATED_MOVE_DATA >= GEN_9
+        #if UPDATED_MOVE_DATA <= GEN_9
             .power = 150,
         #else
             .power = 120,
@@ -18946,7 +18946,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Headlong Rush"),
         .description = COMPOUND_MOVE_STRING("The user smashes\ninto the target in\na full-body tackle.\nLowers the user’s\nDefensive stats."),
-        #if B_UPDATED_MOVE_DATA >= GEN_9
+        #if UPDATED_MOVE_DATA <= GEN_9
             .power = 120,
         #else
             .power = 100,
@@ -18998,7 +18998,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Esper Wing"),
         .description = COMPOUND_MOVE_STRING("High crit. chance.\nThe user slashes\nthe target with\naura-enriched wings.\nAlso boosts the\nuser’s Speed."),
-        #if B_UPDATED_MOVE_DATA >= GEN_9
+        #if UPDATED_MOVE_DATA <= GEN_9
             .power = 80,
         #else
             .power = 75,
@@ -19142,7 +19142,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Bleakwind Storm"),
         .description = COMPOUND_MOVE_STRING("User attacks with\nsavagely cold winds.\nMay Freeze the foe."),
-        #if B_UPDATED_MOVE_DATA >= GEN_9
+        #if UPDATED_MOVE_DATA <= GEN_9
             .power = 100,
             .pp = 5,
         #else
@@ -19172,7 +19172,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Wildbolt Storm"),
         .description = COMPOUND_MOVE_STRING("The user summons a\nthunderous tempest\nand savagely attacks\nwith lightning and\nwind. It may\ninflict paralysis."),
-        #if B_UPDATED_MOVE_DATA >= GEN_9
+        #if UPDATED_MOVE_DATA <= GEN_9
             .power = 100,
             .pp = 10,
         #else
@@ -19198,7 +19198,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Sandsear Storm"),
         .description = COMPOUND_MOVE_STRING("The user attacks by\nwrapping opposing\nPokémon in fierce\nwinds and searingly\nhot sand.\nMay inflict a burn."),
-        #if B_UPDATED_MOVE_DATA >= GEN_9
+        #if UPDATED_MOVE_DATA <= GEN_9
             .power = 100,
             .pp = 10,
         #else
@@ -20775,7 +20775,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Dryads Curse"),
         .description = COMPOUND_MOVE_STRING("Sacrifices stats\nto curse the last\nfoe who attacked\nthe user."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             .type = TYPE_GRASS,
         #else
             .type = TYPE_MYSTERY,
@@ -21393,7 +21393,7 @@ use wonder gaurd logic to determine its super effective
     {
         .name = COMPOUND_STRING("Steel Surge"),
         .description = COMPOUND_MOVE_STRING("Sets Steel lances\nthat hurt foes who\nare switching in.\nDamage varies by\ntype effectiveness."),
-        #if B_UPDATED_MOVE_DATA >= GEN_5
+        #if UPDATED_MOVE_DATA <= GEN_5
             #else
             #endif
         .effect = EFFECT_STEEL_SURGE,
