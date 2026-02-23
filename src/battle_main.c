@@ -54,10 +54,10 @@
 
 //static void SpriteCB_UnusedDebugSprite(struct Sprite *sprite);
 //static void SpriteCB_UnusedDebugSprite_Step(struct Sprite *sprite);
-static void HandleAction_UseMove(void);
-static void HandleAction_Switch(void);
+//static void HandleAction_UseMove(void);
+//static void HandleAction_Switch(void);
 static void HandleAction_UseItem(void);
-static void HandleAction_Run(void);
+//static void HandleAction_Run(void);
 static void HandleAction_WatchesCarefully(void);
 static void HandleAction_SafariZoneBallThrow(void);
 static void HandleAction_ThrowBait(void);
@@ -65,9 +65,9 @@ static void HandleAction_ThrowRock(void);
 static void HandleAction_SafariZoneRun(void);
 static void HandleAction_OldManBallThrow(void);
 static void HandleAction_TryFinish(void);
-static void HandleAction_NothingIsFainted(void);
+//static void HandleAction_NothingIsFainted(void);
 static void HandleAction_WaitTurnEnd(void);
-static void HandleAction_ActionFinished(void);
+//static void HandleAction_ActionFinished(void);
 static void HandleEndTurn_ContinueBattle(void);
 static void HandleEndTurn_BattleWon(void);
 static void HandleEndTurn_BattleLost(void);

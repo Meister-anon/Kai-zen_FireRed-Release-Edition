@@ -381,6 +381,11 @@ void BattleScriptExecute(const u8 *BS_ptr);
 void BattleScriptPushCursorAndCallback(const u8 *BS_ptr);
 void ClearVariousBattlerFlags(enum BattlerId battler);
 void HandleAction_RunBattleScript(void);
+void HandleAction_NothingIsFainted(void);
+void HandleAction_ActionFinished(void);
+void HandleAction_Run(void);
+void HandleAction_Switch(void);
+void HandleAction_UseMove(void);
 
 /*u8 IsMonDisobedient(void);
 u32 GetBattleMoveSplit(u32 moveId);
