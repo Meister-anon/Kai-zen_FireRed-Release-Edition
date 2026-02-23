@@ -146,6 +146,7 @@ EWRAM_DATA bool8 gTransformedShininess[MAX_BATTLERS_COUNT] = {0};
 static EWRAM_DATA u16 *sUnknownDebugSpriteDataBuffer = NULL;
 EWRAM_DATA u16 gBattleTurnCounter = 0;
 EWRAM_DATA u8 gBattlerAbility = 0;  //didn't want to port but its required since its the main thing used with ability popups
+EWRAM_DATA struct QueuedStatBoost gQueuedStatBoosts[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u32 gBattleControllerExecFlags = 0;
 EWRAM_DATA u8 gBattlersCount = 0;
 EWRAM_DATA u16 gBattlerPartyIndexes[MAX_BATTLERS_COUNT] = {0};
@@ -3743,6 +3744,24 @@ void BeginBattleIntro(void)
     gBattleMainFunc = DoBattleIntro;
 }
 
+//idk what this for
+static void ClearSetBScriptingStruct(void)
+{
+    // windowsType is set up earlier in BattleInitBgsAndWindows, so we need to save the value
+    //u32 temp = gBattleScripting.windowsType;
+    //u32 specialBattleType = gBattleScripting.specialTrainerBattleType;
+    memset(&gBattleScripting, 0, sizeof(gBattleScripting));
+
+    //gBattleScripting.windowsType = temp;
+    gBattleScripting.battleStyle = gSaveBlock2Ptr->optionsBattleStyle;
+    #if TESTING
+        gBattleScripting.battleStyle = OPTIONS_BATTLE_STYLE_SET;
+    #endif
+    //gBattleScripting.expOnCatch = (GetConfig(CONFIG_EXP_CATCH) >= GEN_6);
+    //gBattleScripting.specialTrainerBattleType = specialBattleType;
+}
+
+
 //for speedup 
 //since don't understand will have to take exactly as is
 bool8 InBattleChoosingMoves() //base function didn't have void don't understand
@@ -3769,12 +3788,12 @@ static void BattleStartClearSetData(void)
     s32 i;
 
     TurnValuesCleanUp(FALSE);
-    SpecialStatusesClear();
 
     memset(&gFieldTimers, 0, sizeof(gFieldTimers));
     memset(&gSideStatuses, 0, sizeof(gSideStatuses));
     memset(&gSideTimers, 0, sizeof(gSideTimers));
     memset(&gBattleResults, 0, sizeof(gBattleResults));
+    ClearSetBScriptingStruct(); //iek if need this
 
     for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
     {
@@ -3795,12 +3814,8 @@ static void BattleStartClearSetData(void)
         gBattleStruct->lastTakenMoveFrom[i][3] = MOVE_NONE;
         gBattleStruct->AI_monToSwitchIntoId[i] = PARTY_SIZE;
         gBattleStruct->skyDropTargets[i] = BATTLE_ID_NONE;
-        gBattleStruct->seedSetterBattleId[i] = BATTLE_ID_NONE;
         //since is battlemons not battlestruct may not need here
         gBattleMons[i].volatiles.infatuatedwithMon = FALSE;
-        gBattleStruct->overwrittenAbilities[i] = ABILITY_NONE;
-        // Record HP of each battler
-        gBattleStruct->hpBefore[i] = gBattleMons[i].hp;
     }
 
     gLastUsedMove = 0;
@@ -3814,6 +3829,7 @@ static void BattleStartClearSetData(void)
     //look at emerald setup figure out how it worrks
     //if I can use inputs to change ball, maybe can
     //use up down arrow to swap to pokedex
+    //gHasFetchedBall = FALSE;
     gLastUsedBall = 0; 
     //default target position, eventually set target dialogue to reset
     //for now shuold maintain default behavior
@@ -3821,13 +3837,15 @@ static void BattleStartClearSetData(void)
 
     gBattlerAttacker = 0;
     gBattlerTarget = 0;
+    gEffectBattler = 0;
+    gBattlerAbility = 0;
     gBattleWeather = 0;
     gHitMarker = 0;
 
     if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_POKEDUDE)) && gSaveBlock2Ptr->optionsTurnBattleSceneOff)
         gHitMarker |= HITMARKER_NO_ANIMATIONS;
     
-    gBattleScripting.battleStyle = gSaveBlock2Ptr->optionsBattleStyle;
+    //gBattleScripting.battleStyle = gSaveBlock2Ptr->optionsBattleStyle;
     gMultiHitCounter = 0;
     gMultiTask = 0;
     gBattleScripting.savedDmg = 0;
@@ -3843,8 +3861,6 @@ static void BattleStartClearSetData(void)
     gBattleMoveDamage = 0;
     gStoredHp = 0;
     gIntroSlideFlags = 0;
-    gBattleScripting.animTurn = 0;
-    gBattleScripting.animTargetsHit = 0;
     gParticipatedInBattle = 0;
     gAbsentBattlerFlags = 0;
     gBattleStruct->runTries = 0;
@@ -3903,20 +3919,19 @@ static void BattleStartClearSetData(void)
         gBattleStruct->partyState[B_SIDE_OPPONENT][i].SecondaryItemSlot = ITEM_NONE;
 
         gBattleStruct->itemLost[B_SIDE_PLAYER][i].originalItem = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
-
+        gBattleStruct->itemLost[B_SIDE_OPPONENT][i].originalItem = GetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM);
         //gBattleStruct->allowedToChangeFormInWeather[B_SIDE_PLAYER][i] = FALSE;
         //gBattleStruct->allowedToChangeFormInWeather[B_SIDE_OPPONENT][i] = FALSE;
     }
     //*(gBattleStruct->AI_monToSwitchIntoId + 0) = PARTY_SIZE;
     //*(gBattleStruct->AI_monToSwitchIntoId + 1) = PARTY_SIZE;
     gBattleStruct->givenExpMons = 0;
-    gBattleStruct->mega.triggerSpriteId = 0xFF;
+    gBattleStruct->gimmick.triggerSpriteId = 0xFF;
 
     for (i = 0; i < ARRAY_COUNT(gSideTimers); i++)
     {
         gSideTimers[i].stickyWebBattlerId = BATTLE_ID_NONE;
     }
-    gBattleStruct->appearedInBattle = 0;  //not making burmy change form,, will keep whatever form you caught it with
 
     //hmm fill like this actually off and this and catchattempt should use pokeball_count
     //as their are 12 ball types 
@@ -3944,9 +3959,9 @@ static void BattleStartClearSetData(void)
         gBattleResults.caughtMonNick[i] = 0;//potentially just add another field moonnick2 may work for double wild catching
     }
     gBattleStruct->swapDamageCategory = FALSE; // Photon Geyser, Shell Side Arm, Light That Burns the Sky
-    gBattleStruct->pursuitTarget = 0;
-    gBattleStruct->pursuitSwitchByMove = FALSE;
-    gBattleStruct->pursuitStoredSwitch = 0;
+    //gBattleStruct->categoryOverride = FALSE; // used for Z-Moves and Max Moves
+
+    ClearPursuitValues();
     gSelectedMonPartyId = PARTY_SIZE; // Revival Blessing
 }
 
@@ -4807,7 +4822,7 @@ static void TryDoEventsBeforeFirstTurn(void)
     gBattleStruct->eventState.endTurn = 0;
     gRandomTurnNumber = Random();
 
-    //memset(gQueuedStatBoosts, 0, sizeof(gQueuedStatBoosts));
+    memset(gQueuedStatBoosts, 0, sizeof(gQueuedStatBoosts));
     SetShellSideArmCategory();
     SetAiLogicDataForTurn(gAiLogicData); // get assumed abilities, hold effects, etc of all battlers
 
@@ -5901,10 +5916,9 @@ static void SetActionsAndBattlersTurnOrder(void)
 #define END_TURN_RESET //resets values for end turn
 static void TurnValuesCleanUp(bool8 var0) //resets protect structs specific disble structs and folloemetimer at turn end
 {
-    s32 i; //not used presently, needed for activebat replacement 
     //u8 *dataPtr;
 
-    for (i = 0; i < gBattlersCount; ++i)
+    for (enum BattlerId i = 0; i < gBattlersCount; i++)
     {
         if (var0)
         {
@@ -5912,13 +5926,10 @@ static void TurnValuesCleanUp(bool8 var0) //resets protect structs specific disb
             //gProtectStructs[i].endured = FALSE;
             
             gProtectStructs[i].protected = FALSE;
-            gProtectStructs[i].spikyShielded = FALSE;
-            gProtectStructs[i].kingsShielded = FALSE;
-            gProtectStructs[i].banefulBunkered = FALSE;
             gProtectStructs[i].quash = FALSE;
             gProtectStructs[i].usedCustapBerry = FALSE;
             gProtectStructs[i].quickDraw = FALSE;
-            //memset(&gQueuedStatBoosts[i], 0, sizeof(struct QueuedStatBoost));
+            memset(&gQueuedStatBoosts[i], 0, sizeof(struct QueuedStatBoost));
         }
         else
         {
@@ -5934,6 +5945,10 @@ static void TurnValuesCleanUp(bool8 var0) //resets protect structs specific disb
             gBattleStruct->battlerState[i].protectSuccessiveFail = FALSE;
             gBattleStruct->battlerState[i].protectTurnOrderFail = FALSE;
 
+            if (gBattleMons[i].volatiles.rechargeTimer)
+                gBattleMons[i].volatiles.rechargeTimer--;
+
+            gBattleStruct->battlerState[i].wasAboveHalfHp = FALSE;
             //if (!(gBattleMons[i].volatiles.rampageTurns))
             //    gBattleMons[i].volatiles.rampageMoveTurns = 0;
             
@@ -5955,18 +5970,23 @@ static void TurnValuesCleanUp(bool8 var0) //resets protect structs specific disb
         if (gBattleMons[i].volatiles.substituteHP == 0)
             gBattleMons[i].volatiles.substitute = FALSE;
 
+        if (gBattleMons[i].volatiles.semiInvulnerable != STATE_COMMANDER)
+            gBattleStruct->battlerState[i].commandingPartner = FALSE;
+
+        gSpecialStatuses[i].parentalBondState = PARENTAL_BOND_OFF;
+        gBattleStruct->battlerState[i].usedEjectItem = FALSE;
+        gProtectStructs[i].lashOutAffected = FALSE;
+        gBattleMons[i].volatiles.endured = FALSE;
     }
-    gSideStatuses[B_SIDE_PLAYER] &= ~(SIDE_STATUS_QUICK_GUARD | SIDE_STATUS_WIDE_GUARD | SIDE_STATUS_CRAFTY_SHIELD | SIDE_STATUS_MAT_BLOCK);
-    gSideStatuses[B_SIDE_OPPONENT] &= ~(SIDE_STATUS_QUICK_GUARD | SIDE_STATUS_WIDE_GUARD | SIDE_STATUS_CRAFTY_SHIELD | SIDE_STATUS_MAT_BLOCK);
-    gSideTimers[0].followmeTimer = 0;
-    gSideTimers[1].followmeTimer = 0;
 
-    gBattleStruct->pursuitTarget = 0;
-    gBattleStruct->pursuitSwitchByMove = FALSE;
-    gBattleStruct->pursuitStoredSwitch = 0;
+    gSideTimers[B_SIDE_PLAYER].followmeTimer = 0;
+    gSideTimers[B_SIDE_OPPONENT].followmeTimer = 0;
 
-    gBattleStruct->pledgeMove = FALSE; // combined pledge move may not have been used due to a canceller
-}
+    gBattleStruct->pledgeMove = FALSE; // combined pledge move may not have been used due to a canceler
+    gBattleStruct->tryDestinyBond = FALSE;
+    gBattleStruct->tryGrudge = FALSE;
+    ClearPursuitValues();
+    ClearDamageCalcResults();}
 
 static void SpecialStatusesClear(void) //intimidatedmon is a special status so this function is what's resetting it outside of the faint condition
 {
@@ -6347,39 +6367,27 @@ static void RunTurnActionsFunctions(void) //important
      // Mega Evolve / Focus Punch-like moves after switching, items, running, but before using a move.
     if (gCurrentActionFuncId == B_ACTION_USE_MOVE && !gBattleStruct->effectsBeforeUsingMoveDone)
     {
-         if (!gBattleStruct->pursuitTarget)
+        if (!IsPursuitTargetSet())
         {
-            //if (TryDoGimmicksBeforeMoves())
-             //   return;
-            //else if
-            if (TryDoMoveEffectsBeforeMoves())
+            if (TryDoGimmicksBeforeMoves())
+               return;
+            else if (TryDoMoveEffectsBeforeMoves())
                 return;
             gBattleStruct->effectsBeforeUsingMoveDone = TRUE;
         }
-        /*else
+        else
         {
             if (TryActivateGimmick(gBattlerByTurnOrder[gCurrentTurnActionNumber]))
                 return;
-        }*/
+        }
     }
 
-    *(&gBattleStruct->savedTurnActionNumber) = gCurrentTurnActionNumber;
+    gBattleStruct->savedTurnActionNumber = gCurrentTurnActionNumber;
     sTurnActionsFuncsTable[gCurrentActionFuncId]();
 
     if (gCurrentTurnActionNumber >= gBattlersCount) // everyone did their actions, turn finished
-    {
-        gHitMarker &= ~(HITMARKER_PASSIVE_DAMAGE);
-        gBattleMainFunc = sEndTurnFuncsTable[gBattleOutcome & 0x7F]; //default but why does it use this value?
+        gBattleMainFunc = sEndTurnFuncsTable[gBattleOutcome & 0x7F];
 
-    }
-    else
-    {
-        if (gBattleStruct->savedTurnActionNumber != gCurrentTurnActionNumber) // action turn has been done, clear hitmarker bits for another battlerId
-        {
-            gHitMarker &= ~(HITMARKER_NO_ATTACKSTRING);
-            gHitMarker &= ~(HITMARKER_UNABLE_TO_USE_MOVE);
-        }
-    }
 }
 
 static void HandleEndTurn_BattleWon(void)
