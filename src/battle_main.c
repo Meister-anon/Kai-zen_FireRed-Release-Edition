@@ -6700,38 +6700,18 @@ static void HandleEndTurn_FinishBattle(void)
         if (VarGet(VAR_LAST_MULTIHIT_RESULT))
             VarSet(VAR_LAST_MULTIHIT_RESULT, 0);    //clear last result var for multihit at turn end
 
-        for (i = 0; i < PARTY_SIZE; i++)
-        {
-            //UndoMegaEvolution(i);
-            //UndoFormChange(i, B_SIDE_PLAYER, FALSE);
-            //UndoFormChange(i, B_SIDE_OPPONENT, FALSE); //change opponent, for catching transformed mon
-            //DoBurmyFormChange(i); don't know why this is here, form change didn't change to my knowledge so not doing that
-
-            bool8 changedForm = FALSE;
-            // Appeared in battle and didn't faint
-            if ((gBattleStruct->appearedInBattle & (1u << i)) && GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) != 0)
-                changedForm = TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_END_BATTLE_ENVIRONMENT);
-            if (!changedForm)
-                changedForm = TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_END_BATTLE);
-
-            // Clear original species field
-            gBattleStruct->changedSpecies[B_SIDE_PLAYER][i] = SPECIES_NONE;
-            gBattleStruct->changedSpecies[B_SIDE_OPPONENT][i] = SPECIES_NONE;
-
-            
-        }//prob need add a script for this like I did for caught mon held items
+        
 
         for (i = 0; i < MAX_BATTLERS_COUNT; i++)
             RevertTransformedHP(i);
 
-        for (i = 0; i < PARTY_SIZE; i++) //erecalc stat after battle
+        for (u32 i = 0; i < PARTY_SIZE; i++)
         {
-            if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
-                && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
-            {
-                
+            bool32 changedForm = TryRevertPartyMonFormChange(i);
+
+            // Recalculate the stats of every party member before the end
+            if (!changedForm)
                 CalculateMonStats(&gPlayerParty[i]);
-            }
         }
 
         
@@ -6742,6 +6722,12 @@ static void HandleEndTurn_FinishBattle(void)
         {
             gBattleMons[i].species = SPECIES_NONE;
         }  //added from emerald
+
+         // Set Battle Controllers to BATTLE_CONTROLLER_NONE
+        for (enum BattlerId i = 0; i < MAX_BATTLERS_COUNT; i++)
+        {
+            gBattlerBattleController[i] = BATTLE_CONTROLLER_NONE;
+        }
 
         gBattleMainFunc = FreeResetData_ReturnToOvOrDoEvolutions;
         gCB2_AfterEvolution = BattleMainCB2;
@@ -6945,14 +6931,12 @@ static void HandleAction_UseMove(void)
         return;
     }
     gCritMultiplier = 1;
-    gBattleStruct->atkCancellerTracker = 0;
     gMultiHitCounter = 0;
     gMultiTask = 0; //add ensure is being cleared damage is weird - this seemed to be the problem
     gBattleCommunication[6] = 0;
     gBattleScripting.savedMoveEffect = 0;
     gCurrMovePos = gChosenMovePos = *(gBattleStruct->chosenMovePositions + gBattlerAttacker);
     
-    gBattleStruct->obedienceResult = IsMonDisobedient();
     
     // choose move
     if (gProtectStructs[gBattlerAttacker].noValidMoves) //this is what makes it default to sturggle, bindedmove is none, it checks for moves and finds none

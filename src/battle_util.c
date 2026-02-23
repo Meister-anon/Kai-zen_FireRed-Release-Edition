@@ -6406,7 +6406,7 @@ u32 GetBattleMoveTarget(enum Move move, enum MoveTarget moveTarget)
 }
 
 //vsonic
-u8 GetAttackerObedienceForAction()
+enum Obedience GetAttackerObedienceForAction(void)
 {
     s32 rnd;
     s32 calc;
@@ -6469,7 +6469,7 @@ u8 GetAttackerObedienceForAction()
 
     // is not obedient
     enum BattleMoveEffects moveEffect = GetMoveEffect(gCurrentMove);
-    if (moveEffect == EFFECT_RAGE)
+    if (MoveHasAdditionalEffect(gCurrentMove, MOVE_EFFECT_RAGE))
         gBattleMons[gBattlerAttacker].volatiles.rage = FALSE;
     if (gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP && IsUsableWhileAsleepEffect(moveEffect))
         return DISOBEYS_WHILE_ASLEEP;
@@ -6490,11 +6490,11 @@ u8 GetAttackerObedienceForAction()
     {
         obedienceLevel = levelReferenced - obedienceLevel;
 
-        calc = ((rnd >> 16) & 255); //mechanic so ability shouldn't prevent or interact w this
-        if (calc < obedienceLevel && CanBeSlept(gBattlerAttacker, gBattlerAttacker, ABILITY_NONE, GetBattlerAbility(gBattlerAttacker), NOT_BLOCKED_BY_SLEEP_CLAUSE))
+        calc = ((rnd >> 16) & 255);
+        if (calc < obedienceLevel && CanBeSlept(gBattlerAttacker, gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), NOT_BLOCKED_BY_SLEEP_CLAUSE))
         {
             // try putting asleep
-            int i;
+            enum BattlerId i;
             for (i = 0; i < gBattlersCount; i++)
                 if (gBattleMons[i].volatiles.uproarTurns)
                     break;
