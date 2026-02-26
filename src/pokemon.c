@@ -10798,6 +10798,8 @@ s32 GetBattlerMultiplayerId(u16 a1)
     return id;
 }
 
+//vsonic important need pr  #8892
+//separate trainer music from gender
 u8 GetTrainerEncounterMusicId(u16 trainer)
 {
     return gTrainers[trainer].encounterMusic_gender & 0x7F;

@@ -956,6 +956,9 @@ static const struct FormChange sKeldeoFormChangeTable[] =
     {FORM_CHANGE_TERMINATOR},
 };
 
+//ironically form change is incorrect but is the buff I would have made
+//according to falseswipe and bulbapedia it reverts to aria form on switch out
+//I can just leave this as is
 static const struct FormChange sMeloettaFormChangeTable[] =
 {
     {FORM_CHANGE_BATTLE_AFTER_MOVE, SPECIES_MELOETTA_PIROUETTE, MOVE_RELIC_SONG},
