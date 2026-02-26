@@ -3886,6 +3886,35 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 effect++;
             }
             break;
+        case ABILITY_AURORA_SHIFT:
+            if (!(gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_AURORA_VEIL))
+            {
+                if (IsBattlerWeatherAffected(battler, WEATHER_ICY_ANY))
+                {
+                    
+                    gSideStatuses[GetBattlerSide(battler)] |= SIDE_STATUS_AURORA_VEIL;
+                    if (GetBattlerHoldEffect(battler) == HOLD_EFFECT_LIGHT_CLAY)
+                        gSideTimers[GetBattlerSide(battler)].auroraVeilTimer = 8;
+                    else
+                        gSideTimers[GetBattlerSide(battler)].auroraVeilTimer = 5;
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_AURORA_SHIFT;
+                    BattleScriptCall(BattleScript_SwitchInAbilityMsg);
+                    effect++;
+                }
+                else if (GetBattlerPartyState->usedSingleUseAbility != TRUE)
+                {
+                    gSideStatuses[GetBattlerSide(battler)] |= SIDE_STATUS_AURORA_VEIL;
+                    if (GetBattlerHoldEffect(battler) == HOLD_EFFECT_LIGHT_CLAY)
+                        gSideTimers[GetBattlerSide(battler)].auroraVeilTimer = 8;
+                    else
+                        gSideTimers[GetBattlerSide(battler)].auroraVeilTimer = 5;
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_AURORA_SHIFT;
+                    BattleScriptCall(BattleScript_SwitchInAbilityMsg);
+                    TrySetUsedSingleUseAbility_SwitchIn(battler);
+                    effect++;
+                }
+            }
+            break;
         case ABILITY_ELECTRIC_SURGE:
         case ABILITY_HADRON_ENGINE:
             if (TryChangeBattleTerrain(battler, STATUS_FIELD_ELECTRIC_TERRAIN))

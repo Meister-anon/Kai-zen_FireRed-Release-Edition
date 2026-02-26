@@ -12177,7 +12177,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .speciesName = _("Deoxys"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(50, 150, 50, 150, 150, 50),
+         STATS(50, 120, 80, 120, 120, 80),
         MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 270,
@@ -12190,8 +12190,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_REGENERATOR, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilities = {ABILITY_PRESSURE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -12202,6 +12202,24 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .isLegendaryOrMythical = TRUE,
     },
+    //idea from false swipe gaming make this more balanced
+    //so it has a niche away from attack mode
+    //considering stat redistr of 30 or 40
+    //also meant to compete w rayquaza
+    //but can use other forms for that plus now resists flying
+    //initial problem was it was worse version of attack form
+    //but new issue is not having a niche away from speed form
+    //think need lower speed enough that speed form is still needed
+    //but would also require lower offense to point
+    //is only slightly above speed form...
+    //but then again with its low hp think not worth using
+    //needs dmg ok will do 30 diff
+    //still need figure ability pressure could work
+    //as would make take less dmg on random odds
+    //also gave regenerator, but realize neither pressure
+    //nor regenerator really work
+    //also give tauros crit boost as gen 1 callback like 
+    //did for persian
 
     [SPECIES_TURTWIG] =
     {
@@ -45388,8 +45406,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_REGENERATOR, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilities = {ABILITY_PRESSURE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -45417,8 +45435,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_REGENERATOR, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilities = {ABILITY_AURORA_SHIFT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -45428,6 +45446,13 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sDeoxysTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //think give this unique ability, dex entry mentions aurora
+    //so think make aurora veil switchin abiility,
+    //that can activate without hail once,
+    //but for balance make like ice face needs snow to be able to reset
+    //ok idea setup make single use ability when no ice weather on field
+    //will set aurorah veil once, as if it goes in to transform which dex says causes aurora effects
+    //otherwise will only set in icy weather
 
     [SPECIES_DEOXYS_SPEED] =
     {
@@ -45445,8 +45470,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_REGENERATOR, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilities = {ABILITY_PRESSURE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = TRUE,

@@ -153,7 +153,7 @@ struct AbilityInfo
 //if ability has no timer? hmm most all have timers tho
 //yeah they all have timers
 //ok so they all have timers will setusedsingleuse ability
-//only if timer is expended
+//only if timer is expended will do set singleuse used if singleuse and timer is 0 or decrements to 0 (do conditoinal else if to prevent attempt decrement 0)
 //original point was to prevent timers from resetting in first place
 //was a fix for slow start
 //make functions for should set SingleUseAbilityTimer

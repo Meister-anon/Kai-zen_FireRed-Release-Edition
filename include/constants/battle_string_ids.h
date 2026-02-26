@@ -90,6 +90,7 @@ enum SwitchInAbilityStringID
     B_MSG_SWITCHIN_FLUORESCENT,
     B_MSG_SWITCHIN_WONDERGUARD,
     B_MSG_SWITCHIN_SUPERSWEET_SYRUP,
+    B_MSG_SWITCHIN_AURORA_SHIFT,
 };
 
 // gMentalHerbCureStringIds
@@ -1322,6 +1323,7 @@ enum SportsUsedStringID
     F(STRINGID_ICE_FACE_TOOK_HIT,                                  ("{B_SCR_NAME_WITH_PREFIX}'s {B_SCR_ABILITY} took the hit!"))\
     F(STRINGID_PKMNCHARGEDTOTHEMAX,                                        ("{B_ATK_NAME_WITH_PREFIX} charged\nitself to max power!"))\
     F(STRINGID_PKMRECHARGECOMPLETED,                                 ("{B_ATK_NAME_WITH_PREFIX} finished recharging!"))\
+    F(STRINGID_CLOAKEDINAURORA,                                        ("{B_SCR_NAME_WITH_PREFIX} became cloaked\nin an aurora of light!"))\
 
 #define UNPACK_BATTLE_STRING_ENUMS(_enum, ...) _enum,
 #define UNPACK_BATTLE_STRING_VALUES(_enum, _txtstring, ...) [_enum] = COMPOUND_STRING _txtstring,

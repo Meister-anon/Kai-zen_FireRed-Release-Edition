@@ -560,7 +560,7 @@ static const struct AbilityLearnset sGoldeenAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSeakingAbilityLearnset[] = {
-    ABILITY_UNAWARE,
+    ABILITY_THICK_FAT,
     ABILITY_SET_END
 };
 
@@ -605,6 +605,8 @@ static const struct AbilityLearnset sPinsirAbilityLearnset[] = {
 
 static const struct AbilityLearnset sTaurosAbilityLearnset[] = {
     ABILITY_PIERCING_HORN,
+    ABILITY_SUPER_LUCK,
+    ABILITY_MERCILESS,
     ABILITY_SET_END
 };
 
@@ -4288,6 +4290,7 @@ static const struct AbilityLearnset sDeoxysAttackAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sDeoxysDefenseAbilityLearnset[] = {
+    ABILITY_PRESSURE,
     ABILITY_SET_END
 };
 
@@ -4821,11 +4824,13 @@ static const struct AbilityLearnset sTaurosPaldeanCombatBreedAbilityLearnset[] =
 
 static const struct AbilityLearnset sTaurosPaldeanBlazeBreedAbilityLearnset[] = {
     ABILITY_PIERCING_HORN,
+    ABILITY_BLAZE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sTaurosPaldeanAquaBreedAbilityLearnset[] = {
     ABILITY_PIERCING_HORN,
+    ABILITY_TORRENT,
     ABILITY_SET_END
 };
 

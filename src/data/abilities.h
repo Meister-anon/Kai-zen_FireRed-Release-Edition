@@ -3267,7 +3267,18 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Prevents Flinch, Crit, and Intimidation.\nIgnores the immunities of GHOST types."),
         .aiRating = 7,
         .breakable = TRUE,
-    }.//inner focus + scrappy for mega mewtwo x idea
+    },//inner focus + scrappy for mega mewtwo x idea
     //perfect fusion of mental and physical energy
+
+    [ABILITY_AURORA_SHIFT] =
+    {
+        .name = _("Aurora Shift"),
+        .description = COMPOUND_ABILITY_STRING("Sets Aurora Veil upon enter battle\nCan set once regardless of weather."),
+        .aiRating = 5,
+        .isSingleUse = TRUE,
+    },
+    //deoxys def ability will replace pressure
+    //Sets aurora veil first time enters field if icy weather isn't on field
+    //otherwise ste aurora veil on switch in icy weather
 };
 

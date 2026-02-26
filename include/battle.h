@@ -2258,6 +2258,45 @@ static inline bool32 CanBattlerAbilityDrawInMove(enum BattlerId battlerDef)
     return FALSE;
 }
 
+enum SingleUseAbility
+{
+    SWITCH_IN,
+    END_TURN_TIMER,
+};
+
+//if ability is single use and timer is 0 or decrements to 0
+//hhmm actually timer 0 should be exclusive to switch in
+//so I can split out into 2 functions endturn would be for timers
+static inline void TrySetUsedSingleUseAbility(enum BattlerId battler, enum SingleUseAbility caseId)
+{
+    enum Ability ability = GetBattlerAbility(battler);
+
+    if !(gAbilitiesInfo[ability].isSingleUse)
+        return;
+
+    switch(caseId)
+    {
+        case SWITCH_IN:
+            if (gAbilitiesInfo[ability].timer == 0)
+                GetBattlerPartyState->usedSingleUseAbility = TRUE;
+        break;
+        case END_TURN_TIMER:
+            if (GetBattlerPartyState->cachedAbilityTimers
+            && --GetBattlerPartyState->cachedAbilityTimers == 0)
+                GetBattlerPartyState->usedSingleUseAbility = TRUE;
+        break;
+    }
+}
+
+static inline void TrySetUsedSingleUseAbility_SwitchIn(enum BattlerId battler)
+{
+    TrySetUsedSingleUseAbility(battler, SWITCH_IN);
+}
+
+static inline void TrySetUsedSingleUseAbility_EndTurn(enum BattlerId battler)
+{
+    TrySetUsedSingleUseAbility(battler, END_TURN_TIMER);
+}
 
 static inline enum Type GetBattlerTypebySlot(enum BattlerId battler, enum BattleMonTypes typeId)
 {
