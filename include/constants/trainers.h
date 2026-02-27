@@ -314,6 +314,12 @@ enum TrainerClassID
 
 //look for girl,  music_female,  class  lass _F,  TRAINER_PIC_LASS  Beauty, etc.
 //Lady. keep an eye on went over trainer data repalced all w gender_female I could find
+//in trainers.h
+
+// Trainer party defines
+#define TRAINER_MON_MALE          1
+#define TRAINER_MON_FEMALE        2
+#define TRAINER_MON_RANDOM_GENDER 3
 
 // All trainer parties specify the IV, level, and species for each Pokémon in the
 // party. Some trainer parties also specify held items and custom moves for each

@@ -2894,10 +2894,10 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
 
             if (gTrainers[trainerNum].battleType == BATTLE_TYPE_DOUBLE) //may need change to just not singles, since adding more?
                 personalityValue = 0x80;
-            else if (gTrainers[trainerNum].encounterMusic_gender & 0x80) //specific value for male/female trainers to set party mon gender
-                personalityValue = 0x78;
+            else if (gTrainers[trainerNum].gender == TRAINER_GENDER_FEMALE)
+                personalityValue = 0x78; // Use personality more likely to result in a female Pokémon
             else
-                personalityValue = 0x88;
+                personalityValue = 0x88; // Use personality more likely to result in a male Pokémon
             for (j = 0; gTrainers[trainerNum].trainerName[j] != EOS; ++j)
                 nameHash += gTrainers[trainerNum].trainerName[j];
             
