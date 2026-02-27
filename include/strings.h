@@ -1,7 +1,6 @@
 #ifndef GUARD_STRINGS_H
 #define GUARD_STRINGS_H
 
-#include "global.h"
 
 // Exported type declarations
 

@@ -1,10 +1,8 @@
 #ifndef GUARD_POKEMON_H
 #define GUARD_POKEMON_H
 
-#include "global.h"
 #include "sprite.h"
 #include "move.h"
-#include "data.h"
 #include "constants/form_change_types.h"
 #include "constants/pokemon.h"
 #include "constants/battle.h"

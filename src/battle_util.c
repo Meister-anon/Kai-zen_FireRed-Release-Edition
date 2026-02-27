@@ -9904,7 +9904,7 @@ uq4_12_t CalcTypeEffectivenessMultiplier(struct BattleContext *ctx)
 }
 
 //unsure what this does only clue find is its used in battle ai for some reason
-uq4_12_t CalcPartyMonTypeEffectivenessMultiplier(u16 move, u16 speciesDef, enum Ability abilityDef)
+uq4_12_t CalcPartyMonTypeEffectivenessMultiplier(enum Move move, u16 speciesDef, enum Ability abilityDef)
 {
     uq4_12_t modifier = UQ_4_12(1.0);
     enum Type moveType = GetBattleMoveType(move);

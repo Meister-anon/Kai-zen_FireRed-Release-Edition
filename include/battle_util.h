@@ -1,7 +1,8 @@
 #ifndef GUARD_BATTLE_UTIL_H
 #define GUARD_BATTLE_UTIL_H
 
-#include "global.h"
+#include "move.h"
+#include "constants/battle_string_ids.h"
 #include "constants/hold_effects.h"
 
 #define MOVE_LIMITATION_ZEROMOVE                (1 << 0)
