@@ -13757,7 +13757,7 @@ u32 GetMonFriendshipScore(struct Pokemon *pokemon)
 
 u32 GetMonAffectionHearts(struct Pokemon *pokemon)
 {
-    u32 friendship = GetMonData(pokemon, MON_DATA_FRIENDSHIP);
+    /*u32 friendship = GetMonData(pokemon, MON_DATA_FRIENDSHIP);
 
     if (friendship == MAX_FRIENDSHIP)
         return AFFECTION_FIVE_HEARTS;
@@ -13770,7 +13770,8 @@ u32 GetMonAffectionHearts(struct Pokemon *pokemon)
     if (friendship >= 80)
         return AFFECTION_ONE_HEART;
 
-    return AFFECTION_NO_HEARTS;
+    return AFFECTION_NO_HEARTS;*/
+    return FALSE;
 }
 
 void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality)
@@ -13781,11 +13782,11 @@ void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality)
     struct PokemonSubstruct3 *old3, *new3;
     struct BoxPokemon old;
 
-    bool32 isShiny = GetBoxMonData(boxMon, MON_DATA_IS_SHINY);
+    bool32 isShiny = GetBoxMonData(boxMon, MON_DATA_SHINY_CHECK);
     u32 hiddenNature = GetBoxMonData(boxMon, MON_DATA_HIDDEN_NATURE);
     enum Type teraType = GetBoxMonData(boxMon, MON_DATA_TERA_TYPE);
 
-    old = *boxMon;
+    /*old = *boxMon;
     old0 = &(GetSubstruct(&old, old.personality, SUBSTRUCT_TYPE_0)->type0);
     old1 = &(GetSubstruct(&old, old.personality, SUBSTRUCT_TYPE_1)->type1);
     old2 = &(GetSubstruct(&old, old.personality, SUBSTRUCT_TYPE_2)->type2);
@@ -13804,7 +13805,7 @@ void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality)
     *new3 = *old3;
     boxMon->checksum = CalculateBoxMonChecksumReencrypt(boxMon);
 
-    SetBoxMonData(boxMon, MON_DATA_IS_SHINY, &isShiny);
+    SetBoxMonData(boxMon, MON_DATA_SHINY_CHECK, &isShiny);*/
     SetBoxMonData(boxMon, MON_DATA_HIDDEN_NATURE, &hiddenNature);
     SetBoxMonData(boxMon, MON_DATA_TERA_TYPE, &teraType);
 }
@@ -13978,7 +13979,10 @@ bool32 IsSpeciesForeignRegionalForm(u32 species, u32 currentRegion)
 
 enum Type GetTeraTypeFromPersonality(struct Pokemon *mon)
 {
-    const u8 *types = gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES)].types;
+    enum Type types[2];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    types[0] = GetSpeciesPrimaryType(species);
+    types[1] = GetSpeciesSecondaryType(species);
     return (GetMonData(mon, MON_DATA_PERSONALITY) & 0x1) == 0 ? types[0] : types[1];
 }
 

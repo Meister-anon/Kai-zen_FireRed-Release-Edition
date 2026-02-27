@@ -2045,7 +2045,7 @@ u8 GetImprisonedMovesCount(enum BattlerId battler, u16 move)
 u32 GetBattlerAffectionHearts(enum BattlerId battler)
 {
     struct Pokemon *mon = GetBattlerMon(battler);
-    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    /*u16 species = GetMonData(mon, MON_DATA_SPECIES);
 
     if (!IsOnPlayerSide(battler))
         return AFFECTION_NO_HEARTS;
@@ -2055,7 +2055,7 @@ u32 GetBattlerAffectionHearts(enum BattlerId battler)
                                 | BATTLE_TYPE_LINK
                                 | BATTLE_TYPE_RECORDED_LINK
                                 | BATTLE_TYPE_SECRET_BASE)))
-        return AFFECTION_NO_HEARTS;
+        return AFFECTION_NO_HEARTS;*/
 
     return GetMonAffectionHearts(mon);
 }

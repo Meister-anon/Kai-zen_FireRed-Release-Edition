@@ -476,9 +476,9 @@ static u32 ScriptGiveMonParameterized(u8 side, u8 slot, u16 species, u8 level, e
     else if (shinyMode == SHINY_MODE_NEVER || (P_FLAG_FORCE_NO_SHINY != 0 && FlagGet(P_FLAG_FORCE_NO_SHINY)))
         isShiny = FALSE;
     else
-        isShiny = GetMonData(&mon, MON_DATA_IS_SHINY);
+        isShiny = GetMonData(&mon, MON_DATA_SHINY_CHECK);
 
-    SetMonData(&mon, MON_DATA_IS_SHINY, &isShiny);
+    SetMonData(&mon, MON_DATA_SHINY_CHECK, &isShiny);
 
     // gigantamax factor
     SetMonData(&mon, MON_DATA_GIGANTAMAX_FACTOR, &gmaxFactor);

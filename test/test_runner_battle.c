@@ -1574,7 +1574,7 @@ void ClosePokemon(u32 sourceLine)
         }
     }
     data = FALSE;
-    SetMonData(DATA.currentMon, MON_DATA_IS_SHINY, &data);
+    SetMonData(DATA.currentMon, MON_DATA_SHINY_CHECK, &data);
     UpdateMonPersonality(&DATA.currentMon->box, GenerateNature(DATA.nature, DATA.gender % NUM_NATURES) | DATA.gender);
     DATA.currentMon = NULL;
 }

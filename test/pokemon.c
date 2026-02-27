@@ -72,10 +72,10 @@ TEST("Shininess independent from PID and OTID")
     CreateMon(&mon, SPECIES_WOBBUFFET, 100, 0, TRUE, pid, OT_ID_PRESET, otId);
     isShiny = IsMonShiny(&mon);
     data = !isShiny;
-    SetMonData(&mon, MON_DATA_IS_SHINY, &data);
+    SetMonData(&mon, MON_DATA_SHINY_CHECK, &data);
     EXPECT_EQ(pid, GetMonData(&mon, MON_DATA_PERSONALITY));
     EXPECT_EQ(otId, GetMonData(&mon, MON_DATA_OT_ID));
-    EXPECT_EQ(!isShiny, GetMonData(&mon, MON_DATA_IS_SHINY));
+    EXPECT_EQ(!isShiny, GetMonData(&mon, MON_DATA_SHINY_CHECK));
 }
 
 TEST("Hyper Training increases stats without affecting IVs")
@@ -257,7 +257,7 @@ TEST("givemon [all]")
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_MOVE2), MOVE_SPLASH);
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_MOVE3), MOVE_CELEBRATE);
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_MOVE4), MOVE_EXPLOSION);
-    EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_IS_SHINY), TRUE);
+    EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_SHINY_CHECK), TRUE);
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_GIGANTAMAX_FACTOR), TRUE);
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_TERA_TYPE), TYPE_FIRE);
 }
@@ -320,7 +320,7 @@ TEST("givemon [vars]")
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_MOVE2), MOVE_SPLASH);
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_MOVE3), MOVE_CELEBRATE);
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_MOVE4), MOVE_EXPLOSION);
-    EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_IS_SHINY), TRUE);
+    EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_SHINY_CHECK), TRUE);
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_GIGANTAMAX_FACTOR), TRUE);
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_TERA_TYPE), TYPE_FIRE);
 }

@@ -177,6 +177,9 @@
 #define MAX_MON_MOVES 4
 #define NUM_EV_STATS 6
 
+//not using just for compile
+#define REGIONS_COUNT 1
+
 #define TRAINER_ID_LENGTH 4
 #define PARTY_SIZE 6
 #define MULTI_PARTY_SIZE (PARTY_SIZE / 2)

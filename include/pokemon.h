@@ -1125,8 +1125,8 @@ u8 GetWeatherBallType(u16 move);
 //sidestatus meant to hold gsidestatus but forgot I had to upgrade that to u32 *facepalm
 
 //recent emerald addditions, change for form change (not planning use for ditto/transform)
-u16 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
-u16 GetFormChangeTargetSpeciesBoxMon(struct Pokemon *mon, u16 method, u32 arg);//still works same just adjusted for getablilitybyspecies change
+u32 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
+u32 GetFormChangeTargetSpeciesBoxMon(struct Pokemon *mon, u16 method, u32 arg);//still works same just adjusted for getablilitybyspecies change
 bool8 DoesSpeciesHaveCosmeticForms(u16 species);
 
 u8 CountAliveMonsInBattle(u8 caseId, enum BattlerId battler);
