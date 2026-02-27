@@ -32,7 +32,7 @@ endif
 include config.mk
 
 # Default make rule
-all: UpdateTmList UpdateScrCmdList rom syms stringtester
+all: UpdateTmList rom syms stringtester
 
 # Toolchain selection
 TOOLCHAIN := $(DEVKITARM)
@@ -258,6 +258,8 @@ syms: $(SYM)
 UpdateTmList:
 	python3	scripts_py/tm_list.py
 
+#still working on, need fix pathing so can run
+#without needing to be in root
 UpdateScrCmdList:
   python3 scripts_py/make_scr_cmd_constants.py
 
