@@ -2674,6 +2674,11 @@ u32 TestRunner_Battle_GetForcedAbility(u32 side, u32 partyIndex)
     return DATA.forcedAbilities[side][partyIndex];
 }
 
+u32 TestRunner_Battle_GetForcedEnvironment(void)
+{
+    return DATA.forcedEnvironment;
+}
+
 u32 TestRunner_Battle_GetChosenGimmick(u32 side, u32 partyIndex)
 {
     return DATA.chosenGimmick[side][partyIndex];

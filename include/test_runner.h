@@ -25,7 +25,7 @@ void TestRunner_Battle_CheckBattleRecordActionType(enum BattlerId battlerId, u32
 
 u32 TestRunner_Battle_GetForcedAbility(u32 side, u32 partyIndex);
 u32 TestRunner_Battle_GetChosenGimmick(u32 side, u32 partyIndex);
-
+u32 TestRunner_Battle_GetForcedEnvironment(void);
 #else
 
 #define TestRunner_Battle_RecordAbilityPopUp(...) (void)0
@@ -47,6 +47,8 @@ u32 TestRunner_Battle_GetChosenGimmick(u32 side, u32 partyIndex);
 #define TestRunner_Battle_GetForcedAbility(...) (u32)0
 
 #define TestRunner_Battle_GetChosenGimmick(...) (u32)0
+
+#define TestRunner_Battle_GetForcedEnvironment(...) (u8)0
 
 #endif
 

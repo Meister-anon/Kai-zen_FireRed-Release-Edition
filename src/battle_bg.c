@@ -429,7 +429,7 @@ static void LoadBattleTerrainGfx(u8 battleEnvironment)
     LoadPalette(bgPalette, 0x20, 0x60);
 }
 
-static void LoadBattleTerrainEntryGfx(u8 battleEnvironment)
+static void LoadBattleEnvironmentEntryGfx(u8 battleEnvironment)
 {
     battleEnvironment = battleEnvironment >= BATTLE_ENVIRONMENT_COUNT ? BATTLE_ENVIRONMENT_GRASS : battleEnvironment;
 
@@ -774,21 +774,42 @@ void DrawBattleEntryBackground(void)
     }
     else if (gBattleTypeFlags & BATTLE_TYPE_POKEDUDE)
     {
-        LoadBattleTerrainEntryGfx(BATTLE_ENVIRONMENT_GRASS);
+        LoadBattleEnvironmentEntryGfx(BATTLE_ENVIRONMENT_GRASS);
     }
     else if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_LINK | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER))
     {
-        LoadBattleTerrainEntryGfx(BATTLE_ENVIRONMENT_BUILDING);
+        if (TestRunner_Battle_GetForcedEnvironment()
+         && gBattleEnvironmentInfo[gBattleEnvironment].background.tilemap
+         && gBattleEnvironmentInfo[gBattleEnvironment].background.tileset)
+        {
+            LoadBattleEnvironmentEntryGfx(gBattleEnvironment);
+        }
+        else if (!(gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) || gPartnerTrainerId > TRAINER_PARTNER(PARTNER_NONE))
+        {
+            LoadBattleEnvironmentEntryGfx(BATTLE_ENVIRONMENT_BUILDING);
+        }
+        else
+        {
+            // Set up bg for the multi battle intro where both teams slide in facing the screen.
+            // Note Steven's multi battle (which has a dedicated back pic) is excluded above.
+            //still to setup
+            /*SetBgAttribute(1, BG_ATTR_CHARBASEINDEX, 2);
+            SetBgAttribute(2, BG_ATTR_CHARBASEINDEX, 2);
+            CopyToBgTilemapBuffer(1, gMultiBattleIntroBg_Opponent_Tilemap, 0, 0);
+            CopyToBgTilemapBuffer(2, gMultiBattleIntroBg_Player_Tilemap, 0, 0);
+            CopyBgTilemapBufferToVram(1);
+            CopyBgTilemapBufferToVram(2);*/
+        }
     }
     else if (gBattleTypeFlags & BATTLE_TYPE_GROUDON)
     {
 
-        LoadBattleTerrainEntryGfx(BATTLE_ENVIRONMENT_CAVE);
+        LoadBattleEnvironmentEntryGfx(BATTLE_ENVIRONMENT_CAVE);
     }
     else if (gBattleTypeFlags & BATTLE_TYPE_KYOGRE)
     {
 
-        LoadBattleTerrainEntryGfx(BATTLE_ENVIRONMENT_WATER);
+        LoadBattleEnvironmentEntryGfx(BATTLE_ENVIRONMENT_WATER);
     }
     else
     {
@@ -797,31 +818,38 @@ void DrawBattleEntryBackground(void)
             u32 trainerClass = GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA);
             if (trainerClass == CLASS_GYM_LEADER_FRLG)
             {
-                LoadBattleTerrainEntryGfx(BATTLE_ENVIRONMENT_BUILDING);
+                LoadBattleEnvironmentEntryGfx(BATTLE_ENVIRONMENT_BUILDING);
                 return;
             }
             else if (trainerClass == CLASS_CHAMPION_FRLG)
             {
-                LoadBattleTerrainEntryGfx(BATTLE_ENVIRONMENT_BUILDING);
+                LoadBattleEnvironmentEntryGfx(BATTLE_ENVIRONMENT_BUILDING);
                 return;
             }
         }
 
         if (GetCurrentMapBattleScene() == MAP_BATTLE_SCENE_NORMAL)
         {
-            LoadBattleTerrainEntryGfx(gBattleEnvironment);
+            LoadBattleEnvironmentEntryGfx(gBattleEnvironment);
         }
         else
         {
-            LoadBattleTerrainEntryGfx(BATTLE_ENVIRONMENT_BUILDING);
+            LoadBattleEnvironmentEntryGfx(BATTLE_ENVIRONMENT_BUILDING);
         }
     }
 }
 
 static u8 GetBattleEnvironmentOverride(void)
 {
-    u8 battleScene;
-    if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_LINK | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER))
+    u8 battleScene = GetCurrentMapBattleScene();
+    
+    if (TestRunner_Battle_GetForcedEnvironment()
+     && gBattleEnvironmentInfo[gBattleEnvironment].background.tilemap
+     && gBattleEnvironmentInfo[gBattleEnvironment].background.tileset)
+    {
+        return gBattleEnvironment;
+    }
+    else if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_LINK | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER))
     {
         return BATTLE_ENVIRONMENT_LINK;
     }
@@ -841,7 +869,6 @@ static u8 GetBattleEnvironmentOverride(void)
             return BATTLE_ENVIRONMENT_CHAMPION;
         }
     }
-    battleScene = GetCurrentMapBattleScene();
     if (battleScene == MAP_BATTLE_SCENE_NORMAL)
     {
         return gBattleEnvironment;
