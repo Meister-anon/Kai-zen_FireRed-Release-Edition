@@ -2152,8 +2152,8 @@ static inline bool32 CheckBattlerHpThreshold(enum BattlerId battler, u8 Comparis
 //missing include
 static inline void SetSingleUseAbilityValues(enum BattlerId battler, enum Ability ability)
 {
-    gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]].cachedAbilityTimers = GetAbilityTimer(ability);
-    gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]].usedSingleUseAbility = ability;
+    GetBattlerPartyState(battler)->cachedAbilityTimers = GetAbilityTimer(ability);
+    GetBattlerPartyState(battler)->usedSingleUseAbility = ability;
 }
 
 enum FugueStates
@@ -2285,12 +2285,12 @@ static inline void TrySetUsedSingleUseAbility(enum BattlerId battler, enum Singl
     {
         case SWITCH_IN:
             if (gAbilitiesInfo[ability].timer == 0)
-                GetBattlerPartyState->usedSingleUseAbility = TRUE;
+                GetBattlerPartyState(battler)->usedSingleUseAbility = TRUE;
         break;
         case END_TURN_TIMER:
-            if (GetBattlerPartyState->cachedAbilityTimers
-            && --GetBattlerPartyState->cachedAbilityTimers == 0)
-                GetBattlerPartyState->usedSingleUseAbility = TRUE;
+            if (GetBattlerPartyState(battler)->cachedAbilityTimers
+            && --GetBattlerPartyState(battler)->cachedAbilityTimers == 0)
+                GetBattlerPartyState(battler)->usedSingleUseAbility = TRUE;
         break;
     }
 }

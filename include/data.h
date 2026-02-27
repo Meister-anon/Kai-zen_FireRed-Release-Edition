@@ -5,7 +5,9 @@
 #include "constants/moves.h"
 #include "constants/trainers.h"
 #include "constants/opponents.h" //to get to battle partner file gbattlepartner stuff
+#include "battle_main.h"
 #include "debug.h"
+#include "string_util.h"
 
 #define SPECIES_SHINY_TAG 500
 
