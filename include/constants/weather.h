@@ -45,6 +45,7 @@ under Project Settings to tell Porymap how to find them
 #define OVERWORLD_WEATHER_ROUTE123_CYCLE     21  // unused
 #define OVERWORLD_WEATHER_ACID_RAIN          22
 #define OVERWORLD_WEATHER_ACID_THUNDERSTORM  23
+#define OVERWORLD_WEATHER_ABNORMAL 24// The alternating weather during Groudon/Kyogre conflict
 #define NUM_OVERWORLD_WEATHER
 
 #endif  // GUARD_CONSTANTS_WEATHER_H

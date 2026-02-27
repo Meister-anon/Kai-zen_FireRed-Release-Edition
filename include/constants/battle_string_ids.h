@@ -48,20 +48,37 @@ enum InobedientStringID
 #define B_MSG_GROUND_MISS  4
 #define B_MSG_ABILITY_TYPE_MISS 5*/
 
+// gCaughtMonStringIds
+enum CaughtMonStringIds
+{
+    B_MSG_SENT_SOMEONES_PC,
+    B_MSG_SENT_BILLS_PC,
+    B_MSG_SOMEONES_BOX_FULL,
+    B_MSG_BILLS_BOX_FULL,
+};
 
-// gStatUpStringIds
-#define B_MSG_ATTACKER_STAT_ROSE 0
-#define B_MSG_DEFENDER_STAT_ROSE 1
-#define B_MSG_STAT_WONT_INCREASE 2
-#define B_MSG_STAT_ROSE_EMPTY    3
-#define B_MSG_STAT_ROSE_ITEM     4
-#define B_MSG_USED_DIRE_HIT      5
+// gPrimalWeatherBlocksStringIds
+enum PrimalWeatherBlockStringID
+{
+    B_MSG_PRIMAL_WEATHER_FIZZLED_BY_RAIN,
+    B_MSG_PRIMAL_WEATHER_EVAPORATED_IN_SUN,
+};
 
-// gStatDownStringIds
-#define B_MSG_ATTACKER_STAT_FELL 0
-#define B_MSG_DEFENDER_STAT_FELL 1
-#define B_MSG_STAT_WONT_DECREASE 2
-#define B_MSG_STAT_FELL_EMPTY    3
+// The below IDs are all indexes into battle message tables,
+// used to determine which of a set of messages to print.
+// They are assigned to the MULTISTRING_CHOOSER byte of gBattleCommunication
+// and read when e.g. the command printfromtable is used.
+
+// gStatUpStringIds and gStatDownStringIds
+enum StatChangedStringID
+{
+    B_MSG_ATTACKER_STAT_CHANGED,
+    B_MSG_DEFENDER_STAT_CHANGED,
+    B_MSG_STAT_WONT_CHANGE,
+    B_MSG_STAT_CHANGE_EMPTY,
+    B_MSG_STAT_CHANGED_ITEM,
+    B_MSG_USED_DIRE_HIT,
+};//this should be top effect
 
 // gSwitchInAbilityStringIds
 enum SwitchInAbilityStringID
@@ -207,7 +224,7 @@ enum MissStringID
     B_MSG_MISSED,
     B_MSG_PROTECTED,
     B_MSG_AVOIDED_ATK,
-     //apparently Ability-related messages need to be below this comment
+     //apparently Ability-related messages need to be below this comment or not...
     B_MSG_AVOIDED_DMG,
     B_MSG_GROUND_MISS,
     B_MSG_ABILITY_TYPE_MISS,
@@ -299,6 +316,19 @@ enum DamagingWeatherStringID
     B_MSG_ACID_RAIN,
 };
 
+// gReflectLightScreenSafeguardStringIds
+enum ScreenSetStringID
+{
+    B_MSG_SIDE_STATUS_FAILED,
+    B_MSG_SET_REFLECT_SINGLE,
+    B_MSG_SET_REFLECT_DOUBLE,
+    B_MSG_SET_LIGHTSCREEN_SINGLE,
+    B_MSG_SET_LIGHTSCREEN_DOUBLE,
+    B_MSG_SET_MAGIC_COAT_SINGLE,
+    B_MSG_SET_MAGIC_COAT_DOUBLE,
+    B_MSG_SET_SAFEGUARD,
+};
+
 // gProtectLikeUsedStringIds
 enum ProtectLikeUsedStringID
 {
@@ -328,6 +358,29 @@ enum NoEscapeStringID
     B_MSG_PREVENTS_ESCAPE,
     B_MSG_CANT_ESCAPE_2,
     B_MSG_ATTACKER_CANT_ESCAPE,
+};
+
+// gGotPoisonedStringIds / gGotParalyzedStringIds / gFellAsleepStringIds
+// gGotBurnedStringIds / gGotFrozenStringIds / gAttractUsedStringIds
+enum GotStatusedStringID
+{
+    B_MSG_STATUSED,
+    B_MSG_STATUSED_BY_ABILITY,
+    B_MSG_POISON_WORSENED,
+};
+
+// gGotDefrostedStringIds
+enum GotDefrostedStringID
+{
+    B_MSG_DEFROSTED,
+    B_MSG_DEFROSTED_BY_MOVE,
+};
+
+// gFrostbiteHealedStringIds
+enum FrostbiteHealedStringID
+{
+    B_MSG_FROSTBITE_HEALED,
+    B_MSG_FROSTBITE_HEALED_BY_MOVE,
 };
 
 // gRestUsedStringIds
@@ -537,6 +590,8 @@ enum SportsUsedStringID
     F(STRINGID_PKMNRAISEDSPDEF,                                        ("{B_ATK_PREFIX2}'s {B_CURRENT_MOVE}\nraised SP. DEF!"))\
     F(STRINGID_PKMNRAISEDDEF,                                        ("{B_ATK_PREFIX2}'s {B_CURRENT_MOVE}\nraised DEFENSE!"))\
     F(STRINGID_PKMNCOVEREDBYVEIL,                                        ("{B_ATK_PREFIX2}'s party is covered\nby a veil!"))\
+    F(STRINGID_PKMNSHROUDEDITSELF,                                        ("{B_ATK_NAME_WITH_PREFIX} shrouded\nitself in {B_CURRENT_MOVE}!"))\
+    F(STRINGID_PKMNSHROUDEDITSPARTY,                                        ("{B_ATK_NAME_WITH_PREFIX} shrouded\nits party in {B_CURRENT_MOVE}!"))\
     F(STRINGID_PKMNUSEDSAFEGUARD,                                        ("{B_DEF_NAME_WITH_PREFIX}'s party is protected\nby SAFEGUARD!"))\
     F(STRINGID_PKMNSAFEGUARDEXPIRED,                                        ("{B_ATK_PREFIX3}'s party is no longer\nprotected by SAFEGUARD!"))\
     F(STRINGID_PKMNWENTTOSLEEP,                                        ("{B_ATK_NAME_WITH_PREFIX} went\nto sleep!"))\
@@ -647,7 +702,6 @@ enum SportsUsedStringID
     F(STRINGID_PKMNCANTUSEMOVESEALED,                                        ("{B_ATK_NAME_WITH_PREFIX} can't use the\nsealed {B_CURRENT_MOVE}!\p"))\
     F(STRINGID_PKMNWANTSGRUDGE,                                        ("{B_ATK_NAME_WITH_PREFIX} wants the\nopponent to bear a GRUDGE!"))\
     F(STRINGID_PKMNLOSTPPGRUDGE,                                        ("{B_ATK_NAME_WITH_PREFIX} lost\nPP due to the GRUDGE!"))\
-    F(STRINGID_PKMNSHROUDEDITSELF,                                        ("{B_ATK_NAME_WITH_PREFIX} shrouded\nitself in {B_CURRENT_MOVE}!"))\
     F(STRINGID_PKMNMOVEBOUNCED,                                        ("{B_ATK_NAME_WITH_PREFIX}'s {B_CURRENT_MOVE}\nwas bounced back by MAGIC COAT!"))\
     F(STRINGID_PKMNWAITSFORTARGET,                                        ("{B_ATK_NAME_WITH_PREFIX} waits for its foe\nto make a move!"))\
     F(STRINGID_PKMNSNATCHEDMOVE,                                        ("{B_DEF_NAME_WITH_PREFIX} SNATCHED\n{B_SCR_NAME_WITH_PREFIX}'s move!"))\
@@ -785,7 +839,8 @@ enum SportsUsedStringID
     F(STRINGID_SOOTHINGAROMA,                                        ("A soothing aroma wafted\nthrough the area!"))\
     F(STRINGID_ITEMSCANTBEUSEDNOW,                                        ("Items can't be used now.{PAUSE 34}"))\
     F(STRINGID_FORXCOMMAYZ,                                        ("For {B_SCR_NAME_WITH_PREFIX},\n{B_LAST_ITEM} {B_BUFF1}"))\
-    F(STRINGID_USINGXTHEYOFZN,                                        ("Using {B_LAST_ITEM}, the {B_BUFF1}\nof {B_SCR_NAME_WITH_PREFIX} {B_BUFF2}"))\
+    F(STRINGID_USINGITEMSTATOFPKMNROSE,                         ("Using {B_LAST_ITEM}, the {B_BUFF1} of {B_SCR_NAME_WITH_PREFIX2} {B_BUFF2}rose!"))\
+    F(STRINGID_USINGITEMSTATOFPKMNFELL,                         ("Using {B_LAST_ITEM}, the {B_BUFF1} of {B_SCR_NAME_WITH_PREFIX2} {B_BUFF2}fell!"))\
     F(STRINGID_PKMNUSEDXTOGETPUMPED,                                        ("{B_SCR_NAME_WITH_PREFIX} used\n{B_LAST_ITEM} to hustle!"))\
     F(STRINGID_PKMNSXMADEYUSELESS,                                        ("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\nmade {B_CURRENT_MOVE} useless!"))\
     F(STRINGID_PKMNTRAPPEDBYSANDTOMB,                                        ("{B_DEF_NAME_WITH_PREFIX} was trapped\nby SAND TOMB!"))\
