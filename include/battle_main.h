@@ -163,5 +163,5 @@ void TryResetProtectUseCounter(enum BattlerId battler);
 s32 GetWhichBattlerFasterArgs(struct BattleCalcValues *calcValues, bool32 ignoreChosenMoves, u32 speedBattler1, u32 speedBattler2, s32 priority1, s32 priority2);
 s32 GetWhichBattlerFasterOrTies(struct BattleCalcValues *calcValues, bool32 ignoreChosenMoves);
 s32 GetWhichBattlerFaster(struct BattleCalcValues *calcValues, bool32 ignoreChosenMoves);
-
+s32 Factorial(s32 n);
 #endif // GUARD_BATTLE_MAIN_H

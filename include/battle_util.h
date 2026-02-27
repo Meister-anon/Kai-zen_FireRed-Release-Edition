@@ -315,7 +315,7 @@ void HandleAction_WallyBallThrow(void);
 void HandleAction_ThrowPokeblock(void);
 void HandleAction_GoNear(void);
 u8 GetBattlerForBattleScript(u8 caseId);
-
+bool32 IsBattlerMarkedForControllerExec(enum BattlerId battler);
 
 //still more things to go over here maybe>?
 u32 GetFuryCutterAccuracy(u32 move);
