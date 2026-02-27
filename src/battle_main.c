@@ -2335,8 +2335,8 @@ static void CB2_PreInitMultiBattle(void)
 {
     s32 i;
     u8 playerMultiplierId;
-    u8 r4 = 0xF;
-    u16 *savedBattleTypeFlags;
+    u8 blockMask = 0xF;
+    u32 *savedBattleTypeFlags;
     void (**savedCallback)(void);
 
     playerMultiplierId = GetMultiplayerId();
@@ -2358,7 +2358,7 @@ static void CB2_PreInitMultiBattle(void)
         }
         break;
     case 1:
-        if ((GetBlockReceivedStatus() & r4) == r4)
+        if ((GetBlockReceivedStatus() & blockMask) == blockMask)
         {
             ResetBlockReceivedFlags();
             for (i = 0; i < 4; ++i)
