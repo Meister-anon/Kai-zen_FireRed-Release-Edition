@@ -55,7 +55,7 @@
 //static void SpriteCB_UnusedDebugSprite_Step(struct Sprite *sprite);
 //static void HandleAction_UseMove(void);
 //static void HandleAction_Switch(void);
-static void HandleAction_UseItem(void);
+//static void HandleAction_UseItem(void);
 //static void HandleAction_Run(void);
 static void HandleAction_WatchesCarefully(void);
 static void HandleAction_SafariZoneBallThrow(void);
@@ -7137,7 +7137,10 @@ void RunBattleScriptCommands(void)
         TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_SWITCH);
 }*/
 
-static void HandleAction_UseItem(void)
+//vsonic using for now need
+//refactor item data for gBattlescriptsForUsingItem
+//to use battle usage func will come later
+void HandleAction_UseItem(void)
 {
     gBattlerAttacker = gBattlerTarget = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
