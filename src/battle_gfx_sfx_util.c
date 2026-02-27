@@ -485,6 +485,12 @@ void BattleGfxSfxDummy3(u8 a1)
 {
 }
 
+//EE only has this not Tile clear
+void FreeTrainerFrontPicPalette(u16 frontPicId)
+{
+    FreeSpritePaletteByTag(gTrainerFrontPicPaletteTable[frontPicId].tag);
+}
+
 void FreeTrainerFrontPicPaletteAndTile(u16 frontPicId)
 {
     FreeSpritePaletteByTag(gTrainerFrontPicPaletteTable[frontPicId].tag);

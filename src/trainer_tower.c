@@ -4,7 +4,6 @@
 #include "event_data.h"
 #include "cereader_tool.h"
 #include "easy_chat.h"
-#include "battle_setup.h"
 #include "battle_transition.h"
 #include "battle.h"
 #include "battle_main.h"

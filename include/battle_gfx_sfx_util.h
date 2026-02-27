@@ -15,6 +15,7 @@ void DecompressGhostFrontPic(struct Pokemon *unused, enum BattlerId battlerId);
 void DecompressTrainerFrontPic(u16 frontPicId, enum BattlerId battlerId);
 void DecompressTrainerBackPalette(u16 a1, u8 a2);
 void BattleGfxSfxDummy3(u8 a1);
+void FreeTrainerFrontPicPalette(u16 frontPicId);
 void FreeTrainerFrontPicPaletteAndTile(u16 frontPicId);
 bool8 BattleLoadAllHealthBoxesGfx(u8 state);
 void LoadBattleBarGfx(u8 arg0);

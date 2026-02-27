@@ -25,7 +25,6 @@
 #include "field_message_box.h"
 #include "vs_seeker.h"
 #include "battle.h"
-#include "battle_setup.h"
 #include "battle_transition.h"
 #include "battle_controllers.h"
 #include "constants/battle_setup.h"

@@ -5,7 +5,6 @@
 #include "battle_interface.h"
 #include "battle_gimmick.h"
 #include "battle_z_move.h"
-#include "battle_setup.h"
 #include "battle_util.h"
 #include "item.h"
 #include "palette.h"

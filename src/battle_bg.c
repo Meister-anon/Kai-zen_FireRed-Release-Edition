@@ -4,7 +4,6 @@
 #include "battle_bg.h"
 #include "battle_anim.h"    //added for some raeson
 #include "battle_message.h"
-#include "battle_setup.h"
 #include "battle_environment.h"
 #include "decompress.h"
 #include "graphics.h"

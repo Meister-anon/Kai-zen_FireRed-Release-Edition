@@ -14,7 +14,6 @@
 #include "item.h"
 #include "battle_tower.h"
 #include "trainer_tower.h"
-#include "battle_setup.h"
 #include "field_specials.h"
 #include "new_menu_helpers.h"
 #include "battle_controllers.h"

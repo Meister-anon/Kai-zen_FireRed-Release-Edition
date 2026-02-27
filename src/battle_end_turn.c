@@ -1,7 +1,6 @@
 #include "global.h"
 #include "battle.h"
 #include "battle_hold_effects.h"
-#include "battle_setup.h"
 #include "battle_util.h"
 #include "battle_controllers.h"
 #include "battle_ai_util.h"

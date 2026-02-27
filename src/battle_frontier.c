@@ -3,7 +3,6 @@
 #include "battle.h"
 #include "battle_main.h"
 #include "battle_frontier.h"
-#include "battle_setup.h"
 #include "battle_dome.h"
 #include "battle_factory.h"
 #include "battle_partner.h"

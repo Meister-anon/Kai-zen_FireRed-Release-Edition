@@ -10,7 +10,6 @@
 #include "item_use.h"
 #include "battle_controllers.h"
 #include "battle_message.h"
-#include "battle_setup.h"
 #include "battle_tower.h"
 #include "battle_z_move.h"
 #include "data.h"

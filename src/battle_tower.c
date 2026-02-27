@@ -10,7 +10,6 @@
 #include "overworld.h"
 #include "battle_transition.h"
 #include "easy_chat.h"
-#include "battle_setup.h"
 #include "battle_main.h"
 #include "task.h"
 #include "battle.h"

@@ -39,7 +39,6 @@
 #include "pokemon_storage_system_internal.h"
 #include "task.h"
 #include "naming_screen.h"
-#include "battle_setup.h"
 #include "overworld.h"
 #include "wild_encounter.h"
 #include "rtc.h"

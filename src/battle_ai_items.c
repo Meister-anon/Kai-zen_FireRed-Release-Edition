@@ -8,7 +8,6 @@
 #include "battle_anim.h"
 #include "battle_controllers.h"
 #include "battle_main.h"
-#include "battle_setup.h"
 #include "data.h"
 #include "item.h"
 #include "party_menu.h"

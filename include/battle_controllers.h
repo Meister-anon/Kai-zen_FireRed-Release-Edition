@@ -381,6 +381,11 @@ void SetBattleEndCallbacks(enum BattlerId battler);
 void MoveSelectionCreateCursorAt(u8 cursorPos, u8 baseTileNum);
 void MoveSelectionDestroyCursorAt(u8 cursorPos);
 void HandleInputChooseMove(enum BattlerId battler);
+
+// handlers
+void BtlController_HandleTrainerSlideBack(enum BattlerId battlerId, s16 data0, bool32 startAnim);
+
+
 bool32 BattlerHasAi(enum BattlerId battlerId);
 
 // opponent controller

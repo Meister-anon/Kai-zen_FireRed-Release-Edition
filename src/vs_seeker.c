@@ -15,7 +15,6 @@
 #include "field_effect.h"
 #include "script_movement.h"
 #include "battle.h"
-#include "battle_setup.h"
 #include "random.h"
 #include "field_player_avatar.h"
 #include "vs_seeker.h"

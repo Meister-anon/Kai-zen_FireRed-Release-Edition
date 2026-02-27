@@ -2,7 +2,6 @@
 #include "gflib.h"
 #include "battle.h"
 #include "battle_anim.h"
-#include "battle_setup.h"
 #include "scanline_effect.h"
 #include "task.h"
 #include "trig.h"
