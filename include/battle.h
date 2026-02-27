@@ -480,6 +480,12 @@ struct AiThinkingStruct
 
 #define AI_MOVE_HISTORY_COUNT 3 //not sure what for at this point
 
+struct QueuedStatBoost
+{
+    u8 stats;   // bitfield for each battle stat that is set if the stat changes
+    s8 statChanges[NUM_BATTLE_STATS - 1];    // highest bit being set decreases the stat
+}; /* size = 8 */
+
 extern u16 gBattleTurnCounter;
 extern u8 gBattlerAbility;
 extern struct QueuedStatBoost gQueuedStatBoosts[MAX_BATTLERS_COUNT];
@@ -1451,11 +1457,6 @@ struct MonSpritesGfx
     u16 *buffer;
 };
 
-struct QueuedStatBoost
-{
-    u8 stats;   // bitfield for each battle stat that is set if the stat changes
-    s8 statChanges[NUM_BATTLE_STATS - 1];    // highest bit being set decreases the stat
-}; /* size = 8 */
 
 struct PokedudeBattlerState
 {
