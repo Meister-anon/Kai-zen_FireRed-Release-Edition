@@ -301,14 +301,21 @@ bool32 TryRunFromBattle(enum BattlerId battler);
 void HandleAction_Run(void);
 void HandleAction_WatchesCarefully(void);
 void HandleAction_SafariZoneBallThrow(void);
-void HandleAction_ThrowPokeblock(void);
-void HandleAction_GoNear(void);
+//move preemtively
 void HandleAction_SafariZoneRun(void);
-void HandleAction_WallyBallThrow(void);
+void HandleAction_ThrowBait(void);
+void HandleAction_ThrowRock(void);
+void HandleAction_OldManBallThrow(void);
+
 void HandleAction_TryFinish(void);
 void HandleAction_NothingIsFainted(void);
 void HandleAction_ActionFinished(void);
+//EE safari related remove later
+void HandleAction_WallyBallThrow(void);
+void HandleAction_ThrowPokeblock(void);
+void HandleAction_GoNear(void);
 u8 GetBattlerForBattleScript(u8 caseId);
+
 
 //still more things to go over here maybe>?
 u32 GetFuryCutterAccuracy(u32 move);

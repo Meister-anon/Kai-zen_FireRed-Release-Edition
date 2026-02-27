@@ -57,15 +57,12 @@
 //static void HandleAction_Switch(void);
 //static void HandleAction_UseItem(void);
 //static void HandleAction_Run(void);
-static void HandleAction_WatchesCarefully(void);
-static void HandleAction_SafariZoneBallThrow(void);
-static void HandleAction_ThrowBait(void);
-static void HandleAction_ThrowRock(void);
-static void HandleAction_SafariZoneRun(void);
-static void HandleAction_OldManBallThrow(void);
+//static void HandleAction_WatchesCarefully(void);
+//static void HandleAction_SafariZoneBallThrow(void);
+
 static void HandleAction_TryFinish(void);
 //static void HandleAction_NothingIsFainted(void);
-static void HandleAction_WaitTurnEnd(void);
+//static void HandleAction_WaitTurnEnd(void);
 //static void HandleAction_ActionFinished(void);
 static void HandleEndTurn_ContinueBattle(void);
 static void HandleEndTurn_BattleWon(void);
@@ -7275,7 +7272,7 @@ void HandleAction_UseItem(void)
     }
 }*/
 
-static void HandleAction_WatchesCarefully(void)
+void HandleAction_WatchesCarefully(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
@@ -7317,7 +7314,7 @@ static void HandleAction_WatchesCarefully(void)
 //which can be done by just putting btlcntrl decrement inside safari ball throw functions
 //rn I broke decrement because I moved  ball order smh
 //vsonic double check this works
-static void HandleAction_SafariZoneBallThrow(void)
+void HandleAction_SafariZoneBallThrow(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
@@ -7328,7 +7325,7 @@ static void HandleAction_SafariZoneBallThrow(void)
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 
-static void HandleAction_ThrowBait(void)
+void HandleAction_ThrowBait(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
@@ -7344,7 +7341,7 @@ static void HandleAction_ThrowBait(void)
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 
-static void HandleAction_ThrowRock(void)
+void HandleAction_ThrowRock(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
@@ -7360,7 +7357,7 @@ static void HandleAction_ThrowRock(void)
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 
-static void HandleAction_SafariZoneRun(void)
+void HandleAction_SafariZoneRun(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     PlaySE(SE_FLEE);
@@ -7368,7 +7365,7 @@ static void HandleAction_SafariZoneRun(void)
     gBattleOutcome = B_OUTCOME_RAN;
 }
 
-static void HandleAction_OldManBallThrow(void)
+void HandleAction_OldManBallThrow(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
@@ -7379,7 +7376,7 @@ static void HandleAction_OldManBallThrow(void)
     gActionsByTurnOrder[1] = B_ACTION_FINISHED;
 }
 
-static void HandleAction_TryFinish(void)
+void HandleAction_TryFinish(void)
 {
     if (!HandleFaintedMonActions())
     {
