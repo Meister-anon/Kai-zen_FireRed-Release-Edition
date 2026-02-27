@@ -1,7 +1,9 @@
 #ifndef GUARD_BATTLE_MAIN_H
 #define GUARD_BATTLE_MAIN_H
 
-#include "constants/abilities.h"
+#include "battle_util.h"
+#include "pokemon.h"
+#include "constants/hold_effects.h"
 
 
 struct TypeInfo

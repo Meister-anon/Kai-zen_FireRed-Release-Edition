@@ -1,10 +1,10 @@
 #ifndef GUARD_DATA_H
 #define GUARD_DATA_H
 
-#include "global.h"
 #include "constants/moves.h"
 #include "constants/trainers.h"
 #include "constants/opponents.h" //to get to battle partner file gbattlepartner stuff
+#include "constants/battle.h"
 #include "battle_main.h"
 #include "debug.h"
 #include "string_util.h"
