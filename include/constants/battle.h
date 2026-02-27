@@ -806,6 +806,10 @@ enum Volatile
 };
 //NOTE REMOVED libero protean check for EmergencyExitWimpoutActive
 
+//this is haow leech seed can be set 0 and
+//not trigger on battle position player left
+#define LEECHSEEDED_BY(battler) (battler + 1)
+
 enum SemiInvulnerableState
 {
     STATE_NONE,

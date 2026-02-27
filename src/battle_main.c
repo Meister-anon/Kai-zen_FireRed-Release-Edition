@@ -4072,7 +4072,6 @@ void SwitchInClearSetData(enum BattlerId battler, struct Volatiles *volatilesCop
         //could just put if battler that set status was holding grip claw don't clear   
         //look to wrapped by logic for example, use that as battlerId and check hold effect vsonic
         //should be simple change to trappedby  and use for all traps
-        gBattleMons[battler].volatiles.leechSeed = BATTLE_ID_NONE;
         gBattleMons[battler].volatiles.infatuatedwithMon = FALSE;
     }
 
@@ -6291,6 +6290,12 @@ static void CheckFocusPunch_ClearVarsBeforeTurnStarts(void)
     gBattleResources->battleScriptsStack->size = 0;
 }
 
+static void PopulateArrayWithBattlers(u8 *battlers)
+{
+    for (enum BattlerId i = 0; i < gBattlersCount; i++)
+        battlers[i] = i;
+}
+
 static bool32 TryActivateGimmick(enum BattlerId battler)
 {
     if ((gBattleStruct->gimmick.toActivate & (1u << battler)) && !(gProtectStructs[battler].noValidMoves))
@@ -6334,7 +6339,7 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
         u32 i;
         enum BattlerId battlers[MAX_BATTLERS_COUNT];
 
-        //PopulateArrayWithBattlers(battlers);
+        PopulateArrayWithBattlers(battlers);
         SortBattlersBySpeed(battlers, FALSE);
         for (i = 0; i < gBattlersCount; i++)
         {
