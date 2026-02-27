@@ -2278,7 +2278,7 @@ static inline void TrySetUsedSingleUseAbility(enum BattlerId battler, enum Singl
 {
     enum Ability ability = GetBattlerAbility(battler);
 
-    if !(gAbilitiesInfo[ability].isSingleUse)
+    if (!(gAbilitiesInfo[ability].isSingleUse))
         return;
 
     switch(caseId)
