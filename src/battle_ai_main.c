@@ -613,7 +613,7 @@ void RecordStatusMoves(enum BattlerId battler)
 void SetBattlerAiData(enum BattlerId battler, struct AiLogicData *aiData)
 {
     enum Ability ability;
-    u32 holdEffect;
+    enum HoldEffect holdEffect;
 
     ability = aiData->abilities[battler] = AI_DecideKnownAbilityForTurn(battler);
     aiData->items[battler] = gBattleMons[battler].item;
