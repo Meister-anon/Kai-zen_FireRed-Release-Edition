@@ -603,7 +603,8 @@ void LoadBattleBarGfx(u8 unused)
     LZDecompressWram(gBattleInterfaceGfx_BattleBar, gMonSpritesGfxPtr->barFontGfx);
 }
 
-bool8 BattleInitAllSprites(u8 *state, enum BattlerId *battlerId)
+//don't turn into enum
+bool8 BattleInitAllSprites(u8 *state, u8 *battlerId)
 {
     bool8 retVal = FALSE;
 

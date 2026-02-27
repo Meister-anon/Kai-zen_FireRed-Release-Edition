@@ -19,7 +19,7 @@ void FreeTrainerFrontPicPalette(u16 frontPicId);
 void FreeTrainerFrontPicPaletteAndTile(u16 frontPicId);
 bool8 BattleLoadAllHealthBoxesGfx(u8 state);
 void LoadBattleBarGfx(u8 arg0);
-bool8 BattleInitAllSprites(u8 *state, enum BattlerId *battlerId);
+bool8 BattleInitAllSprites(u8 *state, u8 *battlerId);
 void ClearSpritesHealthboxAnimData(void);
 void CopyAllBattleSpritesInvisibilities(void);
 void CopyBattleSpriteInvisibility(enum BattlerId battlerId);
