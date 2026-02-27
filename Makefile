@@ -261,7 +261,7 @@ UpdateTmList:
 #still working on, need fix pathing so can run
 #without needing to be in root
 UpdateScrCmdList:
-  python3 scripts_py/make_scr_cmd_constants.py
+	python3 scripts_py/make_scr_cmd_constants.py
 
 #removed case for ease of running
 stringtester:
