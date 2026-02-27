@@ -820,7 +820,7 @@ void AnimTask_IsBallBlockedByTrainerOrDodged(u8 taskId)
 //can just use their secondary id as it matches this now
 u8 ItemIdToBallId(u16 ballItem)
 {
-    return ItemId_GetSecondaryId(ballItem);
+    return GetItemSecondaryId(ballItem);
     
     /*switch (ballItem)
     {

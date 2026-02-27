@@ -1948,7 +1948,7 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
     if (gMovesInfo[move].effect == EFFECT_CHANGE_TYPE_ON_ITEM) //not fling
     {
         if (holdEffect == gMovesInfo[move].argument.holdEffect)
-            *typeStorage = ItemId_GetSecondaryId(gBattleMons[battlerAtk].item);
+            *typeStorage = GetItemSecondaryId(gBattleMons[battlerAtk].item);
     }
     else if (gMovesInfo[move].effect == EFFECT_REVELATION_DANCE)
     {
@@ -2086,7 +2086,7 @@ void SetTypeBeforeUsingMove(u32 move, enum BattlerId battlerAtk, u8 *typeStorage
     //well sice gem is boosting a move of said type 
     //yeah think should make separate item
     if (holdEffect == HOLD_EFFECT_GEMS
-        && *typeStorage == ItemId_GetSecondaryId(gBattleMons[battlerAtk].item))
+        && *typeStorage == GetItemSecondaryId(gBattleMons[battlerAtk].item))
     {
         gSpecialStatuses[battlerAtk].gemParam = GetBattlerHoldEffectParam(battlerAtk);
         gSpecialStatuses[battlerAtk].gemBoost = TRUE;

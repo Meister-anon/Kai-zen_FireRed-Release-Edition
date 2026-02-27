@@ -7703,7 +7703,7 @@ void AnimTask_PurpleFlamesOnTarget(u8 taskId)
 void AnimTask_TechnoBlast(u8 taskId)
 {
     if (GetItemHoldEffect(gBattleMons[gBattleAnimAttacker].item) == HOLD_EFFECT_DRIVE)
-        gBattleAnimArgs[0] = ItemId_GetSecondaryId(gBattleMons[gBattleAnimAttacker].item);
+        gBattleAnimArgs[0] = GetItemSecondaryId(gBattleMons[gBattleAnimAttacker].item);
     else
         gBattleAnimArgs[0] = 0;
     DestroyAnimVisualTask(taskId);

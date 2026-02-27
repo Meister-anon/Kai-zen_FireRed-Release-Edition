@@ -5803,7 +5803,7 @@ void ItemUseCB_Mint(u8 taskId, TaskFunc task)
     tState = 0;
     tMonId = gPartyMenu.slotId;
     tOldNature = GetMonData(&gPlayerParty[tMonId], MON_DATA_NATURE);
-    tNewNature = ItemId_GetSecondaryId(gSpecialVar_ItemId);
+    tNewNature = GetItemSecondaryId(gSpecialVar_ItemId);
     SetWordTaskArg(taskId, tOldFunc, (uintptr_t)(gTasks[taskId].func));
     gTasks[taskId].func = Task_Mint;
 }

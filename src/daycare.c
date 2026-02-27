@@ -1021,7 +1021,7 @@ static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
         GetItemHoldEffect(fatherItem) == HOLD_EFFECT_POWER_ITEM)
     {
         whichParent[0] = Random() % DAYCARE_MON_COUNT;
-        selectedIvs[0] = ItemId_GetSecondaryId(
+        selectedIvs[0] = GetItemSecondaryId(
             GetBoxMonData(&daycare->mons[whichParent[0]].mon, MON_DATA_HELD_ITEM));
         RemoveIVIndexFromList(availableIVs, selectedIvs[0]);
         start++;
@@ -1029,14 +1029,14 @@ static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
     else if (GetItemHoldEffect(motherItem) == HOLD_EFFECT_POWER_ITEM)
     {
         whichParent[0] = 0;
-        selectedIvs[0] = ItemId_GetSecondaryId(motherItem);
+        selectedIvs[0] = GetItemSecondaryId(motherItem);
         RemoveIVIndexFromList(availableIVs, selectedIvs[0]);
         start++;
     }
     else if (GetItemHoldEffect(fatherItem) == HOLD_EFFECT_POWER_ITEM)
     {
         whichParent[0] = 1;
-        selectedIvs[0] = ItemId_GetSecondaryId(fatherItem);
+        selectedIvs[0] = GetItemSecondaryId(fatherItem);
         RemoveIVIndexFromList(availableIVs, selectedIvs[0]);
         start++;
     }
@@ -1482,8 +1482,8 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
             if (((StringCompare(gSpeciesInfo[j].speciesName, gSpeciesInfo[MotherSpecies].speciesName)) == IDENTICAL)
             &&  !IsRegionalVariant(GetMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_SPECIES, NULL))) //and mother species isn't already a variant
             {
-                if ((ItemId_GetSecondaryId(motherItem) == gSpeciesInfo[j].flags)
-                || (ItemId_GetSecondaryId(fatherItem) == gSpeciesInfo[j].flags))
+                if ((GetItemSecondaryId(motherItem) == gSpeciesInfo[j].flags)
+                || (GetItemSecondaryId(fatherItem) == gSpeciesInfo[j].flags))
                 {   
                     eggSpecies = GetEggSpecies(j);
                     break;
@@ -1740,19 +1740,19 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
         switch(motherItem) //still to change, need set function to receive above and do switch itself
         {
             case ITEM_ALOLAN_SAND:
-            data = ItemId_GetSecondaryId(motherItem);
+            data = GetItemSecondaryId(motherItem);
             SetMonData(mon, MON_DATA_FORM_FLAG, &data);
             break;
             case ITEM_GALAR_SAND:
-            data = ItemId_GetSecondaryId(motherItem);
+            data = GetItemSecondaryId(motherItem);
             SetMonData(mon, MON_DATA_FORM_FLAG, &data);
             break;
             case ITEM_HISUIAN_SAND:
-            data = ItemId_GetSecondaryId(motherItem);
+            data = GetItemSecondaryId(motherItem);
             SetMonData(mon, MON_DATA_FORM_FLAG, &data);
             break;
             case ITEM_PALDEAN_SAND:
-            data = ItemId_GetSecondaryId(motherItem);
+            data = GetItemSecondaryId(motherItem);
             SetMonData(mon, MON_DATA_FORM_FLAG, &data);
             break;
         }
@@ -1763,19 +1763,19 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
         switch(fatherItem) //still to change, need set function to receive above and do switch itself
         {
             case ITEM_ALOLAN_SAND:
-            data = ItemId_GetSecondaryId(fatherItem);
+            data = GetItemSecondaryId(fatherItem);
             SetMonData(mon, MON_DATA_FORM_FLAG, &data);
             break;
             case ITEM_GALAR_SAND:
-            data = ItemId_GetSecondaryId(fatherItem);
+            data = GetItemSecondaryId(fatherItem);
             SetMonData(mon, MON_DATA_FORM_FLAG, &data);
             break;
             case ITEM_HISUIAN_SAND:
-            data = ItemId_GetSecondaryId(fatherItem);
+            data = GetItemSecondaryId(fatherItem);
             SetMonData(mon, MON_DATA_FORM_FLAG, &data);
             break;
             case ITEM_PALDEAN_SAND:
-            data = ItemId_GetSecondaryId(fatherItem);
+            data = GetItemSecondaryId(fatherItem);
             SetMonData(mon, MON_DATA_FORM_FLAG, &data);
             break;
         }

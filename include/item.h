@@ -80,8 +80,8 @@ u8 GetItemType(u16 itemId);
 ItemUseFunc ItemId_GetFieldFunc(u16 itemId);
 u8 ItemId_GetBattleUsage(u16 itemId);   //not using now, usnig battlfunc check instead
 ItemUseFunc ItemId_GetBattleFunc(u16 itemId);
-u16 ItemId_GetSecondaryId(u16 itemId);
-u32 ItemId_GetFlingPower(u32 itemId);
+u16 GetItemSecondaryId(enum Item itemId);
+u32 GetItemFlingPower(enum Item itemId);
 u16 itemid_get_market_price(u16 itemId);
 u16 itemid_get_Id(u16 itemId);
 void ClearBag(void);

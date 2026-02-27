@@ -915,7 +915,7 @@ const u8 * ItemId_GetDescription(u16 itemId)
 
     if (IsTMHM(itemId))
     {
-       enum Move moveId = ItemId_GetSecondaryId(itemId);
+       enum Move moveId = GetItemSecondaryId(itemId);
        return GetMoveDescription(moveId);
     }
         
@@ -1002,12 +1002,12 @@ enum EffectItem GetItemBattleUsage(enum Item itemId)
         return gItemsInfo[item].battleUsage;
 }
 
-u16 ItemId_GetSecondaryId(u16 itemId)
+u16 GetItemSecondaryId(enum Item itemId)
 {
     return gItemsInfo[SanitizeItemId(itemId)].secondaryId;
 }
 
-u32 ItemId_GetFlingPower(u32 itemId)
+u32 GetItemFlingPower(enum Item itemId)
 {
     return gItemsInfo[SanitizeItemId(itemId)].flingPower;
 }

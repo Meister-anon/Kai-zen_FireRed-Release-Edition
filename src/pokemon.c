@@ -7105,7 +7105,7 @@ u8 GetBattlerHiddenPowerType(enum BattlerId battler)
     struct Pokemon *party = (side == B_SIDE_PLAYER) ? gPlayerParty : gEnemyParty;
 
     if (GetBattlerHoldEffect(battler) == HOLD_EFFECT_GEMS)
-        return ItemId_GetSecondaryId(gBattleMons[battler].item);
+        return GetItemSecondaryId(gBattleMons[battler].item);
     else
         return GetMonData(&party[gBattlerPartyIndexes[battler]], MON_DATA_HIDDEN_POWER_TYPE, NULL);
 
@@ -8893,22 +8893,22 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                     switch(item) 
                     {
                         case ITEM_ALOLAN_SAND:
-                        data = ItemId_GetSecondaryId(item);
+                        data = GetItemSecondaryId(item);
                         SetMonData(mon, MON_DATA_FORM_FLAG, &data);
                         retVal = FALSE; //if true doesn't remove item?
                         break;
                         case ITEM_GALAR_SAND:
-                        data = ItemId_GetSecondaryId(item);
+                        data = GetItemSecondaryId(item);
                         SetMonData(mon, MON_DATA_FORM_FLAG, &data);
                         retVal = FALSE;
                         break;
                         case ITEM_HISUIAN_SAND:
-                        data = ItemId_GetSecondaryId(item);
+                        data = GetItemSecondaryId(item);
                         SetMonData(mon, MON_DATA_FORM_FLAG, &data);
                         retVal = FALSE;
                         break;
                         case ITEM_PALDEAN_SAND:
-                        data = ItemId_GetSecondaryId(item);
+                        data = GetItemSecondaryId(item);
                         SetMonData(mon, MON_DATA_FORM_FLAG, &data);
                         retVal = FALSE;
                         break;
@@ -11055,11 +11055,11 @@ void MonGainEVs(struct Pokemon *mon) // since this function doesn't use exp, it 
     if (holdEffect == HOLD_EFFECT_POWER_ITEM)
         multiplier *= 2;
     
-    //if holdeffect is a power item, i for switch case equals helditem secondary item  ItemId_GetSecondaryId
+    //if holdeffect is a power item, i for switch case equals helditem secondary item  GetItemSecondaryId
 
     if (holdEffect == (HOLD_EFFECT_POWER_ITEM))    //should be ev gain separate from macho brace loop, so I can safely increase a single stat 
     {
-        i = ItemId_GetSecondaryId(heldItem);    //held item guaranteed to be, one of power items, this filters specific one, also used as discriminator for which ev to raise
+        i = GetItemSecondaryId(heldItem);    //held item guaranteed to be, one of power items, this filters specific one, also used as discriminator for which ev to raise
 
         switch (i) //dumb code, all same 
         {
