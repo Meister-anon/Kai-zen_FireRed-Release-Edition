@@ -2524,9 +2524,9 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_NATURE_POWER:
-            predictedMove = GetNaturePowerMove(battlerAtk);
+            predictedMove = GetNaturePowerMove();
             if (GetMoveEffect(predictedMove) != GetMoveEffect(move))
-                return AI_CheckBadMove(battlerAtk, battlerDef, GetNaturePowerMove(battlerAtk), score);
+                return AI_CheckBadMove(battlerAtk, battlerDef, GetNaturePowerMove(), score);
             break;
         case EFFECT_TAUNT:
             if (gBattleMons[battlerDef].volatiles.tauntTimer > 0

@@ -5074,7 +5074,7 @@ static enum Move GetAssistMove(void)
     return move;
 }
 
-enum Move GetNaturePowerMove(u32 battler)
+enum Move GetNaturePowerMove(void)
 {
     enum Move move = gBattleEnvironmentInfo[gBattleEnvironment].naturePower;
     if (gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN)

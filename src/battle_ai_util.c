@@ -911,7 +911,7 @@ struct SimulatedDamage AI_CalcDamage(u32 move, enum BattlerId battlerAtk, enum B
         return simDamage;
 
     if (moveEffect == EFFECT_NATURE_POWER)
-        move = GetNaturePowerMove(battlerAtk);
+        move = GetNaturePowerMove();
 
     // Temporarily enable gimmicks for damage calcs if planned
     if (gBattleStruct->gimmick.usableGimmick[battlerAtk] && GetActiveGimmick(battlerAtk) == GIMMICK_NONE
@@ -3198,7 +3198,7 @@ bool32 HasDamagingMoveOfType(enum BattlerId battler, enum Type type)
                 return TRUE;
             if (GetMoveType(moves[moveIndex]) == type)
                 return TRUE;
-            if (GetMoveEffect(moves[moveIndex]) == EFFECT_NATURE_POWER && GetMoveType(GetNaturePowerMove(moves[moveIndex])) == type)
+            if (GetMoveEffect(moves[moveIndex]) == EFFECT_NATURE_POWER && GetMoveType(GetNaturePowerMove()) == type)
                 return TRUE;
         }
     }

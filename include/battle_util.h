@@ -655,7 +655,7 @@ bool32 IsSemiInvulnerable(enum BattlerId battler, enum SemiInvulnerableExclusion
 bool32 BreaksThroughSemiInvulnerablity(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum Ability abilityDef, enum Move move);
 bool32 HasPartnerTrainer(enum BattlerId battler);
 bool32 IsAffectedByPowderMove(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect);
-enum Move GetNaturePowerMove(enum BattlerId battler);
+enum Move GetNaturePowerMove(void);
 void RemoveAbilityFlags(enum BattlerId battler);
 void CheckSetUnburden(enum BattlerId battler);
 bool32 IsDazzlingAbility(enum Ability ability);
