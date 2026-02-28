@@ -1499,7 +1499,7 @@ static void GetBattlerNick(enum BattlerId battler, u8 *dst)
     }                                                                   \
                                                                         \
     GetBattlerNick(battler, text);                                     \
-     toCpy = text;/*StringAppend(text, sText_EndCap);   */              
+     toCpy = text;
 
     //above made and works to uncap long strings but is stop gap not real fix */ toCpy = text;
 
@@ -1571,11 +1571,11 @@ static const u8 *BattleStringGetOpponentNameByTrainerId(u16 trainerId, u8 *text,
         GetTrainerTowerOpponentName(text);
         toCpy = text;
     }
-    else if (gBattleTypeFlags & BATTLE_TYPE_EREADER_TRAINER)
+    /*else if (gBattleTypeFlags & BATTLE_TYPE_EREADER_TRAINER)
     {
         GetEreaderTrainerName(text);
         toCpy = text;
-    }
+    }*/
     else
     {
         toCpy = GetTrainerNameFromId(trainerId);
@@ -2071,34 +2071,6 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize)
                     }
                     textStart[nameLength] = EOS;
                 }
-                break;
-            case B_TRAINER2_LOSE_TEXT:
-                /*if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
-                {
-                    CopyFrontierTrainerText(FRONTIER_PLAYER_WON_TEXT, TRAINER_BATTLE_PARAM.opponentB);
-                    toCpy = gStringVar4;
-                }
-                else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
-                {
-                    CopyTrainerHillTrainerText(TRAINER_HILL_TEXT_PLAYER_WON, TRAINER_BATTLE_PARAM.opponentB);
-                    toCpy = gStringVar4;
-                }
-                else*/
-                {
-                    toCpy = GetTrainerBLoseText();
-                }
-                break;
-            case B_TRAINER2_WIN_TEXT:
-                /*if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
-                {
-                    CopyFrontierTrainerText(FRONTIER_PLAYER_LOST_TEXT, TRAINER_BATTLE_PARAM.opponentB);
-                    toCpy = gStringVar4;
-                }
-                else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
-                {
-                    CopyTrainerHillTrainerText(TRAINER_HILL_TEXT_PLAYER_LOST, TRAINER_BATTLE_PARAM.opponentB);
-                    toCpy = gStringVar4;
-                }*/
                 break;
             case B_PARTNER_CLASS:
                 //toCpy = gTrainerClasses[GetFrontierOpponentClass(gPartnerTrainerId)].name;
