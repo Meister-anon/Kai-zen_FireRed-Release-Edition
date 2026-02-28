@@ -2887,10 +2887,10 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId) {
     printerTemplate.currentY = printerTemplate.y;
     printerTemplate.letterSpacing = sTextOnWindowsInfo_Normal[windowId].letterSpacing;
     printerTemplate.lineSpacing = sTextOnWindowsInfo_Normal[windowId].lineSpacing;
-    printerTemplate.accentColor = 0;
-    printerTemplate.fgColor = sTextOnWindowsInfo_Normal[windowId].fgColor;
-    printerTemplate.bgColor = sTextOnWindowsInfo_Normal[windowId].bgColor;
-    printerTemplate.shadowColor = sTextOnWindowsInfo_Normal[windowId].shadowColor;
+    printerTemplate.color.accent = 0;
+    printerTemplate.color.foreground = sTextOnWindowsInfo_Normal[windowId].fgColor;
+    printerTemplate.color.background = sTextOnWindowsInfo_Normal[windowId].bgColor;
+    printerTemplate.color.shadow = sTextOnWindowsInfo_Normal[windowId].shadowColor;
     if (windowId == B_WIN_OAK_OLD_MAN)
         gTextFlags.useAlternateDownArrow = FALSE;
     else
