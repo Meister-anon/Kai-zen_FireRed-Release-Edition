@@ -6290,7 +6290,7 @@ static void CheckFocusPunch_ClearVarsBeforeTurnStarts(void)
     gBattleResources->battleScriptsStack->size = 0;
 }
 
-static void PopulateArrayWithBattlers(u8 *battlers)
+static void PopulateArrayWithBattlers(enum BattlerId *battlers)
 {
     for (enum BattlerId i = 0; i < gBattlersCount; i++)
         battlers[i] = i;
