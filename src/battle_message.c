@@ -3065,6 +3065,8 @@ u8 GetCurrentPpToMaxPpState(u8 currentPp, u8 maxPp)
 }//used with color palette 3 is normal font color
 //1 is  yellow, 2 is red  //correspondes to value in palette
 
+//unsure if battlecontext stuff is right here,
+//important keep an eye on make sure am not zeroeing out importnat value
 u8 GetTypeEffectivenessState_Singles(enum BattlerId battler, enum Move move, u8 moveType) //for singles
 {
     if (!IsDoubleBattle()) //oddly gbattlertarget is same as attacker at this point without this
