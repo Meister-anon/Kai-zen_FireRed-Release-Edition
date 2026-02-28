@@ -3186,6 +3186,8 @@ static const struct AbilityLearnset sGoodraAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sKlefkiAbilityLearnset[] = {
+    ABILITY_MAGNET_PULL,
+    ABILITY_LIGHT_METAL,
     ABILITY_SET_END
 };
 

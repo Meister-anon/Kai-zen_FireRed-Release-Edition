@@ -14567,11 +14567,13 @@ static const struct LevelUpMove sGoodraLevelUpLearnset[] = {
 static const struct LevelUpMove sKlefkiLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_FAIRY_LOCK)
     LEVEL_UP_MOVE( 1, MOVE_TACKLE)
+    LEVEL_UP_MOVE( 1, MOVE_THIEF)
     LEVEL_UP_MOVE( 5, MOVE_FAIRY_WIND)
     LEVEL_UP_MOVE( 8, MOVE_ASTONISH)
     LEVEL_UP_MOVE(12, MOVE_METAL_SOUND)
     LEVEL_UP_MOVE(15, MOVE_SPIKES)
     LEVEL_UP_MOVE(18, MOVE_DRAINING_KISS)
+    LEVEL_UP_MOVE(21, MOVE_FOLLOW_ME)
     LEVEL_UP_MOVE(23, MOVE_CRAFTY_SHIELD)
     LEVEL_UP_MOVE(27, MOVE_FOUL_PLAY)
     LEVEL_UP_MOVE(32, MOVE_TORMENT)
@@ -14582,7 +14584,8 @@ static const struct LevelUpMove sKlefkiLevelUpLearnset[] = {
     LEVEL_UP_MOVE(44, MOVE_MAGIC_ROOM)
     LEVEL_UP_MOVE(50, MOVE_HEAL_BLOCK)
     LEVEL_UP_END
-};
+};//there's no way this doesnt get follow me -_-
+//its the jingling keys pokemon 
 
 static const struct LevelUpMove sPhantumpLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE)

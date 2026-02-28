@@ -23333,7 +23333,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_PRANKSTER, ABILITY_NONE},
-        .abilityHidden = {ABILITY_MAGICIAN, ABILITY_NONE},
+        .abilityHidden = {ABILITY_MAGICIAN, ABILITY_STEELY_SPIRIT},
         //.bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -23343,6 +23343,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sKlefkiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //decided give steely spirit in combo w follow me to help it be a support
 
     [SPECIES_PHANTUMP] =
     {
