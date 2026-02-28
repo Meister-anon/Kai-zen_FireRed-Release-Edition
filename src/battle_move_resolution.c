@@ -368,12 +368,18 @@ static enum CancelerResult CancelerConfused(struct BattleContext *ctx)
 {
     if (gBattleMons[ctx->battlerAtk].volatiles.confusionTurns)
     {
-        if (!gBattleMons[ctx->battlerAtk].volatiles.infiniteConfusion)
-            gBattleMons[ctx->battlerAtk].volatiles.confusionTurns--;
+        gBattleMons[ctx->battlerAtk].volatiles.confusionTurns--;
         if (gBattleMons[ctx->battlerAtk].volatiles.confusionTurns)
         {
+            if ((DoesBattlerGetTypeBasedAffinity(ABILITY_NONE, ctx->battlerAtk, ctx->abilityAtk, TYPE_BUG))
+            || ctx->abilityAtk == ABILITY_TANGLED_FEET)
+            {
+                gBattleCommunication[MULTISTRING_CHOOSER] = FALSE;
+                BattleScriptCall(BattleScript_MoveUsedIsConfused);
+                return CANCELER_RESULT_BREAK;
+            }
              // confusion dmg
-            if (RandomPercentage(RNG_CONFUSION, (GetConfig(CONFUSION_SELF_DMG_CHANCE) >= GEN_7 ? 33 : 50)))
+            else if (RandomPercentage(RNG_CONFUSION, 50))
             {
                 gBattleCommunication[MULTISTRING_CHOOSER] = TRUE;
                 gBattlerTarget = gBattlerAttacker;
