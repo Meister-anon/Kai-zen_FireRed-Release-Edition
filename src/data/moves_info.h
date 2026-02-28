@@ -13080,7 +13080,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_FROST_BREATH] =
     {
         .name = COMPOUND_STRING("Frost Breath"),
-        .description = COMPOUND_MOVE_STRING("The user strikes\nthe target with\na fierce blow.\nThis attack always\nresults in a\ncritical-hit."),
+        .description = COMPOUND_MOVE_STRING("The user strikes\nwith a chillingly\ncold wisp.\nThis attack always\nresults in a\ncritical-hit."),
         #if UPDATED_MOVE_DATA <= GEN_6
             .power = 55,
         #else

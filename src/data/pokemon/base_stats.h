@@ -10718,6 +10718,10 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sSolrockTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //want make these two thematic
+    //keep same base typing but give lunatone
+    //mostly rock fairy ice moves
+    //give solrock mostly rock psychic fire moves
 
     [SPECIES_BARBOACH] =
     {
