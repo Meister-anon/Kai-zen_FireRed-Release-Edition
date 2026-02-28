@@ -14,11 +14,24 @@
 #define STRINGID_USEDMOVE   0xFFFD
 #define STRINGID_BATTLEEND  0xFFFE
 
-//Damaging weather ids 
-//for gBattleCommunication
-#define B_MSG_SANDSTORM_ID  0
-#define B_MSG_HAIL_ID       1
-#define B_MSG_ACID_RAIN_ID  2
+
+
+
+// The below IDs are all indexes into battle message tables,
+// used to determine which of a set of messages to print.
+// They are assigned to the MULTISTRING_CHOOSER byte of gBattleCommunication
+// and read when e.g. the command printfromtable is used.
+
+// gStatUpStringIds and gStatDownStringIds
+enum StatChangedStringID
+{
+    B_MSG_ATTACKER_STAT_CHANGED,
+    B_MSG_DEFENDER_STAT_CHANGED,
+    B_MSG_STAT_WONT_CHANGE,
+    B_MSG_STAT_CHANGE_EMPTY,
+    B_MSG_STAT_CHANGED_ITEM,
+    B_MSG_USED_DIRE_HIT,
+};//this should be top effect
 
 // gInobedientStringIds
 enum InobedientStringID
@@ -41,15 +54,6 @@ enum FlashFireStringID
     B_MSG_FLASH_FIRE_NO_BOOST,
 };
 
-
-// gMissStringIds					//need add logic
-/*#define B_MSG_MISSED       0
-#define B_MSG_PROTECTED    1
-#define B_MSG_AVOIDED_ATK  2
-#define B_MSG_AVOIDED_DMG  3
-#define B_MSG_GROUND_MISS  4
-#define B_MSG_ABILITY_TYPE_MISS 5*/
-
 // gCaughtMonStringIds
 enum CaughtMonStringIds
 {
@@ -65,22 +69,6 @@ enum PrimalWeatherBlockStringID
     B_MSG_PRIMAL_WEATHER_FIZZLED_BY_RAIN,
     B_MSG_PRIMAL_WEATHER_EVAPORATED_IN_SUN,
 };
-
-// The below IDs are all indexes into battle message tables,
-// used to determine which of a set of messages to print.
-// They are assigned to the MULTISTRING_CHOOSER byte of gBattleCommunication
-// and read when e.g. the command printfromtable is used.
-
-// gStatUpStringIds and gStatDownStringIds
-enum StatChangedStringID
-{
-    B_MSG_ATTACKER_STAT_CHANGED,
-    B_MSG_DEFENDER_STAT_CHANGED,
-    B_MSG_STAT_WONT_CHANGE,
-    B_MSG_STAT_CHANGE_EMPTY,
-    B_MSG_STAT_CHANGED_ITEM,
-    B_MSG_USED_DIRE_HIT,
-};//this should be top effect
 
 // gSwitchInAbilityStringIds
 enum SwitchInAbilityStringID
@@ -209,17 +197,6 @@ enum DmgHazardStringID
     B_MSG_SHARPSTEELFLOATS,
 };
 
-// gStatUpStringIds and gStatDownStringIds
-enum StatChangedStringID
-{
-    B_MSG_ATTACKER_STAT_CHANGED,
-    B_MSG_DEFENDER_STAT_CHANGED,
-    B_MSG_STAT_WONT_CHANGE,
-    B_MSG_STAT_CHANGE_EMPTY,
-    B_MSG_STAT_CHANGED_ITEM,
-    //B_MSG_USED_DIRE_HIT,
-};
-
 // gMissStringIds
 enum MissStringID
 {
@@ -311,6 +288,7 @@ enum WeatherTurnStringID
     B_MSG_WEATHER_TURN_STRONG_WINDS,
 };
 
+//use for gbattlecommunication dmgweather msg
 enum DamagingWeatherStringID
 {
     B_MSG_SANDSTORM,
