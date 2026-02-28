@@ -309,6 +309,14 @@ extern u8 gBattlerBattleController[MAX_BATTLERS_COUNT];
 void SetUpBattleVars(void);
 void InitBtlControllers(void);
 bool32 IsValidForBattle(struct Pokemon *mon);
+bool32 IsAiVsAiBattle(void);
+bool32 BattlerIsPlayer(enum BattlerId battlerId);
+bool32 BattlerIsPartner(enum BattlerId battlerId);
+bool32 BattlerIsOpponent(enum BattlerId battlerId);
+bool32 BattlerIsRecorded(enum BattlerId battlerId);
+bool32 BattlerIsLink(enum BattlerId battlerId);
+//bool32 BattlerIsWally(enum BattlerId battlerId);
+bool32 BattlerHasAi(enum BattlerId battlerId);
 
 u8 Rogue_GetBattleSpeedScale(void); //added for speed up PokAbbie
 u8 GetBattleSpeedOption(void);

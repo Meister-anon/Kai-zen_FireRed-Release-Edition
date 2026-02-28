@@ -11,6 +11,7 @@
 #include "new_menu_helpers.h"
 #include "overworld.h"
 #include "text_window.h"
+#include "test_runner.h"
 #include "trig.h"
 #include "constants/maps.h"
 #include "constants/songs.h"

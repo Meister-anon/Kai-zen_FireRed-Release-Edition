@@ -3,7 +3,7 @@
 #include "battle_ai_util.h"
 #include "battle_anim.h"
 #include "battle_controllers.h"
-//#include "battle_gimmick.h"
+#include "battle_gimmick.h"
 //#include "battle_z_move.h"
 #include "text.h"
 #include "event_data.h"

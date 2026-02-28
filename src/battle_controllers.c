@@ -40,6 +40,44 @@ bool32 IsAiVsAiBattle(void)
     return (B_FLAG_AI_VS_AI_BATTLE && FlagGet(B_FLAG_AI_VS_AI_BATTLE));
 }
 
+bool32 BattlerIsPlayer(enum BattlerId battlerId)
+{
+    return (gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_PLAYER
+         || gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_RECORDED_PLAYER);
+}
+
+bool32 BattlerIsPartner(enum BattlerId battlerId)
+{
+    return (gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_PLAYER_PARTNER
+         || gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_RECORDED_PARTNER
+         || gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_LINK_PARTNER);
+}
+
+bool32 BattlerIsOpponent(enum BattlerId battlerId)
+{
+    return (gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_OPPONENT
+         || gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_RECORDED_OPPONENT
+         || gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_LINK_OPPONENT);
+}
+
+bool32 BattlerIsRecorded(enum BattlerId battlerId)
+{
+    return (gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_RECORDED_PLAYER
+         || gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_RECORDED_PARTNER
+         || gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_RECORDED_OPPONENT);
+}
+
+bool32 BattlerIsLink(enum BattlerId battlerId)
+{
+    return (gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_LINK_PARTNER
+         || gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_LINK_OPPONENT);
+}
+
+/*bool32 BattlerIsWally(enum BattlerId battlerId)
+{
+    return (gBattlerBattleController[battlerId] == BATTLE_CONTROLLER_WALLY);
+}*/
+
 bool32 BattlerHasAi(enum BattlerId battlerId)
 {
     switch (gBattlerBattleController[battlerId])
