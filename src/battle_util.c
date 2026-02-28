@@ -826,6 +826,7 @@ bool32 TryRunFromBattle(enum BattlerId battler)
     u8 holdEffect;
     u8 pyramidMultiplier;
     u8 speedVar;
+    enum Ability ability = GetBattlerAbility(battler);
 
     // If this flag is set, running will never be successful under any circumstances.
     if (FlagGet(B_FLAG_NO_RUNNING))
@@ -865,7 +866,7 @@ bool32 TryRunFromBattle(enum BattlerId battler)
     //I know wrap does ok only wrap counts for trap speed drop
 
 
-    else if (DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GHOST, FALSE) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
+    else if (DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
     {
         ++effect;
     }//vsonic if add ability that gives ghost type affinity keep isbattlertype and add below same as aviator
@@ -5633,11 +5634,25 @@ u32 GetBattlerAbilityInternal(enum BattlerId battler, bool32 ignoreMoldBreaker, 
 //removing ai check with addition of ctx struct can get what  need from that
 //don't think can use ctx as argument tho
 #define NEW_ABILITY_CATEGORY //-use only for things that don't affect type chart relations
-bool8 DoesBattlerGetTypeBasedAffinity(enum Ability atkAbility, enum BattlerId battlerToCheck, enum Ability battlerAbility, u8 typeFactor)
+bool8 DoesBattlerGetTypeBasedAffinity(enum BattlerId battlerAtk, enum Ability atkAbility, enum BattlerId battlerToCheck, enum Ability battlerAbility, u8 typeFactor)
 {
     //extra protection for effects that check partner 
     //takes place before attacks so think should be fine without alive check?
-    if (atkAbility == ABILITY_MOLD_BREAKER)
+    //so rather than an automatic check that would
+    //ignore moldbreaker block if target was user
+    //I instead set it to require specifically setting
+    //each case to properly set if ability should check for moldbreaker...
+    //stupid but still difficult to get atk battler and def battler for each argumetn
+    //want atkability and battler to check and battlerAtk
+    //so need battlerAtk  atkAbility  battlertocheck battlerability and then type
+    //wish it was but not any simpler if I use contxt, would require set before I use func
+    //annoying to set wbattleratk could instead go back to old method
+    //have bool at end checks whether self affecting
+    //issue is adding atk ability and battleratk
+    //requires large changes to be able to pass from terrain functions
+    //hazard set and isbattlergrounded functions
+    if (battlerToCheck != battlerAtk
+    && atkAbility == ABILITY_MOLD_BREAKER)
         return FALSE;
 
     switch(typeFactor)
@@ -8400,7 +8415,7 @@ static inline u32 CalcDefenseStat(struct BattleContext *ctx)
         modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.65));
 
     //status effects
-    if (DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_GROUND, FALSE) 
+    if (DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->abilityAtk, ctx->battlerDef, ctx->abilityDef, TYPE_GROUND) 
     && (sideStatus & SIDE_STATUS_MUDSPORT) && !usesDefStat) //if done right these should stack
         modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.7));
         //spDefense = (170 * spDefense) / 100; 
@@ -8412,15 +8427,15 @@ static inline u32 CalcDefenseStat(struct BattleContext *ctx)
     }
 
     // sandstorm sp.def boost for rock types
-    if ((DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_ROCK, FALSE) 
-    || DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_GROUND, FALSE)) 
+    if ((DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->abilityAtk, ctx->battlerDef, ctx->abilityDef, TYPE_ROCK) 
+    || DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->abilityAtk, ctx->battlerDef, ctx->abilityDef, TYPE_GROUND)) 
     && IsBattlerWeatherAffected(battlerDef, WEATHER_SANDSTORM) && !usesDefStat)
         modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
 
     //considered giving hail and snow diff buffs more phsy def for hail
     //but believe too much to manage and too much w defense changes to type    
     // snow def boost for ice types
-    if (DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_ICE, FALSE) 
+    if (DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->abilityAtk, ctx->battlerDef, ctx->abilityDef, TYPE_ICE) 
     && IsBattlerWeatherAffected(battlerDef, WEATHER_ICY_ANY))
     {
         if (usesDefStat)
@@ -9795,7 +9810,7 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct BattleCont
     if (GetMoveCategory(ctx->move) == DAMAGE_CATEGORY_STATUS && ctx->move != MOVE_THUNDER_WAVE)
     {
         modifier = UQ_4_12(1.0);
-        if (ctx->move == MOVE_GLARE && DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->battlerDef, TYPE_GHOST, FALSE))
+        if (ctx->move == MOVE_GLARE && DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->abilityAtk, ctx->battlerDef, ctx->abilityDef, TYPE_GHOST))
             modifier = UQ_4_12(0.0);
     }
 
@@ -9819,7 +9834,7 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct BattleCont
         
     }
     else if (GetMoveEffect(ctx->move) == EFFECT_SHEER_COLD 
-    && DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->battlerDef, TYPE_ICE, FALSE))
+    && DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->abilityAtk, ctx->battlerDef, ctx->abilityDef, TYPE_ICE))
     {
         modifier = UQ_4_12(0.0);
     }
@@ -10008,6 +10023,7 @@ s32 GetStealthHazardDamageByTypesAndHP(enum TypeSideHazard hazardType, enum Type
         dmg = max(maxHp / 16, 1);
         break;
     case UQ_4_12(1.0):
+    default:
         dmg = max(maxHp / 8, 1);
         break;
     /*case UQ_4_12(2.0):
@@ -10022,9 +10038,11 @@ s32 GetStealthHazardDamageByTypesAndHP(enum TypeSideHazard hazardType, enum Type
         break;*/
     }
 
+    //realized needed default as super and resisted is no longer neutral
+    //this outside conditional will handle everything else
     if (modifier > UQ_4_12(1.0))
     {
-        dmg = max(maxHp / 5, 1);
+        dmg = max(maxHp / 6, 1);//had at 5 change to 6 so super gives extra 50% of base effect
     }
 
     return dmg;
@@ -11919,7 +11937,7 @@ bool32 CanMoveSkipAccuracyCalc(enum BattlerId battlerAtk, enum BattlerId battler
     u32 nonVolatileStatus = GetMoveNonVolatileStatus(move);
 
     if ((gBattleMons[battlerDef].volatiles.lockOn && gBattleMons[battlerDef].volatiles.battlerWithSureHit == battlerAtk)
-     || (nonVolatileStatus == MOVE_EFFECT_TOXIC && DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_POISON, FALSE))
+     || (nonVolatileStatus == MOVE_EFFECT_TOXIC && DoesBattlerGetTypeBasedAffinity(battlerAtk, abilityAtk, battlerDef, abilityDef, TYPE_POISON))
      || gBattleMons[battlerDef].volatiles.glaiveRush)
     {
         effect = TRUE;
@@ -12055,8 +12073,8 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
     #define FLYING_TYPE_BONUS
         if (IsBattlerGrounded(battlerAtk)
         && !IsBattlerGrounded(battlerDef) //make function for below
-        && (DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_FLYING, FALSE)
-        || DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_WIND, FALSE))
+        && (DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerDef, defAbility, TYPE_FLYING)
+        || DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerDef, defAbility, TYPE_WIND))
         && atkAbility != ABILITY_KEEN_EYE
         && atkAbility != ABILITY_MINDS_EYE
         && atkAbility != ABILITY_APOTHEOSCENT
@@ -12095,9 +12113,9 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
         //sand stream is not here beacuse it explicitly does not give weather immunity
         if (IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM) 
         && !(MoveSureHitEvasionBoostedTargets(gCurrentMove))
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_ROCK, FALSE)
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_STEEL, FALSE)
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_GROUND, FALSE)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_ROCK)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_STEEL)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_GROUND)
         && atkAbility != ABILITY_SAND_RUSH
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
@@ -12112,9 +12130,9 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
         if (((gBattleMons[battlerAtk].volatiles.sandtomb)
        )
         && !(MoveSureHitEvasionBoostedTargets(gCurrentMove))
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_ROCK, FALSE)
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_STEEL, FALSE)
-        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerAtk, TYPE_GROUND, FALSE)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_ROCK)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_STEEL)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerAtk, atkAbility, TYPE_GROUND)
         && atkAbility != ABILITY_SAND_RUSH
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
@@ -12160,7 +12178,7 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
     if (IsBattlerTrappedViaMove(battlerDef))
                 calc = (calc * 115) / 100;//  should still select normally before hand, but it just change when executed.
     if (gBattleMons[battlerDef].status1 & STATUS1_SLEEP) { //.target = MOVE_TARGET_SELECTED, 
-        if (DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_PSYCHIC, FALSE)) //important chek this think have function for type checking
+        if (DoesBattlerGetTypeBasedAffinity(battlerAtk, atkAbility, battlerDef, defAbility, TYPE_PSYCHIC)) //important chek this think have function for type checking
             calc = (calc * 105) / 100; // to take advantage of these buffs I want to have a button to display real move accuracy in battle. maybe L
         else
             calc = (calc * 160) / 100;

@@ -371,7 +371,7 @@ static enum CancelerResult CancelerConfused(struct BattleContext *ctx)
         gBattleMons[ctx->battlerAtk].volatiles.confusionTurns--;
         if (gBattleMons[ctx->battlerAtk].volatiles.confusionTurns)
         {
-            if ((DoesBattlerGetTypeBasedAffinity(ABILITY_NONE, ctx->battlerAtk, ctx->abilityAtk, TYPE_BUG))
+            if ((DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->abilityAtk, ctx->battlerAtk, ctx->abilityAtk, TYPE_BUG))
             || ctx->abilityAtk == ABILITY_TANGLED_FEET)
             {
                 gBattleCommunication[MULTISTRING_CHOOSER] = FALSE;
@@ -395,7 +395,7 @@ static enum CancelerResult CancelerConfused(struct BattleContext *ctx)
                 gBattleStruct->passiveHpUpdate[ctx->battlerAtk] = CalculateMoveDamage(&dmgCtx);
                 gBattlescriptCurrInstr = BattleScript_MoveUsedIsConfused;
                 return CANCELER_RESULT_FAILURE;
-            }
+            }//vsonic consider cahnge to use effect split highest offense stat rn simpler for sp atkers to do confusion but may keep enough logic to go both ways
             else
             {
                 gBattleCommunication[MULTISTRING_CHOOSER] = FALSE;
