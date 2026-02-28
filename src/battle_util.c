@@ -7805,22 +7805,10 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
         if (moveType == TYPE_FIRE)
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.25));
         break;
-    case ABILITY_PROTOSYNTHESIS:
+    case ABILITY_WATER_COMPACTION:
+    if (moveType == TYPE_WATER)
         {
-            enum Stat defHighestStat = GetParadoxBoostedStatId(battlerDef);
-            if ((ctx->weather & WEATHER_SUN || gBattleMons[battlerDef].volatiles.boosterEnergyActivated)
-             && ((IsBattleMovePhysical(move) && defHighestStat == STAT_DEF) || (IsBattleMoveSpecial(move) && defHighestStat == STAT_SPDEF))
-             && !(gBattleMons[battlerDef].volatiles.transformed))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(0.7));
-        }
-        break;
-    case ABILITY_QUARK_DRIVE:
-        {
-            u32 defHighestStat = GetParadoxBoostedStatId(battlerDef);
-            if ((ctx->fieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || gBattleMons[battlerDef].volatiles.boosterEnergyActivated)
-             && ((IsBattleMovePhysical(move) && defHighestStat == STAT_DEF) || (IsBattleMoveSpecial(move) && defHighestStat == STAT_SPDEF))
-             && !(gBattleMons[battlerDef].volatiles.transformed))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(0.7));
+            modifier = uq4_12_multiply(modifier, UQ_4_12(0.75));
         }
         break;
     default:
@@ -8353,6 +8341,24 @@ static inline u32 CalcDefenseStat(struct BattleContext *ctx)
     case ABILITY_FLOWER_GIFT:
         if (gBattleMons[battlerDef].species == SPECIES_CHERRIM_SUNSHINE && IsBattlerWeatherAffected(battlerDef, WEATHER_SUN) && !usesDefStat)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
+        break;
+    case ABILITY_PROTOSYNTHESIS:
+        {
+            enum Stat defHighestStat = GetParadoxBoostedStatId(battlerDef);
+            if (((ctx->weather & B_WEATHER_SUN && HasWeatherEffect()) || gBattleMons[battlerDef].volatiles.boosterEnergyActivated)
+             && ((IsBattleMovePhysical(move) && defHighestStat == STAT_DEF) || (IsBattleMoveSpecial(move) && defHighestStat == STAT_SPDEF))
+             && !(gBattleMons[battlerDef].volatiles.transformed))
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+        }
+        break;
+    case ABILITY_QUARK_DRIVE:
+        {
+            u32 defHighestStat = GetParadoxBoostedStatId(battlerDef);
+            if ((gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || gBattleMons[battlerDef].volatiles.boosterEnergyActivated)
+             && ((IsBattleMovePhysical(move) && defHighestStat == STAT_DEF) || (IsBattleMoveSpecial(move) && defHighestStat == STAT_SPDEF))
+             && !(gBattleMons[battlerDef].volatiles.transformed))
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+        }
         break;
     default:
         break;
