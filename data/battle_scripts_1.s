@@ -5812,6 +5812,12 @@ BattleScript_MoveUsedIsAsleep::
 	statusanimation BS_ATTACKER
 	goto BattleScript_MoveEnd
 
+BattleScript_BeforeSnoreMessage::
+	printstring STRINGID_PKMNFASTASLEEP
+	waitmessage B_WAIT_TIME_LONG
+	statusanimation BS_ATTACKER
+    return
+
 BattleScript_MoveUsedWokeUp::
 	printfromtable gWokeUpStringIds
 	waitmessage B_WAIT_TIME_LONG
