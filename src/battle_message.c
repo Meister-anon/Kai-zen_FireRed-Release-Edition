@@ -2944,9 +2944,8 @@ void SetPpNumbersPaletteInMoveSelection(enum BattlerId battler)
     CpuCopy16(&gPlttBufferUnfaded[91], &gPlttBufferFaded[91], sizeof(u16));
 }
 
-void SetMoveTypePaletteInMoveSelection_Singles(enum BattlerId battler, u16 move, u8 moveType)
+void SetMoveTypePaletteInMoveSelection_Singles(enum BattlerId battler, enum Move move, u8 moveType)
 {
-    struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct*)(&gBattleResources->bufferA[battler][4]);
     const u16 *palPtr = gMoveTypePal;
     u8 var = GetTypeEffectivenessState_Singles(battler, move, moveType);//hopefully I understood this correctly
 
@@ -2985,9 +2984,8 @@ void SetMoveTypePaletteInMoveSelection_Singles(enum BattlerId battler, u16 move,
 //last thing believe need try take into account is move target random, 
 //not sure will work for now
 //for some reason doubles check isn't working?
-void SetMoveTypePaletteInMoveSelection_Doubles(enum BattlerId battler, u16 move, u8 moveType)
+void SetMoveTypePaletteInMoveSelection_Doubles(enum BattlerId battler, enum Move move, u8 moveType)
 {
-    struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct*)(&gBattleResources->bufferA[battler][4]);
     const u16 *palPtr = gMoveTypePal;
     u8 var; //hopefully I understood this correctly
     
@@ -2998,16 +2996,16 @@ void SetMoveTypePaletteInMoveSelection_Doubles(enum BattlerId battler, u16 move,
     else if (gMovesInfo[move].target == TARGET_BOTH 
     || gMovesInfo[move].target == TARGET_ALL_BATTLERS
     || gMovesInfo[move].target == TARGET_FOES_AND_ALLY)
-        var = max(GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)), GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT)));
+        var = max(GetTypeEffectivenessState_Doubles(move,moveType, battler, GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)), GetTypeEffectivenessState_Doubles(move,moveType, battler, GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT)));
     else if (gMovesInfo[move].target == TARGET_RANDOM)
     {
         if (Random() & 1)
-            var = GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerPosition(B_POSITION_OPPONENT_LEFT));
+            var = GetTypeEffectivenessState_Doubles(move,moveType, battler, GetBattlerPosition(B_POSITION_OPPONENT_LEFT));
         else
-            var = GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerPosition(B_POSITION_OPPONENT_RIGHT));
+            var = GetTypeEffectivenessState_Doubles(move,moveType, battler, GetBattlerPosition(B_POSITION_OPPONENT_RIGHT));
     }//best I can do is guess
     else
-        var = GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerPosition(gMultiUsePlayerCursor));
+        var = GetTypeEffectivenessState_Doubles(move,moveType, battler, GetBattlerPosition(gMultiUsePlayerCursor));
     //takes state and shift to return different
     //value in pal gPPTextPalette
     //simple fix make new palette 
@@ -3067,7 +3065,7 @@ u8 GetCurrentPpToMaxPpState(u8 currentPp, u8 maxPp)
 }//used with color palette 3 is normal font color
 //1 is  yellow, 2 is red  //correspondes to value in palette
 
-u8 GetTypeEffectivenessState_Singles(enum BattlerId battler, u16 move, u8 moveType) //for singles
+u8 GetTypeEffectivenessState_Singles(enum BattlerId battler, enum Move move, u8 moveType) //for singles
 {
     if (!IsDoubleBattle()) //oddly gbattlertarget is same as attacker at this point without this
     {    gBattlerTarget = (GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerPosition(battler))));
@@ -3080,23 +3078,29 @@ u8 GetTypeEffectivenessState_Singles(enum BattlerId battler, u16 move, u8 moveTy
     || !IsDisplayTypeEffectivenessOn())
         return 0; //initially forgot this part for self target moves
 
-    if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12(1.0))
+    struct BattleContext ctx = {0};
+    ctx.battlerAtk = battler;
+    ctx.battlerDef = gBattlerTarget;
+    ctx.move = move;
+    ctx.moveType = moveType;
+
+    if (CalcTypeEffectivenessMultiplier(&ctx) == UQ_4_12(1.0))
     {
         return 0; //default color
     }
-    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE) >= UQ_4_12(1.55))
+    else if (CalcTypeEffectivenessMultiplier(&ctx) >= UQ_4_12(1.55))
     {
        return 13; //green //if I want to return the greatest need exchange place of this and 13
     }
-    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12(0.0))
+    else if (CalcTypeEffectivenessMultiplier(&ctx) == UQ_4_12(0.0))
     {
        return 8; //grey
     }
-    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12(0.775))
+    else if (CalcTypeEffectivenessMultiplier(&ctx) == UQ_4_12(0.775))
     {
        return 2; //yellow
     }
-    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE) <= UQ_4_12(0.5))
+    else if (CalcTypeEffectivenessMultiplier(&ctx) <= UQ_4_12(0.5))
     {
        return 6; //red
     }
@@ -3105,27 +3109,31 @@ u8 GetTypeEffectivenessState_Singles(enum BattlerId battler, u16 move, u8 moveTy
 }
 
 //decide targetId with loop
-u8 GetTypeEffectivenessState_Doubles(u16 move, u8 moveType, u8 targetId) //for doubles
+u8 GetTypeEffectivenessState_Doubles(enum Move move, u8 moveType, enum BattlerId battler, enum BattlerId targetId) //for doubles
 {
+    struct BattleContext ctx = {0};
+    ctx.battlerAtk = battler;
+    ctx.battlerDef = targetId;
+    ctx.move = move;
+    ctx.moveType = moveType;
 
-
-    if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, targetId, FALSE) == UQ_4_12(1.0))
+    if (CalcTypeEffectivenessMultiplier(&ctx) == UQ_4_12(1.0))
     {
         return 0; //defautl color
     }
-    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, targetId, FALSE) >= UQ_4_12(1.55))
+    else if (CalcTypeEffectivenessMultiplier(&ctx) >= UQ_4_12(1.55))
     {
        return 13; //green
     }
-    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, targetId, FALSE) == UQ_4_12(0.0))
+    else if (CalcTypeEffectivenessMultiplier(&ctx) == UQ_4_12(0.0))
     {
        return 8; //grey
     }
-    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, targetId, FALSE) == UQ_4_12(0.775))
+    else if (CalcTypeEffectivenessMultiplier(&ctx) == UQ_4_12(0.775))
     {
        return 2; //yellow
     }
-    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, targetId, FALSE) <= UQ_4_12(0.5))
+    else if (CalcTypeEffectivenessMultiplier(&ctx) <= UQ_4_12(0.5))
     {
        return 6; //red
     }
