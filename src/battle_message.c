@@ -114,6 +114,8 @@ static const u8 sText_LinkTrainer2WithdrewPkmn[] = _("{B_LINK_SCR_TRAINER_NAME} 
 static const u8 sText_PlayerDefeatedLinkTrainerTrainer1[] = _("Player defeated\n{B_TRAINER1_CLASS} {B_TRAINER1_NAME}!\p");
 static const u8 sText_WildPkmnPrefix[] = _("Wild ");
 static const u8 sText_FoePkmnPrefix[] = _("Foe ");
+static const u8 sText_WildPkmnPrefixLower[] = _("the wild ");
+static const u8 sText_FoePkmnPrefixLower[] = _("the opposing ");
 static const u8 sText_FoePkmnPrefix2[] = _("Foe");
 static const u8 sText_AllyPkmnPrefix[] = _("Ally");
 static const u8 sText_FoePkmnPrefix3[] = _("Foe");
@@ -1480,8 +1482,8 @@ static void GetBattlerNick(enum BattlerId battler, u8 *dst)
         StringGet_Nickname(dst);
 }
 
-#define HANDLE_NICKNAME_STRING_CASE(battlerId)                \
-    if (GetBattlerSide(battlerId) != B_SIDE_PLAYER)                     \
+#define HANDLE_NICKNAME_STRING_CASE(battler)                \
+    if (!IsOnPlayerSide(battler))                      \
     {                                                                   \
                                                                         \
         if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)                     \
@@ -1496,10 +1498,29 @@ static void GetBattlerNick(enum BattlerId battler, u8 *dst)
         }                                                               \
     }                                                                   \
                                                                         \
-    GetBattlerNick(battlerId, text);                                     \
+    GetBattlerNick(battler, text);                                     \
      toCpy = text;/*StringAppend(text, sText_EndCap);   */              
 
     //above made and works to uncap long strings but is stop gap not real fix */ toCpy = text;
+
+//vsonic important uses "the wild"  where other macro
+//just uses wild
+#define HANDLE_NICKNAME_STRING_LOWERCASE(battler)                       \
+    if (!IsOnPlayerSide(battler))                       \
+    {                                                                   \
+        if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)                     \
+            toCpy = sText_FoePkmnPrefixLower;                           \
+        else                                                            \
+            toCpy = sText_WildPkmnPrefixLower;                          \
+        while (*toCpy != EOS)                                           \
+        {                                                               \
+            dst[dstID] = *toCpy;                                        \
+            dstID++;                                                    \
+            toCpy++;                                                    \
+        }                                                               \
+    }                                                                   \
+    GetBattlerNick(battler, text);                                      \
+    toCpy = text;
 
 static const u8 *BattleStringGetOpponentNameByTrainerId(u16 trainerId, u8 *text, u8 multiplayerId, u8 battler)
 {
@@ -2224,16 +2245,16 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize)
                     toCpy = sText_Opposing2;
                 break;
             case B_ATK_NAME_WITH_PREFIX2:
-                HANDLE_NICKNAME_STRING_LOWERCASE(gBattlerAttacker);
+                HANDLE_NICKNAME_STRING_LOWERCASE(gBattlerAttacker)
                 break;
             case B_DEF_NAME_WITH_PREFIX2:
-                HANDLE_NICKNAME_STRING_LOWERCASE(gBattlerTarget);
+                HANDLE_NICKNAME_STRING_LOWERCASE(gBattlerTarget)
                 break;
             case B_EFF_NAME_WITH_PREFIX2:
-                HANDLE_NICKNAME_STRING_LOWERCASE(gEffectBattler);
+                HANDLE_NICKNAME_STRING_LOWERCASE(gEffectBattler)
                 break;
             case B_SCR_NAME_WITH_PREFIX2:
-                HANDLE_NICKNAME_STRING_LOWERCASE(gBattleScripting.battler);
+                HANDLE_NICKNAME_STRING_LOWERCASE(gBattleScripting.battler)
                 break;
             }
 
