@@ -106,6 +106,7 @@ const u8 *BattleSetup_GetTrainerPostBattleScript(void);
 void ShowTrainerCantBattleSpeech(void);
 void PlayTrainerEncounterMusic(void);
 const u8 *GetTrainerALoseText(void);
+const u8 *GetTrainerBLoseText(void);
 const u8 *GetTrainerWonSpeech(void);
 
 //stuff from EE //wont need rematch stuff
