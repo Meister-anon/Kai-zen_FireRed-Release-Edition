@@ -91,10 +91,12 @@ static const u8 sText_Trainer1SentOutPkmn[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_
 static const u8 sText_Trainer1SentOutTwoPkmn[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} sent\nout {B_OPPONENT_MON1_NAME} and {B_OPPONENT_MON2_NAME}!{PAUSE 60}");
 static const u8 sText_Trainer1SentOutPkmn2[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} sent\nout {B_BUFF1}!");
 static const u8 sText_LinkTrainerSentOutPkmn[] = _("{B_LINK_OPPONENT1_NAME} sent out\n{B_OPPONENT_MON1_NAME}!");
+static const u8 sText_LinkTrainer2SentOutPkmn2[] = _("{B_LINK_OPPONENT2_NAME} sent out {B_OPPONENT_MON2_NAME}!");
 static const u8 sText_LinkTrainerSentOutTwoPkmn[] = _("{B_LINK_OPPONENT1_NAME} sent out\n{B_OPPONENT_MON1_NAME} and {B_OPPONENT_MON2_NAME}!");
 static const u8 sText_TwoLinkTrainersSentOutPkmn[] = _("{B_LINK_OPPONENT1_NAME} sent out {B_LINK_OPPONENT_MON1_NAME}!\n{B_LINK_OPPONENT2_NAME} sent out {B_LINK_OPPONENT_MON2_NAME}!");
 static const u8 sText_LinkTrainerSentOutPkmn2[] = _("{B_LINK_OPPONENT1_NAME} sent out\n{B_BUFF1}!");
 static const u8 sText_LinkTrainerMultiSentOutPkmn[] = _("{B_LINK_SCR_TRAINER_NAME} sent out\n{B_BUFF1}!");
+
 static const u8 sText_GoPkmn[] = _("Go! {B_PLAYER_MON1_NAME}!");
 static const u8 sText_GoTwoPkmn[] = _("Go! {B_PLAYER_MON1_NAME} and\n{B_PLAYER_MON2_NAME}!");
 static const u8 sText_GoPkmn2[] = _("Go! {B_BUFF1}!");
@@ -135,6 +137,23 @@ static const u8 sText_PlayerBattledToDrawLinkTrainer[] = _("Player battled to a 
 static const u8 sText_PlayerBattledToDrawVsTwo[] = _("Player battled to a draw against\n{B_LINK_OPPONENT1_NAME} and {B_LINK_OPPONENT2_NAME}!");
 static const u8 sText_WildFled[] = _("{PLAY_SE SE_FLEE}{B_LINK_OPPONENT1_NAME} fled!");
 static const u8 sText_TwoWildFled[] = _("{PLAY_SE SE_FLEE}{B_LINK_OPPONENT1_NAME} and\n{B_LINK_OPPONENT2_NAME} fled!");
+
+static const u8 sText_TwoTrainersSentPkmn[] = _("{B_TRAINER1_NAME_WITH_CLASS} sent out {B_OPPONENT_MON1_NAME}!\p{B_TRAINER2_NAME_WITH_CLASS} sent out {B_OPPONENT_MON2_NAME}!");
+static const u8 sText_Trainer2SentOutPkmn[] = _("{B_TRAINER2_NAME_WITH_CLASS} sent out {B_BUFF1}!");
+static const u8 sText_TwoTrainersWantToBattle[] = _("You are challenged by {B_TRAINER1_NAME_WITH_CLASS} and {B_TRAINER2_NAME_WITH_CLASS}!\p");
+static const u8 sText_InGamePartnerSentOutZGoN[] = _("{B_PARTNER_NAME_WITH_CLASS} sent out {B_PLAYER_MON2_NAME}! Go, {B_PLAYER_MON1_NAME}!");
+static const u8 sText_InGamePartnerSentOutNGoZ[] = _("{B_PARTNER_NAME_WITH_CLASS} sent out {B_PLAYER_MON1_NAME}! Go, {B_PLAYER_MON2_NAME}!");
+static const u8 sText_InGamePartnerSentOutPkmn1[] = _("{B_PARTNER_NAME_WITH_CLASS} sent out {B_PLAYER_MON1_NAME}!");
+static const u8 sText_InGamePartnerSentOutPkmn2[] = _("{B_PARTNER_NAME_WITH_CLASS} sent out {B_PLAYER_MON2_NAME}!");
+static const u8 sText_InGamePartnerWithdrewPkmn1[] = _("{B_PARTNER_NAME_WITH_CLASS} withdrew {B_PLAYER_MON1_NAME}!");
+static const u8 sText_InGamePartnerWithdrewPkmn2[] = _("{B_PARTNER_NAME_WITH_CLASS} withdrew {B_PLAYER_MON2_NAME}!");
+
+static const u8 sText_LinkPartnerSentOutPkmn1GoPkmn[] = _("{B_LINK_PARTNER_NAME} sent out {B_LINK_PLAYER_MON1_NAME}! Go! {B_LINK_PLAYER_MON2_NAME}!");
+static const u8 sText_LinkPartnerSentOutPkmn2GoPkmn[] = _("{B_LINK_PARTNER_NAME} sent out {B_LINK_PLAYER_MON2_NAME}! Go! {B_LINK_PLAYER_MON1_NAME}!");
+static const u8 sText_LinkPartnerSentOutPkmn1[] = _("{B_LINK_PARTNER_NAME} sent out {B_LINK_PLAYER_MON1_NAME}!");
+static const u8 sText_LinkPartnerSentOutPkmn2[] = _("{B_LINK_PARTNER_NAME} sent out {B_LINK_PLAYER_MON2_NAME}!");
+static const u8 sText_LinkPartnerWithdrewPkmn1[] = _("{B_LINK_PARTNER_NAME} withdrew {B_LINK_PLAYER_MON1_NAME}!");
+static const u8 sText_LinkPartnerWithdrewPkmn2[] = _("{B_LINK_PARTNER_NAME} withdrew {B_LINK_PLAYER_MON2_NAME}!");
 
 
 static const u8 sText_HP2[] = _("HP");
@@ -177,15 +196,6 @@ const u8 *const gBattleStringsTable[] = {
     BATTLE_STRING_DEFINITIONS(UNPACK_BATTLE_STRING_VALUES)
 };
 
-//may be able to use for wondeguard miss with multhit moves
-/*
-const u16 gMissStringIds[] = {
-    STRINGID_ATTACKMISSED,
-    STRINGID_PKMNPROTECTEDITSELF,
-    STRINGID_PKMNAVOIDEDATTACK,
-    STRINGID_AVOIDEDDAMAGE,
-    STRINGID_PKMNMAKESGROUNDMISS
-};*/
 
 //print effect based on current fixated moves
 //for end turn
@@ -228,14 +238,6 @@ const u16 gSwitchInAbilityStringIds[] =
     [B_MSG_SWITCHIN_AURORA_SHIFT] = STRINGID_CLOAKEDINAURORA,
 
 };//no comma needed at end
-
-const u16 gNoEscapeStringIds[] = {
-    STRINGID_CANTESCAPE,
-    STRINGID_DONTLEAVEBIRCH,
-    STRINGID_PREVENTSESCAPE,
-    STRINGID_CANTESCAPE2,
-    STRINGID_ATTACKERCANTESCAPE
-};
 
 //need add fog
 const u16 gMoveWeatherChangeStringIds[] = {
@@ -283,57 +285,6 @@ const u16 gWeatherEndsStringIds[B_MSG_WEATHER_END_COUNT] =
     [B_MSG_WEATHER_END_FOG]          = STRINGID_FOGLIFTED,
     [B_MSG_WEATHER_END_STRONG_WINDS] = STRINGID_STRONGWINDSDISSIPATED,
 };
-
-
-const u16 gReflectLightScreenSafeguardStringIds[] = {
-    STRINGID_BUTITFAILED,
-    STRINGID_PKMNRAISEDDEF,
-    STRINGID_PKMNRAISEDDEFALITTLE,
-    STRINGID_PKMNRAISEDSPDEF,
-    STRINGID_PKMNRAISEDSPDEFALITTLE,
-    STRINGID_PKMNCOVEREDBYVEIL
-};
-
-const u16 gLeechSeedStringIds[] = {
-    STRINGID_PKMNSEEDED,
-    STRINGID_PKMNEVADEDATTACK,
-    STRINGID_ITDOESNTAFFECT,
-    STRINGID_PKMNSAPPEDBYLEECHSEED,
-    STRINGID_ITSUCKEDLIQUIDOOZE
-};
-
-const u16 gRestUsedStringIds[] = {
-    STRINGID_PKMNWENTTOSLEEP,
-    STRINGID_PKMNSLEPTHEALTHY
-};
-
-const u16 gUproarOverTurnStringIds[] = {
-    STRINGID_PKMNMAKINGUPROAR,
-    STRINGID_PKMNCALMEDDOWN
-};
-
-const u16 gStockpileUsedStringIds[] = {
-    STRINGID_PKMNSTOCKPILED,
-    STRINGID_PKMNCANTSTOCKPILE
-};
-
-const u16 gWokeUpStringIds[] = {
-    STRINGID_PKMNWOKEUP,
-    STRINGID_PKMNWOKEUPINUPROAR,
-    STRINGID_PKMNWOKEUPREFRESHED
-};
-
-const u16 gSwallowFailStringIds[] = {
-    STRINGID_FAILEDTOSWALLOW,
-    STRINGID_PKMNHPFULL
-};
-
-const u16 gUproarAwakeStringIds[] = {
-    STRINGID_PKMNCANTSLEEPINUPROAR2,
-    STRINGID_UPROARKEPTPKMNAWAKE,
-    STRINGID_PKMNSTAYEDAWAKEUSING
-};
-
 
 //do I still use this?
 const u16 gFirstTurnOfTwoStringIds[] = {
@@ -395,13 +346,6 @@ const u16 gWrappedStringIds[NUM_TRAPPING_MOVES] = {
     STRINGID_ITISRAINING
 };*/
 
-const u16 gInobedientStringIds[] = {
-    [B_MSG_LOAFING] = STRINGID_PKMNLOAFING,
-    [B_MSG_WONT_OBEY] = STRINGID_PKMNWONTOBEY,
-    [B_MSG_TURNED_AWAY] = STRINGID_PKMNTURNEDAWAY,
-    [B_MSG_PRETEND_NOT_NOTICE] = STRINGID_PKMNPRETENDNOTNOTICE
-};
-
 const u16 gSafariPokeblockResultStringIds[] = {
     STRINGID_PKMNWATCHINGCAREFULLY,
     STRINGID_PKMNANGRY,
@@ -440,16 +384,6 @@ const u16 gPSNPreventionStringIds[] = {
     STRINGID_PKMNSXHADNOEFFECTONY
 };
 
-const u16 gItemSwapStringIds[] = {
-    STRINGID_PKMNOBTAINEDX,
-    STRINGID_PKMNOBTAINEDX2,
-    STRINGID_PKMNOBTAINEDXYOBTAINEDZ
-};
-
-const u16 gFlashFireStringIds[] = {
-    STRINGID_PKMNRAISEDFIREPOWERWITH,
-    STRINGID_PKMNSXMADEYINEFFECTIVE
-};
 
 const u16 gMissStringIds[] =
 {
@@ -503,7 +437,8 @@ const u16 gTrappingMoves[] = {
 //logic invaded once again, floating/flying mon should be immunte to trap moves, will exclude magma storm from that as its a legendary move
 //will make these buffs slightly situational but would do a lot for the overall strategy and nuance of the game
 
-//ported for updated battlescript
+//ok this is only used for psychoshift so no freeze
+//because move can only work if user is capable of acting
 const u16 gStatusConditionsStringIds[] =
 {
     STRINGID_PKMNWASPOISONED,
@@ -648,7 +583,8 @@ const u16 gUproarOverTurnStringIds[] =
 const u16 gWokeUpStringIds[] =
 {
     [B_MSG_WOKE_UP]        = STRINGID_PKMNWOKEUP,
-    [B_MSG_WOKE_UP_UPROAR] = STRINGID_PKMNWOKEUPINUPROAR
+    [B_MSG_WOKE_UP_UPROAR] = STRINGID_PKMNWOKEUPINUPROAR,
+    [B_MSG_WOKE_UP_REFRESHED] = STRINGID_PKMNWOKEUPREFRESHED,
 };
 
 const u16 gUproarAwakeStringIds[] =
@@ -881,13 +817,8 @@ const u16 gFlashFireStringIds[] =
     [B_MSG_FLASH_FIRE_NO_BOOST] = STRINGID_PKMNSXMADEYINEFFECTIVE
 };
 
-
-const u16 gStatusConditionsStringIds[] =
-{
-    STRINGID_PKMNWASPOISONED, STRINGID_PKMNBADLYPOISONED, STRINGID_PKMNWASBURNED, STRINGID_PKMNWASPARALYZED, STRINGID_PKMNFELLASLEEP, STRINGID_PKMNGOTFROSTBITE
-};
-
-const u16 gDamageNonTypesStartStringIds[] =
+//removed this just gmax stuff
+/*const u16 gDamageNonTypesStartStringIds[] =
 {
     [B_MSG_TRAPPED_WITH_VINES]  = STRINGID_TEAMTRAPPEDWITHVINES,
     [B_MSG_CAUGHT_IN_VORTEX]    = STRINGID_TEAMCAUGHTINVORTEX,
@@ -901,7 +832,7 @@ const u16 gDamageNonTypesDmgStringIds[] =
     [B_MSG_HURT_BY_VORTEX]       = STRINGID_PKMNHURTBYVORTEX,
     [B_MSG_BURNING_UP]           = STRINGID_PKMNBURNINGUP,
     [B_MSG_HURT_BY_ROCKS_THROWN] = STRINGID_PKMNHURTBYROCKSTHROWN,
-};
+};*/
 
 //already has blew away a
 //different beceause one effects your side
@@ -1328,7 +1259,7 @@ void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
                 else
                     stringPtr = sText_YourFoesWeakGetEmPkmn;
             }
-            else if (BattlerIsPartner(gBattleScripting.battler))
+            /*else if (BattlerIsPartner(gBattleScripting.battler))
             {
                 if (BattlerIsLink(gBattleScripting.battler)) // Link Partner
                 {
@@ -1338,7 +1269,7 @@ void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
                 {
                     stringPtr = sText_InGamePartnerSentOutPkmn1;
                 }
-            }
+            }*/
             else if (BattlerIsLink(gBattleScripting.battler) || TRAINER_BATTLE_PARAM.opponentA == TRAINER_LINK_OPPONENT
             || gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK) // Link Opponent 1 and test opponent
             {
@@ -1412,7 +1343,7 @@ void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
                 stringPtr = sText_GotAwaySafely;
             else if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
                 stringPtr = sText_TwoWildFled;
-            else if (gTrainerBattleOpponent_A == TRAINER_UNION_ROOM)
+            else if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_UNION_ROOM)
                 stringPtr = gUnknown_83FE9D4;
             else
                 stringPtr = sText_WildFled;
@@ -1487,7 +1418,19 @@ void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
 
 u32 BattleStringExpandPlaceholdersToDisplayedString(const u8 *src)
 {
-    BattleStringExpandPlaceholders(src, gDisplayedStringBattle);
+#ifndef NDEBUG
+    u32 j, strWidth;
+    u32 dstID = BattleStringExpandPlaceholders(src, gDisplayedStringBattle, sizeof(gDisplayedStringBattle));
+    for (j = 1;; j++)
+    {
+        strWidth = GetStringLineWidth(0, gDisplayedStringBattle, 0, j, sizeof(gDisplayedStringBattle));
+        if (strWidth == 0)
+            break;
+    }
+    return dstID;
+#else
+    return BattleStringExpandPlaceholders(src, gDisplayedStringBattle, sizeof(gDisplayedStringBattle));
+#endif
 }
 
 

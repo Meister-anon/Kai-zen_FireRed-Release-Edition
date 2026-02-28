@@ -860,11 +860,11 @@ static u8 GetBattleEnvironmentOverride(void)
     }
     else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
     {
-        if (gTrainers[gTrainerBattleOpponent_A].trainerClass == CLASS_GYM_LEADER_FRLG)
+        if (gTrainers[TRAINER_BATTLE_PARAM.opponentA].trainerClass == CLASS_GYM_LEADER_FRLG)
         {
             return BATTLE_ENVIRONMENT_LEADER;
         }
-        else if (gTrainers[gTrainerBattleOpponent_A].trainerClass == CLASS_CHAMPION_FRLG)
+        else if (gTrainers[TRAINER_BATTLE_PARAM.opponentA].trainerClass == CLASS_CHAMPION_FRLG)
         {
             return BATTLE_ENVIRONMENT_CHAMPION;
         }

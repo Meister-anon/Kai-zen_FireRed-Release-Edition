@@ -274,15 +274,15 @@ void BattleAI_HandleItemUseBeforeAISetup(void)
 
     // Items are allowed to use in ONLY trainer battles.
     if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER)
-        //&& (gTrainerBattleOpponent_A != TRAINER_SECRET_BASE)
+        //&& (TRAINER_BATTLE_PARAM.opponentA != TRAINER_SECRET_BASE)
         && !(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_SAFARI | BATTLE_TYPE_LINK))
         )
     {
         for (i = 0; i < MAX_TRAINER_ITEMS; i++)
         {
-            if (gTrainers[gTrainerBattleOpponent_A].items[i] != 0)
+            if (gTrainers[TRAINER_BATTLE_PARAM.opponentA].items[i] != 0)
             {
-                BATTLE_HISTORY->trainerItems[BATTLE_HISTORY->itemsNo] = gTrainers[gTrainerBattleOpponent_A].items[i];
+                BATTLE_HISTORY->trainerItems[BATTLE_HISTORY->itemsNo] = gTrainers[TRAINER_BATTLE_PARAM.opponentA].items[i];
                 BATTLE_HISTORY->itemsNo++;
             }
         }
@@ -362,7 +362,7 @@ void BattleAI_SetupAIData(void)
         AI_THINKING_STRUCT->aiFlags = (AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY);
         return;
     }
-    AI_THINKING_STRUCT->aiFlags = gTrainers[gTrainerBattleOpponent_A].aiFlags;
+    AI_THINKING_STRUCT->aiFlags = gTrainers[TRAINER_BATTLE_PARAM.opponentA].aiFlags;
 }
 
 u8 BattleAI_ChooseMoveOrAction(void)

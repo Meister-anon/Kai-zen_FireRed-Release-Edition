@@ -718,12 +718,12 @@ BattleScript_MoveEffectLeechSeed::
 	goto BattleScript_MoveEnd
 
 BattleScript_MoveEffectReflect::
-	printfromtable gReflectLightScreenSafeguardStringIds
+	printfromtable gScreenSetStringIds
 	waitmessage B_WAIT_TIME_LONG
 	return
 
 BattleScript_MoveEffectLightScreen::
-	printfromtable gReflectLightScreenSafeguardStringIds
+	printfromtable gScreenSetStringIds
 	waitmessage B_WAIT_TIME_LONG
 	return
 
@@ -2825,12 +2825,12 @@ BattleScript_EffectReflect::
 BattleScript_PrintReflectLightScreenSafeguardString::
 	attackanimation
 	waitanimation
-	printfromtable gReflectLightScreenSafeguardStringIds
+	printfromtable gScreenSetStringIds
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
 BattleScript_MoveEffectAuroraVeil::
-	printfromtable gReflectLightScreenSafeguardStringIds
+	printfromtable gScreenSetStringIds
 	waitmessage B_WAIT_TIME_LONG
 	return
 
@@ -3937,7 +3937,7 @@ BattleScript_EffectMagicCoat::
 	setmagiccoat
 	attackanimation
 	waitanimation
-	printstring STRINGID_PKMNSHROUDEDITSELF
+	printfromtable gScreenSetStringIds
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
@@ -8149,17 +8149,17 @@ BattleScript_EffectSetTerrain::
 	call BattleScript_ActivateTerrainEffects
 	return
 
-BattleScript_DamageNonTypesStarts::
-	printfromtable gDamageNonTypesStartStringIds
-	waitmessage B_WAIT_TIME_LONG
-	return
+@BattleScript_DamageNonTypesStarts::
+@	printfromtable gDamageNonTypesStartStringIds
+@	waitmessage B_WAIT_TIME_LONG
+@	return
 
-BattleScript_DamageNonTypesContinues::
-	printfromtable gDamageNonTypesDmgStringIds
-	waitmessage B_WAIT_TIME_LONG
-	effectivenesssound
-	hitanimation BS_ATTACKER
-	goto BattleScript_DoTurnDmg
+@BattleScript_DamageNonTypesContinues::
+@	printfromtable gDamageNonTypesDmgStringIds
+@	waitmessage B_WAIT_TIME_LONG
+@	effectivenesssound
+@	hitanimation BS_ATTACKER
+@	goto BattleScript_DoTurnDmg
 
 BattleScript_EffectTryReducePP::
 	tryspiteppreduce BattleScript_MoveEnd

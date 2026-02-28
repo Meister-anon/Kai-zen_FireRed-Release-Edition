@@ -37,7 +37,7 @@ void TrySetQuestLogBattleEvent(void)
 
         if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
         {
-            switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
+            switch (gTrainers[TRAINER_BATTLE_PARAM.opponentA].trainerClass)
             {
             case CLASS_GYM_LEADER_FRLG:
                 eventId = QL_EVENT_DEFEATED_GYM_LEADER;
@@ -52,7 +52,7 @@ void TrySetQuestLogBattleEvent(void)
                 eventId = QL_EVENT_DEFEATED_TRAINER;
                 break;
             }
-            questLogTrainerBattleRecord->v0 = gTrainerBattleOpponent_A;
+            questLogTrainerBattleRecord->v0 = TRAINER_BATTLE_PARAM.opponentA;
             if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
             {
                 questLogTrainerBattleRecord->v2 = gBattleResults.lastOpponentSpecies;

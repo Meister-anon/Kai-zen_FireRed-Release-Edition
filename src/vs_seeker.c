@@ -1022,11 +1022,11 @@ static u8 GetRematchTrainerIdGivenGameState(const u16 *trainerIdxs, u8 rematchId
 
 u8 ShouldTryRematchBattle(void)
 {
-    if (ShouldTryRematchBattleInternal(sVsSeekerData, gTrainerBattleOpponent_A))
+    if (ShouldTryRematchBattleInternal(sVsSeekerData, TRAINER_BATTLE_PARAM.opponentA))
     {
         return 1;
     }
-    return HasRematchTrainerAlreadyBeenFought(sVsSeekerData, gTrainerBattleOpponent_A);
+    return HasRematchTrainerAlreadyBeenFought(sVsSeekerData, TRAINER_BATTLE_PARAM.opponentA);
 }
 
 static bool8 ShouldTryRematchBattleInternal(const VsSeekerData *vsSeekerData, u16 trainerBattleOpponent)
@@ -1095,7 +1095,7 @@ int GetRematchTrainerId(u16 trainerId)
 
 u8 IsTrainerReadyForRematch(void)
 {
-    return IsTrainerReadyForRematchInternal(sVsSeekerData, gTrainerBattleOpponent_A);
+    return IsTrainerReadyForRematchInternal(sVsSeekerData, TRAINER_BATTLE_PARAM.opponentA);
 }
 
 static bool8 IsTrainerReadyForRematchInternal(const VsSeekerData * array, u16 trainerId)

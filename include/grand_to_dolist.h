@@ -761,7 +761,7 @@ goto TRAINER_REMATCH //stuff
 * and then each case block would need default_size listed at top in brackets then a check for rematch what value party size should be
 * and at end of case block set gtrainers.partySize to default size or calculated value for partysize for that trainer
 * think need include a break as well, so if it skips all criteriea for filtering it'll just use the size actually in the array for true party
-* make function take trainerNum like npctrainerparty, the argument it uses for that is gTrainerBattleOpponent_A
+* make function take trainerNum like npctrainerparty, the argument it uses for that is TRAINER_BATTLE_PARAM.opponentA
 * so putting the function in npctrainerparty I can just make switchase use traineNum and itll go to teh proper trainer id
 * so at end of each case block I can put  gtrainers[trainerNum].partySize
 *

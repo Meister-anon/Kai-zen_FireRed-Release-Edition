@@ -903,7 +903,7 @@ void StartSpecialBattle(void)
     {
     case 0: // battle tower battle
         gBattleTypeFlags = (BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_TRAINER);
-        gTrainerBattleOpponent_A = 0;
+        TRAINER_BATTLE_PARAM.opponentA = 0;
 
         FillBattleTowerTrainerParty();
 
@@ -931,7 +931,7 @@ void StartSpecialBattle(void)
             CreateBattleTowerMon(&gEnemyParty[i], &gSaveBlock2Ptr->battleTower.ereaderTrainer.party[i]);
 
         gBattleTypeFlags = (BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_TRAINER);
-        gTrainerBattleOpponent_A = 0;
+        TRAINER_BATTLE_PARAM.opponentA = 0;
 
         CreateTask(Task_WaitBT, 1);
         PlayMapChosenOrBattleBGM(0);

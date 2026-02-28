@@ -34,10 +34,12 @@ enum InobedientStringID
 // Skips the one used for Battle Palace
 #define NUM_LOAF_STRINGS (B_MSG_PRETEND_NOT_NOTICE + 1)
 
-
 // gFlashFireStringIds
-#define B_MSG_FLASH_FIRE_BOOST    0
-#define B_MSG_FLASH_FIRE_NO_BOOST 1
+enum FlashFireStringID
+{
+    B_MSG_FLASH_FIRE_BOOST,
+    B_MSG_FLASH_FIRE_NO_BOOST,
+};
 
 
 // gMissStringIds					//need add logic
@@ -316,7 +318,7 @@ enum DamagingWeatherStringID
     B_MSG_ACID_RAIN,
 };
 
-// gReflectLightScreenSafeguardStringIds
+// gScreenSetStringIds
 enum ScreenSetStringID
 {
     B_MSG_SIDE_STATUS_FAILED,
@@ -395,6 +397,7 @@ enum WokeUpStringID
 {
     B_MSG_WOKE_UP,
     B_MSG_WOKE_UP_UPROAR,
+    B_MSG_WOKE_UP_REFRESHED,
 };
 
 // gUproarAwakeStringIds
