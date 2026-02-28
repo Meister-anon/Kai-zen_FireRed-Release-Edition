@@ -1525,7 +1525,7 @@ static const u8 *BattleStringGetOpponentNameByTrainerId(u16 trainerId, u8 *text,
         else
             toCpy = gLinkPlayers[GetBattlerMultiplayerId(battler) & BIT_SIDE].name;
     }
-    else if (trainerId == TRAINER_FRONTIER_BRAIN)
+    /*else if (trainerId == TRAINER_FRONTIER_BRAIN)
     {
         CopyFrontierBrainTrainerName(text);
         toCpy = text;
@@ -1535,7 +1535,7 @@ static const u8 *BattleStringGetOpponentNameByTrainerId(u16 trainerId, u8 *text,
         GetFrontierTrainerName(text, trainerId);
         toCpy = text;
     }
-    /*else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+    else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
     {
         GetTrainerHillTrainerName(text, trainerId);
         toCpy = text;
@@ -1605,11 +1605,11 @@ static const u8 *BattleStringGetPlayerName(u8 *text, u8 battler)
         {
             toCpy = gLinkPlayers[2].name;
         }
-        else if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
+        /*else if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
         {
             GetFrontierTrainerName(text, gPartnerTrainerId);
             toCpy = text;
-        }
+        }*/
         else
         {
             toCpy = gSaveBlock2Ptr->playerName;
