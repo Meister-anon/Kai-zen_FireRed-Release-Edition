@@ -2224,16 +2224,16 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize)
                     toCpy = sText_Opposing2;
                 break;
             case B_ATK_NAME_WITH_PREFIX2:
-                HANDLE_NICKNAME_STRING_LOWERCASE(gBattlerAttacker)
+                HANDLE_NICKNAME_STRING_LOWERCASE(gBattlerAttacker);
                 break;
             case B_DEF_NAME_WITH_PREFIX2:
-                HANDLE_NICKNAME_STRING_LOWERCASE(gBattlerTarget)
+                HANDLE_NICKNAME_STRING_LOWERCASE(gBattlerTarget);
                 break;
             case B_EFF_NAME_WITH_PREFIX2:
-                HANDLE_NICKNAME_STRING_LOWERCASE(gEffectBattler)
+                HANDLE_NICKNAME_STRING_LOWERCASE(gEffectBattler);
                 break;
             case B_SCR_NAME_WITH_PREFIX2:
-                HANDLE_NICKNAME_STRING_LOWERCASE(gBattleScripting.battler)
+                HANDLE_NICKNAME_STRING_LOWERCASE(gBattleScripting.battler);
                 break;
             }
 
