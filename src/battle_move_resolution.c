@@ -318,7 +318,7 @@ static enum CancelerResult CancelerDisabled(struct BattleContext *ctx)
 static enum CancelerResult CancelerVolatileBlocked(struct BattleContext *ctx)
 {
     if (GetActiveGimmick(ctx->battlerAtk) != GIMMICK_Z_MOVE
-     && gBattleMons[ctx->battlerAtk].volatiles.healBlock
+     && gSideStatuses[GetBattlerSide(ctx->battlerAtk)] & SIDE_STATUS_HEAL_BLOCK
      && IsHealBlockPreventingMove(ctx->battlerAtk, ctx->move))
     {
         gBattleScripting.battler = ctx->battlerAtk;
@@ -929,16 +929,16 @@ static enum CancelerResult CancelerMoveFailure(struct BattleContext *ctx)
     case EFFECT_TELEPORT:
         // TODO: follow up: Can't make sense of teleport logic
         break;
-    case EFFECT_LOW_KICK:
+    /*case EFFECT_LOW_KICK:
     case EFFECT_HEAT_CRASH:
         if (GetActiveGimmick(ctx->battlerDef) == GIMMICK_DYNAMAX)
             battleScript = BattleScript_MoveBlockedByDynamax;
-        break;
+        break;*/
     case EFFECT_NATURAL_GIFT:
         if (GetItemPocket(gBattleMons[ctx->battlerAtk].item) != POCKET_BERRIES
          || gFieldStatuses & STATUS_FIELD_MAGIC_ROOM
          || ctx->abilityAtk == ABILITY_KLUTZ
-         || gBattleMons[ctx->battlerAtk].volatiles.embargo)
+         || gSideStatuses[GetBattlerSide(ctx->battlerAtk)] & SIDE_STATUS_EMBARGO)
             battleScript = BattleScript_ButItFailed;
         break;
     default:
