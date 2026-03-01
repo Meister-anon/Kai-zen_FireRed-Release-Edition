@@ -760,10 +760,11 @@ struct PartyState
     u32 changedSpecies:11; // For forms when multiple mons can change into the same pokemon.
     u32 sentOut:1; //^w form species change my not use that, but may take que from for setup
     u32 numPhysHits:2; //using for ice face to count hits taken till reset, realize need putin party to prevent abuse
-    u32 lostItemtoKnockOff:1; //renamed hated default name
+    u32 lostItemtoKnockOff:1; //renamed hated default name, is not set when the setting is gen5+ will prob remove when done removing config stuff
     u32 padding:6;//need tweak singleuseability secondaryitemslot and heldItem use as swap order of side and battlerId
     //end byte
-    //u32 lostItemtoKnockOff; //was isKnockedOff
+    //u32 lostItemtoKnockOff; //ok talked with alex and this entire value is only used for gen 3 version of knock off so I prob don't need at all
+    //iisKnockedOff is not set when the setting is gen5+ "Alex"
     
     u8 ToxicTurnCounter:5; //MAX_TOXIC_TURNS 16 //change make toxic dmg tracked not reset on switch
     u8 SleepTimer:3; //MAX_SLEEP_TURNS 5
