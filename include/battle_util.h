@@ -417,7 +417,6 @@ enum HoldEffect GetBattlerHoldEffectInternal(enum BattlerId battler, enum Abilit
 u32 GetBattlerHoldEffectParam(enum BattlerId battler);
 bool32 CanBattlerAvoidContactEffects(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, enum Move move);
 bool32 IsMoveMakingContact(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, enum Move move);
-bool32 IsBattlerGrounded(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect);
 u32 GetMoveSlot(u16 *moves, enum Move move);
 u32 GetBattlerWeight(enum BattlerId battler);
 s32 CalcCritChanceStage(struct BattleContext *ctx);
@@ -654,7 +653,7 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
 bool32 IsSemiInvulnerable(enum BattlerId battler, enum SemiInvulnerableExclusion excludeCommander);
 bool32 BreaksThroughSemiInvulnerablity(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum Ability abilityDef, enum Move move);
 bool32 HasPartnerTrainer(enum BattlerId battler);
-bool32 IsAffectedByPowderMove(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect);
+bool32 IsAffectedByPowderMove(enum BattlerId battler, enum Ability ability, enum Ability atkAbility, enum HoldEffect holdEffect);
 enum Move GetNaturePowerMove(void);
 void RemoveAbilityFlags(enum BattlerId battler);
 void CheckSetUnburden(enum BattlerId battler);

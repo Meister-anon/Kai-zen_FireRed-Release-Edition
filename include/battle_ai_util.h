@@ -82,7 +82,7 @@ bool32 AI_IsSlower(enum BattlerId battlerAi, enum BattlerId battlerDef, u32 aiMo
 bool32 AI_IsPartyMonFaster(enum BattlerId battlerAi, enum BattlerId battlerDef, struct BattlePokemon switchinCandidate, u32 aiMove, u32 playerMove, enum ConsiderPriority considerPriority);
 bool32 AI_IsPartyMonSlower(enum BattlerId battlerAi, enum BattlerId battlerDef, struct BattlePokemon switchinCandidate, u32 aiMove, u32 playerMove, enum ConsiderPriority considerPriority);
 bool32 AI_RandLessThan(u32 val);
-bool32 AI_IsBattlerGrounded(enum BattlerId battler);
+bool32 AI_IsBattlerGrounded(enum BattlerId battler, enum BattlerId battlerAtk);
 u32 AI_GetBattlerMoveTargetType(enum BattlerId battler, u32 move);
 u32 AI_GetMoldBreakerSanitizedAbility(enum BattlerId battlerAtk, enum Ability abilityAtk, enum Ability abilityDef, u32 holdEffectDef, u32 move);
 u32 AI_GetDamage(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 moveIndex, enum DamageCalcContext calcContext, struct AiLogicData *aiData);

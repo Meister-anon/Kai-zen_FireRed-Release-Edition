@@ -430,7 +430,8 @@ bool32 IsAffectedByFollowMe(enum BattlerId battlerAtk, u32 defSide, enum Move mo
     if (effect == EFFECT_PURSUIT && IsPursuitTargetSet())
         return FALSE;
 
-    if (gSideTimers[defSide].followmePowder && !IsAffectedByPowderMove(battlerAtk, ability, GetBattlerHoldEffect(battlerAtk)))
+    //USED ABILITY none as meant to be rage power self affecting
+    if (gSideTimers[defSide].followmePowder && !IsAffectedByPowderMove(battlerAtk, ability, ABILITY_NONE GetBattlerHoldEffect(battlerAtk)))
         return FALSE;
 
     return TRUE;
@@ -2729,7 +2730,7 @@ static bool32 IsPowderMoveBlocked(struct BattleContext *ctx)
 {
     if (!IsPowderMove(ctx->move)
      || ctx->battlerAtk == ctx->battlerDef
-     || IsAffectedByPowderMove(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef))
+     || IsAffectedByPowderMove(ctx->battlerDef, ctx->abilityDef, ctx->abilityAtk, ctx->holdEffectDef))
         return FALSE;
 
     if (ctx->runScript)
@@ -4609,7 +4610,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         {   //vsonic
             enum Ability abilityAtk = GetBattlerAbility(gBattlerAttacker);
             enum HoldEffect holdEffectAtk = GetBattlerHoldEffect(gBattlerAttacker);
-            if (IsAffectedByPowderMove(gBattlerAttacker, abilityAtk, holdEffectAtk))
+            if (IsAffectedByPowderMove(gBattlerAttacker, abilityAtk, abilityAtk, holdEffectAtk))
             {
                 u32 poison, paralysis, sleep;
 
@@ -12327,11 +12328,11 @@ static bool32 IsOpposingSideEmpty(enum BattlerId battler)
     return TRUE;
 }
 
-//VSONIC add affinity check
-bool32 IsAffectedByPowderMove(enum BattlerId battler, u32 ability, enum HoldEffect holdEffect)
+//VSONIC add affinity check ADD atk ability here for affinity check
+bool32 IsAffectedByPowderMove(enum BattlerId battler, enum Ability ability, enum Ability atkAbility, enum HoldEffect holdEffect)
 {
     if ((ability == ABILITY_OVERCOAT)
-        || DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GRASS, FALSE)
+        || DoesBattlerGetTypeBasedAffinity(atkAbility, battler, ability, TYPE_GRASS, FALSE)
         || holdEffect == HOLD_EFFECT_SAFETY_GOGGLES)
         return FALSE;
     return TRUE;
@@ -12626,6 +12627,7 @@ bool32 IsMimikyuDisguised(enum BattlerId battler)
         || gBattleMons[battler].species == SPECIES_MIMIKYU_TOTEM_DISGUISED;
 }
 
+//these two functions are put in end turn so self affectings
 bool32 TryActivateBattlePoisonHeal(enum BattlerId battler)  //change mind better to do 2 functions, rather than do 2 different effects with one.
 {
     u16 ability = GetBattlerAbility(battler);

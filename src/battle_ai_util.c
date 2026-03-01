@@ -64,9 +64,9 @@ static bool32 AI_IsDoubleSpreadMove(enum BattlerId battlerAtk, u32 move)
     return FALSE;
 }
 
-bool32 AI_IsBattlerGrounded(enum BattlerId battler)
+bool32 AI_IsBattlerGrounded(enum BattlerId battler, enum BattlerId battlerAtk)
 {
-    return IsBattlerGrounded(battler, gAiLogicData->abilities[battler], gAiLogicData->holdEffects[battler]);
+    return IsBattlerGrounded(battler, gAiLogicData->abilities[battler], gAiLogicData->abilities[battlerAtk], gAiLogicData->holdEffects[battler]);
 }
 
 static u32 AI_CanBattlerHitBothFoesInTerrain(enum BattlerId battler, u32 move, enum BattleMoveEffects effect)

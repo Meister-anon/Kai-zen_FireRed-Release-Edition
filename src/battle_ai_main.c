@@ -1166,7 +1166,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
     SetTypeBeforeUsingMove(move, battlerAtk, &gBattleStruct->dynamicMoveType);
     moveType = GetBattleMoveType(move);
 
-    if (IsPowderMove(move) && !IsAffectedByPowderMove(battlerDef, aiData->abilities[battlerDef], aiData->holdEffects[battlerDef]))
+    if (IsPowderMove(move) && !IsAffectedByPowderMove(battlerDef, abilityDef, abilityAtk, aiData->holdEffects[battlerDef]))
         RETURN_SCORE_MINUS(10);
 
     if (!BreaksThroughSemiInvulnerablity(battlerAtk, battlerDef, aiData->abilities[battlerAtk], aiData->abilities[battlerDef], move)
@@ -4991,7 +4991,7 @@ static s32 AI_CalcMoveEffectScore(enum BattlerId battlerAtk, enum BattlerId batt
         if (hasPartner
           && AI_GetBattlerMoveTargetType(battlerAtk, move) == TARGET_USER
           && !IsBattlerIncapacitated(battlerDef, aiData->abilities[battlerDef])
-          && (!IsPowderMove(move) || IsAffectedByPowderMove(battlerDef, aiData->abilities[battlerDef], aiData->holdEffects[battlerDef])))
+          && (!IsPowderMove(move) || IsAffectedByPowderMove(battlerDef, aiData->abilities[battlerDef], aiData->abilities[battlerAtk], aiData->holdEffects[battlerDef])))
           // Rage Powder doesn't affect powder immunities
         {
             u32 predictedMoveOnPartner = aiData->lastUsedMove[BATTLE_PARTNER(battlerAtk)];
