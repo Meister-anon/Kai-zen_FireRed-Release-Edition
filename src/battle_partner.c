@@ -11,22 +11,25 @@
 #include "constants/battle_ai.h"
 
 //#include "data/partner_parties.h"
-const struct Trainer gBattlePartners[PARTNER_COUNT] =
-{
+const struct Trainer gBattlePartners[PARTNER_COUNT] = {0};
+/*{
 //#include "data/battle_partners.h"
-};
+};*/
 
 #define STEVEN_OTID 61226
 
+//not ready to use as most of trainermon values
+//not added unsure if plan to
+//involves major party data overhaul
 void FillPartnerParty(u16 trainerId)
 {
-    s32 i, j, k;
+    /*s32 i, j, k;
     u32 firstIdPart = 0, secondIdPart = 0, thirdIdPart = 0;
     u32 ivs, level, personality;
     u16 monId;
     u32 otID;
     u8 trainerName[(PLAYER_NAME_LENGTH * 3) + 1];
-    s32 ball = -1;
+    enum DifficultyLevel difficulty = GetBattlePartnerDifficultyLevel(trainerId);
     SetFacilityPtrsGetLevel();
 
     if (trainerId > TRAINER_PARTNER(PARTNER_NONE))
@@ -34,10 +37,10 @@ void FillPartnerParty(u16 trainerId)
         for (i = 0; i < 3; i++)
             ZeroMonData(&gPlayerParty[i + 3]);
 
-        for (i = 0; i < 3 && i < gBattlePartners[trainerId - TRAINER_PARTNER(PARTNER_NONE)].partySize; i++)
+        for (i = 0; i < 3 && i < gBattlePartners[difficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].partySize; i++)
         {
-            const struct TrainerMon *partyData = gBattlePartners[trainerId - TRAINER_PARTNER(PARTNER_NONE)].party;
-            const u8 *partnerName = gBattlePartners[trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerName;
+            const struct TrainerMon *partyData = gBattlePartners[difficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].party;
+            const u8 *partnerName = gBattlePartners[difficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerName;
 
             for (k = 0; partnerName[k] != EOS && k < 3; k++)
             {
@@ -68,9 +71,9 @@ void FillPartnerParty(u16 trainerId)
             else if (partyData[i].gender == TRAINER_MON_FEMALE)
                 personality = (personality & 0xFFFFFF00) | GeneratePersonalityForGender(MON_FEMALE, partyData[i].species);
             ModifyPersonalityForNature(&personality, partyData[i].nature);
-            CreateMon(&gPlayerParty[i + 3], partyData[i].species, partyData[i].lvl, 0, TRUE, personality, OT_ID_PRESET, otID);
+            CreateMon(&gPlayerParty[i + 3], partyData[i].species, partyData[i].lvl, personality, OTID_STRUCT_PRESET(otID));
             j = partyData[i].isShiny;
-            SetMonData(&gPlayerParty[i + 3], MON_DATA_SHINY_CHECK, &j);
+            SetMonData(&gPlayerParty[i + 3], MON_DATA_IS_SHINY, &j);
             SetMonData(&gPlayerParty[i + 3], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
             CustomTrainerPartyAssignMoves(&gPlayerParty[i + 3], &partyData[i]);
 
@@ -97,10 +100,9 @@ void FillPartnerParty(u16 trainerId)
                     SetMonData(&gPlayerParty[i + 3], MON_DATA_ABILITY_NUM, &j);
             }
             SetMonData(&gPlayerParty[i + 3], MON_DATA_FRIENDSHIP, &(partyData[i].friendship));
-            if (partyData[i].ball != ITEM_NONE)
+            if (partyData[i].ball < POKEBALL_COUNT)
             {
-                ball = partyData[i].ball;
-                SetMonData(&gPlayerParty[i + 3], MON_DATA_POKEBALL, &ball);
+                SetMonData(&gPlayerParty[i + 3], MON_DATA_POKEBALL, &partyData[i].ball);
             }
             if (partyData[i].nickname != NULL)
             {
@@ -108,9 +110,9 @@ void FillPartnerParty(u16 trainerId)
             }
             CalculateMonStats(&gPlayerParty[i + 3]);
 
-            StringCopy(trainerName, gBattlePartners[trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerName);
+            StringCopy(trainerName, gBattlePartners[difficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerName);
             SetMonData(&gPlayerParty[i + 3], MON_DATA_OT_NAME, trainerName);
-            j = gBattlePartners[SanitizeTrainerId(trainerId - TRAINER_PARTNER(PARTNER_NONE))].gender;
+            j = gBattlePartners[difficulty][SanitizeTrainerId(trainerId - TRAINER_PARTNER(PARTNER_NONE))].gender;
             SetMonData(&gPlayerParty[i + 3], MON_DATA_OT_GENDER, &j);
         }
     }
@@ -171,5 +173,5 @@ void FillPartnerParty(u16 trainerId)
             j = IsFrontierTrainerFemale(trainerId + TRAINER_RECORD_MIXING_APPRENTICE);
             SetMonData(&gPlayerParty[MULTI_PARTY_SIZE + i], MON_DATA_OT_GENDER, &j);
         }
-    }
+    }*/
 }
