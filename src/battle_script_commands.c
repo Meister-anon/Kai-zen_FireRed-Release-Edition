@@ -16250,13 +16250,14 @@ void BS_HandleEscapePrevention(void)
     enum BattlerId battler = GetBattlerForBattleScript(cmd->targetbattler);
     enum Ability abilityAtk = GetBattlerAbility(gBattlerAttacker);
     enum Ability battlerability = GetBattlerAbility(battler);
+    bool32 SelfTarget = gBattlerAttacker == battler;
 
     if (gBattleMons[battler].volatiles.escapePrevention
     || battlerability == ABILITY_HANDS_OF_FATE
-    || (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, abilityAtk, battler, battlerability, TYPE_GHOST)
+    || (DoesBattlerGetTypeBasedAffinity(abilityAtk, battler, battlerability, TYPE_GHOST, SelfTarget)
     && gBattleMons[battler].species != SPECIES_SPIRITOMB)
-    || ((DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, abilityAtk, battler, battlerability, TYPE_FLYING)
-    || DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, abilityAtk, battler, battlerability, TYPE_WIND))
+    || ((DoesBattlerGetTypeBasedAffinity(abilityAtk, battler, battlerability, TYPE_FLYING, SelfTarget)
+    || DoesBattlerGetTypeBasedAffinity(abilityAtk, battler, battlerability, TYPE_WIND, SelfTarget))
     && !IsFlyingTypeBattlerUnableToFly(battler))
     )
     {
@@ -16391,6 +16392,7 @@ void BS_affinitybasedjump(void)  //may need to adjust currinstr values
     const u8* jumpPtr = cmd->jumpInstr;
     enum Ability abilityAtk = GetBattlerAbility(gBattlerAttacker);
     enum Ability battlerAbility = GetBattlerAbility(battler);
+    bool32 SelfTarget = gBattlerAttacker == battler;
 
     // jumpiftype
     if (cmd->state)  //TRUE
@@ -16398,7 +16400,7 @@ void BS_affinitybasedjump(void)  //may need to adjust currinstr values
         //need check consider replacing w DoesBattlerGetTypeBasedAffinity
         //but only want that to apply to specific type based system effects not type chart related things
         //so think will reinstate jumpiftype2 script to use specifically for that as an alternative
-        if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, abilityAtk, battler, battlerAbility, type))
+        if (DoesBattlerGetTypeBasedAffinity(abilityAtk, battler, battlerAbility, type, SelfTarget))
             gBattlescriptCurrInstr = jumpPtr;
         else
             gBattlescriptCurrInstr = cmd->nextInstr;
@@ -16406,7 +16408,7 @@ void BS_affinitybasedjump(void)  //may need to adjust currinstr values
     // jumpifnottype
     else       //FALSE
     {
-        if (DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, abilityAtk, battler, battlerAbility, type))
+        if (DoesBattlerGetTypeBasedAffinity(abilityAtk, battler, battlerAbility, type, SelfTarget))
             gBattlescriptCurrInstr = cmd->nextInstr;
         else
             gBattlescriptCurrInstr = jumpPtr;

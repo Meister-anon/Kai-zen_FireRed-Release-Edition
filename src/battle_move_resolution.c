@@ -371,7 +371,7 @@ static enum CancelerResult CancelerConfused(struct BattleContext *ctx)
         gBattleMons[ctx->battlerAtk].volatiles.confusionTurns--;
         if (gBattleMons[ctx->battlerAtk].volatiles.confusionTurns)
         {
-            if ((DoesBattlerGetTypeBasedAffinity(ctx->battlerAtk, ctx->abilityAtk, ctx->battlerAtk, ctx->abilityAtk, TYPE_BUG))
+            if ((DoesBattlerGetTypeBasedAffinity(ctx->abilityAtk, ctx->battlerAtk, ctx->abilityAtk, TYPE_BUG, TRUE))
             || ctx->abilityAtk == ABILITY_TANGLED_FEET)
             {
                 gBattleCommunication[MULTISTRING_CHOOSER] = FALSE;

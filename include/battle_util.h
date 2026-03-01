@@ -350,7 +350,7 @@ u8 AtkCanceller_UnableToUseMove2(void);
 bool8 IsFloatingSpecies(u16 species);
 bool8 IsFlyingTypeBattlerUnableToFly(enum BattlerId battler); //battle specific variant
 bool8 CanFlyingTypeRecoverFromSmackDown(enum BattlerId battler); //for use w ascension timer prob rename later vsonic
-bool32 IsBattlerGrounded(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect);
+bool32 IsBattlerGrounded(enum BattlerId battler, enum Ability ability, enum Ability atkAbility, enum HoldEffect holdEffect);
 bool8 IsFloatingTargetImmunetoGroundBasedMoves(enum BattlerId battler_def, enum Ability abilityAtk, enum Ability abilityDef, u16 move);
 
 //EE stuff
@@ -568,7 +568,7 @@ bool8 ShouldCacophonyElevateMoveEffect(u16 move);
 void CacophonyElevateMoveEffect(void);
 
 //reworked function to include moldbreaker negate for cleaner use
-bool8 DoesBattlerGetTypeBasedAffinity(enum BattlerId battlerAtk, enum Ability atkAbility, enum BattlerId battlerToCheck, enum Ability battlerAbility, u8 typeFactor); //for new category of abiility, replace sipmle checks for isbattler type
+bool8 DoesBattlerGetTypeBasedAffinity(enum Ability atkAbility, enum BattlerId battlerToCheck, enum Ability battlerAbility, u8 typeFactor, bool32 SelfAffecting); //for new category of abiility, replace sipmle checks for isbattler type
 //was still tweaking unsure if keep
 u8 ShouldActivateBindingBand(void); //function made for attempt setup pre healthbar drop activation
 

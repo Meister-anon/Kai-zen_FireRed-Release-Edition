@@ -5734,7 +5734,7 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum 
         speed /= 2;
     //note with affinity change need to pay close attention to interaction could be broken on wrong mon
     //...float stone onix is probably the fastest mon in the game?
-    else if (DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_ROCK) && holdEffect == HOLD_EFFECT_FLOAT_STONE)
+    else if (DoesBattlerGetTypeBasedAffinity(ability, battler, ability, TYPE_ROCK, TRUE) && holdEffect == HOLD_EFFECT_FLOAT_STONE)
         speed = (speed * 150) / 100;
     else if (holdEffect == HOLD_EFFECT_CHOICE_SCARF)
         speed = (speed * 150) / 100;
@@ -5746,7 +5746,7 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum 
         speed *= 2;
     if (gBattleMons[battler].volatiles.unburdenActive)
         speed *= 2;
-    if (DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_GRASS) && (gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_WATERSPORT)) //give to more grass types
+    if (DoesBattlerGetTypeBasedAffinity(ability, battler, ability, TYPE_GRASS, TRUE) && (gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_WATERSPORT)) //give to more grass types
         speed = (speed * 150) / 100; //should prob make grass specific text string, i.e x became revitalized  //vsonic important
         //put in moveendI guess moveend sport, just to display string vsonic
 
@@ -5761,9 +5761,9 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum 
         //flyig tuype can still just get up and fly away
         //and strengthens type a bit, but need function for flyingmonthatcantfly or something
         //make simpler permanently grounded species could combine nah can't fit in category well
-        if ((DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
-        || (DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_FLYING) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler, ability, holdEffect))
-        || (DoesBattlerGetTypeBasedAffinity(battler, ability, battler, ability, TYPE_WIND) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler, ability, holdEffect)))
+        if ((DoesBattlerGetTypeBasedAffinity(ability, battler, ability, TYPE_GHOST, TRUE) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
+        || (DoesBattlerGetTypeBasedAffinity(ability, battler, ability, TYPE_FLYING, TRUE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler, ability, holdEffect))
+        || (DoesBattlerGetTypeBasedAffinity(ability, battler, ability, TYPE_WIND, TRUE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler, ability, holdEffect)))
         {
             if (gBattleMons[battler].volatiles.trapSetViaMoldBreaker)
                 speed /= 2;
