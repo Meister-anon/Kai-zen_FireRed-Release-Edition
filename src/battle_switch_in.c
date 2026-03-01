@@ -312,7 +312,7 @@ static bool32 TryHazardsOnSwitchIn(enum BattlerId battler, enum Ability ability,
     case HAZARDS_SPIKES:
         if (!IsAbilityAndRecord(battler, ability, ABILITY_MAGIC_GUARD)
          && IsBattlerAffectedByHazards(battler, holdEffect, FALSE)
-         && IsBattlerGrounded(battler, ability, holdEffect))
+         && IsBattlerGrounded_IgnoreException(battler, ability, holdEffect))
         {
             s32 spikesDmg = GetNonDynamaxMaxHP(battler) / ((5 - gSideTimers[side].spikesAmount) * 2);
             SetPassiveDamageAmount(battler, spikesDmg);
@@ -321,7 +321,7 @@ static bool32 TryHazardsOnSwitchIn(enum BattlerId battler, enum Ability ability,
         }
         break;
     case HAZARDS_STICKY_WEB:
-        if (IsBattlerAffectedByHazards(battler, holdEffect, FALSE) && IsBattlerGrounded(battler, ability, holdEffect))
+        if (IsBattlerAffectedByHazards(battler, holdEffect, FALSE) && IsBattlerGrounded_IgnoreException(battler, ability, holdEffect))
         {
             gBattleScripting.battler = battler;
             SET_STATCHANGER(STAT_SPEED, 1, TRUE);
@@ -330,7 +330,7 @@ static bool32 TryHazardsOnSwitchIn(enum BattlerId battler, enum Ability ability,
         }
         break;
     case HAZARDS_TOXIC_SPIKES:
-        if (!IsBattlerGrounded(battler, ability, holdEffect))
+        if (!IsBattlerGrounded_IgnoreException(battler, ability, holdEffect))
         {
             effect = FALSE;
         }

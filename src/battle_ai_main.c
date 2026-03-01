@@ -337,6 +337,8 @@ bool32 BattlerChooseNonMoveAction(void)
     return FALSE;
 }
 
+//info from pawkie this function is for prediction
+//whihch is why it runs from the opposing perspective
 void SetupAIPredictionData(enum BattlerId battler, enum SwitchType switchType)
 {
     s32 opposingBattler = GetOppositeBattler(battler);
@@ -4941,7 +4943,7 @@ static s32 AI_CalcMoveEffectScore(enum BattlerId battlerAtk, enum BattlerId batt
         else
             ADJUST_SCORE(DECENT_EFFECT);
         break;
-    case EFFECT_SAFEGUARD:
+    case EFFECT_SAFEGUARD://understand is checking if already under affect of misty terrain and being grouded would exclude so is self target
         if (!IsMistyTerrainAffected(battlerAtk, aiData->abilities[battlerAtk], aiData->holdEffects[battlerAtk], gFieldStatuses) || !AI_IsBattlerGrounded(battlerAtk))
             ADJUST_SCORE(DECENT_EFFECT); // TODO: check if opp has status move?
         //if (CountUsablePartyMons(battlerDef) != 0)

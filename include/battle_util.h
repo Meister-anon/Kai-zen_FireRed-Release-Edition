@@ -351,6 +351,9 @@ bool8 IsFloatingSpecies(u16 species);
 bool8 IsFlyingTypeBattlerUnableToFly(enum BattlerId battler); //battle specific variant
 bool8 CanFlyingTypeRecoverFromSmackDown(enum BattlerId battler); //for use w ascension timer prob rename later vsonic
 bool32 IsBattlerGrounded(enum BattlerId battler, enum Ability ability, enum Ability atkAbility, enum HoldEffect holdEffect);
+//Copy ai ver specific for ones that don't need check battle effects exception
+//mostly for terrain funcs
+bool32 IsBattlerGrounded_IgnoreException(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect); 
 bool8 IsFloatingTargetImmunetoGroundBasedMoves(enum BattlerId battler_def, enum Ability abilityAtk, enum Ability abilityDef, u16 move);
 
 //EE stuff

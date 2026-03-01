@@ -5630,6 +5630,7 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum 
 {
     u32 speed = gBattleMons[battler].speed; //activebattler /attacker
     enum Ability partnerability = GetBattlerAbility(BATTLE_PARTNER(battler));
+    enum Ability atkability = GetBattlerAbility(gBattlerAttacker);
     u32 highestStat = GetHighestStatId(battler);  //3was for protosynthesis will use for ultranerozma move instead i think
 
     // weather abilities
@@ -5762,8 +5763,8 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum 
         //and strengthens type a bit, but need function for flyingmonthatcantfly or something
         //make simpler permanently grounded species could combine nah can't fit in category well
         if ((DoesBattlerGetTypeBasedAffinity(ability, battler, ability, TYPE_GHOST, TRUE) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
-        || (DoesBattlerGetTypeBasedAffinity(ability, battler, ability, TYPE_FLYING, TRUE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler, ability, holdEffect))
-        || (DoesBattlerGetTypeBasedAffinity(ability, battler, ability, TYPE_WIND, TRUE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler, ability, holdEffect)))
+        || (DoesBattlerGetTypeBasedAffinity(ability, battler, ability, TYPE_FLYING, TRUE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler, ability, atkability, holdEffect))
+        || (DoesBattlerGetTypeBasedAffinity(ability, battler, ability, TYPE_WIND, TRUE) && !IsFlyingTypeBattlerUnableToFly(battler) && !IsBattlerGrounded(battler, ability, atkability, holdEffect)))
         {
             if (gBattleMons[battler].volatiles.trapSetViaMoldBreaker)
                 speed /= 2;

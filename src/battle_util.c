@@ -5760,7 +5760,7 @@ u32 IsAbilityPreventingEscape(enum BattlerId battler)
     if (B_GHOSTS_ESCAPE >= GEN_6 && IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
         return 0;
 
-    bool32 isBattlerGrounded = IsBattlerGrounded(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler));
+    bool32 isBattlerGrounded = IsBattlerGrounded_IgnoreException(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler));
     for (enum BattlerId battlerDef = 0; battlerDef < gBattlersCount; battlerDef++)
     {
         if (battler == battlerDef || IsBattlerAlly(battler, battlerDef))
@@ -5857,7 +5857,7 @@ bool32 IsBattlerTerrainAffected(enum BattlerId battler, enum Ability ability, en
     && terrainFlag == STATUS_FIELD_GRASSY_TERRAIN)
         return TRUE;
 
-    return IsBattlerGrounded(battler, ability, holdEffect);
+    return IsBattlerGrounded_IgnoreException(battler, ability, holdEffect);
 }
 
 u32 GetHighestStatId(enum BattlerId battler)
@@ -6987,6 +6987,11 @@ static bool32 IsBattlerGroundedInverseCheck(enum BattlerId battler, enum Ability
 bool32 IsBattlerGrounded(enum BattlerId battler, enum Ability ability, enum Ability atkAbility, enum HoldEffect holdEffect)
 {
     return IsBattlerGroundedInverseCheck(battler, ability, atkAbility, holdEffect, NOT_INVERSE_BATTLE, FALSE);
+}
+
+bool32 IsBattlerGrounded_IgnoreException(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect)
+{
+    return IsBattlerGroundedInverseCheck(battler, ability, ABILITY_NONE, holdEffect, NOT_INVERSE_BATTLE, FALSE);
 }
 
 u32 GetMoveSlot(u16 *moves, enum Move move)
@@ -9699,11 +9704,15 @@ static inline void MulByTypeEffectiveness(struct BattleContext *ctx, uq4_12_t *m
     if (/*ctx->moveType == TYPE_PSYCHIC &&*/ defType == TYPE_DARK && gBattleMons[ctx->battlerDef].volatiles.miracleEye && mod == NO_EFFECT)
         mod = UQ_4_12(1.0);
 
-    if (ctx->moveType == TYPE_FIGHTING && IsAirborneType(defType) && IsBattlerGrounded(ctx->battlerDef) && mod == NOT_VERY_EFFECTIVE)
+    if (ctx->moveType == TYPE_FIGHTING && IsAirborneType(defType) 
+    && IsBattlerGrounded(ctx->battlerDef, ctx->abilityDef, ctx->abilityAtk, ctx->holdEffectDef)
+    && mod == NOT_VERY_EFFECTIVE)
         mod = UQ_4_12(1.0);
 
-    //make exclusive for flying type as for wind would remove its only weakness
-    if (ctx->moveType == TYPE_ELECTRIC && defType == TYPE_FLYING && IsBattlerGrounded(ctx->battlerDef) && mod == NOT_VERY_EFFECTIVE)
+    //make exclusive for flying type only as for wind would remove its only weakness
+    if (ctx->moveType == TYPE_ELECTRIC && defType == TYPE_FLYING 
+    && IsBattlerGrounded(ctx->battlerDef, ctx->abilityDef, ctx->abilityAtk, ctx->holdEffectDef)
+    && mod == NOT_VERY_EFFECTIVE)
         mod = UQ_4_12(1.0);
 
     //believe is things like freeze dry
@@ -12080,8 +12089,8 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
 
 
     #define FLYING_TYPE_BONUS
-        if (IsBattlerGrounded(battlerAtk)
-        && !IsBattlerGrounded(battlerDef) //make function for below
+        if (IsBattlerGrounded_IgnoreException(battlerAtk, atkAbility, atkHoldEffect)
+        && !IsBattlerGrounded_IgnoreException(battlerDef, defAbility, defHoldEffect) //make function for below
         && (DoesBattlerGetTypeBasedAffinity(atkAbility, battlerDef, defAbility, TYPE_FLYING, FALSE)
         || DoesBattlerGetTypeBasedAffinity(atkAbility, battlerDef, defAbility, TYPE_WIND, FALSE))
         && atkAbility != ABILITY_KEEN_EYE
@@ -12372,7 +12381,7 @@ bool8 IsFloatingTargetImmunetoGroundBasedMoves(enum BattlerId battler_def, enum 
     //but is a major balance inflection point
     //making too many mon with these abilities
     //would break flying types
-    if (MoveCantDamageFloatingTargets(move) && !IsBattlerGrounded(battler_def))
+    if (MoveCantDamageFloatingTargets(move) && !IsBattlerGrounded_IgnoreException(battler_def, abilityDef, GetBattlerHoldEffect(battler_def)))
     {
 
         if ((abilityAtk == ABILITY_MOLD_BREAKER)

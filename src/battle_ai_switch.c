@@ -734,7 +734,7 @@ static bool32 ShouldSwitchIfBadlyStatused(enum BattlerId battler)
             // Will still fall asleep, but take out opposing Pokemon first
             if (AiExpectsToFaintPlayer(battler))
                 switchMon = FALSE;
-
+            //checking self based action so don't need atk ability in grounded check
             // Checks to see if active Pokemon can do something against sleep
             if ((monAbility == ABILITY_NATURAL_CURE
                 || monAbility == ABILITY_SHED_SKIN
@@ -742,7 +742,7 @@ static bool32 ShouldSwitchIfBadlyStatused(enum BattlerId battler)
                 || holdEffect == (HOLD_EFFECT_CURE_SLP | HOLD_EFFECT_CURE_STATUS)
                 || HasMoveWithEffect(battler, EFFECT_SLEEP_TALK)
                 || (HasMoveWithEffect(battler, EFFECT_SNORE) && gAiLogicData->effectiveness[battler][opposingBattler][GetBattlerMoveIndexWithEffect(battler, EFFECT_SNORE)] >= UQ_4_12(1.0))
-                || (IsBattlerGrounded(battler, monAbility, gAiLogicData->holdEffects[battler])
+                || (IsBattlerGrounded(battler, monAbility, ABILITY_NONE, gAiLogicData->holdEffects[battler])
                     && (HasMove(battler, MOVE_MISTY_TERRAIN) || HasMove(battler, MOVE_ELECTRIC_TERRAIN)))
                 )
                 switchMon = FALSE;
@@ -1972,7 +1972,8 @@ static bool32 AI_CanSwitchinAbilityTrapOpponent(enum Ability ability, u32 opposi
         else
             return TRUE;
     }
-    else if (ability == ABILITY_ARENA_TRAP && IsBattlerGrounded(opposingBattler, gAiLogicData->abilities[opposingBattler], gAiLogicData->holdEffects[opposingBattler]))
+    //assumes attacker ability arena trap
+    else if (ability == ABILITY_ARENA_TRAP && IsBattlerGrounded(opposingBattler, gAiLogicData->abilities[opposingBattler], ability, gAiLogicData->holdEffects[opposingBattler]))
         return TRUE;
     else if (ability == ABILITY_MAGNET_PULL && IS_BATTLER_OF_TYPE(opposingBattler, TYPE_STEEL))
         return TRUE;

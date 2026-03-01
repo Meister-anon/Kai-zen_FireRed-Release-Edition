@@ -411,7 +411,7 @@ static bool32 HandleEndTurnFirstEventBlock(enum BattlerId battler)
          && !IsBattlerAtMaxHp(battler)
          && !gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_HEAL_BLOCK
          && !IsSemiInvulnerable(battler, CHECK_ALL)
-         && IsBattlerGrounded(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler)))
+         && IsBattlerGrounded_IgnoreException(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler)))
         {
             SetHealAmount(battler, GetNonDynamaxMaxHP(battler) / 16);
             BattleScriptExecute(BattleScript_GrassyTerrainHeals);

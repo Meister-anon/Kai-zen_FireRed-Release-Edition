@@ -64,9 +64,33 @@ static bool32 AI_IsDoubleSpreadMove(enum BattlerId battlerAtk, u32 move)
     return FALSE;
 }
 
-bool32 AI_IsBattlerGrounded(enum BattlerId battler, enum BattlerId battlerAtk)
+//so I made this function thinking the battle change would be relevant
+//(despite it not being built for that initially)
+//but not a single grounding effect is setup relevant to my change
+//would have figured mold breaker would be relevant somewhere
+//given levitate but didn't see anything
+//that dealt with that kind of grounding
+//checked EE grounding and that has levitate
+//but not the moldbreaker exception at all huh
+//
+bool32 AI_IsBattlerGrounded_checkExceptions(enum BattlerId battler, enum BattlerId battlerAtk)
 {
     return IsBattlerGrounded(battler, gAiLogicData->abilities[battler], gAiLogicData->abilities[battlerAtk], gAiLogicData->holdEffects[battler]);
+}
+
+//made to fit original function argument
+//mostly for functions that work on switch,
+//so doesn't make sense to take attacker argument
+//or other affects that need check grounding irrespective 
+//of an attack so moldbreaker exception never comes into play
+//plan rename self target not completely 
+//ignore exception or somehting or ignore moldbreaker idk something
+//ignore affinity
+//renamed back to original func, make other new func 
+//in case find a use for
+bool32 AI_IsBattlerGrounded(enum BattlerId battler)
+{
+    return IsBattlerGrounded(battler, gAiLogicData->abilities[battler], ABILITY_NONE, gAiLogicData->holdEffects[battler]);
 }
 
 static u32 AI_CanBattlerHitBothFoesInTerrain(enum BattlerId battler, u32 move, enum BattleMoveEffects effect)
@@ -501,7 +525,7 @@ bool32 IsBattlerTrapped(enum BattlerId battlerAtk, enum BattlerId battlerDef)
         && (B_SHADOW_TAG_ESCAPE >= GEN_4 && gAiLogicData->abilities[battlerDef] != ABILITY_SHADOW_TAG))
         return TRUE;
     if (AI_IsAbilityOnSide(battlerAtk, ABILITY_ARENA_TRAP)
-        && AI_IsBattlerGrounded(battlerDef, battlerAtk))
+        && AI_IsBattlerGrounded(battlerDef))
         return TRUE;
     if (AI_IsAbilityOnSide(battlerAtk, ABILITY_MAGNET_PULL)
         && IS_BATTLER_OF_TYPE(battlerDef, TYPE_STEEL))
