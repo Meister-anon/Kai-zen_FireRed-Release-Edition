@@ -1022,7 +1022,7 @@ struct BattleStruct
     u8 unused:2;
     void (*savedCallback)(void);
     u16 chosenItem[MAX_BATTLERS_COUNT];
-    u16 choicedMove[MAX_BATTLERS_COUNT];
+    enum Move choicedMove[MAX_BATTLERS_COUNT];
     u16 changedItems[MAX_BATTLERS_COUNT];
     u8 switchInBattlerCounter; //replaces switchInItemsCounter and switch in abilitiescounter
     u16 lastTakenMoveFrom[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT]; // a 2-D array [target][attacker]
@@ -1734,7 +1734,7 @@ static inline bool32 IsSpreadMove(u32 moveTarget)
     return IsDoubleBattle() && (moveTarget == TARGET_BOTH || moveTarget == TARGET_FOES_AND_ALLY);
 }
 
-static inline u32 GetChosenMoveFromPosition(enum BattlerId battler)
+static inline u32 GetBattlerChosenMove(enum BattlerId battler)
 {
     return gBattleMons[battler].moves[gBattleStruct->chosenMovePositions[battler]];
 }

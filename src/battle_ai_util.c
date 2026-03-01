@@ -4178,7 +4178,7 @@ u32 GetAllyChosenMove(enum BattlerId battlerId)
     else if (partnerBattler > battlerId) // Battler with the lower id chooses the move first.
         return gAiLogicData->lastUsedMove[partnerBattler];
     else
-        return GetChosenMoveFromPosition(partnerBattler);
+        return GetBattlerChosenMove(partnerBattler);
 }
 
 bool32 AreMovesEquivalent(enum BattlerId battlerAtk, enum BattlerId battlerAtkPartner, u32 move, u32 partnerMove)

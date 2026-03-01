@@ -21,9 +21,12 @@ void BattleCreateYesNoCursorAt(void);
 void BattleDestroyYesNoCursorAt(void);
 bool32 CanBattlerSwitch(enum BattlerId battlerId);
 void HandleBattleWindow(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, u8 flags);
+bool32 HasBattlerActedThisTurn(enum BattlerId battler);
 u8 GetBattlerTurnOrderNum(enum BattlerId battlerId);
 void BufferMoveToLearnIntoBattleTextBuff2(void);
 void HazardClearNoMessage(enum BattlerId battler);
+bool32 NoAliveMonsForBattlerSide(enum BattlerId battler);
+bool32 NoAliveMonsForPlayer(void);
 bool32 NoAliveMonsForEitherParty(void);
 
 bool8 UproarWakeUpCheck(enum BattlerId battler);
