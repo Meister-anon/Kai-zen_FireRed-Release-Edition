@@ -314,7 +314,6 @@ enum GiveCaughtMonStates
 
 static void TryActivatePreHitAbilities(enum BattlerId battlerDef);
 static u32 ChangeStatBuffs(enum BattlerId battler, s8 statValue, enum Stat statId, union StatChangeFlags flags, u32 stats, const u8 *BS_ptr);
-static bool32 IsMonGettingExpSentOut(void);
 static void InitLevelUpBanner(void);
 static bool8 SlideInLevelUpBanner(void);
 static bool8 SlideOutLevelUpBanner(void);
@@ -986,7 +985,7 @@ static const u8 sBallCatchBonuses[] =
 bool32 ProteanTryChangeType(enum BattlerId battler, enum Ability ability, enum Move move, enum Type moveType)
 {
       if ((ability == ABILITY_PROTEAN || ability == ABILITY_LIBERO)
-         && !gBattleMons[gBattlerAttacker].volatiles.usedProteanLibero
+         //&& !gBattleMons[gBattlerAttacker].volatiles.usedProteanLibero
          && (gBattleMons[battler].type1 != moveType || gBattleMons[battler].type2 != moveType
              || (gBattleMons[battler].type3 != moveType && gBattleMons[battler].type3 != TYPE_MYSTERY))
          && move != MOVE_STRUGGLE
@@ -1057,8 +1056,8 @@ static bool32 ShouldSkipToMoveEnd(void)
 static void Cmd_attackcanceler(void)
 {
     CMD_ARGS();
-    assertf(gBattlerAttacker < gBattlersCount, "invalid gBattlerAttacker: %d\nmove: %S", gBattlerAttacker, GetMoveName(gCurrentMove));
-    assertf(gBattlerTarget < gBattlersCount, "invalid gBattlerTarget: %d\nmove: %S", gBattlerTarget, GetMoveName(gCurrentMove));
+    assertf(gBattlerAttacker < gBattlersCount, "invalid gBattlerAttacker: %d\nmove: %S", gBattlerAttacker, GetMoveName_(gCurrentMove));
+    assertf(gBattlerTarget < gBattlersCount, "invalid gBattlerTarget: %d\nmove: %S", gBattlerTarget, GetMoveName_(gCurrentMove));
 
     if (gBattleStruct->battlerState[gBattlerAttacker].usedEjectItem)
     {
@@ -1120,10 +1119,15 @@ static void Cmd_attackcanceler(void)
         }
     }
 
+    u16 moveEffect = GetMoveEffect(gCurrentMove);
+
     //need verify if still works with other changes -vsonic
     //also for some reason missed changse from top of file
     //need keep
-    if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove)
+    //isBattlerProtected no longer worked need rework this 
+    //VSONIC IMPORTANT
+    if (//IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove)
+        gProtectStructs[gBattlerTarget].protected
      && (moveEffect != EFFECT_CURSE || IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST))
      && (!gBattleMoveEffects[moveEffect].twoTurnEffect || (gBattleMons[gBattlerAttacker].volatiles.multipleTurns)))
     {
@@ -1238,7 +1242,7 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
     if (!gSpecialStatuses[gBattlerAttacker].multiHitOn)
     {    
         gBattleStruct->battlerState[gBattlerAttacker].numMisses = 0;
-        gBattleStruct->battlerState[gBattlerAttacker].successfulHits = 0;
+        gBattleStruct->battlerState[gBattlerAttacker].successfulHit = 0;
     }
 
     
@@ -5799,8 +5803,8 @@ static inline bool32 IsProtectivePadsProtected(enum BattlerId battler, enum Hold
 static void Cmd_moveend(void)
 {
     CMD_ARGS(u8 endMode, u8 endState);
-    assertf(gBattlerAttacker < gBattlersCount, "invalid gBattlerAttacker: %d\nmove: %S", gBattlerAttacker, GetMoveName(gCurrentMove));
-    assertf(gBattlerTarget < gBattlersCount, "invalid gBattlerTarget: %d\nmove: %S", gBattlerTarget, GetMoveName(gCurrentMove));
+    assertf(gBattlerAttacker < gBattlersCount, "invalid gBattlerAttacker: %d\nmove: %S", gBattlerAttacker, GetMoveName_(gCurrentMove));
+    assertf(gBattlerTarget < gBattlersCount, "invalid gBattlerTarget: %d\nmove: %S", gBattlerTarget, GetMoveName_(gCurrentMove));
 
     enum MoveEndResult result = DoMoveEnd(cmd->endMode, cmd->endState);
 
@@ -7504,7 +7508,7 @@ static void SpriteCB_MonIconOnLvlUpBanner(struct Sprite *sprite)
 #undef sXOffset
 
 //believe index 0 is 1st battle party slot i.e player side left
-static bool32 IsMonGettingExpSentOut(void)
+bool32 IsMonGettingExpSentOut(void)
 {
     if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId)
         return TRUE;
