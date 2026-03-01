@@ -414,7 +414,7 @@ static enum CancelerResult CancelerConfused(struct BattleContext *ctx)
 
 static enum CancelerResult CancelerGhost(struct BattleContext *ctx) // GHOST in pokemon tower
 {
-    if (IsGhostBattleWithoutScope())
+    if (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))
     {
         if (GetBattlerSide(ctx->battlerAtk) == B_SIDE_PLAYER)
             gBattlescriptCurrInstr = BattleScript_TooScaredToMove;
@@ -441,25 +441,44 @@ static enum CancelerResult CancelerParalyzed(struct BattleContext *ctx)
 
 static enum CancelerResult CancelerInfatuation(struct BattleContext *ctx)
 {
-    if (gBattleMons[ctx->battlerAtk].volatiles.infatuation)
+    if (gBattleMons[ctx->battlerAtk].volatiles.infatuatedwithMon)
     {
-        gBattleScripting.battler = gBattleMons[ctx->battlerAtk].volatiles.infatuation - 1;
-        if (!RandomPercentage(RNG_INFATUATION, 50))
+        if (IsMonOnOpposingSide(ctx->battlerAtk, gBattleMons[ctx->battlerAtk].volatiles.infatuatedwithMon))
         {
-            BattleScriptCall(BattleScript_MoveUsedIsInLove);
-            return CANCELER_RESULT_BREAK;
+            gBattleScripting.battler = GetBattlerFromPersonality(gBattleMons[ctx->battlerAtk].volatiles.infatuatedwithMon);
+            
+            if (ctx->battlerDef == gBattleScripting.battler)
+            {
+                if (!RandomPercentage(RNG_INFATUATION, 50)) //test if that worked, next step change so infatuation animation only plays if battler their infatuated with is on the field.
+                    //well maybe not, if it reminds you each turn, even if not there, its a good reminder the status is still in effect.
+                {
+                    BattleScriptCall(BattleScript_MoveUsedIsInLoveWith); //attack through infatuation
+                    return CANCELER_RESULT_BREAK;
+                }
+                else
+                {
+                    BattleScriptPush(BattleScript_MoveUsedIsInLoveCantAttack);
+                    CancelMultiTurnMoves(ctx->battlerAtk, SKY_DROP_ATTACKCANCELER_CHECK);
+                    gBattlescriptCurrInstr = BattleScript_MoveUsedIsInLoveWith;
+                    return CANCELER_RESULT_FAILURE;
+                }
+            }
+            else
+            {
+                BattleScriptCall(BattleScript_MoveUsedIsInLoveWith); //attack through infatuation
+                    return CANCELER_RESULT_BREAK;
+            }
         }
         else
         {
-            BattleScriptPush(BattleScript_MoveUsedIsInLoveCantAttack);
-            CancelMultiTurnMoves(ctx->battlerAtk, SKY_DROP_ATTACKCANCELER_CHECK);
-            gBattlescriptCurrInstr = BattleScript_MoveUsedIsInLove;
-            return CANCELER_RESULT_FAILURE;
+            BattleScriptCall(BattleScript_InLoveUsedMove);//attack through infat
+            return CANCELER_RESULT_BREAK;
         }
     }
     return CANCELER_RESULT_SUCCESS;
 }
 
+//vsonic need update w my new effects and add bide dmg stuff
 static enum CancelerResult CancelerBide(struct BattleContext *ctx)
 {
     if (gBattleMons[ctx->battlerAtk].volatiles.bideTurns)
@@ -491,7 +510,7 @@ static enum CancelerResult CancelerBide(struct BattleContext *ctx)
     return CANCELER_RESULT_SUCCESS;
 }
 
-static enum CancelerResult CancelerZMoves(struct BattleContext *ctx)
+/*static enum CancelerResult CancelerZMoves(struct BattleContext *ctx)
 {
     if (GetActiveGimmick(ctx->battlerAtk) == GIMMICK_Z_MOVE)
     {
@@ -508,7 +527,7 @@ static enum CancelerResult CancelerZMoves(struct BattleContext *ctx)
         return CANCELER_RESULT_BREAK;
     }
     return CANCELER_RESULT_SUCCESS;
-}
+}*/
 
 static enum CancelerResult CancelerChoiceLock(struct BattleContext *ctx)
 {
@@ -749,12 +768,12 @@ static enum CancelerResult CancelerWeatherPrimal(struct BattleContext *ctx)
     if (GetMovePower(ctx->move) > 0 && HasWeatherEffect())
     {
         enum Type moveType = GetBattleMoveType(ctx->move);
-        if (moveType == TYPE_FIRE && gBattleWeather & B_WEATHER_RAIN_PRIMAL && (GetConfig(POWDER_STATUS_HEAVY_RAIN) >= GEN_7 || !TryActivatePowderStatus(ctx->move)))
+        if (moveType == TYPE_FIRE && gBattleWeather & WEATHER_RAIN_PRIMAL && (GetConfig(POWDER_STATUS_HEAVY_RAIN) >= GEN_7 || !TryActivatePowderStatus(ctx->move)))
         {
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_PRIMAL_WEATHER_FIZZLED_BY_RAIN;
             result = CANCELER_RESULT_FAILURE;
         }
-        else if (moveType == TYPE_WATER && gBattleWeather & B_WEATHER_SUN_PRIMAL)
+        else if (moveType == TYPE_WATER && gBattleWeather & WEATHER_SUN_PRIMAL)
         {
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_PRIMAL_WEATHER_EVAPORATED_IN_SUN;
             result = CANCELER_RESULT_FAILURE;
@@ -786,7 +805,7 @@ static enum CancelerResult CancelerMoveFailure(struct BattleContext *ctx)
             battleScript = BattleScript_PokemonCantUseTheMove;
         break;
     case EFFECT_AURORA_VEIL:
-        if (!(gBattleWeather & B_WEATHER_ICY_ANY && HasWeatherEffect()))
+        if (!(gBattleWeather & WEATHER_ICY_ANY && HasWeatherEffect()))
             battleScript = BattleScript_ButItFailed;
         break;
     case EFFECT_CLANGOROUS_SOUL:
@@ -1025,8 +1044,8 @@ static enum CancelerResult CancelerProtean(struct BattleContext *ctx)
     enum Type moveType = GetBattleMoveType(ctx->move);
     if (ProteanTryChangeType(ctx->battlerAtk, ctx->abilityAtk, ctx->move, moveType))
     {
-        if (GetConfig(PROTEAN_LIBERO) >= GEN_9)
-            gBattleMons[ctx->battlerAtk].volatiles.usedProteanLibero = TRUE;
+        //if (GetConfig(PROTEAN_LIBERO) >= GEN_9)
+        //    gBattleMons[ctx->battlerAtk].volatiles.usedProteanLibero = TRUE;
         PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
         gBattlerAbility = ctx->battlerAtk;
         PrepareStringBattle(STRINGID_EMPTYSTRING3, ctx->battlerAtk);
@@ -1203,7 +1222,7 @@ static enum CancelerResult CancelerNoTarget(struct BattleContext *ctx)
     return CANCELER_RESULT_SUCCESS;
 }
 
-static enum CancelerResult CancelerTookAttack(struct BattleContext *ctx)
+/*static enum CancelerResult CancelerTookAttack(struct BattleContext *ctx)
 {
     if (gSpecialStatuses[gBattlerTarget].abilityRedirected)
     {
@@ -1212,7 +1231,7 @@ static enum CancelerResult CancelerTookAttack(struct BattleContext *ctx)
         return CANCELER_RESULT_BREAK;
     }
     return CANCELER_RESULT_SUCCESS;
-}
+}*/
 
 #define checkFailure FALSE
 #define skipFailure TRUE
@@ -1619,7 +1638,7 @@ static enum CancelerResult (*const sMoveSuccessOrderCancelers[])(struct BattleCo
     [CANCELER_GHOST] = CancelerGhost,
     [CANCELER_INFATUATION] = CancelerInfatuation,
     [CANCELER_BIDE] = CancelerBide,
-    [CANCELER_Z_MOVES] = CancelerZMoves,
+    //[CANCELER_Z_MOVES] = CancelerZMoves,
     [CANCELER_CHOICE_LOCK] = CancelerChoiceLock,
     [CANCELER_CALLSUBMOVE] = CancelerCallSubmove,
     [CANCELER_THAW] = CancelerThaw,
@@ -1638,7 +1657,7 @@ static enum CancelerResult (*const sMoveSuccessOrderCancelers[])(struct BattleCo
     [CANCELER_CHARGING] = CancelerCharging,
     [CANCELER_MOVE_SPECIFIC_MESSAGE] = CancelerMoveSpecificMessage,
     [CANCELER_NO_TARGET] = CancelerNoTarget,
-    [CANCELER_TOOK_ATTACK] = CancelerTookAttack,
+    //[CANCELER_TOOK_ATTACK] = CancelerTookAttack,
     [CANCELER_TARGET_FAILURE] = CancelerTargetFailure,
     [CANCELER_NOT_FULLY_PROTECTED] = CancelerNotFullyProtected,
     [CANCELER_MULTIHIT_MOVES] = CancelerMultihitMoves,
@@ -2621,7 +2640,7 @@ static enum MoveEndResult MoveEnd_MoveBlock(void)
             }
             else
             {
-                GetBattlerPartyState(gBattlerTarget)->knockedOffItem = TRUE;
+                GetBattlerPartyState(gBattlerTarget)->lostItemtoKnockOff = TRUE;
             }
 
             BattleScriptCall(BattleScript_KnockedOff);
@@ -3306,7 +3325,7 @@ static enum MoveEndResult MoveEnd_Pickpocket(void)
 
     if (IsBattlerAlive(gBattlerAttacker)
       && gBattleMons[gBattlerAttacker].item != ITEM_NONE // Attacker must be holding an item
-      && !GetBattlerPartyState(gBattlerAttacker)->knockedOffItem // But not knocked off
+      && !GetBattlerPartyState(gBattlerAttacker)->lostItemtoKnockOff // But not knocked off
       && IsMoveMakingContact(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker), gCurrentMove) // Pickpocket requires contact
       && !IsBattlerUnaffectedByMove(gBattlerTarget)) // Obviously attack needs to have worked
     {
@@ -3423,9 +3442,10 @@ static enum MoveEndResult MoveEnd_ClearBits(void)
     if (gSpecialStatuses[gBattlerAttacker].dancerOriginalTarget)
         gBattleStruct->moveTarget[gBattlerAttacker] = gSpecialStatuses[gBattlerAttacker].dancerOriginalTarget & 0x3;
 
+    //not planning to add this evo method is just annoying hate modern gen effects
     // If the Pokémon needs to keep track of move usage for its evolutions, do it
-    if (originallyUsedMove != MOVE_NONE)
-        TryUpdateEvolutionTracker(IF_USED_MOVE_X_TIMES, 1, originallyUsedMove);
+    //if (originallyUsedMove != MOVE_NONE)
+    //    TryUpdateEvolutionTracker(IF_USED_MOVE_X_TIMES, 1, originallyUsedMove);
 
     if (B_RAMPAGE_CANCELLING >= GEN_5
       && MoveHasAdditionalEffectSelf(gCurrentMove, MOVE_EFFECT_THRASH)           // If we're rampaging

@@ -1913,7 +1913,7 @@ static void Cmd_get_protect_count(void)
     else
         battlerId = gBattlerTarget;
 
-    AI_THINKING_STRUCT->funcResult = gBattleMons[battlerId].volatiles.protectUses;
+    AI_THINKING_STRUCT->funcResult = gBattleMons[battlerId].volatiles.consecutiveMoveUses;
 
     sAIScriptPtr += 2;
 }

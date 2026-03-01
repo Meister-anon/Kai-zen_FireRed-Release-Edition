@@ -13394,28 +13394,28 @@ u32 GetFormChangeTargetSpecies_Internal(struct FormChangeContext ctx)
                 }
             }
             break;
-        case FORM_CHANGE_BATTLE_GIGANTAMAX:
+        /*case FORM_CHANGE_BATTLE_GIGANTAMAX:
             if (ctx.gmaxFactor)
                 targetSpecies = formChanges[i].targetSpecies;
-            break;
+            break;*/
         case FORM_CHANGE_BATTLE_WEATHER:
             // Check if there is a required ability and if the battler's ability does not match it
             // or is suppressed. If so, revert to the no weather form.
             if (formChanges[i].param2
                 && ctx.ability != formChanges[i].param2
-                && formChanges[i].param1 == B_WEATHER_NONE)
+                && formChanges[i].param1 == WEATHER_NONE)
             {
                 targetSpecies = formChanges[i].targetSpecies;
             }
             // We need to revert the weather form if the field is under Air Lock, too.
-            else if (!HasWeatherEffect() && formChanges[i].param1 == B_WEATHER_NONE)
+            else if (!HasWeatherEffect() && formChanges[i].param1 == WEATHER_NONE)
             {
                 targetSpecies = formChanges[i].targetSpecies;
             }
             // Otherwise, just check for a match between the weather and the form change table.
             // Added a check for whether the weather is in effect to prevent end-of-turn soft locks with Cloud Nine / Air Lock
             else if (((gBattleWeather & formChanges[i].param1) && HasWeatherEffect())
-                || (gBattleWeather == B_WEATHER_NONE && formChanges[i].param1 == B_WEATHER_NONE))
+                || (gBattleWeather == WEATHER_NONE && formChanges[i].param1 == WEATHER_NONE))
             {
                 targetSpecies = formChanges[i].targetSpecies;
             }

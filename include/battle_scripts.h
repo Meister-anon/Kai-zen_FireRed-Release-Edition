@@ -252,6 +252,8 @@ extern const u8 BattleScript_DestinyBondSturdied[];
 extern const u8 BattleScript_PerishSongSturdied[];
 extern const u8 BattleScript_SAtkDown2[];
 extern const u8 BattleScript_FocusPunchSetUp[];
+extern const u8 BattleScript_MagnitudeMessage[];
+extern const u8 BattleScript_FickleBeamMessage[];
 extern const u8 BattleScript_BeforeSnoreMessage[]; 
 extern const u8 BattleScript_MoveUsedIsAsleep[];
 extern const u8 BattleScript_MoveUsedWokeUp[];
@@ -1313,7 +1315,13 @@ extern const u8 BattleScript_BattleTowerTrainerBattleWon[];
 
 // Battle move scripts - from EE - some small replacements from me 
 //consolidate when done
+//appears sine took section serveral that weren't in block are missing
 // Battle move scripts
+extern const u8 BattleScript_FlingFailConsumeItem[];
+extern const u8 BattleScript_FlingBlockedByShieldDust[];
+extern const u8 BattleScript_EffectFlingConsumeBerry[];
+extern const u8 BattleScript_FailedFromAtkCanceler[];
+
 extern const u8 BattleScript_EffectAbsorb[];
 extern const u8 BattleScript_EffectAbsorbLiquidOoze[];
 extern const u8 BattleScript_EffectExplosion[];

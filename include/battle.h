@@ -760,10 +760,10 @@ struct PartyState
     u32 changedSpecies:11; // For forms when multiple mons can change into the same pokemon.
     u32 sentOut:1; //^w form species change my not use that, but may take que from for setup
     u32 numPhysHits:2; //using for ice face to count hits taken till reset, realize need putin party to prevent abuse
-    u32 isKnockedOff:1;
+    u32 lostItemtoKnockOff:1; //renamed hated default name
     u32 padding:6;//need tweak singleuseability secondaryitemslot and heldItem use as swap order of side and battlerId
     //end byte
-    //u32 knockedOffItem; //was isKnockedOff
+    //u32 lostItemtoKnockOff; //was isKnockedOff
     
     u8 ToxicTurnCounter:5; //MAX_TOXIC_TURNS 16 //change make toxic dmg tracked not reset on switch
     u8 SleepTimer:3; //MAX_SLEEP_TURNS 5
@@ -1494,6 +1494,8 @@ extern u16 gBattle_WIN1H;
 extern u16 gBattle_WIN1V;
 extern struct BattleSpritesGfx *gMonSpritesGfx;
 extern u8 gBattleOutcome;
+extern u8 gBideTarget[MAX_BATTLERS_COUNT];
+extern s32 gBideDmg[MAX_BATTLERS_COUNT];
 extern u16 gLastUsedItem;
 extern u32 gBattleTypeFlags;
 extern struct MonSpritesGfx *gMonSpritesGfxPtr;

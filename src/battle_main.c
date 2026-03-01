@@ -193,6 +193,8 @@ EWRAM_DATA u16 gChosenMoveByBattler[MAX_BATTLERS_COUNT] = {0};//rn I'll use exis
 EWRAM_DATA u32 gHitMarker = 0;
 EWRAM_DATA u8 gTakenDmgByBattler[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gSavedPartyCount = 0; //was unused rn am just using to track num party mon before catch for pc access
+EWRAM_DATA s32 gBideDmg[MAX_BATTLERS_COUNT] = {0};
+EWRAM_DATA u8 gBideTarget[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u32 gSideStatuses[NUM_BATTLE_SIDES] = {0};
 EWRAM_DATA struct SideTimer gSideTimers[NUM_BATTLE_SIDES] = {0};
 EWRAM_DATA u16 gPauseCounterBattle = 0;
@@ -6394,7 +6396,7 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
                     BattleScriptExecute(BattleScript_ShellTrapSetUp);
                     return TRUE;*/
                 case EFFECT_PROTECT:
-                if (gProtectSuccessRates[gBattleMons[battlers[i]].volatiles.protectUses] < Random())
+                if (gProtectSuccessRates[gBattleMons[battlers[i]].volatiles.consecutiveMoveUses] < Random())
                     gBattleStruct->battlerState[battlers[i]].protectSuccessiveFail = TRUE;
                 if (IsLastMonToMove(battlers[i]))
                     gBattleStruct->battlerState[battlers[i]].protectTurnOrderFail = TRUE;
@@ -6851,7 +6853,7 @@ void TryResetProtectUseCounter(enum BattlerId battler)
     u32 lastMove = gLastResultingMoves[battler];
     if (lastMove == MOVE_UNAVAILABLE)
     {
-        gBattleMons[battler].volatiles.protectUses = 0;
+        gBattleMons[battler].volatiles.consecutiveMoveUses = 0;
         return;
     }
 
@@ -6859,7 +6861,7 @@ void TryResetProtectUseCounter(enum BattlerId battler)
     if (!gBattleMoveEffects[lastEffect].usesProtectCounter)
     {
         if (lastEffect != EFFECT_ALLY_SWITCH)
-            gBattleMons[battler].volatiles.protectUses = 0;
+            gBattleMons[battler].volatiles.consecutiveMoveUses = 0;
     }
 }
 

@@ -702,7 +702,7 @@ renamed semi invulnerable Interupt
     F(VOLATILE_IS_TRANSFORMED_MON_SHINY,    isTransformedMonShiny,         (u32, 1)) \
     F(VOLATILE_DISABLED_MOVE,               disabledMove,                  (u32, MOVES_COUNT_ALL)) \
     F(VOLATILE_ENCORED_MOVE,                encoredMove,                   (u32, MOVES_COUNT_ALL)) \
-    F(VOLATILE_PROTECT_USES,                protectUses,                   (u32, UINT8_MAX)) \
+    F(VOLATILE_PROTECT_USES,                consecutiveMoveUses,           (u32, UINT8_MAX)) \
     F(VOLATILE_BIND_MOVE_POS,               bindMovepos,                   (u32, MAX_BITS(MAX_MON_MOVES))) \
     F(VOLATILE_BINDED_MOVE,                 bindedMove,                    (u32, MOVES_COUNT_ALL)) \
     F(VOLATILE_INTHRALL,                    inthrallTimer,                 (u32, 3)) \
