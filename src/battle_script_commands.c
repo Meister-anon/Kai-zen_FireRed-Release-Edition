@@ -12,6 +12,7 @@
 #include "battle_environment.h"
 #include "battle_z_move.h"
 #include "battle_move_resolution.h"
+#include "bike.h"
 #include "item.h"
 #include "util.h"
 #include "pokemon.h"
