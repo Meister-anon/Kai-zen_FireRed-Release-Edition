@@ -1307,11 +1307,11 @@ struct BattleScripting  //remember expanding this costs ewram
     u8 animTargetsHit;
     u8 statChanger;
     bool8 statAnimPlayed;
-    u8 atk23_getexpState;
+    u8 getexpState;
     u8 battleStyle;
-    u8 atk6C_drawlvlupboxState;
+    u8 drawlvlupboxState;
     u8 learnMoveState;
-    u8 field_25_pursuitDoublesAttacker; //pursuit damage  //not sure what htis does don't see it used and double damage is handled in script not with this value?
+    u8 padspace_keep; //was field_25_pursuitDoublesAttacker, deprecated dont remove weird things happen when mess w battlescripting
     u8 reshowMainState;
     u8 reshowHelperState;
     u8 levelUpHP;    //used for hp change on level up & shedinja hp stuff in pokemon.c

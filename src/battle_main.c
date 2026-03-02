@@ -2687,7 +2687,7 @@ void BattleMainCB2(void) //make my setup test it stash it thentry hers for messa
     if (gBattleResults.caughtMonSpecies)    //WORKED!!
         speedScale = 1;
 
-    if (gBattleScripting.atk6C_drawlvlupboxState) //hope works attempt prevent skip view level up box by accident
+    if (gBattleScripting.drawlvlupboxState) //hope works attempt prevent skip view level up box by accident
         speedScale = 1; //works slows down when displaying box, and returns to speed after box is closed
     
 
