@@ -8328,7 +8328,7 @@ u16 GetAbilityBySpecies(u16 species, u8 abilityNum, struct Pokemon *mon)
 {
 
     u8 i;
-    u16 LearnedAbility = GetMonData(mon, MON_DATA_LEARNED_ABILITY_ID, NULL);
+    u16 LearnedAbility = GetMonData(mon, MON_DATA_LEARNED_ABILITY_ID);
 
     switch (abilityNum)
     {

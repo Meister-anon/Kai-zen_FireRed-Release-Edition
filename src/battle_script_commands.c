@@ -4005,14 +4005,14 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
         BattleScriptPush(battleScript);
         gBattlescriptCurrInstr = BattleScript_EffectMeanLookSide;
         break;
-    case MOVE_EFFECT_CRIT_PLUS_SIDE:
+    /*case MOVE_EFFECT_CRIT_PLUS_SIDE:
         if (gBattleMons[gBattlerAttacker].volatiles.bonusCritStages < 3)
             gBattleMons[gBattlerAttacker].volatiles.bonusCritStages++;
         if (gBattleMons[BATTLE_PARTNER(gBattlerAttacker)].volatiles.bonusCritStages < 3)
             gBattleMons[BATTLE_PARTNER(gBattlerAttacker)].volatiles.bonusCritStages++;
         BattleScriptPush(battleScript);
         gBattlescriptCurrInstr = BattleScript_EffectRaiseCritAlliesAnim;
-        break;
+        break;*/
     case MOVE_EFFECT_HEAL_TEAM:
         BattleScriptPush(battleScript);
         gBattlescriptCurrInstr = BattleScript_EffectHealOneSixthAllies;
@@ -4394,13 +4394,13 @@ static void Cmd_dofaintanimation(void)
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
-    if (GetActiveGimmick(battler) == GIMMICK_DYNAMAX)
+    /*if (GetActiveGimmick(battler) == GIMMICK_DYNAMAX)
     {
         UndoDynamax(battler);
         gBattleScripting.battler = battler;
         BattleScriptCall(BattleScript_DynamaxEnds_Ret);
         return;
-    }
+    }*/
 
     BtlController_EmitFaintAnimation(battler, B_COMM_TO_CONTROLLER);
     MarkBattlerForControllerExec(battler);
@@ -4621,7 +4621,7 @@ static bool32 BattleTypeAllowsExp(void)
     else if (gBattleTypeFlags &
               ( BATTLE_TYPE_LINK
               | BATTLE_TYPE_RECORDED_LINK
-              | BATTLE_TYPE_TRAINER_HILL
+              //| BATTLE_TYPE_TRAINER_HILL
               | BATTLE_TYPE_FRONTIER
               | BATTLE_TYPE_SAFARI
               | BATTLE_TYPE_BATTLE_TOWER
@@ -4776,7 +4776,7 @@ static void Cmd_getexp(void)
                 gBattleScripting.getexpState = 5;
                 gBattleStruct->battlerExpReward = 0;
                 if (B_MAX_LEVEL_EV_GAINS >= GEN_5)
-                    MonGainEVs(&gPlayerParty[*expMonId], gBattleMons[gBattlerFainted].species);
+                    MonGainEVs(&gPlayerParty[*expMonId]);
             }
             else
             {
@@ -4795,19 +4795,19 @@ static void Cmd_getexp(void)
                 if (IsValidForBattle(&gPlayerParty[*expMonId]))
                 {
                     if (wasSentOut)
-                        gBattleStruct->battlerExpReward = GetSoftLevelCapExpValue(gPlayerParty[*expMonId].level, gBattleStruct->expValue);
+                        gBattleStruct->battlerExpReward = 0;//(gPlayerParty[*expMonId].level, gBattleStruct->expValue);
                     else
                         gBattleStruct->battlerExpReward = 0;
 
                     if ((holdEffect == HOLD_EFFECT_EXP_SHARE || IsGen6ExpShareEnabled())
                         && (B_SPLIT_EXP < GEN_6 || gBattleStruct->battlerExpReward == 0)) // only give exp share bonus in later gens if the mon wasn't sent out
                     {
-                        gBattleStruct->battlerExpReward += GetSoftLevelCapExpValue(gPlayerParty[*expMonId].level, gBattleStruct->expShareExpValue);
+                        gBattleStruct->battlerExpReward += 0; //GetSoftLevelCapExpValue(gPlayerParty[*expMonId].level, gBattleStruct->expShareExpValue);
                     }
 
                     ApplyExperienceMultipliers(&gBattleStruct->battlerExpReward, *expMonId, gBattlerFainted);
 
-                    if (B_EXP_CAP_TYPE == EXP_CAP_HARD && gBattleStruct->battlerExpReward != 0)
+                    if (/*B_EXP_CAP_TYPE == EXP_CAP_HARD &&*/ gBattleStruct->battlerExpReward != 0)
                     {
                         enum GrowthRate growthRate = gSpeciesInfo[GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPECIES)].growthRate;
                         u32 currentExp = GetMonData(&gPlayerParty[*expMonId], MON_DATA_EXP);
@@ -4863,7 +4863,7 @@ static void Cmd_getexp(void)
                         gBattleStruct->teamGotExpMsgPrinted = TRUE;
                     }
 
-                    MonGainEVs(&gPlayerParty[*expMonId], gBattleMons[gBattlerFainted].species);
+                    MonGainEVs(&gPlayerParty[*expMonId]);
                 }
                 gBattleScripting.getexpState++;
             }
@@ -4904,7 +4904,7 @@ static void Cmd_getexp(void)
                 PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, expBattler, *expMonId);
                 PREPARE_BYTE_NUMBER_BUFFER(gBattleTextBuff2, 3, GetMonData(&gPlayerParty[*expMonId], MON_DATA_LEVEL));
 
-                gLeveledUpInBattle |= 1 << *expMonId;
+                //gLeveledUpInBattle |= 1 << *expMonId;
                 BattleScriptCall(BattleScript_LevelUp);
                 gBattleStruct->battlerExpReward = T1_READ_32(&gBattleResources->bufferB[expBattler][2]);
                 AdjustFriendship(&gPlayerParty[*expMonId], FRIENDSHIP_EVENT_GROW_LEVEL);
@@ -5624,8 +5624,8 @@ static void Cmd_end(void)
 {
     CMD_ARGS();
 
-    if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
-        BattleArena_AddSkillPoints(gBattlerAttacker);
+    /*if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
+        BattleArena_AddSkillPoints(gBattlerAttacker);*/
 
     gCurrentActionFuncId = B_ACTION_TRY_FINISH;
 }
@@ -5899,6 +5899,7 @@ static void Cmd_switchindataupdate(void)
 
     struct BattlePokemon oldData;
     enum BattlerId battler, i;
+    struct Pokemon *mon;
     u8 *monData;
 
     if (gBattleControllerExecFlags)
@@ -5907,6 +5908,7 @@ static void Cmd_switchindataupdate(void)
     battler = GetBattlerForBattleScript(cmd->battler);
     oldData = gBattleMons[battler];
     monData = (u8 *)(&gBattleMons[battler]);
+    mon = GetBattlerMon(battler);
 
     for (i = 0; i < sizeof(struct BattlePokemon); i++)
         monData[i] = gBattleResources->bufferB[battler][4 + i];
@@ -5923,7 +5925,7 @@ static void Cmd_switchindataupdate(void)
     gBattleMons[battler].type1 = GetSpeciesPrimaryType(gBattleMons[battler].species);
     gBattleMons[battler].type2 = GetSpeciesSecondaryType(gBattleMons[battler].species);
     gBattleMons[battler].type3 = TYPE_MYSTERY;
-    gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
+    gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum, mon);
     #if TESTING
     if (gTestRunnerEnabled)
     {
@@ -5985,8 +5987,8 @@ static void Cmd_switchinanim(void)
 
     gBattlescriptCurrInstr = cmd->nextInstr;
 
-    if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
-        BattleArena_InitPoints();
+    /*if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
+        BattleArena_InitPoints();*/
 }
 
 bool32 CanBattlerSwitch(enum BattlerId battler)
@@ -10134,7 +10136,7 @@ static void Cmd_healpartystatus(void)
                 ability = GetBattlerAbility(partner);
             else
             {
-                ability = GetAbilityBySpecies(species, abilityNum);
+                ability = GetAbilityBySpecies(species, abilityNum, &party[i]);
                 #if TESTING
                 if (gTestRunnerEnabled)
                 {
@@ -10870,8 +10872,8 @@ static void Cmd_tryswapitems(void)
     CMD_ARGS(const u8 *failInstr);
 
     // opponent can't swap items with player in regular battles
-    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL
-        || (!IsOnPlayerSide(gBattlerAttacker)
+    if (/*gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL
+        || */(!IsOnPlayerSide(gBattlerAttacker)
             && !(gBattleTypeFlags & (BATTLE_TYPE_LINK
                                   | BATTLE_TYPE_EREADER_TRAINER
                                   | BATTLE_TYPE_FRONTIER
@@ -14127,7 +14129,7 @@ static void UpdatePokeFlutePartyStatus(struct Pokemon* party, u8 position)
         if (species != SPECIES_NONE
             && species != SPECIES_EGG
             && status & AILMENT_FNT
-            && GetAbilityBySpecies(species, abilityNum) != ABILITY_SOUNDPROOF)
+            && GetAbilityBySpecies(species, abilityNum, &party[i]) != ABILITY_SOUNDPROOF)
             monToCheck |= (1 << i);
     }
     if (monToCheck)
