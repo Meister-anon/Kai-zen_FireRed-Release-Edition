@@ -494,7 +494,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             #endif
         .effect = EFFECT_ROAR,
         .power = 0,
-        .type = TYPE_NORMAL,
+        .type = TYPE_NORMAL,    //wanted make wind type but doesn't make sense as mon like craniados can get it
         .pp = 20,
         .target = TARGET_SELECTED,
         .priority = -6,
@@ -511,6 +511,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_Whirlwind,
     },
+    //wanted to give defog effect but that with removing from field
+    //would be a nerf to its current use
     //these effects seem worthless, but are exactly what you wish
     //you had when an enemy gets stat buffed on you.
     //but are kinda still near worthless since you have to wait for
@@ -1714,7 +1716,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Drill Peck"),
         .description = COMPOUND_MOVE_STRING("A corkscrewing\nattack with a\nsharp beak acting\nas a drill.\nHigh critical ratio.\nBreaks any barrier."),
-        .effect = EFFECT_BRICK_BREAK,
+        .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_FLYING,
         .accuracy = 100,
@@ -1724,6 +1726,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .enhancedCritrate = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BREAK_SCREEN,
+            .preAttackEffect = TRUE,
+        }),
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -6106,7 +6112,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_TWISTER] =
     {
         .name = COMPOUND_STRING("Twister"),
-        .description = COMPOUND_MOVE_STRING("A vicious twister\nattacks the foe.\nIt may make the\nfoe flinch."),
+        .description = COMPOUND_MOVE_STRING("A vicious twister\nattacks the foe.\nIt may make the\nfoe flinch.\nAlso clears effects\non the battlerfield."),
         .effect = EFFECT_HIT, //smack down effect done with flag check, twister sets flinch
         .power = 55,
         .type = TYPE_DRAGON,
@@ -6120,13 +6126,19 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
+        },
+        {
+            .moveEffect = MOVE_EFFECT_DEFOG,
         }),
         //.contestEffect = CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
-        //.contestComboMoves = {0},
+        //.contestComboMoves = {0},        
         .battleAnimScript = gBattleAnimMove_Twister,
-    },
+    },//ok need test but should hopefully work as expeted
+    //clear my field on way to enemy hit them clear their field
+    //wanted to give effect to flying types but flying mon can learn twister
+    //and dragons have gotten worse so this should be mostly fine
 
     [MOVE_RAIN_DANCE] =
     {
@@ -16393,13 +16405,13 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_BREAK_SCREEN,
-            .preAttackEffect = TRUE,
-        }),
         .makesContact = TRUE,
         .bitingMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BREAK_SCREEN,
+            .preAttackEffect = TRUE,
+        },
+        {
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 25,
         }),

@@ -1591,6 +1591,35 @@ extern const u8 BattleScript_EffectTidyUp[];
 extern const u8 BattleScript_EffectSpicyExtract[];
 extern const u8 BattleScript_EffectFickleBeam[];
 
+//not using max moves
+//but adding for new move effects can use for moves
+// max moves
+extern const u8 BattleScript_EffectRaiseStatAllies[];
+extern const u8 BattleScript_EffectLowerStatFoes[];
+extern const u8 BattleScript_EffectSetWeather[];
+extern const u8 BattleScript_EffectSetTerrain[];
+extern const u8 BattleScript_EffectSteelsurge[];
+extern const u8 BattleScript_DamageNonTypesStarts[];
+extern const u8 BattleScript_DamageNonTypesContinues[];
+extern const u8 BattleScript_MoveEffectDefog[];
+extern const u8 BattleScript_MoveEffectAuroraVeil[];
+extern const u8 BattleScript_EffectGravitySuccess[];
+extern const u8 BattleScript_MoveEffectYawnSide[];
+extern const u8 BattleScript_EffectTryReducePP[];
+extern const u8 BattleScript_EffectParalyzeSide[];
+extern const u8 BattleScript_EffectPoisonSide[];
+extern const u8 BattleScript_EffectPoisonParalyzeSide[];
+extern const u8 BattleScript_EffectEffectSporeSide[];
+extern const u8 BattleScript_EffectConfuseSide[];
+extern const u8 BattleScript_EffectInfatuateSide[];
+extern const u8 BattleScript_EffectTormentSide[];
+extern const u8 BattleScript_EffectMeanLookSide[];
+extern const u8 BattleScript_TormentEnds[];
+extern const u8 BattleScript_EffectRaiseCritAlliesAnim[];
+extern const u8 BattleScript_EffectHealOneSixthAllies[];
+extern const u8 BattleScript_EffectRecycleBerriesAllies[];
+extern const u8 BattleScript_RemoveGenericType[];
+
 
 
 extern const u8 *const gBattleScriptsForBattleEffects[]; //down here because these are pointers
