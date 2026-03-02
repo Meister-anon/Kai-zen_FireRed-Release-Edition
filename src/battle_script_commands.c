@@ -15473,14 +15473,14 @@ void BS_TryInstruct(void)
 void BS_ShowAbilityPopup(void)
 {
     NATIVE_ARGS();
-    CreateAbilityPopUp(gBattlerAbility, gBattleMons[gBattlerAbility].ability, (IsDoubleBattle()) != 0);
+    //CreateAbilityPopUp(gBattlerAbility, gBattleMons[gBattlerAbility].ability, (IsDoubleBattle()) != 0);
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 void BS_UpdateAbilityPopup(void)
 {
     NATIVE_ARGS();
-    UpdateAbilityPopup(gBattlerAbility);
+    //UpdateAbilityPopup(gBattlerAbility);
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
@@ -15732,8 +15732,8 @@ void BS_TryThirdType(void)
 void BS_DestroyAbilityPopup(void)
 {
     NATIVE_ARGS();
-    for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
-        DestroyAbilityPopUp(battler);
+    /*for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
+        DestroyAbilityPopUp(battler);*/
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
