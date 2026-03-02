@@ -7,6 +7,7 @@
 //realized issue were within table to not false match
 //string table values just need put as values
 //table would never reach not a problem
+#define STRINGID_TRAINERSLIDE 0xFFF8
 #define STRINGID_INTROMSG   0xFFF9
 #define STRINGID_INTROSENDOUT   0xFFFA
 #define STRINGID_RETURNMON  0xFFFB

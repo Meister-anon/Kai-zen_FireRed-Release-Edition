@@ -1402,6 +1402,9 @@ void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
             }
         }
         break;
+    case STRINGID_TRAINERSLIDE:
+        stringPtr = gBattleStruct->trainerSlideMsg;
+        break;
     default: // load a string from the table
         if (stringId >= STRINGID_COUNT)
         {
