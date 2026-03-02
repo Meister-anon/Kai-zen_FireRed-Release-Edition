@@ -1569,7 +1569,7 @@ extern u16 gDynamicBasePower;
 extern u32 gFieldStatuses;
 extern struct FieldTimer gFieldTimers; //both needed for things like gravity etc.  //can apparently hold more than one effect at once?
 extern u8 gCatchTargetId; //replaced fetch use to replace hard code battle position
-extern u16 gLastUsedBall;
+extern u16 gLastThrownBall;
 extern bool8 gSwapDamageCategory; // Photon Geyser, Shell Side Arm, Light That Burns the Sky
 extern u16 gLastLandedMoves[MAX_BATTLERS_COUNT];
 extern u8 gLastHitBy[MAX_BATTLERS_COUNT];

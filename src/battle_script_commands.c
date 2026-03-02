@@ -11703,16 +11703,20 @@ u8 GetCatchingBattler(void)
 static void FinalizeCapture(void)
 {
     u32 ballId = ItemIdToBallId(gLastThrownBall);
-    enum NationalDexOrder natDexNo = SpeciesToNationalPokedexNum(gBattleMons[gBattlerTarget].species);
+    /*enum NationalDexOrder*/ u16 natDexNo = SpeciesToNationalPokedexNum(gBattleMons[gBattlerTarget].species);
     if (GetConfig(CRITICAL_CAPTURE_IF_OWNED) >= GEN_9 && GetSetPokedexFlag(natDexNo, FLAG_GET_CAUGHT))
     {
         gBattleSpritesDataPtr->animationData->isCriticalCapture = TRUE;
         gBattleSpritesDataPtr->animationData->criticalCaptureSuccess = TRUE;
     }
+    gBattleMons[gBattlerTarget].volatiles.caughtMon = TRUE;
     BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
     MarkBattlerForControllerExec(gBattlerAttacker);
     TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE, GetBattlerAbility(gBattlerTarget));
-    gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
+    if (gBattleResults.playerMonWasDamaged)
+        gBattlescriptCurrInstr = BattleScript_ExpOnCatch;
+    else
+        gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
     struct Pokemon *caughtMon = GetBattlerMon(gBattlerTarget);
     SetMonData(caughtMon, MON_DATA_POKEBALL, &ballId);
 
@@ -12204,75 +12208,33 @@ static void Cmd_handleballthrow(void)
                         ++gBattleResults.catchAttempts[ItemIdToBallId(gLastUsedItem)];
                 }
             }
-            if (((odds > 254) || (gLastUsedItem == ITEM_MASTER_BALL))
-                && gBattleResults.playerMonWasDamaged == TRUE) // mon caught  //successful capture
+            //need add critical capture
+            //or is this crit capture? 
+            //but according to EE crit capture doesn't guarantee capture
+            //which honeslty kinda sucks
+            //vsonic look into not exact with EE setup as of now
+            if ((odds > 254) || (gLastUsedItem == ITEM_MASTER_BALL)) // mon caught  //successful capture
             {
-                //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
-                gBattleMons[gBattlerTarget].volatiles.caughtMon = TRUE;
-                BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
-                //think may need remove this when setup double catch
-                TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
-                MarkBattlerForControllerExec(gBattlerAttacker);
-                gBattlescriptCurrInstr = BattleScript_ExpOnCatch;
-                SetMonData(catchTarget, MON_DATA_POKEBALL, &gLastUsedItem);
-                if (CalculatePlayerPartyCount() == PARTY_SIZE)
-                    gBattleCommunication[MULTISTRING_CHOOSER] = 0; // party full
-                else
-                    gBattleCommunication[MULTISTRING_CHOOSER] = 1; //add to party
-            }
-            else if ((odds > 254) || (gLastUsedItem == ITEM_MASTER_BALL)) // mon caught  //successful capture
-            {
-                //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
-                gBattleMons[gBattlerTarget].volatiles.caughtMon = TRUE;
-                BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
-                TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
-                MarkBattlerForControllerExec(gBattlerAttacker);
-                gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
-                SetMonData(catchTarget, MON_DATA_POKEBALL, &gLastUsedItem);
-                if (CalculatePlayerPartyCount() == PARTY_SIZE)
-                    gBattleCommunication[MULTISTRING_CHOOSER] = 0; // party full
-                else
-                    gBattleCommunication[MULTISTRING_CHOOSER] = 1; //add to party
+                FinalizeCapture();
+                return;
             }
             else // mon may be caught, calculate shakes
             {
                 u8 shakes;
+                u8 maxShakes;
                 
         
                 odds = Sqrt(Sqrt(16711680 / odds));
                 odds = 1048560 / odds;
-                for (shakes = 0; shakes < 4 && Random() < odds; ++shakes);
+                for (shakes = 0; shakes < BALL_3_SHAKES_SUCCESS && Random() < odds; ++shakes);
                 //if (gLastUsedItem == ITEM_MASTER_BALL) // moved above for convenience
                 //    shakes = BALL_3_SHAKES_SUCCESS; // why calculate the shakes before that check?
                // BtlController_EmitBallThrowAnim(0, shakes);
                 //MarkBattlerForControllerExec(battler);
-                if (shakes == BALL_3_SHAKES_SUCCESS && gBattleResults.playerMonWasDamaged == TRUE) // mon caught, copy of the code above
+                if (shakes == BALL_3_SHAKES_SUCCESS) // mon caught, copy of the code above
                 {
-                    //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
-                    gBattleMons[gBattlerTarget].volatiles.caughtMon = TRUE;
-                    BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
-                    TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
-                    MarkBattlerForControllerExec(gBattlerAttacker);
-                    gBattlescriptCurrInstr = BattleScript_ExpOnCatch;
-                    SetMonData(catchTarget, MON_DATA_POKEBALL, &gLastUsedItem);
-                    if (CalculatePlayerPartyCount() == 6)
-                        gBattleCommunication[MULTISTRING_CHOOSER] = 0;
-                    else
-                        gBattleCommunication[MULTISTRING_CHOOSER] = 1;
-                }
-                else if (shakes == BALL_3_SHAKES_SUCCESS) // mon caught, copy of the code above
-                {
-                    //gCatchTargetId = GetBattlerAtPosition(gBattlerTarget);
-                    gBattleMons[gBattlerTarget].volatiles.caughtMon = TRUE;
-                    BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
-                    TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);  //form change fix for mon caught i.e disguise etc.
-                    MarkBattlerForControllerExec(gBattlerAttacker);
-                    gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
-                    SetMonData(catchTarget, MON_DATA_POKEBALL, &gLastUsedItem);
-                    if (CalculatePlayerPartyCount() == 6)
-                        gBattleCommunication[MULTISTRING_CHOOSER] = 0;
-                    else
-                        gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+                    FinalizeCapture();
+                    return;
                 }
                 else if (!(gBattleTypeFlags & BATTLE_TYPE_SAFARI))
                     //ok think my above functions messed up the else, so I had to explicitly define the fail conditions here
@@ -12284,7 +12246,7 @@ static void Cmd_handleballthrow(void)
                     //just realized u8 last used ball only works when
                     //all ball item ids are at start of list which I've undone
                     //will just make u16 I guess and remove glastthrown ball saves 1 byte
-                    gLastUsedBall = gLastUsedItem;
+                    gLastThrownBall = gLastUsedItem;
 
                     if (catchstate == 0 || catchstate == 1)  { // to add a 3rd option where it can shake and fail normally.
                         BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_TRAINER_BLOCK);
