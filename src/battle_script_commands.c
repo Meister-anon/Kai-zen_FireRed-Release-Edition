@@ -6565,10 +6565,17 @@ static void Cmd_handlelearnnewmove(void)
     u32 monId = gBattleStruct->expGetterMonId;
     u32 currLvl = GetMonData(&gPlayerParty[monId], MON_DATA_LEVEL);
 
+    //not a big deal but auto sets condition for next phase regardless of if more moves to learn
+    //within range of cur level and beforelvlUp level
     if (!gBattleResources->beforeLvlUp->learnMultipleMoves && gBattleResources->beforeLvlUp->level != (currLvl - 1))
         gBattleResources->beforeLvlUp->learnMultipleMoves = TRUE;
 
-    if (B_LEVEL_UP_NOTIFICATION >= GEN_9 && gBattleResources->beforeLvlUp->learnMultipleMoves)
+    //for leve up multiple levels dipslay a single level up message
+    //appears uses extra field before lvlup level to keep track of levels it should gain movse at
+    //rather than actual level
+    //vsonic may add this but like keeping base feature for feel of game
+    //can already be alleviated by speed up option.
+    /*if (B_LEVEL_UP_NOTIFICATION >= GEN_9 && gBattleResources->beforeLvlUp->learnMultipleMoves)
     {
         while (gBattleResources->beforeLvlUp->level <= currLvl)
         {
@@ -6583,7 +6590,7 @@ static void Cmd_handlelearnnewmove(void)
             gBattleResources->beforeLvlUp->level++;
         }
     }
-    else
+    else*/
     {
         learnMove = MonTryLearningNewMove(&gPlayerParty[monId], cmd->isFirstMove);
         while (learnMove == MON_ALREADY_KNOWS_MOVE)
@@ -6694,12 +6701,12 @@ static void Cmd_yesnoboxlearnmove(void)
             else
             {
                 enum Move move = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_MOVE1 + movePosition);
-                if (CannotForgetMove(move))
+                /*if (CannotForgetMove(move))
                 {
                     PrepareStringBattle(STRINGID_HMMOVESCANTBEFORGOTTEN, B_POSITION_PLAYER_LEFT);
                     gBattleScripting.learnMoveState = 6;
                 }
-                else
+                else*/
                 {
                     gBattlescriptCurrInstr = cmd->forgotMovePtr;
 
@@ -6832,11 +6839,11 @@ static u32 GetTrainerMoneyToGive(u16 trainerId)
     u32 moneyReward;
     u8 trainerMoney = 0;
 
-    if (trainerId == TRAINER_SECRET_BASE)
+    /*if (trainerId == TRAINER_SECRET_BASE)
     {
         moneyReward = 20 * gBattleResources->secretBase->party.levels[0] * gBattleStruct->moneyMultiplier;
     }
-    else
+    else*/
     {
         const struct TrainerMon *party = GetTrainerPartyFromId(trainerId);
         if (party == NULL)
@@ -7336,20 +7343,28 @@ static void Cmd_drawlvlupbox(void)
     }
 }
 
+//lil annoying but EE for some reason
+//moved the data collection and window spec logic
+//outside of this file into completely separate file
+//for just building windows smh
+//annoying to port fuck it keep my setup
+//keep in this file rest
+//sigh will prob need for move relearner shit
+//sigh do later -vsonic important
 static void DrawLevelUpWindow1(void)
 {
     u16 currStats[NUM_STATS];
 
-    GetMonLevelUpWindowStats(&gPlayerParty[gBattleStruct->expGetterMonId], currStats);
-    DrawLevelUpWindowPg1(B_WIN_LEVEL_UP_BOX, gBattleResources->beforeLvlUp->stats, currStats, TEXT_DYNAMIC_COLOR_5, TEXT_DYNAMIC_COLOR_4, TEXT_DYNAMIC_COLOR_6);
+    //GetMonLevelUpWindowStats(&gPlayerParty[gBattleStruct->expGetterMonId], currStats);
+    //DrawLevelUpWindowPg1(B_WIN_LEVEL_UP_BOX, gBattleResources->beforeLvlUp->stats, currStats, TEXT_DYNAMIC_COLOR_5, TEXT_DYNAMIC_COLOR_4, TEXT_DYNAMIC_COLOR_6);
 }
 
 static void DrawLevelUpWindow2(void)
 {
     u16 currStats[NUM_STATS];
 
-    GetMonLevelUpWindowStats(&gPlayerParty[gBattleStruct->expGetterMonId], currStats);
-    DrawLevelUpWindowPg2(B_WIN_LEVEL_UP_BOX, currStats, TEXT_DYNAMIC_COLOR_5, TEXT_DYNAMIC_COLOR_4, TEXT_DYNAMIC_COLOR_6);
+    //GetMonLevelUpWindowStats(&gPlayerParty[gBattleStruct->expGetterMonId], currStats);
+    //DrawLevelUpWindowPg2(B_WIN_LEVEL_UP_BOX, currStats, TEXT_DYNAMIC_COLOR_5, TEXT_DYNAMIC_COLOR_4, TEXT_DYNAMIC_COLOR_6);
 }
 
 static void InitLevelUpBanner(void)
@@ -7418,7 +7433,9 @@ static void DrawLevelUpBannerText(void)
     txtPtr = ConvertIntToDecimalStringN(txtPtr, monLevel, STR_CONV_MODE_LEFT_ALIGN, 3);
     var = (u32)(txtPtr) - var;
     //vsonic test that this works
-    txtPtr = StringFill(txtPtr, CHAR_SPACER, 4 - var); //fr and ee font is diff think need use base version
+    txtPtr = StringFill(txtPtr, CHAR_SPACE, 4 - var); //fr and ee font is diff think need use base version
+    //FR value
+    //txtPtr = StringFill(txtPtr, CHAR_SPACE, 5);
 
     if (monGender != MON_GENDERLESS)
     {
@@ -12645,12 +12662,14 @@ static void Cmd_trainerslideout(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+//seems logic is things ingrained in the earth
+//shouldn't wiglet be here? //vsonic important
 static const u16 sTelekinesisBanList[] =
 {
     SPECIES_DIGLETT,
     SPECIES_DUGTRIO,
-    SPECIES_DIGLETT_ALOLA,
-    SPECIES_DUGTRIO_ALOLA,
+    SPECIES_DIGLETT_ALOLAN,
+    SPECIES_DUGTRIO_ALOLAN,
     SPECIES_SANDYGAST,
     SPECIES_PALOSSAND,
     SPECIES_GENGAR_MEGA,
