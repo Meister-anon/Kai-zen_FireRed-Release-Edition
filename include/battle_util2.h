@@ -5,6 +5,8 @@
 
 void AllocateBattleResources(void);
 void FreeBattleResources(void);
-void AdjustFriendshipOnBattleFaint(u8 bank);
+void AdjustFriendshipOnBattleFaint(enum BattlerId battler);
+void SwitchPartyOrderInGameMulti(enum BattlerId battler, u8 arg1);
+
 
 #endif // GUARD_BATTLE_UTIL_H

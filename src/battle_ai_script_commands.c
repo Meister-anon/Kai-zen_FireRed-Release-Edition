@@ -24,8 +24,8 @@
 #define AI_ACTION_UNK7          0x0040
 #define AI_ACTION_UNK8          0x0080
 
-#define AI_THINKING_STRUCT (gBattleResources->ai)
-#define BATTLE_HISTORY (gBattleResources->battleHistory)
+#define AI_THINKING_STRUCT (gAiThinkingStruct)
+#define BATTLE_HISTORY (gBattleHistory)
 
 // AI states
 enum
@@ -315,7 +315,7 @@ void BattleAI_SetupAIData(void)
         AI_THINKING_STRUCT->simulatedRNG[i] = 100 - (Random() % 16);
     }
 
-    gBattleResources->AI_FLAGsStack->size = 0;
+    gAiThinkingStruct_FLAGsStack->size = 0;
     gBattlerAttacker = gActiveBattler;
 
     // Decide a random target battlerId in doubles.
@@ -2008,21 +2008,21 @@ static void Cmd_if_target_not_taunted(void)
 
 static void AIStackPushVar(const u8 *var)
 {
-    gBattleResources->AI_FLAGsStack->ptr[gBattleResources->AI_FLAGsStack->size++] = var;
+    gAiThinkingStruct_FLAGsStack->ptr[gAiThinkingStruct_FLAGsStack->size++] = var;
 }
 
 // unused
 static void AIStackPushVar_cursor(void)
 {
-    gBattleResources->AI_FLAGsStack->ptr[gBattleResources->AI_FLAGsStack->size++] = sAIScriptPtr;
+    gAiThinkingStruct_FLAGsStack->ptr[gAiThinkingStruct_FLAGsStack->size++] = sAIScriptPtr;
 }
 
 static bool8 AIStackPop(void)
 {
-    if (gBattleResources->AI_FLAGsStack->size != 0)
+    if (gAiThinkingStruct_FLAGsStack->size != 0)
     {
-        --gBattleResources->AI_FLAGsStack->size;
-        sAIScriptPtr = gBattleResources->AI_FLAGsStack->ptr[gBattleResources->AI_FLAGsStack->size];
+        --gAiThinkingStruct_FLAGsStack->size;
+        sAIScriptPtr = gAiThinkingStruct_FLAGsStack->ptr[gAiThinkingStruct_FLAGsStack->size];
         return TRUE;
     }
     else
