@@ -7599,7 +7599,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
     /*case EFFECT_KNOCK_OFF:
         if (B_KNOCK_OFF_DMG >= GEN_6
             && gBattleMons[battlerDef].item != ITEM_NONE
-            && CanBattlerGetOrLoseItem(battlerDef, gBattleMons[battlerDef].item))
+            && CanBattlerGetOrLoseItem(battlerDef, battlerAtk, gBattleMons[battlerDef].item))
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
         break;*/
     default:

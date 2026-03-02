@@ -2328,7 +2328,7 @@ static void Cmd_resultmessage(void)
                 TryInitializeTrainerSlidePlayerLandsFirstSuperEffectiveHit(BATTLE_PARTNER(gBattlerTarget));
             break;
         case MOVE_RESULT_NOT_VERY_EFFECTIVE:
-            if (CalcTypeEffectivenessMultiplier(gCurrentMove, GetBattleMoveType(gCurrentMove), gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12_TO_INT((UQ_4_12(1.55) * UQ_4_12(0.5)) + UQ_4_12_ROUND))
+            if (CalcTypeEffectivenessMultiplierHelper(gCurrentMove, GetBattleMoveType(gCurrentMove), gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerAbility(gBattlerTarget), FALSE) == UQ_4_12_TO_INT((UQ_4_12(1.55) * UQ_4_12(0.5)) + UQ_4_12_ROUND))
                     stringId = 0; //should keep effect remove message, keep not very effective sound //test correctly keeps type
             if (IsDoubleSpreadMove())
             {
@@ -2577,7 +2577,7 @@ u32 GetBattlerTurnOrderNum(enum BattlerId battler)
     TrySaveExchangedItem(itemBattler, gLastUsedItem);
 }*/
 
-void StealTargetItem(enum BattlerId battlerStealer, u8 itemBattler)
+void StealTargetItem(enum BattlerId battlerStealer, enum BattlerId itemBattler)
 {
     
     gLastUsedItem = gBattleMons[itemBattler].item;
@@ -2709,7 +2709,7 @@ Sticky Hold does not prevent a Sticky Barb being transferred by its own effect.*
 bool32 TryKnockOffBattleScript(u32 loseitembattler, u32 EffectUser, u16 moveEffect)
 {
     if (gBattleMons[loseitembattler].item != ITEM_NONE
-        && CanBattlerGetOrLoseItem(loseitembattler, gBattleMons[loseitembattler].item)
+        && CanBattlerGetOrLoseItem(loseitembattler, EffectUser, gBattleMons[loseitembattler].item)
         && !NoAliveMonsForEitherParty())
     {
         if (GetBattlerAbility(loseitembattler) == ABILITY_STICKY_HOLD && IsBattlerAlive(loseitembattler))

@@ -4724,7 +4724,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         GET_MOVE_TYPE(move, moveType); //should all I need, type already set before this point
 
     usesDefStat = IsPhysicalMove(battlerIdAtk, move);
-    typeEffectiveness = CalcTypeEffectivenessMultiplier(move, moveType, battlerIdAtk, battlerIdDef, FALSE);
+    typeEffectiveness = CalcTypeEffectivenessMultiplierHelper(move, moveType, battlerIdAtk, battlerIdDef, abilityAtk, abilityDef, FALSE);
     attack = attacker->attack;
     defense = defender->defense;
     spAttack = attacker->spAttack;
