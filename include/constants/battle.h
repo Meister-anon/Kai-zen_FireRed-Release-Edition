@@ -681,7 +681,7 @@ renamed semi invulnerable Interupt
     F(VOLATILE_FIXATED,                     fixated,                       (u32, 1)) \
     F(VOLATILE_CHARGE_TIMER,                chargeTimer,                   (u32, 3)) \
     F(VOLATILE_ROOT,                        rooted,                        (u32, 1), V_BATON_PASSABLE) \
-    F(VOLATILE_YAWN,                        yawn,                          (u32, 1)) \
+    F(VOLATILE_YAWN,                        yawn,                          (u32, 2)) \
     F(VOLATILE_IMPRISON,                    imprison,                      (u32, 1)) \
     F(VOLATILE_GRUDGE,                      grudge,                        (u32, 1)) \
     F(VOLATILE_GASTRO_ACID,                 gastroAcid,                    (u32, 1), V_BATON_PASSABLE) \
