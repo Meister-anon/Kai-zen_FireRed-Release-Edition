@@ -8,8 +8,14 @@
 #define STAT_CHANGE_WORKED      0
 #define STAT_CHANGE_DIDNT_WORK  1
 
-#define WINDOW_CLEAR            0x1
-#define WINDOW_x80              0x80
+// Arguments for 'flags' in HandleBattleWindow
+#define WINDOW_CLEAR  (1 << 0)
+#define WINDOW_BG1   (1 << 7)
+
+// Arguments for 'xStart, yStart, xEnd, yEnd' in HandleBattleWindow
+#define YESNOBOX_X_Y 23, 8, 29, 13
+
+#define LVL_UP_BOX_X_Y 18, 7, 29, 19
 
 void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum MoveEffect moveEffect, const u8 *battleScript, enum SetMoveEffectFlags effectFlags);
 bool8 UproarWakeUpCheck(enum BattlerId battlerId);
@@ -17,8 +23,8 @@ u8 AI_TypeCalc(u16 move, u16 targetSpecies, u16 targetAbility);	//return value i
 u8 TypeCalc(u16 move, u8 attacker, u8 defender);
 void AI_CalcDmg(u8 attacker, u8 defender);
 bool32 IsMonGettingExpSentOut(void);
-void BattleCreateYesNoCursorAt(void);
-void BattleDestroyYesNoCursorAt(void);
+void BattleCreateYesNoCursorAt(u8 cursorPosition);
+void BattleDestroyYesNoCursorAt(u8 cursorPosition);
 bool32 CanBattlerSwitch(enum BattlerId battlerId);
 void HandleBattleWindow(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, u8 flags);
 bool32 HasBattlerActedThisTurn(enum BattlerId battler);

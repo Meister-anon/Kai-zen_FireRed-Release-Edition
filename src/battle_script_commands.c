@@ -7273,7 +7273,7 @@ static void Cmd_drawlvlupbox(void)
         SetBgAttribute(1, BG_ATTR_PRIORITY, 0);
         ShowBg(0);
         ShowBg(1);
-        HandleBattleWindow(18, 7, 29, 19, WINDOW_BG1);
+        HandleBattleWindow(LVL_UP_BOX_X_Y, WINDOW_BG1);
         gBattleScripting.drawlvlupboxState = 4;
         break;
     case 4:
@@ -7307,7 +7307,7 @@ static void Cmd_drawlvlupbox(void)
         {
             // Close level up box
             PlaySE(SE_SELECT);
-            HandleBattleWindow(18, 7, 29, 19, WINDOW_BG1 | WINDOW_CLEAR);
+            HandleBattleWindow(LVL_UP_BOX_X_Y, WINDOW_BG1 | WINDOW_CLEAR);
             gBattleScripting.drawlvlupboxState++;
         }
         break;
@@ -12511,46 +12511,46 @@ static void Cmd_trygivecaughtmonnick(void)
         //string already printed
         //create yesno box and text along w cursor
     case 0:
-        HandleBattleWindow(0x17, 8, 0x1D, 0xD, 0);
+        HandleBattleWindow(YESNOBOX_X_Y, 0);
         BattlePutTextOnWindow(gText_BattleYesNoChoice, B_WIN_YESNO);
         ++gBattleCommunication[MULTIUSE_STATE];
-        gBattleCommunication[CURSOR_POSITION] = 0;
-        BattleCreateYesNoCursorAt();
+        gBattleCommunication[CURSOR_POSITION] = CURSOR_YES;
+        BattleCreateYesNoCursorAt(CURSOR_YES);
         break;
         //handle input logic
     case 1:
-        if (JOY_NEW(DPAD_UP) && gBattleCommunication[CURSOR_POSITION] != 0)
+        if (JOY_NEW(DPAD_UP) && gBattleCommunication[CURSOR_POSITION] != CURSOR_YES)
         {
             PlaySE(SE_SELECT);
-            BattleDestroyYesNoCursorAt();
-            gBattleCommunication[CURSOR_POSITION] = 0;  //cursor position Yes
-            BattleCreateYesNoCursorAt();
+            BattleDestroyYesNoCursorAt(gBattleCommunication[CURSOR_POSITION]);
+            gBattleCommunication[CURSOR_POSITION] = CURSOR_YES;  //cursor position Yes
+            BattleCreateYesNoCursorAt(CURSOR_YES);
         }
-        if (JOY_NEW(DPAD_DOWN) && gBattleCommunication[CURSOR_POSITION] == 0)
+        if (JOY_NEW(DPAD_DOWN) && gBattleCommunication[CURSOR_POSITION] == CURSOR_YES)
         {
             PlaySE(SE_SELECT);
-            BattleDestroyYesNoCursorAt();
-            gBattleCommunication[CURSOR_POSITION] = 1;//set cursor to NO
-            BattleCreateYesNoCursorAt();
+            BattleDestroyYesNoCursorAt(gBattleCommunication[CURSOR_POSITION]);
+            gBattleCommunication[CURSOR_POSITION] = CURSOR_NO;//set cursor to NO
+            BattleCreateYesNoCursorAt(CURSOR_NO);
         }
         if (JOY_NEW(A_BUTTON))
         {
             PlaySE(SE_SELECT);
-            if (gBattleCommunication[CURSOR_POSITION] == 0) //Select Yes
+            if (gBattleCommunication[CURSOR_POSITION] == CURSOR_YES) //Select Yes
             {
                 ++gBattleCommunication[MULTIUSE_STATE]; //next case
                 BeginFastPaletteFade(3);
             }
             else //Select No
             {
-                HandleBattleWindow(0x17, 0x8, 0x1D, 0xD, WINDOW_CLEAR); //added believe should be remove yes/no window?
+                HandleBattleWindow(YESNOBOX_X_Y, WINDOW_CLEAR); //added believe should be remove yes/no window?
                 gBattleCommunication[MULTIUSE_STATE] = 4; //skip name
             }
         }
         else if (JOY_NEW(B_BUTTON))
         {
             PlaySE(SE_SELECT);
-            HandleBattleWindow(0x17, 0x8, 0x1D, 0xD, WINDOW_CLEAR);
+            HandleBattleWindow(YESNOBOX_X_Y, WINDOW_CLEAR);
             gBattleCommunication[MULTIUSE_STATE] = 4; //skip name
         }
         break;
@@ -16464,45 +16464,45 @@ void BS_trygetcaughtmonfromPc(void)
     switch (gBattleCommunication[MULTIUSE_STATE])
     {
     case 0:
-        HandleBattleWindow(0x17, 8, 0x1D, 0xD, 0);
+        HandleBattleWindow(YESNOBOX_X_Y, 0);
         BattlePutTextOnWindow(gText_BattleYesNoChoice, B_WIN_YESNO);
         ++gBattleCommunication[MULTIUSE_STATE];
-        gBattleCommunication[CURSOR_POSITION] = 0;
-        BattleCreateYesNoCursorAt();
+        gBattleCommunication[CURSOR_POSITION] = CURSOR_YES;
+        BattleCreateYesNoCursorAt(CURSOR_YES);
         break;
     case 1:
-        if (JOY_NEW(DPAD_UP) && gBattleCommunication[CURSOR_POSITION] != 0)
+        if (JOY_NEW(DPAD_UP) && gBattleCommunication[CURSOR_POSITION] != CURSOR_YES)
         {
             PlaySE(SE_SELECT);
-            BattleDestroyYesNoCursorAt();
-            gBattleCommunication[CURSOR_POSITION] = 0;
-            BattleCreateYesNoCursorAt();
+            BattleDestroyYesNoCursorAt(gBattleCommunication[CURSOR_POSITION]);
+            gBattleCommunication[CURSOR_POSITION] = CURSOR_YES;
+            BattleCreateYesNoCursorAt(CURSOR_YES);
         }
-        if (JOY_NEW(DPAD_DOWN) && gBattleCommunication[CURSOR_POSITION] == 0)
+        if (JOY_NEW(DPAD_DOWN) && gBattleCommunication[CURSOR_POSITION] == CURSOR_YES)
         {
             PlaySE(SE_SELECT);
-            BattleDestroyYesNoCursorAt();
-            gBattleCommunication[CURSOR_POSITION] = 1;
-            BattleCreateYesNoCursorAt();
+            BattleDestroyYesNoCursorAt(gBattleCommunication[CURSOR_POSITION]);
+            gBattleCommunication[CURSOR_POSITION] = CURSOR_NO;
+            BattleCreateYesNoCursorAt(CURSOR_NO);
         }
         if (JOY_NEW(A_BUTTON))
         {
             PlaySE(SE_SELECT);
-            if (gBattleCommunication[CURSOR_POSITION] == 0)
+            if (gBattleCommunication[CURSOR_POSITION] == CURSOR_YES)
             {
                 ++gBattleCommunication[MULTIUSE_STATE];
                 BeginFastPaletteFade(3);
             }
             else
             {
-                HandleBattleWindow(0x17, 0x8, 0x1D, 0xD, WINDOW_CLEAR);
+                HandleBattleWindow(YESNOBOX_X_Y, WINDOW_CLEAR);
                 gBattleCommunication[MULTIUSE_STATE] = 4;
             }
         }
         else if (JOY_NEW(B_BUTTON))
         {
             PlaySE(SE_SELECT);
-            HandleBattleWindow(0x17, 0x8, 0x1D, 0xD, WINDOW_CLEAR);
+            HandleBattleWindow(YESNOBOX_X_Y, WINDOW_CLEAR);
             gBattleCommunication[MULTIUSE_STATE] = 4;
         }
         break;
@@ -16597,12 +16597,3 @@ void BS_JumpandClearRage(void)
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
-
-void BS_JumpIfGenConfigLowerThan(void)
-{
-    NATIVE_ARGS(u16 tag, u8 gen, const u8 *jumpInstr);
-    if (GetConfig(cmd->tag) < cmd->gen)
-        gBattlescriptCurrInstr = cmd->jumpInstr;
-    else
-        gBattlescriptCurrInstr = cmd->nextInstr;
-}

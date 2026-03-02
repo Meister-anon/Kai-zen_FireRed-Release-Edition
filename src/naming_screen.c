@@ -730,7 +730,7 @@ static void pokemon_transfer_to_pc_with_message(void)
     DrawDialogueFrame(0, FALSE);
     gTextFlags.canABSpeedUpPrint = TRUE;
     AddTextPrinterParameterized2(0, 2, gStringVar4, GetPlayerTextSpeedDelay(), NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
-    CopyWindowToVram(0, COPYWIN_BOTH);
+    CopyWindowToVram(0, COPYWIN_FULL);
 }
 
 static bool8 sub_809E1D4(void)
@@ -1959,7 +1959,7 @@ static void sub_809FAE4(void)
     FillWindowPixelBuffer(sNamingScreenData->windows[WIN_BANNER], PIXEL_FILL(15));
     AddTextPrinterParameterized3(sNamingScreenData->windows[WIN_BANNER], 0, 236 - strwidth, 0, color, 0, StringValue);
     PutWindowTilemap(sNamingScreenData->windows[WIN_BANNER]);
-    CopyWindowToVram(sNamingScreenData->windows[WIN_BANNER], COPYWIN_BOTH);
+    CopyWindowToVram(sNamingScreenData->windows[WIN_BANNER], COPYWIN_FULL);
 }
 
 static void sub_809FB70(void)

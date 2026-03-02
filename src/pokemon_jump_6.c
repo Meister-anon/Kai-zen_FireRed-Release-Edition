@@ -77,7 +77,7 @@ static void Task_ShowPokemonJumpRecords(u8 taskId)
     case 0:
         data[1] = AddWindow(&gUnknown_846E2CC);
         sub_814B5C4(data[1]);
-        CopyWindowToVram(data[1], COPYWIN_BOTH);
+        CopyWindowToVram(data[1], COPYWIN_FULL);
         data[0]++;
         break;
     case 1:

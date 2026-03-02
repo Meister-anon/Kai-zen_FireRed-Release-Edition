@@ -391,8 +391,8 @@ static void Task_PokemonStorageSystemPC(u8 taskId)
         //of list I need to use same as other function
         AddTextPrinterParameterized2(0, 2, ReturnPSS_ListDescription(task->tSelectedOption), TEXT_SKIP_DRAW, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
         //AddTextPrinterParameterized2(0, 2, sPSS_DefaultState[task->tSelectedOption].desc, TEXT_SKIP_DRAW, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
-        CopyWindowToVram(0, COPYWIN_BOTH);
-        CopyWindowToVram(task->tWindowId, COPYWIN_BOTH);
+        CopyWindowToVram(0, COPYWIN_FULL);
+        CopyWindowToVram(task->tWindowId, COPYWIN_FULL);
         task->tState++;
         break;
     case STATE_FADE_IN:

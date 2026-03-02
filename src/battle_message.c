@@ -2912,7 +2912,7 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId) {
     if (!(textFlags & 0x80))
     {
         PutWindowTilemap(windowId);
-        CopyWindowToVram(windowId, COPYWIN_BOTH);
+        CopyWindowToVram(windowId, COPYWIN_FULL);
     }
 }
 

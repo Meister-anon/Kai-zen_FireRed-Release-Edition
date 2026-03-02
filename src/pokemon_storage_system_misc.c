@@ -134,7 +134,7 @@ static bool8 sub_8095138(void)
         sub_80956A4(sMoveMonsPtr->fromRow, sMoveMonsPtr->fromColumn);
         SetBgAttribute(0, BG_ATTR_PALETTEMODE, 1);
         PutWindowTilemap(gPSSData->multiMoveWindowId);
-        CopyWindowToVram8Bit(gPSSData->multiMoveWindowId, COPYWIN_BOTH);
+        CopyWindowToVram8Bit(gPSSData->multiMoveWindowId, COPYWIN_FULL);
         BlendPalettes(0x3F00, 8, RGB_WHITE);
         StartCursorAnim(2);
         SetGpuRegBits(REG_OFFSET_BG0CNT, BGCNT_256COLOR);

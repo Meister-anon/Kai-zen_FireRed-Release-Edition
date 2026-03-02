@@ -1010,7 +1010,7 @@ bool32 sub_814E644(struct BerryCrushGame * game, struct BerryCrushGame_138 * spr
         sub_814E32C(game);
         break;
     case 5:
-        CopyWindowToVram(spriteManager->unk82, COPYWIN_BOTH);
+        CopyWindowToVram(spriteManager->unk82, COPYWIN_FULL);
         spriteManager->unk80 = 0;
         return TRUE;
     }
@@ -1099,7 +1099,7 @@ static void Task_ShowBerryCrushRankings(u8 taskId)
             yPos += 14;
             score = 0;
         }
-        CopyWindowToVram(data[1], COPYWIN_BOTH);
+        CopyWindowToVram(data[1], COPYWIN_FULL);
         break;
     case 2:
         if (gMain.newKeys & (A_BUTTON | B_BUTTON))
@@ -1196,7 +1196,7 @@ static void sub_814EBB0(struct BerryCrushGame * game)
                 BERRYCRUSH_PLAYER_NAME(game, i)
             );
         }
-        CopyWindowToVram(game->spritesManager.unk83[i], COPYWIN_BOTH);
+        CopyWindowToVram(game->spritesManager.unk83[i], COPYWIN_FULL);
     }
     CopyBgTilemapBufferToVram(0);
 }

@@ -795,7 +795,7 @@ void CB2_BattleDebugMenu(void)
         data->currentMainListItemId = 0;
         data->activeWindow = ACTIVE_WIN_MAIN;
         data->secondaryListTaskId = 0xFF;
-        CopyWindowToVram(data->mainListWindowId, COPYWIN_BOTH);
+        CopyWindowToVram(data->mainListWindowId, COPYWIN_FULL);
         gMain.state++;
         break;
     case 5:
@@ -883,7 +883,7 @@ static void Task_DebugMenuProcessInput(u8 taskId)
             data->modifyWindowId = AddWindow(&sModifyWindowTemplate);
             FillWindowPixelBuffer(data->modifyWindowId, PIXEL_FILL(0));
             PutWindowTilemap(data->modifyWindowId);
-            CopyWindowToVram(data->modifyWindowId, COPYWIN_BOTH);
+            CopyWindowToVram(data->modifyWindowId, COPYWIN_FULL);
             SetUpModifyArrows(data);
             PrintDigitChars(data);
             data->activeWindow = ACTIVE_WIN_MODIFY;
@@ -968,7 +968,7 @@ static void PrintOnBattlerWindow(u8 windowId, enum BattlerId battlerId)
 
     FillWindowPixelBuffer(windowId, 0x11);
     AddTextPrinterParameterized(windowId, FONT_NORMAL, text, 0, 0, 0, NULL);
-    CopyWindowToVram(windowId, COPYWIN_BOTH);
+    CopyWindowToVram(windowId, COPYWIN_FULL);
 }
 
 static void UpdateWindowsOnChangedBattler(struct BattleDebugMenu *data)
@@ -1069,7 +1069,7 @@ static void CreateSecondaryListMenu(struct BattleDebugMenu *data)
     listTemplate.windowId = data->secondaryListWindowId;
 
     data->secondaryListTaskId = ListMenuInit(&listTemplate, 0, 0, DEFAULT_MODE);
-    CopyWindowToVram(data->secondaryListWindowId, COPYWIN_BOTH);
+    CopyWindowToVram(data->secondaryListWindowId, COPYWIN_FULL);
 }
 
 static void PadString(const u8 *src, u8 *dst)

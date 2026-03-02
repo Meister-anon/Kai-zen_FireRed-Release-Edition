@@ -231,7 +231,7 @@ static u32 BerryCrushCommand_PrintMessage(struct BerryCrushGame * game, u8 *para
         {
             AddTextPrinterParameterized2(0, 2, sBerryCrushMessages[params[0]], game->textSpeed, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
         }
-        CopyWindowToVram(0, COPYWIN_BOTH);
+        CopyWindowToVram(0, COPYWIN_FULL);
         break;
     case 1:
         if (!IsTextPrinterActive(0))
@@ -1180,7 +1180,7 @@ static u32 BerryCrushCommand_SaveTheGame(struct BerryCrushGame * game, u8 *param
             return 0;
         DrawDialogueFrame(0, FALSE);
         AddTextPrinterParameterized2(0, 2, gText_SavingDontTurnOffThePower2, 0, NULL, 2, 1, 3);
-        CopyWindowToVram(0, COPYWIN_BOTH);
+        CopyWindowToVram(0, COPYWIN_FULL);
         CreateTask(Task_SaveGame_UpdatedLinkRecords, 0);
         break;
     case 3:
@@ -1326,7 +1326,7 @@ static u32 BerryCrushCommand_PlayAgainFailureMessage(struct BerryCrushGame * gam
             AddTextPrinterParameterized2(0, 2, sBerryCrushMessages[BCTEXT_CANCEL_NOBERRIES], game->textSpeed, NULL, 2, 1, 3);
         else
             AddTextPrinterParameterized2(0, 2, sBerryCrushMessages[BCTEXT_CANCEL_DROPPEDOUT], game->textSpeed, NULL, 2, 1, 3);
-        CopyWindowToVram(0, COPYWIN_BOTH);
+        CopyWindowToVram(0, COPYWIN_FULL);
         break;
     case 1:
         if (IsTextPrinterActive(0))

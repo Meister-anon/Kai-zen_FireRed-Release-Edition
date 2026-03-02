@@ -80,13 +80,13 @@ static void PrintNewCountOnLinkPlayerCountDisplayWindow(u16 windowId, s32 num)
     SetStdWindowBorderStyle(windowId, FALSE);
     StringExpandPlaceholders(gStringVar4, gUnknown_841DF82);
     AddTextPrinterParameterized(windowId, 2, gStringVar4, 0, 0, TEXT_SKIP_DRAW, NULL);
-    CopyWindowToVram(windowId, COPYWIN_BOTH);
+    CopyWindowToVram(windowId, COPYWIN_FULL);
 }
 
 static void DestroyLinkPlayerCountDisplayWindow(u16 windowId)
 {
     ClearStdWindowAndFrame(windowId, FALSE);
-    CopyWindowToVram(windowId, COPYWIN_BOTH);
+    CopyWindowToVram(windowId, COPYWIN_FULL);
 }
 
 static void UpdateLinkPlayerCountDisplay(u8 taskId, u8 num)

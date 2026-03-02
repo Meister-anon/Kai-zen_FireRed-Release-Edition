@@ -24,6 +24,14 @@
  *   +---------------------------+
  */
 
+enum BattleCursorPos
+{
+    CURSOR_YES,
+    CURSOR_NO,
+};
+//used with BattleCreateYesNoCursorAt
+//gBattleCommunication[CURSOR_POSITION]
+
 
 
 enum BattlerPosition

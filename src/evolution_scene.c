@@ -951,34 +951,34 @@ static void Task_EvolutionScene(u8 taskId)
         case 3:
             if (!IsTextPrinterActive(0) && !IsSEPlaying())
             {
-                HandleBattleWindow(0x17, 8, 0x1D, 0xD, 0);
+                HandleBattleWindow(YESNOBOX_X_Y, 0);
                 BattlePutTextOnWindow(gText_BattleYesNoChoice, 0xE);
                 gTasks[taskId].tLearnMoveState++;
-                sEvoCursorPos = 0;
-                BattleCreateYesNoCursorAt();
+                sEvoCursorPos = CURSOR_YES;
+                BattleCreateYesNoCursorAt(CURSOR_YES);
             }
             break;
         case 4:
-            if (JOY_NEW(DPAD_UP) && sEvoCursorPos != 0)
+            if (JOY_NEW(DPAD_UP) && sEvoCursorPos != CURSOR_YES)
             {
                 PlaySE(SE_SELECT);
-                BattleDestroyYesNoCursorAt();
-                sEvoCursorPos = 0;
-                BattleCreateYesNoCursorAt();
+                BattleDestroyYesNoCursorAt(sEvoCursorPos);
+                sEvoCursorPos = CURSOR_YES;
+                BattleCreateYesNoCursorAt(CURSOR_YES);
             }
-            if (JOY_NEW(DPAD_DOWN) && sEvoCursorPos == 0)
+            if (JOY_NEW(DPAD_DOWN) && sEvoCursorPos == CURSOR_YES)
             {
                 PlaySE(SE_SELECT);
-                BattleDestroyYesNoCursorAt();
-                sEvoCursorPos = 1;
-                BattleCreateYesNoCursorAt();
+                BattleDestroyYesNoCursorAt(sEvoCursorPos);
+                sEvoCursorPos = CURSOR_NO;
+                BattleCreateYesNoCursorAt(CURSOR_NO);
             }
             if (JOY_NEW(A_BUTTON))
             {
-                HandleBattleWindow(0x17, 8, 0x1D, 0xD, WINDOW_CLEAR);
+                HandleBattleWindow(YESNOBOX_X_Y, WINDOW_CLEAR);
                 PlaySE(SE_SELECT);
 
-                if (sEvoCursorPos != 0) //said no to learn move
+                if (sEvoCursorPos != CURSOR_YES) //said no to learn move
                 {
                     gTasks[taskId].tLearnMoveState = gTasks[taskId].tData8; //should be case 10 /or whatever is set to t8
                 }
@@ -991,7 +991,7 @@ static void Task_EvolutionScene(u8 taskId)
             }
             if (JOY_NEW(B_BUTTON)) //said no to learn move, add confirm dont learn move to yes no box
             {
-                HandleBattleWindow(0x17, 8, 0x1D, 0xD, WINDOW_CLEAR);
+                HandleBattleWindow(YESNOBOX_X_Y, WINDOW_CLEAR);
                 PlaySE(SE_SELECT);
                 gTasks[taskId].tLearnMoveState = gTasks[taskId].tData8;
             }

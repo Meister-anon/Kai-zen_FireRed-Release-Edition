@@ -763,7 +763,7 @@ static void ControlsGuide_LoadPage1(void)
     PutWindowTilemap(sOakSpeechResources->windowIds[0]);
     FillWindowPixelBuffer(sOakSpeechResources->windowIds[0], 0x00);
     AddTextPrinterParameterized4(sOakSpeechResources->windowIds[0], 2, 2, 0, 0, 1, sTextColor_HelpSystem, 0, gNewGame_HelpDocs1);
-    CopyWindowToVram(sOakSpeechResources->windowIds[0], COPYWIN_BOTH);
+    CopyWindowToVram(sOakSpeechResources->windowIds[0], COPYWIN_FULL);
     FillBgTilemapBufferRect_Palette0(1, 0x3000, 1, 3, 5, 16);
     CopyBgTilemapBufferToVram(1);
 }
@@ -787,7 +787,7 @@ static void Task_ControlsGuide_LoadPage(u8 taskId)
             PutWindowTilemap(sOakSpeechResources->windowIds[currWindow]);
             FillWindowPixelBuffer(sOakSpeechResources->windowIds[currWindow], 0x00);
             AddTextPrinterParameterized4(sOakSpeechResources->windowIds[currWindow], 2, 6, 0, 0, 1, sTextColor_HelpSystem, 0, sHelpDocsPtrs[currWindow + page2Or3 * 3]);
-            CopyWindowToVram(sOakSpeechResources->windowIds[currWindow], COPYWIN_BOTH);
+            CopyWindowToVram(sOakSpeechResources->windowIds[currWindow], COPYWIN_FULL);
         }
 
         if (sOakSpeechResources->currentPage == CONTROLS_GUIDE_PAGE_2)
@@ -858,7 +858,7 @@ static void Task_ControlsGuide_ChangePage(u8 taskId) //this seems most importnat
             {
                 FillWindowPixelBuffer(sOakSpeechResources->windowIds[i], 0x00);
                 ClearWindowTilemap(sOakSpeechResources->windowIds[i]);
-                CopyWindowToVram(sOakSpeechResources->windowIds[i], COPYWIN_BOTH);
+                CopyWindowToVram(sOakSpeechResources->windowIds[i], COPYWIN_FULL);
                 RemoveWindow(sOakSpeechResources->windowIds[i]);
                 sOakSpeechResources->windowIds[i] = 0;
             }
@@ -882,7 +882,7 @@ static void Task_ControlsGuide_Clear(u8 taskId)
         {
             FillWindowPixelBuffer(sOakSpeechResources->windowIds[i], 0x00);
             ClearWindowTilemap(sOakSpeechResources->windowIds[i]);
-            CopyWindowToVram(sOakSpeechResources->windowIds[i], COPYWIN_BOTH);
+            CopyWindowToVram(sOakSpeechResources->windowIds[i], COPYWIN_FULL);
             RemoveWindow(sOakSpeechResources->windowIds[i]);
             sOakSpeechResources->windowIds[i] = 0;
         }
@@ -916,7 +916,7 @@ static void Task_OakSpeech6(u8 taskId)
         data[14] = AddWindow(&sNewGameAdventureIntroWindowTemplates[0]);
         PutWindowTilemap(data[14]);
         FillWindowPixelBuffer(data[14], 0x00);
-        CopyWindowToVram(data[14], COPYWIN_BOTH);
+        CopyWindowToVram(data[14], COPYWIN_FULL);
         sOakSpeechResources->currentPage = 0;
         gMain.state = 0;
         data[15] = 16;
@@ -1040,7 +1040,7 @@ static void Task_OakSpeech8(u8 taskId)
         DestroyTopBarWindow();
         FillWindowPixelBuffer(data[14], 0x00);
         ClearWindowTilemap(data[14]);
-        CopyWindowToVram(data[14], COPYWIN_BOTH);
+        CopyWindowToVram(data[14], COPYWIN_FULL);
         RemoveWindow(data[14]);
         data[14] = 0;
         FillBgTilemapBufferRect_Palette0(1, 0x000, 0, 0, 30, 20);
@@ -1086,7 +1086,7 @@ static void Task_OakSpeech9(u8 taskId)
     { \
         AddTextPrinterParameterized2(0, 4, str, speed, NULL, 2, 1, 3); \
     } \
-    CopyWindowToVram(0, COPYWIN_BOTH); \
+    CopyWindowToVram(0, COPYWIN_FULL); \
 })
 
 static void Task_OakSpeech10(u8 taskId)
@@ -1259,7 +1259,7 @@ static void Task_OakSpeech19(u8 taskId)
         sOakSpeechResources->textColor[2] = 3;
         AddTextPrinterParameterized3(gTasks[taskId].data[13], 2, 8, 17, sOakSpeechResources->textColor, 0, gText_Girl);
         Menu_InitCursor(gTasks[taskId].data[13], 2, 0, 1, GetFontAttribute(2, 1) + 2, 2, 0);
-        CopyWindowToVram(gTasks[taskId].data[13], COPYWIN_BOTH);
+        CopyWindowToVram(gTasks[taskId].data[13], COPYWIN_FULL);
         gTasks[taskId].func = Task_OakSpeech20;
     }
 }
@@ -2136,7 +2136,7 @@ static void PrintNameChoiceOptions(u8 taskId, u8 state)//
                 AddTextPrinterParameterized(data[13], 2, textPtrs[i], 8, 16 * (i + 1) + 1, 0, NULL);
             }
             Menu_InitCursor(data[13], 2, 0, 1, 16, 5, 0);
-            CopyWindowToVram(data[13], COPYWIN_BOTH);
+            CopyWindowToVram(data[13], COPYWIN_FULL);
         }
         else if (gSaveBlock2Ptr->playerGender == FEMALE)
         {
@@ -2146,7 +2146,7 @@ static void PrintNameChoiceOptions(u8 taskId, u8 state)//
                 AddTextPrinterParameterized(data[13], 2, textPtrs[i], 8, 16 * (i + 1) + 1, 0, NULL);
             }
             Menu_InitCursor(data[13], 2, 0, 1, 16, 5, 0);
-            CopyWindowToVram(data[13], COPYWIN_BOTH);
+            CopyWindowToVram(data[13], COPYWIN_FULL);
         }
     }
     else
@@ -2156,7 +2156,7 @@ static void PrintNameChoiceOptions(u8 taskId, u8 state)//
         AddTextPrinterParameterized(data[13], 2, textPtrs[i], 8, 16 * (i + 1) + 1, 0, NULL);
     }
     Menu_InitCursor(data[13], 2, 0, 1, 16, 5, 0);
-    CopyWindowToVram(data[13], COPYWIN_BOTH);
+    CopyWindowToVram(data[13], COPYWIN_FULL);
 }
 
 //ok I have no idea why I set it to 19 when the array is

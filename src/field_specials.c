@@ -1173,7 +1173,7 @@ void DrawElevatorCurrentFloorWindow(void)
         strwidth = GetStringWidth(2, floorname, 0);
         AddTextPrinterParameterized(sElevatorCurrentFloorWindowId, 2, floorname, 56 - strwidth, 16, 0xFF, NULL);
         PutWindowTilemap(sElevatorCurrentFloorWindowId);
-        CopyWindowToVram(sElevatorCurrentFloorWindowId, COPYWIN_BOTH);
+        CopyWindowToVram(sElevatorCurrentFloorWindowId, COPYWIN_FULL);
     }
 }
 
@@ -1434,7 +1434,7 @@ static void Task_CreateScriptListMenu(u8 taskId)
     Task_CreateMenuRemoveScrollIndicatorArrowPair(taskId);
     task->data[14] = ListMenuInit(&sFieldSpecialsListMenuTemplate, task->data[7], task->data[8], DEFAULT_MODE);
     PutWindowTilemap(task->data[13]);
-    CopyWindowToVram(task->data[13], COPYWIN_BOTH);
+    CopyWindowToVram(task->data[13], COPYWIN_FULL);
     gTasks[taskId].func = Task_ListMenuHandleInput;
 }
 

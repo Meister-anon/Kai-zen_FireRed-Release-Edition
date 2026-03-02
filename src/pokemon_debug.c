@@ -304,7 +304,7 @@ static void PrintInstructionsOnWindow(struct PokemonDebugMenu *data)
     else if (data->currentSubmenu == IconPal_SubMenu)
         AddTextPrinterParameterized(WIN_INSTRUCTIONS, fontId, textInstructionsSubmenuThree, x, 0, 0, NULL);
 
-    CopyWindowToVram(WIN_INSTRUCTIONS, COPYWIN_BOTH);
+    CopyWindowToVram(WIN_INSTRUCTIONS, COPYWIN_FULL);
 
     //Bottom text
     FillWindowPixelBuffer(WIN_BOTTOM_LEFT, PIXEL_FILL(0));
@@ -863,7 +863,7 @@ static void ResetPokemonDebugWindows(void)
     {
         FillWindowPixelBuffer(i, PIXEL_FILL(0));
         PutWindowTilemap(i);
-        CopyWindowToVram(i, COPYWIN_BOTH);
+        CopyWindowToVram(i, COPYWIN_FULL);
     }
 }
 

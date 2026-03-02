@@ -1371,7 +1371,7 @@ static void sub_81556E0(void)
         AddTextPrinterParameterized(gUnknown_203F440->unk3008[1], 2, gText_Yes, 8, 2, -1, NULL);
         AddTextPrinterParameterized(gUnknown_203F440->unk3008[1], 2, gText_No, 8, 16, -1, NULL);
         AddTextPrinterParameterized(gUnknown_203F440->unk3008[1], 2, gText_SelectorArrow2, 0, y == 1 ? 2 : 16, -1, NULL);
-        CopyWindowToVram(gUnknown_203F440->unk3008[1], COPYWIN_BOTH);
+        CopyWindowToVram(gUnknown_203F440->unk3008[1], COPYWIN_FULL);
         // Increment state only if A or B button have been pressed.
         if (JOY_NEW(A_BUTTON))
         {
@@ -1426,7 +1426,7 @@ static void sub_8155A78(void)
         gUnknown_203F440->state++;
         break;
     case 1:
-        CopyWindowToVram(0, COPYWIN_BOTH);
+        CopyWindowToVram(0, COPYWIN_FULL);
         gUnknown_203F440->state++;
         break;
     case 2:
