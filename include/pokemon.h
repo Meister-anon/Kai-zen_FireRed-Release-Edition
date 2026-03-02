@@ -721,7 +721,8 @@ struct SpeciesInfo  // had to adjust struct order to match paste value from base
             u16 isGalarianForm:1;
             u16 isHisuianForm:1;
             u16 isPaldeanForm:1;
-            u16 hasCosmeticForms:1;
+            u16 hasCosmeticForms:1;//actually since I have less perceived space leave off telekinesis change just put to EE
+            //u16 isTelekinesisBanned:1; //did when optimizing EE not necessary if need space can later undo
             u16 buffer:2; //can get more space if remove ultrabeast and paradox, as those are niche use and can be handled with simple species filter
             const struct AbilityLearnset *abilityLearnset;
             const struct LevelUpMove *levelUpLearnset; //replace leveluplearnset pointers file, below replace tmhmlearnset pointers file
