@@ -16368,7 +16368,7 @@ void BS_jumpifateberry(void) //for belch,
     NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
-    if (gBattleStruct->ateBerry[GetBattlerSide(battler)] & (1u << gBattlerPartyIndexes[battler]))
+    if (GetBattlerPartyState(battler)->ateBerry)
         gBattlescriptCurrInstr = cmd->jumpInstr;
     else
         gBattlescriptCurrInstr = cmd->nextInstr;
