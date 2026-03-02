@@ -4157,9 +4157,6 @@ void SetMoveEffect(enum BattlerId battlerAtk, u32 effectBattler, enum MoveEffect
             }
         }
         break;
-
-
-    }
         default:
             break;
     }

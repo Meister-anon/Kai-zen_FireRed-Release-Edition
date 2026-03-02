@@ -333,11 +333,11 @@ struct SideTimer    //effects below persist regardless of mon
 {
     /*0x00*/
     //screens
-    u16 reflectTimer:3;
-    u16 lightscreenTimer:3;
-    u16 magicTimer:3; ////magic coat
-    u16 safeguardTimer:3;             
-    u16 padding:4;
+    u16 reflectTimer:4;
+    u16 lightscreenTimer:4;
+    u16 magicTimer:4; ////magic coat
+    u16 safeguardTimer:4;             
+    //u16 padding:4;
 
 
     u8 followmeTarget;
