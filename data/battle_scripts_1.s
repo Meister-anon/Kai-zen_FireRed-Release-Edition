@@ -396,6 +396,12 @@ BattleScript_EffectRevivalBlessingSendOut:
 	switchinevents
 	goto BattleScript_MoveEnd
 
+BattleScript_SteelSurgeActivates::
+	setsteelsurge BattleScript_MoveEnd
+	printfromtable gDmgHazardsStringIds
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return
+
 BattleScript_StealthRockActivates::
 	setstealthrock BattleScript_MoveEnd
 	printfromtable gDmgHazardsStringIds
@@ -2002,6 +2008,17 @@ BattleScript_EffectTelekinesis::
 	waitanimation
 	printstring STRINGID_HURLEDINTOTHEAIR
 	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectSteelSurge::
+	attackcanceler
+	attackstring
+	ppreduce
+	setsteelsurge BattleScript_ButItFailed
+	attackanimation
+	waitanimation
+	printstring STRINGID_SHARPSTEELFLOATS
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectStealthRock::
@@ -6119,6 +6136,16 @@ BattleScript_FlameOrb::
 	call BattleScript_MoveEffectBurn
 	end2
 
+@setmoveeffect function is the basis for all move effects, the setmoveeffectwithchance command & augments as well.
+@so for this poinsoning mechanc I need to properly set it up through setmoveeffect, and then have proper checks in bs command, like above 
+@to skip STATUS1_ANY check.
+@@edited, did work in main setmoveeffect dont think ill be usin this script at all. string will only be used on toxic.
+BattleScript_PoisonWorsened::
+	statusanimation BS_EFFECT_BATTLER
+	printstring STRINGID_PKMNSPOISONWORSENED
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return
+
 BattleScript_MoveEffectPoison::
 	statusanimation BS_EFFECT_BATTLER
 	printfromtable gGotPoisonedStringIds
@@ -8351,12 +8378,6 @@ BattleScript_RecycleBerriesAlliesIncrement:
 	setallytonexttarget BattleScript_RecycleBerriesAlliesLoop
 BattleScript_RecycleBerriesAlliesEnd:
 	restoretarget
-	return
-
-BattleScript_EffectSteelsurge::
-	setsteelsurge BattleScript_MoveEnd
-	printfromtable gDmgHazardsStringIds
-	waitmessage B_WAIT_TIME_LONG
 	return
 
 @@@ END MAX MOVES @@@

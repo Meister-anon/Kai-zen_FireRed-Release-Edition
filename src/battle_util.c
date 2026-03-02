@@ -6093,7 +6093,7 @@ bool32 CanSetNonVolatileStatus(enum BattlerId battlerAtk, enum BattlerId battler
     {
     case MOVE_EFFECT_POISON:
     case MOVE_EFFECT_TOXIC:
-        if (gBattleMons[battlerDef].status1 & (STATUS1_POISON | STATUS1_TOXIC_POISON))
+        if (gBattleMons[battlerDef].status1 & STATUS1_TOXIC_POISON)
         {
             battleScript = BattleScript_AlreadyPoisoned;
         }

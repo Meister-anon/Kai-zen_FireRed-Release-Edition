@@ -2866,15 +2866,11 @@ static void SetNonVolatileStatus(u32 effectBattler, enum MoveEffect effect, cons
     switch (effect)
     {
     case MOVE_EFFECT_SLEEP:
-        if (B_SLEEP_TURNS >= GEN_5)
-            gBattleMons[effectBattler].status1 |= STATUS1_SLEEP_TURN(RandomUniform(RNG_SLEEP_TURNS, 2, 4));
-        else if (B_SLEEP_TURNS >= GEN_3)
-            gBattleMons[effectBattler].status1 |= STATUS1_SLEEP_TURN(RandomUniform(RNG_SLEEP_TURNS, 2, 5));
-        else
-            gBattleMons[effectBattler].status1 |= STATUS1_SLEEP_TURN(RandomUniform(RNG_SLEEP_TURNS, 2, 8));
-        TryActivateSleepClause(effectBattler, gBattlerPartyIndexes[effectBattler]);
+        gBattleMons[effectBattler].status1 |= STATUS1_SLEEP;
+        GetBattlerPartyState(effectBattler)->SleepTimer = RandomUniform(RNG_SLEEP_TURNS, 2, 5);
         gBattlescriptCurrInstr = BattleScript_MoveEffectSleep;
         break;
+        //add poison worsened here
     case MOVE_EFFECT_POISON:
         gBattleMons[effectBattler].status1 |= STATUS1_POISON;
         gBattlescriptCurrInstr = BattleScript_MoveEffectPoison;
@@ -2885,6 +2881,7 @@ static void SetNonVolatileStatus(u32 effectBattler, enum MoveEffect effect, cons
         break;
     case MOVE_EFFECT_FREEZE:
         gBattleMons[effectBattler].status1 |= STATUS1_FREEZE;
+        gBattleMons[effectBattler].volatiles.frozenTurns = B_FREEZE_TURNS;
         gBattlescriptCurrInstr = BattleScript_MoveEffectFreeze;
         break;
     case MOVE_EFFECT_PARALYSIS:
@@ -3528,6 +3525,14 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
             gBattlescriptCurrInstr = BattleScript_StealthRockActivates;
         }
         break;
+    case MOVE_EFFECT_STEELSURGE:
+        if (!IsHazardOnSide(GetBattlerSide(gEffectBattler), HAZARDS_STEELSURGE))
+        {
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SHARPSTEELFLOATS;
+            BattleScriptPush(battleScript);
+            gBattlescriptCurrInstr = BattleScript_SteelSurgeActivates;
+        }
+        break;
     case MOVE_EFFECT_SYRUP_BOMB:
         if (!gBattleMons[gEffectBattler].volatiles.syrupBomb)
         {
@@ -3888,14 +3893,6 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
         }
         break;
     }*///believe above are g max effects
-    case MOVE_EFFECT_STEELSURGE:
-        if (!IsHazardOnSide(GetBattlerSide(gBattlerTarget), HAZARDS_STEELSURGE))
-        {
-            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SHARPSTEELFLOATS;
-            BattleScriptPush(battleScript);
-            gBattlescriptCurrInstr = BattleScript_EffectSteelsurge;
-        }
-        break;
     case MOVE_EFFECT_DEFOG: //still clears fog
         if (gSideStatuses[GetBattlerSide(gBattlerTarget)] & SIDE_STATUS_SCREEN_ANY
             || AreAnyHazardsOnSide(GetBattlerSide(gBattlerTarget))
@@ -8252,7 +8249,8 @@ static void Cmd_trysetrest(void)
         else
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_REST;
 
-        gBattleMons[gBattlerTarget].status1 = STATUS1_SLEEP_TURN(3);
+        gBattleMons[gBattlerTarget].status1 |= STATUS1_SLEEP;
+        GetBattlerPartyState(gBattlerTarget)->SleepTimer = 3;
         BtlController_EmitSetMonData(gBattlerTarget, B_COMM_TO_CONTROLLER, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].status1), &gBattleMons[gBattlerTarget].status1);
         MarkBattlerForControllerExec(gBattlerTarget);
         gBattlescriptCurrInstr = cmd->nextInstr;
@@ -15539,7 +15537,6 @@ void BS_TryPsychoShift(void)
         sizeof(gBattleMons[gBattlerTarget].status1),
         &gBattleMons[gBattlerTarget].status1);
     MarkBattlerForControllerExec(gBattlerTarget);
-    TryActivateSleepClause(gBattlerTarget, gBattlerPartyIndexes[gBattlerTarget]);
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 

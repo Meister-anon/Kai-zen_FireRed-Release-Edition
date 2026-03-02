@@ -779,7 +779,7 @@ renamed semi invulnerable Interupt
     F(VOLATILE_CAUGHT_MON,                  caughtMon,                     (u32, 1))  \
     F(VOLATILE_EMERGENCYEXIT_TIMER,         emergencyExitTimer,            (u32, 1))  \
     F(VOLATILE_TRENCH_RUN_TIMER,            trenchRunTimer,                (u32, B_TRENCH_RUN_TIMER))  \
-    F(VOLATILE_FROZEN_TURNS,                frozenTurns,                   (u32, 2))  \
+    F(VOLATILE_FROZEN_TURNS,                frozenTurns,                   (u32, 3))  \
     F(VOLATILE_SLEEP_COUNTER,               sleepCounter,                  (u32, 1))  \
     F(VOLATILE_SLEEPCOUNT_SWITCH_IN_HACK,   sleepCountSwitchInHack,        (u32, 1))  \
     F(VOLATILE_FOREWARNED_BATTLER,          forewarnedBattler,             (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT)))  \
