@@ -21417,6 +21417,11 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sDelphoxTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //if add mega don't give levitate that's dumb,
+    //can make new ability witches territory domain expansion idea
+    //combines magic bounce amd make like celebii where it can get benefit of terrain
+    //even while not grounded, may set psychic terrain unsure
+    //maybe witches domain idk
 
     [SPECIES_FROAKIE] =
     {
