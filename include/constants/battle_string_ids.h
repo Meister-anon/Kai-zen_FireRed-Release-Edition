@@ -1361,6 +1361,7 @@ enum SportsUsedStringID
     F(STRINGID_PKMNCHARGEDTOTHEMAX,                                        ("{B_ATK_NAME_WITH_PREFIX} charged\nitself to max power!"))\
     F(STRINGID_PKMRECHARGECOMPLETED,                                 ("{B_ATK_NAME_WITH_PREFIX} finished recharging!"))\
     F(STRINGID_CLOAKEDINAURORA,                                        ("{B_SCR_NAME_WITH_PREFIX} became cloaked\nin an aurora of light!"))\
+    F(STRINGID_AIRBECAMECOLD,                                        ("The air around {B_ATK_NAME_WITH_PREFIX}\nbecame chillingly cold!"))\
 
 #define UNPACK_BATTLE_STRING_ENUMS(_enum, ...) _enum,
 #define UNPACK_BATTLE_STRING_VALUES(_enum, _txtstring, ...) [_enum] = COMPOUND_STRING _txtstring,

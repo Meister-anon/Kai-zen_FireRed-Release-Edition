@@ -21600,7 +21600,7 @@ use wonder gaurd logic to determine its super effective
     [MOVE_COLD_FRONT] =
     {
         .name = COMPOUND_STRING("Cold Front"),
-        .description = COMPOUND_MOVE_STRING("A sudden temperature\ndrop that chills\nto the bone.\nTwo-turn attack\nskips charge in hail"),
+        .description = COMPOUND_MOVE_STRING("A sudden temperature\ndrop that chills\nto the bone.\nTwo-turn attack\nskips charge in cold"),
         .effect = EFFECT_TWO_TURNS_ATTACK,
         .power = 120,
         .type = TYPE_ICE,
@@ -21611,7 +21611,7 @@ use wonder gaurd logic to determine its super effective
         .category = DAMAGE_CATEGORY_SPECIAL,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
-        .argument.twoTurnAttack = { .stringId =  STRINGID_PKMNTOOKSUNLIGHT, .status = WEATHER_HAIL },
+        .argument.twoTurnAttack = { .stringId =  STRINGID_AIRBECAMECOLD, .status = WEATHER_ICY_ANY },
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,

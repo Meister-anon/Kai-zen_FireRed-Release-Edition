@@ -822,6 +822,13 @@ static inline bool32 MoveDoesTypelessDmg(enum Move moveId)
     return gMovesInfo[moveId].typelessDmg == TRUE;
 }
 
+static inline bool32 IsTwoTurnsMove(enum Move moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    return (GetMoveEffect(moveId) == EFFECT_TWO_TURNS_ATTACK
+    || GetMoveEffect(moveId) == EFFECT_SEMI_INVULNERABLE
+    || GetMoveEffect(moveId) == EFFECT_FLY);
+}
 
 static inline u32 GetMoveWeatherType(u32 move)
 {
