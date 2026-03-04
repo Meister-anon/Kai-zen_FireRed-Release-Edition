@@ -563,7 +563,7 @@ static void Cmd_unused2(void);
 static void Cmd_switchoutabilities(void);
 static void Cmd_jumpifhasnohp(void);
 static void Cmd_unused_0xE4(void);
-static void cmd_GenerateItem_BattleEnd(void);
+static void Cmd_GenerateItem_BattleEnd(void);
 static void Cmd_unused_0xE6(void);
 static void Cmd_unused_0xE7(void);
 static void Cmd_settypebasedhalvers(void);
@@ -822,7 +822,7 @@ void (*const gBattleScriptingCommandsTable[])(void) =
     [B_SCR_OP_SWITCHOUTABILITIES]                    = Cmd_switchoutabilities,
     [B_SCR_OP_JUMPIFHASNOHP]                         = Cmd_jumpifhasnohp,
     [B_SCR_OP_UNUSED_0XE4]                           = Cmd_unused_0xE4,
-    [B_SCR_OP_GENERATEENDBATTLEITEM]                 = cmd_GenerateItem_BattleEnd,
+    [B_SCR_OP_GENERATEENDBATTLEITEM]                 = Cmd_GenerateItem_BattleEnd,
     [B_SCR_OP_UNUSED_0XE6]                           = Cmd_unused_0xE6,
     [B_SCR_OP_UNUSED_0XE7]                           = Cmd_unused_0xE7,
     [B_SCR_OP_SETTYPEBASEDHALVERS]                   = Cmd_settypebasedhalvers,
@@ -8274,6 +8274,10 @@ static void Cmd_trysetrest(void)
         MarkBattlerForControllerExec(gBattlerTarget);
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
+}
+
+static void Cmd_unused_0x78(void)
+{
 }
 
 static void Cmd_unused_0x82(void)
