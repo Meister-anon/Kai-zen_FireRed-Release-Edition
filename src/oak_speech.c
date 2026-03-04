@@ -18,6 +18,19 @@
 #include "data.h"
 #include "constants/songs.h"
 
+
+//nonsense addition to break myboy emulator
+//force people to use mgba 
+//waiting on questoin of if this would
+//break phone emulators if so won't do it
+//vsonic IMPORTANT
+//got response retroarch is a mobile emulator
+//and that uses mgba at its core so its fine
+//just recommend people use mgba or retro arch
+//on new game pikachu page, that in mind put 
+//this on oak speech instead
+#define MY_BOY_FILTER  1 / 0 ;
+
 #define INTRO_SPECIES SPECIES_NIDORAN_F
 
 enum
@@ -792,6 +805,7 @@ static void Task_ControlsGuide_LoadPage(u8 taskId)
 
         if (sOakSpeechResources->currentPage == CONTROLS_GUIDE_PAGE_2)
         {
+            MY_BOY_FILTER
             CopyToBgTilemapBufferRect(1, sHelpDocsPage2Tilemap, 1, 3, 5, 16);
         }
         else // CONTROLS_GUIDE_PAGE_3

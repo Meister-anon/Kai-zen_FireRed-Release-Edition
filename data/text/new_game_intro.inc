@@ -129,11 +129,12 @@ gNameChoice_OtherName::
 
 gNewGame_HelpDocs1:: @ 81C582D
     .string "IMPORTANT NOTICE:\n"
+    .string "I Rec. mGBA or RetroArch to play."
     .string "To expand saves the backup save was\n"
     .string "removed.\n"
     .string "\n"
     .string "While chance of issue is low. My rec. is\n"
-    .string "to make a quick save shortcut in mgba\n"
+    .string "to make a quick save shortcut in mGBA\n"
     .string "and make a savestate before saving.$"
 
 gNewGame_HelpDocs2:: @ 81C5875
