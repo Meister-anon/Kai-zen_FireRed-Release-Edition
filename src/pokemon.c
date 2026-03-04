@@ -3740,7 +3740,8 @@ void BoxMonToMon(struct BoxPokemon *src, struct Pokemon *dest)
     CalculateMonStats(dest);
 }
 
-bool32 TryFormChange(u32 monId, u32 side, u16 method) //dont want to use this for ditto, for worry it'd interfere with my setup
+//vsonic cherry pick brought in another copy 
+/*bool32 TryFormChange(u32 monId, u32 side, u16 method) //dont want to use this for ditto, for worry it'd interfere with my setup
 {
     struct Pokemon *party = (side == B_SIDE_PLAYER) ? gPlayerParty : gEnemyParty;
     u16 targetSpecies;
@@ -3761,6 +3762,7 @@ bool32 TryFormChange(u32 monId, u32 side, u16 method) //dont want to use this fo
     }
     return FALSE;
 } //recent port t fix mimikyu etc, species crhange issue issue
+*/
 
 void TryToSetBattleFormChangeMoves(struct Pokemon *mon, u16 method)
 {

@@ -16411,7 +16411,7 @@ void BS_TryActivateResoluteMoveEnd(void)
         else
         {
             PREPARE_SPECIES_BUFFER(gBattleTextBuff1, gBattleMons[gBattlerTarget].species);
-            gBattleStruct->changedSpecies[GET_BATTLER_SIDE2(gBattlerTarget)][gBattlerPartyIndexes[gBattlerTarget]] = gBattleMons[gBattlerTarget].species;
+            GetBattlerPartyState(gBattlerTarget)->changedSpecies = gBattleMons[gBattlerTarget].species;
             gBattleMons[gBattlerTarget].species = SPECIES_LOKIX_SHOWDOWN_MODE;
             BattleScriptPushCursor();
             gBattlescriptCurrInstr = BattleScript_ResoluteActivatesOnMoveEndTarget;
