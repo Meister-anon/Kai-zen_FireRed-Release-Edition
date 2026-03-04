@@ -13009,7 +13009,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_VOLT_SWITCH] =
     {
         .name = COMPOUND_STRING("Volt Switch"),
-        .description = COMPOUND_MOVE_STRING("The user charges up\nthen tackles the foe\nswitching out\nas they pass."),
+        .description = COMPOUND_MOVE_STRING("The user fire a\nsurge of electricity\nat the foe switching\nout before they can\nrecover."),
         .effect = EFFECT_HIT_ESCAPE,
         .power = 70,
         .type = TYPE_ELECTRIC,
@@ -13024,6 +13024,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_VoltSwitch,
     },
+    //change description and potentially animation, its dumb,
+    //this is a special move that doesn't make contact. vsonic
+    //if need could potentially use piece of thunder wave anim
 
     [MOVE_STRUGGLE_BUG] =
     {
