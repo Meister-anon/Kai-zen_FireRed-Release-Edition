@@ -880,6 +880,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = FALSE,
         .tmhmSpritePalOffset = 0x000,
         .isTeraType = FALSE,
+        .teraTypeRGBValue = RGB_WHITE,
     },
     
     [TYPE_NORMAL] =
@@ -888,6 +889,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = FALSE,
         .tmhmSpritePalOffset = 0x000,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB_WHITE,
     },
         [TYPE_FIGHTING] =
     {
@@ -895,6 +897,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x090,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(26, 8, 14),
     },
         [TYPE_FLYING] =
     {
@@ -902,6 +905,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x080,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(31, 26, 7),
     },
         [TYPE_POISON] =
     {
@@ -909,6 +913,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x0c0,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(26, 10, 25), // custom
     },
         [TYPE_GROUND] =
     {
@@ -916,6 +921,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x060,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(25, 23, 18),
     },
         [TYPE_ROCK] =
     {
@@ -923,6 +929,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x050,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(18, 16, 8), // custom
     },
         [TYPE_BUG] =
     {
@@ -930,6 +937,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x0b0,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(18, 24, 6),
     },
         [TYPE_GHOST] =
     {
@@ -937,6 +945,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x0a0,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(12, 10, 16),
     },
         [TYPE_STEEL] =
     {
@@ -944,12 +953,14 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x0e0,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(19, 19, 20),
     },
         [TYPE_MYSTERY] =
     {
         .name = _("???"),
         .isHiddenPowerType = FALSE,
         .isTeraType = FALSE,
+        .teraTypeRGBValue = RGB_WHITE,
     },
         [TYPE_FIRE] =
     {
@@ -957,6 +968,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x010,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(31, 20, 11),
     },
         [TYPE_WATER] =
     {
@@ -964,6 +976,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x020,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(10, 18, 27),
     },
         [TYPE_GRASS] =
     {
@@ -971,6 +984,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x030,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(12, 24, 11),
     },
         [TYPE_ELECTRIC] =
     {
@@ -978,6 +992,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x040,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(30, 26, 7),
     },
         [TYPE_PSYCHIC] =
     {
@@ -985,6 +1000,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x0d0,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(31, 14, 15),
     },
         [TYPE_ICE] =
     {
@@ -992,6 +1008,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x070,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(14, 26, 25),
     },
         [TYPE_DRAGON] =
     {
@@ -999,6 +1016,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x100,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(10, 18, 27),
     },
         [TYPE_DARK] =
     {
@@ -1006,6 +1024,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x0f0,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(6, 5, 8),
     },
         [TYPE_FAIRY] =
     {
@@ -1013,18 +1032,23 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .isHiddenPowerType = TRUE,
         .tmhmSpritePalOffset = 0x110,
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(31, 15, 21),
     },
         [TYPE_WIND] =
     {
         .name = _("WIND"), //flying type readjust
         .isHiddenPowerType = TRUE, //dont really need this offesnsibly same and both types already get stab on either option
         .isTeraType = TRUE,
+        .teraTypeRGBValue = RGB(31, 26, 7),
     },//if made change revert addition to hidden power
+    
         [TYPE_SOUND] =
     {
         .name = _("SOUND"),
         .isHiddenPowerType = FALSE,
+        .isTeraType = FALSE,
         .tmhmSpritePalOffset = 0x120, //believe still to do
+        .teraTypeRGBValue = RGB_WHITE,
     },
 };
 //uses same type order as list_menu.c so this fairy is 12, but my actuall fairy type

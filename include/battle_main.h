@@ -9,9 +9,11 @@
 struct TypeInfo
 {
     u8 name[TYPE_NAME_LENGTH + 1];
-    bool8 isHiddenPowerType; // Changing this for any type will change the distribution of all Hidden Power types from vanilla.
+    bool8 isHiddenPowerType:1; // Changing this for any type will change the distribution of all Hidden Power types from vanilla.
+    bool8 isTeraType:1;
+    u8 pad:6;
     u16 tmhmSpritePalOffset;
-    bool8 isTeraType;
+    u16 teraTypeRGBValue;    // Most values pulled from the Tera type icon palette.
     //u8 *const TeraIndicatorGfx;
 };
 //replace sTMSpritePaletteOffsetByType

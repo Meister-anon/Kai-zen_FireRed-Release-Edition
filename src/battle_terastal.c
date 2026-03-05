@@ -128,36 +128,6 @@ bool32 IsTypeStellarBoosted(enum BattlerId battler, enum Type type)
     else
         return FALSE;
 }
-        return FALSE;
-    }
-    else if (FlagGet(B_FLAG_TERA_ORB_NO_COST))
-    {
-        // Tera Orb is not depleted, go to HasTrainerUsedGimmick
-    }
-    else if (!FlagGet(B_FLAG_TERA_ORB_CHARGED))
-    {
-        return FALSE;
-    }
-
-    // Check if Trainer has already Terastallized.
-    if (HasTrainerUsedGimmick(battler, GIMMICK_TERA))
-        return FALSE;
-
-    // Check if AI battler is intended to Terastallize.
-    if (!ShouldTrainerBattlerUseGimmick(battler, GIMMICK_TERA))
-        return FALSE;
-
-    // Check if battler has another gimmick active.
-    if (GetActiveGimmick(battler) != GIMMICK_NONE)
-        return FALSE;
-
-    // Check if battler is holding a Z-Crystal or Mega Stone.
-    if (!TESTING && (holdEffect == HOLD_EFFECT_Z_CRYSTAL || holdEffect == HOLD_EFFECT_MEGA_STONE)) // tests make this check already
-        return FALSE;
-
-    // Every check passed!
-    return TRUE;
-}
 
 // Returns a battler's Tera type.
 enum Type GetBattlerTeraType(enum BattlerId battler)
