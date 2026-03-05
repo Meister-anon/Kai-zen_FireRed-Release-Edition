@@ -5302,7 +5302,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 gBattleStruct->battlerState[battler].commandingPartner = TRUE;
                 gBattleStruct->battlerState[partner].commanderType = GetCommanderType(gBattleMons[battler].species);
                 gBattleMons[battler].volatiles.semiInvulnerable = STATE_COMMANDER;
-                if (gBattleMons[battler].volatiles.confusionTurns > 0 && !gBattleMons[battler].volatiles.infiniteConfusion)
+                if (gBattleMons[battler].volatiles.confusionTurns > 0)
                     gBattleMons[battler].volatiles.confusionTurns--;
                 BtlController_EmitSpriteInvisibility(battler, B_COMM_TO_CONTROLLER, TRUE);
                 MarkBattlerForControllerExec(battler);
@@ -5322,7 +5322,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 gBattleStruct->battlerState[battler].commandingPartner = TRUE;
                 gBattleStruct->battlerState[partner].commanderType = GetCommanderType(gBattleMons[battler].species);
                 gBattleMons[battler].volatiles.semiInvulnerable = STATE_COMMANDER;
-                if (gBattleMons[battler].volatiles.confusionTurns > 0 && !gBattleMons[battler].volatiles.infiniteConfusion)
+                if (gBattleMons[battler].volatiles.confusionTurns > 0)
                     gBattleMons[battler].volatiles.confusionTurns--;
                 BtlController_EmitSpriteInvisibility(battler, B_COMM_TO_CONTROLLER, TRUE);
                 MarkBattlerForControllerExec(battler);
@@ -10476,7 +10476,7 @@ u32 GetIllusionMonPartyId(struct Pokemon *party, struct Pokemon *mon, struct Pok
             && !GetMonData(&party[id], MON_DATA_IS_EGG))
         {
             u32 species = GetMonData(&party[id], MON_DATA_SPECIES);
-            if (species == SPECIES_TERAPAGOS_STELLAR || (species >= SPECIES_OGERPON_TEAL_MASK_TERA && species <= SPECIES_OGERPON_CORNERSTONE_TERA))
+            if (species == SPECIES_TERAPAGOS_STELLAR || (species >= SPECIES_OGERPON_TEAL_MASK_TERA && species <= SPECIES_OGERPON_CORNERSTONE_MASK_TERA))
                 continue;
             if (&party[id] != mon && &party[id] != partnerMon)
                 return id;
@@ -10670,7 +10670,7 @@ void SetDynamicMoveCategory(enum BattlerId battlerAtk, enum BattlerId battlerDef
     case EFFECT_HIDDEN_POWER:
     case EFFECT_STAT_BASED_SPLIT:
     case EFFECT_PHOTON_GEYSER:
-        gBattleStruct->swapDamageCategory = (GetCategoryBasedOnStats(battlerAtk, battlerDef) != GetMoveCategory(move));
+        gBattleStruct->swapDamageCategory = (GetCategoryBasedOnStats(battlerAtk, battlerDef, move) != GetMoveCategory(move));
         break;
     case EFFECT_SHELL_SIDE_ARM:
         if (gBattleStruct->shellSideArmCategory[battlerAtk][battlerDef] == DAMAGE_CATEGORY_PHYSICAL)
@@ -10678,11 +10678,11 @@ void SetDynamicMoveCategory(enum BattlerId battlerAtk, enum BattlerId battlerDef
         break;
     case EFFECT_TERA_BLAST:
         if (GetActiveGimmick(battlerAtk) == GIMMICK_TERA)
-            gBattleStruct->swapDamageCategory = GetCategoryBasedOnStats(battlerAtk, battlerDef) == DAMAGE_CATEGORY_PHYSICAL;
+            gBattleStruct->swapDamageCategory = GetCategoryBasedOnStats(battlerAtk, battlerDef, move) == DAMAGE_CATEGORY_PHYSICAL;
         break;
     case EFFECT_TERA_STARSTORM:
         if (GetActiveGimmick(battlerAtk) == GIMMICK_TERA && GET_BASE_SPECIES_ID(GetMonData(GetBattlerMon(battlerAtk), MON_DATA_SPECIES)) == SPECIES_TERAPAGOS)
-            gBattleStruct->swapDamageCategory = GetCategoryBasedOnStats(battlerAtk, battlerDef) == DAMAGE_CATEGORY_PHYSICAL;
+            gBattleStruct->swapDamageCategory = GetCategoryBasedOnStats(battlerAtk, battlerDef, move) == DAMAGE_CATEGORY_PHYSICAL;
         break;
     default:
         gBattleStruct->swapDamageCategory = FALSE;
@@ -10714,7 +10714,7 @@ static bool32 TryRemoveScreens(enum BattlerId battler)
 }
 
 // Photon Geyser, Light That Burns the Sky, Tera Blast
-enum DamageCategory GetCategoryBasedOnStats(enum BattlerId battlerAtk, enum BattlerId battlerDef)
+enum DamageCategory GetCategoryBasedOnStats(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move)
 {
     u32 attack = gBattleMons[battlerAtk].attack;
     u32 spAttack = gBattleMons[battlerAtk].spAttack;
@@ -10735,7 +10735,7 @@ enum DamageCategory GetCategoryBasedOnStats(enum BattlerId battlerAtk, enum Batt
     spDefense = spDefense / gStatStageRatios[gBattleMons[battlerDef].statStages[STAT_SPDEF]][1];
 
     if ((spAttack < attack || GetBattlerAbility(battlerAtk) == ABILITY_MUSCLE_MAGIC)
-    || (spAttack == attack && GetBattlerMoveTargetType(gBattlerAttacker, move) == MOVE_TARGET_SELECTED
+    || (spAttack == attack && GetBattlerMoveTargetType(gBattlerAttacker, move) == TARGET_SELECTED
     && defense < spDefense))
         return DAMAGE_CATEGORY_PHYSICAL;
     else
@@ -10746,7 +10746,7 @@ enum DamageCategory GetCategoryBasedOnStats(enum BattlerId battlerAtk, enum Batt
 
 static u32 GetFlingPowerFromItemId(u32 itemId)
 {
-    if (gItemsInfo[itemId].pocket == POCKET_TM_HM)
+    if (gItemsInfo[itemId].pocket == POCKET_TM_CASE)
     {
         u32 power = GetMovePower(ItemIdToBattleMoveId(itemId));
         if (power > 1)
@@ -10917,7 +10917,7 @@ bool32 IsBattlerAffectedByHazards(enum BattlerId battler, enum HoldEffect holdEf
 }
 
 
-bool32 IsSheerForceAffected(u16 move, enum Ability ability)
+bool32 IsSheerForceAffected(enum Move move, enum Ability ability)
 {
     return ability == ABILITY_SHEER_FORCE && MoveIsAffectedBySheerForce(move);
 }
@@ -10974,7 +10974,7 @@ bool32 CompareStat(enum BattlerId battler, enum Stat statId, u8 cmpTo, u8 cmpKin
     return ret;
 }
 
-bool32 BlocksPrankster(u16 move, enum BattlerId battlerPrankster, enum BattlerId battlerDef, bool32 checkTarget)
+bool32 BlocksPrankster(enum Move move, enum BattlerId battlerPrankster, enum BattlerId battlerDef, bool32 checkTarget)
 {
     if (GetConfig(PRANKSTER_DARK_TYPES) < GEN_7)
         return FALSE;
@@ -11040,7 +11040,7 @@ static u32 CanBattlerHitBothFoesInTerrain(enum BattlerId battler, enum Move move
         && IsBattlerTerrainAffected(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler), gFieldStatuses, GetMoveTerrainBoost_Terrain(move));
 }
 
-u32 GetBattlerMoveTargetType(enum BattlerId battler, enum Move move)
+enum MoveTarget GetBattlerMoveTargetType(enum BattlerId battler, enum Move move)
 {
     enum BattleMoveEffects effect = GetMoveEffect(move);
     if (effect == EFFECT_CURSE && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
@@ -11140,7 +11140,6 @@ void RecalcBattlerStats(enum BattlerId battler, struct Pokemon *mon, bool32 isDy
 void RemoveConfusionStatus(enum BattlerId battler)
 {
     gBattleMons[battler].volatiles.confusionTurns = 0;
-    gBattleMons[battler].volatiles.infiniteConfusion = FALSE;
 }
 
 u8 GetBattlerGender(enum BattlerId battler)
@@ -11830,10 +11829,9 @@ bool32 ItemHealMonVolatile(enum BattlerId battler, u16 itemId)
     const u8 *effect = GetItemEffect(itemId);
     if (effect[3] & ITEM3_STATUS_ALL)
     {
-        statusChanged = (gBattleMons[battler].volatiles.infatuatedwithMon || gBattleMons[battler].volatiles.confusionTurns > 0 || gBattleMons[battler].volatiles.infiniteConfusion);
+        statusChanged = (gBattleMons[battler].volatiles.infatuatedwithMon || gBattleMons[battler].volatiles.confusionTurns > 0);
         gBattleMons[battler].volatiles.infatuatedwithMon = 0;
         gBattleMons[battler].volatiles.confusionTurns = 0;
-        gBattleMons[battler].volatiles.infiniteConfusion = FALSE;
     }
     else if (effect[0] & ITEM0_INFATUATION)
     {
@@ -11842,9 +11840,8 @@ bool32 ItemHealMonVolatile(enum BattlerId battler, u16 itemId)
     }
     else if (effect[3] & ITEM3_CONFUSION)
     {
-        statusChanged = (gBattleMons[battler].volatiles.confusionTurns > 0 || gBattleMons[battler].volatiles.infiniteConfusion);
+        statusChanged = (gBattleMons[battler].volatiles.confusionTurns > 0);
         gBattleMons[battler].volatiles.confusionTurns = 0;
-        gBattleMons[battler].volatiles.infiniteConfusion = FALSE;
     }
 
     return statusChanged;

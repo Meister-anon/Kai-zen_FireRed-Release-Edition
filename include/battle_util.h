@@ -510,7 +510,7 @@ bool32 IsGravityPreventingMove(enum Move move);
 bool32 IsBelchPreventingMove(enum BattlerId battler, enum Move move);
 bool32 HasEnoughHpToEatBerry(enum BattlerId battler, enum Ability ability, u32 hpFraction, u32 itemId);
 bool32 IsPartnerMonFromSameTrainer(enum BattlerId battler);
-enum DamageCategory GetCategoryBasedOnStats(enum BattlerId battler);
+enum DamageCategory GetCategoryBasedOnStats(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move);
 void SetShellSideArmCategory(void);
 bool32 MoveIsAffectedBySheerForce(enum Move move);
 bool32 IsSheerForceAffected(enum Move move, enum Ability ability);
