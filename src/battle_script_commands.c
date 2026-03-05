@@ -15003,6 +15003,7 @@ void BS_ArenaBothMonsLost(void)
 #undef playerMon
 #undef opponentMon
 
+//is only for battle frontier won't use for now
 void BS_ForfeitYesNoBox(void)
 {
     NATIVE_ARGS();
@@ -15014,14 +15015,14 @@ void BS_ForfeitYesNoBox(void)
 void BS_DrawArenaRefTextBox(void)
 {
     NATIVE_ARGS();
-    DrawArenaRefereeTextBox();
+    //DrawArenaRefereeTextBox();
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 void BS_EraseArenaRefTextBox(void)
 {
     NATIVE_ARGS();
-    EraseArenaRefereeTextBox();
+    //EraseArenaRefereeTextBox();
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 

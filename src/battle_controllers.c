@@ -1009,10 +1009,21 @@ void BtlController_EmitChooseAction(enum BattlerId battler, u32 bufferId, u8 act
     PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 4);
 }
 
+// Only used by the forfeit prompt in the Battle Frontier
+// For other Yes/No boxes in battle, see Cmd_yesnobox
+void BtlController_EmitYesNoBox(enum BattlerId battler, u32 bufferId)
+{
+    gBattleResources->transferBuffer[0] = CONTROLLER_YESNOBOX;
+    gBattleResources->transferBuffer[1] = CONTROLLER_YESNOBOX;
+    gBattleResources->transferBuffer[2] = CONTROLLER_YESNOBOX;
+    gBattleResources->transferBuffer[3] = CONTROLLER_YESNOBOX;
+    PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 4);
+}
+
 // Unused
 static void BtlController_EmitUnknownYesNoBox(enum BattlerId battler, u32 bufferId, u32 arg1) // TODO: Does the function name make sense for pokefirered?
 {
-    gBattleResources->transferBuffer[0] = CONTROLLER_UNKNOWNYESNOBOX;
+    gBattleResources->transferBuffer[0] = CONTROLLER_YESNOBOX;
     gBattleResources->transferBuffer[1] = arg1;
     PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 2);
 }

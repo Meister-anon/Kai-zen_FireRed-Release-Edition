@@ -114,7 +114,7 @@ static void (*const sOpponentBufferCommands[CONTROLLER_CMDS_COUNT])(enum Battler
     [CONTROLLER_PRINTSTRING]              = OpponentHandlePrintString,
     [CONTROLLER_PRINTSTRINGPLAYERONLY]    = OpponentHandlePrintSelectionString,
     [CONTROLLER_CHOOSEACTION]             = OpponentHandleChooseAction,
-    [CONTROLLER_UNKNOWNYESNOBOX]          = OpponentHandleUnknownYesNoBox,
+    [CONTROLLER_YESNOBOX]          = OpponentHandleUnknownYesNoBox,
     [CONTROLLER_CHOOSEMOVE]               = OpponentHandleChooseMove,
     [CONTROLLER_OPENBAG]                  = OpponentHandleChooseItem,
     [CONTROLLER_CHOOSEPOKEMON]            = OpponentHandleChoosePokemon,

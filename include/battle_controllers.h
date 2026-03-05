@@ -253,7 +253,7 @@ enum
     CONTROLLER_PRINTSTRING,
     CONTROLLER_PRINTSTRINGPLAYERONLY,
     CONTROLLER_CHOOSEACTION,
-    CONTROLLER_UNKNOWNYESNOBOX,
+    CONTROLLER_YESNOBOX,
     CONTROLLER_CHOOSEMOVE,
     CONTROLLER_OPENBAG,
     CONTROLLER_CHOOSEPOKEMON,
@@ -339,6 +339,7 @@ void BtlController_EmitMoveAnimation(enum BattlerId battler, u32 bufferId, u16 m
 void BtlController_EmitPrintString(enum BattlerId battler, u32 bufferId, u16 stringId);
 void BtlController_EmitPrintSelectionString(enum BattlerId battler, u32 bufferId, u16 stringId);
 void BtlController_EmitChooseAction(enum BattlerId battler, u32 bufferId, u8 action, u16 itemId);
+void BtlController_EmitYesNoBox(enum BattlerId battler, u32 bufferId);
 void BtlController_EmitChooseMove(enum BattlerId battler, u32 bufferId, bool8 isDoubleBattle, bool8 NoPpNumber, struct ChooseMoveStruct *movePpData);
 void BtlController_EmitChooseItem(enum BattlerId battler, u32 bufferId, u8 *battlePartyOrder);
 void BtlController_EmitChoosePokemon(enum BattlerId battler, u32 bufferId, u8 caseId, u8 slotId, u16 abilityId, enum BattlerId battlerPreventingSwitchout, u8 *data);

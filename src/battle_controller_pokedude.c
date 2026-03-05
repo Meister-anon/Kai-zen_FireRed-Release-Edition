@@ -142,7 +142,7 @@ static void (*const sPokedudeBufferCommands[CONTROLLER_CMDS_COUNT])(enum Battler
     [CONTROLLER_PRINTSTRING]              = PokedudeHandlePrintString,
     [CONTROLLER_PRINTSTRINGPLAYERONLY]    = PokedudeHandlePrintSelectionString,
     [CONTROLLER_CHOOSEACTION]             = PokedudeHandleChooseAction,
-    [CONTROLLER_UNKNOWNYESNOBOX]          = PokedudeHandleUnknownYesNoBox,
+    [CONTROLLER_YESNOBOX]          = PokedudeHandleUnknownYesNoBox,
     [CONTROLLER_CHOOSEMOVE]               = PokedudeHandleChooseMove,
     [CONTROLLER_OPENBAG]                  = PokedudeHandleChooseItem,
     [CONTROLLER_CHOOSEPOKEMON]            = PokedudeHandleChoosePokemon,

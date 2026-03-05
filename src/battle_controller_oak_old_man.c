@@ -118,7 +118,7 @@ static void (*const sOakOldManBufferCommands[CONTROLLER_CMDS_COUNT])(enum Battle
     [CONTROLLER_PRINTSTRING]              = OakOldManHandlePrintString,
     [CONTROLLER_PRINTSTRINGPLAYERONLY]    = OakOldManHandlePrintSelectionString,
     [CONTROLLER_CHOOSEACTION]             = OakOldManHandleChooseAction,
-    [CONTROLLER_UNKNOWNYESNOBOX]          = OakOldManHandleUnknownYesNoBox,
+    [CONTROLLER_YESNOBOX]          = OakOldManHandleUnknownYesNoBox,
     [CONTROLLER_CHOOSEMOVE]               = OakOldManHandleChooseMove,
     [CONTROLLER_OPENBAG]                  = OakOldManHandleChooseItem,
     [CONTROLLER_CHOOSEPOKEMON]            = OakOldManHandleChoosePokemon,
