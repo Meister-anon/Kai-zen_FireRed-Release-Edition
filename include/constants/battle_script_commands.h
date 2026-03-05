@@ -561,11 +561,16 @@ enum BattleScriptOpcode
 //equivalent of STAT_BUFF_ALLOW_PTR  just has different name
 //& STAT_BUFF_NOT_PROTECT_AFFECTED
 
+//matches StatChangeFlags
 // statchange defines
-#define STAT_CHANGE_ALLOW_PTR                  (1 << 0) // If set, allow use of jumpptr. Set in every use of statbuffchange		//equivalent stat_change_allow_ptr
-#define STAT_CHANGE_MIRROR_ARMOR			(1 << 1)	// Stat change redirection caused by Mirror Armor ability.
-#define STAT_CHANGE_NOT_PROTECT_AFFECTED    (1 << 5)
-#define STAT_CHANGE_UPDATE_MOVE_EFFECT		(1 << 6)	//still don't know what does
+// Cmd_statbuffchange
+#define STAT_CHANGE_ALLOW_PTR               (1 << 0)   // If set, allow use of jumpptr. If not set and unable to raise/lower stats, jump to failInstr.
+#define STAT_CHANGE_MIRROR_ARMOR            (1 << 1)   // Stat change redirection caused by Mirror Armor ability.
+#define STAT_CHANGE_ONLY_CHECKING           (1 << 2)   // Checks if the stat change can occur. Does not change stats or play stat change animation.
+#define STAT_CHANGE_NOT_PROTECT_AFFECTED    (1 << 3)
+#define STAT_CHANGE_UPDATE_MOVE_EFFECT      (1 << 4) //still to figure out
+#define STAT_CHANGE_CHECK_PREVENTION        (1 << 5)
+#define STAT_CHANGE_CERTAIN                 (1 << 6)
 
 // atk48
 // stat change flags for Cmd_playstatchangeanimation

@@ -3939,11 +3939,13 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
                 gBattleMons[battler].volatiles.wrapped = TRUE;
                 SetWrapTurns(battler, GetBattlerHoldEffect(gBattlerAttacker));
                 // The Wrap effect does not expire when the user switches, so here's some cheese.
-                gBattleMons[battler].volatiles.wrappedBy = gBattlerTarget;
+                
+                //just comment is gmax stuff will remove anyway
+                /*gBattleMons[battler].volatiles.wrappedBy = gBattlerTarget;
                 if (moveEffect == MOVE_EFFECT_SANDBLAST_SIDE)
                     gBattleMons[battler].volatiles.wrappedMove = MOVE_SAND_TOMB;
                 else
-                    gBattleMons[battler].volatiles.wrappedMove = MOVE_FIRE_SPIN;
+                    gBattleMons[battler].volatiles.wrappedMove = MOVE_FIRE_SPIN;*/
             }
         }
         break;
@@ -10590,8 +10592,9 @@ static void Cmd_recoverbasedonsunlight(void)
                     healingModifier = 2;
                 break;
             case EFFECT_MORNING_SUN:
-                if ((OW_TIMES_OF_DAY == GEN_3 && time == TIME_DAY) // Gen 3 doesn't have morning
-                  || (OW_TIMES_OF_DAY != GEN_3 && time == TIME_MORNING))
+                /*if ((OW_TIMES_OF_DAY == GEN_3 && time == TIME_DAY) // Gen 3 doesn't have morning
+                  || (OW_TIMES_OF_DAY != GEN_3 && time == TIME_MORNING))*/
+                if (time == TIME_DAY)   //may make morning
                     healingModifier = 2;
                 break;
             case EFFECT_SYNTHESIS:
