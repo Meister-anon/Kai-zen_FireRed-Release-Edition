@@ -6583,7 +6583,7 @@ enum Obedience GetAttackerObedienceForAction(void)
 //put fury cutter logic together
 //returns move acc if not move
 //vsonic
-u32 GetFuryCutterAccuracy(enum Move move)
+u32 GetFuryCutterAccuracy(enum Move move, enum BattlerId battlerAtk)
 {
     u32 i, furyCutterAccDrop;
     
@@ -6633,7 +6633,7 @@ enum HoldEffect GetBattlerHoldEffectIgnoreAbility(enum BattlerId battler)
     return GetBattlerHoldEffectInternal(battler, ABILITY_NONE);
 }
 
-enum HoldEffect GetBattlerHoldEffectInternal(enum BattlerId battler, u32 ability)
+enum HoldEffect GetBattlerHoldEffectInternal(enum BattlerId battler, enum Ability ability)
 {
     
     if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_EMBARGO)
@@ -6943,7 +6943,7 @@ static bool32 IsBattlerGroundedInverseCheck(enum BattlerId battler, enum Ability
     //not setup fully yet vsonic -//hmm w ground flying change this is also more balanced now vsonic
     if (gBattleMons[battler].volatiles.trenchRunTimer) //change name, using for trench run
         grounded = TRUE;
-    if (gBattleMons[battler].volatiles.RoostTimer) //
+    if (gBattleMons[battler].volatiles.roostTimer) //
         grounded = TRUE;
     
 
@@ -9887,7 +9887,7 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct BattleCont
     //I "think" MAYBE it was for multi hit miss stuff
     //idk its not on master can't really identify it from comparison repo smh
     if ((ctx->abilityDef == ABILITY_OCEAN_MEMORY && ctx->moveType == TYPE_WATER)
-        && GetBattleMoveSplit(ctx->move) != DAMAGE_CATEGORY_STATUS)
+        && GetBattleMoveCategory(ctx->move) != DAMAGE_CATEGORY_STATUS)
     {
         modifier = UQ_4_12(0.0);
         if (ctx->updateFlags)
@@ -9897,7 +9897,7 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct BattleCont
             gBattleStruct->moveResultFlags[ctx->battlerDef] |= MOVE_RESULT_MISSED;
             gLastLandedMoves[ctx->battlerDef] = 0;
             PREPARE_TYPE_BUFFER(gBattleTextBuff1, ctx->moveType);
-            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_ABILITY_TYPE_MISS
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_ABILITY_TYPE_MISS;
             RecordAbilityBattle(ctx->battlerDef, gBattleMons[ctx->battlerDef].ability);
         }
     }
@@ -11937,6 +11937,11 @@ void RemoveHazardFromField(u32 side, enum Hazards hazardType)
     }
 }
 
+static bool32 CanMoveSkipAccuracyCheck(enum BattlerId battlerAtk, u32 move)
+{
+    return (move == MOVE_TOXIC && IS_BATTLER_OF_TYPE(battlerAtk, GetMoveType(move)));
+}
+
 //believe done
 //may need add argument if this is used in ai
 //for affinity check function to know if it should use ai version
@@ -11948,7 +11953,7 @@ bool32 CanMoveSkipAccuracyCalc(enum BattlerId battlerAtk, enum BattlerId battler
     u32 nonVolatileStatus = GetMoveNonVolatileStatus(move);
 
     if ((gBattleMons[battlerDef].volatiles.lockOn && gBattleMons[battlerDef].volatiles.battlerWithSureHit == battlerAtk)
-     || (nonVolatileStatus == MOVE_EFFECT_TOXIC && DoesBattlerGetTypeBasedAffinity(abilityAtk, battlerDef, abilityDef, TYPE_POISON, FALSE))
+     || (move == MOVE_TOXIC && DoesBattlerGetTypeBasedAffinity(abilityAtk, battlerDef, abilityDef, TYPE_POISON, FALSE))
      || gBattleMons[battlerDef].volatiles.glaiveRush)
     {
         effect = TRUE;
@@ -12049,7 +12054,7 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
 
     //should work gets acc check if fury cutter
     //otherwise just sets normal move acc
-    moveAcc = GetFuryCutterAccuracy(move);
+    moveAcc = GetFuryCutterAccuracy(move, battlerAtk);
 
     //cacophony boost
     if (ShouldCacophonyBoostAccuracy(move))
@@ -12277,7 +12282,7 @@ bool32 BreaksThroughSemiInvulnerablity(enum BattlerId battlerAtk, enum BattlerId
 
     if (state != STATE_COMMANDER)
     {
-        if (CanMoveSkipAccuracyCheck(battlerAtk, move))
+        if (move == MOVE_TOXIC && DoesBattlerGetTypeBasedAffinity(abilityAtk, battlerDef, abilityDef, TYPE_POISON, FALSE))
             return TRUE;
         if (IsSureHitAbility(abilityAtk) || IsSureHitAbility(abilityDef))
             return TRUE;
@@ -12568,18 +12573,6 @@ bool32 IsAnyTargetAffected(void)
             continue;
 
         if (!IsBattlerUnaffectedByMove(battler))
-            return TRUE;
-    }
-    return FALSE;
-}
-
-bool32 IsAnyTargetTurnDamaged(enum BattlerId battlerAtk)
-{
-    for (enum BattlerId battlerDef = 0; battlerDef < gBattlersCount; battlerDef++)
-    {
-        if (battlerDef == battlerAtk)
-            continue;
-        if (IsBattlerTurnDamaged(battlerDef))
             return TRUE;
     }
     return FALSE;

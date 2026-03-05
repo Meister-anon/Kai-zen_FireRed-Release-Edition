@@ -323,6 +323,8 @@ enum OtIdMethod
 //but plan is if bst is below 600  gain limit is 600
 //if bst is above 600 global gain limit is 650
 
+#define MAX_FRIENDSHIP  255
+
 // Move category defines.
 enum __attribute__((packed)) DamageCategory
 {

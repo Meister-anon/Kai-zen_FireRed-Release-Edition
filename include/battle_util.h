@@ -318,7 +318,7 @@ u8 GetBattlerForBattleScript(u8 caseId);
 bool32 IsBattlerMarkedForControllerExec(enum BattlerId battler);
 
 //still more things to go over here maybe>?
-u32 GetFuryCutterAccuracy(u32 move);
+u32 GetFuryCutterAccuracy(enum Move move, enum BattlerId battlerAtk);
 void PressurePPLose(u8 target, u8 attacker, u16 move);
 void PressurePPLoseOnUsingImprison(u8 attacker);
 void PressurePPLoseOnUsingPerishSong(u8 attacker);
