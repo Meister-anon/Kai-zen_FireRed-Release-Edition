@@ -714,11 +714,6 @@ static const struct FormChange sAbomasnowFormChangeTable[] = {
     {FORM_CHANGE_TERMINATOR},
 };
 
-static const struct FormChange sGalladeFormChangeTable[] = {
-    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_GALLADE_MEGA, ITEM_GALLADITE},
-    {FORM_CHANGE_TERMINATOR},
-};
-
 /*static const struct FormChange sDialgaFormChangeTable[] = {
     {FORM_CHANGE_ITEM_HOLD, SPECIES_DIALGA, ITEM_NONE},
     {FORM_CHANGE_ITEM_HOLD, SPECIES_DIALGA_ORIGIN, ITEM_ADAMANT_CRYSTAL},
@@ -1257,12 +1252,6 @@ static const struct FormChange sSilvallyFormChangeTable[] =
     {FORM_CHANGE_ITEM_USE, SPECIES_SILVALLY_DRAGON,   ITEM_DRAGON_MEMORY},
     {FORM_CHANGE_ITEM_USE, SPECIES_SILVALLY_DARK,     ITEM_DARK_MEMORY},
     {FORM_CHANGE_ITEM_USE, SPECIES_SILVALLY_FAIRY,    ITEM_FAIRY_MEMORY},
-    {FORM_CHANGE_TERMINATOR},
-};
-
-static const struct FormChange sMimikyuFormChangeTable[] = {
-    {FORM_CHANGE_FAINT,         SPECIES_MIMIKYU},
-    {FORM_CHANGE_END_BATTLE,    SPECIES_MIMIKYU},
     {FORM_CHANGE_TERMINATOR},
 };
 

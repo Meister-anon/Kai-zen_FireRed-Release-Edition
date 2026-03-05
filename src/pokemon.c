@@ -13174,6 +13174,14 @@ u16 GetBaseFormSpecies(u16 speciesId)
     return GetFormSpeciesId(speciesId, 0);
 }
 
+const struct FormChange *GetSpeciesFormChanges(u16 species)
+{
+    const struct FormChange *formChanges = gFormChangeTablePointers[species];
+    if (formChanges == NULL)
+        return gFormChangeTablePointers[SPECIES_NONE];
+    return formChanges;
+}
+
 //would return what form id it is given the species, so would need both this and above for table comparisons
 //start with this function, to get formId of dex species, then substitute taht into GetFormSpeciesId, use targetId + 1 
 //if == 0xffff can know not to put right arrow, can make new function from the two, call, islastformId  return true false

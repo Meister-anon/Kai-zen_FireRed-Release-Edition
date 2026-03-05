@@ -1448,4 +1448,6 @@ struct BoxPokemon *GetSelectedBoxMonFromPcOrParty(void);
 u32 GiveScriptedMonToPlayer(struct Pokemon *mon, u8 slot);
 void ChangePokemonNicknameWithCallback(void (*callback)(void));
 
+const struct FormChange *GetSpeciesFormChanges(u16 species);
+
 #endif // GUARD_POKEMON_H
