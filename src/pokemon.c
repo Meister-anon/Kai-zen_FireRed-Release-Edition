@@ -4680,7 +4680,8 @@ void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u
 // seems this is the equivalent of emerald's CalcDefenseStat function
 // actually can put calcmovebasepower aft mod in here too, to set up those abilities.
 //used in damagecalc command and for selfhit dmg for confusion/disobedience
-s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u32 sideStatus, u16 powerOverride, u8 typeOverride, enum BattlerId battlerIdAtk, enum BattlerId battlerIdDef)
+//making static func not needed in EE state
+static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u32 sideStatus, u16 powerOverride, u8 typeOverride, enum BattlerId battlerIdAtk, enum BattlerId battlerIdDef)
 {
     u32 i;
     u32 percentBoost;
