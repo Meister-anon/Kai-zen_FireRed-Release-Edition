@@ -12730,14 +12730,6 @@ bool32 TryActivateHeatTrance(enum BattlerId battler)  //change mind better to do
 
 }*/
 
-enum Type GetBattleMoveType(enum Move move)
-{
-    if (gMain.inBattle && gBattleStruct->dynamicMoveType)
-        return gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;
-
-    return gMovesInfo[move].type;
-}
-
 #define FIXATION_EFFECTS
 //present form useless plan rework
 //to instead check for fixated status
