@@ -6820,12 +6820,14 @@ bool8 IsFloatingSpecies(u16 species)
     return FALSE;
 }
 
+//VSONIC not 100% but original was false for check negation
+//so think ignore negation is correct
 bool8 IsFlyingTypeBattlerUnableToFly(enum BattlerId battler)
 {
     u16 species = gBattleMons[battler].species;
 
     if (gFieldStatuses & STATUS_FIELD_GRAVITY
-    || (GetBattlerHoldEffect(battler, FALSE) == HOLD_EFFECT_IRON_BALL))
+    || (GetBattlerHoldEffectIgnoreNegation(battler) == HOLD_EFFECT_IRON_BALL))
         return TRUE;
 
    
@@ -6850,7 +6852,7 @@ bool8 CanFlyingTypeRecoverFromSmackDown(enum BattlerId battler)
 
     if (IsFloatingSpecies(species))
         return TRUE;
-    else if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_FLOAT_STONE)
+    else if (GetBattlerHoldEffect(battler) == HOLD_EFFECT_FLOAT_STONE)
             return TRUE;
 
     return FALSE;
@@ -9626,7 +9628,7 @@ s32 CalculateMoveDamageVars(struct BattleContext *ctx)
 static inline bool32 ActivateGenesectDownloadDefense(enum BattlerId battler)
 {
     if (GetBaseFormSpecies(gBattleMons[battler].species) == SPECIES_GENESECT
-    && GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_DRIVE)
+    && GetBattlerHoldEffect(battler) == HOLD_EFFECT_DRIVE)
         return TRUE;
 
     return FALSE;
@@ -9635,7 +9637,7 @@ static inline bool32 ActivateGenesectDownloadDefense(enum BattlerId battler)
 static inline bool32 ActivateArcuesMultiTypeDefense(enum BattlerId battler)
 {
     if (GetBaseFormSpecies(gBattleMons[battler].species) == SPECIES_ARCEUS
-    && GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_PLATE)
+    && GetBattlerHoldEffect(battler) == HOLD_EFFECT_PLATE)
         return TRUE;
 
     return FALSE;
@@ -11938,7 +11940,7 @@ void RemoveHazardFromField(u32 side, enum Hazards hazardType)
 //believe done
 //may need add argument if this is used in ai
 //for affinity check function to know if it should use ai version
-bool32 CanMoveSkipAccuracyCalc(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum Ability abilityDef, enum Move move, enum FunctionCallOption option)
+bool32 CanMoveSkipAccuracyCalc(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum Ability abilityDef, enum Move move, enum ResultOption option)
 {
     bool32 effect = FALSE;
     enum Ability ability = ABILITY_NONE;
@@ -12623,8 +12625,8 @@ bool32 CanBattlerHeal(enum BattlerId battlerId)
 //can rely on
 bool32 IsMimikyuDisguised(enum BattlerId battler)
 {
-    return gBattleMons[battler].species == SPECIES_MIMIKYU_DISGUISED
-        || gBattleMons[battler].species == SPECIES_MIMIKYU_TOTEM_DISGUISED;
+    return gBattleMons[battler].species == SPECIES_MIMIKYU_DISGUISED;
+        //|| gBattleMons[battler].species == SPECIES_MIMIKYU_TOTEM_DISGUISED;
 }
 
 //these two functions are put in end turn so self affectings
@@ -12644,8 +12646,8 @@ bool32 TryActivateBattlePoisonHeal(enum BattlerId battler)  //change mind better
         }
 
         else if (DoesBattlerGetTypeBasedAffinity(ability, battler, ability, TYPE_POISON, TRUE) 
-            && ((GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_BLACK_SLUDGE)
-            || (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_TOXIC_ORB)))
+            && ((GetBattlerHoldEffect(battler) == HOLD_EFFECT_BLACK_SLUDGE)
+            || (GetBattlerHoldEffect(battler) == HOLD_EFFECT_TOXIC_ORB)))
         {
             return TRUE;
         }
@@ -12680,7 +12682,7 @@ bool32 TryActivateHeatTrance(enum BattlerId battler)  //change mind better to do
         //since I already stipulated ability is heat trance this is fine
         //it just means is fire type
         else if (DoesBattlerGetTypeBasedAffinity(ability, battler, ability, TYPE_FIRE, TRUE) 
-            && ((GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_FLAME_ORB)))
+            && ((GetBattlerHoldEffect(battler) == HOLD_EFFECT_FLAME_ORB)))
         {
             return TRUE;
         }
@@ -12866,7 +12868,7 @@ bool32 ChangeOrderTargetAfterAttacker(void)
 }
 
 //vsonic pretty sure not using
-void TryUpdateEvolutionTracker(u32 evolutionCondition, u32 upAmount, u16 usedMove)
+void TryUpdateEvolutionTracker(u32 evolutionCondition, u32 upAmount, enum Move usedMove)
 {
     /*u32 i, j;
 

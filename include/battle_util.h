@@ -490,6 +490,7 @@ bool32 TryActivateHeatTrance(enum BattlerId battler);
 //removed fire fang restriction, any heat transafer is good enough
 
 //EE stuff
+bool8 IsMonBannedFromSkyBattles(u16 species);
 bool32 CanBattlerGetOrLoseItem(u32 fromBattler, enum BattlerId battler, u16 itemId);
 u32 GetBattlerVisualSpecies(enum BattlerId battler);
 bool32 TryClearIllusion(enum BattlerId battler, enum Ability ability);
