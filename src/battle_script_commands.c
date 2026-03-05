@@ -14939,7 +14939,7 @@ void BS_PalaceFlavorText(void)
     NATIVE_ARGS();
     // Try and print end-of-turn Battle Palace flavor text (e.g. "A glint appears in mon's eyes")
     enum BattlerId battler;
-    gBattleCommunication[0] = FALSE; // whether or not msg should be printed
+    /*gBattleCommunication[0] = FALSE; // whether or not msg should be printed
     gBattleScripting.battler = battler = gBattleCommunication[1];
     if (!(gBattleStruct->palaceFlags & (1u << battler))
         && gBattleMons[battler].maxHP / 2 >= gBattleMons[battler].hp
@@ -14949,21 +14949,21 @@ void BS_PalaceFlavorText(void)
         gBattleStruct->palaceFlags |= 1u << battler;
         gBattleCommunication[0] = TRUE;
         gBattleCommunication[MULTISTRING_CHOOSER] = gNaturesInfo[GetNatureFromPersonality(gBattleMons[battler].personality)].battlePalaceFlavorText;
-    }
+    }*/
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 void BS_ArenaJudgmentWindow(void)
 {
     NATIVE_ARGS();
-    u32 judgmentWindow = BattleArena_ShowJudgmentWindow(&gBattleCommunication[0]);
+    /*u32 judgmentWindow = BattleArena_ShowJudgmentWindow(&gBattleCommunication[0]);
 
     // BattleArena_ShowJudgmentWindow's last state was an intermediate step.
     // Return without advancing the current instruction so that it will be called again.
     if (judgmentWindow == ARENA_RESULT_RUNNING)
         return;
 
-    gBattleCommunication[1] = judgmentWindow;
+    gBattleCommunication[1] = judgmentWindow;*/
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
@@ -15103,8 +15103,8 @@ void BS_SetAlreadyStatusedMoveAttempt(void)
 void BS_PalaceTryEscapeStatus(void)
 {
     NATIVE_ARGS();
-    if (BattlePalace_TryEscapeStatus(gBattlerAttacker))
-        return;
+    /*if (BattlePalace_TryEscapeStatus(gBattlerAttacker))
+        return;*/
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
