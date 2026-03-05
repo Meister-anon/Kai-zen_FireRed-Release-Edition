@@ -1340,7 +1340,7 @@ enum TrainerClassID GetEreaderTrainerClassId(void)
     return gFacilityClassToTrainerClass[gSaveBlock2Ptr->battleTower.ereaderTrainer.trainerClass];
 }
 
-void CopyEReaderTrainerName5(u8 *trainerName)
+void GetEreaderTrainerName(u8 *trainerName)
 {
     s32 i;
 

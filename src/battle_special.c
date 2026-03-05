@@ -121,7 +121,7 @@ void DoSpecialTrainerBattle(void)
             gBattleScripting.specialTrainerBattleType = 0xFF;
         break;
     }
-}*/
+}
 
 void SetEReaderTrainerGfxId(void)
 {
@@ -130,7 +130,7 @@ void SetEReaderTrainerGfxId(void)
 
 // This is a leftover debugging function that is used to populate the E-Reader
 // trainer with the player's current data.
-/*static void UNUSED FillEReaderTrainerWithPlayerData(void)
+static void UNUSED FillEReaderTrainerWithPlayerData(void)
 {
 #if FREE_BATTLE_TOWER_E_READER == FALSE
     struct BattleTowerEReaderTrainer *ereaderTrainer = &gSaveBlock2Ptr->frontier.ereaderTrainer;
