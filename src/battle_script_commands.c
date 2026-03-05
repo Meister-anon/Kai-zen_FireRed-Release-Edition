@@ -1123,7 +1123,7 @@ static void Cmd_attackcanceler(void)
         }
     }
 
-    u16 moveEffect = GetMoveEffect(gCurrentMove);
+    enum BattleMoveEffects moveEffect = GetMoveEffect(gCurrentMove);
 
     //need verify if still works with other changes -vsonic
     //also for some reason missed changse from top of file
@@ -9558,7 +9558,7 @@ static void Cmd_setsubstitute(void)
 {
     CMD_ARGS();
 
-    u32 factor = GetMoveEffect(gCurrentMove) == EFFECT_SHED_TAIL ? 2 : 4;
+    enum BattleMoveEffects factor = GetMoveEffect(gCurrentMove) == EFFECT_SHED_TAIL ? 2 : 4;
     s32 hp = 0;
 
     if (factor == 2)

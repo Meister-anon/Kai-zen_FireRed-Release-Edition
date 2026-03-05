@@ -2047,7 +2047,7 @@ bool32 IsConfusionMoveEffect(enum BattleMoveEffects moveEffect)
 bool32 IsHazardMove(u32 move)
 {
     // Hazard setting moves like Stealth Rock, Spikes, etc.
-    u32 moveEffect = GetMoveEffect(move);
+    enum BattleMoveEffects moveEffect = GetMoveEffect(move);
     switch (moveEffect)
     {
     case EFFECT_CEASELESS_EDGE:
@@ -2078,7 +2078,7 @@ bool32 IsHazardMove(u32 move)
 bool32 IsHazardClearingMove(u32 move)
 {
     // Hazard clearing effects like Rapid Spin, Tidy Up, etc.
-    u32 moveEffect = GetMoveEffect(move);
+    enum BattleMoveEffects moveEffect = GetMoveEffect(move);
     switch (moveEffect)
     {
     case EFFECT_RAPID_SPIN:
@@ -5880,7 +5880,7 @@ bool32 ShouldTriggerAbility(enum BattlerId battlerAtk, enum BattlerId battlerDef
 // At the moment, the parts about Mummy and Wandering Spirit are not actually used.
 bool32 CanEffectChangeAbility(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move, struct AiLogicData *aiData)
 {
-    u32 effect = GetMoveEffect(move);
+    enum BattleMoveEffects effect = GetMoveEffect(move);
 
     // Dynamaxed Pokemon are immune to some ability-changing effects.
     if (GetActiveGimmick(battlerDef) == GIMMICK_DYNAMAX)
@@ -6013,7 +6013,7 @@ bool32 DoesEffectReplaceTargetAbility(u32 effect)
 
 void AbilityChangeScore(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move, s32 *score, struct AiLogicData *aiData)
 {
-    u32 effect = GetMoveEffect(move);
+    enum BattleMoveEffects effect = GetMoveEffect(move);
     bool32 isTargetingPartner = IsTargetingPartner(battlerAtk, battlerDef);
     enum Ability abilityAtk = aiData->abilities[battlerAtk];
     enum Ability abilityDef = aiData->abilities[battlerDef];

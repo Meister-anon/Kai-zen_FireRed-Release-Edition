@@ -2238,7 +2238,7 @@ void TryClearRageAndFuryCutter(void)
     s32 i;
     for (i = 0; i < gBattlersCount; i++)
     {
-        u32 effect = GetMoveEffect(gChosenMoveByBattler[i]);
+        enum BattleMoveEffects effect = GetMoveEffect(gChosenMoveByBattler[i]);
         if (gBattleMons[i].volatiles.rage && effect != EFFECT_RAGE)
             gBattleMons[i].volatiles.rage = FALSE;
     }
@@ -7293,7 +7293,7 @@ static inline u32 CalcMoveBasePower(struct BattleContext *ctx)
 
     u32 i;
     u32 basePower = GetMovePower(move);
-    u32 moveEffect = GetMoveEffect(move);
+    enum BattleMoveEffects moveEffect = GetMoveEffect(move);
     u32 weight, hpFraction, speed;
 
     if (GetActiveGimmick(battlerAtk) == GIMMICK_Z_MOVE)
@@ -11053,7 +11053,7 @@ enum MoveTarget GetBattlerMoveTargetType(enum BattlerId battler, enum Move move)
     return GetMoveTarget(move);
 }
 
-bool32 CanTargetBattler(enum BattlerId battlerAtk, enum BattlerId battlerDef, u16 move)
+bool32 CanTargetBattler(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move)
 {
     if (GetMoveEffect(move) == EFFECT_HIT_ENEMY_HEAL_ALLY
     &&  IsBattlerAlly(battlerAtk, battlerDef)
@@ -11186,16 +11186,17 @@ bool32 MoveEffectIsGuaranteed(enum BattlerId battler, enum Ability battlerAbilit
     return additionalEffect->chance == 0 || CalcSecondaryEffectChance(battler, battlerAbility, additionalEffect) >= 100;
 }
 
+//vsonic to remove later
 bool32 IsGen6ExpShareEnabled(void)
 {
-    if (I_EXP_SHARE_FLAG <= TEMP_FLAGS_END)
+    //if (I_EXP_SHARE_FLAG <= TEMP_FLAGS_END)
         return FALSE;
 
-    return FlagGet(I_EXP_SHARE_FLAG);
+    //return FlagGet(I_EXP_SHARE_FLAG);
 }
 
 
-bool32 MoveHasAdditionalEffect(enum Move move, u32 moveEffect)
+bool32 MoveHasAdditionalEffect(enum Move move, enum MoveEffect moveEffect)
 {
     u32 i;
     u32 numAdditionalEffects = GetMoveAdditionalEffectCount(move);
@@ -11208,7 +11209,7 @@ bool32 MoveHasAdditionalEffect(enum Move move, u32 moveEffect)
     return FALSE;
 }
 
-bool32 MoveHasAdditionalEffectWithChance(enum Move move, u32 moveEffect, u32 chance)
+bool32 MoveHasAdditionalEffectWithChance(enum Move move, enum MoveEffect moveEffect, u32 chance)
 {
     u32 i;
     u32 numAdditionalEffects = GetMoveAdditionalEffectCount(move);
@@ -11221,7 +11222,7 @@ bool32 MoveHasAdditionalEffectWithChance(enum Move move, u32 moveEffect, u32 cha
     return FALSE;
 }
 
-bool32 MoveHasAdditionalEffectSelf(enum Move move, u32 moveEffect)
+bool32 MoveHasAdditionalEffectSelf(enum Move move, enum MoveEffect moveEffect)
 {
     u32 i;
     u32 numAdditionalEffects = GetMoveAdditionalEffectCount(move);
@@ -11234,7 +11235,7 @@ bool32 MoveHasAdditionalEffectSelf(enum Move move, u32 moveEffect)
     return FALSE;
 }
 
-bool32 IsMoveEffectRemoveSpeciesType(enum Move move, u32 moveEffect, u32 argument)
+bool32 IsMoveEffectRemoveSpeciesType(enum Move move, enum MoveEffect moveEffect, u32 argument)
 {
     return (MoveHasAdditionalEffectSelf(move, moveEffect) && GetMoveArgType(move) == argument);
 }
