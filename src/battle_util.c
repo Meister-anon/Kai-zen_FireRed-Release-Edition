@@ -2887,7 +2887,7 @@ bool32 CanAbilityAbsorbMove(struct BattleContext *ctx)
                 battleScript = AbsorbedByDrainHpAbility(ctx->battlerDef);
             break;
         case ABILITY_NEW_MOON:
-            if (IsMoonbasedMove(move))
+            if (IsMoonbasedMove(ctx->move))
                 battleScript = AbsorbedByDrainHpAbility(ctx->battlerDef);
             break;
         case ABILITY_MOTOR_DRIVE:
