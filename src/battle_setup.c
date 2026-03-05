@@ -13,6 +13,7 @@
 #include "script_pokemon_util.h"
 #include "strings.h"
 #include "string_util.h"
+#include "data.h"
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "metatile_behavior.h"
@@ -46,14 +47,14 @@ static void DoSafariBattle(void);
 static void DoGhostBattle(void);
 static void DoStandardWildBattle(void);
 static void CB2_EndWildBattle(void);
-static u8 GetWildBattleTransition(void);
-static u8 GetTrainerBattleTransition(void);
 static void CB2_EndScriptedWildBattle(void);
 static void CB2_EndMarowakBattle(void);
 static bool32 IsPlayerDefeated(u32 battleOutcome);
 static void CB2_EndTrainerBattle(void);
 static const u8 *GetIntroSpeechOfApproachingTrainer(void);
 static const u8 *GetTrainerCantBattleSpeech(void);
+static void SaveChangesToPlayerParty(void);
+static void HandleBattleVariantEndParty(void);
 
 //EE
 //static void DoBattlePikeWildBattle(void);
@@ -203,7 +204,7 @@ static const u8 sBattleTransitionTable_BattleDome[] =
     .mapNum = MAP_NUM(map),                                             \
 }
 
-const struct RematchTrainer gRematchTable[REMATCH_TABLE_ENTRIES] =
+const struct RematchTrainer gRematchTable[] =
 {
     /*[REMATCH_ROSE] = REMATCH(TRAINER_ROSE_1, TRAINER_ROSE_2, TRAINER_ROSE_3, TRAINER_ROSE_4, TRAINER_ROSE_5, ROUTE118),
     [REMATCH_ANDRES] = REMATCH(TRAINER_ANDRES_1, TRAINER_ANDRES_2, TRAINER_ANDRES_3, TRAINER_ANDRES_4, TRAINER_ANDRES_5, ROUTE105),
@@ -682,7 +683,7 @@ static u8 GetSumOfEnemyPartyLevel(u16 opponentId, u8 numMons)
     return sum;
 }
 
-static u8 GetWildBattleTransition(void)
+u8 GetWildBattleTransition(void)
 {
     u8 transitionType = GetBattleTransitionTypeByMap();
     u8 enemyLevel = GetMonData(&gEnemyParty[0], MON_DATA_LEVEL);
@@ -694,7 +695,7 @@ static u8 GetWildBattleTransition(void)
         return sBattleTransitionTable_Wild[transitionType][1];
 }
 
-static u8 GetTrainerBattleTransition(void)
+u8 GetTrainerBattleTransition(void)
 {
     u8 minPartyCount;
     u8 transitionType;
@@ -703,8 +704,8 @@ static u8 GetTrainerBattleTransition(void)
     u32 trainerId = SanitizeTrainerId(TRAINER_BATTLE_PARAM.opponentA);
     u32 trainerClass = GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA);
 
-    if (trainerId == TRAINER_SECRET_BASE)
-        return B_TRANSITION_BLUE;
+    /*if (trainerId == TRAINER_SECRET_BASE)
+        return B_TRANSITION_BLUE;*/
     if (trainerClass == CLASS_ELITE_FOUR_FRLG)
     {
         if (trainerId == TRAINER_ELITE_FOUR_LORELEI || trainerId == TRAINER_ELITE_FOUR_LORELEI_2)
@@ -800,14 +801,14 @@ static void CB2_EndFirstBattle(void)
 //prob won't use these either believe is linked to match call feature
 static void TryUpdateGymLeaderRematchFromWild(void)
 {
-    if (GetGameStat(GAME_STAT_WILD_BATTLES) % 60 == 0)
-        UpdateGymLeaderRematch();
+    //if (GetGameStat(GAME_STAT_WILD_BATTLES) % 60 == 0)
+    //    UpdateGymLeaderRematch();
 }
 
 static void TryUpdateGymLeaderRematchFromTrainer(void)
 {
-    if (GetGameStat(GAME_STAT_TRAINER_BATTLES) % 20 == 0)
-        UpdateGymLeaderRematch();
+    //if (GetGameStat(GAME_STAT_TRAINER_BATTLES) % 20 == 0)
+    //    UpdateGymLeaderRematch();
 }
 
 static u16 GetTrainerAFlag(void)
@@ -1138,6 +1139,31 @@ void BattleSetup_StartTrainerBattle(void)
     ScriptContext_Stop();
 }
 
+static void SaveChangesToPlayerParty(void)
+{
+    u8 i = 0, j = 0;
+    u8 participatedPokemon = VarGet(B_VAR_SKY_BATTLE);
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if ((participatedPokemon >> i & 1) == 1)
+        {
+            SavePlayerPartyMon(i, &gPlayerParty[j]);
+            j++;
+        }
+    }
+}
+
+//idk what for unsure if both are just for sky battles
+//which I won't be using,
+//they're just annoying
+static void HandleBattleVariantEndParty(void)
+{
+    if (B_FLAG_SKY_BATTLE == 0 || !FlagGet(B_FLAG_SKY_BATTLE))
+        return;
+    SaveChangesToPlayerParty();
+    LoadPlayerParty();
+    FlagClear(B_FLAG_SKY_BATTLE);
+}
 
 static void CB2_EndTrainerBattle(void)
 {
@@ -1319,9 +1345,9 @@ const u8 *GetTrainerALoseText(void)
 {
     const u8 *string;
 
-    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_SECRET_BASE)
+    /*if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_SECRET_BASE)
         string = GetSecretBaseTrainerLoseText();
-    else
+    else*/
         string = TRAINER_BATTLE_PARAM.defeatTextA;
 
     StringExpandPlaceholders(gStringVar4, ReturnEmptyStringIfNull(string));
