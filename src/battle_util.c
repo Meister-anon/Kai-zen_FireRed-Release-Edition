@@ -7680,7 +7680,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         break;
     case ABILITY_HUNGER_SWITCH:
-        if (moveType == GetHungerSwitchType(&ctx))
+        if (moveType == GetHungerSwitchType(gBattleMons[ctx->battlerAtk].species, ctx->abilityAtk))
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         break;
     case ABILITY_LETHAL_LEGS:
@@ -9832,7 +9832,7 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct BattleCont
             gBattleStruct->moveResultFlags[ctx->battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
             //gLastUsedAbility = ABILITY_LEVITATE;
             gLastLandedMoves[ctx->battlerDef] = 0;
-            gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_GROUND_MISS;
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_GROUND_MISS;
             //RecordAbilityBattle(ctx->battlerDef, ABILITY_LEVITATE);
         }//think is right
         
@@ -9878,17 +9878,24 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct BattleCont
         }
     }
 
-    if ((ctx->abilityDef == ABILITY_LIQUID_SOUL && ctx->moveType == TYPE_WATER)
+    //why do I keep mixing these up
+    //this is supposed to be ocean memory
+    //ok vsonic removed gBattleStruct->missStringId[ctx->battlerDef]
+    //can't remember if I made that and for what purpose
+    //I "think" MAYBE it was for multi hit miss stuff
+    //idk its not on master can't really identify it from comparison repo smh
+    if ((ctx->abilityDef == ABILITY_OCEAN_MEMORY && ctx->moveType == TYPE_WATER)
         && GetBattleMoveSplit(ctx->move) != DAMAGE_CATEGORY_STATUS)
     {
         modifier = UQ_4_12(0.0);
         if (ctx->updateFlags)
         {
-            gLastUsedAbility = gBattleMons[ctx->battlerDef].ability;
+            gLastUsedAbility = ctx->abilityDef;
+            ctx->abilityBlocked = TRUE;
             gBattleStruct->moveResultFlags[ctx->battlerDef] |= MOVE_RESULT_MISSED;
             gLastLandedMoves[ctx->battlerDef] = 0;
             PREPARE_TYPE_BUFFER(gBattleTextBuff1, ctx->moveType);
-            gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_ABILITY_TYPE_MISS;
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_ABILITY_TYPE_MISS
             RecordAbilityBattle(ctx->battlerDef, gBattleMons[ctx->battlerDef].ability);
         }
     }
