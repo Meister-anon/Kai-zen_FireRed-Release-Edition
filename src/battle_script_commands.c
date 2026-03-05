@@ -32,6 +32,7 @@
 #include "malloc.h"
 #include "bg.h"
 #include "string_util.h"
+#include "trainer_pokemon_sprites.h"
 #include "pokemon_icon.h"
 //#include "caps.h"
 #include "m4a.h"
@@ -11882,7 +11883,8 @@ static void ComputeBallData(u32 wildMonBattler, u32 playerBattler, struct BallDa
             ball->multiplier = 400;
         break;
     case BALL_HEAVY:
-        i = GetSpeciesWeight(battleMon->species);
+        //i = GetSpeciesWeight(battleMon->species);
+        i = GetBattlerWeight(wildMonBattler);
         if (B_HEAVY_BALL_MODIFIER >= GEN_7)
         {
             if (i < 1000)
@@ -14497,16 +14499,17 @@ void BS_JumpIfIntimidateAbilityPrevented(void)
     }
 }
 
+//not uysing
 void BS_JumpIfCanGigantamax(void)
 {
     NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
-    if (GetMonData(GetBattlerMon(battler), MON_DATA_GIGANTAMAX_FACTOR)
-      && GetGMaxTargetSpecies(gBattleMons[battler].species) != SPECIES_NONE)
+    //if (GetMonData(GetBattlerMon(battler), MON_DATA_GIGANTAMAX_FACTOR)
+      //&& GetGMaxTargetSpecies(gBattleMons[battler].species) != SPECIES_NONE)
         gBattlescriptCurrInstr = cmd->jumpInstr;
-    else
-        gBattlescriptCurrInstr = cmd->nextInstr;
+    /*else
+        gBattlescriptCurrInstr = cmd->nextInstr;*/
 }
 
 void BS_TryFlingHoldEffect(void)

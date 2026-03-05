@@ -82,6 +82,7 @@ u8 ItemId_GetBattleUsage(u16 itemId);   //not using now, usnig battlfunc check i
 ItemUseFunc ItemId_GetBattleFunc(u16 itemId);
 u16 GetItemSecondaryId(enum Item itemId);
 u32 GetItemFlingPower(enum Item itemId);
+u32 GetItemStatus1Mask(enum Item itemId);
 u16 itemid_get_market_price(u16 itemId);
 u16 itemid_get_Id(u16 itemId);
 void ClearBag(void);

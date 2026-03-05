@@ -1012,6 +1012,29 @@ u32 GetItemFlingPower(enum Item itemId)
     return gItemsInfo[SanitizeItemId(itemId)].flingPower;
 }
 
+//not yet used and itme effect
+//refactor is in works
+u32 GetItemStatus1Mask(enum Item itemId)
+{
+    const u8 *effect = GetItemEffect(itemId);
+    switch (effect[3])
+    {
+    case ITEM3_PARALYSIS:
+        return STATUS1_PARALYSIS;
+    case ITEM3_FREEZE:
+        return STATUS1_FREEZE_OR_FROSTBITE;
+    case ITEM3_BURN:
+        return STATUS1_BURN;
+    case ITEM3_POISON:
+        return STATUS1_PSN_ANY;
+    case ITEM3_SLEEP:
+        return STATUS1_SLEEP;
+    case ITEM3_STATUS_ALL:
+        return STATUS1_ANY;
+    }
+    return 0;
+}
+
 bool32 IsHoldEffectChoice(enum HoldEffect holdEffect)
 {
     return holdEffect == HOLD_EFFECT_CHOICE_BAND

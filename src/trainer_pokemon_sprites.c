@@ -295,6 +295,7 @@ u16 CreateMonPicSprite(u16 species, bool8 isShiny, u32 personality, bool8 isFron
     return CreatePicSprite(species, isShiny, personality, isFrontPic, x, y, paletteSlot, paletteTag, FALSE, ignoreDeoxys);
 }
 
+//handleDeoxys stuff no longer necessary just didn't remove
 u16 CreateMonPicSprite_HandleDeoxys(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag)
 {
     return CreateMonPicSprite(species, isShiny, personality, isFrontPic, x, y, paletteSlot, paletteTag, FALSE);
