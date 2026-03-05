@@ -8583,6 +8583,8 @@ static uq4_12_t GetWeatherDamageModifier(struct BattleContext *ctx)
     //acid rain would still fit but since I've added hail/snow effects
     //is no longer accurate to just return
     //vsonic need update w new values
+    //unsure if will set theese up like this
+    //review if need safety goggles and umbrella need be changed buffed
     if (ctx->holdEffectDef == HOLD_EFFECT_UTILITY_UMBRELLA
     && (ctx->weather & WEATHER_RAIN_ALL
     || ctx->weather & WEATHER_LIGHT_BASED))
@@ -8621,7 +8623,7 @@ static uq4_12_t GetWeatherDamageModifier(struct BattleContext *ctx)
     if (ctx->weather & WEATHER_SUN)
     {
         if (ctx->moveType != TYPE_FIRE && ctx->moveType != TYPE_WATER
-        && ctx->moveType !- TYPE_ICE)
+        && ctx->moveType != TYPE_ICE)
             return UQ_4_12(1.0);
         else if (ctx->moveType == TYPE_FIRE)
         {
