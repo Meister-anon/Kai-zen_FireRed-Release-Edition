@@ -30,6 +30,7 @@ struct WildEncounterData
 
 static EWRAM_DATA struct WildEncounterData sWildEncounterData = {};
 static EWRAM_DATA bool8 sWildEncountersDisabled = FALSE;
+EWRAM_DATA bool8 gIsFishingEncounter = 0;
 
 static bool8 UnlockedTanobyOrAreNotInTanoby(void);
 static u32 GenerateUnownPersonalityByLetter(u8 letter);
@@ -613,6 +614,7 @@ bool8 DoesCurrentMapHaveFishingMons(void)
 
 void FishingWildEncounter(u8 rod)
 {
+    gIsFishingEncounter = TRUE;
     GenerateFishingEncounter(gWildMonHeaders[GetCurrentMapWildMonHeaderId()].fishingMonsInfo, rod);
     IncrementGameStat(GAME_STAT_FISHING_CAPTURES);
     BattleSetup_StartWildBattle();

@@ -13,6 +13,7 @@
 #include "battle_z_move.h"
 #include "battle_move_resolution.h"
 #include "bike.h"
+#include "field_player_avatar.h"
 #include "item.h"
 #include "util.h"
 #include "pokemon.h"
@@ -63,6 +64,7 @@
 #include "constants/party_menu.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "constants/maps.h"
 //#include "constants/trainer_slide.h"
 #include "constants/trainers.h"
 #include "test/battle.h"
@@ -11036,7 +11038,7 @@ static void Cmd_trycopyability(void)
     else
     {
         RemoveAbilityFlags(battler);
-        gBattleScripting.abilityPopupOverwrite = gBattleMons[battler].ability;
+        //gBattleScripting.abilityPopupOverwrite = gBattleMons[battler].ability;
         gBattleMons[battler].ability = gBattleMons[battler].volatiles.overwrittenAbility = defAbility;
         gLastUsedAbility = defAbility;
         gBattlescriptCurrInstr = cmd->nextInstr;
@@ -11207,8 +11209,8 @@ static void Cmd_tryswapabilities(void)
         }
         else
         {
-            if (!IsBattlerAlly(gBattlerAttacker, gBattlerTarget))
-                gBattleScripting.abilityPopupOverwrite = gBattleMons[gBattlerAttacker].ability;
+            //if (!IsBattlerAlly(gBattlerAttacker, gBattlerTarget))
+            //    gBattleScripting.abilityPopupOverwrite = gBattleMons[gBattlerAttacker].ability;
             gLastUsedAbility = gBattleMons[gBattlerTarget].ability;
             RemoveAbilityFlags(gBattlerTarget);
             RemoveAbilityFlags(gBattlerAttacker);
@@ -11805,7 +11807,7 @@ static void ComputeBallData(u32 wildMonBattler, u32 playerBattler, struct BallDa
         break;
     case BALL_DIVE:
         if (GetCurrentMapType() == MAP_TYPE_UNDERWATER
-            || (B_DIVE_BALL_MODIFIER >= GEN_4 && (gIsFishingEncounter || gIsSurfingEncounter)))
+            || (B_DIVE_BALL_MODIFIER >= GEN_4 && (gIsFishingEncounter || IsPlayerSurfing())))
         {
             ball->multiplier = 350;
         }
@@ -12009,6 +12011,7 @@ static u32 ComputeCaptureOdds(u32 wildMonBattler, u32 playerBattler)
     return odds;
 }
 
+//don't think will use
 static bool32 CriticalCapture(u32 odds)
 {
     u32 numCaught;
@@ -12018,9 +12021,9 @@ static bool32 CriticalCapture(u32 odds)
     if (B_CRITICAL_CAPTURE == FALSE)
         return FALSE;
 
-    if (B_CRITICAL_CAPTURE_LOCAL_DEX == TRUE)
+    /*if (B_CRITICAL_CAPTURE_LOCAL_DEX == TRUE)
         totalDexCount = REGIONAL_DEX_COUNT;
-    else
+    else*/
         totalDexCount = NATIONAL_DEX_COUNT;
 
     if (CheckBagHasItem(ITEM_CATCHING_CHARM, 1))
@@ -12773,7 +12776,7 @@ static void Cmd_tryoverwriteability(void)
             gSpecialStatuses[gBattlerTarget].neutralizingGasRemoved = TRUE;
 
         RemoveAbilityFlags(gBattlerTarget);
-        gBattleScripting.abilityPopupOverwrite = gBattleMons[gBattlerTarget].ability;
+        //gBattleScripting.abilityPopupOverwrite = gBattleMons[gBattlerTarget].ability;
         gBattleMons[gBattlerTarget].ability = gBattleMons[gBattlerTarget].volatiles.overwrittenAbility = GetMoveOverwriteAbility(gCurrentMove);
         gBattlescriptCurrInstr = cmd->nextInstr;
     }

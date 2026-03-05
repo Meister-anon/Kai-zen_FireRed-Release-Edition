@@ -86,7 +86,7 @@ static void sub_8150530(void)
     }
     else
     {
-        sub_81507BC(objectEvent, GetPlayerAvatarGraphicsIdByStateId(4));
+        sub_81507BC(objectEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_GFX_FISH));
         StartSpriteAnim(sprite, GetFishingDirectionAnimNum(objectEvent->facingDirection));
     }
 }
@@ -101,7 +101,7 @@ static void sub_81505C4(u8 taskId)
         case 0:
             ObjectEventClearHeldMovementIfActive(objectEvent);
             objectEvent->enableAnim = TRUE;
-            sub_81507BC(objectEvent, GetPlayerAvatarGraphicsIdByStateId(4));
+            sub_81507BC(objectEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_GFX_FISH));
             StartSpriteAnim(sprite, GetFishingDirectionAnimNum(objectEvent->facingDirection));
             gTasks[taskId].data[0]++;
             gTasks[taskId].data[1] = 0;

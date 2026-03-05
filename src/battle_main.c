@@ -39,6 +39,7 @@
 #include "vs_seeker.h"
 #include "util.h"
 #include "new_menu_helpers.h"
+#include "wild_encounter.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
 #include "constants/battle_move_effects.h"
@@ -152,6 +153,7 @@ EWRAM_DATA u16 gBattlerPartyIndexes[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gBattlerPositions[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gActionsByTurnOrder[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA enum BattlerId gBattlerByTurnOrder[MAX_BATTLERS_COUNT] = {0};
+EWRAM_DATA enum BattlerId gBattlersBySpeed[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gCurrentTurnActionNumber = 0;
 EWRAM_DATA u8 gCurrentActionFuncId = 0;
 EWRAM_DATA struct BattlePokemon gBattleMons[MAX_BATTLERS_COUNT] = {0};
@@ -6809,6 +6811,7 @@ static void FreeResetData_ReturnToOvOrDoEvolutions(void) //  this causes end bat
     if (!gPaletteFade.active)
     { // Ok it wasn't that simple for some reason, so this leads to one function, which leads to another that actually does the palette fade that triggers the evo...
         ResetSpriteData();
+        gIsFishingEncounter = FALSE;
 
         //will most likley swap order, much easier to work from true condition
         //than attempting to set or inverse

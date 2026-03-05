@@ -3208,7 +3208,7 @@ static void UseFlyEffect_6(struct Task * task)
     if ((++task->data[2]) >= 8)
     {
         struct ObjectEvent * objectEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
-        ObjectEventSetGraphicsId(objectEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_GFX_RIDE));
+        ObjectEventSetGraphicsId(objectEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_GFX_SURF));
         StartSpriteAnim(&gSprites[objectEvent->spriteId], ANIM_GET_ON_OFF_POKEMON_WEST);
         objectEvent->inanimate = TRUE;
         ObjectEventSetHeldMovement(objectEvent, MOVEMENT_ACTION_JUMP_IN_PLACE_LEFT);

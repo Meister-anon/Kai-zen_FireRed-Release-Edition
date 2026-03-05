@@ -236,6 +236,7 @@ struct MapHeader
 #define MAP_ALLOW_SURFING      (1 << 4)
 #define MAP_ALLOW_PC_ACCESS    (1 << 5)
 #define UNUSED_MAP_FLAGS       (1 << 6 | 1 << 7)
+//hmm could make turn off encounters flag here
 
 #define SHOW_MAP_NAME_ENABLED  ((gMapHeader.flags & (MAP_SHOW_MAP_NAME | UNUSED_MAP_FLAGS)) == MAP_SHOW_MAP_NAME)
 
@@ -341,7 +342,7 @@ enum {
 enum {
     PLAYER_AVATAR_GFX_NORMAL,
     PLAYER_AVATAR_GFX_BIKE,
-    PLAYER_AVATAR_GFX_RIDE,
+    PLAYER_AVATAR_GFX_SURF,
     PLAYER_AVATAR_GFX_FIELD_MOVE,
     PLAYER_AVATAR_GFX_FISH,
     PLAYER_AVATAR_GFX_VSSEEKER,

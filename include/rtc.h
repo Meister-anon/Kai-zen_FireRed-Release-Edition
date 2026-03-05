@@ -2,6 +2,7 @@
 #define GUARD_RTC_H //just realized name for these was wrong entire time it said rtc_util_h  , I guess that was previous name of file
 
 #include "siirtc.h"
+#include "constants/rtc.h"
 
 #define RTC_INIT_ERROR         0x0001
 #define RTC_INIT_WARNING       0x0002
