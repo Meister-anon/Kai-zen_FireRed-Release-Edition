@@ -191,7 +191,7 @@ struct ProtectStruct
     /* field_1 */
     u32 targetNotAffected : 1; //opposite equivalent of targetAffected
     u32 cancelerResult:2; //custom store canclerResult mostly for charge to make effect
-    u32 fleeFlag : 2; // for RunAway Defeatist and Smoke Ball
+    u32 fleeFlag : 2; // for RunAway Defeatist and Smoke Ball // 0: Normal, 1: FLEE_ITEM, 2: FLEE_ABILITY
     u32 usedImprisonedMove : 1;
     u32 loveImmobility : 1;
     u32 usedDisabledMove : 1;

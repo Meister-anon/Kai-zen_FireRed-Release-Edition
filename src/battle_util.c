@@ -1,9 +1,9 @@
 #include "global.h"
 #include "battle.h"
 #include "battle_anim.h"
-#include "battle_arena.h"
+//#include "battle_arena.h"
 #include "battle_environment.h"
-#include "battle_pyramid.h"
+//#include "battle_pyramid.h"
 #include "battle_util.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
@@ -13,7 +13,7 @@
 #include "generational_changes.h"
 #include "party_menu.h"
 #include "pokemon.h"
-#include "international_string_util.h"
+//#include "international_string_util.h"
 #include "item.h"
 #include "util.h"
 #include "battle_scripts.h"
@@ -77,7 +77,7 @@ extern const u8 *const gBattlescriptsForRunningByItem[];
 extern const u8 *const gBattlescriptsForUsingItem[];
 extern const u8 *const gBattlescriptsForSafariActions[];
 
-static const u8 sPkblToEscapeFactor[][3] = {
+/*static const u8 sPkblToEscapeFactor[][3] = {
     {
         [B_MSG_MON_CURIOUS]    = 0,
         [B_MSG_MON_ENTHRALLED] = 0,
@@ -102,6 +102,7 @@ static const u8 sPkblToEscapeFactor[][3] = {
 };
 static const u8 sGoNearCounterToCatchFactor[] = {4, 3, 2, 1};
 static const u8 sGoNearCounterToEscapeFactor[] = {4, 4, 4, 4};
+*/
 
 struct BattleWeatherInfo
 {
@@ -720,7 +721,7 @@ void HandleAction_UseMove(void)
     DetermineTarget(moveTarget, TRUE);
 
 
-    if (gBattleTypeFlags & BATTLE_TYPE_PALACE && gProtectStructs[gBattlerAttacker].palaceUnableToUseMove)
+    /*if (gBattleTypeFlags & BATTLE_TYPE_PALACE && gProtectStructs[gBattlerAttacker].palaceUnableToUseMove)
     {
         // Battle Palace, select battle script for failure to use move
         if (!IsBattlerAlive(gBattlerAttacker))
@@ -740,7 +741,7 @@ void HandleAction_UseMove(void)
             gBattlescriptCurrInstr = BattleScript_MoveUsedLoafingAround;
         }
     }
-    else if (IsBattlerAlly(gBattlerAttacker, gBattlerTarget) && !IsBattlerAlive(gBattlerTarget))
+    else*/ if (IsBattlerAlly(gBattlerAttacker, gBattlerTarget) && !IsBattlerAlive(gBattlerTarget))
     {
         gBattlescriptCurrInstr = BattleScript_FailedFromAtkCanceler;
     }
@@ -843,7 +844,7 @@ bool32 TryRunFromBattle(enum BattlerId battler)
     if (holdEffect == HOLD_EFFECT_CAN_ALWAYS_RUN)
     {
         gLastUsedItem = gBattleMons[battler].item;
-        gProtectStructs[battler].fleeType = FLEE_ITEM;
+        gProtectStructs[battler].fleeFlag = FLEE_ITEM;
         effect++;
     }
     //needs to always be able to trigger or game breaks
@@ -938,14 +939,14 @@ bool32 TryRunFromBattle(enum BattlerId battler)
             if (speedVar > (Random() & 0xFF))
             {
                 gLastUsedAbility = ABILITY_RUN_AWAY;
-                gProtectStructs[battler].fleeType = FLEE_ABILITY;
+                gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
                 effect++;
             }
         }
         else
         {
             gLastUsedAbility = ABILITY_RUN_AWAY;
-            gProtectStructs[battler].fleeType = FLEE_ABILITY;
+            gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
             effect++;
         }
     }
@@ -1076,7 +1077,7 @@ void HandleAction_ThrowBall(void)
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
     gBattle_BG0_Y = 0;
-    gLastUsedItem = gBallToDisplay;
+    //gLastUsedItem = gBallToDisplay;
     if (!IsItemUnique(gLastUsedItem))
     	RemoveBagItem(gLastUsedItem, 1);
     gBattlescriptCurrInstr = BattleScript_BallThrow;
@@ -1084,7 +1085,7 @@ void HandleAction_ThrowBall(void)
 }
 
 //not used
-void HandleAction_ThrowPokeblock(void)
+/*void HandleAction_ThrowPokeblock(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     gBattle_BG0_X = 0;
@@ -1142,7 +1143,7 @@ void HandleAction_GoNear(void)
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 
-/*void HandleAction_SafariZoneRun(void)
+void HandleAction_SafariZoneRun(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     PlaySE(SE_FLEE);
