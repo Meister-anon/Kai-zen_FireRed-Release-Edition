@@ -3950,8 +3950,6 @@ static void BattleStartClearSetData(void)
         //gBattleStruct->allowedToChangeFormInWeather[B_SIDE_PLAYER][i] = FALSE;
         //gBattleStruct->allowedToChangeFormInWeather[B_SIDE_OPPONENT][i] = FALSE;
     }
-    //*(gBattleStruct->AI_monToSwitchIntoId + 0) = PARTY_SIZE;
-    //*(gBattleStruct->AI_monToSwitchIntoId + 1) = PARTY_SIZE;
     gBattleStruct->givenExpMons = 0;
     gBattleStruct->gimmick.triggerSpriteId = 0xFF;
 
@@ -5100,8 +5098,8 @@ void BattleTurnPassed(void) //after all moves used
         gChosenMoveByBattler[i] = MOVE_NONE;
     }
     for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
-        *(gBattleStruct->monToSwitchIntoId + i) = PARTY_SIZE;
-
+        gBattleStruct->monToSwitchIntoId[i] = PARTY_SIZE;
+    
     *(&gAbsentBattlerFlags) = gAbsentBattlerFlags;
     SetShellSideArmCategory();
     SetAiLogicDataForTurn(gAiLogicData); // get assumed abilities, hold effects, etc of all battlers
@@ -5235,7 +5233,7 @@ void UpdatePartyOwnerOnSwitch_NonMulti(enum BattlerId battler)
     for (i = 0; i < 3; ++i)
         gBattlePartyCurrentOrder[i] = *(battler * 3 + i + (u8 *)(gBattleStruct->battlerPartyOrders));
     r4 = GetPartyIdFromBattlePartyId(gBattlerPartyIndexes[battler]);
-    r1 = GetPartyIdFromBattlePartyId(*(gBattleStruct->monToSwitchIntoId + battler));
+    r1 = GetPartyIdFromBattlePartyId(gBattleStruct->monToSwitchIntoId[battler]);
     SwitchPartyMonSlots(r4, r1);
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
@@ -5283,7 +5281,7 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
             ComputeBattlerDecisions(battler); // Do AI score computations here so we can use them in AI_TrySwitchOrUseItem
             // fallthrough
         case STATE_BEFORE_ACTION_CHOSEN: // Choose an action.
-            *(gBattleStruct->monToSwitchIntoId + battler) = PARTY_SIZE;
+            gBattleStruct->monToSwitchIntoId[battler] = PARTY_SIZE;
             if (gBattleTypeFlags & BATTLE_TYPE_MULTI
              || (position & BIT_FLANK) == B_FLANK_LEFT
              || gAbsentBattlerFlags & (1u << GetBattlerAtPosition(BATTLE_PARTNER(position)))
@@ -5386,20 +5384,23 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     break;
                 case B_ACTION_SWITCH:   //vsonic this is part that allows switch, looks like I already setup
                     gBattleStruct->battlerPartyIndexes[battler] = gBattlerPartyIndexes[battler];
-                    if (!CanBattlerEscape(battler))
-                        BtlController_EmitChoosePokemon(battler, B_COMM_TO_CONTROLLER, PARTY_ACTION_CANT_SWITCH, 6, ABILITY_NONE, gBattleStruct->battlerPartyOrders[battler]);
+                    if (!CanBattlerEscape(battler) && GetBattlerHoldEffect(battler) != HOLD_EFFECT_SHED_SHELL)
+                        BtlController_EmitChoosePokemon(battler, B_COMM_TO_CONTROLLER, PARTY_ACTION_CANT_SWITCH, PARTY_SIZE, ABILITY_NONE, 0, gBattleStruct->battlerPartyOrders[battler]);
                     //uturn hit escape effects already work don't need add special logic here
-                    else if (IsAbilityPreventingEscape(battler))
-                        BtlController_EmitChoosePokemon(battler, B_COMM_TO_CONTROLLER, ((i - 1) << 4) | PARTY_ACTION_ABILITY_PREVENTS, 6, GetBattlerAbility(IsAbilityPreventingEscape(battler) - 1), gBattleStruct->battlerPartyOrders[battler]);
+                    else if (GetItemHoldEffect(gBattleMons[battler].item) != HOLD_EFFECT_SHED_SHELL
+                      && (i = IsAbilityPreventingEscape(battler)))   // must be last to keep i value integrity
+                    {
+                        BtlController_EmitChoosePokemon(battler, B_COMM_TO_CONTROLLER, PARTY_ACTION_ABILITY_PREVENTS, PARTY_SIZE, gBattleMons[i - 1].ability, i - 1, gBattleStruct->battlerPartyOrders[battler]);
+                    }
                      //think issue is using  glastusedability, with being able to switch out, seems to mess withthe buffers, seems to have fixed it
                     else //can switch
                     {
                         if (battler == 2 && gChosenActionByBattler[0] == B_ACTION_SWITCH)
-                            BtlController_EmitChoosePokemon(battler, B_COMM_TO_CONTROLLER, PARTY_ACTION_CHOOSE_MON, *(gBattleStruct->monToSwitchIntoId + 0), ABILITY_NONE, gBattleStruct->battlerPartyOrders[battler]);
+                            BtlController_EmitChoosePokemon(battler, B_COMM_TO_CONTROLLER, PARTY_ACTION_CHOOSE_MON, gBattleStruct->monToSwitchIntoId[0], ABILITY_NONE, 0, gBattleStruct->battlerPartyOrders[battler]);
                         else if (battler == 3 && gChosenActionByBattler[1] == B_ACTION_SWITCH)
-                            BtlController_EmitChoosePokemon(battler, B_COMM_TO_CONTROLLER, PARTY_ACTION_CHOOSE_MON, *(gBattleStruct->monToSwitchIntoId + 1), ABILITY_NONE, gBattleStruct->battlerPartyOrders[battler]);
+                            BtlController_EmitChoosePokemon(battler, B_COMM_TO_CONTROLLER, PARTY_ACTION_CHOOSE_MON, gBattleStruct->monToSwitchIntoId[1], ABILITY_NONE, 0, gBattleStruct->battlerPartyOrders[battler]);
                         else
-                            BtlController_EmitChoosePokemon(battler, B_COMM_TO_CONTROLLER, PARTY_ACTION_CHOOSE_MON, 6, ABILITY_NONE, gBattleStruct->battlerPartyOrders[battler]);
+                            BtlController_EmitChoosePokemon(battler, B_COMM_TO_CONTROLLER, PARTY_ACTION_CHOOSE_MON, PARTY_SIZE, ABILITY_NONE, 0, gBattleStruct->battlerPartyOrders[battler]);
                     }
                     MarkBattlerForControllerExec(battler);
                     break;
@@ -5503,7 +5504,7 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     }
                     else
                     {
-                        *(gBattleStruct->monToSwitchIntoId + battler) = gBattleResources->bufferB[battler][1];
+                        gBattleStruct->monToSwitchIntoId[battler] = gBattleResources->bufferB[battler][1];
                         if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
                         {
                             *(battler * 3 + (u8 *)(gBattleStruct->battlerPartyOrders) + 0) &= 0xF;
@@ -5552,9 +5553,9 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                 if (((gBattleTypeFlags & (BATTLE_TYPE_MULTI | BATTLE_TYPE_DOUBLE)) != BATTLE_TYPE_DOUBLE)
                  || (position & BIT_FLANK) != B_FLANK_LEFT
                  || (*(&gAbsentBattlerFlags) & (1u << GetBattlerAtPosition(position ^ BIT_FLANK))))
-                    BtlController_EmitLinkStandbyMsg(battler, B_COMM_TO_CONTROLLER, 0);
+                    BtlController_EmitLinkStandbyMsg(battler, B_COMM_TO_CONTROLLER, LINK_STANDBY_MSG_STOP_BOUNCE, FALSE);
                 else
-                    BtlController_EmitLinkStandbyMsg(battler, B_COMM_TO_CONTROLLER, 1);
+                    BtlController_EmitLinkStandbyMsg(battler, B_COMM_TO_CONTROLLER, LINK_STANDBY_STOP_BOUNCE_ONLY, FALSE);
                 MarkBattlerForControllerExec(battler);
                 ++gBattleCommunication[battler];
             }

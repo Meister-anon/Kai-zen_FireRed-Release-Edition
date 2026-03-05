@@ -10,6 +10,7 @@
 #include "link.h"
 #include "link_rfu.h"
 #include "cable_club.h"
+#include "recorded_battle.h"
 #include "party_menu.h"
 #include "task.h"
 #include "util.h"
@@ -1039,7 +1040,7 @@ void BtlController_EmitChooseItem(enum BattlerId battler, u32 bufferId, u8 *batt
     PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 4);
 }
 
-void BtlController_EmitChoosePokemon(enum BattlerId battler, u32 bufferId, u8 caseId, u8 slotId, u16 abilityId, u8 *data)
+void BtlController_EmitChoosePokemon(enum BattlerId battler, u32 bufferId, u8 caseId, u8 slotId, u16 abilityId, enum BattlerId battlerPreventingSwitchout, u8 *data)
 {
     s32 i;
 
@@ -1048,10 +1049,12 @@ void BtlController_EmitChoosePokemon(enum BattlerId battler, u32 bufferId, u8 ca
     gBattleResources->transferBuffer[2] = slotId;
     gBattleResources->transferBuffer[3] = LOBYTE(abilityId);
     gBattleResources->transferBuffer[7] = HIBYTE(abilityId);
+    gBattleResources->transferBuffer[8] = battlerPreventingSwitchout;
     for (i = 0; i < 3; i++)
         gBattleResources->transferBuffer[4 + i] = data[i];
-    PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 8); // Only 7 bytes were written. //can't remember what about
+    PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 9);  // Only 7 bytes were written.
 }
+
 
 void BtlController_EmitHealthBarUpdate(enum BattlerId battler, u32 bufferId, u16 hpValue)
 {
@@ -1311,11 +1314,17 @@ void BtlController_EmitBattleAnimation(enum BattlerId battler, u32 bufferId, u8 
 }
 
 // mode is a LINK_STANDBY_* constant
-void BtlController_EmitLinkStandbyMsg(enum BattlerId battler, u32 bufferId, u8 mode)
+void BtlController_EmitLinkStandbyMsg(enum BattlerId battler, u32 bufferId, u8 mode, bool32 record)
 {
     gBattleResources->transferBuffer[0] = CONTROLLER_LINKSTANDBYMSG;
     gBattleResources->transferBuffer[1] = mode;
-    PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 2);
+
+    if (record)
+        gBattleResources->transferBuffer[3] = gBattleResources->transferBuffer[2] = RecordedBattle_BufferNewBattlerData(&gBattleResources->transferBuffer[4]);
+    else
+        gBattleResources->transferBuffer[3] = gBattleResources->transferBuffer[2] = 0;
+
+    PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, gBattleResources->transferBuffer[2] + 4);
 }
 
 void BtlController_EmitResetActionMoveSelection(enum BattlerId battler, u32 bufferId, u8 caseId)

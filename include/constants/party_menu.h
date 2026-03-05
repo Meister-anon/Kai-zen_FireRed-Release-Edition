@@ -96,6 +96,7 @@ PARTY_ACTION_CHOOSE_AND_CLOSE,
 PARTY_ACTION_MOVE_TUTOR,
 PARTY_ACTION_MINIGAME,
 PARTY_ACTION_REUSABLE_ITEM,
+PARTY_ACTION_CHOOSE_FAINTED_MON,
 };
 
 // IDs for DisplayPartyMenuStdMessage, to display the message at the bottom of the party menu

@@ -17,6 +17,7 @@
 #include "battle_ai_util.h"
 #include "battle_ai_switch.h"
 #include "trainer_tower.h"
+#include "party_menu.h"
 #include "constants/battle_string_ids.h"
 #include "constants/battle_ai.h"
 #include "constants/battle_anim.h"
@@ -1048,7 +1049,7 @@ static void OpponentHandleLoadMonSprite(enum BattlerId battler)
 
 static void OpponentHandleSwitchInAnim(enum BattlerId battler)
 {
-    *(gBattleStruct->monToSwitchIntoId + battler) = 6;
+    gBattleStruct->monToSwitchIntoId[battler] = 6;
     gBattlerPartyIndexes[battler] = gBattleResources->bufferA[battler][1];
     StartSendOutAnim(battler, gBattleResources->bufferA[battler][2]);
     gBattlerControllerFuncs[battler] = SwitchIn_TryShinyAnim;
@@ -1542,7 +1543,16 @@ static void OpponentHandleChoosePokemon(enum BattlerId battler)
 {
     s32 chosenMonId;
 
-    if (*(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1)) == PARTY_SIZE)
+    // Choosing Revival Blessing target
+    if (gBattleResources->bufferA[battler][1] == PARTY_ACTION_CHOOSE_FAINTED_MON)
+    {
+        chosenMonId = AI_SelectRevivalBlessingMon(battler);
+        if (chosenMonId == PARTY_SIZE)
+            chosenMonId = GetFirstFaintedPartyIndex(battler);
+        gSelectedMonPartyId = chosenMonId;
+    }
+
+    else if (gBattleStruct->AI_monToSwitchIntoId[battler] == PARTY_SIZE)
     {
         chosenMonId = GetMostSuitableMonToSwitchInto(battler, SWITCH_MID_BATTLE_OPTIONAL);
 
@@ -1572,10 +1582,10 @@ static void OpponentHandleChoosePokemon(enum BattlerId battler)
     }
     else
     {
-        chosenMonId = *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1));
-        *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(battler) >> 1)) = PARTY_SIZE;
+        chosenMonId = gBattleStruct->AI_monToSwitchIntoId[battler];
+        gBattleStruct->AI_monToSwitchIntoId[battler] = PARTY_SIZE;
     }
-    *(gBattleStruct->monToSwitchIntoId + battler) = chosenMonId;
+    gBattleStruct->monToSwitchIntoId[battler] = chosenMonId;
     BtlController_EmitChosenMonReturnValue(battler, 1, chosenMonId, NULL);
     OpponentBufferExecCompleted(battler);
 }
