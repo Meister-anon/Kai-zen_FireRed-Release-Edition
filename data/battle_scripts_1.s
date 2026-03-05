@@ -5213,6 +5213,12 @@ BattleScript_RapidSpinAway::
 	rapidspinfree
 	return
 
+BattleScript_RapidSpinTrapHazardClear::
+	printstring STRINGID_PKMNGOTFREE
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	copybyte gBattlerTarget, sBATTLER
+	return
+
 BattleScript_WrapFree::
 	printstring STRINGID_PKMNGOTFREE
 	waitmessage B_WAIT_TIME_LONG
@@ -5756,14 +5762,12 @@ BattleScript_IllusionOffAndTerastallization::
 	goto BattleScript_Terastallization
 
 BattleScript_IllusionOff::
-	setspriteignore0hp TRUE
 	call BattleScript_SwapFromSubstitute
 	playanimation BS_SCRIPTING, B_ANIM_ILLUSION_OFF
 	waitanimation
 	call BattleScript_SwapToSubstitute
 	updatenick
 	waitstate
-	setspriteignore0hp FALSE
 	printstring STRINGID_ILLUSIONWOREOFF
 	waitmessage B_WAIT_TIME_LONG
 	return
@@ -8420,11 +8424,9 @@ BattleScript_DynamaxEnds::
 
 BattleScript_DynamaxEnds_Ret::
 	flushtextbox
-	setspriteignore0hp TRUE
 	updatedynamax
 	playanimation BS_SCRIPTING, B_ANIM_FORM_CHANGE
 	waitanimation
-	setspriteignore0hp FALSE
 	pause B_WAIT_TIME_SHORT
 	return
 
