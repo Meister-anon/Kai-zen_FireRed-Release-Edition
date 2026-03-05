@@ -187,6 +187,18 @@ enum __attribute__((packed)) WrappedStringID
 // They are assigned to the MULTISTRING_CHOOSER byte of gBattleCommunication
 // and read when e.g. the command printfromtable is used.
 
+// z effects
+enum ZEffectStringID
+{
+    B_MSG_Z_RESET_STATS,
+    B_MSG_Z_ALL_STATS_UP,
+    B_MSG_Z_BOOST_CRITS,
+    B_MSG_Z_FOLLOW_ME,
+    B_MSG_Z_RECOVER_HP,
+    B_MSG_Z_STAT_UP,
+    B_MSG_Z_HP_TRAP,
+};
+
 // gDmgHazardsStringIds
 enum DmgHazardStringID
 {

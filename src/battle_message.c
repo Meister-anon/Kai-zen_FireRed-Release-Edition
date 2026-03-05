@@ -459,7 +459,7 @@ const u16 gRoomsStringIds[] =
     STRINGID_EMPTYSTRING3
 };
 
-/*const u16 gZEffectStringIds[] =
+const u16 gZEffectStringIds[] =
 {
     [B_MSG_Z_RESET_STATS] = STRINGID_ZMOVERESETSSTATS,
     [B_MSG_Z_ALL_STATS_UP] = STRINGID_ZMOVEALLSTATSUP,
@@ -468,7 +468,7 @@ const u16 gRoomsStringIds[] =
     [B_MSG_Z_RECOVER_HP] = STRINGID_ZMOVERESTOREHP,
     [B_MSG_Z_STAT_UP] = STRINGID_ZMOVESTATUP,
     [B_MSG_Z_HP_TRAP] = STRINGID_ZMOVEHPTRAP,
-};*/
+};
 
 const u16 gMentalHerbCureStringIds[] =
 {

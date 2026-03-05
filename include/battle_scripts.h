@@ -1591,6 +1591,17 @@ extern const u8 BattleScript_EffectTidyUp[];
 extern const u8 BattleScript_EffectSpicyExtract[];
 extern const u8 BattleScript_EffectFickleBeam[];
 
+//not using add for compile
+// zmoves
+extern const u8 BattleScript_ZMoveActivateDamaging[];
+extern const u8 BattleScript_ZMoveActivateStatus[];
+extern const u8 BattleScript_ZEffectPrintString[];
+extern const u8 BattleScript_RecoverHPZMove[];
+extern const u8 BattleScript_StatUpZMove[];
+extern const u8 BattleScript_HealReplacementZMove[];
+extern const u8 BattleScript_EffectExtremeEvoboost[];
+
+
 //not using max moves
 //but adding for new move effects can use for moves
 // max moves
