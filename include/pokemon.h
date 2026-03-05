@@ -1432,6 +1432,7 @@ bool32 IsSpeciesEnabled(u16 species);
 //u16 GetSpeciesPreEvolution(u16 species); check later unsure if will switch from my version
 void HealPokemon(struct Pokemon *mon);
 void HealBoxPokemon(struct BoxPokemon *boxMon);
+bool8 HealStatusConditions(struct Pokemon *mon, u32 healMask, u8 battleId);
 void UpdateDaysPassedSinceFormChange(u16 days);
 void TrySetDayLimitToFormChange(struct Pokemon *mon);
 enum Type CheckDynamicMoveType(struct Pokemon *mon, enum Move move, enum BattlerId battler, enum MonState state);

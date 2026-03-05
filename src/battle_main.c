@@ -144,7 +144,6 @@ EWRAM_DATA u8 *gBattleAnimBgTilemapBuffer = NULL;
 EWRAM_DATA u32 gTransformedPersonalities[MAX_BATTLERS_COUNT] = {0}; //wont need as not using values from transform target remove later vsonic important
 EWRAM_DATA bool8 gTransformedShininess[MAX_BATTLERS_COUNT] = {0};
 static EWRAM_DATA u16 *sUnknownDebugSpriteDataBuffer = NULL;
-EWRAM_DATA u16 gBattleTurnCounter = 0;
 EWRAM_DATA u8 gBattlerAbility = 0;  //didn't want to port but its required since its the main thing used with ability popups
 EWRAM_DATA struct QueuedStatBoost gQueuedStatBoosts[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u32 gBattleControllerExecFlags = 0;
@@ -4848,7 +4847,6 @@ static void DoBattleIntro(void)
     SetShellSideArmCategory();
     SetAiLogicDataForTurn(gAiLogicData); // get assumed abilities, hold effects, etc of all battlers
 
-    gBattleTurnCounter = 0;
     gBattleStruct->eventState.beforeFirstTurn = 0;
 }*/
 
@@ -4889,7 +4887,6 @@ static void TryDoEventsBeforeFirstTurn(void)
         #endif // TESTING
 
         gBattleStruct->speedTieBreaks = RandomUniform(RNG_SPEED_TIE, 0, Factorial(MAX_BATTLERS_COUNT) - 1);
-        gBattleTurnCounter = 0;
         gBattleStruct->eventState.beforeFirstTurn++;
         break;
     case FIRST_TURN_EVENTS_OVERWORLD_WEATHER:

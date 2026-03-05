@@ -399,7 +399,7 @@ void HandleAction_Switch(void);
 void HandleAction_UseMove(void);
 
 bool32 IsLastMonToMove(enum BattlerId battler);
-
+bool32 ShouldDefiantCompetitiveActivate(enum BattlerId battler, enum Ability ability);
 
 /*u8 IsMonDisobedient(void);
 u32 GetBattleMoveSplit(u32 moveId);

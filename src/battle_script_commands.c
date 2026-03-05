@@ -4616,7 +4616,6 @@ static void Cmd_typebasedjump(void)
     }
 }
 
-FEATURE_FLAG_ASSERT(I_EXP_SHARE_FLAG, YouNeedToSetTheExpShareFlagToAnUnusedFlag);
 
 static bool32 BattleTypeAllowsExp(void)
 {
@@ -4815,7 +4814,7 @@ static void Cmd_getexp(void)
                     {
                         enum GrowthRate growthRate = gSpeciesInfo[GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPECIES)].growthRate;
                         u32 currentExp = GetMonData(&gPlayerParty[*expMonId], MON_DATA_EXP);
-                        u32 levelCap = GetCurrentLevelCap();
+                        u32 levelCap = MAX_LEVEL; //GetCurrentLevelCap();
 
                         if (GetMonData(&gPlayerParty[*expMonId], MON_DATA_LEVEL) >= levelCap)
                             gBattleStruct->battlerExpReward = 0;
@@ -9359,7 +9358,7 @@ static void Cmd_animatewildpokemonafterfailedpokeball(void)
 {
     CMD_ARGS(enum BattlerId battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
-    AnimateMonAfterPokeBallFail(battler);
+    //AnimateMonAfterPokeBallFail(battler);
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
@@ -11146,7 +11145,7 @@ static void Cmd_unused0xd8(void)
 {
 }
 
-static void HandleRoomMove(u32 statusFlag, u16 *timer, u8 stringId)
+static void HandleRoomMove(u32 statusFlag, u8 *timer, u8 stringId)
 {
     if (gFieldStatuses & statusFlag)
     {
@@ -15030,15 +15029,15 @@ void BS_ArenaJudgmentString(void)
 {
     NATIVE_ARGS(u8 id);
     BattleStringExpandPlaceholdersToDisplayedString(gRefereeStringsTable[cmd->id]);
-    BattlePutTextOnWindow(gDisplayedStringBattle, ARENA_WIN_JUDGMENT_TEXT);
+    //BattlePutTextOnWindow(gDisplayedStringBattle, ARENA_WIN_JUDGMENT_TEXT);
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 void BS_ArenaWaitMessage(void)
 {
     NATIVE_ARGS();
-    if (IsTextPrinterActive(ARENA_WIN_JUDGMENT_TEXT))
-        return;
+    /*if (IsTextPrinterActive(ARENA_WIN_JUDGMENT_TEXT))
+        return;*/
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 

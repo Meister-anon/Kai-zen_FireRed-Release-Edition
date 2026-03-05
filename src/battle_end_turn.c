@@ -29,7 +29,6 @@ static bool32 HandleEndTurnOrder(enum BattlerId battler)
 {
     bool32 effect = FALSE;
 
-    gBattleTurnCounter++;
     gBattleStruct->eventState.endTurn++;
 
     for (enum BattlerId i = 0; i < gBattlersCount; i++)

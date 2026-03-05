@@ -393,6 +393,9 @@ struct FieldTimer
 
 };//check how I setup roost may not need iondelugetimer here
 //can't make fieldtimers bitfields
+//for some reason EE made these u16
+//I see no reason to do that
+//seems based on gBattleTurnCounter value that is no longer used
 
 struct AI_SavedBattleMon
 {
@@ -487,7 +490,6 @@ struct QueuedStatBoost
     s8 statChanges[NUM_BATTLE_STATS - 1];    // highest bit being set decreases the stat
 }; /* size = 8 */
 
-extern u16 gBattleTurnCounter;
 extern u8 gBattlerAbility;
 extern struct QueuedStatBoost gQueuedStatBoosts[MAX_BATTLERS_COUNT];
 extern u8 gBattlerTarget;
