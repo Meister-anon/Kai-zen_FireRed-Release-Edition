@@ -9110,6 +9110,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .punchingMove = TRUE,
+        .evasiveBreak = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
             .self = TRUE,
