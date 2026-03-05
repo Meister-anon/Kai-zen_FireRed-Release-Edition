@@ -7550,8 +7550,8 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
 {
     u32 holdEffectParamAtk;
     u32 basePower = CalcMoveBasePower(ctx);
-    bool32 FluorescenceActive == (ctx->abilityAtk == ABILITY_FLUORESCENCE);
-    bool32 CloudNineOnSide == (DoesSideHaveAbility(ctx->battlerAtk, ABILITY_CLOUD_NINE));
+    bool32 FluorescenceActive = (ctx->abilityAtk == ABILITY_FLUORESCENCE);
+    bool32 CloudNineOnSide = (DoesSideHaveAbility(ctx->battlerAtk, ABILITY_CLOUD_NINE));
     enum BattlerId battlerAtk = ctx->battlerAtk;
     enum BattlerId battlerDef = ctx->battlerDef;
     enum Move move = ctx->move;
@@ -8566,10 +8566,10 @@ static inline uq4_12_t GetTypeBasedBonusModifier(struct BattleContext *ctx)
 static uq4_12_t GetWeatherDamageModifier(struct BattleContext *ctx)
 {
 
-    bool32 CloudNineAffected == (ctx->abilityDef == ABILITY_CLOUD_NINE);
-    bool32 CloudNineOnSide == (DoesSideHaveAbility(ctx->battlerAtk, ABILITY_CLOUD_NINE));
-    bool32 AtkCastform == (GetBaseFormSpecies(gBattleMons[ctx->battlerAtk].species) == SPECIES_CASTFORM);
-    bool32 OceanMemoryActive == (ctx->abilityAtk == ABILITY_OCEAN_MEMORY && GetMoveType(ctx->move) == TYPE_WATER);
+    bool32 CloudNineAffected = (ctx->abilityDef == ABILITY_CLOUD_NINE);
+    bool32 CloudNineOnSide = (DoesSideHaveAbility(ctx->battlerAtk, ABILITY_CLOUD_NINE));
+    bool32 AtkCastform = (GetBaseFormSpecies(gBattleMons[ctx->battlerAtk].species) == SPECIES_CASTFORM);
+    bool32 OceanMemoryActive = (ctx->abilityAtk == ABILITY_OCEAN_MEMORY && GetMoveType(ctx->move) == TYPE_WATER);
 
     if (ctx->weather == WEATHER_NONE)
         return UQ_4_12(1.0);
