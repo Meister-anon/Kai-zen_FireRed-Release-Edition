@@ -12886,7 +12886,7 @@ bool32 ChangeOrderTargetAfterAttacker(void)
 //vsonic pretty sure not using
 void TryUpdateEvolutionTracker(u32 evolutionCondition, u32 upAmount, u16 usedMove)
 {
-    u32 i, j;
+    /*u32 i, j;
 
     if (IsOnPlayerSide(gBattlerAttacker)
      && ((TESTING && IsDoubleBattle()) // To be removed when Wild Double Battles are added to tests
@@ -12937,7 +12937,7 @@ void TryUpdateEvolutionTracker(u32 evolutionCondition, u32 upAmount, u16 usedMov
                 return;
             }
         }
-    }
+    }*/
 }
 
 static const u16 sProtectSuccessRates[] =
@@ -13004,4 +13004,3 @@ void ClearRageStatuses(enum BattlerId battler) //remove rage if  move used other
     gBattleMons[battler].volatiles.rage = FALSE;
     gBattleMons[battler].volatiles.rageCounter = 0;
 }
-
