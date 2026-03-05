@@ -12719,8 +12719,8 @@ bool32 TryActivateHeatTrance(enum BattlerId battler)  //change mind better to do
     SetTypeBeforeUsingMove(move, btlAttacker, &Type);
     //GET_MOVE_TYPE(move, Type); //need add argument type, for two type move
 
-    if (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)
-        moveArgument = gBattleMoves[move].argument;
+    if (gMovesInfo[move].effect == EFFECT_TWO_TYPED_MOVE)
+        moveArgument = gMovesInfo[move].argument;
     
     if ((Type || moveArgument) == moveType)
         return Type;
@@ -12735,7 +12735,7 @@ enum Type GetBattleMoveType(enum Move move)
     if (gMain.inBattle && gBattleStruct->dynamicMoveType)
         return gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;
 
-    return gBattleMoves[move].type;
+    return gMovesInfo[move].type;
 }
 
 #define FIXATION_EFFECTS
