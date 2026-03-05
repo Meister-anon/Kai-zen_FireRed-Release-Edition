@@ -129,27 +129,6 @@ bool32 IsTypeStellarBoosted(enum BattlerId battler, enum Type type)
         return FALSE;
 }
 
-// Returns a battler's Tera type.
-enum Type GetBattlerTeraType(enum BattlerId battler)
-{
-    return GetMonData(GetBattlerMon(battler), MON_DATA_TERA_TYPE);
-}
-
-// Uses up a type's Stellar boost.
-void ExpendTypeStellarBoost(enum BattlerId battler, enum Type type)
-{
-    if (type < 32 && gBattleMons[battler].species != SPECIES_TERAPAGOS_STELLAR) // avoid OOB access
-        gBattleStruct->stellarBoostFlags[GetBattlerSide(battler)] |= 1u << type;
-}
-
-// Checks whether a type's Stellar boost has been expended.
-bool32 IsTypeStellarBoosted(enum BattlerId battler, enum Type type)
-{
-    if (type < 32) // avoid OOB access
-        return !(gBattleStruct->stellarBoostFlags[GetBattlerSide(battler)] & (1u << type));
-    else
-        return FALSE;
-}
 
 // Returns the STAB power multiplier to use when Terastallized.
 // Power multipliers from Smogon Research thread.
