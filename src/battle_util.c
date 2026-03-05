@@ -1,6 +1,7 @@
 #include "global.h"
 #include "battle.h"
 #include "battle_anim.h"
+#include "battle_anim_scripts.h"
 //#include "battle_arena.h"
 #include "battle_environment.h"
 //#include "battle_pyramid.h"
@@ -5353,7 +5354,6 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 // Copy crit boosts (Focus Energy, Dragon Cheer, G-Max Chi Strike)
                 gBattleMons[battler].volatiles.focusEnergy = gBattleMons[partner].volatiles.focusEnergy;
                 gBattleMons[battler].volatiles.dragonCheer = gBattleMons[partner].volatiles.dragonCheer;
-                gBattleMons[battler].volatiles.bonusCritStages = gBattleMons[partner].volatiles.bonusCritStages;
                 gEffectBattler = partner;
                 BattleScriptCall(BattleScript_CostarActivates);
                 effect++;
@@ -7072,8 +7072,7 @@ bool32 BattlerHasCopyableChanges(enum BattlerId battler)
     }
 
     if (gBattleMons[battler].volatiles.focusEnergy
-     || gBattleMons[battler].volatiles.dragonCheer
-     || gBattleMons[battler].volatiles.bonusCritStages != 0)
+     || gBattleMons[battler].volatiles.dragonCheer)
         return TRUE;
 
     return FALSE;
@@ -9429,12 +9428,12 @@ s32 CalcCritChanceStage(struct BattleContext *ctx)
     }
     else
     {
+        //need add dark deal to this etc.
         critChance  = (gBattleMons[ctx->battlerAtk].volatiles.focusEnergy != 0 ? 2 : 0)
                     + (gBattleMons[ctx->battlerAtk].volatiles.dragonCheer != 0 ? 1 : 0)
                     + IsEnhancedCritMove(ctx->move)
                     + GetHoldEffectCritChanceIncrease(ctx->battlerAtk, ctx->holdEffectAtk)
-                    + (ctx->abilityAtk == ABILITY_SUPER_LUCK ? 1 : 0)
-                    + gBattleMons[ctx->battlerAtk].volatiles.bonusCritStages;
+                    + (ctx->abilityAtk == ABILITY_SUPER_LUCK ? 1 : 0);
 
         if (critChance >= ARRAY_COUNT(sCriticalHitChance))
             critChance = ARRAY_COUNT(sCriticalHitChance) - 1;
@@ -9465,7 +9464,6 @@ s32 CalcCritChanceStageGen1(struct BattleContext *ctx)
 {
     s32 critChance = 0;
     s32 moveCritStage = IsEnhancedCritMove(ctx->move);
-    s32 bonusCritStage = gBattleMons[ctx->battlerAtk].volatiles.bonusCritStages; // G-Max Chi Strike
     u32 holdEffectCritStage = GetHoldEffectCritChanceIncrease(ctx->battlerAtk, ctx->holdEffectAtk);
     u16 baseSpeed = GetSpeciesBaseSpeed(gBattleMons[ctx->battlerAtk].species);
 
@@ -9475,8 +9473,6 @@ s32 CalcCritChanceStageGen1(struct BattleContext *ctx)
     if (moveCritStage > 0)
         critChance *= 8 * moveCritStage;
 
-    if (bonusCritStage > 0)
-        critChance *= bonusCritStage;
 
     if (gBattleMons[ctx->battlerAtk].volatiles.focusEnergy)
         critChance *= 4;
@@ -11280,7 +11276,7 @@ bool8 CanMonParticipateInSkyBattle(struct Pokemon *mon)
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
     u16 monAbilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM, NULL);
 
-    bool8 hasLevitateAbility = GetSpeciesAbility(species, monAbilityNum) == ABILITY_LEVITATE;
+    //bool8 hasLevitateAbility = GetSpeciesAbility(species, monAbilityNum) == ABILITY_LEVITATE;
     bool8 isFlyingType = GetSpeciesPrimaryType(species) == TYPE_FLYING || GetSpeciesSecondaryType(species) == TYPE_FLYING;
     bool8 monIsValidAndNotEgg = GetMonData(mon, MON_DATA_SANITY_HAS_SPECIES) && !GetMonData(mon, MON_DATA_IS_EGG);
 
