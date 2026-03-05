@@ -7,14 +7,14 @@
 #include "battle_tower.h"
 #include "battle_transition.h"
 #include "event_data.h"
-#include "frontier_util.h"
+//#include "frontier_util.h"
 #include "new_game.h"
 #include "overworld.h"
 #include "recorded_battle.h"
 #include "string_util.h"
 #include "task.h"
 #include "text.h"
-#include "constants/battle_frontier.h"
+//#include "constants/battle_frontier.h"
 #include "constants/battle_special.h"
 
 static void HandleSpecialTrainerBattleEnd(void);
@@ -26,7 +26,7 @@ static void CopyEReaderTrainerFarewellMessage(void);
 static void SetEReaderTrainerChecksum(struct BattleTowerEReaderTrainer *ereaderTrainer);
 #endif //FREE_BATTLE_TOWER_E_READER
 
-static void HandleSpecialTrainerBattleEnd(void)
+/*static void HandleSpecialTrainerBattleEnd(void)
 {
     s32 i;
 
@@ -121,7 +121,7 @@ void DoSpecialTrainerBattle(void)
             gBattleScripting.specialTrainerBattleType = 0xFF;
         break;
     }
-}
+}*/
 
 void SetEReaderTrainerGfxId(void)
 {
@@ -130,7 +130,7 @@ void SetEReaderTrainerGfxId(void)
 
 // This is a leftover debugging function that is used to populate the E-Reader
 // trainer with the player's current data.
-static void UNUSED FillEReaderTrainerWithPlayerData(void)
+/*static void UNUSED FillEReaderTrainerWithPlayerData(void)
 {
 #if FREE_BATTLE_TOWER_E_READER == FALSE
     struct BattleTowerEReaderTrainer *ereaderTrainer = &gSaveBlock2Ptr->frontier.ereaderTrainer;
@@ -233,7 +233,7 @@ void ValidateEReaderTrainer(void)
 #else
     gSpecialVar_Result = FALSE;
 #endif //FREE_BATTLE_TOWER_E_READER
-}
+}*/
 
 #if FREE_BATTLE_TOWER_E_READER == FALSE
 static void SetEReaderTrainerChecksum(struct BattleTowerEReaderTrainer *ereaderTrainer)
@@ -256,7 +256,7 @@ void ClearEReaderTrainer(struct BattleTowerEReaderTrainer *ereaderTrainer)
 #endif //FREE_BATTLE_TOWER_E_READER
 }
 
-void CopyEReaderTrainerGreeting(void)
+/*void CopyEReaderTrainerGreeting(void)
 {
 #if FREE_BATTLE_TOWER_E_READER == FALSE
     FrontierSpeechToString(gSaveBlock2Ptr->frontier.ereaderTrainer.greeting);
@@ -273,4 +273,4 @@ static void CopyEReaderTrainerFarewellMessage(void)
     else
         FrontierSpeechToString(gSaveBlock2Ptr->frontier.ereaderTrainer.farewellPlayerLost);
 #endif //FREE_BATTLE_TOWER_E_READER
-}
+}*/

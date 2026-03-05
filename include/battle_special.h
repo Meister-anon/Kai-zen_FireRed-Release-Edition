@@ -3,8 +3,6 @@
 
 void DoSpecialTrainerBattle(void); 
 void SetEReaderTrainerGfxId(void);
-u8 GetEreaderTrainerFrontSpriteId(void);
-enum TrainerClassID GetEreaderTrainerClassId(void);
 void GetEreaderTrainerName(u8 *dst);
 void ValidateEReaderTrainer(void);
 void ClearEReaderTrainer(struct BattleTowerEReaderTrainer *ereaderTrainer);

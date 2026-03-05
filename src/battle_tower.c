@@ -1335,7 +1335,7 @@ u8 GetEreaderTrainerFrontSpriteId(void)
     return gFacilityClassToPicIndex[gSaveBlock2Ptr->battleTower.ereaderTrainer.trainerClass];
 }
 
-u8 GetEreaderTrainerClassId(void)
+enum TrainerClassID GetEreaderTrainerClassId(void)
 {
     return gFacilityClassToTrainerClass[gSaveBlock2Ptr->battleTower.ereaderTrainer.trainerClass];
 }
