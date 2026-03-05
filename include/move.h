@@ -755,6 +755,8 @@ static inline u32 GetTwoTypedMove2ndType(enum Move moveId)
    return GetMoveEffect(moveId) == EFFECT_TWO_TYPED_MOVE ? GetMoveArgType(moveId) : TYPE_NONE;
 }
 
+//replace getmovefixedhpdamage
+//as is more than just fixedhp effects now
 static inline u32 GetMoveFixedDamage(enum Move moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].argument.fixedDamage;

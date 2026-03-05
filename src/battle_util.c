@@ -8739,12 +8739,14 @@ static inline uq4_12_t GetProtectBreakModifiers(struct BattleContext *ctx)
     return UQ_4_12(1.0);
 }
 
-static inline uq4_12_t GetMinimizeModifier(enum Move move, enum BattlerId battlerDef)
+//not using renamed to evasive break
+//becomes sure hit not increased dmg
+/*static inline uq4_12_t GetMinimizeModifier(enum Move move, enum BattlerId battlerDef)
 {
     if (MoveIncreasesPowerToMinimizedTargets(move) && gBattleMons[battlerDef].volatiles.minimize)
         return UQ_4_12(2.0);
     return UQ_4_12(1.0);
-}
+}*/
 
 static inline uq4_12_t GetUndergroundModifier(enum Move move, enum BattlerId battlerDef)
 {
@@ -8962,7 +8964,7 @@ static inline uq4_12_t GetOtherModifiers(struct BattleContext *ctx)
     u32 unmodifiedDefenderSpeed = gBattleMons[ctx->battlerDef].speed;
 
     //TODO: Behemoth Blade, Behemoth Bash, Dynamax Cannon (Dynamax)
-    DAMAGE_MULTIPLY_MODIFIER(GetMinimizeModifier(ctx->move, ctx->battlerDef));
+    //DAMAGE_MULTIPLY_MODIFIER(GetMinimizeModifier(ctx->move, ctx->battlerDef));
     DAMAGE_MULTIPLY_MODIFIER(GetUndergroundModifier(ctx->move, ctx->battlerDef));
     DAMAGE_MULTIPLY_MODIFIER(GetDiveModifier(ctx->move, ctx->battlerDef));
     DAMAGE_MULTIPLY_MODIFIER(GetAirborneModifier(ctx->move, ctx->battlerDef));
@@ -9209,7 +9211,7 @@ s32 DoFixedDamageMoveCalc(struct BattleContext *ctx)
         dmg = returnVariableDmg(ctx);
         break;
     case EFFECT_FIXED_HP_DAMAGE:
-        dmg = GetMoveFixedHPDamage(ctx->move);
+        dmg = GetMoveFixedDamage(ctx->move);
         break;
     case EFFECT_FIXED_PERCENT_DAMAGE:
         dmg = GetNonDynamaxHP(ctx->battlerDef) * GetMoveDamagePercentage(ctx->move) / 100;
@@ -9535,11 +9537,6 @@ static bool32 IsCriticalHit(struct BattleContext *ctx)
             isCrit = RandomChance(RNG_CRITICAL_HIT, 1, GetCriticalHitOdds(critChance));
     }
 
-    // Counter for IF_CRITICAL_HITS_GE evolution condition.
-    if (isCrit && IsOnPlayerSide(ctx->battlerAtk)
-     && !(gBattleTypeFlags & BATTLE_TYPE_MULTI && GetBattlerPosition(ctx->battlerAtk) == B_POSITION_PLAYER_LEFT))
-        gPartyCriticalHits[gBattlerPartyIndexes[ctx->battlerAtk]]++;
-
     gSpecialStatuses[ctx->battlerDef].criticalHit = isCrit;
     return isCrit;
 }
@@ -9587,16 +9584,6 @@ s32 GetAdjustedDamage(struct BattleContext *ctx, s32 damage)
         RecordItemEffectBattle(ctx->battlerDef, ctx->holdEffectDef);
         gLastUsedItem = gBattleMons[ctx->battlerDef].item;
         gBattleStruct->moveResultFlags[ctx->battlerDef] |= MOVE_RESULT_FOE_HUNG_ON;
-    }
-    else if (B_AFFECTION_MECHANICS == TRUE && IsOnPlayerSide(ctx->battlerDef) && affectionScore >= AFFECTION_THREE_HEARTS)
-    {
-        if ((affectionScore == AFFECTION_FIVE_HEARTS && rand < 20)
-         || (affectionScore == AFFECTION_FOUR_HEARTS && rand < 15)
-         || (affectionScore == AFFECTION_THREE_HEARTS && rand < 10))
-        {
-            enduredHit = TRUE;
-            gBattleStruct->moveResultFlags[ctx->battlerDef] |= MOVE_RESULT_FOE_ENDURED_AFFECTION;
-        }
     }
 
     if (enduredHit)

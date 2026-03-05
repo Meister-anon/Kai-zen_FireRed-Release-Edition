@@ -86,6 +86,7 @@ typedef u16 uq8_8_t;
 
 #define Q_4_12_SHIFT (12)
 #define UQ_4_12_SHIFT (12)
+#define UQ_4_12_FLOORED(n)  ((uq4_12_t)((n) * 4096))
 
 #define Q_8_8_SHIFT (8)
 #define UQ_8_8_SHIFT (8)
