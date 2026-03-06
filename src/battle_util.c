@@ -2409,7 +2409,7 @@ bool32 TryChangeBattleWeather(enum BattlerId battler, u32 battleWeatherId, enum 
 {
     if (gBattleWeather & sBattleWeatherInfo[battleWeatherId].flag)
         return FALSE;
-    }
+        
     else if (gBattleWeather & WEATHER_PRIMAL_ANY
           && ability != ABILITY_DESOLATE_LAND
           && ability != ABILITY_PRIMORDIAL_SEA

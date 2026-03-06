@@ -322,7 +322,6 @@ u32 GetFuryCutterAccuracy(enum Move move, enum BattlerId battlerAtk);
 void PressurePPLose(u8 target, u8 attacker, u16 move);
 void PressurePPLoseOnUsingImprison(u8 attacker);
 void PressurePPLoseOnUsingPerishSong(u8 attacker);
-void MarkAllBattlersForControllerExec(void);
 void MarkBattlerForControllerExec(enum BattlerId battlerId);
 void MarkBattlerReceivedLinkData(enum BattlerId battlerId);
 const u8* CancelMultiTurnMoves(enum BattlerId battler, enum SkyDropState skyDropState);
