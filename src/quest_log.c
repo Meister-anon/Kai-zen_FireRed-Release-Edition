@@ -1102,7 +1102,7 @@ static void Task_FinalScene_WaitFade(u8 taskId)
     if (ArePlayerFieldControlsLocked() != TRUE)
     {
         FreezeObjectEvents();
-        HandleEnforcedLookDirectionOnPlayerStopMoving();
+        PlayerFreeze();
         StopPlayerAvatar();
         LockPlayerFieldControls();
         task->func = Task_QuestLogScene_SavedGame;

@@ -2067,7 +2067,7 @@ bool8 UseRegisteredKeyItemOnField(void)
         {
             LockPlayerFieldControls();
             FreezeObjectEvents();
-            HandleEnforcedLookDirectionOnPlayerStopMoving();
+            PlayerFreeze();
             StopPlayerAvatar();
             gSpecialVar_ItemId = gSaveBlock1Ptr->registeredItem;
             taskId = CreateTask(ItemId_GetFieldFunc(gSaveBlock1Ptr->registeredItem), 8);

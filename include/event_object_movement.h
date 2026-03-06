@@ -154,6 +154,7 @@ void FreezeObjectEvents(void);
 bool8 FreezeObjectEvent(struct ObjectEvent *);
 void UnfreezeObjectEvent(struct ObjectEvent *);
 void FreezeObjectEventsExceptOne(u8 objEventId);
+void FreezeObjectEventsExceptTwo(u8 objectEventId1, u8 objectEventId2);
 void RfuUnionObjectSetFacingDirection(u8 objectEventId, u8 direction);
 void RfuUnionObjectToggleInvisibility(u8 objectEventId, bool32 invisible);
 bool32 RfuUnionObjectIsInvisible(u8 objectEventId);
@@ -226,5 +227,9 @@ void ResetObjectEvents(void);
 
 //ghouslash fog
 bool8 IsObjectEventPaletteIndex(u8 paletteIndex);
+
+//EE stuff 
+//Follower Logic
+struct ObjectEvent *GetFollowerObject(void);
 
 #endif // GUARD_EVENT_OBJECT_MOVEMENT_H

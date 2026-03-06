@@ -9301,6 +9301,19 @@ void FreezeObjectEventsExceptOne(u8 noFreeze)
     }
 }
 
+// Used to freeze other objects except two trainers approaching for battle
+void FreezeObjectEventsExceptTwo(u8 objectEventId1, u8 objectEventId2)
+{
+    u8 i;
+
+    for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
+    {
+        if (i != objectEventId1 && i != objectEventId2 &&
+            gObjectEvents[i].active && i != gPlayerAvatar.objectEventId)
+                FreezeObjectEvent(&gObjectEvents[i]);
+    }
+}
+
 void UnfreezeObjectEvent(struct ObjectEvent * objectEvent)
 {
     if (objectEvent->active && objectEvent->frozen)
@@ -9881,6 +9894,20 @@ bool32 RfuUnionObjectIsWarping(u8 objectEventId)
         return TRUE;
     else
         return FALSE;
+}
+
+//just tossing this here for now is following mon
+//vsonic important
+// Return follower ObjectEvent or NULL
+struct ObjectEvent *GetFollowerObject(void)
+{
+    u32 i;
+    for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
+    {
+        if (gObjectEvents[i].localId == OBJ_EVENT_ID_FOLLOWER && gObjectEvents[i].active)
+            return &gObjectEvents[i];
+    }
+    return NULL;
 }
 
 #undef tUnionRoomWarpAnimState

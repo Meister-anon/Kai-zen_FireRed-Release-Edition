@@ -7,9 +7,9 @@
 #include "trainer_see.h"
 #include "constants/event_objects.h"
 
-bool8 walkrun_is_standing_still(void)
+bool8 IsPlayerStandingStill(void)
 {
-    if (gPlayerAvatar.tileTransitionState == 1)
+    if (gPlayerAvatar.tileTransitionState == T_TILE_TRANSITION)
         return FALSE;
     else
         return TRUE;
@@ -17,9 +17,9 @@ bool8 walkrun_is_standing_still(void)
 
 void Task_WaitPlayerStopMoving(u8 taskId)
 {
-    if (walkrun_is_standing_still())
+    if (IsPlayerStandingStill())
     {
-        HandleEnforcedLookDirectionOnPlayerStopMoving();
+        PlayerFreeze();
         DestroyTask(taskId);
     }
 }
@@ -50,9 +50,9 @@ void Task_WaitPlayerAndTargetNPCStopMoving(u8 taskId)
 {
     struct Task * task = &gTasks[taskId];
 
-    if (task->data[0] == 0 && walkrun_is_standing_still() == TRUE)
+    if (task->data[0] == 0 && IsPlayerStandingStill() == TRUE)
     {
-        HandleEnforcedLookDirectionOnPlayerStopMoving();
+        PlayerFreeze();
         task->data[0] = 1;
     }
 
@@ -144,7 +144,7 @@ static void Task_FreezeObjectAndPlayer(u8 taskId)
 void FreezeForApproachingTrainers(void)
 {
     u8 trainerObjectId1, trainerObjectId2, taskId;
-    struct ObjectEvent *followerObj = GetFollowerObject();
+    struct ObjectEvent *followerObj = GetFollowerObject(); //is just following pokemon
     trainerObjectId1 = GetChosenApproachingTrainerObjectEventId(0);
 
     if (gNoOfApproachingTrainers == 2)

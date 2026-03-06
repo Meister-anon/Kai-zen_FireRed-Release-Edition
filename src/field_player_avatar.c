@@ -920,7 +920,8 @@ void sub_805C260(void)
     PlayerSetAnimId(MOVEMENT_ACTION_0x9F, 0);
 }
 
-void HandleEnforcedLookDirectionOnPlayerStopMoving(void)
+// Stop player on current facing direction once they're done moving and if they're not currently Acro Biking on bumpy slope
+void PlayerFreeze(void)
 {
     if (gPlayerAvatar.tileTransitionState == T_TILE_CENTER || gPlayerAvatar.tileTransitionState == T_NOT_MOVING)
     {
