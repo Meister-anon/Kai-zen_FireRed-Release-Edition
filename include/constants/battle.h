@@ -532,6 +532,7 @@ enum BattleSide
 #define B_FIXATION_TURNS     3 //to track that fixation move is being repeated max value 3?
 #define B_TIME_CONTROL_TIMER 2 //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
 #define B_ASCENSION_TIMER    3 //for flying type recover from smack down think shoud be 2 turns in effect? //counter balance and unique effect of type
+#define B_ION_DELUGE_TIMER   4  //may change to 3
 
 //Ability Timers
 #define SLOW_START_TIMER 3
@@ -1168,8 +1169,6 @@ enum TypeSideHazard
 #define STATUS_FIELD_TRICK_ROOM        (1 << 1)
 #define STATUS_FIELD_WONDER_ROOM        (1 << 2)
 #define STATUS_FIELD_GRAVITY            (1 << 3)
-//#define STATUS_FIELD_MUDSPORT           0x8  will try to keep these 2 in status3 because they didn't use a timer I can put them here and have them not use a timer as well.
-//#define STATUS_FIELD_WATERSPORT         0x10
 #define STATUS_FIELD_SCORCHED_TERRAIN   (1 << 4)	//make red version or new tile with scorched cracked earth appearane //learned about effect of pledge combos think want these to be those make this the scorch terrain
 #define STATUS_FIELD_FLOODED_TERRAIN    (1 << 5)	//can use surf tile/ or edit a blue puddle into normal graphic
 #define STATUS_FIELD_OCEAN_TERRAIN      (1 << 6)	//for when surfing on ocean/deeper water /grass terrain & scorched terrain wouldn't work
@@ -1179,17 +1178,14 @@ enum TypeSideHazard
 #define STATUS_FIELD_PSYCHIC_TERRAIN    (1 << 10)	//could surround field w hidden power orbs?
 #define STATUS_FIELD_SNOWY_TERRAIN		(1 << 11)	//for snow area
 #define STATUS_FIELD_SNOWESCAPE  (1 << 12)	//realize don't need STATUS_FIELD_TERRAIN_PERMANENT could make conditional to make it permanent using the timer?
-#define STATUS_FIELD_ION_DELUGE         (1 << 13)
+#define STATUS_FIELD_ION_DELUGE         (1 << 13)//will have plasma fist trigger this set for singe turn
 #define STATUS_FIELD_FAIRY_LOCK         (1 << 14)
-#define STATUS_FIELD_HAZE          (1 << 15)	//will reset back to haze, to annoying to manage and too centralizing HAZE -3 full turns so timer is 4
-//#define STATUS_FIELD_MUDSPORT			(1 << 15) gonna put these in side status instead
-//#define STATUS_FIELD_WATERSPORT         (1 << 16)
 //need pledge stuff
 
 
 #define TERRAIN_DEFINES
 
-#define STATUS_FIELD_TERRAIN_ANY              (STATUS_FIELD_SCORCHED_TERRAIN | STATUS_FIELD_FLOODED_TERRAIN | STATUS_FIELD_OCEAN_TERRAIN | STATUS_FIELD_GRASSY_TERRAIN | STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_PSYCHIC_TERRAIN)
+#define STATUS_FIELD_TERRAIN_ANY              (STATUS_FIELD_GRASSY_TERRAIN | STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_PSYCHIC_TERRAIN)
 #define PERMANENT_TERRAIN   0     //use timer value 0 so never decrements
 #define PERMANENT_WEATHER   0       //same as terrain
 
@@ -1611,6 +1607,9 @@ enum FaintedActions
     FAINTED_ACTIONS_MAX_CASE,
 };
 
+//vsonic unsure how these get appropriate max turns
+//and of course expansion never explains this -_-
+//ok seems set by conditional operator in tryfield effects func smh
 //  Enum,                                         fieldName,           Type, max value
 #define STARTING_STATUS_DEFINITIONS(F) \
     F(STARTING_STATUS_ELECTRIC_TERRAIN,               electricTerrain,            (u32, 1)) /* Electric Terrain (Permanent) */             \
@@ -1627,6 +1626,8 @@ enum FaintedActions
     F(STARTING_STATUS_MAGIC_ROOM_TEMPORARY,           magicRoomTemporary,         (u32, 1)) /* Magic Room Temporary (5 turns) */           \
     F(STARTING_STATUS_WONDER_ROOM,                    wonderRoom,                 (u32, 1)) /* Wonder Room (Permanent) */                  \
     F(STARTING_STATUS_WONDER_ROOM_TEMPORARY,          wonderRoomTemporary,        (u32, 1)) /* Wonder Room Temporary (5 turns) */          \
+    F(STARTING_STATUS_ION_DELUGE,                     iondeluge,                  (u32, 1)) /* Ion Deluge (Permanent) */                  \
+    F(STARTING_STATUS_ION_DELUGE_TEMPORARY,           iondelugeTemporary,         (u32, 1)) /* Ion Deluge Temporary (4 turns) */          \
     F(STARTING_STATUS_TAILWIND_PLAYER,                tailwindPlayer,             (u32, 1)) /* Tailwind Player (Permanent) */              \
     F(STARTING_STATUS_TAILWIND_PLAYER_TEMPORARY,      tailwindPlayerTemporary,    (u32, 1)) /* Tailwind Player Temporary (4/3 turns) */    \
     F(STARTING_STATUS_TAILWIND_OPPONENT,              tailwindOpponent,           (u32, 1)) /* Tailwind Opponent (Permanent) */            \

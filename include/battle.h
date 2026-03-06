@@ -355,6 +355,9 @@ struct SideTimer    //effects below persist regardless of mon
     //of a bit field smh
     //actually may be able to keep
     //just tweak function
+    //yeah talked w alex
+    //he said can use bitfield for these just fine
+    //You can but this needs more space. E.g a 2 bit timer will be just two turns if you use a bitmask, 3 if not.
     u16 auroraVeilTimer:4; //still need add to debugger
     u16 tailwindTimer:3;
     u16 luckyChantTimer:3;
@@ -393,10 +396,6 @@ struct FieldTimer
     u8 gravityTimer;
     u8 fairyLockTimer;
     u8 IonDelugeTimer; // this & roost will be only ones that don't fail if used when timer isn't 0
-    u8 HazeTimer;
-    u8 SnowescapeTimer; //linked to weather duration
-
-
 };//check how I setup roost may not need iondelugetimer here
 //can't make fieldtimers bitfields
 //for some reason EE made these u16
@@ -2362,6 +2361,115 @@ static inline enum Type GetBattlerSecondaryType(enum BattlerId battler)
 static inline enum Type GetBattlerAuxiliaryType(enum BattlerId battler)
 {
     return GetBattlerTypebySlot(battler, AUXILIARY_TYPE);   
+}
+
+static inline void SetSideTimer(u32 flag, enum BattleSide side, u8 time)
+{
+    switch (flag)
+    {
+        case SIDE_STATUS_REFLECT:
+            gSideTimers[side].reflectTimer = time;
+        break;
+
+        case SIDE_STATUS_LIGHTSCREEN:
+            gSideTimers[side].lightscreenTimer = time;
+        break;
+
+        case SIDE_STATUS_MAGIC_COAT:
+            gSideTimers[side].magicTimer = time;
+        break;
+
+        case SIDE_STATUS_SAFEGUARD:
+            gSideTimers[side].safeguardTimer = time;
+        break;
+
+        case SIDE_STATUS_MIST:
+            gSideTimers[side].mistTimer = time;
+        break;
+
+        case SIDE_STATUS_TAILWIND:
+            gSideTimers[side].tailwindTimer = time;
+        break;
+
+        case SIDE_STATUS_AURORA_VEIL:
+            gSideTimers[side].auroraVeilTimer = time;
+        break;
+
+        case SIDE_STATUS_LUCKY_CHANT:
+            gSideTimers[side].luckyChantTimer = time;
+        break;
+
+        case SIDE_STATUS_HEAL_BLOCK:
+            gSideTimers[side].healBlockTimer = time;
+        break;
+
+        case SIDE_STATUS_EMBARGO:
+            gSideTimers[side].embargoTimer = time;
+        break;
+
+        case SIDE_STATUS_MUDSPORT:
+            gSideTimers[side].mudSportTimer = time;
+        break;
+
+        case SIDE_STATUS_WATERSPORT:
+            gSideTimers[side].waterSportTimer = time;
+        break;
+
+        case SIDE_STATUS_DAMAGE_NON_TYPES:
+            gSideTimers[side].damageNonTypesTimer = time;
+        break;
+
+        case SIDE_STATUS_RAINBOW:
+            gSideTimers[side].rainbowTimer = time;
+        break;
+
+        case SIDE_STATUS_SEA_OF_FIRE:
+            gSideTimers[side].seaOfFireTimer = time;
+        break;
+
+        case SIDE_STATUS_SWAMP:
+            gSideTimers[side].swampTimer = time;
+        break;
+    }    
+
+}
+
+static inline void SetFieldTimer(u32 flag, u8 time)
+{
+    switch (flag)
+    {
+        case STATUS_FIELD_MAGIC_ROOM:
+            gFieldTimers.magicRoomTimer = time;
+        break;
+
+        case STATUS_FIELD_TRICK_ROOM:
+            gFieldTimers.trickRoomTimer = time;
+        break;
+
+        case STATUS_FIELD_WONDER_ROOM:
+            gFieldTimers.wonderRoomTimer = time;
+        break;
+
+        case STATUS_FIELD_GRAVITY:
+            gFieldTimers.gravityTimer = time;
+        break;
+
+        case STATUS_FIELD_GRASSY_TERRAIN:
+        case STATUS_FIELD_MISTY_TERRAIN:
+        case STATUS_FIELD_ELECTRIC_TERRAIN:
+        case STATUS_FIELD_PSYCHIC_TERRAIN:
+            gFieldTimers.terrainTimer = time;
+        break;
+
+        case STATUS_FIELD_ION_DELUGE:
+            gFieldTimers.IonDelugeTimer = time;
+        break;
+
+        case STATUS_FIELD_FAIRY_LOCK:
+            gFieldTimers.fairyLockTimer = time;
+        break;
+    }    
+
 }
 
 //couldn't put in battle_main.h

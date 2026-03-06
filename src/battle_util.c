@@ -55,7 +55,6 @@
 
 static bool32 TryRemoveScreens(enum BattlerId battler);
 static bool32 IsUnnerveAbilityOnOpposingSide(enum BattlerId battler);
-static u32 GetFlingPowerFromItemId(u32 itemId);
 static bool32 IsNonVolatileStatusBlocked(enum BattlerId battlerDef, enum Ability abilityDef, bool32 abilityAffected, const u8 *battleScript, enum ResultOption option);
 static bool32 CanSleepDueToSleepClause(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum ResultOption option);
 static bool32 IsOpposingSideEmpty(enum BattlerId battler);
@@ -357,7 +356,7 @@ static bool32 ShouldTeraShellDistortTypeMatchups(enum Move move, enum BattlerId 
     return FALSE;
 }
 
-bool32 IsUnnerveBlocked(enum BattlerId battler, u32 itemId)
+bool32 IsUnnerveBlocked(enum BattlerId battler, enum Item itemId)
 {
     if (GetItemPocket(itemId) != POCKET_BERRIES)
         return FALSE;
@@ -415,7 +414,7 @@ static inline bool32 IsDragonDartsSecondHit(enum BattlerId battlerAtk, enum Move
 //may change effects and ability checks
 //into single canberedirected
 //or cannotberedirected check
-bool32 IsAffectedByFollowMe(enum BattlerId battlerAtk, u32 defSide, enum Move move)
+bool32 IsAffectedByFollowMe(enum BattlerId battlerAtk, enum BattleSide defSide, enum Move move)
 {
     enum Ability ability = GetBattlerAbility(battlerAtk);
     enum BattleMoveEffects effect = GetMoveEffect(move);
@@ -436,7 +435,7 @@ bool32 IsAffectedByFollowMe(enum BattlerId battlerAtk, u32 defSide, enum Move mo
         return FALSE;
 
     //USED ABILITY none as meant to be rage power self affecting
-    if (gSideTimers[defSide].followmePowder && !IsAffectedByPowderMove(battlerAtk, ability, ABILITY_NONE GetBattlerHoldEffect(battlerAtk)))
+    if (gSideTimers[defSide].followmePowder && !IsAffectedByPowderMove(battlerAtk, ability, ABILITY_NONE, GetBattlerHoldEffect(battlerAtk)))
         return FALSE;
 
     return TRUE;
@@ -465,7 +464,7 @@ bool32 HandleMoveTargetRedirection(void)
     enum Type moveType = GetBattleMoveType(gCurrentMove);
     enum Type SecondarymoveType = GetTwoTypedMove2ndType(gCurrentMove);
     enum BattleMoveEffects moveEffect = GetMoveEffect(gCurrentMove);
-    u32 side = BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker));
+    enum BattleSide side = BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker));
 
 
     if (moveEffect == EFFECT_REFLECT_DAMAGE)
@@ -535,7 +534,6 @@ bool32 HandleMoveTargetRedirection(void)
         enum BattlerId battler;
         for (battler = 0; battler < gBattlersCount; battler++)
         {
-            ability = GetBattlerAbility(battler);
             if (!IsBattlerAlly(gBattlerAttacker, battler)
                 && battler != gBattlerAttacker
                 && gBattleStruct->moveTarget[gBattlerAttacker] != battler
@@ -758,8 +756,8 @@ void HandleAction_UseMove(void)
         gBattlescriptCurrInstr = GetMoveBattleScript(gCurrentMove);
     }
 
-    if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
-        BattleArena_AddMindPoints(gBattlerAttacker);
+    /*if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
+        BattleArena_AddMindPoints(gBattlerAttacker);*/
 
     for (i = 0; i < MAX_BATTLERS_COUNT; i++)
         gBattleStruct->battlerState[i].wasAboveHalfHp = gBattleMons[i].hp > gBattleMons[i].maxHP / 2;
@@ -1480,7 +1478,7 @@ bool32 IsLastMonToMove(enum BattlerId battler)
 
 bool32 ShouldDefiantCompetitiveActivate(enum BattlerId battler, enum Ability ability)
 {
-    u32 side = GetBattlerSide(battler);
+    enum BattleSide side = GetBattlerSide(battler);
     if (ability != ABILITY_DEFIANT && ability != ABILITY_COMPETITIVE)
         return FALSE;
     // if an ally dropped the stats (except for Sticky Web), don't activate
@@ -1674,7 +1672,7 @@ u32 TrySetCantSelectMoveBattleScript(enum BattlerId battler)
     u8 moveId = gBattleResources->bufferB[battler][2] & ~RET_GIMMICK;
     enum Move move = gBattleMons[battler].moves[moveId];
     enum HoldEffect holdEffect = GetBattlerHoldEffect(battler);
-    u16 *choicedMove = &gBattleStruct->choicedMove[battler];
+    enum Move *choicedMove = &gBattleStruct->choicedMove[battler];
     enum BattleMoveEffects moveEffect = GetMoveEffect(move);
 
     if (GetConfig(ENCORE_TARGET) >= GEN_5
@@ -1936,7 +1934,7 @@ u32 CheckMoveLimitations(enum BattlerId battler, u8 unusableMoves, u16 check)
     enum Move move;
     enum BattleMoveEffects moveEffect;
     enum HoldEffect holdEffect = GetBattlerHoldEffect(battler);
-    u16 *choicedMove = &gBattleStruct->choicedMove[battler];
+    enum Move *choicedMove = &gBattleStruct->choicedMove[battler];
     s32 i;
 
     gPotentialItemEffectBattler = battler;
@@ -2963,7 +2961,7 @@ bool32 CanAbilityAbsorbMove(struct BattleContext *ctx)
 
 const u8 *AbsorbDoRisingPheonix(enum BattlerId battlerDef)
 {
-    u8 defSide = GetBattlerSide(battlerDef);
+    enum BattleSide defSide = GetBattlerSide(battlerDef);
 
     //status cleanse
     if (gBattleMons[battlerDef].status1 & STATUS1_ANY)
@@ -3060,7 +3058,7 @@ static u32 GetFirstBattlerOnSide(enum BattleSide side)
     return GetBattlerAtPosition(side == B_SIDE_PLAYER ? B_POSITION_PLAYER_LEFT : B_POSITION_OPPONENT_LEFT);
 }
 
-static inline bool32 SetStartingFieldStatus(u32 flag, u32 message, u32 anim, u8 *timer, u8 time)
+static inline bool32 SetStartingFieldStatus(u32 flag, u32 message, u32 anim, u8 time)
 {
     if (!(gFieldStatuses & flag))
     {
@@ -3069,7 +3067,7 @@ static inline bool32 SetStartingFieldStatus(u32 flag, u32 message, u32 anim, u8 
             gFieldStatuses &= ~STATUS_FIELD_TERRAIN_ANY;
         gFieldStatuses |= flag;
         gBattleScripting.animArg1 = anim;
-        *timer = time;
+        SetFieldTimer(flag, time);
 
         return TRUE;
     }
@@ -3077,15 +3075,16 @@ static inline bool32 SetStartingFieldStatus(u32 flag, u32 message, u32 anim, u8 
     return FALSE;
 }//review think if time 0 is infinite? 
 
-static inline bool32 SetStartingSideStatus(u32 flag, u32 side, u32 message, u32 anim, u16 *timer, u16 time)
+static inline bool32 SetStartingSideStatus(u32 flag, enum BattleSide side, u32 message, u32 anim, u8 time)
 {
+    //if flag not already set
     if (!(gSideStatuses[side] & flag))
     {
         gBattlerAttacker = gBattlerTarget = side;
         gBattleCommunication[MULTISTRING_CHOOSER] = message;
         gSideStatuses[side] |= flag;
         gBattleScripting.animArg1 = anim;
-        *timer = time;
+        SetSideTimer(flag, side, time);
 
         return TRUE;
     }
@@ -3177,7 +3176,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         STATUS_FIELD_ELECTRIC_TERRAIN,
                         B_MSG_TERRAIN_SET_ELECTRIC,
                         0,
-                        &gFieldTimers.terrainTimer, gStartingStatuses.electricTerrain ? 0 : 5);
+                        gStartingStatuses.electricTerrain ? 0 : 5);
             gStartingStatuses.electricTerrainTemporary = gStartingStatuses.electricTerrain = FALSE;
             isTerrain = TRUE;
             if (effect)
@@ -3192,7 +3191,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         STATUS_FIELD_MISTY_TERRAIN,
                         B_MSG_TERRAIN_SET_MISTY,
                         0,
-                        &gFieldTimers.terrainTimer, gStartingStatuses.mistyTerrain ? 0 : 5);
+                        gStartingStatuses.mistyTerrain ? 0 : 5);
             gStartingStatuses.mistyTerrainTemporary = gStartingStatuses.mistyTerrain = FALSE;
             isTerrain = TRUE;
             if (effect)
@@ -3207,7 +3206,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         STATUS_FIELD_GRASSY_TERRAIN,
                         B_MSG_TERRAIN_SET_GRASSY,
                         0,
-                        &gFieldTimers.terrainTimer, gStartingStatuses.grassyTerrain ? 0 : 5);
+                        gStartingStatuses.grassyTerrain ? 0 : 5);
             gStartingStatuses.grassyTerrainTemporary = gStartingStatuses.grassyTerrain = FALSE;
             isTerrain = TRUE;
             if (effect)
@@ -3222,7 +3221,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         STATUS_FIELD_PSYCHIC_TERRAIN,
                         B_MSG_TERRAIN_SET_PSYCHIC,
                         0,
-                        &gFieldTimers.terrainTimer, gStartingStatuses.psychicTerrain ? 0 : 5);
+                        gStartingStatuses.psychicTerrain ? 0 : 5);
             gStartingStatuses.psychicTerrainTemporary = gStartingStatuses.psychicTerrain = FALSE;
             isTerrain = TRUE;
         }
@@ -3232,7 +3231,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         STATUS_FIELD_TRICK_ROOM,
                         B_MSG_SET_TRICK_ROOM,
                         B_ANIM_TRICK_ROOM,
-                        &gFieldTimers.trickRoomTimer, gStartingStatuses.trickRoom ? 0 : 5);
+                        gStartingStatuses.trickRoom ? 0 : 5);
             gStartingStatuses.trickRoomTemporary = gStartingStatuses.trickRoom = FALSE;
         }
         else if (gStartingStatuses.magicRoom || gStartingStatuses.magicRoomTemporary)
@@ -3241,7 +3240,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         STATUS_FIELD_MAGIC_ROOM,
                         B_MSG_SET_MAGIC_ROOM,
                         B_ANIM_MAGIC_ROOM,
-                        &gFieldTimers.magicRoomTimer, gStartingStatuses.magicRoom ? 0 : 5);
+                        gStartingStatuses.magicRoom ? 0 : 5);
             gStartingStatuses.magicRoomTemporary = gStartingStatuses.magicRoom = FALSE;
         }
         else if (gStartingStatuses.wonderRoom || gStartingStatuses.wonderRoomTemporary)
@@ -3250,8 +3249,17 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         STATUS_FIELD_WONDER_ROOM,
                         B_MSG_SET_WONDER_ROOM,
                         B_ANIM_WONDER_ROOM,
-                        &gFieldTimers.wonderRoomTimer,  gStartingStatuses.wonderRoom ? 0 : 5);
+                        gStartingStatuses.wonderRoom ? 0 : 5);
             gStartingStatuses.wonderRoomTemporary = gStartingStatuses.wonderRoom = FALSE;
+        }
+        else if (gStartingStatuses.iondeluge || gStartingStatuses.iondelugeTemporary)
+        {
+            effect = SetStartingFieldStatus(
+                        STATUS_FIELD_WONDER_ROOM,
+                        B_MSG_SET_WONDER_ROOM,
+                        B_ANIM_WONDER_ROOM,
+                        gStartingStatuses.iondeluge ? 0 : B_ION_DELUGE_TIMER);
+            gStartingStatuses.iondeluge = gStartingStatuses.iondeluge = FALSE;
         }
         else if (gStartingStatuses.tailwindPlayer || gStartingStatuses.tailwindPlayerTemporary)
         {
@@ -3260,7 +3268,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         B_SIDE_PLAYER,
                         B_MSG_SET_TAILWIND,
                         B_ANIM_TAILWIND,
-                        &gSideTimers[B_SIDE_PLAYER].tailwindTimer, gStartingStatuses.tailwindPlayer ? 0 : (B_TAILWIND_TURNS >= GEN_5 ? 4 : 3));
+                        gStartingStatuses.tailwindPlayer ? 0 : (B_TAILWIND_TURNS >= GEN_5 ? 4 : 3));
             gStartingStatuses.tailwindPlayerTemporary = gStartingStatuses.tailwindPlayer = FALSE;
         }
         else if (gStartingStatuses.tailwindOpponent || gStartingStatuses.tailwindOpponentTemporary)
@@ -3270,7 +3278,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         B_SIDE_OPPONENT,
                         B_MSG_SET_TAILWIND,
                         B_ANIM_TAILWIND,
-                        &gSideTimers[B_SIDE_OPPONENT].tailwindTimer, gStartingStatuses.tailwindOpponent ? 0 : (B_TAILWIND_TURNS >= GEN_5 ? 4 : 3));
+                        gStartingStatuses.tailwindOpponent ? 0 : (B_TAILWIND_TURNS >= GEN_5 ? 4 : 3));
             gStartingStatuses.tailwindOpponentTemporary = gStartingStatuses.tailwindOpponent = FALSE;
         }
         else if (gStartingStatuses.rainbowPlayer || gStartingStatuses.rainbowPlayerTemporary)
@@ -3280,7 +3288,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         B_SIDE_PLAYER,
                         B_MSG_SET_RAINBOW,
                         B_ANIM_RAINBOW,
-                        &gSideTimers[B_SIDE_PLAYER].rainbowTimer, gStartingStatuses.rainbowPlayer ? 0 : 4);
+                        gStartingStatuses.rainbowPlayer ? 0 : 4);
             gStartingStatuses.rainbowPlayerTemporary = gStartingStatuses.rainbowPlayer = FALSE;
         }
         else if (gStartingStatuses.rainbowOpponent || gStartingStatuses.rainbowOpponentTemporary)
@@ -3290,7 +3298,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         B_SIDE_OPPONENT,
                         B_MSG_SET_RAINBOW,
                         B_ANIM_RAINBOW,
-                        &gSideTimers[B_SIDE_OPPONENT].rainbowTimer, gStartingStatuses.rainbowOpponent ? 0 : 4);
+                        gStartingStatuses.rainbowOpponent ? 0 : 4);
             gStartingStatuses.rainbowOpponentTemporary = gStartingStatuses.rainbowOpponent = FALSE;
         }
         else if (gStartingStatuses.seaOfFirePlayer || gStartingStatuses.seaOfFirePlayerTemporary)
@@ -3300,7 +3308,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         B_SIDE_PLAYER,
                         B_MSG_SET_SEA_OF_FIRE,
                         B_ANIM_SEA_OF_FIRE,
-                        &gSideTimers[B_SIDE_PLAYER].seaOfFireTimer, gStartingStatuses.seaOfFirePlayer ? 0 : 4);
+                        gStartingStatuses.seaOfFirePlayer ? 0 : 4);
             gStartingStatuses.seaOfFirePlayerTemporary = gStartingStatuses.seaOfFirePlayer = FALSE;
         }
         else if (gStartingStatuses.seaOfFireOpponent || gStartingStatuses.seaOfFireOpponentTemporary)
@@ -3310,7 +3318,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         B_SIDE_OPPONENT,
                         B_MSG_SET_SEA_OF_FIRE,
                         B_ANIM_SEA_OF_FIRE,
-                        &gSideTimers[B_SIDE_OPPONENT].seaOfFireTimer, gStartingStatuses.seaOfFireOpponent ? 0 : 4);
+                        gStartingStatuses.seaOfFireOpponent ? 0 : 4);
             gStartingStatuses.seaOfFireOpponentTemporary = gStartingStatuses.seaOfFireOpponent = FALSE;
         }
         else if (gStartingStatuses.swampPlayer || gStartingStatuses.swampPlayerTemporary)
@@ -3320,7 +3328,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         B_SIDE_PLAYER,
                         B_MSG_SET_SWAMP,
                         B_ANIM_SWAMP,
-                        &gSideTimers[B_SIDE_PLAYER].swampTimer, gStartingStatuses.swampPlayer ? 0 : 4);
+                        gStartingStatuses.swampPlayer ? 0 : 4);
             gStartingStatuses.swampPlayerTemporary = gStartingStatuses.swampPlayer = FALSE;
         }
         else if (gStartingStatuses.swampOpponent || gStartingStatuses.swampOpponentTemporary)
@@ -3330,7 +3338,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         B_SIDE_OPPONENT,
                         B_MSG_SET_SWAMP,
                         B_ANIM_SWAMP,
-                        &gSideTimers[B_SIDE_OPPONENT].swampTimer, gStartingStatuses.swampOpponent ? 0 : 4);
+                        gStartingStatuses.swampOpponent ? 0 : 4);
             gStartingStatuses.swampOpponentTemporary = gStartingStatuses.swampOpponent = FALSE;
         }
         // Hazards - Spikes
@@ -6537,6 +6545,7 @@ enum Obedience GetAttackerObedienceForAction(void)
     s32 calc;
     u8 obedienceLevel = 0;
     u8 levelReferenced;
+    enum Ability abilityAtk = GetBattlerAbility(gBattlerAttacker);
 
     if (gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK))
         return OBEYS;
@@ -6573,7 +6582,7 @@ enum Obedience GetAttackerObedienceForAction(void)
 
     if (B_OBEDIENCE_MECHANICS >= GEN_8
      && !IsOtherTrainer(gBattleMons[gBattlerAttacker].otId, gBattleMons[gBattlerAttacker].otName))
-        levelReferenced = gBattleMons[gBattlerAttacker].metLevel;
+        levelReferenced = GetMonData(GetBattlerMon(gBattlerAttacker), MON_DATA_MET_LEVEL);
     else
         levelReferenced = gBattleMons[gBattlerAttacker].level;
 
@@ -6616,7 +6625,7 @@ enum Obedience GetAttackerObedienceForAction(void)
         obedienceLevel = levelReferenced - obedienceLevel;
 
         calc = ((rnd >> 16) & 255);
-        if (calc < obedienceLevel && CanBeSlept(gBattlerAttacker, gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), NOT_BLOCKED_BY_SLEEP_CLAUSE))
+        if (calc < obedienceLevel && CanBeSlept(gBattlerAttacker, gBattlerAttacker, abilityAtk, abilityAtk, NOT_BLOCKED_BY_SLEEP_CLAUSE))
         {
             // try putting asleep
             enum BattlerId i;
@@ -7616,7 +7625,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
 
     uq4_12_t holdEffectModifier;
     uq4_12_t modifier = UQ_4_12(1.0);
-    u32 atkSide = GetBattlerSide(battlerAtk);
+    enum BattleSide atkSide = GetBattlerSide(battlerAtk);
 
     // move effect
     switch (moveEffect)
@@ -10747,8 +10756,8 @@ void SetDynamicMoveCategory(enum BattlerId battlerAtk, enum BattlerId battlerDef
 static bool32 TryRemoveScreens(enum BattlerId battler)
 {
     bool32 removed = FALSE;
-    enum BattlerId battlerSide = GetBattlerSide(battler);
-    u8 enemySide = GetBattlerSide(BATTLE_OPPOSITE(battler));
+    enum BattleSide battlerSide = GetBattlerSide(battler);
+    enum BattleSide enemySide = GetBattlerSide(BATTLE_OPPOSITE(battler));
 
     // try to remove from battler's side
     if (gSideStatuses[battlerSide] & SIDE_STATUS_SCREEN_ANY)
@@ -10798,7 +10807,7 @@ enum DamageCategory GetCategoryBasedOnStats(enum BattlerId battlerAtk, enum Batt
 
 }
 
-static u32 GetFlingPowerFromItemId(u32 itemId)
+u32 GetFlingPowerFromItemId(enum Item itemId)
 {
     if (gItemsInfo[itemId].pocket == POCKET_TM_CASE)
     {
