@@ -468,10 +468,6 @@ struct FontInfo
         };
         union TextColor color;
     };
-    u8 unk:4;
-    u8 fgColor:4;
-    u8 bgColor:4;
-    u8 shadowColor:4;
 };
 
 extern const struct FontInfo *gFonts;
