@@ -3635,7 +3635,7 @@ static void UpdatePartyMonExpstateGfx(u8 expState, struct PartyMenuBox *menuBox)
     {
         for (i = 0; i < PARTY_SIZE; i++)         
         {
-            if (GetMonData(gPlayerParty[i], MON_DATA_EXP_SHARE_STATE) != OFF)
+            if (GetMonData(&gPlayerParty[i], MON_DATA_EXP_SHARE_STATE) != OFF)
                 DestroySprite(&gSprites[menuBox->expSpriteId]);
             
         }
