@@ -7155,6 +7155,11 @@ void ItemUseCB_RotomCatalog(u8 taskId, TaskFunc task)
     gTasks[taskId].func = Task_HandleSelectionMenuInput;
 }
 
+//vsonic important annoying this just put itself in
+//but could prob use this for my diff version of mega evo
+//just add multichoice item use to all mega
+//make new think revert item use multi choice so can put mega form
+//within same thing as base table
 bool32 TryMultichoiceFormChange(u8 taskId)
 {
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
