@@ -748,6 +748,7 @@ enum __attribute__((packed)) Item
     ITEM_TM08 = 589,
     ITEM_TM09 = 590,
     ITEM_TM10 = 591,
+    ITEM_TM10_HIDDEN_POWER = ITEM_TM10, //need this just help w pickup
     ITEM_TM11 = 592,
     ITEM_TM12 = 593,
     ITEM_TM13 = 594,

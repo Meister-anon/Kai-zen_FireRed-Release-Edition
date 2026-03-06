@@ -4928,7 +4928,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM01] =
     {
       .name = _("TM01"),
-      .itemId = ITEM_TM01_FOCUS_PUNCH,
+      .itemId = ITEM_TM01,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -4946,7 +4946,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM02] =
     {
       .name = _("TM02"),
-      .itemId = ITEM_TM02_DRAGON_CLAW,
+      .itemId = ITEM_TM02,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -4964,7 +4964,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM03] =
     {
       .name = _("TM03"),
-      .itemId = ITEM_TM03_WATER_PULSE,
+      .itemId = ITEM_TM03,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -4982,7 +4982,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM04] =
     {
       .name = _("TM04"),
-      .itemId = ITEM_TM04_CALM_MIND,
+      .itemId = ITEM_TM04,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5000,7 +5000,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM05] =
     {
       .name = _("TM05"),
-      .itemId = ITEM_TM05_ROAR,
+      .itemId = ITEM_TM05,
       .price =  1000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5018,7 +5018,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM06] =
     {
       .name = _("TM06"),
-      .itemId = ITEM_TM06_TOXIC,
+      .itemId = ITEM_TM06,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5036,7 +5036,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM07] =
     {
       .name = _("TM07"),
-      .itemId = ITEM_TM07_HAIL,
+      .itemId = ITEM_TM07,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5054,7 +5054,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM08] =
     {
       .name = _("TM08"),
-      .itemId = ITEM_TM08_BULK_UP,
+      .itemId = ITEM_TM08,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5072,7 +5072,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM09] =
     {
       .name = _("TM09"),
-      .itemId = ITEM_TM09_BULLET_SEED,
+      .itemId = ITEM_TM09,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5090,7 +5090,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM10] =
     {
       .name = _("TM10"),
-      .itemId = ITEM_TM10_HIDDEN_POWER,
+      .itemId = ITEM_TM10,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5108,7 +5108,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM11] =
     {
       .name = _("TM11"),
-      .itemId = ITEM_TM11_SUNNY_DAY,
+      .itemId = ITEM_TM11,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5126,7 +5126,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM12] =
     {
       .name = _("TM12"),
-      .itemId = ITEM_TM12_TAUNT,
+      .itemId = ITEM_TM12,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5144,7 +5144,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM13] =
     {
       .name = _("TM13"),
-      .itemId = ITEM_TM13_ICE_BEAM,
+      .itemId = ITEM_TM13,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5162,7 +5162,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM14] =
     {
       .name = _("TM14"),
-      .itemId = ITEM_TM14_BLIZZARD,
+      .itemId = ITEM_TM14,
       .price =  5500,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5180,7 +5180,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM15] =
     {
       .name = _("TM15"),
-      .itemId = ITEM_TM15_HYPER_BEAM,
+      .itemId = ITEM_TM15,
       .price =  7500,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5198,7 +5198,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM16] =
     {
       .name = _("TM16"),
-      .itemId = ITEM_TM16_LIGHT_SCREEN,
+      .itemId = ITEM_TM16,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5216,7 +5216,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM17] =
     {
       .name = _("TM17"),
-      .itemId = ITEM_TM17_PROTECT,
+      .itemId = ITEM_TM17,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5234,7 +5234,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM18] =
     {
       .name = _("TM18"),
-      .itemId = ITEM_TM18_RAIN_DANCE,
+      .itemId = ITEM_TM18,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5252,7 +5252,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM19] =
     {
       .name = _("TM19"),
-      .itemId = ITEM_TM19_GIGA_DRAIN,
+      .itemId = ITEM_TM19,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5270,7 +5270,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM20] =
     {
       .name = _("TM20"),
-      .itemId = ITEM_TM20_SAFEGUARD,
+      .itemId = ITEM_TM20,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5288,7 +5288,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM21] =
     {
       .name = _("TM21"),
-      .itemId = ITEM_TM21_FRUSTRATION,
+      .itemId = ITEM_TM21,
       .price =  1000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5306,7 +5306,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM22] =
     {
       .name = _("TM22"),
-      .itemId = ITEM_TM22_SOLAR_BEAM,
+      .itemId = ITEM_TM22,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5324,7 +5324,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM23] =
     {
       .name = _("TM23"),
-      .itemId = ITEM_TM23_IRON_TAIL,
+      .itemId = ITEM_TM23,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5342,7 +5342,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM24] =
     {
       .name = _("TM24"),
-      .itemId = ITEM_TM24_THUNDERBOLT,
+      .itemId = ITEM_TM24,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5360,7 +5360,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM25] =
     {
       .name = _("TM25"),
-      .itemId = ITEM_TM25_THUNDER,
+      .itemId = ITEM_TM25,
       .price =  5500,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5378,7 +5378,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM26] =
     {
       .name = _("TM26"),
-      .itemId = ITEM_TM26_EARTHQUAKE,
+      .itemId = ITEM_TM26,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5396,7 +5396,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM27] =
     {
       .name = _("TM27"),
-      .itemId = ITEM_TM27_RETURN,
+      .itemId = ITEM_TM27,
       .price =  1000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5414,7 +5414,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM28] =
     {
       .name = _("TM28"),
-      .itemId = ITEM_TM28_DIG,
+      .itemId = ITEM_TM28,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5432,7 +5432,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM29] =
     {
       .name = _("TM29"),
-      .itemId = ITEM_TM29_PSYCHIC,
+      .itemId = ITEM_TM29,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5450,7 +5450,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM30] =
     {
       .name = _("TM30"),
-      .itemId = ITEM_TM30_SHADOW_BALL,
+      .itemId = ITEM_TM30,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5468,7 +5468,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM31] =
     {
       .name = _("TM31"),
-      .itemId = ITEM_TM31_BRICK_BREAK,
+      .itemId = ITEM_TM31,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5486,7 +5486,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM32] =
     {
       .name = _("TM32"),
-      .itemId = ITEM_TM32_DOUBLE_TEAM,
+      .itemId = ITEM_TM32,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5504,7 +5504,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM33] =
     {
       .name = _("TM33"),
-      .itemId = ITEM_TM33_REFLECT,
+      .itemId = ITEM_TM33,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5522,7 +5522,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM34] =
     {
       .name = _("TM34"),
-      .itemId = ITEM_TM34_SHOCK_WAVE,
+      .itemId = ITEM_TM34,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5540,7 +5540,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM35] =
     {
       .name = _("TM35"),
-      .itemId = ITEM_TM35_FLAMETHROWER,
+      .itemId = ITEM_TM35,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5558,7 +5558,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM36] =
     {
       .name = _("TM36"),
-      .itemId = ITEM_TM36_SLUDGE_BOMB,
+      .itemId = ITEM_TM36,
       .price =  1000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5576,7 +5576,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM37] =
     {
       .name = _("TM37"),
-      .itemId = ITEM_TM37_SANDSTORM,
+      .itemId = ITEM_TM37,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5594,7 +5594,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM38] =
     {
       .name = _("TM38"),
-      .itemId = ITEM_TM38_FIRE_BLAST,
+      .itemId = ITEM_TM38,
       .price =  5500,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5612,7 +5612,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM39] =
     {
       .name = _("TM39"),
-      .itemId = ITEM_TM39_ROCK_TOMB,
+      .itemId = ITEM_TM39,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5630,7 +5630,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM40] =
     {
       .name = _("TM40"),
-      .itemId = ITEM_TM40_AERIAL_ACE,
+      .itemId = ITEM_TM40,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5648,7 +5648,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM41] =
     {
       .name = _("TM41"),
-      .itemId = ITEM_TM41_TORMENT,
+      .itemId = ITEM_TM41,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5666,7 +5666,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM42] =
     {
       .name = _("TM42"),
-      .itemId = ITEM_TM42_FACADE,
+      .itemId = ITEM_TM42,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5684,7 +5684,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM43] =
     {
       .name = _("TM43"),
-      .itemId = ITEM_TM43_SECRET_POWER,
+      .itemId = ITEM_TM43,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5702,7 +5702,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM44] =
     {
       .name = _("TM44"),
-      .itemId = ITEM_TM44_REST,
+      .itemId = ITEM_TM44,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5720,7 +5720,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM45] =
     {
       .name = _("TM45"),
-      .itemId = ITEM_TM45_ATTRACT,
+      .itemId = ITEM_TM45,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5738,7 +5738,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM46] =
     {
       .name = _("TM46"),
-      .itemId = ITEM_TM46_THIEF,
+      .itemId = ITEM_TM46,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5756,7 +5756,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM47] =
     {
       .name = _("TM47"),
-      .itemId = ITEM_TM47_STEEL_WING,
+      .itemId = ITEM_TM47,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5774,7 +5774,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM48] =
     {
       .name = _("TM48"),
-      .itemId = ITEM_TM48_SKILL_SWAP,
+      .itemId = ITEM_TM48,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5792,7 +5792,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM49] =
     {
       .name = _("TM49"),
-      .itemId = ITEM_TM49_SNATCH,
+      .itemId = ITEM_TM49,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5810,7 +5810,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM50] =
     {
       .name = _("TM50"),
-      .itemId = ITEM_TM50_OVERHEAT,
+      .itemId = ITEM_TM50,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5829,7 +5829,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM51] =
     {
       .name = _("TM51"),
-      .itemId = ITEM_TM51_WILD_CHARGE,
+      .itemId = ITEM_TM51,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5848,7 +5848,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM52] =
     {
       .name = _("TM52"),
-      .itemId = ITEM_TM52_ROOST,
+      .itemId = ITEM_TM52,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5866,7 +5866,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM53] =
     {
       .name = _("TM53"),
-      .itemId = ITEM_TM53_TELEPORT,
+      .itemId = ITEM_TM53,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5884,7 +5884,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM54] =
     {
       .name = _("TM54"),
-      .itemId = ITEM_TM54_QUASH,
+      .itemId = ITEM_TM54,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5902,7 +5902,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM55] =
     {
       .name = _("TM55"),
-      .itemId = ITEM_TM55_HONE_CLAWS,
+      .itemId = ITEM_TM55,
       .price =  1000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5920,7 +5920,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM56] =
     {
       .name = _("TM56"),
-      .itemId = ITEM_TM56_BRINE,
+      .itemId = ITEM_TM56,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5938,7 +5938,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM57] =
     {
       .name = _("TM57"),
-      .itemId = ITEM_TM57_CHARGE_BEAM,
+      .itemId = ITEM_TM57,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5956,7 +5956,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM58] =
     {
       .name = _("TM58"),
-      .itemId = ITEM_TM58_ENDURE,
+      .itemId = ITEM_TM58,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5974,7 +5974,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM59] =
     {
       .name = _("TM59"),
-      .itemId = ITEM_TM59_DRAGON_PULSE,
+      .itemId = ITEM_TM59,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5992,7 +5992,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM60] =
     {
       .name = _("TM60"),
-      .itemId = ITEM_TM60_THUNDER_PUNCH,
+      .itemId = ITEM_TM60,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6010,7 +6010,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM61] =
     {
       .name = _("TM61"),
-      .itemId = ITEM_TM61_FIRE_PUNCH,
+      .itemId = ITEM_TM61,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6028,7 +6028,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM62] =
     {
       .name = _("TM62"),
-      .itemId = ITEM_TM62_ICE_PUNCH,
+      .itemId = ITEM_TM62,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6046,7 +6046,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM63] =
     {
       .name = _("TM63"),
-      .itemId = ITEM_TM63_SHADOW_PUNCH,
+      .itemId = ITEM_TM63,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6064,7 +6064,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM64] =
     {
       .name = _("TM64"),
-      .itemId = ITEM_TM64_POISON_JAB,
+      .itemId = ITEM_TM64,
       .price =  5500,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6082,7 +6082,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM65] =
     {
       .name = _("TM65"),
-      .itemId = ITEM_TM65_DRAIN_PUNCH,
+      .itemId = ITEM_TM65,
       .price =  7500,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6100,7 +6100,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM66] =
     {
       .name = _("TM66"),
-      .itemId = ITEM_TM66_COMET_PUNCH,
+      .itemId = ITEM_TM66,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6118,7 +6118,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM67] =
     {
       .name = _("TM67"),
-      .itemId = ITEM_TM67_WILL_O_WISP,
+      .itemId = ITEM_TM67,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6136,7 +6136,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM68] =
     {
       .name = _("TM68"),
-      .itemId = ITEM_TM68_MEMENTO,
+      .itemId = ITEM_TM68,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6154,7 +6154,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM69] =
     {
       .name = _("TM69"),
-      .itemId = ITEM_TM69_SILVER_WIND,
+      .itemId = ITEM_TM69,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6172,7 +6172,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM70] =
     {
       .name = _("TM70"),
-      .itemId = ITEM_TM70_OMINOUS_WIND,
+      .itemId = ITEM_TM70,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6190,7 +6190,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM71] =
     {
       .name = _("TM71"),
-      .itemId = ITEM_TM71_FLING,
+      .itemId = ITEM_TM71,
       .price =  1000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6208,7 +6208,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM72] =
     {
       .name = _("TM72"),
-      .itemId = ITEM_TM72_EMBARGO,
+      .itemId = ITEM_TM72,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6226,7 +6226,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM73] =
     {
       .name = _("TM73"),
-      .itemId = ITEM_TM73_RECYCLE,
+      .itemId = ITEM_TM73,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6244,7 +6244,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM74] =
     {
       .name = _("TM74"),
-      .itemId = ITEM_TM74_HEAL_BLOCK,
+      .itemId = ITEM_TM74,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6262,7 +6262,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM75] =
     {
       .name = _("TM75"),
-      .itemId = ITEM_TM75_THUNDER_FANG,
+      .itemId = ITEM_TM75,
       .price =  5500,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6280,7 +6280,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM76] =
     {
       .name = _("TM76"),
-      .itemId = ITEM_TM76_FIRE_FANG,
+      .itemId = ITEM_TM76,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6298,7 +6298,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM77] =
     {
       .name = _("TM77"),
-      .itemId = ITEM_TM77_ICE_FANG,
+      .itemId = ITEM_TM77,
       .price =  1000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6316,7 +6316,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM78] =
     {
       .name = _("TM78"),
-      .itemId = ITEM_TM78_EXPLOSION,
+      .itemId = ITEM_TM78,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6334,7 +6334,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM79] =
     {
       .name = _("TM79"),
-      .itemId = ITEM_TM79_SHADOW_CLAW,
+      .itemId = ITEM_TM79,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6352,7 +6352,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM80] =
     {
       .name = _("TM80"),
-      .itemId = ITEM_TM80_NIGHT_SLASH,
+      .itemId = ITEM_TM80,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6370,7 +6370,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM81] =
     {
       .name = _("TM81"),
-      .itemId = ITEM_TM81_RAZOR_LEAF,
+      .itemId = ITEM_TM81,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6388,7 +6388,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM82] =
     {
       .name = _("TM82"),
-      .itemId = ITEM_TM82_X_SCISSOR,
+      .itemId = ITEM_TM82,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6406,7 +6406,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM83] =
     {
       .name = _("TM83"),
-      .itemId = ITEM_TM83_CROSS_POISON,
+      .itemId = ITEM_TM83,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6424,7 +6424,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM84] =
     {
       .name = _("TM84"),
-      .itemId = ITEM_TM84_PSYCHO_CUT,
+      .itemId = ITEM_TM84,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6442,7 +6442,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM85] =
     {
       .name = _("TM85"),
-      .itemId = ITEM_TM85_FALSE_SWIPE,
+      .itemId = ITEM_TM85,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6460,7 +6460,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM86] =
     {
       .name = _("TM86"),
-      .itemId = ITEM_TM86_PAYBACK,
+      .itemId = ITEM_TM86,
       .price =  1000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6478,7 +6478,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM87] =
     {
       .name = _("TM87"),
-      .itemId = ITEM_TM87_GIGA_IMPACT,
+      .itemId = ITEM_TM87,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6496,7 +6496,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM88] =
     {
       .name = _("TM88"),
-      .itemId = ITEM_TM88_ROCK_POLISH,
+      .itemId = ITEM_TM88,
       .price =  5500,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6514,7 +6514,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM89] =
     {
       .name = _("TM89"),
-      .itemId = ITEM_TM89_MUD_SPORT,
+      .itemId = ITEM_TM89,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6532,7 +6532,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM90] =
     {
       .name = _("TM90"),
-      .itemId = ITEM_TM90_WATER_SPORT,
+      .itemId = ITEM_TM90,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6550,7 +6550,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM91] =
     {
       .name = _("TM91"),
-      .itemId = ITEM_TM91_AURORA_VEIL,
+      .itemId = ITEM_TM91,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6568,7 +6568,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM92] =
     {
       .name = _("TM92"),
-      .itemId = ITEM_TM92_STONE_EDGE,
+      .itemId = ITEM_TM92,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6586,7 +6586,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM93] =
     {
       .name = _("TM93"),
-      .itemId = ITEM_TM93_REVENGE,
+      .itemId = ITEM_TM93,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6604,7 +6604,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM94] =
     {
       .name = _("TM94"),
-      .itemId = ITEM_TM94_AVALANCHE,
+      .itemId = ITEM_TM94,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6622,7 +6622,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM95] =
     {
       .name = _("TM95"),
-      .itemId = ITEM_TM95_THUNDER_WAVE,
+      .itemId = ITEM_TM95,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6640,7 +6640,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM96] =
     {
       .name = _("TM96"),
-      .itemId = ITEM_TM96_GLARE,
+      .itemId = ITEM_TM96,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6658,7 +6658,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM97] =
     {
       .name = _("TM97"),
-      .itemId = ITEM_TM97_GYRO_BALL,
+      .itemId = ITEM_TM97,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6676,7 +6676,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM98] =
     {
       .name = _("TM98"),
-      .itemId = ITEM_TM98_ELECTRO_BALL,
+      .itemId = ITEM_TM98,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6694,7 +6694,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM99] =
     {
       .name = _("TM99"),
-      .itemId = ITEM_TM99_SWORDS_DANCE,
+      .itemId = ITEM_TM99,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6712,7 +6712,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM100] =
     {
       .name = _("TM100"),
-      .itemId = ITEM_TM100_POWER_TRICK,
+      .itemId = ITEM_TM100,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6729,7 +6729,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM101] =
     {
       .name = _("TM101"),
-      .itemId = ITEM_TM101_POWER_SHIFT,
+      .itemId = ITEM_TM101,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6747,7 +6747,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM102] =
     {
       .name = _("TM102"),
-      .itemId = ITEM_TM102_POWER_SWAP,
+      .itemId = ITEM_TM102,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6765,7 +6765,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM103] =
     {
       .name = _("TM103"),
-      .itemId = ITEM_TM103_GUARD_SWAP,
+      .itemId = ITEM_TM103,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6783,7 +6783,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM104] =
     {
       .name = _("TM104"),
-      .itemId = ITEM_TM104_SPEED_SWAP,
+      .itemId = ITEM_TM104,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6801,7 +6801,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM105] =
     {
       .name = _("TM105"),
-      .itemId = ITEM_TM105_STEALTH_ROCK,
+      .itemId = ITEM_TM105,
       .price =  1000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6819,7 +6819,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM106] =
     {
       .name = _("TM106"),
-      .itemId = ITEM_TM106_SPIKES,
+      .itemId = ITEM_TM106,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6837,7 +6837,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM107] =
     {
       .name = _("TM107"),
-      .itemId = ITEM_TM107_FIRE_SPIN,
+      .itemId = ITEM_TM107,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6855,7 +6855,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM108] =
     {
       .name = _("TM108"),
-      .itemId = ITEM_TM108_SAND_TOMB,
+      .itemId = ITEM_TM108,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6873,7 +6873,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM109] =
     {
       .name = _("TM109"),
-      .itemId = ITEM_TM109_WHIRLPOOL,
+      .itemId = ITEM_TM109,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6891,7 +6891,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM110] =
     {
       .name = _("TM110"),
-      .itemId = ITEM_TM110_SWARM,
+      .itemId = ITEM_TM110,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6909,7 +6909,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM111] =
     {
       .name = _("TM111"),
-      .itemId = ITEM_TM111_PSYCH_UP,
+      .itemId = ITEM_TM111,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6927,7 +6927,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM112] =
     {
       .name = _("TM112"),
-      .itemId = ITEM_TM112_CAPTIVATE,
+      .itemId = ITEM_TM112,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6945,7 +6945,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM113] =
     {
       .name = _("TM113"),
-      .itemId = ITEM_TM113_CONFIDE,
+      .itemId = ITEM_TM113,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6963,7 +6963,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM114] =
     {
       .name = _("TM114"),
-      .itemId = ITEM_TM114_FAKE_TEARS,
+      .itemId = ITEM_TM114,
       .price =  5500,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6981,7 +6981,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM115] =
     {
       .name = _("TM115"),
-      .itemId = ITEM_TM115_ACID_SPRAY,
+      .itemId = ITEM_TM115,
       .price =  7500,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -6999,7 +6999,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM116] =
     {
       .name = _("TM116"),
-      .itemId = ITEM_TM116_DARK_PULSE,
+      .itemId = ITEM_TM116,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7017,7 +7017,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM117] =
     {
       .name = _("TM117"),
-      .itemId = ITEM_TM117_ROCK_THROW,
+      .itemId = ITEM_TM117,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7035,7 +7035,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM118] =
     {
       .name = _("TM118"),
-      .itemId = ITEM_TM118_POWER_GEM,
+      .itemId = ITEM_TM118,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7053,7 +7053,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM119] =
     {
       .name = _("TM119"),
-      .itemId = ITEM_TM119_SLEEP_TALK,
+      .itemId = ITEM_TM119,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7071,7 +7071,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM120] =
     {
       .name = _("TM120"),
-      .itemId = ITEM_TM120_SNORE,
+      .itemId = ITEM_TM120,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7089,7 +7089,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM121] =
     {
       .name = _("TM121"),
-      .itemId = ITEM_TM121_NATURAL_GIFT,
+      .itemId = ITEM_TM121,
       .price =  1000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7107,7 +7107,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM122] =
     {
       .name = _("TM122"),
-      .itemId = ITEM_TM122_GRASS_KNOT,
+      .itemId = ITEM_TM122,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7125,7 +7125,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM123] =
     {
       .name = _("TM123"),
-      .itemId = ITEM_TM123_SWAGGER,
+      .itemId = ITEM_TM123,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7143,7 +7143,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM124] =
     {
       .name = _("TM124"),
-      .itemId = ITEM_TM124_PLUCK,
+      .itemId = ITEM_TM124,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7161,7 +7161,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM125] =
     {
       .name = _("TM125"),
-      .itemId = ITEM_TM125_BUG_BITE,
+      .itemId = ITEM_TM125,
       .price =  5500,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7179,7 +7179,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM126] =
     {
       .name = _("TM126"),
-      .itemId = ITEM_TM126_U_TURN,
+      .itemId = ITEM_TM126,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7197,7 +7197,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM127] =
     {
       .name = _("TM127"),
-      .itemId = ITEM_TM127_VOLT_SWITCH,
+      .itemId = ITEM_TM127,
       .price =  1000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7215,7 +7215,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM128] =
     {
       .name = _("TM128"),
-      .itemId = ITEM_TM128_FLIP_TURN,
+      .itemId = ITEM_TM128,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7233,7 +7233,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM129] =
     {
       .name = _("TM129"),
-      .itemId = ITEM_TM129_UP_ROOT,
+      .itemId = ITEM_TM129,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7251,7 +7251,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM130] =
     {
       .name = _("TM130"),
-      .itemId = ITEM_TM130_DIVE_BOMB,
+      .itemId = ITEM_TM130,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7269,7 +7269,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM131] =
     {
       .name = _("TM131"),
-      .itemId = ITEM_TM131_SUBSTITUTE,
+      .itemId = ITEM_TM131,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7287,7 +7287,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM132] =
     {
       .name = _("TM132"),
-      .itemId = ITEM_TM132_FLASH_CANNON,
+      .itemId = ITEM_TM132,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7305,7 +7305,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM133] =
     {
       .name = _("TM133"),
-      .itemId = ITEM_TM133_AGILITY,
+      .itemId = ITEM_TM133,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7323,7 +7323,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM134] =
     {
       .name = _("TM134"),
-      .itemId = ITEM_TM134_TRICK_ROOM,
+      .itemId = ITEM_TM134,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7341,7 +7341,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM135] =
     {
       .name = _("TM135"),
-      .itemId = ITEM_TM135_MAGIC_ROOM,
+      .itemId = ITEM_TM135,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7359,7 +7359,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM136] =
     {
       .name = _("TM136"),
-      .itemId = ITEM_TM136_WONDER_ROOM,
+      .itemId = ITEM_TM136,
       .price =  1000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7377,7 +7377,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM137] =
     {
       .name = _("TM137"),
-      .itemId = ITEM_TM137_GRAVITY,
+      .itemId = ITEM_TM137,
       .price =  2000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7395,7 +7395,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM138] =
     {
       .name = _("TM138"),
-      .itemId = ITEM_TM138_DRAINING_KISS,
+      .itemId = ITEM_TM138,
       .price =  5500,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7413,7 +7413,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM139] =
     {
       .name = _("TM139"),
-      .itemId = ITEM_TM139_LEECH_LIFE,
+      .itemId = ITEM_TM139,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7431,7 +7431,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM140] =
     {
       .name = _("TM140"),
-      .itemId = ITEM_TM140_FROST_BREATH,
+      .itemId = ITEM_TM140,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7449,7 +7449,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM141] =
     {
       .name = _("TM141"),
-      .itemId = ITEM_TM141_WEATHER_BALL,
+      .itemId = ITEM_TM141,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7467,7 +7467,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM142] =
     {
       .name = _("TM142"),
-      .itemId = ITEM_TM142_FLAME_CHARGE,
+      .itemId = ITEM_TM142,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7485,7 +7485,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM143] =
     {
       .name = _("TM143"),
-      .itemId = ITEM_TM143_DUAL_WINGBEAT,
+      .itemId = ITEM_TM143,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7503,7 +7503,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM144] =
     {
       .name = _("TM144"),
-      .itemId = ITEM_TM144_KNOCK_OFF,
+      .itemId = ITEM_TM144,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7521,7 +7521,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM145] =
     {
       .name = _("TM145"),
-      .itemId = ITEM_TM145_BEAT_UP,
+      .itemId = ITEM_TM145,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7539,7 +7539,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM146] =
     {
       .name = _("TM146"),
-      .itemId = ITEM_TM146_RAGE,
+      .itemId = ITEM_TM146,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7557,7 +7557,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM147] =
     {
       .name = _("TM147"),
-      .itemId = ITEM_TM147_MAGIC_COAT,
+      .itemId = ITEM_TM147,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7575,7 +7575,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM148] =
     {
       .name = _("TM148"),
-      .itemId = ITEM_TM148_ICICLE_SPEAR,
+      .itemId = ITEM_TM148,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7593,7 +7593,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM149] =
     {
       .name = _("TM149"),
-      .itemId = ITEM_TM149_ACROBATICS,
+      .itemId = ITEM_TM149,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7611,7 +7611,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM150] =
     {
       .name = _("TM150"),
-      .itemId = ITEM_TM150_ASSURANCE,
+      .itemId = ITEM_TM150,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7629,7 +7629,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM151] =
     {
       .name = _("TM151"),
-      .itemId = ITEM_TM151_SOLAR_BLADE,
+      .itemId = ITEM_TM151,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7646,7 +7646,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM152] =
     {
       .name = _("TM152"),
-      .itemId = ITEM_TM152_ICY_WIND,
+      .itemId = ITEM_TM152,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7663,7 +7663,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM153] =
     {
       .name = _("TM153"),
-      .itemId = ITEM_TM153_METAL_CLAW,
+      .itemId = ITEM_TM153,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7680,7 +7680,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM154] =
     {
       .name = _("TM154"),
-      .itemId = ITEM_TM154_HOLD_BACK,
+      .itemId = ITEM_TM154,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7697,7 +7697,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM155] =
     {
       .name = _("TM155"),
-      .itemId = ITEM_TM155_HEADBUTT,
+      .itemId = ITEM_TM155,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7714,7 +7714,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM156] =
     {
       .name = _("TM156"),
-      .itemId = ITEM_TM156_HI_JUMP_KICK,
+      .itemId = ITEM_TM156,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7731,7 +7731,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM157] =
     {
       .name = _("TM157"),
-      .itemId = ITEM_TM157_DOUBLE_EDGE,
+      .itemId = ITEM_TM157,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7748,7 +7748,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM158] =
     {
       .name = _("TM158"),
-      .itemId = ITEM_TM158_MISTY_EXPLOSION,
+      .itemId = ITEM_TM158,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7765,7 +7765,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM159] =
     {
       .name = _("TM159"),
-      .itemId = ITEM_TM159_SNOWBALL,
+      .itemId = ITEM_TM159,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7782,7 +7782,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM160] =
     {
       .name = _("TM160"),
-      .itemId = ITEM_TM160_ENERGY_BALL,
+      .itemId = ITEM_TM160,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7799,7 +7799,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_TM161] =
     {
       .name = _("TM161"),
-      .itemId = ITEM_TM161_CELEBRATE,
+      .itemId = ITEM_TM161,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7816,7 +7816,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_HM01] =
     {
       .name = _("HM01"),
-      .itemId = ITEM_HM01_CUT,
+      .itemId = ITEM_HM01,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7834,7 +7834,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_HM02] =
     {
       .name = _("HM02"),
-      .itemId = ITEM_HM02_FLY,
+      .itemId = ITEM_HM02,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7852,7 +7852,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_HM03] =
     {
       .name = _("HM03"),
-      .itemId = ITEM_HM03_SURF,
+      .itemId = ITEM_HM03,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7870,7 +7870,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_HM04] =
     {
       .name = _("HM04"),
-      .itemId = ITEM_HM04_STRENGTH,
+      .itemId = ITEM_HM04,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7888,7 +7888,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_HM05] =
     {
       .name = _("HM05"),
-      .itemId = ITEM_HM05_FLASH,
+      .itemId = ITEM_HM05,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7906,7 +7906,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_HM06] =
     {
       .name = _("HM06"),
-      .itemId = ITEM_HM06_ROCK_SMASH,
+      .itemId = ITEM_HM06,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7924,7 +7924,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_HM07] =
     {
       .name = _("HM07"),
-      .itemId = ITEM_HM07_WATERFALL,
+      .itemId = ITEM_HM07,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7942,7 +7942,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_HM08] =
     {
       .name = _("HM08"),
-      .itemId = ITEM_HM08_DIVE,
+      .itemId = ITEM_HM08,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7959,7 +7959,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_HM09] =
     {
       .name = _("HM09"),
-      .itemId = ITEM_HM09_ROCK_CLIMB,
+      .itemId = ITEM_HM09,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
