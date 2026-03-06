@@ -435,10 +435,9 @@ void AddTextPrinterParameterized3(u8 windowId, u8 fontId, u8 x, u8 y, const u8 *
     printer.currentY = printer.y;
     printer.letterSpacing = GetFontAttribute(fontId, 2);
     printer.lineSpacing = GetFontAttribute(fontId, 3);
-    printer.unk = 0;
-    printer.fgColor = color[1];
-    printer.bgColor = color[0];
-    printer.shadowColor = color[2];
+    printer.color.foreground = color[1];
+    printer.color.background = color[0];
+    printer.color.shadow = color[2];
     AddTextPrinter(&printer, speed, NULL);
 }
 
@@ -455,10 +454,9 @@ void AddTextPrinterParameterized4(u8 windowId, u8 fontId, u8 x, u8 y, u8 letterS
     printer.currentY = printer.y;
     printer.letterSpacing = letterSpacing;
     printer.lineSpacing = lineSpacing;
-    printer.unk = 0;
-    printer.fgColor = color[1];
-    printer.bgColor = color[0];
-    printer.shadowColor = color[2];
+    printer.color.foreground = color[1];
+    printer.color.background = color[0];
+    printer.color.shadow = color[2];
     AddTextPrinter(&printer, speed, NULL);
 }
 
@@ -475,10 +473,9 @@ void AddTextPrinterParameterized5(u8 windowId, u8 fontId, const u8 *str, u8 x, u
     printer.currentY = y;
     printer.letterSpacing = letterSpacing;
     printer.lineSpacing = lineSpacing;
-    printer.unk = 0;
-    printer.fgColor = GetFontAttribute(fontId, 5);
-    printer.bgColor = GetFontAttribute(fontId, 6);
-    printer.shadowColor = GetFontAttribute(fontId, 7);
+    printer.color.foreground = GetFontAttribute(fontId, 5);
+    printer.color.background = GetFontAttribute(fontId, 6);
+    printer.color.shadow = GetFontAttribute(fontId, 7);
     AddTextPrinter(&printer, speed, callback);
 }
 
