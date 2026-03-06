@@ -1,6 +1,26 @@
 .
 Branch Goals:
 
+note thinking guard mode gets broken through by crits
+makes them even more impactful as a balance mechanic
+and with that thinking potentially NOT raise ev limit
+with guard mode rather than try increase stas can use that
+as implied defense boost with good move options even weaker mon
+should be able to have more utility
+mostly as offensive mon would have little reason to click guard mode by design hmm this would help the hoenn special mon
+those with middling stats well assuming they had some degree of bulk
+Ivs are boosted already so you get more there
+would simplify calculations with that in mind
+prob not boosting eviolite either
+I'll prob raise individual limit a bit though 
+to help specialize ev individual limit
+but total stat cap would stay same
+if I could lower the cap back down to u8 tho
+it'd save me a MASSIVE amount of ewram in the pc
+as well as form change stuff hmmm
+
+need review this throroughly.
+
 adding battle files will need move type array back to use type1 type2 etc
 use this for regex sub, num replace 0, 1, 2
 (gBattleMons\[\w+\].)types
