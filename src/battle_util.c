@@ -10445,9 +10445,7 @@ bool32 CanBattlerGetOrLoseItem(u32 fromBattler, enum BattlerId battler, u16 item
     u16 species = gBattleMons[fromBattler].species;
     enum HoldEffect holdEffect = GetItemHoldEffect(itemId); // Raw hold effect
 
-    if (ItemIsMail(itemId))
-        return FALSE;
-    else if (itemId == ITEM_ENIGMA_BERRY_E_READER)
+    if (itemId == ITEM_ENIGMA_BERRY_E_READER)
         return FALSE;
     else if (DoesSpeciesUseHoldItemToChangeForm(species, itemId))
         return FALSE;
