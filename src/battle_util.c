@@ -2756,52 +2756,52 @@ bool32 CanAbilityAbsorbMoveType(enum BattlerId battlerDef, enum Type mainMoveTyp
     switch (abilityDef)
         {
         case ABILITY_RISING_PHOENIX:
-            return ((mainMoveType == TYPE_FIRE || SecondaryMoveType == TYPE_FIRE))
+            return ((mainMoveType == TYPE_FIRE || SecondaryMoveType == TYPE_FIRE));
             break;
         case ABILITY_VOLT_DASH:
         case ABILITY_VOLT_ABSORB:
-            return ((mainMoveType == TYPE_ELECTRIC || SecondaryMoveType == TYPE_ELECTRIC))
+            return ((mainMoveType == TYPE_ELECTRIC || SecondaryMoveType == TYPE_ELECTRIC));
             break;
         case ABILITY_WATER_ABSORB:
         case ABILITY_DRY_SKIN:
-            return ((mainMoveType == TYPE_WATER || SecondaryMoveType == TYPE_WATER))
+            return ((mainMoveType == TYPE_WATER || SecondaryMoveType == TYPE_WATER));
             break;
         case ABILITY_GLACIAL_ICE:
-            return ((mainMoveType == TYPE_ICE || SecondaryMoveType == TYPE_ICE))
+            return ((mainMoveType == TYPE_ICE || SecondaryMoveType == TYPE_ICE));
             break;
         case ABILITY_EROSION:
-            return ((mainMoveType == TYPE_ROCK || SecondaryMoveType == TYPE_ROCK))
+            return ((mainMoveType == TYPE_ROCK || SecondaryMoveType == TYPE_ROCK));
             break;
         case ABILITY_EARTH_EATER:
-            return ((mainMoveType == TYPE_GROUND || SecondaryMoveType == TYPE_GROUND))
+            return ((mainMoveType == TYPE_GROUND || SecondaryMoveType == TYPE_GROUND));
             break;
         case ABILITY_MOTOR_DRIVE:
-            return ((mainMoveType == TYPE_ELECTRIC || SecondaryMoveType == TYPE_ELECTRIC))
+            return ((mainMoveType == TYPE_ELECTRIC || SecondaryMoveType == TYPE_ELECTRIC));
             break;
         case ABILITY_TERAVOLT:
         case ABILITY_LIGHTNING_ROD:
-            return ((mainMoveType == TYPE_ELECTRIC || SecondaryMoveType == TYPE_ELECTRIC))
+            return ((mainMoveType == TYPE_ELECTRIC || SecondaryMoveType == TYPE_ELECTRIC));
             break;
         case ABILITY_PLASMA_OVERDRIVE:
             return ((mainMoveType == TYPE_ELECTRIC || SecondaryMoveType == TYPE_ELECTRIC))
-            || ((mainMoveType == TYPE_FIRE || SecondaryMoveType == TYPE_FIRE))
+            || ((mainMoveType == TYPE_FIRE || SecondaryMoveType == TYPE_FIRE));
             break;
         case ABILITY_STORM_DRAIN:
-            return ((mainMoveType == TYPE_WATER || SecondaryMoveType == TYPE_WATER))
+            return ((mainMoveType == TYPE_WATER || SecondaryMoveType == TYPE_WATER));
             break;
         case ABILITY_SAP_SIPPER:
-            return ((mainMoveType == TYPE_GRASS || SecondaryMoveType == TYPE_GRASS))
+            return ((mainMoveType == TYPE_GRASS || SecondaryMoveType == TYPE_GRASS));
             break;
         case ABILITY_JEWEL_METABOLISM:
-            return ((mainMoveType == TYPE_ROCK || SecondaryMoveType == TYPE_ROCK))
+            return ((mainMoveType == TYPE_ROCK || SecondaryMoveType == TYPE_ROCK));
             break;
         case ABILITY_WELL_BAKED_BODY:
-            return ((mainMoveType == TYPE_FIRE || SecondaryMoveType == TYPE_FIRE))
+            return ((mainMoveType == TYPE_FIRE || SecondaryMoveType == TYPE_FIRE));
             break;
         case ABILITY_LAVA_FISSURE:
         case ABILITY_TURBOBLAZE:
         case ABILITY_FLASH_FIRE:
-            return ((mainMoveType == TYPE_FIRE || SecondaryMoveType == TYPE_FIRE))
+            return ((mainMoveType == TYPE_FIRE || SecondaryMoveType == TYPE_FIRE));
             break;
         default:
             return FALSE;
