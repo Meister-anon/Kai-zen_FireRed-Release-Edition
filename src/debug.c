@@ -3638,11 +3638,13 @@ static void DebugAction_Fill_PocketItems(u8 taskId)
 //think can leave this?
 //believe first ball last ball only used for this now
 //yup only used here
+//had change unsure if have grahpics setup
+//still todo setup POKE_BALL_SPRITE & gPokeBalls
 static void DebugAction_Fill_PocketPokeBalls(u8 taskId)
 {
     u16 itemId;
 
-    for (itemId = FIRST_BALL; itemId < LAST_BALL; itemId++)
+    for (itemId = ITEM_POKE_BALL; itemId < ITEM_LUXURY_BALL; itemId++)
     {
         if (CheckBagHasSpace(itemId, MAX_BAG_ITEM_CAPACITY))
             AddBagItem(itemId, MAX_BAG_ITEM_CAPACITY);
