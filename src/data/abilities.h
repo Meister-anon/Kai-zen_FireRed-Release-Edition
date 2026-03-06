@@ -929,7 +929,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_SOLID_ROCK] =
     {
         .name = _("Solid Rock"),
-        .description = COMPOUND_ABILITY_STRING("Weakens incoming “Super effective”\nmoves."),,
+        .description = COMPOUND_ABILITY_STRING("Weakens incoming “Super effective”\nmoves."),
         .aiRating = 6,
         .breakable = TRUE,
     },
