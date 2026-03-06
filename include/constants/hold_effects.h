@@ -30,12 +30,13 @@ enum __attribute__((packed)) HoldEffect
     HOLD_EFFECT_MACHO_BRACE,
     HOLD_EFFECT_EXP_SHARE,
     HOLD_EFFECT_QUICK_CLAW,
+    HOLD_EFFECT_DRAGON_SCALE, //previously hold effect because trade, EE refactored now hold effect because custom effect
     HOLD_EFFECT_FRIENDSHIP_UP,
     HOLD_EFFECT_MENTAL_HERB,
     HOLD_EFFECT_CHOICE_BAND,
     HOLD_EFFECT_FLINCH,
-    HOLD_EFFECT_DOUBLE_PRIZE,
-    HOLD_EFFECT_REPEL,
+    HOLD_EFFECT_DOUBLE_PRIZE,   //amulet coin
+    HOLD_EFFECT_REPEL,  //cleanse tag
     HOLD_EFFECT_SOUL_DEW,
     HOLD_EFFECT_DEEP_SEA_TOOTH,
     HOLD_EFFECT_DEEP_SEA_SCALE,

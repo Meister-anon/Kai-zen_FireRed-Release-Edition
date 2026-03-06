@@ -9289,7 +9289,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                         {
                             friendshipDelta = itemEffect[idx];
                             friendship = GetMonData(mon, MON_DATA_FRIENDSHIP);
-                            if (friendshipDelta > 0 && holdEffect == HOLD_EFFECT_HAPPINESS_UP)
+                            if (friendshipDelta > 0 && holdEffect == HOLD_EFFECT_FRIENDSHIP_UP)
                                 friendship += 150 * friendshipDelta / 100;
                             else
                                 friendship += friendshipDelta;
@@ -9315,7 +9315,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                         {
                             friendshipDelta = itemEffect[idx];
                             friendship = GetMonData(mon, MON_DATA_FRIENDSHIP);
-                            if (friendshipDelta > 0 && holdEffect == HOLD_EFFECT_HAPPINESS_UP)
+                            if (friendshipDelta > 0 && holdEffect == HOLD_EFFECT_FRIENDSHIP_UP)
                                 friendship += 150 * friendshipDelta / 100;
                             else
                                 friendship += friendshipDelta;
@@ -9339,7 +9339,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                         {
                             friendshipDelta = itemEffect[idx];
                             friendship = GetMonData(mon, MON_DATA_FRIENDSHIP);
-                            if (friendshipDelta > 0 && holdEffect == HOLD_EFFECT_HAPPINESS_UP)
+                            if (friendshipDelta > 0 && holdEffect == HOLD_EFFECT_FRIENDSHIP_UP)
                                 friendship += 150 * friendshipDelta / 100;
                             else
                                 friendship += friendshipDelta;
@@ -10898,7 +10898,7 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
         }
 
         delta = sFriendshipEventDeltas[event][friendshipLevel]; //exp friendship is now part of this
-            if (delta > 0 && holdEffect == HOLD_EFFECT_HAPPINESS_UP) //if event delta raises friendship boost if have hold item that boosts friendhsip
+            if (delta > 0 && holdEffect == HOLD_EFFECT_FRIENDSHIP_UP) //if event delta raises friendship boost if have hold item that boosts friendhsip
                 delta = (150 * delta) / 100; //boost the increase you would have
 
 
@@ -10969,7 +10969,7 @@ void AdjustBoxMonFriendship(struct BoxPokemon *mon, u8 event)
         }
 
         delta = sFriendshipEventDeltas[event][friendshipLevel]; //exp friendship is now part of this
-            if (delta > 0 && holdEffect == HOLD_EFFECT_HAPPINESS_UP) //if event delta raises friendship boost if have hold item that boosts friendhsip
+            if (delta > 0 && holdEffect == HOLD_EFFECT_FRIENDSHIP_UP) //if event delta raises friendship boost if have hold item that boosts friendhsip
                 delta = (150 * delta) / 100; //boost the increase you would have
 
 

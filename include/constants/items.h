@@ -1046,6 +1046,11 @@ enum __attribute__((packed)) Item
     ITEM_HISUIAN_SAND,
     ITEM_PALDEAN_SAND, 
     ITEM_NULL_MEMORY, //for revert to base sylvally
+    ITEM_EV_SHACKLES,
+    ITEM_ULTIMA_BRACE, //unsure if using both these or not
+    //fake mega stones to make also need add mega stones for mon that were gmax
+    ITEM_TORTERRAITE,
+    ITEM_MAROWAKONITE,
     ITEM_BAD_ONION,
     ITEM_SCENT_CASE, //potentially USE TM CASE grahpic for holding region scent vials
     ITEM_MEMORY_BOX, //store sylvally memories potentially
