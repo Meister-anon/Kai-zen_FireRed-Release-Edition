@@ -4911,10 +4911,10 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
         printerTemplate.fontId = FONT_NORMAL;
         printerTemplate.letterSpacing = 0;
         printerTemplate.lineSpacing = 0;
-        printerTemplate.accentColor = 0;
-        printerTemplate.fgColor = 1;
-        printerTemplate.bgColor = 0;
-        printerTemplate.shadowColor = 2;
+        printerTemplate.color.accent = 0;
+        printerTemplate.color.foreground = 1;
+        printerTemplate.color.background = 0;
+        printerTemplate.color.shadow = 2;
 
         if (species > NATIONAL_SPECIES_COUNT && species < GEN_9_FORMS_START)
         {

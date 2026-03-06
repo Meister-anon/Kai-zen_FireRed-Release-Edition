@@ -4007,7 +4007,7 @@ static void UR_AddTextPrinterParameterized(u8 windowId, u8 fontId, const u8 *str
     printerTemplate.y = y;
     printerTemplate.currentX = x;
     printerTemplate.currentY = y;
-    printerTemplate.accentColor = 0;
+    printerTemplate.color.accent = 0;
 
     gTextFlags.useAlternateDownArrow = FALSE;
     switch (colorIdx)
@@ -4015,51 +4015,51 @@ static void UR_AddTextPrinterParameterized(u8 windowId, u8 fontId, const u8 *str
     case UR_COLOR_DKE_WHT_LTE:
         printerTemplate.letterSpacing = 0;
         printerTemplate.lineSpacing = 0;
-        printerTemplate.fgColor = TEXT_COLOR_DARK_GREY;
-        printerTemplate.bgColor = TEXT_COLOR_WHITE;
-        printerTemplate.shadowColor = TEXT_COLOR_LIGHT_GREY;
+        printerTemplate.color.foreground = TEXT_COLOR_DARK_GREY;
+        printerTemplate.color.background = TEXT_COLOR_WHITE;
+        printerTemplate.color.shadow = TEXT_COLOR_LIGHT_GREY;
         break;
     case UR_COLOR_RED_WHT_LTR:
         printerTemplate.letterSpacing = 0;
         printerTemplate.lineSpacing = 0;
-        printerTemplate.fgColor = TEXT_COLOR_RED;
-        printerTemplate.bgColor = TEXT_COLOR_WHITE;
-        printerTemplate.shadowColor = TEXT_COLOR_LIGHT_RED;
+        printerTemplate.color.foreground = TEXT_COLOR_RED;
+        printerTemplate.color.background = TEXT_COLOR_WHITE;
+        printerTemplate.color.shadow = TEXT_COLOR_LIGHT_RED;
         break;
     case UR_COLOR_GRN_WHT_LTG:
         printerTemplate.letterSpacing = 0;
         printerTemplate.lineSpacing = 0;
-        printerTemplate.fgColor = TEXT_COLOR_GREEN;
-        printerTemplate.bgColor = TEXT_COLOR_WHITE;
-        printerTemplate.shadowColor = TEXT_COLOR_LIGHT_GREEN;
+        printerTemplate.color.foreground = TEXT_COLOR_GREEN;
+        printerTemplate.color.background = TEXT_COLOR_WHITE;
+        printerTemplate.color.shadow = TEXT_COLOR_LIGHT_GREEN;
         break;
     case UR_COLOR_WHT_WHT_LTE:
         printerTemplate.letterSpacing = 0;
         printerTemplate.lineSpacing = 0;
-        printerTemplate.fgColor = TEXT_COLOR_WHITE;
-        printerTemplate.bgColor = TEXT_COLOR_WHITE;
-        printerTemplate.shadowColor = TEXT_COLOR_LIGHT_GREY;
+        printerTemplate.color.foreground = TEXT_COLOR_WHITE;
+        printerTemplate.color.background = TEXT_COLOR_WHITE;
+        printerTemplate.color.shadow = TEXT_COLOR_LIGHT_GREY;
         break;
     case UR_COLOR_WHT_DKE_LTE:
         printerTemplate.letterSpacing = 0;
         printerTemplate.lineSpacing = 0;
-        printerTemplate.fgColor = TEXT_COLOR_WHITE;
-        printerTemplate.bgColor = TEXT_COLOR_DARK_GREY;
-        printerTemplate.shadowColor = TEXT_COLOR_LIGHT_GREY;
+        printerTemplate.color.foreground = TEXT_COLOR_WHITE;
+        printerTemplate.color.background = TEXT_COLOR_DARK_GREY;
+        printerTemplate.color.shadow = TEXT_COLOR_LIGHT_GREY;
         break;
     case UR_COLOR_GRN_DN6_LTB:
         printerTemplate.letterSpacing = 0;
         printerTemplate.lineSpacing = 0;
-        printerTemplate.fgColor = TEXT_COLOR_LIGHT_GREEN;
-        printerTemplate.bgColor = TEXT_DYNAMIC_COLOR_6;
-        printerTemplate.shadowColor = TEXT_COLOR_LIGHT_BLUE;
+        printerTemplate.color.foreground = TEXT_COLOR_LIGHT_GREEN;
+        printerTemplate.color.background = TEXT_DYNAMIC_COLOR_6;
+        printerTemplate.color.shadow = TEXT_COLOR_LIGHT_BLUE;
         break;
     case UR_COLOR_DN5_DN6_LTB:
         printerTemplate.letterSpacing = 0;
         printerTemplate.lineSpacing = 0;
-        printerTemplate.fgColor = TEXT_DYNAMIC_COLOR_5;
-        printerTemplate.bgColor = TEXT_DYNAMIC_COLOR_6;
-        printerTemplate.shadowColor = TEXT_COLOR_LIGHT_BLUE;
+        printerTemplate.color.foreground = TEXT_DYNAMIC_COLOR_5;
+        printerTemplate.color.background = TEXT_DYNAMIC_COLOR_6;
+        printerTemplate.color.shadow = TEXT_COLOR_LIGHT_BLUE;
         break;
     }
 
