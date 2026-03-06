@@ -19924,8 +19924,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .pp = 10,
         .target = TARGET_SELECTED, //got feedback from ryuji decided to make weather escape prevention just lock on target w user makes much more sense
         .priority = 1,
-        .category = DAMAGE_CATEGORY_STATUS,
+        .category = DAMAGE_CATEGORY_STATUS,//think will give this to avalug
         .ignoresProtect = TRUE,
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_TRAP_BOTH,
+        }),*/
         .argument = { .weatherType = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_HAIL) ? BATTLE_WEATHER_HAIL : BATTLE_WEATHER_SNOW },
         .battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_HAIL) ? gBattleAnimMove_Hail : gBattleAnimMove_Snowscape,
         // Currently an exact copy of Hail until we figure out what to do with it
@@ -19948,6 +19951,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //while some things like ice body could work in both
     //hail may be better for singles
     //snow better for vgc at first glance
+    
 
     [MOVE_GRASSHOPPER] =
     {
