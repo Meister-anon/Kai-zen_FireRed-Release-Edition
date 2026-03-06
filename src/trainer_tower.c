@@ -1038,9 +1038,10 @@ static s32 GetPartyMaxLevel(void)
 
     for (i = 0; i < PARTY_SIZE; i++)
     {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL) != 0 && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) != SPECIES_EGG)
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != 0 
+        && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
         {
-            s32 currLevel = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL, NULL);
+            s32 currLevel = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
             if (currLevel > topLevel)
                 topLevel = currLevel;
         }

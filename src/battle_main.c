@@ -3023,7 +3023,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
             //Set Evs
             for (j = 0; j < NUM_EV_STATS; ++j)
             {
-                evs[j] = GetMonData(&party[i], partyData[i].evs[j], NULL);
+                evs[j] = GetMonData(&party[i], partyData[i].evs[j]);
                 Global_Stat_Total_Limit = GetBaseStatTotal(partyData[i].species) < 600 ? 600 : 650; //sets limit based on bst
                 
                 //make identical conditional for each possible value for evs 0-5,

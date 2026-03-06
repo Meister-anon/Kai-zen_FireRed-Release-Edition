@@ -4377,7 +4377,7 @@ static void Cmd_tryfaintmon(void)
             {
                 if (gBattleResults.opponentFaintCounter < 255)
                     gBattleResults.opponentFaintCounter++;
-                gBattleResults.lastOpponentSpecies = GetMonData(GetBattlerMon(battler), MON_DATA_SPECIES, NULL);
+                gBattleResults.lastOpponentSpecies = GetMonData(GetBattlerMon(battler), MON_DATA_SPECIES);
                 gSideTimers[B_SIDE_OPPONENT].retaliateTimer = 2;
             }
 
@@ -12329,8 +12329,8 @@ static void Cmd_trysetcaughtmondexflags(void)
     CMD_ARGS(const u8 *failInstr);
 
     struct Pokemon *caughtMon = GetBattlerMon(gCatchTargetId);
-    u16 species = GetMonData(caughtMon, MON_DATA_SPECIES, NULL);
-    u32 personality = GetMonData(caughtMon, MON_DATA_PERSONALITY, NULL);
+    u16 species = GetMonData(caughtMon, MON_DATA_SPECIES);
+    u32 personality = GetMonData(caughtMon, MON_DATA_PERSONALITY);
 
     if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT))
     {
@@ -12352,7 +12352,7 @@ static void Cmd_displaydexinfo(void)
     CMD_ARGS();
 
     struct Pokemon *caughtMon = GetBattlerMon(gCatchTargetId);
-    u16 species = GetMonData(caughtMon, MON_DATA_SPECIES, NULL);
+    u16 species = GetMonData(caughtMon, MON_DATA_SPECIES);
     
     switch (gBattleCommunication[0])
     {
@@ -12552,7 +12552,7 @@ static void Cmd_trygivecaughtmonnick(void)
                 DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
                            GetMonData(caughtMon, MON_DATA_SPECIES),
                            GetMonGender(caughtMon),
-                           GetMonData(caughtMon, MON_DATA_PERSONALITY, NULL),
+                           GetMonData(caughtMon, MON_DATA_PERSONALITY),
                            SetCB2ToReshowScreenAfterMenu); //almost works just need not reshow mon caught, and figure what to do for double wilds
             } //for now seems work next step will make ewram to store battle position or some other function for should display sprite/create sprite
             //which would rely on battlehp being fainted or mon being caught? which are I guess fields I would add to batlemons?
@@ -12563,7 +12563,7 @@ static void Cmd_trygivecaughtmonnick(void)
                 DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
                            GetMonData(caughtMon, MON_DATA_SPECIES),
                            GetMonGender(caughtMon),
-                           GetMonData(caughtMon, MON_DATA_PERSONALITY, NULL),
+                           GetMonData(caughtMon, MON_DATA_PERSONALITY),
                            BattleMainCB2);
             }
             ++gBattleCommunication[MULTIUSE_STATE]; //next case //for double wilds I'd want to not reshow healthbox
@@ -13265,9 +13265,9 @@ void BS_ItemRestorePP(void)
     // Heal PP!
     for (; i < loopEnd; i++)
     {
-        pp = GetMonData(mon, MON_DATA_PP1 + i, NULL);
-        moveId = GetMonData(mon, MON_DATA_MOVE1 + i, NULL);
-        maxPP = CalculatePPWithBonus(moveId, GetMonData(mon, MON_DATA_PP_BONUSES, NULL), i);
+        pp = GetMonData(mon, MON_DATA_PP1 + i);
+        moveId = GetMonData(mon, MON_DATA_MOVE1 + i);
+        maxPP = CalculatePPWithBonus(moveId, GetMonData(mon, MON_DATA_PP_BONUSES), i);
         if (pp != maxPP)
         {
             pp += effect[6];

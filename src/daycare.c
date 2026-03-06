@@ -930,7 +930,7 @@ static void _TriggerPendingDaycareEgg(struct DayCare *daycare)
 //    }
 //    else
 //    {
-//        u8 wantedNature = GetNatureFromPersonality(GetBoxMonData(&daycare->mons[natureSlot].mon, MON_DATA_PERSONALITY, NULL));
+//        u8 wantedNature = GetNatureFromPersonality(GetBoxMonData(&daycare->mons[natureSlot].mon, MON_DATA_PERSONALITY));
 //        u32 personality;
 //
 //        do
@@ -1378,7 +1378,7 @@ static void AlterEggSpeciesWithIncenseItem(u16 *species, struct DayCare *daycare
 //ex zigzagoon and galarian zigzagoon are both zigzagoon.
 //so change species to that of galraian form if either parent held galrian item
 
-//if (StringCompare(gSpeciesInfo[GetMonData(pokemon, MON_DATA_SPECIES, NULL)]].speciesName, gStringVar1) != 0)
+//if (StringCompare(gSpeciesInfo[GetMonData(pokemon, MON_DATA_SPECIES)]].speciesName, gStringVar1) != 0)
 //this what I use,  first value should be mother species, look for mon that shares name
 //that base stat flag matches the item value to set
 //replace gStringVar1  with target species  
@@ -1446,7 +1446,7 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
         motherItem = GetBoxMonData(&daycare->route5_daycareMon[parentSlots[Mother]].mon, MON_DATA_HELD_ITEM);
         fatherItem = GetBoxMonData(&daycare->route5_daycareMon[parentSlots[Father]].mon, MON_DATA_HELD_ITEM);
 
-        MotherSpecies = GetMonData(&daycare->route5_daycareMon[parentSlots[Mother]].mon, MON_DATA_SPECIES, NULL);
+        MotherSpecies = GetMonData(&daycare->route5_daycareMon[parentSlots[Mother]].mon, MON_DATA_SPECIES);
     }
     else
     {
@@ -1471,7 +1471,7 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
         motherItem = GetBoxMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_HELD_ITEM);
         fatherItem = GetBoxMonData(&daycare->mons[parentSlots[Father]].mon, MON_DATA_HELD_ITEM);
 
-        MotherSpecies = GetMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_SPECIES, NULL);
+        MotherSpecies = GetMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_SPECIES);
     }
 
     for (j = SPECIES_RATTATA_ALOLAN; j != NUM_SPECIES; j++)
@@ -1480,7 +1480,7 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
         {
             //if mother species has alt form reset species, i..e a species with same name (excluding megas)
             if (((StringCompare(gSpeciesInfo[j].speciesName, gSpeciesInfo[MotherSpecies].speciesName)) == IDENTICAL)
-            &&  !IsRegionalVariant(GetMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_SPECIES, NULL))) //and mother species isn't already a variant
+            &&  !IsRegionalVariant(GetMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_SPECIES))) //and mother species isn't already a variant
             {
                 if ((GetItemSecondaryId(motherItem) == gSpeciesInfo[j].flags)
                 || (GetItemSecondaryId(fatherItem) == gSpeciesInfo[j].flags))
@@ -1660,7 +1660,7 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
 
 
 
-    u16 MotherSpecies,FatherSpecies;// = GetMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_SPECIES, NULL);
+    u16 MotherSpecies,FatherSpecies;// = GetMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_SPECIES);
     
     //motherItem = GetBoxMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_HELD_ITEM);
     //fatherItem = GetBoxMonData(&daycare->mons[parentSlots[Father]].mon, MON_DATA_HELD_ITEM);
@@ -1685,8 +1685,8 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
         motherItem = GetBoxMonData(&daycare->route5_daycareMon[parentSlots[Mother]].mon, MON_DATA_HELD_ITEM);
         fatherItem = GetBoxMonData(&daycare->route5_daycareMon[parentSlots[Father]].mon, MON_DATA_HELD_ITEM);
 
-        MotherSpecies = GetMonData(&daycare->route5_daycareMon[parentSlots[Mother]].mon, MON_DATA_SPECIES, NULL);
-        FatherSpecies = GetMonData(&daycare->route5_daycareMon[parentSlots[Father]].mon, MON_DATA_SPECIES, NULL);
+        MotherSpecies = GetMonData(&daycare->route5_daycareMon[parentSlots[Mother]].mon, MON_DATA_SPECIES);
+        FatherSpecies = GetMonData(&daycare->route5_daycareMon[parentSlots[Father]].mon, MON_DATA_SPECIES);
 
         personality = daycare->route5_offspringPersonality | (Random() << 16);
     }
@@ -1714,8 +1714,8 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
         motherItem = GetBoxMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_HELD_ITEM);
         fatherItem = GetBoxMonData(&daycare->mons[parentSlots[Father]].mon, MON_DATA_HELD_ITEM);
 
-        MotherSpecies = GetMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_SPECIES, NULL);
-        FatherSpecies = GetMonData(&daycare->mons[parentSlots[Father]].mon, MON_DATA_SPECIES, NULL);
+        MotherSpecies = GetMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_SPECIES);
+        FatherSpecies = GetMonData(&daycare->mons[parentSlots[Father]].mon, MON_DATA_SPECIES);
 
         personality = daycare->offspringPersonality | (Random() << 16);
     }

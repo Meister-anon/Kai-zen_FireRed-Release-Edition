@@ -1076,8 +1076,8 @@ static void ReceivedMonSetPokedexFlags(u8 partyIdx)
     {
         if (!GetMonData(mon, MON_DATA_IS_EGG))
         {
-            u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
-            u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, NULL);
+            u16 species = GetMonData(mon, MON_DATA_SPECIES);
+            u32 personality = GetMonData(mon, MON_DATA_PERSONALITY);
             species = SpeciesToNationalPokedexNum(species);
             GetSetPokedexFlag(species, FLAG_SET_SEEN);
             HandleSetPokedexFlag(species, FLAG_SET_CAUGHT, personality);
@@ -1097,8 +1097,8 @@ static void ReceivedMonSetPokedexFlags(u8 partyIdx)
     {
         if (!GetBoxMonData(box_mon, MON_DATA_IS_EGG))
         {
-            u16 species = GetBoxMonData(box_mon, MON_DATA_SPECIES, NULL);
-            u32 personality = GetBoxMonData(box_mon, MON_DATA_PERSONALITY, NULL);
+            u16 species = GetBoxMonData(box_mon, MON_DATA_SPECIES);
+            u32 personality = GetBoxMonData(box_mon, MON_DATA_PERSONALITY);
             species = SpeciesToNationalPokedexNum(species);
             GetSetPokedexFlag(species, FLAG_SET_SEEN);
             HandleSetPokedexFlag(species, FLAG_SET_CAUGHT, personality);

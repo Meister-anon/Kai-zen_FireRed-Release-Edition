@@ -1559,7 +1559,7 @@ static void Task_InputHandler_Info(u8 taskId)
             {
                 //base setup done but think put specifically on info page
                 //and still need setup reload page to properly display changed slotted ability
-                bool8 AbilityState = GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_USE_TAUGHT_ABILITY, NULL) ? FALSE : TRUE;
+                bool8 AbilityState = GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_USE_TAUGHT_ABILITY) ? FALSE : TRUE;
                 SetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_USE_TAUGHT_ABILITY, &AbilityState);
                 sMonSummaryScreen->savedCallback = CB2_Debug_Pokemon;
                 PlaySE(SE_SELECT);
@@ -2854,15 +2854,15 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
         u32 type;
         //cant test this part until item port is done vsonic IMPORTANT
         if (gMain.inBattle
-        && (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY, NULL)
-        == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY, NULL)))
+        && (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY)
+        == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY)))
         {
             type = GetBattlerHiddenPowerType(gBattlerAttacker);
         }
 
         if (!(gMain.inBattle)
-        || (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY, NULL)
-        != GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY, NULL)))        
+        || (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY)
+        != GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY)))        
             type = GetMonHiddenPowerType(&sMonSummaryScreen->currentMon);
 
         if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL)
@@ -2876,8 +2876,8 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
 
     else*/
     if (gMain.inBattle
-    && (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY, NULL)
-    == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY, NULL)))
+    && (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY)
+    == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY)))
     {
         if (sMonSummaryScreen->moveIds[i] == MOVE_HIDDEN_POWER)
             sMonSummaryScreen->moveTypes[i] = GetMonHiddenPowerType(&sMonSummaryScreen->currentMon);
@@ -2900,8 +2900,8 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
     //on sandstorm when don't transform it doesn't break
     //that said still ONLY works with if, can't use else
     if (!(gMain.inBattle)
-    || (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY, NULL)
-    != GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY, NULL)))   
+    || (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY)
+    != GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY)))   
     {
         if (sMonSummaryScreen->moveIds[i] == MOVE_HIDDEN_POWER)
             sMonSummaryScreen->moveTypes[i] = GetMonHiddenPowerType(&sMonSummaryScreen->currentMon);
@@ -3101,7 +3101,7 @@ static void PokeSum_PrintControlsString(const u8 * str)
 #define SUMM_MAIN_WINDOW
 static void PrintMonLevelNickOnWindow2(const u8 * str)
 {
-    u8 shouldHideEggSpecies = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HIDE_EGG_SPECIES, NULL);
+    u8 shouldHideEggSpecies = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HIDE_EGG_SPECIES);
     FillWindowPixelBuffer(sMonSummaryScreen->windowIds[POKESUM_WIN_LVL_NICK], 0);
 
     if (!sMonSummaryScreen->isEgg)  //is not an egg
@@ -3123,7 +3123,7 @@ static void PrintMonLevelNickOnWindow2(const u8 * str)
     }   //can use sLevelNickTextColors  3 & 2 for the types that get buffed/debuffed by nature
     else if (!shouldHideEggSpecies)
     {
-        GetSpeciesName(sMonSummaryScreen->summary.speciesNameStrBuf, GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES, NULL));
+        GetSpeciesName(sMonSummaryScreen->summary.speciesNameStrBuf, GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES));
         
         if (sMonSummaryScreen->curPageIndex != PSS_PAGE_MOVES_INFO)
             AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_LVL_NICK], FONT_NORMAL, 35, 2, sLevelNickTextColors[1], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.speciesNameStrBuf);
@@ -4349,9 +4349,9 @@ static void SummScreen_ChangePokemonNickname()
     //think this is necessary so if don't right anything it can still set the value it already has
     //otherwise it would set garbage data, as its already using gstringvar2's value
     GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar2);
-    species = GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_SPECIES, NULL);
+    species = GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_SPECIES);
     gender = GetMonGender(&gPlayerParty[gLastViewedMonIndex]);
-    personality = GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_PERSONALITY, NULL);
+    personality = GetMonData(&gPlayerParty[gLastViewedMonIndex], MON_DATA_PERSONALITY);
     
     
     DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar2, species, gender, personality, SummScreen_ChangePokemonNickname_CB);

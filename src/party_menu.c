@@ -5452,7 +5452,7 @@ void ItemUseCB_PokeBall(u8 taskId, TaskFunc func)
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
     u16 item = gSpecialVar_ItemId;
     bool8 canUse = TRUE;
-    u16 currentball = GetMonData(mon, MON_DATA_POKEBALL, NULL);
+    u16 currentball = GetMonData(mon, MON_DATA_POKEBALL);
 
     if (item == currentball || IsMonNuzlockeDead(mon))
         canUse = FALSE;
@@ -5723,8 +5723,8 @@ void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task)//need to understand
 
     tState = 0;
     tMonId = gPartyMenu.slotId;
-    tSpecies = GetMonData(&gPlayerParty[tMonId], MON_DATA_SPECIES, NULL);
-    tAbilityNum = GetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM, NULL); //may need to remove this since its setting to one ability
+    tSpecies = GetMonData(&gPlayerParty[tMonId], MON_DATA_SPECIES);
+    tAbilityNum = GetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM); //may need to remove this since its setting to one ability
     SetWordTaskArg(taskId, tOldFunc, (uintptr_t)(gTasks[taskId].func));
     gTasks[taskId].func = Task_AbilityCapsule; //prob instead handle abilityNum selection in this task
 }//

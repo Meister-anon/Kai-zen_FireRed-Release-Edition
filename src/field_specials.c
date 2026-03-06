@@ -467,7 +467,7 @@ u8 GetRandomSlotMachineId(void)
 bool8 LeadMonHasEffortRibbon(void)
 {
     u8 leadMonIdx = GetLeadMonIndex();
-    return GetMonData(&gPlayerParty[leadMonIdx], MON_DATA_EFFORT_RIBBON, NULL);
+    return GetMonData(&gPlayerParty[leadMonIdx], MON_DATA_EFFORT_RIBBON);
 }
 
 void GiveLeadMonEffortRibbon(void)
@@ -484,7 +484,7 @@ void GiveLeadMonEffortRibbon(void)
 bool8 AreLeadMonEVsMaxedOut(void)
 {
     u8 leadMonIndex = GetLeadMonIndex();
-    u16 species = GetMonData(&gPlayerParty[leadMonIndex], MON_DATA_SPECIES, NULL);
+    u16 species = GetMonData(&gPlayerParty[leadMonIndex], MON_DATA_SPECIES);
     u16 Global_Stat_Total_Limit = GetBaseStatTotal(species) < 600 ? 600 : 650; //sets limit based on bst
 
     if (GetMonEVCount(&gPlayerParty[leadMonIndex]) >= MAX_TOTAL_EVS)
@@ -502,7 +502,7 @@ bool8 IsStarterFirstStageInParty(void)
     u8 i;
     for (i = 0; i < partyCount; i++)
     {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) == species)
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) == species)
             return TRUE;
     }
     return FALSE;
@@ -594,7 +594,8 @@ u8 GetLeadMonIndex(void)
     for (i = 0; i < partyCount; i++)
     {
         pokemon = &gPlayerParty[i];
-        if (GetMonData(pokemon, MON_DATA_SPECIES_OR_EGG, NULL) != SPECIES_EGG && GetMonData(pokemon, MON_DATA_SPECIES_OR_EGG, NULL) != SPECIES_NONE)
+        if (GetMonData(pokemon, MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG 
+        && GetMonData(pokemon, MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE)
             return i;
     }
     return 0;
@@ -602,7 +603,7 @@ u8 GetLeadMonIndex(void)
 
 u16 GetPartyMonSpecies(void)
 {
-    return GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES_OR_EGG, NULL);
+    return GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES_OR_EGG);
 }
 
 // Used to nop all the unused specials from RS
@@ -2290,7 +2291,7 @@ static bool8 HasMonBeenRenamed(u8 idx)
     language = GetMonData(pokemon, MON_DATA_LANGUAGE, &language);
     if (language != LANGUAGE_ENGLISH)
         return TRUE;
-    else if (StringCompare(gSpeciesInfo[GetMonData(pokemon, MON_DATA_SPECIES, NULL)].speciesName, gStringVar1) != IDENTICAL)
+    else if (StringCompare(gSpeciesInfo[GetMonData(pokemon, MON_DATA_SPECIES)].speciesName, gStringVar1) != IDENTICAL)
         return TRUE;
     else
         return FALSE;
@@ -2349,9 +2350,9 @@ void ChangeBoxPokemonNickname(void)
 
     GetBoxMonData(pokemon, MON_DATA_NICKNAME, gStringVar3);
     GetBoxMonData(pokemon, MON_DATA_NICKNAME, gStringVar2);
-    species = GetBoxMonData(pokemon, MON_DATA_SPECIES, NULL);
+    species = GetBoxMonData(pokemon, MON_DATA_SPECIES);
     gender = GetBoxMonGender(pokemon);
-    personality = GetBoxMonData(pokemon, MON_DATA_PERSONALITY, NULL);
+    personality = GetBoxMonData(pokemon, MON_DATA_PERSONALITY);
     DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar2, species, gender, personality, ChangeBoxPokemonNickname_CB);
 }
 
@@ -2369,9 +2370,9 @@ void ChangePokemonNickname(void)
 
     GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_NICKNAME, gStringVar3);
     GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_NICKNAME, gStringVar2);
-    species = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES, NULL);
+    species = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES);
     gender = GetMonGender(&gPlayerParty[gSpecialVar_0x8004]);
-    personality = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_PERSONALITY, NULL);
+    personality = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_PERSONALITY);
     DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar2, species, gender, personality, ChangePokemonNickname_CB);
 }
 
@@ -2415,9 +2416,9 @@ bool8 CheckBlockExpGainInDaycare(void)
     struct Pokemon *mon = AssignMonForChooseBoxMon(monId, boxId);
     
     if (box_mon == NULL)
-        return  GetMonData(mon, MON_DATA_BLOCK_BOX_EXP_GAIN, NULL);
+        return  GetMonData(mon, MON_DATA_BLOCK_BOX_EXP_GAIN);
     else
-        return  GetBoxMonData(box_mon, MON_DATA_BLOCK_BOX_EXP_GAIN, NULL);
+        return  GetBoxMonData(box_mon, MON_DATA_BLOCK_BOX_EXP_GAIN);
 }
 
 //change to return true false
@@ -2432,14 +2433,14 @@ bool8 IsMonOTIDNotPlayers(void)
 
     if (box_mon == NULL)
     {
-        if (GetPlayerTrainerId() == GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_OT_ID, NULL))
+        if (GetPlayerTrainerId() == GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_OT_ID))
             return FALSE;
         else
             return TRUE;
     }    
     else
     {
-        if (GetPlayerTrainerId() == GetBoxMonData(&gPokemonStoragePtr->boxes[boxId][monId], MON_DATA_OT_ID, NULL))
+        if (GetPlayerTrainerId() == GetBoxMonData(&gPokemonStoragePtr->boxes[boxId][monId], MON_DATA_OT_ID))
             return FALSE;
         else
             return TRUE;
@@ -2471,7 +2472,7 @@ bool8 IsMonNicknamed(void)
 
     if (box_mon == NULL)
     {
-        species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+        species = GetMonData(mon, MON_DATA_SPECIES);
         
         if (StringCompare(gSpeciesInfo[species].speciesName, gStringVar1) == IDENTICAL)
             return FALSE;
@@ -2480,7 +2481,7 @@ bool8 IsMonNicknamed(void)
     }
     else
     {
-        species = GetBoxMonData(box_mon, MON_DATA_SPECIES, NULL);
+        species = GetBoxMonData(box_mon, MON_DATA_SPECIES);
         
         if (StringCompare(gSpeciesInfo[species].speciesName, gStringVar1) == IDENTICAL)
             return FALSE;
@@ -2526,8 +2527,8 @@ void UpdateTrainerCardPhotoIcons(void)
     partyCount = CalculatePlayerPartyCount();
     for (i = 0; i < partyCount; i++)
     {
-        species[i] = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL);
-        personality[i] = GetMonData(&gPlayerParty[i], MON_DATA_PERSONALITY, NULL);
+        species[i] = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
+        personality[i] = GetMonData(&gPlayerParty[i], MON_DATA_PERSONALITY);
     }
     VarSet(VAR_TRAINER_CARD_MON_ICON_1, SpeciesToMailSpecies(species[0], personality[0]));
     VarSet(VAR_TRAINER_CARD_MON_ICON_2, SpeciesToMailSpecies(species[1], personality[1]));
@@ -2578,7 +2579,7 @@ bool8 DoesPlayerPartyContainSpecies(void)
     u8 i;
     for (i = 0; i < partyCount; i++)
     {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) == gSpecialVar_0x8004)
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) == gSpecialVar_0x8004)
             return TRUE;
     }
     return FALSE;
@@ -2808,7 +2809,7 @@ bool8 IsDestinationBoxFull(void)
     {
         for (j = 0; j < IN_BOX_COUNT; j++)
         {
-            if (GetBoxMonData(GetBoxedMonPtr(i, j), MON_DATA_SPECIES, NULL) == SPECIES_NONE)
+            if (GetBoxMonData(GetBoxedMonPtr(i, j), MON_DATA_SPECIES) == SPECIES_NONE)
             {
                 if (GetPCBoxToSendMon() != i)
                     FlagClear(FLAG_SHOWN_BOX_WAS_FULL_MESSAGE);
@@ -3061,7 +3062,7 @@ bool8 CapeBrinkGetMoveToTeachLeadPokemon(void)
     gSpecialVar_0x8007 = leadMonSlot;
     for (i = 0; i < NELEMS(sCapeBrinkCompatibleSpecies); i++)
     {
-        if (GetMonData(&gPlayerParty[leadMonSlot], MON_DATA_SPECIES_OR_EGG, NULL) == sCapeBrinkCompatibleSpecies[i])
+        if (GetMonData(&gPlayerParty[leadMonSlot], MON_DATA_SPECIES_OR_EGG) == sCapeBrinkCompatibleSpecies[i])
         {
             tutorMonId = i;
             break;
@@ -3330,8 +3331,8 @@ bool8 PlayerPartyContainsSpeciesWithPlayerID(void)
     u8 i;
     for (i = 0; i < playerCount; i++)
     {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) == gSpecialVar_0x8004 
-            && GetPlayerTrainerId() == GetMonData(&gPlayerParty[i], MON_DATA_OT_ID, NULL))
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) == gSpecialVar_0x8004 
+            && GetPlayerTrainerId() == GetMonData(&gPlayerParty[i], MON_DATA_OT_ID))
             return TRUE;
     }
     return FALSE;
@@ -3388,5 +3389,5 @@ static void Task_WingFlapSound(u8 taskId)
 
 u16 ScriptGetPartyMonSpecies(void)
 {
-    return GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES_OR_EGG, NULL);
+    return GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES_OR_EGG);
 }
