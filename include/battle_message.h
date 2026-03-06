@@ -82,6 +82,7 @@
 #define B_EFF_TEAM1 0x46
 #define B_EFF_TEAM2 0x47
 
+
 /*#define B_ACTIVE_NAME 0x3C
 #define B_ACTIVE_NAME2 0x3D // no Illusion check
 #define B_ATK_ITEM 0x3E  //added for single use belch set attacker item
@@ -99,6 +100,8 @@
 #define B_BUFF_NEGATIVE_FLAVOR          8
 #define B_BUFF_ABILITY                  9
 #define B_BUFF_ITEM                     10
+#define B_BUFF_MON_NICK_WITH_PREFIX_LOWER   11 // lowercase prefix
+
 
 #define B_BUFF_PLACEHOLDER_BEGIN        0xFD
 #define B_BUFF_EOS                      0xFF
@@ -215,6 +218,17 @@
     textVar[4] = B_BUFF_EOS;                                                \
 }
 
+//added but don't really see need for
+//my setup should auto change text buffs cap based on option setting
+#define PREPARE_MON_NICK_WITH_PREFIX_LOWER_BUFFER(textVar, battler, partyId)    \
+{                                                                               \
+    textVar[0] = B_BUFF_PLACEHOLDER_BEGIN;                                      \
+    textVar[1] = B_BUFF_MON_NICK_WITH_PREFIX_LOWER;                             \
+    textVar[2] = battler;                                                       \
+    textVar[3] = partyId;                                                       \
+    textVar[4] = B_BUFF_EOS;                                                    \
+}
+
 #define PREPARE_MON_NICK_BUFFER(textVar, bank, partyId)         \
 {                                                               \
     textVar[0] = B_BUFF_PLACEHOLDER_BEGIN;                      \
@@ -298,5 +312,9 @@ extern const u8 gText_HighlightRed_Left[];
 extern const u8 gText_Win[];
 extern const u8 gText_Loss[];
 extern const u8 gText_Draw[];
+
+extern const u16 gMissStringIds[];
+extern const u16 gStatUpStringIds[];
+extern const u16 gStatDownStringIds[];
 
 #endif // GUARD_BATTLE_MESSAGE_H

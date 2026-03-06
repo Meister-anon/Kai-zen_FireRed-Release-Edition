@@ -66,6 +66,9 @@ static bool32 IsPowderMoveBlocked(struct BattleContext *ctx);
 const u8 *AbsorbedByDrainHpAbility(enum BattlerId battlerDef);
 const u8 *AbsorbedByStatIncreaseAbility(enum BattlerId battlerDef, enum Ability abilityDef, enum Stat statId, u32 statAmount);
 const u8 *AbsorbedByFlashFire(enum BattlerId battlerDef);
+const u8 *AbsorbDoRisingPheonix(enum BattlerId battlerDef);
+static bool32 CanAbilityAbsorbMoveType(enum BattlerId battlerDef, enum Type mainMoveType, enum Type SecondaryMoveType);
+
 
 //customs
 static u16 WeightBoostedDamageFormula(enum BattlerId battlerTarget); //new seismic toss boost
@@ -2117,7 +2120,7 @@ s32 GetDrainedBigRootHp(enum BattlerId battler, s32 hp)
 //effects together are a 1.69 boost vsonic
 s32 MistyTerrainHealBoost(enum BattlerId battler, s32 healamount)
 {
-    if (IsBattlerTerrainAffected(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler), STATUS_FIELD_MISTY_TERRAIN))
+    if (IsMistyTerrainAffected(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler), gFieldStatuses))
     {
         healamount = (healamount * 1300) / 1000;
         if (healamount == 0)
@@ -2749,7 +2752,7 @@ static bool32 IsPowderMoveBlocked(struct BattleContext *ctx)
 //oh this is specifically does battler have ability
 //that can draw in and absorb move type
 //its just specifically applied in the redirection functions
-bool32 CanAbilityAbsorbMoveType(enum BattlerId battlerDef, enum Type mainMoveType, enum Type SecondaryMoveType)
+static bool32 CanAbilityAbsorbMoveType(enum BattlerId battlerDef, enum Type mainMoveType, enum Type SecondaryMoveType)
 {
     u32 abilityDef = GetBattlerAbility(battlerDef);
 
@@ -2860,9 +2863,10 @@ bool32 CanAbilityAbsorbMove(struct BattleContext *ctx)
     {
         switch (ctx->abilityDef)
         {
-
+            //vsonic still in progress
         case ABILITY_RISING_PHOENIX:
             if (ctx->moveType == TYPE_FIRE)
+                battleScript = AbsorbDoRisingPheonix(ctx->battlerDef);
                 //effect = MOVE_ABSORBED_BY_RISING_PHOENIX_ABILITY;
             break;//do heal and status cleanse & reset dropped stats to default
         case ABILITY_VOLT_DASH:
@@ -2923,12 +2927,12 @@ bool32 CanAbilityAbsorbMove(struct BattleContext *ctx)
                 battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_DEF, 2);
             break;
         case ABILITY_GALEFORCE:
-            if (IsWindMove(move))
+            if (IsWindMove(ctx->move))
                 battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_SPATK, 1);
             break;
         case ABILITY_DUST_DEVIL:
         case ABILITY_WIND_RIDER:
-            if (IsWindMove(move))
+            if (IsWindMove(ctx->move))
                 battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_ATK, 1);//EE moves weather moves to target_field instead of user, I would need to add field exclusion to user as well
             break;
         case ABILITY_LAVA_FISSURE:
@@ -2954,6 +2958,54 @@ bool32 CanAbilityAbsorbMove(struct BattleContext *ctx)
     }
 
     return TRUE;
+}
+
+
+const u8 *AbsorbDoRisingPheonix(enum BattlerId battlerDef)
+{
+    u8 defSide = GetBattlerSide(battlerDef);
+
+    //status cleanse
+    if (gBattleMons[battlerDef].status1 & STATUS1_ANY)
+    {
+        struct Pokemon *mon = GetBattlerMon(battlerDef);
+        HealStatusConditions(mon, STATUS1_ANY, battleMonId)
+    }
+
+    if (gBattleMons[battlerDef].volatiles.leechSeed)
+        gBattleMons[battlerDef].volatiles.leechSeed = 0;
+
+    //stat reset
+    for (i = 0; i < NUM_BATTLE_STATS; i++)
+    {
+        if (gBattleMons[battlerDef].statStages[i] < DEFAULT_STAT_STAGE)
+            gBattleMons[battlerDef].statStages[i] = DEFAULT_STAT_STAGE;
+    }
+
+    //hazard removal
+    if (AreAnyHazardsOnSide(defSide))
+    {
+        for (u32 hazardType = HAZARDS_NONE + 1; hazardType < HAZARDS_MAX_COUNT; hazardType++)
+        {
+            if (IsHazardOnSideAndClear(defSide, hazardType))
+            {
+                gBattleStruct->numHazards[defSide]--;
+                gBattleCommunication[MULTISTRING_CHOOSER] = hazardType;
+            }
+        }
+    }//need do trap removal but will have to wait
+    //till figure out setup
+
+    //attempt heal
+    if (IsBattlerAtMaxHp(battlerDef) || gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_HEAL_BLOCK)
+    {
+        return BattleScript_MonMadeMoveUseless;
+    }
+    else
+    {
+        SetHealAmount(battlerDef, GetNonDynamaxMaxHP(battlerDef) / 4);
+        return BattleScript_MoveHPDrain;
+    }
 }
 
 const u8 *AbsorbedByDrainHpAbility(enum BattlerId battlerDef)
@@ -3008,7 +3060,7 @@ static u32 GetFirstBattlerOnSide(enum BattleSide side)
     return GetBattlerAtPosition(side == B_SIDE_PLAYER ? B_POSITION_PLAYER_LEFT : B_POSITION_OPPONENT_LEFT);
 }
 
-static inline bool32 SetStartingFieldStatus(u32 flag, u32 message, u32 anim, u16 *timer, u16 time)
+static inline bool32 SetStartingFieldStatus(u32 flag, u32 message, u32 anim, u8 *timer, u8 time)
 {
     if (!(gFieldStatuses & flag))
     {
@@ -3573,7 +3625,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                     BattleScriptCall(BattleScript_TraceActivates);
                     gBattleStruct->tracedAbility[battler] = gLastUsedAbility = gBattleMons[chosenTarget].ability;
                     RecordAbilityBattle(chosenTarget, gLastUsedAbility); // Record the opposing battler has this ability
-                    PREPARE_MON_NICK_WITH_PREFIX_LOWER_BUFFER(gBattleTextBuff1, chosenTarget, gBattlerPartyIndexes[chosenTarget])
+                    PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, chosenTarget, gBattlerPartyIndexes[chosenTarget])
                     PREPARE_ABILITY_BUFFER(gBattleTextBuff2, gLastUsedAbility)
                 }
             }
@@ -3904,7 +3956,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                     BattleScriptCall(BattleScript_SwitchInAbilityMsg);
                     effect++;
                 }
-                else if (GetBattlerPartyState->usedSingleUseAbility != TRUE)
+                else if (GetBattlerPartyState(battler)->usedSingleUseAbility != TRUE)
                 {
                     gSideStatuses[GetBattlerSide(battler)] |= SIDE_STATUS_AURORA_VEIL;
                     if (GetBattlerHoldEffect(battler) == HOLD_EFFECT_LIGHT_CLAY)
@@ -3997,8 +4049,8 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         case ABILITY_INTREPID_SWORD:
             if (shouldAbilityTrigger && !GetBattlerPartyState(battler)->intrepidSwordBoost)
             {
-                if (GetConfig(INTREPID_SWORD) == GEN_9)
-                    GetBattlerPartyState(battler)->intrepidSwordBoost = TRUE;
+                /*if (GetConfig(INTREPID_SWORD) == GEN_9)
+                    GetBattlerPartyState(battler)->intrepidSwordBoost = TRUE;*/
 
                 if (CompareStat(battler, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN, gLastUsedAbility))
                 {
@@ -4011,8 +4063,8 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         case ABILITY_DAUNTLESS_SHIELD:
             if (shouldAbilityTrigger && !GetBattlerPartyState(battler)->dauntlessShieldBoost)
             {
-                if (GetConfig(DAUNTLESS_SHIELD) == GEN_9)
-                    GetBattlerPartyState(battler)->dauntlessShieldBoost = TRUE;
+                /*if (GetConfig(DAUNTLESS_SHIELD) == GEN_9)
+                    GetBattlerPartyState(battler)->dauntlessShieldBoost = TRUE;*/
 
                 if (CompareStat(battler, STAT_DEF, MAX_STAT_STAGE, CMP_LESS_THAN, gLastUsedAbility))
                 {

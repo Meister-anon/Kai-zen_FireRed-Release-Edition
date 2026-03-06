@@ -1038,6 +1038,13 @@ enum OctolockCountState
 //if I don't have proper padding it won't be faster/save space, and could actually slow it down instead
 //vsonic
 
+//vsonic important used hasSwitchinActivated
+//for zacian zamazenta switch in abilities
+//but similar to intimidate expansion is able to handle those
+//without needing the extra variables
+//think for now hold off see if make new ability category
+//in either end turn or resolution files
+
 //largest value is u16 so think struct
 //alligns to 2?
 
