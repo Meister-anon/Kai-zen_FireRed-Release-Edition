@@ -4341,15 +4341,15 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             case ABILITY_BALL_FETCH:
                 if (!(gBattleTypeFlags & BATTLE_TYPE_RAID)
                     && gBattleMons[battler].item == ITEM_NONE
-                    && gBattleResults.catchAttempts[ItemIdToBallId(gLastThrownBall)] >= 1
-                    && !gHasFetchedBall)
+                    && gBattleResults.catchAttempts[ItemIdToBallId(gLastThrownBall)] >= 1)
+                    //&& !gHasFetchedBall)
                 {
                     gLastUsedItem = gLastThrownBall;
                     gBattleScripting.battler = battler;
                     gBattleMons[battler].item = gLastUsedItem;
                     BtlController_EmitSetMonData(battler, B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, 2, &gLastUsedItem);
                     MarkBattlerForControllerExec(battler);
-                    gHasFetchedBall = TRUE;
+                    //gHasFetchedBall = TRUE;
                     BattleScriptExecute(BattleScript_BallFetch);
                     effect++;
                 }
@@ -4839,7 +4839,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
              && gBattleMons[battler].species == GetBaseFormSpecies(gBattleMons[battler].species))
             {
                 BattleScriptCall(BattleScript_IceFaceTookHit);
-                effect++
+                effect++;
             }
             break;
         case ABILITY_TOXIC_DEBRIS:
