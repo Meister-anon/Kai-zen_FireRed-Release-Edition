@@ -1066,7 +1066,7 @@ void DestroyItemMenuIcon(u8 idx)
     //return icon based on is tm or hm
     //tm case and important 0 or 1
     //then return icon pal based on move type
-static u16 *GetTmHmIconPal(enum Item itemId)
+static const u16 *GetTmHmIconPal(enum Item itemId)
 {
     switch (GetMoveType(ItemIdToBattleMoveId(itemId)))
     {
