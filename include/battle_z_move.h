@@ -19,7 +19,7 @@ u32 GetUsableZMove(enum BattlerId battler, u32 move);
 void ActivateZMove(enum BattlerId battler);
 bool32 IsViableZMove(enum BattlerId battler, u32 move);
 bool32 TryChangeZTrigger(enum BattlerId battler, u32 moveIndex);
-u32 GetTypeBasedZMove(u32 move);
+//u32 GetTypeBasedZMove(u32 move);
 u32 GetSignatureZMove(u32 move, u32 species, u32 item);
 bool32 MoveSelectionDisplayZMove(u16 zmove, enum BattlerId battler);
 void SetZEffect(void);

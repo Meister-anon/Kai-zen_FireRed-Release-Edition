@@ -121,7 +121,7 @@ bool32 CanUseZMove(enum BattlerId battler)
         return FALSE;
 
     // Add '| BATTLE_TYPE_FRONTIER' to below if issues occur
-    if (gBattleTypeFlags & (BATTLE_TYPE_SAFARI | BATTLE_TYPE_WALLY_TUTORIAL))
+    if (gBattleTypeFlags & (BATTLE_TYPE_SAFARI /*| BATTLE_TYPE_WALLY_TUTORIAL*/))
         return FALSE;
 
     // Check if Trainer has already used a Z-Move.
@@ -151,8 +151,8 @@ u32 GetUsableZMove(enum BattlerId battler, u32 move)
         if (zMove != MOVE_NONE)
             return zMove;  // Signature z move exists
 
-        if (move != MOVE_NONE && zMove != MOVE_Z_STATUS && GetMoveType(move) == GetItemSecondaryId(item))
-            return GetTypeBasedZMove(move);
+        /*if (move != MOVE_NONE && zMove != MOVE_Z_STATUS && GetMoveType(move) == GetItemSecondaryId(item))
+            return GetTypeBasedZMove(move);*/
     }
 
     return MOVE_NONE;
@@ -240,7 +240,7 @@ u32 GetSignatureZMove(u32 move, u32 species, u32 item)
     return MOVE_NONE;
 }
 
-u32 GetTypeBasedZMove(u32 move)
+/*u32 GetTypeBasedZMove(u32 move)
 {
     u32 moveType = GetMoveType(move);
 
@@ -255,7 +255,7 @@ u32 GetTypeBasedZMove(u32 move)
     if (gTypesInfo[moveType].zMove == MOVE_NONE) // failsafe
         return gTypesInfo[0].zMove;
     return gTypesInfo[moveType].zMove;
-}
+}*/
 
 bool32 MoveSelectionDisplayZMove(u16 zmove, enum BattlerId battler)
 {
@@ -271,7 +271,7 @@ bool32 MoveSelectionDisplayZMove(u16 zmove, enum BattlerId battler)
         for (i = 0; i < MAX_MON_MOVES; ++i)
         {
             MoveSelectionDestroyCursorAt(i);
-            StringCopy(gDisplayedStringBattle, gText_EmptyString2);
+            StringCopy(gDisplayedStringBattle, gText_EmptyString3); //changed to emptystring3 as 2 didn't exist
             BattlePutTextOnWindow(gDisplayedStringBattle, i + 3);
         }
 
@@ -281,13 +281,13 @@ bool32 MoveSelectionDisplayZMove(u16 zmove, enum BattlerId battler)
 
             gDisplayedStringBattle[0] = EOS;
 
-            if (zEffect == Z_EFFECT_CURSE)
+            /*if (zEffect == Z_EFFECT_CURSE)
             {
                 if (moveInfo->monTypes[0] == TYPE_GHOST || moveInfo->monTypes[1] == TYPE_GHOST || moveInfo->monTypes[2] == TYPE_GHOST)
                     zEffect = Z_EFFECT_RECOVER_HP;
                 else
                     zEffect = Z_EFFECT_ATK_UP_1;
-            }
+            }*/
 
             switch (zEffect)
             {
@@ -360,19 +360,19 @@ bool32 MoveSelectionDisplayZMove(u16 zmove, enum BattlerId battler)
             BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MOVE_NAME_3);
             gDisplayedStringBattle[0] = CHAR_Z;
             gDisplayedStringBattle[1] = CHAR_HYPHEN;
-            StringCopy(gDisplayedStringBattle + 2, GetMoveName(move));
+            GetMoveName(gDisplayedStringBattle + 2, move);
         }
         else if (GetMoveEffect(zmove) == EFFECT_EXTREME_EVOBOOST)
         {
             // Damaging move -> status z move
             StringCopy(gDisplayedStringBattle, sText_StatsPlus2);
             BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MOVE_NAME_3);
-            StringCopy(gDisplayedStringBattle, GetMoveName(zmove));
+            GetMoveName(gDisplayedStringBattle, move);
         }
         else
         {
             ZMoveSelectionDisplayPower(move, zmove);
-            StringCopy(gDisplayedStringBattle, GetMoveName(zmove));
+            GetMoveName(gDisplayedStringBattle, move);
         }
         BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MOVE_NAME_1);
 
@@ -543,6 +543,7 @@ void SetZEffect(void)
     }
 }
 
+//thought about it but yeah don't want z moves
 u32 GetZMovePower(u32 move)
 {
     if (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
@@ -551,7 +552,8 @@ u32 GetZMovePower(u32 move)
     if (moveEffect == EFFECT_OHKO || moveEffect == EFFECT_SHEER_COLD)
         return 180;
 
-    u32 power = GetMoveZPowerOverride(move);
+    //removed use of GetMoveZPowerOverride
+    u32 power = GetMovePower(move);
     if (power > 0)
         return power;
 

@@ -598,8 +598,8 @@ static enum CancelerResult CancelerCallSubmove(struct BattleContext *ctx)
 
     if (calledMove != MOVE_NONE)
     {
-        if (GetActiveGimmick(ctx->battlerAtk) == GIMMICK_Z_MOVE && !IsBattleMoveStatus(calledMove))
-            calledMove = GetTypeBasedZMove(calledMove);
+        /*if (GetActiveGimmick(ctx->battlerAtk) == GIMMICK_Z_MOVE && !IsBattleMoveStatus(calledMove))
+            calledMove = GetTypeBasedZMove(calledMove);*/
         if (GetMoveEffect(ctx->move) == EFFECT_COPYCAT && IsMaxMove(calledMove))
             calledMove = gBattleStruct->dynamax.lastUsedBaseMove;
 
@@ -5021,8 +5021,8 @@ static enum Move GetMirrorMoveMove(void)
     if ((move == MOVE_NONE || move == MOVE_UNAVAILABLE) && validMovesCount != 0)
         move = validMoves[Random() % validMovesCount];
 
-    if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_Z_MOVE && !IsBattleMoveStatus(move))
-        move = GetTypeBasedZMove(move);
+    /*if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_Z_MOVE && !IsBattleMoveStatus(move))
+        move = GetTypeBasedZMove(move);*/
 
     return move;
 }
