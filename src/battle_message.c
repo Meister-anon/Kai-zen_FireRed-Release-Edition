@@ -45,7 +45,7 @@ static EWRAM_DATA struct BattleMsgData *sBattleMsgDataPtr = NULL;
 
 static void ChooseMoveUsedParticle(u8 *textPtr);
 static void ChooseTypeOfMoveUsedString(u8 *textPtr);
-static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst);
+
 
 //necessary strings
 static const u8 sText_space[] = _(" ");
@@ -2289,7 +2289,7 @@ static void IllusionNickHack(enum BattlerId battler, u32 partyId, u8 *dst)
         GetMonData(mon, MON_DATA_NICKNAME, dst);
 }
 
-static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst)
+void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst)
 {
     u32 srcId = 1;
     u32 value = 0;

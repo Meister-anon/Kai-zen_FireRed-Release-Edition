@@ -260,6 +260,7 @@ struct BattleMsgData
     u8 textBuffs[3][TEXT_BUFF_ARRAY_COUNT];
 };
 
+void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst);
 void BufferStringBattle(enum BattlerId battler, enum StringID stringID);
 u32 BattleStringExpandPlaceholdersToDisplayedString(const u8 *src);
 u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize);
