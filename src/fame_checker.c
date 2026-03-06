@@ -5,6 +5,7 @@
 #include "event_scripts.h"
 #include "graphics.h"
 #include "battle.h"
+#include "data.h"
 #include "menu.h"
 #include "trainer_pokemon_sprites.h"
 #include "scanline_effect.h"
