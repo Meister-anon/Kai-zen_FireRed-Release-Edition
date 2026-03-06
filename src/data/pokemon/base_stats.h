@@ -220,13 +220,13 @@ if it would otherwise be 0/NONE except in the case of ability.
 
 //w added wind type split off some features from flying can define characteristics here
 
-//...I never put bug on this list
+//...I never put bug on this list -vsonic important
 //put thematic logic for all types, helps with type changes as well as keeping consistent
 /*
     Normal: Animal type thing that are just normal land mamals/animals
     Flying: Bird type flying for birds or specifically for things that are expert flyers. some qualities can also overlap w dragons
     Water:  Aquatic type  for fish, or aquatic animals/mamals or things made up of the element, some qualities can also overlap w dragons
-    Dragon: rulers of land/air/sea apex predators typically with lizard/reptile like qualities
+    Dragon: rulers of land/air/sea apex predators typically with lizard/reptile like qualities, GF specifically meant western style dragons when doin this which is why gyarados and  its mega aren't dragons
     Dark: supernatural type typically tricksters or evil or related to things seen as bad/evil - moves are usually unfair or tricky in some way ex puruit thief sucker punch etc.
     Fairy: Magic type  fairy/magical qualities, like dark can also be tricksters, may also have strong relation to nature - looked further GF seems to have paterned them more after pixie-like fae, nature spirits explains why not effective on fire, as its their weakness/destroys their homes
     Poison: Is poisonous in some manner, or otherwise involves trash/waste or contamination/corruption
@@ -240,6 +240,7 @@ if it would otherwise be 0/NONE except in the case of ability.
     ???: Eldritch/Ancient type, creatures beyond normal comprehension, or that the conventional type scheme can't fully grasp.
     Fight: Trained Human type,  extensively physically trained but like normal lacks extra traits, typically human-like egg group, 
     Psychic: counterpart-to fighting, extensively mentally trained, has extra normal powers similar to fairy except source is the mind.
+    Ghost: like dragon is rooted in japanese culture understanding ghost aren't explicitly dead its a spirit, spirits can be corrupted by darkness spirit and psychics typically at odds, ninetails and delcatty get ghost type because spiritual powers
     Wind: masterfully controls wind can be wind elemental. usually hyper mobile mostly special counterpart to flying
 */
 
