@@ -13544,7 +13544,8 @@ void RemoveIVIndexFromList(u8 *ivs, u8 selectedIv)
         if (temp[i] != 0xFF)
             ivs[j++] = temp[i];
     }
-}
+}//changed iv field no longer mask of 255 its limited to 31 appropriately
+//what do I do with this? -vsonic
 
 // Attempts to perform non-level/item related overworld evolutions; called by tryspecialevo command.
 void TryScriptEvolution(void)

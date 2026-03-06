@@ -1320,6 +1320,44 @@ static inline u16 SanitizeSpeciesId(u16 species)
         return species;
 }
 
+static inline bool32 DoesFormFlagMatchSpeciesFlag(u16 species, enum Item item)
+{
+    u16 itemFlag = GetItemSecondaryId(item);
+
+    switch (itemFlag)
+    {
+        case F_ALOLAN_FORM:
+            return gSpeciesInfo[species].isAlolanForm;
+        break;
+        case F_GALARIAN_FORM:
+            return gSpeciesInfo[species].isGalarianForm;
+        break;
+        case F_HISUIAN_FORM:
+            return gSpeciesInfo[species].isHisuianForm;
+        break;
+        case F_PALDEAN_FORM:
+            return gSpeciesInfo[species].isPaldeanForm;
+        break;
+        default:
+            return FALSE;
+    }
+}
+
+static inline u8 ReturnSpeciesRegionFormFlag(u16 species)
+{
+    if (gSpeciesInfo[species].isAlolanForm)
+        return F_ALOLAN_FORM;
+
+    else if (gSpeciesInfo[species].isGalarianForm)
+        return F_GALARIAN_FORM;
+
+    else if (gSpeciesInfo[species].isHisuianForm)
+        return F_HISUIAN_FORM;
+
+    else if (gSpeciesInfo[species].isPaldeanForm)
+        return F_PALDEAN_FORM;
+}
+
 static inline enum Type GetSpeciesType(u16 species, u8 slot)
 {
     switch (slot)
