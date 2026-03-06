@@ -4047,7 +4047,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             }
             break;
         case ABILITY_INTREPID_SWORD:
-            if (shouldAbilityTrigger && !GetBattlerPartyState(battler)->intrepidSwordBoost)
+            if (shouldAbilityTrigger /*&& !GetBattlerPartyState(battler)->intrepidSwordBoost*/)
             {
                 /*if (GetConfig(INTREPID_SWORD) == GEN_9)
                     GetBattlerPartyState(battler)->intrepidSwordBoost = TRUE;*/
@@ -4061,7 +4061,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             }
             break;//vsonic my reworks
         case ABILITY_DAUNTLESS_SHIELD:
-            if (shouldAbilityTrigger && !GetBattlerPartyState(battler)->dauntlessShieldBoost)
+            if (shouldAbilityTrigger /*&& !GetBattlerPartyState(battler)->dauntlessShieldBoost*/)
             {
                 /*if (GetConfig(DAUNTLESS_SHIELD) == GEN_9)
                     GetBattlerPartyState(battler)->dauntlessShieldBoost = TRUE;*/
@@ -4195,7 +4195,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         {
             gBattleScripting.battler = battler;
             // To prevent the new form's ability from pop up
-            gBattleScripting.abilityPopupOverwrite = ability;
+            //gBattleScripting.abilityPopupOverwrite = ability;
             BattleScriptCall(BattleScript_BattlerFormChange);
             effect++;
         }
