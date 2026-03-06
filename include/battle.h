@@ -349,6 +349,12 @@ struct SideTimer    //effects below persist regardless of mon
     u8 stickyWebBattlerSide; // Used for Court Change
     u8 stickyWebBattlerId; //try see why this one specifcally needs battlerid prob to do with printed string
     
+    //annoying but can't make bit field
+    //cuz EE started using pointer
+    //set func apparently can't get address
+    //of a bit field smh
+    //actually may be able to keep
+    //just tweak function
     u16 auroraVeilTimer:4; //still need add to debugger
     u16 tailwindTimer:3;
     u16 luckyChantTimer:3;

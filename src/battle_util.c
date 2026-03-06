@@ -2969,14 +2969,14 @@ const u8 *AbsorbDoRisingPheonix(enum BattlerId battlerDef)
     if (gBattleMons[battlerDef].status1 & STATUS1_ANY)
     {
         struct Pokemon *mon = GetBattlerMon(battlerDef);
-        HealStatusConditions(mon, STATUS1_ANY, battleMonId)
+        HealStatusConditions(mon, STATUS1_ANY, battlerDef);
     }
 
     if (gBattleMons[battlerDef].volatiles.leechSeed)
         gBattleMons[battlerDef].volatiles.leechSeed = 0;
 
     //stat reset
-    for (i = 0; i < NUM_BATTLE_STATS; i++)
+    for (u32 i = 0; i < NUM_BATTLE_STATS; i++)
     {
         if (gBattleMons[battlerDef].statStages[i] < DEFAULT_STAT_STAGE)
             gBattleMons[battlerDef].statStages[i] = DEFAULT_STAT_STAGE;
