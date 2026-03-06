@@ -769,7 +769,6 @@ extern const u8 BattleScript_MentalHerbCureEnd2[];
 extern const u8 BattleScript_MentalHerbCureRet[];
 extern const u8 BattleScript_WhiteHerbEnd2[];
 extern const u8 BattleScript_WhiteHerbRet[];
-extern const u8 BattleScript_MirrorHerbCopyStatChange[];
 extern const u8 BattleScript_ItemHealHP_RemoveItem[];
 extern const u8 BattleScript_ItemHealHP_RemoveItemRet[];
 extern const u8 BattleScript_BerryPPHealRet[];
@@ -1630,6 +1629,10 @@ extern const u8 BattleScript_EffectRaiseCritAlliesAnim[];
 extern const u8 BattleScript_EffectHealOneSixthAllies[];
 extern const u8 BattleScript_EffectRecycleBerriesAllies[];
 extern const u8 BattleScript_RemoveGenericType[];
+extern const u8 BattleScript_SupersweetSyrupActivates[];
+extern const u8 BattleScript_OpportunistCopyStatChange[];
+extern const u8 BattleScript_MirrorHerbCopyStatChange[];
+extern const u8 BattleScript_MirrorHerbCopyStatChangeEnd2[];
 
 
 

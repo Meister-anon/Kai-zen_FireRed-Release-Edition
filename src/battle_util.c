@@ -4927,7 +4927,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
          || !TryBattleFormChange(gBattlerTarget, FORM_CHANGE_BATTLE_HIT_BY_MOVE_CATEGORY, ability))
             break;
 
-        gBattleScripting.abilityPopupOverwrite = ability;
+        //gBattleScripting.abilityPopupOverwrite = ability;
         gBattleScripting.battler = battler;
         effect++;
 
@@ -5080,10 +5080,10 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 if (numMonsFainted && CompareStat(battler, stat, MAX_STAT_STAGE, CMP_LESS_THAN, ability))
                 {
                     gLastUsedAbility = ability;
-                    if (ability == ABILITY_AS_ONE_ICE_RIDER)
+                    /*if (ability == ABILITY_AS_ONE_ICE_RIDER)
                         gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_CHILLING_NEIGH;
                     else if (ability == ABILITY_AS_ONE_SHADOW_RIDER)
-                        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_GRIM_NEIGH;
+                        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_GRIM_NEIGH;*/
 
                     SET_STATCHANGER(stat, numMonsFainted, FALSE);
                     PREPARE_STAT_BUFFER(gBattleTextBuff1, stat);
@@ -5100,7 +5100,8 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                  || NumFaintedBattlersByAttacker(battler) == 0)
                     break;
 
-                if (GetBattlerPartyState(battler)->battleBondBoost || gBattleMons[battler].species != SPECIES_GRENINJA_BATTLE_BOND)
+                if (GetBattlerPartyState(battler)->battleBondBoost 
+                || GET_BASE_SPECIES_ID(gBattleMons[battler].species) != SPECIES_GRENINJA)
                     break;
 
                 //if (GetConfig(BATTLE_BOND) < GEN_9)
@@ -5240,7 +5241,8 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         if (TryBattleFormChange(battler, FORM_CHANGE_BATTLE_SWITCH_IN, ability))
         {
             gBattleScripting.battler = battler;
-            gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ability;
+            gLastUsedAbility = ability;
+            //gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ability;
             BattleScriptCall(BattleScript_BattlerFormChangeWithString);
             effect++;
         }
