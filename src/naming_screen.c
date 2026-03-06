@@ -1868,17 +1868,11 @@ static void PrintBufferCharactersOnScreen(void)
     PutWindowTilemap(sNamingScreenData->windows[2]);
 }
 
-struct TextColor   // Needed because of alignment
-{
-    u8 colors[3][4];
-};
 
-static const struct TextColor sTextColorStruct = {
-    {
-        {TEXT_DYNAMIC_COLOR_4, TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GREY},
-        {TEXT_DYNAMIC_COLOR_5, TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GREY},
-        {TEXT_DYNAMIC_COLOR_6, TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GREY}
-    }
+ALIGNED(4) static const u8 sTextColorStruct[3][4] = {
+    {TEXT_DYNAMIC_COLOR_4, TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GREY},
+    {TEXT_DYNAMIC_COLOR_5, TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GREY},
+    {TEXT_DYNAMIC_COLOR_6, TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GREY}
 };
 
 static const u8 sFillValues[KBPAGE_COUNT] = {
@@ -1888,9 +1882,9 @@ static const u8 sFillValues[KBPAGE_COUNT] = {
 };
 
 static const u8 *const sKeyboardTextColors[KBPAGE_COUNT] = {
-    [KBPAGE_LETTERS_LOWER] = sTextColorStruct.colors[1],
-    [KBPAGE_LETTERS_UPPER] = sTextColorStruct.colors[0],
-    [KBPAGE_SYMBOLS]       = sTextColorStruct.colors[2]
+    [KBPAGE_LETTERS_LOWER] = sTextColorStruct[1],
+    [KBPAGE_LETTERS_UPPER] = sTextColorStruct[0],
+    [KBPAGE_SYMBOLS]       = sTextColorStruct[2]
 };
 
 static void sub_809F9E8(u8 window, u8 page)

@@ -510,6 +510,7 @@ void AddItemMenuActionTextPrinters(u8 windowId, u8 fontId, u8 left, u8 top, u8 l
     printer.color.foreground = GetFontAttribute(fontId, FONTATTR_COLOR_FOREGROUND);
     printer.color.background = GetFontAttribute(fontId, FONTATTR_COLOR_BACKGROUND);
     printer.color.shadow = GetFontAttribute(fontId, FONTATTR_COLOR_SHADOW);
+    printer.color.accent  = GetFontAttribute(fontId, FONTATTR_COLOR_ACCENT);
     printer.letterSpacing = letterSpacing;
     printer.lineSpacing = GetFontAttribute(fontId, FONTATTR_LINE_SPACING);
     printer.x = left;
@@ -566,6 +567,7 @@ void CreateYesNoMenu(const struct WindowTemplate *window, u8 fontId, u8 left, u8
     textSubPrinter.color.foreground = GetFontAttribute(fontId, FONTATTR_COLOR_FOREGROUND);
     textSubPrinter.color.background = GetFontAttribute(fontId, FONTATTR_COLOR_BACKGROUND);
     textSubPrinter.color.shadow = GetFontAttribute(fontId, FONTATTR_COLOR_SHADOW);
+    textSubPrinter.color.accent  = GetFontAttribute(fontId, FONTATTR_COLOR_ACCENT);
     textSubPrinter.letterSpacing = GetFontAttribute(fontId, FONTATTR_LETTER_SPACING);
     textSubPrinter.lineSpacing = GetFontAttribute(fontId, FONTATTR_LINE_SPACING);
     AddTextPrinter(&textSubPrinter, 0xFF, NULL);

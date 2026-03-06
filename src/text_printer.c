@@ -62,10 +62,10 @@ u16 AddTextPrinterParameterized(u8 windowId, u8 fontId, const u8 *str, u8 x, u8 
     printerTemplate.currentY = y;
     printerTemplate.letterSpacing = gFonts[fontId].letterSpacing;
     printerTemplate.lineSpacing = gFonts[fontId].lineSpacing;
-    printerTemplate.color.accent = gFonts[fontId].unk;
-    printerTemplate.color.foreground = gFonts[fontId].fgColor;
-    printerTemplate.color.background = gFonts[fontId].bgColor;
-    printerTemplate.color.shadow = gFonts[fontId].shadowColor;
+    printerTemplate.color.accent = gFonts[fontId].color.accent;
+    printerTemplate.color.foreground = gFonts[fontId].color.foreground;
+    printerTemplate.color.background = gFonts[fontId].color.background;
+    printerTemplate.color.shadow = gFonts[fontId].color.shadow;
     return AddTextPrinter(&printerTemplate, speed, callback);
 }
 
@@ -93,7 +93,7 @@ bool16 AddTextPrinter(struct TextPrinterTemplate *textSubPrinter, u8 speed, void
     sTempTextPrinter.minLetterSpacing = sTempTextPrinter.printerTemplate.letterSpacing;
     sTempTextPrinter.japanese = 0;
 
-    GenerateFontHalfRowLookupTable(textSubPrinter->fgColor, textSubPrinter->bgColor, textSubPrinter->shadowColor);
+    GenerateFontHalfRowLookupTable(textSubPrinter->color.foreground, textSubPrinter->color.background, textSubPrinter->color.shadow);
     if (speed != TEXT_SKIP_DRAW && speed != 0x0)
     {
         --sTempTextPrinter.textSpeed;

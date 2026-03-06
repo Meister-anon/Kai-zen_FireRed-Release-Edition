@@ -62,9 +62,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 13,
         .letterSpacing = 0,
         .lineSpacing = 0,
-        .fgColor = 2,
-        .bgColor = 1,
-        .shadowColor = 3,
+        .color.foreground = 2,
+        .color.background = 1,
+        .color.shadow = 3,
     },
     [FONT_NORMAL_COPY_1] = {
         .fontFunction = Font1Func,
@@ -72,9 +72,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 14,
         .letterSpacing = 0,
         .lineSpacing = 0,
-        .fgColor = 2,
-        .bgColor = 1,
-        .shadowColor = 3,
+        .color.foreground = 2,
+        .color.background = 1,
+        .color.shadow = 3,
     },
     [FONT_NORMAL] = {
         .fontFunction = Font2Func,
@@ -82,9 +82,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 14,
         .letterSpacing = 0,
         .lineSpacing = 0,
-        .fgColor = 2,
-        .bgColor = 1,
-        .shadowColor = 3,
+        .color.foreground = 2,
+        .color.background = 1,
+        .color.shadow = 3,
     },
     [FONT_NORMAL_COPY_2] = {
         .fontFunction = Font3Func,
@@ -92,9 +92,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 14,
         .letterSpacing = 0,
         .lineSpacing = 0,
-        .fgColor = 2,
-        .bgColor = 1,
-        .shadowColor = 3,
+        .color.foreground = 2,
+        .color.background = 1,
+        .color.shadow = 3,
     },
     [FONT_MALE] = {
         .fontFunction = Font4Func,
@@ -102,9 +102,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 14,
         .letterSpacing = 0,
         .lineSpacing = 0,
-        .fgColor = 2,
-        .bgColor = 1,
-        .shadowColor = 3,
+        .color.foreground = 2,
+        .color.background = 1,
+        .color.shadow = 3,
     },
     [FONT_FEMALE] = {
         .fontFunction = Font5Func,
@@ -112,9 +112,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 14,
         .letterSpacing = 0,
         .lineSpacing = 0,
-        .fgColor = 2,
-        .bgColor = 1,
-        .shadowColor = 3,
+        .color.foreground = 2,
+        .color.background = 1,
+        .color.shadow = 3,
     },
     [FONT_BRAILLE] = {
         .fontFunction = FontFunc_Braille,
@@ -122,9 +122,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 16,
         .letterSpacing = 0,
         .lineSpacing = 2, //8 in EE
-        .fgColor = 2,
-        .bgColor = 1,
-        .shadowColor = 3,
+        .color.foreground = 2,
+        .color.background = 1,
+        .color.shadow = 3,
     },
     [FONT_BOLD] = {
         .fontFunction = NULL,
@@ -132,9 +132,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 8,
         .letterSpacing = 0,
         .lineSpacing = 0,
-        .fgColor = 1,
-        .bgColor = 2,
-        .shadowColor = 15,
+        .color.foreground = 1,
+        .color.background = 2,
+        .color.shadow = 15,
     },//put narrow(s) below since values are diff from EE
     //thinkm will need to just gestimate and use the debug text tester
     //then tweak to find right values, also remember I adjusted apostrophe and I think comma?
@@ -145,9 +145,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 16,
         .letterSpacing = 0,
         .lineSpacing = 0,
-        .fgColor = 2,
-        .bgColor = 1,
-        .shadowColor = 3,
+        .color.foreground = 2,
+        .color.background = 1,
+        .color.shadow = 3,
     },
     [FONT_SMALL_NARROW] = {
         .fontFunction = FontFunc_SmallNarrow,
@@ -155,9 +155,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 8,
         .letterSpacing = 0,
         .lineSpacing = 0,
-        .fgColor = 2,
-        .bgColor = 1,
-        .shadowColor = 3,
+        .color.foreground = 2,
+        .color.background = 1,
+        .color.shadow = 3,
     },
     [FONT_NARROWER] = {
         .fontFunction = FontFunc_Narrower,
@@ -165,9 +165,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 16,
         .letterSpacing = 0,
         .lineSpacing = 0,
-        .fgColor = 2,
-        .bgColor = 1,
-        .shadowColor = 3,
+        .color.foreground = 2,
+        .color.background = 1,
+        .color.shadow = 3,
     },
     [FONT_SMALL_NARROWER] = {
         .fontFunction = FontFunc_SmallNarrower,
@@ -175,9 +175,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 8,
         .letterSpacing = 0,
         .lineSpacing = 0,
-        .fgColor = 2,
-        .bgColor = 1,
-        .shadowColor = 3,
+        .color.foreground = 2,
+        .color.background = 1,
+        .color.shadow = 3,
     },
     [FONT_FRLG_NARROW] = {
         .fontFunction = FontFunc_FrLgNarrow,
@@ -185,9 +185,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 14,
         .letterSpacing = 0,
         .lineSpacing = 0,
-        .fgColor = 2,
-        .bgColor = 1,
-        .shadowColor = 3,
+        .color.foreground = 2,
+        .color.background = 1,
+        .color.shadow = 3,
     },
     [FONT_FRLG_NARROWER] = {
         .fontFunction = FontFunc_FrLgNarrower,
@@ -195,9 +195,9 @@ static const struct FontInfo gFontInfos[] =
         .maxLetterHeight = 14,
         .letterSpacing = 0,
         .lineSpacing = 0,
-        .fgColor = 2,
-        .bgColor = 1,
-        .shadowColor = 3,
+        .color.foreground = 2,
+        .color.background = 1,
+        .color.shadow = 3,
     },
 };
 
@@ -479,10 +479,10 @@ u16 AddTextPrinterParameterized2(u8 windowId, u8 fontId, const u8 *str, u8 speed
     printer.currentY = 1;
     printer.letterSpacing = 0;
     printer.lineSpacing = 1;
-    printer.unk = 0;
-    printer.fgColor = fgColor;
-    printer.bgColor = bgColor;
-    printer.shadowColor = shadowColor;
+    printer.color.accent = 0;
+    printer.color.foreground = fgColor;
+    printer.color.background = bgColor;
+    printer.color.shadow = shadowColor;
     gTextFlags.useAlternateDownArrow = 0;
     return AddTextPrinter(&printer, speed, callback);
 }
@@ -845,17 +845,17 @@ u8 GetFontAttribute(u8 fontId, u8 attributeId)
     case FONTATTR_LINE_SPACING:
         result = gFontInfos[fontId].lineSpacing;
         break;
-    case FONTATTR_UNKNOWN:
-        result = gFontInfos[fontId].unk;
+    case FONTATTR_COLOR_ACCENT:
+        result = gFontInfos[fontId].color.accent;
         break;
     case FONTATTR_COLOR_FOREGROUND:
-        result = gFontInfos[fontId].fgColor;
+        result = gFontInfos[fontId].color.foreground;
         break;
     case FONTATTR_COLOR_BACKGROUND:
-        result = gFontInfos[fontId].bgColor;
+        result = gFontInfos[fontId].color.background;
         break;
     case FONTATTR_COLOR_SHADOW:
-        result = gFontInfos[fontId].shadowColor;
+        result = gFontInfos[fontId].color.shadow;
         break;
     }
     return result;

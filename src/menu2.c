@@ -435,6 +435,7 @@ void AddTextPrinterParameterized3(u8 windowId, u8 fontId, u8 x, u8 y, const u8 *
     printer.currentY = printer.y;
     printer.letterSpacing = GetFontAttribute(fontId, 2);
     printer.lineSpacing = GetFontAttribute(fontId, 3);
+    printer.color.accent  = 0;
     printer.color.foreground = color[1];
     printer.color.background = color[0];
     printer.color.shadow = color[2];
@@ -454,6 +455,7 @@ void AddTextPrinterParameterized4(u8 windowId, u8 fontId, u8 x, u8 y, u8 letterS
     printer.currentY = printer.y;
     printer.letterSpacing = letterSpacing;
     printer.lineSpacing = lineSpacing;
+    printer.color.accent  = 0;
     printer.color.foreground = color[1];
     printer.color.background = color[0];
     printer.color.shadow = color[2];
@@ -473,9 +475,10 @@ void AddTextPrinterParameterized5(u8 windowId, u8 fontId, const u8 *str, u8 x, u
     printer.currentY = y;
     printer.letterSpacing = letterSpacing;
     printer.lineSpacing = lineSpacing;
-    printer.color.foreground = GetFontAttribute(fontId, 5);
-    printer.color.background = GetFontAttribute(fontId, 6);
-    printer.color.shadow = GetFontAttribute(fontId, 7);
+    printer.color.accent  = 0; //would think should be atrb accent but not used in FR
+    printer.color.foreground = GetFontAttribute(fontId, FONTATTR_COLOR_FOREGROUND);
+    printer.color.background = GetFontAttribute(fontId, FONTATTR_COLOR_BACKGROUND);
+    printer.color.shadow = GetFontAttribute(fontId, FONTATTR_COLOR_SHADOW);
     AddTextPrinter(&printer, speed, callback);
 }
 
