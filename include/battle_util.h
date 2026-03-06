@@ -335,7 +335,7 @@ void BattleScriptPush(const u8 *bsPtr);
 void BattleScriptPushCursor(void);
 void BattleScriptCall(const u8 *bsPtr);
 void BattleScriptPop(void);
-u8 TrySetCantSelectMoveBattleScript(enum BattlerId battler);
+u32 TrySetCantSelectMoveBattleScript(enum BattlerId battler);
 u32 CheckMoveLimitations(enum BattlerId battler, u8 unusableMoves, u16 check);
 bool32 AreAllMovesUnusable(enum BattlerId battler);
 u8 GetImprisonedMovesCount(enum BattlerId battlerId, u16 move);
