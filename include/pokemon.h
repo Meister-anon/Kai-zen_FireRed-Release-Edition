@@ -8,6 +8,7 @@
 #include "constants/battle.h"
 #include "pokemon_icon.h"
 #include "pokemon_storage_system.h"
+#include "item.h"
 
 #define GET_BASE_SPECIES_ID(speciesId) (GetFormSpeciesId(speciesId, 0))
 
