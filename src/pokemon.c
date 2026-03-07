@@ -11453,7 +11453,7 @@ u16 GetSpeciesPreEvolution(u16 species, u32 LoopTarget) //so I feel like I'm not
         for (j = 0; j != NUM_EVOS_CAP && evolutions[j].method != EVOLUTIONS_END; j++) //where i, is just supposed to be, the evo line I'm looping over
         {
             if (evolutions == NULL)
-            continue;
+                continue;
 
             if (SanitizeSpeciesId(evolutions[j].targetSpecies) == species)
                 return LoopTarget;
@@ -11466,6 +11466,30 @@ u16 GetSpeciesPreEvolution(u16 species, u32 LoopTarget) //so I feel like I'm not
 
     return SPECIES_NONE;
 }
+
+//may use  in place of my version need compare
+/*u16 GetSpeciesPreEvolution(u16 species)
+{
+    int i, j;
+
+    for (i = SPECIES_BULBASAUR; i < NUM_SPECIES; i++)
+    {
+        //if (!IsSpeciesEnabled(i))
+        //    continue;
+
+        const struct Evolution *evolutions = GetSpeciesEvolutions(i);
+        if (evolutions == NULL)
+            continue;
+
+        for (j = 0; evolutions[j].method != EVOLUTIONS_END; j++)
+        {
+            if (SanitizeSpeciesId(evolutions[j].targetSpecies) == species)
+                return i;
+        }
+    }
+
+    return SPECIES_NONE;
+}*/
 
 bool8 DoesSpeciesHaveCosmeticForms(u16 species)
 {
@@ -11754,13 +11778,10 @@ bool8 CheckFormViability(u8 formflags, u16 item)
 
 bool8 IsRegionalVariant(u16 species)
 {
-    if (gSpeciesInfo[SanitizeSpeciesId(species)].isAlolanForm 
-    || gSpeciesInfo[SanitizeSpeciesId(species)].isGalarianForm
-    || gSpeciesInfo[SanitizeSpeciesId(species)].isHisuianForm
-    || gSpeciesInfo[SanitizeSpeciesId(species)].isPaldeanForm)
-        return TRUE;
-
-    return FALSE;
+    return (gSpeciesInfo[species].isAlolanForm
+        || gSpeciesInfo[species].isGalarianForm
+        || gSpeciesInfo[species].isHisuianForm
+        || gSpeciesInfo[species].isPaldeanForm);
 }
 
 //CanEvolveToRegionalForm
@@ -13858,29 +13879,12 @@ void HealBoxPokemon(struct BoxPokemon *boxMon)
     return gSpeciesInfo[species].cryId;
 }*/
 
-/*u16 GetSpeciesPreEvolution(u16 species)
-{
-    int i, j;
 
-    for (i = SPECIES_BULBASAUR; i < NUM_SPECIES; i++)
-    {
-        //if (!IsSpeciesEnabled(i))
-        //    continue;
-
-        const struct Evolution *evolutions = GetSpeciesEvolutions(i);
-        if (evolutions == NULL)
-            continue;
-
-        for (j = 0; evolutions[j].method != EVOLUTIONS_END; j++)
-        {
-            if (SanitizeSpeciesId(evolutions[j].targetSpecies) == species)
-                return i;
-        }
-    }
-
-    return SPECIES_NONE;
-}*/
-
+//if use think will only be for furfrou trim stuff
+//if only for that can limit to my needs
+//say cap it at a week well either way
+//I can just use a u8 storage calss for days
+//makea constant for max days stored use as reference to stop inrementing etc.
 void UpdateDaysPassedSinceFormChange(u16 days)
 {
     /*u32 i;
@@ -13924,15 +13928,8 @@ uq4_12_t GetDynamaxLevelHPMultiplier(u32 dynamaxLevel, bool32 inverseMultiplier)
     return UQ_4_12(1.5 + 0.05 * dynamaxLevel);
 }
 
-bool32 IsSpeciesRegionalForm(u32 species)
-{
-    return gSpeciesInfo[species].isAlolanForm
-        || gSpeciesInfo[species].isGalarianForm
-        || gSpeciesInfo[species].isHisuianForm
-        || gSpeciesInfo[species].isPaldeanForm;
-}
 
-bool32 IsSpeciesRegionalFormFromRegion(u32 species, u32 region)
+/*bool32 IsSpeciesRegionalFormFromRegion(u32 species, u32 region)
 {
     switch (region)
     {
@@ -13942,21 +13939,22 @@ bool32 IsSpeciesRegionalFormFromRegion(u32 species, u32 region)
     case REGION_PALDEA: return gSpeciesInfo[species].isPaldeanForm;
     default:            return FALSE;
     }
-}
+}*/
 
+//not made by me but should be quite useful
 bool32 SpeciesHasRegionalForm(u32 species)
 {
     u32 formId;
     const u16 *formTable = GetSpeciesFormTable(species);
     for (formId = 0; formTable != NULL && formTable[formId] != FORM_SPECIES_END; formId++)
     {
-        if (IsSpeciesRegionalForm(formTable[formId]))
+        if (IsRegionalVariant(formTable[formId]))
             return TRUE;
     }
     return FALSE;
 }
 
-u32 GetRegionalFormByRegion(u32 species, u32 region)
+/*u32 GetRegionalFormByRegion(u32 species, u32 region)
 {
     u32 formId = 0;
     u32 firstFoundSpecies = 0;
@@ -13989,7 +13987,7 @@ bool32 IsSpeciesForeignRegionalForm(u32 species, u32 currentRegion)
             return TRUE;
     }
     return FALSE;
-}
+}*/
 
 enum Type GetTeraTypeFromPersonality(struct Pokemon *mon)
 {
@@ -14023,6 +14021,7 @@ bool32 IsSpeciesOfType(u32 species, enum Type type)
     return FALSE;
 }
 
+//can prob use this to setup my dex pc callbacks
 struct BoxPokemon *GetSelectedBoxMonFromPcOrParty(void)
 {
     struct BoxPokemon *boxmon;
@@ -14032,6 +14031,17 @@ struct BoxPokemon *GetSelectedBoxMonFromPcOrParty(void)
         boxmon = &(gPlayerParty[gSpecialVar_0x8004].box);
     return boxmon;
 }
+
+/*void ChangePokemonNicknameWithCallback(void (*callback)(void))
+{
+    struct BoxPokemon *boxMon = GetSelectedBoxMonFromPcOrParty();
+    GetBoxMonData(boxMon, MON_DATA_NICKNAME, gStringVar3);
+    GetBoxMonData(boxMon, MON_DATA_NICKNAME, gStringVar2);
+    DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar2, GetBoxMonData(boxMon, MON_DATA_SPECIES), GetBoxMonGender(boxMon), GetBoxMonData(boxMon, MON_DATA_PERSONALITY), callback);
+}*/
+//here for refernce otherwise delete
+//handle later after battle issues resolved
+//vsonic important
 
 u32 GiveScriptedMonToPlayer(struct Pokemon *mon, u8 slot)
 {
@@ -14068,10 +14078,4 @@ u32 GiveScriptedMonToPlayer(struct Pokemon *mon, u8 slot)
     return sentToPc;
 }
 
-void ChangePokemonNicknameWithCallback(void (*callback)(void))
-{
-    struct BoxPokemon *boxMon = GetSelectedBoxMonFromPcOrParty();
-    GetBoxMonData(boxMon, MON_DATA_NICKNAME, gStringVar3);
-    GetBoxMonData(boxMon, MON_DATA_NICKNAME, gStringVar2);
-    DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar2, GetBoxMonData(boxMon, MON_DATA_SPECIES), GetBoxMonGender(boxMon), GetBoxMonData(boxMon, MON_DATA_PERSONALITY), callback);
-}
+

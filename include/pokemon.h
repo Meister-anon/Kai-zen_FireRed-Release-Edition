@@ -1124,8 +1124,8 @@ u8 GetWeatherBallType(u16 move);
 //sidestatus meant to hold gsidestatus but forgot I had to upgrade that to u32 *facepalm
 
 //recent emerald addditions, change for form change (not planning use for ditto/transform)
-u32 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
-u32 GetFormChangeTargetSpeciesBoxMon(struct Pokemon *mon, u16 method, u32 arg);//still works same just adjusted for getablilitybyspecies change
+u32 GetFormChangeTargetSpecies(struct Pokemon *mon, enum FormChanges method);
+u32 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, enum FormChanges method);
 bool8 DoesSpeciesHaveCosmeticForms(u16 species);
 
 u8 CountAliveMonsInBattle(u8 caseId, enum BattlerId battler);
@@ -1474,8 +1474,9 @@ void UpdateDaysPassedSinceFormChange(u16 days);
 void TrySetDayLimitToFormChange(struct Pokemon *mon);
 enum Type CheckDynamicMoveType(struct Pokemon *mon, enum Move move, enum BattlerId battler, enum MonState state);
 uq4_12_t GetDynamaxLevelHPMultiplier(u32 dynamaxLevel, bool32 inverseMultiplier);
-u32 GetRegionalFormByRegion(u32 species, u32 region);
-bool32 IsSpeciesForeignRegionalForm(u32 species, u32 currentRegion);
+//no plan to use these have my own setup
+//u32 GetRegionalFormByRegion(u32 species, u32 region);
+//bool32 IsSpeciesForeignRegionalForm(u32 species, u32 currentRegion);
 enum Type GetTeraTypeFromPersonality(struct Pokemon *mon);
 bool8 ShouldSkipFriendshipChange(void);
 struct Pokemon *GetSavedPlayerPartyMon(u32 index);
