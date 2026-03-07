@@ -4934,7 +4934,11 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
 
     //oh these are the type based damage item boosters
     //not gems
-    for (i = 0; i < NELEMS(sHoldEffectToType); i++)
+    if (attackerHoldEffect == HOLD_EFFECT_TYPE_POWER
+        && moveType == GetItemSecondaryId(attacker->item))
+            OffensiveModifer((attackerHoldEffectParam + 100));
+
+    /*for (i = 0; i < NELEMS(sHoldEffectToType); i++)
     {
         if (attackerHoldEffect == sHoldEffectToType[i][0]
             && moveType == sHoldEffectToType[i][1])
@@ -4943,14 +4947,14 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
             
             
             //gBattleMovePower = (gBattleMovePower * (attackerHoldEffectParam + 100)) / 100;  //i.e (gBattleMovePower * 120) /100
-            /*if (usesDefStat)    //changed was redundant as being move physical sets usesdefstat
-                attack = (attack * (attackerHoldEffectParam + 100)) / 100;
-            else
-                spAttack = (spAttack * (attackerHoldEffectParam + 100)) / 100;*/
+            //if (usesDefStat)    //changed was redundant as being move physical sets usesdefstat
+            //    attack = (attack * (attackerHoldEffectParam + 100)) / 100;
+            //else
+            //    spAttack = (spAttack * (attackerHoldEffectParam + 100)) / 100;
             break;
         }//sets what atk stat used by moves based on if physical or special etc.
     } //also now that I realize these are for hard stone etc teh effect is just supposed to boost move power
-
+    */
     //buff for weather extension items
     //but mostly for  ice ground rock types who dont get dmg boost from weather conditions
     switch(attackerHoldEffect)
@@ -8740,8 +8744,7 @@ static void CopyPlayerPartyMonToBattleData(enum BattlerId battlerId, u8 partyInd
     StringCopy_Nickname(gBattleMons[battlerId].nickname, nickname);
     GetMonData(&gPlayerParty[partyIndex], MON_DATA_OT_NAME, gBattleMons[battlerId].otName);
 
-    hpSwitchout = &gBattleStruct->hpOnSwitchout[GetBattlerSide(battlerId)];
-    *hpSwitchout = gBattleMons[battlerId].hp;
+    gBattleStruct->battlerState[battlerId].hpOnSwitchout = gBattleMons[battlerId].hp;
 
     for (i = 0; i < 8; i++)
         gBattleMons[battlerId].statStages[i] = 6;   //vsonic  on switch resets stat stage to normal

@@ -335,11 +335,11 @@ static inline u32 uq4_12_multiply_by_int_half_up(uq4_12_t modifier, u32 value)
 #define JOY_HELD_RAW(button) TEST_BUTTON(gMain.heldKeysRaw, button)
 #define JOY_REPT(button) TEST_BUTTON(gMain.newAndRepeatedKeys, button)
 
-extern u8 gStringVar1[];
-extern u8 gStringVar2[];
-extern u8 gStringVar3[];
-extern u8 gStringVar4[];
-extern u8 gUnknownStringVar[]; //new buffer seems fine? haven't printed yet but compiles
+extern u8 gStringVar1[max(max(max(32, TRAINER_NAME_LENGTH + 1), POKEMON_NAME_LENGTH + 1), ITEM_NAME_LENGTH)];
+extern u8 gStringVar2[20];
+extern u8 gStringVar3[20];
+extern u8 gStringVar4[1000];
+extern u8 gUnknownStringVar[22]; //new buffer seems fine? haven't printed yet but compiles
 
 #define S16TOPOSFLOAT(val)   \
 ({                           \
