@@ -12683,6 +12683,32 @@ bool32 IsMimikyuDisguised(enum BattlerId battler)
         //|| gBattleMons[battler].species == SPECIES_MIMIKYU_TOTEM_DISGUISED;
 }
 
+//attempt reurn if battelr is on field w alive check
+//can use hopefully to clean up summary screen functions
+//changed make return battler for easy app into summary funcions
+//BATTLER id only needed for getting correct side
+//ok revised should check if mon at position is alive
+//and matches personality of mon at pos with that of current viewing summ mon
+//doesn't check all player side of field, only checks specific position
+//mostly used for poke sumary screen battle update logic
+bool8 IscurrentMonOnFieldAtPos(struct Pokemon *mon, u8 position)
+{
+
+    
+    u8 battler = GetBattlerAtPosition(position);
+    u8 side = GetBattlerSide(battler);
+    u32 battler_personality = gBattleMons[battler].personality;
+    u32 mon_personality = GetMonData(mon, MON_DATA_PERSONALITY);
+
+    if (IsBattlerAlive(battler) && IsOnPlayerSide(battler)
+    && battler_personality == mon_personality)
+        return TRUE;
+
+    return FALSE;
+
+
+}
+
 //these two functions are put in end turn so self affectings
 bool32 TryActivateBattlePoisonHeal(enum BattlerId battler)  //change mind better to do 2 functions, rather than do 2 different effects with one.
 {
