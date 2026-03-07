@@ -7271,7 +7271,6 @@ void TryItemHoldFormChange(struct Pokemon *mon, s8 slotId)
 #undef tAnimWait
 #undef tNextFunc
 
-//eventually change to enum Item item
 enum ItemEffectType GetItemEffectType(enum Item item)
 {
     const u8 *itemEffect;
