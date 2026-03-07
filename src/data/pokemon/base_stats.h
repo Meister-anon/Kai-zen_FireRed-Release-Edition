@@ -4665,7 +4665,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sArticunoLevelUpLearnset,
         .tmhmLearnset = sArticunoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//think give rest if doesn't have it
     //potentially drop refrigerate? snow cloak w flyign type buff
     //would be pretty insane
@@ -4698,7 +4698,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sZapdosLevelUpLearnset,
         .tmhmLearnset = sZapdosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//based on JPRPokeTrainer98 youtube vid replace pressure for most legendaries, keep for mewtwo 
     //static would actually be really good w new change
     //Dropped motor drive for static
@@ -4736,7 +4736,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMoltresLevelUpLearnset,
         .tmhmLearnset = sMoltresTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//new abilities based on JPRPokeTrainer98 youtube vid,  volcanic healing or pheonix or primal fire, fire type volt absorb but combine w flame body effect
     //but with a higher chance to burn,  maybe call it primordial flame/fire  also works as a status cleanse/field cleanse, make status cleanse not field cleanse
     //hit by fire heals status effects  phoenixification ?  phoenix riser  riser phoenix? lol rising phoenix
@@ -4859,7 +4859,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMewtwoLevelUpLearnset,
         .tmhmLearnset = sMewtwoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//ok so mewtwo is apparently worst legendary thanks to power creep
     //so I guess making float is fine?
     //wouldn't protect from precipice blades but every little bit helps I guess
@@ -4897,7 +4897,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMewLevelUpLearnset,
         .tmhmLearnset = sMewTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },//buff to give realm of excellence as mewtwo is more offenseive whille mew was always about avoiding fights/defense
     //readjusted stats to be in line w mewtwo
 
@@ -7704,7 +7704,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sRaikouLevelUpLearnset,
         .tmhmLearnset = sRaikouTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     }, //think I'll change volt and water absorb
     //to work like lightning rod where the element is auto drawn in
 
@@ -7783,7 +7783,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sEnteiLevelUpLearnset,
         .tmhmLearnset = sEnteiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_SUICUNE] =
@@ -7813,7 +7813,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sSuicuneLevelUpLearnset,
         .tmhmLearnset = sSuicuneTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_LARVITAR] =
@@ -7925,7 +7925,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sLugiaLevelUpLearnset,
         .tmhmLearnset = sLugiaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
     //hmm w type changes this is perfect, psychic covers fairy weakness
     //and ability change covers Ice
@@ -7958,7 +7958,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sHoOhLevelUpLearnset,
         .tmhmLearnset = sHoOhTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//didn't exactly want storm break on these 2 but made too much sense,
     //beleive bought are none to clear weather or affect weather in some way
 
@@ -7989,7 +7989,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sCelebiLevelUpLearnset,
         .tmhmLearnset = sCelebiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     }, //Can make fairy type now that dual weakness is not so punishing
     //well fairy is immune to dragon,  grass is immune to fairy
     //w type changes its actually better as grass psychic
@@ -8002,6 +8002,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //since psy now beats both psychic AND steel,
     //but idk it still feels like it'd be better as a psychic type
     //w fairy moves?
+    //nah keeping fairy that also has psychic moves
 
 
     [SPECIES_TREECKO] =
@@ -11919,7 +11920,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sRegirockLevelUpLearnset,
         .tmhmLearnset = sRegirockTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_REGICE] =
@@ -11948,7 +11949,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sRegiceLevelUpLearnset,
         .tmhmLearnset = sRegiceTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     }, 
 
     [SPECIES_REGISTEEL] =
@@ -11978,7 +11979,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sRegisteelLevelUpLearnset,
         .tmhmLearnset = sRegisteelTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_LATIAS] =
@@ -12007,7 +12008,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sLatiasLevelUpLearnset,
         .tmhmLearnset = sLatiasTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//delve into their ability to turn invisible
     //start battle with +1 evasion so they are just harder to hit without needing a setup
     //red spector blue spector?Spectre  or spectrum blend?  that works, just make it a switch in ability that would increase evasiveness, so they can effectively start boosted +1 potentially +2
@@ -12051,7 +12052,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sLatiosLevelUpLearnset,
         .tmhmLearnset = sLatiosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
     //rebalance spectre evasion not fun, setup like zacian zamazenta abilities
     //base game version not my version, where it'll be only once per battle
@@ -12084,7 +12085,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sKyogreLevelUpLearnset,
         .tmhmLearnset = sKyogreTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_GROUDON] =
@@ -12113,7 +12114,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGroudonLevelUpLearnset,
         .tmhmLearnset = sGroudonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//now that it exists give solar blade instead
 
     [SPECIES_RAYQUAZA] =
@@ -12143,7 +12144,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sRayquazaLevelUpLearnset,
         .tmhmLearnset = sRayquazaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_JIRACHI] =
@@ -12174,7 +12175,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sJirachiLevelUpLearnset,
         .tmhmLearnset = sJirachiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_DEOXYS] =
@@ -12205,7 +12206,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sDeoxysLevelUpLearnset,
         .tmhmLearnset = sDeoxysTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
     //idea from false swipe gaming make this more balanced
     //so it has a niche away from attack mode
@@ -15067,7 +15068,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sUxieLevelUpLearnset, //ability doens't work
         .tmhmLearnset = sUxieTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//knowledge/ memoery mon  can seal a move when they attack. the enemy
     //temporarily lose effect to use a move  think I'll make it only work on one move
     //and have it read the enemy move pool and create logic to attempt to pick the most
@@ -15111,7 +15112,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMespritLevelUpLearnset,
         .tmhmLearnset = sMespritTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//empath, emotion pokemon, give efffect of synchronize but also make attaker feel a portion of my pain
     //so attacker takes a percent of damage dealt 20% 25% something like that or maybe 15% //change call this empathic curse
     //as plan to make new synchronize buff its own ability & call that empath as realized its a mirror armor/corvinight copy/hybrid and I DON'T want that going on umbreon ...
@@ -15145,7 +15146,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sAzelfLevelUpLearnset,
         .tmhmLearnset = sAzelfTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//iron will, will pokemon, paralysis effect, a chance to make opponent lose will to attack facing this mon.
     //in double battles use trace targeetting logic, so it randomly affects one target rather than both as that would be broken
     //well idk I could just link it to targeetting this mon with an attack, so even in doubles it'll just 
@@ -15184,7 +15185,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sDialgaLevelUpLearnset,
         .tmhmLearnset = sDialgaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
     //actually nvm dialga is way too good for anything besides pressure
     //it literally has 0 weaknesses except fighting, its not even weak to ground anymore
@@ -15223,7 +15224,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sPalkiaLevelUpLearnset,
         .tmhmLearnset = sPalkiaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//based on JPRPokeTrainer98 youtube vid ability space control, tweaked. 
     //in doubles make all non contact attacks multi target target both in doubles, target all in triple/rotation
     //target select if gcurrentmove has flag contact move change targetting to either n=both or enemy fiekd
@@ -15265,7 +15266,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sHeatranLevelUpLearnset,
         .tmhmLearnset = sHeatranTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//need to finish idea of lava fissure
     //scorch effect is similar to x/y combo move effect
     //vsonic
@@ -15297,7 +15298,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sRegigigasLevelUpLearnset,
         .tmhmLearnset = sRegigigasTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//intersting with typing able to use mystery as an attack type via rage
     //few mon to be able to get passed color change that way
     //could give rage in a boss battle?
@@ -15328,7 +15329,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGiratinaLevelUpLearnset,
         .tmhmLearnset = sGiratinaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
     //making healing move for viability
     //as meant to be a defensive mon
@@ -15359,7 +15360,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sCresseliaLevelUpLearnset,
         .tmhmLearnset = sCresseliaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//lunar spirit/aura/veil  prevents allies/self from falling asleep,  counter to darkai also reduces dark type damage by 50%
     //removes that 4x dark weakness I gave it, sheesh
     //like suicine ability heal should also work on switch in for anyone already asleep
@@ -15394,6 +15395,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sPhioneLevelUpLearnset,
         .tmhmLearnset = sPhioneTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isMythical = TRUE,
     },
     //think make phione more special mon
     //since only mon to exist from egg of genderless mon
@@ -15432,7 +15434,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sManaphyLevelUpLearnset,
         .tmhmLearnset = sManaphyTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_DARKRAI] =
@@ -15461,7 +15463,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sDarkraiLevelUpLearnset,
         .tmhmLearnset = sDarkraiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },//haven't set despair effect yet      
     //vsonic important
 
@@ -15492,7 +15494,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sShayminLevelUpLearnset,
         .tmhmLearnset = sShayminTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_ARCEUS] =
@@ -15521,7 +15523,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sArceusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .hasCosmeticForms = TRUE,
-        .isLegendaryOrMythical = TRUE //if just about type change could potentially setup like castform
+        .isMythical = TRUE //if just about type change could potentially setup like castform
     },//nothing should ne higher normally - just finished readjust and wow its actually perfect
     //all thes have been brought down and the highest legendarys are just slightly above arceus
     //while its still clearly better in every way
@@ -15560,7 +15562,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sVictiniLevelUpLearnset,
         .tmhmLearnset = sVictiniTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_SNIVY] =
@@ -20792,7 +20794,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sCobalionLevelUpLearnset,
         .tmhmLearnset = sCobalionTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//needs better moves
     //iron will pokemon, so gave more hp i.e will unbreakable more stamina
     //decied give back speed drop atk some since 4x resist dark can more easily
@@ -20833,7 +20835,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sTerrakionLevelUpLearnset,
         .tmhmLearnset = sTerrakionTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_VIRIZION] =
@@ -20869,7 +20871,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sVirizionLevelUpLearnset,//opposite of stall boost damage if moves first
         .tmhmLearnset = sVirizionTMHMLearnset,//stikes swiftly and decisively boost damage if strikes before target
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_TORNADUS_INCARNATE] =
@@ -20905,7 +20907,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sTornadusLevelUpLearnset,
         .tmhmLearnset = sTornadusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_THUNDURUS_INCARNATE] =
@@ -20941,7 +20943,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sThundurusLevelUpLearnset,
         .tmhmLearnset = sThundurusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_RESHIRAM] =
@@ -20977,7 +20979,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sReshiramLevelUpLearnset,
         .tmhmLearnset = sReshiramTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_ZEKROM] =
@@ -21013,7 +21015,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sZekromLevelUpLearnset,
         .tmhmLearnset = sZekromTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
     //zekrom needs better moves,
     //think give drain punch?
@@ -21051,7 +21053,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sLandorusLevelUpLearnset,
         .tmhmLearnset = sLandorusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_KYUREM] =
@@ -21089,7 +21091,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sKyuremLevelUpLearnset,
         .tmhmLearnset = sKyuremTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//absolute zero, turns all water type attacks into ice type attacks field wide, think also change type effect like ecosystem eto resist ice - DONE
 
     [SPECIES_KELDEO] =
@@ -21125,7 +21127,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sKeldeoLevelUpLearnset,
         .tmhmLearnset = sKeldeoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_MELOETTA] =
@@ -21165,7 +21167,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMeloettaLevelUpLearnset,
         .tmhmLearnset = sMeloettaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_GENESECT] =
@@ -21204,7 +21206,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sGenesectTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .hasCosmeticForms = TRUE,
-        .isLegendaryOrMythical = TRUE
+        .isMythical = TRUE
     },
 
     [SPECIES_CHESPIN] =
@@ -23668,7 +23670,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sXerneasLevelUpLearnset,
         .tmhmLearnset = sXerneasTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_YVELTAL] =
@@ -23704,7 +23706,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sYveltalLevelUpLearnset,
         .tmhmLearnset = sYveltalTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_ZYGARDE_10] =
@@ -23740,7 +23742,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sZygardeLevelUpLearnset,
         .tmhmLearnset = sZygardeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//finally adjusted species value so base form is 10,
     //and power construct isn't a separate species
 
@@ -23778,7 +23780,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sDiancieLevelUpLearnset,
         .tmhmLearnset = sDiancieTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_HOOPA] =
@@ -23814,7 +23816,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sHoopaLevelUpLearnset,
         .tmhmLearnset = sHoopaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_VOLCANION] =
@@ -23850,6 +23852,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sVolcanionLevelUpLearnset,
         .tmhmLearnset = sVolcanionTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isMythical = TRUE,
     },
 
     [SPECIES_ROWLET] =
@@ -25768,7 +25771,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sTypeNullLevelUpLearnset,
         .tmhmLearnset = sTypeNullTMHMLearnset,
         .evolutions = EVOLUTION({EVO_FRIENDSHIP, FILL, 0, SPECIES_SILVALLY}), //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_SILVALLY] =
@@ -25805,7 +25808,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sSilvallyTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .hasCosmeticForms = TRUE,
-        .isLegendaryOrMythical = TRUE //see if can setup like castform
+        .isLegendary = TRUE //see if can setup like castform
     },
 
     [SPECIES_MINIOR] =
@@ -26261,7 +26264,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sTapuKokoLevelUpLearnset,
         .tmhmLearnset = sTapuKokoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_TAPU_LELE] =
@@ -26297,7 +26300,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sTapuLeleLevelUpLearnset,
         .tmhmLearnset = sTapuLeleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_TAPU_BULU] =
@@ -26333,7 +26336,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sTapuBuluLevelUpLearnset,
         .tmhmLearnset = sTapuBuluTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     }, //worst one, needs better moves doesn't get any fairy moves,
     //give MOVE_MAGICAL_TORQUE,  MOVE_PLAY_ROUGH, maybe MOVE_FAIRY_LOCK
     //and MOVE_SPIKE_SHIELD potentially also MOVE_SPIRIT_BREAK
@@ -26375,7 +26378,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sTapuFiniLevelUpLearnset,
         .tmhmLearnset = sTapuFiniTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_COSMOG] =
@@ -26411,7 +26414,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sCosmogLevelUpLearnset,
         .tmhmLearnset = sCosmogTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(43, AVERAGE_EFFORT), 0, SPECIES_COSMOEM}), //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_COSMOEM] =
@@ -26449,7 +26452,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sCosmoemTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_DAY, RELATIVE_EVO(53, MEDIUM_EFFORT), 0, SPECIES_SOLGALEO},
                                        {EVO_LEVEL_NIGHT, RELATIVE_EVO(53, MEDIUM_EFFORT), 0, SPECIES_LUNALA}), //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_SOLGALEO] =
@@ -26485,7 +26488,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sSolgaleoLevelUpLearnset,
         .tmhmLearnset = sSolgaleoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
     //idk what to add to this ability wise
 
@@ -26522,7 +26525,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sLunalaLevelUpLearnset,
         .tmhmLearnset = sLunalaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_NIHILEGO] =
@@ -26818,7 +26821,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sNecrozmaLevelUpLearnset,
         .tmhmLearnset = sNecrozmaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//light devour(er) add on to prism armor, any light based move used by enemy is canceled and heals necrozma instead,also gets healing in harsh sunlight
     //moves solar beam, synthesis, moonlight, morning sun, etc. sunny day too.  Do like sound just setup a flag for it, or just do am effect search for enemy move
     //put im attack cancelor
@@ -26856,7 +26859,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMagearnaLevelUpLearnset,
         .tmhmLearnset = sMagearnaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_MARSHADOW] =
@@ -26893,7 +26896,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMarshadowLevelUpLearnset,
         .tmhmLearnset = sMarshadowTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_POIPOLE] =
@@ -27073,7 +27076,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sZeraoraLevelUpLearnset,
         .tmhmLearnset = sZeraoraTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_MELTAN] =
@@ -27109,7 +27112,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMeltanLevelUpLearnset,
         .tmhmLearnset = sMeltanTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(49, HIGH_EFFORT), 0, SPECIES_MELMETAL}), //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_MELMETAL] =
@@ -27145,7 +27148,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMelmetalLevelUpLearnset,
         .tmhmLearnset = sMelmetalTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_GROOKEY] =
@@ -30069,7 +30072,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sZacianLevelUpLearnset,
         .tmhmLearnset = sZacianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_ZAMAZENTA] =
@@ -30104,7 +30107,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sZamazentaLevelUpLearnset,
         .tmhmLearnset = sZamazentaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_ETERNATUS] =
@@ -30140,7 +30143,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sEternatusLevelUpLearnset,
         .tmhmLearnset = sEternatusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     }, //since it absorbs things to grow get stronger maybe boosts def spdef?
 
     [SPECIES_KUBFU] =
@@ -30177,7 +30180,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sKubfuTMHMLearnset,
         .evolutions = EVOLUTION({EVO_MAPSEC, MAPSEC_SEAFOAM_ISLANDS, 0, SPECIES_URSHIFU_RAPID_STRIKE_STYLE},
                                        {EVO_MAPSEC, MAPSEC_CERULEAN_CAVE, 0, SPECIES_URSHIFU_SINGLE_STRIKE_STYLE}), //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//need item scroll of water / scroll of darkness
     //for now could make mapsec evo, thinking cerulean cave & seafoam island or navel rock
     //but navel rock doesn't hvae encounters
@@ -30224,7 +30227,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sUrshifuSingleStrikeStyleLevelUpLearnset,
         .tmhmLearnset = sUrshifuSingleStrikeStyleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_ZARUDE] =
@@ -30260,7 +30263,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sZarudeLevelUpLearnset,
         .tmhmLearnset = sZarudeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_REGIELEKI] =
@@ -30296,7 +30299,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sRegielekiLevelUpLearnset,
         .tmhmLearnset = sRegielekiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//nothing better ever be faster than this thing smh
 
     [SPECIES_REGIDRAGO] =
@@ -30332,7 +30335,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sRegidragoLevelUpLearnset,
         .tmhmLearnset = sRegidragoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_GLASTRIER] =
@@ -30368,7 +30371,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGlastrierLevelUpLearnset,
         .tmhmLearnset = sGlastrierTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     }, //note setup ability so it plays the cry before the stat boost -done
 
     [SPECIES_SPECTRIER] =
@@ -30404,7 +30407,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sSpectrierLevelUpLearnset,
         .tmhmLearnset = sSpectrierTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//note setup ability so it plays the cry before the stat boost  /DONE
 
     [SPECIES_CALYREX] =
@@ -30440,7 +30443,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sCalyrexLevelUpLearnset,
         .tmhmLearnset = sCalyrexTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//need to add below mon to species_to_national dex in pokemon.c
 
     [SPECIES_WYRDEER] =
@@ -30690,7 +30693,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sEnamorusLevelUpLearnset,
         .tmhmLearnset = sEnamorusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
     //wrong ability here real abilit is cute charm
     //still not great but since is love themed pokemon
@@ -37720,7 +37723,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilityLearnset = sWoChienAbilityLearnset,
         .levelUpLearnset = sWoChienLevelUpLearnset,
         .tmhmLearnset = sWoChienTMHMLearnset,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 //#endif //P_FAMILY_WO_CHIEN
 
@@ -37787,7 +37790,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilityLearnset = sChienPaoAbilityLearnset,
         .levelUpLearnset = sChienPaoLevelUpLearnset,
         .tmhmLearnset = sChienPaoTMHMLearnset,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 //#endif //P_FAMILY_CHIEN_PAO
 
@@ -37854,7 +37857,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilityLearnset = sTingLuAbilityLearnset,
         .levelUpLearnset = sTingLuLevelUpLearnset,
         .tmhmLearnset = sTingLuTMHMLearnset,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 //#endif //P_FAMILY_TING_LU
 
@@ -37921,7 +37924,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilityLearnset = sChiYuAbilityLearnset,
         .levelUpLearnset = sChiYuLevelUpLearnset,
         .tmhmLearnset = sChiYuTMHMLearnset,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 //#endif //P_FAMILY_CHI_YU
 
@@ -38122,7 +38125,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilityLearnset = sKoraidonAbilityLearnset,
         .levelUpLearnset = sKoraidonLevelUpLearnset,
         .tmhmLearnset = sKoraidonTMHMLearnset,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
         .isParadox = TRUE,
     },
 //#endif //P_FAMILY_KORAIDON
@@ -38191,7 +38194,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilityLearnset = sMiraidonAbilityLearnset,
         .levelUpLearnset = sMiraidonLevelUpLearnset,
         .tmhmLearnset = sMiraidonTMHMLearnset,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
         .isParadox = TRUE,
     },
 //#endif //P_FAMILY_MIRAIDON
@@ -38975,7 +38978,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilityLearnset = sOkidogiAbilityLearnset,
         .levelUpLearnset = sOkidogiLevelUpLearnset,
         .tmhmLearnset = sOkidogiTMHMLearnset,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 //#endif //P_FAMILY_OKIDOGI
 
@@ -39049,7 +39052,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilityLearnset = sMunkidoriAbilityLearnset,
         .levelUpLearnset = sMunkidoriLevelUpLearnset,
         .tmhmLearnset = sMunkidoriTMHMLearnset,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 //#endif //P_FAMILY_MUNKIDORI
 
@@ -39116,7 +39119,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilityLearnset = sFezandipitiAbilityLearnset,
         .levelUpLearnset = sFezandipitiLevelUpLearnset,
         .tmhmLearnset = sFezandipitiTMHMLearnset,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
     //vsonic
     //god these stats suck horribly
@@ -39190,7 +39193,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sOgerponTMHMLearnset,                                 \
         /*.formSpeciesIdTable = sOgerponFormSpeciesIdTable,   */                            \
         /*.formChangeTable = sOgerponFormChangeTable,      */                               \
-        .isLegendaryOrMythical = TRUE,                                                       \
+        .isLegendary = TRUE,                                                       \
     }
 
     [SPECIES_OGERPON_TEAL_MASK]             = OGERPON_SPECIES_INFO(TealMask,        TYPE_GRASS, ABILITY_DEFIANT,              1),
@@ -39738,7 +39741,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sTerapagosTMHMLearnset,
         //.formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
         //.formChangeTable = sTerapagosFormChangeTable,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_TERAPAGOS_TERASTAL] =
@@ -39806,7 +39809,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sTerapagosTMHMLearnset,
         //.formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
         //.formChangeTable = sTerapagosFormChangeTable,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_TERAPAGOS_STELLAR] =
@@ -39873,7 +39876,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sTerapagosTMHMLearnset,
         //.formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
         //.formChangeTable = sTerapagosFormChangeTable,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//since stellar type is a bad version of my own normal buffs I'll just scrap it
     //will only allow stellar form for terapagos and treat it like shadow pokemon,
     //where it keeps a permanent stellar tera blast that is super to everything
@@ -39946,7 +39949,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilityLearnset = sPecharuntAbilityLearnset,
         .levelUpLearnset = sPecharuntLevelUpLearnset,
         .tmhmLearnset = sPecharuntTMHMLearnset,
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 //#endif //P_FAMILY_PECHARUNT
     
@@ -40063,7 +40066,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sCharizardLevelUpLearnset,
         .tmhmLearnset = sCharizardTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_BLASTOISE_MEGA] =
@@ -40099,7 +40102,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sBlastoiseLevelUpLearnset,
         .tmhmLearnset = sBlastoiseTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_BEEDRILL_MEGA] =
@@ -40137,7 +40140,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sBeedrillLevelUpLearnset,
         .tmhmLearnset = sBeedrillTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },//crazy to say but at this point ABILITY_POISONED_LEGACY,
     //may be a better ability here than  adaptability
     //hmm poisoned legacy would allow it to do flat super effective
@@ -40182,7 +40185,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sPidgeotLevelUpLearnset,
         .tmhmLearnset = sPidgeotTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_ALAKAZAM_MEGA] =
@@ -40219,7 +40222,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sAlakazamLevelUpLearnset,
         .tmhmLearnset = sAlakazamTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },//redistribute stats bsed on wolfey worst mega video
     //dropped sp atk some given psychic surge
 
@@ -40257,7 +40260,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sSlowbroLevelUpLearnset,
         .tmhmLearnset = sSlowbroTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_GENGAR_MEGA] =
@@ -40293,7 +40296,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGengarLevelUpLearnset,
         .tmhmLearnset = sGengarTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_KANGASKHAN_MEGA] =
@@ -40329,7 +40332,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sKangaskhanLevelUpLearnset,
         .tmhmLearnset = sKangaskhanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_PINSIR_MEGA] =
@@ -40365,7 +40368,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sPinsirLevelUpLearnset,
         .tmhmLearnset = sPinsirTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_GYARADOS_MEGA] =
@@ -40401,7 +40404,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGyaradosLevelUpLearnset,
         .tmhmLearnset = sGyaradosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
     //though water doesn't really block anything, since doesn't resist Ice anymore,
     //potentially just make dragon dark?
@@ -40445,7 +40448,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sAerodactylLevelUpLearnset,
         .tmhmLearnset = sAerodactylTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     //focus on physical attack, most stats remain same
@@ -40481,7 +40484,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMewtwoLevelUpLearnset,
         .tmhmLearnset = sMewtwoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isLegendary = TRUE,
+        .isMegaEvolution = TRUE,
     },//weighted gi is cool, giving inner focus would prob be better for meta/competitive
     //since its against ubers
     //give more moves, mostly needs fighting moves/
@@ -40528,7 +40532,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMewtwoLevelUpLearnset,
         .tmhmLearnset = sMewtwoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isLegendary = TRUE,
+        .isMegaEvolution = TRUE,
     },
     //Maybe instead of insomnia give early bird and with the buff have it be another 
     //case of ironically beign better than full blocking status
@@ -40568,7 +40573,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sAmpharosLevelUpLearnset,
         .tmhmLearnset = sAmpharosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
     //seems mold breaker would get through redirection via lightning rod,
     //so may be good to keep with addition of more redirection effects
@@ -40608,7 +40613,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sSteelixLevelUpLearnset,
         .tmhmLearnset = sSteelixTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_SCIZOR_MEGA] =
@@ -40644,7 +40649,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sScizorLevelUpLearnset,
         .tmhmLearnset = sScizorTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_HERACROSS_MEGA] =
@@ -40680,7 +40685,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sHeracrossLevelUpLearnset,
         .tmhmLearnset = sHeracrossTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_HOUNDOOM_MEGA] =
@@ -40716,7 +40721,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sHoundoomLevelUpLearnset,
         .tmhmLearnset = sHoundoomTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     //use this as standard for mon already psuedoes put in middle ground +50
@@ -40753,7 +40758,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sTyranitarLevelUpLearnset,
         .tmhmLearnset = sTyranitarTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_SCEPTILE_MEGA] =
@@ -40789,7 +40794,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sSceptileLevelUpLearnset,
         .tmhmLearnset = sSceptileTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE, //there's little reason to pair this with water or flying type
+        .isMegaEvolution = TRUE, //there's little reason to pair this with water or flying type
     }, //give sceptile flamethrower incinerate & fire blast (incinerate is for technician)
     //with steel gaining electric weakness pairing w this w lightning rod would be pretty nice actually
     //consider putting lighting rod back in place of regenerator
@@ -40827,7 +40832,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sBlazikenLevelUpLearnset,
         .tmhmLearnset = sBlazikenTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     }, //potentially drop defenses
 
     [SPECIES_SWAMPERT_MEGA] =
@@ -40863,7 +40868,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sSwampertLevelUpLearnset,
         .tmhmLearnset = sSwampertTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_GARDEVOIR_MEGA] =
@@ -40899,7 +40904,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGardevoirLevelUpLearnset,
         .tmhmLearnset = sGardevoirTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_SABLEYE_MEGA] =
@@ -40936,7 +40941,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sSableyeLevelUpLearnset,
         .tmhmLearnset = sSableyeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     //because of defensive typing and its ability will keep stats here sub 600
@@ -40975,7 +40980,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMawileLevelUpLearnset,
         .tmhmLearnset = sMawileTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_AGGRON_MEGA] =
@@ -41012,7 +41017,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sAggronLevelUpLearnset,
         .tmhmLearnset = sAggronTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },//potentially drop hp to 100 if too strong
     //give support moves
     //gets body press so can do damage plus w new mechanic change
@@ -41053,7 +41058,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMedichamLevelUpLearnset,
         .tmhmLearnset = sMedichamTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_MANECTRIC_MEGA] =
@@ -41089,7 +41094,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sManectricLevelUpLearnset,
         .tmhmLearnset = sManectricTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     //since has bad moves think can get away with higher attack
@@ -41128,7 +41133,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sSharpedoLevelUpLearnset,
         .tmhmLearnset = sSharpedoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_CAMERUPT_MEGA] =
@@ -41165,7 +41170,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sCameruptLevelUpLearnset, //doesn't really have many moves that would beenfit from sheerforce except burn moves
         .tmhmLearnset = sCameruptTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
     //I think removing the 4x weakness is better than boost its dmg
 
@@ -41202,7 +41207,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sAltariaLevelUpLearnset,
         .tmhmLearnset = sAltariaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_BANETTE_MEGA] =
@@ -41239,7 +41244,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sBanetteLevelUpLearnset,
         .tmhmLearnset = sBanetteTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },//give memento, w prankster and have +1 memento
     //ah forget made -1 so its just neutral but with slow speed
     //think may make memento neutral?
@@ -41279,7 +41284,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sAbsolLevelUpLearnset,
         .tmhmLearnset = sAbsolTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },//change magic bounce to reflect intimidate back to attacker
     //w joat being normal allows to function as split attacker
     //but need to remember future sight skips joat as well as stab
@@ -41317,7 +41322,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGlalieLevelUpLearnset,
         .tmhmLearnset = sGlalieTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     //think this is best i can do
@@ -41355,7 +41360,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sSalamenceLevelUpLearnset,
         .tmhmLearnset = sSalamenceTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_METAGROSS_MEGA] =
@@ -41392,7 +41397,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMetagrossLevelUpLearnset,
         .tmhmLearnset = sMetagrossTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_LATIAS_MEGA] =
@@ -41428,7 +41433,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sLatiasLevelUpLearnset,
         .tmhmLearnset = sLatiasTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },//ok since these have different stats...need different looks, thinking something like gallantmon or imperialdraman?
     //with how the previous theme is used as the head or something like that
     //apparently they aren't a fusion tho?
@@ -41467,7 +41472,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sLatiosLevelUpLearnset,
         .tmhmLearnset = sLatiosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_LOPUNNY_MEGA] =
@@ -41503,7 +41508,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sLopunnyLevelUpLearnset,
         .tmhmLearnset = sLopunnyTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_GARCHOMP_MEGA] =
@@ -41539,7 +41544,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGarchompLevelUpLearnset,
         .tmhmLearnset = sGarchompTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     }, //ugly don't want to use
     //ok w rework am somehwat more interested in it,
     //idea inspired by wolfeyvgc vid on worst mega
@@ -41583,7 +41588,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sLucarioLevelUpLearnset,
         .tmhmLearnset = sLucarioTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_ABOMASNOW_MEGA] =
@@ -41621,7 +41626,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sAbomasnowLevelUpLearnset,
         .tmhmLearnset = sAbomasnowTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_GALLADE_MEGA] =
@@ -41657,7 +41662,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGalladeLevelUpLearnset,
         .tmhmLearnset = sGalladeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_AUDINO_MEGA] =
@@ -41695,7 +41700,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sAudinoLevelUpLearnset,
         .tmhmLearnset = sAudinoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     [SPECIES_DIANCIE_MEGA] =
@@ -41732,7 +41737,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sDiancieLevelUpLearnset,
         .tmhmLearnset = sDiancieTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMythical = TRUE,
+        .isMegaEvolution = TRUE,
     },
 
     //holy shit this is the already nerfed version o.0
@@ -41770,7 +41776,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sRayquazaLevelUpLearnset,
         .tmhmLearnset = sRayquazaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-       .isMegaEvolution = TRUE,
+        .isMegaEvolution = TRUE,
     }, //need bring this down in/primal readjust
 
     [SPECIES_KYOGRE_PRIMAL] =
@@ -41806,7 +41812,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sKyogreLevelUpLearnset,
         .tmhmLearnset = sKyogreTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
         .isPrimalReversion = TRUE,
     },
 
@@ -41843,7 +41849,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGroudonLevelUpLearnset,
         .tmhmLearnset = sGroudonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
         .isPrimalReversion = TRUE,
     },
 
@@ -42843,7 +42849,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sArticunoGalarianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .isGalarianForm = TRUE,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_ZAPDOS_GALARIAN] =
@@ -42880,7 +42886,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sZapdosGalarianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .isGalarianForm = TRUE,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_MOLTRES_GALARIAN] =
@@ -42917,7 +42923,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sMoltresGalarianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .isGalarianForm = TRUE,
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     }, //lacks special dark moves, as they pretty much don't exist outside of its unique move
 
     [SPECIES_SLOWKING_GALARIAN] =
@@ -45439,6 +45445,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sDeoxysAttackLevelUpLearnset,
         .tmhmLearnset = sDeoxysTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isMythical = TRUE,
     },
 
     [SPECIES_DEOXYS_DEFENSE] =
@@ -45468,6 +45475,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sDeoxysDefenseLevelUpLearnset,
         .tmhmLearnset = sDeoxysTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isMythical = TRUE,
     },
     //think give this unique ability, dex entry mentions aurora
     //so think make aurora veil switchin abiility,
@@ -45503,6 +45511,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sDeoxysSpeedLevelUpLearnset,
         .tmhmLearnset = sDeoxysTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isMythical = TRUE,
     },
 
     [SPECIES_BURMY_SANDY_CLOAK] =
@@ -45920,6 +45929,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sShayminSkyLevelUpLearnset,
         .tmhmLearnset = sShayminSkyTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isMythical = TRUE,
     },
 
     [SPECIES_ARCEUS_FIGHTING] =
@@ -45955,6 +45965,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sArceusLevelUpLearnset,
         .tmhmLearnset = sArceusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isMythical = TRUE,
     },
 
     [SPECIES_ARCEUS_FLYING] =
@@ -46879,7 +46890,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sTornadusLevelUpLearnset,
         .tmhmLearnset = sTornadusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//gen 9 wind rider , Aerilate, serene grace, mold breaker, wonder skin
     //or unique neutralizing wind,  neutralizing gas clone potentially wrapped in aerialate
     //or stronger version of wonder skin where it can't be hit by status moves?
@@ -46918,7 +46929,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sThundurusLevelUpLearnset,
         .tmhmLearnset = sThundurusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//VOlt Dash or something  volt absorb with speed boost, since mean to be fast and every at once
 
     [SPECIES_LANDORUS_THERIAN] =
@@ -46953,7 +46964,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sLandorusLevelUpLearnset,
         .tmhmLearnset = sLandorusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//give flying move, think aeroblast that's it
 
     [SPECIES_ENAMORUS_THERIAN] =
@@ -46989,7 +47000,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sEnamorusLevelUpLearnset,
         .tmhmLearnset = sEnamorusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_KYUREM_WHITE] =
@@ -47025,7 +47036,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sKyuremWhiteLevelUpLearnset,
         .tmhmLearnset = sKyuremTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//lookiknto this may prob need specific tmhm set for black/white form  vsonic
 
     [SPECIES_KYUREM_BLACK] =
@@ -47061,7 +47072,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sKyuremBlackLevelUpLearnset,
         .tmhmLearnset = sKyuremTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_KELDEO_RESOLUTE] =
@@ -47097,7 +47108,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sKeldeoLevelUpLearnset,
         .tmhmLearnset = sKeldeoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_MELOETTA_PIROUETTE] =
@@ -47137,7 +47148,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMeloettaLevelUpLearnset,
         .tmhmLearnset = sMeloettaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_GENESECT_DOUSE_DRIVE] =
@@ -47175,6 +47186,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGenesectLevelUpLearnset,
         .tmhmLearnset = sGenesectTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isMythical = TRUE,
     },
 
     [SPECIES_GENESECT_SHOCK_DRIVE] =
@@ -47212,6 +47224,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGenesectLevelUpLearnset,
         .tmhmLearnset = sGenesectTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isMythical = TRUE,
     },
 
     [SPECIES_GENESECT_BURN_DRIVE] =
@@ -47249,6 +47262,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGenesectLevelUpLearnset,
         .tmhmLearnset = sGenesectTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isMythical = TRUE,
     },
 
     [SPECIES_GENESECT_CHILL_DRIVE] =
@@ -47286,6 +47300,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sGenesectLevelUpLearnset,
         .tmhmLearnset = sGenesectTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isMythical = TRUE,
     },
 
     [SPECIES_GRENINJA_ASH] =
@@ -49292,6 +49307,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sHoopaUnboundLevelUpLearnset,
         .tmhmLearnset = sHoopaUnboundTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        .isMythical = TRUE,
     },
 
     [SPECIES_ORICORIO_POM_POM] =
@@ -50671,7 +50687,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sNecrozmaLevelUpLearnset,
         .tmhmLearnset = sNecrozmaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     }, //the typesa are different should these have different forms,
     //don't they also have unique moves for each form? no unique move
     //but look into it, ultra was already strong but is it good without moves that get its typing?
@@ -50709,7 +50725,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sNecrozmaLevelUpLearnset,
         .tmhmLearnset = sNecrozmaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
     //stat distribution doesn't work
     //its pretty much completely outshined by just base lunala
@@ -50801,7 +50817,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sMagearnaLevelUpLearnset,
         .tmhmLearnset = sMagearnaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_CRAMORANT_GULPING] =
@@ -51398,7 +51414,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sZacianLevelUpLearnset,
         .tmhmLearnset = sZacianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_ZAMAZENTA_CROWNED_SHIELD] =
@@ -51434,7 +51450,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sZamazentaLevelUpLearnset,
         .tmhmLearnset = sZamazentaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_ETERNATUS_ETERNAMAX] =
@@ -51470,7 +51486,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sEternatusLevelUpLearnset,
         .tmhmLearnset = sEternatusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
         .isPrimalReversion = TRUE,
     },
     //think turn this into a mega-like
@@ -51515,7 +51531,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sUrshifuRapidStrikeStyleLevelUpLearnset,
         .tmhmLearnset = sUrshifuRapidStrikeStyleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
 
     [SPECIES_ZARUDE_DADA] =
@@ -51551,7 +51567,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sZarudeLevelUpLearnset,
         .tmhmLearnset = sZarudeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isMythical = TRUE,
     },
 
     [SPECIES_CALYREX_ICE_RIDER] =
@@ -51587,7 +51603,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sCalyrexIceRiderLevelUpLearnset,
         .tmhmLearnset = sCalyrexIceRiderTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//note setup ability so it plays the cry of glastrier before the stat boost
     
     [SPECIES_CALYREX_SHADOW_RIDER] =
@@ -51623,7 +51639,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sCalyrexShadowRiderLevelUpLearnset,
         .tmhmLearnset = sCalyrexShadowRiderTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },//note setup ability so it plays the cry of spectrier before the stat boost IMPORTANT - DONE
 
     [SPECIES_BASCULEGION_FEMALE] =
@@ -52282,7 +52298,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sReshiramLevelUpLearnset,
         .tmhmLearnset = sReshiramTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
     //false original dragon, fusion of reshram and zekrom
 
@@ -52321,7 +52337,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sKyuremLevelUpLearnset,
         .tmhmLearnset = sKyuremTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .isLegendaryOrMythical = TRUE,
+        .isLegendary = TRUE,
     },
     //true form of original dragon
 
