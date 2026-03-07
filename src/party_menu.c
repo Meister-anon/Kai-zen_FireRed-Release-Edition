@@ -6680,7 +6680,7 @@ static bool8 MonCanEvolve(void) //not trulyt an evolution check, is more for if 
         return FALSE;
 } //Had that wrong, that was checking if a mon in the party using a given item can evolve
 
-static void RestoreFusionMon(struct Pokemon *mon)
+/*static void RestoreFusionMon(struct Pokemon *mon)
 {
     s32 i;
 
@@ -6741,7 +6741,7 @@ static void DeleteInvalidFusionMoves(struct Pokemon *mon, u32 species)
         if (toDelete)
             DeleteMove(mon, move);
     }
-}
+}*/
 
 #define FUSE_MON        1
 #define UNFUSE_MON      2
