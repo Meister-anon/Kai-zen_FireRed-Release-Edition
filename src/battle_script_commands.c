@@ -12091,7 +12091,7 @@ static void Cmd_handleballthrow(void)
         {
             u32 odds;
             u8 catchRate;
-            u16 targetSpecies = GetFormChangeTargetSpecies(catchTarget, FORM_CHANGE_END_BATTLE, 0);
+            u16 targetSpecies = GetFormChangeTargetSpecies(catchTarget, FORM_CHANGE_END_BATTLE);
             gSavedPartyCount = CalculatePlayerPartyCount();
             
             //safari catch rate is constantly shfiting so can't(?)
