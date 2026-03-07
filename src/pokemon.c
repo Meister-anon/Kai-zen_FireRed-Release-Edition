@@ -3760,7 +3760,7 @@ void BoxMonToMon(struct BoxPokemon *src, struct Pokemon *dest)
     }
     return FALSE;
 } //recent port t fix mimikyu etc, species crhange issue issue
-*/
+
 
 void TryToSetBattleFormChangeMoves(struct Pokemon *mon, u16 method)
 {
@@ -3788,7 +3788,7 @@ void TryToSetBattleFormChangeMoves(struct Pokemon *mon, u16 method)
             break;
         }
     }
-}
+}*/
 
 #define TRANSFORM_STAT_RECALC(base, iv, ev, statIndex, field)                               \
 {                                                                               \
@@ -13769,7 +13769,7 @@ void TryToSetBattleFormChangeMoves(struct Pokemon *mon, enum FormChanges method)
     }
 }
 
-u32 GetMonFriendshipScore(struct Pokemon *pokemon)
+/*u32 GetMonFriendshipScore(struct Pokemon *pokemon)
 {
     u32 friendshipScore = GetMonData(pokemon, MON_DATA_FRIENDSHIP);
 
@@ -13791,7 +13791,7 @@ u32 GetMonFriendshipScore(struct Pokemon *pokemon)
 
 u32 GetMonAffectionHearts(struct Pokemon *pokemon)
 {
-    /*u32 friendship = GetMonData(pokemon, MON_DATA_FRIENDSHIP);
+    u32 friendship = GetMonData(pokemon, MON_DATA_FRIENDSHIP);
 
     if (friendship == MAX_FRIENDSHIP)
         return AFFECTION_FIVE_HEARTS;
@@ -13804,7 +13804,7 @@ u32 GetMonAffectionHearts(struct Pokemon *pokemon)
     if (friendship >= 80)
         return AFFECTION_ONE_HEART;
 
-    return AFFECTION_NO_HEARTS;*/
+    return AFFECTION_NO_HEARTS;
     return FALSE;
 }
 
@@ -13820,7 +13820,7 @@ void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality)
     u32 hiddenNature = GetBoxMonData(boxMon, MON_DATA_HIDDEN_NATURE);
     enum Type teraType = GetBoxMonData(boxMon, MON_DATA_TERA_TYPE);
 
-    /*old = *boxMon;
+    old = *boxMon;
     old0 = &(GetSubstruct(&old, old.personality, SUBSTRUCT_TYPE_0)->type0);
     old1 = &(GetSubstruct(&old, old.personality, SUBSTRUCT_TYPE_1)->type1);
     old2 = &(GetSubstruct(&old, old.personality, SUBSTRUCT_TYPE_2)->type2);
@@ -13839,10 +13839,10 @@ void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality)
     *new3 = *old3;
     boxMon->checksum = CalculateBoxMonChecksumReencrypt(boxMon);
 
-    SetBoxMonData(boxMon, MON_DATA_SHINY_CHECK, &isShiny);*/
+    SetBoxMonData(boxMon, MON_DATA_SHINY_CHECK, &isShiny);
     SetBoxMonData(boxMon, MON_DATA_HIDDEN_NATURE, &hiddenNature);
     SetBoxMonData(boxMon, MON_DATA_TERA_TYPE, &teraType);
-}
+}*/
 
 void HealPokemon(struct Pokemon *mon)
 {
