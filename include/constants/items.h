@@ -1,5 +1,8 @@
 #ifndef GUARD_CONSTANTS_ITEMS_H
 #define GUARD_CONSTANTS_ITEMS_H
+
+#include "constants/item_effects.h"
+
 // because of my change to the item table I need to change all values that are ITEM_(some hex value) into ITEM_NONE I think..yeah I do, because they were previously
 //auto aligned with a question mark icon & palette.   actually imma leave it for now, since I plan to fill those placeholders in.
 

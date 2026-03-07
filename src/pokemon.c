@@ -35,7 +35,6 @@
 #include "field_specials.h"
 #include "field_weather.h"
 #include "pokemon_storage_system_internal.h"
-#include "constants/item_effects.h"
 #include "constants/pokemon.h"
 #include "constants/songs.h"
 #include "constants/item_effects.h"

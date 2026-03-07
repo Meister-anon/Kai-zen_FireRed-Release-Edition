@@ -13,7 +13,6 @@
 #include "pokemon.h"
 #include "constants/hold_effects.h"
 #include "constants/items.h"
-#include "constants/item_effects.h"
 #include "constants/maps.h"
 
 EWRAM_DATA struct BagPocket gBagPockets[NUM_BAG_POCKETS] = {};

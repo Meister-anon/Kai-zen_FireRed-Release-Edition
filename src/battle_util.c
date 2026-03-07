@@ -45,7 +45,6 @@
 #include "constants/battle_script_commands.h"
 #include "constants/battle_string_ids.h"
 #include "constants/items.h"
-#include "constants/item_effects.h"
 #include "constants/moves.h"
 #include "constants/songs.h"
 #include "constants/species.h"
