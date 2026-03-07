@@ -447,7 +447,7 @@ ABILITIES_COUNT_GEN8 = 269,
  ABILITY_AURORA_SHIFT = 408, //deoxys defense ability
 ABILITIES_COUNT_CUSTOM,
 
- ABILITIES_COUNT = ABILITIES_COUNT_CUSTOM //   ability count is last ability number +, since we have to count ability,
+ ABILITIES_COUNT = ABILITIES_COUNT_CUSTOM, //   ability count is last ability number +, since we have to count ability,
 };
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

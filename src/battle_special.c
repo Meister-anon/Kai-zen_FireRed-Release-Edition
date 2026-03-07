@@ -22,9 +22,6 @@ static void Task_StartBattleAfterTransition(u8 taskId);
 static void UNUSED FillEReaderTrainerWithPlayerData(void);
 static void CopyEReaderTrainerFarewellMessage(void);
 
-#if FREE_BATTLE_TOWER_E_READER == FALSE
-static void SetEReaderTrainerChecksum(struct BattleTowerEReaderTrainer *ereaderTrainer);
-#endif //FREE_BATTLE_TOWER_E_READER
 
 /*static void HandleSpecialTrainerBattleEnd(void)
 {
@@ -235,26 +232,6 @@ void ValidateEReaderTrainer(void)
 #endif //FREE_BATTLE_TOWER_E_READER
 }*/
 
-#if FREE_BATTLE_TOWER_E_READER == FALSE
-static void SetEReaderTrainerChecksum(struct BattleTowerEReaderTrainer *ereaderTrainer)
-{
-    s32 i;
-
-    ereaderTrainer->checksum = 0;
-    for (i = 0; i < (sizeof(struct BattleTowerEReaderTrainer) - 4) / 4; i++) // - 4, because of the last field being the checksum itself.
-        ereaderTrainer->checksum += ((u32 *)ereaderTrainer)[i];
-}
-#endif //FREE_BATTLE_TOWER_E_READER
-
-void ClearEReaderTrainer(struct BattleTowerEReaderTrainer *ereaderTrainer)
-{
-#if FREE_BATTLE_TOWER_E_READER == FALSE
-    u32 i;
-
-    for (i = 0; i < (sizeof(struct BattleTowerEReaderTrainer)) / 4; i++)
-        ((u32 *)ereaderTrainer)[i] = 0;
-#endif //FREE_BATTLE_TOWER_E_READER
-}
 
 /*void CopyEReaderTrainerGreeting(void)
 {

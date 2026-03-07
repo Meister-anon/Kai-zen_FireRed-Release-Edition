@@ -7,6 +7,7 @@
 #include "overworld.h"
 #include "party_menu.h"
 #include "pokedex.h"
+#include "script.h"
 #include "random.h"
 #include "script_pokemon_util.h"
 #include "constants/items.h"

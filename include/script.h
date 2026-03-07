@@ -88,6 +88,10 @@ bool8 IsMsgBoxWalkawayDisabled(void);
 extern const u8 *gRAMScriptPtr;
 extern u8 gWalkAwayFromSignInhibitTimer;
 
+// srccmd.h
+void SetMovingNpcId(u16 npcId);
+
+
 
 /* Script effects analysis.
  *

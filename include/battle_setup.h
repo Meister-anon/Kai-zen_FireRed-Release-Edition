@@ -126,6 +126,9 @@ void TrainerBattleLoadArgsTrainerB(const u8 *data);
 void TrainerBattleLoadArgsSecondTrainer(const u8 *data);
 void InitTrainerBattleParameter(void);
 
+void ConfigureTwoTrainersBattle(u8 trainerObjEventId, const u8 *trainerScript);
+void SetUpTwoTrainersBattle(void);
+
 void DoStandardWildBattle_Debug(void);
 void BattleSetup_StartTrainerBattle_Debug(void);
 s32 TrainerIdToRematchTableId(const struct RematchTrainer *table, u16 trainerId);

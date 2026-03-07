@@ -128,7 +128,7 @@ enum BattleSide
 #define BATTLE_TYPE_GHOST_UNVEILED   (1 << 13) // Re-use of BATTLE_TYPE_LEGENDARY, when combined with BATTLE_TYPE_GHOST - weird but this is default
 #define BATTLE_TYPE_SAFARI           (1 << 14) //no using regi can replace this //replaced w safari
 #define BATTLE_TYPE_GHOST            (1 << 15) //check want to setup for if target mon is ghost type and doesnt have silf scope, to put ghosts in underpass at nighttime
-#define BATTLE_TYPE_POKEDUDE         (1 << 16)
+#define BATTLE_TYPE_POKEDUDE         (1 << 16) //gave ghost item decide tweak battle type ghost knock off thief cant' steal item or just change can take remove item to treat as no item in ghost battle
 #define BATTLE_TYPE_WILD_SCRIPTED    (1 << 17)
 #define BATTLE_TYPE_LEGENDARY_FRLG   (1 << 18)  //not sure why this is here? its used in conjunction w flag legendary almost never used by itself?
 #define BATTLE_TYPE_TRAINER_TOWER    (1 << 19)

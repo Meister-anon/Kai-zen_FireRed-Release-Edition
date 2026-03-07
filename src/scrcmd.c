@@ -57,6 +57,8 @@ static EWRAM_DATA u16 sMovingNpcMapBank = 0;
 static EWRAM_DATA u16 sMovingNpcMapId = 0;
 static EWRAM_DATA u16 sFieldEffectScriptId = 0;
 
+static bool8 sIsScriptedWildDouble;
+
 COMMON_DATA struct ScriptContext * sQuestLogScriptContextPtr = NULL;
 COMMON_DATA u8 gSelectedObjectEvent = 0;
 
@@ -2171,20 +2173,42 @@ bool8 ScrCmd_cleartrainerflag(struct ScriptContext * ctx)
     return FALSE;
 }
 
-bool8 ScrCmd_setwildbattle(struct ScriptContext * ctx)
+bool8 ScrCmd_setwildbattle(struct ScriptContext *ctx)
 {
     u16 species = ScriptReadHalfword(ctx);
     u8 level = ScriptReadByte(ctx);
-    u16 item = ScriptReadHalfword(ctx);
+    enum Item item = ScriptReadHalfword(ctx);
+    u16 species2 = ScriptReadHalfword(ctx);
+    u8 level2 = ScriptReadByte(ctx);
+    enum Item item2 = ScriptReadHalfword(ctx);
 
-    CreateScriptedWildMon(species, level, item);
+    //Script_RequestEffects(SCREFF_V1);
+
+    if (species2 == SPECIES_NONE)
+    {
+        CreateScriptedWildMon(species, level, item);
+        sIsScriptedWildDouble = FALSE;
+    }
+    else
+    {
+        CreateScriptedDoubleWildMon(species, level, item, species2, level2, item2);
+        sIsScriptedWildDouble = TRUE;
+    }
+
     return FALSE;
 }
 
-bool8 ScrCmd_dowildbattle(struct ScriptContext * ctx)
+bool8 ScrCmd_dowildbattle(struct ScriptContext *ctx)
 {
-    BattleSetup_StartScriptedWildBattle();
+    //Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
+
+    if (sIsScriptedWildDouble == FALSE)
+        BattleSetup_StartScriptedWildBattle();
+    else
+        BattleSetup_StartScriptedDoubleWildBattle();
+
     ScriptContext_Stop();
+
     return TRUE;
 }
 
@@ -2846,5 +2870,49 @@ bool8 ScrCmd_setmonmetlocation(struct ScriptContext * ctx)
 
     if (partyIndex < PARTY_SIZE)
         SetMonData(&gPlayerParty[partyIndex], MON_DATA_MET_LOCATION, &location);
+    return FALSE;
+}
+
+//new EE logic
+bool8 ScrCmd_buffertrainerclassname(struct ScriptContext *ctx)
+{
+    u8 stringVarIndex = ScriptReadByte(ctx);
+    enum TrainerClassID trainerClassId = VarGet(ScriptReadHalfword(ctx));
+
+    //Script_RequestEffects(SCREFF_V1);
+
+    StringCopy(sScriptStringVars[stringVarIndex], GetTrainerClassNameFromId(trainerClassId));
+    return FALSE;
+}
+
+bool8 ScrCmd_buffertrainername(struct ScriptContext *ctx)
+{
+    u8 stringVarIndex = ScriptReadByte(ctx);
+    enum TrainerClassID trainerClassId = VarGet(ScriptReadHalfword(ctx));
+
+    //Script_RequestEffects(SCREFF_V1);
+
+    StringCopy(sScriptStringVars[stringVarIndex], GetTrainerNameFromId(trainerClassId));
+    return FALSE;
+}
+
+void SetMovingNpcId(u16 npcId)
+{
+    sMovingNpcId = npcId;
+}
+
+void ScriptSetDoubleBattleFlag(struct ScriptContext *ctx)
+{
+    //Script_RequestEffects(SCREFF_V1);
+
+    sIsScriptedWildDouble = TRUE;
+}
+
+bool8 ScrCmd_setstartingstatus(struct ScriptContext *ctx)
+{
+    enum StartingStatus status = ScriptReadByte(ctx);
+
+    SetStartingStatus(status);
+
     return FALSE;
 }

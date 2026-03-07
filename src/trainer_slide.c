@@ -54,6 +54,9 @@ static bool32 ShouldRunTrainerSlideLastLowHp(u32 firstId, u32 lastId, enum Battl
 static void SetTrainerSlideParameters(enum BattlerId battler, u32* firstId, u32* lastId, u32* trainerId, u32* retValue);
 static bool32 IsSlideInitalizedOrPlayed(enum BattlerId battler, enum TrainerSlideType slideId);
 
+#define FRONTIER_TRAINERS_COUNT   0
+#define MAX_TRAINERS_COUNT_EMERALD 0
+
 // Partner trainers must be added as TRAINER_PARTNER(PARTNER_XXXX)
 static const u8* const sTrainerSlides[DIFFICULTY_COUNT][TRAINER_PARTNER(PARTNER_COUNT)][TRAINER_SLIDE_COUNT] =
 {
@@ -71,7 +74,10 @@ static const u8* const sFrontierTrainerSlides[DIFFICULTY_COUNT][FRONTIER_TRAINER
 
 static const u8* const sTestTrainerSlides[DIFFICULTY_COUNT][MAX_TRAINERS_COUNT_EMERALD + PARTNER_COUNT][TRAINER_SLIDE_COUNT] =
 {
-#include "../test/battle/trainer_slides.h"
+    [DIFFICULTY_NORMAL] =
+        {
+        },
+//#include "../test/battle/trainer_slides.h" correct include meant to be in src folder
 };
 
 static u32 BattlerHPPercentage(enum BattlerId battler, u32 operation, u32 threshold)
@@ -80,7 +86,7 @@ static u32 BattlerHPPercentage(enum BattlerId battler, u32 operation, u32 thresh
     {
         case LESS_THAN:
             return gBattleMons[battler].hp < (gBattleMons[battler].maxHP / threshold);
-        case EQUAL:
+        case EQUAL_TO:
             return gBattleMons[battler].hp == (gBattleMons[battler].maxHP / threshold);
         case GREATER_THAN:
             return gBattleMons[battler].hp > (gBattleMons[battler].maxHP / threshold);
@@ -450,7 +456,8 @@ bool32 IsTrainerSlideInitialized(enum BattlerId battler, enum TrainerSlideType s
     u32 arrayIndex = slideId / TRAINER_SLIDES_PER_ARRAY;
     u32 bitPosition = slideId % TRAINER_SLIDES_PER_ARRAY;
 
-    return (gBattleStruct->slideMessageStatus.messageInitalized[battler][arrayIndex] & (1 << bitPosition)) != 0;
+    return FALSE;
+    //return (gBattleStruct->slideMessageStatus.messageInitalized[battler][arrayIndex] & (1 << bitPosition)) != 0;
 }
 
 bool32 IsTrainerSlidePlayed(enum BattlerId battler, enum TrainerSlideType slideId)
@@ -458,7 +465,8 @@ bool32 IsTrainerSlidePlayed(enum BattlerId battler, enum TrainerSlideType slideI
     u32 arrayIndex = slideId / TRAINER_SLIDES_PER_ARRAY;
     u32 bitPosition = slideId % TRAINER_SLIDES_PER_ARRAY;
 
-    return (gBattleStruct->slideMessageStatus.messagePlayed[battler][arrayIndex] & (1 << bitPosition)) != 0;
+    return FALSE;
+    //return (gBattleStruct->slideMessageStatus.messagePlayed[battler][arrayIndex] & (1 << bitPosition)) != 0;
 }
 
 void InitalizeTrainerSlide(enum BattlerId battler, enum TrainerSlideType slideId)
@@ -466,7 +474,7 @@ void InitalizeTrainerSlide(enum BattlerId battler, enum TrainerSlideType slideId
     u32 arrayIndex = slideId / TRAINER_SLIDES_PER_ARRAY;
     u32 bitPosition = slideId % TRAINER_SLIDES_PER_ARRAY;
 
-    gBattleStruct->slideMessageStatus.messageInitalized[battler][arrayIndex] |= (1 << bitPosition);
+    //gBattleStruct->slideMessageStatus.messageInitalized[battler][arrayIndex] |= (1 << bitPosition);
 }
 
 void MarkInitializedTrainerSlidesAsPlayed(enum BattlerId battler, enum TrainerSlideType slideId)
@@ -474,8 +482,8 @@ void MarkInitializedTrainerSlidesAsPlayed(enum BattlerId battler, enum TrainerSl
     u32 arrayIndex = slideId / TRAINER_SLIDES_PER_ARRAY;
     u32 bitPosition = slideId % TRAINER_SLIDES_PER_ARRAY;
 
-    if (IsTrainerSlideInitialized(battler, slideId) && !IsTrainerSlidePlayed(battler, slideId))
-        gBattleStruct->slideMessageStatus.messagePlayed[battler][arrayIndex] |= (1 << bitPosition);
+    //if (IsTrainerSlideInitialized(battler, slideId) && !IsTrainerSlidePlayed(battler, slideId))
+    //    gBattleStruct->slideMessageStatus.messagePlayed[battler][arrayIndex] |= (1 << bitPosition);
 }
 
 void MarkTrainerSlideAsPlayed(enum BattlerId battler, enum TrainerSlideType slideId)
@@ -483,5 +491,5 @@ void MarkTrainerSlideAsPlayed(enum BattlerId battler, enum TrainerSlideType slid
     u32 arrayIndex = slideId / TRAINER_SLIDES_PER_ARRAY;
     u32 bitPosition = slideId % TRAINER_SLIDES_PER_ARRAY;
 
-    gBattleStruct->slideMessageStatus.messagePlayed[battler][arrayIndex] |= (1 << bitPosition);
+    //gBattleStruct->slideMessageStatus.messagePlayed[battler][arrayIndex] |= (1 << bitPosition);
 }

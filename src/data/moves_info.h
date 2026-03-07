@@ -316,7 +316,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
 
     [MOVE_VICE_GRIP] =
     {
-        .name = COMPOUND_STRING("Vice Grip"),
+        .name = COMPOUND_STRING("Vise Grip"),
         .description = COMPOUND_MOVE_STRING("Huge, impressive\npincers grip and\nsqueeze the foe."),
         .effect = EFFECT_HIT,
         .power = 55,
