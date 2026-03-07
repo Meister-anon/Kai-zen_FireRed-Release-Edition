@@ -4680,7 +4680,7 @@ void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u
 // actually can put calcmovebasepower aft mod in here too, to set up those abilities.
 //used in damagecalc command and for selfhit dmg for confusion/disobedience
 //making static func not needed in EE state
-static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u32 sideStatus, u16 powerOverride, u8 typeOverride, enum BattlerId battlerIdAtk, enum BattlerId battlerIdDef)
+/*static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u32 sideStatus, u16 powerOverride, u8 typeOverride, enum BattlerId battlerIdAtk, enum BattlerId battlerIdDef)
 {
     u32 i;
     u32 percentBoost;
@@ -4762,23 +4762,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         //that was dumb, that would almost guarantee boosted damage.
         //think battlemons here is fine and wuoldn't be affected by stat stage changes?
         
-        /*if (gBattleMons[battlerIdAtk].attack < gBattleMons[battlerIdAtk].spAttack)
-           usesDefStat = TRUE; //may reverse this, and set split to highest attack stat
-        else if (gBattleMons[battlerIdAtk].spAttack < gBattleMons[battlerIdAtk].attack)
-            usesDefStat = FALSE;
-        else if (gBattleMons[battlerIdAtk].spAttack == gBattleMons[battlerIdAtk].attack) // i & j are equal when my stats equal my oppoenenets or both my stats are higher.
-        {
-            if (value == 0) {
-                usesDefStat = TRUE;
-            }
-            if (value == 1) {
-                usesDefStat = FALSE;
-            } //set split here,  put boost below and add split for lower stat to condtion
-        }
-
-        if (gBattleMons[battlerIdAtk].ability == ABILITY_MUSCLE_MAGIC) //muscle magic override
-            usesDefStat = TRUE;
-        */
+        
     
         //based on feedback from anthroyd, I may just simplify this
         //and set the boost to apply against stronger opponents in general
@@ -4808,21 +4792,6 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         gBattleMovePower = (35 * powerBits) / 63 + 45;
 
 
-        //think should be ok, should be
-        //phsyical and attack less than target boost power
-        //or special and special lower than target
-        //keep an eye on for balance, can't remember 
-        //what the max power is post buff
-        //coulda sworn I rmeoved this part of effect?
-        //yeah should remove, too random and 
-        //average power is already higher than default version
-        //plus being able to fire from better offense stat
-        /*if (usesDefStat && h > 0)
-            gBattleMovePower = (gBattleMovePower * 130) / 100;
-
-        if (!usesDefStat && j > 0)
-            gBattleMovePower = (gBattleMovePower * 130) / 100;*/
-        
 
         //change to set power here just like weather ball
         ////if (j > 0 && usesDefStat == FALSE)
@@ -4831,13 +4800,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         //O.o now it works ...ow   
     }
 
-    /*if (move == MOVE_TRI_ATTACK)
-    {
-        if (gBattleMons[battlerIdAtk].attack > gBattleMons[battlerIdAtk].spAttack)
-           usesDefStat = TRUE;
-        if (gBattleMons[battlerIdAtk].spAttack > gBattleMons[battlerIdAtk].attack)
-            usesDefStat = FALSE;
-    }*/
+
 
     //put water shuriken ash gren move power boost here
     //goes from 15bp to 20bp
@@ -4907,25 +4870,25 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
 
     // In FRLG, the Battle Tower and opponent checks are stubbed here.
     //badge boost for move damage start
-    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | /*BATTLE_TYPE_BATTLE_TOWER |*/ BATTLE_TYPE_EREADER_TRAINER)))
+    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER)))
     {
         if (FlagGet(FLAG_BADGE01_GET)
             && GetBattlerSide(battlerIdAtk) == B_SIDE_PLAYER)
             attack = (110 * attack) / 100;
     }
-    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | /*BATTLE_TYPE_BATTLE_TOWER |*/ BATTLE_TYPE_EREADER_TRAINER)))
+    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_BATTLE_TOWER  | BATTLE_TYPE_EREADER_TRAINER)))
     {
         if (FlagGet(FLAG_BADGE05_GET)
             && GetBattlerSide(battlerIdDef) == B_SIDE_PLAYER)
             defense = (110 * defense) / 100;
     }
-    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | /*BATTLE_TYPE_BATTLE_TOWER |*/ BATTLE_TYPE_EREADER_TRAINER)))
+    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_BATTLE_TOWER  | BATTLE_TYPE_EREADER_TRAINER)))
     {
         if (FlagGet(FLAG_BADGE07_GET)
             && GetBattlerSide(battlerIdAtk) == B_SIDE_PLAYER)
             spAttack = (110 * spAttack) / 100;
     }
-    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | /*BATTLE_TYPE_BATTLE_TOWER |*/ BATTLE_TYPE_EREADER_TRAINER)))
+    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_BATTLE_TOWER  | BATTLE_TYPE_EREADER_TRAINER)))
     {
         if (FlagGet(FLAG_BADGE07_GET)
             && GetBattlerSide(battlerIdDef) == B_SIDE_PLAYER)
@@ -4938,23 +4901,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         && moveType == GetItemSecondaryId(attacker->item))
             OffensiveModifer((attackerHoldEffectParam + 100));
 
-    /*for (i = 0; i < NELEMS(sHoldEffectToType); i++)
-    {
-        if (attackerHoldEffect == sHoldEffectToType[i][0]
-            && moveType == sHoldEffectToType[i][1])
-        {
-            OffensiveModifer((attackerHoldEffectParam + 100)); //ok got tested this IS working
-            
-            
-            //gBattleMovePower = (gBattleMovePower * (attackerHoldEffectParam + 100)) / 100;  //i.e (gBattleMovePower * 120) /100
-            //if (usesDefStat)    //changed was redundant as being move physical sets usesdefstat
-            //    attack = (attack * (attackerHoldEffectParam + 100)) / 100;
-            //else
-            //    spAttack = (spAttack * (attackerHoldEffectParam + 100)) / 100;
-            break;
-        }//sets what atk stat used by moves based on if physical or special etc.
-    } //also now that I realize these are for hard stone etc teh effect is just supposed to boost move power
-    */
+
     //buff for weather extension items
     //but mostly for  ice ground rock types who dont get dmg boost from weather conditions
     switch(attackerHoldEffect)
@@ -5205,11 +5152,11 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         }
         break;
 
-        /*case EFFECT_MIND_BLOWN:
-        case EFFECT_MISTY_EXPLOSION:
-        case EFFECT_EXPLOSION: //keeps special explosion variants consistent
-            DefenseModifer(50);
-        break;*/
+        //case EFFECT_MIND_BLOWN:
+        //case EFFECT_MISTY_EXPLOSION:
+        //case EFFECT_EXPLOSION: //keeps special explosion variants consistent
+        //    DefenseModifer(50);
+        //break;
         case EFFECT_FUSION_COMBO:
         if (GetMoveEffect(gLastUsedMove) == EFFECT_FUSION_COMBO && move != gLastUsedMove)
             gBattleMovePower *= 2;
@@ -5263,30 +5210,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         if (IsBattlerTerrainAffected(battlerIdAtk, STATUS_FIELD_PSYCHIC_TERRAIN))
             gBattleMovePower = (150 * gBattleMovePower) / 100;
         break;
-        /*case EFFECT_RISING_VOLTAGE:
-        if (IsBattlerTerrainAffected(battlerIdDef, STATUS_FIELD_ELECTRIC_TERRAIN))
-            gBattleMovePower *= 2;
-        break;
-        case EFFECT_PSYBLADE:
-        if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
-            gBattleMovePower = (150 * gBattleMovePower) / 100;
-        break;
-        case EFFECT_RAGE_FIST:
-            gBattleMovePower += 50 * gBattleStruct->timesGotHit[GetBattlerSide(battlerIdAtk)][gBattlerPartyIndexes[battlerIdAtk]];
-            gBattleMovePower = (gBattleMovePower > 350) ? 350 : gBattleMovePower;
-        break;
-        case EFFECT_FICKLE_BEAM:
-            if (gBattleStruct->fickleBeamBoosted)
-                gBattleMovePower *= 2;
-        break;
-        case EFFECT_TERA_BLAST:
-            if (GetActiveGimmick(battlerIdAtk) == GIMMICK_TERA && GetBattlerTeraType(battlerIdAtk) == TYPE_STELLAR)
-                gBattleMovePower = 100;
-        break;
-        case EFFECT_LAST_RESPECTS:
-            gBattleMovePower += (gBattleMovePower * min(100, GetBattlerSideFaintCounter(battlerIdAtk)));
-        break;
-        */
+        
         case EFFECT_LOW_KICK:
         weight = GetBattlerWeight(battlerIdDef);
         for (i = 0; gWeightToDamageTable[i] != 0xFFFF; i += 2)
@@ -5326,10 +5250,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         gBattleMovePower += (CountBattlerStatIncreases(battlerIdAtk, TRUE) * 20);
         break;
     case EFFECT_ELECTRO_BALL:
-        /*speed_Value = GetBattlerTotalSpeedStat(battlerIdAtk) / GetBattlerTotalSpeedStat(battlerIdDef);
-        if (speed_Value >= ARRAY_COUNT(gSpeedDiffPowerTable))
-            speed_Value = ARRAY_COUNT(gSpeedDiffPowerTable) - 1;
-        gBattleMovePower = gSpeedDiffPowerTable[speed_Value];*/
+        //very strong now keep an eye on vsonic important
         //speed shifts by smaller degree than weight so think will have to double this?
         gBattleMovePower = ((60 * GetBattlerTotalSpeedStat(battlerIdAtk, abilityAtk, attackerHoldEffect)) / GetBattlerTotalSpeedStat(battlerIdDef, abilityDef, defenderHoldEffect)) + 1;
         if (gBattleMovePower > 150)
@@ -5580,8 +5501,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
                 == GetGenderFromSpeciesAndPersonality(gBattleMons[battlerIdDef].species, gBattleMons[battlerIdDef].personality))
                 gBattleMovePower = (gBattleMovePower * 125 / 100);
             //MulModifier(&modifier, UQ_4_12(1.25));
-        /*else
-            gBattleMovePower = (gBattleMovePower * 75 / 100);*/
+
             //MulModifier(&modifier, UQ_4_12(0.75));  removed above section cause don't want negative effects of rivalry.
         }//note w attraction change an ability that boosts damage against opposite gender would be good
         break;//no idea what I could call said thing, would make it a 30% incrase to still have effect not just neutralize infatuation? maybe
@@ -5745,7 +5665,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
             gBattleMovePower = (gBattleMovePower * 150 / 100);   //current preference
         break;
     case ABILITY_PROTOSYNTHESIS:
-        if /*(*/(IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN) && GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN) && GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
         //||  booster energy)
         {
             if (attackerhighestStat == STAT_ATK)
@@ -5755,7 +5675,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         }
         break;
     case ABILITY_QUARK_DRIVE:
-        if /*(*/(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN) //same works regarldess of grounding
+        if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN) //same works regarldess of grounding
         //||  booster energy)
         {
             if (attackerhighestStat == STAT_ATK)
@@ -5819,12 +5739,6 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
     switch (GetBattlerAbility(battlerIdDef))  //readjusted order of abilities to be numeric order in case I need switch case to flow low to high
     {                          //after examining switches from emerald repo, appears value order of the switch case doesn't matter, can go anywhere
         //don't need put absorb abilities that heal here, as they use gbattlemovedamage todo heal and convert it in the util
-    /*case ABILITY_THICK_FAT:
-        if (moveType == (TYPE_FIRE || TYPE_ICE)) //removing decide just straight up change effectiveness more or less same effect
-        OffensiveModifer(50); //but just makes more sense to me
-            //gBattleMoveDamage /= 2;
-        break;
-        */
     case ABILITY_FEATHER_JACKET:
         if (moveType == TYPE_ICE)
             OffensiveModifer(50);
@@ -5850,17 +5764,6 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         if (moveType == TYPE_DARK || moveType == TYPE_FAIRY)
             OffensiveModifer(50);
         break;
-    /*case ABILITY_GLACIAL_ICE:
-        if (type == TYPE_FIRE)// || TYPE_ICE))
-            //gBattleMoveDamage = 0;
-        break;
-    case ABILITY_SAP_SIPPER:
-        if (type == TYPE_GRASS)
-            //gBattleMoveDamage = 0;
-        break;
-    case ABILITY_GALEFORCE:
-        if (IsWindMove(move))
-            //gBattleMoveDamage = 0;*/
     case ABILITY_DRY_SKIN:
         if (moveType == TYPE_FIRE)
             OffensiveModifer(125);
@@ -5965,7 +5868,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
             OffensiveModifer(50);
         break;
     case ABILITY_PROTOSYNTHESIS:
-        if /*(*/(IsBattlerWeatherAffected(battlerIdDef, WEATHER_SUN) && abilityAtk != ABILITY_CLOUD_NINE)
+        if (IsBattlerWeatherAffected(battlerIdDef, WEATHER_SUN) && abilityAtk != ABILITY_CLOUD_NINE)
         //||  booster energy)
         {
             if (defenderhighestStat == STAT_DEF)
@@ -5975,7 +5878,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         }
         break;
     case ABILITY_QUARK_DRIVE:
-        if /*(*/(IsBattlerTerrainAffected(battlerIdDef, STATUS_FIELD_ELECTRIC_TERRAIN))
+        if (IsBattlerTerrainAffected(battlerIdDef, STATUS_FIELD_ELECTRIC_TERRAIN))
         //||  booster energy)
         {
             if (defenderhighestStat == STAT_DEF)
@@ -6227,10 +6130,11 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
     }//it makes sense to add hail ice type damage buff. would also make late game  ice routes more punishing
     //the FUCK was I thinking this is insanely over powered???  even blizzard would only be a base 40 power move?
 
-    /*In order for a fire to start, your tinderand firewood must reach a combustible temperature.
-    Fires in the summer, even after a summer rain, can be easier to start
-    because the wood will be closer to a combustible temperature than even dry wood in the winter.
-    You will need more heat to get your fire started in the cold.*/  //logic for why fire dmg cut in hail/
+    //In order for a fire to start, your tinderand firewood must reach a combustible temperature.
+    //Fires in the summer, even after a summer rain, can be easier to start
+    //because the wood will be closer to a combustible temperature than even dry wood in the winter.
+    //You will need more heat to get your fire started in the cold.
+      //logic for why fire dmg cut in hail/
 
     // flash fire triggered
     if ((gBattleMons[battlerIdAtk].volatiles.flashFireBoosted) && moveType == TYPE_FIRE)
@@ -6298,29 +6202,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
             //would mean dmg scales up still but just does less 
             //for lower levelenemies,
         //further test potentially remove max
-        /*if (attacker->level <= defender->level)
-        {
-            if (attacker->level < 10)
-            {
-                if (defender->level <= 5)
-                    damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
-                else if (defender->level <= 7)
-                    damage *= (max(((attacker->level * 170) / 100) / 6, 1) + 3);
-                else
-                    damage *= (max(((attacker->level * 105) / 100) / 4, 1) + 3);
-            }
-            else if (defender->level - attacker->level >= 5)
-                damage *= (max(((attacker->level * 170) / 100) / 6, 1) + 3);
-            else
-                damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
-        }
-        else
-            damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
-            //damage *= ((2 * attack / 21) + (max(((attacker->level * 110) / 100) / 6, 1) + 1));
-        //damage *= (((attacker->level * 148) / 100) / 4); //the difference in dmg here seems very small, i'm unsure if I should lower? //hmm higher effect the higher your stat is
-        //every little bit helps I guess, //means level matters more than stats? or stats matter mor ethan level?
-        //think the higher multiplier means level is more impactful for damage,
-        */
+        
 
        //unsure if using dmg boost for a 5 level diff is too much or not
        //could do greater equal 10 instead of 5?
@@ -6405,13 +6287,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         damage = damage / damageHelper;
 
        
-        
-        //if (attacker->level <= 9)
-        /*if ((attacker->level - defender->level >= 4) || defender->level <= 4)
 
-            damage /= 50;  //this was default adjusted form should scale higher for low level slight lower later
-        else//defense side of dmg formula
-            damage /= 41;*/
 
         
 
@@ -6431,17 +6307,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         }
 
 
-        /*if ((sideStatus & SIDE_STATUS_REFLECT) && !IS_CRIT
-            && abilityAtk != ABILITY_INFILTRATOR
-            && !(partnerAbility == ABILITY_CACOPHONY && IsSoundMove(move))
-           )
-        {
-            //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_OPPOSING_SIDE) == 2)
-               // damage = 2 * (damage / 3); //believe what's happening here is it lowers the effectiveness of reflect for doubles 
-           // else //to balance the decreased amount of damage double damaging moves do.
-            //    damage /= 2;
-        }
-        */
+
 
        
 
@@ -6449,9 +6315,9 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
 
     } //end of physical effects
 
-    /*if (type == TYPE_MYSTERY)
-        damage = 0; // is ??? type. does 0 damage.
-    *///this existed as an extra fail safe, before physical special split, where split &dmg was based on type
+    //if (type == TYPE_MYSTERY)
+    //    damage = 0; // is ??? type. does 0 damage.
+    ///this existed as an extra fail safe, before physical special split, where split &dmg was based on type
     //removed for normalize buff to work
 
     
@@ -6492,32 +6358,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         //so gives advantage to weaker enemeies
         //further test potentially remove max value - yes - except early lvl scaling
        
-       /*if (attacker->level <= defender->level) //underdog 
-        {
-            if (attacker->level < 8)
-            {
-                if (defender->level - attacker->level >= 5)
-                    damage *= ((((attacker->level * 170) / 100) / 6, 1) + 3);
-                else
-                    damage *= ((((attacker->level * 110) / 100) / 5, 1) + 3);
-            }
-            else
-            {
-                if (defender->level - attacker->level >= 7)
-                    damage *= ((((attacker->level * 170) / 100) / 6, 1) + 3);
-                else
-                    damage *= ((((attacker->level*110)/100)/5)+(((attacker->level*168)/100)/13)+2); //perfect formula
-            }
-        }
-        else //over level
-        {
-            if (attacker->level < 8)
-                damage *= ((((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
-            else
-                damage *= ((((attacker->level*110)/100)/5)+(((attacker->level*168)/100)/13)+2); //perfect formula
-            //  //shift 168 or 13 to adjust curve if decide to further tweak
-        }
-        */
+       
         //damage *= (((attacker->level * 148) / 100) / 4); //the difference in dmg here seems very small, i'm unsure if I should lower? //hmm higher effect the higher your stat is
         //every little bit helps I guess, //means level matters more than stats? or stats matter mor ethan level?
         //think the higher multiplier means level is more impactful for damage,
@@ -6561,13 +6402,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         //rn don't have value that incraesed dmg from underlevel enemies
         //test and decide if need to add back seems I don't?
         
-        
-        /*//if attacker abonve threshold do less dmg
-        if ((attacker->level - defender->level >= 4) || defender->level <= 4)
-            damage /= 50;  //this was default value adjusted form should scale higher for low level slight lower later
-        else//defense side of sp. damage formula
-            damage /= 41; //was almos talways using this portion
-            //about 20% diff in dmg*/
+
         
 
         //testing w average defense of 10 divide by 10 is enough to bring values back down to just above 100
@@ -6586,17 +6421,6 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
         //ok need to turn this into a function that uses reflect or lightscreen
         //based on attacking category as psyshock hits defense but uses special to calc the drop
 
-
-        /*    if ((sideStatus & SIDE_STATUS_LIGHTSCREEN) && !IS_CRIT
-            && abilityAtk != ABILITY_INFILTRATOR
-            && !(partnerAbility == ABILITY_CACOPHONY && IsSoundMove(move))
-           )
-        {
-            //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_OPPOSING_SIDE) == 2)
-            //    damage = 2 * (damage / 3);    //looks strange, but screens blocked less damage instead of more for doubles, 
-            //else         //because there was already logic that cut dmg for moves that hit multiple targets
-                damage /= 2;
-        }*/
 
 
        
@@ -6669,7 +6493,7 @@ static s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePoke
     
 
     return damage + 2;
-}
+}*/
 
 void ApplyMovePowerModifiers(enum BattlerId battlerAtk, u16 move, u16 power)
 {
@@ -6719,7 +6543,7 @@ u8 GetDefaultMoveTarget(enum BattlerId battler)
 
     if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
         return GetBattlerAtPosition(opposing);
-    if (CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_ACTIVE, battler) > 1)
+    if (CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_BATTLER, battler) > 1)
     {
         u8 position;
 
@@ -13521,7 +13345,7 @@ bool32 DoesSpeciesHaveFormChangeMethod(u16 species, enum FormChanges method)
     return FALSE;
 }
 
-u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove)
+/*u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove)
 {
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
     u8 level = GetMonData(mon, MON_DATA_LEVEL);
@@ -13547,7 +13371,7 @@ u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove)
         sLearningMoveTableID++;
     }
     return 0;
-}
+}*/
 
 // Removes the selected index from the given IV list and shifts the remaining
 // elements to the left.
@@ -13572,7 +13396,7 @@ void RemoveIVIndexFromList(u8 *ivs, u8 selectedIv)
 //what do I do with this? -vsonic
 
 // Attempts to perform non-level/item related overworld evolutions; called by tryspecialevo command.
-void TryScriptEvolution(void)
+/*void TryScriptEvolution(void)
 {
     u8 i;
     bool32 canStopEvo = gSpecialVar_0x8001;
@@ -13603,6 +13427,9 @@ void TryScriptEvolution(void)
     SetMainCallback2(CB2_ReturnToField);
 }
 
+//test my version  may need
+//as supposedly addresses ow graphic glitches
+//prob to do with how callback loads etc.
 void TrySpecialOverworldEvo(void)
 {
     u8 i;
@@ -13632,8 +13459,11 @@ void TrySpecialOverworldEvo(void)
 
     sTriedEvolving = 0;
     SetMainCallback2(CB2_ReturnToField);
-}
+}*/
 
+//this should be useful but adapt for
+//graphic species struct not species info
+//vsonic important
 bool32 SpeciesHasGenderDifferences(u16 species)
 {
 #if P_GENDER_DIFFERENCES
