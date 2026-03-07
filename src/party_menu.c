@@ -7273,7 +7273,7 @@ void TryItemHoldFormChange(struct Pokemon *mon, s8 slotId)
 #undef tNextFunc
 
 //eventually change to enum Item item
-enum ItemEffectType GetItemEffectType(u16 item)
+enum ItemEffectType GetItemEffectType(enum Item item)
 {
     const u8 *itemEffect;
     u32 statusCure;
