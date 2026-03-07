@@ -712,7 +712,6 @@ struct SpeciesInfo  // had to adjust struct order to match paste value from base
             u16 noFlip : 1;  //represents if sprite is flipped in summary screen and trade screen, normal is the pc sprite
             u16 floating : 1; // logic flying and non flying mon that can fly/float or who's natural state is floating, (replace levitate) mon has to display ability to do more than just hover slightly over ground to exclude legendaries to prevent destroy groud type, think need logic for mon to do most of its fighting in air as well
             u16 isLegendary:1; //apparently need break out mythical for its own use
-            //u16 isMythical:1; //will combine these two as practically no real distinction
             u16 isUltraBeast:1; //handling elsewhere curr can blank for more space
             u16 isParadox:1; //can do same logic for ultra beast as is only for Booster Energy
             u16 isPrimalReversion:1;
