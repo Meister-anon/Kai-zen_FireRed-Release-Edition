@@ -4187,7 +4187,7 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //important can use thi
     //feels more like a lateral move rather than, an improvement
     //nature = GetNatureFromPersonality(personality); //scrapped idea
 
-    for (i = 0; learnset[i].move != LEVEL_UP_END; i++) //if move to be learned is actually a move
+    for (i = 0; learnset[i].move != LEVEL_UP_MOVE_END; i++) //if move to be learned is actually a move
     {
         u16 moveLevel;
         u16 move;
@@ -4203,7 +4203,7 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //important can use thi
 
         move = (learnset[i].move);
 
-        if (GiveMoveToBoxMon(boxMon, move) == LEVEL_UP_END) // this may be the move learn function I need.
+        if (GiveMoveToBoxMon(boxMon, move) == MON_HAS_MAX_MOVES) // this may be the move learn function I need.
             DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, move); //important since I know boxmon works for enemy npc & i think wild as well.
     } // that function should be very useful for setting up wild move learning.
 }
@@ -4233,7 +4233,7 @@ void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: Asparagu
     learnset = GetSpeciesLevelUpLearnset(generatedSpecies);
     
     
-    for (i = 0; learnset[i].move != LEVEL_UP_END; i++)
+    for (i = 0; learnset[i].move != LEVEL_UP_MOVE_END; i++)
     {
         s32 j;
         bool32 alreadyKnown = FALSE;
@@ -4296,7 +4296,7 @@ void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species) //Credit
     learnset = GetSpeciesLevelUpLearnset(generatedSpecies);
     
     
-    for (i = 0; learnset[i].move != LEVEL_UP_END; i++)
+    for (i = 0; learnset[i].move != LEVEL_UP_MOVE_END; i++)
     {
         s32 j;
         bool32 alreadyKnown = FALSE;
@@ -4351,7 +4351,7 @@ u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove) //edited to try 
         sLearningMoveTableID = 0;
     }
 
-    while(learnset[sLearningMoveTableID].move != LEVEL_UP_END)
+    while(learnset[sLearningMoveTableID].move != LEVEL_UP_MOVE_END)
     {
         u16 moveLevel;
         moveLevel = (learnset[sLearningMoveTableID].level);
@@ -4384,7 +4384,7 @@ u16 MonTryLearningEvoMove(struct Pokemon *mon, bool8 firstMove) //ok there's jus
         sLearningMoveTableID = 0;
     }
 
-    while(learnset[sLearningMoveTableID].move != LEVEL_UP_END) 
+    while(learnset[sLearningMoveTableID].move != LEVEL_UP_MOVE_END) 
     {
         u16 moveLevel = (learnset[sLearningMoveTableID].level);
         while (moveLevel == 0 || moveLevel == level) //this is bad practice its say while while is true?
@@ -12036,13 +12036,13 @@ u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm)
             const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
 
 
-            for (j = 0; j < MAX_LEVEL_UP_MOVES && learnset[j].move != LEVEL_UP_END; j++)
+            for (j = 0; j < MAX_LEVEL_UP_MOVES && learnset[j].move != LEVEL_UP_MOVE_END; j++)
             {
                 if (learnset[j].move == move)
                     break;
             }
 
-            if (learnset[j].move != LEVEL_UP_END)
+            if (learnset[j].move != LEVEL_UP_MOVE_END)
                 return TRUE;
         }
 
@@ -12120,13 +12120,13 @@ u32 CanSpeciesLearnTMHMmove(u16 species, u16 move) //for this belive replace wit
             const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
 
 
-            for (j = 0; j < MAX_LEVEL_UP_MOVES && learnset[j].move != LEVEL_UP_END; j++)
+            for (j = 0; j < MAX_LEVEL_UP_MOVES && learnset[j].move != LEVEL_UP_MOVE_END; j++)
             {
                 if (learnset[j].move == move)
                     break;
             }
 
-            if (learnset[j].move != LEVEL_UP_END)
+            if (learnset[j].move != LEVEL_UP_MOVE_END)
                 return TRUE;
         }
 
@@ -12329,7 +12329,7 @@ u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
     {
         u16 moveLevel;
 
-        if (learnset[i].move == LEVEL_UP_END)
+        if (learnset[i].move == LEVEL_UP_MOVE_END)
             break;
 
         moveLevel = learnset[i].level;
@@ -12371,7 +12371,7 @@ u8 GetLevelUpMovesBySpecies(u16 species, u16 *moves)
     const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
     int i;
 
-    for (i = 0; i < MAX_LEVEL_UP_MOVES && learnset[i].move != LEVEL_UP_END; i++) //20 again, 
+    for (i = 0; i < MAX_LEVEL_UP_MOVES && learnset[i].move != LEVEL_UP_MOVE_END; i++) //20 again, 
          moves[numMoves++] = learnset[i].move;
 
      return numMoves;
@@ -12405,7 +12405,7 @@ u8 GetNumberOfRelearnableMoves(struct Pokemon *mon)
         u16 moveLevel;
 
         //end loop at end of learnset
-        if (learnset[i].move == LEVEL_UP_END)
+        if (learnset[i].move == LEVEL_UP_MOVE_END)
             break;
 
         moveLevel = learnset[i].level;

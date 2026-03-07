@@ -1,8 +1,8 @@
 #define LEVEL_UP_MOVE(lvl, moveLearned) {.level = lvl, .move = moveLearned},
+#define LEVEL_UP_END {.move = LEVEL_UP_MOVE_END, .level = LEVEL_UP_MOVE_END}
 //((lvl << 9) | move)
-#define LEVEL_UP_MOVE_ID   0x01FF   //these 2 no longer used as not using bit logic, replalced with u16 struct
-#define LEVEL_UP_MOVE_LV   0xFE00
-#define LEVEL_UP_END       0xFFFF //will need to comb learnsets below chimecho for updates later
+
+//#define LEVEL_UP_END       0xFFFF //will need to comb learnsets below chimecho for updates later
 //EXPANDED MAX_LEVEL_UP_MOVES from 20 to 35   can learn more moves at lower intervals but with eventual move relearner also good to just add more level 1 moves
 // below normal ones
 //for evos
