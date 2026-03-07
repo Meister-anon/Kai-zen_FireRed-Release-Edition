@@ -1865,7 +1865,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ATK_PLUS_1,
             .self = TRUE,
-            .setfromatkcanceler = TRUE,
+            .preAttackEffect = TRUE,
         }),
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
@@ -4532,7 +4532,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_STATUS,
             .ignoresProtect = TRUE,
             .ignoresSubstitute = TRUE,
-            .argument = { .sacrificedHpPercentage = 50 }, //for ghost curse
             //.contestEffect = CONTEST_EFFECT_NEXT_APPEAL_LATER,
             //.contestCategory = CONTEST_CATEGORY_TOUGH,
             //.contestComboStarterId = COMBO_STARTER_CURSE,
@@ -4845,7 +4844,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_STATUS,
             .snatchAffected = TRUE,
             .ignoresProtect = TRUE,
-            .argument = { .sacrificedHpPercentage = 50 },
             //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
             //.contestCategory = CONTEST_CATEGORY_CUTE,
             //.contestComboStarterId = COMBO_STARTER_BELLY_DRUM,
@@ -6610,7 +6608,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Hail"),
         .description = COMPOUND_MOVE_STRING("Summons a hailstorm\nlasting five turns.\nDamaging Non-Ice mon\nslightly cuts Fire\nand slightly Ups Ice\ntype Defenses."),
-        .effect = EFFECT_HAIL,
+        .effect = EFFECT_WEATHER,
         .power = 0,
         .type = TYPE_ICE,
         .accuracy = 0,
@@ -6624,7 +6622,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_HAIL,
         //.contestComboMoves = {0},
-        .battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_SNOW) ? gBattleAnimMove_Snowscape : gBattleAnimMove_Hail,
+        .battleAnimScript = gBattleAnimMove_Hail,
     },
 
     [MOVE_TORMENT] =
@@ -17959,7 +17957,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Expanding Force"),
         .description = COMPOUND_MOVE_STRING("Power and target\nrange goes up\non Psychic Terrain."),
-        .effect = EFFECT_EXPANDING_FORCE,   //TODO  /done think need animation
+        .effect = EFFECT_TERRAIN_BOOST,   //TODO  /done think need animation
         .power = 80,
         .type = TYPE_PSYCHIC,
         .accuracy = 100,
@@ -17967,6 +17965,12 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
+        .argument.terrainBoost = {
+            .terrain = STATUS_FIELD_PSYCHIC_TERRAIN,
+            .percent = 50,
+            .groundCheck = GROUND_CHECK_USER,
+            .hitsBothFoes = TRUE,
+        },
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -18143,6 +18147,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
+        .argument.terrainBoost = {
+            .terrain = STATUS_FIELD_ELECTRIC_TERRAIN,
+            .percent = 100,
+            .groundCheck = GROUND_CHECK_TARGET,
+        },
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -19103,7 +19112,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FOCUS_ENERGY,
             .self = TRUE,
-            .setfromatkcanceler = TRUE,
+            .preAttackEffect = TRUE,
         },
         {
             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
@@ -19380,7 +19389,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Order Up"),
         .description = COMPOUND_MOVE_STRING("Boosts the user's\nstats depending on\nTatsugiri's form."),
-        .effect = EFFECT_ORDER_UP,    //Todo // EFFECT_ORDER_UP  //boost certain stat based on form of tatsugiri it targets
+        .effect = EFFECT_HIT,    //Todo // EFFECT_ORDER_UP  //boost certain stat based on form of tatsugiri it targets
         .power = 80,
         .type = TYPE_DRAGON,
         .accuracy = 100,
@@ -19645,7 +19654,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .snatchAffected = TRUE,
         .ignoresProtect = TRUE,
         .metronomeBanned = TRUE,
-        .argument = { .sacrificedHpPercentage = 50 },
         .battleAnimScript = gBattleAnimMove_FilletAway,
         // Supposedly uncallable by Metronome (unimplemented)
     },
@@ -19929,8 +19937,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_TRAP_BOTH,
         }),*/
-        .argument = { .weatherType = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_HAIL) ? BATTLE_WEATHER_HAIL : BATTLE_WEATHER_SNOW },
-        .battleAnimScript = (B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_HAIL) ? gBattleAnimMove_Hail : gBattleAnimMove_Snowscape,
+        .argument = { .weatherType = BATTLE_WEATHER_SNOW },
+        .battleAnimScript = gBattleAnimMove_SnowEscape,
         // Currently an exact copy of Hail until we figure out what to do with it
     },//look at MOVE_EFFECT_TRAP_BOTH to get effect I want - vsonic
     //ok new idea, change to name icescape well might keep, as a pun for snow escape
@@ -21580,7 +21588,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_MOONDANCE,
         //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_MoonDance,
+        .battleAnimScript = gBattleAnimMove_Moondance,
     },
     //EFFECT_MOONDANCE //intentional spelling don't add space
 
@@ -21684,9 +21692,9 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = COMBO_STARTER_HAIL,
         //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_Snowscape
+        .battleAnimScript = gBattleAnimMove_SnowEscape
     },
-
+    //eventually make own anim
 
     [MOVE_FOG_HORN] =
     {

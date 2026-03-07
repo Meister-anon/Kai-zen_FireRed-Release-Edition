@@ -843,7 +843,7 @@ extern const u8 gBattleAnimMove_PlasmaRailgun[];
 extern const u8 gBattleAnimMove_BoltBeam[];
 extern const u8 gBattleAnimMove_Backstab[];
 extern const u8 gBattleAnimMove_Pounce[];
-extern const u8 gBattleAnimMove_Cheapshot[];
+extern const u8 gBattleAnimMove_CheapShot[];
 extern const u8 gBattleAnimMove_TrenchRun[];
 extern const u8 gBattleAnimMove_ArcticRake[];
 extern const u8 gBattleAnimMove_Monotype[];

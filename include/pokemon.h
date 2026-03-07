@@ -1465,7 +1465,6 @@ u32 GetMonFriendshipScore(struct Pokemon *pokemon);
 u32 GetMonAffectionHearts(struct Pokemon *pokemon);
 void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality);
 u8 CalculatePartyCount(struct Pokemon *party);
-u16 SanitizeSpeciesId(u16 species);
 bool32 IsSpeciesEnabled(u16 species);
 //u16 GetSpeciesPreEvolution(u16 species); check later unsure if will switch from my version
 void HealPokemon(struct Pokemon *mon);
