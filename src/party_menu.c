@@ -6743,6 +6743,26 @@ static void DeleteInvalidFusionMoves(struct Pokemon *mon, u32 species)
     }
 }
 
+#define FUSE_MON        1
+#define UNFUSE_MON      2
+#define SECOND_FUSE_MON 3
+
+#define tState          data[0]
+#define tTargetSpecies  data[1]
+#define tAnimWait       data[2]
+#define tNextFunc       3
+
+#define fusionType           data[6]
+#define firstFusion          data[7]
+#define firstFusionSlot      data[8]
+#define fusionResult         data[9]
+#define secondFusionSlot     data[10]
+#define unfuseSecondMon      data[11]
+#define moveToLearn          data[12]
+#define tExtraMoveHandling   data[13]
+#define forgetMove           data[14]
+#define storageIndex         data[15]
+
 #if P_FUSION_FORMS
 static void SwapFusionMonMoves(struct Pokemon *mon, const u16 moveTable[][2], u32 mode)
 {
@@ -7240,7 +7260,7 @@ void ItemUseCB_ZygardeCube(u8 taskId, TaskFunc task)
     DisplaySelectionWindow(SELECTWINDOW_ZYGARDECUBE);
     gTasks[taskId].data[0] = 0xFF;
     gTasks[taskId].func = Task_HandleSelectionMenuInput;
-}*/
+}
 
 static void CursorCb_ChangeForm(u8 taskId)
 {
@@ -7264,7 +7284,7 @@ void TryItemHoldFormChange(struct Pokemon *mon, s8 slotId)
         CreatePartyMonIconSpriteParameterized(species, GetMonData(mon, MON_DATA_PERSONALITY), FALSE, &sPartyMenuBoxes[slotId], 1);
         UpdatePartyMonHeldItemSprite(mon, &sPartyMenuBoxes[slotId]);
     }
-}
+}*/
 
 #undef tState
 #undef tTargetSpecies
