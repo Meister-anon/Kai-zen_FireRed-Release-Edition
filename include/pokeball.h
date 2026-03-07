@@ -16,7 +16,7 @@ extern const struct SpriteTemplate gBallSpriteTemplates[];
 u8 DoPokeballSendOutAnimation(enum BattlerId battler, s16 pan, u8 kindOfThrow);
 void CreatePokeballSpriteToReleaseMon(u8 monSpriteId, u8 monPalNum, u8 x, u8 y, u8 oamPriority, u8 subpriortiy, u8 delay, u32 fadePalettes);
 u8 CreateTradePokeballSprite(u8 monSpriteId, u8 monPalNum, u8 x, u8 y, u8 oamPriority, u8 subPriority, u8 delay, u32 fadePalettes);
-void DoHitAnimHealthboxEffect(u8 bank);
+void DoHitAnimHealthboxEffect(enum BattlerId battlerId);
 void LoadBallGfx(u8 ballId);
 void FreeBallGfx(u8 ballId);
 void StartHealthboxSlideIn(enum BattlerId battler);

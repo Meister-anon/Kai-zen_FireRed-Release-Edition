@@ -1023,24 +1023,28 @@ static u8 LaunchBallFadeMonTaskForPokeball(bool8 unFadeLater, enum BattlerId bat
 #define sTrigIdx     data[7]
 
 // Pokeball in Oak intro, and when receiving via trade
-void CreatePokeballSpriteToReleaseMon(u8 monSpriteId, enum BattlerId battlerId, u8 x, u8 y, u8 oamPriority, u8 subpriortiy, u8 g, u32 h)
+void CreatePokeballSpriteToReleaseMon(u8 monSpriteId, u8 monPalNum, u8 x, u8 y, u8 oamPriority, u8 subpriortiy, u8 delay, u32 fadePalettes)
 {
     u8 spriteId;
 
-    LoadCompressedSpriteSheetUsingHeap(&gBallSpriteSheets[0]);
-    LoadSpritePalette(&gBallSpritePalettes[0]);
-    spriteId = CreateSprite(&gBallSpriteTemplates[0], x, y, subpriortiy);
-    gSprites[spriteId].data[0] = monSpriteId;
-    gSprites[spriteId].data[5] = gSprites[monSpriteId].x;
-    gSprites[spriteId].data[6] = gSprites[monSpriteId].y;
+    LoadCompressedSpriteSheetUsingHeap(&gBallSpriteSheets[BALL_POKE]);
+    LoadSpritePalette(&gBallSpritePalettes[BALL_POKE]);
+    spriteId = CreateSprite(&gBallSpriteTemplates[BALL_POKE], x, y, subpriortiy);
+
+    gSprites[spriteId].sMonSpriteId = monSpriteId;
+    gSprites[spriteId].sFinalMonX = gSprites[monSpriteId].x;
+    gSprites[spriteId].sFinalMonY = gSprites[monSpriteId].y;
+
     gSprites[monSpriteId].x = x;
     gSprites[monSpriteId].y = y;
-    gSprites[spriteId].data[1] = g;
-    gSprites[spriteId].data[2] = battlerId;
-    gSprites[spriteId].data[3] = h;
-    gSprites[spriteId].data[4] = h >> 0x10;
+
+    gSprites[spriteId].sDelay = delay;
+    gSprites[spriteId].sMonPalNum = monPalNum;
+    gSprites[spriteId].sFadePalsLo = fadePalettes;
+    gSprites[spriteId].sFadePalsHi = fadePalettes >> 16;
     gSprites[spriteId].oam.priority = oamPriority;
     gSprites[spriteId].callback = SpriteCB_PokeballReleaseMon;
+
     gSprites[monSpriteId].invisible = TRUE;
 }
 
@@ -1122,18 +1126,18 @@ static void SpriteCB_ReleasedMonFlyOut(struct Sprite *sprite)
 
 #define sTimer       data[5]
 
-u8 CreateTradePokeballSprite(u8 a, u8 b, u8 x, u8 y, u8 oamPriority, u8 subPriority, u8 g, u32 h)
+u8 CreateTradePokeballSprite(u8 monSpriteId, u8 monPalNum, u8 x, u8 y, u8 oamPriority, u8 subPriority, u8 delay, u32 fadePalettes)
 {
     u8 spriteId;
 
-    LoadCompressedSpriteSheetUsingHeap(&gBallSpriteSheets[0]);
-    LoadSpritePalette(&gBallSpritePalettes[0]);
-    spriteId = CreateSprite(&gBallSpriteTemplates[0], x, y, subPriority);
-    gSprites[spriteId].data[0] = a;
-    gSprites[spriteId].data[1] = g;
-    gSprites[spriteId].data[2] = b;
-    gSprites[spriteId].data[3] = h;
-    gSprites[spriteId].data[4] = h >> 16;
+    LoadCompressedSpriteSheetUsingHeap(&gBallSpriteSheets[BALL_POKE]);
+    LoadSpritePalette(&gBallSpritePalettes[BALL_POKE]);
+    spriteId = CreateSprite(&gBallSpriteTemplates[BALL_POKE], x, y, subPriority);
+    gSprites[spriteId].sMonSpriteId = monSpriteId;
+    gSprites[spriteId].sDelay = delay;
+    gSprites[spriteId].sMonPalNum = monPalNum;
+    gSprites[spriteId].sFadePalsLo = fadePalettes;
+    gSprites[spriteId].sFadePalsHi = fadePalettes >> 16;
     gSprites[spriteId].oam.priority = oamPriority;
     gSprites[spriteId].callback = SpriteCB_TradePokeball;
     return spriteId;
