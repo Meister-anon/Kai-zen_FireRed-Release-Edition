@@ -14042,7 +14042,9 @@ struct BoxPokemon *GetSelectedBoxMonFromPcOrParty(void)
 //handle later after battle issues resolved
 //vsonic important
 
-u32 GiveScriptedMonToPlayer(struct Pokemon *mon, u8 slot)
+//believe don't need this already has equivalent w custom logic
+//in script_pokemon_util
+/*u32 GiveScriptedMonToPlayer(struct Pokemon *mon, u8 slot)
 {
     u32 sentToPc;
     u32 i = 0;
@@ -14075,6 +14077,5 @@ u32 GiveScriptedMonToPlayer(struct Pokemon *mon, u8 slot)
         HandleSetPokedexFlagFromMon(mon, FLAG_SET_CAUGHT);
     }
     return sentToPc;
-}
-
+}*/
 

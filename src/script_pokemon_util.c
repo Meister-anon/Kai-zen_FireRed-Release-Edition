@@ -95,12 +95,14 @@ u16 GetAveragePlayerPartyLevel(void) //ok so issue seems to be assingment, I gue
     
 }
 
-u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 unused3) //only thing worried about is possibility to upset caught mon,
+u8 ScriptGiveMon(u16 species, u8 level, enum Item item) //only thing worried about is possibility to upset caught mon,
 {
     u16 nationalDexNum;
     int sentToPc;
     u8 heldItem[2];
-    struct Pokemon *mon = AllocZeroed(sizeof(struct Pokemon));
+    struct Pokemon mon;
+    //believe don't need alloc EE func doesn't use it
+    //struct Pokemon *mon = AllocZeroed(sizeof(struct Pokemon));
 
     if (level != 5) 
         level = GetAveragePlayerPartyLevel(); //hopefully works /works testing, for issue with catching generated mon
@@ -120,11 +122,11 @@ u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 u
     //but if it looped the first time,  and then landed on on of the banned species
     //it wouldn't be able to reloop and just lock, fixed by putting conditional outside
 
-    CreateMon(mon, species, level, 32, 0, 0, OT_ID_PLAYER_ID, 0);
+    CreateMon(&mon, species, level, 32, FALSE, FALSE, OT_ID_PLAYER_ID, FALSE);
     heldItem[0] = item;
     heldItem[1] = item >> 8;
-    SetMonData(mon, MON_DATA_HELD_ITEM, heldItem);
-    sentToPc = GiveMonToPlayer(mon);  //catching mon seems to work without issue,  yup no issues
+    SetMonData(&mon, MON_DATA_HELD_ITEM, heldItem);
+    sentToPc = GiveMonToPlayer(&mon);  //catching mon seems to work without issue,  yup no issues
     nationalDexNum = SpeciesToNationalPokedexNum(species);
 
     switch(sentToPc)
@@ -146,17 +148,18 @@ u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 u
         break;
     }
 
-    Free(mon);
+    //Free(mon);
     return sentToPc;
 }
 
 //original script without scaling use for testing - for more test set to give random mon at lvl
-u8 ScriptGiveMon2(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 unused3) //only thing worried about is possibility to upset caught mon,
+u8 ScriptGiveMon2(u16 species, u8 level, enum Item item) //only thing worried about is possibility to upset caught mon,
 {
     u16 nationalDexNum;
     int sentToPc;
     u8 heldItem[2];
-    struct Pokemon *mon = AllocZeroed(sizeof(struct Pokemon));
+    struct Pokemon mon;
+    //struct Pokemon *mon = AllocZeroed(sizeof(struct Pokemon));
 
     if (species == SPECIES_NONE)
     {
@@ -174,11 +177,11 @@ u8 ScriptGiveMon2(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 
     //if (species == SPECIES_NONE)
     //    species = Random() % (NUM_SPECIES - 2); //to exclude undefined new megas
 
-    CreateMon(mon, species, level, 32, 0, 0, OT_ID_PLAYER_ID, 0);
+    CreateMon(&mon, species, level, 32, FALSE, FALSE, OT_ID_PLAYER_ID, FALSE);
     heldItem[0] = item;
     heldItem[1] = item >> 8;
-    SetMonData(mon, MON_DATA_HELD_ITEM, heldItem);
-    sentToPc = GiveMonToPlayer(mon);  //catching mon seems to work without issue,  yup no issues
+    SetMonData(&mon, MON_DATA_HELD_ITEM, heldItem);
+    sentToPc = GiveMonToPlayer(&mon);  //catching mon seems to work without issue,  yup no issues
     nationalDexNum = SpeciesToNationalPokedexNum(species);
 
     switch(sentToPc)
@@ -200,7 +203,7 @@ u8 ScriptGiveMon2(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 
         break;
     }
 
-    Free(mon);
+    //Free(mon);
     return sentToPc;
 }
 
@@ -263,7 +266,7 @@ void CreateScriptedWildMon(u16 species, u8 level, u16 item)
     u8 heldItem[2];
 
     ZeroEnemyPartyMons();
-    CreateMon(&gEnemyParty[0], species, level, USE_RANDOM_IVS, 0, 0, OT_ID_PLAYER_ID, 0);
+    CreateMon(&gEnemyParty[0], species, level, USE_RANDOM_IVS, FALSE, FALSE, OT_ID_PLAYER_ID, FALSE);
     if (item)
     {
         heldItem[0] = item;
@@ -327,6 +330,7 @@ static void CB2_ReturnFromChooseBattleTowerParty(void)
     SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
 }
 
+//vsonic could be useful if I do the restrict party size idea
 void ReducePlayerPartyToThree(void)
 {
     struct Pokemon * party = AllocZeroed(3 * sizeof(struct Pokemon));
@@ -347,7 +351,7 @@ void ReducePlayerPartyToThree(void)
     Free(party);
 }
 
-void CanHyperTrain(struct ScriptContext *ctx)
+/*void CanHyperTrain(struct ScriptContext *ctx)
 {
     u32 stat = ScriptReadByte(ctx);
     u32 partyIndex = VarGet(ScriptReadHalfword(ctx));
@@ -399,7 +403,7 @@ void HyperTrain(struct ScriptContext *ctx)
     bool32 data = TRUE;
     SetMonData(&gPlayerParty[partyIndex], MON_DATA_HYPER_TRAINED_HP + stat, &data);
     CalculateMonStats(&gPlayerParty[partyIndex]);
-}
+}*/
 
 void HasGigantamaxFactor(struct ScriptContext *ctx)
 {
@@ -462,7 +466,7 @@ void SetTeraType(struct ScriptContext *ctx)
  * if side/slot are assigned, it will create the mon at the assigned party location
  * if slot == PARTY_SIZE, it will give the mon to first available party or storage slot
  */
-static u32 ScriptGiveMonParameterized(u8 side, u8 slot, u16 species, u8 level, enum Item item, enum PokeBall ball, u8 nature, u8 abilityNum, u8 gender, u16 *evs, u16 *ivs, enum Move *moves, enum ShinyMode shinyMode, bool8 gmaxFactor, enum Type teraType, u8 dmaxLevel)
+/*static u32 ScriptGiveMonParameterized(u8 side, u8 slot, u16 species, u8 level, enum Item item, enum PokeBall ball, u8 nature, u8 abilityNum, u8 gender, u16 *evs, u16 *ivs, enum Move *moves, enum ShinyMode shinyMode, bool8 gmaxFactor, enum Type teraType, u8 dmaxLevel)
 {
     struct Pokemon mon;
     u32 i;
@@ -575,7 +579,7 @@ u32 ScriptGiveMon(u16 species, u8 level, enum Item item)
     }
 
     return GiveScriptedMonToPlayer(&mon, PARTY_SIZE);
-}
+}*/
 
 #define PARSE_FLAG(n, default_) (flags & (1 << (n))) ? VarGet(ScriptReadHalfword(ctx)) : (default_)
 
@@ -597,7 +601,7 @@ u32 ScriptGiveMon(u16 species, u8 level, enum Item item)
  */
 
 
-void ScrCmd_createmon(struct ScriptContext *ctx)
+/*void ScrCmd_createmon(struct ScriptContext *ctx)
 {
     u8 side           = ScriptReadByte(ctx);
     u8 slot           = ScriptReadByte(ctx);
@@ -699,7 +703,7 @@ void ScrCmd_createmon(struct ScriptContext *ctx)
         nature = GetSynchronizedNature(origin, species);
 
     gSpecialVar_Result = ScriptGiveMonParameterized(side, slot, species, level, item, ball, nature, abilityNum, gender, evs, ivs, moves, shinyMode, gmaxFactor, teraType, dmaxLevel);
-}
+}*/
 
 #undef PARSE_FLAG
 

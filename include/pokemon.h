@@ -1484,8 +1484,8 @@ u8 *GetSavedPlayerPartyCount(void);
 void SavePlayerPartyMon(u32 index, struct Pokemon *mon);
 bool32 IsSpeciesOfType(u32 species, enum Type type);
 struct BoxPokemon *GetSelectedBoxMonFromPcOrParty(void);
-u32 GiveScriptedMonToPlayer(struct Pokemon *mon, u8 slot);
-void ChangePokemonNicknameWithCallback(void (*callback)(void));
+//u32 GiveScriptedMonToPlayer(struct Pokemon *mon, u8 slot);
+//void ChangePokemonNicknameWithCallback(void (*callback)(void));
 
 const struct FormChange *GetSpeciesFormChanges(u16 species);
 

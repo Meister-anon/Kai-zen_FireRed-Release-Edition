@@ -1919,12 +1919,9 @@ bool8 ScrCmd_givemon(struct ScriptContext * ctx)
 {
     u16 species = VarGet(ScriptReadHalfword(ctx));
     u8 level = ScriptReadByte(ctx);
-    u16 item = VarGet(ScriptReadHalfword(ctx));
-    u32 unkParam1 = ScriptReadWord(ctx);
-    u32 unkParam2 = ScriptReadWord(ctx);
-    u8 unkParam3 = ScriptReadByte(ctx);
+    enum Item item = VarGet(ScriptReadHalfword(ctx));
 
-    gSpecialVar_Result = ScriptGiveMon(species, level, item, unkParam1, unkParam2, unkParam3);
+    gSpecialVar_Result = ScriptGiveMon(species, level, item);
     return FALSE;
 }
 
@@ -1934,12 +1931,9 @@ bool8 ScrCmd_givemon2(struct ScriptContext * ctx)
 {
     u16 species = VarGet(ScriptReadHalfword(ctx));
     u8 level = ScriptReadByte(ctx);
-    u16 item = VarGet(ScriptReadHalfword(ctx));
-    u32 unkParam1 = ScriptReadWord(ctx);
-    u32 unkParam2 = ScriptReadWord(ctx);
-    u8 unkParam3 = ScriptReadByte(ctx);
+    enum Item item = VarGet(ScriptReadHalfword(ctx));
 
-    gSpecialVar_Result = ScriptGiveMon2(species, level, item, unkParam1, unkParam2, unkParam3);
+    gSpecialVar_Result = ScriptGiveMon2(species, level, item);
     return FALSE;
 }
 
@@ -1951,13 +1945,10 @@ bool8 ScrCmd_givegroup(struct ScriptContext * ctx)
 
     u16 species = 0;
     u8 level = 0;
-    u16 item = 0;
-    u32 unkParam1 = 0;
-    u32 unkParam2 = 0;
-    u8 unkParam3 = 0;
+    enum Item item = 0;
 
     for (i = 0; i < loops; i++)
-        gSpecialVar_Result = ScriptGiveMon(species, level, item, unkParam1, unkParam2, unkParam3);
+        gSpecialVar_Result = ScriptGiveMon(species, level, item);
     
     return FALSE;
 }
