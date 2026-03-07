@@ -1,5 +1,6 @@
 #include "global.h"
 #include "gflib.h"
+#include "data.h"
 #include "event_data.h"
 #include "field_fadetransition.h"
 #include "field_weather.h"

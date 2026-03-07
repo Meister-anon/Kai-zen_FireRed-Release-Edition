@@ -9,11 +9,11 @@
 
 struct QuestLogStruct_TrainerBattleRecord
 {
-    u16 v0;
-    u16 v2;
-    u16 v4;
-    u8 v6;
-    u8 v7;
+    u16 trainerId;
+    u16 speciesOpponent;
+    u16 speciesPlayer;
+    u8 hpFractionId;
+    u8 mapSec;
 };
 
 struct QuestLogStruct_WildBattleRecord
@@ -52,32 +52,33 @@ void TrySetQuestLogBattleEvent(void)
                 eventId = QL_EVENT_DEFEATED_TRAINER;
                 break;
             }
-            questLogTrainerBattleRecord->v0 = TRAINER_BATTLE_PARAM.opponentA;
+            questLogTrainerBattleRecord->trainerId = TRAINER_BATTLE_PARAM.opponentA;
             if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
             {
-                questLogTrainerBattleRecord->v2 = gBattleResults.lastOpponentSpecies;
-                if (GetBattlerSide(gBattleStruct->field_182) == B_SIDE_PLAYER)
-                    questLogTrainerBattleRecord->v4 = gBattleMons[gBattleStruct->field_182].species;
+                questLogTrainerBattleRecord->speciesOpponent = gBattleResults.lastOpponentSpecies;
+                // Decide which of the pokemon on the player's side to mention as the victor
+                if (GetBattlerSide(gBattleStruct->lastAttackerToFaintOpponent) == B_SIDE_PLAYER)
+                    questLogTrainerBattleRecord->speciesPlayer = gBattleMons[gBattleStruct->lastAttackerToFaintOpponent].species;
                 else if (gBattleMons[GetBattlerAtPosition(0)].hp != 0)
-                    questLogTrainerBattleRecord->v4 = gBattleMons[GetBattlerAtPosition(0)].species;
+                    questLogTrainerBattleRecord->speciesPlayer = gBattleMons[GetBattlerAtPosition(0)].species;
                 else
-                    questLogTrainerBattleRecord->v4 = gBattleMons[GetBattlerAtPosition(2)].species;
+                    questLogTrainerBattleRecord->speciesPlayer = gBattleMons[GetBattlerAtPosition(2)].species;
                 playerEndingHP = gBattleMons[GetBattlerAtPosition(0)].hp + gBattleMons[GetBattlerAtPosition(2)].hp;
                 playerMaxHP = gBattleMons[GetBattlerAtPosition(0)].maxHP + gBattleMons[GetBattlerAtPosition(2)].maxHP;
             }
             else
             {
-                questLogTrainerBattleRecord->v2 = gBattleResults.lastOpponentSpecies;
-                questLogTrainerBattleRecord->v4 = gBattleMons[GetBattlerAtPosition(0)].species;
+                questLogTrainerBattleRecord->speciesOpponent = gBattleResults.lastOpponentSpecies;
+                questLogTrainerBattleRecord->speciesPlayer = gBattleMons[GetBattlerAtPosition(0)].species;
                 playerEndingHP = gBattleMons[GetBattlerAtPosition(0)].hp;
                 playerMaxHP = gBattleMons[GetBattlerAtPosition(0)].maxHP;
             }
-            questLogTrainerBattleRecord->v7 = GetCurrentRegionMapSectionId();
-            questLogTrainerBattleRecord->v6 = 0;
+            questLogTrainerBattleRecord->mapSec = GetCurrentRegionMapSectionId();
+            questLogTrainerBattleRecord->hpFractionId = 0;
             if (playerEndingHP < playerMaxHP / 3 * 2)
-                questLogTrainerBattleRecord->v6 = 1;
+                questLogTrainerBattleRecord->hpFractionId = 1;
             if (playerEndingHP < playerMaxHP / 3)
-                questLogTrainerBattleRecord->v6++;
+                questLogTrainerBattleRecord->hpFractionId++;
             SetQuestLogEvent(eventId, (const u16 *)questLogTrainerBattleRecord);
         }
         else

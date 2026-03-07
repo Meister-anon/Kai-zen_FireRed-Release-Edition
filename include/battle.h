@@ -926,7 +926,7 @@ struct EventStates
     u16 tracedAbility[MAX_BATTLERS_COUNT]; //didn't really need to port, but prob can use it to show current ability in menu summary screen //important
     u16 hpBefore[MAX_BATTLERS_COUNT]; // Hp of battlers before using a move. For Berserk
     bool8 spriteIgnore0Hp;//vsonic look into
-    u8 field_182; //look into this
+    u8 lastAttackerToFaintOpponent; //look into this
     u8 quickClawBattlerId;
     struct RemovedItem itemLost[NUM_BATTLE_SIDES][PARTY_SIZE];  // Player's team that had items stolen (two bytes per party member)
     u8 blunderPolicy : 1; // should blunder policy activate
@@ -1072,6 +1072,7 @@ struct BattleStruct
     //unsure bout this
     const u8 *trainerSlideMsg;
     u8 stolenStats[NUM_BATTLE_STATS]; // hp byte is used for which stats to raise, other inform about by how many stages
+    u8 lastAttackerToFaintOpponent; //pret updated this, needed for quest log, had add back is not in same place hopefully not an issue, vsonic important
     enum Ability tracedAbility[MAX_BATTLERS_COUNT];
     struct Illusion illusion[MAX_BATTLERS_COUNT];
     enum BattlerId soulheartBattlerId;
