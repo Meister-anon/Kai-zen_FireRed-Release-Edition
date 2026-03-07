@@ -2609,7 +2609,7 @@ void CB2_OpenDexPageFromPCSummScreen(void)
 
     //this part is the problem, gplayerparty not right to use
     //works for loading species, but returning to party menu doesn't work
-    sPokedexScreenData->dexSpecies = GetMonData(GetBoxedMonPtr(StorageGetCurrentBox(), GetLastViewedMonIndex()),MON_DATA_SPECIES);
+    sPokedexScreenData->dexSpecies = GetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), GetLastViewedMonIndex()),MON_DATA_SPECIES);
     DexScreen_LookUpCategoryBySpecies(sPokedexScreenData->dexSpecies);
     gTasks[sPokedexScreenData->taskId].func = Task_DexScreen_DexPageFromPCSummaryScreen; //again putting here below lookup just in case order matered
     

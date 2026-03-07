@@ -4380,7 +4380,7 @@ static void DoBattleIntro(void)
                 gBattleMons[battler].type1 = GetSpeciesType(gBattleMons[battler].species, PRIMARY_TYPE);
                 gBattleMons[battler].type2 = GetSpeciesType(gBattleMons[battler].species, SECONDARY_TYPE);
                 gBattleMons[battler].type3 = TYPE_MYSTERY;
-                gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum, GetBattlerMon(battler));
+                gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum, GetBattlerBoxMon(battler));
                 gBattleStruct->battlerState[battler].hpOnSwitchout = gBattleMons[battler].hp;
                 memset(&gBattleMons[battler].volatiles, 0, sizeof(struct Volatiles));
                 for (i = 0; i < NUM_BATTLE_STATS; i++)

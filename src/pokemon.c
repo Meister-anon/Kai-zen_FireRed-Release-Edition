@@ -8326,11 +8326,11 @@ u8 GetMonsStateToDoubles_2(void)
 //so unless I add a function to evo to reset ability (which I will/should)
 //it would just keep the same set ability since the field itself wouldn't change
 //hmm think simplest thing for me is to just turn it off when I evolve, i.e set back to 0
-u16 GetAbilityBySpecies(u16 species, u8 abilityNum, struct Pokemon *mon) 
+u16 GetAbilityBySpecies(u16 species, u8 abilityNum, struct BoxPokemon *boxMon) 
 {
 
     u8 i;
-    u16 LearnedAbility = GetMonData(mon, MON_DATA_LEARNED_ABILITY_ID);
+    u16 LearnedAbility = GetBoxMonData(boxMon, MON_DATA_LEARNED_ABILITY_ID);
 
     switch (abilityNum)
     {
@@ -8376,7 +8376,7 @@ u16 GetAbilityBySpecies(u16 species, u8 abilityNum, struct Pokemon *mon)
     //will be value  ability_none, or state is false.  for evo just do reset to 0
     //hmm actually to avoid confusion do both make function that does so
     //turn off taught ability or resettaughtabilitystate
-    if (ShouldUseTaughtAbility(mon))
+    if (ShouldUseTaughtAbility(boxMon))
         gLastUsedAbility = LearnedAbility;
 
         return gLastUsedAbility;
@@ -8388,14 +8388,14 @@ u16 GetMonAbility(struct Pokemon *mon)
 {
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
     u8 abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM);
-    return GetAbilityBySpecies(species, abilityNum, mon);
+    return GetAbilityBySpecies(species, abilityNum, &mon->box);
 }
 
-u32 ShouldUseTaughtAbility(struct Pokemon *mon)
+u32 ShouldUseTaughtAbility(struct BoxPokemon *boxMon)
 {
-    u16 LearnedAbility = GetMonData(mon, MON_DATA_LEARNED_ABILITY_ID);
+    u16 LearnedAbility = GetBoxMonData(boxMon, MON_DATA_LEARNED_ABILITY_ID);
 
-    if (LearnedAbility != ABILITY_NONE && GetMonData(mon, MON_DATA_USE_TAUGHT_ABILITY) == TRUE)
+    if (LearnedAbility != ABILITY_NONE && GetBoxMonData(boxMon, MON_DATA_USE_TAUGHT_ABILITY) == TRUE)
         return TRUE;
     return FALSE;
 }
@@ -8685,7 +8685,7 @@ void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst)
     dst->type1 = gSpeciesInfo[dst->species].type1;
     dst->type2 = gSpeciesInfo[dst->species].type2;
     dst->type3 = TYPE_MYSTERY;
-    dst->ability = GetAbilityBySpecies(dst->species, dst->abilityNum, src); //has mon access from above tho still this funciton isn't used
+    dst->ability = GetAbilityBySpecies(dst->species, dst->abilityNum, &src->box); //has mon access from above tho still this funciton isn't used
     GetMonData(src, MON_DATA_NICKNAME, nickname);
     StringCopy_Nickname(dst->nickname, nickname);
     GetMonData(src, MON_DATA_OT_NAME, dst->otName);
@@ -8736,7 +8736,7 @@ static void CopyPlayerPartyMonToBattleData(enum BattlerId battlerId, u8 partyInd
     gBattleMons[battlerId].otId = GetMonData(&gPlayerParty[partyIndex], MON_DATA_OT_ID);
     gBattleMons[battlerId].type1 = gSpeciesInfo[gBattleMons[battlerId].species].type1;
     gBattleMons[battlerId].type2 = gSpeciesInfo[gBattleMons[battlerId].species].type2;
-    gBattleMons[battlerId].ability = GetAbilityBySpecies(gBattleMons[battlerId].species, gBattleMons[battlerId].abilityNum, &gPlayerParty[partyIndex]); //has mon access from sabove
+    gBattleMons[battlerId].ability = GetAbilityBySpecies(gBattleMons[battlerId].species, gBattleMons[battlerId].abilityNum, &gPlayerParty[partyIndex].box); //has mon access from sabove
     GetMonData(&gPlayerParty[partyIndex], MON_DATA_NICKNAME, nickname);
     StringCopy_Nickname(gBattleMons[battlerId].nickname, nickname);
     GetMonData(&gPlayerParty[partyIndex], MON_DATA_OT_NAME, gBattleMons[battlerId].otName);
@@ -13216,7 +13216,7 @@ u32 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, enum FormChanges
         .method = method,
         .currentSpecies = species,
         .heldItem = GetBoxMonData(boxMon, MON_DATA_HELD_ITEM),
-        .ability = GetAbilityBySpecies(species, GetBoxMonData(boxMon, MON_DATA_ABILITY_NUM)),
+        .ability = GetAbilityBySpecies(species, GetBoxMonData(boxMon, MON_DATA_ABILITY_NUM), boxMon),
         .partyItemUsed = gSpecialVar_ItemId,
         .multichoiceSelection = gSpecialVar_Result,
         .status = GetBoxMonData(boxMon, MON_DATA_STATUS),
@@ -13225,6 +13225,7 @@ u32 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, enum FormChanges
     return GetFormChangeTargetSpecies_Internal(ctx);
 }
 
+//vsonic important remember how handles pointer for my own use
 // Returns the current species if no form change is possible
 u32 GetFormChangeTargetSpecies(struct Pokemon *mon, enum FormChanges method)
 {

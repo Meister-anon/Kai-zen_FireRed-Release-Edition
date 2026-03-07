@@ -1678,6 +1678,12 @@ static inline struct Pokemon* GetBattlerMon(enum BattlerId battler)
     return !IsOnPlayerSide(battler) ? &gEnemyParty[index] : &gPlayerParty[index];
 }
 
+static inline struct BoxPokemon* GetBattlerBoxMon(enum BattlerId battler)
+{
+    u32 index = gBattlerPartyIndexes[battler];
+    return !IsOnPlayerSide(battler) ? &gEnemyParty[index].box : &gPlayerParty[index].box;
+}
+
 
 static inline struct Pokemon *GetSideParty(u32 side)
 {

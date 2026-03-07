@@ -9,6 +9,7 @@
 #include "berry_pouch.h"
 #include "bike.h"
 #include "data.h"
+#include "debug.h"
 #include "daycare.h"
 #include "decompress.h"
 #include "easy_chat.h"
@@ -3760,7 +3761,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     u32 itemId;
     u16 species = GetMonData(&mons[slotId], MON_DATA_SPECIES_OR_EGG);
     u8 abilityNum = GetMonData(&mons[slotId], MON_DATA_ABILITY_NUM);
-    u16 ability = GetAbilityBySpecies(species, abilityNum, mons); //has acess to mon above
+    u16 ability = GetAbilityBySpecies(species, abilityNum, &mons->box); //has acess to mon above
     u8 *listsize = sPartyMenuInternal->actions;
             
 
@@ -5637,7 +5638,7 @@ void Task_AbilityCapsule(u8 taskId) //important seemed easy enough so ported now
     static const u8 doneText[] = _("{STR_VAR_1}'s ability became\n{STR_VAR_2}!{PAUSE_UNTIL_PRESS}");
     s16* data = gTasks[taskId].data;    //vsonic imporant this is how can define text without having to go to messages
     u8 abilityNum = GetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM);
-    u16 ability = GetAbilityBySpecies(tSpecies, abilityNum, &gPlayerParty[tMonId]);  //has access to mon above
+    u16 ability = Debug_GetAbilityBySpecies(tSpecies, abilityNum);  //not using yet, guess will be check for not same as ability already have
 
     switch (tState)//change how works, let it change current ability to any other abilities it has 
     {//make opena dialgoue displaying species abilities in order of slots and print to a box if not equal current ability
@@ -5660,7 +5661,7 @@ void Task_AbilityCapsule(u8 taskId) //important seemed easy enough so ported now
         }
         gPartyMenuUseExitCallback = TRUE;
         GetMonNickname(&gPlayerParty[tMonId], gStringVar1);
-        StringCopy(gStringVar2, gAbilitiesInfo[GetAbilityBySpecies(tSpecies, tAbilityNum, &gPlayerParty[tMonId])].name); //sme as top can get from above
+        StringCopy(gStringVar2, gAbilitiesInfo[Debug_GetAbilityBySpecies(tSpecies, tAbilityNum)].name); //sme as top can get from above
         StringExpandPlaceholders(gStringVar4, askText);
         PlaySE(SE_SELECT);
         DisplayPartyMenuMessage(gStringVar4, 1);

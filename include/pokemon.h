@@ -1159,10 +1159,10 @@ u8 CalculateEnemyPartyCount(void);
 u8 CalculateEnemyPartyCountInSide(enum BattlerId battler);
 u8 GetMonsStateToDoubles(void);
 u8 GetMonsStateToDoubles_2(void);
-u16 GetAbilityBySpecies(u16 species, bool8 abilityNum, struct Pokemon *mon); //change for taught abilities
+u16 GetAbilityBySpecies(u16 species, u8 abilityNum, struct BoxPokemon *boxMon); //change for taught abilities
 u16 GetMonAbility(struct Pokemon *mon);
-u32 ShouldUseTaughtAbility(struct Pokemon *mon);
-void ResetLearnedAbilityValues(struct Pokemon *mon);
+u32 ShouldUseTaughtAbility(struct BoxPokemon *boxMon);
+void ResetLearnedAbilityValues(struct Pokemon *mon); //this can stay as is not called from boxmon func
 bool32 IsMonType(struct Pokemon *mon, u8 type); //uses get mondata species to check mon type from base stats, not battle type,  used for field poison
 u8 GetSecretBaseTrainerPicIndex(void); //remove this later
 u8 GetSecretBaseTrainerNameIndex(void); //remove this later

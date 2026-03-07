@@ -5903,7 +5903,6 @@ static void Cmd_switchindataupdate(void)
 
     struct BattlePokemon oldData;
     enum BattlerId battler, i;
-    struct Pokemon *mon;
     u8 *monData;
 
     if (gBattleControllerExecFlags)
@@ -5912,7 +5911,6 @@ static void Cmd_switchindataupdate(void)
     battler = GetBattlerForBattleScript(cmd->battler);
     oldData = gBattleMons[battler];
     monData = (u8 *)(&gBattleMons[battler]);
-    mon = GetBattlerMon(battler);
 
     for (i = 0; i < sizeof(struct BattlePokemon); i++)
         monData[i] = gBattleResources->bufferB[battler][4 + i];
@@ -5929,7 +5927,7 @@ static void Cmd_switchindataupdate(void)
     gBattleMons[battler].type1 = GetSpeciesPrimaryType(gBattleMons[battler].species);
     gBattleMons[battler].type2 = GetSpeciesSecondaryType(gBattleMons[battler].species);
     gBattleMons[battler].type3 = TYPE_MYSTERY;
-    gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum, mon);
+    gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum, GetBattlerBoxMon(battler));
     #if TESTING
     if (gTestRunnerEnabled)
     {
@@ -10156,7 +10154,7 @@ static void Cmd_healpartystatus(void)
                 ability = GetBattlerAbility(partner);
             else
             {
-                ability = GetAbilityBySpecies(species, abilityNum, &party[i]);
+                ability = GetAbilityBySpecies(species, abilityNum, &party[i].box);
                 #if TESTING
                 if (gTestRunnerEnabled)
                 {
@@ -14116,7 +14114,7 @@ static void UpdatePokeFlutePartyStatus(struct Pokemon* party, u8 position)
         if (species != SPECIES_NONE
             && species != SPECIES_EGG
             && status & AILMENT_FNT
-            && GetAbilityBySpecies(species, abilityNum, &party[i]) != ABILITY_SOUNDPROOF)
+            && GetAbilityBySpecies(species, abilityNum, &party[i].box) != ABILITY_SOUNDPROOF)
             monToCheck |= (1 << i);
     }
     if (monToCheck)

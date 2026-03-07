@@ -1692,7 +1692,8 @@ static void DebugAction_Util_CheckROMSpace(u8 taskId)
     LockPlayerFieldControls();
     ScriptContext_SetupScript(Debug_CheckROMSpace);
 }
-static u16 Debug_GetAbilityBySpecies(u16 species, u8 abilityNum) 
+
+u16 Debug_GetAbilityBySpecies(u16 species, u8 abilityNum) 
 {
 
     u8 i;

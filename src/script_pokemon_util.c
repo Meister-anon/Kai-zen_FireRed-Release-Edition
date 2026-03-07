@@ -528,13 +528,13 @@ static u32 ScriptGiveMonParameterized(u8 side, u8 slot, u16 species, u8 level, e
     // ability
     if (abilityNum != NUM_ABILITY_PERSONALITY)
     {
-        assertf(abilityNum < NUM_ABILITY_SLOTS && GetAbilityBySpecies(species, abilityNum, &mon) != ABILITY_NONE,
+        assertf(abilityNum < NUM_ABILITY_SLOTS && GetAbilityBySpecies(species, abilityNum, &mon.box) != ABILITY_NONE,
                 "invalid ability num %d for species %d", abilityNum, species)
         {
             // If the ability num is invalid, we loop to find a valid one
             do {
                 abilityNum = Random() % NUM_ABILITY_SLOTS; // includes hidden abilities
-            } while (GetAbilityBySpecies(species, abilityNum, &mon) == ABILITY_NONE);
+            } while (GetAbilityBySpecies(species, abilityNum, &mon.box) == ABILITY_NONE);
         }
         SetMonData(&mon, MON_DATA_ABILITY_NUM, &abilityNum);
     }
