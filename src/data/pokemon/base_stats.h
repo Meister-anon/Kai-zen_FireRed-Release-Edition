@@ -23161,6 +23161,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     },//potentially give recycle to go w pickup/cheek pouch? vsonic
     //stat changes from woop, also give changes where it gets moves
     //draining kiss and parabolic charge may also give volt switch if it doesn't get it already
+    //think also give belch to go with cheek pouch buff
 
     [SPECIES_CARBINK] =
     {
@@ -28063,7 +28064,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         40,
         50
         ),
-        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FAIRY),
         .catchRate = 255,
         .expYield = 54,
         //.evYield_HP = 1,
@@ -28108,7 +28109,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         90,
         60
         ),
-        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_Speed = 2,
@@ -28129,6 +28130,17 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sBoltundTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //ise pure electric makes sense to be part normal,
+    //since is animal and most moves are normal
+    //would synergize mostly well with ball fetch as well
+    //boosting dmg on move returned
+    //would give ghost immunity helpful for shadow ball ghost counter
+    //but gives fairy fighting weakness
+    //both of which are common consider instead make fairy
+    //still good against ghost electric type covers steel weakness
+    //only leaves poison which is not especially common
+    //yeah think that's good, give type both forms
+    //as evo not different enough to imply type change
 
     [SPECIES_ROLYCOLY] =
     {

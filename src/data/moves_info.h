@@ -19389,7 +19389,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Order Up"),
         .description = COMPOUND_MOVE_STRING("Boosts the user's\nstats depending on\nTatsugiri's form."),
-        .effect = EFFECT_HIT,    //Todo // EFFECT_ORDER_UP  //boost certain stat based on form of tatsugiri it targets
+        .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_DRAGON,
         .accuracy = 100,
