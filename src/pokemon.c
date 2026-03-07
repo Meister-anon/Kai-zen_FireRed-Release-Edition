@@ -4613,7 +4613,7 @@ bool8 IsPhysicalMove(u32 attackerId, enum Move move)
     || ((move == MOVE_HIDDEN_POWER || move == MOVE_TRI_ATTACK) && attack > spAttack)
     || ((move == MOVE_HIDDEN_POWER || move == MOVE_TRI_ATTACK) && attack == spAttack && defense < spDefense) //works cuz hp is single target
     || move == MOVE_BARRAGE
-    || IS_MOVE_PHYSICAL(move))
+    || GetBattleMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL)
         return TRUE;
 
     return FALSE;
