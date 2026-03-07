@@ -6774,7 +6774,9 @@ static void SwapFusionMonMoves(struct Pokemon *mon, const u16 moveTable[][2], u3
 }
 #endif //P_FUSION_FORMS
 
-static void Task_TryItemUseFusionChange(u8 taskId)
+//luckily all in one spot commenting for now
+//to deal with later vsonic important
+/*static void Task_TryItemUseFusionChange(u8 taskId)
 {
     struct Pokemon *mon = &gPlayerParty[gTasks[taskId].firstFusionSlot];
     struct Sprite *icon = &gSprites[sPartyMenuBoxes[gTasks[taskId].firstFusionSlot].monSpriteId];
@@ -7238,7 +7240,7 @@ void ItemUseCB_ZygardeCube(u8 taskId, TaskFunc task)
     DisplaySelectionWindow(SELECTWINDOW_ZYGARDECUBE);
     gTasks[taskId].data[0] = 0xFF;
     gTasks[taskId].func = Task_HandleSelectionMenuInput;
-}
+}*/
 
 static void CursorCb_ChangeForm(u8 taskId)
 {
