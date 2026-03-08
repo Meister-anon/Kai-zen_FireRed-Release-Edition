@@ -283,8 +283,8 @@ COMMON_DATA u8 gParticipatedInBattle = 0;
 COMMON_DATA u8 gHealthboxSpriteIds[MAX_BATTLERS_COUNT] = {0};
 COMMON_DATA u8 gMultiUsePlayerCursor = 0;
 COMMON_DATA u8 gNumberOfMovesToChoose = 0;
-COMMON_DATA void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(enum BattlerId battler) = {0};
-COMMON_DATA u8 gBattleControllerData[MAX_BATTLERS_COUNT] = {0}; // Used by the battle controllers to store misc sprite/task IDs for each battler
+//COMMON_DATA void (*gBattlerControllerFuncs[MAX_BATTLERS_COUNT])(enum BattlerId battler) = {0};
+//COMMON_DATA u8 gBattleControllerData[MAX_BATTLERS_COUNT] = {0}; // Used by the battle controllers to store misc sprite/task IDs for each battler
 
 static const struct ScanlineEffectParams sIntroScanlineParams16Bit =
 {
