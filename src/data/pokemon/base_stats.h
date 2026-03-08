@@ -7968,9 +7968,9 @@ const struct SpeciesInfo gSpeciesInfo[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(120, 35, 110, 110, 130, 120),
-        MON_TYPES(TYPE_GRASS, TYPE_FAIRY), //...why the fuck did I make this fairy???
+        MON_TYPES(TYPE_FAIRY, TYPE_GRASS), //...why the fuck did I make this fairy???
         .catchRate = 45,
-        .expYield = 270,
+        .expYield = 270, //change type aroud since replacing psychic makes more unique as well only of its type
         //.evYield_HP = 3,
         .itemCommon = ITEM_LUM_BERRY,
         .itemRare = ITEM_LUM_BERRY,

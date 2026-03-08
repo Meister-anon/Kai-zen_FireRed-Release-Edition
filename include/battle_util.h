@@ -591,10 +591,12 @@ u8 ShouldAbilityAbsorb(u16 move); //ATTEMPT workaroud for absorb abilty/lightnin
 bool32 CanAbilityAbsorb(u8 MoveUser, u8 AbilityUser, u8 MoveType);
 bool32 DoesBattlerAbilityAbsorbMoveType(u8 moveTarget, u8 MoveType);
 u8 CanMovebeRedirected(void); //for adjusting absorb ability targetting
-bool8 IscurrentMonOnFieldAtPos(struct Pokemon *mon, u8 position); //check mon is field/well checks battler side not entire field just a check for if mon is in battle vs party
 bool32 HasWeatherEffect(void); //meant to replace macro for Weather_has_effect
 void ClearMoldBreakerSetStatus(enum BattlerId battler); //plan for moldbreaker affinity bypass
 */
+
+bool8 IscurrentMonOnFieldAtPos(struct Pokemon *mon, u8 position); //check mon is field/well checks battler side not entire field just a check for if mon is in battle vs party
+
 //will remove sleep clause
 bool32 CanBeSlept(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum Ability abilityDef, enum SleepClauseBlock isBlockedBySleepClause);
 bool32 CanBePoisoned(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability abilityAtk, enum Ability abilityDef);
