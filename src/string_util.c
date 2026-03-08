@@ -471,7 +471,7 @@ u8 *StringExpandPlaceholders(u8 *dest, const u8 *src)
     {
         u8 c = *src++;
         u8 placeholderId;
-        u8 *expandedString;
+        const u8 *expandedString;
 
         switch (c)
         {
@@ -665,7 +665,7 @@ static u8 *ExpandPlaceholder_Kyogre(void)
 }
 
 #define STRING_PLACEHOLDER_TABLE
-u8 *GetExpandedPlaceholder(u32 id)
+const u8 *GetExpandedPlaceholder(u32 id)
 {
     typedef u8 *(*ExpandPlaceholderFunc)(void);
 

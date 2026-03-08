@@ -307,7 +307,7 @@ enum TrainerSlideTargets ShouldDoTrainerSlide(enum BattlerId battler, enum Train
         return TRAINER_SLIDE_TARGET_NONE;
 
     SetTrainerSlideParameters(battler, &firstId, &lastId, &trainerId, &retValue);
-    enum DifficultyLevel difficulty = GetCurrentDifficultyLevel();
+    enum DifficultyLevel difficulty = DIFFICULTY_EASY;//, GetCurrentDifficultyLevel();
 
     gBattleScripting.battler = battler;
 
