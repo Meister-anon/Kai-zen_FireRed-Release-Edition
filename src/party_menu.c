@@ -1794,6 +1794,10 @@ static void DisplaySwitchedHeldItemMessage(u16 item, u16 item2, bool8 keepOpen)
     ScheduleBgCopyTilemapToVram(2);
 }
 
+//saw someone using this it breaks things on higher items
+//for some reason
+//vsonic important test, but think bit shit unnecessary
+//w my changes
 static void GiveItemToMon(struct Pokemon *mon, u16 item)
 {
     u8 itemBytes[2];
@@ -1803,9 +1807,9 @@ static void GiveItemToMon(struct Pokemon *mon, u16 item)
         if (GiveMailToMon(mon, item) == 0xFF)
             return;
     }
-    itemBytes[0] = item;
-    itemBytes[1] = item >> 8;
-    SetMonData(mon, MON_DATA_HELD_ITEM, itemBytes);
+    //itemBytes[0] = item;
+    //itemBytes[1] = item >> 8;
+    SetMonData(mon, MON_DATA_HELD_ITEM, item);
 }
 
 static u8 TryTakeMonItem(struct Pokemon *mon)
