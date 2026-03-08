@@ -52,7 +52,7 @@ that way it'll create a workflow of building until you fix strings to find all t
 #/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/abilities.h
 #/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/pokemon/pokedex_text_fr.h
 import re
-
+'''
 #global consants
 dexLine_Limit = 42 #while this is a limit some entries fit correctly with it, but won't increase to eliminate warnings
 movesLine_Limit = 20
@@ -271,3 +271,4 @@ if Phase1_Complete == True and Phase2_Complete == True:
         #Phase2_Complete = True
         print("No Pokedex Entry Errors")
 infile.close()
+'''
