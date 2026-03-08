@@ -782,14 +782,12 @@ u8 GetNumLevelsGainedFromDaycare(void)
 {
     if (VarGet(VAR_PLAYER_AT_ROUTE5_DAYCARE) == TRUE)
     {
-        struct BoxPokemon *boxMon = &gSaveBlock1Ptr->daycare.route5_daycareMon[gSpecialVar_0x8004];
-        if (GetBoxMonData(boxMon, MON_DATA_SPECIES) != 0)
+        if (GetBoxMonData(&gSaveBlock1Ptr->daycare.route5_daycareMon[gSpecialVar_0x8004], MON_DATA_SPECIES) != 0)
             return GetNumLevelsGainedForDaycareMon(&gSaveBlock1Ptr->daycare.route5_daycareMon[gSpecialVar_0x8004]);
     }
     else
     {
-        struct BoxPokemon *boxMon = &gSaveBlock1Ptr->daycare.mons[gSpecialVar_0x8004];
-        if (GetBoxMonData(boxMon, MON_DATA_SPECIES) != 0)
+        if (GetBoxMonData(&gSaveBlock1Ptr->daycare.mons[gSpecialVar_0x8004], MON_DATA_SPECIES) != 0)
             return GetNumLevelsGainedForDaycareMon(&gSaveBlock1Ptr->daycare.mons[gSpecialVar_0x8004]);
     }
     return 0;
