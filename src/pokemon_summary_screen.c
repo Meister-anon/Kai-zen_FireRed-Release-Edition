@@ -18,6 +18,7 @@
 #include "constants/party_menu.h"
 #include "trade.h"
 #include "battle_main.h"
+#include "battle_util.h"
 #include "scanline_effect.h"
 #include "constants/moves.h"
 #include "dynamic_placeholder_text_util.h"

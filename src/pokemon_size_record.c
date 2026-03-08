@@ -166,7 +166,7 @@ static u8 CompareMonSize(u16 species, u16 *sizeRecord)
         u8 boxId = StorageGetCurrentBox();
         struct BoxPokemon *pkmn = &gPokemonStoragePtr->boxes[boxId][monId];
 
-        if (GetBoxMonData(pkmn, MON_DATA_IS_EGG) == TRUE || GetMonData(pkmn, MON_DATA_SPECIES) != species)
+        if (GetBoxMonData(pkmn, MON_DATA_IS_EGG) == TRUE || GetBoxMonData(pkmn, MON_DATA_SPECIES) != species)
         {
             return 1;
         }

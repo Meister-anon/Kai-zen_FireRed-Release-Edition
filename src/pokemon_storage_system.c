@@ -142,7 +142,7 @@ void BoxMonAtGainExp(struct BoxPokemon * mon, u16 species, u32 currExperience)
     if (IsBoxMonNuzlockeDead(mon)) //should be block exp gain for dead mon,to prevent level up
         return;
 
-    else if (GetMonData(mon, MON_DATA_BOX_HP) == 0)
+    else if (GetBoxMonData(mon, MON_DATA_BOX_HP) == 0)
         return;
 
     //currExperience -= 1; //sub 1 to get back to real value //actually don't need this even at lvl 1 exp is still above 0
