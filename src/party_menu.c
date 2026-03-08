@@ -1809,7 +1809,7 @@ static void GiveItemToMon(struct Pokemon *mon, u16 item)
     }
     //itemBytes[0] = item;
     //itemBytes[1] = item >> 8;
-    SetMonData(mon, MON_DATA_HELD_ITEM, item);
+    SetMonData(mon, MON_DATA_HELD_ITEM, &item);
 }
 
 static u8 TryTakeMonItem(struct Pokemon *mon)
