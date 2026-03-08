@@ -26,6 +26,11 @@
 #define SECTOR_ID_SAVEBLOCK1_END      8
 #define SECTOR_ID_PKMN_STORAGE_START  9
 #define SECTOR_ID_PKMN_STORAGE_END   27 //sigh STILL ran out of space prey its enough for the slots I need
+//just relaized I replaed slot 2
+//so num sectors per slot is wrong it'd be 32 
+//wouldn't it, as this is no longer half way point
+//ok checked pret it counts from 0-hof start
+//0-27 is 28 so this is correct
 #define NUM_SECTORS_PER_SLOT         28  //...I don't think it is, since all I did was double space barely, and I need more than double for this
 // Save Slot 1: 0-13;  Save Slot 2: 14-27  / -replaced slot 2
 #define SECTOR_ID_HOF_1              28

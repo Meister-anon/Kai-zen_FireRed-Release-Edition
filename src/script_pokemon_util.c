@@ -99,7 +99,7 @@ u8 ScriptGiveMon(u16 species, u8 level, enum Item item) //only thing worried abo
 {
     u16 nationalDexNum;
     int sentToPc;
-    u8 heldItem[2];
+    //u8 heldItem[2];
     struct Pokemon mon;
     //believe don't need alloc EE func doesn't use it
     //struct Pokemon *mon = AllocZeroed(sizeof(struct Pokemon));
@@ -123,9 +123,9 @@ u8 ScriptGiveMon(u16 species, u8 level, enum Item item) //only thing worried abo
     //it wouldn't be able to reloop and just lock, fixed by putting conditional outside
 
     CreateMon(&mon, species, level, 32, FALSE, FALSE, OT_ID_PLAYER_ID, FALSE);
-    heldItem[0] = item;
-    heldItem[1] = item >> 8;
-    SetMonData(&mon, MON_DATA_HELD_ITEM, heldItem);
+    //heldItem[0] = item;
+    //heldItem[1] = item >> 8;
+    SetMonData(&mon, MON_DATA_HELD_ITEM, &item);
     sentToPc = GiveMonToPlayer(&mon);  //catching mon seems to work without issue,  yup no issues
     nationalDexNum = SpeciesToNationalPokedexNum(species);
 
@@ -157,7 +157,7 @@ u8 ScriptGiveMon2(u16 species, u8 level, enum Item item) //only thing worried ab
 {
     u16 nationalDexNum;
     int sentToPc;
-    u8 heldItem[2];
+    //u8 heldItem[2];
     struct Pokemon mon;
     //struct Pokemon *mon = AllocZeroed(sizeof(struct Pokemon));
 
@@ -178,9 +178,9 @@ u8 ScriptGiveMon2(u16 species, u8 level, enum Item item) //only thing worried ab
     //    species = Random() % (NUM_SPECIES - 2); //to exclude undefined new megas
 
     CreateMon(&mon, species, level, 32, FALSE, FALSE, OT_ID_PLAYER_ID, FALSE);
-    heldItem[0] = item;
-    heldItem[1] = item >> 8;
-    SetMonData(&mon, MON_DATA_HELD_ITEM, heldItem);
+    //heldItem[0] = item;
+    //heldItem[1] = item >> 8;
+    SetMonData(&mon, MON_DATA_HELD_ITEM, &item);
     sentToPc = GiveMonToPlayer(&mon);  //catching mon seems to work without issue,  yup no issues
     nationalDexNum = SpeciesToNationalPokedexNum(species);
 
@@ -263,15 +263,51 @@ bool8 DoesPartyHaveEnigmaBerry(void)
 
 void CreateScriptedWildMon(u16 species, u8 level, u16 item)
 {
-    u8 heldItem[2];
+    //u8 heldItem[2];
 
     ZeroEnemyPartyMons();
     CreateMon(&gEnemyParty[0], species, level, USE_RANDOM_IVS, FALSE, FALSE, OT_ID_PLAYER_ID, FALSE);
     if (item)
     {
-        heldItem[0] = item;
-        heldItem[1] = item >> 8;
-        SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, heldItem);
+        //heldItem[0] = item;
+        //heldItem[1] = item >> 8;
+        SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &item);
+    }
+}
+
+void CreateScriptedDoubleWildMon(u16 species, u8 level, enum Item item, u16 species2, u8 level2, enum Item item2)
+{
+    //u8 heldItem1[2];
+    //u8 heldItem2[2];
+
+    ZeroEnemyPartyMons();
+    /*u32 personality = GetMonPersonality(species,
+        GetSynchronizedGender(STATIC_WILDMON_ORIGIN, species),
+        GetSynchronizedNature(STATIC_WILDMON_ORIGIN, species),
+        RANDOM_UNOWN_LETTER);*/
+    CreateMon(&gEnemyParty[0], species, level, USE_RANDOM_IVS, FALSE, FALSE, OT_ID_PLAYER_ID, FALSE);
+    //CreateMonWithIVs(&gEnemyParty[0], species, level, personality, OTID_STRUCT_PLAYER_ID, USE_RANDOM_IVS);
+    //GiveMonInitialMoveset(&gEnemyParty[0]);
+    if (item)
+    {
+        //heldItem1[0] = item;
+        //heldItem1[1] = item >> 8;
+        SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &item);
+    }
+
+    /*personality = GetMonPersonality(species2,
+        GetSynchronizedGender(STATIC_WILDMON_ORIGIN, species2),
+        GetSynchronizedNature(STATIC_WILDMON_ORIGIN, species2),
+        RANDOM_UNOWN_LETTER);
+    CreateMonWithIVs(&gEnemyParty[1], species2, level2, personality, OTID_STRUCT_PLAYER_ID, USE_RANDOM_IVS);
+    GiveMonInitialMoveset(&gEnemyParty[1]);*/
+    CreateMon(&gEnemyParty[1], species2, level2, USE_RANDOM_IVS, FALSE, FALSE, OT_ID_PLAYER_ID, FALSE);
+
+    if (item2)
+    {
+        //heldItem2[0] = item2;
+        //heldItem2[1] = item2 >> 8;
+        SetMonData(&gEnemyParty[1], MON_DATA_HELD_ITEM, &item2);
     }
 }
 

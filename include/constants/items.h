@@ -792,14 +792,6 @@ enum __attribute__((packed)) Item
     ITEM_TM48 = 629,
     ITEM_TM49 = 630,
     ITEM_TM50 = 631,
-    //Tm Expansion cut values above this
-    //have add on to end using py script update
-    //using created list
-    //attempt use py script to update this
-    //copy previous value increment each line that digit , is found
-    //if works should be able to sub and just update by deleting these
-    //-50 for all below values
-    
 
     ITEM_HM01 = 632,
     ITEM_HM02 = 633,
@@ -809,21 +801,6 @@ enum __attribute__((packed)) Item
     ITEM_HM06 = 637,
     ITEM_HM07 = 638,
     ITEM_HM08 = 639,
-
-
-    /* Expands to:
-     *   ITEM_TM_FOCUS_PUNCH = ITEM_TM01,
-     *   ...
-     *   ITEM_HM_CUT = ITM_HM01,
-     *   ... */
-    /*#define ENUM_TM(n, id) CAT(ITEM_TM_, id) = CAT(ITEM_TM, n),
-    #define ENUM_HM(n, id) CAT(ITEM_HM_, id) = CAT(ITEM_HM, n),
-    #define TO_TMHM_NUMS(a, ...) (__VA_ARGS__)
-    RECURSIVELY(R_ZIP(ENUM_TM, TO_TMHM_NUMS NUMBERS_256, (FOREACH_TM(APPEND_COMMA))))
-    RECURSIVELY(R_ZIP(ENUM_HM, TO_TMHM_NUMS NUMBERS_256, (FOREACH_HM(APPEND_COMMA))))
-    #undef ENUM_TM
-    #undef ENUM_HM
-    #undef TO_TMHM_NUMS*/
 
     // Charms
     ITEM_OVAL_CHARM = 640,
@@ -1187,10 +1164,35 @@ enum __attribute__((packed)) Item
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,
 };
+//needed to remove large comments in open space
+//breaks enum use in asm files
 
-#define FIRST_BERRY_INDEX ITEM_CHERI_BERRY
-#define LAST_BERRY_INDEX ITEM_ENIGMA_BERRY
+
+    /*    Tm Expansion cut values above this
+    *have add on to end using py script update
+    *using created list
+    *attempt use py script to update this
+    *copy previous value increment each line that digit , is found
+    *if works should be able to sub and just update by deleting these
+    *-50 for all below values
+    */
+//#define FIRST_BERRY_INDEX ITEM_CHERI_BERRY
+//#define LAST_BERRY_INDEX ITEM_ENIGMA_BERRY
 #define ITEM_TO_BERRY(itemId)(((itemId - FIRST_BERRY_INDEX) + 1))
+
+/* Expands to:
+     *   ITEM_TM_FOCUS_PUNCH = ITEM_TM01,
+     *   ...
+     *   ITEM_HM_CUT = ITM_HM01,
+     *   ... */
+    /*#define ENUM_TM(n, id) CAT(ITEM_TM_, id) = CAT(ITEM_TM, n),
+    #define ENUM_HM(n, id) CAT(ITEM_HM_, id) = CAT(ITEM_HM, n),
+    #define TO_TMHM_NUMS(a, ...) (__VA_ARGS__)
+    RECURSIVELY(R_ZIP(ENUM_TM, TO_TMHM_NUMS NUMBERS_256, (FOREACH_TM(APPEND_COMMA))))
+    RECURSIVELY(R_ZIP(ENUM_HM, TO_TMHM_NUMS NUMBERS_256, (FOREACH_HM(APPEND_COMMA))))
+    #undef ENUM_TM
+    #undef ENUM_HM
+    #undef TO_TMHM_NUMS*/
 
 //#define NUM_TECHNICAL_MACHINES 161 //change to 120 later  / or more plan to add on to tms I think for ease spreading certain moves
 //#define NUM_HIDDEN_MACHINES     9
