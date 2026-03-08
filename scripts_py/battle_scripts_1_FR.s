@@ -21,6 +21,8 @@
 	.section script_data, "aw", %progbits
 	.align 2
 
+@moved file to prevent impact build process
+
 gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectHit
 	.4byte BattleScript_EffectSleep
