@@ -522,7 +522,7 @@ void SortBattlersBySpeed(enum BattlerId *battlers, bool32 slowToFast);
 bool32 CompareStat(enum BattlerId battler, enum Stat statId, u8 cmpTo, u8 cmpKind, enum Ability ability);
 bool32 BlocksPrankster(enum Move move, enum BattlerId battlerPrankster, enum BattlerId battlerDef, bool32 checkTarget);
 bool32 PickupHasValidTarget(enum BattlerId battler);
-bool32 CantPickupItem(enum BattlerId battler);
+bool32 CantPickupItem(u32 battler); //needs u32 to avoid compiler error w randomUniformExcept
 bool32 IsBattlerWeatherAffected(enum BattlerId battler, u32 weatherFlags);
 enum MoveTarget GetBattlerMoveTargetType(enum BattlerId battler, enum Move move);
 bool32 CanTargetBattler(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move);

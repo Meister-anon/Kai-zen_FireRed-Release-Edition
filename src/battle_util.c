@@ -11039,7 +11039,7 @@ bool32 BlocksPrankster(enum Move move, enum BattlerId battlerPrankster, enum Bat
 }
 
 //can potentially remove all, or repurpose for my version
-bool32 CantPickupItem(enum BattlerId battler)
+bool32 CantPickupItem(u32 battler)
 {
     // Used by RandomUniformExcept() for RNG_PICKUP
     if (battler == gBattlerAttacker && (GetConfig(PICKUP_WILD) < GEN_9 || gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_LINK)))
@@ -11047,6 +11047,9 @@ bool32 CantPickupItem(enum BattlerId battler)
     return !(IsBattlerAlive(battler) && GetBattlerPartyState(battler)->usedHeldItem && gBattleStruct->battlerState[battler].canPickupItem);
 }
 
+//not using battler argument not using func anyway
+//have my custom effect but could be make void instead
+//vsonic
 bool32 PickupHasValidTarget(enum BattlerId battler)
 {
     u32 i;
