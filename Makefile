@@ -32,7 +32,7 @@ endif
 include config.mk
 
 # Default make rule
-all: UpdateTmList rom syms stringtester
+all: UpdateTmList rom syms
 
 # Toolchain selection
 TOOLCHAIN := $(DEVKITARM)
