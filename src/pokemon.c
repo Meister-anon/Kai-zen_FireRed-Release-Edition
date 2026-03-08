@@ -5,6 +5,7 @@
 #include "random.h"
 #include "text.h"
 #include "battle.h"
+#include "battle_ai_util.h"
 #include "battle_anim.h"
 #include "item.h"
 #include "item_use.h"
@@ -13023,6 +13024,14 @@ u16 GetBaseFormSpecies(u16 speciesId)
     return GetFormSpeciesId(speciesId, 0);
 }
 
+const u16 *GetSpeciesFormTable(u16 species)
+{
+    const u16 *formTable = gFormSpeciesIdTables[species];
+    if (formTable == NULL)
+        return gFormSpeciesIdTables[SPECIES_NONE];
+    return formTable;
+}
+
 const struct FormChange *GetSpeciesFormChanges(u16 species)
 {
     const struct FormChange *formChanges = gFormChangeTablePointers[species];
@@ -13555,7 +13564,7 @@ bool32 TryBoxMonFormChange(struct BoxPokemon *boxMon, enum FormChanges method)
     return FALSE;
 }
 
-u16 SanitizeSpeciesId(u16 species)
+/*u16 SanitizeSpeciesId(u16 species)
 {
     assertf(species <= NUM_SPECIES && (species == SPECIES_NONE || IsSpeciesEnabled(species)), "invalid species: %d", species)
     {
@@ -13563,7 +13572,7 @@ u16 SanitizeSpeciesId(u16 species)
     }
 
     return species;
-}
+}*/
 
 bool32 IsSpeciesEnabled(u16 species)
 {
@@ -13694,8 +13703,9 @@ void HealBoxPokemon(struct BoxPokemon *boxMon)
 {
     u32 data;
 
-    data = 0;
-    SetBoxMonData(boxMon, MON_DATA_HP_LOST, &data);
+    //believe for special evo stuff not using
+    //data = 0;
+    //SetBoxMonData(boxMon, MON_DATA_HP_LOST, &data);
 
     data = STATUS1_NONE;
     SetBoxMonData(boxMon, MON_DATA_STATUS, &data);

@@ -1488,5 +1488,6 @@ struct BoxPokemon *GetSelectedBoxMonFromPcOrParty(void);
 //void ChangePokemonNicknameWithCallback(void (*callback)(void));
 
 const struct FormChange *GetSpeciesFormChanges(u16 species);
+const u16 *GetSpeciesFormTable(u16 species);
 
 #endif // GUARD_POKEMON_H
