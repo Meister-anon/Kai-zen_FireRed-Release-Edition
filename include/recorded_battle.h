@@ -27,14 +27,14 @@ struct RecordedBattleSave
     u8 frontierBrainSymbol;
     u8 battleScene:1;
     u8 textSpeed:3;
-    u64 AI_scripts;
+    u64 AI_scripts[MAX_BATTLERS_COUNT];
     u8 recordMixFriendName[PLAYER_NAME_LENGTH + 1];
     u8 recordMixFriendClass;
     u8 apprenticeId;
     u16 easyChatSpeech[EASY_CHAT_BATTLE_WORDS_COUNT];
     u8 recordMixFriendLanguage;
     u8 apprenticeLanguage;
-    enum BattlerId battleRecord[MAX_BATTLERS_COUNT][BATTLER_RECORD_SIZE];
+    u8 battleRecord[MAX_BATTLERS_COUNT][BATTLER_RECORD_SIZE];
     u32 checksum;
 };
 

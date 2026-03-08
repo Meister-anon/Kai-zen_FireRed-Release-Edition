@@ -30,6 +30,11 @@ struct PlayerInfo
     u16 language;
 };
 
+//fixed issue was bad regex replace made struct type use enum instead of u8
+//and that made it 4x the size
+//file still needs more update missing some things from EE
+//and need update save to fit record battle SECTOR_ID_RECORDED_BATTLE
+//vsonic important
 // Save data using TryWriteSpecialSaveSector is allowed to exceed SECTOR_DATA_SIZE (up to the counter field)
 STATIC_ASSERT(sizeof(struct RecordedBattleSave) <= SECTOR_COUNTER_OFFSET, RecordedBattleSaveFreeSpace);
 
@@ -47,7 +52,7 @@ EWRAM_DATA u8 gRecordedBattleMultiplayerId = 0;
 EWRAM_DATA static u8 sBattleScene = 0;
 EWRAM_DATA static u8 sTextSpeed = 0;
 EWRAM_DATA static u32 sBattleFlags = 0;
-EWRAM_DATA static u64 sAI_Scripts = 0;
+EWRAM_DATA static u64 sAI_Scripts[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA static struct Pokemon sSavedPlayerParty[PARTY_SIZE] = {0};
 EWRAM_DATA static struct Pokemon sSavedOpponentParty[PARTY_SIZE] = {0};
 EWRAM_DATA static u16 sPlayerMonMoves[MAX_BATTLERS_COUNT / 2][MAX_MON_MOVES] = {0};
@@ -82,7 +87,7 @@ void RecordedBattle_Init(u8 mode)
             for (j = 0; j < BATTLER_RECORD_SIZE; j++)
                 sBattleRecords[i][j] = 0xFF;
             sBattleFlags = gBattleTypeFlags;
-            sAI_Scripts = gAiThinkingStruct->aiFlags;//[B_POSITION_OPPONENT_LEFT];
+            sAI_Scripts[i] = gAiThinkingStruct->aiFlags[i];//[B_POSITION_OPPONENT_LEFT];
         }
     }
 }
@@ -275,6 +280,7 @@ void SetVariablesForRecordedBattle(struct RecordedBattleSave *src)
         gLinkPlayers[i].language = src->playersLanguage[i];
         gLinkPlayers[i].id = src->playersBattlers[i];
         gLinkPlayers[i].trainerId = src->playersTrainerId[i];
+        sAI_Scripts[i] = src->AI_scripts[i];
 
         if (var)
             ConvertInternationalString(gLinkPlayers[i].name, gLinkPlayers[i].language);

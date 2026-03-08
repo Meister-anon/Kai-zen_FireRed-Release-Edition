@@ -39,7 +39,7 @@
 #define SECTOR_ID_TRAINER_TOWER_2    31
 #define SECTORS_COUNT                32
 
-#define NUM_HOF_SECTORS 2
+#define NUM_HOF_SECTORS 2 //why does it need 2
 
 #define SAVE_STATUS_EMPTY    0
 #define SAVE_STATUS_OK       1
