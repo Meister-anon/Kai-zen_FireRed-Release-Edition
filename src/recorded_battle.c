@@ -452,7 +452,7 @@ void RecordedBattle_CheckMovesetChanges(u8 mode)
     }
 }
 
-u64 GetAiScriptsInRecordedBattle(enum BattlerId battler);
+u64 GetAiScriptsInRecordedBattle(enum BattlerId battler)
 {
     return sAI_Scripts[battler];
 }
