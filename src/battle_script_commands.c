@@ -1527,7 +1527,6 @@ static void Cmd_adjustdamage(void)
 
         holdEffect = GetBattlerHoldEffect(battlerDef);
         param = GetBattlerHoldEffectParam(battlerDef);
-        affectionScore = GetBattlerAffectionHearts(battlerDef);
 
         gPotentialItemEffectBattler = battlerDef;
 
@@ -9235,7 +9234,6 @@ static void Cmd_tryKO(void)
     enum HoldEffect holdEffect = GetBattlerHoldEffect(gBattlerTarget);
     enum Ability targetAbility = GetBattlerAbility(gBattlerTarget);
     u32 rand = Random() % 100;
-    u32 affectionScore = GetBattlerAffectionHearts(gBattlerTarget);
     u32 endured = NOT_ENDURED;
 
     // Dynamaxed Pokemon cannot be hit by OHKO moves.

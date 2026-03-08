@@ -287,8 +287,7 @@ void SetVariablesForRecordedBattle(struct RecordedBattleSave *src)
     gPartnerTrainerId = src->partnerId;
     gRecordedBattleMultiplayerId = src->multiplayerId;
     sBattleScene = src->battleScene;
-    sTextSpeed = src->textSpeed;
-    sAI_Scripts = src->AI_scripts;
+    sTextSpeed = src->textSpeed;    
 
     for (i = 0; i < PLAYER_NAME_LENGTH + 1; i++)
         sRecordMixFriendName[i] = src->recordMixFriendName[i];

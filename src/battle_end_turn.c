@@ -256,25 +256,7 @@ static bool32 HandleEndTurnReCharge(enum BattlerId battler)
 
     return effect;
 }
-/*static bool32 HandleEndTurnAffection(enum BattlerId battler)
-{
-    bool32 effect = FALSE;
 
-    gBattleStruct->eventState.endTurnBattler++;
-
-    if (!IsBattlerAlive(battler)
-     || !IsOnPlayerSide(battler))
-        return effect;
-
-    if (GetBattlerAffectionHearts(gBattlerAttacker) >= AFFECTION_FOUR_HEARTS && (Random() % 100 < 20))
-    {
-        gBattleCommunication[MULTISTRING_CHOOSER] = 1;
-        BattleScriptExecute(BattleScript_AffectionBasedStatusHeal);
-        effect = TRUE;
-    }
-
-    return effect;
-}*/
 
 // Note: Technically Future Sight, Doom Desire and Wish need a queue but
 // I think we should accept this slight inconsistency so custom moves don't have to touch this code

@@ -2045,23 +2045,6 @@ u8 GetImprisonedMovesCount(enum BattlerId battler, u16 move)
     return imprisonedMoves;
 }
 
-u32 GetBattlerAffectionHearts(enum BattlerId battler)
-{
-    struct Pokemon *mon = GetBattlerMon(battler);
-    /*u16 species = GetMonData(mon, MON_DATA_SPECIES);
-
-    if (!IsOnPlayerSide(battler))
-        return AFFECTION_NO_HEARTS;
-    else if (gSpeciesInfo[species].isMegaEvolution
-          || (gBattleTypeFlags & (BATTLE_TYPE_EREADER_TRAINER
-                                | BATTLE_TYPE_FRONTIER
-                                | BATTLE_TYPE_LINK
-                                | BATTLE_TYPE_RECORDED_LINK
-                                | BATTLE_TYPE_SECRET_BASE)))
-        return AFFECTION_NO_HEARTS;*/
-
-    return GetMonAffectionHearts(mon);
-}
 
 // gBattlerAttacker is the battler that's trying to raise their stats and due to limitations of RandomUniformExcept, cannot be an argument
 bool32 MoodyCantRaiseStat(u32 stat)
@@ -9619,7 +9602,6 @@ s32 GetAdjustedDamage(struct BattleContext *ctx, s32 damage)
 
     bool32 enduredHit = FALSE;
     u32 rand = Random() % 100;
-    u32 affectionScore = GetBattlerAffectionHearts(ctx->battlerDef);
 
     if (GetMoveEffect(ctx->move) == EFFECT_FALSE_SWIPE)
     {
