@@ -42,6 +42,7 @@
 #include "config/debug.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/event.inc"
+    .include "constants/constants.inc"
 	.set FALSE, 0
 	.set TRUE,  1
 
