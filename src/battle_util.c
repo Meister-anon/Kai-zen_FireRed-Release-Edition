@@ -1070,7 +1070,7 @@ void HandleAction_Run(void)
     gLastUsedItem = ITEM_SAFARI_BALL;
     gBattlescriptCurrInstr = BattleScript_SafariBallThrow;
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
-}*/
+}
 
 //seem not used
 void HandleAction_ThrowBall(void)
@@ -1083,7 +1083,7 @@ void HandleAction_ThrowBall(void)
     	RemoveBagItem(gLastUsedItem, 1);
     gBattlescriptCurrInstr = BattleScript_BallThrow;
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
-}
+}*/
 
 //not used
 /*void HandleAction_ThrowPokeblock(void)
