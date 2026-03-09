@@ -158,7 +158,7 @@ static inline bool32 Script_IsAnalyzingEffects(void)
 //VERY important
 #define RunScriptImmediatelyUntilEffect(effects, ptr, ctx) \
     ({ \
-        /*_Static_assert((effects) & 0x80000000, "RunScriptImmediatelyUntilEffect requires an effects version");*/ \
+        _Static_assert((effects) & 0x80000000, "RunScriptImmediatelyUntilEffect requires an effects version"); \
         RunScriptImmediatelyUntilEffect_Internal(effects, ptr, ctx); \
     })
 
@@ -168,7 +168,7 @@ static inline bool32 Script_IsAnalyzingEffects(void)
  * no effect to future-proof against new effects. */
 #define Script_RequestEffects(effects) \
     ({ \
-        /*_Static_assert((effects) & 0x80000000, "Script_RequestEffects requires an effects version");*/ \
+        _Static_assert((effects) & 0x80000000, "Script_RequestEffects requires an effects version"); \
         if ((effects) != SCREFF_V1) \
             if (Script_IsAnalyzingEffects()) \
                 Script_RequestEffects_Internal((effects) & SCREFF_ANY); \
