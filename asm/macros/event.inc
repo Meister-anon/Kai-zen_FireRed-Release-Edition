@@ -240,16 +240,27 @@
 		.endif
 	.endm
 
-	@ Calls the native C function stored at `func`.
-	.macro callnative func:req
-	.byte 0x23
+	@ Calls the native C function stored at func.
+	@ 'callnative's should set 'requests_effects=1' if the native
+	@ contains a call to 'Script_RequestEffects', which allows them
+	@ to be analyzed by 'RunScriptImmediatelyUntilEffect'.
+	.macro callnative func:req, requests_effects=0
+	.byte SCR_OP_CALLNATIVE
+	.if \requests_effects == 0
 	.4byte \func
+	.else
+	.4byte \func + ROM_SIZE
+	.endif
 	.endm
 
-	@ Replaces the script with the function stored at `func`. Execution returns to the bytecode script when func returns TRUE.
-	.macro gotonative func:req
-	.byte 0x24
+	@ Replaces the script with the function stored at func. Execution returns to the bytecode script when func returns TRUE.
+	.macro gotonative func:req, requests_effects=0
+	.byte SCR_OP_GOTONATIVE
+	.if \requests_effects == 0
 	.4byte \func
+	.else
+	.4byte \func + ROM_SIZE
+	.endif
 	.endm
 
 	@ Calls a special function; that is, a piece of ASM code designed for use by scripts and listed in a table of pointers.

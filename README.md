@@ -21,6 +21,38 @@ as well as form change stuff hmmm
 
 need review this throroughly.
 
+Plan make trainer classes more impactufl
+idea brought up by sacred almighty trainers are just people doing jobs
+and they have pokemon to suit their jobs and lifestyle
+
+i.e why gamblers have electric type and steel types their using magnets to cheat
+why hikers have rock types and ground types and fighting types
+protect from rock slides and for breaking obstacles in their path
+can extrend that give them something for illumination if choose to
+
+thought about giving psychics barrier mon or barrier as starting status
+idea being psychic could set it themselves
+very interesting and would give more options to make use of brick break effects
+in a normal playthrough
+
+would also work well for ingame lore would help explain
+why sabrina beat the fighting gym so badly she could setup barriers herself
+for gym fight could have her set both reflect and lightscreen
+
+and think makes sense koga has psychis or something in his gym to idk
+check his gym again does he have psychics does that explain the floor tricks
+or should some other effect be applied or infered from that
+
+its some near invisible thing on or in the floor that prevents pasage
+that forced going around a hidden path, potentially have janine there as hidden doubles partner
+to make gym more unique
+
+got a bit off track but also plan potentially have unique itme list specific
+to trainer class and have campers give out items like their rangers
+idea sine their outdoorsman they're all about preparedness
+they have most items and give you some items after the fact as share and help
+idea is from gen 5 I believe where some trainers give items
+
 adding battle files will need move type array back to use type1 type2 etc
 use this for regex sub, num replace 0, 1, 2
 (gBattleMons\[\w+\].)types

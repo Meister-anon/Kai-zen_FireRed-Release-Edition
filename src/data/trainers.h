@@ -1263,7 +1263,15 @@ const struct Trainer gTrainers[] = {
         .partySize = NELEMS(sTrainerMons_YoungsterBen),
         .initialPartysize = NELEMS(sTrainerMons_YoungsterBen),
         .party = sTrainerMons_YoungsterBen
-    },
+    },//proves concept of dynamic rematch sans vs seeker
+    //youngster Ben has 4 variants trainer ai doesn't change
+    //all it does is increase lvl of team then evolve team
+    //as I thought I can easily simulate that
+    //by limiting initial party size believe I should be able to adjust trainer ai flag on the go
+    //the curious part is if I can add items later
+    //maybe can do my idea of making trainer classes more impactful and distinct
+    //make table of items by trainer calss and just add that on higher lvl rematches? 
+    //vsonic important
     [TRAINER_YOUNGSTER_CALVIN] = {
         
         .trainerClass = CLASS_YOUNGSTER_FRLG,
