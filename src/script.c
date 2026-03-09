@@ -60,11 +60,11 @@ void InitScriptContext(struct ScriptContext *ctx, void *cmdTable, void *cmdTable
     ctx->cmdTable = cmdTable;
     ctx->cmdTableEnd = cmdTableEnd;
 
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < (int)ARRAY_COUNT(ctx->data); i++)
         ctx->data[i] = 0;
 
-    for (i = 0; i < SCRIPT_STACK_SIZE; i++)
-        ctx->stack[i] = 0;
+    for (i = 0; i < (int)ARRAY_COUNT(ctx->stack); i++)
+        ctx->stack[i] = NULL;
 }
 
 u8 SetupBytecodeScript(struct ScriptContext *ctx, const u8 *ptr)
@@ -409,7 +409,7 @@ void ScriptContext_Enable(void)
 // scripts (except the frame table scripts).
 void RunScriptImmediately(const u8 *ptr)
 {
-    InitScriptContext(&sImmediateScriptContext, &gScriptCmdTable, &gScriptCmdTableEnd);
+    InitScriptContext(&sImmediateScriptContext, gScriptCmdTable, gScriptCmdTableEnd);
     SetupBytecodeScript(&sImmediateScriptContext, ptr);
     while (RunScriptCommand(&sImmediateScriptContext) == TRUE);
 }
