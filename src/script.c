@@ -378,13 +378,24 @@ void ScriptContext_SetupScript(const u8 *ptr)
     InitScriptContext(&sGlobalScriptContext, gScriptCmdTable, gScriptCmdTableEnd);
     SetupBytecodeScript(&sGlobalScriptContext, ptr);
     LockPlayerFieldControls();
-    sGlobalScriptContextStatus = 0;
+    //if (OW_FOLLOWERS_SCRIPT_MOVEMENT)
+    //    FlagSet(FLAG_SAFE_FOLLOWER_MOVEMENT);
+    sGlobalScriptContextStatus = CONTEXT_RUNNING;
+}
+
+//added from EE only place this is used in EE just used the above funtion isntead
+// Moves a script from a local context to the global context and enables it.
+void ScriptContext_ContinueScript(struct ScriptContext *ctx)
+{
+    sGlobalScriptContext = *ctx;
+    LockPlayerFieldControls();
+    sGlobalScriptContextStatus = CONTEXT_RUNNING;
 }
 
 // Puts the script into waiting mode; usually called from a wait* script command.
 void ScriptContext_Stop(void)
 {
-    sGlobalScriptContextStatus = 1;
+    sGlobalScriptContextStatus = CONTEXT_WAITING;
 }
 
 void ScriptContext_Enable(void)
@@ -405,6 +416,7 @@ void RunScriptImmediately(const u8 *ptr)
 //still missing some stuff from here
 //ScriptEffectContext add not used vsonic important
 
+//in EE is MapHeaderGetScriptTable
 u8 *mapheader_get_tagged_pointer(u8 tag)
 {
     const u8 *mapScripts = gMapHeader.mapScripts;
@@ -740,15 +752,3 @@ bool32 Script_MatchesSpecial(const u8 *script, void *funcPtr)
     return FALSE;
 }
 
-// FRLG
-/*void DisableMsgBoxWalkaway(void)
-{
-    // sMsgBoxWalkawayDisabled = TRUE;
-}
-
-void SetWalkingIntoSignVars(void)
-{
-    // gWalkAwayFromSignInhibitTimer = 6;
-    // sMsgBoxIsCancelable = TRUE;
-}
-*/

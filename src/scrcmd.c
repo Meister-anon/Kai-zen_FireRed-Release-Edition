@@ -398,15 +398,24 @@ bool8 ScrCmd_copylocal(struct ScriptContext * ctx)
 
 bool8 ScrCmd_copybyte(struct ScriptContext * ctx)
 {
-    u8 * dest = (u8 *)ScriptReadWord(ctx);
-    *dest = *(const u8 *)ScriptReadWord(ctx);
+    u8 * ptr = (u8 *)ScriptReadWord(ctx);
+    
+    // TODO: Check if 'ptr' is within a save block?
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
+
+    *ptr = *(const u8 *)ScriptReadWord(ctx);
     return FALSE;
 }
 
 bool8 ScrCmd_setvar(struct ScriptContext * ctx)
 {
-    u16 * varPtr = GetVarPointer(ScriptReadHalfword(ctx));
-    *varPtr = ScriptReadHalfword(ctx);
+    u32 varId = ScriptReadHalfword(ctx);
+    u16 *ptr = GetVarPointer(varId);
+
+    Script_RequestEffects(SCREFF_V1);
+    Script_RequestWriteVar(varId);
+
+    *ptr = ScriptReadHalfword(ctx);
     return FALSE;
 }
 
