@@ -145,15 +145,15 @@ bool8 RunScriptCommand(struct ScriptContext *ctx)
 
 u8 ScriptPush(struct ScriptContext *ctx, const u8 *ptr)
 {
-    if (ctx->stackDepth + 1 >= SCRIPT_STACK_SIZE)
+    if (ctx->stackDepth + 1 >= (int)ARRAY_COUNT(ctx->stack))
     {
-        return 1;
+        return TRUE;
     }
     else
     {
         ctx->stack[ctx->stackDepth] = ptr;
         ctx->stackDepth++;
-        return 0;
+        return FALSE;
     }
 }
 

@@ -154,7 +154,12 @@ enum BattleSide
 #define IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(flags) ((flags) & BATTLE_TYPE_GHOST && !((flags) & BATTLE_TYPE_GHOST_UNVEILED))
 #define IS_BATTLE_TYPE_GHOST_WITH_SCOPE(flags) ((flags) & BATTLE_TYPE_GHOST && (flags) & BATTLE_TYPE_GHOST_UNVEILED)
 
-#define RIVAL_BATTLE_HEAL_AFTER  1  //continue after loss rn doesn't go to gbattletypeflags value mathes doubles it just goes to unique sRivalBattleFlags
+#define RIVAL_BATTLE_DONT_HEAL
+//hmm weird effect is in game but seems it isn't used? 
+//it does the heal and continue but far as I can tell it doesnt use heal after flag to do so its not set anywhere
+//continue after loss rn doesn't go to gbattletypeflags
+//value mathes doubles it just goes to unique sRivalBattleFlags
+#define RIVAL_BATTLE_HEAL_AFTER  1  
 #define RIVAL_BATTLE_TUTORIAL    3  
 
 #define WILD_DOUBLE_BATTLE ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_TRAINER))))
