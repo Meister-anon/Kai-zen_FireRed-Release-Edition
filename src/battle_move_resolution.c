@@ -2376,7 +2376,8 @@ static enum MoveEndResult MoveEnd_UpdateLastMoves(void)
     return MOVEEND_RESULT_CONTINUE;
 }
 
-static enum MoveEndResult MoveEnd_MirrorMove(void)
+//believe get rid of this as changed effect to just be mimic
+/*static enum MoveEndResult MoveEnd_MirrorMove(void)
 {
     if (!gBattleStruct->unableToUseMove
      && gBattlerAttacker != gBattlerTarget
@@ -2391,7 +2392,7 @@ static enum MoveEndResult MoveEnd_MirrorMove(void)
 
     gBattleScripting.moveendState++;
     return MOVEEND_RESULT_CONTINUE;
-}
+}*/
 
 static enum MoveEndResult MoveEnd_Defrost(void)
 {
@@ -3646,7 +3647,7 @@ static enum MoveEndResult (*const sMoveEndHandlers[])(void) =
     [MOVEEND_FAINT_BLOCK] = MoveEnd_FaintBlock,
     [MOVEEND_SKY_DROP_CONFUSE] = MoveEnd_SkyDropConfuse,
     [MOVEEND_UPDATE_LAST_MOVES] = MoveEnd_UpdateLastMoves,
-    [MOVEEND_MIRROR_MOVE] = MoveEnd_MirrorMove,
+    //[MOVEEND_MIRROR_MOVE] = MoveEnd_MirrorMove,
     [MOVEEND_DEFROST] = MoveEnd_Defrost,
     [MOVEEND_NEXT_TARGET] = MoveEnd_NextTarget,
     [MOVEEND_HP_THRESHOLD_ITEMS_TARGET] = MoveEnd_HpThresholdItemsTarget,

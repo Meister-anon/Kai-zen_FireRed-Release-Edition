@@ -101,7 +101,7 @@ enum MoveEndState
     MOVEEND_FAINT_BLOCK,
     MOVEEND_SKY_DROP_CONFUSE,
     MOVEEND_UPDATE_LAST_MOVES,
-    MOVEEND_MIRROR_MOVE, //may remove as changed to emulate mimic
+    //MOVEEND_MIRROR_MOVE, //may remove as changed to emulate mimic
     MOVEEND_DEFROST,
     MOVEEND_NEXT_TARGET, // Everything up until here is handled for each strike of a spread move
     MOVEEND_HP_THRESHOLD_ITEMS_TARGET, // Activation only during a multi hit move / ability (Parental Bond)

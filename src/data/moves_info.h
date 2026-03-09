@@ -3064,7 +3064,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     }, //idea birds ability to parrot/copy, move kinda sucks , but is a bit better with my normal type change, as would always get psudo stab if mon is normal
     //speaking just for spearow/fearow rn
      //plan replace mirror move until switched out fainted or battle ends
-    
+    //essentially just made this into flying MOVE_MIMIC makes sense
 
     [MOVE_SELF_DESTRUCT] =
     {
@@ -6060,6 +6060,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .healingMove = TRUE,
         .snatchAffected = TRUE,
         .ignoresProtect = TRUE,
+        .moonMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_QUALITY_DEPENDS_ON_TIMING,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -11599,6 +11600,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .ignoresProtect = TRUE,
         .healingMove = TRUE,
         .danceMove = TRUE,
+        .moonMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_GREAT_APPEAL_BUT_NO_MORE_MOVES,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
@@ -14647,6 +14649,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
             .chance = 30,
         }),
+        .moonMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_CUTE,
         //.contestComboStarterId = 0,
@@ -15110,6 +15113,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_DazzlingGleam,
     },
+    //rebalanced this and moonblast potentially make all target
+    //so its like surf consideration is type balance
+    //does that make move unusable pairs well with grass bug psychic
+    //and also if enough alternative moves exist
+    //surf is extrmeley uncommon far as I know
 
     [MOVE_CELEBRATE] =
     {
@@ -16596,6 +16604,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_SPECIAL,
         .ignoresTargetAbility = TRUE,
         .metronomeBanned = TRUE,
+        .moonMove = TRUE,
         //.contestEffect = CONTEST_EFFECT_STARTLE_MONS_SAME_TYPE_APPEAL,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -19264,6 +19273,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .snatchAffected = TRUE,
         .ignoresProtect = TRUE,
         .healingMove = TRUE,
+        .moonMove = TRUE,
         .battleAnimScript = gBattleAnimMove_LunarBlessing,
     },//restore 25% max hp user and allies plus remove status 1
     //essentially jungle healing
@@ -20379,6 +20389,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
         .cantUseTwice = TRUE,
+        .moonMove = TRUE,
         .battleAnimScript = gBattleAnimMove_BloodMoon,
     },
 
@@ -21583,6 +21594,7 @@ use wonder gaurd logic to determine its super effective
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
+        .moonMove = TRUE,
         .argument = { .weatherType = BATTLE_WEATHER_MOONLIGHT },
         //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,

@@ -146,7 +146,7 @@ struct MoveInfo
     bool32 cantUseTwice:1;
     // Ban flags
     bool32 gravityBanned:1; //used to tell what move gets canceled by gravity etc.
-    bool32 mirrorMoveBanned:1;
+    bool32 moonMove:1; //replaced mirrormove flag, use for moon move I guess
     bool32 meFirstBanned:1;
     bool32 mimicBanned:1;
     bool32 metronomeBanned:1;
@@ -578,9 +578,9 @@ static inline bool32 IsMoveGravityBanned(enum Move moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].gravityBanned;
 }
 
-static inline bool32 IsMoveMirrorMoveBanned(enum Move moveId)
+static inline bool32 IsMoonbasedMove(enum Move moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].mirrorMoveBanned;
+    return gMovesInfo[SanitizeMoveId(moveId)].moonMove;
 }
 
 static inline bool32 IsMoveMeFirstBanned(enum Move moveId)

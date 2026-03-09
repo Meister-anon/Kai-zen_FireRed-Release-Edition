@@ -469,7 +469,6 @@ bool32 CanThaw(u32 move, enum BattlerId battler); //always use gcurrentmove hope
 bool32 CanBattlerHeal(enum BattlerId battlerId); //simplify heal check
 bool32 CanTeleport(enum BattlerId battlerId); //new teleport logic
 bool32 ShouldPranksterBoostedMoveFail(u16 move, enum BattlerId battlerwithPrankster, enum BattlerId battlerDef, bool32 checkTarget);
-bool32 IsMoonbasedMove(u16 move); //in prep for lunar power etc.
 u16 GetUsedHeldItem(enum BattlerId battler);
 bool32 TestSheerForceFlag(enum BattlerId battler, u16 move);
 void TryToRevertMimicry(void);

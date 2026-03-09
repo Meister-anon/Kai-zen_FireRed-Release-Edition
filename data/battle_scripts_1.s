@@ -15,7 +15,8 @@
 #include "constants/game_stat.h"
 #include "constants/trainers.h"
 #include "constants/species.h"
-@#include "constants/generational_changes.h"
+@add for compile remove later
+#include "constants/generational_changes.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/battle_script.inc"
 	.include "constants/constants.inc"
@@ -939,7 +940,7 @@ BattleScript_StrengthSapAnimation:
 @ Drain HP without lowering a stat
 BattleScript_StrengthSapHp:
 	jumpifability BS_TARGET, ABILITY_LIQUID_OOZE, BattleScript_StrengthSapManipulateDmg
-	jumpifvolatile BS_ATTACKER, VOLATILE_HEAL_BLOCK, BattleScript_MoveEnd
+	jumpifsideaffecting BS_ATTACKER, SIDE_STATUS_HEAL_BLOCK, BattleScript_MoveEnd
 	jumpiffullhp BS_ATTACKER, BattleScript_MoveEnd
 BattleScript_StrengthSapManipulateDmg:
 	manipulatedamage DMG_BIG_ROOT
@@ -1831,8 +1832,8 @@ BattleScript_EffectQuash::
 
 BattleScript_EffectHealPulse::
 	attackcanceler
-	jumpifvolatile BS_ATTACKER, VOLATILE_HEAL_BLOCK, BattleScript_MoveUsedHealBlockPrevents @ stops pollen puff
-	jumpifvolatile BS_TARGET, VOLATILE_HEAL_BLOCK, BattleScript_MoveUsedHealBlockPrevents
+	jumpifsideaffecting BS_ATTACKER, SIDE_STATUS_HEAL_BLOCK, BattleScript_MoveUsedHealBlockPrevents @ stops pollen puff
+	jumpifsideaffecting BS_TARGET, SIDE_STATUS_HEAL_BLOCK, BattleScript_MoveUsedHealBlockPrevents
 	jumpifsubstituteblocks BattleScript_ButItFailed
 	tryhealpulse BattleScript_AlreadyAtFullHp
 	attackanimation
@@ -2277,7 +2278,7 @@ BattleScript_EffectNaturalGift::
 	jumpifnotberry BS_ATTACKER, BattleScript_ButItFailed
 	jumpifword CMP_COMMON_BITS, gFieldStatuses, STATUS_FIELD_MAGIC_ROOM, BattleScript_ButItFailed
 	jumpifability BS_ATTACKER, ABILITY_KLUTZ, BattleScript_ButItFailed
-	jumpifvolatile BS_ATTACKER, VOLATILE_EMBARGO, BattleScript_ButItFailed
+	jumpifsideaffecting BS_ATTACKER, SIDE_STATUS_EMBARGO, BattleScript_ButItFailed
 	accuracycheck BattleScript_MoveMissedPause
 	call BattleScript_HitFromDamageCalc
 
