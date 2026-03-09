@@ -397,9 +397,8 @@
 	.4byte \instr
 	.endm
 
-	.macro setroost failInstr:req
+	.macro setroost
 	.byte B_SCR_OP_SETROOST
-	.4byte \failInstr
 	.endm
 
 	.macro jumpifabilitypresent ability:req, jumpInstr:req
@@ -1290,9 +1289,8 @@
 	.byte B_SCR_OP_HANDLEBALLTHROW
 	.endm
 
-	.macro givecaughtmon passInstr:req
+	.macro givecaughtmon
 	.byte B_SCR_OP_GIVECAUGHTMON
-	.4byte \passInstr
 	.endm
 
 	.macro trysetcaughtmondexflags failInstr:req
@@ -1304,8 +1302,9 @@
 	.byte B_SCR_OP_DISPLAYDEXINFO
 	.endm
 
-	.macro trygivecaughtmonnick
+	.macro trygivecaughtmonnick jumpInstr:req
 	.byte B_SCR_OP_TRYGIVECAUGHTMONNICK
+    .4byte \jumpInstr
 	.endm
 
 	.macro sortbattlers
@@ -1472,9 +1471,8 @@
 	.4byte \ptr
 	.endm
 
-	.macro jumpifcantloseitem battler:req, ptr:req
+	.macro jumpifcantloseitem ptr:req
 	callnative BS_JumpIfCantLoseItem
-	.byte \battler
 	.4byte \ptr
 	.endm
 
@@ -2096,8 +2094,9 @@
 	callnative BS_InstantHpDrop
 	.endm
 
-	.macro clearstatus
+	.macro clearstatus battler:req
 	callnative BS_ClearStatus
+	.byte \battler
 	.endm
 
 	.macro restoremovepp battler:req
@@ -2489,6 +2488,12 @@
 	.4byte \jumpInstr
 	.endm
 
+    .macro tryactivateabilitywithabilityshield battler:req, switchedItems=FALSE
+	callnative BS_TryActivateAbilityWithAbilityShield
+	.byte \battler
+	.byte \switchedItems
+	.endm
+
 	@v my custom natives below here
 	.macro escapePreventionChecks battler:req, failInstr:req
 	callnative	BS_HandleEscapePrevention
@@ -2591,5 +2596,14 @@
 
 	.macro jumpifcanAccessPCpostcatch jumpInstr:req
 	callnative BS_JumpifShouldPostCatchAccessPC
+	.4byte \jumpInstr
+	.endm
+
+    .macro mondamaged
+	callnative BS_playerMonWasDamaged
+	.endm
+
+    .macro jumpifnotfullhp battler:req, jumpInstr:req
+	callnative BS_JumpIfNotMaxHp
 	.4byte \jumpInstr
 	.endm

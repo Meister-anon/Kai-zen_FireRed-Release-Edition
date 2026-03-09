@@ -2012,8 +2012,6 @@ BattleScript_EffectTelekinesis::
 
 BattleScript_EffectSteelSurge::
 	attackcanceler
-	attackstring
-	ppreduce
 	setsteelsurge BattleScript_ButItFailed
 	attackanimation
 	waitanimation
@@ -2420,11 +2418,12 @@ BattleScript_MaxHp50Recoil::
 	tryfaintmon BS_ATTACKER
 	return
 
+@vsonic
 BattleScript_EffectDreamEater::
 	attackcanceler
-.if B_DREAM_EATER_SUBSTITUTE < GEN_5
-	jumpifsubstituteblocks BattleScript_DoesntAffectTargetAtkString
-.endif
+    @unsure if will keep block on my version I did
+    @EE removed it for later gen effects
+	@jumpifsubstituteblocks BattleScript_DoesntAffectTargetAtkString
 	jumpifstatus BS_TARGET, STATUS1_SLEEP, BattleScript_HitFromAccCheck
 	jumpifability BS_TARGET, ABILITY_COMATOSE, BattleScript_HitFromAccCheck
 	goto BattleScript_DoesntAffectTargetAtkString
@@ -3139,9 +3138,6 @@ BattleScript_EffectMeanLook::
 	attackcanceler
 	escapePreventionChecks BS_TARGET, BattleScript_ButItFailed
 	jumpifsubstituteblocks BattleScript_ButItFailed
-.if B_GHOSTS_ESCAPE >= GEN_6
-	@jumpiftype BS_TARGET, TYPE_GHOST, BattleScript_ButItFailed
-.endif
 	attackanimation
 	waitanimation
 	seteffectprimary BS_ATTACKER, BS_TARGET, MOVE_EFFECT_PREVENT_ESCAPE
@@ -3627,9 +3623,6 @@ BattleScript_EffectStockpile::
 	waitanimation
 	printstring STRINGID_PKMNSTOCKPILED
 	waitmessage B_WAIT_TIME_LONG
-	.if B_STOCKPILE_RAISES_DEFS < GEN_4
-	goto BattleScript_MoveEnd
-	.endif
 	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_DEF, MAX_STAT_STAGE, BattleScript_EffectStockpileDef
 	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_SPDEF, MAX_STAT_STAGE, BattleScript_MoveEnd
 BattleScript_EffectStockpileDef:
@@ -3646,12 +3639,16 @@ BattleScript_EffectStockpileSpDef::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
+@cant remember my stockpile rework plan
+@may have idea to do something with but
+@not losing stat drops also works check my notes
+@found plan keep stat removal just only when hits 0
+@and changing how stockpilecount works
+@vsonic
 BattleScript_MoveEffectStockpileWoreOff::
-	.if B_STOCKPILE_RAISES_DEFS >= GEN_4
 	dostockpilestatchangeswearoff BS_ATTACKER, BattleScript_StockpileStatChangeDown
 	printstring STRINGID_STOCKPILEDEFFECTWOREOFF
 	waitmessage B_WAIT_TIME_SHORT
-	.endif
 	return
 
 BattleScript_StockpileStatChangeDown:
@@ -3720,11 +3717,16 @@ BattleScript_FlatterTryConfuse::
 	seteffectprimary BS_ATTACKER, BS_TARGET, MOVE_EFFECT_CONFUSION
 	goto BattleScript_MoveEnd
 
+@could add species lock but with sketch block
+@is unnecessary no other way to get move
+@would have to steal it from a darkrai in battle
+@and unless using mirror move wouldnt be permanent
+@point is counter play exists
 BattleScript_EffectDarkVoid::
-.if B_DARK_VOID_FAIL >= GEN_7
-	jumpifspecies SPECIES_DARKRAI, BattleScript_EffectNonVolatileStatus
-	goto BattleScript_PokemonCantUseTheMove
-.endif
+@.if B_DARK_VOID_FAIL >= GEN_7
+@	jumpifspecies SPECIES_DARKRAI, BattleScript_EffectNonVolatileStatus
+@	goto BattleScript_PokemonCantUseTheMove
+@.endif
 BattleScript_EffectNonVolatileStatus::
 	attackcanceler
 	trynonvolatilestatus
@@ -4012,6 +4014,9 @@ BattleScript_PrintAbilityMadeIneffective::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
+@vsonic still working on figure out
+@wonder guard dispirit guard 
+@hp drop when attain ability
 BattleScript_EffectSkillSwap::
 	attackcanceler
 	tryswapabilities BattleScript_ButItFailed
@@ -4028,10 +4033,8 @@ BattleScript_EffectSkillSwap_AfterAbilityPopUp:
 	recordability BS_TARGET
 	printstring STRINGID_PKMNSWAPPEDABILITIES
 	waitmessage B_WAIT_TIME_LONG
-.if B_SKILL_SWAP >= GEN_4
-	switchinabilities BS_ATTACKER
+	switchinabilities BS_ATTACKER   @believe is for actiate switchin abilitiy when gain
 	switchinabilities BS_TARGET
-.endif
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectImprison::
@@ -4381,37 +4384,38 @@ BattleScript_PayDayMoneyAndPickUpItems::
 	generateendbattleitem
 	end2
 
+@vsonic need compare w FR version
 BattleScript_LocalBattleLost::
+    jumpifbattletype BATTLE_TYPE_TRAINER_TOWER, BattleScript_BattleTowerLost
 	jumpifbattletype BATTLE_TYPE_DOME, BattleScript_CheckDomeDrew
 	jumpifbattletype BATTLE_TYPE_FRONTIER, BattleScript_LocalBattleLostPrintTrainersWinText
 	jumpifbattletype BATTLE_TYPE_TRAINER_HILL, BattleScript_LocalBattleLostPrintTrainersWinText
 	jumpifbattletype BATTLE_TYPE_EREADER_TRAINER, BattleScript_LocalBattleLostEnd
 	jumpifhalfword CMP_EQUAL, gTrainerBattleParameter + 2, TRAINER_SECRET_BASE, BattleScript_LocalBattleLostEnd
-	jumpifnowhiteout BattleScript_LocalBattleLostEnd_
+	jumpifbyte CMP_NOT_EQUAL, cMULTISTRING_CHOOSER, 0, BattleScript_RivalBattleLost
+    jumpifnowhiteout BattleScript_LocalBattleLostEnd_
 	jumpifbattletype BATTLE_TYPE_INGAME_PARTNER, BattleScript_LocalBattleLostPrintWhiteOut
 BattleScript_LocalBattleLostPrintWhiteOut::
 	getmoneyreward
 	printstring STRINGID_PLAYERWHITEOUT
 	waitmessage B_WAIT_TIME_LONG
-.if B_WHITEOUT_MONEY >= GEN_4
-	jumpifbattletype BATTLE_TYPE_TRAINER, BattleScript_LocalBattleLostEnd
-	printstring STRINGID_PLAYERWHITEOUT2_WILD
-	waitmessage B_WAIT_TIME_LONG
-	printstring STRINGID_PLAYERWHITEOUT3
-	waitmessage B_WAIT_TIME_LONG
-	end2
-BattleScript_LocalBattleLostEnd::
-	printstring STRINGID_PLAYERWHITEOUT2_TRAINER
-	waitmessage B_WAIT_TIME_LONG
-	printstring STRINGID_PLAYERWHITEOUT3
-	waitmessage B_WAIT_TIME_LONG
-	end2
-.else
 	printstring STRINGID_PLAYERWHITEOUT3
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_LocalBattleLostEnd::
 	end2
-.endif
+
+BattleScript_RivalBattleLost::
+	jumpifhasnohp BS_ATTACKER, BattleScript_RivalBattleLostSkipMonRecall
+	printstring STRINGID_TRAINER1MON1COMEBACK
+	waitmessage B_WAIT_TIME_LONG
+	returnatktoball
+	waitstate
+BattleScript_RivalBattleLostSkipMonRecall::
+	trainerslidein BS_ATTACKER
+	waitstate
+	printstring STRINGID_TRAINER1WINTEXT
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_LocalBattleLostPrintWhiteOut
+	end2
 
 BattleScript_CheckDomeDrew::
 	jumpifbyte CMP_EQUAL, gBattleOutcome, B_OUTCOME_DREW, BattleScript_LocalBattleLostEnd_
@@ -4581,27 +4585,35 @@ BattleScript_LevelUp::
 	printstring STRINGID_PKMNGREWTOLV
 	setbyte sLVLBOX_STATE, 0
 	drawlvlupbox
-	handlelearnnewmove BattleScript_LearnedNewMove, BattleScript_LearnMoveReturn, TRUE
+	handlelearnnewmove BattleScript_LearnedNewMove, BattleScript_LearnMoveReturn, TRUE @believe 2 pointers and a bool
 	goto BattleScript_AskToLearnMove
-BattleScript_TryLearnMoveLoop::
+
+BattleScript_LearnMoveLoop::
 	handlelearnnewmove BattleScript_LearnedNewMove, BattleScript_LearnMoveReturn, FALSE
 BattleScript_AskToLearnMove::
 	buffermovetolearn
 	printstring STRINGID_TRYTOLEARNMOVE1
 	printstring STRINGID_TRYTOLEARNMOVE2
+BattleScript_AskToLearnMoveFast::
+	buffermovetolearn
 	printstring STRINGID_TRYTOLEARNMOVE3
 	waitstate
-	setbyte sLEARNMOVE_STATE, 0
-	yesnoboxlearnmove BattleScript_ForgotAndLearnedNewMove
-.if P_ASK_MOVE_CONFIRMATION == TRUE
+	setbyte sLEARNMOVE_STATE, 0 @needed to setup for yesnobox commands for learnn/stoplearn move
+	yesnoboxlearnmove BattleScript_ForgotAndLearnedNewMove @case 0-1 yes no logic jump is case 3,
+	buffermovetolearn
 	printstring STRINGID_STOPLEARNINGMOVE
 	waitstate
 	setbyte sLEARNMOVE_STATE, 0
-	yesnoboxstoplearningmove BattleScript_AskToLearnMove
-.endif
+	@yesnoboxstoplearningmove BattleScript_AskToLearnMove
+	yesnoboxstoplearningmove BattleScript_AskToLearnMoveFast
 	printstring STRINGID_DIDNOTLEARNMOVE
-	goto BattleScript_TryLearnMoveLoop
+	goto BattleScript_LearnMoveLoop	@check if can learn another move
+
 BattleScript_ForgotAndLearnedNewMove::
+	@printstring STRINGID_CONFIRMFORGETMOVE
+	@waitstate
+	@setbyte sLEARNMOVE_STATE, 0
+	@yesnoboxstoplearningmove BattleScript_AskToLearnMoveFast
 	printstring STRINGID_123POOF
 	printstring STRINGID_PKMNFORGOTMOVE
 	printstring STRINGID_ANDELLIPSIS
@@ -4609,9 +4621,10 @@ BattleScript_LearnedNewMove::
 	buffermovetolearn
 	fanfare MUS_LEVEL_UP
 	printstring STRINGID_PKMNLEARNEDMOVE
-	waitmessage B_WAIT_TIME_LONG
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatechoicemoveonlvlup
-	goto BattleScript_TryLearnMoveLoop
+	goto BattleScript_LearnMoveLoop
+
 BattleScript_LearnMoveReturn::
 	return
 
@@ -8507,13 +8520,10 @@ BattleScript_QuestionForfeitBattle::
 	forfeityesnobox
 	endselectionscript
 
+@compare w FR text as well vsonic
 BattleScript_ForfeitBattleGaveMoney::
 	getmoneyreward
-.if B_WHITEOUT_MONEY >= GEN_4
-	printstring STRINGID_PLAYERWHITEOUT2_TRAINER
-.else
 	printstring STRINGID_PLAYERWHITEOUT3
-.endif
 	waitmessage B_WAIT_TIME_LONG
 	end2
 

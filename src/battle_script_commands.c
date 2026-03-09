@@ -5660,7 +5660,7 @@ static void Cmd_call(void)
 
 static void Cmd_setroost(void)
 {
-    CMD_ARGS(const u8* failInstr);
+    CMD_ARGS();
     if (!gBattleMons[gBattlerAttacker].volatiles.roostTimer)
     {
         //setting timer to 4 should give 3 full turns of heal
@@ -5668,7 +5668,7 @@ static void Cmd_setroost(void)
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
-        gBattlescriptCurrInstr = cmd->failInstr;
+        gBattlescriptCurrInstr = BattleScript_ButItFailed;
 }
 
 static void Cmd_jumpifabilitypresent(void)
@@ -8396,6 +8396,12 @@ static void Cmd_stockpiletohpheal(void)
     }
 }
 
+//found note swallow stockpile should 
+//decrement stockpile count every 2 uses
+//can make volatile usedStockPileMove
+//in move resolution when hits 2 call decrement 
+//guess would just put all this into move resolution
+//rather than a script command
 void BS_RemoveStockpileCounters(void)
 {
     NATIVE_ARGS();
@@ -8410,7 +8416,8 @@ void BS_RemoveStockpileCounters(void)
     {
         gBattleMons[gBattlerAttacker].volatiles.stockpileCounter = 0;
         BattleScriptPush(cmd->nextInstr);
-        gBattlescriptCurrInstr = BattleScript_MoveEffectStockpileWoreOff;
+        if (gBattleMons[gBattlerAttacker].volatiles.stockpileCounter == 0)
+            gBattlescriptCurrInstr = BattleScript_MoveEffectStockpileWoreOff;
     }
 }
 
@@ -12939,6 +12946,8 @@ void BS_CheckParentalBondCounter(void)
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+//only used for corrosive gas
+//so don't need special battler argument
 void BS_JumpIfCantLoseItem(void)
 {
     NATIVE_ARGS(const u8 *jumpInstr);
@@ -14902,9 +14911,9 @@ void BS_UpdateChoiceMoveOnLvlUp(void)
     {
         enum BattlerId battler;
         if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId)
-            battler = 0;
+            battler = B_POSITION_PLAYER_LEFT;
         else
-            battler = 2;
+            battler = B_POSITION_PLAYER_RIGHT;
 
         u32 moveIndex;
         for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
@@ -16571,3 +16580,20 @@ void BS_JumpandClearRage(void)
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+void BS_playerMonWasDamaged(void)
+{
+    NATIVE_ARGS();
+    gBattleResults.playerMonWasDamaged = TRUE;
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_JumpIfNotMaxHp(void)
+{
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
+    enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
+    
+    if (!(BATTLER_MAX_HP(battler)))
+        gBattlescriptCurrInstr = cmd->jumpInstr;
+    else
+        gBattlescriptCurrInstr = cmd->nextInstr;
+}

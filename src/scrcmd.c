@@ -79,16 +79,20 @@ static const u8 sScriptConditionTable[6][3] =
 
 bool8 ScrCmd_nop(struct ScriptContext * ctx)
 {
+    Script_RequestEffects(SCREFF_V1);
     return FALSE;
 }
 
 bool8 ScrCmd_nop1(struct ScriptContext * ctx)
 {
+    Script_RequestEffects(SCREFF_V1);
     return FALSE;
 }
 
 bool8 ScrCmd_end(struct ScriptContext * ctx)
 {
+    Script_RequestEffects(SCREFF_V1);
+    //FlagClear(FLAG_SAFE_FOLLOWER_MOVEMENT);
     StopScript(ctx);
     return FALSE;
 }
@@ -96,6 +100,7 @@ bool8 ScrCmd_end(struct ScriptContext * ctx)
 bool8 ScrCmd_gotonative(struct ScriptContext * ctx)
 {
     bool8 (*func)(void) = (bool8 (*)(void))ScriptReadWord(ctx);
+    Script_RequestEffects(SCREFF_V1);
     SetupNativeScript(ctx, func);
     return TRUE;
 }
@@ -103,16 +108,23 @@ bool8 ScrCmd_gotonative(struct ScriptContext * ctx)
 bool8 ScrCmd_special(struct ScriptContext * ctx)
 {
    u16 index = ScriptReadHalfword(ctx);
-
+    Script_RequestEffects(SCREFF_V1);
+    Script_CheckEffectInstrumentedSpecial(index);
     gSpecials[index]();
     return FALSE;
 }
 
 bool8 ScrCmd_specialvar(struct ScriptContext * ctx)
 {
-    u16 *var = GetVarPointer(ScriptReadHalfword(ctx));
+    u32 varId = ScriptReadHalfword(ctx);
+    u16 index = ScriptReadHalfword(ctx);
+    u16 *var = GetVarPointer(varId);
 
-    *var = gSpecials[ScriptReadHalfword(ctx)]();
+    Script_RequestEffects(SCREFF_V1);
+    Script_RequestWriteVar(varId);
+    Script_CheckEffectInstrumentedSpecial(index);
+
+    *var = gSpecials[index]();
     return FALSE;
 }
 
@@ -120,12 +132,17 @@ bool8 ScrCmd_callnative(struct ScriptContext * ctx)
 {
     NativeFunc func = (NativeFunc)ScriptReadWord(ctx);
 
+    Script_RequestEffects(SCREFF_V1);
+    Script_CheckEffectInstrumentedCallNative(func);
+
+    ctx->waitAfterCallNative = FALSE;
     func(ctx);
-    return FALSE;
+    return ctx->waitAfterCallNative;
 }
 
 bool8 ScrCmd_waitstate(struct ScriptContext * ctx)
 {
+    Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
     ScriptContext_Stop();
     return TRUE;
 }
@@ -133,12 +150,14 @@ bool8 ScrCmd_waitstate(struct ScriptContext * ctx)
 bool8 ScrCmd_goto(struct ScriptContext * ctx)
 {
     const u8 * scrptr = (const u8 *)ScriptReadWord(ctx);
+    Script_RequestEffects(SCREFF_V1);
     ScriptJump(ctx, scrptr);
     return FALSE;
 }
 
 bool8 ScrCmd_return(struct ScriptContext * ctx)
 {
+    Script_RequestEffects(SCREFF_V1);
     ScriptReturn(ctx);
     return FALSE;
 }
@@ -146,6 +165,7 @@ bool8 ScrCmd_return(struct ScriptContext * ctx)
 bool8 ScrCmd_call(struct ScriptContext * ctx)
 {
     const u8 * scrptr = (const u8 *)ScriptReadWord(ctx);
+    Script_RequestEffects(SCREFF_V1);
     ScriptCall(ctx, scrptr);
     return FALSE;
 }
@@ -154,6 +174,8 @@ bool8 ScrCmd_goto_if(struct ScriptContext * ctx)
 {
     u8 condition = ScriptReadByte(ctx);
     const u8 * scrptr = (const u8 *)ScriptReadWord(ctx);
+    Script_RequestEffects(SCREFF_V1);
+
     if (sScriptConditionTable[condition][ctx->comparisonResult] == 1)
         ScriptJump(ctx, scrptr);
     return FALSE;
@@ -163,6 +185,8 @@ bool8 ScrCmd_call_if(struct ScriptContext * ctx)
 {
     u8 condition = ScriptReadByte(ctx);
     const u8 * scrptr = (const u8 *)ScriptReadWord(ctx);
+    Script_RequestEffects(SCREFF_V1);
+
     if (sScriptConditionTable[condition][ctx->comparisonResult] == 1)
         ScriptCall(ctx, scrptr);
     return FALSE;
@@ -173,6 +197,8 @@ bool8 ScrCmd_setvaddress(struct ScriptContext * ctx)
     u32 addr1 = (u32)ctx->scriptPtr - 1;
     u32 addr2 = ScriptReadWord(ctx);
 
+    Script_RequestEffects(SCREFF_V1);
+
     gVScriptOffset = addr2 - addr1;
     return FALSE;
 }
@@ -180,6 +206,7 @@ bool8 ScrCmd_setvaddress(struct ScriptContext * ctx)
 bool8 ScrCmd_vgoto(struct ScriptContext * ctx)
 {
     const u8 * scrptr = (const u8 *)ScriptReadWord(ctx);
+    Script_RequestEffects(SCREFF_V1);
     ScriptJump(ctx, scrptr - gVScriptOffset);
     return FALSE;
 }
@@ -187,6 +214,8 @@ bool8 ScrCmd_vgoto(struct ScriptContext * ctx)
 bool8 ScrCmd_vcall(struct ScriptContext * ctx)
 {
     const u8 * scrptr = (const u8 *)ScriptReadWord(ctx);
+
+    Script_RequestEffects(SCREFF_V1);
     ScriptCall(ctx, scrptr - gVScriptOffset);
     return FALSE;
 }
@@ -195,6 +224,8 @@ bool8 ScrCmd_vgoto_if(struct ScriptContext * ctx)
 {
     u8 condition = ScriptReadByte(ctx);
     const u8 * scrptr = (const u8 *)ScriptReadWord(ctx) - gVScriptOffset;
+    Script_RequestEffects(SCREFF_V1);
+
     if (sScriptConditionTable[condition][ctx->comparisonResult] == 1)
         ScriptJump(ctx, scrptr);
     return FALSE;
@@ -204,6 +235,9 @@ bool8 ScrCmd_vcall_if(struct ScriptContext * ctx)
 {
     u8 condition = ScriptReadByte(ctx);
     const u8 * scrptr = (const u8 *)ScriptReadWord(ctx) - gVScriptOffset;
+
+    Script_RequestEffects(SCREFF_V1);
+
     if (sScriptConditionTable[condition][ctx->comparisonResult] == 1)
         ScriptCall(ctx, scrptr);
     return FALSE;
@@ -213,6 +247,8 @@ bool8 ScrCmd_gotostd(struct ScriptContext * ctx)
 {
     u8 stdIdx = ScriptReadByte(ctx);
     const u8 *const * script = gStdScripts + stdIdx;
+    Script_RequestEffects(SCREFF_V1);
+
     if (script < gStdScriptsEnd)
         ScriptJump(ctx, *script);
     return FALSE;
@@ -222,6 +258,9 @@ bool8 ScrCmd_callstd(struct ScriptContext * ctx)
 {
     u8 stdIdx = ScriptReadByte(ctx);
     const u8 *const * script = gStdScripts + stdIdx;
+
+    Script_RequestEffects(SCREFF_V1);
+
     if (script < gStdScriptsEnd)
         ScriptCall(ctx, *script);
     return FALSE;
@@ -231,6 +270,8 @@ bool8 ScrCmd_gotostd_if(struct ScriptContext * ctx)
 {
     u8 condition = ScriptReadByte(ctx);
     u8 stdIdx = ScriptReadByte(ctx);
+    Script_RequestEffects(SCREFF_V1);
+    
     if (sScriptConditionTable[condition][ctx->comparisonResult] == 1)
     {
         const u8 *const * script = gStdScripts + stdIdx;
@@ -253,14 +294,20 @@ bool8 ScrCmd_callstd_if(struct ScriptContext * ctx)
     return FALSE;
 }
 
+//returnrma in EE
 bool8 ScrCmd_gotoram(struct ScriptContext * ctx)
 {
+    Script_RequestEffects(SCREFF_V1);
     ScriptJump(ctx, gRAMScriptPtr);
     return FALSE;
 }
 
+//endram in EE
 bool8 ScrCmd_killscript(struct ScriptContext * ctx)
 {
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
+
+    //FlagClear(FLAG_SAFE_FOLLOWER_MOVEMENT);
     ClearRamScript();
     StopScript(ctx);
     return TRUE;
@@ -268,13 +315,20 @@ bool8 ScrCmd_killscript(struct ScriptContext * ctx)
 
 bool8 ScrCmd_setmysteryeventstatus(struct ScriptContext * ctx)
 {
-    SetMysteryEventScriptStatus(ScriptReadByte(ctx));
+    u8 status = ScriptReadByte(ctx);
+
+    Script_RequestEffects(SCREFF_V1);
+
+    SetMysteryEventScriptStatus(status);
     return FALSE;
 }
 
+//no idea what effect this should have - vsonic
 bool8 ScrCmd_execram(struct ScriptContext * ctx)
 {
     const u8 * script = sub_8069E48();
+
+    Script_RequestEffects(SCREFF_V1);
     if (script != NULL)
     {
         gRAMScriptPtr = ctx->scriptPtr;
@@ -285,44 +339,60 @@ bool8 ScrCmd_execram(struct ScriptContext * ctx)
 
 bool8 ScrCmd_loadword(struct ScriptContext * ctx)
 {
-    u8 which = ScriptReadByte(ctx);
-    ctx->data[which] = ScriptReadWord(ctx);
+    u8 index = ScriptReadByte(ctx);
+
+    Script_RequestEffects(SCREFF_V1);
+    ctx->data[index] = ScriptReadWord(ctx);
     return FALSE;
 }
 
 bool8 ScrCmd_loadbytefromaddr(struct ScriptContext * ctx)
 {
-    u8 which = ScriptReadByte(ctx);
-    ctx->data[which] = *(const u8 *)ScriptReadWord(ctx);
+    u8 index = ScriptReadByte(ctx);
+    Script_RequestEffects(SCREFF_V1);
+    ctx->data[index] = *(const u8 *)ScriptReadWord(ctx);
     return FALSE;
 }
 
+//setptr in EE
 bool8 ScrCmd_writebytetoaddr(struct ScriptContext * ctx)
 {
     u8 value = ScriptReadByte(ctx);
+
+    // TODO: Check if 'ptr' is within a save block?
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
+
     *(u8 *)ScriptReadWord(ctx) = value;
     return FALSE;
 }
 
 bool8 ScrCmd_loadbyte(struct ScriptContext * ctx)
 {
-    u8 which = ScriptReadByte(ctx);
-    ctx->data[which] = ScriptReadByte(ctx);
+    u8 index = ScriptReadByte(ctx);
+    Script_RequestEffects(SCREFF_V1);
+
+    ctx->data[index] = ScriptReadByte(ctx);
     return FALSE;
 }
 
 bool8 ScrCmd_setptrbyte(struct ScriptContext * ctx)
 {
-    u8 which = ScriptReadByte(ctx);
-    *(u8 *)ScriptReadWord(ctx) = ctx->data[which];
+    u8 index = ScriptReadByte(ctx);
+
+    // TODO: Check if 'ptr' is within a save block?
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
+
+    *(u8 *)ScriptReadWord(ctx) = ctx->data[index];
     return FALSE;
 }
 
 bool8 ScrCmd_copylocal(struct ScriptContext * ctx)
 {
-    u8 whichDst = ScriptReadByte(ctx);
-    u8 whichSrc = ScriptReadByte(ctx);
-    ctx->data[whichDst] = ctx->data[whichSrc];
+    u8 destIndex = ScriptReadByte(ctx);
+    u8 srcIndex = ScriptReadByte(ctx);
+
+    Script_RequestEffects(SCREFF_V1);
+    ctx->data[destIndex] = ctx->data[srcIndex];
     return FALSE;
 }
 
@@ -2115,7 +2185,7 @@ bool8 ScrCmd_updatecoinsbox(struct ScriptContext * ctx)
 
 bool8 ScrCmd_trainerbattle(struct ScriptContext * ctx)
 {
-    //Script_RequestEffects(SCREFF_V1 | SCREFF_TRAINERBATTLE);
+    Script_RequestEffects(SCREFF_V1 | SCREFF_TRAINERBATTLE);
     
     TrainerBattleLoadArgs(ctx->scriptPtr);
     ctx->scriptPtr = BattleSetup_ConfigureTrainerBattle(ctx->scriptPtr);
@@ -2124,18 +2194,21 @@ bool8 ScrCmd_trainerbattle(struct ScriptContext * ctx)
 
 bool8 ScrCmd_dotrainerbattle(struct ScriptContext * ctx)
 {
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE | SCREFF_HARDWARE);
     BattleSetup_StartTrainerBattle();
     return TRUE;
 }
 
 bool8 ScrCmd_gotopostbattlescript(struct ScriptContext * ctx)
 {
+    Script_RequestEffects(SCREFF_V1);
     ctx->scriptPtr = BattleSetup_GetScriptAddrAfterBattle();
     return FALSE;
 }
 
 bool8 ScrCmd_gotobeatenscript(struct ScriptContext * ctx)
 {
+    Script_RequestEffects(SCREFF_V1);
     ctx->scriptPtr = BattleSetup_GetTrainerPostBattleScript();
     return FALSE;
 }
@@ -2143,6 +2216,8 @@ bool8 ScrCmd_gotobeatenscript(struct ScriptContext * ctx)
 bool8 ScrCmd_checktrainerflag(struct ScriptContext * ctx)
 {
     u16 index = VarGet(ScriptReadHalfword(ctx));
+
+    Script_RequestEffects(SCREFF_V1);
 
     ctx->comparisonResult = HasTrainerBeenFought(index);
     return FALSE;
@@ -2152,6 +2227,8 @@ bool8 ScrCmd_settrainerflag(struct ScriptContext * ctx)
 {
     u16 index = VarGet(ScriptReadHalfword(ctx));
 
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
+
     SetTrainerFlag(index);
     return FALSE;
 }
@@ -2159,6 +2236,8 @@ bool8 ScrCmd_settrainerflag(struct ScriptContext * ctx)
 bool8 ScrCmd_cleartrainerflag(struct ScriptContext * ctx)
 {
     u16 index = VarGet(ScriptReadHalfword(ctx));
+
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
 
     ClearTrainerFlag(index);
     return FALSE;
@@ -2173,7 +2252,7 @@ bool8 ScrCmd_setwildbattle(struct ScriptContext *ctx)
     u8 level2 = ScriptReadByte(ctx);
     enum Item item2 = ScriptReadHalfword(ctx);
 
-    //Script_RequestEffects(SCREFF_V1);
+    Script_RequestEffects(SCREFF_V1);
 
     if (species2 == SPECIES_NONE)
     {

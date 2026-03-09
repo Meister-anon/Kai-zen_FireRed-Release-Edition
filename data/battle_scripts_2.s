@@ -145,8 +145,8 @@ BattleScript_AIUseFullRestoreOrHpHeal::
 	waitmessage B_WAIT_TIME_LONG
 	useitemonopponent
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
-	healthbarupdate BS_ATTACKER
-	datahpupdate BS_ATTACKER
+	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	datahpupdate BS_ATTACKER, PASSIVE_HP_UPDATE
 	printstring STRINGID_PKMNSITEMRESTOREDHEALTH
 	waitmessage B_WAIT_TIME_LONG
 	updatestatusicon BS_ATTACKER
@@ -196,7 +196,7 @@ BattleScript_UseFluffyTail::
 	finishturn
 
 BattleScript_UsePokeFlute::
-	checkpokeflute BS_ATTACKER
+	checkpokeflute
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 1, BattleScript_PokeFluteWakeUp
 	printstring STRINGID_POKEFLUTECATCHY
 	waitmessage B_WAIT_TIME_LONG
@@ -206,7 +206,7 @@ BattleScript_PokeFluteWakeUp::
 	printstring STRINGID_POKEFLUTE
 	waitmessage B_WAIT_TIME_LONG
 	fanfare MUS_POKE_FLUTE
-	waitfanfare BS_ATTACKER
+	waitfanfare
 	printstring STRINGID_MONHEARINGFLUTEAWOKE
 	waitmessage B_WAIT_TIME_LONG
 	updatestatusicon BS_PLAYER2

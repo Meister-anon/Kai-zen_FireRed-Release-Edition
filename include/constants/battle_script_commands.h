@@ -589,6 +589,9 @@ enum BattleScriptOpcode
 #define BIT_ACC                     (1 << 6)
 #define BIT_EVASION                 (1 << 7)
 
+#define PARTY_SCREEN_OPTIONAL (1 << 7) // Flag for first argument to openpartyscreen
+
+
 enum SetMoveEffectFlags
 {
     NO_FLAGS          = 0,
@@ -632,8 +635,8 @@ enum TriggerOnFieldStatus
 
 enum HealthUpdate
 {
-    PASSIVE_HP_UPDATE,
-    MOVE_DAMAGE_HP_UPDATE,
+    PASSIVE_HP_UPDATE,  //used for healing
+    MOVE_DAMAGE_HP_UPDATE, //used for dmg
 };
 
 //turn these into enum later

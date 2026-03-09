@@ -16,11 +16,13 @@
 	.endm
 	.endif
 
+@sigh need update script.c w changes can no longer read this table smh
 @matches w event.inc
 enum_start
 	.if ALLOCATE_SCRIPT_CMD_TABLE
 	.align 2
 gScriptCmdTable:: @ 815F9B4
+    .endif
 	script_cmd_table_entry SCR_OP_NOP                            ScrCmd_nop,                             requests_effects=1
 	script_cmd_table_entry SCR_OP_NOP1                            ScrCmd_nop1,                             requests_effects=1
 	script_cmd_table_entry SCR_OP_END                            ScrCmd_end,                             requests_effects=1
