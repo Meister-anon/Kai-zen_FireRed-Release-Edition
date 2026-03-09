@@ -3163,9 +3163,9 @@ BattleScript_NightmareWorked::
 @potentially do like shadow strike
 @give one turn evasion boost but smaller
 @but with guard mode planned dont wanna make evasoin stall too easy
+@idk think may be fine theres moves to bypass evasion now
 BattleScript_EffectMinimize::
 	attackcanceler
-	setvolatile BS_ATTACKER, VOLATILE_MINIMIZE
 BattleScript_EffectMinimizeGen4:
 	setstatchanger STAT_EVASION, 1, FALSE
 	goto BattleScript_EffectStatUpAfterAtkCanceler
