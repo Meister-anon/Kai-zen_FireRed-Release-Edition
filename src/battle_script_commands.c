@@ -6903,6 +6903,10 @@ static void Cmd_getmoneyreward(void)
     }
 
     PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff1, 5, money);
+    //to match FR version may remove later vsonic important
+    if (money == 0)        
+        gBattlescriptCurrInstr = BattleScript_LocalBattleLostPrintTrainersWinText_FR;
+    
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
