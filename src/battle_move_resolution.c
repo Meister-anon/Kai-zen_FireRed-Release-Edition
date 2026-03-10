@@ -278,14 +278,14 @@ static enum CancelerResult CancelerFocus(struct BattleContext *ctx)
 
 static enum CancelerResult CancelerFocusPreGen5(struct BattleContext *ctx)
 {
-    if (GetConfig(FOCUS_PUNCH_FAILURE) < GEN_5)
+    if (GetConfig(B_FOCUS_PUNCH_FAILURE) < GEN_5)
         return CancelerFocus(ctx);
     return CANCELER_RESULT_SUCCESS;
 }
 
 static enum CancelerResult CancelerFocusGen5(struct BattleContext *ctx)
 {
-    if (GetConfig(FOCUS_PUNCH_FAILURE) >= GEN_5)
+    if (GetConfig(B_FOCUS_PUNCH_FAILURE) >= GEN_5)
         return CancelerFocus(ctx);
     return CANCELER_RESULT_SUCCESS;
 }
@@ -768,7 +768,7 @@ static enum CancelerResult CancelerWeatherPrimal(struct BattleContext *ctx)
     if (GetMovePower(ctx->move) > 0 && HasWeatherEffect())
     {
         enum Type moveType = GetBattleMoveType(ctx->move);
-        if (moveType == TYPE_FIRE && gBattleWeather & WEATHER_RAIN_PRIMAL && (GetConfig(POWDER_STATUS_HEAVY_RAIN) >= GEN_7 || !TryActivatePowderStatus(ctx->move)))
+        if (moveType == TYPE_FIRE && gBattleWeather & WEATHER_RAIN_PRIMAL && (GetConfig(B_POWDER_STATUS_HEAVY_RAIN) >= GEN_7 || !TryActivatePowderStatus(ctx->move)))
         {
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_PRIMAL_WEATHER_FIZZLED_BY_RAIN;
             result = CANCELER_RESULT_FAILURE;
@@ -820,12 +820,12 @@ static enum CancelerResult CancelerMoveFailure(struct BattleContext *ctx)
         // Counter / Metal Burst and took physical damage
         else if (reflectCategory == DAMAGE_CATEGORY_PHYSICAL
               && gProtectStructs[ctx->battlerAtk].physicalDmg > 0
-              && (GetConfig(COUNTER_TRY_HIT_PARTNER) >= GEN_5 || gBattleMons[gProtectStructs[ctx->battlerAtk].physicalBattlerId].hp))
+              && (GetConfig(B_COUNTER_TRY_HIT_PARTNER) >= GEN_5 || gBattleMons[gProtectStructs[ctx->battlerAtk].physicalBattlerId].hp))
             break;
         // Mirror Coat / Metal Burst and took special damage
         else if (reflectCategory == DAMAGE_CATEGORY_SPECIAL
               && gProtectStructs[ctx->battlerAtk].specialDmg > 0
-              && (GetConfig(COUNTER_TRY_HIT_PARTNER) >= GEN_5 || gBattleMons[gProtectStructs[ctx->battlerAtk].specialBattlerId].hp))
+              && (GetConfig(B_COUNTER_TRY_HIT_PARTNER) >= GEN_5 || gBattleMons[gProtectStructs[ctx->battlerAtk].specialBattlerId].hp))
             break;
         else
             battleScript = BattleScript_ButItFailed;
@@ -882,8 +882,8 @@ static enum CancelerResult CancelerMoveFailure(struct BattleContext *ctx)
         {
             enum ProtectMethod protectMethod = GetMoveProtectMethod(ctx->move);
             bool32 canUseProtectSecondTime = CanUseMoveConsecutively(ctx->battlerAtk);
-            bool32 canUseWideGuard = (GetConfig(WIDE_GUARD) >= GEN_6 && protectMethod == PROTECT_WIDE_GUARD);
-            bool32 canUseQuickGuard = (GetConfig(QUICK_GUARD) >= GEN_6 && protectMethod == PROTECT_QUICK_GUARD);
+            bool32 canUseWideGuard = (GetConfig(B_WIDE_GUARD) >= GEN_6 && protectMethod == PROTECT_WIDE_GUARD);
+            bool32 canUseQuickGuard = (GetConfig(B_QUICK_GUARD) >= GEN_6 && protectMethod == PROTECT_QUICK_GUARD);
 
             if (!canUseProtectSecondTime
              && !canUseWideGuard
@@ -1044,7 +1044,7 @@ static enum CancelerResult CancelerProtean(struct BattleContext *ctx)
     enum Type moveType = GetBattleMoveType(ctx->move);
     if (ProteanTryChangeType(ctx->battlerAtk, ctx->abilityAtk, ctx->move, moveType))
     {
-        //if (GetConfig(PROTEAN_LIBERO) >= GEN_9)
+        //if (GetConfig(B_PROTEAN_LIBERO) >= GEN_9)
         //    gBattleMons[ctx->battlerAtk].volatiles.usedProteanLibero = TRUE;
         PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
         gBattlerAbility = ctx->battlerAtk;
@@ -1320,7 +1320,7 @@ static bool32 IsTargetingOpponentsField(enum BattlerId battlerAtk, enum BattlerI
 
 static bool32 IsTargetingAllBattlers(enum BattlerId battlerAtk, enum BattlerId battlerDef)
 {
-    if (GetConfig(CHECK_USER_FAILURE) >= GEN_5 && battlerAtk == battlerDef)
+    if (GetConfig(B_CHECK_USER_FAILURE) >= GEN_5 && battlerAtk == battlerDef)
         return skipFailure;
     return checkFailure;
 }
@@ -1529,7 +1529,7 @@ static void SetRandomMultiHitCounter()
 {
     if (GetBattlerHoldEffect(gBattlerAttacker) == HOLD_EFFECT_LOADED_DICE)
         gMultiHitCounter = RandomUniform(RNG_LOADED_DICE, 4, 5);
-    else if (GetConfig(MULTI_HIT_CHANCE) >= GEN_5)
+    else if (GetConfig(B_MULTI_HIT_CHANCE) >= GEN_5)
         gMultiHitCounter = RandomWeighted(RNG_HITS, 0, 0, 7, 7, 3, 3); // 35%: 2 hits, 35%: 3 hits, 15% 4 hits, 15% 5 hits.
     else
         gMultiHitCounter = RandomWeighted(RNG_HITS, 0, 0, 3, 3, 1, 1); // 37.5%: 2 hits, 37.5%: 3 hits, 12.5% 4 hits, 12.5% 5 hits.
@@ -1592,7 +1592,7 @@ static enum CancelerResult CancelerMultihitMoves(struct BattleContext *ctx)
              && !GetMonData(&party[i], MON_DATA_IS_EGG)
              && !GetMonData(&party[i], MON_DATA_STATUS))
             {
-                if (GetConfig(BEAT_UP) >= GEN_5)
+                if (GetConfig(B_BEAT_UP) >= GEN_5)
                     gBattleStruct->beatUpSpecies[gMultiHitCounter] = species;
                 else
                     gBattleStruct->beatUpSpecies[gMultiHitCounter] = i;
@@ -1849,7 +1849,7 @@ static enum MoveEndResult MoveEnd_Absorb(void)
             s32 healAmount = (gBattleStruct->moveDamage[gBattlerTarget] * GetMoveAbsorbPercentage(gCurrentMove) / 100);
             healAmount = GetDrainedBigRootHp(gBattlerAttacker, healAmount);
             healAmount = MistyTerrainHealBoost(gBattlerAttacker, healAmount);
-            if ((moveEffect == EFFECT_DREAM_EATER && GetConfig(DREAM_EATER_LIQUID_OOZE) < GEN_5)
+            if ((moveEffect == EFFECT_DREAM_EATER && GetConfig(B_DREAM_EATER_LIQUID_OOZE) < GEN_5)
                 || GetBattlerAbility(gBattlerTarget) != ABILITY_LIQUID_OOZE)
             {
                 SetHealAmount(gBattlerAttacker, healAmount);
@@ -2067,7 +2067,7 @@ static enum MoveEndResult MoveEnd_Symbiosis(void)
     for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
     {
         if ((gSpecialStatuses[battler].berryReduced
-              || (GetConfig(SYMBIOSIS_GEMS) >= GEN_7 && gSpecialStatuses[battler].gemBoost))
+              || (GetConfig(B_SYMBIOSIS_GEMS) >= GEN_7 && gSpecialStatuses[battler].gemBoost))
             && TryTriggerSymbiosis(battler, BATTLE_PARTNER(battler)))
         {
             BestowItem(BATTLE_PARTNER(battler), battler);
@@ -2668,7 +2668,7 @@ static enum MoveEndResult MoveEnd_MoveBlock(void)
         {
             StealTargetItem(gBattlerAttacker, gBattlerTarget);  // Attacker steals target item
 
-            if (!(GetConfig(STEAL_WILD_ITEMS) >= GEN_9
+            if (!(GetConfig(B_STEAL_WILD_ITEMS) >= GEN_9
              && !(gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_PALACE))))
             {
                 gBattleMons[gBattlerAttacker].item = ITEM_NONE; // Item assigned later on with thief (see MOVEEND_CHANGED_ITEMS)
@@ -2808,7 +2808,7 @@ static enum MoveEndResult MoveEnd_MoveBlock(void)
          && !NoAliveMonsForEitherParty()
          && CompareStat(gBattlerAttacker, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN, GetBattlerAbility(gBattlerAttacker)))
         {
-            SET_STATCHANGER(STAT_ATK, GetConfig(FELL_STINGER_STAT_RAISE) >= GEN_7 ? 3 : 2, FALSE);
+            SET_STATCHANGER(STAT_ATK, GetConfig(B_FELL_STINGER_STAT_RAISE) >= GEN_7 ? 3 : 2, FALSE);
             PREPARE_STAT_BUFFER(gBattleTextBuff1, STAT_ATK);
             BattleScriptPushCursor();
             gBattlescriptCurrInstr = BattleScript_FellStingerRaisesStat;
@@ -3891,7 +3891,7 @@ static enum MoveCanceler CancelerMultihitMoves(struct BattleContext *ctx)
              && !GetMonData(&party[i], MON_DATA_IS_EGG)
              && !GetMonData(&party[i], MON_DATA_STATUS))
             {
-                if (GetConfig(BEAT_UP) >= GEN_5)
+                if (GetConfig(B_BEAT_UP) >= GEN_5)
                     gBattleStruct->beatUpSpecies[gMultiHitCounter] = species;
                 else
                     gBattleStruct->beatUpSpecies[gMultiHitCounter] = i;
@@ -4224,7 +4224,7 @@ static enum MoveCanceler CancelerConfused(struct BattleContext *ctx)
         if (gBattleMons[ctx->battlerAtk].volatiles.confusionTurns)
         {
              // confusion dmg
-            if (RandomPercentage(RNG_CONFUSION, (GetConfig(CONFUSION_SELF_DMG_CHANCE) >= GEN_7 ? 33 : 50)))
+            if (RandomPercentage(RNG_CONFUSION, (GetConfig(B_CONFUSION_SELF_DMG_CHANCE) >= GEN_7 ? 33 : 50)))
             {
                 gBattleCommunication[MULTISTRING_CHOOSER] = TRUE;
                 struct BattleContext dmgCtx = {0};
@@ -4598,7 +4598,7 @@ static enum MoveCanceler CancelerWeatherPrimal(struct BattleContext *ctx)
     if (HasWeatherEffect() && GetMovePower(ctx->move) > 0)
     {
         enum Type moveType = GetBattleMoveType(ctx->move);
-        if (moveType == TYPE_FIRE && gBattleWeather & WEATHER_RAIN_PRIMAL && (GetConfig(POWDER_STATUS_HEAVY_RAIN) >= GEN_7 || !TryActivatePowderStatus(ctx->move)))
+        if (moveType == TYPE_FIRE && gBattleWeather & WEATHER_RAIN_PRIMAL && (GetConfig(B_POWDER_STATUS_HEAVY_RAIN) >= GEN_7 || !TryActivatePowderStatus(ctx->move)))
         {
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_PRIMAL_WEATHER_FIZZLED_BY_RAIN;
             effect = CANCELER_RESULT_FAILURE;
@@ -4649,12 +4649,12 @@ static enum MoveCanceler CancelerMoveFailure(struct BattleContext *ctx)
         // Counter / Metal Burst and took physical damage
         else if (reflectCategory == DAMAGE_CATEGORY_PHYSICAL
               && gProtectStructs[ctx->battlerAtk].physicalDmg > 0
-              && (GetConfig(COUNTER_TRY_HIT_PARTNER) >= GEN_5 || gBattleMons[gProtectStructs[ctx->battlerAtk].physicalBattlerId].hp))
+              && (GetConfig(B_COUNTER_TRY_HIT_PARTNER) >= GEN_5 || gBattleMons[gProtectStructs[ctx->battlerAtk].physicalBattlerId].hp))
             break;
         // Mirror Coat / Metal Burst and took special damage
         else if (reflectCategory == DAMAGE_CATEGORY_SPECIAL
               && gProtectStructs[ctx->battlerAtk].specialDmg > 0
-              && (GetConfig(COUNTER_TRY_HIT_PARTNER) >= GEN_5 || gBattleMons[gProtectStructs[ctx->battlerAtk].specialBattlerId].hp))
+              && (GetConfig(B_COUNTER_TRY_HIT_PARTNER) >= GEN_5 || gBattleMons[gProtectStructs[ctx->battlerAtk].specialBattlerId].hp))
             break;
         else
             battleScript = BattleScript_ButItFailed;
@@ -4844,7 +4844,7 @@ static enum MoveCanceler CancelerProtean(struct BattleContext *ctx)
     enum Type moveType = GetBattleMoveType(ctx->move);
     if (ProteanTryChangeType(ctx->battlerAtk, ctx->abilityAtk, ctx->move, moveType))
     {
-        //if (GetConfig(PROTEAN_LIBERO) >= GEN_9)
+        //if (GetConfig(B_PROTEAN_LIBERO) >= GEN_9)
         //    gBattleMons[ctx->battlerAtk].volatiles.usedProteanLibero = TRUE;
         PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
         gBattlerAbility = ctx->battlerAtk;

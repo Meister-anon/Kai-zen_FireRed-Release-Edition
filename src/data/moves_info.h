@@ -3685,7 +3685,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .sleepTalkBanned = TRUE,
             .instructBanned = TRUE,
             .multiTaskBanned = TRUE,
-            .argument.twoTurnAttack = { .stringId = UPDATED_MOVE_DATA <= GEN_4 ? STRINGID_CLOAKEDINAHARSHLIGHT : STRINGID_PKMNISGLOWING, .status = STATE_ON_AIR },
+            .argument.twoTurnAttack = { .stringId = STRINGID_CLOAKEDINAHARSHLIGHT, .status = STATE_ON_AIR },
             .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_FLINCH,
                 .chance = 30,

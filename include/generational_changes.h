@@ -24,15 +24,17 @@
 struct GenChanges
 {
     BATTLE_CONFIG_DEFINITIONS(UNPACK_CONFIG_STRUCT)
-    POKEMON_CONFIG_DEFINITIONS(UNPACK_CONFIG_STRUCT)
+    //POKEMON_CONFIG_DEFINITIONS(UNPACK_CONFIG_STRUCT)
     // Expands to:
     // u32 critChance:4;
     // u32 critMultiplier:4;
     // ...
 };
 
-u32 GetConfig(enum ConfigTag configTag);
-void SetConfig(enum ConfigTag configTag, u32 value);
+u32 GetConfigInternal(enum ConfigTag configTag);
+void SetConfig(enum ConfigTag _genConfig, u32 _value);
+
+#define GetConfig(name) GetConfigInternal(CONFIG_##name)
 
 #if TESTING
 void TestInitConfigData(void);

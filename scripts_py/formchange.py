@@ -6,8 +6,11 @@ lines = infile.readlines()
 
 runState = True
 
+#potentially attempt use cleanup uses in moves_info
 if_reg = re.compile(r'#if')
 end_reg = re.compile(r'#endif')
+else_reg = re.compile(r'#else')
+elif_reg = re.compile(r'#elif')
 
 
 for line in lines:

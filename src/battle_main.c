@@ -3734,7 +3734,7 @@ static void ClearSetBScriptingStruct(void)
     #if TESTING
         gBattleScripting.battleStyle = OPTIONS_BATTLE_STYLE_SET;
     #endif
-    //gBattleScripting.expOnCatch = (GetConfig(CONFIG_EXP_CATCH) >= GEN_6);
+    //gBattleScripting.expOnCatch = (GetConfig(B_CONFIG_EXP_CATCH) >= GEN_6);
     //gBattleScripting.specialTrainerBattleType = specialBattleType;
 }
 
