@@ -934,7 +934,7 @@
 	.endm
 
 	.macro changetypetoresisttarget failInstr:req
-	.byte B_SCR_OP_SETTYPETORANDOMRESISTANCE
+	.byte B_SCR_OP_CHANGETYPETORESISTTARGET
 	.4byte \failInstr
 	.endm
 

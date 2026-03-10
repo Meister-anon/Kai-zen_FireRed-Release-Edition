@@ -3,8 +3,8 @@
 #include "quest_log.h"
 #include "list_menu.h"
 #include "malloc.h"
+#include "battle.h"
 #include "battle_special.h"
-
 #include "diploma.h"
 #include "debug.h"
 #include "script.h"
@@ -13,7 +13,6 @@
 #include "field_message_box.h"
 #include "event_data.h"
 #include "strings.h"
-#include "battle.h"
 #include "fieldmap.h"
 #include "field_specials.h"
 #include "region_map.h"
