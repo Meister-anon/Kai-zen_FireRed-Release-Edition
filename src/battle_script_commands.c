@@ -5667,8 +5667,6 @@ static void Cmd_setroost(void)
         gBattleMons[gBattlerAttacker].volatiles.roostTimer = B_ROOST_TIMER;
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
-    else
-        gBattlescriptCurrInstr = BattleScript_ButItFailed;
 }
 
 static void Cmd_jumpifabilitypresent(void)
@@ -16125,7 +16123,7 @@ void BS_CutOneThirdHpAndRaiseStats(void)
 
 void BS_SetPoltergeistMessage(void)
 {
-    NATIVE_ARGS(const u8 *failInstr);
+    NATIVE_ARGS();
     PREPARE_ITEM_BUFFER(gBattleTextBuff1, gBattleMons[gBattlerTarget].item);
     gLastUsedItem = gBattleMons[gBattlerTarget].item;
     gBattlescriptCurrInstr = cmd->nextInstr;

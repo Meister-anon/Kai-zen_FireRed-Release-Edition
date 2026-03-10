@@ -865,6 +865,10 @@ static enum CancelerResult CancelerMoveFailure(struct BattleContext *ctx)
         if (gBattleMons[ctx->battlerDef].volatiles.noRetreat)
             battleScript = BattleScript_ButItFailed;
         break;
+    case EFFECT_ROOST:
+        if (gBattleMons[ctx->battlerAtk].volatiles.roostTimer)
+            battleScript = BattleScript_ButItFailed;
+        break;
     case EFFECT_POLTERGEIST:
         if (gBattleMons[ctx->battlerDef].item == ITEM_NONE
          || gFieldStatuses & STATUS_FIELD_MAGIC_ROOM
