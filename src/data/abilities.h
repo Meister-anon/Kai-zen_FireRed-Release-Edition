@@ -3280,5 +3280,12 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     //deoxys def ability will replace pressure
     //Sets aurora veil first time enters field if icy weather isn't on field
     //otherwise ste aurora veil on switch in icy weather
+
+    [ABILITY_DETERMINATION] =
+    {
+        .name = _("Determination"),
+        .description = COMPOUND_ABILITY_STRING("Fights on without hesitation.\nKOs raise Speed."),
+        .aiRating = 5,
+    },
 };
 

@@ -7482,7 +7482,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_GUTS, ABILITY_STEADFAST},
-        .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_PRESSURE},
+        .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_DETERMINATION},
         //.bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -14057,8 +14057,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_STEADFAST, ABILITY_INNER_FOCUS},
-        .abilityHidden = {ABILITY_PRANKSTER, ABILITY_NONE},
+        .abilities = {ABILITY_STEADFAST, ABILITY_NONE},
+        .abilityHidden = {ABILITY_PRANKSTER, ABILITY_INNER_FOCUS},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -14086,8 +14086,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_STEADFAST, ABILITY_INNER_FOCUS},
-        .abilityHidden = {ABILITY_JUSTIFIED, ABILITY_APOTHEOSCENT}, //given because aura sense
+        .abilities = {ABILITY_STEADFAST, ABILITY_APOTHEOSCENT},//given because aura sense
+        .abilityHidden = {ABILITY_DETERMINATION, ABILITY_INNER_FOCUS}, 
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -31751,7 +31751,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilityLearnset = sLokixAbilityLearnset,
         .levelUpLearnset = sLokixLevelUpLearnset,
         .tmhmLearnset = sLokixTMHMLearnset,
-    },
+    },//either do shodown form or make it like anger shell and resolute just boosts stats if statused or low hp
     //is meant to have showdown form but was never made
     //into real battle form?
     //form is supposed to be faster and stronger I believe

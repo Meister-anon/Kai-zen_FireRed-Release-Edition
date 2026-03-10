@@ -5788,6 +5788,7 @@ bool32 IsMoxieTypeAbility(enum Ability ability)
     case ABILITY_AS_ONE_ICE_RIDER:
     case ABILITY_GRIM_NEIGH:
     case ABILITY_AS_ONE_SHADOW_RIDER:
+    case ABILITY_DETERMINATION:
         return TRUE;
     default:
         return FALSE;
@@ -5823,6 +5824,7 @@ bool32 DoesIntimidateRaiseStats(enum Ability ability)
 }
 
 // TODO: work out when to attack into the player's contextually 'beneficial' ability
+//bit weird but is essentially cataloging the effects of activating an ability and if its beneficial to do so
 bool32 ShouldTriggerAbility(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability ability)
 {
     if (IsTargetingPartner(battlerAtk, battlerDef))
@@ -5857,6 +5859,7 @@ bool32 ShouldTriggerAbility(enum BattlerId battlerAtk, enum BattlerId battlerDef
 
         case ABILITY_RATTLED:
         case ABILITY_STEAM_ENGINE:
+        case ABILITY_DETERMINATION:
             return BattlerStatCanRise(battlerDef, ability, STAT_SPEED);
 
         case ABILITY_FLASH_FIRE:

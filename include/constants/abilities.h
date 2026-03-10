@@ -445,6 +445,7 @@ ABILITIES_COUNT_GEN8 = 269,
  ABILITY_SECRET_ARTS = 406, //shadow mega greninja ability part no guard part unseen fist to break protect and guard
  ABILITY_REIKI = 407, //mega mewtwo x ability inner focus + scrappy
  ABILITY_AURORA_SHIFT = 408, //deoxys defense ability
+ ABILITY_DETERMINATION = 409, //idea from Opal speed boost version of moxie think give tyrogue fighing type
 ABILITIES_COUNT_CUSTOM,
 
  ABILITIES_COUNT = ABILITIES_COUNT_CUSTOM, //   ability count is last ability number +, since we have to count ability,

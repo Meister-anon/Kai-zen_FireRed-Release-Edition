@@ -1101,10 +1101,12 @@ static const struct AbilityLearnset sSmeargleAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sTyrogueAbilityLearnset[] = {
+    ABILITY_PRESSURE,
     ABILITY_SET_END
 };//not lowering evo level evo is too strong,
 
 static const struct AbilityLearnset sHitmontopAbilityLearnset[] = {
+    ABILITY_DETERMINATION,
     ABILITY_SET_END
 };
 
@@ -2040,6 +2042,7 @@ static const struct AbilityLearnset sRioluAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sLucarioAbilityLearnset[] = {
+    ABILITY_JUSTIFIED,
     ABILITY_SET_END
 };
 
