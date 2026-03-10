@@ -9363,7 +9363,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .speciesName = _("Makuhita"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(72, 60, 30, 25, 20, 30),
+         STATS(72, 60, 40, 25, 10, 30),
         MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING), //while would like to don't think can swing giving normal type
         .catchRate = 180,
         .expYield = 47,
@@ -9393,7 +9393,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .speciesName = _("Hariyama"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(144, 120, 60, 50, 40, 60),
+         STATS(144, 120, 80, 50, 20, 60),
         MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 200,
         .expYield = 166,
