@@ -204,13 +204,13 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_OHKO] =
     {
-        .battleScript = BattleScript_EffectOHKO,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 7,
     },
 
     [EFFECT_SHEER_COLD] =
     {
-        .battleScript = BattleScript_EffectOHKO,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 7,
     },
 
@@ -386,7 +386,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_RAGE] =
     {
-        .battleScript = BattleScript_EffectRage,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 2,
     },
 
@@ -476,7 +476,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_SNORE] =
     {
-        .battleScript = BattleScript_EffectSnore,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 3,
     },
 
@@ -2223,20 +2223,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 3,
     },
 
-    [EFFECT_MOONDANCE] =
-    {
-        .battleScript = BattleScript_EffectMoondance,
-        .battleTvScore = 4,
-        .encourageEncore = TRUE,
-    },
-
-    [EFFECT_ACID_RAIN] =
-    {
-        .battleScript = BattleScript_EffectAcidRain,
-        .battleTvScore = 4,
-        .encourageEncore = TRUE,
-    },
-
     [EFFECT_SUBMISSION] =
     {
         .battleScript = BattleScript_EffectHit,
@@ -2257,7 +2243,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_WEATHER_TRAP] =
     {
-        .battleScript = BattleScript_EffectSnowescape,
+        .battleScript = BattleScript_EffectWeather,
         .battleTvScore = 4,
         .encourageEncore = TRUE,
     },//vsonic different effect planned so change script
@@ -2275,6 +2261,9 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     //hail for this for the chip damage but idk maybe snow
     //think needs its own bs tho
     //think will do as field status
+    
+    //think should be set still need to time lock effect
+    //to weather duration but move should actually work now
 
     [EFFECT_MIND_BLOWN] =
     {

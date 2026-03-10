@@ -1403,7 +1403,7 @@ static enum CancelerResult CancelerTargetFailure(struct BattleContext *ctx)
         }
         else if (IsBattlerProtected(ctx))
         {
-            SetOrClearRageVolatile();
+            //SetOrClearRageVolatile();
             gBattleStruct->moveResultFlags[ctx->battlerDef] |= MOVE_RESULT_MISSED;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_PROTECTED;
             if (GetMoveEffect(ctx->move) == EFFECT_FLING)

@@ -1315,7 +1315,7 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
     if (numTargets != 0 && !gBattleStruct->battlerState[gBattlerAttacker].successfulHit
     && gMultiHitCounter <= 1)
     {
-        SetOrClearRageVolatile();
+        //SetOrClearRageVolatile();
         gBattleStruct->battlerState[gBattlerAttacker].stompingTantrumTimer = 2;
     }
 

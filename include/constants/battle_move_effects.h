@@ -348,8 +348,8 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_FIXATION,    //base effect goes to hit, but required to activate fixation move effects
     EFFECT_SHIELD_BASH,
     EFFECT_MONOTYPE,
-    EFFECT_MOONDANCE, //EE update weather effects consolidate to effect_weather
-    EFFECT_ACID_RAIN,
+    //EFFECT_MOONDANCE, //EE update weather effects consolidate to effect_weather
+    //EFFECT_ACID_RAIN,
     EFFECT_SUBMISSION, //changed to full protect bypass so just use brick break effect changed mind since increasing distribution
     EFFECT_RAGING_BULL,
     EFFECT_WEATHER_TRAP,   //set weather trap user and selected target till user dies or weather ends  

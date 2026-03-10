@@ -19944,9 +19944,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,//think will give this to avalug
         .ignoresProtect = TRUE,
-        /*.additionalEffects = ADDITIONAL_EFFECTS({
+        .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_TRAP_BOTH,
-        }),*/
+        }),
         .argument = { .weatherType = BATTLE_WEATHER_SNOW },
         .battleAnimScript = gBattleAnimMove_SnowEscape,
         // Currently an exact copy of Hail until we figure out what to do with it

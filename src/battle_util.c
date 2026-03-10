@@ -12623,6 +12623,20 @@ bool32 IsAnyTargetAffected(void)
     return FALSE;
 }
 
+bool32 IsDoubleSpreadMove(void)
+{
+    return gBattleStruct->numSpreadTargets > 1
+        && !gBattleStruct->unableToUseMove
+        && IsSpreadMove(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove));
+}
+
+bool32 IsBattlerInvalidForSpreadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef)
+{
+    return battlerDef == battlerAtk
+        || !IsBattlerAlive(battlerDef)
+        || IsBattlerUnaffectedByMove(battlerDef);
+}
+
 //not using
 bool32 IsAllowedToUseBag(void)
 {
@@ -13035,6 +13049,7 @@ void TryResetConsecutiveUseCounter(enum BattlerId battler)
     }
 }
 
+//yeah don' tthink need use this at all
 void SetOrClearRageVolatile(void)
 {
     if (GetConfig(B_RAGE_BUILDS) <= GEN_3 && MoveHasAdditionalEffect(gCurrentMove, MOVE_EFFECT_RAGE))

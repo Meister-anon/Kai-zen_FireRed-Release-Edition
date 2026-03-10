@@ -4,9 +4,9 @@
 #include "global.h"
 
 //Curr effect scripts
-extern const u8 BattleScript_EffectMoondance[];    //weather start
-extern const u8 BattleScript_EffectAcidRain[];
-extern const u8 BattleScript_EffectSnowescape[];
+//temp field for compatibility with FR effect until figure how to setup
+extern const u8 BattleScript_LocalBattleLostPrintTrainersWinText_FR[];
+extern const u8 BattleScript_EffectWeatherTrap[];
 extern const u8 BattleScript_EffectMediumRecoil[]; //not all effects here
 extern const u8 BattleScript_EffectMediumRecoilWithStatus[];
 extern const u8 BattleScript_EffectConversionZ[]; //replace conversion2
@@ -1351,7 +1351,6 @@ extern const u8 BattleScript_EffectLightScreen[];
 extern const u8 BattleScript_EffectRest[];
 extern const u8 BattleScript_RestIsAlreadyAsleep[];
 extern const u8 BattleScript_InsomniaProtects[];
-extern const u8 BattleScript_EffectOHKO[];
 extern const u8 BattleScript_EffectHealBlock[];
 extern const u8 BattleScript_RecoilIfMiss[];
 extern const u8 BattleScript_EffectMist[];
@@ -1374,7 +1373,6 @@ extern const u8 BattleScript_EffectAccuracyDown2[];
 extern const u8 BattleScript_EffectEvasionDown2[];
 extern const u8 BattleScript_EffectReflect[];
 extern const u8 BattleScript_EffectSubstitute[];
-extern const u8 BattleScript_EffectRage[];
 extern const u8 BattleScript_EffectMimic[];
 extern const u8 BattleScript_EffectLeechSeed[];
 extern const u8 BattleScript_EffectDoNothing[];
@@ -1385,7 +1383,6 @@ extern const u8 BattleScript_EffectDisable[];
 extern const u8 BattleScript_EffectCounter[];
 extern const u8 BattleScript_EffectEncore[];
 extern const u8 BattleScript_EffectPainSplit[];
-extern const u8 BattleScript_EffectSnore[];
 extern const u8 BattleScript_EffectLockOn[];
 extern const u8 BattleScript_EffectSketch[];
 extern const u8 BattleScript_EffectMonotype[];
