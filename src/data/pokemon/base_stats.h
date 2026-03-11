@@ -27709,7 +27709,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SWARM, ABILITY_COMPOUND_EYES},
-        .abilityHidden = {ABILITY_FOREWARN, ABILITY_NONE},
+        .abilityHidden = {ABILITY_FOREWARN, ABILITY_TELEPATHY},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -27726,7 +27726,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        63,
+        73,
         45,
         110,
         117,
@@ -27747,7 +27747,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SWARM, ABILITY_FRISK},
-        .abilityHidden = {ABILITY_FOREWARN, ABILITY_NONE},
+        .abilityHidden = {ABILITY_FOREWARN, ABILITY_TELEPATHY},
         //.bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = TRUE,

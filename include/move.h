@@ -109,10 +109,12 @@ struct MoveInfo
     enum DamageCategory category:2;
     u16 power:9;    // up to 511
     // end of word
-    u16 accuracy:7;
-    u16 target:9;
     u8 pp;
     s8 priority;
+    u16 accuracy:7;
+    u16 target:4; //target all battlers is 14 so min space is bit 4
+    u16 space:5; //consider using for flag swap dmg cat, nah annoying but better using effects
+    //u16 target:9; //do I need this so high, think just to fill type space
     // end of word
     // Flags
     bool32 makesContact:1;
