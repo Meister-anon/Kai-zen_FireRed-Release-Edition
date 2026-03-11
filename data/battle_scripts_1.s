@@ -7273,6 +7273,7 @@ BattleScript_FlushMessageBox::
 	flushtextbox
 	return
 
+/*
 BattleScript_PalacePrintFlavorText::
 	setbyte gBattleCommunication + 1, 0
 BattleScript_PalaceTryBattlerFlavorText::
@@ -7400,6 +7401,7 @@ BattleScript_PrintPlayerForfeitedLinkBattle::
 	endlinkbattle
 	waitmessage B_WAIT_TIME_LONG
 	end2
+*/
 
 BattleScript_TotemFlaredToLife::
 	playanimation BS_ATTACKER, B_ANIM_TOTEM_FLARE, NULL
@@ -8087,7 +8089,7 @@ BattleScript_EffectSteelsurge::
 	return
 
 @@@ END MAX MOVES @@@
-
+/*
 BattleScript_DynamaxBegins::
 	flushtextbox
 	trytrainerslidedynamaxmsg
@@ -8138,6 +8140,7 @@ BattleScript_MoveBlockedByDynamax::
 	printstring STRINGID_MOVEBLOCKEDBYDYNAMAX
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
+*/
 
 BattleScript_PokemonCantUseTheMove::
 	pause B_WAIT_TIME_SHORT
@@ -8156,6 +8159,7 @@ BattleScript_CouldntFullyProtect::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
+/*
 BattleScript_BerserkGeneRet::
 	statbuffchange BS_SCRIPTING, STAT_CHANGE_ALLOW_PTR | STAT_CHANGE_ONLY_CHECKING, BattleScript_BerserkGeneRet_TryConfuse
 	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, sB_ANIM_ARG1
@@ -8180,6 +8184,7 @@ BattleScript_BerserkGeneRet_OwnTempoPrevents:
 BattleScript_BerserkGeneRet_End:
 	removeitem BS_SCRIPTING
 	return
+*/
 
 BattleScript_BoosterEnergyRet::
 	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, sB_ANIM_ARG1
@@ -8191,6 +8196,7 @@ BattleScript_BoosterEnergyRet::
 	removeitem BS_SCRIPTING
 	return
 
+/*
 BattleScript_SleepClauseBlocked::
 	pause B_WAIT_TIME_SHORT
 	setmoveresultflags MOVE_RESULT_FAILED
@@ -8203,6 +8209,7 @@ BattleScript_SleepClausePreventsEnd2::
 	printstring STRINGID_BLOCKEDBYSLEEPCLAUSE
 	waitmessage B_WAIT_TIME_LONG
 	end2
+*/
 
 BattleScript_QuestionForfeitBattle::
 	printselectionstring STRINGID_QUESTIONFORFEITBATTLE
@@ -8398,7 +8405,7 @@ BattleScript_LocalBattleLostPrintWhiteOut::
 	getmoneyreward //BattleScript_LocalBattleLostPrintTrainersWinText
 	printstring STRINGID_PLAYERWHITEOUT2
 	waitmessage B_WAIT_TIME_LONG
-	goto BattleScript_EReaderOrSecretBaseTrainerEnd
+	goto BattleScript_LocalBattleLostEnd_
 
 BattleScript_LocalBattleLostEnd::
 	printstring STRINGID_PLAYERLOSTAGAINSTENEMYTRAINER
@@ -8879,4 +8886,3 @@ BattleScript_DryadsCurseDoMoveAnim:
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
-    
