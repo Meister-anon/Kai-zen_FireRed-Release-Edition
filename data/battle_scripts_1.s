@@ -16,7 +16,7 @@
 #include "constants/trainers.h"
 #include "constants/species.h"
 @add for compile remove later
-#include "generational_changes.h"
+#include "constants/generational_changes.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/battle_script.inc"
 	.include "constants/constants.inc"
@@ -3180,40 +3180,6 @@ BattleScript_DoGhostCurse::
 	printstring STRINGID_PKMNLAIDCURSE
 	waitmessage B_WAIT_TIME_LONG
 	tryfaintmon BS_ATTACKER
-	goto BattleScript_MoveEnd
-
-BattleScript_DoGhostCurse::
-	attackcanceler
-	cursetarget BattleScript_ButItFailed
-	setbyte sB_ANIM_TURN, 0
-	attackanimation
-	waitanimation
-	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
-	datahpupdate BS_ATTACKER, PASSIVE_HP_UPDATE
-	printstring STRINGID_PKMNLAIDCURSE
-	waitmessage B_WAIT_TIME_LONG
-	tryfaintmon BS_ATTACKER
-	goto BattleScript_MoveEnd
-
-@ok think should be ok todo set attacker stat drop
-BattleScript_EffectDryadsCurse::
-	attackcanceler	@will set correct target like bide, to last attacker to damage user
-	jumpifsubstituteblocks BattleScript_ButItFailed
-	jumpifstat BS_TARGET, CMP_EQUAL, STAT_ATK, 0x0, BattleScript_CantLowerMultipleStats @fail without cursing if can""t lower stat
-	cursetarget BattleScript_ButItFailed
-	setbyte sB_ANIM_TURN, 0	@ 
-	attackanimation
-	waitanimation
-	printstring STRINGID_PKMNLAIDCURSE
-	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	setbyte sSTAT_ANIM_PLAYED, 0
-	playstatchangeanimation BS_ATTACKER, BIT_ATK, STAT_CHANGE_NEGATIVE
-	setstatchanger STAT_ATK, 1, TRUE
-	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_MoveEnd	@ as already have fail if cant lower stat this will never jump
-	printfromtable gStatDownStringIds
-	@healthbarupdate BS_ATTACKER  not doing health sacrifice, put stat drops here instead
-	@datahpupdate BS_ATTACKER
-	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectProtect::
@@ -8866,3 +8832,51 @@ BattleScript_EffectDefenseCurl::
 	waitanimation
 BattleScript_DefenseCurlDoStatUpAnim::
 	goto BattleScript_StatUpDoAnim
+
+@ ended up making new effect to do what I want mostly copied from cosmic power, dont know if need a speed stat check
+BattleScript_EffectCocoon::
+	attackcanceler
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_DEF, 12, BattleScript_CocoonDoMoveAnim
+	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_SPDEF, 12, BattleScript_CantRaiseMultipleStats
+BattleScript_CocoonDoMoveAnim::
+	attackanimation
+	waitanimation
+	setstatchanger STAT_DEF, 1, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_CocoonTrySpDef, BIT_SPDEF
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_CHANGE, BattleScript_CocoonTrySpDef
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_CocoonTrySpDef::
+	setstatchanger STAT_SPDEF, 1, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_CocoonTrySpeed
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_CHANGE, BattleScript_CocoonTrySpeed
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_CocoonTrySpeed::
+	setstatchanger STAT_SPEED, 2, TRUE		@used on bug mid evos really slow ealready so doesnt effect them, unsure if change to lower 1, yeah changed to 1.
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_CocoonEnd	@to better balance effect dropped speed 2
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_CocoonEnd
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_CocoonEnd::
+	goto BattleScript_MoveEnd
+
+@ok think should be ok todo set attacker stat drop
+BattleScript_EffectDryadsCurse::
+	@jumpifsubstituteblocks BattleScript_ButItFailed
+	jumpifstat BS_TARGET, CMP_EQUAL, STAT_ATK, 0x0, BattleScript_ButItFailed @fail without cursing if can""t lower stat
+    attackcanceler	@will set correct target like bide, to last attacker to damage user
+BattleScript_DryadsCurseDoMoveAnim:
+    cursetarget BattleScript_ButItFailed
+	setbyte sB_ANIM_TURN, 0	@ 
+	attackanimation
+	waitanimation	
+	setstatchanger STAT_ATK, 2, TRUE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_MoveEnd	@ as already have fail if cant lower stat this will never jump
+	printfromtable gStatDownStringIds
+    waitmessage B_WAIT_TIME_LONG
+    printstring STRINGID_PKMNLAIDCURSE
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	goto BattleScript_MoveEnd
+
+    

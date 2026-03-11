@@ -1,6 +1,20 @@
 #ifndef GUARD_CONSTANTS_GENERATIONAL_CHANGES_H
 #define GUARD_CONSTANTS_GENERATIONAL_CHANGES_H
 
+// Generation constants used in configs to define behavior.
+#define GEN_1 0
+#define GEN_2 1
+#define GEN_3 2
+#define GEN_4 3
+#define GEN_5 4
+#define GEN_6 5
+#define GEN_7 6
+#define GEN_8 7
+#define GEN_9 8
+#define GEN_COUNT 9
+// Changing GEN_LATEST's value to a different Generation will change every default setting that uses it at once.
+#define GEN_LATEST GEN_3
+
 //don't plan use just added for compile so put in config 
 
 /* Config definitions */
