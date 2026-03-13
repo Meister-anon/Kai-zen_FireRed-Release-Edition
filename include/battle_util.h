@@ -474,8 +474,6 @@ bool32 TestSheerForceFlag(enum BattlerId battler, u16 move);
 void TryToRevertMimicry(void);
 void TryToApplyMimicry(enum BattlerId battlerId, bool8 various);
 void RestoreBattlerOriginalTypes(enum BattlerId battlerId);
-void MulModifier(uq4_12_t *modifier, u16 val);
-u32 ApplyModifier(uq4_12_t modifier, u32 val);
 bool32 UnnerveOn(enum BattlerId battlerId, u32 itemId);
 bool32 ShouldIgnoreBattlerHeldItem(enum BattlerId battler); //combine klutz mega primal logic for ignoring item, basis for mega form upgrade
 void TryRestoreStolenItems(void);

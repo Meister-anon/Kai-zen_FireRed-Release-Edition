@@ -228,7 +228,7 @@ if it would otherwise be 0/NONE except in the case of ability.
     Water:  Aquatic type  for fish, or aquatic animals/mamals or things made up of the element, some qualities can also overlap w dragons
     Dragon: rulers of land/air/sea apex predators typically with lizard/reptile like qualities, GF specifically meant western style dragons when doin this which is why gyarados and  its mega aren't dragons
     Dark: supernatural type typically tricksters or evil or related to things seen as bad/evil - moves are usually unfair or tricky in some way ex puruit thief sucker punch etc.
-    Fairy: Magic type  fairy/magical qualities, like dark can also be tricksters, may also have strong relation to nature - looked further GF seems to have paterned them more after pixie-like fae, nature spirits explains why not effective on fire, as its their weakness/destroys their homes
+    Fairy: Magic type  fairy/magical qualities, like dark can also be tricksters, may also have strong relation to nature - looked further GF seems to have paterned them more after pixie-like fae, nature spirits explains why not effective on fire, as its their weakness/destroys their homes as well as steel and poison (ivy) weakness fairy is also closest thing to a "light" type in it beating darkness and having several light based moves, so its fae/magic/purifying
     Poison: Is poisonous in some manner, or otherwise involves trash/waste or contamination/corruption
     Ground: Lives in deserts/underground or has some link to earth element, is distinct from rock.
     Rock:  Hardened ground sturdy and solid
@@ -11272,7 +11272,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sDusclopsLevelUpLearnset,
         .tmhmLearnset = sDusclopsTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_REAPER_CLOTH, 0, SPECIES_DUSKNOIR}), //Should hopefully blank these for now without issue
-    },
+    },//dusclops didn't have levitate and walks so makes sense keep as is
 
     [SPECIES_TROPIUS] =
     {

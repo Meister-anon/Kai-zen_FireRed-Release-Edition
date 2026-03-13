@@ -993,7 +993,7 @@ static enum ItemEffect TrySetMicleBerry(enum BattlerId battler, u32 itemId)
 enum ItemEffect ItemBattleEffects(enum BattlerId itemBattler, enum BattlerId battler, enum HoldEffect holdEffect, ActivationTiming timing)
 {
     enum ItemEffect effect = ITEM_NO_EFFECT;
-    u32 item;
+    enum Item item;
 
     if (timing == IsOnBerryActivation || timing == IsOnFlingActivation)
         item = gLastUsedItem;
