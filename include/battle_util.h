@@ -452,7 +452,7 @@ u32 IsAbilityPreventingEscape(enum BattlerId battlerId);
 u32 GetProtectType(enum ProtectMethod method);
 //u32 GetBattlerHoldEffect(enum BattlerId battler, bool32 checkNegating);
 //bool8 IsMoveMakingContact(u16 move, enum BattlerId battlerAtk); //made bool8 since its just a true false return
-u32 DoesSideHaveAbility(enum BattlerId battlerId, u32 ability); // //adapted abilityonside function that doesn't use getbattlerability
+//u32 DoesSideHaveAbility(enum BattlerId battlerId, u32 ability); //don't think need? vsonic //adapted abilityonside function that doesn't use getbattlerability
 bool8 DoesBattlerHaveSureHitAbility(enum BattlerId battlerId);
 bool32 IsRolePlayBannedAbilityAtk(u16 ability);  //looping array kept 32
 bool32 IsRolePlayBannedAbility(u16 ability);

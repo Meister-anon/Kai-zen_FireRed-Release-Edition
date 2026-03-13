@@ -2541,7 +2541,7 @@ BattleScript_EffectRoar::
 	jumpifability BS_TARGET, ABILITY_GUARD_DOG, BattleScript_ButItFailed
 	jumpifability BS_TARGET, ABILITY_SUCTION_CUPS, BattleScript_AbilityPreventsPhasingOut
 	jumpifvolatile BS_TARGET, VOLATILE_ROOT, BattleScript_PrintMonIsRooted
-	jumpiftargetdynamaxed BattleScript_RoarBlockedByDynamax
+	//jumpiftargetdynamaxed BattleScript_RoarBlockedByDynamax
 	accuracycheck BattleScript_MoveMissedPause
 	jumpifbattletype BATTLE_TYPE_ARENA, BattleScript_ButItFailed
 	forcerandomswitch BattleScript_ButItFailed
@@ -4022,7 +4022,7 @@ BattleScript_EffectCamouflage::
 
 BattleScript_FaintBattler::
 	tryillusionoff BS_FAINTED
-	undodynamax BS_FAINTED
+	//undodynamax BS_FAINTED
 	playfaintcry BS_FAINTED
 	pause B_WAIT_TIME_LONG
 	dofaintanimation BS_FAINTED
@@ -4368,7 +4368,7 @@ BattleScript_ActionSwitch::
 	end2
 
 BattleScript_DoSwitchOut::
-	undodynamax BS_ATTACKER
+	//undodynamax BS_ATTACKER
 	waitstate
 	returnatktoball
 	waitstate
@@ -4481,7 +4481,7 @@ BattleScript_FogEnded_Ret::
 
 BattleScript_IceBodyHeal::
 	call BattleScript_AbilityPopUp
-	playanimation BS_ATTACKER, B_ANIM_SIMPLE_HEAL
+	playanimation BS_ATTACKER, B_ANIM_BASIC_HEAL
 	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
 	datahpupdate BS_ATTACKER, PASSIVE_HP_UPDATE
 	printstring STRINGID_ICEBODYHPGAIN
@@ -5615,8 +5615,24 @@ BattleScript_AnticipationActivates::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
+@right now not working want to affect both enemies in doubles
+@but loops infinitely on single target, need add loop values
+@like intimidate
+@special case realized, not place for jump
+BattleScript_AftermathOnSwitch::
+	pause B_WAIT_TIME_CLEAR_BUFF_2
+	jumpifability BS_ATTACKER, ABILITY_MAGIC_GUARD, BattleScript_AftermathEndRet
+	healthbarupdate BS_TARGET, PASSIVE_HP_UPDATE
+	datahpupdate BS_TARGET, PASSIVE_HP_UPDATE
+	printstring STRINGID_ATTACKER_ABILITYHURTS_TARGET
+	waitmessage B_WAIT_TIME_SHORT
+	tryfaintmon BS_TARGET
+	modifybattlerstatstage BS_TARGET, STAT_SPEED, DECREASE, 1, BattleScript_AftermathEndRet, ANIM_ON
+BattleScript_AftermathEndRet:
+	return
+
 BattleScript_AftermathDmg::
-	pause B_WAIT_TIME_SHORT
+	pause B_WAIT_TIME_CLEAR_BUFF_2
 	call BattleScript_AbilityPopUpScripting
 	jumpifability BS_ATTACKER, ABILITY_MAGIC_GUARD, BattleScript_AftermathDmgRet
 	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
@@ -5624,15 +5640,16 @@ BattleScript_AftermathDmg::
 	printstring STRINGID_AFTERMATHDMG
 	waitmessage B_WAIT_TIME_LONG
 	tryfaintmon BS_ATTACKER
+    modifybattlerstatstage BS_TARGET, STAT_SPEED, DECREASE, 2, BattleScript_AftermathDmgRet, ANIM_ON
 BattleScript_AftermathDmgRet:
 	return
 
 BattleScript_DampPreventsAftermath::
 	pause B_WAIT_TIME_SHORT
-	call BattleScript_AbilityPopUp
-	pause 40
-	copybyte gBattlerAbility, sBATTLER
-	call BattleScript_AbilityPopUp
+	//call BattleScript_AbilityPopUp
+	//pause 40
+	//copybyte gBattlerAbility, sBATTLER
+	//call BattleScript_AbilityPopUp
 	printstring STRINGID_PKMNSABILITYPREVENTSABILITY
 	waitmessage B_WAIT_TIME_LONG
 	return
@@ -6036,7 +6053,7 @@ BattleScript_AbilityPopUp::
 	showabilitypopup
 	pause B_WAIT_TIME_SHORT
 	recordability BS_ABILITY_BATTLER
-	sethword sABILITY_OVERWRITE, 0
+	//sethword sABILITY_OVERWRITE, 0
 	return
 
 BattleScript_AbilityPopUpScripting:
@@ -6044,7 +6061,7 @@ BattleScript_AbilityPopUpScripting:
 	goto BattleScript_AbilityPopUp
 
 BattleScript_AbilityPopUpOverwriteThenNormal:
-	setbyte sFIXED_ABILITY_POPUP, TRUE
+	/*setbyte sFIXED_ABILITY_POPUP, TRUE
 	showabilitypopup
 	pause B_WAIT_TIME_SHORT
 	sethword sABILITY_OVERWRITE, 0
@@ -6052,7 +6069,7 @@ BattleScript_AbilityPopUpOverwriteThenNormal:
 	pause B_WAIT_TIME_SHORT
 	recordability BS_ABILITY_BATTLER
 	destroyabilitypopup
-	setbyte sFIXED_ABILITY_POPUP, FALSE
+	setbyte sFIXED_ABILITY_POPUP, FALSE*/
 	return
 
 @ Can't compare directly to a value, have to compare to value at pointer
@@ -6400,7 +6417,7 @@ BattleScript_HospitalityActivates::
 	call BattleScript_AbilityPopUp
 	printstring STRINGID_HOSPITALITYRESTORATION
 	waitmessage B_WAIT_TIME_LONG
- 	playanimation BS_EFFECT_BATTLER, B_ANIM_SIMPLE_HEAL
+ 	playanimation BS_EFFECT_BATTLER, B_ANIM_BASIC_HEAL
 	healthbarupdate BS_EFFECT_BATTLER, PASSIVE_HP_UPDATE
 	datahpupdate BS_EFFECT_BATTLER, PASSIVE_HP_UPDATE
 	return
@@ -6482,7 +6499,7 @@ BattleScript_BadDreamsLoop:
 	jumpifstatus BS_TARGET, STATUS1_SLEEP, BattleScript_BadDreams_Dmg
 	goto BattleScript_BadDreamsIncrement
 BattleScript_BadDreams_Dmg:
-	jumpifbyteequal sFIXED_ABILITY_POPUP, sZero, BattleScript_BadDreams_ShowPopUp
+	//jumpifbyteequal sFIXED_ABILITY_POPUP, sZero, BattleScript_BadDreams_ShowPopUp
 BattleScript_BadDreams_DmgAfterPopUp:
 	printstring STRINGID_BADDREAMSDMG
 	waitmessage B_WAIT_TIME_LONG
@@ -6493,15 +6510,15 @@ BattleScript_BadDreams_DmgAfterPopUp:
 BattleScript_BadDreamsIncrement:
 	addbyte gBattlerTarget, 1
 	jumpifbytenotequal gBattlerTarget, gBattlersCount, BattleScript_BadDreamsLoop
-	jumpifbyteequal sFIXED_ABILITY_POPUP, sZero, BattleScript_BadDreamsEnd
+	/*jumpifbyteequal sFIXED_ABILITY_POPUP, sZero, BattleScript_BadDreamsEnd
 	destroyabilitypopup
-	pause 15
+	pause 15*/
 BattleScript_BadDreamsEnd:
 	end2
 BattleScript_BadDreams_ShowPopUp:
 	copybyte gBattlerAbility, gBattlerAttacker
 	call BattleScript_AbilityPopUp
-	setbyte sFIXED_ABILITY_POPUP, TRUE
+	//setbyte sFIXED_ABILITY_POPUP, TRUE
 	goto BattleScript_BadDreams_DmgAfterPopUp
 BattleScript_BadDreams_HidePopUp:
 	destroyabilitypopup
@@ -6693,11 +6710,11 @@ BattleScript_CursedBodyActivates::
 	return
 
 BattleScript_MummyActivates::
-	setbyte sFIXED_ABILITY_POPUP, TRUE
+	/*setbyte sFIXED_ABILITY_POPUP, TRUE
 	call BattleScript_AbilityPopUpTarget
 	copybyte gBattlerAbility, gBattlerAttacker
 	copyhword sABILITY_OVERWRITE, gLastUsedAbility
-	call BattleScript_AbilityPopUpOverwriteThenNormal
+	call BattleScript_AbilityPopUpOverwriteThenNormal*/
 	recordability BS_TARGET
 	recordability BS_ATTACKER
 	printstring STRINGID_ATTACKERACQUIREDABILITY
@@ -6711,12 +6728,12 @@ BattleScript_MummyActivates::
 BattleScript_WanderingSpiritActivates::
 	saveattacker
 	savetarget
-	copybyte gBattlerAbility, gBattlerTarget
+	/*copybyte gBattlerAbility, gBattlerTarget
 	sethword sABILITY_OVERWRITE, ABILITY_WANDERING_SPIRIT
 	call BattleScript_AbilityPopUpOverwriteThenNormal
 	copybyte gBattlerAbility, gBattlerAttacker
 	copyhword sABILITY_OVERWRITE, gLastUsedAbility
-	call BattleScript_AbilityPopUpOverwriteThenNormal
+	call BattleScript_AbilityPopUpOverwriteThenNormal*/
 	recordability BS_TARGET
 	recordability BS_ATTACKER
 	printstring STRINGID_SWAPPEDABILITIES
@@ -6841,9 +6858,9 @@ BattleScript_ActivateAsOne::
 	printfromtable gSwitchInAbilityStringIds
 	waitmessage B_WAIT_TIME_LONG
 	@ show unnerve
-	sethword sABILITY_OVERWRITE, ABILITY_UNNERVE
+	//sethword sABILITY_OVERWRITE, ABILITY_UNNERVE
 	setbyte cMULTISTRING_CHOOSER, B_MSG_SWITCHIN_UNNERVE
-	call BattleScript_AbilityPopUp
+	//call BattleScript_AbilityPopUp
 	printfromtable gSwitchInAbilityStringIds
 	waitmessage B_WAIT_TIME_LONG
 	return
@@ -7002,7 +7019,7 @@ BattleScript_NoItemSteal::
 
 BattleScript_AbilityCuredStatus::
 	call BattleScript_AbilityPopUp
-	printstring STRINGID_PKMNSXCUREDITSYPROBLEM
+	printstring STRINGID_PKMNSXCUREDYPROBLEM
 	waitmessage B_WAIT_TIME_LONG
 	updatestatusicon BS_SCRIPTING
 	return
@@ -7685,7 +7702,7 @@ BattleScript_RedCardActivates::
 	swapattackerwithtarget
 	jumpifvolatile BS_EFFECT_BATTLER, VOLATILE_ROOT, BattleScript_RedCardIngrain
 	jumpifability BS_EFFECT_BATTLER, ABILITY_SUCTION_CUPS, BattleScript_RedCardSuctionCups
-	jumpiftargetdynamaxed BattleScript_RedCardDynamaxed
+	//jumpiftargetdynamaxed BattleScript_RedCardDynamaxed
 	removeitem BS_SCRIPTING
 	setbyte sSWITCH_CASE, B_SWITCH_RED_CARD
 	forcerandomswitch BattleScript_RedCardEnd
@@ -7714,7 +7731,7 @@ BattleScript_EjectButtonActivates::
 	printstring STRINGID_EJECTBUTTONACTIVATE
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_SCRIPTING
-	undodynamax BS_SCRIPTING
+	//undodynamax BS_SCRIPTING
 	makeinvisible BS_SCRIPTING
 	openpartyscreen BS_SCRIPTING, BattleScript_EjectButtonEnd
 	waitstate

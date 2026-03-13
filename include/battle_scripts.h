@@ -439,7 +439,6 @@ extern const u8 BattleScript_ToxicOrb[];
 extern const u8 BattleScript_FlameOrb[];
 extern const u8 BattleScript_SnowGlobe[];
 extern const u8 BattleScript_DancerActivates[];
-extern const u8 BattleScript_RockyHelmetActivates[];
 extern const u8 BattleScript_RockyHelmetActivatesDmg[];
 extern const u8 BattleScript_BallFetch[];
 extern const u8 BattleScript_CudChewActivates[];    //is gen 9 but added for tauros plan addition

@@ -1559,7 +1559,7 @@
 	.4byte \ptr
 	.endm
 
-	.macro updatedynamax
+	/*.macro updatedynamax
 	callnative BS_UpdateDynamax
 	.endm
 
@@ -1572,6 +1572,7 @@
 	callnative BS_UndoDynamax
 	.byte \battler
 	.endm
+    */
 
 	.macro trytrainerslidezmovemsg
 	callnative BS_TryTrainerSlideZMoveMsg

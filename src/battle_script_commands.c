@@ -8107,9 +8107,24 @@ static void Cmd_setseeded(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+
+static void Cmd_manipulatedamage(void)
+{
+    CMD_ARGS(u8 mode);
+
+    switch (cmd->mode)
+    {
+    case DMG_1_8_TARGET_HP:
+        SetPassiveDamageAmount(gBattlerTarget, GetNonDynamaxMaxHP(gBattlerTarget) / 8);
+        break;
+    }
+
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
 // TODO: Needs tests for everything
 //vsonic update
-static void Cmd_manipulatedamage(void)
+/*static void Cmd_manipulatedamage(void)
 {
     CMD_ARGS(u8 mode);
 
@@ -8195,14 +8210,14 @@ static void Cmd_manipulatedamage(void)
         //if (gMovesInfo[gCurrentMove].effect == EFFECT_HEAVY_RECOIL) //believe was initially hi jump kick miss?
         //    gBattleMoveDamage /= 2;
 
-       /* if ((gBattleMons[gBattlerTarget].maxHP / 3) < gBattleMoveDamage)
-            gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 3;*/  //removed doesn't make sense even if helpful, plus gen4 removed it anyway
+       // if ((gBattleMons[gBattlerTarget].maxHP / 3) < gBattleMoveDamage)
+       //     gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 3;  //removed doesn't make sense even if helpful, plus gen4 removed it anyway
 
     break;  //only used for recoil miss, make define so can use name properly, oh I already did
     case RECOIL_MISS_DMG:
-        /*if (gMoveResultFlags & MOVE_RESULT_NO_EFFECT) //miss
-            gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1);    //dmg for immunity rolled into one command
-        */break;
+        //if (gMoveResultFlags & MOVE_RESULT_NO_EFFECT) //miss
+        //    gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1);    //dmg for immunity rolled into one command
+        break;
     case DOUBLE_DMG:
         gBattleMoveDamage *= 2;
         break;
@@ -8226,24 +8241,25 @@ static void Cmd_manipulatedamage(void)
         break;//unsure if will keep affects
     
     
-    /*case DMG_CHANGE_SIGN:
-        gBattleStruct->passiveHpUpdate[gBattlerAttacker] *= -1;
-        break;
-    case DMG_1_8_TARGET_HP:
-        SetPassiveDamageAmount(gBattlerTarget, GetNonDynamaxMaxHP(gBattlerTarget) / 8);
-        break;
-    case DMG_FULL_ATTACKER_HP:
-        gBattleStruct->passiveHpUpdate[gBattlerTarget] = GetNonDynamaxMaxHP(gBattlerAttacker);
-        break;
-    case DMG_BIG_ROOT:
-        gBattleStruct->passiveHpUpdate[gBattlerAttacker] = -1 * GetDrainedBigRootHp(gBattlerAttacker, gBattleStruct->passiveHpUpdate[gBattlerAttacker]);
-        break;*/
+    //case DMG_CHANGE_SIGN:
+    //    gBattleStruct->passiveHpUpdate[gBattlerAttacker] *= -1;
+    //    break;
+    //case DMG_1_8_TARGET_HP:
+    //    SetPassiveDamageAmount(gBattlerTarget, GetNonDynamaxMaxHP(gBattlerTarget) / 8);
+    //    break;
+    //case DMG_FULL_ATTACKER_HP:
+    //    gBattleStruct->passiveHpUpdate[gBattlerTarget] = GetNonDynamaxMaxHP(gBattlerAttacker);
+    //    break;
+    //case DMG_BIG_ROOT:
+    //    gBattleStruct->passiveHpUpdate[gBattlerAttacker] = -1 * GetDrainedBigRootHp(gBattlerAttacker, gBattleStruct->passiveHpUpdate[gBattlerAttacker]);
+    //    break;
     }
 
     gBattlescriptCurrInstr = cmd->nextInstr;
 }//since dmg_big_root effect is only used by strength sap
     //could get mist boost but simply setting up fallthrough rather
     //than adding extra command to script
+*/
 
 
 static void Cmd_trysetrest(void)

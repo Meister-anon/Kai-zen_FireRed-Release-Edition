@@ -715,6 +715,8 @@ enum SportsUsedStringID
     F(STRINGID_DARKTYPE_INTIMIDATE_RESIST,                                        ("{B_SCR_NAME_WITH_PREFIX}'s {B_SCR_ABILITY}\nhas no affect on Dark Types!"))\
     F(STRINGID_PKMNPREVENTSSTATLOSSWITH,                                        ("{B_SCR_NAME_WITH_PREFIX}'s {B_SCR_ABILITY}\nprevents stat loss!"))\
     F(STRINGID_PKMNHURTSWITHABILITY,                                        ("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\nhurt {B_ATK_NAME_WITH_PREFIX}!"))\
+    F(STRINGID_PKMNHURTSWITH,                                        ("{B_ATK_NAME_WITH_PREFIX} was hurt by\n{B_DEF_NAME_WITH_PREFIX}'s {B_BUFF1}!"))\
+    F(STRINGID_ATTACKER_ABILITYHURTS_TARGET, /*needs B_buff1 cuz ability getes cleared*/  ("{B_ATK_NAME_WITH_PREFIX}'s {B_BUFF1}\nhurt {B_DEF_NAME_WITH_PREFIX}!"))\
     F(STRINGID_PKMNTRACED,                                        ("{B_SCR_NAME_WITH_PREFIX} TRACED\n{B_BUFF1}'s {B_BUFF2}!"))\
     F(STRINGID_STATSHARPLY,                                        ("sharply "))\
     F(STRINGID_STATROSE,                                        ("rose!"))\
@@ -1141,7 +1143,6 @@ enum SportsUsedStringID
     F(STRINGID_STENCHENTERS,                                        ("A foul stench is in the air!"))\
     F(STRINGID_STENCHENDS,                                        ("The foul odor has cleared!"))\
     F(STRINGID_WELLRESTED,                                        ("{B_ATK_NAME_WITH_PREFIX} is\nwell rested!"))\
-    F(STRINGID_PKMNHURTSWITH2,                                        ("{B_ATK_NAME_WITH_PREFIX} was hurt by\n{B_DEF_NAME_WITH_PREFIX}'s {B_BUFF1}!"))\
 /*not in gen 5+, abl popup*/  F(STRINGID_PKMNSABILITYPREVENTSABILITY,                                        ("{B_SCR_NAME_WITH_PREFIX}'s {B_SCR_ABILITY}\nprevents {B_DEF_NAME_WITH_PREFIX}'s\l{B_DEF_ABILITY} from working!"))\
     F(STRINGID_STICKYHOLDABSORBEDITEM,                                        ("{B_EFF_NAME_WITH_PREFIX}'s {B_LAST_ITEM} was absorbed\nby {B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}!"))\
     F(STRINGID_METEORBEAMCHARGING,                                        ("{B_ATK_NAME_WITH_PREFIX} is overflowing\nwith space energy!"))\
@@ -1149,7 +1150,6 @@ enum SportsUsedStringID
     F(STRINGID_EMPATHIC_CURSE_ACTIVATES,                                        ("{B_SCR_NAME_WITH_PREFIX} suffered\nthe {B_DEF_ABILITY}!"))\
     F(STRINGID_ATTACKER_STURDY,                                        ("{B_ATK_NAME_WITH_PREFIX} hung on\nvia {B_ATK_ABILITY}!"))\
     F(STRINGID_TARGETSXWHIPPEDUPSANDSTORM,                                        ("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\nwhipped up a sandstorm!"))\
-    F(STRINGID_ATTACKER_ABILITYHURTS_TARGET,                                        ("{B_ATK_NAME_WITH_PREFIX}'s {B_BUFF1}\nhurt {B_DEF_NAME_WITH_PREFIX}!"))\
     F(STRINGID_PKMNINFESTED,                                        ("{B_ATK_NAME_WITH_PREFIX} is infested!"))\
     F(STRINGID_PKMNPANICKED,                                        ("{B_ATK_NAME_WITH_PREFIX} panicked\nand used a random move!"))\
     F(STRINGID_ABILITYNULLIFYTYPEDAMAGE,                                        ("{B_DEF_NAME_WITH_PREFIX} nullifies {B_BUFF1}\nmoves with {B_DEF_ABILITY}!"))\
