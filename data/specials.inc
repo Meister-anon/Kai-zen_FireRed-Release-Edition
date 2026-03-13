@@ -452,5 +452,6 @@ gSpecials:: @ 815FD60
 	def_special SetDaycareServiceCost
 	def_special CheckIfBoostApplied
 	def_special ScriptGetPartyMonSpecies
-	def_special ChooseBoxMon
+	def_special ChooseBoxMon @may no longer need EE made its own box access stuff vsonic important
+    def_special TryPrepareSecondApproachingTrainer
 

@@ -19,6 +19,8 @@ extern bool8 gTrainerApproachedPlayer;
 extern u8 gApproachingTrainerId;
 
 bool32 IsTrainerApproachBlocked(void);
+void DoTrainerApproach(void);
+void TryPrepareSecondApproachingTrainer(void);
 
 bool8 CheckForTrainersWantingBattle(void);
 bool8 UpdateBadOnionCounter(void);

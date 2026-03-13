@@ -781,6 +781,29 @@ void DoTrainerApproach(void)
     StartTrainerApproachWithFollowupTask(Task_EndTrainerApproach);
 }
 
+void TryPrepareSecondApproachingTrainer(void)
+{
+    if (gNoOfApproachingTrainers == 2)
+    {
+        if (gApproachingTrainerId == 0)
+        {
+            gApproachingTrainerId++;
+            gSpecialVar_Result = TRUE;
+            UnfreezeObjectEvents();
+            FreezeObjectEventsExceptOne(gApproachingTrainers[1].objectEventId);
+        }
+        else
+        {
+            gApproachingTrainerId = 0;
+            gSpecialVar_Result = FALSE;
+        }
+    }
+    else
+    {
+        gSpecialVar_Result = FALSE;
+    }
+}
+
 static void Task_EndTrainerApproach(u8 taskId)
 {
     DestroyTask(taskId);
