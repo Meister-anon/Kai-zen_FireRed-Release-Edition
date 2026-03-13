@@ -5576,6 +5576,8 @@ bool32 TryPrimalReversion(enum BattlerId battler)
     return FALSE;
 }
 
+//put immutable wind check
+//here using IsAbilityOnOpposingSide
 bool32 IsNeutralizingGasOnField(void)
 {
     u32 i;
@@ -8624,7 +8626,7 @@ static uq4_12_t GetWeatherDamageModifier(struct BattleContext *ctx)
 {
 
     bool32 CloudNineAffected = (ctx->abilityDef == ABILITY_CLOUD_NINE);
-    bool32 CloudNineOnSide = (DoesSideHaveAbility(ctx->battlerAtk, ABILITY_CLOUD_NINE));
+    bool32 CloudNineOnSide = (IsAbilityOnSide(ctx->battlerAtk, ABILITY_CLOUD_NINE));
     bool32 AtkCastform = (GetBaseFormSpecies(gBattleMons[ctx->battlerAtk].species) == SPECIES_CASTFORM);
     bool32 OceanMemoryActive = (ctx->abilityAtk == ABILITY_OCEAN_MEMORY && GetMoveType(ctx->move) == TYPE_WATER);
 
@@ -12193,7 +12195,7 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
         && atkAbility != ABILITY_APOTHEOSCENT
         && atkAbility != ABILITY_DUST_DEVIL
         && atkAbility != ABILITY_WIND_RIDER    //addition since is wind move
-        && !DoesSideHaveAbility(battlerAtk, ABILITY_CLOUD_NINE) //need test hope works
+        && !IsAbilityOnSide(battlerAtk, ABILITY_CLOUD_NINE) //need test hope works
         && GetBaseFormSpecies(gBattleMons[battlerAtk].species) != SPECIES_CASTFORM)
             calc = (calc * 90) / 100; // new 10% sandstorm loss (extra effect given since hail got extra stuff) changed to 5%, changed back given mudsport changes
 
