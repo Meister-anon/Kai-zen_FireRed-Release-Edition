@@ -12074,7 +12074,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         },
         {
             .moveEffect = MOVE_EFFECT_BURN,
-            .chance = 10,
+            .chance = 15,
         }),//vsonic hopefully can work burn burst target
         //.contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
@@ -12083,6 +12083,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .battleAnimScript = gBattleAnimMove_FlameBurst,
     },
     //may need to revise battle script to actually set adjacent burn effect
+    //may not need adjust script think may be able to just do in C code
     //vsonic
 
     [MOVE_SLUDGE_WAVE] =
