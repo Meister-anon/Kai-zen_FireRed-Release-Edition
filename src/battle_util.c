@@ -55,7 +55,7 @@
 static bool32 TryRemoveScreens(enum BattlerId battler);
 static bool32 IsUnnerveAbilityOnOpposingSide(enum BattlerId battler);
 static bool32 IsNonVolatileStatusBlocked(enum BattlerId battlerDef, enum Ability abilityDef, bool32 abilityAffected, const u8 *battleScript, enum ResultOption option);
-static bool32 CanSleepDueToSleepClause(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum ResultOption option);
+static bool32 CantSleepDueToSleepClause(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum ResultOption option);
 static bool32 IsOpposingSideEmpty(enum BattlerId battler);
 static void ResetParadoxWeatherStat(enum BattlerId battler);
 static void ResetParadoxTerrainStat(enum BattlerId battler);
@@ -6219,7 +6219,7 @@ bool32 CanSetNonVolatileStatus(enum BattlerId battlerAtk, enum BattlerId battler
         {
             battleScript = BattleScript_CantMakeAsleep;
         }
-        else if (!gBattleStruct->sleepClauseNotBlocked && CanSleepDueToSleepClause(battlerAtk, battlerDef, option))
+        else if (!gBattleStruct->sleepClauseNotBlocked && CantSleepDueToSleepClause(battlerAtk, battlerDef, option))
         {
             battleScript = BattleScript_SleepClauseBlocked;
         }
@@ -6332,7 +6332,10 @@ static bool32 IsNonVolatileStatusBlocked(enum BattlerId battlerDef, enum Ability
     return FALSE;
 }
 
-static bool32 CanSleepDueToSleepClause(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum ResultOption option)
+//seems off think is checking if pokemon can't be put to sleep
+//think should rename waiting on response from EE
+//checked furter feel confident enough in this to change myself
+static bool32 CantSleepDueToSleepClause(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum ResultOption option)
 {
     // Can freely sleep own partner
     if (IsDoubleBattle() && IsSleepClauseEnabled() && IsBattlerAlly(battlerAtk, battlerDef))

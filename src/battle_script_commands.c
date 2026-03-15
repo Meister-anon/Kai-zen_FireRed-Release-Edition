@@ -13894,9 +13894,9 @@ void BS_JumpIfSleepClause(void)
     }
     gBattleStruct->battlerState[gBattlerTarget].sleepClauseEffectExempt = FALSE;
     // Can't sleep if clause is active otherwise
-    if (IsSleepClauseActiveForSide(GetBattlerSide(gBattlerTarget)))
+    /*if (IsSleepClauseActiveForSide(GetBattlerSide(gBattlerTarget)))
         gBattlescriptCurrInstr = cmd->jumpInstr;
-    else
+    else*/
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
@@ -15524,11 +15524,11 @@ void BS_TryPsychoShift(void)
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = 5;
     }
-    else if (IsSleepClauseActiveForSide(GetBattlerSide(gBattlerTarget)))
+    /*else if (IsSleepClauseActiveForSide(GetBattlerSide(gBattlerTarget)))
     {
         gBattlescriptCurrInstr = cmd->sleepClauseFailInstr;
         return;
-    }
+    }*/
     else
     {
         gBattlescriptCurrInstr = cmd->failInstr;

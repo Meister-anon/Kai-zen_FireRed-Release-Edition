@@ -966,10 +966,10 @@ static bool32 HandleEndTurnYawn(enum BattlerId battler)
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAINPREVENTS_MISTY;
                 BattleScriptExecute(BattleScript_TerrainPreventsEnd2);
             }
-            else if (IsSleepClauseActiveForSide(GetBattlerSide(battler)))
+            /*else if (IsSleepClauseActiveForSide(GetBattlerSide(battler)))
             {
                 BattleScriptExecute(BattleScript_SleepClausePreventsEnd2);
-            }
+            }*/
             else if ((gBattleScripting.battler = IsAbilityOnSide(battler, ABILITY_SWEET_VEIL)))
             {
                 gBattleScripting.battler--;
