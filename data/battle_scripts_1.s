@@ -1145,7 +1145,7 @@ BattleScript_EffectFlowerShield::
 	selectfirstvalidtarget
 BattleScript_FlowerShieldIsAnyValidTarget:
 	jumpifvolatile BS_TARGET, VOLATILE_SEMI_INVULNERABLE, BattleScript_FlowerShieldCheckNextTarget
-	jumpiftype BS_TARGET, TYPE_GRASS, BattleScript_FlowerShieldLoopStart
+	jumpiftypeAffinty BS_TARGET, TYPE_GRASS, BattleScript_FlowerShieldLoopStart
 BattleScript_FlowerShieldCheckNextTarget:
 	jumpifnexttargetvalid BattleScript_FlowerShieldIsAnyValidTarget
 	goto BattleScript_RestoreTargetButItFailed
@@ -1154,7 +1154,7 @@ BattleScript_FlowerShieldLoopStart:
 BattleScript_FlowerShieldLoop:
 	movevaluescleanup
 	jumpifvolatile BS_TARGET, VOLATILE_SEMI_INVULNERABLE, BattleScript_FlowerShieldMoveTargetEnd
-	jumpiftype BS_TARGET, TYPE_GRASS, BattleScript_FlowerShieldLoop2
+	jumpiftypeAffinty BS_TARGET, TYPE_GRASS, BattleScript_FlowerShieldLoop2
 	goto BattleScript_FlowerShieldMoveTargetEnd
 BattleScript_FlowerShieldLoop2:
 	setstatchanger STAT_DEF, 1, FALSE
@@ -1791,8 +1791,8 @@ BattleScript_EffectQuash::
 
 BattleScript_EffectHealPulse::
 	attackcanceler
-	jumpifvolatile BS_ATTACKER, VOLATILE_HEAL_BLOCK, BattleScript_MoveUsedHealBlockPrevents @ stops pollen puff
-	jumpifvolatile BS_TARGET, VOLATILE_HEAL_BLOCK, BattleScript_MoveUsedHealBlockPrevents
+	jumpifsideaffecting BS_ATTACKER, SIDE_STATUS_HEAL_BLOCK, BattleScript_MoveUsedHealBlockPrevents @ stops pollen puff
+	jumpifsideaffecting BS_TARGET, SIDE_STATUS_HEAL_BLOCK, BattleScript_MoveUsedHealBlockPrevents
 	jumpifsubstituteblocks BattleScript_ButItFailed
 	tryhealpulse BattleScript_AlreadyAtFullHp
 	attackanimation
@@ -3100,7 +3100,7 @@ BattleScript_EffectMeanLook::
 	jumpifvolatile BS_TARGET, VOLATILE_ESCAPE_PREVENTION, BattleScript_ButItFailed
 	jumpifsubstituteblocks BattleScript_ButItFailed
 	jumpifgenconfiglowerthan CONFIG_B_GHOSTS_ESCAPE, GEN_6, BattleScript_EffectMeanLookGen5
-	jumpiftype BS_TARGET, TYPE_GHOST, BattleScript_ButItFailed
+	jumpiftypeAffinty BS_TARGET, TYPE_GHOST, BattleScript_ButItFailed
 BattleScript_EffectMeanLookGen5:
 	attackanimation
 	waitanimation
@@ -3139,9 +3139,9 @@ BattleScript_EffectMinimizeGen4:
 */
 
 BattleScript_EffectCurse::
-	jumpiftype BS_ATTACKER, TYPE_GHOST, BattleScript_GhostCurse
+	jumpiftypeAffinty BS_ATTACKER, TYPE_GHOST, BattleScript_GhostCurse
 	attackcanceler
-	jumpiftype BS_ATTACKER, TYPE_GHOST, BattleScript_DoGhostCurse
+	jumpiftypeAffinty BS_ATTACKER, TYPE_GHOST, BattleScript_DoGhostCurse
 	jumpifstat BS_ATTACKER, CMP_GREATER_THAN, STAT_SPEED, MIN_STAT_STAGE, BattleScript_CurseTrySpeed
 	jumpifstat BS_ATTACKER, CMP_NOT_EQUAL, STAT_ATK, MAX_STAT_STAGE, BattleScript_CurseTrySpeed
 	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_DEF, MAX_STAT_STAGE, BattleScript_ButItFailed
@@ -4043,6 +4043,9 @@ BattleScript_GiveExp::
 	getexp BS_TARGET
 	end2
 
+@need go over this fairely sure 
+@doesn't match FR logic
+@checked seems fine? 
 BattleScript_HandleFaintedMon::
 	setbyte sSHIFT_SWITCHED, 0
 	checkteamslost BattleScript_HandleFaintedMonMultiple
@@ -5739,7 +5742,7 @@ BattleScript_MoveUsedIsParalyzed::
 
 BattleScript_PowderMoveNoEffect::
 	pause B_WAIT_TIME_SHORT
-	jumpiftype BS_SCRIPTING, TYPE_GRASS, BattleScript_PowderMoveNoEffectPrint
+	jumpiftypeAffinty BS_SCRIPTING, TYPE_GRASS, BattleScript_PowderMoveNoEffectPrint
 	jumpifability BS_SCRIPTING, ABILITY_OVERCOAT, BattleScript_PowderMoveNoEffectOvercoat
 	setlastuseditem BS_SCRIPTING
 	printstring STRINGID_SAFETYGOGGLESPROTECTED
@@ -5848,7 +5851,21 @@ BattleScript_WrapEnds::
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
+/*
 BattleScript_MoveUsedIsInLove::
+	printstring STRINGID_PKMNINLOVE
+	waitmessage B_WAIT_TIME_LONG
+	volatileanimation BS_ATTACKER, VOLATILE_INFATUATION
+	return
+*/
+
+BattleScript_MoveUsedIsInLoveWith::
+	printstring STRINGID_PKMNINLOVEWITHBATTLER
+	waitmessage B_WAIT_TIME_LONG
+	volatileanimation BS_ATTACKER, VOLATILE_INFATUATION
+	return
+
+BattleScript_InLoveUsedMove::
 	printstring STRINGID_PKMNINLOVE
 	waitmessage B_WAIT_TIME_LONG
 	volatileanimation BS_ATTACKER, VOLATILE_INFATUATION
@@ -6235,6 +6252,11 @@ BattleScript_TryIntimidateHoldEffects:
 BattleScript_TryIntimidateHoldEffectsRet:
 	return
 
+/*
+made custom func for consolidating ability based stat changes
+modifystatstageviaAbility
+see if can use for this
+*/
 BattleScript_IntimidateActivates::
 	savetarget
 	call BattleScript_AbilityPopUp
@@ -6913,6 +6935,21 @@ BattleScript_RockyHelmetActivates::
 	waitanimation
 BattleScript_RockyHelmetActivatesDmg:
 	call BattleScript_HurtAttacker
+	return
+
+//vsonic test
+BattleScript_ShieldBash::
+	/*orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	bichalfword gMoveResultFlags, MOVE_RESULT_NO_EFFECT*/
+    jumpifabsent BS_ATTACKER, BattleScript_SpikyShieldRet
+    clearmoveresultflags MOVE_RESULT_NO_EFFECT
+	typecalc
+	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	datahpupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	printstring STRINGID_PKMNHURTSWITH @make new string  "mon countered the blow!"
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	tryfaintmon BS_ATTACKER
+BattleScript_ShieldBashRet::
 	return
 
 BattleScript_SpikyShieldEffect::
@@ -8449,6 +8486,24 @@ BattleScript_RivalBattleLostSkipMonRecall::
 	waitstate
 	printstring STRINGID_TRAINER1WINTEXT
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_LocalBattleLostPrintWhiteOut
+	end2
+
+BattleScript_BattleTowerLost::
+	GetBattleresForRecall BS_ATTACKER
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 0, BattleScript_BattleTowerLostLostSkipMonRecall
+	printfromtable gDoubleBattleRecallStrings
+	waitmessage B_WAIT_TIME_LONG
+	returnopponentmon1toball BS_ATTACKER
+	waitstate
+	returnopponentmon2toball BS_ATTACKER
+	waitstate
+BattleScript_BattleTowerLostLostSkipMonRecall::
+	trainerslidein BS_ATTACKER
+	waitstate
+	printstring STRINGID_TRAINER1WINTEXT
+	jumpifnotbattletype BATTLE_TYPE_DOUBLE, BattleScript_BattleTowerLostLostSkipDouble
+	printstring STRINGID_TRAINER2NAME
+BattleScript_BattleTowerLostLostSkipDouble::
 	end2
 
 BattleScript_LevelUp::

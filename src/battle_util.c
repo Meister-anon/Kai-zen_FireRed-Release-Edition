@@ -3901,7 +3901,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             else if (gBattleWeather & WEATHER_PRIMAL_ANY && HasWeatherEffect() && !gSpecialStatuses[battler].switchInAbilityDone)
             {
                 gSpecialStatuses[battler].switchInAbilityDone = TRUE;
-                BattleScriptCall(BattleScript_BlockedByPrimalWeatherEnd3);
+                BattleScriptCall(BattleScript_BlockedByPrimalWeather);
                 effect++;
             }
             break;
@@ -3914,7 +3914,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             else if (gBattleWeather & WEATHER_PRIMAL_ANY && HasWeatherEffect() && !gSpecialStatuses[battler].switchInAbilityDone)
             {
                 gSpecialStatuses[battler].switchInAbilityDone = TRUE;
-                BattleScriptCall(BattleScript_BlockedByPrimalWeatherEnd3);
+                BattleScriptCall(BattleScript_BlockedByPrimalWeather);
                 effect++;
             }
             break;
@@ -3927,7 +3927,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             else if (gBattleWeather & WEATHER_PRIMAL_ANY && HasWeatherEffect() && !gSpecialStatuses[battler].switchInAbilityDone)
             {
                 gSpecialStatuses[battler].switchInAbilityDone = TRUE;
-                BattleScriptCall(BattleScript_BlockedByPrimalWeatherEnd3);
+                BattleScriptCall(BattleScript_BlockedByPrimalWeather);
                 effect++;
             }
             break;
@@ -7610,7 +7610,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
     u32 holdEffectParamAtk;
     u32 basePower = CalcMoveBasePower(ctx);
     bool32 FluorescenceActive = (ctx->abilityAtk == ABILITY_FLUORESCENCE);
-    bool32 CloudNineOnSide = (DoesSideHaveAbility(ctx->battlerAtk, ABILITY_CLOUD_NINE));
+    bool32 CloudNineOnSide = (IsAbilityOnSide(ctx->battlerAtk, ABILITY_CLOUD_NINE));
     enum BattlerId battlerAtk = ctx->battlerAtk;
     enum BattlerId battlerDef = ctx->battlerDef;
     enum Move move = ctx->move;
@@ -13078,4 +13078,15 @@ void ClearRageStatuses(enum BattlerId battler) //remove rage if  move used other
     //gBattleMons[battler].volatiles.rage = FALSE);
     gBattleMons[battler].volatiles.rage = FALSE;
     gBattleMons[battler].volatiles.rageCounter = 0;
+}
+
+//use in script to check if 
+bool32 CanActivateTimeControl(enum BattlerId battler)
+{
+    if (GetBattlerAbility(battler) == ABILITY_TIME_CONTROL
+    && gBattleMons[battler].volatiles.timecontrolAbilityTimer == 0)
+        return TRUE;
+    
+    return FALSE;
+
 }

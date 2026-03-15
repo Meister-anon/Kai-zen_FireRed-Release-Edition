@@ -137,6 +137,11 @@ BattleScript_PlayerUseItem::
 	moveendcase 15
 	end
 
+BattleScript_SecondaryItemtoBag::
+	printstring STRINGID_ITEMTOBAG
+	waitmessage B_WAIT_TIME_CLEAR_BUFF_2
+	end2
+
 BattleScript_AIUseFullRestoreOrHpHeal::
 	printstring STRINGID_EMPTYSTRING3
 	pause 48
@@ -280,3 +285,45 @@ BattleScript_CaughtPokemonSkipNewDex2::
 	printfromtable gCaughtMonStringIds
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_CaughtPokemonDone
+
+
+@@@@Emerald Expansion Additions@@@@@@@
+
+BattleScript_TrainerASlideMsgRet::
+	trainerslidein BS_OPPONENT1
+	handletrainerslidemsg BS_SCRIPTING, PRINT_SLIDE_MESSAGE
+	waitstate
+	trainerslideout BS_OPPONENT1
+	waitstate
+	handletrainerslidemsg BS_SCRIPTING, RESTORE_BATTLER_SLIDE_CONTROL
+	return
+
+BattleScript_TrainerASlideMsgEnd2::
+	call BattleScript_TrainerASlideMsgRet
+	end2
+
+BattleScript_TrainerBSlideMsgRet::
+	trainerslidein BS_OPPONENT2
+	handletrainerslidemsg BS_SCRIPTING, PRINT_SLIDE_MESSAGE
+	waitstate
+	trainerslideout BS_OPPONENT2
+	waitstate
+	handletrainerslidemsg BS_SCRIPTING, RESTORE_BATTLER_SLIDE_CONTROL
+	return
+
+BattleScript_TrainerBSlideMsgEnd2::
+	call BattleScript_TrainerBSlideMsgRet
+	end2
+
+BattleScript_TrainerPartnerSlideMsgRet::
+	trainerslidein BS_PLAYER2
+	handletrainerslidemsg BS_SCRIPTING, PRINT_SLIDE_MESSAGE
+	waitstate
+	trainerslideout BS_PLAYER2
+	waitstate
+	handletrainerslidemsg BS_SCRIPTING, RESTORE_BATTLER_SLIDE_CONTROL
+	return
+
+BattleScript_TrainerPartnerSlideMsgEnd2::
+	call BattleScript_TrainerPartnerSlideMsgRet
+	end2

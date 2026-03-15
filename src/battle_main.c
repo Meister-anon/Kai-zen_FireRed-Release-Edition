@@ -5002,18 +5002,21 @@ void BattleTurnPassed(void) //after all moves used
     gBattleStruct->speedTieBreaks = RandomUniform(RNG_SPEED_TIE, 0, Factorial(MAX_BATTLERS_COUNT) - 1);
 
     TurnValuesCleanUp(TRUE); //protect and endure specifically cleared here
-    if (gBattleOutcome == 0) //starting value //battle not done
+    if (gBattleOutcome == 0 && DoEndTurnEffects()) //starting value //battle not done
     {
-        if (DoFieldEndTurnEffects()) //probably posssible wrap trap logic?  actually no, that is in battlereffecfs... missed turn counter reset in endturn wish seeing if that was issue
+        //need comb over and add to above func
+        /*if (DoFieldEndTurnEffects()) //probably posssible wrap trap logic?  actually no, that is in battlereffecfs... missed turn counter reset in endturn wish seeing if that was issue
             return; //wish wasn't it, but missed turnisde increment in aurora veil, due to bad replace could be it?
         if (DoBattlerEndTurnEffects()) //identified fieldendturn is the probolem / fixed that , that was part of freeze, but main issue for wrap dmg is battlerendturn
-            return;
+            return;*/
     }
     if (HandleFaintedMonActions())
         return;
     gBattleStruct->eventState.faintedAction = 0;
-    if (HandleWishPerishSongOnTurnEnd())
-        return;
+    
+    /*if (HandleWishPerishSongOnTurnEnd())
+        return;*/
+
     //entire protect struct values are cleaned in this function,  (false version only)
     //also where isFirstTurn decrement happens
     TurnValuesCleanUp(FALSE); 
