@@ -163,7 +163,6 @@ EWRAM_DATA u16 gCurrentMove = 0;
 EWRAM_DATA u16 gChosenMove = 0;
 EWRAM_DATA u16 gCalledMove = 0; //gbattlemovedamage is total damage, but whether it goes into damage formula is based on if script has damagecalc bs command in it, that is what weights things against defense etc.
 EWRAM_DATA u16 gBattleMovePower = 0;
-EWRAM_DATA s32 gBattleMoveDamage = 0;   //make notse on this, does it go through damage formula, is it affected by defense/split? offense stats? or does it bypass everything to do true damage?
 EWRAM_DATA s32 gHpDealt = 0;
 EWRAM_DATA s32 gTakenDmg[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gLastUsedItem = 0;
@@ -178,7 +177,7 @@ EWRAM_DATA u8 gCritMultiplier = 0;
 EWRAM_DATA u8 gMultiHitCounter = 0;
 EWRAM_DATA u8 gMultiTask = 0;
 EWRAM_DATA const u8 *gBattlescriptCurrInstr = NULL;
-EWRAM_DATA s32 gStoredHp = 0; //previously gUnusedBattleMainVar converetd for storing hp, default use case for binding band rework, need reset to 0 at endturn
+//EWRAM_DATA s32 gStoredHp = 0; //vsonic previously gUnusedBattleMainVar converetd for storing hp, default use case for binding band rework, need reset to 0 at endturn
 EWRAM_DATA u8 gChosenActionByBattler[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA const u8 *gSelectionBattleScripts[MAX_BATTLERS_COUNT] = {NULL};
 EWRAM_DATA u16 gLastPrintedMoves[MAX_BATTLERS_COUNT] = {0};
@@ -3835,8 +3834,6 @@ static void BattleStartClearSetData(void)
         gBattleCommunication[i] = 0;
 
     gPauseCounterBattle = 0;
-    gBattleMoveDamage = 0;
-    gStoredHp = 0;
     gIntroSlideFlags = 0;
     gParticipatedInBattle = 0;
     gAbsentBattlerFlags = 0;
@@ -5020,15 +5017,12 @@ void BattleTurnPassed(void) //after all moves used
     //entire protect struct values are cleaned in this function,  (false version only)
     //also where isFirstTurn decrement happens
     TurnValuesCleanUp(FALSE); 
-    gHitMarker &= ~(HITMARKER_NO_ATTACKSTRING);
-    gHitMarker &= ~(HITMARKER_UNABLE_TO_USE_MOVE);
     gHitMarker &= ~(HITMARKER_PLAYER_FAINTED);
-    gHitMarker &= ~(HITMARKER_PASSIVE_DAMAGE);
     gBattleScripting.animTurn = 0;
     gBattleScripting.animTargetsHit = 0;
     gBattleScripting.moveendState = 0;
-    gBattleMoveDamage = 0;
-    gStoredHp = 0;
+
+
     for (i = 0; i < 5; ++i)
         gBattleCommunication[i] = 0;
     if (gBattleOutcome != 0)
@@ -6586,7 +6580,7 @@ static void HandleEndTurn_BattleWon(void)
     }
     else
     {
-        gBattlescriptCurrInstr = BattleScript_PayDayMoneyPostBattle;
+        gBattlescriptCurrInstr = BattleScript_PayDayMoneyAndPickUpItems;
     }
     gBattleMainFunc = HandleEndTurn_FinishBattle;
 }

@@ -443,8 +443,6 @@ extern const u8 BattleScript_RockyHelmetActivatesDmg[];
 extern const u8 BattleScript_BallFetch[];
 extern const u8 BattleScript_CudChewActivates[];    //is gen 9 but added for tauros plan addition
 extern const u8 BattleScript_AttackWeakenedByStrongWinds[];
-extern const u8 BattleScript_BlockedByPrimalWeatherRet[];
-extern const u8 BattleScript_BlockedByPrimalWeatherEnd3[];
 extern const u8 BattleScript_SandSpitActivates[];
 extern const u8 BattleScript_PerishBodyActivates[];
 extern const u8 BattleScript_GulpMissleActivates[]; //for print heal string dove down message etc.
@@ -813,6 +811,7 @@ extern const u8 BattleScript_LocalTrainerBattleWon[];
 extern const u8 BattleScript_LocalTwoTrainersDefeated[];
 extern const u8 BattleScript_LocalBattleWonLoseTexts[];
 extern const u8 BattleScript_LocalBattleWonReward[];
+extern const u8 BattleScript_PayDayMoneyAndPickUpItems[];
 extern const u8 BattleScript_PayDayMoneyPostBattle[];
 extern const u8 BattleScript_LocalBattleLost[];
 extern const u8 BattleScript_LocalBattleLostPrintWhiteOut[];

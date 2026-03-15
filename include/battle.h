@@ -752,6 +752,7 @@ struct BattlerState
     u16 padding:3;//prob remove successfail stuff
 };
 //shouldn't caught mon also be in here? -believe is custom I added
+//if need to potentailly add storedHp to this for binding band rework
 
 struct PartyState
 {
@@ -1522,8 +1523,6 @@ extern u8 gBattlerInMenuId;
 extern u8 gPotentialItemEffectBattler;
 extern u8 gBattlersCount;
 extern u16 gBattlerPartyIndexes[MAX_BATTLERS_COUNT];
-extern s32 gBattleMoveDamage;
-extern s32 gStoredHp;
 extern u16 gIntroSlideFlags;
 //extern u32 gTransformedPersonalities[MAX_BATTLERS_COUNT];
 //extern struct TotemBoost gTotemBoosts[MAX_BATTLERS_COUNT];

@@ -16539,7 +16539,9 @@ void BS_JumpifShouldPostCatchAccessPC(void)
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
-void BS_JumpToStatSpecificChecksForIntimidateLike(void)
+//don't need this have func that handles intimidate like ability checks
+//other than that can be handled in ChangeStatBuff func
+/*void BS_JumpToStatSpecificChecksForIntimidateLike(void)
 {
     NATIVE_ARGS();
     u16 ability = GetBattlerAbility(gBattlerAttacker);
@@ -16561,7 +16563,7 @@ void BS_JumpToStatSpecificChecksForIntimidateLike(void)
         break;
     }
 
-}
+}*/
 
 //was when planned for multiple abilities to go through
 //this script so this was to specifically exclude intimdiate likes

@@ -74,8 +74,8 @@ gSpecialVars:: @ 815FD0C
 	.4byte gSpecialVar_TextColor
 	.4byte gSpecialVar_PrevTextColor
 	.4byte gSpecialVar_0x8014
-	.4byte gSpecialVar_ContestRank @add here since cant figure how remove textcolor stuff rn
-	.4byte gSpecialVar_ContestCategory
+	//.4byte gSpecialVar_ContestRank @add here since cant figure how remove textcolor stuff rn
+	//.4byte gSpecialVar_ContestCategory
 	.4byte gTrainerBattleParameter + 2 // gTrainerBattleParameter.params.opponentA
 
 	.include "data/specials.inc"

@@ -2570,9 +2570,9 @@
 	.endm
 
 	@vsonic custom
-	.macro jumptoIntimidateLikeSpecificStatCheck
+	/*.macro jumptoIntimidateLikeSpecificStatCheck
 	callnative BS_JumpToStatSpecificChecksForIntimidateLike
-	.endm
+	.endm*/
 
 	.macro tryactivateshowdownmodeMoveEnd
 	callnative BS_TryActivateResoluteMoveEnd
