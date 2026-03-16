@@ -427,6 +427,7 @@ s32 CalculateMoveDamage(struct BattleContext *ctx);
 s32 CalculateMoveDamageVars(struct BattleContext *ctx);
 s32 DoFixedDamageMoveCalc(struct BattleContext *ctx);
 s32 ApplyModifiersAfterDmgRoll(struct BattleContext *ctx, s32 dmg);
+void GetTypeEffectivenessMultiplier(struct BattleContext *ctx);
 uq4_12_t CalcTypeEffectivenessMultiplier(struct BattleContext *ctx);
 uq4_12_t CalcPartyMonTypeEffectivenessMultiplier(enum Move move, u16 speciesDef, enum Ability abilityDef);
 uq4_12_t GetTypeModifier(enum Type atkType, enum Type defType);

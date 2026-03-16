@@ -6690,7 +6690,8 @@ static void HandleEndTurn_FinishBattle(void)
         }
         TrySetQuestLogBattleEvent();
         if (GetBattlerSide(battler) == B_SIDE_PLAYER) //might not be needed but just extra protection
-        TryRestoreStolenItems();    //missing part of knock off, that restorees item. //ok this was issue for items returning, potentially put somewhere else then?
+            TryRestoreHeldItems();
+        //TryRestoreStolenItems();    //missing part of knock off, that restorees item. //ok this was issue for items returning, potentially put somewhere else then?
         //beleive working now, pretty sure issue was it was triggering for enemy side and re-restoring the item I had just stolen.
         //seems if it changes items the same turn I stole it with pickup, it still breaks?  leads me to believe the issue is with my pickup logic then
         //how its assigning items?  yup looks like it, I set changeditem in my function, and that goes to a move end argument that's AFTER item theft

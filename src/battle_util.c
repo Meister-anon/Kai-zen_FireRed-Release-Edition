@@ -13093,3 +13093,23 @@ bool32 CanActivateTimeControl(enum BattlerId battler)
     return FALSE;
 
 }
+
+//struct BattleContext ctx = {0}; above this use
+//then call typeeffectivessmodifier to check value
+//alex says is fine to use as func is apparently local
+//i.e everything it needs to do is handled in the function it does it in.
+//so no need to worry about oversteppings
+void GetTypeEffectivenessMultiplier(struct BattleContext *ctx)
+{
+    ctx->battlerAtk = gBattlerAttacker;
+    ctx->battlerDef = gBattlerTarget;
+    ctx->move = gCurrentMove;
+    ctx->chosenMove = gChosenMove;
+    ctx->moveType = GetBattleMoveType(gCurrentMove);
+    ctx->updateFlags = FALSE;
+    ctx->abilityAtk = GetBattlerAbility(gBattlerAttacker);
+    ctx->abilityDef = GetBattlerAbility(gBattlerTarget);
+    ctx->holdEffectAtk = GetBattlerHoldEffect(gBattlerAttacker);
+    ctx->holdEffectDef = GetBattlerHoldEffect(gBattlerTarget);
+    ctx->typeEffectivenessModifier = CalcTypeEffectivenessMultiplier(&ctx);
+}

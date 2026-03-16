@@ -191,6 +191,10 @@ enum BattleSide
 #define NOT_VERY_EFFECTIVE  UQ_4_12(0.5)
 #define NO_EFFECT           UQ_4_12(0.0)
 
+//hopefully works need test
+#define SLIGHTLY_EFFECTIVE  uq4_12_multiply(SUPER_EFFECTIVE, NOT_VERY_EFFECTIVE)
+#define EXTREMELY_EFFECTIVE uq4_12_multiply(SUPER_EFFECTIVE, SUPER_EFFECTIVE)
+
 #define JOAT_MULTIPLIER          UQ_4_12(1.17)
 #define SAME_TYPE_MULTIPLIER     UQ_4_12(1.35)
 //above should be hard coded

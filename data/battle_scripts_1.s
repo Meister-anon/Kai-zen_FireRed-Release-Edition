@@ -5733,6 +5733,11 @@ BattleScript_BattlerFrostbiteHealed::
 	updatestatusicon BS_SCRIPTING
 	return
 
+BattleScript_DefrostBattler_KeepStatus::
+	printstring STRINGID_PKMNWASDEFROSTED2
+	waitmessage B_WAIT_TIME_LONG
+	return
+
 BattleScript_MoveUsedIsParalyzed::
 	printstring STRINGID_PKMNISPARALYZED
 	waitmessage B_WAIT_TIME_LONG
@@ -8504,6 +8509,18 @@ BattleScript_BattleTowerLostLostSkipMonRecall::
 	jumpifnotbattletype BATTLE_TYPE_DOUBLE, BattleScript_BattleTowerLostLostSkipDouble
 	printstring STRINGID_TRAINER2NAME
 BattleScript_BattleTowerLostLostSkipDouble::
+	end2
+
+BattleScript_BattleTowerTrainerBattleWon::
+	printstring STRINGID_PLAYERDEFEATEDTRAINER1
+	trainerslidein BS_ATTACKER
+	waitstate
+	jumpifnotbattletype BATTLE_TYPE_TRAINER_TOWER, BattleScript_BattleTowerEtcTrainerBattleWonSkipText
+	printstring STRINGID_TRAINER1LOSETEXT
+	jumpifnotbattletype BATTLE_TYPE_DOUBLE, BattleScript_BattleTowerEtcTrainerBattleWonSkipText
+	printstring STRINGID_TRAINER2CLASS
+BattleScript_BattleTowerEtcTrainerBattleWonSkipText::
+	generateendbattleitem
 	end2
 
 BattleScript_LevelUp::

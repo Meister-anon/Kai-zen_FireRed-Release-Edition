@@ -160,7 +160,7 @@ static enum CancelerResult CancelerAsleepOrFrozen(struct BattleContext *ctx)
     }
     else if (gBattleMons[ctx->battlerAtk].status1 & STATUS1_FREEZE && !MoveThawsUser(ctx->move))
     {
-        if (!RandomPercentage(RNG_FROZEN, 20))
+        if (gBattleMons[ctx->battlerAtk].volatiles.frozenTurns)
         {
             result = CANCELER_RESULT_FAILURE;
             gBattlescriptCurrInstr = BattleScript_MoveUsedIsFrozen;
@@ -168,8 +168,9 @@ static enum CancelerResult CancelerAsleepOrFrozen(struct BattleContext *ctx)
         else // unfreeze
         {
             gBattleMons[ctx->battlerAtk].status1 &= ~STATUS1_FREEZE;
+            gBattleMons[ctx->battlerAtk].status1 = STATUS1_FROSTBITE;
             result = CANCELER_RESULT_BREAK;
-            BattleScriptCall(BattleScript_MoveUsedUnfroze);
+            BattleScriptCall(BattleScript_DefrostBattler_KeepStatus);
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DEFROSTED;
         }
         RequestNonVolatileChangee(ctx->battlerAtk);
@@ -623,7 +624,7 @@ static enum CancelerResult CancelerThaw(struct BattleContext *ctx)
         {
             gBattleMons[ctx->battlerAtk].status1 &= ~STATUS1_FREEZE;
             result = CANCELER_RESULT_BREAK;
-            BattleScriptCall(BattleScript_MoveUsedUnfroze);
+            BattleScriptCall(BattleScript_BattlerDefrosted);
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DEFROSTED_BY_MOVE;
         }
         else
@@ -2412,7 +2413,7 @@ static enum MoveEndResult MoveEnd_Defrost(void)
         gBattleMons[gBattlerTarget].status1 &= ~STATUS1_FREEZE;
         BtlController_EmitSetMonData(gBattlerTarget, B_COMM_TO_CONTROLLER, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].status1), &gBattleMons[gBattlerTarget].status1);
         MarkBattlerForControllerExec(gBattlerTarget);
-        BattleScriptCall(BattleScript_DefrostedViaFireMove);
+        BattleScriptCall(BattleScript_BattlerDefrosted);
         result = MOVEEND_RESULT_RUN_SCRIPT;
     }
     else if (gBattleMons[gBattlerTarget].status1 & STATUS1_FROSTBITE
@@ -2425,7 +2426,7 @@ static enum MoveEndResult MoveEnd_Defrost(void)
         gBattleMons[gBattlerTarget].status1 &= ~STATUS1_FROSTBITE;
         BtlController_EmitSetMonData(gBattlerTarget, B_COMM_TO_CONTROLLER, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].status1), &gBattleMons[gBattlerTarget].status1);
         MarkBattlerForControllerExec(gBattlerTarget);
-        BattleScriptCall(BattleScript_FrostbiteHealedViaFireMove);
+        BattleScriptCall(BattleScript_BattlerFrostbiteHealed);
         result = MOVEEND_RESULT_RUN_SCRIPT;
     }
 
@@ -2551,9 +2552,9 @@ static enum MoveEndResult MoveEnd_MultihitMove(void)
 
         if (gMultiHitCounter == 0)
         {
-            if (MoveHasAdditionalEffect(gCurrentMove, MOVE_EFFECT_SCALE_SHOT) && !NoAliveMonsForEitherParty())
+            /*if (MoveHasAdditionalEffect(gCurrentMove, MOVE_EFFECT_SCALE_SHOT) && !NoAliveMonsForEitherParty())
                 BattleScriptCall(BattleScript_ScaleShot);
-            else
+            else*/
                 BattleScriptCall(BattleScript_MultiHitPrintStrings);
             gBattleMons[gBattlerAttacker].volatiles.furyCutterCounter = 0;
             result = MOVEEND_RESULT_RUN_SCRIPT;
@@ -4029,7 +4030,7 @@ static enum MoveCanceler CancelerAsleepOrFrozen(struct BattleContext *ctx)
         {
             gBattleMons[ctx->battlerAtk].status1 &= ~STATUS1_FREEZE;
             effect = CANCELER_RESULT_BREAK;
-            BattleScriptCall(BattleScript_MoveUsedUnfroze);
+            BattleScriptCall(BattleScript_BattlerDefrosted);
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DEFROSTED;
         }
         RequestNonVolatileChangee(ctx->battlerAtk);
@@ -4456,7 +4457,7 @@ static enum MoveCanceler CancelerThaw(struct BattleContext *ctx)
         {
             gBattleMons[ctx->battlerAtk].status1 &= ~STATUS1_FREEZE;
             effect = CANCELER_RESULT_BREAK;
-            BattleScriptCall(BattleScript_MoveUsedUnfroze);
+            BattleScriptCall(BattleScript_BattlerDefrosted);
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DEFROSTED_BY_MOVE;
         }
         else

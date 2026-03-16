@@ -2273,6 +2273,9 @@ static void Cmd_resultmessage(void)
     enum StringID stringId = 0;
     u16 *moveResultFlags = &gBattleStruct->moveResultFlags[gBattlerTarget];
 
+    struct BattleContext ctx = {0};
+    GetTypeEffectivenessMultiplier(&ctx);
+
     if (gBattleControllerExecFlags)
         return;
 
@@ -2330,7 +2333,8 @@ static void Cmd_resultmessage(void)
                 TryInitializeTrainerSlidePlayerLandsFirstSuperEffectiveHit(BATTLE_PARTNER(gBattlerTarget));
             break;
         case MOVE_RESULT_NOT_VERY_EFFECTIVE:
-            if (CalcTypeEffectivenessMultiplierHelper(gCurrentMove, GetBattleMoveType(gCurrentMove), gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerAbility(gBattlerTarget), FALSE) == UQ_4_12_TO_INT((UQ_4_12(1.55) * UQ_4_12(0.5)) + UQ_4_12_ROUND))
+            if (ctx.typeEffectivenessModifier == SLIGHTLY_EFFECTIVE)
+            //if (CalcTypeEffectivenessMultiplierHelper(gCurrentMove, GetBattleMoveType(gCurrentMove), gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerAbility(gBattlerTarget), FALSE) == UQ_4_12_TO_INT((UQ_4_12(1.55) * UQ_4_12(0.5)) + UQ_4_12_ROUND))
                     stringId = 0; //should keep effect remove message, keep not very effective sound //test correctly keeps type
             if (IsDoubleSpreadMove())
             {
