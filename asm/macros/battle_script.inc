@@ -2574,6 +2574,14 @@
 	callnative BS_JumpToStatSpecificChecksForIntimidateLike
 	.endm*/
 
+    @used just in battle tower
+    @custom setup as was various hope works
+    @vsonic important check potentially rework later
+    @removed battler arg
+    .macro GetBattleresForRecall
+	callnative BS_GetBattlerForRecall
+	.endm
+
 	.macro tryactivateshowdownmodeMoveEnd
 	callnative BS_TryActivateResoluteMoveEnd
 	.endm

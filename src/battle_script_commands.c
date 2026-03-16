@@ -14534,6 +14534,26 @@ void BS_JumpIfCanGigantamax(void)
         gBattlescriptCurrInstr = cmd->nextInstr;*/
 }
 
+//later on look at this for now just copy exact setup from FR
+//weird shit with battler not being used and i is weird
+//for now removed battler arg as seen not used
+void BS_GetBattlerForRecall(void)
+{
+    NATIVE_ARGS();
+    //enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
+    
+    enum BattlerId battler = 1;
+    gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+    for (u32 i = 0; battler < MAX_BATTLERS_COUNT; battler += 2)
+    {
+        if (battler < gBattlersCount && IsBattlerAlive(battler))
+            gBattleCommunication[MULTISTRING_CHOOSER] |= (1u << i);
+        ++i;
+    }
+    gBattlescriptCurrInstr = cmd->nextInstr;
+
+}
+
 void BS_TryFlingHoldEffect(void)
 {
     NATIVE_ARGS();
