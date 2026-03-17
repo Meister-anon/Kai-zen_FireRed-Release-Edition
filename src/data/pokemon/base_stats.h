@@ -7453,7 +7453,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_PROTEAN, ABILITY_TECHNICIAN},
+        .abilities = {ABLLITY_POET_ARTIST, ABILITY_TECHNICIAN},
         .abilityHidden = {ABILITY_MOODY, ABILITY_SIMPLE},
         //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
@@ -7464,6 +7464,15 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sSmeargleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //also slight increase in speed to help chose the right move
+    //consider may redo sketch boost to instead be an ability effect
+    //share with grafaiai
+    //poet artist (shinee reference) boost all stats (2 stages) upon use of 
+    //artist move sketch monotype doodle
+    //would be ability like color change that actiates
+    //before attack animation but for user intead of target
+    //realize technician doesn't really make muhc sense 
+    //well unless build for it so just well ok just get rid of protean
+    //can move that to learned set
     
     [SPECIES_TYROGUE] =
     {

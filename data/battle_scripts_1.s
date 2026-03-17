@@ -3020,7 +3020,8 @@ BattleScript_EffectSketch:: @changes should allow temp copy, just need to add st
 	attackcanceler
 	jumpifsubstituteblocks BattleScript_ButItFailed
 	mimicattackcopy BattleScript_ButItFailed
-	call BattleScript_EffectSketchStatUp @if done right checks for move sucess does stat increase then move animation
+    //call BattleScript_AllStatsUp
+	//call BattleScript_EffectSketchStatUp @if done right checks for move sucess does stat increase then move animation
 	attackanimation
 	waitanimation
 	printstring STRINGID_PKMNSKETCHEDMOVE
@@ -5036,6 +5037,40 @@ BattleScript_AllStatsUpSpDef::
 	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_AllStatsUpRet::
+	return
+
+BattleScript_AllStatsUp2::
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_ATK, MAX_STAT_STAGE, BattleScript_AllStatsUpAtk2
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_DEF, MAX_STAT_STAGE, BattleScript_AllStatsUpAtk2
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_SPEED, MAX_STAT_STAGE, BattleScript_AllStatsUpAtk2
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_SPATK, MAX_STAT_STAGE, BattleScript_AllStatsUpAtk2
+	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_SPDEF, MAX_STAT_STAGE, BattleScript_AllStatsUpRet2
+BattleScript_AllStatsUpAtk2::
+	setstatchanger STAT_ATK, 2, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_AllStatsUpDef2, BIT_DEF | BIT_SPEED | BIT_SPATK | BIT_SPDEF
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_AllStatsUpDef2::
+	setstatchanger STAT_DEF, 2, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_AllStatsUpSpeed2, BIT_SPEED | BIT_SPATK | BIT_SPDEF
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_AllStatsUpSpeed2::
+	setstatchanger STAT_SPEED, 2, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_AllStatsUpSpAtk2, BIT_SPATK | BIT_SPDEF
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_AllStatsUpSpAtk2::
+	setstatchanger STAT_SPATK, 2, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_AllStatsUpSpDef2, BIT_SPDEF
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_AllStatsUpSpDef2::
+	setstatchanger STAT_SPDEF, 2, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_AllStatsUpRet2
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_AllStatsUpRet2::
 	return
 
 BattleScript_RapidSpinAway::
@@ -8831,6 +8866,12 @@ BattleScript_GulpMissleActivates::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
+BattleScript_PoetArtistActivates::
+	call BattleScript_AbilityPopUp
+	printstring STRINGID_ARTIST_IS_EXCITED
+	waitmessage B_WAIT_TIME_LONG
+	return
+
 BattleScript_MoveUsedLoafingAround::
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_LOAFING, BattleScript_MoveUsedLoafingAroundMsg
 	@ Skip ahead if not the Battle Palace message
@@ -8997,3 +9038,25 @@ BattleScript_ResoluteActivatesOnMoveEndTarget::
 	handleformchange BS_TARGET, 2
 	printstring STRINGID_TARGETCHANGEDMODE
 	return
+
+@can prob simplify some w modifybattlerstatstage command
+@just turn off animation
+@believe cpm equal tell it to not raise stats if spdef is maxed since its raising everything
+//replaced by EE use of BattleScript_AllStatsUp
+/*BattleScript_EffectSketchStatUp::
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_ATK, 12, BattleScript_SketchStatsUpAtk2
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_DEF, 12, BattleScript_SketchStatsUpAtk2
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_SPATK, 12, BattleScript_SketchStatsUpAtk2
+	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_SPDEF, 12, BattleScript_SketchStatsUpRet2
+BattleScript_SketchStatsUpAtk2::
+	setbyte sSTAT_ANIM_PLAYED, 0
+	playstatchangeanimation BS_ATTACKER, BIT_ATK | BIT_DEF | BIT_SPATK | BIT_SPDEF, 0
+	modifybattlerstatstage BS_ATTACKER, STAT_ATK, INCREASE, 2, NULL, TRUE, ANIM_OFF
+BattleScript_SketchStatsUpDef2::
+	modifybattlerstatstage BS_ATTACKER, STAT_DEF, INCREASE, 2, BattleScript_SketchStatsUpSpAtk2, TRUE, ANIM_OFF
+BattleScript_SketchStatsUpSpAtk2::
+	modifybattlerstatstage BS_ATTACKER, STAT_SPATK, INCREASE, 2, BattleScript_SketchStatsUpSpDef2, TRUE, ANIM_OFF
+BattleScript_SketchStatsUpSpDef2::
+	modifybattlerstatstage BS_ATTACKER, STAT_SPDEF, INCREASE, 2, BattleScript_SketchStatsUpRet2, TRUE, ANIM_OFF
+BattleScript_SketchStatsUpRet2::
+	return*/

@@ -113,7 +113,8 @@ struct MoveInfo
     s8 priority;
     u16 accuracy:7;
     u16 target:4; //target all battlers is 14 so min space is bit 4
-    u16 space:5; //consider using for flag swap dmg cat, nah annoying but better using effects
+    u16 artMove:1;
+    u16 space:4; //consider using for flag swap dmg cat, nah annoying but better using effects
     //u16 target:9; //do I need this so high, think just to fill type space
     // end of word
     // Flags
@@ -391,6 +392,10 @@ static inline bool32 IsHeadbuttMove(enum Move moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].headbuttMove;
 }
 
+static inline bool32 IsArtMove(enum Move moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].artMove;
+}
 
 static inline bool32 IsPunchingMove(enum Move moveId)
 {

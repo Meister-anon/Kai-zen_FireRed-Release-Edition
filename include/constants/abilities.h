@@ -446,6 +446,7 @@ ABILITIES_COUNT_GEN8 = 269,
  ABILITY_REIKI = 407, //mega mewtwo x ability inner focus + scrappy
  ABILITY_AURORA_SHIFT = 408, //deoxys defense ability
  ABILITY_DETERMINATION = 409, //idea from Opal speed boost version of moxie think give tyrogue fighing type
+ ABILITY_POET_ARTIST = 410,
 ABILITIES_COUNT_CUSTOM,
 
  ABILITIES_COUNT = ABILITIES_COUNT_CUSTOM, //   ability count is last ability number +, since we have to count ability,

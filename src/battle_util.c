@@ -5503,7 +5503,11 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         break;
     case ABILITYEFFECT_PRE_HIT_ACTIVATE:
 
+        if (gSpecialStatuses[battler].preHitAbilityDone)
+            break;
+
         gLastUsedAbility = GetBattlerAbility(battler);
+        
         switch (gLastUsedAbility)
         {
         case ABILITY_COLOR_CHANGE:
@@ -5516,7 +5520,6 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             && moveType != TYPE_STELLAR
             && moveType != TYPE_MYSTERY
             && GetActiveGimmick(battler) != GIMMICK_TERA
-            && !gSpecialStatuses[battler].preHitAbilityDone
             )
             {
                 gBattlerAbility = battler; //pretty sure is for abilitypopup
@@ -5530,8 +5533,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             if (CanActivateGulpMissle(move)
             && battler == gBattlerAttacker
             && gBattleMons[battler].species == SPECIES_CRAMORANT
-            && GetActiveGimmick(battler) != GIMMICK_DYNAMAX
-            && !gSpecialStatuses[battler].preHitAbilityDone)
+            && GetActiveGimmick(battler) != GIMMICK_DYNAMAX)
             {
                 //since want form change to use pre heal hp
                 //attempt to store hp and pass back to passivehp after heal
@@ -5552,6 +5554,17 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 
             }
             break;//think do call basic anim heal here then have print text come in other function
+        case ABILITY_POET_ARTIST:
+            if (IsArtMove(move)
+            && battler == gBattlerAttacker)
+            {
+                gBattlerAbility = battler; //pretty sure is for abilitypopup
+                gBattleStruct->shouldPrintPreHitAbilityText = TRUE;
+                gSpecialStatuses[battler].preHitAbilityDone = TRUE;
+                BattleScriptCall(BattleScript_AllStatsUp2);
+                effect++;//test this see if display how I want it
+            }
+            break;
 
         }
     

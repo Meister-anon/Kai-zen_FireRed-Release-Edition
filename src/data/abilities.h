@@ -3287,5 +3287,12 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Fights on without hesitation.\nKOs raise Speed."),
         .aiRating = 5,
     },
+
+    [ABILITY_POET_ARTIST] =
+    {
+        .name = _("Poet Artist"),
+        .description = COMPOUND_ABILITY_STRING("Art is euphoric. Art moves raise stats\n2 stages. As said move begins."),
+        .aiRating = 6,
+    },
 };
 

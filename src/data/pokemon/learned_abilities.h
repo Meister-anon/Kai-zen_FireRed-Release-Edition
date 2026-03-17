@@ -1097,6 +1097,7 @@ static const struct AbilityLearnset sStantlerAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSmeargleAbilityLearnset[] = {
+    ABILITY_PROTEAN,
     ABILITY_SET_END
 };
 
@@ -4544,6 +4545,7 @@ static const struct AbilityLearnset sGrafaiaiAbilityLearnset[] = {
     ABILITY_FRISK,
     ABILITY_PICKPOCKET,
     ABILITY_CORROSION,
+    ABLLITY_POET_ARTIST,
     ABILITY_POISONED_LEGACY,
     ABILITY_SET_END
 };

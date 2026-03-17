@@ -1747,6 +1747,11 @@ static inline bool32 TryPrintPreHitAbilityActivationText(enum BattlerId battler)
                     gBattleStruct->shouldPrintPreHitAbilityText = FALSE;
                     return TRUE;
                 break;
+                case ABILITY_POET_ARTIST:
+                    BattleScriptCall(BattleScript_PoetArtistActivates);
+                    gBattleStruct->shouldPrintPreHitAbilityText = FALSE;
+                    return TRUE;
+                break;
             }
         }
         else
