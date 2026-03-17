@@ -129,7 +129,7 @@ gNameChoice_OtherName::
 
 gNewGame_HelpDocs1:: @ 81C582D
     .string "IMPORTANT NOTICE:\n"
-    .string "I Rec. mGBA or RetroArch to play."
+    .string "I Rec. mGBA or RetroArch to play.\n"
     .string "To expand saves the backup save was\n"
     .string "removed.\n"
     .string "\n"

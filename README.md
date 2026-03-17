@@ -1,6 +1,35 @@
 .
 Branch Goals:
 
+
+identified issue with my summ screen rename callback
+if I pick reset name but then delete it so its blank
+it still resets nickname rather than keeping current nickname
+so change to check if char 0 has a character
+if not keep nickname upon callback return
+
+also setup evo set as feature of pokedex
+as that's how it works in manga
+so put a flag check on implementation in summary screen
+party menu  and update oak script when he gives pokedex
+that it can also control evolution
+
+sigh issues with new setup builds but oak battle fails
+as if memory glitch testing regular battle no idea how to track
+if its all battles...other than soething somehow missed in 
+battle setup files
+
+but also doesn't properly track trainer send out pokemon
+idk if that's to do with how I do rival starter selection 
+stuff or just all trainers fail that way
+
+kill me now its all battles even a wild doesn't
+populate correct name for mon
+well wild battle doesn't crash at least so its possible
+a battle controller issue smh that's even worse
+
+and move animations STILL DON'T FUCKING WORK
+
 note thinking guard mode gets broken through by crits
 makes them even more impactful as a balance mechanic
 and with that thinking potentially NOT raise ev limit

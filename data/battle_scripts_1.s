@@ -23,6 +23,10 @@
 
 	.section script_data, "aw", %progbits
 
+@ Can't compare directly to a value, have to compare to value at pointer
+sZero:
+.byte 0
+
 BattleScript_FickleBeamMessage::
 	pause B_WAIT_TIME_SHORTEST
 	printstring STRINGID_FICKLEBEAMDOUBLED
@@ -4304,6 +4308,7 @@ BattleScript_TowerLinkBattleWonEnd::
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
+/*
 BattleScript_FrontierTrainerBattleWon::
 	jumpifnotbattletype BATTLE_TYPE_TRAINER, BattleScript_PayDayMoneyAndPickUpItems
 	jumpifbattletype BATTLE_TYPE_TWO_OPPONENTS, BattleScript_FrontierTrainerBattleWon_TwoDefeated
@@ -4326,6 +4331,7 @@ BattleScript_TryPickUpItems:
 	generateendbattleitem
 BattleScript_FrontierTrainerBattleWon_End:
 	end2
+*/
 
 BattleScript_SmokeBallEscape::
 	playanimation BS_ATTACKER, B_ANIM_SMOKEBALL_ESCAPE
@@ -4793,15 +4799,21 @@ BattleScript_SelectingDisabledMoveInPalace::
 	printstring STRINGID_PKMNMOVEISDISABLED
 	goto BattleScript_SelectingUnusableMoveInPalace
 
+
+//didn't realize this is for dynamax stuff
+//well palace is its own thing
+/*
 BattleScript_EncoredMove::
 	printselectionstring STRINGID_PKMNGOTENCOREDMOVE
 	endselectionscript
+*/
 
-BattleScript_EncoredMoveInPalace::
-	printselectionstring STRINGID_PKMNGOTENCOREDMOVE
+//BattleScript_EncoredMoveInPalace::
+//	printselectionstring STRINGID_PKMNGOTENCOREDMOVE
 BattleScript_SelectingUnusableMoveInPalace::
 	moveendto MOVEEND_NEXT_TARGET
 	end
+
 
 BattleScript_EncoredNoMore::
 	printstring STRINGID_PKMNENCOREENDED
@@ -6138,10 +6150,6 @@ BattleScript_AbilityPopUpOverwriteThenNormal:
 	setbyte sFIXED_ABILITY_POPUP, FALSE*/
 	return
 
-@ Can't compare directly to a value, have to compare to value at pointer
-sZero:
-.byte 0
-
 BattleScript_MoodyActivates::
 	call BattleScript_AbilityPopUp
 	jumpifbyteequal sSTATCHANGER, sZero, BattleScript_MoodyLower
@@ -6848,7 +6856,7 @@ BattleScript_WeakArmorActivates::
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_CHANGE_EMPTY, BattleScript_WeakArmorActivatesSpeed
 	pause B_WAIT_TIME_SHORTEST
 	printfromtable gStatDownStringIds
-	clearmoveresultflags MOVE_RESULT_MISSED @ Set by statbuffchange when stat can't be decreased
+	clearmoveresultflags MOVE_RESULT_MISSED //@ Set by statbuffchange when stat can't be decreased
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_WeakArmorActivatesSpeed
 BattleScript_WeakArmorDefPrintString:
@@ -9075,4 +9083,15 @@ BattleScript_AbilityFemmeFatale::
 	printstring STRINGID_FEMME_FATALE
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
+
+BattleScript_InthralledNoMore::
+	printstring STRINGID_PKMNMOVESEALEDNOMORE
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end2
+
+BattleScript_InthrallActivates::
+	pause B_WAIT_TIME_CLEAR_BUFF
+	printstring STRINGID_PKMNMOVESEALED
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return
 

@@ -1674,23 +1674,23 @@ u32 TrySetCantSelectMoveBattleScript(enum BattlerId battler)
     enum Move *choicedMove = &gBattleStruct->choicedMove[battler];
     enum BattleMoveEffects moveEffect = GetMoveEffect(move);
 
-    if (GetConfig(B_ENCORE_TARGET) >= GEN_5
+    /*if (GetConfig(B_ENCORE_TARGET) >= GEN_5
      && DYNAMAX_BYPASS_CHECK && GetActiveGimmick(battler) != GIMMICK_Z_MOVE && gBattleMons[battler].volatiles.encoredMove != move && gBattleMons[battler].volatiles.encoredMove != MOVE_NONE)
     {
         gBattleScripting.battler = battler;
         gCurrentMove = gBattleMons[battler].volatiles.encoredMove;
-        /*if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
-        {
-            gPalaceSelectionBattleScripts[battler] = BattleScript_EncoredMoveInPalace;
-            gProtectStructs[battler].palaceUnableToUseMove = TRUE;
-        }
-        else*/
+        //if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
+        //{
+        //    gPalaceSelectionBattleScripts[battler] = BattleScript_EncoredMoveInPalace;
+        //    gProtectStructs[battler].palaceUnableToUseMove = TRUE;
+        //}
+        //else
         {
             gSelectionBattleScripts[battler] = BattleScript_EncoredMove;
             limitations++;
         }
         return limitations;
-    }
+    }*/
 
     if (DYNAMAX_BYPASS_CHECK && GetActiveGimmick(battler) != GIMMICK_Z_MOVE && gBattleMons[battler].volatiles.disabledMove == move && move != MOVE_NONE)
     {

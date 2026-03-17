@@ -1308,7 +1308,7 @@ struct BattleScripting  //remember expanding this costs ewram
     u8 animArg1;
     u8 animArg2;
     u16 multihitMoveEffect;
-    u8 moveendState;; //move end
+    u8 moveendState; //move end
     enum BattlerId battlerWithAbility;
     u8 statChangeId; //new for dynamic stat set, this stat id will be passed to statchanger
     enum BattlerId battler;
@@ -1320,7 +1320,7 @@ struct BattleScripting  //remember expanding this costs ewram
     u8 battleStyle;
     u8 drawlvlupboxState;
     u8 learnMoveState;
-    u8 padspace_keep; //was field_25_pursuitDoublesAttacker, deprecated dont remove weird things happen when mess w battlescripting
+    u8 shiftswitched;//replaced for EE stuff set when switch mode change battler //was field_25_pursuitDoublesAttacker, deprecated dont remove weird things happen when mess w battlescripting
     u8 reshowMainState;
     u8 reshowHelperState;
     u8 levelUpHP;    //used for hp change on level up & shedinja hp stuff in pokemon.c
