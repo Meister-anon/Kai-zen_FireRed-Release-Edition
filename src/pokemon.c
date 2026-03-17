@@ -13083,6 +13083,7 @@ u32 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, enum FormChanges
 
 //vsonic important remember how handles pointer for my own use
 // Returns the current species if no form change is possible
+//prob need move to bottom of file since added custom changes
 u32 GetFormChangeTargetSpecies(struct Pokemon *mon, enum FormChanges method)
 {
     return GetFormChangeTargetSpeciesBoxMon(&mon->box, method);

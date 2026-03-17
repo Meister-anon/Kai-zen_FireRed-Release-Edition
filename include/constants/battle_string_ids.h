@@ -71,6 +71,29 @@ enum PrimalWeatherBlockStringID
     B_MSG_PRIMAL_WEATHER_EVAPORATED_IN_SUN,
 };
 
+// gBattlePalaceFlavorTextTable
+enum BattlePalaceFlavorTextID
+{
+    B_MSG_GLINT_IN_EYE,
+    B_MSG_GETTING_IN_POS,
+    B_MSG_GROWL_DEEPLY,
+    B_MSG_EAGER_FOR_MORE,
+};
+
+// gRefereeStringsTable
+enum RefereeStringID
+{
+    B_MSG_REF_NOTHING_IS_DECIDED = 0, // Default, likely actually a magic number somewhere that should be assigned this instead if used at all
+    B_MSG_REF_THATS_IT,
+    B_MSG_REF_JUDGE_MIND,
+    B_MSG_REF_JUDGE_SKILL,
+    B_MSG_REF_JUDGE_BODY,
+    B_MSG_REF_PLAYER_WON,
+    B_MSG_REF_OPPONENT_WON,
+    B_MSG_REF_DRAW,
+    B_MSG_REF_COMMENCE_BATTLE,
+};
+
 // gSwitchInAbilityStringIds
 enum SwitchInAbilityStringID
 {

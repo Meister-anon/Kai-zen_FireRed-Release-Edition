@@ -1612,10 +1612,6 @@
 	.4byte \jumpInstr
 	.endm
 
-	.macro trytwoturnmovespowerherbformchange
-	callnative BS_TryTwoTurnMovesPowerHerbFormChange
-	.endm
-
 	.macro tryquash failInstr:req
 	callnative BS_TryQuash
 	.4byte \failInstr

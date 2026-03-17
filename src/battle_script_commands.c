@@ -13784,21 +13784,6 @@ void BS_TryTidyUp(void)
     }
 }
 
-void BS_TryTwoTurnMovesPowerHerbFormChange(void)
-{
-    NATIVE_ARGS();
-
-    if (TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_HP_PERCENT_DURING_MOVE, GetBattlerAbility(gBattlerAttacker)))
-    {
-        // Doesn't need to set B_ANIM_FORM_CHANGE_INSTANT, as it was already handled on the first turn
-        gBattleScripting.battler = gBattlerAttacker;
-        gBattlescriptCurrInstr = BattleScript_TwoTurnMovesSecondTurnFormChange;
-    }
-    else
-    {
-        gBattlescriptCurrInstr = cmd->nextInstr;
-    }
-}
 
 void BS_TryQuash(void)
 {
