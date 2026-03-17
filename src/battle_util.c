@@ -2069,9 +2069,10 @@ void TryToRevertMimicryAndFlags(void)
     }
 }
 
+//
 bool32 BattleArenaTurnEnd(void)
 {
-    if ((gBattleTypeFlags & BATTLE_TYPE_ARENA)
+    /*if ((gBattleTypeFlags & BATTLE_TYPE_ARENA)
      && gBattleStruct->eventState.arenaTurn == 2
      && IsBattlerAlive(B_POSITION_PLAYER_LEFT) && IsBattlerAlive(B_POSITION_OPPONENT_LEFT))
     {
@@ -2081,7 +2082,7 @@ bool32 BattleArenaTurnEnd(void)
         gBattlescriptCurrInstr = BattleScript_ArenaDoJudgment;
         BattleScriptExecute(BattleScript_ArenaDoJudgment);
         return TRUE;
-    }
+    }*/
     return FALSE;
 }
 

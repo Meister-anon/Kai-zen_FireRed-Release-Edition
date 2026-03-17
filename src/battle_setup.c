@@ -420,6 +420,18 @@ void BattleSetup_StartScriptedWildBattle(void)
     IncrementGameStat(GAME_STAT_WILD_BATTLES);
 }
 
+void BattleSetup_StartScriptedDoubleWildBattle(void)
+{
+    LockPlayerFieldControls();
+    gMain.savedCallback = CB2_EndScriptedWildBattle;
+    gBattleTypeFlags = BATTLE_TYPE_DOUBLE;
+    CreateBattleStartTask(GetWildBattleTransition(), 0);
+    IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
+    IncrementGameStat(GAME_STAT_WILD_BATTLES);
+    //IncrementDailyWildBattles();
+    //TryUpdateGymLeaderRematchFromWild();
+}
+
 void StartMarowakBattle(void)
 {
     LockPlayerFieldControls();
