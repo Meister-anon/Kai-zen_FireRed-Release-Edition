@@ -88,6 +88,19 @@ plan quality of life make function getname from personality
 use for quality of life of infatuation that way can still
 print name avoid issue of wrong mon
 
+note think rework secondary item slot logic
+want prioritize held item overall but think
+needing to consume held item to use seconary item isn't necessarily the best
+so what want to do is check if item can actiate either main or secondary
+and if main can't activate but secondary can think use and consume secondary
+not just item being used but an actual activation effect
+ex. if main item is assault vest but I pick up a lifeorb
+the assault vest would still work but it doesn't have an activation logic
+while life orb does so I could activate the life orb
+
+and of course at end of battle any secondary items would get added to bag
+and of course upon mega all items would be treated as if were item none
+
 
 add tera but didn't really want to set it
 think exclude to new game plus or hard

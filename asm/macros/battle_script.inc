@@ -1640,10 +1640,6 @@
 	.4byte \jumpInstr
 	.endm
 
-	.macro ficklebeamdamagecalculation
-	callnative BS_FickleBeamDamageCalculation
-	.endm
-
 	.macro trytarshot failInstr:req
 	callnative BS_TryTarShot
 	.4byte \failInstr

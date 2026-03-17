@@ -2712,6 +2712,8 @@ Sticky Hold does not prevent a Sticky Barb being transferred by its own effect.*
 //hmm well bug bite should be stealing so not use this?
 //yeah bug bite doesnt work w this, idk why bug bite doesn't work with this??
 //it DOES with stealitem but I would have to do more with that
+//believe not used by EE need move logic to different places
+//believe EE uses StealTargetItem maybe add logic to that function vsonic important
 bool32 TryKnockOffBattleScript(u32 loseitembattler, u32 EffectUser, u16 moveEffect)
 {
     if (gBattleMons[loseitembattler].item != ITEM_NONE
@@ -4059,10 +4061,10 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
                 gBattlescriptCurrInstr = BattleScript_TargetBurnHeal;
                 break;
             case STATUS1_FREEZE:
-                gBattlescriptCurrInstr = BattleScript_DefrostedViaFireMove;
+                gBattlescriptCurrInstr = BattleScript_BattlerDefrosted;
                 break;
             case STATUS1_FROSTBITE:
-                gBattlescriptCurrInstr = BattleScript_FrostbiteHealedViaFireMove;
+                gBattlescriptCurrInstr = BattleScript_BattlerFrostbiteHealed;
                 break;
             case STATUS1_POISON:
             case STATUS1_TOXIC_POISON:
@@ -13902,21 +13904,6 @@ void BS_JumpIfSleepClause(void)
         gBattlescriptCurrInstr = cmd->jumpInstr;
     else*/
         gBattlescriptCurrInstr = cmd->nextInstr;
-}
-
-void BS_FickleBeamDamageCalculation(void)
-{
-    NATIVE_ARGS();
-
-    if (RandomPercentage(RNG_FICKLE_BEAM, 30))
-    {
-        gBattleStruct->fickleBeamBoosted = TRUE;
-        gBattlescriptCurrInstr = BattleScript_FickleBeamDoubled;
-    }
-    else
-    {
-        gBattlescriptCurrInstr = cmd->nextInstr;
-    }
 }
 
 void BS_TryTarShot(void)

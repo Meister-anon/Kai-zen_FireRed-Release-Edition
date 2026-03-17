@@ -327,4 +327,4 @@ BattleScript_TrainerPartnerSlideMsgRet::
 BattleScript_TrainerPartnerSlideMsgEnd2::
 	call BattleScript_TrainerPartnerSlideMsgRet
 	end2
-    
+

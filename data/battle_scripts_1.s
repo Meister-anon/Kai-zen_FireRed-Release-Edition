@@ -4769,6 +4769,11 @@ BattleScript_RageIsBuilding::
 BattleScript_RageIsBuildingEnd:
 	return
 
+BattleScript_AttackerRageBuilding::
+	printstring STRINGID_ATK_RAGEBUILDING
+	waitmessage B_WAIT_TIME_SHORT
+	return
+
 BattleScript_MoveUsedIsDisabled::
 	printstring STRINGID_PKMNMOVEISDISABLED
 	waitmessage B_WAIT_TIME_LONG
@@ -8974,4 +8979,21 @@ BattleScript_DryadsCurseDoMoveAnim:
     printstring STRINGID_PKMNLAIDCURSE
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
+    
+BattleScript_StickyHoldKnockoff::
+	printstring STRINGID_STICKYHOLDABSORBEDITEM
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return
 
+BattleScript_ResoluteActivatesOnMoveEndTarget::
+	pause B_WAIT_TIME_CLEAR_BUFF
+	@copybyte gBattlerAbility, gBattlerTarget
+	@@ call BattleScript_AbilityPopUp
+	printstring STRINGID_TARGETISGETTINGSERIOUS
+	handleformchange BS_TARGET, 0
+	handleformchange BS_TARGET, 1
+	playanimation BS_TARGET, B_ANIM_FORM_CHANGE @guessing don''t know what value should be
+	waitanimation
+	handleformchange BS_TARGET, 2
+	printstring STRINGID_TARGETCHANGEDMODE
+	return
