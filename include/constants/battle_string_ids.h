@@ -1406,6 +1406,8 @@ enum SportsUsedStringID
     F(STRINGID_CLOAKEDINAURORA,                                        ("{B_SCR_NAME_WITH_PREFIX} became cloaked\nin an aurora of light!"))\
     F(STRINGID_AIRBECAMECOLD,                                        ("The air around {B_ATK_NAME_WITH_PREFIX}\nbecame chillingly cold!"))\
     F(STRINGID_ARTIST_IS_EXCITED,                                   ("{B_ATK_NAME_WITH_PREFIX}'s creativity is overflowing!"))\
+    F(STRINGID_ZENMODETRIGGERED,                                     ("{B_SCR_NAME_WITH_PREFIX} entered {B_SCR_ABILITY}!"))\
+    F(STRINGID_ZENMODEENDED,                                           ("{B_SCR_NAME_WITH_PREFIX}'s {B_SCR_ABILITY} ended!"))\
 
 #define UNPACK_BATTLE_STRING_ENUMS(_enum, ...) _enum,
 #define UNPACK_BATTLE_STRING_VALUES(_enum, _txtstring, ...) [_enum] = COMPOUND_STRING _txtstring,
