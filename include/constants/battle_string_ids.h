@@ -366,6 +366,13 @@ enum CureStatusBerryEffectStringID
     B_MSG_NORMALIZED_STATUS,
 };
 
+// gZenModeStringIds
+enum ZenModeStringID
+{
+    B_MSG_ZEN_MODE_TRIGGERED,
+    B_MSG_ZEN_MODE_ENDED,
+};
+
 // gNoEscapeStringIds
 enum NoEscapeStringID
 {
@@ -552,7 +559,8 @@ enum SportsUsedStringID
     F(STRINGID_STATSWONTINCREASE2,                                        ("{B_ATK_NAME_WITH_PREFIX}'s stats won't\ngo any higher!"))\
     F(STRINGID_AVOIDEDDAMAGE,                                        ("{B_DEF_NAME_WITH_PREFIX} avoided\ndamage with {B_DEF_ABILITY}!"))\
     F(STRINGID_ITDOESNTAFFECT,                                        ("It doesn't affect\n{B_DEF_NAME_WITH_PREFIX}…"))\
-    F(STRINGID_ATTACKERFAINTED,                                        ("{B_ATK_NAME_WITH_PREFIX}\nfainted!\p"))\
+    F(STRINGID_SCR_ITDOESNTAFFECT,                                   ("It doesn't affect {B_SCR_NAME_WITH_PREFIX2}…"))\
+    F(STRINGID_BATTLERFAINTED,                                        ("{B_SCR_NAME_WITH_PREFIX}\nfainted!\p"))\
     F(STRINGID_TARGETFAINTED,                                        ("{B_DEF_NAME_WITH_PREFIX}\nfainted!\p"))\
     F(STRINGID_PLAYERGOTMONEY,                                        ("{B_PLAYER_NAME} got ¥{B_BUFF1}\nfor winning!\p"))\
     F(STRINGID_PLAYERWHITEOUT,                                        ("{B_PLAYER_NAME} is out of\nusable POKéMON!\p"))\

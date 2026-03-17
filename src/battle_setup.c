@@ -1257,6 +1257,22 @@ void StartRematchBattle(void)
     ScriptContext_Stop();
 }
 
+//vsonic unsure what for if is for rematch or not
+void ShouldTryGetTrainerScript(void)
+{
+    if (sNoOfPossibleTrainerRetScripts > 1)
+    {
+        sNoOfPossibleTrainerRetScripts = 0;
+        sShouldCheckTrainerBScript = TRUE;
+        gSpecialVar_Result = TRUE;
+    }
+    else
+    {
+        sShouldCheckTrainerBScript = FALSE;
+        gSpecialVar_Result = FALSE;
+    }
+}
+
 void ShowTrainerIntroSpeech(void)
 {
     ShowFieldMessage(GetIntroSpeechOfApproachingTrainer());

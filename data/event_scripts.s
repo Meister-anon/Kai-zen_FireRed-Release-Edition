@@ -812,6 +812,7 @@ gStdScriptsEnd::
 	.include "data/maps/SevenIsland_SevaultCanyon_House/text.inc"
 
 	.include "data/scripts/std_msgbox.inc"
+    .include "data/scripts/trainer_script.inc"
 	.include "data/scripts/trainer_battle.inc"
 	.include "data/scripts/debug.inc"
 

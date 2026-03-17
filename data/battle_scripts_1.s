@@ -3820,11 +3820,11 @@ BattleScript_EffectSkillSwap::
 	attackanimation
 	waitanimation
 	jumpiftargetally BattleScript_EffectSkillSwap_AfterAbilityPopUp
-	copybyte gBattlerAbility, gBattlerAttacker
+	/*copybyte gBattlerAbility, gBattlerAttacker
 	call BattleScript_AbilityPopUpOverwriteThenNormal
 	copybyte gBattlerAbility, gBattlerTarget
 	copyhword sABILITY_OVERWRITE, gLastUsedAbility
-	call BattleScript_AbilityPopUpOverwriteThenNormal
+	call BattleScript_AbilityPopUpOverwriteThenNormal*/
 BattleScript_EffectSkillSwap_AfterAbilityPopUp:
 	recordability BS_ATTACKER
 	recordability BS_TARGET
@@ -4391,7 +4391,7 @@ BattleScript_DoSwitchOut::
 	switchineffects BS_ATTACKER
 	switchinevents
 	moveendcase MOVEEND_STATUS_IMMUNITY_ABILITIES
-	moveendcase MOVEEND_MIRROR_MOVE
+	//moveendcase MOVEEND_MIRROR_MOVE
 	end2
 
 BattleScript_Pausex20::
@@ -4875,9 +4875,10 @@ BattleScript_PerishSongTakesLife::
 	tryfaintmon BS_ATTACKER
 	end2
 
+@uses my custom string
 BattleScript_PerishBodyActivates::
 	call BattleScript_AbilityPopUp
-	printstring STRINGID_PKMNSWILLPERISHIN3TURNS
+	printstring STRINGID_FAINTINTHREE
 	waitmessage B_WAIT_TIME_LONG
 	return
 
@@ -6671,12 +6672,6 @@ BattleScript_ItemNoStatLoss::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
-BattleScript_ObliviousPreventsAttraction::
-	pause B_WAIT_TIME_SHORT
-	call BattleScript_AbilityPopUp
-	printstring STRINGID_PKMNPREVENTSROMANCEWITH
-	waitmessage B_WAIT_TIME_LONG
-	goto BattleScript_MoveEnd
 
 BattleScript_FlinchPrevention::
 	pause B_WAIT_TIME_SHORT
@@ -7934,7 +7929,7 @@ BattleScript_TargetAbilityStatRaiseRet_End:
 	restoreattacker
 	return
 
-BattleScript_EffectRaiseStatAllies::
+/*BattleScript_EffectRaiseStatAllies::
 	savetarget
 	copybyte gBattlerTarget, gBattlerAttacker
 	copybyte sSAVED_STAT_CHANGER, sSTATCHANGER
@@ -7995,6 +7990,7 @@ BattleScript_DamageNonTypesContinues::
 	effectivenesssound
 	hitanimation BS_ATTACKER
 	goto BattleScript_DoTurnDmg
+*/
 
 BattleScript_EffectTryReducePP::
 	tryspiteppreduce BattleScript_MoveEnd
@@ -8309,6 +8305,9 @@ BattleScript_SleepClausePreventsEnd2::
 	waitmessage B_WAIT_TIME_LONG
 	end2
 */
+@for my own purpose as not using sleep clause
+BattleScript_SleepClauseBlocked::
+    goto BattleScript_MoveEnd
 
 BattleScript_QuestionForfeitBattle::
 	printselectionstring STRINGID_QUESTIONFORFEITBATTLE
@@ -9060,3 +9059,17 @@ BattleScript_SketchStatsUpSpDef2::
 	modifybattlerstatstage BS_ATTACKER, STAT_SPDEF, INCREASE, 2, BattleScript_SketchStatsUpRet2, TRUE, ANIM_OFF
 BattleScript_SketchStatsUpRet2::
 	return*/
+
+@use for oblivious & unaware extra effect prevention  was oblivious attraction prevention
+BattleScript_AbilityPreventsMoodShift::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNIGNOREDADVANCESWITH
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	goto BattleScript_MoveEnd
+
+BattleScript_AbilityFemmeFatale::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_FEMME_FATALE
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	goto BattleScript_MoveEnd
+

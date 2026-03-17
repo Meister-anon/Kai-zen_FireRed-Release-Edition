@@ -9950,9 +9950,12 @@ BattleScript_PSNPrevention::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 
+//in EE is mostly repalced w BattleScript_NotAffectedAbilityPopUp
+//prefer my version
 @use for oblivious & unaware extra effect prevention  was oblivious attraction prevention
 BattleScript_AbilityPreventsMoodShift::
 	pause B_WAIT_TIME_SHORT
+    call BattleScript_AbilityPopUpTarget
 	printstring STRINGID_PKMNIGNOREDADVANCESWITH
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
