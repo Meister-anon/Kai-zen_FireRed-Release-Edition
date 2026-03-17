@@ -13,6 +13,7 @@
 #include "battle_z_move.h"
 #include "battle_move_resolution.h"
 #include "bike.h"
+#include "coins.h"
 #include "field_player_avatar.h"
 #include "item.h"
 #include "util.h"
@@ -3087,11 +3088,22 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
         // Don't scatter coins on the second hit of Parental Bond
         if (IsOnPlayerSide(gBattlerAttacker) && gSpecialStatuses[gBattlerAttacker].parentalBondState!= PARENTAL_BOND_2ND_HIT)
         {
-            u16 payday = gPaydayMoney;
+            
             u16 moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove);
-            gPaydayMoney += (gBattleMons[gBattlerAttacker].level * 5);
-            if (payday > gPaydayMoney)
-                gPaydayMoney = 0xFFFF;
+            if (FlagGet(FLAG_GOT_COIN_CASE))
+            {
+                u16 payday = gPaydayCoins;
+                gPaydayCoins += (gBattleMons[gBattlerAttacker].level * 5);
+                if (payday > gPaydayCoins)
+                    gPaydayCoins = 0xFFFF;
+                
+            }            
+
+            if (!gBattleStruct->moneyMultiplierMove)
+            {
+                gBattleStruct->moneyMultiplier *= 2;
+                gBattleStruct->moneyMultiplierMove = TRUE;
+            }
 
             // For a move that hits multiple targets (i.e. Make it Rain)
             // we only want to print the message on the final hit
@@ -3112,7 +3124,7 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
         if (IsOnPlayerSide(gBattlerAttacker) && !gBattleStruct->moneyMultiplierMove)
         {
             gBattleStruct->moneyMultiplier *= 2;
-            gBattleStruct->moneyMultiplierMove = 1;
+            gBattleStruct->moneyMultiplierMove = TRUE;
         }
         gBattlescriptCurrInstr = battleScript;
         break;
@@ -3994,14 +4006,14 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
         gBattlescriptCurrInstr = BattleScript_EffectEffectSporeSide;
         break;
     case MOVE_EFFECT_CONFUSE_PAY_DAY_SIDE:
-        if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+        /*if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
         {
             u32 payday = gPaydayMoney;
             gPaydayMoney += (gBattleMons[gBattlerAttacker].level * 100);
             if (payday > gPaydayMoney)
                 gPaydayMoney = 0xFFFF;
             gBattleCommunication[CURSOR_POSITION] = 1; // add "Coins scattered." message
-        }
+        }*/ //comment ot preserve default payday logic as gmax effect not using anyway
         // fall through
     case MOVE_EFFECT_CONFUSE_SIDE:
         BattleScriptPush(battleScript);
@@ -9224,15 +9236,20 @@ static void Cmd_givepaydaymoney(void)
 {
     CMD_ARGS();
 
-    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK)) && gPaydayMoney != 0)
+    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK)) && gPaydayCoins != 0)
     {
-        u32 bonusMoney = gPaydayMoney * gBattleStruct->moneyMultiplier;
-        AddMoney(&gSaveBlock1Ptr->money, bonusMoney);
-
-        PREPARE_HWORD_NUMBER_BUFFER(gBattleTextBuff1, 5, bonusMoney)
-
-        BattleScriptPush(cmd->nextInstr);
-        gBattlescriptCurrInstr = BattleScript_PrintPayDayMoneyString;
+        //u32 bonusMoney = gPaydayMoney * gBattleStruct->moneyMultiplier;
+        //AddMoney(&gSaveBlock1Ptr->money, bonusMoney);
+        if (AddCoins(gPaydayCoins))
+        {
+            PREPARE_HWORD_NUMBER_BUFFER(gBattleTextBuff1, 5, gPaydayCoins)
+            BattleScriptPush(cmd->nextInstr);
+            gBattlescriptCurrInstr = BattleScript_PrintPayDayMoneyString;
+        }
+        else
+        {
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        }
     }
     else
     {

@@ -5880,6 +5880,9 @@ BattleScript_MoveUsedIsConfusedNoMore::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
+//update later meant to be coins and money
+//hm actually turn into amulet coin effect and just give coins otherwise
+//believe done update vsonic need test
 BattleScript_PrintPayDayMoneyString::
 	printstring STRINGID_PLAYERPICKEDUPMONEY
 	waitmessage B_WAIT_TIME_LONG

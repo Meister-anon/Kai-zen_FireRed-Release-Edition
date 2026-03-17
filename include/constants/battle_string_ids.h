@@ -661,7 +661,7 @@ enum SportsUsedStringID
     F(STRINGID_PKMNSTORINGENERGY,                                        ("{B_ATK_NAME_WITH_PREFIX} is storing\nenergy!"))\
     F(STRINGID_PKMNUNLEASHEDENERGY,                                        ("{B_ATK_NAME_WITH_PREFIX} unleashed\nenergy!"))\
     F(STRINGID_PKMNFATIGUECONFUSION,                                        ("{B_ATK_NAME_WITH_PREFIX} became\nconfused due to fatigue!"))\
-    F(STRINGID_PKMNPICKEDUPITEM,                                        ("{B_PLAYER_NAME} picked up\n¥{B_BUFF1}!\p"))\
+    F(STRINGID_PLAYERPICKEDUPMONEY,                                        ("{B_PLAYER_NAME} picked up\n{B_BUFF1} Coins!\p"))\
     F(STRINGID_PKMNUNAFFECTED,                                        ("{B_DEF_NAME_WITH_PREFIX} is\nunaffected!"))\
     F(STRINGID_PKMNTRANSFORMEDINTO,                                        ("{B_ATK_NAME_WITH_PREFIX} transformed\ninto {B_BUFF1}!"))\
     F(STRINGID_PKMNMADESUBSTITUTE,                                        ("{B_ATK_NAME_WITH_PREFIX} made\na SUBSTITUTE!"))\

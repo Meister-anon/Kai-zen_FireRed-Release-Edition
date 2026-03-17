@@ -200,9 +200,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_PAY_DAY] =
     {
         .name = COMPOUND_STRING("Pay Day"),
-        .description = COMPOUND_MOVE_STRING("Numerous coins are\nhurled at the foe.\nMoney is earned\nafter battle."),
+        .description = COMPOUND_MOVE_STRING("Numerous coins are\nhurled at the foe.\nGives coins and\ndoubles prize money\nearned after battle.\nMove always crits."),
         .effect = EFFECT_HIT,
-        .power = 40,
+        .power = 30,
         .type = TYPE_NORMAL,
         .accuracy = 100,
         .pp = 20,
@@ -212,12 +212,16 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_PAYDAY,
         }),
+        .alwaysCriticalHit = TRUE,
         //.contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_PayDay,
     },
+    //not too big a buff but essentially makes a good power move
+    //that works through defense boosts just to give a niche
+    //and slighty extends use of move a bit into mid game.
 
     [MOVE_FIRE_PUNCH] =
     {

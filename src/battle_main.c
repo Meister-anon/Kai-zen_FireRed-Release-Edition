@@ -198,7 +198,7 @@ EWRAM_DATA u8 gBideTarget[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u32 gSideStatuses[NUM_BATTLE_SIDES] = {0};
 EWRAM_DATA struct SideTimer gSideTimers[NUM_BATTLE_SIDES] = {0};
 EWRAM_DATA u16 gPauseCounterBattle = 0;
-EWRAM_DATA u16 gPaydayMoney = 0;
+EWRAM_DATA u16 gPaydayCoins = 0;
 EWRAM_DATA u16 gRandomTurnNumber = 0;
 EWRAM_DATA u8 gBattleCommunication[BATTLE_COMMUNICATION_ENTRIES_COUNT] = {0};
 EWRAM_DATA u8 gBattleOutcome = 0;
@@ -3827,7 +3827,7 @@ static void BattleStartClearSetData(void)
     gBattleScripting.savedDmg = 0;
     gBattleOutcome = 0;
     gBattleControllerExecFlags = 0;
-    gPaydayMoney = 0;
+    gPaydayCoins = 0;
     gBattleResources->battleScriptsStack->size = 0;
     gBattleResources->battleCallbackStack->size = 0;
     for (i = 0; i < BATTLE_COMMUNICATION_ENTRIES_COUNT; ++i)
