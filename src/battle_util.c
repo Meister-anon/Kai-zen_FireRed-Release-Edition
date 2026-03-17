@@ -13111,5 +13111,5 @@ void GetTypeEffectivenessMultiplier(struct BattleContext *ctx)
     ctx->abilityDef = GetBattlerAbility(gBattlerTarget);
     ctx->holdEffectAtk = GetBattlerHoldEffect(gBattlerAttacker);
     ctx->holdEffectDef = GetBattlerHoldEffect(gBattlerTarget);
-    ctx->typeEffectivenessModifier = CalcTypeEffectivenessMultiplier(&ctx);
+    ctx->typeEffectivenessModifier = CalcTypeEffectivenessMultiplier(ctx);
 }
