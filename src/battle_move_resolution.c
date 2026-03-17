@@ -639,7 +639,7 @@ static enum CancelerResult CancelerThaw(struct BattleContext *ctx)
         {
             gBattleMons[ctx->battlerAtk].status1 &= ~STATUS1_FROSTBITE;
             result = CANCELER_RESULT_BREAK;
-            BattleScriptCall(BattleScript_MoveUsedUnfrostbite);
+            BattleScriptCall(BattleScript_BattlerFrostbiteHealed);
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FROSTBITE_HEALED_BY_MOVE;
         }
         else
