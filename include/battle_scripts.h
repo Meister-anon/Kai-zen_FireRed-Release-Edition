@@ -910,7 +910,7 @@ extern const u8 BattleScript_FrostbiteTurnDmg[];
 extern const u8 BattleScript_MoveUsedIsFrozen[];
 extern const u8 BattleScript_MoveUsedUnfroze[]; //not in EE
 extern const u8 BattleScript_BattlerDefrosted[];
-extern ocnst u8 BattleScript_BattlerFrostbiteHealed[];
+extern const u8 BattleScript_BattlerFrostbiteHealed[];
 extern const u8 BattleScript_MoveUsedUnfrostbite[];
 extern const u8 BattleScript_DefrostedViaFireMove[]; //these 2 also unused in EE
 extern const u8 BattleScript_FrostbiteHealedViaFireMove[];
