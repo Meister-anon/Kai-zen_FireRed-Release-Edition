@@ -52,7 +52,7 @@ gSpecials:: @ 815FD60
 	def_special CableClub_AskSaveTheGame
 	def_special NullFieldSpecial
 	def_special NullFieldSpecial
-	def_special NullFieldSpecial
+	def_special ShouldTryGetTrainerScript
 	def_special SavePlayerParty
 	def_special LoadPlayerParty
 	def_special ChooseHalfPartyForBattle
