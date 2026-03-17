@@ -2266,7 +2266,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .type = TYPE_ELECTRIC,
         .pp = 20,
         .target = TARGET_SELECTED,
-        .priority = 1,
+        .priority = 0,
         .category = DAMAGE_CATEGORY_STATUS,
         .argument = { .nonVolatileStatus = MOVE_EFFECT_PARALYSIS },
         .magicCoatAffected = TRUE,
@@ -3538,6 +3538,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             //.contestComboMoves = {COMBO_STARTER_LEER},
             .battleAnimScript = gBattleAnimMove_Glare,
     },
+    //check distribution but consider keep priority thinking is lower distribution
+    //yeah should be ok dropped thunder wave since too high distributed this should be ok
+    //long as don't give to too many
 
     [MOVE_DREAM_EATER] =
     {
