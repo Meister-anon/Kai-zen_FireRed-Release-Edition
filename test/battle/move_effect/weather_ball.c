@@ -65,7 +65,7 @@ SINGLE_BATTLE_TEST("Weather Ball doubles its power and turns to an Ice-type move
     u16 move;
     PARAMETRIZE { move = MOVE_CELEBRATE; }
     PARAMETRIZE { move = MOVE_HAIL; }
-    PARAMETRIZE { move = MOVE_SNOWSCAPE; }
+    PARAMETRIZE { move = MOVE_SNOWESCAPE; }
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_DRAGONAIR) { Item(ITEM_SAFETY_GOGGLES); };

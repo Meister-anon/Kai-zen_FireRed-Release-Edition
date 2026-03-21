@@ -43,7 +43,7 @@ DOUBLE_BATTLE_TEST("Lava Plume inflicts burn to all adjacent battlers")
 {
     GIVEN {
         ASSUME(MoveHasAdditionalEffect(MOVE_LAVA_PLUME, MOVE_EFFECT_BURN) == TRUE);
-        ASSUME(gMovesInfo[MOVE_LAVA_PLUME].target == MOVE_TARGET_FOES_AND_ALLY);
+        ASSUME(gMovesInfo[MOVE_LAVA_PLUME].target == TARGET_FOES_AND_ALLY);
         PLAYER(SPECIES_WOBBUFFET);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET);

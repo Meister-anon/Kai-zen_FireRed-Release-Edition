@@ -4,7 +4,7 @@
 ASSUMPTIONS
 {
     ASSUME(gMovesInfo[MOVE_RAGING_BULL].effect == EFFECT_RAGING_BULL);
-    ASSUME(gMovesInfo[MOVE_SNOWSCAPE].effect == EFFECT_SNOWSCAPE);
+    ASSUME(gMovesInfo[MOVE_SNOWESCAPE].effect == EFFECT_SNOWSCAPE);
     ASSUME(gMovesInfo[MOVE_LIGHT_SCREEN].effect == EFFECT_LIGHT_SCREEN);
     ASSUME(gMovesInfo[MOVE_REFLECT].effect == EFFECT_REFLECT);
     ASSUME(gMovesInfo[MOVE_AURORA_VEIL].effect == EFFECT_AURORA_VEIL);
@@ -22,10 +22,10 @@ SINGLE_BATTLE_TEST("Raging Bull removes Light Screen, Reflect and Aurora Veil fr
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { MOVE(player, MOVE_SNOWSCAPE); }
+        TURN { MOVE(player, MOVE_SNOWESCAPE); }
         TURN { MOVE(opponent, move); MOVE(player, MOVE_RAGING_BULL); }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWSCAPE, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWESCAPE, player);
         ANIMATION(ANIM_TYPE_MOVE, move, opponent);
         ANIMATION(ANIM_TYPE_MOVE, MOVE_RAGING_BULL, player);
         MESSAGE("The wall shattered!");
@@ -46,10 +46,10 @@ SINGLE_BATTLE_TEST("Raging Bull doesn't remove Light Screen, Reflect and Aurora 
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_GASTLY);
     } WHEN {
-        TURN { MOVE(player, MOVE_SNOWSCAPE); }
+        TURN { MOVE(player, MOVE_SNOWESCAPE); }
         TURN { MOVE(opponent, move); MOVE(player, MOVE_RAGING_BULL); }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWSCAPE, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWESCAPE, player);
         ANIMATION(ANIM_TYPE_MOVE, move, opponent);
         NONE_OF {
             ANIMATION(ANIM_TYPE_MOVE, MOVE_RAGING_BULL, player);
@@ -71,10 +71,10 @@ SINGLE_BATTLE_TEST("Raging Bull doesn't remove Light Screen, Reflect and Aurora 
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { MOVE(player, MOVE_SNOWSCAPE); MOVE(opponent, move); }
+        TURN { MOVE(player, MOVE_SNOWESCAPE); MOVE(opponent, move); }
         TURN { MOVE(player, MOVE_RAGING_BULL); MOVE(opponent, MOVE_PROTECT); }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWSCAPE, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWESCAPE, player);
         ANIMATION(ANIM_TYPE_MOVE, move, opponent);
         ANIMATION(ANIM_TYPE_MOVE, MOVE_PROTECT, opponent);
         NONE_OF {
@@ -97,10 +97,10 @@ SINGLE_BATTLE_TEST("Raging Bull doesn't remove Light Screen, Reflect and Aurora 
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET) { Item(ITEM_BRIGHT_POWDER); }
     } WHEN {
-        TURN { MOVE(player, MOVE_SNOWSCAPE); MOVE(opponent, move); }
+        TURN { MOVE(player, MOVE_SNOWESCAPE); MOVE(opponent, move); }
         TURN { MOVE(player, MOVE_RAGING_BULL, hit: FALSE); }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWSCAPE, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWESCAPE, player);
         ANIMATION(ANIM_TYPE_MOVE, move, opponent);
         NONE_OF {
             ANIMATION(ANIM_TYPE_MOVE, MOVE_RAGING_BULL, player);
@@ -125,12 +125,12 @@ DOUBLE_BATTLE_TEST("Raging Bull can remove Light Screen, Reflect and Aurora Veil
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
         TURN {
-            MOVE(opponentLeft, MOVE_SNOWSCAPE);
+            MOVE(opponentLeft, MOVE_SNOWESCAPE);
             MOVE(playerLeft, move);
             MOVE(playerRight, MOVE_RAGING_BULL, target: playerLeft);
         }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWSCAPE, opponentLeft);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SNOWESCAPE, opponentLeft);
         ANIMATION(ANIM_TYPE_MOVE, move, playerLeft);
         ANIMATION(ANIM_TYPE_MOVE, MOVE_RAGING_BULL, playerRight);
         MESSAGE("The wall shattered!");

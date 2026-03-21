@@ -19191,7 +19191,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //then raises atk & speed one stage
     //signature of maushold
 
-    [MOVE_SNOWSCAPE] =
+    [MOVE_SNOWESCAPE] =
     {
         .effect = EFFECT_HAIL,
         .power = 0,

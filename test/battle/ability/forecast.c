@@ -7,7 +7,7 @@ SINGLE_BATTLE_TEST("Forecast transforms Castform in weather from an opponent's m
     PARAMETRIZE { move = MOVE_SUNNY_DAY; }
     PARAMETRIZE { move = MOVE_RAIN_DANCE; }
     PARAMETRIZE { move = MOVE_HAIL; }
-    PARAMETRIZE { move = MOVE_SNOWSCAPE; }
+    PARAMETRIZE { move = MOVE_SNOWESCAPE; }
     GIVEN {
         PLAYER(SPECIES_CASTFORM_NORMAL) { Ability(ABILITY_FORECAST); }
         OPPONENT(SPECIES_WOBBUFFET);
@@ -27,7 +27,7 @@ SINGLE_BATTLE_TEST("Forecast transforms Castform in weather from an opponent's m
             EXPECT_EQ(player->species, SPECIES_CASTFORM_RAINY);
             break;
         case MOVE_HAIL:
-        case MOVE_SNOWSCAPE:
+        case MOVE_SNOWESCAPE:
             EXPECT_EQ(player->species, SPECIES_CASTFORM_SNOWY);
             break;
         }
@@ -40,7 +40,7 @@ SINGLE_BATTLE_TEST("Forecast transforms Castform in weather from its own move")
     PARAMETRIZE { move = MOVE_SUNNY_DAY; }
     PARAMETRIZE { move = MOVE_RAIN_DANCE; }
     PARAMETRIZE { move = MOVE_HAIL; }
-    PARAMETRIZE { move = MOVE_SNOWSCAPE; }
+    PARAMETRIZE { move = MOVE_SNOWESCAPE; }
     GIVEN {
         PLAYER(SPECIES_CASTFORM_NORMAL) { Ability(ABILITY_FORECAST); }
         OPPONENT(SPECIES_WOBBUFFET);
@@ -60,7 +60,7 @@ SINGLE_BATTLE_TEST("Forecast transforms Castform in weather from its own move")
             EXPECT_EQ(player->species, SPECIES_CASTFORM_RAINY);
             break;
         case MOVE_HAIL:
-        case MOVE_SNOWSCAPE:
+        case MOVE_SNOWESCAPE:
             EXPECT_EQ(player->species, SPECIES_CASTFORM_SNOWY);
             break;
         }
@@ -73,7 +73,7 @@ DOUBLE_BATTLE_TEST("Forecast transforms Castform in weather from a partner's mov
     PARAMETRIZE { move = MOVE_SUNNY_DAY; }
     PARAMETRIZE { move = MOVE_RAIN_DANCE; }
     PARAMETRIZE { move = MOVE_HAIL; }
-    PARAMETRIZE { move = MOVE_SNOWSCAPE; }
+    PARAMETRIZE { move = MOVE_SNOWESCAPE; }
     GIVEN {
         PLAYER(SPECIES_CASTFORM_NORMAL) { Ability(ABILITY_FORECAST); }
         PLAYER(SPECIES_WOBBUFFET);
@@ -95,7 +95,7 @@ DOUBLE_BATTLE_TEST("Forecast transforms Castform in weather from a partner's mov
             EXPECT_EQ(playerLeft->species, SPECIES_CASTFORM_RAINY);
             break;
         case MOVE_HAIL:
-        case MOVE_SNOWSCAPE:
+        case MOVE_SNOWESCAPE:
             EXPECT_EQ(playerLeft->species, SPECIES_CASTFORM_SNOWY);
             break;
         }
@@ -108,7 +108,7 @@ DOUBLE_BATTLE_TEST("Forecast transforms all Castforms present in weather")
     PARAMETRIZE { move = MOVE_SUNNY_DAY; }
     PARAMETRIZE { move = MOVE_RAIN_DANCE; }
     PARAMETRIZE { move = MOVE_HAIL; }
-    PARAMETRIZE { move = MOVE_SNOWSCAPE; }
+    PARAMETRIZE { move = MOVE_SNOWESCAPE; }
     GIVEN {
         PLAYER(SPECIES_CASTFORM_NORMAL) { Ability(ABILITY_FORECAST); }
         PLAYER(SPECIES_CASTFORM_NORMAL) { Ability(ABILITY_FORECAST); }
@@ -145,7 +145,7 @@ DOUBLE_BATTLE_TEST("Forecast transforms all Castforms present in weather")
             EXPECT_EQ(opponentRight->species, SPECIES_CASTFORM_RAINY);
             break;
         case MOVE_HAIL:
-        case MOVE_SNOWSCAPE:
+        case MOVE_SNOWESCAPE:
             EXPECT_EQ(playerLeft->species, SPECIES_CASTFORM_SNOWY);
             EXPECT_EQ(playerRight->species, SPECIES_CASTFORM_SNOWY);
             EXPECT_EQ(opponentLeft->species, SPECIES_CASTFORM_SNOWY);
