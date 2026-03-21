@@ -54,14 +54,14 @@
 	.2byte \id
 	.endm
 
-	.macro monbg which
+	.macro monbg battler
 	.byte 0x0A
-	.byte \which
+	.byte \battler
 	.endm
 
-	.macro clearmonbg which
+	.macro clearmonbg battler
 	.byte 0x0B
-	.byte \which
+	.byte \battler
 	.endm
 
 	.macro setalpha eva, evb

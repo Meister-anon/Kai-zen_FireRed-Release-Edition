@@ -978,7 +978,7 @@ static void ScriptCmd_end(void)
     if (!continuousAnim) // May have been used for debug?
     {
         //not setup rn
-        //assertf(!FuncIsActiveTask(Task_UpdateMonBg), "move %d still has Task_UpdateMonBg active at the end", gAnimMoveIndex);
+        assertf(!FuncIsActiveTask(Task_UpdateMonBg), "move %d still has Task_UpdateMonBg active at the end", gAnimMoveIndex);
 
         m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 256);
         if (!IsContest())
