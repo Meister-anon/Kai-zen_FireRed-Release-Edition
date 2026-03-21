@@ -92,7 +92,7 @@ extern u16 gAnimMoveIndex;
 u8 GetBattlerYDelta(u8 battlerId, u16 species);
 
 void ClearBattleAnimationVars(void);
-void DoMoveAnim(enum Move move);
+void DoMoveAnim(u16 move);
 void LaunchBattleAnimation(u32 animType, u32 animId);
 void DestroyAnimSprite(struct Sprite *sprite);
 void DestroyAnimVisualTask(u8 taskId);

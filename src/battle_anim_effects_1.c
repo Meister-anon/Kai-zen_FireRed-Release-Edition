@@ -6534,7 +6534,7 @@ static void ReloadBattlerSprites(u32 battler, struct Pokemon *party)
     CreateBattlerSprite(battler);
     UpdateHealthboxAttribute(gHealthboxSpriteIds[battler], mon, HEALTHBOX_ALL);
     // If battler has an indicator for a gimmick, hide the sprite until the move animation finishes.
-    UpdateIndicatorVisibilityAndType(gHealthboxSpriteIds[battler], TRUE);
+    //UpdateIndicatorVisibilityAndType(gHealthboxSpriteIds[battler], TRUE);
 
     // Try to recreate shadow sprite
     /*if (B_ENEMY_MON_SHADOW_STYLE >= GEN_4 && P_GBA_STYLE_SPECIES_GFX == FALSE)
@@ -6721,7 +6721,7 @@ static void AnimTask_AllySwitchDataSwap(u8 taskId)
     }
 
     party = GetBattlerParty(battlerAtk);
-    SwitchTwoBattlersInParty(battlerAtk, battlerPartner);
+    //SwitchTwoBattlersInParty(battlerAtk, battlerPartner);
     SWAP(gBattlerPartyIndexes[battlerAtk], gBattlerPartyIndexes[battlerPartner], temp);
 
     TrySwapSkyDropTargets(battlerAtk, battlerPartner);

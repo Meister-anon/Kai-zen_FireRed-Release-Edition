@@ -796,12 +796,7 @@ void BtlController_EmitMoveAnimation(u32 battler, u32 bufferId, u16 move, u8 tur
     gBattleResources->transferBuffer[14] = 0;
     gBattleResources->transferBuffer[15] = 0;
     struct LinkBattleAnim anim = {0};
-    anim.isTransformedMonShiny = gBattleMons[battler].volatiles.isTransformedMonShiny;
-    anim.transformedMonPID  = gBattleMons[battler].volatiles.transformedMonPID;
-    anim.rolloutTimer  = gBattleMons[battler].volatiles.rolloutTimer;
-    anim.furyCutterCounter  = gBattleMons[battler].volatiles.furyCutterCounter;
-    anim.syrupBombIsShiny = gBattleMons[battler].volatiles.syrupBombIsShiny;
-    anim.isTransformedMonShiny = gBattleMons[battler].volatiles.isTransformedMonShiny;
+
     memcpy(&gBattleResources->transferBuffer[16], &anim, sizeof(struct LinkBattleAnim));
     PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 16 + sizeof(struct LinkBattleAnim));
 }
@@ -1165,12 +1160,7 @@ void BtlController_EmitBattleAnimation(u32 battler, u32 bufferId, u8 animationId
     gBattleResources->transferBuffer[3] = (argument & 0xFF00) >> 8;
     
     struct LinkBattleAnim anim = {0};
-    anim.isTransformedMonShiny = gBattleMons[battler].volatiles.isTransformedMonShiny;
-    anim.transformedMonPID  = gBattleMons[battler].volatiles.transformedMonPID;
-    anim.rolloutTimer  = gBattleMons[battler].volatiles.rolloutTimer;
-    anim.furyCutterCounter  = gBattleMons[battler].volatiles.furyCutterCounter;
-    anim.syrupBombIsShiny = gBattleMons[battler].volatiles.syrupBombIsShiny;
-    anim.isTransformedMonShiny = gBattleMons[battler].volatiles.isTransformedMonShiny;
+
     memcpy(&gBattleResources->transferBuffer[4], &anim, sizeof(struct LinkBattleAnim));
     PrepareBufferDataTransfer(battler, bufferId, gBattleResources->transferBuffer, 4 + sizeof(struct LinkBattleAnim));
 }

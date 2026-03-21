@@ -452,7 +452,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectSubmission			  @EFFECT_SUBMISSION
 	.4byte BattleScript_EffectMoondance				  @EFFECT_MOONDANCE
 	.4byte BattleScript_EffectAcidRain				  @EFFECT_ACID_RAIN
-	.4byte BattleScript_EffectHit					  @EFFECT_DMG_FIXATION
+	.4byte BattleScript_EffectHit					  @EFFECT_FIXATION
 	.4byte BattleScript_EffectTwoTurnsAttack		  @EFFECT_COLD_FLARE
 
 BattleScript_EffectAlwaysCrit:
@@ -663,7 +663,7 @@ BattleScript_SkyDropWork:
 BattleScript_SkyDropTurn2:
 	attackcanceler
 	setbyte sB_ANIM_TURN, 0x1
-	clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
+	@clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
 	orword gHitMarker, HITMARKER_NO_PPDEDUCT
 	argumenttomoveeffect
 	clearsemiinvulnerablebit
@@ -898,7 +898,7 @@ BattleScript_SpectralThiefSteal::
 	return
 
 BattleScript_EffectSpectralThief:
-	setmoveeffect MOVE_EFFECT_SPECTRAL_THIEF
+	@setmoveeffect MOVE_EFFECT_SPECTRAL_THIEF
 	goto BattleScript_EffectHit
 
 BattleScript_EffectPartingShot::
@@ -1568,7 +1568,7 @@ BattleScript_SynchronoiseNoEffect:
  @no longer used, moved to flag check, remove later vsonic
  @do same for gust,& sky uppercut
 BattleScript_EffectSmackDown:
-	setmoveeffect MOVE_EFFECT_SMACK_DOWN
+	@setmoveeffect MOVE_EFFECT_SMACK_DOWN
 	goto BattleScript_EffectHit
 
 
@@ -4029,7 +4029,7 @@ BattleScript_TwoTurnMovesSecondTurn::
 BattleScript_TwoTurnMovesSecondTurnRet:
 	setbyte sB_ANIM_TURN, 1
 	setbyte sB_ANIM_TARGETS_HIT, 0
-	clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
+	@clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
 	clearsemiinvulnerablebit @ only for moves with EFFECT_SEMI_INVULNERABLE/EFFECT_SKY_DROP
 	return
 
@@ -4041,7 +4041,7 @@ BattleScriptFirstChargingTurn::
 	waitanimation
 	setsemiinvulnerablebit @ only for moves with EFFECT_SEMI_INVULNERABLE/EFFECT_SKY_DROP
 	orword gHitMarker, HITMARKER_CHARGING
-	setmoveeffect MOVE_EFFECT_CHARGING
+	@setmoveeffect MOVE_EFFECT_CHARGING
 	seteffectprimary BS_ATTACKER, BS_ATTACKER @THINK RIGHT
 	setchargeturnattackstring
 	printsavedstring
@@ -4768,7 +4768,7 @@ BattleScript_TripleKickEnd::
 	end
 
 BattleScript_EffectThief::
-	setmoveeffect MOVE_EFFECT_STEAL_ITEM
+	@setmoveeffect MOVE_EFFECT_STEAL_ITEM
 	goto BattleScript_EffectHit
 
 BattleScript_EffectHitPreventEscape:
@@ -5298,7 +5298,7 @@ BattleScript_EffectRapidSpin::
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
 	jumpifhalfword CMP_COMMON_BITS, gMoveResultFlags, MOVE_RESULT_DOESNT_AFFECT_FOE, BattleScript_MoveEnd
-	setmoveeffect MOVE_EFFECT_RAPIDSPIN | MOVE_EFFECT_CERTAIN
+	@setmoveeffect MOVE_EFFECT_RAPIDSPIN | MOVE_EFFECT_CERTAIN
 	setmoveeffectwithchance
 	setstatchanger STAT_SPEED, 1, FALSE
 	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_EffectRapidSpinEnd
@@ -5693,7 +5693,7 @@ BattleScript_EffectGeomancy:
 BattleScript_GeomancySecondTurn:
 	attackcanceler
 	setbyte sB_ANIM_TURN, 1
-	clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
+	@clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
 	orword gHitMarker, HITMARKER_NO_PPDEDUCT
 	attackstring
 	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_SPATK, MAX_STAT_STAGE, BattleScript_GeomancyDoMoveAnim
@@ -5748,7 +5748,7 @@ BattleScript_SideStatusWoreOffReturn::   @ replaced as needed with normal time 0
 BattleScript_SecondTurnSemiInvulnerable::
 	attackcanceler
 	setbyte sB_ANIM_TURN, 1
-	clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
+	@clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
 	orword gHitMarker, HITMARKER_NO_PPDEDUCT
 	@jumpifnotmove MOVE_BOUNCE, BattleScript_SemiInvulnerableTryHit
 	@setmoveeffect MOVE_EFFECT_PARALYSIS  w argument change dont need this
@@ -6235,7 +6235,7 @@ BattleScript_EffectHighestStatUpHit::
 	goto BattleScript_EffectHit
 
 BattleScript_EffectSubmission::
-	setmoveeffect MOVE_EFFECT_MEDIUM_RECOIL | MOVE_EFFECT_CERTAIN
+	setmoveeffect MOVE_EFFECT_MED_RECOIL | MOVE_EFFECT_CERTAIN
 	call_if EFFECT_SUBMISSION
 
 BattleScript_EffectBrickBreak::
@@ -6383,7 +6383,7 @@ BattleScript_PrintAbilityMadeIneffective::
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectKnockOff::
-	setmoveeffect MOVE_EFFECT_KNOCK_OFF
+	@setmoveeffect MOVE_EFFECT_KNOCK_OFF
 	goto BattleScript_EffectHit
 
 BattleScript_EffectEndeavor::
@@ -6513,11 +6513,11 @@ BattleScript_EffectRecoil::
 	goto BattleScript_EffectHit
 
 BattleScript_EffectMediumRecoil::
-	setmoveeffect MOVE_EFFECT_MEDIUM_RECOIL | MOVE_EFFECT_CERTAIN
+	setmoveeffect MOVE_EFFECT_MED_RECOIL | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
 
 BattleScript_EffectMediumRecoilWithStatus:
-	setmoveeffect MOVE_EFFECT_MED_RECOIL_W_STATUS | MOVE_EFFECT_CERTAIN
+	@setmoveeffect MOVE_EFFECT_MED_RECOIL_W_STATUS | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
 
 BattleScript_EffectHeavyRecoil:
@@ -6608,7 +6608,7 @@ BattleScript_EffectWeatherBall::
 	goto BattleScript_EffectHit
 
 BattleScript_EffectOverheat::
-	setmoveeffect MOVE_EFFECT_SP_ATK_TWO_DOWN | MOVE_EFFECT_CERTAIN
+	@setmoveeffect MOVE_EFFECT_SP_ATK_TWO_DOWN | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
 
 BattleScript_EffectTickle::
@@ -7383,7 +7383,7 @@ BattleScript_BideStoringEnergy::
 
 BattleScript_BideAttack::
 	attackcanceler
-	clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
+	@clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
 	printstring STRINGID_PKMNUNLEASHEDENERGY
 	waitmessage B_WAIT_TIME_LONG
 	accuracycheck BattleScript_MoveMissed, ACC_CURR_MOVE
@@ -7406,7 +7406,7 @@ BattleScript_BideAttack::
 
 BattleScript_BideNoEnergyToAttack::
 	attackcanceler
-	clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
+	@clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
 	printstring STRINGID_PKMNUNLEASHEDENERGY
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_ButItFailed
@@ -10804,7 +10804,7 @@ BattleScript_ResoluteActivatesOnMoveEndTarget::
 	return
 
 BattleScript_EffectRelicSong:
-	setmoveeffect MOVE_EFFECT_RELIC_SONG | MOVE_EFFECT_CERTAIN
+	@setmoveeffect MOVE_EFFECT_RELIC_SONG | MOVE_EFFECT_CERTAIN
 	call BattleScript_EffectHit_Ret
 	tryfaintmon BS_TARGET, FALSE, NULL
 	goto BattleScript_MoveEnd
