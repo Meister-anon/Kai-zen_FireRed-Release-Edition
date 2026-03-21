@@ -24335,6 +24335,7 @@ const struct BaseStats gBaseStats[] =
 
     //effect done, did original effect goes first in priority bracket in trick room
     //vsonic
+    //also give move retaliate
 
     [SPECIES_GRUBBIN] =
     {
