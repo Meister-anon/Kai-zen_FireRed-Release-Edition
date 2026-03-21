@@ -1,6 +1,10 @@
 #ifndef GUARD_CONSTANTS_ABILITIES_H
 #define GUARD_CONSTANTS_ABILITIES_H
 
+enum Ability
+{
+    something,
+};
 #define ABILITY_NONE 0
 #define ABILITY_STENCH 1
 #define ABILITY_DRIZZLE 2
