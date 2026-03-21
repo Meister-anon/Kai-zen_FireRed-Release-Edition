@@ -476,6 +476,7 @@ struct SideTimer    //effects below persist regardless of mon
     u8 padding1:2; //1 effective layers    //...why is this here?? vsonic -replace w padding value
     u8 stickyWebAmount:2; //2 effective layers - ability or move to set stickyweb //bleive was my own change,
     u8 stickyWebBattlerSide; // Used for Court Change
+    u8 stickyWebBattlerId;
     
     u32 auroraVeilTimer:4; //still need add to debugger
     u32 tailwindTimer:3;
@@ -783,6 +784,51 @@ union TRANSPARENT StatChangeFlags
     };
 };
 
+struct BattlerState
+{
+    u8 targetsDone[MAX_BATTLERS_COUNT];
+
+    u32 commandingDondozo:1;
+    u32 focusPunchBattlers:1;
+    u32 multipleSwitchInBattlers:1;
+    u32 alreadyStatusedMoveAttempt:1; // For example when using Thunder Wave on an already paralyzed Pokémon.
+    u32 activeAbilityPopUps:1;
+    u32 forcedSwitch:1;
+    u32 storedHealingWish:1;
+    u32 storedLunarDance:1;
+    u32 usedEjectItem:1;
+    u32 sleepClauseEffectExempt:1; // Stores whether effect should be exempt from triggering Sleep Clause (Effect Spore)
+    u32 usedMicleBerry:1;
+    u32 pursuitTarget:1;
+    u32 stompingTantrumTimer:2;
+    u32 canPickupItem:1;
+    u32 ateBoost:1;
+    u32 wasAboveHalfHp:1; // For Berserk, Emergency Exit, Wimp Out and Anger Shell.
+    u32 commanderSpecies:11;
+    u32 selectionScriptFinished:1;
+    u32 lastMoveTarget:3; // The last target on which each mon used a move, for the sake of Instruct
+    // End of Word
+    u16 hpOnSwitchout;
+    u16 switchIn:1;
+    u16 fainted:1;
+    u16 isFirstTurn:2;
+    u16 padding:12;
+};
+
+struct Wish
+{
+    u16 counter;
+    u8 partyId;
+};
+
+struct FutureSight
+{
+    u16 move;
+    u16 counter:10;
+    u16 battlerIndex:3;
+    u16 partyIndex:3;
+};
+
 //think effects meant to last all battle should go here rather than special status as that is cleared on switch
 //ya know the simplest solution here is just to further buff traps
 //so they aren't cleared when the setting mon switches out...
@@ -791,6 +837,9 @@ union TRANSPARENT StatChangeFlags
 //of investing in weaker move
 struct BattleStruct //fill in unused fields when porting
 {
+    struct BattlerState battlerState[MAX_BATTLERS_COUNT];
+    struct FutureSight futureSight[MAX_BATTLERS_COUNT];
+    struct Wish wish[MAX_BATTLERS_COUNT];
     u8 turnEffectsTracker;
     u8 turnEffectsBattlerId;
     u8 debugBattler;
