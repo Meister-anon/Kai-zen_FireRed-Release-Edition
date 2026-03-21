@@ -896,7 +896,7 @@ bool32 ShouldPranksterBoostedMoveFail(u16 move, u8 battlerwithPrankster, u8 batt
         return FALSE;
     if (GetBattlerSide(battlerwithPrankster) == GetBattlerSide(battlerDef)) //if prankster mon & target are on same side, doesn't block move
         return FALSE;
-    if (checkTarget && (gBattleMoves[move].target & (MOVE_TARGET_OPPONENTS_FIELD | MOVE_TARGET_DEPENDS)))
+    if (checkTarget && (gBattleMoves[move].target & (TARGET_OPPONENTS_FIELD | TARGET_DEPENDS)))
         return FALSE;
     if (!DoesBattlerGetTypeBasedAffinity(battlerwithPrankster, battlerDef, TYPE_DARK, FALSE))
         return FALSE;
@@ -1051,7 +1051,7 @@ const u8* CancelMultiTurnMoves(u32 battler)
                 }
                 // If this CancelMultiTurnMoves is occuring due to receiving Sleep/Freeze status
                 else if ((gBattleMons[otherSkyDropper].status1 & STATUS1_SLEEP)// | STATUS1_FREEZE))
-                    || (gDisableStructs[otherSkyDropper].FrozenTurns != 0))//(gBattleScripting.moveEffect <= PRIMARY_STATUS_MOVE_EFFECT)
+                    || (gDisableStructs[otherSkyDropper].FrozenTurns != 0))//(gBattleScripting.moveEffect < MOVE_EFFECT_CONFUSION)
                 {
                     gBattlerAttacker = otherSkyDropper;
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
@@ -1661,7 +1661,7 @@ bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget)  //somehow works...
 
 bool32 CanThaw(u32 move, u32 battler)
 {
-    if (THAW_CONDITION(move, battler))
+    if (MoveThawsUser(move))
         return TRUE;
     else
         return FALSE;
@@ -4744,10 +4744,10 @@ u8 AtkCanceller_UnableToUseMove(void)
                             if ((Random() % 2) == 0) //chance confused but used move anyway   think 50% may equal random % 2 not 0
                             {
                                 if (rando == 0) {
-                                    target = MOVE_TARGET_RANDOM;                                
+                                    target = TARGET_RANDOM;                                
                                 }
                                 if (rando == 2) {
-                                    target = MOVE_TARGET_FOES_AND_ALLY;
+                                    target = TARGET_FOES_AND_ALLY;
                                 }
                                 // The MULTISTRING_CHOOSER is used here as a bool to signal
                                 // to BattleScript_MoveUsedIsConfused whether or not damage was taken (by user?)
@@ -4962,7 +4962,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                       //  *bideDmg = gTakenDmg[gBattlerAttacker] * 2;   //may go back to 2x if 2.3 is too much
                         gBattlerTarget = gTakenDmgByBattler[gBattlerAttacker];
                         if (gAbsentBattlerFlags & (1u << gBattlerTarget))
-                            gBattlerTarget = GetBattleMoveTarget(MOVE_BIDE, MOVE_TARGET_SELECTED + 1);
+                            gBattlerTarget = GetBattleMoveTarget(MOVE_BIDE, TARGET_SELECTED + 1);
                         gBattlescriptCurrInstr = BattleScript_BideAttack;
                         gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_BIDE); //status remover
                     }
@@ -5219,7 +5219,7 @@ u8 AtkCanceller_UnableToUseMove2(void)
                 && IsBattlerGrounded(gBattlerTarget)
                 && GetChosenMovePriority(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)) > 0
                 && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget)
-                && (!(moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY)))//was missing but not supposed to be able to block wide affect moves
+                && (!(moveTarget & (TARGET_BOTH | TARGET_FOES_AND_ALLY)))//was missing but not supposed to be able to block wide affect moves
                 && (gBattleMoves[gCurrentMove].power || IsPriorityElevatedviaAbility(gBattlerAttacker) || gCurrentMove == MOVE_BIDE)) //last thing for bide boost
             {
                 CancelMultiTurnMoves(gBattlerAttacker);
@@ -6906,7 +6906,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                             for (j = 0; j < MAX_MON_MOVES; j++)
                             {
                                 if (gBattleMons[i].moves[j] == MOVE_NONE
-                                || gBattleMoves[gBattleMons[i].moves[j]].target == MOVE_TARGET_USER) //taken from forewarn hopefully fixes issue, so not assigned to move at all
+                                || gBattleMoves[gBattleMons[i].moves[j]].target == TARGET_USER) //taken from forewarn hopefully fixes issue, so not assigned to move at all
                                     continue; //fixed issue w type change, but think keep this to optimize anyway
 
                                 move = gBattleMons[i].moves[j];
@@ -6919,7 +6919,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                                 //GET_MOVE_TYPE(moveId, stored_type);
 
                                 //yup seems to be same issue, once again says "a dangerous move"
-                                //if (gBattleMoves[move].target == MOVE_TARGET_USER) //appears fixed, was right issue was bide, since it ignores type reading
+                                //if (gBattleMoves[move].target == TARGET_USER) //appears fixed, was right issue was bide, since it ignores type reading
                                 //    continue; //ok issue was bide, but I think issue was actually moves of 0 power...
 
                                 if (gBattleMoves[move].power == 1
@@ -7920,9 +7920,9 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             //w intimidate?
             if (moveArg != MOVE_NONE)
             {            
-            if ((gLastUsedAbility == ABILITY_SOUNDPROOF && IsSoundMove(moveArg) && !(moveTarget & MOVE_TARGET_USER))
+            if ((gLastUsedAbility == ABILITY_SOUNDPROOF && IsSoundMove(moveArg) && !(moveTarget & TARGET_USER))
                 || (gLastUsedAbility == ABILITY_BULLETPROOF && IsBallisticMove(moveArg))
-                || (gLastUsedAbility == ABILITY_LUNAR_POWER && IsMoonbasedMove(moveArg) && !(moveTarget & MOVE_TARGET_USER)))
+                || (gLastUsedAbility == ABILITY_LUNAR_POWER && IsMoonbasedMove(moveArg) && !(moveTarget & TARGET_USER)))
             {
                 if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS)
                     gHitMarker |= HITMARKER_NO_PPDEDUCT;
@@ -7935,7 +7935,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 && GetChosenMovePriority(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)) > 0
                 //&& GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget)
                 //think targetting logic may be off, as has exclusions i.e perish song
-                && (!(moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY))))//was missing but not supposed to be able to block wide affect moves
+                && (!(moveTarget & (TARGET_BOTH | TARGET_FOES_AND_ALLY))))//was missing but not supposed to be able to block wide affect moves
                 //&& (gBattleMoves[gCurrentMove].power || IsPriorityElevatedviaAbility(gBattlerAttacker) || gCurrentMove == MOVE_BIDE)) //last thing for bide boost
             {
                 if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS)
@@ -7947,7 +7947,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             && GetChosenMovePriority(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker)) > 0
             && !(IsBattleMoveStatus(moveArg) && targetAbility == ABILITY_MAGIC_BOUNCE))
             {
-                if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE) || !(moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY)))
+                if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE) || !(moveTarget & (TARGET_BOTH | TARGET_FOES_AND_ALLY)))
                     CancelMultiTurnMoves(gBattlerAttacker); // Don't cancel moves that can hit two targets bc one target might not be protected
                 gBattleScripting.battler = gBattlerAbility = gBattlerTarget;
                 gBattlescriptCurrInstr = BattleScript_DarkTypePreventsPrankster;
@@ -8024,7 +8024,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     break;
                 case ABILITY_DUST_DEVIL:
                 case ABILITY_WIND_RIDER:
-                if (IsWindMove(moveArg) && !(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove) & MOVE_TARGET_USER))
+                if (IsWindMove(moveArg) && !(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove) & TARGET_USER))
                     effect = 2, statId = STAT_ATK;
                 break;
                 case ABILITY_TURBOBLAZE:
@@ -8433,7 +8433,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     //&& IsBattlerAlive(battler) remove this part, so affect activates even if I faint
                     && IsMoveMakingContact(moveArg, gBattlerAttacker))
                 {
-                    TryKnockOffBattleScript(gBattlerAttacker, gBattlerTarget, MOVE_EFFECT_NOTHING_0);
+                    TryKnockOffBattleScript(gBattlerAttacker, gBattlerTarget, MOVE_EFFECT_NONE);
                     ++effect;
                     /*if (GetBattlerAbility(gBattlerAttacker) == ABILITY_STICKY_HOLD)
                     {
@@ -9135,7 +9135,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     && IsBattlerAlive(battler)
                     && IsMoveMakingContact(moveArg, gBattlerAttacker))
                 {
-                    TryKnockOffBattleScript(gBattlerTarget, gBattlerAttacker, MOVE_EFFECT_NOTHING_0);
+                    TryKnockOffBattleScript(gBattlerTarget, gBattlerAttacker, MOVE_EFFECT_NONE);
                     ++effect;
                     /*if (GetBattlerAbility(gBattlerTarget) == ABILITY_STICKY_HOLD)
                     {
@@ -9874,14 +9874,14 @@ void BattleScriptPushCursorAndCallback(const u8 *BS_ptr)
     gBattleMainFunc = RunBattleScriptCommands;
 }
 
-// Possible return values are defined in battle.h following MOVE_TARGET_SELECTED
+// Possible return values are defined in battle.h following TARGET_SELECTED
 u32 GetBattlerMoveTargetType(u8 battlerId, u16 move)
 {
     u32 target;
 
     if (gBattleMoves[move].effect == EFFECT_EXPANDING_FORCE
         && IsBattlerTerrainAffected(battlerId, STATUS_FIELD_PSYCHIC_TERRAIN))
-        return MOVE_TARGET_BOTH;
+        return TARGET_BOTH;
     else
         return gBattleMoves[move].target;
 }
@@ -11333,10 +11333,10 @@ u8 GetBattleMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting 
 
     // Special cases
     if (move == MOVE_CURSE && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, gBattlerAttacker, TYPE_GHOST, FALSE))
-        targetType = MOVE_TARGET_USER;
+        targetType = TARGET_USER;
     switch (targetType)
     {
-    case MOVE_TARGET_SELECTED:
+    case TARGET_SELECTED:
         side = BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker));
         if (IsAffectedByFollowMe(gBattlerAttacker, side, move))
         {
@@ -11510,26 +11510,26 @@ u8 GetBattleMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting 
 
         }
         break;
-    case MOVE_TARGET_DEPENDS: //since realized I can set mullti targets using | 
-    case MOVE_TARGET_BOTH: //I just need to add ally to this list
-    case MOVE_TARGET_FOES_AND_ALLY:
-    case MOVE_TARGET_OPPONENTS_FIELD:
+    case TARGET_DEPENDS: //since realized I can set mullti targets using | 
+    case TARGET_BOTH: //I just need to add ally to this list
+    case TARGET_FOES_AND_ALLY:
+    case TARGET_OPPONENTS_FIELD:
         targetBattler = GetBattlerAtPosition((GetBattlerPosition(gBattlerAttacker) & BIT_SIDE) ^ BIT_SIDE);
         if (gAbsentBattlerFlags & (1u << targetBattler))
             targetBattler ^= BIT_FLANK;
         break;
-    case MOVE_TARGET_RANDOM:
+    case TARGET_RANDOM:
         side = GetBattlerSide(gBattlerAttacker) ^ BIT_SIDE;
         if (gSideTimers[side].followmeTimer && gBattleMons[gSideTimers[side].followmeTarget].hp)
             targetBattler = gSideTimers[side].followmeTarget;
-        else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE && targetType & MOVE_TARGET_RANDOM)
+        else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE && targetType & TARGET_RANDOM)
             targetBattler = SetRandomTarget(gBattlerAttacker);
         else
             targetBattler = GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker)));
         break;
         break;
-    case MOVE_TARGET_USER_OR_SELECTED:
-    case MOVE_TARGET_USER:
+    case TARGET_USER_OR_SELECTED:
+    case TARGET_USER:
         targetBattler = gBattlerAttacker;
         break;
     }
@@ -13405,7 +13405,7 @@ u32 GetBattleMoveDamageCategory(u32 attackerId, u16 move)
 
     //think this condition is better
     if (spAttack < attack || GetBattlerAbility(attackerId) == ABILITY_MUSCLE_MAGIC
-    || (spAttack == attack && GetBattlerMoveTargetType(gBattlerAttacker, move) == MOVE_TARGET_SELECTED
+    || (spAttack == attack && GetBattlerMoveTargetType(gBattlerAttacker, move) == TARGET_SELECTED
     && defense < spDefense))
         statBasedSplit = SPLIT_PHYSICAL;
     else
@@ -14440,7 +14440,7 @@ bool8 IsFixationMoveEffect(u16 move)
 {
     switch (GetMoveEffect(move))
     {
-        case EFFECT_DMG_FIXATION:
+        case EFFECT_FIXATION:
             return TRUE;
             break;
         default:

@@ -767,7 +767,7 @@ static const u32 sStatusFlagsForMoveEffects[NUM_MOVE_EFFECTS] =
     [MOVE_EFFECT_CONFUSION] = STATUS2_CONFUSION,
     [MOVE_EFFECT_FLINCH] = STATUS2_FLINCHED,
     [MOVE_EFFECT_UPROAR] = STATUS2_UPROAR,
-    [MOVE_EFFECT_CHARGING] = STATUS2_MULTIPLETURNS,
+    //[MOVE_EFFECT_CHARGING] = STATUS2_MULTIPLETURNS,
     //[MOVE_EFFECT_WRAP] = STATUS2_WRAPPED,
     [MOVE_EFFECT_PREVENT_ESCAPE] = STATUS2_ESCAPE_PREVENTION,
     [MOVE_EFFECT_SWITCH_LOCKED] = STATUS2_SWITCH_LOCKED,
@@ -794,7 +794,7 @@ static const u8 *const sMoveEffectBS_Ptrs[] =
     [MOVE_EFFECT_TRI_ATTACK] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_UPROAR] = BattleScript_MoveEffectUproar,
     [MOVE_EFFECT_PAYDAY] = BattleScript_MoveEffectPayDay,
-    [MOVE_EFFECT_CHARGING] = BattleScript_MoveEffectSleep,
+    //[MOVE_EFFECT_CHARGING] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_WRAP] = BattleScript_MoveEffectWrap,
     [MOVE_EFFECT_LIGHT_RECOIL] = BattleScript_MoveEffectRecoil,
     [MOVE_EFFECT_ATK_PLUS_1] = BattleScript_MoveEffectSleep,
@@ -813,17 +813,17 @@ static const u8 *const sMoveEffectBS_Ptrs[] =
     [MOVE_EFFECT_EVS_MINUS_1] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_RECHARGE] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_RAGE] = BattleScript_MoveEffectSleep,
-    [MOVE_EFFECT_STEAL_ITEM] = BattleScript_MoveEffectSleep,
+    //[MOVE_EFFECT_STEAL_ITEM] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_PREVENT_ESCAPE] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_SWITCH_LOCKED] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_NIGHTMARE] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_ALL_STATS_UP] = BattleScript_MoveEffectSleep,
-    [MOVE_EFFECT_RAPIDSPIN] = BattleScript_MoveEffectSleep,
+    //[MOVE_EFFECT_RAPIDSPIN] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_REMOVE_STATUS] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_ATK_DEF_DOWN] = BattleScript_MoveEffectSleep,//BattleScript_MoveEffectFallInLove
     [MOVE_EFFECT_DEF_SPDEF_DOWN] = BattleScript_MoveEffectSleep,//BattleScript_MoveEffectFallInLove
-    [MOVE_EFFECT_MEDIUM_RECOIL] = BattleScript_MoveEffectRecoil,
-    [MOVE_EFFECT_MED_RECOIL_W_STATUS] = BattleScript_MoveEffectRecoilWithStatus,
+    //[MOVE_EFFECT_MEDIUM_RECOIL] = BattleScript_MoveEffectRecoil,
+    //[MOVE_EFFECT_MED_RECOIL_W_STATUS] = BattleScript_MoveEffectRecoilWithStatus,
     [MOVE_EFFECT_SPD_MINUS_2] = BattleScript_MoveEffectSleep,    
     [MOVE_EFFECT_ATTRACT] = BattleScript_MoveEffectAttract,   //see if it works as is, or I need actuall battlescript for this
     
@@ -1710,7 +1710,7 @@ static bool8 IsBattlerProtectedFromAttack(u8 battlerAtk, u8 battlerDef, u16 move
     else if (gBattleMoves[move].effect == MOVE_EFFECT_FEINT)
         return FALSE;
     else if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_WIDE_GUARD
-        && GetBattlerMoveTargetType(battlerAtk, move) & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY))
+        && GetBattlerMoveTargetType(battlerAtk, move) & (TARGET_BOTH | TARGET_FOES_AND_ALLY))
         return TRUE;
     else if (gProtectStructs[battlerDef].banefulBunkered)
         return TRUE;
@@ -2006,7 +2006,7 @@ static void atk01_accuracycheck(void)
                 gBattleStruct->blunderPolicy = TRUE;    // Only activates from missing through acc/evasion checks
 
             if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
-                && (gBattleMoves[move].target == MOVE_TARGET_BOTH || gBattleMoves[move].target == MOVE_TARGET_FOES_AND_ALLY))
+                && (gBattleMoves[move].target == TARGET_BOTH || gBattleMoves[move].target == TARGET_FOES_AND_ALLY))
                 gBattleCommunication[MISS_TYPE] = B_MSG_AVOIDED_ATK;
             else
                 gBattleCommunication[MISS_TYPE] = B_MSG_MISSED;
@@ -2132,7 +2132,7 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
             }
 
             if (IsDoubleBattle() &&
-                (moveTarget == MOVE_TARGET_BOTH || moveTarget == MOVE_TARGET_FOES_AND_ALLY))
+                (moveTarget == TARGET_BOTH || moveTarget == TARGET_FOES_AND_ALLY))
                 gBattleCommunication[MISS_TYPE] = B_MSG_AVOIDED_ATK;
             else
                 gBattleCommunication[MISS_TYPE] = B_MSG_MISSED;
@@ -2186,13 +2186,13 @@ static void atk03_ppreduce(void)
         {
             switch (gBattleMoves[gCurrentMove].target)//realize needs to add here as well as the util.c to make hi pressure work?
             {
-            case MOVE_TARGET_FOES_AND_ALLY:
+            case TARGET_FOES_AND_ALLY:
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_ON_FIELD, gBattlerAttacker, ABILITY_PRESSURE, 0, 0);
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_ON_FIELD, gBattlerAttacker, ABILITY_HI_PRESSURE, 0, 0);
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_ON_FIELD, gBattlerAttacker, ABILITY_HI_PRESSURE, 0, 0);
                 break;
-            case MOVE_TARGET_BOTH:
-            case MOVE_TARGET_OPPONENTS_FIELD:
+            case TARGET_BOTH:
+            case TARGET_OPPONENTS_FIELD:
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_OTHER_SIDE, gBattlerAttacker, ABILITY_PRESSURE, 0, 0);
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_OTHER_SIDE, gBattlerAttacker, ABILITY_HI_PRESSURE, 0, 0);
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_OTHER_SIDE, gBattlerAttacker, ABILITY_HI_PRESSURE, 0, 0);
@@ -3649,9 +3649,9 @@ static void atk09_attackanimation(void)
         }
         else
         {
-            if ((gBattleMoves[gCurrentMove].target & MOVE_TARGET_BOTH
-                || gBattleMoves[gCurrentMove].target & MOVE_TARGET_FOES_AND_ALLY
-                || gBattleMoves[gCurrentMove].target & MOVE_TARGET_DEPENDS)
+            if ((gBattleMoves[gCurrentMove].target & TARGET_BOTH
+                || gBattleMoves[gCurrentMove].target & TARGET_FOES_AND_ALLY
+                || gBattleMoves[gCurrentMove].target & TARGET_DEPENDS)
              && gBattleScripting.animTargetsHit)  //believe this is play animation once, rather than again for each target hit
             { //also that above line is why powdersnow didn't work, it was a dual target move, and I believe animtargetshit was set on first pass, so it executed this after
                 gBattlescriptCurrInstr = cmd->nextInstr;
@@ -4501,12 +4501,12 @@ bool8 IsMoveAffectedByParentalBond(u16 move, u8 battlerId)
             switch (GetBattlerMoveTargetType(battlerId, move))
             {
                 // Both foes are alive, spread move strikes once
-            case MOVE_TARGET_BOTH:
+            case TARGET_BOTH:
                 if (CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE, battlerId) >= 2)
                     return FALSE;
                 break;
                 // Either both foes or one foe and its ally are alive; spread move strikes once
-            case MOVE_TARGET_FOES_AND_ALLY:
+            case TARGET_FOES_AND_ALLY:
                 if (CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_ATTACKER, battlerId) >= 2)
                     return FALSE;
                 break;
@@ -4604,17 +4604,17 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
 
     switch (gBattleScripting.moveEffect) // Set move effects which happen later on
     {//ported but don't know why need, knock off works without moveeffect2 by default? -its a change for modern item effects, to make sure effects trigger after item effect
-    case MOVE_EFFECT_KNOCK_OFF:
+    //case MOVE_EFFECT_KNOCK_OFF:
     //case MOVE_EFFECT_SMACK_DOWN:
     case MOVE_EFFECT_REMOVE_STATUS:
         gBattleStruct->moveEffect2 = gBattleScripting.moveEffect;
         ++gBattlescriptCurrInstr;
         return;
-    case MOVE_EFFECT_STEALTH_ROCK:  //test
+    /*case MOVE_EFFECT_STEALTH_ROCK:  //test
     case MOVE_EFFECT_STEEL_SURGE:
-    case MOVE_EFFECT_SPIKES:
+    case MOVE_EFFECT_SPIKES:*/
     case MOVE_EFFECT_PAYDAY:
-    case MOVE_EFFECT_STEAL_ITEM:
+    //case MOVE_EFFECT_STEAL_ITEM:
     case MOVE_EFFECT_BUG_BITE:
         activateAfterFaint = TRUE;
         break;
@@ -4673,7 +4673,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
     if (DoesSubstituteBlockMove(gBattlerAttacker, effectBattler, gCurrentMove) && affectsUser != MOVE_EFFECT_AFFECTS_USER)
         INCREMENT_RESET_RETURN
 
-    if (gBattleScripting.moveEffect <= PRIMARY_STATUS_MOVE_EFFECT) // status change
+    if (gBattleScripting.moveEffect < MOVE_EFFECT_CONFUSION) // status change
     {
         switch (sStatusFlagsForMoveEffects[gBattleScripting.moveEffect])  //find out what this exactly is
         {//for switch to work, parenthesis value in "switch" most be a single value,  value in case must also be a single value
@@ -5235,12 +5235,12 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                     SetMoveEffect(battler, effectBattler, FALSE, FALSE);
                 }
                 break;
-            case MOVE_EFFECT_CHARGING:
+            /*case MOVE_EFFECT_CHARGING:
                 gBattleMons[effectBattler].status2 |= STATUS2_MULTIPLETURNS;
                 gLockedMoves[effectBattler] = gCurrentMove;
                 gProtectStructs[effectBattler].chargingTurn = TRUE;
                 ++gBattlescriptCurrInstr;
-                break;//v IMPORTANT v       //think I'll put traj extra effects in the pokemon.c "damage" formula since it handles concurrent stuff
+                break;*///v IMPORTANT v       //think I'll put traj extra effects in the pokemon.c "damage" formula since it handles concurrent stuff
             case MOVE_EFFECT_WRAP:  //make envionment trap status4 define update other trap moveeffcts below than add end turn effects in util.c
                 //if ((gBattleMons[effectBattler].status2 & STATUS2_WRAPPED) || (gBattleMons[effectBattler].status1 & STATUS1_WRAPPED)) was right this was cause of bind bug, work on setup new effect 
                 /*if (gBattleMons[effectBattler].status2 & STATUS2_WRAPPED)  //if already wrapped do nothing/revamp wrapped status to be catch all for all traps
@@ -5684,7 +5684,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                 ++gBattlescriptCurrInstr;
             }
                 break;
-            case MOVE_EFFECT_STEAL_ITEM:
+            /*case MOVE_EFFECT_STEAL_ITEM:
                 {
                     if (!CanStealItem(gBattlerAttacker, gBattlerTarget, gBattleMons[gBattlerTarget].item)) //thief i think
                     {
@@ -5692,24 +5692,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                         break;
                     }
                     //side = GetBattlerSide(gBattlerAttacker);
-                    /*if (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT //prevents opponent stealing player item in specific battle types 
-                     && !(gBattleTypeFlags &
-                          (BATTLE_TYPE_EREADER_TRAINER
-                          | BATTLE_TYPE_BATTLE_TOWER
-                          | BATTLE_TYPE_LINK))
-                     && gTrainerBattleOpponent_A != 0x400)
-                    {
-                        ++gBattlescriptCurrInstr;
-                    }
-                    else if (!(gBattleTypeFlags &
-                             (BATTLE_TYPE_EREADER_TRAINER
-                             | BATTLE_TYPE_BATTLE_TOWER
-                             | BATTLE_TYPE_LINK))
-                         && gTrainerBattleOpponent_A != 0x400
-                         && (gWishFutureKnock.knockedOffMons[side] & (1u << gBattlerPartyIndexes[gBattlerAttacker])))
-                    {
-                        ++gBattlescriptCurrInstr;
-                    }*/ //think are just trainr type restrictions 
+
                     else if (gBattleMons[gBattlerTarget].item
                         && GetBattlerAbility(gBattlerTarget) == ABILITY_STICKY_HOLD)
                     {
@@ -5735,7 +5718,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                         //*(u8 *)((u8 *)(&gBattleStruct->choicedMove[gBattlerTarget]) + 1) = 0;
                     }//NEED test hopefullyu works, original code used gbattlertarget, emerald stuff used attacker
                 }
-                break;
+                break;*/
             case MOVE_EFFECT_PREVENT_ESCAPE:
                 if (gBattleMons[effectBattler].status2 & STATUS2_ESCAPE_PREVENTION)
                 {                                           //and just put in each case, lan like magic gaurd check, check macro and do increment, with a one line paste
@@ -5779,10 +5762,10 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_AllStatsUp;
                 break;
-            case MOVE_EFFECT_RAPIDSPIN:
+            /*case MOVE_EFFECT_RAPIDSPIN:
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_RapidSpinAway;
-                break;
+                break;*/
             case MOVE_EFFECT_ATK_DEF_DOWN: // SuperPower    //use same trick did for trap effects make stat drop certain put 25% recoil in augment or vice versa, nvm just did atk drop 
                 if (!NoAliveMonsForEitherParty()){
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
@@ -5797,8 +5780,8 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                 break;
             case MOVE_EFFECT_HEAVY_RECOIL:
             case MOVE_EFFECT_LIGHT_RECOIL:
-            case MOVE_EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
-            case MOVE_EFFECT_MEDIUM_RECOIL: // Double Edge / removed below to use upgraded recoil setup
+            //case MOVE_EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
+            case MOVE_EFFECT_MED_RECOIL: // Double Edge / removed below to use upgraded recoil setup
                 //gBattleMoveDamage = max(gHpDealt / 3,1);
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_MoveEffectRecoil;
@@ -5848,12 +5831,12 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                 }
                 TryKnockOffBattleScript(gBattlerTarget);
                 break;*/
-            case MOVE_EFFECT_SP_ATK_TWO_DOWN: // Overheat - based on emerald kaizo, changing overheat to recoil move
+            /*case MOVE_EFFECT_SP_ATK_TWO_DOWN: // Overheat - based on emerald kaizo, changing overheat to recoil move
                 if (!NoAliveMonsForEitherParty()){
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_SAtkDown2;
                 }
-                break;
+                break;*/
             case MOVE_EFFECT_CLEAR_SMOG:
                 for (i = 0; i < NUM_BATTLE_STATS; i++)
                 {
@@ -5902,7 +5885,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                         gBattlescriptCurrInstr = BattleScript_MoveEffectFeint;
                 }
                 break;
-            case MOVE_EFFECT_SPECTRAL_THIEF:
+            /*case MOVE_EFFECT_SPECTRAL_THIEF:
                 if (!NoAliveMonsForEitherParty())
                 {
                     gBattleStruct->stolenStats[0] = 0; // Stats to steal.
@@ -5944,7 +5927,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                         gBattlescriptCurrInstr = BattleScript_SpectralThiefSteal;
                     }
                 }
-                break;
+                break;*/
             case MOVE_EFFECT_V_CREATE:
                 if (!NoAliveMonsForEitherParty())
                 {
@@ -5984,7 +5967,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                 else
                     gBattlescriptCurrInstr++;
                 break;//nvm forgot move effects go at end of move
-            case MOVE_EFFECT_RELIC_SONG:
+            /*case MOVE_EFFECT_RELIC_SONG:
                 if (GetBattlerAbility(gBattlerAttacker) != ABILITY_SHEER_FORCE && !(gBattleMons[gBattlerAttacker].status2 & STATUS2_TRANSFORMED))
                 {
                     if (gBattleMons[gBattlerAttacker].species == SPECIES_MELOETTA)
@@ -5998,7 +5981,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                         BattleScriptPushCursorAndCallback(BattleScript_AttackerFormChangeMoveEffect);
                     }
                 }
-                break;
+                break;*/
             case MOVE_EFFECT_TRAP_BOTH:
                 if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_ESCAPE_PREVENTION) && !(gBattleMons[gBattlerAttacker].status2 & STATUS2_ESCAPE_PREVENTION))
                 {
@@ -6021,7 +6004,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                     gBattlescriptCurrInstr = BattleScript_DefDownSpeedUp;
                 }
                 break;
-            case MOVE_EFFECT_LOSE_TYPE: //equivalent burn up etc.
+            case MOVE_EFFECT_REMOVE_ARG_TYPE: //equivalent burn up etc.
                 // This seems unnecessary but is done to make it work properly with Parental Bond
                 BattleScriptPush(gBattlescriptCurrInstr + 1);   //^not my note
                 gBattlescriptCurrInstr = BattleScript_AttackerRemoveType;
@@ -6030,7 +6013,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                 TryUpdateRoundTurnOrder(); // If another Pok�mon uses Round before the user this turn, the user will use Round directly after it
                 gBattlescriptCurrInstr++;
                 break;
-            case MOVE_EFFECT_STEALTH_ROCK:
+            /*case MOVE_EFFECT_STEALTH_ROCK:
                 if (!(gSideStatuses[GetBattlerSide(effectBattler)] & SIDE_STATUS_STEALTH_ROCK))
                 {
                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_POINTEDSTONESFLOAT;
@@ -6052,12 +6035,12 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SPIKESSCATTERED;
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
 
-                    /*if (gBattleStruct->isSkyBattle)
-                        gBattlescriptCurrInstr++;
-                    else*/
+                    //if (gBattleStruct->isSkyBattle)
+                    //    gBattlescriptCurrInstr++;
+                    //else
                         gBattlescriptCurrInstr = BattleScript_SpikesActivates;
                 }
-                break;
+                break;*/
             }
             
         }
@@ -6212,7 +6195,7 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
 
     if (TestSheerForceFlag(gBattlerAttacker, gCurrentMove))
     {
-        gBattleScripting.moveEffect = MOVE_EFFECT_NOTHING_0;
+        gBattleScripting.moveEffect = MOVE_EFFECT_NONE;
     } //attempt extra protection for sheer force 
 
     if (gBattleScripting.moveEffect & MOVE_EFFECT_CERTAIN    //believe is like weather, just means its aplying that affect? so this makes it certain
@@ -6341,8 +6324,8 @@ static void atk18_clearstatusfromeffect(void)
     {
         gBattleMons[battler].status2 &= (~sStatusFlagsForMoveEffects[gBattleScripting.moveEffect]);
         gBattleMons[battler].status4 &= (~sStatusFlagsForMoveEffects[gBattleScripting.moveEffect]);
-        if (gBattleScripting.moveEffect == MOVE_EFFECT_CHARGING)
-            gProtectStructs[battler].chargingTurn = FALSE;
+        //if (gBattleScripting.moveEffect == MOVE_EFFECT_CHARGING)
+        //    gProtectStructs[battler].chargingTurn = FALSE;
     }
     gBattleScripting.moveEffect = 0;
     gBattleScripting.multihitMoveEffect = 0;
@@ -8152,7 +8135,7 @@ static u32 GetNextTarget(u32 moveTarget, bool32 excludeCurrent)
             && !(excludeCurrent && battler == gBattlerTarget)
             && IsBattlerAlive(battler)
             && !(gBattleStruct->targetsDone[gBattlerAttacker] & (1u << battler))
-            && (GetBattlerSide(battler) != GetBattlerSide(gBattlerAttacker) || moveTarget == MOVE_TARGET_FOES_AND_ALLY))
+            && (GetBattlerSide(battler) != GetBattlerSide(gBattlerAttacker) || moveTarget == TARGET_FOES_AND_ALLY))
             break;
     }
     return battler;
@@ -8455,9 +8438,9 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
         {
             switch (gBattleStruct->moveEffect2)
             {
-            case MOVE_EFFECT_KNOCK_OFF:
+            /*case MOVE_EFFECT_KNOCK_OFF:
                 effect = TryKnockOffBattleScript(gBattlerTarget, gBattlerAttacker, gBattleStruct->moveEffect2);
-                break;
+                break;*/
             case MOVE_EFFECT_REMOVE_STATUS: // Smelling salts, Wake-Up Slap, Sparkling Aria
                 if ((gBattleMons[gBattlerTarget].status1 & gBattleMoves[gCurrentMove].argument) && IsBattlerAlive(gBattlerTarget))
                 {
@@ -8728,7 +8711,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             if (!(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)
              && gBattleTypeFlags & BATTLE_TYPE_DOUBLE
              && !gProtectStructs[gBattlerAttacker].chargingTurn
-             && gBattleMoves[gCurrentMove].target == MOVE_TARGET_BOTH
+             && gBattleMoves[gCurrentMove].target == TARGET_BOTH
              && !(gHitMarker & HITMARKER_NO_ATTACKSTRING))
             {
                 u8 battlerId = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gBattlerTarget)));
@@ -9138,8 +9121,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             if (!(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)
                 && gBattleTypeFlags & BATTLE_TYPE_DOUBLE
                 && !gProtectStructs[gBattlerAttacker].chargingTurn
-                && (moveTarget == MOVE_TARGET_BOTH
-                    || moveTarget == MOVE_TARGET_FOES_AND_ALLY)
+                && (moveTarget == TARGET_BOTH
+                    || moveTarget == TARGET_FOES_AND_ALLY)
                 && !(gHitMarker & HITMARKER_NO_ATTACKSTRING))
             {
                 u32 nextTarget = GetNextTarget(moveTarget, FALSE);
@@ -10346,7 +10329,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
             //don't use dodge pokeball effect when trapped, and add slight increase to catch chance, I think make it less than status chance but make it inclusive
             //so they stack
 
-        if (gBattleMons[battlerDef].status1 & STATUS1_SLEEP) { //.target = MOVE_TARGET_SELECTED, 
+        if (gBattleMons[battlerDef].status1 & STATUS1_SLEEP) { //.target = TARGET_SELECTED, 
             if (DoesBattlerGetTypeBasedAffinity(battlerAtk, battlerDef, TYPE_PSYCHIC, FALSE)) //important chek this think have function for type checking
                 calc = (calc * 105) / 100; // to take advantage of these buffs I want to have a button to display real move accuracy in battle. maybe L
             else
@@ -18837,7 +18820,7 @@ void BS_SetChargeturnMoveStringforTwoTurnMoves(void)
 
 //get charging turn attack string
 //need update along with gFirstTurnOfTwoStringIds table
-u32 GetMoveTwoTurnAttackStringId(u16 move)
+/*u32 GetMoveTwoTurnAttackStringId(u16 move)
 {
 
     switch(move)
@@ -18866,7 +18849,7 @@ u32 GetMoveTwoTurnAttackStringId(u16 move)
         case MOVE_COLD_FRONT:
             return STRINGID_PKMNDROPPEDTEMP;
     }
-}
+}*/
 /*
 [B_MSG_TURN1_RAZOR_WIND]    = STRINGID_PKMNWHIPPEDWHIRLWIND,     // MOVE_RAZOR_WIND
     [B_MSG_TURN1_SOLAR_BEAM]    = STRINGID_PKMNTOOKSUNLIGHT,         // MOVE_SOLAR_BEAM
@@ -21307,7 +21290,7 @@ void BS_setargumenteffectwithchance(void) //different effect for in hit, where a
         //should make zekrom better give reliable special move
         if (gBattleMoves[gCurrentMove].effect == EFFECT_STATUS_IF_STAT_BOOST
         && !gProtectStructs[gBattlerTarget].statRaised)
-            gBattleScripting.moveEffect = MOVE_EFFECT_NOTHING_0;
+            gBattleScripting.moveEffect = MOVE_EFFECT_NONE;
 
         if (argumentChance == 0) //seems to have issue when using certain on no effect moves so preventing that here
             gBattleScripting.moveEffect |= MOVE_EFFECT_CERTAIN;  //ok I don't know difference but this works without issue 
@@ -21343,7 +21326,7 @@ void BS_setargumenteffectwithchance(void) //different effect for in hit, where a
 
         if (TestSheerForceFlag(gBattlerAttacker, gCurrentMove))
         {
-            gBattleScripting.moveEffect = MOVE_EFFECT_NOTHING_0;
+            gBattleScripting.moveEffect = MOVE_EFFECT_NONE;
         } //attempt extra protection for sheer force 
 
         if (gBattleScripting.moveEffect & MOVE_EFFECT_CERTAIN    //believe is like weather, just means its aplying that affect? so this makes it certain
@@ -22042,7 +22025,7 @@ void BS_getmoveeffect(void)//transfer move effects mostly for multihit but also 
         //gBattleScripting.moveEffect = MOVE_EFFECT_INFESTATION;
         //    break;
         default:
-            gBattleScripting.moveEffect = MOVE_EFFECT_NOTHING_0;
+            gBattleScripting.moveEffect = MOVE_EFFECT_NONE;
             break;
 
     }
