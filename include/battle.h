@@ -753,23 +753,23 @@ struct BattlerState
 };
 //shouldn't caught mon also be in here? -believe is custom I added
 //if need to potentailly add storedHp to this for binding band rework
-
 struct PartyState
 {
     //Ah right I didn't make this once per battle
     //u32 intrepidSwordBoost:1; //may not need these two can prob wrap in single use ability use
     //u32 dauntlessShieldBoost:1; //yeah that's essentially what these do
-    u32 freespace:2;
-    u32 ateBerry:1;
-    u32 battleBondBoost:1;
-    u32 transformZeroToHero:1;
-    u32 supersweetSyrup:1;
-    u32 timesGotHit:5; //check think this for evo stuff if so may remove
-    u32 changedSpecies:11; // For forms when multiple mons can change into the same pokemon.
-    u32 sentOut:1; //^w form species change my not use that, but may take que from for setup
-    u32 numPhysHits:2; //using for ice face to count hits taken till reset, realize need putin party to prevent abuse
-    u32 lostItemtoKnockOff:1; //renamed hated default name, is not set when the setting is gen5+ will prob remove when done removing config stuff
-    u32 padding:6;//need tweak singleuseability secondaryitemslot and heldItem use as swap order of side and battlerId
+    u16 timesGotHit:5; //check think this for evo stuff if so may remove
+    u16 changedSpecies:11; // For forms when multiple mons can change into the same pokemon.
+    
+    u16 freespace:2;
+    u16 ateBerry:1;
+    u16 battleBondBoost:1;
+    u16 transformZeroToHero:1;
+    u16 supersweetSyrup:1;
+    u16 sentOut:1; //^w form species change my not use that, but may take que from for setup
+    u16 numPhysHits:2; //using for ice face to count hits taken till reset, realize need putin party to prevent abuse
+    u16 lostItemtoKnockOff:1; //renamed hated default name, is not set when the setting is gen5+ will prob remove when done removing config stuff
+    u16 padding:6;//need tweak singleuseability secondaryitemslot and heldItem use as swap order of side and battlerId
     //end byte
     //u32 lostItemtoKnockOff; //ok talked with alex and this entire value is only used for gen 3 version of knock off so I prob don't need at all
     //iisKnockedOff is not set when the setting is gen5+ "Alex"
@@ -780,6 +780,7 @@ struct PartyState
     u16 usedHeldItem;//check may need adjust harvest recycle w setup for 2nd held slot
     u16 usedSingleUseAbility; //for abilities that activate once per battle - my addition //not bool stores ability too
     u16 SecondaryItemSlot;//for pickpocket and magician store taken item if already holding item
+    u16 statusSetViaItem; //flame orb set status store item id
 
 };//taken from EE may be able to use for 
 //single use effects 
@@ -787,6 +788,11 @@ struct PartyState
 //uses same fields too
 //call
 //GetBattlerPartyState(battler)->intrepidSwordBoost = TRUE;
+//base is u32 aligned but wnat add field for status set for 
+//separate status effects based on set via item or move
+//rn just for flame orb so can have 16 and 8 dmg
+//so change to u16 alignment so can add field without taking up 4 extra bytes
+//hopefully works
 
 struct EventStates
 {

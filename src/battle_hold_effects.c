@@ -611,6 +611,13 @@ static enum ItemEffect TryToxicOrb(enum BattlerId battler)
     return effect;
 }
 
+//want to change flame orb,
+//gen 9 burn does 1\16 dmg per turn
+//I want that to only be for flame orb burn not normal set burn
+//think what will do is add battler state or party state
+//for status set via item storing item id
+//so if end turn burn is status set via flame orb
+//then have burn dmg do 1\16 end turn dmg otherwise do 1\8th
 static enum ItemEffect TryFlameOrb(enum BattlerId battler)
 {
     enum ItemEffect effect = ITEM_NO_EFFECT;
@@ -620,7 +627,9 @@ static enum ItemEffect TryFlameOrb(enum BattlerId battler)
     {
         gBattleMons[battler].status1 = STATUS1_BURN;
         BattleScriptExecute(BattleScript_FlameOrb);
+        GetBattlerPartyState(battler)->statusSetViaItem = gBattleMons[battler].item;
         effect = ITEM_STATUS_CHANGE;
+
     }
 
     return effect;

@@ -561,7 +561,7 @@ static bool32 HandleEndTurnBurn(enum BattlerId battler)
      && IsBattlerAlive(battler)
      && !IsAbilityAndRecord(battler, ability, ABILITY_MAGIC_GUARD))
     {
-        s32 burnDamage = GetNonDynamaxMaxHP(battler) / (GetConfig(B_BURN_DAMAGE) >= GEN_7 ? 16 : 8);
+        s32 burnDamage = GetNonDynamaxMaxHP(battler) / (GetBattlerPartyState(battler)->statusSetViaItem == ITEM_FLAME_ORB ? 16 : 8);
         if (ability == ABILITY_HEATPROOF)
         {
             if (burnDamage > (burnDamage / 2) + 1) // Record ability if the burn takes less damage than it normally would.
