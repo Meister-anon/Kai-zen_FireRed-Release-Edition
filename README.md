@@ -44,7 +44,7 @@ GhostBallDodge -in battle_anim_special - should be safe is FR specific
 #define FIRST_LEARNED_MOVE_MSG_FLAG         0x10 //should this be 10?  
 //^custom  for displaying can move to stat screen from level up move info
 
-
+*** end of new note
 
 Need split off extra changes to other branches
 leaving only the battle_moves.h flag related changes 
