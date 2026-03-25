@@ -45,6 +45,9 @@ GhostBallDodge -in battle_anim_special - should be safe is FR specific
 //^custom  for displaying can move to stat screen from level up move info
 
 very important need keep type effectiveness display setup as well
+actually btlcontroller uses many new funcs so think will put that
+change into effects branch and instead
+just leave battle anim file replacements here
 *** end of new note
 
 Need split off extra changes to other branches
