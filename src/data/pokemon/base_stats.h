@@ -21053,6 +21053,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },//absolute zero, turns all water type attacks into ice type attacks field wide, think also change type effect like ecosystem eto resist ice - DONE
+    //potentially give ABILITY_GLACIAL_ICE as a hidden but think may keep to make unique idk
 
     [SPECIES_KELDEO] =
     {
