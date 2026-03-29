@@ -153,7 +153,7 @@ static const union AnimCmd *const sNewGameOakAnimTable[] = {
 };
 
 static const struct SpriteTemplate sNewGameOakObjectTemplate = {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 4102,
     .oam = &sNewGameOakOamAttributes,
     .anims = sNewGameOakAnimTable,
@@ -313,7 +313,7 @@ static const union AnimCmd *const sUnknown_83CBF84[] = {
 };
 
 static const struct SpriteTemplate sUnknown_83CBF88 = {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 4103,
     .oam = &sOamData_8x8,
     .anims = sUnknown_83CBF54,
@@ -323,7 +323,7 @@ static const struct SpriteTemplate sUnknown_83CBF88 = {
 };
 
 static const struct SpriteTemplate sUnknown_83CBFA0 = {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 4103,
     .oam = &sOamData_83CBEAC,
     .anims = sUnknown_83CBF54,
@@ -333,7 +333,7 @@ static const struct SpriteTemplate sUnknown_83CBFA0 = {
 };
 
 static const struct SpriteTemplate sUnknown_83CBFB8 = {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 4112,
     .oam = &sOamData_16x16,
     .anims = sUnknown_83CBF84,
@@ -493,7 +493,7 @@ static void FieldEffectFreeTilesIfUnused(u16 tileStart)
 {
     u8 i;
     u16 tileTag = GetSpriteTileTagByTileStart(tileStart);
-    if (tileTag == SPRITE_INVALID_TAG)
+    if (tileTag == TAG_NONE)
         return;
     for (i = 0; i < MAX_SPRITES; i++)
     {
@@ -507,7 +507,7 @@ static void FieldEffectFreePaletteIfUnused(u8 paletteNum)
 {
     u8 i;
     u16 paletteTag = GetSpritePaletteTagByPaletteNum(paletteNum);
-    if (paletteTag == SPRITE_INVALID_TAG)
+    if (paletteTag == TAG_NONE)
         return;
     for (i = 0; i < MAX_SPRITES; i++)
     {
@@ -3758,7 +3758,7 @@ static const union AnimCmd *const sAnimCmdTable_FldEffUnk44[] = {
 };
 
 static const struct SpriteTemplate sUnknown_83CC2A0 = {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 4371,
     .oam = &sOamData_8x8,
     .anims = sAnimCmdTable_FldEffUnk44,

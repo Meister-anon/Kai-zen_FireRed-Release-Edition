@@ -2566,7 +2566,7 @@ static const u8 sHoldEffectToType[][2] =
 const struct SpriteTemplate gBattlerSpriteTemplates[] = 
 {
     [B_POSITION_PLAYER_LEFT] = {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2575,7 +2575,7 @@ const struct SpriteTemplate gBattlerSpriteTemplates[] =
         .callback = SpriteCB_AllyMon,
     },
     [B_POSITION_OPPONENT_LEFT] = {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerOpponent,
         .anims = NULL, 
@@ -2584,7 +2584,7 @@ const struct SpriteTemplate gBattlerSpriteTemplates[] =
         .callback = SpriteCB_EnemyMon,
     },
     [B_POSITION_PLAYER_RIGHT] = {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2593,7 +2593,7 @@ const struct SpriteTemplate gBattlerSpriteTemplates[] =
         .callback = SpriteCB_AllyMon,
     },
     [B_POSITION_OPPONENT_RIGHT] = {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerOpponent,
         .anims = NULL, 
@@ -2606,7 +2606,7 @@ const struct SpriteTemplate gBattlerSpriteTemplates[] =
 const struct SpriteTemplate gSpriteTemplates_TrainerBackpics[] = 
 {
     {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2615,7 +2615,7 @@ const struct SpriteTemplate gSpriteTemplates_TrainerBackpics[] =
         .callback = SpriteCB_AllyMon,
     },
     {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2624,7 +2624,7 @@ const struct SpriteTemplate gSpriteTemplates_TrainerBackpics[] =
         .callback = SpriteCB_AllyMon,
     },
     {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2633,7 +2633,7 @@ const struct SpriteTemplate gSpriteTemplates_TrainerBackpics[] =
         .callback = SpriteCB_AllyMon,
     },
     {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2642,7 +2642,7 @@ const struct SpriteTemplate gSpriteTemplates_TrainerBackpics[] =
         .callback = SpriteCB_AllyMon,
     },
     {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2651,7 +2651,7 @@ const struct SpriteTemplate gSpriteTemplates_TrainerBackpics[] =
         .callback = SpriteCB_AllyMon,
     },
     {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2762,8 +2762,8 @@ static const struct OamData sOakSpeechNidoranFDummyOamData =
 
 static const struct SpriteTemplate sOakSpeechNidoranFDummyTemplate = 
 {
-    .tileTag = SPRITE_INVALID_TAG,
-    .paletteTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
+    .paletteTag = TAG_NONE,
     .oam = &sOakSpeechNidoranFDummyOamData,
     .anims = gDummySpriteAnimTable, 
     .images = NULL,
