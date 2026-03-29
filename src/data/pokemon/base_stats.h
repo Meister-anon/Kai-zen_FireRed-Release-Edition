@@ -29033,7 +29033,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCursolaLevelUpLearnset,
         .tmhmLearnset = sCursolaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//give trick room -vsonic
 
     [SPECIES_SIRFETCHD] =
     {
@@ -41821,7 +41821,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SNOW_CLOAK, ABILITY_NONE},
+        .abilities = {ABILITY_SNOW_CLOAK, ABILITY_CLEAR_BODY}, //intimidate protection etc.
         .abilityHidden = {ABILITY_SLUSH_RUSH, ABILITY_LIGHT_METAL},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
