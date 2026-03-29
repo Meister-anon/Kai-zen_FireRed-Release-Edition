@@ -71,7 +71,7 @@
 
 #define GEN_9 0
 
-
+#define OW_GFX_COMPRESS                FALSE       // Adds support for compressed OW graphics, (Also compresses pokemon follower graphics).
 
 #define B_SNOW_WARNING FALSE
 

@@ -541,7 +541,7 @@
 #define BG_SWAMP 83
 #define BG_COUNT 84
 
-
+//castform change no longer used so remove later
 #define B_ANIM_CONSTANTS
 // table ids for general animations	(gBattleAnims_General) //buffer for values from battle_anim_scripts.s       //ntot battle.inc that's not used
 #define B_ANIM_CASTFORM_CHANGE          0x0
