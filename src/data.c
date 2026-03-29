@@ -8,86 +8,88 @@
 #include "constants/battle_ai.h"
 #include "constants/trainer_classes.h"
 
-const struct SpriteFrameImage gSpriteImages_BattlerPlayerLeft[] =
+#define BATTLER_OFFSET(i) (gHeap + 0x8000 + MON_PIC_SIZE * (i))
+
+const struct SpriteFrameImage gBattlerPicTable_PlayerLeft[] =
 {
-    gHeap + 0x8000, 0x800,
-    gHeap + 0x8800, 0x800,
-    gHeap + 0x9000, 0x800,
-    gHeap + 0x9800, 0x800,
+    {BATTLER_OFFSET(0), MON_PIC_SIZE},
+    {BATTLER_OFFSET(1), MON_PIC_SIZE},
+    {BATTLER_OFFSET(2), MON_PIC_SIZE},
+    {BATTLER_OFFSET(3), MON_PIC_SIZE},
 };
 
-const struct SpriteFrameImage gSpriteImages_BattlerOpponentLeft[] =
+const struct SpriteFrameImage gBattlerPicTable_OpponentLeft[] =
 {
-    gHeap + 0xA000, 0x800,
-    gHeap + 0xA800, 0x800,
-    gHeap + 0xB000, 0x800,
-    gHeap + 0xB800, 0x800,
+    {BATTLER_OFFSET(4), MON_PIC_SIZE},
+    {BATTLER_OFFSET(5), MON_PIC_SIZE},
+    {BATTLER_OFFSET(6), MON_PIC_SIZE},
+    {BATTLER_OFFSET(7), MON_PIC_SIZE},
 };
 
-const struct SpriteFrameImage gSpriteImages_BattlerPlayerRight[] =
+const struct SpriteFrameImage gBattlerPicTable_PlayerRight[] =
 {
-    gHeap + 0xC000, 0x800,
-    gHeap + 0xC800, 0x800,
-    gHeap + 0xD000, 0x800,
-    gHeap + 0xD800, 0x800,
+    {BATTLER_OFFSET(8),  MON_PIC_SIZE},
+    {BATTLER_OFFSET(9),  MON_PIC_SIZE},
+    {BATTLER_OFFSET(10), MON_PIC_SIZE},
+    {BATTLER_OFFSET(11), MON_PIC_SIZE},
 };
 
-const struct SpriteFrameImage gSpriteImages_BattlerOpponentRight[] =
+const struct SpriteFrameImage gBattlerPicTable_OpponentRight[] =
 {
-    gHeap + 0xE000, 0x800,
-    gHeap + 0xE800, 0x800,
-    gHeap + 0xF000, 0x800,
-    gHeap + 0xF800, 0x800,
+    {BATTLER_OFFSET(12), MON_PIC_SIZE},
+    {BATTLER_OFFSET(13), MON_PIC_SIZE},
+    {BATTLER_OFFSET(14), MON_PIC_SIZE},
+    {BATTLER_OFFSET(15), MON_PIC_SIZE},
 };
 
 const struct SpriteFrameImage gTrainerBackPicTable_Red[] =
 {
-    gTrainerBackPic_Red, 0x0800,
-    gTrainerBackPic_Red + 0x0800, 0x0800,
-    gTrainerBackPic_Red + 0x1000, 0x0800,
-    gTrainerBackPic_Red + 0x1800, 0x0800,
-    gTrainerBackPic_Red + 0x2000, 0x0800,
+    {gTrainerBackPic_Red, MON_PIC_SIZE},
+    {gTrainerBackPic_Red + 0x0800, MON_PIC_SIZE},
+    {gTrainerBackPic_Red + 0x1000, MON_PIC_SIZE},
+    {gTrainerBackPic_Red + 0x1800, MON_PIC_SIZE},
+    {gTrainerBackPic_Red + 0x2000, MON_PIC_SIZE},
 };
 
 const struct SpriteFrameImage gTrainerBackPicTable_Leaf[] =
 {
-    gTrainerBackPic_Leaf, 0x0800,
-    gTrainerBackPic_Leaf + 0x0800, 0x0800,
-    gTrainerBackPic_Leaf + 0x1000, 0x0800,
-    gTrainerBackPic_Leaf + 0x1800, 0x0800,
-    gTrainerBackPic_Leaf + 0x2000, 0x0800,
+    {gTrainerBackPic_Leaf, MON_PIC_SIZE},
+    {gTrainerBackPic_Leaf + 0x0800, MON_PIC_SIZE},
+    {gTrainerBackPic_Leaf + 0x1000, MON_PIC_SIZE},
+    {gTrainerBackPic_Leaf + 0x1800, MON_PIC_SIZE},
+    {gTrainerBackPic_Leaf + 0x2000, MON_PIC_SIZE},
 };
 
 const struct SpriteFrameImage gTrainerBackPicTable_Pokedude[] =
 {
-    gTrainerBackPic_Pokedude, 0x0800,
-    gTrainerBackPic_Pokedude + 0x0800, 0x0800,
-    gTrainerBackPic_Pokedude + 0x1000, 0x0800,
-    gTrainerBackPic_Pokedude + 0x1800, 0x0800,
+    {gTrainerBackPic_Pokedude, MON_PIC_SIZE},
+    {gTrainerBackPic_Pokedude + 0x0800, MON_PIC_SIZE},
+    {gTrainerBackPic_Pokedude + 0x1000, MON_PIC_SIZE},
+    {gTrainerBackPic_Pokedude + 0x1800, MON_PIC_SIZE},
 };
 
 const struct SpriteFrameImage gTrainerBackPicTable_OldMan[] =
 {
-    gTrainerBackPic_OldMan, 0x0800,
-    gTrainerBackPic_OldMan + 0x0800, 0x0800,
-    gTrainerBackPic_OldMan + 0x1000, 0x0800,
-    gTrainerBackPic_OldMan + 0x1800, 0x0800,
+    {gTrainerBackPic_OldMan, MON_PIC_SIZE},
+    {gTrainerBackPic_OldMan + 0x0800, MON_PIC_SIZE},
+    {gTrainerBackPic_OldMan + 0x1000, MON_PIC_SIZE},
+    {gTrainerBackPic_OldMan + 0x1800, MON_PIC_SIZE},
 };
 
 const struct SpriteFrameImage gTrainerBackPicTable_RSBrendan[] =
 {
-    gTrainerBackPic_RSBrendan, 0x0800,
-    gTrainerBackPic_RSBrendan + 0x0800, 0x0800,
-    gTrainerBackPic_RSBrendan + 0x1000, 0x0800,
-    gTrainerBackPic_RSBrendan + 0x1800, 0x0800,
+    {gTrainerBackPic_RSBrendan, MON_PIC_SIZE},
+    {gTrainerBackPic_RSBrendan + 0x0800, MON_PIC_SIZE},
+    {gTrainerBackPic_RSBrendan + 0x1000, MON_PIC_SIZE},
+    {gTrainerBackPic_RSBrendan + 0x1800, MON_PIC_SIZE},
 };
 
 const struct SpriteFrameImage gTrainerBackPicTable_RSMay[] =
 {
-    gTrainerBackPic_RSMay, 0x0800,
-    gTrainerBackPic_RSMay + 0x0800, 0x0800,
-    gTrainerBackPic_RSMay + 0x1000, 0x0800,
-    gTrainerBackPic_RSMay + 0x1800, 0x0800,
+    {gTrainerBackPic_RSMay, MON_PIC_SIZE},
+    {gTrainerBackPic_RSMay + 0x0800, MON_PIC_SIZE},
+    {gTrainerBackPic_RSMay + 0x1000, MON_PIC_SIZE},
+    {gTrainerBackPic_RSMay + 0x1800, MON_PIC_SIZE},
 };
 
 static const union AnimCmd sAnim_GeneralFrame0[] =
