@@ -26225,7 +26225,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_GRASSY_SURGE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_MISTY_SURGE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -26242,6 +26242,12 @@ const struct BaseStats gBaseStats[] =
     //grassy glide?
     //reverted stats, just give better moves
     //to separate from rillaboom
+    //potentially set fairy terrain instead 
+    //to make it counter rillaboom use?
+    //done give other tapus hidden ability
+    //no idea what could give other tapus
+    //and not quite sure it makes sense to just leave it
+    //as a taught ability either
 
     [SPECIES_TAPU_FINI] =
     {
