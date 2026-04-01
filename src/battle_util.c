@@ -9773,12 +9773,22 @@ static inline void MulByTypeEffectiveness(struct BattleContext *ctx, uq4_12_t *m
     //make exclusive for flying type only as for wind would remove its only weakness
     if (ctx->moveType == TYPE_ELECTRIC && defType == TYPE_FLYING 
     && IsBattlerGrounded(ctx->battlerDef, ctx->abilityDef, ctx->abilityAtk, ctx->holdEffectDef)
-    && mod == NOT_VERY_EFFECTIVE)
+    && mod == SUPER_EFFECTIVE)
         mod = UQ_4_12(1.0);
 
     //believe is things like freeze dry
-    if (GetMoveEffect(ctx->move) == EFFECT_SUPER_EFFECTIVE_ON_ARG && defType == GetMoveArgType(ctx->move) && !ctx->isAnticipation)
+    if (GetMoveEffect(ctx->move) == EFFECT_SUPER_EFFECTIVE_ON_ARG
+    && defType == GetMoveArgType(ctx->move) && !ctx->isAnticipation)
         mod = SUPER_EFFECTIVE;
+
+    //should be when mon is floating and flying wind hit super effectively
+    
+    if (GetMoveEffect(ctx->move) == EFFECT_SKY_UPPERCUT
+    && IsAirborneType(defType) 
+    && !IsBattlerGrounded(ctx->battlerDef, ctx->abilityDef, ctx->abilityAtk, ctx->holdEffectDef)
+    && !ctx->isAnticipation)
+        mod = SUPER_EFFECTIVE;       
+        
     //pretty sure don't need with other groud change
     /*if (ctx->moveType == TYPE_GROUND && IsAirborneType(defType) && IsBattlerGrounded(ctx->battlerDef, ctx->abilityDef, ctx->holdEffectDef) && mod == UQ_4_12(0.0))
         mod = UQ_4_12(1.0);*/

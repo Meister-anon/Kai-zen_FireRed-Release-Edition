@@ -8309,8 +8309,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_SKY_UPPERCUT] =
     {
         .name = COMPOUND_STRING("Sky Uppercut"),
-        .description = COMPOUND_MOVE_STRING("The user attacks\nwith an uppercut\nthrown skywards\nwith force."),
-        .effect = EFFECT_HIT, //doesnt do anything goes to hit, can change to hit
+        .description = COMPOUND_MOVE_STRING("The user throws a\nsky-bound uppercut\nwith force. Airborne\nflying & wind types\ntake super effective\ndamage."),
+        .effect = EFFECT_SKY_UPPERCUT,
         .power = 85,
         .type = TYPE_FIGHTING,
         .accuracy = 90,
@@ -8327,6 +8327,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
         .battleAnimScript = gBattleAnimMove_SkyUppercut,
     },
+    //give back unique effect will make freeze dry adjacent
+    //does super effective dmg on flying types
+    //but only if also ungrounded
+    //ok should be working, also electric flying interaction
+    //was wrong,
 
     [MOVE_SAND_TOMB] =
     {
