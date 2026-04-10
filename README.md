@@ -87,6 +87,23 @@ NOTE**(
     both doubled stab bonus on normal moves
 
     and essentially fake stab on EVERY other type
+
+    freeze and toxic will be two statuses that are
+    more extreme versions of others
+    and freeze will degrade to frostbite but be able to
+    reset freeze if applied
+    same as poison applied to poison can become toxic poison
+    for balance freeze degrades on swich as well
+
+    just as how toxic degrades on battle end
+
+    and have ice box be ice black sludge, that will freeze
+    holder solid if not ice type
+
+    and have snow globe be ice status orb,
+
+    flame orb does 1\16 burn dmg while normal burn will 
+    remain 1\8 dmg
 )
 
 and add the member if necessary
