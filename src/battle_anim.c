@@ -1056,11 +1056,13 @@ static void ScriptCmd_monbg(void)
 {
     bool8 toBG_2;
     u8 taskId;
-    u8 battler;
-    u8 animBattler;
+    enum BattlerId battler;
+    enum AnimBattler animBattler;
 
     sBattleAnimScriptPtr++;
 
+    //little confusing but believe refers to first value
+    //after anim cmd
     animBattler = sBattleAnimScriptPtr[0];
     if (animBattler & ANIM_TARGET)
         battler = gBattleAnimTarget;
@@ -1333,8 +1335,8 @@ static void Task_UpdateMonBg(u8 taskId)
 
 static void ScriptCmd_clearmonbg(void)
 {
-    u8 animBattlerId;
-    u8 battler;
+    enum AnimBattler animBattlerId;
+    enum BattlerId battler;
     u8 taskId;
 
     sBattleAnimScriptPtr++;
@@ -1396,8 +1398,8 @@ static void Task_ClearMonBg(u8 taskId)
 static void ScriptCmd_monbg_static(void)
 {
     bool8 toBG_2;
-    u8 battler;
-    u8 animBattlerId;
+    enum BattlerId battler;
+    enum AnimBattler animBattlerId;
 
     sBattleAnimScriptPtr++;
 
@@ -1441,8 +1443,8 @@ static void ScriptCmd_monbg_static(void)
 
 static void ScriptCmd_clearmonbg_static(void)
 {
-    u8 animBattlerId;
-    u8 battler;
+    enum AnimBattler animBattlerId;
+    enum BattlerId battler;
     u8 taskId;
 
     sBattleAnimScriptPtr++;
@@ -1478,7 +1480,7 @@ static void Task_ClearMonBgStatic(u8 taskId)
     if (gTasks[taskId].data[1] != 1)
     {
         bool8 toBG_2;
-        u8 battler = gTasks[taskId].data[2];
+        enum BattlerId battler = gTasks[taskId].data[2];
         enum BattlerPosition position = GetBattlerPosition(battler);
         if (position == B_POSITION_OPPONENT_LEFT || position == B_POSITION_PLAYER_RIGHT || IsContest())
             toBG_2 = FALSE;

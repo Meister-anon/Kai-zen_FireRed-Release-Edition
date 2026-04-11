@@ -427,18 +427,27 @@
 #define ANIM_TAG_TATSUGIRI_STRETCHY         (ANIM_SPRITES_START + 411)
 #define ANIM_TAG_COUNT                      GET_TRUE_SPRITE_INDEX(ANIM_TAG_TATSUGIRI_STRETCHY + 1)
 
+
 // battlers
-#define ANIM_ATTACKER    0
-#define ANIM_TARGET      1
-#define ANIM_ATK_PARTNER 2
-#define ANIM_DEF_PARTNER 3
+enum AnimBattler
+{
+    ANIM_ATTACKER,
+    ANIM_TARGET,
+    ANIM_ATK_PARTNER,
+    ANIM_DEF_PARTNER,
+    ANIM_PLAYER_LEFT = MAX_BATTLERS_COUNT,
+    ANIM_OPPONENT_LEFT,
+    ANIM_PLAYER_RIGHT,
+    ANIM_OPPONENT_RIGHT,
+    ANIM_ATTACKER_FORCE,
+};
 
 // Below are used by AnimTask_ShakeMon2 and AnimTask_SetGrayscaleOrOriginalPal
-#define ANIM_PLAYER_LEFT      (MAX_BATTLERS_COUNT + 0)
+/*#define ANIM_PLAYER_LEFT      (MAX_BATTLERS_COUNT + 0)
 #define ANIM_OPPONENT_LEFT    (MAX_BATTLERS_COUNT + 1)
 #define ANIM_PLAYER_RIGHT     (MAX_BATTLERS_COUNT + 2)
 #define ANIM_OPPONENT_RIGHT   (MAX_BATTLERS_COUNT + 3)
-#define ANIM_ATTACKER_FORCE   (MAX_BATTLERS_COUNT + 4)
+#define ANIM_ATTACKER_FORCE   (MAX_BATTLERS_COUNT + 4)*/
 
 // stereo panning constants [0-255]
 //
@@ -739,5 +748,8 @@ enum SpeciesGfxChange
 // The below are only used by AnimTask_BlendBattleAnimPal to get battler sprite palettes by position rather than by role.
 // It's redundant with F_PAL_BATTLERS, because they're only ever used together to refer to all the battlers at once.
 #define F_PAL_BATTLERS_2  (1 << 7 | 1 << 8 | 1 << 9 | 1 << 10)
+
+enum { SHAKE_BG_X, SHAKE_BG_Y, SHAKE_MON_X, SHAKE_MON_Y };
+enum { SHAKE_MON_ATTACKER, SHAKE_MON_TARGET, SHAKE_MON_BOTH };
 
 #endif // GUARD_CONSTANTS_BATTLE_ANIM_H
