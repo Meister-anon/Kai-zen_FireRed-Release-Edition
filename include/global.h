@@ -304,6 +304,11 @@ static inline u32 uq4_12_multiply_by_int_half_up(uq4_12_t modifier, u32 value)
 //ex. MOD(Random(), MAX_MON_MOVES)  but this appears longer not shorter?
 #define MOD(a, n) ((a) % (n))
 
+// Increments 'a' by 1, wrapping back to 0 when it reaches 'n'. If 'n' is a power of two,
+// the wrap is implemented using a bit mask: (a + 1) & (n - 1), which is slightly faster.
+// This is intended to be used when 'n' is known at compile time.
+#define INCREMENT_OR_WRAP(a, n) ((IS_POW_OF_TWO(n)) ? (((a) + 1) & ((n) - 1)) : (((a) + 1) >= (n) ? 0 : ((a) + 1)))
+
 // There are many quirks in the source code which have overarching behavioral differences from
 // a number of other files. For example, diploma.c seems to declare rodata before each use while
 // other files declare out of order and must be at the beginning. There are also a number of
