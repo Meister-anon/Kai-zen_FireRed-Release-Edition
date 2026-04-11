@@ -99,7 +99,7 @@ void DestroyAnimVisualTask(u8 taskId);
 void DestroyAnimSoundTask(u8 taskId);
 u8 GetAnimBattlerId(u8 wantedBattler);
 bool8 IsBattlerSpriteVisible(u8 battler);
-void MoveBattlerSpriteToBG(u8 battler, bool8 toBG_2, bool8 setSpriteInvisible);
+void MoveBattlerSpriteToBG(enum BattlerId battler, bool8 toBG_2, bool8 setSpriteInvisible);
 bool8 IsContest(void);
 s8 BattleAnimAdjustPanning(s8 pan);
 s8 BattleAnimAdjustPanning2(s8 pan);

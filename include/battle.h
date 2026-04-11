@@ -1459,14 +1459,14 @@ static inline bool32 IsDoubleBattle(void)
     return gBattleTypeFlags & BATTLE_TYPE_DOUBLE;
 }
 
-static inline u32 GetBattlerPosition(u32 battler)
+static inline enum BattlerPosition GetBattlerPosition(enum BattlerId battler)
 {
     return gBattlerPositions[battler];
 }
 
-static inline u32 GetBattlerAtPosition(u32 position)
+static inline u32 GetBattlerAtPosition(enum BattlerPosition position)
 {
-    u32 battler;
+    enum BattlerId battler;
     for (battler = 0; battler < gBattlersCount; battler++)
     {
         if (GetBattlerPosition(battler) == position)
