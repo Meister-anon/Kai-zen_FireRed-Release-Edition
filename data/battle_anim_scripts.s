@@ -6806,7 +6806,9 @@ gBattleAnimMove_Leer::
 	delay 1
 	waitforvisualfinish
 	end
-
+    
+@vsonic temp want ghost background
+gBattleAnimMove_LifeDrain::
 gBattleAnimMove_DreamEater::
 	loadspritegfx ANIM_TAG_ORBS
 	loadspritegfx ANIM_TAG_BLUE_STAR
@@ -14686,7 +14688,8 @@ gBattleAnimMove_Hex::
 	createvisualtask AnimTask_ShakeMon, 5, ANIM_TARGET, 2, 0, 37, 1
 	playsewithpan SE_M_NIGHTMARE, SOUND_PAN_TARGET
 	delay 32
-	blend_color_cycle selector=F_PAL_TARGET, delay=2, num_blends=2, initial_blend_y=0, target_blend_y=12, color=RGB(10, 2, 19)@;Deep purple	createsprite gCurseGhostSpriteTemplate, ANIM_TARGET, 4
+	blend_color_cycle selector=F_PAL_TARGET, delay=2, num_blends=2, initial_blend_y=0, target_blend_y=12, color=RGB(10, 2, 19)@;Deep purple	
+    createsprite gCurseGhostSpriteTemplate, ANIM_TARGET, 4
 	waitforvisualfinish
 	clearmonbg ANIM_TARGET
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_BG, 0, 16, 0, RGB(10, 2, 19) @;Deep purple
@@ -17479,7 +17482,8 @@ gBattleAnimMove_TrickOrTreat::
 	createvisualtask AnimTask_ScaryFace, 5
 	delay 13
 	waitforvisualfinish
-	blend_color_cycle selector=F_PAL_TARGET, delay=2, num_blends=2, initial_blend_y=0, target_blend_y=12, color=RGB(10, 2, 19)@;Deep purple	playsewithpan SE_M_NIGHTMARE, SOUND_PAN_TARGET
+	blend_color_cycle selector=F_PAL_TARGET, delay=2, num_blends=2, initial_blend_y=0, target_blend_y=12, color=RGB(10, 2, 19)@;Deep purple	
+    playsewithpan SE_M_NIGHTMARE, SOUND_PAN_TARGET
 	createsprite gCurseGhostSpriteTemplate, ANIM_TARGET, 2
 	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 2, 0, 14, 1
 	waitforvisualfinish
@@ -19040,7 +19044,8 @@ gBattleAnimMove_OblivionWing::
 	call OblivionWingBeam
 	call OblivionWingBeam
 	createvisualtask AnimTask_ShakeMon, 2, ANIM_TARGET, 0, 3, 40, 1
-	blend_color_cycle selector=F_PAL_TARGET, delay=2, num_blends=4, initial_blend_y=0, target_blend_y=12, color=RGB(31, 4, 10)@Pinkish Red	call OblivionWingBeam
+	blend_color_cycle selector=F_PAL_TARGET, delay=2, num_blends=4, initial_blend_y=0, target_blend_y=12, color=RGB(31, 4, 10)@Pinkish Red	
+    call OblivionWingBeam
 	call OblivionWingBeam
 	call OblivionWingBeam
 	call OblivionWingBeam
@@ -22945,7 +22950,8 @@ gBattleAnimMove_DynamaxCannon::
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_BG, 2, 15, 0, 0
 	fadetobg BG_DYNAMAX_CANNON
 	waitbgfadein
-	blend_color_cycle selector=F_PAL_TARGET, delay=4, num_blends=4, initial_blend_y=0, target_blend_y=12, color=RGB(31, 4, 10)@Pinkish Red	panse SE_M_SOLAR_BEAM, SOUND_PAN_ATTACKER SOUND_PAN_TARGET 2 0
+	blend_color_cycle selector=F_PAL_TARGET, delay=4, num_blends=4, initial_blend_y=0, target_blend_y=12, color=RGB(31, 4, 10)@Pinkish Red	
+    panse SE_M_SOLAR_BEAM, SOUND_PAN_ATTACKER SOUND_PAN_TARGET 2 0
 	shake_mon_or_platform velocity=4, shake_timer=1, shake_duration=180, type=1
 	createvisualtask AnimTask_ShakeMon, 2, ANIM_ATTACKER, 0, 4, 87, 1
 	call DynamaxCannonLaunch
@@ -23078,7 +23084,8 @@ gBattleAnimMove_TarShot::
 	playsewithpan SE_M_BUBBLE3, SOUND_PAN_ATTACKER
 	delay 15
 	createvisualtask AnimTask_ShakeMon2, 5, ANIM_TARGET, 2, 0, 10, 1
-	blend_color_cycle selector=F_PAL_TARGET, delay=2, num_blends=2, initial_blend_y=0, target_blend_y=16, color=RGB_BLACK@;Black	createsprite gAppleAcidDripTemplate, ANIM_TARGET, 2, 0xffe6, 0xffe8, 0x0, 0xf, 0x37
+	blend_color_cycle selector=F_PAL_TARGET, delay=2, num_blends=2, initial_blend_y=0, target_blend_y=16, color=RGB_BLACK@;Black	
+    createsprite gAppleAcidDripTemplate, ANIM_TARGET, 2, 0xffe6, 0xffe8, 0x0, 0xf, 0x37
 	playsewithpan SE_M_BUBBLE, SOUND_PAN_TARGET
 	delay 10
 	createsprite gAppleAcidDripTemplate, ANIM_TARGET, 2, 0xf, 0xffe5, 0x0, 0xC, 0x32
@@ -24052,7 +24059,8 @@ gBattleAnimMove_Eternabeam::
 	call OblivionWingBeam
 	call OblivionWingBeam
 	createvisualtask AnimTask_ShakeMon, 2, ANIM_TARGET, 0, 3, 50, 1
-	blend_color_cycle selector=F_PAL_TARGET, delay=2, num_blends=4, initial_blend_y=0, target_blend_y=12, color=RGB(31, 4, 10)@Pinkish Red	call OblivionWingBeam
+	blend_color_cycle selector=F_PAL_TARGET, delay=2, num_blends=4, initial_blend_y=0, target_blend_y=12, color=RGB(31, 4, 10)@Pinkish Red	
+    call OblivionWingBeam
 	call OblivionWingBeam
 	call OblivionWingBeam
 	call OblivionWingBeam
@@ -24813,7 +24821,8 @@ gBattleAnimMove_CorrosiveGas::
 	monbg ANIM_ATTACKER
 	loopsewithpan SE_M_FLAME_WHEEL2, SOUND_PAN_ATTACKER, 0x8, 0x3
 	delay 0
-	blend_color_cycle selector=F_PAL_ATTACKER, delay=1, num_blends=2, initial_blend_y=0, target_blend_y=15, color=RGB(15, 15, 6)@;Garbage green	createsprite gSpriteTemplate_CorrosiveGasSmoke, ANIM_ATTACKER, 0x7a, 0x3, 0xfff2, 0x12, 0x2e
+	blend_color_cycle selector=F_PAL_ATTACKER, delay=1, num_blends=2, initial_blend_y=0, target_blend_y=15, color=RGB(15, 15, 6)@;Garbage green	
+    createsprite gSpriteTemplate_CorrosiveGasSmoke, ANIM_ATTACKER, 0x7a, 0x3, 0xfff2, 0x12, 0x2e
 	delay 0
 	createsprite gSpriteTemplate_CorrosiveGasSmoke, ANIM_ATTACKER, 0x79, 0x3, 0xe, 0xfff2, 0x2e
 	delay 0
@@ -24826,7 +24835,8 @@ gBattleAnimMove_CorrosiveGas::
 	createsprite gSpriteTemplate_CorrosiveGasSmoke, ANIM_ATTACKER, 0x7b, 0x3, 0x4, 0x4, 0x1e
 	waitforvisualfinish
 	playsewithpan SE_M_TOXIC, SOUND_PAN_TARGET
-	blend_color_cycle selector=(F_PAL_BG | F_PAL_TARGET | F_PAL_ATK_PARTNER | F_PAL_DEF_PARTNER), delay=1, num_blends=2, initial_blend_y=0, target_blend_y=14, color=RGB(15, 15, 6)@;Garbage green	waitforvisualfinish
+	blend_color_cycle selector=(F_PAL_BG | F_PAL_TARGET | F_PAL_ATK_PARTNER | F_PAL_DEF_PARTNER), delay=1, num_blends=2, initial_blend_y=0, target_blend_y=14, color=RGB(15, 15, 6)@;Garbage green	
+    waitforvisualfinish
 	clearmonbg ANIM_ATTACKER
 	end
 
@@ -25235,7 +25245,8 @@ gBattleAnimMove_DragonEnergy::
 	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_HYDRO_PUMP, 0, 12, 12, RGB(30, 2, 11) @;Regidrago Reddish Reddish, Purple
 	monbg ANIM_TARGET
 	playsewithpan SE_M_MEGA_KICK, SOUND_PAN_ATTACKER
-	blend_color_cycle selector=F_PAL_ATTACKER, delay=0, num_blends=4, initial_blend_y=0, target_blend_y=11, color=RGB(31, 28, 31)@;Pinkish White	waitforvisualfinish
+	blend_color_cycle selector=F_PAL_ATTACKER, delay=0, num_blends=4, initial_blend_y=0, target_blend_y=11, color=RGB(31, 28, 31)@;Pinkish White	
+    waitforvisualfinish
 	playsewithpan SE_M_DETECT, SOUND_PAN_TARGET
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, (F_PAL_BG | F_PAL_BATTLERS_2), 1, 16, 0, RGB(30, 2, 11) @;Regidrago Reddish Reddish, Purple
 	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, ANIM_ATTACKER, -120, 0, 0, 1 @;Slide off off, screen
@@ -25298,7 +25309,8 @@ gBattleAnimMove_FreezingGlare::
 	createvisualtask AnimTask_GlareEyeDots, 0x5, 0x0
 	playsewithpan SE_M_PSYBEAM2, SOUND_PAN_ATTACKER
 	waitforvisualfinish
-	blend_color_cycle selector=F_PAL_TARGET, delay=2, num_blends=2, initial_blend_y=0, target_blend_y=12, color=RGB(12, 26, 31)@;Ice blue	createvisualtask AnimTask_ShakeMon, 5, ANIM_TARGET, 0, 4, 28, 1
+	blend_color_cycle selector=F_PAL_TARGET, delay=2, num_blends=2, initial_blend_y=0, target_blend_y=12, color=RGB(12, 26, 31)@;Ice blue	
+    createvisualtask AnimTask_ShakeMon, 5, ANIM_TARGET, 0, 4, 28, 1
 	call IceCrystalEffectShort
 	waitforvisualfinish
 	call UnsetPsychicBg
