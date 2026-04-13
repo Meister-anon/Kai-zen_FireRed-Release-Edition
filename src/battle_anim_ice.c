@@ -1269,7 +1269,9 @@ static void InitPoisonGasCloudAnim(struct Sprite *sprite)
     sprite->y = GetBattlerSpriteCoord(gBattleAnimAttacker, BATTLER_COORD_Y_PIC_OFFSET);
 
     //...what does this mean??? vsonic important
-    if (B_UPDATED_MOVE_DATA >= GEN_5)
+    //corresponds with updated move for targetting so...
+    //vsonic important if use for things besides poison gas may need adjust
+    //if (B_UPDATED_MOVE_DATA >= GEN_5)
     {
         s16 x, y;
         SetAverageBattlerPositions(gBattleAnimTarget, gBattleAnimArgs[7], &x, &y);
@@ -1279,7 +1281,7 @@ static void InitPoisonGasCloudAnim(struct Sprite *sprite)
         sprite->data[4] = y + gBattleAnimArgs[4];
         sprite->data[7] |= GetBattlerSpriteBGPriority(gBattleAnimTarget) << 8;
     }
-    else if (gBattleAnimArgs[7])
+    /*else if (gBattleAnimArgs[7])
     {
         sprite->data[1] = sprite->x + gBattleAnimArgs[1];
         sprite->data[2] = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_X_2) + gBattleAnimArgs[3];
@@ -1294,7 +1296,7 @@ static void InitPoisonGasCloudAnim(struct Sprite *sprite)
         sprite->data[3] = sprite->y + gBattleAnimArgs[2];
         sprite->data[4] = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_Y) + gBattleAnimArgs[4];
         sprite->data[7] |= GetBattlerSpriteBGPriority(gBattleAnimTarget) << 8;
-    }
+    }*/
 
     if (IsContest())
     {
@@ -1323,13 +1325,14 @@ static void MovePoisonGasCloud(struct Sprite *sprite)
 
         if (sprite->data[0] <= 0)
         {
-            #if B_UPDATED_MOVE_DATA >= GEN_5
+            //vsonic important same as mentioned above if used for more than poison gas may need change
+            //#if B_UPDATED_MOVE_DATA >= GEN_5
                 s16 x, y;
                 SetAverageBattlerPositions(gBattleAnimTarget, 0, &x, &y);
                 sprite->x = x;
-            #else
+            /*#else
                 sprite->x = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_X);
-            #endif
+            #endif*/
             sprite->data[0] = 80;
             sprite->data[1] = sprite->x;
             sprite->data[2] = sprite->x;

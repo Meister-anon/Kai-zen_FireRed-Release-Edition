@@ -979,8 +979,8 @@ static void ScriptCmd_end(void)
 
     if (!continuousAnim) // May have been used for debug?
     {
-        //not setup rn
-        //assertf(!FuncIsActiveTask(Task_UpdateMonBg), "move %d still has Task_UpdateMonBg active at the end", gAnimMoveIndex);
+        //not setup rn, idk maybe
+        assertf(!FuncIsActiveTask(Task_UpdateMonBg), "move %d still has Task_UpdateMonBg active at the end", gAnimMoveIndex);
 
         m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 256);
         if (!IsContest())
@@ -1059,10 +1059,12 @@ static void ScriptCmd_monbg(void)
     bool8 toBG_2;
     u8 taskId;
     enum BattlerId battler;
-    u8 animBattler;
+    enum AnimBattler animBattler;
 
     sBattleAnimScriptPtr++;
 
+    //little confusing but believe refers to first value
+    //after anim cmd
     animBattler = sBattleAnimScriptPtr[0];
     if (animBattler & ANIM_TARGET)
         battler = gBattleAnimTarget;
@@ -1078,6 +1080,8 @@ static void ScriptCmd_monbg(void)
         else
             toBG_2 = TRUE;
 
+        //somehow this is the problem? 
+        //yeah its having tobg2 set true for this specificall
         MoveBattlerSpriteToBG(battler, toBG_2, FALSE);
         taskId = CreateTask(Task_InitUpdateMonBg, 10);
         gAnimVisualTaskCount++;
@@ -1149,6 +1153,8 @@ bool8 IsBattlerSpriteVisible(enum BattlerId battler)
     return FALSE;
 }
 
+//got answer from cawt
+//0xFF is where the FRLG window frame background tile is at, in emerald that tile is transparent
 void MoveBattlerSpriteToBG(enum BattlerId battler, bool8 toBG_2, bool8 setSpriteInvisible)
 {
     struct BattleAnimBgData animBg;
@@ -1160,18 +1166,18 @@ void MoveBattlerSpriteToBG(enum BattlerId battler, bool8 toBG_2, bool8 setSprite
 
         if (IsContest() == TRUE)
         {
-            RequestDma3Fill(0, (void *)(BG_SCREEN_ADDR(16)), 0x2000, 1);
-            RequestDma3Fill(0xFF, (void *)(BG_SCREEN_ADDR(30)), 0x1000, 0);
+            RequestDma3Fill(0, (void *)(BG_SCREEN_ADDR(16)), 0x2000, DMA3_32BIT);
+            RequestDma3Fill(0, (void *)(BG_SCREEN_ADDR(30)), 0x1000, DMA3_32BIT);
         }
         else
         {
-            RequestDma3Fill(0, (void *)(BG_SCREEN_ADDR(8)), 0x2000, 1);
-            RequestDma3Fill(0xFF, (void *)(BG_SCREEN_ADDR(28)), 0x1000, 0);
+            RequestDma3Fill(0, (void*)(BG_SCREEN_ADDR(8)), 0x2000, DMA3_32BIT);
+            RequestDma3Fill(0, (void*)(BG_SCREEN_ADDR(28)), 0x1000, DMA3_32BIT);
         }
 
         GetBattleAnimBg1Data(&animBg);
         CpuFill16(0, animBg.bgTiles, 0x1000);
-        CpuFill16(0xFF, animBg.bgTilemap, 0x800);
+        CpuFill16(0, animBg.bgTilemap, 0x800);
 
         SetAnimBgAttribute(1, BG_ANIM_PRIORITY, 2);
         SetAnimBgAttribute(1, BG_ANIM_SCREEN_SIZE, 1);
@@ -1205,8 +1211,8 @@ void MoveBattlerSpriteToBG(enum BattlerId battler, bool8 toBG_2, bool8 setSprite
     }
     else
     {
-        RequestDma3Fill(0, (void *)(BG_SCREEN_ADDR(12)), 0x2000, 1);
-        RequestDma3Fill(0, (void *)(BG_SCREEN_ADDR(30)), 0x1000, 1);
+        RequestDma3Fill(0, (void *)(BG_SCREEN_ADDR(12)), 0x2000, DMA3_32BIT);
+        RequestDma3Fill(0, (void *)(BG_SCREEN_ADDR(30)), 0x1000, DMA3_32BIT);
         GetBattleAnimBgData(&animBg, 2);
         CpuFill16(0, animBg.bgTiles + 0x1000, 0x1000);
         CpuFill16(0, animBg.bgTilemap + 0x400, 0x800);
@@ -1335,7 +1341,7 @@ static void Task_UpdateMonBg(u8 taskId)
 
 static void ScriptCmd_clearmonbg(void)
 {
-    u8 animBattlerId;
+    enum AnimBattler animBattlerId;
     enum BattlerId battler;
     u8 taskId;
 
@@ -1399,7 +1405,7 @@ static void ScriptCmd_monbg_static(void)
 {
     bool8 toBG_2;
     enum BattlerId battler;
-    u8 animBattlerId;
+    enum AnimBattler animBattlerId;
 
     sBattleAnimScriptPtr++;
 
@@ -1443,7 +1449,7 @@ static void ScriptCmd_monbg_static(void)
 
 static void ScriptCmd_clearmonbg_static(void)
 {
-    u8 animBattlerId;
+    enum AnimBattler animBattlerId;
     enum BattlerId battler;
     u8 taskId;
 

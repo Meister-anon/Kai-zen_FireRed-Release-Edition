@@ -11057,6 +11057,7 @@ bool32 CompareStat(enum BattlerId battler, enum Stat statId, u8 cmpTo, u8 cmpKin
     return ret;
 }
 
+//vsonic replace type check with affinity check
 bool32 BlocksPrankster(enum Move move, enum BattlerId battlerPrankster, enum BattlerId battlerDef, bool32 checkTarget)
 {
     if (GetConfig(B_PRANKSTER_DARK_TYPES) < GEN_7)
@@ -12838,6 +12839,7 @@ bool32 TryActivateHeatTrance(enum BattlerId battler)  //change mind better to do
 
 
 }*/
+
 
 #define FIXATION_EFFECTS
 //present form useless plan rework

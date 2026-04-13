@@ -71,6 +71,7 @@ struct StartingStatuses
 //extern const u8 *const gMoveDescriptionPointers[MOVES_COUNT];
 //extern const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT];
 //extern const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1]; //longest ability is 16, 17 w string terminator
+//extern const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT];
 extern const u16 gUnknown_8251CB8[];    //lowercase move file is arranged differently so it can prob use array becuase of that
 extern const u16 gUnknown_8251FEE[];
 extern const u16 gUnknown_8252324[];
@@ -83,6 +84,8 @@ extern const u16 gUnknown_82539D4[];
 //extern const struct CompressedSpriteSheet gMonBackPicTable[];
 //extern const struct SpritePalette gMonPaletteTable[];
 //extern const struct SpritePalette gMonShinyPaletteTable[];
+//vsonic can't rememer if need this here
+//extern const struct SpeciesGraphicInfo gSpeciesGraphics[];
 extern const union AnimCmd *const *const gTrainerFrontAnimsPtrTable[];
 extern const struct MonCoords gTrainerFrontPicCoords[];
 extern const struct CompressedSpriteSheet gTrainerFrontPicTable[];
@@ -104,10 +107,10 @@ extern const struct OamData gUnknown_824F018;
 extern const union AnimCmd *const gSpriteAnimTable_82349BC[];
 extern const union AffineAnimCmd *const gSpriteAffineAnimTable_BattlerPlayer[];
 extern const union AffineAnimCmd *const gSpriteAffineAnimTable_BattlerOpponent[];
-extern const struct SpriteFrameImage gSpriteImages_BattlerPlayerLeft[];
-extern const struct SpriteFrameImage gSpriteImages_BattlerOpponentLeft[];
-extern const struct SpriteFrameImage gSpriteImages_BattlerPlayerRight[];
-extern const struct SpriteFrameImage gSpriteImages_BattlerOpponentRight[];
+extern const struct SpriteFrameImage gBattlerPicTable_PlayerLeft[];
+extern const struct SpriteFrameImage gBattlerPicTable_OpponentLeft[];
+extern const struct SpriteFrameImage gBattlerPicTable_PlayerRight[];
+extern const struct SpriteFrameImage gBattlerPicTable_OpponentRight[];
 extern const struct SpriteFrameImage gTrainerBackPicTable_Red[];
 extern const struct SpriteFrameImage gTrainerBackPicTable_Leaf[];
 extern const struct SpriteFrameImage gTrainerBackPicTable_Pokedude[];

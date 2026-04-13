@@ -233,6 +233,13 @@ static inline uq4_12_t uq4_12_multiply(uq4_12_t a, uq4_12_t b)
     return (product + UQ_4_12_ROUND) >> UQ_4_12_SHIFT;
 }
 
+//for same type tera bonus is multiplier * 2 - 1
+static inline uq4_12_t getsametypeTeraBonus(uq4_12_t a)
+{
+    u32 product = (u32) a * UQ_4_12(2.0);
+    uq4_12_subtract(((product + UQ_4_12_ROUND) >> UQ_4_12_SHIFT), UQ_4_12(1.0));
+}
+
 //my addition
 static inline uq8_8_t uq8_8_multiply(uq8_8_t a, uq8_8_t b)
 {
@@ -300,7 +307,6 @@ static inline u32 uq4_12_multiply_by_int_half_up(uq4_12_t modifier, u32 value)
 // the wrap is implemented using a bit mask: (a + 1) & (n - 1), which is slightly faster.
 // This is intended to be used when 'n' is known at compile time.
 #define INCREMENT_OR_WRAP(a, n) ((IS_POW_OF_TWO(n)) ? (((a) + 1) & ((n) - 1)) : (((a) + 1) >= (n) ? 0 : ((a) + 1)))
-
 
 // There are many quirks in the source code which have overarching behavioral differences from
 // a number of other files. For example, diploma.c seems to declare rodata before each use while

@@ -2578,38 +2578,38 @@ static const u8 sFiller = _("");
 const struct SpriteTemplate gBattlerSpriteTemplates[] = 
 {
     [B_POSITION_PLAYER_LEFT] = {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
-        .images = gSpriteImages_BattlerPlayerLeft,
+        .images = gBattlerPicTable_PlayerLeft,
         .affineAnims = gSpriteAffineAnimTable_BattlerPlayer,
         .callback = SpriteCB_AllyMon,
     },
     [B_POSITION_OPPONENT_LEFT] = {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerOpponent,
         .anims = NULL, 
-        .images = gSpriteImages_BattlerOpponentLeft,
+        .images = gBattlerPicTable_OpponentLeft,
         .affineAnims = gSpriteAffineAnimTable_BattlerOpponent,
         .callback = SpriteCB_EnemyMon,
     },
     [B_POSITION_PLAYER_RIGHT] = {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
-        .images = gSpriteImages_BattlerPlayerRight,
+        .images = gBattlerPicTable_PlayerRight,
         .affineAnims = gSpriteAffineAnimTable_BattlerPlayer,
         .callback = SpriteCB_AllyMon,
     },
     [B_POSITION_OPPONENT_RIGHT] = {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerOpponent,
         .anims = NULL, 
-        .images = gSpriteImages_BattlerOpponentRight,
+        .images = gBattlerPicTable_OpponentRight,
         .affineAnims = gSpriteAffineAnimTable_BattlerOpponent,
         .callback = SpriteCB_EnemyMon,
     },
@@ -2618,7 +2618,7 @@ const struct SpriteTemplate gBattlerSpriteTemplates[] =
 const struct SpriteTemplate gSpriteTemplates_TrainerBackpics[] = 
 {
     {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2627,7 +2627,7 @@ const struct SpriteTemplate gSpriteTemplates_TrainerBackpics[] =
         .callback = SpriteCB_AllyMon,
     },
     {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2636,7 +2636,7 @@ const struct SpriteTemplate gSpriteTemplates_TrainerBackpics[] =
         .callback = SpriteCB_AllyMon,
     },
     {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2645,7 +2645,7 @@ const struct SpriteTemplate gSpriteTemplates_TrainerBackpics[] =
         .callback = SpriteCB_AllyMon,
     },
     {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2654,7 +2654,7 @@ const struct SpriteTemplate gSpriteTemplates_TrainerBackpics[] =
         .callback = SpriteCB_AllyMon,
     },
     {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2663,7 +2663,7 @@ const struct SpriteTemplate gSpriteTemplates_TrainerBackpics[] =
         .callback = SpriteCB_AllyMon,
     },
     {
-        .tileTag = SPRITE_INVALID_TAG,
+        .tileTag = TAG_NONE,
         .paletteTag = 0,
         .oam = &gOamData_BattlerPlayer,
         .anims = NULL, 
@@ -2774,8 +2774,8 @@ static const struct OamData sOakSpeechNidoranFDummyOamData =
 
 static const struct SpriteTemplate sOakSpeechNidoranFDummyTemplate = 
 {
-    .tileTag = SPRITE_INVALID_TAG,
-    .paletteTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
+    .paletteTag = TAG_NONE,
     .oam = &sOakSpeechNidoranFDummyOamData,
     .anims = gDummySpriteAnimTable, 
     .images = NULL,
@@ -5449,17 +5449,17 @@ void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         break;
     case ABILITY_RECKLESS:
-        if (IsRecoilMove(move))
+                if (IsRecoilMove(move))
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_IRON_FIST:
-        if (IsPunchingMove(move))
+                if (IsPunchingMove(move))
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
     case ABILITY_LETHAL_LEGS:
-        if (IsKickingMove(move))
+                if (IsKickingMove(move))
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
@@ -5609,19 +5609,19 @@ void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u
             //MulModifier(&finalModifier, UQ_4_12(1.25));
         break;
     case ABILITY_PUNK_ROCK:
-        if (IsSoundMove(move))
+                if (IsSoundMove(move))
             gBattleMovePower = (gBattleMovePower * 130 / 100);
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_CACOPHONY:
-        if (IsSoundMove(move))
+                if (IsSoundMove(move))
         {
             gBattleMovePower = (gBattleMovePower * 120 / 100);
 
         }//20% boost w normal type joat would give normal type effective stab w sound moves
         break;//and only(mostly) normal mon get cacophony ex. whismur loudred etc.
     case ABILITY_SONAR:
-        if (IsSoundMove(move))
+                if (IsSoundMove(move))
         {
             gBattleMovePower = (gBattleMovePower * 150 / 100);
             //gBattleMoveDamage = gBattleMoveDamage * 15;

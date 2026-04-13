@@ -5317,6 +5317,7 @@ BattleScript_PrintMonIsRootedRet::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
+@previously superpower
 BattleScript_AtkDefDown::
 	setstatchanger STAT_ATK, 1, TRUE
 	statbuffchange BS_ATTACKER, STAT_CHANGE_CERTAIN | STAT_CHANGE_ALLOW_PTR, BattleScript_AtkDefDownTryDef, BIT_DEF
@@ -5329,6 +5330,21 @@ BattleScript_AtkDefDownTryDef:
 	printfromtable gStatDownStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_AtkDefDownRet:
+	return
+
+@new superpower
+BattleScript_AtkSpAtkDown::
+	setstatchanger STAT_ATK, 1, TRUE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_CERTAIN | STAT_CHANGE_ALLOW_PTR, BattleScript_AtkSpAtkDownTrySpAtk, BIT_SPATK
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_CHANGE, BattleScript_AtkSpAtkDownTrySpAtk
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_AtkSpAtkDownTrySpAtk:
+	setstatchanger STAT_SPATK, 1, TRUE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_CERTAIN | STAT_CHANGE_ALLOW_PTR, BattleScript_AtkSpAtkDownRet
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_AtkSpAtkDownRet:
 	return
 
 BattleScript_DefSpDefDown::

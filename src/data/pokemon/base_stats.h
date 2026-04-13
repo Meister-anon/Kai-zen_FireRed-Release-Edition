@@ -26336,7 +26336,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_GRASSY_SURGE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_MISTY_SURGE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -26353,6 +26353,12 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //grassy glide?
     //reverted stats, just give better moves
     //to separate from rillaboom
+    //potentially set fairy terrain instead 
+    //to make it counter rillaboom use?
+    //done give other tapus hidden ability
+    //no idea what could give other tapus
+    //and not quite sure it makes sense to just leave it
+    //as a taught ability either
 
     [SPECIES_TAPU_FINI] =
     {
@@ -29199,7 +29205,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sCursolaLevelUpLearnset,
         .tmhmLearnset = sCursolaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//give trick room -vsonic
 
     [SPECIES_SIRFETCHD] =
     {
@@ -42034,7 +42040,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SNOW_CLOAK, ABILITY_NONE},
+        .abilities = {ABILITY_SNOW_CLOAK, ABILITY_CLEAR_BODY}, //intimidate protection etc.
         .abilityHidden = {ABILITY_SLUSH_RUSH, ABILITY_LIGHT_METAL},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,

@@ -70,24 +70,24 @@ void AnimTask_BlendBattleAnimPalExclude(u8 taskId)
 #endif
         animBattlers[0] = gBattleAnimAttacker;
         break;
-    case 3:
+    case ANIM_DEF_PARTNER:
         selectedPalettes = 0;
         // fall through
     case ANIM_TARGET:
         animBattlers[0] = gBattleAnimTarget;
         break;
-    case 4:
+    case ANIM_PLAYER_LEFT:
         animBattlers[0] = gBattleAnimAttacker;
         animBattlers[1] = gBattleAnimTarget;
         break;
-    case 5:
+    case ANIM_OPPONENT_LEFT:
         animBattlers[0] = 0xFF;
         break;
-    case 6:
+    case ANIM_PLAYER_RIGHT:
         selectedPalettes = 0;
         animBattlers[0] = BATTLE_PARTNER(gBattleAnimAttacker);
         break;
-    case 7:
+    case ANIM_OPPONENT_RIGHT:
         selectedPalettes = 0;
         animBattlers[0] = BATTLE_PARTNER(gBattleAnimTarget);
         break;

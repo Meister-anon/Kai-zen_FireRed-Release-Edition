@@ -1586,6 +1586,7 @@ static bool32 HandleEndTurnTrainerPartnerSlides(enum BattlerId battler)
             some commands
             end2
  */
+#define REFERENCE_ENDTURN_ABILITIES
 static bool32 (*const sEndTurnEffectHandlers[])(enum BattlerId battler) =
 {
     [ENDTURN_ORDER] = HandleEndTurnOrder,

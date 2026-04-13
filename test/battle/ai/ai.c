@@ -651,6 +651,7 @@ AI_DOUBLE_BATTLE_TEST("AI will not choose Earthquake if it damages the partner")
 
     GIVEN {
         ASSUME(gMovesInfo[MOVE_EARTHQUAKE].target == TARGET_FOES_AND_ALLY);
+        ASSUME(gMovesInfo[MOVE_EARTHQUAKE].target == TARGET_FOES_AND_ALLY);
         AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT);
         PLAYER(SPECIES_WOBBUFFET);
         PLAYER(SPECIES_WOBBUFFET);
@@ -668,6 +669,7 @@ AI_DOUBLE_BATTLE_TEST("AI will choose Earthquake if partner is not alive")
 {
     GIVEN {
         ASSUME(gMovesInfo[MOVE_EARTHQUAKE].target == TARGET_FOES_AND_ALLY);
+        ASSUME(gMovesInfo[MOVE_EARTHQUAKE].target == TARGET_FOES_AND_ALLY);
         AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT);
         PLAYER(SPECIES_WOBBUFFET);
         PLAYER(SPECIES_WOBBUFFET);
@@ -682,6 +684,7 @@ AI_DOUBLE_BATTLE_TEST("AI will choose Earthquake if partner is not alive")
 AI_DOUBLE_BATTLE_TEST("AI will choose Earthquake if it kill an opposing mon and does 1/3 of damage to AI")
 {
     GIVEN {
+        ASSUME(gMovesInfo[MOVE_EARTHQUAKE].target == TARGET_FOES_AND_ALLY);
         ASSUME(gMovesInfo[MOVE_EARTHQUAKE].target == TARGET_FOES_AND_ALLY);
         AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT);
         PLAYER(SPECIES_WOBBUFFET);
@@ -700,6 +703,7 @@ AI_DOUBLE_BATTLE_TEST("AI will the see a corresponding absorbing ability on part
     PARAMETRIZE { ability = ABILITY_STATIC; }
 
     GIVEN {
+        ASSUME(gMovesInfo[MOVE_DISCHARGE].target == TARGET_FOES_AND_ALLY);
         ASSUME(gMovesInfo[MOVE_DISCHARGE].target == TARGET_FOES_AND_ALLY);
         AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT);
         PLAYER(SPECIES_WOBBUFFET);

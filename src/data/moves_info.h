@@ -7065,7 +7065,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_SUPERPOWER] =
     {
         .name = COMPOUND_STRING("Superpower"),
-        .description = COMPOUND_MOVE_STRING("A powerful attack,\nmade with no\nregard for Defense.\nLower's users ATTACK\nand DEFENSE stats."),
+        .description = COMPOUND_MOVE_STRING("A powerful attack,\nmade with no\nregard for Defense.\nLower's users ATTACK\nand SP. ATK stats."),
         .effect = EFFECT_HIT,
         .power = 120,
         .type = TYPE_FIGHTING,
@@ -7077,7 +7077,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .makesContact = TRUE,
         .punchingMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_ATK_DEF_DOWN,
+            .moveEffect = MOVE_EFFECT_ATK_SP_ATK_DOWN, //new effect drops atk stats not def
             .self = TRUE,
         }),
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
@@ -7096,6 +7096,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //replaced w recoil version, but will add back
     //just to have an option
     //actually no I'll just turn it into a tm
+    //in searching through moves decide make unique by making it offense stat version of close combat
+    //as doesn't drop def will give it a slight niche
 
     [MOVE_MAGIC_COAT] =
     {
@@ -7230,6 +7232,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {COMBO_STARTER_FAKE_OUT},
         .battleAnimScript = gBattleAnimMove_KnockOff,
     },//took riggamarolled idea remove dmg boost
+    //if need to could change boost to just 30% making it a base 80 hit
+    //hmm actually may be easier to just boost it to straight 80bp
+    //rather than some modifier
+    //belive doesn't need it
 
 
     [MOVE_ENDEAVOR] =
@@ -9392,6 +9398,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
+        .punchingMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_DEF_SPDEF_DOWN,
             .self = TRUE,
@@ -9402,6 +9409,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_MIND_READER},
         .battleAnimScript = gBattleAnimMove_CloseCombat,
     }, //remove iron fist flag, as want to emphasize superpower instead
+    //nmv add back will update super power another way
 
     [MOVE_PAYBACK] =
     {
@@ -10160,6 +10168,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_SeedBomb,
     },
+    //vsonic potentially buff to do flame burst effect, explodes hits side target?
 
     [MOVE_AIR_SLASH] =
     {

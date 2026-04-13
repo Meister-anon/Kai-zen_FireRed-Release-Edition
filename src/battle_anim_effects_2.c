@@ -3768,6 +3768,7 @@ static void AnimGuardRing(struct Sprite *sprite)
 
 //think change to (strike count minus multihitcounter) & 1
 //should have same effect
+//vsonic check
 void AnimTask_IsFuryCutterHitRight(u8 taskId)
 {
     //gBattleAnimArgs[ARG_RET_ID] = gAnimDisableStructPtr->furyCutterCounter & 1;

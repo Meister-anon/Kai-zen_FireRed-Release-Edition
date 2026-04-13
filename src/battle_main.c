@@ -138,7 +138,7 @@ EWRAM_DATA u8 gBattleTextBuff3[TEXT_BUFF_ARRAY_COUNT] = {0};
 EWRAM_DATA u32 gBattleTypeFlags = 0;
 EWRAM_DATA u8 gBattleEnvironment = 0;
 EWRAM_DATA struct MultiPartnerMenuPokemon gMultiPartnerParty[3] = {0};
-EWRAM_DATA static struct MultiPartnerMenuPokemon *sMultiPartnerPartyBuffer = NULL;
+EWRAM_DATA static struct MultiPartnerMenuPokemon *sMultiPartnerPartyBuffer = NULL;//2 parts here unique to current -vsonic
 EWRAM_DATA u8 *gBattleAnimBgTileBuffer = NULL;
 EWRAM_DATA u8 *gBattleAnimBgTilemapBuffer = NULL;
 EWRAM_DATA u32 gTransformedPersonalities[MAX_BATTLERS_COUNT] = {0}; //wont need as not using values from transform target remove later vsonic important
@@ -7485,6 +7485,9 @@ s32 GetBattleMovePriority(enum BattlerId battler, enum Ability ability, enum Mov
     u16 power = gDynamicBasePower != 0 ? gDynamicBasePower : gMovesInfo[move].power;
     u8 moveType;
     enum HoldEffect holdEffect = GetBattlerHoldEffect(battler);
+
+
+    priority = GetMovePriority(move);
 
 
     priority = GetMovePriority(move);

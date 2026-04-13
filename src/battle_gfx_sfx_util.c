@@ -603,67 +603,66 @@ void LoadBattleBarGfx(u8 unused)
     LZDecompressWram(gBattleInterfaceGfx_BattleBar, gMonSpritesGfxPtr->barFontGfx);
 }
 
-//don't turn into enum
-bool8 BattleInitAllSprites(u8 *state, u8 *battlerId)
+bool8 BattleInitAllSprites(u8 *state1, u8 *battler)
 {
     bool8 retVal = FALSE;
 
-    switch (*state)
+    switch (*state1)
     {
     case 0:
         ClearSpritesBattlerHealthboxAnimData();
-        (*state)++;
+        (*state1)++;
         break;
     case 1:
-        if (!BattleLoadAllHealthBoxesGfx(*battlerId))
+        if (!BattleLoadAllHealthBoxesGfx(*battler))
         {
-            (*battlerId)++;
+            (*battler)++;
         }
         else
         {
-            *battlerId = 0;
-            (*state)++;
+            *battler = 0;
+            (*state1)++;
         }
         break;
     case 2:
-        (*state)++;
+        (*state1)++;
         break;
     case 3:
-        if ((gBattleTypeFlags & BATTLE_TYPE_SAFARI) && *battlerId == 0)
-            gHealthboxSpriteIds[*battlerId] = CreateSafariPlayerHealthboxSprites();
+        if ((gBattleTypeFlags & BATTLE_TYPE_SAFARI) && *battler == 0)
+            gHealthboxSpriteIds[*battler] = CreateSafariPlayerHealthboxSprites();
         else
-            gHealthboxSpriteIds[*battlerId] = CreateBattlerHealthboxSprites(*battlerId);
+            gHealthboxSpriteIds[*battler] = CreateBattlerHealthboxSprites(*battler);
 
-        (*battlerId)++;
-        if (*battlerId == gBattlersCount)
+        (*battler)++;
+        if (*battler == gBattlersCount)
         {
-            *battlerId = 0;
-            (*state)++;
+            *battler = 0;
+            (*state1)++;
         }
         break;
     case 4:
-        InitBattlerHealthboxCoords(*battlerId);
-        if (GetBattlerPosition(*battlerId) <= B_POSITION_OPPONENT_LEFT)
-            DummyBattleInterfaceFunc(gHealthboxSpriteIds[*battlerId], FALSE);
+        InitBattlerHealthboxCoords(*battler);
+        if (GetBattlerPosition(*battler) <= B_POSITION_OPPONENT_LEFT)
+            DummyBattleInterfaceFunc(gHealthboxSpriteIds[*battler], FALSE);
         else
-            DummyBattleInterfaceFunc(gHealthboxSpriteIds[*battlerId], TRUE);
+            DummyBattleInterfaceFunc(gHealthboxSpriteIds[*battler], TRUE);
 
-        (*battlerId)++;
-        if (*battlerId == gBattlersCount)
+        (*battler)++;
+        if (*battler == gBattlersCount)
         {
-            *battlerId = 0;
-            (*state)++;
+            *battler = 0;
+            (*state1)++;
         }
         break;
     case 5:
-        if (!IsOnPlayerSide(*battlerId) || !(gBattleTypeFlags & BATTLE_TYPE_SAFARI))
-            UpdateHealthboxAttribute(gHealthboxSpriteIds[*battlerId], GetBattlerMon(*battlerId), HEALTHBOX_ALL);
-        SetHealthboxSpriteInvisible(gHealthboxSpriteIds[*battlerId]);
-        (*battlerId)++;
-        if (*battlerId == gBattlersCount)
+        if (!IsOnPlayerSide(*battler) || !(gBattleTypeFlags & BATTLE_TYPE_SAFARI))
+            UpdateHealthboxAttribute(gHealthboxSpriteIds[*battler], GetBattlerMon(*battler), HEALTHBOX_ALL);
+        SetHealthboxSpriteInvisible(gHealthboxSpriteIds[*battler]);
+        (*battler)++;
+        if (*battler == gBattlersCount)
         {
-            *battlerId = 0;
-            (*state)++;
+            *battler = 0;
+            (*state1)++;
         }
         break;
     case 6:

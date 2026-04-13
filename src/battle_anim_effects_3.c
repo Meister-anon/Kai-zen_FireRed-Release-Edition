@@ -2420,6 +2420,7 @@ void AnimTask_SetOpponentShadowCallbacks(u8 taskId)
     DestroyAnimVisualTask(taskId);
 }
 
+//vsonic important go over this again update as needed
 void AnimTask_TransformMon(u8 taskId)
 {
     int i, j;
@@ -5639,6 +5640,7 @@ static void AnimRecycle_Step(struct Sprite *sprite)
 }
 
 //idk why this checks these but added safety goggles check to this
+//vsonic double check, make sure safety goggles want to work this way
 void AnimTask_GetWeather(u8 taskId)
 {
     bool32 utilityUmbrellaAffected = GetBattlerHoldEffect(gBattleAnimAttacker) == HOLD_EFFECT_UTILITY_UMBRELLA;

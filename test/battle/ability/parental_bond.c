@@ -56,7 +56,9 @@ SINGLE_BATTLE_TEST("Parental Bond converts multi-target moves into a two-strike 
     GIVEN {
         ASSUME(gMovesInfo[MOVE_EARTHQUAKE].strikeCount < 2);
         ASSUME(gMovesInfo[MOVE_EARTHQUAKE].target == TARGET_FOES_AND_ALLY);
+        ASSUME(gMovesInfo[MOVE_EARTHQUAKE].target == TARGET_FOES_AND_ALLY);
         ASSUME(gMovesInfo[MOVE_ICY_WIND].strikeCount < 2);
+        ASSUME(gMovesInfo[MOVE_ICY_WIND].target == TARGET_BOTH);
         ASSUME(gMovesInfo[MOVE_ICY_WIND].target == TARGET_BOTH);
         PLAYER(SPECIES_KANGASKHAN) { Item(ITEM_KANGASKHANITE); }
         OPPONENT(SPECIES_WOBBUFFET);

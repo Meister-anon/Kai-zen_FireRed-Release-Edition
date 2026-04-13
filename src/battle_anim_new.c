@@ -8362,7 +8362,7 @@ const union AffineAnimCmd* const gSpriteAffineAnimTable_MegaSymbol[] =
 };
 
 // Used for determining which animation to use for Order Up
-//since making battery into commander like look into this vsonic
+//since making battery into commander-like look into this vsonic
 void AnimTask_GetCommanderType(u8 taskId)
 {
     switch (gBattleStruct->battlerState[gEffectBattler].commanderType)

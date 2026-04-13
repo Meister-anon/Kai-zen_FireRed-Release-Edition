@@ -1725,7 +1725,7 @@ static void FightScene4_StartNidorinoAffineAnim(struct IntroSequenceData * this)
 {
     this->nidorinoAnimSprite->x += this->nidorinoAnimSprite->x2;
     this->nidorinoAnimSprite->y += this->nidorinoAnimSprite->y2;
-    obj_pos2_update_enable(this->nidorinoAnimSprite, 0, 0x2A);
+    SetSpriteMatrixAnchor(this->nidorinoAnimSprite, 0, 0x2A);
     this->nidorinoAnimSprite->callback = SpriteCallbackDummy;
     StartSpriteAffineAnim(this->nidorinoAnimSprite, 1);
 }
@@ -1742,7 +1742,7 @@ static void FightScene4_StartGengarAffineAnim(struct IntroSequenceData * this)
     {
         StartSpriteAffineAnim(this->gengarBackSpriteArray[i], 1);
         this->gengarBackSpriteArray[i]->callback = SpriteCB_DummyButNotDummy;
-        obj_pos2_update_enable(this->gengarBackSpriteArray[i], sGengarBackSpritePos2UpdateMods[i][0], sGengarBackSpritePos2UpdateMods[i][1]);
+        SetSpriteMatrixAnchor(this->gengarBackSpriteArray[i], sGengarBackSpritePos2UpdateMods[i][0], sGengarBackSpritePos2UpdateMods[i][1]);
     }
 }
 

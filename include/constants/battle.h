@@ -1341,6 +1341,7 @@ enum __attribute__((packed)) MoveEffect
     MOVE_EFFECT_ALL_STATS_UP,
     MOVE_EFFECT_REMOVE_STATUS,
     MOVE_EFFECT_ATK_DEF_DOWN,
+    MOVE_EFFECT_ATK_SP_ATK_DOWN, //replaces above as super power effect
     MOVE_EFFECT_ATK_PLUS_2,
     MOVE_EFFECT_DEF_PLUS_2,
     MOVE_EFFECT_SPD_PLUS_2,

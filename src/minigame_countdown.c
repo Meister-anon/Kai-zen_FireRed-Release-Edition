@@ -81,7 +81,7 @@ static bool32 RunMinigameCountdownDigitsAnim(u8 spriteId)
     {
     case 0:
         // some sort of affine transform; x transform disabled
-        obj_pos2_update_enable(sprite, 0x800, 0x1A);
+        SetSpriteMatrixAnchor(sprite, 0x800, 0x1A);
         sprite->data[0]++;
         // fallthrough
     case 1:

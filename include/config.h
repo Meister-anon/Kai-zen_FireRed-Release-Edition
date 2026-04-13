@@ -71,8 +71,19 @@
 #define NEW_MEGA_FORMS //add data for new megas using gigantimax sprites/forms etc.
 
 
+#define OW_GFX_COMPRESS                FALSE       // Adds support for compressed OW graphics, (Also compresses pokemon follower graphics).
 
 
+// ORAS Dowsing Machine
+#define I_ORAS_DOWSING_FLAG         0           // Replace 0 with an unused flag to enable the Dowsing Machine mechanic from ORAS.
+#define I_ORAS_DOWSING_SOUNDS       TRUE        // If TRUE, the Dowsing Machine will make sounds based on how far away the hidden item is.
+#define I_ORAS_DOWSING_COLOR_PAL    15          // The color within the palette that will change based on proximity to the item.
+// Color values for the ORAS dowsing distances/anims
+#define I_ORAS_DOWSING_COLOR_NONE   RGB_GRAY
+#define I_ORAS_DOWSING_COLOR_SLOW   RGB2GBA(56, 120, 255)
+#define I_ORAS_DOWSING_COLOR_NORMAL RGB2GBA(24, 216, 24)
+#define I_ORAS_DOWSING_COLOR_FAST   RGB2GBA(255, 255, 40)
+#define I_ORAS_DOWSING_COLOR_FASTER RGB_RED
 
 // ORAS Dowsing Machine
 #define I_ORAS_DOWSING_FLAG         0           // Replace 0 with an unused flag to enable the Dowsing Machine mechanic from ORAS.

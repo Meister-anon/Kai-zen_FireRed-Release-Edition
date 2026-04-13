@@ -242,6 +242,7 @@ bool32 IsSelfSacrificeEffect(u32 move);
 u32 GetAIExplosionChanceFromHP(u32 hpPercent);
 
 
+
 // status checks
 bool32 AI_CanBeConfused(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 move, enum Ability ability);
 bool32 IsBattlerIncapacitated(enum BattlerId battler, enum Ability ability);

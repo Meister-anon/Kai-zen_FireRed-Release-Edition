@@ -1029,7 +1029,7 @@ static void sub_8091420(u8 taskId)
         task->data[1] = RequestDma3Fill(0, gPSSData->wallpaperBgTilemapBuffer, 0x1000, DMA3_32BIT);
         break;
     case 1:
-        if (WaitDma3Request(task->data[1]) == -1)
+        if (CheckForSpaceForDma3Request(task->data[1]) == -1)
             return;
 
         SetBgTilemapBuffer(2, gPSSData->wallpaperBgTilemapBuffer);

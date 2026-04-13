@@ -78,6 +78,50 @@
 #include "load_save.h"
 //#include "test/test_runner_battle.h"
 
+// Helper for accessing command arguments and advancing gBattlescriptCurrInstr.
+//
+// For example accuracycheck is defined as:
+//
+//     .macro accuracycheck failInstr:req, move:req
+//     .byte 0x1
+//     .4byte \failInstr
+//     .2byte \move
+//     .endm
+//
+// Which corresponds to:
+//
+//     CMD_ARGS(const u8 *failInstr, u16 move);
+//
+// The arguments can be accessed as cmd->failInstr and cmd->move.
+// gBattlescriptCurrInstr = cmd->nextInstr; advances to the next instruction.
+#define CMD_ARGS(...) const struct __attribute__((packed)) { u8 opcode; RECURSIVELY(R_FOR_EACH(APPEND_SEMICOLON, __VA_ARGS__)) const u8 nextInstr[0]; } *const cmd UNUSED = (const void *)gBattlescriptCurrInstr
+#define VARIOUS_ARGS(...) CMD_ARGS(u8 battler, u8 id, ##__VA_ARGS__)
+#define NATIVE_ARGS(...) CMD_ARGS(void (*func)(void), ##__VA_ARGS__)
+
+//updated from EE fro is_battler_any_type macro, now in battle.h
+
+//cmd args used for battle script commands
+//various used for varios commands/args
+//native args used in place of cmd args for native args/commands which is a cmd arg that uses call native to call a function and lists its arguements as well.
+//native is best option, as it is the best of both worlds of cmd args and various args, in that it calls logic to be used, and is all from a single byte, rather bypassing the limit of 255 commands 
+//but doesn't have the issue of various where you have to use a switch case and write the logic there explicitly.
+//you can just make a function and call it, cleanly elsewhere.
+
+#define MEMBERS(...) VARARG_8(MEMBERS_, __VA_ARGS__)
+#define MEMBERS_0()
+#define MEMBERS_1(a) a;
+#define MEMBERS_2(a, b) a; b;
+#define MEMBERS_3(a, b, c) a; b; c;
+#define MEMBERS_4(a, b, c, d) a; b; c; d;
+#define MEMBERS_5(a, b, c, d, e) a; b; c; d; e;
+#define MEMBERS_6(a, b, c, d, e, f) a; b; c; d; e; f;
+#define MEMBERS_7(a, b, c, d, e, f, g) a; b; c; d; e; f; g;
+#define MEMBERS_8(a, b, c, d, e, f, g, h) a; b; c; d; e; f; g; h;
+
+//started to understand it, put here for future reference and ease of porting future emerald stuff
+
+
+
 // table to avoid ugly powing on gba (courtesy of doesnt)
 // this returns (i^2.5)/4
 // the quarters cancel so no need to re-quadruple them in actual calculation
@@ -1141,19 +1185,10 @@ static void Cmd_attackcanceler(void)
         //attempt make shield bash skipped by effects
         //that bypass protect, still set touch protect like
         //but otherwise don't ignore damage and set result miss
+        //still in process of updating confusing on what this should be how much should be moved to end turn move end stuff -vsonic important
         if (gProtectStructs[gBattlerTarget].protected != PROTECT_SHIELD_BASH)
         {
             gBattleStruct->moveResultFlags[gBattlerTarget] |= MOVE_RESULT_MISSED;
-            gLastLandedMoves[gBattlerTarget] = 0;
-            gLastHitByType[gBattlerTarget] = 0;
-
-            if (gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_1ST_HIT)
-            {
-                gSpecialStatuses[gBattlerAttacker].parentalBondState = PARENTAL_BOND_OFF; // No second hit if first hit was blocked
-                gSpecialStatuses[gBattlerAttacker].multiHitOn = 0;
-                gMultiHitCounter = 0;
-            }
-            gBattleCommunication[MISS_TYPE] = B_MSG_PROTECTED;
         }
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
@@ -3353,11 +3388,18 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
             gBattlescriptCurrInstr = BattleScript_AllStatsUp;
         }
         break;
-    case MOVE_EFFECT_ATK_DEF_DOWN: // SuperPower
+    case MOVE_EFFECT_ATK_DEF_DOWN: // old SuperPower
         if (!NoAliveMonsForEitherParty())
         {
             BattleScriptPush(battleScript);
             gBattlescriptCurrInstr = BattleScript_AtkDefDown;
+        }
+        break;
+    case MOVE_EFFECT_ATK_SP_ATK_DOWN: //new SuperPower
+        if (!NoAliveMonsForEitherParty())
+        {
+            BattleScriptPush(battleScript);
+            gBattlescriptCurrInstr = BattleScript_AtkSpAtkDown;
         }
         break;
     case MOVE_EFFECT_DEF_SPDEF_DOWN: // Close Combat
