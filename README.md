@@ -209,6 +209,12 @@ and just pull changes in when that's done?
 
 next goals
 
+making another dup of branch to remerge anim branch onto
+attempt build using incomming on controller
+as I went from a branch that worked with anims to one that broke
+and all files relevant shold be in merge conflict think
+should be best way to identify battler issue
+
 
 updating battle effects and scripts to EE
 standard in prep for ability effect changes etc.
