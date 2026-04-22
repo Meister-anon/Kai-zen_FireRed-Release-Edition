@@ -1787,7 +1787,10 @@ static void CopyStringToDestBuffer(void)
     }
 }
 
-static void CopySpeciesNameToDestBuffer(void)
+//need change this to show print on screen
+//but not actually move to dest buffer until
+//state where presses ok button is done
+static void CopySpeciesNameToTextBuffer(void)
 {
     // Copy from the first non-whitespace character
     u8 i;
@@ -1795,21 +1798,23 @@ static void CopySpeciesNameToDestBuffer(void)
     //can't bypass textBuffer otherwise print to screen won't work
     StringCopy(sNamingScreenData->textBuffer, gSpeciesInfo[sNamingScreenData->monSpecies].speciesName);
 
-    for (i = 0; i < sNamingScreenData->template->maxChars; i++)
+    /*for (i = 0; i < sNamingScreenData->template->maxChars; i++)
     {
         if (sNamingScreenData->textBuffer[i] != CHAR_SPACE && sNamingScreenData->textBuffer[i] != EOS)
         {
             StringCopyN(sNamingScreenData->destBuffer, sNamingScreenData->textBuffer, sNamingScreenData->template->maxChars + 1);
             break;
         }
-    }
+    }*/
 }
+
 
 //works, just need to fix 
 //symbol display at top
+//OK Fixed
 static void ResetNametoSpeciesName(void)
 {
-    CopySpeciesNameToDestBuffer();
+    CopySpeciesNameToTextBuffer();
     PrintBufferCharactersOnScreen();
     CopyBgTilemapBufferToVram(3);
     PlaySE(SE_SELECT);

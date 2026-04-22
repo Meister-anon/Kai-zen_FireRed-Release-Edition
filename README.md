@@ -1,12 +1,26 @@
 .
 Branch Goals:
 
+fixed for the most part anim stuff
+issue rn is battle controller
+breaks 2 different ways
+wild battles vs trainer battles
+wild battles break at health adjust post move use crash resets game
+but status moves also seem to break or skip anim and freeze game
+
+in trainer battle crashes as soon as both sides mon are sent out
+but before action select screen appears
 
 identified issue with my summ screen rename callback
 if I pick reset name but then delete it so its blank
 it still resets nickname rather than keeping current nickname
 so change to check if char 0 has a character
 if not keep nickname upon callback return
+
+ok so issue is I have it set to buffer before it actually
+confirms I selected it.
+fixed
+
 
 also setup evo set as feature of pokedex
 as that's how it works in manga
