@@ -53,7 +53,7 @@ gBattleAnimMove_PlasmaRailgun::
 gBattleAnimMove_BoltBeam::
 gBattleAnimMove_Backstab::
 gBattleAnimMove_Pounce::
-gBattleAnimMove_Cheapshot::
+gBattleAnimMove_CheapShot::
 gBattleAnimMove_ColdFront::
 gBattleAnimMove_ShockingMalice::
 gBattleAnimMove_BruteForce::
@@ -32061,6 +32061,20 @@ gBattleAnimGeneral_IllusionOff::
 gBattleAnimGeneral_FormChange::
 	monbg ANIM_ATTACKER
 	createvisualtask AnimTask_TransformMon, 2, SPECIES_GFX_CHANGE_FORM_CHANGE
+	waitforvisualfinish
+	clearmonbg ANIM_ATTACKER
+	end
+
+gBattleAnimGeneral_FormChangeDisguise::
+	playsewithpan SE_CONTEST_CONDITION_LOSE, SOUND_PAN_TARGET
+	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 2, 0, 10, 1
+	waitforvisualfinish
+	playsewithpan SE_CONTEST_CURTAIN_FALL, SOUND_PAN_TARGET
+	goto gBattleAnimGeneral_FormChangeInstant
+
+gBattleAnimGeneral_FormChangeInstant::
+	monbg ANIM_ATTACKER
+	createvisualtask AnimTask_TransformMon, 2, SPECIES_GFX_CHANGE_FORM_CHANGE_INSTANT
 	waitforvisualfinish
 	clearmonbg ANIM_ATTACKER
 	end
