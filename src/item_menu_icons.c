@@ -218,6 +218,15 @@ void FreeBerryTagSpriteAssets(void)
 //tm case has its on list for the tm discs,
 //but that is separate
 //appears placement within list doesn't matter, just item id
+//vsonic important need remove this use python
+//add icon and palette to item table
+//then remove this,
+//and finally take EE item graphics and 
+//fill in what doesn't exist here
+//keep track of current and next line
+//use current as previous line
+//that way search for itemicon on line after secondaryId
+//if there skip, if not pull in Expansion values
 #define ITEM_ICONS_TABLE
 static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_NONE] = {gFile_graphics_items_icons_question_mark_sheet, gFile_graphics_items_icon_palettes_question_mark_palette},
