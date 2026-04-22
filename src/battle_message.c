@@ -75,6 +75,8 @@ static const u8 sText_Your1[] = _("Your");
 static const u8 sText_Opposing1[] = _("The opposing");
 static const u8 sText_Your2[] = _("your");
 static const u8 sText_Opposing2[] = _("the opposing");
+static const u8 sText_EmptyStatus[] = _("$$$$$$$");
+
 
 static const u8 sText_WildPkmnAppeared[] = _("Wild {B_OPPONENT_MON1_NAME} appeared!\p"); // that way instead of constantly hearing player name, its your pokemon's name
 static const u8 sText_WildPkmnAppeared2[] = _("Wild {B_OPPONENT_MON1_NAME} appeared!\p");
@@ -1489,15 +1491,15 @@ u32 BattleStringExpandPlaceholdersToDisplayedString(const u8 *src)
 static const u8* TryGetStatusString(u8 *src) //important
 {
     u32 i;
-    u8 status[] = _("$$$$$$$");
+    u8 status[8];
     u32 chars1, chars2;
     u8* statusPtr;
 
+    memcpy(status, sText_EmptyStatus, min(ARRAY_COUNT(status), ARRAY_COUNT(sText_EmptyStatus)));
     statusPtr = status;
-    for (i = 0; i < 8; i++)
+    for (i = 0; i < ARRAY_COUNT(status); i++)
     {
-        if (*src == EOS)
-            break;
+        if (*src == EOS) break; // one line required to match -g
         *statusPtr = *src;
         src++;
         statusPtr++;
@@ -1739,8 +1741,8 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize)
     s32 i;
     u8 fontId = FONT_NORMAL;
     //prob won't need below cuz have functions for
-    u8 side;
-    struct Pokemon *party;
+    //u8 side;
+    //struct Pokemon *party;
     u16 species;
 
 
@@ -1811,6 +1813,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize)
                 break;
             case B_OPPONENT_MON1_NAME: //B_OPPONENT_MON1_NAME   first enemy poke name
             GetBattlerNick(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT), text);
+                toCpy = text;
                 break;
             case B_PLAYER_MON2_NAME: //B_PLAYER_MON2_NAME   second player poke name
             GetBattlerNick(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT), text);
