@@ -1692,7 +1692,7 @@ const u16 sCharmanderBall[] = {
     SPECIES_PONYTA,
     SPECIES_FUECOCO,
     SPECIES_NUMEL, //removed litwick put them in laverge tower
-    SPECIES_NOIBAT, //replaced tediursa, looks like a starter but doesn't quite match type since it resists water, but keeping
+    SPECIES_CHARCADET, //re replaced noibat post type change //replaced tediursa, looks like a starter but doesn't quite match type since it resists water, but keeping
     SPECIES_STUNKY, //can show off new ability?
     SPECIES_FLETCHLING,
     SPECIES_CUFANT,

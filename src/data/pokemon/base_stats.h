@@ -23589,7 +23589,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         45,
         40
         ),
-        MON_TYPES(TYPE_FLYING, TYPE_DRAGON),
+        MON_TYPES(TYPE_NORMAL, TYPE_DRAGON),
         .catchRate = 190,
         .expYield = 49,
         //.evYield_Speed = 1,
@@ -23624,7 +23624,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         97,
         80
         ),
-        MON_TYPES(TYPE_FLYING, TYPE_DRAGON),
+        MON_TYPES(TYPE_NORMAL, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 187,
         //.evYield_Speed = 2,
@@ -23645,6 +23645,12 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sNoivernTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //nothing special bout its flight ability, thnk make
+    //normal instead plus main move is boomburst so get boost on that
+    //IDK if need change abilities more i.e more sound abilities
+    //since removing flying type think can't put in starter pool
+    //as grass advantage type
+    //instead move mon to rock tunnel i.e darkest place
 
     [SPECIES_XERNEAS] =
     {
@@ -33085,7 +33091,9 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sCharcadetLevelUpLearnset,
         .tmhmLearnset = sCharcadetTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, 0/*ITEM_AUSPICIOUS_ARMOR*/, 0,  SPECIES_ARMAROUGE},
-                                {EVO_ITEM, 0/*ITEM_MALICIOUS_ARMOR*/, 0,  SPECIES_CERULEDGE}),
+                                {EVO_ITEM, 0/*ITEM_MALICIOUS_ARMOR*/, 0,  SPECIES_CERULEDGE},
+                                {EVO_LEVEL_DAY, RELATIVE_EVO(30, ABOVE_AVERAGE_EFFORT), 0, SPECIES_ARMAROUGE},
+                                {EVO_LEVEL_NIGHT, RELATIVE_EVO(30, ABOVE_AVERAGE_EFFORT), 0, SPECIES_CERULEDGE}),
     },//vsonic
 
     [SPECIES_ARMAROUGE] =
@@ -35521,7 +35529,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilityLearnset = sGreavardAbilityLearnset,
         .levelUpLearnset = sGreavardLevelUpLearnset,
         .tmhmLearnset = sGreavardTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL_NIGHT, 30, 0,  SPECIES_HOUNDSTONE}),
+        .evolutions = EVOLUTION({EVO_LEVEL_NIGHT, RELATIVE_EVO(30, MEDIUM_EFFORT), 0,  SPECIES_HOUNDSTONE}),
     },
 
     [SPECIES_HOUNDSTONE] =
@@ -37612,6 +37620,9 @@ const struct SpeciesInfo gSpeciesInfo[] =
         //.formSpeciesIdTable = sGimmighoulFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_NONE, 0, 0,  SPECIES_GHOLDENGO}),
     }, //not gonna use this form
+    //hmmm could make this an hp based form change
+    //gains run away when hp falls below 50% so can always swithc out
+    //or escape
 
     [SPECIES_GHOLDENGO] =
     {

@@ -16,6 +16,15 @@ each thing should be checked off when done
 note: personal notes within repo- zsonic used as points removed ewram was also spots to double check,
 but forgot and eventually used vsonic instead for notation to refer back to
 
+last thing major gameplay change plan use
+rtc real time clock but to get around day night lock based on play time
+make game swap clock 12 hours at game start at 50% odds so if you load in to day time
+but want night just restart the game and you can easily get what you need.
+
+potentially make separate function that jumps clock checks if it triggered
+to not adjust day based events as don't want to change day just because player was attempting
+to reroll day night schedule.  guess at time move timer forward (backward?)
+store day to a field to repply day so not changed.
 */
 
 /*
