@@ -3851,7 +3851,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     /*if (ItemIsMail(GetMonData(&mons[slotId], MON_DATA_HELD_ITEM)))
         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_MAIL);*/
     //else
-    if (CanEvolve(species))
+    if (CanEvolve(species) && FlagGet(FLAG_SYS_POKEDEX_GET))
     {
         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_EVO_STATE);
     }
