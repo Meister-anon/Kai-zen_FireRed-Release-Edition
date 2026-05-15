@@ -21,12 +21,20 @@ ok so issue is I have it set to buffer before it actually
 confirms I selected it.
 fixed
 
+ok weird stuff check other branches
+tail whip doesn't work for anim
+acts like harden
+
+ non volatile status either doesn't work or breaks
+ but moves like struggle bug play anim and seem
+ to do status effect afterward
 
 also setup evo set as feature of pokedex
 as that's how it works in manga
 so put a flag check on implementation in summary screen
 party menu  and update oak script when he gives pokedex
 that it can also control evolution
+-made change need change script
 
 sigh issues with new setup builds but oak battle fails
 as if memory glitch testing regular battle no idea how to track
