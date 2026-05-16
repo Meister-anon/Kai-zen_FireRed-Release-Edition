@@ -15,6 +15,9 @@ and my player move info callback, which hopefully can be done in a cleaner way
 tldr replace animation files and controler files w EE equivalents add back 
 few custom things.
 
+identified that pc crash issue is coming from this 
+anim branch
+
 If can figure out workspaces that later comparison repplication can hopefully 
 go smoother
 
