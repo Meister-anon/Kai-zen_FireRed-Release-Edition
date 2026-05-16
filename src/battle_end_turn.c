@@ -549,6 +549,9 @@ static bool32 HandleEndTurnPoison(enum BattlerId battler)
     return effect;
 }
 
+//think best replace with function check that handles burn dmg
+//since I've updated things that effect it etc.
+//same for toxic dmg above -vsonic important
 static bool32 HandleEndTurnBurn(enum BattlerId battler)
 {
     bool32 effect = FALSE;

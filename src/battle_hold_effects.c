@@ -605,11 +605,13 @@ static enum ItemEffect TryToxicOrb(enum BattlerId battler)
     {
         gBattleMons[battler].status1 = STATUS1_TOXIC_POISON;
         BattleScriptExecute(BattleScript_ToxicOrb);
+        GetBattlerPartyState(battler)->statusSetViaItem = gBattleMons[battler].item;
         effect = ITEM_STATUS_CHANGE;
     }
 
     return effect;
-}
+}//toxic doesn't really have need for statusviaitem but makes sense include for consistency I guess
+//vsonic
 
 //want to change flame orb,
 //gen 9 burn does 1\16 dmg per turn
