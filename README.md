@@ -21,6 +21,12 @@ ok so issue is I have it set to buffer before it actually
 confirms I selected it.
 fixed
 
+more weird stuff broken sigh debug mode broken seems
+with new additions attempt...wonderful the pc itself is 
+fucking broken no idea why
+I just want things to work but nothing ever does
+
+
 ok weird stuff check other branches
 tail whip doesn't work for anim
 acts like harden

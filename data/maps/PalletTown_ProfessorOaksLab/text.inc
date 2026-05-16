@@ -223,6 +223,18 @@ PalletTown_ProfessorOaksLab_Text_OakCompleteMonGuideWasMyDream:: @ 818E784
     .string "This is a great undertaking in\n"
     .string "POKéMON history!$"
 
+PalletTown_ProfessorOaksLab_Text_OakExplainPokedexEvo:: @ 818E6D0
+    .string "OAK: \. Ah, that {RIVAL}, so impatient.\n"
+    .string "I wasn't done with my explanation.\p"
+    .string "The POKéDEX is much more than\n"
+    .string "just an encyclopedia, its also\l"
+    .string "a special training tool.\p"
+    .string "Those granted a POKéDEX, are able to\n"
+    .string "control whether their pokemon evolve!\p"
+    .string "Isn't that interesting!\p"
+    .string "Ah, but I've kept you long enough\n"
+    .string "get out there the world awaits!$"
+
 PalletTown_ProfessorOaksLab_Text_OakMonsAroundWorldWait:: @ 818E871
     .string "POKéMON around the world wait for\n"
     .string "you, {PLAYER}!$"

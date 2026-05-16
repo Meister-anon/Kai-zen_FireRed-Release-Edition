@@ -808,8 +808,19 @@ PalletTown_ProfessorOaksLab_EventScript_ReceiveDexScene:: @ 816961E
 	setvar VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 1
 	setvar VAR_MAP_SCENE_PALLET_TOWN_GARYS_HOUSE, 1
 	setvar VAR_MAP_SCENE_ROUTE22, 1
+    compare VAR_TEMP_2, 1
+	call_if_eq PalletTown_ProfessorOaksLab_EventScript_PlayerFaceOak
+    msgbox PalletTown_ProfessorOaksLab_Text_OakExplainPokedexEvo    
+    closemessage
 	release
 	end
+
+@mostly works just missing stuff to face correct direction
+@faces up only for north others look fine enough
+PalletTown_ProfessorOaksLab_EventScript_PlayerFaceOak::
+    applymovement OBJ_EVENT_ID_PLAYER, Movement_FaceUp
+    waitmovement 0
+	return
 
 PalletTown_ProfessorOaksLab_EventScript_OakBringDexesOverNorth:: @ 8169845
 	applymovement LOCALID_PROF_OAK, PalletTown_ProfessorOaksLab_Movement_OakBringDexesOver
@@ -1153,6 +1164,7 @@ PalletTown_ProfessorOaksLab_EventScript_DexSceneRivalFacePlayerEastWest:: @ 8169
 	return
 
 PalletTown_ProfessorOaksLab_EventScript_RivalExitNorth:: @ 8169B69
+    setvar VAR_TEMP_2, 1
 	applymovement OBJ_EVENT_ID_PLAYER, PalletTown_ProfessorOaksLab_Movement_WatchRivalEnterEastWest
 	applymovement LOCALID_RIVAL, PalletTown_ProfessorOaksLab_Movement_RivalExit
 	waitmovement 0
