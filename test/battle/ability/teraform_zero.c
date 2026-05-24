@@ -39,7 +39,7 @@ DOUBLE_BATTLE_TEST("Teraform Zero can be supressed")
 SINGLE_BATTLE_TEST("Teraform Zero can be replaced")
 {
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_WORRY_SEED].effect == EFFECT_WORRY_SEED);
+        ASSUME(gMovesInfo[MOVE_WORRY_SEED].effect == EFFECT_OVERWRITE_ABILITY);
         ASSUME(gMovesInfo[MOVE_REST].effect == EFFECT_REST);
         PLAYER(SPECIES_TERAPAGOS);
         OPPONENT(SPECIES_WHIMSICOTT) { Ability(ABILITY_PRANKSTER); }

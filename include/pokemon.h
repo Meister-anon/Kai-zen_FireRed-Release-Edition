@@ -125,7 +125,7 @@ union PokemonSubstruct
     u16 raw[NUM_SUBSTRUCT_BYTES / 2]; // /2 because it's u16, not u8
 };*/
 
-struct Ability
+struct AbilityInfo
 {
     u8 name[ABILITY_NAME_LENGTH + 1];
     const u8 *description;
@@ -332,6 +332,17 @@ struct BattleTowerPokemon //apparently used for both battle tower leftover from 
 
 #define BATTLE_STATS_NO 8
 
+struct Volatiles
+{
+    //VOLATILE_DEFINITIONS(UNPACK_VOLATILE_STRUCT)
+    // Expands to:
+    // u32 confusionTurns:3;
+    // u32 flinched:1;
+    // u32 uproarTurns:3;
+    // etc.
+    u32 infatuation:3;
+};
+
 struct BattlePokemon
 {
     /*0x58*/ u32 otId; //may not need status4 in struct status3 & 4 seem to work through gstatuses3 & gstatus4 the same as status 2 already?
@@ -371,6 +382,7 @@ struct BattlePokemon
     /*0x4C*/ u32 status1;   //stays on switch
     /*0x50*/ u32 status2;   //temp status lost on switch
     /*0x54*/ u32 status4;   //new addition  for new statuses mostly for new wrap effects, plan to make equivalent of status2
+             struct Volatiles volatiles;
 };                   //idk guessing statu1 2 and now 4 are different from status3 as its applied direclty to a mon/?  status3 seems more like a set of temp states?
 
 //believe all fields default to 0, if not set?

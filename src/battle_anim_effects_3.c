@@ -5629,10 +5629,11 @@ static void AnimRecycle_Step(struct Sprite *sprite)
 //idk why this checks these but added safety goggles check to this
 void AnimTask_GetWeather(u8 taskId)
 {
-    bool32 safetyGogglesAffeccted = GetBattlerHoldEffect(gBattleAnimAttacker) == HOLD_EFFECT_SAFETY_GOGGLES;
+    bool32 utilityUmbrellaAffected = GetBattlerHoldEffect(gBattleAnimAttacker, FALSE) == HOLD_EFFECT_UTILITY_UMBRELLA;
+    bool32 safetyGogglesAffeccted = GetBattlerHoldEffect(gBattleAnimAttacker, FALSE) == HOLD_EFFECT_SAFETY_GOGGLES;
 
     gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_NONE;
-    if (gWeatherMoveAnim & WEATHER_SUN && !utilityUmbrellaAffected)
+    if (gWeatherMoveAnim & WEATHER_SUN_ANY && !utilityUmbrellaAffected)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_SUN;
     else if (gWeatherMoveAnim & WEATHER_RAIN && !utilityUmbrellaAffected)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_RAIN;

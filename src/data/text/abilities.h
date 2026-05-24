@@ -317,7 +317,7 @@ static const u8 sPhantomTouchDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ga
 //*note if ability text extends over the line i.e more than 40 chars on a line,
 //even if max is below total limit causes a overflow glitch, that corrupts summary screen data
 
-const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
+const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 {
     [ABILITY_NONE] =
     {

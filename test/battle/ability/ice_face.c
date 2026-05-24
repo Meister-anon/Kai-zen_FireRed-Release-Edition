@@ -32,11 +32,11 @@ SINGLE_BATTLE_TEST("Ice Face does not block special moves, Eiscue stays in Ice F
 SINGLE_BATTLE_TEST("Ice Face is restored if hail or snow begins while Noice Face Eiscue is out")
 {
     u32 move;
-    PARAMETRIZE { move = MOVE_SNOWSCAPE; }
+    PARAMETRIZE { move = MOVE_SNOWESCAPE; }
     PARAMETRIZE { move = MOVE_HAIL; }
     GIVEN {
         ASSUME(gMovesInfo[MOVE_TACKLE].category == DAMAGE_CATEGORY_PHYSICAL);
-        ASSUME(gMovesInfo[MOVE_SNOWSCAPE].effect == EFFECT_SNOWSCAPE);
+        ASSUME(gMovesInfo[MOVE_SNOWESCAPE].effect == EFFECT_SNOWSCAPE);
         ASSUME(gMovesInfo[MOVE_HAIL].effect == EFFECT_HAIL);
         PLAYER(SPECIES_EISCUE);
         OPPONENT(SPECIES_WOBBUFFET);
@@ -57,11 +57,11 @@ SINGLE_BATTLE_TEST("Ice Face is restored if hail or snow begins while Noice Face
 SINGLE_BATTLE_TEST("Ice Face is restored if Noice Face Eiscue is sent in while hail or snow is active")
 {
     u32 move;
-    PARAMETRIZE { move = MOVE_SNOWSCAPE; }
+    PARAMETRIZE { move = MOVE_SNOWESCAPE; }
     PARAMETRIZE { move = MOVE_HAIL; }
     GIVEN {
         ASSUME(gMovesInfo[MOVE_TACKLE].category == DAMAGE_CATEGORY_PHYSICAL);
-        ASSUME(gMovesInfo[MOVE_SNOWSCAPE].effect == EFFECT_SNOWSCAPE);
+        ASSUME(gMovesInfo[MOVE_SNOWESCAPE].effect == EFFECT_SNOWSCAPE);
         ASSUME(gMovesInfo[MOVE_HAIL].effect == EFFECT_HAIL);
         PLAYER(SPECIES_EISCUE);
         PLAYER(SPECIES_WOBBUFFET);
@@ -83,11 +83,11 @@ SINGLE_BATTLE_TEST("Ice Face is restored if Noice Face Eiscue is sent in while h
 SINGLE_BATTLE_TEST("Ice Face is not restored if Eiscue changes into Noice Face form while there's already hail or snow")
 {
     u32 move;
-    PARAMETRIZE { move = MOVE_SNOWSCAPE; }
+    PARAMETRIZE { move = MOVE_SNOWESCAPE; }
     PARAMETRIZE { move = MOVE_HAIL; }
     GIVEN {
         ASSUME(gMovesInfo[MOVE_TACKLE].category == DAMAGE_CATEGORY_PHYSICAL);
-        ASSUME(gMovesInfo[MOVE_SNOWSCAPE].effect == EFFECT_SNOWSCAPE);
+        ASSUME(gMovesInfo[MOVE_SNOWESCAPE].effect == EFFECT_SNOWSCAPE);
         ASSUME(gMovesInfo[MOVE_HAIL].effect == EFFECT_HAIL);
         PLAYER(SPECIES_EISCUE) { HP(1); }
         OPPONENT(SPECIES_WOBBUFFET);
@@ -128,7 +128,7 @@ SINGLE_BATTLE_TEST("Ice Face doesn't transform Eiscue if Cloud Nine/Air Lock is 
         OPPONENT(SPECIES_RAYQUAZA) { Ability(ABILITY_AIR_LOCK); }
     } WHEN {
         TURN { MOVE(player, MOVE_CELEBRATE); MOVE(opponent, MOVE_TACKLE); }
-        TURN { MOVE(player, MOVE_SNOWSCAPE); MOVE(opponent, MOVE_TACKLE); }
+        TURN { MOVE(player, MOVE_SNOWESCAPE); MOVE(opponent, MOVE_TACKLE); }
     } SCENE {
         ABILITY_POPUP(player, ABILITY_ICE_FACE);
         MESSAGE("Eiscue transformed!");

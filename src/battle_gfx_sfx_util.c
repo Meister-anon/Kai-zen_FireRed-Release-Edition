@@ -525,8 +525,8 @@ bool8 BattleLoadAllHealthBoxesGfx(u8 state)
         {
             LoadSpritePalette(&sSpritePalettes_HealthBoxHealthBar[0]);
             LoadSpritePalette(&sSpritePalettes_HealthBoxHealthBar[1]);
-            LoadIndicatorSpritesGfx();
-            CategoryIcons_LoadSpritesGfx();
+            //LoadIndicatorSpritesGfx();
+            //CategoryIcons_LoadSpritesGfx();
         }
         else if (!IsDoubleBattle())
         {
@@ -853,10 +853,10 @@ void LoadBattleMonGfxAndAnimate(u8 battler, bool8 loadMonSprite, u8 spriteId)
         gSprites[spriteId].y = GetBattlerSpriteDefault_Y(battler);
 }
 
-void TrySetBehindSubstituteSpriteBit(u8 battler, enum Move move)
+void TrySetBehindSubstituteSpriteBit(u8 battler, u16 move)
 {
-    enum BattleMoveEffects effect = GetMoveEffect(move);
-    if (effect == EFFECT_SUBSTITUTE || effect == EFFECT_SHED_TAIL)
+    u16 effect = GetMoveEffect(move);
+    if (effect == EFFECT_SUBSTITUTE/* || effect == EFFECT_SHED_TAIL*/)
         gBattleSpritesDataPtr->battlerData[battler].behindSubstitute = 1;
 }
 
@@ -1050,7 +1050,7 @@ void SetBattlerShadowSpriteCallback(u8 battler, u16 species)
     }
     else*/
     {
-        if (IsOnPlayerSide(battler) || gBattleScripting.monCaught)
+        if (IsOnPlayerSide(battler) /*|| gBattleScripting.monCaught*/)
         {
             gSprites[gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdPrimary].callback = SpriteCB_SetInvisible;
             return;

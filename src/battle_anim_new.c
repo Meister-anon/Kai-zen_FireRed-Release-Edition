@@ -7748,7 +7748,7 @@ void AnimTask_ShellSideArm(u8 taskId)
 
 void AnimTask_TerrainPulse(u8 taskId)
 {
-    if (IsAnyTerrainAffected(gBattleAnimAttacker, GetBattlerAbility(gBattleAnimAttacker), GetBattlerHoldEffect(gBattleAnimAttacker), gFieldStatuses))
+    /*if (IsAnyTerrainAffected(gBattleAnimAttacker, GetBattlerAbility(gBattleAnimAttacker), GetBattlerHoldEffect(gBattleAnimAttacker, TRUE), gFieldStatuses))
     {
         if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
             gBattleAnimArgs[0] = TYPE_ELECTRIC;
@@ -7761,7 +7761,7 @@ void AnimTask_TerrainPulse(u8 taskId)
         else //failsafe
             gBattleAnimArgs[0] = 0;
     }
-    else
+    else*/
     {
         gBattleAnimArgs[0] = 0;
     }

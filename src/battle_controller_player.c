@@ -396,7 +396,7 @@ static void HandleInputChooseTarget(u32 battler)
         EndBounceEffect(gMultiUsePlayerCursor, BOUNCE_HEALTHBOX);
         
     }
-    else if (JOY_NEW(DPAD_LEFT | DPAD_UP) && !(moveTarget & MOVE_TARGET_USER))
+    else if (JOY_NEW(DPAD_LEFT | DPAD_UP) && !(moveTarget & TARGET_USER))
     {
         PlaySE(SE_SELECT);
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCB_HideAsMoveTarget;
@@ -422,7 +422,7 @@ static void HandleInputChooseTarget(u32 battler)
             case B_POSITION_PLAYER_RIGHT:
                 if (battler != gMultiUsePlayerCursor)
                     ++i;
-                else if (gBattleMoves[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & MOVE_TARGET_USER_OR_SELECTED)
+                else if (gBattleMoves[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
                     ++i;
                 break;
             case B_POSITION_OPPONENT_LEFT:
@@ -443,7 +443,7 @@ static void HandleInputChooseTarget(u32 battler)
         }
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCB_ShowAsMoveTarget;
     }
-    else if (JOY_NEW(DPAD_RIGHT | DPAD_DOWN) && !(moveTarget & MOVE_TARGET_USER)) //alright works perfectly now
+    else if (JOY_NEW(DPAD_RIGHT | DPAD_DOWN) && !(moveTarget & TARGET_USER)) //alright works perfectly now
     {
         PlaySE(SE_SELECT);
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCB_HideAsMoveTarget;
@@ -469,7 +469,7 @@ static void HandleInputChooseTarget(u32 battler)
             case B_POSITION_PLAYER_RIGHT:
                 if (battler != gMultiUsePlayerCursor)
                     ++i;
-                else if (gBattleMoves[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & MOVE_TARGET_USER_OR_SELECTED)
+                else if (gBattleMoves[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
                     ++i;
                 break;
             case B_POSITION_OPPONENT_LEFT:
@@ -614,16 +614,16 @@ void HandleInputChooseMove(u32 battler)    //test new targetting setup
         {
             if (moveInfo->monType1 != TYPE_GHOST && moveInfo->monType2 != TYPE_GHOST && moveInfo->monType3 != TYPE_GHOST
             && !DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GHOST, FALSE)) //VSONIC hopefully works need check
-                moveTarget = MOVE_TARGET_USER;
+                moveTarget = TARGET_USER;
             else
-                moveTarget = MOVE_TARGET_SELECTED;
+                moveTarget = TARGET_SELECTED;
         }
         else
         {
             moveTarget = gBattleMoves[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
         }
 
-        if (moveTarget & MOVE_TARGET_USER)
+        if (moveTarget & TARGET_USER)
             gMultiUsePlayerCursor = battler;
         else
             gMultiUsePlayerCursor = GetOpposingSideBattler(battler); //seems these had nothign to do with it, effect is after use moveo, not at choose move
@@ -631,26 +631,26 @@ void HandleInputChooseMove(u32 battler)    //test new targetting setup
         //think
         if (gMain.inBattle && !(gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_ROTATION | BATTLE_TYPE_TWO_OPPONENTS)))//(!gBattleResources->bufferA[battler][1]) // not a double battle  //why did they use buffer for this instead of actually using a check for double battle?
         {
-            if (moveTarget & MOVE_TARGET_USER_OR_SELECTED)// && !gBattleResources->bufferA[battler][2])
+            if (moveTarget & TARGET_USER_OR_SELECTED)// && !gBattleResources->bufferA[battler][2])
                 canSelectTarget = 1;
         }
         else if (gMain.inBattle && (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_ROTATION | BATTLE_TYPE_TWO_OPPONENTS)))// double battle - specifically need adjust in here
         {
-            if (!(moveTarget & (MOVE_TARGET_RANDOM | MOVE_TARGET_BOTH | MOVE_TARGET_DEPENDS | MOVE_TARGET_FOES_AND_ALLY | MOVE_TARGET_OPPONENTS_FIELD | MOVE_TARGET_USER)))
+            if (!(moveTarget & (TARGET_RANDOM | TARGET_BOTH | TARGET_DEPENDS | TARGET_FOES_AND_ALLY | TARGET_OPPONENTS_FIELD | TARGET_USER)))
                 canSelectTarget = 1; // either selected or user
-            if (moveTarget == (MOVE_TARGET_USER | MOVE_TARGET_ALLY) && IsBattlerAlive(BATTLE_PARTNER(battler)))
+            if (moveTarget == (TARGET_USER | TARGET_ALLY) && IsBattlerAlive(BATTLE_PARTNER(battler)))
                 canSelectTarget = 1;
             if (moveInfo->currentPp[gMoveSelectionCursor[battler]] == 0)
             {
                 canSelectTarget = 0;
             }
-            else if (!(moveTarget & (MOVE_TARGET_USER | MOVE_TARGET_USER_OR_SELECTED)) && CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_ACTIVE, battler) <= 1)
+            else if (!(moveTarget & (TARGET_USER | TARGET_USER_OR_SELECTED)) && CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_ACTIVE, battler) <= 1)
             {
                 gMultiUsePlayerCursor = GetDefaultMoveTarget(battler);
                 canSelectTarget = 0;
             }
 
-            if ((moveTarget & MOVE_TARGET_ALL_BATTLERS) == MOVE_TARGET_ALL_BATTLERS)
+            if ((moveTarget & TARGET_ALL_BATTLERS) == TARGET_ALL_BATTLERS)
             {
                 u32 i = 0;
                 for (i = 0; i < gBattlersCount; i++)
@@ -658,9 +658,9 @@ void HandleInputChooseMove(u32 battler)    //test new targetting setup
 
                 canSelectTarget = 3;
             }
-            else if (moveTarget & (MOVE_TARGET_OPPONENTS_FIELD | MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY | MOVE_TARGET_USER)) //think just this?
+            else if (moveTarget & (TARGET_OPPONENTS_FIELD | TARGET_BOTH | TARGET_FOES_AND_ALLY | TARGET_USER)) //think just this?
             {
-                if (moveTarget & MOVE_TARGET_USER)
+                if (moveTarget & TARGET_USER)
                 {
                     TryShowAsTarget(gMultiUsePlayerCursor); //issue doesn't stop blinking
                     canSelectTarget = 1; //ok seems to work now
@@ -669,7 +669,7 @@ void HandleInputChooseMove(u32 battler)    //test new targetting setup
                 {
                     TryShowAsTarget(gMultiUsePlayerCursor);
                     TryShowAsTarget(BATTLE_PARTNER(gMultiUsePlayerCursor));
-                    if (moveTarget & MOVE_TARGET_FOES_AND_ALLY)
+                    if (moveTarget & TARGET_FOES_AND_ALLY)
                         TryShowAsTarget(BATTLE_PARTNER(battler));
                     canSelectTarget = 2;
                 } //no reason use true/false with canselecttarget as they are case values, not bools
@@ -696,7 +696,7 @@ void HandleInputChooseMove(u32 battler)    //test new targetting setup
         case 1:
             gBattlerControllerFuncs[battler] = HandleInputChooseTarget;
 
-            if (moveTarget & (MOVE_TARGET_USER | MOVE_TARGET_USER_OR_SELECTED))
+            if (moveTarget & (TARGET_USER | TARGET_USER_OR_SELECTED))
                 gMultiUsePlayerCursor = battler;
             else if (gAbsentBattlerFlags & (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)))
                 gMultiUsePlayerCursor = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
@@ -3233,9 +3233,9 @@ static void PreviewDeterminativeMoveTargets(u32 battler) //determine who targett
         {
             if (moveInfo->monType1 != TYPE_GHOST && moveInfo->monType2 != TYPE_GHOST && moveInfo->monType3 != TYPE_GHOST
             && !DoesBattlerGetTypeBasedAffinity(battler, battler, TYPE_GHOST, FALSE))  //vsonic need test but hope works
-                moveTarget = MOVE_TARGET_USER;
+                moveTarget = TARGET_USER;
             else
-                moveTarget = MOVE_TARGET_SELECTED;
+                moveTarget = TARGET_SELECTED;
         }
         else
         {
@@ -3243,20 +3243,20 @@ static void PreviewDeterminativeMoveTargets(u32 battler) //determine who targett
         }
         switch (moveTarget)
         {
-        case MOVE_TARGET_SELECTED:
-        case MOVE_TARGET_DEPENDS:
-        case MOVE_TARGET_USER_OR_SELECTED:
-        case MOVE_TARGET_RANDOM:
+        case TARGET_SELECTED:
+        case TARGET_DEPENDS:
+        case TARGET_USER_OR_SELECTED:
+        case TARGET_RANDOM:
             bitMask = 0xF0000;
             startY = 0;
             break;
-        case MOVE_TARGET_BOTH:
-        case MOVE_TARGET_OPPONENTS_FIELD:
+        case TARGET_BOTH:
+        case TARGET_OPPONENTS_FIELD:
             bitMask = ((1u << GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)) 
                      | (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT))) << 16; 
             startY = 8;
             break;
-        case MOVE_TARGET_USER:
+        case TARGET_USER:
             switch (move)
             {
             case MOVE_HAZE:
@@ -3287,20 +3287,20 @@ static void PreviewDeterminativeMoveTargets(u32 battler) //determine who targett
             }
             startY = 8;
             break;
-        case MOVE_TARGET_FOES_AND_ALLY:
+        case TARGET_FOES_AND_ALLY:
             bitMask = ((1u << GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)) 
                      | (1u << GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)) 
                      | (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT))) << 16;
             startY = 8;
             break;
-        case MOVE_TARGET_ALL_BATTLERS:  // wwas MOVE_TARGET_USER_AND_ALL  questioning if this wasn't something I added?
+        case TARGET_ALL_BATTLERS:  // wwas TARGET_USER_AND_ALL  questioning if this wasn't something I added?
             bitMask = ((1u << GetBattlerAtPosition(B_POSITION_PLAYER_LEFT))
                      | (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT))
                      | (1u << GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK)) 
                      | (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT))) << 16;
             startY = 8;
             break;
-        case MOVE_TARGET_ALLY:
+        case TARGET_ALLY:
             bitMask = ((1u << GetBattlerAtPosition(GetBattlerPosition(battler) ^ BIT_FLANK))) << 16;
             startY = 8;
             break;

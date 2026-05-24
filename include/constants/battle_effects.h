@@ -215,11 +215,11 @@
 #define EFFECT_CALM_MIND 211
 #define EFFECT_DRAGON_DANCE 212 // ok EFFECT_POISON_TAIL is an effect based on battle_moves.h
 #define EFFECT_CAMOUFLAGE 213 //but isn't in emerald list o effects...ok got it that was a cfru thing
-/*   figured it out poison_tail was an effect in gen3 but changed in pokeemerald so that's prop why its replaced with placeholder
-#define EFFECT_HEAL_PULSE 214
-#define EFFECT_HEALING_WISH 215
-#define EFFECT_ROOST 216
-#define EFFECT_HURRICANE 217 */
+//  figured it out poison_tail was an effect in gen3 but changed in pokeemerald so that's prop why its replaced with placeholder
+//#define EFFECT_HEAL_PULSE 214
+//#define EFFECT_HEALING_WISH 215
+//#define EFFECT_ROOST 216
+//#define EFFECT_HURRICANE 217 
 
 // New move effects
 #define EFFECT_PLEDGE 214
@@ -357,7 +357,7 @@
 #define EFFECT_ALLY_SWITCH 346
 #define EFFECT_RELIC_SONG 347 // Relic Song
 #define EFFECT_HIT_ESCAPE 348
-#define EFFECT_WORRY_SEED 349
+#define EFFECT_OVERWRITE_ABILITY 349
 #define EFFECT_FELL_STINGER 350
 #define EFFECT_CAPTIVATE 351
 #define EFFECT_UPPER_HAND 352  
@@ -434,9 +434,411 @@
 #define EFFECT_SUBMISSION 421 //same as raging bull separated for new submission effect
 #define EFFECT_MOONDANCE 422    
 #define EFFECT_ACID_RAIN 423
-#define EFFECT_DMG_FIXATION 424 //fixation moves have differing effects when used multiple times/ decided make categorical effect diffect effects for diff things. idea of effect is continued use makes user better at move so gains additional effect / dmg fixation will have move incrase dmg with use for example
+#define EFFECT_FIXATION 424 //fixation moves have differing effects when used multiple times/ decided make categorical effect diffect effects for diff things. idea of effect is continued use makes user better at move so gains additional effect / dmg fixation will have move incrase dmg with use for example
 #define EFFECT_DIRE_CLAW 425
 #define EFFECT_COLD_FLARE 426 //was ice burn, make effect 2 turns but 1 turn in hail/snow
+
+
+
+/*enum BattleMoveEffects
+{
+    EFFECT_PLACEHOLDER,
+    EFFECT_HIT,
+    EFFECT_NON_VOLATILE_STATUS,
+    EFFECT_ABSORB,
+    EFFECT_EXPLOSION,
+    EFFECT_MISTY_EXPLOSION, // Same as EFFECT_EXPLOSION but it's boosted on Misty Terrain
+    EFFECT_DREAM_EATER, // Same as EFFECT_ABSORB but it can only be used on sleeping targets
+    EFFECT_MIRROR_MOVE,
+    EFFECT_ATTACK_UP,
+    EFFECT_DEFENSE_UP,
+    EFFECT_SPEED_UP,
+    EFFECT_SPECIAL_ATTACK_UP,
+    EFFECT_SPECIAL_DEFENSE_UP,
+    EFFECT_ACCURACY_UP,
+    EFFECT_EVASION_UP,
+    EFFECT_SPECIAL_ATTACK_UP_3,
+    EFFECT_ATTACK_DOWN,
+    EFFECT_DEFENSE_DOWN,
+    EFFECT_SPEED_DOWN,
+    EFFECT_SPECIAL_ATTACK_DOWN,
+    EFFECT_SPECIAL_DEFENSE_DOWN,
+    EFFECT_ACCURACY_DOWN,
+    EFFECT_EVASION_DOWN,
+    EFFECT_HAZE,
+    EFFECT_BIDE,
+    EFFECT_ROAR,
+    //EFFECT_MULTI_HIT, //gonna remove this
+    EFFECT_CONVERSION,
+    EFFECT_RESTORE_HP,
+    EFFECT_LIGHT_SCREEN,
+    EFFECT_STAT_BASED_SPLIT, //swap dmg cat based on user stat
+    EFFECT_REST,
+    EFFECT_OHKO,
+    EFFECT_SHEER_COLD, // Same as EFFECT_OHKO but Ice-types are immune to it and has decreased accuracy for non Ice-type users.
+    EFFECT_FUSION_COMBO,
+    EFFECT_FIXED_PERCENT_DAMAGE,
+    EFFECT_FIXED_HP_DAMAGE, //find logic for how thse 2 effects are excluded from move result for effetivenesss sound
+    EFFECT_HEAL_BLOCK,
+    EFFECT_RECOIL_IF_MISS,
+    EFFECT_MIST,
+    EFFECT_FOCUS_ENERGY,
+    EFFECT_CONFUSE,
+    EFFECT_ATTACK_UP_2,
+    EFFECT_DEFENSE_UP_2,
+    EFFECT_SPEED_UP_2,
+    EFFECT_SPECIAL_ATTACK_UP_2,
+    EFFECT_SPECIAL_DEFENSE_UP_2,
+    EFFECT_ACCURACY_UP_2,
+    EFFECT_EVASION_UP_2,
+    EFFECT_TRANSFORM,
+    EFFECT_ATTACK_DOWN_2,
+    EFFECT_DEFENSE_DOWN_2,
+    EFFECT_SPEED_DOWN_2,
+    EFFECT_SPECIAL_ATTACK_DOWN_2,
+    EFFECT_SPECIAL_DEFENSE_DOWN_2,
+    EFFECT_ACCURACY_DOWN_2,
+    EFFECT_EVASION_DOWN_2,
+    EFFECT_REFLECT,
+    EFFECT_TWO_TURNS_ATTACK,
+    EFFECT_SUBSTITUTE,
+    EFFECT_RAGE,
+    EFFECT_MIMIC,
+    EFFECT_METRONOME,
+    EFFECT_LEECH_SEED,
+    EFFECT_DO_NOTHING,
+    EFFECT_HOLD_HANDS,
+    EFFECT_CELEBRATE,
+    EFFECT_HAPPY_HOUR,
+    EFFECT_DISABLE,
+    EFFECT_LEVEL_DAMAGE,
+    EFFECT_PSYWAVE,
+    EFFECT_COUNTER,
+    EFFECT_ENCORE,
+    EFFECT_PAIN_SPLIT,
+    EFFECT_SNORE,
+    EFFECT_CONVERSION_Z,
+    EFFECT_LOCK_ON,
+    EFFECT_SKETCH,
+    EFFECT_SLEEP_TALK,
+    EFFECT_DESTINY_BOND,
+    EFFECT_FLAIL,
+    EFFECT_SPITE,
+    EFFECT_FALSE_SWIPE,
+    EFFECT_HEAL_BELL,
+    EFFECT_TRIPLE_KICK,
+    EFFECT_MEAN_LOOK,
+    EFFECT_NIGHTMARE,
+    EFFECT_MINIMIZE,
+    EFFECT_CURSE,
+    EFFECT_HEALING_WISH,
+    EFFECT_PROTECT,
+    EFFECT_SPIKES,
+    EFFECT_FORESIGHT,
+    EFFECT_PERISH_SONG,
+    EFFECT_SANDSTORM,
+    EFFECT_ENDURE,
+    EFFECT_ROLLOUT,
+    EFFECT_SWAGGER,
+    EFFECT_FURY_CUTTER,
+    EFFECT_ATTRACT,
+    EFFECT_RETURN,
+    EFFECT_PRESENT,
+    EFFECT_FRUSTRATION,
+    EFFECT_SAFEGUARD,
+    EFFECT_MAGNITUDE,
+    EFFECT_BATON_PASS,
+    EFFECT_PURSUIT,
+    EFFECT_CAPTIVATE,
+    EFFECT_MORNING_SUN,
+    EFFECT_SYNTHESIS,
+    EFFECT_MOONLIGHT,
+    EFFECT_HIDDEN_POWER,
+    EFFECT_RAIN_DANCE,
+    EFFECT_SUNNY_DAY,
+    EFFECT_FELL_STINGER,
+    EFFECT_BELLY_DRUM,
+    EFFECT_PSYCH_UP,
+    EFFECT_MIRROR_COAT,
+    EFFECT_EARTHQUAKE,
+    EFFECT_FUTURE_SIGHT,
+    EFFECT_SOLAR_BEAM,
+    EFFECT_TELEPORT,
+    EFFECT_BEAT_UP,
+    EFFECT_SEMI_INVULNERABLE,
+    EFFECT_FLY,
+    EFFECT_DEFENSE_CURL,
+    EFFECT_SOFTBOILED, // differences vs Recover - can be used outside of battle to restore HP
+    EFFECT_FIRST_TURN_ONLY,
+    EFFECT_UPROAR,
+    EFFECT_STOCKPILE,
+    EFFECT_SPIT_UP,
+    EFFECT_SWALLOW,
+    EFFECT_OVERWRITE_ABILITY,
+    EFFECT_HAIL,
+    EFFECT_TORMENT,
+    EFFECT_FLATTER,
+    EFFECT_MEMENTO,
+    EFFECT_FACADE,
+    EFFECT_FOCUS_PUNCH,
+    EFFECT_DOUBLE_POWER_ON_ARG_STATUS,
+    EFFECT_FOLLOW_ME,
+    EFFECT_NATURE_POWER,
+    EFFECT_CHARGE,
+    EFFECT_TAUNT,
+    EFFECT_HELPING_HAND,
+    EFFECT_TRICK,
+    EFFECT_ROLE_PLAY,
+    EFFECT_WISH,
+    EFFECT_ASSIST,
+    EFFECT_INGRAIN,
+    EFFECT_MAGIC_COAT,
+    EFFECT_RECYCLE,
+    EFFECT_REVENGE,
+    EFFECT_BRICK_BREAK,
+    EFFECT_YAWN,
+    EFFECT_KNOCK_OFF,
+    EFFECT_STEAL_ITEM,
+    EFFECT_ENDEAVOR,
+    EFFECT_POWER_BASED_ON_USER_HP,
+    EFFECT_SKILL_SWAP,
+    EFFECT_IMPRISON,
+    EFFECT_REFRESH,
+    EFFECT_GRUDGE,
+    EFFECT_SNATCH,
+    EFFECT_LOW_KICK,
+    EFFECT_HIT_ESCAPE,
+    EFFECT_MUD_SPORT,
+    EFFECT_WEATHER_BALL,
+    EFFECT_TICKLE,
+    EFFECT_COSMIC_POWER,
+    EFFECT_BULK_UP,
+    EFFECT_WATER_SPORT,
+    EFFECT_CALM_MIND,
+    EFFECT_DRAGON_DANCE,
+    EFFECT_CAMOUFLAGE,
+    EFFECT_PLEDGE,
+    EFFECT_FLING,
+    EFFECT_NATURAL_GIFT,
+    EFFECT_POWER_BASED_ON_TARGET_HP,
+    EFFECT_ASSURANCE,
+    EFFECT_TRUMP_CARD,
+    EFFECT_ACROBATICS,
+    EFFECT_HEAT_CRASH,
+    EFFECT_PUNISHMENT,
+    EFFECT_STORED_POWER,
+    EFFECT_ELECTRO_BALL,
+    EFFECT_GYRO_BALL,
+    EFFECT_ECHOED_VOICE,
+    EFFECT_PAYBACK,
+    EFFECT_ROUND,
+    EFFECT_BRINE,
+    EFFECT_RETALIATE,
+    EFFECT_FOUL_PLAY,
+    EFFECT_PSYSHOCK,
+    EFFECT_ROOST,
+    EFFECT_GRAVITY,
+    EFFECT_MIRACLE_EYE,
+    EFFECT_TAILWIND,
+    EFFECT_EMBARGO,
+    EFFECT_AQUA_RING,
+    EFFECT_TRICK_ROOM,
+    EFFECT_WONDER_ROOM,
+    EFFECT_MAGIC_ROOM,
+    EFFECT_MAGNET_RISE,
+    EFFECT_TOXIC_SPIKES,
+    EFFECT_GASTRO_ACID,
+    EFFECT_STEALTH_ROCK,
+    EFFECT_TELEKINESIS,
+    EFFECT_POWER_SWAP,
+    EFFECT_GUARD_SWAP,
+    EFFECT_HEART_SWAP,
+    EFFECT_POWER_SPLIT,
+    EFFECT_GUARD_SPLIT,
+    EFFECT_STICKY_WEB,
+    EFFECT_METAL_BURST,
+    EFFECT_LUCKY_CHANT,
+    EFFECT_SUCKER_PUNCH,
+    EFFECT_ENTRAINMENT,
+    EFFECT_HEAL_PULSE,
+    EFFECT_QUASH,
+    EFFECT_ION_DELUGE,
+    EFFECT_SUPER_EFFECTIVE_ON_ARG,
+    EFFECT_TOPSY_TURVY,
+    EFFECT_MISTY_TERRAIN,
+    EFFECT_GRASSY_TERRAIN,
+    EFFECT_ELECTRIC_TERRAIN,
+    EFFECT_PSYCHIC_TERRAIN,
+    EFFECT_ATTACK_ACCURACY_UP,
+    EFFECT_ATTACK_SPATK_UP,
+    EFFECT_TWO_TYPED_MOVE,
+    EFFECT_ME_FIRST,
+    EFFECT_QUIVER_DANCE,
+    EFFECT_COIL,
+    EFFECT_ELECTRIFY,
+    EFFECT_REFLECT_TYPE,
+    EFFECT_SOAK,
+    EFFECT_GROWTH,
+    EFFECT_LAST_RESORT,
+    EFFECT_SHELL_SMASH,
+    EFFECT_SHIFT_GEAR,
+    EFFECT_DEFENSE_UP_3,
+    EFFECT_NOBLE_ROAR,
+    EFFECT_VENOM_DRENCH,
+    EFFECT_TOXIC_THREAD,
+    EFFECT_HIT_SWITCH_TARGET,
+    EFFECT_FINAL_GAMBIT,
+    EFFECT_CHANGE_TYPE_ON_ITEM,
+    EFFECT_AUTOTOMIZE,
+    EFFECT_COPYCAT,
+    EFFECT_DEFOG,
+    EFFECT_HIT_ENEMY_HEAL_ALLY,
+    EFFECT_SYNCHRONOISE,
+    EFFECT_PSYCHO_SHIFT,
+    EFFECT_POWER_TRICK,
+    EFFECT_AFTER_YOU,
+    EFFECT_BESTOW,
+    EFFECT_ROTOTILLER,
+    EFFECT_FLOWER_SHIELD,
+    EFFECT_SPEED_SWAP,
+    EFFECT_REVELATION_DANCE,
+    EFFECT_AURORA_VEIL,
+    EFFECT_THIRD_TYPE,
+    EFFECT_ACUPRESSURE,
+    EFFECT_AROMATIC_MIST,
+    EFFECT_POWDER,
+    EFFECT_BELCH,
+    EFFECT_PARTING_SHOT,
+    EFFECT_MAT_BLOCK,
+    EFFECT_STOMPING_TANTRUM,
+    EFFECT_INSTRUCT,
+    EFFECT_LASER_FOCUS,
+    EFFECT_MAGNETIC_FLUX,
+    EFFECT_GEAR_UP,
+    EFFECT_STRENGTH_SAP,
+    EFFECT_PURIFY,
+    EFFECT_FAIL_IF_NOT_ARG_TYPE,
+    EFFECT_SHORE_UP,
+    EFFECT_GEOMANCY,
+    EFFECT_FAIRY_LOCK,
+    EFFECT_ALLY_SWITCH,
+    EFFECT_BODY_PRESS,
+    EFFECT_JUNGLE_HEALING,
+    EFFECT_COACHING,
+    EFFECT_LASH_OUT,
+    EFFECT_GRASSY_GLIDE,
+    EFFECT_BOOST_PWR_BASED_WEIGHT,//EFFECT_DYNAMAX_DOUBLE_DMG, make better name later
+    EFFECT_DECORATE,
+    //EFFECT_SNIPE_SHOT, moved redirection effet to struct value
+    EFFECT_STRUGGLE,
+    EFFECT_STUFF_CHEEKS,
+    EFFECT_GRAV_APPLE,
+    EFFECT_HYPERSPACE_FURY,
+    EFFECT_AURA_WHEEL,
+    EFFECT_PHOTON_GEYSER,
+    EFFECT_TERRAIN_PULSE,
+    EFFECT_NO_RETREAT,
+    EFFECT_TAR_SHOT,
+    EFFECT_POLTERGEIST,
+    EFFECT_OCTOLOCK,
+    EFFECT_CLANGOROUS_SOUL,
+    EFFECT_BOLT_BEAK,
+    EFFECT_SKY_DROP,
+    EFFECT_EXPANDING_FORCE,
+    EFFECT_RISING_VOLTAGE,
+    EFFECT_BEAK_BLAST,
+    EFFECT_COURT_CHANGE,
+    EFFECT_MAX_HP_50_RECOIL,    //mind blown steel beam effect but neither will use it
+    EFFECT_CHLOROBLAST, // Same effect as EFFECT_MAX_HP_50_RECOIL but follows the same rules as EFFECT_RECOIL
+    EFFECT_EXTREME_EVOBOOST,
+    EFFECT_DARK_VOID,
+    EFFECT_VICTORY_DANCE,
+    EFFECT_TEATIME,
+    EFFECT_ATTACK_UP_USER_ALLY,
+    EFFECT_SHELL_TRAP,
+    EFFECT_PSYBLADE,
+    EFFECT_HYDRO_STEAM,
+    EFFECT_REVIVAL_BLESSING,
+    EFFECT_TAKE_HEART,
+    EFFECT_COLLISION_COURSE,
+    EFFECT_CORROSIVE_GAS,
+    EFFECT_POPULATION_BOMB,
+    EFFECT_CHILLY_RECEPTION,
+    EFFECT_MAX_MOVE,
+    EFFECT_GLAIVE_RUSH,
+    EFFECT_RAGE_FIST,
+    EFFECT_DOODLE,
+    EFFECT_FILLET_AWAY,
+    EFFECT_IVY_CUDGEL,
+    EFFECT_FICKLE_BEAM,
+    EFFECT_SHED_TAIL,
+    EFFECT_UPPER_HAND,
+    EFFECT_DRAGON_CHEER,
+    EFFECT_LAST_RESPECTS,
+    EFFECT_TIDY_UP,
+    EFFECT_SPICY_EXTRACT,
+    EFFECT_TERA_BLAST,
+    EFFECT_TERA_STARSTORM,
+    EFFECT_DRAGON_DARTS,
+    EFFECT_SHELL_SIDE_ARM,
+    EFFECT_ORDER_UP,
+    EFFECT_RAPID_SPIN,
+    EFFECT_SPECTRAL_THIEF,
+    EFFECT_RECOIL,
+    EFFECT_SMACK_DOWN,
+    EFFECT_LIFE_DEW,
+    EFFECT_ICE_SPINNER, // Removes terrain unless attacker is removed from field either by fainting or ejected out
+    EFFECT_STEEL_ROLLER, // Will fail if there is no terrain up but removes it regardless if attacker is removed from field or not
+    EFFECT_STONE_AXE, // Not to be confused with MOVE_EFFECT_STEALTH_ROCK. They have two different activation timings.
+    EFFECT_CEASELESS_EDGE, // Same applies to spikes
+    
+    //custom effects start    
+    EFFECT_COCOON,
+    EFFECT_DRYADS_CURSE,
+    EFFECT_TARGET_TYPE_DAMAGE,
+    EFFECT_HIGHEST_STAT_UP_HIT,
+    EFFECT_FIXATION,    //base effect goes to hit, but required to activate fixation move effects
+    //EFFECT_SET_TARGET_ABILITY, //removed relized was just overwrite ability
+    EFFECT_SHIELD_BASH,
+    EFFECT_MONOTYPE,
+    EFFECT_MOONDANCE,
+    EFFECT_ACID_RAIN,
+    EFFECT_SUBMISSION, //changed to full protect bypass so just use brick break effect changed mind since increasing distribution
+    EFFECT_RAGING_BULL,
+    //EFFECT_SET_EFFECT_PRE_HIT, //attempt repalce below 2 - hHad wrong dont need effect
+    EFFECT_SNOWESCAPE,    
+    //EFFECT_SACRIFICE_HEALTH, //decide not use for mind blown but will make set of effects that sacrifice hp before going off -realized was dumb, no use case for
+    EFFECT_MIND_BLOWN, //will be used for mindblown & self destruct diff from 50% hp recoil in that it goes off first and can kill like curse but fails if user faints
+    //EFFECT_STRENGTH_UP_HIT, //instead straight 50% use damagepercentage argument for max hp amount to lose
+    //EFFECT_TRIPLE_ARROWS, //may need since plan is set effects before use move
+    EFFECT_JUDGMENT, //custom judgement effect just sets type to super effective
+    EFFECT_SNOWBALL,
+    EFFECT_NETTLE_WHIP, //BURN if not grass and bypass fire burn immunity
+    EFFECT_STATUS_IF_NOT_ARG_TYPE,
+    EFFECT_TRENCH_RUN,
+    EFFECT_STEEL_SURGE,
+    EFFECT_SNOW_DAY,
+    EFFECT_FOG,
+    NUM_BATTLE_MOVE_EFFECTS,
+};
+*/
+
+//note unsure if there's any meaning to 
+//order of effects for additional effects
+//but will do best to set it so main effect is 
+//always goes first
+
+//potentially make new effect or move effect
+//category for activating before move goes off
+//can put it in attack canceler or something?
+//similar to how abilityeffect function is handled
+//has specific cases that call the main thing
+//from different places
+//think put in additionaleffect struct
+//setfromatkcanceler or something
+
+//ex. atk stat up for strength
+//focus energy for triple arrow
 
 /*MOVE_FIRE_SPIN, //increases burn chance //serenge grace is effect *2 by requires no setup, I think I can get away w * 3 here actually do more to near guarantee 50-60%
 MOVE_CLAMP,     //no extra wrap effect,  but give flich chance on hit //changed mind you're staying clamped on them, so for duration statused target has chance to flinch when attacking

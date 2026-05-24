@@ -12,7 +12,7 @@
 #define WINDOW_x80              0x80
 
 void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certain);
-u32 GetMoveTwoTurnAttackStringId(u16 move); //script chooser set values for charge turn of two turn moves
+//u32 GetMoveTwoTurnAttackStringId(u16 move); //script chooser set values for charge turn of two turn moves
 bool8 UproarWakeUpCheck(u8 battlerId);
 u8 AI_TypeCalc(u16 move, u16 targetSpecies, u16 targetAbility);	//return value is u8 so function can stay u8, even if all elements aren't
 u8 TypeCalc(u16 move, u8 attacker, u8 defender);

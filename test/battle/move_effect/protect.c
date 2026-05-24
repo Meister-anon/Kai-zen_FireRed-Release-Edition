@@ -321,9 +321,9 @@ DOUBLE_BATTLE_TEST("Wide Guard protects self and ally from multi-target moves")
     PARAMETRIZE { move = MOVE_HYPER_VOICE; } // 2 foes
 
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_TACKLE].target == MOVE_TARGET_SELECTED);
-        ASSUME(gMovesInfo[MOVE_SURF].target == MOVE_TARGET_FOES_AND_ALLY);
-        ASSUME(gMovesInfo[MOVE_HYPER_VOICE].target == MOVE_TARGET_BOTH);
+        ASSUME(gMovesInfo[MOVE_TACKLE].target == TARGET_SELECTED);
+        ASSUME(gMovesInfo[MOVE_SURF].target == TARGET_FOES_AND_ALLY);
+        ASSUME(gMovesInfo[MOVE_HYPER_VOICE].target == TARGET_BOTH);
         PLAYER(SPECIES_WOBBUFFET);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET);
@@ -360,7 +360,7 @@ DOUBLE_BATTLE_TEST("Wide Guard can not fail on consecutive turns")
 
     PASSES_RANDOMLY(2, 2);
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_HYPER_VOICE].target == MOVE_TARGET_BOTH);
+        ASSUME(gMovesInfo[MOVE_HYPER_VOICE].target == TARGET_BOTH);
         PLAYER(SPECIES_WOBBUFFET);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET);
@@ -453,8 +453,8 @@ DOUBLE_BATTLE_TEST("Crafty Shield protects self and ally from status moves")
     PARAMETRIZE { move = MOVE_TACKLE; targetOpponent = opponentRight; }
 
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_LEER].target == MOVE_TARGET_BOTH);
-        ASSUME(gMovesInfo[MOVE_HYPER_VOICE].target == MOVE_TARGET_BOTH);
+        ASSUME(gMovesInfo[MOVE_LEER].target == TARGET_BOTH);
+        ASSUME(gMovesInfo[MOVE_HYPER_VOICE].target == TARGET_BOTH);
         ASSUME(gMovesInfo[MOVE_HYPER_VOICE].category == DAMAGE_CATEGORY_SPECIAL);
         PLAYER(SPECIES_WOBBUFFET);
         PLAYER(SPECIES_WOBBUFFET);
@@ -520,7 +520,7 @@ DOUBLE_BATTLE_TEST("Crafty Shield protects self and ally from Confide")
 DOUBLE_BATTLE_TEST("Crafty Shield does not protect against moves that target all battlers")
 {
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_FLOWER_SHIELD].target == MOVE_TARGET_ALL_BATTLERS);
+        ASSUME(gMovesInfo[MOVE_FLOWER_SHIELD].target == TARGET_ALL_BATTLERS);
         ASSUME(gSpeciesInfo[SPECIES_TANGELA].types[0] == TYPE_GRASS);
         ASSUME(gSpeciesInfo[SPECIES_TANGROWTH].types[0] == TYPE_GRASS);
         ASSUME(gSpeciesInfo[SPECIES_SUNKERN].types[0] == TYPE_GRASS);

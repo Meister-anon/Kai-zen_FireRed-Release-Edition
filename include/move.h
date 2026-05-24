@@ -141,6 +141,9 @@ struct BattleMove
     bool32 ignoresRedirection:1;
     u32 padding:7; //have multi hit count in atk cancel use this but default to 2-5 if multihit and strike count not set perhaps
     // end of word
+    u8 secondaryEffectChance; //filler for compile does nothing
+    u8 argument;    //also filler
+    u8 argumentEffectChance; //also also filler
     union {
         struct {
             u16 stringId;
@@ -156,7 +159,7 @@ struct BattleMove
         u32 absorbPercentage;
         u32 sacrificedHpPercentage; //decide use for hp loss for self destruct mind blown may filter into curse as well
         u32 nonVolatileStatus; //looking at plasma fists which can go use effect_hit then go to other move effect
-    } argument; //think may not need recoilType at all
+    } _argument; //think may not need recoilType at all
 
     // primary/secondary effects
     const struct AdditionalEffect *additionalEffects;
@@ -528,48 +531,48 @@ static inline bool32 IsMoveSketchBanned(u32 moveId)
 
 static inline u32 GetMoveTwoTurnAttackStringId(u32 moveId)
 {
-    return gBattleMoves[SanitizeMoveId(moveId)].argument.twoTurnAttack.stringId;
+    return gBattleMoves[SanitizeMoveId(moveId)]._argument.twoTurnAttack.stringId;
 }
 
 static inline u32 GetMoveTwoTurnAttackStatus(u32 moveId)
 {
-    return UNCOMPRESS_BITS(gBattleMoves[SanitizeMoveId(moveId)].argument.twoTurnAttack.status);
+    return UNCOMPRESS_BITS(gBattleMoves[SanitizeMoveId(moveId)]._argument.twoTurnAttack.status);
 }
 
 static inline u32 GetMoveTwoTurnAttackWeather(u32 moveId)
 {
-    return gBattleMoves[SanitizeMoveId(moveId)].argument.twoTurnAttack.status;
+    return gBattleMoves[SanitizeMoveId(moveId)]._argument.twoTurnAttack.status;
 }
 
 static inline enum ProtectMethod GetMoveProtectMethod(u32 moveId)
 {
-    return gBattleMoves[SanitizeMoveId(moveId)].argument.protectMethod;
+    return gBattleMoves[SanitizeMoveId(moveId)]._argument.protectMethod;
 }
 
 static inline u32 GetMoveTerrainFlag(u32 moveId)
 {
-    return gBattleMoves[SanitizeMoveId(moveId)].argument.moveProperty;
+    return gBattleMoves[SanitizeMoveId(moveId)]._argument.moveProperty;
 }
 
 static inline u32 GetMoveEffectArg_Status(u32 moveId)
 {
-    return gBattleMoves[SanitizeMoveId(moveId)].argument.status;
+    return gBattleMoves[SanitizeMoveId(moveId)]._argument.status;
 }
 
 static inline u32 GetMoveEffectArg_MoveProperty(u32 moveId)
 {
-    return gBattleMoves[SanitizeMoveId(moveId)].argument.moveProperty;
+    return gBattleMoves[SanitizeMoveId(moveId)]._argument.moveProperty;
 }
 
 static inline u32 GetMoveEffectArg_HoldEffect(u32 moveId)
 {
-    return gBattleMoves[SanitizeMoveId(moveId)].argument.holdEffect;
+    return gBattleMoves[SanitizeMoveId(moveId)]._argument.holdEffect;
 }
 
 //think will split into dif functions for simplicity
 static inline u32 GetMoveStoredValue(u32 moveId)
 {
-    return gBattleMoves[SanitizeMoveId(moveId)].argument.storedValue;
+    return gBattleMoves[SanitizeMoveId(moveId)]._argument.storedValue;
 }
 
 //don't need this can just used storedvalue
@@ -585,21 +588,21 @@ static inline u32 GetTwoTypedMove2ndType(u32 moveId)
 
 static inline u32 GetMoveFixedDamage(u32 moveId)
 {
-    return gBattleMoves[SanitizeMoveId(moveId)].argument.fixedDamage;
+    return gBattleMoves[SanitizeMoveId(moveId)]._argument.fixedDamage;
 }
 
 static inline u32 GetMoveAbsorbPercentage(u32 moveId)
 {
     moveId = SanitizeMoveId(moveId);
-    if (gBattleMoves[moveId].argument.absorbPercentage == 0)
+    if (gBattleMoves[moveId]._argument.absorbPercentage == 0)
         return 50;
-    return gBattleMoves[moveId].argument.absorbPercentage;
+    return gBattleMoves[moveId]._argument.absorbPercentage;
 }
 
 static inline u32 GetHpPercentagetoSacrifice(u32 moveId)
 {
     moveId = SanitizeMoveId(moveId);
-    return gBattleMoves[moveId].argument.sacrificedHpPercentage;
+    return gBattleMoves[moveId]._argument.sacrificedHpPercentage;
 }
 
 /*static inline u32 GetMoveNonVolatileStatus(u32 move)
@@ -610,7 +613,7 @@ static inline u32 GetHpPercentagetoSacrifice(u32 moveId)
     case EFFECT_NON_VOLATILE_STATUS:
     case EFFECT_YAWN:
     case EFFECT_DARK_VOID:
-        return gBattleMoves[move].argument.nonVolatileStatus;
+        return gBattleMoves[move]._argument.nonVolatileStatus;
     default:
         return MOVE_EFFECT_NONE;
     }
@@ -618,7 +621,7 @@ static inline u32 GetHpPercentagetoSacrifice(u32 moveId)
 
 static inline u32 GetMoveDamagePercentage(u32 move)
 {
-    return gBattleMoves[SanitizeMoveId(move)].argument.damagePercentage;
+    return gBattleMoves[SanitizeMoveId(move)]._argument.damagePercentage;
 }
 
 
@@ -660,18 +663,18 @@ static inline const u8 *GetMoveAnimationScript(u32 moveId)
     return gBattleMoves[moveId].battleAnimScript;
 }
 
-static inline bool32 IsOHKOmoveEffect(u32 moveId)
+/*static inline bool32 IsOHKOmoveEffect(u32 moveId)
 {
     return (GetMoveEffect(moveId) == EFFECT_SHEER_COLD 
             || GetMoveEffect(moveId) == EFFECT_OHKO);
-}
+}*/
 
 static inline bool32 IsExplosionMove(u32 moveId)
 {
     return gBattleMoves[moveId].explosiveMove;
 }
 
-static inline const u8 *GetMoveBattleScript(u32 moveId)
+/*static inline const u8 *GetMoveBattleScript(u32 moveId)
 {
     moveId = SanitizeMoveId(moveId);
     if (gBattleMoveEffects[gBattleMoves[moveId].effect].battleScript == NULL)
@@ -680,5 +683,5 @@ static inline const u8 *GetMoveBattleScript(u32 moveId)
         return gBattleMoveEffects[EFFECT_PLACEHOLDER].battleScript;
     }
     return gBattleMoveEffects[gBattleMoves[moveId].effect].battleScript;
-}
+}*/
 #endif // GUARD_MOVE_H
