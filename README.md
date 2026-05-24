@@ -16,7 +16,8 @@ tldr replace animation files and controler files w EE equivalents add back
 few custom things.
 
 identified that pc crash issue is coming from this 
-anim branch
+anim branch...wrong it actually dates back to original battle anim update branch from january...end me why do I never learn my lesson 
+about making big changes when I am unable to compile!!
 
 If can figure out workspaces that later comparison repplication can hopefully 
 go smoother
