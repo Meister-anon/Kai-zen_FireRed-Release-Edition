@@ -15573,7 +15573,7 @@ const struct BaseStats gBaseStats[] =
         60,
         75
         ),
-        MON_TYPES(TYPE_GRASS, TYPE_GROUND),
+        MON_TYPES(TYPE_GRASS, TYPE_DARK),
         .catchRate = 45,
         .expYield = 145,
         //.evYield_Speed = 2,
@@ -15608,7 +15608,7 @@ const struct BaseStats gBaseStats[] =
         75,
         95
         ),
-        MON_TYPES(TYPE_GRASS, TYPE_GROUND),
+        MON_TYPES(TYPE_GRASS, TYPE_DARK),
         .catchRate = 45,
         .expYield = 238,
         //.evYield_Speed = 3,
@@ -15629,6 +15629,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSerperiorTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//as gets contrary and now made ground give headlong rush, make it extra tanky
+    //Changed mind decided make dark rather than ground, better match with
+    //emboar line idea snake evil garden of eden so works out actually, and better works with contrary
 
     [SPECIES_TEPIG] =
     {
