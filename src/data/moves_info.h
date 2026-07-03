@@ -15536,7 +15536,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_SHORE_UP] =
     {
         .name = COMPOUND_STRING("Shore Up"),
-        .description = COMPOUND_MOVE_STRING("Restores user's HP.\nHeal's more HP\nin a sandstorm."),
+        .description = COMPOUND_MOVE_STRING("User absorbs earthen\nmaterial to bolster\nthe body.\nRestores user's HP.\nHeal's more HP\nin a sandstorm."),
         .effect = EFFECT_SHORE_UP,
         .power = 0,
         .type = TYPE_GROUND,
@@ -15554,6 +15554,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {COMBO_STARTER_SANDSTORM},
         .battleAnimScript = gBattleAnimMove_ShoreUp,
     },
+    //rework slightly, change description to patch up body with earth bolster body vitatlity something
+    //give to earthy mon or earth dwellers  i.e geodude sandshrew  not onix, unsure but think not diglett?
 
     [MOVE_FIRST_IMPRESSION] =
     {
