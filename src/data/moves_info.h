@@ -181,7 +181,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .name = COMPOUND_STRING("Mega Punch"),
         .description = COMPOUND_MOVE_STRING("The foe is slugged\nby a punch thrown\nwith muscle-packed\npower."),
         .effect = EFFECT_HIT,
-        .power = 80,
+        .power = 95,
         .type = TYPE_NORMAL,
         .accuracy = 90,
         .pp = 20,
@@ -228,7 +228,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .name = COMPOUND_STRING("Fire Punch"),
         .description = COMPOUND_MOVE_STRING("The foe is punched\nwith a fiery fist.\nIt may leave the\nfoe with a burn."),
         .effect = EFFECT_HIT,
-        .power = 75,
+        .power = 85,
         .type = TYPE_FIRE,
         .accuracy = 100,
         .pp = 15,
@@ -253,7 +253,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .name = COMPOUND_STRING("Ice Punch"),
         .description = COMPOUND_MOVE_STRING("The foe is punched\nwith an icy fist.\nIt may leave the\nfoe frozen."),
         .effect = EFFECT_HIT,
-        .power = 75,
+        .power = 85,
         .type = TYPE_ICE,
         .accuracy = 100,
         .pp = 15,
@@ -278,7 +278,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .name = COMPOUND_STRING("Thunder Punch"),
         .description = COMPOUND_MOVE_STRING("The foe is punched\nwith an electrified\nfist. It may leave\nthe foe paralyzed."),
         .effect = EFFECT_HIT,
-        .power = 75,
+        .power = 85,
         .type = TYPE_ELECTRIC,
         .accuracy = 100,
         .pp = 15,
@@ -3799,7 +3799,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             //.contestComboStarterId = 0,
             //.contestComboMoves = {0},
             .battleAnimScript = gBattleAnimMove_DizzyPunch,
-    },
+    },//should I make this a fighting move?
 
     [MOVE_SPORE] =
     {
@@ -5746,7 +5746,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_MIND_READER},
         .battleAnimScript = gBattleAnimMove_DynamicPunch,
-    },
+    },//keep an eye on balance of this vsonic
 
     [MOVE_MEGAHORN] =
     {
@@ -6781,7 +6781,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
         .battleAnimScript = gBattleAnimMove_FocusPunch,
-    },
+    },//can't remember if still doin this, but somethig had plan to have dmg gate effect where long as don't take fixed mount of dmg
+    //effect goes off otherwise its stopped?  would be more in line with this original effect but still be an improvement? vsonic important
+    //ah ok I reworked that into a new move called focus strike alright
 
     [MOVE_SMELLING_SALTS] =
     {
@@ -21842,6 +21844,8 @@ use wonder gaurd logic to determine its super effective
     //new version of sing give jigglypuff line
     //make it a move jiggly could learn but wiggly gets on evo
     //idea singer voice get deeper w age
+    //hmm would be very interesting to combine this with perish song strats
+    //with the right team could be great pressure strat
 
     [MOVE_FOCUS_STRIKE] =
     {
