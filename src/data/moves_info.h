@@ -19816,7 +19816,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .name = COMPOUND_STRING("Make It Rain"),
         .description = COMPOUND_MOVE_STRING("Tosses a mass of\ncoins at the foe.\nThis also lowers\nthe user's Sp. Atk.\nMoney is earned\nafter the battle."),
         .effect = EFFECT_HIT,    //Todo // EFFECT_MAKE_IT_RAIN
-        .power = 120,
+        .power = 110,
         .type = TYPE_STEEL,
         .accuracy = 100,
         .pp = 5,
@@ -19834,6 +19834,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         // Uncallable by Metronome (to be implemented)
     },
     //payday and sp atk drop
+    //champions changed this to 2 stage sp atk drop
+    //idk if want to do that think change to just 10bp drop
+    //to make in line with elemental beams change -vsonic (test)
 
     [MOVE_RUINATION] =
     {
