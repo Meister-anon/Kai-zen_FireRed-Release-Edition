@@ -5987,8 +5987,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_VITAL_THROW] =
     {
         .name = COMPOUND_STRING("Vital Throw"),
-        .description = COMPOUND_MOVE_STRING("Makes the user\nattack after the\nfoe. In return,\nit will not miss."),
-        .effect = EFFECT_HIT,
+        .description = COMPOUND_MOVE_STRING("A concentrated and\ndevastating attack.\nMakes the user act\nslower but In return\nit maximizes damage\nand never misses."),
+        .effect = EFFECT_VITAL_THROW,//concentrated attack to foe weak point/spot  always does highest dmg
         .power = 70,
         .type = TYPE_FIGHTING,
         .accuracy = 0,
@@ -6003,6 +6003,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {COMBO_STARTER_FAKE_OUT},
         .battleAnimScript = gBattleAnimMove_VitalThrow,
     },
+    //new idea to buff move vital idea hit vital spot weak point
+    //move will still go last and never miss
+    // but in addition will also always hit the highest damage roll
+    //will give reason to use vital throw effect
 
     [MOVE_MORNING_SUN] =
     {

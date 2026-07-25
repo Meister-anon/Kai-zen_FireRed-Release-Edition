@@ -9157,6 +9157,9 @@ static inline s32 DoMoveDamageCalcVars(struct BattleContext *ctx)
     userFinalAttack = CalcAttackStat(ctx);
     targetFinalDefense = CalcDefenseStat(ctx);
 
+    if (GetMoveEffect(ctx->move) == EFFECT_VITAL_THROW)
+        dmgroll = DMG_ROLL_PERCENT_HI;
+
     dmg = CalculateBaseDamage(ctx->battlerAtk, gBattleMovePower, userFinalAttack, gBattleMons[ctx->battlerAtk].level, gBattleMons[ctx->battlerDef].level, targetFinalDefense);
     DAMAGE_APPLY_MODIFIER(GetTargetDamageModifier(ctx));
     DAMAGE_APPLY_MODIFIER(GetParentalBondModifier(ctx->battlerAtk));

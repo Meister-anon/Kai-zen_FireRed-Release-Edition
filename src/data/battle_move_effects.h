@@ -2223,6 +2223,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 3,
     },
 
+    [EFFECT_VITAL_THROW] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 1,
+    },
+
     [EFFECT_SUBMISSION] =
     {
         .battleScript = BattleScript_EffectHit,

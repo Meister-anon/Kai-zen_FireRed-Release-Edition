@@ -349,6 +349,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_FIXATION,    //base effect goes to hit, but required to activate fixation move effects
     EFFECT_SHIELD_BASH,
     EFFECT_MONOTYPE,
+    EFFECT_VITAL_THROW, //use dmg formula integrates
     //EFFECT_MOONDANCE, //EE update weather effects consolidate to effect_weather
     //EFFECT_ACID_RAIN,
     EFFECT_SUBMISSION, //changed to full protect bypass so just use brick break effect changed mind since increasing distribution
