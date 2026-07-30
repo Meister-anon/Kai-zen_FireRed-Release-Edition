@@ -1330,6 +1330,7 @@ static const struct AbilityLearnset sMasquerainAbilityLearnset[] = {
 static const struct AbilityLearnset sWailmerAbilityLearnset[] = {
     ABILITY_PRESSURE,
     ABILITY_CACOPHONY,
+    ABILITY_UNBURDEN,
     ABILITY_WATER_VEIL,
     ABILITY_SET_END
 };
@@ -1337,6 +1338,7 @@ static const struct AbilityLearnset sWailmerAbilityLearnset[] = {
 static const struct AbilityLearnset sWailordAbilityLearnset[] = {
     ABILITY_PRESSURE,
     ABILITY_CACOPHONY,
+    ABILITY_UNBURDEN,
     ABILITY_WATER_VEIL,
     ABILITY_SET_END
 };

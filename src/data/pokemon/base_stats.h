@@ -10129,7 +10129,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_WATER_2,
         .abilities = {ABILITY_THICK_FAT, ABILITY_OBLIVIOUS},
-        .abilityHidden = {ABILITY_SONAR, ABILITY_UNBURDEN},
+        .abilityHidden = {ABILITY_SONAR, ABILITY_FRIEND_GUARD},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -10139,6 +10139,11 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sWailmerTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, AVERAGE_EFFORT), 0, SPECIES_WAILORD}), //Should hopefully blank these for now without issue
     },
+    //new idea friend guard wailord good niche (friendly creature of the sea etc.)
+    //separte from dondozo    
+    //came from funny thought leech life based on target hp
+    //in doubles could leech your on wailord give it leftovers
+    //to counter and have passive healing for ally, friend guard make it even better
     //vsonic gave sonar need revamp learnset
     //add sound based moves 
 
@@ -10159,7 +10164,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_WATER_2,
         .abilities = {ABILITY_THICK_FAT, ABILITY_OBLIVIOUS},
-        .abilityHidden = {ABILITY_SONAR, ABILITY_UNBURDEN},
+        .abilityHidden = {ABILITY_SONAR, ABILITY_FRIEND_GUARD},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -10173,6 +10178,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //dont think want to change stats rn its sitting at 500bst
     //its a somewhat more offensive, but balanced version of snorlax
     //twice as fast but lacks the defenses
+    //side note unburden is funny but not really thematic thing leave on learned option
 
     [SPECIES_NUMEL] =
     {
