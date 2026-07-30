@@ -68,6 +68,10 @@ that will add contest stuff
 think can use regex for final pass to clear those lines out after the fact
 think may keep battleanim stuff just comment it out for later update
 
+** vsonic important note for priority change
+status move effects that incapacitate 
+or have persisting effects must keep neutral priority for balance
+i.e sleeping, freezing, setting screens etc.
 */
 
 const struct MoveInfo gMovesInfo[MOVES_COUNT] =
