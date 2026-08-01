@@ -5910,6 +5910,12 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //and grass type are weak to bug
     //hmm that works for bonsly but if i make this
     //actually a grass type...
+    //may just keep this pure rock?
+    //nah keep this type change tweak dex entry
+    //to say it truly believes its a grass type/plant
+    //despite not being a plant it exhibits many behaviors of such
+    //to the bafflement of researchers it even reacts as a grass type would
+    //to stimuli like sunlight or fire
 
     [SPECIES_POLITOED] =
     {
@@ -5917,7 +5923,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 75, 75, 70, 90, 110),
-        MON_TYPES(TYPE_WATER, TYPE_FAIRY),
+        MON_TYPES(TYPE_WATER),//, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 225,
         //.evYield_SpDefense = 3,
@@ -5939,6 +5945,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sPolitoedTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //mon is already good may just keep pure water
+    //since removed so many pure types vsonic
 
     [SPECIES_HOPPIP] =
     {

@@ -853,8 +853,9 @@ static const struct AbilityLearnset sAzumarillAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSudowoodoAbilityLearnset[] = {
+    ABILITY_SOLAR_POWER,
     ABILITY_SET_END
-};
+};//trick of it believing its a plant and acting like one
 
 static const struct AbilityLearnset sPolitoedAbilityLearnset[] = {
     ABILITY_CACOPHONY,
