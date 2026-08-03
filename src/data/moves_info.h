@@ -9654,6 +9654,16 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_GastroAcid,
     },
+    //vsonic important rework into side status balanced
+    //by short effect will be 2 turn side status so have to predict
+    //play smart to get effect out of it still, i.e could block switch in effect
+    //with  how abilities now work may not be a block but just a delay I guess?
+    //hmm that would still be worse effect overall ok think what will do is
+    //make it set status for target but also set side status on impact like splatter effect
+    //since don't want to be overpowering think will
+    //remove priority boost form this?
+    //idk if would be OP but is a full counter to some niche things
+    //intimidate unseen fist etc.
 
     [MOVE_LUCKY_CHANT] =
     {
