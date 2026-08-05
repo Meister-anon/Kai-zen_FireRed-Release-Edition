@@ -415,7 +415,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_DRAGON] =     {______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,    X(0.0),   ______,   ______}, // dragon
 
-    [TYPE_DARK] =       {______,    ______,   X(0.5),   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   X(0.5),     ______,   ______}, // dark
+    [TYPE_DARK] =       {______,    ______,   X(0.5),   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),     ______,   ______}, // dark
 
     [TYPE_FAIRY] =      {______,    X(1.55),  ______,   ______,   X(0.5),   ______,   ______,   ______,   X(1.55),   X(0.5),   ______,   X(0.5),   ______,   X(0.0),   ______,   X(0.5),   ______,   X(1.55),   X(1.55),   ______,   ______,   ______}, // fairy
 
@@ -425,6 +425,15 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 };//                     None      normal     fight    flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water    grass    electric   psychic    ice      dragon      dark      fairy        wind       sound
 
 #undef X
+
+//think may re add dark resisting dark, doesn't reallyh work for
+//gothitelle to be part dark as goth and be weak to shadows/darkness
+//also initial point of change was balancing intimidate given the dark change
+//but if dark intimidate mon can hit dark mon for neutral 
+//there's no reason to not just play dark mon on your side
+//to take them out but if they resist than it may be incentive
+//to play a different strategy/type
+//tldr dark neutrality is to big a change and hurts too many mon?
 
 //ok made wind type recontextualize flying type
 //same offensive properties better defensive properties
