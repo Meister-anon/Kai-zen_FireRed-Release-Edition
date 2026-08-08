@@ -10187,6 +10187,11 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //its a somewhat more offensive, but balanced version of snorlax
     //twice as fast but lacks the defenses
     //side note unburden is funny but not really thematic thing leave on learned option
+    //looked into really all need to give niche is a move addition
+    //has massive hp if this had life dew would be a great support mon
+    //and also enable its water spout hp sets
+    //think put on egg move or late in move set either or
+    //vsonic important
 
     [SPECIES_NUMEL] =
     {
