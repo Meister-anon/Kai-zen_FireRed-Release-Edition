@@ -10191,7 +10191,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //has massive hp if this had life dew would be a great support mon
     //and also enable its water spout hp sets
     //think put on egg move or late in move set either or
-    //vsonic important
+    //vsonic important - also consider give eruption to go with spout from rejuvenation
+    //really fun idk if sensical
 
     [SPECIES_NUMEL] =
     {
