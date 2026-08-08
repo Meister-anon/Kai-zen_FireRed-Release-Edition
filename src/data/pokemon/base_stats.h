@@ -14966,7 +14966,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .speciesName = _("Dusknoir"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(60, 100, 135, 45, 65, 135),
+         STATS(60, 100, 135, 4, 80, 135),
         MON_TYPES(TYPE_GHOST, TYPE_DARK), //this keeps ghost dark),
         .catchRate = 45, //reverted back to ghost w curr changes gains psyhic immunity
         .expYield = 236, //but in exchange for weakness to bug and fairy
@@ -14994,6 +14994,13 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //ok done it has built in levitate and gets dark void
     //that will be how to differentiate it from eviolite dusclops
     //it now has a niche
+    //stats are still suboptimal realized defenses barely change but speed goes up
+    //but is still not fast it just makes it worst at existing niche of trick room
+    //so instead min max drop speed still has priority shadow punch
+    //idea is death so slow but innevitable.
+    //number for death is 4, based on chinese/japanese lore 
+    //also is about slowest trick room mon right behind shuckle at 5 speed
+    //to balance insted of boosting defenses further attempt "waste" points in sp atk
 
     [SPECIES_FROSLASS] =
     {
