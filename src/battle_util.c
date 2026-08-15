@@ -7895,8 +7895,26 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
             modifier = uq4_12_multiply(modifier, UQ_4_12(0.75));
         }
         break;
+    case ABILITY_PASTEL_VEIL:
+        if (moveType == TYPE_POISON)
+            modifier = uq4_12_multiply(modifier, UQ_4_12(0.75));
+        break;
     default:
         break;
+    }
+
+    // targett partner's abilities
+    if (IsBattlerAlive(BATTLE_PARTNER(battlerDef)))
+    {
+        switch (GetBattlerAbility(BATTLE_PARTNER(battlerDef)))
+        {
+        case ABILITY_PASTEL_VEIL:
+            if (moveType == TYPE_POISON)
+                modifier = uq4_12_multiply(modifier, UQ_4_12(0.75));
+            break;
+        default:
+            break;
+        }//would this work same as steel spirit or would this stack? need confirm
     }
 
     holdEffectParamAtk = GetBattlerHoldEffectParam(battlerAtk);

@@ -2051,10 +2051,10 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_PASTEL_VEIL] =
     {
         .name = _("Pastel Veil"),
-        .description = COMPOUND_ABILITY_STRING("Protects team from poison."),
-        .aiRating = 4,
+        .description = COMPOUND_ABILITY_STRING("Protects team from poison and reduces\nincomming poison dmg by 25%."),
+        .aiRating = 6,
         .breakable = TRUE,
-    },
+    },//updaeted need check that value doesn't stack
 
     [ABILITY_HUNGER_SWITCH] =
     {

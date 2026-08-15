@@ -1381,6 +1381,7 @@ static const struct LevelUpMove sPonytaLevelUpLearnset[] = {
 
 static const struct LevelUpMove sRapidashLevelUpLearnset[] = {
     LEVEL_UP_MOVE(0, MOVE_HI_JUMP_KICK)
+    LEVEL_UP_MOVE(1, MOVE_FLYING_PRESS)
     LEVEL_UP_MOVE(1, MOVE_ROTOTILLER)
     LEVEL_UP_MOVE(1, MOVE_SMART_STRIKE)
     LEVEL_UP_MOVE(1, MOVE_MEGAHORN)
@@ -1410,7 +1411,8 @@ static const struct LevelUpMove sRapidashLevelUpLearnset[] = {
     LEVEL_UP_MOVE(63, MOVE_LAST_RESORT)
     LEVEL_UP_END
 };
-
+//VSONIC IMPORTANT still need rework learnsets for normal addition
+//give some electric dark fighting ground moves lick for early ghost
 
 static const struct LevelUpMove sSlowpokeLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_CURSE)

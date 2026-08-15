@@ -2586,6 +2586,10 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
     //move to cycling road as mentiokned by jpr its where it appears in pokemon yellow
+    //give update give unique learned ability speed boost for both forms
+    //as made normal improve w moveset over stats joat is already going to be helping a good bit
+    //since has horn can give drill peck for new fighting weakness, well it already has bounce?
+    //drill peck works but is a bit weird, but if it gets bounce could also give flying presss
 
     [SPECIES_SLOWPOKE] =
     {
@@ -42676,6 +42680,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .isGalarianForm = TRUE,
     },
+    //buff pastel veil to be like aurora veil but 25% and aura abilities
+    //reduce incoming poison dmg for itself and ally
 
     [SPECIES_SLOWPOKE_GALARIAN] =
     {

@@ -367,6 +367,7 @@ static const struct AbilityLearnset sPonytaAbilityLearnset[] = {
 static const struct AbilityLearnset sRapidashAbilityLearnset[] = {
     ABILITY_PIERCING_HORN,
     ABILITY_LETHAL_LEGS,
+    ABILITY_SPEED_BOOST,
     ABILITY_SET_END
 };
 
@@ -4112,6 +4113,8 @@ static const struct AbilityLearnset sPonytaGalarianAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sRapidashGalarianAbilityLearnset[] = {
+    ABILITY_SPEED_BOOST,
+    ABILITY_LETHAL_LEGS,
     ABILITY_SET_END
 };
 
