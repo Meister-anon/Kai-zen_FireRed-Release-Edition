@@ -4892,10 +4892,11 @@ static enum MoveCanceler CancelerExplosion(struct BattleContext *ctx)
     return CANCELER_RESULT_SUCCESS;
 }
 
+//keep an eye on updated effect fly logic
 static bool32 CanTwoTurnMoveFireThisTurn(struct BattleContext *ctx)
 {
     if ((gBattleMoveEffects[GetMoveEffect(ctx->move)].semiInvulnerableEffect
-    && !(GetMoveEffect(ctx->move) == EFFECT_FLY && gSideStatuses[GetBattlerSide(ctx->battlerAtk)] & SIDE_STATUS_TAILWIND))
+    && !(GetMoveEffect(ctx->move) == EFFECT_FLY && (gSideStatuses[GetBattlerSide(ctx->battlerAtk)] & SIDE_STATUS_TAILWIND || CanGaleWingsActivate(ctx->battlerAtk, ctx->abilityAtk))))
      || GetMoveEffect(ctx->move) == EFFECT_GEOMANCY
      || !IsBattlerWeatherAffected(ctx->battlerAtk, GetMoveTwoTurnAttackWeather(ctx->move)))
         return FALSE;

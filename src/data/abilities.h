@@ -1415,7 +1415,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_GALE_WINGS] =
     {
         .name = _("Gale Wings"),
-        .description = COMPOUND_ABILITY_STRING("Flying moves get a priority boost\nwhen at above 50% HP."),
+        .description = COMPOUND_ABILITY_STRING("Flying moves gain +1 prio. above 50% hp.\nActivates tailwind specific move effects"),
         .aiRating = 6,
     },
 

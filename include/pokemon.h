@@ -1344,6 +1344,15 @@ static inline bool32 DoesFormFlagMatchSpeciesFlag(u16 species, enum Item item)
     }
 }
 
+static inline bool32 CanGaleWingsActivate(enum BattlerId battler, enum Ability ability)
+{
+    if (ability == ABILITY_GALE_WINGS
+    && IsBattlerAboveHalfHP(battler))
+        return TRUE;
+
+    return FALSE;
+}
+
 static inline u8 ReturnSpeciesRegionFormFlag(u16 species)
 {
     if (gSpeciesInfo[species].isAlolanForm)

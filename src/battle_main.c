@@ -7544,9 +7544,10 @@ s32 GetBattleMovePriority(enum BattlerId battler, enum Ability ability, enum Mov
         //fly stuff to if hit by wind move?
         //keep an eye on this effect
 
-        if (ability == ABILITY_GALE_WINGS
-            && IsAirborneType(moveType)
-            && IsBattlerAboveHalfHP(battler))
+        if (//ability == ABILITY_GALE_WINGS            
+            //&& IsBattlerAboveHalfHP(battler)
+            CanGaleWingsActivate(battler, ability)
+            && IsAirborneType(moveType))
         {
             gProtectStructs[battler].galewingsElevated = TRUE;
             priority++;
