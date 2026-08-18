@@ -349,6 +349,16 @@ to be reintroduced,
     //while having a separte option to use the drive
 
 
+    IMPORTANT -vsonic
+    new summary screen ui change playing rejuvenation realized
+    not always easy to remember what held item on mon does
+    forcing people to take off item read descrpition then put back on
+    new plan press select (need remove debug feature for icon placement) to replace trainer memo info with held item description
+    luckily both are 3 lines so should fit perfectly
+    -note don't have to worry bout tms as have already 
+    removed ability to hold those
+
+
     From Form Change Branch:
     refactor form change to allow for changing form from party screen
     and store separate data for form.
