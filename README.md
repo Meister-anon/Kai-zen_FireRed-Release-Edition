@@ -355,6 +355,7 @@ to be reintroduced,
     forcing people to take off item read descrpition then put back on
     new plan press select (need remove debug feature for icon placement) to replace trainer memo info with held item description
     luckily both are 3 lines so should fit perfectly
+    just need add select button icon by trainer memo for people
     -note don't have to worry bout tms as have already 
     removed ability to hold those
 
