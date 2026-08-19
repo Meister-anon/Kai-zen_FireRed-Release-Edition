@@ -4355,6 +4355,18 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             //.contestComboMoves = {0},
             .battleAnimScript = gBattleAnimMove_Thief,
     },
+    //new idea replace knock off effect w theif
+    //give thief knock off power boost when successfully steal item
+    //more nuanced less broken than knock off
+    //would be like acrobatics and require not running an item
+    //to gain effect (dark gem would be an option like acrobatics as well)
+    //believe lower distribution as well  and wouldn't be
+    //able to just spam on everyone as could only work the time they have an item
+    //and the holder has an open item slot to receive said item 
+    //i.e 2 times max, once if user has non consumable held item to start with
+    //to do just replace effect with theif effect
+    //and replace knock off logic with it well would need
+    //can take item logic since its not just does target have held item
 
     [MOVE_SPIDER_WEB] =
     {
