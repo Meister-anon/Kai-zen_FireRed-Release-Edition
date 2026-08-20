@@ -491,8 +491,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
 
     [MOVE_WHIRLWIND] =
     {
-        .name = COMPOUND_STRING("Whirlwind"),
-        .description = COMPOUND_MOVE_STRING("The foe is made to\nswitch out with an\nally. In the wild,\nthe battle ends."),
+        .name = COMPOUND_STRING("Whirlwind"),//can't remember updated effect may still need adjust wild battle description later.
+        .description = COMPOUND_MOVE_STRING("The foe is made to\nswitch out with an\nally. In the wild,\nthe battle ends.\nConsumes Tailwind\nto boost priority."),
         #if UPDATED_MOVE_DATA <= GEN_6
             .accuracy = 0,
             #elif B_UPDATED_MOVE_DATA == GEN_5
@@ -500,7 +500,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             #else
             .accuracy = 100,
             #endif
-        .effect = EFFECT_ROAR,
+        .effect = EFFECT_WHIRLWIND,
         .power = 0,
         .type = TYPE_NORMAL,    //wanted make wind type but doesn't make sense as mon like craniados can get it
         .pp = 20,
@@ -537,6 +537,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //this and other effects will just have to be good
     //based on existence of guard mode, you could more easily survive
     //to get the effect off.
+    //new idea for just whirlwind as extra specialization for flying/wind types
+    //give whirlwind neutral priority but only in tailwind
+    //and the effect consumes the tailiwind ending it immediately after
+    //so effect would be like plus minus
+    //you either need 2 flying types on field with common weakness
+    //or both 2 move slots and two turns to setup effect
+    //as well as the added effect of having to give up tailwind
+    //think because of this specifically can't make tailwind ability
 
     [MOVE_FLY] =
     {

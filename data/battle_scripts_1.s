@@ -2538,8 +2538,28 @@ BattleScript_EffectBide::
 	setbide
 	goto BattleScript_MoveEnd
 
+@duplicate of above just with tailwind clear logic
+@remember attacksttring is part of attackcanceler now
+@oh wait no its elsewhere so ok I need my print string to occur in pre print messages
+@same place delta stream is... no that's not right
+@those are for pre attack strings
+@I want this to print after attack string is displayed
+@attack string is in canceler animation for this occurs
+@within forcerandomswitch commmand so believe this should be ok?
+BattleScript_EffectWhirlwind::
+	attackcanceler
+    jumpiftailwindactive BattleScript_WhirlwindInTailwind
+    goto BattleScript_RoarSuccessChecks
+
+BattleScript_WhirlwindInTailwind:
+    removetailwind
+    printstring STRINGID_TAILWINDENDS
+	waitmessage B_WAIT_TIME_LONG
+    goto BattleScript_RoarSuccessChecks
+
 BattleScript_EffectRoar::
 	attackcanceler
+BattleScript_RoarSuccessChecks:
 	jumpifroarfails BattleScript_ButItFailed
 	jumpifcommanderactive BattleScript_ButItFailed
 	jumpifability BS_TARGET, ABILITY_GUARD_DOG, BattleScript_ButItFailed

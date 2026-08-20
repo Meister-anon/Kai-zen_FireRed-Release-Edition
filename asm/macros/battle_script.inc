@@ -2486,7 +2486,7 @@
 	.byte \switchedItems
 	.endm
 
-	@v my custom natives below here
+@@@@@@@@@@@@@@@@@@ my custom natives below here @@@@@@@@@@@@@@
 	.macro escapePreventionChecks battler:req, failInstr:req
 	callnative	BS_HandleEscapePrevention
 	.byte \battler
@@ -2500,6 +2500,15 @@
 	.macro getuniqueabilitystring
 	callnative BS_GetCustomAbilityString
 	.endm
+
+    .macro jumpiftailwindactive jumpInstr:req
+    callnative BS_JumpIfTailwindActive
+    .4byte \jumpInstr
+    .endm
+
+    .macro removetailwind
+    callnative BS_RemoveTailwind
+    .endm
 
 	.macro endturnskipwindrider battler:req, jumpInstr:req
 	callnative BS_endturnSkipWindRiderActivation

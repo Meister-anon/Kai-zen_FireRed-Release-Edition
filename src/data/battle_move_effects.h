@@ -168,6 +168,17 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .encourageEncore = TRUE,
     },
 
+    [EFFECT_WHIRLWIND] =
+    {
+        .battleScript = BattleScript_EffectWhirlwind,
+        .battleTvScore = 6,
+        .encourageEncore = TRUE,
+    },
+    //vsonic unsure if need special text strings for 
+    //tailwind based effect
+    //hmm since need do battle effect yeah thiink needs its own battle script
+    //copy roar but just add jump if tailwind
+
     [EFFECT_CONVERSION] =
     {
         .battleScript = BattleScript_EffectConversion,

@@ -7493,6 +7493,7 @@ s32 GetBattleMovePriority(enum BattlerId battler, enum Ability ability, enum Mov
     s32 priority = 0;
     u16 power = gDynamicBasePower != 0 ? gDynamicBasePower : gMovesInfo[move].power;
     u8 moveType;
+    u8 side = GetBattlerSide(battler);
     enum HoldEffect holdEffect = GetBattlerHoldEffect(battler);
 
 
@@ -7516,7 +7517,12 @@ s32 GetBattleMovePriority(enum BattlerId battler, enum Ability ability, enum Mov
     }
     else
     {
-    
+        
+        //need test but new effect whirlwind in tailwind
+        //neutral priority should consume
+        if (move == MOVE_WHIRLWIND
+        && gSideStatuses[side] & SIDE_STATUS_TAILWIND)
+            priority = 0;
  
         //if gMovesInfo[move].flags == FLAG_DMG_2X_IN_AIR & target is STATUS3_ON_AIR increment priority 
         //why in the world did I change this hmm ok yeah makes sense at first glance,

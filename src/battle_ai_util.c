@@ -353,6 +353,7 @@ bool32 ShouldRecordStatusMove(u32 move)
         case EFFECT_PROTECT:
         case EFFECT_REST:
         case EFFECT_ROAR:
+        case EFFECT_WHIRLWIND:
         case EFFECT_ROOST:
         case EFFECT_SLEEP_TALK:
         case EFFECT_TAUNT:
@@ -4243,6 +4244,7 @@ static u32 GetAIEffectGroup(enum BattleMoveEffects effect)
         break;
     case EFFECT_HIT_SWITCH_TARGET:
     case EFFECT_ROAR:
+    case EFFECT_WHIRLWIND:
         aiEffect |= AI_EFFECT_FORCE_SWITCH;
         break;
     case EFFECT_TORMENT:

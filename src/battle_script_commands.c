@@ -14739,6 +14739,39 @@ void BS_JumpIfRoarFails(void)
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+void BS_JumpIfTailwindActive(void)
+{
+    NATIVE_ARGS(const u8 *jumpInstr);
+
+    u8 side = GetBattlerSide(gBattlerAttacker);
+
+    if (gSideStatuses[side] & SIDE_STATUS_TAILWIND)
+    {
+        //gSideStatuses[side] |= SIDE_STATUS_TAILWIND;
+        //gSideTimers[side].tailwindTimer = (GetConfig(B_TAILWIND_TURNS) >= GEN_5 ? 4 : 3);
+        gBattlescriptCurrInstr = cmd->jumpInstr;
+    }
+    else
+    {
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+}
+
+void BS_RemoveTailwind(void)
+{
+    NATIVE_ARGS();
+
+    u8 side = GetBattlerSide(gBattlerAttacker);
+
+    if (gSideStatuses[side] & SIDE_STATUS_TAILWIND)
+    {
+        //gSideStatuses[side] |= SIDE_STATUS_TAILWIND;
+        gSideTimers[side].tailwindTimer = 0;
+        gSideStatuses[side] &= ~SIDE_STATUS_TAILWIND;
+    }
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
 void BS_JumpIfAbsent(void)
 {
     NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);

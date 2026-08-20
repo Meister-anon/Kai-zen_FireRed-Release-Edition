@@ -28,6 +28,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_HAZE,
     EFFECT_BIDE,
     EFFECT_ROAR,
+    EFFECT_WHIRLWIND, //copy but extra effect in tailwind
     EFFECT_CONVERSION,
     EFFECT_RESTORE_HP,
     EFFECT_LIGHT_SCREEN,
