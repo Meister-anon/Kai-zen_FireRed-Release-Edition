@@ -6990,9 +6990,22 @@ BattleScript_HurtAttacker:
 	tryfaintmon BS_ATTACKER
 	return
 
+BattleScript_HurtTarget:
+    healthbarupdate BS_TARGET, PASSIVE_HP_UPDATE
+	datahpupdate BS_TARGET, PASSIVE_HP_UPDATE
+	printstring STRINGID_ATTACKER_ABILITYHURTS_TARGET
+	waitmessage B_WAIT_TIME_LONG
+	tryfaintmon BS_TARGET
+	return
+
 BattleScript_RoughSkinActivates::
 	call BattleScript_AbilityPopUp
 	call BattleScript_HurtAttacker
+	return
+
+BattleScript_RoughSkinActivatesDef::
+	call BattleScript_AbilityPopUp
+	call BattleScript_HurtTarget
 	return
 
 BattleScript_RockyHelmetActivates::

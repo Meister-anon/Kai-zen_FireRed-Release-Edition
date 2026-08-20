@@ -10123,6 +10123,9 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sSharpedoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //as a sharpedo buff for rough skin ONLY make it work on attack as wel
+    //new niche effect is simply to get through focus sash effects
+    //since sharpedo just dies if it doesn't one shot
 
     [SPECIES_WAILMER] =
     {

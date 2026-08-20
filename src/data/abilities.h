@@ -202,9 +202,10 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_ROUGH_SKIN] =
     {
         .name = _("Rough Skin"),
-        .description = COMPOUND_ABILITY_STRING("Hurts to make contact."),
-        .aiRating = 6,
-    },
+        .description = COMPOUND_ABILITY_STRING("The Pokémon's Rough Skin hurts any\nthat come into contact with it."),
+        .aiRating = 7,
+    },//disambiguation lowered dmg but hurts on contact and when contact is made
+    //now no longer useless for sharpedo shouldn't break few other mon that get ability as well
 
     [ABILITY_WONDER_GUARD] =
     {
