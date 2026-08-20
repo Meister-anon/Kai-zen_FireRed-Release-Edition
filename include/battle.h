@@ -1807,6 +1807,15 @@ static inline bool32 IsBattlerAboveHalfHP(enum BattlerId battler)
     return gBattleMons[battler].hp > (gBattleMons[battler].maxHP / 2);
 }
 
+static inline bool32 CanGaleWingsActivate(enum BattlerId battler, enum Ability ability)
+{
+    if (ability == ABILITY_GALE_WINGS
+    && IsBattlerAboveHalfHP(battler))
+        return TRUE;
+
+    return FALSE;
+}
+
 static inline bool32 DoesProtectFail(enum BattlerId battler)
 {
     return (gBattleStruct->battlerState[battler].protectSuccessiveFail
