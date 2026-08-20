@@ -155,6 +155,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_YAWN,
     EFFECT_KNOCK_OFF,
     EFFECT_STEAL_ITEM,
+    EFFECT_THIEF, //COPy of above just with knock off boost
     EFFECT_ENDEAVOR,
     EFFECT_POWER_BASED_ON_USER_HP,
     EFFECT_SKILL_SWAP,

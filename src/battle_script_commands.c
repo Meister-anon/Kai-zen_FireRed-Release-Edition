@@ -2597,7 +2597,7 @@ u32 GetBattlerTurnOrderNum(enum BattlerId battler)
 
     if (GetConfig(B_STEAL_WILD_ITEMS) >= GEN_9
      && !(gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_PALACE))
-     && GetMoveEffect(gCurrentMove) == EFFECT_STEAL_ITEM
+     && MoveEffectStealsItem(gCurrentMove)
      && battlerStealer == gBattlerAttacker) // ensure that Pickpocket isn't activating this
     {
         AddBagItem(gLastUsedItem, 1);

@@ -2463,6 +2463,13 @@ static inline void SetFieldTimer(u32 flag, u8 time)
 
 }
 
+//NEED double check works vsonic
+static inline bool32 MoveEffectStealsItem(enum Move move)
+{
+    return (GetMoveEffect(move) == EFFECT_STEAL_ITEM
+    || GetMoveEffect(move) == EFFECT_THIEF);
+}
+
 //couldn't put in battle_main.h
 static inline bool32 BattleTypeCannotSetDex(void)
 {

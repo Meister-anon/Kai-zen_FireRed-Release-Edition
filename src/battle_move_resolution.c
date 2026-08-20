@@ -2653,7 +2653,8 @@ static enum MoveEndResult MoveEnd_MoveBlock(void)
             result = MOVEEND_RESULT_RUN_SCRIPT;
         }
         break;
-    case EFFECT_STEAL_ITEM:
+    case EFFECT_THIEF:
+    case EFFECT_STEAL_ITEM://vsonic need update this with my changed logic of extra item slot
         if (!IsBattlerTurnDamaged(gBattlerTarget)
          || gBattleMons[gBattlerAttacker].item != ITEM_NONE
          || gBattleMons[gBattlerTarget].item == ITEM_NONE

@@ -4330,7 +4330,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_THIEF] =
     {
         .name = COMPOUND_STRING("Thief"),
-        .description = COMPOUND_MOVE_STRING("An attack that may\ntake the foe's held\nitem if the user\nisn't holding one."),
+        .description = COMPOUND_MOVE_STRING("An attack that may\ntake the foe's held\nitem if the user\nisn't holding one.\nBoosts damage on\na successful theft."),
         #if UPDATED_MOVE_DATA <= GEN_6
             .power = 60,
             .pp = 25,
@@ -4338,7 +4338,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .power = 40,
             .pp = 10,
         #endif
-        .effect = EFFECT_STEAL_ITEM,
+        .effect = EFFECT_THIEF,
         .type = TYPE_DARK,
         .accuracy = 95,
         .target = TARGET_SELECTED,

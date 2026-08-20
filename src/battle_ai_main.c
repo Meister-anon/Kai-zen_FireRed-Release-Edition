@@ -5698,7 +5698,8 @@ static s32 AI_CalcMoveEffectScore(enum BattlerId battlerAtk, enum BattlerId batt
                 break;
             }
         }
-        break;
+        break;//change thief todo knock off boost ai doesn't seem to have extra logic for dmg boost from knock off so guess fine to leave as is?
+    case EFFECT_THIEF:
     case EFFECT_STEAL_ITEM:
         {
             bool32 canSteal = FALSE;
