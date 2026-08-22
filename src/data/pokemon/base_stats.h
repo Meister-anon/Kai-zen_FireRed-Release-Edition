@@ -18424,6 +18424,11 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sZoroarkTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //vsonic important potentially take rejuvenation change
+    //make ability transfer ability on transformation and keep ability
+    //even once illusion breaks -reset on switch? idk if is once per battle ability
+    //would allow strategizing and more convincing affect 
+    //looking into history of mon and strategy don't believe would be broken?
 
     [SPECIES_MINCCINO] =
     {
