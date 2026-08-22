@@ -18429,6 +18429,10 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //even once illusion breaks -reset on switch? idk if is once per battle ability
     //would allow strategizing and more convincing affect 
     //looking into history of mon and strategy don't believe would be broken?
+    //so 2 versions base version read illusion on mon select mon in back of party
+    //to transform into and take their ability
+    //than in case of wild battle or only mon in party
+    //transform into random mon thats weaknesses it resists
 
     [SPECIES_MINCCINO] =
     {
