@@ -12464,7 +12464,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.pp = 15,
         .pp = 5, //pp w priority boost
         .target = TARGET_SELECTED,
-        .priority = 1,
+        .priority = 2,
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
         .ignoresSubstitute = TRUE,
@@ -12477,9 +12477,24 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     },//makes target move after user, only useful for doubles+
     //this will be a huge change, before would be used to speed up slower mon
     //but now would function like helping hand, where I boost their priority to the top
-    //vsonic unsure if will make neutral priority or not
+    //unsure if will make neutral priority or not
     //at neutral its used fast or slow for trick room
     //with priority it doesnt need to worry bout either
+    //decided rework keep priority move but more balanced and more nuanced
+    //make target use users speed stat for determining turn order for the duration of turn
+    //tht way if they use priority it somewhat gets around it
+    //but how it will work is they will act with users speed tier for their priority bracket
+    //this way move can be used to speed up or slow down, but can be used regardless of speed
+    //needs to be specific as use speed for turn order to not affect
+    //moves that use speed stat for dmg calc
+    //decided make plus 2 priority as well, to get around most status effects
+    //believe will need to work like attract to get effect I want
+    //sets status and it stores the value I need as the status value
+    //i.e rather than true false store speed stat for user to the target
+    //ex slowbro speed 52 uses after you, sets volatile to enemy
+    //storing value of 52 for "True" in turn order func if find true for after you status
+    //have it read that value as turn order speed
+    //vsonic important
 
     [MOVE_ROUND] =
     {
