@@ -13265,23 +13265,19 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_WILD_CHARGE] =
     {
         .name = COMPOUND_STRING("Wild Charge"),
-        .description = COMPOUND_MOVE_STRING("The user electrifies\nitself and then\nslams into the foe.\nAlso hurts the user."),
-        .effect = EFFECT_RECOIL,
-        .power = 90,
+        .description = COMPOUND_MOVE_STRING("The user electrifies\nitself and then\nslams into the foe.\nIf it misses, the\nuser hurts itself.\nMight paralyze foe."),
+        .effect = EFFECT_RECOIL_IF_MISS,
+        .power = 100,
         .type = TYPE_ELECTRIC,
-        .accuracy = 100,
+        .accuracy = 95,
         .pp = 15,
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .additionalEffects = ADDITIONAL_EFFECTS({
-                .moveEffect = MOVE_EFFECT_LIGHT_RECOIL,
-                .self = TRUE,
-            },
-            {
-                 .moveEffect = MOVE_EFFECT_PARALYSIS,
-                .chance = 15,
-            }),
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 15,
+        }),
         .makesContact = TRUE,
         //.contestEffect = CONTEST_EFFECT_USER_MORE_EASILY_STARTLED,
         //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -13291,6 +13287,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     },
     //attempts buff, less recoil and paralysis chance
     //matches Legend Arceus effect
+    //reworked just made electric jump kick
+    //higher paralysis chance than thunderbolt as physical contact 
+    //so more risky
+    //but is also safer than recoil move is sash compatible.
+    //potentially give to rhyorn line as known to charge also flare blitz?
 
     [MOVE_DRILL_RUN] =
     {
