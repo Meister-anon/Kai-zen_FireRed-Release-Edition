@@ -6789,7 +6789,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SWARM, ABILITY_GUTS},
-        .abilityHidden = {ABILITY_MOXIE, ABILITY_MUSCLE_MAGIC},
+        .abilityHidden = {ABILITY_MOXIE, ABILITY_SAP_SIPPER},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6799,6 +6799,10 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sHeracrossTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //dropped muscle magic on this cuz strong but doesn't really get any special moves of note
+    //focus miss but why use that...
+    //bulbapedia mentions it dining on tree sap and taking it from bulbasaur in an episode of anime
+    //potentially just give sap sipper
 
     [SPECIES_SNEASEL] =
     {
@@ -19217,6 +19221,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         //.hasCosmeticForms = TRUE,
     },
+    //give changes from rejuvenation give pollen puff, goes a long way
+    //potentially also give bitter malice
 
     [SPECIES_ALOMOMOLA] =
     {
@@ -40729,10 +40735,10 @@ const struct SpeciesInfo gSpeciesInfo[] =
          STATS(
         80,
         185,
-        115,
-        75,
-        40,
-        105
+        140,
+        30,
+        5,
+        155
         ),
         MON_TYPES(TYPE_BUG, TYPE_FIGHTING),
         .catchRate = 45,
@@ -40744,7 +40750,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_SKILL_LINK, ABILITY_SKILL_LINK},
+        .abilities = {ABILITY_RIVALRY, ABILITY_RIVALRY},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -40756,6 +40762,30 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .isMegaEvolution = TRUE,
     },
+    //didn't realize but heracross as a mega is apparenlty bad.
+    //looked into it skill link just sucks...
+    //it doesn't have a stab option for multi hit that is usable
+    //and besides that it just has bullet seed arm thrust which is so low power it isn't worth using
+    //and rock blast which has to deal with imperfect accuracy
+    //feel like I may just be better removing the ability all together
+    //maybe just give sap sipper here as well?
+    //gives it an immunity and way to boost its already massive attack higher?
+    //also potentially tweak stats since can change hp may give hp boost
+    //hmm to keep simple what if instead I make it super bulky?
+    //min max it give mega heracross a completely different niche
+    //drop speed down  and 0 special attack making it a trick room wall hmmm
+    //that way can run fast heracross outside of mega, and mega evolve it
+    //to and still be slow to out speed within trick room
+    //ok I like the stat rework, though its still life vulnerable to a 4x
+    //from flying hmmm
+    //now the question is do I go for a defensive or offensive ability?
+    //something to deal with super effective hits, or block crits
+    //while I like the idea of giving it anger point I think that may be way too much
+    //given its new bulk...I think I may go defiant give it intimidate protection
+    //ok its defiant or shell/battle armor hmm rivalry? 25% dmg situational boost
+    //rivalry works with what stag beetles were for, bug fighting
+    //ok yeah think will go with rivalry makes sense lore wise
+    //gives better counter play and also is a form of intimidate guard
 
     [SPECIES_HOUNDOOM_MEGA] =
     {
