@@ -2471,6 +2471,11 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Gives off a sweet scent.\nAlso lowers foes evasion on switch-in."),
         .aiRating = 5,
     },
+    //made into evasive intimidate but decided new idea, not broken
+    //just make into new category more like neutralizing gas
+    //an active switch-into ability, soon as mon switches in, it activates.
+    //makes perfect pair for rock type mon who usually have low acc moves
+    //vsonic important
 
     [ABILITY_TERA_SHIFT] =
     {
