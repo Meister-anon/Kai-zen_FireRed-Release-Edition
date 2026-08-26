@@ -1,6 +1,14 @@
 .
 Branch Goals:
 
+-note with qol updates and min maxing of evs pokerus is no longer useful
+new idea rework it rather than just gaining double evs in battle
+instead increase exp gain do the boosted exp you usually get for being a trade mon
+for the duration of pokerus making the game less grindy
+also one or two random stats will become maxed out in ivs upon recovery from it
+hmm perhaps max out iv of highest non hp stat and then max one
+random stat yeah I like that - increase odds of pokerus a bit 
+
 fixed for the most part anim stuff
 issue rn is battle controller
 breaks 2 different ways
