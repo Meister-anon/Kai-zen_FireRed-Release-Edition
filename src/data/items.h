@@ -7981,7 +7981,7 @@ const struct ItemInfo gItemsInfo[] =
       .name = _("Metronome"),
       .itemId = ITEM_METRONOME,
       .price =  0,
-      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffect = HOLD_EFFECT_METRONOME,//note effect changed update description
       .holdEffectParam =  0,
       .description = gItemDescription_ITEM_EV_SHACKLES,
 //      "description":  gItemDescription_ITEM_NONE

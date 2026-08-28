@@ -9049,7 +9049,9 @@ static inline uq4_12_t GetAttackerItemsModifier(enum BattlerId battlerAtk, uq4_1
         metronomeTurns = min(gBattleMons[battlerAtk].volatiles.metronomeItemCounter, 5);
         // according to bulbapedia this is the "correct" way to calculate the metronome boost
         // due to the limited domain of damage numbers it will never really matter whether this is off by one
-        return uq4_12_add(UQ_4_12(1.0), metronomeBoostBase * metronomeTurns);
+        
+        //me new adjusted affect should be take the lesser of a 100% boost and what 10% + 20% * num turns is
+        return uq4_12_add(UQ_4_12(1.0), min(UQ_4_12(1.0), UQ_4_12(0.1) + metronomeBoostBase * metronomeTurns));
         break;
     case HOLD_EFFECT_EXPERT_BELT:
         if (typeEffectivenessModifier >= UQ_4_12(2.0))

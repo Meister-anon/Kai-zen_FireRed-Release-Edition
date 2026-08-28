@@ -302,6 +302,22 @@ const struct HoldEffectInfo gHoldEffectsInfo[HOLD_EFFECT_COUNT] =
     [HOLD_EFFECT_METRONOME] =
     {
     },
+    //new idea rework effect so has some benefit on first turn of use
+    //cant remember exact term but make it increase sequentially 10, 20, 30, 40 up to 100%
+    //will do 10% boost on first use
+    //effect will be slightly tweaked as wel, instead be
+    //apply boost based on selecting move, but remove it if move fails to work
+    //ahh remembered "factorial" is what I'm looking for
+    //would be 10 30 60 100
+    //think actually too strong may change just keep normal boost flat 20% increase
+    //but start at 10% so 10, 30 50 70 90 100
+    //unsure of balance as a simple protecet or immune switch would reset it
+    //or being forced to switch moves because of a resist as well
+    //or being taunted which would prevent selecting same move
+    //hmmm ok think will take the longer route for strategy and balance
+    //vsonic important
+    //calc effect 10% bonus that adds 20% to effect for each sucessful use
+    //dmg += 10% + 20 * num successful uses
 
     [HOLD_EFFECT_MUSCLE_BAND] =
     {
