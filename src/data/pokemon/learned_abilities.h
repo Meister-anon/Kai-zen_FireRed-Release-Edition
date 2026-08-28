@@ -142,6 +142,7 @@ static const struct AbilityLearnset sSandshrewAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSandslashAbilityLearnset[] = {
+    ABILITY_SAND_VEIL,
     ABILITY_SET_END
 };
 
@@ -4043,6 +4044,7 @@ static const struct AbilityLearnset sSandshrewAlolanAbilityLearnset[] = {
 
 static const struct AbilityLearnset sSandslashAlolanAbilityLearnset[] = {
     ABILITY_FILTER,
+    ABILITY_SNOW_CLOAK,
     ABILITY_SET_END
 };
 

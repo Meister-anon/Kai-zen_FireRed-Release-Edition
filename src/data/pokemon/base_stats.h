@@ -1089,7 +1089,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SAND_VEIL, ABILITY_TOUGH_SPINES},
+        .abilities = {ABILITY_SHARPNESS, ABILITY_TOUGH_SPINES},
         .abilityHidden = {ABILITY_SAND_RUSH, ABILITY_DRY_SKIN},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -1101,6 +1101,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
     //gave tough spines idea from TheChiptide YT
+    //rather than remove tough spines remove sand veil for smith plays change
+    //really is shocking it never got sharpness
 
     [SPECIES_NIDORAN_F] =
     {
@@ -4490,7 +4492,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .speciesName = _("Omastar"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(70, 60, 125, 55, 115, 70),
+         STATS(70, 60, 125, 55, 115, 115),
         MON_TYPES(TYPE_ROCK, TYPE_WATER),
         .catchRate = 45,
         .expYield = 173,
@@ -4546,7 +4548,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .speciesName = _("Kabutops"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(60, 115, 105, 80, 65, 70),
+         STATS(60, 125, 105, 80, 65, 105),
         MON_TYPES(TYPE_ROCK, TYPE_WATER),
         .catchRate = 45,
         .expYield = 173,
@@ -42132,7 +42134,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SNOW_CLOAK, ABILITY_CLEAR_BODY}, //intimidate protection etc.
+        .abilities = {ABILITY_SHARPNESS, ABILITY_CLEAR_BODY}, //intimidate protection etc.
         .abilityHidden = {ABILITY_SLUSH_RUSH, ABILITY_LIGHT_METAL},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
