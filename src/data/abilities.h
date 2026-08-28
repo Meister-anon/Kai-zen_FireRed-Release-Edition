@@ -885,7 +885,18 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Tinted Lens"),
         .description = COMPOUND_ABILITY_STRING("Ups damage if move's type is resisted."),
         .aiRating = 7,
-    },
+    },//considering change to work with new slight resist effect
+    // instad of floor bheing 0.5  would be anything below 1
+    //so would trigger at .775
+    //what that would mean effectively is true resists still become neutral
+    //and extreme resist becomes regualr resist as is norm
+    //but now what would have been a slight resistance becomes a super effective hit
+    //hmm needs more thought but if able to take advantage of
+    //(which isn't easy) could make one of the best abilities in the game
+    //step 1 requires mon with 2 types
+    //step 2 types must have overlapping weakness and resistance
+    //finally must have a good move that can hit said overlap
+    //ex ghost dark, hit with a ghost move
 
     [ABILITY_FILTER] =
     {

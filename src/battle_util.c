@@ -8953,7 +8953,7 @@ static inline uq4_12_t GetAttackerAbilitiesModifier(enum BattlerId battlerAtk, u
             return UQ_4_12(1.5);
         break;
     case ABILITY_TINTED_LENS:
-        if (typeEffectivenessModifier <= UQ_4_12(0.5))
+        if (typeEffectivenessModifier < UQ_4_12(1.0)) //changed from less than equal 0.5
             return UQ_4_12(2.0);
         break;
     default:

@@ -3415,7 +3415,7 @@ static s32 AI_DoubleBattle(enum BattlerId battlerAtk, enum BattlerId battlerDef,
                 {
                     ADJUST_SCORE(GOOD_EFFECT);
                 }
-                break;
+                break;//vsonic important check updated ai logic from EE unsure if this makes sense
             default:
                 break;
             }
