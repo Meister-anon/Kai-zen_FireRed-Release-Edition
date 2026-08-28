@@ -571,6 +571,13 @@ static bool32 HandleEndTurnBurn(enum BattlerId battler)
                 RecordAbilityBattle(battler, ABILITY_HEATPROOF);
             burnDamage /= 2;
         }
+
+        else if (ability == ABILITY_ASH_SPROUT)
+        {
+            if (burnDamage > (burnDamage * 3 / 4) + 1) // Record ability if the burn takes less damage than it normally would.
+                RecordAbilityBattle(battler, ABILITY_ASH_SPROUT);
+            burnDamage = (burnDamage * 3 / 4);
+        }
         SetPassiveDamageAmount(battler, burnDamage);
         BattleScriptExecute(BattleScript_BurnTurnDmg);
         effect = TRUE;

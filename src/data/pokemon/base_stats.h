@@ -6112,7 +6112,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_GRASS,
         .eggGroup2 = EGG_GROUP_GRASS,
         .abilities = {ABILITY_CHLOROPHYLL, ABILITY_SOLAR_POWER},
-        .abilityHidden = {ABILITY_PHOTOSYNTHESIZE, ABILITY_SUN_DISK},
+        .abilityHidden = {ABILITY_ASH_SPROUT, ABILITY_SUN_DISK},
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6123,6 +6123,14 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//made fire match grand colloseum changes - give the grass move that burns nettle whip
     //as normal believe will give low kick as more variety move
+    //idea new ability for sunflora ash bourn or something like that
+    //half effect of heatproof but heals large amount on being hit by fire move
+    //about 20% - doesn't negate damage just idea ash trigers surge of growth
+    //ash regen? idk better name will come
+    //will be target ability placed same place as static and the like
+    //will effectively be dmg mitigation
+    //think replace photosynthesize
+    //attempted setup still to test and balance
 
     [SPECIES_YANMA] =
     {

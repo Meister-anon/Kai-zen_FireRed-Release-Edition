@@ -3300,5 +3300,12 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Art is euphoric. Art moves raise stats\n2 stages. As said move begins."),
         .aiRating = 6,
     },
+
+    [ABILITY_ASH_SPROUT] =
+    {
+        .name = _("Ash Sprout"),
+        .description = COMPOUND_ABILITY_STRING("Slightly reduces Fire & burn dmg.\nRecovers hp after being hit by fire."),
+        .aiRating = 5,
+    },
 };
 

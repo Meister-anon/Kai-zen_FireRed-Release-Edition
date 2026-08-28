@@ -3588,7 +3588,7 @@ bool32 ShouldBurn(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Abi
     // Battler can be burned and has move/ability that synergizes with being burned
     if (CanBeBurned(battlerAtk, battlerDef, abilityDef) && (
         DoesBattlerBenefitFromAllVolatileStatus(battlerDef, abilityDef)
-        || abilityDef == ABILITY_HEATPROOF
+        || abilityDef == ABILITY_HEATPROOF || abilityDef == ABILITY_ASH_SPROUT
         || (abilityDef == ABILITY_FLARE_BOOST && HasMoveWithCategory(battlerDef, DAMAGE_CATEGORY_SPECIAL))))
     {
         if (battlerAtk == battlerDef) // Targeting self

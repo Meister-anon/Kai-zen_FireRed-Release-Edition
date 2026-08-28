@@ -1632,6 +1632,8 @@ static u32 GetSwitchinStatusDamage(enum BattlerId battler)
                 statusDamage = maxHP / 8;
             if (ability == ABILITY_HEATPROOF)
                 statusDamage = statusDamage / 2;
+            if (ability == ABILITY_ASH_SPROUT)
+                statusDamage = (statusDamage * 3 / 4);
             if (statusDamage == 0)
                 statusDamage = 1;
         }

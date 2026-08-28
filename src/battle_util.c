@@ -4784,6 +4784,18 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 effect++;
             }
             break;
+        case ABILITY_ASH_SPROUT:
+        if (IsBattlerAlive(gBattlerAttacker)
+            && !gBattleStruct->unableToUseMove
+            && IsBattlerTurnDamaged(gBattlerTarget)
+            && CanBattlerHeal(gBattlerTarget))
+            {
+                s32 healAmount = 5;
+                SetHealAmount(gBattlerTarget, GetNonDynamaxMaxHP(gBattlerTarget) / healAmount);
+                BattleScriptExecute(BattleScript_EndTurnAbilityHpHeal);
+                effect++;
+            }//if issue w message try below
+                break;//VSONIC IMPORTANT need test hope works as intended
         case ABILITY_ILLUSION:
             if (gBattleStruct->illusion[gBattlerTarget].state == ILLUSION_ON && IsBattlerTurnDamaged(gBattlerTarget))
             {
@@ -7905,6 +7917,14 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
         if (moveType == TYPE_FIRE)
         {
             modifier = uq4_12_multiply(modifier, UQ_4_12(0.5));
+            if (ctx->updateFlags)
+                RecordAbilityBattle(battlerDef, ctx->abilityDef);
+        }
+        break;
+    case ABILITY_ASH_SPROUT:
+        if (moveType == TYPE_FIRE)
+        {
+            modifier = uq4_12_multiply(modifier, UQ_4_12(0.75));
             if (ctx->updateFlags)
                 RecordAbilityBattle(battlerDef, ctx->abilityDef);
         }
