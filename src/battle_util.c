@@ -8945,7 +8945,7 @@ static inline uq4_12_t GetAttackerAbilitiesModifier(enum BattlerId battlerAtk, u
     switch (abilityAtk)
     {
     case ABILITY_NEUROFORCE:
-        if (typeEffectivenessModifier >= UQ_4_12(2.0))
+        if (typeEffectivenessModifier >= UQ_4_12(2.0))//eventually update to use macro super_effective in constants->battle.h carefully find all vsonic important
             return UQ_4_12(1.25);
         break;
     case ABILITY_SNIPER:
