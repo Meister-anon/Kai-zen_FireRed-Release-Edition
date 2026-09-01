@@ -21268,10 +21268,12 @@ static const struct LevelUpMove sRevavroomLevelUpLearnset[] = {
 static const struct LevelUpMove sCyclizarLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE)
     LEVEL_UP_MOVE( 1, MOVE_GROWL)
+    LEVEL_UP_MOVE( 1, MOVE_BATON_PASS)
     LEVEL_UP_MOVE( 7, MOVE_RAPID_SPIN)
     LEVEL_UP_MOVE(11, MOVE_TAUNT)
     LEVEL_UP_MOVE(14, MOVE_BREAKING_SWIPE)
     LEVEL_UP_MOVE(18, MOVE_QUICK_ATTACK)
+    LEVEL_UP_MOVE(20, MOVE_FLAME_WHEEL)
     LEVEL_UP_MOVE(23, MOVE_BITE)
     LEVEL_UP_MOVE(27, MOVE_U_TURN)
     LEVEL_UP_MOVE(31, MOVE_SHED_TAIL)
@@ -21280,9 +21282,13 @@ static const struct LevelUpMove sCyclizarLevelUpLearnset[] = {
     LEVEL_UP_MOVE(45, MOVE_DRAGON_PULSE)
     LEVEL_UP_MOVE(51, MOVE_DOUBLE_EDGE)
     LEVEL_UP_MOVE(57, MOVE_DRAGON_RUSH)
+    LEVEL_UP_MOVE(61, MOVE_EXTREME_SPEED)
     LEVEL_UP_END
 };
 //#endif //P_FAMILY_CYCLIZAR
+//GAVE baton pass in line with part runner aspect 
+//is part runner part bike part lizard
+//further expand learnset over time for normal mon coverage
 
 //#if P_FAMILY_ORTHWORM
 static const struct LevelUpMove sOrthwormLevelUpLearnset[] = {
