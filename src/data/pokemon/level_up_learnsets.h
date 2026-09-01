@@ -21292,6 +21292,8 @@ static const struct LevelUpMove sCyclizarLevelUpLearnset[] = {
 //potentially add fake mon pre evo triclyzard
 //like baby form arms to crawl while body with legs coming out of wheel
 //like training wheels of a tricycle would then enable to be used as a starter option
+//final thought doesn't have good normal move give retaliate
+//decide make a tm
 
 //#if P_FAMILY_ORTHWORM
 static const struct LevelUpMove sOrthwormLevelUpLearnset[] = {

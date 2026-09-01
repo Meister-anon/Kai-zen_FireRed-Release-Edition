@@ -35274,7 +35274,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
 
             //hp, atk, def, spd, spatk, spdef
         STATS(
-              70,
+              85,
               95,
               65,
               121,

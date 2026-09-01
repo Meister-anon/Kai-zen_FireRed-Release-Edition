@@ -225,6 +225,7 @@ static const u16 gTM_Moves[] =
     MOVE_MISTY_EXPLOSION,
     MOVE_SNOWBALL,
     MOVE_ENERGY_BALL,
+    MOVE_RETALIATE,
     MOVE_CELEBRATE,
     LIST_END
 };

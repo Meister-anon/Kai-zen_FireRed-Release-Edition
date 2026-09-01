@@ -26976,6 +26976,7 @@ static const u16 sCyclizarTMHMLearnset[] = {
     MOVE_PROTECT,
     MOVE_RAIN_DANCE,
     MOVE_REST,
+    MOVE_RETALIATE,
     MOVE_SLEEP_TALK,
     MOVE_SUNNY_DAY,
     MOVE_TAUNT,
