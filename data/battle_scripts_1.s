@@ -8755,6 +8755,23 @@ BattleScript_TryTailwindAbilitiesLoop_WindPower:
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_TryTailwindAbilitiesLoop_Increment
 
+@trysetvolatile BS_ATTACKER, VOLATILE_CHARGED, BattleScript_ButItFailed
+@attempt new charge beam effect sets charged status each turn
+@always boosts next electric attack
+BattleScript_EffectChargeBeam::
+    attackcanceler
+	accuracycheck BattleScript_MoveMissedPause
+	copybyte gEffectBattler, gBattlerAttacker
+	setpreattackadditionaleffect
+    trysetvolatile BS_ATTACKER, VOLATILE_CHARGED, BattleScript_ChargeBeamDamageCalc
+BattleScript_ChargeBeamDamageCalc::
+	damagecalc
+	call BattleScript_Hit_RetFromAtkAnimation
+BattleScript_ChargeBeamMoveEnd::
+    printstring STRINGID_PKMNCHARGINGPOWER
+	waitmessage B_WAIT_TIME_LONG
+	moveendall
+	end
 
 @new effect prevent spam,
 @fails if timer set

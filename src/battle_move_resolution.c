@@ -3798,8 +3798,11 @@ static void TryClearChargeVolatile(u32 moveType)
     //if (B_CHARGE < GEN_9) // Prior to gen9, charge is cleared during the end turn
     //    return;
 
+    //unsure of glastusedmove use here if that counts for called effects
+    //what I want is called move or used move skip if charge beam
     if (moveType == TYPE_ELECTRIC && gBattleMons[gBattlerAttacker].volatiles.chargedUp == 1
-    && gProtectStructs[gBattlerAttacker].cancelerResult == CANCELER_RESULT_SUCCESS)
+    && gProtectStructs[gBattlerAttacker].cancelerResult == CANCELER_RESULT_SUCCESS
+    && gLastUsedMove != MOVE_CHARGE_BEAM)
         gBattleMons[gBattlerAttacker].volatiles.chargedUp = 0;
 
     //old effect for move this effect now unique to ability
@@ -3808,7 +3811,7 @@ static void TryClearChargeVolatile(u32 moveType)
         if (gBattleMons[battler].volatiles.chargeTimer == 2) // Has been set this turn by move
             gBattleMons[battler].volatiles.chargeTimer--;
     }*/
-}
+}//-vsonic important
 
 static inline bool32 IsBattlerUsingBeakBlast(enum BattlerId battler)
 {

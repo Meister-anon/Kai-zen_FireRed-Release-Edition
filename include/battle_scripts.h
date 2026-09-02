@@ -1436,6 +1436,7 @@ extern const u8 BattleScript_EffectMemento[];
 extern const u8 BattleScript_EffectFocusPunch[];
 extern const u8 BattleScript_EffectFollowMe[];
 extern const u8 BattleScript_EffectCharge[];
+extern const u8 BattleScript_EffectChargeBeam[];
 extern const u8 BattleScript_ChargeMaxedOut[]; //new charge end turn effect
 extern const u8 BattleScript_EffectReCharge[];
 extern const u8 BattleScript_RechargeComplete[];

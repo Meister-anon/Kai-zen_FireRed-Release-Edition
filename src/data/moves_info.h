@@ -11417,8 +11417,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_CHARGE_BEAM] =
     {
         .name = COMPOUND_STRING("Charge Beam"),
-        .description = COMPOUND_MOVE_STRING("Fires a beam of\nionized electricity.\nMay raise Sp. Atk."),
-        .effect = EFFECT_HIT,
+        .description = COMPOUND_MOVE_STRING("Fires a beam of\nionized electricity\nwhile storing energy\nCharges up next\nelec. attack."),
+        .effect = EFFECT_CHARGE_BEAM,
         .power = 50,
         .type = TYPE_ELECTRIC,
         .accuracy = 90,
@@ -11426,17 +11426,36 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
-        .additionalEffects = ADDITIONAL_EFFECTS({
+        /*.additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_SP_ATK_PLUS_1,
             .self = TRUE,
             .chance = 70,
-        }),
+        }),*/
         //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CHARGE},
         .battleAnimScript = gBattleAnimMove_ChargeBeam,
     },
+    //apparently is bad no one uses it in comp
+    //had new idea instead of chance to boost sp atk
+    //which effectively requires another move to actually take advantage of it
+    //move instead always sets charge status after use, boosting next electric attack
+    //since effect is double would effecitvely turn this 50 into a 100 bp move
+    //just requiring the one turn of setup
+    //would remove need for second move or 2 electric on electric types
+    //incentivizes clicking move over and over which
+    //would synergize with my new metronome change
+    //vsonic facepalm forgot reworked and removed old charge effect
+    //will need to reinstitute it for this move
+    //ok found base effect it is still used for abilities that set charge status
+    //wind power essentially.
+    //all I have to do to get this to work is set gBattleMons[battlerAtk].volatiles.chargedUp
+    //to true
+    //way will do effect is just check in resolution function
+    //if move used was charge beam or effect charge_beam
+    // if so skip charge status removal
+    //vsonic important believe setup effect need check
 
     [MOVE_WOOD_HAMMER] =
     {

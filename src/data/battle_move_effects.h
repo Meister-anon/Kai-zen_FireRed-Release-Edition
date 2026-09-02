@@ -937,6 +937,13 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .encourageEncore = TRUE,
     },
 
+    [EFFECT_CHARGE_BEAM] =
+    {
+        .battleScript = BattleScript_EffectChargeBeam,
+        .battleTvScore = 5,
+    },
+    
+
     [EFFECT_TAUNT] =
     {
         .battleScript = BattleScript_EffectTaunt,

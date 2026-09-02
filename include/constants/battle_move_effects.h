@@ -143,6 +143,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_FOLLOW_ME,
     EFFECT_NATURE_POWER,
     EFFECT_CHARGE,
+    EFFECT_CHARGE_BEAM,
     EFFECT_TAUNT,
     EFFECT_HELPING_HAND,
     EFFECT_TRICK,
