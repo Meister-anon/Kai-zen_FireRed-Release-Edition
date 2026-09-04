@@ -11815,7 +11815,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .name = COMPOUND_STRING("Shadow Force"),
         .description = COMPOUND_MOVE_STRING("Vanishes first turn\nthen strikes on\nthe next turn."),
         .effect = EFFECT_SEMI_INVULNERABLE,
-        .power = 120,
+        .power = 150,
         .type = TYPE_GHOST,
         .accuracy = 100,
         .pp = 5,
@@ -11844,6 +11844,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //is "worst" legendary and meant to compete against the others
     //so now it can disappear first, and then rip away the protect
     //meant to block it at the start of the turn
+    //forgot I did this but came up with idea to add priority to base move as well
+    //so this will just be a much stronger version of that effect
+    //actually with that and giratina stats in mind considering this move might
+    //not be strong enough?  giving up dmg turn on a mon that doesn't even heal
+    //think might just make this 150 bp?
 
     [MOVE_HONE_CLAWS] =
     {
@@ -14296,14 +14301,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_PHANTOM_FORCE] =
     {
         .name = COMPOUND_STRING("Phantom Force"),
-        .description = COMPOUND_MOVE_STRING("Vanishes first turn\nthen strikes on\nthe next turn."),
+        .description = COMPOUND_MOVE_STRING("Vanishes instantly\nthen strikes on\nthe next turn."),
         .effect = EFFECT_SEMI_INVULNERABLE,
         .power = 90,
         .type = TYPE_GHOST,
         .accuracy = 100,
         .pp = 10,
         .target = TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .ignoresProtect = TRUE,
         .makesContact = TRUE,
@@ -14327,6 +14332,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //is that not only will it hit through
     //but will also remove the protect effect
     //since so strong will keep to priority 0
+    //changed mind
 
     [MOVE_TRICK_OR_TREAT] =
     {
