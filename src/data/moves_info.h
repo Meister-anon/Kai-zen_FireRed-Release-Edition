@@ -18897,7 +18897,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .effect = EFFECT_STONE_AXE,
         .power = 65,
         .type = TYPE_ROCK,
-        .accuracy = 95,
+        .accuracy = 90,
         .pp = 15,
         .target = TARGET_USER,
         .priority = 0,
@@ -18914,6 +18914,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //especially when stealth rocks don't stack
     //acc not being perfect is best balance willing to do with this
     //decided add crit back to move that would kinda justify 90 acc
+    //tested in rejuvenation 90 acc felt good didn't miss much at all
 
     [MOVE_SPRINGTIDE_STORM] =
     {
