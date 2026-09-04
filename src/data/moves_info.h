@@ -18904,6 +18904,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .slicingMove = TRUE,
+        .enhancedCritrate = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .sheerForceOverride = TRUE,
         }),
@@ -18912,6 +18913,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //low power no reason to have such low acc
     //especially when stealth rocks don't stack
     //acc not being perfect is best balance willing to do with this
+    //decided add crit back to move that would kinda justify 90 acc
 
     [MOVE_SPRINGTIDE_STORM] =
     {
