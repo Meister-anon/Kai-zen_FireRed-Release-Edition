@@ -14333,6 +14333,13 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     //but will also remove the protect effect
     //since so strong will keep to priority 0
     //changed mind
+    //counter point to decide on later
+    //with investment(strategy) can turn phantom force into a protect option
+    //that deals damage i.e on the last turn of speed control
+    //if used with a slow mon can go first
+    //speed returns to normal and would then calculate to act last in turn
+    //dodging all attacks.
+    //extrmeley niche and potentially difficult to setup but worth considering
 
     [MOVE_TRICK_OR_TREAT] =
     {
