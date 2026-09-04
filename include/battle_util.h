@@ -69,6 +69,7 @@ enum AbilityEffect
     ABILITYEFFECT_UNNERVE,
     ABILITYEFFECT_ON_SWITCHIN,
     ABILITYEFFECT_SWITCH_IN_FORM_CHANGE,
+    ABILITYEFFECT_ON_SWITCHINTO, //plan for super sweet syrup and frisk reactivate for foe switching in when on opposing side.
     ABILITYEFFECT_COMMANDER, // Commander / Hospitality / Costar
     ABILITYEFFECT_ON_WEATHER,
     ABILITYEFFECT_ON_TERRAIN,

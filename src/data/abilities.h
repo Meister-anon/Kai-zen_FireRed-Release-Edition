@@ -982,6 +982,11 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Checks the foes' item. Also raises\nchance of extra effects on contact."),
         .aiRating = 4,
     },//vsonic
+    //new update planned make switch in and switch-into ability
+    //major point will be information gather ability
+    //on switch in will reveal info for a random target
+    //but for switch-into case will allow for revealing entire side
+    //as switch happens one at time.
 
     [ABILITY_RECKLESS] =
     {
@@ -2487,6 +2492,9 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     //an active switch-into ability, soon as mon switches in, it activates.
     //makes perfect pair for rock type mon who usually have low acc moves
     //vsonic important
+    //plan rework this and frisk, into abilities that activate on switch-in
+    //as well as when opponent switches in i.e make switch-into category
+    //similar to how contact abilities work far as case shift
 
     [ABILITY_TERA_SHIFT] =
     {
