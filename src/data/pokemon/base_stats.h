@@ -2118,6 +2118,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //since dex entries talked so much of its vitality 
     //gave extra hp
     //also gave stamina as mentioned never getting tired exhausted muscles
+    //previous sp atk was 70 potentially reinstate
+    //added 10 points to atk and defense
 
     [SPECIES_ABRA] =
     {
