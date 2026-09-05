@@ -1047,7 +1047,7 @@ static const struct AbilityLearnset sOctilleryAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sDelibirdAbilityLearnset[] = {
-    ABILITY_INSOMNIA,
+    ABILITY_UNNERVE,
     ABILITY_SET_END
 };
 

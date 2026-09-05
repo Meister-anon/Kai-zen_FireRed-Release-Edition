@@ -7124,7 +7124,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_UNNERVE, ABILITY_HUSTLE}, //ABILITY_ICE_BODY, ABILITY_UNNERVE
+        .abilities = {ABILITY_INSOMNIA, ABILITY_HUSTLE}, //ABILITY_ICE_BODY, ABILITY_UNNERVE
         .abilityHidden = {ABILITY_MULTI_TASK, ABILITY_MAGIC_GUARD},  //ABILITY_HUSTLE, ABILITY_MAGIC_GUARD
         //.bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -7134,7 +7134,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sDelibirdLevelUpLearnset,
         .tmhmLearnset = sDelibirdTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    }, //idk if I like these abilities
+    }, //idk if I like these abilities 
 
     [SPECIES_MANTINE] =
     {

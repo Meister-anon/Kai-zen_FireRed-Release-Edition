@@ -4259,6 +4259,7 @@ static const struct LevelUpMove sDelibirdLevelUpLearnset[] = {
     LEVEL_UP_MOVE(16, MOVE_QUICK_ATTACK)
     LEVEL_UP_MOVE(22, MOVE_FUTURE_SIGHT)
     LEVEL_UP_MOVE(22, MOVE_SNOWBALL)
+    LEVEL_UP_MOVE(25, MOVE_BRUTAL_SWING)
     LEVEL_UP_MOVE(27, MOVE_DOUBLE_TEAM)
     LEVEL_UP_MOVE(31, MOVE_DRILL_PECK)
     LEVEL_UP_MOVE(37, MOVE_AURORA_VEIL)
@@ -4266,6 +4267,8 @@ static const struct LevelUpMove sDelibirdLevelUpLearnset[] = {
     LEVEL_UP_MOVE(42, MOVE_RECYCLE)
     LEVEL_UP_END
 };//give extreme speed and add a few stronger special ice moves ice beam, blizzard etc.
+//Give breaking swipe as tm idea from pokemon stadium swings around and hits
+//people with its bag
 
 static const struct LevelUpMove sMantineLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE)
