@@ -20873,6 +20873,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_STATUS,
         .snatchAffected = TRUE,
         .ignoresProtect = TRUE,
+        .battleAnimScript = gBattleAnimMove_Todo,
         //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
@@ -21105,6 +21106,7 @@ use wonder gaurd logic to determine its super effective
                 .moveEffect = MOVE_EFFECT_CONFUSION,
                 .chance = 10,
             }),
+            .battleAnimScript = gBattleAnimMove_Todo,
     },//since effect is affects user its already certain
     //think give this uproar effect as well, good idea
     //to have more sleep control in game even with rebalance
@@ -21127,6 +21129,7 @@ use wonder gaurd logic to determine its super effective
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
         }),
+        .battleAnimScript = gBattleAnimMove_Todo,
     },
 
     [MOVE_SHIMON] =
@@ -21146,6 +21149,7 @@ use wonder gaurd logic to determine its super effective
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
         }),
+        .battleAnimScript = gBattleAnimMove_Todo,
     },
 
     [MOVE_FINAL_FLIGHT] =
@@ -21166,6 +21170,7 @@ use wonder gaurd logic to determine its super effective
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
         }),
+        .battleAnimScript = gBattleAnimMove_Todo,
     },//Check flying type average stats, see if need to make this physical
     //idea is user pushes themselves to the limit, and gives everything they have to perform an acrobatic feat  /vsonic
     //let pidgeot get but think this should be a tutor move?
@@ -21188,6 +21193,7 @@ use wonder gaurd logic to determine its super effective
             .moveEffect = MOVE_EFFECT_REMOVE_ARG_TYPE,
             .self = TRUE,
         }),
+        .battleAnimScript = gBattleAnimMove_Todo,
     },
 
     [MOVE_BOLTBEAM] =
@@ -21207,6 +21213,7 @@ use wonder gaurd logic to determine its super effective
             .moveEffect = MOVE_EFFECT_FREEZE,
             .chance = 30,
         }),
+        .battleAnimScript = gBattleAnimMove_Todo,
     },
     //two typed attack w chance to freeze
 
@@ -21224,6 +21231,7 @@ use wonder gaurd logic to determine its super effective
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .enhancedCritrate = TRUE,
+        .battleAnimScript = gBattleAnimMove_Todo,
     },  //point of move isn't necessarily to replace sucker punch, but instead to be an option for slower dark types to take advantage of new dark type change
     //so only give to mon that DON'T get sucker punch and make sure to keep sparse
     //like say give to guzzlord
@@ -21541,13 +21549,14 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_DOUBLE_TEAM},
-        .battleAnimScript = gBattleAnimMove_Agility,
+        .battleAnimScript = gBattleAnimMove_Todo,
     },
     //temp animation accupressure
     //capsakid can learn this
     //ah forgot this was meant to be new evo learn move
     //since the move it does learn is next to useless in solo play
-
+    //think torment would work? think that has  en exclamatoin mark
+    //and makes the target move swiftly back and forth check anim
 
     [MOVE_STEEL_SURGE] =
     {
@@ -21571,7 +21580,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_SMART,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_SteelSurge,
+        .battleAnimScript = gBattleAnimMove_Todo,
     },
     //turned g max move into regualr move
     //still give to copperajah
@@ -21593,6 +21602,7 @@ use wonder gaurd logic to determine its super effective
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .airborneDmgState = CANT_DAMAGE_FLOATING,
+        .battleAnimScript = gBattleAnimMove_Todo,
     },
     //dirt nap and respite 
     //meant to be new category move effect
@@ -21629,6 +21639,7 @@ use wonder gaurd logic to determine its super effective
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .ignoresRedirection = TRUE,
+        .battleAnimScript = gBattleAnimMove_Todo,
     },//give to SPECIES_DHELMISE
     //idea drags targetted foe underwater
 
@@ -21644,6 +21655,7 @@ use wonder gaurd logic to determine its super effective
         .target = TARGET_DEPENDS,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
+        .battleAnimScript = gBattleAnimMove_Todo,
     },
 
     [MOVE_BRUTE_FORCE] =
@@ -21784,8 +21796,14 @@ use wonder gaurd logic to determine its super effective
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
+        .healingMove = TRUE,
+        .argument = { .absorbPercentage = 50 },
+        .battleAnimScript = gBattleAnimMove_Todo,
     },//decide make phsyical counter of shadow ball, but healings
     //undecided if should make tm
+    //unsure why but I forgot to label this healing move and forgot to add a heal percentage?
+    //is 0 supposed to default to 50%? I can't remember
+
 
     [MOVE_DARK_SWAMP] =
     {
@@ -21802,6 +21820,7 @@ use wonder gaurd logic to determine its super effective
         .argument = { .absorbPercentage = 50 },
         .healingMove = TRUE,
         .airborneDmgState = CANT_DAMAGE_FLOATING,
+        .battleAnimScript = gBattleAnimMove_Todo,
     },
     //made 60 bp to continue trend of oddly broken dark moves category
     //forgot was meant to add grounnd based logic to this
@@ -21881,7 +21900,7 @@ use wonder gaurd logic to determine its super effective
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
-        .battleAnimScript = gBattleAnimMove_DragonDarts,
+        .battleAnimScript = gBattleAnimMove_Todo,
     },
     //for anim do double team animation and then something like
     //beatup
@@ -21991,5 +22010,31 @@ use wonder gaurd logic to determine its super effective
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_Charge,
     },//plan for this to be a tm to mon that can learn charge
+
+    [MOVE_COLD_EMBRACE] =
+    {
+        .name = COMPOUND_STRING("Cold Embrace"),
+        .description = COMPOUND_MOVE_STRING("User latches onto\nthe target while\nexuding a freezing\naura that drains\ntheir vitality."),
+        .effect = EFFECT_ABSORB,
+        .power = 70,
+        .type = TYPE_ICE,
+        .accuracy = 100,
+        .pp = 10,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        .argument = { .absorbPercentage = 50 },
+        .healingMove = TRUE,
+        .battleAnimScript = gBattleAnimMove_Todo,
+    },
+    //would be better for more mon as physical but for balance
+    //keep special also don't want to make op mon even stronger
+    //chen pao won't get distribution prerequisite
+    //mon has to have arms or some appendage be able to lock down a foe
+    //so can't be too massive i.e mamoswine
+    //froslass could get this for example.
+    //animation thnink do mist effect on user dash at enemy
+    //then have foe be encircled by the sheer cold/blizzard ice particles
 
 };

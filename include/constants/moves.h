@@ -931,6 +931,7 @@ enum Move {
  MOVE_CONTRALTO = 889,
  MOVE_FOCUS_STRIKE = 890, //technically not custom, is just original focus punch reowrked to not restricted to punching
  MOVE_RECHARGE = 891,
+ MOVE_COLD_EMBRACE = 892, //special absorb move to help w ice type glass canon archtype little sustain but also contact to balance
 
  MOVES_COUNT_CUSTOM,
 

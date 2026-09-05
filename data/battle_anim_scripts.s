@@ -225,6 +225,7 @@ gBattleAnimSpecial_CriticalCaptureBallThrow::
 @which is monbg attacker 
 @@@@@@@@@@@@@@@@@@@@@@@ GEN 1-3 @@@@@@@@@@@@@@@@@@@@@@@
 gBattleAnimMove_None::
+gBattleAnimMove_Todo::
 gBattleAnimMove_MirrorMove::
 gBattleAnimMove_Pound::
 	loadspritegfx ANIM_TAG_IMPACT

@@ -3,6 +3,7 @@
 
 // move animations
 extern const u8 gBattleAnimMove_None[];
+extern const u8 gBattleAnimMove_Todo[];
 extern const u8 gBattleAnimMove_Pound[];
 extern const u8 gBattleAnimMove_KarateChop[];
 extern const u8 gBattleAnimMove_DoubleSlap[];
