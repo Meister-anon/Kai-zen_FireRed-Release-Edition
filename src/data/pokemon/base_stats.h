@@ -2105,7 +2105,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_WATER_ABSORB, ABILITY_DAMP},
-        .abilityHidden = {ABILITY_SWIFT_SWIM, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SWIFT_SWIM, ABILITY_STAMINA},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -2117,6 +2117,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     },
     //since dex entries talked so much of its vitality 
     //gave extra hp
+    //also gave stamina as mentioned never getting tired exhausted muscles
 
     [SPECIES_ABRA] =
     {
