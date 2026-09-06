@@ -1067,6 +1067,7 @@ struct SpeciesGraphicInfo
 #define MEDIUM_EFFORT   20
 #define ABOVE_AVERAGE_EFFORT 25
 #define HIGH_EFFORT     30
+#define MAX_EFFORT      40
 
 extern u8 gPlayerPartyCount;
 extern struct Pokemon gPlayerParty[PARTY_SIZE];

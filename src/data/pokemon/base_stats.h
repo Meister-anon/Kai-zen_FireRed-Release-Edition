@@ -25847,9 +25847,10 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilityLearnset = sTypeNullAbilityLearnset,
         .levelUpLearnset = sTypeNullLevelUpLearnset,
         .tmhmLearnset = sTypeNullTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, FILL, 0, SPECIES_SILVALLY}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL_FRIENDSHIP, RELATIVE_EVO(42, MAX_EFFORT), FILL, SPECIES_SILVALLY}), //Should hopefully blank these for now without issue
         .isLegendary = TRUE,
-    },
+    },//revamped evo for buffed form
+    //plan give as lvl 1 or low level mon or encounter early?
 
     [SPECIES_SILVALLY] =
     {
@@ -25857,12 +25858,12 @@ const struct SpeciesInfo gSpeciesInfo[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
+        110,
+        115,
+        130,
+        55,
         95,
-        95,
-        95,
-        95,
-        95,
-        95
+        130
         ),
         MON_TYPES(TYPE_NORMAL, TYPE_MYSTERY),
         .catchRate = 3,
@@ -25887,6 +25888,14 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .hasCosmeticForms = TRUE,
         .isLegendary = TRUE //see if can setup like castform
     },
+    //this thing is awful, even with ability rework
+    //it just doesn't have a niche like many other evos who barely have any stat changes smh
+    //plus it evolves into a completely different niche/speed tier
+    //plan make bulky mid speed mon but give it both tail wind and trick room
+    //make it just a flex mon
+    //its somewhat like a knight give it bulk and dmg
+    //ok works I think, failed attempt at arceus less overall power,
+    //but stats make more sense being higher
 
     [SPECIES_MINIOR] =
     {

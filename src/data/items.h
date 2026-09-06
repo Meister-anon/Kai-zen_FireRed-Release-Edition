@@ -7200,7 +7200,24 @@ const struct ItemInfo gItemsInfo[] =
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
       .secondaryId =  MOVE_CELEBRATE,
-    }, //+100  
+    }, //+100 
+    [ITEM_TM163] =
+    {
+      .name = _("TM163"),
+      .itemId = ITEM_TM163,
+      .price =  3000,
+      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffectParam =  0,
+      .description = NULL,
+//      "description":  "A maximum-power attack of great\\nferocity, but one that also sharply\\nreduces the user's SP. ATK stat.,
+      .importance = 0,
+      .exitsBagOnUse = 0,
+      .pocket = POCKET_TM_CASE,
+      .type = ITEM_USE_PARTY_MENU,
+      .fieldUseFunc = NULL,
+      .battleUseFunc = NULL,
+      .secondaryId =  MOVE_TAILWIND,
+    }, 
     [ITEM_HM01] =
     {
       .name = _("HM01"),

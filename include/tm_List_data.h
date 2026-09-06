@@ -227,6 +227,7 @@ static const u16 gTM_Moves[] =
     MOVE_ENERGY_BALL,
     MOVE_RETALIATE,
     MOVE_CELEBRATE,
+    MOVE_TAILWIND,
     LIST_END
 };
 

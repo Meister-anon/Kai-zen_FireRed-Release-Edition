@@ -1159,6 +1159,7 @@ enum __attribute__((packed)) Item
     ITEM_TM160,
     ITEM_TM161,
     ITEM_TM162,
+    ITEM_TM163,
     ITEM_HM09, //missed attempt fix later
     
 
