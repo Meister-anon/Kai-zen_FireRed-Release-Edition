@@ -22037,4 +22037,46 @@ use wonder gaurd logic to determine its super effective
     //animation thnink do mist effect on user dash at enemy
     //then have foe be encircled by the sheer cold/blizzard ice particles
 
+    [MOVE_STEADY_HAND] =
+    {
+        .name = COMPOUND_STRING("Steady Hand"), //tempered fist?
+        .description = COMPOUND_MOVE_STRING("User latches onto\nthe target while\nexuding a freezing\naura that drains\ntheir vitality."),
+        .effect = EFFECT_STEADY_HAND, //still todo
+        .power = 80,
+        .type = TYPE_FIGHTING,
+        .accuracy = 0,
+        .pp = 10,//unsure if should make 5 pp, can't use move in succession anyway
+        .target = TARGET_SELECTED,
+        .priority = -2,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .cantUseTwice = TRUE,
+        .battleAnimScript = gBattleAnimMove_Todo,
+    },
+    //New version fighting sucker punch like
+    //think idea of fighting type is as its techniques
+    //its more technical more requirements but also more typical drawbacks
+    //will be its own effect
+    //delayed sucker punch + counter + endure with 1/6 max hp recover if 
+    //counters physical move
+
+    /*
+    new move idea rock fighting britle fist type
+    fast mon low defenses with sturdy
+
+    but move idea from archetype
+    steady hand
+    or tempered fist
+
+    negative priority fighting  counter move
+    goes last but braces itself to endure attacks and counters the target takes extra damage
+    based on physical dmg received user also recovers (think 1/6th max) after move successfully completes if countered a physical hit
+    move cannot be used in succession.
+
+    80 bp sure hit  in counter mode add 1/4th damage received in turn as additional dmg after dmg step
+    so counter dmg essentially ignores defenses
+
+    give sparingly idea was for hypothetical fake mon but give to some
+    */
+
 };

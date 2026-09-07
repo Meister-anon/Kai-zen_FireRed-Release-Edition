@@ -369,6 +369,7 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_TRENCH_RUN,
     EFFECT_STEEL_SURGE,
     EFFECT_RECHARGE, //charge boost for healing
+    EFFECT_STEADY_HAND, //counter dmg + endure + recovery -todo
     NUM_BATTLE_MOVE_EFFECTS,
 };
 
