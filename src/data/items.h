@@ -3299,7 +3299,7 @@ const struct ItemInfo gItemsInfo[] =
       .itemId = ITEM_SHELL_BELL,
       .price =  200,
       .holdEffect = HOLD_EFFECT_SHELL_BELL,
-      .holdEffectParam =  8,
+      .holdEffectParam =  5, //was 1/8th change 1/5th  quarter recovery potentially too strong but item may still be bad, unless paired w draining move
       .description = gItemDescription_ITEM_SHELL_BELL,
 //      "description":  "An item to be held by a POKéMON.\\nThe holding POKéMON regains some\\nHP upon striking the foe.,
       .importance = 0,
