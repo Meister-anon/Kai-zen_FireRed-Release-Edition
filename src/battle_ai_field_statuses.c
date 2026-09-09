@@ -83,7 +83,7 @@ bool32 WeatherChecker(enum BattlerId battler, u32 weather, enum FieldEffectOutco
             result = BenefitsFromSun(battler);
         else if (weather & WEATHER_SANDSTORM)
             result = BenefitsFromSandstorm(battler);
-        else if (weather & WEATHER_ICY_ANY)
+        else if (weather & WEATHER_COLD_ANY)
             result = BenefitsFromHailOrSnow(battler, weather);
 
         battler = BATTLE_PARTNER(battler);
@@ -146,7 +146,7 @@ static bool32 DoesAbilityBenefitFromWeather(enum Ability ability, u32 weather)
     switch (ability)
     {
     case ABILITY_FORECAST:
-        return (weather & (WEATHER_RAIN | WEATHER_SUN | WEATHER_ICY_ANY));
+        return (weather & (WEATHER_RAIN | WEATHER_SUN | WEATHER_COLD_ANY));
     case ABILITY_MAGIC_GUARD:
     case ABILITY_OVERCOAT:
         return (weather & WEATHER_DAMAGING_ANY);
@@ -157,7 +157,7 @@ static bool32 DoesAbilityBenefitFromWeather(enum Ability ability, u32 weather)
     case ABILITY_ICE_BODY:
     case ABILITY_ICE_FACE:
     case ABILITY_SNOW_CLOAK:
-        return (weather & WEATHER_ICY_ANY);
+        return (weather & WEATHER_COLD_ANY);
     case ABILITY_SLUSH_RUSH:
         return (weather & WEATHER_SNOW);
     case ABILITY_DRY_SKIN:

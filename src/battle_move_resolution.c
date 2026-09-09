@@ -806,7 +806,7 @@ static enum CancelerResult CancelerMoveFailure(struct BattleContext *ctx)
             battleScript = BattleScript_PokemonCantUseTheMove;
         break;
     case EFFECT_AURORA_VEIL:
-        if (!(gBattleWeather & WEATHER_ICY_ANY && HasWeatherEffect()))
+        if (!(gBattleWeather & WEATHER_COLD_ANY && HasWeatherEffect()))
             battleScript = BattleScript_ButItFailed;
         break;
     case EFFECT_CLANGOROUS_SOUL:
@@ -4643,7 +4643,7 @@ static enum MoveCanceler CancelerMoveFailure(struct BattleContext *ctx)
             battleScript = BattleScript_PokemonCantUseTheMove;
         break;
     case EFFECT_AURORA_VEIL:
-        if (!(gBattleWeather & WEATHER_ICY_ANY && HasWeatherEffect()))
+        if (!(gBattleWeather & WEATHER_COLD_ANY && HasWeatherEffect()))
             battleScript = BattleScript_ButItFailed;
         break;
     case EFFECT_CLANGOROUS_SOUL:

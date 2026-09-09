@@ -21772,7 +21772,7 @@ use wonder gaurd logic to determine its super effective
         .category = DAMAGE_CATEGORY_SPECIAL,
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
-        .argument.twoTurnAttack = { .stringId =  STRINGID_AIRBECAMECOLD, .status = WEATHER_ICY_ANY },
+        .argument.twoTurnAttack = { .stringId =  STRINGID_AIRBECAMECOLD, .status = WEATHER_COLD_ANY },
         //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         //.contestCategory = CONTEST_CATEGORY_COOL,
         //.contestComboStarterId = 0,
@@ -21847,6 +21847,13 @@ use wonder gaurd logic to determine its super effective
         .battleAnimScript = gBattleAnimMove_SnowEscape
     },
     //eventually make own anim
+    //ok new idea snowday will be learnable by various types
+    //but haill be a move exclusive to ice types
+    //the weather boosts provided by either weather will be the same tho
+    //to make easier to code make combined define cold weather
+    //to refer to both hail and snow together where needed
+    //forgot already made define instead renamed existing to weather_cold_any
+    //vsonic important
 
     [MOVE_FOG_HORN] =
     {

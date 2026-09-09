@@ -5399,7 +5399,7 @@ void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u
 
     // hail sp.def & def boost for ice types  // still deciding if I want a 50% defense boost or a 25% boost to def & sp def
     if ((DoesBattlerGetTypeBasedAffinity(abilityAtk, battlerIdDef, abilityDef, TYPE_ICE, FALSE))
-        && IsBattlerWeatherAffected(battlerIdDef, WEATHER_ICY_ANY) && abilityAtk != ABILITY_CLOUD_NINE)    
+        && IsBattlerWeatherAffected(battlerIdDef, WEATHER_COLD_ANY) && abilityAtk != ABILITY_CLOUD_NINE)    
     {
         spDefense = (115 * spDefense) / 100;
         defense = (135 * defense) / 100;
@@ -6103,7 +6103,7 @@ void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u
         //so you could run a mix of fire and water on the same team
 
         // hail/snow
-        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ICY_ANY))
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_COLD_ANY))
         {
             //fire is in very precarious position
             //balance wise, is barely good
@@ -6913,7 +6913,7 @@ u8 GetWeatherBallType(u16 move)
             return TYPE_FIRE;
         else if (gBattleWeather & WEATHER_MOON)
             return TYPE_FAIRY;
-        else if (gBattleWeather & WEATHER_ICY_ANY)
+        else if (gBattleWeather & WEATHER_COLD_ANY)
             return TYPE_ICE;
         else if (gBattleWeather & WEATHER_ACID_RAIN)
             return TYPE_POISON;

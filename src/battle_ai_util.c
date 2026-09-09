@@ -4005,7 +4005,7 @@ bool32 ShouldSetScreen(enum BattlerId battlerAtk, enum BattlerId battlerDef, enu
     {
     case EFFECT_AURORA_VEIL:
         // Use only in Hail and only if AI doesn't already have Reflect, Light Screen or Aurora Veil itself active.
-        if ((AI_GetWeather() & (WEATHER_ICY_ANY))
+        if ((AI_GetWeather() & (WEATHER_COLD_ANY))
             && !(gSideStatuses[atkSide] & (SIDE_STATUS_REFLECT | SIDE_STATUS_LIGHTSCREEN | SIDE_STATUS_AURORA_VEIL)))
             return TRUE;
         break;

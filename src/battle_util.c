@@ -3514,7 +3514,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                 }
                 break;
             case OVERWORLD_WEATHER_SNOW:
-                if (!(gBattleWeather & WEATHER_ICY_ANY))
+                if (!(gBattleWeather & WEATHER_COLD_ANY))
                 {
                     if (B_OVERWORLD_SNOW >= GEN_9)
                     {
@@ -3935,7 +3935,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         case ABILITY_AURORA_SHIFT:
             if (!(gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_AURORA_VEIL))
             {
-                if (IsBattlerWeatherAffected(battler, WEATHER_ICY_ANY))
+                if (IsBattlerWeatherAffected(battler, WEATHER_COLD_ANY))
                 {
                     
                     gSideStatuses[GetBattlerSide(battler)] |= SIDE_STATUS_AURORA_VEIL;
@@ -4220,7 +4220,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 }
                 break;
             case ABILITY_ICE_BODY:
-                if (IsBattlerWeatherAffected(battler, WEATHER_ICY_ANY)
+                if (IsBattlerWeatherAffected(battler, WEATHER_COLD_ANY)
                  && !IsBattlerAtMaxHp(battler)
                  && gBattleMons[battler].volatiles.semiInvulnerable != STATE_UNDERGROUND
                  && gBattleMons[battler].volatiles.semiInvulnerable != STATE_UNDERWATER
@@ -8588,13 +8588,13 @@ static inline u32 CalcDefenseStat(struct BattleContext *ctx)
     //but believe too much to manage and too much w defense changes to type    
     // snow def boost for ice types
     if (DoesBattlerGetTypeBasedAffinity(ctx->abilityAtk, ctx->battlerDef, ctx->abilityDef, TYPE_ICE, FALSE) 
-    && IsBattlerWeatherAffected(battlerDef, WEATHER_ICY_ANY))
+    && IsBattlerWeatherAffected(battlerDef, WEATHER_COLD_ANY))
     {
         if (usesDefStat)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.35));
         else
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.15));
-    }
+    }//keep my custom numbers over new official values keep in mind my defense changes
 
     modifier = ApplyDefensiveBadgeBoost(modifier, battlerDef, move);
 
@@ -8776,7 +8776,7 @@ static uq4_12_t GetWeatherDamageModifier(struct BattleContext *ctx)
             return UQ_4_12(1.0);
         return (!CloudNineAffected) ? UQ_4_12(1.3) : UQ_4_12(1.0);
     }
-    if (ctx->weather & WEATHER_ICY_ANY) //fire drop
+    if (ctx->weather & WEATHER_COLD_ANY) //fire drop
     {
         if (ctx->moveType != TYPE_FIRE)
             return UQ_4_12(1.0);
@@ -11179,7 +11179,7 @@ bool32 IsBattlerWeatherAffected(enum BattlerId battler, u32 weatherFlags)
         //usually wouldn't be good this is literally only good because of my custom effects
         //otherwise does nothing as apparently safety goggles already prevented
         //hail and sandstorm dmg
-        else if (gBattleWeather & (WEATHER_ICY_ANY | WEATHER_SANDSTORM) && GetBattlerHoldEffect(battler) == HOLD_EFFECT_SAFETY_GOGGLES)
+        else if (gBattleWeather & (WEATHER_COLD_ANY | WEATHER_SANDSTORM) && GetBattlerHoldEffect(battler) == HOLD_EFFECT_SAFETY_GOGGLES)
             return FALSE; //major upgrade to safety goggles, blocks hail and sandstorm effects, useful dealing sandstorm acc drop
 
         return TRUE;
@@ -12160,7 +12160,7 @@ bool32 CanMoveSkipAccuracyCalc(enum BattlerId battlerAtk, enum BattlerId battler
     {
         if (MoveAlwaysHitsInRain(move) && IsBattlerWeatherAffected(battlerDef, WEATHER_RAIN_ALL))
             effect = TRUE;
-        else if (MoveAlwaysHitsInHailSnow(move) && IsBattlerWeatherAffected(battlerDef, WEATHER_ICY_ANY))
+        else if (MoveAlwaysHitsInHailSnow(move) && IsBattlerWeatherAffected(battlerDef, WEATHER_COLD_ANY))
             effect = TRUE;
 
         if (effect)
@@ -12324,7 +12324,7 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
         break;
         //vsonic come back to this deciding how to split out snow hail effects
     case ABILITY_SNOW_CLOAK:
-        if (IsBattlerWeatherAffected(battlerAtk, WEATHER_ICY_ANY)
+        if (IsBattlerWeatherAffected(battlerAtk, WEATHER_COLD_ANY)
         && !(MoveSureHitEvasionBoostedTargets(gCurrentMove)))
             calc = (calc * 80) / 100; // 1.2 snow cloak loss
         break;

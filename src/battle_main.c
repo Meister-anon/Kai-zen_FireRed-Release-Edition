@@ -1685,7 +1685,7 @@ enum Type GetDynamicMoveType(struct Pokemon *mon, enum Move move, enum BattlerId
                     return TYPE_ROCK;
                 else if (gBattleWeather & WEATHER_SUN && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
                     return TYPE_FIRE;
-                else if (gBattleWeather & WEATHER_ICY_ANY)
+                else if (gBattleWeather & WEATHER_COLD_ANY)
                     return TYPE_ICE;
                 else
                     return moveType;

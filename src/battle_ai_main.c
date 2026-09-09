@@ -1799,7 +1799,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
         case EFFECT_AURORA_VEIL:
             if (gSideStatuses[GetBattlerSide(battlerAtk)] & SIDE_STATUS_AURORA_VEIL
              || (HasPartner(battlerAtk) && AreMovesEquivalent(battlerAtk, BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
-             || !(weather & (WEATHER_ICY_ANY)))
+             || !(weather & (WEATHER_COLD_ANY)))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_SHEER_COLD:
@@ -2019,7 +2019,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
                 break;
             case BATTLE_WEATHER_HAIL:
             case BATTLE_WEATHER_SNOW:
-                if (weather & (WEATHER_ICY_ANY | WEATHER_PRIMAL_ANY))
+                if (weather & (WEATHER_COLD_ANY | WEATHER_PRIMAL_ANY))
                     ADJUST_SCORE(-8);
                 break;
             }
@@ -2061,7 +2061,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
         case EFFECT_WEATHER_AND_SWITCH:
             if (CountUsablePartyMons(battlerAtk) == 0)
                 ADJUST_SCORE(-10);
-            else if (weather & (WEATHER_ICY_ANY | WEATHER_PRIMAL_ANY)
+            else if (weather & (WEATHER_COLD_ANY | WEATHER_PRIMAL_ANY)
              || (HasPartner(battlerAtk) && AreMovesEquivalent(battlerAtk, BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)))
                 ADJUST_SCORE(-8);
             break;
@@ -3082,7 +3082,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
         // Don't use user-target moves ie. Swords Dance, with exceptions
         if ((moveTarget == TARGET_USER)
         && moveEffect != EFFECT_DESTINY_BOND && moveEffect != EFFECT_WISH && moveEffect != EFFECT_HEALING_WISH
-        && !(moveEffect == EFFECT_AURORA_VEIL && (AI_GetWeather() & WEATHER_ICY_ANY)))
+        && !(moveEffect == EFFECT_AURORA_VEIL && (AI_GetWeather() & WEATHER_COLD_ANY)))
             ADJUST_SCORE(-30);
         // Don't use a status move if the mon is the last one in the party, has no good switchin, or is trapped
         else if (GetBattleMoveCategory(move) == DAMAGE_CATEGORY_STATUS
@@ -6701,7 +6701,7 @@ static s32 AI_PowerfulStatus(enum BattlerId battlerAtk, enum BattlerId battlerDe
             break;
         case BATTLE_WEATHER_HAIL:
         case BATTLE_WEATHER_SNOW:
-            if (IsWeatherActive(WEATHER_ICY_ANY | WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
+            if (IsWeatherActive(WEATHER_COLD_ANY | WEATHER_PRIMAL_ANY) == WEATHER_INACTIVE)
                 ADJUST_SCORE(POWERFUL_STATUS_MOVE);
             break;
         case BATTLE_WEATHER_MOONLIGHT:
