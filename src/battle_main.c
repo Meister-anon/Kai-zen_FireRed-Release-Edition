@@ -1689,7 +1689,7 @@ enum Type GetDynamicMoveType(struct Pokemon *mon, enum Move move, enum BattlerId
                     return TYPE_ICE;
                 else
                     return moveType;
-            }
+            }//think strong winds add effect that makes it wind type -vsonic
         }
         else
         {
