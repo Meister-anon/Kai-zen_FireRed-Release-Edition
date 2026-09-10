@@ -411,4 +411,9 @@ to be reintroduced,
     can set values to reserve mon same as you would any party member 
     otherwise i.e can set exp share status items etc.
 
+    can't remember where I give it rn but with new idea in mind
+    push back receipt of mobile pc until sevii island arc so finish
+    think for bill on sevii islands and get mobile pc as reward 
+    and have it carry over into ng+
+
     Merging in Battle anim branch to test:
