@@ -382,4 +382,33 @@ to be reintroduced,
 
     and no longer require holding mega stone to transform
 
+    IMPORTANT -
+    Idea had playing rejuvenation in show they always have
+    more than just the 6 mon same for manga
+    would be cool to have extra carrying space so you can
+    augment your existing team?
+    think best not an entire separate team of 6
+    but just a few more to augment your core.
+
+    My thought is an additional 4 so a max of 10 total.
+    only the 6 within your main party can go into battle
+    but you can have 4 extra slots to put mon into and swap between
+
+    think an item expansion bangle or whatever name
+    have to decide how will use because of intended purpose
+    don't think want just any new caught mon to be auto added to space
+    as if the party was just 10 not 6
+    This should be used very intentionally think you can only
+    add mon to extra space from the pc
+
+    and add a button to party screen to swap between party so you have your 6
+    then press a button and it'll slide to side or somethiing
+    and display your reserve mon, think need diff ui color
+    to more easily differentiate between main and reserve slots
+    could be a simple L R press makes the most sense
+    and don't believe input is used
+
+    can set values to reserve mon same as you would any party member 
+    otherwise i.e can set exp share status items etc.
+
     Merging in Battle anim branch to test:
