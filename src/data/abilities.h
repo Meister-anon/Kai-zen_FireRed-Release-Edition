@@ -75,7 +75,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_SAND_VEIL] =
     {
         .name = _("Sand Veil"),
-        .description = COMPOUND_ABILITY_STRING("Ups evasion in a sandstorm."),
+        .description = COMPOUND_ABILITY_STRING("Ups evasion in a sandstorm.\nImmune to sand-based acc/eva effects."),
         .aiRating = 3,
         .breakable = TRUE,
     },
@@ -1190,7 +1190,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_SAND_RUSH] =
     {
         .name = _("Sand Rush"),
-        .description = COMPOUND_ABILITY_STRING("Ups Speed in a sandstorm."),
+        .description = COMPOUND_ABILITY_STRING("Ups Speed in a sandstorm.\nImmune to sand-based acc/eva effects."),
         .aiRating = 6,
     },
 
@@ -1289,7 +1289,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_SAND_FORCE] =
     {
         .name = _("Sand Force"),
-        .description = COMPOUND_ABILITY_STRING("Powers up in a sandstorm."),
+        .description = COMPOUND_ABILITY_STRING("Powers up in a sandstorm.\nImmune to sand-based acc/eva effects."),
         .aiRating = 4,
     },
 

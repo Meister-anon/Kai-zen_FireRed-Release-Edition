@@ -12304,6 +12304,7 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
         && atkAbility != ABILITY_SAND_RUSH
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
+        && atkAbility != ABILITY_DUST_DEVIL
         && atkAbility != ABILITY_APOTHEOSCENT
         && GetBaseFormSpecies(gBattleMons[battlerAtk].species) != SPECIES_CASTFORM) //change tobe base form as can't remember if changes species on weather
         {
@@ -12311,18 +12312,29 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
             //moveAcc = (moveAcc * 60) / 100; //euivalent of a 2 stage acc drop
         }//leaving keen eye and sixth sense out of this and sandstorm acc drop, 
         //as special exclusions to strengthen affect/mechanic
+        //double check but believe it makes sense to add dust devil to this?
 
     // Target's ability
     switch (defAbility)
     {
         //to make not too oppressive think will lower effect
         //since it stacks with weather drop (requires weather)
+        //got annoyed by effect in rejuvenation considered making type based exclusion
+        //rock ground may be too much invalidate ability entirely
+        //instead think just add to sand abilities 
+        //make something like inherent effect of mon with desert adaptation
     case ABILITY_SAND_VEIL:
         if (IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM)
-        && !(MoveSureHitEvasionBoostedTargets(gCurrentMove)))
+        && !(MoveSureHitEvasionBoostedTargets(gCurrentMove))
+        && atkAbility != ABILITY_SAND_RUSH
+        && atkAbility != ABILITY_SAND_VEIL
+        && atkAbility != ABILITY_SAND_FORCE
+        && atkAbility != ABILITY_DUST_DEVIL)
             calc = (calc * 89) / 100; // 1.2 sand veil loss
         break;
         //vsonic come back to this deciding how to split out snow hail effects
+        //consider same change as above for ice abilities here
+        //would be slush rush snow cloak and potential glacial ice? -vsonic
     case ABILITY_SNOW_CLOAK:
         if (IsBattlerWeatherAffected(battlerAtk, WEATHER_COLD_ANY)
         && !(MoveSureHitEvasionBoostedTargets(gCurrentMove)))

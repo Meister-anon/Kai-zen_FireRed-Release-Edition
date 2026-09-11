@@ -848,6 +848,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {COMBO_STARTER_MUD_SLAP, COMBO_STARTER_SANDSTORM},
         .battleAnimScript = gBattleAnimMove_SandAttack,
     },
+    // need to add back ground type immunity and also including
+    //sand/desert ability immunity mostly for ease of ability description
+    //vsonic important - done need test
 
     [MOVE_HEADBUTT] =
     {

@@ -1429,6 +1429,18 @@ static enum CancelerResult CancelerTargetFailure(struct BattleContext *ctx)
             BattleScriptCall(BattleScript_ItDoesntAffectFoe);
             targetAvoidedAttack = TRUE;
         }
+        else if (GetMoveEffect(ctx->move) == EFFECT_ACCURACY_DOWN && ctx->moveType == TYPE_GROUND
+        && GetMoveCategory(ctx->move) == DAMAGE_CATEGORY_STATUS
+        && (DoesBattlerGetTypeBasedAffinity(ctx->abilityAtk, ctx->battlerDef, ctx->abilityDef, TYPE_GROUND, FALSE)
+        || ctx->abilityDef == ABILITY_SAND_RUSH
+        || ctx->abilityDef == ABILITY_SAND_VEIL
+        || ctx->abilityDef == ABILITY_SAND_FORCE
+        || ctx->abilityDef == ABILITY_DUST_DEVIL))
+        {
+            gBattleStruct->moveResultFlags[ctx->battlerDef] = MOVE_RESULT_NO_EFFECT;
+            BattleScriptCall(BattleScript_ItDoesntAffectFoe);
+            targetAvoidedAttack = TRUE;
+        } //vsonic important test unsure  sand attack ground immunity
         else
         {
             CalcTypeEffectivenessMultiplier(ctx);
