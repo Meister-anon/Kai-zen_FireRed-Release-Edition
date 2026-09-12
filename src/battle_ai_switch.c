@@ -747,6 +747,7 @@ static bool32 ShouldSwitchIfBadlyStatused(enum BattlerId battler)
                 switchMon = FALSE;
 
             // Check if Active Pokemon evasion boosted and might be able to dodge until awake
+            //effects are here because they ignore stat changes or evasion boosts
             if (gBattleMons[battler].statStages[STAT_EVASION] > (DEFAULT_STAT_STAGE + 3)
                 && gAiLogicData->abilities[opposingBattler] != ABILITY_UNAWARE
                 && gAiLogicData->abilities[opposingBattler] != ABILITY_KEEN_EYE

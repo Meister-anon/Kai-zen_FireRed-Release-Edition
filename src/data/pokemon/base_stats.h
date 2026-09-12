@@ -27548,7 +27548,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_TORRENT, ABILITY_NONE},
-        .abilityHidden = {ABILITY_SNIPER, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SNIPER, ABILITY_GOLDENEYE},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -27557,7 +27557,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sInteleonLevelUpLearnset,
         .tmhmLearnset = sInteleonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//main point is glass canon crit mon
+    //making new ability james bond theme to be better super luck as signaure for this
 
     [SPECIES_SKWOVET] =
     {

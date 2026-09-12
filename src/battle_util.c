@@ -9580,6 +9580,7 @@ s32 CalcCritChanceStage(struct BattleContext *ctx)
                     + (gBattleMons[ctx->battlerAtk].volatiles.dragonCheer != 0 ? 1 : 0)
                     + IsEnhancedCritMove(ctx->move)
                     + GetHoldEffectCritChanceIncrease(ctx->battlerAtk, ctx->holdEffectAtk)
+                    + (ctx->abilityAtk == ABILITY_GOLDENEYE ? 2 : 0)
                     + (ctx->abilityAtk == ABILITY_SUPER_LUCK ? 1 : 0);
 
         if (critChance >= ARRAY_COUNT(sCriticalHitChance))
@@ -12245,6 +12246,7 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
         || DoesBattlerGetTypeBasedAffinity(atkAbility, battlerDef, defAbility, TYPE_WIND, FALSE))
         && atkAbility != ABILITY_KEEN_EYE
         && atkAbility != ABILITY_MINDS_EYE
+        && atkAbility != ABILITY_GOLDENEYE
         && atkAbility != ABILITY_APOTHEOSCENT
         && !MoveCanDamageAirborne(gCurrentMove)
         && !MoveSureHitEvasionBoostedTargets(gCurrentMove)
@@ -12256,6 +12258,7 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
     // Attacker's ability
     switch (atkAbility)
     {
+    case ABILITY_GOLDENEYE:
     case ABILITY_ILLUMINATE:
     case ABILITY_COMPOUND_EYES:
         calc = (calc * 130) / 100; // 1.3 compound eyes boost

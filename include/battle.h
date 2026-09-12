@@ -1750,6 +1750,26 @@ static inline bool32 IsSureHitAbility(enum Ability ability)
     return (ability == ABILITY_NO_GUARD || ability == ABILITY_COMPASS);
 }
 
+static inline bool32 DoesAbilityPreventAccuracyDrops(enum Ability ability)
+{
+    return (ability == ABILITY_KEEN_EYE || ability == ABILITY_MINDS_EYE || ability == ABILITY_GOLDENEYE);
+}
+
+static inline bool32 DoesAbilityPreventAttackDrops(enum Ability ability)
+{
+    return (ability == ABILITY_HYPER_CUTTER || ability == ABILITY_BIG_PECKS);
+}
+
+static inline bool32 DoesAbilityPreventDefenseDrops(enum Ability ability)
+{
+    return (ability == ABILITY_BIG_PECKS);
+}
+
+static inline bool32 DoesAbilityPreventSpeedDrops(enum Ability ability)
+{
+    return (ability == ABILITY_RUN_AWAY || ability == ABILITY_TANGLED_FEET || ability == ABILITY_QUICK_FEET || ability == ABILITY_AVIATOR);
+}
+
 static inline void ClearOctolockValues(enum BattlerId battler)
 {
     gBattleMons[battler].volatiles.octolock = FALSE;

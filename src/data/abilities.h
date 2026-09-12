@@ -3326,5 +3326,13 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("Slightly reduces Fire & burn dmg.\nRecovers hp after being hit by fire."),
         .aiRating = 5,
     },
+
+    [ABILITY_GOLDENEYE] =
+    {
+        .name = _("GoldenEye"),
+        .description = COMPOUND_ABILITY_STRING("Critical hits land much more often.\nRaises Acc and prevents accuracy drop."),
+        .aiRating = 6,
+        .breakable = TRUE,
+    },
 };
 

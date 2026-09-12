@@ -4610,6 +4610,7 @@ static s32 AI_CalcMoveEffectScore(enum BattlerId battlerAtk, enum BattlerId batt
     case EFFECT_FOCUS_ENERGY:
     case EFFECT_LASER_FOCUS:
         if (aiData->abilities[battlerAtk] == ABILITY_SUPER_LUCK
+         || aiData->abilities[battlerAtk] == ABILITY_GOLDENEYE
          || aiData->abilities[battlerAtk] == ABILITY_SNIPER
          || aiData->holdEffects[battlerAtk] == HOLD_EFFECT_SCOPE_LENS
          || HasMoveWithFlag(battlerAtk, IsEnhancedCritMove))//vsonic believe add dark deal here

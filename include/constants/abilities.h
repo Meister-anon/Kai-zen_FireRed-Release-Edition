@@ -448,6 +448,7 @@ ABILITIES_COUNT_GEN8 = 269,
  ABILITY_DETERMINATION = 409, //idea from Opal speed boost version of moxie think give tyrogue fighing type
  ABILITY_POET_ARTIST = 410,
  ABILITY_ASH_SPROUT = 411,
+ ABILITY_GOLDENEYE = 412, //inteleon custom ability +2 crit ratio, 30% acc boost and block acc drops excluding sandstorm etc.
 ABILITIES_COUNT_CUSTOM,
 
  ABILITIES_COUNT = ABILITIES_COUNT_CUSTOM, //   ability count is last ability number +, since we have to count ability,
