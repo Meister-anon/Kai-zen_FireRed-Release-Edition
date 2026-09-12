@@ -1515,10 +1515,12 @@ static const struct AbilityLearnset sGrumpigAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sPlusleAbilityLearnset[] = {
+    ABILITY_PRANKSTER,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sMinunAbilityLearnset[] = {
+    ABILITY_PRANKSTER,
     ABILITY_SET_END
 };
 

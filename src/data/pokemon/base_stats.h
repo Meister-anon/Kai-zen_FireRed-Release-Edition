@@ -9873,7 +9873,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .speciesName = _("Plusle"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(60, 50, 40, 95, 85, 75),
+         STATS(60, 50, 40, 115, 85, 75),
         MON_TYPES(TYPE_ELECTRIC, TYPE_FAIRY),
         .catchRate = 200,
         .expYield = 142,
@@ -9898,13 +9898,15 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sPlusleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //wanted to avoid 420 bst but feel need the speed for this to be useful
+    //fuck it give them extra speed, as nod to the manga versions
 
     [SPECIES_MINUN] =
     {
         .speciesName = _("Minun"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(60, 40, 50, 95, 75, 85),
+         STATS(60, 40, 50, 115, 75, 85),
         MON_TYPES(TYPE_ELECTRIC, TYPE_FAIRY),
         .catchRate = 200,
         .expYield = 142,
@@ -52028,7 +52030,9 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //its special weaknesses are electricity and fairy and grass
     //physical weaknesses are fighing and bug
     //unsure if this should be mega and ash gren should be z or what
-
+    //think give signature move that has fient effect make higher poewr than ability
+    //so is separate thing
+    //since has shadow powers and is ninja also want to give spirit shackle
 
     [SPECIES_CEFIREON] =
     {

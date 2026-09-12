@@ -2330,7 +2330,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .effect = EFFECT_HIT,
         .power = 55,
         .type = TYPE_ROCK,
-        .accuracy = 100,
+        .accuracy = 95,
         .pp = 15,
         .target = TARGET_SELECTED,
         .priority = 0,
@@ -2344,6 +2344,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     },  //now that can hit in air, may give to more fighting types; 
     ////also since its not easy to hit flying target change accuraacy against in air targets
     //don't like that as a standard, just slightly lowered Accuracy instead, since making standardized effect
+    //may have over corrected rock types with acc boost think make this 95 acc
+    //tossing rocks isn't that precise I guess so what I think will do is just boost acc
+    //but not give many or any perfectly accurate moves least for physical?
 
     [MOVE_EARTHQUAKE] =
     {
@@ -14458,7 +14461,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
 
     [MOVE_PETAL_BLIZZARD] =
     {
-        .name = COMPOUND_STRING("Petal Blizzrd"),
+        .name = COMPOUND_STRING("Petal Blizzard"),
         .description = COMPOUND_MOVE_STRING("Stirs up a violent\nstorm of petals\nto attack."),
         .effect = EFFECT_HIT,
         .power = 90,
