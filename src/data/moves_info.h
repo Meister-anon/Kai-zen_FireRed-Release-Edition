@@ -4441,6 +4441,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             //.contestComboMoves = {0},
             .battleAnimScript = gBattleAnimMove_MindReader,
     },
+    //think change this to match rejuvenation 
+    //where effect doesn't expire unless user/target switches
+    //make a status applied to target
+    //just make new effect and copy lock on but remove end turn
+    //cleanse -vsonic
 
     [MOVE_NIGHTMARE] =
     {

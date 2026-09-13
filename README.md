@@ -416,4 +416,7 @@ to be reintroduced,
     think for bill on sevii islands and get mobile pc as reward 
     and have it carry over into ng+
 
+    -new ideas mega form on transform cleanse all stat changes
+    but leaving speed alone for balance
+
     Merging in Battle anim branch to test:
