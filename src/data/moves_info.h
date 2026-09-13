@@ -14268,7 +14268,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .accuracy = 0,
         .pp = 20,
         .target = TARGET_OPPONENTS_FIELD,
-        .priority = 0, //1 yeah pretty sure this is way too much
+        .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
         .magicCoatAffected = TRUE,
@@ -14280,7 +14280,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     },
     //stiky web doesn't cause dmg,
     //and is on thought to be "weakest" type
-    //long as keep to only bugs
+    //long as keep to only bugs and relatively bad mon should be fine
     //think fine to give this only priority
     //keep an eye on this
     //think buffed more check if still good
