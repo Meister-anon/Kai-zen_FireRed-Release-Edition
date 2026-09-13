@@ -3745,6 +3745,7 @@ u32 ShouldTryToFlinch(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum
         return 0;
     }
     else if ((atkAbility == ABILITY_SERENE_GRACE
+      || (atkAbility == ABILITY_DEFEATIST && !IsBattlerAboveHalfHP(battlerAtk))
       || gBattleMons[battlerDef].status1 & STATUS1_PARALYSIS
       || IsMonInfatuatedWithOnOpposingSide(battlerDef)
       || gBattleMons[battlerDef].volatiles.confusionTurns > 0)
@@ -5097,7 +5098,8 @@ void IncreaseConfusionScore(enum BattlerId battlerAtk, enum BattlerId battlerDef
     {
         if (gBattleMons[battlerDef].status1 & STATUS1_PARALYSIS
           || IsMonInfatuatedWithOnOpposingSide(battlerDef)
-          || (gAiLogicData->abilities[battlerAtk] == ABILITY_SERENE_GRACE && HasMoveWithMoveEffectExcept(battlerAtk, MOVE_EFFECT_FLINCH, EFFECT_FIRST_TURN_ONLY)))
+          || (gAiLogicData->abilities[battlerAtk] == ABILITY_SERENE_GRACE && HasMoveWithMoveEffectExcept(battlerAtk, MOVE_EFFECT_FLINCH, EFFECT_FIRST_TURN_ONLY))
+          || (gAiLogicData->abilities[battlerAtk] == ABILITY_DEFEATIST && !IsBattlerAboveHalfHP(battlerAtk) && HasMoveWithMoveEffectExcept(battlerAtk, MOVE_EFFECT_FLINCH, EFFECT_FIRST_TURN_ONLY)))
             ADJUST_SCORE_PTR(GOOD_EFFECT);
         else
             ADJUST_SCORE_PTR(DECENT_EFFECT);

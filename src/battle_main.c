@@ -5085,7 +5085,7 @@ u8 IsRunningFromBattleImpossible(enum BattlerId battler) // equal to emerald is 
      || (gBattleTypeFlags & BATTLE_TYPE_LINK)
      || (GetBattlerAbility(battler) == ABILITY_RUN_AWAY) //
      || (GetBattlerAbility(battler) == ABILITY_DEFEATIST //
-         && gBattleMons[battler].volatiles.defeatistActivated) //
+         && !IsBattlerAboveHalfHP(battler)) //
      || holdEffect == HOLD_EFFECT_SHED_SHELL
      || (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))) //added cuz issue created with adding shadow tag to gastly
         return BATTLE_RUN_SUCCESS;
@@ -5613,7 +5613,7 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum 
     else if (ability == ABILITY_SLOW_START && GetBattlerPartyState(battler)->cachedAbilityTimers != 0)
         speed /= 2;
 
-    else if (ability == ABILITY_DEFEATIST && gBattleMons[battler].volatiles.defeatistActivated)
+    else if (ability == ABILITY_DEFEATIST && !IsBattlerAboveHalfHP(battler))
         speed *= 2;
 
     //think want to change how this works, point is to raise speed like getting serious,

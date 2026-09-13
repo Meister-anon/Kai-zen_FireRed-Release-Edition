@@ -1064,9 +1064,19 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_DEFEATIST] =
     {
         .name = _("Defeatist"),
-        .description = COMPOUND_ABILITY_STRING("Lowers offense and gives up at half HP.\nRaises speed to make escaping easier."),
+        .description = COMPOUND_ABILITY_STRING("Cuts offense ups speed at 50% HP, raises\nstatus acc & effect odds escapes easier."),
         .aiRating = -1,
     },
+    //todo set effect that sets defeatistActive rn doesn't activate
+    //set and clear based on hp threshold
+    //considering making it shift at end turn only for easier predicting/strategy
+    //moslty a considseration for moves and abilities that can heal allies
+    //unsure if want to do as end turn hp check or dynamic for now setup as default
+    //change will occur wherever hp is at
+    //if keep just hp check than I do not need the volatile and can remove for space
+    //only reason I had added it in the first place was for keeping the speed buff
+    //irregardless of hp healing back above threshold
+    //but idea is frantic mental state so makes sense to slow when calm down etc.
 
     [ABILITY_CURSED_BODY] =
     {

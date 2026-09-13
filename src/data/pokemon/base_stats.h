@@ -18261,6 +18261,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sArchenTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(37, AVERAGE_EFFORT), 0, SPECIES_ARCHEOPS}), //Should hopefully blank these for now without issue
     },
+    //vsonic USE OMEGA ruby dex entries for these 
 
     [SPECIES_ARCHEOPS] =
     {
@@ -18295,7 +18296,26 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sArcheopsLevelUpLearnset,
         .tmhmLearnset = sArcheopsTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//plan for defeatist make it always escape same as ghost types?
+    //but point is need logical reason for ability
+    //think want to make a hybrid mon?
+    //offense w support its hyper offensive but cowardly
+    //getting skittish when its hp falls
+    //shifting from offense to running away doing anything neccessary to get away
+    //think what can do is give recovery option
+    //but also add priority on status moves when in defeatist
+    //essentially hp gaited prankster
+    //ok idea hp drops, speed goes up and 
+    //status moves get increaed priority and acc
+    //and double chance of move effects
+    //beleive they hunted in packs so give more support moves
+    //too helps boost ability
+    //so rather than stat change just make
+    //defeatist a status that cuts the stats in half
+    //doubles speed or whatever or 50% boost to speed whatever I had
+    //don't need increase priority speed boost is enough
+    //since made dragon think will give dragon version
+    //will-o-wisp
 
     [SPECIES_TRUBBISH] =
     {

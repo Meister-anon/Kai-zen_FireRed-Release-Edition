@@ -2300,7 +2300,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     {
         .name = COMPOUND_STRING("Thunder"),
         .description = COMPOUND_MOVE_STRING("A brutal lightning\nattack that may\nalso leave the foe\nparalyzed.\nAcc grows in Rain\nbut falls in Sun."),
-        .power = 110,
+        .power = 120,
         .effect = EFFECT_HIT, //sets paralysis can move to argument nvm did with flag can leave as is
         .type = TYPE_ELECTRIC,
         .accuracy = 85,
@@ -2522,7 +2522,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_MEDITATE] =
     {
         .name = COMPOUND_STRING("Meditate"),
-        .description = COMPOUND_MOVE_STRING("The user meditates\nto awaken its power\nand raise its\nATTACK stat."),
+        .description = COMPOUND_MOVE_STRING("The user meditates\nto awaken its power\nand raise its\nATTACK stat.\nBlocks critical-hits\nfor rest of turn."),
         .effect = EFFECT_ATTACK_UP,
         .power = 0,
         .type = TYPE_PSYCHIC,
@@ -2533,12 +2533,17 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
         .snatchAffected = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+        .moveEffect = MOVE_EFFECT_CRIT_PROTECTION,
+        .self = TRUE,
+        }),
         //.contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
         //.contestCategory = CONTEST_CATEGORY_BEAUTY,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
         .battleAnimScript = gBattleAnimMove_Meditate,
     },
+    //was a bit underwhelming makes it a bit better
 
     [MOVE_AGILITY] =
     {
@@ -4993,15 +4998,15 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_ZAP_CANNON] =
     {
         .name = COMPOUND_STRING("Zap Cannon"),
-        .description = COMPOUND_MOVE_STRING("An electric blast is\nfired like a cannon\nto inflict damage\nand paralyze."),
+        .description = COMPOUND_MOVE_STRING("An electric blast is\nfired like a cannon\nto inflict damage.\nHigh odds to prlz."),
         #if UPDATED_MOVE_DATA <= GEN_4
-            .power = 80,
+            .power = 100,
         #else
             .power = 100,
         #endif
         .effect = EFFECT_HIT,
         .type = TYPE_ELECTRIC,
-        .accuracy = 90,
+        .accuracy = 85,
         .pp = 10,
         .target = TARGET_SELECTED,
         .priority = 0,
@@ -5009,7 +5014,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             .ballisticMove = TRUE,
             .additionalEffects = ADDITIONAL_EFFECTS({
                 .moveEffect = MOVE_EFFECT_PARALYSIS,
-                .chance = 100,
+                .chance = 50,
             }),
             //.contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
             //.contestCategory = CONTEST_CATEGORY_COOL,
@@ -14258,7 +14263,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .accuracy = 0,
         .pp = 20,
         .target = TARGET_OPPONENTS_FIELD,
-        .priority = 1,
+        .priority = 0, //1 yeah pretty sure this is way too much
         .category = DAMAGE_CATEGORY_STATUS,
         .ignoresProtect = TRUE,
         .magicCoatAffected = TRUE,
@@ -22091,5 +22096,30 @@ use wonder gaurd logic to determine its super effective
 
     give sparingly idea was for hypothetical fake mon but give to some
     */
+
+    [MOVE_DRAGON_FIRE] =
+    {
+        .name = COMPOUND_STRING("Dragon Fire"),
+        .description = COMPOUND_MOVE_STRING("A sinister, bluish\nwhite flame is shot\nat the foe to\ninflict a burn."),
+        #if UPDATED_MOVE_DATA <= GEN_6
+            .accuracy = 85,
+        #else
+            .accuracy = 75,
+        #endif
+        .effect = EFFECT_NON_VOLATILE_STATUS,
+        .power = 0,
+        .type = TYPE_DRAGON,
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 0, //neutral priority for balance as dragons are usually strong
+        .category = DAMAGE_CATEGORY_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_BURN },
+        .magicCoatAffected = TRUE,
+        //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        //.contestCategory = CONTEST_CATEGORY_BEAUTY,
+        //.contestComboStarterId = 0,
+        //.contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        .battleAnimScript = gBattleAnimMove_DragonRage,
+    },//ANIM use dragon rage or dragon breath altered slightly
 
 };

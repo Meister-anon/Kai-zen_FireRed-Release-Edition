@@ -933,7 +933,7 @@ enum Move {
  MOVE_RECHARGE = 891,
  MOVE_COLD_EMBRACE = 892, //special absorb move to help w ice type glass canon archtype little sustain but also contact to balance
  MOVE_STEADY_HAND = 893,  //NEW custom fighting move
-
+ MOVE_DRAGON_FIRE = 894, //NEW dragon type will-o-wisp mostly for archeop but figure more mon but make late learn move
  MOVES_COUNT_CUSTOM,
 
  MOVES_COUNT = MOVES_COUNT_CUSTOM,

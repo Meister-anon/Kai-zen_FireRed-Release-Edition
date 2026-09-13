@@ -901,7 +901,7 @@ bool32 TryRunFromBattle(enum BattlerId battler)
         ++effect;
     }
     else if (gBattleMons[battler].ability == ABILITY_DEFEATIST
-        && gBattleMons[battler].volatiles.defeatistActivated)
+        && !IsBattlerAboveHalfHP(battler))
     {
         gLastUsedAbility = ABILITY_DEFEATIST;
         gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
@@ -8183,7 +8183,7 @@ static inline u32 CalcAttackStat(struct BattleContext *ctx)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
         break;
     case ABILITY_DEFEATIST:
-        if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 2))
+        if (!IsBattlerAboveHalfHP(battlerAtk))//think SET AND Clear based on hp at end turn in place of just hp check
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.5));
         break;
     case ABILITY_FLASH_FIRE:
@@ -11319,16 +11319,18 @@ bool32 AreBattlersOfSameGender(enum BattlerId battler1, enum BattlerId battler2)
     return (gender1 != MON_GENDERLESS && gender2 != MON_GENDERLESS && gender1 == gender2);
 }
 
+//vsonic important
 u32 CalcSecondaryEffectChance(enum BattlerId battler, enum Ability battlerAbility, const struct AdditionalEffect *additionalEffect)
 {
     bool8 hasSereneGrace = (battlerAbility == ABILITY_SERENE_GRACE);
     bool8 hasRainbow = (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_RAINBOW) != 0;
+    bool32 defeatistActive = (battlerAbility == ABILITY_DEFEATIST && !IsBattlerAboveHalfHP(battler));
     u16 secondaryEffectChance = additionalEffect->chance;
 
     if (hasRainbow && hasSereneGrace && additionalEffect->moveEffect == MOVE_EFFECT_FLINCH)
         return secondaryEffectChance * 2;
 
-    if (hasSereneGrace)
+    if (hasSereneGrace || defeatistActive)
         secondaryEffectChance *= 2;
     if (hasRainbow && additionalEffect->moveEffect != MOVE_EFFECT_SECRET_POWER)
         secondaryEffectChance *= 2;
@@ -12272,6 +12274,11 @@ u32 GetTotalAccuracy(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
     case ABILITY_HUSTLE:
         if (IsBattleMovePhysical(move))
             calc = (calc * 95) / 100; // 1.2 hustle loss
+        break;
+    case ABILITY_DEFEATIST:
+        if (!IsBattlerAboveHalfHP(battlerAtk)
+        && IsBattleMoveStatus(move))
+            calc = (calc * 120) / 100;
         break;
     default:
         break;

@@ -208,7 +208,7 @@ static enum ItemEffect TryKingsRock(enum BattlerId battlerAtk, enum BattlerId ba
     }
 
     return effect;
-}
+}//with stench reworked can prob remove this clause...nah don't want that
 
 static enum ItemEffect TryAirBalloon(enum BattlerId battler, ActivationTiming timing)
 {
