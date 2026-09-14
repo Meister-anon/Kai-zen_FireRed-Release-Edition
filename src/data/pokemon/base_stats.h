@@ -10492,6 +10492,10 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //give ABILITY_CACOPHONY
     //while cool decided drop dry skin, as it doesn't make sense
     //w cacophony psychic noise becomes base 90 and has great utility
+    //looks mostly same but w sandstorm change and special def boost
+    //can do a lot more i think, can potentially give shore up but already has roost
+    //could allow for 2 different modes in sand and out
+    //plus mon has 2 sand abilities and 2 non sand abilities so balances out
 
     [SPECIES_CACNEA] =
     {
