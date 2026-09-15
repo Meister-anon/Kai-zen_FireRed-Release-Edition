@@ -1207,7 +1207,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_WONDER_SKIN] =
     {
         .name = _("Wonder Skin"),
-        .description = COMPOUND_ABILITY_STRING("May avoid status problems."),
+        .description = COMPOUND_ABILITY_STRING("May avoid status problems.\nReduces accuracy of status moves to 50%."),
         .aiRating = 4,
         .breakable = TRUE,
     },

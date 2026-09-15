@@ -516,7 +516,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(79, 83, 100, 78, 85, 105),
-        MON_TYPES(TYPE_WATER, TYPE_STEEL),
+        MON_TYPES(TYPE_WATER),
         .catchRate = 45,
         .expYield = 239,
         //.evYield_SpDefense = 3,
@@ -527,7 +527,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_TORRENT, ABILITY_HEAVY_METAL},
-        .abilityHidden = {ABILITY_RAIN_DISH, ABILITY_MEGA_LAUNCHER},
+        .abilityHidden = {ABILITY_RAIN_DISH, ABILITY_LIGHT_METAL},
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -537,6 +537,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sBlastoiseTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //Changed mind on making steel least in this form
+    //instead give psuedo steel via abilities
 
     [SPECIES_CATERPIE] =
     {
@@ -40228,6 +40230,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .isMegaEvolution = TRUE,
     },
+    //think I'd like to give mega form electro shot
 
     [SPECIES_BEEDRILL_MEGA] =
     {
