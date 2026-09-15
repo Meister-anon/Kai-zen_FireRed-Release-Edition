@@ -4886,7 +4886,22 @@ goto WEATHER_ENUM_TABLE  //table that actually sets weather by the enum need def
 goto WEATHER_CONFIG_STUFFF //weather logic
 /*
 
+    9/15/26 think need work more on weather
+    instead of not having weather decrement on field
+    it should be weather ability sets weather and timer
+    but the weather only stays long as mon is on field as if 
+    a constant passive effect but if they are switched out weather should clear immediately
+    unless they were holding a weather rock... 
+    ...hmm well that could be done by just not having weather decrement idk 
+    need to look back at how I setup
 
+    for the permanent weather abilities like drought
+    those would set full timer but not decrement long as they are on field
+    so if switched out they still have the full weather turns left
+    tldr it persists for a time even when they're not on the field
+
+    leaving primal weather the only ones that are truly permanent
+    my weather setup isn't on this branch will have to consuilt master
 
 
     NOTE**(
