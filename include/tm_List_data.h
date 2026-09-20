@@ -527,4 +527,6 @@ static const struct TmHmOrder gTMHM_List[] = {
     [ITEM_TM159] = TMHM(ITEM_TM159, 176),
     [ITEM_TM160] = TMHM(ITEM_TM160, 177),
     [ITEM_TM161] = TMHM(ITEM_TM161, 178),
+    [ITEM_TM162] = TMHM(ITEM_TM162, 179),
+    [ITEM_TM163] = TMHM(ITEM_TM163, 180),
 };
