@@ -14850,6 +14850,10 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sGlaceonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //tested stat rework on master seems ok, small issues with consistency of 
+    //stat/dmg mostly tested w 10 lvl distance seemed take more dmg form larger lvl gap
+    //than closer?  chunked by lvl 17 while at lvl 40, but mostly tanked dmg
+    //from mon 5-6 lvls below  check dmg formula -vsonic
     //no real reason to be slow, mon is graceful, consider chance to make 
     //bulky, fast ice type
     //110 HP,  65 DEF, 95 SP DEF, 110 SP ATK,  85 SPD, 60 ATK
