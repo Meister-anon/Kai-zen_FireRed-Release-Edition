@@ -4438,6 +4438,8 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
     //need refine learnset further
+    //illuminate allows using stronger low acc moves 
+    //considering new ability combustion boosts speed on hit by fire move
 
     [SPECIES_PORYGON] =
     {
@@ -14741,7 +14743,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Glaceon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 60, 110, 65, 130, 95),
+         STATS(110, 60, 95, 85, 110, 65),
         MON_TYPES(TYPE_ICE, TYPE_ICE), //should be relatively bulky w type changes
         .catchRate = 45,
         .expYield = 184,
@@ -14755,14 +14757,17 @@ const struct BaseStats gBaseStats[] =
         .abilities = {ABILITY_SNOW_CLOAK, ABILITY_SNOW_CLOAK},
         .abilityHidden = {ABILITY_CUTE_CHARM, ABILITY_ICE_BODY},    //just a lil troll :)
         //.bodyColor = BODY_COLOR_BLUE,
-        .noFlip = FALSE,
-        .floating = FALSE,
+        .noFlip = FALSE,//dex entry says creaties snow fluries (diamond dust)
+        .floating = FALSE, //to not take other mon niche consider give cryostorm instead of snow warning? could break focus sash as well
         .safariZoneFleeRate = 50,
         .abilityLearnset = sGlaceonAbilityLearnset,
         .levelUpLearnset = sGlaceonLevelUpLearnset,
         .tmhmLearnset = sGlaceonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //no real reason to be slow, mon is graceful, consider chance to make 
+    //bulky, fast ice type
+    //110 HP,  65 DEF, 95 SP DEF, 110 SP ATK,  85 SPD, 60 ATK
 
     [SPECIES_GLISCOR] =
     {
