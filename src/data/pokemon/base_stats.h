@@ -4413,7 +4413,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 130, 60, 65, 90, 110), //slightly tweaked stats to make more couterpart to jolteon
-        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE), //similar releation as electabuzz and magmar
         .catchRate = 45,
         .expYield = 184,
         //.evYield_Attack = 2,
@@ -4423,7 +4423,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_FLASH_FIRE, ABILITY_FLUFFY},
+        .abilities = {ABILITY_COMBUSTION, ABILITY_FLUFFY},
         .abilityHidden = {ABILITY_GUTS, ABILITY_ILLUMINATE},
         //.bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -4435,6 +4435,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
     //need refine learnset further
+//illuminate allows using stronger low acc moves 
+    //considering new ability combustion boosts speed on hit by fire move
 
     [SPECIES_PORYGON] =
     {
@@ -6267,7 +6269,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .speciesName = _("Umbreon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(95, 75, 110, 65, 50, 130),
+         STATS(95, 65, 110, 65, 60, 130),
         MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 45,
         .expYield = 184,
@@ -14837,8 +14839,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SNOW_CLOAK, ABILITY_SNOW_CLOAK},
-        .abilityHidden = {ABILITY_CUTE_CHARM, ABILITY_ICE_BODY},    //just a lil troll :)
+        .abilities = {ABILITY_SNOW_CLOAK, ABILITY_CUTE_CHARM}, //just a lil troll :)
+        .abilityHidden = {ABILITY_CRYOSTORM, ABILITY_ICE_BODY},    
         //.bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,

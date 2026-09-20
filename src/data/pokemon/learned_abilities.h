@@ -646,6 +646,7 @@ static const struct AbilityLearnset sJolteonAbilityLearnset[] = {
 static const struct AbilityLearnset sFlareonAbilityLearnset[] = {
     ABILITY_FLARE_BOOST,
     ABILITY_HEAT_TRANCE,
+    ABILITY_FLASH_FIRE,
     ABILITY_SET_END
 };
 
@@ -2157,6 +2158,8 @@ static const struct AbilityLearnset sLeafeonAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sGlaceonAbilityLearnset[] = {
+    ABILITY_SLUSH_RUSH,
+    ABILITY_SNOW_WARNING,
     ABILITY_SET_END
 };
 
