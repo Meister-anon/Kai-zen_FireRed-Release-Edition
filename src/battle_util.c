@@ -2785,6 +2785,7 @@ static bool32 CanAbilityAbsorbMoveType(enum BattlerId battlerDef, enum Type main
         case ABILITY_LAVA_FISSURE:
         case ABILITY_TURBOBLAZE:
         case ABILITY_FLASH_FIRE:
+        case ABILITY_COMBUSTION:
             return ((mainMoveType == TYPE_FIRE || SecondaryMoveType == TYPE_FIRE));
             break;
         default:
@@ -2906,6 +2907,10 @@ bool32 CanAbilityAbsorbMove(struct BattleContext *ctx)
         case ABILITY_WELL_BAKED_BODY:
             if (ctx->moveType == TYPE_FIRE)
                 battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_DEF, 2);
+            break;
+        case ABILITY_COMBUSTION:
+            if (ctx->moveType == TYPE_FIRE)
+                battleScript = AbsorbedByStatIncreaseAbility(ctx->battlerDef, ctx->abilityDef, STAT_SPEED, 1);
             break;
         case ABILITY_GALEFORCE:
             if (IsWindMove(ctx->move))

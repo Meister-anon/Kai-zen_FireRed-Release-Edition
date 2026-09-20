@@ -3344,5 +3344,13 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 6,
         .breakable = TRUE,
     },
+
+    [ABILITY_COMBUSTION] =
+    {
+        .name = _("Combustion"),
+        .description = COMPOUND_ABILITY_STRING("Raises speed if hit by Fire."),
+        .aiRating = 6,
+        .breakable = TRUE,
+    },
 };
 
