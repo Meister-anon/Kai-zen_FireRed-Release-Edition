@@ -87,6 +87,7 @@ static void PlayerHandleBattleMoveInfo(enum BattlerId battler);
 static void PlayerCmdEnd(enum BattlerId battler);
 
 static void PlayerBufferRunCommand(enum BattlerId battler);
+static void PlayerBufferExecCompleted(enum BattlerId battler);
 static void HandleInputChooseTarget(enum BattlerId battler);
 static void MoveSelectionDisplayPpNumber(enum BattlerId battler);
 static void MoveSelectionDisplayPpString(void);
@@ -190,6 +191,7 @@ void BattleControllerDummy(enum BattlerId battler)
 
 void SetControllerToPlayer(enum BattlerId battler)
 {
+    gBattlerControllerEndFuncs[battler] = PlayerBufferExecCompleted;
     gBattlerBattleController[battler] = BATTLE_CONTROLLER_PLAYER;
     gBattlerControllerFuncs[battler] = PlayerBufferRunCommand;
     gDoingBattleAnim = FALSE;

@@ -164,6 +164,7 @@ static void OakOldManDummy(enum BattlerId battler)
 
 void SetControllerToOakOrOldMan(enum BattlerId battler)
 {
+    gBattlerControllerEndFuncs[battler] = OakOldManBufferExecCompleted;
     gBattlerControllerFuncs[battler] = OakOldManBufferRunCommand;
     gBattleStruct->simulatedInputState[0] = 0;
     gBattleStruct->simulatedInputState[1] = 0;
