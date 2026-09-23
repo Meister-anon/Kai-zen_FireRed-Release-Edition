@@ -191,11 +191,12 @@ void BattleControllerDummy(enum BattlerId battler)
 void SetControllerToPlayer(enum BattlerId battler)
 {
     gBattlerBattleController[battler] = BATTLE_CONTROLLER_PLAYER;
+    gBattlerControllerEndFuncs[battler] = PlayerBufferExecCompleted;
     gBattlerControllerFuncs[battler] = PlayerBufferRunCommand;
     gDoingBattleAnim = FALSE;
 }
 
-static void PlayerBufferExecCompleted(enum BattlerId battler)
+void PlayerBufferExecCompleted(enum BattlerId battler)
 {
     gBattlerControllerFuncs[battler] = PlayerBufferRunCommand;
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)

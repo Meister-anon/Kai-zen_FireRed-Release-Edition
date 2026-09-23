@@ -753,11 +753,11 @@ enum SportsUsedStringID
     F(STRINGID_STATROSE,                                        ("rose!"))\
     F(STRINGID_STATHARSHLY,                                        ("harshly "))\
     F(STRINGID_STATFELL,                                        ("fell!"))\
-    F(STRINGID_ATTACKERSSTATROSE,                                        ("{B_ATK_NAME_WITH_PREFIX}'s {B_BUFF1}\n{B_BUFF2}"))\
-    F(STRINGID_DEFENDERSSTATROSE,                                        ("{B_DEF_NAME_WITH_PREFIX}'s {B_BUFF1}\n{B_BUFF2}"))\
+    F(STRINGID_ATTACKERSSTATROSE,                                        ("{B_ATK_NAME_WITH_PREFIX}'s {B_BUFF1}\n{B_BUFF2}rose!"))\
+    F(STRINGID_DEFENDERSSTATROSE,                                        ("{B_DEF_NAME_WITH_PREFIX}'s {B_BUFF1}\n{B_BUFF2}rose!"))\
     F(STRINGID_SCRIPTINGSTATROSE,                                      ("{B_SCR_NAME_WITH_PREFIX}'s {B_BUFF1} {B_BUFF2}rose!"))\
-    F(STRINGID_ATTACKERSSTATFELL,                                        ("{B_ATK_NAME_WITH_PREFIX}'s {B_BUFF1}\n{B_BUFF2}"))\
-    F(STRINGID_DEFENDERSSTATFELL,                                        ("{B_DEF_NAME_WITH_PREFIX}'s {B_BUFF1}\n{B_BUFF2}"))\
+    F(STRINGID_ATTACKERSSTATFELL,                                        ("{B_ATK_NAME_WITH_PREFIX}'s {B_BUFF1}\n{B_BUFF2}fell!"))\
+    F(STRINGID_DEFENDERSSTATFELL,                                        ("{B_DEF_NAME_WITH_PREFIX}'s {B_BUFF1}\n{B_BUFF2}fell!"))\
     F(STRINGID_CRITICALHIT,                                        ("A critical hit!"))\
     F(STRINGID_ONEHITKO,                                        ("It's a one-hit KO!"))\
     F(STRINGID_123POOF,                                        ("{PAUSE 32}1, {PAUSE 15}2, and{PAUSE 15}… {PAUSE 15}… {PAUSE 15}… {PAUSE 15}{PLAY_SE SE_BALL_BOUNCE_1}Poof!\p"))\

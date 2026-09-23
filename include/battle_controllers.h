@@ -378,6 +378,7 @@ void BtlController_TerminatorNop(enum BattlerId battler); // Dummy function at t
 void BattleControllerDummy(enum BattlerId battler);
 void SetControllerToPlayer(enum BattlerId battler);
 void PlayerHandleGetRawMonData(enum BattlerId battler);
+void PlayerBufferExecCompleted(enum BattlerId battler);
 void SpriteCB_FreePlayerSpriteLoadMonSprite(struct Sprite *sprite);
 void SetCB2ToReshowScreenAfterMenu(void);
 void SetCB2ToReshowScreenAfterMenu2(void);
@@ -392,7 +393,7 @@ void MoveSelectionDestroyCursorAt(u8 cursorPos);
 void HandleInputChooseMove(enum BattlerId battler);
 
 // handlers
-void BtlController_HandleTrainerSlideBack(enum BattlerId battlerId, s16 data0, bool32 startAnim);
+void BtlController_HandleTrainerSlideBack(enum BattlerId battler, s16 data0, bool32 startAnim);
 
 
 bool32 BattlerHasAi(enum BattlerId battlerId);
