@@ -1486,19 +1486,17 @@ static void OpponentHandleChooseMove(enum BattlerId battler)
             move = moveInfo->moves[chosenMoveIndex];
         } while (move == MOVE_NONE);
         enum MoveTarget target = GetBattlerMoveTargetType(battler, move);
-        if (target == TARGET_USER || target == TARGET_USER_OR_ALLY)
+        if (target == TARGET_USER || target == TARGET_USER_OR_ALLY || target == TARGET_ALLY)
         {
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, (chosenMoveIndex) | (battler << 8));
-        }
-        else if (target == TARGET_ALLY)
-        {
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, (chosenMoveIndex) | (BATTLE_PARTNER(battler) << 8));
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, (chosenMoveIndex) | (GetDefaultSelectionTarget(battler, target) << 8));
         }
         else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
             {
+                enum BattlerId targetBattler;
                 do {
-                    target = GetBattlerAtPosition(Random() & 2);
-                } while (!CanTargetBattler(battler, target, move));
+                    enum BattlerPosition pos = RandomPercentage(RNG_WILD_MON_TARGET, 50) ? B_POSITION_PLAYER_LEFT : B_POSITION_PLAYER_RIGHT;
+                    targetBattler = GetBattlerAtPosition(pos);
+                } while (!CanTargetBattler(battler, targetBattler, move));
                 
                 // Don't bother to loop through table if the move can't attack ally
                 if ((gMovesInfo[move].target != TARGET_BOTH))
@@ -1525,12 +1523,12 @@ static void OpponentHandleChooseMove(enum BattlerId battler)
                         }
                     }
                     if (isPartnerEnemy && CanTargetBattler(battler, target, move))
-                        BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (GetBattlerAtPosition(BATTLE_PARTNER(battler)) << 8));
+                        BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (GetPartnerBattler(battler) << 8));
                     else
-                        BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (target << 8));
+                        BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (targetBattler << 8));
                 }
                 else
-                    BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (target << 8));
+                    BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (targetBattler << 8));
             }
         else
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) << 8));
