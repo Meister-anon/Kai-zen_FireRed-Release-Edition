@@ -3702,7 +3702,14 @@ enum MoveEndResult DoMoveEnd(enum MoveEndState endMode, enum MoveEndState endSta
 
     do
     {
-        result = sMoveEndHandlers[gBattleScripting.moveendState]();
+        //change from anercomp I almost had it forgot else condition
+       if (sMoveEndHandlers[gBattleScripting.moveendState] == NULL)
+        {
+            gBattleScripting.moveendState++;
+            result = MOVEEND_RESULT_CONTINUE;
+        }
+        else
+            result = sMoveEndHandlers[gBattleScripting.moveendState]();
 
         if (endMode == 1 && result == MOVEEND_RESULT_CONTINUE)
             gBattleScripting.moveendState = MOVEEND_COUNT;

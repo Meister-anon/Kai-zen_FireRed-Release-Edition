@@ -79,6 +79,10 @@ enum MoveEndResult
 //to just stop and let me know
 //not sure how to do that prob neet assert?
 
+//edit with anercomps fix move end func will no longer hang
+//still commenting out as not good practice to leave
+//without note as won't realize which are unaddressed
+
 // cases for Cmd_moveend - Order matters!
 enum MoveEndState
 {

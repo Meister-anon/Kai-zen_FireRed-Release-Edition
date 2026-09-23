@@ -5013,6 +5013,7 @@ void BattleTurnPassed(void) //after all moves used
     TurnValuesCleanUp(TRUE); //protect and endure specifically cleared here
     if (gBattleOutcome == 0 && DoEndTurnEffects()) //starting value //battle not done
     {
+        return;
         //need comb over and add to above func
         /*if (DoFieldEndTurnEffects()) //probably posssible wrap trap logic?  actually no, that is in battlereffecfs... missed turn counter reset in endturn wish seeing if that was issue
             return; //wish wasn't it, but missed turnisde increment in aurora veil, due to bad replace could be it?

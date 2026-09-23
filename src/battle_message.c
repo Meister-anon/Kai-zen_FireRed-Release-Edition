@@ -1371,6 +1371,7 @@ void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
                 stringPtr = sText_Trainer1SentOutPkmn2;
             }
         }
+        break;
     case STRINGID_USEDMOVE: // pokemon used a move msg
         ChooseMoveUsedParticle(gBattleTextBuff1); // buff1 doesn't appear in the string, leftover from japanese move names
 
