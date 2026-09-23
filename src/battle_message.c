@@ -1371,6 +1371,7 @@ void BufferStringBattle(enum BattlerId battler, enum StringID stringId)
                 stringPtr = sText_Trainer1SentOutPkmn2;
             }
         }
+        break;
     case STRINGID_USEDMOVE: // pokemon used a move msg
         ChooseMoveUsedParticle(gBattleTextBuff1); // buff1 doesn't appear in the string, leftover from japanese move names
 
@@ -2734,7 +2735,7 @@ static const struct BattleWindowText sTextOnWindowsInfo_Normal[] = {
     [B_WIN_YESNO] = {
         .fillValue = PIXEL_FILL(0xe),
         .fontId = FONT_NORMAL,
-        .x = 0,
+        .x = 8,
         .y = 2,
         .letterSpacing = 0,
         .lineSpacing = 2,

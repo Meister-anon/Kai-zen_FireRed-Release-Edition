@@ -163,6 +163,7 @@ static void OpponentDummy(enum BattlerId battler)
 
 void SetControllerToOpponent(enum BattlerId battler)
 {
+    gBattlerBattleController[battler] = BATTLE_CONTROLLER_OPPONENT;
     gBattlerControllerFuncs[battler] = OpponentBufferRunCommand;
 }
 
@@ -1486,7 +1487,8 @@ static void OpponentHandleChooseMove(enum BattlerId battler)
             move = moveInfo->moves[chosenMoveIndex];
         }
         while (move == MOVE_NONE);
-        if (GetBattlerMoveTargetType(battler, move) & (TARGET_SELECTED | TARGET_USER))
+        enum MoveTarget moveTarget = GetBattlerMoveTargetType(battler, move);
+        if (moveTarget == TARGET_USER || moveTarget == TARGET_USER_OR_ALLY || moveTarget == TARGET_USER_AND_ALLY)
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (battler << 8));
         else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
             {

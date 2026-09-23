@@ -190,6 +190,7 @@ void BattleControllerDummy(enum BattlerId battler)
 
 void SetControllerToPlayer(enum BattlerId battler)
 {
+    gBattlerBattleController[battler] = BATTLE_CONTROLLER_PLAYER;
     gBattlerControllerFuncs[battler] = PlayerBufferRunCommand;
     gDoingBattleAnim = FALSE;
 }

@@ -1296,9 +1296,9 @@ struct BattleScripting  //remember expanding this costs ewram
     u8 animArg2;
     u16 multihitMoveEffect;
     u8 moveendState; //move end
-    enum BattlerId battlerWithAbility;
+    u8 battlerWithAbility;
     u8 statChangeId; //new for dynamic stat set, this stat id will be passed to statchanger
-    enum BattlerId battler;
+    u8 battler;
     u8 animTurn;
     u8 animTargetsHit;
     u8 statChanger;

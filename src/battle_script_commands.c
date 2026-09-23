@@ -1423,7 +1423,7 @@ static void Cmd_printselectionstringfromtable(void)
 //as same effect
 static void Cmd_setcritprotect(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
@@ -2009,7 +2009,7 @@ static void DoublesHPBarReduction(void)
 
 static void Cmd_healthbarupdate(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 updateState);
+    CMD_ARGS(u8 battler, u8 updateState);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
     if (gBattleControllerExecFlags)
@@ -2187,7 +2187,7 @@ static void MoveDamageDataHpUpdate(enum BattlerId battler, u32 scriptBattler, co
 
 static void Cmd_datahpupdate(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 updateState);
+    CMD_ARGS(u8 battler, u8 updateState);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
     if (gBattleControllerExecFlags)
@@ -4347,7 +4347,7 @@ static void Cmd_setadditionaleffects(void)
 
 static void Cmd_seteffectprimary(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 effectBattler);
+    CMD_ARGS(u8 battler, u8 effectBattler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     u32 effectBattler = GetBattlerForBattleScript(cmd->effectBattler);
@@ -4356,7 +4356,7 @@ static void Cmd_seteffectprimary(void)
 
 static void Cmd_seteffectsecondary(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 effectBattler);
+    CMD_ARGS(u8 battler, u8 effectBattler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     u32 effectBattler = GetBattlerForBattleScript(cmd->effectBattler);
@@ -4365,7 +4365,7 @@ static void Cmd_seteffectsecondary(void)
 
 static void Cmd_clearvolatile(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 _volatile);
+    CMD_ARGS(u8 battler, u8 _volatile);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
@@ -4391,7 +4391,7 @@ bool8 CanMultiTask(enum Ability abilityAtk, enum Move move) //works, but now I n
 
 static void Cmd_tryfaintmon(void)
 {
-    CMD_ARGS(enum BattlerId battler, bool8 isSpikes, const u8 *instr);
+    CMD_ARGS(u8 battler, bool8 isSpikes, const u8 *instr);
     enum BattlerId battler;
 
     battler = GetBattlerForBattleScript(cmd->battler);
@@ -4455,7 +4455,7 @@ static void Cmd_tryfaintmon(void)
 
 static void Cmd_dofaintanimation(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     if (gBattleControllerExecFlags != 0)
         return;
@@ -4477,7 +4477,7 @@ static void Cmd_dofaintanimation(void)
 
 static void Cmd_cleareffectsonfaint(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     if (gBattleControllerExecFlags == 0)
     {
@@ -4500,7 +4500,7 @@ static void Cmd_cleareffectsonfaint(void)
 
 static void Cmd_jumpifstatus(void)
 {
-    CMD_ARGS(enum BattlerId battler, u32 flags, const u8 *jumpInstr);
+    CMD_ARGS(u8 battler, u32 flags, const u8 *jumpInstr);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     u32 flags = cmd->flags;
@@ -4514,7 +4514,7 @@ static void Cmd_jumpifstatus(void)
 
 static void Cmd_jumpifvolatile(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 _volatile, const u8 *jumpInstr);
+    CMD_ARGS(u8 battler, u8 _volatile, const u8 *jumpInstr);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     const u8 *jumpInstr = cmd->jumpInstr;
@@ -4527,7 +4527,7 @@ static void Cmd_jumpifvolatile(void)
 
 static void Cmd_jumpbasedonability(void)
 {
-    CMD_ARGS(enum BattlerId battler, enum Ability ability, u8 jumpCondition, const u8 *jumpInstr);
+    CMD_ARGS(u8 battler, enum Ability ability, u8 jumpCondition, const u8 *jumpInstr);
 
     enum BattlerId battler;
     bool32 hasAbility = FALSE;
@@ -4608,7 +4608,7 @@ static void Cmd_jumpbasedonability(void)
 
 static void Cmd_jumpifsideaffecting(void)
 {
-    CMD_ARGS(enum BattlerId battler, u32 flags, const u8 *jumpInstr);
+    CMD_ARGS(u8 battler, u32 flags, const u8 *jumpInstr);
 
     u32 side = GetBattlerSide(GetBattlerForBattleScript(cmd->battler));
 
@@ -4620,7 +4620,7 @@ static void Cmd_jumpifsideaffecting(void)
 
 static void Cmd_jumpifstat(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 comparison, u8 stat, u8 value, const u8 *jumpInstr);
+    CMD_ARGS(u8 battler, u8 comparison, u8 stat, u8 value, const u8 *jumpInstr);
 
     bool32 ret = 0;
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
@@ -4638,7 +4638,7 @@ static void Cmd_jumpifstat(void)
 
 static void Cmd_jumpifstatignorecontrary(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 comparison, u8 stat, u8 value, const u8 *jumpInstr);
+    CMD_ARGS(u8 battler, u8 comparison, u8 stat, u8 value, const u8 *jumpInstr);
 
     bool32 ret = 0;
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
@@ -4656,7 +4656,7 @@ static void Cmd_jumpifstatignorecontrary(void)
 
 static void Cmd_typebasedjump(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 type, u8 jumpIfType, const u8 *jumpInstr);
+    CMD_ARGS(u8 battler, u8 type, u8 jumpIfType, const u8 *jumpInstr);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     u8 type = cmd->type;
@@ -4720,7 +4720,7 @@ static u32 GetMonHoldEffect(struct Pokemon *mon)
 //will have to adjust for my stuff
 static void Cmd_getexp(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     enum HoldEffect holdEffect;
     s32 i; // also used as stringId
@@ -5814,7 +5814,7 @@ static void PlayAnimation(enum BattlerId battler, u8 animId, const u16 *argPtr, 
 
 static void Cmd_playanimation(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 animId, const u16 *argPtr);
+    CMD_ARGS(u8 battler, u8 animId, const u16 *argPtr);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     PlayAnimation(battler, cmd->animId, cmd->argPtr, cmd->nextInstr);
@@ -5823,7 +5823,7 @@ static void Cmd_playanimation(void)
 // Same as playanimation, except it takes a pointer to some animation id, instead of taking the value directly
 static void Cmd_playanimation_var(void)
 {
-    CMD_ARGS(enum BattlerId battler, const u8 *animIdPtr, const u16 *argPtr);
+    CMD_ARGS(u8 battler, const u8 *animIdPtr, const u16 *argPtr);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     PlayAnimation(battler, *(cmd->animIdPtr), cmd->argPtr, cmd->nextInstr);
@@ -5831,7 +5831,7 @@ static void Cmd_playanimation_var(void)
 
 static void Cmd_jumpfifsemiinvulnerable(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 state, const u8 *jumpInstr);
+    CMD_ARGS(u8 battler, u8 state, const u8 *jumpInstr);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
     if (gBattleMons[battler].volatiles.semiInvulnerable == cmd->state)
@@ -5936,7 +5936,7 @@ static u32 GetArbitraryValidSwitchIn(enum BattleSide side)
 
 static void Cmd_getswitchedmondata(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     if (gBattleControllerExecFlags)
@@ -5960,7 +5960,7 @@ static void Cmd_getswitchedmondata(void)
 //vsonic important form change stuff
 static void Cmd_switchindataupdate(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     struct BattlePokemon oldData;
     enum BattlerId battler, i;
@@ -6034,7 +6034,7 @@ static void Cmd_switchinanim(void)
 {
     enum BattlerId battler;
 
-    CMD_ARGS(enum BattlerId battler, bool8 dontClearTransform, bool8 dontClearSubstitute);
+    CMD_ARGS(u8 battler, bool8 dontClearTransform, bool8 dontClearSubstitute);
 
     if (gBattleControllerExecFlags)
         return;
@@ -6440,7 +6440,7 @@ static void Cmd_openpartyscreen(void)
 
 static void Cmd_switchhandleorder(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 state);
+    CMD_ARGS(u8 battler, u8 state);
 
     enum BattlerId battler, i;
     if (gBattleControllerExecFlags)
@@ -6531,7 +6531,7 @@ static void UpdateSentMonFlags(enum BattlerId battler)
 
 static void Cmd_switchineffects(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
     UpdateSentMonFlags(battler);
@@ -6585,7 +6585,7 @@ static void Cmd_fanfare(void)
 
 static void Cmd_playfaintcry(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     BtlController_EmitFaintingCry(battler, B_COMM_TO_CONTROLLER);
@@ -6607,7 +6607,7 @@ static void Cmd_endlinkbattle(void)
 
 static void Cmd_returntoball(void)
 {
-    CMD_ARGS(enum BattlerId battler, bool8 changingForm);
+    CMD_ARGS(u8 battler, bool8 changingForm);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     BtlController_EmitReturnMonToBall(battler, B_COMM_TO_CONTROLLER, TRUE);
@@ -6859,7 +6859,7 @@ static void Cmd_yesnoboxstoplearningmove(void)
 // TODO: passive damage hit anim for sub
 static void Cmd_hitanimation(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     if (!IsDoubleSpreadMove())
     {
@@ -6978,7 +6978,7 @@ static void Cmd_getmoneyreward(void)
 // Command is never used
 static void Cmd_updatebattlermoves(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
@@ -7026,7 +7026,7 @@ static void Cmd_incrementgamestat(void)
 
 static void Cmd_drawpartystatussummary(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     enum BattlerId battler, i;
     struct Pokemon *party;
@@ -7061,7 +7061,7 @@ static void Cmd_drawpartystatussummary(void)
 
 static void Cmd_hidepartystatussummary(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     BtlController_EmitHidePartyStatusSummary(battler, B_COMM_TO_CONTROLLER);
@@ -7099,7 +7099,7 @@ static void Cmd_jumptocalledmove(void)
 
 static void Cmd_statusanimation(void)
 {
-    CMD_ARGS(enum BattlerId battler, u32 status, bool8 isVolatile);
+    CMD_ARGS(u8 battler, u32 status, bool8 isVolatile);
 
     if (gBattleControllerExecFlags == 0)
     {
@@ -7265,7 +7265,7 @@ static bool32 TryCheekPouch(enum BattlerId battler, u32 itemId, const u8 *nextIn
 
 static void Cmd_removeitem(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     enum BattlerId battler;
     u16 itemId = 0;
@@ -7617,7 +7617,7 @@ static void Cmd_setatktoplayer0(void)
 
 static void Cmd_makevisible(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
     enum BattlerId battler;
 
     if (gBattleControllerExecFlags)
@@ -7632,7 +7632,7 @@ static void Cmd_makevisible(void)
 
 static void Cmd_recordability(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     RecordAbilityBattle(battler, gBattleMons[battler].ability);
@@ -7664,7 +7664,7 @@ static void Cmd_jumpifplayerran(void)
 
 static void Cmd_hpthresholds(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     if (!(IsDoubleBattle()))
     {
@@ -7690,7 +7690,7 @@ static void Cmd_hpthresholds(void)
 
 static void Cmd_hpthresholds2(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     if (!(IsDoubleBattle()))
     {
@@ -8101,7 +8101,7 @@ static void Cmd_jumpifnexttargetvalid(void)
 
 static void Cmd_tryhealhalfhealth(void)
 {
-    CMD_ARGS(enum BattlerId battler, const u8 *failInstr);
+    CMD_ARGS(u8 battler, const u8 *failInstr);
 
     const u8 *failInstr = cmd->failInstr;
 
@@ -8929,7 +8929,7 @@ static u32 ChangeStatBuffs(enum BattlerId battler, s8 statValue, enum Stat statI
 
 static void Cmd_statbuffchange(void)
 {
-    CMD_ARGS(enum BattlerId battler, u16 flags, const u8 *failInstr, u8 stats);
+    CMD_ARGS(u8 battler, u16 flags, const u8 *failInstr, u8 stats);
 
     u16 flags = cmd->flags;
     u32 stats = cmd->stats;
@@ -9447,7 +9447,7 @@ static void Cmd_copybidedmg(void)
 
 static void Cmd_animatewildpokemonafterfailedpokeball(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     //AnimateMonAfterPokeBallFail(battler);
     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -9481,7 +9481,7 @@ static void Cmd_tryinfatuating(void)
 
 static void Cmd_updatestatusicon(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
     enum BattlerId battler;
 
     if (gBattleControllerExecFlags)
@@ -9547,7 +9547,7 @@ static void Cmd_setmist(void)
 
 static void Cmd_setfocusenergy(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     enum BattleMoveEffects effect = GetMoveEffect(gCurrentMove);
 
@@ -10313,7 +10313,7 @@ static void Cmd_trysetspikes(void)
 //will apply maxvalue from volatile_definitions macro
 static void Cmd_setvolatile(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 _volatile, u8 value);
+    CMD_ARGS(u8 battler, u8 _volatile, u8 value);
 
     SetMonVolatile(GetBattlerForBattleScript(cmd->battler), cmd->_volatile, cmd->value);
     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -10534,7 +10534,7 @@ static void Cmd_jumpifnopursuitswitchdmg(void)
 
 static void Cmd_tryactivateitem(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 flag);
+    CMD_ARGS(u8 battler, u8 flag);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -11103,7 +11103,7 @@ static bool32 CanAbilityShieldActivateForBattler(enum BattlerId battler)
 // Role Play, Doodle
 static void Cmd_trycopyability(void)
 {
-    CMD_ARGS(enum BattlerId battler, const u8 *failInstr);
+    CMD_ARGS(u8 battler, const u8 *failInstr);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     u32 partner = BATTLE_PARTNER(battler);
@@ -11376,7 +11376,7 @@ static void Cmd_setstealthrock(void)
 #define VOLATILE_SET
 static void Cmd_trysetvolatile(void)
 {
-    CMD_ARGS(enum BattlerId battler, u8 _volatile, const u8 *failInstr);
+    CMD_ARGS(u8 battler, u8 _volatile, const u8 *failInstr);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
@@ -11454,7 +11454,7 @@ static void Cmd_unused2(void)
 //vsonic immutable wind
 static void Cmd_switchoutabilities(void)
 {
-    CMD_ARGS(enum BattlerId battler);
+    CMD_ARGS(u8 battler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     if (gBattleMons[battler].volatiles.neutralizingGas)
@@ -11503,7 +11503,7 @@ static void Cmd_switchoutabilities(void)
 
 static void Cmd_jumpifhasnohp(void)
 {
-    CMD_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    CMD_ARGS(u8 battler, const u8 *jumpInstr);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
@@ -12945,7 +12945,7 @@ void BS_RestoreAttacker(void)
 
 void BS_JumpIfMoreThanHalfHP(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     if (gBattleMons[battler].hp > (gBattleMons[battler].maxHP + 1) / 2)
@@ -12956,7 +12956,7 @@ void BS_JumpIfMoreThanHalfHP(void)
 
 void BS_DoStockpileStatChangesWearOff(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *statChangeInstr);
+    NATIVE_ARGS(u8 battler, const u8 *statChangeInstr);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     if (gBattleMons[battler].volatiles.stockpileDef != 0)
@@ -13049,14 +13049,14 @@ void BS_JumpIfCantLoseItem(void)
 
 void BS_GetBattlerSide(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     gBattleCommunication[0] = GetBattlerSide(GetBattlerForBattleScript(cmd->battler));
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 void BS_TrySymbiosis(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     //called by Bestow, Fling, and Bug Bite, which don't work with Cmd_removeitem.
     u32 partner = BATTLE_PARTNER(battler);
@@ -13397,7 +13397,7 @@ void BS_TryRevertWeatherForm(void)
 
 void BS_JumpIfShellTrap(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     if (gProtectStructs[battler].shellTrap)
@@ -13461,7 +13461,7 @@ void BS_SetTerrain(void)
 
 void BS_JumpIfTerrainAffected(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, u32 flags, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, u32 flags, const u8 *jumpInstr);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
     if (IsBattlerTerrainAffected(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler), gFieldStatuses, cmd->flags))
@@ -13619,7 +13619,7 @@ void BS_SetPledge(void)
 
 void BS_SetPledgeStatus(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, u32 sideStatus);
+    NATIVE_ARGS(u8 battler, u32 sideStatus);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     u32 side = GetBattlerSide(battler);
@@ -13890,7 +13890,7 @@ void BS_TryQuash(void)
 
 void BS_CopyFoesStatIncrease(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
     u32 stat = 0;
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
@@ -13982,7 +13982,7 @@ void BS_CanTarShotWork(void)
 
 void BS_JumpIfBlockedBySoundproof(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     if (IsSoundMove(gCurrentMove) && GetBattlerAbility(battler) == ABILITY_SOUNDPROOF)
     {
@@ -14013,7 +14013,7 @@ void BS_SetMagicCoatTarget(void)
 
 void BS_JumpIfNoBerry(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     if (GetItemPocket(gBattleMons[battler].item) == POCKET_BERRIES)
@@ -14049,7 +14049,7 @@ void BS_CheckTeaTimeTargets(void)
 
 void BS_TryWindRiderPower(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *failInstr);
+    NATIVE_ARGS(u8 battler, const u8 *failInstr);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     enum Ability ability = GetBattlerAbility(battler);
@@ -14069,7 +14069,7 @@ void BS_TryWindRiderPower(void)
 
 void BS_ActivateWeatherChangeAbilities(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -14078,7 +14078,7 @@ void BS_ActivateWeatherChangeAbilities(void)
 
 void BS_ActivateTerrainChangeAbilities(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -14097,7 +14097,7 @@ void BS_ResetTerrainAbilityFlags(void)
 
 void BS_StoreHealingWish(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     if (GetMoveEffect(gCurrentMove) == EFFECT_LUNAR_DANCE)
@@ -14564,7 +14564,7 @@ void BS_JumpIfIntimidateAbilityPrevented(void)
 //not uysing
 void BS_JumpIfCanGigantamax(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
     //if (GetMonData(GetBattlerMon(battler), MON_DATA_GIGANTAMAX_FACTOR)
@@ -14679,7 +14679,7 @@ void BS_TryBoosterEnergy(void)
 
 void BS_JumpIfAbilityCantBeReactivated(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     u32 ability = gBattleMons[battler].ability;
 
@@ -14702,7 +14702,7 @@ void BS_JumpIfAbilityCantBeReactivated(void)
 
 void BS_TryActivateAbilityShield(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     enum Ability ability = GetBattlerAbility(battler);
 
@@ -14774,7 +14774,7 @@ void BS_RemoveTailwind(void)
 
 void BS_JumpIfAbsent(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
     if (!IsBattlerAlive(GetBattlerForBattleScript(cmd->battler)))
         gBattlescriptCurrInstr = cmd->jumpInstr;
     else
@@ -14783,7 +14783,7 @@ void BS_JumpIfAbsent(void)
 
 void BS_JumpIfHoldEffect(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, u8 holdEffect, const u8 *jumpInstr, u8 equal);
+    NATIVE_ARGS(u8 battler, u8 holdEffect, const u8 *jumpInstr, u8 equal);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     if ((GetBattlerHoldEffect(battler) == cmd->holdEffect) == cmd->equal)
     {
@@ -14801,7 +14801,7 @@ void BS_JumpIfHoldEffect(void)
 
 void BS_JumpIfNoAlly(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
     u32 partner = BATTLE_PARTNER(GetBattlerForBattleScript(cmd->battler));
     if (!IsBattlerAlive(partner))
         gBattlescriptCurrInstr = cmd->jumpInstr;
@@ -14811,7 +14811,7 @@ void BS_JumpIfNoAlly(void)
 
 void BS_SetLastUsedItem(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     gLastUsedItem = gBattleMons[GetBattlerForBattleScript(cmd->battler)].item;
     gBattleStruct->flingItem = gLastUsedItem;
     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -14864,7 +14864,7 @@ void BS_GetStatValue(void)
 
 void BS_JumpIfFullHp(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
     if (IsBattlerAtMaxHp(GetBattlerForBattleScript(cmd->battler)))
         gBattlescriptCurrInstr = cmd->jumpInstr;
     else
@@ -14903,7 +14903,7 @@ void BS_TryFriskMessage(void)
 
 void BS_SetTracedAbility(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     gBattleMons[battler].ability = gBattleMons[battler].volatiles.overwrittenAbility = gBattleStruct->tracedAbility[battler];
     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -14911,7 +14911,7 @@ void BS_SetTracedAbility(void)
 
 void BS_TryIllusionOff(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     if (TryClearIllusion(battler, GetBattlerAbility(battler)))
         return;
@@ -14928,7 +14928,7 @@ void BS_UpdateNick(void)
 
 void BS_JumpIfNotBerry(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
     if (GetItemPocket(gBattleMons[GetBattlerForBattleScript(cmd->battler)].item) == POCKET_BERRIES)
         gBattlescriptCurrInstr = cmd->nextInstr;
     else
@@ -15000,7 +15000,7 @@ void BS_GetMoveTarget(void)
 
 void BS_GetBattlerFainted(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     if (gHitMarker & HITMARKER_FAINTED(GetBattlerForBattleScript(cmd->battler)))
         gBattleCommunication[0] = TRUE;
     else
@@ -15228,7 +15228,7 @@ void BS_PalaceTryEscapeStatus(void)
 
 void BS_SetTeleportOutcome(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
     // Don't end the battle if one of the wild mons teleported from the wild double battle
@@ -15270,7 +15270,7 @@ void BS_StatTextBuffer(void)
 
 void BS_SwitchinAbilities(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     u32 ability = GetBattlerAbility(battler);
     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -15295,7 +15295,7 @@ void BS_InstantHpDrop(void)
 
 void BS_ClearStatus(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     gBattleMons[battler].status1 = 0;
     BtlController_EmitSetMonData(
@@ -15311,7 +15311,7 @@ void BS_ClearStatus(void)
 
 void BS_RestoreMovePp(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     u32 moveIndex;
     u32 data[MAX_MON_MOVES + 1];
@@ -15328,7 +15328,7 @@ void BS_RestoreMovePp(void)
 
 void BS_TryActivateReceiver(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     gBattlerAbility = BATTLE_PARTNER(battler);
     u32 partnerAbility = GetBattlerAbility(gBattlerAbility);
@@ -15641,7 +15641,7 @@ void BS_TryPsychoShift(void)
 
 void BS_CureStatus(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
     if (gBattleMons[battler].status1 & STATUS1_SLEEP)
@@ -15697,7 +15697,7 @@ void BS_TryBestow(void)
 
 void BS_HandleTrainerSlideMsg(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, u8 case_);
+    NATIVE_ARGS(u8 battler, u8 case_);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     if (cmd->case_ == PRINT_SLIDE_MESSAGE)
     {
@@ -15723,7 +15723,7 @@ void BS_HandleTrainerSlideMsg(void)
 
 void BS_TryTrainerSlideMsgFirstOff(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     u32 shouldDoTrainerSlide = 0;
     if ((shouldDoTrainerSlide = ShouldDoTrainerSlide(battler, TRAINER_SLIDE_PLAYER_LANDS_FIRST_DOWN)))
@@ -15753,7 +15753,7 @@ void BS_TryTrainerSlideMsgFirstOff(void)
 
 void BS_TryTrainerSlideMsgLastOn(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     u32 shouldDoTrainerSlide = 0;
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     if ((shouldDoTrainerSlide = ShouldDoTrainerSlide(battler, TRAINER_SLIDE_LAST_SWITCHIN)))
@@ -15885,7 +15885,7 @@ void BS_ActivateItemEffects(void)
 
 void BS_TryRoomService(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *failInstr);
+    NATIVE_ARGS(u8 battler, const u8 *failInstr);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     enum HoldEffect holdEffect = GetBattlerHoldEffect(battler);
     if (holdEffect == HOLD_EFFECT_ROOM_SERVICE && ItemBattleEffects(battler, 0, holdEffect, IsOnEffectActivation))
@@ -15895,7 +15895,7 @@ void BS_TryRoomService(void)
 
 void BS_TryTerrainSeed(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *failInstr);
+    NATIVE_ARGS(u8 battler, const u8 *failInstr);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     enum HoldEffect holdEffect = GetBattlerHoldEffect(battler);
     if (holdEffect == HOLD_EFFECT_TERRAIN_SEED && ItemBattleEffects(battler, 0, holdEffect, IsOnEffectActivation))
@@ -15905,7 +15905,7 @@ void BS_TryTerrainSeed(void)
 
 void BS_MakeInvisible(void)
 {
-    NATIVE_ARGS(enum BattlerId battler);
+    NATIVE_ARGS(u8 battler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
     if (gBattleControllerExecFlags)
@@ -15940,7 +15940,7 @@ void BS_JumpIfTeamHealthy(void)
 
 void BS_TryHealQuarterHealth(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *failInstr);
+    NATIVE_ARGS(u8 battler, const u8 *failInstr);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     SetHealAmount(battler, GetNonDynamaxMaxHP(battler) / 4);
     if (gBattleMons[battler].hp == gBattleMons[battler].maxHP)
@@ -16133,7 +16133,7 @@ void BS_GetRototillerTargets(void)
 //^ why is expansion obsessed with removing flags?
 void BS_ConsumeBerry(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, bool8 fromBattler);
+    NATIVE_ARGS(u8 battler, bool8 fromBattler);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
     if (cmd->fromBattler)
@@ -16185,7 +16185,7 @@ void BS_JumpIfSpecies(void)
 
 void BS_JumpIfAbilityPreventsRest(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     u32 ability = GetBattlerAbility(battler);
     if (GetConfig(B_LEAF_GUARD_PREVENTS_REST) >= GEN_5 && IsLeafGuardProtected(battler, ability))
@@ -16292,7 +16292,7 @@ void BS_JumpIfGenConfigLowerThan(void)
 
 void BS_TryActivateAbilityWithAbilityShield(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, bool8 switchedItems);
+    NATIVE_ARGS(u8 battler, bool8 switchedItems);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
@@ -16429,7 +16429,7 @@ void BS_GetCustomAbilityString(void)
 
 void BS_jumpifnotweatheraffected(void) 
 {
-     NATIVE_ARGS(enum BattlerId battler, u32 weatherflags, const u8 *jumpInstr);
+     NATIVE_ARGS(u8 battler, u32 weatherflags, const u8 *jumpInstr);
     if (IsBattlerWeatherAffected(cmd->battler, cmd->weatherflags))
         gBattlescriptCurrInstr = cmd->nextInstr;
     else
@@ -16440,7 +16440,7 @@ void BS_jumpifnotweatheraffected(void)
 //and doesn't activate wind rider (which would cause attack increase each turn)
 void BS_endturnSkipWindRiderActivation(void)
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
     enum BattlerId battler = cmd->battler;
     u16 ability = GetBattlerAbility(battler);
     
@@ -16459,7 +16459,7 @@ void BS_endturnSkipWindRiderActivation(void)
 
 void BS_jumpifateberry(void) //for belch,
 {
-    NATIVE_ARGS(enum BattlerId battler, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
     if (GetBattlerPartyState(battler)->ateBerry)
@@ -16473,7 +16473,7 @@ void BS_jumpifateberry(void) //for belch,
 //the burn out moves, si.e moves that consume type when used 
 void BS_affinitybasedjump(void)  //may need to adjust currinstr values
 {
-    NATIVE_ARGS(enum BattlerId battler, u8 type, u8 state, const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, u8 type, u8 state, const u8 *jumpInstr);
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
     u8 type = cmd->type;
     const u8* jumpPtr = cmd->jumpInstr;

@@ -3702,7 +3702,13 @@ enum MoveEndResult DoMoveEnd(enum MoveEndState endMode, enum MoveEndState endSta
 
     do
     {
-        result = sMoveEndHandlers[gBattleScripting.moveendState]();
+        if (sMoveEndHandlers[gBattleScripting.moveendState] == NULL)
+        {
+            gBattleScripting.moveendState++;
+            result = MOVEEND_RESULT_CONTINUE;
+        }
+        else
+            result = sMoveEndHandlers[gBattleScripting.moveendState]();
 
         if (endMode == 1 && result == MOVEEND_RESULT_CONTINUE)
             gBattleScripting.moveendState = MOVEEND_COUNT;
@@ -5292,4 +5298,3 @@ static void CalculateMagnitudeDamage(void)
 
     PREPARE_BYTE_NUMBER_BUFFER(gBattleTextBuff1, 2, magnitude)
 }
-

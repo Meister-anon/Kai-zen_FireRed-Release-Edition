@@ -2614,5 +2614,6 @@
 
     .macro jumpifnotfullhp battler:req, jumpInstr:req
 	callnative BS_JumpIfNotMaxHp
+	.byte \battler
 	.4byte \jumpInstr
 	.endm

@@ -2413,7 +2413,7 @@ static void LoadCursorMonGfx(u16 species, u32 pid)
     if (species != SPECIES_NONE)
     {
         HandleLoadSpecialPokePic(TRUE, gPSSData->PSS_tileBuffer, species, pid);
-        LZ77UnCompWram(gPSSData->cursorMonPalette, gPSSData->field_2244);
+        CpuCopy16(gPSSData->cursorMonPalette, gPSSData->field_2244, 0x20);
         CpuCopy32(gPSSData->PSS_tileBuffer, gPSSData->field_223C, 0x800);
         LoadPalette(gPSSData->field_2244, gPSSData->field_223A, 0x20);
         gPSSData->cursorMonSprite->invisible = FALSE;
