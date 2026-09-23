@@ -74,6 +74,10 @@ enum MoveEndResult
     MOVEEND_RESULT_BREAK,
 };
 
+//having values in end state that don't have a func attacked in 
+//battle resolution caused crash would like to have a compiler warning
+//to just stop and let me know
+//not sure how to do that prob neet assert?
 
 // cases for Cmd_moveend - Order matters!
 enum MoveEndState
@@ -82,7 +86,7 @@ enum MoveEndState
     MOVEEND_PROTECT_LIKE_EFFECT, //think new color change would go after this?
     MOVEEND_ABSORB,
     MOVEEND_RAGE,
-    //MOVEEND_DRAGON_RAGE, removed or didn't add? can't remember what this was think it was a buff check other branch see if is on master? or something
+    //MOVEEND_DRAGON_RAGE,// removed or didn't add? can't remember what this was think it was a buff check other branch see if is on master? or something
     MOVEEND_SYNCHRONIZE_TARGET,
     MOVEEND_ABILITIES,
     MOVEEND_FORM_CHANGE_ON_HIT, // Disguise / Gulp Missile
@@ -92,8 +96,8 @@ enum MoveEndState
     MOVEEND_ATTACKER_INVISIBLE,
     MOVEEND_ATTACKER_VISIBLE,
     MOVEEND_TARGET_VISIBLE,
-    MOVEEND_GROUND_TARGET,
-    MOVEEND_SEMI_INVULNERABLE_INTERRUPT,
+    //MOVEEND_GROUND_TARGET, //as noted several values not added? thought had added these they exist on my work but not here potentially just never updaetd new function brought in ?
+    //MOVEEND_SEMI_INVULNERABLE_INTERRUPT, //check master I guess
     MOVEEND_ITEM_EFFECTS_TARGET,
     MOVEEND_ITEM_EFFECTS_ATTACKER_1,
     MOVEEND_SYMBIOSIS,
