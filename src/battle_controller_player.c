@@ -3282,6 +3282,7 @@ static void PlayerCmdEnd(enum BattlerId battler)
 {
 }
 
+//vsonic note may need revise this for updatd effects such as mud sport now being feield not battler target
 static void PreviewDeterminativeMoveTargets(enum BattlerId battler) //determine who targetting
 //will need to port final changes here to all controllers
 {
@@ -3290,22 +3291,11 @@ static void PreviewDeterminativeMoveTargets(enum BattlerId battler) //determine 
 
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
-        u8 moveTarget;
         struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
-        u16 move = moveInfo->moves[gMoveSelectionCursor[battler]];
+        enum Move move = moveInfo->moves[gMoveSelectionCursor[battler]];
+        enum MoveTarget moveTarget = GetBattlerMoveSelectionTargetType(battler, move);
 
-        if (move == MOVE_CURSE)
-        {
-            if (moveInfo->monType1 != TYPE_GHOST && moveInfo->monType2 != TYPE_GHOST && moveInfo->monType3 != TYPE_GHOST
-            && !DoesBattlerGetTypeBasedAffinity(GetBattlerAbility(battler), battler, GetBattlerAbility(battler), TYPE_GHOST, TRUE))  //vsonic need test but hope works
-                moveTarget = TARGET_USER;
-            else
-                moveTarget = TARGET_SELECTED;
-        }
-        else
-        {
-            moveTarget = gMovesInfo[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
-        }
+        
         switch (moveTarget)
         {
         case TARGET_SELECTED:
