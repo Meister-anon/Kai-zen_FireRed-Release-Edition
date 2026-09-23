@@ -190,6 +190,7 @@ void BattleControllerDummy(enum BattlerId battler)
 
 void SetControllerToPlayer(enum BattlerId battler)
 {
+    gBattlerBattleController[battler] = BATTLE_CONTROLLER_PLAYER;
     gBattlerControllerFuncs[battler] = PlayerBufferRunCommand;
     gDoingBattleAnim = FALSE;
 }
@@ -351,6 +352,8 @@ UNUSED static void UnusedEndBounceEffect(enum BattlerId battler)
 //with multiple things looks like change to enum broke lot of stuff that I didn't realize because it was calculated in a bitwise fashion etc.
 //vsonic IMPORTANT targetting is a bit borked rn starting select blinker on self not target for target selected
 //need go over these and update to emerald logic with keeping what I wanted consistent
+//updated note checked more up to date EE it has new function
+//getdefaultselectiontarget think that will solve my issue also require update targetting funcs here and opponent file smh
 static void HandleInputChooseTarget(enum BattlerId battler)
 {
     s32 i;

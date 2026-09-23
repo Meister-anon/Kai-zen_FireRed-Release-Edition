@@ -163,6 +163,7 @@ static void OpponentDummy(enum BattlerId battler)
 
 void SetControllerToOpponent(enum BattlerId battler)
 {
+    gBattlerBattleController[battler] = BATTLE_CONTROLLER_OPPONENT;
     gBattlerControllerFuncs[battler] = OpponentBufferRunCommand;
 }
 
