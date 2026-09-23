@@ -349,6 +349,8 @@ UNUSED static void UnusedEndBounceEffect(enum BattlerId battler)
 
 //fixed selection for user target moves/may need do same if any partner based moves, but as of now all parter moves are user target helping hand etc.
 //with multiple things looks like change to enum broke lot of stuff that I didn't realize because it was calculated in a bitwise fashion etc.
+//vsonic IMPORTANT targetting is a bit borked rn starting select blinker on self not target for target selected
+//need go over these and update to emerald logic with keeping what I wanted consistent
 static void HandleInputChooseTarget(enum BattlerId battler)
 {
     s32 i;
