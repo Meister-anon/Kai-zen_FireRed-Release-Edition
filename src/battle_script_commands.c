@@ -4350,7 +4350,7 @@ static void Cmd_seteffectprimary(void)
     CMD_ARGS(u8 battler, u8 effectBattler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
-    u32 effectBattler = GetBattlerForBattleScript(cmd->effectBattler);
+    enum BattlerId effectBattler = GetBattlerForBattleScript(cmd->effectBattler);
     SetMoveEffect(battler, effectBattler, gBattleScripting.moveEffect, cmd->nextInstr, EFFECT_PRIMARY);
 }
 
@@ -4359,7 +4359,7 @@ static void Cmd_seteffectsecondary(void)
     CMD_ARGS(u8 battler, u8 effectBattler);
 
     enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
-    u32 effectBattler = GetBattlerForBattleScript(cmd->effectBattler);
+    enum BattlerId effectBattler = GetBattlerForBattleScript(cmd->effectBattler);
     SetMoveEffect(battler, effectBattler, gBattleScripting.moveEffect, cmd->nextInstr, EFFECT_PRIMARY);
 }
 
