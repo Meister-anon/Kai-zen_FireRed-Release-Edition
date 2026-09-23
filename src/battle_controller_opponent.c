@@ -1451,7 +1451,7 @@ static void OpponentHandleChooseMove(enum BattlerId battler)
             gBattlerTarget = gAiBattleData->chosenTarget[battler];
 
             u32 chosenMove = moveInfo->moves[chosenMoveIndex];
-            enum MoveTarget target = GetBattlerMoveTargetType(battler, chosenMove);
+            enum MoveTarget target = GetBattlerMoveSelectionTargetType(battler, chosenMove);
 
             if (target == TARGET_USER || target == TARGET_USER_OR_ALLY)
                 gBattlerTarget = battler;

@@ -363,7 +363,7 @@ static void HandleInputChooseTarget(enum BattlerId battler)
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
     //moveTarget = gMovesInfo[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
     enum Move move = GetMonData(GetBattlerMon(battler), MON_DATA_MOVE1 + gMoveSelectionCursor[battler]);
-    enum MoveTarget moveTarget = GetBattlerMoveTargetType(battler, move);
+    enum MoveTarget moveTarget = GetBattlerMoveSelectionTargetType(battler, move);
 
     memcpy(identities, sTargetIdentities, NELEMS(sTargetIdentities));
     DoBounceEffect(gMultiUsePlayerCursor, BOUNCE_HEALTHBOX, 15, 1);
@@ -619,7 +619,6 @@ static bool32 CanSelectBattler(enum MoveTarget target)
 //vsonic important unsure if right
 void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setup
 {
-    u16 moveTarget;
     u32 canSelectTarget = FALSE;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
 
@@ -639,28 +638,16 @@ void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setu
     {                                                                   //but it doesn't effect that, it just looks weird naturally with speed up on...
                                       //so all I need to do is, add a block for select user, so it doesn't go directly to use move, that will do from this function
 
-        enum MoveTarget moveTarget = GetBattlerMoveTargetType(battler, moveInfo->moves[gMoveSelectionCursor[battler]]);
-        bool32 isUserOrAlly = moveTarget == TARGET_USER || moveTarget == TARGET_USER_OR_ALLY || moveTarget == TARGET_USER_AND_ALLY;
-
+        
         PlaySE(SE_SELECT);
 
-        if (moveInfo->moves[gMoveSelectionCursor[battler]] == MOVE_CURSE)
-        {
-            if (moveInfo->monType1 != TYPE_GHOST && moveInfo->monType2 != TYPE_GHOST && moveInfo->monType3 != TYPE_GHOST
-            && !DoesBattlerGetTypeBasedAffinity(GetBattlerAbility(battler), battler, GetBattlerAbility(battler), TYPE_GHOST, TRUE)) //VSONIC hopefully works need check
-                moveTarget = TARGET_USER;
-            else
-                moveTarget = TARGET_SELECTED;
-        }
-        else
-        {
-            moveTarget = gMovesInfo[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
-        }
+        enum MoveTarget moveTarget = GetBattlerMoveSelectionTargetType(battler, moveInfo->moves[gMoveSelectionCursor[battler]]);
+        bool32 isUserOrAlly = moveTarget == TARGET_USER || moveTarget == TARGET_USER_OR_ALLY || moveTarget == TARGET_USER_AND_ALLY;
 
-        if (isUserOrAlly)
-            gMultiUsePlayerCursor = battler;
-        else
-            gMultiUsePlayerCursor = GetOpposingSideBattler(battler); //seems these had nothign to do with it, effect is after use moveo, not at choose move
+
+        gMultiUsePlayerCursor = GetDefaultSelectionTarget(battler, moveTarget);
+
+        enum BattlerId partner = GetPartnerBattler(battler);
 
         //think
         if (gMain.inBattle && !(gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_ROTATION | BATTLE_TYPE_TWO_OPPONENTS)))//(!gBattleResources->bufferA[battler][1]) // not a double battle  //why did they use buffer for this instead of actually using a check for double battle?
@@ -2775,7 +2762,7 @@ static void PlayerHandleChooseAction(enum BattlerId battler)
         StringCopy(gStringVar1, COMPOUND_STRING("Partner will use:\n"));
         enum Move move = GetBattlerChosenMove(B_POSITION_PLAYER_RIGHT);
         StringAppend(gStringVar1, GetMoveName(move));
-        enum MoveTarget moveTarget = GetBattlerMoveTargetType(B_POSITION_PLAYER_RIGHT, move);
+        enum MoveTarget moveTarget = GetBattlerMoveSelectionTargetType(B_POSITION_PLAYER_RIGHT, move);
         if (moveTarget == TARGET_SELECTED || moveTarget == TARGET_SMART)
         {
             if (gAiBattleData->chosenTarget[B_POSITION_PLAYER_RIGHT] == B_POSITION_OPPONENT_LEFT)

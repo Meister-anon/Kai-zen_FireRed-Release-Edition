@@ -1595,6 +1595,16 @@ extern u16 gRandomTurnNumber;
 
 extern const u16 gProtectSuccessRates[NUM_PROTECT_ODDS];
 
+enum BattlerId GetBattlerAtPosition(enum BattlerPosition position);
+enum BattlerId GetPartnerBattler(enum BattlerId battler);
+enum BattlerId GetOppositeBattler(enum BattlerId battler);
+enum BattlerPosition GetPartnerPosition(enum BattlerPosition position);
+enum BattlerPosition GetOppositePosition(enum BattlerPosition position);
+enum BattlerId GetBattlerLeftFoe(enum BattlerId battler);
+enum BattlerId GetBattlerRightFoe(enum BattlerId battler);
+enum BattlerId GetDefaultSelectionTarget(enum BattlerId battler, enum MoveTarget moveTarget);
+
+
 static inline bool32 IsBattlerAlive(enum BattlerId battler)
 {
     if (battler >= gBattlersCount)
@@ -1612,30 +1622,9 @@ static inline bool32 IsBattlerTurnDamaged(enum BattlerId battler)
     return gSpecialStatuses[battler].damagedByAttack;
 }
 
-static inline u32 GetBattlerPosition(enum BattlerId battler)
+static inline enum BattlerPosition GetBattlerPosition(enum BattlerId battler)
 {
     return gBattlerPositions[battler];
-}
-
-static inline u32 GetBattlerAtPosition(enum BattlerPosition position)
-{
-    enum BattlerId battler;
-    for (battler = 0; battler < gBattlersCount; battler++)
-    {
-        if (GetBattlerPosition(battler) == position)
-            break;
-    }
-    return battler;
-}
-
-static inline u32 GetPartnerBattler(enum BattlerId battler)
-{
-    return GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)));
-}
-
-static inline u32 GetOppositeBattler(enum BattlerId battler)
-{
-    return GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerPosition(battler)));
 }
 
 static inline u32 GetBattlerSide(enum BattlerId battler)
