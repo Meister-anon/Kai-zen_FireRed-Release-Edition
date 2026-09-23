@@ -16342,10 +16342,10 @@ void BS_HandleEscapePrevention(void)
 
     if (gBattleMons[battler].volatiles.escapePrevention
     || battlerability == ABILITY_HANDS_OF_FATE
-    || (DoesBattlerGetTypeBasedAffinity(abilityAtk, battler, battlerability, TYPE_GHOST, SelfTarget)
+    || (IsBattlerofTypeAffinity(abilityAtk, battler, battlerability, TYPE_GHOST, SelfTarget)
     && gBattleMons[battler].species != SPECIES_SPIRITOMB)
-    || ((DoesBattlerGetTypeBasedAffinity(abilityAtk, battler, battlerability, TYPE_FLYING, SelfTarget)
-    || DoesBattlerGetTypeBasedAffinity(abilityAtk, battler, battlerability, TYPE_WIND, SelfTarget))
+    || ((IsBattlerofTypeAffinity(abilityAtk, battler, battlerability, TYPE_FLYING, SelfTarget)
+    || IsBattlerofTypeAffinity(abilityAtk, battler, battlerability, TYPE_WIND, SelfTarget))
     && !IsFlyingTypeBattlerUnableToFly(battler))
     )
     {
@@ -16485,10 +16485,10 @@ void BS_affinitybasedjump(void)  //may need to adjust currinstr values
     // jumpiftype
     if (cmd->state)  //TRUE
     {
-        //need check consider replacing w DoesBattlerGetTypeBasedAffinity
+        //need check consider replacing w IsBattlerofTypeAffinity
         //but only want that to apply to specific type based system effects not type chart related things
         //so think will reinstate jumpiftype2 script to use specifically for that as an alternative
-        if (DoesBattlerGetTypeBasedAffinity(abilityAtk, battler, battlerAbility, type, SelfTarget))
+        if (IsBattlerofTypeAffinity(abilityAtk, battler, battlerAbility, type, SelfTarget))
             gBattlescriptCurrInstr = jumpPtr;
         else
             gBattlescriptCurrInstr = cmd->nextInstr;
@@ -16496,7 +16496,7 @@ void BS_affinitybasedjump(void)  //may need to adjust currinstr values
     // jumpifnottype
     else       //FALSE
     {
-        if (DoesBattlerGetTypeBasedAffinity(abilityAtk, battler, battlerAbility, type, SelfTarget))
+        if (IsBattlerofTypeAffinity(abilityAtk, battler, battlerAbility, type, SelfTarget))
             gBattlescriptCurrInstr = cmd->nextInstr;
         else
             gBattlescriptCurrInstr = jumpPtr;

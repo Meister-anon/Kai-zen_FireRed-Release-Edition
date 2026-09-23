@@ -372,7 +372,7 @@ static enum CancelerResult CancelerConfused(struct BattleContext *ctx)
         gBattleMons[ctx->battlerAtk].volatiles.confusionTurns--;
         if (gBattleMons[ctx->battlerAtk].volatiles.confusionTurns)
         {
-            if ((DoesBattlerGetTypeBasedAffinity(ctx->abilityAtk, ctx->battlerAtk, ctx->abilityAtk, TYPE_BUG, TRUE))
+            if ((IsBattlerofTypeAffinity(ctx->abilityAtk, ctx->battlerAtk, ctx->abilityAtk, TYPE_BUG, TRUE))
             || ctx->abilityAtk == ABILITY_TANGLED_FEET)
             {
                 gBattleCommunication[MULTISTRING_CHOOSER] = FALSE;
@@ -1431,7 +1431,7 @@ static enum CancelerResult CancelerTargetFailure(struct BattleContext *ctx)
         }
         else if (GetMoveEffect(ctx->move) == EFFECT_ACCURACY_DOWN && ctx->moveType == TYPE_GROUND
         && GetMoveCategory(ctx->move) == DAMAGE_CATEGORY_STATUS
-        && (DoesBattlerGetTypeBasedAffinity(ctx->abilityAtk, ctx->battlerDef, ctx->abilityDef, TYPE_GROUND, FALSE)
+        && (IsBattlerofTypeAffinity(ctx->abilityAtk, ctx->battlerDef, ctx->abilityDef, TYPE_GROUND, FALSE)
         || ctx->abilityDef == ABILITY_SAND_RUSH
         || ctx->abilityDef == ABILITY_SAND_VEIL
         || ctx->abilityDef == ABILITY_SAND_FORCE

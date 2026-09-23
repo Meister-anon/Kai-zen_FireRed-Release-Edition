@@ -5083,12 +5083,12 @@ void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u
     if (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].hp <= (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].maxHP / 2))
     {
         if (abilityAtk == ABILITY_PLUS 
-        && (DoesBattlerGetTypeBasedAffinity(partnerAbility, BATTLE_PARTNER(battlerIdAtk), partnerAbility, TYPE_ELECTRIC, TRUE)
+        && (IsBattlerofTypeAffinity(partnerAbility, BATTLE_PARTNER(battlerIdAtk), partnerAbility, TYPE_ELECTRIC, TRUE)
         || partnerAbility == ABILITY_MINUS))
             gBattleMovePower = (150 * gBattleMovePower) / 100;
 
         else if (abilityAtk == ABILITY_MINUS 
-        && (DoesBattlerGetTypeBasedAffinity(partnerAbility, BATTLE_PARTNER(battlerIdAtk), partnerAbility, TYPE_ELECTRIC, TRUE)
+        && (IsBattlerofTypeAffinity(partnerAbility, BATTLE_PARTNER(battlerIdAtk), partnerAbility, TYPE_ELECTRIC, TRUE)
         || partnerAbility == ABILITY_PLUS))
             gBattleMovePower = (150 * gBattleMovePower) / 100;   //used gbattlemovedamage, to stack with on field plus/minus effects , it already stacks without that
     }
@@ -5385,20 +5385,20 @@ void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u
     //works now //suddenly not working again -_- oh it is working just effect is so low not very noticeable?
     //sideStatus wasn't working had to use gstatus and realied I hadn't updated the function argument while I made gsidestatus u32
     //the function was still u16, updated and that fixed it
-    if (DoesBattlerGetTypeBasedAffinity(abilityAtk, battlerIdDef, abilityDef, TYPE_GROUND, FALSE) 
+    if (IsBattlerofTypeAffinity(abilityAtk, battlerIdDef, abilityDef, TYPE_GROUND, FALSE) 
     && (sideStatus & SIDE_STATUS_MUDSPORT)) //if done right these should stack
         spDefense = (170 * spDefense) / 100;    //gets to work as its on the ground not in the air
                     //changed mind,not as realistic but gives more options, keep just ground affecting, rock/ground are only rocks that really need 
                     //unsure if should buff further
 
     // sandstorm sp.def boost for rock types  // decided to add this for ground types as well,
-    if ((DoesBattlerGetTypeBasedAffinity(abilityAtk, battlerIdDef, abilityDef, TYPE_ROCK, FALSE) 
-    || (DoesBattlerGetTypeBasedAffinity(abilityAtk, battlerIdDef, abilityDef, TYPE_GROUND, FALSE)))
+    if ((IsBattlerofTypeAffinity(abilityAtk, battlerIdDef, abilityDef, TYPE_ROCK, FALSE) 
+    || (IsBattlerofTypeAffinity(abilityAtk, battlerIdDef, abilityDef, TYPE_GROUND, FALSE)))
         && IsBattlerWeatherAffected(battlerIdDef, WEATHER_SANDSTORM) && abilityAtk != ABILITY_CLOUD_NINE)     
         spDefense = (150 * spDefense) / 100;
 
     // hail sp.def & def boost for ice types  // still deciding if I want a 50% defense boost or a 25% boost to def & sp def
-    if ((DoesBattlerGetTypeBasedAffinity(abilityAtk, battlerIdDef, abilityDef, TYPE_ICE, FALSE))
+    if ((IsBattlerofTypeAffinity(abilityAtk, battlerIdDef, abilityDef, TYPE_ICE, FALSE))
         && IsBattlerWeatherAffected(battlerIdDef, WEATHER_COLD_ANY) && abilityAtk != ABILITY_CLOUD_NINE)    
     {
         spDefense = (115 * spDefense) / 100;
@@ -5430,7 +5430,7 @@ void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u
     }
     case ABILITY_FLARE_BOOST:
         if ((gBattleMons[battlerIdAtk].status1 & STATUS1_BURN
-        || (DoesBattlerGetTypeBasedAffinity(abilityAtk, battlerIdAtk, abilityAtk, TYPE_FIRE, TRUE) && attackerHoldEffect == HOLD_EFFECT_FLAME_ORB))
+        || (IsBattlerofTypeAffinity(abilityAtk, battlerIdAtk, abilityAtk, TYPE_FIRE, TRUE) && attackerHoldEffect == HOLD_EFFECT_FLAME_ORB))
             && (MoveDamageCategory == DAMAGE_CATEGORY_SPECIAL) //!usesDefStat //IS_MOVE_SPECIAL(move))
            )
             gBattleMovePower = (gBattleMovePower * 150 / 100);
@@ -5438,7 +5438,7 @@ void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u
         break;
     case ABILITY_TOXIC_BOOST:
         if ((gBattleMons[battlerIdAtk].status1 & STATUS1_PSN_ANY || IsBattlerWeatherAffected(battlerIdAtk, WEATHER_ACID_RAIN)
-        || (DoesBattlerGetTypeBasedAffinity(abilityAtk, battlerIdAtk, abilityAtk, TYPE_POISON, TRUE) && attackerHoldEffect == HOLD_EFFECT_TOXIC_ORB)) 
+        || (IsBattlerofTypeAffinity(abilityAtk, battlerIdAtk, abilityAtk, TYPE_POISON, TRUE) && attackerHoldEffect == HOLD_EFFECT_TOXIC_ORB)) 
             && (MoveDamageCategory == DAMAGE_CATEGORY_PHYSICAL)
            )
             gBattleMovePower = (gBattleMovePower * 150 / 100);

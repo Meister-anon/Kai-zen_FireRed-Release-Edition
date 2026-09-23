@@ -566,7 +566,7 @@ bool8 ShouldCacophonyElevateMoveEffect(u16 move);
 void CacophonyElevateMoveEffect(void);
 
 //reworked function to include moldbreaker negate for cleaner use
-bool8 DoesBattlerGetTypeBasedAffinity(enum Ability atkAbility, enum BattlerId battlerToCheck, enum Ability battlerAbility, u8 typeFactor, bool32 SelfAffecting); //for new category of abiility, replace sipmle checks for isbattler type
+bool8 IsBattlerofTypeAffinity(enum Ability atkAbility, enum BattlerId battlerToCheck, enum Ability battlerAbility, u8 typeFactor, bool32 SelfAffecting); //for new category of abiility, replace sipmle checks for isbattler type
 //was still tweaking unsure if keep
 u8 ShouldActivateBindingBand(void); //function made for attempt setup pre healthbar drop activation
 
