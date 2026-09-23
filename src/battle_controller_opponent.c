@@ -1477,17 +1477,21 @@ static void OpponentHandleChooseMove(enum BattlerId battler)
     }
     else    // Wild pokemon - use random move
     {
-        u16 move;
-        u8 target;
-
+        enum Move move;
         do
         {
-            chosenMoveIndex = Random() & 3;
+            chosenMoveIndex = Random() & (MAX_MON_MOVES - 1);
             move = moveInfo->moves[chosenMoveIndex];
+        } while (move == MOVE_NONE);
+        enum MoveTarget target = GetBattlerMoveTargetType(battler, move);
+        if (target == TARGET_USER || target == TARGET_USER_OR_ALLY)
+        {
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, (chosenMoveIndex) | (battler << 8));
         }
-        while (move == MOVE_NONE);
-        if (GetBattlerMoveTargetType(battler, move) & (TARGET_SELECTED | TARGET_USER))
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, 10, (chosenMoveIndex) | (battler << 8));
+        else if (target == TARGET_ALLY)
+        {
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, (chosenMoveIndex) | (BATTLE_PARTNER(battler) << 8));
+        }
         else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
             {
                 do {
@@ -1495,7 +1499,7 @@ static void OpponentHandleChooseMove(enum BattlerId battler)
                 } while (!CanTargetBattler(battler, target, move));
                 
                 // Don't bother to loop through table if the move can't attack ally
-                if (!(gMovesInfo[move].target & TARGET_BOTH))
+                if ((gMovesInfo[move].target != TARGET_BOTH))
                 {
                     u16 i, speciesAttacker, speciesTarget, isPartnerEnemy = FALSE;
                     static const u16 naturalEnemies[][2] =

@@ -82,7 +82,7 @@ enum MoveEndState
     MOVEEND_PROTECT_LIKE_EFFECT, //think new color change would go after this?
     MOVEEND_ABSORB,
     MOVEEND_RAGE,
-    MOVEEND_DRAGON_RAGE,
+    //MOVEEND_DRAGON_RAGE, removed or didn't add? can't remember what this was think it was a buff check other branch see if is on master? or something
     MOVEEND_SYNCHRONIZE_TARGET,
     MOVEEND_ABILITIES,
     MOVEEND_FORM_CHANGE_ON_HIT, // Disguise / Gulp Missile

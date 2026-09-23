@@ -1594,7 +1594,8 @@ enum MoveTarget
 };
 
 //fitting for now not used in EE
-#define TARGET_USER_OR_SELECTED (TARGET_SELECTED | TARGET_USER)
+//removed use possible memory problem with type change to enum
+//#define TARGET_USER_OR_SELECTED (TARGET_SELECTED | TARGET_USER)
 
 // Constants for Parental Bond
 #define PARENTAL_BOND_1ST_HIT 2

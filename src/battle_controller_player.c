@@ -348,14 +348,16 @@ UNUSED static void UnusedEndBounceEffect(enum BattlerId battler)
 }
 
 //fixed selection for user target moves/may need do same if any partner based moves, but as of now all parter moves are user target helping hand etc.
+//with multiple things looks like change to enum broke lot of stuff that I didn't realize because it was calculated in a bitwise fashion etc.
 static void HandleInputChooseTarget(enum BattlerId battler)
 {
     s32 i;
     u8 identities[4];
-    u16 moveTarget;
     u8 moveType;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
-    moveTarget = gMovesInfo[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
+    //moveTarget = gMovesInfo[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
+    enum Move move = GetMonData(GetBattlerMon(battler), MON_DATA_MOVE1 + gMoveSelectionCursor[battler]);
+    enum MoveTarget moveTarget = GetBattlerMoveTargetType(battler, move);
 
     memcpy(identities, sTargetIdentities, NELEMS(sTargetIdentities));
     DoBounceEffect(gMultiUsePlayerCursor, BOUNCE_HEALTHBOX, 15, 1);
@@ -396,7 +398,7 @@ static void HandleInputChooseTarget(enum BattlerId battler)
         EndBounceEffect(gMultiUsePlayerCursor, BOUNCE_HEALTHBOX);
         
     }
-    else if (JOY_NEW(DPAD_LEFT | DPAD_UP) && !(moveTarget & TARGET_USER))
+    else if (JOY_NEW(DPAD_LEFT | DPAD_UP) && (moveTarget != TARGET_USER))
     {
         PlaySE(SE_SELECT);
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCB_HideAsMoveTarget;
@@ -422,8 +424,8 @@ static void HandleInputChooseTarget(enum BattlerId battler)
             case B_POSITION_PLAYER_RIGHT:
                 if (battler != gMultiUsePlayerCursor)
                     ++i;
-                else if (gMovesInfo[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
-                    ++i;
+                //else if (gMovesInfo[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
+                //    ++i;
                 break;
             case B_POSITION_OPPONENT_LEFT:
             case B_POSITION_OPPONENT_RIGHT:
@@ -443,7 +445,7 @@ static void HandleInputChooseTarget(enum BattlerId battler)
         }
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCB_ShowAsMoveTarget;
     }
-    else if (JOY_NEW(DPAD_RIGHT | DPAD_DOWN) && !(moveTarget & TARGET_USER)) //alright works perfectly now
+    else if (JOY_NEW(DPAD_RIGHT | DPAD_DOWN) && (moveTarget != TARGET_USER)) //alright works perfectly now
     {
         PlaySE(SE_SELECT);
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCB_HideAsMoveTarget;
@@ -469,8 +471,8 @@ static void HandleInputChooseTarget(enum BattlerId battler)
             case B_POSITION_PLAYER_RIGHT:
                 if (battler != gMultiUsePlayerCursor)
                     ++i;
-                else if (gMovesInfo[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
-                    ++i;
+                //else if (gMovesInfo[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
+                //    ++i;
                 break;
             case B_POSITION_OPPONENT_LEFT:
             case B_POSITION_OPPONENT_RIGHT:
@@ -657,26 +659,29 @@ void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setu
         //think
         if (gMain.inBattle && !(gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_ROTATION | BATTLE_TYPE_TWO_OPPONENTS)))//(!gBattleResources->bufferA[battler][1]) // not a double battle  //why did they use buffer for this instead of actually using a check for double battle?
         {
-            if (moveTarget == (TARGET_USER | TARGET_SELECTED))// && !gBattleResources->bufferA[battler][2])
+            if (moveTarget == (TARGET_USER ||
+            moveTarget == TARGET_SELECTED))// && !gBattleResources->bufferA[battler][2])
                 canSelectTarget = 1;
         }
         else if (gMain.inBattle && (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_ROTATION | BATTLE_TYPE_TWO_OPPONENTS)))// double battle - specifically need adjust in here
         {
-            if (!(moveTarget & (TARGET_RANDOM | TARGET_BOTH | TARGET_DEPENDS | TARGET_FOES_AND_ALLY | TARGET_OPPONENTS_FIELD | TARGET_USER)))
+            if (moveTarget == (TARGET_USER ||
+            moveTarget == TARGET_SELECTED))
                 canSelectTarget = 1; // either selected or user
-            if (moveTarget == (TARGET_USER | TARGET_ALLY) && IsBattlerAlive(BATTLE_PARTNER(battler)))
+            if (moveTarget == (TARGET_USER ||
+            moveTarget == TARGET_ALLY) && IsBattlerAlive(BATTLE_PARTNER(battler)))
                 canSelectTarget = 1;
             if (moveInfo->currentPp[gMoveSelectionCursor[battler]] == 0)
             {
                 canSelectTarget = 0;
             }
-            else if (!(moveTarget == (TARGET_USER | TARGET_SELECTED)) && CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_BATTLER, battler) <= 1)
+            else if (((moveTarget != TARGET_USER && moveTarget != TARGET_SELECTED)) && CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_BATTLER, battler) <= 1)
             {
                 gMultiUsePlayerCursor = GetDefaultMoveTarget(battler);
                 canSelectTarget = 0;
             }
 
-            if ((moveTarget & TARGET_ALL_BATTLERS) == TARGET_ALL_BATTLERS)
+            if (moveTarget == TARGET_ALL_BATTLERS)
             {
                 u32 i = 0;
                 for (i = 0; i < gBattlersCount; i++)
@@ -684,9 +689,12 @@ void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setu
 
                 canSelectTarget = 3;
             }
-            else if (moveTarget & (TARGET_OPPONENTS_FIELD | TARGET_BOTH | TARGET_FOES_AND_ALLY | TARGET_USER)) //think just this?
+            else if (moveTarget == TARGET_OPPONENTS_FIELD 
+            || moveTarget == TARGET_BOTH 
+            || moveTarget == TARGET_FOES_AND_ALLY 
+            || moveTarget ==  TARGET_USER) //think just this?
             {
-                if (moveTarget & TARGET_USER)
+                if (moveTarget == TARGET_USER)
                 {
                     TryShowAsTarget(gMultiUsePlayerCursor); //issue doesn't stop blinking
                     canSelectTarget = 1; //ok seems to work now
@@ -695,7 +703,7 @@ void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setu
                 {
                     TryShowAsTarget(gMultiUsePlayerCursor);
                     TryShowAsTarget(BATTLE_PARTNER(gMultiUsePlayerCursor));
-                    if (moveTarget & TARGET_FOES_AND_ALLY)
+                    if (moveTarget == TARGET_FOES_AND_ALLY)
                         TryShowAsTarget(BATTLE_PARTNER(battler));
                     canSelectTarget = 2;
                 } //no reason use true/false with canselecttarget as they are case values, not bools
@@ -722,7 +730,7 @@ void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setu
         case 1:
             gBattlerControllerFuncs[battler] = HandleInputChooseTarget;
 
-            if (moveTarget & (TARGET_USER | TARGET_SELECTED))
+            if (moveTarget == TARGET_USER || moveTarget ==  TARGET_SELECTED)
                 gMultiUsePlayerCursor = battler;
             else if (gAbsentBattlerFlags & (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)))
                 gMultiUsePlayerCursor = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
