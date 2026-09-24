@@ -6538,6 +6538,8 @@ u8 CountAliveMonsInBattle(u8 caseId, enum BattlerId battler)
     return retVal;
 }
 
+//pretty sure no longer need this can take updated EE function
+//GetDefaultSelectionTarget
 u8 GetDefaultMoveTarget(enum BattlerId battler)
 {
     u8 opposing = BATTLE_OPPOSITE(GetBattlerPosition(battler) & BIT_SIDE);

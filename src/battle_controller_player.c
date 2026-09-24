@@ -355,32 +355,28 @@ UNUSED static void UnusedEndBounceEffect(enum BattlerId battler)
 //need go over these and update to emerald logic with keeping what I wanted consistent
 //updated note checked more up to date EE it has new function
 //getdefaultselectiontarget think that will solve my issue also require update targetting funcs here and opponent file smh
-static void HandleInputChooseTarget(enum BattlerId battler)
+static void HandleInputChooseTarget(enum BattlerId battler)//-SOMETHING BROKE
 {
-    s32 i;
-    u8 identities[4];
-    u8 moveType;
-    struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
+    enum BattlerId i;
+    static const enum BattlerPosition identities[MAX_BATTLERS_COUNT] =
+    {
+        B_POSITION_PLAYER_LEFT,
+        B_POSITION_PLAYER_RIGHT,
+        B_POSITION_OPPONENT_RIGHT,
+        B_POSITION_OPPONENT_LEFT,
+    };
+    struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]); //using this just to make sure my move value is updated w moveselection cursor for type checking?
     //moveTarget = gMovesInfo[moveInfo->moves[gMoveSelectionCursor[battler]]].target;
     enum Move move = GetMonData(GetBattlerMon(battler), MON_DATA_MOVE1 + gMoveSelectionCursor[battler]);
     enum MoveTarget moveTarget = GetBattlerMoveSelectionTargetType(battler, move);
 
-    memcpy(identities, sTargetIdentities, NELEMS(sTargetIdentities));
     DoBounceEffect(gMultiUsePlayerCursor, BOUNCE_HEALTHBOX, 15, 1);
-    i = 0;
-
-
-
-    if (gBattlersCount != 0)
+    for (i = 0; i < gBattlersCount; i++)
     {
-        do
-        {
-            if (i != gMultiUsePlayerCursor)
-                EndBounceEffect(i, BOUNCE_HEALTHBOX);
-            ++i;
-        }
-        while (i < gBattlersCount);
+        if (i != gMultiUsePlayerCursor)
+            EndBounceEffect(i, BOUNCE_HEALTHBOX);
     }
+
     if (JOY_NEW(A_BUTTON))
     {
         PlaySE(SE_SELECT);
@@ -396,7 +392,7 @@ static void HandleInputChooseTarget(enum BattlerId battler)
         if (IsDoubleBattle())
         {
 
-            SetMoveTypePaletteInMoveSelection_Doubles(battler, MOVE_HELPING_HAND, moveType);
+            SetMoveTypePaletteInMoveSelection_Doubles(battler, MOVE_HELPING_HAND, TYPE_MYSTERY);
         }
         gBattlerControllerFuncs[battler] = HandleInputChooseMove;
         DoBounceEffect(battler, BOUNCE_HEALTHBOX, 7, 1);
@@ -409,45 +405,62 @@ static void HandleInputChooseTarget(enum BattlerId battler)
         PlaySE(SE_SELECT);
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCB_HideAsMoveTarget;
 
-        do
+        if (moveTarget == TARGET_USER_OR_ALLY)
         {
-            u8 currSelIdentity = GetBattlerPosition(gMultiUsePlayerCursor);
-
-            for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
-                if (currSelIdentity == identities[i])
-                    break;
+            gMultiUsePlayerCursor ^= BIT_FLANK;
+        }
+        else
+        {
+            bool32 validTarget = FALSE;
             do
             {
-                if (--i < 0)
-                    i = MAX_BATTLERS_COUNT; // UB: array out of range
-                gMultiUsePlayerCursor = GetBattlerAtPosition(identities[i]);
-            }
-            while (gMultiUsePlayerCursor == gBattlersCount);
-            i = 0;
-            switch (GetBattlerPosition(gMultiUsePlayerCursor))
-            {
-            case B_POSITION_PLAYER_LEFT:
-            case B_POSITION_PLAYER_RIGHT:
-                if (battler != gMultiUsePlayerCursor)
-                    ++i;
-                //else if (gMovesInfo[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
-                //    ++i;
-                break;
-            case B_POSITION_OPPONENT_LEFT:
-            case B_POSITION_OPPONENT_RIGHT:
-                ++i;
-                break;
-            }
-            if (gAbsentBattlerFlags & (1u << gMultiUsePlayerCursor))
-                i = 0;
-        }
-        while (i == 0);
-        if (IsDoubleBattle())
-        {
-            u8 moveType;
-            GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[battler]], moveType);
+                enum BattlerPosition currSelIdentity = GetBattlerPosition(gMultiUsePlayerCursor);
 
-            SetMoveTypePaletteInMoveSelection_Doubles(battler, moveInfo->moves[gMoveSelectionCursor[battler]], moveType);
+                for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
+                {    if (currSelIdentity == identities[i])
+                        break;
+                }
+                do
+                {
+                    if (i == 0)
+                        i = MAX_BATTLERS_COUNT - 1;
+                    else
+                        i--;
+                    gMultiUsePlayerCursor = GetBattlerAtPosition(identities[i]);
+                } while (gMultiUsePlayerCursor >= gBattlersCount);
+                
+                switch (GetBattlerPosition(gMultiUsePlayerCursor))
+                {
+                case B_POSITION_PLAYER_LEFT:
+                case B_POSITION_PLAYER_RIGHT:
+                    if (battler != gMultiUsePlayerCursor)
+                        validTarget = TRUE;
+                    //else if (gMovesInfo[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
+                    //    ++i;
+                    break;
+                case B_POSITION_OPPONENT_LEFT:
+                case B_POSITION_OPPONENT_RIGHT:
+                    validTarget = TRUE;
+                    break;
+                default:
+                break;
+                }
+
+                if (IsDoubleBattle())
+                {
+                    u8 moveType;
+                    GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[battler]], moveType);
+
+                    SetMoveTypePaletteInMoveSelection_Doubles(battler, moveInfo->moves[gMoveSelectionCursor[battler]], moveType);
+                }
+
+                //if (gAbsentBattlerFlags & (1u << gMultiUsePlayerCursor))
+                if (!CanTargetBattler(battler, gMultiUsePlayerCursor, moveInfo->moves[gMoveSelectionCursor[battler]])
+                    || (moveTarget == TARGET_OPPONENT && IsOnPlayerSide(gMultiUsePlayerCursor)))
+                        validTarget = FALSE;
+
+            } while (!validTarget);
+            
         }
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCB_ShowAsMoveTarget;
     }
@@ -456,45 +469,61 @@ static void HandleInputChooseTarget(enum BattlerId battler)
         PlaySE(SE_SELECT);
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCB_HideAsMoveTarget;
 
-        do
+        if (moveTarget == TARGET_USER_OR_ALLY)
         {
-            u8 currSelIdentity = GetBattlerPosition(gMultiUsePlayerCursor);
-
-            for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
-                if (currSelIdentity == identities[i])
-                    break;
+            gMultiUsePlayerCursor ^= BIT_FLANK;
+        }
+        else
+        {
             do
             {
-                if (++i > 3)
-                    i = 0;
-                gMultiUsePlayerCursor = GetBattlerAtPosition(identities[i]);
-            }
-            while (gMultiUsePlayerCursor == gBattlersCount);
-            i = 0;
-            switch (GetBattlerPosition(gMultiUsePlayerCursor))
-            {
-            case B_POSITION_PLAYER_LEFT:
-            case B_POSITION_PLAYER_RIGHT:
-                if (battler != gMultiUsePlayerCursor)
-                    ++i;
-                //else if (gMovesInfo[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
-                //    ++i;
-                break;
-            case B_POSITION_OPPONENT_LEFT:
-            case B_POSITION_OPPONENT_RIGHT:
-                ++i;
-                break;
-            }
-            if (gAbsentBattlerFlags & (1u << gMultiUsePlayerCursor))
-                i = 0;
-        }
-        while (i == 0);
-        if (IsDoubleBattle())
-        {
-            u8 moveType;
-            GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[battler]], moveType);
+                enum BattlerPosition currSelIdentity = GetBattlerPosition(gMultiUsePlayerCursor);
 
-            SetMoveTypePaletteInMoveSelection_Doubles(battler, moveInfo->moves[gMoveSelectionCursor[battler]], moveType);
+                for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
+                {
+                    if (currSelIdentity == identities[i])
+                        break;
+                }
+                do
+                {
+                    if (++i > 3)
+                        i = 0;
+                    gMultiUsePlayerCursor = GetBattlerAtPosition(identities[i]);
+                }while (gMultiUsePlayerCursor == gBattlersCount);
+                
+                i = 0;
+                switch (GetBattlerPosition(gMultiUsePlayerCursor))
+                {
+                case B_POSITION_PLAYER_LEFT:
+                case B_POSITION_PLAYER_RIGHT:
+                    if (battler != gMultiUsePlayerCursor)
+                        ++i;
+                    //else if (gMovesInfo[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_MOVE1 + gMoveSelectionCursor[battler])].target & TARGET_USER_OR_SELECTED)
+                    //    ++i;
+                    break;
+                case B_POSITION_OPPONENT_LEFT:
+                case B_POSITION_OPPONENT_RIGHT:
+                    ++i;
+                    break;
+                default:
+                    break;
+                }
+
+                if (IsDoubleBattle())
+                {
+                    u8 moveType;
+                    GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[battler]], moveType);
+
+                    SetMoveTypePaletteInMoveSelection_Doubles(battler, moveInfo->moves[gMoveSelectionCursor[battler]], moveType);
+                }
+
+
+                if (!CanTargetBattler(battler, gMultiUsePlayerCursor, moveInfo->moves[gMoveSelectionCursor[battler]])
+                 || (moveTarget == TARGET_OPPONENT && IsOnPlayerSide(gMultiUsePlayerCursor)))
+                    i = 0;
+
+            }while (i == 0); 
+            
         }
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCB_ShowAsMoveTarget;
     }
@@ -644,37 +673,32 @@ void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setu
         enum MoveTarget moveTarget = GetBattlerMoveSelectionTargetType(battler, moveInfo->moves[gMoveSelectionCursor[battler]]);
         bool32 isUserOrAlly = moveTarget == TARGET_USER || moveTarget == TARGET_USER_OR_ALLY || moveTarget == TARGET_USER_AND_ALLY;
 
-
+        //beleive use of updated func here is all that  is needed
+        //should remove other reassignment of multiusecursor
         gMultiUsePlayerCursor = GetDefaultSelectionTarget(battler, moveTarget);
 
         enum BattlerId partner = GetPartnerBattler(battler);
 
-        //think
-        if (gMain.inBattle && !(gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_ROTATION | BATTLE_TYPE_TWO_OPPONENTS)))//(!gBattleResources->bufferA[battler][1]) // not a double battle  //why did they use buffer for this instead of actually using a check for double battle?
+        if (gBattleResources->bufferA[battler][1]) // a double battle
         {
-            if (moveTarget == (TARGET_USER ||
-            moveTarget == TARGET_SELECTED))// && !gBattleResources->bufferA[battler][2])
-                canSelectTarget = 1;
-        }
-        else if (gMain.inBattle && (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_ROTATION | BATTLE_TYPE_TWO_OPPONENTS)))// double battle - specifically need adjust in here
-        {
-            if (moveTarget == (TARGET_USER ||
-            moveTarget == TARGET_SELECTED))
+            if (!CanSelectBattler(moveTarget))
                 canSelectTarget = 1; // either selected or user
-            if (moveTarget == (TARGET_USER ||
-            moveTarget == TARGET_ALLY) && IsBattlerAlive(BATTLE_PARTNER(battler)))
+        
+            if (moveTarget == TARGET_USER_OR_ALLY && IsBattlerAlive(partner))
                 canSelectTarget = 1;
+
             if (moveInfo->currentPp[gMoveSelectionCursor[battler]] == 0)
             {
                 canSelectTarget = 0;
             }
-            else if (((moveTarget != TARGET_USER && moveTarget != TARGET_SELECTED)) && CountAliveMonsInBattle(BATTLE_ALIVE_EXCEPT_BATTLER, battler) <= 1)
+            else if (isUserOrAlly && !IsBattlerAlive(partner))
             {
-                gMultiUsePlayerCursor = GetDefaultMoveTarget(battler);
+                gMultiUsePlayerCursor = battler;
                 canSelectTarget = 0;
             }
 
-            if (moveTarget == TARGET_ALL_BATTLERS)
+            // Show all available targets for multi-target moves
+            if (moveTarget == TARGET_ALL_BATTLERS || moveTarget == TARGET_FIELD)
             {
                 u32 i = 0;
                 for (i = 0; i < gBattlersCount; i++)
@@ -682,30 +706,33 @@ void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setu
 
                 canSelectTarget = 3;
             }
-            else if (moveTarget == TARGET_OPPONENTS_FIELD 
+            else /*if (moveTarget == TARGET_OPPONENTS_FIELD 
             || moveTarget == TARGET_BOTH 
             || moveTarget == TARGET_FOES_AND_ALLY 
-            || moveTarget ==  TARGET_USER) //think just this?
+            || moveTarget ==  TARGET_USER)*/ //think just this?
             {
+                //changed above as believe setup diff target setup than EE
+                //where it fades to white rather than blink on off?
+                //so would want to show for user in doubles to ensure no miss clicks
                 if (moveTarget == TARGET_USER)
                 {
                     TryShowAsTarget(gMultiUsePlayerCursor); //issue doesn't stop blinking
                     canSelectTarget = 1; //ok seems to work now
                 }
                 else if (IsSpreadMove(moveTarget) || moveTarget == TARGET_OPPONENTS_FIELD || moveTarget == TARGET_USER_AND_ALLY)
-                {
-                    TryShowAsTarget(gMultiUsePlayerCursor);
-                    TryShowAsTarget(BATTLE_PARTNER(gMultiUsePlayerCursor));
-                    if (moveTarget == TARGET_FOES_AND_ALLY)
-                        TryShowAsTarget(BATTLE_PARTNER(battler));
-                    canSelectTarget = 2;
-                } //no reason use true/false with canselecttarget as they are case values, not bools
+                    {
+                        TryShowAsTarget(gMultiUsePlayerCursor);
+                        TryShowAsTarget(GetPartnerBattler(gMultiUsePlayerCursor));
+                        if (moveTarget == TARGET_FOES_AND_ALLY)
+                            TryShowAsTarget(GetPartnerBattler(battler));
+                        canSelectTarget = 2;
+                    } //no reason use true/false with canselecttarget as they are case values, not bools
                 
             }
+        
+            ResetPaletteFadeControl();
+            BeginNormalPaletteFade(0xF0000, 0, 0, 0, RGB_WHITE);
         }
-        ResetPaletteFadeControl();
-        BeginNormalPaletteFade(0xF0000, 0, 0, 0, RGB_WHITE);
-
 
 
         switch (canSelectTarget)
@@ -723,9 +750,9 @@ void HandleInputChooseMove(enum BattlerId battler)    //test new targetting setu
         case 1:
             gBattlerControllerFuncs[battler] = HandleInputChooseTarget;
 
-            if (moveTarget == TARGET_USER || moveTarget ==  TARGET_SELECTED)
+            if (moveTarget == TARGET_USER || moveTarget == TARGET_USER_OR_ALLY)
                 gMultiUsePlayerCursor = battler;
-            else if (gAbsentBattlerFlags & (1u << GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)))
+            else if (!IsBattlerAlive(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)))
                 gMultiUsePlayerCursor = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
             else
                 gMultiUsePlayerCursor = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);

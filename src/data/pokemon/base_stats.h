@@ -4373,7 +4373,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .speciesName = _("Jolteon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(60, 90, 50, 130, 110, 85),
+         STATS(65, 85, 50, 130, 110, 85),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 184,
