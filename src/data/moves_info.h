@@ -5394,13 +5394,13 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_MILK_DRINK] =
     {
         .name = COMPOUND_STRING("Milk Drink"),
-        .description = COMPOUND_MOVE_STRING("Heals the user by\nup to a third its\nfull HP.\nOutside of battle\nIt can be used\nto heal an ally."),
-        .effect = EFFECT_SOFTBOILED,
+        .description = COMPOUND_MOVE_STRING("Heals the user or\nan ally by up to\na third its full HP.\nOutside of battle\nIt can be used\nto heal an ally."),
+        .effect = EFFECT_SOFTBOILED, //w update to champions effect EE changed to heal pulse effect but weird as that affects foe?
         .power = 0,
         .type = TYPE_NORMAL,
         .accuracy = 0,
         .pp = 10,
-        .target = TARGET_USER,
+        .target = TARGET_USER_OR_ALLY,//tested works just fine in doubles without changing effect
         .priority = 1,
         .category = DAMAGE_CATEGORY_STATUS,
         .healingMove = TRUE,
