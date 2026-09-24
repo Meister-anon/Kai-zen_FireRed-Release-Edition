@@ -1059,6 +1059,7 @@ static const struct AbilityLearnset sMantineAbilityLearnset[] = {
 static const struct AbilityLearnset sSkarmoryAbilityLearnset[] = {
     ABILITY_KEEN_EYE,
     ABILITY_STAMINA,
+    ABILITY_INNER_FOCUS,
     ABILITY_SET_END
 };
 

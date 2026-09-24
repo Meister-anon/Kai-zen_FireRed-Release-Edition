@@ -7521,7 +7521,7 @@ s32 GetBattleMovePriority(enum BattlerId battler, enum Ability ability, enum Mov
         
         //need test but new effect whirlwind in tailwind
         //neutral priority should consume
-        if (move == MOVE_WHIRLWIND
+        if (GetMoveEffect(move) == EFFECT_WHIRLWIND
         && gSideStatuses[side] & SIDE_STATUS_TAILWIND)
             priority = 0;
  

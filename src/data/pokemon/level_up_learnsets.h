@@ -3867,6 +3867,7 @@ static const struct LevelUpMove sUnownLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_HIDDEN_POWER)
     LEVEL_UP_MOVE(1, MOVE_PSYCHIC)
     LEVEL_UP_MOVE(33, MOVE_DESTINY_BOND)
+    LEVEL_UP_MOVE(47, MOVE_PROTECT)
     LEVEL_UP_END
 };
 

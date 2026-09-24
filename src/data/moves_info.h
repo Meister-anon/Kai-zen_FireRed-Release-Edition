@@ -12747,7 +12747,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_HEAL_PULSE] =
     {
         .name = COMPOUND_STRING("Heal Pulse"),
-        .description = COMPOUND_MOVE_STRING("The user emits\na healing pulse.\n.Recovers up to\na third the\ntarget's max HP."),
+        .description = COMPOUND_MOVE_STRING("The user emits\na healing pulse.\nRecovers up to\na third the\ntarget's max HP."),
         .effect = EFFECT_HEAL_PULSE, //missed this healing move, kept normal healing for mega launcher
         .power = 0,
         .type = TYPE_PSYCHIC,
@@ -19682,7 +19682,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_REVIVAL_BLESSING] =
     {
         .name = COMPOUND_STRING("Revival Blessing"),
-        .description = COMPOUND_MOVE_STRING("Revives a fainted\nPOKéMON and restores\nhalf of its HP."),
+        .description = COMPOUND_MOVE_STRING("Revives a fainted\nPOKéMON and\nrestores up to\nhalf of its HP."),
         .effect = EFFECT_REVIVAL_BLESSING,    //Todo // EFFECT_REVIVAL_BLESSING
         .power = 0,
         .type = TYPE_NORMAL,
