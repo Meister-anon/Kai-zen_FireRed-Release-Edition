@@ -7967,6 +7967,9 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct BattleContext *ctx)
             if (moveType == TYPE_STEEL)
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
             break;
+        case ABILITY_TELEPATHY:
+            modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+            break; //psuedo passive helping hand lower effect because can stack and has other benefit
         default:
             break;
         }

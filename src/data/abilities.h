@@ -1155,8 +1155,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_TELEPATHY] =
     {
         .name = _("Telepathy"),
-        .description = COMPOUND_ABILITY_STRING("Can't be damaged by an ally."),
-        .aiRating = 0,
+        .description = COMPOUND_ABILITY_STRING("Can't be damaged by an ally, instead\nworks in concert boosting attacks effect"),
+        .aiRating = 2,
         .breakable = TRUE,
     },
 
@@ -1299,7 +1299,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_SAND_FORCE] =
     {
         .name = _("Sand Force"),
-        .description = COMPOUND_ABILITY_STRING("Powers up in a sandstorm.\nImmune to sand-based acc/eva effects."),
+        .description = COMPOUND_ABILITY_STRING("Pwr up Rck Grnd and Steel in a sandstorm.\nImmune to sand-based debuffs."),
         .aiRating = 4,
     },
 
@@ -1761,7 +1761,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_BATTERY] =
     {
         .name = _("Battery"),
-        .description = COMPOUND_ABILITY_STRING("Boosts ally's Sp. Atk if ally is Vikavolt\ncombines with and powers up ally."),
+        .description = COMPOUND_ABILITY_STRING("Boosts ally's Sp. Atk. If ally is Vikavolt\ncombines with and powers up ally."),
         .aiRating = 0,
     },
     //vsonic think idea was turn this into vikavolt version of tatsugiri dondozo effect
@@ -1852,7 +1852,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_MISTY_SURGE] =
     {
         .name = _("Misty Surge"),
-        .description = COMPOUND_ABILITY_STRING("Field becomes misty. Weaken Dragon moves\nBoosts attack recovery & blocks statusing"),
+        .description = COMPOUND_ABILITY_STRING("Field becomes misty. Weaken Dragon moves\nUps attack, recovery, & blocks statusing"),
         .aiRating = 8,
     },
 

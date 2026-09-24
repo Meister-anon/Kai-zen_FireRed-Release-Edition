@@ -1530,11 +1530,13 @@ static const struct AbilityLearnset sMawileAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMedititeAbilityLearnset[] = {
+    ABILITY_TELEPATHY,
     ABILITY_PRECISE_STRIKE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sMedichamAbilityLearnset[] = {
+    ABILITY_TELEPATHY,
     ABILITY_PRECISE_STRIKE,
     ABILITY_SET_END
 };
@@ -1683,16 +1685,19 @@ static const struct AbilityLearnset sArmaldoAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sRaltsAbilityLearnset[] = {
+    ABILITY_TELEPATHY,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sKirliaAbilityLearnset[] = {
+    ABILITY_TELEPATHY,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sGardevoirAbilityLearnset[] = {
+    ABILITY_TELEPATHY,
     ABILITY_SET_END
-};
+};//gave back post buff
 
 // gave as little joke based on dex of trying to fly
 static const struct AbilityLearnset sBagonAbilityLearnset[] = {
@@ -1972,6 +1977,7 @@ static const struct AbilityLearnset sLopunnyAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMismagiusAbilityLearnset[] = {
+    ABILITY_UNNERVE,
     ABILITY_SET_END
 };
 
@@ -3233,11 +3239,13 @@ static const struct AbilityLearnset sAvaluggAbilityLearnset[] = {
 
 static const struct AbilityLearnset sNoibatAbilityLearnset[] = {
     ABILITY_CACOPHONY,
+    ABILITY_TELEPATHY,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sNoivernAbilityLearnset[] = {
     ABILITY_CACOPHONY,
+    ABILITY_TELEPATHY,
     ABILITY_SET_END
 };
 
