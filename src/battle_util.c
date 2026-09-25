@@ -9001,7 +9001,7 @@ static inline uq4_12_t GetScreensModifier(struct BattleContext *ctx)
 
 static inline uq4_12_t GetCollisionCourseElectroDriftModifier(enum Move move, uq4_12_t typeEffectivenessModifier)
 {
-    if (GetMoveEffect(move) == EFFECT_COLLISION_COURSE && typeEffectivenessModifier >= UQ_4_12(2.0))
+    if (GetMoveEffect(move) == EFFECT_COLLISION_COURSE && typeEffectivenessModifier >= SUPER_EFFECTIVE)
         return UQ_4_12(1.3333);
     return UQ_4_12(1.0);
 }
@@ -9011,7 +9011,7 @@ static inline uq4_12_t GetAttackerAbilitiesModifier(enum BattlerId battlerAtk, u
     switch (abilityAtk)
     {
     case ABILITY_NEUROFORCE:
-        if (typeEffectivenessModifier >= UQ_4_12(2.0))//eventually update to use macro super_effective in constants->battle.h carefully find all vsonic important
+        if (typeEffectivenessModifier >= SUPER_EFFECTIVE)//eventually update to use macro super_effective in constants->battle.h carefully find all vsonic important
             return UQ_4_12(1.25);
         break;
     case ABILITY_SNIPER:
@@ -9046,7 +9046,7 @@ static inline uq4_12_t GetDefenderAbilitiesModifier(struct BattleContext *ctx)
     case ABILITY_FILTER:
     case ABILITY_SOLID_ROCK:
     case ABILITY_PRISM_ARMOR:
-        if (ctx->typeEffectivenessModifier >= UQ_4_12(2.0))
+        if (ctx->typeEffectivenessModifier >= SUPER_EFFECTIVE)
         {
             modifier = UQ_4_12(0.75);
             recordAbility = TRUE;
@@ -9120,7 +9120,7 @@ static inline uq4_12_t GetAttackerItemsModifier(enum BattlerId battlerAtk, uq4_1
         return uq4_12_add(UQ_4_12(1.0), min(UQ_4_12(1.0), UQ_4_12(0.1) + metronomeBoostBase * metronomeTurns));
         break;
     case HOLD_EFFECT_EXPERT_BELT:
-        if (typeEffectivenessModifier >= UQ_4_12(2.0))
+        if (typeEffectivenessModifier >= SUPER_EFFECTIVE)
             return UQ_4_12(1.2);
         break;
     case HOLD_EFFECT_LIFE_ORB:
@@ -9139,7 +9139,7 @@ static inline uq4_12_t GetDefenderItemsModifier(struct BattleContext *ctx)
     case HOLD_EFFECT_RESIST_BERRY:
         if (IsUnnerveBlocked(ctx->battlerDef, gBattleMons[ctx->battlerDef].item))
             return UQ_4_12(1.0);
-        if (ctx->moveType == GetBattlerHoldEffectParam(ctx->battlerDef) && (ctx->moveType == TYPE_NORMAL || ctx->typeEffectivenessModifier >= UQ_4_12(2.0)))
+        if (ctx->moveType == GetBattlerHoldEffectParam(ctx->battlerDef) && (ctx->moveType == TYPE_NORMAL || ctx->typeEffectivenessModifier >= SUPER_EFFECTIVE))
         {
             if (ctx->updateFlags)
                 gSpecialStatuses[ctx->battlerDef].berryReduced = TRUE;
