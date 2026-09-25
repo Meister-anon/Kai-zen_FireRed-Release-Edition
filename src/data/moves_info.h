@@ -16573,13 +16573,20 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
-        .makesContact = TRUE,
+        .airborneDmgState = CANT_DAMAGE_FLOATING, //initially allowed but idea is it stomps the ground to toss up splintered rock
+        .makesContact = TRUE, //idk how it makes contact either that never occured in the show
         //.contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         //.contestCategory = CONTEST_CATEGORY_TOUGH,
         //.contestComboStarterId = 0,
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_StompingTantrum,
     },
+    //also concern if make best ground moves ignore floating
+    //than the mechanic won't mean much effectively
+    //people will just use those moves that work anyway 
+    //over a bad move  the destinction for this move
+    //is that it requires shaking the ground first and can dmg that way
+    // as well. if a floating foe so them stomping they could easily avoid it
 
     [MOVE_SHADOW_BONE] =
     {

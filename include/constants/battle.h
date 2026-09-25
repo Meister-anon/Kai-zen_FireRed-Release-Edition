@@ -1581,10 +1581,10 @@ enum BattleEnvironments
 #define B_WIN_MOVE_TYPE           8 // name of selected move type
 #define B_WIN_PP_REMAINING        7 // current & max pp values	B_WIN_PP
 #define B_WIN_DUMMY              10
-#define B_WIN_SWITCH_PROMPT      11 // "Switch which?"
+#define B_WIN_SWITCH_PROMPT      11 // "Switch which?" //switch move position in battle
 #define B_WIN_LEVEL_UP_BOX       12
 #define B_WIN_LEVEL_UP_BANNER    13
-#define B_WIN_YESNO              14
+#define B_WIN_YESNO              14 //belive both yes no learn move and to switch in battle
 #define B_WIN_VS_PLAYER          15
 #define B_WIN_VS_OPPONENT        16
 #define B_WIN_VS_MULTI_PLAYER_1  17
