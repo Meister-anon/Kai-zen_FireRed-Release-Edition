@@ -2424,7 +2424,6 @@
 		getuniqueabilitystring		
 	.endif
 
-	getstatchangeIdfromability
 	setstatchangerviaAbility \amount, \mode
 	.if \affectsUser == FALSE
 		statbuffchange \battler, STAT_CHANGE_ALLOW_PTR, \script
