@@ -216,6 +216,17 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .isSingleUse = TRUE,
         .timer = WONDER_GUARD_TIMER,
     },
+    //check how this works what goes away with timer
+    //entire ability or only the immunity to weather and status conditions
+    //reviewed notes I think the effect wasn't done?
+    //the point was to make the ability more accessible but also trickier to use
+    //what I remember is making it immune to secondary dmg effects
+    //as if it was magic guard and I think the entire ability
+    //was supposed to turn off when the timer ended?? idk
+    //no surely the effect was done as I remember making a specific end timer message for it
+    //yup found it STRINGID_WONDER_GUARD_ENDS  wonder guard disipated
+    //can't decide this now will have to research ability is hard to use
+    //if balanced around it gamewise but otherwise nye unbeatable
 
     [ABILITY_FEMME_FATALE] =
     {
