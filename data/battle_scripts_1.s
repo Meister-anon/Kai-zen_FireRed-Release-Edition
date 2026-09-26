@@ -5235,6 +5235,27 @@ BattleScript_SlowStartEnds::
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
+@placeholder ish string for now need switch in message as well
+@but cant think of anything better than stats returned to normal
+BattleScript_SpectreEnds_StatDropSkip::
+    pause 5
+	call BattleScript_AbilityPopUpScripting
+    printstring STRINGID_PKMNSTATUSNORMAL
+	waitmessage B_WAIT_TIME_LONG
+    end2
+
+BattleScript_SpectreEnds::
+	pause 5
+	call BattleScript_AbilityPopUpScripting
+BattleScript_SpectreStatFall:
+	statbuffchange BS_SCRIPTING, STAT_CHANGE_ALLOW_PTR, BattleScript_SpectrePrintString
+BattleScript_SpectrePrintString:
+    printstring STRINGID_PKMNSTATUSNORMAL
+	waitmessage B_WAIT_TIME_LONG
+    restoreattacker
+	end2
+
+    
 BattleScript_SelectingNotAllowedMoveGravity::
 	printselectionstring STRINGID_GRAVITYPREVENTSUSAGE
 	endselectionscript

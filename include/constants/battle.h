@@ -576,8 +576,8 @@ enum BattleSide
 
 //Ability Timers
 #define SLOW_START_TIMER 3
-#define WONDER_GUARD_TIMER 5
-#define SPECTRE_TIMER 2
+#define WONDER_GUARD_TIMER 5    //still trying to remember how this is supposed to work...
+#define SPECTRE_TIMER 2 //remembered why had timer for this worry evasion boost too strong so fades away after 2 turns
 
 #define MAX_INGRAIN_AQUA_RING_TURNS    6 //turns healing effect stacks
 #define MAX_TOXIC_TURNS 16

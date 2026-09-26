@@ -2932,7 +2932,16 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .isSingleUse = TRUE,
         .timer = SPECTRE_TIMER,
     },
-    
+    //as is one time and has a timer
+    //think what will do is make it a sharp boost
+    //plus single evasion boost isn't that effective
+    //so will boost evasion 2 stages and have it fade off
+    //think modifystatstageviaAbility cmd can handle setting 
+    //fade effect still to do, set like slow start do 2 stage evasion drop in end turn
+    //set fade effect need to test, realized didn't even set up switch in effect
+    //on this branch fix when bring in changes from master for ability stat change
+    //vsonic
+
     [ABILITY_AURA_OF_LIGHT] =
     {
         .name = _("Aura of Light"),

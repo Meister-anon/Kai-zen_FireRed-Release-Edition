@@ -4414,13 +4414,6 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             case ABILITY_TRUANT:
                 gBattleMons[gBattlerAttacker].volatiles.truantCounter ^= 1;
                 break;
-            case ABILITY_SLOW_START:
-                if (GetBattlerPartyState(battler)->cachedAbilityTimers > 0 && --GetBattlerPartyState(battler)->cachedAbilityTimers == 0)
-                {
-                    BattleScriptExecute(BattleScript_SlowStartEnds);
-                    effect++;
-                }
-                break;
             case ABILITY_BAD_DREAMS:
                 BattleScriptExecute(BattleScript_BadDreamsActivates);
                 effect++;
@@ -4479,7 +4472,35 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 break;
             }
         }
-        break;//vsonic
+        break;//vsonic 
+    case ABILITYEFFECT_ENDTURN_ABILITY_TIMERS:
+        if (IsBattlerAlive(battler)
+        && GetBattlerPartyState(battler)->cachedAbilityTimers > 0 && --GetBattlerPartyState(battler)->cachedAbilityTimers == 0)
+        {
+            gBattlerAttacker = battler;
+            switch (gLastUsedAbility)
+            {
+            case ABILITY_SLOW_START:
+                {
+                    BattleScriptExecute(BattleScript_SlowStartEnds);
+                    effect++;
+                }
+                break;
+            case ABILITY_SPECTRE:
+                if (CompareStat(battler, STAT_EVASION, MIN_STAT_STAGE, CMP_GREATER_THAN, gLastUsedAbility))
+                {
+                    SaveBattlerAttacker(gBattlerAttacker);
+                    SET_STATCHANGER(STAT_EVASION, 2, TRUE);
+                    gBattleScripting.battler = battler;
+                    BattleScriptExecute(BattleScript_SpectreEnds);
+                }
+                else
+                    BattleScriptExecute(BattleScript_SpectreEnds_StatDropSkip);
+                effect++;
+                break;
+            }//BattleScript_AttackerAbilityStatRaiseEnd2
+        }
+        break;
     case ABILITYEFFECT_COLOR_CHANGE:
         switch (gLastUsedAbility)
         {
@@ -5615,8 +5636,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             && IsBattlerAlive(battler)
             && !IsBattleMoveStatus(move)
             && !IS_BATTLER_OF_TYPE(battler, moveType)
-            && moveType != TYPE_STELLAR
-            && moveType != TYPE_MYSTERY
+            && !IsBannedMonType(moveType)
             && GetActiveGimmick(battler) != GIMMICK_TERA
             )
             {

@@ -1417,9 +1417,9 @@ static bool32 HandleEndTurnThirdEventBlock(enum BattlerId battler)
         {
         case ABILITY_TRUANT: // Not fully accurate but it has to be handled somehow. TODO: Find a better way.
         case ABILITY_CUD_CHEW:
-        case ABILITY_SLOW_START:
+        //case ABILITY_SLOW_START:
         case ABILITY_BAD_DREAMS:
-        case ABILITY_BALL_FETCH:
+        case ABILITY_BALL_FETCH: //w revised effect see if still makes sense to be here
         case ABILITY_HARVEST:
         case ABILITY_MOODY:
         case ABILITY_PICKUP:
@@ -1428,7 +1428,9 @@ static bool32 HandleEndTurnThirdEventBlock(enum BattlerId battler)
                 effect = TRUE;
             break;
         default:
-            break;
+            if (AbilityBattleEffects(ABILITYEFFECT_ENDTURN_ABILITY_TIMERS, battler, ability, MOVE_NONE, TRUE))
+                effect = TRUE;
+            break;//not sure if right but should work for my ability timer decrement and make effects go last ish
         }
         gBattleStruct->eventState.endTurnBlock++;
         break;

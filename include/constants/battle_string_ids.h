@@ -122,7 +122,7 @@ enum SwitchInAbilityStringID
     B_MSG_SWITCHIN_WONDERGUARD,
     B_MSG_SWITCHIN_SUPERSWEET_SYRUP,
     B_MSG_SWITCHIN_AURORA_SHIFT,
-};
+};//todo message for spectre
 
 // gMentalHerbCureStringIds
 enum MentalHerbCureStringID

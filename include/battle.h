@@ -2325,6 +2325,13 @@ static inline void TrySetUsedSingleUseAbility_EndTurn(enum BattlerId battler)
     TrySetUsedSingleUseAbility(battler, END_TURN_TIMER);
 }
 
+//types not alllowed to change mon type too
+//mostly made for color change since changes type based on move
+static inline bool32 IsBannedMonType(enum Type type)
+{
+    return (type == TYPE_STELLAR || type == TYPE_MYSTERY || type == TYPE_SOUND);
+}
+
 static inline enum Type GetBattlerTypebySlot(enum BattlerId battler, enum BattleMonTypes typeId)
 {
     switch (typeId)

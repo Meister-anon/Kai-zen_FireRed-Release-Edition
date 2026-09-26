@@ -422,6 +422,9 @@ extern const u8 BattleScript_CottonDownActivates[];
 extern const u8 BattleScript_MoveUsedLoafingAround[];
 extern const u8 BattleScript_MoveUsedGravityPrevents[];
 extern const u8 BattleScript_MoveUsedHealBlockPrevents[];
+//ability timers
+extern const u8 BattleScript_SpectreEnds[];
+extern const u8 BattleScript_SpectreEnds_StatDropSkip[];
 extern const u8 BattleScript_SlowStartEnds[];
 extern const u8 BattleScript_WonderGuardEnds[];
 extern const u8 BattleScript_SwitchLockEnds[];
@@ -1133,7 +1136,6 @@ extern const u8 BattleScript_BattlerFormChangeDisguise[];
 extern const u8 BattleScript_AttackerFormChangeWithString[];
 extern const u8 BattleScript_TargetFormChange[];
 extern const u8 BattleScript_AnticipationActivates[];
-extern const u8 BattleScript_SlowStartEnds[];
 extern const u8 BattleScript_HealerActivates[];
 extern const u8 BattleScript_ScriptingAbilityStatRaise[];
 extern const u8 BattleScript_ReceiverActivates[];

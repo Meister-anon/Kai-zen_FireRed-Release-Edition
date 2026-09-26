@@ -52,6 +52,7 @@ enum FieldEffectCases
 enum AbilityEffect
 {
     ABILITYEFFECT_ENDTURN,
+    ABILITYEFFECT_ENDTURN_ABILITY_TIMERS,
     ABILITYEFFECT_MOVE_END_ATTACKER,
     ABILITYEFFECT_PRE_HIT_ACTIVATE, // new effect for color change
     ABILITYEFFECT_COLOR_CHANGE, // Color Change / Berserk / Anger Shell
