@@ -10253,9 +10253,17 @@ s32 GetStealthHazardDamageByTypesAndHP(enum TypeSideHazard hazardType, enum Type
         dmg = max(maxHp / 16, 1);
         break;
     case UQ_4_12(1.0):
-    default:
         dmg = max(maxHp / 8, 1);
         break;
+    default:
+    //realized needed default as super and resisted is no longer neutral
+    //this conditional will handle everything else
+        if (modifier > UQ_4_12(1.0))
+        {
+            dmg = max(maxHp / 6, 1);//had at 5 change to 6 so super gives extra 50% of base effect
+        }
+        break;
+
     /*case UQ_4_12(2.0):
         dmg = maxHp / 4;
         if (dmg == 0)
@@ -10268,12 +10276,7 @@ s32 GetStealthHazardDamageByTypesAndHP(enum TypeSideHazard hazardType, enum Type
         break;*/
     }
 
-    //realized needed default as super and resisted is no longer neutral
-    //this outside conditional will handle everything else
-    if (modifier > UQ_4_12(1.0))
-    {
-        dmg = max(maxHp / 6, 1);//had at 5 change to 6 so super gives extra 50% of base effect
-    }
+    
 
     return dmg;
 }
