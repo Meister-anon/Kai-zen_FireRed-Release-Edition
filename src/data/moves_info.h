@@ -2064,7 +2064,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         .accuracy = 75,
         .pp = 30,
         .target = TARGET_SELECTED,
-        .priority = 1,
+        .priority = 1, //potentially drop priority on this as well, hmm no prankster thunder wave was bad because it was 100 acc
         .category = DAMAGE_CATEGORY_STATUS,
         .magicCoatAffected = TRUE,
         .argument = { .nonVolatileStatus = MOVE_EFFECT_PARALYSIS },

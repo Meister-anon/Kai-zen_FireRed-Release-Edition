@@ -23709,6 +23709,11 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .tmhmLearnset = sNoibatTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(48, AVERAGE_EFFORT), 0, SPECIES_NOIVERN}), //Should hopefully blank these for now without issue
     },
+    //potentially revert type change flying dragon makes 4 x to ice
+    //but with weather change can just put in sun
+    //no real way to covver a 4x weakness to fairy
+    //but it is more offensive this way
+    //can gain psuedo stab on boomburst etc.
 
     [SPECIES_NOIVERN] =
     {
