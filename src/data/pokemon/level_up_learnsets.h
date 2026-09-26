@@ -4254,7 +4254,7 @@ static const struct LevelUpMove sOctilleryLevelUpLearnset[] = {
 
 static const struct LevelUpMove sDelibirdLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_PRESENT)
-    LEVEL_UP_MOVE(1, MOVE_SAND_ATTACK)
+    LEVEL_UP_MOVE(1, MOVE_POWDER_SNOW)
     LEVEL_UP_MOVE(1, MOVE_ICE_BALL)//make new move snowball,  variable dmg physical attk, use psywave effect, keep ice ball animation for now, idea throw ice/snow ball of varying size and power or something
     LEVEL_UP_MOVE(11, MOVE_AURORA_BEAM) //will be physical ice version of psywave, potentially w chance to flinch
     LEVEL_UP_MOVE(16, MOVE_QUICK_ATTACK)

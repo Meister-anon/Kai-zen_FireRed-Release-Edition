@@ -1740,6 +1740,32 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
             }
             break;
         case EFFECT_PRESENT:
+            if (IsTargetingPartner(battlerAtk, battlerDef))
+            {
+                if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_HEAL_BLOCK)
+                    return 0; // cannot even select
+                if (AI_BattlerAtMaxHp(battlerDef))
+                    ADJUST_SCORE(-10);
+                else if (gBattleMons[battlerDef].hp > gBattleMons[battlerDef].maxHP / 2)
+                    ADJUST_SCORE(-5);
+            }
+            else //needed separate case to itself no idea if makes any sense
+            {
+
+            // AI_CBM_HighRiskForDamage
+                if (aiData->abilities[battlerDef] == ABILITY_WONDER_GUARD && effectiveness < SUPER_EFFECTIVE)
+                    ADJUST_SCORE(-10);
+                if (HasDamagingMove(battlerDef) && !(gBattleMons[battlerAtk].volatiles.substitute
+                || IsBattlerIncapacitated(battlerDef, abilityDef)
+                || InfatuatedWithBattler(battlerAtk, battlerDef)
+                || gBattleMons[battlerDef].volatiles.confusionTurns))
+                    ADJUST_SCORE(-10);
+                if (HasMoveWithEffect(battlerAtk, EFFECT_SUBSTITUTE) && !gBattleMons[battlerAtk].volatiles.substitute)
+                    ADJUST_SCORE(-10);
+                if (HasNonVolatileMoveEffect(battlerAtk, MOVE_EFFECT_SLEEP) && ! (gBattleMons[battlerDef].status1 & STATUS1_SLEEP))
+                    ADJUST_SCORE(-10);
+            }
+            break;
         case EFFECT_FIXED_HP_DAMAGE:
         case EFFECT_FOCUS_PUNCH:
             // AI_CBM_HighRiskForDamage
@@ -3795,12 +3821,13 @@ static s32 AI_DoubleBattle(enum BattlerId battlerAtk, enum BattlerId battlerDef,
                 }
                 break;
             case EFFECT_HEAL_PULSE:
+            case EFFECT_PRESENT:
             case EFFECT_HIT_ENEMY_HEAL_ALLY:
                 if (AI_IsFaster(battlerAtk, LEFT_FOE(battlerAtk), move, predictedMoveSpeedCheck, CONSIDER_PRIORITY)
                  && AI_IsFaster(battlerAtk, RIGHT_FOE(battlerAtk), move, predictedMoveSpeedCheck, CONSIDER_PRIORITY)
                  && gBattleMons[battlerAtkPartner].hp < gBattleMons[battlerAtkPartner].maxHP / 2)
                     RETURN_SCORE_PLUS(WEAK_EFFECT);
-                break;
+                break;//UNSURE  vsonic how works but seems 50 percent is a cut off point rather than a consideration for how much the effect heals?
             case EFFECT_SPEED_SWAP:
                 break;
             case EFFECT_GUARD_SPLIT:
@@ -6433,7 +6460,7 @@ static s32 AI_HPAware(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum
 
     if (IsTargetingPartner(battlerAtk, battlerDef))
     {
-        if ((effect == EFFECT_HEAL_PULSE || effect == EFFECT_HIT_ENEMY_HEAL_ALLY)
+        if ((effect == EFFECT_HEAL_PULSE || effect == EFFECT_HIT_ENEMY_HEAL_ALLY || effect == EFFECT_PRESENT)
          || (moveType == TYPE_ELECTRIC && gAiLogicData->abilities[BATTLE_PARTNER(battlerAtk)] == ABILITY_VOLT_ABSORB)
          || (moveType == TYPE_GROUND && gAiLogicData->abilities[BATTLE_PARTNER(battlerAtk)] == ABILITY_EARTH_EATER)
          || (moveType == TYPE_WATER && (gAiLogicData->abilities[BATTLE_PARTNER(battlerAtk)] == ABILITY_DRY_SKIN || gAiLogicData->abilities[BATTLE_PARTNER(battlerAtk)] == ABILITY_WATER_ABSORB)))

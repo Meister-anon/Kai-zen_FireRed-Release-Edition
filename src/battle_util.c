@@ -11289,7 +11289,7 @@ enum MoveTarget GetBattlerMoveTargetType(enum BattlerId battler, enum Move move)
 
 bool32 CanTargetBattler(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move)
 {
-    if (GetMoveEffect(move) == EFFECT_HIT_ENEMY_HEAL_ALLY
+    if ((GetMoveEffect(move) == EFFECT_HIT_ENEMY_HEAL_ALLY || GetMoveEffect(move) == EFFECT_PRESENT)
     &&  IsBattlerAlly(battlerAtk, battlerDef)
     &&  gSideStatuses[GetBattlerSide(battlerAtk)] & SIDE_STATUS_HEAL_BLOCK)
         return FALSE;   // Pokémon affected by Heal Block cannot target allies with Pollen Puff

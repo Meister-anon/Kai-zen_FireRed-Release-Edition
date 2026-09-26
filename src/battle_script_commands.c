@@ -10399,7 +10399,8 @@ static void Cmd_presentdamagecalculation(void)
      * damage, the second strike will always deal damage too. This is a simple way
      * to replicate that effect.
      */
-    if (gSpecialStatuses[gBattlerAttacker].parentalBondState != PARENTAL_BOND_2ND_HIT)
+    if (gSpecialStatuses[gBattlerAttacker].parentalBondState != PARENTAL_BOND_2ND_HIT
+    && (!IsTargetingPartner(gBattlerAttacker, gBattlerTarget)))
     {
         if (rand < 102)
         {
@@ -10421,6 +10422,14 @@ static void Cmd_presentdamagecalculation(void)
             SetHealAmount(gBattlerTarget, GetNonDynamaxMaxHP(gBattlerTarget) / 4);
             gBattleStruct->presentBasePower = 0;
         }
+    }
+    else if (IsTargetingPartner(gBattlerAttacker, gBattlerTarget))
+    {
+        gSpecialStatuses[gBattlerAttacker].parentalBondState = PARENTAL_BOND_OFF;
+        gSpecialStatuses[gBattlerAttacker].multiHitOn = 0;
+        gMultiHitCounter = 0;
+        SetHealAmount(gBattlerTarget, GetNonDynamaxMaxHP(gBattlerTarget) / 4);
+        gBattleStruct->presentBasePower = 0;
     }
 
     if (gBattleStruct->presentBasePower)

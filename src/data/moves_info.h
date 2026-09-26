@@ -5603,10 +5603,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_PRESENT] =
     {
         .name = COMPOUND_STRING("Present"),
-        .description = COMPOUND_MOVE_STRING("The foe is given a\nbooby-trapped gift.\nIt restores HP\nsometimes, however."),
+        .description = COMPOUND_MOVE_STRING("The foe is given a\nbooby-trapped gift.\nIt restores HP\nsometimes, however.\nAlso restores HP\nif given to an ally."),
         .effect = EFFECT_PRESENT,
         .power = 1,
-        .type = TYPE_NORMAL,
+        .type = TYPE_NORMAL,//  preesnt heals 1/4 max hp not 50%
         .accuracy = 100,
         .pp = 15,
         .target = TARGET_SELECTED,
@@ -5619,6 +5619,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_Present,
     },
+    //updated believe should work to heal ally
     //vsonic important think need update kins rock with dmg logic to make sure doesn't activate on heal?
 
     [MOVE_FRUSTRATION] =
