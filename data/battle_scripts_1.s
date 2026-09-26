@@ -9519,19 +9519,19 @@ BattleScript_IntimidateEnd:
 
 BattleScript_AbilityBasedStatChange::
 	jumpifability BS_ATTACKER, ABILITY_SUPERSWEET_SYRUP, BattleScript_AbilityBasedStatChangePrintFromtable
-	modifystatstageviaAbility BS_TARGET, DECREASE, 1, BattleScript_IntimidateFail, FALSE, ANIM_ON, TRUE
+	modifystatstageviaAbility BS_TARGET, DECREASE,BattleScript_IntimidateFail, FALSE, ANIM_ON, TRUE
 	goto BattleScript_AbilityBasedStatReturn
 BattleScript_AbilityBasedStatChangePrintFromtable::
-	modifystatstageviaAbility BS_TARGET, DECREASE, 1, BattleScript_IntimidateFail, FALSE, ANIM_ON, FALSE
+	modifystatstageviaAbility BS_TARGET, DECREASE, BattleScript_IntimidateFail, FALSE, ANIM_ON, FALSE
 BattleScript_AbilityBasedStatReturn::
 	return
 
 BattleScript_AbilityBasedStatChangeContrary::
 	jumpifability BS_ATTACKER, ABILITY_SUPERSWEET_SYRUP, BattleScript_AbilityBasedStatChangePrintFromtableContrary
-	modifystatstageviaAbility BS_TARGET, INCREASE, 1, BattleScript_IntimidateFail, FALSE, ANIM_ON, FALSE
+	modifystatstageviaAbility BS_TARGET, INCREASE, BattleScript_IntimidateFail, FALSE, ANIM_ON, FALSE
 	goto BattleScript_AbilityBasedStatReturnContrary
 BattleScript_AbilityBasedStatChangePrintFromtableContrary::
-	modifystatstageviaAbility BS_TARGET, INCREASE, 1, BattleScript_IntimidateFail, FALSE, ANIM_ON, FALSE
+	modifystatstageviaAbility BS_TARGET, INCREASE, BattleScript_IntimidateFail, FALSE, ANIM_ON, FALSE
 BattleScript_AbilityBasedStatReturnContrary::
 	goto BattleScript_IntimidateEffect_WaitString
 
@@ -9587,7 +9587,7 @@ BattleScript_IntimidateDarkFail::
 BattleScript_IntimidateReflect::
 	printstring STRINGID_REFLECT_INTIMIDATE	
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	modifystatstageviaAbility BS_ATTACKER, DECREASE, 1, BattleScript_IntimidateLoopIncrement, TRUE, ANIM_ON, FALSE
+	modifystatstageviaAbility BS_ATTACKER, DECREASE, BattleScript_IntimidateLoopIncrement, TRUE, ANIM_ON, FALSE
 	goto BattleScript_IntimidateEffect_WaitString
 
 @BattleScript_IntimidateEnd::
@@ -10114,14 +10114,14 @@ BattleScript_TargetsStatWasMaxedOut::
 BattleScript_BattlerAbilityStatRaiseOnSwitchIn::
 	copybyte gBattlerAbility, gBattlerAttacker
 	@call BattleScript_AbilityPopUp
-	modifystatstageviaAbility BS_ATTACKER, INCREASE, 1, NULL, TRUE, ANIM_ON, FALSE, STRINGID_BATTLERABILITYRAISEDSTAT
+	modifystatstageviaAbility BS_ATTACKER, INCREASE, NULL, TRUE, ANIM_ON, FALSE, STRINGID_BATTLERABILITYRAISEDSTAT
 	end3
 
 @for new zacian zamazenta ability effect need test
 BattleScript_BattlerAbilityStatNormalized::
 	copybyte gBattlerAbility, gBattlerAttacker
 	@call BattleScript_AbilityPopUp
-	modifystatstageviaAbility BS_ATTACKER, DECREASE, 1, NULL, TRUE, ANIM_ON, FALSE, STRINGID_BATTLERABILITYSTAT_INCREASE_ENDS
+	modifystatstageviaAbility BS_ATTACKER, DECREASE, NULL, TRUE, ANIM_ON, FALSE, STRINGID_BATTLERABILITYSTAT_INCREASE_ENDS
 	end3
 
 BattleScript_TargetAbilityStatRaiseOnMoveEnd::

@@ -1058,8 +1058,8 @@ extern struct BattleStruct *gBattleStruct;
 
 #define SET_STAT_BUFF_VALUE(n)((((n) << 3) & 0xF8))
 
-#define SET_STATCHANGER(statId, stage, goesDown)(gBattleScripting.statChanger = (statId) + ((stage) << 3) + (goesDown << 7))
-#define SET_STATCHANGER2(dst, statId, stage, goesDown)(dst = (statId) + ((stage) << 3) + (goesDown << 7)) //for changing 2 different stats in a turn
+#define SET_STATCHANGER(statId, stage, mode)(gBattleScripting.statChanger = (statId) + ((stage) << 3) + (mode << 7))
+#define SET_STATCHANGER2(dst, statId, stage, mode)(dst = (statId) + ((stage) << 3) + (mode << 7)) //for changing 2 different stats in a turn
 
 // NOTE: The members of this struct have hard-coded offsets 
 //       in include/constants/battle_script_commands.h

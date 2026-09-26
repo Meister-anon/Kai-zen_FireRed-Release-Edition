@@ -19569,11 +19569,25 @@ static void atkE0_trysetsnatch(void) // snatch
 //if its left blank have it just auto fill stat field
 //with sSTATCHANGEID
 //sigh took forever but it works and at this point i don't even know if its worth it
-void BS_GetStatChangeIdFromAbility(void)
+//realized can combine this into a single function
+//so can pull stat id, stat value and weather stat should increase decrease
+//from one function then just make multiple macros to get correct value
+//and use in bs command
+//just need set a amode so it knows what value you're looking for
+//and to return hmm actually don't think can return
+//best I could prob do is make list of if ability increases or decrease stat
+//then make a jump command for that so I don't have to list each ability in the script
+//and the ones that increases user stat can skip the contrary checks
+//if use this for everything may need to later change attacker for battler arguement
+//for things like wind rider which activate on target hitting them
+void BS_SetStatChangeFromAbility(void)
 {
     NATIVE_ARGS();
     u16 ability = GetBattlerAbility(gBattlerAttacker);
+    u8 statStage = 0;
+    u8 mode; //whether increase or decrease
 
+    //set stat ids
     switch (ability)
     {   
         //unsure if can use dust devil in this but will add
@@ -19592,6 +19606,44 @@ void BS_GetStatChangeIdFromAbility(void)
             gBattleScripting.statChangeId = STAT_EVASION;
             break;
     }
+
+    //stat stage change
+    switch (ability)
+    {
+        case ABILITY_DUST_DEVIL:
+        case ABILITY_WIND_RIDER:
+        case ABILITY_INTREPID_SWORD:
+        case ABILITY_INTIMIDATE:
+        case ABILITY_SUPERSWEET_SYRUP:
+        case ABILITY_DAUNTLESS_SHIELD:
+        case ABILITY_TIGER_MOM:
+            statStage = 1;
+            break;
+        case ABILITY_SPECTRE:        
+            statStage = 2;
+            break;
+    }
+
+    //mode
+    switch (ability)
+    {
+        case ABILITY_INTIMIDATE:
+        case ABILITY_SUPERSWEET_SYRUP:
+        case ABILITY_TIGER_MOM:
+            mode = DECREASE;
+            break;
+        case ABILITY_INTREPID_SWORD:
+        case ABILITY_DAUNTLESS_SHIELD:
+        case ABILITY_WIND_RIDER:
+        case ABILITY_DUST_DEVIL:     
+        case ABILITY_SPECTRE:        
+            mode = INCREASE;
+            break;
+    }
+
+    //set stat stage change
+    if (statStage)
+        SET_STATCHANGER(gBattleScripting.statChangeId, statStage, mode);
     
     gBattlescriptCurrInstr = cmd->nextInstr;
 }

@@ -1640,8 +1640,8 @@
 	callnative BS_setacidrain
 	.endm
 
-	.macro getstatchangeIdfromability
-	callnative BS_GetStatChangeIdFromAbility
+	.macro setstatchangerviaAbility
+	callnative BS_SetStatChangeFromAbility
 	.endm
 
 	.macro getuniqueabilitystring
@@ -2300,11 +2300,11 @@
 	@cry it WORKS
 	@paired script use after
 	@getstatchangeIdfromability command
-	.macro setstatchangerviaAbility stages:req, down:req
-	getstatchangeIdfromability
-	copybyte sSTATCHANGER, sSTATCHANGEID 
-	addbyte sSTATCHANGER \stages << 3 | \down << 7
-	.endm
+	@.macro setstatchangerviaAbility stages:req, down:req
+	@getstatchangeIdfromability
+	@copybyte sSTATCHANGER, sSTATCHANGEID 
+	@addbyte sSTATCHANGER \stages << 3 | \down << 7
+	@.endm
 
 	.macro setmoveeffect effect:req
 	sethword sMOVE_EFFECT \effect
@@ -2538,7 +2538,10 @@
 	@cant do all in one command but just make call modify stat script
 	@and have the two options for if should go to custom or should read normal stat down
 	@for the most part script will all read the same so I still keep majority of saved efficiency
-	.macro modifystatstageviaAbility battler:req, mode:req, amount:req, script:req, affectsUser:req, animation:req, readcustomSavedString:req, customString
+	@was able to adjust setstatchangedviaability to remove need for set stat stat amount here
+    @but couldnt find way to remove mode requirement as needed to set
+    @
+    .macro modifystatstageviaAbility battler:req, mode:req, script:req, affectsUser:req, animation:req, readcustomSavedString:req, customString
 
 	@ \mode parameters
 	INCREASE = FALSE
@@ -2553,8 +2556,8 @@
 		getuniqueabilitystring		
 	.endif
 
-	getstatchangeIdfromability
-	setstatchangerviaAbility \amount, \mode
+	@getstatchangeIdfromability
+	setstatchangerviaAbility
 	.if \affectsUser == FALSE
 		statbuffchange \battler, STAT_CHANGE_ALLOW_PTR, \script
 	.else
