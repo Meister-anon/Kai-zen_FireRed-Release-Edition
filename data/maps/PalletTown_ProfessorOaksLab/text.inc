@@ -224,7 +224,7 @@ PalletTown_ProfessorOaksLab_Text_OakCompleteMonGuideWasMyDream:: @ 818E784
     .string "POKéMON history!$"
 
 PalletTown_ProfessorOaksLab_Text_OakExplainPokedexEvo:: @ 818E6D0
-    .string "OAK: \. Ah, that {RIVAL}, so impatient.\n"
+    .string "OAK: \.Ah, that {RIVAL}, so impatient.\n"
     .string "I wasn't done with my explanation.\p"
     .string "The POKéDEX is much more than\n"
     .string "just an encyclopedia, its also\l"

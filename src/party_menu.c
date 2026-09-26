@@ -7896,16 +7896,17 @@ static u8 GetPartyMenuActionsTypeInBattle(struct Pokemon *mon)
 {
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
     
+    //shouldn't this not show evo as is literally an egg? -vsonic important
     if (GetMonData(&gPlayerParty[1], MON_DATA_SPECIES) == SPECIES_NONE || GetMonData(mon, MON_DATA_IS_EGG))
     {
-        if (CanEvolve(species))
+        /*if (CanEvolve(species) && FlagGet(FLAG_SYS_POKEDEX_GET))
             return ACTIONS_SUMMARY_EVO_ONLY;
-        else
+        else*/
             return ACTIONS_SUMMARY_ONLY;
     }    
     else if (gPartyMenu.action == PARTY_ACTION_SEND_OUT)
     {
-       if (CanEvolve(species))
+       if (CanEvolve(species) && FlagGet(FLAG_SYS_POKEDEX_GET))
             return ACTIONS_SEND_OUT_EVO;
         else
             return ACTIONS_SEND_OUT;
@@ -7913,7 +7914,7 @@ static u8 GetPartyMenuActionsTypeInBattle(struct Pokemon *mon)
     }
     else
     {
-        if (CanEvolve(species))
+        if (CanEvolve(species) && FlagGet(FLAG_SYS_POKEDEX_GET))
             return ACTIONS_SHIFT_EVO;
         else
             return ACTIONS_SHIFT;
