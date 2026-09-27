@@ -548,7 +548,7 @@ u8 *StringBraille(u8 *dest, const u8 *src)
     }
 }
 
-static u8 *ExpandPlaceholder_UnknownStringVar(void)
+static const u8 *ExpandPlaceholder_UnknownStringVar(void)
 {
     return gUnknownStringVar;
 }
@@ -556,27 +556,27 @@ static u8 *ExpandPlaceholder_UnknownStringVar(void)
 //add to placeholders, and do if should cap misc cap the string that would be returned, and then do the return
 //to make simple put all in one function, flag check etc. then can remove the cap stuff in text, and remove the capitlize text, don't need it,
 //since I'm swapping the text before it printsnot as it prints
-static u8 *ExpandPlaceholder_PlayerName(void)
+static const u8 *ExpandPlaceholder_PlayerName(void)
 {
     return gSaveBlock2Ptr->playerName;
 }
 
-static u8 *ExpandPlaceholder_StringVar1(void)
+static const u8 *ExpandPlaceholder_StringVar1(void)
 {
     return gStringVar1;
 }
 
-static u8 *ExpandPlaceholder_StringVar2(void)
+static const u8 *ExpandPlaceholder_StringVar2(void)
 {
     return gStringVar2;
 }
 
-static u8 *ExpandPlaceholder_StringVar3(void)
+static const u8 *ExpandPlaceholder_StringVar3(void)
 {
     return gStringVar3;
 }
 
-static u8 *ExpandPlaceholder_KunChan(void)
+static const u8 *ExpandPlaceholder_KunChan(void)
 {
     if (gSaveBlock2Ptr->playerGender == MALE)
         return gExpandedPlaceholder_Kun;
@@ -584,7 +584,8 @@ static u8 *ExpandPlaceholder_KunChan(void)
         return gExpandedPlaceholder_Chan;
 }
 
-static u8 *ExpandPlaceholder_RivalName(void)
+//make all const later
+static const u8 *ExpandPlaceholder_RivalName(void)
 {
     if (gSaveBlock1Ptr->rivalName[0] == EOS)
     {
@@ -601,7 +602,7 @@ static u8 *ExpandPlaceholder_RivalName(void)
 //if name matches buffer can do, if not skip
 //do same for player, and change all to lowercase
 
-static u8 *ExpandPlaceholder_Version(void)
+static const u8 *ExpandPlaceholder_Version(void)
 {
 #if defined(FIRERED)
     return gExpandedPlaceholder_Ruby;
@@ -610,7 +611,7 @@ static u8 *ExpandPlaceholder_Version(void)
 #endif
 }
 
-static u8 *ExpandPlaceholder_Magma(void)
+static const u8 *ExpandPlaceholder_Magma(void)
 {
 #if defined(FIRERED)
     return gExpandedPlaceholder_Magma;
@@ -619,7 +620,7 @@ static u8 *ExpandPlaceholder_Magma(void)
 #endif
 }
 
-static u8 *ExpandPlaceholder_Aqua(void)
+static const u8 *ExpandPlaceholder_Aqua(void)
 {
 #if defined(FIRERED)
     return gExpandedPlaceholder_Aqua;
@@ -628,7 +629,7 @@ static u8 *ExpandPlaceholder_Aqua(void)
 #endif
 }
 
-static u8 *ExpandPlaceholder_Maxie(void)
+static const u8 *ExpandPlaceholder_Maxie(void)
 {
 #if defined(FIRERED)
     return gExpandedPlaceholder_Maxie;
@@ -637,7 +638,7 @@ static u8 *ExpandPlaceholder_Maxie(void)
 #endif
 }
 
-static u8 *ExpandPlaceholder_Archie(void)
+static const u8 *ExpandPlaceholder_Archie(void)
 {
 #if defined(FIRERED)
     return gExpandedPlaceholder_Archie;
@@ -646,7 +647,7 @@ static u8 *ExpandPlaceholder_Archie(void)
 #endif
 }
 
-static u8 *ExpandPlaceholder_Groudon(void)
+static const u8 *ExpandPlaceholder_Groudon(void)
 {
 #if defined(FIRERED)
     return gExpandedPlaceholder_Groudon;
@@ -655,7 +656,7 @@ static u8 *ExpandPlaceholder_Groudon(void)
 #endif
 }
 
-static u8 *ExpandPlaceholder_Kyogre(void)
+static const u8 *ExpandPlaceholder_Kyogre(void)
 {
 #if defined(FIRERED)
     return gExpandedPlaceholder_Kyogre;
@@ -667,7 +668,7 @@ static u8 *ExpandPlaceholder_Kyogre(void)
 #define STRING_PLACEHOLDER_TABLE
 const u8 *GetExpandedPlaceholder(u32 id)
 {
-    typedef u8 *(*ExpandPlaceholderFunc)(void);
+    typedef const u8 *(*ExpandPlaceholderFunc)(void);
 
     //function table must line up with charmap string placeholders
     static const ExpandPlaceholderFunc funcs[] =
