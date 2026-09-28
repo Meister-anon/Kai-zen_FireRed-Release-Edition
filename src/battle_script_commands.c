@@ -4762,7 +4762,8 @@ static void Cmd_getexp(void)
                     viaSentIn++;
 
                 holdEffect = GetMonHoldEffect(&gPlayerParty[i]);
-                if (holdEffect == HOLD_EFFECT_EXP_SHARE || IsGen6ExpShareEnabled())
+
+                if (IsMonExpShareValid(&gPlayerParty[i]))
                 {
                     expShareBits |= 1u << i;
                     viaExpShare++;
@@ -4782,24 +4783,31 @@ static void Cmd_getexp(void)
             if (orderId < PARTY_SIZE)
                 gBattleStruct->expGettersOrder[orderId] = PARTY_SIZE;
 
-            calculatedExp = gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level;
-            if (B_SCALED_EXP >= GEN_5 && B_SCALED_EXP != GEN_6)
-                calculatedExp /= 5;
-            else
-                calculatedExp /= 7;
+            calculatedExp = gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level / 7;
 
-            if (B_TRAINER_EXP_MULTIPLIER <= GEN_7 && gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+            if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
                 calculatedExp = (calculatedExp * 150) / 100;
 
-            if (B_SPLIT_EXP < GEN_6)
+            if (B_SPLIT_EXP < GEN_6) //not using define so prob need adjust later vsonic important
             {
+                u8 expCut = 2;
+
                 if (viaExpShare) // at least one mon is getting exp via exp share
                 {
+                    //50% of total exp to be shared via exp share
                     *exp = SAFE_DIV(calculatedExp / 2, viaSentIn);
                     if (*exp == 0)
-                        *exp = 1;
+                        *exp = 0;
 
-                    gBattleStruct->expShareExpValue = calculatedExp / 2 / viaExpShare;
+                    //no matter how many mon use exp share after 1
+                    //exp divided is only cut down to 25%
+                    if (viaExpShare > 1)
+                        gBattleStruct->expShareExpValue = (calculatedExp / 2 / expCut);
+                    else
+                        gBattleStruct->expShareExpValue = calculatedExp / 2 / viaExpShare;
+
+                    //idk if wrong code or an excemption I made for exp share
+                    //but matches my og func
                     if (gBattleStruct->expShareExpValue == 0)
                         gBattleStruct->expShareExpValue = 1;
                 }
@@ -4807,18 +4815,11 @@ static void Cmd_getexp(void)
                 {
                     *exp = SAFE_DIV(calculatedExp, viaSentIn);
                     if (*exp == 0)
-                        *exp = 1;
+                        *exp = 0;
                     gBattleStruct->expShareExpValue = 0;
                 }
             }
-            else
-            {
-                *exp = calculatedExp;
-                gBattleStruct->expShareExpValue = calculatedExp / 2;
-                if (gBattleStruct->expShareExpValue == 0)
-                    gBattleStruct->expShareExpValue = 1;
-            }
-
+            
             gBattleScripting.getexpState++;
             gBattleStruct->expOrderId = 0;
             *expMonId = gBattleStruct->expGettersOrder[0];
@@ -4831,7 +4832,12 @@ static void Cmd_getexp(void)
             bool32 wasSentOut = (gBattleStruct->expSentInMons & (1u << *expMonId)) != 0;
             holdEffect = GetMonHoldEffect(&gPlayerParty[*expMonId]);
 
-            if ((holdEffect != HOLD_EFFECT_EXP_SHARE && !wasSentOut && !IsGen6ExpShareEnabled())
+            //double check hope still works
+            //was used as evo check
+            if (wasSentOut)
+                gParticipatedInBattle |= (1u << gBattleStruct->expGetterMonId);
+
+            if ((GetMonData(&gPlayerParty[*expMonId], MON_DATA_EXP_SHARE_STATE) != EXP_SHARE && !wasSentOut)
              || GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPECIES_OR_EGG) == SPECIES_EGG)
             {
                 gBattleScripting.getexpState = 5;
@@ -4840,10 +4846,17 @@ static void Cmd_getexp(void)
             else if ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && *expMonId >= 3)
                   || GetMonData(&gPlayerParty[*expMonId], MON_DATA_LEVEL) == MAX_LEVEL)
             {
+                gBattleScripting.getexpState = 5; //was case 3 as stat adjustment from ev was handled there
+                gBattleStruct->battlerExpReward = 0;
+                MonGainEVs(&gPlayerParty[*expMonId]);
+            }
+            else if (GetMonData(&gPlayerParty[*expMonId], MON_DATA_EXP_SHARE_STATE) == EXP_NULL
+            || (GetMonData(&gPlayerParty[*expMonId], MON_DATA_LEVEL) >= GetSetLvlCap()))
+            {
                 gBattleScripting.getexpState = 5;
                 gBattleStruct->battlerExpReward = 0;
-                if (B_MAX_LEVEL_EV_GAINS >= GEN_5)
-                    MonGainEVs(&gPlayerParty[*expMonId]);
+                MonGainEVs(&gPlayerParty[*expMonId]);
+                AdjustFriendship(&gPlayerParty[*expMonId], FRIENDSHIP_EVENT_EXP_GAINED); //
             }
             else
             {
@@ -4862,29 +4875,30 @@ static void Cmd_getexp(void)
                 if (IsValidForBattle(&gPlayerParty[*expMonId]))
                 {
                     if (wasSentOut)
-                        gBattleStruct->battlerExpReward = 0;//(gPlayerParty[*expMonId].level, gBattleStruct->expValue);
+                        gBattleStruct->battlerExpReward = gBattleStruct->expValue;//(gPlayerParty[*expMonId].level, gBattleStruct->expValue);
                     else
                         gBattleStruct->battlerExpReward = 0;
 
-                    if ((holdEffect == HOLD_EFFECT_EXP_SHARE || IsGen6ExpShareEnabled())
-                        && (B_SPLIT_EXP < GEN_6 || gBattleStruct->battlerExpReward == 0)) // only give exp share bonus in later gens if the mon wasn't sent out
+                    if (IsMonExpShareValid(&gPlayerParty[*expMonId]))
+                        //&& (B_SPLIT_EXP < GEN_6 || gBattleStruct->battlerExpReward == 0)) // only give exp share bonus in later gens if the mon wasn't sent out
                     {
-                        gBattleStruct->battlerExpReward += 0; //GetSoftLevelCapExpValue(gPlayerParty[*expMonId].level, gBattleStruct->expShareExpValue);
+                        gBattleStruct->battlerExpReward += gBattleStruct->expShareExpValue; //GetSoftLevelCapExpValue(gPlayerParty[*expMonId].level, gBattleStruct->expShareExpValue);
                     }
 
+                    //lucky egg boost etc.
                     ApplyExperienceMultipliers(&gBattleStruct->battlerExpReward, *expMonId, gBattlerFainted);
 
                     if (/*B_EXP_CAP_TYPE == EXP_CAP_HARD &&*/ gBattleStruct->battlerExpReward != 0)
                     {
                         enum GrowthRate growthRate = gSpeciesInfo[GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPECIES)].growthRate;
                         u32 currentExp = GetMonData(&gPlayerParty[*expMonId], MON_DATA_EXP);
-                        u32 levelCap = MAX_LEVEL; //GetCurrentLevelCap();
+                        u32 levelCap = GetSetLvlCap();
 
                         if (GetMonData(&gPlayerParty[*expMonId], MON_DATA_LEVEL) >= levelCap)
                             gBattleStruct->battlerExpReward = 0;
                         else if (gExperienceTables[growthRate][levelCap] < currentExp + gBattleStruct->battlerExpReward)
                             gBattleStruct->battlerExpReward = gExperienceTables[growthRate][levelCap] - currentExp;
-                    }
+                    }//tired finished here vsonic continue
 
                     if (IsTradedMon(&gPlayerParty[*expMonId]))
                     {
@@ -13171,6 +13185,8 @@ u8 GetFirstFaintedPartyIndex(enum BattlerId battler)
     return PARTY_SIZE;
 }
 
+//could have added pokerus boost here but fogot
+//removed pokerus mon struct value for space
 void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBattler)
 {
     enum HoldEffect holdEffect = GetMonHoldEffect(&gPlayerParty[expGetterMonId]);
