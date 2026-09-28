@@ -1,6 +1,21 @@
 .
 Branch Goals:
 
+-unsure but think something weird w damage calc need check
+-seems weirdly low also still issues w dynamic type for rival
+-picked togedamaru into my woopper   I have an immunity to his electric type
+
+-yeah something VERY wrong w dmg calc a lvl 50 mon couldn't
+-one shot a lvl 28 seaking
+-...ok nvm may be normal? tested on my master
+-as well as comparative tests on rejuvenation
+-and mon with similar lvl gaps were able to survive and 
+-those were comparing stab hits when the seaking test was non stab
+
+-of note healing items don't appear to be working outside of battle
+may be issue w item use logic idk if was porting stuff from ee
+unfinished to try and get item support
+
 -note with qol updates and min maxing of evs pokerus is no longer useful
 new idea rework it rather than just gaining double evs in battle
 instead increase exp gain do the boosted exp you usually get for being a trade mon
@@ -126,6 +141,12 @@ use this for regex sub, num replace 0, 1, 2
 //vsonic important need pr  #8892
 //separate trainer music from gender
 before can replace pokemon.c file
+
+//vsonic important need pr 8678
+//Dynamic trainerbattle Scripts
+//can potentially setup to do the trainer item give thing I wanted?
+//would need look up table for by trainer class and progression
+//for what items to give
 
 Need split off extra changes to other branches
 leaving only the moves_info.h flag related changes 
