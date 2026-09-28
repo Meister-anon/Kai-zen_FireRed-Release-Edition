@@ -131,13 +131,16 @@ void SetUpBattleVars(void)
     BattleAI_SetupFlags();//currently ai process/infrastrucutre not ready to use these order of things is wrong
 }
 
+//for brevity adding my custom check to this function
+//for nuzlocke as this is used in exp func
 bool32 IsValidForBattle(struct Pokemon *mon)
 {
     u32 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
     return (species != SPECIES_NONE
          && species != SPECIES_EGG
          && GetMonData(mon, MON_DATA_HP) != 0
-         && GetMonData(mon, MON_DATA_IS_EGG) == FALSE);
+         && GetMonData(mon, MON_DATA_IS_EGG) == FALSE
+         && !IsMonNuzlockeDead(mon));
 }
 
 void InitBtlControllers(void)

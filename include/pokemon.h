@@ -1434,7 +1434,12 @@ static inline void CopyAbilityNameToBuff(u8 *nameBuff, enum Ability ability)
 
 }
 
-
+static inline bool32 IsMonExpShareValid(struct Pokemon* mon)
+{
+    return (GetMonData(mon, MON_DATA_EXP_SHARE_STATE) == EXP_SHARE
+        && (GetMonData(mon, MON_DATA_HP)));
+                        
+}
 
 //stuff from EE form change port
 const u8 *GetTrainerPartnerName(void);
