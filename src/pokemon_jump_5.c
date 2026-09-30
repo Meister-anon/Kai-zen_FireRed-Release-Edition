@@ -350,6 +350,8 @@ static void sub_814ADB4(struct Sprite *sprite)
         sprite->data[i] = 0;
 }
 
+//UserNote:
+//getmonspritepal reworked for fix for shiny check add isshiny arg to jumpMon and repalce otid check with that if use
 void sub_814ADCC(struct PokemonJump2 *arg0, struct PokemonJump1_MonInfo *jumpMon, s16 x, s16 y, u8 multiplayerId)
 {
     struct SpriteTemplate spriteTemplate;
