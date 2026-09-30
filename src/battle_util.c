@@ -8777,8 +8777,8 @@ static inline uq4_12_t GetTypeBasedBonusModifier(struct BattleContext *ctx)
     && (ctx->moveType == TYPE_FAIRY || SecondarymoveType == TYPE_FAIRY))
         return SAME_TYPE_MULTIPLIER;
     else if (GetBattlerAbility(ctx->battlerAtk) == ABILITY_CREATION_ENGINE
-    && (ctx->moveType == TYPE_FIRE || ctx->moveType == TYPE_ICE || ctx->moveType == TYPE_ELECTRIC) 
-    || (SecondarymoveType == TYPE_FIRE || SecondarymoveType == TYPE_ICE || SecondarymoveType == TYPE_ELECTRIC))
+    && ((ctx->moveType == TYPE_FIRE || ctx->moveType == TYPE_ICE || ctx->moveType == TYPE_ELECTRIC) 
+    || (SecondarymoveType == TYPE_FIRE || SecondarymoveType == TYPE_ICE || SecondarymoveType == TYPE_ELECTRIC)))
         return SAME_TYPE_MULTIPLIER;
 
     else if (IS_BATTLER_OF_TYPE(ctx->battlerAtk, TYPE_NORMAL))
