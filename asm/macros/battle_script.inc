@@ -2582,16 +2582,6 @@
 	callnative BS_GetBattlerForRecall
 	.endm
 
-	.macro tryactivateshowdownmodeMoveEnd
-	callnative BS_TryActivateResoluteMoveEnd
-	.endm
-
-	@think wrap into tryfiretwoturnmovewithoutcharging
-	.macro tryTimecontrol jumpInstr:req
-	callnative BS_TryActivateTimeControl
-	.4byte \jumpInstr
-	.endm
-
 	@specifically for yawn rework, so can clear rage status if yawned
 	.macro jumpclearRage ptr:req
 	callnative BS_JumpandClearRage

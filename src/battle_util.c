@@ -4412,7 +4412,13 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 }
                 break;
             case ABILITY_TRUANT:
-                gBattleMons[gBattlerAttacker].volatiles.truantCounter ^= 1;
+                gBattleMons[battler].volatiles.truantCounter ^= 1;
+                break;
+            case ABILITY_TIME_CONTROL:
+                if (gBattleMons[battler].volatiles.timecontrolAbilityTimer)
+                {
+                    --gBattleMons[battler].volatiles.timecontrolAbilityTimer;
+                }
                 break;
             case ABILITY_BAD_DREAMS:
                 BattleScriptExecute(BattleScript_BadDreamsActivates);

@@ -9123,18 +9123,6 @@ BattleScript_StickyHoldKnockoff::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 
-BattleScript_ResoluteActivatesOnMoveEndTarget::
-	pause B_WAIT_TIME_CLEAR_BUFF
-	@copybyte gBattlerAbility, gBattlerTarget
-	@@ call BattleScript_AbilityPopUp
-	printstring STRINGID_TARGETISGETTINGSERIOUS
-	handleformchange BS_TARGET, 0
-	handleformchange BS_TARGET, 1
-	playanimation BS_TARGET, B_ANIM_FORM_CHANGE @guessing don''t know what value should be
-	waitanimation
-	handleformchange BS_TARGET, 2
-	printstring STRINGID_TARGETCHANGEDMODE
-	return
 
 @can prob simplify some w modifybattlerstatstage command
 @just turn off animation

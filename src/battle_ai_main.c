@@ -2899,6 +2899,8 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
                 else
                     instructedMove = aiData->lastUsedMove[battlerDef];
 
+                //unsure if should put time control logic here
+                //if they used the move already than effect would never be up anyway
                 if (instructedMove == MOVE_NONE
                  || IsMoveInstructBanned(instructedMove)
                  || MoveHasAdditionalEffectSelf(instructedMove, MOVE_EFFECT_RECHARGE)

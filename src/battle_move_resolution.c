@@ -4921,7 +4921,8 @@ static bool32 CanTwoTurnMoveFireThisTurn(struct BattleContext *ctx)
     if ((gBattleMoveEffects[GetMoveEffect(ctx->move)].semiInvulnerableEffect
     && !(GetMoveEffect(ctx->move) == EFFECT_FLY && (gSideStatuses[GetBattlerSide(ctx->battlerAtk)] & SIDE_STATUS_TAILWIND || CanGaleWingsActivate(ctx->battlerAtk, ctx->abilityAtk))))
      || GetMoveEffect(ctx->move) == EFFECT_GEOMANCY
-     || !IsBattlerWeatherAffected(ctx->battlerAtk, GetMoveTwoTurnAttackWeather(ctx->move)))
+     || !IsBattlerWeatherAffected(ctx->battlerAtk, GetMoveTwoTurnAttackWeather(ctx->move))
+     || !CanActivateTimeControl(ctx->battlerAtk))
         return FALSE;
     return TRUE;
 }

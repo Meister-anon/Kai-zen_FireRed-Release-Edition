@@ -3318,6 +3318,8 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
     case MOVE_EFFECT_RECHARGE:
         if (B_SKIP_RECHARGE == GEN_1 && !IsBattlerAlive(gBattlerTarget))  // Skip recharge if gen 1 and foe is KO'd
             break;
+        if (CanActivateTimeControl(gBattlerAttacker))
+            break;
 
         gBattleMons[gEffectBattler].volatiles.rechargeTimer = 2;
         gLockedMoves[gEffectBattler] = gCurrentMove;
@@ -4715,6 +4717,434 @@ static u32 GetMonHoldEffect(struct Pokemon *mon)
     return holdEffect;
 }
 
+/*
+//realized this is woefully in accurate also had old hp scaling in it so was just pattently wrong...
+static inline s32  HP_StatRecalc(s32 iv, s32 ev)
+{
+    s32 level = GetLevelFromMonExp(&gPlayerParty[gBattleStruct->expGetterMonId]);
+    u16 species =  GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPECIES);
+    u16 ability = GetMonAbility(&gPlayerParty[gBattleStruct->expGetterMonId]);
+    u8 baseHP = gSpeciesInfo[species].baseHP;     
+    s32 n;            
+    s32 newMaxHP;  
+
+    if (ability == ABILITY_DISPIRIT_GUARD)
+        n = 2 * baseHP + ((iv * 160) / 100) + (iv * 2 - ((iv * 120) / 100));
+    else
+        n = 2 * baseHP + ((iv * 160) / 100) + (iv * 2 - ((iv * 180) / 100)); 
+
+    if (ability == ABILITY_WONDER_GUARD)          
+        newMaxHP = 1;
+    else if (ability == ABILITY_DISPIRIT_GUARD)
+        newMaxHP = (((n + ev / 4) * level) / 100) + level;
+    else
+        newMaxHP = (((n + ev / 4) * level) / 100) + level + 10;   
+
+    return newMaxHP; 
+}
+
+//also had old stat formula...
+static inline s32 StatReclacForLevelup(s32 iv, s32 ev, enum Stat statIndex)
+{        
+    u8 baseStat;
+    s32 n;      
+    u8 nature;
+    u16 species =  GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPECIES);
+    //this may be part ofthe problem if expgettermonid is not what I thought,
+    //and doens't actually hold battlers place in party, cheked it does hold party position
+    s32 level = GetLevelFromMonExp(&gPlayerParty[gBattleStruct->expGetterMonId]); 
+
+    switch(statIndex) //beleive using expgettermonId within gbattlemons was wrong, monid isn't battler id trying diff 
+    {
+        case STAT_ATK:
+            baseStat = gSpeciesInfo[species].baseAttack;
+            break;
+        case STAT_DEF:
+            baseStat = gSpeciesInfo[species].baseDefense;
+            break;
+        case STAT_SPEED:
+            baseStat = gSpeciesInfo[species].baseSpeed;
+            break;
+        case STAT_SPATK:
+            baseStat = gSpeciesInfo[species].baseSpAttack;
+            break;
+        case STAT_SPDEF:
+            baseStat = gSpeciesInfo[species].baseSpDefense;
+            break;
+        
+    }
+
+    n = (((2 * baseStat + ((iv * 170) /100) + ev / 4) * level) / 100) + 5;          
+    nature = GetNature(&gPlayerParty[gBattleStruct->expGetterMonId]);                
+    n = ModifyStatByNature(nature, n, statIndex);                                       
+    return n;                                                                           
+}
+
+
+//saw cool youtube video
+//idea mon gains exp even when fainted
+#define EXP_FUNCTION
+static void atk23_getexp(void)
+{
+    CMD_ARGS(u8 battler);
+    u16 item; //don't need
+    s32 i; // also used as stringId
+    enum HoldEffect holdEffect;
+    s32 sentIn;
+    s32 viaExpShare = 0;
+    u16 *exp = &gBattleStruct->expValue;
+    u8 *expMonId = &gBattleStruct->expGetterMonId;
+
+    //values for stat recalc for transformed mons level up
+    s32 hpIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP_IV);
+    s32 hpEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP_EV);
+    s32 attackIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_ATK_IV);
+    s32 attackEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_ATK_EV);
+    s32 defenseIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_DEF_IV);
+    s32 defenseEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_DEF_EV);
+    s32 speedIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED_IV);
+    s32 speedEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED_EV);
+    s32 spAttackIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPATK_IV);
+    s32 spAttackEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPATK_EV);
+    s32 spDefenseIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF_IV);
+    s32 spDefenseEV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF_EV);
+
+
+    gBattlerFainted = GetBattlerForBattleScript(cmd->battler);
+    sentIn = gSentPokesToOpponent[(gBattlerFainted & 2) >> 1];
+    switch (gBattleScripting.atk23_getexpState)
+    {
+    case 0: // check if should receive exp at all
+        if (GetBattlerSide(gBattlerFainted) != B_SIDE_OPPONENT
+         || (gBattleTypeFlags &
+            (BATTLE_TYPE_LINK
+            | BATTLE_TYPE_TRAINER_TOWER
+            | BATTLE_TYPE_BATTLE_TOWER
+            | BATTLE_TYPE_SAFARI
+            | BATTLE_TYPE_EREADER_TRAINER)))
+        {
+            gBattleScripting.atk23_getexpState = 6; // goto last case
+        }
+        else
+        {
+            ++gBattleScripting.atk23_getexpState;
+            gBattleStruct->givenExpMons |= (1u << gBattlerPartyIndexes[gBattlerFainted]);
+        }
+        break;
+    case 1: // calculate experience points to redistribute
+        {
+            u32 calculatedExp;
+            s32 viaSentIn;
+            u8 expCut = 2;
+
+            //considered addding a max level exclusion for sentin and expshare,
+            //but it makes more sense to leave it, tho they don't gain more exp
+            //it is taking some of the effort off other mon so makes sense to still count them
+            //for the split, hmm but will add make sure mon is not fainted
+            //ok hopefully this works
+            for (viaSentIn = 0, i = 0; i < PARTY_SIZE; ++i)
+            {
+                if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE 
+                && !IsMonNuzlockeDead(&gPlayerParty[i]))
+                {
+                        if ((1u << i) & sentIn)
+                            ++viaSentIn;
+                        item = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
+                        if (item == ITEM_ENIGMA_BERRY)
+                            holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+                        else
+                            holdEffect = ItemId_GetHoldEffect(item);
+                        if (GetMonData(&gPlayerParty[i], MON_DATA_EXP_SHARE_STATE) == EXP_SHARE
+                        && (GetMonData(&gPlayerParty[i], MON_DATA_HP)))
+                            ++viaExpShare;
+                }
+            }
+            calculatedExp = gBaseStats[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level / 7;
+            if (viaExpShare) // at least one mon is getting exp via exp share
+            {
+                //50% split - believe this is portion of exp for sent in mons?
+                //not yet sure how to exclude from mon w exp share rn its applied on top if they get sent in
+                //ah its applied in case 2, can just add an exception
+                //for if not using exp share
+                //leaving of for now, but could be done by setting check for usign expshare & sentin w else if
+                //but point of sending in an exp share mon is to add extra boost to exp gain
+                //and the change I planned (reasigning gexpshareexp if sent in to use viaExpShare rather than the flat 25% cut)
+                //could have the effect of zeroeing out the extra exp from exp share
+                //ex get 50% from being sent in, but only add 1 exp from exp share because split
+                //replaced calculatedExp / 2 for ease of readability
+                *exp = ((calculatedExp * 50) / 100) / viaSentIn;
+                if (*exp == 0)
+                    *exp = 0; // having this be 1 ensures a gain of exp of 1 no matter what. I changed to 0
+
+                //if more than one exp share user caps at 25% exp
+                if (viaExpShare > 1)
+                    gExpShareExp = ((calculatedExp * 50) / 100) / expCut;
+                else
+                    gExpShareExp = ((calculatedExp * 50) / 100) / viaExpShare;
+                if (gExpShareExp == 0)
+                    gExpShareExp = 1;
+            }
+            else
+            {
+                *exp = calculatedExp / viaSentIn;
+                if (*exp == 0)
+                    *exp = 0;
+                gExpShareExp = 0;
+            }
+            ++gBattleScripting.atk23_getexpState;
+            gBattleStruct->expGetterMonId = 0;
+            gBattleStruct->sentInPokes = sentIn;
+        }
+        // fall through
+    case 2: // set exp value to the poke in expgetter_id and print message
+        if (!gBattleControllerExecFlags)
+        {
+            item = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HELD_ITEM);
+            if (item == ITEM_ENIGMA_BERRY)
+                holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+            else
+                holdEffect = ItemId_GetHoldEffect(item);
+            //need identify and set specific case for exp null, for that,
+            //block exp skip most logic but still set evs and friendship increase
+            //if they were sent in
+            //belive translates to, if not sent in and not holding exp share,
+            //so what I need is, if sent in, but holding exp null
+            //this is no exp share and not sent in
+            if ((GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE) != EXP_SHARE) && !(gBattleStruct->sentInPokes & 1))
+            {
+                *(&gBattleStruct->sentInPokes) >>= 1;
+                gBattleScripting.atk23_getexpState = 5;
+                gBattleMoveDamage = 0; // used for exp
+            }
+            //separate for no friendship gain only for those that want to use frustration over return? check friendship logic may be irrelevant if 
+            else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) == MAX_LEVEL)//I setup general just be in battle friendship gain
+            {
+                if (gBattleStruct->sentInPokes & 1)
+                    gParticipatedInBattle |= (1u << gBattleStruct->expGetterMonId);
+                
+                *(&gBattleStruct->sentInPokes) >>= 1;
+                gBattleScripting.atk23_getexpState = 3;  //commented out to remove the jump to case 5. should allow for ev gain at max level
+                gBattleMoveDamage = 0; // used for exp // confirmed from Lunos, apparently the case jump only happens after everything in the code block is run so he added the evgain function here and it ran even though it was below the case jump
+                MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId]);// his method works but not sure if stats will change since think that's in case 3,  so I'm removing the jump and putting ev gain to here.
+            } //vsonic
+            else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE) == EXP_NULL
+            || (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= GetSetLvlCap()))
+            {
+                if (gBattleStruct->sentInPokes & 1)
+                    gParticipatedInBattle |= (1u << gBattleStruct->expGetterMonId);
+
+                *(&gBattleStruct->sentInPokes) >>= 1;
+                gBattleScripting.atk23_getexpState = 3;  //commented out to remove the jump to case 5. should allow for ev gain at max level
+                gBattleMoveDamage = 0; // used for exp // confirmed from Lunos, apparently the case jump only happens after everything in the code block is run so he added the evgain function here and it ran even though it was below the case jump
+                MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId]);// his method works but not sure if stats will change since think that's in case 3,  so I'm removing the jump and putting ev gain to here.
+                AdjustFriendship(&gPlayerParty[gBattleStruct->expGetterMonId], FRIENDSHIP_EVENT_EXP_GAINED); //
+            } //hopefully this works without issue
+            else
+            {
+                if (gBattleStruct->sentInPokes & 1)
+                    gParticipatedInBattle |= (1u << gBattleStruct->expGetterMonId);
+                
+                // music change in wild battle after fainting a poke
+                if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_POKEDUDE))
+                 && gBattleMons[0].hp
+                 && !gBattleStruct->wildVictorySong)
+                {
+                    BattleStopLowHpSound();
+                    PlayBGM(MUS_VICTORY_WILD);
+                    ++gBattleStruct->wildVictorySong;
+                }
+                if (!IsMonNuzlockeDead(&gPlayerParty[gBattleStruct->expGetterMonId]))
+                {
+                    //should be able to do streamer/creator mode exp boost here
+                    //would be total exp  * multiplier /size of party,
+                    //or maybe multiplier will be a switch case determined by party size
+                    //that way you boost consistently regardless of team size
+                    //again need implement level cap in creator mode
+                    //*don't want normal players acceessing this so won't put in options
+                    //if they want to play normally in their downtime have interacting with
+                    //house gamestation bring up option to toggle creator mode off/on
+                    //use flag check created at time of game creation
+                    //so even after turning it off,  it can still tell it was a game
+                    //created with creator mode in mind
+                    if (gBattleStruct->sentInPokes & 1)
+                        gBattleMoveDamage = *exp;
+                    else
+                        gBattleMoveDamage = 0;
+
+                    //want keep fainted mon from getting exp share stuff
+                    if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE) == EXP_SHARE
+                    && GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP))
+                        gBattleMoveDamage += gExpShareExp;
+                    
+                    if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
+                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100; //since gBattlemovedamage is *exp, this is for the 1.5 exp boost from lucky egg I can make exp 0 here.
+                    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
+                    if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId])
+                     && !(gBattleTypeFlags & BATTLE_TYPE_POKEDUDE))
+                    {
+                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
+                        i = STRINGID_ABOOSTED;
+                    }
+                    else
+                    {
+                        i = STRINGID_EMPTYSTRING4;
+                    }
+                    // get exp getter battlerId
+                    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+                    {
+                        if (!(gBattlerPartyIndexes[2] != gBattleStruct->expGetterMonId) && !(gAbsentBattlerFlags & (1u << 2)))
+                            gBattleStruct->expGetterBattlerId = 2;
+                        else
+                        {
+                            if (!(gAbsentBattlerFlags & (1u << 0)))
+                                gBattleStruct->expGetterBattlerId = 0;
+                            else
+                                gBattleStruct->expGetterBattlerId = 2;
+                        }
+                    }
+                    else
+                    {
+                        gBattleStruct->expGetterBattlerId = 0;
+                    }
+                    //don't print gained exp message if only from exp share
+                    //fainted and not sent out
+                    if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE) == EXP_SHARE
+                    && GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP) == 0
+                    && !(gBattleStruct->sentInPokes & 1))
+                    {}
+                    else
+                    {
+                        PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gBattleStruct->expGetterBattlerId, gBattleStruct->expGetterMonId);
+                        // buffer 'gained' or 'gained a boosted'
+                        PREPARE_STRING_BUFFER(gBattleTextBuff2, i);
+                        PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff3, 5, gBattleMoveDamage);
+                        PrepareStringBattle(STRINGID_PKMNGAINEDEXP, gBattleStruct->expGetterBattlerId);
+                        MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId]);
+                        AdjustFriendship(&gPlayerParty[gBattleStruct->expGetterMonId], FRIENDSHIP_EVENT_EXP_GAINED); //apparently friendship calculation doesnt have a filter for if mon is alive
+                    }
+                }//so it triggers regardless,  but putting here ensures that it would only activate if mon is alive,
+                gBattleStruct->sentInPokes >>= 1;
+                ++gBattleScripting.atk23_getexpState;
+            }
+        }
+        break;
+    case 3: // Set stats and give exp
+        if (!gBattleControllerExecFlags) //this is what i need to change for transform level up, think can use a version fo calc_stat but just remove set stat part
+        {                                           //my species isn't changed with transform so it should properly read the right base stats, so if mew or ditto is using it it'd still work
+            gBattleResources->bufferB[gBattleStruct->expGetterBattlerId][0] = 0;
+            if (!IsMonNuzlockeDead(&gPlayerParty[gBattleStruct->expGetterMonId]))// && GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) != MAX_LEVEL)
+            { // that and case 2 change were all for ev again/stat change @ level 100, think peak condition/phsycal prime like track stars. they can still get small marginal gains form training
+                //or is this all just ev gain and not leve up? or is itboth??
+                if (gBattleMons[gBattleStruct->expGetterMonId].status2 & STATUS2_TRANSFORMED)
+                {
+                    gBattleResources->beforeLvlUp->stats[STAT_HP] = HP_StatRecalc(hpIV, hpEV);
+                    gBattleResources->beforeLvlUp->stats[STAT_ATK] = StatReclacForLevelup(attackIV, attackEV, STAT_ATK);
+                    gBattleResources->beforeLvlUp->stats[STAT_DEF] = StatReclacForLevelup(defenseIV, defenseEV, STAT_DEF);
+                    gBattleResources->beforeLvlUp->stats[STAT_SPEED] = StatReclacForLevelup(speedIV, speedEV, STAT_SPEED);
+                    gBattleResources->beforeLvlUp->stats[STAT_SPATK] = StatReclacForLevelup(spAttackIV, spAttackEV, STAT_SPATK);
+                    gBattleResources->beforeLvlUp->stats[STAT_SPDEF] = StatReclacForLevelup(spDefenseIV, spDefenseEV, STAT_SPDEF);
+                }
+                else
+                {
+                    gBattleResources->beforeLvlUp->stats[STAT_HP] = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_MAX_HP);
+                    gBattleResources->beforeLvlUp->stats[STAT_ATK] = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_ATK);
+                    gBattleResources->beforeLvlUp->stats[STAT_DEF] = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_DEF);
+                    gBattleResources->beforeLvlUp->stats[STAT_SPEED] = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED);
+                    gBattleResources->beforeLvlUp->stats[STAT_SPATK] = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPATK);
+                    gBattleResources->beforeLvlUp->stats[STAT_SPDEF] = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF);
+                }
+                BtlController_EmitExpUpdate(gBattleStruct->expGetterBattlerId, BUFFER_A, gBattleStruct->expGetterMonId, gBattleMoveDamage);
+                MarkBattlerForControllerExec(gBattleStruct->expGetterBattlerId);                
+            }
+            ++gBattleScripting.atk23_getexpState;
+        }
+        break;
+    case 4: // lvl up if necessary
+        if (!gBattleControllerExecFlags)
+        {
+            u32 expBattler = gBattleStruct->expGetterBattlerId;
+            if (gBattleResources->bufferB[expBattler][0] == CONTROLLER_TWORETURNVALUES && gBattleResources->bufferB[expBattler][1] == RET_VALUE_LEVELED_UP)
+            {
+                u16 temp, battlerId = 0xFF;
+                //in single believe gBattleStruct->expGetterBattlerId; will always be 0 or 2", and 0 is player battler
+                if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && gBattlerPartyIndexes[expBattler] == gBattleStruct->expGetterMonId)
+                    HandleLowHpMusicChange(&gPlayerParty[gBattlerPartyIndexes[expBattler]], expBattler);
+                PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, expBattler, gBattleStruct->expGetterMonId);
+                PREPARE_BYTE_NUMBER_BUFFER(gBattleTextBuff2, 3, GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL));
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_LevelUp;
+                gBattleMoveDamage = (gBattleResources->bufferB[expBattler][2] | (gBattleResources->bufferB[expBattler][3] << 8));
+                AdjustFriendship(&gPlayerParty[gBattleStruct->expGetterMonId], FRIENDSHIP_EVENT_GROW_LEVEL);
+                // update battle mon structure after level up
+                //according to bulbapedia transformed stats are only recalced on levelup up to gen3
+                //so I should probably add a value here to exclude transformed mon
+                if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId
+                && !gBattleMons[0].status2 & STATUS2_TRANSFORMED)
+                {
+                    gBattleMons[0].level = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL);
+                    gBattleMons[0].hp = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP);
+                    gBattleMons[0].maxHP = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_MAX_HP);
+                    gBattleMons[0].attack = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_ATK);
+                    gBattleMons[0].defense = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_DEF);
+                    // Why is this duplicated?
+                    //gBattleMons[0].speed = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED);
+                    gBattleMons[0].speed = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED);
+                    gBattleMons[0].spAttack = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPATK);
+                    gBattleMons[0].spDefense = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF);
+                }
+                // What is else if?     fixed speed dup, & sp def exclusion
+                if (gBattlerPartyIndexes[2] == gBattleStruct->expGetterMonId
+                && !gBattleMons[2].status2 & STATUS2_TRANSFORMED && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
+                {
+                    gBattleMons[2].level = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL);
+                    gBattleMons[2].hp = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP);
+                    gBattleMons[2].maxHP = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_MAX_HP);
+                    gBattleMons[2].attack = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_ATK);
+                    gBattleMons[2].defense = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_DEF);
+                    // Duplicated again, but this time there's no Sp Defense
+                    gBattleMons[2].speed = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED);
+                    gBattleMons[2].spDefense = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF);
+                    gBattleMons[2].spAttack = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPATK);
+
+                    //if (gStatuses3[battlerId] & STATUS3_POWER_TRICK)
+                      //  SWAP(gBattleMons[battlerId].attack, gBattleMons[battlerId].defense, temp);
+                }
+                gBattleScripting.atk23_getexpState = 5;
+            }
+            else
+            {
+                gBattleMoveDamage = 0;
+                gBattleScripting.atk23_getexpState = 5;
+            }
+        }
+        break;
+    case 5: // looper increment /TRY DO for pokedex & evo setup   //can't remember plan for that?
+        if (gBattleMoveDamage) // there is exp to give, goto case 3 that gives exp
+        {
+            gBattleScripting.atk23_getexpState = 3;
+        }
+        else
+        {
+            ++gBattleStruct->expGetterMonId;
+            if (gBattleStruct->expGetterMonId < PARTY_SIZE) // this is a mon id, so I believe this just says check every pokemon in party
+                gBattleScripting.atk23_getexpState = 2; // loop again
+            else
+                gBattleScripting.atk23_getexpState = 6; // we're done
+        }
+        break;
+    case 6: // increment instruction
+        if (!gBattleControllerExecFlags)
+        {
+            // not sure why gf clears the item and ability here
+            gBattleMons[gBattlerFainted].item = ITEM_NONE;
+            gBattleMons[gBattlerFainted].ability = ABILITY_NONE;
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        }
+        break;
+    }
+}
+*/
 
 //vsonic replace w my function think yeah bunch of stuff
 //will have to adjust for my stuff
@@ -16537,44 +16967,6 @@ void BS_setiondeluge(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
-//prob roll into form change
-void BS_TryActivateResoluteMoveEnd(void)
-{
-
-    if (gBattleMons[gBattlerTarget].species == SPECIES_LOKIX
-        && GetBattlerAbility(gBattlerTarget) == ABILITY_RESOLUTE
-        && (gBattleMons[gBattlerTarget].hp <= (gBattleMons[gBattlerTarget].maxHP / 2)
-        || gBattleMons[gBattlerTarget].status1 & STATUS1_ANY))
-    {
-        //if incapacitated skip formchange
-        if ((gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP)
-        || (gBattleMons[gBattlerTarget].volatiles.frozenTurns != 0))
-            return;
-        else
-        {
-            PREPARE_SPECIES_BUFFER(gBattleTextBuff1, gBattleMons[gBattlerTarget].species);
-            GetBattlerPartyState(gBattlerTarget)->changedSpecies = gBattleMons[gBattlerTarget].species;
-            gBattleMons[gBattlerTarget].species = SPECIES_LOKIX_SHOWDOWN_MODE;
-            BattleScriptPushCursor();
-            gBattlescriptCurrInstr = BattleScript_ResoluteActivatesOnMoveEndTarget;
-            return; 
-        }
-    }
-}
-
-//think I put this in attack canceler?
-void BS_TryActivateTimeControl(void)
-{
-    NATIVE_ARGS(const u8 *jumpInstr); //jumps to skip chargeturn of twoturn moves
-    if (CanActivateTimeControl(gBattlerAttacker)
-    && IsTwoTurnsMove(gCurrentMove))//need add two turnmoves list here
-    {
-        gBattleMons[gBattlerAttacker].volatiles.timecontrolAbilityTimer = 2;
-        gBattlescriptCurrInstr = cmd->jumpInstr;
-    }
-    
-    gBattlescriptCurrInstr = cmd->nextInstr;
-}
 
 void BS_trygetcaughtmonfromPc(void)
 {
