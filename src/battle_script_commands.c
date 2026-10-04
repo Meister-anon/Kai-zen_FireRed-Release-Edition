@@ -4717,7 +4717,7 @@ static u32 GetMonHoldEffect(struct Pokemon *mon)
     return holdEffect;
 }
 
-/*
+
 //realized this is woefully in accurate also had old hp scaling in it so was just pattently wrong...
 static inline s32  HP_StatRecalc(s32 iv, s32 ev)
 {
@@ -4780,7 +4780,7 @@ static inline s32 StatReclacForLevelup(s32 iv, s32 ev, enum Stat statIndex)
     return n;                                                                           
 }
 
-
+/*
 //saw cool youtube video
 //idea mon gains exp even when fainted
 #define EXP_FUNCTION
@@ -5159,6 +5159,22 @@ static void Cmd_getexp(void)
 
     gBattlerFainted = GetBattlerForBattleScript(cmd->battler);
 
+    //(need go over again if still using this)
+    //values for stat recalc for transformed mons level up
+    s32 hpIV = GetMonData(&gPlayerParty[*expMonId], MON_DATA_HP_IV);
+    s32 hpEV = GetMonData(&gPlayerParty[*expMonId], MON_DATA_HP_EV);
+    s32 attackIV = GetMonData(&gPlayerParty[*expMonId], MON_DATA_ATK_IV);
+    s32 attackEV = GetMonData(&gPlayerParty[*expMonId], MON_DATA_ATK_EV);
+    s32 defenseIV = GetMonData(&gPlayerParty[*expMonId], MON_DATA_DEF_IV);
+    s32 defenseEV = GetMonData(&gPlayerParty[*expMonId], MON_DATA_DEF_EV);
+    s32 speedIV = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPEED_IV);
+    s32 speedEV = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPEED_EV);
+    s32 spAttackIV = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPATK_IV);
+    s32 spAttackEV = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPATK_EV);
+    s32 spDefenseIV = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPDEF_IV);
+    s32 spDefenseEV = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPDEF_EV);
+
+
     switch (gBattleScripting.getexpState)
     {
     case 0: // check if should receive exp at all
@@ -5186,12 +5202,12 @@ static void Cmd_getexp(void)
 
             for (i = 0; i < PARTY_SIZE; i++)
             {
-                if (!IsValidForBattle(&gPlayerParty[i]))
+                if (!IsValidForBattle(&gPlayerParty[i])
+                || IsMonNuzlockeDead(&gPlayerParty[i]))
                     continue;
                 if ((1u << i) & sentInBits)
                     viaSentIn++;
 
-                holdEffect = GetMonHoldEffect(&gPlayerParty[i]);
 
                 if (IsMonExpShareValid(&gPlayerParty[i]))
                 {
@@ -5263,8 +5279,16 @@ static void Cmd_getexp(void)
             holdEffect = GetMonHoldEffect(&gPlayerParty[*expMonId]);
 
             //double check hope still works
+            //check exp should be fixed unsure if would prevent
+            //mon from evoing if leveled up w exp share
+            //that wasn't intention was just a simpler method
+            //for mon that were being used already at stage to evolve
+            //ex if accidentally canceled evo. or passed evo level when meant to evolve
+            //works for mon post evo condition sent out
+            //but not for mon at lvl using exp share
+            //this adjustment should work
             //was used as evo check
-            if (wasSentOut)
+            if (wasSentOut || IsMonExpShareValid(&gPlayerParty[*expMonId]))
                 gParticipatedInBattle |= (1u << gBattleStruct->expGetterMonId);
 
             if ((GetMonData(&gPlayerParty[*expMonId], MON_DATA_EXP_SHARE_STATE) != EXP_SHARE && !wasSentOut)
@@ -5302,7 +5326,8 @@ static void Cmd_getexp(void)
                     gBattleStruct->wildVictorySong++;
                 }
 
-                if (IsValidForBattle(&gPlayerParty[*expMonId]))
+                if (IsValidForBattle(&gPlayerParty[*expMonId])
+                && !IsMonNuzlockeDead(&gPlayerParty[*expMonId]))
                 {
                     if (wasSentOut)
                         gBattleStruct->battlerExpReward = gBattleStruct->expValue;//(gPlayerParty[*expMonId].level, gBattleStruct->expValue);
@@ -5318,7 +5343,10 @@ static void Cmd_getexp(void)
                     //lucky egg boost etc.
                     ApplyExperienceMultipliers(&gBattleStruct->battlerExpReward, *expMonId, gBattlerFainted);
 
-                    if (/*B_EXP_CAP_TYPE == EXP_CAP_HARD &&*/ gBattleStruct->battlerExpReward != 0)
+                    //believe my version should be or,
+                    //as two ways to have no exp exp null or lvl cap
+                    //oh wait this is specifically for exp gain w lvl cap ok nvm
+                    if (FlagGet(FLAG_LEVEL_CAP_STATE)/*B_EXP_CAP_TYPE == EXP_CAP_HARD &&*/&& gBattleStruct->battlerExpReward != 0)
                     {
                         enum GrowthRate growthRate = gSpeciesInfo[GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPECIES)].growthRate;
                         u32 currentExp = GetMonData(&gPlayerParty[*expMonId], MON_DATA_EXP);
@@ -5328,7 +5356,7 @@ static void Cmd_getexp(void)
                             gBattleStruct->battlerExpReward = 0;
                         else if (gExperienceTables[growthRate][levelCap] < currentExp + gBattleStruct->battlerExpReward)
                             gBattleStruct->battlerExpReward = gExperienceTables[growthRate][levelCap] - currentExp;
-                    }//tired finished here vsonic continue
+                    }
 
                     if (IsTradedMon(&gPlayerParty[*expMonId]))
                     {
@@ -5361,20 +5389,26 @@ static void Cmd_getexp(void)
                     PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gBattleStruct->expGetterBattlerId, *expMonId);
                     // buffer 'gained' or 'gained a boosted'
                     PREPARE_STRING_BUFFER(gBattleTextBuff2, i);
+                    //why does this use 6 when FR uses 5?
+                    //hmm seems to be exp amount
                     PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff3, 6, gBattleStruct->battlerExpReward);
 
-                    if (wasSentOut || holdEffect == HOLD_EFFECT_EXP_SHARE)
+                    if (wasSentOut ||
+                    (GetMonData(&gPlayerParty[*expMonId], MON_DATA_EXP) == EXP_SHARE
+                    && GetMonData(&gPlayerParty[*expMonId], MON_DATA_HP)))
                     {
                         PrepareStringBattle(STRINGID_PKMNGAINEDEXP, gBattleStruct->expGetterBattlerId);
+                        MonGainEVs(&gPlayerParty[*expMonId]);
+                        AdjustFriendship(&gPlayerParty[*expMonId], FRIENDSHIP_EVENT_EXP_GAINED); //apparently friendship calculation doesnt have a filter for if mon is alive
                     }
-                    else if (IsGen6ExpShareEnabled() && !gBattleStruct->teamGotExpMsgPrinted) // Print 'the rest of your team got exp' message once, when all of the sent-in mons were given experience
+                    /*else if (IsGen6ExpShareEnabled() && !gBattleStruct->teamGotExpMsgPrinted) // Print 'the rest of your team got exp' message once, when all of the sent-in mons were given experience
                     {
                         gLastUsedItem = ITEM_EXP_SHARE;
                         PrepareStringBattle(STRINGID_TEAMGAINEDEXP, gBattleStruct->expGetterBattlerId);
                         gBattleStruct->teamGotExpMsgPrinted = TRUE;
-                    }
+                    }*/
 
-                    MonGainEVs(&gPlayerParty[*expMonId]);
+                    
                 }
                 gBattleScripting.getexpState++;
             }
@@ -5431,7 +5465,8 @@ static void Cmd_getexp(void)
                     if (gBattleMons[battler].volatiles.transformed)
                     {
                         gBattleMons[battler].level = GetMonData(&gPlayerParty[*expMonId], MON_DATA_LEVEL);
-                        gBattleMons[battler].hp = GetMonData(&gPlayerParty[*expMonId], MON_DATA_HP);
+                        //think changed so hp adjusts too? vsonic important
+                        //gBattleMons[battler].hp = GetMonData(&gPlayerParty[*expMonId], MON_DATA_HP);
                     }
                     else
                     {
