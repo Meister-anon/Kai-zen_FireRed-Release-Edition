@@ -7790,8 +7790,14 @@ static void Cmd_atknameinbuff1(void)
 static void Cmd_drawlvlupbox(void)
 {
     CMD_ARGS();
+    //to fix so adding a skip for now
+    //to avoid potential memory issue
+    //..ok that isn't enough need block out rest.
+    //adding next instr without a break
+    //is what actually caused memory issue smh
+    gBattlescriptCurrInstr = cmd->nextInstr;
 
-    if (gBattleScripting.drawlvlupboxState == 0)
+    /*if (gBattleScripting.drawlvlupboxState == 0)
     {
         // If the Pokémon getting exp is not in-battle then
         // slide out a banner with their name and icon on it.
@@ -7887,7 +7893,7 @@ static void Cmd_drawlvlupbox(void)
             gBattlescriptCurrInstr = cmd->nextInstr;
         }
         break;
-    }
+    }*/
 }
 
 //lil annoying but EE for some reason
