@@ -1542,9 +1542,10 @@ static void SetPossibleNewSmartTarget(u32 move)
         gBattlerTarget = partner;
 }
 
-static void SetRandomMultiHitCounter()
+//need test hit chance see if breaks my fury cutter stuff
+static void SetRandomMultiHitCounter(enum HoldEffect holdEffect)
 {
-    if (GetBattlerHoldEffect(gBattlerAttacker) == HOLD_EFFECT_LOADED_DICE)
+    if (holdEffect == HOLD_EFFECT_LOADED_DICE)
         gMultiHitCounter = RandomUniform(RNG_LOADED_DICE, 4, 5);
     else if (GetConfig(B_MULTI_HIT_CHANCE) >= GEN_5)
         gMultiHitCounter = RandomWeighted(RNG_HITS, 0, 0, 7, 7, 3, 3); // 35%: 2 hits, 35%: 3 hits, 15% 4 hits, 15% 5 hits.
@@ -1560,29 +1561,40 @@ static enum CancelerResult CancelerMultihitMoves(struct BattleContext *ctx)
     {
         gMultiHitCounter = 0;
     }
-    else if (IsMultiHitMove(ctx->move))
+    else if (IsVariableMultiHitMove(ctx->move))
     {
         enum Ability ability = ctx->abilityAtk;
 
-        if (ability == ABILITY_SKILL_LINK)
-        {
-            gMultiHitCounter = 5;
-        }
-        else if (GetMoveEffect(ctx->move) == EFFECT_SPECIES_POWER_OVERRIDE
-              && gBattleMons[ctx->battlerAtk].species == GetMoveSpeciesPowerOverride_Species(ctx->move))
+        if (GetMoveEffect(ctx->move) == EFFECT_SPECIES_POWER_OVERRIDE
+        && gBattleMons[ctx->battlerAtk].species == GetMoveSpeciesPowerOverride_Species(ctx->move))
         {
             gMultiHitCounter = GetMoveSpeciesPowerOverride_NumOfHits(ctx->move);
         }
+        else if (ability == ABILITY_SKILL_LINK)
+        {
+            gMultiHitCounter = 5;
+        }
         else
         {
-            SetRandomMultiHitCounter();
+            SetRandomMultiHitCounter(ctx->holdEffectAtk);
         }
 
         PREPARE_BYTE_NUMBER_BUFFER(gBattleScripting.multihitString, 1, 0)
     }
     else if (GetMoveStrikeCount(ctx->move) > 1)
     {
-        if (GetMoveEffect(ctx->move) == EFFECT_POPULATION_BOMB && GetBattlerHoldEffect(ctx->battlerAtk) == HOLD_EFFECT_LOADED_DICE)
+
+        //population bomb interact w skill link is just
+        //the accuracy check which is handled elsewhere
+        //it usually hits for 10 but it has an acc check for each hit
+        //with skill link theres only 1 check so its either 0 or 10
+        //with loaded dice there's one check, with the addition
+        //that it will hit between 4 and 10 times
+        //its balanced down for its increased ease of access comparative
+        //to skill link
+        if (GetMoveEffect(ctx->move) == EFFECT_POPULATION_BOMB 
+        && GetBattlerHoldEffect(ctx->battlerAtk) == HOLD_EFFECT_LOADED_DICE
+        && ctx->abilityAtk != ABILITY_SKILL_LINK)
         {
             gMultiHitCounter = RandomUniform(RNG_LOADED_DICE, 4, 10);
         }
