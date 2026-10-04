@@ -5438,7 +5438,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
     case ABILITYEFFECT_UNNERVE:
         switch (ability)
         {
-        case ABILITY_UNNERVE:
+        /*case ABILITY_UNNERVE:
             if (shouldAbilityTrigger && !gBattleMons[battler].volatiles.unnerveActivated)
             {
                 gBattleScripting.battler = battler;
@@ -5460,7 +5460,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 BattleScriptCall(BattleScript_ActivateAsOne);
                 effect++;
             }
-            break;
+            break;*/ //not using these switch enter messages
         default:
             break;
         }
