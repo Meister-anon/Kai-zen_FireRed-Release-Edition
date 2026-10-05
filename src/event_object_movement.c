@@ -2144,6 +2144,9 @@ static void MakeObjectTemplateFromObjectEventTemplate(struct ObjectEventTemplate
     MakeObjectTemplateFromObjectEventGraphicsInfoWithCallbackIndex(objectEventTemplate->graphicsId, objectEventTemplate->objUnion.normal.movementType, spriteTemplate, subspriteTables);
 }
 
+//CreateObjectGraphicsSpriteWithTag in emerald
+//take EE update supposed potential memory issue
+//vsonic important
 u8 AddPseudoObjectEvent(u16 graphicsId, SpriteCallback callback, s16 x, s16 y, u8 subpriority)
 {
     struct SpriteTemplate spriteTemplate;

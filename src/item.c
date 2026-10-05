@@ -77,12 +77,14 @@ void SetBagPocketsPointers(void)
 
 void CopyItemName(u16 itemId, u8 * dest)
 {
+    //idk what this is about but enigma no longer used
+    //as was used in default
     if (itemId == ITEM_ENIGMA_BERRY)
     {
         //StringCopy(dest, GetBerryInfo(ITEM_TO_BERRY(ITEM_ENIGMA_BERRY))->name);
         //GetItemName(dest, ITEM_ENIGMA_BERRY);
         ItemId_GetName(dest, ITEM_ENIGMA_BERRY);
-        StringAppend(dest, gUnknown_84162BD);
+        //StringAppend(dest, gUnknown_84162BD);
     }
     else
     {

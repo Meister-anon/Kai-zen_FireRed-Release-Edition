@@ -481,7 +481,10 @@ static void BuyMenuDecompressBgGraphics(void)
     else
         LZDecompressWram(gBuyMenuFrame_TmHmTilemap, gShopTilemapBuffer1);
     
+    //debugger mentioned was necessary apparently
+    //32 bit palette split into 2 fields?
     LoadPalette(gBuyMenuFrame_Pal, 0xB0, PLTT_SIZE_4BPP);
+    LoadPalette(gBuyMenuFrame_Pal + 0x20, 0x60, PLTT_SIZE_4BPP);
     /*pal = Alloc(0x40);
     LZDecompressWram(gBuyMenuFrame_Pal, pal);
     LoadPalette(pal, 0xB0, 0x20);
