@@ -88,7 +88,7 @@ EWRAM_DATA u16 (*gShopTilemapBuffer2)[0x400] = {0};
 EWRAM_DATA u16 (*gShopTilemapBuffer3)[0x400] = {0};
 EWRAM_DATA u16 (*gShopTilemapBuffer4)[0x400] = {0};
 EWRAM_DATA struct ListMenuItem *sShopMenuListMenu = {0};
-static EWRAM_DATA u8 (*sShopMenuItemStrings)[13] = {0};
+static EWRAM_DATA u8 (*sShopMenuItemStrings)[ITEM_NAME_LENGTH] = {0};
 EWRAM_DATA struct MartHistory gShopMenuHistory[2] = {0};
 
 //Function Declarations
@@ -473,7 +473,7 @@ static void BuyMenuInitBgs(void)
 
 static void BuyMenuDecompressBgGraphics(void)
 {
-    void* pal;
+    //void* pal;
     
     DecompressAndCopyTileDataToVram(1, gBuyMenuFrame_Gfx, 0x480, 0x3DC, 0);
     if ((gShopData.martType) != MART_TYPE_TMHM)
@@ -481,11 +481,12 @@ static void BuyMenuDecompressBgGraphics(void)
     else
         LZDecompressWram(gBuyMenuFrame_TmHmTilemap, gShopTilemapBuffer1);
     
-    pal = Alloc(0x40);
+    LoadPalette(gBuyMenuFrame_Pal, 0xB0, PLTT_SIZE_4BPP);
+    /*pal = Alloc(0x40);
     LZDecompressWram(gBuyMenuFrame_Pal, pal);
     LoadPalette(pal, 0xB0, 0x20);
     LoadPalette(pal + 0x20, 0x60, 0x20);
-    Free(pal);
+    Free(pal);*/
 }
 
 static void RecolorItemDescriptionBox(bool32 a0)
