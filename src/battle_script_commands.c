@@ -5156,6 +5156,7 @@ static void Cmd_getexp(void)
     s32 i; // also used as stringId
     u8 *expMonId = &gBattleStruct->expGetterMonId;
     u32 currLvl;
+    
 
     gBattlerFainted = GetBattlerForBattleScript(cmd->battler);
 
@@ -5234,7 +5235,7 @@ static void Cmd_getexp(void)
             if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
                 calculatedExp = (calculatedExp * 150) / 100;
 
-            if (B_SPLIT_EXP < GEN_6) //not using define so prob need adjust later vsonic important
+            //if (B_SPLIT_EXP < GEN_6) //not using define so prob need adjust later vsonic important
             {
                 u8 expCut = 2;
 
@@ -5275,6 +5276,7 @@ static void Cmd_getexp(void)
     case 2: // set exp value to the poke in expgetter_id and print message
         if (gBattleControllerExecFlags == 0)
         {
+            s32 numExpShareMon = 0;
             bool32 wasSentOut = (gBattleStruct->expSentInMons & (1u << *expMonId)) != 0;
             holdEffect = GetMonHoldEffect(&gPlayerParty[*expMonId]);
 
@@ -5393,20 +5395,52 @@ static void Cmd_getexp(void)
                     //hmm seems to be exp amount
                     PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff3, 6, gBattleStruct->battlerExpReward);
 
-                    if (wasSentOut ||
-                    (GetMonData(&gPlayerParty[*expMonId], MON_DATA_EXP) == EXP_SHARE
-                    && GetMonData(&gPlayerParty[*expMonId], MON_DATA_HP)))
+
+
+                //ok weird but apparently because switch case logic
+                //even setting value at top of function wasn't letting
+                //value transfer had to set within case block?
+                for (i = 0; i < PARTY_SIZE; i++)                    
+                {
+                    if (IsMonExpShareValid(&gPlayerParty[i]))
+                        numExpShareMon++;
+                }
+                
+                if (wasSentOut)
+                {
+
+                    if (!gBattleStruct->teamGotExpMsgPrinted)
                     {
                         PrepareStringBattle(STRINGID_PKMNGAINEDEXP, gBattleStruct->expGetterBattlerId);
-                        MonGainEVs(&gPlayerParty[*expMonId]);
-                        AdjustFriendship(&gPlayerParty[*expMonId], FRIENDSHIP_EVENT_EXP_GAINED); //apparently friendship calculation doesnt have a filter for if mon is alive
+                        
                     }
-                    /*else if (IsGen6ExpShareEnabled() && !gBattleStruct->teamGotExpMsgPrinted) // Print 'the rest of your team got exp' message once, when all of the sent-in mons were given experience
+                    // Print 'the rest of your team got exp' message once, when all of the sent-in mons were given experience)
+                    //should be specific to when printing for mon with exp share
+                    //think without that it would try to do both for mon with send out
+                    
+                    
+                    
+                }
+                else if (!gBattleStruct->teamGotExpMsgPrinted && IsMonExpShareValid(&gPlayerParty[*expMonId])) 
+                {
+                    if (numExpShareMon <= 2)
+                        PrepareStringBattle(STRINGID_PKMNGAINEDEXP, gBattleStruct->expGetterBattlerId);
+                    else
                     {
-                        gLastUsedItem = ITEM_EXP_SHARE;
                         PrepareStringBattle(STRINGID_TEAMGAINEDEXP, gBattleStruct->expGetterBattlerId);
                         gBattleStruct->teamGotExpMsgPrinted = TRUE;
-                    }*/
+                    }
+                    
+                }
+
+                MonGainEVs(&gPlayerParty[*expMonId]);
+                AdjustFriendship(&gPlayerParty[*expMonId], FRIENDSHIP_EVENT_EXP_GAINED); //apparently friendship calculation doesnt have a filter for if mon is alive
+                /*else if (IsGen6ExpShareEnabled() && !gBattleStruct->teamGotExpMsgPrinted) // Print 'the rest of your team got exp' message once, when all of the sent-in mons were given experience
+                {
+                    gLastUsedItem = ITEM_EXP_SHARE;
+                    PrepareStringBattle(STRINGID_TEAMGAINEDEXP, gBattleStruct->expGetterBattlerId);
+                    gBattleStruct->teamGotExpMsgPrinted = TRUE;
+                }*/
 
                     
                 }
@@ -5492,6 +5526,10 @@ static void Cmd_getexp(void)
         }
         else
         {
+            //no idea what the above case does, doesn't really make sense to get all the way here
+            //and somehow not have already given out exp?
+            //pretty sure this is telling it to go to next mon when exp state
+            //for selected mon in order is done
             if ((++gBattleStruct->expOrderId) < PARTY_SIZE)
             {
                 *expMonId = gBattleStruct->expGettersOrder[gBattleStruct->expOrderId];

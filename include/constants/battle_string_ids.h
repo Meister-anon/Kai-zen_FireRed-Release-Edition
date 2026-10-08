@@ -525,6 +525,9 @@ enum SportsUsedStringID
 #define B_MSG_TURN1_COLD_FRONT     13
 
 //end turn name scripts need to use B_ATK_NAME_WITH_PREFIX,  scr_active name or anything else causes issues
+// /p is used at end of string to make wait for button press
+//also max battle string line length is approx 39 chars
+//The rest of your team gained Exp. Point  - this takes entire bar
 
 // todo: make some of those names less vague: attacker/target vs pkmn, etc.
 /* Battle String values
@@ -1329,7 +1332,7 @@ enum SportsUsedStringID
     F(STRINGID_PKMNITEMMELTED,                                         ("{B_ATK_NAME_WITH_PREFIX} corroded {B_DEF_NAME_WITH_PREFIX}'s {B_LAST_ITEM}!"))\
     F(STRINGID_ULTRABURSTREACTING,                                         ("Bright light is about to burst out of {B_ATK_NAME_WITH_PREFIX}!"))\
     F(STRINGID_ULTRABURSTCOMPLETED,                                         ("{B_ATK_NAME_WITH_PREFIX} regained its true power through Ultra Burst!"))\
-    F(STRINGID_TEAMGAINEDEXP,                                         ("The rest of your team gained Exp. Points thanks to the Exp. Share!\p"))\
+    F(STRINGID_TEAMGAINEDEXP,                                         ("The rest of your team gained Exp.\nthanks to the Exp. Share!\p"))\
     F(STRINGID_CURRENTMOVECANTSELECT,                                         ("{B_BUFF1} cannot be used!\p"))\
     F(STRINGID_TARGETISBEINGSALTCURED,                                         ("{B_DEF_NAME_WITH_PREFIX} is being salt cured!"))\
     F(STRINGID_TARGETISHURTBYSALTCURE,                                         ("{B_ATK_NAME_WITH_PREFIX} is hurt by {B_BUFF1}!"))\
