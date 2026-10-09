@@ -2696,13 +2696,11 @@ static void DebugAction_Give_Item_SelectQuantity(u8 taskId)
 //do all items in pocket tm case with importance 0, as only hms have important 1
 static void DebugAction_Give_AllTMs(u8 taskId)
 {
-    u32 i,j;
-    u32 TMHMValue;
     u8 numTms = 0;
 
 
     PlayFanfare(MUS_OBTAIN_TMHM);
-    for (i = ITEM_NONE; i != ITEMS_COUNT; i++)
+    for (enum Item i = ITEM_NONE; i != ITEMS_COUNT; ++i)
     {
         //skip all items that aren't Tms
         //saves memory/time
@@ -3654,17 +3652,29 @@ static void DebugAction_Fill_PocketPokeBalls(u8 taskId)
 
 static void DebugAction_Fill_PocketTMHM(u8 taskId)
 {
-    u32 itemId;
     u16 numTmsHms = 0;
 
-    for (itemId = ITEM_NONE; itemId != ITEMS_COUNT; itemId++)
+    /*for (u32 i = 0; i < NELEMS(gTMHM_List); ++i)
+    {
+        //if (numTmsHms == BAG_TMHM_COUNT)
+        //    break;
+
+        if (CheckBagHasSpace(gTMHM_List[i].itemId, 1))
+        {
+            AddBagItem(gTMHM_List[i].itemId, 1);
+            
+        }
+        numTmsHms++; //covers item ids in tm case
+    }*/
+    
+    for (enum Item itemId = ITEM_NONE; itemId != ITEMS_COUNT; itemId++)
     {
         //skip all items that aren't Tms
         //saves memory/time
         if (gItemsInfo[itemId].pocket != POCKET_TM_CASE)
             continue;
 
-        if (numTmsHms == NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES)
+        if (numTmsHms == BAG_TMHM_COUNT)
             break;
 
         if (CheckBagHasSpace(itemId, 1))

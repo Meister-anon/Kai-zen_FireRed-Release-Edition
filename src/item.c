@@ -565,8 +565,7 @@ void BagPocketCompaction(struct ItemSlot * slots, u8 capacity)
 //from the get go, new game screen the whole game broke
 void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
 {
-    u16 i;
-    u16 j = 0;
+    u32 i, j;
     u16 k;
     struct ItemSlot *buff;
 
@@ -578,23 +577,29 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
     //with new hardcoded id that sets HMs first
     //may not need entire loop below
     //don't understand it but is necessary?
-    for (i = 0; i < pocket->capacity; i++)
+    /*for (i = 0; i < pocket->capacity; ++i)
     {
         if (pocket->itemSlots[i].itemId == ITEM_NONE && GetBagItemQuantity(&pocket->itemSlots[i].quantity) == 0)
             return;
         if (Isitem_HM(pocket->itemSlots[i].itemId) && GetBagItemQuantity(&pocket->itemSlots[i].quantity) != 0)
         {
-            for (j = i + 1; j < pocket->capacity; j++)
+            for (j = i + 1; j < pocket->capacity; ++j)
             {
                 if (pocket->itemSlots[j].itemId == ITEM_NONE && GetBagItemQuantity(&pocket->itemSlots[j].quantity) == 0)
                     break;
             }
             break;
         }
+        if (i == pocket->capacity && j == 0)
+        {
+            j = i;
+            return;
+        }
+            
     }
 
     //is this swapping the quantity to match for swapped slots?
-    for (k = 0; k < pocket->capacity; k++)
+    for (k = 0; k < pocket->capacity; ++k)
         pocket->itemSlots[k].quantity = GetBagItemQuantity(&pocket->itemSlots[k].quantity);
     buff = AllocZeroed(pocket->capacity * sizeof(struct ItemSlot));
     CpuCopy16(pocket->itemSlots + i, buff, (j - i) * sizeof(struct ItemSlot));
@@ -602,7 +607,7 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
     CpuCopy16(buff, pocket->itemSlots, pocket->capacity * sizeof(struct ItemSlot));
     for (k = 0; k < pocket->capacity; k++)
         SetBagItemQuantity(&pocket->itemSlots[k].quantity, pocket->itemSlots[k].quantity);
-    Free(buff);
+    Free(buff);*/
     
 }
 
@@ -679,12 +684,12 @@ void SortAndCompactTmCase(struct BagPocket * pocket)
     for (i = 0; i < pocket->capacity; i++)
     {
 
-        for (j = 0; j < pocket->capacity; j++)
+        for (j = i + 1; j < pocket->capacity; j++)
         {
 
             if (GetBagItemQuantity(&pocket->itemSlots[i].quantity) == 0 ||
             (GetBagItemQuantity(&pocket->itemSlots[j].quantity) != 0 
-            && gTMHM_List[pocket->itemSlots[j].itemId].tmhmId > gTMHM_List[pocket->itemSlots[i].itemId].tmhmId))
+            && ReturnTmHmIndex(pocket->itemSlots[j].itemId) < ReturnTmHmIndex(pocket->itemSlots[i].itemId)))
             {
                 SwapItemSlots(&pocket->itemSlots[i], &pocket->itemSlots[j]);
 

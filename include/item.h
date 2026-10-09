@@ -118,6 +118,12 @@ static inline u16 SanitizeItemId(u16 itemId)
     return itemId;
 }
 
+static inline u16 ReturnTmHmIndex(u16 TMHM_Item)
+{
+
+    return gTMHM_List[TMHM_Item].tmhmId;
+}
+
 static inline void CopyItemNameToBuff(u8 *nameBuff, u16 item)
 {
     s32 i;

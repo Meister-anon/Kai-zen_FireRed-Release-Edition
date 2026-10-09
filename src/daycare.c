@@ -1223,7 +1223,7 @@ static void BuildEggMoveset(struct Pokemon *egg, struct BoxPokemon *father, stru
     {
         if (sHatchedEggFatherMoves[i] != MOVE_NONE)
         {
-            for (j = 0; j < NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES; j++)
+            for (j = 0; j < BAG_TMHM_COUNT; j++)
             {
                 if (sHatchedEggFatherMoves[i] == ItemIdToBattleMoveId(gTMHM_List[j].itemId) && CanMonLearnTMHM(egg, gTMHM_List[j].itemId))
                 {

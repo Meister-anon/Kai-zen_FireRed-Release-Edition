@@ -1909,8 +1909,8 @@ static void UpdateTMSpritePosition(struct Sprite * sprite, u16 tmIdx) //vsonic
     else
     {
 
-        x = DISC_BASE_X - Q_24_8_TO_INT(Q_24_8(14 * tmIdx) / (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES));
-        y = DISC_BASE_Y + Q_24_8_TO_INT(Q_24_8(8 * tmIdx) / (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES));
+        x = DISC_BASE_X - Q_24_8_TO_INT(Q_24_8(14 * tmIdx) / (BAG_TMHM_COUNT));
+        y = DISC_BASE_Y + Q_24_8_TO_INT(Q_24_8(8 * tmIdx) / (BAG_TMHM_COUNT));
     }
     sprite->x = x;
     sprite->y = y; //0x16 value was 2E
