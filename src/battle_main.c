@@ -1038,7 +1038,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("FAIRY"), //fairy addition
         .isHiddenPowerType = TRUE,
-        .tmhmSpritePalOffset = 0x110,
+        .tmhmSpritePalOffset = 0x110, //this works, forgot how to add to palette...
         .isTeraType = TRUE,
         .teraTypeRGBValue = RGB(31, 15, 21),
     },
@@ -1047,6 +1047,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .name = _("WIND"), //flying type readjust
         .isHiddenPowerType = TRUE, //dont really need this offesnsibly same and both types already get stab on either option
         .isTeraType = TRUE,
+        .tmhmSpritePalOffset = 0x130, //believe still to do
         .teraTypeRGBValue = RGB(31, 26, 7),
     },//if made change revert addition to hidden power
     
@@ -1055,7 +1056,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .name = _("SOUND"),
         .isHiddenPowerType = FALSE,
         .isTeraType = FALSE,
-        .tmhmSpritePalOffset = 0x120, //believe still to do
+        .tmhmSpritePalOffset = 0x120, //believe still to do, yeah looks strange
         .teraTypeRGBValue = RGB_WHITE,
     },
 };
