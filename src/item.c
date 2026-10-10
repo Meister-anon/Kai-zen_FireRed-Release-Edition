@@ -291,6 +291,7 @@ bool8 AddBagItem(u16 itemId, u16 count)
         }
     }
 
+    //if has no received tm and doesnt have item_tm_case give tm case in key items
     if (pocket == POCKET_TM_CASE - 1 && !CheckBagHasItem(ITEM_TM_CASE, 1))
     {
         idx = BagPocketGetFirstEmptySlot(POCKET_KEY_ITEMS - 1);
@@ -313,6 +314,8 @@ bool8 AddBagItem(u16 itemId, u16 count)
     if (itemId == ITEM_BERRY_POUCH)
         FlagSet(FLAG_SYS_GOT_BERRY_POUCH);
 
+    //now is using actual pocket for item
+    //if idx -1 no space don't add item
     idx = BagPocketGetFirstEmptySlot(pocket);
     if (idx == -1)
         return FALSE;
@@ -677,6 +680,8 @@ is greater compared to loop stm moves of next
 //(ItemIdToBattleMoveId(i) != gHM_Moves[i] && ItemIdToBattleMoveId(j) == gHM_Moves[i])
 //this
 //(pocket->itemSlots[i].itemId != gTMHM_List[i] && pocket->itemSlots[i].itemId(j) == gTMHM_List[i])
+//still testing but seems to overwrite need for other func
+//and the convoluted cpu copy reorder logic
 void SortAndCompactTmCase(struct BagPocket * pocket)
 {
     u32 i, j;

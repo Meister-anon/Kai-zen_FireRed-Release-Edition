@@ -593,7 +593,7 @@ static bool8 DoSetUpTMCaseUI(void)
             gMain.state++;
         break;
     case 9:
-        SortPocketAndPlaceHMsFirst(&gBagPockets[POCKET_TM_CASE - 1]);
+        SortAndCompactTmCase(&gBagPockets[POCKET_TM_CASE - 1]);
         gMain.state++;
         break;
     case 10:
@@ -1986,7 +1986,6 @@ static void SpriteCB_MoveTMSpriteInCase(struct Sprite * sprite) //vsonic
 
 //taken from pret hope makes sense?
 // - 1 excludes TYPE_MYSTERY
-#define NUM_DISC_COLORS ((NUMBER_OF_MON_TYPES - 1) * 16)
 
 //seems work for tm case but not debug?
 static void LoadTMTypePalettes(void) //would need item and type values
@@ -1995,10 +1994,10 @@ static void LoadTMTypePalettes(void) //would need item and type values
     //u16 itemId = BagGetItemIdByPocketPosition(POCKET_TM_CASE, sTMCaseStaticResources.scrollOffset + sTMCaseStaticResources.selectedRow);
     //u8 type = gMovesInfo[ItemIdToBattleMoveId(itemId)].type;
 
-    sTMSpritePaletteBuffer = Alloc(NUM_DISC_COLORS * sizeof(u16)); //alloc is end of offset, each is last start offset is 0x100, ends at 0x110 so 0x10 + last offset listed in type offset array
-    LZDecompressWram(gTMCaseDiscTypes1_Pal, sTMSpritePaletteBuffer); // Decompress the first 16
-    LZDecompressWram(gTMCaseDiscTypes2_Pal, sTMSpritePaletteBuffer + 0x100); // Decompress the rest (Only 17 total, this is just Dragon type)
-    spritePalette.data = sTMSpritePaletteBuffer + NUM_DISC_COLORS; //I have two more types fairy and sound so I need 2 more rows
+    sTMSpritePaletteBuffer = Alloc(0x200 * sizeof(u16)); //alloc is end of offset, each is last start offset is 0x100, ends at 0x110 so 0x10 + last offset listed in type offset array
+    CpuCopy16(gTMCaseDiscTypes1_Pal, sTMSpritePaletteBuffer, 0x200); // Decompress the first 16
+    CpuCopy16(gTMCaseDiscTypes2_Pal, sTMSpritePaletteBuffer + 0x100, 0x200); // Decompress the rest (Only 17 total, this is just Dragon type)
+    spritePalette.data = sTMSpritePaletteBuffer; //I have two more types fairy and sound so I need 2 more rows
     spritePalette.tag = TM_CASE_TM_TAG; //the 0x100 is to find start position, of pal, based on type offset could make simpler by using type arg
     LoadSpritePalette(&spritePalette);//think don't need change, would make worse not better
 } //ok I get it and the offset chart now, god this was confuisng,
