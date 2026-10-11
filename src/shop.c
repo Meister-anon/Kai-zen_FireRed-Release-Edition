@@ -485,11 +485,7 @@ static void BuyMenuDecompressBgGraphics(void)
     //32 bit palette split into 2 fields?
     LoadPalette(gBuyMenuFrame_Pal, 0xB0, PLTT_SIZE_4BPP);
     LoadPalette(gBuyMenuFrame_Pal + 0x20, 0x60, PLTT_SIZE_4BPP);
-    /*pal = Alloc(0x40);
-    LZDecompressWram(gBuyMenuFrame_Pal, pal);
-    LoadPalette(pal, 0xB0, 0x20);
-    LoadPalette(pal + 0x20, 0x60, 0x20);
-    Free(pal);*/
+
 }
 
 static void RecolorItemDescriptionBox(bool32 a0)

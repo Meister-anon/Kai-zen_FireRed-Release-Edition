@@ -1961,17 +1961,6 @@ static void SpriteCB_MoveTMSpriteInCase(struct Sprite * sprite) //vsonic
     }
 }
 
-/*static void LoadTMTypePalettes(void)
-{
-    struct SpritePalette spritePalette;
-
-    sTMSpritePaletteBuffer = Alloc(0x110 * sizeof(u16));
-    LZDecompressWram(gTMCaseDiscTypes1_Pal, sTMSpritePaletteBuffer);
-    LZDecompressWram(gTMCaseDiscTypes2_Pal, sTMSpritePaletteBuffer + 0x110);
-    spritePalette.data = sTMSpritePaletteBuffer + 0x110;
-    spritePalette.tag = TM_CASE_TM_TAG;
-    LoadSpritePalette(&spritePalette);
-}*/
 
 // - 1 excludes TYPE_MYSTERY
 //had issue w load time, but seems first intuition was correct issue was use of hex w binary subtract, so change type constants from hex to binary values

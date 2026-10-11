@@ -69,16 +69,16 @@
 #define MON_DATA_MAIL              64
 #define MON_DATA_SPECIES_OR_EGG    65 //replace species_2, seems use was identical so just auto replaced
 #define MON_DATA_IVS               66
-#define MON_DATA_CHAMPION_RIBBON   67
-#define MON_DATA_WINNING_RIBBON    68
-#define MON_DATA_VICTORY_RIBBON    69
-#define MON_DATA_ARTIST_RIBBON     70
-#define MON_DATA_EFFORT_RIBBON     71
+#define MON_DATA_CHAMPION_RIBBON   67 //beat elite four champion
+#define MON_DATA_WINNING_RIBBON    68 //battle tower related
+#define MON_DATA_VICTORY_RIBBON    69 //battle tower related
+#define MON_DATA_EFFORT_RIBBON     70 //max friendship
+#define MON_DATA_ARTIST_RIBBON     71 //removed also this
 #define MON_DATA_MARINE_RIBBON     72//removed here
-#define MON_DATA_LAND_RIBBON       73
-#define MON_DATA_SKY_RIBBON        74
+#define MON_DATA_LAND_RIBBON       73 //removed
+#define MON_DATA_SKY_RIBBON        74// removed
 #define MON_DATA_COUNTRY_RIBBON    75//to here
-#define MON_DATA_NATIONAL_RIBBON   76
+#define MON_DATA_NATIONAL_RIBBON   76 //seems also removed
 #define MON_DATA_EARTH_RIBBON      77//and this
 #define MON_DATA_WORLD_RIBBON      78 //and this,  constants still remain but struct values are gone =6 values total
 #define MON_DATA_FILLER            79

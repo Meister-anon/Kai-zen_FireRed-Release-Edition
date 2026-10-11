@@ -509,6 +509,20 @@ enum Ball_Ids
     POKEBALL_COUNT
 };
 
+enum AvailableRibbons
+{
+    COOL_RIBBON,
+    BEAUTY_RIBBON,
+    CUTE_RIBBON,
+    SMART_RIBBON,
+    TOUGH_RIBBON,
+    EFFORT_RIBBON,
+    WINNING_RIBBON,
+    VICTORY_RIBBON,
+    CHAMPION_RIBBON,
+    RIBBON_COUNT
+};
+
 
 enum Comparison_Operator_Constants
 {
@@ -1289,7 +1303,7 @@ struct SaveBlock1 //still extra padding somewhere here most likely around new ad
     /*0x2F18*/ //OldMan oldMan; // unused  //emerald exlusive mauwile man stuff
     /*0x2F54*/ //struct DewfordTrend dewfordTrends[5]; // unused
     /*0x2F80*/ struct DayCare daycare;
-    /*0x309C*/ u8 giftRibbons[11]; //check this since removed some this may not bneed to be 11 vsonic
+    /*0x309C*/ u8 giftRibbons[RIBBON_COUNT]; //check this since removed some this may not bneed to be 11 vsonic
     /*0x30A7*/ struct ExternalEventData externalEventData; //can remove external events would like make some way of giving within game
     /*0x30BB*/ struct ExternalEventFlags externalEventFlags;
     /*0x30D0*/ struct Roamer roamer; //remove other stuff then make copy of this but 6 array for rival mon data
@@ -1298,7 +1312,7 @@ struct SaveBlock1 //still extra padding somewhere here most likely around new ad
     /*0x3120*/ struct MEventBuffers mysteryEventBuffers; //removed below value in struct hope wasn't overflow protection.. vsonic
     /*0x348C*/ //u8 unused_348C[400]; //assume this is to hold mystery event data? nope pret shows this as unused
     /*0x361C*/ struct RamScript ramScript;
-    /*0x3A08*/ u8 filler3A08[16];
+    /*0x3A08*/ u8 filler3A08[16]; //NOT MESSING WITH THIS in case necessary overflow for script
     /*0x3A18*/ u8 seen2[DEX_FLAGS_NO];
     /*0x3A4C*/ u8 rivalName[PLAYER_NAME_LENGTH + 1];  //think keeping famechecker, unique little fire red thing remove other stuff
     /*0x3A54*/ struct FameCheckerSaveData fameChecker[NUM_FAMECHECKER_PERSONS];
