@@ -6388,7 +6388,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .speciesName = _("Unown"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(64, 64, 48, 76, 64, 48),
+         STATS(64, 64, 48, 48, 64, 76),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
@@ -6400,7 +6400,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILTY_UNKNOWN_POWER, ABILITY_NONE},
+        .abilities = {ABILITY_TRACE, ABILITY_NONE},
+        .abilityHidden = {ABILTY_UNKNOWN_POWER, ABILITY_NONE},//MOVED TO hidden on idea from zenmodeyt
         //.bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -6416,6 +6417,13 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //nah just giving it another move in the anime specific psychic
     //will give ability mystic power *name pending pretty much
     //same as plus minus but if another unown is on field with it/meaning same side
+    //reworked idea boost effective bst for offenses and speed based on num other unown in party
+    //essentially n-1 + 10 for atk adn sp atk + 5 for speed
+    //rmeove existing logic setup in pokemon.c stat calc
+    //check base species hmm actually will need to be its own func
+    //as I only want to do this for battle not affect its stats
+    //actual base stats hmm think would need  to be visiible actually?
+    //as it is variable ok would need to make visible in summary screen outside of battle
 
     [SPECIES_WOBBUFFET] =
     {

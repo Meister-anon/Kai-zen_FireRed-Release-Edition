@@ -815,6 +815,17 @@ struct AbilityLearnset
     u16 Teachable_Ability;
 };
 
+//note macro abbreviation and struct value can't have same name
+//i.e .move can't be for move
+#define UNOWN_MOVE(unown_form, Form_move) {.species = unown_form, .move = Form_move},
+
+struct UnownPower
+{
+    u16 species;
+    u16 move;
+};
+//similar to level up move
+//is lookup table for unown species to move
 
 enum
 {
@@ -1305,6 +1316,8 @@ u8 GetNatureFromPersonality(u32 personality);
 u8 SendMonToPC(struct Pokemon* mon);
 void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon);
 void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species); //made attempt get inversion move set change worknig 
+
+enum Move ReturnUnownFormMove(u16 unown_Form);
 
 static inline enum Ability SanitizeAbilityId(enum Ability ability)
 {

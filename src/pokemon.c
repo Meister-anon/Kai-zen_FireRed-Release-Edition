@@ -2726,6 +2726,37 @@ static const u16 sHMMoves[] =
     MOVE_ROCK_SMASH, MOVE_WATERFALL, MOVE_DIVE, 0xFFFF
 };
 
+static const struct UnownPower sUnownCharacterMove[] = {
+    UNOWN_MOVE(SPECIES_UNOWN, MOVE_ANCIENT_POWER)
+    UNOWN_MOVE(SPECIES_UNOWN_B, MOVE_BRINE)
+    UNOWN_MOVE(SPECIES_UNOWN_C, MOVE_CHARGE_BEAM)
+    UNOWN_MOVE(SPECIES_UNOWN_D, MOVE_DRAGON_BREATH)
+    UNOWN_MOVE(SPECIES_UNOWN_E, MOVE_EARTH_POWER)
+    UNOWN_MOVE(SPECIES_UNOWN_F, MOVE_FLAME_WHEEL)
+    UNOWN_MOVE(SPECIES_UNOWN_G, MOVE_GIGA_DRAIN)
+    UNOWN_MOVE(SPECIES_UNOWN_H, MOVE_HEADBUTT)
+    UNOWN_MOVE(SPECIES_UNOWN_I, MOVE_ICY_WIND)
+    UNOWN_MOVE(SPECIES_UNOWN_J, MOVE_JUMP_KICK)
+    UNOWN_MOVE(SPECIES_UNOWN_K, MOVE_KNOCK_OFF)
+    UNOWN_MOVE(SPECIES_UNOWN_L, MOVE_LAST_RESORT)
+    UNOWN_MOVE(SPECIES_UNOWN_M, MOVE_METAL_BURST)
+    UNOWN_MOVE(SPECIES_UNOWN_N, MOVE_NIGHT_SHADE)
+    UNOWN_MOVE(SPECIES_UNOWN_O, MOVE_OCTAZOOKA)
+    UNOWN_MOVE(SPECIES_UNOWN_P, MOVE_POISON_JAB)
+    UNOWN_MOVE(SPECIES_UNOWN_Q, MOVE_QUICK_ATTACK)
+    UNOWN_MOVE(SPECIES_UNOWN_R, MOVE_ROLLOUT)
+    UNOWN_MOVE(SPECIES_UNOWN_S, MOVE_STEALTH_ROCK)
+    UNOWN_MOVE(SPECIES_UNOWN_T, MOVE_TAILWIND)
+    UNOWN_MOVE(SPECIES_UNOWN_U, MOVE_U_TURN)
+    UNOWN_MOVE(SPECIES_UNOWN_V, MOVE_VACUUM_WAVE)
+    UNOWN_MOVE(SPECIES_UNOWN_W, MOVE_WILL_O_WISP)
+    UNOWN_MOVE(SPECIES_UNOWN_X, MOVE_X_SCISSOR)
+    UNOWN_MOVE(SPECIES_UNOWN_Y, MOVE_YAWN)
+    UNOWN_MOVE(SPECIES_UNOWN_Z, MOVE_ZEN_HEADBUTT)
+    UNOWN_MOVE(SPECIES_UNOWN_EMARK, MOVE_EXPLOSION)
+    UNOWN_MOVE(SPECIES_UNOWN_QMARK, MOVE_OVER_MAX_POWER) //CONSIDERED keep metronome but if idea is last two should be most valuable give my custom mob psycho move instead
+};
+
 #if defined(FIRERED)
 static const u16 sDeoxysBaseStats[] = 
 {
@@ -2782,6 +2813,30 @@ static const struct SpriteTemplate sOakSpeechNidoranFDummyTemplate =
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy,
 };
+
+//make sure to have check for move does not return
+//move_none or just have check for species is unown before even call func...
+//still todo figure how to add move
+//think can use TryToSetBattleFormChangeMoves as template
+//but need add move to end or replace move if don't have space
+//at time mon is generated
+//thikn is just part of createmon func?
+//look into decide not to bother with removing forms from base stats
+//just tedious little gain
+//tldr look into how unown form is generated and see
+//if it properly sets species as form
+//vsonic important
+enum Move ReturnUnownFormMove(u16 unown_Form)
+{
+
+    for (u32 i = 0; i < ARRAY_COUNT(sUnownCharacterMove); i++)
+    {
+        if (sUnownCharacterMove[i].species == unown_Form)
+            return sUnownCharacterMove[i].move;
+    }
+
+    
+}
 
 // code
 void ZeroBoxMonData(struct BoxPokemon *boxMon)
@@ -3526,6 +3581,12 @@ void CalculateMonStats(struct Pokemon *mon)
 
     SetMonData(mon, MON_DATA_LEVEL, &level);
 
+    //think issue is I don't have a in battle update for this
+    //think can do using dynamic speed update
+    //if works how I expect
+    //can use to update check hp stat at move end
+    //to see if should be updated and use for general stat update
+    //for this and unown ability 
     if (ability == ABILITY_WONDER_GUARD) {
         //currentHP = 1; //worked correctly without but just an extra protection
         newMaxHP = 1; //literally just ^this line above is what broke wondergaurd shedinja ... -__-

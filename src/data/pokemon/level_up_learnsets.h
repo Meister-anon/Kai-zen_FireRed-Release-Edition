@@ -3864,12 +3864,18 @@ static const struct LevelUpMove sMisdreavusLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sUnownLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(1, MOVE_PSYWAVE)
     LEVEL_UP_MOVE(1, MOVE_HIDDEN_POWER)
-    LEVEL_UP_MOVE(1, MOVE_PSYCHIC)
-    LEVEL_UP_MOVE(33, MOVE_DESTINY_BOND)
+    LEVEL_UP_MOVE(20, MOVE_COSMIC_POWER)
+    LEVEL_UP_MOVE(32, MOVE_PSYCHIC)
+    //LEVEL_UP_MOVE(33, MOVE_DESTINY_BOND)
     LEVEL_UP_MOVE(47, MOVE_PROTECT)
     LEVEL_UP_END
 };
+//idk why I have destiny bond?
+//could have sworn I hade psywave then psychic
+//Each form will have its own unique move
+//it should be appended to the moveset
 
 static const struct LevelUpMove sWobbuffetLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_COUNTER)

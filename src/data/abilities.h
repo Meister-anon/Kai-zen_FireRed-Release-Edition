@@ -2672,9 +2672,10 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILTY_UNKNOWN_POWER] =
     {
         .name = _("Unknown Power"),
-        .description = COMPOUND_ABILITY_STRING("A mysterious ability from the unown\ndimension, doubles power when with unown"),
+        .description = COMPOUND_ABILITY_STRING("An odd ability from the Unown Dimension\nboosts stats for each unown in the party"),
         .aiRating = 2,
     },
+    //boosts stats for each able unown in party
     
     [ABILITY_PURIFYING_AURA] =
     {
