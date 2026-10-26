@@ -1128,6 +1128,7 @@ u8 GetLevelFromBoxMonExp(struct BoxPokemon *boxMon);
 u16 GiveMoveToMon(struct Pokemon *mon, u16 move);
 u16 GiveMoveToBattleMon(struct BattlePokemon *mon, u16 move);
 void SetMonMoveSlot(struct Pokemon *mon, u16 move, u8 slot);
+void SetBoxMonMoveSlot(struct BoxPokemon *boxMon, u16 move, u8 slot); //needed for unown change
 void SetBattleMonMoveSlot(struct BattlePokemon *mon, u16 move, u8 slot);
 u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove);
 u16 MonTryLearningEvoMove(struct Pokemon *mon, bool8 firstMove); //changing to use 0, with normal call forces level 0 learnig on each level up, so makeing separate
@@ -1317,7 +1318,8 @@ u8 SendMonToPC(struct Pokemon* mon);
 void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon);
 void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species); //made attempt get inversion move set change worknig 
 
-enum Move ReturnUnownFormMove(u16 unown_Form);
+enum Move ReturnUnownMoveByForm(u16 unown_Form);
+void TrySetUnownMoveByLetter(struct BoxPokemon *boxMon);
 
 static inline enum Ability SanitizeAbilityId(enum Ability ability)
 {

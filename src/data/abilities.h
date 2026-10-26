@@ -2675,8 +2675,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_ABILITY_STRING("An odd ability from the Unown Dimension\nboosts stats for each unown in the party"),
         .aiRating = 2,
     },
-    //boosts stats for each able unown in party
-    
+
     [ABILITY_PURIFYING_AURA] =
     {
         .name = _("Purifying Aura"),

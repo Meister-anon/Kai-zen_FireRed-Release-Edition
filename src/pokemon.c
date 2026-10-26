@@ -2826,7 +2826,22 @@ static const struct SpriteTemplate sOakSpeechNidoranFDummyTemplate =
 //tldr look into how unown form is generated and see
 //if it properly sets species as form
 //vsonic important
-enum Move ReturnUnownFormMove(u16 unown_Form)
+/*
+//Moves
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        if (moves[i] == 0 || moves[i] == 0xFF || moves[i] >= MOVES_COUNT)
+            continue;
+
+        SetMonMoveSlot(&mon, moves[i], i);
+    }//logic for adding move from debug move
+    //this logic makes it loop and then replace newest move
+    //for wild encounters that means not getting latest move
+    //so is that prefereable or should I just set it to replace its
+    //oldest move?
+    //if do that can just use SetMonMoveSlot if mon is unown
+*/
+enum Move ReturnUnownMoveByForm(u16 unown_Form)
 {
 
     for (u32 i = 0; i < ARRAY_COUNT(sUnownCharacterMove); i++)
@@ -2836,6 +2851,31 @@ enum Move ReturnUnownFormMove(u16 unown_Form)
     }
 
     
+}
+
+//looks weird but in game only loads species_unown aka unown A
+//the unown species id func is to pull the releveant species constant dispalyed from the personality
+//as that is how the game reads it
+//works but doesn't track everywhere I need it to
+//is easier on that front to just make it a move and loop repalce for the move if present
+//Reworked, now used in getboxmoninitialmoveset func
+//so not overwritten in trainer or debug givecomplex logic
+//now works from learnset
+void TrySetUnownMoveByLetter(struct BoxPokemon *boxMon)
+{
+    u16 species = GetBoxMonData(boxMon, MON_DATA_SPECIES);
+    u32 personality = GetBoxMonData(boxMon, MON_DATA_PERSONALITY);
+
+    if (GetBaseFormSpecies(species) == SPECIES_UNOWN)
+    {
+        for (u32 i = MOVESLOT_0; i < MAX_MON_MOVES; i++)
+        {
+            if (GetBoxMonData(boxMon, MON_DATA_MOVE1 + i) == MOVE_UNOWN)
+                SetBoxMonMoveSlot(boxMon, ReturnUnownMoveByForm(GetUnownSpeciesId(personality)), i);
+
+        }
+        
+    }
 }
 
 // code
@@ -4190,6 +4230,12 @@ void SetMonMoveSlot(struct Pokemon *mon, u16 move, u8 slot)
     SetMonData(mon, MON_DATA_PP1 + slot, &gMovesInfo[move].pp);
 }
 
+void SetBoxMonMoveSlot(struct BoxPokemon *boxMon, u16 move, u8 slot)
+{
+    SetBoxMonData(boxMon, MON_DATA_MOVE1 + slot, &move);
+    SetBoxMonData(boxMon, MON_DATA_PP1 + slot, &gMovesInfo[move].pp);
+}
+
 static void SetMonMoveSlot_KeepPP(struct Pokemon *mon, u16 move, u8 slot) //from emerlad expansion, use for form change move replacement
 {
     u8 ppBonuses = GetMonData(mon, MON_DATA_PP_BONUSES);
@@ -4267,6 +4313,7 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //important can use thi
         if (GiveMoveToBoxMon(boxMon, move) == MON_HAS_MAX_MOVES) // this may be the move learn function I need.
             DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, move); //important since I know boxmon works for enemy npc & i think wild as well.
     } // that function should be very useful for setting up wild move learning.
+    TrySetUnownMoveByLetter(boxMon);
 }
 
 void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: AsparagusEduardo
@@ -4324,11 +4371,14 @@ void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: Asparagu
             }
         }
     }
+
+    
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
         SetBoxMonData(boxMon, MON_DATA_MOVE1 + i, &moves[i]);
         SetBoxMonData(boxMon, MON_DATA_PP1 + i, &gMovesInfo[moves[i]].pp);
     }
+    TrySetUnownMoveByLetter(boxMon);
 }
 
 //working but created for use in inversion ditto ability, to properly change moves
@@ -4343,7 +4393,7 @@ void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species) //Credit
     u16 generatedSpecies;
 
     if (DoesBaseSpeciesHaveCosmeticForms(Species))
-        generatedSpecies = GetFormSpeciesId(Species, 0);
+        generatedSpecies = GetBaseFormSpecies(Species);
     else
         generatedSpecies = Species;
 
@@ -4389,6 +4439,11 @@ void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species) //Credit
     }
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
+        u32 personality = GetMonData(mon, MON_DATA_PERSONALITY);
+        if (generatedSpecies == SPECIES_UNOWN && moves[i] == MOVE_UNOWN)
+        {
+            moves[i] = ReturnUnownMoveByForm(GetUnownSpeciesId(personality));
+        }
         gBattleMons[gBattlerAttacker].moves[i] = moves[i];
         gBattleMons[gBattlerAttacker].pp[i] = gMovesInfo[moves[i]].pp;
         //SetBoxMonData(boxMon, MON_DATA_MOVE1 + i, &moves[i]);

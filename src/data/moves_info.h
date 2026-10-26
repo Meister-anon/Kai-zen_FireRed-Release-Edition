@@ -22135,4 +22135,34 @@ use wonder gaurd logic to determine its super effective
         .battleAnimScript = gBattleAnimMove_DragonRage,
     },//ANIM use dragon rage or dragon breath altered slightly
 
+    [MOVE_UNOWN] =
+    {
+        .name = COMPOUND_STRING("Struggle"),
+        .description = COMPOUND_MOVE_STRING("An attack that is\nused only if there\nis no PP. It also\nhurts the user."),
+        #if UPDATED_MOVE_DATA <= GEN_4
+            .accuracy = 0,
+        #else
+            .accuracy = 100,
+        #endif
+        .effect = EFFECT_HIT, //w my change struggle is far less punishing, potentially swap effect for EFECT_MED_RECOIL
+        .power = 50,
+        .type = TYPE_MYSTERY,
+        .pp = 1,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .meFirstBanned = TRUE,
+        .mimicBanned = TRUE,
+        .metronomeBanned = TRUE,
+        .sleepTalkBanned = TRUE,
+        .copycatBanned = TRUE,
+        .instructBanned = TRUE,
+        .encoreBanned = TRUE,
+        .assistBanned = TRUE,
+        .sketchBanned = TRUE,
+        .battleAnimScript = gBattleAnimMove_Struggle,
+    },//should never be used or called or set, just necessary to 
+    //call move I actually want for unown
+
 };

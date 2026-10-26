@@ -3866,6 +3866,7 @@ static const struct LevelUpMove sMisdreavusLevelUpLearnset[] = {
 static const struct LevelUpMove sUnownLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_PSYWAVE)
     LEVEL_UP_MOVE(1, MOVE_HIDDEN_POWER)
+    LEVEL_UP_MOVE(1, MOVE_UNOWN)
     LEVEL_UP_MOVE(20, MOVE_COSMIC_POWER)
     LEVEL_UP_MOVE(32, MOVE_PSYCHIC)
     //LEVEL_UP_MOVE(33, MOVE_DESTINY_BOND)
