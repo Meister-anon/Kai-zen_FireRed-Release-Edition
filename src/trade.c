@@ -26,6 +26,9 @@
 
 #define NUM_TRADED_GIFT_RIBBONS 11
 
+#define CUSTOM_RIBBON_COUNT_CONST RIBBON_COUNT
+//With space saving had to remove use of outdated ribbon trade constant
+
 struct TradeMenuResources
 {
     /*0x0000*/ u8 bg2hofs;
@@ -54,7 +57,7 @@ struct TradeMenuResources
     /*0x007E*/ u8 otherPlayerCursorPosition;
     /*0x0080*/ u16 linkData[20];
     /*0x00A8*/ u8 loadUISpritesState;
-    /*0x00A9*/ u8 giftRibbons[NUM_TRADED_GIFT_RIBBONS];
+    /*0x00A9*/ u8 giftRibbons[CUSTOM_RIBBON_COUNT_CONST];
     /*0x00B4*/ u8 filler_B4[0x8D0-0xB4];
     /*0x08D0*/ struct {
         bool8 active;
@@ -1435,7 +1438,7 @@ static bool8 shedinja_maker_maybe(void)
         }
         break;
     case 17:
-        Trade_Memcpy(gBlockSendBuffer, gSaveBlock1Ptr->giftRibbons, NUM_TRADED_GIFT_RIBBONS);
+        Trade_Memcpy(gBlockSendBuffer, gSaveBlock1Ptr->giftRibbons, CUSTOM_RIBBON_COUNT_CONST);
         sTradeMenuResourcesPtr->state++;
         break;
     case 19:
@@ -1448,7 +1451,7 @@ static bool8 shedinja_maker_maybe(void)
     case 20:
         if (GetBlockReceivedStatus() == 3)
         {
-            Trade_Memcpy(sTradeMenuResourcesPtr->giftRibbons, gBlockRecvBuffer[id ^ 1], NUM_TRADED_GIFT_RIBBONS);
+            Trade_Memcpy(sTradeMenuResourcesPtr->giftRibbons, gBlockRecvBuffer[id ^ 1], CUSTOM_RIBBON_COUNT_CONST);
             ResetBlockReceivedFlags();
             sTradeMenuResourcesPtr->state++;
         }
@@ -2609,7 +2612,7 @@ static void SetMonIconsAnimByHPBarLevel(void)
 static void CopyGiftRibbonsToSav1(void)
 {
     int i;
-    for (i = 0; i < 11; i++)
+    for (i = 0; i < CUSTOM_RIBBON_COUNT_CONST; i++)
     {
         if (gSaveBlock1Ptr->giftRibbons[i] == 0 && sTradeMenuResourcesPtr->giftRibbons[i] != 0)
             gSaveBlock1Ptr->giftRibbons[i] = sTradeMenuResourcesPtr->giftRibbons[i];
