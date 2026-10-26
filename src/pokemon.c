@@ -4221,7 +4221,7 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //important can use thi
     const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
     u16 generatedSpecies;
 
-    if (gSpeciesInfo[GetFormSpeciesId(species, 0)].hasCosmeticForms)
+    if (DoesBaseSpeciesHaveCosmeticForms(species))
       generatedSpecies = GetFormSpeciesId(species, 0);
     else
         generatedSpecies = species;
@@ -4279,7 +4279,7 @@ void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: Asparagu
     const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
     u16 generatedSpecies;
 
-    if (gSpeciesInfo[GetFormSpeciesId(species, 0)].hasCosmeticForms)
+    if (DoesBaseSpeciesHaveCosmeticForms(species))
         generatedSpecies = GetFormSpeciesId(species, 0);
     else
         generatedSpecies = species;
@@ -4342,7 +4342,7 @@ void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species) //Credit
     const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
     u16 generatedSpecies;
 
-    if (gSpeciesInfo[GetFormSpeciesId(Species, 0)].hasCosmeticForms)
+    if (DoesBaseSpeciesHaveCosmeticForms(Species))
         generatedSpecies = GetFormSpeciesId(Species, 0);
     else
         generatedSpecies = Species;
@@ -11281,7 +11281,7 @@ const u16 *GetSpeciesTmHmLearnset(u16 species)
     //can exclude mon that aren't cosmetic changes
     //just make cosmetics default to base learnsets
     //nvm more work than its worth
-    if (gSpeciesInfo[GetFormSpeciesId(species, 0)].hasCosmeticForms)
+    if (DoesBaseSpeciesHaveCosmeticForms(species))
       generatedSpecies = GetFormSpeciesId(species, 0);
     else
         generatedSpecies = species;
@@ -11381,9 +11381,42 @@ u16 GetSpeciesPreEvolution(u16 species, u32 LoopTarget) //so I feel like I'm not
     return SPECIES_NONE;
 }*/
 
-bool8 DoesSpeciesHaveCosmeticForms(u16 species)
+//.hascosmeticforms and this func is a but misused
+// as well as the form species id species 0 thing
+//GetBaseFormSpecies  just should replace that logic
+//what I did was rather than set the flag on the cosmetic form
+//I set the flag check on the base form which is kinda convoluted?
+//I have no idea why I did that?
+//annoying but feels like it makes much more sense to 
+//just do the common sense thing and put the flag check on the species itself
+//on if it is cosmetic
+//it would already be in the form table so it would
+//lead to the base mon
+//gender forms which I have yet to setup would
+//count as a cosmetic I have no idea what a cosmetic even is
+//at this point...
+//ok is looking like mon with should be identical stats
+//and identical learnsets info
+//in this file all references are dealing with learnset
+//in pokedex below func  is used in checks on whether
+//the base form of a species or the species itself should be buffered to a value
+//vsonic important need to check all instances in pokedex
+//but still belive makes more sense to change flag check
+//to be for cosmeitc...oh ok I remember
+//the reason I did that is because it would be less work
+//i.e could just put the flag on the species
+//rather than each individual cosmetic ex all unown forms
+//all vivilion forms arceus forms etc.
+//now that I remember, the important consideration 
+//is whether the innacuracy of asking does x base species have cosmetic  forms
+//rather than is x species a cosmetic form cause problems?
+//every cosmetic form uses the same learnset as the base form
+//the only differences are type changes and visual changse
+//in that case it should be fine? but again need to double check
+//how its used in the pokedex
+bool8 DoesBaseSpeciesHaveCosmeticForms(u16 species)
 {
-    if (gSpeciesInfo[GetFormSpeciesId(species, 0)].hasCosmeticForms)
+    if (gSpeciesInfo[GetBaseFormSpecies(species)].hasCosmeticForms)
         return TRUE;
     return FALSE;
 }

@@ -1138,7 +1138,7 @@ u8 GetWeatherBallType(u16 move);
 //recent emerald addditions, change for form change (not planning use for ditto/transform)
 u32 GetFormChangeTargetSpecies(struct Pokemon *mon, enum FormChanges method);
 u32 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, enum FormChanges method);
-bool8 DoesSpeciesHaveCosmeticForms(u16 species);
+bool8 DoesBaseSpeciesHaveCosmeticForms(u16 species);
 
 u8 CountAliveMonsInBattle(u8 caseId, enum BattlerId battler);
 

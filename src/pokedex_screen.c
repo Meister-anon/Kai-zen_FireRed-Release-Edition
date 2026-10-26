@@ -4347,7 +4347,7 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
     bool8 UniqueCategory = FALSE;
     //bool8 UseBaseForm = FALSE;
     u16 NatSpecies = SpeciesToNationalPokedexNum(species);
-    u16 caught = DoesSpeciesHaveCosmeticForms(species) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(species, 0), FLAG_GET_CAUGHT, TRUE) :  DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, TRUE);
+    u16 caught = DoesBaseSpeciesHaveCosmeticForms(species) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(species, 0), FLAG_GET_CAUGHT, TRUE) :  DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, TRUE);
 
 
     //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
@@ -4488,7 +4488,7 @@ void DexScreen_PrintMonHeight(u8 windowId, u16 species, u8 x, u8 y)
     u8 buffer[32];
     u8 i;
     u16 FormSpecies;
-    u16 caught = DoesSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0), FLAG_GET_CAUGHT, TRUE) :  DexScreen_GetSetPokedexFlag(sPokedexScreenData->dexSpecies, FLAG_GET_CAUGHT, TRUE);
+    u16 caught = DoesBaseSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0), FLAG_GET_CAUGHT, TRUE) :  DexScreen_GetSetPokedexFlag(sPokedexScreenData->dexSpecies, FLAG_GET_CAUGHT, TRUE);
 
 
     if (species > NATIONAL_SPECIES_COUNT
@@ -4578,7 +4578,7 @@ void DexScreen_PrintMonWeight(u8 windowId, u16 species, u8 x, u8 y)
     u8 i;
     u32 j;
     u16 FormSpecies;
-    u16 caught = DoesSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0), FLAG_GET_CAUGHT, TRUE) :  DexScreen_GetSetPokedexFlag(sPokedexScreenData->dexSpecies, FLAG_GET_CAUGHT, TRUE);
+    u16 caught = DoesBaseSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0), FLAG_GET_CAUGHT, TRUE) :  DexScreen_GetSetPokedexFlag(sPokedexScreenData->dexSpecies, FLAG_GET_CAUGHT, TRUE);
 
     //says national_species_count but actually uses species list to define
     //not national species list
@@ -4792,7 +4792,7 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
     u32 i;
     u16 NatSpecies;
     u16 FormSpecies;
-    u16 caught = DoesSpeciesHaveCosmeticForms(species) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(species, 0), FLAG_GET_CAUGHT, TRUE) :  DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, TRUE);
+    u16 caught = DoesBaseSpeciesHaveCosmeticForms(species) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(species, 0), FLAG_GET_CAUGHT, TRUE) :  DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, TRUE);
 
 
     if (species > NATIONAL_SPECIES_COUNT
@@ -5015,8 +5015,8 @@ void DexScreen_DrawMonFootprint(u8 windowId, u16 species, u8 x, u8 y)
 static u8 DexScreen_DrawMonDexPage(bool8 justRegistered) //should be able to usse this to breakdown dex navigation this will only exist from a place that lists the mon
 {
     u32 i;
-    u16 seen = DoesSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0), FLAG_GET_SEEN, TRUE) :  DexScreen_GetSetPokedexFlag(sPokedexScreenData->dexSpecies, FLAG_GET_SEEN, TRUE);
-    u16 SpeciesVal = DoesSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0) : sPokedexScreenData->dexSpecies;
+    u16 seen = DoesBaseSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0), FLAG_GET_SEEN, TRUE) :  DexScreen_GetSetPokedexFlag(sPokedexScreenData->dexSpecies, FLAG_GET_SEEN, TRUE);
+    u16 SpeciesVal = DoesBaseSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0) : sPokedexScreenData->dexSpecies;
     DexScreen_DexPageZoomEffectFrame(3, 6);
     FillBgTilemapBufferRect_Palette0(2, 0, 0, 0, 30, 20);
     FillBgTilemapBufferRect_Palette0(1, 0, 0, 0, 30, 20);
@@ -5138,7 +5138,7 @@ static u8 DexScreen_DrawMonDexPage(bool8 justRegistered) //should be able to uss
 
 static void UpdateStatBars(u16 species)
 {
-    u16 SpeciesVal = DoesSpeciesHaveCosmeticForms(species) ? GetFormSpeciesId(species, 0) : species;
+    u16 SpeciesVal = DoesBaseSpeciesHaveCosmeticForms(species) ? GetFormSpeciesId(species, 0) : species;
     //LoadSpritePalettes(sStatBarSpritePal);
     //taken from emerald doesn't appear to use window ids at all instead?
     //if right cna get rid of window 0 below
@@ -5155,7 +5155,7 @@ static u8 DexScreen_DrawMonEvoPage(bool8 justRegistered) //should be able to uss
     u32 alreadyPrintedIcons[MAX_ICONS] = {0};
     //u32 preservedPalettes; //not doing anything rn?
     u32 iconOffset;
-    u16 SpeciesVal = DoesSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0) : sPokedexScreenData->dexSpecies;
+    u16 SpeciesVal = DoesBaseSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0) : sPokedexScreenData->dexSpecies;
 
     DexScreen_DexPageZoomEffectFrame(3, 6);
     FillBgTilemapBufferRect_Palette0(2, 0, 0, 0, 30, 20);
@@ -8081,7 +8081,7 @@ static u8 PrintPreEvolutions(u8 taskId, u16 species)
     preEvolutionOne = AllocZeroed(sizeof(*preEvolutionOne) * MAX_PRE_EVOS);
     preEvolutionTwo = AllocZeroed(sizeof(*preEvolutionTwo) * MAX_PRE_EVOS);
 
-    if (DoesSpeciesHaveCosmeticForms(species))
+    if (DoesBaseSpeciesHaveCosmeticForms(species))
         species = GetFormSpeciesId(species, 0);
     //Calculate previous evolution
     for (i = 0; i < NUM_SPECIES; i++) //would work but still has issue of 2nd pre evo calced after pre evo is checked, when I need it first
