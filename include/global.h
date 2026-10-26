@@ -523,6 +523,60 @@ enum AvailableRibbons
     RIBBON_COUNT
 };
 
+//for key items actually used in game
+//as has listing of both fr and em
+//needed for accurate key item bag capacity
+//doesnt work need nother way to make this and get item_count
+//stupid but doing this way re defines item constant
+/*enum KeyItemsList
+{
+    ITEM_EXP_NULL,
+    ITEM_EXP_SHARE,
+    ITEM_COIN_CASE,
+    ITEM_ITEMFINDER,
+    ITEM_OLD_ROD,
+    ITEM_GOOD_ROD,
+    ITEM_SUPER_ROD,
+    ITEM_SS_TICKET,
+    ITEM_METEORITE,
+    ITEM_RED_ORB,
+    ITEM_BLUE_ORB, //necessary for primal reversion
+    ITEM_ROOT_FOSSIL,
+    ITEM_CLAW_FOSSIL,
+    ITEM_MEGA_RING, //still to figure out where to include in progression
+    ITEM_OAKS_PARCEL,
+    ITEM_POKE_FLUTE,
+    ITEM_SECRET_KEY,
+    ITEM_BIKE_VOUCHER,
+    ITEM_GOLD_TEETH,
+    ITEM_OLD_AMBER,
+    ITEM_CARD_KEY,
+    ITEM_LIFT_KEY,
+    ITEM_HELIX_FOSSIL,
+    ITEM_DOME_FOSSIL,
+    ITEM_SILPH_SCOPE,
+    ITEM_BICYCLE,
+    ITEM_TOWN_MAP,
+    ITEM_FAME_CHECKER,
+    ITEM_TM_CASE,
+    ITEM_BERRY_POUCH,
+    //ITEM_SCENT_CASE, //for holding evo scent vials could may scrap and just keep in item slot
+    ITEM_TEACHY_TV,
+    ITEM_OMNI_BOX,
+    ITEM_TRI_PASS,
+    ITEM_RAINBOW_PASS,
+    ITEM_TEA,
+    ITEM_MYSTIC_TICKET,
+    ITEM_AURORA_TICKET,
+    ITEM_RUBY,
+    ITEM_SAPPHIRE,
+    KEY_ITEMS_COUNT
+};*/
+//curr key item bag capacity is 50
+//actual used amount is 39
+//so I do have enough
+//my mega stone space is 49 items presently
+
 
 enum Comparison_Operator_Constants
 {
