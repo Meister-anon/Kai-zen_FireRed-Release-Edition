@@ -12344,7 +12344,16 @@ u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
                     ;
 
                 if (k == numMoves)
-                    moves[numMoves++] = learnset[i].move;
+                {
+                    u32 personality = GetMonData(mon, MON_DATA_PERSONALITY);
+                    if (species == SPECIES_UNOWN && learnset[i].move == MOVE_UNOWN)
+                    {
+                        moves[numMoves++] = ReturnUnownMoveByForm(GetUnownSpeciesId(personality));
+                    }
+                    else
+                        moves[numMoves++] = learnset[i].move;
+                }
+                    
             }
         }
     }
