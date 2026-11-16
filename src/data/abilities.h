@@ -2253,7 +2253,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 6,
     },//didn't realize that's what this did, but its basically fake stab
     //do I need to lower it to match new stab
-    //mon its on isn't that good so will live at default
+    //mon its on isn't that good so will leave at default
 
     [ABILITY_WIND_POWER] =
     {

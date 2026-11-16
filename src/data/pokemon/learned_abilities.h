@@ -1650,8 +1650,12 @@ static const struct AbilityLearnset sLaironAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sAggronAbilityLearnset[] = {
+    ABILITY_HARVEST,
     ABILITY_SET_END
 };
+//because dex entry of restoring lands and vegetation
+//plan use that dex entry for mon taken from sapphire
+//vsonic
 
 static const struct AbilityLearnset sCastformAbilityLearnset[] = {
     ABILITY_SET_END
@@ -3220,8 +3224,9 @@ static const struct AbilityLearnset sPhantumpAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sTrevenantAbilityLearnset[] = {
+    ABILITY_ARENA_TRAP,
     ABILITY_SET_END
-};
+};//dex entry uses trees to trap people in forest
 
 static const struct AbilityLearnset sPumpkabooAbilityLearnset[] = {
     ABILITY_SET_END

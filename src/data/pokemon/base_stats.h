@@ -3352,7 +3352,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_GRASS,
         .eggGroup2 = EGG_GROUP_GRASS,
         .abilities = {ABILITY_CHLOROPHYLL, ABILITY_NONE},
-        .abilityHidden = {ABILITY_HARVEST, ABILITY_NONE},
+        .abilityHidden = {ABILITY_HARVEST, ABILITY_MULTI_TASK}, //Three heads can attack together
         //.bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -9681,7 +9681,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_MONSTER,
         .abilities = {ABILITY_STURDY, ABILITY_ROCK_HEAD},
-        .abilityHidden = {ABILITY_HEAVY_METAL, ABILITY_NONE},
+        .abilityHidden = {ABILITY_HEAVY_METAL, ABILITY_SHELL_ARMOR},
         //.bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -9710,7 +9710,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_MONSTER,
         .abilities = {ABILITY_STURDY, ABILITY_ROCK_HEAD},
-        .abilityHidden = {ABILITY_HEAVY_METAL, ABILITY_NONE},
+        .abilityHidden = {ABILITY_HEAVY_METAL, ABILITY_BATTLE_ARMOR},
         //.bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -9739,7 +9739,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_MONSTER,
         .abilities = {ABILITY_STURDY, ABILITY_ROCK_HEAD},
-        .abilityHidden = {ABILITY_HEAVY_METAL, ABILITY_NONE},
+        .abilityHidden = {ABILITY_HEAVY_METAL, ABILITY_ARENA_TRAP},
         //.bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -9750,6 +9750,21 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
     //needs more steel moves meteor mash
+    //no ideas for lairon abilities but aggron
+    //is territorial but also manages land like a farmer
+    //repalces soil lost treees etc.
+    //arena trap works for territory also guard dog
+    //could also just toss on battle armor,
+    //idk if that would make it broken though?
+    //think don't give to full evo for balance and variety
+    //for farm potentially harvest?   - stalwart?
+    //seed sower? arboleva ability though..
+    //ok harvest is much easier to take advantage of than seed sower
+    //mostly given to plant mon but no distinction of character needed
+    //so is doable
+    //would make much stronger and give another niche over tyranitar etc.
+    //arena trap overall makes most sense and will leave harvest for special case
+
 
     //wow idk how never realized this was so shit
     //since inspired by yoga whcih is about improvinng bodies defenses
