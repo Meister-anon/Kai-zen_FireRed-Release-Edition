@@ -21528,7 +21528,7 @@ use wonder gaurd logic to determine its super effective
     [MOVE_SPICE_TRADE] =
     {
         .name = COMPOUND_STRING("Spice Trade"),
-        .description = COMPOUND_MOVE_STRING("The user shares\nan irresistibly\nspicy pepper with\nthe target.\nChanging its abilty\nto Heat Trance."),
+        .description = COMPOUND_MOVE_STRING("The user shares\nan irresistibly\nspicy pepper with\nthe target.\nChanging its ability\nto Heat Trance."),
         .effect = EFFECT_OVERWRITE_ABILITY, //new effect change target ability 
         .power = 0,
         .type = TYPE_FIRE, //similar to move entrainmet will default to that animation temp

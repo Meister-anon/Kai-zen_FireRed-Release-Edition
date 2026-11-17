@@ -1604,6 +1604,7 @@ enum BattlerId GetBattlerLeftFoe(enum BattlerId battler);
 enum BattlerId GetBattlerRightFoe(enum BattlerId battler);
 enum BattlerId GetDefaultSelectionTarget(enum BattlerId battler, enum MoveTarget moveTarget);
 
+u32 ReturnStatConditional(enum BattlerId battler, enum Ability Battlerability, u32 statVal, enum Stat statId);
 
 static inline bool32 IsBattlerAlive(enum BattlerId battler)
 {
@@ -1669,6 +1670,7 @@ static inline struct Pokemon *GetBattlerParty(enum BattlerId battlerId)
 {
     return GetSideParty(GetBattlerSide(battlerId));
 }
+
 
 //unsure if works, so not yet using
 //compiler error so guess is wrong

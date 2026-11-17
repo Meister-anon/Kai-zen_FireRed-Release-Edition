@@ -153,7 +153,7 @@ plan:
 set direction selection for ability num & nature for custom trainer data
 
 but for default making this change so fighting the same trainer again when they have stronger/evolved mon
-would result in the same nature and abilty as first time encountering them, (would require setting it so ability can be different)
+would result in the same nature and ability as first time encountering them, (would require setting it so ability can be different)
 
 checked trainername (which is used for personalityvalue  /namehash, never changes,
 so can ues that reliably, 
@@ -10179,7 +10179,7 @@ that way you don't need to keep flying aruond to different places looking for th
   made from a tooth?
 
   bone fairy clads itself in bone armor,
-  think what could do is make abilty bone armor,
+  think what could do is make ability bone armor,
   resists fire damage,
 
   could make tooth armor for tooth fairy,

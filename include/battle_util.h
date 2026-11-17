@@ -583,7 +583,7 @@ bool8 CanActivateForewarnAnticipation(enum BattlerId battler);
 bool8 IsFixationMoveEffect(u16 move); //SETUP FOR new category of move inspired by legends arceus
 
 /*//used in battle_main unsure if  still need
-u8 ShouldAbilityAbsorb(u16 move); //ATTEMPT workaroud for absorb abilty/lightning rod targetting
+u8 ShouldAbilityAbsorb(u16 move); //ATTEMPT workaroud for absorb ability/lightning rod targetting
 //two custom functions for ability absorb along w new macro should do what I need
 bool32 CanAbilityAbsorb(u8 MoveUser, u8 AbilityUser, u8 MoveType);
 bool32 DoesBattlerAbilityAbsorbMoveType(u8 moveTarget, u8 MoveType);

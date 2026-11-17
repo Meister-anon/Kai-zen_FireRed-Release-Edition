@@ -8183,12 +8183,12 @@ static inline u32 CalcAttackStat(struct BattleContext *ctx)
     {
         if (IsBattleMovePhysical(move))
         {
-            atkStat = gBattleMons[battlerDef].attack;
+            atkStat = ReturnStatConditional(battlerDef, ctx->abilityDef, gBattleMons[battlerDef].attack, STAT_ATK);
             atkStage = gBattleMons[battlerDef].statStages[STAT_ATK];
         }
         else
         {
-            atkStat = gBattleMons[battlerDef].spAttack;
+            atkStat = ReturnStatConditional(battlerDef, ctx->abilityDef, gBattleMons[battlerDef].spAttack, STAT_SPATK);
             atkStage = gBattleMons[battlerDef].statStages[STAT_SPATK];
         }
     }
@@ -8213,14 +8213,14 @@ static inline u32 CalcAttackStat(struct BattleContext *ctx)
     {
         if (IsBattleMovePhysical(move))
         {
-            atkStat = gBattleMons[battlerAtk].attack;
+            atkStat = ReturnStatConditional(battlerAtk, ctx->abilityAtk, gBattleMons[battlerAtk].attack, STAT_ATK);
             atkStage = gBattleMons[battlerAtk].statStages[STAT_ATK];
         }
         else
         {
-            atkStat = gBattleMons[battlerAtk].spAttack;
+            atkStat = ReturnStatConditional(battlerAtk, ctx->abilityAtk, gBattleMons[battlerAtk].spAttack, STAT_SPATK);
             atkStage = gBattleMons[battlerAtk].statStages[STAT_SPATK];
-        }
+        }        
     }
 
     atkStage = FogNegates ? DEFAULT_STAT_STAGE : atkStage;

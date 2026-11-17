@@ -3595,6 +3595,104 @@ static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon)
     SetMonData(mon, field, &n);                                                 \
 }
 
+#define UNKNOWN_POWER_CALC(base, bonus, iv, ev, statIndex)      \
+{                                                                               \
+    u8 baseStat = gSpeciesInfo[species].base;                                     \
+    u8 nature = GetNature(mon);                                                 \
+    RevisedStat = (((2 * (baseStat + bonus) + ((iv * 170) /100) + ev / 4) * level) / 100) + 5;  \
+    RevisedStat = ModifyStatByNature(nature, RevisedStat, statIndex);                               \
+}
+
+//need display unown power stats in summary screen
+//without actually changing base stat as boost is dynamic
+//based on number of alive unown in party
+//so should base implementation on how did dynamic type in summ
+//think I need to delay this till I'm bringin in ability logic
+//since I'm unsure how I would properly update with ai etc.
+//the big issue is making it dynamic
+//as the boost is dependent on how many alive
+//and needing to update the stat and with the ai for the falloff
+//if it didn't fall off then it would be simpler to deal with
+//hmm that works better for balance and use
+//if you stack your party and then they die
+//the rest are just dead weight
+//ok for balance and ease of use remove part
+//of stat boost fallign off for fainted unown in party
+//still over  complicated/ having trouble figuring how to setup
+//intead just add to stat formulas in speed formula and attack formula
+//tested works but had wrong value need calc stat from bst not change battle value
+//fixed now, believe can use func in battle sum screen for stat val?
+//believe summ screen doesn't track what I think it does...
+//this doesn't change battle stat but the attack stat calculated
+//for purposes of dmg, same thing for speed relevant to turn order
+//for people that use dmg calculators would be beneficial to shift
+//battle screen to display effective stat
+//thats important cuz I'm not setting up something to track stat stage changes.
+//believe would need new setup more akin to GetBattlerTotalSpeedStat
+//which would track all relevant values
+//issues it would be conflicting rn only shows battle data if on field
+//would use mon data if not on field, but no way to communicate that distinction
+//could be a button prompt only shown for mon on field
+//"display field stats"  something to that effect idk vsonic important
+u32 ReturnStatConditional(enum BattlerId battler, enum Ability Battlerability, u32 statVal, enum Stat statId)
+{
+    struct Pokemon *party = GetBattlerParty(battler);
+    u16 battlerBaseSpecies = GetBaseFormSpecies(gBattleMons[battler].species);
+    u32 numUnown = 0; 
+    u32 RevisedStat = 0;
+    
+
+    if (battlerBaseSpecies == SPECIES_UNOWN
+    && Battlerability == ABILITY_UNKNOWN_POWER)
+    {
+        for (u32 monIndex = 0; monIndex < PARTY_SIZE; monIndex++)
+        {
+            if (GetBaseFormSpecies(GetMonData(&party[monIndex], MON_DATA_SPECIES)) == SPECIES_UNOWN)
+            {
+                numUnown++;
+            }
+        }
+    }
+
+    if (numUnown > 1)
+    {
+        struct Pokemon *mon = GetBattlerMon(battler);
+        s32 attackIV = GetMonData(mon, MON_DATA_ATK_IV);
+        s32 attackEV = GetMonData(mon, MON_DATA_ATK_EV);
+        s32 spAttackIV = GetMonData(mon, MON_DATA_SPATK_IV);
+        s32 spAttackEV = GetMonData(mon, MON_DATA_SPATK_EV);
+        s32 speedIV = GetMonData(mon, MON_DATA_SPEED_IV);
+        s32 speedEV = GetMonData(mon, MON_DATA_SPEED_EV);
+        s32 level = GetLevelFromMonExp(mon);
+        u16 species = battlerBaseSpecies;
+
+        switch (statId)
+        {
+            case STAT_ATK:
+            {
+                UNKNOWN_POWER_CALC(baseAttack, ((numUnown - 1) * 10), attackIV, attackEV, STAT_ATK)
+                return RevisedStat;
+            }                
+            break;
+            case STAT_SPATK:
+            {
+                UNKNOWN_POWER_CALC(baseSpAttack, ((numUnown - 1) * 10), spAttackIV, spAttackEV, STAT_SPATK)
+                return RevisedStat;
+            } 
+            break;
+            case STAT_SPEED:
+            {
+                UNKNOWN_POWER_CALC(baseSpeed, ((numUnown - 1) * 5), speedIV, speedEV, STAT_SPEED)
+                return RevisedStat;
+            } 
+            break;
+        }
+
+    }
+    else
+        return statVal;
+}
+
 void CalculateMonStats(struct Pokemon *mon)
 {
 
@@ -5155,7 +5253,7 @@ void ApplyScreenModifier(enum BattlerId battlerAtk, enum BattlerId battlerDef, u
     && (ABILITY_ON_FIELD2(ABILITY_PLUS)
     || IsTypeOnFieldExcept(battlerIdAtk,TYPE_ELECTRIC)))
         spAttack = (150 * spAttack) / 100;
-    if (abilityAtk == ABILTY_UNKNOWN_POWER && (BATTLE_PARTNER(attacker->species) == SPECIES_UNOWN))
+    if (abilityAtk == ABILITY_UNKNOWN_POWER && (BATTLE_PARTNER(attacker->species) == SPECIES_UNOWN))
         OffensiveModifer(200);
     if (abilityAtk == ABILITY_GUTS && attacker->status1 & STATUS1_ANY)
         attack = (150 * attack) / 100;

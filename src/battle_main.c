@@ -5618,6 +5618,12 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum 
     else if (ability == ABILITY_DEFEATIST && !IsBattlerAboveHalfHP(battler))
         speed *= 2;
 
+    else if (ability == ABILITY_UNKNOWN_POWER 
+    && GetBaseFormSpecies(gBattleMons[battler].species) == SPECIES_UNOWN)
+    {
+        speed = ReturnStatConditional(battler, ability, speed, STAT_SPEED);
+    }
+
     //think want to change how this works, point is to raise speed like getting serious,
     //but dont want to lower speed again if they heal
     //on the other hand if i do it this way it still opens me up to stat stage speedboosts
