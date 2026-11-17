@@ -940,7 +940,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x77, 13),
       BACK_COORD(0x85, 0x0e),
       PIC_DATA_ICON_INDEX(Gastly, 2),
-      .enemyMonElevation = 5,
+      .enemyMonElevation = 9,
       .cryData = CRY_INFO(Cry_Gastly),
       .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gastly),
 }, //Gastly,
