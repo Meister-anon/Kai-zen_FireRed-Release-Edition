@@ -949,7 +949,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x77, 13),
       BACK_COORD(0x76, 0x09),
       PIC_DATA_ICON_INDEX(Haunter, 2),
-      .enemyMonElevation = 4,
+      .enemyMonElevation = 11,
       .cryData = CRY_INFO(Cry_Haunter),
       .cryData_Reverse = CRY_INFO_REVERSE(Cry_Haunter),
 }, //Haunter,

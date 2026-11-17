@@ -7617,6 +7617,7 @@ const struct ItemInfo gItemsInfo[] =
       .battleUseFunc = NULL,
       .secondaryId =  0
     },
+    //not using
     [ITEM_VS_SEEKER] =
     {
       .name = _("Vs Seeker"),
@@ -7634,7 +7635,6 @@ const struct ItemInfo gItemsInfo[] =
       .battleUseFunc = NULL,
       .secondaryId =  0
     },
-    //not planning to use
     [ITEM_FAME_CHECKER] =
     {
       .name = _("Fame Checker"),
@@ -7651,7 +7651,7 @@ const struct ItemInfo gItemsInfo[] =
       .fieldUseFunc = FieldUseFunc_FameChecker,
       .battleUseFunc = NULL,
       .secondaryId =  0
-    },//added back
+    },
     [ITEM_TM_CASE] =
     {
       .name = _("TM Case"),

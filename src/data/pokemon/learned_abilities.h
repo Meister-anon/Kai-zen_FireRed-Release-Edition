@@ -171,6 +171,7 @@ static const struct AbilityLearnset sNidorinoAbilityLearnset[] = {
 
 static const struct AbilityLearnset sNidokingAbilityLearnset[] = {
     ABILITY_PIERCING_HORN,
+    ABILITY_HUSTLE,
     ABILITY_SET_END
 };
 

@@ -800,7 +800,7 @@ void HandleAction_Switch(void)
         CalculateMonStats(GetBattlerMon(gBattlerAttacker)); //for resetting stats to normal
     }
     else
-    TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_SWITCH_OUT, GetBattlerAbility(gBattlerAttacker));
+        TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_SWITCH_OUT, GetBattlerAbility(gBattlerAttacker));
 }
 
 //not setup yet
@@ -8459,6 +8459,7 @@ static inline u32 CalcAttackStat(struct BattleContext *ctx)
         break;
     }
 
+    //vsonic I'll most likely remove badge boost stuff vsonic
     modifier = ApplyOffensiveBadgeBoost(modifier, battlerAtk, move);
 
     return uq4_12_multiply_by_int_half_down(modifier, atkStat);
@@ -11342,6 +11343,8 @@ u32 GetNextTarget(u32 moveTarget, bool32 excludeCurrent)
     return battler;
 }
 
+//seems not main transfer of values to battle
+//is used exclusively in recalcstats function
 void CopyMonLevelAndBaseStatsToBattleMon(enum BattlerId battler, struct Pokemon *mon)
 {
     gBattleMons[battler].level = GetMonData(mon, MON_DATA_LEVEL);
@@ -11393,6 +11396,15 @@ void RecalcBattlerStats(enum BattlerId battler, struct Pokemon *mon, bool32 isDy
             }
         }
     }
+
+    /* - vsonic important from EE true false is if should update speed stat made just for this case I expect
+    //believe for my purpose should just replace w use false
+    //so all speed swapped mon don't update
+    if (gBattleMons[battler].volatiles.speedSwapped && GetConfig(B_MEGA_EVO_SPEED_SWAP) >= GEN_CHAMPIONS)
+        CopyMonLevelAndBaseStatsToBattleMon(battler, mon, FALSE);
+    else
+        CopyMonLevelAndBaseStatsToBattleMon(battler, mon, TRUE);
+    */
     CopyMonLevelAndBaseStatsToBattleMon(battler, mon);
     CopyMonAbilityAndTypesToBattleMon(battler, mon);
 }

@@ -3898,6 +3898,18 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
             //.contestComboMoves = {COMBO_STARTER_CALM_MIND},
             .battleAnimScript = gBattleAnimMove_Psywave,
     },
+    //is power 0 so not doing typless but believe elsewhere is still doing typeless
+    //as never triggered super effect on bellsprout
+    //either awy new effect does between 70 and 150 level dmg
+    //don't need type effect on this actually
+    //does appear to be able to crit though? not sure how that happened
+    //vsonic important - compare EE setup
+
+    //double check item setup and changelog
+    //appears potion is still broken on use when I thought that was fixed?
+    //unable to use to heal ok fixed battle use for berry etc.
+    //but out of battle potion use still breaks assuming is item logic check later
+    //tired now
 
     [MOVE_SPLASH] =
     {
@@ -4151,7 +4163,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_CONVERSION] =
     {
         .name = COMPOUND_STRING("Conversion"),
-        .description = COMPOUND_MOVE_STRING("The user changes its\nprimary type to\nmatch the type of\nits first move."),
+        .description = COMPOUND_MOVE_STRING("The user changes\nits primary type to\nmatch the type of\nits first move."),
         #if UPDATED_MOVE_DATA <= GEN_5
         #else
         #endif
@@ -4610,7 +4622,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_CONVERSION_2] =
     {
         .name = COMPOUND_STRING("Conversion 2"),
-        .description = COMPOUND_MOVE_STRING("The user changes its\nsecondary type to\nmatch the type of\nits first move."),
+        .description = COMPOUND_MOVE_STRING("User changes its\nsecondary type to\nmatch the type of\nits first move."),
         .effect = EFFECT_CONVERSION,
         .power = 0,
         .type = TYPE_NORMAL,
@@ -5920,7 +5932,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_RAPID_SPIN] =
     {
         .name = COMPOUND_STRING("Rapid Spin"),
-        .description = COMPOUND_MOVE_STRING("An attack that\nfrees the user from\nLEECH SEED and TRAPS\nand raises SPEED."),
+        .description = COMPOUND_MOVE_STRING("An attack that\nfrees the user from\nLEECH SEED and\nTRAP effects\nalso raises SPEED."),
         #if UPDATED_MOVE_DATA <= GEN_8
             .power = 50,
         #else
