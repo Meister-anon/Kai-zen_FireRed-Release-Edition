@@ -286,7 +286,7 @@ static void PrintInstructionsOnWindow(struct PokemonDebugMenu *data)
     u8 textInstructionsSubmenuTwo[] = _("{START_BUTTON} Shiny {SELECT_BUTTON} Cry\n{B_BUTTON} Back  {A_BUTTON} Submenu 3$");
     u8 textInstructionsSubmenuThree[] = _("{START_BUTTON} Shiny {SELECT_BUTTON} Cry\n{B_BUTTON} Back  {A_BUTTON} Main menu$");
     u8 textBottom[] = _("BG:$");
-    u8 textPal[] = _("Pal Index:");
+    u8 textPal_Shadow[] = _("Pal Index:\nShadow:");
     u8 textBottomSubmenuTwo[] = _("B coords:\nF coords:\nF elev:");
     u16 species = data->modifyArrows.currValue;
     u8 textL[] = _("{L_BUTTON}");
@@ -313,7 +313,7 @@ static void PrintInstructionsOnWindow(struct PokemonDebugMenu *data)
     else if (data->currentSubmenu == MonPic_Coord_Menu)
         AddTextPrinterParameterized(WIN_BOTTOM_LEFT, fontId, textBottomSubmenuTwo, 0, 0, 0, NULL);
      else if (data->currentSubmenu == IconPal_SubMenu)
-        AddTextPrinterParameterized(WIN_BOTTOM_LEFT, fontId, textPal, 0, 0, 0, NULL);
+        AddTextPrinterParameterized(WIN_BOTTOM_LEFT, fontId, textPal_Shadow, 0, 0, 0, NULL);
 }
 
 static void VBlankCB(void)
@@ -404,14 +404,14 @@ static void SetArrowInvisibility(struct PokemonDebugMenu *data)
         gSprites[data->modifyArrows.arrowSpriteId[1]].invisible = FALSE;
         gSprites[data->optionArrows.arrowSpriteId[0]].invisible = TRUE;
         gSprites[data->yPosModifyArrows.arrowSpriteId[0]].invisible = TRUE;
-        break;
-    case IconPal_SubMenu:
+        break;    
     case BG_SubMenu:
         gSprites[data->modifyArrows.arrowSpriteId[0]].invisible = TRUE;
         gSprites[data->modifyArrows.arrowSpriteId[1]].invisible = TRUE;
         gSprites[data->optionArrows.arrowSpriteId[0]].invisible = FALSE;
         gSprites[data->yPosModifyArrows.arrowSpriteId[0]].invisible = TRUE;
         break;
+    case IconPal_SubMenu:
     case MonPic_Coord_Menu:
         gSprites[data->modifyArrows.arrowSpriteId[0]].invisible = TRUE;
         gSprites[data->modifyArrows.arrowSpriteId[1]].invisible = TRUE;
@@ -592,6 +592,7 @@ static void SetConstSpriteValues(struct PokemonDebugMenu *data)
     data->constSpriteValues.frontPicCoords = gSpeciesGraphics[species].frontPicYOffset;
     data->constSpriteValues.frontElevation = gSpeciesGraphics[species].enemyMonElevation;
     data->constSpriteValues.backPicCoords = gSpeciesGraphics[species].backPicYOffset;
+    data->constSpriteValues.hideShadow = gSpeciesGraphics[species].hideShadow;
 }
 
 static void ResetOffsetSpriteValues(struct PokemonDebugMenu *data)
@@ -599,6 +600,7 @@ static void ResetOffsetSpriteValues(struct PokemonDebugMenu *data)
     data->offsetsSpriteValues.offset_back_picCoords = 0;
     data->offsetsSpriteValues.offset_front_picCoords = 0;
     data->offsetsSpriteValues.offset_front_elevation = 0;
+    data->offsetsSpriteValues.offset_hideShadow = data->constSpriteValues.hideShadow;
 }
 
 static u8 GetBattlerSpriteFinal_YCustom(u16 species, s8 offset_picCoords, s8 offset_elevation)
@@ -622,9 +624,16 @@ static u8 GetBattlerSpriteFinal_YCustom(u16 species, s8 offset_picCoords, s8 off
     return y;
 }
 
+//add debug value to flip shadow on off for test
+//gSpeciesGraphics[SanitizeSpeciesId(species)].hideShadow
+//make else if, have hide shadow be first block
+//if hideshadow true  invisble set true
 static void UpdateShadowSpriteInvisible(struct PokemonDebugMenu *data)
 {
-    if (data->constSpriteValues.frontElevation + data->offsetsSpriteValues.offset_front_elevation == 0)
+    if (data->constSpriteValues.hideShadow != data->offsetsSpriteValues.offset_hideShadow
+    && data->offsetsSpriteValues.offset_hideShadow == TRUE)
+        gSprites[data->frontShadowSpriteId].invisible = TRUE;
+    else if (data->constSpriteValues.frontElevation + data->offsetsSpriteValues.offset_front_elevation == 0)
         gSprites[data->frontShadowSpriteId].invisible = TRUE;
     else
         gSprites[data->frontShadowSpriteId].invisible = FALSE;
@@ -809,6 +818,12 @@ static void UpdateYPosOffsetText(struct PokemonDebugMenu *data)
 
     u8 newIconPalIndex = offset_iconPalIndex;
 
+    u8 shadowState = data->constSpriteValues.hideShadow;
+
+    s8 offset_shadowState = data->offsetsSpriteValues.offset_hideShadow;
+
+    u8 newShadowState = offset_shadowState;
+
     FillWindowPixelBuffer(WIN_BOTTOM_RIGHT, PIXEL_FILL(0));
 
     if (data->currentSubmenu == MonPic_Coord_Menu)
@@ -847,7 +862,14 @@ static void UpdateYPosOffsetText(struct PokemonDebugMenu *data)
         AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textNew, x_new_text, y, 0, NULL);
         ConvertIntToDecimalStringN(text, newIconPalIndex , STR_CONV_MODE_LEFT_ALIGN, 2);
         AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_new_val, y, 0, NULL);
-        
+        //Shadow Visibility state
+        y = 12;
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textConst, 5, y, 0, NULL);
+        ConvertIntToDecimalStringN(text, shadowState , STR_CONV_MODE_LEFT_ALIGN, 2);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_const_val + 5, y, 0, NULL);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textNew, x_new_text, y, 0, NULL);
+        ConvertIntToDecimalStringN(text, newShadowState , STR_CONV_MODE_LEFT_ALIGN, 2);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_new_val, y, 0, NULL);
 
     }
 }
@@ -1162,12 +1184,13 @@ static void UpdateSubmenuTwoOptionValue(u8 taskId, bool8 increment)
     UpdateYPosOffsetText(data);
 }
 
-
+//isn't 3 option menu is third menu
+//this is for pal index setup need adjust this to work for shadow
 static void UpdateSubmenuThreeOptionValue(u8 taskId, bool8 increment)
 {
     struct PokemonDebugMenu *data = GetStructPtr(taskId);
     u16 species = data->currentmonId;
-    u8 option = data->submenuYpos[1];
+    u8 option = data->submenuYpos[2];
     s8 offset;
     u8 y;
 
@@ -1190,15 +1213,34 @@ static void UpdateSubmenuThreeOptionValue(u8 taskId, bool8 increment)
                 offset -= 1;
         }
         data->offsetIconPalValues.offset_paletteIndex = offset;
+        FreeMonIconPalettes();
+        DebugLoadMonIconPalette(offset);
+        break;
+    case 1: //hide shadow
+        offset = data->offsetsSpriteValues.offset_hideShadow;
+        if (increment)
+        {
+            if (offset == TRUE)
+                offset = FALSE;
+            else
+                offset += 1;
+        }
+        else
+        {
+            if (offset == FALSE)
+                offset = TRUE;
+            else
+                offset -= 1;
+        }
+        data->offsetsSpriteValues.offset_hideShadow = offset;
+        UpdateShadowSpriteInvisible(data);       
         break;
     default:
         break;
 
     }
 
-    UpdateYPosOffsetText(data);
-    FreeMonIconPalettes();
-    DebugLoadMonIconPalette(offset);
+    UpdateYPosOffsetText(data);    
 }
 
 #define READ_PTR_FROM_TASK(taskId, dataId)                      \
@@ -1334,7 +1376,7 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
             PrintInstructionsOnWindow(data);
             SetArrowInvisibility(data);
             SetConstIconPalValues(data);
-            ResetOffsetIconPalValues(data); //should already be set but not displaying right, showing 0 not curr value
+            ResetOffsetIconPalValues(data);
             UpdateYPosOffsetText(data);
         }
         if (JOY_NEW(B_BUTTON))
@@ -1396,6 +1438,30 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
             UpdateYPosOffsetText(data); //think this right
             SetArrowInvisibility(data);//not sure what but got it working now
             PrintInstructionsOnWindow(data);
+        }
+
+        //think to do w num menu options
+        //since increments before condition check
+        //pos would be 1 greater than max count of options
+        //given a 0 starting count
+        else if (JOY_NEW(DPAD_DOWN))
+        {
+            data->submenuYpos[2] += 1;
+            if (data->submenuYpos[2] >= 2)
+                data->submenuYpos[2] = 0;
+
+            data->yPosModifyArrows.currentDigit = data->submenuYpos[2];
+            gSprites[data->yPosModifyArrows.arrowSpriteId[0]].y = OPTIONS_ARROW_Y + data->yPosModifyArrows.currentDigit * 12;
+        }
+        else if (JOY_NEW(DPAD_UP))
+        {
+            if (data->submenuYpos[2] == 0)
+                    data->submenuYpos[2] = 1;
+            else
+                data->submenuYpos[2] -= 1;
+
+            data->yPosModifyArrows.currentDigit = data->submenuYpos[2];
+            gSprites[data->yPosModifyArrows.arrowSpriteId[0]].y = OPTIONS_ARROW_Y + data->yPosModifyArrows.currentDigit * 12;
         }
        
         else if (JOY_NEW(DPAD_LEFT))

@@ -34,6 +34,7 @@ struct PokemonSpriteConstValues
     u8 backPicCoords;
     u8 frontPicCoords;
     u8 frontElevation;
+    u8 hideShadow;
 };
 
 struct PokemonSpriteOffsets
@@ -41,6 +42,7 @@ struct PokemonSpriteOffsets
     s8 offset_back_picCoords;
     s8 offset_front_picCoords;
     s8 offset_front_elevation;
+    s8 offset_hideShadow;
 };
 
 struct PokemonIconPalIndexConstValues

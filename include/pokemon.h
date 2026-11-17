@@ -1046,6 +1046,7 @@ struct SpeciesGraphicInfo
 
  /* 0x78 */ u8 iconPalIndex:3;
             u8 enemyMonElevation;
+            bool8 hideShadow; //default false ony used for setting hiding shadow for elevated mon
             struct ToneData *cryData; //couldn't figure set SetPokemonCryTone back to normal make macro fill all from here
             struct ToneData *cryData_Reverse;
 }; //all of these values have macros excluding iconPalIndex which should allow me to copy directly from existing arrays

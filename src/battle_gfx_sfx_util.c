@@ -1070,12 +1070,13 @@ void SetBattlerShadowSpriteCallback(enum BattlerId battler, u16 species)
         if (gBattleSpritesDataPtr->battlerData[battler].transformSpecies != SPECIES_NONE)
             species = gBattleSpritesDataPtr->battlerData[battler].transformSpecies;
 
-        if (gSpeciesGraphics[SanitizeSpeciesId(species)].enemyMonElevation != 0)
+        if (gSpeciesGraphics[SanitizeSpeciesId(species)].enemyMonElevation != 0
+        && gSpeciesGraphics[SanitizeSpeciesId(species)].hideShadow == FALSE)
             gSprites[gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdPrimary].callback = SpriteCB_EnemyShadow;
         else
             gSprites[gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdPrimary].callback = SpriteCB_SetInvisible;
     }
-}
+}//logic for displaying shadow sprite for battler
 
 void HideBattlerShadowSprite(enum BattlerId battler)
 {
