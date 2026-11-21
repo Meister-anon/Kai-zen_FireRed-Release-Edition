@@ -40885,8 +40885,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
-        115,
         90,
+        115,
         115,
         130,
         90
@@ -40913,6 +40913,10 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .isMegaEvolution = TRUE,
     },
+    //doesn't really get physical moves 
+    //so reworked to be defensive, give mega form
+    //body press in its learnset be rare fast tanky mon
+    ///sort of
 
     //use this as standard for mon already psuedoes put in middle ground +50
     [SPECIES_TYRANITAR_MEGA] =

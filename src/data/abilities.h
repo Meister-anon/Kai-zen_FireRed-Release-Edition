@@ -2674,7 +2674,10 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Unknown Power"),
         .description = COMPOUND_ABILITY_STRING("An odd ability from the Unown Dimension\nboosts stats for each unown in the party"),
         .aiRating = 2,
-    },
+    /*
+     //reworked idea boost effective bst for offenses and speed based on num other unown in party
+    //essentially n-1 * boost +10 for atk adn sp atk +5 for speed
+    */
 
     [ABILITY_PURIFYING_AURA] =
     {
