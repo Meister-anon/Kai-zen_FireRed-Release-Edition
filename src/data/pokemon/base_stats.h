@@ -4887,7 +4887,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     {
         .speciesName = _("Mew"),
  
-           //hp, atk, def, spd, spatk, spdef
+              //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 100, 126, 100, 154),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 45,
