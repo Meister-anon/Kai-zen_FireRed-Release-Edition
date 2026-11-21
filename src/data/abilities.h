@@ -416,10 +416,11 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_THICK_FAT] =
     {
         .name = _("Thick Fat"),
-        .description = COMPOUND_ABILITY_STRING("Reduces Heat-and-cold effectiveness."),
+        .description = COMPOUND_ABILITY_STRING("Halves Fire and Ice damage."),
         .aiRating = 7,
         .breakable = TRUE,
-    },
+    },//reverted effect back to original for simplicity,
+    //had worry over using as extra resist modifier
 
     [ABILITY_EARLY_BIRD] =
     {

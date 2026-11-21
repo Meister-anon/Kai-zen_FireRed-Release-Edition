@@ -7965,9 +7965,9 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggCycles = 120,
         .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroup1 = EGG_GROUP_UNDISCOVERED,
-        .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_THICK_FAT, ABILITY_NONE}, //thick fat to cover ice weakness, wow actually perfect covers fire weakness from psychic too
+        .eggGroup1 = EGG_GROUP_UNDISCOVERED,//vsonic keep an eye on how this effects effectiveness and the sound played
+        .eggGroup2 = EGG_GROUP_UNDISCOVERED, // i.e thick fat rework affects effectivenss so slight resist gets multiplied by .5 to become .775 * .5 = .3875 slight more than normal resist  in normal game it would just become a resist...
+        .abilities = {ABILITY_THICK_FAT, ABILITY_NONE}, //thick fat to cover ice weakness, wow actually perfect covers fire weakness from psychic too  (think maybe revert back to just a power drop yeah think it can get too overcomplex)
         .abilityHidden = {ABILITY_MULTISCALE, ABILITY_STORM_BREAK}, //pressure was just he default legendary ability,may just remove pressure for this
         //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
@@ -7981,6 +7981,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
     },
     //hmm w type changes this is perfect, psychic covers fairy weakness
     //and ability change covers Ice
+    //reverted thick fats ability change, still very effective
+    //choice here though.
 
     [SPECIES_HO_OH] =
     {
