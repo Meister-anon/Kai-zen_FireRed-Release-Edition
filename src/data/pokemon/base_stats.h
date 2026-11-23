@@ -30581,7 +30581,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         100,
         80,
         90,
-        80,
+        90,
         80,
         100
         ),
@@ -30596,7 +30596,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_UNNERVE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_KINGS_MAJESTY, ABILITY_NONE},
         //.bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -30607,6 +30607,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .isLegendary = TRUE,
     },//need to add below mon to species_to_national dex in pokemon.c
+    //new ability kings majesty cows a single target with aura loweirng their defenses
+    //plus queenly majesty priority block
 
     [SPECIES_WYRDEER] =
     {

@@ -8617,6 +8617,18 @@ static inline u32 CalcDefenseStat(struct BattleContext *ctx)
         }
     }
 
+    // attacker ability
+    switch (ctx->abilityAtk)
+    {
+        //want be for single target only
+        //believe should work, think field only set in doubles
+        //otherwise defaults to 0
+        case ABILITY_KINGS_MAJESTY:
+        if (gBattleStruct->numSpreadTargets <= 1)
+            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.80));
+        break;
+    }
+
     // Ruin field effects
     if (usesDefStat && !gBattleMons[ctx->battlerDef].volatiles.swordOfRuin && IsRuinStatusActive(VOLATILE_SWORD_OF_RUIN))
         modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.75));

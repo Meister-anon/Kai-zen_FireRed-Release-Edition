@@ -3643,7 +3643,8 @@ u32 ReturnStatConditional(enum BattlerId battler, enum Ability Battlerability, u
     
 
     if (battlerBaseSpecies == SPECIES_UNOWN
-    && Battlerability == ABILITY_UNKNOWN_POWER)
+    && Battlerability == ABILITY_UNKNOWN_POWER
+    && !gBattleMons[battler].volatiles.transformed)
     {
         for (u32 monIndex = 0; monIndex < PARTY_SIZE; monIndex++)
         {

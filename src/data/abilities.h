@@ -2675,6 +2675,10 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Unknown Power"),
         .description = COMPOUND_ABILITY_STRING("An odd ability from the Unown Dimension\nboosts stats for each unown in the party"),
         .aiRating = 2,
+    },//tested setup on base species unsure if will work w transform and if even want to vsonic
+    //ok decidedd don't want to work w transform no real way to take advantage of it anyway
+    //i.e you need more than 1 unown to gain any benefit so no real reason to make it work w transform anyway
+    //as I believe I changed trasnform to not actually change species? vsonic
     /*
      //reworked idea boost effective bst for offenses and speed based on num other unown in party
     //essentially n-1 * boost +10 for atk adn sp atk +5 for speed
@@ -3373,6 +3377,14 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Combustion"),
         .description = COMPOUND_ABILITY_STRING("Raises speed if hit by Fire."),
+        .aiRating = 6,
+        .breakable = TRUE,
+    },
+
+    [ABILITY_KINGS_MAJESTY] =
+    {
+        .name = _("King's Majesty"),
+        .description = COMPOUND_ABILITY_STRING("Protects team from priority moves.\nLowers defenses of a foe on attack."),
         .aiRating = 6,
         .breakable = TRUE,
     },

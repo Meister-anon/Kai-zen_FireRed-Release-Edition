@@ -994,11 +994,13 @@ static enum CancelerResult CancelerPowderStatus(struct BattleContext *ctx)
     return CANCELER_RESULT_SUCCESS;
 }
 
+//blocks priority targetting itself and allies
 bool32 IsDazzlingAbility(enum Ability ability)
 {
     switch (ability)
     {
     case ABILITY_DAZZLING:        return TRUE;
+    case ABILITY_KINGS_MAJESTY:   return TRUE;
     case ABILITY_QUEENLY_MAJESTY: return TRUE;
     case ABILITY_ARMOR_TAIL:      return TRUE;
     default: break;
