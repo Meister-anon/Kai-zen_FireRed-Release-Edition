@@ -8739,8 +8739,9 @@ static inline s32 CalculateBaseDamage(enum BattlerId battlerAtk, u32 power, u32 
         else
             FinalValue /= 51;
 
-    
-    return FinalValue;
+    //unsure if this is the issue but I appear to be missing the +2 portion of the formula?
+    //yup that seems to have fixed it, 
+    return FinalValue + 2;
 
 
 }
