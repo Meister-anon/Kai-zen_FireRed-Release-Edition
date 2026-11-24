@@ -239,8 +239,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_EFFECT_SPORE] =
     {
         .name = _("Effect Spore"),
-        .description = COMPOUND_ABILITY_STRING("Leaves spores on contact.\nSpores apply a variety of statuses."),
-        .aiRating = 4,
+        .description = COMPOUND_ABILITY_STRING("Leaves spores on contact that apply a\nvariety of status. Gains GRASS Affinity."),
+        .aiRating = 5,
     },
 
     [ABILITY_SYNCHRONIZE] =

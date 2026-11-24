@@ -39,6 +39,7 @@
 #include "m4a.h"
 #include "mail.h"
 #include "event_data.h"
+#include "pokemon_special_anim.h"
 #include "pokemon_storage_system.h"
 #include "pokemon_storage_system_internal.h"
 #include "task.h"
@@ -5280,6 +5281,18 @@ static void Cmd_getexp(void)
             bool32 wasSentOut = (gBattleStruct->expSentInMons & (1u << *expMonId)) != 0;
             holdEffect = GetMonHoldEffect(&gPlayerParty[*expMonId]);
 
+            //new issue vsonic important
+            //lvl up window broken corrupted
+            //not displaying exp for exp share mon even if only one
+            //pretty sure point was to only pervent display
+            //if exp was more than 2 exp share mon
+            //identified was already aware of
+            //was result of EE changes again smh
+            //pertinent note on DrawLevelUpWindow1 func
+            //but tldr believe will need port that as thought
+            //necessary for move relearner stuff?
+
+
             //double check hope still works
             //check exp should be fixed unsure if would prevent
             //mon from evoing if leveled up w exp share
@@ -5453,17 +5466,32 @@ static void Cmd_getexp(void)
         {
             gBattleResources->bufferB[gBattleStruct->expGetterBattlerId][0] = 0;
             currLvl = GetMonData(&gPlayerParty[*expMonId], MON_DATA_LEVEL);
-            if (GetMonData(&gPlayerParty[*expMonId], MON_DATA_HP) && currLvl != MAX_LEVEL)
+            //previous had check for max level am I missing stat recalc basead on ev gain?
+            if (!IsMonNuzlockeDead(&gPlayerParty[*expMonId]))
             {
-                gBattleResources->beforeLvlUp->stats[STAT_HP]    = GetMonData(&gPlayerParty[*expMonId], MON_DATA_MAX_HP);
-                gBattleResources->beforeLvlUp->stats[STAT_ATK]   = GetMonData(&gPlayerParty[*expMonId], MON_DATA_ATK);
-                gBattleResources->beforeLvlUp->stats[STAT_DEF]   = GetMonData(&gPlayerParty[*expMonId], MON_DATA_DEF);
-                gBattleResources->beforeLvlUp->stats[STAT_SPEED] = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPEED);
-                gBattleResources->beforeLvlUp->stats[STAT_SPATK] = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPATK);
-                gBattleResources->beforeLvlUp->stats[STAT_SPDEF] = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPDEF);
                 gBattleResources->beforeLvlUp->level             = currLvl;
+                //idk what this is for?
                 gBattleResources->beforeLvlUp->learnMultipleMoves = FALSE;
 
+                if (gBattleMons[gBattleStruct->expGetterBattlerId].volatiles.transformed)
+                {
+                    gBattleResources->beforeLvlUp->stats[STAT_HP] = HP_StatRecalc(hpIV, hpEV);
+                    gBattleResources->beforeLvlUp->stats[STAT_ATK] = StatReclacForLevelup(attackIV, attackEV, STAT_ATK);
+                    gBattleResources->beforeLvlUp->stats[STAT_DEF] = StatReclacForLevelup(defenseIV, defenseEV, STAT_DEF);
+                    gBattleResources->beforeLvlUp->stats[STAT_SPEED] = StatReclacForLevelup(speedIV, speedEV, STAT_SPEED);
+                    gBattleResources->beforeLvlUp->stats[STAT_SPATK] = StatReclacForLevelup(spAttackIV, spAttackEV, STAT_SPATK);
+                    gBattleResources->beforeLvlUp->stats[STAT_SPDEF] = StatReclacForLevelup(spDefenseIV, spDefenseEV, STAT_SPDEF);
+                }
+                else
+                {
+                    gBattleResources->beforeLvlUp->stats[STAT_HP]    = GetMonData(&gPlayerParty[*expMonId], MON_DATA_MAX_HP);
+                    gBattleResources->beforeLvlUp->stats[STAT_ATK]   = GetMonData(&gPlayerParty[*expMonId], MON_DATA_ATK);
+                    gBattleResources->beforeLvlUp->stats[STAT_DEF]   = GetMonData(&gPlayerParty[*expMonId], MON_DATA_DEF);
+                    gBattleResources->beforeLvlUp->stats[STAT_SPEED] = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPEED);
+                    gBattleResources->beforeLvlUp->stats[STAT_SPATK] = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPATK);
+                    gBattleResources->beforeLvlUp->stats[STAT_SPDEF] = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPDEF);
+                    
+                }
                 BtlController_EmitExpUpdate(gBattleStruct->expGetterBattlerId, B_COMM_TO_CONTROLLER, *expMonId, gBattleStruct->battlerExpReward);
                 MarkBattlerForControllerExec(gBattleStruct->expGetterBattlerId);
             }
@@ -7833,9 +7861,8 @@ static void Cmd_drawlvlupbox(void)
     //..ok that isn't enough need block out rest.
     //adding next instr without a break
     //is what actually caused memory issue smh
-    gBattlescriptCurrInstr = cmd->nextInstr;
 
-    /*if (gBattleScripting.drawlvlupboxState == 0)
+    if (gBattleScripting.drawlvlupboxState == 0)
     {
         // If the Pokémon getting exp is not in-battle then
         // slide out a banner with their name and icon on it.
@@ -7888,7 +7915,7 @@ static void Cmd_drawlvlupbox(void)
         }
         break;
     case 6:
-        if (gMain.newKeys != 0 || RECORDED_WILD_BATTLE)
+        if (gMain.newKeys != 0 /*|| RECORDED_WILD_BATTLE*/)
         {
             // Draw page 2 of level up box
             PlaySE(SE_SELECT);
@@ -7898,7 +7925,7 @@ static void Cmd_drawlvlupbox(void)
         }
         break;
     case 8:
-        if (gMain.newKeys != 0 || RECORDED_WILD_BATTLE)
+        if (gMain.newKeys != 0 /*|| RECORDED_WILD_BATTLE*/)
         {
             // Close level up box
             PlaySE(SE_SELECT);
@@ -7931,7 +7958,7 @@ static void Cmd_drawlvlupbox(void)
             gBattlescriptCurrInstr = cmd->nextInstr;
         }
         break;
-    }*/
+    }
 }
 
 //lil annoying but EE for some reason
@@ -7942,20 +7969,22 @@ static void Cmd_drawlvlupbox(void)
 //keep in this file rest
 //sigh will prob need for move relearner shit
 //sigh do later -vsonic important
+//believe was able to bring in old FR logic
+//wasn't deleted just a missing include in updated file testing shortly
 static void DrawLevelUpWindow1(void)
 {
     u16 currStats[NUM_STATS];
 
-    //GetMonLevelUpWindowStats(&gPlayerParty[gBattleStruct->expGetterMonId], currStats);
-    //DrawLevelUpWindowPg1(B_WIN_LEVEL_UP_BOX, gBattleResources->beforeLvlUp->stats, currStats, TEXT_DYNAMIC_COLOR_5, TEXT_DYNAMIC_COLOR_4, TEXT_DYNAMIC_COLOR_6);
+    GetMonLevelUpWindowStats(&gPlayerParty[gBattleStruct->expGetterMonId], currStats);
+    DrawLevelUpWindowPg1(B_WIN_LEVEL_UP_BOX, gBattleResources->beforeLvlUp->stats, currStats, TEXT_DYNAMIC_COLOR_5, TEXT_DYNAMIC_COLOR_4, TEXT_DYNAMIC_COLOR_6);
 }
 
 static void DrawLevelUpWindow2(void)
 {
     u16 currStats[NUM_STATS];
 
-    //GetMonLevelUpWindowStats(&gPlayerParty[gBattleStruct->expGetterMonId], currStats);
-    //DrawLevelUpWindowPg2(B_WIN_LEVEL_UP_BOX, currStats, TEXT_DYNAMIC_COLOR_5, TEXT_DYNAMIC_COLOR_4, TEXT_DYNAMIC_COLOR_6);
+    GetMonLevelUpWindowStats(&gPlayerParty[gBattleStruct->expGetterMonId], currStats);
+    DrawLevelUpWindowPg2(B_WIN_LEVEL_UP_BOX, currStats, TEXT_DYNAMIC_COLOR_5, TEXT_DYNAMIC_COLOR_4, TEXT_DYNAMIC_COLOR_6);
 }
 
 static void InitLevelUpBanner(void)

@@ -521,7 +521,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 //removed bug resist from fairy made typpe too weak 
 //main benefit of fairy was hitting many for neutral
 //also apparent in fairy lore fae and bugs are similar
-//some even treat them the same 
+//some even treat them the same (well that's an argument for resist as well as neutrality. hmm)
 
 //may remove ice resistance for ground type?
 //yeah did more research earthquakes can occur in winter climates 

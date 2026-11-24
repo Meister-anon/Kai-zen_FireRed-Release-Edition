@@ -5874,6 +5874,12 @@ bool8 IsBattlerofTypeAffinity(enum Ability atkAbility, enum BattlerId battlerToC
                    
         }
         break;
+        case TYPE_GRASS:
+        {
+            return (IS_BATTLER_OF_TYPE(battlerToCheck, typeFactor) || battlerAbility == ABILITY_EFFECT_SPORE);
+            
+        }
+        break;
         case TYPE_POISON:
         {
             return (IS_BATTLER_OF_TYPE(battlerToCheck, typeFactor) || battlerAbility == ABILITY_GRUNGE);

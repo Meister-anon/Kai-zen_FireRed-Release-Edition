@@ -1645,8 +1645,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .speciesName = _("Parasect"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(88, 107, 115, 30, 60, 88),
-        MON_TYPES(TYPE_GRASS, TYPE_GHOST),  //think prefer grass for mushroom, as bug is dead the mushroom is the only thing left to be affected TYPE_GHOST,    //changed back,its the body of a bug its abilities can represent the mushroom effect, plus type strength is about same
+         STATS(88, 100, 115, 30, 60, 88),
+        MON_TYPES(TYPE_BUG, TYPE_GHOST),  //think prefer grass for mushroom, as bug is dead the mushroom is the only thing left to be affected TYPE_GHOST,    //changed back,its the body of a bug its abilities can represent the mushroom effect, plus type strength is about same
         .catchRate = 75,    //still waffling on this, bug grass have similar weaknesses, bug gets confusion immunity, but the bug is dead
         .expYield = 142,    //grass gets the fairy immunity, and powder move immunity, which the mushroom would have
         //.evYield_Attack = 2,      //think keeping bug grass it has more defense strength
@@ -1676,6 +1676,21 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //idea slipknot, undead memories
     //nah not doing already have sixth sense, and with plan
     //to select unique abilities won't need perfect cover for everything on base
+
+    //still conflicted on this, grass ghost is common type
+    //but bug ghost is only shedinja so would be better representation
+    //yeah need to make this bug, all grass ghost types are the same
+    //slow bulky physical attack focused mon
+    //the only stand out would be this having spore
+    //and other grass types have that so would be more unique
+    //to be a non grass type with spore
+    //while I would like to give the fairy resist
+    //it would break fairy balance making it too weak
+    //neutrality is best I can do.
+
+    //will be bug ghost that has grass type
+    //attributes... ok tweaked effect spore
+    //to be grass affinity ability so can keep powder immunity
 
     /*Most mushrooms prefer shade or dark places,
     which is why you'll often find them on forest floors. 
