@@ -15555,6 +15555,11 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .isMythical = TRUE,
     },
+    //manaphy dex entry about being able to bond with any pokemon
+    //think make exception for breeding, so it can breed with
+    //any pokemon regardless of egg group
+    //well maybe not, all you need is a ditto to get phione
+    //hmm...
 
     [SPECIES_DARKRAI] =
     {
@@ -23364,7 +23369,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         55,
         75
         ),
-        MON_TYPES(TYPE_WATER, TYPE_DRAGON),
+        MON_TYPES(TYPE_DRAGON, TYPE_BUG),
         .catchRate = 45,
         .expYield = 60,
         //.evYield_SpDefense = 1,
@@ -23403,7 +23408,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         83,
         113
         ),
-        MON_TYPES(TYPE_WATER, TYPE_DRAGON),
+        MON_TYPES(TYPE_DRAGON, TYPE_BUG),
         .catchRate = 45,
         .expYield = 158,
         //.evYield_SpDefense = 2,
@@ -23426,7 +23431,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sSliggooLevelUpLearnset,
         .tmhmLearnset = sSliggooTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_RAIN, RELATIVE_EVO(50, MEDIUM_EFFORT), 0, SPECIES_GOODRA}), //Should hopefully blank these for now without issue
-    },
+    },//sliggo specifically has corrossive slime that can dissolve anythihg
+    //corrossion grunge works
 
     [SPECIES_GOODRA] =
     {
@@ -23441,7 +23447,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         110,
         150
         ),
-        MON_TYPES(TYPE_WATER, TYPE_DRAGON),
+        MON_TYPES(TYPE_DRAGON, TYPE_BUG),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_SpDefense = 3,
@@ -23467,6 +23473,13 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //alright I REALLY want grunge on this,
     //think will make that a taught ability then
     //goomy isnt' toxic so only give grunge to sliggo and goodra
+    //still unsure about typing
+    //ya jknow what fuck it its the weakest dragon 
+    //and its a slug which is bug enough I'm gonna make this the first dragon bug type
+    //offers some good defenses as well and slugs are predated by birds in the wild so works
+    //may further tweak abilities of line, very unique mon with diversity of moveset
+    //its psuedo poison water and has grass moves as well very interesting
+    //it only really needed a type to better let it take advantage of those things
 
     [SPECIES_KLEFKI] =
     {

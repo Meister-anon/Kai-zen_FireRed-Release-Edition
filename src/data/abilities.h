@@ -767,9 +767,14 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_HYDRATION] =
     {
         .name = _("Hydration"),
-        .description = COMPOUND_ABILITY_STRING("Cures status ailments and other\nnegative effects in rain."),
+        .description = COMPOUND_ABILITY_STRING("Cures status ailments and negative\nstat stages in rain or if hit by water."),
         .aiRating = 4,
-    }, //buffs still in works
+    }, //vsonic buffs still in works -todo copy early bird for stat cleanse effect
+    //was planning a buff since pretty situational
+    //maybe revert negative stat drops instead of all the other stuff?
+    //yeah not too crazy, hmm would it be too much to buff to do the same thing 
+    //if hit by a water move? if I do that then it would turn into an absorb ability
+    //alright I'm ok with that. make it draw in, but not negate dmg
 
     [ABILITY_SOLAR_POWER] =
     {
