@@ -1566,7 +1566,11 @@ static void Task_InputHandler_Info(u8 taskId)
                 sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu -won't use close menu in effect
             }
         #endif
-            else if (JOY_NEW(START_BUTTON) && sMonSummaryScreen->savedCallback != Cb2_ReturnToPSS)
+            //don't have space to put start button dex info prompt in PSS_PAGE_INFO of summary
+            //but the in battle prompt uses A button is cancel which I can replace
+            //useful but question if that is enough prompt for people to understand
+            //that it exists outside of battle as well vsonic
+            else if (JOY_NEW(START_BUTTON) && FlagGet(FLAG_SYS_POKEDEX_GET) && sMonSummaryScreen->savedCallback != Cb2_ReturnToPSS)
             {
                 
                
@@ -4021,6 +4025,8 @@ static void PokeSum_PrintPageHeaderText(u8 curPageIndex) //
         {
             if (!gMain.inBattle && sMonSummaryScreen->savedCallback != Cb2_ReturnToPSS)
                 PokeSum_PrintControlsString(gText_PokeSum_Controls_PageRename);
+            else if (FlagGet(FLAG_SYS_POKEDEX_GET))
+                PokeSum_PrintControlsString(gText_PokeSum_Controls_PageDexInfo);//in battle or callback is PSS ex pC
             else
                 PokeSum_PrintControlsString(gText_PokeSum_Controls_PageCancel);
         }

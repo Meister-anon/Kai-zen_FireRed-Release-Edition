@@ -1601,6 +1601,7 @@ extern const u8 gText_PokeSum_ExpPoints[];
 extern const u8 gText_PokeSum_NextLv[];
 extern const u8 gText_PokeSum_PageName_PokemonInfo[];
 extern const u8 gText_PokeSum_Controls_PageCancel[];
+extern const u8 gText_PokeSum_Controls_PageDexInfo[];
 extern const u8 gText_PokeSum_Controls_PageRename[];
 extern const u8 gText_PokeSum_Controls_Cancel[];
 extern const u8 gText_PokeSum_PageName_PokemonSkills[];
