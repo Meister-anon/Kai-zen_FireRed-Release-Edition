@@ -6320,7 +6320,7 @@ bool32 CanSetNonVolatileStatus(enum BattlerId battlerAtk, enum BattlerId battler
         {
             battleScript = BattleScript_AlreadyParalyzed;
         }
-        else if (GetConfig(B_PARALYZE_ELECTRIC) >= GEN_6 && IS_BATTLER_OF_TYPE(battlerDef, TYPE_ELECTRIC))
+        else if (GetMoveType(gCurrentMove) == TYPE_ELECTRIC && IS_BATTLER_OF_TYPE(battlerDef, TYPE_ELECTRIC))
         {
             battleScript = BattleScript_NotAffected;
         }
@@ -10298,17 +10298,16 @@ s32 GetStealthHazardDamageByTypesAndHP(enum TypeSideHazard hazardType, enum Type
     case UQ_4_12(0.5):
         dmg = max(maxHp / 16, 1);
         break;
-    case UQ_4_12(1.0):
-        dmg = max(maxHp / 8, 1);
-        break;
     default:
+    if (modifier <= UQ_4_12(1.0))
+        dmg = max(maxHp / 8, 1);
     //realized needed default as super and resisted is no longer neutral
     //this conditional will handle everything else
-        if (modifier > UQ_4_12(1.0))
-        {
-            dmg = max(maxHp / 6, 1);//had at 5 change to 6 so super gives extra 50% of base effect
-        }
-        break;
+    else if (modifier > UQ_4_12(1.0))
+    {
+        dmg = max(maxHp / 6, 1);//had at 5 change to 6 so super gives extra 50% of base effect
+    }
+    break;
 
     /*case UQ_4_12(2.0):
         dmg = maxHp / 4;
