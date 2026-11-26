@@ -1550,7 +1550,8 @@ static void Cmd_adjustdamage(void)
         && gBattleMons[battlerDef].species == GetBaseFormSpecies(gBattleMons[battlerDef].species))
         {
             // Damage deals typeless 0 HP.
-            gBattleStruct->moveResultFlags[battlerDef] &= ~(MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE);
+            //gBattleStruct->moveResultFlags[battlerDef] &= ~(MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE);
+            ClearEffectivenessResultFlags(battlerDef);
             gBattleStruct->moveDamage[battlerDef] = 0;
             RecordAbilityBattle(battlerDef, ABILITY_ICE_FACE);
             if (GetBattlerPartyState(battlerDef)->numPhysHits == 2)
@@ -1666,6 +1667,11 @@ static inline bool32 DoesBattlerNegateDamage(enum BattlerId battler)
     return FALSE;
 }
 
+//vsonic the sound no idea what thsi about
+//oh it values it and decides to in decreasing priority order
+//what should be played super not very effective, then normal
+//my thiing is for singles so don't think need mess with this?
+//idk guess I could put the resisted sound above default sound? maybe
 static u32 UpdateEffectivenessResultFlagsForDoubleSpreadMoves(u32 resultFlags)
 {
     // Only play the "best" sound
@@ -2116,7 +2122,8 @@ static void MoveDamageDataHpUpdate(enum BattlerId battler, u32 scriptBattler, co
         || DoesIceFaceBlockMove(battler, gCurrentMove))
     {
         // Damage deals typeless 0 HP.
-        gBattleStruct->moveResultFlags[battler] &= ~(MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE);
+        //gBattleStruct->moveResultFlags[battler] &= ~(MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE);
+        ClearEffectivenessResultFlags(battler);
         gBattleStruct->moveDamage[battler] = 0;
         if (GetMoveEffect(gCurrentMove) == EFFECT_OHKO)
             gProtectStructs[battler].survivedOHKO = TRUE;
@@ -2228,6 +2235,14 @@ static void Cmd_critmessage(void)
     }
 }
 
+//could either put modifier check here
+//or use new effectiveness result
+//could be good idea, would help me codify how I use
+//not very effective, vs slightly resisted
+//SIGH deprecated EE moved to atkcanceler makes sense
+//but annoying
+//may not need move btu consider
+//in EE is CancelerEffectivenessSound
 static void Cmd_effectivenesssound(void)
 {
     CMD_ARGS();
@@ -2256,10 +2271,13 @@ static void Cmd_effectivenesssound(void)
         switch (moveResultFlags & ~MOVE_RESULT_MISSED)
         {
         case MOVE_RESULT_SUPER_EFFECTIVE:
+        case MOVE_RESULT_EXTREMELY_EFFECTIVE:
             BtlController_EmitPlaySE(gBattlerTarget, B_COMM_TO_CONTROLLER, SE_SUPER_EFFECTIVE);
             MarkBattlerForControllerExec(gBattlerTarget);
             break;
         case MOVE_RESULT_NOT_VERY_EFFECTIVE:
+        case MOVE_RESULT_MOSTLY_INEFFECTIVE:
+        case MOVE_RESULT_MOSTLY_EFFECTIVE:
             BtlController_EmitPlaySE(gBattlerTarget, B_COMM_TO_CONTROLLER, SE_NOT_EFFECTIVE);
             MarkBattlerForControllerExec(gBattlerTarget);
             break;
@@ -2272,12 +2290,12 @@ static void Cmd_effectivenesssound(void)
         case MOVE_RESULT_FOE_HUNG_ON:
         case MOVE_RESULT_STURDIED:
         default:
-            if (moveResultFlags & MOVE_RESULT_SUPER_EFFECTIVE)
+            if (moveResultFlags & MOVE_RESULT_HIGH_EFFECTIVENESS)
             {
                 BtlController_EmitPlaySE(gBattlerTarget, B_COMM_TO_CONTROLLER, SE_SUPER_EFFECTIVE);
                 MarkBattlerForControllerExec(gBattlerTarget);
             }
-            else if (moveResultFlags & MOVE_RESULT_NOT_VERY_EFFECTIVE)
+            else if (moveResultFlags & (MOVE_RESULT_NOT_VERY_EFFECTIVE | MOVE_RESULT_MOSTLY_INEFFECTIVE | MOVE_RESULT_MOSTLY_EFFECTIVE))
             {
                 BtlController_EmitPlaySE(gBattlerTarget, B_COMM_TO_CONTROLLER, SE_NOT_EFFECTIVE);
                 MarkBattlerForControllerExec(gBattlerTarget);
@@ -2374,10 +2392,31 @@ static void Cmd_resultmessage(void)
             if (stringId == STRINGID_SUPEREFFECTIVETWOFOES)
                 TryInitializeTrainerSlidePlayerLandsFirstSuperEffectiveHit(BATTLE_PARTNER(gBattlerTarget));
             break;
+        case MOVE_RESULT_EXTREMELY_EFFECTIVE:
+            if (IsDoubleSpreadMove())
+            {
+                if (ShouldPrintTwoFoesMessage(MOVE_RESULT_EXTREMELY_EFFECTIVE))
+                    stringId = STRINGID_EXTREMELYEFFECTIVETWOFOES;
+                else if (ShouldRelyOnTwoFoesMessage(MOVE_RESULT_EXTREMELY_EFFECTIVE))
+                    stringId = 0; // Was handled or will be handled as a double string
+                else
+                    stringId = STRINGID_EXTREMELYEFFECTIVE;
+            }
+            //with multihit being able to miss
+            //want be first landed hit
+            //and last hit of multihitcounter
+            //not just last hit which is what this would do
+            //Don't print effectiveness on each hit in a multi hit attack
+           else if (!gMultiHitCounter || ((gMultiHitCounter && !gSpecialStatuses[gBattlerAttacker].multiHitOn) && (gMultiHitCounter != 2 && GetMoveStrikeCount(gCurrentMove) != 2))) 
+            {
+                stringId = STRINGID_EXTREMELYEFFECTIVE;
+            }
+            if (stringId == STRINGID_EXTREMELYEFFECTIVE || stringId == STRINGID_EXTREMELYEFFECTIVETWOFOES)
+                TryInitializeTrainerSlidePlayerLandsFirstSuperEffectiveHit(gBattlerTarget);
+            if (stringId == STRINGID_EXTREMELYEFFECTIVETWOFOES)
+                TryInitializeTrainerSlidePlayerLandsFirstSuperEffectiveHit(BATTLE_PARTNER(gBattlerTarget));
+            break;
         case MOVE_RESULT_NOT_VERY_EFFECTIVE:
-            if (ctx.typeEffectivenessModifier == SLIGHTLY_EFFECTIVE)
-            //if (CalcTypeEffectivenessMultiplierHelper(gCurrentMove, GetBattleMoveType(gCurrentMove), gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerAbility(gBattlerTarget), FALSE) == UQ_4_12_TO_INT((UQ_4_12(1.55) * UQ_4_12(0.5)) + UQ_4_12_ROUND))
-                    stringId = 0; //should keep effect remove message, keep not very effective sound //test correctly keeps type
             if (IsDoubleSpreadMove())
             {
                 if (ShouldPrintTwoFoesMessage(MOVE_RESULT_NOT_VERY_EFFECTIVE))
@@ -2394,6 +2433,25 @@ static void Cmd_resultmessage(void)
             else if (!gMultiHitCounter || ((gMultiHitCounter && !gSpecialStatuses[gBattlerAttacker].multiHitOn) && (gMultiHitCounter != 2 && GetMoveStrikeCount(gCurrentMove) != 2))) 
             {
                 stringId = STRINGID_NOTVERYEFFECTIVE;
+            }
+            break;
+        case MOVE_RESULT_MOSTLY_INEFFECTIVE:
+            if (IsDoubleSpreadMove())
+            {
+                if (ShouldPrintTwoFoesMessage(MOVE_RESULT_MOSTLY_INEFFECTIVE))
+                    stringId = STRINGID_MOSTLYINEFFECTIVETWOFOES;
+                else if (ShouldRelyOnTwoFoesMessage(MOVE_RESULT_MOSTLY_INEFFECTIVE))
+                    stringId = 0; // Was handled or will be handled as a double string
+                else
+                    stringId = STRINGID_MOSTLYINEFFECTIVE; // Needs a string
+            }
+            // not perfect but should be good enough
+            //would print for first hit if doesn't miss 
+            //and last hit
+            //added extra precaution for 2 hit effects
+            else if (!gMultiHitCounter || ((gMultiHitCounter && !gSpecialStatuses[gBattlerAttacker].multiHitOn) && (gMultiHitCounter != 2 && GetMoveStrikeCount(gCurrentMove) != 2))) 
+            {
+                stringId = STRINGID_MOSTLYINEFFECTIVE;
             }
             break;
         case MOVE_RESULT_ONE_HIT_KO:

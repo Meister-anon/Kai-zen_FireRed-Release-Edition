@@ -767,6 +767,8 @@ enum SportsUsedStringID
     F(STRINGID_ANDELLIPSIS,                                        ("And…\p"))\
     F(STRINGID_NOTVERYEFFECTIVE,                                        ("It's not very effective…"))\
     F(STRINGID_SUPEREFFECTIVE,                                        ("It's super effective!"))\
+    F(STRINGID_MOSTLYINEFFECTIVE,                                   ("It's mostly ineffective…"))\
+    F(STRINGID_EXTREMELYEFFECTIVE,                                  ("It's extremely effective!"))\
     F(STRINGID_GOTAWAYSAFELY,                                        ("{PLAY_SE SE_FLEE}Got away safely!\p"))\
     F(STRINGID_WILDPKMNFLED,                                        ("{PLAY_SE SE_FLEE}Wild {B_BUFF1} fled!"))\
     F(STRINGID_NORUNNINGFROMTRAINERS,                                        ("No! There's no running\nfrom a TRAINER battle!\p"))\
@@ -1389,6 +1391,8 @@ enum SportsUsedStringID
     F(STRINGID_BLOCKEDBYSLEEPCLAUSE,                                         ("Sleep Clause kept {B_DEF_NAME_WITH_PREFIX} awake!"))\
     F(STRINGID_SUPEREFFECTIVETWOFOES,                                         ("It's super effective on {B_DEF_NAME_WITH_PREFIX} and {B_DEF_PARTNER_NAME}!"))\
     F(STRINGID_NOTVERYEFFECTIVETWOFOES,                                         ("It's not very effective on {B_DEF_NAME_WITH_PREFIX} and {B_DEF_PARTNER_NAME}!"))\
+    F(STRINGID_EXTREMELYEFFECTIVETWOFOES,                                         ("It's extremely effective on {B_DEF_NAME_WITH_PREFIX} and {B_DEF_PARTNER_NAME}!"))\
+    F(STRINGID_MOSTLYINEFFECTIVETWOFOES,                                         ("It's mostly ineffective on {B_DEF_NAME_WITH_PREFIX} and {B_DEF_PARTNER_NAME}!"))\
     F(STRINGID_ITDOESNTAFFECTTWOFOES,                                         ("It doesn't affect {B_DEF_NAME_WITH_PREFIX} and {B_DEF_PARTNER_NAME}…"))\
     F(STRINGID_SENDCAUGHTMONPARTYORBOX,                                         ("Add {B_DEF_NAME} to your party?"))\
     F(STRINGID_PKMNDYNAMAXED,                                         ("{B_ATK_NAME_WITH_PREFIX} grew huge into its Dynamax form!"))\

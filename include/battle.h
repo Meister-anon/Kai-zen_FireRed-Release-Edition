@@ -1620,6 +1620,14 @@ static inline bool32 IsBattlerAlive(enum BattlerId battler)
         return TRUE;
 }
 
+//for cases want no effectivenss message/sound to play
+//in place of gBattleStruct->moveResultFlags[battlerDef] &= ~(MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE);
+static inline void ClearEffectivenessResultFlags(enum BattlerId battler)
+{
+    gBattleStruct->moveResultFlags[battler] &= ~(MOVE_RESULT_EFFECTIVENESS);
+}
+
+
 static inline bool32 IsBattlerTurnDamaged(enum BattlerId battler)
 {
     return gSpecialStatuses[battler].damagedByAttack;
