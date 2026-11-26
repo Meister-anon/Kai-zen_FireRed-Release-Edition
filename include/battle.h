@@ -252,7 +252,7 @@ struct SpecialStatus
     u8 statLowered : 1;
     u8 restoredBattlerSprite : 1;
     u8 instructedChosenTarget:3;
-    u8 mindBlownRecoil: 1;                  // 0x10
+    u8 mindBlownRecoil: 1;                  //planned rework, unsure if keeping  vsonic
     u8 ppNotAffectedByPressure : 1;
     u8 faintedHasReplacement : 1;
 
@@ -267,7 +267,8 @@ struct SpecialStatus
     u8 semiInvulInterupt:1; //takes place of STATUS2_TWOTURN_INTERRUPT status makes more sense here want clear at end of action
     u8 afterYou:1;
     u8 berryReduced : 1;
-    u8 unused : 2; // Mons that have been damaged directly by using a move, includes substitute. //NOW THAT have added can prob use to update catchexp function/macro?
+    u8 battleCrydone:1; //temp for set effect consider more later
+    u8 unused : 1; // Mons that have been damaged directly by using a move, includes substitute. //NOW THAT have added can prob use to update catchexp function/macro?
     
     u8 dancerUsedMove : 1;
     u8 dancerOriginalTarget : 3; //original target of user to execute chosen move after ability ends

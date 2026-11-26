@@ -7324,6 +7324,7 @@ static const u8 sFlailHpScaleToPowerTable[] =
 };
 
 // format: min. weight (hectograms), base power
+//changed I moved lowest value from 20 to 40
 static const u16 sWeightToDamageTable[] =
 {
     50, 40,
@@ -9251,36 +9252,36 @@ static inline uq4_12_t GetOtherModifiers(struct BattleContext *ctx)
 } while (0)
 
 
-//used to exclude for bottom effect doesn't include status moves that do so
-//well nah might as well include all
-const u8 *const gPlayCryanims[] =
-{
-    gBattleAnimMove_AlluringVoice,
-    gBattleAnimMove_Boomburst,
-    gBattleAnimMove_RelicSong,
-    gBattleAnimMove_TorchSong,
-    gBattleAnimMove_HyperVoice,
-    gBattleAnimMove_Round,
-    gBattleAnimMove_Chatter,
-    gBattleAnimMove_RoarOfTime,
-    gBattleAnimMove_DisarmingVoice,
-    gBattleAnimMove_HyperspaceFury
-};
 
 //used to exclude for bottom effect doesn't include status moves that do so
 //well nah might as well include all
-static bool32 DoesMoveUseCryInBattleAnim(u16 move)
+bool32 DoesMoveUseCryInBattleAnim(enum Move move)
 {
-    u32 i;
-    GetMoveAnimationScript(move);
 
-    for (i = 0; i < sizeof(gPlayCryanims); i++)
+
+    switch (move)
     {
-        if (GetMoveAnimationScript(move) == gPlayCryanims[i])
+        case MOVE_GROWL:
+        case MOVE_ROUND:
+        case MOVE_PARTING_SHOT:
+        case MOVE_OBSTRUCT:
+        case MOVE_DISARMING_VOICE:
+        case MOVE_ALLURING_VOICE:
+        case MOVE_HYPER_VOICE:
+        case MOVE_HYPERSPACE_FURY:
+        case MOVE_CHATTER:
+        case MOVE_ROAR:
+        case MOVE_BOOMBURST:
+        case MOVE_ROAR_OF_TIME:
+        case MOVE_RELIC_SONG:
+        case MOVE_TORCH_SONG:
             return TRUE;
+            break;
+        default:
+            return FALSE;
+            break;
+        
     }
-
-    return FALSE;
 
 
 }
@@ -9333,8 +9334,6 @@ static inline s32 DoMoveDamageCalcVars(struct BattleContext *ctx)
     userFinalAttack = CalcAttackStat(ctx);
     targetFinalDefense = CalcDefenseStat(ctx);
 
-    if (GetMoveEffect(ctx->move) == EFFECT_VITAL_THROW)
-        dmgroll = DMG_ROLL_PERCENT_HI;
 
     dmg = CalculateBaseDamage(ctx->battlerAtk, gBattleMovePower, userFinalAttack, gBattleMons[ctx->battlerAtk].level, gBattleMons[ctx->battlerDef].level, targetFinalDefense);
     DAMAGE_APPLY_MODIFIER(GetTargetDamageModifier(ctx));
@@ -9345,15 +9344,32 @@ static inline s32 DoMoveDamageCalcVars(struct BattleContext *ctx)
 
     if (ctx->randomFactor)
     {
+
+        if (GetMoveEffect(ctx->move) == EFFECT_VITAL_THROW)
+            dmgroll = DMG_ROLL_PERCENT_HI;
+
         dmg *= dmgroll;
         dmg /= 100;
-
+        
         //works in EE putting within randomfactor should
         //naturally exclude things like fixed effects and status moves
+        //ok tested problem appears to be the cry check?
+        //too much memory use?
+        //idk but that fixed it
+        //since fixed can remove dmg roll from ctx for space
+        //still todo add back multihit filters
+        //potentially make special status
+        //gSpecialStatuses[battler].switchInAbilityDone
+        //to cut back on filtering can just do battleCry
+        //need figure how will do this running low
+        //on special status space
         if (gMain.inBattle && !DoesMoveUseCryInBattleAnim(ctx->move)
-        && (dmgroll == DMG_ROLL_PERCENT_HI || ctx->isCrit))
+        && (dmgroll == DMG_ROLL_PERCENT_HI || ctx->isCrit)
+        && !gSpecialStatuses[ctx->battlerAtk].battleCrydone)
+        {
             PlayCry_Normal(gBattleMons[ctx->battlerAtk].species, 25);
-
+            gSpecialStatuses[ctx->battlerAtk].battleCrydone = TRUE;
+        }
     }
     else // Apply rest of modifiers in the ai function
     {
@@ -9781,9 +9797,9 @@ static bool32 IsCriticalHit(struct BattleContext *ctx)
 
     if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE)
         isCrit = FALSE;
-    else if (critChance == -1)
+    else if (critChance == CRITICAL_HIT_BLOCKED)
         isCrit = FALSE;
-    else if (critChance == -2)
+    else if (critChance == CRITICAL_HIT_ALWAYS)
         isCrit = TRUE;
     else
     {

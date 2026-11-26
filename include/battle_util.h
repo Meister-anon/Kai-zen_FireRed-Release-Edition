@@ -199,8 +199,6 @@ extern const struct TypePower gNaturalGiftTable[];
 #define CRITICAL_HIT_BLOCKED -1
 #define CRITICAL_HIT_ALWAYS  -2
 
-extern const u8 *const gPlayCryanims[];
-
 
 enum ImmunityHealStatusOutcome
 {
@@ -463,6 +461,7 @@ bool32 IsEntrainmentBannedAbilityAttacker(u16 ability);
 bool32 IsEntrainmentTargetOrSimpleBeamBannedAbility(u16 ability);
 bool8 IsMoveCounterAttack(u16 move); 
 
+bool32 DoesMoveUseCryInBattleAnim(enum Move move);
 bool32 CanBeParalyzedViaAbility(enum BattlerId battlerId);
 bool32 CanThaw(u32 move, enum BattlerId battler); //always use gcurrentmove hope work, need rewrite for modern update
 bool32 CanBattlerHeal(enum BattlerId battlerId); //simplify heal check
