@@ -8512,14 +8512,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_AERIAL_ACE] =
     {
         .name = COMPOUND_STRING("Aerial Ace"),
-        .description = COMPOUND_MOVE_STRING("An extremely fast\nattack against one\ntarget. It can't be\nevaded."),
+        .description = COMPOUND_MOVE_STRING("An extremely fast\nattack against one\ntarget. It can't be\nevaded.\nAlways goes first."),
         .effect = EFFECT_HIT,
         .power = 60,
         .type = TYPE_FLYING,
         .accuracy = 0,
         .pp = 20,
         .target = TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .slicingMove = TRUE,
@@ -8531,6 +8531,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     },
     //potentially make this speed up hit nah already made flying speed boost 
     //just need to give it more spread
+    //now what I could do is make this flying quick attack?
+    //so when paired w talon flame it essentially becomes extreme speed
+    //fuck it why not, most of their moves were bad so countering that should be fine
+    //what I want flying to represent is swiftness, flexibility, and sharpness
+    //vsonic important
 
     [MOVE_ICICLE_SPEAR] =
     {

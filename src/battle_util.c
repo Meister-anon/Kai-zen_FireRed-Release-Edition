@@ -8715,6 +8715,45 @@ static inline u32 CalcDefenseStat(struct BattleContext *ctx)
 
 // base damage formula before adding any modifiers
 //added defenderlevel and attack battler argument
+//tested against master idk what's going on but yeah
+//dmg is much better there than here...
+//defense boost cuts dmg more than expected a single defense curl reduces dmg to nothing
+//no dmg done on mon previously 4x etc.
+//feel like this should be resolved? like I'd had this issue before
+//did playtest balance feels really bad
+//too slow too low dmg
+//but then others its ok
+//I compared this updated branch
+//with master, dmg is identical idk why it feels worse now
+//other than I guess type effect changes that make early game harder
+//I will need to run a playtest on pret to get a better idea of 
+//how things differ
+//I can't change my multipliers 
+//the dmg formula I made scales lower than the default
+//but not to a noticeable degree in early game
+//the only solution I can imagine is adjusting the final divisor
+//to scale it up that way, but idk that kind of invalidates things?
+//well not quite, dmg will be higher, but proportionally the difference
+//in multipliers will still be there
+//so that may be the perfect solution
+//ideally I should take the time to pull in
+//rave possums FR debug branch into my pret build
+//so I can more easily test different phases of the game smh
+
+//lucked onto better formula may not need...no still good to test
+//base branch
+//...ok I can't even remember why I felt the need to change the dmg formula
+//in the first place, was the multiplier too much?
+//it shouldn't be the multiplier shift is mostly for the upper limits
+//it didn't touch neutral dmg other lowering stab
+//and it made mon more defensive by introducing slight resistances
+//thanks to the super effective multiplier change
+
+//either the initial mulplier drops weren't enough
+//and I used this to drop the dmg lower
+
+//because rn I'm using a formula that scales higher
+//just to offset the multiplier shifts
 static inline s32 CalculateBaseDamage(enum BattlerId battlerAtk, u32 power, u32 userFinalAttack, u32 levelAtk, u32 levelDef, u32 targetFinalDefense)
 {
 
@@ -8723,7 +8762,17 @@ static inline s32 CalculateBaseDamage(enum BattlerId battlerAtk, u32 power, u32 
     s32 AtkLevel = levelAtk;
     s32 DefLevel = levelDef;
 
-    //return power * userFinalAttack * (2 * AtkLevel / 5 + 2) / targetFinalDefense / 50 + 2;
+    //default lowest
+    /*return power * userFinalAttack * (2 * AtkLevel / 5 + 2) / targetFinalDefense / 50 + 2;
+
+    //CURR
+    return power * userFinalAttack * ((((AtkLevel*112)/100)/5)+(((AtkLevel*164)/100)/11)-1) / targetFinalDefense / 47 + 5; 
+    */
+    //High mid brige    -yeah think I like this one the most feels really solid
+    //return power * userFinalAttack * ((((AtkLevel*112)/100)/5)+(((AtkLevel*164)/100)/11)) / targetFinalDefense / 47 + 4; 
+    
+    //Low mid brige   -works seems ok but again am above level - tested against rival felt ok?
+    //return power * userFinalAttack * ((((AtkLevel*112)/100)/5)+(((AtkLevel*165)/100)/11)+1) / targetFinalDefense / 47 + 3; 
 
     //dmg result seemed extremely low
     //changed type cast on assumption I did bad math
@@ -8735,11 +8784,16 @@ static inline s32 CalculateBaseDamage(enum BattlerId battlerAtk, u32 power, u32 
 
     //portion fits into (2 * level)
     //need test this no idea how works w new values
+    //still tweaking believe want to shift just SLIGHTLY
+    //further down I'm back to onix taking a 2 hit with extreme dmg
+    //I'd like to get that to 3 if possible
     if ((DefLevel - AtkLevel >= 7 && !IsOnPlayerSide(battlerAtk)) //boost weaker enemy
     || (AtkLevel < 6 && DefLevel >= 3 && DefLevel < 6 && !GetNumBadges())) //speed up all fights pre badge
         FinalValue = power * userFinalAttack *  (max(2 * AtkLevel / 5, 1) + 3); //speed up early leveling a bit
     else
-        FinalValue = power * userFinalAttack * ((((AtkLevel*112)/100)/5)+(((AtkLevel*168)/100)/11)+2); //perfect formula
+        FinalValue = power * userFinalAttack * ((((AtkLevel*112)/100)/5)+(((AtkLevel*164)/100)/11)); //middle of base & custom  pairs w /47 + 4
+        //FinalValue = power * userFinalAttack * ((((AtkLevel*112)/100)/5)+(((AtkLevel*164)/100)/11)-1); //middle of base & custom  pairs w /47 + 5
+        //FinalValue = power * userFinalAttack * ((((AtkLevel*112)/100)/5)+(((AtkLevel*168)/100)/11)+2); //perfect formula  pairs w /48 + 3
         //FinalValue = power * userFinalAttack * ((((AtkLevel*110)/100)/5)+(((AtkLevel*168)/100)/11)+2); //perfect formula
 
         
@@ -8747,18 +8801,35 @@ static inline s32 CalculateBaseDamage(enum BattlerId battlerAtk, u32 power, u32 
 
     FinalValue /= targetFinalDefense;
 
+    //tested found it IS calculating
+    //just at low levels differences are so small
+    //its not even noticeable unless I practically
+    //completely remove teh final divisor...
     //end divisor after target defense
-    if ((AtkLevel - DefLevel >= 4 && AtkLevel <= 12) //dmg feels GOOD,w new formula may inreas this to 10
+    //unsure if need this? //doesn't really come up
+    //
+    /*if ((AtkLevel - DefLevel >= 4 && AtkLevel <= 12) //dmg feels GOOD,w new formula may inreas this to 10
         || AtkLevel - DefLevel >= 10)
             FinalValue /= 51; //was 60 ironically main value was so bad I can use that here instead
-        else if (DefLevel - AtkLevel >= 5) //boost underlevel attackers added back
-            FinalValue /= 42; //keep; an eye on this since it would work for both sides
-        else
-            FinalValue /= 48; // 51
+        
+        //tested rival fight didn't feel like I needed this
+        //else if (DefLevel - AtkLevel >= 5) //boost underlevel attackers added back
+        //    FinalValue /= 42; //keep; an eye on this since it would work for both sides
+        else*/
+            FinalValue /= 47;//48; // 51
 
     //unsure if this is the issue but I appear to be missing the +2 portion of the formula?
     //yup that seems to have fixed it, 
-    return FinalValue + 3; // + 2
+    //but noticed weird glitch on trainer faint where shadow doesnt disappear...
+    //maybe a make clean issue need test
+    //sigh yeah that's an issue idk where it came from
+    //but something to do with slide on makes fainted mon
+    //shadow reappear
+    //also of note seems on catching and naming mon
+    //instead of going to fade screen reloads battle screen idk why
+    //
+    //return FinalValue + 3; // + 2
+    return FinalValue + 4; // + 2
 
 
 }
