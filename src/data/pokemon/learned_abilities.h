@@ -1548,6 +1548,7 @@ static const struct AbilityLearnset sSwabluAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sAltariaAbilityLearnset[] = {
+    ABILITY_AVIATOR,
     ABILITY_SET_END
 };
 
