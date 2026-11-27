@@ -448,7 +448,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
     [MOVE_GUST] =
     {
         .name = COMPOUND_STRING("Gust"),
-        .description = COMPOUND_MOVE_STRING("Strikes the foe\nwith a gust of wind\nwhipped up by\nwings."),
+        .description = COMPOUND_MOVE_STRING("Strikes the foe\nwith a gust of wind\nwhipped up by\nthe user."),
         .effect = EFFECT_HIT,  //does nothing just goes to hit, can change to hit
         .power = 40,
         .type = TYPE_WIND,
@@ -465,6 +465,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT] =
         //.contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_Gust,
     }, //blunt wind damage
+    //removed previous mention of wings in desc. outdated
 
     [MOVE_WING_ATTACK] =
     {
