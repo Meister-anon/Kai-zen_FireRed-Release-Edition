@@ -7982,7 +7982,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,//vsonic keep an eye on how this effects effectiveness and the sound played
         .eggGroup2 = EGG_GROUP_UNDISCOVERED, // i.e thick fat rework affects effectivenss so slight resist gets multiplied by .5 to become .775 * .5 = .3875 slight more than normal resist  in normal game it would just become a resist...
-        .abilities = {ABILITY_THICK_FAT, ABILITY_NONE}, //thick fat to cover ice weakness, wow actually perfect covers fire weakness from psychic too  (think maybe revert back to just a power drop yeah think it can get too overcomplex)
+        .abilities = {ABILITY_THICK_FAT, ABILITY_TELEPATHY}, //thick fat to cover ice weakness, wow actually perfect covers fire weakness from psychic too  (think maybe revert back to just a power drop yeah think it can get too overcomplex)
         .abilityHidden = {ABILITY_MULTISCALE, ABILITY_STORM_BREAK}, //pressure was just he default legendary ability,may just remove pressure for this
         //.bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
@@ -7998,6 +7998,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //and ability change covers Ice
     //reverted thick fats ability change, still very effective
     //choice here though.
+    //potentially give telepathy depending on if useful
+    //can't remember what I did with it made telepathy weaker helping hand, so should be good here
 
     [SPECIES_HO_OH] =
     {
