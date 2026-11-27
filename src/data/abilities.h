@@ -2239,7 +2239,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_WIND_RIDER] =
     {
         .name = _("Wind Rider"),
-        .description = COMPOUND_ABILITY_STRING("Takes no damage from Wind Effects instead\nps Atk if the target of a wind effect."),
+        .description = COMPOUND_ABILITY_STRING("Takes no damage from Wind Effects instead\nups Atk if the target of a wind effect."),
         .aiRating = 4,
         .breakable = TRUE,
     },
