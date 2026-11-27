@@ -8720,29 +8720,45 @@ static inline s32 CalculateBaseDamage(enum BattlerId battlerAtk, u32 power, u32 
 
     s32 FinalValue;
 
-    //return power * userFinalAttack * (2 * level / 5 + 2) / targetFinalDefense / 50 + 2;
+    s32 AtkLevel = levelAtk;
+    s32 DefLevel = levelDef;
+
+    //return power * userFinalAttack * (2 * AtkLevel / 5 + 2) / targetFinalDefense / 50 + 2;
+
+    //dmg result seemed extremely low
+    //changed type cast on assumption I did bad math
+    //and it was overflowing back around instead of 
+    //treating as negative.
+    //testing, if that was correct than could
+    //have been using the lowest scaling dmg formula by accident
+    //no values just weren't good and completely missed it somehow
 
     //portion fits into (2 * level)
-    if ((levelDef - levelAtk >= 7 && !IsOnPlayerSide(battlerAtk))
-    || (levelAtk < 6 && levelDef >= 3 && levelDef < 6 && !GetNumBadges()))
-        FinalValue = power * userFinalAttack *  (max(2 * levelAtk / 5, 1) + 3); //speed up early leveling a bit
+    //need test this no idea how works w new values
+    if ((DefLevel - AtkLevel >= 7 && !IsOnPlayerSide(battlerAtk)) //boost weaker enemy
+    || (AtkLevel < 6 && DefLevel >= 3 && DefLevel < 6 && !GetNumBadges())) //speed up all fights pre badge
+        FinalValue = power * userFinalAttack *  (max(2 * AtkLevel / 5, 1) + 3); //speed up early leveling a bit
     else
-        FinalValue = power * userFinalAttack *  ((((levelAtk*110)/100)/5)+(((levelAtk*168)/100)/11)+2); //perfect formula
+        FinalValue = power * userFinalAttack * ((((AtkLevel*112)/100)/5)+(((AtkLevel*168)/100)/11)+2); //perfect formula
+        //FinalValue = power * userFinalAttack * ((((AtkLevel*110)/100)/5)+(((AtkLevel*168)/100)/11)+2); //perfect formula
+
+        
+
 
     FinalValue /= targetFinalDefense;
 
     //end divisor after target defense
-    if ((levelAtk - levelDef >= 4 && levelAtk <= 12) //dmg feels GOOD,w new formula may inreas this to 10
-        || levelAtk - levelDef >= 10)
-            FinalValue /= 60;
-        else if (levelDef - levelAtk >= 5) //boost underlevel enmemise added back
+    if ((AtkLevel - DefLevel >= 4 && AtkLevel <= 12) //dmg feels GOOD,w new formula may inreas this to 10
+        || AtkLevel - DefLevel >= 10)
+            FinalValue /= 51; //was 60 ironically main value was so bad I can use that here instead
+        else if (DefLevel - AtkLevel >= 5) //boost underlevel attackers added back
             FinalValue /= 42; //keep; an eye on this since it would work for both sides
         else
-            FinalValue /= 51;
+            FinalValue /= 48; // 51
 
     //unsure if this is the issue but I appear to be missing the +2 portion of the formula?
     //yup that seems to have fixed it, 
-    return FinalValue + 2;
+    return FinalValue + 3; // + 2
 
 
 }

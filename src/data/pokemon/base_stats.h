@@ -14817,7 +14817,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SPEED_BOOST, ABILITY_TINTED_LENS},
-        .abilityHidden = {ABILITY_FRISK, ABILITY_ANTICIPATION},
+        .abilityHidden = {ABILITY_FRISK, ABILITY_AVIATOR},
         //.bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -14835,6 +14835,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
     //to survive and be a support hmm
     //well it has a few moves rest giga drain etc.
     //added aviator to learned abilities get flying type benefits back
+    //since drops flying can give aviator
+    //ironically only mon w aviator that isn't already flying...
 
     [SPECIES_LEAFEON] =
     {
